@@ -1,11 +1,13 @@
 
-public class Thumbnail : Gtk.VBox {
+public class Thumbnail : Gtk.Alignment {
     public static const int THUMB_WIDTH = 128;
     public static const int THUMB_HEIGHT = 128;
+    public static const int LABEL_PADDING = 4;
+    public static const string TEXT_COLOR = "#FFF";
     
     private File file;
     private Gtk.Image image;
-    private Gtk.Label label;
+    private Gtk.Label title;
     
     construct {
     }
@@ -13,24 +15,31 @@ public class Thumbnail : Gtk.VBox {
     public Thumbnail(File file) {
         this.file = file;
         
+        // bottom-align everything
+        set(0, 1, 0, 0);
+        
         Gdk.Pixbuf pixbuf = null;
         try {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         } catch (Error err) {
-            error("%s", err.message);
+            error("Error loading image: %s", err.message);
             
             return;
         }
         
         pixbuf = scale(pixbuf, THUMB_WIDTH, THUMB_HEIGHT);
 
-        label = new Gtk.Label(file.get_basename());
-        label.set_use_underline(false);
-        
         image = new Gtk.Image.from_pixbuf(pixbuf);
 
-        pack_start(image, true, true, 0);
-        pack_end(label, false, false, 4);
+        title = new Gtk.Label(file.get_basename());
+        title.set_use_underline(false);
+        title.modify_fg(Gtk.StateType.NORMAL, parse_color(TEXT_COLOR));
+        
+        Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.pack_start(image, false, false, 0);
+        vbox.pack_end(title, false, false, LABEL_PADDING);
+
+        add(vbox);
     }
     
     public Gdk.Pixbuf scale(Gdk.Pixbuf pixbuf, int maxWidth, int maxHeight) {
@@ -46,7 +55,7 @@ public class Thumbnail : Gtk.VBox {
         } else {
             ratio = (double) maxHeight / (double) height;
         }
-        
+
         int newWidth = (int) ((double) width * ratio);
         int newHeight = (int) ((double) height * ratio);
         

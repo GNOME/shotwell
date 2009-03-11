@@ -86,6 +86,9 @@ public class AppWindow : Gtk.Window {
         if (mainWindow == null) {
             mainWindow = this;
         }
+        
+        enter_notify_event += on_mouse_enter;
+        leave_notify_event += on_mouse_exit;
     }
     
     private void on_about() {
@@ -100,18 +103,23 @@ public class AppWindow : Gtk.Window {
     private void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
-            message("File %s", file.get_path());
+            message("Importing file %s", file.get_path());
             collectionPage.add_photo(file);
             
             return;
         } else if (type != FileType.DIRECTORY) {
+            message("Skipping file %s (not directory or file)", file.get_path());
+            
             return;
         }
         
+        message("Importing directory %s", file.get_path());
         import_dir(file);
     }
     
     private void import_dir(File dir) {
+        assert(dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) == FileType.DIRECTORY);
+        
         try {
             FileEnumerator enumerator = dir.enumerate_children("*",
                 FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
@@ -129,17 +137,18 @@ public class AppWindow : Gtk.Window {
                 
                 FileType type = info.get_file_type();
                 if (type == FileType.REGULAR) {
-                    message("File %s", file.get_path());
+                    message("Importing file %s", file.get_path());
                     collectionPage.add_photo(file);
                 } else if (type == FileType.DIRECTORY) {
-                    message("Dir  %s", file.get_path());
+                    message("Importing directory  %s", file.get_path());
                     import_dir(file);
                 } else {
                     message("Skipped %s", file.get_path());
                 }
             }
         } catch (Error err) {
-            error("%s", err.message);
+            // TODO: Better error reporting
+            error("Error importing: %s", err.message);
         }
     }
     
@@ -153,6 +162,18 @@ public class AppWindow : Gtk.Window {
         foreach (string uri in uris) {
             import(File.new_for_uri(uri));
         }
+    }
+    
+    private bool on_mouse_enter(AppWindow aw, Gdk.EventCrossing crossing) {
+        message("on_mouse_enter");
+        
+        return false;
+    }
+
+    private bool on_mouse_exit(AppWindow aw, Gdk.EventCrossing crossing) {
+        message("on_mouse_exit");
+        
+        return false;
     }
 }
 

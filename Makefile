@@ -1,8 +1,24 @@
-all: photo
+
+TARGET = photo
+
+VALAC_OPTS = -g --enable-checking
+
+SRC_FILES = \
+	main.vala \
+	AppWindow.vala \
+	CollectionPage.vala \
+	Thumbnail.vala \
+	PhotoTable.vala
+
+PKGS = \
+	gtk+-2.0 \
+	sqlite3
+
+all: $(TARGET)
 
 clean:
-	rm -f photo
+	rm -f $(TARGET)
 
-photo: main.vala AppWindow.vala CollectionPage.vala Thumbnail.vala Makefile
-	valac -g --enable-checking --pkg gtk+-2.0 main.vala AppWindow.vala CollectionPage.vala Thumbnail.vala -o photo
+$(TARGET): $(SRC_FILES) Makefile
+	valac $(VALAC_OPTS) $(foreach pkg,$(PKGS),--pkg $(pkg)) $(SRC_FILES) -o $(TARGET)
 
