@@ -7,6 +7,10 @@ public class AppWindow : Gtk.Window {
     private static string[] args = null;
     private static GLib.File execFile = null;
 
+    // Photo database objects
+    private static Sqlite.Database db = null;
+    private static PhotoTable photoTable = null;
+
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "File", null, "_File", null, null, null },
@@ -89,6 +93,23 @@ public class AppWindow : Gtk.Window {
         
         enter_notify_event += on_mouse_enter;
         leave_notify_event += on_mouse_exit;
+        button_press_event += on_button_press;
+
+        if (db == null) {        
+            File dbFile = get_exec_dir().get_child("photo.db");
+
+            int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
+                Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
+            if (res != Sqlite.OK) {
+                error("Unable to open/create photo database: %d", res);
+                
+                return;
+            }
+            
+            photoTable = new PhotoTable(db);
+        }
+        
+        collectionPage.viewport.realize += on_collection_viewport_realized;
     }
     
     private void on_about() {
@@ -99,12 +120,21 @@ public class AppWindow : Gtk.Window {
             "copyright", "(c) 2009 yorba"
         );
     }
-    
+
     private void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
             message("Importing file %s", file.get_path());
-            collectionPage.add_photo(file);
+            
+            if (photoTable.add_photo(file)) {
+                collectionPage.add_photo(file);
+            } else {
+                Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL,
+                    Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s already stored",
+                    file.get_path());
+                dialog.run();
+                dialog.destroy();
+            }
             
             return;
         } else if (type != FileType.DIRECTORY) {
@@ -138,7 +168,11 @@ public class AppWindow : Gtk.Window {
                 FileType type = info.get_file_type();
                 if (type == FileType.REGULAR) {
                     message("Importing file %s", file.get_path());
-                    collectionPage.add_photo(file);
+                    if (photoTable.add_photo(file)) {
+                        collectionPage.add_photo(file);
+                    } else {
+                        // TODO: Better error reporting
+                    }
                 } else if (type == FileType.DIRECTORY) {
                     message("Importing directory  %s", file.get_path());
                     import_dir(file);
@@ -164,14 +198,31 @@ public class AppWindow : Gtk.Window {
         }
     }
     
-    private bool on_mouse_enter(AppWindow aw, Gdk.EventCrossing crossing) {
-        message("on_mouse_enter");
-        
+    // This signal handler is to load the collection page with photos when its viewport is
+    // realized ... this is because if the collection page is loaded during construction, the
+    // viewport does not respond properly to the layout table's resizing and it winds up tagging
+    // extra space to the tail of the view.  This allows us to wait until the viewport is realized
+    // and responds properly to resizing
+    private void on_collection_viewport_realized() {
+        File[] photoFiles = photoTable.get_photo_files();
+        foreach (File file in photoFiles) {
+            collectionPage.add_photo(file);
+        }
+    }
+
+    private bool on_mouse_enter(AppWindow aw, Gdk.EventCrossing event) {
         return false;
     }
 
-    private bool on_mouse_exit(AppWindow aw, Gdk.EventCrossing crossing) {
-        message("on_mouse_exit");
+    private bool on_mouse_exit(AppWindow aw, Gdk.EventCrossing event) {
+        return false;
+    }
+    
+    private bool on_button_press(AppWindow aw, Gdk.EventButton event) {
+        Thumbnail thumbnail = collectionPage.get_thumbnail_at(event.x, event.y);
+        if (thumbnail != null) {
+            message("clicked on %s", thumbnail.get_file().get_basename());
+        }
         
         return false;
     }

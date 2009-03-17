@@ -10,7 +10,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public static const int THUMB_Y_PADDING = 20;
     public static const string BG_COLOR = "#777";
     
-    private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
+    public Gtk.Viewport viewport = new Gtk.Viewport(null, null);
+
     private Gtk.Table layoutTable = new Gtk.Table(0, 0, false);
     private List<Thumbnail> thumbnailList = new List<Thumbnail>();
     private int currentX = 0;
@@ -64,8 +65,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
     }
     
     private void on_resize(Gtk.Viewport v, Gdk.Rectangle allocation) {
-        message("v.width=%d width=%d", v.allocation.width, allocation.width);
-        
         int newCols = allocation.width / (Thumbnail.THUMB_WIDTH + THUMB_X_PADDING + THUMB_X_PADDING);
         if (newCols < 1)
             newCols = 1;
@@ -87,6 +86,27 @@ public class CollectionPage : Gtk.ScrolledWindow {
             layoutTable.remove(thumbnail);
             attach_thumbnail(thumbnail);
         }
+    }
+    
+    public Thumbnail? get_thumbnail_at(double xd, double yd) {
+        int x = (int) xd;
+        int y = (int) yd;
+
+        int xadj = (int) viewport.get_hadjustment().get_value();
+        int yadj = (int) viewport.get_vadjustment().get_value();
+        
+        x += xadj;
+        y += yadj;
+        
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            Gtk.Allocation alloc = thumbnail.allocation;
+            if ((x >= alloc.x) && (y >= alloc.y) && (x <= (alloc.x + alloc.width))
+                && (y <= (alloc.y + alloc.height))) {
+                return thumbnail;
+            }
+        }
+        
+        return null;
     }
 }
 

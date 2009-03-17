@@ -8,6 +8,7 @@ public class Thumbnail : Gtk.Alignment {
     private File file;
     private Gtk.Image image;
     private Gtk.Label title;
+    private bool selected = false;
     
     construct {
     }
@@ -62,6 +63,28 @@ public class Thumbnail : Gtk.Alignment {
         message("%s %dx%d -> %lf -> %dx%d", file.get_path(), width, height, ratio, newWidth, newHeight);
         
         return pixbuf.scale_simple(newWidth, newHeight, Gdk.InterpType.NEAREST);
+    }
+    
+    public File get_file() {
+        return file;
+    }
+    
+    public void select() {
+        selected = true;
+    }
+    
+    public void unselect() {
+        selected = false;
+    }
+    
+    public bool toggle_select() {
+        selected = !selected;
+        
+        return selected;
+    }
+    
+    public bool is_selected() {
+        return selected;
     }
 }
 
