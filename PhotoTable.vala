@@ -28,8 +28,7 @@ public class PhotoTable {
     
     public bool add_photo(File file) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("INSERT INTO PhotoTable (filename) VALUES (?)",
-            -1, out stmt);
+        int res = db.prepare_v2("INSERT INTO PhotoTable (filename) VALUES (?)", -1, out stmt);
         if (res != Sqlite.OK) {
             error("Unable to prepare insert stmt: %d", res);
             
@@ -42,6 +41,27 @@ public class PhotoTable {
         if (res != Sqlite.DONE) {
             if (res != Sqlite.CONSTRAINT)
                 error("add_photo: %s [%d]", db.errmsg(), res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public bool remove_photo(File file) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("DELETE FROM PhotoTable WHERE filename=?", -1, out stmt);
+        if (res != Sqlite.OK) {
+            error("Unable to prepare delete stmt: %d", res);
+            
+            return false;
+        }
+        
+        stmt.bind_text(1, file.get_path());
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            error("remove_photo: %s [%d]", db.errmsg(), res);
             
             return false;
         }

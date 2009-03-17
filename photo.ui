@@ -5,6 +5,11 @@
             <menuitem name="FileQuit" action="Quit" />
         </menu>
         
+        <menu name="EditMenu" action="Edit">
+            <menuitem name="EditSelectAll" action="SelectAll" />
+            <menuitem name="EditRemove" action="Remove" />
+        </menu>
+        
         <menu name="HelpMenu" action="Help">
             <menuitem name="HelpAbout" action="About" />
         </menu>

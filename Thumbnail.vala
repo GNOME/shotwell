@@ -4,10 +4,15 @@ public class Thumbnail : Gtk.Alignment {
     public static const int THUMB_HEIGHT = 128;
     public static const int LABEL_PADDING = 4;
     public static const string TEXT_COLOR = "#FFF";
+    public static const string SELECTED_COLOR = "#FF0";
+    public static const string UNSELECTED_COLOR = "#FFF";
     
-    private File file;
-    private Gtk.Image image;
-    private Gtk.Label title;
+    // Due to the potential for thousands or tens of thousands of thumbnails being present in a
+    // particular view, all widgets used here should be NOWINDOW widgets.
+    private File file = null;
+    private Gtk.Image image = null;
+    private Gtk.Label title = null;
+    private Gtk.Frame frame = null;
     private bool selected = false;
     
     construct {
@@ -37,10 +42,16 @@ public class Thumbnail : Gtk.Alignment {
         title.modify_fg(Gtk.StateType.NORMAL, parse_color(TEXT_COLOR));
         
         Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.set_border_width(4);
         vbox.pack_start(image, false, false, 0);
         vbox.pack_end(title, false, false, LABEL_PADDING);
+        
+        frame = new Gtk.Frame(null);
+        frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT);
+        frame.modify_bg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
+        frame.add(vbox);
 
-        add(vbox);
+        add(frame);
     }
     
     public Gdk.Pixbuf scale(Gdk.Pixbuf pixbuf, int maxWidth, int maxHeight) {
@@ -60,7 +71,7 @@ public class Thumbnail : Gtk.Alignment {
         int newWidth = (int) ((double) width * ratio);
         int newHeight = (int) ((double) height * ratio);
         
-        message("%s %dx%d -> %lf -> %dx%d", file.get_path(), width, height, ratio, newWidth, newHeight);
+        message("%s %d x %d * %lf%% -> %d x %d", file.get_path(), width, height, ratio, newWidth, newHeight);
         
         return pixbuf.scale_simple(newWidth, newHeight, Gdk.InterpType.NEAREST);
     }
@@ -68,21 +79,31 @@ public class Thumbnail : Gtk.Alignment {
     public File get_file() {
         return file;
     }
-    
+
     public void select() {
         selected = true;
+
+        frame.modify_bg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
+        title.modify_fg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
     }
     
     public void unselect() {
         selected = false;
+
+        frame.modify_bg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
+        title.modify_fg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
     }
-    
+
     public bool toggle_select() {
-        selected = !selected;
+        if (selected) {
+            unselect();
+        } else {
+            select();
+        }
         
         return selected;
     }
-    
+
     public bool is_selected() {
         return selected;
     }

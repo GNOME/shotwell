@@ -6,15 +6,16 @@ public class AppWindow : Gtk.Window {
     private static AppWindow mainWindow = null;
     private static string[] args = null;
     private static GLib.File execFile = null;
-
-    // Photo database objects
     private static Sqlite.Database db = null;
-    private static PhotoTable photoTable = null;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "File", null, "_File", null, null, null },
         { "Quit", Gtk.STOCK_QUIT, "_Quit", null, "Quit the program", Gtk.main_quit },
+        
+        { "Edit", null, "_Edit", null, null, on_edit_menu },
+        { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
+        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         
         { "Help", null, "_Help", null, null, null },
         { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", on_about }
@@ -47,7 +48,8 @@ public class AppWindow : Gtk.Window {
     }
     
     private Gtk.UIManager uiManager = new Gtk.UIManager();
-    private CollectionPage collectionPage = new CollectionPage();
+    private CollectionPage collectionPage = null;
+    private PhotoTable photoTable = null;
 
     construct {
         // set up display
@@ -76,12 +78,6 @@ public class AppWindow : Gtk.Window {
         Gtk.MenuBar menubar = (Gtk.MenuBar) uiManager.get_widget("/MenuBar");
         add_accel_group(uiManager.get_accel_group());
         
-        // layout widgets in vertical box
-        Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.pack_start(menubar, false, false, 0);
-        vbox.pack_end(collectionPage, true, true, 0);
-        add(vbox);
-
         // set up as a drag-and-drop destination
         // this.drag_data_received() is called when a drop occurs
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
@@ -91,11 +87,9 @@ public class AppWindow : Gtk.Window {
             mainWindow = this;
         }
         
-        enter_notify_event += on_mouse_enter;
-        leave_notify_event += on_mouse_exit;
         button_press_event += on_button_press;
 
-        if (db == null) {        
+        if (db == null) {
             File dbFile = get_exec_dir().get_child("photo.db");
 
             int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
@@ -105,11 +99,16 @@ public class AppWindow : Gtk.Window {
                 
                 return;
             }
-            
-            photoTable = new PhotoTable(db);
         }
-        
-        collectionPage.viewport.realize += on_collection_viewport_realized;
+
+        photoTable = new PhotoTable(db);
+        collectionPage = new CollectionPage(db);
+
+        // layout widgets in vertical box
+        Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.pack_start(menubar, false, false, 0);
+        vbox.pack_end(collectionPage, true, true, 0);
+        add(vbox);
     }
     
     private void on_about() {
@@ -198,33 +197,76 @@ public class AppWindow : Gtk.Window {
         }
     }
     
-    // This signal handler is to load the collection page with photos when its viewport is
-    // realized ... this is because if the collection page is loaded during construction, the
-    // viewport does not respond properly to the layout table's resizing and it winds up tagging
-    // extra space to the tail of the view.  This allows us to wait until the viewport is realized
-    // and responds properly to resizing
-    private void on_collection_viewport_realized() {
-        File[] photoFiles = photoTable.get_photo_files();
-        foreach (File file in photoFiles) {
-            collectionPage.add_photo(file);
-        }
-    }
-
-    private bool on_mouse_enter(AppWindow aw, Gdk.EventCrossing event) {
-        return false;
-    }
-
-    private bool on_mouse_exit(AppWindow aw, Gdk.EventCrossing event) {
-        return false;
-    }
-    
     private bool on_button_press(AppWindow aw, Gdk.EventButton event) {
+        // don't handle anything but primary button for now
+        if (event.button != 1) {
+            return false;
+        }
+        
+        // only interested in single-clicks presses for now
+        if (event.type != Gdk.EventType.BUTTON_PRESS) {
+            return false;
+        }
+        
+        // mask out the modifiers we're interested in
+        uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
+        
         Thumbnail thumbnail = collectionPage.get_thumbnail_at(event.x, event.y);
         if (thumbnail != null) {
             message("clicked on %s", thumbnail.get_file().get_basename());
+            
+            switch (state) {
+                case Gdk.ModifierType.CONTROL_MASK: {
+                    // with only Ctrl pressed, multiple selections are possible ... chosen item
+                    // is toggled
+                    thumbnail.toggle_select();
+                } break;
+                
+                case Gdk.ModifierType.SHIFT_MASK: {
+                    // TODO
+                } break;
+                
+                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK: {
+                    // TODO
+                } break;
+                
+                default: {
+                    // a "raw" click deselects all thumbnails and selects the single chosen
+                    collectionPage.unselect_all();
+                    thumbnail.select();
+                } break;
+            }
+        } else {
+            // user clicked on "dead" area
+            collectionPage.unselect_all();
+        }
+
+        return false;
+    }
+
+    private void set_item_sensitive(string path, bool sensitive) {
+        Gtk.Widget widget = uiManager.get_widget(path);
+        widget.set_sensitive(sensitive);
+    }
+    
+    private void on_edit_menu() {
+        set_item_sensitive("/MenuBar/EditMenu/EditSelectAll", collectionPage.get_count() > 0);
+        set_item_sensitive("/MenuBar/EditMenu/EditRemove", collectionPage.get_selected_count() > 0);
+    }
+    
+    private void on_remove() {
+        Thumbnail[] thumbnails = collectionPage.get_selected();
+        foreach (Thumbnail thumbnail in thumbnails) {
+            message("Removing %s", thumbnail.get_file().get_basename());
+            collectionPage.remove_photo(thumbnail);
+            photoTable.remove_photo(thumbnail.get_file());
         }
         
-        return false;
+        collectionPage.repack();
+    }
+    
+    private void on_select_all() {
+        collectionPage.select_all();
     }
 }
 

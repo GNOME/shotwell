@@ -10,8 +10,9 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public static const int THUMB_Y_PADDING = 20;
     public static const string BG_COLOR = "#777";
     
-    public Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-
+    private unowned Sqlite.Database db = null;
+    private PhotoTable photoTable = null;
+    private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Table layoutTable = new Gtk.Table(0, 0, false);
     private List<Thumbnail> thumbnailList = new List<Thumbnail>();
     private int currentX = 0;
@@ -34,11 +35,21 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // notice that this is capturing the viewport's resize, not the scrolled window's,
         // as that's what interesting when laying out the photos
         viewport.size_allocate += on_resize;
+
+        // This signal handler is to load the collection page with photos when its viewport is
+        // realized ... this is because if the collection page is loaded during construction, the
+        // viewport does not respond properly to the layout table's resizing and it winds up tagging
+        // extra space to the tail of the view.  This allows us to wait until the viewport is realized
+        // and responds properly to resizing
+        viewport.realize += on_viewport_realized;
         
         add(viewport);
     }
     
-    public CollectionPage() {
+    public CollectionPage(Sqlite.Database db) {
+        this.db = db;
+        
+        photoTable = new PhotoTable(db);
     }
     
     public void add_photo(File file) {
@@ -50,6 +61,30 @@ public class CollectionPage : Gtk.ScrolledWindow {
         attach_thumbnail(thumbnail);
 
         layoutTable.show_all();
+    }
+    
+    public void remove_photo(Thumbnail thumbnail) {
+        thumbnailList.remove(thumbnail);
+        layoutTable.remove(thumbnail);
+        
+        assert(thumbCount > 0);
+        thumbCount--;
+    }
+    
+    public void repack() {
+        int rows = (thumbCount / cols) + 1;
+        
+        message("repack() rows=%d cols=%d", rows, cols);
+        
+        layoutTable.resize(rows, cols);
+        
+        currentX = 0;
+        currentY = 0;
+        
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            layoutTable.remove(thumbnail);
+            attach_thumbnail(thumbnail);
+        }
     }
     
     private void attach_thumbnail(Thumbnail thumbnail) {
@@ -69,22 +104,9 @@ public class CollectionPage : Gtk.ScrolledWindow {
         if (newCols < 1)
             newCols = 1;
 
-        if (cols == newCols)
-            return;
-
-        cols = newCols;
-        int rows = (thumbCount / cols) + 1;
-        
-        message("rows=%d cols=%d", rows, cols);
-        
-        layoutTable.resize(rows, cols);
-        
-        currentX = 0;
-        currentY = 0;
-        
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            layoutTable.remove(thumbnail);
-            attach_thumbnail(thumbnail);
+        if (cols != newCols) {
+            cols = newCols;
+            repack();
         }
     }
     
@@ -107,6 +129,49 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         return null;
+    }
+    
+    public int get_count() {
+        return thumbCount;
+    }
+    
+    public void select_all() {
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            thumbnail.select();
+        }
+    }
+    
+    public void unselect_all() {
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            thumbnail.unselect();
+        }
+    }
+    
+    public Thumbnail[] get_selected() {
+        Thumbnail[] thumbnails = new Thumbnail[0];
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            if (thumbnail.is_selected())
+                thumbnails += thumbnail;
+        }
+        
+        return thumbnails;
+    }
+    
+    public int get_selected_count() {
+        int count = 0;
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            if (thumbnail.is_selected())
+                count++;
+        }
+        
+        return count;
+    }
+
+    private void on_viewport_realized() {
+        File[] photoFiles = photoTable.get_photo_files();
+        foreach (File file in photoFiles) {
+            add_photo(file);
+        }
     }
 }
 
