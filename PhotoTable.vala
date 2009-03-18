@@ -44,7 +44,7 @@ public class PhotoTable {
             
             return false;
         }
-        
+
         return true;
     }
     
@@ -70,12 +70,16 @@ public class PhotoTable {
     }
     
     public bool is_photo_stored(File file) {
+        return (get_photo_id(file) != 0);
+    }
+    
+    public int get_photo_id(File file) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT ID FROM PhotoTable WHERE filename=?", -1, out stmt);
         if (res != Sqlite.OK) {
             error("preparing select stmt: %s [%d]", db.errmsg(), res);
             
-            return false;
+            return 0;
         }
         
         stmt.bind_text(1, file.get_path());
@@ -84,10 +88,10 @@ public class PhotoTable {
         if (res != Sqlite.DONE && res != Sqlite.ROW) {
             error("is_photo_stored: %s [%d]", db.errmsg(), res);
             
-            return false;
+            return 0;
         }
         
-        return (stmt.column_count() > 0);
+        return stmt.column_int(0);
     }
 
     public File[] get_photo_files() {

@@ -1,16 +1,23 @@
 
 public class Thumbnail : Gtk.Alignment {
-    public static const int THUMB_WIDTH = 128;
-    public static const int THUMB_HEIGHT = 128;
     public static const int LABEL_PADDING = 4;
+    public static const int FRAME_PADDING = 4;
     public static const string TEXT_COLOR = "#FFF";
     public static const string SELECTED_COLOR = "#FF0";
     public static const string UNSELECTED_COLOR = "#FFF";
     
+    public static const int MIN_SCALE = 64;
+    public static const int MAX_SCALE = 360;
+    public static const int DEFAULT_SCALE = 128;
+    public static const int SCALE_STEPPING = 4;
+    public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.NEAREST;
+    
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
     // particular view, all widgets used here should be NOWINDOW widgets.
-    private File file = null;
-    private Gtk.Image image = null;
+    private int id;
+    private File file;
+    private int scale;
+    private Gtk.Image image = new Gtk.Image();
     private Gtk.Label title = null;
     private Gtk.Frame frame = null;
     private bool selected = false;
@@ -18,31 +25,23 @@ public class Thumbnail : Gtk.Alignment {
     construct {
     }
 
-    public Thumbnail(File file) {
+    public Thumbnail(int id, File file, int scale = DEFAULT_SCALE) {
+        this.id = id;
         this.file = file;
+        this.scale = scale;
         
         // bottom-align everything
         set(0, 1, 0, 0);
         
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            error("Error loading image: %s", err.message);
-            
-            return;
-        }
+        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
+        image.set_from_pixbuf(scale_pixbuf(file, cached, scale, DEFAULT_INTERP));
         
-        pixbuf = scale(pixbuf, THUMB_WIDTH, THUMB_HEIGHT);
-
-        image = new Gtk.Image.from_pixbuf(pixbuf);
-
         title = new Gtk.Label(file.get_basename());
         title.set_use_underline(false);
         title.modify_fg(Gtk.StateType.NORMAL, parse_color(TEXT_COLOR));
         
         Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.set_border_width(4);
+        vbox.set_border_width(FRAME_PADDING);
         vbox.pack_start(image, false, false, 0);
         vbox.pack_end(title, false, false, LABEL_PADDING);
         
@@ -54,30 +53,18 @@ public class Thumbnail : Gtk.Alignment {
         add(frame);
     }
     
-    public Gdk.Pixbuf scale(Gdk.Pixbuf pixbuf, int maxWidth, int maxHeight) {
-        int width = pixbuf.get_width();
-        int height = pixbuf.get_height();
-
-        int diffWidth = width - maxWidth;
-        int diffHeight = height - maxHeight;
-        
-        double ratio = 0.0;
-        if (diffWidth > diffHeight) {
-            ratio = (double) maxWidth / (double) width;
-        } else {
-            ratio = (double) maxHeight / (double) height;
-        }
-
-        int newWidth = (int) ((double) width * ratio);
-        int newHeight = (int) ((double) height * ratio);
-        
-        message("%s %d x %d * %lf%% -> %d x %d", file.get_path(), width, height, ratio, newWidth, newHeight);
-        
-        return pixbuf.scale_simple(newWidth, newHeight, Gdk.InterpType.NEAREST);
+    public static int get_max_width(int scale) {
+        // TODO: Be more precise about this ... the magic 32 at the end is merely a dart on the board
+        // for accounting for extra pixels used by the frame
+        return scale + (FRAME_PADDING * 2) + 32;
     }
-    
+
     public File get_file() {
         return file;
+    }
+    
+    public Gtk.Allocation get_exposure() {
+        return image.allocation;
     }
 
     public void select() {
@@ -106,6 +93,26 @@ public class Thumbnail : Gtk.Alignment {
 
     public bool is_selected() {
         return selected;
+    }
+
+    public void resize(int newScale) {
+        assert((newScale >= MIN_SCALE) && (newScale <= MAX_SCALE));
+        
+        if (scale == newScale)
+            return;
+            
+        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
+
+        scale = newScale;
+        image.set_from_pixbuf(scale_pixbuf(file, cached, scale, DEFAULT_INTERP));
+    }
+    
+    public void exposed() {
+        message("Exposed %s", file.get_path());
+    }
+    
+    public void unexposed() {
+        message("Unexposed %s", file.get_path());
     }
 }
 

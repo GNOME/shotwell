@@ -17,6 +17,10 @@ public class AppWindow : Gtk.Window {
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         
+        { "Photos", null, "_Photos", null, null, on_photos_menu },
+        { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
+        { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
+        
         { "Help", null, "_Help", null, null, null },
         { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", on_about }
     };
@@ -52,6 +56,8 @@ public class AppWindow : Gtk.Window {
     private PhotoTable photoTable = null;
 
     construct {
+        ThumbnailCache.set_app_data_dir(get_exec_dir().get_child("data"));
+
         // set up display
         title = TITLE;
         set_default_size(800, 600);
@@ -100,7 +106,7 @@ public class AppWindow : Gtk.Window {
                 return;
             }
         }
-
+        
         photoTable = new PhotoTable(db);
         collectionPage = new CollectionPage(db);
 
@@ -126,7 +132,9 @@ public class AppWindow : Gtk.Window {
             message("Importing file %s", file.get_path());
             
             if (photoTable.add_photo(file)) {
-                collectionPage.add_photo(file);
+                int id = photoTable.get_photo_id(file);
+                ThumbnailCache.big.import(id, file);
+                collectionPage.add_photo(id, file);
             } else {
                 Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL,
                     Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s already stored",
@@ -168,7 +176,9 @@ public class AppWindow : Gtk.Window {
                 if (type == FileType.REGULAR) {
                     message("Importing file %s", file.get_path());
                     if (photoTable.add_photo(file)) {
-                        collectionPage.add_photo(file);
+                        int id = photoTable.get_photo_id(file);
+                        ThumbnailCache.big.import(id, file);
+                        collectionPage.add_photo(id, file);
                     } else {
                         // TODO: Better error reporting
                     }
@@ -243,7 +253,7 @@ public class AppWindow : Gtk.Window {
 
         return false;
     }
-
+    
     private void set_item_sensitive(string path, bool sensitive) {
         Gtk.Widget widget = uiManager.get_widget(path);
         widget.set_sensitive(sensitive);
@@ -259,14 +269,26 @@ public class AppWindow : Gtk.Window {
         foreach (Thumbnail thumbnail in thumbnails) {
             message("Removing %s", thumbnail.get_file().get_basename());
             collectionPage.remove_photo(thumbnail);
+            ThumbnailCache.big.remove(photoTable.get_photo_id(thumbnail.get_file()));
             photoTable.remove_photo(thumbnail.get_file());
         }
         
         collectionPage.repack();
     }
-    
+
     private void on_select_all() {
         collectionPage.select_all();
+    }
+
+    private void on_photos_menu() {
+    }
+
+    private void on_increase_size() {
+        collectionPage.increase_thumb_size();
+    }
+
+    private void on_decrease_size() {
+        collectionPage.decrease_thumb_size();
     }
 }
 

@@ -10,6 +10,11 @@
             <menuitem name="EditRemove" action="Remove" />
         </menu>
         
+        <menu name="PhotosMenu" action="Photos">
+            <menuitem name="PhotosIncreaseSize" action="IncreaseSize" />
+            <menuitem name="PhotosDecreaseSize" action="DecreaseSize" />
+        </menu>
+        
         <menu name="HelpMenu" action="Help">
             <menuitem name="HelpAbout" action="About" />
         </menu>

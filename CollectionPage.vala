@@ -14,11 +14,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private PhotoTable photoTable = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Table layoutTable = new Gtk.Table(0, 0, false);
-    private List<Thumbnail> thumbnailList = new List<Thumbnail>();
+    private Gee.ArrayList<Thumbnail> thumbnailList = new Gee.ArrayList<Thumbnail>();
     private int currentX = 0;
     private int currentY = 0;
     private int cols = 0;
     private int thumbCount = 0;
+    private int scale = Thumbnail.DEFAULT_SCALE;
     
     construct {
         // scrollbar policy
@@ -43,6 +44,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // and responds properly to resizing
         viewport.realize += on_viewport_realized;
         
+        Gtk.Scrollbar hscroll = (Gtk.Scrollbar) get_hscrollbar();
+        Gtk.Scrollbar vscroll = (Gtk.Scrollbar) get_vscrollbar();
+        
+        hscroll.value_changed += check_exposure;
+        vscroll.value_changed += check_exposure;
+        
         add(viewport);
     }
     
@@ -52,10 +59,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
         photoTable = new PhotoTable(db);
     }
     
-    public void add_photo(File file) {
-        Thumbnail thumbnail = new Thumbnail(file);
+    public void add_photo(int id, File file) {
+        Thumbnail thumbnail = new Thumbnail(id, file, scale);
         
-        thumbnailList.append(thumbnail);
+        thumbnailList.add(thumbnail);
         thumbCount++;
         
         attach_thumbnail(thumbnail);
@@ -74,13 +81,13 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public void repack() {
         int rows = (thumbCount / cols) + 1;
         
-        message("repack() rows=%d cols=%d", rows, cols);
+        message("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
         
         layoutTable.resize(rows, cols);
         
         currentX = 0;
         currentY = 0;
-        
+
         foreach (Thumbnail thumbnail in thumbnailList) {
             layoutTable.remove(thumbnail);
             attach_thumbnail(thumbnail);
@@ -100,11 +107,13 @@ public class CollectionPage : Gtk.ScrolledWindow {
     }
     
     private void on_resize(Gtk.Viewport v, Gdk.Rectangle allocation) {
-        int newCols = allocation.width / (Thumbnail.THUMB_WIDTH + THUMB_X_PADDING + THUMB_X_PADDING);
+        int newCols = allocation.width / (Thumbnail.get_max_width(scale) + (THUMB_X_PADDING * 2));
         if (newCols < 1)
             newCols = 1;
-
+        
         if (cols != newCols) {
+            message("width:%d cols:%d", allocation.width, newCols);
+
             cols = newCols;
             repack();
         }
@@ -166,11 +175,66 @@ public class CollectionPage : Gtk.ScrolledWindow {
         
         return count;
     }
+    
+    public void increase_thumb_size() {
+        if (scale == Thumbnail.MAX_SCALE)
+            return;
+        
+        scale += Thumbnail.SCALE_STEPPING;
+        
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            thumbnail.resize(scale);
+        }
+        
+        layoutTable.resize_children();
+    }
+    
+    public void decrease_thumb_size() {
+        if (scale == Thumbnail.MIN_SCALE)
+            return;
+        
+        scale -= Thumbnail.SCALE_STEPPING;
+        
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            thumbnail.resize(scale);
+        }
+        
+        layoutTable.resize_children();
+    }
 
     private void on_viewport_realized() {
         File[] photoFiles = photoTable.get_photo_files();
         foreach (File file in photoFiles) {
-            add_photo(file);
+            int id = photoTable.get_photo_id(file);
+            ThumbnailCache.big.import(id, file);
+            add_photo(id, file);
+        }
+        
+        check_exposure();
+    }
+    
+    private void check_exposure() {
+        Gdk.Rectangle viewrect = Gdk.Rectangle();
+        viewrect.x = (int) viewport.get_hadjustment().get_value();
+        viewrect.y = (int) viewport.get_vadjustment().get_value();
+        viewrect.width = viewport.allocation.width;
+        viewrect.height = viewport.allocation.height;
+        
+        Gdk.Rectangle thumbrect = Gdk.Rectangle();
+        Gdk.Rectangle bitbucket = Gdk.Rectangle();
+
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            Gtk.Allocation alloc = thumbnail.get_exposure();
+            thumbrect.x = alloc.x;
+            thumbrect.y = alloc.y;
+            thumbrect.width = alloc.width;
+            thumbrect.height = alloc.height;
+            
+            if (viewrect.intersect(thumbrect, bitbucket)) {
+                thumbnail.exposed();
+            } else {
+                thumbnail.unexposed();
+            }      
         }
     }
 }

@@ -8,11 +8,14 @@ SRC_FILES = \
 	AppWindow.vala \
 	CollectionPage.vala \
 	Thumbnail.vala \
-	PhotoTable.vala
+	PhotoTable.vala \
+	ThumbnailCache.vala \
+	image_util.vala
 
 PKGS = \
 	gtk+-2.0 \
-	sqlite3
+	sqlite3 \
+	vala-1.0
 
 all: $(TARGET)
 
