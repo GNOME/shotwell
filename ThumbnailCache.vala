@@ -25,6 +25,7 @@ public class ThumbnailCache {
     private Gee.HashMap<int, ImageData> cacheMap = new Gee.HashMap<int, ImageData>(
         direct_hash, direct_equal, direct_equal);
     private long cachedBytes = 0;
+    private ThumbnailCacheTable cacheTable;
     
     private ThumbnailCache(int scale, Gdk.InterpType interp = DEFAULT_INTERP,
         int jpegQuality = DEFAULT_JPEG_QUALITY) {
@@ -35,6 +36,7 @@ public class ThumbnailCache {
         this.scale = scale;
         this.interp = interp;
         this.jpegQuality = "%d".printf(jpegQuality);
+        this.cacheTable = new ThumbnailCacheTable(scale);
     }
     
     public Gdk.Pixbuf? fetch(int id) {
@@ -54,7 +56,7 @@ public class ThumbnailCache {
             }
         }
 
-        // load from disk and then story in memory
+        // load from disk and then store in memory
         File cached = get_cached_file(id);
         message("Loading from disk [%d] %s", id, cached.get_path());
 
@@ -109,9 +111,10 @@ public class ThumbnailCache {
     public bool import(int id, File file, bool force = false) {
         File cached = get_cached_file(id);
         
-        // if not forcing the cache operation, check if file exists before performing
+        // if not forcing the cache operation, check if file exists and is represented in the
+        // database before continuing
         if (!force) {
-            if (cached.query_exists(null))
+            if (cached.query_exists(null) && cacheTable.exists(id))
                 return true;
         }
         
@@ -143,6 +146,10 @@ public class ThumbnailCache {
             return false;
         }
         
+        // store in database
+        Dimensions dim = Dimensions(thumbnail.get_width(), thumbnail.get_height());
+        cacheTable.add_dimensions(id, dim);
+        
         return true;
     }
     
@@ -153,6 +160,9 @@ public class ThumbnailCache {
         
         // remove from in-memory cache
         cacheMap.remove(id);
+        
+        // remove from db table
+        cacheTable.remove(id);
  
         // remove from disk
         try {
@@ -164,20 +174,8 @@ public class ThumbnailCache {
         }
     }
     
-    public Dimensions get_dimensions(int id) {
-        File cached = get_cached_file(id);
-        
-        // for now, load the file and check its size ... more efficient way of doing this TBD
-        Gdk.Pixbuf pixbuf;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(cached.get_path());
-        } catch (Error err) {
-            error("Error loading image for dimensions %s: %s", cached.get_path(), err.message);
-            
-            return Dimensions();
-        }
-        
-        return Dimensions(pixbuf.get_width(), pixbuf.get_height());
+    public Dimensions? get_dimensions(int id) {
+        return cacheTable.get_dimensions(id);
     }
 
     private File get_cached_file(int id) {

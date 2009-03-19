@@ -10,7 +10,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public static const int THUMB_Y_PADDING = 20;
     public static const string BG_COLOR = "#777";
     
-    private unowned Sqlite.Database db = null;
     private PhotoTable photoTable = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Table layoutTable = new Gtk.Table(0, 0, false);
@@ -52,10 +51,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         add(viewport);
     }
     
-    public CollectionPage(Sqlite.Database db) {
-        this.db = db;
-        
-        photoTable = new PhotoTable(db);
+    public CollectionPage() {
+        photoTable = new PhotoTable();
     }
     
     public void add_photo(int id, File file) {

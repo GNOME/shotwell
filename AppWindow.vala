@@ -139,8 +139,8 @@ public class AppWindow : Gtk.Window {
         
         button_press_event += on_button_press;
 
-        photoTable = new PhotoTable(db);
-        collectionPage = new CollectionPage(db);
+        photoTable = new PhotoTable();
+        collectionPage = new CollectionPage();
 
         // layout widgets in vertical box
         Gtk.VBox vbox = new Gtk.VBox(false, 0);

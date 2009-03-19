@@ -4,8 +4,8 @@ public class PhotoTable {
     
     private unowned Sqlite.Database db;
     
-    public PhotoTable(Sqlite.Database db) {
-        this.db = db;
+    public PhotoTable() {
+        this.db = AppWindow.get_db();
         
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS PhotoTable ("

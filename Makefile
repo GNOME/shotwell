@@ -10,7 +10,8 @@ SRC_FILES = \
 	Thumbnail.vala \
 	PhotoTable.vala \
 	ThumbnailCache.vala \
-	image_util.vala
+	image_util.vala \
+	ThumbnailCacheTable.vala
 
 PKGS = \
 	gtk+-2.0 \
