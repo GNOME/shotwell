@@ -10,7 +10,7 @@ public class Thumbnail : Gtk.Alignment {
     public static const int MAX_SCALE = 360;
     public static const int DEFAULT_SCALE = 128;
     public static const int SCALE_STEPPING = 4;
-    public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.NEAREST;
+    public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
     // particular view, all widgets used here should be NOWINDOW widgets.
@@ -21,6 +21,9 @@ public class Thumbnail : Gtk.Alignment {
     private Gtk.Label title = null;
     private Gtk.Frame frame = null;
     private bool selected = false;
+    private bool isExposed = false;
+    private Dimensions bigDim;
+    private Dimensions scaledDim;
     
     construct {
     }
@@ -29,12 +32,18 @@ public class Thumbnail : Gtk.Alignment {
         this.id = id;
         this.file = file;
         this.scale = scale;
-        
+        this.bigDim = ThumbnailCache.big.get_dimensions(id);
+        this.scaledDim = get_scaled_dimensions(file.get_path(), bigDim, scale);
+
         // bottom-align everything
         set(0, 1, 0, 0);
         
-        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
-        image.set_from_pixbuf(scale_pixbuf(file, cached, scale, DEFAULT_INTERP));
+        // the image widget is only filled with a Pixbuf when exposed; if the pixbuf is cleared or
+        // not present, the widget will collapse, and so the layout manager won't account for it
+        // properly when it's off the viewport.  The solution is to manually set the widget's
+        // requisition size, even when it contains no pixbuf
+        image.requisition.width = scaledDim.width;
+        image.requisition.height = scaledDim.height;
         
         title = new Gtk.Label(file.get_basename());
         title.set_use_underline(false);
@@ -52,7 +61,7 @@ public class Thumbnail : Gtk.Alignment {
 
         add(frame);
     }
-    
+
     public static int get_max_width(int scale) {
         // TODO: Be more precise about this ... the magic 32 at the end is merely a dart on the board
         // for accounting for extra pixels used by the frame
@@ -73,7 +82,7 @@ public class Thumbnail : Gtk.Alignment {
         frame.modify_bg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
         title.modify_fg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
     }
-    
+
     public void unselect() {
         selected = false;
 
@@ -101,18 +110,37 @@ public class Thumbnail : Gtk.Alignment {
         if (scale == newScale)
             return;
             
-        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
-
         scale = newScale;
-        image.set_from_pixbuf(scale_pixbuf(file, cached, scale, DEFAULT_INTERP));
+        scaledDim = get_scaled_dimensions(file.get_path(), bigDim, scale);
+        
+        if (isExposed) {
+            Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
+            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, DEFAULT_INTERP);
+            image.set_from_pixbuf(scaled);
+        } else {
+            image.requisition.width = scaledDim.width;
+            image.requisition.height = scaledDim.height;
+        }
     }
     
     public void exposed() {
-        message("Exposed %s", file.get_path());
+        if (isExposed)
+            return;
+
+        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
+        Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, DEFAULT_INTERP);
+        image.set_from_pixbuf(scaled);
+        isExposed = true;
     }
     
     public void unexposed() {
-        message("Unexposed %s", file.get_path());
+        if (!isExposed)
+            return;
+
+        image.clear();
+        image.requisition.width = scaledDim.width;
+        image.requisition.height = scaledDim.height;
+        isExposed = false;
     }
 }
 

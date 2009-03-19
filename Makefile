@@ -1,7 +1,7 @@
 
 TARGET = photo
 
-VALAC_OPTS = -g --enable-checking
+VALAC_OPTS =
 
 SRC_FILES = \
 	main.vala \

@@ -5,8 +5,9 @@ void main(string[] args) {
     
     // set up GLib environment
     GLib.Environment.set_application_name(AppWindow.TITLE);
-    
-    AppWindow.set_commandline_args(args);
+
+    // initialize app-wide stuff
+    AppWindow.init(args);
     
     // create main application window
     AppWindow appWindow = new AppWindow();

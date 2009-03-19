@@ -35,7 +35,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
 
         // notice that this is capturing the viewport's resize, not the scrolled window's,
         // as that's what interesting when laying out the photos
-        viewport.size_allocate += on_resize;
+        viewport.size_allocate += on_viewport_resize;
 
         // This signal handler is to load the collection page with photos when its viewport is
         // realized ... this is because if the collection page is loaded during construction, the
@@ -43,12 +43,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // extra space to the tail of the view.  This allows us to wait until the viewport is realized
         // and responds properly to resizing
         viewport.realize += on_viewport_realized;
-        
-        Gtk.Scrollbar hscroll = (Gtk.Scrollbar) get_hscrollbar();
-        Gtk.Scrollbar vscroll = (Gtk.Scrollbar) get_vscrollbar();
-        
-        hscroll.value_changed += check_exposure;
-        vscroll.value_changed += check_exposure;
+
+        // when the viewport is exposed, the thumbnails are informed when they are exposed (and
+        // should be showing their image) and when they're unexposed (so they can destroy the image,
+        // freeing up memory)
+        viewport.expose_event += on_viewport_exposed;
         
         add(viewport);
     }
@@ -84,7 +83,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         message("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
         
         layoutTable.resize(rows, cols);
-        
+
         currentX = 0;
         currentY = 0;
 
@@ -106,7 +105,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
     }
     
-    private void on_resize(Gtk.Viewport v, Gdk.Rectangle allocation) {
+    private void on_viewport_resize(Gtk.Viewport v, Gdk.Rectangle allocation) {
         int newCols = allocation.width / (Thumbnail.get_max_width(scale) + (THUMB_X_PADDING * 2));
         if (newCols < 1)
             newCols = 1;
@@ -209,8 +208,15 @@ public class CollectionPage : Gtk.ScrolledWindow {
             ThumbnailCache.big.import(id, file);
             add_photo(id, file);
         }
-        
-        check_exposure();
+    }
+
+    private bool on_viewport_exposed(Gtk.Viewport v, Gdk.EventExpose event) {
+        // since expose events can stack up, wait until the last one to do the full
+        // search
+        if (event.count == 0)
+            check_exposure();
+
+        return false;
     }
     
     private void check_exposure() {
@@ -223,6 +229,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         Gdk.Rectangle thumbrect = Gdk.Rectangle();
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
+        int exposedCount = 0;
+        int unexposedCount = 0;
         foreach (Thumbnail thumbnail in thumbnailList) {
             Gtk.Allocation alloc = thumbnail.get_exposure();
             thumbrect.x = alloc.x;
@@ -232,10 +240,14 @@ public class CollectionPage : Gtk.ScrolledWindow {
             
             if (viewrect.intersect(thumbrect, bitbucket)) {
                 thumbnail.exposed();
+                exposedCount++;
             } else {
                 thumbnail.unexposed();
-            }      
+                unexposedCount++;
+            }
         }
+        
+        //message("%d exposed, %d unexposed", exposedCount, unexposedCount);
     }
 }
 

@@ -1,50 +1,64 @@
 
 static const bool DEBUG = false;
 
-Gdk.Pixbuf scale_pixbuf(File file, Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
-    int width = pixbuf.get_width();
-    int height = pixbuf.get_height();
-
-    int diffWidth = width - scale;
-    int diffHeight = height - scale;
+public struct Dimensions {
+    public int width;
+    public int height;
     
-    int newWidth = 0;
-    int newHeight = 0;
+    public Dimensions(int width = 0, int height = 0) {
+        assert((width >= 0) && (height >= 0));
+
+        this.width = width;
+        this.height = height;
+    }
+}
+
+Dimensions get_scaled_dimensions(string label, Dimensions original, int scale) {
+    int diffWidth = original.width - scale;
+    int diffHeight = original.height - scale;
+
+    Dimensions scaled = Dimensions();
 
     if (diffWidth == diffHeight) {
         // square image -- unlikely -- but this is the easy case
-        newWidth = scale;
-        newHeight = scale;
+        scaled.width = scale;
+        scaled.height = scale;
     } else if (diffWidth <= 0) {
         if (diffHeight <= 0) {
-            // if both dimensions are less than the scaled size, return image as-is
-            return pixbuf;
+            // if both dimensions are less than the scaled size, return as-is
+            return original;
         } 
         
         // height needs to be scaled down, so it determines the ratio
-        double ratio = (double) scale / (double) height;
-        newWidth = (int) Math.round((double) width * ratio);
-        newHeight = scale;
-    } else if (diffHeight <= 0) {
-        // already know that width is greater than scale, so width determines the ratio
-        newWidth = scale;
-        double ratio = (double) scale / (double) width;
-        newHeight = (int) Math.round((double) height * ratio);
+        double ratio = (double) scale / (double) original.height;
+        scaled.width = (int) Math.round((double) original.width * ratio);
+        scaled.height = scale;
     } else if (diffWidth > diffHeight) {
         // width is greater, so it's the determining factor
-        newWidth = scale;
-        double ratio = (double) scale / (double) width;
-        newHeight = (int) Math.round((double) height * ratio);
+        // (this case is true even when diffHeight is negative)
+        scaled.width = scale;
+        double ratio = (double) scale / (double) original.width;
+        scaled.height = (int) Math.round((double) original.height * ratio);
     } else {
         // height is the determining factor
-        double ratio = (double) scale / (double) height;
-        newWidth = (int) Math.round((double) width * ratio);
-        newHeight = scale;
+        double ratio = (double) scale / (double) original.height;
+        scaled.width = (int) Math.round((double) original.width * ratio);
+        scaled.height = scale;
     }
-
-    if (DEBUG)
-        message("%s %d x %d -> %d x %d", file.get_path(), width, height, newWidth, newHeight);
     
-    return pixbuf.scale_simple(newWidth, newHeight, interp);
+    if (DEBUG)
+        message("%s %d x %d -> %d x %d", label, original.width, original.height, scaled.width, 
+            scaled.height);
+    
+    return scaled;
+}
+
+Gdk.Pixbuf scale_pixbuf(string label, Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
+    Dimensions original = Dimensions(pixbuf.get_width(), pixbuf.get_height());
+    Dimensions scaled = get_scaled_dimensions(label, original, scale);
+    if ((original.width == scaled.width) && (original.height == scaled.height))
+        return pixbuf;
+
+    return pixbuf.scale_simple(scaled.width, scaled.height, interp);
 }
 

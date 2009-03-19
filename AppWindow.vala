@@ -2,10 +2,10 @@
 public class AppWindow : Gtk.Window {
     public static const string TITLE = "Photo Organizer";
     public static const string VERSION = "0.0.1";
+    public static const string DATA_DIR = ".photo";
 
     private static AppWindow mainWindow = null;
     private static string[] args = null;
-    private static GLib.File execFile = null;
     private static Sqlite.Database db = null;
 
     // TODO: Mark fields for translation
@@ -30,13 +30,32 @@ public class AppWindow : Gtk.Window {
         { "text/uri-list", 0, 0 }
     };
     
-    public static AppWindow get_main_window() {
-        return mainWindow;
+    public static void init(string[] args) {
+        AppWindow.args = args;
+
+        File dataDir = get_data_dir();
+        try {
+            if (dataDir.query_exists(null) == false) {
+                if (dataDir.make_directory_with_parents(null) == false) {
+                    error("Unable to create data directory %s", dataDir.get_path());
+                }
+            } 
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        File dbFile = get_data_subdir("data").get_child("photo.db");
+        int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
+            Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
+        if (res != Sqlite.OK) {
+            error("Unable to open/create photo database %s: %d", dbFile.get_path(), res);
+        }
+
+        ThumbnailCache.init();
     }
     
-    public static void set_commandline_args(string[] args) {
-        args = args;
-        execFile = GLib.File.new_for_commandline_arg(args[0]);
+    public static AppWindow get_main_window() {
+        return mainWindow;
     }
     
     public static string[] get_commandline_args() {
@@ -44,20 +63,45 @@ public class AppWindow : Gtk.Window {
     }
     
     public static GLib.File get_exec_file() {
-        return execFile;
+        return File.new_for_commandline_arg(args[0]);
+    }
+
+    public static File get_exec_dir() {
+        return get_exec_file().get_parent();
     }
     
-    public static GLib.File get_exec_dir() {
-        return execFile.get_parent();
+    public static File get_data_dir() {
+        return File.new_for_path(Environment.get_home_dir()).get_child(DATA_DIR);
     }
     
+    public static File get_data_subdir(string name, string? subname = null) {
+        File subdir = get_data_dir().get_child(name);
+        if (subname != null) {
+            subdir = subdir.get_child(subname);
+        }
+
+        try {
+            if (subdir.query_exists(null) == false) {
+                if (subdir.make_directory_with_parents(null) == false) {
+                    error("Unable to create data subdirectory %s", subdir.get_path());
+                }
+            }
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        return subdir;
+    }
+    
+    public static unowned Sqlite.Database get_db() {
+        return db;
+    }
+
     private Gtk.UIManager uiManager = new Gtk.UIManager();
     private CollectionPage collectionPage = null;
     private PhotoTable photoTable = null;
 
     construct {
-        ThumbnailCache.set_app_data_dir(get_exec_dir().get_child("data"));
-
         // set up display
         title = TITLE;
         set_default_size(800, 600);
@@ -95,18 +139,6 @@ public class AppWindow : Gtk.Window {
         
         button_press_event += on_button_press;
 
-        if (db == null) {
-            File dbFile = get_exec_dir().get_child("photo.db");
-
-            int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
-                Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
-            if (res != Sqlite.OK) {
-                error("Unable to open/create photo database: %d", res);
-                
-                return;
-            }
-        }
-        
         photoTable = new PhotoTable(db);
         collectionPage = new CollectionPage(db);
 
@@ -145,7 +177,7 @@ public class AppWindow : Gtk.Window {
             
             return;
         } else if (type != FileType.DIRECTORY) {
-            message("Skipping file %s (not directory or file)", file.get_path());
+            message("Skipping file %s (neither a directory nor a file)", file.get_path());
             
             return;
         }
