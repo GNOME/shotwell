@@ -1,11 +1,27 @@
 
-public class ThumbnailCache {
+// these functions generate compiler warnings due to Vala not supporting const pointers (yet) ...
+// see http://www.mail-archive.com/vala-list@gnome.org/msg00977.html
+public uint photo_id_hash(void *key) {
+    PhotoID *photoID = (PhotoID *) key;
+    
+    return (uint) photoID->id;
+}
+
+public bool photo_id_equal(void *a, void *b) {
+    PhotoID *aID = (PhotoID *) a;
+    PhotoID *bID = (PhotoID *) b;
+    
+    return aID->id == bID->id;
+}
+
+public class ThumbnailCache : Object {
     public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
     public static const int DEFAULT_JPEG_QUALITY = 95;
     public static const int MAX_INMEMORY_DATA_SIZE = 256 * 1024;
 
     public static ThumbnailCache big = null;
     
+    // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
         big = new ThumbnailCache(360);
     }
@@ -22,8 +38,8 @@ public class ThumbnailCache {
     private int scale;
     private Gdk.InterpType interp;
     private string jpegQuality;
-    private Gee.HashMap<int, ImageData> cacheMap = new Gee.HashMap<int, ImageData>(
-        direct_hash, direct_equal, direct_equal);
+    private Gee.HashMap<PhotoID, ImageData> cacheMap = new Gee.HashMap<PhotoID, ImageData>(
+        photo_id_hash, photo_id_equal, direct_equal);
     private long cachedBytes = 0;
     private ThumbnailCacheTable cacheTable;
     
@@ -39,10 +55,10 @@ public class ThumbnailCache {
         this.cacheTable = new ThumbnailCacheTable(scale);
     }
     
-    public Gdk.Pixbuf? fetch(int id) {
+    public Gdk.Pixbuf? fetch(PhotoID photoID) {
         // use JPEG in memory cache if available
-        if (cacheMap.contains(id)) {
-            ImageData data = cacheMap.get(id);
+        if (cacheMap.contains(photoID)) {
+            ImageData data = cacheMap.get(photoID);
             try {
                 MemoryInputStream memins = new MemoryInputStream.from_data(data.buffer, 
                     data.buffer.length, null);
@@ -51,51 +67,37 @@ public class ThumbnailCache {
                 return thumbnail;
             } catch (Error err) {
                 error("%s", err.message);
-                
-                // fall through
             }
         }
 
         // load from disk and then store in memory
-        File cached = get_cached_file(id);
-        message("Loading from disk [%d] %s", id, cached.get_path());
+        File cached = get_cached_file(photoID);
+        debug("Loading from disk [%d] %s", photoID.id, cached.get_path());
 
         Gdk.Pixbuf thumbnail = null;
         try {
-            FileInfo info = cached.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-            if(info.get_size() > MAX_INMEMORY_DATA_SIZE) {
+            int filesize = cacheTable.get_filesize(photoID);
+            if(filesize > MAX_INMEMORY_DATA_SIZE) {
                 // too big to store in memory, so build the pixbuf straight from disk
-                message("%s too large to cache, loading straight from disk", cached.get_path());
+                debug("%s too large to cache, loading straight from disk", cached.get_path());
 
                 return new Gdk.Pixbuf.from_file(cached.get_path());
             }
 
             FileInputStream fins = cached.read(null);
-            if (fins == null) {
-                error("Unable to open file %s for reading", cached.get_path());
-                
-                return null;
-            }
-            
-            uchar[] buffer = new uchar[info.get_size()];
+            assert(fins != null);
+
+            uchar[] buffer = new uchar[filesize];
             
             size_t bytesRead;
-            if (fins.read_all(buffer, buffer.length, out bytesRead, null) == false) {
+            if (fins.read_all(buffer, filesize, out bytesRead, null) == false) {
                 error("Unable to read %d bytes from %s", buffer.length, cached.get_path());
-                
-                return null;
-            }
-
-            if (bytesRead != buffer.length) {
-                error("Only read %d out of %d bytes from %s", (int) bytesRead, buffer.length,
-                    cached.get_path());
-                
-                return null;
             }
             
+            assert(bytesRead == filesize);
+
             ImageData data = new ImageData(buffer);
-            cacheMap.set(id, data);
+            cacheMap.set(photoID, data);
             cachedBytes += data.buffer.length;
 
             MemoryInputStream memins = new MemoryInputStream.from_data(data.buffer, 
@@ -108,61 +110,68 @@ public class ThumbnailCache {
         return thumbnail;
     }
     
-    public bool import(int id, File file, bool force = false) {
-        File cached = get_cached_file(id);
+    public bool import(PhotoID photoID, File file, bool force = false) {
+        File cached = get_cached_file(photoID);
         
         // if not forcing the cache operation, check if file exists and is represented in the
         // database before continuing
         if (!force) {
-            if (cached.query_exists(null) && cacheTable.exists(id))
+            if (cached.query_exists(null) && cacheTable.exists(photoID))
                 return true;
         }
-        
-        message("Building persistent thumbnail for [%d] %s", id, cached.get_path());
+
+        debug("Building persistent thumbnail for [%d] %s", photoID.id, cached.get_path());
         
         // load full-scale photo and convert to pixbuf
         Gdk.Pixbuf original;
         try {
             original = new Gdk.Pixbuf.from_file(file.get_path());
         } catch (Error err) {
-            error("Error loading image %s: %s", file.get_path(), err.message);
-            
-            return false;
+            error("%s", err.message);
         }
 
         // scale according to cache's parameters
-        Gdk.Pixbuf thumbnail = scale_pixbuf(file.get_path(), original, scale, interp);
+        Gdk.Pixbuf thumbnail = scale_pixbuf(original, scale, interp);
         
         // save scaled image as JPEG
+        int filesize = -1;
         try {
             if (thumbnail.save(cached.get_path(), "jpeg", "quality", jpegQuality) == false) {
                 error("Unable to save thumbnail %s", cached.get_path());
-                
-                return false;
             }
-        } catch (Error err) {
-            error("Error saving thumbnail to %s: %s", cached.get_path(), err.message);
+
+            FileInfo info = cached.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
             
-            return false;
+            // this should never be huge
+            assert(info.get_size() <= int.MAX);
+            filesize = (int) info.get_size();
+        } catch (Error err) {
+            error("%s", err.message);
         }
         
         // store in database
         Dimensions dim = Dimensions(thumbnail.get_width(), thumbnail.get_height());
-        cacheTable.add_dimensions(id, dim);
+        cacheTable.add(photoID, filesize, dim);
         
         return true;
     }
     
-    public void remove(int id) {
-        File cached = get_cached_file(id);
+    public void remove(PhotoID photoID) {
+        File cached = get_cached_file(photoID);
         
-        message("Removing [%d] %s", id, cached.get_path());
-        
+        debug("Removing [%d] %s", photoID.id, cached.get_path());
+
+        ImageData data = cacheMap.get(photoID);        
+
+        assert(cachedBytes >= data.buffer.length);
+        cachedBytes -= data.buffer.length;
+
         // remove from in-memory cache
-        cacheMap.remove(id);
+        cacheMap.remove(photoID);
         
         // remove from db table
-        cacheTable.remove(id);
+        cacheTable.remove(photoID);
  
         // remove from disk
         try {
@@ -170,15 +179,15 @@ public class ThumbnailCache {
                 error("Unable to delete cached thumb %s", cached.get_path());
             }
         } catch (Error err) {
-            error("Error deleting cached thumb: %s", err.message);
+            error("%s", err.message);
         }
     }
     
-    public Dimensions? get_dimensions(int id) {
-        return cacheTable.get_dimensions(id);
+    public Dimensions? get_dimensions(PhotoID photoID) {
+        return cacheTable.get_dimensions(photoID);
     }
 
-    private File get_cached_file(int id) {
-        return cacheDir.get_child("thumb%08x.jpg".printf(id));
+    private File get_cached_file(PhotoID photoID) {
+        return cacheDir.get_child("thumb%08x.jpg".printf(photoID.id));
     }
 }

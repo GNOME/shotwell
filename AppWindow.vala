@@ -5,8 +5,8 @@ public class AppWindow : Gtk.Window {
     public static const string DATA_DIR = ".photo";
 
     private static AppWindow mainWindow = null;
+    private static Gtk.UIManager uiManager = null;
     private static string[] args = null;
-    private static Sqlite.Database db = null;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -17,7 +17,7 @@ public class AppWindow : Gtk.Window {
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         
-        { "Photos", null, "_Photos", null, null, on_photos_menu },
+        { "Photos", null, "_Photos", null, null, null },
         { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
         { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
         
@@ -44,18 +44,24 @@ public class AppWindow : Gtk.Window {
             error("%s", err.message);
         }
         
-        File dbFile = get_data_subdir("data").get_child("photo.db");
-        int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
-            Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
-        if (res != Sqlite.OK) {
-            error("Unable to open/create photo database %s: %d", dbFile.get_path(), res);
-        }
+        uiManager = new Gtk.UIManager();
 
-        ThumbnailCache.init();
+        File uiFile = get_exec_dir().get_child("photo.ui");
+        assert(uiFile != null);
+
+        try {
+            uiManager.add_ui_from_file(uiFile.get_path());
+        } catch (GLib.Error gle) {
+            error("Error loading UI: %s", gle.message);
+        }
     }
     
     public static AppWindow get_main_window() {
         return mainWindow;
+    }
+    
+    public static Gtk.UIManager get_ui_manager() {
+        return uiManager;
     }
     
     public static string[] get_commandline_args() {
@@ -93,14 +99,9 @@ public class AppWindow : Gtk.Window {
         return subdir;
     }
     
-    public static unowned Sqlite.Database get_db() {
-        return db;
-    }
-
-    private Gtk.UIManager uiManager = new Gtk.UIManager();
     private CollectionPage collectionPage = null;
     private PhotoTable photoTable = null;
-
+    
     construct {
         // set up display
         title = TITLE;
@@ -114,20 +115,51 @@ public class AppWindow : Gtk.Window {
         
         uiManager.insert_action_group(actionGroup, 0);
         
-        GLib.File uiFile = get_exec_dir().get_child("photo.ui");
-        assert(uiFile != null);
-
-        try {
-            uiManager.add_ui_from_file(uiFile.get_path());
-        } catch (GLib.Error gle) {
-            // TODO: Exit app immediately
-            error("Error loading UI: %s", gle.message);
-        }
-
         // primary widgets
         Gtk.MenuBar menubar = (Gtk.MenuBar) uiManager.get_widget("/MenuBar");
         add_accel_group(uiManager.get_accel_group());
         
+        Gtk.TreeStore pageTreeStore = new Gtk.TreeStore(1, typeof(string));
+        Gtk.TreeView pageTreeView = new Gtk.TreeView.with_model(pageTreeStore);
+        pageTreeView.modify_bg(Gtk.StateType.NORMAL, parse_color(CollectionPage.BG_COLOR));
+        
+        var text = new Gtk.CellRendererText();
+        text.size_points = 9.0;
+        var column = new Gtk.TreeViewColumn();
+        column.pack_start(text, true);
+        column.add_attribute(text, "text", 0);
+        pageTreeView.append_column(column);
+        
+        pageTreeView.set_headers_visible(false);
+
+        Gtk.TreeIter parent, child;
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, "Photos");
+
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, "Events");
+        
+        pageTreeStore.append(out child, parent);
+        pageTreeStore.set(child, 0, "New Year's");
+
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, "Albums");
+        
+        pageTreeStore.append(out child, parent);
+        pageTreeStore.set(child, 0, "Parties");
+
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, null);
+
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, "Import");
+
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, "Recent");
+
+        pageTreeStore.append(out parent, null);
+        pageTreeStore.set(parent, 0, "Trash");
+
         // set up as a drag-and-drop destination
         // this.drag_data_received() is called when a drop occurs
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
@@ -137,15 +169,19 @@ public class AppWindow : Gtk.Window {
             mainWindow = this;
         }
         
-        button_press_event += on_button_press;
-
         photoTable = new PhotoTable();
         collectionPage = new CollectionPage();
+        
+        // layout the selection tree and the view side-by-side
+        Gtk.HBox hbox = new Gtk.HBox(false, 0);
+        hbox.pack_start(pageTreeView, false, false, 0);
+        hbox.pack_end(collectionPage, true, true, 0);
 
-        // layout widgets in vertical box
+        // layout everything vertically inside the main window
         Gtk.VBox vbox = new Gtk.VBox(false, 0);
         vbox.pack_start(menubar, false, false, 0);
-        vbox.pack_end(collectionPage, true, true, 0);
+        vbox.pack_end(hbox, true, true, 0);
+        
         add(vbox);
     }
     
@@ -161,12 +197,12 @@ public class AppWindow : Gtk.Window {
     private void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
-            message("Importing file %s", file.get_path());
+            debug("Importing file %s", file.get_path());
             
-            if (photoTable.add_photo(file)) {
-                int id = photoTable.get_photo_id(file);
-                ThumbnailCache.big.import(id, file);
-                collectionPage.add_photo(id, file);
+            if (photoTable.add(file)) {
+                PhotoID photoID = photoTable.get_id(file);
+                ThumbnailCache.big.import(photoID, file);
+                collectionPage.add_photo(photoID, file);
             } else {
                 Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL,
                     Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s already stored",
@@ -177,12 +213,12 @@ public class AppWindow : Gtk.Window {
             
             return;
         } else if (type != FileType.DIRECTORY) {
-            message("Skipping file %s (neither a directory nor a file)", file.get_path());
+            debug("Skipping file %s (neither a directory nor a file)", file.get_path());
             
             return;
         }
         
-        message("Importing directory %s", file.get_path());
+        debug("Importing directory %s", file.get_path());
         import_dir(file);
     }
     
@@ -206,19 +242,21 @@ public class AppWindow : Gtk.Window {
                 
                 FileType type = info.get_file_type();
                 if (type == FileType.REGULAR) {
-                    message("Importing file %s", file.get_path());
-                    if (photoTable.add_photo(file)) {
-                        int id = photoTable.get_photo_id(file);
-                        ThumbnailCache.big.import(id, file);
-                        collectionPage.add_photo(id, file);
+                    debug("Importing file %s", file.get_path());
+
+                    if (photoTable.add(file)) {
+                        PhotoID photoID = photoTable.get_id(file);
+                        ThumbnailCache.big.import(photoID, file);
+                        collectionPage.add_photo(photoID, file);
                     } else {
                         // TODO: Better error reporting
                     }
                 } else if (type == FileType.DIRECTORY) {
-                    message("Importing directory  %s", file.get_path());
+                    debug("Importing directory  %s", file.get_path());
+
                     import_dir(file);
                 } else {
-                    message("Skipped %s", file.get_path());
+                    debug("Skipped %s", file.get_path());
                 }
             }
         } catch (Error err) {
@@ -239,53 +277,6 @@ public class AppWindow : Gtk.Window {
         }
     }
     
-    private bool on_button_press(AppWindow aw, Gdk.EventButton event) {
-        // don't handle anything but primary button for now
-        if (event.button != 1) {
-            return false;
-        }
-        
-        // only interested in single-clicks presses for now
-        if (event.type != Gdk.EventType.BUTTON_PRESS) {
-            return false;
-        }
-        
-        // mask out the modifiers we're interested in
-        uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
-        
-        Thumbnail thumbnail = collectionPage.get_thumbnail_at(event.x, event.y);
-        if (thumbnail != null) {
-            message("clicked on %s", thumbnail.get_file().get_basename());
-            
-            switch (state) {
-                case Gdk.ModifierType.CONTROL_MASK: {
-                    // with only Ctrl pressed, multiple selections are possible ... chosen item
-                    // is toggled
-                    thumbnail.toggle_select();
-                } break;
-                
-                case Gdk.ModifierType.SHIFT_MASK: {
-                    // TODO
-                } break;
-                
-                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK: {
-                    // TODO
-                } break;
-                
-                default: {
-                    // a "raw" click deselects all thumbnails and selects the single chosen
-                    collectionPage.unselect_all();
-                    thumbnail.select();
-                } break;
-            }
-        } else {
-            // user clicked on "dead" area
-            collectionPage.unselect_all();
-        }
-
-        return false;
-    }
-    
     private void set_item_sensitive(string path, bool sensitive) {
         Gtk.Widget widget = uiManager.get_widget(path);
         widget.set_sensitive(sensitive);
@@ -299,10 +290,9 @@ public class AppWindow : Gtk.Window {
     private void on_remove() {
         Thumbnail[] thumbnails = collectionPage.get_selected();
         foreach (Thumbnail thumbnail in thumbnails) {
-            message("Removing %s", thumbnail.get_file().get_basename());
             collectionPage.remove_photo(thumbnail);
-            ThumbnailCache.big.remove(photoTable.get_photo_id(thumbnail.get_file()));
-            photoTable.remove_photo(thumbnail.get_file());
+            ThumbnailCache.big.remove(photoTable.get_id(thumbnail.get_file()));
+            photoTable.remove(thumbnail.get_file());
         }
         
         collectionPage.repack();
@@ -310,9 +300,6 @@ public class AppWindow : Gtk.Window {
 
     private void on_select_all() {
         collectionPage.select_all();
-    }
-
-    private void on_photos_menu() {
     }
 
     private void on_increase_size() {

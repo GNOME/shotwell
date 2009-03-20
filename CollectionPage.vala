@@ -1,9 +1,3 @@
-Gdk.Color parse_color(string color) {
-    Gdk.Color c;
-    if (!Gdk.Color.parse(color, out c))
-        error("can't parse color");
-    return c;
-}
 
 public class CollectionPage : Gtk.ScrolledWindow {
     public static const int THUMB_X_PADDING = 20;
@@ -20,6 +14,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private int thumbCount = 0;
     private int scale = Thumbnail.DEFAULT_SCALE;
     
+    // TODO: Mark fields for translation
+    private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
+        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove }
+    };
+    
     construct {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
@@ -27,6 +26,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // set table column and row padding ... this is done globally rather than per-thumbnail
         layoutTable.set_col_spacings(THUMB_X_PADDING);
         layoutTable.set_row_spacings(THUMB_Y_PADDING);
+        
+        Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("CollectionPageActionGroup");
+        actionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
+        AppWindow.get_ui_manager().insert_action_group(actionGroup, 0);
 
         // need to manually build viewport to set its background color
         viewport.add(layoutTable);
@@ -49,14 +52,16 @@ public class CollectionPage : Gtk.ScrolledWindow {
         viewport.expose_event += on_viewport_exposed;
         
         add(viewport);
+        
+        button_press_event += on_click;
     }
     
     public CollectionPage() {
         photoTable = new PhotoTable();
     }
     
-    public void add_photo(int id, File file) {
-        Thumbnail thumbnail = new Thumbnail(id, file, scale);
+    public void add_photo(PhotoID photoID, File file) {
+        Thumbnail thumbnail = new Thumbnail(photoID, file, scale);
         
         thumbnailList.add(thumbnail);
         thumbCount++;
@@ -77,7 +82,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public void repack() {
         int rows = (thumbCount / cols) + 1;
         
-        message("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
+        debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
         
         layoutTable.resize(rows, cols);
 
@@ -108,7 +113,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
             newCols = 1;
         
         if (cols != newCols) {
-            message("width:%d cols:%d", allocation.width, newCols);
+            debug("width:%d cols:%d", allocation.width, newCols);
 
             cols = newCols;
             repack();
@@ -201,9 +206,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private void on_viewport_realized() {
         File[] photoFiles = photoTable.get_photo_files();
         foreach (File file in photoFiles) {
-            int id = photoTable.get_photo_id(file);
-            ThumbnailCache.big.import(id, file);
-            add_photo(id, file);
+            PhotoID photoID = photoTable.get_id(file);
+            add_photo(photoID, file);
         }
     }
 
@@ -214,6 +218,95 @@ public class CollectionPage : Gtk.ScrolledWindow {
             check_exposure();
 
         return false;
+    }
+    
+    private bool on_click(CollectionPage c, Gdk.EventButton event) {
+        switch (event.button) {
+            case 1:
+                return on_left_click(event);
+            
+            case 3:
+                return on_right_click(event);
+            
+            default:
+                return false;
+        }
+    }
+        
+    private bool on_left_click(Gdk.EventButton event) {
+        // only interested in single-clicks presses for now
+        if (event.type != Gdk.EventType.BUTTON_PRESS) {
+            return false;
+        }
+        
+        // mask out the modifiers we're interested in
+        uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
+        
+        Thumbnail thumbnail = get_thumbnail_at(event.x, event.y);
+        if (thumbnail != null) {
+            message("clicked on %s", thumbnail.get_file().get_basename());
+            
+            switch (state) {
+                case Gdk.ModifierType.CONTROL_MASK: {
+                    // with only Ctrl pressed, multiple selections are possible ... chosen item
+                    // is toggled
+                    thumbnail.toggle_select();
+                } break;
+                
+                case Gdk.ModifierType.SHIFT_MASK: {
+                    // TODO
+                } break;
+                
+                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK: {
+                    // TODO
+                } break;
+                
+                default: {
+                    // a "raw" click deselects all thumbnails and selects the single chosen
+                    unselect_all();
+                    thumbnail.select();
+                } break;
+            }
+        } else {
+            // user clicked on "dead" area
+            unselect_all();
+        }
+
+        return false;
+    }
+    
+    private bool on_right_click(Gdk.EventButton event) {
+        // only interested in single-clicks for now
+        if (event.type != Gdk.EventType.BUTTON_PRESS) {
+            return false;
+        }
+        
+        Thumbnail thumbnail = get_thumbnail_at(event.x, event.y);
+        if (thumbnail != null) {
+            // this counts as a select
+            unselect_all();
+            thumbnail.select();
+
+            Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionRightClickMenu");
+            contextMenu.popup(null, null, null, event.button, event.time);
+            
+            return true;
+        } else {
+            // clicked on a "dead" area
+        }
+        
+        return false;
+    }
+    
+    private void on_remove() {
+        Thumbnail[] thumbnails = get_selected();
+        foreach (Thumbnail thumbnail in thumbnails) {
+            remove_photo(thumbnail);
+            ThumbnailCache.big.remove(photoTable.get_id(thumbnail.get_file()));
+            photoTable.remove(thumbnail.get_file());
+        }
+        
+        repack();
     }
     
     private void check_exposure() {

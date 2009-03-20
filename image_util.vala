@@ -1,5 +1,11 @@
 
-static const bool DEBUG = false;
+Gdk.Color parse_color(string color) {
+    Gdk.Color c;
+    if (!Gdk.Color.parse(color, out c))
+        error("can't parse color");
+
+    return c;
+}
 
 public struct Dimensions {
     public int width;
@@ -13,7 +19,7 @@ public struct Dimensions {
     }
 }
 
-Dimensions get_scaled_dimensions(string label, Dimensions original, int scale) {
+Dimensions get_scaled_dimensions(Dimensions original, int scale) {
     int diffWidth = original.width - scale;
     int diffHeight = original.height - scale;
 
@@ -46,16 +52,12 @@ Dimensions get_scaled_dimensions(string label, Dimensions original, int scale) {
         scaled.height = scale;
     }
     
-    if (DEBUG)
-        message("%s %d x %d -> %d x %d", label, original.width, original.height, scaled.width, 
-            scaled.height);
-    
     return scaled;
 }
 
-Gdk.Pixbuf scale_pixbuf(string label, Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
+Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
     Dimensions original = Dimensions(pixbuf.get_width(), pixbuf.get_height());
-    Dimensions scaled = get_scaled_dimensions(label, original, scale);
+    Dimensions scaled = get_scaled_dimensions(original, scale);
     if ((original.width == scaled.width) && (original.height == scaled.height))
         return pixbuf;
 

@@ -19,6 +19,10 @@
             <menuitem name="HelpAbout" action="About" />
         </menu>
     </menubar>
+    
+    <popup name="CollectionRightClickMenu">
+        <menuitem name="Remove" action="Remove" />
+    </popup>
 
 </ui>
 

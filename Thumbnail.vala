@@ -14,7 +14,7 @@ public class Thumbnail : Gtk.Alignment {
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
     // particular view, all widgets used here should be NOWINDOW widgets.
-    private int id;
+    private PhotoID photoID;
     private File file;
     private int scale;
     private Gtk.Image image = new Gtk.Image();
@@ -28,12 +28,12 @@ public class Thumbnail : Gtk.Alignment {
     construct {
     }
 
-    public Thumbnail(int id, File file, int scale = DEFAULT_SCALE) {
-        this.id = id;
+    public Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
+        this.photoID = photoID;
         this.file = file;
         this.scale = scale;
-        this.bigDim = ThumbnailCache.big.get_dimensions(id);
-        this.scaledDim = get_scaled_dimensions(file.get_path(), bigDim, scale);
+        this.bigDim = ThumbnailCache.big.get_dimensions(photoID);
+        this.scaledDim = get_scaled_dimensions(bigDim, scale);
 
         // bottom-align everything
         set(0, 1, 0, 0);
@@ -111,10 +111,10 @@ public class Thumbnail : Gtk.Alignment {
             return;
             
         scale = newScale;
-        scaledDim = get_scaled_dimensions(file.get_path(), bigDim, scale);
+        scaledDim = get_scaled_dimensions(bigDim, scale);
         
         if (isExposed) {
-            Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
+            Gdk.Pixbuf cached = ThumbnailCache.big.fetch(photoID);
             Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, DEFAULT_INTERP);
             image.set_from_pixbuf(scaled);
         } else {
@@ -127,7 +127,7 @@ public class Thumbnail : Gtk.Alignment {
         if (isExposed)
             return;
 
-        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(id);
+        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(photoID);
         Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, DEFAULT_INTERP);
         image.set_from_pixbuf(scaled);
         isExposed = true;

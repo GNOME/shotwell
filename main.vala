@@ -8,7 +8,9 @@ void main(string[] args) {
 
     // initialize app-wide stuff
     AppWindow.init(args);
-    
+    DatabaseTable.init();
+    ThumbnailCache.init();
+
     // create main application window
     AppWindow appWindow = new AppWindow();
     
