@@ -1,6 +1,6 @@
 <ui>
 
-    <menubar name="MenuBar">
+    <menubar name="CollectionMenuBar">
         <menu name="FileMenu" action="File">
             <menuitem name="FileQuit" action="Quit" />
         </menu>
@@ -20,7 +20,7 @@
         </menu>
     </menubar>
     
-    <popup name="CollectionRightClickMenu">
+    <popup name="CollectionContextMenu">
         <menuitem name="Remove" action="Remove" />
     </popup>
 

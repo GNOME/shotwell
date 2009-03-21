@@ -8,23 +8,6 @@ public class AppWindow : Gtk.Window {
     private static Gtk.UIManager uiManager = null;
     private static string[] args = null;
 
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "File", null, "_File", null, null, null },
-        { "Quit", Gtk.STOCK_QUIT, "_Quit", null, "Quit the program", Gtk.main_quit },
-        
-        { "Edit", null, "_Edit", null, null, on_edit_menu },
-        { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
-        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
-        
-        { "Photos", null, "_Photos", null, null, null },
-        { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
-        { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
-        
-        { "Help", null, "_Help", null, null, null },
-        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", on_about }
-    };
-    
     // drag and drop target entries
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
@@ -109,16 +92,6 @@ public class AppWindow : Gtk.Window {
 
         destroy += Gtk.main_quit;
 
-        // window actions
-        Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("MainActionGroup");
-        actionGroup.add_actions(ACTIONS, this);
-        
-        uiManager.insert_action_group(actionGroup, 0);
-        
-        // primary widgets
-        Gtk.MenuBar menubar = (Gtk.MenuBar) uiManager.get_widget("/MenuBar");
-        add_accel_group(uiManager.get_accel_group());
-        
         Gtk.TreeStore pageTreeStore = new Gtk.TreeStore(1, typeof(string));
         Gtk.TreeView pageTreeView = new Gtk.TreeView.with_model(pageTreeStore);
         pageTreeView.modify_bg(Gtk.StateType.NORMAL, parse_color(CollectionPage.BG_COLOR));
@@ -159,7 +132,7 @@ public class AppWindow : Gtk.Window {
 
         pageTreeStore.append(out parent, null);
         pageTreeStore.set(parent, 0, "Trash");
-
+        
         // set up as a drag-and-drop destination
         // this.drag_data_received() is called when a drop occurs
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
@@ -172,20 +145,25 @@ public class AppWindow : Gtk.Window {
         photoTable = new PhotoTable();
         collectionPage = new CollectionPage();
         
-        // layout the selection tree and the view side-by-side
-        Gtk.HBox hbox = new Gtk.HBox(false, 0);
-        hbox.pack_start(pageTreeView, false, false, 0);
-        hbox.pack_end(collectionPage, true, true, 0);
-
-        // layout everything vertically inside the main window
-        Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.pack_start(menubar, false, false, 0);
-        vbox.pack_end(hbox, true, true, 0);
+        // layout the growable collection page with the toolbar beneath
+        Gtk.VBox pageBox = new Gtk.VBox(false, 0);
+        pageBox.pack_start(collectionPage, true, true, 0);
+        pageBox.pack_end(collectionPage.get_toolbar(), false, false, 0);
         
-        add(vbox);
+        // layout the selection tree to the left of the collection/toolbar box
+        Gtk.HBox clientBox = new Gtk.HBox(false, 0);
+        clientBox.pack_start(pageTreeView, false, false, 0);
+        clientBox.pack_end(pageBox, true, true, 0);
+
+        // layout client beneath menu
+        Gtk.VBox mainBox = new Gtk.VBox(false, 0);
+        mainBox.pack_start(collectionPage.get_menubar(), false, false, 0);
+        mainBox.pack_end(clientBox, true, true, 0);
+        
+        add(mainBox);
     }
     
-    private void on_about() {
+    public void about_box() {
         // TODO: More thorough About box
         Gtk.show_about_dialog(this,
             "version", VERSION,
@@ -275,39 +253,6 @@ public class AppWindow : Gtk.Window {
         foreach (string uri in uris) {
             import(File.new_for_uri(uri));
         }
-    }
-    
-    private void set_item_sensitive(string path, bool sensitive) {
-        Gtk.Widget widget = uiManager.get_widget(path);
-        widget.set_sensitive(sensitive);
-    }
-    
-    private void on_edit_menu() {
-        set_item_sensitive("/MenuBar/EditMenu/EditSelectAll", collectionPage.get_count() > 0);
-        set_item_sensitive("/MenuBar/EditMenu/EditRemove", collectionPage.get_selected_count() > 0);
-    }
-    
-    private void on_remove() {
-        Thumbnail[] thumbnails = collectionPage.get_selected();
-        foreach (Thumbnail thumbnail in thumbnails) {
-            collectionPage.remove_photo(thumbnail);
-            ThumbnailCache.big.remove(photoTable.get_id(thumbnail.get_file()));
-            photoTable.remove(thumbnail.get_file());
-        }
-        
-        collectionPage.repack();
-    }
-
-    private void on_select_all() {
-        collectionPage.select_all();
-    }
-
-    private void on_increase_size() {
-        collectionPage.increase_thumb_size();
-    }
-
-    private void on_decrease_size() {
-        collectionPage.decrease_thumb_size();
     }
 }
 

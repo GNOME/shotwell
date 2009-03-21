@@ -4,9 +4,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public static const int THUMB_Y_PADDING = 20;
     public static const string BG_COLOR = "#777";
     
-    private PhotoTable photoTable = null;
+    private PhotoTable photoTable = new PhotoTable();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Table layoutTable = new Gtk.Table(0, 0, false);
+    private Gtk.MenuBar menubar = null;
+    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    private Gtk.HScale slider = null;
     private Gee.ArrayList<Thumbnail> thumbnailList = new Gee.ArrayList<Thumbnail>();
     private int currentX = 0;
     private int currentY = 0;
@@ -15,11 +18,55 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private int scale = Thumbnail.DEFAULT_SCALE;
     
     // TODO: Mark fields for translation
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "File", null, "_File", null, null, null },
+        { "Quit", Gtk.STOCK_QUIT, "_Quit", null, "Quit the program", Gtk.main_quit },
+        
+        { "Edit", null, "_Edit", null, null, on_edit_menu },
+        { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
+        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
+        
+        { "Photos", null, "_Photos", null, null, null },
+        { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
+        { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
+        
+        { "Help", null, "_Help", null, null, null },
+        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", on_about }
+    };
+    
+    // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove }
     };
     
     construct {
+        Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
+        mainActionGroup.add_actions(ACTIONS, this);
+        AppWindow.get_ui_manager().insert_action_group(mainActionGroup, 0);
+        
+        Gtk.ActionGroup contextActionGroup = new Gtk.ActionGroup("CollectionContextActionGroup");
+        contextActionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
+        AppWindow.get_ui_manager().insert_action_group(contextActionGroup, 0);
+
+        // this page's menu bar
+        menubar = (Gtk.MenuBar) AppWindow.get_ui_manager().get_widget("/CollectionMenuBar");
+        AppWindow.get_main_window().add_accel_group(AppWindow.get_ui_manager().get_accel_group());
+        
+        // set up page's toolbar (used by AppWindow for layout)
+        //
+        // thumbnail size slider
+        slider = new Gtk.HScale.with_range(0, scaleToSlider(Thumbnail.MAX_SCALE), 1);
+        slider.set_value(scaleToSlider(scale));
+        slider.value_changed += on_slider_changed;
+        slider.set_draw_value(false);
+
+        Gtk.ToolItem toolitem = new Gtk.ToolItem();
+        toolitem.add(slider);
+        toolitem.set_expand(false);
+        toolitem.set_size_request(200, -1);
+
+        toolbar.insert(toolitem, -1);
+
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
@@ -27,10 +74,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         layoutTable.set_col_spacings(THUMB_X_PADDING);
         layoutTable.set_row_spacings(THUMB_Y_PADDING);
         
-        Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("CollectionPageActionGroup");
-        actionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(actionGroup, 0);
-
         // need to manually build viewport to set its background color
         viewport.add(layoutTable);
         viewport.modify_bg(Gtk.StateType.NORMAL, parse_color(BG_COLOR));
@@ -56,8 +99,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
         button_press_event += on_click;
     }
     
-    public CollectionPage() {
-        photoTable = new PhotoTable();
+    public Gtk.Toolbar get_toolbar() {
+        return toolbar;
+    }
+    
+    public Gtk.MenuBar get_menubar() {
+        return menubar;
     }
     
     public void add_photo(PhotoID photoID, File file) {
@@ -177,24 +224,47 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return count;
     }
     
-    public void increase_thumb_size() {
+    public int increase_thumb_size() {
         if (scale == Thumbnail.MAX_SCALE)
-            return;
+            return scale;
         
         scale += Thumbnail.SCALE_STEPPING;
+        if (scale > Thumbnail.MAX_SCALE) {
+            scale = Thumbnail.MAX_SCALE;
+        }
         
         foreach (Thumbnail thumbnail in thumbnailList) {
             thumbnail.resize(scale);
         }
         
         layoutTable.resize_children();
+        
+        return scale;
     }
     
-    public void decrease_thumb_size() {
+    public int decrease_thumb_size() {
         if (scale == Thumbnail.MIN_SCALE)
-            return;
+            return scale;
         
         scale -= Thumbnail.SCALE_STEPPING;
+        if (scale < Thumbnail.MIN_SCALE) {
+            scale = Thumbnail.MIN_SCALE;
+        }
+        
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            thumbnail.resize(scale);
+        }
+        
+        layoutTable.resize_children();
+        
+        return scale;
+    }
+    
+    public void set_thumb_size(int newScale) {
+        assert(newScale >= Thumbnail.MIN_SCALE);
+        assert(newScale <= Thumbnail.MAX_SCALE);
+        
+        scale = newScale;
         
         foreach (Thumbnail thumbnail in thumbnailList) {
             thumbnail.resize(scale);
@@ -220,6 +290,32 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return false;
     }
     
+    private void on_about() {
+        AppWindow.get_main_window().about_box();
+    }
+    
+    private void set_item_sensitive(string path, bool sensitive) {
+        Gtk.Widget widget = AppWindow.get_ui_manager().get_widget(path);
+        widget.set_sensitive(sensitive);
+    }
+    
+    private void on_edit_menu() {
+        set_item_sensitive("/CollectionMenuBar/EditMenu/EditSelectAll", get_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/EditMenu/EditRemove", get_selected_count() > 0);
+    }
+    
+    private void on_select_all() {
+        select_all();
+    }
+
+    private void on_increase_size() {
+        slider.set_value((increase_thumb_size() - Thumbnail.MIN_SCALE) /  Thumbnail.SCALE_STEPPING);
+    }
+
+    private void on_decrease_size() {
+        slider.set_value((decrease_thumb_size() - Thumbnail.MIN_SCALE) /  Thumbnail.SCALE_STEPPING);
+    }
+
     private bool on_click(CollectionPage c, Gdk.EventButton event) {
         switch (event.button) {
             case 1:
@@ -287,7 +383,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
             unselect_all();
             thumbnail.select();
 
-            Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionRightClickMenu");
+            Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionContextMenu");
             contextMenu.popup(null, null, null, event.button, event.time);
             
             return true;
@@ -338,6 +434,26 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         //message("%d exposed, %d unexposed", exposedCount, unexposedCount);
+    }
+
+    private double scaleToSlider(int value) {
+        assert(value >= Thumbnail.MIN_SCALE);
+        assert(value <= Thumbnail.MAX_SCALE);
+        
+        return (double) ((value - Thumbnail.MIN_SCALE) / Thumbnail.SCALE_STEPPING);
+    }
+    
+    private int sliderToScale(double value) {
+        int res = ((int) (value * Thumbnail.SCALE_STEPPING)) + Thumbnail.MIN_SCALE;
+
+        assert(res >= Thumbnail.MIN_SCALE);
+        assert(res <= Thumbnail.MAX_SCALE);
+        
+        return res;
+    }
+    
+    private void on_slider_changed() {
+        set_thumb_size(sliderToScale(slider.get_value()));
     }
 }
 

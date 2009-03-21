@@ -162,13 +162,15 @@ public class ThumbnailCache : Object {
         
         debug("Removing [%d] %s", photoID.id, cached.get_path());
 
-        ImageData data = cacheMap.get(photoID);        
+        if (cacheMap.contains(photoID)) {
+            ImageData data = cacheMap.get(photoID);
 
-        assert(cachedBytes >= data.buffer.length);
-        cachedBytes -= data.buffer.length;
+            assert(cachedBytes >= data.buffer.length);
+            cachedBytes -= data.buffer.length;
 
-        // remove from in-memory cache
-        cacheMap.remove(photoID);
+            // remove from in-memory cache
+            cacheMap.remove(photoID);
+        }
         
         // remove from db table
         cacheTable.remove(photoID);

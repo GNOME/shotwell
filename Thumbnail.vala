@@ -9,7 +9,8 @@ public class Thumbnail : Gtk.Alignment {
     public static const int MIN_SCALE = 64;
     public static const int MAX_SCALE = 360;
     public static const int DEFAULT_SCALE = 128;
-    public static const int SCALE_STEPPING = 4;
+    // SCALE_STEPPING should divide evenly into (MAX_SCALE - MIN_SCALE)
+    public static const int SCALE_STEPPING = 8;
     public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
