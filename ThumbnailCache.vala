@@ -16,16 +16,61 @@ public bool photo_id_equal(void *a, void *b) {
 
 public class ThumbnailCache : Object {
     public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
-    public static const int DEFAULT_JPEG_QUALITY = 95;
+    public static const int DEFAULT_JPEG_QUALITY = 90;
     public static const int MAX_INMEMORY_DATA_SIZE = 256 * 1024;
+    
+    public static const int BIG_SCALE = 360;
+    public static const int MEDIUM_SCALE = 128;
+    public static const int SMALL_SCALE = 64;
 
     public static ThumbnailCache big = null;
+    public static ThumbnailCache medium = null;
+    public static ThumbnailCache small = null;
     
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
-        big = new ThumbnailCache(360);
+        big = new ThumbnailCache(BIG_SCALE);
+        medium = new ThumbnailCache(MEDIUM_SCALE);
+        small = new ThumbnailCache(SMALL_SCALE);
+    }
+    
+    public static Dimensions import(PhotoID photoID, Gdk.Pixbuf original, bool force = false) {
+        big._import(photoID, original, force);
+        medium._import(photoID, original, force);
+        small._import(photoID, original, force);
+        
+        return Dimensions(original.get_width(), original.get_height());
+    }
+    
+    public static void remove(PhotoID photoID) {
+        big._remove(photoID);
+        medium._remove(photoID);
+        small._remove(photoID);
     }
 
+    private static const int BIG_MED_BREAK = MEDIUM_SCALE + ((BIG_SCALE - MEDIUM_SCALE) / 2);
+    private static const int SMALL_MED_BREAK = SMALL_SCALE + ((MEDIUM_SCALE - SMALL_SCALE) / 2);
+
+    public static bool refresh_pixbuf(int oldScale, int newScale) {
+        if (oldScale > MEDIUM_SCALE) {
+            return (newScale <= MEDIUM_SCALE);
+        } else if(oldScale > SMALL_SCALE) {
+            return (newScale <= SMALL_SCALE) || (newScale > MEDIUM_SCALE);
+        } else {
+            return (newScale > SMALL_SCALE);
+        }
+    }
+
+    public static Gdk.Pixbuf? fetch(PhotoID photoID, int scale) {
+        if (scale > MEDIUM_SCALE) {
+            return big._fetch(photoID);
+        } else if(scale > SMALL_SCALE) {
+            return medium._fetch(photoID);
+        } else {
+            return small._fetch(photoID);
+        }
+    }
+    
     private class ImageData {
         public uchar[] buffer;
         
@@ -38,7 +83,7 @@ public class ThumbnailCache : Object {
     private int scale;
     private Gdk.InterpType interp;
     private string jpegQuality;
-    private Gee.HashMap<PhotoID, ImageData> cacheMap = new Gee.HashMap<PhotoID, ImageData>(
+    private Gee.HashMap<PhotoID?, ImageData> cacheMap = new Gee.HashMap<PhotoID?, ImageData>(
         photo_id_hash, photo_id_equal, direct_equal);
     private long cachedBytes = 0;
     private ThumbnailCacheTable cacheTable;
@@ -55,10 +100,10 @@ public class ThumbnailCache : Object {
         this.cacheTable = new ThumbnailCacheTable(scale);
     }
     
-    public Gdk.Pixbuf? fetch(PhotoID photoID) {
+    private Gdk.Pixbuf? _fetch(PhotoID photoID) {
         // use JPEG in memory cache if available
-        if (cacheMap.contains(photoID)) {
-            ImageData data = cacheMap.get(photoID);
+        ImageData data = cacheMap.get(photoID);
+        if (data != null) {
             try {
                 MemoryInputStream memins = new MemoryInputStream.from_data(data.buffer, 
                     data.buffer.length, null);
@@ -96,7 +141,7 @@ public class ThumbnailCache : Object {
             
             assert(bytesRead == filesize);
 
-            ImageData data = new ImageData(buffer);
+            data = new ImageData(buffer);
             cacheMap.set(photoID, data);
             cachedBytes += data.buffer.length;
 
@@ -110,26 +155,18 @@ public class ThumbnailCache : Object {
         return thumbnail;
     }
     
-    public bool import(PhotoID photoID, File file, bool force = false) {
+    private void _import(PhotoID photoID, Gdk.Pixbuf original, bool force = false) {
         File cached = get_cached_file(photoID);
         
         // if not forcing the cache operation, check if file exists and is represented in the
         // database before continuing
         if (!force) {
             if (cached.query_exists(null) && cacheTable.exists(photoID))
-                return true;
+                return;
         }
 
         debug("Building persistent thumbnail for [%d] %s", photoID.id, cached.get_path());
         
-        // load full-scale photo and convert to pixbuf
-        Gdk.Pixbuf original;
-        try {
-            original = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-
         // scale according to cache's parameters
         Gdk.Pixbuf thumbnail = scale_pixbuf(original, scale, interp);
         
@@ -153,11 +190,9 @@ public class ThumbnailCache : Object {
         // store in database
         Dimensions dim = Dimensions(thumbnail.get_width(), thumbnail.get_height());
         cacheTable.add(photoID, filesize, dim);
-        
-        return true;
     }
     
-    public void remove(PhotoID photoID) {
+    private void _remove(PhotoID photoID) {
         File cached = get_cached_file(photoID);
         
         debug("Removing [%d] %s", photoID.id, cached.get_path());
@@ -185,10 +220,6 @@ public class ThumbnailCache : Object {
         }
     }
     
-    public Dimensions? get_dimensions(PhotoID photoID) {
-        return cacheTable.get_dimensions(photoID);
-    }
-
     private File get_cached_file(PhotoID photoID) {
         return cacheDir.get_child("thumb%08x.jpg".printf(photoID.id));
     }

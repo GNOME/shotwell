@@ -9,9 +9,8 @@ public class Thumbnail : Gtk.Alignment {
     public static const int MIN_SCALE = 64;
     public static const int MAX_SCALE = 360;
     public static const int DEFAULT_SCALE = 128;
-    // SCALE_STEPPING should divide evenly into (MAX_SCALE - MIN_SCALE)
-    public static const int SCALE_STEPPING = 8;
-    public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
+    public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
+    public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.HYPER;
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
     // particular view, all widgets used here should be NOWINDOW widgets.
@@ -23,18 +22,16 @@ public class Thumbnail : Gtk.Alignment {
     private Gtk.Frame frame = null;
     private bool selected = false;
     private bool isExposed = false;
-    private Dimensions bigDim;
+    private Dimensions originalDim;
     private Dimensions scaledDim;
+    private Gdk.Pixbuf cached = null;
     
-    construct {
-    }
-
     public Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
         this.file = file;
         this.scale = scale;
-        this.bigDim = ThumbnailCache.big.get_dimensions(photoID);
-        this.scaledDim = get_scaled_dimensions(bigDim, scale);
+        this.originalDim = new PhotoTable().get_dimensions(photoID);
+        this.scaledDim = get_scaled_dimensions(originalDim, scale);
 
         // bottom-align everything
         set(0, 1, 0, 0);
@@ -110,13 +107,17 @@ public class Thumbnail : Gtk.Alignment {
         
         if (scale == newScale)
             return;
-            
+
+        int oldScale = scale;
         scale = newScale;
-        scaledDim = get_scaled_dimensions(bigDim, scale);
+        scaledDim = get_scaled_dimensions(originalDim, scale);
         
         if (isExposed) {
-            Gdk.Pixbuf cached = ThumbnailCache.big.fetch(photoID);
-            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, DEFAULT_INTERP);
+            if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
+                cached = ThumbnailCache.fetch(photoID, newScale);
+            }
+
+            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
             image.set_from_pixbuf(scaled);
         } else {
             image.requisition.width = scaledDim.width;
@@ -124,12 +125,21 @@ public class Thumbnail : Gtk.Alignment {
         }
     }
     
+    public void paint_high_quality() {
+        if (cached == null) {
+            return;
+        }
+        
+        Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, HIGH_QUALITY_INTERP);
+        image.set_from_pixbuf(scaled);
+    }
+    
     public void exposed() {
         if (isExposed)
             return;
 
-        Gdk.Pixbuf cached = ThumbnailCache.big.fetch(photoID);
-        Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, DEFAULT_INTERP);
+        cached = ThumbnailCache.fetch(photoID, scale);
+        Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
         image.set_from_pixbuf(scaled);
         isExposed = true;
     }
@@ -138,10 +148,15 @@ public class Thumbnail : Gtk.Alignment {
         if (!isExposed)
             return;
 
+        cached = null;
         image.clear();
         image.requisition.width = scaledDim.width;
         image.requisition.height = scaledDim.height;
         isExposed = false;
+    }
+    
+    public bool is_exposed() {
+        return isExposed;
     }
 }
 

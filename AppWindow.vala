@@ -175,13 +175,7 @@ public class AppWindow : Gtk.Window {
     private void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
-            debug("Importing file %s", file.get_path());
-            
-            if (photoTable.add(file)) {
-                PhotoID photoID = photoTable.get_id(file);
-                ThumbnailCache.big.import(photoID, file);
-                collectionPage.add_photo(photoID, file);
-            } else {
+            if (!import_file(file)) {
                 Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL,
                     Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s already stored",
                     file.get_path());
@@ -220,14 +214,9 @@ public class AppWindow : Gtk.Window {
                 
                 FileType type = info.get_file_type();
                 if (type == FileType.REGULAR) {
-                    debug("Importing file %s", file.get_path());
-
-                    if (photoTable.add(file)) {
-                        PhotoID photoID = photoTable.get_id(file);
-                        ThumbnailCache.big.import(photoID, file);
-                        collectionPage.add_photo(photoID, file);
-                    } else {
+                    if (!import_file(file)) {
                         // TODO: Better error reporting
+                        error("Failed to import %s (already imported?)", file.get_path());
                     }
                 } else if (type == FileType.DIRECTORY) {
                     debug("Importing directory  %s", file.get_path());
@@ -241,6 +230,30 @@ public class AppWindow : Gtk.Window {
             // TODO: Better error reporting
             error("Error importing: %s", err.message);
         }
+    }
+    
+    private bool import_file(File file) {
+        debug("Importing file %s", file.get_path());
+
+        // load full-scale photo and convert to pixbuf
+        Gdk.Pixbuf original;
+        try {
+            original = new Gdk.Pixbuf.from_file(file.get_path());
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        Dimensions dim = Dimensions(original.get_width(), original.get_height());
+
+        if (photoTable.add(file, dim)) {
+            PhotoID photoID = photoTable.get_id(file);
+            ThumbnailCache.import(photoID, original);
+            collectionPage.add_photo(photoID, file);
+            
+            return true;
+        }
+        
+        return false;
     }
     
     public override void drag_data_received(Gdk.DragContext context, int x, int y,

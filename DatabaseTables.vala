@@ -23,11 +23,17 @@ public class DatabaseTable : Object {
     }
 }
 
-public class PhotoID {
+public struct PhotoID {
+    public static const int INVALID = -1;
+
     public int id;
     
-    public PhotoID(int id) {
+    public PhotoID(int id = INVALID) {
         this.id = id;
+    }
+    
+    public bool is_invalid() {
+        return (id == INVALID);
     }
 }
 
@@ -36,7 +42,9 @@ public class PhotoTable : DatabaseTable {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS PhotoTable ("
             + "id INTEGER PRIMARY KEY, "
-            + "filename TEXT UNIQUE NOT NULL"
+            + "filename TEXT UNIQUE NOT NULL, "
+            + "width INTEGER, "
+            + "height INTEGER"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -46,12 +54,17 @@ public class PhotoTable : DatabaseTable {
         }
     }
     
-    public bool add(File file) {
+    public bool add(File file, Dimensions dim) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("INSERT INTO PhotoTable (filename) VALUES (?)", -1, out stmt);
+        int res = db.prepare_v2("INSERT INTO PhotoTable (filename, width, height) VALUES (?, ?, ?)", 
+            -1, out stmt);
         assert(res == Sqlite.OK);
 
         res = stmt.bind_text(1, file.get_path());
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(2, dim.width);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(3, dim.height);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -84,10 +97,10 @@ public class PhotoTable : DatabaseTable {
     }
     
     public bool is_photo_stored(File file) {
-        return (get_id(file) != null);
+        return (get_id(file).is_invalid() == false);
     }
     
-    public PhotoID? get_id(File file) {
+    public PhotoID get_id(File file) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT ID FROM PhotoTable WHERE filename=?", -1, out stmt);
         assert(res == Sqlite.OK);
@@ -97,12 +110,12 @@ public class PhotoTable : DatabaseTable {
         
         res = stmt.step();
         if(res == Sqlite.ROW) {
-            return new PhotoID(stmt.column_int(0));
+            return PhotoID(stmt.column_int(0));
         }
         
         warning("get_photo_id", res);
         
-        return null;
+        return PhotoID();
     }
 
     public File[] get_photo_files() {
@@ -125,6 +138,22 @@ public class PhotoTable : DatabaseTable {
         }
         
         return photoFiles;
+    }
+    
+    public Dimensions? get_dimensions(PhotoID photoID) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT width, height FROM PhotoTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        stmt.bind_int(1, photoID.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res == Sqlite.ROW) {
+            return Dimensions(stmt.column_int(0), stmt.column_int(1));
+        }
+        
+        return null;
     }
 }
 

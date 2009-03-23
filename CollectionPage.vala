@@ -3,6 +3,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public static const int THUMB_X_PADDING = 20;
     public static const int THUMB_Y_PADDING = 20;
     public static const string BG_COLOR = "#777";
+
+    // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
+    public static const int MANUAL_STEPPING = 16;
+    public static const int SLIDER_STEPPING = 1;
     
     private PhotoTable photoTable = new PhotoTable();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
@@ -129,7 +133,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public void repack() {
         int rows = (thumbCount / cols) + 1;
         
-        debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
+        //debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
         
         layoutTable.resize(rows, cols);
 
@@ -160,8 +164,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
             newCols = 1;
         
         if (cols != newCols) {
-            debug("width:%d cols:%d", allocation.width, newCols);
-
             cols = newCols;
             repack();
         }
@@ -228,7 +230,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         if (scale == Thumbnail.MAX_SCALE)
             return scale;
         
-        scale += Thumbnail.SCALE_STEPPING;
+        scale += MANUAL_STEPPING;
         if (scale > Thumbnail.MAX_SCALE) {
             scale = Thumbnail.MAX_SCALE;
         }
@@ -239,6 +241,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         
         layoutTable.resize_children();
         
+        schedule_thumbnail_improval();
+        
         return scale;
     }
     
@@ -246,7 +250,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         if (scale == Thumbnail.MIN_SCALE)
             return scale;
         
-        scale -= Thumbnail.SCALE_STEPPING;
+        scale -= MANUAL_STEPPING;
         if (scale < Thumbnail.MIN_SCALE) {
             scale = Thumbnail.MIN_SCALE;
         }
@@ -256,6 +260,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         layoutTable.resize_children();
+        
+        schedule_thumbnail_improval();
         
         return scale;
     }
@@ -271,6 +277,31 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         layoutTable.resize_children();
+
+        schedule_thumbnail_improval();
+    }
+
+    private bool improval_scheduled = false;
+
+    private void schedule_thumbnail_improval() {
+        if (improval_scheduled == false) {
+            improval_scheduled = true;
+            Timeout.add_full(Priority.LOW, 1000, improve_thumbnail_quality);
+        }
+    }
+    
+    private bool improve_thumbnail_quality() {
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            if (thumbnail.is_exposed()) {
+                thumbnail.paint_high_quality();
+            }
+        }
+        
+        improval_scheduled = false;
+        
+        debug("improve_thumbnail_quality");
+        
+        return false;
     }
 
     private void on_viewport_realized() {
@@ -279,6 +310,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
             PhotoID photoID = photoTable.get_id(file);
             add_photo(photoID, file);
         }
+        
+        schedule_thumbnail_improval();
     }
 
     private bool on_viewport_exposed(Gtk.Viewport v, Gdk.EventExpose event) {
@@ -309,11 +342,13 @@ public class CollectionPage : Gtk.ScrolledWindow {
     }
 
     private void on_increase_size() {
-        slider.set_value((increase_thumb_size() - Thumbnail.MIN_SCALE) /  Thumbnail.SCALE_STEPPING);
+        increase_thumb_size();
+        slider.set_value(scaleToSlider(scale));
     }
 
     private void on_decrease_size() {
-        slider.set_value((decrease_thumb_size() - Thumbnail.MIN_SCALE) /  Thumbnail.SCALE_STEPPING);
+        decrease_thumb_size();
+        slider.set_value(scaleToSlider(scale));
     }
 
     private bool on_click(CollectionPage c, Gdk.EventButton event) {
@@ -411,7 +446,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         viewrect.y = (int) viewport.get_vadjustment().get_value();
         viewrect.width = viewport.allocation.width;
         viewrect.height = viewport.allocation.height;
-        
+
         Gdk.Rectangle thumbrect = Gdk.Rectangle();
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
@@ -440,11 +475,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
         assert(value >= Thumbnail.MIN_SCALE);
         assert(value <= Thumbnail.MAX_SCALE);
         
-        return (double) ((value - Thumbnail.MIN_SCALE) / Thumbnail.SCALE_STEPPING);
+        return (double) ((value - Thumbnail.MIN_SCALE) / SLIDER_STEPPING);
     }
     
     private int sliderToScale(double value) {
-        int res = ((int) (value * Thumbnail.SCALE_STEPPING)) + Thumbnail.MIN_SCALE;
+        int res = ((int) (value * SLIDER_STEPPING)) + Thumbnail.MIN_SCALE;
 
         assert(res >= Thumbnail.MIN_SCALE);
         assert(res <= Thumbnail.MAX_SCALE);

@@ -19,7 +19,16 @@ public struct Dimensions {
     }
 }
 
+    static int lastScale = 0;
+    static Dimensions lastDimensions;
+
 Dimensions get_scaled_dimensions(Dimensions original, int scale) {
+    assert(scale > 0);
+    
+    if (scale == lastScale) {
+        return lastDimensions;
+    }
+
     int diffWidth = original.width - scale;
     int diffHeight = original.height - scale;
 
@@ -51,6 +60,9 @@ Dimensions get_scaled_dimensions(Dimensions original, int scale) {
         scaled.width = (int) Math.round((double) original.width * ratio);
         scaled.height = scale;
     }
+    
+    lastScale = scale;
+    lastDimensions = scaled;
     
     return scaled;
 }
