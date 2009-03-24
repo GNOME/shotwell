@@ -25,6 +25,7 @@ public class Thumbnail : Gtk.Alignment {
     private Dimensions originalDim;
     private Dimensions scaledDim;
     private Gdk.Pixbuf cached = null;
+    private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
     
     public Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
@@ -68,6 +69,10 @@ public class Thumbnail : Gtk.Alignment {
 
     public File get_file() {
         return file;
+    }
+    
+    public PhotoID get_photo_id() {
+        return photoID;
     }
     
     public Gtk.Allocation get_exposure() {
@@ -116,8 +121,9 @@ public class Thumbnail : Gtk.Alignment {
             if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
                 cached = ThumbnailCache.fetch(photoID, newScale);
             }
-
+            
             Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
+            scaledInterp = LOW_QUALITY_INTERP;
             image.set_from_pixbuf(scaled);
         } else {
             image.requisition.width = scaledDim.width;
@@ -130,8 +136,20 @@ public class Thumbnail : Gtk.Alignment {
             return;
         }
         
-        Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, HIGH_QUALITY_INTERP);
-        image.set_from_pixbuf(scaled);
+        if (scaledInterp == HIGH_QUALITY_INTERP) {
+            return;
+        }
+        
+        // only go through the scaling if indeed the image is going to be scaled ... although
+        // scale_simple() will probably just return the pixbuf if it sees the stupid case, Gtk.Image
+        // does not, and will fire off resized events when the new image (which is not really new)
+        // is added
+        if ((cached.get_width() != scaledDim.width) || (cached.get_height() != scaledDim.height)) {
+            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, HIGH_QUALITY_INTERP);
+            image.set_from_pixbuf(scaled);
+        }
+
+        scaledInterp = HIGH_QUALITY_INTERP;
     }
     
     public void exposed() {
@@ -140,6 +158,7 @@ public class Thumbnail : Gtk.Alignment {
 
         cached = ThumbnailCache.fetch(photoID, scale);
         Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
+        scaledInterp = LOW_QUALITY_INTERP;
         image.set_from_pixbuf(scaled);
         isExposed = true;
     }

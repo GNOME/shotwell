@@ -23,9 +23,9 @@ public class ThumbnailCache : Object {
     public static const int MEDIUM_SCALE = 128;
     public static const int SMALL_SCALE = 64;
 
-    public static ThumbnailCache big = null;
-    public static ThumbnailCache medium = null;
-    public static ThumbnailCache small = null;
+    private static ThumbnailCache big = null;
+    private static ThumbnailCache medium = null;
+    private static ThumbnailCache small = null;
     
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {

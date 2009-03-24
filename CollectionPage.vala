@@ -7,6 +7,9 @@ public class CollectionPage : Gtk.ScrolledWindow {
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public static const int MANUAL_STEPPING = 16;
     public static const int SLIDER_STEPPING = 1;
+
+    private static const int IMPROVAL_PRIORITY = Priority.LOW;
+    private static const int IMPROVAL_DELAY_MS = 500;
     
     private PhotoTable photoTable = new PhotoTable();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
@@ -15,12 +18,14 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gee.ArrayList<Thumbnail> thumbnailList = new Gee.ArrayList<Thumbnail>();
+    private Gee.HashSet<Thumbnail> selectedList = new Gee.HashSet<Thumbnail>();
     private int currentX = 0;
     private int currentY = 0;
     private int cols = 0;
     private int thumbCount = 0;
     private int scale = Thumbnail.DEFAULT_SCALE;
-    
+    private bool improval_scheduled = false;
+
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "File", null, "_File", null, null, null },
@@ -98,6 +103,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // freeing up memory)
         viewport.expose_event += on_viewport_exposed;
         
+        // don't want to schedule thumbnail improvement in on_viewport_exposed because the redraws
+        // will signal another expose event ... this schedules thumbnail improvement whenever the
+        // window is scrolled
+        get_hadjustment().value_changed += schedule_thumbnail_improval;
+        get_vadjustment().value_changed += schedule_thumbnail_improval;
+        
         add(viewport);
         
         button_press_event += on_click;
@@ -118,12 +129,17 @@ public class CollectionPage : Gtk.ScrolledWindow {
         thumbCount++;
         
         attach_thumbnail(thumbnail);
-
-        layoutTable.show_all();
+        
+        thumbnail.show();
     }
     
     public void remove_photo(Thumbnail thumbnail) {
         thumbnailList.remove(thumbnail);
+        selectedList.remove(thumbnail);
+
+        ThumbnailCache.remove(thumbnail.get_photo_id());
+        photoTable.remove(thumbnail.get_photo_id());
+
         layoutTable.remove(thumbnail);
         
         assert(thumbCount > 0);
@@ -133,7 +149,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public void repack() {
         int rows = (thumbCount / cols) + 1;
         
-        //debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
+        debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
+        
+        viewport.size_allocate -= on_viewport_resize;
+        viewport.realize -= on_viewport_realized;
+        viewport.expose_event -= on_viewport_exposed;
         
         layoutTable.resize(rows, cols);
 
@@ -144,6 +164,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
             layoutTable.remove(thumbnail);
             attach_thumbnail(thumbnail);
         }
+
+        viewport.size_allocate += on_viewport_resize;
+        viewport.realize += on_viewport_realized;
+        viewport.expose_event += on_viewport_exposed;
+        
+        show_all();
     }
     
     private void attach_thumbnail(Thumbnail thumbnail) {
@@ -196,34 +222,54 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     public void select_all() {
         foreach (Thumbnail thumbnail in thumbnailList) {
+            selectedList.add(thumbnail);
             thumbnail.select();
         }
     }
     
     public void unselect_all() {
-        foreach (Thumbnail thumbnail in thumbnailList) {
+        foreach (Thumbnail thumbnail in selectedList) {
+            assert(thumbnail.is_selected());
             thumbnail.unselect();
         }
+        
+        selectedList = new Gee.HashSet<Thumbnail>();
     }
     
     public Thumbnail[] get_selected() {
-        Thumbnail[] thumbnails = new Thumbnail[0];
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            if (thumbnail.is_selected())
-                thumbnails += thumbnail;
+        Thumbnail[] thumbnails = new Thumbnail[selectedList.size];
+        
+        int ctr = 0;
+        foreach (Thumbnail thumbnail in selectedList) {
+            assert(thumbnail.is_selected());
+            thumbnails[ctr++] = thumbnail;
         }
         
         return thumbnails;
     }
     
-    public int get_selected_count() {
-        int count = 0;
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            if (thumbnail.is_selected())
-                count++;
+    public void select(Thumbnail thumbnail) {
+        thumbnail.select();
+        selectedList.add(thumbnail);
+    }
+    
+    public void unselect(Thumbnail thumbnail) {
+        thumbnail.unselect();
+        selectedList.remove(thumbnail);
+    }
+    
+    public void toggle_select(Thumbnail thumbnail) {
+        if (thumbnail.toggle_select()) {
+            // now selected
+            selectedList.add(thumbnail);
+        } else {
+            // now unselected
+            selectedList.remove(thumbnail);
         }
-        
-        return count;
+    }
+
+    public int get_selected_count() {
+        return selectedList.size;
     }
     
     public int increase_thumb_size() {
@@ -281,12 +327,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
         schedule_thumbnail_improval();
     }
 
-    private bool improval_scheduled = false;
-
     private void schedule_thumbnail_improval() {
         if (improval_scheduled == false) {
             improval_scheduled = true;
-            Timeout.add_full(Priority.LOW, 1000, improve_thumbnail_quality);
+            Timeout.add_full(IMPROVAL_PRIORITY, IMPROVAL_DELAY_MS, improve_thumbnail_quality);
         }
     }
     
@@ -311,6 +355,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
             add_photo(photoID, file);
         }
         
+        show_all();
         schedule_thumbnail_improval();
     }
 
@@ -381,7 +426,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
                 case Gdk.ModifierType.CONTROL_MASK: {
                     // with only Ctrl pressed, multiple selections are possible ... chosen item
                     // is toggled
-                    thumbnail.toggle_select();
+                    toggle_select(thumbnail);
                 } break;
                 
                 case Gdk.ModifierType.SHIFT_MASK: {
@@ -395,7 +440,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
                 default: {
                     // a "raw" click deselects all thumbnails and selects the single chosen
                     unselect_all();
-                    thumbnail.select();
+                    select(thumbnail);
                 } break;
             }
         } else {
@@ -416,7 +461,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         if (thumbnail != null) {
             // this counts as a select
             unselect_all();
-            thumbnail.select();
+            select(thumbnail);
 
             Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionContextMenu");
             contextMenu.popup(null, null, null, event.button, event.time);
@@ -430,11 +475,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
     }
     
     private void on_remove() {
+        // get a full list of the selected thumbnails, then iterate over that, as you can't remove
+        // from a list you're iterating over
         Thumbnail[] thumbnails = get_selected();
         foreach (Thumbnail thumbnail in thumbnails) {
             remove_photo(thumbnail);
-            ThumbnailCache.big.remove(photoTable.get_id(thumbnail.get_file()));
-            photoTable.remove(thumbnail.get_file());
         }
         
         repack();
@@ -450,8 +495,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         Gdk.Rectangle thumbrect = Gdk.Rectangle();
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
-        int exposedCount = 0;
-        int unexposedCount = 0;
         foreach (Thumbnail thumbnail in thumbnailList) {
             Gtk.Allocation alloc = thumbnail.get_exposure();
             thumbrect.x = alloc.x;
@@ -461,14 +504,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
             
             if (viewrect.intersect(thumbrect, bitbucket)) {
                 thumbnail.exposed();
-                exposedCount++;
             } else {
                 thumbnail.unexposed();
-                unexposedCount++;
             }
         }
-        
-        //message("%d exposed, %d unexposed", exposedCount, unexposedCount);
     }
 
     private double scaleToSlider(int value) {

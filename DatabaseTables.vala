@@ -78,7 +78,7 @@ public class PhotoTable : DatabaseTable {
         return true;
     }
     
-    public bool remove(File file) {
+    public bool remove_by_file(File file) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("DELETE FROM PhotoTable WHERE filename=?", -1, out stmt);
         assert(res == Sqlite.OK);
@@ -88,7 +88,25 @@ public class PhotoTable : DatabaseTable {
         
         res = stmt.step();
         if (res != Sqlite.DONE) {
-            warning("remove_photo", res);
+            warning("remove", res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public bool remove(PhotoID photoID) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("DELETE FROM PhotoTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+
+        res = stmt.bind_int(1, photoID.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            warning("remove", res);
             
             return false;
         }
