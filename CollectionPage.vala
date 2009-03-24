@@ -146,10 +146,14 @@ public class CollectionPage : Gtk.ScrolledWindow {
         thumbCount--;
     }
     
+    private Timer repackTimer = new Timer();
+    
     public void repack() {
         int rows = (thumbCount / cols) + 1;
         
         debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
+        
+        repackTimer.start();
         
         viewport.size_allocate -= on_viewport_resize;
         viewport.realize -= on_viewport_realized;
@@ -168,8 +172,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
         viewport.size_allocate += on_viewport_resize;
         viewport.realize += on_viewport_realized;
         viewport.expose_event += on_viewport_exposed;
+
+        debug("repack: %lfms", repackTimer.elapsed());
         
         show_all();
+        schedule_thumbnail_improval();
     }
     
     private void attach_thumbnail(Thumbnail thumbnail) {
