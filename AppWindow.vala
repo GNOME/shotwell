@@ -263,9 +263,11 @@ public class AppWindow : Gtk.Window {
         Gtk.drag_finish(context, true, false, time);
         
         // import
+        collectionPage.begin_adding();
         foreach (string uri in uris) {
             import(File.new_for_uri(uri));
         }
+        collectionPage.end_adding();
     }
 }
 

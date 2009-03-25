@@ -10,7 +10,7 @@ public class Thumbnail : Gtk.Alignment {
     public static const int MAX_SCALE = 360;
     public static const int DEFAULT_SCALE = 128;
     public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
-    public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.HYPER;
+    public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
     // particular view, all widgets used here should be NOWINDOW widgets.
@@ -41,11 +41,12 @@ public class Thumbnail : Gtk.Alignment {
         // not present, the widget will collapse, and so the layout manager won't account for it
         // properly when it's off the viewport.  The solution is to manually set the widget's
         // requisition size, even when it contains no pixbuf
-        image.requisition.width = scaledDim.width;
-        image.requisition.height = scaledDim.height;
+        image.set_size_request(scaledDim.width, scaledDim.height);
         
         title = new Gtk.Label(file.get_basename());
         title.set_use_underline(false);
+        title.set_justify(Gtk.Justification.LEFT);
+        title.set_alignment(0, 0);
         title.modify_fg(Gtk.StateType.NORMAL, parse_color(TEXT_COLOR));
         
         Gtk.VBox vbox = new Gtk.VBox(false, 0);
@@ -61,12 +62,6 @@ public class Thumbnail : Gtk.Alignment {
         add(frame);
     }
 
-    public static int get_max_width(int scale) {
-        // TODO: Be more precise about this ... the magic 32 at the end is merely a dart on the board
-        // for accounting for extra pixels used by the frame
-        return scale + (FRAME_PADDING * 2) + 32;
-    }
-
     public File get_file() {
         return file;
     }
@@ -75,10 +70,6 @@ public class Thumbnail : Gtk.Alignment {
         return photoID;
     }
     
-    public Gtk.Allocation get_exposure() {
-        return image.allocation;
-    }
-
     public void select() {
         selected = true;
 
@@ -108,7 +99,8 @@ public class Thumbnail : Gtk.Alignment {
     }
 
     public void resize(int newScale) {
-        assert((newScale >= MIN_SCALE) && (newScale <= MAX_SCALE));
+        assert(newScale >= MIN_SCALE);
+        assert(newScale <= MAX_SCALE);
         
         if (scale == newScale)
             return;
@@ -118,6 +110,8 @@ public class Thumbnail : Gtk.Alignment {
         scaledDim = get_scaled_dimensions(originalDim, scale);
         
         if (isExposed) {
+            assert(cached != null);
+
             if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
                 cached = ThumbnailCache.fetch(photoID, newScale);
             }
@@ -125,20 +119,18 @@ public class Thumbnail : Gtk.Alignment {
             Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
             scaledInterp = LOW_QUALITY_INTERP;
             image.set_from_pixbuf(scaled);
-        } else {
-            image.requisition.width = scaledDim.width;
-            image.requisition.height = scaledDim.height;
         }
+
+        // set the image widget's size regardless of the presence of an image
+        image.set_size_request(scaledDim.width, scaledDim.height);
     }
     
     public void paint_high_quality() {
-        if (cached == null) {
+        if (cached == null)
             return;
-        }
         
-        if (scaledInterp == HIGH_QUALITY_INTERP) {
+        if (scaledInterp == HIGH_QUALITY_INTERP)
             return;
-        }
         
         // only go through the scaling if indeed the image is going to be scaled ... although
         // scale_simple() will probably just return the pixbuf if it sees the stupid case, Gtk.Image
@@ -160,6 +152,8 @@ public class Thumbnail : Gtk.Alignment {
         Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
         scaledInterp = LOW_QUALITY_INTERP;
         image.set_from_pixbuf(scaled);
+        image.set_size_request(scaledDim.width, scaledDim.height);
+
         isExposed = true;
     }
     
@@ -169,8 +163,8 @@ public class Thumbnail : Gtk.Alignment {
 
         cached = null;
         image.clear();
-        image.requisition.width = scaledDim.width;
-        image.requisition.height = scaledDim.height;
+        image.set_size_request(scaledDim.width, scaledDim.height);
+
         isExposed = false;
     }
     

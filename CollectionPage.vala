@@ -12,17 +12,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private static const int IMPROVAL_DELAY_MS = 500;
     
     private PhotoTable photoTable = new PhotoTable();
-    private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    private Gtk.Table layoutTable = new Gtk.Table(0, 0, false);
+    private CollectionLayout layout = new CollectionLayout();
     private Gtk.MenuBar menubar = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gee.ArrayList<Thumbnail> thumbnailList = new Gee.ArrayList<Thumbnail>();
     private Gee.HashSet<Thumbnail> selectedList = new Gee.HashSet<Thumbnail>();
-    private int currentX = 0;
-    private int currentY = 0;
-    private int cols = 0;
-    private int thumbCount = 0;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
 
@@ -79,39 +74,30 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        // set table column and row padding ... this is done globally rather than per-thumbnail
-        layoutTable.set_col_spacings(THUMB_X_PADDING);
-        layoutTable.set_row_spacings(THUMB_Y_PADDING);
+        // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
+        // may be exposed)
+        size_allocate += schedule_thumbnail_improval;
         
-        // need to manually build viewport to set its background color
-        viewport.add(layoutTable);
-        viewport.modify_bg(Gtk.StateType.NORMAL, parse_color(BG_COLOR));
-
-        // notice that this is capturing the viewport's resize, not the scrolled window's,
-        // as that's what interesting when laying out the photos
-        viewport.size_allocate += on_viewport_resize;
-
-        // This signal handler is to load the collection page with photos when its viewport is
-        // realized ... this is because if the collection page is loaded during construction, the
-        // viewport does not respond properly to the layout table's resizing and it winds up tagging
-        // extra space to the tail of the view.  This allows us to wait until the viewport is realized
-        // and responds properly to resizing
-        viewport.realize += on_viewport_realized;
-
-        // when the viewport is exposed, the thumbnails are informed when they are exposed (and
-        // should be showing their image) and when they're unexposed (so they can destroy the image,
-        // freeing up memory)
-        viewport.expose_event += on_viewport_exposed;
-        
-        // don't want to schedule thumbnail improvement in on_viewport_exposed because the redraws
-        // will signal another expose event ... this schedules thumbnail improvement whenever the
-        // window is scrolled
+        // this schedules thumbnail improvement whenever the window is scrolled (and new
+        // thumbnails may be exposed)
         get_hadjustment().value_changed += schedule_thumbnail_improval;
         get_vadjustment().value_changed += schedule_thumbnail_improval;
         
-        add(viewport);
+        add(layout);
         
         button_press_event += on_click;
+        
+        File[] photoFiles = photoTable.get_photo_files();
+        foreach (File file in photoFiles) {
+            PhotoID photoID = photoTable.get_id(file);
+            add_photo(photoID, file);
+        }
+        
+        layout.refresh();
+        
+        schedule_thumbnail_improval();
+
+        show_all();
     }
     
     public Gtk.Toolbar get_toolbar() {
@@ -122,92 +108,31 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return menubar;
     }
     
+    public void begin_adding() {
+    }
+    
     public void add_photo(PhotoID photoID, File file) {
         Thumbnail thumbnail = new Thumbnail(photoID, file, scale);
         
         thumbnailList.add(thumbnail);
-        thumbCount++;
         
-        attach_thumbnail(thumbnail);
-        
-        thumbnail.show();
+        layout.append(thumbnail);
     }
     
-    public void remove_photo(Thumbnail thumbnail) {
-        thumbnailList.remove(thumbnail);
-        selectedList.remove(thumbnail);
-
-        ThumbnailCache.remove(thumbnail.get_photo_id());
-        photoTable.remove(thumbnail.get_photo_id());
-
-        layoutTable.remove(thumbnail);
-        
-        assert(thumbCount > 0);
-        thumbCount--;
+    public void end_adding() {
+        layout.refresh();
     }
     
-    private Timer repackTimer = new Timer();
-    
-    public void repack() {
-        int rows = (thumbCount / cols) + 1;
-        
-        debug("repack() scale=%d thumbCount=%d rows=%d cols=%d", scale, thumbCount, rows, cols);
-        
-        repackTimer.start();
-        
-        viewport.size_allocate -= on_viewport_resize;
-        viewport.realize -= on_viewport_realized;
-        viewport.expose_event -= on_viewport_exposed;
-        
-        layoutTable.resize(rows, cols);
-
-        currentX = 0;
-        currentY = 0;
-
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            layoutTable.remove(thumbnail);
-            attach_thumbnail(thumbnail);
-        }
-
-        viewport.size_allocate += on_viewport_resize;
-        viewport.realize += on_viewport_realized;
-        viewport.expose_event += on_viewport_exposed;
-
-        debug("repack: %lfms", repackTimer.elapsed());
-        
-        show_all();
-        schedule_thumbnail_improval();
+    public int get_count() {
+        return thumbnailList.size;
     }
-    
-    private void attach_thumbnail(Thumbnail thumbnail) {
-        layoutTable.attach(thumbnail, currentX, currentX + 1, currentY, currentY + 1,
-            Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.EXPAND,
-            Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL,
-            0, 0);
 
-        if(++currentX >= cols) {
-            currentX = 0;
-            currentY++;
-        }
-    }
-    
-    private void on_viewport_resize(Gtk.Viewport v, Gdk.Rectangle allocation) {
-        int newCols = allocation.width / (Thumbnail.get_max_width(scale) + (THUMB_X_PADDING * 2));
-        if (newCols < 1)
-            newCols = 1;
-        
-        if (cols != newCols) {
-            cols = newCols;
-            repack();
-        }
-    }
-    
     public Thumbnail? get_thumbnail_at(double xd, double yd) {
         int x = (int) xd;
         int y = (int) yd;
 
-        int xadj = (int) viewport.get_hadjustment().get_value();
-        int yadj = (int) viewport.get_vadjustment().get_value();
+        int xadj = (int) layout.get_hadjustment().get_value();
+        int yadj = (int) layout.get_vadjustment().get_value();
         
         x += xadj;
         y += yadj;
@@ -221,10 +146,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         return null;
-    }
-    
-    public int get_count() {
-        return thumbCount;
     }
     
     public void select_all() {
@@ -288,13 +209,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
             scale = Thumbnail.MAX_SCALE;
         }
         
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            thumbnail.resize(scale);
-        }
-        
-        layoutTable.resize_children();
-        
-        schedule_thumbnail_improval();
+        set_thumb_size(scale);
         
         return scale;
     }
@@ -308,14 +223,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
             scale = Thumbnail.MIN_SCALE;
         }
         
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            thumbnail.resize(scale);
-        }
-        
-        layoutTable.resize_children();
-        
-        schedule_thumbnail_improval();
-        
+        set_thumb_size(scale);
+
         return scale;
     }
     
@@ -329,19 +238,30 @@ public class CollectionPage : Gtk.ScrolledWindow {
             thumbnail.resize(scale);
         }
         
-        layoutTable.resize_children();
-
+        layout.refresh();
+        
         schedule_thumbnail_improval();
     }
+    
+    private bool reschedule_improval = false;
 
     private void schedule_thumbnail_improval() {
         if (improval_scheduled == false) {
             improval_scheduled = true;
             Timeout.add_full(IMPROVAL_PRIORITY, IMPROVAL_DELAY_MS, improve_thumbnail_quality);
+        } else {
+            reschedule_improval = true;
         }
     }
     
     private bool improve_thumbnail_quality() {
+        if (reschedule_improval) {
+            debug("rescheduled improval");
+            reschedule_improval = false;
+            
+            return true;
+        }
+
         foreach (Thumbnail thumbnail in thumbnailList) {
             if (thumbnail.is_exposed()) {
                 thumbnail.paint_high_quality();
@@ -355,26 +275,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return false;
     }
 
-    private void on_viewport_realized() {
-        File[] photoFiles = photoTable.get_photo_files();
-        foreach (File file in photoFiles) {
-            PhotoID photoID = photoTable.get_id(file);
-            add_photo(photoID, file);
-        }
-        
-        show_all();
-        schedule_thumbnail_improval();
-    }
-
-    private bool on_viewport_exposed(Gtk.Viewport v, Gdk.EventExpose event) {
-        // since expose events can stack up, wait until the last one to do the full
-        // search
-        if (event.count == 0)
-            check_exposure();
-
-        return false;
-    }
-    
     private void on_about() {
         AppWindow.get_main_window().about_box();
     }
@@ -486,37 +386,18 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // from a list you're iterating over
         Thumbnail[] thumbnails = get_selected();
         foreach (Thumbnail thumbnail in thumbnails) {
-            remove_photo(thumbnail);
+            thumbnailList.remove(thumbnail);
+            selectedList.remove(thumbnail);
+
+            ThumbnailCache.remove(thumbnail.get_photo_id());
+            photoTable.remove(thumbnail.get_photo_id());
+            
+            layout.remove_thumbnail(thumbnail);
         }
         
-        repack();
+        layout.refresh();
     }
     
-    private void check_exposure() {
-        Gdk.Rectangle viewrect = Gdk.Rectangle();
-        viewrect.x = (int) viewport.get_hadjustment().get_value();
-        viewrect.y = (int) viewport.get_vadjustment().get_value();
-        viewrect.width = viewport.allocation.width;
-        viewrect.height = viewport.allocation.height;
-
-        Gdk.Rectangle thumbrect = Gdk.Rectangle();
-        Gdk.Rectangle bitbucket = Gdk.Rectangle();
-
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            Gtk.Allocation alloc = thumbnail.get_exposure();
-            thumbrect.x = alloc.x;
-            thumbrect.y = alloc.y;
-            thumbrect.width = alloc.width;
-            thumbrect.height = alloc.height;
-            
-            if (viewrect.intersect(thumbrect, bitbucket)) {
-                thumbnail.exposed();
-            } else {
-                thumbnail.unexposed();
-            }
-        }
-    }
-
     private double scaleToSlider(int value) {
         assert(value >= Thumbnail.MIN_SCALE);
         assert(value <= Thumbnail.MAX_SCALE);

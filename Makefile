@@ -11,7 +11,8 @@ SRC_FILES = \
 	Thumbnail.vala \
 	DatabaseTables.vala \
 	ThumbnailCache.vala \
-	image_util.vala
+	image_util.vala \
+	CollectionLayout.vala
 
 PKGS = \
 	gtk+-2.0 \
