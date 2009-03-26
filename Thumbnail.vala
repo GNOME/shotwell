@@ -21,7 +21,6 @@ public class Thumbnail : Gtk.Alignment {
     private Gtk.Label title = null;
     private Gtk.Frame frame = null;
     private bool selected = false;
-    private bool isExposed = false;
     private Dimensions originalDim;
     private Dimensions scaledDim;
     private Gdk.Pixbuf cached = null;
@@ -110,10 +109,9 @@ public class Thumbnail : Gtk.Alignment {
         int oldScale = scale;
         scale = newScale;
         scaledDim = get_scaled_dimensions(originalDim, scale);
-        
-        if (isExposed) {
-            assert(cached != null);
 
+        // only fetch and scale if exposed        
+        if (cached != null) {
             if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
                 cached = ThumbnailCache.fetch(photoID, newScale);
             }
@@ -147,7 +145,7 @@ public class Thumbnail : Gtk.Alignment {
     }
     
     public void exposed() {
-        if (isExposed)
+        if (cached != null)
             return;
 
         cached = ThumbnailCache.fetch(photoID, scale);
@@ -155,23 +153,19 @@ public class Thumbnail : Gtk.Alignment {
         scaledInterp = LOW_QUALITY_INTERP;
         image.set_from_pixbuf(scaled);
         image.set_size_request(scaledDim.width, scaledDim.height);
-
-        isExposed = true;
     }
     
     public void unexposed() {
-        if (!isExposed)
+        if (cached == null)
             return;
 
         cached = null;
         image.clear();
         image.set_size_request(scaledDim.width, scaledDim.height);
-
-        isExposed = false;
     }
     
     public bool is_exposed() {
-        return isExposed;
+        return (cached != null);
     }
 }
 

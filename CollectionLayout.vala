@@ -1,13 +1,13 @@
 
 public class CollectionLayout : Gtk.Layout {
-    public static const int TOP_PADDING = 32;
-    public static const int BOTTOM_PADDING = 32;
-    public static const int ROW_GUTTER_PADDING = 32;
+    public static const int TOP_PADDING = 16;
+    public static const int BOTTOM_PADDING = 16;
+    public static const int ROW_GUTTER_PADDING = 24;
 
     // the following are minimums, as the pads and gutters expand to fill up the window width
-    public static const int LEFT_PADDING = 32;
-    public static const int RIGHT_PADDING = 32;
-    public static const int COLUMN_GUTTER_PADDING = 32;
+    public static const int LEFT_PADDING = 16;
+    public static const int RIGHT_PADDING = 16;
+    public static const int COLUMN_GUTTER_PADDING = 24;
     
     private Gee.ArrayList<Thumbnail> thumbnails = new Gee.ArrayList<Thumbnail>();
 
@@ -85,6 +85,8 @@ public class CollectionLayout : Gtk.Layout {
             maxCols = col;
         }
         
+        assert(maxCols > 0);
+        
         // Step 2: Now that the number of columns is known, find the maximum height for each row
         // and the maximum width for each column
         int row = 0;
@@ -93,40 +95,61 @@ public class CollectionLayout : Gtk.Layout {
         col = 0;
         int[] columnWidths = new int[maxCols];
         int[] rowHeights = new int[(thumbnails.size / maxCols) + 1];
+        int gutter = 0;
         
-        foreach (Thumbnail thumbnail in thumbnails) {
-            Gtk.Requisition req = thumbnail.requisition;
-            
-            if (req.height > tallest)
-                tallest = req.height;
-            
-            // store largest thumb size of each column as well as track the total width of the
-            // layout (which is the sum of the width of each column)
-            if (columnWidths[col] < req.width) {
-                totalWidth -= columnWidths[col];
-                columnWidths[col] = req.width;
-                totalWidth += req.width;
-            }
+        for (;;) {
+            foreach (Thumbnail thumbnail in thumbnails) {
+                Gtk.Requisition req = thumbnail.requisition;
+                
+                if (req.height > tallest)
+                    tallest = req.height;
+                
+                // store largest thumb size of each column as well as track the total width of the
+                // layout (which is the sum of the width of each column)
+                if (columnWidths[col] < req.width) {
+                    totalWidth -= columnWidths[col];
+                    columnWidths[col] = req.width;
+                    totalWidth += req.width;
+                }
 
-            if (++col >= maxCols) {
+                if (++col >= maxCols) {
+                    col = 0;
+                    rowHeights[row++] = tallest;
+                    tallest = 0;
+                }
+            }
+            
+            // account for final dangling row
+            if (col != 0)
+                rowHeights[row] = tallest;
+            
+            // Step 3: Calculate the gutter between the thumbnails as being equidistant of the
+            // remaining space (adding one gutter to account for the right-hand one)
+            gutter = (allocation.width - totalWidth) / (maxCols + 1);
+            
+            // if only one column, gutter size could be less than minimums
+            if (maxCols == 1)
+                break;
+
+            // have to reassemble if the gutter is too small ... this happens because Step One
+            // takes a guess at the best column count, but when the max. widths of the columns are
+            // added up, they could overflow
+            if ((gutter < LEFT_PADDING) || (gutter < RIGHT_PADDING) || (gutter < COLUMN_GUTTER_PADDING)) {
+                maxCols--;
                 col = 0;
-                rowHeights[row++] = tallest;
+                row = 0;
                 tallest = 0;
+                totalWidth = 0;
+                columnWidths = new int[maxCols];
+                rowHeights = new int[(thumbnails.size / maxCols) + 1];
+                debug("refresh(): readjusting columns: maxCols=%d", maxCols);
+            } else {
+                break;
             }
         }
-        
-        // account for final dangling row
-        if (col != 0)
-            rowHeights[row] = tallest;
 
-        // Step 3: Calculate the gutter between the thumbnails as being equidistant of the
-        // remaining space (adding one gutter to account for the right-hand one)
-        int gutter = (allocation.width - totalWidth) / (maxCols + 1);
-
-        /*
-        debug("refresh() w:%d widestRow:%d totalWidth:%d cols:%d gutter:%d", 
-            allocation.width, widestRow, totalWidth, maxCols, gutter);
-        */
+        debug("refresh(): width:%d totalWidth:%d maxCols:%d gutter:%d", allocation.width, totalWidth, 
+            maxCols, gutter);
 
         // Step 4: Lay out the thumbnails in the space using all the information gathered
         x = gutter;
@@ -137,14 +160,6 @@ public class CollectionLayout : Gtk.Layout {
         foreach (Thumbnail thumbnail in thumbnails) {
             Gtk.Requisition req = thumbnail.requisition;
 
-            // carriage return
-            if (col >= maxCols) {
-                x = gutter;
-                y += rowHeights[row] + ROW_GUTTER_PADDING;
-                col = 0;
-                row++;
-            }
-            
             // this centers the thumbnail in the column
             int xpadding = (columnWidths[col] - req.width) / 2;
             assert(xpadding >= 0);
@@ -161,7 +176,14 @@ public class CollectionLayout : Gtk.Layout {
             }
 
             x += columnWidths[col] + gutter;
-            col++;
+
+            // carriage return
+            if (++col >= maxCols) {
+                x = gutter;
+                y += rowHeights[row] + ROW_GUTTER_PADDING;
+                col = 0;
+                row++;
+            }
         }
         
         // Step 5: Define the total size of the page as the size of the allocated width and
