@@ -127,27 +127,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return thumbnailList.size;
     }
 
-    public Thumbnail? get_thumbnail_at(double xd, double yd) {
-        int x = (int) xd;
-        int y = (int) yd;
-
-        int xadj = (int) layout.get_hadjustment().get_value();
-        int yadj = (int) layout.get_vadjustment().get_value();
-        
-        x += xadj;
-        y += yadj;
-        
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            Gtk.Allocation alloc = thumbnail.allocation;
-            if ((x >= alloc.x) && (y >= alloc.y) && (x <= (alloc.x + alloc.width))
-                && (y <= (alloc.y + alloc.height))) {
-                return thumbnail;
-            }
-        }
-        
-        return null;
-    }
-    
     public void select_all() {
         foreach (Thumbnail thumbnail in thumbnailList) {
             selectedList.add(thumbnail);
@@ -325,7 +304,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // mask out the modifiers we're interested in
         uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
         
-        Thumbnail thumbnail = get_thumbnail_at(event.x, event.y);
+        Thumbnail thumbnail = layout.get_thumbnail_at(event.x, event.y);
         if (thumbnail != null) {
             message("clicked on %s", thumbnail.get_file().get_basename());
             
@@ -355,7 +334,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
             unselect_all();
         }
 
-        return false;
+        return true;
     }
     
     private bool on_right_click(Gdk.EventButton event) {
@@ -364,20 +343,19 @@ public class CollectionPage : Gtk.ScrolledWindow {
             return false;
         }
         
-        Thumbnail thumbnail = get_thumbnail_at(event.x, event.y);
+        Thumbnail thumbnail = layout.get_thumbnail_at(event.x, event.y);
         if (thumbnail != null) {
             // this counts as a select
-            unselect_all();
             select(thumbnail);
+        }
 
+        if (get_selected_count() > 0) {
             Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionContextMenu");
             contextMenu.popup(null, null, null, event.button, event.time);
             
             return true;
-        } else {
-            // clicked on a "dead" area
         }
-        
+            
         return false;
     }
     

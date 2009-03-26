@@ -55,7 +55,7 @@ public class Thumbnail : Gtk.Alignment {
         vbox.pack_end(title, false, false, LABEL_PADDING);
         
         frame = new Gtk.Frame(null);
-        frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT);
+        frame.set_shadow_type(Gtk.ShadowType.NONE);
         frame.modify_bg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
         frame.add(vbox);
 
@@ -73,6 +73,7 @@ public class Thumbnail : Gtk.Alignment {
     public void select() {
         selected = true;
 
+        frame.set_shadow_type(Gtk.ShadowType.OUT);
         frame.modify_bg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
         title.modify_fg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
     }
@@ -80,6 +81,7 @@ public class Thumbnail : Gtk.Alignment {
     public void unselect() {
         selected = false;
 
+        frame.set_shadow_type(Gtk.ShadowType.NONE);
         frame.modify_bg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
         title.modify_fg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
     }

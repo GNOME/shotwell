@@ -253,7 +253,9 @@ public class AppWindow : Gtk.Window {
             return true;
         }
         
-        return false;
+        debug("Not importing %s (already imported)", file.get_path());
+        
+        return true;
     }
     
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
