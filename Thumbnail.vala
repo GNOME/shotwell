@@ -45,7 +45,8 @@ public class Thumbnail : Gtk.Alignment {
         // requisition size, even when it contains no pixbuf
         image.set_size_request(scaledDim.width, scaledDim.height);
         
-        title = new Gtk.Label(build_unexposed_title());
+        // TODO: Is EXIF information cached in memory?
+        title = new Gtk.Label(build_exposed_title());
         title.set_use_underline(false);
         title.set_justify(Gtk.Justification.LEFT);
         title.set_alignment(0, 0);
@@ -92,10 +93,6 @@ public class Thumbnail : Gtk.Alignment {
             (datetime != null) ? datetime : "",
             (dimFound) ? "%d x %d".printf(dim.width, dim.height) : "",
             fileSize);
-    }
-    
-    private string build_unexposed_title() {
-        return "%s\n\n\n".printf(file.get_basename());
     }
     
     public void select() {
@@ -179,7 +176,6 @@ public class Thumbnail : Gtk.Alignment {
         if (cached != null)
             return;
 
-        title.set_text(build_exposed_title());
         cached = ThumbnailCache.fetch(photoID, scale);
         cached = rotate_to_exif(cached, exif.get_orientation());
         Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
@@ -192,7 +188,6 @@ public class Thumbnail : Gtk.Alignment {
         if (cached == null)
             return;
 
-        title.set_text(build_unexposed_title());
         cached = null;
         image.clear();
         image.set_size_request(scaledDim.width, scaledDim.height);
