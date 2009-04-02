@@ -24,5 +24,15 @@
         <menuitem name="Remove" action="Remove" />
     </popup>
 
+    <menubar name="PhotoMenuBar">
+        <menu name="FileMenu" action="File">
+            <menuitem name="FileQuit" action="Quit" />
+        </menu>
+        
+        <menu name="HelpMenu" action="Help">
+            <menuitem name="HelpAbout" action="About" />
+        </menu>
+    </menubar>
+    
 </ui>
 

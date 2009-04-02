@@ -1,6 +1,6 @@
 
 public class AppWindow : Gtk.Window {
-    public static const string TITLE = "Photo Organizer";
+    public static const string TITLE = "Shotwell";
     public static const string VERSION = "0.0.1";
     public static const string DATA_DIR = ".photo";
 
@@ -81,9 +81,15 @@ public class AppWindow : Gtk.Window {
         
         return subdir;
     }
+
+    private Gtk.Box layout = null;
+    private Gtk.TreeStore pageTreeStore = null;
+    private Gtk.TreeView pageTreeView = null;
     
     private CollectionPage collectionPage = null;
-    private PhotoTable photoTable = null;
+    private PhotoPage photoPage = null;
+    
+    private PhotoTable photoTable = new PhotoTable();
     
     construct {
         // set up display
@@ -92,8 +98,8 @@ public class AppWindow : Gtk.Window {
 
         destroy += Gtk.main_quit;
 
-        Gtk.TreeStore pageTreeStore = new Gtk.TreeStore(1, typeof(string));
-        Gtk.TreeView pageTreeView = new Gtk.TreeView.with_model(pageTreeStore);
+        pageTreeStore = new Gtk.TreeStore(1, typeof(string));
+        pageTreeView = new Gtk.TreeView.with_model(pageTreeStore);
         pageTreeView.modify_bg(Gtk.StateType.NORMAL, parse_color(CollectionPage.BG_COLOR));
         
         var text = new Gtk.CellRendererText();
@@ -142,25 +148,10 @@ public class AppWindow : Gtk.Window {
             mainWindow = this;
         }
         
-        photoTable = new PhotoTable();
         collectionPage = new CollectionPage();
-        
-        // layout the growable collection page with the toolbar beneath
-        Gtk.VBox pageBox = new Gtk.VBox(false, 0);
-        pageBox.pack_start(collectionPage, true, true, 0);
-        pageBox.pack_end(collectionPage.get_toolbar(), false, false, 0);
-        
-        // layout the selection tree to the left of the collection/toolbar box
-        Gtk.HBox clientBox = new Gtk.HBox(false, 0);
-        clientBox.pack_start(pageTreeView, false, false, 0);
-        clientBox.pack_end(pageBox, true, true, 0);
+        photoPage = new PhotoPage();
 
-        // layout client beneath menu
-        Gtk.VBox mainBox = new Gtk.VBox(false, 0);
-        mainBox.pack_start(collectionPage.get_menubar(), false, false, 0);
-        mainBox.pack_end(clientBox, true, true, 0);
-        
-        add(mainBox);
+        switch_to_collection_page();
     }
     
     public void about_box() {
@@ -270,6 +261,54 @@ public class AppWindow : Gtk.Window {
             import(File.new_for_uri(uri));
         }
         collectionPage.end_adding();
+    }
+    
+    public void switch_to_collection_page() {
+        switch_to_page(collectionPage, collectionPage.get_action_group(),
+            collectionPage.get_menubar(), collectionPage.get_toolbar());
+    }
+    
+    public void switch_to_photo_page(PhotoID photoID) {
+        //photoPage.display_photo(photoID);
+        switch_to_page(photoPage, photoPage.get_action_group(),
+            photoPage.get_menubar(), photoPage.get_toolbar());
+    }
+    
+    private Gtk.ActionGroup oldActionGroup = null;
+
+    private void switch_to_page(Gtk.Widget page, Gtk.ActionGroup actionGroup, Gtk.MenuBar menubar, 
+        Gtk.Toolbar toolbar) {
+        if (layout != null) {
+            remove(layout);
+            layout = null;
+        }
+        
+        if (oldActionGroup != null) {
+            remove_accel_group(uiManager.get_accel_group());
+            uiManager.remove_action_group(oldActionGroup);
+            oldActionGroup = null;
+        }
+        
+        uiManager.insert_action_group(actionGroup, 0);
+        add_accel_group(uiManager.get_accel_group());
+        oldActionGroup = actionGroup;
+
+        // layout the growable collection page with the toolbar beneath
+        Gtk.VBox pageBox = new Gtk.VBox(false, 0);
+        pageBox.pack_start(page, true, true, 0);
+        pageBox.pack_end(toolbar, false, false, 0);
+        
+        // layout the selection tree to the left of the collection/toolbar box
+        Gtk.HBox clientBox = new Gtk.HBox(false, 0);
+        clientBox.pack_start(pageTreeView, false, false, 0);
+        clientBox.pack_end(pageBox, true, true, 0);
+
+        // layout client beneath menu
+        layout = new Gtk.VBox(false, 0);
+        layout.pack_start(menubar, false, false, 0);
+        layout.pack_end(clientBox, true, true, 0);
+        
+        add(layout);
     }
 }
 

@@ -25,13 +25,16 @@ public class Thumbnail : Gtk.Alignment {
     private Dimensions scaledDim;
     private Gdk.Pixbuf cached = null;
     private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
+    private PhotoExif exif;
     
     public Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
         this.file = file;
         this.scale = scale;
+        this.exif = new PhotoExif(file);
         this.originalDim = new PhotoTable().get_dimensions(photoID);
         this.scaledDim = get_scaled_dimensions(originalDim, scale);
+        this.scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
 
         // bottom-align everything
         set(0, 1, 0, 0);
@@ -42,7 +45,7 @@ public class Thumbnail : Gtk.Alignment {
         // requisition size, even when it contains no pixbuf
         image.set_size_request(scaledDim.width, scaledDim.height);
         
-        title = new Gtk.Label(file.get_basename());
+        title = new Gtk.Label(build_unexposed_title());
         title.set_use_underline(false);
         title.set_justify(Gtk.Justification.LEFT);
         title.set_alignment(0, 0);
@@ -67,6 +70,32 @@ public class Thumbnail : Gtk.Alignment {
     
     public PhotoID get_photo_id() {
         return photoID;
+    }
+    
+    private string build_exposed_title() {
+        int64 fileSize = 0;
+        try {
+            FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            fileSize = info.get_size();
+        } catch(Error err) {
+            error("%s", err.message);
+        }
+        
+        Dimensions dim;
+        bool dimFound = exif.get_dimensions(out dim);
+
+        string datetime = exif.get_datetime();
+        
+        return "%s\n%s\n%s\n%lld bytes".printf(
+            file.get_basename(), 
+            (datetime != null) ? datetime : "",
+            (dimFound) ? "%d x %d".printf(dim.width, dim.height) : "",
+            fileSize);
+    }
+    
+    private string build_unexposed_title() {
+        return "%s\n\n\n".printf(file.get_basename());
     }
     
     public void select() {
@@ -109,11 +138,13 @@ public class Thumbnail : Gtk.Alignment {
         int oldScale = scale;
         scale = newScale;
         scaledDim = get_scaled_dimensions(originalDim, scale);
+        scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
 
         // only fetch and scale if exposed        
         if (cached != null) {
             if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
                 cached = ThumbnailCache.fetch(photoID, newScale);
+                cached = rotate_to_exif(cached, exif.get_orientation());
             }
             
             Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
@@ -148,7 +179,9 @@ public class Thumbnail : Gtk.Alignment {
         if (cached != null)
             return;
 
+        title.set_text(build_exposed_title());
         cached = ThumbnailCache.fetch(photoID, scale);
+        cached = rotate_to_exif(cached, exif.get_orientation());
         Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
         scaledInterp = LOW_QUALITY_INTERP;
         image.set_from_pixbuf(scaled);
@@ -159,6 +192,7 @@ public class Thumbnail : Gtk.Alignment {
         if (cached == null)
             return;
 
+        title.set_text(build_unexposed_title());
         cached = null;
         image.clear();
         image.set_size_request(scaledDim.width, scaledDim.height);

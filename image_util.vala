@@ -57,6 +57,35 @@ Dimensions get_scaled_dimensions(Dimensions original, int scale) {
     return scaled;
 }
 
+Dimensions get_rotated_dimensions(Dimensions dim, int orientation) {
+    int width = dim.width;
+    int height = dim.height;
+    
+    switch(orientation) {
+        case Exif.Orientation.TOP_LEFT:
+        case Exif.Orientation.TOP_RIGHT:
+        case Exif.Orientation.BOTTOM_RIGHT:
+        case Exif.Orientation.BOTTOM_LEFT: {
+            // fine just as it is
+        } break;
+
+        case Exif.Orientation.LEFT_TOP:
+        case Exif.Orientation.RIGHT_TOP:
+        case Exif.Orientation.RIGHT_BOTTOM:
+        case Exif.Orientation.LEFT_BOTTOM: {
+            int swap = width;
+            width = height;
+            height = swap;
+        } break;
+
+        default: {
+            error("Unknown orientation: %d", orientation);
+        } break;
+    }
+    
+    return Dimensions(width, height);
+}
+
 Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
     Dimensions original = Dimensions(pixbuf.get_width(), pixbuf.get_height());
     Dimensions scaled = get_scaled_dimensions(original, scale);
@@ -66,3 +95,47 @@ Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
     return pixbuf.scale_simple(scaled.width, scaled.height, interp);
 }
 
+Gdk.Pixbuf rotate_to_exif(Gdk.Pixbuf pixbuf, int orientation) {
+    switch(orientation) {
+        case Exif.Orientation.TOP_LEFT: {
+            // fine just as it is
+        } break;
+        
+        case Exif.Orientation.TOP_RIGHT: {
+            pixbuf = pixbuf.flip(true);
+        } break;
+        
+        case Exif.Orientation.BOTTOM_RIGHT: {
+            pixbuf = pixbuf.flip(true);
+            pixbuf = pixbuf.flip(false);
+        } break;
+        
+        case Exif.Orientation.BOTTOM_LEFT: {
+            pixbuf = pixbuf.flip(false);
+        } break;
+        
+        case Exif.Orientation.LEFT_TOP: {
+            pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE);
+            pixbuf = pixbuf.flip(true);
+        } break;
+        
+        case Exif.Orientation.RIGHT_TOP: {
+            pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE);
+        } break;
+        
+        case Exif.Orientation.RIGHT_BOTTOM: {
+            pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE);
+            pixbuf = pixbuf.flip(true);
+        } break;
+        
+        case Exif.Orientation.LEFT_BOTTOM: {
+            pixbuf = pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE);
+        } break;
+        
+        default: {
+            error("Unknown orientation: %d", orientation);
+        } break;
+    }
+    
+    return pixbuf;
+}

@@ -78,6 +78,21 @@ public class PhotoTable : DatabaseTable {
         return true;
     }
     
+    public File? get_file(PhotoID photoID) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT filename FROM PhotoTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int(1, photoID.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res == Sqlite.ROW)
+            return File.new_for_path(stmt.column_text(0));
+        
+        return null;
+    }
+    
     public bool remove_by_file(File file) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("DELETE FROM PhotoTable WHERE filename=?", -1, out stmt);

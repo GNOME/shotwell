@@ -13,6 +13,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     private PhotoTable photoTable = new PhotoTable();
     private CollectionLayout layout = new CollectionLayout();
+    private Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("CollectionActionGroup");
     private Gtk.MenuBar menubar = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
@@ -30,7 +31,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         
-        { "Photos", null, "_Photos", null, null, null },
+        { "Photos", null, "_Photos", null, null, on_photos_menu },
         { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
         { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
         
@@ -44,17 +45,12 @@ public class CollectionPage : Gtk.ScrolledWindow {
     };
     
     construct {
-        Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
-        mainActionGroup.add_actions(ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(mainActionGroup, 0);
-        
-        Gtk.ActionGroup contextActionGroup = new Gtk.ActionGroup("CollectionContextActionGroup");
-        contextActionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(contextActionGroup, 0);
+        // set up action group
+        actionGroup.add_actions(ACTIONS, this);
+        actionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
 
         // this page's menu bar
         menubar = (Gtk.MenuBar) AppWindow.get_ui_manager().get_widget("/CollectionMenuBar");
-        AppWindow.get_main_window().add_accel_group(AppWindow.get_ui_manager().get_accel_group());
         
         // set up page's toolbar (used by AppWindow for layout)
         //
@@ -106,6 +102,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     public Gtk.MenuBar get_menubar() {
         return menubar;
+    }
+    
+    public Gtk.ActionGroup get_action_group() {
+        return actionGroup;
     }
     
     public void begin_adding() {
@@ -271,6 +271,11 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private void on_select_all() {
         select_all();
     }
+    
+    private void on_photos_menu() {
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotosIncreaseSize", scale < Thumbnail.MAX_SCALE);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotosDecreaseSize", scale > Thumbnail.MIN_SCALE);
+    }
 
     private void on_increase_size() {
         increase_thumb_size();
@@ -297,7 +302,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         
     private bool on_left_click(Gdk.EventButton event) {
         // only interested in single-clicks presses for now
-        if (event.type != Gdk.EventType.BUTTON_PRESS) {
+        if ((event.type != Gdk.EventType.BUTTON_PRESS) 
+            && (event.type != Gdk.EventType.2BUTTON_PRESS)) {
             return false;
         }
         
@@ -324,9 +330,18 @@ public class CollectionPage : Gtk.ScrolledWindow {
                 } break;
                 
                 default: {
-                    // a "raw" click deselects all thumbnails and selects the single chosen
-                    unselect_all();
-                    select(thumbnail);
+                    if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+                        /*
+                        // switch to full-page view
+                        debug("switching to %s [%d]", thumbnail.get_file().get_path(),
+                            thumbnail.get_photo_id().id);
+                        AppWindow.get_main_window().switch_to_photo_page(thumbnail.get_photo_id());
+                        */
+                    } else {
+                        // a "raw" single-click deselects all thumbnails and selects the single chosen
+                        unselect_all();
+                        select(thumbnail);
+                    }
                 } break;
             }
         } else {

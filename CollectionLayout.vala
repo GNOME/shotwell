@@ -169,7 +169,7 @@ public class CollectionLayout : Gtk.Layout {
             assert(ypadding >= 0);
             
             // if thumbnail was recently appended, it needs to be put() rather than move()'d
-            if (thumbnail.parent == this) {
+            if (thumbnail.parent == (Gtk.Widget) this) {
                 move(thumbnail, x + xpadding, y + ypadding);
             } else {
                 put(thumbnail, x + xpadding, y + ypadding);
