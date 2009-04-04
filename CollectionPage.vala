@@ -13,7 +13,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     private PhotoTable photoTable = new PhotoTable();
     private CollectionLayout layout = new CollectionLayout();
-    private Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("CollectionActionGroup");
+    private Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
+    private Gtk.ActionGroup contextActionGroup = new Gtk.ActionGroup("CollectionContextActionGroup");
     private Gtk.MenuBar menubar = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
@@ -41,13 +42,19 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
-        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove }
+        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
+        { "RotateClockwise", null, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", null, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
     };
     
     construct {
         // set up action group
-        actionGroup.add_actions(ACTIONS, this);
-        actionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
+        mainActionGroup.add_actions(ACTIONS, this);
+        AppWindow.get_ui_manager().insert_action_group(mainActionGroup, 0);
+        
+        contextActionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
+        AppWindow.get_ui_manager().insert_action_group(contextActionGroup, 0);
 
         // this page's menu bar
         menubar = (Gtk.MenuBar) AppWindow.get_ui_manager().get_widget("/CollectionMenuBar");
@@ -105,7 +112,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     }
     
     public Gtk.ActionGroup get_action_group() {
-        return actionGroup;
+        return mainActionGroup;
     }
     
     public void begin_adding() {
@@ -273,8 +280,13 @@ public class CollectionPage : Gtk.ScrolledWindow {
     }
     
     private void on_photos_menu() {
+        bool selected = (get_selected_count() > 0);
+        
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotosIncreaseSize", scale < Thumbnail.MAX_SCALE);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotosDecreaseSize", scale > Thumbnail.MIN_SCALE);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
     }
 
     private void on_increase_size() {
@@ -360,11 +372,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
         
         Thumbnail thumbnail = layout.get_thumbnail_at(event.x, event.y);
         if (thumbnail != null) {
-            // this counts as a select
+            // this counts as a select with all others de-selected
+            unselect_all();
             select(thumbnail);
-        }
 
-        if (get_selected_count() > 0) {
             Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionContextMenu");
             contextMenu.popup(null, null, null, event.button, event.time);
             
@@ -389,6 +400,41 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         layout.refresh();
+    }
+    
+    private delegate Exif.Orientation RotationFunc(Exif.Orientation orientation);
+    
+    private void do_rotations(string desc, Gee.Collection<Thumbnail> c, RotationFunc func) {
+        foreach (Thumbnail thumbnail in c) {
+            Exif.Orientation orientation = thumbnail.get_orientation();
+            Exif.Orientation rotated = func(orientation);
+            debug("Rotating %s %s from %s to %s", desc, thumbnail.get_file().get_path(),
+                orientation.get_description(), rotated.get_description());
+            thumbnail.set_orientation(rotated);
+        }
+        
+        if (c.size > 0) {
+            schedule_thumbnail_improval();
+            layout.refresh();
+        }
+    }
+
+    private void on_rotate_clockwise() {
+        do_rotations("clockwise", selectedList, (orientation) => {
+            return orientation.rotate_clockwise();
+        });
+    }
+    
+    private void on_rotate_counterclockwise() {
+        do_rotations("counterclockwise", selectedList, (orientation) => {
+            return orientation.rotate_counterclockwise();
+        });
+    }
+    
+    private void on_mirror() {
+        do_rotations("mirror", selectedList, (orientation) => {
+            return orientation.flip_left_to_right();
+        });
     }
     
     private double scaleToSlider(int value) {

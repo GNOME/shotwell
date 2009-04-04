@@ -50,6 +50,10 @@ namespace Exif {
         public static int16 get_sshort(uchar *buffer, ByteOrder byteOrder);
         public static uint32 get_long(uchar *buffer, ByteOrder byteOrder);
         public static int32 get_slong(uchar *buffer, ByteOrder byteOrder);
+        public static void set_short(uchar *buffer, ByteOrder byteOrder, uint16 val);
+        public static void set_sshort(uchar *buffer, ByteOrder byteOrder, int16 val);
+        public static void set_long(uchar *buffer, ByteOrder byteOrder, uint32 val);
+        public static void set_slong(uchar *buffer, ByteOrder byteOrder, int32 val);
     }
 
     [CCode (cheader_filename="libexif/exif-content.h")]
@@ -74,6 +78,7 @@ namespace Exif {
         public ByteOrder get_byte_order();
         public void set_option(DataOption option);
         public void unset_option(DataOption option);
+        public void save_data(uchar **buffer, uint *size);
 
         public Content[Ifd.COUNT] ifd;
         public uchar *data;

@@ -73,6 +73,44 @@ public class Thumbnail : Gtk.Alignment {
         return photoID;
     }
     
+    public Exif.Orientation get_orientation() {
+        return exif.get_orientation();
+    }
+    
+    public void set_orientation(Exif.Orientation orientation) {
+        if (orientation == exif.get_orientation())
+            return;
+            
+        exif.set_orientation(orientation);
+        
+        // rotate dimensions from original dimensions (which doesn't require access to pixbuf)
+        scaledDim = get_scaled_dimensions(originalDim, scale);
+        scaledDim = get_rotated_dimensions(scaledDim, orientation);
+        
+        // rotate image if exposed ... need to rotate everything (the cached thumbnail and the
+        // scaled image in the widget) to be ready for future events, i.e. resize()
+        if (cached != null) {
+            cached = ThumbnailCache.fetch(photoID, scale);
+            cached = rotate_to_exif(cached, orientation);
+
+            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
+            scaledInterp = LOW_QUALITY_INTERP;
+
+            image.set_from_pixbuf(scaled);
+        }
+        
+        image.set_size_request(scaledDim.width, scaledDim.height);
+        
+        // TODO: Write this in the background
+        try {
+            exif.commit();
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        title.set_text(build_exposed_title());
+    }
+    
     private string build_exposed_title() {
         int64 fileSize = 0;
         try {
@@ -88,10 +126,11 @@ public class Thumbnail : Gtk.Alignment {
 
         string datetime = exif.get_datetime();
         
-        return "%s\n%s\n%s\n%lld bytes".printf(
+        return "%s\n%s\n%s\n%s\n%lld bytes".printf(
             file.get_basename(), 
             (datetime != null) ? datetime : "",
             (dimFound) ? "%d x %d".printf(dim.width, dim.height) : "",
+            exif.get_orientation().get_description(),
             fileSize);
     }
     

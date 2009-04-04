@@ -149,7 +149,8 @@ public class AppWindow : Gtk.Window {
         }
         
         collectionPage = new CollectionPage();
-        photoPage = new PhotoPage();
+        //photoPage = new PhotoPage();
+        add_accel_group(uiManager.get_accel_group());
 
         switch_to_collection_page();
     }
@@ -274,7 +275,7 @@ public class AppWindow : Gtk.Window {
             photoPage.get_menubar(), photoPage.get_toolbar());
     }
     
-    private Gtk.ActionGroup oldActionGroup = null;
+    //private Gtk.ActionGroup oldActionGroup = null;
 
     private void switch_to_page(Gtk.Widget page, Gtk.ActionGroup actionGroup, Gtk.MenuBar menubar, 
         Gtk.Toolbar toolbar) {
@@ -283,6 +284,7 @@ public class AppWindow : Gtk.Window {
             layout = null;
         }
         
+        /*
         if (oldActionGroup != null) {
             remove_accel_group(uiManager.get_accel_group());
             uiManager.remove_action_group(oldActionGroup);
@@ -290,8 +292,8 @@ public class AppWindow : Gtk.Window {
         }
         
         uiManager.insert_action_group(actionGroup, 0);
-        add_accel_group(uiManager.get_accel_group());
         oldActionGroup = actionGroup;
+        */
 
         // layout the growable collection page with the toolbar beneath
         Gtk.VBox pageBox = new Gtk.VBox(false, 0);

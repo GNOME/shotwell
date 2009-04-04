@@ -45,6 +45,9 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     public void refresh() {
+        if (thumbnails.size == 0)
+            return;
+
         // don't bother until layout is of some appreciable size
         if (allocation.width <= 1)
             return;
