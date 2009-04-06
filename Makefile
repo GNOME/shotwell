@@ -17,7 +17,8 @@ SRC_FILES = \
 	Exif.vala
 	
 VAPI_FILES = \
-	libexif.vapi
+	libexif.vapi \
+	fstream.vapi
 
 VAPI_DIRS = \
 	.
@@ -28,7 +29,8 @@ PKGS = \
 	gtk+-2.0 \
 	sqlite3 \
 	vala-1.0 \
-	libexif
+	libexif \
+	fstream
 
 all: $(TARGET)
 

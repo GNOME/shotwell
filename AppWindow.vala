@@ -85,7 +85,7 @@ public class AppWindow : Gtk.Window {
     private Gtk.Box layout = null;
     private Gtk.TreeStore pageTreeStore = null;
     private Gtk.TreeView pageTreeView = null;
-    
+
     private CollectionPage collectionPage = null;
     private PhotoPage photoPage = null;
     

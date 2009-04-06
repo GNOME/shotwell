@@ -203,7 +203,7 @@ public errordomain ExifError {
 }
 
 extern void free(void *ptr);
-    
+
 public class PhotoExif {
     private File file;
     private Exif.Data exifData = null;
@@ -344,7 +344,6 @@ public class PhotoExif {
         assert(flattenedSize > 0);
 
         try {
-            /*
             if (flattenedSize == segmentLength) {
                 // the new EXIF data is exactly the same size as the data in the file, so simply
                 // overwrite
@@ -355,19 +354,21 @@ public class PhotoExif {
                 fins.close(null);
                 fins = null;
                 
-                // open for writing
-                FileOutputStream fouts = file.replace(null, false, FileCreateFlags.PRIVATE, null);
-                size_t bytesWritten = 0;
+                // open for writing ... don't use FileOutputStream, as it will overwrite everything
+                // it seeks over
+                FStream fs = FStream.open(file.get_path(), "r+");
+                if (fs == null)
+                    throw new IOError.FAILED("%s: fopen() error".printf(file.get_path()));
                 
-                // seeking with a replace() file destroys what's it seeks past (??), so just
-                // writing since it's all of 6 bytes
-                // Marker:SOI and Marker:APP1 and length (none change)
-                write_marker(fouts, Jpeg.Marker.SOI, 0);
-                write_marker(fouts, Jpeg.Marker.APP1, flattenedSize);
-                fouts.write_all(flattened, flattenedSize, out bytesWritten, null);
-                
-                fouts.close(null);
-            } else */ {
+                // seek over Marker:SOI, Marker:APP1, and length (none change)
+                if (fs.seek(2 + 2 + 2, FileSeek.SET) < 0)
+                    throw new IOError.FAILED("%s: fseek() error %d", file.get_path(), fs.error());
+
+                // write data in over current EXIF
+                size_t countWritten = fs.write(flattened, flattenedSize, 1);
+                if (countWritten != 1)
+                    throw new IOError.FAILED("%s: fwrite() error %d", file.get_path(), errno);
+            } else {
                 // create a new photo file with the updated EXIF and move it on top of the old one
 
                 // skip past APP1
@@ -386,6 +387,7 @@ public class PhotoExif {
                 // write APP1 with EXIF data
                 write_marker(fouts, Jpeg.Marker.APP1, flattenedSize);
                 fouts.write_all(flattened, flattenedSize, out bytesWritten, null);
+                assert(bytesWritten == flattenedSize);
                 
                 // copy remainder of file into new file
                 uint8[] copyBuffer = new uint8[64 * 1024];
@@ -397,6 +399,7 @@ public class PhotoExif {
                     assert(bytesRead > 0);
 
                     fouts.write_all(copyBuffer, bytesRead, out bytesWritten, null);
+                    assert(bytesWritten == bytesRead);
                 }
                 
                 // close both for move

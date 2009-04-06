@@ -11,6 +11,40 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private static const int IMPROVAL_PRIORITY = Priority.LOW;
     private static const int IMPROVAL_DELAY_MS = 500;
     
+    private static Gtk.IconFactory factory = null;
+    private static const string STOCK_CLOCKWISE = "shotwell-rotate-clockwise";
+    private static const string STOCK_COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
+    
+    private static void addStockIcon(File file, string stockID) {
+        debug("Adding icon %s", file.get_path());
+        
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        debug("%d %d", pixbuf.width, pixbuf.height);
+        
+        Gtk.IconSet iconSet = new Gtk.IconSet.from_pixbuf(pixbuf);
+        factory.add(stockID, iconSet);
+    }
+    
+    private static void prepIcons() {
+        if (factory != null)
+            return;
+        
+        factory = new Gtk.IconFactory();
+        
+        File icons = AppWindow.get_exec_dir().get_child("icons");
+        
+        addStockIcon(icons.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
+        addStockIcon(icons.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
+        
+        factory.add_default();
+    }
+    
     private PhotoTable photoTable = new PhotoTable();
     private CollectionLayout layout = new CollectionLayout();
     private Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
@@ -18,6 +52,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private Gtk.MenuBar menubar = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
+    private Gtk.ToolButton rotateButton = null;
     private Gee.ArrayList<Thumbnail> thumbnailList = new Gee.ArrayList<Thumbnail>();
     private Gee.HashSet<Thumbnail> selectedList = new Gee.HashSet<Thumbnail>();
     private int scale = Thumbnail.DEFAULT_SCALE;
@@ -43,12 +78,14 @@ public class CollectionPage : Gtk.ScrolledWindow {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
-        { "RotateClockwise", null, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", null, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
     };
     
     construct {
+        prepIcons();
+        
         // set up action group
         mainActionGroup.add_actions(ACTIONS, this);
         AppWindow.get_ui_manager().insert_action_group(mainActionGroup, 0);
@@ -61,6 +98,20 @@ public class CollectionPage : Gtk.ScrolledWindow {
         
         // set up page's toolbar (used by AppWindow for layout)
         //
+        // rotate tool
+        rotateButton = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
+        rotateButton.sensitive = false;
+        rotateButton.clicked += on_rotate_clockwise;
+        
+        toolbar.insert(rotateButton, -1);
+        
+        // separator to force slider to right side of toolbar
+        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
+        separator.set_expand(true);
+        separator.set_draw(false);
+        
+        toolbar.insert(separator, -1);
+        
         // thumbnail size slider
         slider = new Gtk.HScale.with_range(0, scaleToSlider(Thumbnail.MAX_SCALE), 1);
         slider.set_value(scaleToSlider(scale));
@@ -71,11 +122,14 @@ public class CollectionPage : Gtk.ScrolledWindow {
         toolitem.add(slider);
         toolitem.set_expand(false);
         toolitem.set_size_request(200, -1);
-
+        
         toolbar.insert(toolitem, -1);
-
+        
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        
+        AppWindow.get_main_window().key_press_event += on_key_pressed;
+        AppWindow.get_main_window().key_release_event += on_key_released;
         
         // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
         // may be exposed)
@@ -139,6 +193,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
             selectedList.add(thumbnail);
             thumbnail.select();
         }
+        
+        rotateButton.sensitive = true;
     }
     
     public void unselect_all() {
@@ -148,6 +204,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         }
         
         selectedList = new Gee.HashSet<Thumbnail>();
+        
+        rotateButton.sensitive = false;
     }
     
     public Thumbnail[] get_selected() {
@@ -165,11 +223,15 @@ public class CollectionPage : Gtk.ScrolledWindow {
     public void select(Thumbnail thumbnail) {
         thumbnail.select();
         selectedList.add(thumbnail);
+        
+        rotateButton.sensitive = true;
     }
     
     public void unselect(Thumbnail thumbnail) {
         thumbnail.unselect();
         selectedList.remove(thumbnail);
+        
+        rotateButton.sensitive = (selectedList.size != 0);
     }
     
     public void toggle_select(Thumbnail thumbnail) {
@@ -180,6 +242,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
             // now unselected
             selectedList.remove(thumbnail);
         }
+        
+        rotateButton.sensitive = (selectedList.size != 0);
     }
 
     public int get_selected_count() {
@@ -399,6 +463,9 @@ public class CollectionPage : Gtk.ScrolledWindow {
             layout.remove_thumbnail(thumbnail);
         }
         
+        assert(selectedList.size == 0);
+        rotateButton.sensitive = false;
+        
         layout.refresh();
     }
     
@@ -455,6 +522,31 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     private void on_slider_changed() {
         set_thumb_size(sliderToScale(slider.get_value()));
+    }
+    
+    private static const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
+    private static const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
+    private static const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
+    private static const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
+
+    private bool on_key_pressed(AppWindow aw, Gdk.EventKey event) {
+        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R)) {
+            rotateButton.set_stock_id(STOCK_COUNTERCLOCKWISE);
+            rotateButton.clicked -= on_rotate_clockwise;
+            rotateButton.clicked += on_rotate_counterclockwise;
+        }
+
+        return false;
+    }
+    
+    private bool on_key_released(AppWindow aw, Gdk.EventKey event) {
+        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R)) {
+            rotateButton.set_stock_id(STOCK_CLOCKWISE);
+            rotateButton.clicked -= on_rotate_counterclockwise;
+            rotateButton.clicked += on_rotate_clockwise;
+        }
+
+        return false;
     }
 }
 
