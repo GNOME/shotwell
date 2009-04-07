@@ -19,6 +19,10 @@
             <menuitem name="Mirror" action="Mirror" />
         </menu>
         
+        <menu name="ViewMenu" action="View">
+            <menuitem name="View Title" action="ViewTitle" />
+        </menu>
+        
         <menu name="HelpMenu" action="Help">
             <menuitem name="HelpAbout" action="About" />
         </menu>

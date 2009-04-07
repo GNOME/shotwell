@@ -26,15 +26,19 @@ public class Thumbnail : Gtk.Alignment {
     private Gdk.Pixbuf cached = null;
     private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
     private PhotoExif exif;
+    private string titleText;
+    private time_t time = time_t();
     
     public Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
         this.file = file;
         this.scale = scale;
+        this.titleText = file.get_basename();
         this.exif = new PhotoExif(file);
         this.originalDim = new PhotoTable().get_dimensions(photoID);
         this.scaledDim = get_scaled_dimensions(originalDim, scale);
         this.scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
+        exif.get_datetime_time(out this.time);
 
         // bottom-align everything
         set(0, 1, 0, 0);
@@ -45,8 +49,7 @@ public class Thumbnail : Gtk.Alignment {
         // requisition size, even when it contains no pixbuf
         image.set_size_request(scaledDim.width, scaledDim.height);
         
-        // TODO: Is EXIF information cached in memory?
-        title = new Gtk.Label(build_exposed_title());
+        title = new Gtk.Label(titleText);
         title.set_use_underline(false);
         title.set_justify(Gtk.Justification.LEFT);
         title.set_alignment(0, 0);
@@ -69,6 +72,20 @@ public class Thumbnail : Gtk.Alignment {
         return file;
     }
     
+    public int64 get_filesize() {
+        int64 fileSize = -1;
+        try {
+            FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            
+            fileSize = info.get_size();
+        } catch(Error err) {
+            error("%s", err.message);
+        }
+        
+        return fileSize;
+    }
+
     public PhotoID get_photo_id() {
         return photoID;
     }
@@ -107,31 +124,14 @@ public class Thumbnail : Gtk.Alignment {
         } catch (Error err) {
             error("%s", err.message);
         }
-        
-        title.set_text(build_exposed_title());
     }
     
-    private string build_exposed_title() {
-        int64 fileSize = 0;
-        try {
-            FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-            fileSize = info.get_size();
-        } catch(Error err) {
-            error("%s", err.message);
-        }
-        
-        Dimensions dim;
-        bool dimFound = exif.get_dimensions(out dim);
-
-        string datetime = exif.get_datetime();
-        
-        return "%s\n%s\n%s\n%s\n%lld bytes".printf(
-            file.get_basename(), 
-            (datetime != null) ? datetime : "",
-            (dimFound) ? "%d x %d".printf(dim.width, dim.height) : "",
-            exif.get_orientation().get_description(),
-            fileSize);
+    public void display_title(bool display) {
+        title.visible = display;
+    }
+    
+    public time_t get_time_t() {
+        return time;
     }
     
     public void select() {

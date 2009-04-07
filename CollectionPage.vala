@@ -57,6 +57,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private Gee.HashSet<Thumbnail> selectedList = new Gee.HashSet<Thumbnail>();
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
+    private bool displayTitles = true;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -70,6 +71,9 @@ public class CollectionPage : Gtk.ScrolledWindow {
         { "Photos", null, "_Photos", null, null, on_photos_menu },
         { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
         { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
+        
+        { "View", null, "_View", null, null, null },
+        { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles },
         
         { "Help", null, "_Help", null, null, null },
         { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", on_about }
@@ -174,6 +178,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
     
     public void add_photo(PhotoID photoID, File file) {
         Thumbnail thumbnail = new Thumbnail(photoID, file, scale);
+        thumbnail.display_title(displayTitles);
         
         thumbnailList.add(thumbnail);
         
@@ -502,6 +507,16 @@ public class CollectionPage : Gtk.ScrolledWindow {
         do_rotations("mirror", selectedList, (orientation) => {
             return orientation.flip_left_to_right();
         });
+    }
+    
+    private void on_display_titles() {
+        displayTitles = (displayTitles) ? false : true;
+        
+        foreach (Thumbnail thumbnail in thumbnailList) {
+            thumbnail.display_title(displayTitles);
+        }
+        
+        layout.refresh();
     }
     
     private double scaleToSlider(int value) {

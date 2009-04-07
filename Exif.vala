@@ -262,12 +262,30 @@ public class PhotoExif {
         return datetime.get_value();
     }
     
+    public bool get_datetime_time(out time_t timet) {
+        string text = get_datetime();
+        if (text == null)
+            return false;
+        
+        Time tm = Time();
+        int count = text.scanf("%d:%d:%d %d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour,
+            &tm.minute, &tm.second);
+        if (count != 6)
+            return false;
+        
+        tm.year -= 1900;
+        tm.month--;
+        tm.isdst = -1;
+        
+        timet = tm.mktime();
+        
+        return true;
+    }
+    
     private void update() {
         // TODO: Update internal data structures if file changes
         if (exifData != null)
             return;
-        
-        debug("Loading EXIF from %s", file.get_path());
         
         exifData = Exif.Data.new_from_file(file.get_path());
         // TODO: Better error handling
