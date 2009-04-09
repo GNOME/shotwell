@@ -17,6 +17,18 @@ public struct Dimensions {
         this.width = width;
         this.height = height;
     }
+    
+    public static Dimensions for_pixbuf(Gdk.Pixbuf pixbuf) {
+        return Dimensions(pixbuf.get_width(), pixbuf.get_height());
+    }
+    
+    public static Dimensions for_allocation(Gtk.Allocation allocation) {
+        return Dimensions(allocation.width, allocation.height);
+    }
+    
+    public static Dimensions for_rectangle(Gdk.Rectangle rect) {
+        return Dimensions(rect.width, rect.height);
+    }
 }
 
 Dimensions get_scaled_dimensions(Dimensions original, int scale) {
@@ -53,6 +65,25 @@ Dimensions get_scaled_dimensions(Dimensions original, int scale) {
         scaled.width = (int) Math.round((double) original.width * ratio);
         scaled.height = scale;
     }
+    
+    return scaled;
+}
+
+Dimensions get_scaled_dimensions_for_view(Dimensions original, Dimensions view) {
+    Dimensions scaled = Dimensions();
+
+    // TODO: Surely this can be done by examining dimensions to avoid double calculations.
+    scaled.width = view.width;
+    double ratio = (double) view.width / (double) original.width;
+    scaled.height = (int) ((double) original.height * ratio);
+    if (scaled.height > view.height) {
+        scaled.height = view.height;
+        ratio = (double) view.height / (double) original.height;
+        scaled.width = (int) ((double) original.width * ratio);
+    }
+
+    assert(scaled.height <= view.height);
+    assert(scaled.width <= view.width);
     
     return scaled;
 }

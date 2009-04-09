@@ -12,6 +12,30 @@ public class Thumbnail : Gtk.Alignment {
     public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
+    private static Gee.HashMap<int, Thumbnail> thumbnailMap = null;
+    
+    public static Thumbnail get_existing(PhotoID photoID) {
+        return thumbnailMap.get(photoID.id);
+    }
+    
+    public static Thumbnail create(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
+        Thumbnail thumbnail = null;
+
+        // this gets around a problem with static initializers
+        if (thumbnailMap == null) {
+            thumbnailMap = new Gee.HashMap<int, Thumbnail>(direct_hash, direct_equal, direct_equal);
+        } else {
+            thumbnail = thumbnailMap.get(photoID.id);
+        }
+        
+        if (thumbnail == null) {
+            thumbnail = new Thumbnail(photoID, file, scale);
+            thumbnailMap.set(photoID.id, thumbnail);
+        }
+        
+        return thumbnail;
+    }
+    
     // Due to the potential for thousands or tens of thousands of thumbnails being present in a
     // particular view, all widgets used here should be NOWINDOW widgets.
     private PhotoID photoID;
@@ -29,12 +53,12 @@ public class Thumbnail : Gtk.Alignment {
     private string titleText;
     private time_t time = time_t();
     
-    public Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
+    private Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
         this.file = file;
         this.scale = scale;
         this.titleText = file.get_basename();
-        this.exif = new PhotoExif(file);
+        this.exif = PhotoExif.create(file);
         this.originalDim = new PhotoTable().get_dimensions(photoID);
         this.scaledDim = get_scaled_dimensions(originalDim, scale);
         this.scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
@@ -84,6 +108,16 @@ public class Thumbnail : Gtk.Alignment {
         }
         
         return fileSize;
+    }
+    
+    public void refresh_exif() {
+        exif = PhotoExif.create(file);
+        
+        // flush the cached image and set size for next paint
+        cached = null;
+        scaledDim = get_scaled_dimensions(originalDim, scale);
+        scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
+        image.set_size_request(scaledDim.width, scaledDim.height);
     }
 
     public PhotoID get_photo_id() {

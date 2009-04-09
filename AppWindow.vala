@@ -3,6 +3,8 @@ public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
     public static const string VERSION = "0.0.1";
     public static const string DATA_DIR = ".photo";
+    
+    public static Gdk.Color BG_COLOR = parse_color("#777");
 
     private static AppWindow mainWindow = null;
     private static Gtk.UIManager uiManager = null;
@@ -82,7 +84,6 @@ public class AppWindow : Gtk.Window {
         return subdir;
     }
 
-    private Gtk.Box layout = null;
     private Gtk.TreeStore pageTreeStore = null;
     private Gtk.TreeView pageTreeView = null;
 
@@ -94,13 +95,12 @@ public class AppWindow : Gtk.Window {
     construct {
         // set up display
         title = TITLE;
-        set_default_size(800, 600);
+        set_default_size(1024, 768);
 
         destroy += Gtk.main_quit;
 
         pageTreeStore = new Gtk.TreeStore(1, typeof(string));
         pageTreeView = new Gtk.TreeView.with_model(pageTreeStore);
-        pageTreeView.modify_bg(Gtk.StateType.NORMAL, parse_color(CollectionPage.BG_COLOR));
         
         var text = new Gtk.CellRendererText();
         text.size_points = 9.0;
@@ -149,21 +149,12 @@ public class AppWindow : Gtk.Window {
         }
         
         collectionPage = new CollectionPage();
-        //photoPage = new PhotoPage();
+        photoPage = new PhotoPage();
         add_accel_group(uiManager.get_accel_group());
 
-        switch_to_collection_page();
+        create_start_page();
     }
     
-    public void about_box() {
-        // TODO: More thorough About box
-        Gtk.show_about_dialog(this,
-            "version", VERSION,
-            "comments", "a photo organizer",
-            "copyright", "(c) 2009 yorba"
-        );
-    }
-
     private void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
@@ -265,52 +256,62 @@ public class AppWindow : Gtk.Window {
     }
     
     public void switch_to_collection_page() {
-        switch_to_page(collectionPage, collectionPage.get_action_group(),
-            collectionPage.get_menubar(), collectionPage.get_toolbar());
+        switch_to_page(collectionPage);
     }
     
     public void switch_to_photo_page(PhotoID photoID) {
-        //photoPage.display_photo(photoID);
-        switch_to_page(photoPage, photoPage.get_action_group(),
-            photoPage.get_menubar(), photoPage.get_toolbar());
+        photoPage.display_photo(photoID);
+        switch_to_page(photoPage);
     }
     
-    //private Gtk.ActionGroup oldActionGroup = null;
-
-    private void switch_to_page(Gtk.Widget page, Gtk.ActionGroup actionGroup, Gtk.MenuBar menubar, 
-        Gtk.Toolbar toolbar) {
-        if (layout != null) {
-            remove(layout);
-            layout = null;
-        }
+    private Gtk.Box layout = null;
+    private Gtk.Box pageBox = null;
+    private Gtk.Box clientBox = null;
+    private Page currentPage = null;
+    private Gtk.MenuBar currentMenuBar = null;
+    
+    private void create_start_page() {
+        currentPage = collectionPage;
         
-        /*
-        if (oldActionGroup != null) {
-            remove_accel_group(uiManager.get_accel_group());
-            uiManager.remove_action_group(oldActionGroup);
-            oldActionGroup = null;
-        }
-        
-        uiManager.insert_action_group(actionGroup, 0);
-        oldActionGroup = actionGroup;
-        */
-
         // layout the growable collection page with the toolbar beneath
-        Gtk.VBox pageBox = new Gtk.VBox(false, 0);
-        pageBox.pack_start(page, true, true, 0);
-        pageBox.pack_end(toolbar, false, false, 0);
+        pageBox = new Gtk.VBox(false, 0);
+        pageBox.pack_start(collectionPage, true, true, 0);
+        pageBox.pack_end(currentPage.get_toolbar(), false, false, 0);
         
         // layout the selection tree to the left of the collection/toolbar box
-        Gtk.HBox clientBox = new Gtk.HBox(false, 0);
+        clientBox = new Gtk.HBox(false, 0);
         clientBox.pack_start(pageTreeView, false, false, 0);
         clientBox.pack_end(pageBox, true, true, 0);
-
+        
+        currentMenuBar = (Gtk.MenuBar) get_ui_manager().get_widget(currentPage.get_menubar_path());
+        
         // layout client beneath menu
         layout = new Gtk.VBox(false, 0);
-        layout.pack_start(menubar, false, false, 0);
+        layout.pack_start(currentMenuBar, false, false, 0);
         layout.pack_end(clientBox, true, true, 0);
         
         add(layout);
+        show_all();
+    }
+    
+    private void switch_to_page(Page page) {
+        currentPage.switching_from();
+
+        pageBox.remove(currentPage);
+        pageBox.pack_start(page, true, true, 0);
+        
+        pageBox.remove(currentPage.get_toolbar());
+        pageBox.pack_end(page.get_toolbar(), false, false, 0);
+        
+        layout.remove(currentMenuBar);
+        currentMenuBar = (Gtk.MenuBar) get_ui_manager().get_widget(page.get_menubar_path());
+        layout.pack_start(currentMenuBar, false, false, 0);
+        
+        page.switched_to();
+        
+        layout.show_all();
+        
+        currentPage = page;
     }
 }
 

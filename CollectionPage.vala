@@ -1,8 +1,7 @@
 
-public class CollectionPage : Gtk.ScrolledWindow {
+public class CollectionPage : Page {
     public static const int THUMB_X_PADDING = 20;
     public static const int THUMB_Y_PADDING = 20;
-    public static const string BG_COLOR = "#777";
 
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public static const int MANUAL_STEPPING = 16;
@@ -11,45 +10,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
     private static const int IMPROVAL_PRIORITY = Priority.LOW;
     private static const int IMPROVAL_DELAY_MS = 500;
     
-    private static Gtk.IconFactory factory = null;
-    private static const string STOCK_CLOCKWISE = "shotwell-rotate-clockwise";
-    private static const string STOCK_COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
-    
-    private static void addStockIcon(File file, string stockID) {
-        debug("Adding icon %s", file.get_path());
-        
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        debug("%d %d", pixbuf.width, pixbuf.height);
-        
-        Gtk.IconSet iconSet = new Gtk.IconSet.from_pixbuf(pixbuf);
-        factory.add(stockID, iconSet);
-    }
-    
-    private static void prepIcons() {
-        if (factory != null)
-            return;
-        
-        factory = new Gtk.IconFactory();
-        
-        File icons = AppWindow.get_exec_dir().get_child("icons");
-        
-        addStockIcon(icons.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
-        addStockIcon(icons.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
-        
-        factory.add_default();
-    }
-    
     private PhotoTable photoTable = new PhotoTable();
     private CollectionLayout layout = new CollectionLayout();
     private Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
     private Gtk.ActionGroup contextActionGroup = new Gtk.ActionGroup("CollectionContextActionGroup");
-    private Gtk.MenuBar menubar = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotateButton = null;
@@ -76,20 +40,18 @@ public class CollectionPage : Gtk.ScrolledWindow {
         { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles },
         
         { "Help", null, "_Help", null, null, null },
-        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", on_about }
+        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", about_box }
     };
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
-        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "CollectionRotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "CollectionRotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
     };
     
     construct {
-        prepIcons();
-        
         // set up action group
         mainActionGroup.add_actions(ACTIONS, this);
         AppWindow.get_ui_manager().insert_action_group(mainActionGroup, 0);
@@ -97,9 +59,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         contextActionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
         AppWindow.get_ui_manager().insert_action_group(contextActionGroup, 0);
 
-        // this page's menu bar
-        menubar = (Gtk.MenuBar) AppWindow.get_ui_manager().get_widget("/CollectionMenuBar");
-        
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
@@ -132,9 +91,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        AppWindow.get_main_window().key_press_event += on_key_pressed;
-        AppWindow.get_main_window().key_release_event += on_key_released;
-        
         // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
         // may be exposed)
         size_allocate += schedule_thumbnail_improval;
@@ -145,8 +101,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         get_vadjustment().value_changed += schedule_thumbnail_improval;
         
         add(layout);
-        
-        button_press_event += on_click;
         
         File[] photoFiles = photoTable.get_photo_files();
         foreach (File file in photoFiles) {
@@ -161,23 +115,25 @@ public class CollectionPage : Gtk.ScrolledWindow {
         show_all();
     }
     
-    public Gtk.Toolbar get_toolbar() {
+    public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
     
-    public Gtk.MenuBar get_menubar() {
-        return menubar;
+    public override string get_menubar_path() {
+        return "/CollectionMenuBar";
     }
     
-    public Gtk.ActionGroup get_action_group() {
-        return mainActionGroup;
+    public override void switched_to() {
+        // need to refresh the layout in case any of the thumbnail dimensions were altered while we
+        // were gone
+        layout.refresh();
     }
     
     public void begin_adding() {
     }
     
     public void add_photo(PhotoID photoID, File file) {
-        Thumbnail thumbnail = new Thumbnail(photoID, file, scale);
+        Thumbnail thumbnail = Thumbnail.create(photoID, file, scale);
         thumbnail.display_title(displayTitles);
         
         thumbnailList.add(thumbnail);
@@ -330,15 +286,6 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return false;
     }
 
-    private void on_about() {
-        AppWindow.get_main_window().about_box();
-    }
-    
-    private void set_item_sensitive(string path, bool sensitive) {
-        Gtk.Widget widget = AppWindow.get_ui_manager().get_widget(path);
-        widget.set_sensitive(sensitive);
-    }
-    
     private void on_edit_menu() {
         set_item_sensitive("/CollectionMenuBar/EditMenu/EditSelectAll", get_count() > 0);
         set_item_sensitive("/CollectionMenuBar/EditMenu/EditRemove", get_selected_count() > 0);
@@ -368,21 +315,8 @@ public class CollectionPage : Gtk.ScrolledWindow {
         slider.set_value(scaleToSlider(scale));
     }
 
-    private bool on_click(CollectionPage c, Gdk.EventButton event) {
-        switch (event.button) {
-            case 1:
-                return on_left_click(event);
-            
-            case 3:
-                return on_right_click(event);
-            
-            default:
-                return false;
-        }
-    }
-        
-    private bool on_left_click(Gdk.EventButton event) {
-        // only interested in single-clicks presses for now
+    private override bool on_left_click(Gdk.EventButton event) {
+        // only interested in single-click and double-clicks for now
         if ((event.type != Gdk.EventType.BUTTON_PRESS) 
             && (event.type != Gdk.EventType.2BUTTON_PRESS)) {
             return false;
@@ -412,12 +346,10 @@ public class CollectionPage : Gtk.ScrolledWindow {
                 
                 default: {
                     if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-                        /*
                         // switch to full-page view
                         debug("switching to %s [%d]", thumbnail.get_file().get_path(),
                             thumbnail.get_photo_id().id);
                         AppWindow.get_main_window().switch_to_photo_page(thumbnail.get_photo_id());
-                        */
                     } else {
                         // a "raw" single-click deselects all thumbnails and selects the single chosen
                         unselect_all();
@@ -433,7 +365,7 @@ public class CollectionPage : Gtk.ScrolledWindow {
         return true;
     }
     
-    private bool on_right_click(Gdk.EventButton event) {
+    private override bool on_right_click(Gdk.EventButton event) {
         // only interested in single-clicks for now
         if (event.type != Gdk.EventType.BUTTON_PRESS) {
             return false;
@@ -539,29 +471,16 @@ public class CollectionPage : Gtk.ScrolledWindow {
         set_thumb_size(sliderToScale(slider.get_value()));
     }
     
-    private static const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
-    private static const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
-    private static const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
-    private static const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
-
-    private bool on_key_pressed(AppWindow aw, Gdk.EventKey event) {
-        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R)) {
-            rotateButton.set_stock_id(STOCK_COUNTERCLOCKWISE);
-            rotateButton.clicked -= on_rotate_clockwise;
-            rotateButton.clicked += on_rotate_counterclockwise;
-        }
-
-        return false;
+    private override void on_ctrl_pressed(Gdk.EventKey event) {
+        rotateButton.set_stock_id(STOCK_COUNTERCLOCKWISE);
+        rotateButton.clicked -= on_rotate_clockwise;
+        rotateButton.clicked += on_rotate_counterclockwise;
     }
     
-    private bool on_key_released(AppWindow aw, Gdk.EventKey event) {
-        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R)) {
-            rotateButton.set_stock_id(STOCK_CLOCKWISE);
-            rotateButton.clicked -= on_rotate_counterclockwise;
-            rotateButton.clicked += on_rotate_clockwise;
-        }
-
-        return false;
+    private override void on_ctrl_released(Gdk.EventKey event) {
+        rotateButton.set_stock_id(STOCK_CLOCKWISE);
+        rotateButton.clicked -= on_rotate_counterclockwise;
+        rotateButton.clicked += on_rotate_clockwise;
     }
 }
 

@@ -14,8 +14,8 @@
             <menuitem name="PhotosIncreaseSize" action="IncreaseSize" />
             <menuitem name="PhotosDecreaseSize" action="DecreaseSize" />
             <separator />
-            <menuitem name="RotateClockwise" action="RotateClockwise" />
-            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+            <menuitem name="RotateClockwise" action="CollectionRotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="CollectionRotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />
         </menu>
         
@@ -31,14 +31,20 @@
     <popup name="CollectionContextMenu">
         <menuitem name="Remove" action="Remove" />
         <separator />
-        <menuitem name="RotateClockwise" action="RotateClockwise" />
-        <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+        <menuitem name="RotateClockwise" action="CollectionRotateClockwise" />
+        <menuitem name="RotateCounterclockwise" action="CollectionRotateCounterclockwise" />
         <menuitem name="Mirror" action="Mirror" />
     </popup>
 
     <menubar name="PhotoMenuBar">
         <menu name="FileMenu" action="File">
             <menuitem name="FileQuit" action="Quit" />
+        </menu>
+        
+        <menu name="PhotoMenu" action="PhotoAction">
+            <menuitem name="RotateClockwise" action="PhotoRotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="PhotoRotateCounterclockwise" />
+            <menuitem name="Mirror" action="Mirror" />
         </menu>
         
         <menu name="HelpMenu" action="Help">

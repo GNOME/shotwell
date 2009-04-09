@@ -14,12 +14,17 @@ SRC_FILES = \
 	image_util.vala \
 	CollectionLayout.vala \
 	PhotoPage.vala \
-	Exif.vala
+	Exif.vala \
+	Page.vala
 	
 VAPI_FILES = \
 	libexif.vapi \
-	fstream.vapi
+	fstream.vapi \
+	libgphoto2.vapi
 
+RESOURCE_FILES = \
+	photo.ui
+    
 VAPI_DIRS = \
 	.
 
@@ -30,7 +35,8 @@ PKGS = \
 	sqlite3 \
 	vala-1.0 \
 	libexif \
-	fstream
+	fstream \
+	libgphoto2
 
 all: $(TARGET)
 

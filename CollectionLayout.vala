@@ -12,7 +12,7 @@ public class CollectionLayout : Gtk.Layout {
     private Gee.ArrayList<Thumbnail> thumbnails = new Gee.ArrayList<Thumbnail>();
 
     public CollectionLayout() {
-        modify_bg(Gtk.StateType.NORMAL, parse_color(CollectionPage.BG_COLOR));
+        modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
         expose_event += on_expose;
         size_allocate += on_resize;
     }
