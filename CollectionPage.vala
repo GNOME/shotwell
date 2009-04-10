@@ -124,7 +124,7 @@ public class CollectionPage : CheckerboardPage {
         refresh();
         
         // schedule improvement in case any new photos were added
-        schedule_thumbnail_improvement();
+        schedule_thumbnail_improval();
     }
     
     protected override void on_selection_changed(int count) {
