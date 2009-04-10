@@ -15,7 +15,9 @@ SRC_FILES = \
 	CollectionLayout.vala \
 	PhotoPage.vala \
 	Exif.vala \
-	Page.vala
+	Page.vala \
+	ImportPage.vala \
+	GPhoto.vala
 	
 VAPI_FILES = \
 	libexif.vapi \

@@ -3,6 +3,7 @@ public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
     public static const string VERSION = "0.0.1";
     public static const string DATA_DIR = ".photo";
+    public static const string PHOTOS_DIR = "Pictures";
     
     public static Gdk.Color BG_COLOR = parse_color("#777");
 
@@ -28,7 +29,7 @@ public class AppWindow : Gtk.Window {
         } catch (Error err) {
             error("%s", err.message);
         }
-        
+
         uiManager = new Gtk.UIManager();
 
         File uiFile = get_exec_dir().get_child("photo.ui");
@@ -65,6 +66,10 @@ public class AppWindow : Gtk.Window {
         return File.new_for_path(Environment.get_home_dir()).get_child(DATA_DIR);
     }
     
+    public static File get_photos_dir() {
+        return File.new_for_path(Environment.get_home_dir()).get_child(PHOTOS_DIR);
+    }
+    
     public static File get_data_subdir(string name, string? subname = null) {
         File subdir = get_data_dir().get_child(name);
         if (subname != null) {
@@ -86,9 +91,13 @@ public class AppWindow : Gtk.Window {
 
     private Gtk.TreeStore pageTreeStore = null;
     private Gtk.TreeView pageTreeView = null;
+    private Gtk.TreePath collectionPath = null;
+    private Gtk.TreePath importPath = null;
 
     private CollectionPage collectionPage = null;
     private PhotoPage photoPage = null;
+    private ImportPage importPage = null;
+    private PhotoPage importPreviewPage = null;
     
     private PhotoTable photoTable = new PhotoTable();
     
@@ -114,6 +123,8 @@ public class AppWindow : Gtk.Window {
         Gtk.TreeIter parent, child;
         pageTreeStore.append(out parent, null);
         pageTreeStore.set(parent, 0, "Photos");
+        collectionPath = pageTreeStore.get_path(parent);
+        pageTreeView.get_selection().select_path(collectionPath);
 
         pageTreeStore.append(out parent, null);
         pageTreeStore.set(parent, 0, "Events");
@@ -132,12 +143,26 @@ public class AppWindow : Gtk.Window {
 
         pageTreeStore.append(out parent, null);
         pageTreeStore.set(parent, 0, "Import");
+        importPath = pageTreeStore.get_path(parent);
 
         pageTreeStore.append(out parent, null);
         pageTreeStore.set(parent, 0, "Recent");
 
         pageTreeStore.append(out parent, null);
         pageTreeStore.set(parent, 0, "Trash");
+        
+        pageTreeView.cursor_changed += () => { 
+            Gtk.TreePath selected;
+            pageTreeView.get_cursor(out selected, null);
+            
+            if (selected.compare(collectionPath) == 0) {
+                switch_to_collection_page();
+            } else if (selected.compare(importPath) == 0) {
+                switch_to_import_page();
+            } else {
+                debug("unknown");
+            }
+        };
         
         // set up as a drag-and-drop destination
         // this.drag_data_received() is called when a drop occurs
@@ -149,13 +174,16 @@ public class AppWindow : Gtk.Window {
         }
         
         collectionPage = new CollectionPage();
-        photoPage = new PhotoPage();
+        photoPage = new PhotoPage("Photo");
+        importPage = new ImportPage();
+        importPreviewPage = new PhotoPage("ImportPreview");
+        
         add_accel_group(uiManager.get_accel_group());
 
         create_start_page();
     }
     
-    private void import(File file) {
+    public void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
             if (!import_file(file)) {
@@ -218,7 +246,7 @@ public class AppWindow : Gtk.Window {
     private bool import_file(File file) {
         debug("Importing file %s", file.get_path());
 
-        // load full-scale photo and convert to pixbuf
+        // TODO: Attempt to discover photo information from its metadata
         Gdk.Pixbuf original;
         try {
             original = new Gdk.Pixbuf.from_file(file.get_path());
@@ -248,11 +276,11 @@ public class AppWindow : Gtk.Window {
         Gtk.drag_finish(context, true, false, time);
         
         // import
-        collectionPage.begin_adding();
         foreach (string uri in uris) {
             import(File.new_for_uri(uri));
         }
-        collectionPage.end_adding();
+        
+        collectionPage.refresh();
     }
     
     public void switch_to_collection_page() {
@@ -260,8 +288,17 @@ public class AppWindow : Gtk.Window {
     }
     
     public void switch_to_photo_page(PhotoID photoID) {
-        photoPage.display_photo(photoID);
+        photoPage.display_photo(photoID, collectionPage);
         switch_to_page(photoPage);
+    }
+    
+    public void switch_to_import_preview_page(Gdk.Pixbuf pixbuf, Exif.Data exifData) {
+        importPreviewPage.display_pixbuf(pixbuf, exifData, importPage);
+        switch_to_page(importPreviewPage);
+    }
+    
+    public void switch_to_import_page() {
+        switch_to_page(importPage);
     }
     
     private Gtk.Box layout = null;
@@ -291,10 +328,16 @@ public class AppWindow : Gtk.Window {
         layout.pack_end(clientBox, true, true, 0);
         
         add(layout);
+        
+        currentPage.switched_to();
+
         show_all();
     }
     
-    private void switch_to_page(Page page) {
+    public void switch_to_page(Page page) {
+        if (page == currentPage)
+            return;
+            
         currentPage.switching_from();
 
         pageBox.remove(currentPage);

@@ -1,5 +1,5 @@
 
-public class CollectionPage : Page {
+public class CollectionPage : CheckerboardPage {
     public static const int THUMB_X_PADDING = 20;
     public static const int THUMB_Y_PADDING = 20;
 
@@ -8,17 +8,14 @@ public class CollectionPage : Page {
     public static const int SLIDER_STEPPING = 1;
 
     private static const int IMPROVAL_PRIORITY = Priority.LOW;
-    private static const int IMPROVAL_DELAY_MS = 500;
+    private static const int IMPROVAL_DELAY_MS = 250;
     
     private PhotoTable photoTable = new PhotoTable();
-    private CollectionLayout layout = new CollectionLayout();
     private Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
     private Gtk.ActionGroup contextActionGroup = new Gtk.ActionGroup("CollectionContextActionGroup");
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotateButton = null;
-    private Gee.ArrayList<Thumbnail> thumbnailList = new Gee.ArrayList<Thumbnail>();
-    private Gee.HashSet<Thumbnail> selectedList = new Gee.HashSet<Thumbnail>();
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
     private bool displayTitles = true;
@@ -48,7 +45,7 @@ public class CollectionPage : Page {
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         { "CollectionRotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
         { "CollectionRotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
+        { "CollectionMirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
     };
     
     construct {
@@ -91,16 +88,10 @@ public class CollectionPage : Page {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
-        // may be exposed)
-        size_allocate += schedule_thumbnail_improval;
-        
         // this schedules thumbnail improvement whenever the window is scrolled (and new
         // thumbnails may be exposed)
         get_hadjustment().value_changed += schedule_thumbnail_improval;
         get_vadjustment().value_changed += schedule_thumbnail_improval;
-        
-        add(layout);
         
         File[] photoFiles = photoTable.get_photo_files();
         foreach (File file in photoFiles) {
@@ -108,7 +99,7 @@ public class CollectionPage : Page {
             add_photo(photoID, file);
         }
         
-        layout.refresh();
+        refresh();
         
         schedule_thumbnail_improval();
 
@@ -123,92 +114,54 @@ public class CollectionPage : Page {
         return "/CollectionMenuBar";
     }
     
+    public override string? get_context_menu_path() {
+        return "/CollectionContextMenu";
+    }
+    
     public override void switched_to() {
         // need to refresh the layout in case any of the thumbnail dimensions were altered while we
         // were gone
-        layout.refresh();
+        refresh();
+        
+        // schedule improvement in case any new photos were added
+        schedule_thumbnail_improvement();
     }
     
-    public void begin_adding() {
+    protected override void on_selection_changed(int count) {
+        rotateButton.sensitive = (count > 0);
     }
     
+    protected override void on_item_activated(LayoutItem item) {
+        Thumbnail thumbnail = (Thumbnail) item;
+        
+        // switch to full-page view
+        debug("switching to %s [%d]", thumbnail.get_file().get_path(),
+            thumbnail.get_photo_id().id);
+
+        AppWindow.get_main_window().switch_to_photo_page(thumbnail.get_photo_id());
+    }
+    
+    private int lastWidth = 0;
+    private int lastHeight = 0;
+
+    protected override bool on_resize(Gdk.Rectangle rect) {
+        // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
+        // may be exposed), therefore, uninterested in window position move
+        if ((lastWidth != rect.width) || (lastHeight != rect.height)) {
+            lastWidth = rect.width;
+            lastHeight = rect.height;
+
+            schedule_thumbnail_improval();
+        }
+        
+        return false;
+    }
+
     public void add_photo(PhotoID photoID, File file) {
         Thumbnail thumbnail = Thumbnail.create(photoID, file, scale);
         thumbnail.display_title(displayTitles);
         
-        thumbnailList.add(thumbnail);
-        
-        layout.append(thumbnail);
-    }
-    
-    public void end_adding() {
-        layout.refresh();
-    }
-    
-    public int get_count() {
-        return thumbnailList.size;
-    }
-
-    public void select_all() {
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            selectedList.add(thumbnail);
-            thumbnail.select();
-        }
-        
-        rotateButton.sensitive = true;
-    }
-    
-    public void unselect_all() {
-        foreach (Thumbnail thumbnail in selectedList) {
-            assert(thumbnail.is_selected());
-            thumbnail.unselect();
-        }
-        
-        selectedList = new Gee.HashSet<Thumbnail>();
-        
-        rotateButton.sensitive = false;
-    }
-    
-    public Thumbnail[] get_selected() {
-        Thumbnail[] thumbnails = new Thumbnail[selectedList.size];
-        
-        int ctr = 0;
-        foreach (Thumbnail thumbnail in selectedList) {
-            assert(thumbnail.is_selected());
-            thumbnails[ctr++] = thumbnail;
-        }
-        
-        return thumbnails;
-    }
-    
-    public void select(Thumbnail thumbnail) {
-        thumbnail.select();
-        selectedList.add(thumbnail);
-        
-        rotateButton.sensitive = true;
-    }
-    
-    public void unselect(Thumbnail thumbnail) {
-        thumbnail.unselect();
-        selectedList.remove(thumbnail);
-        
-        rotateButton.sensitive = (selectedList.size != 0);
-    }
-    
-    public void toggle_select(Thumbnail thumbnail) {
-        if (thumbnail.toggle_select()) {
-            // now selected
-            selectedList.add(thumbnail);
-        } else {
-            // now unselected
-            selectedList.remove(thumbnail);
-        }
-        
-        rotateButton.sensitive = (selectedList.size != 0);
-    }
-
-    public int get_selected_count() {
-        return selectedList.size;
+        add_item(thumbnail);
     }
     
     public int increase_thumb_size() {
@@ -245,11 +198,11 @@ public class CollectionPage : Page {
         
         scale = newScale;
         
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            thumbnail.resize(scale);
+        foreach (LayoutItem item in get_items()) {
+            ((Thumbnail) item).resize(scale);
         }
         
-        layout.refresh();
+        refresh();
         
         schedule_thumbnail_improval();
     }
@@ -273,7 +226,8 @@ public class CollectionPage : Page {
             return true;
         }
 
-        foreach (Thumbnail thumbnail in thumbnailList) {
+        foreach (LayoutItem item in get_items()) {
+            Thumbnail thumbnail = (Thumbnail) item;
             if (thumbnail.is_exposed()) {
                 thumbnail.paint_high_quality();
             }
@@ -315,128 +269,55 @@ public class CollectionPage : Page {
         slider.set_value(scaleToSlider(scale));
     }
 
-    private override bool on_left_click(Gdk.EventButton event) {
-        // only interested in single-click and double-clicks for now
-        if ((event.type != Gdk.EventType.BUTTON_PRESS) 
-            && (event.type != Gdk.EventType.2BUTTON_PRESS)) {
-            return false;
-        }
-        
-        // mask out the modifiers we're interested in
-        uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
-        
-        Thumbnail thumbnail = layout.get_thumbnail_at(event.x, event.y);
-        if (thumbnail != null) {
-            message("clicked on %s", thumbnail.get_file().get_basename());
-            
-            switch (state) {
-                case Gdk.ModifierType.CONTROL_MASK: {
-                    // with only Ctrl pressed, multiple selections are possible ... chosen item
-                    // is toggled
-                    toggle_select(thumbnail);
-                } break;
-                
-                case Gdk.ModifierType.SHIFT_MASK: {
-                    // TODO
-                } break;
-                
-                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK: {
-                    // TODO
-                } break;
-                
-                default: {
-                    if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-                        // switch to full-page view
-                        debug("switching to %s [%d]", thumbnail.get_file().get_path(),
-                            thumbnail.get_photo_id().id);
-                        AppWindow.get_main_window().switch_to_photo_page(thumbnail.get_photo_id());
-                    } else {
-                        // a "raw" single-click deselects all thumbnails and selects the single chosen
-                        unselect_all();
-                        select(thumbnail);
-                    }
-                } break;
-            }
-        } else {
-            // user clicked on "dead" area
-            unselect_all();
-        }
-
-        return true;
-    }
-    
-    private override bool on_right_click(Gdk.EventButton event) {
-        // only interested in single-clicks for now
-        if (event.type != Gdk.EventType.BUTTON_PRESS) {
-            return false;
-        }
-        
-        Thumbnail thumbnail = layout.get_thumbnail_at(event.x, event.y);
-        if (thumbnail != null) {
-            // this counts as a select with all others de-selected
-            unselect_all();
-            select(thumbnail);
-
-            Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget("/CollectionContextMenu");
-            contextMenu.popup(null, null, null, event.button, event.time);
-            
-            return true;
-        }
-            
-        return false;
-    }
-    
     private void on_remove() {
-        // get a full list of the selected thumbnails, then iterate over that, as you can't remove
-        // from a list you're iterating over
-        Thumbnail[] thumbnails = get_selected();
-        foreach (Thumbnail thumbnail in thumbnails) {
-            thumbnailList.remove(thumbnail);
-            selectedList.remove(thumbnail);
-
+        // iterate over selected and remove them from cache and database
+        foreach (LayoutItem item in get_selected()) {
+            Thumbnail thumbnail = (Thumbnail) item;
+            
+            Thumbnail.remove_instance(thumbnail);
             ThumbnailCache.remove(thumbnail.get_photo_id());
             photoTable.remove(thumbnail.get_photo_id());
-            
-            layout.remove_thumbnail(thumbnail);
         }
         
-        assert(selectedList.size == 0);
-        rotateButton.sensitive = false;
-        
-        layout.refresh();
+        remove_selected();
+
+        refresh();
     }
     
     private delegate Exif.Orientation RotationFunc(Exif.Orientation orientation);
     
-    private void do_rotations(string desc, Gee.Collection<Thumbnail> c, RotationFunc func) {
-        foreach (Thumbnail thumbnail in c) {
+    private void do_rotations(string desc, Gee.Iterable<LayoutItem> c, RotationFunc func) {
+        bool rotationPerformed = false;
+        foreach (LayoutItem item in c) {
+            Thumbnail thumbnail = (Thumbnail) item;
             Exif.Orientation orientation = thumbnail.get_orientation();
             Exif.Orientation rotated = func(orientation);
             debug("Rotating %s %s from %s to %s", desc, thumbnail.get_file().get_path(),
                 orientation.get_description(), rotated.get_description());
             thumbnail.set_orientation(rotated);
+            rotationPerformed = true;
         }
         
-        if (c.size > 0) {
+        if (rotationPerformed) {
             schedule_thumbnail_improval();
-            layout.refresh();
+            refresh();
         }
     }
 
     private void on_rotate_clockwise() {
-        do_rotations("clockwise", selectedList, (orientation) => {
+        do_rotations("clockwise", get_selected(), (orientation) => {
             return orientation.rotate_clockwise();
         });
     }
     
     private void on_rotate_counterclockwise() {
-        do_rotations("counterclockwise", selectedList, (orientation) => {
+        do_rotations("counterclockwise", get_selected(), (orientation) => {
             return orientation.rotate_counterclockwise();
         });
     }
     
     private void on_mirror() {
-        do_rotations("mirror", selectedList, (orientation) => {
+        do_rotations("mirror", get_selected(), (orientation) => {
             return orientation.flip_left_to_right();
         });
     }
@@ -444,11 +325,11 @@ public class CollectionPage : Page {
     private void on_display_titles() {
         displayTitles = (displayTitles) ? false : true;
         
-        foreach (Thumbnail thumbnail in thumbnailList) {
-            thumbnail.display_title(displayTitles);
+        foreach (LayoutItem item in get_items()) {
+            ((Thumbnail) item).display_title(displayTitles);
         }
         
-        layout.refresh();
+        refresh();
     }
     
     private double scaleToSlider(int value) {
@@ -471,16 +352,20 @@ public class CollectionPage : Page {
         set_thumb_size(sliderToScale(slider.get_value()));
     }
     
-    private override void on_ctrl_pressed(Gdk.EventKey event) {
+    private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotateButton.set_stock_id(STOCK_COUNTERCLOCKWISE);
         rotateButton.clicked -= on_rotate_clockwise;
         rotateButton.clicked += on_rotate_counterclockwise;
+        
+        return false;
     }
     
-    private override void on_ctrl_released(Gdk.EventKey event) {
+    private override bool on_ctrl_released(Gdk.EventKey event) {
         rotateButton.set_stock_id(STOCK_CLOCKWISE);
         rotateButton.clicked -= on_rotate_counterclockwise;
         rotateButton.clicked += on_rotate_clockwise;
+        
+        return false;
     }
 }
 

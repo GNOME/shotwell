@@ -180,6 +180,25 @@ namespace Exif {
 
     public static const int ORIENTATION_MIN = 1;
     public static const int ORIENTATION_MAX = 8;
+    
+    public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
+        for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {
+            Exif.Content content = data.ifd[ctr];
+            assert(content != null);
+            
+            Exif.Entry entry = content.get_entry(tag);
+            if (entry == null)
+                continue;
+            
+            assert(entry.format == format);
+            if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
+                assert(entry.size == format.get_size());
+            
+            return entry;
+        }
+        
+        return null;
+    }
 }
 
 namespace Jpeg {
@@ -222,6 +241,8 @@ public class PhotoExif {
     private File file;
     private Exif.Data exifData = null;
     
+    // TODO: This map creates consistency between multiple users accessing the exif data in the
+    // same file.  However, this map will grow without bounds.
     public static PhotoExif create(File file) {
         PhotoExif exif = null;
 
@@ -347,22 +368,7 @@ public class PhotoExif {
     private Exif.Entry? find_first_entry(Exif.Tag tag, Exif.Format format) {
         assert(exifData != null);
         
-        for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {
-            Exif.Content content = exifData.ifd[ctr];
-            assert(content != null);
-            
-            Exif.Entry entry = content.get_entry(tag);
-            if (entry == null)
-                continue;
-            
-            assert(entry.format == format);
-            if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
-                assert(entry.size == format.get_size());
-            
-            return entry;
-        }
-        
-        return null;
+        return Exif.find_first_entry(exifData, tag, format);
     }
     
     public void commit() throws Error {

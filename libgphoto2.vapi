@@ -3,6 +3,7 @@
     lower_case_cprefix="gp_"
 )]
 namespace GPhoto {
+    [SimpleType]
     [CCode (
         cname="CameraAbilities",
         destroy_function="",
@@ -54,6 +55,7 @@ namespace GPhoto {
         public Result init(Context context);
         public Result exit(Context context);
         public Result get_port_info(out PortInfo info);
+        public Result set_port_info(PortInfo info);
         public Result get_abilities(out CameraAbilities abilities);
         public Result set_abilities(CameraAbilities abilities);
         public Result get_storageinfo(CameraStorageInformation **sifs, out int count, Context context);
@@ -78,7 +80,7 @@ namespace GPhoto {
         [CCode (cname="gp_camera_file_set_info")]
         public Result set_file_info(string folder, string file, CameraFileInfo info, Context context);
         [CCode (cname="gp_camera_file_get")]
-        public Result get_file(string folder, string filename, FileType type, CameraFile file,
+        public Result get_file(string folder, string filename, CameraFileType type, CameraFile file,
             Context context);
         [CCode (cname="gp_camera_file_delete")]
         public Result delete_file(string folder, string filename, Context context);
@@ -97,10 +99,13 @@ namespace GPhoto {
         [CCode (cname="gp_file_new")]
         public static Result create(out CameraFile file);
         public Result save(string filename);
+        public Result slurp(uint8[] data, out size_t readlen);
     }
     
+    [SimpleType]
     [CCode (
         cname="CameraFileInfo",
+        destroy_function="",
         cheader_filename="gphoto2/gphoto2-filesys.h"
     )]
     public struct CameraFileInfo {
@@ -109,6 +114,7 @@ namespace GPhoto {
         public CameraFileInfoAudio audio;
     }
     
+    [SimpleType]
     [CCode (
         cname="CameraFileInfoAudio",
         cheader_filename="gphoto2/gphoto2-filesys.h"
@@ -135,6 +141,7 @@ namespace GPhoto {
         ALL
     }
     
+    [SimpleType]
     [CCode (
         cname="CameraFileInfoFile",
         cheader_filename="gphoto2/gphoto2-filesys.h"
@@ -151,6 +158,7 @@ namespace GPhoto {
         public time_t mtime;
     }
     
+    [SimpleType]
     [CCode (
         cname="CameraFileInfoPreview",
         cheader_filename="gphoto2/gphoto2-filesys.h"
@@ -203,6 +211,20 @@ namespace GPhoto {
     public enum CameraFileStatus {
         NOT_DOWNLOADED,
         DOWNLOADED
+    }
+    
+    [CCode (
+        cname="CameraFileType",
+        cheader_filename="gphoto2/gphoto2-file.h",
+        cprefix="GP_FILE_TYPE_"
+    )]
+    public enum CameraFileType {
+        PREVIEW,
+        NORMAL,
+        RAW,
+        AUDIO,
+        EXIF,
+        METADATA
     }
     
     [CCode (
@@ -260,7 +282,7 @@ namespace GPhoto {
     
     [CCode (
         cname="CameraStorageInfoFields",
-        cheader_filename="gphoto2/gphoto-filesys.h",
+        cheader_filename="gphoto2/gphoto2-filesys.h",
         cprefix="GP_STORAGEINFO_"
     )]
     [Flags]
@@ -276,6 +298,7 @@ namespace GPhoto {
         FREESPACEIMAGES
     }
     
+    [SimpleType]
     [CCode (
         cname="CameraStorageInformation",
         cheader_filename="gphoto2/gphoto2-filesys.h"
@@ -306,17 +329,18 @@ namespace GPhoto {
     
     [CCode (
         cheader_filename="gphoto2/gphoto2-file.h",
-        cprefix="GP_FILE_TYPE_"
+        cprefix="GP_MIME_"
     )]
-    public enum FileType {
-        PREVIEW,
-        NORMAL,
-        RAW,
-        AUDIO,
-        EXIF,
-        METADATA
+    namespace MIME {
+        public static const string RAW;
+        public static const string PNG;
+        public static const string JPEG;
+        public static const string TIFF;
+        public static const string BMP;
+        public static const string EXIF;
     }
     
+    [SimpleType]
     [CCode (
         destroy_function="",
         cheader_filename="gphoto2/gphoto2-port-info-list.h"
@@ -338,6 +362,8 @@ namespace GPhoto {
         public static Result create(out PortInfoList list);
         public Result load();
         public int count();
+        public int lookup_name(string name);
+        public int lookup_path(string name);
         public Result get_info(int index, out PortInfo info);
     }
     

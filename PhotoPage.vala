@@ -5,10 +5,9 @@ public class PhotoPage : Page {
     
     private PhotoTable photoTable = new PhotoTable();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    private Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("PhotoActionGroup");
+    private Gtk.ActionGroup actionGroup = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotateButton = null;
-    private PhotoID currentPhotoID;
     private Gtk.Image image = new Gtk.Image();
     private PhotoExif exif = null;
     private Gdk.Pixbuf original = null;
@@ -16,6 +15,7 @@ public class PhotoPage : Page {
     private Gdk.Pixbuf rotated = null;
     private Dimensions rotatedDim;
     private Thumbnail thumbnail = null;
+    private Page returnPage = null;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -25,17 +25,13 @@ public class PhotoPage : Page {
         { "PhotoAction", null, "_Photo", null, null, null },
         { "PhotoRotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
         { "PhotoRotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
+        { "PhotoMirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         
         { "Help", null, "_Help", null, null, null },
         { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", about_box }
     };
     
     construct {
-        // set up action group
-        actionGroup.add_actions(ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(actionGroup, 0);
-
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
@@ -56,6 +52,12 @@ public class PhotoPage : Page {
         expose_event += on_expose;
     }
     
+    public PhotoPage(string name) {
+        actionGroup = new Gtk.ActionGroup(name + "ActionGroup");
+        actionGroup.add_actions(ACTIONS, this);
+        AppWindow.get_ui_manager().insert_action_group(actionGroup, 0);
+    }
+
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
@@ -64,8 +66,7 @@ public class PhotoPage : Page {
         return "/PhotoMenuBar";
     }
     
-    public void display_photo(PhotoID photoID) {
-        currentPhotoID = photoID;
+    public void display_photo(PhotoID photoID, Page returnPage) {
         File file = photoTable.get_file(photoID);
         assert(file != null);
         
@@ -83,6 +84,29 @@ public class PhotoPage : Page {
         orientation = exif.get_orientation();
         rotated = rotate_to_exif(original, orientation);
         rotatedDim = Dimensions.for_pixbuf(rotated);
+        this.returnPage = returnPage;
+        
+        repaint(true);
+    }
+    
+    public void display_pixbuf(Gdk.Pixbuf pixbuf, Exif.Data exifData, Page returnPage) {
+        Exif.Entry entry = Exif.find_first_entry(exifData, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
+        if (entry != null) {
+            int o = Exif.Convert.get_short(entry.data, exifData.get_byte_order());
+            assert(o >= Exif.ORIENTATION_MIN);
+            assert(o <= Exif.ORIENTATION_MAX);
+            
+            orientation = (Exif.Orientation) o;
+        } else {
+            orientation = Exif.Orientation.TOP_LEFT;
+        }
+
+        original = pixbuf;
+        thumbnail = null;
+        exif = null;
+        rotated = rotate_to_exif(original, orientation);
+        rotatedDim = Dimensions.for_pixbuf(rotated);
+        this.returnPage = returnPage;
         
         repaint(true);
     }
@@ -109,14 +133,13 @@ public class PhotoPage : Page {
 
         image.set_from_pixbuf(pixbuf);
         
-        debug("viewport:%dx%d scaled:%dx%d", viewDim.width, viewDim.height, scaled.width, scaled.height);
-        
         return true;
     }
     
     private override bool on_left_click(Gdk.EventButton event) {
         if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-            AppWindow.get_main_window().switch_to_collection_page();
+            assert(returnPage != null);
+            AppWindow.get_main_window().switch_to_page(returnPage);
             
             return true;
         }
@@ -130,17 +153,17 @@ public class PhotoPage : Page {
     
     private void set_orientation(Exif.Orientation newOrientation) {
         orientation = newOrientation;
-        exif.set_orientation(orientation);
-        
         rotated = rotate_to_exif(original, orientation);
         rotatedDim = Dimensions.for_pixbuf(rotated);
         
-        //resize(true);
-        
-        try {
-            exif.commit();
-        } catch (Error err) {
-            error("%s", err.message);
+        if (exif != null) {
+            exif.set_orientation(orientation);
+
+            try {
+                exif.commit();
+            } catch (Error err) {
+                error("%s", err.message);
+            }
         }
         
         if (thumbnail != null)
@@ -161,16 +184,20 @@ public class PhotoPage : Page {
         set_orientation(orientation.flip_left_to_right());
     }
 
-    private override void on_ctrl_pressed(Gdk.EventKey event) {
+    private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotateButton.set_stock_id(STOCK_COUNTERCLOCKWISE);
         rotateButton.clicked -= on_rotate_clockwise;
         rotateButton.clicked += on_rotate_counterclockwise;
+        
+        return false;
     }
     
-    private override void on_ctrl_released(Gdk.EventKey event) {
+    private override bool on_ctrl_released(Gdk.EventKey event) {
         rotateButton.set_stock_id(STOCK_CLOCKWISE);
         rotateButton.clicked -= on_rotate_counterclockwise;
         rotateButton.clicked += on_rotate_clockwise;
+        
+        return false;
     }
 }
 

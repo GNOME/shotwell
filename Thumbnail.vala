@@ -1,11 +1,5 @@
 
-public class Thumbnail : Gtk.Alignment {
-    public static const int LABEL_PADDING = 4;
-    public static const int FRAME_PADDING = 4;
-    public static const string TEXT_COLOR = "#FFF";
-    public static const string SELECTED_COLOR = "#FF0";
-    public static const string UNSELECTED_COLOR = "#FFF";
-    
+public class Thumbnail : LayoutItem {
     public static const int MIN_SCALE = 64;
     public static const int MAX_SCALE = 360;
     public static const int DEFAULT_SCALE = 128;
@@ -36,62 +30,41 @@ public class Thumbnail : Gtk.Alignment {
         return thumbnail;
     }
     
-    // Due to the potential for thousands or tens of thousands of thumbnails being present in a
-    // particular view, all widgets used here should be NOWINDOW widgets.
+    public static void remove_instance(Thumbnail thumbnail) {
+        assert(thumbnailMap != null);
+        
+        thumbnailMap.remove(thumbnail.photoID.id);
+    }
+    
     private PhotoID photoID;
     private File file;
     private int scale;
-    private Gtk.Image image = new Gtk.Image();
-    private Gtk.Label title = null;
-    private Gtk.Frame frame = null;
-    private bool selected = false;
     private Dimensions originalDim;
     private Dimensions scaledDim;
     private Gdk.Pixbuf cached = null;
     private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
     private PhotoExif exif;
-    private string titleText;
     private time_t time = time_t();
     
     private Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
         this.file = file;
         this.scale = scale;
-        this.titleText = file.get_basename();
         this.exif = PhotoExif.create(file);
         this.originalDim = new PhotoTable().get_dimensions(photoID);
         this.scaledDim = get_scaled_dimensions(originalDim, scale);
         this.scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
         exif.get_datetime_time(out this.time);
-
-        // bottom-align everything
-        set(0, 1, 0, 0);
         
+        title.set_text(file.get_basename());
+
         // the image widget is only filled with a Pixbuf when exposed; if the pixbuf is cleared or
         // not present, the widget will collapse, and so the layout manager won't account for it
         // properly when it's off the viewport.  The solution is to manually set the widget's
         // requisition size, even when it contains no pixbuf
         image.set_size_request(scaledDim.width, scaledDim.height);
-        
-        title = new Gtk.Label(titleText);
-        title.set_use_underline(false);
-        title.set_justify(Gtk.Justification.LEFT);
-        title.set_alignment(0, 0);
-        title.modify_fg(Gtk.StateType.NORMAL, parse_color(TEXT_COLOR));
-        
-        Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.set_border_width(FRAME_PADDING);
-        vbox.pack_start(image, false, false, 0);
-        vbox.pack_end(title, false, false, LABEL_PADDING);
-        
-        frame = new Gtk.Frame(null);
-        frame.set_shadow_type(Gtk.ShadowType.NONE);
-        frame.modify_bg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
-        frame.add(vbox);
-
-        add(frame);
     }
-
+    
     public File get_file() {
         return file;
     }
@@ -168,36 +141,6 @@ public class Thumbnail : Gtk.Alignment {
         return time;
     }
     
-    public void select() {
-        selected = true;
-
-        frame.set_shadow_type(Gtk.ShadowType.OUT);
-        frame.modify_bg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
-        title.modify_fg(Gtk.StateType.NORMAL, parse_color(SELECTED_COLOR));
-    }
-
-    public void unselect() {
-        selected = false;
-
-        frame.set_shadow_type(Gtk.ShadowType.NONE);
-        frame.modify_bg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
-        title.modify_fg(Gtk.StateType.NORMAL, parse_color(UNSELECTED_COLOR));
-    }
-
-    public bool toggle_select() {
-        if (selected) {
-            unselect();
-        } else {
-            select();
-        }
-        
-        return selected;
-    }
-
-    public bool is_selected() {
-        return selected;
-    }
-
     public void resize(int newScale) {
         assert(newScale >= MIN_SCALE);
         assert(newScale <= MAX_SCALE);
@@ -245,7 +188,7 @@ public class Thumbnail : Gtk.Alignment {
         scaledInterp = HIGH_QUALITY_INTERP;
     }
     
-    public void exposed() {
+    public override void exposed() {
         if (cached != null)
             return;
 
@@ -257,7 +200,7 @@ public class Thumbnail : Gtk.Alignment {
         image.set_size_request(scaledDim.width, scaledDim.height);
     }
     
-    public void unexposed() {
+    public override void unexposed() {
         if (cached == null)
             return;
 
