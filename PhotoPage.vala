@@ -5,7 +5,6 @@ public class PhotoPage : Page {
     
     private PhotoTable photoTable = new PhotoTable();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    private Gtk.ActionGroup actionGroup = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotateButton = null;
     private Gtk.Image image = new Gtk.Image();
@@ -19,29 +18,26 @@ public class PhotoPage : Page {
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "File", null, "_File", null, null, null },
-        { "Quit", Gtk.STOCK_QUIT, "_Quit", null, "Quit the program", Gtk.main_quit },
-        
-        { "PhotoAction", null, "_Photo", null, null, null },
-        { "PhotoRotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "PhotoRotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "PhotoMirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
-        
-        { "Help", null, "_Help", null, null, null },
-        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", about_box }
+        { "FileMenu", null, "_File", null, null, null },
+
+        { "PhotoMenu", null, "_Photo", null, null, null },        
+        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
+
+        { "HelpMenu", null, "_Help", null, null, null }
     };
     
     construct {
+        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
+
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
         rotateButton = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
         rotateButton.clicked += on_rotate_clockwise;
-        
         toolbar.insert(rotateButton, -1);
         
-        // scrollbar policy ... this is important, as if the scrollbars appear will cause a loop
-        // of on_resize()
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         viewport.add(image);
@@ -52,18 +48,8 @@ public class PhotoPage : Page {
         expose_event += on_expose;
     }
     
-    public PhotoPage(string name) {
-        actionGroup = new Gtk.ActionGroup(name + "ActionGroup");
-        actionGroup.add_actions(ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(actionGroup, 0);
-    }
-
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
-    }
-    
-    public override string get_menubar_path() {
-        return "/PhotoMenuBar";
     }
     
     public void display_photo(PhotoID photoID, Page returnPage) {

@@ -1,0 +1,40 @@
+<ui>
+
+    <menubar name="CollectionMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="SelectAll" action="SelectAll" />
+            <menuitem name="Remove" action="Remove" />
+        </menu>
+        
+        <menu name="PhotosMenu" action="PhotosMenu">
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
+            <separator />
+            <menuitem name="RotateClockwise" action="RotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+            <menuitem name="Mirror" action="Mirror" />
+        </menu>
+        
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="ViewTitle" action="ViewTitle" />
+        </menu>
+        
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+    
+    <popup name="CollectionContextMenu">
+        <menuitem name="ContextRemove" action="Remove" />
+        <separator />
+        <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
+        <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
+        <menuitem name="ContextMirror" action="Mirror" />
+    </popup>
+
+</ui>
+

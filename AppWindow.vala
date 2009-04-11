@@ -4,16 +4,26 @@ public class AppWindow : Gtk.Window {
     public static const string VERSION = "0.0.1";
     public static const string DATA_DIR = ".photo";
     public static const string PHOTOS_DIR = "Pictures";
+    public static const int SIDEBAR_MIN_WIDTH = 160;
+    public static const int SIDEBAR_MAX_WIDTH = 320;
+    public static const int PAGE_MIN_WIDTH = 
+        Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
     public static Gdk.Color BG_COLOR = parse_color("#777");
 
     private static AppWindow mainWindow = null;
-    private static Gtk.UIManager uiManager = null;
     private static string[] args = null;
 
     // drag and drop target entries
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
+    };
+    
+    // Common actions available to all pages
+    // TODO: Mark fields for translation
+    private const Gtk.ActionEntry[] COMMON_ACTIONS = {
+        { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", Gtk.main_quit },
+        { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about }
     };
     
     public static void init(string[] args) {
@@ -29,25 +39,10 @@ public class AppWindow : Gtk.Window {
         } catch (Error err) {
             error("%s", err.message);
         }
-
-        uiManager = new Gtk.UIManager();
-
-        File uiFile = get_exec_dir().get_child("photo.ui");
-        assert(uiFile != null);
-
-        try {
-            uiManager.add_ui_from_file(uiFile.get_path());
-        } catch (GLib.Error gle) {
-            error("Error loading UI: %s", gle.message);
-        }
     }
     
     public static AppWindow get_main_window() {
         return mainWindow;
-    }
-    
-    public static Gtk.UIManager get_ui_manager() {
-        return uiManager;
     }
     
     public static string[] get_commandline_args() {
@@ -88,12 +83,7 @@ public class AppWindow : Gtk.Window {
         
         return subdir;
     }
-
-    private Gtk.TreeStore pageTreeStore = null;
-    private Gtk.TreeView pageTreeView = null;
-    private Gtk.TreePath collectionPath = null;
-    private Gtk.TreePath importPath = null;
-
+    
     private CollectionPage collectionPage = null;
     private PhotoPage photoPage = null;
     private ImportPage importPage = null;
@@ -102,87 +92,48 @@ public class AppWindow : Gtk.Window {
     private PhotoTable photoTable = new PhotoTable();
     
     construct {
-        // set up display
-        title = TITLE;
-        set_default_size(1024, 768);
-
-        destroy += Gtk.main_quit;
-
-        pageTreeStore = new Gtk.TreeStore(1, typeof(string));
-        pageTreeView = new Gtk.TreeView.with_model(pageTreeStore);
-        
-        var text = new Gtk.CellRendererText();
-        text.size_points = 9.0;
-        var column = new Gtk.TreeViewColumn();
-        column.pack_start(text, true);
-        column.add_attribute(text, "text", 0);
-        pageTreeView.append_column(column);
-        
-        pageTreeView.set_headers_visible(false);
-
-        Gtk.TreeIter parent, child;
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, "Photos");
-        collectionPath = pageTreeStore.get_path(parent);
-        pageTreeView.get_selection().select_path(collectionPath);
-
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, "Events");
-        
-        pageTreeStore.append(out child, parent);
-        pageTreeStore.set(child, 0, "New Year's");
-
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, "Albums");
-        
-        pageTreeStore.append(out child, parent);
-        pageTreeStore.set(child, 0, "Parties");
-
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, null);
-
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, "Import");
-        importPath = pageTreeStore.get_path(parent);
-
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, "Recent");
-
-        pageTreeStore.append(out parent, null);
-        pageTreeStore.set(parent, 0, "Trash");
-        
-        pageTreeView.cursor_changed += () => { 
-            Gtk.TreePath selected;
-            pageTreeView.get_cursor(out selected, null);
-            
-            if (selected.compare(collectionPath) == 0) {
-                switch_to_collection_page();
-            } else if (selected.compare(importPath) == 0) {
-                switch_to_import_page();
-            } else {
-                debug("unknown");
-            }
-        };
-        
-        // set up as a drag-and-drop destination
-        // this.drag_data_received() is called when a drop occurs
-        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
-        
         // if this is the first AppWindow, it's the main AppWindow
         if (mainWindow == null) {
             mainWindow = this;
         }
         
-        collectionPage = new CollectionPage();
-        photoPage = new PhotoPage("Photo");
-        importPage = new ImportPage();
-        importPreviewPage = new PhotoPage("ImportPreview");
-        
-        add_accel_group(uiManager.get_accel_group());
+        title = TITLE;
+        set_default_size(1024, 768);
 
+        destroy += Gtk.main_quit;
+        
+        build_sidebar();
+        
+        collectionPage = new CollectionPage();
+        photoPage = new PhotoPage();
+        importPage = new ImportPage();
+        importPreviewPage = new PhotoPage();
+        
         create_start_page();
+
+        // set up main window as a drag-and-drop destination (rather than each page; assume
+        // a drag and drop is for general library importation, which means it goes to collectionPage)
+        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
     }
     
+    public Gtk.ActionGroup get_common_action_group() {
+        // each page gets its own one
+        Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("CommonActionGroup");
+        actionGroup.add_actions(COMMON_ACTIONS, this);
+        
+        return actionGroup;
+    }
+    
+    public void on_about() {
+        // TODO: More thorough About box
+        Gtk.show_about_dialog(this,
+            "version", AppWindow.VERSION,
+            "comments", "A photo organizer",
+            "copyright", "(c) 2009 Yorba Foundation",
+            "website", "http://www.yorba.org"
+        );
+    }
+
     public void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
@@ -303,32 +254,48 @@ public class AppWindow : Gtk.Window {
     
     private Gtk.Box layout = null;
     private Gtk.Box pageBox = null;
-    private Gtk.Box clientBox = null;
+    private Gtk.Paned clientPaned = null;
     private Page currentPage = null;
-    private Gtk.MenuBar currentMenuBar = null;
     
     private void create_start_page() {
         currentPage = collectionPage;
         
         // layout the growable collection page with the toolbar beneath
         pageBox = new Gtk.VBox(false, 0);
-        pageBox.pack_start(collectionPage, true, true, 0);
+        pageBox.pack_start(currentPage, true, true, 0);
         pageBox.pack_end(currentPage.get_toolbar(), false, false, 0);
         
-        // layout the selection tree to the left of the collection/toolbar box
-        clientBox = new Gtk.HBox(false, 0);
-        clientBox.pack_start(pageTreeView, false, false, 0);
-        clientBox.pack_end(pageBox, true, true, 0);
+        // put the sidebar in a scrolling window
+        Gtk.ScrolledWindow scrolledSidebar = new Gtk.ScrolledWindow(null, null);
+        scrolledSidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+        scrolledSidebar.add(sidebar);
         
-        currentMenuBar = (Gtk.MenuBar) get_ui_manager().get_widget(currentPage.get_menubar_path());
+        // layout the selection tree to the left of the collection/toolbar box with an adjustable
+        // gutter between them, framed for presentation
+        Gtk.Frame leftFrame = new Gtk.Frame(null);
+        leftFrame.add(scrolledSidebar);
+        leftFrame.set_shadow_type(Gtk.ShadowType.IN);
         
+        Gtk.Frame rightFrame = new Gtk.Frame(null);
+        rightFrame.add(pageBox);
+        rightFrame.set_shadow_type(Gtk.ShadowType.IN);
+        
+        clientPaned = new Gtk.HPaned();
+        clientPaned.pack1(leftFrame, false, false);
+        sidebar.set_size_request(SIDEBAR_MIN_WIDTH, -1);
+        clientPaned.pack2(rightFrame, true, false);
+        // TODO: Calc according to layout's size, to give sidebar a maximum width
+        pageBox.set_size_request(PAGE_MIN_WIDTH, -1);
+
         // layout client beneath menu
         layout = new Gtk.VBox(false, 0);
-        layout.pack_start(currentMenuBar, false, false, 0);
-        layout.pack_end(clientBox, true, true, 0);
+        layout.pack_start(currentPage.get_menubar(), false, false, 0);
+        layout.pack_end(clientPaned, true, true, 0);
         
         add(layout);
-        
+
+        add_accel_group(currentPage.ui.get_accel_group());
+
         currentPage.switched_to();
 
         show_all();
@@ -339,6 +306,8 @@ public class AppWindow : Gtk.Window {
             return;
             
         currentPage.switching_from();
+        
+        remove_accel_group(currentPage.ui.get_accel_group());
 
         pageBox.remove(currentPage);
         pageBox.pack_start(page, true, true, 0);
@@ -346,15 +315,82 @@ public class AppWindow : Gtk.Window {
         pageBox.remove(currentPage.get_toolbar());
         pageBox.pack_end(page.get_toolbar(), false, false, 0);
         
-        layout.remove(currentMenuBar);
-        currentMenuBar = (Gtk.MenuBar) get_ui_manager().get_widget(page.get_menubar_path());
-        layout.pack_start(currentMenuBar, false, false, 0);
+        layout.remove(currentPage.get_menubar());
+        layout.pack_start(page.get_menubar(), false, false, 0);
+
+        add_accel_group(page.ui.get_accel_group());
         
         page.switched_to();
         
         layout.show_all();
         
         currentPage = page;
+    }
+    
+    private Gtk.TreeView sidebar = null;
+    private Gtk.TreeStore sidebarStore = null;
+    private Gtk.TreePath collectionPath = null;
+    private Gtk.TreePath importPath = null;
+
+    private void build_sidebar() {
+        sidebarStore = new Gtk.TreeStore(1, typeof(string));
+        sidebar = new Gtk.TreeView.with_model(sidebarStore);
+
+        var text = new Gtk.CellRendererText();
+        text.size_points = 9.0;
+        var column = new Gtk.TreeViewColumn();
+        column.pack_start(text, true);
+        column.add_attribute(text, "text", 0);
+        sidebar.append_column(column);
+        
+        sidebar.set_headers_visible(false);
+
+        Gtk.TreeIter parent, child;
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Photos");
+        collectionPath = sidebarStore.get_path(parent);
+        // start in the collection page
+        sidebar.get_selection().select_path(collectionPath);
+
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Events");
+        
+        sidebarStore.append(out child, parent);
+        sidebarStore.set(child, 0, "New Year's");
+
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Albums");
+        
+        sidebarStore.append(out child, parent);
+        sidebarStore.set(child, 0, "Parties");
+
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, null);
+
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Import");
+        importPath = sidebarStore.get_path(parent);
+
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Recent");
+
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Trash");
+        
+        sidebar.cursor_changed += on_sidebar_cursor_changed;
+    }
+    
+    private void on_sidebar_cursor_changed() {
+        Gtk.TreePath selected;
+        sidebar.get_cursor(out selected, null);
+        
+        if (selected.compare(collectionPath) == 0) {
+            switch_to_collection_page();
+        } else if (selected.compare(importPath) == 0) {
+            switch_to_import_page();
+        } else {
+            debug("unknown");
+        }
     }
 }
 

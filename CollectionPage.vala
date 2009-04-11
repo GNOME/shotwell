@@ -11,8 +11,6 @@ public class CollectionPage : CheckerboardPage {
     private static const int IMPROVAL_DELAY_MS = 250;
     
     private PhotoTable photoTable = new PhotoTable();
-    private Gtk.ActionGroup mainActionGroup = new Gtk.ActionGroup("CollectionActionGroup");
-    private Gtk.ActionGroup contextActionGroup = new Gtk.ActionGroup("CollectionContextActionGroup");
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotateButton = null;
@@ -22,39 +20,38 @@ public class CollectionPage : CheckerboardPage {
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "File", null, "_File", null, null, null },
-        { "Quit", Gtk.STOCK_QUIT, "_Quit", null, "Quit the program", Gtk.main_quit },
-        
-        { "Edit", null, "_Edit", null, null, on_edit_menu },
+        { "FileMenu", null, "_File", null, null, null },
+
+        { "EditMenu", null, "_Edit", null, null, on_edit_menu },
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         
-        { "Photos", null, "_Photos", null, null, on_photos_menu },
+        { "PhotosMenu", null, "_Photos", null, null, on_photos_menu },
         { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
         { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
+        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         
-        { "View", null, "_View", null, null, null },
+        { "ViewMenu", null, "_View", null, null, null },
         { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles },
         
-        { "Help", null, "_Help", null, null, null },
-        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", about_box }
+        { "HelpMenu", null, "_Help", null, null, null }
     };
     
     // TODO: Mark fields for translation
+    /*
     private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         { "CollectionRotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
         { "CollectionRotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "CollectionMirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
     };
+    */
     
     construct {
-        // set up action group
-        mainActionGroup.add_actions(ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(mainActionGroup, 0);
-        
-        contextActionGroup.add_actions(RIGHT_CLICK_ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(contextActionGroup, 0);
+        init_ui("collection.ui", "/CollectionMenuBar", "CollectionActionGroup", ACTIONS);
+        init_context_menu("/CollectionContextMenu");
 
         // set up page's toolbar (used by AppWindow for layout)
         //
@@ -108,14 +105,6 @@ public class CollectionPage : CheckerboardPage {
     
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
-    }
-    
-    public override string get_menubar_path() {
-        return "/CollectionMenuBar";
-    }
-    
-    public override string? get_context_menu_path() {
-        return "/CollectionContextMenu";
     }
     
     public override void switched_to() {
@@ -241,8 +230,8 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_edit_menu() {
-        set_item_sensitive("/CollectionMenuBar/EditMenu/EditSelectAll", get_count() > 0);
-        set_item_sensitive("/CollectionMenuBar/EditMenu/EditRemove", get_selected_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/EditMenu/Remove", get_selected_count() > 0);
     }
     
     private void on_select_all() {
@@ -252,8 +241,8 @@ public class CollectionPage : CheckerboardPage {
     private void on_photos_menu() {
         bool selected = (get_selected_count() > 0);
         
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotosIncreaseSize", scale < Thumbnail.MAX_SCALE);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotosDecreaseSize", scale > Thumbnail.MIN_SCALE);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/DecreaseSize", scale > Thumbnail.MIN_SCALE);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);

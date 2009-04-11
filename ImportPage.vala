@@ -28,7 +28,6 @@ public class ImportPreview : LayoutItem {
 }
 
 public class ImportPage : CheckerboardPage {
-    private Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("ImportActionGroup");
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label cameraLabel = new Gtk.Label(null);
     private Gtk.ToolButton refreshButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_REFRESH);
@@ -42,19 +41,16 @@ public class ImportPage : CheckerboardPage {
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "File", null, "_File", null, null, on_file },
+        { "FileMenu", null, "_File", null, null, on_file },
         { "ImportSelected", null, "Import _Selected", null, null, on_import_selected },
         { "ImportAll", null, "Import _All", null, null, on_import_all },
-        { "Quit", Gtk.STOCK_QUIT, "_Quit", null, "Quit the program", Gtk.main_quit },
         
-        { "Help", null, "_Help", null, null, null },
-        { "About", Gtk.STOCK_ABOUT, "_About", null, "About this application", about_box }
+        { "HelpMenu", null, "_Help", null, null, null }
     };
     
     construct {
-        actionGroup.add_actions(ACTIONS, this);
-        AppWindow.get_ui_manager().insert_action_group(actionGroup, 0);
-        
+        init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
+
         // toolbar
         // Refresh button
         refreshButton.sensitive = false;
@@ -118,10 +114,6 @@ public class ImportPage : CheckerboardPage {
         }
     }
         
-    public override string get_menubar_path() {
-        return "/ImportMenuBar";
-    }
-    
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
@@ -244,6 +236,7 @@ public class ImportPage : CheckerboardPage {
         }
         
         remove_all();
+        refreshButton.sensitive = false;
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
         
@@ -259,6 +252,7 @@ public class ImportPage : CheckerboardPage {
             previewCount += load_preview(basedir);
         }
         
+        refreshButton.sensitive = true;
         importAllButton.sensitive = (previewCount > 0);
 
         res = camera.exit(context);
@@ -306,6 +300,11 @@ public class ImportPage : CheckerboardPage {
                 count++;
             
                 refresh();
+                
+                // spin the event loop so the UI doesn't freeze
+                // TODO: Background thread
+                while (Gtk.events_pending())
+                    Gtk.main_iteration();
             } catch (Error err) {
                 error("%s", err.message);
             }

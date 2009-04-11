@@ -1,67 +1,18 @@
 <ui>
 
-    <menubar name="CollectionMenuBar">
-        <menu name="FileMenu" action="File">
-            <menuitem name="FileQuit" action="Quit" />
-        </menu>
-        
-        <menu name="EditMenu" action="Edit">
-            <menuitem name="EditSelectAll" action="SelectAll" />
-            <menuitem name="EditRemove" action="Remove" />
-        </menu>
-        
-        <menu name="PhotosMenu" action="Photos">
-            <menuitem name="PhotosIncreaseSize" action="IncreaseSize" />
-            <menuitem name="PhotosDecreaseSize" action="DecreaseSize" />
-            <separator />
-            <menuitem name="RotateClockwise" action="CollectionRotateClockwise" />
-            <menuitem name="RotateCounterclockwise" action="CollectionRotateCounterclockwise" />
-            <menuitem name="Mirror" action="CollectionMirror" />
-        </menu>
-        
-        <menu name="ViewMenu" action="View">
-            <menuitem name="View Title" action="ViewTitle" />
-        </menu>
-        
-        <menu name="HelpMenu" action="Help">
-            <menuitem name="HelpAbout" action="About" />
-        </menu>
-    </menubar>
-    
-    <popup name="CollectionContextMenu">
-        <menuitem name="Remove" action="Remove" />
-        <separator />
-        <menuitem name="RotateClockwise" action="CollectionRotateClockwise" />
-        <menuitem name="RotateCounterclockwise" action="CollectionRotateCounterclockwise" />
-        <menuitem name="Mirror" action="CollectionMirror" />
-    </popup>
-
     <menubar name="PhotoMenuBar">
-        <menu name="FileMenu" action="File">
-            <menuitem name="FileQuit" action="Quit" />
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
-        <menu name="PhotoMenu" action="PhotoAction">
-            <menuitem name="RotateClockwise" action="PhotoRotateClockwise" />
-            <menuitem name="RotateCounterclockwise" action="PhotoRotateCounterclockwise" />
-            <menuitem name="Mirror" action="PhotoMirror" />
+        <menu name="PhotoMenu" action="PhotoMenu">
+            <menuitem name="RotateClockwise" action="RotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+            <menuitem name="Mirror" action="Mirror" />
         </menu>
         
-        <menu name="HelpMenu" action="Help">
-            <menuitem name="HelpAbout" action="About" />
-        </menu>
-    </menubar>
-    
-    <menubar name="ImportMenuBar">
-        <menu name="FileMenu" action="File">
-            <menuitem name="ImportSelected" action="ImportSelected" />
-            <menuitem name="ImportAll" action="ImportAll" />
-            <separator />
-            <menuitem name="FileQuit" action="Quit" />
-        </menu>
-        
-        <menu name="HelpMenu" action="Help">
-            <menuitem name="HelpAbout" action="About" />
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
     

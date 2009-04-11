@@ -40,6 +40,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         factory.add_default();
     }
     
+    public Gtk.UIManager ui = new Gtk.UIManager();
+    public Gtk.ActionGroup actionGroup = null;
+    public Gtk.MenuBar menuBar = null;
+    
     construct {
         prepIcons();
         
@@ -49,7 +53,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         AppWindow.get_main_window().configure_event += on_configure;
     }
     
-    public abstract string get_menubar_path();
+    public virtual Gtk.MenuBar get_menubar() {
+        return menuBar;
+    }
 
     public abstract Gtk.Toolbar get_toolbar();
     
@@ -59,19 +65,8 @@ public abstract class Page : Gtk.ScrolledWindow {
     public virtual void switched_to() {
     }
     
-    public void about_box() {
-        // TODO: More thorough About box
-        Gtk.show_about_dialog(AppWindow.get_main_window(),
-            "version", AppWindow.VERSION,
-            "comments", "a photo organizer",
-            "copyright", "(c) 2009 yorba",
-            "website", "http://www.yorba.org"
-        );
-    }
-
     public void set_item_sensitive(string path, bool sensitive) {
-        Gtk.Widget widget = AppWindow.get_ui_manager().get_widget(path);
-        widget.set_sensitive(sensitive);
+        ui.get_widget(path).sensitive = sensitive;
     }
     
     protected virtual bool on_left_click(Gdk.EventButton event) {
@@ -84,6 +79,28 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     protected virtual bool on_right_click(Gdk.EventButton event) {
         return false;
+    }
+    
+    protected void init_ui(string uiFilename, string menuBarPath, string actionGroupName, 
+        Gtk.ActionEntry[] entries) {
+        File uiFile = AppWindow.get_exec_dir().get_child(uiFilename);
+
+        try {
+            ui.add_ui_from_file(uiFile.get_path());
+        } catch (Error gle) {
+            error("Error loading UI file %s: %s", uiFilename, gle.message);
+        }
+        
+        actionGroup = new Gtk.ActionGroup(actionGroupName);
+        actionGroup.add_actions(entries, this);
+
+        ui.insert_action_group(actionGroup, 0);
+        ui.insert_action_group(AppWindow.get_main_window().get_common_action_group(), 0);
+        
+        if (menuBarPath != null)
+            menuBar = (Gtk.MenuBar) ui.get_widget(menuBarPath);
+
+        ui.ensure_update();
     }
     
     private bool on_click(Page p, Gdk.EventButton event) {
@@ -166,6 +183,7 @@ public abstract class Page : Gtk.ScrolledWindow {
 }
 
 public abstract class CheckerboardPage : Page {
+    private Gtk.Menu contextMenu = null;
     private CollectionLayout layout = new CollectionLayout();
     private Gee.ArrayList<LayoutItem> items = new Gee.ArrayList<LayoutItem>();
     private Gee.HashSet<LayoutItem> selectedItems = new Gee.HashSet<LayoutItem>();
@@ -174,11 +192,15 @@ public abstract class CheckerboardPage : Page {
         add(layout);
     }
     
+    protected void init_context_menu(string path) {
+        contextMenu = (Gtk.Menu) ui.get_widget(path);
+    }
+    
     protected virtual void on_selection_changed(int count) {
     }
     
-    public virtual string? get_context_menu_path() {
-        return null;
+    public virtual Gtk.Menu get_context_menu(LayoutItem item) {
+        return contextMenu;
     }
     
     public virtual void on_item_activated(LayoutItem item) {
@@ -344,16 +366,15 @@ public abstract class CheckerboardPage : Page {
         
         LayoutItem item = get_item_at(event.x, event.y);
         if (item != null) {
-            // this counts as a select with all others de-selected
+            // TODO: Enable context menus for multiple and single selections
             unselect_all();
             select(item);
+        }
             
-            string contextPath = get_context_menu_path();
-            if (contextPath != null) {
-                Gtk.Menu contextMenu = (Gtk.Menu) AppWindow.get_ui_manager().get_widget(contextPath);
-                contextMenu.popup(null, null, null, event.button, event.time);
-            }
-            
+        Gtk.Menu contextMenu = get_context_menu(item);
+        if (contextMenu != null) {
+            contextMenu.popup(null, null, null, event.button, event.time);
+
             return true;
         }
             
