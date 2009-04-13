@@ -211,6 +211,7 @@ public class AppWindow : Gtk.Window {
             PhotoID photoID = photoTable.get_id(file);
             ThumbnailCache.import(photoID, original);
             collectionPage.add_photo(photoID, file);
+            collectionPage.refresh();
             
             return true;
         }
@@ -337,7 +338,7 @@ public class AppWindow : Gtk.Window {
         sidebar = new Gtk.TreeView.with_model(sidebarStore);
 
         var text = new Gtk.CellRendererText();
-        text.size_points = 9.0;
+        //text.size_points = 9.0;
         var column = new Gtk.TreeViewColumn();
         column.pack_start(text, true);
         column.add_attribute(text, "text", 0);

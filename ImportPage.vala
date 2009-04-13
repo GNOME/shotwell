@@ -38,6 +38,7 @@ public class ImportPage : CheckerboardPage {
     private GPhoto.CameraAbilitiesList abilitiesList;
     private GPhoto.CameraAbilities cameraAbilities;
     private GPhoto.Camera camera;
+    private bool busy = false;
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -48,8 +49,35 @@ public class ImportPage : CheckerboardPage {
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
+    private void on_idle() {
+        debug("idle");
+        
+        while (Gtk.events_pending())
+            Gtk.main_iteration();
+    }
+    
+    private uint on_progress_start(GPhoto.Context context, float target, string format, void *va_list) {
+        debug("progress start target=%f", target);
+        
+        return 0;
+    }
+    
+    private void on_progress_update(GPhoto.Context context, uint id, float current) {
+        debug("progress update id=%u current=%f", id, current);
+
+        while (Gtk.events_pending())
+            Gtk.main_iteration();
+    }
+    
+    private void on_progress_stop(GPhoto.Context context, uint id) {
+        debug("progress stop id=%u", id);
+    }
+    
     construct {
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
+        
+        context.set_idle_func(on_idle);
+        context.set_progress_funcs(on_progress_start, on_progress_update, on_progress_stop);
 
         // toolbar
         // Refresh button
@@ -70,13 +98,13 @@ public class ImportPage : CheckerboardPage {
         
         toolbar.insert(separator, -1);
 
-        importSelectedButton = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "ImportSelected");        
+        importSelectedButton = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "");
         importSelectedButton.clicked += on_import_selected;
         importSelectedButton.sensitive = false;
         
         toolbar.insert(importSelectedButton, -1);
         
-        importAllButton = new Gtk.ToolButton(new Gtk.Label("Import All"), "Import All");
+        importAllButton = new Gtk.ToolButton(new Gtk.Label("Import All"), "");
         importAllButton.clicked += on_import_all;
         importAllButton.sensitive = false;
         
@@ -119,7 +147,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     public override void on_selection_changed(int count) {
-        importSelectedButton.sensitive = (count > 0);
+        importSelectedButton.sensitive = !busy && (count > 0);
     }
     
     public override void on_item_activated(LayoutItem item) {
@@ -148,6 +176,9 @@ public class ImportPage : CheckerboardPage {
     }
 
     public override void switched_to() {
+        if (busy)
+            return;
+        
         GPhoto.CameraList cameraList;
         GPhoto.Result res = GPhoto.CameraList.create(out cameraList);
         if (res != GPhoto.Result.OK) {
@@ -221,49 +252,62 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_refresh_camera() {
+        Gdk.Cursor busyCursor = new Gdk.Cursor(Gdk.CursorType.WATCH);
+        AppWindow.get_main_window().window.set_cursor(busyCursor);
+
         GPhoto.Result res = camera.init(context);
+
+        AppWindow.get_main_window().window.set_cursor(null);
+
         if (res != GPhoto.Result.OK) {
             error_message("Unable to access camera: %s".printf(res.as_string()));
             
             return;
         }
         
-        GPhoto.CameraStorageInformation *sifs = null;
-        int count = 0;
-        res = camera.get_storageinfo(&sifs, out count, context);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
+        busy = true;
         
-        remove_all();
         refreshButton.sensitive = false;
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
-        
-        int previewCount = 0;
-        GPhoto.CameraStorageInformation *ifs = sifs;
-        for (int ctr = 0; ctr < count; ctr++, ifs++) {
-            string basedir = "/";
-            if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
-                basedir = ifs->basedir;
-            
-            debug ("fs %s", basedir);
-            
-            previewCount += load_preview(basedir);
-        }
-        
-        refreshButton.sensitive = true;
-        importAllButton.sensitive = (previewCount > 0);
 
-        res = camera.exit(context);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
+        try {
+            
+            GPhoto.CameraStorageInformation *sifs = null;
+            int count = 0;
+            res = camera.get_storageinfo(&sifs, out count, context);
+            if (res != GPhoto.Result.OK) {
+                error("%s", res.as_string());
+            }
+            
+            remove_all();
+            
+            GPhoto.CameraStorageInformation *ifs = sifs;
+            for (int ctr = 0; ctr < count; ctr++, ifs++) {
+                string basedir = "/";
+                if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
+                    basedir = ifs->basedir;
+                
+                debug ("fs %s", basedir);
+                
+                if (!load_preview(basedir))
+                    return;
+            }
+        } finally {
+            res = camera.exit(context);
+            if (res != GPhoto.Result.OK) {
+                error("%s", res.as_string());
+            }
+
+            refreshButton.sensitive = true;
+            importSelectedButton.sensitive = get_selected_count() > 0;
+            importAllButton.sensitive = get_count() > 0;
+
+            busy = false;
         }
     }
     
-    private int load_preview(string dir) {
-        int count = 0;
-        
+    private bool load_preview(string dir) {
         debug("Searching %s", dir);
         
         GPhoto.CameraList files;
@@ -279,16 +323,20 @@ public class ImportPage : CheckerboardPage {
             try {
                 GPhoto.CameraFileInfo info;
                 GPhoto.get_info(context, camera, dir, filename, out info);
-                debug("preview=%02Xh file=%02Xh", (int) info.preview.fields, (int) info.file.fields);
-                debug("preview=%s file=%s", info.preview.type, info.file.type);
                 
                 // at this point, only interested in JPEG files with a JPEG preview
                 if (((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)
                     || ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)) {
+                    debug("Skipping %s/%s: No preview (preview=%02Xh file=%02Xh)", dir, filename,
+                        info.preview.fields, info.file.fields);
+                        
                     continue;
                 }
                 
                 if ((info.preview.type != GPhoto.MIME.JPEG) || (info.file.type != GPhoto.MIME.JPEG)) {
+                    debug("Skipping %s/%s: Not a JPEG (preview=%s file=%s)", dir, filename,
+                        info.preview.type, info.file.type);
+                        
                     continue;
                 }
                 
@@ -297,14 +345,17 @@ public class ImportPage : CheckerboardPage {
                 
                 ImportPreview preview = new ImportPreview(pixbuf, exif, dir, filename);
                 add_item(preview);
-                count++;
             
                 refresh();
                 
                 // spin the event loop so the UI doesn't freeze
                 // TODO: Background thread
-                while (Gtk.events_pending())
-                    Gtk.main_iteration();
+                while (Gtk.events_pending()) {
+                    if (Gtk.main_iteration()) {
+                        // Gtk.main_quit was called, abort out to exit
+                        return false;
+                    }
+                }
             } catch (Error err) {
                 error("%s", err.message);
             }
@@ -317,10 +368,11 @@ public class ImportPage : CheckerboardPage {
         for (int ctr = 0; ctr < folders.count(); ctr++) {
             string subdir;
             res = folders.get_name(ctr, out subdir);
-            count += load_preview(dir + "/" + subdir);
+            if (!load_preview(dir + "/" + subdir))
+                return false;
         }
         
-        return count;
+        return true;
     }
     
     private void error_message(string message) {
@@ -331,8 +383,8 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_file() {
-        set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", get_selected_count() > 0);
-        set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", get_count() > 0);
+        set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", !busy && (get_selected_count() > 0));
+        set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", !busy && (get_count() > 0));
     }
     
     private void on_import_selected() {
@@ -346,22 +398,43 @@ public class ImportPage : CheckerboardPage {
     private void import(Gee.Iterable<LayoutItem> items) {
         File photosDir = AppWindow.get_photos_dir();
         
-        foreach (LayoutItem item in items) {
-            ImportPreview preview = (ImportPreview) item;
-            
-            // TODO: Currently, files are stored flat in the directory and imported photos will
-            // overwrite ones with the same name
-            File destFile = photosDir.get_child(preview.filename);
-            
-            try {
-                GPhoto.save_image(context, camera, preview.folder, preview.filename, destFile);
-            } catch (Error err) {
-                error_message("Unable to import %s: %s".printf(preview.filename, err.message));
+        busy = true;
+
+        refreshButton.sensitive = false;
+        importSelectedButton.sensitive = false;
+        importAllButton.sensitive = false;
+        
+        try {
+            foreach (LayoutItem item in items) {
+                ImportPreview preview = (ImportPreview) item;
                 
-                continue;
+                // TODO: Currently, files are stored flat in the directory and imported photos will
+                // overwrite ones with the same name
+                File destFile = photosDir.get_child(preview.filename);
+                
+                try {
+                    GPhoto.save_image(context, camera, preview.folder, preview.filename, destFile);
+                } catch (Error err) {
+                    error_message("Unable to import %s: %s".printf(preview.filename, err.message));
+                    
+                    continue;
+                }
+                
+                AppWindow.get_main_window().import(destFile);
+
+                while (Gtk.events_pending()) {
+                    if (Gtk.main_iteration()) {
+                        // Gtk.main_quit was called, abort out to exit
+                        return;
+                    }
+                }
             }
-            
-            AppWindow.get_main_window().import(destFile);
+        } finally {
+            refreshButton.sensitive = true;
+            importSelectedButton.sensitive = get_selected_count() > 0;
+            importAllButton.sensitive = get_count() > 0;
+
+            busy = false;
         }
     }
 }

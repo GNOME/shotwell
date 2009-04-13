@@ -325,7 +325,21 @@ namespace GPhoto {
     public class Context {
         [CCode (cname="gp_context_new")]
         public Context();
+        public void set_idle_func(ContextIdleFunc func);
+        public void set_progress_funcs(
+            [CCode (delegate_target_pos=3.1)] ContextProgressStartFunc startFunc, 
+            [CCode (delegate_target_pos=3.1)] ContextProgressUpdateFunc updateFunc, 
+            [CCode (delegate_target_pos=3.1)] ContextProgressStopFunc stopFunc);
     }
+    
+    public delegate void ContextIdleFunc(Context context);
+    
+    // TODO: Support for va_args in Vala, esp. for delegates?
+    public delegate uint ContextProgressStartFunc(Context context, float target, string format, void *va_list);
+    
+    public delegate void ContextProgressUpdateFunc(Context context, uint id, float current);
+    
+    public delegate void ContextProgressStopFunc(Context context, uint id);
     
     [CCode (
         cheader_filename="gphoto2/gphoto2-file.h",

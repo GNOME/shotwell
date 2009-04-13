@@ -35,6 +35,7 @@ public class PhotoPage : Page {
         //
         // rotate tool
         rotateButton = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
+        rotateButton.label = "Rotate Clockwise";
         rotateButton.clicked += on_rotate_clockwise;
         toolbar.insert(rotateButton, -1);
         
@@ -172,6 +173,7 @@ public class PhotoPage : Page {
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotateButton.set_stock_id(STOCK_COUNTERCLOCKWISE);
+        rotateButton.label = "Rotate Counterclockwise";
         rotateButton.clicked -= on_rotate_clockwise;
         rotateButton.clicked += on_rotate_counterclockwise;
         
@@ -180,6 +182,7 @@ public class PhotoPage : Page {
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
         rotateButton.set_stock_id(STOCK_CLOCKWISE);
+        rotateButton.label = "Rotate Clockwise";
         rotateButton.clicked -= on_rotate_counterclockwise;
         rotateButton.clicked += on_rotate_clockwise;
         
