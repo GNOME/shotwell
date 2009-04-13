@@ -33,12 +33,16 @@ public class ImportPage : CheckerboardPage {
     private Gtk.ToolButton refreshButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_REFRESH);
     private Gtk.ToolButton importSelectedButton;
     private Gtk.ToolButton importAllButton;
+    private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
     private GPhoto.Context context = new GPhoto.Context();
     private GPhoto.PortInfoList portInfoList;
     private GPhoto.CameraAbilitiesList abilitiesList;
     private GPhoto.CameraAbilities cameraAbilities;
     private GPhoto.Camera camera;
     private bool busy = false;
+    private float taskTarget = 0.0;
+    private int fileCount = 0;
+    private int completedCount = 0;
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -59,11 +63,15 @@ public class ImportPage : CheckerboardPage {
     private uint on_progress_start(GPhoto.Context context, float target, string format, void *va_list) {
         debug("progress start target=%f", target);
         
+        taskTarget = target;
+        progressBar.set_fraction(0.0);
+        progressBar.set_text("Initializing camera");
+        
         return 0;
     }
     
     private void on_progress_update(GPhoto.Context context, uint id, float current) {
-        debug("progress update id=%u current=%f", id, current);
+        progressBar.set_fraction(current / taskTarget);
 
         while (Gtk.events_pending())
             Gtk.main_iteration();
@@ -71,6 +79,9 @@ public class ImportPage : CheckerboardPage {
     
     private void on_progress_stop(GPhoto.Context context, uint id) {
         debug("progress stop id=%u", id);
+        
+        progressBar.set_fraction(0.0);
+        progressBar.set_text("");
     }
     
     construct {
@@ -89,14 +100,21 @@ public class ImportPage : CheckerboardPage {
         // Camera label
         Gtk.ToolItem cameraLabelItem = new Gtk.ToolItem();
         cameraLabelItem.add(cameraLabel);
-        toolbar.insert(cameraLabelItem, -1);
 
+        toolbar.insert(cameraLabelItem, -1);
+        
         // separator to force buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
         separator.set_draw(false);
         
         toolbar.insert(separator, -1);
+        
+        progressBar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
+        Gtk.ToolItem progressItem = new Gtk.ToolItem();
+        progressItem.add(progressBar);
+        
+        toolbar.insert(progressItem, -1);
 
         importSelectedButton = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "");
         importSelectedButton.clicked += on_import_selected;
@@ -151,6 +169,9 @@ public class ImportPage : CheckerboardPage {
     }
     
     public override void on_item_activated(LayoutItem item) {
+        if (busy)
+            return;
+
         ImportPreview preview = (ImportPreview) item;
         
         GPhoto.Result res = camera.init(context);
@@ -159,7 +180,7 @@ public class ImportPage : CheckerboardPage {
             
             return;
         }
-        
+
         Gdk.Pixbuf pixbuf = null;
         try {
             pixbuf = GPhoto.load_image(context, camera, preview.folder, preview.filename);
@@ -171,7 +192,7 @@ public class ImportPage : CheckerboardPage {
         if (res != GPhoto.Result.OK) {
             error("%s", res.as_string());
         }
-        
+
         AppWindow.get_main_window().switch_to_import_preview_page(pixbuf, preview.exif);
     }
 
@@ -229,7 +250,6 @@ public class ImportPage : CheckerboardPage {
             error("%s", res.as_string());
         }
         
-        debug("%s", port);
         index = portInfoList.lookup_path(port);
         if (index < 0) {
             error("%d", index);
@@ -266,10 +286,15 @@ public class ImportPage : CheckerboardPage {
         }
         
         busy = true;
+        fileCount = 0;
+        completedCount = 0;
         
         refreshButton.sensitive = false;
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
+        
+        progressBar.set_fraction(0.0);
+        progressBar.set_text("Loading photo previews");
 
         try {
             
@@ -302,6 +327,9 @@ public class ImportPage : CheckerboardPage {
             refreshButton.sensitive = true;
             importSelectedButton.sensitive = get_selected_count() > 0;
             importAllButton.sensitive = get_count() > 0;
+            
+            progressBar.set_text("");
+            progressBar.set_fraction(0.0);
 
             busy = false;
         }
@@ -313,6 +341,11 @@ public class ImportPage : CheckerboardPage {
         GPhoto.CameraList files;
         GPhoto.Result res = GPhoto.CameraList.create(out files);
         res = camera.list_files(dir, files, context);
+        
+        // TODO: It *may* be more desireable to count files prior to importing them so the progress
+        // bar is more accurate during import.  Otherwise, when one filesystem is completed w/ a
+        // progress of 100%, the bar will reset to something lower as it traverses the next
+        fileCount += files.count();
         
         uint8[] buffer = new uint8[64 * 1024];
         
@@ -347,6 +380,9 @@ public class ImportPage : CheckerboardPage {
                 add_item(preview);
             
                 refresh();
+                
+                completedCount++;
+                progressBar.set_fraction((double) completedCount / (double) fileCount);
                 
                 // spin the event loop so the UI doesn't freeze
                 // TODO: Background thread
