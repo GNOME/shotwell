@@ -85,9 +85,8 @@ public class AppWindow : Gtk.Window {
     }
     
     private CollectionPage collectionPage = null;
-    private PhotoPage photoPage = null;
     private ImportPage importPage = null;
-    private PhotoPage importPreviewPage = null;
+    private PhotoPage photoPage = null;
     
     private PhotoTable photoTable = new PhotoTable();
     
@@ -105,9 +104,8 @@ public class AppWindow : Gtk.Window {
         build_sidebar();
         
         collectionPage = new CollectionPage();
-        photoPage = new PhotoPage();
         importPage = new ImportPage();
-        importPreviewPage = new PhotoPage();
+        photoPage = new PhotoPage();
         
         create_start_page();
 
@@ -239,18 +237,13 @@ public class AppWindow : Gtk.Window {
         switch_to_page(collectionPage);
     }
     
-    public void switch_to_photo_page(PhotoID photoID) {
-        photoPage.display_photo(photoID, collectionPage);
-        switch_to_page(photoPage);
-    }
-    
-    public void switch_to_import_preview_page(Gdk.Pixbuf pixbuf, Exif.Data exifData) {
-        importPreviewPage.display_pixbuf(pixbuf, exifData, importPage);
-        switch_to_page(importPreviewPage);
-    }
-    
     public void switch_to_import_page() {
         switch_to_page(importPage);
+    }
+    
+    public void switch_to_photo_page(CheckerboardPage controller, LayoutItem current) {
+        photoPage.display(controller, current);
+        switch_to_page(photoPage);
     }
     
     private Gtk.Box layout = null;

@@ -83,25 +83,28 @@ public class Thumbnail : LayoutItem {
         return fileSize;
     }
     
-    public void refresh_exif() {
-        exif = PhotoExif.create(file);
-        
-        // flush the cached image and set size for next paint
-        cached = null;
-        scaledDim = get_scaled_dimensions(originalDim, scale);
-        scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
-        image.set_size_request(scaledDim.width, scaledDim.height);
-    }
-
     public PhotoID get_photo_id() {
         return photoID;
     }
     
-    public Exif.Orientation get_orientation() {
+    public override Gdk.Pixbuf? get_full_pixbuf() {
+        debug("Loading full image %s", file.get_path());
+
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        return pixbuf;
+    }
+    
+    public override Exif.Orientation get_orientation() {
         return exif.get_orientation();
     }
     
-    public void set_orientation(Exif.Orientation orientation) {
+    public override void set_orientation(Exif.Orientation orientation) {
         if (orientation == exif.get_orientation())
             return;
             

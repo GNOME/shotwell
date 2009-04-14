@@ -45,6 +45,7 @@ namespace GPhoto {
     [CCode (
         cname="Camera",
         ref_function="gp_camera_ref",
+        ref_function_void=true,
         unref_function="gp_camera_unref",
         free_function="gp_camera_free",
         cheader_filename="gphoto2/gphoto2-camera.h"
@@ -91,6 +92,7 @@ namespace GPhoto {
         cname="CameraFile",
         cprefix="gp_file_",
         ref_function="gp_file_ref",
+        ref_function_void=true,
         unref_function="gp_file_unref",
         free_function="gp_file_free",
         cheader_filename="gphoto2/gphoto2-file.h"
@@ -246,6 +248,7 @@ namespace GPhoto {
         cname="CameraList",
         cprefix="gp_list_",
         ref_function="gp_list_ref",
+        ref_function_void=true,
         unref_function="gp_list_unref",
         free_function="gp_list_free",
         cheader_filename="gphoto2/gphoto2-list.h"
@@ -319,6 +322,7 @@ namespace GPhoto {
     [Compact]
     [CCode (
         ref_function="gp_context_ref",
+        ref_function_void=true,
         unref_function="gp_context_unref",
         cheader_filename="gphoto2/gphoto2-context.h"
     )]

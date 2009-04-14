@@ -6,6 +6,9 @@
         </menu>
         
         <menu name="PhotoMenu" action="PhotoMenu">
+            <menuitem name="PrevPhoto" action="PrevPhoto" />
+            <menuitem name="NextPhoto" action="NextPhoto" />
+            <separator />
             <menuitem name="RotateClockwise" action="RotateClockwise" />
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />

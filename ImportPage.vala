@@ -1,12 +1,15 @@
 
-public class ImportPreview : LayoutItem {
+class ImportPreview : LayoutItem {
     public string folder;
     public string filename;
-    public Exif.Data exif;
+
+    private ImportPage parentPage;
+    private Exif.Data exif;
     
     private Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
     
-    public ImportPreview(Gdk.Pixbuf pixbuf, Exif.Data exif, string folder, string filename) {
+    public ImportPreview(ImportPage parentPage, Gdk.Pixbuf pixbuf, Exif.Data exif, string folder, string filename) {
+        this.parentPage = parentPage;
         this.folder = folder;
         this.filename = filename;
         this.exif = exif;
@@ -25,47 +28,49 @@ public class ImportPreview : LayoutItem {
         Gdk.Pixbuf rotated = rotate_to_exif(pixbuf, orientation);
         image.set_from_pixbuf(rotated);
     }
+    
+    public override Gdk.Pixbuf? get_full_pixbuf() {
+        return parentPage.load_pixbuf(folder, filename);
+    }
+    
+    public override Exif.Orientation get_orientation() {
+        return orientation;
+    }
+    
+    public override void set_orientation(Exif.Orientation orientation) {
+        // this image is read-only
+    }
 }
 
-public class ImportPage : CheckerboardPage {
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
-    private Gtk.Label cameraLabel = new Gtk.Label(null);
-    private Gtk.ToolButton refreshButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_REFRESH);
-    private Gtk.ToolButton importSelectedButton;
-    private Gtk.ToolButton importAllButton;
-    private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
-    private GPhoto.Context context = new GPhoto.Context();
-    private GPhoto.PortInfoList portInfoList;
-    private GPhoto.CameraAbilitiesList abilitiesList;
-    private GPhoto.CameraAbilities cameraAbilities;
-    private GPhoto.Camera camera;
-    private bool busy = false;
+class ProgressBarContext {
+    public GPhoto.Context context = new GPhoto.Context();
+    
+    private Gtk.ProgressBar progressBar;
+    private string msg;
     private float taskTarget = 0.0;
-    private int fileCount = 0;
-    private int completedCount = 0;
     
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, on_file },
-        { "ImportSelected", null, "Import _Selected", null, null, on_import_selected },
-        { "ImportAll", null, "Import _All", null, null, on_import_all },
-        
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
+    public ProgressBarContext(Gtk.ProgressBar progressBar, string msg) {
+        this.progressBar = progressBar;
+        this.msg = msg;
+
+        context.set_idle_func(on_idle);
+        context.set_progress_funcs(on_progress_start, on_progress_update, on_progress_stop);
+    }
     
+    public void set_message(string msg) {
+        this.msg = msg;
+        progressBar.set_text(msg);
+    }
+
     private void on_idle() {
-        debug("idle");
-        
         while (Gtk.events_pending())
             Gtk.main_iteration();
     }
     
     private uint on_progress_start(GPhoto.Context context, float target, string format, void *va_list) {
-        debug("progress start target=%f", target);
-        
         taskTarget = target;
         progressBar.set_fraction(0.0);
-        progressBar.set_text("Initializing camera");
+        progressBar.set_text(msg);
         
         return 0;
     }
@@ -78,18 +83,50 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_progress_stop(GPhoto.Context context, uint id) {
-        debug("progress stop id=%u", id);
-        
         progressBar.set_fraction(0.0);
         progressBar.set_text("");
+    }
+}
+
+public class ImportPage : CheckerboardPage {
+    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    private Gtk.Label cameraLabel = new Gtk.Label(null);
+    private Gtk.ToolButton refreshButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_REFRESH);
+    private Gtk.ToolButton importSelectedButton;
+    private Gtk.ToolButton importAllButton;
+    private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
+    private GPhoto.PortInfoList portInfoList;
+    private GPhoto.CameraAbilitiesList abilitiesList;
+    private GPhoto.CameraAbilities cameraAbilities;
+    private GPhoto.Camera camera;
+    private ProgressBarContext initContext = null;
+    private ProgressBarContext loadingContext = null;
+    private bool busy = false;
+    private int fileCount = 0;
+    private int completedCount = 0;
+    
+    // TODO: Mark fields for translation
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "FileMenu", null, "_File", null, null, on_file },
+        { "ImportSelected", null, "Import _Selected", null, null, on_import_selected },
+        { "ImportAll", null, "Import _All", null, null, on_import_all },
+        
+        { "HelpMenu", null, "_Help", null, null, null }
+    };
+    
+    public static void error_message(string message) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_main_window(),
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
+        dialog.run();
+        dialog.destroy();
     }
     
     construct {
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
-        context.set_idle_func(on_idle);
-        context.set_progress_funcs(on_progress_start, on_progress_update, on_progress_stop);
-
+        initContext = new ProgressBarContext(progressBar, "Initializing camera ...");
+        loadingContext =  new ProgressBarContext(progressBar, "Loading previews ..");
+        
         // toolbar
         // Refresh button
         refreshButton.sensitive = false;
@@ -149,7 +186,7 @@ public class ImportPage : CheckerboardPage {
             error("%s", res.as_string());
         }
         
-        res = abilitiesList.load(context);
+        res = abilitiesList.load(initContext.context);
         if (res != GPhoto.Result.OK) {
             error("%s", res.as_string());
         }
@@ -174,26 +211,7 @@ public class ImportPage : CheckerboardPage {
 
         ImportPreview preview = (ImportPreview) item;
         
-        GPhoto.Result res = camera.init(context);
-        if (res != GPhoto.Result.OK) {
-            error_message("Unable to access camera: %s".printf(res.as_string()));
-            
-            return;
-        }
-
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = GPhoto.load_image(context, camera, preview.folder, preview.filename);
-        } catch(Error err) {
-            error("%s", err.message);
-        }
-        
-        res = camera.exit(context);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-
-        AppWindow.get_main_window().switch_to_import_preview_page(pixbuf, preview.exif);
+        AppWindow.get_main_window().switch_to_photo_page(this, preview);
     }
 
     public override void switched_to() {
@@ -206,7 +224,7 @@ public class ImportPage : CheckerboardPage {
             error("%s", res.as_string());
         }
         
-        res = abilitiesList.detect(portInfoList, cameraList, context);
+        res = abilitiesList.detect(portInfoList, cameraList, initContext.context);
         if (res != GPhoto.Result.OK) {
             error("%s", res.as_string());
         }
@@ -217,6 +235,8 @@ public class ImportPage : CheckerboardPage {
             cameraLabel.set_text("No camera attached");
             
             remove_all();
+            refresh();
+            
             importSelectedButton.sensitive = false;
             importAllButton.sensitive = false;
             
@@ -275,7 +295,7 @@ public class ImportPage : CheckerboardPage {
         Gdk.Cursor busyCursor = new Gdk.Cursor(Gdk.CursorType.WATCH);
         AppWindow.get_main_window().window.set_cursor(busyCursor);
 
-        GPhoto.Result res = camera.init(context);
+        GPhoto.Result res = camera.init(initContext.context);
 
         AppWindow.get_main_window().window.set_cursor(null);
 
@@ -300,12 +320,13 @@ public class ImportPage : CheckerboardPage {
             
             GPhoto.CameraStorageInformation *sifs = null;
             int count = 0;
-            res = camera.get_storageinfo(&sifs, out count, context);
+            res = camera.get_storageinfo(&sifs, out count, initContext.context);
             if (res != GPhoto.Result.OK) {
                 error("%s", res.as_string());
             }
             
             remove_all();
+            refresh();
             
             GPhoto.CameraStorageInformation *ifs = sifs;
             for (int ctr = 0; ctr < count; ctr++, ifs++) {
@@ -319,7 +340,7 @@ public class ImportPage : CheckerboardPage {
                     return;
             }
         } finally {
-            res = camera.exit(context);
+            res = camera.exit(initContext.context);
             if (res != GPhoto.Result.OK) {
                 error("%s", res.as_string());
             }
@@ -340,7 +361,7 @@ public class ImportPage : CheckerboardPage {
         
         GPhoto.CameraList files;
         GPhoto.Result res = GPhoto.CameraList.create(out files);
-        res = camera.list_files(dir, files, context);
+        res = camera.list_files(dir, files, loadingContext.context);
         
         // TODO: It *may* be more desireable to count files prior to importing them so the progress
         // bar is more accurate during import.  Otherwise, when one filesystem is completed w/ a
@@ -355,7 +376,7 @@ public class ImportPage : CheckerboardPage {
             
             try {
                 GPhoto.CameraFileInfo info;
-                GPhoto.get_info(context, camera, dir, filename, out info);
+                GPhoto.get_info(loadingContext.context, camera, dir, filename, out info);
                 
                 // at this point, only interested in JPEG files with a JPEG preview
                 if (((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)
@@ -373,10 +394,10 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                Gdk.Pixbuf pixbuf = GPhoto.load_preview(context, camera, dir, filename, buffer);
-                Exif.Data exif = GPhoto.load_exif(context, camera, dir, filename, buffer);
+                Gdk.Pixbuf pixbuf = GPhoto.load_preview(loadingContext.context, camera, dir, filename, buffer);
+                Exif.Data exif = GPhoto.load_exif(loadingContext.context, camera, dir, filename, buffer);
                 
-                ImportPreview preview = new ImportPreview(pixbuf, exif, dir, filename);
+                ImportPreview preview = new ImportPreview(this, pixbuf, exif, dir, filename);
                 add_item(preview);
             
                 refresh();
@@ -399,7 +420,7 @@ public class ImportPage : CheckerboardPage {
         
         GPhoto.CameraList folders;
         res = GPhoto.CameraList.create(out folders);
-        res = camera.list_folders(dir, folders, context);
+        res = camera.list_folders(dir, folders, loadingContext.context);
         
         for (int ctr = 0; ctr < folders.count(); ctr++) {
             string subdir;
@@ -409,13 +430,6 @@ public class ImportPage : CheckerboardPage {
         }
         
         return true;
-    }
-    
-    private void error_message(string message) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_main_window(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.run();
-        dialog.destroy();
     }
     
     private void on_file() {
@@ -440,6 +454,8 @@ public class ImportPage : CheckerboardPage {
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
         
+        ProgressBarContext savingContext = new ProgressBarContext(progressBar, "");
+        
         try {
             foreach (LayoutItem item in items) {
                 ImportPreview preview = (ImportPreview) item;
@@ -448,8 +464,10 @@ public class ImportPage : CheckerboardPage {
                 // overwrite ones with the same name
                 File destFile = photosDir.get_child(preview.filename);
                 
+                savingContext.set_message("Importing %s".printf(preview.filename));
+                
                 try {
-                    GPhoto.save_image(context, camera, preview.folder, preview.filename, destFile);
+                    GPhoto.save_image(savingContext.context, camera, preview.folder, preview.filename, destFile);
                 } catch (Error err) {
                     error_message("Unable to import %s: %s".printf(preview.filename, err.message));
                     
@@ -472,6 +490,31 @@ public class ImportPage : CheckerboardPage {
 
             busy = false;
         }
+    }
+
+    public Gdk.Pixbuf? load_pixbuf(string folder, string filename) {
+        ProgressBarContext pixbufContext = new ProgressBarContext(progressBar, "Loading %s".printf(filename));
+        
+        GPhoto.Result res = camera.init(pixbufContext.context);
+        if (res != GPhoto.Result.OK) {
+            ImportPage.error_message("Unable to access camera: %s".printf(res.as_string()));
+            
+            return null;
+        }
+
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = GPhoto.load_image(pixbufContext.context, camera, folder, filename);
+        } catch(Error err) {
+            error("%s", err.message);
+        }
+        
+        res = camera.exit(pixbufContext.context);
+        if (res != GPhoto.Result.OK) {
+            error("%s", res.as_string());
+        }
+        
+        return pixbuf;
     }
 }
 

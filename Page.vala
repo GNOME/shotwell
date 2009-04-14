@@ -380,4 +380,38 @@ public abstract class CheckerboardPage : Page {
             
         return false;
     }
+    
+    public LayoutItem? get_next_item(LayoutItem current) {
+        if (items.size == 0)
+            return null;
+        
+        int index = items.index_of(current);
+
+        // although items may be added while the page is away, not handling situations where an active
+        // item is removed
+        assert(index >= 0);
+
+        index++;
+        if (index >= items.size)
+            index = 0;
+        
+        return items.get(index);
+    }
+    
+    public LayoutItem? get_previous_item(LayoutItem current) {
+        if (items.size == 0)
+            return null;
+        
+        int index = items.index_of(current);
+        
+        // although items may be added while the page is away, not handling situations where an active
+        // item is removed
+        assert(index >= 0);
+
+        index--;
+        if (index < 0)
+            index = (items.size - 1);
+        
+        return items.get(index);
+    }
 }

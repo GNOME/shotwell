@@ -46,6 +46,12 @@ public abstract class LayoutItem : Gtk.Alignment {
         return null;
     }
     
+    public abstract Gdk.Pixbuf? get_full_pixbuf();
+    
+    public abstract Exif.Orientation get_orientation();
+    
+    public abstract void set_orientation(Exif.Orientation orientation);
+    
     public virtual void exposed() {
     }
     

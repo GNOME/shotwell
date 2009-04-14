@@ -52,7 +52,7 @@ public class CollectionPage : CheckerboardPage {
     construct {
         init_ui("collection.ui", "/CollectionMenuBar", "CollectionActionGroup", ACTIONS);
         init_context_menu("/CollectionContextMenu");
-
+        
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
@@ -128,7 +128,7 @@ public class CollectionPage : CheckerboardPage {
         debug("switching to %s [%d]", thumbnail.get_file().get_path(),
             thumbnail.get_photo_id().id);
 
-        AppWindow.get_main_window().switch_to_photo_page(thumbnail.get_photo_id());
+        AppWindow.get_main_window().switch_to_photo_page(this, thumbnail);
     }
     
     private int lastWidth = 0;
