@@ -260,7 +260,7 @@ namespace GPhoto {
         public Result append(string name, string value);
         public Result reset();
         public Result sort();
-        public Result find_by_name(out int index, string name);
+        public Result find_by_name(out int? index, string name);
         public Result get_name(int index, out weak string name);
         public Result get_value(int index, out weak string value);
         public Result set_name(int index, string name);

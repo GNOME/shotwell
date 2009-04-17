@@ -44,6 +44,8 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.ActionGroup actionGroup = null;
     public Gtk.MenuBar menuBar = null;
     
+    private Gtk.TreeRowReference row = null;
+    
     construct {
         prepIcons();
         
@@ -51,6 +53,14 @@ public abstract class Page : Gtk.ScrolledWindow {
         AppWindow.get_main_window().key_press_event += on_key_pressed_internal;
         AppWindow.get_main_window().key_release_event += on_key_released_internal;
         AppWindow.get_main_window().configure_event += on_configure;
+    }
+    
+    public void set_tree_row(Gtk.TreeModel model, Gtk.TreeIter iter) {
+        row = new Gtk.TreeRowReference(model, model.get_path(iter));
+    }
+    
+    public unowned Gtk.TreeRowReference get_tree_row() {
+        return row;
     }
     
     public virtual Gtk.MenuBar get_menubar() {

@@ -91,17 +91,16 @@ class ProgressBarContext {
 public class ImportPage : CheckerboardPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label cameraLabel = new Gtk.Label(null);
-    private Gtk.ToolButton refreshButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_REFRESH);
     private Gtk.ToolButton importSelectedButton;
     private Gtk.ToolButton importAllButton;
     private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
-    private GPhoto.PortInfoList portInfoList;
-    private GPhoto.CameraAbilitiesList abilitiesList;
-    private GPhoto.CameraAbilities cameraAbilities;
     private GPhoto.Camera camera;
     private ProgressBarContext initContext = null;
     private ProgressBarContext loadingContext = null;
     private bool busy = false;
+    private bool refreshed = false;
+    private GPhoto.Result refreshResult = GPhoto.Result.OK;
+    private string refreshError = null;
     private int fileCount = 0;
     private int completedCount = 0;
     
@@ -114,26 +113,13 @@ public class ImportPage : CheckerboardPage {
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
-    public static void error_message(string message) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_main_window(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.run();
-        dialog.destroy();
-    }
-    
     construct {
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
         initContext = new ProgressBarContext(progressBar, "Initializing camera ...");
-        loadingContext =  new ProgressBarContext(progressBar, "Loading previews ..");
+        loadingContext =  new ProgressBarContext(progressBar, "Fetching photo previews ..");
         
         // toolbar
-        // Refresh button
-        refreshButton.sensitive = false;
-        refreshButton.clicked += on_refresh_camera;
-        
-        toolbar.insert(refreshButton, -1);
-        
         // Camera label
         Gtk.ToolItem cameraLabelItem = new Gtk.ToolItem();
         cameraLabelItem.add(cameraLabel);
@@ -169,40 +155,55 @@ public class ImportPage : CheckerboardPage {
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
         show_all();
-
-        // persistent gphoto stuff
-        GPhoto.Result res = GPhoto.PortInfoList.create(out portInfoList);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-
-        res = portInfoList.load();
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
+    }
+    
+    public ImportPage(GPhoto.Camera camera) {
+        this.camera = camera;
         
-        res = GPhoto.CameraAbilitiesList.create(out abilitiesList);
+        GPhoto.CameraAbilities abilities;
+        GPhoto.Result res = camera.get_abilities(out abilities);
         if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        res = abilitiesList.load(initContext.context);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        res = GPhoto.Camera.create(out camera);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
+            debug("[%d] Unable to get camera abilities: %s", (int) res, res.as_string());
+        } else {
+            cameraLabel.set_text(abilities.model);
         }
     }
-        
+    
+    public GPhoto.Camera get_camera() {
+        return camera;
+    }
+    
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
     
+    public override void switched_to() {
+        if (busy)
+            return;
+            
+        string msg;
+        if (refreshError != null) {
+            msg = refreshError;
+        } else if (refreshResult == GPhoto.Result.OK) {
+                // all went well
+                return;
+        } else {
+            switch (refreshResult) {
+                case GPhoto.Result.IO_LOCK: {
+                    msg = "Please close any other applications which may be using the camera.";
+                } break;
+                
+                default: {
+                    msg = "%s (%d)".printf(refreshResult.as_string(), (int) refreshResult);
+                } break;
+            }
+        }
+
+        AppWindow.error_message("Unable to fetch previews from camera.\n%s".printf(msg));
+    }
+    
     public override void on_selection_changed(int count) {
-        importSelectedButton.sensitive = !busy && (count > 0);
+        importSelectedButton.sensitive = !busy && refreshed && (count > 0);
     }
     
     public override void on_item_activated(LayoutItem item) {
@@ -214,138 +215,64 @@ public class ImportPage : CheckerboardPage {
         AppWindow.get_main_window().switch_to_photo_page(this, preview);
     }
 
-    public override void switched_to() {
+    public void refresh_camera() {
         if (busy)
             return;
-        
-        GPhoto.CameraList cameraList;
-        GPhoto.Result res = GPhoto.CameraList.create(out cameraList);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        res = abilitiesList.detect(portInfoList, cameraList, initContext.context);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        if (cameraList.count() == 0) {
-            refreshButton.sensitive = false;
-            cameraLabel.sensitive = false;
-            cameraLabel.set_text("No camera attached");
             
-            remove_all();
-            refresh();
-            
-            importSelectedButton.sensitive = false;
-            importAllButton.sensitive = false;
-            
+        refreshed = false;
+        
+        refreshError = null;
+        refreshResult = camera.init(initContext.context);
+        if (refreshResult != GPhoto.Result.OK)
             return;
-        }
-        
-        string name;
-        string port;
-        res = cameraList.get_name(0, out name);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-
-        res = cameraList.get_value(0, out port);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        int index = abilitiesList.lookup_model(name);
-        if (index < 0) {
-            error("%d", index);
-        }
-        
-        res = abilitiesList.get_abilities(index, out cameraAbilities);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        res = camera.set_abilities(cameraAbilities);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        index = portInfoList.lookup_path(port);
-        if (index < 0) {
-            error("%d", index);
-        }
-        
-        GPhoto.PortInfo portInfo;
-        res = portInfoList.get_info(index, out portInfo);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        res = camera.set_port_info(portInfo);
-        if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
-        }
-        
-        cameraLabel.set_text("%s (%s)".printf(name, port));
-        cameraLabel.sensitive = true;
-        refreshButton.sensitive = true;
-    }
-    
-    private void on_refresh_camera() {
-        Gdk.Cursor busyCursor = new Gdk.Cursor(Gdk.CursorType.WATCH);
-        AppWindow.get_main_window().window.set_cursor(busyCursor);
-
-        GPhoto.Result res = camera.init(initContext.context);
-
-        AppWindow.get_main_window().window.set_cursor(null);
-
-        if (res != GPhoto.Result.OK) {
-            error_message("Unable to access camera: %s".printf(res.as_string()));
-            
-            return;
-        }
         
         busy = true;
         fileCount = 0;
         completedCount = 0;
         
-        refreshButton.sensitive = false;
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
         
         progressBar.set_fraction(0.0);
-        progressBar.set_text("Loading photo previews");
 
+        // Vala bug http://bugzilla.gnome.org/show_bug.cgi?id=579101
+        // Return statements route around the finally block, hence the nature of this
+        // code
         try {
-            
             GPhoto.CameraStorageInformation *sifs = null;
             int count = 0;
-            res = camera.get_storageinfo(&sifs, out count, initContext.context);
-            if (res != GPhoto.Result.OK) {
-                error("%s", res.as_string());
-            }
-            
-            remove_all();
-            refresh();
-            
-            GPhoto.CameraStorageInformation *ifs = sifs;
-            for (int ctr = 0; ctr < count; ctr++, ifs++) {
-                string basedir = "/";
-                if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
-                    basedir = ifs->basedir;
+            refreshResult = camera.get_storageinfo(&sifs, out count, initContext.context);
+            if (refreshResult == GPhoto.Result.OK) {
+                remove_all();
+                refresh();
                 
-                debug ("fs %s", basedir);
-                
-                if (!load_preview(basedir))
-                    return;
+                GPhoto.CameraStorageInformation *ifs = sifs;
+                for (int ctr = 0; ctr < count; ctr++, ifs++) {
+                    string basedir = "/";
+                    if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
+                        basedir = ifs->basedir;
+                    
+                    if (!load_preview(basedir))
+                        break;
+                }
             }
         } finally {
-            res = camera.exit(initContext.context);
+            GPhoto.Result res = camera.exit(initContext.context);
             if (res != GPhoto.Result.OK) {
-                error("%s", res.as_string());
+                // log but don't fail
+                message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+            }
+            
+            if (refreshResult != GPhoto.Result.OK) {
+                refreshed = false;
+                
+                // show 'em all or show none
+                remove_all();
+                refresh();
+            } else {
+                refreshed = true;
             }
 
-            refreshButton.sensitive = true;
             importSelectedButton.sensitive = get_selected_count() > 0;
             importAllButton.sensitive = get_count() > 0;
             
@@ -356,12 +283,17 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private bool load_preview(string dir) {
+    private bool load_preview(owned string dir) {
         debug("Searching %s", dir);
         
         GPhoto.CameraList files;
-        GPhoto.Result res = GPhoto.CameraList.create(out files);
-        res = camera.list_files(dir, files, loadingContext.context);
+        refreshResult = GPhoto.CameraList.create(out files);
+        if (refreshResult != GPhoto.Result.OK)
+            return false;
+            
+        refreshResult = camera.list_files(dir, files, loadingContext.context);
+        if (refreshResult != GPhoto.Result.OK)
+            return false;
         
         // TODO: It *may* be more desireable to count files prior to importing them so the progress
         // bar is more accurate during import.  Otherwise, when one filesystem is completed w/ a
@@ -372,7 +304,9 @@ public class ImportPage : CheckerboardPage {
         
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
-            res = files.get_name(ctr, out filename);
+            refreshResult = files.get_name(ctr, out filename);
+            if (refreshResult != GPhoto.Result.OK)
+                return false;
             
             try {
                 GPhoto.CameraFileInfo info;
@@ -408,24 +342,34 @@ public class ImportPage : CheckerboardPage {
                 // spin the event loop so the UI doesn't freeze
                 // TODO: Background thread
                 while (Gtk.events_pending()) {
-                    if (Gtk.main_iteration()) {
-                        // Gtk.main_quit was called, abort out to exit
-                        return false;
-                    }
+                    Gtk.main_iteration();
                 }
-            } catch (Error err) {
-                error("%s", err.message);
+            } catch (GPhotoError err) {
+                refreshError = err.message;
+                
+                return false;
             }
         }
         
         GPhoto.CameraList folders;
-        res = GPhoto.CameraList.create(out folders);
-        res = camera.list_folders(dir, folders, loadingContext.context);
+        refreshResult = GPhoto.CameraList.create(out folders);
+        if (refreshResult != GPhoto.Result.OK)
+            return false;
+
+        refreshResult = camera.list_folders(dir, folders, loadingContext.context);
+        if (refreshResult != GPhoto.Result.OK)
+            return false;
+        
+        if (!dir.has_suffix("/"))
+            dir = dir + "/";
         
         for (int ctr = 0; ctr < folders.count(); ctr++) {
             string subdir;
-            res = folders.get_name(ctr, out subdir);
-            if (!load_preview(dir + "/" + subdir))
+            refreshResult = folders.get_name(ctr, out subdir);
+            if (refreshResult != GPhoto.Result.OK)
+                return false;
+
+            if (!load_preview(dir + subdir))
                 return false;
         }
         
@@ -450,7 +394,6 @@ public class ImportPage : CheckerboardPage {
         
         busy = true;
 
-        refreshButton.sensitive = false;
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
         
@@ -469,7 +412,8 @@ public class ImportPage : CheckerboardPage {
                 try {
                     GPhoto.save_image(savingContext.context, camera, preview.folder, preview.filename, destFile);
                 } catch (Error err) {
-                    error_message("Unable to import %s: %s".printf(preview.filename, err.message));
+                    // TODO: Give user option to cancel operation entirely
+                    AppWindow.error_message("Unable to import %s: %s".printf(preview.filename, err.message));
                     
                     continue;
                 }
@@ -484,7 +428,6 @@ public class ImportPage : CheckerboardPage {
                 }
             }
         } finally {
-            refreshButton.sensitive = true;
             importSelectedButton.sensitive = get_selected_count() > 0;
             importAllButton.sensitive = get_count() > 0;
 
@@ -493,25 +436,27 @@ public class ImportPage : CheckerboardPage {
     }
 
     public Gdk.Pixbuf? load_pixbuf(string folder, string filename) {
-        ProgressBarContext pixbufContext = new ProgressBarContext(progressBar, "Loading %s".printf(filename));
-        
-        GPhoto.Result res = camera.init(pixbufContext.context);
+        GPhoto.Result res = camera.init(initContext.context);
         if (res != GPhoto.Result.OK) {
-            ImportPage.error_message("Unable to access camera: %s".printf(res.as_string()));
+            // TODO: Remind user about other applications
+            AppWindow.error_message("Unable to access camera\n%s".printf(res.as_string()));
             
             return null;
         }
 
+        ProgressBarContext pixbufContext = new ProgressBarContext(progressBar, "Fetching %s ...".printf(filename));
+        
         Gdk.Pixbuf pixbuf = null;
         try {
             pixbuf = GPhoto.load_image(pixbufContext.context, camera, folder, filename);
         } catch(Error err) {
-            error("%s", err.message);
+            AppWindow.error_message(err.message);
         }
         
-        res = camera.exit(pixbufContext.context);
+        res = camera.exit(initContext.context);
         if (res != GPhoto.Result.OK) {
-            error("%s", res.as_string());
+            // log but don't fail
+            message("Error closing camera: %s (%d)", res.as_string(), (int) res);
         }
         
         return pixbuf;

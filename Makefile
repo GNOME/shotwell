@@ -40,7 +40,9 @@ PKGS = \
 	vala-1.0 \
 	libexif \
 	fstream \
-	libgphoto2
+	libgphoto2 \
+	hal \
+	dbus-glib-1
 
 all: $(TARGET)
 

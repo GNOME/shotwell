@@ -84,11 +84,10 @@ public class PhotoPage : Page {
             return;
         }
         
-        this.orientation = item.get_orientation();
-        this.original = item.get_full_pixbuf();
-        
-        // TODO: Proper error checking and reporting
-        assert(this.original != null);
+        orientation = item.get_orientation();
+        original = item.get_full_pixbuf();
+        if (original == null)
+            return;
 
         rotated = rotate_to_exif(original, orientation);
         rotatedDim = Dimensions.for_pixbuf(rotated);
