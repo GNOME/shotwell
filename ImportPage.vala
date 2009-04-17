@@ -212,7 +212,7 @@ public class ImportPage : CheckerboardPage {
 
         ImportPreview preview = (ImportPreview) item;
         
-        AppWindow.get_main_window().switch_to_photo_page(this, preview);
+        AppWindow.get_instance().switch_to_photo_page(this, preview);
     }
 
     public void refresh_camera() {
@@ -418,7 +418,7 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                AppWindow.get_main_window().import(destFile);
+                AppWindow.get_instance().import(destFile);
 
                 while (Gtk.events_pending()) {
                     if (Gtk.main_iteration()) {

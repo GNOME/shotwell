@@ -50,9 +50,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         prepIcons();
         
         button_press_event += on_click;
-        AppWindow.get_main_window().key_press_event += on_key_pressed_internal;
-        AppWindow.get_main_window().key_release_event += on_key_released_internal;
-        AppWindow.get_main_window().configure_event += on_configure;
+        AppWindow.get_instance().key_press_event += on_key_pressed_internal;
+        AppWindow.get_instance().key_release_event += on_key_released_internal;
+        AppWindow.get_instance().configure_event += on_configure;
     }
     
     public void set_tree_row(Gtk.TreeModel model, Gtk.TreeIter iter) {
@@ -105,7 +105,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         actionGroup.add_actions(entries, this);
 
         ui.insert_action_group(actionGroup, 0);
-        ui.insert_action_group(AppWindow.get_main_window().get_common_action_group(), 0);
+        ui.insert_action_group(AppWindow.get_instance().get_common_action_group(), 0);
         
         if (menuBarPath != null)
             menuBar = (Gtk.MenuBar) ui.get_widget(menuBarPath);

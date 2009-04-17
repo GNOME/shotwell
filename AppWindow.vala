@@ -11,7 +11,7 @@ public class AppWindow : Gtk.Window {
     
     public static Gdk.Color BG_COLOR = parse_color("#777");
 
-    private static AppWindow mainWindow = null;
+    private static AppWindow instance = null;
     private static string[] args = null;
 
     // drag and drop target entries
@@ -41,8 +41,8 @@ public class AppWindow : Gtk.Window {
         }
     }
     
-    public static AppWindow get_main_window() {
-        return mainWindow;
+    public static AppWindow get_instance() {
+        return instance;
     }
     
     public static string[] get_commandline_args() {
@@ -95,9 +95,8 @@ public class AppWindow : Gtk.Window {
     
     construct {
         // if this is the first AppWindow, it's the main AppWindow
-        if (mainWindow == null) {
-            mainWindow = this;
-        }
+        assert(instance == null);
+        instance = this;
         
         title = TITLE;
         set_default_size(1024, 768);
@@ -256,7 +255,7 @@ public class AppWindow : Gtk.Window {
     }
     
     public static void error_message(string message) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_main_window(), Gtk.DialogFlags.MODAL, 
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
         dialog.run();
         dialog.destroy();
@@ -596,6 +595,7 @@ public class AppWindow : Gtk.Window {
         }
 
         // add cameras which were not present before
+        bool first = true;
         foreach (string port in detectedMap.get_keys()) {
             string name = detectedMap.get(port);
 
@@ -636,17 +636,18 @@ public class AppWindow : Gtk.Window {
             sidebarStore.append(out child, camerasIter);
             sidebarStore.set(child, 0, name);
             
-            /*
-            Gtk.TreeRowReference pageRow = new Gtk.TreeRowReference(sidebarStore,
-                sidebarStore.get_path(child));
-            */
-
             ImportPage page = new ImportPage(camera);
             page.set_tree_row(sidebarStore, child);
 
             cameraTable.set(port, page);
             
-            page.refresh_camera();
+            sidebar.expand_row(camerasRow.get_path(), true);
+            
+            // switch to the first added camera
+            if (first) {
+                switch_to_page(page);
+                first = false;
+            }
         }
     }
     
@@ -654,7 +655,7 @@ public class AppWindow : Gtk.Window {
         debug("******* on_device_added: %s", udi);
         
         try {
-            AppWindow.get_main_window().update_camera_table();
+            AppWindow.get_instance().update_camera_table();
         } catch (GPhotoError err) {
             debug("Error updating camera table: %s", err.message);
         }
@@ -664,10 +665,14 @@ public class AppWindow : Gtk.Window {
         debug("******** on_device_removed: %s", udi);
         
         try {
-            AppWindow.get_main_window().update_camera_table();
+            AppWindow.get_instance().update_camera_table();
         } catch (GPhotoError err) {
             debug("Error updating camera table: %s", err.message);
         }
+    }
+    
+    public static void mounted_camera_shell_notification(string mount) {
+        debug("mount point: %s", mount);
     }
 }
 

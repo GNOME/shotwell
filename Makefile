@@ -42,7 +42,8 @@ PKGS = \
 	fstream \
 	libgphoto2 \
 	hal \
-	dbus-glib-1
+	dbus-glib-1 \
+	unique-1.0
 
 all: $(TARGET)
 

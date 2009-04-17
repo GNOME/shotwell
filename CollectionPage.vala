@@ -128,7 +128,7 @@ public class CollectionPage : CheckerboardPage {
         debug("switching to %s [%d]", thumbnail.get_file().get_path(),
             thumbnail.get_photo_id().id);
 
-        AppWindow.get_main_window().switch_to_photo_page(this, thumbnail);
+        AppWindow.get_instance().switch_to_photo_page(this, thumbnail);
     }
     
     private int lastWidth = 0;

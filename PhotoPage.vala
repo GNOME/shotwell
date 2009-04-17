@@ -122,7 +122,7 @@ public class PhotoPage : Page {
     
     private override bool on_left_click(Gdk.EventButton event) {
         if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-            AppWindow.get_main_window().switch_to_page(controller);
+            AppWindow.get_instance().switch_to_page(controller);
             
             return true;
         }
