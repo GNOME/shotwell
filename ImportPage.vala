@@ -95,6 +95,7 @@ public class ImportPage : CheckerboardPage {
     private Gtk.ToolButton importAllButton;
     private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
     private GPhoto.Camera camera;
+    private string uri;
     private ProgressBarContext initContext = null;
     private ProgressBarContext loadingContext = null;
     private bool busy = false;
@@ -157,8 +158,9 @@ public class ImportPage : CheckerboardPage {
         show_all();
     }
     
-    public ImportPage(GPhoto.Camera camera) {
+    public ImportPage(GPhoto.Camera camera, string uri) {
         this.camera = camera;
+        this.uri = uri;
         
         GPhoto.CameraAbilities abilities;
         GPhoto.Result res = camera.get_abilities(out abilities);
@@ -171,6 +173,10 @@ public class ImportPage : CheckerboardPage {
     
     public GPhoto.Camera get_camera() {
         return camera;
+    }
+    
+    public string get_uri() {
+        return uri;
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -190,7 +196,7 @@ public class ImportPage : CheckerboardPage {
         } else {
             switch (refreshResult) {
                 case GPhoto.Result.IO_LOCK: {
-                    msg = "Please close any other applications which may be using the camera.";
+                    msg = "Please close any other application which may be using the camera.";
                 } break;
                 
                 default: {
@@ -213,6 +219,21 @@ public class ImportPage : CheckerboardPage {
         ImportPreview preview = (ImportPreview) item;
         
         AppWindow.get_instance().switch_to_photo_page(this, preview);
+    }
+    
+    public void on_unmounted(Object source, AsyncResult aresult) {
+        debug("on_unmounted");
+
+        Mount mount = (Mount) source;
+        try {
+            mount.unmount_finish(aresult);
+            debug("unmounted");
+        } catch (Error err) {
+            debug("%s", err.message);
+        }
+
+        // now with camera unmounted, refresh the view
+        refresh_camera();
     }
 
     public void refresh_camera() {
@@ -342,7 +363,11 @@ public class ImportPage : CheckerboardPage {
                 // spin the event loop so the UI doesn't freeze
                 // TODO: Background thread
                 while (Gtk.events_pending()) {
-                    Gtk.main_iteration();
+                    if (Gtk.main_iteration()) {
+                        debug("Gtk.main_quit called");
+                        
+                        return false;
+                    }
                 }
             } catch (GPhotoError err) {
                 refreshError = err.message;

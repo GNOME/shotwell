@@ -11,6 +11,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     public static const Gdk.Color BG_COLOR = parse_color("#777");
 
     private static Gtk.IconFactory factory = null;
+    private static File data_dir = null;
     
     private static void addStockIcon(File file, string stockID) {
         debug("Adding icon %s", file.get_path());
@@ -32,10 +33,18 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         factory = new Gtk.IconFactory();
         
-        File icons = AppWindow.get_exec_dir().get_child("icons");
+        // TODO: Programatically determine where runtime data is stored from API calls ...
+        // for now, this uses the installed data if running from /usr, otherwise looks for
+        // them in the executable's folder
+        if (AppWindow.get_exec_dir().get_path().has_prefix("/usr")) {
+            data_dir = File.new_for_path("/usr/local/share/shotwell");
+        } else {
+            data_dir = AppWindow.get_exec_dir();
+        }
         
-        addStockIcon(icons.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
-        addStockIcon(icons.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
+        File icons_dir = data_dir.get_child("icons");
+        addStockIcon(icons_dir.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
+        addStockIcon(icons_dir.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
         
         factory.add_default();
     }
@@ -93,7 +102,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     protected void init_ui(string uiFilename, string menuBarPath, string actionGroupName, 
         Gtk.ActionEntry[] entries) {
-        File uiFile = AppWindow.get_exec_dir().get_child(uiFilename);
+        File uiFile = data_dir.get_child(uiFilename);
 
         try {
             ui.add_ui_from_file(uiFile.get_path());

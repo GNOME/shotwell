@@ -9,7 +9,7 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     
     switch (command) {
         case ShotwellCommand.MOUNTED_CAMERA: {
-            AppWindow.get_instance().mounted_camera_shell_notification(data.get_text());
+            AppWindow.get_instance().mounted_camera_shell_notification(File.new_for_uri(data.get_text()));
         } break;
         
         case Unique.Command.ACTIVATE: {
@@ -33,10 +33,10 @@ void main(string[] args) {
     GLib.Environment.set_application_name(AppWindow.TITLE);
     
     // examine command-line arguments for camera mounts
-    // (everything else is ignored for now, but don't try to process options)
+    // (everything else is ignored for now)
     string[] mounts = new string[0];
     for (int ctr = 1; ctr < args.length; ctr++) {
-        if (!args[ctr].has_prefix("-"))
+        if (args[ctr].has_prefix("gphoto2://"))
             mounts += args[ctr];
     }
     
@@ -63,14 +63,13 @@ void main(string[] args) {
     AppWindow.init(args);
     DatabaseTable.init();
     ThumbnailCache.init();
-
+    
     // create main application window
     AppWindow appWindow = new AppWindow();
     
     // report mount points
-    foreach (string mount in mounts) {
-        appWindow.mounted_camera_shell_notification(mount);
-    }
+    foreach (string mount in mounts)
+        appWindow.mounted_camera_shell_notification(File.new_for_uri(mount));
     
     // throw it all on the display
     appWindow.show_all();

@@ -50,7 +50,7 @@ public class AppWindow : Gtk.Window {
     }
     
     public static GLib.File get_exec_file() {
-        return File.new_for_commandline_arg(args[0]);
+        return File.new_for_path(Environment.find_program_in_path(args[0]));
     }
 
     public static File get_exec_dir() {
@@ -499,6 +499,10 @@ public class AppWindow : Gtk.Window {
         
         return null;
     }
+    
+    private string get_port_uri(string port) {
+        return "gphoto2://[%s]/".printf(port);
+    }
 
     //
     // NOTE:
@@ -507,12 +511,6 @@ public class AppWindow : Gtk.Window {
     // present (including non-cameras), then the first attached camera will be listed twice,
     // first at usb:, then at usb:xxx,yyy.  If the usb: device is removed, another usb:xxx,yyy
     // device will lose its full-path name and be referred to as usb: only.
-    //
-    // For now, relying on the model name reported by libgphoto2 to find the duplicate.  This is
-    // problematic, especially when you have cameras who do not report a model name and are referred
-    // to as "USB PTP Class Camera" by libgphoto2.
-    //
-    // A better strategy needs to be developed (probably involving HAL UID's).
     //
     private void update_camera_table() throws GPhotoError {
         // need to do this because virtual ports come and go in the USB world (and probably others)
@@ -587,7 +585,7 @@ public class AppWindow : Gtk.Window {
             sidebarStore.get_iter(out cameraIter, page.get_tree_row().get_path());
             sidebarStore.remove(cameraIter);
 
-            cameraTable.remove(portInfo.path);
+            cameraTable.remove(get_port_uri(portInfo.path));
             
             // switch away if necessary
             if (currentPage == page)
@@ -598,8 +596,9 @@ public class AppWindow : Gtk.Window {
         bool first = true;
         foreach (string port in detectedMap.get_keys()) {
             string name = detectedMap.get(port);
+            string uri = get_port_uri(port);
 
-            if (cameraTable.contains(port)) {
+            if (cameraTable.contains(uri)) {
                 // already known about
                 debug("%s @ %s already registered, skipping", name, port);
                 
@@ -636,10 +635,10 @@ public class AppWindow : Gtk.Window {
             sidebarStore.append(out child, camerasIter);
             sidebarStore.set(child, 0, name);
             
-            ImportPage page = new ImportPage(camera);
+            ImportPage page = new ImportPage(camera, uri);
             page.set_tree_row(sidebarStore, child);
 
-            cameraTable.set(port, page);
+            cameraTable.set(uri, page);
             
             sidebar.expand_row(camerasRow.get_path(), true);
             
@@ -671,8 +670,32 @@ public class AppWindow : Gtk.Window {
         }
     }
     
-    public static void mounted_camera_shell_notification(string mount) {
-        debug("mount point: %s", mount);
+    public static void mounted_camera_shell_notification(File uri) {
+        debug("mount point reported: %s", uri.get_uri());
+
+        if (uri.has_uri_scheme("gphoto2:")) {
+            debug("Only unmount URIs with gphoto2 scheme: %s (%s)", uri.get_uri(), uri.get_uri_scheme());
+            
+            return;
+        }
+        
+        Mount mount = null;
+        try {
+            mount = uri.find_enclosing_mount(null);
+        } catch (Error err) {
+            debug("%s", err.message);
+            
+            return;
+        }
+        
+        ImportPage page = get_instance().cameraTable.get(uri.get_uri());
+        if (page == null) {
+            debug("Unable to find camera for %s", uri.get_uri());
+            
+            return;
+        }
+        
+        mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
     }
 }
 

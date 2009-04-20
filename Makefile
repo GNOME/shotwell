@@ -32,7 +32,8 @@ RESOURCE_FILES = \
 VAPI_DIRS = \
 	.
 
-HEADER_DIRS =
+HEADER_DIRS = \
+	.
 
 PKGS = \
 	gtk+-2.0 \
@@ -42,13 +43,25 @@ PKGS = \
 	fstream \
 	libgphoto2 \
 	hal \
-	dbus-glib-1 \
-	unique-1.0
+	unique-1.0 \
+	gnome-vfs-2.0
 
 all: $(TARGET)
 
 clean:
 	rm -f $(TARGET)
+
+install: $(TARGET) shotwell.desktop
+	cp $(TARGET) /usr/local/bin
+	mkdir -p /usr/local/share/shotwell/icons
+	cp icons/* /usr/local/share/shotwell/icons
+	$(foreach res,$(RESOURCE_FILES),cp $(res) /usr/local/share/shotwell;)
+	cp shotwell.desktop /usr/share/applications
+
+uninstall:
+	rm -f /usr/local/bin/$(TARGET)
+	rm -fr /usr/local/share/shotwell
+	rm -f /usr/share/applications/shotwell.desktop
 
 $(TARGET): $(SRC_FILES) $(VAPI_FILES) Makefile
 	valac $(VALAC_OPTS) \
