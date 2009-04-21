@@ -108,6 +108,7 @@ public class CollectionLayout : Gtk.Layout {
     public static const int COLUMN_GUTTER_PADDING = 24;
     
     private Gee.ArrayList<LayoutItem> items = new Gee.ArrayList<LayoutItem>();
+    private Gtk.Label message = null;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
@@ -115,8 +116,25 @@ public class CollectionLayout : Gtk.Layout {
         size_allocate += on_resize;
     }
     
+    public void set_message(string message) {
+        clear();
+        
+        this.message = new Gtk.Label(message);
+        this.message.set_single_line_mode(false);
+        this.message.set_use_underline(false);
+        this.message.modify_fg(Gtk.StateType.NORMAL, parse_color(LayoutItem.UNSELECTED_COLOR));
+        
+        display_message();
+    }
+    
     public void append(LayoutItem item) {
         items.add(item);
+        
+        // this demolishes any message that's been set
+        if (message != null) {
+            remove(message);
+            message = null;
+        }
 
         // need to do this to have its size requisitioned in refresh()
         item.show_all();
@@ -143,6 +161,11 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     public void clear() {
+        if (message != null) {
+            remove(message);
+            message = null;
+        }
+        
         foreach (LayoutItem item in items) {
             remove(item);
         }
@@ -151,6 +174,12 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     public void refresh() {
+        if (message != null) {
+            display_message();
+            
+            return;
+        }
+        
         if (items.size == 0)
             return;
 
@@ -300,6 +329,29 @@ public class CollectionLayout : Gtk.Layout {
         // Step 5: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
         set_size(allocation.width, y + rowHeights[row] + BOTTOM_PADDING);
+    }
+    
+    private void display_message() {
+        assert(message != null);
+        
+        Gtk.Requisition req;
+        message.size_request(out req);
+        
+        int x = (allocation.width - req.width) / 2;
+        if (x < 0)
+            x = 0;
+            
+        int y = (allocation.height - req.height) / 2;
+        if (y < 0)
+            y = 0;
+            
+        if (message.parent == (Gtk.Widget) this) {
+            move(message, x, y);
+        } else {
+            put(message, x, y);
+        }
+        
+        message.show_all();
     }
 
     private int lastWidth = 0;

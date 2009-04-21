@@ -114,6 +114,13 @@ public class ImportPage : CheckerboardPage {
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
+    public enum RefreshResult {
+        OK,
+        BUSY,
+        LOCKED,
+        LIBRARY_ERROR
+    }
+    
     construct {
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
@@ -179,46 +186,38 @@ public class ImportPage : CheckerboardPage {
         return uri;
     }
     
+    public bool is_busy() {
+        return busy;
+    }
+    
+    public bool is_refreshed() {
+        return refreshed && !busy;
+    }
+    
+    public string? get_refresh_message() {
+        string msg = null;
+        if (refreshError != null) {
+            msg = refreshError;
+        } else if (refreshResult == GPhoto.Result.OK) {
+            // all went well
+        } else {
+            msg = "%s (%d)".printf(refreshResult.as_string(), (int) refreshResult);
+        }
+        
+        return msg;
+    }
+    
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
     
     public override void switched_to() {
-        if (busy)
+        if (busy || refreshed)
             return;
-            
-        string msg;
-        if (refreshError != null) {
-            msg = refreshError;
-        } else if (refreshResult == GPhoto.Result.OK) {
-                // all went well
-                return;
-        } else {
-            switch (refreshResult) {
-                case GPhoto.Result.IO_LOCK: {
-                    msg = "Please close any other application which may be using the camera.";
-                } break;
-                
-                default: {
-                    msg = "%s (%d)".printf(refreshResult.as_string(), (int) refreshResult);
-                } break;
-            }
-        }
-
-        AppWindow.error_message("Unable to fetch previews from camera.\n%s".printf(msg));
     }
     
     public override void on_selection_changed(int count) {
         importSelectedButton.sensitive = !busy && refreshed && (count > 0);
-    }
-    
-    public override void on_item_activated(LayoutItem item) {
-        if (busy)
-            return;
-
-        ImportPreview preview = (ImportPreview) item;
-        
-        AppWindow.get_instance().switch_to_photo_page(this, preview);
     }
     
     public void on_unmounted(Object source, AsyncResult aresult) {
@@ -229,23 +228,27 @@ public class ImportPage : CheckerboardPage {
             mount.unmount_finish(aresult);
             debug("unmounted");
         } catch (Error err) {
+            // TODO: Better error reporting
             debug("%s", err.message);
+            
+            return;
         }
 
         // now with camera unmounted, refresh the view
+        AppWindow.get_instance().switch_to_page(this);
         refresh_camera();
     }
 
-    public void refresh_camera() {
+    public RefreshResult refresh_camera() {
         if (busy)
-            return;
+            return RefreshResult.BUSY;
             
         refreshed = false;
         
         refreshError = null;
         refreshResult = camera.init(initContext.context);
         if (refreshResult != GPhoto.Result.OK)
-            return;
+            return (refreshResult == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         
         busy = true;
         fileCount = 0;
@@ -256,52 +259,51 @@ public class ImportPage : CheckerboardPage {
         
         progressBar.set_fraction(0.0);
 
-        // Vala bug http://bugzilla.gnome.org/show_bug.cgi?id=579101
-        // Return statements route around the finally block, hence the nature of this
-        // code
-        try {
-            GPhoto.CameraStorageInformation *sifs = null;
-            int count = 0;
-            refreshResult = camera.get_storageinfo(&sifs, out count, initContext.context);
-            if (refreshResult == GPhoto.Result.OK) {
-                remove_all();
-                refresh();
-                
-                GPhoto.CameraStorageInformation *ifs = sifs;
-                for (int ctr = 0; ctr < count; ctr++, ifs++) {
-                    string basedir = "/";
-                    if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
-                        basedir = ifs->basedir;
-                    
-                    if (!load_preview(basedir))
-                        break;
-                }
-            }
-        } finally {
-            GPhoto.Result res = camera.exit(initContext.context);
-            if (res != GPhoto.Result.OK) {
-                // log but don't fail
-                message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
-            }
+        GPhoto.CameraStorageInformation *sifs = null;
+        int count = 0;
+        refreshResult = camera.get_storageinfo(&sifs, out count, initContext.context);
+        if (refreshResult == GPhoto.Result.OK) {
+            remove_all();
+            refresh();
             
-            if (refreshResult != GPhoto.Result.OK) {
-                refreshed = false;
+            GPhoto.CameraStorageInformation *ifs = sifs;
+            for (int ctr = 0; ctr < count; ctr++, ifs++) {
+                string basedir = "/";
+                if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
+                    basedir = ifs->basedir;
                 
-                // show 'em all or show none
-                remove_all();
-                refresh();
-            } else {
-                refreshed = true;
+                if (!load_preview(basedir))
+                    break;
             }
-
-            importSelectedButton.sensitive = get_selected_count() > 0;
-            importAllButton.sensitive = get_count() > 0;
-            
-            progressBar.set_text("");
-            progressBar.set_fraction(0.0);
-
-            busy = false;
         }
+
+        GPhoto.Result res = camera.exit(initContext.context);
+        if (res != GPhoto.Result.OK) {
+            // log but don't fail
+            message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+        }
+        
+        importSelectedButton.sensitive = get_selected_count() > 0;
+        importAllButton.sensitive = get_count() > 0;
+        
+        progressBar.set_text("");
+        progressBar.set_fraction(0.0);
+
+        busy = false;
+
+        if (refreshResult != GPhoto.Result.OK) {
+            refreshed = false;
+            
+            // show 'em all or show none
+            remove_all();
+            refresh();
+            
+            return (refreshResult == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
+        }
+        
+        refreshed = true;
+
+        return RefreshResult.OK;
     }
     
     private bool load_preview(owned string dir) {

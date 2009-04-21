@@ -410,7 +410,78 @@ public class AppWindow : Gtk.Window {
             foreach (ImportPage page in cameraTable.get_values()) {
                 if (selected.compare(page.get_tree_row().get_path()) == 0) {
                     switch_to_page(page);
+
+                    if (page.is_refreshed() || page.is_busy()) {
+                        return;
+                    }
                     
+                    page.remove_all();
+
+                    ImportPage.RefreshResult res = page.refresh_camera();
+                    switch (res) {
+                        case ImportPage.RefreshResult.OK:
+                        case ImportPage.RefreshResult.BUSY: {
+                            // nothing to report; if busy, let it continue doing its thing
+                            // (although earlier check should've caught this)
+                        } break;
+                        
+                        case ImportPage.RefreshResult.LOCKED: {
+                            // if locked because it's mounted, offer to unmount
+                            debug("Checking if %s is mounted ...", page.get_uri());
+
+                            File uri = File.new_for_uri(page.get_uri());
+
+                            Mount mount = null;
+                            try {
+                                mount = uri.find_enclosing_mount(null);
+                            } catch (Error err) {
+                                // error means not mounted
+                            }
+                            
+                            if (mount != null) {
+                                // it's mounted, offer to unmount for the user
+                                Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, 
+                                    Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
+                                    Gtk.ButtonsType.YES_NO,
+                                    "The camera is locked for use as a mounted drive.  "
+                                    + "Shotwell can only access the drive when it's unlocked.  "
+                                    + "Do you want Shotwell to unmount the drive for you?");
+                                int dialog_res = dialog.run();
+                                dialog.destroy();
+                                
+                                if (dialog_res != Gtk.ResponseType.YES) {
+                                    page.set_page_message("Please unmount the camera.");
+                                    page.refresh();
+                                    
+                                    return;
+                                }
+                                
+                                mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
+                            } else {
+                                // it's not mounted, so another application must have it locked
+                                Gtk.MessageDialog dialog = new Gtk.MessageDialog(this,
+                                    Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
+                                    Gtk.ButtonsType.OK,
+                                    "The camera is locked by another application.  "
+                                    + "Shotwell can only access the drive when it's unlocked.  "
+                                    + "Please close any other application using the camera and try again.");
+                                dialog.run();
+                                dialog.destroy();
+                                
+                                page.set_page_message("Please close any other application using the camera.");
+                                page.refresh();
+                            }
+                        } break;
+                        
+                        case ImportPage.RefreshResult.LIBRARY_ERROR: {
+                            error_message("Unable to fetch previews from the camera:\n%s".printf(page.get_refresh_message()));
+                        } break;
+                        
+                        default: {
+                            error("Unknown result type %d", (int) res);
+                        } break;
+                    }
+
                     return;
                 }
             }
@@ -593,7 +664,6 @@ public class AppWindow : Gtk.Window {
         }
 
         // add cameras which were not present before
-        bool first = true;
         foreach (string port in detectedMap.get_keys()) {
             string name = detectedMap.get(port);
             string uri = get_port_uri(port);
@@ -641,12 +711,6 @@ public class AppWindow : Gtk.Window {
             cameraTable.set(uri, page);
             
             sidebar.expand_row(camerasRow.get_path(), true);
-            
-            // switch to the first added camera
-            if (first) {
-                switch_to_page(page);
-                first = false;
-            }
         }
     }
     

@@ -226,7 +226,12 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void refresh() {
+        show_all();
         layout.refresh();
+    }
+    
+    public void set_page_message(string message) {
+        layout.set_message(message);
     }
     
     public LayoutItem? get_item_at(double x, double y) {
