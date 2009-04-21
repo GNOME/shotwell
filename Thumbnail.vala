@@ -136,10 +136,6 @@ public class Thumbnail : LayoutItem {
         }
     }
     
-    public void display_title(bool display) {
-        title.visible = display;
-    }
-    
     public time_t get_time_t() {
         return time;
     }

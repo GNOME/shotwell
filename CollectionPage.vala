@@ -16,7 +16,6 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotateButton = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
-    private bool displayTitles = true;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -34,9 +33,12 @@ public class CollectionPage : CheckerboardPage {
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         
         { "ViewMenu", null, "_View", null, null, null },
-        { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles },
         
         { "HelpMenu", null, "_Help", null, null, null }
+    };
+    
+    private const Gtk.ToggleActionEntry[] TOGGLE_ACTIONS = {
+        { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles, true }
     };
     
     // TODO: Mark fields for translation
@@ -50,7 +52,7 @@ public class CollectionPage : CheckerboardPage {
     */
     
     construct {
-        init_ui("collection.ui", "/CollectionMenuBar", "CollectionActionGroup", ACTIONS);
+        init_ui("collection.ui", "/CollectionMenuBar", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
         init_context_menu("/CollectionContextMenu");
         
         // set up page's toolbar (used by AppWindow for layout)
@@ -149,7 +151,7 @@ public class CollectionPage : CheckerboardPage {
 
     public void add_photo(PhotoID photoID, File file) {
         Thumbnail thumbnail = Thumbnail.create(photoID, file, scale);
-        thumbnail.display_title(displayTitles);
+        thumbnail.display_title(display_titles());
         
         add_item(thumbnail);
     }
@@ -312,11 +314,17 @@ public class CollectionPage : CheckerboardPage {
         });
     }
     
-    private void on_display_titles() {
-        displayTitles = (displayTitles) ? false : true;
+    private bool display_titles() {
+        Gtk.ToggleAction action = (Gtk.ToggleAction) ui.get_action("/CollectionMenuBar/ViewMenu/ViewTitle");
+        
+        return action.get_active();
+    }
+    
+    private void on_display_titles(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
         
         foreach (LayoutItem item in get_items()) {
-            ((Thumbnail) item).display_title(displayTitles);
+            item.display_title(display);
         }
         
         refresh();

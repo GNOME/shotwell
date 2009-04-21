@@ -13,6 +13,8 @@ public abstract class LayoutItem : Gtk.Alignment {
     protected Gtk.Frame frame = new Gtk.Frame(null);
     
     private bool selected = false;
+    private Gtk.VBox vbox = new Gtk.VBox(false, 0);
+    private bool titleDisplayed = true;
     
     public LayoutItem() {
         // bottom-align everything
@@ -27,7 +29,6 @@ public abstract class LayoutItem : Gtk.Alignment {
 
         // store everything in a vbox, with the expandable image on top followed by a widget
         // on the bottom for display and controls
-        Gtk.VBox vbox = new Gtk.VBox(false, 0);
         vbox.set_border_width(FRAME_PADDING);
         vbox.pack_start(image, false, false, 0);
         vbox.pack_end(title, false, false, LABEL_PADDING);
@@ -58,6 +59,16 @@ public abstract class LayoutItem : Gtk.Alignment {
     public virtual void unexposed() {
     }
 
+    public void display_title(bool display) {
+        if (display && !titleDisplayed) {
+            vbox.pack_end(title, false, false, LABEL_PADDING);
+            titleDisplayed = true;
+        } else if (!display && titleDisplayed) {
+            vbox.remove(title);
+            titleDisplayed = false;
+        }
+    }
+    
     public virtual void select() {
         selected = true;
 

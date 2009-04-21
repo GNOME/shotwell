@@ -101,7 +101,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     protected void init_ui(string uiFilename, string menuBarPath, string actionGroupName, 
-        Gtk.ActionEntry[] entries) {
+        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggleEntries = null) {
         File uiFile = data_dir.get_child(uiFilename);
 
         try {
@@ -111,7 +111,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         }
         
         actionGroup = new Gtk.ActionGroup(actionGroupName);
-        actionGroup.add_actions(entries, this);
+        if (entries != null)
+            actionGroup.add_actions(entries, this);
+        if (toggleEntries != null)
+            actionGroup.add_toggle_actions(toggleEntries, this);
 
         ui.insert_action_group(actionGroup, 0);
         ui.insert_action_group(AppWindow.get_instance().get_common_action_group(), 0);
