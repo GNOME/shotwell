@@ -21,6 +21,14 @@
         
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="ViewTitle" action="ViewTitle" />
+            <separator />
+            <menu name="SortPhotos" action="SortPhotos">
+                <menuitem name="SortByName" action="SortByName" />
+                <menuitem name="SortByExposureDate" action="SortByExposureDate" />
+                <separator />
+                <menuitem name="SortAscending" action="SortAscending" />
+                <menuitem name="SortDescending" action="SortDescending" />
+            </menu>
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">

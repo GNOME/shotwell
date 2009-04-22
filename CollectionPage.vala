@@ -2,6 +2,16 @@
 public class CollectionPage : CheckerboardPage {
     public static const int THUMB_X_PADDING = 20;
     public static const int THUMB_Y_PADDING = 20;
+    
+    public static const int SORT_BY_MIN = 0;
+    public static const int SORT_BY_NAME = 0;
+    public static const int SORT_BY_EXPOSURE_DATE = 1;
+    public static const int SORT_BY_MAX = 1;
+    
+    public static const int SORT_ORDER_MIN = 0;
+    public static const int SORT_ORDER_ASCENDING = 0;
+    public static const int SORT_ORDER_DESCENDING = 1;
+    public static const int SORT_ORDER_MAX = 1;
 
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public static const int MANUAL_STEPPING = 16;
@@ -33,6 +43,7 @@ public class CollectionPage : CheckerboardPage {
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         
         { "ViewMenu", null, "_View", null, null, null },
+        { "SortPhotos", null, "_Sort Photos", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -41,19 +52,24 @@ public class CollectionPage : CheckerboardPage {
         { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles, true }
     };
     
-    // TODO: Mark fields for translation
-    /*
-    private const Gtk.ActionEntry[] RIGHT_CLICK_ACTIONS = {
-        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
-        { "CollectionRotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "CollectionRotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "CollectionMirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror }
+    private const Gtk.RadioActionEntry[] SORT_CRIT_ACTIONS = {
+        { "SortByName", null, "By _Name", null, "Sort photos by name", SORT_BY_NAME },
+        { "SortByExposureDate", null, "By Exposure _Date", null, "Sort photos by exposure date", SORT_BY_EXPOSURE_DATE }
     };
-    */
+    
+    private const Gtk.RadioActionEntry[] SORT_ORDER_ACTIONS = {
+        { "SortAscending", null, "_Ascending", null, "Sort photos in an ascending order", SORT_ORDER_ASCENDING },
+        { "SortDescending", null, "D_escending", null, "Sort photos in a descending order", SORT_ORDER_DESCENDING }
+    };
     
     construct {
-        init_ui("collection.ui", "/CollectionMenuBar", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
+        init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
+        actionGroup.add_radio_actions(SORT_CRIT_ACTIONS, SORT_BY_NAME, on_sort_changed);
+        actionGroup.add_radio_actions(SORT_ORDER_ACTIONS, SORT_ORDER_ASCENDING, on_sort_changed);
+        init_ui_bind("/CollectionMenuBar");
         init_context_menu("/CollectionContextMenu");
+        
+        set_layout_comparator(thumbnail_name_comparator);
         
         // set up page's toolbar (used by AppWindow for layout)
         //
@@ -366,6 +382,73 @@ public class CollectionPage : CheckerboardPage {
         rotateButton.clicked += on_rotate_clockwise;
         
         return false;
+    }
+    
+    private int get_sort_criteria() {
+        // any member of the group knows the current value
+        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortByName");
+        assert(action != null);
+        
+        int value = action.get_current_value();
+        assert(value >= SORT_BY_MIN);
+        assert(value <= SORT_BY_MAX);
+        
+        return value;
+    }
+    
+    private int get_sort_order() {
+        // any member of the group knows the current value
+        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortAscending");
+        assert(action != null);
+        
+        int value = action.get_current_value();
+        assert(value >= SORT_ORDER_MIN);
+        assert(value <= SORT_ORDER_MAX);
+        
+        return value;
+    }
+    
+    private static int thumbnail_name_comparator(LayoutItem a, LayoutItem b) {
+        return strcmp(((Thumbnail) a).get_name(), ((Thumbnail) b).get_name());
+    }
+    
+    private static int thumbnail_reverse_name_comparator(LayoutItem a, LayoutItem b) {
+        return strcmp(((Thumbnail) b).get_name(), ((Thumbnail) a).get_name());
+    }
+    
+    private static int thumbnail_exposure_comparator(LayoutItem a, LayoutItem b) {
+        return (int) ((Thumbnail) a).get_time_t() - (int) ((Thumbnail) b).get_time_t();
+    }
+    
+    private static int thumbnail_reverse_exposure_comparator(LayoutItem a, LayoutItem b) {
+        return (int) ((Thumbnail) b).get_time_t() - (int) ((Thumbnail) a).get_time_t();
+    }
+    
+    private void on_sort_changed() {
+        CompareLayoutItem cmp = null;
+        switch (get_sort_criteria()) {
+            case SORT_BY_NAME: {
+                if (get_sort_order() == SORT_ORDER_ASCENDING) {
+                    cmp = thumbnail_name_comparator;
+                } else {
+                    cmp = thumbnail_reverse_name_comparator;
+                }
+            } break;
+            
+            case SORT_BY_EXPOSURE_DATE: {
+                if (get_sort_order() == SORT_ORDER_ASCENDING) {
+                    cmp = thumbnail_exposure_comparator;
+                } else {
+                    cmp = thumbnail_reverse_exposure_comparator;
+                }
+            } break;
+        }
+        
+        if (cmp == null)
+            return;
+        
+        set_layout_comparator(cmp);
+        refresh();
     }
 }
 

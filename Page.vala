@@ -100,7 +100,13 @@ public abstract class Page : Gtk.ScrolledWindow {
         return false;
     }
     
-    protected void init_ui(string uiFilename, string menuBarPath, string actionGroupName, 
+    protected void init_ui(string uiFilename, string? menuBarPath, string actionGroupName, 
+        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggleEntries = null) {
+        init_ui_start(uiFilename, actionGroupName, entries, toggleEntries);
+        init_ui_bind(menuBarPath);
+    }
+    
+    protected void init_ui_start(string uiFilename, string actionGroupName,
         Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggleEntries = null) {
         File uiFile = data_dir.get_child(uiFilename);
 
@@ -115,7 +121,9 @@ public abstract class Page : Gtk.ScrolledWindow {
             actionGroup.add_actions(entries, this);
         if (toggleEntries != null)
             actionGroup.add_toggle_actions(toggleEntries, this);
-
+    }
+    
+    protected void init_ui_bind(string? menuBarPath) {
         ui.insert_action_group(actionGroup, 0);
         ui.insert_action_group(AppWindow.get_instance().get_common_action_group(), 0);
         
@@ -237,6 +245,10 @@ public abstract class CheckerboardPage : Page {
         layout.set_message(message);
     }
     
+    public void set_layout_comparator(CompareLayoutItem cmp) {
+        layout.set_comparator(cmp);
+    }
+    
     public LayoutItem? get_item_at(double x, double y) {
         return layout.get_item_at(x, y);
     }
@@ -251,7 +263,7 @@ public abstract class CheckerboardPage : Page {
     
     public void add_item(LayoutItem item) {
         items.add(item);
-        layout.append(item);
+        layout.add_item(item);
     }
     
     public void remove_item(LayoutItem item) {

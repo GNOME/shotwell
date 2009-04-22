@@ -47,6 +47,10 @@ public abstract class LayoutItem : Gtk.Alignment {
         return null;
     }
     
+    public string get_title() {
+        return title.get_text();
+    }
+    
     public abstract Gdk.Pixbuf? get_full_pixbuf();
     
     public abstract Exif.Orientation get_orientation();
@@ -108,6 +112,8 @@ public abstract class LayoutItem : Gtk.Alignment {
     }
 }
 
+public delegate int CompareLayoutItem(LayoutItem a, LayoutItem b);
+
 public class CollectionLayout : Gtk.Layout {
     public static const int TOP_PADDING = 16;
     public static const int BOTTOM_PADDING = 16;
@@ -120,9 +126,11 @@ public class CollectionLayout : Gtk.Layout {
     
     private Gee.ArrayList<LayoutItem> items = new Gee.ArrayList<LayoutItem>();
     private Gtk.Label message = null;
+    private CompareLayoutItem cmp = null;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
+
         expose_event += on_expose;
         size_allocate += on_resize;
     }
@@ -138,8 +146,44 @@ public class CollectionLayout : Gtk.Layout {
         display_message();
     }
     
-    public void append(LayoutItem item) {
+    public void set_comparator(CompareLayoutItem cmp) {
+        this.cmp = cmp;
+        
+        // re-sort list with new comparator
+        Gee.ArrayList<LayoutItem> resorted = new Gee.ArrayList<LayoutItem>();
+        
+        foreach (LayoutItem item in items) {
+            // add to new list and remove from Gtk.Layout
+            sorted_add_item(resorted, cmp, item);
+            remove(item);
+        }
+        
+        items = resorted;
+    }
+    
+    private static void sorted_add_item(Gee.ArrayList<LayoutItem> items, CompareLayoutItem cmp, 
+        LayoutItem item) {
+        if (cmp == null) {
+            items.add(item);
+            
+            return;
+        } 
+
+        for (int ctr = 0; ctr < items.size; ctr++) {
+            if (cmp(item, items.get(ctr)) < 0) {
+                // smaller, insert before this element
+                items.insert(ctr, item);
+                
+                return;
+            }
+        }
+
+        // went off the end of the list, so add at end
         items.add(item);
+    }
+    
+    public void add_item(LayoutItem item) {
+        sorted_add_item(items, cmp, item);
         
         // this demolishes any message that's been set
         if (message != null) {
@@ -172,15 +216,18 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     public void clear() {
+        // remove page message
         if (message != null) {
             remove(message);
             message = null;
         }
         
+        // remove all items from Gtk.Layout
         foreach (LayoutItem item in items) {
             remove(item);
         }
         
+        // clear internal list
         items.clear();
     }
     

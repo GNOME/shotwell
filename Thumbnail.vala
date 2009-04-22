@@ -69,6 +69,10 @@ public class Thumbnail : LayoutItem {
         return file;
     }
     
+    public string get_name() {
+        return file.get_basename();
+    }
+    
     public int64 get_filesize() {
         int64 fileSize = -1;
         try {
