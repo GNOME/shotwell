@@ -117,7 +117,7 @@ public class ThumbnailCache : Object {
 
         // load from disk and then store in memory
         File cached = get_cached_file(photoID);
-        debug("Loading from disk [%d] %s", photoID.id, cached.get_path());
+        debug("Loading from disk [%lld] %s", photoID.id, cached.get_path());
 
         Gdk.Pixbuf thumbnail = null;
         try {
@@ -163,9 +163,11 @@ public class ThumbnailCache : Object {
         if (!force) {
             if (cached.query_exists(null) && cacheTable.exists(photoID))
                 return;
+        } else if (cacheTable.exists(photoID)) {
+                cacheTable.remove(photoID);
         }
 
-        debug("Building persistent thumbnail for [%d] %s", photoID.id, cached.get_path());
+        debug("Building persistent thumbnail for [%lld] %s", photoID.id, cached.get_path());
         
         // scale according to cache's parameters
         Gdk.Pixbuf thumbnail = scale_pixbuf(original, scale, interp);
@@ -195,7 +197,7 @@ public class ThumbnailCache : Object {
     private void _remove(PhotoID photoID) {
         File cached = get_cached_file(photoID);
         
-        debug("Removing [%d] %s", photoID.id, cached.get_path());
+        debug("Removing [%lld] %s", photoID.id, cached.get_path());
 
         if (cacheMap.contains(photoID)) {
             ImageData data = cacheMap.get(photoID);
@@ -221,6 +223,6 @@ public class ThumbnailCache : Object {
     }
     
     private File get_cached_file(PhotoID photoID) {
-        return cacheDir.get_child("thumb%08x.jpg".printf(photoID.id));
+        return cacheDir.get_child("thumb%016llx.jpg".printf(photoID.id));
     }
 }

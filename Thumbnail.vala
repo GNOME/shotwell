@@ -6,7 +6,7 @@ public class Thumbnail : LayoutItem {
     public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
-    private static Gee.HashMap<int, Thumbnail> thumbnailMap = null;
+    private static Gee.HashMap<int64?, Thumbnail> thumbnailMap = null;
     
     public static Thumbnail get_existing(PhotoID photoID) {
         return thumbnailMap.get(photoID.id);
@@ -17,7 +17,7 @@ public class Thumbnail : LayoutItem {
 
         // this gets around a problem with static initializers
         if (thumbnailMap == null) {
-            thumbnailMap = new Gee.HashMap<int, Thumbnail>(direct_hash, direct_equal, direct_equal);
+            thumbnailMap = new Gee.HashMap<int64?, Thumbnail>(direct_hash, direct_equal, direct_equal);
         } else {
             thumbnail = thumbnailMap.get(photoID.id);
         }
@@ -43,18 +43,23 @@ public class Thumbnail : LayoutItem {
     private Dimensions scaledDim;
     private Gdk.Pixbuf cached = null;
     private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
-    private PhotoExif exif;
-    private time_t time = time_t();
+    private Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
+    private long exposure_time = 0;
     
     private Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
         this.file = file;
         this.scale = scale;
-        this.exif = PhotoExif.create(file);
-        this.originalDim = new PhotoTable().get_dimensions(photoID);
-        this.scaledDim = get_scaled_dimensions(originalDim, scale);
-        this.scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
-        exif.get_datetime_time(out this.time);
+        
+        PhotoRow row = PhotoRow();
+        bool found = new PhotoTable().get_photo(photoID, out row);
+        assert(found);
+        
+        orientation = row.orientation;
+        exposure_time = row.exposure_time;
+        originalDim = row.dim;
+        scaledDim = get_scaled_dimensions(originalDim, scale);
+        scaledDim = get_rotated_dimensions(scaledDim, orientation);
         
         title.set_text(file.get_basename());
 
@@ -105,13 +110,16 @@ public class Thumbnail : LayoutItem {
     }
     
     public override Exif.Orientation get_orientation() {
-        return exif.get_orientation();
+        return orientation;
     }
     
     public override void set_orientation(Exif.Orientation orientation) {
-        if (orientation == exif.get_orientation())
+        if (this.orientation == orientation)
             return;
             
+        this.orientation = orientation;
+
+        PhotoExif exif = PhotoExif.create(file);
         exif.set_orientation(orientation);
         
         // rotate dimensions from original dimensions (which doesn't require access to pixbuf)
@@ -140,8 +148,8 @@ public class Thumbnail : LayoutItem {
         }
     }
     
-    public time_t get_time_t() {
-        return time;
+    public long get_exposure_time() {
+        return exposure_time;
     }
     
     public void resize(int newScale) {
@@ -154,13 +162,13 @@ public class Thumbnail : LayoutItem {
         int oldScale = scale;
         scale = newScale;
         scaledDim = get_scaled_dimensions(originalDim, scale);
-        scaledDim = get_rotated_dimensions(scaledDim, exif.get_orientation());
+        scaledDim = get_rotated_dimensions(scaledDim, orientation);
 
         // only fetch and scale if exposed        
         if (cached != null) {
             if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
                 cached = ThumbnailCache.fetch(photoID, newScale);
-                cached = rotate_to_exif(cached, exif.get_orientation());
+                cached = rotate_to_exif(cached, orientation);
             }
             
             Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
@@ -196,7 +204,7 @@ public class Thumbnail : LayoutItem {
             return;
 
         cached = ThumbnailCache.fetch(photoID, scale);
-        cached = rotate_to_exif(cached, exif.get_orientation());
+        cached = rotate_to_exif(cached, orientation);
         Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
         scaledInterp = LOW_QUALITY_INTERP;
         image.set_from_pixbuf(scaled);

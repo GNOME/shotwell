@@ -245,7 +245,7 @@ public abstract class CheckerboardPage : Page {
         layout.set_message(message);
     }
     
-    public void set_layout_comparator(CompareLayoutItem cmp) {
+    public void set_layout_comparator(Comparator<LayoutItem> cmp) {
         layout.set_comparator(cmp);
     }
     

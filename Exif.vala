@@ -1,5 +1,8 @@
 
 namespace Exif {
+    // "Exif"
+    public static const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };
+    
     public enum Orientation {
         TOP_LEFT = 1,
         TOP_RIGHT = 2,
@@ -240,6 +243,7 @@ public class PhotoExif {
     private static Gee.HashMap<File, PhotoExif> cacheMap = null;
     private File file;
     private Exif.Data exifData = null;
+    private bool no_exif = false;
     
     // TODO: This map creates consistency between multiple users accessing the exif data in the
     // same file.  However, this map will grow without bounds.
@@ -263,6 +267,48 @@ public class PhotoExif {
     
     private PhotoExif(File file) {
         this.file = file;
+    }
+    
+    public bool has_exif() {
+        update();
+        
+        if (no_exif)
+            return false;
+        
+        // because libexif will return an empty Data structure for files with no EXIF, manually
+        // take a peek for ourselves and get the skinny
+        try {
+            FileInputStream fins = file.read(null);
+            
+            Jpeg.Marker marker;
+            int segmentLength;
+
+            // first marker should be SOI
+            segmentLength = read_marker(fins, out marker);
+            if ((marker != Jpeg.Marker.SOI) || (segmentLength != 0))
+                return false;
+            
+            // for EXIF, next marker is always APP1
+            segmentLength = read_marker(fins, out marker);
+            if (marker != Jpeg.Marker.APP1)
+                return false;
+            if (segmentLength <= 0)
+                return false;
+            
+            uint8[] sig = new uint8[Exif.SIGNATURE.length];
+            size_t bytesRead;
+            fins.read_all(sig, Exif.SIGNATURE.length, out bytesRead, null);
+            for (int ctr = 0; ctr < Exif.SIGNATURE.length; ctr++) {
+                if (sig[ctr] != Exif.SIGNATURE[ctr])
+                    return false;
+            }
+            
+            return true;
+        } catch (Error err) {
+            debug("Error checking for EXIF presence: %s", err.message);
+        }
+        
+        return false;
     }
     
     public Exif.Orientation get_orientation() {
@@ -294,13 +340,28 @@ public class PhotoExif {
     public bool get_dimensions(out Dimensions dim) {
         update();
         
-        Exif.Entry width = find_entry(Exif.Ifd.EXIF, Exif.Tag.PIXEL_X_DIMENSION, Exif.Format.SHORT);
-        Exif.Entry height = find_entry(Exif.Ifd.EXIF, Exif.Tag.PIXEL_Y_DIMENSION, Exif.Format.SHORT);
+        Exif.Entry width = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_X_DIMENSION, 
+            Exif.Format.SHORT, Exif.Format.LONG);
+        Exif.Entry height = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_Y_DIMENSION, 
+            Exif.Format.SHORT, Exif.Format.LONG);
         if ((width == null) || (height == null))
             return false;
-        
-        dim.width = Exif.Convert.get_short(width.data, exifData.get_byte_order());
-        dim.height = Exif.Convert.get_short(height.data, exifData.get_byte_order());
+
+        if (width.format == Exif.Format.SHORT) {        
+            dim.width = Exif.Convert.get_short(width.data, exifData.get_byte_order());
+        } else {
+            assert(width.format == Exif.Format.LONG);
+
+            dim.width = (int) Exif.Convert.get_long(width.data, exifData.get_byte_order());
+        }
+
+        if (height.format == Exif.Format.SHORT) {        
+            dim.height = Exif.Convert.get_short(height.data, exifData.get_byte_order());
+        } else {
+            assert(height.format == Exif.Format.LONG);
+
+            dim.height = (int) Exif.Convert.get_long(height.data, exifData.get_byte_order());
+        }
         
         return true;
     }
@@ -336,13 +397,19 @@ public class PhotoExif {
     }
     
     private void update() {
+        if (no_exif)
+            return;
+            
         // TODO: Update internal data structures if file changes
         if (exifData != null)
             return;
         
         exifData = Exif.Data.new_from_file(file.get_path());
-        // TODO: Better error handling
-        assert(exifData != null);
+        if (exifData == null) {
+            no_exif = true;
+            
+            return;
+        }
 
         // fix now, all at once
         exifData.fix();
@@ -369,6 +436,24 @@ public class PhotoExif {
         assert(exifData != null);
         
         return Exif.find_first_entry(exifData, tag, format);
+    }
+    
+    private Exif.Entry? find_entry_multiformat(Exif.Ifd ifd, Exif.Tag tag, Exif.Format format1,
+        Exif.Format format2) {
+        assert(exifData != null);
+        
+        Exif.Content content = exifData.ifd[ifd];
+        assert(content != null);
+        
+        Exif.Entry entry = content.get_entry(tag);
+        if (entry == null)
+            return null;
+        
+        assert((entry.format == format1) || (entry.format == format2));
+        if ((entry.format != Exif.Format.ASCII) && (entry.format != Exif.Format.UNDEFINED))
+            assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
+        
+        return entry;
     }
     
     public void commit() throws Error {

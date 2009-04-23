@@ -69,7 +69,7 @@ public class CollectionPage : CheckerboardPage {
         init_ui_bind("/CollectionMenuBar");
         init_context_menu("/CollectionContextMenu");
         
-        set_layout_comparator(thumbnail_name_comparator);
+        set_layout_comparator(new CompareName());
         
         // set up page's toolbar (used by AppWindow for layout)
         //
@@ -112,14 +112,16 @@ public class CollectionPage : CheckerboardPage {
         File[] photoFiles = photoTable.get_photo_files();
         foreach (File file in photoFiles) {
             PhotoID photoID = photoTable.get_id(file);
+
+            debug("Loading [%lld] %s", photoID.id, file.get_path());
             add_photo(photoID, file);
         }
         
+        show_all();
+
         refresh();
         
         schedule_thumbnail_improval();
-
-        show_all();
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -143,7 +145,7 @@ public class CollectionPage : CheckerboardPage {
         Thumbnail thumbnail = (Thumbnail) item;
         
         // switch to full-page view
-        debug("switching to %s [%d]", thumbnail.get_file().get_path(),
+        debug("switching to %s [%lld]", thumbnail.get_file().get_path(),
             thumbnail.get_photo_id().id);
 
         AppWindow.get_instance().switch_to_photo_page(this, thumbnail);
@@ -408,38 +410,46 @@ public class CollectionPage : CheckerboardPage {
         return value;
     }
     
-    private static int thumbnail_name_comparator(LayoutItem a, LayoutItem b) {
-        return strcmp(((Thumbnail) a).get_name(), ((Thumbnail) b).get_name());
+    private class CompareName : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            return strcmp(((Thumbnail) a).get_name(), ((Thumbnail) b).get_name());
+        }
     }
     
-    private static int thumbnail_reverse_name_comparator(LayoutItem a, LayoutItem b) {
-        return strcmp(((Thumbnail) b).get_name(), ((Thumbnail) a).get_name());
+    private class ReverseCompareName : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            return strcmp(((Thumbnail) b).get_name(), ((Thumbnail) a).get_name());
+        }
     }
     
-    private static int thumbnail_exposure_comparator(LayoutItem a, LayoutItem b) {
-        return (int) ((Thumbnail) a).get_time_t() - (int) ((Thumbnail) b).get_time_t();
+    private class CompareDate : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            return (int64) (((Thumbnail) a).get_exposure_time() - ((Thumbnail) b).get_exposure_time());
+        }
     }
     
-    private static int thumbnail_reverse_exposure_comparator(LayoutItem a, LayoutItem b) {
-        return (int) ((Thumbnail) b).get_time_t() - (int) ((Thumbnail) a).get_time_t();
+    private class ReverseCompareDate : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            return (int) (((Thumbnail) b).get_exposure_time() - ((Thumbnail) a).get_exposure_time());
+        }
     }
-    
+
     private void on_sort_changed() {
-        CompareLayoutItem cmp = null;
+        Comparator<LayoutItem> cmp = null;
         switch (get_sort_criteria()) {
             case SORT_BY_NAME: {
                 if (get_sort_order() == SORT_ORDER_ASCENDING) {
-                    cmp = thumbnail_name_comparator;
+                    cmp = new CompareName();
                 } else {
-                    cmp = thumbnail_reverse_name_comparator;
+                    cmp = new ReverseCompareName();
                 }
             } break;
             
             case SORT_BY_EXPOSURE_DATE: {
                 if (get_sort_order() == SORT_ORDER_ASCENDING) {
-                    cmp = thumbnail_exposure_comparator;
+                    cmp = new CompareDate();
                 } else {
-                    cmp = thumbnail_reverse_exposure_comparator;
+                    cmp = new ReverseCompareDate();
                 }
             } break;
         }

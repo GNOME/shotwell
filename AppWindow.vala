@@ -92,6 +92,8 @@ public class AppWindow : Gtk.Window {
     private PhotoPage photoPage = null;
     
     private PhotoTable photoTable = new PhotoTable();
+    private ImportTable importTable = new ImportTable();
+    private EventTable eventTable = new EventTable();
     
     construct {
         // if this is the first AppWindow, it's the main AppWindow
@@ -102,6 +104,9 @@ public class AppWindow : Gtk.Window {
         set_default_size(1024, 768);
 
         destroy += Gtk.main_quit;
+        
+        message("Verifying databases ...");
+        verify_databases();
         
         collectionPage = new CollectionPage();
         photoPage = new PhotoPage();
@@ -152,11 +157,36 @@ public class AppWindow : Gtk.Window {
             "website", "http://www.yorba.org"
         );
     }
+    
+    public class DateComparator : Comparator<int64?> {
+        private PhotoTable photoTable;
+        
+        public DateComparator(PhotoTable photoTable) {
+            this.photoTable = photoTable;
+        }
+        
+        public override int64 compare(int64? ida, int64? idb) {
+            long timea = photoTable.get_exposure_time(PhotoID(ida));
+            long timeb = photoTable.get_exposure_time(PhotoID(idb));
+            
+            return timea - timeb;
+        }
+    }
+    
+    private SortedList<int64?> imported_photos = null;
+    private ImportID import_id = ImportID();
+    
+    public void start_import_batch() {
+        imported_photos = new SortedList<int64?>(new Gee.ArrayList<int64?>(), new DateComparator(photoTable));
+        import_id = importTable.generate();
+    }
 
     public void import(File file) {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         if(type == FileType.REGULAR) {
             if (!import_file(file)) {
+                // TODO: These should be aggregated so the user gets one report and not multiple,
+                // one for each file imported
                 Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL,
                     Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s already stored",
                     file.get_path());
@@ -173,6 +203,87 @@ public class AppWindow : Gtk.Window {
         
         debug("Importing directory %s", file.get_path());
         import_dir(file);
+    }
+    
+    private static const long EVENT_LULL_MSEC = 3 * 60 * 60 * 1000;
+    private static const long EVENT_MAX_DURATION_MSEC = 12 * 60 * 60 * 1000;
+    
+    public void end_import_batch() {
+        if (imported_photos == null)
+            return;
+        
+        split_into_events(imported_photos);
+
+        // reset
+        imported_photos = null;
+        import_id = ImportID();
+    }
+    
+    public void split_into_events(SortedList<int64?> list) {
+        debug("Processing photos to create events ...");
+
+        // walk through photos, splitting into events based on criteria
+        long last_exposure = 0;
+        long current_event_start = 0;
+        EventID current_event_id = EventID();
+        foreach (int64 id in imported_photos) {
+            PhotoID photo_id = PhotoID(id);
+
+            PhotoRow photo;
+            bool found = photoTable.get_photo(photo_id, out photo);
+            assert(found);
+            
+            if (photo.exposure_time == 0) {
+                // no time recorded; skip
+                debug("Skipping %s: No exposure time", photo.file.get_path());
+                
+                continue;
+            }
+            
+            if (photo.event_id.is_valid()) {
+                // already part of an event; skip
+                debug("Skipping %s: Already part of event %lld", photo.file.get_path(),
+                    photo.event_id.id);
+                    
+                continue;
+            }
+            
+            Time photo_time = Time.local(photo.exposure_time);
+            string name = photo_time.to_string();
+            
+            bool create_event = false;
+            if (last_exposure == 0) {
+                // first photo, start a new event
+                create_event = true;
+            } else {
+                assert(last_exposure <= photo.exposure_time);
+                assert(current_event_start <= photo.exposure_time);
+
+                if (photo.exposure_time - last_exposure >= EVENT_LULL_MSEC) {
+                    // enough time has passed between photos to signify a new event
+                    create_event = true;
+                } else if (photo.exposure_time - current_event_start >= EVENT_MAX_DURATION_MSEC) {
+                    // the current event has gone on for too long, stop here and start a new one
+                    create_event = true;
+                }
+            }
+
+            if (create_event) {
+                current_event_id = eventTable.create(name, photo_id);
+                current_event_start = photo.exposure_time;
+
+                debug("Creating event [%lld] %s", current_event_id.id, name);
+            }
+            
+            assert(current_event_id.is_valid());
+            
+            debug("Adding %s to event %lld (exposure=%ld last_exposure=%ld)", photo.file.get_path(), 
+                current_event_id.id, photo.exposure_time, last_exposure);
+            
+            photoTable.set_event(photo_id, current_event_id);
+            
+            last_exposure = photo.exposure_time;
+        }
     }
     
     private void import_dir(File dir) {
@@ -197,7 +308,7 @@ public class AppWindow : Gtk.Window {
                 if (type == FileType.REGULAR) {
                     if (!import_file(file)) {
                         // TODO: Better error reporting
-                        error("Failed to import %s (already imported?)", file.get_path());
+                        message("Failed to import %s (already imported?)", file.get_path());
                     }
                 } else if (type == FileType.DIRECTORY) {
                     debug("Importing directory  %s", file.get_path());
@@ -214,32 +325,132 @@ public class AppWindow : Gtk.Window {
     }
     
     private bool import_file(File file) {
+        // TODO: This eases the pain until background threads are implemented
+        while (Gtk.events_pending()) {
+            if (Gtk.main_iteration()) {
+                debug("import_dir: Gtk.main_quit called");
+                
+                return false;
+            }
+        }
+
         debug("Importing file %s", file.get_path());
 
-        // TODO: Attempt to discover photo information from its metadata
+        Dimensions dim = Dimensions();
+        Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
+        time_t exposure_time = 0;
+        
+        // TODO: Try to read JFIF metadata too
+        PhotoExif exif = PhotoExif.create(file);
+        if (exif.has_exif()) {
+            if (!exif.get_dimensions(out dim)) {
+                error("Unable to read EXIF dimensions for %s", file.get_path());
+            }
+            
+            if (!exif.get_datetime_time(out exposure_time)) {
+                error("Unable to read EXIF orientation for %s", file.get_path());
+            }
+
+            orientation = exif.get_orientation();
+        } 
+        
         Gdk.Pixbuf original;
         try {
             original = new Gdk.Pixbuf.from_file(file.get_path());
+            
+            if (!exif.has_exif())
+                dim = Dimensions(original.get_width(), original.get_height());
         } catch (Error err) {
             error("%s", err.message);
         }
         
-        Dimensions dim = Dimensions(original.get_width(), original.get_height());
-
-        if (photoTable.add(file, dim)) {
-            PhotoID photoID = photoTable.get_id(file);
-            ThumbnailCache.import(photoID, original);
-            collectionPage.add_photo(photoID, file);
-            collectionPage.refresh();
-            
-            return true;
+        FileInfo info = null;
+        try {
+            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            error("%s", err.message);
         }
         
-        debug("Not importing %s (already imported)", file.get_path());
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(timestamp);
         
+        PhotoID photoID = photoTable.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            orientation, import_id);
+        if (photoID.is_invalid()) {
+            debug("Not importing %s (already imported)", file.get_path());
+            
+            return false;
+        }
+        
+        ThumbnailCache.import(photoID, original);
+        collectionPage.add_photo(photoID, file);
+        collectionPage.refresh();
+            
+        // add to imported list for splitting into events
+        if (imported_photos != null)
+            imported_photos.add(photoID.id);
+
         return true;
     }
     
+    private void verify_databases() {
+        PhotoID[] ids = photoTable.get_photo_ids();
+
+        foreach (PhotoID photoID in ids) {
+            PhotoRow row = PhotoRow();
+            photoTable.get_photo(photoID, out row);
+            
+            FileInfo info = null;
+            try {
+                info = row.file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            } catch (Error err) {
+                error("%s", err.message);
+            }
+            
+            TimeVal timestamp = TimeVal();
+            info.get_modification_time(timestamp);
+            
+            // trust modification time and file size
+            if ((timestamp.tv_sec == row.timestamp) && (info.get_size() == row.filesize))
+                continue;
+            
+            message("Time or filesize changed on %s, reimporting ...", row.file.get_path());
+            
+            Dimensions dim = Dimensions();
+            Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
+            time_t exposure_time = 0;
+
+            // TODO: Try to read JFIF metadata too
+            PhotoExif exif = PhotoExif.create(row.file);
+            if (exif.has_exif()) {
+                if (!exif.get_dimensions(out dim)) {
+                    error("Unable to read EXIF dimensions for %s", row.file.get_path());
+                }
+                
+                if (!exif.get_datetime_time(out exposure_time)) {
+                    error("Unable to read EXIF orientation for %s", row.file.get_path());
+                }
+
+                orientation = exif.get_orientation();
+            } 
+        
+            Gdk.Pixbuf original;
+            try {
+                original = new Gdk.Pixbuf.from_file(row.file.get_path());
+                
+                if (!exif.has_exif())
+                    dim = Dimensions(original.get_width(), original.get_height());
+            } catch (Error err) {
+                error("%s", err.message);
+            }
+        
+            if (photoTable.update(photoID, row.file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+                orientation)) {
+                ThumbnailCache.import(photoID, original, true);
+            }
+        }
+    }
+
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selectionData, uint info, uint time) {
         // grab data and release back to system
@@ -247,9 +458,11 @@ public class AppWindow : Gtk.Window {
         Gtk.drag_finish(context, true, false, time);
         
         // import
+        start_import_batch();
         foreach (string uri in uris) {
             import(File.new_for_uri(uri));
         }
+        end_import_batch();
         
         collectionPage.refresh();
     }
@@ -287,7 +500,7 @@ public class AppWindow : Gtk.Window {
         Gtk.ScrolledWindow scrolledSidebar = new Gtk.ScrolledWindow(null, null);
         scrolledSidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolledSidebar.add(sidebar);
-        
+
         // layout the selection tree to the left of the collection/toolbar box with an adjustable
         // gutter between them, framed for presentation
         Gtk.Frame leftFrame = new Gtk.Frame(null);
@@ -382,6 +595,9 @@ public class AppWindow : Gtk.Window {
         
         sidebarStore.append(out child, parent);
         sidebarStore.set(child, 0, "Parties");
+        
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Last Import");
 
         sidebarStore.append(out parent, null);
         sidebarStore.set(parent, 0, "Cameras");

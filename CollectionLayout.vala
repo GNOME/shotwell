@@ -112,8 +112,6 @@ public abstract class LayoutItem : Gtk.Alignment {
     }
 }
 
-public delegate int CompareLayoutItem(LayoutItem a, LayoutItem b);
-
 public class CollectionLayout : Gtk.Layout {
     public static const int TOP_PADDING = 16;
     public static const int BOTTOM_PADDING = 16;
@@ -124,9 +122,8 @@ public class CollectionLayout : Gtk.Layout {
     public static const int RIGHT_PADDING = 16;
     public static const int COLUMN_GUTTER_PADDING = 24;
     
-    private Gee.ArrayList<LayoutItem> items = new Gee.ArrayList<LayoutItem>();
+    private SortedList<LayoutItem> items = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>());
     private Gtk.Label message = null;
-    private CompareLayoutItem cmp = null;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
@@ -146,44 +143,21 @@ public class CollectionLayout : Gtk.Layout {
         display_message();
     }
     
-    public void set_comparator(CompareLayoutItem cmp) {
-        this.cmp = cmp;
-        
+    public void set_comparator(Comparator<LayoutItem> cmp) {
         // re-sort list with new comparator
-        Gee.ArrayList<LayoutItem> resorted = new Gee.ArrayList<LayoutItem>();
+        SortedList<LayoutItem> resorted = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>(), cmp);
         
         foreach (LayoutItem item in items) {
             // add to new list and remove from Gtk.Layout
-            sorted_add_item(resorted, cmp, item);
+            resorted.add(item);
             remove(item);
         }
         
         items = resorted;
     }
     
-    private static void sorted_add_item(Gee.ArrayList<LayoutItem> items, CompareLayoutItem cmp, 
-        LayoutItem item) {
-        if (cmp == null) {
-            items.add(item);
-            
-            return;
-        } 
-
-        for (int ctr = 0; ctr < items.size; ctr++) {
-            if (cmp(item, items.get(ctr)) < 0) {
-                // smaller, insert before this element
-                items.insert(ctr, item);
-                
-                return;
-            }
-        }
-
-        // went off the end of the list, so add at end
-        items.add(item);
-    }
-    
     public void add_item(LayoutItem item) {
-        sorted_add_item(items, cmp, item);
+        items.add(item);
         
         // this demolishes any message that's been set
         if (message != null) {
@@ -238,13 +212,17 @@ public class CollectionLayout : Gtk.Layout {
             return;
         }
         
-        if (items.size == 0)
-            return;
-
         // don't bother until layout is of some appreciable size
         if (allocation.width <= 1)
             return;
-            
+        
+        // need to set_size in case all items were removed and the viewport size has changed
+        if (items.size == 0) {
+            set_size(allocation.width, 0);
+
+            return;
+        }
+
         // Step 1: Determine the widest row in the layout, and from it the number of columns
         int x = LEFT_PADDING;
         int col = 0;

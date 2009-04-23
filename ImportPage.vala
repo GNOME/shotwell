@@ -77,6 +77,7 @@ class ProgressBarContext {
     
     private void on_progress_update(GPhoto.Context context, uint id, float current) {
         progressBar.set_fraction(current / taskTarget);
+        progressBar.set_text(msg);
 
         while (Gtk.events_pending())
             Gtk.main_iteration();
@@ -426,6 +427,7 @@ public class ImportPage : CheckerboardPage {
         
         ProgressBarContext savingContext = new ProgressBarContext(progressBar, "");
         
+        AppWindow.get_instance().start_import_batch();
         try {
             foreach (LayoutItem item in items) {
                 ImportPreview preview = (ImportPreview) item;
@@ -447,16 +449,23 @@ public class ImportPage : CheckerboardPage {
                 
                 AppWindow.get_instance().import(destFile);
 
+                // have to do this because of bug: return will skip finally block
+                bool quit = false;
                 while (Gtk.events_pending()) {
                     if (Gtk.main_iteration()) {
                         // Gtk.main_quit was called, abort out to exit
-                        return;
+                        quit = true;
                     }
                 }
+                
+                if (quit)
+                    break;
             }
         } finally {
             importSelectedButton.sensitive = get_selected_count() > 0;
             importAllButton.sensitive = get_count() > 0;
+            
+            AppWindow.get_instance().end_import_batch();
 
             busy = false;
         }

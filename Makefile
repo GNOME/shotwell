@@ -17,7 +17,8 @@ SRC_FILES = \
 	Exif.vala \
 	Page.vala \
 	ImportPage.vala \
-	GPhoto.vala
+	GPhoto.vala \
+	SortedList.vala
 	
 VAPI_FILES = \
 	libexif.vapi \
