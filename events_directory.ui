@@ -1,0 +1,14 @@
+<ui>
+
+    <menubar name="EventsDirectoryMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+
+</ui>
+
