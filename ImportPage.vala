@@ -8,7 +8,8 @@ class ImportPreview : LayoutItem {
     
     private Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
     
-    public ImportPreview(ImportPage parentPage, Gdk.Pixbuf pixbuf, Exif.Data exif, string folder, string filename) {
+    public ImportPreview(ImportPage parentPage, Gdk.Pixbuf pixbuf, Exif.Data exif, string folder, 
+        string filename) {
         this.parentPage = parentPage;
         this.folder = folder;
         this.filename = filename;
@@ -29,16 +30,8 @@ class ImportPreview : LayoutItem {
         image.set_from_pixbuf(rotated);
     }
     
-    public override Gdk.Pixbuf? get_full_pixbuf() {
-        return parentPage.load_pixbuf(folder, filename);
-    }
-    
-    public override Exif.Orientation get_orientation() {
-        return orientation;
-    }
-    
-    public override void set_orientation(Exif.Orientation orientation) {
-        // this image is read-only
+    public override void on_backing_changed() {
+        error("Not handling backing changes on camera");
     }
 }
 
@@ -122,7 +115,10 @@ public class ImportPage : CheckerboardPage {
         LIBRARY_ERROR
     }
     
-    construct {
+    public ImportPage(GPhoto.Camera camera, string uri) {
+        this.camera = camera;
+        this.uri = uri;
+        
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
         initContext = new ProgressBarContext(progressBar, "Initializing camera ...");
@@ -163,13 +159,6 @@ public class ImportPage : CheckerboardPage {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        show_all();
-    }
-    
-    public ImportPage(GPhoto.Camera camera, string uri) {
-        this.camera = camera;
-        this.uri = uri;
-        
         GPhoto.CameraAbilities abilities;
         GPhoto.Result res = camera.get_abilities(out abilities);
         if (res != GPhoto.Result.OK) {
@@ -177,6 +166,8 @@ public class ImportPage : CheckerboardPage {
         } else {
             cameraLabel.set_text(abilities.model);
         }
+
+        show_all();
     }
     
     public GPhoto.Camera get_camera() {
@@ -236,7 +227,6 @@ public class ImportPage : CheckerboardPage {
         }
 
         // now with camera unmounted, refresh the view
-        AppWindow.get_instance().switch_to_page(this);
         refresh_camera();
     }
 
@@ -469,33 +459,6 @@ public class ImportPage : CheckerboardPage {
 
             busy = false;
         }
-    }
-
-    public Gdk.Pixbuf? load_pixbuf(string folder, string filename) {
-        GPhoto.Result res = camera.init(initContext.context);
-        if (res != GPhoto.Result.OK) {
-            // TODO: Remind user about other applications
-            AppWindow.error_message("Unable to access camera\n%s".printf(res.as_string()));
-            
-            return null;
-        }
-
-        ProgressBarContext pixbufContext = new ProgressBarContext(progressBar, "Fetching %s ...".printf(filename));
-        
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = GPhoto.load_image(pixbufContext.context, camera, folder, filename);
-        } catch(Error err) {
-            AppWindow.error_message(err.message);
-        }
-        
-        res = camera.exit(initContext.context);
-        if (res != GPhoto.Result.OK) {
-            // log but don't fail
-            message("Error closing camera: %s (%d)", res.as_string(), (int) res);
-        }
-        
-        return pixbuf;
     }
 }
 

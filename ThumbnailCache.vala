@@ -1,17 +1,16 @@
 
-// these functions generate compiler warnings due to Vala not supporting const pointers (yet) ...
-// see http://www.mail-archive.com/vala-list@gnome.org/msg00977.html
-public uint photo_id_hash(void *key) {
-    PhotoID *photoID = (PhotoID *) key;
+public uint int64_hash(void *p) {
+    int64 *bi = (int64 *) p;
     
-    return (uint) photoID->id;
+    // TODO: More hash worthy hash
+    return (uint) (*bi);
 }
 
-public bool photo_id_equal(void *a, void *b) {
-    PhotoID *aID = (PhotoID *) a;
-    PhotoID *bID = (PhotoID *) b;
+public bool int64_equal(void *a, void *b) {
+    int64 *bia = (int64 *) a;
+    int64 *bib = (int64 *) b;
     
-    return aID->id == bID->id;
+    return (*bia) == (*bib);
 }
 
 public class ThumbnailCache : Object {
@@ -71,6 +70,14 @@ public class ThumbnailCache : Object {
         }
     }
     
+    public static Gdk.Pixbuf? fetch_scaled(PhotoID photo_id, int scale, Gdk.InterpType interp) {
+        Gdk.Pixbuf pixbuf = fetch(photo_id, scale);
+        if (pixbuf == null)
+            return null;
+        
+        return scale_pixbuf(pixbuf, scale, interp);
+    }
+    
     private class ImageData {
         public uchar[] buffer;
         
@@ -83,8 +90,8 @@ public class ThumbnailCache : Object {
     private int scale;
     private Gdk.InterpType interp;
     private string jpegQuality;
-    private Gee.HashMap<PhotoID?, ImageData> cacheMap = new Gee.HashMap<PhotoID?, ImageData>(
-        photo_id_hash, photo_id_equal, direct_equal);
+    private Gee.HashMap<int64?, ImageData> cacheMap = new Gee.HashMap<int64?, ImageData>(
+        int64_hash, int64_equal, direct_equal);
     private long cachedBytes = 0;
     private ThumbnailCacheTable cacheTable;
     
@@ -102,7 +109,7 @@ public class ThumbnailCache : Object {
     
     private Gdk.Pixbuf? _fetch(PhotoID photoID) {
         // use JPEG in memory cache if available
-        ImageData data = cacheMap.get(photoID);
+        ImageData data = cacheMap.get(photoID.id);
         if (data != null) {
             try {
                 MemoryInputStream memins = new MemoryInputStream.from_data(data.buffer, 
@@ -142,7 +149,7 @@ public class ThumbnailCache : Object {
             assert(bytesRead == filesize);
 
             data = new ImageData(buffer);
-            cacheMap.set(photoID, data);
+            cacheMap.set(photoID.id, data);
             cachedBytes += data.buffer.length;
 
             MemoryInputStream memins = new MemoryInputStream.from_data(data.buffer, 
@@ -199,14 +206,14 @@ public class ThumbnailCache : Object {
         
         debug("Removing [%lld] %s", photoID.id, cached.get_path());
 
-        if (cacheMap.contains(photoID)) {
-            ImageData data = cacheMap.get(photoID);
+        if (cacheMap.contains(photoID.id)) {
+            ImageData data = cacheMap.get(photoID.id);
 
             assert(cachedBytes >= data.buffer.length);
             cachedBytes -= data.buffer.length;
 
             // remove from in-memory cache
-            cacheMap.remove(photoID);
+            cacheMap.remove(photoID.id);
         }
         
         // remove from db table

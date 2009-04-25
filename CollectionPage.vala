@@ -1,8 +1,5 @@
 
 public class CollectionPage : CheckerboardPage {
-    public static const int THUMB_X_PADDING = 20;
-    public static const int THUMB_Y_PADDING = 20;
-    
     public static const int SORT_BY_MIN = 0;
     public static const int SORT_BY_NAME = 0;
     public static const int SORT_BY_EXPOSURE_DATE = 1;
@@ -20,7 +17,7 @@ public class CollectionPage : CheckerboardPage {
     private static const int IMPROVAL_PRIORITY = Priority.LOW;
     private static const int IMPROVAL_DELAY_MS = 250;
     
-    private PhotoTable photoTable = new PhotoTable();
+    private PhotoTable photo_table = new PhotoTable();
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotateButton = null;
@@ -62,7 +59,7 @@ public class CollectionPage : CheckerboardPage {
         { "SortDescending", null, "D_escending", null, "Sort photos in a descending order", SORT_ORDER_DESCENDING }
     };
     
-    construct {
+    public CollectionPage(PhotoID[] photos) {
         init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
         actionGroup.add_radio_actions(SORT_CRIT_ACTIONS, SORT_BY_NAME, on_sort_changed);
         actionGroup.add_radio_actions(SORT_ORDER_ACTIONS, SORT_ORDER_ASCENDING, on_sort_changed);
@@ -109,18 +106,15 @@ public class CollectionPage : CheckerboardPage {
         get_hadjustment().value_changed += schedule_thumbnail_improval;
         get_vadjustment().value_changed += schedule_thumbnail_improval;
         
-        File[] photoFiles = photoTable.get_photo_files();
-        foreach (File file in photoFiles) {
-            PhotoID photoID = photoTable.get_id(file);
-
-            debug("Loading [%lld] %s", photoID.id, file.get_path());
-            add_photo(photoID, file);
+        // load photos into view
+        foreach (PhotoID photo_id in photos) {
+            add_photo(photo_id);
         }
-        
-        show_all();
 
         refresh();
         
+        show_all();
+
         schedule_thumbnail_improval();
     }
     
@@ -167,11 +161,39 @@ public class CollectionPage : CheckerboardPage {
         return false;
     }
 
-    public void add_photo(PhotoID photoID, File file) {
-        Thumbnail thumbnail = Thumbnail.create(photoID, file, scale);
+    public void add_photo(PhotoID photoID) {
+        Thumbnail thumbnail = new Thumbnail(photoID, scale);
         thumbnail.display_title(display_titles());
         
         add_item(thumbnail);
+    }
+    
+    public bool remove_photo(PhotoID photo_id) {
+        Thumbnail found = null;
+        foreach (LayoutItem item in get_items()) {
+            Thumbnail thumbnail = (Thumbnail) item;
+            if (thumbnail.get_photo_id().id == photo_id.id) {
+                found = thumbnail;
+                
+                break;
+            }
+        }
+        
+        if (found != null)
+            remove_item(found);
+        
+        return (found != null);
+    }
+    
+    public void report_backing_changed(PhotoID photo_id) {
+        foreach (LayoutItem item in get_items()) {
+            Thumbnail thumbnail = (Thumbnail) item;
+            if (thumbnail.get_photo_id().id == photo_id.id) {
+                thumbnail.on_backing_changed();
+                
+                break;
+            }
+        }
     }
     
     public int increase_thumb_size() {
@@ -280,13 +302,10 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_remove() {
-        // iterate over selected and remove them from cache and database
+        // iterate over selected and remove them from cache and databases
         foreach (LayoutItem item in get_selected()) {
             Thumbnail thumbnail = (Thumbnail) item;
-            
-            Thumbnail.remove_instance(thumbnail);
-            ThumbnailCache.remove(thumbnail.get_photo_id());
-            photoTable.remove(thumbnail.get_photo_id());
+            AppWindow.get_instance().remove_photo(thumbnail.get_photo_id(), this);
         }
         
         remove_selected();
@@ -296,15 +315,36 @@ public class CollectionPage : CheckerboardPage {
     
     private delegate Exif.Orientation RotationFunc(Exif.Orientation orientation);
     
-    private void do_rotations(string desc, Gee.Iterable<LayoutItem> c, RotationFunc func) {
+    private void do_rotations(string desc, Gee.Iterable<LayoutItem> c, RotationFunc rotate) {
         bool rotationPerformed = false;
         foreach (LayoutItem item in c) {
             Thumbnail thumbnail = (Thumbnail) item;
-            Exif.Orientation orientation = thumbnail.get_orientation();
-            Exif.Orientation rotated = func(orientation);
+
+            File file = thumbnail.get_file();
+            PhotoExif exif = PhotoExif.create(file);
+            
+            Exif.Orientation orientation = exif.get_orientation();
+            Exif.Orientation rotated = rotate(orientation);
+
             debug("Rotating %s %s from %s to %s", desc, thumbnail.get_file().get_path(),
                 orientation.get_description(), rotated.get_description());
-            thumbnail.set_orientation(rotated);
+            
+            // update file itself
+            exif.set_orientation(rotated);
+            
+            // TODO: Write this in background
+            try {
+                exif.commit();
+            } catch (Error err) {
+                error("%s", err.message);
+            }
+            
+            // update database
+            photo_table.set_orientation(thumbnail.get_photo_id(), rotated);
+            
+            // update everyone who cares (including this thumbnail)
+            AppWindow.get_instance().report_backing_changed(thumbnail.get_photo_id());
+
             rotationPerformed = true;
         }
         
@@ -424,13 +464,13 @@ public class CollectionPage : CheckerboardPage {
     
     private class CompareDate : Comparator<LayoutItem> {
         public override int64 compare(LayoutItem a, LayoutItem b) {
-            return (int64) (((Thumbnail) a).get_exposure_time() - ((Thumbnail) b).get_exposure_time());
+            return ((Thumbnail) a).get_exposure_time() - ((Thumbnail) b).get_exposure_time();
         }
     }
     
     private class ReverseCompareDate : Comparator<LayoutItem> {
         public override int64 compare(LayoutItem a, LayoutItem b) {
-            return (int) (((Thumbnail) b).get_exposure_time() - ((Thumbnail) a).get_exposure_time());
+            return ((Thumbnail) b).get_exposure_time() - ((Thumbnail) a).get_exposure_time();
         }
     }
 

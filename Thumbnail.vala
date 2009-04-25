@@ -6,36 +6,6 @@ public class Thumbnail : LayoutItem {
     public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
-    private static Gee.HashMap<int64?, Thumbnail> thumbnailMap = null;
-    
-    public static Thumbnail get_existing(PhotoID photoID) {
-        return thumbnailMap.get(photoID.id);
-    }
-    
-    public static Thumbnail create(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
-        Thumbnail thumbnail = null;
-
-        // this gets around a problem with static initializers
-        if (thumbnailMap == null) {
-            thumbnailMap = new Gee.HashMap<int64?, Thumbnail>(direct_hash, direct_equal, direct_equal);
-        } else {
-            thumbnail = thumbnailMap.get(photoID.id);
-        }
-        
-        if (thumbnail == null) {
-            thumbnail = new Thumbnail(photoID, file, scale);
-            thumbnailMap.set(photoID.id, thumbnail);
-        }
-        
-        return thumbnail;
-    }
-    
-    public static void remove_instance(Thumbnail thumbnail) {
-        assert(thumbnailMap != null);
-        
-        thumbnailMap.remove(thumbnail.photoID.id);
-    }
-    
     private PhotoID photoID;
     private File file;
     private int scale;
@@ -44,17 +14,17 @@ public class Thumbnail : LayoutItem {
     private Gdk.Pixbuf cached = null;
     private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
     private Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
-    private long exposure_time = 0;
+    private time_t exposure_time = 0;
     
-    private Thumbnail(PhotoID photoID, File file, int scale = DEFAULT_SCALE) {
+    public Thumbnail(PhotoID photoID, int scale = DEFAULT_SCALE) {
         this.photoID = photoID;
-        this.file = file;
         this.scale = scale;
         
         PhotoRow row = PhotoRow();
         bool found = new PhotoTable().get_photo(photoID, out row);
         assert(found);
-        
+
+        file = row.file;
         orientation = row.orientation;
         exposure_time = row.exposure_time;
         originalDim = row.dim;
@@ -72,10 +42,6 @@ public class Thumbnail : LayoutItem {
     
     public File get_file() {
         return file;
-    }
-    
-    public string get_name() {
-        return file.get_basename();
     }
     
     public int64 get_filesize() {
@@ -96,7 +62,7 @@ public class Thumbnail : LayoutItem {
         return photoID;
     }
     
-    public override Gdk.Pixbuf? get_full_pixbuf() {
+    public Gdk.Pixbuf? get_full_pixbuf() {
         debug("Loading full image %s", file.get_path());
 
         Gdk.Pixbuf pixbuf = null;
@@ -109,46 +75,34 @@ public class Thumbnail : LayoutItem {
         return pixbuf;
     }
     
-    public override Exif.Orientation get_orientation() {
-        return orientation;
-    }
-    
-    public override void set_orientation(Exif.Orientation orientation) {
-        if (this.orientation == orientation)
-            return;
-            
-        this.orientation = orientation;
+    public override void on_backing_changed() {
+        // reload everything from the database and update accordingly
+        PhotoRow row = PhotoRow();
+        bool found = new PhotoTable().get_photo(photoID, out row);
+        assert(found);
 
-        PhotoExif exif = PhotoExif.create(file);
-        exif.set_orientation(orientation);
-        
-        // rotate dimensions from original dimensions (which doesn't require access to pixbuf)
+        file = row.file;
+        orientation = row.orientation;
+        exposure_time = row.exposure_time;
+        originalDim = row.dim;
         scaledDim = get_scaled_dimensions(originalDim, scale);
         scaledDim = get_rotated_dimensions(scaledDim, orientation);
         
-        // rotate image if exposed ... need to rotate everything (the cached thumbnail and the
-        // scaled image in the widget) to be ready for future events, i.e. resize()
+        title.set_text(file.get_basename());
+
+        // only fetch and scale if exposed
         if (cached != null) {
             cached = ThumbnailCache.fetch(photoID, scale);
             cached = rotate_to_exif(cached, orientation);
-
             Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
             scaledInterp = LOW_QUALITY_INTERP;
-
             image.set_from_pixbuf(scaled);
         }
-        
+
         image.set_size_request(scaledDim.width, scaledDim.height);
-        
-        // TODO: Write this in the background
-        try {
-            exif.commit();
-        } catch (Error err) {
-            error("%s", err.message);
-        }
     }
     
-    public long get_exposure_time() {
+    public time_t get_exposure_time() {
         return exposure_time;
     }
     

@@ -1,4 +1,19 @@
 
+public class PageMarker {
+    public Gtk.Widget notebook_page;
+    private Gtk.TreeRowReference row = null;
+    
+    public PageMarker(Gtk.Widget notebook_page, Gtk.TreeModel? model = null, Gtk.TreePath? path = null ) {
+        this.notebook_page = notebook_page;
+        if ((model != null) && (path != null))
+            this.row = new Gtk.TreeRowReference(model, path);
+    }
+    
+    public unowned Gtk.TreeRowReference get_row() {
+        return row;
+    }
+}
+
 public abstract class Page : Gtk.ScrolledWindow {
     public static const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
     public static const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
@@ -53,9 +68,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.ActionGroup actionGroup = null;
     public Gtk.MenuBar menuBar = null;
     
-    private Gtk.TreeRowReference row = null;
+    public PageMarker marker = null;
     
-    construct {
+    public Page() {
         prepIcons();
         
         button_press_event += on_click;
@@ -64,12 +79,12 @@ public abstract class Page : Gtk.ScrolledWindow {
         AppWindow.get_instance().configure_event += on_configure;
     }
     
-    public void set_tree_row(Gtk.TreeModel model, Gtk.TreeIter iter) {
-        row = new Gtk.TreeRowReference(model, model.get_path(iter));
+    public void set_marker(PageMarker marker) {
+        this.marker = marker;
     }
     
-    public unowned Gtk.TreeRowReference get_tree_row() {
-        return row;
+    public PageMarker get_marker() {
+        return marker;
     }
     
     public virtual Gtk.MenuBar get_menubar() {
@@ -215,10 +230,9 @@ public abstract class Page : Gtk.ScrolledWindow {
 public abstract class CheckerboardPage : Page {
     private Gtk.Menu contextMenu = null;
     private CollectionLayout layout = new CollectionLayout();
-    private Gee.ArrayList<LayoutItem> items = new Gee.ArrayList<LayoutItem>();
     private Gee.HashSet<LayoutItem> selectedItems = new Gee.HashSet<LayoutItem>();
     
-    construct {
+    public CheckerboardPage() {
         add(layout);
     }
     
@@ -254,7 +268,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     public Gee.Iterable<LayoutItem> get_items() {
-        return items;
+        return layout.items;
     }
     
     public Gee.Iterable<LayoutItem> get_selected() {
@@ -262,12 +276,10 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void add_item(LayoutItem item) {
-        items.add(item);
         layout.add_item(item);
     }
     
     public void remove_item(LayoutItem item) {
-        items.remove(item);
         layout.remove_item(item);
     }
     
@@ -276,7 +288,7 @@ public abstract class CheckerboardPage : Page {
         
         foreach (LayoutItem item in selectedItems) {
             layout.remove_item(item);
-            items.remove(item);
+            layout.items.remove(item);
         }
         
         selectedItems.clear();
@@ -285,21 +297,21 @@ public abstract class CheckerboardPage : Page {
     }
     
     public int remove_all() {
-        int count = items.size;
+        int count = layout.items.size;
         
         layout.clear();
-        items.clear();
+        layout.items.clear();
         selectedItems.clear();
         
         return count;
     }
     
     public int get_count() {
-        return items.size;
+        return layout.items.size;
     }
     
     public void select_all() {
-        foreach (LayoutItem item in items) {
+        foreach (LayoutItem item in layout.items) {
             selectedItems.add(item);
             item.select();
         }
@@ -319,7 +331,7 @@ public abstract class CheckerboardPage : Page {
     }
 
     public void select(LayoutItem item) {
-        assert(items.index_of(item) >= 0);
+        assert(layout.items.index_of(item) >= 0);
         
         item.select();
         selectedItems.add(item);
@@ -328,7 +340,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void unselect(LayoutItem item) {
-        assert(items.index_of(item) >= 0);
+        assert(layout.items.index_of(item) >= 0);
         
         item.unselect();
         selectedItems.remove(item);
@@ -421,27 +433,27 @@ public abstract class CheckerboardPage : Page {
     }
     
     public LayoutItem? get_next_item(LayoutItem current) {
-        if (items.size == 0)
+        if (layout.items.size == 0)
             return null;
         
-        int index = items.index_of(current);
+        int index = layout.items.index_of(current);
 
         // although items may be added while the page is away, not handling situations where an active
         // item is removed
         assert(index >= 0);
 
         index++;
-        if (index >= items.size)
+        if (index >= layout.items.size)
             index = 0;
         
-        return items.get(index);
+        return layout.items.get(index);
     }
     
     public LayoutItem? get_previous_item(LayoutItem current) {
-        if (items.size == 0)
+        if (layout.items.size == 0)
             return null;
         
-        int index = items.index_of(current);
+        int index = layout.items.index_of(current);
         
         // although items may be added while the page is away, not handling situations where an active
         // item is removed
@@ -449,8 +461,8 @@ public abstract class CheckerboardPage : Page {
 
         index--;
         if (index < 0)
-            index = (items.size - 1);
+            index = (layout.items.size - 1);
         
-        return items.get(index);
+        return layout.items.get(index);
     }
 }

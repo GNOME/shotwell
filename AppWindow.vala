@@ -4,12 +4,16 @@ public class AppWindow : Gtk.Window {
     public static const string VERSION = "0.0.1";
     public static const string DATA_DIR = ".photo";
     public static const string PHOTOS_DIR = "Pictures";
+
     public static const int SIDEBAR_MIN_WIDTH = 160;
     public static const int SIDEBAR_MAX_WIDTH = 320;
     public static const int PAGE_MIN_WIDTH = 
         Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
     public static Gdk.Color BG_COLOR = parse_color("#777");
+
+    public static const long EVENT_LULL_SEC = 3 * 60 * 60;
+    public static const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
 
     private static AppWindow instance = null;
     private static string[] args = null;
@@ -89,11 +93,29 @@ public class AppWindow : Gtk.Window {
     private DBus.Connection halConn = null;
     
     private CollectionPage collectionPage = null;
+    private EventsDirectoryPage events_directory_page = null;
     private PhotoPage photoPage = null;
     
     private PhotoTable photoTable = new PhotoTable();
-    private ImportTable importTable = new ImportTable();
     private EventTable eventTable = new EventTable();
+    
+    private Gtk.TreeView sidebar = null;
+    private Gtk.TreeStore sidebarStore = null;
+    private Gtk.TreeRowReference camerasRow = null;
+    
+    private Gtk.Notebook notebook = new Gtk.Notebook();
+    private Gtk.Box layout = new Gtk.VBox(false, 0);
+    private Page current_page = null;
+    
+    private GPhoto.Context nullContext = new GPhoto.Context();
+    private GPhoto.CameraAbilitiesList abilitiesList;
+    private Gee.HashMap<string, ImportPage> cameraMap = new Gee.HashMap<string, ImportPage>(
+        str_hash, str_equal, direct_equal);
+    
+    private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<Page>();
+
+    private SortedList<int64?> imported_photos = null;
+    private ImportID import_id = ImportID();
     
     construct {
         // if this is the first AppWindow, it's the main AppWindow
@@ -108,12 +130,51 @@ public class AppWindow : Gtk.Window {
         message("Verifying databases ...");
         verify_databases();
         
-        collectionPage = new CollectionPage();
+        // prepare the default parent and orphan pages
+        PhotoID[] all_photos = photoTable.get_photos();
+        collectionPage = new CollectionPage(all_photos);
+        events_directory_page = new EventsDirectoryPage();
         photoPage = new PhotoPage();
+
+        // prepare the sidebar
+        sidebarStore = new Gtk.TreeStore(1, typeof(string));
+        sidebar = new Gtk.TreeView.with_model(sidebarStore);
+
+        var text = new Gtk.CellRendererText();
+        var column = new Gtk.TreeViewColumn();
+        column.pack_start(text, true);
+        column.add_attribute(text, "text", 0);
+        sidebar.append_column(column);
         
-        build_sidebar();
+        sidebar.set_headers_visible(false);
+
+        // add the default parents and orphans
+        add_parent_page(collectionPage, "Photos");
+        add_parent_page(events_directory_page, "Events");
+        add_orphan_page(photoPage);
+
+        // "Cameras" doesn't have its own page, just a parent row
+        Gtk.TreeIter parent;
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, "Cameras");
+        camerasRow = new Gtk.TreeRowReference(sidebarStore, sidebarStore.get_path(parent));
         
-        create_start_page();
+        // add stored events
+        EventID[] events = eventTable.get_events();
+        foreach (EventID event_id in events) {
+            add_event_page(event_id);
+        }
+        
+        sidebar.cursor_changed += on_sidebar_cursor_changed;
+        
+        // start in the collection page & control selection aspects
+        Gtk.TreeSelection selection = sidebar.get_selection();
+        selection.select_path(collectionPage.get_marker().get_row().get_path());
+        selection.set_mode(Gtk.SelectionMode.BROWSE);
+
+        sidebar.expand_all();
+        
+        create_layout(collectionPage);
 
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library importation, which means it goes to collectionPage)
@@ -159,26 +220,23 @@ public class AppWindow : Gtk.Window {
     }
     
     public class DateComparator : Comparator<int64?> {
-        private PhotoTable photoTable;
+        private PhotoTable photo_table;
         
-        public DateComparator(PhotoTable photoTable) {
-            this.photoTable = photoTable;
+        public DateComparator(PhotoTable photo_table) {
+            this.photo_table = photo_table;
         }
         
         public override int64 compare(int64? ida, int64? idb) {
-            long timea = photoTable.get_exposure_time(PhotoID(ida));
-            long timeb = photoTable.get_exposure_time(PhotoID(idb));
+            time_t timea = photo_table.get_exposure_time(PhotoID(ida));
+            time_t timeb = photo_table.get_exposure_time(PhotoID(idb));
             
             return timea - timeb;
         }
     }
     
-    private SortedList<int64?> imported_photos = null;
-    private ImportID import_id = ImportID();
-    
     public void start_import_batch() {
         imported_photos = new SortedList<int64?>(new Gee.ArrayList<int64?>(), new DateComparator(photoTable));
-        import_id = importTable.generate();
+        import_id = photoTable.generate_import_id();
     }
 
     public void import(File file) {
@@ -205,9 +263,6 @@ public class AppWindow : Gtk.Window {
         import_dir(file);
     }
     
-    private static const long EVENT_LULL_MSEC = 3 * 60 * 60 * 1000;
-    private static const long EVENT_MAX_DURATION_MSEC = 12 * 60 * 60 * 1000;
-    
     public void end_import_batch() {
         if (imported_photos == null)
             return;
@@ -223,9 +278,10 @@ public class AppWindow : Gtk.Window {
         debug("Processing photos to create events ...");
 
         // walk through photos, splitting into events based on criteria
-        long last_exposure = 0;
-        long current_event_start = 0;
+        time_t last_exposure = 0;
+        time_t current_event_start = 0;
         EventID current_event_id = EventID();
+        EventPage current_page = null;
         foreach (int64 id in imported_photos) {
             PhotoID photo_id = PhotoID(id);
 
@@ -248,9 +304,6 @@ public class AppWindow : Gtk.Window {
                 continue;
             }
             
-            Time photo_time = Time.local(photo.exposure_time);
-            string name = photo_time.to_string();
-            
             bool create_event = false;
             if (last_exposure == 0) {
                 // first photo, start a new event
@@ -259,20 +312,30 @@ public class AppWindow : Gtk.Window {
                 assert(last_exposure <= photo.exposure_time);
                 assert(current_event_start <= photo.exposure_time);
 
-                if (photo.exposure_time - last_exposure >= EVENT_LULL_MSEC) {
+                if (photo.exposure_time - last_exposure >= EVENT_LULL_SEC) {
                     // enough time has passed between photos to signify a new event
                     create_event = true;
-                } else if (photo.exposure_time - current_event_start >= EVENT_MAX_DURATION_MSEC) {
+                } else if (photo.exposure_time - current_event_start >= EVENT_MAX_DURATION_SEC) {
                     // the current event has gone on for too long, stop here and start a new one
                     create_event = true;
                 }
             }
-
+            
             if (create_event) {
-                current_event_id = eventTable.create(name, photo_id);
-                current_event_start = photo.exposure_time;
+                if (current_event_id.is_valid()) {
+                    assert(last_exposure != 0);
+                    eventTable.set_end_time(current_event_id, last_exposure);
 
-                debug("Creating event [%lld] %s", current_event_id.id, name);
+                    events_directory_page.add_event(current_event_id);
+                    events_directory_page.refresh();
+                }
+
+                current_event_start = photo.exposure_time;
+                current_event_id = eventTable.create(photo_id, current_event_start);
+                
+                current_page = add_event_page(current_event_id);
+
+                debug("Created event [%lld]", current_event_id.id);
             }
             
             assert(current_event_id.is_valid());
@@ -281,6 +344,7 @@ public class AppWindow : Gtk.Window {
                 current_event_id.id, photo.exposure_time, last_exposure);
             
             photoTable.set_event(photo_id, current_event_id);
+            current_page.add_photo(photo_id);
             
             last_exposure = photo.exposure_time;
         }
@@ -383,7 +447,7 @@ public class AppWindow : Gtk.Window {
         }
         
         ThumbnailCache.import(photoID, original);
-        collectionPage.add_photo(photoID, file);
+        collectionPage.add_photo(photoID);
         collectionPage.refresh();
             
         // add to imported list for splitting into events
@@ -393,9 +457,64 @@ public class AppWindow : Gtk.Window {
         return true;
     }
     
-    private void verify_databases() {
-        PhotoID[] ids = photoTable.get_photo_ids();
+    // This function ensures internal database and cache consistency
+    public void remove_photo(PhotoID photo_id, Page? ignore) {
+        // remove all cached thumbnails
+        ThumbnailCache.remove(photo_id);
+        
+        // update event's primary photo if this is the one; remove event if no more photos in it
+        EventID event_id = photoTable.get_event(photo_id);
+        if (event_id.is_valid() && (eventTable.get_primary_photo(event_id).id == photo_id.id)) {
+            PhotoID[] photos = photoTable.get_event_photos(event_id);
+            
+            PhotoID found = PhotoID();
+            // TODO: Now simply selecting the first photo possible
+            foreach (PhotoID id in photos) {
+                if (id.id != photo_id.id) {
+                    found = id;
+                    
+                    break;
+                }
+            }
+            
+            if (found.is_valid()) {
+                eventTable.set_primary_photo(event_id, found);
+            } else {
+                // this indicates this is the last photo of the event, so no more event
+                assert(photos.length <= 1);
+                remove_event_page(event_id);
+                eventTable.remove(event_id);
+            }
+        }
+        
+        // remove photo from all possibly interested pages
+        if (collectionPage != ignore) {
+            if (collectionPage.remove_photo(photo_id))
+                collectionPage.refresh();
+        }
+            
+        foreach (EventPage page in event_list) {
+            if (page != ignore) {
+                if (page.remove_photo(photo_id))
+                    page.refresh();
+            }
+        }
 
+        // remove from photo table -- should be wiped from system now
+        photoTable.remove(photo_id);
+    }
+    
+    public void report_backing_changed(PhotoID photo_id) {
+        collectionPage.report_backing_changed(photo_id);
+        
+        foreach (EventPage page in event_list)
+            page.report_backing_changed(photo_id);
+    }
+    
+    private void verify_databases() {
+        PhotoID[] ids = photoTable.get_photos();
+
+        // verify photo table
         foreach (PhotoID photoID in ids) {
             PhotoRow row = PhotoRow();
             photoTable.get_photo(photoID, out row);
@@ -444,9 +563,19 @@ public class AppWindow : Gtk.Window {
                 error("%s", err.message);
             }
         
-            if (photoTable.update(photoID, row.file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            if (photoTable.update(photoID, dim, info.get_size(), timestamp.tv_sec, exposure_time,
                 orientation)) {
                 ThumbnailCache.import(photoID, original, true);
+            }
+        }
+        
+        // verify event table
+        EventID[] events = eventTable.get_events();
+        foreach (EventID event_id in events) {
+            PhotoID[] photos = photoTable.get_event_photos(event_id);
+            if (photos.length == 0) {
+                message("Removing event %lld: No photos associated with event", event_id.id);
+                eventTable.remove(event_id);
             }
         }
     }
@@ -478,239 +607,361 @@ public class AppWindow : Gtk.Window {
         switch_to_page(collectionPage);
     }
     
-    public void switch_to_photo_page(CheckerboardPage controller, LayoutItem current) {
+    public void switch_to_events_directory_page() {
+        switch_to_page(events_directory_page);
+    }
+    
+    public void switch_to_event(EventID event_id) {
+        EventPage page = find_event_page(event_id);
+        if (page == null) {
+            debug("Cannot find page for event %lld", event_id.id);
+
+            return;
+        }
+
+        switch_to_page(page);
+    }
+    
+    public void switch_to_photo_page(CheckerboardPage controller, Thumbnail current) {
         photoPage.display(controller, current);
         switch_to_page(photoPage);
     }
     
-    private Gtk.Box layout = null;
-    private Gtk.Box pageBox = null;
-    private Gtk.Paned clientPaned = null;
-    private Page currentPage = null;
-    
-    private void create_start_page() {
-        currentPage = collectionPage;
+    private EventPage? find_event_page(EventID event_id) {
+        foreach (EventPage page in event_list) {
+            if (page.event_id.id == event_id.id)
+                return page;
+        }
         
-        // layout the growable collection page with the toolbar beneath
-        pageBox = new Gtk.VBox(false, 0);
-        pageBox.pack_start(currentPage, true, true, 0);
-        pageBox.pack_end(currentPage.get_toolbar(), false, false, 0);
+        return null;
+    }
+    
+    private EventPage add_event_page(EventID event_id) {
+        string name = eventTable.get_name(event_id);
+        PhotoID[] photos = photoTable.get_event_photos(event_id);
+        EventPage event_page = new EventPage(event_id, photos);
+
+        add_child_page(events_directory_page, event_page, name);
+        event_list.add(event_page);
+        
+        return event_page;
+    }
+    
+    private void remove_event_page(EventID event_id) {
+        EventPage page = find_event_page(event_id);
+        assert(page != null);
+        
+        remove_page(page);
+        event_list.remove(page);
+    }
+
+    private Gtk.TreePath add_sidebar_parent(string name) {
+        Gtk.TreeIter parent;
+        sidebarStore.append(out parent, null);
+        sidebarStore.set(parent, 0, name);
+
+        return sidebarStore.get_path(parent);
+    }
+    
+    private Gtk.TreePath add_sidebar_child(Gtk.TreeRowReference row, string name) {
+        Gtk.TreeIter parent, child;
+        sidebarStore.get_iter(out parent, row.get_path());
+        sidebarStore.append(out child, parent);
+        sidebarStore.set(child, 0, name);
+        
+        return sidebarStore.get_path(child);
+    }
+    
+    private void add_parent_page(Page parent, string name) {
+        // need to show all before handing over to notebook
+        parent.show_all();
+    
+        // layout for notebook
+        Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.pack_start(parent, true, true, 0);
+        vbox.pack_end(parent.get_toolbar(), false, false, 0);
+        
+        // add to notebook
+        int pos = notebook.append_page(vbox, null);
+        assert(pos >= 0);
+        
+        // add to sidebar
+        Gtk.TreePath path = add_sidebar_parent(name);
+        
+        parent.set_marker(new PageMarker(vbox, sidebarStore, path));
+        
+        notebook.show_all();
+    }
+    
+    private void add_child_page_to_row(Gtk.TreeRowReference parent, Page child, string name) {
+        // need to show_all before handing over to notebook
+        child.show_all();
+        
+        // layout for notebook
+        Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.pack_start(child, true, true, 0);
+        vbox.pack_end(child.get_toolbar(), false, false, 0);
+        
+        // add to notebook
+        int pos = notebook.append_page(vbox, null);
+        assert(pos >= 0);
+        
+        // add to sidebar
+        Gtk.TreePath path = add_sidebar_child(parent, name);
+        
+        child.set_marker(new PageMarker(vbox, sidebarStore, path));
+        
+        notebook.show_all();
+    }
+    
+    private void add_child_page(Page parent, Page child, string name) {
+        add_child_page_to_row(parent.get_marker().get_row(), child, name);
+    }
+
+    private void add_orphan_page(Page orphan) {
+        // need to show_all before handing over to notebook
+        orphan.show_all();
+        
+        // layout for notebook
+        Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.pack_start(orphan, true, true, 0);
+        vbox.pack_end(orphan.get_toolbar(), false, false, 0);
+        
+        // add to notebook
+        int pos = notebook.append_page(vbox, null);
+        assert(pos >= 0);
+        
+        orphan.set_marker(new PageMarker(vbox));
+        
+        notebook.show_all();
+    }
+    
+    private void remove_page(Page page) {
+        // a handful of pages just don't go away
+        assert(page != collectionPage);
+        assert(page != events_directory_page);
+        assert(page != photoPage);
+        
+        PageMarker marker = page.get_marker();
+
+        // remove from notebook
+        int pos = get_notebook_pos(page);
+        assert(pos >= 0);
+        notebook.remove_page(pos);
+
+        // remove from sidebar, if present
+        if (marker.get_row() != null) {
+            Gtk.TreeIter iter;
+            bool found = sidebarStore.get_iter(out iter, marker.get_row().get_path());
+            assert(found);
+            sidebarStore.remove(iter);
+        }
+
+        // switch away if necessary to collection page (which is always present)
+        if (current_page == page)
+            switch_to_collection_page();
+    }
+    
+    private int get_notebook_pos(Page page) {
+        PageMarker marker = page.get_marker();
+        
+        int pos = notebook.page_num(marker.notebook_page);
+        assert(pos != -1);
+        
+        return pos;
+    }
+    
+    private void create_layout(Page start_page) {
+        // use a Notebook to hold all the pages, which are switched when a sidebar child is selected
+        notebook.set_show_tabs(false);
+        notebook.set_show_border(false);
         
         // put the sidebar in a scrolling window
-        Gtk.ScrolledWindow scrolledSidebar = new Gtk.ScrolledWindow(null, null);
-        scrolledSidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
-        scrolledSidebar.add(sidebar);
+        Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
+        scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+        scrolled_sidebar.add(sidebar);
 
         // layout the selection tree to the left of the collection/toolbar box with an adjustable
         // gutter between them, framed for presentation
-        Gtk.Frame leftFrame = new Gtk.Frame(null);
-        leftFrame.add(scrolledSidebar);
-        leftFrame.set_shadow_type(Gtk.ShadowType.IN);
+        Gtk.Frame left_frame = new Gtk.Frame(null);
+        left_frame.add(scrolled_sidebar);
+        left_frame.set_shadow_type(Gtk.ShadowType.IN);
         
-        Gtk.Frame rightFrame = new Gtk.Frame(null);
-        rightFrame.add(pageBox);
-        rightFrame.set_shadow_type(Gtk.ShadowType.IN);
+        Gtk.Frame right_frame = new Gtk.Frame(null);
+        right_frame.add(notebook);
+        right_frame.set_shadow_type(Gtk.ShadowType.IN);
         
-        clientPaned = new Gtk.HPaned();
-        clientPaned.pack1(leftFrame, false, false);
+        Gtk.HPaned client_paned = new Gtk.HPaned();
+        client_paned.pack1(left_frame, false, false);
         sidebar.set_size_request(SIDEBAR_MIN_WIDTH, -1);
-        clientPaned.pack2(rightFrame, true, false);
+        client_paned.pack2(right_frame, true, false);
         // TODO: Calc according to layout's size, to give sidebar a maximum width
-        pageBox.set_size_request(PAGE_MIN_WIDTH, -1);
+        notebook.set_size_request(PAGE_MIN_WIDTH, -1);
 
-        // layout client beneath menu
-        layout = new Gtk.VBox(false, 0);
-        layout.pack_start(currentPage.get_menubar(), false, false, 0);
-        layout.pack_end(clientPaned, true, true, 0);
+        layout.pack_end(client_paned, true, true, 0);
         
         add(layout);
 
-        add_accel_group(currentPage.ui.get_accel_group());
-
-        currentPage.switched_to();
-
-        show_all();
+        switch_to_page(start_page);
     }
     
     public void switch_to_page(Page page) {
-        if (page == currentPage)
+        if (page == current_page)
             return;
-            
-        currentPage.switching_from();
         
-        remove_accel_group(currentPage.ui.get_accel_group());
+        if (current_page != null) {
+            current_page.switching_from();
+        
+            remove_accel_group(current_page.ui.get_accel_group());
+        }
 
-        pageBox.remove(currentPage);
-        pageBox.pack_start(page, true, true, 0);
-        
-        pageBox.remove(currentPage.get_toolbar());
-        pageBox.pack_end(page.get_toolbar(), false, false, 0);
-        
-        layout.remove(currentPage.get_menubar());
+        int pos = get_notebook_pos(page);
+        notebook.set_current_page(pos);
+
+        // layout client beneath menu
+        if (current_page != null)
+            layout.remove(current_page.get_menubar());
         layout.pack_start(page.get_menubar(), false, false, 0);
 
-        add_accel_group(page.ui.get_accel_group());
+        Gtk.AccelGroup accel_group = page.ui.get_accel_group();
+        if (accel_group != null)
+            add_accel_group(accel_group);
+        
+        // do this prior to changing selection, as the change will fire a cursor-changed event,
+        // which will then call this function again
+        current_page = page;
+
+        PageMarker marker = page.get_marker();
+        if (marker.get_row() != null)
+            sidebar.get_selection().select_path(marker.get_row().get_path());
+        
+        show_all();
         
         page.switched_to();
         
-        unowned Gtk.TreeRowReference row = page.get_tree_row();
-        if (row != null)
-            sidebar.get_selection().select_path(row.get_path());
-        
-        layout.show_all();
-        
-        currentPage = page;
     }
     
-    private Gtk.TreeView sidebar = null;
-    private Gtk.TreeStore sidebarStore = null;
-    private Gtk.TreeRowReference camerasRow = null;
-
-    private void build_sidebar() {
-        sidebarStore = new Gtk.TreeStore(1, typeof(string));
-        sidebar = new Gtk.TreeView.with_model(sidebarStore);
-
-        var text = new Gtk.CellRendererText();
-        //text.size_points = 9.0;
-        var column = new Gtk.TreeViewColumn();
-        column.pack_start(text, true);
-        column.add_attribute(text, "text", 0);
-        sidebar.append_column(column);
+    private bool is_page_selected(Page page, Gtk.TreePath path) {
+        PageMarker marker = page.get_marker();
+        if (marker.get_row() == null)
+            return false;
         
-        sidebar.set_headers_visible(false);
-
-        Gtk.TreeIter parent, child;
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Photos");
-        collectionPage.set_tree_row(sidebarStore, parent);
-
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Events");
-        
-        sidebarStore.append(out child, parent);
-        sidebarStore.set(child, 0, "New Year's");
-
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Albums");
-        
-        sidebarStore.append(out child, parent);
-        sidebarStore.set(child, 0, "Parties");
-        
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Last Import");
-
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Cameras");
-        camerasRow = new Gtk.TreeRowReference(sidebarStore, sidebarStore.get_path(parent));
-
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Trash");
-        
-        sidebar.cursor_changed += on_sidebar_cursor_changed;
-        
-        // start in the collection page & control selection aspects
-        Gtk.TreeSelection selection = sidebar.get_selection();
-        selection.select_path(collectionPage.get_tree_row().get_path());
-        selection.set_mode(Gtk.SelectionMode.BROWSE);
-
-        sidebar.expand_all();
+        return path.compare(marker.get_row().get_path()) == 0;
     }
     
-    private void on_sidebar_cursor_changed() {
-        Gtk.TreePath selected;
-        sidebar.get_cursor(out selected, null);
-        
-        if (selected.compare(collectionPage.get_tree_row().get_path()) == 0) {
-            switch_to_collection_page();
-        } else {
-            foreach (ImportPage page in cameraTable.get_values()) {
-                if (selected.compare(page.get_tree_row().get_path()) == 0) {
-                    switch_to_page(page);
+    private bool is_camera_selected(Gtk.TreePath path) {
+        foreach (ImportPage page in cameraMap.get_values()) {
+            if (!is_page_selected(page, path))
+                continue;
 
-                    if (page.is_refreshed() || page.is_busy()) {
-                        return;
-                    }
-                    
-                    page.remove_all();
+            switch_to_page(page);
 
-                    ImportPage.RefreshResult res = page.refresh_camera();
-                    switch (res) {
-                        case ImportPage.RefreshResult.OK:
-                        case ImportPage.RefreshResult.BUSY: {
-                            // nothing to report; if busy, let it continue doing its thing
-                            // (although earlier check should've caught this)
-                        } break;
-                        
-                        case ImportPage.RefreshResult.LOCKED: {
-                            // if locked because it's mounted, offer to unmount
-                            debug("Checking if %s is mounted ...", page.get_uri());
-
-                            File uri = File.new_for_uri(page.get_uri());
-
-                            Mount mount = null;
-                            try {
-                                mount = uri.find_enclosing_mount(null);
-                            } catch (Error err) {
-                                // error means not mounted
-                            }
-                            
-                            if (mount != null) {
-                                // it's mounted, offer to unmount for the user
-                                Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, 
-                                    Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
-                                    Gtk.ButtonsType.YES_NO,
-                                    "The camera is locked for use as a mounted drive.  "
-                                    + "Shotwell can only access the drive when it's unlocked.  "
-                                    + "Do you want Shotwell to unmount the drive for you?");
-                                int dialog_res = dialog.run();
-                                dialog.destroy();
-                                
-                                if (dialog_res != Gtk.ResponseType.YES) {
-                                    page.set_page_message("Please unmount the camera.");
-                                    page.refresh();
-                                    
-                                    return;
-                                }
-                                
-                                mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
-                            } else {
-                                // it's not mounted, so another application must have it locked
-                                Gtk.MessageDialog dialog = new Gtk.MessageDialog(this,
-                                    Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
-                                    Gtk.ButtonsType.OK,
-                                    "The camera is locked by another application.  "
-                                    + "Shotwell can only access the drive when it's unlocked.  "
-                                    + "Please close any other application using the camera and try again.");
-                                dialog.run();
-                                dialog.destroy();
-                                
-                                page.set_page_message("Please close any other application using the camera.");
-                                page.refresh();
-                            }
-                        } break;
-                        
-                        case ImportPage.RefreshResult.LIBRARY_ERROR: {
-                            error_message("Unable to fetch previews from the camera:\n%s".printf(page.get_refresh_message()));
-                        } break;
-                        
-                        default: {
-                            error("Unknown result type %d", (int) res);
-                        } break;
-                    }
-
-                    return;
-                }
+            if (page.is_refreshed() || page.is_busy()) {
+                return true;
             }
             
+            ImportPage.RefreshResult res = page.refresh_camera();
+            switch (res) {
+                case ImportPage.RefreshResult.OK:
+                case ImportPage.RefreshResult.BUSY: {
+                    // nothing to report; if busy, let it continue doing its thing
+                    // (although earlier check should've caught this)
+                } break;
+                
+                case ImportPage.RefreshResult.LOCKED: {
+                    // if locked because it's mounted, offer to unmount
+                    debug("Checking if %s is mounted ...", page.get_uri());
+
+                    File uri = File.new_for_uri(page.get_uri());
+
+                    Mount mount = null;
+                    try {
+                        mount = uri.find_enclosing_mount(null);
+                    } catch (Error err) {
+                        // error means not mounted
+                    }
+                    
+                    if (mount != null) {
+                        // it's mounted, offer to unmount for the user
+                        Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, 
+                            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
+                            Gtk.ButtonsType.YES_NO,
+                            "The camera is locked for use as a mounted drive.  "
+                            + "Shotwell can only access the drive when it's unlocked.  "
+                            + "Do you want Shotwell to unmount the drive for you?");
+                        int dialog_res = dialog.run();
+                        dialog.destroy();
+                        
+                        if (dialog_res != Gtk.ResponseType.YES) {
+                            page.set_page_message("Please unmount the camera.");
+                            page.refresh();
+                        } else {
+                            mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
+                        }
+                    } else {
+                        // it's not mounted, so another application must have it locked
+                        Gtk.MessageDialog dialog = new Gtk.MessageDialog(this,
+                            Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
+                            Gtk.ButtonsType.OK,
+                            "The camera is locked by another application.  "
+                            + "Shotwell can only access the drive when it's unlocked.  "
+                            + "Please close any other application using the camera and try again.");
+                        dialog.run();
+                        dialog.destroy();
+                        
+                        page.set_page_message("Please close any other application using the camera.");
+                        page.refresh();
+                    }
+                } break;
+                
+                case ImportPage.RefreshResult.LIBRARY_ERROR: {
+                    error_message("Unable to fetch previews from the camera:\n%s".printf(page.get_refresh_message()));
+                } break;
+                
+                default: {
+                    error("Unknown result type %d", (int) res);
+                } break;
+            }
+
+            return true;
+        }
+        
+        // not found
+        return false;
+    }
+    
+    private bool is_event_selected(Gtk.TreePath path) {
+        foreach (EventPage page in event_list) {
+            if (is_page_selected(page, path)) {
+                switch_to_page(page);
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    private void on_sidebar_cursor_changed() {
+        Gtk.TreePath path;
+        sidebar.get_cursor(out path, null);
+        
+        if (is_page_selected(collectionPage, path)) {
+            switch_to_collection_page();
+        } else if (is_page_selected(events_directory_page, path)) {
+            switch_to_events_directory_page();
+        } else if (path.compare(camerasRow.get_path()) == 0) {
+            // TODO: Make Cameras unselectable and invisible when no cameras attached
+            message("Cameras selected");
+        } else if (is_camera_selected(path)) {
+            // camera path selected and updated
+        } else if (is_event_selected(path)) {
+            // event page selected and updated
+        } else {
             debug("Unimplemented page selected");
         }
     }
     
-    private GPhoto.Context nullContext = new GPhoto.Context();
-    private GPhoto.CameraAbilitiesList abilitiesList;
-    private Gee.HashMap<string, ImportPage> cameraTable = new Gee.HashMap<string, ImportPage>(
-        str_hash, str_equal, direct_equal);
-
     private void do_op(GPhoto.Result res, string op) throws GPhotoError {
         if (res != GPhoto.Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Unable to %s: %s", (int) res, op, res.as_string());
@@ -836,7 +1087,7 @@ public class AppWindow : Gtk.Window {
         
         // first, find cameras that have disappeared
         ImportPage[] missing = new ImportPage[0];
-        foreach (ImportPage page in cameraTable.get_values()) {
+        foreach (ImportPage page in cameraMap.get_values()) {
             GPhoto.Camera camera = page.get_camera();
             
             GPhoto.PortInfo portInfo;
@@ -868,15 +1119,8 @@ public class AppWindow : Gtk.Window {
 
             debug("Removing from camera table: %s @ %s", abilities.model, portInfo.path);
 
-            Gtk.TreeIter cameraIter;
-            sidebarStore.get_iter(out cameraIter, page.get_tree_row().get_path());
-            sidebarStore.remove(cameraIter);
-
-            cameraTable.remove(get_port_uri(portInfo.path));
-            
-            // switch away if necessary
-            if (currentPage == page)
-                switch_to_collection_page();
+            cameraMap.remove(get_port_uri(portInfo.path));
+            remove_page(page);
         }
 
         // add cameras which were not present before
@@ -884,7 +1128,7 @@ public class AppWindow : Gtk.Window {
             string name = detectedMap.get(port);
             string uri = get_port_uri(port);
 
-            if (cameraTable.contains(uri)) {
+            if (cameraMap.contains(uri)) {
                 // already known about
                 debug("%s @ %s already registered, skipping", name, port);
                 
@@ -916,15 +1160,10 @@ public class AppWindow : Gtk.Window {
             
             debug("Adding to camera table: %s @ %s", name, port);
             
-            Gtk.TreeIter camerasIter, child;
-            sidebarStore.get_iter(out camerasIter, camerasRow.get_path());
-            sidebarStore.append(out child, camerasIter);
-            sidebarStore.set(child, 0, name);
-            
             ImportPage page = new ImportPage(camera, uri);
-            page.set_tree_row(sidebarStore, child);
+            add_child_page_to_row(camerasRow, page, name);
 
-            cameraTable.set(uri, page);
+            cameraMap.set(uri, page);
             
             sidebar.expand_row(camerasRow.get_path(), true);
         }
@@ -968,7 +1207,7 @@ public class AppWindow : Gtk.Window {
             return;
         }
         
-        ImportPage page = get_instance().cameraTable.get(uri.get_uri());
+        ImportPage page = get_instance().cameraMap.get(uri.get_uri());
         if (page == null) {
             debug("Unable to find camera for %s", uri.get_uri());
             
@@ -978,4 +1217,3 @@ public class AppWindow : Gtk.Window {
         mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
     }
 }
-

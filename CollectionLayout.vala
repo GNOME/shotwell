@@ -43,7 +43,7 @@ public abstract class LayoutItem : Gtk.Alignment {
         add(frame);
     }
     
-    public Gtk.Widget? get_control_panel() {
+    public virtual Gtk.Widget? get_control_panel() {
         return null;
     }
     
@@ -51,11 +51,7 @@ public abstract class LayoutItem : Gtk.Alignment {
         return title.get_text();
     }
     
-    public abstract Gdk.Pixbuf? get_full_pixbuf();
-    
-    public abstract Exif.Orientation get_orientation();
-    
-    public abstract void set_orientation(Exif.Orientation orientation);
+    public abstract void on_backing_changed();
     
     public virtual void exposed() {
     }
@@ -122,23 +118,31 @@ public class CollectionLayout : Gtk.Layout {
     public static const int RIGHT_PADDING = 16;
     public static const int COLUMN_GUTTER_PADDING = 24;
     
-    private SortedList<LayoutItem> items = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>());
-    private Gtk.Label message = null;
+    private Gtk.Label message = new Gtk.Label("");
+    public SortedList<LayoutItem> items = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>());
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
 
+        // This is commented out because Vala is generating bogus ccode from it (it's trying to
+        // unref the Gdk.Color as though it was a Gee.Collection) ... I suspect it has to do with
+        // the SortedList class.  Will probably need to rip out SortedList and sort all lists by
+        // hand ...
+        /*
+        Gdk.Color color = parse_color(LayoutItem.UNSELECTED_COLOR);
+        message.modify_fg(Gtk.StateType.NORMAL, color);
+        */
+        message.set_single_line_mode(false);
+        message.set_use_underline(false);
+        
         expose_event += on_expose;
         size_allocate += on_resize;
     }
     
-    public void set_message(string message) {
+    public void set_message(string text) {
         clear();
-        
-        this.message = new Gtk.Label(message);
-        this.message.set_single_line_mode(false);
-        this.message.set_use_underline(false);
-        this.message.modify_fg(Gtk.StateType.NORMAL, parse_color(LayoutItem.UNSELECTED_COLOR));
+
+        message.set_text(text);
         
         display_message();
     }
@@ -160,9 +164,9 @@ public class CollectionLayout : Gtk.Layout {
         items.add(item);
         
         // this demolishes any message that's been set
-        if (message != null) {
+        if (message.get_text().length > 0) {
             remove(message);
-            message = null;
+            message.set_text("");
         }
 
         // need to do this to have its size requisitioned in refresh()
@@ -191,9 +195,9 @@ public class CollectionLayout : Gtk.Layout {
     
     public void clear() {
         // remove page message
-        if (message != null) {
+        if (message.get_text().length > 0) {
             remove(message);
-            message = null;
+            message.set_text("");
         }
         
         // remove all items from Gtk.Layout
@@ -206,7 +210,7 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     public void refresh() {
-        if (message != null) {
+        if (message.get_text().length > 0) {
             display_message();
             
             return;
@@ -234,7 +238,11 @@ public class CollectionLayout : Gtk.Layout {
             // perform size requests first time through, but not thereafter
             Gtk.Requisition req;
             item.size_request(out req);
-                
+            
+            // the items must be requisitioned for this code to work
+            assert(req.height > 0);
+            assert(req.width > 0);
+            
             // carriage return (i.e. this item will overflow the view)
             if ((x + req.width + RIGHT_PADDING) > allocation.width) {
                 if (rowWidth > widestRow) {
@@ -368,7 +376,7 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     private void display_message() {
-        assert(message != null);
+        assert(message.get_text().length > 0);
         
         Gtk.Requisition req;
         message.size_request(out req);
@@ -413,23 +421,15 @@ public class CollectionLayout : Gtk.Layout {
         */
         
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
-        int exposedCount = 0;
-        int unexposedCount = 0;
 
         foreach (LayoutItem item in items) {
             if (visibleRect.intersect((Gdk.Rectangle) item.allocation, bitbucket)) {
                 item.exposed();
-                exposedCount++;
             } else {
                 item.unexposed();
-                unexposedCount++;
             }
         }
         
-        /*
-        debug("exposed:%d unexposed:%d", exposedCount, unexposedCount);
-        */
-
         return false;
     }
 }

@@ -9,7 +9,7 @@ public class PhotoPage : Page {
     private Gtk.ToolButton prevButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton nextButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private Gtk.Image image = new Gtk.Image();
-    private LayoutItem item = null;
+    private Thumbnail thumbnail = null;
     private Gdk.Pixbuf original = null;
     private Exif.Orientation orientation;
     private Gdk.Pixbuf rotated = null;
@@ -29,6 +29,8 @@ public class PhotoPage : Page {
 
         { "HelpMenu", null, "_Help", null, null, null }
     };
+    
+    private PhotoTable photo_table = new PhotoTable();
     
     construct {
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
@@ -70,22 +72,22 @@ public class PhotoPage : Page {
         return toolbar;
     }
     
-    public void display(CheckerboardPage controller, LayoutItem item) {
+    public void display(CheckerboardPage controller, Thumbnail thumbnail) {
         this.controller = controller;
-        this.item = item;
+        this.thumbnail = thumbnail;
 
         update_display();
         update_sensitivity();
     }
     
     private void update_display() {
-        if (item == null) {
+        if (thumbnail == null) {
             // TODO: Display error message
             return;
         }
         
-        orientation = item.get_orientation();
-        original = item.get_full_pixbuf();
+        orientation = photo_table.get_orientation(thumbnail.get_photo_id());
+        original = thumbnail.get_full_pixbuf();
         if (original == null)
             return;
 
@@ -139,7 +141,24 @@ public class PhotoPage : Page {
         rotated = rotate_to_exif(original, orientation);
         rotatedDim = Dimensions.for_pixbuf(rotated);
         
-        item.set_orientation(orientation);
+        File file = thumbnail.get_file();
+        PhotoExif exif = PhotoExif.create(file);
+        
+        // update file itself
+        exif.set_orientation(orientation);
+        
+        // TODO: Write this in background
+        try {
+            exif.commit();
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        // update database
+        photo_table.set_orientation(thumbnail.get_photo_id(), orientation);
+        
+        // update everyone who cares
+        AppWindow.get_instance().report_backing_changed(thumbnail.get_photo_id());
 
         repaint(true);
     }
@@ -175,12 +194,12 @@ public class PhotoPage : Page {
     }
     
     private void on_next_photo() {
-        this.item = controller.get_next_item(item);
+        this.thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         update_display();
     }
     
     private void on_previous_photo() {
-        this.item = controller.get_previous_item(item);
+        this.thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
         update_display();
     }
     

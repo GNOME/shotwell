@@ -239,7 +239,7 @@ public bool file_equal(void *a, void *b) {
     return afile->get_path() == bfile->get_path();
 }
 
-public class PhotoExif {
+public class PhotoExif  {
     private static Gee.HashMap<File, PhotoExif> cacheMap = null;
     private File file;
     private Exif.Data exifData = null;
@@ -285,28 +285,39 @@ public class PhotoExif {
 
             // first marker should be SOI
             segmentLength = read_marker(fins, out marker);
-            if ((marker != Jpeg.Marker.SOI) || (segmentLength != 0))
+            if ((marker != Jpeg.Marker.SOI) || (segmentLength != 0)) {
+                no_exif = true;
+                
                 return false;
+            }
             
             // for EXIF, next marker is always APP1
             segmentLength = read_marker(fins, out marker);
-            if (marker != Jpeg.Marker.APP1)
+            if ((marker != Jpeg.Marker.APP1) || (segmentLength < 0)) {
+                no_exif = true;
+                
                 return false;
-            if (segmentLength <= 0)
-                return false;
+            }
             
             uint8[] sig = new uint8[Exif.SIGNATURE.length];
             size_t bytesRead;
             fins.read_all(sig, Exif.SIGNATURE.length, out bytesRead, null);
             for (int ctr = 0; ctr < Exif.SIGNATURE.length; ctr++) {
-                if (sig[ctr] != Exif.SIGNATURE[ctr])
+                if (sig[ctr] != Exif.SIGNATURE[ctr]) {
+                    no_exif = true;
+
                     return false;
+                }
             }
+            
+            no_exif = false;
             
             return true;
         } catch (Error err) {
             debug("Error checking for EXIF presence: %s", err.message);
         }
+        
+        no_exif = true;
         
         return false;
     }
