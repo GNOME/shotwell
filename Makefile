@@ -37,16 +37,21 @@ VAPI_DIRS = \
 HEADER_DIRS = \
 	.
 
-PKGS = \
-	gtk+-2.0 \
-	sqlite3 \
-	vala-1.0 \
+LOCAL_PKGS = \
 	libexif \
 	fstream \
 	libgphoto2 \
+
+EXT_PKGS = \
+	gtk+-2.0 \
+	sqlite3 \
+	vala-1.0 \
 	hal \
+	dbus-glib-1 \
 	unique-1.0 \
 	gnome-vfs-2.0
+
+PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 
 all: $(TARGET)
 
@@ -66,6 +71,7 @@ uninstall:
 	rm -f /usr/share/applications/shotwell.desktop
 
 $(TARGET): $(SRC_FILES) $(VAPI_FILES) Makefile
+	pkg-config --print-errors --exists $(EXT_PKGS)
 	valac $(VALAC_OPTS) \
 	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 	$(foreach vapidir,$(VAPI_DIRS), --vapidir=$(vapidir)) \
