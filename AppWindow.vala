@@ -2,13 +2,35 @@
 public class FullscreenWindow : Gtk.Window {
     public static const int TOOLBAR_DISMISSAL_MSEC = 2500;
     
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN, "Leave _Fullscreen", "Escape", "Leave fullscreen", on_close }
+    };
+
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
+    private Gtk.UIManager ui = new Gtk.UIManager();
     private PhotoPage photo_page = new PhotoPage();
-    private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_CLOSE);
+    private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
     private bool is_toolbar_shown = false;
     
     public FullscreenWindow(Gdk.Screen screen, CheckerboardPage controller, Thumbnail start) {
+        File ui_file = AppWindow.get_ui_dir().get_child("fullscreen.ui");
+
+        try {
+            ui.add_ui_from_file(ui_file.get_path());
+        } catch (Error err) {
+            error("Error loading UI file %s: %s", ui_file.get_path(), err.message);
+        }
+        
+        Gtk.ActionGroup action_group = new Gtk.ActionGroup("FullscreenActionGroup");
+        action_group.add_actions(ACTIONS, this);
+        ui.insert_action_group(action_group, 0);
+        ui.ensure_update();
+
+        Gtk.AccelGroup accel_group = ui.get_accel_group();
+        if (accel_group != null)
+            add_accel_group(accel_group);
+        
         set_screen(screen);
         set_border_width(0);
         
@@ -187,6 +209,17 @@ public class AppWindow : Gtk.Window {
         return subdir;
     }
     
+    public static File get_ui_dir() {
+        // TODO: Programatically determine where runtime data is stored from API calls ...
+        // for now, this uses the installed data if running from /usr, otherwise looks for
+        // them in the executable's folder
+        if (AppWindow.get_exec_dir().get_path().has_prefix("/usr")) {
+            return File.new_for_path("/usr/local/share/shotwell");
+        } else {
+            return AppWindow.get_exec_dir();
+        }
+    }
+
     // this needs to be ref'd the lifetime of the application
     private Hal.Context halContext = new Hal.Context();
     private DBus.Connection halConn = null;

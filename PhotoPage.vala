@@ -6,6 +6,7 @@ public class PhotoPage : Page {
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotateButton = null;
+    private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToolButton prevButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton nextButton = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private Gtk.Image image = new Gtk.Image();
@@ -45,6 +46,12 @@ public class PhotoPage : Page {
         rotateButton.label = "Rotate Clockwise";
         rotateButton.clicked += on_rotate_clockwise;
         toolbar.insert(rotateButton, -1);
+        
+        // crop tool
+        crop_button = new Gtk.ToggleToolButton();
+        crop_button.set_label("Crop");
+        crop_button.toggled += on_crop_toggled;
+        toolbar.insert(crop_button, -1);
         
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -215,6 +222,9 @@ public class PhotoPage : Page {
         rotateButton.clicked += on_rotate_clockwise;
         
         return false;
+    }
+    
+    private void on_crop_toggled() {
     }
     
     private void on_next_photo() {

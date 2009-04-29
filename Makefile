@@ -29,7 +29,8 @@ VAPI_FILES = \
 RESOURCE_FILES = \
 	photo.ui \
 	collection.ui \
-	import.ui
+	import.ui \
+	fullscreen.ui
 
 HEADER_FILES = \
 	gphoto.h
