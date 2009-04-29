@@ -29,6 +29,7 @@
                 <menuitem name="SortAscending" action="SortAscending" />
                 <menuitem name="SortDescending" action="SortDescending" />
             </menu>
+            <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">

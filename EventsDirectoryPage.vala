@@ -35,6 +35,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
+        
+        { "ViewMenu", null, "_View", null, null, on_view_menu },
 
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -59,6 +61,25 @@ public class EventsDirectoryPage : CheckerboardPage {
         AppWindow.get_instance().switch_to_event(event.event_id);
     }
     
+    public override LayoutItem? get_fullscreen_photo() {
+        Gee.Iterable<LayoutItem> iter = null;
+        
+        // use first selected item, otherwise use first item
+        if (get_selected_count() > 0) {
+            iter = get_selected();
+        } else {
+            iter = get_items();
+        }
+        
+        foreach (LayoutItem item in iter) {
+            EventPage page = AppWindow.get_instance().find_event_page(((DirectoryItem) item).event_id);
+            if (page != null)
+                return page.get_fullscreen_photo();
+        }
+        
+        return null;
+    }
+    
     public void add_event(EventID event_id) {
         DirectoryItem item = new DirectoryItem(event_id);
         add_item(item);
@@ -76,15 +97,43 @@ public class EventsDirectoryPage : CheckerboardPage {
 
         refresh();
     }
+    
+    private void on_view_menu() {
+        set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_count() > 0);
+    }
 }
 
 public class EventPage : CollectionPage {
     public EventID event_id;
     
+    private EventTable event_table = new EventTable();
+    
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "MakePrimary", null, "Make _Primary", null, null, on_make_primary }
+    };
+
     public EventPage(EventID event_id, PhotoID[] photos) {
-        base(photos);
+        base(photos, "event.ui", ACTIONS);
         
         this.event_id = event_id;
+    }
+    
+    protected override void on_photos_menu() {
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary", get_selected_count() == 1);
+        
+        base.on_photos_menu();
+    }
+    
+    private void on_make_primary() {
+        assert(get_selected_count() == 1);
+        
+        // iterate to first one, use that, bail out
+        foreach (LayoutItem item in get_selected()) {
+            Thumbnail thumbnail = (Thumbnail) item;
+            event_table.set_primary_photo(event_id, thumbnail.get_photo_id());
+            
+            break;
+        }
     }
 }
 

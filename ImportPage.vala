@@ -212,6 +212,12 @@ public class ImportPage : CheckerboardPage {
         importSelectedButton.sensitive = !busy && refreshed && (count > 0);
     }
     
+    public override LayoutItem? get_fullscreen_photo() {
+        error("No fullscreen support for import pages");
+        
+        return null;
+    }
+    
     public void on_unmounted(Object source, AsyncResult aresult) {
         debug("on_unmounted");
 
@@ -408,28 +414,48 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import(Gee.Iterable<LayoutItem> items) {
-        File photosDir = AppWindow.get_photos_dir();
+        File photos_dir = AppWindow.get_photos_dir();
+
+        GPhoto.Result res = camera.init(initContext.context);
+        if (res != GPhoto.Result.OK) {
+            AppWindow.error_message("Unable to lock camera: %s".printf(res.as_string()));
+            
+            return;
+        }
         
         busy = true;
-
         importSelectedButton.sensitive = false;
         importAllButton.sensitive = false;
         
-        ProgressBarContext savingContext = new ProgressBarContext(progressBar, "");
+        ProgressBarContext saving_context = new ProgressBarContext(progressBar, "");
         
         AppWindow.get_instance().start_import_batch();
         try {
             foreach (LayoutItem item in items) {
                 ImportPreview preview = (ImportPreview) item;
                 
+                // XXX: There is a condition in libgphoto where a dirty flag isn't being set on a directory
+                // object and it's not updated from the camera, which means the file won't be found.
+                // This forces a refresh of the folder.
+                GPhoto.CameraList files;
+                res = GPhoto.CameraList.create(out files);
+                assert(res == GPhoto.Result.OK);
+                
+                res = camera.list_files(preview.folder, files, saving_context.context);
+                if (res != GPhoto.Result.OK) {
+                    // log message and continue
+                    debug("Unable to list files for %s: %d %s", preview.folder, (int) res, res.as_string());
+                }
+        
                 // TODO: Currently, files are stored flat in the directory and imported photos will
                 // overwrite ones with the same name
-                File destFile = photosDir.get_child(preview.filename);
+                File dest_file = photos_dir.get_child(preview.filename);
                 
-                savingContext.set_message("Importing %s".printf(preview.filename));
+                saving_context.set_message("Importing %s".printf(preview.filename));
                 
                 try {
-                    GPhoto.save_image(savingContext.context, camera, preview.folder, preview.filename, destFile);
+                    GPhoto.save_image(saving_context.context, camera, preview.folder, preview.filename,
+                        dest_file);
                 } catch (Error err) {
                     // TODO: Give user option to cancel operation entirely
                     AppWindow.error_message("Unable to import %s: %s".printf(preview.filename, err.message));
@@ -437,7 +463,7 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                AppWindow.get_instance().import(destFile);
+                AppWindow.get_instance().import(dest_file);
 
                 // have to do this because of bug: return will skip finally block
                 bool quit = false;
@@ -454,8 +480,15 @@ public class ImportPage : CheckerboardPage {
         } finally {
             importSelectedButton.sensitive = get_selected_count() > 0;
             importAllButton.sensitive = get_count() > 0;
+            saving_context.set_message("");
             
             AppWindow.get_instance().end_import_batch();
+
+            res = camera.exit(initContext.context);
+            if (res != GPhoto.Result.OK) {
+                // log but don't fail
+                message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+            }
 
             busy = false;
         }

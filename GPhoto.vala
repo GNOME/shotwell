@@ -41,21 +41,22 @@ namespace GPhoto {
         return new Gdk.Pixbuf.from_file("shotwell.tmp");
     }
 
-    public void save_image(Context context, Camera camera, string folder, string filename, File destFile) throws Error {
-        GPhoto.CameraFile cameraFile;
-        GPhoto.Result res = GPhoto.CameraFile.create(out cameraFile);
+    public void save_image(Context context, Camera camera, string folder, string filename, File dest_file) throws Error {
+        GPhoto.CameraFile camera_file;
+        GPhoto.Result res = GPhoto.CameraFile.create(out camera_file);
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error allocating camera file: %s", (int) res, res.as_string());
         
-        res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, cameraFile, context);
+        debug("folder=%s filename=%s", folder, filename);
+        res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, camera_file, context);
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s", 
                 (int) res, folder, filename, res.as_string());
 
-        res = cameraFile.save(destFile.get_path());
+        res = camera_file.save(dest_file.get_path());
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error copying file %s/%s to %s: %s", (int) res, 
-                folder, filename, destFile.get_path(), res.as_string());
+                folder, filename, dest_file.get_path(), res.as_string());
     }
     
     public Exif.Data? load_exif(Context context, Camera camera, string folder, string filename,

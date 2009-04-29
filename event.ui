@@ -1,0 +1,16 @@
+<ui>
+
+    <menubar name="CollectionMenuBar">
+        <menu name="PhotosMenu" action="PhotosMenu">
+            <separator />
+            <menuitem name="MakePrimary" action="MakePrimary" />
+        </menu>
+    </menubar>
+
+    <popup name="CollectionContextMenu">
+        <separator />
+        <menuitem name="ContextMakePrimary" action="MakePrimary" />
+    </popup>
+    
+</ui>
+

@@ -19,6 +19,8 @@ public class PhotoPage : Page {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
+        
+        { "ViewMenu", null, "_View", null, null, null },
 
         { "PhotoMenu", null, "_Photo", null, null, null },
         { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
@@ -32,7 +34,7 @@ public class PhotoPage : Page {
     
     private PhotoTable photo_table = new PhotoTable();
     
-    construct {
+    public PhotoPage() {
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
 
         // set up page's toolbar (used by AppWindow for layout)
@@ -80,16 +82,22 @@ public class PhotoPage : Page {
         update_sensitivity();
     }
     
+    public CheckerboardPage get_controller() {
+        return controller;
+    }
+    
+    public Thumbnail get_thumbnail() {
+        return thumbnail;
+    }
+    
     private void update_display() {
-        if (thumbnail == null) {
-            // TODO: Display error message
-            return;
-        }
-        
         orientation = photo_table.get_orientation(thumbnail.get_photo_id());
         original = thumbnail.get_full_pixbuf();
-        if (original == null)
+        if (original == null) {
+            debug("Unable to fetch full pixbuf for %s", thumbnail.get_name());
+
             return;
+        }
 
         rotated = rotate_to_exif(original, orientation);
         rotatedDim = Dimensions.for_pixbuf(rotated);

@@ -23,6 +23,7 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotateButton = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
+    private bool in_view = false;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -39,7 +40,7 @@ public class CollectionPage : CheckerboardPage {
         { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         
-        { "ViewMenu", null, "_View", null, null, null },
+        { "ViewMenu", null, "_View", null, null, on_view_menu },
         { "SortPhotos", null, "_Sort Photos", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
@@ -59,10 +60,17 @@ public class CollectionPage : CheckerboardPage {
         { "SortDescending", null, "D_escending", null, "Sort photos in a descending order", SORT_ORDER_DESCENDING }
     };
     
-    public CollectionPage(PhotoID[] photos) {
+    public CollectionPage(PhotoID[] photos, string? ui_filename = null, Gtk.ActionEntry[]? child_actions = null) {
         init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
         actionGroup.add_radio_actions(SORT_CRIT_ACTIONS, SORT_BY_NAME, on_sort_changed);
         actionGroup.add_radio_actions(SORT_ORDER_ACTIONS, SORT_ORDER_ASCENDING, on_sort_changed);
+
+        if (ui_filename != null)
+            init_load_ui(ui_filename);
+        
+        if (child_actions != null)
+            actionGroup.add_actions(child_actions, this);
+        
         init_ui_bind("/CollectionMenuBar");
         init_context_menu("/CollectionContextMenu");
         
@@ -122,7 +130,13 @@ public class CollectionPage : CheckerboardPage {
         return toolbar;
     }
     
+    public override void switching_from() {
+        in_view = false;
+    }
+    
     public override void switched_to() {
+        in_view = true;
+        
         // need to refresh the layout in case any of the thumbnail dimensions were altered while we
         // were gone
         refresh();
@@ -143,6 +157,24 @@ public class CollectionPage : CheckerboardPage {
             thumbnail.get_photo_id().id);
 
         AppWindow.get_instance().switch_to_photo_page(this, thumbnail);
+    }
+    
+    public override LayoutItem? get_fullscreen_photo() {
+        Gee.Iterable<LayoutItem> iter = null;
+        
+        // if no selection, use the first item
+        if (get_selected_count() > 0) {
+            iter = get_selected();
+        } else {
+            iter = get_items();
+        }
+        
+        // use the first item of the selected collection to start things off
+        foreach (LayoutItem item in iter) {
+            return item;
+        }
+        
+        return null;
     }
     
     private int lastWidth = 0;
@@ -242,6 +274,10 @@ public class CollectionPage : CheckerboardPage {
     private bool reschedule_improval = false;
 
     private void schedule_thumbnail_improval() {
+        // don't bother if not in view
+        if (!in_view)
+            return;
+            
         if (improval_scheduled == false) {
             improval_scheduled = true;
             Timeout.add_full(IMPROVAL_PRIORITY, IMPROVAL_DELAY_MS, improve_thumbnail_quality);
@@ -281,7 +317,7 @@ public class CollectionPage : CheckerboardPage {
         select_all();
     }
     
-    private void on_photos_menu() {
+    protected virtual void on_photos_menu() {
         bool selected = (get_selected_count() > 0);
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
@@ -370,6 +406,10 @@ public class CollectionPage : CheckerboardPage {
         do_rotations("mirror", get_selected(), (orientation) => {
             return orientation.flip_left_to_right();
         });
+    }
+    
+    private void on_view_menu() {
+        set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_count() > 0);
     }
     
     private bool display_titles() {

@@ -121,21 +121,25 @@ public abstract class Page : Gtk.ScrolledWindow {
         init_ui_bind(menuBarPath);
     }
     
-    protected void init_ui_start(string uiFilename, string actionGroupName,
-        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggleEntries = null) {
-        File uiFile = data_dir.get_child(uiFilename);
+    protected void init_load_ui(string ui_filename) {
+        File ui_file = data_dir.get_child(ui_filename);
 
         try {
-            ui.add_ui_from_file(uiFile.get_path());
+            ui.add_ui_from_file(ui_file.get_path());
         } catch (Error gle) {
-            error("Error loading UI file %s: %s", uiFilename, gle.message);
+            error("Error loading UI file %s: %s", ui_filename, gle.message);
         }
-        
-        actionGroup = new Gtk.ActionGroup(actionGroupName);
+    }
+    
+    protected void init_ui_start(string ui_filename, string action_group_name,
+        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
+        init_load_ui(ui_filename);
+
+        actionGroup = new Gtk.ActionGroup(action_group_name);
         if (entries != null)
             actionGroup.add_actions(entries, this);
-        if (toggleEntries != null)
-            actionGroup.add_toggle_actions(toggleEntries, this);
+        if (toggle_entries != null)
+            actionGroup.add_toggle_actions(toggle_entries, this);
     }
     
     protected void init_ui_bind(string? menuBarPath) {
@@ -249,6 +253,8 @@ public abstract class CheckerboardPage : Page {
     
     public virtual void on_item_activated(LayoutItem item) {
     }
+    
+    public abstract LayoutItem? get_fullscreen_photo();
     
     public void refresh() {
         show_all();

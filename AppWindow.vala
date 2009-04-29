@@ -1,4 +1,102 @@
 
+public class FullscreenWindow : Gtk.Window {
+    public static const int TOOLBAR_DISMISSAL_MSEC = 2500;
+    
+    private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
+    private PhotoPage photo_page = new PhotoPage();
+    private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_CLOSE);
+    private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
+    private bool is_toolbar_shown = false;
+    
+    public FullscreenWindow(Gdk.Screen screen, CheckerboardPage controller, Thumbnail start) {
+        set_screen(screen);
+        set_border_width(0);
+        
+        photo_page.display(controller, start);
+        
+        pin_button.set_label("Pin toolbar");
+        
+        close_button.clicked += on_close;
+        
+        Gtk.Toolbar toolbar = photo_page.get_toolbar();
+        toolbar.insert(pin_button, -1);
+        toolbar.insert(close_button, -1);
+        
+        // set up toolbar along bottom of screen, but don't show yet
+        toolbar_window.set_screen(get_screen());
+        toolbar_window.set_default_size(screen.get_width(), -1);
+        toolbar_window.set_border_width(0);
+        toolbar_window.add(toolbar);
+        
+        add(photo_page);
+        
+        // need to do this to create a Gdk.Window to set masks
+        fullscreen();
+        show_all();
+        
+        // want to receive motion events
+        Gdk.EventMask mask = window.get_events();
+        mask |= Gdk.EventMask.POINTER_MOTION_MASK;
+        window.set_events(mask);
+        
+        motion_notify_event += on_motion;
+    }
+    
+    private void on_close() {
+        toolbar_window.hide();
+        toolbar_window = null;
+        
+        AppWindow.get_instance().end_fullscreen();
+    }
+    
+    private bool on_motion(FullscreenWindow fsw, Gdk.EventMotion event) {
+        show_toolbar();
+        
+        return false;
+    }
+    
+    private void show_toolbar() {
+        if (is_toolbar_shown)
+            return;
+
+        toolbar_window.show_all();
+
+        Gtk.Requisition req;
+        toolbar_window.size_request(out req);
+        toolbar_window.move(0, toolbar_window.get_screen().get_height() - req.height);
+
+        toolbar_window.present();
+        is_toolbar_shown = true;
+        
+        Timeout.add(TOOLBAR_DISMISSAL_MSEC, on_check_toolbar_dismissal);
+    }
+    
+    private bool on_check_toolbar_dismissal() {
+        if (!is_toolbar_shown)
+            return false;
+        
+        if (toolbar_window == null)
+            return false;
+        
+        // if pinned, keep open but keep checking
+        if (pin_button.get_active())
+            return true;
+        
+        // if the pointer is on the window, keep it alive, but keep checking
+        int x, y, width, height, px, py;
+        toolbar_window.window.get_geometry(out x, out y, out width, out height, null);
+        toolbar_window.get_display().get_pointer(null, out px, out py, null);
+        
+        if ((px >= x) && (px <= x + width) && (py >= y) && (py <= y + height))
+            return true;
+        
+        toolbar_window.hide();
+        is_toolbar_shown = false;
+        
+        return false;
+    }
+}
+
 public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
     public static const string VERSION = "0.0.1";
@@ -27,7 +125,8 @@ public class AppWindow : Gtk.Window {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] COMMON_ACTIONS = {
         { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", Gtk.main_quit },
-        { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about }
+        { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
+        { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", on_fullscreen }
     };
     
     public static void init(string[] args) {
@@ -116,6 +215,8 @@ public class AppWindow : Gtk.Window {
 
     private SortedList<int64?> imported_photos = null;
     private ImportID import_id = ImportID();
+    
+    private FullscreenWindow fullscreen_window = null;
     
     construct {
         // if this is the first AppWindow, it's the main AppWindow
@@ -209,7 +310,7 @@ public class AppWindow : Gtk.Window {
         return actionGroup;
     }
     
-    public void on_about() {
+    private void on_about() {
         // TODO: More thorough About box
         Gtk.show_about_dialog(this,
             "version", AppWindow.VERSION,
@@ -217,6 +318,50 @@ public class AppWindow : Gtk.Window {
             "copyright", "(c) 2009 Yorba Foundation",
             "website", "http://www.yorba.org"
         );
+    }
+    
+    private void on_fullscreen() {
+        if (fullscreen_window != null) {
+            fullscreen_window.present();
+            
+            return;
+        }
+
+        if (current_page is CheckerboardPage) {
+            LayoutItem item = ((CheckerboardPage) current_page).get_fullscreen_photo();
+            if (item == null) {
+                debug("No fullscreen photo for this view");
+                
+                return;
+            }
+                
+            // needs to be a thumbnail
+            assert(item is Thumbnail);
+            
+            // set up fullscreen view and hide ourselves until it's closed
+            fullscreen_window = new FullscreenWindow(get_screen(), (CheckerboardPage) current_page, 
+                (Thumbnail) item);
+        } else if (current_page is PhotoPage) {
+            fullscreen_window = new FullscreenWindow(get_screen(), ((PhotoPage) current_page).get_controller(),
+                ((PhotoPage) current_page).get_thumbnail());
+        } else {
+            error("Unable to present fullscreen view for this page");
+        }
+        
+        fullscreen_window.present();
+        hide();
+    }
+    
+    public void end_fullscreen() {
+        if (fullscreen_window == null)
+            return;
+        
+        show_all();
+        
+        fullscreen_window.hide();
+        fullscreen_window = null;
+        
+        present();
     }
     
     public class DateComparator : Comparator<int64?> {
@@ -627,7 +772,7 @@ public class AppWindow : Gtk.Window {
         switch_to_page(photoPage);
     }
     
-    private EventPage? find_event_page(EventID event_id) {
+    public EventPage? find_event_page(EventID event_id) {
         foreach (EventPage page in event_list) {
             if (page.event_id.id == event_id.id)
                 return page;
@@ -835,7 +980,7 @@ public class AppWindow : Gtk.Window {
         if (marker.get_row() != null)
             sidebar.get_selection().select_path(marker.get_row().get_path());
         
-        show_all();
+        page.show_all();
         
         page.switched_to();
         

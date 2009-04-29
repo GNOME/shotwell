@@ -5,6 +5,10 @@
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="Fullscreen" action="CommonFullscreen" />
+        </menu>
+        
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="About" action="CommonAbout" />
         </menu>

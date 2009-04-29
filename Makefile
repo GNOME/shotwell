@@ -30,6 +30,9 @@ RESOURCE_FILES = \
 	photo.ui \
 	collection.ui \
 	import.ui
+
+HEADER_FILES = \
+	gphoto.h
     
 VAPI_DIRS = \
 	.
@@ -70,7 +73,7 @@ uninstall:
 	rm -fr /usr/local/share/shotwell
 	rm -f /usr/share/applications/shotwell.desktop
 
-$(TARGET): $(SRC_FILES) $(VAPI_FILES) Makefile
+$(TARGET): $(SRC_FILES) $(VAPI_FILES) $(HEADER_FILES) Makefile
 	pkg-config --print-errors --exists $(EXT_PKGS)
 	valac $(VALAC_OPTS) \
 	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
