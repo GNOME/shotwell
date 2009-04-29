@@ -118,8 +118,11 @@ public class CollectionLayout : Gtk.Layout {
     public static const int RIGHT_PADDING = 16;
     public static const int COLUMN_GUTTER_PADDING = 24;
     
-    private Gtk.Label message = new Gtk.Label("");
     public SortedList<LayoutItem> items = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>());
+
+    private Gtk.Label message = new Gtk.Label("");
+    private int last_width = 0;
+    private bool refresh_on_resize = true;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
@@ -145,6 +148,10 @@ public class CollectionLayout : Gtk.Layout {
         message.set_text(text);
         
         display_message();
+    }
+    
+    public void set_refresh_on_resize(bool refresh_on_resize) {
+        this.refresh_on_resize = refresh_on_resize;
     }
     
     public void set_comparator(Comparator<LayoutItem> cmp) {
@@ -398,12 +405,10 @@ public class CollectionLayout : Gtk.Layout {
         message.show_all();
     }
 
-    private int lastWidth = 0;
-    
     private void on_resize() {
         // only refresh() if the width has changed
-        if (allocation.width != lastWidth) {
-            lastWidth = allocation.width;
+        if (refresh_on_resize && allocation.width != last_width) {
+            last_width = allocation.width;
             refresh();
         }
     }

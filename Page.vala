@@ -265,6 +265,10 @@ public abstract class CheckerboardPage : Page {
         layout.set_message(message);
     }
     
+    public void set_refresh_on_resize(bool refresh_on_resize) {
+        layout.set_refresh_on_resize(refresh_on_resize);
+    }
+    
     public void set_layout_comparator(Comparator<LayoutItem> cmp) {
         layout.set_comparator(cmp);
     }

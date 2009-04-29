@@ -118,9 +118,12 @@ public class CollectionPage : CheckerboardPage {
         foreach (PhotoID photo_id in photos) {
             add_photo(photo_id);
         }
+        
+        // turn this off until we're switched to
+        set_refresh_on_resize(false);
 
         refresh();
-        
+
         show_all();
 
         schedule_thumbnail_improval();
@@ -132,10 +135,12 @@ public class CollectionPage : CheckerboardPage {
     
     public override void switching_from() {
         in_view = false;
+        set_refresh_on_resize(false);
     }
     
     public override void switched_to() {
         in_view = true;
+        set_refresh_on_resize(true);
         
         // need to refresh the layout in case any of the thumbnail dimensions were altered while we
         // were gone

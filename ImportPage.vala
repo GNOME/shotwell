@@ -47,6 +47,9 @@ class ProgressBarContext {
         this.msg = msg;
 
         context.set_idle_func(on_idle);
+        context.set_error_func(on_error);
+        context.set_status_func(on_status);
+        context.set_message_func(on_message);
         context.set_progress_funcs(on_progress_start, on_progress_update, on_progress_stop);
     }
     
@@ -60,7 +63,21 @@ class ProgressBarContext {
             Gtk.main_iteration();
     }
     
+    private void on_error(GPhoto.Context context, string format, void *va_list) {
+        debug("on_error: %s", format);
+    }
+    
+    private void on_status(GPhoto.Context context, string format, void *va_list) {
+        debug("on_status: %s", format);
+    }
+    
+    private void on_message(GPhoto.Context context, string format, void *va_list) {
+        debug("on_message: %s", format);
+    }
+    
     private uint on_progress_start(GPhoto.Context context, float target, string format, void *va_list) {
+        debug("on_progress_start: %s", format);
+        
         taskTarget = target;
         progressBar.set_fraction(0.0);
         progressBar.set_text(msg);
@@ -90,8 +107,8 @@ public class ImportPage : CheckerboardPage {
     private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
     private GPhoto.Camera camera;
     private string uri;
-    private ProgressBarContext initContext = null;
-    private ProgressBarContext loadingContext = null;
+    private ProgressBarContext init_context = null;
+    private ProgressBarContext loading_context = null;
     private bool busy = false;
     private bool refreshed = false;
     private GPhoto.Result refreshResult = GPhoto.Result.OK;
@@ -121,8 +138,8 @@ public class ImportPage : CheckerboardPage {
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
-        initContext = new ProgressBarContext(progressBar, "Initializing camera ...");
-        loadingContext =  new ProgressBarContext(progressBar, "Fetching photo previews ..");
+        init_context = new ProgressBarContext(progressBar, "Initializing camera ...");
+        loading_context =  new ProgressBarContext(progressBar, "Fetching photo previews ..");
         
         // toolbar
         // Camera label
@@ -243,7 +260,7 @@ public class ImportPage : CheckerboardPage {
         refreshed = false;
         
         refreshError = null;
-        refreshResult = camera.init(initContext.context);
+        refreshResult = camera.init(init_context.context);
         if (refreshResult != GPhoto.Result.OK)
             return (refreshResult == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         
@@ -258,7 +275,7 @@ public class ImportPage : CheckerboardPage {
 
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
-        refreshResult = camera.get_storageinfo(&sifs, out count, initContext.context);
+        refreshResult = camera.get_storageinfo(&sifs, out count, init_context.context);
         if (refreshResult == GPhoto.Result.OK) {
             remove_all();
             refresh();
@@ -274,7 +291,7 @@ public class ImportPage : CheckerboardPage {
             }
         }
 
-        GPhoto.Result res = camera.exit(initContext.context);
+        GPhoto.Result res = camera.exit(init_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
@@ -311,7 +328,7 @@ public class ImportPage : CheckerboardPage {
         if (refreshResult != GPhoto.Result.OK)
             return false;
             
-        refreshResult = camera.list_files(dir, files, loadingContext.context);
+        refreshResult = camera.list_files(dir, files, loading_context.context);
         if (refreshResult != GPhoto.Result.OK)
             return false;
         
@@ -330,7 +347,7 @@ public class ImportPage : CheckerboardPage {
             
             try {
                 GPhoto.CameraFileInfo info;
-                GPhoto.get_info(loadingContext.context, camera, dir, filename, out info);
+                GPhoto.get_info(loading_context.context, camera, dir, filename, out info);
                 
                 // at this point, only interested in JPEG files with a JPEG preview
                 if (((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)
@@ -348,8 +365,8 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                Gdk.Pixbuf pixbuf = GPhoto.load_preview(loadingContext.context, camera, dir, filename, buffer);
-                Exif.Data exif = GPhoto.load_exif(loadingContext.context, camera, dir, filename, buffer);
+                Gdk.Pixbuf pixbuf = GPhoto.load_preview(loading_context.context, camera, dir, filename, buffer);
+                Exif.Data exif = GPhoto.load_exif(loading_context.context, camera, dir, filename, buffer);
                 
                 ImportPreview preview = new ImportPreview(this, pixbuf, exif, dir, filename);
                 add_item(preview);
@@ -380,7 +397,7 @@ public class ImportPage : CheckerboardPage {
         if (refreshResult != GPhoto.Result.OK)
             return false;
 
-        refreshResult = camera.list_folders(dir, folders, loadingContext.context);
+        refreshResult = camera.list_folders(dir, folders, loading_context.context);
         if (refreshResult != GPhoto.Result.OK)
             return false;
         
@@ -416,7 +433,7 @@ public class ImportPage : CheckerboardPage {
     private void import(Gee.Iterable<LayoutItem> items) {
         File photos_dir = AppWindow.get_photos_dir();
 
-        GPhoto.Result res = camera.init(initContext.context);
+        GPhoto.Result res = camera.init(init_context.context);
         if (res != GPhoto.Result.OK) {
             AppWindow.error_message("Unable to lock camera: %s".printf(res.as_string()));
             
@@ -428,6 +445,7 @@ public class ImportPage : CheckerboardPage {
         importAllButton.sensitive = false;
         
         ProgressBarContext saving_context = new ProgressBarContext(progressBar, "");
+        GPhoto.Context null_context = new GPhoto.Context();
         
         AppWindow.get_instance().start_import_batch();
         try {
@@ -441,10 +459,20 @@ public class ImportPage : CheckerboardPage {
                 res = GPhoto.CameraList.create(out files);
                 assert(res == GPhoto.Result.OK);
                 
-                res = camera.list_files(preview.folder, files, saving_context.context);
+                res = camera.list_files(preview.folder, files, null_context);
                 if (res != GPhoto.Result.OK) {
                     // log message and continue
                     debug("Unable to list files for %s: %d %s", preview.folder, (int) res, res.as_string());
+                }
+                
+                GPhoto.CameraList folders;
+                res = GPhoto.CameraList.create(out folders);
+                assert(res == GPhoto.Result.OK);
+                
+                res = camera.list_folders(preview.folder, folders, null_context);
+                if (res != GPhoto.Result.OK) {
+                    // log and continue
+                    debug("Unable to list folders for %s: %d %s", preview.folder, (int) res, res.as_string());
                 }
         
                 // TODO: Currently, files are stored flat in the directory and imported photos will
@@ -484,7 +512,7 @@ public class ImportPage : CheckerboardPage {
             
             AppWindow.get_instance().end_import_batch();
 
-            res = camera.exit(initContext.context);
+            res = camera.exit(init_context.context);
             if (res != GPhoto.Result.OK) {
                 // log but don't fail
                 message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);

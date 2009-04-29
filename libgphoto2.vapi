@@ -330,9 +330,18 @@ namespace GPhoto {
             [CCode (delegate_target_pos=3.1)] ContextProgressStartFunc startFunc, 
             [CCode (delegate_target_pos=3.1)] ContextProgressUpdateFunc updateFunc, 
             [CCode (delegate_target_pos=3.1)] ContextProgressStopFunc stopFunc);
+        public void set_error_func([CCode (delegate_target_pos=3.1)] ContextErrorFunc errorFunc);
+        public void set_status_func([CCode (delegate_target_pos=3.1)] ContextStatusFunc statusFunc);
+        public void set_message_func([CCode (delegate_target_pos=3.1)] ContextMessageFunc messageFunc);
     }
     
     public delegate void ContextIdleFunc(Context context);
+    
+    public delegate void ContextErrorFunc(Context context, string format, void *va_list);
+    
+    public delegate void ContextStatusFunc(Context context, string format, void *va_list);
+    
+    public delegate void ContextMessageFunc(Context context, string format, void *va_list);
     
     // TODO: Support for va_args in Vala, esp. for delegates?
     public delegate uint ContextProgressStartFunc(Context context, float target, string format, void *va_list);
