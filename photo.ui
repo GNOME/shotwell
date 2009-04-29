@@ -6,6 +6,7 @@
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="ReturnToPage" action="ReturnToPage" />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         

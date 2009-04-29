@@ -21,6 +21,7 @@ public class PhotoPage : Page {
         { "FileMenu", null, "_File", null, null, null },
         
         { "ViewMenu", null, "_View", null, null, null },
+        { "ReturnToPage", null, "_Return to collection", "Escape", null, on_return_to_collection },
 
         { "PhotoMenu", null, "_Photo", null, null, null },
         { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
@@ -105,15 +106,25 @@ public class PhotoPage : Page {
         repaint(true);
     }
 
-    private int lastWidth = 0;
-    private int lastHeight = 0;
+    private int lastWidth = -1;
+    private int lastHeight = -1;
     
     private bool repaint(bool force = false) {
+        if (rotated == null)
+            return false;
+            
         int width = viewport.allocation.width - IMAGE_BORDER;
         int height = viewport.allocation.height - IMAGE_BORDER;
 
-        if (width <= 0 || height <= 0)
+        if (width <= 0 || height <= 0) {
+            // reset these to force a repaint later
+            if (force) {
+                lastWidth = -1;
+                lastHeight = -1;
+            }
+
             return false;
+        }
 
         if (!force && width == lastWidth && height == lastHeight)
             return false;
@@ -124,7 +135,8 @@ public class PhotoPage : Page {
         Dimensions viewDim = Dimensions(width, height);
         Dimensions scaled = get_scaled_dimensions_for_view(rotatedDim, viewDim);
         Gdk.Pixbuf pixbuf = rotated.scale_simple(scaled.width, scaled.height, DEFAULT_INTERP);
-
+        assert(pixbuf != null);
+        
         image.set_from_pixbuf(pixbuf);
         
         return true;
@@ -138,6 +150,10 @@ public class PhotoPage : Page {
         }
         
         return false;
+    }
+    
+    private void on_return_to_collection() {
+        AppWindow.get_instance().switch_to_page(controller);
     }
 
     private bool on_expose(PhotoPage p, Gdk.EventExpose event) {

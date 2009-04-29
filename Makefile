@@ -51,8 +51,7 @@ EXT_PKGS = \
 	vala-1.0 \
 	hal \
 	dbus-glib-1 \
-	unique-1.0 \
-	gnome-vfs-2.0
+	unique-1.0
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 

@@ -12,8 +12,6 @@ public class FullscreenWindow : Gtk.Window {
         set_screen(screen);
         set_border_width(0);
         
-        photo_page.display(controller, start);
-        
         pin_button.set_label("Pin toolbar");
         
         close_button.clicked += on_close;
@@ -40,6 +38,8 @@ public class FullscreenWindow : Gtk.Window {
         window.set_events(mask);
         
         motion_notify_event += on_motion;
+
+        photo_page.display(controller, start);
     }
     
     private void on_close() {
