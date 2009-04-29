@@ -191,10 +191,19 @@ public class AppWindow : Gtk.Window {
     private Hal.Context halContext = new Hal.Context();
     private DBus.Connection halConn = null;
     
-    private CollectionPage collectionPage = null;
+    // NOTE: When new pages are added, they should be added as well to report_backing_changed(),
+    // and on_remove, if appropriate.
+    //
+    // Static (default) pages
+    private CollectionPage collection_page = null;
     private EventsDirectoryPage events_directory_page = null;
-    private PhotoPage photoPage = null;
+    private PhotoPage photo_page = null;
     
+    // Dynamically added pages
+    private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<Page>();
+    private Gee.HashMap<string, ImportPage> cameraMap = new Gee.HashMap<string, ImportPage>(
+        str_hash, str_equal, direct_equal);
+
     private PhotoTable photoTable = new PhotoTable();
     private EventTable eventTable = new EventTable();
     
@@ -208,11 +217,7 @@ public class AppWindow : Gtk.Window {
     
     private GPhoto.Context nullContext = new GPhoto.Context();
     private GPhoto.CameraAbilitiesList abilitiesList;
-    private Gee.HashMap<string, ImportPage> cameraMap = new Gee.HashMap<string, ImportPage>(
-        str_hash, str_equal, direct_equal);
     
-    private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<Page>();
-
     private SortedList<int64?> imported_photos = null;
     private ImportID import_id = ImportID();
     
@@ -233,9 +238,9 @@ public class AppWindow : Gtk.Window {
         
         // prepare the default parent and orphan pages
         PhotoID[] all_photos = photoTable.get_photos();
-        collectionPage = new CollectionPage(all_photos);
+        collection_page = new CollectionPage(all_photos);
         events_directory_page = new EventsDirectoryPage();
-        photoPage = new PhotoPage();
+        photo_page = new PhotoPage();
 
         // prepare the sidebar
         sidebarStore = new Gtk.TreeStore(1, typeof(string));
@@ -250,9 +255,9 @@ public class AppWindow : Gtk.Window {
         sidebar.set_headers_visible(false);
 
         // add the default parents and orphans
-        add_parent_page(collectionPage, "Photos");
+        add_parent_page(collection_page, "Photos");
         add_parent_page(events_directory_page, "Events");
-        add_orphan_page(photoPage);
+        add_orphan_page(photo_page);
 
         // "Cameras" doesn't have its own page, just a parent row
         Gtk.TreeIter parent;
@@ -270,15 +275,15 @@ public class AppWindow : Gtk.Window {
         
         // start in the collection page & control selection aspects
         Gtk.TreeSelection selection = sidebar.get_selection();
-        selection.select_path(collectionPage.get_marker().get_row().get_path());
+        selection.select_path(collection_page.get_marker().get_row().get_path());
         selection.set_mode(Gtk.SelectionMode.BROWSE);
 
         sidebar.expand_all();
         
-        create_layout(collectionPage);
+        create_layout(collection_page);
 
         // set up main window as a drag-and-drop destination (rather than each page; assume
-        // a drag and drop is for general library importation, which means it goes to collectionPage)
+        // a drag and drop is for general library importation, which means it goes to collection_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
         
         halConn = DBus.Bus.get(DBus.BusType.SYSTEM);
@@ -592,8 +597,8 @@ public class AppWindow : Gtk.Window {
         }
         
         ThumbnailCache.import(photoID, original);
-        collectionPage.add_photo(photoID);
-        collectionPage.refresh();
+        collection_page.add_photo(photoID);
+        collection_page.refresh();
             
         // add to imported list for splitting into events
         if (imported_photos != null)
@@ -633,11 +638,13 @@ public class AppWindow : Gtk.Window {
         }
         
         // remove photo from all possibly interested pages
-        if (collectionPage != ignore) {
-            if (collectionPage.remove_photo(photo_id))
-                collectionPage.refresh();
+        // (don't need to do this for events_directory_page because it refreshes on every switched_to,
+        // and you cannot delete an individual photo from the page)
+        if (collection_page != ignore) {
+            if (collection_page.remove_photo(photo_id))
+                collection_page.refresh();
         }
-            
+        
         foreach (EventPage page in event_list) {
             if (page != ignore) {
                 if (page.remove_photo(photo_id))
@@ -650,7 +657,9 @@ public class AppWindow : Gtk.Window {
     }
     
     public void report_backing_changed(PhotoID photo_id) {
-        collectionPage.report_backing_changed(photo_id);
+        collection_page.report_backing_changed(photo_id);
+        
+        events_directory_page.report_backing_changed(photo_id);
         
         foreach (EventPage page in event_list)
             page.report_backing_changed(photo_id);
@@ -738,7 +747,7 @@ public class AppWindow : Gtk.Window {
         }
         end_import_batch();
         
-        collectionPage.refresh();
+        collection_page.refresh();
     }
     
     public static void error_message(string message) {
@@ -749,7 +758,7 @@ public class AppWindow : Gtk.Window {
     }
     
     public void switch_to_collection_page() {
-        switch_to_page(collectionPage);
+        switch_to_page(collection_page);
     }
     
     public void switch_to_events_directory_page() {
@@ -768,8 +777,8 @@ public class AppWindow : Gtk.Window {
     }
     
     public void switch_to_photo_page(CheckerboardPage controller, Thumbnail current) {
-        photoPage.display(controller, current);
-        switch_to_page(photoPage);
+        photo_page.display(controller, current);
+        switch_to_page(photo_page);
     }
     
     public EventPage? find_event_page(EventID event_id) {
@@ -883,9 +892,9 @@ public class AppWindow : Gtk.Window {
     
     private void remove_page(Page page) {
         // a handful of pages just don't go away
-        assert(page != collectionPage);
+        assert(page != collection_page);
         assert(page != events_directory_page);
-        assert(page != photoPage);
+        assert(page != photo_page);
         
         PageMarker marker = page.get_marker();
 
@@ -1091,7 +1100,7 @@ public class AppWindow : Gtk.Window {
         Gtk.TreePath path;
         sidebar.get_cursor(out path, null);
         
-        if (is_page_selected(collectionPage, path)) {
+        if (is_page_selected(collection_page, path)) {
             switch_to_collection_page();
         } else if (is_page_selected(events_directory_page, path)) {
             switch_to_events_directory_page();

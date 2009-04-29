@@ -98,6 +98,25 @@ public class EventsDirectoryPage : CheckerboardPage {
         refresh();
     }
     
+    public void report_backing_changed(PhotoID photo_id) {
+        int count = 0;
+        foreach (LayoutItem item in get_items()) {
+            DirectoryItem directory_item = (DirectoryItem) item;
+            if (directory_item.photo_id.id == photo_id.id) {
+                // should only be one, but do 'em all
+                directory_item.on_backing_changed();
+                count++;
+            }
+        }
+
+        // in the field, do 'em all, but sanity check here at home
+        assert(count <= 1);
+
+        // if something changed, refresh, as the geometry could cause layout changes
+        if (count > 0)
+            refresh();
+    }
+    
     private void on_view_menu() {
         set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_count() > 0);
     }
