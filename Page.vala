@@ -225,9 +225,16 @@ public abstract class CheckerboardPage : Page {
     private Gtk.Menu contextMenu = null;
     private CollectionLayout layout = new CollectionLayout();
     private Gee.HashSet<LayoutItem> selectedItems = new Gee.HashSet<LayoutItem>();
+    private string page_name = null;
     
-    public CheckerboardPage() {
+    public CheckerboardPage(string page_name) {
+        this.page_name = page_name;
+        
         add(layout);
+    }
+    
+    public virtual string get_name() {
+        return page_name;
     }
     
     protected void init_context_menu(string path) {

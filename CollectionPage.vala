@@ -61,6 +61,8 @@ public class CollectionPage : CheckerboardPage {
     };
     
     public CollectionPage(PhotoID[] photos, string? ui_filename = null, Gtk.ActionEntry[]? child_actions = null) {
+        base("Photos");
+        
         init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
         actionGroup.add_radio_actions(SORT_CRIT_ACTIONS, SORT_BY_NAME, on_sort_changed);
         actionGroup.add_radio_actions(SORT_ORDER_ACTIONS, SORT_ORDER_ASCENDING, on_sort_changed);

@@ -124,7 +124,9 @@ public class ThumbnailCache : Object {
 
         // load from disk and then store in memory
         File cached = get_cached_file(photoID);
+        /*
         debug("Loading from disk [%lld] %s", photoID.id, cached.get_path());
+        */
 
         Gdk.Pixbuf thumbnail = null;
         try {

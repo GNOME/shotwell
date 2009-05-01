@@ -331,7 +331,9 @@ public class CollectionLayout : Gtk.Layout {
                 totalWidth = 0;
                 columnWidths = new int[maxCols];
                 rowHeights = new int[(items.size / maxCols) + 1];
+                /*
                 debug("refresh(): readjusting columns: maxCols=%d", maxCols);
+                */
             } else {
                 break;
             }

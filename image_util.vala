@@ -169,3 +169,22 @@ Gdk.Pixbuf rotate_to_exif(Gdk.Pixbuf pixbuf, Exif.Orientation orientation) {
     
     return pixbuf;
 }
+
+public Gdk.Rectangle scaled_rectangle(Dimensions orig, Dimensions scaled, Gdk.Rectangle rect) {
+    double x_scale = (double) scaled.width / (double) orig.width;
+    double y_scale = (double) scaled.height / (double) orig.height;
+    
+    Gdk.Rectangle scaled_rect = Gdk.Rectangle();
+    scaled_rect.x = (int) (rect.x * x_scale);
+    scaled_rect.y = (int) (rect.y * y_scale);
+    scaled_rect.width = (int) (rect.width * x_scale);
+    scaled_rect.height = (int) (rect.height * y_scale);
+    
+    /*
+    debug("orig:%dx%d scaled:%dx%d x_scale=%lf y_scale=%lf scaled=%d,%d %dx%d", orig.width,
+        orig.height, scaled.width, scaled.height, x_scale, y_scale, scaled_rect.x, scaled_rect.y, 
+        scaled_rect.width, scaled_rect.height);
+    */
+    
+    return scaled_rect;
+}

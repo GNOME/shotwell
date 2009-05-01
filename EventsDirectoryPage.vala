@@ -45,6 +45,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
 
     public EventsDirectoryPage() {
+        base("Events Directory");
+        
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", ACTIONS);
         init_ui_bind("/EventsDirectoryMenuBar");
         
@@ -135,6 +137,10 @@ public class EventPage : CollectionPage {
         base(photos, "event.ui", ACTIONS);
         
         this.event_id = event_id;
+    }
+    
+    public override string get_name() {
+        return event_table.get_name(event_id);
     }
     
     protected override void on_photos_menu() {

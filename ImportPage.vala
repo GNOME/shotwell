@@ -115,6 +115,7 @@ public class ImportPage : CheckerboardPage {
     private string refreshError = null;
     private int fileCount = 0;
     private int completedCount = 0;
+    private string camera_name;
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -133,6 +134,9 @@ public class ImportPage : CheckerboardPage {
     }
     
     public ImportPage(GPhoto.Camera camera, string uri) {
+        base("Import");
+        camera_name = "Import";
+        
         this.camera = camera;
         this.uri = uri;
         
@@ -181,10 +185,15 @@ public class ImportPage : CheckerboardPage {
         if (res != GPhoto.Result.OK) {
             debug("[%d] Unable to get camera abilities: %s", (int) res, res.as_string());
         } else {
+            camera_name = abilities.model;
             cameraLabel.set_text(abilities.model);
         }
 
         show_all();
+    }
+    
+    public override string get_name() {
+        return camera_name;
     }
     
     public GPhoto.Camera get_camera() {
