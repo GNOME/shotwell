@@ -4,28 +4,18 @@ public class DirectoryItem : LayoutItem {
     public static const int SCALE =
         ThumbnailCache.MEDIUM_SCALE + ((ThumbnailCache.BIG_SCALE - ThumbnailCache.MEDIUM_SCALE) / 2);
     
-    public PhotoID photo_id;
     public EventID event_id;
-    
-    public DirectoryItem(EventID event_id) {
+
+    public DirectoryItem(EventID event_id, EventTable event_table) {
         this.event_id = event_id;
         
-        on_backing_changed();
-    }
-    
-    public override void on_backing_changed() {
-        EventTable event_table = new EventTable();
-        
         title.set_text(event_table.get_name(event_id));
-
-        photo_id = event_table.get_primary_photo(event_id);
+        
+        PhotoID photo_id = event_table.get_primary_photo(event_id);
         assert(photo_id.is_valid());
-
-        PhotoTable photo_table = new PhotoTable();        
-        Exif.Orientation orientation = photo_table.get_orientation(photo_id);
-
-        Gdk.Pixbuf pixbuf = ThumbnailCache.fetch_scaled(photo_id, SCALE, INTERP);
-        pixbuf = rotate_to_exif(pixbuf, orientation);
+        
+        Photo photo = Photo.fetch(photo_id);
+        Gdk.Pixbuf pixbuf = photo.get_scaled_thumbnail(SCALE, INTERP);
         image.set_from_pixbuf(pixbuf);
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height());
     }
@@ -83,7 +73,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
     
     public void add_event(EventID event_id) {
-        DirectoryItem item = new DirectoryItem(event_id);
+        DirectoryItem item = new DirectoryItem(event_id, event_table);
         add_item(item);
     }
     
@@ -91,32 +81,12 @@ public class EventsDirectoryPage : CheckerboardPage {
         remove_all();
         
         EventID[] events = event_table.get_events();
-        foreach (EventID event_id in events) {
+        foreach (EventID event_id in events)
             add_event(event_id);
-        }
         
         show_all();
 
         refresh();
-    }
-    
-    public void report_backing_changed(PhotoID photo_id) {
-        int count = 0;
-        foreach (LayoutItem item in get_items()) {
-            DirectoryItem directory_item = (DirectoryItem) item;
-            if (directory_item.photo_id.id == photo_id.id) {
-                // should only be one, but do 'em all
-                directory_item.on_backing_changed();
-                count++;
-            }
-        }
-
-        // in the field, do 'em all, but sanity check here at home
-        assert(count <= 1);
-
-        // if something changed, refresh, as the geometry could cause layout changes
-        if (count > 0)
-            refresh();
     }
     
     private void on_view_menu() {
@@ -133,8 +103,8 @@ public class EventPage : CollectionPage {
         { "MakePrimary", null, "Make _Primary", null, null, on_make_primary }
     };
 
-    public EventPage(EventID event_id, PhotoID[] photos) {
-        base(photos, "event.ui", ACTIONS);
+    public EventPage(EventID event_id) {
+        base("event.ui", ACTIONS);
         
         this.event_id = event_id;
     }
@@ -155,7 +125,7 @@ public class EventPage : CollectionPage {
         // iterate to first one, use that, bail out
         foreach (LayoutItem item in get_selected()) {
             Thumbnail thumbnail = (Thumbnail) item;
-            event_table.set_primary_photo(event_id, thumbnail.get_photo_id());
+            event_table.set_primary_photo(event_id, thumbnail.get_photo().get_photo_id());
             
             break;
         }

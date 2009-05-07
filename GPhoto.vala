@@ -1,3 +1,6 @@
+public errordomain GPhotoError {
+    LIBRARY
+}
 
 namespace GPhoto {
     public void get_info(Context context, Camera camera, string folder, string filename,
@@ -94,6 +97,3 @@ namespace GPhoto {
     }
 }
 
-public errordomain GPhotoError {
-    LIBRARY
-}

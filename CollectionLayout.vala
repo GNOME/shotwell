@@ -6,8 +6,8 @@ public abstract class LayoutItem : Gtk.Alignment {
     public static const string SELECTED_COLOR = "#FF0";
     public static const string UNSELECTED_COLOR = "#FFF";
     
-    // Due to the potential for thousands or tens of thousands of thumbnails being present in a
-    // particular view, all widgets used here and by subclasses should be NOWINDOW widgets.
+    // Due to the potential for thousands or tens of thousands of thumbnails being present in the
+    // system, all widgets used here and by subclasses should be NOWINDOW widgets.
     protected Gtk.Image image = new Gtk.Image();
     protected Gtk.Label title = new Gtk.Label("");
     protected Gtk.Frame frame = new Gtk.Frame(null);
@@ -50,8 +50,6 @@ public abstract class LayoutItem : Gtk.Alignment {
     public string get_title() {
         return title.get_text();
     }
-    
-    public abstract void on_backing_changed();
     
     public virtual void exposed() {
     }
@@ -127,6 +125,7 @@ public class CollectionLayout : Gtk.Layout {
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
 
+        // TODO:
         // This is commented out because Vala is generating bogus ccode from it (it's trying to
         // unref the Gdk.Color as though it was a Gee.Collection) ... I suspect it has to do with
         // the SortedList class.  Will probably need to rip out SortedList and sort all lists by

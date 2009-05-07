@@ -46,15 +46,15 @@ public class PhotoPage : Page {
     
     public static const int IMPROVAL_MSEC = 250;
     
-    public static const int VIEWPORT_BORDER = 1;
-    
     public static const int CROP_INIT_X = 200;
     public static const int CROP_INIT_Y = 200;
     public static const int CROP_MIN_WIDTH = 100;
     public static const int CROP_MIN_HEIGHT = 100;
     public static const float CROP_SATURATION = 0.05f;
     
-    private PhotoTable photo_table = new PhotoTable();
+    private CheckerboardPage controller = null;
+    private Photo photo = null;
+    private Thumbnail thumbnail = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
@@ -62,27 +62,26 @@ public class PhotoPage : Page {
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private Gtk.DrawingArea canvas = new Gtk.DrawingArea();
-    private Thumbnail thumbnail = null;
-    private Gdk.Pixbuf original = null;
-    private Exif.Orientation orientation;
-    private Gdk.Pixbuf rotated = null;
-    private Dimensions rotated_dim;
-    private Gdk.Pixbuf scaled = null;
-    private Dimensions scaled_dim;
-    private Gdk.InterpType scaled_interp = FAST_INTERP;
-    private Gdk.Pixbuf saturated = null;
-    private Gdk.Rectangle photo_rect = Gdk.Rectangle();
-    private CheckerboardPage controller = null;
     private Gdk.Pixmap pixmap = null;
-    private Dimensions pixmap_dim;
+    private Dimensions pixmap_dim = Dimensions();
+    private Gdk.Pixbuf original = null;
+    private Gdk.Pixbuf pixbuf = null;
+    private Gdk.Pixbuf saturated = null;
+    private Gdk.InterpType interp = FAST_INTERP;
+    private Gdk.Rectangle pixbuf_rect = Gdk.Rectangle();
     private bool improval_scheduled = false;
-
+    private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
+    private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
+    
     // cropping
     private bool show_crop = false;
-    private Box crop;
     private Box scaled_crop;
     private CropToolWindow crop_tool_window = null;
 
+    // these are kept in absolute coordinates, not relative to photo's position on canvas
+    private int last_grab_x = -1;
+    private int last_grab_y = -1;
+    
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
@@ -107,7 +106,7 @@ public class PhotoPage : Page {
         //
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
-        rotate_button.label = "Rotate Clockwise";
+        rotate_button.label = "Rotate";
         rotate_button.clicked += on_rotate_clockwise;
         toolbar.insert(rotate_button, -1);
         
@@ -135,6 +134,7 @@ public class PhotoPage : Page {
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         viewport.set_shadow_type(Gtk.ShadowType.NONE);
+        viewport.set_border_width(0);
         viewport.add(canvas);
         
         add(viewport);
@@ -172,24 +172,14 @@ public class PhotoPage : Page {
     }
     
     private void update_display() {
-        orientation = photo_table.get_orientation(thumbnail.get_photo_id());
-        original = thumbnail.get_full_pixbuf();
-        if (original == null) {
-            debug("Unable to fetch full pixbuf for %s", thumbnail.get_name());
+        photo = thumbnail.get_photo();
+        original = photo.get_pixbuf();
 
-            return;
-        }
-
-        // rotate
-        rotated = rotate_to_exif(original, orientation);
-        rotated_dim = Dimensions.for_pixbuf(rotated);
-        
         // flush old image
         pixmap = null;
 
-        // resize canvas to fit in the viewport and realize
-        canvas.set_size_request(viewport.allocation.width - (VIEWPORT_BORDER * 2), 
-            viewport.allocation.height - (VIEWPORT_BORDER * 2));
+        // resize canvas to fit in the viewport and realize (if not already realized)
+        canvas.set_size_request(viewport.allocation.width, viewport.allocation.height);
         canvas.realize();
         
         repaint();
@@ -210,9 +200,6 @@ public class PhotoPage : Page {
         AppWindow.get_instance().switch_to_page(controller);
     }
     
-    private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
-    private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
-    
     private bool on_canvas_motion(Gtk.DrawingArea da, Gdk.EventMotion event) {
         if (!show_crop)
             return false;
@@ -224,12 +211,12 @@ public class PhotoPage : Page {
         
         return false;
     }
-        
+    
     private void update_cursor(int x, int y) {
         assert(show_crop);
         
         // scaled_crop is not maintained relative to photo's position on canvas
-        Box offset_scaled_crop = scaled_crop.get_offset(photo_rect.x, photo_rect.y);
+        Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
         
         Gdk.CursorType cursor_type = Gdk.CursorType.ARROW;
         switch (offset_scaled_crop.location(x, y)) {
@@ -277,10 +264,6 @@ public class PhotoPage : Page {
         }
     }
     
-    // these are kept in absolute coordinates, not relative to photo's position on canvas
-    private int last_grab_x = -1;
-    private int last_grab_y = -1;
-    
     private bool on_canvas_button_pressed(Gtk.DrawingArea da, Gdk.EventButton event) {
         // only interested in LMB
         if (event.button != 1)
@@ -290,14 +273,14 @@ public class PhotoPage : Page {
             return false;
         
         // scaled_crop is not maintained relative to photo's position on canvas
-        Box offset_scaled_crop = scaled_crop.get_offset(photo_rect.x, photo_rect.y);
+        Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
         
         int x = (int) event.x;
         int y = (int) event.y;
         
         in_manipulation = offset_scaled_crop.location(x, y);
-        last_grab_x = x -= photo_rect.x;
-        last_grab_y = y -= photo_rect.y;
+        last_grab_x = x -= pixbuf_rect.x;
+        last_grab_y = y -= pixbuf_rect.y;
         
         assert(last_grab_x >= 0);
         assert(last_grab_y >= 0);
@@ -328,18 +311,18 @@ public class PhotoPage : Page {
         int y = (int) event.y;
         
         // scaled_crop is maintained in coordinates non-relative to photo's position on canvas ...
-        // but bound tool to photo
-        x -= photo_rect.x;
+        // but bound tool to photo itself
+        x -= pixbuf_rect.x;
         if (x < 0)
             x = 0;
-        else if (x >= photo_rect.width)
-            x = photo_rect.width - 1;
+        else if (x >= pixbuf_rect.width)
+            x = pixbuf_rect.width - 1;
         
-        y -= photo_rect.y;
+        y -= pixbuf_rect.y;
         if (y < 0)
             y = 0;
-        else if (y >= photo_rect.height)
-            y = photo_rect.height - 1;
+        else if (y >= pixbuf_rect.height)
+            y = pixbuf_rect.height - 1;
         
         // need to make manipulations outside of box structure, because its methods do sanity
         // checking
@@ -403,18 +386,18 @@ public class PhotoPage : Page {
                 right += delta_x;
                 bottom += delta_y;
                 
-                // keep crop inside of photo
+                // bound crop inside of photo
                 if (left < 0)
                     left = 0;
                 
                 if (top < 0)
                     top = 0;
                 
-                if (right >= photo_rect.width)
-                    right = photo_rect.width - 1;
+                if (right >= pixbuf_rect.width)
+                    right = pixbuf_rect.width - 1;
                 
-                if (bottom >= photo_rect.height)
-                    bottom = photo_rect.height - 1;
+                if (bottom >= pixbuf_rect.height)
+                    bottom = pixbuf_rect.height - 1;
                 
                 int adj_width = right - left;
                 int adj_height = bottom - top;
@@ -515,14 +498,14 @@ public class PhotoPage : Page {
         return true;
     }
     
-    private void repaint(Gdk.InterpType interp = FAST_INTERP) {
+    private void repaint(Gdk.InterpType paint_interp = FAST_INTERP) {
         // no image, no painting
-        if (rotated == null)
+        if (original == null)
             return;
         
         // account for border
-        int width = viewport.allocation.width - (VIEWPORT_BORDER * 2);
-        int height = viewport.allocation.height - (VIEWPORT_BORDER * 2);
+        int width = viewport.allocation.width;
+        int height = viewport.allocation.height;
         
         if (width <= 0 || height <= 0)
             return;
@@ -535,75 +518,76 @@ public class PhotoPage : Page {
         
         // if necessary, create a pixmap as large as the entire viewport
         if (pixmap == null) {
-            debug("new pixmap");
             pixmap = new Gdk.Pixmap(canvas.window, width, height, -1);
             pixmap_dim = Dimensions(width, height);
+            
+            // need a new pixbuf to fit this scale
+            pixbuf = null;
 
             // resize canvas for the pixmap (that is, the entire viewport)
             canvas.set_size_request(width, height);
 
-            // resize the rotated pixbuf to fit on the canvas
-            Dimensions old_scaled_dim = scaled_dim;
-            scaled_dim = get_scaled_dimensions_for_view(rotated_dim, pixmap_dim);
-            scaled = null;
-            
+            // determine size of pixbuf that will fit on the canvas
+            Dimensions old_pixbuf_dim = Dimensions.for_rectangle(pixbuf_rect);
+            Dimensions pixbuf_dim = photo.get_dimensions().get_scaled_proportional(pixmap_dim);
+
+            // center pixbuf on the canvas
+            int photo_x = (width - pixbuf_dim.width) / 2;
+            int photo_y = (height - pixbuf_dim.height) / 2;
+
+            // store pixbuf's position in the pixmap/canvas
+            pixbuf_rect.x = photo_x;
+            pixbuf_rect.y = photo_y;
+            pixbuf_rect.width = pixbuf_dim.width;
+            pixbuf_rect.height = pixbuf_dim.height;
+        
             if (show_crop)
-                rescale_crop(old_scaled_dim);
+                rescale_crop(old_pixbuf_dim, pixbuf_dim);
             
             // override caller's request ... pixbuf will be rescheduled for improvement
-            interp = FAST_INTERP;
+            paint_interp = FAST_INTERP;
 
-            // center photo on the canvas
-            int photo_x = (width - scaled_dim.width) / 2;
-            int photo_y = (height - scaled_dim.height) / 2;
-
-            // store photo's position in the pixmap/canvas
-            photo_rect.x = photo_x;
-            photo_rect.y = photo_y;
-            photo_rect.width = scaled_dim.width;
-            photo_rect.height = scaled_dim.height;
-        
             // draw "background" by drawing exposed bands around photo
             if (photo_x > 0) {
                 // draw bands on left/right of image
                 pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, photo_x, height);
-                pixmap.draw_rectangle(canvas.style.black_gc, true, photo_x + scaled_dim.width - 1, 0,
+                pixmap.draw_rectangle(canvas.style.black_gc, true, photo_x + pixbuf_rect.width - 1, 0,
                     width - (photo_x * 2), height);
             }
             
             if (photo_y > 0) {
                 // draw bands above/below image
                 pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, photo_y);
-                pixmap.draw_rectangle(canvas.style.black_gc, true, 0, photo_y + scaled_dim.height - 1,
+                pixmap.draw_rectangle(canvas.style.black_gc, true, 0, photo_y + pixbuf_rect.height - 1,
                     width, height - (photo_y * 2));
             }
-        } else if (interp == FAST_INTERP) {
+        } else if (paint_interp == FAST_INTERP) {
             // block calls where the pixmap is not being regenerated and the caller is asking for
             // a lower interp
-            if (scaled_interp == QUALITY_INTERP)
-                interp = QUALITY_INTERP;
+            if (interp == QUALITY_INTERP)
+                paint_interp = QUALITY_INTERP;
         }
         
-        // rescale photo if canvas rescaled or better quality is requested
-        if (scaled == null || interp != scaled_interp) {
-            scaled = rotated.scale_simple(scaled_dim.width, scaled_dim.height, interp);
-            scaled_interp = interp;
+        // fetch photo or rescale photo if canvas rescaled or better quality is requested
+        if (pixbuf == null || interp != paint_interp) {
+            pixbuf = original.scale_simple(pixbuf_rect.width, pixbuf_rect.height, paint_interp);
+            interp = paint_interp;
             
             // create saturated pixbuf for crop tool
-            saturated = new Gdk.Pixbuf(scaled.get_colorspace(), scaled.get_has_alpha(), 
-                scaled.get_bits_per_sample(), scaled.get_width(), scaled.get_height());
-            scaled.saturate_and_pixelate(saturated, CROP_SATURATION, false);
+            saturated = new Gdk.Pixbuf(pixbuf.get_colorspace(), pixbuf.get_has_alpha(), 
+                pixbuf.get_bits_per_sample(), pixbuf.get_width(), pixbuf.get_height());
+            pixbuf.saturate_and_pixelate(saturated, CROP_SATURATION, false);
 
-            assert(scaled_dim.width == scaled.get_width());
-            assert(scaled_dim.height == scaled.get_height());
+            assert(pixbuf_rect.width == pixbuf.get_width());
+            assert(pixbuf_rect.height == pixbuf.get_height());
         }
 
         if (show_crop) {
-            draw_crop();
+            draw_with_crop();
         } else {
-            // lay down the photo wholesale
-            pixmap.draw_pixbuf(canvas.style.fg_gc[Gtk.StateType.NORMAL], scaled, 0, 0, photo_rect.x, 
-                photo_rect.y, -1, -1, Gdk.RgbDither.NORMAL, 0, 0);
+            // lay down the photo and nothing else
+            pixmap.draw_pixbuf(canvas.style.fg_gc[Gtk.StateType.NORMAL], pixbuf, 0, 0, pixbuf_rect.x, 
+                pixbuf_rect.y, -1, -1, Gdk.RgbDither.NORMAL, 0, 0);
         }
         
         // if new pixmap, need to invalidate everything
@@ -632,48 +616,32 @@ public class PhotoPage : Page {
         return false;
     }
     
-    private void set_orientation(Exif.Orientation newOrientation) {
-        orientation = newOrientation;
-        rotated = rotate_to_exif(original, orientation);
-        rotated_dim = Dimensions.for_pixbuf(rotated);
+    private void rotate(Photo.Rotation rotation) {
+        photo.rotate(rotation);
         
-        File file = thumbnail.get_file();
-        PhotoExif exif = PhotoExif.create(file);
+        // fetch a new original to work with
+        original = photo.get_pixbuf();
         
-        // update file itself
-        exif.set_orientation(orientation);
+        // flush pixmap to force redraw
+        pixmap = null;
         
-        // TODO: Write this in background
-        try {
-            exif.commit();
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        // update database
-        photo_table.set_orientation(thumbnail.get_photo_id(), orientation);
-        
-        // update everyone who cares
-        AppWindow.get_instance().report_backing_changed(thumbnail.get_photo_id());
-
         repaint();
     }
     
     private void on_rotate_clockwise() {
-        set_orientation(orientation.rotate_clockwise());
+        rotate(Photo.Rotation.CLOCKWISE);
     }
     
     private void on_rotate_counterclockwise() {
-        set_orientation(orientation.rotate_counterclockwise());
+        rotate(Photo.Rotation.COUNTERCLOCKWISE);
     }
     
     private void on_mirror() {
-        set_orientation(orientation.flip_left_to_right());
+        rotate(Photo.Rotation.MIRROR);
     }
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotate_button.set_stock_id(STOCK_COUNTERCLOCKWISE);
-        rotate_button.label = "Rotate Counterclockwise";
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -682,7 +650,6 @@ public class PhotoPage : Page {
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
         rotate_button.set_stock_id(STOCK_CLOCKWISE);
-        rotate_button.label = "Rotate Clockwise";
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         
@@ -699,21 +666,23 @@ public class PhotoPage : Page {
     }
     
     private void activate_crop() {
-        assert(rotated != null);
-            
-        int width = rotated_dim.width;
-        int height = rotated_dim.height;
-
-        // initialize the actual crop, which is maintained in absolute coordinates not relative
+        Dimensions photo_dim = photo.get_dimensions();
+        
+        // initialize the actual crop in absolute coordinates, not relative
         // to the photo's position on the canvas
-        crop = Box(CROP_INIT_X, CROP_INIT_Y, width - CROP_INIT_X, height - CROP_INIT_Y);
+        Box crop = Box(CROP_INIT_X, CROP_INIT_Y, photo_dim.width - CROP_INIT_X, 
+            photo_dim.height - CROP_INIT_Y);
         
         // scale the crop to the scaled photo's size ... the scaled crop is maintained in absolute
-        // cooridinates non-relative to photo's position on canvas
-        scaled_crop = crop.get_scaled(rotated_dim, scaled_dim);
+        // coordinates non-relative to photo's position on canvas
+        scaled_crop = crop.get_scaled(photo_dim, Dimensions.for_rectangle(pixbuf_rect));
+        
+        debug("crop:%s scaled_crop:%s", crop.to_string(), scaled_crop.to_string());
 
         show_crop = true;
         
+        // create crop tool window and position centered on viewport/canvas at the bottom, straddling
+        // the canvas and the toolbar
         int rx, ry;
         AppWindow.get_instance().window.get_root_origin(out rx, out ry);
         
@@ -731,19 +700,6 @@ public class PhotoPage : Page {
         Gtk.Requisition req;
         crop_tool_window.size_request(out req);
         crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
-
-        debug("canvas: %d,%d %dx%d root=%d,%d tool=%dx%d", cx, cy, cwidth, cheight, rx, ry, req.width,
-            req.height);
-    }
-    
-    private static void get_offset(Gtk.Widget widget, out int x, out int y) {
-        if (widget.parent != null)
-            get_offset(widget.parent, out x, out y);
-
-        debug("get offset: %s %d,%d", widget.get_name(), widget.allocation.x, widget.allocation.y);
-
-        x += widget.allocation.x;
-        y += widget.allocation.y;
     }
     
     private void deactivate_crop() {
@@ -752,26 +708,29 @@ public class PhotoPage : Page {
         crop_tool_window = null;
     }
     
-    private void rescale_crop(Dimensions old_scaled_dim) {
+    private void rescale_crop(Dimensions old_pixbuf_dim, Dimensions new_pixbuf_dim) {
         assert(show_crop);
         
+        Dimensions photo_dim = photo.get_dimensions();
+
         // rescale back to full crop
-        crop = scaled_crop.get_scaled(old_scaled_dim, rotated_dim);
+        Box crop = scaled_crop.get_scaled(old_pixbuf_dim, photo_dim);
         
         // now rescale back to new size
-        scaled_crop = crop.get_scaled(rotated_dim, scaled_dim);
+        scaled_crop = crop.get_scaled(photo_dim, new_pixbuf_dim);
     }
     
-    private void draw_crop() {
+    private void draw_with_crop() {
         assert(show_crop);
         
-        // crop is maintained scaled to size of photo and moved to the photo's offset on the canvas
+        // crop is maintained scaled to size of photo ... use rect moved to the photo's offset on
+        // the canvas
         Gdk.Rectangle rect = scaled_crop.get_rectangle();
-        rect.x += photo_rect.x;
-        rect.y += photo_rect.y;
+        rect.x += pixbuf_rect.x;
+        rect.y += pixbuf_rect.y;
         
         // paint exposed (cropped) part of pixbuf
-        pixmap.draw_pixbuf(canvas.style.fg_gc[Gtk.StateType.NORMAL], scaled,
+        pixmap.draw_pixbuf(canvas.style.fg_gc[Gtk.StateType.NORMAL], pixbuf,
             scaled_crop.left + 1, scaled_crop.top + 1,
             rect.x + 1, rect.y + 1,
             rect.width - 1, rect.height - 1,
@@ -786,17 +745,17 @@ public class PhotoPage : Page {
         if (scaled_crop.left > 0) {
             pixmap.draw_pixbuf(gc, saturated, 
                 0, 0, 
-                photo_rect.x, photo_rect.y, 
-                (rect.x - photo_rect.x), photo_rect.height, 
+                pixbuf_rect.x, pixbuf_rect.y, 
+                (rect.x - pixbuf_rect.x), pixbuf_rect.height, 
                 Gdk.RgbDither.NORMAL, 0, 0);
         }
         
         // paint right-hand saturation from top to bottom (accounting for width of crop tool line)
-        if (scaled_crop.right < scaled_dim.width) {
+        if (scaled_crop.right < pixbuf_rect.width) {
             pixmap.draw_pixbuf(gc, saturated, 
                 scaled_crop.right + 1, 0,
-                rect.x + rect.width + 1, photo_rect.y,
-                scaled_dim.width - scaled_crop.right - 1, photo_rect.height, 
+                rect.x + rect.width + 1, pixbuf_rect.y,
+                pixbuf_rect.width - scaled_crop.right - 1, pixbuf_rect.height,
                 Gdk.RgbDither.NORMAL, 0, 0);
         }
         
@@ -805,18 +764,18 @@ public class PhotoPage : Page {
         if (scaled_crop.top > 0) {
             pixmap.draw_pixbuf(gc, saturated, 
                 scaled_crop.left, 0, 
-                rect.x, photo_rect.y,
+                rect.x, pixbuf_rect.y,
                 rect.width + 2 - 1, scaled_crop.top,
                 Gdk.RgbDither.NORMAL, 0, 0);
         }
         
         // paint bottom strip, avoiding bottom-left and bottom right corner already painted
         // (accounting for width of crop tool line)
-        if (scaled_crop.bottom < photo_rect.height) {
+        if (scaled_crop.bottom < pixbuf_rect.height) {
             pixmap.draw_pixbuf(gc, saturated, 
                 scaled_crop.left, scaled_crop.bottom + 1,
                 rect.x, rect.y + rect.height + 1,
-                rect.width + 2 - 1, scaled_dim.height - scaled_crop.bottom - 1, 
+                rect.width + 2 - 1, pixbuf_rect.height - scaled_crop.bottom - 1, 
                 Gdk.RgbDither.NORMAL, 0, 0);
         }
     }

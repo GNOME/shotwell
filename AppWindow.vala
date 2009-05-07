@@ -221,8 +221,8 @@ public class AppWindow : Gtk.Window {
     }
 
     // this needs to be ref'd the lifetime of the application
-    private Hal.Context halContext = new Hal.Context();
-    private DBus.Connection halConn = null;
+    private Hal.Context hal_context = new Hal.Context();
+    private DBus.Connection hal_conn = null;
     
     // NOTE: When new pages are added, they should be added as well to report_backing_changed(),
     // and on_remove, if appropriate.
@@ -234,29 +234,29 @@ public class AppWindow : Gtk.Window {
     
     // Dynamically added pages
     private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<Page>();
-    private Gee.HashMap<string, ImportPage> cameraMap = new Gee.HashMap<string, ImportPage>(
+    private Gee.HashMap<string, ImportPage> camera_map = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
 
-    private PhotoTable photoTable = new PhotoTable();
-    private EventTable eventTable = new EventTable();
+    private PhotoTable photo_table = new PhotoTable();
+    private EventTable event_table = new EventTable();
     
     private Gtk.TreeView sidebar = null;
-    private Gtk.TreeStore sidebarStore = null;
-    private Gtk.TreeRowReference camerasRow = null;
+    private Gtk.TreeStore sidebar_store = null;
+    private Gtk.TreeRowReference cameras_row = null;
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
     private Page current_page = null;
     
-    private GPhoto.Context nullContext = new GPhoto.Context();
-    private GPhoto.CameraAbilitiesList abilitiesList;
+    private GPhoto.Context null_context = new GPhoto.Context();
+    private GPhoto.CameraAbilitiesList abilities_list;
     
     private SortedList<int64?> imported_photos = null;
     private ImportID import_id = ImportID();
     
     private FullscreenWindow fullscreen_window = null;
     
-    construct {
+    public AppWindow() {
         // if this is the first AppWindow, it's the main AppWindow
         assert(instance == null);
         instance = this;
@@ -266,18 +266,26 @@ public class AppWindow : Gtk.Window {
 
         destroy += Gtk.main_quit;
         
-        message("Verifying databases ...");
+        debug("Verifying databases ...");
         verify_databases();
         
         // prepare the default parent and orphan pages
-        PhotoID[] all_photos = photoTable.get_photos();
-        collection_page = new CollectionPage(all_photos);
+        collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
         photo_page = new PhotoPage();
 
+        // create Photo objects for all photos in the database and load into the Photos page
+        PhotoID[] all_photo_ids = photo_table.get_photos();
+        foreach (PhotoID photo_id in all_photo_ids) {
+             Photo photo = Photo.fetch(photo_id);
+             photo.removed += on_photo_removed;
+             
+             collection_page.add_photo(photo);
+        }
+
         // prepare the sidebar
-        sidebarStore = new Gtk.TreeStore(1, typeof(string));
-        sidebar = new Gtk.TreeView.with_model(sidebarStore);
+        sidebar_store = new Gtk.TreeStore(1, typeof(string));
+        sidebar = new Gtk.TreeView.with_model(sidebar_store);
 
         var text = new Gtk.CellRendererText();
         var column = new Gtk.TreeViewColumn();
@@ -294,15 +302,14 @@ public class AppWindow : Gtk.Window {
 
         // "Cameras" doesn't have its own page, just a parent row
         Gtk.TreeIter parent;
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, "Cameras");
-        camerasRow = new Gtk.TreeRowReference(sidebarStore, sidebarStore.get_path(parent));
+        sidebar_store.append(out parent, null);
+        sidebar_store.set(parent, 0, "Cameras");
+        cameras_row = new Gtk.TreeRowReference(sidebar_store, sidebar_store.get_path(parent));
         
         // add stored events
-        EventID[] events = eventTable.get_events();
-        foreach (EventID event_id in events) {
+        EventID[] events = event_table.get_events();
+        foreach (EventID event_id in events)
             add_event_page(event_id);
-        }
         
         sidebar.cursor_changed += on_sidebar_cursor_changed;
         
@@ -319,17 +326,18 @@ public class AppWindow : Gtk.Window {
         // a drag and drop is for general library importation, which means it goes to collection_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
         
-        halConn = DBus.Bus.get(DBus.BusType.SYSTEM);
-        if (!halContext.set_dbus_connection(halConn.get_connection()))
+        // set up HAL connection to monitor for device insertion/removal, to look for cameras
+        hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
+        if (!hal_context.set_dbus_connection(hal_conn.get_connection()))
             error("Unable to set DBus connection for HAL");
 
         DBus.RawError raw = DBus.RawError();
-        if (!halContext.init(ref raw))
+        if (!hal_context.init(ref raw))
             error("Unable to initialize context: %s", raw.message);
 
-        if (!halContext.set_device_added(on_device_added))
+        if (!hal_context.set_device_added(on_device_added))
             error("Unable to register device-added callback");
-        if (!halContext.set_device_removed(on_device_removed))
+        if (!hal_context.set_device_removed(on_device_removed))
             error("Unable to register device-removed callback");
 
         try {
@@ -342,10 +350,10 @@ public class AppWindow : Gtk.Window {
     
     public Gtk.ActionGroup get_common_action_group() {
         // each page gets its own one
-        Gtk.ActionGroup actionGroup = new Gtk.ActionGroup("CommonActionGroup");
-        actionGroup.add_actions(COMMON_ACTIONS, this);
+        Gtk.ActionGroup action_group = new Gtk.ActionGroup("CommonActionGroup");
+        action_group.add_actions(COMMON_ACTIONS, this);
         
-        return actionGroup;
+        return action_group;
     }
     
     private void on_about() {
@@ -418,8 +426,8 @@ public class AppWindow : Gtk.Window {
     }
     
     public void start_import_batch() {
-        imported_photos = new SortedList<int64?>(new Gee.ArrayList<int64?>(), new DateComparator(photoTable));
-        import_id = photoTable.generate_import_id();
+        imported_photos = new SortedList<int64?>(new Gee.ArrayList<int64?>(), new DateComparator(photo_table));
+        import_id = photo_table.generate_import_id();
     }
 
     public void import(File file) {
@@ -469,7 +477,7 @@ public class AppWindow : Gtk.Window {
             PhotoID photo_id = PhotoID(id);
 
             PhotoRow photo;
-            bool found = photoTable.get_photo(photo_id, out photo);
+            bool found = photo_table.get_photo(photo_id, out photo);
             assert(found);
             
             if (photo.exposure_time == 0) {
@@ -507,14 +515,14 @@ public class AppWindow : Gtk.Window {
             if (create_event) {
                 if (current_event_id.is_valid()) {
                     assert(last_exposure != 0);
-                    eventTable.set_end_time(current_event_id, last_exposure);
+                    event_table.set_end_time(current_event_id, last_exposure);
 
                     events_directory_page.add_event(current_event_id);
                     events_directory_page.refresh();
                 }
 
                 current_event_start = photo.exposure_time;
-                current_event_id = eventTable.create(photo_id, current_event_start);
+                current_event_id = event_table.create(photo_id, current_event_start);
                 
                 current_page = add_event_page(current_event_id);
 
@@ -526,8 +534,9 @@ public class AppWindow : Gtk.Window {
             debug("Adding %s to event %lld (exposure=%ld last_exposure=%ld)", photo.file.get_path(), 
                 current_event_id.id, photo.exposure_time, last_exposure);
             
-            photoTable.set_event(photo_id, current_event_id);
-            current_page.add_photo(photo_id);
+            photo_table.set_event(photo_id, current_event_id);
+
+            current_page.add_photo(Photo.fetch(photo_id));
             
             last_exposure = photo.exposure_time;
         }
@@ -580,78 +589,39 @@ public class AppWindow : Gtk.Window {
                 return false;
             }
         }
-
-        debug("Importing file %s", file.get_path());
-
-        Dimensions dim = Dimensions();
-        Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
-        time_t exposure_time = 0;
         
-        // TODO: Try to read JFIF metadata too
-        PhotoExif exif = PhotoExif.create(file);
-        if (exif.has_exif()) {
-            if (!exif.get_dimensions(out dim)) {
-                error("Unable to read EXIF dimensions for %s", file.get_path());
-            }
-            
-            if (!exif.get_datetime_time(out exposure_time)) {
-                error("Unable to read EXIF orientation for %s", file.get_path());
-            }
-
-            orientation = exif.get_orientation();
-        } 
-        
-        Gdk.Pixbuf original;
-        try {
-            original = new Gdk.Pixbuf.from_file(file.get_path());
-            
-            if (!exif.has_exif())
-                dim = Dimensions(original.get_width(), original.get_height());
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        FileInfo info = null;
-        try {
-            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
-        
-        PhotoID photoID = photoTable.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-            orientation, import_id);
-        if (photoID.is_invalid()) {
-            debug("Not importing %s (already imported)", file.get_path());
-            
+        Photo photo = Photo.import(file, import_id);
+        if (photo == null)
             return false;
-        }
+
+        // want to know when it's removed from the system for cleanup
+        photo.removed += on_photo_removed;
         
-        ThumbnailCache.import(photoID, original);
-        collection_page.add_photo(photoID);
+        // automatically add to the Photos page
+        collection_page.add_photo(photo);
         collection_page.refresh();
             
         // add to imported list for splitting into events
-        if (imported_photos != null)
-            imported_photos.add(photoID.id);
+        if (imported_photos != null) {
+            PhotoID photo_id = photo.get_photo_id();
+            imported_photos.add(photo_id.id);
+        }
 
         return true;
     }
     
-    // This function ensures internal database and cache consistency
-    public void remove_photo(PhotoID photo_id, Page? ignore) {
-        // remove all cached thumbnails
-        ThumbnailCache.remove(photo_id);
+    private void on_photo_removed(Photo photo) {
+        debug("on_photo_removed");
+        
+        PhotoID photo_id = photo.get_photo_id();
         
         // update event's primary photo if this is the one; remove event if no more photos in it
-        EventID event_id = photoTable.get_event(photo_id);
-        if (event_id.is_valid() && (eventTable.get_primary_photo(event_id).id == photo_id.id)) {
-            PhotoID[] photos = photoTable.get_event_photos(event_id);
+        EventID event_id = photo_table.get_event(photo_id);
+        if (event_id.is_valid() && (event_table.get_primary_photo(event_id).id == photo_id.id)) {
+            PhotoID[] photos = photo_table.get_event_photos(event_id);
             
             PhotoID found = PhotoID();
-            // TODO: Now simply selecting the first photo possible
+            // TODO: For now, simply selecting the first photo possible
             foreach (PhotoID id in photos) {
                 if (id.id != photo_id.id) {
                     found = id;
@@ -661,50 +631,25 @@ public class AppWindow : Gtk.Window {
             }
             
             if (found.is_valid()) {
-                eventTable.set_primary_photo(event_id, found);
+                event_table.set_primary_photo(event_id, found);
             } else {
                 // this indicates this is the last photo of the event, so no more event
                 assert(photos.length <= 1);
                 remove_event_page(event_id);
-                eventTable.remove(event_id);
+                event_table.remove(event_id);
             }
         }
-        
-        // remove photo from all possibly interested pages
-        // (don't need to do this for events_directory_page because it refreshes on every switched_to,
-        // and you cannot delete an individual photo from the page)
-        if (collection_page != ignore) {
-            if (collection_page.remove_photo(photo_id))
-                collection_page.refresh();
-        }
-        
-        foreach (EventPage page in event_list) {
-            if (page != ignore) {
-                if (page.remove_photo(photo_id))
-                    page.refresh();
-            }
-        }
+    }
 
-        // remove from photo table -- should be wiped from system now
-        photoTable.remove(photo_id);
-    }
-    
-    public void report_backing_changed(PhotoID photo_id) {
-        collection_page.report_backing_changed(photo_id);
-        
-        events_directory_page.report_backing_changed(photo_id);
-        
-        foreach (EventPage page in event_list)
-            page.report_backing_changed(photo_id);
-    }
-    
+    // This function should only be called prior to creating Photo objects, as once they're created,
+    // they assume full knowledge/control over their assigned photo
     private void verify_databases() {
-        PhotoID[] ids = photoTable.get_photos();
+        PhotoID[] ids = photo_table.get_photos();
 
         // verify photo table
         foreach (PhotoID photoID in ids) {
             PhotoRow row = PhotoRow();
-            photoTable.get_photo(photoID, out row);
+            photo_table.get_photo(photoID, out row);
             
             FileInfo info = null;
             try {
@@ -727,7 +672,7 @@ public class AppWindow : Gtk.Window {
             time_t exposure_time = 0;
 
             // TODO: Try to read JFIF metadata too
-            PhotoExif exif = PhotoExif.create(row.file);
+            PhotoExif exif = new PhotoExif(row.file);
             if (exif.has_exif()) {
                 if (!exif.get_dimensions(out dim)) {
                     error("Unable to read EXIF dimensions for %s", row.file.get_path());
@@ -750,30 +695,30 @@ public class AppWindow : Gtk.Window {
                 error("%s", err.message);
             }
         
-            if (photoTable.update(photoID, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            if (photo_table.update(photoID, dim, info.get_size(), timestamp.tv_sec, exposure_time,
                 orientation)) {
                 ThumbnailCache.import(photoID, original, true);
             }
         }
         
         // verify event table
-        EventID[] events = eventTable.get_events();
+        EventID[] events = event_table.get_events();
         foreach (EventID event_id in events) {
-            PhotoID[] photos = photoTable.get_event_photos(event_id);
+            PhotoID[] photos = photo_table.get_event_photos(event_id);
             if (photos.length == 0) {
                 message("Removing event %lld: No photos associated with event", event_id.id);
-                eventTable.remove(event_id);
+                event_table.remove(event_id);
             }
         }
     }
 
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selectionData, uint info, uint time) {
+        Gtk.SelectionData selection_data, uint info, uint time) {
         // grab data and release back to system
-        string[] uris = selectionData.get_uris();
+        string[] uris = selection_data.get_uris();
         Gtk.drag_finish(context, true, false, time);
         
-        // import
+        // TODO: Background threads
         start_import_batch();
         foreach (string uri in uris) {
             import(File.new_for_uri(uri));
@@ -824,9 +769,12 @@ public class AppWindow : Gtk.Window {
     }
     
     private EventPage add_event_page(EventID event_id) {
-        string name = eventTable.get_name(event_id);
-        PhotoID[] photos = photoTable.get_event_photos(event_id);
-        EventPage event_page = new EventPage(event_id, photos);
+        string name = event_table.get_name(event_id);
+        EventPage event_page = new EventPage(event_id);
+        
+        PhotoID[] photo_ids = photo_table.get_event_photos(event_id);
+        foreach (PhotoID photo_id in photo_ids)
+            event_page.add_photo(Photo.fetch(photo_id));
 
         add_child_page(events_directory_page, event_page, name);
         event_list.add(event_page);
@@ -844,19 +792,19 @@ public class AppWindow : Gtk.Window {
 
     private Gtk.TreePath add_sidebar_parent(string name) {
         Gtk.TreeIter parent;
-        sidebarStore.append(out parent, null);
-        sidebarStore.set(parent, 0, name);
+        sidebar_store.append(out parent, null);
+        sidebar_store.set(parent, 0, name);
 
-        return sidebarStore.get_path(parent);
+        return sidebar_store.get_path(parent);
     }
     
     private Gtk.TreePath add_sidebar_child(Gtk.TreeRowReference row, string name) {
         Gtk.TreeIter parent, child;
-        sidebarStore.get_iter(out parent, row.get_path());
-        sidebarStore.append(out child, parent);
-        sidebarStore.set(child, 0, name);
+        sidebar_store.get_iter(out parent, row.get_path());
+        sidebar_store.append(out child, parent);
+        sidebar_store.set(child, 0, name);
         
-        return sidebarStore.get_path(child);
+        return sidebar_store.get_path(child);
     }
     
     private void add_parent_page(Page parent, string name) {
@@ -875,7 +823,7 @@ public class AppWindow : Gtk.Window {
         // add to sidebar
         Gtk.TreePath path = add_sidebar_parent(name);
         
-        parent.set_marker(new PageMarker(vbox, sidebarStore, path));
+        parent.set_marker(new PageMarker(vbox, sidebar_store, path));
         
         notebook.show_all();
     }
@@ -896,7 +844,7 @@ public class AppWindow : Gtk.Window {
         // add to sidebar
         Gtk.TreePath path = add_sidebar_child(parent, name);
         
-        child.set_marker(new PageMarker(vbox, sidebarStore, path));
+        child.set_marker(new PageMarker(vbox, sidebar_store, path));
         
         notebook.show_all();
     }
@@ -905,6 +853,8 @@ public class AppWindow : Gtk.Window {
         add_child_page_to_row(parent.get_marker().get_row(), child, name);
     }
 
+    // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
+    // is not listed in the sidebar
     private void add_orphan_page(Page orphan) {
         // need to show_all before handing over to notebook
         orphan.show_all();
@@ -939,9 +889,9 @@ public class AppWindow : Gtk.Window {
         // remove from sidebar, if present
         if (marker.get_row() != null) {
             Gtk.TreeIter iter;
-            bool found = sidebarStore.get_iter(out iter, marker.get_row().get_path());
+            bool found = sidebar_store.get_iter(out iter, marker.get_row().get_path());
             assert(found);
-            sidebarStore.remove(iter);
+            sidebar_store.remove(iter);
         }
 
         // switch away if necessary to collection page (which is always present)
@@ -1005,7 +955,7 @@ public class AppWindow : Gtk.Window {
         int pos = get_notebook_pos(page);
         notebook.set_current_page(pos);
 
-        // layout client beneath menu
+        // switch menus
         if (current_page != null)
             layout.remove(current_page.get_menubar());
         layout.pack_start(page.get_menubar(), false, false, 0);
@@ -1025,7 +975,6 @@ public class AppWindow : Gtk.Window {
         page.show_all();
         
         page.switched_to();
-        
     }
     
     private bool is_page_selected(Page page, Gtk.TreePath path) {
@@ -1033,11 +982,11 @@ public class AppWindow : Gtk.Window {
         if (marker.get_row() == null)
             return false;
         
-        return path.compare(marker.get_row().get_path()) == 0;
+        return (path.compare(marker.get_row().get_path()) == 0);
     }
     
     private bool is_camera_selected(Gtk.TreePath path) {
-        foreach (ImportPage page in cameraMap.get_values()) {
+        foreach (ImportPage page in camera_map.get_values()) {
             if (!is_page_selected(page, path))
                 continue;
 
@@ -1137,7 +1086,7 @@ public class AppWindow : Gtk.Window {
             switch_to_collection_page();
         } else if (is_page_selected(events_directory_page, path)) {
             switch_to_events_directory_page();
-        } else if (path.compare(camerasRow.get_path()) == 0) {
+        } else if (path.compare(cameras_row.get_path()) == 0) {
             // TODO: Make Cameras unselectable and invisible when no cameras attached
             message("Cameras selected");
         } else if (is_camera_selected(path)) {
@@ -1155,41 +1104,49 @@ public class AppWindow : Gtk.Window {
     }
     
     private void init_camera_table() throws GPhotoError {
-        do_op(GPhoto.CameraAbilitiesList.create(out abilitiesList), "create camera abilities list");
-        do_op(abilitiesList.load(nullContext), "load camera abilities list");
+        do_op(GPhoto.CameraAbilitiesList.create(out abilities_list), "create camera abilities list");
+        do_op(abilities_list.load(null_context), "load camera abilities list");
     }
     
-    private string? esp_usb_to_udi(int cameraCount, string port, out string fullPort) {
+    // USB (or libusb) is a funny beast; if only one USB device is present (i.e. the camera),
+    // then a single camera is detected at port usb:.  However, if multiple USB devices are
+    // present (including non-cameras), then the first attached camera will be listed twice,
+    // first at usb:, then at usb:xxx,yyy.  If the usb: device is removed, another usb:xxx,yyy
+    // device will lose its full-path name and be referred to as usb: only.
+    //
+    // This function gleans the full port name of a particular port, even if it's the unadorned
+    // "usb:", by using HAL.
+    private string? esp_usb_to_udi(int camera_count, string port, out string full_port) {
         // sanity
-        assert(cameraCount > 0);
+        assert(camera_count > 0);
         
-        debug("ESP: cameraCount=%d port=%s", cameraCount, port);
+        debug("ESP: camera_count=%d port=%s", camera_count, port);
 
         DBus.RawError raw = DBus.RawError();
-        string[] udis = halContext.find_device_by_capability("camera", ref raw);
+        string[] udis = hal_context.find_device_by_capability("camera", ref raw);
         
         string[] usbs = new string[0];
         foreach (string udi in udis) {
-            if (halContext.device_get_property_string(udi, "info.subsystem", ref raw) == "usb")
+            if (hal_context.device_get_property_string(udi, "info.subsystem", ref raw) == "usb")
                 usbs += udi;
         }
 
         // if GPhoto detects one camera, and HAL reports one USB camera, all is swell
-        if (cameraCount == 1) {
+        if (camera_count == 1) {
             if (usbs.length == 1) {
                 string usb = usbs[0];
                 
-                int halBus = halContext.device_get_property_int(usb, "usb.bus_number", ref raw);
-                int halDevice = halContext.device_get_property_int(usb, "usb.linux.device_number", ref raw);
+                int hal_bus = hal_context.device_get_property_int(usb, "usb.bus_number", ref raw);
+                int hal_device = hal_context.device_get_property_int(usb, "usb.linux.device_number", ref raw);
 
                 if (port == "usb:") {
                     // the most likely case, so make a full path
-                    fullPort = "usb:%03d,%03d".printf(halBus, halDevice);
+                    full_port = "usb:%03d,%03d".printf(hal_bus, hal_device);
                 } else {
-                    fullPort = port;
+                    full_port = port;
                 }
                 
-                debug("ESP: port=%s fullPort=%s udi=%s", port, fullPort, usb);
+                debug("ESP: port=%s full_port=%s udi=%s", port, full_port, usb);
                 
                 return usb;
             }
@@ -1208,13 +1165,13 @@ public class AppWindow : Gtk.Window {
             error("ESP: Failed to scanf %s", port);
         
         foreach (string usb in usbs) {
-            int halBus = halContext.device_get_property_int(usb, "usb.bus_number", ref raw);
-            int halDevice = halContext.device_get_property_int(usb, "usb.linux.device_number", ref raw);
+            int hal_bus = hal_context.device_get_property_int(usb, "usb.bus_number", ref raw);
+            int hal_device = hal_context.device_get_property_int(usb, "usb.linux.device_number", ref raw);
             
-            if ((bus == halBus) && (device == halDevice)) {
-                fullPort = port;
+            if ((bus == hal_bus) && (device == hal_device)) {
+                full_port = port;
                 
-                debug("ESP: port=%s fullPort=%s udi=%s", port, fullPort, usb);
+                debug("ESP: port=%s full_port=%s udi=%s", port, full_port, usb);
 
                 return usb;
             }
@@ -1229,67 +1186,59 @@ public class AppWindow : Gtk.Window {
         return "gphoto2://[%s]/".printf(port);
     }
 
-    //
-    // NOTE:
-    // USB (or libusb) is a funny beast; if only one USB device is present (i.e. the camera),
-    // then a single camera is detected at port usb:.  However, if multiple USB devices are
-    // present (including non-cameras), then the first attached camera will be listed twice,
-    // first at usb:, then at usb:xxx,yyy.  If the usb: device is removed, another usb:xxx,yyy
-    // device will lose its full-path name and be referred to as usb: only.
-    //
     private void update_camera_table() throws GPhotoError {
         // need to do this because virtual ports come and go in the USB world (and probably others)
-        GPhoto.PortInfoList portInfoList;
-        do_op(GPhoto.PortInfoList.create(out portInfoList), "create port list");
-        do_op(portInfoList.load(), "load port list");
+        GPhoto.PortInfoList port_info_list;
+        do_op(GPhoto.PortInfoList.create(out port_info_list), "create port list");
+        do_op(port_info_list.load(), "load port list");
 
-        GPhoto.CameraList cameraList;
-        do_op(GPhoto.CameraList.create(out cameraList), "create camera list");
-        do_op(abilitiesList.detect(portInfoList, cameraList, nullContext), "detect cameras");
+        GPhoto.CameraList camera_list;
+        do_op(GPhoto.CameraList.create(out camera_list), "create camera list");
+        do_op(abilities_list.detect(port_info_list, camera_list, null_context), "detect cameras");
         
-        Gee.HashMap<string, string> detectedMap = new Gee.HashMap<string, string>(str_hash, str_equal,
+        Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>(str_hash, str_equal,
             str_equal);
         
-        for (int ctr = 0; ctr < cameraList.count(); ctr++) {
+        for (int ctr = 0; ctr < camera_list.count(); ctr++) {
             string name;
-            do_op(cameraList.get_name(ctr, out name), "get detected camera name");
+            do_op(camera_list.get_name(ctr, out name), "get detected camera name");
 
             string port;
-            do_op(cameraList.get_value(ctr, out port), "get detected camera port");
+            do_op(camera_list.get_value(ctr, out port), "get detected camera port");
             
             debug("Detected %s @ %s", name, port);
             
             // do some USB ESP
             if (port.has_prefix("usb:")) {
-                string fullPort;
-                string udi = esp_usb_to_udi(cameraList.count(), port, out fullPort);
+                string full_port;
+                string udi = esp_usb_to_udi(camera_list.count(), port, out full_port);
                 if (udi == null)
                     continue;
                 
-                port = fullPort;
+                port = full_port;
             }
 
-            detectedMap.set(port, name);
+            detected_map.set(port, name);
         }
         
         // first, find cameras that have disappeared
         ImportPage[] missing = new ImportPage[0];
-        foreach (ImportPage page in cameraMap.get_values()) {
+        foreach (ImportPage page in camera_map.get_values()) {
             GPhoto.Camera camera = page.get_camera();
             
-            GPhoto.PortInfo portInfo;
-            do_op(camera.get_port_info(out portInfo), "retrieve missing camera port information");
+            GPhoto.PortInfo port_info;
+            do_op(camera.get_port_info(out port_info), "retrieve missing camera port information");
             
             GPhoto.CameraAbilities abilities;
             do_op(camera.get_abilities(out abilities), "retrieve camera abilities");
             
-            if (detectedMap.contains(portInfo.path)) {
-                debug("Found page for %s @ %s in detected cameras", abilities.model, portInfo.path);
+            if (detected_map.contains(port_info.path)) {
+                debug("Found page for %s @ %s in detected cameras", abilities.model, port_info.path);
                 
                 continue;
             }
             
-            debug("%s @ %s missing", abilities.model, portInfo.path);
+            debug("%s @ %s missing", abilities.model, port_info.path);
             
             missing += page;
         }
@@ -1298,61 +1247,62 @@ public class AppWindow : Gtk.Window {
         foreach (ImportPage page in missing) {
             GPhoto.Camera camera = page.get_camera();
             
-            GPhoto.PortInfo portInfo;
-            do_op(camera.get_port_info(out portInfo), "retrieve missing camera port information");
+            GPhoto.PortInfo port_info;
+            do_op(camera.get_port_info(out port_info), "retrieve missing camera port information");
             
             GPhoto.CameraAbilities abilities;
             do_op(camera.get_abilities(out abilities), "retrieve missing camera abilities");
 
-            debug("Removing from camera table: %s @ %s", abilities.model, portInfo.path);
+            debug("Removing from camera table: %s @ %s", abilities.model, port_info.path);
 
-            cameraMap.remove(get_port_uri(portInfo.path));
+            camera_map.remove(get_port_uri(port_info.path));
             remove_page(page);
         }
 
         // add cameras which were not present before
-        foreach (string port in detectedMap.get_keys()) {
-            string name = detectedMap.get(port);
+        foreach (string port in detected_map.get_keys()) {
+            string name = detected_map.get(port);
             string uri = get_port_uri(port);
 
-            if (cameraMap.contains(uri)) {
+            if (camera_map.contains(uri)) {
                 // already known about
                 debug("%s @ %s already registered, skipping", name, port);
                 
                 continue;
             }
             
-            int index = portInfoList.lookup_path(port);
+            int index = port_info_list.lookup_path(port);
             if (index < 0)
                 do_op((GPhoto.Result) index, "lookup port %s".printf(port));
             
-            GPhoto.PortInfo portInfo;
-            do_op(portInfoList.get_info(index, out portInfo), "get port info for %s".printf(port));
+            GPhoto.PortInfo port_info;
+            do_op(port_info_list.get_info(index, out port_info), "get port info for %s".printf(port));
             
             // this should match, every time
-            assert(port == portInfo.path);
+            assert(port == port_info.path);
             
-            index = abilitiesList.lookup_model(name);
+            index = abilities_list.lookup_model(name);
             if (index < 0)
                 do_op((GPhoto.Result) index, "lookup camera model %s".printf(name));
 
-            GPhoto.CameraAbilities cameraAbilities;
-            do_op(abilitiesList.get_abilities(index, out cameraAbilities), 
+            GPhoto.CameraAbilities camera_abilities;
+            do_op(abilities_list.get_abilities(index, out camera_abilities), 
                 "lookup camera abilities for %s".printf(name));
                 
             GPhoto.Camera camera;
             do_op(GPhoto.Camera.create(out camera), "create camera object for %s".printf(name));
-            do_op(camera.set_abilities(cameraAbilities), "set camera abilities for %s".printf(name));
-            do_op(camera.set_port_info(portInfo), "set port info for %s on %s".printf(name, port));
+            do_op(camera.set_abilities(camera_abilities), "set camera abilities for %s".printf(name));
+            do_op(camera.set_port_info(port_info), "set port info for %s on %s".printf(name, port));
             
             debug("Adding to camera table: %s @ %s", name, port);
             
             ImportPage page = new ImportPage(camera, uri);
-            add_child_page_to_row(camerasRow, page, name);
+            add_child_page_to_row(cameras_row, page, name);
 
-            cameraMap.set(uri, page);
+            camera_map.set(uri, page);
             
-            sidebar.expand_row(camerasRow.get_path(), true);
+            // automagically expand the Cameras branch so the user sees the attached camera(s)
+            sidebar.expand_row(cameras_row.get_path(), true);
         }
     }
     
@@ -1394,7 +1344,7 @@ public class AppWindow : Gtk.Window {
             return;
         }
         
-        ImportPage page = get_instance().cameraMap.get(uri.get_uri());
+        ImportPage page = get_instance().camera_map.get(uri.get_uri());
         if (page == null) {
             debug("Unable to find camera for %s", uri.get_uri());
             

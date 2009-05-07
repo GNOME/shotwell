@@ -55,8 +55,8 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public Gtk.UIManager ui = new Gtk.UIManager();
-    public Gtk.ActionGroup actionGroup = null;
-    public Gtk.MenuBar menuBar = null;
+    public Gtk.ActionGroup action_group = null;
+    public Gtk.MenuBar menu_bar = null;
     
     public PageMarker marker = null;
     
@@ -78,7 +78,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public virtual Gtk.MenuBar get_menubar() {
-        return menuBar;
+        return menu_bar;
     }
 
     public abstract Gtk.Toolbar get_toolbar();
@@ -105,10 +105,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         return false;
     }
     
-    protected void init_ui(string uiFilename, string? menuBarPath, string actionGroupName, 
-        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggleEntries = null) {
-        init_ui_start(uiFilename, actionGroupName, entries, toggleEntries);
-        init_ui_bind(menuBarPath);
+    protected void init_ui(string ui_filename, string? menubar_path, string action_group_name, 
+        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
+        init_ui_start(ui_filename, action_group_name, entries, toggle_entries);
+        init_ui_bind(menubar_path);
     }
     
     protected void init_load_ui(string ui_filename) {
@@ -125,19 +125,19 @@ public abstract class Page : Gtk.ScrolledWindow {
         Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
         init_load_ui(ui_filename);
 
-        actionGroup = new Gtk.ActionGroup(action_group_name);
+        action_group = new Gtk.ActionGroup(action_group_name);
         if (entries != null)
-            actionGroup.add_actions(entries, this);
+            action_group.add_actions(entries, this);
         if (toggle_entries != null)
-            actionGroup.add_toggle_actions(toggle_entries, this);
+            action_group.add_toggle_actions(toggle_entries, this);
     }
     
-    protected void init_ui_bind(string? menuBarPath) {
-        ui.insert_action_group(actionGroup, 0);
+    protected void init_ui_bind(string? menubar_path) {
+        ui.insert_action_group(action_group, 0);
         ui.insert_action_group(AppWindow.get_instance().get_common_action_group(), 0);
         
-        if (menuBarPath != null)
-            menuBar = (Gtk.MenuBar) ui.get_widget(menuBarPath);
+        if (menubar_path != null)
+            menu_bar = (Gtk.MenuBar) ui.get_widget(menubar_path);
 
         ui.ensure_update();
     }
@@ -222,9 +222,9 @@ public abstract class Page : Gtk.ScrolledWindow {
 }
 
 public abstract class CheckerboardPage : Page {
-    private Gtk.Menu contextMenu = null;
+    private Gtk.Menu context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
-    private Gee.HashSet<LayoutItem> selectedItems = new Gee.HashSet<LayoutItem>();
+    private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private string page_name = null;
     
     public CheckerboardPage(string page_name) {
@@ -238,14 +238,14 @@ public abstract class CheckerboardPage : Page {
     }
     
     protected void init_context_menu(string path) {
-        contextMenu = (Gtk.Menu) ui.get_widget(path);
+        context_menu = (Gtk.Menu) ui.get_widget(path);
     }
     
     protected virtual void on_selection_changed(int count) {
     }
     
     public virtual Gtk.Menu get_context_menu(LayoutItem item) {
-        return contextMenu;
+        return context_menu;
     }
     
     public virtual void on_item_activated(LayoutItem item) {
@@ -279,7 +279,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     public Gee.Iterable<LayoutItem> get_selected() {
-        return selectedItems;
+        return selected_items;
     }
     
     public void add_item(LayoutItem item) {
@@ -291,14 +291,14 @@ public abstract class CheckerboardPage : Page {
     }
     
     public int remove_selected() {
-        int count = selectedItems.size;
+        int count = selected_items.size;
         
-        foreach (LayoutItem item in selectedItems) {
+        foreach (LayoutItem item in selected_items) {
             layout.remove_item(item);
             layout.items.remove(item);
         }
         
-        selectedItems.clear();
+        selected_items.clear();
         
         return count;
     }
@@ -308,7 +308,7 @@ public abstract class CheckerboardPage : Page {
         
         layout.clear();
         layout.items.clear();
-        selectedItems.clear();
+        selected_items.clear();
         
         return count;
     }
@@ -319,20 +319,20 @@ public abstract class CheckerboardPage : Page {
     
     public void select_all() {
         foreach (LayoutItem item in layout.items) {
-            selectedItems.add(item);
+            selected_items.add(item);
             item.select();
         }
         
-        on_selection_changed(selectedItems.size);
+        on_selection_changed(selected_items.size);
     }
 
     public void unselect_all() {
-        foreach (LayoutItem item in selectedItems) {
+        foreach (LayoutItem item in selected_items) {
             assert(item.is_selected());
             item.unselect();
         }
         
-        selectedItems.clear();
+        selected_items.clear();
         
         on_selection_changed(0);
     }
@@ -341,34 +341,34 @@ public abstract class CheckerboardPage : Page {
         assert(layout.items.index_of(item) >= 0);
         
         item.select();
-        selectedItems.add(item);
+        selected_items.add(item);
         
-        on_selection_changed(selectedItems.size);
+        on_selection_changed(selected_items.size);
     }
     
     public void unselect(LayoutItem item) {
         assert(layout.items.index_of(item) >= 0);
         
         item.unselect();
-        selectedItems.remove(item);
+        selected_items.remove(item);
         
-        on_selection_changed(selectedItems.size);
+        on_selection_changed(selected_items.size);
     }
 
     public void toggle_select(LayoutItem item) {
         if (item.toggle_select()) {
             // now selected
-            selectedItems.add(item);
+            selected_items.add(item);
         } else {
             // now unselected
-            selectedItems.remove(item);
+            selected_items.remove(item);
         }
         
-        on_selection_changed(selectedItems.size);
+        on_selection_changed(selected_items.size);
     }
 
     public int get_selected_count() {
-        return selectedItems.size;
+        return selected_items.size;
     }
 
     private override bool on_left_click(Gdk.EventButton event) {
@@ -429,9 +429,9 @@ public abstract class CheckerboardPage : Page {
             select(item);
         }
             
-        Gtk.Menu contextMenu = get_context_menu(item);
-        if (contextMenu != null) {
-            contextMenu.popup(null, null, null, event.button, event.time);
+        Gtk.Menu context_menu = get_context_menu(item);
+        if (context_menu != null) {
+            context_menu.popup(null, null, null, event.button, event.time);
 
             return true;
         }

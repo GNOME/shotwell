@@ -226,46 +226,12 @@ public errordomain ExifError {
 
 extern void free(void *ptr);
 
-public uint file_hash(void *key) {
-    File *file = (File *) key;
-    
-    return str_hash(file->get_path());
-}
-
-public bool file_equal(void *a, void *b) {
-    File *afile = (File *) a;
-    File *bfile = (File *) b;
-    
-    return afile->get_path() == bfile->get_path();
-}
-
 public class PhotoExif  {
-    private static Gee.HashMap<File, PhotoExif> cacheMap = null;
     private File file;
     private Exif.Data exifData = null;
     private bool no_exif = false;
     
-    // TODO: This map creates consistency between multiple users accessing the exif data in the
-    // same file.  However, this map will grow without bounds.
-    public static PhotoExif create(File file) {
-        PhotoExif exif = null;
-
-        // for some reason, the static initializer isn't working
-        if (cacheMap == null) {
-            cacheMap = new Gee.HashMap<File, PhotoExif>(file_hash, file_equal, direct_equal);
-        } else {
-            exif = cacheMap.get(file);
-        }
-        
-        if (exif == null) {
-            exif = new PhotoExif(file);
-            cacheMap.set(file, exif);
-        }
-            
-        return exif;
-    }
-    
-    private PhotoExif(File file) {
+    public PhotoExif(File file) {
         this.file = file;
     }
     

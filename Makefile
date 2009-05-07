@@ -19,7 +19,11 @@ SRC_FILES = \
 	ImportPage.vala \
 	GPhoto.vala \
 	SortedList.vala \
-	EventsDirectoryPage.vala
+	EventsDirectoryPage.vala \
+	Dimensions.vala \
+	Box.vala \
+	Photo.vala \
+	util.vala
 	
 VAPI_FILES = \
 	libexif.vapi \

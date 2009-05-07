@@ -1,181 +1,115 @@
 
 public class Thumbnail : LayoutItem {
+    // cannot use consts in ThumbnailCache for some reason
     public static const int MIN_SCALE = 64;
     public static const int MAX_SCALE = 360;
     public static const int DEFAULT_SCALE = 128;
+    
     public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
-    private PhotoID photoID;
-    private File file;
+    private Photo photo;
     private int scale;
-    private Dimensions originalDim;
-    private Dimensions scaledDim;
-    private Gdk.Pixbuf cached = null;
-    private Gdk.InterpType scaledInterp = LOW_QUALITY_INTERP;
-    private Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
-    private time_t exposure_time = 0;
+    private Dimensions dim;
+    private bool thumb_exposed = false;
+    private Gdk.InterpType interp = LOW_QUALITY_INTERP;
     
-    public Thumbnail(PhotoID photoID, int scale = DEFAULT_SCALE) {
-        this.photoID = photoID;
+    public Thumbnail(Photo photo, int scale = DEFAULT_SCALE) {
+        this.photo = photo;
         this.scale = scale;
         
-        PhotoRow row = PhotoRow();
-        bool found = new PhotoTable().get_photo(photoID, out row);
-        assert(found);
+        title.set_text(photo.get_file().get_basename());
 
-        file = row.file;
-        orientation = row.orientation;
-        exposure_time = row.exposure_time;
-        originalDim = row.dim;
-        scaledDim = get_scaled_dimensions(originalDim, scale);
-        scaledDim = get_rotated_dimensions(scaledDim, orientation);
-        
-        title.set_text(file.get_basename());
+        dim = photo.get_scaled_dimensions(scale);
 
         // the image widget is only filled with a Pixbuf when exposed; if the pixbuf is cleared or
         // not present, the widget will collapse, and so the layout manager won't account for it
         // properly when it's off the viewport.  The solution is to manually set the widget's
         // requisition size, even when it contains no pixbuf
-        image.set_size_request(scaledDim.width, scaledDim.height);
-    }
-    
-    public File get_file() {
-        return file;
-    }
-    
-    public int64 get_filesize() {
-        int64 fileSize = -1;
-        try {
-            FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-            
-            fileSize = info.get_size();
-        } catch(Error err) {
-            error("%s", err.message);
-        }
-        
-        return fileSize;
-    }
-    
-    public PhotoID get_photo_id() {
-        return photoID;
-    }
-    
-    public Gdk.Pixbuf? get_full_pixbuf() {
-        debug("Loading full image %s", file.get_path());
+        image.set_size_request(dim.width, dim.height);
 
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        return pixbuf;
+        photo.altered += on_photo_altered;
     }
     
-    public override void on_backing_changed() {
-        // reload everything from the database and update accordingly
-        PhotoRow row = PhotoRow();
-        bool found = new PhotoTable().get_photo(photoID, out row);
-        assert(found);
-
-        file = row.file;
-        orientation = row.orientation;
-        exposure_time = row.exposure_time;
-        originalDim = row.dim;
-        scaledDim = get_scaled_dimensions(originalDim, scale);
-        scaledDim = get_rotated_dimensions(scaledDim, orientation);
+    public Photo get_photo() {
+        return photo;
+    }
+    
+    private void on_photo_altered(Photo p) {
+        assert(photo.equals(p));
         
-        title.set_text(file.get_basename());
-
+        dim = photo.get_scaled_dimensions(scale);
+        
         // only fetch and scale if exposed
-        if (cached != null) {
-            cached = ThumbnailCache.fetch(photoID, scale);
-            cached = rotate_to_exif(cached, orientation);
-            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
-            scaledInterp = LOW_QUALITY_INTERP;
-            image.set_from_pixbuf(scaled);
-        }
-
-        image.set_size_request(scaledDim.width, scaledDim.height);
-    }
-    
-    public time_t get_exposure_time() {
-        return exposure_time;
-    }
-    
-    public void resize(int newScale) {
-        assert(newScale >= MIN_SCALE);
-        assert(newScale <= MAX_SCALE);
-        
-        if (scale == newScale)
-            return;
-
-        int oldScale = scale;
-        scale = newScale;
-        scaledDim = get_scaled_dimensions(originalDim, scale);
-        scaledDim = get_rotated_dimensions(scaledDim, orientation);
-
-        // only fetch and scale if exposed        
-        if (cached != null) {
-            if (ThumbnailCache.refresh_pixbuf(oldScale, newScale)) {
-                cached = ThumbnailCache.fetch(photoID, newScale);
-                cached = rotate_to_exif(cached, orientation);
-            }
+        if (thumb_exposed) {
+            Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
+            pixbuf = pixbuf.scale_simple(dim.width, dim.height, LOW_QUALITY_INTERP);
+            interp = LOW_QUALITY_INTERP;
             
-            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
-            scaledInterp = LOW_QUALITY_INTERP;
-            image.set_from_pixbuf(scaled);
+            image.set_from_pixbuf(pixbuf);
         }
-
-        // set the image widget's size regardless of the presence of an image
-        image.set_size_request(scaledDim.width, scaledDim.height);
+        
+        image.set_size_request(dim.width, dim.height);
+    }
+    
+    public void resize(int new_scale) {
+        assert(new_scale >= MIN_SCALE);
+        assert(new_scale <= MAX_SCALE);
+        
+        if (scale == new_scale)
+            return;
+        
+        scale = new_scale;
+        
+        // piggy-back on signal handler
+        on_photo_altered(photo);
     }
     
     public void paint_high_quality() {
-        if (cached == null)
+        if (!thumb_exposed)
             return;
         
-        if (scaledInterp == HIGH_QUALITY_INTERP)
+        if (interp == HIGH_QUALITY_INTERP)
             return;
         
-        // only go through the scaling if indeed the image is going to be scaled ... although
+        Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
+
+        // only change pixbufs if indeed the image is scaled ... although
         // scale_simple() will probably just return the pixbuf if it sees the stupid case, Gtk.Image
-        // does not, and will fire off resized events when the new image (which is not really new)
-        // is added
-        if ((cached.get_width() != scaledDim.width) || (cached.get_height() != scaledDim.height)) {
-            Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, HIGH_QUALITY_INTERP);
-            image.set_from_pixbuf(scaled);
+        // does not see the case, and will fire off resized events when the new image (which is not 
+        // really new) is added
+        if ((pixbuf.get_width() != dim.width) || (pixbuf.get_height() != dim.height)) {
+            pixbuf = pixbuf.scale_simple(dim.width, dim.height, HIGH_QUALITY_INTERP);
+            image.set_from_pixbuf(pixbuf);
         }
 
-        scaledInterp = HIGH_QUALITY_INTERP;
+        interp = HIGH_QUALITY_INTERP;
     }
     
     public override void exposed() {
-        if (cached != null)
+        if (thumb_exposed)
             return;
 
-        cached = ThumbnailCache.fetch(photoID, scale);
-        cached = rotate_to_exif(cached, orientation);
-        Gdk.Pixbuf scaled = cached.scale_simple(scaledDim.width, scaledDim.height, LOW_QUALITY_INTERP);
-        scaledInterp = LOW_QUALITY_INTERP;
-        image.set_from_pixbuf(scaled);
-        image.set_size_request(scaledDim.width, scaledDim.height);
+        Gdk.Pixbuf pixbuf = photo.get_scaled_thumbnail(scale, LOW_QUALITY_INTERP);
+        interp = LOW_QUALITY_INTERP;
+        image.set_from_pixbuf(pixbuf);
+        image.set_size_request(dim.width, dim.height);
+        
+        thumb_exposed = true;
     }
     
     public override void unexposed() {
-        if (cached == null)
+        if (!thumb_exposed)
             return;
 
-        cached = null;
         image.clear();
-        image.set_size_request(scaledDim.width, scaledDim.height);
+        image.set_size_request(dim.width, dim.height);
+        
+        thumb_exposed = false;
     }
     
     public bool is_exposed() {
-        return (cached != null);
+        return thumb_exposed;
     }
 }
 

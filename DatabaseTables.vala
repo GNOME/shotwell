@@ -90,7 +90,8 @@ public class PhotoTable : DatabaseTable {
             + "exposure_time INTEGER, "
             + "orientation INTEGER, "
             + "import_id INTEGER, "
-            + "event_id INTEGER"
+            + "event_id INTEGER, "
+            + "transformations TEXT"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -346,15 +347,15 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         
         res = stmt.step();
-        if (res == Sqlite.ROW) {
+        if (res != Sqlite.ROW) {
             if (res != Sqlite.DONE) {
                 fatal("get_dimensions", res);
             }
             
-            return Dimensions(stmt.column_int(0), stmt.column_int(1));
+            return null;
         }
         
-        return null;
+        return Dimensions(stmt.column_int(0), stmt.column_int(1));
     }
     
     public Exif.Orientation get_orientation(PhotoID photo_id) {
@@ -460,6 +461,128 @@ public class PhotoTable : DatabaseTable {
         }
         
         return true;
+    }
+    
+    private string? get_raw_transformations(PhotoID photo_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT transformations FROM PhotoTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW) {
+            if (res != Sqlite.DONE) {
+                fatal("get_raw_transformations", res);
+            }
+
+            return null;
+        }
+    
+        return stmt.column_text(0);
+    }
+    
+    private bool set_raw_transformations(PhotoID photo_id, string trans) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE PhotoTable SET transformations = ? WHERE id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(1, trans);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) { 
+            fatal("set_raw_transformations", res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public KeyValueMap? get_transformation(PhotoID photo_id, string object) {
+        string trans = get_raw_transformations(photo_id);
+        if (trans == null)
+            return null;
+            
+        try {
+            KeyFile keyfile = new KeyFile();
+            if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+                return null;
+                
+            string[] keys = keyfile.get_keys(object);
+            if (keys == null || keys.length == 0)
+                return null;
+
+            KeyValueMap map = new KeyValueMap(object);
+            foreach (string key in keys)
+                map.set_string(key, keyfile.get_string(object, key));
+            
+            return map;
+        } catch (Error err) {
+            error("%s", err.message);
+            
+            return null;
+        }
+    }
+    
+    public bool set_transformation(PhotoID photo_id, KeyValueMap map) {
+        string trans = get_raw_transformations(photo_id);
+        
+        try {
+            KeyFile keyfile = new KeyFile();
+            if (trans != null) {
+                if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+                    return false;
+            }
+            
+            Gee.Set<string> keys = map.get_keys();
+            foreach (string key in keys) {
+                string value = map.get_string(key, null);
+                assert(value != null);
+                
+                keyfile.set_string(map.get_group(), key, value);
+            }
+            
+            int length;
+            trans = keyfile.to_data(out length);
+            assert(trans != null);
+            assert(trans.length > 0);
+        } catch (Error err) {
+            error("%s", err.message);
+            
+            return false;
+        }
+        
+        return set_raw_transformations(photo_id, trans);
+    }
+    
+    public bool remove_transformation(PhotoID photo_id, string object) {
+        string trans = get_raw_transformations(photo_id);
+        if (trans == null || trans.length == 0)
+            return true;
+        
+        try {
+            KeyFile keyfile = new KeyFile();
+            if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+                return false;
+            
+            keyfile.remove_group(object);
+            
+            int length;
+            trans = keyfile.to_data(out length);
+            assert(trans != null);
+            assert(trans.length > 0);
+        } catch (Error err) {
+            error("%s", err.message);
+            
+            return false;
+        }
+        
+        return set_raw_transformations(photo_id, trans);
     }
 }
 

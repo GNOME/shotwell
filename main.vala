@@ -65,14 +65,14 @@ void main(string[] args) {
     ThumbnailCache.init();
     
     // create main application window
-    AppWindow appWindow = new AppWindow();
+    AppWindow app_window = new AppWindow();
     
     // report mount points
     foreach (string mount in mounts)
-        appWindow.mounted_camera_shell_notification(File.new_for_uri(mount));
+        app_window.mounted_camera_shell_notification(File.new_for_uri(mount));
     
     // throw it all on the display
-    appWindow.show_all();
+    app_window.show_all();
 
     // event loop
     Gtk.main();

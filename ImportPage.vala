@@ -29,10 +29,6 @@ class ImportPreview : LayoutItem {
         Gdk.Pixbuf rotated = rotate_to_exif(pixbuf, orientation);
         image.set_from_pixbuf(rotated);
     }
-    
-    public override void on_backing_changed() {
-        error("Not handling backing changes on camera");
-    }
 }
 
 class ProgressBarContext {
