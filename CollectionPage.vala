@@ -203,10 +203,23 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_photo_removed(Photo photo) {
-        debug("on_photo_removed");
+        debug("%s on_photo_removed", get_name());
         
-        bool removed = remove_photo(photo);
-        assert(removed);
+        Thumbnail found = null;
+        foreach (LayoutItem item in get_items()) {
+            Thumbnail thumbnail = (Thumbnail) item;
+            if (thumbnail.get_photo().equals(photo)) {
+                found = thumbnail;
+                
+                break;
+            }
+        }
+        
+        // have to remove outside of iterator
+        if (found != null) {
+            debug("Removing %s from %s", photo.to_string(), get_name());
+            remove_item(found);
+        }
     }
     
     private void on_photo_altered(Photo photo) {
@@ -218,24 +231,6 @@ public class CollectionPage : CheckerboardPage {
         // since the geometry might have changed, refresh the layout
         if (in_view)
             refresh();
-    }
-    
-    // This does not remove the photo from the system, only from this layout
-    public bool remove_photo(Photo photo) {
-        Thumbnail found = null;
-        foreach (LayoutItem item in get_items()) {
-            Thumbnail thumbnail = (Thumbnail) item;
-            if (thumbnail.get_photo().equals(photo)) {
-                found = thumbnail;
-                
-                break;
-            }
-        }
-        
-        if (found != null)
-            remove_item(found);
-        
-        return (found != null);
     }
     
     public int increase_thumb_size() {

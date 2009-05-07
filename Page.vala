@@ -287,16 +287,15 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void remove_item(LayoutItem item) {
+        selected_items.remove(item);
         layout.remove_item(item);
     }
     
     public int remove_selected() {
         int count = selected_items.size;
         
-        foreach (LayoutItem item in selected_items) {
+        foreach (LayoutItem item in selected_items)
             layout.remove_item(item);
-            layout.items.remove(item);
-        }
         
         selected_items.clear();
         
@@ -307,7 +306,6 @@ public abstract class CheckerboardPage : Page {
         int count = layout.items.size;
         
         layout.clear();
-        layout.items.clear();
         selected_items.clear();
         
         return count;

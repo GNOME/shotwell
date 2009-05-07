@@ -181,7 +181,12 @@ public class CollectionLayout : Gtk.Layout {
     
     public void remove_item(LayoutItem item) {
         items.remove(item);
-        remove(item);
+        
+        // this situation can happen if the item was added but the page not yet rendered ... because
+        // CollectionLayout doens't know where to place the item until refresh(), that's when it's
+        // initially added
+        if (item.parent != null)
+            remove(item);
     }
     
     public LayoutItem? get_item_at(double xd, double yd) {
