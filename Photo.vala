@@ -162,6 +162,36 @@ public class Photo : Object {
         
         photo_table.set_orientation(photo_id, orientation);
         
+        // crop is stored in the same orientation as the rotated image
+        Box crop;
+        if (get_crop(out crop)) {
+            Dimensions space = get_uncropped_dimensions();
+            
+            switch (rotation) {
+                case Rotation.CLOCKWISE:
+                    crop = crop.rotate_clockwise(space);
+                break;
+                
+                case Rotation.COUNTERCLOCKWISE:
+                    crop = crop.rotate_counterclockwise(space);
+                break;
+                
+                case Rotation.MIRROR:
+                    crop = crop.flip_left_to_right(space);
+                break;
+                
+                case Rotation.UPSIDE_DOWN:
+                    crop = crop.flip_top_to_bottom(space);
+                break;
+                
+                default:
+                    error("Unknown rotation: %d", (int) rotation);
+                break;
+            }
+            
+            set_crop(crop);
+        }
+        
         photo_altered();
     }
     
@@ -172,7 +202,7 @@ public class Photo : Object {
         return dim.get_rotated(photo_table.get_orientation(photo_id));
     }
     
-    // Returns cropped and rotate dimensions
+    // Returns cropped and rotated dimensions
     public Dimensions get_dimensions() {
         Box crop;
         if (get_crop(out crop)) {
@@ -203,21 +233,15 @@ public class Photo : Object {
         
         crop = Box(left, top, right, bottom);
         
-        // crop follows rotation
-        crop = crop.rotate(photo_table.get_orientation(photo_id), get_uncropped_dimensions());
-        
         return true;
     }
     
     public bool set_crop(Box crop) {
-        // de-rotate crop
-        Box derotated = crop.rotate(photo_table.get_orientation(photo_id), get_uncropped_dimensions());
-        
         KeyValueMap map = new KeyValueMap("crop");
-        map.set_int("left", derotated.left);
-        map.set_int("top", derotated.top);
-        map.set_int("right", derotated.right);
-        map.set_int("bottom", derotated.bottom);
+        map.set_int("left", crop.left);
+        map.set_int("top", crop.top);
+        map.set_int("right", crop.right);
+        map.set_int("bottom", crop.bottom);
         
         bool res = photo_table.set_transformation(photo_id, map);
         if (res)

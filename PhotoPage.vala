@@ -596,12 +596,13 @@ public class PhotoPage : Page {
             interp = paint_interp;
             
             // create saturated pixbuf for crop tool
-            saturated = new Gdk.Pixbuf(pixbuf.get_colorspace(), pixbuf.get_has_alpha(), 
-                pixbuf.get_bits_per_sample(), pixbuf.get_width(), pixbuf.get_height());
-            pixbuf.saturate_and_pixelate(saturated, CROP_SATURATION, false);
-
-            assert(pixbuf_rect.width == pixbuf.get_width());
-            assert(pixbuf_rect.height == pixbuf.get_height());
+            if (show_crop) {
+                saturated = new Gdk.Pixbuf(pixbuf.get_colorspace(), pixbuf.get_has_alpha(), 
+                    pixbuf.get_bits_per_sample(), pixbuf.get_width(), pixbuf.get_height());
+                pixbuf.saturate_and_pixelate(saturated, CROP_SATURATION, false);
+            } else {
+                saturated = null;
+            }
         }
 
         if (show_crop) {
@@ -751,6 +752,9 @@ public class PhotoPage : Page {
         
         crop_button.set_active(false);
         
+        // make sure the cursor isn't set to a modify indicator
+        canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+        
         show_crop = false;
         
         repaint();
@@ -788,7 +792,7 @@ public class PhotoPage : Page {
         pixmap.draw_rectangle(canvas.style.white_gc, false, rect.x, rect.y, rect.width, rect.height);
         
         Gdk.GC gc = canvas.style.fg_gc[Gtk.StateType.NORMAL];
-
+        
         // paint left-hand saturation from top to bottom
         if (scaled_crop.left > 0) {
             pixmap.draw_pixbuf(gc, saturated, 

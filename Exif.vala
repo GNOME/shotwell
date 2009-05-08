@@ -14,7 +14,7 @@ namespace Exif {
         LEFT_BOTTOM = 8;
         
         public string get_description() {
-            switch(this) {
+            switch (this) {
                 case TOP_LEFT:
                     return "top-left";
                     
@@ -45,7 +45,7 @@ namespace Exif {
         }
         
         public Orientation rotate_clockwise() {
-            switch(this) {
+            switch (this) {
                 case TOP_LEFT:
                     return RIGHT_TOP;
                     
@@ -79,7 +79,7 @@ namespace Exif {
         }
         
         public Orientation rotate_counterclockwise() {
-            switch(this) {
+            switch (this) {
                 case TOP_LEFT:
                     return LEFT_BOTTOM;
                     
@@ -113,7 +113,7 @@ namespace Exif {
         }
         
         public Orientation flip_top_to_bottom() {
-            switch(this) {
+            switch (this) {
                 case TOP_LEFT:
                     return BOTTOM_LEFT;
                     
@@ -147,7 +147,7 @@ namespace Exif {
         }
         
         public Orientation flip_left_to_right() {
-            switch(this) {
+            switch (this) {
                 case TOP_LEFT:
                     return TOP_RIGHT;
                     

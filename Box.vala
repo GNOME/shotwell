@@ -80,71 +80,36 @@ public struct Box {
         return rect;
     }
     
-    public Box rotate(Exif.Orientation orientation, Dimensions space) {
-        int l = left;
-        int t = top;
-        int r = right;
-        int b = bottom;
+    public Box rotate_clockwise(Dimensions space) {
+        int l = space.width - bottom;
+        int t = left;
+        int r = space.width - top;
+        int b = right;
         
-        switch(orientation) {
-            case Exif.Orientation.TOP_LEFT:
-                // fine as is
-            break;
-
-            case Exif.Orientation.TOP_RIGHT:
-                l = space.width - right;
-                r = space.width - left;
-            break;
-
-            case Exif.Orientation.BOTTOM_RIGHT:
-                l = space.width - right;
-                t = space.height - bottom;
-                r = space.width - left;
-                b = space.height - top;
-            break;
-
-            case Exif.Orientation.BOTTOM_LEFT:
-                t = space.height - bottom;
-                b = space.height - top;
-            break;
-
-            case Exif.Orientation.LEFT_TOP:
-                l = top;
-                t = left;
-                r = bottom;
-                b = right;
-            break;
-
-            case Exif.Orientation.RIGHT_TOP:
-                l = space.width - bottom;
-                t = left;
-                r = space.width - top;
-                b = right;
-            break;
-
-            case Exif.Orientation.RIGHT_BOTTOM:
-                l = space.width - bottom;
-                t = space.height - right;
-                r = space.width - top;
-                b = space.height - left;
-            break;
-
-            case Exif.Orientation.LEFT_BOTTOM:
-                l = top;
-                t = space.height - right;
-                r = bottom;
-                b = space.height - left;
-            break;
-
-            default:
-                error("Unknown orientation: %d", orientation);
-            break;
-        }
+        return Box(l, t, r, b);
+    }
+    
+    public Box rotate_counterclockwise(Dimensions space) {
+        int l = top;
+        int t = space.height - right;
+        int r = bottom;
+        int b = space.height - left;
         
-        Box rotated = Box(l, t, r, b);
-        assert(rotated.is_valid());
+        return Box(l, t, r, b);
+    }
+    
+    public Box flip_left_to_right(Dimensions space) {
+        int l = space.width - right;
+        int r = space.width - left;
         
-        return rotated;
+        return Box(l, top, r, bottom);
+    }
+    
+    public Box flip_top_to_bottom(Dimensions space) {
+        int t = space.height - bottom;
+        int b = space.height - top;
+        
+        return Box(left, t, right, b);
     }
     
     public string to_string() {
