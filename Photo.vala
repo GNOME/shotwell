@@ -164,16 +164,21 @@ public class Photo : Object {
         photo_altered();
     }
     
-    public Dimensions get_dimensions() {
+    // Returns uncropped (but rotated) dimensions
+    public Dimensions get_uncropped_dimensions() {
         Dimensions dim = photo_table.get_dimensions(photo_id);
-        
-        dim = dim.get_rotated(photo_table.get_orientation(photo_id));
-        
+
+        return dim.get_rotated(photo_table.get_orientation(photo_id));
+    }
+    
+    // Returns cropped and rotate dimensions
+    public Dimensions get_dimensions() {
         Box crop;
         if (get_crop(out crop)) {
+            return crop.get_dimensions();
         }
         
-        return dim;
+        return get_uncropped_dimensions();
     }
     
     public Dimensions get_scaled_dimensions(int scale) {
@@ -214,6 +219,24 @@ public class Photo : Object {
         return res;
     }
     
+    public bool remove_crop() {
+        bool res = photo_table.remove_transformation(photo_id, "crop");
+        if (res)
+            photo_altered();
+        
+        return res;
+    }
+    
+    // Returns uncropped pixbuf with modifications applied
+    public Gdk.Pixbuf get_uncropped_pixbuf() throws Error {
+        Gdk.Pixbuf pixbuf = get_unmodified_pixbuf();
+        
+        // orientation
+        pixbuf = rotate_to_exif(pixbuf, photo_table.get_orientation(photo_id));
+        
+        return pixbuf;
+    }
+    
     // Returns unscaled pixbuf with all modifications applied
     public Gdk.Pixbuf get_pixbuf() throws Error {
         Gdk.Pixbuf pixbuf = get_unmodified_pixbuf();
@@ -224,6 +247,8 @@ public class Photo : Object {
         // crop
         Box crop;
         if (get_crop(out crop)) {
+            pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
+                crop.get_height());
         }
 
         return pixbuf;

@@ -66,6 +66,10 @@ public struct Box {
         return Box(left + xofs, top + yofs, right + xofs, bottom + yofs);
     }
     
+    public Dimensions get_dimensions() {
+        return Dimensions(get_width(), get_height());
+    }
+    
     public Gdk.Rectangle get_rectangle() {
         Gdk.Rectangle rect = Gdk.Rectangle();
         rect.x = left;

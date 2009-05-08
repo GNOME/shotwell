@@ -163,6 +163,10 @@ public class PhotoPage : Page {
         return thumbnail;
     }
     
+    public override void switching_from() {
+        deactivate_crop();
+    }
+    
     public void display(CheckerboardPage controller, Thumbnail thumbnail) {
         this.controller = controller;
         this.thumbnail = thumbnail;
@@ -173,6 +177,10 @@ public class PhotoPage : Page {
     
     private void update_display() {
         photo = thumbnail.get_photo();
+        photo.altered += on_photo_altered;
+
+        // fetch and cache original unscaled pixbuf ... this is more efficient than going to Photo
+        // for each resize, as Photo doesn't itself cache it
         original = photo.get_pixbuf();
 
         // flush old image
@@ -200,6 +208,20 @@ public class PhotoPage : Page {
         AppWindow.get_instance().switch_to_page(controller);
     }
     
+    private void on_photo_altered(Photo p) {
+        debug("on_photo_altered");
+        
+        assert(photo.equals(p));
+        
+        // fetch a new original to work with
+        original = photo.get_pixbuf();
+        
+        // flush pixmap to force redraw
+        pixmap = null;
+        
+        repaint();
+    }
+
     private bool on_canvas_motion(Gtk.DrawingArea da, Gdk.EventMotion event) {
         if (!show_crop)
             return false;
@@ -529,7 +551,7 @@ public class PhotoPage : Page {
 
             // determine size of pixbuf that will fit on the canvas
             Dimensions old_pixbuf_dim = Dimensions.for_rectangle(pixbuf_rect);
-            Dimensions pixbuf_dim = photo.get_dimensions().get_scaled_proportional(pixmap_dim);
+            Dimensions pixbuf_dim = Dimensions.for_pixbuf(original).get_scaled_proportional(pixmap_dim);
 
             // center pixbuf on the canvas
             int photo_x = (width - pixbuf_dim.width) / 2;
@@ -617,15 +639,10 @@ public class PhotoPage : Page {
     }
     
     private void rotate(Photo.Rotation rotation) {
+        deactivate_crop();
+        
+        // let the signal generate a repaint
         photo.rotate(rotation);
-        
-        // fetch a new original to work with
-        original = photo.get_pixbuf();
-        
-        // flush pixmap to force redraw
-        pixmap = null;
-        
-        repaint();
     }
     
     private void on_rotate_clockwise() {
@@ -661,23 +678,34 @@ public class PhotoPage : Page {
             activate_crop();
         else
             deactivate_crop();
-        
-        repaint();
     }
     
     private void activate_crop() {
-        Dimensions photo_dim = photo.get_dimensions();
+        if (show_crop)
+            return;
+            
+        // show uncropped photo for editing
+        original = photo.get_uncropped_pixbuf();
+        Dimensions photo_dim = photo.get_uncropped_dimensions();
+
+        // flush to force repaint
+        pixmap = null;
         
-        // initialize the actual crop in absolute coordinates, not relative
-        // to the photo's position on the canvas
-        Box crop = Box(CROP_INIT_X, CROP_INIT_Y, photo_dim.width - CROP_INIT_X, 
-            photo_dim.height - CROP_INIT_Y);
+        Box crop;
+        if (!photo.get_crop(out crop)) {
+            // initialize the actual crop in absolute coordinates, not relative
+            // to the photo's position on the canvas
+            crop = Box(CROP_INIT_X, CROP_INIT_Y, photo_dim.width - CROP_INIT_X, 
+                photo_dim.height - CROP_INIT_Y);
+        }
         
         // scale the crop to the scaled photo's size ... the scaled crop is maintained in absolute
         // coordinates non-relative to photo's position on canvas
         scaled_crop = crop.get_scaled(photo_dim, Dimensions.for_rectangle(pixbuf_rect));
         
         debug("crop:%s scaled_crop:%s", crop.to_string(), scaled_crop.to_string());
+        
+        crop_button.set_active(true);
 
         show_crop = true;
         
@@ -700,18 +728,30 @@ public class PhotoPage : Page {
         Gtk.Requisition req;
         crop_tool_window.size_request(out req);
         crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
+        
+        repaint();
     }
     
     private void deactivate_crop() {
+        if (!show_crop)
+            return;
+        
+        if (crop_tool_window != null) {
+            crop_tool_window.hide();
+            crop_tool_window = null;
+        }
+        
+        crop_button.set_active(false);
+        
         show_crop = false;
-        crop_tool_window.hide();
-        crop_tool_window = null;
+
+        repaint();
     }
     
     private void rescale_crop(Dimensions old_pixbuf_dim, Dimensions new_pixbuf_dim) {
         assert(show_crop);
         
-        Dimensions photo_dim = photo.get_dimensions();
+        Dimensions photo_dim = photo.get_uncropped_dimensions();
 
         // rescale back to full crop
         Box crop = scaled_crop.get_scaled(old_pixbuf_dim, photo_dim);
@@ -781,17 +821,33 @@ public class PhotoPage : Page {
     }
     
     private void on_crop_apply() {
+        // up-scale scaled crop to photo's dimensions
+        Box crop = scaled_crop.get_scaled(Dimensions.for_rectangle(pixbuf_rect), 
+            photo.get_uncropped_dimensions());
+
+        deactivate_crop();
+
+        // let the signal generate a repaint
+        photo.set_crop(crop);
     }
     
     private void on_crop_cancel() {
+        deactivate_crop();
+        
+        // let the signal generate a repaint
+        photo.remove_crop();
     }
     
     private void on_next_photo() {
+        deactivate_crop();
+        
         this.thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         update_display();
     }
     
     private void on_previous_photo() {
+        deactivate_crop();
+        
         this.thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
         update_display();
     }

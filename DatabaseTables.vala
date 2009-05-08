@@ -480,7 +480,11 @@ public class PhotoTable : DatabaseTable {
             return null;
         }
     
-        return stmt.column_text(0);
+        string trans = stmt.column_text(0);
+        if (trans != null && trans.length == 0)
+            trans = null;
+        
+        return trans;
     }
     
     private bool set_raw_transformations(PhotoID photo_id, string trans) {
@@ -562,7 +566,7 @@ public class PhotoTable : DatabaseTable {
     
     public bool remove_transformation(PhotoID photo_id, string object) {
         string trans = get_raw_transformations(photo_id);
-        if (trans == null || trans.length == 0)
+        if (trans == null)
             return true;
         
         try {
@@ -575,7 +579,6 @@ public class PhotoTable : DatabaseTable {
             int length;
             trans = keyfile.to_data(out length);
             assert(trans != null);
-            assert(trans.length > 0);
         } catch (Error err) {
             error("%s", err.message);
             
