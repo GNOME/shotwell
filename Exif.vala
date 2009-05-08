@@ -395,7 +395,7 @@ public class PhotoExif  {
     private Exif.Entry? find_entry(Exif.Ifd ifd, Exif.Tag tag, Exif.Format format) {
         assert(exifData != null);
         
-        Exif.Content content = exifData.ifd[ifd];
+        Exif.Content content = exifData.ifd[(int) ifd];
         assert(content != null);
         
         Exif.Entry entry = content.get_entry(tag);
@@ -419,7 +419,7 @@ public class PhotoExif  {
         Exif.Format format2) {
         assert(exifData != null);
         
-        Exif.Content content = exifData.ifd[ifd];
+        Exif.Content content = exifData.ifd[(int) ifd];
         assert(content != null);
         
         Exif.Entry entry = content.get_entry(tag);

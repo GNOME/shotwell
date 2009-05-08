@@ -307,6 +307,9 @@ public class PhotoPage : Page {
         assert(last_grab_x >= 0);
         assert(last_grab_y >= 0);
         
+        // repaint because crop changes on a manipulation
+        repaint();
+        
         return false;
     }
     
@@ -324,6 +327,9 @@ public class PhotoPage : Page {
         last_grab_y = -1;
         
         update_cursor((int) event.x, (int) event.y);
+        
+        // repaint because crop changes on a manipulation
+        repaint();
 
         return false;
     }
@@ -514,7 +520,7 @@ public class PhotoPage : Page {
         if (pixmap == null)
             return false;
         
-        canvas.window.draw_drawable(canvas.style.fg_gc[Gtk.StateType.NORMAL], pixmap, event.area.x, 
+        canvas.window.draw_drawable(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pixmap, event.area.x, 
             event.area.y, event.area.x, event.area.y, event.area.width, event.area.height);
 
         return true;
@@ -609,7 +615,7 @@ public class PhotoPage : Page {
             draw_with_crop();
         } else {
             // lay down the photo and nothing else
-            pixmap.draw_pixbuf(canvas.style.fg_gc[Gtk.StateType.NORMAL], pixbuf, 0, 0, pixbuf_rect.x, 
+            pixmap.draw_pixbuf(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pixbuf, 0, 0, pixbuf_rect.x, 
                 pixbuf_rect.y, -1, -1, Gdk.RgbDither.NORMAL, 0, 0);
         }
         
@@ -775,27 +781,53 @@ public class PhotoPage : Page {
     private void draw_with_crop() {
         assert(show_crop);
         
-        // crop is maintained scaled to size of photo ... use rect moved to the photo's offset on
+        // crop is maintained in photo coordinates ... use rect moved to the photo's offset on
         // the canvas
         Gdk.Rectangle rect = scaled_crop.get_rectangle();
         rect.x += pixbuf_rect.x;
         rect.y += pixbuf_rect.y;
         
-        // paint exposed (cropped) part of pixbuf
-        pixmap.draw_pixbuf(canvas.style.fg_gc[Gtk.StateType.NORMAL], pixbuf,
-            scaled_crop.left + 1, scaled_crop.top + 1,
-            rect.x + 1, rect.y + 1,
-            rect.width - 1, rect.height - 1,
+        Gdk.GC image_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
+        Gdk.GC white_gc = canvas.style.white_gc;
+        
+        // paint exposed (cropped) part of pixbuf minus crop border
+        int exposed_x = rect.x + 2;
+        int exposed_y = rect.y + 2;
+        int exposed_width = rect.width - 3;
+        int exposed_height = rect.height - 3;
+        
+        pixmap.draw_pixbuf(image_gc, pixbuf,
+            scaled_crop.left + 2, scaled_crop.top + 2,
+            exposed_x, exposed_y,
+            exposed_width, exposed_height,
             Gdk.RgbDither.NORMAL, 0, 0);
 
         // paint crop rectangle
-        pixmap.draw_rectangle(canvas.style.white_gc, false, rect.x, rect.y, rect.width, rect.height);
+        pixmap.draw_rectangle(white_gc, false, rect.x, rect.y, rect.width, rect.height);
+        pixmap.draw_rectangle(white_gc, false, rect.x + 1, rect.y + 1, rect.width - 2,
+            rect.height - 2);
         
-        Gdk.GC gc = canvas.style.fg_gc[Gtk.StateType.NORMAL];
+        // paint rule-of-thirds lines if user is manipulating the crop
+        if (in_manipulation != BoxLocation.OUTSIDE) {
+            int one_third_x = rect.width / 3;
+            int one_third_y = rect.height / 3;
+            
+            // horizontal lines
+            Gdk.draw_line(pixmap, white_gc, exposed_x, exposed_y + one_third_y, exposed_x + exposed_width,
+                exposed_y + one_third_y);
+            Gdk.draw_line(pixmap, white_gc, exposed_x, exposed_y + (one_third_y * 2), exposed_x + exposed_width,
+                exposed_y + (one_third_y * 2));
+            
+            // vertical lines
+            Gdk.draw_line(pixmap, white_gc, exposed_x + one_third_x, exposed_y, exposed_x + one_third_x,
+                exposed_y + exposed_height);
+            Gdk.draw_line(pixmap, white_gc, exposed_x + (one_third_x * 2), exposed_y, 
+                exposed_x + (one_third_x * 2), exposed_y + exposed_height);
+        }
         
         // paint left-hand saturation from top to bottom
         if (scaled_crop.left > 0) {
-            pixmap.draw_pixbuf(gc, saturated, 
+            pixmap.draw_pixbuf(image_gc, saturated, 
                 0, 0, 
                 pixbuf_rect.x, pixbuf_rect.y, 
                 (rect.x - pixbuf_rect.x), pixbuf_rect.height, 
@@ -804,7 +836,7 @@ public class PhotoPage : Page {
         
         // paint right-hand saturation from top to bottom (accounting for width of crop tool line)
         if (scaled_crop.right < pixbuf_rect.width) {
-            pixmap.draw_pixbuf(gc, saturated, 
+            pixmap.draw_pixbuf(image_gc, saturated, 
                 scaled_crop.right + 1, 0,
                 rect.x + rect.width + 1, pixbuf_rect.y,
                 pixbuf_rect.width - scaled_crop.right - 1, pixbuf_rect.height,
@@ -814,7 +846,7 @@ public class PhotoPage : Page {
         // paint top strip, avoiding top-left and top-right corner already painted (accounting for 
         // width of crop tool line)
         if (scaled_crop.top > 0) {
-            pixmap.draw_pixbuf(gc, saturated, 
+            pixmap.draw_pixbuf(image_gc, saturated, 
                 scaled_crop.left, 0, 
                 rect.x, pixbuf_rect.y,
                 rect.width + 2 - 1, scaled_crop.top,
@@ -824,7 +856,7 @@ public class PhotoPage : Page {
         // paint bottom strip, avoiding bottom-left and bottom right corner already painted
         // (accounting for width of crop tool line)
         if (scaled_crop.bottom < pixbuf_rect.height) {
-            pixmap.draw_pixbuf(gc, saturated, 
+            pixmap.draw_pixbuf(image_gc, saturated, 
                 scaled_crop.left, scaled_crop.bottom + 1,
                 rect.x, rect.y + rect.height + 1,
                 rect.width + 2 - 1, pixbuf_rect.height - scaled_crop.bottom - 1, 
