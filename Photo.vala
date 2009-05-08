@@ -71,7 +71,8 @@ public class Photo : Object {
         ThumbnailCache.import(photo_id, pixbuf);
         
         // sanity ... this would be very bad
-        assert(!photo_map.contains(photo_id.id));
+        if (photo_map != null)
+            assert(!photo_map.contains(photo_id.id));
         
         return fetch(photo_id);
     }
@@ -202,15 +203,21 @@ public class Photo : Object {
         
         crop = Box(left, top, right, bottom);
         
+        // crop follows rotation
+        crop = crop.rotate(photo_table.get_orientation(photo_id), get_uncropped_dimensions());
+        
         return true;
     }
     
     public bool set_crop(Box crop) {
+        // de-rotate crop
+        Box derotated = crop.rotate(photo_table.get_orientation(photo_id), get_uncropped_dimensions());
+        
         KeyValueMap map = new KeyValueMap("crop");
-        map.set_int("left", crop.left);
-        map.set_int("top", crop.top);
-        map.set_int("right", crop.right);
-        map.set_int("bottom", crop.bottom);
+        map.set_int("left", derotated.left);
+        map.set_int("top", derotated.top);
+        map.set_int("right", derotated.right);
+        map.set_int("bottom", derotated.bottom);
         
         bool res = photo_table.set_transformation(photo_id, map);
         if (res)

@@ -338,9 +338,18 @@ public class CollectionPage : CheckerboardPage {
 
     private void on_remove() {
         // iterate over selected photos and remove them from entire system .. this will result
-        // in them being removed from this view in on_photo_removed
-        foreach (LayoutItem item in get_selected())
-            ((Thumbnail) item).get_photo().remove();
+        // in on_photo_removed being called, which we don't want in this case is because it will
+        // remove from the list while iterating, so disconnect the signals and do the work here
+        foreach (LayoutItem item in get_selected()) {
+            Photo photo = ((Thumbnail) item).get_photo();
+            photo.removed -= on_photo_removed;
+            photo.altered -= on_photo_altered;
+            
+            photo.remove();
+        }
+        
+        // now remove from page, outside of iterator
+        remove_selected();
         
         refresh();
     }

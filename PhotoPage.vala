@@ -674,10 +674,16 @@ public class PhotoPage : Page {
     }
     
     private void on_crop_toggled() {
-        if (crop_button.active)
+        if (crop_button.active) {
             activate_crop();
-        else
+        } else {
+            // return to original view ... do this before deactivating crop, so its repaint takes
+            // effect
+            original = photo.get_pixbuf();
+            pixmap = null;
+
             deactivate_crop();
+        }
     }
     
     private void activate_crop() {
@@ -746,7 +752,7 @@ public class PhotoPage : Page {
         crop_button.set_active(false);
         
         show_crop = false;
-
+        
         repaint();
     }
     
