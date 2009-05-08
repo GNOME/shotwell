@@ -66,11 +66,14 @@ public class ThumbnailCache : Object {
     
     private class ImageData {
         public Gdk.Pixbuf pixbuf;
-        public uint bytes;
+        public ulong bytes;
         
-        public ImageData(Gdk.Pixbuf pixbuf, uint bytes) {
+        public ImageData(Gdk.Pixbuf pixbuf) {
             this.pixbuf = pixbuf;
-            this.bytes = bytes;
+
+            // Since this app mostly deals in 32-bit photographic images, can safely calculate size
+            // of pixbuf object (minus any overhead or metadata it may contain)
+            bytes = pixbuf.get_width() * pixbuf.get_height() * sizeof(uint32);
         }
     }
 
@@ -80,7 +83,7 @@ public class ThumbnailCache : Object {
     private string jpeg_quality;
     private Gee.HashMap<int64?, ImageData> cache_map = new Gee.HashMap<int64?, ImageData>(
         int64_hash, int64_equal, direct_equal);
-    private long cached_bytes = 0;
+    private ulong cached_bytes = 0;
     private ThumbnailCacheTable cache_table;
     
     private ThumbnailCache(int scale, Gdk.InterpType interp = DEFAULT_INTERP,
@@ -131,11 +134,10 @@ public class ThumbnailCache : Object {
             MemoryInputStream memins = new MemoryInputStream.from_data(buffer, buffer.length, null);
             thumbnail = new Gdk.Pixbuf.from_stream(memins, null);
 
-            // Although buffer.length doesn't accurately represent the in-memory size of the pixbuf
-            // object, it suffices to indicate magnitude when trimming LRU
-            ImageData data = new ImageData(thumbnail, buffer.length);
+            ImageData data = new ImageData(thumbnail);
             cache_map.set(photo_id.id, data);
-            cached_bytes += buffer.length;
+
+            cached_bytes += data.bytes;
         } catch (Error err) {
             error("%s", err.message);
         }

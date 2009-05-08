@@ -46,8 +46,8 @@ public class PhotoPage : Page {
     
     public static const int IMPROVAL_MSEC = 250;
     
-    public static const int CROP_INIT_X = 200;
-    public static const int CROP_INIT_Y = 200;
+    public static const double CROP_INIT_X_PCT = 0.10;
+    public static const double CROP_INIT_Y_PCT = 0.10;
     public static const int CROP_MIN_WIDTH = 100;
     public static const int CROP_MIN_HEIGHT = 100;
     public static const float CROP_SATURATION = 0.05f;
@@ -693,10 +693,12 @@ public class PhotoPage : Page {
         
         Box crop;
         if (!photo.get_crop(out crop)) {
+            int xofs = (int) (photo_dim.width * CROP_INIT_X_PCT);
+            int yofs = (int) (photo_dim.height * CROP_INIT_Y_PCT);
+            
             // initialize the actual crop in absolute coordinates, not relative
             // to the photo's position on the canvas
-            crop = Box(CROP_INIT_X, CROP_INIT_Y, photo_dim.width - CROP_INIT_X, 
-                photo_dim.height - CROP_INIT_Y);
+            crop = Box(xofs, yofs, photo_dim.width - xofs, photo_dim.height - yofs);
         }
         
         // scale the crop to the scaled photo's size ... the scaled crop is maintained in absolute
