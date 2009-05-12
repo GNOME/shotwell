@@ -63,6 +63,7 @@ PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 all: $(TARGET)
 
 clean:
+	rm -f *.vala.c
 	rm -f $(TARGET)
 
 install: $(TARGET) shotwell.desktop

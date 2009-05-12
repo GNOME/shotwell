@@ -12,6 +12,24 @@ public enum BoxLocation {
     BOTTOM_RIGHT
 }
 
+public enum BoxComplements {
+    NONE,
+    VERTICAL,
+    HORIZONTAL,
+    BOTH;
+    
+    public static BoxComplements derive(bool horizontal_complement, bool vertical_complement) {
+        if (horizontal_complement && vertical_complement)
+            return BOTH;
+        else if(horizontal_complement)
+            return HORIZONTAL;
+        else if (vertical_complement)
+            return VERTICAL;
+
+        return NONE;
+    }
+}
+
 public struct Box {
     public static const int HAND_GRENADES = 6;
     
@@ -33,31 +51,35 @@ public struct Box {
     }
     
     public static Box from_rectangle(Gdk.Rectangle rect) {
-        return Box(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height);
+        return Box(rect.x, rect.y, rect.x + rect.width - 1, rect.y + rect.height - 1);
     }
     
     public int get_width() {
         assert(right >= left);
         
-        return right - left;
+        return right - left + 1;
     }
     
     public int get_height() {
         assert(bottom >= top);
         
-        return bottom - top;
+        return bottom - top + 1;
     }
     
     public bool is_valid() {
         return (left >= 0) && (top >= 0) && (right >= left) && (bottom >= top);
     }
     
+    public bool equals(Box box) {
+        return (left == box.left && top == box.top && right == box.right && bottom == box.bottom);
+    }
+    
     public Box get_scaled(Dimensions orig, Dimensions scaled) {
         double x_scale = (double) scaled.width / (double) orig.width;
         double y_scale = (double) scaled.height / (double) orig.height;
     
-        Box box = Box((int) (left * x_scale), (int) (top * y_scale), (int) (right * x_scale),
-            (int) (bottom * y_scale));
+        Box box = Box((int) Math.round(left * x_scale), (int) Math.round(top * y_scale), 
+            (int) Math.round(right * x_scale), (int) Math.round(bottom * y_scale));
         
         return box;
     }
@@ -110,6 +132,116 @@ public struct Box {
         int b = space.height - top;
         
         return Box(left, t, right, b);
+    }
+    
+    public bool intersects(Box compare, out Box intersection) {
+        int left_intersect = int.max(left, compare.left);
+        int top_intersect = int.max(top, compare.top);
+        int right_intersect = int.min(right, compare.right);
+        int bottom_intersect = int.min(bottom, compare.bottom);
+        
+        if (right_intersect < left_intersect || bottom_intersect < top_intersect)
+            return false;
+        
+        intersection = Box(left_intersect, top_intersect, right_intersect, bottom_intersect);
+        
+        return true;
+    }
+    
+    // This specialized method is only concerned with resized comparisons between two Boxes, 
+    // of which one is altered in up to two dimensions: (top or bottom) and/or (left or right).
+    // There may be overlap between the two returned Boxes.
+    public BoxComplements resized_complements(Box resized, out Box horizontal, out bool horizontal_enlarged,
+        out Box vertical, out bool vertical_enlarged) {
+        assert(get_width() != resized.get_width() || get_height() != resized.get_height());
+        
+        int min_left = int.min(left, resized.left);
+        int min_top = int.min(top, resized.top);
+        int max_right = int.max(right, resized.right);
+        int max_bottom = int.max(bottom, resized.bottom);
+        
+        bool horizontal_complement = true;
+        if (resized.top < top) {
+            // enlarged from top
+            horizontal = Box(min_left, resized.top, max_right, top);
+            horizontal_enlarged = true;
+        } else if (resized.top > top) {
+            // shrunk from top
+            horizontal = Box(min_left, top, max_right, resized.top);
+            horizontal_enlarged = false;
+        } else if (resized.bottom < bottom) {
+            // shrunk from bottom
+            horizontal = Box(min_left, resized.bottom, max_right, bottom);
+            horizontal_enlarged = false;
+        } else if (resized.bottom > bottom) {
+            // enlarged from bottom
+            horizontal = Box(min_left, bottom, max_right, resized.bottom);
+            horizontal_enlarged = true;
+        } else {
+            horizontal_complement = false;
+        }
+        
+        bool vertical_complement = true;
+        if (resized.left < left) {
+            // enlarged left
+            vertical = Box(resized.left, min_top, left, max_bottom);
+            vertical_enlarged = true;
+        } else if (resized.left > left) {
+            // shrunk left
+            vertical = Box(left, min_top, resized.left, max_bottom);
+            vertical_enlarged = false;
+        } else if (resized.right < right) {
+            // shrunk right
+            vertical = Box(resized.right, min_top, right, max_bottom);
+            vertical_enlarged = false;
+        } else if (resized.right > right) {
+            // enlarged right
+            vertical = Box(right, min_top, resized.right, max_bottom);
+            vertical_enlarged = true;
+        } else {
+            vertical_complement = false;
+        }
+
+        return BoxComplements.derive(horizontal_complement, vertical_complement);
+    }
+    
+    // This specialized method is only concerned with the complements of identical Boxes in two
+    // different, spatial locations.  There may be overlap between the four returned Boxes.  However,
+    // there no portion of any of the four boxes will be outside the scope of the two compared boxes.
+    public BoxComplements shifted_complements(Box shifted, out Box horizontal_this, 
+        out Box vertical_this, out Box horizontal_shifted, out Box vertical_shifted) {
+        assert(get_width() == shifted.get_width());
+        assert(get_height() == shifted.get_height());
+        
+        bool horizontal_complement = true;
+        if (shifted.top < top && shifted.bottom > top) {
+            // shifted up
+            horizontal_this = Box(left, shifted.bottom, right, bottom);
+            horizontal_shifted = Box(shifted.left, shifted.top, shifted.right, top);
+        } else if (shifted.top > top && shifted.top < bottom) {
+            // shifted down
+            horizontal_this = Box(left, top, right, shifted.top);
+            horizontal_shifted = Box(shifted.left, bottom, shifted.right, shifted.bottom);
+        } else {
+            // no vertical shift
+            horizontal_complement = false;
+        }
+        
+        bool vertical_complement = true;
+        if (shifted.left < left && shifted.right > left) {
+            // shifted left
+            vertical_this = Box(shifted.right, top, right, bottom);
+            vertical_shifted = Box(shifted.left, shifted.top, left, shifted.bottom);
+        } else if (shifted.left > left && shifted.left < right) {
+            // shifted right
+            vertical_this = Box(left, top, shifted.left, bottom);
+            vertical_shifted = Box(right, shifted.top, shifted.right, shifted.bottom);
+        } else {
+            // no horizontal shift
+            vertical_complement = false;
+        }
+        
+        return BoxComplements.derive(horizontal_complement, vertical_complement);
     }
     
     public string to_string() {
