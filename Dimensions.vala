@@ -87,35 +87,6 @@ public struct Dimensions {
         return scaled;
     }
 
-    public Dimensions get_rotated(Exif.Orientation orientation) {
-        int w = width;
-        int h = height;
-        
-        switch(orientation) {
-            case Exif.Orientation.TOP_LEFT:
-            case Exif.Orientation.TOP_RIGHT:
-            case Exif.Orientation.BOTTOM_RIGHT:
-            case Exif.Orientation.BOTTOM_LEFT: {
-                // fine just as it is
-            } break;
-
-            case Exif.Orientation.LEFT_TOP:
-            case Exif.Orientation.RIGHT_TOP:
-            case Exif.Orientation.RIGHT_BOTTOM:
-            case Exif.Orientation.LEFT_BOTTOM: {
-                // swap
-                w = height;
-                h = width;
-            } break;
-
-            default: {
-                error("Unknown orientation: %d", orientation);
-            } break;
-        }
-        
-        return Dimensions(w, h);
-    }
-
     public Gdk.Rectangle get_scaled_rectangle(Dimensions scale, Gdk.Rectangle rect) {
         double x_scale = (double) scale.width / (double) width;
         double y_scale = (double) scale.height / (double) height;

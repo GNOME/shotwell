@@ -20,7 +20,7 @@ public class Thumbnail : LayoutItem {
         
         title.set_text(photo.get_file().get_basename());
 
-        dim = photo.get_scaled_dimensions(scale);
+        dim = photo.get_dimensions().get_scaled(scale);
 
         // the image widget is only filled with a Pixbuf when exposed; if the pixbuf is cleared or
         // not present, the widget will collapse, and so the layout manager won't account for it
@@ -28,17 +28,17 @@ public class Thumbnail : LayoutItem {
         // requisition size, even when it contains no pixbuf
         image.set_size_request(dim.width, dim.height);
 
-        photo.altered += on_photo_altered;
+        photo.thumbnail_altered += on_thumbnail_altered;
     }
     
     public Photo get_photo() {
         return photo;
     }
     
-    private void on_photo_altered(Photo p) {
+    private void on_thumbnail_altered(Photo p) {
         assert(photo.equals(p));
         
-        dim = photo.get_scaled_dimensions(scale);
+        dim = photo.get_dimensions().get_scaled(scale);
         
         // only fetch and scale if exposed
         if (thumb_exposed) {
@@ -62,7 +62,7 @@ public class Thumbnail : LayoutItem {
         scale = new_scale;
         
         // piggy-back on signal handler
-        on_photo_altered(photo);
+        on_thumbnail_altered(photo);
     }
     
     public void paint_high_quality() {
@@ -90,8 +90,10 @@ public class Thumbnail : LayoutItem {
         if (thumb_exposed)
             return;
 
-        Gdk.Pixbuf pixbuf = photo.get_scaled_thumbnail(scale, LOW_QUALITY_INTERP);
+        Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
+        pixbuf = scale_pixbuf(pixbuf, scale, LOW_QUALITY_INTERP);
         interp = LOW_QUALITY_INTERP;
+
         image.set_from_pixbuf(pixbuf);
         image.set_size_request(dim.width, dim.height);
         

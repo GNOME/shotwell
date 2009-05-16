@@ -23,6 +23,7 @@ SRC_FILES = \
 	Dimensions.vala \
 	Box.vala \
 	Photo.vala \
+	Orientation.vala \
 	util.vala
 	
 VAPI_FILES = \
@@ -63,7 +64,7 @@ PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 all: $(TARGET)
 
 clean:
-	rm -f *.vala.c
+	rm -f *.c
 	rm -f $(TARGET)
 
 install: $(TARGET) shotwell.desktop

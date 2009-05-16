@@ -1,9 +1,13 @@
 
 public uint int64_hash(void *p) {
-    int64 *bi = (int64 *) p;
+    // Rotating XOR hash
+    uint8 *u8 = (uint8 *) p;
+    uint hash = 0;
+    for (int ctr = 0; ctr < (sizeof(int64) / sizeof(uint8)); ctr++) {
+        hash = (hash << 4) ^ (hash >> 28) ^ (*u8++);
+    }
     
-    // TODO: More hash worthy hash
-    return (uint) (*bi);
+    return hash;
 }
 
 public bool int64_equal(void *a, void *b) {

@@ -8,18 +8,18 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     Unique.Response response = Unique.Response.OK;
     
     switch (command) {
-        case ShotwellCommand.MOUNTED_CAMERA: {
+        case ShotwellCommand.MOUNTED_CAMERA:
             AppWindow.get_instance().mounted_camera_shell_notification(File.new_for_uri(data.get_text()));
-        } break;
+        break;
         
-        case Unique.Command.ACTIVATE: {
+        case Unique.Command.ACTIVATE:
             AppWindow.get_instance().present_with_time(timestamp);
-        } break;
+        break;
         
-        default: {
+        default:
             // should be Unique.Response.PASSTHROUGH, but value isn't bound in vapi
             response = (Unique.Response) 4;
-        } break;
+        break;
     }
     
     return response;
@@ -63,6 +63,7 @@ void main(string[] args) {
     AppWindow.init(args);
     DatabaseTable.init();
     ThumbnailCache.init();
+    Photo.init();
     
     // create main application window
     AppWindow app_window = new AppWindow();
@@ -76,5 +77,10 @@ void main(string[] args) {
 
     // event loop
     Gtk.main();
+    
+    Photo.terminate();
+    ThumbnailCache.terminate();
+    DatabaseTable.terminate();
+    AppWindow.terminate();
 }
 

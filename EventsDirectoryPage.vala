@@ -15,7 +15,9 @@ public class DirectoryItem : LayoutItem {
         assert(photo_id.is_valid());
         
         Photo photo = Photo.fetch(photo_id);
-        Gdk.Pixbuf pixbuf = photo.get_scaled_thumbnail(SCALE, INTERP);
+        Gdk.Pixbuf pixbuf = photo.get_thumbnail(SCALE);
+        pixbuf = scale_pixbuf(pixbuf, SCALE, INTERP);
+
         image.set_from_pixbuf(pixbuf);
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height());
     }

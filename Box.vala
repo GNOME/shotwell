@@ -54,6 +54,13 @@ public struct Box {
         return Box(rect.x, rect.y, rect.x + rect.width - 1, rect.y + rect.height - 1);
     }
     
+    // This ensures a proper box is built from the points supplied, no matter the relationship
+    // between the two points
+    public static Box from_points(Gdk.Point corner1, Gdk.Point corner2) {
+        return Box(int.min(corner1.x, corner2.x), int.min(corner1.y, corner2.y),
+            int.max(corner1.x, corner2.x), int.max(corner1.y, corner2.y));
+    }
+    
     public int get_width() {
         assert(right >= left);
         
@@ -74,7 +81,24 @@ public struct Box {
         return (left == box.left && top == box.top && right == box.right && bottom == box.bottom);
     }
     
-    public Box get_scaled(Dimensions orig, Dimensions scaled) {
+    public Box get_scaled(Dimensions scaled) {
+        double x_scale = (double) scaled.width / (double) get_width();
+        double y_scale = (double) scaled.height / (double) get_height();
+        
+        int l = (int) Math.round(left * x_scale);
+        int t = (int) Math.round(top * y_scale);
+        
+        // fix-up to match the scaled dimensions
+        int r = l + scaled.width - 1;
+        int b = t + scaled.height - 1;
+
+        Box box = Box(l, t, r, b);
+        assert(box.get_width() == scaled.width || box.get_height() == scaled.height);
+        
+        return box;
+    }
+    
+    public Box get_scaled_proportional(Dimensions orig, Dimensions scaled) {
         double x_scale = (double) scaled.width / (double) orig.width;
         double y_scale = (double) scaled.height / (double) orig.height;
     
@@ -90,6 +114,14 @@ public struct Box {
     
     public Dimensions get_dimensions() {
         return Dimensions(get_width(), get_height());
+    }
+    
+    public void get_points(out Gdk.Point top_left, out Gdk.Point bottom_right) {
+        top_left.x = left;
+        top_left.y = top;
+        
+        bottom_right.x = right;
+        bottom_right.y = bottom;
     }
     
     public Gdk.Rectangle get_rectangle() {

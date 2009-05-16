@@ -166,6 +166,9 @@ public class AppWindow : Gtk.Window {
         }
     }
     
+    public static void terminate() {
+    }
+    
     public static AppWindow get_instance() {
         return instance;
     }
@@ -647,9 +650,9 @@ public class AppWindow : Gtk.Window {
         PhotoID[] ids = photo_table.get_photos();
 
         // verify photo table
-        foreach (PhotoID photoID in ids) {
+        foreach (PhotoID photo_id in ids) {
             PhotoRow row = PhotoRow();
-            photo_table.get_photo(photoID, out row);
+            photo_table.get_photo(photo_id, out row);
             
             FileInfo info = null;
             try {
@@ -668,7 +671,7 @@ public class AppWindow : Gtk.Window {
             message("Time or filesize changed on %s, reimporting ...", row.file.get_path());
             
             Dimensions dim = Dimensions();
-            Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
+            Orientation orientation = Orientation.TOP_LEFT;
             time_t exposure_time = 0;
 
             // TODO: Try to read JFIF metadata too
@@ -695,12 +698,12 @@ public class AppWindow : Gtk.Window {
                 error("%s", err.message);
             }
         
-            if (photo_table.update(photoID, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
                 orientation)) {
-                ThumbnailCache.import(photoID, original, true);
+                ThumbnailCache.import(photo_id, original, true);
             }
         }
-        
+
         // verify event table
         EventID[] events = event_table.get_events();
         foreach (EventID event_id in events) {

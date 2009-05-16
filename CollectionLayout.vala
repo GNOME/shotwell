@@ -125,15 +125,8 @@ public class CollectionLayout : Gtk.Layout {
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
 
-        // TODO:
-        // This is commented out because Vala is generating bogus ccode from it (it's trying to
-        // unref the Gdk.Color as though it was a Gee.Collection) ... I suspect it has to do with
-        // the SortedList class.  Will probably need to rip out SortedList and sort all lists by
-        // hand ...
-        /*
         Gdk.Color color = parse_color(LayoutItem.UNSELECTED_COLOR);
         message.modify_fg(Gtk.StateType.NORMAL, color);
-        */
         message.set_single_line_mode(false);
         message.set_use_underline(false);
         

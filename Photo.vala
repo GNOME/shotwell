@@ -1,22 +1,28 @@
 
 public class Photo : Object {
-    public enum Rotation {
-        CLOCKWISE,
-        COUNTERCLOCKWISE,
-        MIRROR,
-        UPSIDE_DOWN
-    }
+    public static const int EXCEPTION_NONE          = 0;
+    public static const int EXCEPTION_ORIENTATION   = 1 << 0;
+    public static const int EXCEPTION_CROP          = 1 << 1;
     
     private static Gee.HashMap<int64?, Photo> photo_map = null;
     private static PhotoTable photo_table = new PhotoTable();
+    private static PhotoID cached_photo_id = PhotoID();
+    private static Gdk.Pixbuf cached_raw = null;
     
     private PhotoID photo_id;
+    
+    public static void init() {
+        photo_map = new Gee.HashMap<int64?, Photo>(int64_hash, int64_equal, direct_equal);
+    }
+    
+    public static void terminate() {
+    }
     
     public static Photo? import(File file, ImportID import_id) {
         debug("Importing file %s", file.get_path());
 
         Dimensions dim = Dimensions();
-        Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
+        Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         
         // TODO: Try to read JFIF metadata too
@@ -64,29 +70,21 @@ public class Photo : Object {
             return null;
         }
         
+        // sanity ... this would be very bad
+        assert(!photo_map.contains(photo_id.id));
+        
         // modify pixbuf for thumbnails which are stored with modifications
-        pixbuf = rotate_to_exif(pixbuf, orientation);
+        pixbuf = orientation.rotate_pixbuf(pixbuf);
         
         // import it into the thumbnail cache with modifications
         ThumbnailCache.import(photo_id, pixbuf);
-        
-        // sanity ... this would be very bad
-        if (photo_map != null)
-            assert(!photo_map.contains(photo_id.id));
         
         return fetch(photo_id);
     }
 
     public static Photo fetch(PhotoID photo_id) {
-        Photo photo = null;
+        Photo photo = photo_map.get(photo_id.id);
 
-        // static initializer isn't working
-        if (photo_map == null) {
-            photo_map = new Gee.HashMap<int64?, Photo>(int64_hash, int64_equal, direct_equal);
-        } else {
-            photo = photo_map.get(photo_id.id);
-        }
-        
         if (photo == null) {
             photo = new Photo(photo_id);
             photo_map.set(photo_id.id, photo);
@@ -102,6 +100,8 @@ public class Photo : Object {
     }
     
     public signal void altered();
+    
+    public signal void thumbnail_altered();
     
     public signal void removed();
     
@@ -136,73 +136,36 @@ public class Photo : Object {
     }
     
     public void rotate(Rotation rotation) {
-        Exif.Orientation orientation = photo_table.get_orientation(photo_id);
+        Orientation orientation = photo_table.get_orientation(photo_id);
         
-        switch (rotation) {
-            case Rotation.CLOCKWISE:
-                orientation = orientation.rotate_clockwise();
-            break;
-            
-            case Rotation.COUNTERCLOCKWISE:
-                orientation = orientation.rotate_counterclockwise();
-            break;
-            
-            case Rotation.MIRROR:
-                orientation = orientation.flip_left_to_right();
-            break;
-            
-            case Rotation.UPSIDE_DOWN:
-                orientation = orientation.flip_top_to_bottom();
-            break;
-            
-            default:
-                error("Unknown rotation: %d", (int) rotation);
-            break;
-        }
+        orientation = orientation.perform(rotation);
         
         photo_table.set_orientation(photo_id, orientation);
-        
-        // crop is stored in the same orientation as the rotated image
-        Box crop;
-        if (get_crop(out crop)) {
-            Dimensions space = get_uncropped_dimensions();
-            
-            switch (rotation) {
-                case Rotation.CLOCKWISE:
-                    crop = crop.rotate_clockwise(space);
-                break;
-                
-                case Rotation.COUNTERCLOCKWISE:
-                    crop = crop.rotate_counterclockwise(space);
-                break;
-                
-                case Rotation.MIRROR:
-                    crop = crop.flip_left_to_right(space);
-                break;
-                
-                case Rotation.UPSIDE_DOWN:
-                    crop = crop.flip_top_to_bottom(space);
-                break;
-                
-                default:
-                    error("Unknown rotation: %d", (int) rotation);
-                break;
-            }
-            
-            set_crop(crop);
+
+        altered();
+
+        // because rotations are (a) common and available everywhere in the app, (b) the user expects
+        // a level of responsiveness not necessarily required by other modifications, and (c) can't 
+        // cache a lot of full-sized pixbufs for rotate-and-scale ops, perform the rotation directly 
+        // on the already-modified thumbnails.
+        foreach (int scale in ThumbnailCache.SCALES) {
+            Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(photo_id, scale);
+            thumbnail = rotation.perform(thumbnail);
+            ThumbnailCache.replace(photo_id, scale, thumbnail);
         }
-        
-        photo_altered();
+
+        thumbnail_altered();
     }
     
     // Returns uncropped (but rotated) dimensions
     public Dimensions get_uncropped_dimensions() {
         Dimensions dim = photo_table.get_dimensions(photo_id);
-
-        return dim.get_rotated(photo_table.get_orientation(photo_id));
+        Orientation orientation = photo_table.get_orientation(photo_id);
+        
+        return orientation.rotate_dimensions(dim);
     }
     
-    // Returns cropped and rotated dimensions
+    // Returns dimensions for fully-modified photo
     public Dimensions get_dimensions() {
         Box crop;
         if (get_crop(out crop)) {
@@ -212,13 +175,8 @@ public class Photo : Object {
         return get_uncropped_dimensions();
     }
     
-    public Dimensions get_scaled_dimensions(int scale) {
-        Dimensions dim = get_dimensions();
-
-        return dim.get_scaled(scale);
-    }
-    
-    public bool get_crop(out Box crop) {
+    // Returns the crop in the raw photo's coordinate system
+    private bool get_raw_crop(out Box crop) {
         KeyValueMap map = photo_table.get_transformation(photo_id, "crop");
         if (map == null)
             return false;
@@ -236,7 +194,21 @@ public class Photo : Object {
         return true;
     }
     
-    public bool set_crop(Box crop) {
+    // Returns the rotated crop for the photo
+    public bool get_crop(out Box crop) {
+        Box raw;
+        if (!get_raw_crop(out raw))
+            return false;
+        
+        Dimensions dim = photo_table.get_dimensions(photo_id);
+        Orientation orientation = photo_table.get_orientation(photo_id);
+        crop = orientation.rotate_box(dim, raw);
+        
+        return true;
+    }
+    
+    // Sets the crop using the raw photo's unrotated coordinate system
+    private bool set_raw_crop(Box crop) {
         KeyValueMap map = new KeyValueMap("crop");
         map.set_int("left", crop.left);
         map.set_int("top", crop.top);
@@ -250,6 +222,16 @@ public class Photo : Object {
         return res;
     }
     
+    // Sets the crop, where the crop is in the rotated coordinate system
+    public bool set_crop(Box crop) {
+        // return crop to photo's coordinate system
+        Dimensions dim = photo_table.get_dimensions(photo_id);
+        Orientation orientation = photo_table.get_orientation(photo_id);
+        Box derotated = orientation.derotate_box(dim, crop);
+        
+        return set_raw_crop(derotated);
+    }
+    
     public bool remove_crop() {
         bool res = photo_table.remove_transformation(photo_id, "crop");
         if (res)
@@ -258,56 +240,44 @@ public class Photo : Object {
         return res;
     }
     
-    // Returns uncropped pixbuf with modifications applied
-    public Gdk.Pixbuf get_uncropped_pixbuf() throws Error {
-        Gdk.Pixbuf pixbuf = get_unmodified_pixbuf();
+    // Retrieves a full-sized pixbuf for the Photo with all modifications, except those specified
+    public Gdk.Pixbuf get_pixbuf(int exceptions = EXCEPTION_NONE) throws Error {
+        Gdk.Pixbuf pixbuf = null;
         
-        // orientation
-        pixbuf = rotate_to_exif(pixbuf, photo_table.get_orientation(photo_id));
+        if (cached_raw != null && cached_photo_id.id == photo_id.id) {
+            // used the cached raw pixbuf, which is merely the last loaded pixbuf
+            pixbuf = cached_raw;
+        } else {
+            File file = get_file();
+            
+            debug("Loading full photo %s", file.get_path());
+            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         
-        return pixbuf;
-    }
-    
-    // Returns unscaled pixbuf with all modifications applied
-    public Gdk.Pixbuf get_pixbuf() throws Error {
-        Gdk.Pixbuf pixbuf = get_unmodified_pixbuf();
+            // stash for next time
+            cached_raw = pixbuf;
+            cached_photo_id = photo_id;
+        }
         
-        // orientation
-        pixbuf = rotate_to_exif(pixbuf, photo_table.get_orientation(photo_id));
+        //
+        // Image modification pipeline
+        //
         
         // crop
-        Box crop;
-        if (get_crop(out crop)) {
-            pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
-                crop.get_height());
+        if ((exceptions & EXCEPTION_CROP) == 0) {
+            Box crop;
+            if (get_raw_crop(out crop)) {
+                pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
+                    crop.get_height());
+            }
         }
 
-        return pixbuf;
-    }
-    
-    // Returns full pixbuf with all modifications applied scaled to size
-    public Gdk.Pixbuf get_scaled_pixbuf(int scale, Gdk.InterpType interp) throws Error {
-        Gdk.Pixbuf pixbuf = get_pixbuf();
-        pixbuf = scale_pixbuf(pixbuf, scale, interp);
+        // Orientation (all modifications are stored in unrotated coordinate system)
+        if ((exceptions & EXCEPTION_ORIENTATION) == 0) {
+            Orientation orientation = photo_table.get_orientation(photo_id);
+            pixbuf = orientation.rotate_pixbuf(pixbuf);
+        }
         
         return pixbuf;
-    }
-    
-    // Returns full pixbuf with all modifications applied scaled to proportionally fit in dimensions
-    public Gdk.Pixbuf get_pixbuf_for_dimensions(Dimensions dim, Gdk.InterpType interp) throws Error {
-        Gdk.Pixbuf pixbuf = get_pixbuf();
-        pixbuf = pixbuf.scale_simple(dim.width, dim.height, interp);
-        
-        return pixbuf;
-    }
-    
-    // Returns pixbuf, unscaled, un-oriented and with no modifications applied
-    public Gdk.Pixbuf get_unmodified_pixbuf() throws Error {
-        File file = get_file();
-        
-        debug("Loading full photo %s", file.get_path());
-
-        return new Gdk.Pixbuf.from_file(file.get_path());
     }
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
@@ -315,11 +285,6 @@ public class Photo : Object {
         return ThumbnailCache.fetch(photo_id, scale);
     }
     
-    // Returns scaled thumbnail with all modifications applied
-    public Gdk.Pixbuf? get_scaled_thumbnail(int scale, Gdk.InterpType interp) {
-        return ThumbnailCache.fetch_scaled(photo_id, scale, interp);
-    }
-
     public void remove() {
         // signal all interested parties prior to removal from map
         removed();
@@ -335,20 +300,17 @@ public class Photo : Object {
     }
     
     private void photo_altered() {
-        // re-import modified photo into thumbnail cache
-        Gdk.Pixbuf modified;
+        Gdk.Pixbuf pixbuf = null;
         try {
-            modified = get_pixbuf();
+            pixbuf = get_pixbuf();
         } catch (Error err) {
             error("%s", err.message);
-            
-            return;
         }
         
-        ThumbnailCache.import(photo_id, modified, true);
+        ThumbnailCache.import(photo_id, pixbuf, true);
         
-        // signal change to all interested parties
         altered();
+        thumbnail_altered();
     }
 }
 

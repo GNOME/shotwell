@@ -193,8 +193,12 @@ public class CollectionPage : CheckerboardPage {
     }
 
     public void add_photo(Photo photo) {
+        // search for duplicates
+        if (get_thumbnail_for_photo(photo) != null)
+            return;
+        
         photo.removed += on_photo_removed;
-        photo.altered += on_photo_altered;
+        photo.thumbnail_altered += on_thumbnail_altered;
         
         Thumbnail thumbnail = new Thumbnail(photo, scale);
         thumbnail.display_title(display_titles());
@@ -205,32 +209,30 @@ public class CollectionPage : CheckerboardPage {
     private void on_photo_removed(Photo photo) {
         debug("%s on_photo_removed", get_name());
         
-        Thumbnail found = null;
-        foreach (LayoutItem item in get_items()) {
-            Thumbnail thumbnail = (Thumbnail) item;
-            if (thumbnail.get_photo().equals(photo)) {
-                found = thumbnail;
-                
-                break;
-            }
-        }
-        
-        // have to remove outside of iterator
+        Thumbnail found = get_thumbnail_for_photo(photo);
         if (found != null) {
             debug("Removing %s from %s", photo.to_string(), get_name());
             remove_item(found);
         }
     }
     
-    private void on_photo_altered(Photo photo) {
-        debug("on_photo_altered");
-        
+    private void on_thumbnail_altered(Photo photo) {
         // the thumbnail is only going to reload a low-quality interp, so schedule improval
         schedule_thumbnail_improval();
         
         // since the geometry might have changed, refresh the layout
         if (in_view)
             refresh();
+    }
+    
+    private Thumbnail? get_thumbnail_for_photo(Photo photo) {
+        foreach (LayoutItem item in get_items()) {
+            Thumbnail thumbnail = (Thumbnail) item;
+            if (thumbnail.get_photo().equals(photo))
+                return thumbnail;
+        }
+        
+        return null;
     }
     
     public int increase_thumb_size() {
@@ -343,7 +345,7 @@ public class CollectionPage : CheckerboardPage {
         foreach (LayoutItem item in get_selected()) {
             Photo photo = ((Thumbnail) item).get_photo();
             photo.removed -= on_photo_removed;
-            photo.altered -= on_photo_altered;
+            photo.thumbnail_altered -= on_thumbnail_altered;
             
             photo.remove();
         }
@@ -354,7 +356,7 @@ public class CollectionPage : CheckerboardPage {
         refresh();
     }
     
-    private void do_rotations(Gee.Iterable<LayoutItem> c, Photo.Rotation rotation) {
+    private void do_rotations(Gee.Iterable<LayoutItem> c, Rotation rotation) {
         bool rotation_performed = false;
         foreach (LayoutItem item in c) {
             Photo photo = ((Thumbnail) item).get_photo();
@@ -369,15 +371,15 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_rotate_clockwise() {
-        do_rotations(get_selected(), Photo.Rotation.CLOCKWISE);
+        do_rotations(get_selected(), Rotation.CLOCKWISE);
     }
     
     private void on_rotate_counterclockwise() {
-        do_rotations(get_selected(), Photo.Rotation.COUNTERCLOCKWISE);
+        do_rotations(get_selected(), Rotation.COUNTERCLOCKWISE);
     }
     
     private void on_mirror() {
-        do_rotations(get_selected(), Photo.Rotation.MIRROR);
+        do_rotations(get_selected(), Rotation.MIRROR);
     }
     
     private void on_view_menu() {

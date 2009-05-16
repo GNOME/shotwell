@@ -71,6 +71,7 @@ public class PhotoPage : Page {
     private Gdk.InterpType interp = FAST_INTERP;
     private Gdk.Rectangle pixbuf_rect = Gdk.Rectangle();
     private bool improval_scheduled = false;
+    private bool reschedule_improval = false;
     private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
     private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
     
@@ -166,6 +167,15 @@ public class PhotoPage : Page {
     
     public override void switching_from() {
         deactivate_crop();
+        
+        if (photo != null)
+            photo.altered -= on_photo_altered;
+            
+        photo = null;
+        original = null;
+        pixbuf = null;
+        pixmap = null;
+        desaturated = null;
     }
     
     public void display(CheckerboardPage controller, Thumbnail thumbnail) {
@@ -177,6 +187,9 @@ public class PhotoPage : Page {
     }
     
     private void update_display() {
+        if (photo != null)
+            photo.altered -= on_photo_altered;
+            
         photo = thumbnail.get_photo();
         photo.altered += on_photo_altered;
 
@@ -513,10 +526,9 @@ public class PhotoPage : Page {
     }
     
     private void on_viewport_resize() {
-        // XXX: Should this merely resize the canvas and exit?
         repaint();
     }
-
+    
     private bool on_canvas_expose(Gtk.DrawingArea da, Gdk.EventExpose event) {
         // to avoid multiple exposes
         if (event.count > 0)
@@ -629,14 +641,23 @@ public class PhotoPage : Page {
     }
     
     private void schedule_improval() {
-        if (improval_scheduled)
+        if (improval_scheduled) {
+            reschedule_improval = true;
+            
             return;
+        }
         
         Timeout.add(IMPROVAL_MSEC, image_improval);
         improval_scheduled = true;
     }
     
     private bool image_improval() {
+        if (reschedule_improval) {
+            reschedule_improval = false;
+            
+            return true;
+        }
+        
         debug("image_improval");
         
         repaint(QUALITY_INTERP);
@@ -645,7 +666,7 @@ public class PhotoPage : Page {
         return false;
     }
     
-    private void rotate(Photo.Rotation rotation) {
+    private void rotate(Rotation rotation) {
         deactivate_crop();
         
         // let the signal generate a repaint
@@ -653,15 +674,15 @@ public class PhotoPage : Page {
     }
     
     private void on_rotate_clockwise() {
-        rotate(Photo.Rotation.CLOCKWISE);
+        rotate(Rotation.CLOCKWISE);
     }
     
     private void on_rotate_counterclockwise() {
-        rotate(Photo.Rotation.COUNTERCLOCKWISE);
+        rotate(Rotation.COUNTERCLOCKWISE);
     }
     
     private void on_mirror() {
-        rotate(Photo.Rotation.MIRROR);
+        rotate(Rotation.MIRROR);
     }
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
@@ -698,7 +719,7 @@ public class PhotoPage : Page {
             return;
             
         // show uncropped photo for editing
-        original = photo.get_uncropped_pixbuf();
+        original = photo.get_pixbuf(Photo.EXCEPTION_CROP);
 
         // flush to force repaint
         pixmap = null;
@@ -765,7 +786,7 @@ public class PhotoPage : Page {
         
         // scale the crop to the scaled photo's size ... the scaled crop is maintained in
         // coordinates not relative to photo's position on canvas
-        scaled_crop = crop.get_scaled(photo_dim, Dimensions.for_rectangle(pixbuf_rect));
+        scaled_crop = crop.get_scaled_proportional(photo_dim, Dimensions.for_rectangle(pixbuf_rect));
     }
 
     private void rescale_crop(Dimensions old_pixbuf_dim, Dimensions new_pixbuf_dim) {
@@ -774,10 +795,10 @@ public class PhotoPage : Page {
         Dimensions photo_dim = photo.get_uncropped_dimensions();
         
         // rescale to full crop
-        Box crop = scaled_crop.get_scaled(old_pixbuf_dim, photo_dim);
+        Box crop = scaled_crop.get_scaled_proportional(old_pixbuf_dim, photo_dim);
         
         // rescale back to new size
-        scaled_crop = crop.get_scaled(photo_dim, new_pixbuf_dim);
+        scaled_crop = crop.get_scaled_proportional(photo_dim, new_pixbuf_dim);
     }
     
     private void paint_pixbuf(Gdk.Pixbuf pb, Box source) {
@@ -1018,7 +1039,7 @@ public class PhotoPage : Page {
     
     private void on_crop_apply() {
         // up-scale scaled crop to photo's dimensions
-        Box crop = scaled_crop.get_scaled(Dimensions.for_rectangle(pixbuf_rect), 
+        Box crop = scaled_crop.get_scaled_proportional(Dimensions.for_rectangle(pixbuf_rect), 
             photo.get_uncropped_dimensions());
 
         deactivate_crop();

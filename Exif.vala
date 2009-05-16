@@ -1,189 +1,7 @@
-
 namespace Exif {
     // "Exif"
     public static const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };
-    
-    public enum Orientation {
-        TOP_LEFT = 1,
-        TOP_RIGHT = 2,
-        BOTTOM_RIGHT = 3,
-        BOTTOM_LEFT = 4,
-        LEFT_TOP = 5,
-        RIGHT_TOP = 6,
-        RIGHT_BOTTOM = 7,
-        LEFT_BOTTOM = 8;
-        
-        public string get_description() {
-            switch (this) {
-                case TOP_LEFT:
-                    return "top-left";
-                    
-                case TOP_RIGHT:
-                    return "top-right";
-                    
-                case BOTTOM_RIGHT:
-                    return "bottom-right";
-                    
-                case BOTTOM_LEFT:
-                    return "bottom-left";
-                    
-                case LEFT_TOP:
-                    return "left-top";
-                    
-                case RIGHT_TOP:
-                    return "right-top";
-                    
-                case RIGHT_BOTTOM:
-                    return "right-bottom";
-                    
-                case LEFT_BOTTOM:
-                    return "left-bottom";
-                    
-                default:
-                    return "unknown orientation %d".printf((int) this);
-            }
-        }
-        
-        public Orientation rotate_clockwise() {
-            switch (this) {
-                case TOP_LEFT:
-                    return RIGHT_TOP;
-                    
-                case TOP_RIGHT:
-                    return RIGHT_BOTTOM;
-                    
-                case BOTTOM_RIGHT:
-                    return LEFT_BOTTOM;
-                    
-                case BOTTOM_LEFT:
-                    return LEFT_TOP;
-                    
-                case LEFT_TOP:
-                    return TOP_RIGHT;
-                    
-                case RIGHT_TOP:
-                    return BOTTOM_RIGHT;
-                    
-                case RIGHT_BOTTOM:
-                    return BOTTOM_LEFT;
-                    
-                case LEFT_BOTTOM:
-                    return TOP_LEFT;
-                    
-                default: {
-                    error("rotate_clockwise: %d", this);
-                    
-                    return this;
-                }
-            }
-        }
-        
-        public Orientation rotate_counterclockwise() {
-            switch (this) {
-                case TOP_LEFT:
-                    return LEFT_BOTTOM;
-                    
-                case TOP_RIGHT:
-                    return LEFT_TOP;
-                    
-                case BOTTOM_RIGHT:
-                    return RIGHT_TOP;
-                    
-                case BOTTOM_LEFT:
-                    return RIGHT_BOTTOM;
-                    
-                case LEFT_TOP:
-                    return BOTTOM_LEFT;
-                    
-                case RIGHT_TOP:
-                    return TOP_LEFT;
-                    
-                case RIGHT_BOTTOM:
-                    return TOP_RIGHT;
-                    
-                case LEFT_BOTTOM:
-                    return BOTTOM_RIGHT;
-                    
-                default: {
-                    error("rotate_counterclockwise: %d", this);
-                    
-                    return this;
-                }
-            }
-        }
-        
-        public Orientation flip_top_to_bottom() {
-            switch (this) {
-                case TOP_LEFT:
-                    return BOTTOM_LEFT;
-                    
-                case TOP_RIGHT:
-                    return BOTTOM_RIGHT;
-                    
-                case BOTTOM_RIGHT:
-                    return TOP_RIGHT;
-                    
-                case BOTTOM_LEFT:
-                    return TOP_LEFT;
-                    
-                case LEFT_TOP:
-                    return RIGHT_TOP;
-                    
-                case RIGHT_TOP:
-                    return LEFT_TOP;
-                    
-                case RIGHT_BOTTOM:
-                    return LEFT_BOTTOM;
-                    
-                case LEFT_BOTTOM:
-                    return RIGHT_BOTTOM;
-                    
-                default: {
-                    error("flip_top_to_bottom: %d", this);
-                    
-                    return this;
-                }
-            }
-        }
-        
-        public Orientation flip_left_to_right() {
-            switch (this) {
-                case TOP_LEFT:
-                    return TOP_RIGHT;
-                    
-                case TOP_RIGHT:
-                    return TOP_LEFT;
-                    
-                case BOTTOM_RIGHT:
-                    return BOTTOM_LEFT;
-                    
-                case BOTTOM_LEFT:
-                    return BOTTOM_RIGHT;
-                    
-                case LEFT_TOP:
-                    return RIGHT_TOP;
-                    
-                case RIGHT_TOP:
-                    return LEFT_TOP;
-                    
-                case RIGHT_BOTTOM:
-                    return LEFT_BOTTOM;
-                    
-                case LEFT_BOTTOM:
-                    return RIGHT_BOTTOM;
-                    
-                default: {
-                    error("flip_left_to_right: %d", this);
-                    
-                    return this;
-                }
-            }
-        }
-    }
 
-    public static const int ORIENTATION_MIN = 1;
-    public static const int ORIENTATION_MAX = 8;
-    
     public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
         for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
@@ -288,21 +106,21 @@ public class PhotoExif  {
         return false;
     }
     
-    public Exif.Orientation get_orientation() {
+    public Orientation get_orientation() {
         update();
         
         Exif.Entry entry = find_entry(Exif.Ifd.ZERO, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
         if (entry == null)
-            return Exif.Orientation.TOP_LEFT;
+            return Orientation.TOP_LEFT;
         
         int o = Exif.Convert.get_short(entry.data, exifData.get_byte_order());
-        assert(o >= Exif.ORIENTATION_MIN);
-        assert(o <= Exif.ORIENTATION_MAX);
+        assert(o >= (int) Orientation.MIN);
+        assert(o <= (int) Orientation.MAX);
         
-        return (Exif.Orientation) o;
+        return (Orientation) o;
     }
     
-    public void set_orientation(Exif.Orientation orientation) {
+    public void set_orientation(Orientation orientation) {
         update();
         
         Exif.Entry entry = find_first_entry(Exif.Tag.ORIENTATION, Exif.Format.SHORT);

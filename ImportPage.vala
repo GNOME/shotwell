@@ -6,7 +6,7 @@ class ImportPreview : LayoutItem {
     private ImportPage parentPage;
     private Exif.Data exif;
     
-    private Exif.Orientation orientation = Exif.Orientation.TOP_LEFT;
+    private Orientation orientation = Orientation.TOP_LEFT;
     
     public ImportPreview(ImportPage parentPage, Gdk.Pixbuf pixbuf, Exif.Data exif, string folder, 
         string filename) {
@@ -18,15 +18,15 @@ class ImportPreview : LayoutItem {
         Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
         if (entry != null) {
             int o = Exif.Convert.get_short(entry.data, exif.get_byte_order());
-            assert(o >= Exif.ORIENTATION_MIN);
-            assert(o <= Exif.ORIENTATION_MAX);
+            assert(o >= (int) Orientation.MIN);
+            assert(o <= (int) Orientation.MAX);
             
-            orientation = (Exif.Orientation) o;
+            orientation = (Orientation) o;
         }
 
         title.set_text(filename);
 
-        Gdk.Pixbuf rotated = rotate_to_exif(pixbuf, orientation);
+        Gdk.Pixbuf rotated = orientation.rotate_pixbuf(pixbuf);
         image.set_from_pixbuf(rotated);
     }
 }
