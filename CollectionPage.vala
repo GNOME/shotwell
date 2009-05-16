@@ -17,6 +17,42 @@ public class CollectionPage : CheckerboardPage {
     private static const int IMPROVAL_PRIORITY = Priority.LOW;
     private static const int IMPROVAL_DELAY_MS = 250;
     
+    private class CompareName : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            string namea = ((Thumbnail) a).get_title();
+            string nameb = ((Thumbnail) b).get_title();
+            
+            return strcmp(namea, nameb);
+        }
+    }
+    
+    private class ReverseCompareName : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            string namea = ((Thumbnail) a).get_title();
+            string nameb = ((Thumbnail) b).get_title();
+            
+            return strcmp(nameb, namea);
+        }
+    }
+    
+    private class CompareDate : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            time_t timea = ((Thumbnail) a).get_photo().get_exposure_time();
+            time_t timeb = ((Thumbnail) b).get_photo().get_exposure_time();
+            
+            return timea - timeb;
+        }
+    }
+    
+    private class ReverseCompareDate : Comparator<LayoutItem> {
+        public override int64 compare(LayoutItem a, LayoutItem b) {
+            time_t timea = ((Thumbnail) a).get_photo().get_exposure_time();
+            time_t timeb = ((Thumbnail) b).get_photo().get_exposure_time();
+            
+            return timeb - timea;
+        }
+    }
+
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotate_button = null;
@@ -461,48 +497,26 @@ public class CollectionPage : CheckerboardPage {
         return value;
     }
     
-    private class CompareName : Comparator<LayoutItem> {
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            return strcmp(((Thumbnail) a).get_name(), ((Thumbnail) b).get_name());
-        }
-    }
-    
-    private class ReverseCompareName : Comparator<LayoutItem> {
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            return strcmp(((Thumbnail) b).get_name(), ((Thumbnail) a).get_name());
-        }
-    }
-    
-    private class CompareDate : Comparator<LayoutItem> {
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            return ((Thumbnail) a).get_photo().get_exposure_time() - ((Thumbnail) b).get_photo().get_exposure_time();
-        }
-    }
-    
-    private class ReverseCompareDate : Comparator<LayoutItem> {
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            return ((Thumbnail) b).get_photo().get_exposure_time() - ((Thumbnail) a).get_photo().get_exposure_time();
-        }
-    }
-
     private void on_sort_changed() {
         Comparator<LayoutItem> cmp = null;
         switch (get_sort_criteria()) {
-            case SORT_BY_NAME: {
-                if (get_sort_order() == SORT_ORDER_ASCENDING) {
+            case SORT_BY_NAME:
+                if (get_sort_order() == SORT_ORDER_ASCENDING)
                     cmp = new CompareName();
-                } else {
+                else
                     cmp = new ReverseCompareName();
-                }
-            } break;
+            break;
             
-            case SORT_BY_EXPOSURE_DATE: {
-                if (get_sort_order() == SORT_ORDER_ASCENDING) {
+            case SORT_BY_EXPOSURE_DATE:
+                if (get_sort_order() == SORT_ORDER_ASCENDING)
                     cmp = new CompareDate();
-                } else {
+                else
                     cmp = new ReverseCompareDate();
-                }
-            } break;
+            break;
+            
+            default:
+                error("Unknown sort criteria: %d", get_sort_criteria());
+            break;
         }
         
         if (cmp == null)

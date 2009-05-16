@@ -1,6 +1,6 @@
 
 public enum Orientation {
-    MAX = 1,
+    MIN = 1,
     TOP_LEFT = 1,
     TOP_RIGHT = 2,
     BOTTOM_RIGHT = 3,
@@ -9,7 +9,7 @@ public enum Orientation {
     RIGHT_TOP = 6,
     RIGHT_BOTTOM = 7,
     LEFT_BOTTOM = 8,
-    MIN = 8;
+    MAX = 8;
 
     public string to_string() {
         switch (this) {
