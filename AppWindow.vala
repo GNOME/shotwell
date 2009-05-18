@@ -8,12 +8,14 @@ public class FullscreenWindow : Gtk.Window {
 
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
     private Gtk.UIManager ui = new Gtk.UIManager();
-    private PhotoPage photo_page = new PhotoPage();
+    private PhotoPage photo_page;
     private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
     private bool is_toolbar_shown = false;
     
     public FullscreenWindow(Gdk.Screen screen, CheckerboardPage controller, Thumbnail start) {
+        photo_page = new PhotoPage(this);
+
         File ui_file = AppWindow.get_ui_dir().get_child("fullscreen.ui");
 
         try {
@@ -62,11 +64,14 @@ public class FullscreenWindow : Gtk.Window {
         motion_notify_event += on_motion;
 
         photo_page.display(controller, start);
+        photo_page.switched_to();
     }
     
     private void on_close() {
         toolbar_window.hide();
         toolbar_window = null;
+        
+        photo_page.switching_from();
         
         AppWindow.get_instance().end_fullscreen();
     }
@@ -195,9 +200,8 @@ public class AppWindow : Gtk.Window {
     
     public static File get_data_subdir(string name, string? subname = null) {
         File subdir = get_data_dir().get_child(name);
-        if (subname != null) {
+        if (subname != null)
             subdir = subdir.get_child(subname);
-        }
 
         try {
             if (subdir.query_exists(null) == false) {
@@ -275,7 +279,7 @@ public class AppWindow : Gtk.Window {
         // prepare the default parent and orphan pages
         collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
-        photo_page = new PhotoPage();
+        photo_page = new PhotoPage(this);
 
         // create Photo objects for all photos in the database and load into the Photos page
         PhotoID[] all_photo_ids = photo_table.get_photos();

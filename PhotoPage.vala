@@ -5,6 +5,7 @@ public class CropToolWindow : Gtk.Window {
     
     public Gtk.Button apply_button = new Gtk.Button.with_label("Apply");
     public Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
+    public bool user_moved = false;
 
     private Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
@@ -35,6 +36,7 @@ public class CropToolWindow : Gtk.Window {
             return false;
         
         begin_move_drag((int) event.button, (int) event.x_root, (int) event.y_root, event.time);
+        user_moved = true;
         
         return false;
     }
@@ -101,7 +103,7 @@ public class PhotoPage : Page {
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
-    public PhotoPage() {
+    public PhotoPage(Gtk.Window container) {
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
 
         // set up page's toolbar (used by AppWindow for layout)
@@ -144,13 +146,19 @@ public class PhotoPage : Page {
         canvas.set_double_buffered(false);
         canvas.set_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.POINTER_MOTION_MASK 
             | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON1_MOTION_MASK 
-            | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK);
+            | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
+            | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SUBSTRUCTURE_MASK);
         
         viewport.size_allocate += on_viewport_resize;
         canvas.expose_event += on_canvas_expose;
         canvas.motion_notify_event += on_canvas_motion;
         canvas.button_press_event += on_canvas_button_pressed;
         canvas.button_release_event += on_canvas_button_released;
+        canvas.configure_event += on_window_configured;
+        
+        // PhotoPage can't use the event virtuals declared in Page because it can be hosted by 
+        // FullscreenWindow as well as AppWindow.
+        container.configure_event += on_window_configured;
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -529,6 +537,14 @@ public class PhotoPage : Page {
         repaint();
     }
     
+    private bool on_window_configured() {
+        // if crop window is present and the user hasn't touched it, it moves with the window
+        if (crop_tool_window != null && !crop_tool_window.user_moved)
+            place_crop_tool_window();
+        
+        return false;
+    }
+    
     private bool on_canvas_expose(Gtk.DrawingArea da, Gdk.EventExpose event) {
         // to avoid multiple exposes
         if (event.count > 0)
@@ -658,8 +674,6 @@ public class PhotoPage : Page {
             return true;
         }
         
-        debug("image_improval");
-        
         repaint(QUALITY_INTERP);
         improval_scheduled = false;
         
@@ -714,6 +728,25 @@ public class PhotoPage : Page {
         }
     }
     
+    private void place_crop_tool_window() {
+        assert(crop_tool_window != null);
+
+        // position crop tool window centered on viewport/canvas at the bottom, straddling
+        // the canvas and the toolbar
+        int rx, ry;
+        AppWindow.get_instance().window.get_root_origin(out rx, out ry);
+        
+        int cx, cy, cwidth, cheight;
+        cx = viewport.allocation.x;
+        cy = viewport.allocation.y;
+        cwidth = viewport.allocation.width;
+        cheight = viewport.allocation.height;
+        
+        Gtk.Requisition req;
+        crop_tool_window.size_request(out req);
+        crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
+    }
+    
     private void activate_crop() {
         if (show_crop)
             return;
@@ -728,26 +761,13 @@ public class PhotoPage : Page {
 
         show_crop = true;
         
-        // create crop tool window and position centered on viewport/canvas at the bottom, straddling
-        // the canvas and the toolbar
-        int rx, ry;
-        AppWindow.get_instance().window.get_root_origin(out rx, out ry);
-        
-        int cx, cy, cwidth, cheight;
-        cx = viewport.allocation.x;
-        cy = viewport.allocation.y;
-        cwidth = viewport.allocation.width;
-        cheight = viewport.allocation.height;
-        
         crop_tool_window = new CropToolWindow(AppWindow.get_instance());
         crop_tool_window.apply_button.clicked += on_crop_apply;
         crop_tool_window.cancel_button.clicked += on_crop_cancel;
         crop_tool_window.show_all();
-
-        Gtk.Requisition req;
-        crop_tool_window.size_request(out req);
-        crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
         
+        place_crop_tool_window();
+
         repaint();
     }
     
