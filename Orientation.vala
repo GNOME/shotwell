@@ -270,6 +270,7 @@ public enum Orientation {
     
     // space is the unrotated dimensions the point is rotating with
     public Gdk.Point rotate_point(Dimensions space, Gdk.Point point) {
+        assert(space.has_area());
         assert(point.x >= 0);
         assert(point.x < space.width);
         assert(point.y >= 0);
@@ -285,20 +286,20 @@ public enum Orientation {
                 
             case TOP_RIGHT:
                 // mirror
-                rotated.x = space.width - point.x;
+                rotated.x = space.width - point.x - 1;
                 rotated.y = point.y;
             break;
                 
             case BOTTOM_RIGHT:
                 // rotate 180
-                rotated.x = space.width - point.x;
-                rotated.y = space.height - point.y;
+                rotated.x = space.width - point.x - 1;
+                rotated.y = space.height - point.y - 1;
             break;
                 
             case BOTTOM_LEFT:
                 // flip top-to-bottom
                 rotated.x = point.x;
-                rotated.y = space.height - point.y;
+                rotated.y = space.height - point.y - 1;
             break;
                 
             case LEFT_TOP:
@@ -309,20 +310,20 @@ public enum Orientation {
                 
             case RIGHT_TOP:
                 // rotate 270
-                rotated.x = space.height - point.y;
+                rotated.x = space.height - point.y - 1;
                 rotated.y = point.x;
             break;
                 
             case RIGHT_BOTTOM:
                 // rotate 270, flip top-to-bottom
-                rotated.x = space.height - point.y;
-                rotated.y = space.width - point.x;
+                rotated.x = space.height - point.y - 1;
+                rotated.y = space.width - point.x - 1;
             break;
                 
             case LEFT_BOTTOM:
                 // rotate 90
                 rotated.x = point.y;
-                rotated.y = space.width - point.x;
+                rotated.y = space.width - point.x - 1;
             break;
                 
             default:
@@ -335,6 +336,8 @@ public enum Orientation {
     
     // space is the unrotated dimensions the point is return to
     public Gdk.Point derotate_point(Dimensions space, Gdk.Point point) {
+        assert(space.has_area());
+        
         Gdk.Point derotated = Gdk.Point();
         
         switch (this) {
@@ -345,20 +348,20 @@ public enum Orientation {
                 
             case TOP_RIGHT:
                 // mirror
-                derotated.x = space.width - point.x;
+                derotated.x = space.width - point.x - 1;
                 derotated.y = point.y;
             break;
                 
             case BOTTOM_RIGHT:
                 // rotate 180
-                derotated.x = space.width - point.x;
-                derotated.y = space.height - point.y;
+                derotated.x = space.width - point.x - 1;
+                derotated.y = space.height - point.y - 1;
             break;
                 
             case BOTTOM_LEFT:
                 // flip top-to-bottom
                 derotated.x = point.x;
-                derotated.y = space.height - point.y;
+                derotated.y = space.height - point.y - 1;
             break;
                 
             case LEFT_TOP:
@@ -370,18 +373,18 @@ public enum Orientation {
             case RIGHT_TOP:
                 // rotate 270
                 derotated.x = point.y;
-                derotated.y = space.height - point.x;
+                derotated.y = space.height - point.x - 1;
             break;
                 
             case RIGHT_BOTTOM:
                 // rotate 270, flip top-to-bottom
-                derotated.x = space.width - point.y;
-                derotated.y = space.height - point.x;
+                derotated.x = space.width - point.y - 1;
+                derotated.y = space.height - point.x - 1;
             break;
                 
             case LEFT_BOTTOM:
                 // rotate 90
-                derotated.x = space.width - point.y;
+                derotated.x = space.width - point.y - 1;
                 derotated.y = point.x;
             break;
                 

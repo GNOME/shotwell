@@ -168,9 +168,8 @@ public class Photo : Object {
     // Returns dimensions for fully-modified photo
     public Dimensions get_dimensions() {
         Box crop;
-        if (get_crop(out crop)) {
+        if (get_crop(out crop))
             return crop.get_dimensions();
-        }
         
         return get_uncropped_dimensions();
     }
@@ -228,6 +227,9 @@ public class Photo : Object {
         Dimensions dim = photo_table.get_dimensions(photo_id);
         Orientation orientation = photo_table.get_orientation(photo_id);
         Box derotated = orientation.derotate_box(dim, crop);
+        
+        assert(derotated.get_width() <= dim.width);
+        assert(derotated.get_height() <= dim.height);
         
         return set_raw_crop(derotated);
     }

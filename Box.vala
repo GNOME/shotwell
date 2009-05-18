@@ -101,11 +101,20 @@ public struct Box {
     public Box get_scaled_proportional(Dimensions orig, Dimensions scaled) {
         double x_scale = (double) scaled.width / (double) orig.width;
         double y_scale = (double) scaled.height / (double) orig.height;
-    
-        Box box = Box((int) Math.round(left * x_scale), (int) Math.round(top * y_scale), 
-            (int) Math.round(right * x_scale), (int) Math.round(bottom * y_scale));
         
-        return box;
+        int l = (int) Math.round(left * x_scale);
+        int t = (int) Math.round(top * y_scale);
+        int r = (int) Math.round(right * x_scale);
+        int b = (int) Math.round(bottom * y_scale);
+        
+        // catch rounding errors
+        if (r >= scaled.width)
+            r = scaled.width - 1;
+        
+        if (b >= scaled.height)
+            b = scaled.height - 1;
+        
+        return Box(l, t, r, b);
     }
     
     public Box get_offset(int xofs, int yofs) {
