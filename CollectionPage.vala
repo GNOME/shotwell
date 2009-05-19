@@ -185,6 +185,10 @@ public class CollectionPage : CheckerboardPage {
         schedule_thumbnail_improval();
     }
     
+    public override void returning_from_fullscreen() {
+        refresh();
+    }
+    
     protected override void on_selection_changed(int count) {
         rotate_button.sensitive = (count > 0);
     }

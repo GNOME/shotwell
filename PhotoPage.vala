@@ -26,6 +26,7 @@ public class CropToolWindow : Gtk.Window {
         
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
         button_press_event += on_button_pressed;
+        realize += on_realized;
         
         add(layout_frame);
     }
@@ -39,6 +40,10 @@ public class CropToolWindow : Gtk.Window {
         user_moved = true;
         
         return false;
+    }
+    
+    private void on_realized() {
+        set_opacity(FullscreenWindow.TOOLBAR_OPACITY);
     }
 }
 
@@ -55,6 +60,9 @@ public class PhotoPage : Page {
     public static const int CROP_MIN_HEIGHT = 100;
     public static const float CROP_SATURATION = 0.00f;
     
+    public static const int CROP_TOOL_WINDOW_SEPARATOR = 8;
+    
+    private Gtk.Window container;
     private CheckerboardPage controller = null;
     private Photo photo = null;
     private Thumbnail thumbnail = null;
@@ -104,9 +112,11 @@ public class PhotoPage : Page {
     };
     
     public PhotoPage(Gtk.Window container) {
+        this.container = container;
+        
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
 
-        // set up page's toolbar (used by AppWindow for layout)
+        // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         //
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
@@ -184,6 +194,11 @@ public class PhotoPage : Page {
         pixbuf = null;
         pixmap = null;
         desaturated = null;
+    }
+    
+    public override void switching_to_fullscreen() {
+        // save the currently viewed photo, but deactivate the crop
+        deactivate_crop();
     }
     
     public void display(CheckerboardPage controller, Thumbnail thumbnail) {
@@ -731,20 +746,34 @@ public class PhotoPage : Page {
     private void place_crop_tool_window() {
         assert(crop_tool_window != null);
 
-        // position crop tool window centered on viewport/canvas at the bottom, straddling
-        // the canvas and the toolbar
-        int rx, ry;
-        AppWindow.get_instance().window.get_root_origin(out rx, out ry);
-        
-        int cx, cy, cwidth, cheight;
-        cx = viewport.allocation.x;
-        cy = viewport.allocation.y;
-        cwidth = viewport.allocation.width;
-        cheight = viewport.allocation.height;
-        
         Gtk.Requisition req;
         crop_tool_window.size_request(out req);
-        crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
+
+        if (container == AppWindow.get_instance()) {
+            // Normal: position crop tool window centered on viewport/canvas at the bottom, straddling
+            // the canvas and the toolbar
+            int rx, ry;
+            container.window.get_root_origin(out rx, out ry);
+            
+            int cx, cy, cwidth, cheight;
+            cx = viewport.allocation.x;
+            cy = viewport.allocation.y;
+            cwidth = viewport.allocation.width;
+            cheight = viewport.allocation.height;
+            
+            crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
+        } else {
+            // Fullscreen: position crop tool window centered on screen at the bottom, just above the
+            // toolbar
+            Gtk.Requisition toolbar_req;
+            toolbar.size_request(out toolbar_req);
+            
+            Gdk.Screen screen = container.get_screen();
+            int x = (screen.get_width() - req.width) / 2;
+            int y = screen.get_height() - toolbar_req.height - req.height - CROP_TOOL_WINDOW_SEPARATOR;
+            
+            crop_tool_window.move(x, y);
+        }
     }
     
     private void activate_crop() {
@@ -761,7 +790,7 @@ public class PhotoPage : Page {
 
         show_crop = true;
         
-        crop_tool_window = new CropToolWindow(AppWindow.get_instance());
+        crop_tool_window = new CropToolWindow(container);
         crop_tool_window.apply_button.clicked += on_crop_apply;
         crop_tool_window.cancel_button.clicked += on_crop_cancel;
         crop_tool_window.show_all();

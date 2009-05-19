@@ -1,9 +1,16 @@
 
 public class FullscreenWindow : Gtk.Window {
-    public static const int TOOLBAR_DISMISSAL_MSEC = 2500;
+    public static const int TOOLBAR_INVOCATION_MSEC = 250;
+    public static const int TOOLBAR_DISMISSAL_SEC = 2;
+    public static const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
+    
+    public static const double TOOLBAR_OPACITY = 0.75;
+    
+    private Gdk.ModifierType ANY_BUTTON_MASK = 
+        Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
     
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN, "Leave _Fullscreen", "Escape", "Leave fullscreen", on_close }
+        { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN, "Leave _Fullscreen", "F11", "Leave fullscreen", on_close }
     };
 
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
@@ -12,7 +19,9 @@ public class FullscreenWindow : Gtk.Window {
     private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
     private bool is_toolbar_shown = false;
-    
+    private bool waiting_for_invoke = false;
+    private time_t left_toolbar_time = 0;
+
     public FullscreenWindow(Gdk.Screen screen, CheckerboardPage controller, Thumbnail start) {
         photo_page = new PhotoPage(this);
 
@@ -41,12 +50,12 @@ public class FullscreenWindow : Gtk.Window {
         close_button.clicked += on_close;
         
         Gtk.Toolbar toolbar = photo_page.get_toolbar();
+        toolbar.set_show_arrow(false);
         toolbar.insert(pin_button, -1);
         toolbar.insert(close_button, -1);
         
-        // set up toolbar along bottom of screen, but don't show yet
+        // set up toolbar along bottom of screen
         toolbar_window.set_screen(get_screen());
-        toolbar_window.set_default_size(screen.get_width(), -1);
         toolbar_window.set_border_width(0);
         toolbar_window.add(toolbar);
         
@@ -57,11 +66,12 @@ public class FullscreenWindow : Gtk.Window {
         show_all();
         
         // want to receive motion events
-        Gdk.EventMask mask = window.get_events();
-        mask |= Gdk.EventMask.POINTER_MOTION_MASK;
-        window.set_events(mask);
+        add_events(Gdk.EventMask.POINTER_MOTION_MASK);
         
         motion_notify_event += on_motion;
+        
+        // start off with toolbar invoked, as a clue for the user
+        invoke_toolbar();
 
         photo_page.display(controller, start);
         photo_page.switched_to();
@@ -77,25 +87,69 @@ public class FullscreenWindow : Gtk.Window {
     }
     
     private bool on_motion(FullscreenWindow fsw, Gdk.EventMotion event) {
-        show_toolbar();
+        if (is_toolbar_shown)
+            return false;
+
+        // if pointer is in toolbar height range without the mouse down (i.e. in the middle of an edit
+        // operation) and it stays there the necessary amount of time, invoke the toolbar
+        if (!waiting_for_invoke && is_pointer_in_toolbar()) {
+            Timeout.add(TOOLBAR_INVOCATION_MSEC, on_check_toolbar_invocation);
+            waiting_for_invoke = true;
+        }
+        
+        return false;
+    }
+
+    private bool is_pointer_in_toolbar() {
+        int y, height;
+        window.get_geometry(null, out y, null, out height, null);
+
+        int py;
+        Gdk.ModifierType mask;
+        get_display().get_pointer(null, null, out py, out mask);
+        
+        Gtk.Requisition req;
+        toolbar_window.size_request(out req);
+
+        return ((mask & ANY_BUTTON_MASK) == 0) && (py >= (y + height - req.height));
+    }
+    
+    private bool on_check_toolbar_invocation() {
+        waiting_for_invoke = false;
+        
+        if (is_toolbar_shown)
+            return false;
+        
+        if (!is_pointer_in_toolbar())
+            return false;
+        
+        invoke_toolbar();
         
         return false;
     }
     
-    private void show_toolbar() {
-        if (is_toolbar_shown)
-            return;
-
+    private void invoke_toolbar() {
         toolbar_window.show_all();
 
         Gtk.Requisition req;
         toolbar_window.size_request(out req);
-        toolbar_window.move(0, toolbar_window.get_screen().get_height() - req.height);
+        
+        // place the toolbar in the center of the screen along the bottom edge
+        Gdk.Screen screen = toolbar_window.get_screen();
+        int tx = (screen.get_width() - req.width) / 2;
+        if (tx < 0)
+            tx = 0;
 
-        toolbar_window.present();
+        int ty = screen.get_height() - req.height;
+        if (ty < 0)
+            ty = 0;
+            
+        toolbar_window.move(tx, ty);
+        toolbar_window.set_opacity(TOOLBAR_OPACITY);
+
         is_toolbar_shown = true;
         
-        Timeout.add(TOOLBAR_DISMISSAL_MSEC, on_check_toolbar_dismissal);
+        Timeout.add(TOOLBAR_CHECK_DISMISSAL_MSEC, on_check_toolbar_dismissal);
     }
     
     private bool on_check_toolbar_dismissal() {
@@ -109,12 +163,25 @@ public class FullscreenWindow : Gtk.Window {
         if (pin_button.get_active())
             return true;
         
-        // if the pointer is on the window, keep it alive, but keep checking
-        int x, y, width, height, px, py;
-        toolbar_window.window.get_geometry(out x, out y, out width, out height, null);
-        toolbar_window.get_display().get_pointer(null, out px, out py, null);
+        // if the pointer is in toolbar range, keep it alive, but keep checking
+        if (is_pointer_in_toolbar()) {
+            left_toolbar_time = 0;
+
+            return true;
+        }
         
-        if ((px >= x) && (px <= x + width) && (py >= y) && (py <= y + height))
+        // if this is the first time noticed, start the timer and keep checking
+        if (left_toolbar_time == 0) {
+            left_toolbar_time = time_t();
+            
+            return true;
+        }
+        
+        // see if enough time has elapsed
+        time_t now = time_t();
+        assert(now >= left_toolbar_time);
+
+        if (now - left_toolbar_time < TOOLBAR_DISMISSAL_SEC)
             return true;
         
         toolbar_window.hide();
@@ -401,6 +468,8 @@ public class AppWindow : Gtk.Window {
             error("Unable to present fullscreen view for this page");
         }
         
+        current_page.switching_to_fullscreen();
+        
         fullscreen_window.present();
         hide();
     }
@@ -413,6 +482,8 @@ public class AppWindow : Gtk.Window {
         
         fullscreen_window.hide();
         fullscreen_window = null;
+        
+        current_page.returning_from_fullscreen();
         
         present();
     }

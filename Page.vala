@@ -57,7 +57,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.UIManager ui = new Gtk.UIManager();
     public Gtk.ActionGroup action_group = null;
     public Gtk.MenuBar menu_bar = null;
-    
     public PageMarker marker = null;
     
     public Page() {
@@ -87,6 +86,12 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public virtual void switched_to() {
+    }
+    
+    public virtual void switching_to_fullscreen() {
+    }
+    
+    public virtual void returning_from_fullscreen() {
     }
     
     public void set_item_sensitive(string path, bool sensitive) {
