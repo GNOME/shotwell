@@ -33,17 +33,17 @@ public struct Dimensions {
     public Dimensions get_scaled(int scale) {
         assert(scale > 0);
 
-        int diffWidth = width - scale;
-        int diffHeight = height - scale;
+        int diff_width = width - scale;
+        int diff_height = height - scale;
 
         Dimensions scaled = Dimensions();
 
-        if (diffWidth == diffHeight) {
+        if (diff_width == diff_height) {
             // square image -- unlikely -- but this is the easy case
             scaled.width = scale;
             scaled.height = scale;
-        } else if (diffWidth <= 0) {
-            if (diffHeight <= 0) {
+        } else if (diff_width <= 0) {
+            if (diff_height <= 0) {
                 // if both dimensions are less than the scaled size, return as-is
                 return Dimensions(width, height);
             } 
@@ -52,9 +52,9 @@ public struct Dimensions {
             double ratio = (double) scale / (double) height;
             scaled.width = (int) Math.round((double) width * ratio);
             scaled.height = scale;
-        } else if (diffWidth > diffHeight) {
+        } else if (diff_width > diff_height) {
             // width is greater, so it's the determining factor
-            // (this case is true even when diffHeight is negative)
+            // (this case is true even when diff_height is negative)
             scaled.width = scale;
             double ratio = (double) scale / (double) width;
             scaled.height = (int) Math.round((double) height * ratio);
@@ -96,12 +96,6 @@ public struct Dimensions {
         scaled_rect.y = (int) (rect.y * y_scale);
         scaled_rect.width = (int) (rect.width * x_scale);
         scaled_rect.height = (int) (rect.height * y_scale);
-        
-        /*
-        debug("orig:%dx%d scaled:%dx%d x_scale=%lf y_scale=%lf scaled=%d,%d %dx%d", orig.width,
-            orig.height, scaled.width, scaled.height, x_scale, y_scale, scaled_rect.x, scaled_rect.y, 
-            scaled_rect.width, scaled_rect.height);
-        */
         
         return scaled_rect;
     }

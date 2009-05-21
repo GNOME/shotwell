@@ -31,7 +31,7 @@ public enum BoxComplements {
 }
 
 public struct Box {
-    public static const int HAND_GRENADES = 6;
+    public static const int HAND_GRENADES = 12;
     
     public int left;
     public int top;
@@ -144,9 +144,9 @@ public struct Box {
     }
     
     public Box rotate_clockwise(Dimensions space) {
-        int l = space.width - bottom;
+        int l = space.width - bottom - 1;
         int t = left;
-        int r = space.width - top;
+        int r = space.width - top - 1;
         int b = right;
         
         return Box(l, t, r, b);
@@ -154,23 +154,23 @@ public struct Box {
     
     public Box rotate_counterclockwise(Dimensions space) {
         int l = top;
-        int t = space.height - right;
+        int t = space.height - right - 1;
         int r = bottom;
-        int b = space.height - left;
+        int b = space.height - left - 1;
         
         return Box(l, t, r, b);
     }
     
     public Box flip_left_to_right(Dimensions space) {
-        int l = space.width - right;
-        int r = space.width - left;
+        int l = space.width - right - 1;
+        int r = space.width - left - 1;
         
         return Box(l, top, r, bottom);
     }
     
     public Box flip_top_to_bottom(Dimensions space) {
-        int t = space.height - bottom;
-        int b = space.height - top;
+        int t = space.height - bottom - 1;
+        int b = space.height - top - 1;
         
         return Box(left, t, right, b);
     }
@@ -187,6 +187,14 @@ public struct Box {
         intersection = Box(left_intersect, top_intersect, right_intersect, bottom_intersect);
         
         return true;
+    }
+    
+    public Box get_reduced(int amount) {
+        return Box(left + amount, top + amount, right - amount, bottom - amount);
+    }
+    
+    public Box get_expanded(int amount) {
+        return Box(left - amount, top - amount, right + amount, bottom + amount);
     }
     
     // This specialized method is only concerned with resized comparisons between two Boxes, 

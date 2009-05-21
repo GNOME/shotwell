@@ -7,14 +7,15 @@ public class CropToolWindow : Gtk.Window {
     public Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
     public bool user_moved = false;
 
+    private Gtk.Window owner;
     private Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
     
-    public CropToolWindow(Gtk.Window parent) {
+    public CropToolWindow(Gtk.Window owner) {
+        this.owner = owner;
+        
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
-        set_focus_on_map(false);
-        set_accept_focus(false);
-        set_transient_for(parent);
+        set_transient_for(owner);
         
         layout.set_border_width(WINDOW_BORDER);
         layout.add(apply_button);
@@ -24,8 +25,9 @@ public class CropToolWindow : Gtk.Window {
         layout_frame.set_shadow_type(Gtk.ShadowType.OUT);
         layout_frame.add(layout);
         
-        add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
+        add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK);
         button_press_event += on_button_pressed;
+        focus_in_event += on_focused_gained;
         realize += on_realized;
         
         add(layout_frame);
@@ -42,6 +44,12 @@ public class CropToolWindow : Gtk.Window {
         return false;
     }
     
+    private bool on_focused_gained(CropToolWindow ctw, Gdk.EventFocus event) {
+        owner.present();
+        
+        return true;
+    }
+    
     private void on_realized() {
         set_opacity(FullscreenWindow.TOOLBAR_OPACITY);
     }
@@ -53,7 +61,6 @@ public class PhotoPage : Page {
     
     public static const int IMPROVAL_MSEC = 250;
     
-    private static const int CROP_BORDER_THICKNESS = 1;
     public static const double CROP_INIT_X_PCT = 0.15;
     public static const double CROP_INIT_Y_PCT = 0.15;
     public static const int CROP_MIN_WIDTH = 100;
@@ -84,6 +91,10 @@ public class PhotoPage : Page {
     private bool reschedule_improval = false;
     private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
     private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
+    private Gdk.GC wide_black_gc = null;
+    private Gdk.GC wide_white_gc = null;
+    private Gdk.GC thin_white_gc = null;
+    private Gdk.GC image_gc = null;
     
     // cropping
     private bool show_crop = false;
@@ -153,14 +164,16 @@ public class PhotoPage : Page {
         
         add(viewport);
         
+        // turn off double-buffering because all painting happens in pixmap, and is sent to the window
+        // wholesale in on_canvas_expose
         canvas.set_double_buffered(false);
-        canvas.set_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.POINTER_MOTION_MASK 
+        canvas.set_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK 
             | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON1_MOTION_MASK 
             | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
             | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SUBSTRUCTURE_MASK);
         
         viewport.size_allocate += on_viewport_resize;
-        canvas.expose_event += on_canvas_expose;
+        canvas.expose_event += on_canvas_exposed;
         canvas.motion_notify_event += on_canvas_motion;
         canvas.button_press_event += on_canvas_button_pressed;
         canvas.button_release_event += on_canvas_button_released;
@@ -286,18 +299,19 @@ public class PhotoPage : Page {
         if (!show_crop)
             return false;
         
-        // scaled_crop is not maintained relative to photo's position on canvas
-        Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
-        
         int x = (int) event.x;
         int y = (int) event.y;
+        
+        // only concerned about mouse-downs on the pixbuf
+        if (x < pixbuf_rect.x || y < pixbuf_rect.y)
+            return false;
+        
+        // scaled_crop is not maintained relative to photo's position on canvas
+        Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
         
         in_manipulation = offset_scaled_crop.location(x, y);
         last_grab_x = x -= pixbuf_rect.x;
         last_grab_y = y -= pixbuf_rect.y;
-        
-        assert(last_grab_x >= 0);
-        assert(last_grab_y >= 0);
         
         // repaint because crop changes on a manipulation
         repaint();
@@ -560,7 +574,7 @@ public class PhotoPage : Page {
         return false;
     }
     
-    private bool on_canvas_expose(Gtk.DrawingArea da, Gdk.EventExpose event) {
+    private bool on_canvas_exposed(Gtk.DrawingArea da, Gdk.EventExpose event) {
         // to avoid multiple exposes
         if (event.count > 0)
             return false;
@@ -568,8 +582,8 @@ public class PhotoPage : Page {
         if (pixmap == null)
             return false;
         
-        canvas.window.draw_drawable(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pixmap, event.area.x, 
-            event.area.y, event.area.x, event.area.y, event.area.width, event.area.height);
+        canvas.window.draw_drawable(image_gc, pixmap, event.area.x, event.area.y, event.area.x, 
+            event.area.y, event.area.width, event.area.height);
 
         return true;
     }
@@ -596,42 +610,10 @@ public class PhotoPage : Page {
         
         // if necessary, create a pixmap as large as the entire viewport
         if (pixmap == null) {
-            pixmap = new Gdk.Pixmap(canvas.window, width, height, -1);
-            pixmap_dim = Dimensions(width, height);
-            
-            // need a new pixbuf to fit this scale
-            pixbuf = null;
-
-            // resize canvas for the pixmap (that is, the entire viewport)
-            canvas.set_size_request(width, height);
-
-            // determine size of pixbuf that will fit on the canvas
-            Dimensions old_pixbuf_dim = Dimensions.for_rectangle(pixbuf_rect);
-            Dimensions pixbuf_dim = Dimensions.for_pixbuf(original).get_scaled_proportional(pixmap_dim);
-
-            // center pixbuf on the canvas
-            int photo_x = (width - pixbuf_dim.width) / 2;
-            int photo_y = (height - pixbuf_dim.height) / 2;
-
-            // store pixbuf's position in the pixmap/canvas
-            pixbuf_rect.x = photo_x;
-            pixbuf_rect.y = photo_y;
-            pixbuf_rect.width = pixbuf_dim.width;
-            pixbuf_rect.height = pixbuf_dim.height;
+            init_pixmap(new_image, width, height);
         
-            // only rescale the crop if resizing an existing image
-            if (show_crop) {
-                if (new_image)
-                    init_crop();
-                else
-                    rescale_crop(old_pixbuf_dim, pixbuf_dim);
-            }
-            
             // override caller's request ... pixbuf will be rescheduled for improvement
             paint_interp = FAST_INTERP;
-
-            // draw background
-            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
         } else if (paint_interp == FAST_INTERP) {
             // block calls where the pixmap is not being regenerated and the caller is asking for
             // a lower interp
@@ -658,8 +640,8 @@ public class PhotoPage : Page {
             draw_with_crop();
         } else {
             // lay down the photo and nothing else
-            pixmap.draw_pixbuf(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pixbuf, 0, 0, pixbuf_rect.x, 
-                pixbuf_rect.y, -1, -1, Gdk.RgbDither.NORMAL, 0, 0);
+            pixmap.draw_pixbuf(image_gc, pixbuf, 0, 0, pixbuf_rect.x, pixbuf_rect.y, -1, -1, 
+                Gdk.RgbDither.NORMAL, 0, 0);
         }
         
         // invalidate everything
@@ -693,6 +675,70 @@ public class PhotoPage : Page {
         improval_scheduled = false;
         
         return false;
+    }
+    
+    private void init_pixmap(bool new_image, int width, int height) {
+        pixmap = new Gdk.Pixmap(canvas.window, width, height, -1);
+        pixmap_dim = Dimensions(width, height);
+        
+        // need a new pixbuf to fit this scale
+        pixbuf = null;
+
+        // determine size of pixbuf that will fit on the canvas
+        Dimensions old_pixbuf_dim = Dimensions.for_rectangle(pixbuf_rect);
+        Dimensions pixbuf_dim = Dimensions.for_pixbuf(original).get_scaled_proportional(pixmap_dim);
+
+        // center pixbuf on the canvas
+        pixbuf_rect.x = (width - pixbuf_dim.width) / 2;
+        pixbuf_rect.y = (height - pixbuf_dim.height) / 2;
+        pixbuf_rect.width = pixbuf_dim.width;
+        pixbuf_rect.height = pixbuf_dim.height;
+
+        // set up GC's for painting crop tool
+        Gdk.GCValues gc_values = Gdk.GCValues();
+        gc_values.foreground = fetch_color("#000", pixmap);
+        gc_values.function = Gdk.Function.COPY;
+        gc_values.fill = Gdk.Fill.SOLID;
+        gc_values.line_width = 1;
+        gc_values.line_style = Gdk.LineStyle.SOLID;
+        gc_values.cap_style = Gdk.CapStyle.BUTT;
+        gc_values.join_style = Gdk.JoinStyle.MITER;
+
+        Gdk.GCValuesMask mask = 
+            Gdk.GCValuesMask.FOREGROUND
+            | Gdk.GCValuesMask.FUNCTION
+            | Gdk.GCValuesMask.FILL
+            | Gdk.GCValuesMask.LINE_WIDTH 
+            | Gdk.GCValuesMask.LINE_STYLE
+            | Gdk.GCValuesMask.CAP_STYLE
+            | Gdk.GCValuesMask.JOIN_STYLE;
+
+        wide_black_gc = new Gdk.GC.with_values(pixmap, gc_values, mask);
+        
+        gc_values.foreground = fetch_color("#FFF", pixmap);
+        
+        wide_white_gc = new Gdk.GC.with_values(pixmap, gc_values, mask);
+        
+        gc_values.line_width = 0;
+        
+        thin_white_gc = new Gdk.GC.with_values(pixmap, gc_values, mask);
+
+        // existing GC good enough for painting the image
+        image_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
+
+        // resize canvas for the pixmap (that is, the entire viewport)
+        canvas.set_size_request(width, height);
+
+        // only rescale the crop if resizing an existing image
+        if (show_crop) {
+            if (new_image)
+                init_crop();
+            else
+                rescale_crop(old_pixbuf_dim, pixbuf_dim);
+        }
+
+        // draw background
+        pixmap.draw_rectangle(wide_black_gc, true, 0, 0, width, height);
     }
     
     private void rotate(Rotation rotation) {
@@ -851,131 +897,108 @@ public class PhotoPage : Page {
     }
     
     private void paint_pixbuf(Gdk.Pixbuf pb, Box source) {
-        pixmap.draw_pixbuf(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pb,
+        pixmap.draw_pixbuf(image_gc, pb,
             source.left, source.top,
             pixbuf_rect.x + source.left, pixbuf_rect.y + source.top,
             source.get_width(), source.get_height(),
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    private void paint_horizontal_line(Gdk.Pixbuf pb, int x, int y, int width) {
-        pixmap.draw_pixbuf(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pb,
+    private void draw_box(Gdk.GC gc, Box box) {
+        Gdk.Rectangle rect = box.get_rectangle();
+        rect.x += pixbuf_rect.x;
+        rect.y += pixbuf_rect.y;
+        
+        // See note at gtk_drawable_draw_rectangle for info on off-by-one with unfilled rectangles
+        pixmap.draw_rectangle(gc, false, rect.x, rect.y, rect.width - 1, rect.height - 1);
+    }
+    
+    private void draw_horizontal_line(Gdk.GC gc, int x, int y, int width) {
+        x += pixbuf_rect.x;
+        y += pixbuf_rect.y;
+        
+        Gdk.draw_line(pixmap, gc, x, y, x + width - 1, y);
+    }
+    
+    private void draw_vertical_line(Gdk.GC gc, int x, int y, int height) {
+        x += pixbuf_rect.x;
+        y += pixbuf_rect.y;
+        
+        Gdk.draw_line(pixmap, gc, x, y, x, y + height - 1);
+    }
+    
+    private void erase_horizontal_line(int x, int y, int width) {
+        pixmap.draw_pixbuf(image_gc, pixbuf,
             x, y,
             pixbuf_rect.x + x, pixbuf_rect.y + y,
             width, 1,
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    private void paint_vertical_line(Gdk.Pixbuf pb, int x, int y, int height) {
-        pixmap.draw_pixbuf(canvas.style.fg_gc[(int) Gtk.StateType.NORMAL], pb,
+    private void erase_vertical_line(int x, int y, int height) {
+        pixmap.draw_pixbuf(image_gc, pixbuf,
             x, y,
             pixbuf_rect.x + x, pixbuf_rect.y + y,
             1, height,
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    private void paint_rectangle(Gdk.Pixbuf pb, Box box) {
-        paint_horizontal_line(pb, box.left, box.top, box.get_width());
-        paint_horizontal_line(pb, box.left, box.bottom, box.get_width());
+    private void erase_box(Box box) {
+        erase_horizontal_line(box.left, box.top, box.get_width());
+        erase_horizontal_line(box.left, box.bottom, box.get_width());
         
-        paint_vertical_line(pb, box.left, box.top, box.get_height());
-        paint_vertical_line(pb, box.right, box.top, box.get_height());
+        erase_vertical_line(box.left, box.top, box.get_height());
+        erase_vertical_line(box.right, box.top, box.get_height());
     }
     
-    private void invalidate_box(Box dirty) {
-        Gdk.Rectangle rect = dirty.get_rectangle();
+    private void invalidate_area(Box area) {
+        Gdk.Rectangle rect = area.get_rectangle();
         rect.x += pixbuf_rect.x;
         rect.y += pixbuf_rect.y;
         
         canvas.window.invalidate_rect(rect, false);
     }
     
-    private void invalidate_horizontal_line(int x, int y, int width) {
-        Gdk.Rectangle rect = Gdk.Rectangle();
-        rect.x = x + pixbuf_rect.x;
-        rect.y = y + pixbuf_rect.y;
-        rect.width = width;
-        rect.height = 1;
-        
-        canvas.window.invalidate_rect(rect, false);
-    }
-    
-    private void invalidate_vertical_line(int x, int y, int height) {
-        Gdk.Rectangle rect = Gdk.Rectangle();
-        rect.x = x + pixbuf_rect.x;
-        rect.y = y + pixbuf_rect.y;
-        rect.width = 1;
-        rect.height = height;
-        
-        canvas.window.invalidate_rect(rect, false);
-    }
-    
     private void paint_crop_tool(Box crop) {
-        // crop is maintained in photo coordinates ... move to offset of photo on canvas
-        Box offset_crop = crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
-        
-        Gdk.GC gc = canvas.style.white_gc;
-        
-        // outer rectangle ... see note at gtk_drawable_draw_rectangle for info on off-by-one with
-        // unfilled rectangles
-        pixmap.draw_rectangle(gc, false, offset_crop.left, offset_crop.top, 
-            offset_crop.get_width() - 1, offset_crop.get_height() - 1);
-        
         // paint rule-of-thirds lines if user is manipulating the crop
         if (in_manipulation != BoxLocation.OUTSIDE) {
-            int one_third_x = offset_crop.get_width() / 3;
-            int one_third_y = offset_crop.get_height() / 3;
+            int one_third_x = crop.get_width() / 3;
+            int one_third_y = crop.get_height() / 3;
             
-            // horizontal lines
-            Gdk.draw_line(pixmap, gc, offset_crop.left, offset_crop.top + one_third_y,
-                offset_crop.right, offset_crop.top + one_third_y);
-            Gdk.draw_line(pixmap, gc, offset_crop.left, offset_crop.top + (one_third_y * 2),
-                offset_crop.right, offset_crop.top + (one_third_y * 2));
-            
-            // vertical lines
-            Gdk.draw_line(pixmap, gc, offset_crop.left + one_third_x, offset_crop.top,
-                offset_crop.left + one_third_x, offset_crop.bottom);
-            Gdk.draw_line(pixmap, gc, offset_crop.left + (one_third_x * 2), offset_crop.top,
-                offset_crop.left + (one_third_x * 2), offset_crop.bottom);
+            draw_horizontal_line(thin_white_gc, crop.left, crop.top + one_third_y, crop.get_width());
+            draw_horizontal_line(thin_white_gc, crop.left, crop.top + (one_third_y * 2), crop.get_width());
+
+            draw_vertical_line(thin_white_gc, crop.left + one_third_x, crop.top, crop.get_height());
+            draw_vertical_line(thin_white_gc, crop.left + (one_third_x * 2), crop.top, crop.get_height());
         }
+
+        // outer rectangle ... outer line in black, inner in white, corners fully black
+        draw_box(wide_black_gc, crop);
+        draw_box(wide_white_gc, crop.get_reduced(1));
+        draw_box(wide_white_gc, crop.get_reduced(2));
     }
     
     private void erase_crop_tool(Box crop) {
-        // outer border
-        paint_rectangle(pixbuf, crop);
-        
-        // paint rule-of-thirds lines if user is manipulating the crop
+        // erase rule-of-thirds lines if user is manipulating the crop
         if (in_manipulation != BoxLocation.OUTSIDE) {
             int one_third_x = crop.get_width() / 3;
             int one_third_y = crop.get_height() / 3;
             
-            // horizontal lines
-            paint_horizontal_line(pixbuf, crop.left, crop.top + one_third_y, crop.get_width());
-            paint_horizontal_line(pixbuf, crop.left, crop.top + (one_third_y * 2), crop.get_width());
+            erase_horizontal_line(crop.left, crop.top + one_third_y, crop.get_width());
+            erase_horizontal_line(crop.left, crop.top + (one_third_y * 2), crop.get_width());
             
-            // vertical lines
-            paint_vertical_line(pixbuf, crop.left + one_third_x, crop.top, crop.get_height());
-            paint_vertical_line(pixbuf, crop.left + (one_third_x * 2), crop.top, crop.get_height());
+            erase_vertical_line(crop.left + one_third_x, crop.top, crop.get_height());
+            erase_vertical_line(crop.left + (one_third_x * 2), crop.top, crop.get_height());
         }
+
+        // erase border
+        erase_box(crop);
+        erase_box(crop.get_reduced(1));
+        erase_box(crop.get_reduced(2));
     }
     
     private void invalidate_crop_tool(Box crop) {
-        // outer border
-        invalidate_box(crop);
-        
-        // paint rule-of-thirds lines if user is manipulating the crop
-        if (in_manipulation != BoxLocation.OUTSIDE) {
-            int one_third_x = crop.get_width() / 3;
-            int one_third_y = crop.get_height() / 3;
-            
-            // horizontal lines
-            invalidate_horizontal_line(crop.left, crop.top + one_third_y, crop.get_width());
-            invalidate_horizontal_line(crop.left, crop.top + (one_third_y * 2), crop.get_width());
-
-            // vertical lines
-            invalidate_vertical_line(crop.left + one_third_x, crop.top, crop.get_height());
-            invalidate_vertical_line(crop.left + (one_third_x * 2), crop.top, crop.get_height());
-        }
+        invalidate_area(crop);
     }
     
     private void crop_resized(Box new_crop) {
@@ -1002,14 +1025,14 @@ public class PhotoPage : Page {
             Gdk.Pixbuf pb = horizontal_enlarged ? pixbuf : desaturated;
             paint_pixbuf(pb, horizontal);
             
-            invalidate_box(horizontal);
+            invalidate_area(horizontal);
         }
         
         if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
             Gdk.Pixbuf pb = vertical_enlarged ? pixbuf : desaturated;
             paint_pixbuf(pb, vertical);
             
-            invalidate_box(vertical);
+            invalidate_area(vertical);
         }
         
         paint_crop_tool(new_crop);
@@ -1038,8 +1061,8 @@ public class PhotoPage : Page {
             paint_pixbuf(desaturated, scaled_horizontal);
             paint_pixbuf(pixbuf, new_horizontal);
             
-            invalidate_box(scaled_horizontal);
-            invalidate_box(new_horizontal);
+            invalidate_area(scaled_horizontal);
+            invalidate_area(new_horizontal);
         }
         
         if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
@@ -1047,8 +1070,8 @@ public class PhotoPage : Page {
             paint_pixbuf(desaturated, scaled_vertical);
             paint_pixbuf(pixbuf, new_vertical);
             
-            invalidate_box(scaled_vertical);
-            invalidate_box(new_vertical);
+            invalidate_area(scaled_vertical);
+            invalidate_area(new_vertical);
         }
         
         if (complements == BoxComplements.NONE) {
@@ -1057,8 +1080,8 @@ public class PhotoPage : Page {
             paint_pixbuf(desaturated, scaled_crop);
             paint_pixbuf(pixbuf, new_crop);
             
-            invalidate_box(scaled_crop);
-            invalidate_box(new_crop);
+            invalidate_area(scaled_crop);
+            invalidate_area(new_crop);
         }
         
         // paint crop in new location
@@ -1068,8 +1091,6 @@ public class PhotoPage : Page {
     
     private void draw_with_crop() {
         assert(show_crop);
-        
-        Gdk.GC image_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
         
         // painter's algorithm: from the bottom up, starting with the desaturated portion of the
         // photo outside the crop

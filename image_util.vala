@@ -1,10 +1,29 @@
 
-Gdk.Color parse_color(string color) {
-    Gdk.Color c;
-    if (!Gdk.Color.parse(color, out c))
-        error("can't parse color %s", color);
+Gdk.Color parse_color(string spec) {
+    return fetch_color(spec);
+}
 
-    return c;
+Gdk.Color fetch_color(string spec, Gdk.Drawable? drawable = null) {
+    Gdk.Color color;
+    if (!Gdk.Color.parse(spec, out color))
+        error("Can't parse color %s", spec);
+    
+    if (drawable == null) {
+        Gtk.Window app = AppWindow.get_instance();
+        if (app != null)
+            drawable = app.window;
+    }
+    
+    if (drawable != null) {
+        Gdk.Colormap colormap = drawable.get_colormap();
+        if (colormap == null)
+            error("Can't get colormap for drawable");
+        
+        if (!colormap.alloc_color(color, false, true))
+            error("Can't allocate color %s", spec);
+    }
+    
+    return color;
 }
 
 public enum Rotation {
