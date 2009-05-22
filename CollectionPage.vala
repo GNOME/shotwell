@@ -72,12 +72,12 @@ public class CollectionPage : CheckerboardPage {
         { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
         
         { "PhotosMenu", null, "_Photos", null, null, on_photos_menu },
-        { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _in", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
-        { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
-        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _In", "KP_Add", "Increase the magnification of the thumbnails", on_increase_size },
+        { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _Out", "KP_Subtract", "Decrease the magnification of the thumbnails", on_decrease_size },
+        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
-        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "_Revert to Original", null, "Revert to original photo", on_revert },
+        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to original photo", on_revert },
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
         { "SortPhotos", null, "_Sort Photos", null, null, null },
