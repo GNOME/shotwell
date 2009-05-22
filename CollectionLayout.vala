@@ -413,21 +413,16 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     private bool on_expose(CollectionLayout cl, Gdk.EventExpose event) {
-        Gdk.Rectangle visibleRect = Gdk.Rectangle();
-        visibleRect.x = (int) get_hadjustment().get_value();
-        visibleRect.y = (int) get_vadjustment().get_value();
-        visibleRect.width = allocation.width;
-        visibleRect.height = allocation.height;
+        Gdk.Rectangle visible_rect = Gdk.Rectangle();
+        visible_rect.x = (int) get_hadjustment().get_value();
+        visible_rect.y = (int) get_vadjustment().get_value();
+        visible_rect.width = allocation.width;
+        visible_rect.height = allocation.height;
 
-        /*
-        debug("on_client_exposed x:%d y:%d w:%d h:%d", visibleRect.x, visibleRect.y,
-            visibleRect.width, visibleRect.height);
-        */
-        
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
         foreach (LayoutItem item in items) {
-            if (visibleRect.intersect((Gdk.Rectangle) item.allocation, bitbucket)) {
+            if (visible_rect.intersect((Gdk.Rectangle) item.allocation, bitbucket)) {
                 item.exposed();
             } else {
                 item.unexposed();

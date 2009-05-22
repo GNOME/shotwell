@@ -63,3 +63,7 @@ Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
     return pixbuf.scale_simple(scaled.width, scaled.height, interp);
 }
 
+bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
+    return (x >= rect.x && x < (rect.x + rect.width) && y >= rect.y && y <= (rect.y + rect.height));
+}
+

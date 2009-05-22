@@ -135,6 +135,25 @@ public class Photo : Object {
         return false;
     }
     
+    public bool has_transformations() {
+        return photo_table.has_transformations(photo_id) 
+            || (photo_table.get_orientation(photo_id) != photo_table.get_original_orientation(photo_id));
+    }
+    
+    public void remove_all_transformations() {
+        bool altered = photo_table.remove_all_transformations(photo_id);
+        
+        Orientation orientation = photo_table.get_orientation(photo_id);
+        Orientation original_orientation = photo_table.get_original_orientation(photo_id);
+        if (orientation != original_orientation) {
+            photo_table.set_orientation(photo_id, original_orientation);
+            altered = true;
+        }
+
+        if (altered)
+            photo_altered();
+    }
+    
     public void rotate(Rotation rotation) {
         Orientation orientation = photo_table.get_orientation(photo_id);
         

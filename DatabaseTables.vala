@@ -92,6 +92,7 @@ public class PhotoTable : DatabaseTable {
             + "timestamp INTEGER, "
             + "exposure_time INTEGER, "
             + "orientation INTEGER, "
+            + "original_orientation INTEGER, "
             + "import_id INTEGER, "
             + "event_id INTEGER, "
             + "transformations TEXT"
@@ -115,10 +116,10 @@ public class PhotoTable : DatabaseTable {
     }
     
     public PhotoID add(File file, Dimensions dim, int64 filesize, long timestamp, time_t exposure_time,
-        Orientation orientation, ImportID importID) {
+        Orientation orientation, ImportID import_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, orientation, import_id, event_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, orientation, original_orientation, import_id, event_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -137,11 +138,13 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(6, exposure_time);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(7, orientation);
+        res = stmt.bind_int(7, orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(8, importID.id);
+        res = stmt.bind_int(8, orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(9, PhotoID.INVALID);
+        res = stmt.bind_int64(9, import_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(10, PhotoID.INVALID);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -161,7 +164,7 @@ public class PhotoTable : DatabaseTable {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET width = ?, height = ?, filesize = ?, timestamp = ?, "
-            + "exposure_time = ?, orientation = ? WHERE id = ?", -1, out stmt);
+            + "exposure_time = ?, orientation = ?, original_orientation = ? WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         debug("Update [%lld] %dx%d size=%lld mod=%ld exp=%ld or=%d", photoID.id, dim.width, 
@@ -177,7 +180,9 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(5, exposure_time);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(6, orientation);
+        res = stmt.bind_int(6, orientation);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(7, orientation);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(7, photoID.id);
         assert(res == Sqlite.OK);
@@ -208,7 +213,7 @@ public class PhotoTable : DatabaseTable {
 
     public bool get_photo(PhotoID photoID, out PhotoRow row) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, import_id, event_id FROM PhotoTable WHERE id=?", -1, out stmt);
+        int res = db.prepare_v2("SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, original_orientation, import_id, event_id FROM PhotoTable WHERE id=?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.bind_int64(1, photoID.id);
@@ -225,8 +230,9 @@ public class PhotoTable : DatabaseTable {
         row.timestamp = (long) stmt.column_int64(4);
         row.exposure_time = (long) stmt.column_int64(5);
         row.orientation = (Orientation) stmt.column_int(6);
-        row.import_id = ImportID(stmt.column_int64(7));
-        row.event_id = EventID(stmt.column_int64(8));
+        row.original_orientation = (Orientation) stmt.column_int(7);
+        row.import_id = ImportID(stmt.column_int64(8));
+        row.event_id = EventID(stmt.column_int64(9));
         
         return true;
     }
@@ -359,6 +365,26 @@ public class PhotoTable : DatabaseTable {
         }
         
         return Dimensions(stmt.column_int(0), stmt.column_int(1));
+    }
+    
+    public Orientation get_original_orientation(PhotoID photo_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT original_orientation FROM PhotoTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW) {
+            if (res != Sqlite.DONE) {
+                fatal("get_original_orientation", res);
+            }
+
+            return Orientation.TOP_LEFT;
+        }
+    
+        return (Orientation) stmt.column_int(0);
     }
     
     public Orientation get_orientation(PhotoID photo_id) {
@@ -510,6 +536,10 @@ public class PhotoTable : DatabaseTable {
         return true;
     }
     
+    public bool has_transformations(PhotoID photo_id) {
+        return get_raw_transformations(photo_id) != null;
+    }
+    
     public KeyValueMap? get_transformation(PhotoID photo_id, string object) {
         string trans = get_raw_transformations(photo_id);
         if (trans == null)
@@ -589,6 +619,27 @@ public class PhotoTable : DatabaseTable {
         }
         
         return set_raw_transformations(photo_id, trans);
+    }
+    
+    public bool remove_all_transformations(PhotoID photo_id) {
+        if (get_raw_transformations(photo_id) == null)
+            return false;
+            
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE PhotoTable SET transformations='' WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            fatal("remove_all_transformations", res);
+            
+            return false;
+        }
+        
+        return true;
     }
 }
 
@@ -968,6 +1019,7 @@ public struct PhotoRow {
     public long timestamp;
     public long exposure_time;
     public Orientation orientation;
+    public Orientation original_orientation;
     public ImportID import_id;
     public EventID event_id;
 }

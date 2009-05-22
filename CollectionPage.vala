@@ -77,6 +77,7 @@ public class CollectionPage : CheckerboardPage {
         { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
         { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
+        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "_Revert to Original", null, "Revert to original photo", on_revert },
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
         { "SortPhotos", null, "_Sort Photos", null, null, null },
@@ -200,6 +201,19 @@ public class CollectionPage : CheckerboardPage {
         debug("switching to %s", thumbnail.get_photo().to_string());
 
         AppWindow.get_instance().switch_to_photo_page(this, thumbnail);
+    }
+    
+    protected override bool on_context_invoked(Gtk.Menu context_menu) {
+        bool selected = (get_selected_count() > 0);
+        bool revert_possible = can_revert_selected();
+        
+        set_item_sensitive("/CollectionContextMenu/ContextRemove", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextMirror", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
+        
+        return true;
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -358,14 +372,26 @@ public class CollectionPage : CheckerboardPage {
         select_all();
     }
     
+    private bool can_revert_selected() {
+        foreach (LayoutItem item in get_selected()) {
+            Photo photo = ((Thumbnail) item).get_photo();
+            if (photo.has_transformations())
+                return true;
+        }
+        
+        return false;
+    }
+    
     protected virtual void on_photos_menu() {
         bool selected = (get_selected_count() > 0);
+        bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/DecreaseSize", scale > Thumbnail.MIN_SCALE);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
     }
 
     private void on_increase_size() {
@@ -420,6 +446,20 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_mirror() {
         do_rotations(get_selected(), Rotation.MIRROR);
+    }
+    
+    private void on_revert() {
+        bool revert_performed = false;
+        foreach (LayoutItem item in get_selected()) {
+            Photo photo = ((Thumbnail) item).get_photo();
+            photo.remove_all_transformations();
+            
+            revert_performed = true;
+        }
+        
+        // geometry could change
+        if (revert_performed)
+            refresh();
     }
     
     private void on_view_menu() {

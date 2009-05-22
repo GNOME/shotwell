@@ -242,18 +242,22 @@ public abstract class CheckerboardPage : Page {
         return page_name;
     }
     
-    protected void init_context_menu(string path) {
+    public void init_context_menu(string path) {
         context_menu = (Gtk.Menu) ui.get_widget(path);
     }
     
     protected virtual void on_selection_changed(int count) {
     }
     
-    public virtual Gtk.Menu get_context_menu(LayoutItem item) {
-        return context_menu;
+    public virtual Gtk.Menu? get_context_menu(LayoutItem? item) {
+        return (item != null) ? context_menu : null;
     }
     
-    public virtual void on_item_activated(LayoutItem item) {
+    protected virtual void on_item_activated(LayoutItem item) {
+    }
+    
+    protected virtual bool on_context_invoked(Gtk.Menu context_menu) {
+        return true;
     }
     
     public abstract LayoutItem? get_fullscreen_photo();
@@ -434,6 +438,9 @@ public abstract class CheckerboardPage : Page {
             
         Gtk.Menu context_menu = get_context_menu(item);
         if (context_menu != null) {
+            if (!on_context_invoked(context_menu))
+                return false;
+            
             context_menu.popup(null, null, null, event.button, event.time);
 
             return true;

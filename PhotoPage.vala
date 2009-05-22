@@ -3,8 +3,8 @@ public class CropToolWindow : Gtk.Window {
     public static const int CONTROL_SPACING = 8;
     public static const int WINDOW_BORDER = 8;
     
-    public Gtk.Button apply_button = new Gtk.Button.with_label("Apply");
-    public Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
+    public Gtk.Button apply_button = new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
+    public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
     public bool user_moved = false;
 
     private Gtk.Window owner;
@@ -16,6 +16,9 @@ public class CropToolWindow : Gtk.Window {
         
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
         set_transient_for(owner);
+        
+        apply_button.set_image_position(Gtk.PositionType.LEFT);
+        cancel_button.set_image_position(Gtk.PositionType.LEFT);
         
         layout.set_border_width(WINDOW_BORDER);
         layout.add(apply_button);
@@ -73,6 +76,7 @@ public class PhotoPage : Page {
     private CheckerboardPage controller = null;
     private Photo photo = null;
     private Thumbnail thumbnail = null;
+    private Gtk.Menu context_menu;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
@@ -112,12 +116,13 @@ public class PhotoPage : Page {
         { "ViewMenu", null, "_View", null, null, null },
         { "ReturnToPage", null, "_Return to collection", "Escape", null, on_return_to_collection },
 
-        { "PhotoMenu", null, "_Photo", null, null, null },
+        { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
         { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
         { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
         { "RotateClockwise", STOCK_CLOCKWISE, "Rotate c_lockwise", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
         { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate c_ounterclockwise", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
+        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "_Revert to Original", null, "Revert to the original photo", on_revert },
 
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -126,6 +131,8 @@ public class PhotoPage : Page {
         this.container = container;
         
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
+
+        context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
 
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         //
@@ -292,18 +299,23 @@ public class PhotoPage : Page {
     }
     
     private bool on_canvas_button_pressed(Gtk.DrawingArea da, Gdk.EventButton event) {
-        // only interested in LMB
-        if (event.button != 1)
-            return false;
-        
-        if (!show_crop)
+        // only interested in LMB & RMB
+        if (event.button != 1 && event.button != 3)
             return false;
         
         int x = (int) event.x;
         int y = (int) event.y;
         
         // only concerned about mouse-downs on the pixbuf
-        if (x < pixbuf_rect.x || y < pixbuf_rect.y)
+        if (!coord_in_rectangle(x, y, pixbuf_rect))
+            return false;
+        
+        // RMB
+        if (event.button == 3)
+            return on_context_menu(event);
+        
+        // only interested in LMB in regards to crop tool
+        if (!show_crop)
             return false;
         
         // scaled_crop is not maintained relative to photo's position on canvas
@@ -317,6 +329,17 @@ public class PhotoPage : Page {
         repaint();
         
         return false;
+    }
+    
+    private bool on_context_menu(Gdk.EventButton event) {
+        if (photo == null)
+            return false;
+        
+        set_item_sensitive("/PhotoContextMenu/ContextRevert", photo.has_transformations());
+
+        context_menu.popup(null, null, null, event.button, event.time);
+        
+        return true;
     }
     
     private bool on_canvas_button_released(Gtk.DrawingArea da, Gdk.EventButton event) {
@@ -759,6 +782,10 @@ public class PhotoPage : Page {
     private void on_mirror() {
         rotate(Rotation.MIRROR);
     }
+    
+    private void on_revert() {
+        photo.remove_all_transformations();
+    }
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotate_button.set_stock_id(STOCK_COUNTERCLOCKWISE);
@@ -1120,9 +1147,6 @@ public class PhotoPage : Page {
     
     private void on_crop_cancel() {
         deactivate_crop();
-        
-        // let the signal generate a repaint
-        photo.remove_crop();
     }
     
     private void on_next_photo() {
@@ -1130,6 +1154,20 @@ public class PhotoPage : Page {
         
         this.thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         update_display();
+    }
+    
+    private void on_photo_menu() {
+        bool multiple = false;
+        if (controller != null)
+            multiple = controller.get_count() > 1;
+        
+        bool revert_possible = false;
+        if (photo != null)
+            revert_possible = photo.has_transformations();
+            
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
     }
     
     private void on_previous_photo() {
@@ -1142,13 +1180,10 @@ public class PhotoPage : Page {
     private void update_sensitivity() {
         assert(controller != null);
         
-        bool multiple = (controller.get_count() > 1);
+        bool multiple = controller.get_count() > 1;
         
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
-        
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
     }
 }
 

@@ -17,6 +17,8 @@
             <menuitem name="RotateClockwise" action="RotateClockwise" />
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />
+            <separator />
+            <menuitem name="Revert" action="Revert" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
@@ -43,6 +45,8 @@
         <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
         <menuitem name="ContextMirror" action="Mirror" />
+        <separator />
+        <menuitem name="ContextRevert" action="Revert" />
     </popup>
 
 </ui>
