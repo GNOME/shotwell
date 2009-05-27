@@ -226,12 +226,11 @@ public class AppWindow : Gtk.Window {
     public static void init(string[] args) {
         AppWindow.args = args;
 
-        File dataDir = get_data_dir();
+        File data_dir = get_data_dir();
         try {
-            if (dataDir.query_exists(null) == false) {
-                if (dataDir.make_directory_with_parents(null) == false) {
-                    error("Unable to create data directory %s", dataDir.get_path());
-                }
+            if (data_dir.query_exists(null) == false) {
+                if (!data_dir.make_directory_with_parents(null))
+                    error("Unable to create data directory %s", data_dir.get_path());
             } 
         } catch (Error err) {
             error("%s", err.message);
@@ -272,9 +271,8 @@ public class AppWindow : Gtk.Window {
 
         try {
             if (subdir.query_exists(null) == false) {
-                if (subdir.make_directory_with_parents(null) == false) {
+                if (!subdir.make_directory_with_parents(null))
                     error("Unable to create data subdirectory %s", subdir.get_path());
-                }
             }
         } catch (Error err) {
             error("%s", err.message);
@@ -324,9 +322,6 @@ public class AppWindow : Gtk.Window {
     
     private GPhoto.Context null_context = new GPhoto.Context();
     private GPhoto.CameraAbilitiesList abilities_list;
-    
-    private SortedList<int64?> imported_photos = null;
-    private ImportID import_id = ImportID();
     
     private FullscreenWindow fullscreen_window = null;
     
@@ -488,103 +483,56 @@ public class AppWindow : Gtk.Window {
         present();
     }
     
-    public class DateComparator : Comparator<int64?> {
-        private PhotoTable photo_table;
-        
-        public DateComparator(PhotoTable photo_table) {
-            this.photo_table = photo_table;
-        }
-        
-        public override int64 compare(int64? ida, int64? idb) {
-            time_t timea = photo_table.get_exposure_time(PhotoID(ida));
-            time_t timeb = photo_table.get_exposure_time(PhotoID(idb));
-            
-            return timea - timeb;
-        }
-    }
-    
-    public void start_import_batch() {
-        imported_photos = new SortedList<int64?>(new Gee.ArrayList<int64?>(), new DateComparator(photo_table));
-        import_id = photo_table.generate_import_id();
-    }
+    public void photo_imported(Photo photo) {
+        // want to know when it's removed from the system for cleanup
+        photo.removed += on_photo_removed;
 
-    public void import(File file) {
-        FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        if(type == FileType.REGULAR) {
-            if (!import_file(file)) {
-                // TODO: These should be aggregated so the user gets one report and not multiple,
-                // one for each file imported
-                Gtk.MessageDialog dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL,
-                    Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s already stored",
-                    file.get_path());
-                dialog.run();
-                dialog.destroy();
-            }
-            
-            return;
-        } else if (type != FileType.DIRECTORY) {
-            debug("Skipping file %s (neither a directory nor a file)", file.get_path());
-            
-            return;
-        }
-        
-        debug("Importing directory %s", file.get_path());
-        import_dir(file);
+        // automatically add to the Photos page
+        collection_page.add_photo(photo);
+        collection_page.refresh();
     }
     
-    public void end_import_batch() {
-        if (imported_photos == null)
-            return;
-        
-        split_into_events(imported_photos);
-
-        // reset
-        imported_photos = null;
-        import_id = ImportID();
-    }
-    
-    public void split_into_events(SortedList<int64?> list) {
-        debug("Processing photos to create events ...");
+    public void batch_import_complete(SortedList<int64?> imported_photos) {
+        debug("Processing imported photos to create events ...");
 
         // walk through photos, splitting into events based on criteria
         time_t last_exposure = 0;
         time_t current_event_start = 0;
         EventID current_event_id = EventID();
-        EventPage current_page = null;
+        EventPage current_event_page = null;
         foreach (int64 id in imported_photos) {
-            PhotoID photo_id = PhotoID(id);
+            Photo photo = Photo.fetch(PhotoID(id));
+            time_t exposure_time = photo.get_exposure_time();
 
-            PhotoRow photo;
-            bool found = photo_table.get_photo(photo_id, out photo);
-            assert(found);
-            
-            if (photo.exposure_time == 0) {
+            if (exposure_time == 0) {
                 // no time recorded; skip
-                debug("Skipping %s: No exposure time", photo.file.get_path());
+                debug("Skipping event assignment to %s: No exposure time", photo.to_string());
                 
                 continue;
             }
             
-            if (photo.event_id.is_valid()) {
+            if (photo.get_event_id().is_valid()) {
                 // already part of an event; skip
-                debug("Skipping %s: Already part of event %lld", photo.file.get_path(),
-                    photo.event_id.id);
+                debug("Skipping event assignment to %s: Already part of event %lld", photo.to_string(),
+                    photo.get_event_id().id);
                     
                 continue;
             }
             
+            // see if enough time has elapsed to create a new event, or to store this photo in
+            // the current one
             bool create_event = false;
             if (last_exposure == 0) {
                 // first photo, start a new event
                 create_event = true;
             } else {
-                assert(last_exposure <= photo.exposure_time);
-                assert(current_event_start <= photo.exposure_time);
+                assert(last_exposure <= exposure_time);
+                assert(current_event_start <= exposure_time);
 
-                if (photo.exposure_time - last_exposure >= EVENT_LULL_SEC) {
+                if (exposure_time - last_exposure >= EVENT_LULL_SEC) {
                     // enough time has passed between photos to signify a new event
                     create_event = true;
-                } else if (photo.exposure_time - current_event_start >= EVENT_MAX_DURATION_SEC) {
+                } else if (exposure_time - current_event_start >= EVENT_MAX_DURATION_SEC) {
                     // the current event has gone on for too long, stop here and start a new one
                     create_event = true;
                 }
@@ -599,98 +547,28 @@ public class AppWindow : Gtk.Window {
                     events_directory_page.refresh();
                 }
 
-                current_event_start = photo.exposure_time;
-                current_event_id = event_table.create(photo_id, current_event_start);
+                current_event_start = exposure_time;
+                current_event_id = event_table.create(photo.get_photo_id(), current_event_start);
                 
-                current_page = add_event_page(current_event_id);
+                current_event_page = add_event_page(current_event_id);
 
                 debug("Created event [%lld]", current_event_id.id);
             }
             
             assert(current_event_id.is_valid());
             
-            debug("Adding %s to event %lld (exposure=%ld last_exposure=%ld)", photo.file.get_path(), 
-                current_event_id.id, photo.exposure_time, last_exposure);
+            debug("Adding %s to event %lld (exposure=%ld last_exposure=%ld)", photo.to_string(), 
+                current_event_id.id, exposure_time, last_exposure);
             
-            photo_table.set_event(photo_id, current_event_id);
+            photo.set_event_id(current_event_id);
 
-            current_page.add_photo(Photo.fetch(photo_id));
-            
-            last_exposure = photo.exposure_time;
+            current_event_page.add_photo(photo);
+
+            last_exposure = exposure_time;
         }
     }
-    
-    private void import_dir(File dir) {
-        assert(dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) == FileType.DIRECTORY);
-        
-        try {
-            FileEnumerator enumerator = dir.enumerate_children("*",
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-            if (enumerator == null) {
-                return;
-            }
-            
-            for (;;) {
-                FileInfo info = enumerator.next_file(null);
-                if (info == null) {
-                    break;
-                }
-                
-                File file = dir.get_child(info.get_name());
-                
-                FileType type = info.get_file_type();
-                if (type == FileType.REGULAR) {
-                    if (!import_file(file)) {
-                        // TODO: Better error reporting
-                        message("Failed to import %s (already imported?)", file.get_path());
-                    }
-                } else if (type == FileType.DIRECTORY) {
-                    debug("Importing directory  %s", file.get_path());
 
-                    import_dir(file);
-                } else {
-                    debug("Skipped %s", file.get_path());
-                }
-            }
-        } catch (Error err) {
-            // TODO: Better error reporting
-            error("Error importing: %s", err.message);
-        }
-    }
-    
-    private bool import_file(File file) {
-        // TODO: This eases the pain until background threads are implemented
-        while (Gtk.events_pending()) {
-            if (Gtk.main_iteration()) {
-                debug("import_dir: Gtk.main_quit called");
-                
-                return false;
-            }
-        }
-        
-        Photo photo = Photo.import(file, import_id);
-        if (photo == null)
-            return false;
-
-        // want to know when it's removed from the system for cleanup
-        photo.removed += on_photo_removed;
-        
-        // automatically add to the Photos page
-        collection_page.add_photo(photo);
-        collection_page.refresh();
-            
-        // add to imported list for splitting into events
-        if (imported_photos != null) {
-            PhotoID photo_id = photo.get_photo_id();
-            imported_photos.add(photo_id.id);
-        }
-
-        return true;
-    }
-    
     private void on_photo_removed(Photo photo) {
-        debug("on_photo_removed");
-        
         PhotoID photo_id = photo.get_photo_id();
         
         // update event's primary photo if this is the one; remove event if no more photos in it
@@ -752,13 +630,11 @@ public class AppWindow : Gtk.Window {
             // TODO: Try to read JFIF metadata too
             PhotoExif exif = new PhotoExif(row.file);
             if (exif.has_exif()) {
-                if (!exif.get_dimensions(out dim)) {
+                if (!exif.get_dimensions(out dim))
                     error("Unable to read EXIF dimensions for %s", row.file.get_path());
-                }
                 
-                if (!exif.get_datetime_time(out exposure_time)) {
+                if (!exif.get_timestamp(out exposure_time))
                     error("Unable to read EXIF orientation for %s", row.file.get_path());
-                }
 
                 orientation = exif.get_orientation();
             } 
@@ -789,21 +665,17 @@ public class AppWindow : Gtk.Window {
             }
         }
     }
-
+    
     public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
-        // grab data and release back to system
+        // grab URIs and release back to system
         string[] uris = selection_data.get_uris();
         Gtk.drag_finish(context, true, false, time);
-        
-        // TODO: Background threads
-        start_import_batch();
-        foreach (string uri in uris) {
-            import(File.new_for_uri(uri));
-        }
-        end_import_batch();
-        
-        collection_page.refresh();
+
+        // do the importing from within the idle loop, so the DnD transaction is completed
+        // TODO: Configure if photos are copied into library
+        BatchImport batch_import = new BatchImport(uris);
+        batch_import.schedule();
     }
     
     public static void error_message(string message) {
@@ -1385,7 +1257,7 @@ public class AppWindow : Gtk.Window {
     }
     
     private static void on_device_added(Hal.Context context, string udi) {
-        debug("******* on_device_added: %s", udi);
+        debug("on_device_added: %s", udi);
         
         try {
             AppWindow.get_instance().update_camera_table();
@@ -1395,7 +1267,7 @@ public class AppWindow : Gtk.Window {
     }
     
     private static void on_device_removed(Hal.Context context, string udi) {
-        debug("******** on_device_removed: %s", udi);
+        debug("on_device_removed: %s", udi);
         
         try {
             AppWindow.get_instance().update_camera_table();

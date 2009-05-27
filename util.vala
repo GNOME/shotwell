@@ -88,3 +88,34 @@ public class KeyValueMap {
     }
 }
 
+// Returns false if Gtk.quit() was called
+public bool spin_event_loop() {
+    while (Gtk.events_pending()) {
+        if (Gtk.main_iteration())
+            return false;
+    }
+    
+    return true;
+}
+
+public long find_last_offset(string str, char c) {
+    long offset = str.length;
+    while (--offset >= 0) {
+        if (str[offset] == c)
+            return offset;
+    }
+    
+    return -1;
+}
+
+public void disassemble_filename(string basename, out string name, out string ext) {
+    long offset = find_last_offset(basename, '.');
+    if (offset <= 0) {
+        name = basename;
+        ext = null;
+    } else {
+        name = basename.substring(0, offset);
+        ext = basename.substring(offset + 1, -1);
+    }
+}
+

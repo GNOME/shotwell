@@ -261,13 +261,9 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_photo_removed(Photo photo) {
-        debug("%s on_photo_removed", get_name());
-        
         Thumbnail found = get_thumbnail_for_photo(photo);
-        if (found != null) {
-            debug("Removing %s from %s", photo.to_string(), get_name());
+        if (found != null)
             remove_item(found);
-        }
     }
     
     private void on_thumbnail_altered(Photo photo) {

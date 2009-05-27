@@ -20,6 +20,22 @@ namespace Exif {
         
         return null;
     }
+    
+    public bool convert_datetime(string datetime, out time_t timestamp) {
+        Time tm = Time();
+        int count = datetime.scanf("%d:%d:%d %d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour,
+            &tm.minute, &tm.second);
+        if (count != 6)
+            return false;
+        
+        tm.year -= 1900;
+        tm.month--;
+        tm.isdst = -1;
+
+        timestamp = tm.mktime();
+        
+        return true;
+    }
 }
 
 namespace Jpeg {
@@ -114,8 +130,8 @@ public class PhotoExif  {
             return Orientation.TOP_LEFT;
         
         int o = Exif.Convert.get_short(entry.data, exifData.get_byte_order());
-        assert(o >= (int) Orientation.MIN);
-        assert(o <= (int) Orientation.MAX);
+        if (o < (int) Orientation.MIN || o > (int) Orientation.MAX)
+            return Orientation.TOP_LEFT;
         
         return (Orientation) o;
     }
@@ -171,24 +187,12 @@ public class PhotoExif  {
         return datetime.get_value();
     }
     
-    public bool get_datetime_time(out time_t timet) {
-        string text = get_datetime();
-        if (text == null)
+    public bool get_timestamp(out time_t timestamp) {
+        string datetime = get_datetime();
+        if (datetime == null)
             return false;
         
-        Time tm = Time();
-        int count = text.scanf("%d:%d:%d %d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour,
-            &tm.minute, &tm.second);
-        if (count != 6)
-            return false;
-        
-        tm.year -= 1900;
-        tm.month--;
-        tm.isdst = -1;
-        
-        timet = tm.mktime();
-        
-        return true;
+        return Exif.convert_datetime(datetime, out timestamp);
     }
     
     private void update() {

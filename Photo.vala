@@ -28,22 +28,22 @@ public class Photo : Object {
         // TODO: Try to read JFIF metadata too
         PhotoExif exif = new PhotoExif(file);
         if (exif.has_exif()) {
-            if (!exif.get_dimensions(out dim)) {
+            if (!exif.get_dimensions(out dim))
                 debug("Unable to read EXIF dimensions for %s", file.get_path());
-            }
             
-            if (!exif.get_datetime_time(out exposure_time)) {
+            if (!exif.get_timestamp(out exposure_time))
                 debug("Unable to read EXIF orientation for %s", file.get_path());
-            }
 
             orientation = exif.get_orientation();
-        } 
+        }
         
         Gdk.Pixbuf pixbuf;
         try {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.error_message("Unable to import %s: %s".printf(file.get_path(), err.message));
+            
+            return null;
         }
         
         // XXX: Trust EXIF or Pixbuf for dimensions?
@@ -54,7 +54,9 @@ public class Photo : Object {
         try {
             info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.error_message("Unable to import %s: %s".printf(file.get_path(), err.message));
+            
+            return null;
         }
         
         TimeVal timestamp = TimeVal();
@@ -65,7 +67,8 @@ public class Photo : Object {
         PhotoID photo_id = photo_table.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
             orientation, import_id);
         if (photo_id.is_invalid()) {
-            debug("Not importing %s (already imported)", file.get_path());
+            AppWindow.error_message(
+                "Unable to import %s: Already present in photo library".printf(file.get_path()));
             
             return null;
         }
@@ -73,7 +76,7 @@ public class Photo : Object {
         // sanity ... this would be very bad
         assert(!photo_map.contains(photo_id.id));
         
-        // modify pixbuf for thumbnails which are stored with modifications
+        // modify pixbuf for thumbnails, which are stored with modifications
         pixbuf = orientation.rotate_pixbuf(pixbuf);
         
         // import it into the thumbnail cache with modifications
@@ -117,6 +120,14 @@ public class Photo : Object {
         return photo_table.get_exposure_time(photo_id);
     }
     
+    public EventID get_event_id() {
+        return photo_table.get_event(photo_id);
+    }
+    
+    public void set_event_id(EventID event_id) {
+        photo_table.set_event(photo_id, event_id);
+    }
+
     public string to_string() {
         return "[%lld] %s".printf(photo_id.id, get_file().get_path());
     }

@@ -1,27 +1,23 @@
 
 class ImportPreview : LayoutItem {
+    public int fsid;
     public string folder;
     public string filename;
-
-    private ImportPage parentPage;
-    private Exif.Data exif;
+    public Exif.Data exif;
     
-    private Orientation orientation = Orientation.TOP_LEFT;
-    
-    public ImportPreview(ImportPage parentPage, Gdk.Pixbuf pixbuf, Exif.Data exif, string folder, 
-        string filename) {
-        this.parentPage = parentPage;
+    public ImportPreview(Gdk.Pixbuf pixbuf, Exif.Data exif, int fsid, string folder, string filename) {
+        this.fsid = fsid;
         this.folder = folder;
         this.filename = filename;
         this.exif = exif;
         
+        Orientation orientation = Orientation.TOP_LEFT;
+        
         Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
         if (entry != null) {
             int o = Exif.Convert.get_short(entry.data, exif.get_byte_order());
-            assert(o >= (int) Orientation.MIN);
-            assert(o <= (int) Orientation.MAX);
-            
-            orientation = (Orientation) o;
+            if (o >= (int) Orientation.MIN && o <= (int) Orientation.MAX)
+                orientation = (Orientation) o;
         }
 
         title.set_text(filename);
@@ -34,12 +30,12 @@ class ImportPreview : LayoutItem {
 class ProgressBarContext {
     public GPhoto.Context context = new GPhoto.Context();
     
-    private Gtk.ProgressBar progressBar;
+    private Gtk.ProgressBar progress_bar;
     private string msg;
-    private float taskTarget = 0.0;
+    private float task_target = 0.0;
     
-    public ProgressBarContext(Gtk.ProgressBar progressBar, string msg) {
-        this.progressBar = progressBar;
+    public ProgressBarContext(Gtk.ProgressBar progress_bar, string msg) {
+        this.progress_bar = progress_bar;
         this.msg = msg;
 
         context.set_idle_func(on_idle);
@@ -51,66 +47,59 @@ class ProgressBarContext {
     
     public void set_message(string msg) {
         this.msg = msg;
-        progressBar.set_text(msg);
+        progress_bar.set_text(msg);
     }
 
     private void on_idle() {
-        while (Gtk.events_pending())
-            Gtk.main_iteration();
+        spin_event_loop();
     }
     
     private void on_error(GPhoto.Context context, string format, void *va_list) {
-        debug("on_error: %s", format);
     }
     
     private void on_status(GPhoto.Context context, string format, void *va_list) {
-        debug("on_status: %s", format);
     }
     
     private void on_message(GPhoto.Context context, string format, void *va_list) {
-        debug("on_message: %s", format);
     }
     
     private uint on_progress_start(GPhoto.Context context, float target, string format, void *va_list) {
-        debug("on_progress_start: %s", format);
-        
-        taskTarget = target;
-        progressBar.set_fraction(0.0);
-        progressBar.set_text(msg);
+        task_target = target;
+        progress_bar.set_fraction(0.0);
+        progress_bar.set_text(msg);
         
         return 0;
     }
     
     private void on_progress_update(GPhoto.Context context, uint id, float current) {
-        progressBar.set_fraction(current / taskTarget);
-        progressBar.set_text(msg);
+        progress_bar.set_fraction(current / task_target);
+        progress_bar.set_text(msg);
 
-        while (Gtk.events_pending())
-            Gtk.main_iteration();
+        spin_event_loop();
     }
     
     private void on_progress_stop(GPhoto.Context context, uint id) {
-        progressBar.set_fraction(0.0);
-        progressBar.set_text("");
+        progress_bar.set_fraction(0.0);
+        progress_bar.set_text("");
     }
 }
 
 public class ImportPage : CheckerboardPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
-    private Gtk.Label cameraLabel = new Gtk.Label(null);
-    private Gtk.ToolButton importSelectedButton;
-    private Gtk.ToolButton importAllButton;
-    private Gtk.ProgressBar progressBar = new Gtk.ProgressBar();
+    private Gtk.Label camera_label = new Gtk.Label(null);
+    private Gtk.ToolButton import_selected_button;
+    private Gtk.ToolButton import_all_button;
+    private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private GPhoto.Camera camera;
     private string uri;
     private ProgressBarContext init_context = null;
     private ProgressBarContext loading_context = null;
     private bool busy = false;
     private bool refreshed = false;
-    private GPhoto.Result refreshResult = GPhoto.Result.OK;
-    private string refreshError = null;
-    private int fileCount = 0;
-    private int completedCount = 0;
+    private GPhoto.Result refresh_result = GPhoto.Result.OK;
+    private string refresh_error = null;
+    private int file_count = 0;
+    private int completed_count = 0;
     private string camera_name;
     
     // TODO: Mark fields for translation
@@ -138,13 +127,13 @@ public class ImportPage : CheckerboardPage {
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
-        init_context = new ProgressBarContext(progressBar, "Initializing camera ...");
-        loading_context =  new ProgressBarContext(progressBar, "Fetching photo previews ..");
+        init_context = new ProgressBarContext(progress_bar, "Initializing camera ...");
+        loading_context =  new ProgressBarContext(progress_bar, "Fetching photo previews ..");
         
         // toolbar
         // Camera label
         Gtk.ToolItem cameraLabelItem = new Gtk.ToolItem();
-        cameraLabelItem.add(cameraLabel);
+        cameraLabelItem.add(camera_label);
 
         toolbar.insert(cameraLabelItem, -1);
         
@@ -155,23 +144,23 @@ public class ImportPage : CheckerboardPage {
         
         toolbar.insert(separator, -1);
         
-        progressBar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
+        progress_bar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
         Gtk.ToolItem progressItem = new Gtk.ToolItem();
-        progressItem.add(progressBar);
+        progressItem.add(progress_bar);
         
         toolbar.insert(progressItem, -1);
 
-        importSelectedButton = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "");
-        importSelectedButton.clicked += on_import_selected;
-        importSelectedButton.sensitive = false;
+        import_selected_button = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "");
+        import_selected_button.clicked += on_import_selected;
+        import_selected_button.sensitive = false;
         
-        toolbar.insert(importSelectedButton, -1);
+        toolbar.insert(import_selected_button, -1);
         
-        importAllButton = new Gtk.ToolButton(new Gtk.Label("Import All"), "");
-        importAllButton.clicked += on_import_all;
-        importAllButton.sensitive = false;
+        import_all_button = new Gtk.ToolButton(new Gtk.Label("Import All"), "");
+        import_all_button.clicked += on_import_all;
+        import_all_button.sensitive = false;
         
-        toolbar.insert(importAllButton, -1);
+        toolbar.insert(import_all_button, -1);
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
@@ -182,7 +171,7 @@ public class ImportPage : CheckerboardPage {
             debug("[%d] Unable to get camera abilities: %s", (int) res, res.as_string());
         } else {
             camera_name = abilities.model;
-            cameraLabel.set_text(abilities.model);
+            camera_label.set_text(abilities.model);
         }
 
         show_all();
@@ -210,12 +199,12 @@ public class ImportPage : CheckerboardPage {
     
     public string? get_refresh_message() {
         string msg = null;
-        if (refreshError != null) {
-            msg = refreshError;
-        } else if (refreshResult == GPhoto.Result.OK) {
+        if (refresh_error != null) {
+            msg = refresh_error;
+        } else if (refresh_result == GPhoto.Result.OK) {
             // all went well
         } else {
-            msg = "%s (%d)".printf(refreshResult.as_string(), (int) refreshResult);
+            msg = "%s (%d)".printf(refresh_result.as_string(), (int) refresh_result);
         }
         
         return msg;
@@ -231,7 +220,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     public override void on_selection_changed(int count) {
-        importSelectedButton.sensitive = !busy && refreshed && (count > 0);
+        import_selected_button.sensitive = !busy && refreshed && (count > 0);
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -253,45 +242,64 @@ public class ImportPage : CheckerboardPage {
             
             return;
         }
+        
+        // XXX: iPhone/iPod returns a USB error if a camera_init() is done too quickly after an
+        // unmount.  A 50ms sleep gives it time to reorient itself.
+        Thread.usleep(50000);
 
         // now with camera unmounted, refresh the view
-        refresh_camera();
+        RefreshResult res = refresh_camera();
+        if (res != RefreshResult.OK) {
+            string reason = null;
+            switch (res) {
+                case RefreshResult.LOCKED:
+                    reason = "The camera is locked.";
+                break;
+                
+                case RefreshResult.BUSY:
+                    reason = "The camera is busy.";
+                break;
+                
+                case RefreshResult.LIBRARY_ERROR:
+                default:
+                    reason = "The camera is unavailable at this time.";
+                break;
+            }
+            
+            AppWindow.error_message("Unable to unmount camera.  %s  Please try again.".printf(reason));
+        }
     }
-
+    
     public RefreshResult refresh_camera() {
         if (busy)
             return RefreshResult.BUSY;
             
         refreshed = false;
         
-        refreshError = null;
-        refreshResult = camera.init(init_context.context);
-        if (refreshResult != GPhoto.Result.OK)
-            return (refreshResult == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
+        refresh_error = null;
+        refresh_result = camera.init(init_context.context);
+        if (refresh_result != GPhoto.Result.OK)
+            return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         
         busy = true;
-        fileCount = 0;
-        completedCount = 0;
+        file_count = 0;
+        completed_count = 0;
         
-        importSelectedButton.sensitive = false;
-        importAllButton.sensitive = false;
+        import_selected_button.sensitive = false;
+        import_all_button.sensitive = false;
         
-        progressBar.set_fraction(0.0);
+        progress_bar.set_fraction(0.0);
 
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
-        refreshResult = camera.get_storageinfo(&sifs, out count, init_context.context);
-        if (refreshResult == GPhoto.Result.OK) {
+        refresh_result = camera.get_storageinfo(&sifs, out count, init_context.context);
+        if (refresh_result == GPhoto.Result.OK) {
             remove_all();
             refresh();
             
             GPhoto.CameraStorageInformation *ifs = sifs;
-            for (int ctr = 0; ctr < count; ctr++, ifs++) {
-                string basedir = "/";
-                if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
-                    basedir = ifs->basedir;
-                
-                if (!load_preview(basedir))
+            for (int fsid = 0; fsid < count; fsid++, ifs++) {
+                if (!load_preview(fsid, "/"))
                     break;
             }
         }
@@ -302,22 +310,22 @@ public class ImportPage : CheckerboardPage {
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
         }
         
-        importSelectedButton.sensitive = get_selected_count() > 0;
-        importAllButton.sensitive = get_count() > 0;
+        import_selected_button.sensitive = get_selected_count() > 0;
+        import_all_button.sensitive = get_count() > 0;
         
-        progressBar.set_text("");
-        progressBar.set_fraction(0.0);
+        progress_bar.set_text("");
+        progress_bar.set_fraction(0.0);
 
         busy = false;
 
-        if (refreshResult != GPhoto.Result.OK) {
+        if (refresh_result != GPhoto.Result.OK) {
             refreshed = false;
             
             // show 'em all or show none
             remove_all();
             refresh();
             
-            return (refreshResult == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
+            return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
         
         refreshed = true;
@@ -325,85 +333,112 @@ public class ImportPage : CheckerboardPage {
         return RefreshResult.OK;
     }
     
-    private bool load_preview(owned string dir) {
-        debug("Searching %s", dir);
+    private string? get_fs_basedir(int fsid) {
+        GPhoto.CameraStorageInformation *sifs = null;
+        int count = 0;
+        GPhoto.Result res = camera.get_storageinfo(&sifs, out count, init_context.context);
+        if (res != GPhoto.Result.OK)
+            return null;
+        
+        GPhoto.CameraStorageInformation *ifs = sifs;
+        for (int ctr = 0; ctr < count; ctr++, ifs++) {
+            if (ctr != fsid)
+                continue;
+        
+            if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
+                return ifs->basedir;
+            else
+                return "/";
+        }
+        
+        return null;
+    }
+    
+    private bool load_preview(int fsid, owned string dir) {
+        if (!dir.has_prefix("/"))
+            dir = "/" + dir;
+            
+        string basedir = get_fs_basedir(fsid);
+        if (basedir == null) {
+            debug("Unable to find base directory for fsid %d", fsid);
+            
+            return false;
+        }
+            
+        string fulldir = basedir + dir;
         
         GPhoto.CameraList files;
-        refreshResult = GPhoto.CameraList.create(out files);
-        if (refreshResult != GPhoto.Result.OK)
+        refresh_result = GPhoto.CameraList.create(out files);
+        if (refresh_result != GPhoto.Result.OK)
             return false;
             
-        refreshResult = camera.list_files(dir, files, loading_context.context);
-        if (refreshResult != GPhoto.Result.OK)
+        refresh_result = camera.list_files(fulldir, files, loading_context.context);
+        if (refresh_result != GPhoto.Result.OK)
             return false;
         
         // TODO: It *may* be more desireable to count files prior to importing them so the progress
         // bar is more accurate during import.  Otherwise, when one filesystem is completed w/ a
         // progress of 100%, the bar will reset to something lower as it traverses the next
-        fileCount += files.count();
+        file_count += files.count();
         
         uint8[] buffer = new uint8[64 * 1024];
         
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
-            refreshResult = files.get_name(ctr, out filename);
-            if (refreshResult != GPhoto.Result.OK)
+            refresh_result = files.get_name(ctr, out filename);
+            if (refresh_result != GPhoto.Result.OK)
                 return false;
             
             try {
                 GPhoto.CameraFileInfo info;
-                GPhoto.get_info(loading_context.context, camera, dir, filename, out info);
+                GPhoto.get_info(loading_context.context, camera, fulldir, filename, out info);
                 
                 // at this point, only interested in JPEG files with a JPEG preview
                 if (((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)
                     || ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)) {
-                    debug("Skipping %s/%s: No preview (preview=%02Xh file=%02Xh)", dir, filename,
+                    debug("Skipping %s/%s: No preview (preview=%02Xh file=%02Xh)", fulldir, filename,
                         info.preview.fields, info.file.fields);
                         
                     continue;
                 }
                 
                 if ((info.preview.type != GPhoto.MIME.JPEG) || (info.file.type != GPhoto.MIME.JPEG)) {
-                    debug("Skipping %s/%s: Not a JPEG (preview=%s file=%s)", dir, filename,
+                    debug("Skipping %s/%s: Not a JPEG (preview=%s file=%s)", fulldir, filename,
                         info.preview.type, info.file.type);
                         
                     continue;
                 }
                 
-                Gdk.Pixbuf pixbuf = GPhoto.load_preview(loading_context.context, camera, dir, filename, buffer);
-                Exif.Data exif = GPhoto.load_exif(loading_context.context, camera, dir, filename, buffer);
+                Gdk.Pixbuf pixbuf = GPhoto.load_preview(loading_context.context, camera, fulldir, filename, 
+                    buffer);
+                Exif.Data exif = GPhoto.load_exif(loading_context.context, camera, fulldir, filename, 
+                    buffer);
                 
-                ImportPreview preview = new ImportPreview(this, pixbuf, exif, dir, filename);
+                ImportPreview preview = new ImportPreview(pixbuf, exif, fsid, dir, filename);
                 add_item(preview);
             
                 refresh();
                 
-                completedCount++;
-                progressBar.set_fraction((double) completedCount / (double) fileCount);
+                completed_count++;
+                progress_bar.set_fraction((double) completed_count / (double) file_count);
                 
                 // spin the event loop so the UI doesn't freeze
-                // TODO: Background thread
-                while (Gtk.events_pending()) {
-                    if (Gtk.main_iteration()) {
-                        debug("Gtk.main_quit called");
-                        
-                        return false;
-                    }
-                }
+                if (!spin_event_loop())
+                    return false;
             } catch (GPhotoError err) {
-                refreshError = err.message;
+                refresh_error = err.message;
                 
                 return false;
             }
         }
         
         GPhoto.CameraList folders;
-        refreshResult = GPhoto.CameraList.create(out folders);
-        if (refreshResult != GPhoto.Result.OK)
+        refresh_result = GPhoto.CameraList.create(out folders);
+        if (refresh_result != GPhoto.Result.OK)
             return false;
 
-        refreshResult = camera.list_folders(dir, folders, loading_context.context);
-        if (refreshResult != GPhoto.Result.OK)
+        refresh_result = camera.list_folders(fulldir, folders, loading_context.context);
+        if (refresh_result != GPhoto.Result.OK)
             return false;
         
         if (!dir.has_suffix("/"))
@@ -411,11 +446,11 @@ public class ImportPage : CheckerboardPage {
         
         for (int ctr = 0; ctr < folders.count(); ctr++) {
             string subdir;
-            refreshResult = folders.get_name(ctr, out subdir);
-            if (refreshResult != GPhoto.Result.OK)
+            refresh_result = folders.get_name(ctr, out subdir);
+            if (refresh_result != GPhoto.Result.OK)
                 return false;
 
-            if (!load_preview(dir + subdir))
+            if (!load_preview(fsid, dir + subdir))
                 return false;
         }
         
@@ -436,8 +471,6 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import(Gee.Iterable<LayoutItem> items) {
-        File photos_dir = AppWindow.get_photos_dir();
-
         GPhoto.Result res = camera.init(init_context.context);
         if (res != GPhoto.Result.OK) {
             AppWindow.error_message("Unable to lock camera: %s".printf(res.as_string()));
@@ -446,85 +479,83 @@ public class ImportPage : CheckerboardPage {
         }
         
         busy = true;
-        importSelectedButton.sensitive = false;
-        importAllButton.sensitive = false;
+        import_selected_button.sensitive = false;
+        import_all_button.sensitive = false;
         
-        ProgressBarContext saving_context = new ProgressBarContext(progressBar, "");
-        GPhoto.Context null_context = new GPhoto.Context();
+        ProgressBarContext saving_context = new ProgressBarContext(progress_bar, "");
+        string[] uris = new string[0];
+        int failed = 0;
         
-        AppWindow.get_instance().start_import_batch();
-        try {
-            foreach (LayoutItem item in items) {
-                ImportPreview preview = (ImportPreview) item;
-                
-                // XXX: There is a condition in libgphoto where a dirty flag isn't being set on a directory
-                // object and it's not updated from the camera, which means the file won't be found.
-                // This forces a refresh of the folder.
-                GPhoto.CameraList files;
-                res = GPhoto.CameraList.create(out files);
-                assert(res == GPhoto.Result.OK);
-                
-                res = camera.list_files(preview.folder, files, null_context);
-                if (res != GPhoto.Result.OK) {
-                    // log message and continue
-                    debug("Unable to list files for %s: %d %s", preview.folder, (int) res, res.as_string());
-                }
-                
-                GPhoto.CameraList folders;
-                res = GPhoto.CameraList.create(out folders);
-                assert(res == GPhoto.Result.OK);
-                
-                res = camera.list_folders(preview.folder, folders, null_context);
-                if (res != GPhoto.Result.OK) {
-                    // log and continue
-                    debug("Unable to list folders for %s: %d %s", preview.folder, (int) res, res.as_string());
-                }
-        
-                // TODO: Currently, files are stored flat in the directory and imported photos will
-                // overwrite ones with the same name
-                File dest_file = photos_dir.get_child(preview.filename);
-                
-                saving_context.set_message("Importing %s".printf(preview.filename));
-                
-                try {
-                    GPhoto.save_image(saving_context.context, camera, preview.folder, preview.filename,
-                        dest_file);
-                } catch (Error err) {
-                    // TODO: Give user option to cancel operation entirely
-                    AppWindow.error_message("Unable to import %s: %s".printf(preview.filename, err.message));
-                    
-                    continue;
-                }
-                
-                AppWindow.get_instance().import(dest_file);
-
-                // have to do this because of bug: return will skip finally block
-                bool quit = false;
-                while (Gtk.events_pending()) {
-                    if (Gtk.main_iteration()) {
-                        // Gtk.main_quit was called, abort out to exit
-                        quit = true;
-                    }
-                }
-                
-                if (quit)
-                    break;
-            }
-        } finally {
-            importSelectedButton.sensitive = get_selected_count() > 0;
-            importAllButton.sensitive = get_count() > 0;
-            saving_context.set_message("");
+        // copy all files to photo library
+        foreach (LayoutItem item in items) {
+            ImportPreview preview = (ImportPreview) item;
             
-            AppWindow.get_instance().end_import_batch();
-
-            res = camera.exit(init_context.context);
-            if (res != GPhoto.Result.OK) {
-                // log but don't fail
-                message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+            string basedir = get_fs_basedir(preview.fsid);
+            if (basedir == null) {
+                debug("Unable to find basedir for fsid %d", preview.fsid);
+                failed++;
+                
+                continue;
             }
+            
+            string dir = preview.folder;
+            if (!dir.has_prefix("/"))
+                dir = "/" + dir;
+                
+            dir = basedir + dir;
+            
+            debug("Importing %d %s %s", preview.fsid, dir, preview.filename);
+            
+            bool collision;
+            File dest_file = BatchImport.create_library_path(preview.filename, preview.exif, time_t(),
+                out collision);
+            if (dest_file == null) {
+                debug("Unable to generate local file for %s/%s: Import aborted.", dir, preview.filename);
+                failed++;
+                
+                continue;
+            }
+            
+            saving_context.set_message("Copying %s to photo library".printf(preview.filename));
+            
+            try {
+                GPhoto.save_image(saving_context.context, camera, dir, preview.filename, dest_file);
+            } catch (Error err) {
+                debug("Unable to import %s: %s", preview.filename, err.message);
+                failed++;
 
-            busy = false;
+                continue;
+            }
+            
+            uris += dest_file.get_uri();
+            
+            if (!spin_event_loop())
+                break;
         }
+        
+        if (failed > 0) {
+            string plural = (failed > 1) ? "s" : "";
+            AppWindow.error_message("Unable to import %d photo%s due to error%s".printf(failed,
+                plural, plural));
+        }
+        
+        // properly import them into the system
+        if (uris.length > 0) {
+            BatchImport batch_import = new BatchImport(uris);
+            batch_import.schedule();
+        }
+
+        import_selected_button.sensitive = get_selected_count() > 0;
+        import_all_button.sensitive = get_count() > 0;
+        saving_context.set_message("");
+        
+        res = camera.exit(init_context.context);
+        if (res != GPhoto.Result.OK) {
+            // log but don't fail
+            message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+        }
+
+        busy = false;
     }
 }
 
