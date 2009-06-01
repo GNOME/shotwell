@@ -50,7 +50,6 @@ namespace GPhoto {
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error allocating camera file: %s", (int) res, res.as_string());
         
-        debug("folder=%s filename=%s", folder, filename);
         res = camera.get_file(folder, filename, GPhoto.CameraFileType.NORMAL, camera_file, context);
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file object for %s/%s: %s", 

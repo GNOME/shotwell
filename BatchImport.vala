@@ -54,7 +54,7 @@ public class BatchImport {
         dir = dir.get_child("%02u".printf(tm.day));
         
         try {
-            if (dir.query_exists(null) == false)
+            if (!dir.query_exists(null))
                 dir.make_directory_with_parents(null);
         } catch (Error err) {
             error("Unable to create photo library directory %s", dir.get_path());

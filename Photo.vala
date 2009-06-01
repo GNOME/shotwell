@@ -4,6 +4,8 @@ public class Photo : Object {
     public static const int EXCEPTION_ORIENTATION   = 1 << 0;
     public static const int EXCEPTION_CROP          = 1 << 1;
     
+    public static const string EXPORT_JPEG_QUALITY = "90";
+    
     private static Gee.HashMap<int64?, Photo> photo_map = null;
     private static PhotoTable photo_table = new PhotoTable();
     private static PhotoID cached_photo_id = PhotoID();
@@ -100,6 +102,9 @@ public class Photo : Object {
         assert(photo_id.is_valid());
         
         this.photo_id = photo_id;
+        
+        // catch our own signal, as this can happen in many different places throughout the code
+        altered += remove_exportable_file;
     }
     
     public signal void altered();
@@ -120,6 +125,10 @@ public class Photo : Object {
         return photo_table.get_exposure_time(photo_id);
     }
     
+    public time_t get_timestamp() {
+        return photo_table.get_timestamp(photo_id);
+    }
+
     public EventID get_event_id() {
         return photo_table.get_event(photo_id);
     }
@@ -312,6 +321,49 @@ public class Photo : Object {
         return pixbuf;
     }
     
+    private File generate_exportable_file() throws Error {
+        File original_file = get_file();
+
+        File exportable_dir = AppWindow.get_data_subdir("export");
+    
+        // use exposure time, then file modified time, for directory (to prevent name collision)
+        time_t timestamp = get_exposure_time();
+        if (timestamp == 0)
+            timestamp = get_timestamp();
+        
+        if (timestamp != 0) {
+            Time tm = Time.local(timestamp);
+            exportable_dir = exportable_dir.get_child("%04u".printf(tm.year + 1900));
+            exportable_dir = exportable_dir.get_child("%02u".printf(tm.month + 1));
+            exportable_dir = exportable_dir.get_child("%02u".printf(tm.day));
+        }
+        
+        if (!exportable_dir.query_exists(null))
+            exportable_dir.make_directory_with_parents(null);
+        
+        File exportable_file = exportable_dir.get_child(original_file.get_basename());
+        
+        return exportable_file;
+    }
+
+    // Returns the file of a file appropriate for export.  The file should NOT be deleted once
+    // it's been used for whatever purpose.
+    //
+    // TODO: Lossless transformations, especially for mere rotations of JFIF files.
+    public File generate_exportable() throws Error {
+        if (!has_transformations())
+            return get_file();
+
+        File file = generate_exportable_file();
+        if (file.query_exists(null))
+            return file;
+        
+        Gdk.Pixbuf pixbuf = get_pixbuf();
+        pixbuf.save(file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY);
+        
+        return file;
+    }
+    
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
     public Gdk.Pixbuf? get_thumbnail(int scale) {
         return ThumbnailCache.fetch(photo_id, scale);
@@ -323,6 +375,9 @@ public class Photo : Object {
 
         // remove all cached thumbnails
         ThumbnailCache.remove(photo_id);
+        
+        // remove exportable file
+        remove_exportable_file();
         
         // remove from photo table -- should be wiped from storage now
         photo_table.remove(photo_id);
@@ -343,6 +398,20 @@ public class Photo : Object {
         
         altered();
         thumbnail_altered();
+    }
+    
+    private void remove_exportable_file() {
+        File file = null;
+        try {
+            file = generate_exportable_file();
+            if (file.query_exists(null))
+                file.delete(null);
+        } catch (Error err) {
+            if (file != null)
+                message("Unable to delete exportable photo file %s: %s", file.get_path(), err.message);
+            else
+                message("Unable to generate exportable filename for %s", to_string());
+        }
     }
 }
 

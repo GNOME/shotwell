@@ -52,16 +52,15 @@ public class CollectionPage : CheckerboardPage {
             return timeb - timea;
         }
     }
-
+    
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotate_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
     private bool in_view = false;
-    private int last_width = 0;
-    private int last_height = 0;
     private bool reschedule_improval = false;
+    private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -163,6 +162,8 @@ public class CollectionPage : CheckerboardPage {
         show_all();
 
         schedule_thumbnail_improval();
+
+        enable_drag_source(Gdk.DragAction.COPY);
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -233,19 +234,71 @@ public class CollectionPage : CheckerboardPage {
         return null;
     }
     
-    protected override bool on_resize(Gdk.Rectangle rect) {
+    protected override void on_resize(Gdk.Rectangle rect) {
         // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
         // may be exposed), therefore, uninterested in window position move
-        if ((last_width != rect.width) || (last_height != rect.height)) {
-            last_width = rect.width;
-            last_height = rect.height;
+        schedule_thumbnail_improval();
+    }
+    
+    private override void drag_begin(Gdk.DragContext context) {
+        assert(get_selected_count() != 0);
+        
+        drag_items.clear();
 
-            schedule_thumbnail_improval();
+        // because drag_data_get may be called multiple times in a single drag, prepare all the exported
+        // files first
+        Gdk.Pixbuf icon = null;
+        foreach (LayoutItem item in get_selected()) {
+            Photo photo = ((Thumbnail) item).get_photo();
+            
+            File file = null;
+            try {
+                file = photo.generate_exportable();
+            } catch (Error err) {
+                error("%s", err.message);
+            }
+            
+            drag_items.add(file);
+            
+            // set up icon using the "first" photo, although Sets are not ordered
+            if (icon == null)
+                icon = photo.get_thumbnail(ThumbnailCache.MEDIUM_SCALE);
+            
+            debug("Prepared %s for export", file.get_path());
         }
+        
+        assert(icon != null);
+        Gtk.drag_source_set_icon_pixbuf(get_event_source(), icon);
+    }
+    
+    private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
+        uint target_type, uint time) {
+        assert(target_type == TargetType.URI_LIST);
+        
+        if (drag_items.size == 0)
+            return;
+        
+        // prepare list of uris
+        string[] uris = new string[drag_items.size];
+        int ctr = 0;
+        foreach (File file in drag_items)
+            uris[ctr++] = file.get_uri();
+        
+        selection_data.set_uris(uris);
+    }
+    
+    private override void drag_end(Gdk.DragContext context) {
+        drag_items.clear();
+    }
+    
+    private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
+        debug("Drag failed: %d", (int) drag_result);
+        
+        drag_items.clear();
         
         return false;
     }
-
+    
     public void add_photo(Photo photo) {
         // search for duplicates
         if (get_thumbnail_for_photo(photo) != null)

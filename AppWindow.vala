@@ -202,7 +202,7 @@ public class AppWindow : Gtk.Window {
     public static const int PAGE_MIN_WIDTH = 
         Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
-    public static Gdk.Color BG_COLOR = parse_color("#777");
+    public static Gdk.Color BG_COLOR = parse_color("#444");
 
     public static const long EVENT_LULL_SEC = 3 * 60 * 60;
     public static const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
@@ -210,8 +210,7 @@ public class AppWindow : Gtk.Window {
     private static AppWindow instance = null;
     private static string[] args = null;
 
-    // drag and drop target entries
-    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
+    private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
     };
     
@@ -292,6 +291,13 @@ public class AppWindow : Gtk.Window {
         }
     }
 
+    public static void error_message(string message) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
+            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
+        dialog.run();
+        dialog.destroy();
+    }
+    
     // this needs to be ref'd the lifetime of the application
     private Hal.Context hal_context = new Hal.Context();
     private DBus.Connection hal_conn = null;
@@ -392,8 +398,8 @@ public class AppWindow : Gtk.Window {
         create_layout(collection_page);
 
         // set up main window as a drag-and-drop destination (rather than each page; assume
-        // a drag and drop is for general library importation, which means it goes to collection_page)
-        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.COPY);
+        // a drag and drop is for general library import, which means it goes to collection_page)
+        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES, Gdk.DragAction.COPY);
         
         // set up HAL connection to monitor for device insertion/removal, to look for cameras
         hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
@@ -611,7 +617,11 @@ public class AppWindow : Gtk.Window {
             try {
                 info = row.file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
             } catch (Error err) {
-                error("%s", err.message);
+                // treat this as the file has been deleted from the filesystem
+                debug("Unable to locate %s: Removing from photo library", row.file.get_path());
+                photo_table.remove(photo_id);
+                
+                continue;
             }
             
             TimeVal timestamp = TimeVal();
@@ -666,23 +676,22 @@ public class AppWindow : Gtk.Window {
         }
     }
     
-    public override void drag_data_received(Gdk.DragContext context, int x, int y,
+    private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
+        // don't accept drops from our own application
+        if (Gtk.drag_get_source_widget(context) != null) {
+            Gtk.drag_finish(context, false, false, time);
+            
+            return;
+        }
+
         // grab URIs and release back to system
         string[] uris = selection_data.get_uris();
         Gtk.drag_finish(context, true, false, time);
 
         // do the importing from within the idle loop, so the DnD transaction is completed
-        // TODO: Configure if photos are copied into library
         BatchImport batch_import = new BatchImport(uris);
         batch_import.schedule();
-    }
-    
-    public static void error_message(string message) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.run();
-        dialog.destroy();
     }
     
     public void switch_to_collection_page() {

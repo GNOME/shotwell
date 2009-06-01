@@ -109,6 +109,9 @@ public class PhotoPage : Page {
     private int last_grab_x = -1;
     private int last_grab_y = -1;
     
+    // drag-and-drop state
+    private File drag_file = null;
+    
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
@@ -182,13 +185,15 @@ public class PhotoPage : Page {
         viewport.size_allocate += on_viewport_resize;
         canvas.expose_event += on_canvas_exposed;
         canvas.motion_notify_event += on_canvas_motion;
-        canvas.button_press_event += on_canvas_button_pressed;
-        canvas.button_release_event += on_canvas_button_released;
-        canvas.configure_event += on_window_configured;
         
         // PhotoPage can't use the event virtuals declared in Page because it can be hosted by 
-        // FullscreenWindow as well as AppWindow.
+        // FullscreenWindow as well as AppWindow, whose signal Page captures for the configure event
         container.configure_event += on_window_configured;
+
+        set_event_source(canvas);
+        
+        if (!(container is FullscreenWindow))
+            enable_drag_source(Gdk.DragAction.COPY);
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -249,16 +254,103 @@ public class PhotoPage : Page {
         
         repaint();
     }
+    
+    private override void drag_begin(Gdk.DragContext context) {
+        // drag_data_get may be called multiple times within a drag as different applications
+        // query for target type and information ... to prevent a lot of file generation, do all
+        // the work up front
+        File file = null;
+        try {
+            file = photo.generate_exportable();
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        // set up icon for drag-and-drop
+        Gdk.Pixbuf icon = photo.get_thumbnail(ThumbnailCache.MEDIUM_SCALE);
+        Gtk.drag_source_set_icon_pixbuf(canvas, icon);
 
+        debug("Prepared for export %s", file.get_path());
+        
+        drag_file = file;
+    }
+    
+    private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
+        uint target_type, uint time) {
+        assert(target_type == TargetType.URI_LIST);
+        
+        if (drag_file == null)
+            return;
+        
+        string[] uris = new string[1];
+        uris[0] = drag_file.get_uri();
+        
+        selection_data.set_uris(uris);
+    }
+    
+    private override void drag_end(Gdk.DragContext context) {
+        drag_file = null;
+    }
+    
+    private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
+        debug("Drag failed: %d", (int) drag_result);
+        
+        drag_file = null;
+        
+        return false;
+    }
+    
     private override bool on_left_click(Gdk.EventButton event) {
-        if (show_crop) {
-        } else if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+        if (event.type == Gdk.EventType.2BUTTON_PRESS) {
             on_return_to_collection();
             
             return true;
         }
         
+        int x = (int) event.x;
+        int y = (int) event.y;
+        
+        // only concerned about mouse-downs on the pixbuf
+        if (!coord_in_rectangle(x, y, pixbuf_rect))
+            return false;
+        
+        // only interested in LMB in regards to crop tool
+        if (!show_crop)
+            return false;
+        
+        // scaled_crop is not maintained relative to photo's position on canvas
+        Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
+        
+        in_manipulation = offset_scaled_crop.location(x, y);
+        last_grab_x = x -= pixbuf_rect.x;
+        last_grab_y = y -= pixbuf_rect.y;
+        
+        // repaint because crop changes on a manipulation
+        repaint();
+        
+        // block DnD handlers if crop is enabled
+        return is_dnd_enabled();
+    }
+    
+    private override bool on_left_released(Gdk.EventButton event) {
+        if (in_manipulation == BoxLocation.OUTSIDE)
+            return false;
+        
+        // end manipulation
+        in_manipulation = BoxLocation.OUTSIDE;
+        last_grab_x = -1;
+        last_grab_y = -1;
+        
+        update_cursor((int) event.x, (int) event.y);
+        
+        // repaint because crop changes on a manipulation
+        repaint();
+
         return false;
+    }
+    
+    private override bool on_right_click(Gdk.EventButton event) {
+        return on_context_menu(event);
     }
     
     private void on_return_to_collection() {
@@ -298,39 +390,6 @@ public class PhotoPage : Page {
         return false;
     }
     
-    private bool on_canvas_button_pressed(Gtk.DrawingArea da, Gdk.EventButton event) {
-        // only interested in LMB & RMB
-        if (event.button != 1 && event.button != 3)
-            return false;
-        
-        int x = (int) event.x;
-        int y = (int) event.y;
-        
-        // only concerned about mouse-downs on the pixbuf
-        if (!coord_in_rectangle(x, y, pixbuf_rect))
-            return false;
-        
-        // RMB
-        if (event.button == 3)
-            return on_context_menu(event);
-        
-        // only interested in LMB in regards to crop tool
-        if (!show_crop)
-            return false;
-        
-        // scaled_crop is not maintained relative to photo's position on canvas
-        Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
-        
-        in_manipulation = offset_scaled_crop.location(x, y);
-        last_grab_x = x -= pixbuf_rect.x;
-        last_grab_y = y -= pixbuf_rect.y;
-        
-        // repaint because crop changes on a manipulation
-        repaint();
-        
-        return false;
-    }
-    
     private bool on_context_menu(Gdk.EventButton event) {
         if (photo == null)
             return false;
@@ -340,27 +399,6 @@ public class PhotoPage : Page {
         context_menu.popup(null, null, null, event.button, event.time);
         
         return true;
-    }
-    
-    private bool on_canvas_button_released(Gtk.DrawingArea da, Gdk.EventButton event) {
-        // only interested in LMB
-        if (event.button != 1)
-            return false;
-        
-        if (in_manipulation == BoxLocation.OUTSIDE)
-            return false;
-        
-        // end manipulation
-        in_manipulation = BoxLocation.OUTSIDE;
-        last_grab_x = -1;
-        last_grab_y = -1;
-        
-        update_cursor((int) event.x, (int) event.y);
-        
-        // repaint because crop changes on a manipulation
-        repaint();
-
-        return false;
     }
     
     private void update_cursor(int x, int y) {
@@ -853,6 +891,8 @@ public class PhotoPage : Page {
         if (show_crop)
             return;
             
+        show_crop = true;
+        
         // show uncropped photo for editing
         original = photo.get_pixbuf(Photo.EXCEPTION_CROP);
 
@@ -861,15 +901,13 @@ public class PhotoPage : Page {
         
         crop_button.set_active(true);
 
-        show_crop = true;
-        
         crop_tool_window = new CropToolWindow(container);
         crop_tool_window.apply_button.clicked += on_crop_apply;
         crop_tool_window.cancel_button.clicked += on_crop_cancel;
         crop_tool_window.show_all();
         
         place_crop_tool_window();
-
+        
         repaint();
     }
     
@@ -877,6 +915,8 @@ public class PhotoPage : Page {
         if (!show_crop)
             return;
         
+        show_crop = false;
+
         if (crop_tool_window != null) {
             crop_tool_window.hide();
             crop_tool_window = null;
@@ -886,8 +926,6 @@ public class PhotoPage : Page {
         
         // make sure the cursor isn't set to a modify indicator
         canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
-        
-        show_crop = false;
         
         repaint();
     }

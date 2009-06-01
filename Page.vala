@@ -23,13 +23,18 @@ public abstract class Page : Gtk.ScrolledWindow {
     public static const string STOCK_CLOCKWISE = "shotwell-rotate-clockwise";
     public static const string STOCK_COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
     
-    public static const Gdk.Color BG_COLOR = parse_color("#777");
-
+    protected enum TargetType {
+        URI_LIST
+    }
+    
+    // For now, assuming all drag-and-drop source functions are providing the same set of targets
+    protected const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
+        { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST }
+    };
+    
     private static Gtk.IconFactory factory = null;
     
-    private static void addStockIcon(File file, string stockID) {
-        debug("Adding icon %s", file.get_path());
-        
+    private static void add_stock_icon(File file, string stock_id) {
         Gdk.Pixbuf pixbuf = null;
         try {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
@@ -37,35 +42,59 @@ public abstract class Page : Gtk.ScrolledWindow {
             error("%s", err.message);
         }
         
-        Gtk.IconSet iconSet = new Gtk.IconSet.from_pixbuf(pixbuf);
-        factory.add(stockID, iconSet);
+        Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
+        factory.add(stock_id, icon_set);
     }
     
-    private static void prepIcons() {
+    private static void prep_icons() {
         if (factory != null)
             return;
         
         factory = new Gtk.IconFactory();
         
         File icons_dir = AppWindow.get_ui_dir().get_child("icons");
-        addStockIcon(icons_dir.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
-        addStockIcon(icons_dir.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
+        add_stock_icon(icons_dir.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
+        add_stock_icon(icons_dir.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
         
         factory.add_default();
     }
     
     public Gtk.UIManager ui = new Gtk.UIManager();
     public Gtk.ActionGroup action_group = null;
-    public Gtk.MenuBar menu_bar = null;
-    public PageMarker marker = null;
     
+    private Gtk.MenuBar menu_bar = null;
+    private PageMarker marker = null;
+    private Gdk.Rectangle last_position = Gdk.Rectangle();
+    private Gtk.Widget event_source = null;
+    private bool dnd_enabled = false;
+
     public Page() {
-        prepIcons();
+        prep_icons();
+    }
+    
+    public void set_event_source(Gtk.Widget event_source) {
+        assert(this.event_source == null);
+
+        this.event_source = event_source;
+
+        // interested in mouse button actions on the event source
+        event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK);
+        event_source.button_press_event += on_button_pressed_internal;
+        event_source.button_release_event += on_button_released_internal;
         
-        button_press_event += on_click;
+        // interested in keypresses to the application itself
+        AppWindow.get_instance().add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
+            | Gdk.EventMask.STRUCTURE_MASK);
         AppWindow.get_instance().key_press_event += on_key_pressed_internal;
         AppWindow.get_instance().key_release_event += on_key_released_internal;
-        AppWindow.get_instance().configure_event += on_configure;
+        
+        // Use the app window's signals for window move/resize, esp. for resize, as this signal
+        // is used to determine inner window resizes
+        AppWindow.get_instance().configure_event += on_configure_internal;
+    }
+    
+    public Gtk.Widget? get_event_source() {
+        return event_source;
     }
     
     public void set_marker(PageMarker marker) {
@@ -96,18 +125,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public void set_item_sensitive(string path, bool sensitive) {
         ui.get_widget(path).sensitive = sensitive;
-    }
-    
-    protected virtual bool on_left_click(Gdk.EventButton event) {
-        return false;
-    }
-    
-    protected virtual bool on_middle_click(Gdk.EventButton event) {
-        return false;
-    }
-    
-    protected virtual bool on_right_click(Gdk.EventButton event) {
-        return false;
     }
     
     protected void init_ui(string ui_filename, string? menubar_path, string action_group_name, 
@@ -147,7 +164,81 @@ public abstract class Page : Gtk.ScrolledWindow {
         ui.ensure_update();
     }
     
-    private bool on_click(Page p, Gdk.EventButton event) {
+    // This method enables drag-and-drop on the event source and routes its events through this
+    // object
+    public void enable_drag_source(Gdk.DragAction actions) {
+        if (dnd_enabled)
+            return;
+            
+        assert(event_source != null);
+        
+        Gtk.drag_source_set(event_source, Gdk.ModifierType.BUTTON1_MASK, SOURCE_TARGET_ENTRIES, actions);
+        event_source.drag_begin += on_drag_begin;
+        event_source.drag_data_get += on_drag_data_get;
+        event_source.drag_data_delete += on_drag_data_delete;
+        event_source.drag_end += on_drag_end;
+        event_source.drag_failed += on_drag_failed;
+        
+        dnd_enabled = true;
+    }
+    
+    public bool is_dnd_enabled() {
+        return dnd_enabled;
+    }
+    
+    private void on_drag_begin(Gdk.DragContext context) {
+        drag_begin(context);
+    }
+    
+    private void on_drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
+        uint info, uint time) {
+        drag_data_get(context, selection_data, info, time);
+    }
+    
+    private void on_drag_data_delete(Gdk.DragContext context) {
+        drag_data_delete(context);
+    }
+    
+    private void on_drag_end(Gdk.DragContext context) {
+        drag_end(context);
+    }
+    
+    // wierdly, Gtk 2.16.1 doesn't supply a drag_failed virtual method in the GtkWidget impl ...
+    // Vala binds to it, but it's not available in gtkwidget.h, and so gcc complains.  Have to
+    // makeshift one for now.
+    public virtual bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
+        return false;
+    }
+    
+    private bool on_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
+        return source_drag_failed(context, drag_result);
+    }
+    
+    protected virtual bool on_left_click(Gdk.EventButton event) {
+        return false;
+    }
+    
+    protected virtual bool on_middle_click(Gdk.EventButton event) {
+        return false;
+    }
+    
+    protected virtual bool on_right_click(Gdk.EventButton event) {
+        return false;
+    }
+    
+    protected virtual bool on_left_released(Gdk.EventButton event) {
+        return false;
+    }
+    
+    protected virtual bool on_middle_released(Gdk.EventButton event) {
+        return false;
+    }
+    
+    protected virtual bool on_right_released(Gdk.EventButton event) {
+        return false;
+    }
+    
+    private bool on_button_pressed_internal(Gdk.EventButton event) {
         switch (event.button) {
             case 1:
                 return on_left_click(event);
@@ -157,6 +248,22 @@ public abstract class Page : Gtk.ScrolledWindow {
             
             case 3:
                 return on_right_click(event);
+            
+            default:
+                return false;
+        }
+    }
+    
+    private bool on_button_released_internal(Gdk.EventButton event) {
+        switch (event.button) {
+            case 1:
+                return on_left_released(event);
+            
+            case 2:
+                return on_middle_released(event);
+            
+            case 3:
+                return on_right_released(event);
             
             default:
                 return false;
@@ -187,42 +294,48 @@ public abstract class Page : Gtk.ScrolledWindow {
         return false;
     }
     
-    protected virtual bool on_resize(Gdk.Rectangle rect) {
-        return false;
+    protected virtual void on_move(Gdk.Rectangle rect) {
     }
     
-    private bool on_key_pressed_internal(AppWindow aw, Gdk.EventKey event) {
-        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R)) {
+    protected virtual void on_resize(Gdk.Rectangle rect) {
+    }
+    
+    private bool on_key_pressed_internal(Gdk.EventKey event) {
+        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R))
             return on_ctrl_pressed(event);
-        }
         
-        if ((event.keyval == KEY_ALT_L) || (event.keyval == KEY_ALT_R)) {
+        if ((event.keyval == KEY_ALT_L) || (event.keyval == KEY_ALT_R))
             return on_alt_pressed(event);
-        }
 
         return on_key_pressed(event);
     }
     
-    private bool on_key_released_internal(AppWindow aw, Gdk.EventKey event) {
-        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R)) {
+    private bool on_key_released_internal(Gdk.EventKey event) {
+        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R))
             return on_ctrl_released(event);
-        }
         
-        if ((event.keyval == KEY_ALT_L) || (event.keyval == KEY_ALT_R)) {
+        if ((event.keyval == KEY_ALT_L) || (event.keyval == KEY_ALT_R))
             return on_alt_released(event);
-        }
-
+            
         return on_key_released(event);
     }
     
-    private bool on_configure(AppWindow aw, Gdk.EventConfigure event) {
+    private bool on_configure_internal(Gdk.EventConfigure event) {
         Gdk.Rectangle rect = Gdk.Rectangle();
         rect.x = event.x;
         rect.y = event.y;
         rect.width = event.width;
         rect.height = event.height;
         
-        return on_resize(rect);
+        if (last_position.x != rect.x || last_position.y != rect.y)
+            on_move(rect);
+        
+        if (last_position.width != rect.width || last_position.height != rect.height)
+            on_resize(rect);
+        
+        last_position = rect;
+        
+        return false;
     }
 }
 
@@ -231,10 +344,13 @@ public abstract class CheckerboardPage : Page {
     private CollectionLayout layout = new CollectionLayout();
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private string page_name = null;
-    
+    private LayoutItem last_clicked_item = null;
+
     public CheckerboardPage(string page_name) {
         this.page_name = page_name;
         
+        set_event_source(layout);
+
         add(layout);
     }
     
@@ -325,15 +441,23 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void select_all() {
+        bool changed = false;
         foreach (LayoutItem item in layout.items) {
-            selected_items.add(item);
-            item.select();
+            if (!item.is_selected()) {
+                selected_items.add(item);
+                item.select();
+                changed = true;
+            }
         }
         
-        on_selection_changed(selected_items.size);
+        if (changed)
+            on_selection_changed(selected_items.size);
     }
 
     public void unselect_all() {
+        if (selected_items.size == 0)
+            return;
+
         foreach (LayoutItem item in selected_items) {
             assert(item.is_selected());
             item.unselect();
@@ -343,23 +467,49 @@ public abstract class CheckerboardPage : Page {
         
         on_selection_changed(0);
     }
+    
+    public void unselect_all_but(LayoutItem exception) {
+        assert(exception.is_selected());
+        
+        if (selected_items.size == 0)
+            return;
+        
+        bool changed = false;
+        foreach (LayoutItem item in selected_items) {
+            assert(item.is_selected());
+            if (item != exception) {
+                item.unselect();
+                changed = true;
+            }
+        }
+        
+        selected_items.clear();
+        selected_items.add(exception);
+
+        if (changed)
+            on_selection_changed(1);
+    }
 
     public void select(LayoutItem item) {
         assert(layout.items.index_of(item) >= 0);
         
-        item.select();
-        selected_items.add(item);
-        
-        on_selection_changed(selected_items.size);
+        if (!item.is_selected()) {
+            item.select();
+            selected_items.add(item);
+
+            on_selection_changed(selected_items.size);
+        }
     }
     
     public void unselect(LayoutItem item) {
         assert(layout.items.index_of(item) >= 0);
         
-        item.unselect();
-        selected_items.remove(item);
-        
-        on_selection_changed(selected_items.size);
+        if (item.is_selected()) {
+            item.unselect();
+            selected_items.remove(item);
+            
+            on_selection_changed(selected_items.size);
+        }
     }
 
     public void toggle_select(LayoutItem item) {
@@ -377,47 +527,82 @@ public abstract class CheckerboardPage : Page {
     public int get_selected_count() {
         return selected_items.size;
     }
-
+    
     private override bool on_left_click(Gdk.EventButton event) {
         // only interested in single-click and double-clicks for now
-        if ((event.type != Gdk.EventType.BUTTON_PRESS) 
-            && (event.type != Gdk.EventType.2BUTTON_PRESS)) {
+        if ((event.type != Gdk.EventType.BUTTON_PRESS) && (event.type != Gdk.EventType.2BUTTON_PRESS))
             return false;
-        }
         
         // mask out the modifiers we're interested in
         uint state = event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
         
+        // use clicks for multiple selection and activation only; single selects are handled by
+        // button release, to allow for multiple items to be selected then dragged
         LayoutItem item = get_item_at(event.x, event.y);
         if (item != null) {
             switch (state) {
-                case Gdk.ModifierType.CONTROL_MASK: {
+                case Gdk.ModifierType.CONTROL_MASK:
                     // with only Ctrl pressed, multiple selections are possible ... chosen item
                     // is toggled
                     toggle_select(item);
-                } break;
+                break;
                 
-                case Gdk.ModifierType.SHIFT_MASK: {
+                case Gdk.ModifierType.SHIFT_MASK:
                     // TODO
-                } break;
+                break;
                 
-                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK: {
+                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
                     // TODO
-                } break;
+                break;
                 
-                default: {
-                    if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+                default:
+                    if (event.type == Gdk.EventType.2BUTTON_PRESS)
                         on_item_activated(item);
-                    } else {
-                        // a "raw" single-click deselects all thumbnails and selects the single chosen
-                        unselect_all();
+                    else {
+                        // if user has selected multiple items and is preparing for a drag, don't
+                        // want to unselect immediately, otherwise, let the released handler deal
+                        // with it
+                        if (get_selected_count() == 1)
+                            unselect_all();
                         select(item);
                     }
-                } break;
+                break;
             }
         } else {
             // user clicked on "dead" area
             unselect_all();
+        }
+        
+        last_clicked_item = item;
+
+        // need to determine if the signal should be passed to the DnD handlers
+        // Return true to block the DnD handler, false otherwise
+        if (!is_dnd_enabled())
+            return false;
+        
+        return selected_items.size == 0;
+    }
+    
+    private override bool on_left_released(Gdk.EventButton event) {
+        // only interested in non-modified button releases
+        if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
+            return false;
+            
+        LayoutItem item = get_item_at(event.x, event.y);
+        if (item == null) {
+            // released button on "dead" area
+            return false;
+        }
+        
+        if (last_clicked_item != item) {
+            // user released mouse button after moving it off the initial item, or moved from dead
+            // space onto one.  either way, unselect everything
+            unselect_all();
+        } else {
+            // the idea is, if a user single-clicks on an item with no modifiers, then all other items
+            // should be deselected, however, if they single-click in order to drag one or more items,
+            // they should remain selected, hence performing this here rather than on_left_click
+            unselect_all_but(item);
         }
 
         return true;
@@ -425,9 +610,8 @@ public abstract class CheckerboardPage : Page {
     
     private override bool on_right_click(Gdk.EventButton event) {
         // only interested in single-clicks for now
-        if (event.type != Gdk.EventType.BUTTON_PRESS) {
+        if (event.type != Gdk.EventType.BUTTON_PRESS)
             return false;
-        }
         
         LayoutItem item = get_item_at(event.x, event.y);
         if (item != null) {
@@ -437,16 +621,15 @@ public abstract class CheckerboardPage : Page {
         }
             
         Gtk.Menu context_menu = get_context_menu(item);
-        if (context_menu != null) {
-            if (!on_context_invoked(context_menu))
-                return false;
+        if (context_menu == null)
+            return false;
             
-            context_menu.popup(null, null, null, event.button, event.time);
+        if (!on_context_invoked(context_menu))
+            return false;
+            
+        context_menu.popup(null, null, null, event.button, event.time);
 
-            return true;
-        }
-            
-        return false;
+        return true;
     }
     
     public LayoutItem? get_next_item(LayoutItem current) {
