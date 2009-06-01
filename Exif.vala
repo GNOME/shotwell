@@ -38,22 +38,6 @@ namespace Exif {
     }
 }
 
-namespace Jpeg {
-    public static const uint8 MARKER_PREFIX = 0xFF;
-    
-    public enum Marker {
-        SOI = 0xD8,
-        EOI = 0xD9,
-        
-        APP0 = 0xE0,
-        APP1 = 0xE1;
-        
-        public uint8 get_byte() {
-            return (uint8) this;
-        }
-    }
-}
-
 public errordomain ExifError {
     FILE_FORMAT
 }
@@ -62,7 +46,7 @@ extern void free(void *ptr);
 
 public class PhotoExif  {
     private File file;
-    private Exif.Data exifData = null;
+    private Exif.Data exif = null;
     private bool no_exif = false;
     
     public PhotoExif(File file) {
@@ -81,27 +65,33 @@ public class PhotoExif  {
             FileInputStream fins = file.read(null);
             
             Jpeg.Marker marker;
-            int segmentLength;
+            int segment_length;
 
             // first marker should be SOI
-            segmentLength = read_marker(fins, out marker);
-            if ((marker != Jpeg.Marker.SOI) || (segmentLength != 0)) {
+            segment_length = Jpeg.read_marker(fins, out marker);
+            if ((marker != Jpeg.Marker.SOI) || (segment_length != 0)) {
                 no_exif = true;
                 
                 return false;
             }
             
             // for EXIF, next marker is always APP1
-            segmentLength = read_marker(fins, out marker);
-            if ((marker != Jpeg.Marker.APP1) || (segmentLength < 0)) {
+            segment_length = Jpeg.read_marker(fins, out marker);
+            if ((marker != Jpeg.Marker.APP1) || (segment_length < 0)) {
                 no_exif = true;
                 
                 return false;
             }
             
             uint8[] sig = new uint8[Exif.SIGNATURE.length];
-            size_t bytesRead;
-            fins.read_all(sig, Exif.SIGNATURE.length, out bytesRead, null);
+            size_t bytes_read;
+            fins.read_all(sig, Exif.SIGNATURE.length, out bytes_read, null);
+            if (bytes_read != Exif.SIGNATURE.length) {
+                no_exif = true;
+                
+                return false;
+            }
+            
             for (int ctr = 0; ctr < Exif.SIGNATURE.length; ctr++) {
                 if (sig[ctr] != Exif.SIGNATURE[ctr]) {
                     no_exif = true;
@@ -122,6 +112,23 @@ public class PhotoExif  {
         return false;
     }
     
+    public Exif.Data? get_exif() {
+        if (exif != null)
+            return exif;
+        
+        if (!has_exif())
+            return null;
+            
+        update();
+
+        return null;
+    }
+    
+    public void set_exif(Exif.Data exif) {
+        this.exif = exif;
+        no_exif = false;
+    }
+    
     public Orientation get_orientation() {
         update();
         
@@ -129,7 +136,7 @@ public class PhotoExif  {
         if (entry == null)
             return Orientation.TOP_LEFT;
         
-        int o = Exif.Convert.get_short(entry.data, exifData.get_byte_order());
+        int o = Exif.Convert.get_short(entry.data, exif.get_byte_order());
         if (o < (int) Orientation.MIN || o > (int) Orientation.MAX)
             return Orientation.TOP_LEFT;
         
@@ -145,7 +152,7 @@ public class PhotoExif  {
             error("Unable to set orientation: no entry found");
         }
         
-        Exif.Convert.set_short(entry.data, exifData.get_byte_order(), orientation);
+        Exif.Convert.set_short(entry.data, exif.get_byte_order(), orientation);
     }
     
     public bool get_dimensions(out Dimensions dim) {
@@ -158,23 +165,50 @@ public class PhotoExif  {
         if ((width == null) || (height == null))
             return false;
 
-        if (width.format == Exif.Format.SHORT) {        
-            dim.width = Exif.Convert.get_short(width.data, exifData.get_byte_order());
+        if (width.format == Exif.Format.SHORT) {
+            dim.width = Exif.Convert.get_short(width.data, exif.get_byte_order());
         } else {
             assert(width.format == Exif.Format.LONG);
 
-            dim.width = (int) Exif.Convert.get_long(width.data, exifData.get_byte_order());
+            dim.width = (int) Exif.Convert.get_long(width.data, exif.get_byte_order());
         }
 
-        if (height.format == Exif.Format.SHORT) {        
-            dim.height = Exif.Convert.get_short(height.data, exifData.get_byte_order());
+        if (height.format == Exif.Format.SHORT) {
+            dim.height = Exif.Convert.get_short(height.data, exif.get_byte_order());
         } else {
             assert(height.format == Exif.Format.LONG);
 
-            dim.height = (int) Exif.Convert.get_long(height.data, exifData.get_byte_order());
+            dim.height = (int) Exif.Convert.get_long(height.data, exif.get_byte_order());
         }
         
         return true;
+    }
+    
+    public void set_dimensions(Dimensions dim) {
+        update();
+        
+        Exif.Entry width = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_X_DIMENSION, 
+            Exif.Format.SHORT, Exif.Format.LONG);
+        Exif.Entry height = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_Y_DIMENSION, 
+            Exif.Format.SHORT, Exif.Format.LONG);
+        if ((width == null) || (height == null))
+            return;
+        
+        if (width.format == Exif.Format.SHORT) {
+            Exif.Convert.set_short(width.data, exif.get_byte_order(), (uint16) dim.width);
+        } else {
+            assert(width.format == Exif.Format.LONG);
+            
+            Exif.Convert.set_long(width.data, exif.get_byte_order(), dim.width);
+        }
+        
+        if (height.format == Exif.Format.SHORT) {
+            Exif.Convert.set_short(height.data, exif.get_byte_order(), (uint16) dim.height);
+        } else {
+            assert(height.format == Exif.Format.LONG);
+            
+            Exif.Convert.set_long(height.data, exif.get_byte_order(), dim.height);
+        }
     }
     
     public string? get_datetime() {
@@ -200,24 +234,24 @@ public class PhotoExif  {
             return;
             
         // TODO: Update internal data structures if file changes
-        if (exifData != null)
+        if (exif != null)
             return;
         
-        exifData = Exif.Data.new_from_file(file.get_path());
-        if (exifData == null) {
+        exif = Exif.Data.new_from_file(file.get_path());
+        if (exif == null) {
             no_exif = true;
             
             return;
         }
 
         // fix now, all at once
-        exifData.fix();
+        exif.fix();
     }
     
     private Exif.Entry? find_entry(Exif.Ifd ifd, Exif.Tag tag, Exif.Format format) {
-        assert(exifData != null);
+        assert(exif != null);
         
-        Exif.Content content = exifData.ifd[(int) ifd];
+        Exif.Content content = exif.ifd[(int) ifd];
         assert(content != null);
         
         Exif.Entry entry = content.get_entry(tag);
@@ -232,16 +266,16 @@ public class PhotoExif  {
     }
     
     private Exif.Entry? find_first_entry(Exif.Tag tag, Exif.Format format) {
-        assert(exifData != null);
+        assert(exif != null);
         
-        return Exif.find_first_entry(exifData, tag, format);
+        return Exif.find_first_entry(exif, tag, format);
     }
     
     private Exif.Entry? find_entry_multiformat(Exif.Ifd ifd, Exif.Tag tag, Exif.Format format1,
         Exif.Format format2) {
-        assert(exifData != null);
+        assert(exif != null);
         
-        Exif.Content content = exifData.ifd[(int) ifd];
+        Exif.Content content = exif.ifd[(int) ifd];
         assert(content != null);
         
         Exif.Entry entry = content.get_entry(tag);
@@ -256,39 +290,40 @@ public class PhotoExif  {
     }
     
     public void commit() throws Error {
-        if (exifData == null)
+        if (exif == null)
             return;
         
         FileInputStream fins = file.read(null);
         
         Jpeg.Marker marker;
-        int segmentLength;
+        int segment_length;
+        bool original_has_exif = true;
 
         // first marker is always SOI
-        segmentLength = read_marker(fins, out marker);
-        if ((marker != Jpeg.Marker.SOI) || (segmentLength != 0))
+        segment_length = Jpeg.read_marker(fins, out marker);
+        if ((marker != Jpeg.Marker.SOI) || (segment_length != 0))
             throw new ExifError.FILE_FORMAT("SOI not found in %s".printf(file.get_path()));
         
         // for EXIF, next marker is always APP1
-        segmentLength = read_marker(fins, out marker);
+        segment_length = Jpeg.read_marker(fins, out marker);
+        if (segment_length <= 0)
+            throw new ExifError.FILE_FORMAT("EXIF APP1 length of %d".printf(segment_length));
         if (marker != Jpeg.Marker.APP1)
-            throw new ExifError.FILE_FORMAT("EXIF APP1 not found in %s".printf(file.get_path()));
-        if (segmentLength <= 0)
-            throw new ExifError.FILE_FORMAT("EXIF APP1 length of %d".printf(segmentLength));
+            original_has_exif = false;
             
         // flatten exif to buffer
         uchar *flattened = null;
-        int flattenedSize = 0;
-        exifData.save_data(&flattened, &flattenedSize);
+        int flattened_size = 0;
+        exif.save_data(&flattened, &flattened_size);
         assert(flattened != null);
-        assert(flattenedSize > 0);
+        assert(flattened_size > 0);
 
         try {
-            if (flattenedSize == segmentLength) {
+            if ((flattened_size == segment_length) && original_has_exif) {
                 // the new EXIF data is exactly the same size as the data in the file, so simply
                 // overwrite
 
-                debug("Writing EXIF in-place of %d bytes to %s", flattenedSize, file.get_path());
+                debug("Writing EXIF in-place of %d bytes to %s", flattened_size, file.get_path());
                 
                 // close for reading
                 fins.close(null);
@@ -305,41 +340,52 @@ public class PhotoExif  {
                     throw new IOError.FAILED("%s: fseek() error %d", file.get_path(), fs.error());
 
                 // write data in over current EXIF
-                size_t countWritten = fs.write(flattened, flattenedSize, 1);
-                if (countWritten != 1)
+                size_t count_written = fs.write(flattened, flattened_size, 1);
+                if (count_written != 1)
                     throw new IOError.FAILED("%s: fwrite() error %d", file.get_path(), errno);
             } else {
                 // create a new photo file with the updated EXIF and move it on top of the old one
 
                 // skip past APP1
-                fins.skip(segmentLength, null);
+                if (original_has_exif)
+                    fins.skip(segment_length, null);
 
                 File temp = null;
                 FileOutputStream fouts = create_temp(file, out temp);
-                size_t bytesWritten = 0;
+                size_t bytes_written = 0;
                 
                 debug("Building new file at %s with %d bytes EXIF, overwriting %s", temp.get_path(),
-                    flattenedSize, file.get_path());
+                    flattened_size, file.get_path());
 
                 // write SOI
-                write_marker(fouts, Jpeg.Marker.SOI, 0);
+                Jpeg.write_marker(fouts, Jpeg.Marker.SOI, 0);
                 
                 // write APP1 with EXIF data
-                write_marker(fouts, Jpeg.Marker.APP1, flattenedSize);
-                fouts.write_all(flattened, flattenedSize, out bytesWritten, null);
-                assert(bytesWritten == flattenedSize);
+                Jpeg.write_marker(fouts, Jpeg.Marker.APP1, flattened_size);
+                fouts.write_all(flattened, flattened_size, out bytes_written, null);
+                assert(bytes_written == flattened_size);
+                
+                // if original has no EXIF, need to write the marker read in earlier
+                if (!original_has_exif) {
+                    // if APP0, then it's JFIF, and don't want to write this segment
+                    if (marker != Jpeg.Marker.APP0) {
+                        Jpeg.write_marker(fouts, marker, segment_length);
+                    } else {
+                        fins.skip(segment_length, null);
+                    }
+                }
                 
                 // copy remainder of file into new file
-                uint8[] copyBuffer = new uint8[64 * 1024];
+                uint8[] copy_buffer = new uint8[64 * 1024];
                 for(;;) {
-                    ssize_t bytesRead = fins.read(copyBuffer, copyBuffer.length, null);
-                    if (bytesRead == 0)
+                    ssize_t bytes_read = fins.read(copy_buffer, copy_buffer.length, null);
+                    if (bytes_read == 0)
                         break;
                         
-                    assert(bytesRead > 0);
+                    assert(bytes_read > 0);
 
-                    fouts.write_all(copyBuffer, bytesRead, out bytesWritten, null);
-                    assert(bytesWritten == bytesRead);
+                    fouts.write_all(copy_buffer, bytes_read, out bytes_written, null);
+                    assert(bytes_written == bytes_read);
                 }
                 
                 // close both for move
@@ -353,57 +399,7 @@ public class PhotoExif  {
         }
     }
 
-    private int read_marker(FileInputStream fins, out Jpeg.Marker marker) throws Error {
-        uint8 byte = 0;
-        uint16 length = 0;
-        size_t bytesRead;
-
-        fins.read_all(&byte, 1, out bytesRead, null);
-        if (byte != Jpeg.MARKER_PREFIX)
-            return -1;
-        
-        fins.read_all(&byte, 1, out bytesRead, null);
-        marker = (Jpeg.Marker) byte;
-        if ((marker == Jpeg.Marker.SOI) || (marker == Jpeg.Marker.EOI)) {
-            // no length
-            return 0;
-        }
-        
-        fins.read_all(&length, 2, out bytesRead, null);
-        length = uint16.from_big_endian(length);
-        if (length < 2) {
-            debug("Invalid length %Xh at ofs %llXh", length, fins.tell() - 2);
-            
-            return -1;
-        }
-        
-        // account for two length bytes already read
-        return length - 2;
-    }
-    
-    // this writes the marker and a length (if positive)
-    private void write_marker(FileOutputStream fouts, Jpeg.Marker marker, int length) throws Error {
-        // this is required to compile
-        uint8 prefix = Jpeg.MARKER_PREFIX;
-        uint8 byte = marker.get_byte();
-        
-        size_t written;
-        fouts.write_all(&prefix, 1, out written, null);
-        fouts.write_all(&byte, 1, out written, null);
-
-        if (length <= 0)
-            return;
-
-        // +2 to account for length bytes
-        length += 2;
-        
-        uint16 host = (uint16) length;
-        uint16 motorola = (uint16) host.to_big_endian();
-
-        fouts.write_all(&motorola, 2, out written, null);
-    }
-
-    private FileOutputStream? create_temp(File original, out File temp) throws Error {
+    private static FileOutputStream? create_temp(File original, out File temp) throws Error {
         File parent = original.get_parent();
         assert(parent != null);
         

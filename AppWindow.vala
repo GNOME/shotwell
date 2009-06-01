@@ -611,58 +611,25 @@ public class AppWindow : Gtk.Window {
 
         // verify photo table
         foreach (PhotoID photo_id in ids) {
-            PhotoRow row = PhotoRow();
-            photo_table.get_photo(photo_id, out row);
-            
-            FileInfo info = null;
-            try {
-                info = row.file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-            } catch (Error err) {
-                // treat this as the file has been deleted from the filesystem
-                debug("Unable to locate %s: Removing from photo library", row.file.get_path());
-                photo_table.remove(photo_id);
+            Photo photo = Photo.fetch(photo_id);
+            switch (photo.check_currency()) {
+                case Photo.Currency.CURRENT:
+                    // do nothing
+                break;
                 
-                continue;
-            }
-            
-            TimeVal timestamp = TimeVal();
-            info.get_modification_time(timestamp);
-            
-            // trust modification time and file size
-            if ((timestamp.tv_sec == row.timestamp) && (info.get_size() == row.filesize))
-                continue;
-            
-            message("Time or filesize changed on %s, reimporting ...", row.file.get_path());
-            
-            Dimensions dim = Dimensions();
-            Orientation orientation = Orientation.TOP_LEFT;
-            time_t exposure_time = 0;
-
-            // TODO: Try to read JFIF metadata too
-            PhotoExif exif = new PhotoExif(row.file);
-            if (exif.has_exif()) {
-                if (!exif.get_dimensions(out dim))
-                    error("Unable to read EXIF dimensions for %s", row.file.get_path());
+                case Photo.Currency.DIRTY:
+                    message("Time or filesize changed on %s, reimporting ...", photo.to_string());
+                    photo.update();
+                break;
                 
-                if (!exif.get_timestamp(out exposure_time))
-                    error("Unable to read EXIF orientation for %s", row.file.get_path());
-
-                orientation = exif.get_orientation();
-            } 
-        
-            Gdk.Pixbuf original;
-            try {
-                original = new Gdk.Pixbuf.from_file(row.file.get_path());
+                case Photo.Currency.GONE:
+                    message("Unable to locate %s: Removing from photo library", photo.to_string());
+                    photo.remove();
+                break;
                 
-                if (!exif.has_exif())
-                    dim = Dimensions(original.get_width(), original.get_height());
-            } catch (Error err) {
-                error("%s", err.message);
-            }
-        
-            if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-                orientation)) {
-                ThumbnailCache.import(photo_id, original, true);
+                default:
+                    warn_if_reached();
+                break;
             }
         }
 

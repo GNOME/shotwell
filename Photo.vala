@@ -11,6 +11,12 @@ public class Photo : Object {
     private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
     
+    public enum Currency {
+        CURRENT,
+        DIRTY,
+        GONE
+    }
+    
     private PhotoID photo_id;
     
     public static void init() {
@@ -86,7 +92,7 @@ public class Photo : Object {
         
         return fetch(photo_id);
     }
-
+    
     public static Photo fetch(PhotoID photo_id) {
         Photo photo = photo_map.get(photo_id.id);
 
@@ -312,7 +318,7 @@ public class Photo : Object {
             }
         }
 
-        // Orientation (all modifications are stored in unrotated coordinate system)
+        // orientation (all modifications are stored in unrotated coordinate system)
         if ((exceptions & EXCEPTION_ORIENTATION) == 0) {
             Orientation orientation = photo_table.get_orientation(photo_id);
             pixbuf = orientation.rotate_pixbuf(pixbuf);
@@ -358,8 +364,27 @@ public class Photo : Object {
         if (file.query_exists(null))
             return file;
         
-        Gdk.Pixbuf pixbuf = get_pixbuf();
-        pixbuf.save(file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY);
+        PhotoExif original = new PhotoExif(get_file());
+        
+        // if only rotated, only need to copy and modify the EXIF
+        if (!photo_table.has_transformations(photo_id) && original.has_exif()) {
+            get_file().copy(file, FileCopyFlags.OVERWRITE, null, null);
+
+            PhotoExif exportable = new PhotoExif(file);
+            exportable.set_orientation(photo_table.get_orientation(photo_id));
+            exportable.commit();
+        } else {
+            Gdk.Pixbuf pixbuf = get_pixbuf();
+            pixbuf.save(file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY);
+            
+            if (original.has_exif()) {
+                PhotoExif exportable = new PhotoExif(file);
+                exportable.set_exif(original.get_exif());
+                exportable.set_dimensions(Dimensions.for_pixbuf(pixbuf));
+                exportable.set_orientation(Orientation.TOP_LEFT);
+                exportable.commit();
+            }
+        }
         
         return file;
     }
@@ -411,6 +436,63 @@ public class Photo : Object {
                 message("Unable to delete exportable photo file %s: %s", file.get_path(), err.message);
             else
                 message("Unable to generate exportable filename for %s", to_string());
+        }
+    }
+    
+    public Currency check_currency() {
+        PhotoRow row = PhotoRow();
+        photo_table.get_photo(photo_id, out row);
+        
+        FileInfo info = null;
+        try {
+            info = row.file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            // treat this as the file has been deleted from the filesystem
+            return Currency.GONE;
+        }
+        
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(timestamp);
+        
+        // trust modification time and file size
+        if ((timestamp.tv_sec != row.timestamp) || (info.get_size() != row.filesize))
+            return Currency.DIRTY;
+        
+        return Currency.CURRENT;
+    }
+    
+    public void update() {
+        File file = get_file();
+        
+        Dimensions dim = Dimensions();
+        Orientation orientation = Orientation.TOP_LEFT;
+        time_t exposure_time = 0;
+
+        // TODO: Try to read JFIF metadata too
+        PhotoExif exif = new PhotoExif(file);
+        if (exif.has_exif()) {
+            if (!exif.get_dimensions(out dim))
+                error("Unable to read EXIF dimensions for %s", to_string());
+            
+            if (!exif.get_timestamp(out exposure_time))
+                error("Unable to read EXIF orientation for %s", to_string());
+
+            orientation = exif.get_orientation();
+        } 
+    
+        FileInfo info = null;
+        try {
+            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            error("Unable to read file information for %s: %s", to_string(), err.message);
+        }
+        
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(timestamp);
+        
+        if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            orientation)) {
+            photo_altered();
         }
     }
 }
