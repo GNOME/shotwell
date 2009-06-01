@@ -203,6 +203,7 @@ public class AppWindow : Gtk.Window {
         Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
     public static Gdk.Color BG_COLOR = parse_color("#444");
+    public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
 
     public static const long EVENT_LULL_SEC = 3 * 60 * 60;
     public static const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
@@ -871,6 +872,8 @@ public class AppWindow : Gtk.Window {
         // use a Notebook to hold all the pages, which are switched when a sidebar child is selected
         notebook.set_show_tabs(false);
         notebook.set_show_border(false);
+        
+        sidebar.modify_base(Gtk.StateType.NORMAL, SIDEBAR_BG_COLOR);
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);

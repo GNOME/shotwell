@@ -182,6 +182,22 @@ public abstract class Page : Gtk.ScrolledWindow {
         dnd_enabled = true;
     }
     
+    public void disable_drag_source() {
+        if (!dnd_enabled)
+            return;
+
+        assert(event_source != null);
+        
+        event_source.drag_begin -= on_drag_begin;
+        event_source.drag_data_get -= on_drag_data_get;
+        event_source.drag_data_delete -= on_drag_data_delete;
+        event_source.drag_end -= on_drag_end;
+        event_source.drag_failed -= on_drag_failed;
+        Gtk.drag_source_unset(event_source);
+        
+        dnd_enabled = false;
+    }
+    
     public bool is_dnd_enabled() {
         return dnd_enabled;
     }
@@ -579,7 +595,7 @@ public abstract class CheckerboardPage : Page {
         // Return true to block the DnD handler, false otherwise
         if (!is_dnd_enabled())
             return false;
-        
+
         return selected_items.size == 0;
     }
     
@@ -591,7 +607,7 @@ public abstract class CheckerboardPage : Page {
         LayoutItem item = get_item_at(event.x, event.y);
         if (item == null) {
             // released button on "dead" area
-            return false;
+            return true;
         }
         
         if (last_clicked_item != item) {

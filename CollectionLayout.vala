@@ -3,7 +3,7 @@ public abstract class LayoutItem : Gtk.Alignment {
     public static const int LABEL_PADDING = 4;
     public static const int FRAME_PADDING = 4;
     public static const string TEXT_COLOR = "#FFF";
-    public static const string SELECTED_COLOR = "#FF0";
+    public static const string SELECTED_COLOR = "#0FF";
     public static const string UNSELECTED_COLOR = "#FFF";
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in the

@@ -241,7 +241,8 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private override void drag_begin(Gdk.DragContext context) {
-        assert(get_selected_count() != 0);
+        if (get_selected_count() == 0)
+            return;
         
         drag_items.clear();
 
