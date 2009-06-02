@@ -1,46 +1,191 @@
 
-public struct DatabaseID {
-    public static const int64 INVALID = 0;
-
-    public int64 id;
+public class DatabaseTable {
+    /*** 
+     This number should be incremented every time any database schema is altered between
+     releases.
+     ***/
+    public static const int SCHEMA_VERSION = 1;
     
-    public DatabaseID(int64 id = INVALID) {
-        this.id = id;
-    }
-    
-    public bool is_invalid() {
-        return (id == INVALID);
-    }
-    
-    public bool is_valid() {
-        return (id != INVALID);
-    }
-}
-
-public class DatabaseTable : Object {
     protected static Sqlite.Database db;
+    
+    public string table_name = null;
 
     // Doing this because static construct {} not working
     public static void init() {
         File dbFile = AppWindow.get_data_subdir("data").get_child("photo.db");
         int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
             Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
-        if (res != Sqlite.OK) {
+        if (res != Sqlite.OK)
             error("Unable to open/create photo database %s: %d", dbFile.get_path(), res);
-        }
     }
     
     public static void terminate() {
     }
     
-    // TODO: errmsg() is global, and so this will not be accurate in a threaded situation
+    // XXX: errmsg() is global, and so this will not be accurate in a threaded situation
     protected static void fatal(string op, int res) {
         error("%s: [%d] %s", op, res, db.errmsg());
     }
     
-    // TODO: errmsg() is global, and so this will not be accurate in a threaded situation
+    // XXX: errmsg() is global, and so this will not be accurate in a threaded situation
     protected static void warning(string op, int res) {
         GLib.warning("%s: [%d] %s", op, res, db.errmsg());
+    }
+    
+    protected void set_table_name(string table_name) {
+        this.table_name = table_name;
+    }
+    
+    protected bool exists_by_id(int64 id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id FROM %s WHERE id=?".printf(table_name), -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW && res != Sqlite.DONE)
+            fatal("exists_by_id [%lld] %s".printf(id, table_name), res);
+        
+        return (res == Sqlite.ROW);
+    }
+    
+    protected bool select_by_id(int64 id, string columns, out Sqlite.Statement stmt) {
+        string sql = "SELECT %s FROM %s WHERE id=?".printf(columns, table_name);
+
+        int res = db.prepare_v2(sql, -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW && res != Sqlite.DONE)
+            fatal("select_by_id [%lld] %s %s".printf(id, table_name, columns), res);
+        
+        return (res == Sqlite.ROW);
+    }
+}
+
+public bool verify_databases(out string app_version) {
+    // Since this is the first database version, the only thing checked for is the right one,
+    // no upgrades attempted (since the only real alternative is downgrading)
+    VersionTable version_table = new VersionTable();
+    int version = version_table.get_version(out app_version);
+    debug("Database version %d create by app version %s", version, app_version);
+    
+    if (version == -1) {
+        // no version set, do it now
+        version_table.set_version(DatabaseTable.SCHEMA_VERSION, AppWindow.VERSION);
+    } else if (version != DatabaseTable.SCHEMA_VERSION) {
+        return false;
+    }
+    
+    PhotoTable photo_table = new PhotoTable();
+    PhotoID[] ids = photo_table.get_photos();
+
+    // verify photo table
+    foreach (PhotoID photo_id in ids) {
+        Photo photo = Photo.fetch(photo_id);
+        switch (photo.check_currency()) {
+            case Photo.Currency.CURRENT:
+                // do nothing
+            break;
+            
+            case Photo.Currency.DIRTY:
+                message("Time or filesize changed on %s, reimporting ...", photo.to_string());
+                photo.update();
+            break;
+            
+            case Photo.Currency.GONE:
+                message("Unable to locate %s: Removing from photo library", photo.to_string());
+                photo.remove();
+            break;
+            
+            default:
+                warn_if_reached();
+            break;
+        }
+    }
+
+    // verify event table
+    EventTable event_table = new EventTable();
+    EventID[] events = event_table.get_events();
+    foreach (EventID event_id in events) {
+        PhotoID[] photos = photo_table.get_event_photos(event_id);
+        if (photos.length == 0) {
+            message("Removing event %lld: No photos associated with event", event_id.id);
+            event_table.remove(event_id);
+        }
+    }
+    
+    return true;
+}
+
+public class VersionTable : DatabaseTable {
+    public VersionTable() {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS VersionTable ("
+            + "id INTEGER PRIMARY KEY, "
+            + "schema_version INTEGER, "
+            + "app_version TEXT, "
+            + "user_data TEXT NULL"
+            + ")", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create version table", res);
+
+        set_table_name("VersionTable");
+    }
+    
+    public int get_version(out string app_version) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT schema_version, app_version FROM VersionTable ORDER BY schema_version DESC LIMIT 1", 
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW) {
+            if (res != Sqlite.DONE)
+                fatal("get_version", res);
+            
+            return -1;
+        }
+        
+        app_version = stmt.column_text(1);
+        
+        return stmt.column_int(0);
+    }
+    
+    public void set_version(int version, string app_version, string? user_data = null) {
+        Sqlite.Statement stmt;
+
+        string bitbucket;
+        if (get_version(out bitbucket) != -1) {
+            // overwrite existing row
+            int res = db.prepare_v2("UPDATE VersionTable SET schema_version=?, app_version=?, user_data=?", 
+                -1, out stmt);
+            assert(res == Sqlite.OK);
+        } else {
+            // insert new row
+            int res = db.prepare_v2("INSERT INTO VersionTable (schema_version, app_version, user_data) VALUES (?,?, ?)",
+                -1, out stmt);
+            assert(res == Sqlite.OK);
+        }
+            
+        int res = stmt.bind_int(1, version);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(2, app_version);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(3, user_data);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("set_version %d %s %s".printf(version, app_version, user_data), res);
     }
 }
 
@@ -80,6 +225,19 @@ public struct ImportID {
     }
 }
 
+public struct PhotoRow {
+    public PhotoID photo_id;
+    public File file;
+    public Dimensions dim;
+    public int64 filesize;
+    public long timestamp;
+    public long exposure_time;
+    public Orientation orientation;
+    public Orientation original_orientation;
+    public ImportID import_id;
+    public EventID event_id;
+}
+
 public class PhotoTable : DatabaseTable {
     public PhotoTable() {
         Sqlite.Statement stmt;
@@ -100,9 +258,10 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
 
         res = stmt.step();
-        if (res != Sqlite.DONE) {
+        if (res != Sqlite.DONE)
             fatal("create photo table", res);
-        }
+        
+        set_table_name("PhotoTable");
     }
     
     public ImportID generate_import_id() {
@@ -199,31 +358,17 @@ public class PhotoTable : DatabaseTable {
     }
     
     public bool exists(PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        
-        return (res == Sqlite.ROW);
+        return exists_by_id(photo_id.id);
     }
 
-    public bool get_photo(PhotoID photoID, out PhotoRow row) {
+    public bool get_photo(PhotoID photo_id, out PhotoRow row) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, original_orientation, import_id, event_id FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photoID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW)
+        if (!select_by_id(photo_id.id, 
+            "filename, width, height, filesize, timestamp, exposure_time, orientation, original_orientation, import_id, event_id",
+            out stmt))
             return false;
         
-        row.photo_id = photoID;
+        row.photo_id = photo_id;
         row.file = File.new_for_path(stmt.column_text(0));
         row.dim = Dimensions(stmt.column_int(1), stmt.column_int(2));
         row.filesize = stmt.column_int64(3);
@@ -237,48 +382,27 @@ public class PhotoTable : DatabaseTable {
         return true;
     }
 
-    public File? get_file(PhotoID photoID) {
+    public File? get_file(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT filename FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
+        if (!select_by_id(photo_id.id, "filename", out stmt))
+            return null;
         
-        res = stmt.bind_int64(1, photoID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res == Sqlite.ROW)
-            return File.new_for_path(stmt.column_text(0));
-        
-        return null;
+        return File.new_for_path(stmt.column_text(0));
     }
     
-    public time_t get_exposure_time(PhotoID photoID) {
+    public time_t get_exposure_time(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT exposure_time FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photoID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW)
+        if (!select_by_id(photo_id.id, "exposure_time", out stmt))
             return 0;
         
         return (time_t) stmt.column_int64(0);
     }
     
-    public time_t get_timestamp(PhotoID photoID) {
+    public time_t get_timestamp(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT timestamp FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photoID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW)
+        if (!select_by_id(photo_id.id, "timestamp", out stmt))
             return 0;
-        
+
         return (time_t) stmt.column_int64(0);
     }
     
@@ -362,63 +486,27 @@ public class PhotoTable : DatabaseTable {
         return photoIds;
     }
     
-    public Dimensions? get_dimensions(PhotoID photoID) {
+    public Dimensions get_dimensions(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT width, height FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photoID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("get_dimensions", res);
-            }
-            
-            return null;
-        }
+        if (!select_by_id(photo_id.id, "width, height", out stmt))
+            return Dimensions();
         
         return Dimensions(stmt.column_int(0), stmt.column_int(1));
     }
     
     public Orientation get_original_orientation(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT original_orientation FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("get_original_orientation", res);
-            }
-
+        if (!select_by_id(photo_id.id, "original_orientation", out stmt))
             return Orientation.TOP_LEFT;
-        }
-    
+
         return (Orientation) stmt.column_int(0);
     }
     
     public Orientation get_orientation(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT orientation FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("get_orientation", res);
-            }
-
+        if (!select_by_id(photo_id.id, "orientation", out stmt))
             return Orientation.TOP_LEFT;
-        }
-    
+
         return (Orientation) stmt.column_int(0);
     }
     
@@ -444,21 +532,9 @@ public class PhotoTable : DatabaseTable {
 
     public EventID get_event(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT event_id FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("get_event", res);
-            }
-
+        if (!select_by_id(photo_id.id, "event_id", out stmt))
             return EventID();
-        }
-    
+        
         return EventID(stmt.column_int(0));
     }
     
@@ -509,24 +585,12 @@ public class PhotoTable : DatabaseTable {
     
     private string? get_raw_transformations(PhotoID photo_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT transformations FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("get_raw_transformations", res);
-            }
-
+        if (!select_by_id(photo_id.id, "transformations", out stmt))
             return null;
-        }
-    
+
         string trans = stmt.column_text(0);
         if (trans != null && trans.length == 0)
-            trans = null;
+            return null;
         
         return trans;
     }
@@ -659,12 +723,10 @@ public class PhotoTable : DatabaseTable {
 }
 
 public class ThumbnailCacheTable : DatabaseTable {
-    private string table_name;
-    
     public ThumbnailCacheTable(int scale) {
         assert(scale > 0);
 
-        this.table_name = "Thumb%dTable".printf(scale);
+        set_table_name("Thumb%dTable".printf(scale));
         
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
@@ -679,9 +741,8 @@ public class ThumbnailCacheTable : DatabaseTable {
         assert(res == Sqlite.OK);
 
         res = stmt.step();
-        if (res != Sqlite.DONE) {
+        if (res != Sqlite.DONE)
             fatal("create %s".printf(table_name), res);
-        }
     }
     
     public bool remove(PhotoID photo_id) {
@@ -765,7 +826,7 @@ public class ThumbnailCacheTable : DatabaseTable {
             fatal("%s replace".printf(table_name), res);
     }
     
-    public Dimensions? get_dimensions(PhotoID photo_id) {
+    public Dimensions get_dimensions(PhotoID photo_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT width, height FROM %s WHERE photo_id=?".printf(table_name), 
             -1, out stmt);
@@ -780,19 +841,19 @@ public class ThumbnailCacheTable : DatabaseTable {
                 fatal("%s get_dimensions".printf(table_name), res);
             }
 
-            return null;
+            return Dimensions();
         }
         
         return Dimensions(stmt.column_int(0), stmt.column_int(1));
     }
     
-    public int get_filesize(PhotoID photoID) {
+    public int get_filesize(PhotoID photo_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT filesize FROM %s WHERE photo_id=?".printf(table_name),
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        res = stmt.bind_int64(1, photoID.id);
+        res = stmt.bind_int64(1, photo_id.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -840,9 +901,10 @@ public class EventTable : DatabaseTable {
         assert(res == Sqlite.OK);
 
         res = stmt.step();
-        if (res != Sqlite.DONE) {
+        if (res != Sqlite.DONE)
             fatal("create photo table", res);
-        }
+        
+        set_table_name("EventTable");
     }
     
     public EventID create(PhotoID primary_photo_id, time_t start_time) {
@@ -955,23 +1017,11 @@ public class EventTable : DatabaseTable {
         return true;
     }
     
-    public string? get_name(EventID eventID) {
+    public string? get_name(EventID event_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT name, start_time FROM EventTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, eventID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("event get_name", res);
-            }
-            
+        if (!select_by_id(event_id.id, "name, start_time", out stmt))
             return null;
-        }
-        
+
         // if no name, pretty up the start time
         string name = stmt.column_text(0);
         if ((name == null) || (name.length == 0)) {
@@ -985,22 +1035,10 @@ public class EventTable : DatabaseTable {
         return name;
     }
     
-    public PhotoID get_primary_photo(EventID eventID) {
+    public PhotoID get_primary_photo(EventID event_id) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT primary_photo_id FROM EventTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, eventID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
-                fatal("event get_name", res);
-            }
-            
+        if (!select_by_id(event_id.id, "primary_photo_id", out stmt))
             return PhotoID();
-        }
         
         return PhotoID(stmt.column_int(0));
     }
@@ -1024,18 +1062,5 @@ public class EventTable : DatabaseTable {
         
         return true;
     }
-}
-
-public struct PhotoRow {
-    public PhotoID photo_id;
-    public File file;
-    public Dimensions dim;
-    public int64 filesize;
-    public long timestamp;
-    public long exposure_time;
-    public Orientation orientation;
-    public Orientation original_orientation;
-    public ImportID import_id;
-    public EventID event_id;
 }
 

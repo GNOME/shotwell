@@ -65,6 +65,19 @@ void main(string[] args) {
     ThumbnailCache.init();
     Photo.init();
     
+    message("Verifying databases ...");
+    string app_version;
+    if (!verify_databases(out app_version)) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
+            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, 
+            "The database for your photo library is not compatible with this version of Shotwell.  "
+            + "It appears it was created by Shotwell %s.  Please use that version or later.", app_version);
+        dialog.run();
+        dialog.destroy();
+
+        return;
+    }
+
     // create main application window
     AppWindow app_window = new AppWindow();
     

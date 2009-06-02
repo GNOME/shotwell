@@ -342,9 +342,6 @@ public class AppWindow : Gtk.Window {
 
         destroy += Gtk.main_quit;
         
-        debug("Verifying databases ...");
-        verify_databases();
-        
         // prepare the default parent and orphan pages
         collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
@@ -604,46 +601,6 @@ public class AppWindow : Gtk.Window {
         }
     }
 
-    // This function should only be called prior to creating Photo objects, as once they're created,
-    // they assume full knowledge/control over their assigned photo
-    private void verify_databases() {
-        PhotoID[] ids = photo_table.get_photos();
-
-        // verify photo table
-        foreach (PhotoID photo_id in ids) {
-            Photo photo = Photo.fetch(photo_id);
-            switch (photo.check_currency()) {
-                case Photo.Currency.CURRENT:
-                    // do nothing
-                break;
-                
-                case Photo.Currency.DIRTY:
-                    message("Time or filesize changed on %s, reimporting ...", photo.to_string());
-                    photo.update();
-                break;
-                
-                case Photo.Currency.GONE:
-                    message("Unable to locate %s: Removing from photo library", photo.to_string());
-                    photo.remove();
-                break;
-                
-                default:
-                    warn_if_reached();
-                break;
-            }
-        }
-
-        // verify event table
-        EventID[] events = event_table.get_events();
-        foreach (EventID event_id in events) {
-            PhotoID[] photos = photo_table.get_event_photos(event_id);
-            if (photos.length == 0) {
-                message("Removing event %lld: No photos associated with event", event_id.id);
-                event_table.remove(event_id);
-            }
-        }
-    }
-    
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
         // don't accept drops from our own application
