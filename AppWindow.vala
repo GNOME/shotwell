@@ -384,12 +384,13 @@ public class AppWindow : Gtk.Window {
         foreach (EventID event_id in events)
             add_event_page(event_id);
         
-        sidebar.cursor_changed += on_sidebar_cursor_changed;
-        
         // start in the collection page & control selection aspects
         Gtk.TreeSelection selection = sidebar.get_selection();
         selection.select_path(collection_page.get_marker().get_row().get_path());
         selection.set_mode(Gtk.SelectionMode.BROWSE);
+
+        sidebar.get_selection().set_select_function(on_sidebar_selection, null);
+        sidebar.cursor_changed += on_sidebar_cursor_changed;
 
         sidebar.expand_all();
         
@@ -972,16 +973,17 @@ public class AppWindow : Gtk.Window {
             switch_to_collection_page();
         } else if (is_page_selected(events_directory_page, path)) {
             switch_to_events_directory_page();
-        } else if (path.compare(cameras_row.get_path()) == 0) {
-            // TODO: Make Cameras unselectable and invisible when no cameras attached
-            message("Cameras selected");
         } else if (is_camera_selected(path)) {
             // camera path selected and updated
         } else if (is_event_selected(path)) {
             // event page selected and updated
-        } else {
-            debug("Unimplemented page selected");
         }
+    }
+    
+    private bool on_sidebar_selection(Gtk.TreeSelection selection, Gtk.TreeModel model, Gtk.TreePath path,
+        bool path_currently_selected) {
+        // Cameras path unselectable, all others okay
+        return path.compare(cameras_row.get_path()) != 0;
     }
     
     private void do_op(GPhoto.Result res, string op) throws GPhotoError {
