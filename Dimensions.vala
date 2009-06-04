@@ -1,4 +1,31 @@
 
+public enum ScaleConstraint {
+    ORIGINAL,
+    DIMENSIONS,
+    WIDTH,
+    HEIGHT;
+    
+    public string? to_string() {
+        switch (this) {
+            case ORIGINAL:
+                return "Original size";
+                
+            case DIMENSIONS:
+                return "Width or height";
+            
+            case WIDTH:
+                return "Width";
+            
+            case HEIGHT:
+                return "Height";
+        }
+
+        warn_if_reached();
+
+        return null;
+    }
+}
+    
 public struct Dimensions {
     public int width;
     public int height;
@@ -36,12 +63,9 @@ public struct Dimensions {
         int diff_width = width - scale;
         int diff_height = height - scale;
 
-        Dimensions scaled = Dimensions();
-
         if (diff_width == diff_height) {
             // square image -- unlikely -- but this is the easy case
-            scaled.width = scale;
-            scaled.height = scale;
+            return Dimensions(scale, scale);
         } else if (diff_width <= 0) {
             if (diff_height <= 0) {
                 // if both dimensions are less than the scaled size, return as-is
@@ -49,23 +73,15 @@ public struct Dimensions {
             } 
             
             // height needs to be scaled down, so it determines the ratio
-            double ratio = (double) scale / (double) height;
-            scaled.width = (int) Math.round((double) width * ratio);
-            scaled.height = scale;
+            return get_scaled_by_height(scale);
         } else if (diff_width > diff_height) {
             // width is greater, so it's the determining factor
             // (this case is true even when diff_height is negative)
-            scaled.width = scale;
-            double ratio = (double) scale / (double) width;
-            scaled.height = (int) Math.round((double) height * ratio);
+            return get_scaled_by_width(scale);
         } else {
             // height is the determining factor
-            double ratio = (double) scale / (double) height;
-            scaled.width = (int) Math.round((double) width * ratio);
-            scaled.height = scale;
+            return get_scaled_by_height(scale);
         }
-        
-        return scaled;
     }
 
     public Dimensions get_scaled_proportional(Dimensions viewport) {
@@ -98,6 +114,38 @@ public struct Dimensions {
         scaled_rect.height = (int) (rect.height * y_scale);
         
         return scaled_rect;
+    }
+    
+    public Dimensions get_scaled_by_width(int scale) {
+        double ratio = (double) scale / (double) width;
+        
+        return Dimensions(scale, (int) Math.round((double) height * ratio));
+    }
+    
+    public Dimensions get_scaled_by_height(int scale) {
+        double ratio = (double) scale / (double) height;
+        
+        return Dimensions((int) Math.round((double) width * ratio), scale);
+    }
+    
+    public Dimensions get_scaled_by_constraint(int scale, ScaleConstraint constraint) {
+        switch (constraint) {
+            case ScaleConstraint.ORIGINAL:
+                return Dimensions(width, height);
+                
+            case ScaleConstraint.DIMENSIONS:
+                return (width >= height) ? get_scaled_by_width(scale) : get_scaled_by_height(scale);
+            
+            case ScaleConstraint.WIDTH:
+                return get_scaled_by_width(scale);
+            
+            case ScaleConstraint.HEIGHT:
+                return get_scaled_by_height(scale);
+        }
+
+        error("Bad constraint: %d", (int) constraint);
+        
+        return Dimensions();
     }
 }
 

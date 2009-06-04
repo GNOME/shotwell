@@ -4,7 +4,8 @@ public class Photo : Object {
     public static const int EXCEPTION_ORIENTATION   = 1 << 0;
     public static const int EXCEPTION_CROP          = 1 << 1;
     
-    public static const string EXPORT_JPEG_QUALITY = "90";
+    public static const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
+    public static const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.BILINEAR;
     
     private static Gee.HashMap<int64?, Photo> photo_map = null;
     private static PhotoTable photo_table = new PhotoTable();
@@ -186,7 +187,7 @@ public class Photo : Object {
         orientation = orientation.perform(rotation);
         
         photo_table.set_orientation(photo_id, orientation);
-
+        
         altered();
 
         // because rotations are (a) common and available everywhere in the app, (b) the user expects
@@ -296,8 +297,8 @@ public class Photo : Object {
             pixbuf = cached_raw;
         } else {
             File file = get_file();
-            
-            debug("Loading full photo %s", file.get_path());
+
+            debug("Loading raw photo %s", file.get_path());
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         
             // stash for next time
@@ -344,49 +345,86 @@ public class Photo : Object {
             exportable_dir = exportable_dir.get_child("%02u".printf(tm.day));
         }
         
-        if (!exportable_dir.query_exists(null))
-            exportable_dir.make_directory_with_parents(null);
-        
-        File exportable_file = exportable_dir.get_child(original_file.get_basename());
-        
-        return exportable_file;
+        return exportable_dir.get_child(original_file.get_basename());
+    }
+    
+    private void copy_exported_exif(PhotoExif source, PhotoExif dest, Orientation orientation, 
+        Dimensions dim) throws Error {
+        if (!source.has_exif())
+            return;
+            
+        dest.set_exif(source.get_exif());
+        dest.set_dimensions(dim);
+        dest.set_orientation(orientation);
+        dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_WIDTH);
+        dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_LENGTH);
+        dest.remove_thumbnail();
+        dest.commit();
     }
 
-    // Returns the file of a file appropriate for export.  The file should NOT be deleted once
-    // it's been used for whatever purpose.
+    // Returns a file appropriate for export.  The file should NOT be deleted once it's been used.
     //
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     public File generate_exportable() throws Error {
         if (!has_transformations())
             return get_file();
 
-        File file = generate_exportable_file();
-        if (file.query_exists(null))
-            return file;
+        File dest_file = generate_exportable_file();
+        if (dest_file.query_exists(null))
+            return dest_file;
         
-        PhotoExif original = new PhotoExif(get_file());
+        // generate_exportable_file only generates a filename; create directory if necessary
+        File dest_dir = dest_file.get_parent();
+        if (!dest_dir.query_exists(null))
+            dest_dir.make_directory_with_parents(null);
+        
+        File original_file = get_file();
+        PhotoExif original_exif = new PhotoExif(get_file());
         
         // if only rotated, only need to copy and modify the EXIF
-        if (!photo_table.has_transformations(photo_id) && original.has_exif()) {
-            get_file().copy(file, FileCopyFlags.OVERWRITE, null, null);
+        if (!photo_table.has_transformations(photo_id) && original_exif.has_exif()) {
+            original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
 
-            PhotoExif exportable = new PhotoExif(file);
-            exportable.set_orientation(photo_table.get_orientation(photo_id));
-            exportable.commit();
+            PhotoExif dest_exif = new PhotoExif(dest_file);
+            dest_exif.set_orientation(photo_table.get_orientation(photo_id));
+            dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf();
-            pixbuf.save(file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY);
-            
-            if (original.has_exif()) {
-                PhotoExif exportable = new PhotoExif(file);
-                exportable.set_exif(original.get_exif());
-                exportable.set_dimensions(Dimensions.for_pixbuf(pixbuf));
-                exportable.set_orientation(Orientation.TOP_LEFT);
-                exportable.commit();
-            }
+            pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
+            copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
+                Dimensions.for_pixbuf(pixbuf));
         }
         
-        return file;
+        return dest_file;
+    }
+    
+    // Writes a file appropriate for export meeting the specified parameters.
+    //
+    // TODO: Lossless transformations, especially for mere rotations of JFIF files.
+    public void export(File dest_file, int scale, ScaleConstraint constraint,
+        Jpeg.Quality quality) throws Error {
+        if (constraint == ScaleConstraint.ORIGINAL) {
+            // generate a raw exportable file and copy that
+            File exportable = generate_exportable();
+
+            exportable.copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.ALL_METADATA,
+                null, null);
+            
+            return;
+        }
+        
+        Gdk.Pixbuf pixbuf = get_pixbuf();
+        Dimensions dim = Dimensions.for_pixbuf(pixbuf);
+        Dimensions scaled = dim.get_scaled_by_constraint(scale, constraint);
+
+        // only scale if necessary ... although scale_simple probably catches this, it's an easy
+        // check to avoid image loss
+        if (dim.width != scaled.width || dim.height != scaled.height)
+            pixbuf = pixbuf.scale_simple(scaled.width, scaled.height, EXPORT_INTERP);
+        
+        pixbuf.save(dest_file.get_path(), "jpeg", "quality", quality.get_pct_text());
+        copy_exported_exif(new PhotoExif(get_file()), new PhotoExif(dest_file), Orientation.TOP_LEFT,
+            scaled);
     }
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
@@ -412,6 +450,9 @@ public class Photo : Object {
     }
     
     private void photo_altered() {
+        altered();
+
+        // load transformed image for thumbnail generation
         Gdk.Pixbuf pixbuf = null;
         try {
             pixbuf = get_pixbuf();
@@ -421,7 +462,6 @@ public class Photo : Object {
         
         ThumbnailCache.import(photo_id, pixbuf, true);
         
-        altered();
         thumbnail_altered();
     }
     

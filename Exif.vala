@@ -21,6 +21,23 @@ namespace Exif {
         return null;
     }
     
+    public int remove_all_tags(Data data, Exif.Tag tag) {
+        int count = 0;
+        for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {
+            Exif.Content content = data.ifd[ctr];
+            assert(content != null);
+            
+            Exif.Entry entry = content.get_entry(tag);
+            if (entry == null)
+                continue;
+            
+            content.remove_entry(entry);
+            count++;
+        }
+        
+        return count;
+    }
+    
     public bool convert_datetime(string datetime, out time_t timestamp) {
         Time tm = Time();
         int count = datetime.scanf("%d:%d:%d %d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour,
@@ -227,6 +244,31 @@ public class PhotoExif  {
             return false;
         
         return Exif.convert_datetime(datetime, out timestamp);
+    }
+    
+    public int remove_all_tags(Exif.Tag tag) {
+        update();
+        
+        if (exif == null)
+            return 0;
+    
+        return Exif.remove_all_tags(exif, tag);
+    }
+    
+    public bool remove_thumbnail() {
+        update();
+        
+        if (exif == null)
+            return false;
+        
+        if (exif.data == null)
+            return false;
+        
+        free(exif.data);
+        exif.data = null;
+        exif.size = 0;
+        
+        return true;
     }
     
     private void update() {

@@ -497,6 +497,14 @@ public class AppWindow : Gtk.Window {
         collection_page.refresh();
     }
     
+    public void set_busy_cursor() {
+        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+    }
+    
+    public void set_normal_cursor() {
+        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+    }
+
     public void batch_import_complete(SortedList<int64?> imported_photos) {
         debug("Processing imported photos to create events ...");
 

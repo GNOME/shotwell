@@ -25,7 +25,8 @@ SRC_FILES = \
 	Photo.vala \
 	Orientation.vala \
 	util.vala \
-	BatchImport.vala
+	BatchImport.vala \
+	ExportDialog.vala
 	
 VAPI_FILES = \
 	libexif.vapi \

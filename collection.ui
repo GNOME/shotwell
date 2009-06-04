@@ -2,6 +2,8 @@
 
     <menubar name="CollectionMenuBar">
         <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Export" action="Export" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

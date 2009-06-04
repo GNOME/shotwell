@@ -82,6 +82,41 @@ namespace Jpeg {
         }
     }
     
+    public enum Quality {
+        LOW = 50,
+        MEDIUM = 75,
+        HIGH = 90,
+        MAXIMUM = 100;
+        
+        public int get_pct() {
+            return (int) this;
+        }
+        
+        public string get_pct_text() {
+            return "%d".printf((int) this);
+        }
+        
+        public string? to_string() {
+            switch (this) {
+                case LOW:
+                    return "Low (%d%%)".printf((int) this);
+                
+                case MEDIUM:
+                    return "Medium (%d%%)".printf((int) this);
+                
+                case HIGH:
+                    return "High (%d%%)".printf((int) this);
+                    
+                case MAXIMUM:
+                    return "Maximum (%d%%)".printf((int) this);
+            }
+            
+            warn_if_reached();
+            
+            return null;
+        }
+    }
+    
     public bool is_jpeg(File file) throws Error {
         FileInputStream fins = file.read(null);
         

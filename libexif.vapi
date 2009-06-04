@@ -225,7 +225,9 @@ namespace Exif {
         PIXEL_Y_DIMENSION,
         BITS_PER_SAMPLE,
         DATE_TIME_ORIGINAL,
-        ORIENTATION;
+        ORIENTATION,
+        RELATED_IMAGE_WIDTH,
+        RELATED_IMAGE_LENGTH;
 
         public weak string get_name_in_ifd(Ifd ifd);
         public weak string get_title_in_ifd(Ifd ifd);

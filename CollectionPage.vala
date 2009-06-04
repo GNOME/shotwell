@@ -64,7 +64,8 @@ public class CollectionPage : CheckerboardPage {
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, null },
+        { "FileMenu", null, "_File", null, null, on_file_menu },
+        { "Export", null, "_Export", "<Ctrl>E", "Export selected photos to disk", on_export },
 
         { "EditMenu", null, "_Edit", null, null, on_edit_menu },
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
@@ -134,8 +135,8 @@ public class CollectionPage : CheckerboardPage {
         toolbar.insert(separator, -1);
         
         // thumbnail size slider
-        slider = new Gtk.HScale.with_range(0, scaleToSlider(Thumbnail.MAX_SCALE), 1);
-        slider.set_value(scaleToSlider(scale));
+        slider = new Gtk.HScale.with_range(0, scale_to_slider(Thumbnail.MAX_SCALE), 1);
+        slider.set_value(scale_to_slider(scale));
         slider.value_changed += on_slider_changed;
         slider.set_draw_value(false);
 
@@ -365,11 +366,11 @@ public class CollectionPage : CheckerboardPage {
         return scale;
     }
     
-    public void set_thumb_size(int newScale) {
-        assert(newScale >= Thumbnail.MIN_SCALE);
-        assert(newScale <= Thumbnail.MAX_SCALE);
+    public void set_thumb_size(int new_scale) {
+        assert(new_scale >= Thumbnail.MIN_SCALE);
+        assert(new_scale <= Thumbnail.MAX_SCALE);
         
-        scale = newScale;
+        scale = new_scale;
         
         foreach (LayoutItem item in get_items())
             ((Thumbnail) item).resize(scale);
@@ -412,6 +413,73 @@ public class CollectionPage : CheckerboardPage {
         
         return false;
     }
+    
+    private void on_file_menu() {
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", get_selected_count() > 0);
+    }
+    
+    private void on_export() {
+        Gee.ArrayList<Photo> export_list = new Gee.ArrayList<Photo>();
+        foreach (LayoutItem item in get_selected())
+            export_list.add(((Thumbnail) item).get_photo());
+
+        if (export_list.size == 0)
+            return;
+            
+        ExportDialog export_dialog = new ExportDialog(export_list.size);
+        
+        int scale;
+        ScaleConstraint constraint;
+        Jpeg.Quality quality;
+        if (!export_dialog.execute(out scale, out constraint, out quality))
+            return;
+
+        // handle the single-photo case
+        if (export_list.size == 1) {
+            Photo photo = export_list.get(0);
+            
+            File save_as = ExportUI.choose_file(photo.get_file());
+            if (save_as == null)
+                return;
+                
+            spin_event_loop();
+            
+            try {
+                photo.export(save_as, scale, constraint, quality);
+            } catch (Error err) {
+                AppWindow.error_message("Unable to export photo %s: %s".printf(
+                    photo.get_file().get_path(), err.message));
+            }
+            
+            return;
+        }
+
+        // multiple photos
+        File export_dir = ExportUI.choose_dir();
+        if (export_dir == null)
+            return;
+        
+        AppWindow.get_instance().set_busy_cursor();
+        
+        foreach (Photo photo in export_list) {
+            File save_as = export_dir.get_child(photo.get_file().get_basename());
+            if (save_as.query_exists(null)) {
+                if (!ExportUI.query_overwrite(save_as))
+                    continue;
+            }
+            
+            spin_event_loop();
+
+            try {
+                photo.export(save_as, scale, constraint, quality);
+            } catch (Error err) {
+                AppWindow.error_message("Unable to export photo %s: %s".printf(save_as.get_path(),
+                    err.message));
+            }
+        }
+        
+        AppWindow.get_instance().set_normal_cursor();
+    }
 
     private void on_edit_menu() {
         set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_count() > 0);
@@ -446,12 +514,12 @@ public class CollectionPage : CheckerboardPage {
 
     private void on_increase_size() {
         increase_thumb_size();
-        slider.set_value(scaleToSlider(scale));
+        slider.set_value(scale_to_slider(scale));
     }
 
     private void on_decrease_size() {
         decrease_thumb_size();
-        slider.set_value(scaleToSlider(scale));
+        slider.set_value(scale_to_slider(scale));
     }
 
     private void on_remove() {
@@ -531,14 +599,14 @@ public class CollectionPage : CheckerboardPage {
         refresh();
     }
     
-    private double scaleToSlider(int value) {
+    private static double scale_to_slider(int value) {
         assert(value >= Thumbnail.MIN_SCALE);
         assert(value <= Thumbnail.MAX_SCALE);
         
         return (double) ((value - Thumbnail.MIN_SCALE) / SLIDER_STEPPING);
     }
     
-    private int sliderToScale(double value) {
+    private static int slider_to_scale(double value) {
         int res = ((int) (value * SLIDER_STEPPING)) + Thumbnail.MIN_SCALE;
 
         assert(res >= Thumbnail.MIN_SCALE);
@@ -548,7 +616,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_slider_changed() {
-        set_thumb_size(sliderToScale(slider.get_value()));
+        set_thumb_size(slider_to_scale(slider.get_value()));
     }
     
     private override bool on_ctrl_pressed(Gdk.EventKey event) {

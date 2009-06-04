@@ -115,6 +115,7 @@ public class PhotoPage : Page {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
+        { "Export", null, "_Export", "<Ctrl>E", "Export photo to disk", on_export },
         
         { "ViewMenu", null, "_View", null, null, null },
         { "ReturnToPage", null, "_Return to Collection", "Escape", null, on_return_to_collection },
@@ -355,6 +356,26 @@ public class PhotoPage : Page {
     
     private void on_return_to_collection() {
         AppWindow.get_instance().switch_to_page(controller);
+    }
+    
+    private void on_export() {
+        ExportDialog export_dialog = new ExportDialog(1);
+        
+        int scale;
+        ScaleConstraint constraint;
+        Jpeg.Quality quality;
+        if (!export_dialog.execute(out scale, out constraint, out quality))
+            return;
+        
+        File save_as = ExportUI.choose_file(photo.get_file());
+        if (save_as == null)
+            return;
+        
+        try {
+            photo.export(save_as, scale, constraint, quality);
+        } catch (Error err) {
+            AppWindow.error_message("Unable to export %s: %s".printf(save_as.get_path(), err.message));
+        }
     }
     
     private void on_photo_altered(Photo p) {
