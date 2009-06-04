@@ -302,7 +302,7 @@ public class PhotoPage : Page {
     }
     
     private override bool on_left_click(Gdk.EventButton event) {
-        if (event.type == Gdk.EventType.2BUTTON_PRESS) {
+        if (event.type == Gdk.EventType.2BUTTON_PRESS && !show_crop) {
             on_return_to_collection();
             
             return true;
