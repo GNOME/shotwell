@@ -367,6 +367,7 @@ public class AppWindow : Gtk.Window {
         sidebar.append_column(column);
         
         sidebar.set_headers_visible(false);
+        sidebar.set_enable_search(false);
 
         // add the default parents and orphans
         add_parent_page(collection_page, "Photos");
