@@ -480,12 +480,9 @@ public class Photo : Object {
     }
     
     public Currency check_currency() {
-        PhotoRow row = PhotoRow();
-        photo_table.get_photo(photo_id, out row);
-        
         FileInfo info = null;
         try {
-            info = row.file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            info = get_file().query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         } catch (Error err) {
             // treat this as the file has been deleted from the filesystem
             return Currency.GONE;
@@ -495,7 +492,7 @@ public class Photo : Object {
         info.get_modification_time(timestamp);
         
         // trust modification time and file size
-        if ((timestamp.tv_sec != row.timestamp) || (info.get_size() != row.filesize))
+        if ((timestamp.tv_sec != get_timestamp()) || (info.get_size() != photo_table.get_filesize(photo_id)))
             return Currency.DIRTY;
         
         return Currency.CURRENT;

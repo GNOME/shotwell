@@ -83,10 +83,10 @@ public bool verify_databases(out string app_version) {
     }
     
     PhotoTable photo_table = new PhotoTable();
-    PhotoID[] ids = photo_table.get_photos();
+    Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
 
     // verify photo table
-    foreach (PhotoID photo_id in ids) {
+    foreach (PhotoID photo_id in photo_ids) {
         Photo photo = Photo.fetch(photo_id);
         switch (photo.check_currency()) {
             case Photo.Currency.CURRENT:
@@ -109,12 +109,12 @@ public bool verify_databases(out string app_version) {
         }
     }
 
-    // verify event table
     EventTable event_table = new EventTable();
-    EventID[] events = event_table.get_events();
-    foreach (EventID event_id in events) {
-        PhotoID[] photos = photo_table.get_event_photos(event_id);
-        if (photos.length == 0) {
+    Gee.ArrayList<EventID?> event_ids = event_table.get_events();
+
+    // verify primary photo for all events
+    foreach (EventID event_id in event_ids) {
+        if (!photo_table.event_has_photos(event_id)) {
             message("Removing event %lld: No photos associated with event", event_id.id);
             event_table.remove(event_id);
         }
@@ -223,19 +223,6 @@ public struct ImportID {
     public bool is_valid() {
         return (id != INVALID);
     }
-}
-
-public struct PhotoRow {
-    public PhotoID photo_id;
-    public File file;
-    public Dimensions dim;
-    public int64 filesize;
-    public long timestamp;
-    public long exposure_time;
-    public Orientation orientation;
-    public Orientation original_orientation;
-    public ImportID import_id;
-    public EventID event_id;
 }
 
 public class PhotoTable : DatabaseTable {
@@ -361,27 +348,6 @@ public class PhotoTable : DatabaseTable {
         return exists_by_id(photo_id.id);
     }
 
-    public bool get_photo(PhotoID photo_id, out PhotoRow row) {
-        Sqlite.Statement stmt;
-        if (!select_by_id(photo_id.id, 
-            "filename, width, height, filesize, timestamp, exposure_time, orientation, original_orientation, import_id, event_id",
-            out stmt))
-            return false;
-        
-        row.photo_id = photo_id;
-        row.file = File.new_for_path(stmt.column_text(0));
-        row.dim = Dimensions(stmt.column_int(1), stmt.column_int(2));
-        row.filesize = stmt.column_int64(3);
-        row.timestamp = (long) stmt.column_int64(4);
-        row.exposure_time = (long) stmt.column_int64(5);
-        row.orientation = (Orientation) stmt.column_int(6);
-        row.original_orientation = (Orientation) stmt.column_int(7);
-        row.import_id = ImportID(stmt.column_int64(8));
-        row.event_id = EventID(stmt.column_int64(9));
-        
-        return true;
-    }
-
     public File? get_file(PhotoID photo_id) {
         Sqlite.Statement stmt;
         if (!select_by_id(photo_id.id, "filename", out stmt))
@@ -404,6 +370,14 @@ public class PhotoTable : DatabaseTable {
             return 0;
 
         return (time_t) stmt.column_int64(0);
+    }
+    
+    public int64 get_filesize(PhotoID photo_id) {
+        Sqlite.Statement stmt;
+        if (!select_by_id(photo_id.id, "filesize", out stmt))
+            return -1;
+        
+        return stmt.column_int64(0);
     }
     
     public bool remove_by_file(File file) {
@@ -464,26 +438,26 @@ public class PhotoTable : DatabaseTable {
         return PhotoID(stmt.column_int64(0));
     }
 
-    public PhotoID[] get_photos() {
+    public Gee.ArrayList<PhotoID?> get_photos() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM PhotoTable", -1, out stmt);
         assert(res == Sqlite.OK);
 
-        PhotoID[] photoIds = new PhotoID[0];
+        Gee.ArrayList<PhotoID?> photo_ids = new Gee.ArrayList<PhotoID?>();
         for (;;) {
             res = stmt.step();
             if (res == Sqlite.DONE) {
                 break;
             } else if (res != Sqlite.ROW) {
-                fatal("get_photo_ids", res);
+                fatal("get_photos", res);
 
                 break;
             }
             
-            photoIds += PhotoID(stmt.column_int64(0));
+            photo_ids.add(PhotoID(stmt.column_int64(0)));
         }
         
-        return photoIds;
+        return photo_ids;
     }
     
     public Dimensions get_dimensions(PhotoID photo_id) {
@@ -535,10 +509,10 @@ public class PhotoTable : DatabaseTable {
         if (!select_by_id(photo_id.id, "event_id", out stmt))
             return EventID();
         
-        return EventID(stmt.column_int(0));
+        return EventID(stmt.column_int64(0));
     }
     
-    public PhotoID[] get_event_photos(EventID event_id) {
+    public Gee.ArrayList<PhotoID?> get_event_photos(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE event_id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
@@ -546,7 +520,7 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_int64(1, event_id.id);
         assert(res == Sqlite.OK);
         
-        PhotoID[] photos = new PhotoID[0];
+        Gee.ArrayList<PhotoID?> photo_ids = new Gee.ArrayList<PhotoID?>();
         for(;;) {
             res = stmt.step();
             if (res == Sqlite.DONE) {
@@ -557,12 +531,32 @@ public class PhotoTable : DatabaseTable {
                 break;
             }
             
-            photos += PhotoID(stmt.column_int64(0));
+            photo_ids.add(PhotoID(stmt.column_int64(0)));
         }
         
-        return photos;
+        return photo_ids;
     }
     
+    public bool event_has_photos(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE event_id = ? LIMIT 1", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res == Sqlite.DONE) {
+            return false;
+        } else if (res != Sqlite.ROW) {
+            fatal("event_has_photos", res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+
     public bool set_event(PhotoID photo_id, EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE PhotoTable SET event_id = ? WHERE id = ?", -1, out stmt);
@@ -773,9 +767,8 @@ public class ThumbnailCacheTable : DatabaseTable {
         
         res = stmt.step();
         if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
+            if (res != Sqlite.DONE)
                 fatal("%s exists".printf(table_name), res);
-            }
             
             return false;
         }
@@ -800,9 +793,8 @@ public class ThumbnailCacheTable : DatabaseTable {
         assert(res == Sqlite.OK);
         
         res = stmt.step();
-        if (res != Sqlite.DONE) {
+        if (res != Sqlite.DONE)
             fatal("%s add".printf(table_name), res);
-        }
     }
     
     public void replace(PhotoID photo_id, int filesize, Dimensions dim) {
@@ -837,9 +829,8 @@ public class ThumbnailCacheTable : DatabaseTable {
         
         res = stmt.step();
         if (res != Sqlite.ROW) {
-            if(res != Sqlite.DONE) {
+            if(res != Sqlite.DONE)
                 fatal("%s get_dimensions".printf(table_name), res);
-            }
 
             return Dimensions();
         }
@@ -858,9 +849,8 @@ public class ThumbnailCacheTable : DatabaseTable {
         
         res = stmt.step();
         if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE) {
+            if (res != Sqlite.DONE)
                 fatal("%s get_filesize".printf(table_name), res);
-            }
             
             return -1;
         }
@@ -934,7 +924,7 @@ public class EventTable : DatabaseTable {
             return EventID();
         }
 
-        return EventID(db.last_insert_rowid());;
+        return EventID(db.last_insert_rowid());
     }
     
     public bool remove(EventID event_id) {
@@ -975,26 +965,26 @@ public class EventTable : DatabaseTable {
         return true;
     }
     
-    public EventID[] get_events() {
+    public Gee.ArrayList<EventID?> get_events() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM EventTable", -1, out stmt);
         assert(res == Sqlite.OK);
 
-        EventID[] eventIds = new EventID[0];
+        Gee.ArrayList<EventID?> event_ids = new Gee.ArrayList<EventID?>();
         for (;;) {
             res = stmt.step();
             if (res == Sqlite.DONE) {
                 break;
             } else if (res != Sqlite.ROW) {
-                fatal("get_events_ids", res);
+                fatal("get_events", res);
 
                 break;
             }
             
-            eventIds += EventID(stmt.column_int64(0));
+            event_ids.add(EventID(stmt.column_int64(0)));
         }
         
-        return eventIds;
+        return event_ids;
     }
     
     public bool rename(EventID event_id, string name) {
@@ -1040,7 +1030,7 @@ public class EventTable : DatabaseTable {
         if (!select_by_id(event_id.id, "primary_photo_id", out stmt))
             return PhotoID();
         
-        return PhotoID(stmt.column_int(0));
+        return PhotoID(stmt.column_int64(0));
     }
     
     public bool set_primary_photo(EventID event_id, PhotoID photo_id) {

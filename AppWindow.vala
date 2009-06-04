@@ -348,8 +348,8 @@ public class AppWindow : Gtk.Window {
         photo_page = new PhotoPage(this);
 
         // create Photo objects for all photos in the database and load into the Photos page
-        PhotoID[] all_photo_ids = photo_table.get_photos();
-        foreach (PhotoID photo_id in all_photo_ids) {
+        Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
+        foreach (PhotoID photo_id in photo_ids) {
              Photo photo = Photo.fetch(photo_id);
              photo.removed += on_photo_removed;
              
@@ -381,8 +381,8 @@ public class AppWindow : Gtk.Window {
         cameras_row = new Gtk.TreeRowReference(sidebar_store, sidebar_store.get_path(parent));
         
         // add stored events
-        EventID[] events = event_table.get_events();
-        foreach (EventID event_id in events)
+        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
+        foreach (EventID event_id in event_ids)
             add_event_page(event_id);
         
         // start in the collection page & control selection aspects
@@ -588,11 +588,11 @@ public class AppWindow : Gtk.Window {
         // update event's primary photo if this is the one; remove event if no more photos in it
         EventID event_id = photo_table.get_event(photo_id);
         if (event_id.is_valid() && (event_table.get_primary_photo(event_id).id == photo_id.id)) {
-            PhotoID[] photos = photo_table.get_event_photos(event_id);
+            Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
             
             PhotoID found = PhotoID();
             // TODO: For now, simply selecting the first photo possible
-            foreach (PhotoID id in photos) {
+            foreach (PhotoID id in photo_ids) {
                 if (id.id != photo_id.id) {
                     found = id;
                     
@@ -604,7 +604,7 @@ public class AppWindow : Gtk.Window {
                 event_table.set_primary_photo(event_id, found);
             } else {
                 // this indicates this is the last photo of the event, so no more event
-                assert(photos.length <= 1);
+                assert(photo_ids.size <= 1);
                 remove_event_page(event_id);
                 event_table.remove(event_id);
             }
@@ -666,7 +666,7 @@ public class AppWindow : Gtk.Window {
         string name = event_table.get_name(event_id);
         EventPage event_page = new EventPage(event_id);
         
-        PhotoID[] photo_ids = photo_table.get_event_photos(event_id);
+        Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
         foreach (PhotoID photo_id in photo_ids)
             event_page.add_photo(Photo.fetch(photo_id));
 

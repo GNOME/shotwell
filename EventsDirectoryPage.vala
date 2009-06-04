@@ -82,8 +82,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     public override void switched_to() {
         remove_all();
         
-        EventID[] events = event_table.get_events();
-        foreach (EventID event_id in events)
+        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
+        foreach (EventID event_id in event_ids)
             add_event(event_id);
         
         show_all();
