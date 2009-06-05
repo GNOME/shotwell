@@ -20,9 +20,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     public static const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
     public static const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
     
-    public static const string STOCK_CLOCKWISE = "shotwell-rotate-clockwise";
-    public static const string STOCK_COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
-    
     protected enum TargetType {
         URI_LIST
     }
@@ -31,33 +28,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST }
     };
-    
-    private static Gtk.IconFactory factory = null;
-    
-    private static void add_stock_icon(File file, string stock_id) {
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
-        factory.add(stock_id, icon_set);
-    }
-    
-    private static void prep_icons() {
-        if (factory != null)
-            return;
-        
-        factory = new Gtk.IconFactory();
-        
-        File icons_dir = AppWindow.get_ui_dir().get_child("icons");
-        add_stock_icon(icons_dir.get_child("object-rotate-right.svg"), STOCK_CLOCKWISE);
-        add_stock_icon(icons_dir.get_child("object-rotate-left.svg"), STOCK_COUNTERCLOCKWISE);
-        
-        factory.add_default();
-    }
     
     public Gtk.UIManager ui = new Gtk.UIManager();
     public Gtk.ActionGroup action_group = null;
@@ -68,10 +38,6 @@ public abstract class Page : Gtk.ScrolledWindow {
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
 
-    public Page() {
-        prep_icons();
-    }
-    
     public void set_event_source(Gtk.Widget event_source) {
         assert(this.event_source == null);
 
@@ -134,12 +100,12 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     protected void init_load_ui(string ui_filename) {
-        File ui_file = AppWindow.get_ui_dir().get_child(ui_filename);
+        File ui_file = Resources.get_ui(ui_filename);
 
         try {
             ui.add_ui_from_file(ui_file.get_path());
         } catch (Error gle) {
-            error("Error loading UI file %s: %s", ui_filename, gle.message);
+            error("Error loading UI file %s: %s", ui_file.get_path(), gle.message);
         }
     }
     

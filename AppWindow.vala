@@ -25,7 +25,7 @@ public class FullscreenWindow : Gtk.Window {
     public FullscreenWindow(Gdk.Screen screen, CheckerboardPage controller, Thumbnail start) {
         photo_page = new PhotoPage(this);
 
-        File ui_file = AppWindow.get_ui_dir().get_child("fullscreen.ui");
+        File ui_file = Resources.get_ui("fullscreen.ui");
 
         try {
             ui.add_ui_from_file(ui_file.get_path());
@@ -193,7 +193,7 @@ public class FullscreenWindow : Gtk.Window {
 
 public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
-    public static const string VERSION = "0.0.1";
+    public static const string VERSION = "0.1";
     public static const string DATA_DIR = ".photo";
     public static const string PHOTOS_DIR = "Pictures";
 
@@ -281,15 +281,16 @@ public class AppWindow : Gtk.Window {
         return subdir;
     }
     
-    public static File get_ui_dir() {
-        // TODO: Programatically determine where runtime data is stored from API calls ...
-        // for now, this uses the installed data if running from /usr, otherwise looks for
-        // them in the executable's folder
-        if (AppWindow.get_exec_dir().get_path().has_prefix("/usr")) {
-            return File.new_for_path("/usr/local/share/shotwell");
-        } else {
+    public static File get_resources_dir() {
+        File exec_dir = get_exec_dir();
+        File prefix_dir = File.new_for_path(PREFIX);
+
+        // if running in the prefix'd path, the app has been installed and is running from there;
+        // use its installed resources; otherwise running locally, so use local resources
+        if (exec_dir.has_prefix(prefix_dir))
+            return prefix_dir.get_child("share").get_child("shotwell");
+        else
             return AppWindow.get_exec_dir();
-        }
     }
 
     public static void error_message(string message) {

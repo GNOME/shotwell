@@ -61,6 +61,7 @@ void main(string[] args) {
 
     // initialize app-wide stuff
     AppWindow.init(args);
+    Resources.init();
     DatabaseTable.init();
     ThumbnailCache.init();
     Photo.init();
@@ -74,26 +75,25 @@ void main(string[] args) {
             + "It appears it was created by Shotwell %s.  Please use that version or later.", app_version);
         dialog.run();
         dialog.destroy();
+    } else {
+        // create main application window
+        AppWindow app_window = new AppWindow();
+        
+        // report mount points
+        foreach (string mount in mounts)
+            app_window.mounted_camera_shell_notification(File.new_for_uri(mount));
+        
+        // throw it all on the display
+        app_window.show_all();
 
-        return;
+        // event loop
+        Gtk.main();
     }
-
-    // create main application window
-    AppWindow app_window = new AppWindow();
-    
-    // report mount points
-    foreach (string mount in mounts)
-        app_window.mounted_camera_shell_notification(File.new_for_uri(mount));
-    
-    // throw it all on the display
-    app_window.show_all();
-
-    // event loop
-    Gtk.main();
     
     Photo.terminate();
     ThumbnailCache.terminate();
     DatabaseTable.terminate();
+    Resources.terminate();
     AppWindow.terminate();
 }
 

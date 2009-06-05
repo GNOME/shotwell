@@ -74,8 +74,8 @@ public class CollectionPage : CheckerboardPage {
         { "PhotosMenu", null, "_Photos", null, null, on_photos_menu },
         { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _In", "bracketright", "Increase the magnification of the thumbnails", on_increase_size },
         { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _Out", "bracketleft", "Decrease the magnification of the thumbnails", on_decrease_size },
-        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "RotateClockwise", Resources.STOCK_CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", Resources.STOCK_COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to original photo", on_revert },
         
@@ -120,7 +120,7 @@ public class CollectionPage : CheckerboardPage {
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
-        rotate_button = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
+        rotate_button = new Gtk.ToolButton.from_stock(Resources.STOCK_CLOCKWISE);
         rotate_button.label = "Rotate";
         rotate_button.sensitive = false;
         rotate_button.clicked += on_rotate_clockwise;
@@ -620,7 +620,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
-        rotate_button.set_stock_id(STOCK_COUNTERCLOCKWISE);
+        rotate_button.set_stock_id(Resources.STOCK_COUNTERCLOCKWISE);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -628,7 +628,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
-        rotate_button.set_stock_id(STOCK_CLOCKWISE);
+        rotate_button.set_stock_id(Resources.STOCK_CLOCKWISE);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         

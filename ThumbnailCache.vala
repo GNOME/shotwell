@@ -33,14 +33,24 @@ public class ThumbnailCache : Object {
     
     public static void import(PhotoID photo_id, Gdk.Pixbuf original, bool force = false) {
         big._import(photo_id, original, force);
+        spin_event_loop();
+
         medium._import(photo_id, original, force);
+        spin_event_loop();
+
         small._import(photo_id, original, force);
+        spin_event_loop();
     }
     
     public static void remove(PhotoID photo_id) {
         big._remove(photo_id);
+        spin_event_loop();
+        
         medium._remove(photo_id);
+        spin_event_loop();
+        
         small._remove(photo_id);
+        spin_event_loop();
     }
 
     public static Gdk.Pixbuf? fetch(PhotoID photo_id, int scale) {

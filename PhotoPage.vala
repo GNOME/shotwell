@@ -121,10 +121,10 @@ public class PhotoPage : Page {
         { "ReturnToPage", null, "_Return to Collection", "Escape", null, on_return_to_collection },
 
         { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
-        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
-        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
-        { "RotateClockwise", STOCK_CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", STOCK_COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", "<Alt>Left", "Previous Photo", on_previous_photo },
+        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", "<Alt>Right", "Next Photo", on_next_photo },
+        { "RotateClockwise", Resources.STOCK_CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", Resources.STOCK_COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", on_revert },
 
@@ -141,7 +141,7 @@ public class PhotoPage : Page {
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         //
         // rotate tool
-        rotate_button = new Gtk.ToolButton.from_stock(STOCK_CLOCKWISE);
+        rotate_button = new Gtk.ToolButton.from_stock(Resources.STOCK_CLOCKWISE);
         rotate_button.set_label("Rotate");
         rotate_button.clicked += on_rotate_clockwise;
         toolbar.insert(rotate_button, -1);
@@ -847,7 +847,7 @@ public class PhotoPage : Page {
     }
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
-        rotate_button.set_stock_id(STOCK_COUNTERCLOCKWISE);
+        rotate_button.set_stock_id(Resources.STOCK_COUNTERCLOCKWISE);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -855,7 +855,7 @@ public class PhotoPage : Page {
     }
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
-        rotate_button.set_stock_id(STOCK_CLOCKWISE);
+        rotate_button.set_stock_id(Resources.STOCK_CLOCKWISE);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         
