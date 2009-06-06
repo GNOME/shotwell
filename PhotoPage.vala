@@ -190,6 +190,7 @@ public class PhotoPage : Page {
         // PhotoPage can't use the event virtuals declared in Page because it can be hosted by 
         // FullscreenWindow as well as AppWindow, whose signal Page captures for the configure event
         container.configure_event += on_window_configured;
+        canvas.configure_event += on_window_configured;
 
         set_event_source(canvas);
         
@@ -301,6 +302,7 @@ public class PhotoPage : Page {
         return false;
     }
     
+    // Return true to block the DnD handler from activating a drag
     private override bool on_left_click(Gdk.EventButton event) {
         if (event.type == Gdk.EventType.2BUTTON_PRESS && !show_crop) {
             on_return_to_collection();
@@ -311,9 +313,10 @@ public class PhotoPage : Page {
         int x = (int) event.x;
         int y = (int) event.y;
         
-        // only concerned about mouse-downs on the pixbuf
+        // only concerned about mouse-downs on the pixbuf ... return true prevents DnD when the
+        // user drags outside the displayed photo
         if (!coord_in_rectangle(x, y, pixbuf_rect))
-            return false;
+            return true;
         
         // only interested in LMB in regards to crop tool
         if (!show_crop)
@@ -330,7 +333,7 @@ public class PhotoPage : Page {
         repaint();
         
         // block DnD handlers if crop is enabled
-        return is_dnd_enabled();
+        return true;
     }
     
     private override bool on_left_released(Gdk.EventButton event) {
