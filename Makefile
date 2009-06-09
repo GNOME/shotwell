@@ -40,7 +40,8 @@ SRC_FILES = \
 	util.vala \
 	BatchImport.vala \
 	ExportDialog.vala \
-	Resources.vala
+	Resources.vala \
+	Debug.vala
 
 VAPI_FILES = \
 	libexif.vapi \

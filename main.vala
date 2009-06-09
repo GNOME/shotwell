@@ -29,6 +29,9 @@ void main(string[] args) {
     // init GTK
     Gtk.init(ref args);
     
+    // init debug prior to anything else
+    Debug.init();
+    
     // set up GLib environment
     GLib.Environment.set_application_name(AppWindow.TITLE);
     
@@ -55,6 +58,8 @@ void main(string[] args) {
         }
         
         shotwell.send_message((int) Unique.Command.ACTIVATE, null);
+        
+        Debug.terminate();
         
         return;
     }
@@ -95,5 +100,6 @@ void main(string[] args) {
     DatabaseTable.terminate();
     Resources.terminate();
     AppWindow.terminate();
+    Debug.terminate();
 }
 
