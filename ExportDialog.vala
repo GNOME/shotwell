@@ -108,6 +108,7 @@ public class ExportDialog : Gtk.Dialog {
         constraint_combo.changed += on_constraint_changed;
         pixels_entry.changed += on_pixels_changed;
         pixels_entry.insert_text += on_pixels_insert_text;
+        pixels_entry.activate += on_activate;
 
         // layout controls 
         add_label("Quality", 0, 0);
@@ -127,10 +128,15 @@ public class ExportDialog : Gtk.Dialog {
         add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
         ok_button = add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
 
+        ok_button.set_flags(ok_button.get_flags() | Gtk.WidgetFlags.CAN_DEFAULT | Gtk.WidgetFlags.HAS_DEFAULT);
+        set_default(ok_button);
+
         if (current_constraint == ScaleConstraint.ORIGINAL) {
             pixels_entry.sensitive = false;
             quality_combo.sensitive = false;
         }
+
+        ok_button.grab_focus();
     }
     
     public bool execute(out int scale, out ScaleConstraint constraint, out Jpeg.Quality quality) {
@@ -183,6 +189,10 @@ public class ExportDialog : Gtk.Dialog {
             ok_button.sensitive = true;
         else
             on_pixels_changed();
+    }
+    
+    private void on_activate() {
+        response(Gtk.ResponseType.OK);
     }
     
     private void on_pixels_changed() {
