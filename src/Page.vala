@@ -19,7 +19,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     public static const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
     public static const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
     public static const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
-    
+    public static const uint KEY_SHIFT_L = Gdk.keyval_from_name("Shift_L");
+    public static const uint KEY_SHIFT_R = Gdk.keyval_from_name("Shift_R");
+
     protected enum TargetType {
         URI_LIST
     }
@@ -38,6 +40,10 @@ public abstract class Page : Gtk.ScrolledWindow {
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
 
+    public Page() {
+        set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+    }
+
     public void set_event_source(Gtk.Widget event_source) {
         assert(this.event_source == null);
 
@@ -48,14 +54,9 @@ public abstract class Page : Gtk.ScrolledWindow {
         event_source.button_press_event += on_button_pressed_internal;
         event_source.button_release_event += on_button_released_internal;
         
-        // interested in keypresses to the application itself
-        AppWindow.get_instance().add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
-            | Gdk.EventMask.STRUCTURE_MASK);
-        AppWindow.get_instance().key_press_event += on_key_pressed_internal;
-        AppWindow.get_instance().key_release_event += on_key_released_internal;
-        
         // Use the app window's signals for window move/resize, esp. for resize, as this signal
         // is used to determine inner window resizes
+        AppWindow.get_instance().add_events(Gdk.EventMask.STRUCTURE_MASK);
         AppWindow.get_instance().configure_event += on_configure_internal;
     }
     
@@ -252,14 +253,6 @@ public abstract class Page : Gtk.ScrolledWindow {
         }
     }
 
-    protected virtual bool on_key_pressed(Gdk.EventKey event) {
-        return false;
-    }
-    
-    protected virtual bool on_key_released(Gdk.EventKey event) {
-        return false;
-    }
-    
     protected virtual bool on_ctrl_pressed(Gdk.EventKey event) {
         return false;
     }
@@ -276,30 +269,48 @@ public abstract class Page : Gtk.ScrolledWindow {
         return false;
     }
     
+    protected virtual bool on_shift_pressed(Gdk.EventKey event) {
+        return false;
+    }
+    
+    protected virtual bool on_shift_released(Gdk.EventKey event) {
+        return false;
+    }
+    
+    public bool notify_modifier_pressed(Gdk.EventKey event) {
+        // can't use a switch statement here due to this bug:
+        // http://bugzilla.gnome.org/show_bug.cgi?id=585292
+        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R)
+            return on_ctrl_pressed(event);
+        
+        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R)
+            return on_alt_pressed(event);
+        
+        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R)
+            return on_shift_pressed(event);
+        
+        return false;
+    }
+
+    public bool notify_modifier_released(Gdk.EventKey event) {
+        // can't use a switch statement here due to this bug:
+        // http://bugzilla.gnome.org/show_bug.cgi?id=585292
+        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R)
+            return on_ctrl_released(event);
+        
+        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R)
+            return on_alt_released(event);
+        
+        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R)
+            return on_shift_released(event);
+        
+        return false;
+    }
+    
     protected virtual void on_move(Gdk.Rectangle rect) {
     }
     
     protected virtual void on_resize(Gdk.Rectangle rect) {
-    }
-    
-    private bool on_key_pressed_internal(Gdk.EventKey event) {
-        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R))
-            return on_ctrl_pressed(event);
-        
-        if ((event.keyval == KEY_ALT_L) || (event.keyval == KEY_ALT_R))
-            return on_alt_pressed(event);
-
-        return on_key_pressed(event);
-    }
-    
-    private bool on_key_released_internal(Gdk.EventKey event) {
-        if ((event.keyval == KEY_CTRL_L) || (event.keyval == KEY_CTRL_R))
-            return on_ctrl_released(event);
-        
-        if ((event.keyval == KEY_ALT_L) || (event.keyval == KEY_ALT_R))
-            return on_alt_released(event);
-            
-        return on_key_released(event);
     }
     
     private bool on_configure_internal(Gdk.EventConfigure event) {

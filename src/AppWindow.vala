@@ -343,6 +343,10 @@ public class AppWindow : Gtk.Window {
 
         destroy += Gtk.main_quit;
         
+        // the pages want to know when modifier keys are pressed
+        key_press_event += on_key_pressed;
+        key_release_event += on_key_released;
+        
         // prepare the default parent and orphan pages
         collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
@@ -506,7 +510,7 @@ public class AppWindow : Gtk.Window {
     public void set_normal_cursor() {
         window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
     }
-
+    
     public void batch_import_complete(SortedList<int64?> imported_photos) {
         debug("Processing imported photos to create events ...");
 
@@ -582,7 +586,15 @@ public class AppWindow : Gtk.Window {
             last_exposure = exposure_time;
         }
     }
-
+    
+    private bool on_key_pressed(Gdk.EventKey event) {
+        return (event.is_modifier != 0) ? current_page.notify_modifier_pressed(event) : false;
+    }
+    
+    private bool on_key_released(Gdk.EventKey event) {
+        return (event.is_modifier != 0) ? current_page.notify_modifier_released(event) : false;
+    }
+    
     private void on_photo_removed(Photo photo) {
         PhotoID photo_id = photo.get_photo_id();
         
@@ -873,7 +885,7 @@ public class AppWindow : Gtk.Window {
         
         page.switched_to();
     }
-    
+
     private bool is_page_selected(Page page, Gtk.TreePath path) {
         PageMarker marker = page.get_marker();
         if (marker.get_row() == null)
@@ -974,6 +986,12 @@ public class AppWindow : Gtk.Window {
         
         return false;
     }
+    
+    private bool focus_on_current_page() {
+        current_page.grab_focus();
+        
+        return false;
+    }
 
     private void on_sidebar_cursor_changed() {
         Gtk.TreePath path;
@@ -987,7 +1005,13 @@ public class AppWindow : Gtk.Window {
             // camera path selected and updated
         } else if (is_event_selected(path)) {
             // event page selected and updated
+        } else {
+            // nothing recognized selected
         }
+
+        // this has to be done in Idle handler because the focus/ won't change properly inside 
+        // this signal
+        Idle.add(focus_on_current_page);
     }
     
     private bool on_sidebar_selection(Gtk.TreeSelection selection, Gtk.TreeModel model, Gtk.TreePath path,
