@@ -584,7 +584,9 @@ public abstract class CheckerboardPage : Page {
             // the idea is, if a user single-clicks on an item with no modifiers, then all other items
             // should be deselected, however, if they single-click in order to drag one or more items,
             // they should remain selected, hence performing this here rather than on_left_click
-            unselect_all_but(item);
+            // (item may not be selected if an unimplemented modifier key was used)
+            if (item.is_selected())
+                unselect_all_but(item);
         }
 
         return true;
