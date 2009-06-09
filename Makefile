@@ -54,14 +54,14 @@ RESOURCE_FILES = \
 	import.ui \
 	fullscreen.ui
 
-HEADER_FILES = \
+SRC_HEADER_FILES = \
 	gphoto.h
 
 VAPI_DIRS = \
-	.
+	./src
 
 HEADER_DIRS = \
-	.
+	./src
 
 LOCAL_PKGS = \
 	libexif \
@@ -76,38 +76,42 @@ EXT_PKGS = \
 	dbus-glib-1 \
 	unique-1.0
 
+EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES), src/$(src))
+EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES), src/$(vapi))
+EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES), src/$(header))
+
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 
 all: $(TARGET)
 
 clean:
-	rm -f *.c
+	rm -f src/*.c
 	rm -f $(CONFIG_IN)
 	rm -f $(TARGET)
 
 cleantemps:
 	rm -f *.c
 
-install: $(TARGET) shotwell.desktop
+install: $(TARGET) misc/shotwell.desktop
 	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
-	$(INSTALL_DATA) shotwell.desktop $(DESTDIR)$(DESKTOP_DIR)
+	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)$(DESKTOP_DIR)
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(TARGET)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -f $(DESTDIR)$(DESKTOP_DIR)/shotwell.desktop
 
-$(TARGET): $(SRC_FILES) $(VAPI_FILES) $(HEADER_FILES) Makefile configure $(CONFIG_IN)
+$(TARGET): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile configure $(CONFIG_IN)
 	pkg-config --print-errors --exists $(EXT_PKGS)
 	$(VALAC) $(ALL_VALAFLAGS) \
 	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 	$(foreach vapidir,$(VAPI_DIRS), --vapidir=$(vapidir)) \
 	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
 	-X -DPREFIX='"$(PREFIX)"' \
-	$(SRC_FILES) \
+	$(EXPANDED_SRC_FILES) \
 	-o $(TARGET)
 
