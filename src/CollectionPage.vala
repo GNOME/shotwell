@@ -121,7 +121,8 @@ public class CollectionPage : CheckerboardPage {
         //
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(Resources.STOCK_CLOCKWISE);
-        rotate_button.label = "Rotate";
+        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
         rotate_button.sensitive = false;
         rotate_button.clicked += on_rotate_clockwise;
         
@@ -144,6 +145,7 @@ public class CollectionPage : CheckerboardPage {
         toolitem.add(slider);
         toolitem.set_expand(false);
         toolitem.set_size_request(200, -1);
+        toolitem.set_tooltip_text("Adjust the size of the thumbnails");
         
         toolbar.insert(toolitem, -1);
         
@@ -621,6 +623,8 @@ public class CollectionPage : CheckerboardPage {
     
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.STOCK_COUNTERCLOCKWISE);
+        rotate_button.set_label(Resources.ROTATE_COUNTERCLOCKWISE_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_COUNTERCLOCKWISE_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -629,6 +633,8 @@ public class CollectionPage : CheckerboardPage {
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.STOCK_CLOCKWISE);
+        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         

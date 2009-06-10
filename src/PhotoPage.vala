@@ -17,6 +17,9 @@ public class CropToolWindow : Gtk.Window {
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
         set_transient_for(owner);
         
+        apply_button.set_tooltip_text("Set the crop for this photo");
+        cancel_button.set_tooltip_text("Return to current photo dimensions");
+        
         apply_button.set_image_position(Gtk.PositionType.LEFT);
         cancel_button.set_image_position(Gtk.PositionType.LEFT);
         
@@ -142,13 +145,15 @@ public class PhotoPage : Page {
         //
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(Resources.STOCK_CLOCKWISE);
-        rotate_button.set_label("Rotate");
+        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
         rotate_button.clicked += on_rotate_clockwise;
         toolbar.insert(rotate_button, -1);
         
         // crop tool
         crop_button = new Gtk.ToggleToolButton();
         crop_button.set_label("Crop");
+        crop_button.set_tooltip_text("Crop the photo's size");
         crop_button.toggled += on_crop_toggled;
         toolbar.insert(crop_button, -1);
         
@@ -160,10 +165,12 @@ public class PhotoPage : Page {
         toolbar.insert(separator, -1);
         
         // previous button
+        prev_button.set_tooltip_text("Previous photo");
         prev_button.clicked += on_previous_photo;
         toolbar.insert(prev_button, -1);
         
         // next button
+        next_button.set_tooltip_text("Next photo");
         next_button.clicked += on_next_photo;
         toolbar.insert(next_button, -1);
         
@@ -851,6 +858,8 @@ public class PhotoPage : Page {
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.STOCK_COUNTERCLOCKWISE);
+        rotate_button.set_label(Resources.ROTATE_COUNTERCLOCKWISE_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_COUNTERCLOCKWISE_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -859,6 +868,8 @@ public class PhotoPage : Page {
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.STOCK_CLOCKWISE);
+        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         

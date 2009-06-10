@@ -45,8 +45,11 @@ public class FullscreenWindow : Gtk.Window {
         set_screen(screen);
         set_border_width(0);
         
-        pin_button.set_label("Pin toolbar");
+        pin_button.set_label("Pin Toolbar");
+        pin_button.set_tooltip_text("Pin the toolbar open");
         
+        // TODO: Don't stock items supply their own tooltips?
+        close_button.set_tooltip_text("Leave fullscreen");
         close_button.clicked += on_close;
         
         Gtk.Toolbar toolbar = photo_page.get_toolbar();

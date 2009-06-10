@@ -132,10 +132,10 @@ public class ImportPage : CheckerboardPage {
         
         // toolbar
         // Camera label
-        Gtk.ToolItem cameraLabelItem = new Gtk.ToolItem();
-        cameraLabelItem.add(camera_label);
+        Gtk.ToolItem camera_label_item = new Gtk.ToolItem();
+        camera_label_item.add(camera_label);
 
-        toolbar.insert(cameraLabelItem, -1);
+        toolbar.insert(camera_label_item, -1);
         
         // separator to force buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -145,18 +145,20 @@ public class ImportPage : CheckerboardPage {
         toolbar.insert(separator, -1);
         
         progress_bar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
-        Gtk.ToolItem progressItem = new Gtk.ToolItem();
-        progressItem.add(progress_bar);
+        Gtk.ToolItem progress_item = new Gtk.ToolItem();
+        progress_item.add(progress_bar);
         
-        toolbar.insert(progressItem, -1);
+        toolbar.insert(progress_item, -1);
 
         import_selected_button = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "");
+        import_selected_button.set_tooltip_text("Import the selected photos into your library");
         import_selected_button.clicked += on_import_selected;
         import_selected_button.sensitive = false;
         
         toolbar.insert(import_selected_button, -1);
         
         import_all_button = new Gtk.ToolButton(new Gtk.Label("Import All"), "");
+        import_all_button.set_tooltip_text("Import all the photos on this camera into your library");
         import_all_button.clicked += on_import_all;
         import_all_button.sensitive = false;
         
