@@ -207,6 +207,11 @@ public class CollectionPage : CheckerboardPage {
         AppWindow.get_instance().switch_to_photo_page(this, thumbnail);
     }
     
+    public override Gtk.Menu? get_context_menu() {
+        // don't show a context menu if nothing is selected
+        return (get_selected_count() != 0) ? base.get_context_menu() : null;
+    }
+    
     protected override bool on_context_invoked(Gtk.Menu context_menu) {
         bool selected = (get_selected_count() > 0);
         bool revert_possible = can_revert_selected();

@@ -7,10 +7,10 @@ namespace Resources {
     public const string STOCK_COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
 
     public static const string ROTATE_CLOCKWISE_LABEL = "Rotate";
-    public static const string ROTATE_CLOCKWISE_TOOLTIP = "Rotate the photo(s) clockwise";
+    public static const string ROTATE_CLOCKWISE_TOOLTIP = "Rotate the photo(s) right";
     
     public static const string ROTATE_COUNTERCLOCKWISE_LABEL = "Rotate";
-    public static const string ROTATE_COUNTERCLOCKWISE_TOOLTIP = "Rotate the photo(s) counterclockwise";
+    public static const string ROTATE_COUNTERCLOCKWISE_TOOLTIP = "Rotate the photo(s) left";
     
     private Gtk.IconFactory factory = null;
     

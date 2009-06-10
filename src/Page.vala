@@ -358,8 +358,8 @@ public abstract class CheckerboardPage : Page {
     protected virtual void on_selection_changed(int count) {
     }
     
-    public virtual Gtk.Menu? get_context_menu(LayoutItem? item) {
-        return (item != null) ? context_menu : null;
+    public virtual Gtk.Menu? get_context_menu() {
+        return context_menu;
     }
     
     protected virtual void on_item_activated(LayoutItem item) {
@@ -608,14 +608,39 @@ public abstract class CheckerboardPage : Page {
         if (event.type != Gdk.EventType.BUTTON_PRESS)
             return false;
         
+        // get what's right-clicked upon
         LayoutItem item = get_item_at(event.x, event.y);
         if (item != null) {
-            // TODO: Enable context menus for multiple and single selections
+            // mask out the modifiers we're interested in
+            switch (event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
+                case Gdk.ModifierType.CONTROL_MASK:
+                    // chosen item is toggled
+                    toggle_select(item);
+                break;
+                
+                case Gdk.ModifierType.SHIFT_MASK:
+                    // TODO
+                break;
+                
+                case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
+                    // TODO
+                break;
+                
+                default:
+                    // if the item is already selected, proceed; if item is not selected, a bare right
+                    // click unselects everything else but it
+                    if (!item.is_selected()) {
+                        unselect_all();
+                        select(item);
+                    }
+                break;
+            }
+        } else {
+            // clicked in "dead" space, unselect everything
             unselect_all();
-            select(item);
         }
-            
-        Gtk.Menu context_menu = get_context_menu(item);
+        
+        Gtk.Menu context_menu = get_context_menu();
         if (context_menu == null)
             return false;
             
