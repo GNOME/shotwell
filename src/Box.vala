@@ -54,6 +54,10 @@ public struct Box {
         return Box(rect.x, rect.y, rect.x + rect.width - 1, rect.y + rect.height - 1);
     }
     
+    public static Box from_allocation(Gtk.Allocation alloc) {
+        return Box(alloc.x, alloc.y, alloc.x + alloc.width - 1, alloc.y + alloc.height - 1);
+    }
+    
     // This ensures a proper box is built from the points supplied, no matter the relationship
     // between the two points
     public static Box from_points(Gdk.Point corner1, Gdk.Point corner2) {
@@ -175,18 +179,13 @@ public struct Box {
         return Box(left, t, right, b);
     }
     
-    public bool intersects(Box compare, out Box intersection) {
+    public bool intersects(Box compare) {
         int left_intersect = int.max(left, compare.left);
         int top_intersect = int.max(top, compare.top);
         int right_intersect = int.min(right, compare.right);
         int bottom_intersect = int.min(bottom, compare.bottom);
         
-        if (right_intersect < left_intersect || bottom_intersect < top_intersect)
-            return false;
-        
-        intersection = Box(left_intersect, top_intersect, right_intersect, bottom_intersect);
-        
-        return true;
+        return (right_intersect >= left_intersect && bottom_intersect >= top_intersect);
     }
     
     public Box get_reduced(int amount) {
@@ -256,7 +255,7 @@ public struct Box {
     
     // This specialized method is only concerned with the complements of identical Boxes in two
     // different, spatial locations.  There may be overlap between the four returned Boxes.  However,
-    // there no portion of any of the four boxes will be outside the scope of the two compared boxes.
+    // no portion of any of the four boxes will be outside the scope of the two compared boxes.
     public BoxComplements shifted_complements(Box shifted, out Box horizontal_this, 
         out Box vertical_this, out Box horizontal_shifted, out Box vertical_shifted) {
         assert(get_width() == shifted.get_width());
@@ -318,7 +317,7 @@ public struct Box {
         return (ipos > top_zone) && (ipos < bottom_zone);
     }
     
-    public BoxLocation location(int x, int y) {
+    public BoxLocation approx_location(int x, int y) {
         bool near_width = near_in_between(x, left, right);
         bool near_height = near_in_between(y, top, bottom);
         

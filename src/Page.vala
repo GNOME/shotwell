@@ -49,10 +49,13 @@ public abstract class Page : Gtk.ScrolledWindow {
 
         this.event_source = event_source;
 
-        // interested in mouse button actions on the event source
-        event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK);
+        // interested in mouse button and motion events on the event source
+        event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
+            | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK
+            | Gdk.EventMask.BUTTON_MOTION_MASK);
         event_source.button_press_event += on_button_pressed_internal;
         event_source.button_release_event += on_button_released_internal;
+        event_source.motion_notify_event += on_motion_internal;
         
         // Use the app window's signals for window move/resize, esp. for resize, as this signal
         // is used to determine inner window resizes
@@ -330,14 +333,46 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         return false;
     }
+    
+    protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+        return false;
+    }
+    
+    private bool on_motion_internal(Gdk.EventMotion event) {
+        int x, y;
+        Gdk.ModifierType mask;
+        if (event.is_hint) {
+            event_source.window.get_pointer(out x, out y, out mask);
+            
+            Gtk.Adjustment hadj = get_hadjustment();
+            Gtk.Adjustment vadj = get_vadjustment();
+            
+            // adjust x and y to viewport values
+            x = (x + (int) hadj.get_value()).clamp((int) hadj.get_lower(), (int) hadj.get_upper());
+            y = (y + (int) vadj.get_value()).clamp((int) vadj.get_lower(), (int) vadj.get_upper());
+        } else {
+            x = (int) event.x;
+            y = (int) event.y;
+            mask = event.state;
+        }
+        
+        return on_motion(event, x, y, mask);
+    }
 }
 
 public abstract class CheckerboardPage : Page {
+    private static const int AUTOSCROLL_PIXELS = 50;
+    private static const int AUTOSCROLL_TICKS_MSEC = 50;
+    
     private Gtk.Menu context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private string page_name = null;
     private LayoutItem last_clicked_item = null;
+    private bool drag_select = false;
+    private Gdk.Point drag_start = Gdk.Point();
+    private Box selection_band;
+    private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
         this.page_name = page_name;
@@ -484,7 +519,7 @@ public abstract class CheckerboardPage : Page {
     }
 
     public void select(LayoutItem item) {
-        assert(layout.items.index_of(item) >= 0);
+        assert(layout.items.contains(item));
         
         if (!item.is_selected()) {
             item.select();
@@ -495,7 +530,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     public void unselect(LayoutItem item) {
-        assert(layout.items.index_of(item) >= 0);
+        assert(layout.items.contains(item));
         
         if (item.is_selected()) {
             item.unselect();
@@ -570,13 +605,27 @@ public abstract class CheckerboardPage : Page {
 
         // need to determine if the signal should be passed to the DnD handlers
         // Return true to block the DnD handler, false otherwise
-        if (!is_dnd_enabled())
-            return false;
+
+        if (item == null) {
+            drag_select = true;
+            drag_start.x = (int) event.x;
+            drag_start.y = (int) event.y;
+
+            return true;
+        }
 
         return selected_items.size == 0;
     }
     
     private override bool on_left_released(Gdk.EventButton event) {
+        // if drag-selecting, stop here and do nothing else
+        if (drag_select) {
+            drag_select = false;
+            layout.remove_selection_band();
+            
+            return true;
+        }
+        
         // only interested in non-modified button releases
         if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
             return false;
@@ -649,6 +698,100 @@ public abstract class CheckerboardPage : Page {
             
         context_menu.popup(null, null, null, event.button, event.time);
 
+        return true;
+    }
+    
+    private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+        if (!drag_select)
+            return false;
+        
+        Gdk.Point drag_end = Gdk.Point();
+        drag_end.x = x;
+        drag_end.y = y;
+        
+        // save new drag rectangle
+        selection_band = Box.from_points(drag_start, drag_end);
+        
+        updated_selection_band();
+
+        // if out of bounds, schedule a check to auto-scroll the viewport
+        if (!autoscroll_scheduled 
+            && get_adjustment_relation(get_vadjustment(), y) != AdjustmentRelation.IN_RANGE) {
+            Timeout.add(AUTOSCROLL_TICKS_MSEC, selection_autoscroll);
+            autoscroll_scheduled = true;
+        }
+
+        return true;
+    }
+    
+    private void updated_selection_band() {
+        assert(drag_select);
+        
+        // get all items inside the selection
+        Gee.List<LayoutItem> intersection = layout.intersection(selection_band);
+
+        // deselect everything not in the intersection ... needs to be done outside the iterator
+        Gee.ArrayList<LayoutItem> outside = new Gee.ArrayList<LayoutItem>();
+        foreach (LayoutItem item in selected_items) {
+            if (!intersection.contains(item))
+                outside.add(item);
+        }
+        
+        foreach (LayoutItem item in outside)
+            unselect(item);
+        
+        // select everything in the intersection
+        foreach (LayoutItem item in intersection)
+            select(item);
+        
+        // inform the layout about it
+        layout.set_selection_band(selection_band);
+    }
+    
+    private bool selection_autoscroll() {
+        if (!drag_select) { 
+            autoscroll_scheduled = false;
+            
+            return false;
+        }
+        
+        // as the viewport never scrolls horizontally, only interested in vertical
+        Gtk.Adjustment vadj = get_vadjustment();
+
+        int x, y;
+        Gdk.ModifierType mask;
+        layout.bin_window.get_pointer(out x, out y, out mask);
+        
+        int new_value = (int) vadj.get_value();
+        switch (get_adjustment_relation(vadj, y)) {
+            case AdjustmentRelation.BELOW:
+                new_value -= AUTOSCROLL_PIXELS;
+                selection_band.top -= AUTOSCROLL_PIXELS;
+                if (selection_band.top < (int) vadj.get_lower())
+                    selection_band.top = (int) vadj.get_lower();
+            break;
+            
+            case AdjustmentRelation.ABOVE:
+                new_value += AUTOSCROLL_PIXELS;
+                selection_band.bottom += AUTOSCROLL_PIXELS;
+                if (selection_band.bottom > (int) vadj.get_upper())
+                    selection_band.bottom = (int) vadj.get_upper();
+            break;
+            
+            case AdjustmentRelation.IN_RANGE:
+                autoscroll_scheduled = false;
+                
+                return false;
+            
+            default:
+                warn_if_reached();
+            break;
+        }
+        
+        vadj.set_value(new_value);
+        
+        updated_selection_band();
+        
         return true;
     }
     

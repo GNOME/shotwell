@@ -185,14 +185,11 @@ public class PhotoPage : Page {
         // turn off double-buffering because all painting happens in pixmap, and is sent to the window
         // wholesale in on_canvas_expose
         canvas.set_double_buffered(false);
-        canvas.set_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK 
-            | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON1_MOTION_MASK 
-            | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
-            | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SUBSTRUCTURE_MASK);
+        canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
+            | Gdk.EventMask.SUBSTRUCTURE_MASK);
         
         viewport.size_allocate += on_viewport_resize;
         canvas.expose_event += on_canvas_exposed;
-        canvas.motion_notify_event += on_canvas_motion;
         
         // PhotoPage can't use the event virtuals declared in Page because it can be hosted by 
         // FullscreenWindow as well as AppWindow, whose signal Page captures for the configure event
@@ -332,7 +329,7 @@ public class PhotoPage : Page {
         // scaled_crop is not maintained relative to photo's position on canvas
         Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
         
-        in_manipulation = offset_scaled_crop.location(x, y);
+        in_manipulation = offset_scaled_crop.approx_location(x, y);
         last_grab_x = x -= pixbuf_rect.x;
         last_grab_y = y -= pixbuf_rect.y;
         
@@ -400,18 +397,9 @@ public class PhotoPage : Page {
         repaint();
     }
     
-    private bool on_canvas_motion(Gtk.DrawingArea da, Gdk.EventMotion event) {
+    private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         if (!show_crop)
             return false;
-        
-        int x, y;
-        if (event.is_hint) {
-            Gdk.ModifierType mask;
-            canvas.window.get_pointer(out x, out y, out mask);
-        } else {
-            x = (int) event.x;
-            y = (int) event.y;
-        }
         
         if (in_manipulation != BoxLocation.OUTSIDE)
             return on_canvas_manipulation(x, y);
@@ -439,7 +427,7 @@ public class PhotoPage : Page {
         Box offset_scaled_crop = scaled_crop.get_offset(pixbuf_rect.x, pixbuf_rect.y);
         
         Gdk.CursorType cursor_type = Gdk.CursorType.ARROW;
-        switch (offset_scaled_crop.location(x, y)) {
+        switch (offset_scaled_crop.approx_location(x, y)) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = Gdk.CursorType.LEFT_SIDE;
             break;

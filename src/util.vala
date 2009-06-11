@@ -119,3 +119,18 @@ public void disassemble_filename(string basename, out string name, out string ex
     }
 }
 
+public enum AdjustmentRelation {
+    BELOW,
+    IN_RANGE,
+    ABOVE
+}
+
+public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int value) {
+    if (value < (int) adjustment.get_value())
+        return AdjustmentRelation.BELOW;
+    else if (value > (int) (adjustment.get_value() + adjustment.get_page_size()))
+        return AdjustmentRelation.ABOVE;
+    else
+        return AdjustmentRelation.IN_RANGE;
+}
+

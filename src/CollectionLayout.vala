@@ -14,7 +14,7 @@ public abstract class LayoutItem : Gtk.Alignment {
     
     private bool selected = false;
     private Gtk.VBox vbox = new Gtk.VBox(false, 0);
-    private bool titleDisplayed = true;
+    private bool title_displayed = true;
     
     public LayoutItem() {
         // bottom-align everything
@@ -58,12 +58,12 @@ public abstract class LayoutItem : Gtk.Alignment {
     }
 
     public void display_title(bool display) {
-        if (display && !titleDisplayed) {
+        if (display && !title_displayed) {
             vbox.pack_end(title, false, false, LABEL_PADDING);
-            titleDisplayed = true;
-        } else if (!display && titleDisplayed) {
+            title_displayed = true;
+        } else if (!display && title_displayed) {
             vbox.remove(title);
-            titleDisplayed = false;
+            title_displayed = false;
         }
     }
     
@@ -92,11 +92,10 @@ public abstract class LayoutItem : Gtk.Alignment {
     }
 
     public bool toggle_select() {
-        if (selected) {
+        if (selected)
             unselect();
-        } else {
+        else
             select();
-        }
         
         return selected;
     }
@@ -121,6 +120,9 @@ public class CollectionLayout : Gtk.Layout {
     private Gtk.Label message = new Gtk.Label("");
     private int last_width = 0;
     private bool refresh_on_resize = true;
+    private Gdk.GC selection_gc;
+    private bool has_selection = false;
+    private Gdk.Rectangle selection;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
@@ -130,7 +132,6 @@ public class CollectionLayout : Gtk.Layout {
         message.set_single_line_mode(false);
         message.set_use_underline(false);
         
-        expose_event += on_expose;
         size_allocate += on_resize;
     }
     
@@ -195,6 +196,53 @@ public class CollectionLayout : Gtk.Layout {
         }
         
         return null;
+    }
+    
+    public Gee.List<LayoutItem> intersection(Box box) {
+        Gee.ArrayList<LayoutItem> intersects = new Gee.ArrayList<LayoutItem>();
+        
+        foreach (LayoutItem item in items) {
+            Box alloc = Box.from_allocation(item.allocation);
+            if (box.intersects(alloc))
+                intersects.add(item);
+            
+            // short-circuit: if past the dimensions of the box in the sorted list, bail out
+            if (alloc.top > box.bottom && alloc.left > box.right)
+                break;
+        }
+        
+        return intersects;
+    }
+    
+    public void set_selection_band(Box selection) {
+        has_selection = true;
+        this.selection = selection.get_rectangle();
+        
+        // generate the GC on demand rather than when window is mapped
+        if (selection_gc == null) {
+             // set up GC's for painting selection
+            Gdk.GCValues gc_values = Gdk.GCValues();
+            gc_values.foreground = fetch_color(LayoutItem.SELECTED_COLOR, bin_window);
+            gc_values.function = Gdk.Function.COPY;
+            gc_values.fill = Gdk.Fill.SOLID;
+            gc_values.line_width = 0;
+            
+            Gdk.GCValuesMask mask = 
+                Gdk.GCValuesMask.FOREGROUND 
+                | Gdk.GCValuesMask.FUNCTION 
+                | Gdk.GCValuesMask.FILL
+                | Gdk.GCValuesMask.LINE_WIDTH;
+
+            selection_gc = new Gdk.GC.with_values(bin_window, gc_values, mask);
+        }
+        
+        bin_window.invalidate_rect(null, false);
+    }
+    
+    public void remove_selection_band() {
+        has_selection = false;
+        
+        bin_window.invalidate_rect(null, false);
     }
     
     public void clear() {
@@ -359,11 +407,10 @@ public class CollectionLayout : Gtk.Layout {
             assert(ypadding >= 0);
             
             // if item was recently appended, it needs to be put() rather than move()'d
-            if (item.parent == (Gtk.Widget) this) {
+            if (item.parent == (Gtk.Widget) this)
                 move(item, x + xpadding, y + ypadding);
-            } else {
+            else
                 put(item, x + xpadding, y + ypadding);
-            }
 
             x += columnWidths[col] + gutter;
 
@@ -412,7 +459,7 @@ public class CollectionLayout : Gtk.Layout {
         }
     }
     
-    private bool on_expose(CollectionLayout cl, Gdk.EventExpose event) {
+    private override bool expose_event(Gdk.EventExpose event) {
         Gdk.Rectangle visible_rect = Gdk.Rectangle();
         visible_rect.x = (int) get_hadjustment().get_value();
         visible_rect.y = (int) get_vadjustment().get_value();
@@ -422,13 +469,30 @@ public class CollectionLayout : Gtk.Layout {
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
         foreach (LayoutItem item in items) {
-            if (visible_rect.intersect((Gdk.Rectangle) item.allocation, bitbucket)) {
+            if (visible_rect.intersect((Gdk.Rectangle) item.allocation, bitbucket))
                 item.exposed();
-            } else {
+            else
                 item.unexposed();
-            }
         }
         
-        return false;
+        // draw LayoutItems before drawing selection rectangle
+        bool result = base.expose_event(event);
+        
+        if (has_selection) {
+            // pixelate selection rectangle interior
+            Gdk.Pixbuf pixbuf = Gdk.pixbuf_get_from_drawable(null, bin_window, null, selection.x,
+                selection.y, 0, 0, selection.width, selection.height);
+            pixbuf.saturate_and_pixelate(pixbuf, 1.0f, true);
+            
+            // pixelated fill
+            Gdk.draw_pixbuf(bin_window, selection_gc, pixbuf, 0, 0, selection.x, selection.y,
+                -1, -1, Gdk.RgbDither.NONE, 0, 0);
+
+            // border
+            Gdk.draw_rectangle(bin_window, selection_gc, false, selection.x, selection.y,
+                selection.width, selection.height);
+        }
+
+        return result;
     }
 }
