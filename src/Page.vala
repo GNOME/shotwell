@@ -382,6 +382,7 @@ public abstract class CheckerboardPage : Page {
         
         set_event_source(layout);
         layout.expose_after += on_layout_exposed;
+        layout.map += on_layout_mapped;
 
         add(layout);
     }
@@ -614,6 +615,8 @@ public abstract class CheckerboardPage : Page {
             drag_select = true;
             drag_start.x = (int) event.x;
             drag_start.y = (int) event.y;
+            selection_band.width = 0;
+            selection_band.height = 0;
 
             return true;
         }
@@ -625,6 +628,8 @@ public abstract class CheckerboardPage : Page {
         // if drag-selecting, stop here and do nothing else
         if (drag_select) {
             drag_select = false;
+            selection_band.width = 0;
+            selection_band.height = 0;
             
             // force a repaint to remove the selection band
             layout.bin_window.invalidate_rect(null, false);
@@ -751,24 +756,6 @@ public abstract class CheckerboardPage : Page {
         foreach (LayoutItem item in intersection)
             select(item);
         
-        // generate the GC on demand rather than when window is mapped
-        if (selection_gc == null) {
-             // set up GC's for painting selection
-            Gdk.GCValues gc_values = Gdk.GCValues();
-            gc_values.foreground = fetch_color(LayoutItem.SELECTED_COLOR, layout.bin_window);
-            gc_values.function = Gdk.Function.COPY;
-            gc_values.fill = Gdk.Fill.SOLID;
-            gc_values.line_width = 0;
-            
-            Gdk.GCValuesMask mask = 
-                Gdk.GCValuesMask.FOREGROUND 
-                | Gdk.GCValuesMask.FUNCTION 
-                | Gdk.GCValuesMask.FILL
-                | Gdk.GCValuesMask.LINE_WIDTH;
-
-            selection_gc = new Gdk.GC.with_values(layout.bin_window, gc_values, mask);
-        }
-        
         // for a refresh to paint the selection band
         layout.bin_window.invalidate_rect(null, false);
     }
@@ -820,9 +807,26 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
+    private void on_layout_mapped() {
+         // set up GC's for painting selection
+        Gdk.GCValues gc_values = Gdk.GCValues();
+        gc_values.foreground = fetch_color(LayoutItem.SELECTED_COLOR, layout.bin_window);
+        gc_values.function = Gdk.Function.COPY;
+        gc_values.fill = Gdk.Fill.SOLID;
+        gc_values.line_width = 0;
+        
+        Gdk.GCValuesMask mask = 
+            Gdk.GCValuesMask.FOREGROUND 
+            | Gdk.GCValuesMask.FUNCTION 
+            | Gdk.GCValuesMask.FILL
+            | Gdk.GCValuesMask.LINE_WIDTH;
+
+        selection_gc = new Gdk.GC.with_values(layout.bin_window, gc_values, mask);
+    }
+
     private void on_layout_exposed() {
         // this method only used to draw selection rectangle
-        if (!drag_select)
+        if (selection_band.width == 0 || selection_band.height == 0)
             return;
         
         assert(selection_gc != null);

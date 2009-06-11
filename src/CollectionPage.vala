@@ -53,6 +53,8 @@ public class CollectionPage : CheckerboardPage {
         }
     }
     
+    private static Gtk.Adjustment slider_adjustment = null;
+    
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotate_button = null;
@@ -117,6 +119,11 @@ public class CollectionPage : CheckerboardPage {
         
         set_layout_comparator(new CompareName());
         
+        // adjustment which is shared by all sliders in the application
+        if (slider_adjustment == null)
+            slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0, 
+                scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
+        
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
@@ -136,8 +143,7 @@ public class CollectionPage : CheckerboardPage {
         toolbar.insert(separator, -1);
         
         // thumbnail size slider
-        slider = new Gtk.HScale.with_range(0, scale_to_slider(Thumbnail.MAX_SCALE), 1);
-        slider.set_value(scale_to_slider(scale));
+        slider = new Gtk.HScale(slider_adjustment);
         slider.value_changed += on_slider_changed;
         slider.set_draw_value(false);
 
