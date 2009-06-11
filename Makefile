@@ -64,9 +64,7 @@ HEADER_DIRS = \
 	./src
 
 LOCAL_PKGS = \
-	libexif \
 	fstream \
-	libgphoto2 \
 
 EXT_PKGS = \
 	gtk+-2.0 \
@@ -74,7 +72,9 @@ EXT_PKGS = \
 	vala-1.0 \
 	hal \
 	dbus-glib-1 \
-	unique-1.0
+	unique-1.0 \
+	libexif \
+	libgphoto2
 
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES), src/$(src))
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES), src/$(vapi))
