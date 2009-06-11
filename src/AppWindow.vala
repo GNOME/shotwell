@@ -10,7 +10,7 @@ public class FullscreenWindow : Gtk.Window {
         Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
     
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN, "Leave _Fullscreen", "F11", "Leave fullscreen", on_close }
+        { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN, "Leave _Fullscreen", "Escape", "Leave fullscreen", on_close }
     };
 
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
