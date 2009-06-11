@@ -369,15 +369,19 @@ public abstract class CheckerboardPage : Page {
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private string page_name = null;
     private LayoutItem last_clicked_item = null;
+
+    // for drag selection
     private bool drag_select = false;
     private Gdk.Point drag_start = Gdk.Point();
-    private Box selection_band;
+    private Gdk.Rectangle selection_band;
+    private Gdk.GC selection_gc = null;
     private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
         this.page_name = page_name;
         
         set_event_source(layout);
+        layout.expose_after += on_layout_exposed;
 
         add(layout);
     }
@@ -621,7 +625,9 @@ public abstract class CheckerboardPage : Page {
         // if drag-selecting, stop here and do nothing else
         if (drag_select) {
             drag_select = false;
-            layout.remove_selection_band();
+            
+            // force a repaint to remove the selection band
+            layout.bin_window.invalidate_rect(null, false);
             
             return true;
         }
@@ -702,6 +708,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+        // only interested in motion during a drag select
         if (!drag_select)
             return false;
         
@@ -710,7 +717,7 @@ public abstract class CheckerboardPage : Page {
         drag_end.y = y;
         
         // save new drag rectangle
-        selection_band = Box.from_points(drag_start, drag_end);
+        selection_band = Box.from_points(drag_start, drag_end).get_rectangle();
         
         updated_selection_band();
 
@@ -744,8 +751,26 @@ public abstract class CheckerboardPage : Page {
         foreach (LayoutItem item in intersection)
             select(item);
         
-        // inform the layout about it
-        layout.set_selection_band(selection_band);
+        // generate the GC on demand rather than when window is mapped
+        if (selection_gc == null) {
+             // set up GC's for painting selection
+            Gdk.GCValues gc_values = Gdk.GCValues();
+            gc_values.foreground = fetch_color(LayoutItem.SELECTED_COLOR, layout.bin_window);
+            gc_values.function = Gdk.Function.COPY;
+            gc_values.fill = Gdk.Fill.SOLID;
+            gc_values.line_width = 0;
+            
+            Gdk.GCValuesMask mask = 
+                Gdk.GCValuesMask.FOREGROUND 
+                | Gdk.GCValuesMask.FUNCTION 
+                | Gdk.GCValuesMask.FILL
+                | Gdk.GCValuesMask.LINE_WIDTH;
+
+            selection_gc = new Gdk.GC.with_values(layout.bin_window, gc_values, mask);
+        }
+        
+        // for a refresh to paint the selection band
+        layout.bin_window.invalidate_rect(null, false);
     }
     
     private bool selection_autoscroll() {
@@ -766,16 +791,16 @@ public abstract class CheckerboardPage : Page {
         switch (get_adjustment_relation(vadj, y)) {
             case AdjustmentRelation.BELOW:
                 new_value -= AUTOSCROLL_PIXELS;
-                selection_band.top -= AUTOSCROLL_PIXELS;
-                if (selection_band.top < (int) vadj.get_lower())
-                    selection_band.top = (int) vadj.get_lower();
+                selection_band.y -= AUTOSCROLL_PIXELS;
+                if (selection_band.y < (int) vadj.get_lower())
+                    selection_band.y = (int) vadj.get_lower();
             break;
             
             case AdjustmentRelation.ABOVE:
                 new_value += AUTOSCROLL_PIXELS;
-                selection_band.bottom += AUTOSCROLL_PIXELS;
-                if (selection_band.bottom > (int) vadj.get_upper())
-                    selection_band.bottom = (int) vadj.get_upper();
+                selection_band.height += AUTOSCROLL_PIXELS;
+                if ((selection_band.y + selection_band.height) > (int) vadj.get_upper())
+                    selection_band.height = ((int) vadj.get_upper()) - selection_band.y;
             break;
             
             case AdjustmentRelation.IN_RANGE:
@@ -793,6 +818,27 @@ public abstract class CheckerboardPage : Page {
         updated_selection_band();
         
         return true;
+    }
+    
+    private void on_layout_exposed() {
+        // this method only used to draw selection rectangle
+        if (!drag_select)
+            return;
+        
+        assert(selection_gc != null);
+
+        // pixelate selection rectangle interior
+        Gdk.Pixbuf pixbuf = Gdk.pixbuf_get_from_drawable(null, layout.bin_window, null, selection_band.x,
+            selection_band.y, 0, 0, selection_band.width, selection_band.height);
+        pixbuf.saturate_and_pixelate(pixbuf, 1.0f, true);
+        
+        // pixelated fill
+        Gdk.draw_pixbuf(layout.bin_window, selection_gc, pixbuf, 0, 0, selection_band.x, selection_band.y,
+            -1, -1, Gdk.RgbDither.NONE, 0, 0);
+
+        // border
+        Gdk.draw_rectangle(layout.bin_window, selection_gc, false, selection_band.x, selection_band.y,
+            selection_band.width, selection_band.height);
     }
     
     public LayoutItem? get_next_item(LayoutItem current) {

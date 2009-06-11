@@ -120,9 +120,6 @@ public class CollectionLayout : Gtk.Layout {
     private Gtk.Label message = new Gtk.Label("");
     private int last_width = 0;
     private bool refresh_on_resize = true;
-    private Gdk.GC selection_gc;
-    private bool has_selection = false;
-    private Gdk.Rectangle selection;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
@@ -134,6 +131,8 @@ public class CollectionLayout : Gtk.Layout {
         
         size_allocate += on_resize;
     }
+    
+    public signal void expose_after();
     
     public void set_message(string text) {
         clear();
@@ -198,51 +197,24 @@ public class CollectionLayout : Gtk.Layout {
         return null;
     }
     
-    public Gee.List<LayoutItem> intersection(Box box) {
+    public Gee.List<LayoutItem> intersection(Gdk.Rectangle rect) {
+        int bottom = rect.y + rect.height + 1;
+        int right = rect.x + rect.width + 1;
+        
         Gee.ArrayList<LayoutItem> intersects = new Gee.ArrayList<LayoutItem>();
         
+        Gdk.Rectangle bitbucket = Gdk.Rectangle();
+        
         foreach (LayoutItem item in items) {
-            Box alloc = Box.from_allocation(item.allocation);
-            if (box.intersects(alloc))
+            if (rect.intersect((Gdk.Rectangle) item.allocation, bitbucket))
                 intersects.add(item);
             
             // short-circuit: if past the dimensions of the box in the sorted list, bail out
-            if (alloc.top > box.bottom && alloc.left > box.right)
+            if (item.allocation.y > bottom && item.allocation.x > right)
                 break;
         }
         
         return intersects;
-    }
-    
-    public void set_selection_band(Box selection) {
-        has_selection = true;
-        this.selection = selection.get_rectangle();
-        
-        // generate the GC on demand rather than when window is mapped
-        if (selection_gc == null) {
-             // set up GC's for painting selection
-            Gdk.GCValues gc_values = Gdk.GCValues();
-            gc_values.foreground = fetch_color(LayoutItem.SELECTED_COLOR, bin_window);
-            gc_values.function = Gdk.Function.COPY;
-            gc_values.fill = Gdk.Fill.SOLID;
-            gc_values.line_width = 0;
-            
-            Gdk.GCValuesMask mask = 
-                Gdk.GCValuesMask.FOREGROUND 
-                | Gdk.GCValuesMask.FUNCTION 
-                | Gdk.GCValuesMask.FILL
-                | Gdk.GCValuesMask.LINE_WIDTH;
-
-            selection_gc = new Gdk.GC.with_values(bin_window, gc_values, mask);
-        }
-        
-        bin_window.invalidate_rect(null, false);
-    }
-    
-    public void remove_selection_band() {
-        has_selection = false;
-        
-        bin_window.invalidate_rect(null, false);
     }
     
     public void clear() {
@@ -475,24 +447,10 @@ public class CollectionLayout : Gtk.Layout {
                 item.unexposed();
         }
         
-        // draw LayoutItems before drawing selection rectangle
         bool result = base.expose_event(event);
         
-        if (has_selection) {
-            // pixelate selection rectangle interior
-            Gdk.Pixbuf pixbuf = Gdk.pixbuf_get_from_drawable(null, bin_window, null, selection.x,
-                selection.y, 0, 0, selection.width, selection.height);
-            pixbuf.saturate_and_pixelate(pixbuf, 1.0f, true);
-            
-            // pixelated fill
-            Gdk.draw_pixbuf(bin_window, selection_gc, pixbuf, 0, 0, selection.x, selection.y,
-                -1, -1, Gdk.RgbDither.NONE, 0, 0);
-
-            // border
-            Gdk.draw_rectangle(bin_window, selection_gc, false, selection.x, selection.y,
-                selection.width, selection.height);
-        }
-
+        expose_after();
+        
         return result;
     }
 }
