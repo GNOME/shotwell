@@ -221,7 +221,7 @@ public class AppWindow : Gtk.Window {
     // Common actions available to all pages
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] COMMON_ACTIONS = {
-        { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", Gtk.main_quit },
+        { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", on_quit },
         { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
         { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", on_fullscreen }
     };
@@ -344,8 +344,6 @@ public class AppWindow : Gtk.Window {
         title = TITLE;
         set_default_size(1024, 768);
 
-        destroy += Gtk.main_quit;
-        
         // the pages want to know when modifier keys are pressed
         key_press_event += on_key_pressed;
         key_release_event += on_key_released;
@@ -441,6 +439,14 @@ public class AppWindow : Gtk.Window {
             "copyright", "(c) 2009 Yorba Foundation",
             "website", "http://www.yorba.org"
         );
+    }
+    
+    private void on_quit() {
+        Gtk.main_quit();
+    }
+    
+    private override void destroy() {
+        on_quit();
     }
     
     private void on_fullscreen() {
