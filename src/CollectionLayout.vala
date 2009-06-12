@@ -15,6 +15,9 @@ public abstract class LayoutItem : Gtk.Alignment {
     private bool selected = false;
     private Gtk.VBox vbox = new Gtk.VBox(false, 0);
     private bool title_displayed = true;
+
+    private int col = -1;
+    private int row = -1;
     
     public LayoutItem() {
         // bottom-align everything
@@ -103,6 +106,19 @@ public abstract class LayoutItem : Gtk.Alignment {
     public bool is_selected() {
         return selected;
     }
+    
+    public void set_coordinates(int col, int row) {
+        this.col = col;
+        this.row = row;
+    }
+    
+    public int get_column() {
+        return col;
+    }
+    
+    public int get_row() {
+        return row;
+    }
 }
 
 public class CollectionLayout : Gtk.Layout {
@@ -120,6 +136,8 @@ public class CollectionLayout : Gtk.Layout {
     private Gtk.Label message = new Gtk.Label("");
     private int last_width = 0;
     private bool refresh_on_resize = true;
+    private int columns = 0;
+    private int rows = 0;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
@@ -182,7 +200,7 @@ public class CollectionLayout : Gtk.Layout {
             remove(item);
     }
     
-    public LayoutItem? get_item_at(double xd, double yd) {
+    public LayoutItem? get_item_at_pixel(double xd, double yd) {
         int x = (int) xd;
         int y = (int) yd;
 
@@ -217,6 +235,64 @@ public class CollectionLayout : Gtk.Layout {
         return intersects;
     }
     
+    public LayoutItem? get_item_relative_to(LayoutItem item, CompassPoint point) {
+        if (items.size == 0)
+            return null;
+        
+        assert(columns > 0);
+        assert(rows > 0);
+        
+        int col = item.get_column();
+        int row = item.get_row();
+        
+        if (col < 0 || row < 0) {
+            critical("Attempting to locate item not placed in layout: %s", item.get_title());
+            
+            return null;
+        }
+        
+        switch (point) {
+            case CompassPoint.NORTH:
+                if (--row < 0)
+                    row = 0;
+            break;
+            
+            case CompassPoint.SOUTH:
+                if (++row >= rows)
+                    row = rows - 1;
+            break;
+            
+            case CompassPoint.EAST:
+                if (++col >= columns)
+                    col = columns - 1;
+            break;
+            
+            case CompassPoint.WEST:
+                if (--col < 0)
+                    col = 0;
+            break;
+            
+            default:
+                error("Bad compass point %d", (int) point);
+            break;
+        }
+        
+        LayoutItem new_item = get_item_at_coordinate(col, row);
+        
+        return (new_item != null) ? new_item : item;
+    }
+    
+    public LayoutItem? get_item_at_coordinate(int col, int row) {
+        // TODO: If searching by coordinates becomes more vital, the items could be stored
+        // in an array of arrays for quicker lookup.
+        foreach (LayoutItem item in items) {
+            if (item.get_column() == col && item.get_row() == row)
+                return item;
+        }
+        
+        return null;
+    }
+    
     public void clear() {
         // remove page message
         if (message.get_text().length > 0) {
@@ -225,12 +301,13 @@ public class CollectionLayout : Gtk.Layout {
         }
         
         // remove all items from Gtk.Layout
-        foreach (LayoutItem item in items) {
+        foreach (LayoutItem item in items)
             remove(item);
-        }
         
         // clear internal list
         items.clear();
+        columns = 0;
+        rows = 0;
     }
     
     public void refresh() {
@@ -254,9 +331,9 @@ public class CollectionLayout : Gtk.Layout {
         // Step 1: Determine the widest row in the layout, and from it the number of columns
         int x = LEFT_PADDING;
         int col = 0;
-        int maxCols = 0;
-        int rowWidth = 0;
-        int widestRow = 0;
+        int max_cols = 0;
+        int row_width = 0;
+        int widest_row = 0;
 
         foreach (LayoutItem item in items) {
             // perform size requests first time through, but not thereafter
@@ -269,38 +346,38 @@ public class CollectionLayout : Gtk.Layout {
             
             // carriage return (i.e. this item will overflow the view)
             if ((x + req.width + RIGHT_PADDING) > allocation.width) {
-                if (rowWidth > widestRow) {
-                    widestRow = rowWidth;
-                    maxCols = col;
+                if (row_width > widest_row) {
+                    widest_row = row_width;
+                    max_cols = col;
                 }
                 
                 col = 0;
                 x = LEFT_PADDING;
-                rowWidth = 0;
+                row_width = 0;
             }
             
             x += req.width + COLUMN_GUTTER_PADDING;
-            rowWidth += req.width;
+            row_width += req.width;
             
             col++;
         }
         
         // account for dangling last row
-        if (rowWidth > widestRow) {
-            widestRow = rowWidth;
-            maxCols = col;
+        if (row_width > widest_row) {
+            widest_row = row_width;
+            max_cols = col;
         }
         
-        assert(maxCols > 0);
+        assert(max_cols > 0);
         
         // Step 2: Now that the number of columns is known, find the maximum height for each row
         // and the maximum width for each column
         int row = 0;
         int tallest = 0;
-        int totalWidth = 0;
+        int total_width = 0;
         col = 0;
-        int[] columnWidths = new int[maxCols];
-        int[] rowHeights = new int[(items.size / maxCols) + 1];
+        int[] column_widths = new int[max_cols];
+        int[] row_heights = new int[(items.size / max_cols) + 1];
         int gutter = 0;
         
         for (;;) {
@@ -312,44 +389,44 @@ public class CollectionLayout : Gtk.Layout {
                 
                 // store largest thumb size of each column as well as track the total width of the
                 // layout (which is the sum of the width of each column)
-                if (columnWidths[col] < req.width) {
-                    totalWidth -= columnWidths[col];
-                    columnWidths[col] = req.width;
-                    totalWidth += req.width;
+                if (column_widths[col] < req.width) {
+                    total_width -= column_widths[col];
+                    column_widths[col] = req.width;
+                    total_width += req.width;
                 }
 
-                if (++col >= maxCols) {
+                if (++col >= max_cols) {
                     col = 0;
-                    rowHeights[row++] = tallest;
+                    row_heights[row++] = tallest;
                     tallest = 0;
                 }
             }
             
             // account for final dangling row
             if (col != 0)
-                rowHeights[row] = tallest;
+                row_heights[row] = tallest;
             
             // Step 3: Calculate the gutter between the items as being equidistant of the
             // remaining space (adding one gutter to account for the right-hand one)
-            gutter = (allocation.width - totalWidth) / (maxCols + 1);
+            gutter = (allocation.width - total_width) / (max_cols + 1);
             
             // if only one column, gutter size could be less than minimums
-            if (maxCols == 1)
+            if (max_cols == 1)
                 break;
 
             // have to reassemble if the gutter is too small ... this happens because Step One
             // takes a guess at the best column count, but when the max. widths of the columns are
             // added up, they could overflow
             if ((gutter < LEFT_PADDING) || (gutter < RIGHT_PADDING) || (gutter < COLUMN_GUTTER_PADDING)) {
-                maxCols--;
+                max_cols--;
                 col = 0;
                 row = 0;
                 tallest = 0;
-                totalWidth = 0;
-                columnWidths = new int[maxCols];
-                rowHeights = new int[(items.size / maxCols) + 1];
+                total_width = 0;
+                column_widths = new int[max_cols];
+                row_heights = new int[(items.size / max_cols) + 1];
                 /*
-                debug("refresh(): readjusting columns: maxCols=%d", maxCols);
+                debug("refresh(): readjusting columns: max_cols=%d", max_cols);
                 */
             } else {
                 break;
@@ -357,8 +434,8 @@ public class CollectionLayout : Gtk.Layout {
         }
 
         /*
-        debug("refresh(): width:%d totalWidth:%d maxCols:%d gutter:%d", allocation.width, totalWidth, 
-            maxCols, gutter);
+        debug("refresh(): width:%d total_width:%d max_cols:%d gutter:%d", allocation.width, total_width, 
+            max_cols, gutter);
         */
 
         // Step 4: Lay out the items in the space using all the information gathered
@@ -371,11 +448,11 @@ public class CollectionLayout : Gtk.Layout {
             Gtk.Requisition req = item.requisition;
 
             // this centers the item in the column
-            int xpadding = (columnWidths[col] - req.width) / 2;
+            int xpadding = (column_widths[col] - req.width) / 2;
             assert(xpadding >= 0);
             
             // this bottom-aligns the item along the row
-            int ypadding = (rowHeights[row] - req.height);
+            int ypadding = (row_heights[row] - req.height);
             assert(ypadding >= 0);
             
             // if item was recently appended, it needs to be put() rather than move()'d
@@ -383,21 +460,26 @@ public class CollectionLayout : Gtk.Layout {
                 move(item, x + xpadding, y + ypadding);
             else
                 put(item, x + xpadding, y + ypadding);
+            
+            item.set_coordinates(col, row);
 
-            x += columnWidths[col] + gutter;
+            x += column_widths[col] + gutter;
 
             // carriage return
-            if (++col >= maxCols) {
+            if (++col >= max_cols) {
                 x = gutter;
-                y += rowHeights[row] + ROW_GUTTER_PADDING;
+                y += row_heights[row] + ROW_GUTTER_PADDING;
                 col = 0;
                 row++;
             }
         }
         
+        columns = max_cols;
+        rows = row + 1;
+        
         // Step 5: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
-        set_size(allocation.width, y + rowHeights[row] + BOTTOM_PADDING);
+        set_size(allocation.width, y + row_heights[row] + BOTTOM_PADDING);
     }
     
     private void display_message() {

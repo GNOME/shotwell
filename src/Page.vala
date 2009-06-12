@@ -48,6 +48,7 @@ public abstract class Page : Gtk.ScrolledWindow {
         assert(this.event_source == null);
 
         this.event_source = event_source;
+        event_source.set_flags(Gtk.WidgetFlags.CAN_FOCUS);
 
         // interested in mouse button and motion events on the event source
         event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
@@ -227,8 +228,11 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool on_button_pressed_internal(Gdk.EventButton event) {
         switch (event.button) {
             case 1:
+                if (event_source != null)
+                    event_source.grab_focus();
+                
                 return on_left_click(event);
-            
+
             case 2:
                 return on_middle_click(event);
             
@@ -428,8 +432,8 @@ public abstract class CheckerboardPage : Page {
         layout.set_comparator(cmp);
     }
     
-    public LayoutItem? get_item_at(double x, double y) {
-        return layout.get_item_at(x, y);
+    public LayoutItem? get_item_at_pixel(double x, double y) {
+        return layout.get_item_at_pixel(x, y);
     }
     
     public Gee.Iterable<LayoutItem> get_items() {
@@ -571,7 +575,7 @@ public abstract class CheckerboardPage : Page {
         
         // use clicks for multiple selection and activation only; single selects are handled by
         // button release, to allow for multiple items to be selected then dragged
-        LayoutItem item = get_item_at(event.x, event.y);
+        LayoutItem item = get_item_at_pixel(event.x, event.y);
         if (item != null) {
             switch (state) {
                 case Gdk.ModifierType.CONTROL_MASK:
@@ -641,7 +645,7 @@ public abstract class CheckerboardPage : Page {
         if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
             return false;
             
-        LayoutItem item = get_item_at(event.x, event.y);
+        LayoutItem item = get_item_at_pixel(event.x, event.y);
         if (item == null) {
             // released button on "dead" area
             return true;
@@ -669,7 +673,7 @@ public abstract class CheckerboardPage : Page {
             return false;
         
         // get what's right-clicked upon
-        LayoutItem item = get_item_at(event.x, event.y);
+        LayoutItem item = get_item_at_pixel(event.x, event.y);
         if (item != null) {
             // mask out the modifiers we're interested in
             switch (event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
@@ -845,6 +849,14 @@ public abstract class CheckerboardPage : Page {
             selection_band.width, selection_band.height);
     }
     
+    public LayoutItem? get_first_item() {
+        return (layout.items.size != 0) ? layout.items.get(0) : null;
+    }
+    
+    public LayoutItem? get_last_item() {
+        return (layout.items.size != 0) ? layout.items.get(layout.items.size - 1) : null;
+    }
+    
     public LayoutItem? get_next_item(LayoutItem current) {
         if (layout.items.size == 0)
             return null;
@@ -878,4 +890,61 @@ public abstract class CheckerboardPage : Page {
         
         return layout.items.get(index);
     }
+    
+    public void cursor_to_item(LayoutItem item) {
+        assert(layout.items.contains(item));
+        
+        unselect_all();
+        select(item);
+
+        // if item is in any way out of view, scroll to it
+        Gtk.Adjustment vadj = get_vadjustment();
+        if (get_adjustment_relation(vadj, item.allocation.y) == AdjustmentRelation.IN_RANGE
+            && (get_adjustment_relation(vadj, item.allocation.y + item.allocation.height) == AdjustmentRelation.IN_RANGE))
+            return;
+
+        // scroll to see the new item
+        int top = 0;
+        if (item.allocation.y < vadj.get_value()) {
+            top = item.allocation.y;
+            top -= CollectionLayout.ROW_GUTTER_PADDING / 2;
+        } else {
+            top = item.allocation.y + item.allocation.height - (int) vadj.get_page_size();
+            top += CollectionLayout.ROW_GUTTER_PADDING / 2;
+        }
+        
+        vadj.set_value(top);
+    }
+    
+    public void move_cursor(CompassPoint point) {
+        // if nothing is selected, simply select the first and exit
+        if (selected_items.size == 0) {
+            cursor_to_item(layout.items.get(0));
+            
+            return;
+        }
+        
+        // find the "first" selected item, which for now is the topmost, leftmost item in the layout
+        // TODO: Revisit if this is the right choice.
+        int first_col = int.MAX;
+        int first_row = int.MAX;
+        foreach (LayoutItem selected in selected_items) {
+            first_col = int.min(selected.get_column(), first_col);
+            first_row = int.min(selected.get_row(), first_row);
+        }
+        
+        LayoutItem item = layout.get_item_at_coordinate(first_col, first_row);
+        assert(item != null);
+        
+        // if more than one selected, select the first without moving, to not surprise the user
+        if (selected_items.size > 1) {
+            cursor_to_item(item);
+            
+            return;
+        }
+        
+        item = layout.get_item_relative_to(item, point);
+        if (item != null)
+            cursor_to_item(item);
+   }
 }

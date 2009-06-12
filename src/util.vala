@@ -134,3 +134,9 @@ public AdjustmentRelation get_adjustment_relation(Gtk.Adjustment adjustment, int
         return AdjustmentRelation.IN_RANGE;
 }
 
+public enum CompassPoint {
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST
+}
