@@ -382,12 +382,6 @@ public class AppWindow : Gtk.Window {
         add_parent_page(events_directory_page, "Events");
         add_orphan_page(photo_page);
 
-        // "Cameras" doesn't have its own page, just a parent row
-        Gtk.TreeIter parent;
-        sidebar_store.append(out parent, null);
-        sidebar_store.set(parent, 0, "Cameras");
-        cameras_row = new Gtk.TreeRowReference(sidebar_store, sidebar_store.get_path(parent));
-        
         // add stored events
         Gee.ArrayList<EventID?> event_ids = event_table.get_events();
         foreach (EventID event_id in event_ids)
@@ -708,6 +702,15 @@ public class AppWindow : Gtk.Window {
         return sidebar_store.get_path(parent);
     }
     
+    private Gtk.TreePath insert_sidebar_parent_after(Gtk.TreeRowReference row, string name) {
+        Gtk.TreeIter sibling, new_sibling;
+        sidebar_store.get_iter(out sibling, row.get_path());
+        sidebar_store.insert_after(out new_sibling, null, sibling);
+        sidebar_store.set(new_sibling, 0, name);
+        
+        return sidebar_store.get_path(new_sibling);
+    }
+    
     private Gtk.TreePath add_sidebar_child(Gtk.TreeRowReference row, string name) {
         Gtk.TreeIter parent, child;
         sidebar_store.get_iter(out parent, row.get_path());
@@ -715,6 +718,13 @@ public class AppWindow : Gtk.Window {
         sidebar_store.set(child, 0, name);
         
         return sidebar_store.get_path(child);
+    }
+    
+    private void prune_sidebar(Gtk.TreeRowReference row) {
+        Gtk.TreeIter branch;
+        sidebar_store.get_iter(out branch, row.get_path());
+        
+        sidebar_store.remove(branch);
     }
     
     private void add_parent_page(Page parent, string name) {
@@ -781,6 +791,14 @@ public class AppWindow : Gtk.Window {
         orphan.set_marker(new PageMarker(vbox));
         
         notebook.show_all();
+    }
+    
+    // a grouping row is a top-level element in the sidebar that does not have its own page, and
+    // therefore cannot be selected.  "Cameras" is an example.
+    private Gtk.TreeRowReference insert_grouping_row(Gtk.TreeRowReference after, string name) {
+        Gtk.TreePath path = insert_sidebar_parent_after(after, name);
+        
+        return new Gtk.TreeRowReference(sidebar_store, path);
     }
     
     private void remove_page(Page page) {
@@ -1020,7 +1038,10 @@ public class AppWindow : Gtk.Window {
     private bool on_sidebar_selection(Gtk.TreeSelection selection, Gtk.TreeModel model, Gtk.TreePath path,
         bool path_currently_selected) {
         // Cameras path unselectable, all others okay
-        return path.compare(cameras_row.get_path()) != 0;
+        if (cameras_row != null)
+            return path.compare(cameras_row.get_path()) != 0;
+        
+        return true;
     }
     
     private void do_op(GPhoto.Result res, string op) throws GPhotoError {
@@ -1222,12 +1243,24 @@ public class AppWindow : Gtk.Window {
             debug("Adding to camera table: %s @ %s", name, port);
             
             ImportPage page = new ImportPage(camera, uri);
+            
+            // create the Cameras row if this is the first one
+            if (cameras_row == null)
+                cameras_row = insert_grouping_row(events_directory_page.get_marker().get_row(),
+                    "Cameras");
+                
             add_child_page_to_row(cameras_row, page, name);
 
             camera_map.set(uri, page);
             
             // automagically expand the Cameras branch so the user sees the attached camera(s)
             sidebar.expand_row(cameras_row.get_path(), true);
+        }
+        
+        // if no cameras present, remove row
+        if (camera_map.size == 0 && cameras_row != null) {
+            prune_sidebar(cameras_row);
+            cameras_row = null;
         }
     }
     
