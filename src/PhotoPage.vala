@@ -16,6 +16,9 @@ public class CropToolWindow : Gtk.Window {
         
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
         set_transient_for(owner);
+        unset_flags(Gtk.WidgetFlags.CAN_FOCUS);
+        set_accept_focus(false);
+        set_focus_on_map(false);
         
         apply_button.set_tooltip_text("Set the crop for this photo");
         cancel_button.set_tooltip_text("Return to current photo dimensions");
@@ -32,32 +35,42 @@ public class CropToolWindow : Gtk.Window {
         layout_frame.add(layout);
         
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK);
-        button_press_event += on_button_pressed;
-        focus_in_event += on_focused_gained;
-        realize += on_realized;
         
         add(layout_frame);
     }
     
-    private bool on_button_pressed(CropToolWindow ctw, Gdk.EventButton event) {
+    private override bool button_press_event(Gdk.EventButton event) {
         // LMB only
         if (event.button != 1)
-            return false;
+            return base.button_press_event(event);
         
         begin_move_drag((int) event.button, (int) event.x_root, (int) event.y_root, event.time);
         user_moved = true;
         
-        return false;
+        return true;
     }
     
-    private bool on_focused_gained(CropToolWindow ctw, Gdk.EventFocus event) {
-        owner.present();
+    private override void realize() {
+        set_opacity(FullscreenWindow.TOOLBAR_OPACITY);
+        
+        base.realize();
+    }
+    
+    // This is necessary because some window managers (Metacity seems to be guilty of it) seem to
+    // ignore the set_focus_on_map flag, and give the toolbar focus when it appears on the screen.
+    // Thereafter, thanks to set_accept_focus, the toolbar will never accept it.  Because changing
+    // focus inside of a focus signal seems to be problematic, if the toolbar ever does receive
+    // focus, it schedules a task to give it back to its owner.
+    private override bool focus(Gtk.DirectionType direction) {
+        Idle.add_full(Priority.HIGH, unsteal_focus);
         
         return true;
     }
     
-    private void on_realized() {
-        set_opacity(FullscreenWindow.TOOLBAR_OPACITY);
+    private bool unsteal_focus() {
+        owner.present_with_time(Gdk.CURRENT_TIME);
+        
+        return false;
     }
 }
 
