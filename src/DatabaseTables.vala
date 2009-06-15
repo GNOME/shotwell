@@ -1,8 +1,8 @@
 
 public class DatabaseTable {
     /*** 
-     This number should be incremented every time any database schema is altered between
-     releases.
+     * This number should be incremented every time any database schema is altered between
+     * releases.
      ***/
     public static const int SCHEMA_VERSION = 1;
     
@@ -429,13 +429,8 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         
         res = stmt.step();
-        if(res != Sqlite.ROW) {
-            warning("get_photo_id", res);
-
-            return PhotoID();
-        }
         
-        return PhotoID(stmt.column_int64(0));
+        return (res == Sqlite.ROW) ? PhotoID(stmt.column_int64(0)) : PhotoID();
     }
 
     public Gee.ArrayList<PhotoID?> get_photos() {

@@ -226,6 +226,24 @@ public class AppWindow : Gtk.Window {
         { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", on_fullscreen }
     };
     
+    private class DragDropImportJob : BatchImportJob {
+        private File file;
+        
+        public DragDropImportJob(string uri) {
+            file = File.new_for_uri(uri);
+        }
+        
+        public override string get_identifier() {
+            return file.get_uri();
+        }
+        
+        public override bool prepare(out File file_to_import) {
+            file_to_import = file;
+            
+            return true;
+        }
+    }
+
     public static void init(string[] args) {
         AppWindow.args = args;
 
@@ -299,8 +317,45 @@ public class AppWindow : Gtk.Window {
     public static void error_message(string message) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
+        dialog.title = TITLE;
         dialog.run();
         dialog.destroy();
+    }
+    
+    private static string? generate_import_failure_list(Gee.List<string> failed) {
+        if (failed.size == 0)
+            return null;
+        
+        string list = "";
+        for (int ctr = 0; ctr < 4 && ctr < failed.size; ctr++)
+            list += "%s\n".printf(failed.get(ctr));
+        
+        if (failed.size > 4)
+            list += "%d more photo(s) not imported.\n".printf(failed.size - 4);
+        
+        return list;
+    }
+    
+    public static void report_import_failures(Gee.List<string> failed, Gee.List<string> skipped) {
+        string failed_list = generate_import_failure_list(failed);
+        string skipped_list = generate_import_failure_list(skipped);
+        
+        if (failed_list == null && skipped_list == null)
+            return;
+            
+        string message = "%d photo(s) were not imported.\n".printf(failed.size + skipped.size);
+
+        if (failed_list != null) {
+            message += "\n%d photos failed due to error:\n".printf(failed.size);
+            message += failed_list;
+        }
+        
+        if (skipped_list != null) {
+            message += "\n%d photos were skipped:\n".printf(skipped.size);
+            message += skipped_list;
+        }
+        
+        error_message(message);
     }
     
     // this needs to be ref'd the lifetime of the application
@@ -497,6 +552,14 @@ public class AppWindow : Gtk.Window {
         present();
     }
     
+    public void set_busy_cursor() {
+        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
+    }
+    
+    public void set_normal_cursor() {
+        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+    }
+    
     public void photo_imported(Photo photo) {
         // want to know when it's removed from the system for cleanup
         photo.removed += on_photo_removed;
@@ -506,15 +569,7 @@ public class AppWindow : Gtk.Window {
         collection_page.refresh();
     }
     
-    public void set_busy_cursor() {
-        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
-    }
-    
-    public void set_normal_cursor() {
-        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
-    }
-    
-    public void batch_import_complete(SortedList<int64?> imported_photos) {
+    public void batch_import_complete(SortedList<Photo> imported_photos) {
         debug("Processing imported photos to create events ...");
 
         // walk through photos, splitting into events based on criteria
@@ -522,8 +577,7 @@ public class AppWindow : Gtk.Window {
         time_t current_event_start = 0;
         EventID current_event_id = EventID();
         EventPage current_event_page = null;
-        foreach (int64 id in imported_photos) {
-            Photo photo = Photo.fetch(PhotoID(id));
+        foreach (Photo photo in imported_photos) {
             time_t exposure_time = photo.get_exposure_time();
 
             if (exposure_time == 0) {
@@ -626,7 +680,7 @@ public class AppWindow : Gtk.Window {
             }
         }
     }
-
+    
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
         // don't accept drops from our own application
@@ -636,13 +690,25 @@ public class AppWindow : Gtk.Window {
             return;
         }
 
-        // grab URIs and release back to system
         string[] uris = selection_data.get_uris();
-        Gtk.drag_finish(context, true, false, time);
+        Gee.ArrayList<DragDropImportJob> jobs = new Gee.ArrayList<DragDropImportJob>();
 
-        // do the importing from within the idle loop, so the DnD transaction is completed
-        BatchImport batch_import = new BatchImport(uris);
-        batch_import.schedule();
+        foreach (string uri in uris)
+            jobs.add(new DragDropImportJob(uri));
+
+        if (jobs.size > 0) {
+            BatchImport batch_import = new BatchImport(jobs);
+            batch_import.import_complete += on_import_complete;
+            batch_import.schedule();
+        }
+
+        Gtk.drag_finish(context, true, false, time);
+    }
+    
+    private void on_import_complete(ImportID import_id, SortedList<Photo> photos, Gee.ArrayList<string> failed, 
+        Gee.ArrayList<string> skipped) {
+        if (failed.size > 0 || skipped.size > 0)
+            report_import_failures(failed, skipped);
     }
     
     public void switch_to_collection_page() {
@@ -961,6 +1027,7 @@ public class AppWindow : Gtk.Window {
                             "The camera is locked for use as a mounted drive.  "
                             + "Shotwell can only access the drive when it's unlocked.  "
                             + "Do you want Shotwell to unmount the drive for you?");
+                        dialog.title = TITLE;
                         int dialog_res = dialog.run();
                         dialog.destroy();
                         
@@ -978,6 +1045,7 @@ public class AppWindow : Gtk.Window {
                             "The camera is locked by another application.  "
                             + "Shotwell can only access the drive when it's unlocked.  "
                             + "Please close any other application using the camera and try again.");
+                        dialog.title = TITLE;
                         dialog.run();
                         dialog.destroy();
                         

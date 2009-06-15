@@ -77,6 +77,7 @@ public class ExportDialog : Gtk.Dialog {
     private bool in_insert = false;
     
     public ExportDialog(int count) {
+        // TODO: I18N
         title = "Export Photo%s".printf(count > 1 ? "s" : "");
         has_separator = false;
         allow_grow = false;

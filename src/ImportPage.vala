@@ -85,6 +85,41 @@ class ProgressBarContext {
 }
 
 public class ImportPage : CheckerboardPage {
+    private class CameraImportJob : BatchImportJob {
+        private ProgressBarContext context;
+        private GPhoto.Camera camera;
+        private string dir;
+        private string filename;
+        private File dest_file;
+        
+        public CameraImportJob(ProgressBarContext context, GPhoto.Camera camera, string dir, 
+            string filename, File dest_file) {
+            this.context = context;
+            this.camera = camera;
+            this.dir = dir;
+            this.filename = filename;
+            this.dest_file = dest_file;
+        }
+        
+        public override string get_identifier() {
+            return filename;
+        }
+        
+        public override bool prepare(out File file_to_import) {
+            context.set_message("Copying %s to photo library".printf(filename));
+            
+            try {
+                GPhoto.save_image(context.context, camera, dir, filename, dest_file);
+            } catch (Error err) {
+                return false;
+            }
+            
+            file_to_import = dest_file;
+            
+            return true;
+        }
+    }
+    
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.ToolButton import_selected_button;
@@ -94,6 +129,7 @@ public class ImportPage : CheckerboardPage {
     private string uri;
     private ProgressBarContext init_context = null;
     private ProgressBarContext loading_context = null;
+    private ProgressBarContext saving_context = null;
     private bool busy = false;
     private bool refreshed = false;
     private GPhoto.Result refresh_result = GPhoto.Result.OK;
@@ -129,6 +165,7 @@ public class ImportPage : CheckerboardPage {
         
         init_context = new ProgressBarContext(progress_bar, "Initializing camera ...");
         loading_context =  new ProgressBarContext(progress_bar, "Fetching photo previews ..");
+        saving_context = new ProgressBarContext(progress_bar, "");
         
         // toolbar
         // Camera label
@@ -335,6 +372,8 @@ public class ImportPage : CheckerboardPage {
         return RefreshResult.OK;
     }
     
+    // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
+    // between each mount
     private string? get_fs_basedir(int fsid) {
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
@@ -342,18 +381,12 @@ public class ImportPage : CheckerboardPage {
         if (res != GPhoto.Result.OK)
             return null;
         
-        GPhoto.CameraStorageInformation *ifs = sifs;
-        for (int ctr = 0; ctr < count; ctr++, ifs++) {
-            if (ctr != fsid)
-                continue;
+        if (fsid >= count)
+            return null;
         
-            if ((ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0)
-                return ifs->basedir;
-            else
-                return "/";
-        }
+        GPhoto.CameraStorageInformation *ifs = sifs + fsid;
         
-        return null;
+        return (ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0 ? ifs->basedir : "/";
     }
     
     private bool load_preview(int fsid, owned string dir) {
@@ -483,12 +516,11 @@ public class ImportPage : CheckerboardPage {
         busy = true;
         import_selected_button.sensitive = false;
         import_all_button.sensitive = false;
-        
-        ProgressBarContext saving_context = new ProgressBarContext(progress_bar, "");
-        string[] uris = new string[0];
+        saving_context.set_message("");
+
         int failed = 0;
+        Gee.ArrayList<CameraImportJob> jobs = new Gee.ArrayList<CameraImportJob>();
         
-        // copy all files to photo library
         foreach (LayoutItem item in items) {
             ImportPreview preview = (ImportPreview) item;
             
@@ -512,46 +544,56 @@ public class ImportPage : CheckerboardPage {
             File dest_file = BatchImport.create_library_path(preview.filename, preview.exif, time_t(),
                 out collision);
             if (dest_file == null) {
-                debug("Unable to generate local file for %s/%s: Import aborted.", dir, preview.filename);
+                debug("Unable to generate local file for %s/%s", dir, preview.filename);
                 failed++;
                 
                 continue;
             }
             
-            saving_context.set_message("Copying %s to photo library".printf(preview.filename));
-            
-            try {
-                GPhoto.save_image(saving_context.context, camera, dir, preview.filename, dest_file);
-            } catch (Error err) {
-                debug("Unable to import %s: %s", preview.filename, err.message);
-                failed++;
-
-                continue;
-            }
-            
-            uris += dest_file.get_uri();
-            
-            if (!spin_event_loop())
-                break;
+            jobs.add(new CameraImportJob(saving_context, camera, dir, preview.filename, dest_file));
         }
-        
+
         if (failed > 0) {
+            // TODO: I18N
             string plural = (failed > 1) ? "s" : "";
-            AppWindow.error_message("Unable to import %d photo%s due to error%s".printf(failed,
-                plural, plural));
+            AppWindow.error_message("Unable to import %d photo%s from the camera due to fatal error%s.".printf(
+                failed, plural, plural));
         }
         
-        // properly import them into the system
-        if (uris.length > 0) {
-            BatchImport batch_import = new BatchImport(uris);
+        if (jobs.size > 0) {
+            BatchImport batch_import = new BatchImport(jobs);
+            batch_import.import_complete += on_import_complete;
+            batch_import.import_job_failed += on_import_job_failed;
             batch_import.schedule();
+            // camera.exit() and busy flag will be handled when the batch import completes
+        } else {
+            close_import();
         }
+    }
+    
+    private void on_import_complete(ImportID import_id, SortedList<Photo> photos,
+        Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
+        if (failed.size > 0 || skipped.size > 0)
+            AppWindow.report_import_failures(failed, skipped);
+        
+        close_import();
+    }
+    
+    private void on_import_job_failed(ImportResult result, BatchImportJob job, File file) {
+        // delete the copied file
+        try {
+            file.delete(null);
+        } catch (Error err) {
+            message("Unable to delete downloaded file %s: %s", file.get_path(), err.message);
+        }
+    }
 
+    private void close_import() {
         import_selected_button.sensitive = get_selected_count() > 0;
         import_all_button.sensitive = get_count() > 0;
         saving_context.set_message("");
         
-        res = camera.exit(init_context.context);
+        GPhoto.Result res = camera.exit(init_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);

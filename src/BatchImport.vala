@@ -1,26 +1,19 @@
 
+public abstract class BatchImportJob {
+    public abstract string get_identifier();
+    
+    public abstract bool prepare(out File file_to_import);
+}
+
+// BatchImport performs the work of taking a file (supplied by BatchImportJob's) and properly importing
+// it into the system, including database additions, thumbnail creation, and reporting it to AppWindow
+// so it's properly added to various views and events.
 public class BatchImport {
-    private class DateComparator : Comparator<int64?> {
-        private PhotoTable photo_table;
-        
-        public DateComparator(PhotoTable photo_table) {
-            this.photo_table = photo_table;
-        }
-        
-        public override int64 compare(int64? ida, int64? idb) {
-            time_t timea = photo_table.get_exposure_time(PhotoID(ida));
-            time_t timeb = photo_table.get_exposure_time(PhotoID(idb));
-            
-            return timea - timeb;
+    private class DateComparator : Comparator<Photo> {
+        public override int64 compare(Photo photo_a, Photo photo_b) {
+            return photo_a.get_exposure_time() - photo_b.get_exposure_time();
         }
     }
-    
-    private string[] uris;
-    private BatchImport ref_holder = null;
-    private PhotoTable photo_table = new PhotoTable();
-    private SortedList<int64?> imported_photos = null;
-    private Gee.ArrayList<string> import_failed = null;
-    private ImportID import_id = ImportID();
     
     public static File? create_library_path(string filename, Exif.Data? exif, time_t ts, out bool collision) {
         File dir = AppWindow.get_photos_dir();
@@ -86,34 +79,75 @@ public class BatchImport {
         return null;
     }
 
-    public BatchImport(string[] uris) {
-        this.uris = uris;
+    private static int get_test_variable(string name) {
+        string value = Environment.get_variable(name);
+        if (value == null || value.length == 0)
+            return 0;
+        
+        return value.to_int();
     }
     
+    private Gee.Iterable<BatchImportJob> jobs;
+    private BatchImport ref_holder = null;
+    private SortedList<Photo> success = null;
+    private Gee.ArrayList<string> failed = null;
+    private Gee.ArrayList<string> skipped = null;
+    private ImportID import_id = ImportID();
+    private bool scheduled = false;
+    private bool user_aborted = false;
+    private int import_file_count = 0;
+    
+    // these are for debugging and testing only
+    private int fail_every = 0;
+    private int skip_every = 0;
+    
+    public BatchImport(Gee.Iterable<BatchImportJob> jobs) {
+        this.jobs = jobs;
+        this.fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
+        this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
+    }
+    
+    // Called for each Photo imported to the system
+    public signal void imported(Photo photo);
+    
+    // Called when a job fails.  import_complete will also be called at the end of the batch
+    public signal void import_job_failed(ImportResult result, BatchImportJob job, File file);
+    
+    // Called at the end of the batched jobs; this will be signalled exactly once for the batch
+    public signal void import_complete(ImportID import_id, SortedList<Photo> photos_by_date, 
+        Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped);
+
     public void schedule() {
+        assert(!scheduled);
+        
         // XXX: This is necessary because Idle.add doesn't ref SourceFunc:
         // http://bugzilla.gnome.org/show_bug.cgi?id=548427
         this.ref_holder = this;
 
-        Idle.add(on_import_uris);
+        Idle.add(perform_import);
+        scheduled = true;
     }
 
-    private bool on_import_uris() {
-        imported_photos = new SortedList<int64?>(new Gee.ArrayList<int64?>(), new DateComparator(photo_table));
-        import_failed = new Gee.ArrayList<string>();
-        import_id = photo_table.generate_import_id();
+    private bool perform_import() {
+        success = new SortedList<Photo>(new Gee.ArrayList<Photo>(), new DateComparator());
+        failed = new Gee.ArrayList<string>();
+        skipped = new Gee.ArrayList<string>();
+        import_id = (new PhotoTable()).generate_import_id();
 
-        // import one at a time
-        foreach (string uri in uris)
-            import(File.new_for_uri(uri));
+        foreach (BatchImportJob job in jobs) {
+            File file;
+            if (job.prepare(out file))
+                import(job, file, job.get_identifier());
+            else
+                failed.add(job.get_identifier());
+        }
         
-        // report errors, if any
-        // TODO: More informative dialog box
-        if (import_failed.size > 0)
-            AppWindow.error_message("Unable to import %d photos".printf(import_failed.size));
-
-        // report all new photos to AppWindow
-        AppWindow.get_instance().batch_import_complete(imported_photos);
+        // report to AppWindow to organize into events
+        if (success.size > 0)
+            AppWindow.get_instance().batch_import_complete(success);
+        
+        // report completed
+        import_complete(import_id, success, failed, skipped);
 
         // XXX: unref "this" ... vital that the self pointer is not touched from here on out
         ref_holder = null;
@@ -121,67 +155,109 @@ public class BatchImport {
         return false;
     }
 
-    private void import(File file) {
+    private void import(BatchImportJob job, File file, string id) {
+        if (user_aborted) {
+            skipped.add(id);
+            
+            return;
+        }
+        
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         
-        bool imported = false;
+        ImportResult result;
         switch (type) {
             case FileType.DIRECTORY:
-                imported = import_dir(file);
+                result = import_dir(job, file);
             break;
             
             case FileType.REGULAR:
-                imported = import_file(file);
+                result = import_file(file);
             break;
             
             default:
                 debug("Skipping file %s (neither a directory nor a file)", file.get_path());
+                result = ImportResult.NOT_A_FILE;
             break;
         }
         
-        if (!imported)
-            import_failed.add(file.get_path());
+        switch (result) {
+            case ImportResult.SUCCESS:
+                // all is well, photo(s) added to success list
+            break;
+            
+            case ImportResult.USER_ABORT:
+                // no fall-through in Vala
+                user_aborted = true;
+                skipped.add(id);
+                import_job_failed(result, job, file);
+            break;
+
+            case ImportResult.NOT_A_FILE:
+            case ImportResult.PHOTO_EXISTS:
+                skipped.add(id);
+                import_job_failed(result, job, file);
+            break;
+            
+            default:
+                failed.add(id);
+                import_job_failed(result, job, file);
+            break;
+        }
     }
     
-    private bool import_dir(File dir) {
+    private ImportResult import_dir(BatchImportJob job, File dir) {
         try {
             FileEnumerator enumerator = dir.enumerate_children("*",
                 FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
             if (enumerator == null)
-                return false;
+                return ImportResult.FILE_ERROR;
             
             if (!spin_event_loop())
-                return false;
+                return ImportResult.USER_ABORT;
 
             FileInfo info = null;
             while ((info = enumerator.next_file(null)) != null) {
-                import(dir.get_child(info.get_name()));
+                File subdir = dir.get_child(info.get_name());
+                import(job, subdir, subdir.get_uri());
             }
         } catch (Error err) {
             debug("Unable to import from %s: %s", dir.get_path(), err.message);
             
-            return false;
+            return ImportResult.FILE_ERROR;
         }
         
-        return true;
+        return ImportResult.SUCCESS;
     }
     
-    private bool import_file(File file) {
-        Photo photo = Photo.import(file, import_id);
-        if (photo == null)
-            return false;
-
+    private ImportResult import_file(File file) {
         if (!spin_event_loop())
-            return false;
+            return ImportResult.USER_ABORT;
 
-        // add to imported list for splitting into events
-        PhotoID photo_id = photo.get_photo_id();
-        imported_photos.add(photo_id.id);
+        import_file_count++;
+        if (fail_every > 0) {
+            if (import_file_count % fail_every == 0)
+                return ImportResult.FILE_ERROR;
+        }
         
-        // report to AppWindow for it to disseminate
+        if (skip_every > 0) {
+            if (import_file_count % skip_every == 0)
+                return ImportResult.NOT_A_FILE;
+        }
+        
+        Photo photo;
+        ImportResult result = Photo.import(file, import_id, out photo);
+        if (result != ImportResult.SUCCESS)
+            return result;
+        
+        success.add(photo);
+        
+        // report to AppWindow for system-wide inclusion
         AppWindow.get_instance().photo_imported(photo);
-        
-        return true;
+
+        // report to observers
+        imported(photo);
+
+        return ImportResult.SUCCESS;
     }
 }
 

@@ -78,6 +78,7 @@ void main(string[] args) {
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, 
             "The database for your photo library is not compatible with this version of Shotwell.  "
             + "It appears it was created by Shotwell %s.  Please use that version or later.", app_version);
+        dialog.title = AppWindow.TITLE;
         dialog.run();
         dialog.destroy();
     } else {

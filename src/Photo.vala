@@ -1,3 +1,12 @@
+public enum ImportResult {
+    SUCCESS,
+    FILE_ERROR,
+    DECODE_ERROR,
+    DATABASE_ERROR,
+    USER_ABORT,
+    NOT_A_FILE,
+    PHOTO_EXISTS
+}
 
 public class Photo : Object {
     public static const int EXCEPTION_NONE          = 0;
@@ -27,9 +36,22 @@ public class Photo : Object {
     public static void terminate() {
     }
     
-    public static Photo? import(File file, ImportID import_id) {
+    public static ImportResult import(File file, ImportID import_id, out Photo photo) {
         debug("Importing file %s", file.get_path());
 
+        FileInfo info = null;
+        try {
+            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            return ImportResult.FILE_ERROR;
+        }
+        
+        if (info.get_file_type() != FileType.REGULAR)
+            return ImportResult.NOT_A_FILE;
+        
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(timestamp);
+        
         Dimensions dim = Dimensions();
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
@@ -38,10 +60,10 @@ public class Photo : Object {
         PhotoExif exif = new PhotoExif(file);
         if (exif.has_exif()) {
             if (!exif.get_dimensions(out dim))
-                debug("Unable to read EXIF dimensions for %s", file.get_path());
+                message("Unable to read EXIF dimensions for %s", file.get_path());
             
             if (!exif.get_timestamp(out exposure_time))
-                debug("Unable to read EXIF orientation for %s", file.get_path());
+                message("Unable to read EXIF orientation for %s", file.get_path());
 
             orientation = exif.get_orientation();
         }
@@ -50,37 +72,24 @@ public class Photo : Object {
         try {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         } catch (Error err) {
-            AppWindow.error_message("Unable to import %s: %s".printf(file.get_path(), err.message));
-            
-            return null;
+            // assume a decode error, although technically it could be I/O ... need better Gdk
+            // bindings to determine which
+            return ImportResult.DECODE_ERROR;
         }
         
         // XXX: Trust EXIF or Pixbuf for dimensions?
         if (!dim.has_area())
             dim = Dimensions(pixbuf.get_width(), pixbuf.get_height());
 
-        FileInfo info = null;
-        try {
-            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            AppWindow.error_message("Unable to import %s: %s".printf(file.get_path(), err.message));
-            
-            return null;
-        }
-        
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
+        if (photo_table.is_photo_stored(file))
+            return ImportResult.PHOTO_EXISTS;
         
         // photo information is stored in database in raw, non-modified format ... this is especially
         // important dealing with dimensions and orientation
         PhotoID photo_id = photo_table.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
             orientation, import_id);
-        if (photo_id.is_invalid()) {
-            AppWindow.error_message(
-                "Unable to import %s: Already present in photo library".printf(file.get_path()));
-            
-            return null;
-        }
+        if (photo_id.is_invalid())
+            return ImportResult.DATABASE_ERROR;
         
         // sanity ... this would be very bad
         assert(!photo_map.contains(photo_id.id));
@@ -91,7 +100,9 @@ public class Photo : Object {
         // import it into the thumbnail cache with modifications
         ThumbnailCache.import(photo_id, pixbuf);
         
-        return fetch(photo_id);
+        photo = fetch(photo_id);
+        
+        return ImportResult.SUCCESS;
     }
     
     public static Photo fetch(PhotoID photo_id) {
