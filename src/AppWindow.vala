@@ -213,6 +213,7 @@ public class AppWindow : Gtk.Window {
 
     private static AppWindow instance = null;
     private static string[] args = null;
+    private static bool user_quit = false;
 
     private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
@@ -358,6 +359,10 @@ public class AppWindow : Gtk.Window {
         error_message(message);
     }
     
+    public static bool has_user_quit() {
+        return user_quit;
+    }
+    
     // this needs to be ref'd the lifetime of the application
     private Hal.Context hal_context = new Hal.Context();
     private DBus.Connection hal_conn = null;
@@ -497,6 +502,7 @@ public class AppWindow : Gtk.Window {
     }
     
     private void on_quit() {
+        user_quit = true;
         Gtk.main_quit();
     }
     

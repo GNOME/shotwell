@@ -579,7 +579,10 @@ public class ImportPage : CheckerboardPage {
         close_import();
     }
     
-    private void on_import_job_failed(ImportResult result, BatchImportJob job, File file) {
+    private void on_import_job_failed(ImportResult result, BatchImportJob job, File? file) {
+        if (file == null)
+            return;
+            
         // delete the copied file
         try {
             file.delete(null);

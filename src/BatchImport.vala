@@ -111,7 +111,7 @@ public class BatchImport {
     public signal void imported(Photo photo);
     
     // Called when a job fails.  import_complete will also be called at the end of the batch
-    public signal void import_job_failed(ImportResult result, BatchImportJob job, File file);
+    public signal void import_job_failed(ImportResult result, BatchImportJob job, File? file);
     
     // Called at the end of the batched jobs; this will be signalled exactly once for the batch
     public signal void import_complete(ImportID import_id, SortedList<Photo> photos_by_date, 
@@ -135,11 +135,23 @@ public class BatchImport {
         import_id = (new PhotoTable()).generate_import_id();
 
         foreach (BatchImportJob job in jobs) {
+            if (AppWindow.has_user_quit())
+                user_aborted = true;
+                
+            if (user_aborted) {
+                import_job_failed(ImportResult.USER_ABORT, job, null);
+                skipped.add(job.get_identifier());
+                
+                continue;
+            }
+            
             File file;
-            if (job.prepare(out file))
+            if (job.prepare(out file)) {
                 import(job, file, job.get_identifier());
-            else
+            } else {
+                import_job_failed(ImportResult.FILE_ERROR, job, null);
                 failed.add(job.get_identifier());
+            }
         }
         
         // report to AppWindow to organize into events
