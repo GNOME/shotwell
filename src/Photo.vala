@@ -17,7 +17,7 @@ public class Photo : Object {
     public static const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.BILINEAR;
     
     private static Gee.HashMap<int64?, Photo> photo_map = null;
-    private static PhotoTable photo_table = new PhotoTable();
+    private static PhotoTable photo_table = null;
     private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
     
@@ -31,6 +31,7 @@ public class Photo : Object {
     
     public static void init() {
         photo_map = new Gee.HashMap<int64?, Photo>(int64_hash, int64_equal, direct_equal);
+        photo_table = new PhotoTable();
     }
     
     public static void terminate() {
@@ -137,6 +138,20 @@ public class Photo : Object {
     
     public File get_file() {
         return photo_table.get_file(photo_id);
+    }
+    
+    public uint64 query_filesize() {
+        FileInfo info = null;
+        try {
+            info = get_file().query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            debug("Unable to query filesize for %s: %s", get_file().get_path(), err.message);
+
+            return 0;
+        }
+        
+        return info.get_size();
     }
     
     public time_t get_exposure_time() {

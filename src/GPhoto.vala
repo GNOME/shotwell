@@ -3,6 +3,73 @@ public errordomain GPhotoError {
 }
 
 namespace GPhoto {
+    // ContextWrapper assigns signals to the various GPhoto.Context callbacks, as well as spins
+    // the event loop at opportune times.
+    public class ContextWrapper {
+        public Context context = new Context();
+        
+        public ContextWrapper() {
+            context.set_idle_func(on_idle);
+            context.set_error_func(on_error);
+            context.set_status_func(on_status);
+            context.set_message_func(on_message);
+            context.set_progress_funcs(on_progress_start, on_progress_update, on_progress_stop);
+        }
+        
+        public virtual void idle() {
+        }
+        
+        public virtual void error(string format, void *va_list) {
+        }
+        
+        public virtual void status(string format, void *va_list) {
+        }
+        
+        public virtual void message(string format, void *va_list) {
+        }
+        
+        public virtual void progress_start(float target, string format, void *va_list) {
+        }
+        
+        public virtual void progress_update(float current) {
+        }
+        
+        public virtual void progress_stop() {
+        }
+        
+        private void on_idle(Context context) {
+            idle();
+            spin_event_loop();
+        }
+
+        private void on_error(Context context, string format, void *va_list) {
+            error(format, va_list);
+        }
+        
+        private void on_status(Context context, string format, void *va_list) {
+            status(format, va_list);
+        }
+        
+        private void on_message(Context context, string format, void *va_list) {
+            message(format, va_list);
+        }
+        
+        private uint on_progress_start(Context context, float target, string format, void *va_list) {
+            progress_start(target, format, va_list);
+            
+            return 0;
+        }
+        
+        private void on_progress_update(Context context, uint id, float current) {
+            progress_update(current);
+            spin_event_loop();
+        }
+        
+        private void on_progress_stop(Context context, uint id) {
+            progress_stop();
+        }
+    }
+    
     public void get_info(Context context, Camera camera, string folder, string filename,
         out CameraFileInfo info) throws Error {
         Result res = camera.get_file_info(folder, filename, out info, context);

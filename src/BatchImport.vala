@@ -88,6 +88,7 @@ public class BatchImport {
     }
     
     private Gee.Iterable<BatchImportJob> jobs;
+    private ulong target;
     private BatchImport ref_holder = null;
     private SortedList<Photo> success = null;
     private Gee.ArrayList<string> failed = null;
@@ -101,14 +102,18 @@ public class BatchImport {
     private int fail_every = 0;
     private int skip_every = 0;
     
-    public BatchImport(Gee.Iterable<BatchImportJob> jobs) {
+    public BatchImport(Gee.Iterable<BatchImportJob> jobs, ulong target = 0) {
         this.jobs = jobs;
+        this.target = target;
         this.fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
         this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
     }
     
+    // Called once, when the schedule task begins
+    public signal void starting();
+    
     // Called for each Photo imported to the system
-    public signal void imported(Photo photo);
+    public signal void imported(Photo photo, ulong target);
     
     // Called when a job fails.  import_complete will also be called at the end of the batch
     public signal void import_job_failed(ImportResult result, BatchImportJob job, File? file);
@@ -129,6 +134,8 @@ public class BatchImport {
     }
 
     private bool perform_import() {
+        starting();
+        
         success = new SortedList<Photo>(new Gee.ArrayList<Photo>(), new DateComparator());
         failed = new Gee.ArrayList<string>();
         skipped = new Gee.ArrayList<string>();
@@ -267,7 +274,7 @@ public class BatchImport {
         AppWindow.get_instance().photo_imported(photo);
 
         // report to observers
-        imported(photo);
+        imported(photo, target);
 
         return ImportResult.SUCCESS;
     }

@@ -3,12 +3,15 @@ class ImportPreview : LayoutItem {
     public int fsid;
     public string folder;
     public string filename;
+    public ulong file_size;
     public Exif.Data exif;
     
-    public ImportPreview(Gdk.Pixbuf pixbuf, Exif.Data exif, int fsid, string folder, string filename) {
+    public ImportPreview(Gdk.Pixbuf pixbuf, Exif.Data exif, int fsid, string folder, string filename,
+        ulong file_size) {
         this.fsid = fsid;
         this.folder = folder;
         this.filename = filename;
+        this.file_size = file_size;
         this.exif = exif;
         
         Orientation orientation = Orientation.TOP_LEFT;
@@ -27,77 +30,38 @@ class ImportPreview : LayoutItem {
     }
 }
 
-class ProgressBarContext {
-    public GPhoto.Context context = new GPhoto.Context();
-    
-    private Gtk.ProgressBar progress_bar;
-    private string msg;
-    private float task_target = 0.0;
-    
-    public ProgressBarContext(Gtk.ProgressBar progress_bar, string msg) {
-        this.progress_bar = progress_bar;
-        this.msg = msg;
-
-        context.set_idle_func(on_idle);
-        context.set_error_func(on_error);
-        context.set_status_func(on_status);
-        context.set_message_func(on_message);
-        context.set_progress_funcs(on_progress_start, on_progress_update, on_progress_stop);
-    }
-    
-    public void set_message(string msg) {
-        this.msg = msg;
-        progress_bar.set_text(msg);
-    }
-
-    private void on_idle() {
-        spin_event_loop();
-    }
-    
-    private void on_error(GPhoto.Context context, string format, void *va_list) {
-    }
-    
-    private void on_status(GPhoto.Context context, string format, void *va_list) {
-    }
-    
-    private void on_message(GPhoto.Context context, string format, void *va_list) {
-    }
-    
-    private uint on_progress_start(GPhoto.Context context, float target, string format, void *va_list) {
-        task_target = target;
-        progress_bar.set_fraction(0.0);
-        progress_bar.set_text(msg);
-        
-        return 0;
-    }
-    
-    private void on_progress_update(GPhoto.Context context, uint id, float current) {
-        progress_bar.set_fraction(current / task_target);
-        progress_bar.set_text(msg);
-
-        spin_event_loop();
-    }
-    
-    private void on_progress_stop(GPhoto.Context context, uint id) {
-        progress_bar.set_fraction(0.0);
-        progress_bar.set_text("");
-    }
-}
-
 public class ImportPage : CheckerboardPage {
+    private class ImportFile {
+        public int fsid;
+        public string dir;
+        public string filename;
+        public ulong file_size;
+        public ulong preview_size;
+        
+        public ImportFile(int fsid, string dir, string filename, ulong file_size, ulong preview_size) {
+            this.fsid = fsid;
+            this.dir = dir;
+            this.filename = filename;
+            this.file_size = file_size;
+            this.preview_size = preview_size;
+        }
+    }
+    
     private class CameraImportJob : BatchImportJob {
-        private ProgressBarContext context;
+        private GPhoto.ContextWrapper context;
         private GPhoto.Camera camera;
         private string dir;
         private string filename;
+        private ulong file_size;
         private File dest_file;
         
-        public CameraImportJob(ProgressBarContext context, GPhoto.Camera camera, string dir, 
-            string filename, File dest_file) {
+        public CameraImportJob(GPhoto.ContextWrapper context, GPhoto.Camera camera, string dir, 
+            string filename, ulong file_size, File dest_file) {
             this.context = context;
             this.camera = camera;
             this.dir = dir;
             this.filename = filename;
+            this.file_size = file_size;
             this.dest_file = dest_file;
         }
         
@@ -106,8 +70,6 @@ public class ImportPage : CheckerboardPage {
         }
         
         public override bool prepare(out File file_to_import) {
-            context.set_message("Copying %s to photo library".printf(filename));
-            
             try {
                 GPhoto.save_image(context.context, camera, dir, filename, dest_file);
             } catch (Error err) {
@@ -125,17 +87,14 @@ public class ImportPage : CheckerboardPage {
     private Gtk.ToolButton import_selected_button;
     private Gtk.ToolButton import_all_button;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
+    private uint64 progress_bytes = 0;
     private GPhoto.Camera camera;
+    private GPhoto.ContextWrapper null_context = new GPhoto.ContextWrapper();
     private string uri;
-    private ProgressBarContext init_context = null;
-    private ProgressBarContext loading_context = null;
-    private ProgressBarContext saving_context = null;
     private bool busy = false;
     private bool refreshed = false;
     private GPhoto.Result refresh_result = GPhoto.Result.OK;
     private string refresh_error = null;
-    private int file_count = 0;
-    private int completed_count = 0;
     private string camera_name;
     
     // TODO: Mark fields for translation
@@ -163,10 +122,6 @@ public class ImportPage : CheckerboardPage {
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
         
-        init_context = new ProgressBarContext(progress_bar, "Initializing camera ...");
-        loading_context =  new ProgressBarContext(progress_bar, "Fetching photo previews ..");
-        saving_context = new ProgressBarContext(progress_bar, "");
-        
         // toolbar
         // Camera label
         Gtk.ToolItem camera_label_item = new Gtk.ToolItem();
@@ -182,6 +137,7 @@ public class ImportPage : CheckerboardPage {
         toolbar.insert(separator, -1);
         
         progress_bar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
+        progress_bar.visible = false;
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
         progress_item.add(progress_bar);
         
@@ -253,11 +209,6 @@ public class ImportPage : CheckerboardPage {
         return toolbar;
     }
     
-    public override void switched_to() {
-        if (busy || refreshed)
-            return;
-    }
-    
     public override void on_selection_changed(int count) {
         import_selected_button.sensitive = !busy && refreshed && (count > 0);
     }
@@ -269,12 +220,9 @@ public class ImportPage : CheckerboardPage {
     }
     
     public void on_unmounted(Object source, AsyncResult aresult) {
-        debug("on_unmounted");
-
         Mount mount = (Mount) source;
         try {
             mount.unmount_finish(aresult);
-            debug("unmounted");
         } catch (Error err) {
             // TODO: Better error reporting
             debug("%s", err.message);
@@ -316,34 +264,41 @@ public class ImportPage : CheckerboardPage {
         refreshed = false;
         
         refresh_error = null;
-        refresh_result = camera.init(init_context.context);
+        refresh_result = camera.init(null_context.context);
         if (refresh_result != GPhoto.Result.OK)
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         
         busy = true;
-        file_count = 0;
-        completed_count = 0;
         
         import_selected_button.sensitive = false;
         import_all_button.sensitive = false;
         
+        Gee.ArrayList<ImportFile> file_list = new Gee.ArrayList<ImportFile>();
+        ulong total_bytes = 0;
+        ulong total_preview_bytes = 0;
+        
+        progress_bar.set_text("");
         progress_bar.set_fraction(0.0);
+        progress_bar.visible = true;
 
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
-        refresh_result = camera.get_storageinfo(&sifs, out count, init_context.context);
+        refresh_result = camera.get_storageinfo(&sifs, out count, null_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             remove_all();
             refresh();
             
-            GPhoto.CameraStorageInformation *ifs = sifs;
-            for (int fsid = 0; fsid < count; fsid++, ifs++) {
-                if (!load_preview(fsid, "/"))
+            for (int fsid = 0; fsid < count; fsid++) {
+                if (!enumerate_files(fsid, "/", file_list, out total_bytes, out total_preview_bytes))
                     break;
             }
         }
+        
+        load_previews(file_list, total_preview_bytes);
+        
+        progress_bar.visible = false;
 
-        GPhoto.Result res = camera.exit(init_context.context);
+        GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
@@ -352,9 +307,6 @@ public class ImportPage : CheckerboardPage {
         import_selected_button.sensitive = get_selected_count() > 0;
         import_all_button.sensitive = get_count() > 0;
         
-        progress_bar.set_text("");
-        progress_bar.set_fraction(0.0);
-
         busy = false;
 
         if (refresh_result != GPhoto.Result.OK) {
@@ -377,7 +329,7 @@ public class ImportPage : CheckerboardPage {
     private string? get_fs_basedir(int fsid) {
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
-        GPhoto.Result res = camera.get_storageinfo(&sifs, out count, init_context.context);
+        GPhoto.Result res = camera.get_storageinfo(&sifs, out count, null_context.context);
         if (res != GPhoto.Result.OK)
             return null;
         
@@ -389,34 +341,34 @@ public class ImportPage : CheckerboardPage {
         return (ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0 ? ifs->basedir : "/";
     }
     
-    private bool load_preview(int fsid, owned string dir) {
-        if (!dir.has_prefix("/"))
-            dir = "/" + dir;
-            
+    private string? get_fulldir(int fsid, string dir) {
         string basedir = get_fs_basedir(fsid);
         if (basedir == null) {
             debug("Unable to find base directory for fsid %d", fsid);
             
-            return false;
+            return null;
         }
-            
-        string fulldir = basedir + dir;
+        
+        if (!basedir.has_suffix("/") && !dir.has_prefix("/"))
+            basedir += "/";
+        
+        return basedir + dir;
+    }
+    
+    private bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportFile> file_list, 
+        out ulong total_bytes, out ulong total_preview_bytes) {
+        string fulldir = get_fulldir(fsid, dir);
+        if (fulldir == null)
+            return false;
         
         GPhoto.CameraList files;
         refresh_result = GPhoto.CameraList.create(out files);
         if (refresh_result != GPhoto.Result.OK)
             return false;
-            
-        refresh_result = camera.list_files(fulldir, files, loading_context.context);
+        
+        refresh_result = camera.list_files(fulldir, files, null_context.context);
         if (refresh_result != GPhoto.Result.OK)
             return false;
-        
-        // TODO: It *may* be more desireable to count files prior to importing them so the progress
-        // bar is more accurate during import.  Otherwise, when one filesystem is completed w/ a
-        // progress of 100%, the bar will reset to something lower as it traverses the next
-        file_count += files.count();
-        
-        uint8[] buffer = new uint8[64 * 1024];
         
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
@@ -426,36 +378,30 @@ public class ImportPage : CheckerboardPage {
             
             try {
                 GPhoto.CameraFileInfo info;
-                GPhoto.get_info(loading_context.context, camera, fulldir, filename, out info);
+                GPhoto.get_info(null_context.context, camera, fulldir, filename, out info);
                 
                 // at this point, only interested in JPEG files with a JPEG preview
                 if (((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)
                     || ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)) {
-                    debug("Skipping %s/%s: No preview (preview=%02Xh file=%02Xh)", fulldir, filename,
+                    message("Skipping %s/%s: No preview (preview=%02Xh file=%02Xh)", fulldir, filename,
                         info.preview.fields, info.file.fields);
                         
                     continue;
                 }
                 
                 if ((info.preview.type != GPhoto.MIME.JPEG) || (info.file.type != GPhoto.MIME.JPEG)) {
-                    debug("Skipping %s/%s: Not a JPEG (preview=%s file=%s)", fulldir, filename,
+                    message("Skipping %s/%s: Not a JPEG (preview=%s file=%s)", fulldir, filename,
                         info.preview.type, info.file.type);
                         
                     continue;
                 }
                 
-                Gdk.Pixbuf pixbuf = GPhoto.load_preview(loading_context.context, camera, fulldir, filename, 
-                    buffer);
-                Exif.Data exif = GPhoto.load_exif(loading_context.context, camera, fulldir, filename, 
-                    buffer);
+                ImportFile import_file = new ImportFile(fsid, dir, filename, info.file.size,
+                    info.preview.size);
                 
-                ImportPreview preview = new ImportPreview(pixbuf, exif, fsid, dir, filename);
-                add_item(preview);
-            
-                refresh();
-                
-                completed_count++;
-                progress_bar.set_fraction((double) completed_count / (double) file_count);
+                file_list.add(import_file);
+                total_bytes += info.file.size;
+                total_preview_bytes += info.preview.size;
                 
                 // spin the event loop so the UI doesn't freeze
                 if (!spin_event_loop())
@@ -472,24 +418,63 @@ public class ImportPage : CheckerboardPage {
         if (refresh_result != GPhoto.Result.OK)
             return false;
 
-        refresh_result = camera.list_folders(fulldir, folders, loading_context.context);
+        refresh_result = camera.list_folders(fulldir, folders, null_context.context);
         if (refresh_result != GPhoto.Result.OK)
             return false;
-        
-        if (!dir.has_suffix("/"))
-            dir = dir + "/";
         
         for (int ctr = 0; ctr < folders.count(); ctr++) {
             string subdir;
             refresh_result = folders.get_name(ctr, out subdir);
             if (refresh_result != GPhoto.Result.OK)
                 return false;
+            
+            string recurse_dir = null;
+            if (!dir.has_suffix("/") && !subdir.has_prefix("/"))
+                recurse_dir = dir + "/" + subdir;
+            else
+                recurse_dir = dir + subdir;
 
-            if (!load_preview(fsid, dir + subdir))
+            if (!enumerate_files(fsid, recurse_dir, file_list, out total_bytes, out total_preview_bytes))
                 return false;
         }
         
         return true;
+    }
+    
+    private void load_previews(Gee.ArrayList<ImportFile> file_list, ulong total_preview_bytes) {
+        uint8[] buffer = new uint8[64 * 1024];
+
+        ulong bytes = 0;
+        try {
+            foreach (ImportFile import_file in file_list) {
+                string fulldir = get_fulldir(import_file.fsid, import_file.dir);
+                if (fulldir == null)
+                    continue;
+                
+                progress_bar.set_text("Fetching preview for %s".printf(import_file.filename));
+                
+                Gdk.Pixbuf pixbuf = GPhoto.load_preview(null_context.context, camera, fulldir, 
+                    import_file.filename, buffer);
+                Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, 
+                    import_file.filename, buffer);
+                
+                bytes += import_file.preview_size;
+                progress_bar.set_fraction((double) bytes / (double) total_preview_bytes);
+                
+                ImportPreview preview = new ImportPreview(pixbuf, exif, import_file.fsid, import_file.dir, 
+                    import_file.filename, import_file.file_size);
+                add_item(preview);
+            
+                refresh();
+                
+                // spin the event loop so the UI doesn't freeze
+                if (!spin_event_loop())
+                    break;
+            }
+        } catch (GPhotoError err) {
+            AppWindow.error_message("Error while fetching previews from %s: %s".printf(camera_name,
+                err.message));
+        }
     }
     
     private void on_file() {
@@ -506,7 +491,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import(Gee.Iterable<LayoutItem> items) {
-        GPhoto.Result res = camera.init(init_context.context);
+        GPhoto.Result res = camera.init(null_context.context);
         if (res != GPhoto.Result.OK) {
             AppWindow.error_message("Unable to lock camera: %s".printf(res.as_string()));
             
@@ -516,9 +501,9 @@ public class ImportPage : CheckerboardPage {
         busy = true;
         import_selected_button.sensitive = false;
         import_all_button.sensitive = false;
-        saving_context.set_message("");
 
         int failed = 0;
+        ulong total_bytes = 0;
         Gee.ArrayList<CameraImportJob> jobs = new Gee.ArrayList<CameraImportJob>();
         
         foreach (LayoutItem item in items) {
@@ -538,19 +523,19 @@ public class ImportPage : CheckerboardPage {
                 
             dir = basedir + dir;
             
-            debug("Importing %d %s %s", preview.fsid, dir, preview.filename);
-            
             bool collision;
             File dest_file = BatchImport.create_library_path(preview.filename, preview.exif, time_t(),
                 out collision);
             if (dest_file == null) {
-                debug("Unable to generate local file for %s/%s", dir, preview.filename);
+                message("Unable to generate local file for %s/%s", dir, preview.filename);
                 failed++;
                 
                 continue;
             }
             
-            jobs.add(new CameraImportJob(saving_context, camera, dir, preview.filename, dest_file));
+            jobs.add(new CameraImportJob(null_context, camera, dir, preview.filename, 
+                preview.file_size, dest_file));
+            total_bytes += preview.file_size;
         }
 
         if (failed > 0) {
@@ -561,7 +546,9 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs);
+            BatchImport batch_import = new BatchImport(jobs, total_bytes);
+            batch_import.starting += on_import_starting;
+            batch_import.imported += on_imported;
             batch_import.import_complete += on_import_complete;
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.schedule();
@@ -571,12 +558,26 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
+    private void on_import_starting() {
+        progress_bytes = 0;
+        progress_bar.set_text("");
+        progress_bar.set_fraction(0.0);
+        progress_bar.visible = true;
+    }
+    
+    private void on_imported(Photo photo, ulong target) {
+        progress_bytes += photo.query_filesize();
+        
+        progress_bar.set_text("Imported %s".printf(photo.get_file().get_basename()));
+        progress_bar.set_fraction((double) progress_bytes / (double) target);
+    }
+    
     private void on_import_complete(ImportID import_id, SortedList<Photo> photos,
         Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
+        close_import();
+
         if (failed.size > 0 || skipped.size > 0)
             AppWindow.report_import_failures(failed, skipped);
-        
-        close_import();
     }
     
     private void on_import_job_failed(ImportResult result, BatchImportJob job, File? file) {
@@ -594,9 +595,9 @@ public class ImportPage : CheckerboardPage {
     private void close_import() {
         import_selected_button.sensitive = get_selected_count() > 0;
         import_all_button.sensitive = get_count() > 0;
-        saving_context.set_message("");
+        progress_bar.visible = false;
         
-        GPhoto.Result res = camera.exit(init_context.context);
+        GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
