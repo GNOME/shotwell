@@ -950,3 +950,235 @@ public abstract class CheckerboardPage : Page {
             cursor_to_item(item);
    }
 }
+
+public abstract class SinglePhotoPage : Page {
+    public static const Gdk.InterpType FAST_INTERP = Gdk.InterpType.NEAREST;
+    public static const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.HYPER;
+    
+    public static const int IMPROVAL_MSEC = 250;
+    
+    public enum UpdateReason {
+        NEW_PHOTO,
+        QUALITY_IMPROVEMENT,
+        RESIZED_CANVAS
+    }
+    
+    protected Gdk.GC canvas_gc = null;
+    protected Gtk.DrawingArea canvas = new Gtk.DrawingArea();
+    protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
+    
+    private Gdk.Pixmap pixmap = null;
+    private Dimensions pixmap_dim = Dimensions();
+    private Gdk.Pixbuf unscaled = null;
+    private Gdk.Pixbuf scaled = null;
+    private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
+    private Gdk.InterpType interp = FAST_INTERP;
+    private bool improval_scheduled = false;
+    private bool reschedule_improval = false;
+    
+    public SinglePhotoPage() {
+        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+
+        viewport.set_shadow_type(Gtk.ShadowType.NONE);
+        viewport.set_border_width(0);
+        viewport.add(canvas);
+        
+        add(viewport);
+        
+        // turn off double-buffering because all painting happens in pixmap, and is sent to the window
+        // wholesale in on_canvas_expose
+        canvas.set_double_buffered(false);
+        canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
+            | Gdk.EventMask.SUBSTRUCTURE_MASK);
+        
+        viewport.size_allocate += on_viewport_resize;
+        canvas.expose_event += on_canvas_exposed;
+        
+        set_event_source(canvas);
+    }
+    
+    public void set_pixbuf(Gdk.Pixbuf unscaled) {
+        this.unscaled = unscaled;
+        
+        // flush pixmap to force repaint
+        pixmap = null;
+        
+        // need to make sure this happens
+        canvas.realize();
+        
+        repaint();
+    }
+    
+    public Gdk.Drawable? get_drawable() {
+        return pixmap;
+    }
+    
+    public Dimensions get_drawable_dim() {
+        return pixmap_dim;
+    }
+    
+    public Gdk.Pixbuf? get_unscaled_pixbuf() {
+        return unscaled;
+    }
+    
+    public Gdk.Pixbuf? get_scaled_pixbuf() {
+        return scaled;
+    }
+    
+    public Gdk.Rectangle get_scaled_position() {
+        return scaled_pos;
+    }
+    
+    public void invalidate(Gdk.Rectangle rect) {
+        if (canvas.window != null)
+            canvas.window.invalidate_rect(rect, false);
+    }
+    
+    public void invalidate_all() {
+        if (canvas.window != null)
+            canvas.window.invalidate_rect(null, false);
+    }
+    
+    private void on_viewport_resize() {
+        repaint();
+    }
+    
+    private bool on_canvas_exposed(Gdk.EventExpose event) {
+        // to avoid multiple exposes
+        if (event.count > 0)
+            return false;
+        
+        if (pixmap == null)
+            return false;
+        
+        canvas.window.draw_drawable(canvas_gc, pixmap, event.area.x, event.area.y, event.area.x, 
+            event.area.y, event.area.width, event.area.height);
+
+        return true;
+    }
+    
+    protected virtual void new_drawable(Gdk.Drawable drawable) {
+    }
+    
+    protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
+    }
+    
+    protected virtual void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+        drawable.draw_pixbuf(gc, scaled, 0, 0, scaled_pos.x, scaled_pos.y, -1, -1, 
+            Gdk.RgbDither.NORMAL, 0, 0);
+    }
+    
+    public void repaint(Gdk.InterpType repaint_interp = FAST_INTERP) {
+        // no image, no painting
+        if (unscaled == null)
+            return;
+        
+        int width = viewport.allocation.width;
+        int height = viewport.allocation.height;
+        
+        if (width <= 0 || height <= 0)
+            return;
+            
+        bool new_photo = (pixmap == null);
+        
+        // save if reporting an image being rescaled
+        Dimensions old_scaled_dim = Dimensions.for_rectangle(scaled_pos);
+
+        // attempt to reuse pixmap
+        if (pixmap_dim.width != width || pixmap_dim.height != height)
+            pixmap = null;
+        
+        // if necessary, create a pixmap as large as the entire viewport
+        if (pixmap == null) {
+            init_pixmap(width, height);
+        
+            // override caller's request ... pixbuf will be rescheduled for improvement
+            repaint_interp = FAST_INTERP;
+        } else if (repaint_interp == FAST_INTERP && interp == QUALITY_INTERP) {
+            // block calls where the pixmap is not being regenerated and the caller is asking for
+            // a lower interp
+            repaint_interp = QUALITY_INTERP;
+        }
+        
+        // rescale if canvas rescaled or better quality is requested
+        if (scaled == null || interp != repaint_interp) {
+            scaled = unscaled.scale_simple(scaled_pos.width, scaled_pos.height, repaint_interp);
+            
+            UpdateReason reason = UpdateReason.RESIZED_CANVAS;
+            if (new_photo) 
+                reason = UpdateReason.NEW_PHOTO;
+            else if (interp == FAST_INTERP && repaint_interp == QUALITY_INTERP)
+                reason = UpdateReason.QUALITY_IMPROVEMENT;
+            
+            interp = repaint_interp;
+
+            updated_pixbuf(scaled, reason, old_scaled_dim);
+        }
+        
+        paint(canvas_gc, pixmap);
+
+        // invalidate everything
+        invalidate_all();
+        
+        // schedule improvement if low-quality pixbuf was used
+        if (interp != QUALITY_INTERP)
+            schedule_improval();
+    }
+    
+    private void init_pixmap(int width, int height) {
+        assert(unscaled != null);
+        
+        pixmap = new Gdk.Pixmap(canvas.window, width, height, -1);
+        pixmap_dim = Dimensions(width, height);
+        
+        // need a new pixbuf to fit this scale
+        scaled = null;
+
+        // determine size of pixbuf that will fit on the canvas
+        Dimensions scaled_dim = Dimensions.for_pixbuf(unscaled).get_scaled_proportional(pixmap_dim);
+        
+        assert(width >= scaled_dim.width);
+        assert(height >= scaled_dim.height);
+
+        // center pixbuf on the canvas
+        scaled_pos.x = (width - scaled_dim.width) / 2;
+        scaled_pos.y = (height - scaled_dim.height) / 2;
+        scaled_pos.width = scaled_dim.width;
+        scaled_pos.height = scaled_dim.height;
+
+        canvas_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
+
+        // resize canvas for the pixmap (that is, the entire viewport)
+        canvas.set_size_request(width, height);
+
+        // draw background
+        pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
+        
+        new_drawable(pixmap);
+    }
+
+    private void schedule_improval() {
+        if (improval_scheduled) {
+            reschedule_improval = true;
+            
+            return;
+        }
+        
+        Timeout.add(IMPROVAL_MSEC, image_improval);
+        improval_scheduled = true;
+    }
+    
+    private bool image_improval() {
+        if (reschedule_improval) {
+            reschedule_improval = false;
+            
+            return true;
+        }
+        
+        repaint(QUALITY_INTERP);
+        improval_scheduled = false;
+        
+        return false;
+    }
+}
+
