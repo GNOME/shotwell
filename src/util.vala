@@ -175,19 +175,23 @@ public uint64 query_total_file_size(File file_or_dir) throws Error {
     return total_bytes;
 }
 
-public time_t query_file_modified(File file) {
-    FileInfo info = null;
-    try {
-        info = file.query_info(FILE_ATTRIBUTE_TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
-            null);
-    } catch (Error err) {
-        critical("Unable to query modified time for %s: %s", file.get_path(), err.message);
-        
-        return 0;
-    }
+public time_t query_file_modified(File file) throws Error {
+    FileInfo info = file.query_info(FILE_ATTRIBUTE_TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
+        null);
 
     TimeVal timestamp = TimeVal();
     info.get_modification_time(timestamp);
     
     return timestamp.tv_sec;
+}
+
+public bool query_is_directory_empty(File dir) throws Error {
+    if (dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) != FileType.DIRECTORY)
+        return false;
+    
+    FileEnumerator enumerator = dir.enumerate_children("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+    if (enumerator == null)
+        return false;
+    
+    return enumerator.next_file(null) == null;
 }

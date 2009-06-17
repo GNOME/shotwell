@@ -536,6 +536,19 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_remove() {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
+            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, 
+            "Removing these photos from your library will also delete their files in your %s directory.  Continue?",
+            AppWindow.PHOTOS_DIR);
+        dialog.title = "Remove photos?";
+        
+        Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+        
+        dialog.destroy();
+        
+        if (result != Gtk.ResponseType.YES)
+            return;
+            
         // iterate over selected photos and remove them from entire system .. this will result
         // in on_photo_removed being called, which we don't want in this case is because it will
         // remove from the list while iterating, so disconnect the signals and do the work here

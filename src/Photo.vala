@@ -462,7 +462,7 @@ public class Photo : Object {
         return ThumbnailCache.fetch(photo_id, scale);
     }
     
-    public void remove() {
+    public void remove(bool remove_original = true) {
         // signal all interested parties prior to removal from map
         removed();
 
@@ -472,9 +472,15 @@ public class Photo : Object {
         // remove exportable file
         remove_exportable_file();
         
-        // remove from photo table -- should be wiped from storage now
-        photo_table.remove(photo_id);
+        // remove original
+        if (remove_original)
+            remove_original_file();
 
+        // remove from photo table -- should be wiped from storage now (other classes may have added
+        // photo_id to other parts of the database ... it's their responsibility to remove them
+        // when removed() is called)
+        photo_table.remove(photo_id);
+        
         // remove from global map
         photo_map.remove(photo_id.id);
     }
@@ -509,6 +515,40 @@ public class Photo : Object {
         }
     }
     
+    private void remove_original_file() {
+        File file = get_file();
+        
+        try {
+            file.delete(null);
+        } catch (Error err) {
+            // log error but don't abend, as this is not fatal to operation (also, could be
+            // the photo is removed because it could not be found during a verify)
+            message("Unable to delete original photo %s: %s", file.get_path(), err.message);
+        }
+        
+        File parent = file;
+        
+        // remove empty directories corresponding to imported path
+        for (int depth = 0; depth < BatchImport.IMPORT_DIRECTORY_DEPTH; depth++) {
+            parent = parent.get_parent();
+            if (parent == null)
+                break;
+            
+            if (!query_is_directory_empty(parent))
+                break;
+            
+            try {
+                parent.delete(null);
+                debug("Deleted empty directory %s", parent.get_path());
+            } catch (Error err) {
+                // again, log error but don't abend
+                message("Unable to delete empty directory %s: %s", parent.get_path(),
+                    err.message);
+            }
+            
+        }
+    }
+
     public Currency check_currency() {
         FileInfo info = null;
         try {

@@ -9,6 +9,8 @@ public abstract class BatchImportJob {
 // it into the system, including database additions, thumbnail creation, and reporting it to AppWindow
 // so it's properly added to various views and events.
 public class BatchImport {
+    public static const int IMPORT_DIRECTORY_DEPTH = 3;
+    
     private class DateComparator : Comparator<Photo> {
         public override int64 compare(Photo photo_a, Photo photo_b) {
             return photo_a.get_exposure_time() - photo_b.get_exposure_time();
@@ -40,7 +42,7 @@ public class BatchImport {
         
         Time tm = Time.local(timestamp);
         
-        // build a directory tree inside the library:
+        // build a directory tree inside the library, as deep as IMPORT_DIRECTORY_DEPTH:
         // yyyy/mm/dd
         dir = dir.get_child("%04u".printf(tm.year + 1900));
         dir = dir.get_child("%02u".printf(tm.month + 1));
@@ -81,7 +83,12 @@ public class BatchImport {
 
     private static ImportResult copy_file(File src, out File dest) {
         PhotoExif exif = new PhotoExif(src);
-        time_t timestamp = query_file_modified(src);
+        time_t timestamp = 0;
+        try {
+            timestamp = query_file_modified(src);
+        } catch (Error err) {
+            critical("Unable to access file modification for %s: %s", src.get_path(), err.message);
+        }
 
         bool collision;
         dest = create_library_path(src.get_basename(), exif.get_exif(), timestamp, out collision);
