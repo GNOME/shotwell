@@ -2,7 +2,7 @@
 public abstract class BatchImportJob {
     public abstract string get_identifier();
     
-    public abstract bool prepare(out File file_to_import);
+    public abstract bool prepare(out File file_to_import, out bool copy_to_library);
 }
 
 // BatchImport performs the work of taking a file (supplied by BatchImportJob's) and properly importing
@@ -77,6 +77,33 @@ public class BatchImport {
         }
         
         return null;
+    }
+
+    private static ImportResult copy_file(File src, out File dest) {
+        PhotoExif exif = new PhotoExif(src);
+        time_t timestamp = query_file_modified(src);
+
+        bool collision;
+        dest = create_library_path(src.get_basename(), exif.get_exif(), timestamp, out collision);
+        if (dest == null)
+            return ImportResult.FILE_ERROR;
+        
+        debug("Copying %s to %s", src.get_path(), dest.get_path());
+        
+        try {
+            src.copy(dest, FileCopyFlags.ALL_METADATA, null, on_copy_progress);
+        } catch (Error err) {
+            critical("Unable to copy file %s to %s: %s", src.get_path(), dest.get_path(),
+                err.message);
+            
+            return ImportResult.FILE_ERROR;
+        }
+        
+        return ImportResult.SUCCESS;
+    }
+    
+    private static void on_copy_progress(int64 current, int64 total) {
+        spin_event_loop();
     }
 
     private static int get_test_variable(string name) {
@@ -167,8 +194,9 @@ public class BatchImport {
             }
             
             File file;
-            if (job.prepare(out file)) {
-                import(job, file, job.get_identifier());
+            bool copy_to_library;
+            if (job.prepare(out file, out copy_to_library)) {
+                import(job, file, copy_to_library, job.get_identifier());
             } else {
                 import_job_failed(ImportResult.FILE_ERROR, job, null);
                 failed.add(job.get_identifier());
@@ -188,7 +216,7 @@ public class BatchImport {
         return false;
     }
 
-    private void import(BatchImportJob job, File file, string id) {
+    private void import(BatchImportJob job, File file, bool copy_to_library, string id) {
         if (user_aborted) {
             skipped.add(id);
             
@@ -200,11 +228,11 @@ public class BatchImport {
         ImportResult result;
         switch (type) {
             case FileType.DIRECTORY:
-                result = import_dir(job, file);
+                result = import_dir(job, file, copy_to_library);
             break;
             
             case FileType.REGULAR:
-                result = import_file(file);
+                result = import_file(file, copy_to_library);
             break;
             
             default:
@@ -238,7 +266,7 @@ public class BatchImport {
         }
     }
     
-    private ImportResult import_dir(BatchImportJob job, File dir) {
+    private ImportResult import_dir(BatchImportJob job, File dir, bool copy_to_library) {
         try {
             FileEnumerator enumerator = dir.enumerate_children("*",
                 FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
@@ -250,8 +278,8 @@ public class BatchImport {
 
             FileInfo info = null;
             while ((info = enumerator.next_file(null)) != null) {
-                File subdir = dir.get_child(info.get_name());
-                import(job, subdir, subdir.get_uri());
+                File child = dir.get_child(info.get_name());
+                import(job, child, copy_to_library, child.get_uri());
             }
         } catch (Error err) {
             debug("Unable to import from %s: %s", dir.get_path(), err.message);
@@ -262,7 +290,7 @@ public class BatchImport {
         return ImportResult.SUCCESS;
     }
     
-    private ImportResult import_file(File file) {
+    private ImportResult import_file(File file, bool copy_to_library) {
         if (!spin_event_loop())
             return ImportResult.USER_ABORT;
 
@@ -277,8 +305,19 @@ public class BatchImport {
                 return ImportResult.NOT_A_FILE;
         }
         
+        File import = file;
+        
+        if (copy_to_library) {
+            File copied;
+            ImportResult result = copy_file(file, out copied);
+            if (result != ImportResult.SUCCESS)
+                return result;
+            
+            import = copied;
+        }
+        
         Photo photo;
-        ImportResult result = Photo.import(file, import_id, out photo);
+        ImportResult result = Photo.import(import, import_id, out photo);
         if (result != ImportResult.SUCCESS)
             return result;
         

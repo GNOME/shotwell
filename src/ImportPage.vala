@@ -69,7 +69,7 @@ public class ImportPage : CheckerboardPage {
             return filename;
         }
         
-        public override bool prepare(out File file_to_import) {
+        public override bool prepare(out File file_to_import, out bool copy_to_library) {
             try {
                 GPhoto.save_image(context.context, camera, dir, filename, dest_file);
             } catch (Error err) {
@@ -77,6 +77,7 @@ public class ImportPage : CheckerboardPage {
             }
             
             file_to_import = dest_file;
+            copy_to_library = false;
             
             return true;
         }

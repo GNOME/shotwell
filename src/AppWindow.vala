@@ -235,23 +235,28 @@ public class AppWindow : Gtk.Window {
     private const Gtk.ActionEntry[] COMMON_ACTIONS = {
         { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", on_quit },
         { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
-        { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", on_fullscreen },
-        { "CommonHelpContents", Gtk.STOCK_HELP, "_Contents", "F1", "More informaton on Shotwell", on_help_contents }
+        { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", 
+            on_fullscreen },
+        { "CommonHelpContents", Gtk.STOCK_HELP, "_Contents", "F1", "More informaton on Shotwell", 
+            on_help_contents }
     };
     
     private class DragDropImportJob : BatchImportJob {
-        private File file;
+        private File file_or_dir;
         
         public DragDropImportJob(string uri) {
-            file = File.new_for_uri(uri);
+            file_or_dir = File.new_for_uri(uri);
         }
         
         public override string get_identifier() {
-            return file.get_uri();
+            return file_or_dir.get_uri();
         }
         
-        public override bool prepare(out File file_to_import) {
-            file_to_import = file;
+        public override bool prepare(out File file_to_import, out bool copy_to_library) {
+            // Copy the file into the photo library; this version of the app, all imports are
+            // copied.  Later updates may allow for links and moves.
+            file_to_import = file_or_dir;
+            copy_to_library = true;
             
             return true;
         }
@@ -758,7 +763,7 @@ public class AppWindow : Gtk.Window {
             jobs.add(new DragDropImportJob(uri));
             
             try {
-                total_bytes += total_file_size(File.new_for_uri(uri));
+                total_bytes += query_total_file_size(File.new_for_uri(uri));
             } catch (Error err) {
                 debug("Unable to query filesize of %s: %s", uri, err.message);
             }
