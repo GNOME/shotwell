@@ -199,6 +199,9 @@ public class AppWindow : Gtk.Window {
     public static const string VERSION = "0.1";
     public static const string DATA_DIR = ".photo";
     public static const string PHOTOS_DIR = "Pictures";
+    public static const string YORBA_URL = "http://www.yorba.org";
+    public static const string APP_URL = "http://www.yorba.org";
+    public static const string HELP_URL = "http://trac.yorba.org:8000/wiki/PhotoOrganizer";
 
     public static const int SIDEBAR_MIN_WIDTH = 160;
     public static const int SIDEBAR_MAX_WIDTH = 320;
@@ -224,7 +227,8 @@ public class AppWindow : Gtk.Window {
     private const Gtk.ActionEntry[] COMMON_ACTIONS = {
         { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", on_quit },
         { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
-        { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", on_fullscreen }
+        { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", on_fullscreen },
+        { "CommonHelpContents", Gtk.STOCK_HELP, "_Contents", "F1", "More informaton on Shotwell", on_help_contents }
     };
     
     private class DragDropImportJob : BatchImportJob {
@@ -483,6 +487,8 @@ public class AppWindow : Gtk.Window {
         } catch (GPhotoError err) {
             error("%s", err.message);
         }
+
+        Gtk.AboutDialog.set_url_hook(on_about_link);
     }
     
     public Gtk.ActionGroup get_common_action_group() {
@@ -498,9 +504,13 @@ public class AppWindow : Gtk.Window {
         Gtk.show_about_dialog(this,
             "version", AppWindow.VERSION,
             "comments", "A photo organizer",
-            "copyright", "(c) 2009 Yorba Foundation",
-            "website", "http://www.yorba.org"
+            "copyright", "Copyright (c) 2009 Yorba Foundation",
+            "website", YORBA_URL
         );
+    }
+    
+    private void on_about_link(Gtk.AboutDialog about_dialog, string url) {
+        open_link(url);
     }
     
     private void on_quit() {
@@ -510,6 +520,18 @@ public class AppWindow : Gtk.Window {
     
     private override void destroy() {
         on_quit();
+    }
+    
+    private void on_help_contents() {
+        open_link(HELP_URL);
+    }
+    
+    private void open_link(string url) {
+        try {
+            Gtk.show_uri(window.get_screen(), url, Gdk.CURRENT_TIME);
+        } catch (Error err) {
+            critical("Unable to load URL: %s", err.message);
+        }
     }
     
     private void on_fullscreen() {

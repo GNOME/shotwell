@@ -52,7 +52,10 @@ RESOURCE_FILES = \
 	photo.ui \
 	collection.ui \
 	import.ui \
-	fullscreen.ui
+	fullscreen.ui \
+	import_queue.ui \
+	events_directory.ui \
+	event.ui
 
 SRC_HEADER_FILES = \
 	gphoto.h
