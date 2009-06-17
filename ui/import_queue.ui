@@ -1,0 +1,16 @@
+<ui>
+
+    <menubar name="ImportQueueMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Stop" action="Stop" />
+            <separator />
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+
+</ui>
+
