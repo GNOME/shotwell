@@ -88,7 +88,8 @@ public class BatchImport {
     }
     
     private Gee.Iterable<BatchImportJob> jobs;
-    private ulong target;
+    private string name;
+    private uint64 total_bytes;
     private BatchImport ref_holder = null;
     private SortedList<Photo> success = null;
     private Gee.ArrayList<string> failed = null;
@@ -102,9 +103,10 @@ public class BatchImport {
     private int fail_every = 0;
     private int skip_every = 0;
     
-    public BatchImport(Gee.Iterable<BatchImportJob> jobs, ulong target = 0) {
+    public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, uint64 total_bytes = 0) {
         this.jobs = jobs;
-        this.target = target;
+        this.name = name;
+        this.total_bytes = total_bytes;
         this.fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
         this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
     }
@@ -113,7 +115,7 @@ public class BatchImport {
     public signal void starting();
     
     // Called for each Photo imported to the system
-    public signal void imported(Photo photo, ulong target);
+    public signal void imported(Photo photo);
     
     // Called when a job fails.  import_complete will also be called at the end of the batch
     public signal void import_job_failed(ImportResult result, BatchImportJob job, File? file);
@@ -121,6 +123,18 @@ public class BatchImport {
     // Called at the end of the batched jobs; this will be signalled exactly once for the batch
     public signal void import_complete(ImportID import_id, SortedList<Photo> photos_by_date, 
         Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped);
+
+    public string get_name() {
+        return name;
+    }
+    
+    public uint64 get_total_bytes() {
+        return total_bytes;
+    }
+    
+    public void user_halt() {
+        user_aborted = true;
+    }
 
     public void schedule() {
         assert(!scheduled);
@@ -274,7 +288,7 @@ public class BatchImport {
         AppWindow.get_instance().photo_imported(photo);
 
         // report to observers
-        imported(photo, target);
+        imported(photo);
 
         return ImportResult.SUCCESS;
     }

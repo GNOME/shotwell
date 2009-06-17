@@ -140,3 +140,37 @@ public enum CompassPoint {
     EAST,
     WEST
 }
+
+public uint64 total_file_size(File file_or_dir) throws Error {
+    spin_event_loop();
+
+    FileType type = file_or_dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+    if (type == FileType.REGULAR) {
+        FileInfo info = null;
+        try {
+            info = file_or_dir.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            debug("Unable to query filesize for %s: %s", file_or_dir.get_path(), err.message);
+
+            return 0;
+        }
+        
+        return info.get_size();
+    } else if (type != FileType.DIRECTORY) {
+        return 0;
+    }
+        
+    FileEnumerator enumerator = file_or_dir.enumerate_children("*",
+        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+    if (enumerator == null)
+        return 0;
+    
+    uint64 total_bytes = 0;
+        
+    FileInfo info = null;
+    while ((info = enumerator.next_file(null)) != null)
+        total_bytes += total_file_size(file_or_dir.get_child(info.get_name()));
+    
+    return total_bytes;
+}

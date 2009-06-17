@@ -87,7 +87,6 @@ public class ImportPage : CheckerboardPage {
     private Gtk.ToolButton import_selected_button;
     private Gtk.ToolButton import_all_button;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
-    private uint64 progress_bytes = 0;
     private GPhoto.Camera camera;
     private GPhoto.ContextWrapper null_context = new GPhoto.ContextWrapper();
     private string uri;
@@ -297,6 +296,8 @@ public class ImportPage : CheckerboardPage {
         load_previews(file_list, total_preview_bytes);
         
         progress_bar.visible = false;
+        progress_bar.set_text("");
+        progress_bar.set_fraction(0.0);
 
         GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
@@ -501,6 +502,7 @@ public class ImportPage : CheckerboardPage {
         busy = true;
         import_selected_button.sensitive = false;
         import_all_button.sensitive = false;
+        progress_bar.visible = false;
 
         int failed = 0;
         ulong total_bytes = 0;
@@ -546,38 +548,15 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs, total_bytes);
-            batch_import.starting += on_import_starting;
-            batch_import.imported += on_imported;
-            batch_import.import_complete += on_import_complete;
+            BatchImport batch_import = new BatchImport(jobs, camera_name, total_bytes);
             batch_import.import_job_failed += on_import_job_failed;
-            batch_import.schedule();
+            batch_import.import_complete += close_import;
+            AppWindow.get_instance().enqueue_batch_import(batch_import);
+            AppWindow.get_instance().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
         } else {
             close_import();
         }
-    }
-    
-    private void on_import_starting() {
-        progress_bytes = 0;
-        progress_bar.set_text("");
-        progress_bar.set_fraction(0.0);
-        progress_bar.visible = true;
-    }
-    
-    private void on_imported(Photo photo, ulong target) {
-        progress_bytes += photo.query_filesize();
-        
-        progress_bar.set_text("Imported %s".printf(photo.get_file().get_basename()));
-        progress_bar.set_fraction((double) progress_bytes / (double) target);
-    }
-    
-    private void on_import_complete(ImportID import_id, SortedList<Photo> photos,
-        Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
-        close_import();
-
-        if (failed.size > 0 || skipped.size > 0)
-            AppWindow.report_import_failures(failed, skipped);
     }
     
     private void on_import_job_failed(ImportResult result, BatchImportJob job, File? file) {
@@ -595,7 +574,6 @@ public class ImportPage : CheckerboardPage {
     private void close_import() {
         import_selected_button.sensitive = get_selected_count() > 0;
         import_all_button.sensitive = get_count() > 0;
-        progress_bar.visible = false;
         
         GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
@@ -607,3 +585,118 @@ public class ImportPage : CheckerboardPage {
     }
 }
 
+public class ImportQueuePage : SinglePhotoPage {
+    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    private Gtk.ToolButton stop_button = null;
+    private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
+    private BatchImport current_batch = null;
+    private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
+    private uint64 progress_bytes = 0;
+    private uint64 total_bytes = 0;
+    
+    // TODO: Mark fields for translation
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "FileMenu", null, "_File", null, null, on_file_menu },
+        { "Stop", Gtk.STOCK_STOP, "_Stop Import", null, "Stop importing photos", on_stop },
+        
+        { "HelpMenu", null, "_Help", null, null, null }
+    };
+    
+    public ImportQueuePage() {
+        init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup", ACTIONS);
+        
+        stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
+        stop_button.set_tooltip_text("Stop importing photos");
+        stop_button.clicked += on_stop;
+        stop_button.sensitive = false;
+        
+        toolbar.insert(stop_button, -1);
+
+        // separator to force progress bar to right side of toolbar
+        Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
+        separator.set_expand(true);
+        separator.set_draw(false);
+        
+        toolbar.insert(separator, -1);
+        
+        Gtk.ToolItem progress_item = new Gtk.ToolItem();
+        progress_item.add(progress_bar);
+        
+        toolbar.insert(progress_item, -1);
+   }
+    
+    public signal void batch_added(BatchImport batch_import);
+    
+    public signal void batch_removed(BatchImport batch_import);
+    
+    public override Gtk.Toolbar get_toolbar() {
+        return toolbar;
+    }
+    
+    public void enqueue_and_schedule(BatchImport batch_import) {
+        total_bytes += batch_import.get_total_bytes();
+        
+        batch_import.starting += on_starting;
+        batch_import.imported += on_imported;
+        batch_import.import_complete += on_import_complete;
+        
+        queue.add(batch_import);
+        batch_added(batch_import);
+
+        if (queue.size == 1)
+            batch_import.schedule();
+        
+        stop_button.sensitive = true;
+    }
+    
+    public int get_batch_count() {
+        return queue.size;
+    }
+    
+    private void on_file_menu() {
+        set_item_sensitive("/ImportQueueMenuBar/FileMenu/Stop", queue.size > 0);
+    }
+    
+    private void on_stop() {
+        // mark all as halted and let each signal failure
+        foreach (BatchImport batch_import in queue)
+            batch_import.user_halt();
+    }
+    
+    private void on_starting(BatchImport batch_import) {
+        current_batch = batch_import;
+    }
+    
+    private void on_imported(Photo photo) {
+        set_pixbuf(photo.get_pixbuf());
+        
+        progress_bytes += photo.query_filesize();
+        double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
+            : 0.0;
+        
+        progress_bar.set_text("Imported %s".printf(photo.get_name()));
+        progress_bar.set_fraction(pct);
+    }
+    
+    private void on_import_complete(BatchImport batch_import, ImportID import_id, 
+        SortedList<Photo> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
+        assert(batch_import == current_batch);
+        current_batch = null;
+        
+        bool removed = queue.remove(batch_import);
+        assert(removed);
+        
+        if (failed.size > 0 || skipped.size > 0)
+            AppWindow.report_import_failures(batch_import.get_name(), failed, skipped);
+        
+        batch_removed(batch_import);
+        
+        // schedule next if available
+        if (queue.size > 0) {
+            stop_button.sensitive = true;
+            queue.get(0).schedule();
+        } else {
+            stop_button.sensitive = false;
+        }
+    }
+}

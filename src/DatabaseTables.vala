@@ -356,6 +356,12 @@ public class PhotoTable : DatabaseTable {
         return File.new_for_path(stmt.column_text(0));
     }
     
+    public string? get_name(PhotoID photo_id) {
+        File file = get_file(photo_id);
+        
+        return (file != null) ? file.get_basename() : null;
+    }
+    
     public time_t get_exposure_time(PhotoID photo_id) {
         Sqlite.Statement stmt;
         if (!select_by_id(photo_id.id, "exposure_time", out stmt))

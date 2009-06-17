@@ -140,6 +140,10 @@ public class Photo : Object {
         return photo_table.get_file(photo_id);
     }
     
+    public string get_name() {
+        return photo_table.get_name(photo_id);
+    }
+    
     public uint64 query_filesize() {
         FileInfo info = null;
         try {
@@ -519,6 +523,10 @@ public class Photo : Object {
         
         // trust modification time and file size
         if ((timestamp.tv_sec != get_timestamp()) || (info.get_size() != photo_table.get_filesize(photo_id)))
+            return Currency.DIRTY;
+        
+        // verify thumbnail cache is all set
+        if (!ThumbnailCache.exists(photo_id))
             return Currency.DIRTY;
         
         return Currency.CURRENT;

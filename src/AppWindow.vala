@@ -337,14 +337,15 @@ public class AppWindow : Gtk.Window {
         return list;
     }
     
-    public static void report_import_failures(Gee.List<string> failed, Gee.List<string> skipped) {
+    public static void report_import_failures(string name, Gee.List<string> failed, 
+        Gee.List<string> skipped) {
         string failed_list = generate_import_failure_list(failed);
         string skipped_list = generate_import_failure_list(skipped);
         
         if (failed_list == null && skipped_list == null)
             return;
             
-        string message = "%d photo(s) were not imported.\n".printf(failed.size + skipped.size);
+        string message = "Import from %s did not complete.\n".printf(name);
 
         if (failed_list != null) {
             message += "\n%d photos failed due to error:\n".printf(failed.size);
@@ -374,6 +375,7 @@ public class AppWindow : Gtk.Window {
     private CollectionPage collection_page = null;
     private EventsDirectoryPage events_directory_page = null;
     private PhotoPage photo_page = null;
+    private ImportQueuePage import_queue_page = null;
     
     // Dynamically added pages
     private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<Page>();
@@ -566,6 +568,25 @@ public class AppWindow : Gtk.Window {
         window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
     }
     
+    public void enqueue_batch_import(BatchImport batch_import) {
+        if (import_queue_page == null) {
+            import_queue_page = new ImportQueuePage();
+            import_queue_page.batch_removed += remove_import_queue_row;
+            
+            insert_parent_page_after(import_queue_page, "Importing ...",
+                events_directory_page.get_marker().get_row());
+        }
+        
+        import_queue_page.enqueue_and_schedule(batch_import);
+    }
+    
+    private void remove_import_queue_row() {
+        if (import_queue_page.get_batch_count() == 0) {
+            remove_page(import_queue_page);
+            import_queue_page = null;
+        }
+    }
+    
     public void photo_imported(Photo photo) {
         // want to know when it's removed from the system for cleanup
         photo.removed += on_photo_removed;
@@ -698,23 +719,25 @@ public class AppWindow : Gtk.Window {
 
         string[] uris = selection_data.get_uris();
         Gee.ArrayList<DragDropImportJob> jobs = new Gee.ArrayList<DragDropImportJob>();
+        uint64 total_bytes = 0;
 
-        foreach (string uri in uris)
+        foreach (string uri in uris) {
             jobs.add(new DragDropImportJob(uri));
-
+            
+            try {
+                total_bytes += total_file_size(File.new_for_uri(uri));
+            } catch (Error err) {
+                debug("Unable to query filesize of %s: %s", uri, err.message);
+            }
+        }
+        
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs);
-            batch_import.import_complete += on_import_complete;
-            batch_import.schedule();
+            BatchImport batch_import = new BatchImport(jobs, "drag-and-drop", total_bytes);
+            enqueue_batch_import(batch_import);
+            switch_to_import_queue_page();
         }
 
         Gtk.drag_finish(context, true, false, time);
-    }
-    
-    private void on_import_complete(ImportID import_id, SortedList<Photo> photos, Gee.ArrayList<string> failed, 
-        Gee.ArrayList<string> skipped) {
-        if (failed.size > 0 || skipped.size > 0)
-            report_import_failures(failed, skipped);
     }
     
     public void switch_to_collection_page() {
@@ -739,6 +762,10 @@ public class AppWindow : Gtk.Window {
     public void switch_to_photo_page(CheckerboardPage controller, Thumbnail current) {
         photo_page.display(controller, current);
         switch_to_page(photo_page);
+    }
+    
+    public void switch_to_import_queue_page() {
+        switch_to_page(import_queue_page);
     }
     
     public EventPage? find_event_page(EventID event_id) {
@@ -805,44 +832,49 @@ public class AppWindow : Gtk.Window {
         sidebar_store.remove(branch);
     }
     
-    private void add_parent_page(Page parent, string name) {
+    private Gtk.Widget add_to_notebook(Page page) {
         // need to show all before handing over to notebook
-        parent.show_all();
+        page.show_all();
     
         // layout for notebook
         Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.pack_start(parent, true, true, 0);
-        vbox.pack_end(parent.get_toolbar(), false, false, 0);
+        vbox.pack_start(page, true, true, 0);
+        if (page.get_toolbar() != null)
+            vbox.pack_end(page.get_toolbar(), false, false, 0);
         
         // add to notebook
         int pos = notebook.append_page(vbox, null);
         assert(pos >= 0);
         
-        // add to sidebar
+        return vbox;
+    }
+    
+    private void add_parent_page(Page parent, string name) {
+        Gtk.Widget notebook_page = add_to_notebook(parent);
+
         Gtk.TreePath path = add_sidebar_parent(name);
         
-        parent.set_marker(new PageMarker(vbox, sidebar_store, path));
+        parent.set_marker(new PageMarker(notebook_page, sidebar_store, path));
+        
+        notebook.show_all();
+    }
+    
+    private void insert_parent_page_after(Page parent, string name, Gtk.TreeRowReference after) {
+        Gtk.Widget notebook_page = add_to_notebook(parent);
+        
+        Gtk.TreePath path = insert_sidebar_parent_after(after, name);
+        
+        parent.set_marker(new PageMarker(notebook_page, sidebar_store, path));
         
         notebook.show_all();
     }
     
     private void add_child_page_to_row(Gtk.TreeRowReference parent, Page child, string name) {
-        // need to show_all before handing over to notebook
-        child.show_all();
-        
-        // layout for notebook
-        Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.pack_start(child, true, true, 0);
-        vbox.pack_end(child.get_toolbar(), false, false, 0);
-        
-        // add to notebook
-        int pos = notebook.append_page(vbox, null);
-        assert(pos >= 0);
-        
-        // add to sidebar
+        Gtk.Widget notebook_page = add_to_notebook(child);
+
         Gtk.TreePath path = add_sidebar_child(parent, name);
         
-        child.set_marker(new PageMarker(vbox, sidebar_store, path));
+        child.set_marker(new PageMarker(notebook_page, sidebar_store, path));
         
         notebook.show_all();
     }
@@ -1102,6 +1134,8 @@ public class AppWindow : Gtk.Window {
             switch_to_collection_page();
         } else if (is_page_selected(events_directory_page, path)) {
             switch_to_events_directory_page();
+        } else if (import_queue_page != null && is_page_selected(import_queue_page, path)) {
+            switch_to_import_queue_page();
         } else if (is_camera_selected(path)) {
             // camera path selected and updated
         } else if (is_event_selected(path)) {
