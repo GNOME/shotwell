@@ -196,12 +196,20 @@ public class FullscreenWindow : Gtk.Window {
 
 public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
+    public static const string SUBTITLE = "A photo organizer";
     public static const string VERSION = "0.1";
+    public static const string COPYRIGHT = "Copyright (c) 2009 Yorba Foundation";
     public static const string DATA_DIR = ".photo";
     public static const string PHOTOS_DIR = "Pictures";
+
     public static const string YORBA_URL = "http://www.yorba.org";
     public static const string APP_URL = "http://www.yorba.org";
     public static const string HELP_URL = "http://trac.yorba.org:8000/wiki/PhotoOrganizer";
+
+    public static const string[] AUTHORS = { 
+        "Jim Nelson <jim@yorba.org>", 
+        null 
+    };
 
     public static const int SIDEBAR_MIN_WIDTH = 160;
     public static const int SIDEBAR_MAX_WIDTH = 320;
@@ -489,6 +497,7 @@ public class AppWindow : Gtk.Window {
         }
 
         Gtk.AboutDialog.set_url_hook(on_about_link);
+        Gtk.AboutDialog.set_email_hook(on_about_link);
     }
     
     public Gtk.ActionGroup get_common_action_group() {
@@ -502,15 +511,17 @@ public class AppWindow : Gtk.Window {
     private void on_about() {
         // TODO: More thorough About box
         Gtk.show_about_dialog(this,
-            "version", AppWindow.VERSION,
-            "comments", "A photo organizer",
-            "copyright", "Copyright (c) 2009 Yorba Foundation",
-            "website", YORBA_URL
+            "version", VERSION,
+            "comments", SUBTITLE,
+            "copyright", COPYRIGHT,
+            "website", YORBA_URL,
+            "authors", AUTHORS
         );
     }
     
+    // This callback needs to be installed for the links to be active in the About dialog.  However,
+    // this callback doesn't actually have to do anything in order to activate the URL.
     private void on_about_link(Gtk.AboutDialog about_dialog, string url) {
-        open_link(url);
     }
     
     private void on_quit() {
