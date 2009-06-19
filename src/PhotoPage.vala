@@ -80,6 +80,10 @@ public class PhotoPage : SinglePhotoPage {
     public static const int CROP_MIN_WIDTH = 100;
     public static const int CROP_MIN_HEIGHT = 100;
     public static const float CROP_SATURATION = 0.00f;
+    public static const int CROP_EXTERIOR_RED_SHIFT = -32;
+    public static const int CROP_EXTERIOR_GREEN_SHIFT = -32;
+    public static const int CROP_EXTERIOR_BLUE_SHIFT = -32;
+    public static const int CROP_EXTERIOR_ALPHA_SHIFT = 0;
     
     public static const int CROP_TOOL_WINDOW_SEPARATOR = 8;
     
@@ -93,7 +97,6 @@ public class PhotoPage : SinglePhotoPage {
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
-    private Gdk.Pixbuf desaturated = null;
     private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
     private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
     private Gdk.GC wide_black_gc = null;
@@ -104,6 +107,7 @@ public class PhotoPage : SinglePhotoPage {
     private bool show_crop = false;
     private Box scaled_crop;
     private CropToolWindow crop_tool_window = null;
+    private Gdk.Pixbuf color_shifted = null;
 
     // these are kept in absolute coordinates, not relative to photo's position on canvas
     private int last_grab_x = -1;
@@ -655,15 +659,15 @@ public class PhotoPage : SinglePhotoPage {
     
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
         Dimensions old_dim) {
-        desaturated = null;
+        color_shifted = null;
         
         if (!show_crop)
             return;
             
-        // create desaturated pixbuf for crop tool
-        desaturated = new Gdk.Pixbuf(pixbuf.get_colorspace(), pixbuf.get_has_alpha(), 
-            pixbuf.get_bits_per_sample(), pixbuf.get_width(), pixbuf.get_height());
-        pixbuf.saturate_and_pixelate(desaturated, CROP_SATURATION, false);
+        // create color shifted pixbuf for crop tool
+        color_shifted = pixbuf.copy();
+        shift_colors(color_shifted, CROP_EXTERIOR_RED_SHIFT, CROP_EXTERIOR_GREEN_SHIFT,
+            CROP_EXTERIOR_BLUE_SHIFT, CROP_EXTERIOR_ALPHA_SHIFT);
 
         if (reason == UpdateReason.NEW_PHOTO)
             init_crop();
@@ -960,14 +964,14 @@ public class PhotoPage : SinglePhotoPage {
         assert(complements != BoxComplements.NONE);
         
         if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
-            Gdk.Pixbuf pb = horizontal_enlarged ? get_scaled_pixbuf() : desaturated;
+            Gdk.Pixbuf pb = horizontal_enlarged ? get_scaled_pixbuf() : color_shifted;
             paint_pixbuf(pb, horizontal);
             
             invalidate_area(horizontal);
         }
         
         if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
-            Gdk.Pixbuf pb = vertical_enlarged ? get_scaled_pixbuf() : desaturated;
+            Gdk.Pixbuf pb = vertical_enlarged ? get_scaled_pixbuf() : color_shifted;
             paint_pixbuf(pb, vertical);
             
             invalidate_area(vertical);
@@ -996,7 +1000,7 @@ public class PhotoPage : SinglePhotoPage {
         
         if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
             // paint in the horizontal complements appropriately
-            paint_pixbuf(desaturated, scaled_horizontal);
+            paint_pixbuf(color_shifted, scaled_horizontal);
             paint_pixbuf(get_scaled_pixbuf(), new_horizontal);
             
             invalidate_area(scaled_horizontal);
@@ -1005,7 +1009,7 @@ public class PhotoPage : SinglePhotoPage {
         
         if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
             // paint in vertical complements appropriately
-            paint_pixbuf(desaturated, scaled_vertical);
+            paint_pixbuf(color_shifted, scaled_vertical);
             paint_pixbuf(get_scaled_pixbuf(), new_vertical);
             
             invalidate_area(scaled_vertical);
@@ -1015,7 +1019,7 @@ public class PhotoPage : SinglePhotoPage {
         if (complements == BoxComplements.NONE) {
             // this means the two boxes have no intersection, not that they're equal ... since
             // there's no intersection, fill in both new and old with apropriate pixbufs
-            paint_pixbuf(desaturated, scaled_crop);
+            paint_pixbuf(color_shifted, scaled_crop);
             paint_pixbuf(get_scaled_pixbuf(), new_crop);
             
             invalidate_area(scaled_crop);
@@ -1032,9 +1036,9 @@ public class PhotoPage : SinglePhotoPage {
         
         Gdk.Rectangle scaled_pos = get_scaled_position();
         
-        // painter's algorithm: from the bottom up, starting with the desaturated portion of the
+        // painter's algorithm: from the bottom up, starting with the color shifted portion of the
         // photo outside the crop
-        drawable.draw_pixbuf(gc, desaturated, 
+        drawable.draw_pixbuf(gc, color_shifted, 
             0, 0, 
             scaled_pos.x, scaled_pos.y, 
             scaled_pos.width, scaled_pos.height,

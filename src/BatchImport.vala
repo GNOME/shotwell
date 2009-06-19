@@ -262,6 +262,7 @@ public class BatchImport {
 
             case ImportResult.NOT_A_FILE:
             case ImportResult.PHOTO_EXISTS:
+            case ImportResult.UNSUPPORTED_FORMAT:
                 skipped.add(id);
                 import_job_failed(result, job, file);
             break;
@@ -325,8 +326,18 @@ public class BatchImport {
         
         Photo photo;
         ImportResult result = Photo.import(import, import_id, out photo);
-        if (result != ImportResult.SUCCESS)
+        if (result != ImportResult.SUCCESS) {
+            if (copy_to_library) {
+                try {
+                    import.delete(null);
+                } catch (Error err) {
+                    critical("Unable to delete copy of imported file %s: %s", import.get_path(),
+                        err.message);
+                }
+            }
+
             return result;
+        }
         
         success.add(photo);
         

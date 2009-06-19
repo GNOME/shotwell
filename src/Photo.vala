@@ -5,7 +5,8 @@ public enum ImportResult {
     DATABASE_ERROR,
     USER_ABORT,
     NOT_A_FILE,
-    PHOTO_EXISTS
+    PHOTO_EXISTS,
+    UNSUPPORTED_FORMAT
 }
 
 public class Photo : Object {
@@ -50,6 +51,13 @@ public class Photo : Object {
         if (info.get_file_type() != FileType.REGULAR)
             return ImportResult.NOT_A_FILE;
         
+        if (info.get_content_type() != GPhoto.MIME.JPEG) {
+            message("Not importing %s: Unsupported content type %s", file.get_path(),
+                info.get_content_type());
+
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
+        
         TimeVal timestamp = TimeVal();
         info.get_modification_time(timestamp);
         
@@ -76,6 +84,14 @@ public class Photo : Object {
             // assume a decode error, although technically it could be I/O ... need better Gdk
             // bindings to determine which
             return ImportResult.DECODE_ERROR;
+        }
+        
+        // verify basic mechanics of photo: RGB 8-bit encoding
+        if (pixbuf.get_colorspace() != Gdk.Colorspace.RGB || pixbuf.get_n_channels() < 3 
+            || pixbuf.get_bits_per_sample() != 8) {
+            message("Not importing %s: Unsupported color format", file.get_path());
+            
+            return ImportResult.UNSUPPORTED_FORMAT;
         }
         
         // XXX: Trust EXIF or Pixbuf for dimensions?

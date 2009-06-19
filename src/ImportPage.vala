@@ -561,7 +561,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_import_job_failed(ImportResult result, BatchImportJob job, File? file) {
-        if (file == null)
+        if (file == null || result == ImportResult.SUCCESS)
             return;
             
         // delete the copied file

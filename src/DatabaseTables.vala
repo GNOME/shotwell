@@ -269,9 +269,6 @@ public class PhotoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        debug("Import %s %dx%d size=%lld mod=%ld exp=%ld or=%d", file.get_path(), dim.width, dim.height,
-            filesize, timestamp, exposure_time, (int) orientation);
-
         res = stmt.bind_text(1, file.get_path());
         assert(res == Sqlite.OK);
         res = stmt.bind_int(2, dim.width);

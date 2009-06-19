@@ -102,7 +102,7 @@ public class EventPage : CollectionPage {
     private EventTable event_table = new EventTable();
     
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "MakePrimary", null, "Make _Primary", null, null, on_make_primary }
+        { "MakePrimary", null, "Make _Key Photo for Event", null, null, on_make_primary }
     };
 
     public EventPage(EventID event_id) {
