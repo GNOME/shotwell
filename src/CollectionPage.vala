@@ -60,14 +60,13 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
-    private bool in_view = false;
     private bool reschedule_improval = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, on_file_menu },
-        { "Export", null, "_Export", "<Ctrl>E", "Export selected photos to disk", on_export },
+        { "Export", Gtk.STOCK_SAVE_AS, "_Export", "<Ctrl>E", "Export selected photos to disk", on_export },
 
         { "EditMenu", null, "_Edit", null, null, on_edit_menu },
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
@@ -76,13 +75,13 @@ public class CollectionPage : CheckerboardPage {
         { "PhotosMenu", null, "_Photos", null, null, on_photos_menu },
         { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _In", "bracketright", "Increase the magnification of the thumbnails", on_increase_size },
         { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _Out", "bracketleft", "Decrease the magnification of the thumbnails", on_decrease_size },
-        { "RotateClockwise", Resources.STOCK_CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", Resources.STOCK_COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", null, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
+        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to original photo", on_revert },
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
-        { "SortPhotos", null, "_Sort Photos", null, null, null },
+        { "SortPhotos", Gtk.STOCK_SORT_ASCENDING, "_Sort Photos", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -97,12 +96,13 @@ public class CollectionPage : CheckerboardPage {
     };
     
     private const Gtk.RadioActionEntry[] SORT_ORDER_ACTIONS = {
-        { "SortAscending", null, "_Ascending", null, "Sort photos in an ascending order", SORT_ORDER_ASCENDING },
-        { "SortDescending", null, "D_escending", null, "Sort photos in a descending order", SORT_ORDER_DESCENDING }
+        { "SortAscending", Gtk.STOCK_SORT_ASCENDING, "_Ascending", null, "Sort photos in an ascending order", SORT_ORDER_ASCENDING },
+        { "SortDescending", Gtk.STOCK_SORT_DESCENDING, "D_escending", null, "Sort photos in a descending order", SORT_ORDER_DESCENDING }
     };
     
-    public CollectionPage(string? ui_filename = null, Gtk.ActionEntry[]? child_actions = null) {
-        base("Photos");
+    public CollectionPage(string? page_name = null, string? ui_filename = null, 
+        Gtk.ActionEntry[]? child_actions = null) {
+        base(page_name != null ? page_name : "Photos");
         
         init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
         action_group.add_radio_actions(SORT_CRIT_ACTIONS, SORT_BY_NAME, on_sort_changed);
@@ -127,7 +127,7 @@ public class CollectionPage : CheckerboardPage {
         // set up page's toolbar (used by AppWindow for layout)
         //
         // rotate tool
-        rotate_button = new Gtk.ToolButton.from_stock(Resources.STOCK_CLOCKWISE);
+        rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
         rotate_button.sensitive = false;
@@ -180,12 +180,14 @@ public class CollectionPage : CheckerboardPage {
     }
     
     public override void switching_from() {
-        in_view = false;
+        base.switching_from();
+
         set_refresh_on_resize(false);
     }
     
     public override void switched_to() {
-        in_view = true;
+        base.switched_to();
+
         set_refresh_on_resize(true);
         
         // need to refresh the layout in case any of the thumbnail dimensions were altered while we
@@ -198,6 +200,8 @@ public class CollectionPage : CheckerboardPage {
     
     public override void returning_from_fullscreen() {
         refresh();
+        
+        base.returning_from_fullscreen();
     }
     
     protected override void on_selection_changed(int count) {
@@ -339,7 +343,7 @@ public class CollectionPage : CheckerboardPage {
         schedule_thumbnail_improval();
         
         // since the geometry might have changed, refresh the layout
-        if (in_view)
+        if (is_in_view())
             refresh();
     }
     
@@ -388,14 +392,15 @@ public class CollectionPage : CheckerboardPage {
         foreach (LayoutItem item in get_items())
             ((Thumbnail) item).resize(scale);
         
-        refresh();
-        
-        schedule_thumbnail_improval();
+        if (is_in_view()) {
+            refresh();
+            schedule_thumbnail_improval();
+        }
     }
     
     private void schedule_thumbnail_improval() {
         // don't bother if not in view
-        if (!in_view)
+        if (!is_in_view())
             return;
             
         if (improval_scheduled == false) {
@@ -646,7 +651,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
-        rotate_button.set_stock_id(Resources.STOCK_COUNTERCLOCKWISE);
+        rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_COUNTERCLOCKWISE_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_COUNTERCLOCKWISE_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
@@ -656,7 +661,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
-        rotate_button.set_stock_id(Resources.STOCK_CLOCKWISE);
+        rotate_button.set_stock_id(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;

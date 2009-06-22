@@ -134,6 +134,7 @@ public class CollectionLayout : Gtk.Layout {
     public SortedList<LayoutItem> items = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>());
 
     private Gtk.Label message = new Gtk.Label("");
+    private bool in_view = false;
     private int last_width = 0;
     private bool refresh_on_resize = true;
     private int columns = 0;
@@ -162,6 +163,17 @@ public class CollectionLayout : Gtk.Layout {
     
     public void set_refresh_on_resize(bool refresh_on_resize) {
         this.refresh_on_resize = refresh_on_resize;
+    }
+    
+    public void set_in_view(bool in_view) {
+        this.in_view = in_view;
+        if (in_view)
+            return;
+        
+        // need to wait for expose event to start exposing items, but if no longer in view, might
+        // as well unload now
+        foreach (LayoutItem item in items)
+            item.unexposed();
     }
     
     public void set_comparator(Comparator<LayoutItem> cmp) {
@@ -514,6 +526,17 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     private override bool expose_event(Gdk.EventExpose event) {
+        if (!in_view) {
+            foreach (LayoutItem item in items)
+                item.unexposed();
+            
+            bool result = base.expose_event(event);
+            
+            expose_after();
+            
+            return result;
+        }
+        
         Gdk.Rectangle visible_rect = Gdk.Rectangle();
         visible_rect.x = (int) get_hadjustment().get_value();
         visible_rect.y = (int) get_vadjustment().get_value();

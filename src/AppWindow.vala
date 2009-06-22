@@ -17,7 +17,7 @@ public class FullscreenWindow : Gtk.Window {
     private Gtk.UIManager ui = new Gtk.UIManager();
     private PhotoPage photo_page;
     private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
-    private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton();
+    private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton.from_stock(Resources.PIN_TOOLBAR);
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
@@ -196,12 +196,13 @@ public class FullscreenWindow : Gtk.Window {
 
 public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
-    public static const string SUBTITLE = "A photo organizer";
+    public static const string SUBTITLE = "Photo Organizer";
     public static const string VERSION = "0.1";
     public static const string COPYRIGHT = "Copyright (c) 2009 Yorba Foundation";
     public static const string DATA_DIR = ".photo";
     public static const string PHOTOS_DIR = "Pictures";
 
+    public static const string YORBA_LABEL = "Visit the Yorba Foundation web site";
     public static const string YORBA_URL = "http://www.yorba.org";
     public static const string APP_URL = "http://www.yorba.org";
     public static const string HELP_URL = "http://trac.yorba.org:8000/wiki/PhotoOrganizer";
@@ -422,6 +423,7 @@ public class AppWindow : Gtk.Window {
         
         title = TITLE;
         set_default_size(1024, 768);
+        set_default_icon(Resources.get_icon(Resources.ICON_APP));
 
         // the pages want to know when modifier keys are pressed
         key_press_event += on_key_pressed;
@@ -446,17 +448,23 @@ public class AppWindow : Gtk.Window {
         sidebar = new Gtk.TreeView.with_model(sidebar_store);
 
         var text = new Gtk.CellRendererText();
-        var column = new Gtk.TreeViewColumn();
-        column.pack_start(text, true);
-        column.add_attribute(text, "text", 0);
-        sidebar.append_column(column);
+        var text_column = new Gtk.TreeViewColumn();
+        text_column.pack_start(text, true);
+        text_column.add_attribute(text, "text", 0);
+        sidebar.append_column(text_column);
         
         sidebar.set_headers_visible(false);
         sidebar.set_enable_search(false);
+        sidebar.set_rules_hint(false);
+        sidebar.set_show_expanders(true);
+        sidebar.set_reorderable(false);
+        sidebar.set_enable_tree_lines(false);
+        sidebar.set_grid_lines(Gtk.TreeViewGridLines.NONE);
+        sidebar.set_tooltip_column(0);
 
         // add the default parents and orphans
-        add_parent_page(collection_page, "Photos");
-        add_parent_page(events_directory_page, "Events");
+        add_parent_page(collection_page);
+        add_parent_page(events_directory_page);
         add_orphan_page(photo_page);
 
         // add stored events
@@ -520,7 +528,9 @@ public class AppWindow : Gtk.Window {
             "comments", SUBTITLE,
             "copyright", COPYRIGHT,
             "website", YORBA_URL,
-            "authors", AUTHORS
+            "website-label", YORBA_LABEL,
+            "authors", AUTHORS,
+            "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1)
         );
     }
     
@@ -611,8 +621,7 @@ public class AppWindow : Gtk.Window {
             import_queue_page = new ImportQueuePage();
             import_queue_page.batch_removed += remove_import_queue_row;
             
-            insert_parent_page_after(import_queue_page, "Importing ...",
-                events_directory_page.get_marker().get_row());
+            insert_parent_page_after(import_queue_page, events_directory_page.get_marker().get_row());
         }
         
         import_queue_page.enqueue_and_schedule(batch_import);
@@ -816,14 +825,13 @@ public class AppWindow : Gtk.Window {
     }
     
     private EventPage add_event_page(EventID event_id) {
-        string name = event_table.get_name(event_id);
         EventPage event_page = new EventPage(event_id);
         
         Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
         foreach (PhotoID photo_id in photo_ids)
             event_page.add_photo(Photo.fetch(photo_id));
 
-        add_child_page(events_directory_page, event_page, name);
+        add_child_page(events_directory_page, event_page);
         event_list.add(event_page);
         
         return event_page;
@@ -887,38 +895,38 @@ public class AppWindow : Gtk.Window {
         return vbox;
     }
     
-    private void add_parent_page(Page parent, string name) {
+    private void add_parent_page(Page parent) {
         Gtk.Widget notebook_page = add_to_notebook(parent);
 
-        Gtk.TreePath path = add_sidebar_parent(name);
+        Gtk.TreePath path = add_sidebar_parent(parent.get_page_name());
         
         parent.set_marker(new PageMarker(notebook_page, sidebar_store, path));
         
         notebook.show_all();
     }
     
-    private void insert_parent_page_after(Page parent, string name, Gtk.TreeRowReference after) {
+    private void insert_parent_page_after(Page parent, Gtk.TreeRowReference after) {
         Gtk.Widget notebook_page = add_to_notebook(parent);
         
-        Gtk.TreePath path = insert_sidebar_parent_after(after, name);
+        Gtk.TreePath path = insert_sidebar_parent_after(after, parent.get_page_name());
         
         parent.set_marker(new PageMarker(notebook_page, sidebar_store, path));
         
         notebook.show_all();
     }
     
-    private void add_child_page_to_row(Gtk.TreeRowReference parent, Page child, string name) {
+    private void add_child_page_to_row(Gtk.TreeRowReference parent, Page child) {
         Gtk.Widget notebook_page = add_to_notebook(child);
 
-        Gtk.TreePath path = add_sidebar_child(parent, name);
+        Gtk.TreePath path = add_sidebar_child(parent, child.get_page_name());
         
         child.set_marker(new PageMarker(notebook_page, sidebar_store, path));
         
         notebook.show_all();
     }
     
-    private void add_child_page(Page parent, Page child, string name) {
-        add_child_page_to_row(parent.get_marker().get_row(), child, name);
+    private void add_child_page(Page parent, Page child) {
+        add_child_page_to_row(parent.get_marker().get_row(), child);
     }
 
     // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
@@ -1401,7 +1409,7 @@ public class AppWindow : Gtk.Window {
                 cameras_row = insert_grouping_row(events_directory_page.get_marker().get_row(),
                     "Cameras");
                 
-            add_child_page_to_row(cameras_row, page, name);
+            add_child_page_to_row(cameras_row, page);
 
             camera_map.set(uri, page);
             

@@ -100,8 +100,8 @@ public class ImportPage : CheckerboardPage {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, on_file },
-        { "ImportSelected", null, "Import _Selected", null, null, on_import_selected },
-        { "ImportAll", null, "Import _All", null, null, on_import_all },
+        { "ImportSelected", Resources.IMPORT, "Import _Selected", null, null, on_import_selected },
+        { "ImportAll", Resources.IMPORT_ALL, "Import _All", null, null, on_import_all },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -114,8 +114,8 @@ public class ImportPage : CheckerboardPage {
     }
     
     public ImportPage(GPhoto.Camera camera, string uri) {
-        base("Import");
-        camera_name = "Import";
+        base("Camera");
+        camera_name = "Camera";
         
         this.camera = camera;
         this.uri = uri;
@@ -143,14 +143,16 @@ public class ImportPage : CheckerboardPage {
         
         toolbar.insert(progress_item, -1);
 
-        import_selected_button = new Gtk.ToolButton(new Gtk.Label("Import Selected"), "");
+        import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
+        import_selected_button.set_label("Import Selected");
         import_selected_button.set_tooltip_text("Import the selected photos into your library");
         import_selected_button.clicked += on_import_selected;
         import_selected_button.sensitive = false;
         
         toolbar.insert(import_selected_button, -1);
         
-        import_all_button = new Gtk.ToolButton(new Gtk.Label("Import All"), "");
+        import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
+        import_all_button.set_label("Import All");
         import_all_button.set_tooltip_text("Import all the photos on this camera into your library");
         import_all_button.clicked += on_import_all;
         import_all_button.sensitive = false;
@@ -167,13 +169,11 @@ public class ImportPage : CheckerboardPage {
         } else {
             camera_name = abilities.model;
             camera_label.set_text(abilities.model);
+            
+            set_page_name(camera_name);
         }
 
         show_all();
-    }
-    
-    public override string get_name() {
-        return camera_name;
     }
     
     public GPhoto.Camera get_camera() {
@@ -604,6 +604,8 @@ public class ImportQueuePage : SinglePhotoPage {
     };
     
     public ImportQueuePage() {
+        base("Importing ...");
+        
         init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup", ACTIONS);
         
         stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);

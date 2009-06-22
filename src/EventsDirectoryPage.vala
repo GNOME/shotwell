@@ -37,7 +37,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
 
     public EventsDirectoryPage() {
-        base("Events Directory");
+        base("Events");
         
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", ACTIONS);
         init_ui_bind("/EventsDirectoryMenuBar");
@@ -80,6 +80,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
     
     public override void switched_to() {
+        base.switched_to();
+
         remove_all();
         
         Gee.ArrayList<EventID?> event_ids = event_table.get_events();
@@ -102,17 +104,15 @@ public class EventPage : CollectionPage {
     private EventTable event_table = new EventTable();
     
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "MakePrimary", null, "Make _Key Photo for Event", null, null, on_make_primary }
+        { "MakePrimary", Resources.MAKE_PRIMARY, "Make _Key Photo for Event", null, null, on_make_primary }
     };
 
     public EventPage(EventID event_id) {
-        base("event.ui", ACTIONS);
+        base("Event", "event.ui", ACTIONS);
         
         this.event_id = event_id;
-    }
-    
-    public override string get_name() {
-        return event_table.get_name(event_id);
+
+        set_page_name(event_table.get_name(event_id));
     }
     
     protected override void on_photos_menu() {

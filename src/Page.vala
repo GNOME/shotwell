@@ -35,16 +35,28 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.ActionGroup action_group = null;
     public Gtk.ActionGroup common_action_group = null;
     
+    private string page_name;
     private Gtk.MenuBar menu_bar = null;
     private PageMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
+    private bool in_view = false;
 
-    public Page() {
+    public Page(string page_name) {
+        this.page_name = page_name;
+        
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
     }
 
+    public string get_page_name() {
+        return page_name;
+    }
+    
+    public void set_page_name(string page_name) {
+        this.page_name = page_name;
+    }
+    
     public void set_event_source(Gtk.Widget event_source) {
         assert(this.event_source == null);
 
@@ -84,9 +96,15 @@ public abstract class Page : Gtk.ScrolledWindow {
     public abstract Gtk.Toolbar get_toolbar();
     
     public virtual void switching_from() {
+        in_view = false;
     }
     
     public virtual void switched_to() {
+        in_view = true;
+    }
+    
+    public bool is_in_view() {
+        return in_view;
     }
     
     public virtual void switching_to_fullscreen() {
@@ -373,7 +391,6 @@ public abstract class CheckerboardPage : Page {
     private Gtk.Menu context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
-    private string page_name = null;
     private LayoutItem last_clicked_item = null;
 
     // for drag selection
@@ -384,17 +401,13 @@ public abstract class CheckerboardPage : Page {
     private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
-        this.page_name = page_name;
+        base(page_name);
         
         set_event_source(layout);
         layout.expose_after += on_layout_exposed;
         layout.map += on_layout_mapped;
 
         add(layout);
-    }
-    
-    public virtual string get_name() {
-        return page_name;
     }
     
     public void init_context_menu(string path) {
@@ -415,10 +428,24 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
+    public override void switching_from() {
+        layout.set_in_view(false);
+        
+        base.switching_from();
+    }
+    
+    public override void switched_to() {
+        layout.set_in_view(true);
+        
+        base.switched_to();
+    }
+    
     public abstract LayoutItem? get_fullscreen_photo();
     
     public void refresh() {
         show_all();
+        if (layout.window != null)
+            layout.window.invalidate_rect(null, true);
         layout.refresh();
     }
     
@@ -976,7 +1003,9 @@ public abstract class SinglePhotoPage : Page {
     private bool improval_scheduled = false;
     private bool reschedule_improval = false;
     
-    public SinglePhotoPage() {
+    public SinglePhotoPage(string page_name) {
+        base(page_name);
+        
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         viewport.set_shadow_type(Gtk.ShadowType.NONE);

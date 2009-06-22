@@ -113,6 +113,7 @@ public class ThumbnailCache : Object {
     private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
     private ulong cached_bytes = 0;
     private ThumbnailCacheTable cache_table;
+    private PhotoTable photo_table = new PhotoTable();
     
     private ThumbnailCache(int scale, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
         int jpeg_quality = DEFAULT_JPEG_QUALITY) {
@@ -135,7 +136,8 @@ public class ThumbnailCache : Object {
 
         File file = get_cached_file(photo_id);
 
-        debug("Fetching persistent thumbnail from disk [%lld] %s", photo_id.id, file.get_path());
+        debug("Fetching thumbnail for %s from disk [%lld] %s", photo_table.get_name(photo_id),
+            photo_id.id, file.get_path());
 
         Gdk.Pixbuf pixbuf = null;
         try {
@@ -172,7 +174,8 @@ public class ThumbnailCache : Object {
             _remove(photo_id);
         }
 
-        debug("Importing persistent thumbnail for [%lld] %s", photo_id.id, file.get_path());
+        debug("Importing thumbnail for %s to [%lld] %s", photo_table.get_name(photo_id), 
+            photo_id.id, file.get_path());
         
         // scale according to cache's parameters
         Gdk.Pixbuf scaled = scale_pixbuf(original, scale, interp);
@@ -196,7 +199,8 @@ public class ThumbnailCache : Object {
     private void _replace(PhotoID photo_id, Gdk.Pixbuf original) {
         File file = get_cached_file(photo_id);
         
-        debug ("Replacing persistent thumbnail for [%lld] %s", photo_id.id, file.get_path());
+        debug ("Replacing thumbnail for %s with [%lld] %s", photo_table.get_name(photo_id),
+            photo_id.id, file.get_path());
         
         // Remove from in-memory cache, if present
         remove_from_memory(photo_id);
@@ -225,7 +229,8 @@ public class ThumbnailCache : Object {
     private void _remove(PhotoID photo_id) {
         File file = get_cached_file(photo_id);
         
-        debug("Removing persistent thumbnail [%lld] %s", photo_id.id, file.get_path());
+        debug("Removing thumbnail for %s [%lld] %s", photo_table.get_name(photo_id), photo_id.id, 
+            file.get_path());
 
         // remove from in-memory cache
         remove_from_memory(photo_id);
