@@ -530,7 +530,7 @@ public class CollectionLayout : Gtk.Layout {
             foreach (LayoutItem item in items)
                 item.unexposed();
             
-            bool result = base.expose_event(event);
+            bool result = (base.expose_event != null) ? base.expose_event(event) : true;
             
             expose_after();
             
@@ -552,7 +552,7 @@ public class CollectionLayout : Gtk.Layout {
                 item.unexposed();
         }
         
-        bool result = base.expose_event(event);
+        bool result = (base.expose_event != null) ? base.expose_event(event) : true;
         
         expose_after();
         

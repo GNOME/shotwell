@@ -725,7 +725,10 @@ public class CollectionPage : CheckerboardPage {
             break;
         }
         
-        return (handled) ? true : base.key_press_event(event);
+        if (handled)
+            return true;
+        
+        return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
     
     private int get_sort_criteria() {

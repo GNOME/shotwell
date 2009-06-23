@@ -68,10 +68,12 @@ public class FullscreenWindow : Gtk.Window {
         fullscreen();
         show_all();
         
-        // want to receive motion events
-        add_events(Gdk.EventMask.POINTER_MOTION_MASK);
-        
+        add_events(Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.KEY_PRESS_MASK
+            | Gdk.EventMask.KEY_RELEASE_MASK | Gdk.EventMask.STRUCTURE_MASK);
         motion_notify_event += on_motion;
+        key_press_event += on_key_pressed;
+        key_release_event += on_key_released;
+        configure_event += on_configured;
         
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
@@ -101,6 +103,18 @@ public class FullscreenWindow : Gtk.Window {
         }
         
         return false;
+    }
+    
+    private bool on_key_pressed(Gdk.EventKey event) {
+        return (event.is_modifier != 0) ? photo_page.notify_modifier_pressed(event) : false;
+    }
+    
+    private bool on_key_released(Gdk.EventKey event) {
+        return (event.is_modifier != 0) ? photo_page.notify_modifier_released(event) : false;
+    }
+    
+    private bool on_configured(Gdk.EventConfigure event) {
+        return photo_page.notify_configure_event(event);
     }
 
     private bool is_pointer_in_toolbar() {
@@ -199,7 +213,7 @@ public class AppWindow : Gtk.Window {
     public static const string SUBTITLE = "Photo Organizer";
     public static const string VERSION = "0.1";
     public static const string COPYRIGHT = "Copyright (c) 2009 Yorba Foundation";
-    public static const string DATA_DIR = ".photo";
+    public static const string DATA_DIR = ".shotwell";
     public static const string PHOTOS_DIR = "Pictures";
 
     public static const string YORBA_LABEL = "Visit the Yorba Foundation web site";
@@ -426,8 +440,10 @@ public class AppWindow : Gtk.Window {
         set_default_icon(Resources.get_icon(Resources.ICON_APP));
 
         // the pages want to know when modifier keys are pressed
+        add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK | Gdk.EventMask.STRUCTURE_MASK);
         key_press_event += on_key_pressed;
         key_release_event += on_key_released;
+        configure_event += on_configure;
         
         // prepare the default parent and orphan pages
         collection_page = new CollectionPage();
@@ -724,6 +740,10 @@ public class AppWindow : Gtk.Window {
     
     private bool on_key_released(Gdk.EventKey event) {
         return (event.is_modifier != 0) ? current_page.notify_modifier_released(event) : false;
+    }
+    
+    private bool on_configure(Gdk.EventConfigure event) {
+        return current_page.notify_configure_event(event);
     }
     
     private void on_photo_removed(Photo photo) {

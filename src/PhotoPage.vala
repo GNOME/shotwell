@@ -42,7 +42,7 @@ public class CropToolWindow : Gtk.Window {
     private override bool button_press_event(Gdk.EventButton event) {
         // LMB only
         if (event.button != 1)
-            return base.button_press_event(event);
+            return (base.button_press_event != null) ? base.button_press_event(event) : true;
         
         begin_move_drag((int) event.button, (int) event.x_root, (int) event.y_root, event.time);
         user_moved = true;
@@ -125,8 +125,8 @@ public class PhotoPage : SinglePhotoPage {
         { "ReturnToPage", Resources.RETURN_TO_PAGE, "_Return to Photos", "Escape", null, on_return_to_collection },
 
         { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
-        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", "<Alt>Left", "Previous Photo", on_previous_photo },
-        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", "<Alt>Right", "Next Photo", on_next_photo },
+        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
+        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
         { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
         { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
@@ -177,11 +177,6 @@ public class PhotoPage : SinglePhotoPage {
         next_button.clicked += on_next_photo;
         toolbar.insert(next_button, -1);
         
-        // PhotoPage can't use the event virtuals declared in Page because it can be hosted by 
-        // FullscreenWindow as well as AppWindow, whose signal Page captures for the configure event
-        container.configure_event += on_window_configured;
-        canvas.configure_event += on_window_configured;
-
         // DnD only available in full-window view
         if (!(container is FullscreenWindow))
             enable_drag_source(Gdk.DragAction.COPY);
@@ -628,12 +623,36 @@ public class PhotoPage : SinglePhotoPage {
         return false;
     }
     
-    private bool on_window_configured() {
+    private override bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
         // if crop window is present and the user hasn't touched it, it moves with the window
         if (crop_tool_window != null && !crop_tool_window.user_moved)
             place_crop_tool_window();
         
         return false;
+    }
+    
+    private override bool key_press_event(Gdk.EventKey event) {
+        bool handled = true;
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "Left":
+            case "KP_Left":
+                on_previous_photo();
+            break;
+            
+            case "Right":
+            case "KP_Right":
+                on_next_photo();
+            break;
+            
+            default:
+                handled = false;
+            break;
+        }
+        
+        if (handled)
+            return true;
+        
+        return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
     
     protected override void new_drawable(Gdk.Drawable drawable) {

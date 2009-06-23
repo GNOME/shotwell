@@ -70,11 +70,6 @@ public abstract class Page : Gtk.ScrolledWindow {
         event_source.button_press_event += on_button_pressed_internal;
         event_source.button_release_event += on_button_released_internal;
         event_source.motion_notify_event += on_motion_internal;
-        
-        // Use the app window's signals for window move/resize, esp. for resize, as this signal
-        // is used to determine inner window resizes
-        AppWindow.get_instance().add_events(Gdk.EventMask.STRUCTURE_MASK);
-        AppWindow.get_instance().configure_event += on_configure_internal;
     }
     
     public Gtk.Widget? get_event_source() {
@@ -340,7 +335,11 @@ public abstract class Page : Gtk.ScrolledWindow {
     protected virtual void on_resize(Gdk.Rectangle rect) {
     }
     
-    private bool on_configure_internal(Gdk.EventConfigure event) {
+    protected virtual bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
+        return false;
+    }
+    
+    public bool notify_configure_event(Gdk.EventConfigure event) {
         Gdk.Rectangle rect = Gdk.Rectangle();
         rect.x = event.x;
         rect.y = event.y;
@@ -352,10 +351,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         if (last_position.width != rect.width || last_position.height != rect.height)
             on_resize(rect);
-        
+
         last_position = rect;
         
-        return false;
+        return on_configure(event, rect);
     }
     
     protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
