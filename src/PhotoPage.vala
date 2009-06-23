@@ -337,8 +337,11 @@ public class PhotoPage : SinglePhotoPage {
     
     private void on_view_menu() {
         Gtk.MenuItem return_item = (Gtk.MenuItem) ui.get_widget("/PhotoMenuBar/ViewMenu/ReturnToPage");
-        if (return_item != null && controller != null)
-            return_item.set_label("Return to %s".printf(controller.get_page_name()));
+        if (return_item != null && controller != null) {
+            Gtk.Label label = (Gtk.Label) return_item.get_child();
+            if (label != null)
+                label.set_text("Return to %s".printf(controller.get_page_name()));
+        }
     }
     
     private void on_return_to_collection() {
