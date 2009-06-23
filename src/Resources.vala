@@ -13,7 +13,7 @@ namespace Resources {
     public const string IMPORT = "shotwell-import";
     public const string IMPORT_ALL = "shotwell-import-all";
     
-    public const string ICON_APP = "shotwell-icon.svg";
+    public const string ICON_APP = "shotwell.svg";
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
 
     public const string ROTATE_CLOCKWISE_LABEL = "Rotate";

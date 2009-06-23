@@ -14,7 +14,6 @@ endif
 ALL_VALAFLAGS = $(VALAFLAGS) $(DEVFLAGS) --Xcc=-std=c99
 
 PREFIX=/usr/local
-DESKTOP_DIR=/usr/share/applications
 -include configure.in
 
 SRC_FILES = \
@@ -99,14 +98,19 @@ install: $(TARGET) misc/shotwell.desktop
 	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
+	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
+	update-icon-caches $(DESTDIR)/usr/share/icons/hicolor
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
-	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)$(DESKTOP_DIR)
+	xdg-desktop-menu install --novendor misc/shotwell.desktop
+	update-desktop-database
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(TARGET)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
-	rm -f $(DESTDIR)$(DESKTOP_DIR)/shotwell.desktop
+	rm -fr $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/shotwell.svg
+	xdg-desktop-menu uninstall shotwell.desktop
+	update-desktop-database
 
 $(TARGET): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile configure $(CONFIG_IN)
 	pkg-config --print-errors --exists $(EXT_PKGS)

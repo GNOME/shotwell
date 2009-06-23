@@ -1,10 +1,11 @@
 [Desktop Entry]
-Version=0.1
+Version=1.0
 Name=Shotwell
 GenericName=Photo Organizer
-Comment=Import and organize your photos.
+Comment=Organize your photos.
 Exec=shotwell %U
+Icon=shotwell
 Terminal=false
 Type=Application
-MimeType=x-content/image-dcf
-Categories=Graphics;Photography;GNOME;GTK
+MimeType=x-content/image-dcf;
+Categories=Graphics;Photography;GNOME;GTK;
