@@ -214,22 +214,8 @@ public class FullscreenWindow : Gtk.Window {
 }
 
 public class AppWindow : Gtk.Window {
-    public static const string TITLE = "Shotwell";
-    public static const string SUBTITLE = "Photo Organizer";
-    public static const string VERSION = "0.1.0";
-    public static const string COPYRIGHT = "Copyright (c) 2009 Yorba Foundation";
     public static const string DATA_DIR = ".shotwell";
     public static const string PHOTOS_DIR = "Pictures";
-
-    public static const string YORBA_LABEL = "Visit the Yorba web site";
-    public static const string YORBA_URL = "http://www.yorba.org";
-    public static const string APP_URL = "http://www.yorba.org";
-    public static const string HELP_URL = "http://trac.yorba.org:8000/wiki/PhotoOrganizer";
-
-    public static const string[] AUTHORS = { 
-        "Jim Nelson <jim@yorba.org>", 
-        null 
-    };
 
     public static const int SIDEBAR_MIN_WIDTH = 160;
     public static const int SIDEBAR_MAX_WIDTH = 320;
@@ -342,7 +328,7 @@ public class AppWindow : Gtk.Window {
     
     public static File get_resources_dir() {
         File exec_dir = get_exec_dir();
-        File prefix_dir = File.new_for_path(PREFIX);
+        File prefix_dir = File.new_for_path(Resources.PREFIX);
 
         // if running in the prefix'd path, the app has been installed and is running from there;
         // use its installed resources; otherwise running locally, so use local resources
@@ -355,7 +341,7 @@ public class AppWindow : Gtk.Window {
     public static void error_message(string message) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.title = TITLE;
+        dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();
     }
@@ -437,7 +423,7 @@ public class AppWindow : Gtk.Window {
         assert(instance == null);
         instance = this;
         
-        title = TITLE;
+        title = Resources.APP_TITLE;
         set_default_size(1024, 768);
         set_default_icon(Resources.get_icon(Resources.ICON_APP));
 
@@ -542,13 +528,13 @@ public class AppWindow : Gtk.Window {
     private void on_about() {
         // TODO: More thorough About box
         Gtk.show_about_dialog(this,
-            "version", VERSION,
-            "comments", SUBTITLE,
-            "copyright", COPYRIGHT,
-            "website", YORBA_URL,
+            "version", Resources.APP_VERSION,
+            "comments", Resources.APP_SUBTITLE,
+            "copyright", Resources.COPYRIGHT,
+            "website", Resources.YORBA_URL,
             "license", Resources.LICENSE,
-            "website-label", YORBA_LABEL,
-            "authors", AUTHORS,
+            "website-label", "Visit the Yorba web site",
+            "authors", Resources.AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1)
         );
     }
@@ -568,7 +554,7 @@ public class AppWindow : Gtk.Window {
     }
     
     private void on_help_contents() {
-        open_link(HELP_URL);
+        open_link(Resources.HELP_URL);
     }
     
     private void open_link(string url) {
@@ -1134,7 +1120,7 @@ public class AppWindow : Gtk.Window {
                             "The camera is locked for use as a mounted drive.  "
                             + "Shotwell can only access the drive when it's unlocked.  "
                             + "Do you want Shotwell to unmount the drive for you?");
-                        dialog.title = TITLE;
+                        dialog.title = Resources.APP_TITLE;
                         int dialog_res = dialog.run();
                         dialog.destroy();
                         
@@ -1152,7 +1138,7 @@ public class AppWindow : Gtk.Window {
                             "The camera is locked by another application.  "
                             + "Shotwell can only access the drive when it's unlocked.  "
                             + "Please close any other application using the camera and try again.");
-                        dialog.title = TITLE;
+                        dialog.title = Resources.APP_TITLE;
                         dialog.run();
                         dialog.destroy();
                         

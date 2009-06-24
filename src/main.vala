@@ -38,7 +38,7 @@ void main(string[] args) {
     Debug.init();
     
     // set up GLib environment
-    GLib.Environment.set_application_name(AppWindow.TITLE);
+    GLib.Environment.set_application_name(Resources.APP_TITLE);
     
     // examine command-line arguments for camera mounts
     // (everything else is ignored for now)
@@ -83,7 +83,7 @@ void main(string[] args) {
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, 
             "The database for your photo library is not compatible with this version of Shotwell.  "
             + "It appears it was created by Shotwell %s.  Please use that version or later.", app_version);
-        dialog.title = AppWindow.TITLE;
+        dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();
     } else {

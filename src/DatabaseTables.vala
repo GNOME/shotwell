@@ -82,7 +82,7 @@ public bool verify_databases(out string app_version) {
     
     if (version == -1) {
         // no version set, do it now
-        version_table.set_version(DatabaseTable.SCHEMA_VERSION, AppWindow.VERSION);
+        version_table.set_version(DatabaseTable.SCHEMA_VERSION, Resources.APP_VERSION);
     } else if (version != DatabaseTable.SCHEMA_VERSION) {
         return false;
     }

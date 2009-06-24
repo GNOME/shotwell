@@ -4,10 +4,26 @@
  * See the COPYING file in this distribution. 
  */
 
-// defined by ./configure and included by gcc -D
-extern const string PREFIX;
+// defined by ./configure or Makefile and included by gcc -D
+extern const string _PREFIX;
+extern const string _VERSION;
 
 namespace Resources {
+    public static const string APP_TITLE = "Shotwell";
+    public static const string APP_SUBTITLE = "Photo Organizer";
+    public static const string APP_VERSION = _VERSION;
+    public static const string COPYRIGHT = "Copyright 2009 Yorba Foundation";
+    
+    public static const string YORBA_URL = "http://www.yorba.org";
+    public static const string HELP_URL = "http://trac.yorba.org:8000/wiki/PhotoOrganizer";
+    
+    public static const string PREFIX = _PREFIX;
+
+    public static const string[] AUTHORS = { 
+        "Jim Nelson <jim@yorba.org>", 
+        null 
+    };
+
     public static const string LICENSE = """
 Shotwell is free software; you can redistribute it and/or modify it under the 
 terms of the GNU Lesser General Public License as published by the Free 

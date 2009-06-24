@@ -1,11 +1,12 @@
 
 TARGET = shotwell
+VERSION = 0.1.0
 
 VALAC = valac
 INSTALL_PROGRAM = install
 INSTALL_DATA = install -m 644
 
-VALAFLAGS = -g --enable-checking
+VALAFLAGS = -g --enable-checking -X -D_VERSION='"$(VERSION)"'
 ifdef dev
 DEVFLAGS = --save-temps -X -O0
 endif
@@ -59,6 +60,14 @@ RESOURCE_FILES = \
 SRC_HEADER_FILES = \
 	gphoto.h
 
+TEXT_FILES = \
+	AUTHORS \
+	COPYING \
+	INSTALL \
+	MAINTAINERS \
+	NEWS \
+	README
+
 VAPI_DIRS = \
 	./src
 
@@ -88,21 +97,34 @@ EXT_PKG_VERSIONS = \
 	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2
 
+PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
+
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES), src/$(src))
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES), src/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES), src/$(header))
+EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES), ui/$(res))
 
-PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
+DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
+	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/*
+
+DIST_TAR = $(TARGET)-$(VERSION).tar
+DIST_TAR_BZ2 = $(DIST_TAR).bz2
 
 all: $(TARGET)
 
 clean:
 	rm -f src/*.c
 	rm -f $(CONFIG_IN)
+	rm -f $(DIST_TAR_BZ2)
 	rm -f $(TARGET)
 
 cleantemps:
 	rm -f *.c
+
+dist: $(DIST_TAR_BZ2)
+
+dist-clean:
+	rm -f $(DIST_TAR_BZ2)
 
 install: $(TARGET) misc/shotwell.desktop
 	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(PREFIX)/bin
@@ -122,7 +144,12 @@ uninstall:
 	xdg-desktop-menu uninstall shotwell.desktop
 	update-desktop-database
 
-$(TARGET): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile configure $(CONFIG_IN)
+$(DIST_TAR_BZ2): $(TARGET) $(DIST_FILES)
+	tar -cv $(DIST_FILES) > $(DIST_TAR)
+	bzip2 $(DIST_TAR)
+
+$(TARGET): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
+	configure $(CONFIG_IN)
 ifndef ASSUME_PKGS
 ifdef EXT_PKGS
 	pkg-config --print-errors --exists $(EXT_PKGS)
@@ -135,7 +162,7 @@ endif
 	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
 	$(foreach vapidir,$(VAPI_DIRS), --vapidir=$(vapidir)) \
 	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
-	-X -DPREFIX='"$(PREFIX)"' \
+	-X -D_PREFIX='"$(PREFIX)"' \
 	$(EXPANDED_SRC_FILES) \
 	-o $(TARGET)
 
