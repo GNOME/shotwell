@@ -196,6 +196,10 @@ public struct Box {
         return Box(left - amount, top - amount, right + amount, bottom + amount);
     }
     
+    public bool contains(Gdk.Point point) {
+        return point.x >= left && point.x <= right && point.y >= top && point.y <= bottom;
+    }
+    
     // This specialized method is only concerned with resized comparisons between two Boxes, 
     // of which one is altered in up to two dimensions: (top or bottom) and/or (left or right).
     // There may be overlap between the two returned Boxes.
@@ -290,6 +294,18 @@ public struct Box {
         }
         
         return BoxComplements.derive(horizontal_complement, vertical_complement);
+    }
+    
+    public Box rubber_band(Gdk.Point point) {
+        assert(point.x >= 0);
+        assert(point.y >= 0);
+        
+        int t = int.min(top, point.y);
+        int b = int.max(bottom, point.y);
+        int l = int.min(left, point.x);
+        int r = int.max(right, point.x);
+
+        return Box(l, t, r, b);
     }
     
     public string to_string() {

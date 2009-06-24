@@ -670,67 +670,6 @@ public class CollectionPage : CheckerboardPage {
         return false;
     }
     
-    private override bool key_press_event(Gdk.EventKey event) {
-        bool handled = true;
-        switch (Gdk.keyval_name(event.keyval)) {
-            case "Up":
-            case "KP_Up":
-                move_cursor(CompassPoint.NORTH);
-            break;
-            
-            case "Down":
-            case "KP_Down":
-                move_cursor(CompassPoint.SOUTH);
-            break;
-            
-            case "Left":
-            case "KP_Left":
-                move_cursor(CompassPoint.WEST);
-            break;
-            
-            case "Right":
-            case "KP_Right":
-                move_cursor(CompassPoint.EAST);
-            break;
-            
-            case "Home":
-            case "KP_Home":
-                LayoutItem first = get_first_item();
-                if (first != null)
-                    cursor_to_item(first);
-            break;
-            
-            case "End":
-            case "KP_End":
-                LayoutItem last = get_last_item();
-                if (last != null)
-                    cursor_to_item(last);
-            break;
-            
-            case "Return":
-            case "KP_Enter":
-                if (get_selected_count() == 1) {
-                    foreach (LayoutItem item in get_selected()) {
-                        AppWindow.get_instance().switch_to_photo_page(this, (Thumbnail) item);
-                        
-                        break;
-                    }
-                } else {
-                    handled = false;
-                }
-            break;
-            
-            default:
-                handled = false;
-            break;
-        }
-        
-        if (handled)
-            return true;
-        
-        return (base.key_press_event != null) ? base.key_press_event(event) : true;
-    }
-    
     private int get_sort_criteria() {
         // any member of the group knows the current value
         Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortByName");

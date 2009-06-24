@@ -593,7 +593,68 @@ public abstract class CheckerboardPage : Page {
         return selected_items.size;
     }
     
-    private override bool on_left_click(Gdk.EventButton event) {
+    protected override bool key_press_event(Gdk.EventKey event) {
+        bool handled = true;
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "Up":
+            case "KP_Up":
+                move_cursor(CompassPoint.NORTH);
+            break;
+            
+            case "Down":
+            case "KP_Down":
+                move_cursor(CompassPoint.SOUTH);
+            break;
+            
+            case "Left":
+            case "KP_Left":
+                move_cursor(CompassPoint.WEST);
+            break;
+            
+            case "Right":
+            case "KP_Right":
+                move_cursor(CompassPoint.EAST);
+            break;
+            
+            case "Home":
+            case "KP_Home":
+                LayoutItem first = get_first_item();
+                if (first != null)
+                    cursor_to_item(first);
+            break;
+            
+            case "End":
+            case "KP_End":
+                LayoutItem last = get_last_item();
+                if (last != null)
+                    cursor_to_item(last);
+            break;
+            
+            case "Return":
+            case "KP_Enter":
+                if (get_selected_count() == 1) {
+                    foreach (LayoutItem item in get_selected()) {
+                        on_item_activated(item);
+                        
+                        break;
+                    }
+                } else {
+                    handled = false;
+                }
+            break;
+            
+            default:
+                handled = false;
+            break;
+        }
+        
+        if (handled)
+            return true;
+        
+        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+    }
+    
+    protected override bool on_left_click(Gdk.EventButton event) {
         // only interested in single-click and double-clicks for now
         if ((event.type != Gdk.EventType.BUTTON_PRESS) && (event.type != Gdk.EventType.2BUTTON_PRESS))
             return false;
@@ -613,7 +674,17 @@ public abstract class CheckerboardPage : Page {
                 break;
                 
                 case Gdk.ModifierType.SHIFT_MASK:
-                    // TODO
+                    Box selected_box;
+                    if (!get_selected_box(out selected_box))
+                        break;
+                    
+                    Gdk.Point point = Gdk.Point();
+                    point.x = item.get_column();
+                    point.y = item.get_row();
+                    
+                    Box new_selected_box = selected_box.rubber_band(point);
+                    
+                    select_all_in_box(new_selected_box);
                 break;
                 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
@@ -656,7 +727,7 @@ public abstract class CheckerboardPage : Page {
         return selected_items.size == 0;
     }
     
-    private override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gdk.EventButton event) {
         // if drag-selecting, stop here and do nothing else
         if (drag_select) {
             drag_select = false;
@@ -695,7 +766,7 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
-    private override bool on_right_click(Gdk.EventButton event) {
+    protected override bool on_right_click(Gdk.EventButton event) {
         // only interested in single-clicks for now
         if (event.type != Gdk.EventType.BUTTON_PRESS)
             return false;
@@ -744,7 +815,7 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
-    private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         // only interested in motion during a drag select
         if (!drag_select)
             return false;
@@ -975,6 +1046,36 @@ public abstract class CheckerboardPage : Page {
         if (item != null)
             cursor_to_item(item);
    }
+   
+    public bool get_selected_box(out Box selected_box) {
+        if (selected_items.size == 0)
+            return false;
+            
+        int left = int.MAX;
+        int top = int.MAX;
+        int right = int.MIN;
+        int bottom = int.MIN;
+        foreach (LayoutItem selected in selected_items) {
+            left = int.min(selected.get_column(), left);
+            top = int.min(selected.get_row(), top);
+            right = int.max(selected.get_column(), right);
+            bottom = int.max(selected.get_row(), bottom);
+        }
+        
+        selected_box = Box(left, top, right, bottom);
+        
+        return true;
+    }
+   
+    public void select_all_in_box(Box box) {
+        Gdk.Point point = Gdk.Point();
+        foreach (LayoutItem item in layout.items) {
+            point.x = item.get_column();
+            point.y = item.get_row();
+            if (box.contains(point))
+                select(item);
+        }
+    }
 }
 
 public abstract class SinglePhotoPage : Page {
