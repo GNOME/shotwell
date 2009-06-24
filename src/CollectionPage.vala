@@ -1,3 +1,8 @@
+/* Copyright 2009 Yorba Foundation
+ *
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution. 
+ */
 
 public class CollectionPage : CheckerboardPage {
     public static const int SORT_BY_MIN = 0;

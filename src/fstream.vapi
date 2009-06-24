@@ -1,3 +1,9 @@
+/* Copyright 2009 Yorba Foundation
+ *
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution. 
+ */
+
 /*
  * FStream is a patch of the GLib FileStream object.  FileStream does not offer fread() and fwrite()
  * wrappers, which is needed for Exif (and possibly other) functions.  Rather than patching GLib,

@@ -1,3 +1,9 @@
+/* Copyright 2009 Yorba Foundation
+ *
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution. 
+ */
+
 namespace Exif {
     // "Exif"
     public static const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };

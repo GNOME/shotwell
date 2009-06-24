@@ -1,3 +1,9 @@
+/* Copyright 2009 Yorba Foundation
+ *
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution. 
+ */
+
 public abstract class Comparator<G> {
     public abstract int64 compare(G a, G b);
 }

@@ -1,3 +1,8 @@
+/* Copyright 2009 Yorba Foundation
+ *
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution. 
+ */
 
 public class FullscreenWindow : Gtk.Window {
     public static const int TOOLBAR_INVOCATION_MSEC = 250;
@@ -211,12 +216,12 @@ public class FullscreenWindow : Gtk.Window {
 public class AppWindow : Gtk.Window {
     public static const string TITLE = "Shotwell";
     public static const string SUBTITLE = "Photo Organizer";
-    public static const string VERSION = "0.1";
+    public static const string VERSION = "0.1.0";
     public static const string COPYRIGHT = "Copyright (c) 2009 Yorba Foundation";
     public static const string DATA_DIR = ".shotwell";
     public static const string PHOTOS_DIR = "Pictures";
 
-    public static const string YORBA_LABEL = "Visit the Yorba Foundation web site";
+    public static const string YORBA_LABEL = "Visit the Yorba web site";
     public static const string YORBA_URL = "http://www.yorba.org";
     public static const string APP_URL = "http://www.yorba.org";
     public static const string HELP_URL = "http://trac.yorba.org:8000/wiki/PhotoOrganizer";
@@ -400,9 +405,6 @@ public class AppWindow : Gtk.Window {
     private Hal.Context hal_context = new Hal.Context();
     private DBus.Connection hal_conn = null;
     
-    // NOTE: When new pages are added, they should be added as well to report_backing_changed(),
-    // and on_remove, if appropriate.
-    //
     // Static (default) pages
     private CollectionPage collection_page = null;
     private EventsDirectoryPage events_directory_page = null;
@@ -544,6 +546,7 @@ public class AppWindow : Gtk.Window {
             "comments", SUBTITLE,
             "copyright", COPYRIGHT,
             "website", YORBA_URL,
+            "license", Resources.LICENSE,
             "website-label", YORBA_LABEL,
             "authors", AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1)
