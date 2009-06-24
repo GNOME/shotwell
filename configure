@@ -9,7 +9,9 @@ configure_help() {
     printf "Options:\n"
     printf "\t-h, --help\t\tPrint this help and exit.\n"
     printf "\t--prefix=PREFIX\t\tPrepend PREFIX to program installation paths.\n"
-    printf "\t\t\t\t[/usr/local]\n\n"
+    printf "\t\t\t\t[/usr/local]\n"
+    printf "\t--assume-pkgs\t\tTurn off package version checking.\n"
+    printf "\n"
 }
 
 abort() {
@@ -37,6 +39,9 @@ do
                             fi
                             
                             variables="${variables}PREFIX=$value\n"
+                            ;;
+        
+        --assume-pkgs)      variables="${variables}ASSUME_PKGS=1\n"
                             ;;
 
         *)                  abort $1
