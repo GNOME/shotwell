@@ -15,7 +15,7 @@ namespace Resources {
     public static const string COPYRIGHT = "Copyright 2009 Yorba Foundation";
     
     public static const string YORBA_URL = "http://www.yorba.org";
-    public static const string HELP_URL = "http://trac.yorba.org/wiki/PhotoOrganizer";
+    public static const string HELP_URL = "http://trac.yorba.org/wiki/Shotwell";
     
     public static const string PREFIX = _PREFIX;
 

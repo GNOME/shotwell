@@ -1,8 +1,8 @@
-Shotwell 0.1.0 - 25 June 2009
+Shotwell 0.1.0 - 26 June 2009
 -----------------------------
 
 - Initial release.  Features include:
-    * Importing photos from file manager or camera via libgphoto.
+    * Importing photos from file manager or camera via libgphoto2.
     * Photos automatically sorted into time-grouped events.
     * Thumbnails viewable at various sizes.
     * Sort by photo name or date of exposure.

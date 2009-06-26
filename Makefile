@@ -1,6 +1,7 @@
 
-TARGET = shotwell
+PROGRAM = shotwell
 VERSION = 0.1.0
+BUILD_ROOT = 1
 
 VALAC = valac
 INSTALL_PROGRAM = install
@@ -107,16 +108,16 @@ EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES), ui/$(res))
 DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/*
 
-DIST_TAR = $(TARGET)-$(VERSION).tar
+DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
 
-all: $(TARGET)
+all: $(PROGRAM)
 
 clean:
 	rm -f src/*.c
 	rm -f $(CONFIG_IN)
 	rm -f $(DIST_TAR_BZ2)
-	rm -f $(TARGET)
+	rm -f $(PROGRAM)
 
 cleantemps:
 	rm -f *.c
@@ -126,8 +127,8 @@ dist: $(DIST_TAR_BZ2)
 dist-clean:
 	rm -f $(DIST_TAR_BZ2)
 
-install: $(TARGET) misc/shotwell.desktop
-	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(PREFIX)/bin
+install: $(PROGRAM) misc/shotwell.desktop
+	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
@@ -138,17 +139,17 @@ install: $(TARGET) misc/shotwell.desktop
 	update-desktop-database
 
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/$(TARGET)
+	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -fr $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/shotwell.svg
 	xdg-desktop-menu uninstall shotwell.desktop
 	update-desktop-database
 
-$(DIST_TAR_BZ2): $(TARGET) $(DIST_FILES)
+$(DIST_TAR_BZ2): $(PROGRAM) $(DIST_FILES)
 	tar -cv $(DIST_FILES) > $(DIST_TAR)
 	bzip2 $(DIST_TAR)
 
-$(TARGET): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
+$(PROGRAM): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
 	configure $(CONFIG_IN)
 ifndef ASSUME_PKGS
 ifdef EXT_PKGS
@@ -164,5 +165,5 @@ endif
 	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
 	-X -D_PREFIX='"$(PREFIX)"' \
 	$(EXPANDED_SRC_FILES) \
-	-o $(TARGET)
+	-o $(PROGRAM)
 

@@ -2,7 +2,7 @@
 Version=1.0
 Name=Shotwell
 GenericName=Photo Organizer
-Comment=Organize your photos.
+Comment=Organize your photos
 Exec=shotwell %U
 Icon=shotwell
 Terminal=false

@@ -9,10 +9,9 @@
     organize them in various ways, view them in full-window or fullscreen
     mode, and export them to share with others.
     
-    As this is an early release, not all features normally associated with
-    photo organizers are implemented.  Visit http://www.yorba.org/shotwell for
-    the current state of its development and to make sure you're running the 
-    latest version.
+    This is an early alpha release with a limited feature set.  Visit
+    http://www.yorba.org/shotwell to read about the current state of Shotwell's
+    development and to make sure you're running the latest version.
     
 
   * Installation & Licensing
@@ -38,7 +37,7 @@
     will load previews of each photo.  You may choose specific photos to 
     import or to import them all.
     
-    Shotwell uses gphoto to communicate with digital cameras.  If your camera 
+    Shotwell uses gPhoto to communicate with digital cameras.  If your camera 
     does not appear in Shotwell's sidebar or there is a problem importing
     photos, visit http://www.gphoto.org to see if it is supported.
     
@@ -51,7 +50,7 @@
     
     Yorba:                      http://www.yorba.org
     Shotwell project page:      http://www.yorba.org/shotwell
-    Shotwell documentation:     http://trac.yorba.org/wiki/PhotoOrganizer
+    Shotwell documentation:     http://trac.yorba.org/wiki/Shotwell
     
     We also encourage you to join the Shotwell mailing list.  Send an email
     with a subject: line of "subscribe" (no quotes) to

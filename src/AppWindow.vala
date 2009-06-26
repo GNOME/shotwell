@@ -1118,8 +1118,8 @@ public class AppWindow : Gtk.Window {
                             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
                             Gtk.ButtonsType.YES_NO,
                             "The camera is locked for use as a mounted drive.  "
-                            + "Shotwell can only access the drive when it's unlocked.  "
-                            + "Do you want Shotwell to unmount the drive for you?");
+                            + "Shotwell can only access the camera when it's unlocked.  "
+                            + "Do you want Shotwell to unmount it for you?");
                         dialog.title = Resources.APP_TITLE;
                         int dialog_res = dialog.run();
                         dialog.destroy();
@@ -1136,7 +1136,7 @@ public class AppWindow : Gtk.Window {
                             Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
                             Gtk.ButtonsType.OK,
                             "The camera is locked by another application.  "
-                            + "Shotwell can only access the drive when it's unlocked.  "
+                            + "Shotwell can only access the camera when it's unlocked.  "
                             + "Please close any other application using the camera and try again.");
                         dialog.title = Resources.APP_TITLE;
                         dialog.run();
