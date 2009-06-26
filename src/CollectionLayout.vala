@@ -528,6 +528,11 @@ public class CollectionLayout : Gtk.Layout {
             last_width = allocation.width;
             refresh();
         }
+
+        // this fixes a bug in GtkLayout where the step_increment field is not updated
+        // in size_allocate
+        // http://bugzilla.gnome.org/show_bug.cgi?id=587007
+        get_vadjustment().set_step_increment((double) allocation.height * 0.10);
     }
     
     private override bool expose_event(Gdk.EventExpose event) {

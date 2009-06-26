@@ -1128,7 +1128,7 @@ public class AppWindow : Gtk.Window {
                             page.set_page_message("Please unmount the camera.");
                             page.refresh();
                         } else {
-                            mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
+                            page.unmount_camera(mount);
                         }
                     } else {
                         // it's not mounted, so another application must have it locked
@@ -1478,6 +1478,7 @@ public class AppWindow : Gtk.Window {
             return;
         }
         
-        mount.unmount(MountUnmountFlags.NONE, null, page.on_unmounted);
+        if (!page.unmount_camera(mount))
+            error_message("Unable to unmount the camera at this time.");
     }
 }

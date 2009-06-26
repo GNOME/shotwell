@@ -1182,11 +1182,15 @@ public abstract class SinglePhotoPage : Page {
         if (event.count > 0)
             return false;
         
-        if (pixmap == null)
-            return false;
-        
-        canvas.window.draw_drawable(canvas_gc, pixmap, event.area.x, event.area.y, event.area.x, 
-            event.area.y, event.area.width, event.area.height);
+        // draw pixmap onto canvas unless it's not been instantiated, in which case draw black
+        // (so either old image or contents of another page is not left on screen)
+        if (pixmap != null) {
+            canvas.window.draw_drawable(canvas_gc, pixmap, event.area.x, event.area.y, event.area.x, 
+                event.area.y, event.area.width, event.area.height);
+        } else {
+            canvas.window.draw_rectangle(canvas.style.black_gc, true, event.area.x, event.area.y,
+                event.area.width, event.area.height);
+        }
 
         return true;
     }
