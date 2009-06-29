@@ -934,23 +934,49 @@ public abstract class CheckerboardPage : Page {
 
     private void on_layout_exposed() {
         // this method only used to draw selection rectangle
-        if (selection_band.width == 0 || selection_band.height == 0)
+        if (selection_band.width <= 1 || selection_band.height <= 1)
             return;
         
         assert(selection_gc != null);
-
-        // pixelate selection rectangle interior
-        Gdk.Pixbuf pixbuf = Gdk.pixbuf_get_from_drawable(null, layout.bin_window, null, selection_band.x,
-            selection_band.y, 0, 0, selection_band.width, selection_band.height);
-        pixbuf.saturate_and_pixelate(pixbuf, 1.0f, true);
         
-        // pixelated fill
-        Gdk.draw_pixbuf(layout.bin_window, selection_gc, pixbuf, 0, 0, selection_band.x, selection_band.y,
-            -1, -1, Gdk.RgbDither.NONE, 0, 0);
+        int view_top = (int) get_vadjustment().get_value();
+        int view_left = (int) get_hadjustment().get_value();
+        int view_height = (int) get_vadjustment().get_page_size();
+        int view_width = (int) get_hadjustment().get_page_size();
+        
+        // only interested in painting the visible selection interior
+        int visible_x = int.max(selection_band.x, view_left);
+        int visible_y = int.max(selection_band.y, view_top);
+        
+        int visible_width = (selection_band.x >= view_left) ? selection_band.width :
+            selection_band.x + selection_band.width - view_left;
+        visible_width = visible_width.clamp((int) get_hadjustment().get_lower(), view_width);
+        
+        int visible_height = (selection_band.y >= view_top) ? selection_band.height : 
+            selection_band.y + selection_band.height - view_top;
+        visible_height = visible_height.clamp((int) get_vadjustment().get_lower(), view_height);
+        
+        // pixelate selection rectangle interior
+        if (visible_width > 1 && visible_height > 1) {
+            // back off by one because this is for the interior
+            visible_width--;
+            visible_height--;
+
+            Gdk.Pixbuf pixbuf = Gdk.pixbuf_get_from_drawable(null, layout.bin_window,
+                layout.bin_window.get_colormap(), visible_x, visible_y, 0, 0, visible_width,
+                visible_height);
+            if (pixbuf != null) {
+                pixbuf.saturate_and_pixelate(pixbuf, 1.0f, true);
+                
+                // pixelated fill
+                Gdk.draw_pixbuf(layout.bin_window, selection_gc, pixbuf, 0, 0, visible_x, visible_y,
+                    visible_width, visible_height, Gdk.RgbDither.NORMAL, 0, 0);
+            }
+        }
 
         // border
         Gdk.draw_rectangle(layout.bin_window, selection_gc, false, selection_band.x, selection_band.y,
-            selection_band.width, selection_band.height);
+            selection_band.width - 1, selection_band.height - 1);
     }
     
     public LayoutItem? get_first_item() {
