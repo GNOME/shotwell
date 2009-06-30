@@ -437,7 +437,7 @@ public class ImportPage : CheckerboardPage {
                 // spin the event loop so the UI doesn't freeze
                 if (!spin_event_loop())
                     return false;
-            } catch (GPhotoError err) {
+            } catch (Error err) {
                 refresh_error = err.message;
                 
                 return false;
@@ -502,7 +502,7 @@ public class ImportPage : CheckerboardPage {
                 if (!spin_event_loop())
                     break;
             }
-        } catch (GPhotoError err) {
+        } catch (Error err) {
             AppWindow.error_message("Error while fetching previews from %s: %s".printf(camera_name,
                 err.message));
         }

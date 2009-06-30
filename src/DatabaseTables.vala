@@ -660,7 +660,7 @@ public class PhotoTable : DatabaseTable {
                 keyfile.set_string(map.get_group(), key, value);
             }
             
-            int length;
+            size_t length;
             trans = keyfile.to_data(out length);
             assert(trans != null);
             assert(trans.length > 0);
@@ -685,7 +685,7 @@ public class PhotoTable : DatabaseTable {
             
             keyfile.remove_group(object);
             
-            int length;
+            size_t length;
             trans = keyfile.to_data(out length);
             assert(trans != null);
         } catch (Error err) {
