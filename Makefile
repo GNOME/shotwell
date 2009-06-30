@@ -4,6 +4,7 @@ VERSION = 0.1.1
 BUILD_ROOT = 1
 
 VALAC = valac
+VALAC_VERSION = vala-1.0 >= 0.7.3
 INSTALL_PROGRAM = install
 INSTALL_DATA = install -m 644
 
@@ -81,7 +82,7 @@ LOCAL_PKGS = \
 EXT_PKGS = \
 	gtk+-2.0 \
 	sqlite3 \
-	vala-1.0 \
+	gee-1.0 \
 	hal \
 	dbus-glib-1 \
 	unique-1.0 \
@@ -91,7 +92,7 @@ EXT_PKGS = \
 EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.14.4 \
 	sqlite3 >= 3.5.9 \
-	vala-1.0 >= 0.7.3 \
+	gee-1.0 >= 0.1.5 \
 	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
 	unique-1.0 >= 1.0.0 \
@@ -151,7 +152,7 @@ $(DIST_TAR_BZ2): $(PROGRAM) $(DIST_FILES)
 
 $(PROGRAM): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
 	configure $(CONFIG_IN)
-	pkg-config --print-errors --exists 'vala-1.0 >= 0.7.3'
+	pkg-config --print-errors --exists '$(VALAC_VERSION)'
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
 	pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS)'

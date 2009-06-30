@@ -1,9 +1,13 @@
-Shotwell 0.1.1 - 29 June 2009
+Shotwell 0.1.1 - 30 June 2009
 -----------------------------
 
 - Bug fix: Dragging a selection band to the bottom of the window to start
 scrolling results in compiz crashing.  This fixes that problem, although
 another reported problem still exists (#380).
+- Changed package dependency from vala-1.0 to gee-1.0.  Although Vala is
+required to build Shotwell, it does not need to be installed to execute
+it.  Gee provides the collections library Shotwell requires.
+- Fixed code to compile with Vala 0.7.4.
 
 
 Shotwell 0.1.0 - 26 June 2009

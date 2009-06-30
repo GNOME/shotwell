@@ -8,7 +8,7 @@ public abstract class Comparator<G> {
     public abstract int64 compare(G a, G b);
 }
 
-public class SortedList<G> : Gee.CollectionObject, Gee.Iterable<G>, Gee.Collection<G>, Gee.List<G> {
+public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G>, Gee.List<G> {
     private Gee.List<G> list;
     private Comparator<G> cmp;
     
@@ -72,15 +72,15 @@ public class SortedList<G> : Gee.CollectionObject, Gee.Iterable<G>, Gee.Collecti
     public int size {
         get { return list.size; }
     }
-    
-    public G? get(int index) {
+
+    public new G? get(int index) {
         return list.get(index);
     }
     
-    public void set(int index, G item) {
+    public new void set(int index, G item) {
         list.set(index, item);
     }
-    
+
     public int index_of(G item) {
         return list.index_of(item);
     }
@@ -91,6 +91,10 @@ public class SortedList<G> : Gee.CollectionObject, Gee.Iterable<G>, Gee.Collecti
     
     public void remove_at(int index) {
         list.remove_at(index);
+    }
+    
+    public Gee.List<G>? slice(int start, int stop) {
+        return list.slice(start, stop);
     }
 }
 
