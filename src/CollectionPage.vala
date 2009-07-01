@@ -4,6 +4,140 @@
  * See the COPYING file in this distribution. 
  */
 
+class SlideshowPage : SinglePhotoPage {
+    public static const int DELAY_SEC = 3;
+    
+    private static const int CHECK_ADVANCE_MSEC = 250;
+    
+    private CheckerboardPage controller;
+    private Thumbnail thumbnail;
+    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    private Gtk.ToolButton play_pause_button;
+    private Timer timer = new Timer();
+    private bool playing = true;
+    private bool exiting = false;
+    
+    public SlideshowPage(CheckerboardPage controller, Thumbnail start) {
+        base("Slideshow");
+        
+        this.controller = controller;
+        this.thumbnail = start;
+        
+        // add toolbar buttons
+        Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
+        previous_button.set_label("Back");
+        previous_button.set_tooltip_text("Go to the previous photo");
+        previous_button.clicked += on_previous;
+        
+        toolbar.insert(previous_button, -1);
+        
+        play_pause_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PAUSE);
+        play_pause_button.set_label("Pause");
+        play_pause_button.set_tooltip_text("Pause the slideshow");
+        play_pause_button.clicked += on_play_pause;
+        
+        toolbar.insert(play_pause_button, -1);
+        
+        Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
+        next_button.set_label("Next");
+        next_button.set_tooltip_text("Go to the next photo");
+        next_button.clicked += on_next;
+        
+        toolbar.insert(next_button, -1);
+    }
+    
+    public override Gtk.Toolbar get_toolbar() {
+        return toolbar;
+    }
+    
+    public override void switched_to() {
+        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+
+        Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
+        timer.start();
+    }
+    
+    public override void switching_from() {
+        exiting = true;
+    }
+    
+    private void on_play_pause() {
+        if (playing) {
+            play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PLAY);
+            play_pause_button.set_label("Play");
+            play_pause_button.set_tooltip_text("Continue the slideshow");
+        } else {
+            play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PAUSE);
+            play_pause_button.set_label("Pause");
+            play_pause_button.set_tooltip_text("Pause the slideshow");
+        }
+        
+        playing = !playing;
+        
+        // reset the timer
+        timer.start();
+    }
+    
+    private void on_previous() {
+        thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
+        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+        
+        // reset the timer
+        timer.start();
+    }
+    
+    private void on_next() {
+        thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
+        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+        
+        // reset the timer
+        timer.start();
+    }
+    
+    private bool auto_advance() {
+        if (exiting)
+            return false;
+        
+        if (!playing)
+            return true;
+        
+        if ((int) timer.elapsed() < DELAY_SEC)
+            return true;
+        
+        on_next();
+        
+        return true;
+    }
+    
+    private override bool key_press_event(Gdk.EventKey event) {
+        bool handled = true;
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "space":
+                on_play_pause();
+            break;
+            
+            case "Left":
+            case "KP_Left":
+                on_previous();
+            break;
+            
+            case "Right":
+            case "KP_Right":
+                on_next();
+            break;
+            
+            default:
+                handled = false;
+            break;
+        }
+        
+        if (handled)
+            return true;
+        
+        return (base.key_press_event != null) ? base.key_press_event(event) : true;
+    }
+}
+
 public class CollectionPage : CheckerboardPage {
     public static const int SORT_BY_MIN = 0;
     public static const int SORT_BY_NAME = 0;
@@ -63,6 +197,7 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton rotate_button = null;
+    private Gtk.ToolButton slideshow_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
     private bool reschedule_improval = false;
@@ -84,6 +219,7 @@ public class CollectionPage : CheckerboardPage {
         { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
         { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to original photo", on_revert },
+        { "Slideshow", Gtk.STOCK_MEDIA_PLAY, "_Slideshow", "F5", "Play a slideshow", on_slideshow },
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
         { "SortPhotos", Gtk.STOCK_SORT_ASCENDING, "_Sort Photos", null, null, null },
@@ -139,6 +275,15 @@ public class CollectionPage : CheckerboardPage {
         rotate_button.clicked += on_rotate_clockwise;
         
         toolbar.insert(rotate_button, -1);
+        
+        // slideshow button
+        slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
+        slideshow_button.set_label("Slideshow");
+        slideshow_button.set_tooltip_text("Start a slideshow of these photos");
+        slideshow_button.sensitive = false;
+        slideshow_button.clicked += on_slideshow;
+        
+        toolbar.insert(slideshow_button, -1);
         
         // separator to force slider to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -335,12 +480,16 @@ public class CollectionPage : CheckerboardPage {
         thumbnail.display_title(display_titles());
         
         add_item(thumbnail);
+        
+        slideshow_button.sensitive = true;
     }
     
     private void on_photo_removed(Photo photo) {
         Thumbnail found = get_thumbnail_for_photo(photo);
         if (found != null)
             remove_item(found);
+        
+        slideshow_button.sensitive = (get_count() > 0);
     }
     
     private void on_thumbnail_altered(Photo photo) {
@@ -533,8 +682,9 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_count() > 0);
     }
-
+    
     private void on_increase_size() {
         increase_thumb_size();
         slider.set_value(scale_to_slider(scale));
@@ -616,6 +766,14 @@ public class CollectionPage : CheckerboardPage {
             refresh();
     }
     
+    private void on_slideshow() {
+        if (get_count() == 0)
+            return;
+            
+        AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(this,
+            (Thumbnail) get_first_item())));
+    }
+
     private void on_view_menu() {
         set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_count() > 0);
     }

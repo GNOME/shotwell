@@ -92,7 +92,7 @@ public class PhotoPage : SinglePhotoPage {
     
     public static const int CROP_TOOL_WINDOW_SEPARATOR = 8;
     
-    private Gtk.Window container;
+    private Gtk.Window container = null;
     private Gtk.Menu context_menu;
     private CheckerboardPage controller = null;
     private Photo photo = null;
@@ -140,10 +140,8 @@ public class PhotoPage : SinglePhotoPage {
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
-    public PhotoPage(Gtk.Window container) {
+    public PhotoPage() {
         base("Photo");
-        
-        this.container = container;
         
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
 
@@ -182,6 +180,14 @@ public class PhotoPage : SinglePhotoPage {
         next_button.clicked += on_next_photo;
         toolbar.insert(next_button, -1);
         
+    }
+    
+    public void set_container(Gtk.Window container) {
+        // this should only be called once
+        assert(this.container == null);
+
+        this.container = container;
+
         // DnD only available in full-window view
         if (!(container is FullscreenWindow))
             enable_drag_source(Gdk.DragAction.COPY);

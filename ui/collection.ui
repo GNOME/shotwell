@@ -21,6 +21,8 @@
             <menuitem name="Mirror" action="Mirror" />
             <separator />
             <menuitem name="Revert" action="Revert" />
+            <separator />
+            <menuitem name="Slideshow" action="Slideshow" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">

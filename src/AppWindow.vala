@@ -20,15 +20,15 @@ public class FullscreenWindow : Gtk.Window {
 
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
     private Gtk.UIManager ui = new Gtk.UIManager();
-    private PhotoPage photo_page;
+    private Page page;
     private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
     private Gtk.ToggleToolButton pin_button = new Gtk.ToggleToolButton.from_stock(Resources.PIN_TOOLBAR);
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
 
-    public FullscreenWindow(Gdk.Screen screen, CheckerboardPage controller, Thumbnail start) {
-        photo_page = new PhotoPage(this);
+    public FullscreenWindow(Page page) {
+        this.page = page;
 
         File ui_file = Resources.get_ui("fullscreen.ui");
 
@@ -47,7 +47,7 @@ public class FullscreenWindow : Gtk.Window {
         if (accel_group != null)
             add_accel_group(accel_group);
         
-        set_screen(screen);
+        set_screen(AppWindow.get_instance().get_screen());
         set_border_width(0);
         
         pin_button.set_label("Pin Toolbar");
@@ -57,7 +57,7 @@ public class FullscreenWindow : Gtk.Window {
         close_button.set_tooltip_text("Leave fullscreen");
         close_button.clicked += on_close;
         
-        Gtk.Toolbar toolbar = photo_page.get_toolbar();
+        Gtk.Toolbar toolbar = page.get_toolbar();
         toolbar.set_show_arrow(false);
         toolbar.insert(pin_button, -1);
         toolbar.insert(close_button, -1);
@@ -67,7 +67,7 @@ public class FullscreenWindow : Gtk.Window {
         toolbar_window.set_border_width(0);
         toolbar_window.add(toolbar);
         
-        add(photo_page);
+        add(page);
         
         // need to do this to create a Gdk.Window to set masks
         fullscreen();
@@ -83,15 +83,14 @@ public class FullscreenWindow : Gtk.Window {
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
 
-        photo_page.display(controller, start);
-        photo_page.switched_to();
+        page.switched_to();
     }
     
     private void on_close() {
         toolbar_window.hide();
         toolbar_window = null;
         
-        photo_page.switching_from();
+        page.switching_from();
         
         AppWindow.get_instance().end_fullscreen();
     }
@@ -111,15 +110,15 @@ public class FullscreenWindow : Gtk.Window {
     }
     
     private bool on_key_pressed(Gdk.EventKey event) {
-        return (event.is_modifier != 0) ? photo_page.notify_modifier_pressed(event) : false;
+        return (event.is_modifier != 0) ? page.notify_modifier_pressed(event) : false;
     }
     
     private bool on_key_released(Gdk.EventKey event) {
-        return (event.is_modifier != 0) ? photo_page.notify_modifier_released(event) : false;
+        return (event.is_modifier != 0) ? page.notify_modifier_released(event) : false;
     }
     
     private bool on_configured(Gdk.EventConfigure event) {
-        return photo_page.notify_configure_event(event);
+        return page.notify_configure_event(event);
     }
 
     private bool is_pointer_in_toolbar() {
@@ -436,7 +435,8 @@ public class AppWindow : Gtk.Window {
         // prepare the default parent and orphan pages
         collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
-        photo_page = new PhotoPage(this);
+        photo_page = new PhotoPage();
+        photo_page.set_container(this);
 
         // create Photo objects for all photos in the database and load into the Photos page
         Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
@@ -566,36 +566,51 @@ public class AppWindow : Gtk.Window {
     }
     
     private void on_fullscreen() {
-        if (fullscreen_window != null) {
-            fullscreen_window.present();
-            
-            return;
-        }
-
+        CheckerboardPage controller = null;
+        Thumbnail start = null;
+        
         if (current_page is CheckerboardPage) {
             LayoutItem item = ((CheckerboardPage) current_page).get_fullscreen_photo();
             if (item == null) {
-                debug("No fullscreen photo for this view");
+                message("No fullscreen photo for this view");
                 
                 return;
             }
-                
-            // needs to be a thumbnail
-            assert(item is Thumbnail);
             
-            // set up fullscreen view and hide ourselves until it's closed
-            fullscreen_window = new FullscreenWindow(get_screen(), (CheckerboardPage) current_page, 
-                (Thumbnail) item);
+            controller = (CheckerboardPage) current_page;
+            start = (Thumbnail) item;
         } else if (current_page is PhotoPage) {
-            fullscreen_window = new FullscreenWindow(get_screen(), ((PhotoPage) current_page).get_controller(),
-                ((PhotoPage) current_page).get_thumbnail());
+            controller = ((PhotoPage) current_page).get_controller();
+            start = ((PhotoPage) current_page).get_thumbnail();
         } else {
-            error("Unable to present fullscreen view for this page");
+            message("Unable to present fullscreen view for this page");
+            
+            return;
+        }
+        
+        if (controller == null || start == null)
+            return;
+        
+        PhotoPage fs_photo = new PhotoPage();
+        FullscreenWindow fs_window = new FullscreenWindow(fs_photo);
+        fs_photo.set_container(fs_window);
+        fs_photo.display(controller, start);
+
+        go_fullscreen(fs_window);
+    }
+    
+    public void go_fullscreen(FullscreenWindow fullscreen_window) {
+        // if already fullscreen, use that
+        if (this.fullscreen_window != null) {
+            this.fullscreen_window.present();
+            
+            return;
         }
         
         current_page.switching_to_fullscreen();
         
-        fullscreen_window.present();
+        this.fullscreen_window = fullscreen_window;
+        this.fullscreen_window.present();
         hide();
     }
     
