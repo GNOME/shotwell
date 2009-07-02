@@ -319,7 +319,7 @@ public class PhotoPage : SinglePhotoPage {
         last_grab_y = y -= scaled_pos.y;
         
         // repaint because crop changes on a manipulation
-        repaint();
+        default_repaint();
         
         // block DnD handlers if crop is enabled
         return true;
@@ -337,7 +337,7 @@ public class PhotoPage : SinglePhotoPage {
         update_cursor((int) event.x, (int) event.y);
         
         // repaint because crop changes on a manipulation
-        repaint();
+        default_repaint();
 
         return false;
     }

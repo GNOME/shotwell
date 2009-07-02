@@ -1166,6 +1166,7 @@ public abstract class SinglePhotoPage : Page {
     private Gdk.Pixbuf unscaled = null;
     private Gdk.Pixbuf scaled = null;
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
+    private Gdk.InterpType default_interp = FAST_INTERP;
     private Gdk.InterpType interp = FAST_INTERP;
     private SinglePhotoPage improval_scheduled = null;
     private bool reschedule_improval = false;
@@ -1193,6 +1194,10 @@ public abstract class SinglePhotoPage : Page {
         set_event_source(canvas);
     }
     
+    public void set_default_interp(Gdk.InterpType default_interp) {
+        this.default_interp = default_interp;
+    }
+    
     public void set_pixbuf(Gdk.Pixbuf unscaled) {
         this.unscaled = unscaled;
         
@@ -1202,7 +1207,7 @@ public abstract class SinglePhotoPage : Page {
         // need to make sure this happens
         canvas.realize();
         
-        repaint();
+        repaint(default_interp);
     }
     
     public Gdk.Drawable? get_drawable() {
@@ -1236,7 +1241,7 @@ public abstract class SinglePhotoPage : Page {
     }
     
     private void on_viewport_resize() {
-        repaint();
+        repaint(default_interp);
     }
     
     private bool on_canvas_exposed(Gdk.EventExpose event) {
@@ -1268,7 +1273,11 @@ public abstract class SinglePhotoPage : Page {
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    public void repaint(Gdk.InterpType repaint_interp = FAST_INTERP) {
+    public void default_repaint() {
+        repaint(default_interp);
+    }
+    
+    public void repaint(Gdk.InterpType repaint_interp) {
         // no image, no painting
         if (unscaled == null)
             return;
@@ -1291,9 +1300,6 @@ public abstract class SinglePhotoPage : Page {
         // if necessary, create a pixmap as large as the entire viewport
         if (pixmap == null) {
             init_pixmap(width, height);
-        
-            // override caller's request ... pixbuf will be rescheduled for improvement
-            repaint_interp = FAST_INTERP;
         } else if (repaint_interp == FAST_INTERP && interp == QUALITY_INTERP) {
             // block calls where the pixmap is not being regenerated and the caller is asking for
             // a lower interp

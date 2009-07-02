@@ -23,6 +23,8 @@ class SlideshowPage : SinglePhotoPage {
         this.controller = controller;
         this.thumbnail = start;
         
+        set_default_interp(QUALITY_INTERP);
+        
         // add toolbar buttons
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label("Back");
