@@ -4,18 +4,43 @@
  * See the COPYING file in this distribution. 
  */
 
+public class PageLayout : Gtk.VBox {
+    public Page page;
+    
+    public PageLayout(Page page) {
+        this.page = page;
+        
+        set_homogeneous(false);
+        set_spacing(0);
+        
+        pack_start(page, true, true, 0);
+        if (page.get_toolbar() != null)
+            pack_end(page.get_toolbar(), false, false, 0);
+    }
+}
+    
 public class PageMarker {
-    public Gtk.Widget notebook_page;
+    public PageLayout layout;
+    
+    private Gtk.TreeModel model = null;
     private Gtk.TreeRowReference row = null;
     
-    public PageMarker(Gtk.Widget notebook_page, Gtk.TreeModel? model = null, Gtk.TreePath? path = null ) {
-        this.notebook_page = notebook_page;
-        if ((model != null) && (path != null))
+    public PageMarker(PageLayout layout, Gtk.TreeModel? model = null, Gtk.TreePath? path = null ) {
+        this.layout = layout;
+        if ((model != null) && (path != null)) {
+            this.model = model;
             this.row = new Gtk.TreeRowReference(model, path);
+        }
     }
     
-    public unowned Gtk.TreeRowReference get_row() {
+    public Gtk.TreeRowReference? get_row() {
         return row;
+    }
+    
+    public void update_row(Gtk.TreePath path) {
+        assert(model != null);
+
+        row = new Gtk.TreeRowReference(model, path);
     }
 }
 
@@ -87,6 +112,17 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     public PageMarker get_marker() {
         return marker;
+    }
+    
+    public void clear_marker() {
+        // there does exist a circular reference here: in order to associate the sidebar
+        // rows with pages and their Gtk.Box layout in the notebook, the marker is used.
+        // However, a Page holds a reference to the marker, while holds a PageLayout,
+        // which holds a reference to Page
+        if (marker != null) {
+            marker.layout.page = null;
+            marker = null;
+        }
     }
     
     public virtual Gtk.MenuBar get_menubar() {
@@ -1131,7 +1167,7 @@ public abstract class SinglePhotoPage : Page {
     private Gdk.Pixbuf scaled = null;
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
     private Gdk.InterpType interp = FAST_INTERP;
-    private bool improval_scheduled = false;
+    private SinglePhotoPage improval_scheduled = null;
     private bool reschedule_improval = false;
     
     public SinglePhotoPage(string page_name) {
@@ -1322,14 +1358,17 @@ public abstract class SinglePhotoPage : Page {
     }
 
     private void schedule_improval() {
-        if (improval_scheduled) {
+        if (improval_scheduled != null) {
             reschedule_improval = true;
             
             return;
         }
         
         Timeout.add(IMPROVAL_MSEC, image_improval);
-        improval_scheduled = true;
+        
+        // because Timeout doesn't maintain a ref to this, need to maintain one ourself
+        // (in case the page is destroyed between schedules)
+        improval_scheduled = this;
     }
     
     private bool image_improval() {
@@ -1340,7 +1379,9 @@ public abstract class SinglePhotoPage : Page {
         }
         
         repaint(QUALITY_INTERP);
-        improval_scheduled = false;
+        
+        // do not touch self after clearing this
+        improval_scheduled = null;
         
         return false;
     }

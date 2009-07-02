@@ -8,6 +8,13 @@
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
+        <menu name="ViewMenu" action="ViewMenu">
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+        </menu>
+        
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />
             <separator />

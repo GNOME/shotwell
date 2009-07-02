@@ -29,6 +29,33 @@ public class DirectoryItem : LayoutItem {
 }
 
 public class EventsDirectoryPage : CheckerboardPage {
+    private class CompareEventItem : Comparator<DirectoryItem> {
+        private EventTable event_table;
+        private int sort;
+        
+        public CompareEventItem(EventTable event_table, int sort) {
+            assert(sort == AppWindow.SORT_EVENTS_ORDER_ASCENDING 
+                || sort == AppWindow.SORT_EVENTS_ORDER_DESCENDING);
+            
+            this.event_table = event_table;
+            this.sort = sort;
+        }
+        
+        public override int64 compare(DirectoryItem a, DirectoryItem b) {
+            int64 start_a = (int64) event_table.get_start_time(a.event_id);
+            int64 start_b = (int64) event_table.get_start_time(b.event_id);
+            
+            switch (sort) {
+                case AppWindow.SORT_EVENTS_ORDER_ASCENDING:
+                    return start_a - start_b;
+                
+                case AppWindow.SORT_EVENTS_ORDER_DESCENDING:
+                default:
+                    return start_b - start_a;
+            }
+        }
+    }
+    
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
@@ -49,6 +76,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        
+        set_layout_comparator(new CompareEventItem(event_table, AppWindow.get_instance().get_events_sort()));
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -95,6 +124,11 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         show_all();
 
+        refresh();
+    }
+    
+    public void notify_sort_changed(int sort) {
+        set_layout_comparator(new CompareEventItem(event_table, sort));
         refresh();
     }
     

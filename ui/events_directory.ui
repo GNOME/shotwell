@@ -6,6 +6,11 @@
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         

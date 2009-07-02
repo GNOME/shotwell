@@ -222,7 +222,7 @@ public class CollectionPage : CheckerboardPage {
         { "Slideshow", Gtk.STOCK_MEDIA_PLAY, "_Slideshow", "F5", "Play a slideshow", on_slideshow },
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
-        { "SortPhotos", Gtk.STOCK_SORT_ASCENDING, "_Sort Photos", null, null, null },
+        { "SortPhotos", null, "Sort _Photos", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };

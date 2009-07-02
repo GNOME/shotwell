@@ -115,8 +115,10 @@ DIST_TAR_BZ2 = $(DIST_TAR).bz2
 all: $(PROGRAM)
 
 clean:
-	rm -f src/*.c
+	rm -f $(EXPANDED_SRC_FILES:.vala=.c)
+ifdef CONFIG_IN
 	rm -f $(CONFIG_IN)
+endif
 	rm -f $(DIST_TAR_BZ2)
 	rm -f $(PROGRAM)
 

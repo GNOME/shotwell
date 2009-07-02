@@ -35,6 +35,11 @@
                 <menuitem name="SortAscending" action="SortAscending" />
                 <menuitem name="SortDescending" action="SortDescending" />
             </menu>
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         

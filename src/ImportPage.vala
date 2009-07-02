@@ -108,6 +108,8 @@ public class ImportPage : CheckerboardPage {
         { "ImportSelected", Resources.IMPORT, "Import _Selected", null, null, on_import_selected },
         { "ImportAll", Resources.IMPORT_ALL, "Import _All", null, null, on_import_all },
         
+        { "ViewMenu", null, "_View", null, null, null },
+
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
@@ -628,6 +630,8 @@ public class ImportQueuePage : SinglePhotoPage {
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, on_file_menu },
         { "Stop", Gtk.STOCK_STOP, "_Stop Import", null, "Stop importing photos", on_stop },
+        
+        { "ViewMenu", null, "_View", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
