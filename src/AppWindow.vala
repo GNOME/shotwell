@@ -444,9 +444,8 @@ public class AppWindow : Gtk.Window {
     private PhotoTable photo_table = new PhotoTable();
     private EventTable event_table = new EventTable();
     
-    private Gtk.TreeView sidebar = null;
-    private Gtk.TreeStore sidebar_store = null;
-    private Gtk.TreeRowReference cameras_row = null;
+    private Sidebar sidebar = new Sidebar();
+    private SidebarMarker cameras_marker = null;
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
@@ -473,10 +472,16 @@ public class AppWindow : Gtk.Window {
         configure_event += on_configure;
         
         // prepare the default parent and orphan pages
+        // (these are never removed from the system)
         collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
         photo_page = new PhotoPage();
         photo_page.set_container(this);
+
+        // add the default parents and orphans to the notebook
+        add_parent_page(collection_page);
+        add_parent_page(events_directory_page);
+        add_orphan_page(photo_page);
 
         // create Photo objects for all photos in the database and load into the Photos page
         Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
@@ -487,44 +492,17 @@ public class AppWindow : Gtk.Window {
              collection_page.add_photo(photo);
         }
 
-        // prepare the sidebar
-        sidebar_store = new Gtk.TreeStore(1, typeof(string));
-        sidebar = new Gtk.TreeView.with_model(sidebar_store);
-
-        var text = new Gtk.CellRendererText();
-        var text_column = new Gtk.TreeViewColumn();
-        text_column.pack_start(text, true);
-        text_column.add_attribute(text, "text", 0);
-        sidebar.append_column(text_column);
-        
-        sidebar.set_headers_visible(false);
-        sidebar.set_enable_search(false);
-        sidebar.set_rules_hint(false);
-        sidebar.set_show_expanders(true);
-        sidebar.set_reorderable(false);
-        sidebar.set_enable_tree_lines(false);
-        sidebar.set_grid_lines(Gtk.TreeViewGridLines.NONE);
-        sidebar.set_tooltip_column(0);
-
-        // add the default parents and orphans
-        add_parent_page(collection_page);
-        add_parent_page(events_directory_page);
-        add_orphan_page(photo_page);
-
         // add stored events
         Gee.ArrayList<EventID?> event_ids = event_table.get_events();
         foreach (EventID event_id in event_ids)
             add_event_page(event_id);
         
-        // start in the collection page & control selection aspects
-        Gtk.TreeSelection selection = sidebar.get_selection();
-        selection.select_path(collection_page.get_marker().get_row().get_path());
-        selection.set_mode(Gtk.SelectionMode.BROWSE);
-
-        sidebar.get_selection().set_select_function(on_sidebar_selection, null);
-        sidebar.cursor_changed += on_sidebar_cursor_changed;
-
+        // start in the collection page
+        sidebar.place_cursor(collection_page);
         sidebar.expand_all();
+        
+        // monitor cursor changes to select proper page in notebook
+        sidebar.cursor_changed += on_sidebar_cursor_changed;
         
         create_layout(collection_page);
 
@@ -694,24 +672,22 @@ public class AppWindow : Gtk.Window {
         
         // rebuild sidebar with new sorting rules ... start by pruning branch from sidebar
         // (note that this doesn't remove the pages from the notebook object)
-        prune_sidebar_children(events_directory_page.get_marker().get_row());
+        sidebar.prune_branch_children(events_directory_page.get_marker());
         
         CompareEventPage comparator = new CompareEventPage(events_sort);
         
         // re-insert each page in the sidebar in the new order ... does not add page
         // to notebook again or create a new layout
         foreach (EventPage event_page in event_list)
-            reinsert_child_page_sorted(events_directory_page, event_page, comparator);
+            sidebar.insert_child_sorted(events_directory_page.get_marker(), event_page, comparator);
         
         // pruning will collapse the branch, expand automatically
         // TODO: Only expand if already expanded?
-        sidebar.expand_row(events_directory_page.get_marker().get_row().get_path(), true);
+        sidebar.expand_branch(events_directory_page.get_marker());
         
         // set the tree cursor to the current page, which might have been lost in the
         // delete/insert
-        Gtk.TreeRowReference row = current_page.get_marker().get_row();
-        if (row != null)
-            sidebar.get_selection().select_path(row.get_path());
+        sidebar.place_cursor(current_page);
 
         // the events directory page needs to know about this
         events_directory_page.notify_sort_changed(events_sort);
@@ -730,7 +706,7 @@ public class AppWindow : Gtk.Window {
             import_queue_page = new ImportQueuePage();
             import_queue_page.batch_removed += remove_import_queue_row;
             
-            insert_parent_page_after(import_queue_page, events_directory_page.get_marker().get_row());
+            insert_page_after(events_directory_page.get_marker(), import_queue_page);
         }
         
         import_queue_page.enqueue_and_schedule(batch_import);
@@ -944,7 +920,8 @@ public class AppWindow : Gtk.Window {
         foreach (PhotoID photo_id in photo_ids)
             event_page.add_photo(Photo.fetch(photo_id));
 
-        add_child_page_sorted(events_directory_page, event_page, new CompareEventPage(get_events_sort()));
+        insert_child_page_sorted(events_directory_page.get_marker(), event_page, 
+            new CompareEventPage(get_events_sort()));
         event_list.add(event_page);
         
         return event_page;
@@ -958,206 +935,60 @@ public class AppWindow : Gtk.Window {
         event_list.remove(page);
     }
 
-    private Gtk.TreePath add_sidebar_parent(string name) {
-        Gtk.TreeIter parent;
-        sidebar_store.append(out parent, null);
-        sidebar_store.set(parent, 0, name);
-
-        return sidebar_store.get_path(parent);
-    }
-    
-    private Gtk.TreePath insert_sidebar_sibling_before(Gtk.TreeRowReference row, string name) {
-        Gtk.TreeIter sibling, new_sibling;
-        sidebar_store.get_iter(out sibling, row.get_path());
-        sidebar_store.insert_before(out new_sibling, null, sibling);
-        sidebar_store.set(new_sibling, 0, name);
-        
-        return sidebar_store.get_path(new_sibling);
-    }
-    
-    private Gtk.TreePath insert_sidebar_sibling_after(Gtk.TreeRowReference row, string name) {
-        Gtk.TreeIter sibling, new_sibling;
-        sidebar_store.get_iter(out sibling, row.get_path());
-        sidebar_store.insert_after(out new_sibling, null, sibling);
-        sidebar_store.set(new_sibling, 0, name);
-        
-        return sidebar_store.get_path(new_sibling);
-    }
-    
-    private Gtk.TreePath add_sidebar_child(Gtk.TreeRowReference row, string name) {
-        Gtk.TreeIter parent, child;
-        sidebar_store.get_iter(out parent, row.get_path());
-        sidebar_store.append(out child, parent);
-        sidebar_store.set(child, 0, name);
-        
-        return sidebar_store.get_path(child);
-    }
-    
-    private void prune_sidebar(Gtk.TreeRowReference row) {
-        Gtk.TreeIter branch;
-        sidebar_store.get_iter(out branch, row.get_path());
-        
-        sidebar_store.remove(branch);
-    }
-    
-    private void prune_sidebar_children(Gtk.TreeRowReference row) {
-        Gtk.TreeIter branch;
-        sidebar_store.get_iter(out branch, row.get_path());
-        
-        Gtk.TreeIter child_iter;
-        bool valid = sidebar_store.iter_children(out child_iter, branch);
-        while (valid)
-            valid = sidebar_store.remove(child_iter);
-    }
-
-    private PageLayout add_to_notebook(Page page) {
+    private void add_to_notebook(Page page) {
         // need to show all before handing over to notebook
         page.show_all();
         
-        PageLayout notebook_page = new PageLayout(page);
-
-        int pos = notebook.append_page(notebook_page, null);
+        int pos = notebook.append_page(page.get_layout(), null);
         assert(pos >= 0);
-        
-        return notebook_page;
     }
     
-    private Page? find_page_by_path(Gtk.TreePath path) {
-        int page_count = notebook.get_n_pages();
-        for (int ctr = 0; ctr < page_count; ctr++) {
-            PageLayout notebook_page = (PageLayout) notebook.get_nth_page(ctr);
-            Gtk.TreeRowReference row = notebook_page.page.get_marker().get_row();
-            if (row == null)
-                continue;
-            
-            Gtk.TreePath page_path = row.get_path();
-            if (page_path == null)
-                continue;
-            
-            if (page_path.compare(path) == 0)
-                return notebook_page.page;
-        }
+    private int get_notebook_pos(Page page) {
+        int pos = notebook.page_num(page.get_layout());
+        assert(pos != -1);
         
-        return null;
+        return pos;
     }
     
     private void add_parent_page(Page parent) {
-        PageLayout notebook_page = add_to_notebook(parent);
+        add_to_notebook(parent);
 
-        Gtk.TreePath path = add_sidebar_parent(parent.get_page_name());
-        
-        parent.set_marker(new PageMarker(notebook_page, sidebar_store, path));
+        sidebar.add_parent(parent);
         
         notebook.show_all();
     }
     
-    private void insert_parent_page_after(Page parent, Gtk.TreeRowReference after) {
-        PageLayout notebook_page = add_to_notebook(parent);
+    private void add_child_page(SidebarMarker parent_marker, Page child) {
+        add_to_notebook(child);
         
-        Gtk.TreePath path = insert_sidebar_sibling_after(after, parent.get_page_name());
-        
-        parent.set_marker(new PageMarker(notebook_page, sidebar_store, path));
+        sidebar.add_child(parent_marker, child);
         
         notebook.show_all();
     }
     
-    private void add_child_page_to_row(Gtk.TreeRowReference parent, Page child) {
-        PageLayout notebook_page = add_to_notebook(child);
-
-        Gtk.TreePath path = add_sidebar_child(parent, child.get_page_name());
+    private void insert_page_after(SidebarMarker after_marker, Page page) {
+        add_to_notebook(page);
         
-        child.set_marker(new PageMarker(notebook_page, sidebar_store, path));
+        sidebar.insert_sibling_after(after_marker, page);
         
         notebook.show_all();
     }
     
-    private void add_child_page_sorted(Page parent, Page child, Comparator<Page> comparator) {
-        // find parent in sidebar
-        Gtk.TreeIter parent_iter;
-        bool found = sidebar_store.get_iter(out parent_iter, parent.get_marker().get_row().get_path());
-        assert(found);
+    private void insert_child_page_sorted(SidebarMarker parent_marker, Page page,
+        Comparator<Page> comparator) {
+        add_to_notebook(page);
         
-        // iterate the children of the parent page, inserting child in sorted order
-        Gtk.TreeIter child_iter;
-        found = sidebar_store.iter_children(out child_iter, parent_iter);
-        while (found) {
-            // the path should always translate to a Page
-            Page page = find_page_by_path(sidebar_store.get_path(child_iter));
-            assert(page != null);
-            
-            // look to insert before the current page
-            if (comparator.compare(child, page) < 0) {
-                PageLayout notebook_page = add_to_notebook(child);
-                
-                Gtk.TreePath path = insert_sidebar_sibling_before(page.get_marker().get_row(),
-                    child.get_page_name());
-
-                child.set_marker(new PageMarker(notebook_page, sidebar_store, path));
-                
-                notebook.show_all();
-                
-                return;
-            }
-            
-            // iterate next; if none, break off and add to end
-            if (!sidebar_store.iter_next(ref child_iter))
-                break;
-        }
+        sidebar.insert_child_sorted(parent_marker, page, comparator);
         
-        // not found, add to end
-        add_child_page_to_row(parent.get_marker().get_row(), child);
+        notebook.show_all();
     }
     
-    private void reinsert_child_page_sorted(Page parent, Page child, Comparator<Page> comparator) {
-        // find parent in sidebar
-        Gtk.TreeIter parent_iter;
-        bool found = sidebar_store.get_iter(out parent_iter, parent.get_marker().get_row().get_path());
-        assert(found);
-        
-        // iterate the children of the parent page, inserting child in sorted order
-        Gtk.TreeIter child_iter;
-        found = sidebar_store.iter_children(out child_iter, parent_iter);
-        while (found) {
-            // the path should always translate to a Page
-            Page page = find_page_by_path(sidebar_store.get_path(child_iter));
-            assert(page != null);
-            
-            // look to insert before the current page
-            if (comparator.compare(child, page) < 0) {
-                Gtk.TreePath path = insert_sidebar_sibling_before(page.get_marker().get_row(),
-                    child.get_page_name());
-                
-                child.get_marker().update_row(path);
-                
-                return;
-            }
-            
-            // iterate next; if none, break off and add to end
-            if (!sidebar_store.iter_next(ref child_iter))
-                break;
-        }
-        
-        // not found, add to end
-        Gtk.TreePath path = add_sidebar_child(parent.get_marker().get_row(), child.get_page_name());
-        child.get_marker().update_row(path);
-    }
-
     // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
     // is not listed in the sidebar
     private void add_orphan_page(Page orphan) {
-        PageLayout notebook_page = add_to_notebook(orphan);
+        add_to_notebook(orphan);
         
-        orphan.set_marker(new PageMarker(notebook_page));
-
         notebook.show_all();
-    }
-    
-    // a grouping row is a top-level element in the sidebar that does not have its own page, and
-    // therefore cannot be selected.  "Cameras" is an example.
-    private Gtk.TreeRowReference insert_grouping_row(Gtk.TreeRowReference after, string name) {
-        Gtk.TreePath path = insert_sidebar_sibling_after(after, name);
-        
-        return new Gtk.TreeRowReference(sidebar_store, path);
     }
     
     private void remove_page(Page page) {
@@ -1190,30 +1021,12 @@ public class AppWindow : Gtk.Window {
             notebook.remove_page(pos);
 
             // remove from sidebar, if present
-            PageMarker marker = page.get_marker();
-            if (marker.get_row() != null) {
-                Gtk.TreeIter iter;
-                bool found = sidebar_store.get_iter(out iter, marker.get_row().get_path());
-                assert(found);
-                sidebar_store.remove(iter);
-            }
-            
-            // clear the marker, which removes the sidebar reference as well as the page's layout
-            page.clear_marker();
+            sidebar.remove(page);
             
             pages_to_be_removed.remove_at(0);
         }
         
         return false;
-    }
-    
-    private int get_notebook_pos(Page page) {
-        PageMarker marker = page.get_marker();
-        
-        int pos = notebook.page_num(marker.layout);
-        assert(pos != -1);
-        
-        return pos;
     }
     
     private void create_layout(Page start_page) {
@@ -1278,9 +1091,7 @@ public class AppWindow : Gtk.Window {
         // which will then call this function again
         current_page = page;
 
-        PageMarker marker = page.get_marker();
-        if (marker.get_row() != null)
-            sidebar.get_selection().select_path(marker.get_row().get_path());
+        sidebar.place_cursor(page);
         
         page.show_all();
         
@@ -1288,8 +1099,8 @@ public class AppWindow : Gtk.Window {
     }
 
     private bool is_page_selected(Page page, Gtk.TreePath path) {
-        PageMarker marker = page.get_marker();
-        if (marker.get_row() == null)
+        SidebarMarker marker = page.get_marker();
+        if (marker == null)
             return false;
         
         return (path.compare(marker.get_row().get_path()) == 0);
@@ -1417,15 +1228,6 @@ public class AppWindow : Gtk.Window {
         // this has to be done in Idle handler because the focus/ won't change properly inside 
         // this signal
         Idle.add(focus_on_current_page);
-    }
-    
-    private bool on_sidebar_selection(Gtk.TreeSelection selection, Gtk.TreeModel model, Gtk.TreePath path,
-        bool path_currently_selected) {
-        // Cameras path unselectable, all others okay
-        if (cameras_row != null)
-            return path.compare(cameras_row.get_path()) != 0;
-        
-        return true;
     }
     
     private void do_op(GPhoto.Result res, string op) throws GPhotoError {
@@ -1629,22 +1431,22 @@ public class AppWindow : Gtk.Window {
             ImportPage page = new ImportPage(camera, uri);
             
             // create the Cameras row if this is the first one
-            if (cameras_row == null)
-                cameras_row = insert_grouping_row(events_directory_page.get_marker().get_row(),
+            if (cameras_marker == null)
+                cameras_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
                     "Cameras");
-                
-            add_child_page_to_row(cameras_row, page);
+            
+            add_child_page(cameras_marker, page);
 
             camera_map.set(uri, page);
             
             // automagically expand the Cameras branch so the user sees the attached camera(s)
-            sidebar.expand_row(cameras_row.get_path(), true);
+            sidebar.expand_branch(cameras_marker);
         }
         
         // if no cameras present, remove row
-        if (camera_map.size == 0 && cameras_row != null) {
-            prune_sidebar(cameras_row);
-            cameras_row = null;
+        if (camera_map.size == 0 && cameras_marker != null) {
+            sidebar.prune_branch(cameras_marker);
+            cameras_marker = null;
         }
     }
     

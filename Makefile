@@ -43,7 +43,8 @@ SRC_FILES = \
 	BatchImport.vala \
 	ExportDialog.vala \
 	Resources.vala \
-	Debug.vala
+	Debug.vala \
+	Sidebar.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -116,6 +117,7 @@ all: $(PROGRAM)
 
 clean:
 	rm -f $(EXPANDED_SRC_FILES:.vala=.c)
+	rm -f $(EXPANDED_SRC_FILES:.vala=.vala.c)
 ifdef CONFIG_IN
 	rm -f $(CONFIG_IN)
 endif

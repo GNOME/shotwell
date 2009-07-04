@@ -18,31 +18,6 @@ public class PageLayout : Gtk.VBox {
             pack_end(page.get_toolbar(), false, false, 0);
     }
 }
-    
-public class PageMarker {
-    public PageLayout layout;
-    
-    private Gtk.TreeModel model = null;
-    private Gtk.TreeRowReference row = null;
-    
-    public PageMarker(PageLayout layout, Gtk.TreeModel? model = null, Gtk.TreePath? path = null ) {
-        this.layout = layout;
-        if ((model != null) && (path != null)) {
-            this.model = model;
-            this.row = new Gtk.TreeRowReference(model, path);
-        }
-    }
-    
-    public Gtk.TreeRowReference? get_row() {
-        return row;
-    }
-    
-    public void update_row(Gtk.TreePath path) {
-        assert(model != null);
-
-        row = new Gtk.TreeRowReference(model, path);
-    }
-}
 
 public abstract class Page : Gtk.ScrolledWindow {
     public static const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
@@ -66,8 +41,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.ActionGroup common_action_group = null;
     
     private string page_name;
+    private PageLayout layout;
     private Gtk.MenuBar menu_bar = null;
-    private PageMarker marker = null;
+    private SidebarMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
@@ -75,12 +51,17 @@ public abstract class Page : Gtk.ScrolledWindow {
 
     public Page(string page_name) {
         this.page_name = page_name;
+        this.layout = new PageLayout(this);
         
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
     }
 
     public string get_page_name() {
         return page_name;
+    }
+    
+    public PageLayout get_layout() {
+        return layout;
     }
     
     public void set_page_name(string page_name) {
@@ -106,23 +87,16 @@ public abstract class Page : Gtk.ScrolledWindow {
         return event_source;
     }
     
-    public void set_marker(PageMarker marker) {
+    public void set_marker(SidebarMarker marker) {
         this.marker = marker;
     }
     
-    public PageMarker get_marker() {
+    public SidebarMarker get_marker() {
         return marker;
     }
     
     public void clear_marker() {
-        // there does exist a circular reference here: in order to associate the sidebar
-        // rows with pages and their Gtk.Box layout in the notebook, the marker is used.
-        // However, a Page holds a reference to the marker, while holds a PageLayout,
-        // which holds a reference to Page
-        if (marker != null) {
-            marker.layout.page = null;
-            marker = null;
-        }
+        marker = null;
     }
     
     public virtual Gtk.MenuBar get_menubar() {
