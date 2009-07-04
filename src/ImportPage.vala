@@ -104,9 +104,13 @@ public class ImportPage : CheckerboardPage {
     
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, on_file },
+        { "FileMenu", null, "_File", null, null, on_file_menu },
         { "ImportSelected", Resources.IMPORT, "Import _Selected", null, null, on_import_selected },
         { "ImportAll", Resources.IMPORT_ALL, "Import _All", null, null, on_import_all },
+        
+        { "EditMenu", null, "_Edit", null, null, on_edit_menu },
+        { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos for importing",
+            on_select_all },
         
         { "ViewMenu", null, "_View", null, null, null },
 
@@ -510,7 +514,7 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private void on_file() {
+    private void on_file_menu() {
         set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", !busy && (get_selected_count() > 0));
         set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", !busy && (get_count() > 0));
     }
@@ -521,6 +525,14 @@ public class ImportPage : CheckerboardPage {
     
     private void on_import_all() {
         import(get_items());
+    }
+    
+    private void on_edit_menu() {
+        set_item_sensitive("/ImportMenuBar/EditMenu/SelectAll", !busy && (get_count() > 0));
+    }
+    
+    private void on_select_all() {
+        select_all();
     }
     
     private void import(Gee.Iterable<LayoutItem> items) {

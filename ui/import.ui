@@ -8,6 +8,10 @@
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="SelectAll" action="SelectAll" />
+        </menu>
+        
         <menu name="ViewMenu" action="ViewMenu">
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
