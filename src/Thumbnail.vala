@@ -23,7 +23,7 @@ public class Thumbnail : LayoutItem {
         this.photo = photo;
         this.scale = scale;
         
-        title.set_text(photo.get_file().get_basename());
+        set_title(photo.get_file().get_basename());
 
         dim = photo.get_dimensions().get_scaled(scale);
 
@@ -31,7 +31,7 @@ public class Thumbnail : LayoutItem {
         // not present, the widget will collapse, and so the layout manager won't account for it
         // properly when it's off the viewport.  The solution is to manually set the widget's
         // requisition size, even when it contains no pixbuf
-        image.set_size_request(dim.width, dim.height);
+        set_image_size(dim.width, dim.height);
 
         photo.thumbnail_altered += on_thumbnail_altered;
     }
@@ -51,10 +51,10 @@ public class Thumbnail : LayoutItem {
             pixbuf = pixbuf.scale_simple(dim.width, dim.height, LOW_QUALITY_INTERP);
             interp = LOW_QUALITY_INTERP;
             
-            image.set_from_pixbuf(pixbuf);
+            set_image(pixbuf);
         }
         
-        image.set_size_request(dim.width, dim.height);
+        set_image_size(dim.width, dim.height);
     }
     
     public void resize(int new_scale) {
@@ -85,7 +85,7 @@ public class Thumbnail : LayoutItem {
         // really new) is added
         if ((pixbuf.get_width() != dim.width) || (pixbuf.get_height() != dim.height)) {
             pixbuf = pixbuf.scale_simple(dim.width, dim.height, HIGH_QUALITY_INTERP);
-            image.set_from_pixbuf(pixbuf);
+            set_image(pixbuf);
         }
 
         interp = HIGH_QUALITY_INTERP;
@@ -99,8 +99,8 @@ public class Thumbnail : LayoutItem {
         pixbuf = scale_pixbuf(pixbuf, scale, LOW_QUALITY_INTERP);
         interp = LOW_QUALITY_INTERP;
 
-        image.set_from_pixbuf(pixbuf);
-        image.set_size_request(dim.width, dim.height);
+        set_image(pixbuf);
+        set_image_size(dim.width, dim.height);
         
         thumb_exposed = true;
     }
@@ -109,8 +109,8 @@ public class Thumbnail : LayoutItem {
         if (!thumb_exposed)
             return;
 
-        image.clear();
-        image.set_size_request(dim.width, dim.height);
+        clear_image();
+        set_image_size(dim.width, dim.height);
         
         thumb_exposed = false;
     }

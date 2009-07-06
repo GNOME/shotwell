@@ -406,6 +406,7 @@ public abstract class CheckerboardPage : Page {
     private CollectionLayout layout = new CollectionLayout();
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private LayoutItem last_clicked_item = null;
+    private LayoutItem highlighted = null;
 
     // for drag selection
     private bool drag_select = false;
@@ -830,8 +831,35 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
+    protected virtual bool on_mouse_over(LayoutItem? item, int x, int y, Gdk.ModifierType mask) {
+        // if hovering over the last hovered item, or both are null (nothing highlighted and
+        // hovering over empty space), do nothing
+        if (item == highlighted)
+            return true;
+        
+        // either something new is highlighted or now hovering over empty space, so dim old item
+        if (highlighted != null) {
+            highlighted.unbrighten();
+            highlighted = null;
+        }
+        
+        // if over empty space, done
+        if (item == null)
+            return true;
+        
+        // brighten the new item
+        item.brighten();
+        highlighted = item;
+        
+        return true;
+    }
+    
     protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
-        // only interested in motion during a drag select
+        // report what item the mouse is hovering over
+        if (!on_mouse_over(get_item_at_pixel(x, y), x, y, mask))
+            return false;
+        
+        // go no further if not drag-selecting
         if (!drag_select)
             return false;
         

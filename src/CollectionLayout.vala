@@ -7,19 +7,24 @@
 public abstract class LayoutItem : Gtk.Alignment {
     public static const int LABEL_PADDING = 4;
     public static const int FRAME_PADDING = 4;
+
     public static const string TEXT_COLOR = "#FFF";
     public static const string SELECTED_COLOR = "#0FF";
     public static const string UNSELECTED_COLOR = "#FFF";
     
+    public static const int BRIGHTEN_SHIFT = 0x18;
+    
     // Due to the potential for thousands or tens of thousands of thumbnails being present in the
     // system, all widgets used here and by subclasses should be NOWINDOW widgets.
-    protected Gtk.Image image = new Gtk.Image();
-    protected Gtk.Label title = new Gtk.Label("");
-    protected Gtk.Frame frame = new Gtk.Frame(null);
-    
+    private Gtk.Label title = new Gtk.Label("");
+    private Gtk.Frame frame = new Gtk.Frame(null);
+    private Gtk.Image image = new Gtk.Image();
+
+    private Gdk.Pixbuf pixbuf = null;
     private bool selected = false;
     private Gtk.VBox vbox = new Gtk.VBox(false, 0);
     private bool title_displayed = true;
+    private bool brightened = false;
 
     private int col = -1;
     private int row = -1;
@@ -55,6 +60,10 @@ public abstract class LayoutItem : Gtk.Alignment {
         return null;
     }
     
+    public void set_title(string text) {
+        title.set_text(text);
+    }
+    
     public string get_title() {
         return title.get_text();
     }
@@ -73,6 +82,21 @@ public abstract class LayoutItem : Gtk.Alignment {
             vbox.remove(title);
             title_displayed = false;
         }
+    }
+    
+    public void set_image(Gdk.Pixbuf pixbuf) {
+        this.pixbuf = pixbuf;
+        
+        image.set_from_pixbuf(pixbuf);
+    }
+    
+    public void clear_image() {
+        image.clear();
+        pixbuf = null;
+    }
+    
+    public void set_image_size(int width, int height) {
+        image.set_size_request(width, height);
     }
     
     public virtual void select() {
@@ -123,6 +147,27 @@ public abstract class LayoutItem : Gtk.Alignment {
     
     public int get_row() {
         return row;
+    }
+    
+    public void brighten() {
+        if (brightened || pixbuf == null)
+            return;
+        
+        // create a new lightened pixbuf to display
+        Gdk.Pixbuf sunshine = pixbuf.copy();
+        shift_colors(sunshine, BRIGHTEN_SHIFT, BRIGHTEN_SHIFT, BRIGHTEN_SHIFT, 0);
+        
+        image.set_from_pixbuf(sunshine);
+        brightened = true;
+    }
+    
+    public void unbrighten() {
+        if (!brightened || pixbuf == null)
+            return;
+        
+        // return to the normal image
+        image.set_from_pixbuf(pixbuf);
+        brightened = false;
     }
 }
 

@@ -28,10 +28,8 @@ class ImportPreview : LayoutItem {
                 orientation = (Orientation) o;
         }
 
-        title.set_text(filename);
-
-        Gdk.Pixbuf rotated = orientation.rotate_pixbuf(pixbuf);
-        image.set_from_pixbuf(rotated);
+        set_title(filename);
+        set_image(orientation.rotate_pixbuf(pixbuf));
     }
 }
 

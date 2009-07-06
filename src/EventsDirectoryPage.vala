@@ -14,7 +14,7 @@ public class DirectoryItem : LayoutItem {
     public DirectoryItem(EventID event_id, EventTable event_table) {
         this.event_id = event_id;
         
-        title.set_text(event_table.get_name(event_id));
+        set_title(event_table.get_name(event_id));
         
         PhotoID photo_id = event_table.get_primary_photo(event_id);
         assert(photo_id.is_valid());
@@ -23,8 +23,7 @@ public class DirectoryItem : LayoutItem {
         Gdk.Pixbuf pixbuf = photo.get_thumbnail(SCALE);
         pixbuf = scale_pixbuf(pixbuf, SCALE, INTERP);
 
-        image.set_from_pixbuf(pixbuf);
-        image.set_size_request(pixbuf.get_width(), pixbuf.get_height());
+        set_image(pixbuf);
     }
 }
 
