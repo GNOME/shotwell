@@ -14,7 +14,7 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     
     switch (command) {
         case ShotwellCommand.MOUNTED_CAMERA:
-            AppWindow.get_instance().mounted_camera_shell_notification(File.new_for_uri(data.get_text()));
+            AppWindow.get_instance().mounted_camera_shell_notification(data.get_text());
         break;
         
         case Unique.Command.ACTIVATE:
@@ -44,7 +44,7 @@ void main(string[] args) {
     // (everything else is ignored for now)
     string[] mounts = new string[0];
     for (int ctr = 1; ctr < args.length; ctr++) {
-        if (args[ctr].has_prefix("gphoto2://"))
+        if (AppWindow.is_mount_uri_supported(args[ctr]))
             mounts += args[ctr];
     }
     
@@ -92,7 +92,7 @@ void main(string[] args) {
         
         // report mount points
         foreach (string mount in mounts)
-            app_window.mounted_camera_shell_notification(File.new_for_uri(mount));
+            app_window.mounted_camera_shell_notification(mount);
         
         // throw it all on the display
         app_window.show_all();

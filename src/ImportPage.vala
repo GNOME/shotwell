@@ -5,6 +5,9 @@
  */
 
 class ImportPreview : LayoutItem {
+    public static const int MAX_SCALE = 128;
+    public static const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
+    
     public int fsid;
     public string folder;
     public string filename;
@@ -29,7 +32,14 @@ class ImportPreview : LayoutItem {
         }
 
         set_title(filename);
-        set_image(orientation.rotate_pixbuf(pixbuf));
+        
+        // scale down pixbuf if necessary
+        Gdk.Pixbuf scaled = pixbuf;
+        if (pixbuf.get_width() > MAX_SCALE || pixbuf.get_height() > MAX_SCALE)
+            scaled = scale_pixbuf(pixbuf, MAX_SCALE, INTERP);
+
+        // honor rotation and display
+        set_image(orientation.rotate_pixbuf(scaled));
     }
 }
 
@@ -261,6 +271,10 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_text("");
         progress_bar.visible = false;
         
+        switch_to_and_refresh();
+    }
+    
+    public void switch_to_and_refresh() {
         // jump to page
         AppWindow.get_instance().switch_to_page(this);
 
@@ -413,28 +427,41 @@ public class ImportPage : CheckerboardPage {
                 GPhoto.CameraFileInfo info;
                 GPhoto.get_info(null_context.context, camera, fulldir, filename, out info);
                 
-                // at this point, only interested in JPEG files with a JPEG preview
-                if (((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)
-                    || ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0)) {
-                    message("Skipping %s/%s: No preview (preview=%02Xh file=%02Xh)", fulldir, filename,
-                        info.preview.fields, info.file.fields);
+                // at this point, only interested in JPEG files
+                // TODO: Increase file format support, for TIFF and RAW at least
+                if ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0) {
+                    message("Skipping %s/%s: No file (file=%02Xh)", fulldir, filename,
+                        info.file.fields);
                         
                     continue;
                 }
                 
-                if ((info.preview.type != GPhoto.MIME.JPEG) || (info.file.type != GPhoto.MIME.JPEG)) {
-                    message("Skipping %s/%s: Not a JPEG (preview=%s file=%s)", fulldir, filename,
-                        info.preview.type, info.file.type);
+                if (info.file.type != GPhoto.MIME.JPEG) {
+                    message("Skipping %s/%s: Not a JPEG (%s)", fulldir, filename, info.file.type);
                         
                     continue;
+                }
+                
+                ulong preview_size = info.preview.size;
+                
+                // skip preview if it isn't JPEG
+                // TODO: Accept previews if of any type recognized by Gdk.Pixbuf
+                if (preview_size != 0) {
+                    if ((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) != 0
+                        && info.preview.type != GPhoto.MIME.JPEG) {
+                        message("Not previewing %s/%s: Not a JPEG preview (%s)", fulldir, filename, 
+                            info.preview.type);
+                    
+                        preview_size = 0;
+                    }
                 }
                 
                 ImportFile import_file = new ImportFile(fsid, dir, filename, info.file.size,
-                    info.preview.size);
+                    preview_size);
                 
                 file_list.add(import_file);
                 total_bytes += info.file.size;
-                total_preview_bytes += info.preview.size;
+                total_preview_bytes += (preview_size != 0) ? preview_size : info.file.size;
                 
                 progress_bar.pulse();
                 
@@ -477,8 +504,6 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void load_previews(Gee.ArrayList<ImportFile> file_list, ulong total_preview_bytes) {
-        uint8[] buffer = new uint8[64 * 1024];
-
         ulong bytes = 0;
         try {
             foreach (ImportFile import_file in file_list) {
@@ -488,12 +513,19 @@ public class ImportPage : CheckerboardPage {
                 
                 progress_bar.set_text("Fetching preview for %s".printf(import_file.filename));
                 
-                Gdk.Pixbuf pixbuf = GPhoto.load_preview(null_context.context, camera, fulldir, 
-                    import_file.filename, buffer);
+                // if no preview, load full image for preview
+                Gdk.Pixbuf pixbuf = null;
+                if (import_file.preview_size > 0)
+                    pixbuf = GPhoto.load_preview(null_context.context, camera, fulldir, 
+                        import_file.filename);
+                else
+                    pixbuf = GPhoto.load_image(null_context.context, camera, fulldir,
+                        import_file.filename);
+                        
                 Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, 
-                    import_file.filename, buffer);
+                    import_file.filename);
                 
-                bytes += import_file.preview_size;
+                bytes += (import_file.preview_size != 0) ? import_file.preview_size : import_file.file_size;
                 progress_bar.set_fraction((double) bytes / (double) total_preview_bytes);
                 
                 ImportPreview preview = new ImportPreview(pixbuf, exif, import_file.fsid, import_file.dir, 

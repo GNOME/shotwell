@@ -230,9 +230,16 @@ public class AppWindow : Gtk.Window {
     public static const int SORT_EVENTS_ORDER_ASCENDING = 0;
     public static const int SORT_EVENTS_ORDER_DESCENDING = 1;
 
+    private static const string[] SUPPORTED_MOUNT_SCHEMES = {
+        "gphoto2:",
+        "disk:",
+        "file:"
+    };
+    
     private static AppWindow instance = null;
     private static string[] args = null;
     private static bool user_quit = false;
+    private static bool camera_update_scheduled = false;
 
     private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
@@ -342,6 +349,11 @@ public class AppWindow : Gtk.Window {
     
     public static File get_photos_dir() {
         return File.new_for_path(Environment.get_home_dir()).get_child(PHOTOS_DIR);
+    }
+    
+    public static File get_temp_dir() {
+        // TODO: I know, I know.  Better ways to locate a temp file.
+        return get_data_subdir("tmp");
     }
     
     public static File get_data_subdir(string name, string? subname = null) {
@@ -1021,7 +1033,7 @@ public class AppWindow : Gtk.Window {
             notebook.remove_page(pos);
 
             // remove from sidebar, if present
-            sidebar.remove(page);
+            sidebar.remove_page(page);
             
             pages_to_be_removed.remove_at(0);
         }
@@ -1314,7 +1326,7 @@ public class AppWindow : Gtk.Window {
         return null;
     }
     
-    private string get_port_uri(string port) {
+    private static string get_port_uri(string port) {
         return "gphoto2://[%s]/".printf(port);
     }
 
@@ -1453,49 +1465,89 @@ public class AppWindow : Gtk.Window {
     private static void on_device_added(Hal.Context context, string udi) {
         debug("on_device_added: %s", udi);
         
-        try {
-            AppWindow.get_instance().update_camera_table();
-        } catch (GPhotoError err) {
-            debug("Error updating camera table: %s", err.message);
-        }
+        schedule_camera_update();
     }
     
     private static void on_device_removed(Hal.Context context, string udi) {
         debug("on_device_removed: %s", udi);
         
+        schedule_camera_update();
+    }
+    
+    // Device add/removes often arrive in pairs; this allows for a single
+    // update to occur when they come in all at once
+    private static void schedule_camera_update() {
+        if (camera_update_scheduled)
+            return;
+        
+        Timeout.add(500, background_camera_update);
+        camera_update_scheduled = true;
+    }
+    
+    private static bool background_camera_update() {
+        debug("background_camera_update");
+    
         try {
             AppWindow.get_instance().update_camera_table();
         } catch (GPhotoError err) {
             debug("Error updating camera table: %s", err.message);
         }
+        
+        camera_update_scheduled = false;
+
+        return false;
     }
     
-    public static void mounted_camera_shell_notification(File uri) {
-        debug("mount point reported: %s", uri.get_uri());
+    public static bool is_mount_uri_supported(string uri) {
+        foreach (string scheme in SUPPORTED_MOUNT_SCHEMES) {
+            if (uri.has_prefix(scheme))
+                return true;
+        }
+        
+        return false;
+    }
+    
+    public static void mounted_camera_shell_notification(string uri) {
+        debug("mount point reported: %s", uri);
 
-        if (uri.has_uri_scheme("gphoto2:")) {
-            debug("Only unmount URIs with gphoto2 scheme: %s (%s)", uri.get_uri(), uri.get_uri_scheme());
+        if (!is_mount_uri_supported(uri)) {
+            debug("Unsupported mount scheme: %s", uri);
             
             return;
         }
         
+        File uri_file = File.new_for_uri(uri);
+        
         Mount mount = null;
         try {
-            mount = uri.find_enclosing_mount(null);
+            mount = uri_file.find_enclosing_mount(null);
         } catch (Error err) {
             debug("%s", err.message);
             
             return;
         }
         
-        ImportPage page = get_instance().camera_map.get(uri.get_uri());
+        // convert file: URIs into gphoto disk: URIs
+        string alt_uri = null;
+        if (uri.has_prefix("file://"))
+            alt_uri = get_port_uri(uri.replace("file://", "disk:"));
+        
+        ImportPage page = get_instance().camera_map.get(uri_file.get_uri());
+        if (page == null && alt_uri != null)
+            page = get_instance().camera_map.get(alt_uri);
+
         if (page == null) {
-            debug("Unable to find camera for %s", uri.get_uri());
+            debug("Unable to find import page for %s", uri_file.get_uri());
             
             return;
         }
         
-        if (!page.unmount_camera(mount))
-            error_message("Unable to unmount the camera at this time.");
+        // don't unmount mass storage cameras, as they are then unavailble to gPhoto
+        if (!uri.has_prefix("file://")) {
+            if (!page.unmount_camera(mount))
+                error_message("Unable to unmount the camera at this time.");
+        } else {
+            page.switch_to_and_refresh();
+        }
     }
 }

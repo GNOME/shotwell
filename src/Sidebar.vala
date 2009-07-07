@@ -80,8 +80,7 @@ public class Sidebar : Gtk.TreeView {
         page.clear_marker();
         
         // remove from master table
-        bool removed = pages.remove(page);
-        assert(removed);
+        pages.remove(page);
     }
     
     private Page? locate_page(Gtk.TreePath path) {
@@ -216,17 +215,19 @@ public class Sidebar : Gtk.TreeView {
     
     public void remove_page(Page page) {
         // do nothing if page is not in sidebar
-        if (page.get_marker() == null)
-            return;
+        if (page.get_marker() != null) {
+            // Path can be null if the row is blown away ... need to detach, but it's obviously
+            // not located in the model any longer
+            Gtk.TreePath path = page.get_marker().get_path();
+            if (path != null) {
+                // locate in sidebar; again, if not there, don't complain
+                Gtk.TreeIter iter;
+                if (store.get_iter(out iter, path))
+                    store.remove(iter);
+            }
+        }
         
-        // locate in sidebar; again, if not there, don't complain
-        Gtk.TreeIter iter;
-        bool found = store.get_iter(out iter, page.get_marker().get_path());
-        if (!found)
-            return;
-        
-        store.remove(iter);
-        
+        // in every case, attempt to detach from this object
         detach_page(page);
     }
 
