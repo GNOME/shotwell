@@ -13,9 +13,10 @@ configure_help() {
     printf "\n"
     printf "Options:\n"
     printf "\t-h, --help\t\tPrint this help and exit.\n"
+    printf "\t--assume-pkgs\t\tTurn off package version checking.\n"
+    printf "\t--build=DIR\t\tBuild secondary files in DIR.\n"
     printf "\t--prefix=PREFIX\t\tPrepend PREFIX to program installation paths.\n"
     printf "\t\t\t\t[/usr/local]\n"
-    printf "\t--assume-pkgs\t\tTurn off package version checking.\n"
     printf "\n"
 }
 
@@ -47,6 +48,14 @@ do
                             ;;
         
         --assume-pkgs)      variables="${variables}ASSUME_PKGS=1\n"
+                            ;;
+        
+        --build)            if [ ! $value ]
+                            then
+                                abort $1
+                            fi
+                            
+                            variables="${variables}BUILD_DIR=$value\n"
                             ;;
 
         *)                  abort $1

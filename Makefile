@@ -8,7 +8,7 @@ VALAC_VERSION = vala-1.0 >= 0.7.3
 INSTALL_PROGRAM = install
 INSTALL_DATA = install -m 644
 
-VALAFLAGS = -g --enable-checking -X -D_VERSION='"$(VERSION)"'
+VALAFLAGS = -g --enable-checking
 ifdef dev
 DEVFLAGS = --save-temps -X -O0
 endif
@@ -18,6 +18,13 @@ ALL_VALAFLAGS = $(VALAFLAGS) $(DEVFLAGS) --Xcc=-std=c99
 
 PREFIX=/usr/local
 -include configure.in
+
+DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"'
+
+CFLAGS += -c -g `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
+	$(foreach def,$(DEFINES),-D$(def))
+
+LDFLAGS += `pkg-config --libs $(EXT_PKGS)`
 
 SRC_FILES = \
 	main.vala \
@@ -102,10 +109,18 @@ EXT_PKG_VERSIONS = \
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 
-EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES), src/$(src))
-EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES), src/$(vapi))
-EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES), src/$(header))
-EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES), ui/$(res))
+ifndef BUILD_DIR
+BUILD_DIR=src
+endif
+
+EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
+EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
+EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=..vala.c))
+EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
+EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),src/$(vapi))
+EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),src/$(header))
+EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
+VALA_STAMP = $(BUILD_DIR)/.stamp
 
 DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/*
@@ -116,16 +131,18 @@ DIST_TAR_BZ2 = $(DIST_TAR).bz2
 all: $(PROGRAM)
 
 clean:
-	rm -f $(EXPANDED_SRC_FILES:.vala=.c)
-	rm -f $(EXPANDED_SRC_FILES:.vala=.vala.c)
-ifdef CONFIG_IN
-	rm -f $(CONFIG_IN)
-endif
+	rm -f $(EXPANDED_C_FILES)
+	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
+	rm -f $(EXPANDED_OBJ_FILES)
+	rm -f $(VALA_STAMP)
 	rm -f $(DIST_TAR_BZ2)
 	rm -f $(PROGRAM)
 
 cleantemps:
-	rm -f *.c
+	rm -f $(EXPANDED_C_FILES)
+	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
+	rm -f $(EXPANDED_OBJ_FILES)
+	rm -f $(VALA_STAMP)
 
 dist: $(DIST_TAR_BZ2)
 
@@ -154,7 +171,7 @@ $(DIST_TAR_BZ2): $(PROGRAM) $(DIST_FILES)
 	tar -cv $(DIST_FILES) > $(DIST_TAR)
 	bzip2 $(DIST_TAR)
 
-$(PROGRAM): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
+$(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
 	configure $(CONFIG_IN)
 	pkg-config --print-errors --exists '$(VALAC_VERSION)'
 ifndef ASSUME_PKGS
@@ -164,11 +181,18 @@ else ifdef EXT_PKGS
 	pkg-config --print-errors --exists $(EXT_PKGS)
 endif
 endif
-	$(VALAC) $(ALL_VALAFLAGS) \
+	mkdir -p $(BUILD_DIR)
+	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(ALL_VALAFLAGS) \
 	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
-	$(foreach vapidir,$(VAPI_DIRS), --vapidir=$(vapidir)) \
+	$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
+	$(foreach def,$(DEFINES),-X -D$(def)) \
 	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
-	-X -D_PREFIX='"$(PREFIX)"' \
-	$(EXPANDED_SRC_FILES) \
-	-o $(PROGRAM)
+	$(EXPANDED_SRC_FILES)
+	touch $(VALA_STAMP)
 
+$(EXPANDED_C_FILES): $(VALA_STAMP) $(EXPANDED_SRC_FILES)
+
+.SECONDARY: $(EXPANDED_OBJ_FILES)
+
+$(PROGRAM): $(EXPANDED_OBJ_FILES)
+	gcc $(LDFLAGS) $(EXPANDED_OBJ_FILES) -o $@
