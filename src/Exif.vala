@@ -59,6 +59,19 @@ namespace Exif {
         
         return true;
     }
+
+    public bool get_timestamp(Exif.Data exif, out time_t timestamp) {
+        Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
+        if (entry != null) {
+            string datetime = entry.get_value();
+            if (datetime != null) {
+                if (convert_datetime(datetime, out timestamp))
+                    return true;
+            }
+        }
+        
+        return false;
+    }
 }
 
 public errordomain ExifError {

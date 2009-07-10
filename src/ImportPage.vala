@@ -66,16 +66,22 @@ public class ImportPage : CheckerboardPage {
         private string dir;
         private string filename;
         private ulong file_size;
+        private time_t exposure_time;
         private File dest_file;
         
         public CameraImportJob(GPhoto.ContextWrapper context, GPhoto.Camera camera, string dir, 
-            string filename, ulong file_size, File dest_file) {
+            string filename, ulong file_size, time_t exposure_time, File dest_file) {
             this.context = context;
             this.camera = camera;
             this.dir = dir;
             this.filename = filename;
             this.file_size = file_size;
+            this.exposure_time = exposure_time;
             this.dest_file = dest_file;
+        }
+        
+        public time_t get_exposure_time() {
+            return exposure_time;
         }
         
         public override string get_identifier() {
@@ -93,6 +99,12 @@ public class ImportPage : CheckerboardPage {
             copy_to_library = false;
             
             return true;
+        }
+    }
+    
+    private class CameraImportComparator : Comparator<CameraImportJob> {
+        public override int64 compare(CameraImportJob a, CameraImportJob b) {
+            return (int64) a.get_exposure_time() - (int64) b.get_exposure_time();
         }
     }
     
@@ -580,7 +592,8 @@ public class ImportPage : CheckerboardPage {
 
         int failed = 0;
         ulong total_bytes = 0;
-        Gee.ArrayList<CameraImportJob> jobs = new Gee.ArrayList<CameraImportJob>();
+        SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(
+            new Gee.ArrayList<CameraImportJob>(), new CameraImportComparator());
         
         foreach (LayoutItem item in items) {
             ImportPreview preview = (ImportPreview) item;
@@ -609,8 +622,12 @@ public class ImportPage : CheckerboardPage {
                 continue;
             }
             
+            time_t exposure_time;
+            if (!Exif.get_timestamp(preview.exif, out exposure_time))
+                exposure_time = 0;
+            
             jobs.add(new CameraImportJob(null_context, camera, dir, preview.filename, 
-                preview.file_size, dest_file));
+                preview.file_size, exposure_time, dest_file));
             total_bytes += preview.file_size;
         }
 

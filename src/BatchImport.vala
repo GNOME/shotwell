@@ -22,28 +22,18 @@ public class BatchImport {
         }
     }
     
-    public static File? create_library_path(string filename, Exif.Data? exif, time_t ts, out bool collision) {
+    public static File? create_library_path(string filename, Exif.Data? exif, time_t ts, 
+        out bool collision) {
         File dir = AppWindow.get_photos_dir();
         time_t timestamp = ts;
         
         // use EXIF exposure timestamp over the supplied one (which probably comes from the file's
         // modified time, or is simply now())
-        if (exif != null) {
-            Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
-            if (entry != null) {
-                string datetime = entry.get_value();
-                if (datetime != null) {
-                    time_t stamp;
-                    if (Exif.convert_datetime(datetime, out stamp)) {
-                        timestamp = stamp;
-                    }
-                }
-            }
+        if (!Exif.get_timestamp(exif, out timestamp)) {
+            // if no exposure time supplied, use now()
+            if (ts == 0)
+                timestamp = time_t();
         }
-        
-        // if no timestamp, use now()
-        if (timestamp == 0)
-            timestamp = time_t();
         
         Time tm = Time.local(timestamp);
         
