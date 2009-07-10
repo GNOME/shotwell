@@ -272,6 +272,10 @@ public class Photo : Object {
         return get_uncropped_dimensions();
     }
     
+    public bool has_crop() {
+        return photo_table.get_transformation(photo_id, "crop") != null;
+    }
+    
     // Returns the crop in the raw photo's coordinate system
     private bool get_raw_crop(out Box crop) {
         KeyValueMap map = photo_table.get_transformation(photo_id, "crop");

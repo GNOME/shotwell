@@ -4,93 +4,23 @@
  * See the COPYING file in this distribution. 
  */
 
-public class CropToolWindow : Gtk.Window {
-    public static const int CONTROL_SPACING = 8;
-    public static const int WINDOW_BORDER = 8;
-    
-    public Gtk.Button apply_button = new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
-    public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
-    public bool user_moved = false;
-
-    private Gtk.Window owner;
-    private Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
-    private Gtk.Frame layout_frame = new Gtk.Frame(null);
-    
-    public CropToolWindow(Gtk.Window owner) {
-        this.owner = owner;
-        
-        type_hint = Gdk.WindowTypeHint.TOOLBAR;
-        set_transient_for(owner);
-        unset_flags(Gtk.WidgetFlags.CAN_FOCUS);
-        set_accept_focus(false);
-        set_focus_on_map(false);
-        
-        apply_button.set_tooltip_text("Set the crop for this photo");
-        cancel_button.set_tooltip_text("Return to current photo dimensions");
-        
-        apply_button.set_image_position(Gtk.PositionType.LEFT);
-        cancel_button.set_image_position(Gtk.PositionType.LEFT);
-        
-        layout.set_border_width(WINDOW_BORDER);
-        layout.add(apply_button);
-        layout.add(cancel_button);
-        
-        layout_frame.set_border_width(0);
-        layout_frame.set_shadow_type(Gtk.ShadowType.OUT);
-        layout_frame.add(layout);
-        
-        add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK);
-        
-        add(layout_frame);
-    }
-    
-    private override bool button_press_event(Gdk.EventButton event) {
-        // LMB only
-        if (event.button != 1)
-            return (base.button_press_event != null) ? base.button_press_event(event) : true;
-        
-        begin_move_drag((int) event.button, (int) event.x_root, (int) event.y_root, event.time);
-        user_moved = true;
-        
-        return true;
-    }
-    
-    private override void realize() {
-        set_opacity(FullscreenWindow.TOOLBAR_OPACITY);
-        
-        base.realize();
-    }
-    
-    // This is necessary because some window managers (Metacity seems to be guilty of it) seem to
-    // ignore the set_focus_on_map flag, and give the toolbar focus when it appears on the screen.
-    // Thereafter, thanks to set_accept_focus, the toolbar will never accept it.  Because changing
-    // focus inside of a focus signal seems to be problematic, if the toolbar ever does receive
-    // focus, it schedules a task to give it back to its owner.
-    private override bool focus(Gtk.DirectionType direction) {
-        Idle.add_full(Priority.HIGH, unsteal_focus);
-        
-        return true;
-    }
-    
-    private bool unsteal_focus() {
-        owner.present_with_time(Gdk.CURRENT_TIME);
-        
-        return false;
-    }
-}
-
 public class PhotoPage : SinglePhotoPage {
-    public static const double CROP_INIT_X_PCT = 0.15;
-    public static const double CROP_INIT_Y_PCT = 0.15;
-    public static const int CROP_MIN_WIDTH = 100;
-    public static const int CROP_MIN_HEIGHT = 100;
-    public static const float CROP_SATURATION = 0.00f;
-    public static const int CROP_EXTERIOR_RED_SHIFT = -32;
-    public static const int CROP_EXTERIOR_GREEN_SHIFT = -32;
-    public static const int CROP_EXTERIOR_BLUE_SHIFT = -32;
-    public static const int CROP_EXTERIOR_ALPHA_SHIFT = 0;
+    public static const int TOOL_WINDOW_SEPARATOR = 8;
     
-    public static const int CROP_TOOL_WINDOW_SEPARATOR = 8;
+    private class PhotoPageCanvas : PhotoCanvas {
+        private PhotoPage photo_page;
+        
+        public PhotoPageCanvas(PhotoPage photo_page) {
+            base(photo_page.container, photo_page.canvas.window, photo_page.photo, photo_page.canvas_gc, 
+                photo_page.get_drawable(), photo_page.get_scaled_pixbuf(), photo_page.get_scaled_pixbuf_position());
+            
+            this.photo_page = photo_page;
+        }
+        
+        public override void repaint() {
+            photo_page.repaint(SinglePhotoPage.QUALITY_INTERP);
+        }
+    }
     
     private Gtk.Window container = null;
     private Gtk.Menu context_menu;
@@ -102,21 +32,7 @@ public class PhotoPage : SinglePhotoPage {
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
-    private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
-    private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
-    private Gdk.GC wide_black_gc = null;
-    private Gdk.GC wide_white_gc = null;
-    private Gdk.GC thin_white_gc = null;
-    
-    // cropping
-    private bool show_crop = false;
-    private Box scaled_crop;
-    private CropToolWindow crop_tool_window = null;
-    private Gdk.Pixbuf color_shifted = null;
-
-    // these are kept in absolute coordinates, not relative to photo's position on canvas
-    private int last_grab_x = -1;
-    private int last_grab_y = -1;
+    private EditingTool current_tool = null;
     
     // drag-and-drop state
     private File drag_file = null;
@@ -208,16 +124,18 @@ public class PhotoPage : SinglePhotoPage {
     public override void switching_from() {
         base.switching_from();
 
-        deactivate_crop();
+        deactivate_tool();
     }
     
     public override void switching_to_fullscreen() {
         base.switching_to_fullscreen();
 
-        deactivate_crop();
+        deactivate_tool();
     }
     
     public void display(CheckerboardPage controller, Thumbnail thumbnail) {
+        deactivate_tool();
+        
         this.controller = controller;
         this.thumbnail = thumbnail;
         
@@ -244,6 +162,51 @@ public class PhotoPage : SinglePhotoPage {
         next_button.sensitive = multiple;
     }
 
+    private void activate_tool(EditingTool tool) {
+        // during editing, always use the quality interpolation, so the editing tool is only
+        // dealing with one pixbuf (unless page is resized)
+        set_default_interp(QUALITY_INTERP);
+        
+        // deactivate current tool ... current implementation is one tool at a time.  In the future,
+        // tools may be allowed to be executing at the same time.
+        deactivate_tool();
+        
+        // see if the tool wants a different pixbuf displayed
+        Gdk.Pixbuf unscaled = tool.get_unscaled_pixbuf(photo);
+        if (unscaled != null)
+            set_pixbuf(unscaled);
+        
+        // create the PhotoCanvas object for a two-way interface to the tool
+        PhotoCanvas photo_canvas = new PhotoPageCanvas(this);
+
+        // hook tool into event system and activate it
+        current_tool = tool;
+        current_tool.activate(photo_canvas);
+        
+        // if the tool has an auxilliary window, move it properly on the screen
+        place_tool_window();
+
+		// repaint entire view, with the tool now hooked in
+        default_repaint();
+    }
+    
+    private void deactivate_tool() {
+        if (current_tool == null)
+            return;
+        
+        EditingTool tool = current_tool;
+        current_tool = null;
+        
+        // deactivate with the tool taken out of the hooks
+        tool.deactivate();
+        
+        // return to fast interpolation for viewing
+        set_default_interp(FAST_INTERP);
+        
+        // display the (possibly) new photo
+        set_pixbuf(photo.get_pixbuf());
+    }
+    
     private override void drag_begin(Gdk.DragContext context) {
         // drag_data_get may be called multiple times within a drag as different applications
         // query for target type and information ... to prevent a lot of file generation, do all
@@ -291,7 +254,7 @@ public class PhotoPage : SinglePhotoPage {
     
     // Return true to block the DnD handler from activating a drag
     private override bool on_left_click(Gdk.EventButton event) {
-        if (event.type == Gdk.EventType.2BUTTON_PRESS && !show_crop) {
+        if (event.type == Gdk.EventType.2BUTTON_PRESS && current_tool == null) {
             on_return_to_collection();
             
             return true;
@@ -300,45 +263,27 @@ public class PhotoPage : SinglePhotoPage {
         int x = (int) event.x;
         int y = (int) event.y;
         
-        Gdk.Rectangle scaled_pos = get_scaled_position();
-        
         // only concerned about mouse-downs on the pixbuf ... return true prevents DnD when the
         // user drags outside the displayed photo
-        if (!coord_in_rectangle(x, y, scaled_pos))
+        if (!is_inside_pixbuf(x, y))
             return true;
         
-        // only interested in LMB in regards to crop tool
-        if (!show_crop)
+        // if no editing tool, then done
+        if (current_tool == null)
             return false;
         
-        // scaled_crop is not maintained relative to photo's position on canvas
-        Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
+        current_tool.on_left_click(x, y);
         
-        in_manipulation = offset_scaled_crop.approx_location(x, y);
-        last_grab_x = x -= scaled_pos.x;
-        last_grab_y = y -= scaled_pos.y;
-        
-        // repaint because crop changes on a manipulation
-        default_repaint();
-        
-        // block DnD handlers if crop is enabled
+        // block DnD handlers if tool is enabled
         return true;
     }
     
     private override bool on_left_released(Gdk.EventButton event) {
-        if (in_manipulation == BoxLocation.OUTSIDE)
-            return false;
+        // report all releases, as it's possible the user click and dragged from inside the
+        // pixbuf to the gutters
+        if (current_tool != null)
+            current_tool.on_left_released((int) event.x, (int) event.y);
         
-        // end manipulation
-        in_manipulation = BoxLocation.OUTSIDE;
-        last_grab_x = -1;
-        last_grab_y = -1;
-        
-        update_cursor((int) event.x, (int) event.y);
-        
-        // repaint because crop changes on a manipulation
-        default_repaint();
-
         return false;
     }
     
@@ -386,14 +331,9 @@ public class PhotoPage : SinglePhotoPage {
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
-        if (!show_crop)
-            return false;
-        
-        if (in_manipulation != BoxLocation.OUTSIDE)
-            return on_canvas_manipulation(x, y);
-        
-        update_cursor(x, y);
-        
+        if (current_tool != null)
+            current_tool.on_motion(x, y, mask);
+            
         return false;
     }
     
@@ -408,244 +348,24 @@ public class PhotoPage : SinglePhotoPage {
         return true;
     }
     
-    private void update_cursor(int x, int y) {
-        assert(show_crop);
-        
-        // scaled_crop is not maintained relative to photo's position on canvas
-        Gdk.Rectangle scaled_pos = get_scaled_position();
-        Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
-        
-        Gdk.CursorType cursor_type = Gdk.CursorType.ARROW;
-        switch (offset_scaled_crop.approx_location(x, y)) {
-            case BoxLocation.LEFT_SIDE:
-                cursor_type = Gdk.CursorType.LEFT_SIDE;
-            break;
-
-            case BoxLocation.TOP_SIDE:
-                cursor_type = Gdk.CursorType.TOP_SIDE;
-            break;
-
-            case BoxLocation.RIGHT_SIDE:
-                cursor_type = Gdk.CursorType.RIGHT_SIDE;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-                cursor_type = Gdk.CursorType.BOTTOM_SIDE;
-            break;
-
-            case BoxLocation.TOP_LEFT:
-                cursor_type = Gdk.CursorType.TOP_LEFT_CORNER;
-            break;
-
-            case BoxLocation.BOTTOM_LEFT:
-                cursor_type = Gdk.CursorType.BOTTOM_LEFT_CORNER;
-            break;
-
-            case BoxLocation.TOP_RIGHT:
-                cursor_type = Gdk.CursorType.TOP_RIGHT_CORNER;
-            break;
-
-            case BoxLocation.BOTTOM_RIGHT:
-                cursor_type = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
-            break;
-
-            case BoxLocation.INSIDE:
-                cursor_type = Gdk.CursorType.FLEUR;
-            break;
-            
-            default:
-                // use Gdk.CursorType.ARROW
-            break;
-        }
-        
-        if (cursor_type != current_cursor_type) {
-            Gdk.Cursor cursor = new Gdk.Cursor(cursor_type);
-            canvas.window.set_cursor(cursor);
-            current_cursor_type = cursor_type;
-        }
-    }
-    
-    private bool on_canvas_manipulation(int x, int y) {
-        Gdk.Rectangle scaled_pos = get_scaled_position();
-        
-        // scaled_crop is maintained in coordinates non-relative to photo's position on canvas ...
-        // but bound tool to photo itself
-        x -= scaled_pos.x;
-        if (x < 0)
-            x = 0;
-        else if (x >= scaled_pos.width)
-            x = scaled_pos.width - 1;
-        
-        y -= scaled_pos.y;
-        if (y < 0)
-            y = 0;
-        else if (y >= scaled_pos.height)
-            y = scaled_pos.height - 1;
-        
-        // need to make manipulations outside of box structure, because its methods do sanity
-        // checking
-        int left = scaled_crop.left;
-        int top = scaled_crop.top;
-        int right = scaled_crop.right;
-        int bottom = scaled_crop.bottom;
-
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-                left = x;
-            break;
-
-            case BoxLocation.TOP_SIDE:
-                top = y;
-            break;
-
-            case BoxLocation.RIGHT_SIDE:
-                right = x;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-                bottom = y;
-            break;
-
-            case BoxLocation.TOP_LEFT:
-                top = y;
-                left = x;
-            break;
-
-            case BoxLocation.BOTTOM_LEFT:
-                bottom = y;
-                left = x;
-            break;
-
-            case BoxLocation.TOP_RIGHT:
-                top = y;
-                right = x;
-            break;
-
-            case BoxLocation.BOTTOM_RIGHT:
-                bottom = y;
-                right = x;
-            break;
-
-            case BoxLocation.INSIDE:
-                assert(last_grab_x >= 0);
-                assert(last_grab_y >= 0);
-                
-                int delta_x = (x - last_grab_x);
-                int delta_y = (y - last_grab_y);
-                
-                last_grab_x = x;
-                last_grab_y = y;
-
-                int width = right - left + 1;
-                int height = bottom - top + 1;
-                
-                left += delta_x;
-                top += delta_y;
-                right += delta_x;
-                bottom += delta_y;
-                
-                // bound crop inside of photo
-                if (left < 0)
-                    left = 0;
-                
-                if (top < 0)
-                    top = 0;
-                
-                if (right >= scaled_pos.width)
-                    right = scaled_pos.width - 1;
-                
-                if (bottom >= scaled_pos.height)
-                    bottom = scaled_pos.height - 1;
-                
-                int adj_width = right - left + 1;
-                int adj_height = bottom - top + 1;
-                
-                // don't let adjustments affect the size of the crop
-                if (adj_width != width) {
-                    if (delta_x < 0)
-                        right = left + width - 1;
-                    else
-                        left = right - width + 1;
-                }
-                
-                if (adj_height != height) {
-                    if (delta_y < 0)
-                        bottom = top + height - 1;
-                    else
-                        top = bottom - height + 1;
-                }
-            break;
-            
-            default:
-                // do nothing, not even a repaint
-                return false;
-        }
-        
-        int width = right - left + 1;
-        int height = bottom - top + 1;
-        
-        // max sure minimums are respected ... have to adjust the right value depending on what's
-        // being manipulated
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.BOTTOM_LEFT:
-                if (width < CROP_MIN_WIDTH)
-                    left = right - CROP_MIN_WIDTH;
-            break;
-            
-            case BoxLocation.RIGHT_SIDE:
-            case BoxLocation.TOP_RIGHT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (width < CROP_MIN_WIDTH)
-                    right = left + CROP_MIN_WIDTH;
-            break;
-
-            default:
-            break;
-        }
-
-        switch (in_manipulation) {
-            case BoxLocation.TOP_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.TOP_RIGHT:
-                if (height < CROP_MIN_HEIGHT)
-                    top = bottom - CROP_MIN_HEIGHT;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-            case BoxLocation.BOTTOM_LEFT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (height < CROP_MIN_HEIGHT)
-                    bottom = top + CROP_MIN_HEIGHT;
-            break;
-            
-            default:
-            break;
-        }
-        
-        Box new_crop = Box(left, top, right, bottom);
-        
-        if (in_manipulation != BoxLocation.INSIDE)
-            crop_resized(new_crop);
-        else
-            crop_moved(new_crop);
-        
-        // load new values
-        scaled_crop = new_crop;
-
-        return false;
-    }
-    
     private override bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
-        // if crop window is present and the user hasn't touched it, it moves with the window
-        if (crop_tool_window != null && !crop_tool_window.user_moved)
-            place_crop_tool_window();
+        // if editing tool window is present and the user hasn't touched it, it moves with the window
+        if (current_tool != null) {
+            EditingToolWindow tool_window = current_tool.get_tool_window();
+            if (tool_window != null && !tool_window.has_user_moved())
+                place_tool_window();
+        }
         
-        return false;
+        return (base.on_configure != null) ? base.on_configure(event, rect) : false;
     }
     
     private override bool key_press_event(Gdk.EventKey event) {
+        // editing tool gets first crack at the keypress
+        if (current_tool != null) {
+            if (current_tool.on_keypress(event))
+                return true;
+        }
+        
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
             case "Left":
@@ -669,64 +389,28 @@ public class PhotoPage : SinglePhotoPage {
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
     
-    protected override void new_drawable(Gdk.Drawable drawable) {
-        // set up GC's for painting the crop tool
-        Gdk.GCValues gc_values = Gdk.GCValues();
-        gc_values.foreground = fetch_color("#000", drawable);
-        gc_values.function = Gdk.Function.COPY;
-        gc_values.fill = Gdk.Fill.SOLID;
-        gc_values.line_width = 1;
-        gc_values.line_style = Gdk.LineStyle.SOLID;
-        gc_values.cap_style = Gdk.CapStyle.BUTT;
-        gc_values.join_style = Gdk.JoinStyle.MITER;
-
-        Gdk.GCValuesMask mask = 
-            Gdk.GCValuesMask.FOREGROUND
-            | Gdk.GCValuesMask.FUNCTION
-            | Gdk.GCValuesMask.FILL
-            | Gdk.GCValuesMask.LINE_WIDTH 
-            | Gdk.GCValuesMask.LINE_STYLE
-            | Gdk.GCValuesMask.CAP_STYLE
-            | Gdk.GCValuesMask.JOIN_STYLE;
-
-        wide_black_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
-        
-        gc_values.foreground = fetch_color("#FFF", drawable);
-        
-        wide_white_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
-        
-        gc_values.line_width = 0;
-        
-        thin_white_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
+    protected override void new_drawable(Gdk.GC default_gc, Gdk.Drawable drawable) {
+        // if tool is open, update its canvas object
+        if (current_tool != null)
+            current_tool.canvas.set_drawable(default_gc, drawable);
     }
     
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
         Dimensions old_dim) {
-        color_shifted = null;
-        
-        if (!show_crop)
-            return;
-            
-        // create color shifted pixbuf for crop tool
-        color_shifted = pixbuf.copy();
-        shift_colors(color_shifted, CROP_EXTERIOR_RED_SHIFT, CROP_EXTERIOR_GREEN_SHIFT,
-            CROP_EXTERIOR_BLUE_SHIFT, CROP_EXTERIOR_ALPHA_SHIFT);
-
-        if (reason == UpdateReason.NEW_PHOTO)
-            init_crop();
-        else if (reason == UpdateReason.RESIZED_CANVAS)
-            rescale_crop(old_dim, Dimensions.for_pixbuf(pixbuf));
+        // only purpose here is to inform editing tool of change
+        if (current_tool != null && reason == UpdateReason.RESIZED_CANVAS)
+            current_tool.canvas.resized_pixbuf(old_dim, pixbuf, get_scaled_pixbuf_position());
     }
     
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-        if (show_crop)
-            draw_with_crop(gc, drawable);
+        if (current_tool != null)
+            current_tool.paint(gc, drawable);
         else
             base.paint(gc, drawable);
     }
 
     private void rotate(Rotation rotation) {
-        deactivate_crop();
+        deactivate_tool();
         
         // let the signal generate a repaint
         photo.rotate(rotation);
@@ -745,6 +429,8 @@ public class PhotoPage : SinglePhotoPage {
     }
     
     private void on_revert() {
+        deactivate_tool();
+        
         photo.remove_all_transformations();
     }
 
@@ -769,17 +455,42 @@ public class PhotoPage : SinglePhotoPage {
     }
     
     private void on_crop_toggled() {
-        if (crop_button.active)
-            activate_crop();
-        else
-            deactivate_crop();
+        if (crop_button.active) {
+            // create the tool, hook its signals, and activate it
+            CropTool crop_tool = new CropTool();
+            crop_tool.activated += on_crop_activated;
+            crop_tool.deactivated += on_crop_deactivated;
+            crop_tool.applied += on_crop_done;
+            crop_tool.cancelled += on_crop_done;
+            
+            activate_tool(crop_tool);
+        } else {
+            deactivate_tool();
+        }
     }
     
-    private void place_crop_tool_window() {
-        assert(crop_tool_window != null);
+    private void on_crop_activated() {
+        crop_button.set_active(true);
+    }
+    
+    private void on_crop_deactivated() {
+        crop_button.set_active(false);
+    }
+    
+    private void on_crop_done() {
+        deactivate_tool();
+    }
+    
+    private void place_tool_window() {
+        if (current_tool == null)
+            return;
+            
+        EditingToolWindow tool_window = current_tool.get_tool_window();
+        if (tool_window == null)
+            return;
 
         Gtk.Requisition req;
-        crop_tool_window.size_request(out req);
+        tool_window.size_request(out req);
 
         if (container == AppWindow.get_instance()) {
             // Normal: position crop tool window centered on viewport/canvas at the bottom, straddling
@@ -793,8 +504,10 @@ public class PhotoPage : SinglePhotoPage {
             cwidth = viewport.allocation.width;
             cheight = viewport.allocation.height;
             
-            crop_tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
+            tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
         } else {
+            assert(container is FullscreenWindow);
+            
             // Fullscreen: position crop tool window centered on screen at the bottom, just above the
             // toolbar
             Gtk.Requisition toolbar_req;
@@ -802,311 +515,10 @@ public class PhotoPage : SinglePhotoPage {
             
             Gdk.Screen screen = container.get_screen();
             int x = (screen.get_width() - req.width) / 2;
-            int y = screen.get_height() - toolbar_req.height - req.height - CROP_TOOL_WINDOW_SEPARATOR;
+            int y = screen.get_height() - toolbar_req.height - req.height - TOOL_WINDOW_SEPARATOR;
             
-            crop_tool_window.move(x, y);
+            tool_window.move(x, y);
         }
-    }
-    
-    private void activate_crop() {
-        if (show_crop)
-            return;
-            
-        show_crop = true;
-        
-        // show uncropped photo for editing
-        set_pixbuf(photo.get_pixbuf(Photo.EXCEPTION_CROP));
-
-        crop_button.set_active(true);
-
-        crop_tool_window = new CropToolWindow(container);
-        crop_tool_window.apply_button.clicked += on_crop_apply;
-        crop_tool_window.cancel_button.clicked += on_crop_cancel;
-        crop_tool_window.show_all();
-        
-        place_crop_tool_window();
-    }
-    
-    private void deactivate_crop() {
-        if (!show_crop)
-            return;
-        
-        show_crop = false;
-
-        if (crop_tool_window != null) {
-            crop_tool_window.hide();
-            crop_tool_window = null;
-        }
-        
-        crop_button.set_active(false);
-        
-        // make sure the cursor isn't set to a modify indicator
-        canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
-        
-        // return to original view
-        set_pixbuf(photo.get_pixbuf());
-    }
-    
-    private void init_crop() {
-        // using uncropped photo to work with
-        Dimensions uncropped_dim = photo.get_uncropped_dimensions();
-
-        Box crop;
-        if (!photo.get_crop(out crop)) {
-            int xofs = (int) (uncropped_dim.width * CROP_INIT_X_PCT);
-            int yofs = (int) (uncropped_dim.height * CROP_INIT_Y_PCT);
-            
-            // initialize the actual crop in absolute coordinates, not relative
-            // to the photo's position on the canvas
-            crop = Box(xofs, yofs, uncropped_dim.width - xofs, uncropped_dim.height - yofs);
-        }
-        
-        // scale the crop to the scaled photo's size ... the scaled crop is maintained in
-        // coordinates not relative to photo's position on canvas
-        scaled_crop = crop.get_scaled_proportional(uncropped_dim, 
-            Dimensions.for_rectangle(get_scaled_position()));
-    }
-
-    private void rescale_crop(Dimensions old_pixbuf_dim, Dimensions new_pixbuf_dim) {
-        assert(show_crop);
-        
-        Dimensions uncropped_dim = photo.get_uncropped_dimensions();
-        
-        // rescale to full crop
-        Box crop = scaled_crop.get_scaled_proportional(old_pixbuf_dim, uncropped_dim);
-        
-        // rescale back to new size
-        scaled_crop = crop.get_scaled_proportional(uncropped_dim, new_pixbuf_dim);
-    }
-    
-    private void paint_pixbuf(Gdk.Pixbuf pb, Box source) {
-        Gdk.Rectangle scaled_pos = get_scaled_position();
-        
-        get_drawable().draw_pixbuf(canvas_gc, pb,
-            source.left, source.top,
-            scaled_pos.x + source.left, scaled_pos.y + source.top,
-            source.get_width(), source.get_height(),
-            Gdk.RgbDither.NORMAL, 0, 0);
-    }
-    
-    private void draw_box(Gdk.GC gc, Box box) {
-        Gdk.Rectangle rect = box.get_rectangle();
-        rect.x += get_scaled_position().x;
-        rect.y += get_scaled_position().y;
-        
-        // See note at gtk_drawable_draw_rectangle for info on off-by-one with unfilled rectangles
-        get_drawable().draw_rectangle(gc, false, rect.x, rect.y, rect.width - 1, rect.height - 1);
-    }
-    
-    private void draw_horizontal_line(Gdk.GC gc, int x, int y, int width) {
-        x += get_scaled_position().x;
-        y += get_scaled_position().y;
-        
-        Gdk.draw_line(get_drawable(), gc, x, y, x + width - 1, y);
-    }
-    
-    private void draw_vertical_line(Gdk.GC gc, int x, int y, int height) {
-        x += get_scaled_position().x;
-        y += get_scaled_position().y;
-        
-        Gdk.draw_line(get_drawable(), gc, x, y, x, y + height - 1);
-    }
-    
-    private void erase_horizontal_line(int x, int y, int width) {
-        get_drawable().draw_pixbuf(canvas_gc, get_scaled_pixbuf(),
-            x, y,
-            get_scaled_position().x + x, get_scaled_position().y + y,
-            width, 1,
-            Gdk.RgbDither.NORMAL, 0, 0);
-    }
-    
-    private void erase_vertical_line(int x, int y, int height) {
-        get_drawable().draw_pixbuf(canvas_gc, get_scaled_pixbuf(),
-            x, y,
-            get_scaled_position().x + x, get_scaled_position().y + y,
-            1, height,
-            Gdk.RgbDither.NORMAL, 0, 0);
-    }
-    
-    private void erase_box(Box box) {
-        erase_horizontal_line(box.left, box.top, box.get_width());
-        erase_horizontal_line(box.left, box.bottom, box.get_width());
-        
-        erase_vertical_line(box.left, box.top, box.get_height());
-        erase_vertical_line(box.right, box.top, box.get_height());
-    }
-    
-    private void invalidate_area(Box area) {
-        Gdk.Rectangle rect = area.get_rectangle();
-        rect.x += get_scaled_position().x;
-        rect.y += get_scaled_position().y;
-        
-        invalidate(rect);
-    }
-    
-    private void paint_crop_tool(Box crop) {
-        // paint rule-of-thirds lines if user is manipulating the crop
-        if (in_manipulation != BoxLocation.OUTSIDE) {
-            int one_third_x = crop.get_width() / 3;
-            int one_third_y = crop.get_height() / 3;
-            
-            draw_horizontal_line(thin_white_gc, crop.left, crop.top + one_third_y, crop.get_width());
-            draw_horizontal_line(thin_white_gc, crop.left, crop.top + (one_third_y * 2), crop.get_width());
-
-            draw_vertical_line(thin_white_gc, crop.left + one_third_x, crop.top, crop.get_height());
-            draw_vertical_line(thin_white_gc, crop.left + (one_third_x * 2), crop.top, crop.get_height());
-        }
-
-        // outer rectangle ... outer line in black, inner in white, corners fully black
-        draw_box(wide_black_gc, crop);
-        draw_box(wide_white_gc, crop.get_reduced(1));
-        draw_box(wide_white_gc, crop.get_reduced(2));
-    }
-    
-    private void erase_crop_tool(Box crop) {
-        // erase rule-of-thirds lines if user is manipulating the crop
-        if (in_manipulation != BoxLocation.OUTSIDE) {
-            int one_third_x = crop.get_width() / 3;
-            int one_third_y = crop.get_height() / 3;
-            
-            erase_horizontal_line(crop.left, crop.top + one_third_y, crop.get_width());
-            erase_horizontal_line(crop.left, crop.top + (one_third_y * 2), crop.get_width());
-            
-            erase_vertical_line(crop.left + one_third_x, crop.top, crop.get_height());
-            erase_vertical_line(crop.left + (one_third_x * 2), crop.top, crop.get_height());
-        }
-
-        // erase border
-        erase_box(crop);
-        erase_box(crop.get_reduced(1));
-        erase_box(crop.get_reduced(2));
-    }
-    
-    private void invalidate_crop_tool(Box crop) {
-        invalidate_area(crop);
-    }
-    
-    private void crop_resized(Box new_crop) {
-        if(scaled_crop.equals(new_crop)) {
-            // no change
-            return;
-        }
-        
-        // erase crop and rule-of-thirds lines
-        erase_crop_tool(scaled_crop);
-        invalidate_crop_tool(scaled_crop);
-        
-        Box horizontal;
-        bool horizontal_enlarged;
-        Box vertical;
-        bool vertical_enlarged;
-        BoxComplements complements = scaled_crop.resized_complements(new_crop, out horizontal,
-            out horizontal_enlarged, out vertical, out vertical_enlarged);
-        
-        // this should never happen ... this means that the operation wasn't a resize
-        assert(complements != BoxComplements.NONE);
-        
-        if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
-            Gdk.Pixbuf pb = horizontal_enlarged ? get_scaled_pixbuf() : color_shifted;
-            paint_pixbuf(pb, horizontal);
-            
-            invalidate_area(horizontal);
-        }
-        
-        if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
-            Gdk.Pixbuf pb = vertical_enlarged ? get_scaled_pixbuf() : color_shifted;
-            paint_pixbuf(pb, vertical);
-            
-            invalidate_area(vertical);
-        }
-        
-        paint_crop_tool(new_crop);
-        invalidate_crop_tool(new_crop);
-    }
-    
-    private void crop_moved(Box new_crop) {
-        if (scaled_crop.equals(new_crop)) {
-            // no change
-            return;
-        }
-        
-        // erase crop and rule-of-thirds lines
-        erase_crop_tool(scaled_crop);
-        invalidate_crop_tool(scaled_crop);
-        
-        Box scaled_horizontal;
-        Box scaled_vertical;
-        Box new_horizontal;
-        Box new_vertical;
-        BoxComplements complements = scaled_crop.shifted_complements(new_crop, out scaled_horizontal,
-            out scaled_vertical, out new_horizontal, out new_vertical);
-        
-        if (complements == BoxComplements.HORIZONTAL || complements == BoxComplements.BOTH) {
-            // paint in the horizontal complements appropriately
-            paint_pixbuf(color_shifted, scaled_horizontal);
-            paint_pixbuf(get_scaled_pixbuf(), new_horizontal);
-            
-            invalidate_area(scaled_horizontal);
-            invalidate_area(new_horizontal);
-        }
-        
-        if (complements == BoxComplements.VERTICAL || complements == BoxComplements.BOTH) {
-            // paint in vertical complements appropriately
-            paint_pixbuf(color_shifted, scaled_vertical);
-            paint_pixbuf(get_scaled_pixbuf(), new_vertical);
-            
-            invalidate_area(scaled_vertical);
-            invalidate_area(new_vertical);
-        }
-        
-        if (complements == BoxComplements.NONE) {
-            // this means the two boxes have no intersection, not that they're equal ... since
-            // there's no intersection, fill in both new and old with apropriate pixbufs
-            paint_pixbuf(color_shifted, scaled_crop);
-            paint_pixbuf(get_scaled_pixbuf(), new_crop);
-            
-            invalidate_area(scaled_crop);
-            invalidate_area(new_crop);
-        }
-        
-        // paint crop in new location
-        paint_crop_tool(new_crop);
-        invalidate_crop_tool(new_crop);
-    }
-    
-    private void draw_with_crop(Gdk.GC gc, Gdk.Drawable drawable) {
-        assert(show_crop);
-        
-        Gdk.Rectangle scaled_pos = get_scaled_position();
-        
-        // painter's algorithm: from the bottom up, starting with the color shifted portion of the
-        // photo outside the crop
-        drawable.draw_pixbuf(gc, color_shifted, 
-            0, 0, 
-            scaled_pos.x, scaled_pos.y, 
-            scaled_pos.width, scaled_pos.height,
-            Gdk.RgbDither.NORMAL, 0, 0);
-        
-        // paint exposed (cropped) part of pixbuf minus crop border
-        paint_pixbuf(get_scaled_pixbuf(), scaled_crop);
-
-        // paint crop tool last
-        paint_crop_tool(scaled_crop);
-    }
-    
-    private void on_crop_apply() {
-        // up-scale scaled crop to photo's dimensions
-        Box crop = scaled_crop.get_scaled_proportional(Dimensions.for_rectangle(get_scaled_position()), 
-            photo.get_uncropped_dimensions());
-
-        deactivate_crop();
-
-        // let the signal generate a repaint
-        photo.set_crop(crop);
-    }
-    
-    private void on_crop_cancel() {
-        deactivate_crop();
     }
     
     private void on_photo_menu() {
@@ -1124,14 +536,14 @@ public class PhotoPage : SinglePhotoPage {
     }
     
     private void on_next_photo() {
-        deactivate_crop();
+        deactivate_tool();
         
         this.thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         update_display();
     }
     
     private void on_previous_photo() {
-        deactivate_crop();
+        deactivate_tool();
         
         this.thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
         update_display();

@@ -41,7 +41,7 @@ public abstract class Page : Gtk.ScrolledWindow {
     public Gtk.ActionGroup common_action_group = null;
     
     private string page_name;
-    private PageLayout layout;
+    private PageLayout layout = null;
     private Gtk.MenuBar menu_bar = null;
     private SidebarMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
@@ -51,7 +51,6 @@ public abstract class Page : Gtk.ScrolledWindow {
 
     public Page(string page_name) {
         this.page_name = page_name;
-        this.layout = new PageLayout(this);
         
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
     }
@@ -61,6 +60,15 @@ public abstract class Page : Gtk.ScrolledWindow {
     }
     
     public PageLayout get_layout() {
+        // This only places the Page into a PageLayout if requested;
+        // this is how a Page can live inside AppWindow's notebook or
+        // on its own in another window with a separate layout.
+        if (layout != null)
+            return layout;
+        
+        assert(parent == null);
+        layout = new PageLayout(this);
+        
         return layout;
     }
     
@@ -1228,8 +1236,13 @@ public abstract class SinglePhotoPage : Page {
         return scaled;
     }
     
-    public Gdk.Rectangle get_scaled_position() {
+    // Returns a rectangle describing the pixbuf in relation to the canvas
+    public Gdk.Rectangle get_scaled_pixbuf_position() {
         return scaled_pos;
+    }
+    
+    public bool is_inside_pixbuf(int x, int y) {
+        return coord_in_rectangle(x, y, scaled_pos);
     }
     
     public void invalidate(Gdk.Rectangle rect) {
@@ -1264,7 +1277,7 @@ public abstract class SinglePhotoPage : Page {
         return true;
     }
     
-    protected virtual void new_drawable(Gdk.Drawable drawable) {
+    protected virtual void new_drawable(Gdk.GC default_gc, Gdk.Drawable drawable) {
     }
     
     protected virtual void updated_pixbuf(Gdk.Pixbuf pixbuf, UpdateReason reason, Dimensions old_dim) {
@@ -1335,6 +1348,7 @@ public abstract class SinglePhotoPage : Page {
     
     private void init_pixmap(int width, int height) {
         assert(unscaled != null);
+        assert(canvas.window != null);
         
         pixmap = new Gdk.Pixmap(canvas.window, width, height, -1);
         pixmap_dim = Dimensions(width, height);
@@ -1362,7 +1376,7 @@ public abstract class SinglePhotoPage : Page {
         // draw background
         pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
         
-        new_drawable(pixmap);
+        new_drawable(canvas_gc, pixmap);
     }
 
     private void schedule_improval() {

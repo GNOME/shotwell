@@ -51,7 +51,8 @@ SRC_FILES = \
 	ExportDialog.vala \
 	Resources.vala \
 	Debug.vala \
-	Sidebar.vala
+	Sidebar.vala \
+	EditingTools.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -76,7 +77,8 @@ TEXT_FILES = \
 	INSTALL \
 	MAINTAINERS \
 	NEWS \
-	README
+	README \
+	THANKS
 
 VAPI_DIRS = \
 	./src
