@@ -1030,7 +1030,8 @@ public class EventTable : DatabaseTable {
             assert(timet != 0);
             
             Time start_time = Time.local((time_t) timet);
-            name = start_time.format("%a %b") + " %d, %d".printf(start_time.day, start_time.year);
+            name = start_time.format("%a %b") +
+                                     " %d, %d".printf(start_time.day, 1900 + start_time.year);
         }
         
         return name;
