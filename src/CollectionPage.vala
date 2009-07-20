@@ -699,16 +699,17 @@ public class CollectionPage : CheckerboardPage {
 
     private void on_remove() {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, 
-            "Removing these photos from your library will also delete their files in your %s directory.  Continue?",
+            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, 
+            "Removing these photos from your library will also delete their files in your %s directory.  This action cannot be undone.",
             AppWindow.PHOTOS_DIR);
-        dialog.title = "Remove photos?";
-        
+        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.ACCEPT);
+        dialog.title = "Remove photos?";        
+
         Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
         
         dialog.destroy();
         
-        if (result != Gtk.ResponseType.YES)
+        if (result != Gtk.ResponseType.ACCEPT)
             return;
             
         // iterate over selected photos and remove them from entire system .. this will result
