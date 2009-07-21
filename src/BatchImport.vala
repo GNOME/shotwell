@@ -29,7 +29,7 @@ public class BatchImport {
         
         // use EXIF exposure timestamp over the supplied one (which probably comes from the file's
         // modified time, or is simply now())
-        if (!Exif.get_timestamp(exif, out timestamp)) {
+        if (exif != null && !Exif.get_timestamp(exif, out timestamp)) {
             // if no exposure time supplied, use now()
             if (ts == 0)
                 timestamp = time_t();
