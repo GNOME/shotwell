@@ -16,12 +16,13 @@ public enum ImportResult {
 }
 
 public class Photo : Object {
-    public static const int EXCEPTION_NONE          = 0;
-    public static const int EXCEPTION_ORIENTATION   = 1 << 0;
-    public static const int EXCEPTION_CROP          = 1 << 1;
-    
-    public static const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
-    public static const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.BILINEAR;
+    public const int EXCEPTION_NONE          = 0;
+    public const int EXCEPTION_ORIENTATION   = 1 << 0;
+    public const int EXCEPTION_CROP          = 1 << 1;
+    public const int EXCEPTION_REDEYE        = 1 << 2;
+
+    public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
+    public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.BILINEAR;
     
     private static Gee.HashMap<int64?, Photo> photo_map = null;
     private static PhotoTable photo_table = null;
@@ -229,8 +230,17 @@ public class Photo : Object {
             altered = true;
         }
 
-        if (altered)
+        if (altered) {
+
+            // REDEYE: if photo was altered, clear the pixbuf cache. This is
+            // necessary because the redeye transformation, unlike rotate/crop,
+            // actually modifies the pixel data in the pixbuf, so we need to
+            // re-load the original pixel data from its source file when redeye
+            // is cleared
+            cached_raw = null;
+      
             photo_altered();
+        }
     }
     
     public void rotate(Rotation rotation) {
@@ -308,6 +318,10 @@ public class Photo : Object {
         return true;
     }
     
+    private Orientation get_orientation() {
+        return photo_table.get_orientation(photo_id);
+    }
+    
     // Sets the crop using the raw photo's unrotated coordinate system
     private bool set_raw_crop(Box crop) {
         KeyValueMap map = new KeyValueMap("crop");
@@ -343,7 +357,159 @@ public class Photo : Object {
         
         return res;
     }
-    
+
+    public bool add_redeye_instance(RedeyeInstance inst_unscaled) {
+        Gdk.Rectangle bounds_rect_unscaled =
+            RedeyeInstance.to_bounds_rect(inst_unscaled);
+        Gdk.Rectangle bounds_rect_raw =
+            unscaled_to_raw_rect(bounds_rect_unscaled);
+        RedeyeInstance inst = RedeyeInstance.from_bounds_rect(bounds_rect_raw);
+
+        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
+        if (map == null) {
+            map = new KeyValueMap("redeye");
+            map.set_int("num_points", 0);
+        }
+        
+        int num_points = map.get_int("num_points", -1);
+        assert(num_points >= 0);
+        
+        num_points++;
+        
+        string radius_key = "radius%d".printf(num_points - 1);
+        string center_key = "center%d".printf(num_points - 1);
+        
+        map.set_int(radius_key, inst.radius);
+        map.set_point(center_key, inst.center);
+        
+        map.set_int("num_points", num_points);
+        
+        bool res = photo_table.set_transformation(photo_id, map);
+        if (res)
+            photo_altered();
+                    
+        return res;
+    }
+
+    private RedeyeInstance[] get_all_redeye() {
+        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
+        if (map != null) {
+            int num_points = map.get_int("num_points", -1);
+            assert(num_points > 0);
+
+            RedeyeInstance[] res = new RedeyeInstance[num_points];
+
+            Gdk.Point default_point = {0};
+            default_point.x = -1;
+            default_point.y = -1;
+
+            for (int i = 0; i < num_points; i++) {
+                string center_key = "center%d".printf(i);
+                string radius_key = "radius%d".printf(i);
+
+                res[i].center = map.get_point(center_key, default_point);
+                assert(res[i].center.x != default_point.x);
+                assert(res[i].center.y != default_point.y);
+                res[i].radius = map.get_int(radius_key, -1);
+                assert(res[i].radius != -1);                
+            }
+
+            return res;
+        }
+
+        return new RedeyeInstance[0];
+    }
+
+    private Gdk.Pixbuf do_redeye(owned Gdk.Pixbuf pixbuf,
+        owned RedeyeInstance inst) {
+        
+        /* we remove redeye within a circular region called the "effect
+           extent." the effect extent is inscribed within its "bounding
+           rectangle." */
+
+        /* for each scanline in the top half-circle of the effect extent,
+           compute the number of pixels by which the effect extent is inset
+           from the edges of its bounding rectangle. note that we only have
+           to do this for the first quadrant because the second quadrant's
+           insets can be derived by symmetry */
+        double r = (double) inst.radius;
+        int[] x_insets_first_quadrant = new int[inst.radius + 1];
+        
+        int i = 0;
+        for (double y = r; y >= 0.0; y -= 1.0) {
+            double theta = Math.asin(y / r);
+            int x = (int)((r * Math.cos(theta)) + 0.5);
+            x_insets_first_quadrant[i] = inst.radius - x;
+            
+            i++;
+        }
+
+        int x_bounds_min = inst.center.x - inst.radius;
+        int x_bounds_max = inst.center.x + inst.radius;
+        int ymin = inst.center.y - inst.radius;
+        ymin = (ymin < 0) ? 0 : ymin;
+        int ymax = inst.center.y;
+        ymax = (ymax > (pixbuf.height - 1)) ? (pixbuf.height - 1) : ymax;
+
+        /* iterate over all the pixels in the top half-circle of the effect
+           extent from top to bottom */
+        int inset_index = 0;
+        for (int y_it = ymin; y_it <= ymax; y_it++) {
+            int xmin = x_bounds_min + x_insets_first_quadrant[inset_index];
+            xmin = (xmin < 0) ? 0 : xmin;
+            int xmax = x_bounds_max - x_insets_first_quadrant[inset_index];
+            xmax = (xmax > (pixbuf.width - 1)) ? (pixbuf.width - 1) : xmax;
+
+            for (int x_it = xmin; x_it <= xmax; x_it++) {
+                red_reduce_pixel(pixbuf, x_it, y_it);
+            }
+            inset_index++;
+        }
+
+        /* iterate over all the pixels in the top half-circle of the effect
+           extent from top to bottom */
+        ymin = inst.center.y;
+        ymax = inst.center.y + inst.radius;
+        inset_index = x_insets_first_quadrant.length - 1;
+        for (int y_it = ymin; y_it <= ymax; y_it++) {  
+            int xmin = x_bounds_min + x_insets_first_quadrant[inset_index];
+            xmin = (xmin < 0) ? 0 : xmin;
+            int xmax = x_bounds_max - x_insets_first_quadrant[inset_index];
+            xmax = (xmax > (pixbuf.width - 1)) ? (pixbuf.width - 1) : xmax;
+
+            for (int x_it = xmin; x_it <= xmax; x_it++) {
+                red_reduce_pixel(pixbuf, x_it, y_it);
+            }
+            inset_index--;
+        }
+        
+        return pixbuf;
+    }
+
+    private Gdk.Pixbuf red_reduce_pixel(owned Gdk.Pixbuf pixbuf, int x, int y) {
+        int px_start_byte_offset = (y * pixbuf.get_rowstride()) +
+            (x * pixbuf.get_n_channels());
+        
+        unowned uchar[] pixel_data = pixbuf.get_pixels();
+        
+        /* The pupil of the human eye has no pigment, so we expect all
+           color channels to be of about equal intensity. This means that at
+           any point within the effects region, the value of the red channel
+           should be about the same as the values of the green and blue
+           channels. So set the value of the red channel to be the mean of the
+           values of the red and blue channels. This preserves achromatic
+           intensity across all channels while eliminating any extraneous flare
+           affecting the red channel only (i.e. the red-eye effect). */
+        uchar g = pixel_data[px_start_byte_offset + 1];
+        uchar b = pixel_data[px_start_byte_offset + 2];
+        
+        uchar r = (g + b) / 2;
+        
+        pixel_data[px_start_byte_offset] = r;
+        
+        return pixbuf;
+    }    
+
     // Retrieves a full-sized pixbuf for the Photo with all modifications, except those specified
     public Gdk.Pixbuf get_pixbuf(int exceptions = EXCEPTION_NONE) throws Error {
         Gdk.Pixbuf pixbuf = null;
@@ -365,7 +531,15 @@ public class Photo : Object {
         //
         // Image modification pipeline
         //
-        
+
+        // redeye reduction
+        if ((exceptions & EXCEPTION_REDEYE) == 0) {
+            RedeyeInstance[] redeye_instances = get_all_redeye();
+            for (int i = 0; i < redeye_instances.length; i++) {
+                pixbuf = do_redeye(pixbuf, redeye_instances[i]);
+            }
+        }
+                
         // crop
         if ((exceptions & EXCEPTION_CROP) == 0) {
             Box crop;
@@ -631,6 +805,63 @@ public class Photo : Object {
             orientation)) {
             photo_altered();
         }
+    }
+
+    private Gdk.Point unscaled_to_raw_point(Gdk.Point unscaled_point) {
+        Orientation unscaled_orientation = get_orientation();
+    
+        Dimensions unscaled_dims =
+            unscaled_orientation.rotate_dimensions(get_dimensions());
+
+        int unscaled_x_offset_raw = 0;
+        int unscaled_y_offset_raw = 0;
+
+        Box crop_box = {0};
+        bool is_cropped = get_raw_crop(out crop_box);
+        if (is_cropped) {
+            unscaled_x_offset_raw = crop_box.left;
+            unscaled_y_offset_raw = crop_box.top;
+        }
+        
+        Gdk.Point derotated_point =
+            unscaled_orientation.derotate_point(unscaled_dims,
+            unscaled_point);
+
+        derotated_point.x += unscaled_x_offset_raw;
+        derotated_point.y += unscaled_y_offset_raw;
+
+        return derotated_point;    
+    }
+    
+    private Gdk.Rectangle unscaled_to_raw_rect(Gdk.Rectangle unscaled_rect) {
+        Gdk.Point upper_left = {0};
+        Gdk.Point lower_right = {0};
+        upper_left.x = unscaled_rect.x;
+        upper_left.y = unscaled_rect.y;
+        lower_right.x = upper_left.x + unscaled_rect.width;
+        lower_right.y = upper_left.y + unscaled_rect.height;
+        
+        upper_left = unscaled_to_raw_point(upper_left);
+        lower_right = unscaled_to_raw_point(lower_right);
+        
+        if (upper_left.x > lower_right.x) {
+            int temp = upper_left.x;
+            upper_left.x = lower_right.x;
+            lower_right.x = temp;
+        }
+        if (upper_left.y > lower_right.y) {
+            int temp = upper_left.y;
+            upper_left.y = lower_right.y;
+            lower_right.y = temp;
+        }
+        
+        Gdk.Rectangle raw_rect = {0};
+        raw_rect.x = upper_left.x;
+        raw_rect.y = upper_left.y;
+        raw_rect.width = lower_right.x - upper_left.x;
+        raw_rect.height = lower_right.y - upper_left.y;
+        
+        return raw_rect;    
     }
 }
 

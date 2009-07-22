@@ -5,7 +5,7 @@
  */
 
 public class PhotoPage : SinglePhotoPage {
-    public static const int TOOL_WINDOW_SEPARATOR = 8;
+    public const int TOOL_WINDOW_SEPARATOR = 8;
     
     private class PhotoPageCanvas : PhotoCanvas {
         private PhotoPage photo_page;
@@ -30,6 +30,7 @@ public class PhotoPage : SinglePhotoPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
+    private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private EditingTool current_tool = null;
@@ -78,7 +79,14 @@ public class PhotoPage : SinglePhotoPage {
         crop_button.set_tooltip_text("Crop the photo's size");
         crop_button.toggled += on_crop_toggled;
         toolbar.insert(crop_button, -1);
-        
+
+        // redeye reduction tool
+        redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
+        redeye_button.set_label("Red-eye");
+        redeye_button.set_tooltip_text("Reduce or eliminate any red-eye effects in the photo");
+        redeye_button.toggled += on_redeye_toggled;
+        toolbar.insert(redeye_button, -1);
+
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
@@ -398,7 +406,7 @@ public class PhotoPage : SinglePhotoPage {
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
         Dimensions old_dim) {
         // only purpose here is to inform editing tool of change
-        if (current_tool != null && reason == UpdateReason.RESIZED_CANVAS)
+        if (current_tool != null)
             current_tool.canvas.resized_pixbuf(old_dim, pixbuf, get_scaled_pixbuf_position());
     }
     
@@ -468,19 +476,49 @@ public class PhotoPage : SinglePhotoPage {
             deactivate_tool();
         }
     }
-    
-    private void on_crop_activated() {
-        crop_button.set_active(true);
-    }
-    
-    private void on_crop_deactivated() {
-        crop_button.set_active(false);
+
+    private void on_redeye_toggled() {
+        if (redeye_button.active) {
+            RedeyeTool redeye_tool = new RedeyeTool();
+            redeye_tool.activated += on_redeye_activated;
+            redeye_tool.deactivated += on_redeye_deactivated;
+            redeye_tool.applied += on_redeye_applied;
+            redeye_tool.cancelled += on_redeye_closed;
+            
+            activate_tool(redeye_tool);
+        } else {
+            deactivate_tool();
+        }
     }
     
     private void on_crop_done() {
         deactivate_tool();
     }
+
+    private void on_redeye_applied() {
+    }
+
+    private void on_redeye_closed() {
+        deactivate_tool();
+    }
+
     
+    private void on_crop_activated() {
+        crop_button.set_active(true);
+    }
+
+    private void on_redeye_activated() {
+        redeye_button.set_active(true);
+    }
+
+    private void on_crop_deactivated() {
+        crop_button.set_active(false);
+    }
+
+    private void on_redeye_deactivated() {
+        redeye_button.set_active(false);
+    }    
+
     private void place_tool_window() {
         if (current_tool == null)
             return;

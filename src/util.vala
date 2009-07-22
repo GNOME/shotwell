@@ -91,6 +91,29 @@ public class KeyValueMap {
         
         return (value != null) ? value.to_double() : def;
     }
+    
+    // REDEYE: redeye reduction operates on circular regions defined by
+    //         (Gdk.Point, int) pairs, where the Gdk.Point specifies the
+    //         bounding circle's center and the the int specifies the circle's
+    //         radius so, get_point( ) and set_point( ) functions have been
+    //         added here to easily encode/decode Gdk.Points as strings.
+    public Gdk.Point get_point(string key, Gdk.Point def) {
+        string value = map.get(key);
+        
+        if (value == null) {
+            return def;
+        } else {
+            Gdk.Point result = {0};
+            if (value.scanf("(%d, %d)", &result.x, &result.y) == 2)
+                return result;
+            else
+                return def;
+        }
+    }
+
+    public void set_point(string key, Gdk.Point point) {
+        map.set(key, "(%d, %d)".printf(point.x, point.y));
+    }    
 }
 
 // Returns false if Gtk.quit() was called

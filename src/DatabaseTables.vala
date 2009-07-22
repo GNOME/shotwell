@@ -626,6 +626,9 @@ public class PhotoTable : DatabaseTable {
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return null;
                 
+            if (!keyfile.has_group(object))
+                return null;
+                
             string[] keys = keyfile.get_keys(object);
             if (keys == null || keys.length == 0)
                 return null;

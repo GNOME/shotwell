@@ -5,7 +5,7 @@
  */
 
 public abstract class EditingToolWindow : Gtk.Window {
-    private static const int FRAME_BORDER = 6;
+    private const int FRAME_BORDER = 6;
 
     private Gtk.Window container;
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
@@ -103,6 +103,72 @@ public abstract class PhotoCanvas {
     
     public signal void resized_scaled_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position);
     
+    public Gdk.Point active_to_unscaled_point(Gdk.Point active_point) {
+        Gdk.Rectangle scaled_position = get_scaled_pixbuf_position();
+        Dimensions unscaled_dims = photo.get_dimensions();
+        
+        double scale_factor_x = ((double) unscaled_dims.width) /
+            ((double) scaled_position.width);
+        double scale_factor_y = ((double) unscaled_dims.height) /
+            ((double) scaled_position.height);
+
+        Gdk.Point result = {0};
+        result.x = (int)(((double) active_point.x) * scale_factor_x + 0.5);
+        result.y = (int)(((double) active_point.y) * scale_factor_y + 0.5);
+        
+        return result;
+    }
+    
+    public Gdk.Rectangle active_to_unscaled_rect(Gdk.Rectangle active_rect) {
+        Gdk.Point upper_left = {0};
+        Gdk.Point lower_right = {0};
+        upper_left.x = active_rect.x;
+        upper_left.y = active_rect.y;
+        lower_right.x = upper_left.x + active_rect.width;
+        lower_right.y = upper_left.y + active_rect.height;
+        
+        upper_left = active_to_unscaled_point(upper_left);
+        lower_right = active_to_unscaled_point(lower_right);
+
+        Gdk.Rectangle unscaled_rect = {0};
+        unscaled_rect.x = upper_left.x;
+        unscaled_rect.y = upper_left.y;
+        unscaled_rect.width = lower_right.x - upper_left.x;
+        unscaled_rect.height = lower_right.y - upper_left.y;
+        
+        return unscaled_rect;
+    }
+    
+    public Gdk.Point user_to_active_point(Gdk.Point user_point) {
+        Gdk.Rectangle active_offsets = get_scaled_pixbuf_position();
+
+        Gdk.Point result = {0};
+        result.x = user_point.x - active_offsets.x;
+        result.y = user_point.y - active_offsets.y;
+        
+        return result;
+    }
+    
+    public Gdk.Rectangle user_to_active_rect(Gdk.Rectangle user_rect) {
+        Gdk.Point upper_left = {0};
+        Gdk.Point lower_right = {0};
+        upper_left.x = user_rect.x;
+        upper_left.y = user_rect.y;
+        lower_right.x = upper_left.x + user_rect.width;
+        lower_right.y = upper_left.y + user_rect.height;
+        
+        upper_left = user_to_active_point(upper_left);
+        lower_right = user_to_active_point(lower_right);
+
+        Gdk.Rectangle active_rect = {0};
+        active_rect.x = upper_left.x;
+        active_rect.y = upper_left.y;
+        active_rect.width = lower_right.x - upper_left.x;
+        active_rect.height = lower_right.y - upper_left.y;
+        
+        return active_rect;
+    }
+
     public Photo get_photo() {
         return photo;
     }
@@ -199,6 +265,21 @@ public abstract class PhotoCanvas {
             scaled_position.x + x, scaled_position.y + y,
             width, 1,
             Gdk.RgbDither.NORMAL, 0, 0);
+    }
+
+    public void draw_circle(Gdk.GC gc, int active_center_x, int active_center_y,
+        int radius) {
+        int center_x = active_center_x + get_scaled_pixbuf_position().x;
+        int center_y = active_center_y + get_scaled_pixbuf_position().y;
+
+        Gdk.Rectangle bounds = { 0 };
+        bounds.x = center_x - radius;
+        bounds.y = center_y - radius;
+        bounds.width = 2 * radius;
+        bounds.height = bounds.width;
+        
+        Gdk.draw_arc(get_drawable(), gc, false, bounds.x, bounds.y,
+            bounds.width, bounds.height, 0, (360 * 64));
     }
     
     public void erase_vertical_line(int x, int y, int height) {
@@ -307,20 +388,20 @@ public abstract class EditingTool {
 }
 
 public class CropTool : EditingTool {
-    private static const double CROP_INIT_X_PCT = 0.15;
-    private static const double CROP_INIT_Y_PCT = 0.15;
+    private const double CROP_INIT_X_PCT = 0.15;
+    private const double CROP_INIT_Y_PCT = 0.15;
 
-    private static const int CROP_MIN_WIDTH = 100;
-    private static const int CROP_MIN_HEIGHT = 100;
+    private const int CROP_MIN_WIDTH = 100;
+    private const int CROP_MIN_HEIGHT = 100;
 
-    private static const float CROP_EXTERIOR_SATURATION = 0.00f;
-    private static const int CROP_EXTERIOR_RED_SHIFT = -32;
-    private static const int CROP_EXTERIOR_GREEN_SHIFT = -32;
-    private static const int CROP_EXTERIOR_BLUE_SHIFT = -32;
-    private static const int CROP_EXTERIOR_ALPHA_SHIFT = 0;
+    private const float CROP_EXTERIOR_SATURATION = 0.00f;
+    private const int CROP_EXTERIOR_RED_SHIFT = -32;
+    private const int CROP_EXTERIOR_GREEN_SHIFT = -32;
+    private const int CROP_EXTERIOR_BLUE_SHIFT = -32;
+    private const int CROP_EXTERIOR_ALPHA_SHIFT = 0;
     
     private class CropToolWindow : EditingToolWindow {
-        private static const int CONTROL_SPACING = 8;
+        private const int CONTROL_SPACING = 8;
         
         public Gtk.Button apply_button = new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
@@ -880,6 +961,275 @@ public class CropTool : EditingTool {
         canvas.erase_box(crop);
         canvas.erase_box(crop.get_reduced(1));
         canvas.erase_box(crop.get_reduced(2));
+    }
+}
+
+public struct RedeyeInstance {
+    public const int MIN_RADIUS = 4;
+    public const int MAX_RADIUS = 32;
+    public const int DEFAULT_RADIUS = 10;
+
+    public Gdk.Point center;
+    public int radius;
+    
+    RedeyeInstance() {
+        Gdk.Point default_center = Gdk.Point();
+        center = default_center;
+        radius = DEFAULT_RADIUS;
+    }
+    
+    public static Gdk.Rectangle to_bounds_rect(RedeyeInstance inst) {
+        Gdk.Rectangle result = {0};
+        result.x = inst.center.x - inst.radius;
+        result.y = inst.center.y - inst.radius;
+        result.width = 2 * inst.radius;
+        result.height = result.width;
+
+        return result;
+    }
+    
+    public static RedeyeInstance from_bounds_rect(Gdk.Rectangle rect) {
+        Gdk.Rectangle in_rect = rect;
+
+        RedeyeInstance result = RedeyeInstance();
+        result.radius = (in_rect.width + in_rect.height) / 4;
+        result.center.x = in_rect.x + result.radius;
+        result.center.y = in_rect.y + result.radius;
+
+        return result;
+    }
+}
+
+public class RedeyeTool : EditingTool {
+    private class RedeyeToolWindow : EditingToolWindow {
+        private const int CONTROL_SPACING = 8;
+
+        private Gtk.Label slider_label = new Gtk.Label.with_mnemonic("Size:");
+
+        public Gtk.Button apply_button =
+            new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
+        public Gtk.Button close_button =
+            new Gtk.Button.from_stock(Gtk.STOCK_CLOSE);
+        public Gtk.HScale slider = new Gtk.HScale.with_range(
+            RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
+    
+        public RedeyeToolWindow(Gtk.Window container) {
+            base(container);
+            
+            slider.set_size_request(80, -1);
+            slider.set_draw_value(false);
+
+            close_button.set_tooltip_text("Close the red-eye tool");
+            close_button.set_image_position(Gtk.PositionType.LEFT);
+            
+            apply_button.set_tooltip_text("Remove any red-eye effects in the selected region");
+            apply_button.set_image_position(Gtk.PositionType.LEFT);
+
+            Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
+            layout.add(slider_label);
+            layout.add(slider);
+            layout.add(close_button);            
+            layout.add(apply_button);
+            
+            add(layout);
+        }
+    }
+    
+    private Gdk.GC thin_white_gc = null;
+    private Gdk.GC wider_gray_gc = null;    
+    private RedeyeToolWindow redeye_tool_window = null;
+    private RedeyeInstance user_interaction_instance;
+    private bool is_reticle_move_in_progress = false;
+    private Gdk.Point reticle_move_mouse_start_point;
+    private Gdk.Point reticle_move_anchor;
+    private Gdk.Cursor cached_arrow_cursor;
+    private Gdk.Cursor cached_grab_cursor;
+    private Gdk.Rectangle old_scaled_pixbuf_position;
+        
+    private RedeyeInstance new_interaction_instance(PhotoCanvas canvas) {
+        Gdk.Rectangle photo_bounds = canvas.get_scaled_pixbuf_position();
+        Gdk.Point photo_center = {0};
+        photo_center.x = photo_bounds.x + (photo_bounds.width / 2);
+        photo_center.y = photo_bounds.y + (photo_bounds.height / 2);
+        
+        RedeyeInstance result = RedeyeInstance();
+        result.center.x = photo_center.x;
+        result.center.y = photo_center.y;
+        result.radius = RedeyeInstance.DEFAULT_RADIUS;
+        
+        return result;
+    }
+    
+    private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
+        Gdk.GCValues gc_values = Gdk.GCValues();
+        gc_values.function = Gdk.Function.COPY;
+        gc_values.fill = Gdk.Fill.SOLID;
+        gc_values.line_style = Gdk.LineStyle.SOLID;
+        gc_values.cap_style = Gdk.CapStyle.BUTT;
+        gc_values.join_style = Gdk.JoinStyle.MITER;
+
+        Gdk.GCValuesMask mask = 
+            Gdk.GCValuesMask.FOREGROUND
+            | Gdk.GCValuesMask.FUNCTION
+            | Gdk.GCValuesMask.FILL
+            | Gdk.GCValuesMask.LINE_WIDTH 
+            | Gdk.GCValuesMask.LINE_STYLE
+            | Gdk.GCValuesMask.CAP_STYLE
+            | Gdk.GCValuesMask.JOIN_STYLE;
+
+        gc_values.foreground = fetch_color("#222", drawable);
+        gc_values.line_width = 1;
+        wider_gray_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
+
+        gc_values.foreground = fetch_color("#FFF", drawable);
+        gc_values.line_width = 1;
+        thin_white_gc = new Gdk.GC.with_values(drawable, gc_values, mask);
+    }
+    
+    private void draw_redeye_instance(RedeyeInstance inst) {
+        canvas.draw_circle(wider_gray_gc, inst.center.x, inst.center.y,
+            inst.radius - 1);
+        canvas.draw_circle(thin_white_gc, inst.center.x, inst.center.y,
+            inst.radius - 2);
+    }
+    
+    private bool on_size_slider_adjust(Gtk.ScrollType type) {
+        user_interaction_instance.radius =
+            (int) redeye_tool_window.slider.get_value();
+        
+        canvas.repaint();
+        
+        return false;
+    }
+    
+    private void on_apply() {
+        Gdk.Rectangle bounds_rect_user =
+            RedeyeInstance.to_bounds_rect(user_interaction_instance);
+
+        Gdk.Rectangle bounds_rect_active =
+            canvas.user_to_active_rect(bounds_rect_user);
+        Gdk.Rectangle bounds_rect_unscaled =
+            canvas.active_to_unscaled_rect(bounds_rect_active);
+        
+        RedeyeInstance instance_unscaled =
+            RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
+
+        canvas.get_photo().add_redeye_instance(instance_unscaled);
+        
+        notify_apply();
+    }
+    
+    private void on_canvas_resize() {
+        Gdk.Rectangle scaled_pixbuf_position =
+            canvas.get_scaled_pixbuf_position();
+        
+        user_interaction_instance.center.x -= old_scaled_pixbuf_position.x;
+        user_interaction_instance.center.y -= old_scaled_pixbuf_position.y;
+
+        double scale_factor = ((double) scaled_pixbuf_position.width) /
+            ((double) old_scaled_pixbuf_position.width);
+        
+        user_interaction_instance.center.x =
+            (int)(((double) user_interaction_instance.center.x) *
+            scale_factor + 0.5);
+        user_interaction_instance.center.y =
+            (int)(((double) user_interaction_instance.center.y) *
+            scale_factor + 0.5);
+
+        user_interaction_instance.center.x += scaled_pixbuf_position.x;
+        user_interaction_instance.center.y += scaled_pixbuf_position.y;
+
+        old_scaled_pixbuf_position = scaled_pixbuf_position;
+    }
+    
+    public override void activate(PhotoCanvas canvas) {
+        user_interaction_instance = new_interaction_instance(canvas);
+
+        canvas.new_drawable += prepare_gc;
+
+        prepare_gc(canvas.get_default_gc(), canvas.get_drawable());
+        
+        canvas.resized_scaled_pixbuf += on_canvas_resize;
+        
+        old_scaled_pixbuf_position = canvas.get_scaled_pixbuf_position();
+
+        redeye_tool_window = new RedeyeToolWindow(canvas.get_container());
+        redeye_tool_window.slider.set_value(user_interaction_instance.radius);
+        redeye_tool_window.slider.change_value += on_size_slider_adjust;
+        redeye_tool_window.apply_button.clicked += on_apply;
+        redeye_tool_window.close_button.clicked += notify_cancel;
+        redeye_tool_window.show_all();
+        
+        cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.ARROW);
+        cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
+            
+        base.activate(canvas);
+    }
+    
+    public override void deactivate() {
+        if (redeye_tool_window != null) {
+            redeye_tool_window.hide();
+            redeye_tool_window = null;
+        }
+    
+        base.deactivate();
+    }
+
+    public override EditingToolWindow? get_tool_window() {
+        return redeye_tool_window;
+    }
+    
+    public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+
+        canvas.paint_pixbuf(canvas.get_scaled_pixbuf());
+        
+        /* user_interaction_instance has its radius in user coords, and
+           draw_redeye_instance expects active region coords */
+        RedeyeInstance active_inst = user_interaction_instance;
+        active_inst.center =
+            canvas.user_to_active_point(user_interaction_instance.center);
+        draw_redeye_instance(active_inst);
+    }
+    
+    public override void on_left_click(int x, int y) {
+        Gdk.Rectangle bounds_rect =
+            RedeyeInstance.to_bounds_rect(user_interaction_instance);
+
+        if (coord_in_rectangle(x, y, bounds_rect)) {
+            is_reticle_move_in_progress = true;
+            reticle_move_mouse_start_point.x = x;
+            reticle_move_mouse_start_point.y = y;
+            reticle_move_anchor = user_interaction_instance.center;
+        }
+    }
+    
+    public override void on_left_released(int x, int y) {
+        is_reticle_move_in_progress = false;
+    }
+    
+    public override void on_motion(int x, int y, Gdk.ModifierType mask) {
+        if (is_reticle_move_in_progress) {
+        
+            int delta_x = x - reticle_move_mouse_start_point.x;
+            int delta_y = y - reticle_move_mouse_start_point.y;
+            
+            user_interaction_instance.center.x = reticle_move_anchor.x +
+                delta_x;
+            
+            user_interaction_instance.center.y = reticle_move_anchor.y +
+                delta_y;
+            
+            canvas.repaint();
+        } else {
+            Gdk.Rectangle bounds =
+                RedeyeInstance.to_bounds_rect(user_interaction_instance);
+
+            if (coord_in_rectangle(x, y, bounds)) {
+                    canvas.get_drawing_window().set_cursor(cached_grab_cursor);
+            } else {
+                canvas.get_drawing_window().set_cursor(cached_arrow_cursor);
+            }
+        }
     }
 }
 
