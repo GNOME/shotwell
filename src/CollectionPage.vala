@@ -208,7 +208,7 @@ public class CollectionPage : CheckerboardPage {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, on_file_menu },
-        { "Export", Gtk.STOCK_SAVE_AS, "_Export", "<Ctrl>E", "Export selected photos to disk", on_export },
+        { "Export", Gtk.STOCK_SAVE_AS, "_Export Photos...", "<Ctrl>E", "Export selected photos to disk", on_export },
 
         { "EditMenu", null, "_Edit", null, null, on_edit_menu },
         { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
