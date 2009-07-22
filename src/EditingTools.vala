@@ -1209,16 +1209,36 @@ public class RedeyeTool : EditingTool {
     
     public override void on_motion(int x, int y, Gdk.ModifierType mask) {
         if (is_reticle_move_in_progress) {
-        
+
+            Gdk.Rectangle active_region_rect =
+                canvas.get_scaled_pixbuf_position();
+            
+            int x_clamp_low =
+                active_region_rect.x + user_interaction_instance.radius + 1;
+            int y_clamp_low =
+                active_region_rect.y + user_interaction_instance.radius + 1;
+            int x_clamp_high =
+                active_region_rect.x + active_region_rect.width -
+                user_interaction_instance.radius - 1;
+            int y_clamp_high =
+                active_region_rect.y + active_region_rect.height -
+                user_interaction_instance.radius - 1;
+
             int delta_x = x - reticle_move_mouse_start_point.x;
             int delta_y = y - reticle_move_mouse_start_point.y;
             
             user_interaction_instance.center.x = reticle_move_anchor.x +
                 delta_x;
-            
             user_interaction_instance.center.y = reticle_move_anchor.y +
                 delta_y;
             
+            user_interaction_instance.center.x =
+                (reticle_move_anchor.x + delta_x).clamp(x_clamp_low,
+                x_clamp_high);
+            user_interaction_instance.center.y =
+                (reticle_move_anchor.y + delta_y).clamp(y_clamp_low,
+                y_clamp_high);
+
             canvas.repaint();
         } else {
             Gdk.Rectangle bounds =
