@@ -33,7 +33,7 @@ namespace ExportUI {
         if (current_export_dir == null)
             current_export_dir = File.new_for_path(Environment.get_home_dir());
 
-        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog("Export Photos to Directory",
+        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog("Export Photos",
             AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, 
             Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT, null);
         chooser.set_current_folder(current_export_dir.get_path());
@@ -53,7 +53,7 @@ namespace ExportUI {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "%s already exists.  Overwrite?",
             file.get_path());
-        dialog.title = "Export Photos to Directory";
+        dialog.title = "Export Photos";
 
         bool yes = (dialog.run() == Gtk.ResponseType.YES);
 

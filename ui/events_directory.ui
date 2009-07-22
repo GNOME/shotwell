@@ -3,6 +3,7 @@
     <menubar name="EventsDirectoryMenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

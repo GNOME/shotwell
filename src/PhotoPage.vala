@@ -41,7 +41,7 @@ public class PhotoPage : SinglePhotoPage {
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, null },
-        { "Export", Gtk.STOCK_SAVE_AS, "_Export", "<Ctrl>E", "Export photo to disk", on_export },
+        { "Export", Gtk.STOCK_SAVE_AS, "_Export Photos...", "<Ctrl>E", "Export photo to disk", on_export },
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
         { "ReturnToPage", Resources.RETURN_TO_PAGE, "_Return to Photos", "Escape", null, on_return_to_collection },

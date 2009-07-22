@@ -253,7 +253,7 @@ public class AppWindow : Gtk.Window {
         { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
         { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", 
             on_fullscreen },
-        { "CommonFileImport", Resources.IMPORT, "_Import From Folder", "<Ctrl>I", "Import photos from disk to library",
+        { "CommonFileImport", Resources.IMPORT, "_Import From Folder...", "<Ctrl>I", "Import photos from disk to library",
             on_file_import },
         { "CommonSortEvents", null, "Sort _Events", null, null, on_sort_events },
         { "CommonHelpContents", Gtk.STOCK_HELP, "_Contents", "F1", "More informaton on Shotwell", 
@@ -664,7 +664,7 @@ public class AppWindow : Gtk.Window {
     }
     
     private void on_file_import() {
-        Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog("Import", null,
+        Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog("Import From Folder", null,
             Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
             Gtk.STOCK_OK, Gtk.ResponseType.OK);
         import_dialog.set_select_multiple(true);
