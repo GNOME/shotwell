@@ -2,6 +2,7 @@
 
     <menubar name="PhotoMenuBar">
         <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Import" action="CommonFileImport" />
             <menuitem name="Export" action="Export" />
             <separator />
             <menuitem name="Quit" action="CommonQuit" />

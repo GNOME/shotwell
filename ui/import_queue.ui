@@ -4,6 +4,8 @@
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Stop" action="Stop" />
             <separator />
+            <menuitem name="Import" action="CommonFileImport" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

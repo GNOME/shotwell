@@ -240,6 +240,7 @@ public class AppWindow : Gtk.Window {
     private static string[] args = null;
     private static bool user_quit = false;
     private static bool camera_update_scheduled = false;
+    private string import_dir = Environment.get_home_dir();
 
     private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
@@ -252,6 +253,8 @@ public class AppWindow : Gtk.Window {
         { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
         { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", 
             on_fullscreen },
+        { "CommonFileImport", Resources.IMPORT, "_Import From Folder", "<Ctrl>I", "Import photos from disk to library",
+            on_file_import },
         { "CommonSortEvents", null, "Sort _Events", null, null, on_sort_events },
         { "CommonHelpContents", Gtk.STOCK_HELP, "_Contents", "F1", "More informaton on Shotwell", 
             on_help_contents }
@@ -264,10 +267,10 @@ public class AppWindow : Gtk.Window {
             "Sort photos in a descending order", SORT_EVENTS_ORDER_DESCENDING }
     };
 
-    private class DragDropImportJob : BatchImportJob {
+    private class FileImportJob : BatchImportJob {
         private File file_or_dir;
         
-        public DragDropImportJob(string uri) {
+        public FileImportJob(string uri) {
             file_or_dir = File.new_for_uri(uri);
         }
         
@@ -660,6 +663,22 @@ public class AppWindow : Gtk.Window {
         present();
     }
     
+    private void on_file_import() {
+        Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog("Import", null,
+            Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
+            Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        import_dialog.set_select_multiple(true);
+        import_dialog.set_current_folder(import_dir);
+        
+        int response = import_dialog.run();
+
+        if (response == Gtk.ResponseType.OK) {
+            dispatch_import_jobs(import_dialog.get_uris(), "folders");
+        }
+        import_dir = import_dialog.get_current_folder();
+        import_dialog.destroy();
+    }
+
     public int get_events_sort() {
         return events_sort;
     }
@@ -723,6 +742,28 @@ public class AppWindow : Gtk.Window {
         
         import_queue_page.enqueue_and_schedule(batch_import);
     }
+
+    void dispatch_import_jobs(GLib.SList<string> uris, string job_name) {
+        Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
+        uint64 total_bytes = 0;
+
+        foreach (string uri in uris) {
+            jobs.add(new FileImportJob(uri));
+            
+            try {
+                total_bytes += query_total_file_size(File.new_for_uri(uri));
+            } catch (Error err) {
+                debug("Unable to query filesize of %s: %s", uri, err.message);
+            }
+        }
+        
+        if (jobs.size > 0) {
+            BatchImport batch_import = new BatchImport(jobs, job_name, total_bytes);
+            enqueue_batch_import(batch_import);
+            switch_to_import_queue_page();
+        }
+    }
+
     
     private void remove_import_queue_row() {
         if (import_queue_page.get_batch_count() == 0) {
@@ -865,25 +906,12 @@ public class AppWindow : Gtk.Window {
             return;
         }
 
-        string[] uris = selection_data.get_uris();
-        Gee.ArrayList<DragDropImportJob> jobs = new Gee.ArrayList<DragDropImportJob>();
-        uint64 total_bytes = 0;
-
-        foreach (string uri in uris) {
-            jobs.add(new DragDropImportJob(uri));
-            
-            try {
-                total_bytes += query_total_file_size(File.new_for_uri(uri));
-            } catch (Error err) {
-                debug("Unable to query filesize of %s: %s", uri, err.message);
-            }
+        string[] uris_array = selection_data.get_uris();
+        GLib.SList<string> uris = new GLib.SList<string>();
+        foreach (string uri in uris_array) {
+            uris.append(uri);
         }
-        
-        if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs, "drag-and-drop", total_bytes);
-            enqueue_batch_import(batch_import);
-            switch_to_import_queue_page();
-        }
+        dispatch_import_jobs(uris, "drag-and-drop");
 
         Gtk.drag_finish(context, true, false, time);
     }

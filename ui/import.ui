@@ -2,6 +2,7 @@
 
     <menubar name="ImportMenuBar">
         <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Import" action="CommonFileImport" />
             <menuitem name="ImportSelected" action="ImportSelected" />
             <menuitem name="ImportAll" action="ImportAll" />
             <separator />
