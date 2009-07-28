@@ -1,0 +1,8 @@
+shotwell (0.1.2-1) jaunty; urgency=low
+
+  * Red-eye reduction feature now available.
+  * File/Import From Folder offers one more way to import photos into the
+    library.
+
+ -- Jim Nelson <jim@yorba.org>  Thu, 23 Jul 2009 17:01:23 -0700
+

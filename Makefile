@@ -4,7 +4,7 @@ VERSION = 0.1.2
 BUILD_ROOT = 1
 
 VALAC = valac
-VALAC_VERSION = vala-1.0 >= 0.7.3
+MIN_VALAC_VERSION = 0.7.4
 INSTALL_PROGRAM = install
 INSTALL_DATA = install -m 644
 
@@ -17,7 +17,7 @@ endif
 ALL_VALAFLAGS = $(VALAFLAGS) $(DEVFLAGS) --Xcc=-std=c99
 
 PREFIX=/usr/local
--include configure.in
+-include configure.mk
 
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"'
 
@@ -102,7 +102,7 @@ EXT_PKGS = \
 EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.14.4 \
 	sqlite3 >= 3.5.9 \
-	gee-1.0 >= 0.1.5 \
+	gee-1.0 >= 0.1.3 \
 	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
 	unique-1.0 >= 1.0.0 \
@@ -117,7 +117,7 @@ endif
 
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
 EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
-EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=..vala.c))
+EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
 EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),src/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),src/$(header))
@@ -129,6 +129,8 @@ DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
+DIST_TAR_GZ = $(DIST_TAR).gz
+PACKAGE_ORIG_GZ = $(PROGRAM)_$(VERSION).orig.tar.gz
 
 all: $(PROGRAM)
 
@@ -137,7 +139,7 @@ clean:
 	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
-	rm -f $(DIST_TAR_BZ2)
+	rm -rf $(PROGRAM)-$(VERSION)
 	rm -f $(PROGRAM)
 
 cleantemps:
@@ -146,36 +148,44 @@ cleantemps:
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
 
-dist: $(DIST_TAR_BZ2)
-
-dist-clean:
+package:
+	$(MAKE) dist
+	cp $(DIST_TAR_GZ) ../$(PACKAGE_ORIG_GZ)
+	rm -f $(DIST_TAR_GZ)
 	rm -f $(DIST_TAR_BZ2)
 
-install: $(PROGRAM) misc/shotwell.desktop
+dist: $(DIST_FILES)
+	mkdir -p $(PROGRAM)-$(VERSION)
+	cp --parents $(DIST_FILES) $(PROGRAM)-$(VERSION)
+	tar --bzip2 -cvf $(DIST_TAR_BZ2) $(PROGRAM)-$(VERSION)
+	tar --gzip -cvf $(DIST_TAR_GZ) $(PROGRAM)-$(VERSION)
+	rm -rf $(PROGRAM)-$(VERSION)
+
+distclean: clean
+	rm -f configure.mk
+
+install:
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
 	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
-	update-icon-caches $(DESTDIR)/usr/share/icons/hicolor
+	-update-icon-caches $(DESTDIR)/usr/share/icons/hicolor
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
-	xdg-desktop-menu install --novendor misc/shotwell.desktop
-	update-desktop-database
+	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
+	-update-desktop-database
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -fr $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/shotwell.svg
-	xdg-desktop-menu uninstall shotwell.desktop
-	update-desktop-database
-
-$(DIST_TAR_BZ2): $(PROGRAM) $(DIST_FILES)
-	tar -cv $(DIST_FILES) > $(DIST_TAR)
-	bzip2 $(DIST_TAR)
+	rm -f $(DESTDIR)/usr/share/applications/shotwell.desktop
+	-update-desktop-database
 
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
 	configure $(CONFIG_IN)
-	pkg-config --print-errors --exists '$(VALAC_VERSION)'
+	@ bash -c "[ '`valac --version`' '>' 'Vala $(MIN_VALAC_VERSION)' ]" || bash -c "[ '`valac --version`' '==' 'Vala $(MIN_VALAC_VERSION)' ]" || ( echo 'Shotwell requires Vala compiler $(MIN_VALAC_VERSION) or greater.  You are running' `valac --version` '\b.'; exit 1 )
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
 	pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS)'

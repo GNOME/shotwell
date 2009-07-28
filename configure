@@ -5,7 +5,7 @@
 # This software is licensed under the GNU LGPL (version 2.1 or later).
 # See the COPYING file in this distribution. 
 
-CONFIG_IN=configure.in
+CONFIG_IN=configure.mk
 
 configure_help() {
     printf "\nUsage:\n"
@@ -66,11 +66,10 @@ do
 done
 
 rm -f $CONFIG_IN
-touch $0
 if [ $variables ]
 then
     echo -n $variables > $CONFIG_IN
-    echo "CONFIG_IN=${CONFIG_IN}" >> $CONFIG_IN
 fi
+echo "CONFIG_IN=${CONFIG_IN}" >> $CONFIG_IN
 
 printf "Configured.  Type 'make' to build, 'make install' to install.\n"

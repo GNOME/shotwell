@@ -8,7 +8,7 @@ public abstract class Comparator<G> {
     public abstract int64 compare(G a, G b);
 }
 
-public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G>, Gee.List<G> {
+public class SortedList<G> : Object, Gee.Iterable<G> {
     private Gee.List<G> list;
     private Comparator<G> cmp;
     
@@ -91,10 +91,6 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G>, Gee.Lis
     
     public void remove_at(int index) {
         list.remove_at(index);
-    }
-    
-    public Gee.List<G>? slice(int start, int stop) {
-        return list.slice(start, stop);
     }
 }
 

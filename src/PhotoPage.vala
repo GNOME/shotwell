@@ -194,7 +194,7 @@ public class PhotoPage : SinglePhotoPage {
         // if the tool has an auxilliary window, move it properly on the screen
         place_tool_window();
 
-		// repaint entire view, with the tool now hooked in
+        // repaint entire view, with the tool now hooked in
         default_repaint();
     }
     
