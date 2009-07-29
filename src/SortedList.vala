@@ -12,8 +12,8 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     private Gee.List<G> list;
     private Comparator<G> cmp;
     
-    public SortedList(Gee.List<G> list, Comparator<G>? cmp = null) {
-        this.list = list;
+    public SortedList(Comparator<G>? cmp = null) {
+        this.list = new Gee.ArrayList<G>();
         this.cmp = cmp;
     }
     
@@ -26,33 +26,10 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     }
     
     public bool add(G? item) {
-        if (cmp == null) {
-            list.insert(list.size, item);
-            
-            return true;
-        }
-
-        int ctr = 0;
-        bool insert = false;
-        foreach (G added in list) {
-            if (cmp.compare(item, added) < 0) {
-                // smaller, insert before this element
-                insert = true;
-                
-                break;
-            }
-            
-            ctr++;
-        }
-
-        if (insert) {
-            list.insert(ctr, item);
-            
-            return true;
-        }
-
-        // went off the end of the list, so add at end
-        list.insert(list.size, item);
+        if (cmp == null)
+            list.add(item);
+        else
+            list.insert(get_sorted_insert_pos(item), item);
         
         return true;
     }
@@ -92,6 +69,35 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     public void remove_at(int index) {
         list.remove_at(index);
     }
-}
+    
+    public void resort(Comparator<G> new_cmp) {
+        cmp = new_cmp;
+        
+        Gee.List<G> old_list = list;
+        list = new Gee.ArrayList<G>();
+        
+        foreach (G item in old_list)
+            list.insert(get_sorted_insert_pos(item), item);
+    }
+    
+    private int get_sorted_insert_pos(G? item) {
+        int low = 0;
+        int high = list.size;
+        for (;;) {
+            if (low == high)
+                return low;
+                
+            int mid = low + ((high - low) / 2);
 
+            int64 result = cmp.compare(item, list.get(mid));
+            if (result < 0)
+                high = mid;
+            else if (result > 0)
+                low = mid + 1;
+            else
+                return mid;
+        }
+        
+    }
+}
 

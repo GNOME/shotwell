@@ -37,6 +37,10 @@ public class Photo : Object {
     
     private PhotoID photo_id;
     
+    // because fetching some items from the database is high-overhead, certain items are cached
+    // here ... really want to be frugal about this, as maintaining coherency is complicated enough
+    private time_t exposure_time = -1;
+    
     public static void init() {
         photo_map = new Gee.HashMap<int64?, Photo>(int64_hash, int64_equal, direct_equal);
         photo_table = new PhotoTable();
@@ -182,7 +186,10 @@ public class Photo : Object {
     }
     
     public time_t get_exposure_time() {
-        return photo_table.get_exposure_time(photo_id);
+        if (exposure_time == -1)
+            exposure_time = photo_table.get_exposure_time(photo_id);
+        
+        return exposure_time;
     }
     
     public time_t get_timestamp() {
@@ -803,6 +810,9 @@ public class Photo : Object {
         
         if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
             orientation)) {
+            // cache coherency
+            this.exposure_time = exposure_time;
+            
             photo_altered();
         }
     }

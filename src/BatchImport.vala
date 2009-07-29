@@ -14,7 +14,7 @@ public abstract class BatchImportJob {
 // it into the system, including database additions, thumbnail creation, and reporting it to AppWindow
 // so it's properly added to various views and events.
 public class BatchImport {
-    public static const int IMPORT_DIRECTORY_DEPTH = 3;
+    public const int IMPORT_DIRECTORY_DEPTH = 3;
     
     private class DateComparator : Comparator<Photo> {
         public override int64 compare(Photo photo_a, Photo photo_b) {
@@ -179,7 +179,7 @@ public class BatchImport {
     private bool perform_import() {
         starting();
         
-        success = new SortedList<Photo>(new Gee.ArrayList<Photo>(), new DateComparator());
+        success = new SortedList<Photo>(new DateComparator());
         failed = new Gee.ArrayList<string>();
         skipped = new Gee.ArrayList<string>();
         import_id = (new PhotoTable()).generate_import_id();

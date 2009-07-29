@@ -5,14 +5,14 @@
  */
 
 public abstract class LayoutItem : Gtk.Alignment {
-    public static const int LABEL_PADDING = 4;
-    public static const int FRAME_PADDING = 4;
+    public const int LABEL_PADDING = 4;
+    public const int FRAME_PADDING = 4;
 
-    public static const string TEXT_COLOR = "#FFF";
-    public static const string SELECTED_COLOR = "#0FF";
-    public static const string UNSELECTED_COLOR = "#FFF";
+    public const string TEXT_COLOR = "#FFF";
+    public const string SELECTED_COLOR = "#0FF";
+    public const string UNSELECTED_COLOR = "#FFF";
     
-    public static const int BRIGHTEN_SHIFT = 0x18;
+    public const int BRIGHTEN_SHIFT = 0x18;
     
     // Due to the potential for thousands or tens of thousands of thumbnails being present in the
     // system, all widgets used here and by subclasses should be NOWINDOW widgets.
@@ -172,16 +172,16 @@ public abstract class LayoutItem : Gtk.Alignment {
 }
 
 public class CollectionLayout : Gtk.Layout {
-    public static const int TOP_PADDING = 16;
-    public static const int BOTTOM_PADDING = 16;
-    public static const int ROW_GUTTER_PADDING = 24;
+    public const int TOP_PADDING = 16;
+    public const int BOTTOM_PADDING = 16;
+    public const int ROW_GUTTER_PADDING = 24;
 
     // the following are minimums, as the pads and gutters expand to fill up the window width
-    public static const int LEFT_PADDING = 16;
-    public static const int RIGHT_PADDING = 16;
-    public static const int COLUMN_GUTTER_PADDING = 24;
+    public const int LEFT_PADDING = 16;
+    public const int RIGHT_PADDING = 16;
+    public const int COLUMN_GUTTER_PADDING = 24;
     
-    public SortedList<LayoutItem> items = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>());
+    public SortedList<LayoutItem> items = new SortedList<LayoutItem>();
 
     private Gtk.Label message = new Gtk.Label("");
     private bool in_view = false;
@@ -227,16 +227,7 @@ public class CollectionLayout : Gtk.Layout {
     }
     
     public void set_comparator(Comparator<LayoutItem> cmp) {
-        // re-sort list with new comparator
-        SortedList<LayoutItem> resorted = new SortedList<LayoutItem>(new Gee.ArrayList<LayoutItem>(), cmp);
-        
-        foreach (LayoutItem item in items) {
-            // add to new list and remove from Gtk.Layout
-            resorted.add(item);
-            remove(item);
-        }
-        
-        items = resorted;
+        items.resort(cmp);
     }
     
     public void add_item(LayoutItem item) {

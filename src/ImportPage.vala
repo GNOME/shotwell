@@ -5,8 +5,8 @@
  */
 
 class ImportPreview : LayoutItem {
-    public static const int MAX_SCALE = 128;
-    public static const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
+    public const int MAX_SCALE = 128;
+    public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
     
     public int fsid;
     public string folder;
@@ -592,8 +592,7 @@ public class ImportPage : CheckerboardPage {
 
         int failed = 0;
         ulong total_bytes = 0;
-        SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(
-            new Gee.ArrayList<CameraImportJob>(), new CameraImportComparator());
+        SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(new CameraImportComparator());
         
         foreach (LayoutItem item in items) {
             ImportPreview preview = (ImportPreview) item;

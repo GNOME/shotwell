@@ -5,9 +5,9 @@
  */
 
 class SlideshowPage : SinglePhotoPage {
-    public static const int DELAY_SEC = 3;
+    public const int DELAY_SEC = 3;
     
-    private static const int CHECK_ADVANCE_MSEC = 250;
+    private const int CHECK_ADVANCE_MSEC = 250;
     
     private CheckerboardPage controller;
     private Thumbnail thumbnail;
@@ -141,22 +141,25 @@ class SlideshowPage : SinglePhotoPage {
 }
 
 public class CollectionPage : CheckerboardPage {
-    public static const int SORT_BY_MIN = 0;
-    public static const int SORT_BY_NAME = 0;
-    public static const int SORT_BY_EXPOSURE_DATE = 1;
-    public static const int SORT_BY_MAX = 1;
+    public const int SORT_BY_MIN = 0;
+    public const int SORT_BY_NAME = 0;
+    public const int SORT_BY_EXPOSURE_DATE = 1;
+    public const int SORT_BY_MAX = 1;
     
-    public static const int SORT_ORDER_MIN = 0;
-    public static const int SORT_ORDER_ASCENDING = 0;
-    public static const int SORT_ORDER_DESCENDING = 1;
-    public static const int SORT_ORDER_MAX = 1;
+    public const int SORT_ORDER_MIN = 0;
+    public const int SORT_ORDER_ASCENDING = 0;
+    public const int SORT_ORDER_DESCENDING = 1;
+    public const int SORT_ORDER_MAX = 1;
+    
+    public const int DEFAULT_SORT_BY = SORT_BY_EXPOSURE_DATE;
+    public const int DEFAULT_SORT_ORDER = SORT_ORDER_DESCENDING;
 
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
-    public static const int MANUAL_STEPPING = 16;
-    public static const int SLIDER_STEPPING = 2;
+    public const int MANUAL_STEPPING = 16;
+    public const int SLIDER_STEPPING = 2;
 
-    private static const int IMPROVAL_PRIORITY = Priority.LOW;
-    private static const int IMPROVAL_DELAY_MS = 250;
+    private const int IMPROVAL_PRIORITY = Priority.LOW;
+    private const int IMPROVAL_DELAY_MS = 250;
     
     private class CompareName : Comparator<LayoutItem> {
         public override int64 compare(LayoutItem a, LayoutItem b) {
@@ -248,8 +251,8 @@ public class CollectionPage : CheckerboardPage {
         base(page_name != null ? page_name : "Photos");
         
         init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
-        action_group.add_radio_actions(SORT_CRIT_ACTIONS, SORT_BY_NAME, on_sort_changed);
-        action_group.add_radio_actions(SORT_ORDER_ACTIONS, SORT_ORDER_ASCENDING, on_sort_changed);
+        action_group.add_radio_actions(SORT_CRIT_ACTIONS, DEFAULT_SORT_BY, on_sort_changed);
+        action_group.add_radio_actions(SORT_ORDER_ACTIONS, DEFAULT_SORT_ORDER, on_sort_changed);
 
         if (ui_filename != null)
             init_load_ui(ui_filename);
@@ -260,7 +263,7 @@ public class CollectionPage : CheckerboardPage {
         init_ui_bind("/CollectionMenuBar");
         init_context_menu("/CollectionContextMenu");
         
-        set_layout_comparator(new CompareName());
+        set_layout_comparator(get_sort_comparator());
         
         // adjustment which is shared by all sliders in the application
         if (slider_adjustment == null)
@@ -860,33 +863,34 @@ public class CollectionPage : CheckerboardPage {
         return value;
     }
     
+    private bool is_sort_ascending() {
+        return get_sort_order() == SORT_ORDER_ASCENDING;
+    }
+    
     private void on_sort_changed() {
-        Comparator<LayoutItem> cmp = null;
+        set_layout_comparator(get_sort_comparator());
+        refresh();
+    }
+    
+    private Comparator<LayoutItem> get_sort_comparator() {
         switch (get_sort_criteria()) {
             case SORT_BY_NAME:
-                if (get_sort_order() == SORT_ORDER_ASCENDING)
-                    cmp = new CompareName();
+                if (is_sort_ascending())
+                    return new CompareName();
                 else
-                    cmp = new ReverseCompareName();
-            break;
+                    return new ReverseCompareName();
             
             case SORT_BY_EXPOSURE_DATE:
-                if (get_sort_order() == SORT_ORDER_ASCENDING)
-                    cmp = new CompareDate();
+                if (is_sort_ascending())
+                    return new CompareDate();
                 else
-                    cmp = new ReverseCompareDate();
-            break;
+                    return new ReverseCompareDate();
             
             default:
                 error("Unknown sort criteria: %d", get_sort_criteria());
-            break;
+                
+                return new CompareName();
         }
-        
-        if (cmp == null)
-            return;
-        
-        set_layout_comparator(cmp);
-        refresh();
     }
 }
 

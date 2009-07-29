@@ -262,7 +262,10 @@ public class PhotoPage : SinglePhotoPage {
     
     // Return true to block the DnD handler from activating a drag
     private override bool on_left_click(Gdk.EventButton event) {
-        if (event.type == Gdk.EventType.2BUTTON_PRESS && current_tool == null) {
+        // on double-click, if not editing and not hosted by a fullscreen window, return to the
+        // controller collection
+        if (event.type == Gdk.EventType.2BUTTON_PRESS && current_tool == null 
+            && !(container is FullscreenWindow)) {
             on_return_to_collection();
             
             return true;
