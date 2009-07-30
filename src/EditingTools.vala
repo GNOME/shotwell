@@ -1456,35 +1456,27 @@ public class AdjustTool : EditingTool {
         ColorTransformationInstance current_instance = {0};
         float exposure_param =
             (float) adjust_tool_window.exposure_slider.get_value();
-        if (exposure_param != 0.0f) {
-            current_instance.kind = ColorTransformationKind.EXPOSURE;
-            current_instance.parameter = exposure_param;
-            adjustments.add(current_instance);
-        }
+        current_instance.kind = ColorTransformationKind.EXPOSURE;
+        current_instance.parameter = exposure_param;
+        adjustments.add(current_instance);
 
         float saturation_param =
             (float) adjust_tool_window.saturation_slider.get_value();
-        if (saturation_param != 0.0f) {
-            current_instance.kind = ColorTransformationKind.SATURATION;
-            current_instance.parameter = saturation_param;
-            adjustments.add(current_instance);
-        }
+        current_instance.kind = ColorTransformationKind.SATURATION;
+        current_instance.parameter = saturation_param;
+        adjustments.add(current_instance);
 
         float tint_param =
             (float) adjust_tool_window.tint_slider.get_value();
-        if (tint_param != 0.0f) {
-            current_instance.kind = ColorTransformationKind.TINT;
-            current_instance.parameter = tint_param;
-            adjustments.add(current_instance);
-        }
+        current_instance.kind = ColorTransformationKind.TINT;
+        current_instance.parameter = tint_param;
+        adjustments.add(current_instance);
 
         float temperature_param =
             (float) adjust_tool_window.temperature_slider.get_value();
-        if (temperature_param != 0.0f) {
-            current_instance.kind = ColorTransformationKind.TEMPERATURE;
-            current_instance.parameter = temperature_param;
-            adjustments.add(current_instance);
-        }
+        current_instance.kind = ColorTransformationKind.TEMPERATURE;
+        current_instance.parameter = temperature_param;
+        adjustments.add(current_instance);
 
         canvas.get_photo().set_adjustments(adjustments);
         
