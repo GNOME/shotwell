@@ -44,6 +44,7 @@ SRC_FILES = \
 	Resources.vala \
 	Debug.vala \
 	Sidebar.vala \
+	ColorTransformation.vala \
 	EditingTools.vala
 
 VAPI_FILES = \

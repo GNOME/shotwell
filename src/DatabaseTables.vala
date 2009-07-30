@@ -579,7 +579,7 @@ public class PhotoTable : DatabaseTable {
         
         return true;
     }
-    
+
     private string? get_raw_transformations(PhotoID photo_id) {
         Sqlite.Statement stmt;
         if (!select_by_id(photo_id.id, "transformations", out stmt))
@@ -588,7 +588,7 @@ public class PhotoTable : DatabaseTable {
         string trans = stmt.column_text(0);
         if (trans != null && trans.length == 0)
             return null;
-        
+
         return trans;
     }
     
@@ -608,7 +608,7 @@ public class PhotoTable : DatabaseTable {
             
             return false;
         }
-        
+
         return true;
     }
     

@@ -31,6 +31,7 @@ public class PhotoPage : SinglePhotoPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToggleToolButton redeye_button = null;
+    private Gtk.ToggleToolButton adjust_button = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private EditingTool current_tool = null;
@@ -86,6 +87,13 @@ public class PhotoPage : SinglePhotoPage {
         redeye_button.set_tooltip_text("Reduce or eliminate any red-eye effects in the photo");
         redeye_button.toggled += on_redeye_toggled;
         toolbar.insert(redeye_button, -1);
+        
+        // adjust tool
+        adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
+        adjust_button.set_label("Adjust");
+        adjust_button.set_tooltip_text("Adjust the photo's color and tone");
+        adjust_button.toggled += on_adjust_toggled;
+        toolbar.insert(adjust_button, -1);
 
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -193,6 +201,9 @@ public class PhotoPage : SinglePhotoPage {
         
         // if the tool has an auxilliary window, move it properly on the screen
         place_tool_window();
+        
+        // now that the tool window has been placed, show it
+        show_tool_window();
 
         // repaint entire view, with the tool now hooked in
         default_repaint();
@@ -494,6 +505,20 @@ public class PhotoPage : SinglePhotoPage {
         }
     }
     
+    private void on_adjust_toggled() {
+        if (adjust_button.active) {
+            AdjustTool adjust_tool = new AdjustTool();
+            adjust_tool.activated += on_adjust_activated;
+            adjust_tool.deactivated += on_adjust_deactivated;
+            adjust_tool.cancelled += on_adjust_closed;
+            adjust_tool.applied += on_adjust_applied;
+
+            activate_tool(adjust_tool);
+        } else {
+            deactivate_tool();
+        }
+    }
+    
     private void on_crop_done() {
         deactivate_tool();
     }
@@ -504,7 +529,14 @@ public class PhotoPage : SinglePhotoPage {
     private void on_redeye_closed() {
         deactivate_tool();
     }
-
+    
+    private void on_adjust_closed() {
+        deactivate_tool();
+    }
+    
+    private void on_adjust_applied() {
+        deactivate_tool();
+    }
     
     private void on_crop_activated() {
         crop_button.set_active(true);
@@ -520,7 +552,15 @@ public class PhotoPage : SinglePhotoPage {
 
     private void on_redeye_deactivated() {
         redeye_button.set_active(false);
-    }    
+    }
+
+    private void on_adjust_activated() {
+        adjust_button.set_active(true);
+    }
+    
+    private void on_adjust_deactivated() {
+        adjust_button.set_active(false);
+    }
 
     private void place_tool_window() {
         if (current_tool == null)
@@ -560,6 +600,17 @@ public class PhotoPage : SinglePhotoPage {
             
             tool_window.move(x, y);
         }
+    }
+    
+    private void show_tool_window() {
+         if (current_tool == null)
+            return;
+
+        EditingToolWindow tool_window = current_tool.get_tool_window();
+        if (tool_window == null)
+            return;
+        
+        tool_window.show_all();
     }
     
     private void on_photo_menu() {

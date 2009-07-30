@@ -20,6 +20,7 @@ public class Photo : Object {
     public const int EXCEPTION_ORIENTATION   = 1 << 0;
     public const int EXCEPTION_CROP          = 1 << 1;
     public const int EXCEPTION_REDEYE        = 1 << 2;
+    public const int EXCEPTION_ADJUST        = 1 << 3;
 
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
     public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.BILINEAR;
@@ -390,12 +391,105 @@ public class Photo : Object {
         map.set_point(center_key, inst.center);
         
         map.set_int("num_points", num_points);
+
+        bool res =  photo_table.set_transformation(photo_id, map);
         
-        bool res = photo_table.set_transformation(photo_id, map);
         if (res)
             photo_altered();
-                    
+        
         return res;
+    }
+
+    public bool set_adjustments(Gee.ArrayList<ColorTransformationInstance?> adjustments) {
+        KeyValueMap map = photo_table.get_transformation(photo_id,
+            "adjustments");
+
+        if (map == null) {
+            map = new KeyValueMap("adjustments");
+        }
+        
+        foreach (ColorTransformationInstance adjustment in adjustments) {
+            switch(adjustment.kind) {
+                case ColorTransformationKind.EXPOSURE:
+                    map.set_double("exposure", adjustment.parameter);
+                break;
+                case ColorTransformationKind.SATURATION:
+                    map.set_double("saturation", adjustment.parameter);
+                break;
+                case ColorTransformationKind.TEMPERATURE:
+                    map.set_double("temperature", adjustment.parameter);
+                break;
+                case ColorTransformationKind.TINT:
+                    map.set_double("tint", adjustment.parameter);
+                break;
+                default:
+                    error("unrecognized ColorTransformationKind enumeration value");
+                break;
+            }
+        }
+
+        bool res = photo_table.set_transformation(photo_id, map);
+        
+        if (res)
+            photo_altered();
+        
+        return res;
+    }    
+
+    public float get_adjustment_parameter(ColorTransformationKind adjust_kind) {
+        KeyValueMap map = photo_table.get_transformation(photo_id,
+            "adjustments");
+
+        if (map == null) {
+            return 0.0f;
+        }
+        
+        switch (adjust_kind) {
+            case ColorTransformationKind.EXPOSURE:
+                return (float) map.get_double("exposure", 0.0f);
+            case ColorTransformationKind.SATURATION:
+                return (float) map.get_double("saturation", 0.0f);
+            case ColorTransformationKind.TEMPERATURE:
+                return (float) map.get_double("temperature", 0.0f);
+            case ColorTransformationKind.TINT:
+                return (float) map.get_double("tint", 0.0f);
+            default:
+                error("unrecognized ColorTransformationKind enumeration value");
+            break;
+        }
+        return 0.0f;        
+    }
+    
+    public ColorTransformation get_composite_transformation() {
+        float exposure_param = get_adjustment_parameter(
+            ColorTransformationKind.EXPOSURE);
+        float saturation_param = get_adjustment_parameter(
+            ColorTransformationKind.SATURATION);
+        float tint_param = get_adjustment_parameter(
+            ColorTransformationKind.TINT);
+        float temperature_param = get_adjustment_parameter(
+            ColorTransformationKind.TEMPERATURE);
+
+        ColorTransformation exposure_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.EXPOSURE, exposure_param);
+        ColorTransformation saturation_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.SATURATION, saturation_param);
+        ColorTransformation tint_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.TINT, tint_param);
+        ColorTransformation temperature_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.TEMPERATURE, temperature_param);
+
+        ColorTransformation composite_transform = ((
+                exposure_transform.compose_against(
+                saturation_transform)).compose_against(
+                temperature_transform)).compose_against(
+                tint_transform);
+        
+        return composite_transform;
     }
 
     private RedeyeInstance[] get_all_redeye() {
@@ -523,7 +617,7 @@ public class Photo : Object {
         
         if (cached_raw != null && cached_photo_id.id == photo_id.id) {
             // used the cached raw pixbuf, which is merely the last loaded pixbuf
-            pixbuf = cached_raw;
+            pixbuf = cached_raw.copy();
         } else {
             File file = get_file();
 
@@ -531,10 +625,10 @@ public class Photo : Object {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         
             // stash for next time
-            cached_raw = pixbuf;
+            cached_raw = pixbuf.copy();
             cached_photo_id = photo_id;
         }
-        
+
         //
         // Image modification pipeline
         //
@@ -546,7 +640,18 @@ public class Photo : Object {
                 pixbuf = do_redeye(pixbuf, redeye_instances[i]);
             }
         }
-                
+
+        // color adjustment
+        if ((exceptions & EXCEPTION_ADJUST) == 0) {
+            ColorTransformation composite_transform =
+                get_composite_transformation();
+            
+            if (!composite_transform.is_identity()) {
+                ColorTransformation.transform_pixbuf(composite_transform,
+                    pixbuf);
+            }
+        }
+
         // crop
         if ((exceptions & EXCEPTION_CROP) == 0) {
             Box crop;

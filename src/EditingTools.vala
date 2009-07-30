@@ -450,7 +450,6 @@ public class CropTool : EditingTool {
         crop_tool_window = new CropToolWindow(canvas.get_container());
         crop_tool_window.apply_button.clicked += on_crop_apply;
         crop_tool_window.cancel_button.clicked += notify_cancel;
-        crop_tool_window.show_all();
         
         // obtain crop dimensions and paint against the uncropped photo
         Dimensions uncropped_dim = canvas.get_photo().get_uncropped_dimensions();
@@ -1045,7 +1044,7 @@ public class RedeyeTool : EditingTool {
     private Gdk.Cursor cached_arrow_cursor;
     private Gdk.Cursor cached_grab_cursor;
     private Gdk.Rectangle old_scaled_pixbuf_position;
-        
+
     private RedeyeInstance new_interaction_instance(PhotoCanvas canvas) {
         Gdk.Rectangle photo_bounds = canvas.get_scaled_pixbuf_position();
         Gdk.Point photo_center = {0};
@@ -1158,11 +1157,10 @@ public class RedeyeTool : EditingTool {
         redeye_tool_window.slider.change_value += on_size_slider_adjust;
         redeye_tool_window.apply_button.clicked += on_apply;
         redeye_tool_window.close_button.clicked += notify_cancel;
-        redeye_tool_window.show_all();
-        
+
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.ARROW);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
-            
+
         base.activate(canvas);
     }
     
@@ -1250,6 +1248,257 @@ public class RedeyeTool : EditingTool {
                 canvas.get_drawing_window().set_cursor(cached_arrow_cursor);
             }
         }
+    }
+}
+
+public class AdjustTool : EditingTool {
+    const int SLIDER_MIN_VALUE = -16;
+    const int SLIDER_MAX_VALUE = 16;
+    const int SLIDER_WIDTH = 160;
+
+    private class AdjustToolWindow : EditingToolWindow {
+        public Gtk.HScale exposure_slider = new Gtk.HScale.with_range(
+            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+        public Gtk.HScale saturation_slider = new Gtk.HScale.with_range(
+            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+        public Gtk.HScale tint_slider = new Gtk.HScale.with_range(
+            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+        public Gtk.HScale temperature_slider = new Gtk.HScale.with_range(
+            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+        public Gtk.Button apply_button =
+            new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
+        public Gtk.Button reset_button =
+            new Gtk.Button.with_label("Reset");
+        public Gtk.Button cancel_button =
+            new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+
+        public AdjustToolWindow(Gtk.Window container) {
+            base(container);
+
+            Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
+            slider_organizer.set_row_spacings(12);
+            slider_organizer.set_col_spacings(12);
+
+            Gtk.Label exposure_label = new Gtk.Label.with_mnemonic("Exposure:");
+            exposure_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach_defaults(exposure_label, 0, 1, 0, 1);
+            slider_organizer.attach_defaults(exposure_slider, 1, 2, 0, 1);
+            exposure_slider.set_size_request(SLIDER_WIDTH, -1);
+            exposure_slider.set_draw_value(false);
+            exposure_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+
+            Gtk.Label saturation_label = new Gtk.Label.with_mnemonic("Saturation:");
+            saturation_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach_defaults(saturation_label, 0, 1, 1, 2);
+            slider_organizer.attach_defaults(saturation_slider, 1, 2, 1, 2);
+            saturation_slider.set_size_request(SLIDER_WIDTH, -1);
+            saturation_slider.set_draw_value(false);
+            saturation_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+
+            Gtk.Label tint_label = new Gtk.Label.with_mnemonic("Tint:");
+            tint_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach_defaults(tint_label, 0, 1, 2, 3);
+            slider_organizer.attach_defaults(tint_slider, 1, 2, 2, 3);
+            tint_slider.set_size_request(SLIDER_WIDTH, -1);
+            tint_slider.set_draw_value(false);
+            tint_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+
+            Gtk.Label temperature_label =
+                new Gtk.Label.with_mnemonic("Temperature:");
+            temperature_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach_defaults(temperature_label, 0, 1, 3, 4);
+            slider_organizer.attach_defaults(temperature_slider, 1, 2, 3, 4);
+            temperature_slider.set_size_request(SLIDER_WIDTH, -1);
+            temperature_slider.set_draw_value(false);
+            temperature_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+
+            Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
+            button_layouter.set_homogeneous(true);
+            button_layouter.pack_start(cancel_button, true, true, 1);
+            button_layouter.pack_start(reset_button, true, true, 1);
+            button_layouter.pack_start(apply_button, true, true, 1);
+
+            Gtk.VBox pane_layouter = new Gtk.VBox(false, 8);
+            pane_layouter.add(slider_organizer);
+            pane_layouter.add(button_layouter);
+
+            exposure_slider.set_value(0.0);
+            saturation_slider.set_value(0.0);
+            tint_slider.set_value(0.0);
+            temperature_slider.set_value(0.0);
+                                    
+            add(pane_layouter);            
+        }
+    }
+
+    private AdjustToolWindow adjust_tool_window = null;
+    private bool suppress_effect_redraw = false;
+    private Gdk.Pixbuf draw_to_pixbuf = null;
+
+    public override void activate(PhotoCanvas canvas) {
+        adjust_tool_window = new AdjustToolWindow(canvas.get_container());
+
+        float exposure_param =
+            canvas.get_photo().get_adjustment_parameter(
+            ColorTransformationKind.EXPOSURE);
+        adjust_tool_window.exposure_slider.set_value(exposure_param);
+        float saturation_param =
+            canvas.get_photo().get_adjustment_parameter(
+            ColorTransformationKind.SATURATION);
+        adjust_tool_window.saturation_slider.set_value(saturation_param);
+        float tint_param =
+            canvas.get_photo().get_adjustment_parameter(
+            ColorTransformationKind.TINT);
+        adjust_tool_window.tint_slider.set_value(tint_param);
+        float temperature_param =
+            canvas.get_photo().get_adjustment_parameter(
+            ColorTransformationKind.TEMPERATURE);
+        adjust_tool_window.temperature_slider.set_value(temperature_param);
+
+        adjust_tool_window.apply_button.clicked += on_apply;
+        adjust_tool_window.reset_button.clicked += on_reset;
+        adjust_tool_window.cancel_button.clicked += on_cancel;
+        adjust_tool_window.exposure_slider.value_changed += on_adjustment;
+        adjust_tool_window.saturation_slider.value_changed +=
+            on_adjustment;
+        adjust_tool_window.tint_slider.value_changed += on_adjustment;
+        adjust_tool_window.temperature_slider.value_changed +=
+            on_adjustment;
+    
+        canvas.resized_scaled_pixbuf += on_canvas_resize;
+
+        draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
+
+        base.activate(canvas);
+    }
+
+    public override EditingToolWindow? get_tool_window() {
+        return adjust_tool_window;
+    }
+
+    public override void deactivate() {
+        if (adjust_tool_window != null) {
+            adjust_tool_window.hide();
+            adjust_tool_window = null;
+        }
+
+        draw_to_pixbuf = null;    
+
+        base.deactivate();
+    }
+
+    public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+        if (!suppress_effect_redraw) {
+            ColorTransformation tint_transform =
+                ColorTransformationFactory.get_instance().from_parameter(
+                ColorTransformationKind.TINT,
+                (float) adjust_tool_window.tint_slider.get_value());
+
+            ColorTransformation temperature_transform =
+                ColorTransformationFactory.get_instance().from_parameter(
+                ColorTransformationKind.TEMPERATURE,
+                (float) adjust_tool_window.temperature_slider.get_value());
+
+            ColorTransformation saturation_transform =
+                ColorTransformationFactory.get_instance().from_parameter(
+                ColorTransformationKind.SATURATION,
+                (float) adjust_tool_window.saturation_slider.get_value());
+            
+            ColorTransformation exposure_transform =
+                ColorTransformationFactory.get_instance().from_parameter(
+                ColorTransformationKind.EXPOSURE,
+                (float) adjust_tool_window.exposure_slider.get_value());
+            
+            ColorTransformation composite_transform = ((
+                exposure_transform.compose_against(
+                saturation_transform)).compose_against(
+                temperature_transform)).compose_against(
+                tint_transform);
+
+            ColorTransformation.transform_existing_pixbuf(composite_transform,
+               canvas.get_scaled_pixbuf(), draw_to_pixbuf);
+        }
+
+        canvas.paint_pixbuf(draw_to_pixbuf);
+    }
+
+    public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
+        return photo.get_pixbuf(Photo.EXCEPTION_ADJUST);
+    }
+    
+    
+    private void on_cancel() {
+        notify_cancel();
+    }
+    
+    private void on_reset() {
+        suppress_effect_redraw = true;
+
+        adjust_tool_window.exposure_slider.set_value(0.0);
+        adjust_tool_window.saturation_slider.set_value(0.0);
+        adjust_tool_window.temperature_slider.set_value(0.0);
+        adjust_tool_window.tint_slider.set_value(0.0);
+    
+        suppress_effect_redraw = false;
+        canvas.repaint();
+    }
+    
+    private void on_apply() {
+        suppress_effect_redraw = true;
+
+        get_tool_window().hide();
+        
+        AppWindow.get_instance().set_busy_cursor();
+
+        Gee.ArrayList<ColorTransformationInstance?> adjustments =
+            new Gee.ArrayList<ColorTransformationInstance?>();
+
+        ColorTransformationInstance current_instance = {0};
+        float exposure_param =
+            (float) adjust_tool_window.exposure_slider.get_value();
+        if (exposure_param != 0.0f) {
+            current_instance.kind = ColorTransformationKind.EXPOSURE;
+            current_instance.parameter = exposure_param;
+            adjustments.add(current_instance);
+        }
+
+        float saturation_param =
+            (float) adjust_tool_window.saturation_slider.get_value();
+        if (saturation_param != 0.0f) {
+            current_instance.kind = ColorTransformationKind.SATURATION;
+            current_instance.parameter = saturation_param;
+            adjustments.add(current_instance);
+        }
+
+        float tint_param =
+            (float) adjust_tool_window.tint_slider.get_value();
+        if (tint_param != 0.0f) {
+            current_instance.kind = ColorTransformationKind.TINT;
+            current_instance.parameter = tint_param;
+            adjustments.add(current_instance);
+        }
+
+        float temperature_param =
+            (float) adjust_tool_window.temperature_slider.get_value();
+        if (temperature_param != 0.0f) {
+            current_instance.kind = ColorTransformationKind.TEMPERATURE;
+            current_instance.parameter = temperature_param;
+            adjustments.add(current_instance);
+        }
+
+        canvas.get_photo().set_adjustments(adjustments);
+        
+        notify_apply();
+        
+        AppWindow.get_instance().set_normal_cursor();
+    }
+    
+    private void on_adjustment() {
+        canvas.repaint();
+    }
+
+    private void on_canvas_resize() {
+        draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
     }
 }
 
