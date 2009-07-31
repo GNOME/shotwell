@@ -29,7 +29,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label("Back");
         previous_button.set_tooltip_text("Go to the previous photo");
-        previous_button.clicked += on_previous;
+        previous_button.clicked += on_previous_manual;
         
         toolbar.insert(previous_button, -1);
         
@@ -43,7 +43,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
         next_button.set_label("Next");
         next_button.set_tooltip_text("Go to the next photo");
-        next_button.clicked += on_next;
+        next_button.clicked += on_next_manual;
         
         toolbar.insert(next_button, -1);
     }
@@ -80,20 +80,20 @@ class SlideshowPage : SinglePhotoPage {
         timer.start();
     }
     
-    private void on_previous() {
-        thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
+    private void on_previous_manual() {
+        manual_advance((Thumbnail) controller.get_previous_item(thumbnail));
+    }
+    
+    private void on_next_automatic() {
+        thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         set_pixbuf(thumbnail.get_photo().get_pixbuf());
         
         // reset the timer
         timer.start();
     }
     
-    private void on_next() {
-        thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
-        set_pixbuf(thumbnail.get_photo().get_pixbuf());
-        
-        // reset the timer
-        timer.start();
+    private void on_next_manual() {
+        manual_advance((Thumbnail) controller.get_next_item(thumbnail));
     }
     
     private void manual_advance(Thumbnail thumbnail) {
@@ -105,7 +105,7 @@ class SlideshowPage : SinglePhotoPage {
         // schedule improvement to real photo
         Idle.add(on_improvement);
         
-        // reset the timer
+        // reset the advance timer
         timer.start();
     }
     
@@ -125,7 +125,7 @@ class SlideshowPage : SinglePhotoPage {
         if ((int) timer.elapsed() < DELAY_SEC)
             return true;
         
-        on_next();
+        on_next_automatic();
         
         return true;
     }
@@ -139,12 +139,12 @@ class SlideshowPage : SinglePhotoPage {
             
             case "Left":
             case "KP_Left":
-                manual_advance((Thumbnail) controller.get_previous_item(thumbnail));
+                on_previous_manual();
             break;
             
             case "Right":
             case "KP_Right":
-                manual_advance((Thumbnail) controller.get_next_item(thumbnail));
+                on_next_manual();
             break;
             
             default:
