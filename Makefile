@@ -135,7 +135,7 @@ ifndef CFLAGS
 ifdef BUILD_DEBUG
 CFLAGS = -g -O0
 else
-CFLAGS = -g -O2
+CFLAGS = -g -O2 -mfpmath=sse -march=nocona
 endif
 endif
 

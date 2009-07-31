@@ -96,6 +96,25 @@ class SlideshowPage : SinglePhotoPage {
         timer.start();
     }
     
+    private void manual_advance(Thumbnail thumbnail) {
+        this.thumbnail = thumbnail;
+        
+        // start with blown-up thumbnail
+        set_pixbuf(thumbnail.get_photo().get_thumbnail(ThumbnailCache.BIG_SCALE));
+        
+        // schedule improvement to real photo
+        Idle.add(on_improvement);
+        
+        // reset the timer
+        timer.start();
+    }
+    
+    private bool on_improvement() {
+        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+        
+        return false;
+    }
+    
     private bool auto_advance() {
         if (exiting)
             return false;
@@ -120,12 +139,12 @@ class SlideshowPage : SinglePhotoPage {
             
             case "Left":
             case "KP_Left":
-                on_previous();
+                manual_advance((Thumbnail) controller.get_previous_item(thumbnail));
             break;
             
             case "Right":
             case "KP_Right":
-                on_next();
+                manual_advance((Thumbnail) controller.get_next_item(thumbnail));
             break;
             
             default:
