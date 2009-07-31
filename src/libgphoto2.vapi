@@ -362,12 +362,12 @@ namespace GPhoto {
         cprefix="GP_MIME_"
     )]
     namespace MIME {
-        public static const string RAW;
-        public static const string PNG;
-        public static const string JPEG;
-        public static const string TIFF;
-        public static const string BMP;
-        public static const string EXIF;
+        public const string RAW;
+        public const string PNG;
+        public const string JPEG;
+        public const string TIFF;
+        public const string BMP;
+        public const string EXIF;
     }
     
     [SimpleType]

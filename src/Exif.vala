@@ -6,7 +6,7 @@
 
 namespace Exif {
     // "Exif"
-    public static const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };
+    public const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };
 
     public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
         for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {

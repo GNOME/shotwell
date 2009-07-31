@@ -9,7 +9,7 @@ public class DatabaseTable {
      * This number should be incremented every time any database schema is altered between
      * releases.
      ***/
-    public static const int SCHEMA_VERSION = 1;
+    public const int SCHEMA_VERSION = 1;
     
     protected static Sqlite.Database db;
     
@@ -105,7 +105,7 @@ public bool verify_databases(out string app_version) {
             
             case Photo.Currency.GONE:
                 message("Unable to locate %s: Removing from photo library", photo.to_string());
-                photo.remove();
+                photo.remove(true);
             break;
             
             default:
@@ -195,7 +195,7 @@ public class VersionTable : DatabaseTable {
 }
 
 public struct PhotoID {
-    public static const int64 INVALID = -1;
+    public const int64 INVALID = -1;
 
     public int64 id;
     
@@ -213,7 +213,7 @@ public struct PhotoID {
 }
 
 public struct ImportID {
-    public static const int64 INVALID = -1;
+    public const int64 INVALID = -1;
 
     public int64 id;
     
@@ -866,7 +866,7 @@ public class ThumbnailCacheTable : DatabaseTable {
 }
 
 public struct EventID {
-    public static const int64 INVALID = -1;
+    public const int64 INVALID = -1;
 
     public int64 id;
     

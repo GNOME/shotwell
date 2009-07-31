@@ -5,8 +5,8 @@
  */
 
 public class DirectoryItem : LayoutItem {
-    public static const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
-    public static const int SCALE =
+    public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
+    public const int SCALE =
         ThumbnailCache.MEDIUM_SCALE + ((ThumbnailCache.BIG_SCALE - ThumbnailCache.MEDIUM_SCALE) / 2);
     
     public EventID event_id;

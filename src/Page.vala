@@ -20,12 +20,12 @@ public class PageLayout : Gtk.VBox {
 }
 
 public abstract class Page : Gtk.ScrolledWindow {
-    public static const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
-    public static const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
-    public static const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
-    public static const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
-    public static const uint KEY_SHIFT_L = Gdk.keyval_from_name("Shift_L");
-    public static const uint KEY_SHIFT_R = Gdk.keyval_from_name("Shift_R");
+    public const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
+    public const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
+    public const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
+    public const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
+    public const uint KEY_SHIFT_L = Gdk.keyval_from_name("Shift_L");
+    public const uint KEY_SHIFT_R = Gdk.keyval_from_name("Shift_R");
 
     protected enum TargetType {
         URI_LIST
@@ -407,8 +407,8 @@ public abstract class Page : Gtk.ScrolledWindow {
 }
 
 public abstract class CheckerboardPage : Page {
-    private static const int AUTOSCROLL_PIXELS = 50;
-    private static const int AUTOSCROLL_TICKS_MSEC = 50;
+    private const int AUTOSCROLL_PIXELS = 50;
+    private const int AUTOSCROLL_TICKS_MSEC = 50;
     
     private Gtk.Menu context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
@@ -1156,10 +1156,8 @@ public abstract class CheckerboardPage : Page {
 }
 
 public abstract class SinglePhotoPage : Page {
-    public static const Gdk.InterpType FAST_INTERP = Gdk.InterpType.NEAREST;
-    public static const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.HYPER;
-    
-    public static const int IMPROVAL_MSEC = 250;
+    public const Gdk.InterpType FAST_INTERP = Gdk.InterpType.NEAREST;
+    public const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.HYPER;
     
     public enum UpdateReason {
         NEW_PHOTO,
@@ -1386,9 +1384,9 @@ public abstract class SinglePhotoPage : Page {
             return;
         }
         
-        Timeout.add(IMPROVAL_MSEC, image_improval);
+        Idle.add(image_improval);
         
-        // because Timeout doesn't maintain a ref to this, need to maintain one ourself
+        // because Idle doesn't maintain a ref to this, need to maintain one ourself
         // (in case the page is destroyed between schedules)
         improval_scheduled = this;
     }

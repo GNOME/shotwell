@@ -5,11 +5,11 @@
  */
 
 public class FullscreenWindow : Gtk.Window {
-    public static const int TOOLBAR_INVOCATION_MSEC = 250;
-    public static const int TOOLBAR_DISMISSAL_SEC = 2;
-    public static const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
+    public const int TOOLBAR_INVOCATION_MSEC = 250;
+    public const int TOOLBAR_DISMISSAL_SEC = 2;
+    public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
-    public static const double TOOLBAR_OPACITY = 0.75;
+    public const double TOOLBAR_OPACITY = 0.75;
     
     private Gdk.ModifierType ANY_BUTTON_MASK = 
         Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
@@ -213,24 +213,24 @@ public class FullscreenWindow : Gtk.Window {
 }
 
 public class AppWindow : Gtk.Window {
-    public static const string DATA_DIR = ".shotwell";
-    public static const string PHOTOS_DIR = "Pictures";
+    public const string DATA_DIR = ".shotwell";
+    public const string PHOTOS_DIR = "Pictures";
 
-    public static const int SIDEBAR_MIN_WIDTH = 160;
-    public static const int SIDEBAR_MAX_WIDTH = 320;
-    public static const int PAGE_MIN_WIDTH = 
+    public const int SIDEBAR_MIN_WIDTH = 160;
+    public const int SIDEBAR_MAX_WIDTH = 320;
+    public const int PAGE_MIN_WIDTH = 
         Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
     public static Gdk.Color BG_COLOR = parse_color("#444");
     public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
 
-    public static const long EVENT_LULL_SEC = 3 * 60 * 60;
-    public static const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
+    public const long EVENT_LULL_SEC = 3 * 60 * 60;
+    public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     
-    public static const int SORT_EVENTS_ORDER_ASCENDING = 0;
-    public static const int SORT_EVENTS_ORDER_DESCENDING = 1;
+    public const int SORT_EVENTS_ORDER_ASCENDING = 0;
+    public const int SORT_EVENTS_ORDER_DESCENDING = 1;
 
-    private static const string[] SUPPORTED_MOUNT_SCHEMES = {
+    private const string[] SUPPORTED_MOUNT_SCHEMES = {
         "gphoto2:",
         "disk:",
         "file:"
@@ -269,20 +269,20 @@ public class AppWindow : Gtk.Window {
 
     private class FileImportJob : BatchImportJob {
         private File file_or_dir;
+        private bool copy_to_library;
         
-        public FileImportJob(string uri) {
+        public FileImportJob(string uri, bool copy_to_library) {
             file_or_dir = File.new_for_uri(uri);
+            this.copy_to_library = copy_to_library;
         }
         
         public override string get_identifier() {
             return file_or_dir.get_uri();
         }
         
-        public override bool prepare(out File file_to_import, out bool copy_to_library) {
-            // Copy the file into the photo library; this version of the app, all imports are
-            // copied.  Later updates may allow for links and moves.
+        public override bool prepare(out File file_to_import, out bool copy) {
             file_to_import = file_or_dir;
-            copy_to_library = true;
+            copy = copy_to_library;
             
             return true;
         }
@@ -664,16 +664,21 @@ public class AppWindow : Gtk.Window {
     }
     
     private void on_file_import() {
+        Gtk.CheckButton copy_toggle = new Gtk.CheckButton.with_mnemonic(
+            "_Copy files to %s photo library".printf(AppWindow.PHOTOS_DIR));
+        copy_toggle.set_active(true);
+        
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog("Import From Folder", null,
             Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
             Gtk.STOCK_OK, Gtk.ResponseType.OK);
         import_dialog.set_select_multiple(true);
         import_dialog.set_current_folder(import_dir);
+        import_dialog.set_extra_widget(copy_toggle);
         
         int response = import_dialog.run();
 
         if (response == Gtk.ResponseType.OK) {
-            dispatch_import_jobs(import_dialog.get_uris(), "folders");
+            dispatch_import_jobs(import_dialog.get_uris(), "folders", copy_toggle.get_active());
         }
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
@@ -743,12 +748,12 @@ public class AppWindow : Gtk.Window {
         import_queue_page.enqueue_and_schedule(batch_import);
     }
 
-    void dispatch_import_jobs(GLib.SList<string> uris, string job_name) {
+    void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
         uint64 total_bytes = 0;
 
         foreach (string uri in uris) {
-            jobs.add(new FileImportJob(uri));
+            jobs.add(new FileImportJob(uri, copy_to_library));
             
             try {
                 total_bytes += query_total_file_size(File.new_for_uri(uri));
@@ -911,7 +916,7 @@ public class AppWindow : Gtk.Window {
         foreach (string uri in uris_array) {
             uris.append(uri);
         }
-        dispatch_import_jobs(uris, "drag-and-drop");
+        dispatch_import_jobs(uris, "drag-and-drop", true);
 
         Gtk.drag_finish(context, true, false, time);
     }

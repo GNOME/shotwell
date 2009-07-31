@@ -9,22 +9,22 @@ extern const string _PREFIX;
 extern const string _VERSION;
 
 namespace Resources {
-    public static const string APP_TITLE = "Shotwell";
-    public static const string APP_SUBTITLE = "Photo Organizer";
-    public static const string APP_VERSION = _VERSION;
-    public static const string COPYRIGHT = "Copyright 2009 Yorba Foundation";
+    public const string APP_TITLE = "Shotwell";
+    public const string APP_SUBTITLE = "Photo Organizer";
+    public const string APP_VERSION = _VERSION;
+    public const string COPYRIGHT = "Copyright 2009 Yorba Foundation";
     
-    public static const string YORBA_URL = "http://www.yorba.org";
-    public static const string HELP_URL = "http://trac.yorba.org/wiki/Shotwell";
+    public const string YORBA_URL = "http://www.yorba.org";
+    public const string HELP_URL = "http://trac.yorba.org/wiki/Shotwell";
     
-    public static const string PREFIX = _PREFIX;
+    public const string PREFIX = _PREFIX;
 
-    public static const string[] AUTHORS = { 
+    public const string[] AUTHORS = { 
         "Jim Nelson <jim@yorba.org>", 
         null 
     };
 
-    public static const string LICENSE = """
+    public const string LICENSE = """
 Shotwell is free software; you can redistribute it and/or modify it under the 
 terms of the GNU Lesser General Public License as published by the Free 
 Software Foundation; either version 2.1 of the License, or (at your option) 

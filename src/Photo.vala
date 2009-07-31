@@ -774,7 +774,7 @@ public class Photo : Object {
         return ThumbnailCache.fetch(photo_id, scale);
     }
     
-    public void remove(bool remove_original = true) {
+    public void remove(bool remove_original) {
         // signal all interested parties prior to removal from map
         removed();
 
@@ -829,6 +829,8 @@ public class Photo : Object {
     
     private void remove_original_file() {
         File file = get_file();
+        
+        debug("Deleting original photo file %s", file.get_path());
         
         try {
             file.delete(null);

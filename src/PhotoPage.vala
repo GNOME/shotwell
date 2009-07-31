@@ -168,7 +168,16 @@ public class PhotoPage : SinglePhotoPage {
         photo = thumbnail.get_photo();
         photo.altered += on_photo_altered;
         
+        // throw a resized large thumbnail up to get an image on the screen quickly,
+        // and when ready decode and display the full image
+        set_pixbuf(photo.get_thumbnail(ThumbnailCache.BIG_SCALE));
+        Idle.add(update_pixbuf);
+    }
+    
+    private bool update_pixbuf() {
         set_pixbuf(photo.get_pixbuf());
+        
+        return false;
     }
     
     private void update_sensitivity() {

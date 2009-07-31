@@ -114,7 +114,7 @@ bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
 }
 
 namespace Jpeg {
-    public static const uint8 MARKER_PREFIX = 0xFF;
+    public const uint8 MARKER_PREFIX = 0xFF;
     
     public enum Marker {
         SOI = 0xD8,

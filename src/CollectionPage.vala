@@ -701,18 +701,22 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_remove() {
+        if (get_selected_count() == 0)
+            return;
+
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, 
-            "Removing these photos from your library will also delete their files in your %s directory.  This action cannot be undone.",
-            AppWindow.PHOTOS_DIR);
-        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.ACCEPT);
-        dialog.title = "Remove photos?";        
+            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL,
+            "If you remove these photos from your library you will lose all edits you've made to "
+            + "them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
+        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.NO);
+        dialog.add_button("Keep files", Gtk.ResponseType.YES);
+        dialog.title = "Remove photos?";
 
         Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
         
         dialog.destroy();
         
-        if (result != Gtk.ResponseType.ACCEPT)
+        if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
             return;
             
         // iterate over selected photos and remove them from entire system .. this will result
@@ -723,7 +727,7 @@ public class CollectionPage : CheckerboardPage {
             photo.removed -= on_photo_removed;
             photo.thumbnail_altered -= on_thumbnail_altered;
             
-            photo.remove();
+            photo.remove(result == Gtk.ResponseType.NO);
         }
         
         // now remove from page, outside of iterator

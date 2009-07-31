@@ -6,12 +6,12 @@
 
 public class Thumbnail : LayoutItem {
     // cannot use consts in ThumbnailCache for some reason
-    public static const int MIN_SCALE = 64;
-    public static const int MAX_SCALE = 360;
-    public static const int DEFAULT_SCALE = 128;
+    public const int MIN_SCALE = 64;
+    public const int MAX_SCALE = 360;
+    public const int DEFAULT_SCALE = 128;
     
-    public static const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
-    public static const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
+    public const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
+    public const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
     private Photo photo;
     private int scale;

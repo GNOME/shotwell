@@ -5,22 +5,22 @@
  */
 
 public class ThumbnailCache : Object {
-    public static const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
-    public static const int DEFAULT_JPEG_QUALITY = 90;
-    public static const int MAX_INMEMORY_DATA_SIZE = 256 * 1024;
+    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
+    public const int DEFAULT_JPEG_QUALITY = 90;
+    public const int MAX_INMEMORY_DATA_SIZE = 256 * 1024;
     
-    public static const int BIG_SCALE = 360;
-    public static const int MEDIUM_SCALE = 128;
-    public static const int SMALL_SCALE = 64;
+    public const int BIG_SCALE = 360;
+    public const int MEDIUM_SCALE = 128;
+    public const int SMALL_SCALE = 64;
     
-    public static const int[] SCALES = { BIG_SCALE, MEDIUM_SCALE, SMALL_SCALE };
+    public const int[] SCALES = { BIG_SCALE, MEDIUM_SCALE, SMALL_SCALE };
     
-    public static const ulong KBYTE = 1024;
-    public static const ulong MBYTE = 1024 * KBYTE;
+    public const ulong KBYTE = 1024;
+    public const ulong MBYTE = 1024 * KBYTE;
     
-    public static const ulong MAX_BIG_CACHED_BYTES = 25 * MBYTE;
-    public static const ulong MAX_MEDIUM_CACHED_BYTES = 15 * MBYTE;
-    public static const ulong MAX_SMALL_CACHED_BYTES = 10 * MBYTE;
+    public const ulong MAX_BIG_CACHED_BYTES = 25 * MBYTE;
+    public const ulong MAX_MEDIUM_CACHED_BYTES = 15 * MBYTE;
+    public const ulong MAX_SMALL_CACHED_BYTES = 10 * MBYTE;
 
     private static ThumbnailCache big = null;
     private static ThumbnailCache medium = null;

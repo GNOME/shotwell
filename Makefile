@@ -214,7 +214,7 @@ endif
 $(EXPANDED_C_FILES): $(VALA_STAMP)
 	@
 
-$(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN)
+$(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES)

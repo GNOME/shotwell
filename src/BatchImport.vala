@@ -310,11 +310,16 @@ public class BatchImport {
         
         File import = file;
         
-        if (copy_to_library) {
+        // never copy file if already in library directory
+        bool is_in_library_dir = file.has_prefix(AppWindow.get_photos_dir());
+        
+        if (copy_to_library && !is_in_library_dir) {
             File copied;
             ImportResult result = copy_file(file, out copied);
             if (result != ImportResult.SUCCESS)
                 return result;
+            
+            debug("Copied %s into library at %s", file.get_path(), copied.get_path());
             
             import = copied;
         }
