@@ -451,7 +451,7 @@ public class AppWindow : Gtk.Window {
     private ImportQueuePage import_queue_page = null;
     
     // Dynamically added pages
-    private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<Page>();
+    private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<EventPage>();
     private Gee.HashMap<string, ImportPage> camera_map = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();

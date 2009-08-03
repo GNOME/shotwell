@@ -377,7 +377,7 @@ public class SaturationTransformation : ColorTransformation {
 }
 
 public class TemperatureTransformation : ColorTransformation {
-    private const float INTENSITY_FACTOR = 0.33;
+    private const float INTENSITY_FACTOR = 0.33f;
     public const float MIN_PARAMETER = -16.0f;
     public const float MAX_PARAMETER = 16.0f;
 
@@ -400,7 +400,7 @@ public class TemperatureTransformation : ColorTransformation {
 }
 
 public class TintTransformation : ColorTransformation {
-    private const float INTENSITY_FACTOR = 0.25;
+    private const float INTENSITY_FACTOR = 0.25f;
     public const float MIN_PARAMETER = -16.0f;
     public const float MAX_PARAMETER = 16.0f;
 

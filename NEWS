@@ -5,6 +5,7 @@ Shotwell 0.1.2 - 03 August 2009
   * File/Import From Folder offers one more way to import photos into the
     library.
   * Color adjustment (exposure/saturation/tint/temperature) now available.
+  * Support for Vala 0.7.5.
 
 
 Shotwell 0.1.1 - 30 June 2009
