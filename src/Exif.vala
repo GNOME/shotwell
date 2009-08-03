@@ -9,7 +9,7 @@ namespace Exif {
     public const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };
 
     public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
-        for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {
+        for (int ctr = 0; ctr < (int) Exif.IFD_COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
             assert(content != null);
             
@@ -29,7 +29,7 @@ namespace Exif {
     
     public int remove_all_tags(Data data, Exif.Tag tag) {
         int count = 0;
-        for (int ctr = 0; ctr < (int) Exif.Ifd.COUNT; ctr++) {
+        for (int ctr = 0; ctr < (int) Exif.IFD_COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
             assert(content != null);
             

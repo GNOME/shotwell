@@ -87,7 +87,8 @@ namespace Exif {
         public void unset_option(DataOption option);
         public void save_data(uchar **buffer, uint *size);
 
-        public Content[Ifd.COUNT] ifd;
+        // length is Exif.IFD_COUNT
+        public Content[] ifd;
         public uchar *data;
         public uint size;
     }
@@ -168,11 +169,13 @@ namespace Exif {
         ONE,
         EXIF,
         GPS,
-        INTEROPERABILITY,
-        COUNT;
+        INTEROPERABILITY;
 
         public weak string get_name();
     }
+    
+    [CCode (cname="EXIF_IFD_COUNT")]
+    public const int IFD_COUNT;
 
     [Compact]
     [CCode (
