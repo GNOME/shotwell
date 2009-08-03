@@ -25,8 +25,8 @@
     two views: Photos and Events.  Your first task will be to begin populating
     your photo library.
     
-    There are two ways to import photos: via drag-and-drop and from a digital
-    camera.
+    There are three ways to import photos: via drag-and-drop, from a digital
+    camera, and from the File menu.
     
     * Drag-and-drop: Simply drag photos from your file manager and drop them
     onto the Shotwell window.  You may drag files or directories.  The photos
@@ -40,6 +40,10 @@
     Shotwell uses gPhoto to communicate with digital cameras.  If your camera 
     does not appear in Shotwell's sidebar or there is a problem importing
     photos, visit http://www.gphoto.org to see if it is supported.
+    
+    * File menu: Select File -> Import From Folder ... and select a directory
+    from the chooser dialog box.  Shotwell will scan the directory and all
+    sub-directories for photo files and automatically import them.
     
     Once your photos are in Shotwell's library, you can view, edit, and export
     them.  More features are planned, so check http://www.yorba.org/shotwell
