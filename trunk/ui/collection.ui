@@ -1,0 +1,65 @@
+<ui>
+
+    <menubar name="CollectionMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Import" action="CommonFileImport" />
+            <menuitem name="Export" action="Export" />
+            <separator />
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="SelectAll" action="SelectAll" />
+            <menuitem name="Remove" action="Remove" />
+        </menu>
+        
+        <menu name="PhotosMenu" action="PhotosMenu">
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
+            <separator />
+            <menuitem name="RotateClockwise" action="RotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+            <menuitem name="Mirror" action="Mirror" />
+            <separator />
+            <menuitem name="Revert" action="Revert" />
+            <separator />
+            <menuitem name="Slideshow" action="Slideshow" />
+        </menu>
+        
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="ViewTitle" action="ViewTitle" />
+            <separator />
+            <menu name="SortPhotos" action="SortPhotos">
+                <menuitem name="SortByName" action="SortByName" />
+                <menuitem name="SortByExposureDate" action="SortByExposureDate" />
+                <separator />
+                <menuitem name="SortAscending" action="SortAscending" />
+                <menuitem name="SortDescending" action="SortDescending" />
+            </menu>
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
+            <menuitem name="Fullscreen" action="CommonFullscreen" />
+        </menu>
+        
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="Contents" action="CommonHelpContents" />
+            <separator />
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+    
+    <popup name="CollectionContextMenu">
+        <menuitem name="ContextRemove" action="Remove" />
+        <separator />
+        <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
+        <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
+        <menuitem name="ContextMirror" action="Mirror" />
+        <separator />
+        <menuitem name="ContextRevert" action="Revert" />
+    </popup>
+
+</ui>
+
