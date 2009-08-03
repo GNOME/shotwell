@@ -622,20 +622,21 @@ public class PhotoTable : DatabaseTable {
             return null;
             
         try {
-            KeyFile keyfile = new KeyFile();
+            FixedKeyFile keyfile = new FixedKeyFile();
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return null;
                 
             if (!keyfile.has_group(object))
                 return null;
-                
-            string[] keys = keyfile.get_keys(object);
-            if (keys == null || keys.length == 0)
+            
+            size_t count;
+            string[] keys = keyfile.get_keys(object, out count);
+            if (keys == null || count == 0)
                 return null;
 
             KeyValueMap map = new KeyValueMap(object);
-            foreach (string key in keys)
-                map.set_string(key, keyfile.get_string(object, key));
+            for (int ctr = 0; ctr < count; ctr++)
+                map.set_string(keys[ctr], keyfile.get_string(object, keys[ctr]));
             
             return map;
         } catch (Error err) {
@@ -649,7 +650,7 @@ public class PhotoTable : DatabaseTable {
         string trans = get_raw_transformations(photo_id);
         
         try {
-            KeyFile keyfile = new KeyFile();
+            FixedKeyFile keyfile = new FixedKeyFile();
             if (trans != null) {
                 if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                     return false;
@@ -682,7 +683,7 @@ public class PhotoTable : DatabaseTable {
             return true;
         
         try {
-            KeyFile keyfile = new KeyFile();
+            FixedKeyFile keyfile = new FixedKeyFile();
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return false;
             

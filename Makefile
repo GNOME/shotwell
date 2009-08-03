@@ -49,8 +49,9 @@ SRC_FILES = \
 
 VAPI_FILES = \
 	libexif.vapi \
-	fstream.vapi \
-	libgphoto2.vapi
+	FStream.vapi \
+	libgphoto2.vapi \
+	FixedKeyFile.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -80,7 +81,8 @@ HEADER_DIRS = \
 	./src
 
 LOCAL_PKGS = \
-	fstream \
+	FStream \
+	FixedKeyFile
 
 EXT_PKGS = \
 	gtk+-2.0 \
