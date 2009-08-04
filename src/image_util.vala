@@ -31,6 +31,15 @@ Gdk.Color fetch_color(string spec, Gdk.Drawable? drawable = null) {
     return color;
 }
 
+private inline uint32 convert_color(uint16 component) {
+    return (uint32) (component / 256);
+}
+
+uint32 convert_rgba(Gdk.Color c, uint8 alpha) {
+    return (convert_color(c.red) << 24) | (convert_color(c.green) << 16) | (convert_color(c.blue) << 8) 
+        | alpha;
+}
+
 public enum Rotation {
     CLOCKWISE,
     COUNTERCLOCKWISE,

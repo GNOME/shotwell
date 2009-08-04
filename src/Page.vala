@@ -410,6 +410,8 @@ public abstract class CheckerboardPage : Page {
     private const int AUTOSCROLL_PIXELS = 50;
     private const int AUTOSCROLL_TICKS_MSEC = 50;
     
+    private static Gdk.Pixbuf selection_interior = null;
+
     private Gtk.Menu context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
@@ -421,6 +423,7 @@ public abstract class CheckerboardPage : Page {
     private Gdk.Point drag_start = Gdk.Point();
     private Gdk.Rectangle selection_band;
     private Gdk.GC selection_gc = null;
+    private uint32 selection_transparency_color = 0;
     private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
@@ -962,9 +965,13 @@ public abstract class CheckerboardPage : Page {
     }
     
     private void on_layout_mapped() {
-         // set up GC's for painting selection
+        // set up selection colors
+        Gdk.Color selection_color = fetch_color(LayoutItem.SELECTED_COLOR, layout.bin_window);
+        selection_transparency_color = convert_rgba(selection_color, 0x40);
+
+        // set up GC's for painting selection
         Gdk.GCValues gc_values = Gdk.GCValues();
-        gc_values.foreground = fetch_color(LayoutItem.SELECTED_COLOR, layout.bin_window);
+        gc_values.foreground = selection_color;
         gc_values.function = Gdk.Function.COPY;
         gc_values.fill = Gdk.Fill.SOLID;
         gc_values.line_width = 0;
@@ -1004,20 +1011,18 @@ public abstract class CheckerboardPage : Page {
         
         // pixelate selection rectangle interior
         if (visible_width > 1 && visible_height > 1) {
-            // back off by one because this is for the interior
-            visible_width--;
-            visible_height--;
-
-            Gdk.Pixbuf pixbuf = Gdk.pixbuf_get_from_drawable(null, layout.bin_window,
-                layout.bin_window.get_colormap(), visible_x, visible_y, 0, 0, visible_width,
-                visible_height);
-            if (pixbuf != null) {
-                pixbuf.saturate_and_pixelate(pixbuf, 1.0f, true);
-                
-                // pixelated fill
-                Gdk.draw_pixbuf(layout.bin_window, selection_gc, pixbuf, 0, 0, visible_x, visible_y,
-                    visible_width, visible_height, Gdk.RgbDither.NORMAL, 0, 0);
+            // generate a pixbuf of the selection color with a transparency to paint over the
+            // visible selection area ... reuse old pixbuf (which is shared among all instances)
+            // if possible
+            if (selection_interior == null || selection_interior.width < visible_width
+                || selection_interior.height < visible_height) {
+                selection_interior = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, visible_width,
+                    visible_height);
+               selection_interior.fill(selection_transparency_color);
             }
+            
+            layout.bin_window.draw_pixbuf(selection_gc, selection_interior, 0, 0, visible_x, visible_y,
+                visible_width, visible_height, Gdk.RgbDither.NORMAL, 0, 0);
         }
 
         // border
