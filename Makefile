@@ -8,14 +8,13 @@ MIN_VALAC_VERSION = 0.7.4
 INSTALL_PROGRAM = install
 INSTALL_DATA = install -m 644
 
-VALAFLAGS = -g --enable-checking
-
 # defaults that may be overridden by configure.mk
 PREFIX=/usr/local
 BUILD_RELEASE=1
 
 -include configure.mk
 
+VALAFLAGS = -g --enable-checking $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"'
 
 SRC_FILES = \

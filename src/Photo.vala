@@ -612,20 +612,47 @@ public class Photo : Object {
     }    
 
     // Retrieves a full-sized pixbuf for the Photo with all modifications, except those specified
-    public Gdk.Pixbuf get_pixbuf(int exceptions = EXCEPTION_NONE) throws Error {
+    public Gdk.Pixbuf get_pixbuf(int exceptions = EXCEPTION_NONE, int scale = 0,
+        Gdk.InterpType interp = Gdk.InterpType.HYPER) throws Error {
+#if MEASURE_PIPELINE
+        Timer timer = new Timer();
+        Timer total_timer = new Timer();
+        double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, redeye_time = 0.0, 
+            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0;
+
+        total_timer.start();
+#endif
         Gdk.Pixbuf pixbuf = null;
         
         if (cached_raw != null && cached_photo_id.id == photo_id.id) {
             // used the cached raw pixbuf, which is merely the last loaded pixbuf
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             pixbuf = cached_raw.copy();
+#if MEASURE_PIPELINE
+            pixbuf_copy_time = timer.elapsed();
+#endif
         } else {
             File file = get_file();
 
             debug("Loading raw photo %s", file.get_path());
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
+#if MEASURE_PIPELINE
+            load_and_decode_time = timer.elapsed();
+#endif
         
             // stash for next time
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             cached_raw = pixbuf.copy();
+#if MEASURE_PIPELINE
+            pixbuf_copy_time = timer.elapsed();
+#endif
             cached_photo_id = photo_id;
         }
 
@@ -635,37 +662,78 @@ public class Photo : Object {
 
         // redeye reduction
         if ((exceptions & EXCEPTION_REDEYE) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             RedeyeInstance[] redeye_instances = get_all_redeye();
             for (int i = 0; i < redeye_instances.length; i++) {
                 pixbuf = do_redeye(pixbuf, redeye_instances[i]);
             }
-        }
-
-        // color adjustment
-        if ((exceptions & EXCEPTION_ADJUST) == 0) {
-            ColorTransformation composite_transform =
-                get_composite_transformation();
-            
-            if (!composite_transform.is_identity()) {
-                ColorTransformation.transform_pixbuf(composite_transform,
-                    pixbuf);
-            }
+#if MEASURE_PIPELINE
+            redeye_time = timer.elapsed();
+#endif
         }
 
         // crop
         if ((exceptions & EXCEPTION_CROP) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             Box crop;
             if (get_raw_crop(out crop)) {
                 pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
                     crop.get_height());
             }
+#if MEASURE_PIPELINE
+            crop_time = timer.elapsed();
+#endif
+        }
+        
+        // scale
+        if (scale > 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = scale_pixbuf(pixbuf, scale, interp);
+#if MEASURE_PIPELINE
+            scale_time = timer.elapsed();
+#endif
+        }
+
+        // color adjustment
+        if ((exceptions & EXCEPTION_ADJUST) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            ColorTransformation composite_transform = get_composite_transformation();
+            
+            if (!composite_transform.is_identity()) {
+                ColorTransformation.transform_pixbuf(composite_transform, pixbuf);
+            }
+#if MEASURE_PIPELINE
+            adjustment_time = timer.elapsed();
+#endif
         }
 
         // orientation (all modifications are stored in unrotated coordinate system)
         if ((exceptions & EXCEPTION_ORIENTATION) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
             Orientation orientation = photo_table.get_orientation(photo_id);
             pixbuf = orientation.rotate_pixbuf(pixbuf);
+#if MEASURE_PIPELINE
+            orientation_time = timer.elapsed();
+#endif
         }
+        
+#if MEASURE_PIPELINE
+        double total_time = total_timer.elapsed();
+        
+        debug("Pipeline: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
+            load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time,
+            orientation_time, total_time);
+#endif
         
         return pixbuf;
     }

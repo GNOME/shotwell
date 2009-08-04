@@ -86,7 +86,13 @@ class SlideshowPage : SinglePhotoPage {
     
     private void on_next_automatic() {
         thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
-        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+        
+        // Photo.get_pixbuf can optimize its pipeline with a scaled pixbuf, so ask for one that
+        // fits in the screen
+        Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
+        int scale = int.max(screen.get_width(), screen.get_height());
+        
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(Photo.EXCEPTION_NONE, scale));
         
         // reset the timer
         timer.start();
@@ -226,6 +232,7 @@ public class CollectionPage : CheckerboardPage {
     private bool improval_scheduled = false;
     private bool reschedule_improval = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
+    private bool thumbs_resized = false;
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -364,12 +371,20 @@ public class CollectionPage : CheckerboardPage {
 
         set_refresh_on_resize(true);
         
-        // need to refresh the layout in case any of the thumbnail dimensions were altered while we
-        // were gone
-        refresh();
-        
-        // schedule improvement in case any new photos were added
-        schedule_thumbnail_improval();
+        // if the thumbnails were resized while viewing another page, resize the ones on this page
+        // now ... set_thumb_size does the refresh and thumbnail improval, so don't schedule if
+        // going this route
+        if (thumbs_resized) {
+            set_thumb_size(slider_to_scale(slider.get_value()));
+            thumbs_resized = false;
+        } else {
+            // need to refresh the layout in case any of the thumbnail dimensions were altered while we
+            // were gone
+            refresh();
+            
+            // schedule improvement in case any new photos were added
+            schedule_thumbnail_improval();
+        }
     }
     
     public override void returning_from_fullscreen() {
@@ -839,6 +854,12 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_slider_changed() {
+        if (!is_in_view()) {
+            thumbs_resized = true;
+            
+            return;
+        }
+        
         set_thumb_size(slider_to_scale(slider.get_value()));
     }
     

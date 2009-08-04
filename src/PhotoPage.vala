@@ -175,7 +175,13 @@ public class PhotoPage : SinglePhotoPage {
     }
     
     private bool update_pixbuf() {
-        set_pixbuf(photo.get_pixbuf());
+        // Photo.get_pixbuf() can optimize its pipeline if given a scale to work with ... since
+        // SinglePhotoPage may need to resize its unscaled image thousands of times if the user
+        // resizes the window, get a scaled image large enough for the screen
+        Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
+        int scale = int.max(screen.get_width(), screen.get_height());
+
+        set_pixbuf(photo.get_pixbuf(Photo.EXCEPTION_NONE, scale));
         
         return false;
     }
@@ -232,7 +238,7 @@ public class PhotoPage : SinglePhotoPage {
         set_default_interp(FAST_INTERP);
         
         // display the (possibly) new photo
-        set_pixbuf(photo.get_pixbuf());
+        update_pixbuf();
     }
     
     private override void drag_begin(Gdk.DragContext context) {
@@ -358,7 +364,7 @@ public class PhotoPage : SinglePhotoPage {
     private void on_photo_altered(Photo p) {
         assert(photo.equals(p));
         
-        set_pixbuf(photo.get_pixbuf());
+        update_pixbuf();
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
