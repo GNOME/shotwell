@@ -908,26 +908,27 @@ public class Photo : Object {
             message("Unable to delete original photo %s: %s", file.get_path(), err.message);
         }
         
-        File parent = file;
-        
-        // remove empty directories corresponding to imported path
-        for (int depth = 0; depth < BatchImport.IMPORT_DIRECTORY_DEPTH; depth++) {
-            parent = parent.get_parent();
-            if (parent == null)
-                break;
-            
-            if (!query_is_directory_empty(parent))
-                break;
-            
-            try {
-                parent.delete(null);
-                debug("Deleted empty directory %s", parent.get_path());
-            } catch (Error err) {
-                // again, log error but don't abend
-                message("Unable to delete empty directory %s: %s", parent.get_path(),
-                    err.message);
+        // remove empty directories corresponding to imported path, but only if file is located
+        // inside the user's Pictures directory
+        if (file.has_prefix(AppWindow.get_photos_dir())) {
+            File parent = file;
+            for (int depth = 0; depth < BatchImport.IMPORT_DIRECTORY_DEPTH; depth++) {
+                parent = parent.get_parent();
+                if (parent == null)
+                    break;
+                
+                if (!query_is_directory_empty(parent))
+                    break;
+                
+                try {
+                    parent.delete(null);
+                    debug("Deleted empty directory %s", parent.get_path());
+                } catch (Error err) {
+                    // again, log error but don't abend
+                    message("Unable to delete empty directory %s: %s", parent.get_path(),
+                        err.message);
+                }
             }
-            
         }
     }
 

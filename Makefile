@@ -1,6 +1,6 @@
 
 PROGRAM = shotwell
-VERSION = 0.1.2
+VERSION = 0.1.3
 BUILD_ROOT = 1
 
 VALAC = valac

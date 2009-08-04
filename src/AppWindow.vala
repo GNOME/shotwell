@@ -523,7 +523,8 @@ public class AppWindow : Gtk.Window {
 
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to collection_page)
-        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES, Gdk.DragAction.COPY);
+        Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
+            Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
         
         // set up HAL connection to monitor for device insertion/removal, to look for cameras
         hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
@@ -776,7 +777,7 @@ public class AppWindow : Gtk.Window {
             import_queue_page = null;
         }
     }
-    
+
     public void photo_imported(Photo photo) {
         // want to know when it's removed from the system for cleanup
         photo.removed += on_photo_removed;
@@ -912,11 +913,46 @@ public class AppWindow : Gtk.Window {
         }
 
         string[] uris_array = selection_data.get_uris();
+
         GLib.SList<string> uris = new GLib.SList<string>();
         foreach (string uri in uris_array) {
             uris.append(uri);
         }
-        dispatch_import_jobs(uris, "drag-and-drop", true);
+        
+        if (context.suggested_action == Gdk.DragAction.ASK) {
+            string msg = "Shotwell can copy or move the photos into your %s directory, or it can "
+                + "link to the photos without duplicating them.";
+            msg = msg.printf(PHOTOS_DIR);
+
+            Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, msg);
+
+            dialog.add_button("Copy into Library", Gdk.DragAction.COPY);
+            dialog.add_button("Create Links", Gdk.DragAction.LINK);
+            dialog.title = "Import to Library";
+
+            Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+            
+            dialog.destroy();
+            
+            switch (result) {
+                case Gdk.DragAction.COPY:
+                case Gdk.DragAction.LINK:
+                    context.action = (Gdk.DragAction) result;
+                break;
+                
+                default:
+                    // cancelled
+                    Gtk.drag_finish(context, false, false, time);
+                    
+                    return;
+            }
+        } else {
+            // use the suggested action
+            context.action = context.suggested_action;
+        }
+        
+        dispatch_import_jobs(uris, "drag-and-drop", context.action == Gdk.DragAction.COPY);
 
         Gtk.drag_finish(context, true, false, time);
     }
@@ -1121,7 +1157,8 @@ public class AppWindow : Gtk.Window {
         }
 
         int pos = get_notebook_pos(page);
-        notebook.set_current_page(pos);
+        if (pos >= 0)
+            notebook.set_current_page(pos);
 
         // switch menus
         if (current_page != null)

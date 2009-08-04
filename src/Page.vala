@@ -1296,8 +1296,8 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public void repaint(Gdk.InterpType repaint_interp) {
-        // no image, no painting
-        if (unscaled == null)
+        // no image or window, no painting
+        if (unscaled == null || canvas.window == null)
             return;
         
         int width = viewport.allocation.width;
