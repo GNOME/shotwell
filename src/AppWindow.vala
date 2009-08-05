@@ -213,17 +213,11 @@ public class FullscreenWindow : Gtk.Window {
 }
 
 public class AppWindow : Gtk.Window {
-    public const string DATA_DIR = ".shotwell";
-    public const string PHOTOS_DIR = "Pictures";
-
     public const int SIDEBAR_MIN_WIDTH = 160;
     public const int SIDEBAR_MAX_WIDTH = 320;
     public const int PAGE_MIN_WIDTH = 
         Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
-    public static Gdk.Color BG_COLOR = parse_color("#444");
-    public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
-
     public const long EVENT_LULL_SEC = 3 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     
@@ -236,11 +230,7 @@ public class AppWindow : Gtk.Window {
         "file:"
     };
     
-    private static AppWindow instance = null;
-    private static string[] args = null;
-    private static bool user_quit = false;
-    private static bool camera_update_scheduled = false;
-    private string import_dir = Environment.get_home_dir();
+    private const string DATA_DIR = ".shotwell";
 
     private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
@@ -266,6 +256,15 @@ public class AppWindow : Gtk.Window {
         { "CommonSortEventsDescending", Gtk.STOCK_SORT_DESCENDING, "D_escending", null, 
             "Sort photos in a descending order", SORT_EVENTS_ORDER_DESCENDING }
     };
+
+    public static Gdk.Color BG_COLOR = parse_color("#444");
+    public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
+
+    private static AppWindow instance = null;
+    private static string[] args = null;
+    private static bool user_quit = false;
+    private static bool camera_update_scheduled = false;
+    private string import_dir = Environment.get_home_dir();
 
     private class FileImportJob : BatchImportJob {
         private File file_or_dir;
@@ -313,130 +312,6 @@ public class AppWindow : Gtk.Window {
         }
     }
 
-    public static void init(string[] args) {
-        AppWindow.args = args;
-
-        File data_dir = get_data_dir();
-        try {
-            if (data_dir.query_exists(null) == false) {
-                if (!data_dir.make_directory_with_parents(null))
-                    error("Unable to create data directory %s", data_dir.get_path());
-            } 
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-    }
-    
-    public static void terminate() {
-    }
-    
-    public static AppWindow get_instance() {
-        return instance;
-    }
-    
-    public static string[] get_commandline_args() {
-        return args;
-    }
-    
-    public static GLib.File get_exec_file() {
-        return File.new_for_path(Environment.find_program_in_path(args[0]));
-    }
-
-    public static File get_exec_dir() {
-        return get_exec_file().get_parent();
-    }
-    
-    public static File get_data_dir() {
-        return File.new_for_path(Environment.get_home_dir()).get_child(DATA_DIR);
-    }
-    
-    public static File get_photos_dir() {
-        return File.new_for_path(Environment.get_home_dir()).get_child(PHOTOS_DIR);
-    }
-    
-    public static File get_temp_dir() {
-        // TODO: I know, I know.  Better ways to locate a temp file.
-        return get_data_subdir("tmp");
-    }
-    
-    public static File get_data_subdir(string name, string? subname = null) {
-        File subdir = get_data_dir().get_child(name);
-        if (subname != null)
-            subdir = subdir.get_child(subname);
-
-        try {
-            if (subdir.query_exists(null) == false) {
-                if (!subdir.make_directory_with_parents(null))
-                    error("Unable to create data subdirectory %s", subdir.get_path());
-            }
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        return subdir;
-    }
-    
-    public static File get_resources_dir() {
-        File exec_dir = get_exec_dir();
-        File prefix_dir = File.new_for_path(Resources.PREFIX);
-
-        // if running in the prefix'd path, the app has been installed and is running from there;
-        // use its installed resources; otherwise running locally, so use local resources
-        if (exec_dir.has_prefix(prefix_dir))
-            return prefix_dir.get_child("share").get_child("shotwell");
-        else
-            return AppWindow.get_exec_dir();
-    }
-
-    public static void error_message(string message) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
-        dialog.title = Resources.APP_TITLE;
-        dialog.run();
-        dialog.destroy();
-    }
-    
-    private static string? generate_import_failure_list(Gee.List<string> failed) {
-        if (failed.size == 0)
-            return null;
-        
-        string list = "";
-        for (int ctr = 0; ctr < 4 && ctr < failed.size; ctr++)
-            list += "%s\n".printf(failed.get(ctr));
-        
-        if (failed.size > 4)
-            list += "%d more photo(s) not imported.\n".printf(failed.size - 4);
-        
-        return list;
-    }
-    
-    public static void report_import_failures(string name, Gee.List<string> failed, 
-        Gee.List<string> skipped) {
-        string failed_list = generate_import_failure_list(failed);
-        string skipped_list = generate_import_failure_list(skipped);
-        
-        if (failed_list == null && skipped_list == null)
-            return;
-            
-        string message = "Import from %s did not complete.\n".printf(name);
-
-        if (failed_list != null) {
-            message += "\n%d photos failed due to error:\n".printf(failed.size);
-            message += failed_list;
-        }
-        
-        if (skipped_list != null) {
-            message += "\n%d photos were skipped:\n".printf(skipped.size);
-            message += skipped_list;
-        }
-        
-        error_message(message);
-    }
-    
-    public static bool has_user_quit() {
-        return user_quit;
-    }
-    
     // configuration values set app-wide
     private int events_sort = SORT_EVENTS_ORDER_DESCENDING;
     
@@ -549,6 +424,134 @@ public class AppWindow : Gtk.Window {
 
         Gtk.AboutDialog.set_url_hook(on_about_link);
         Gtk.AboutDialog.set_email_hook(on_about_link);
+    }
+    
+    public static void init(string[] args) {
+        AppWindow.args = args;
+
+        File data_dir = get_data_dir();
+        try {
+            if (data_dir.query_exists(null) == false) {
+                if (!data_dir.make_directory_with_parents(null))
+                    error("Unable to create data directory %s", data_dir.get_path());
+            } 
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+    }
+    
+    public static void terminate() {
+    }
+    
+    public static AppWindow get_instance() {
+        return instance;
+    }
+    
+    public static string[] get_commandline_args() {
+        return args;
+    }
+    
+    public static GLib.File get_exec_file() {
+        return File.new_for_path(Environment.find_program_in_path(args[0]));
+    }
+
+    public static File get_exec_dir() {
+        return get_exec_file().get_parent();
+    }
+    
+    public static File get_data_dir() {
+        return File.new_for_path(Environment.get_home_dir()).get_child(DATA_DIR);
+    }
+    
+    public static File get_photos_dir() {
+        string path = Environment.get_user_special_dir(UserDirectory.PICTURES);
+        if (path != null)
+            return File.new_for_path(path);
+        
+        return File.new_for_path(Environment.get_home_dir()).get_child("Pictures");
+    }
+    
+    public static File get_temp_dir() {
+        // TODO: I know, I know.  Better ways to locate a temp file.
+        return get_data_subdir("tmp");
+    }
+    
+    public static File get_data_subdir(string name, string? subname = null) {
+        File subdir = get_data_dir().get_child(name);
+        if (subname != null)
+            subdir = subdir.get_child(subname);
+
+        try {
+            if (subdir.query_exists(null) == false) {
+                if (!subdir.make_directory_with_parents(null))
+                    error("Unable to create data subdirectory %s", subdir.get_path());
+            }
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        return subdir;
+    }
+    
+    public static File get_resources_dir() {
+        File exec_dir = get_exec_dir();
+        File prefix_dir = File.new_for_path(Resources.PREFIX);
+
+        // if running in the prefix'd path, the app has been installed and is running from there;
+        // use its installed resources; otherwise running locally, so use local resources
+        if (exec_dir.has_prefix(prefix_dir))
+            return prefix_dir.get_child("share").get_child("shotwell");
+        else
+            return AppWindow.get_exec_dir();
+    }
+
+    public static void error_message(string message) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
+            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
+        dialog.title = Resources.APP_TITLE;
+        dialog.run();
+        dialog.destroy();
+    }
+    
+    private static string? generate_import_failure_list(Gee.List<string> failed) {
+        if (failed.size == 0)
+            return null;
+        
+        string list = "";
+        for (int ctr = 0; ctr < 4 && ctr < failed.size; ctr++)
+            list += "%s\n".printf(failed.get(ctr));
+        
+        if (failed.size > 4)
+            list += "%d more photo(s) not imported.\n".printf(failed.size - 4);
+        
+        return list;
+    }
+    
+    public static void report_import_failures(string name, Gee.List<string> failed, 
+        Gee.List<string> skipped) {
+        string failed_list = generate_import_failure_list(failed);
+        string skipped_list = generate_import_failure_list(skipped);
+        
+        if (failed_list == null && skipped_list == null)
+            return;
+            
+        string message = "Import from %s did not complete.\n".printf(name);
+
+        if (failed_list != null) {
+            message += "\n%d photos failed due to error:\n".printf(failed.size);
+            message += failed_list;
+        }
+        
+        if (skipped_list != null) {
+            message += "\n%d photos were skipped:\n".printf(skipped.size);
+            message += skipped_list;
+        }
+        
+        error_message(message);
+    }
+    
+    public static bool has_user_quit() {
+        return user_quit;
     }
     
     public Gtk.ActionGroup get_common_action_group() {
@@ -666,7 +669,7 @@ public class AppWindow : Gtk.Window {
     
     private void on_file_import() {
         Gtk.CheckButton copy_toggle = new Gtk.CheckButton.with_mnemonic(
-            "_Copy files to %s photo library".printf(AppWindow.PHOTOS_DIR));
+            "_Copy files to %s photo library".printf(get_photos_dir().get_basename()));
         copy_toggle.set_active(true);
         
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog("Import From Folder", null,
@@ -922,7 +925,7 @@ public class AppWindow : Gtk.Window {
         if (context.suggested_action == Gdk.DragAction.ASK) {
             string msg = "Shotwell can copy or move the photos into your %s directory, or it can "
                 + "link to the photos without duplicating them.";
-            msg = msg.printf(PHOTOS_DIR);
+            msg = msg.printf(get_photos_dir().get_basename());
 
             Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
                 Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, msg);
