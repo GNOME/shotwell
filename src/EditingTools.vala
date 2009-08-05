@@ -1271,9 +1271,13 @@ public class AdjustTool : EditingTool {
             new Gtk.Button.with_label("Reset");
         public Gtk.Button cancel_button =
             new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+        public Gtk.Image histogram_image_tray = new Gtk.Image();
 
         public AdjustToolWindow(Gtk.Window container) {
             base(container);
+
+            histogram_image_tray.set_size_request(ImageHistogram.GRAPHIC_WIDTH,
+                ImageHistogram.GRAPHIC_HEIGHT);
 
             Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
             slider_organizer.set_row_spacings(12);
@@ -1318,7 +1322,12 @@ public class AdjustTool : EditingTool {
             button_layouter.pack_start(reset_button, true, true, 1);
             button_layouter.pack_start(apply_button, true, true, 1);
 
+            Gtk.Frame histogram_tray_wrapper = new Gtk.Frame(null);
+            histogram_tray_wrapper.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
+            histogram_tray_wrapper.add(histogram_image_tray);
+
             Gtk.VBox pane_layouter = new Gtk.VBox(false, 8);
+            pane_layouter.add(histogram_tray_wrapper);
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
 
@@ -1326,7 +1335,7 @@ public class AdjustTool : EditingTool {
             saturation_slider.set_value(0.0);
             tint_slider.set_value(0.0);
             temperature_slider.set_value(0.0);
-                                    
+
             add(pane_layouter);            
         }
     }
@@ -1368,6 +1377,8 @@ public class AdjustTool : EditingTool {
         canvas.resized_scaled_pixbuf += on_canvas_resize;
 
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
+        adjust_tool_window.histogram_image_tray.set_from_pixbuf(
+            new ImageHistogram(draw_to_pixbuf).get_graphic());
 
         base.activate(canvas);
     }
@@ -1441,6 +1452,8 @@ public class AdjustTool : EditingTool {
     
         suppress_effect_redraw = false;
         canvas.repaint();
+        adjust_tool_window.histogram_image_tray.set_from_pixbuf(
+            new ImageHistogram(draw_to_pixbuf).get_graphic());
     }
     
     private void on_apply() {
@@ -1487,6 +1500,8 @@ public class AdjustTool : EditingTool {
     
     private void on_adjustment() {
         canvas.repaint();
+        adjust_tool_window.histogram_image_tray.set_from_pixbuf(
+            new ImageHistogram(draw_to_pixbuf).get_graphic());
     }
 
     private void on_canvas_resize() {
