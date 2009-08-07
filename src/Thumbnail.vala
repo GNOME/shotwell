@@ -118,5 +118,17 @@ public class Thumbnail : LayoutItem {
     public bool is_exposed() {
         return thumb_exposed;
     }
+
+    public override Queryable.Type get_queryable_type() {
+        return photo.get_queryable_type();
+    }
+
+    public override Value? query_property(Queryable.Property queryable_property) {
+        return photo.query_property(queryable_property);
+    }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        return photo.get_queryables();    
+    }
 }
 

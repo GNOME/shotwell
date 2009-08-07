@@ -41,6 +41,50 @@ class ImportPreview : LayoutItem {
         // honor rotation and display
         set_image(orientation.rotate_pixbuf(scaled));
     }
+
+    public override Queryable.Type get_queryable_type() {
+        return Queryable.Type.IMPORT_PREVIEW;
+    }
+
+    public override Value? query_property(Queryable.Property queryable_property) {
+        switch (queryable_property) {
+            case Queryable.Property.NAME:
+                return filename;
+
+            case Queryable.Property.DIMENSIONS:
+                Dimensions dimensions;
+                if(!Exif.get_dimensions(exif, out dimensions))
+                    return null;
+                return new BoxedDimensions(dimensions);
+
+            case Queryable.Property.TIME:
+                return new BoxedTime(get_time());
+
+            case Queryable.Property.SIZE:
+                return get_filesize();
+
+            case Queryable.Property.EXIF:
+                return exif;
+
+            default:
+                return null;
+        }
+    }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        return null;    
+    }
+
+    public time_t get_time() {
+        time_t exposure_time;
+        if (!Exif.get_timestamp(exif, out exposure_time))
+            exposure_time = 0;
+        return exposure_time;
+    }
+
+    public uint64 get_filesize() {
+        return file_size;   
+    }
 }
 
 public class ImportPage : CheckerboardPage {
@@ -764,7 +808,7 @@ public class ImportQueuePage : SinglePhotoPage {
     private void on_imported(Photo photo) {
         set_pixbuf(photo.get_pixbuf());
         
-        progress_bytes += photo.query_filesize();
+        progress_bytes += photo.get_filesize();
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
             : 0.0;
         
@@ -792,5 +836,13 @@ public class ImportQueuePage : SinglePhotoPage {
         } else {
             stop_button.sensitive = false;
         }
+    }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        return null;
+    }
+
+    public override Gee.Iterable<Queryable>? get_selected_queryables() {
+        return get_queryables();
     }
 }

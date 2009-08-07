@@ -44,7 +44,8 @@ SRC_FILES = \
 	Debug.vala \
 	Sidebar.vala \
 	ColorTransformation.vala \
-	EditingTools.vala
+	EditingTools.vala \
+    Queryable.vala
 
 VAPI_FILES = \
 	libexif.vapi \

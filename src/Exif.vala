@@ -72,6 +72,76 @@ namespace Exif {
         
         return false;
     }
+
+    private Exif.Entry? find_entry_multiformat(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag,
+        Exif.Format format1, Exif.Format format2) {
+        assert(exif != null);
+        
+        Exif.Content content = exif.ifd[(int) ifd];
+        assert(content != null);
+        
+        Exif.Entry entry = content.get_entry(tag);
+        if (entry == null)
+            return null;
+        
+        assert((entry.format == format1) || (entry.format == format2));
+        if ((entry.format != Exif.Format.ASCII) && (entry.format != Exif.Format.UNDEFINED))
+            assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
+        
+        return entry;
+    }
+
+    public bool get_dimensions(Exif.Data exif, out Dimensions dim) {
+        Exif.Entry width = find_entry_multiformat(exif, Exif.Ifd.EXIF, 
+            Exif.Tag.PIXEL_X_DIMENSION, Exif.Format.SHORT, Exif.Format.LONG);
+        Exif.Entry height = find_entry_multiformat(exif, Exif.Ifd.EXIF,
+            Exif.Tag.PIXEL_Y_DIMENSION, Exif.Format.SHORT, Exif.Format.LONG);
+        if ((width == null) || (height == null))
+            return false;
+
+        if (width.format == Exif.Format.SHORT) {
+            dim.width = Exif.Convert.get_short(width.data, exif.get_byte_order());
+        } else {
+            assert(width.format == Exif.Format.LONG);
+
+            dim.width = (int) Exif.Convert.get_long(width.data, exif.get_byte_order());
+        }
+
+        if (height.format == Exif.Format.SHORT) {
+            dim.height = Exif.Convert.get_short(height.data, exif.get_byte_order());
+        } else {
+            assert(height.format == Exif.Format.LONG);
+
+            dim.height = (int) Exif.Convert.get_long(height.data, exif.get_byte_order());
+        }
+        
+        return true;
+    }
+
+    public void set_dimensions(ref Exif.Data exif, Dimensions dim) {
+        Exif.Entry width = Exif.find_entry_multiformat(exif, Exif.Ifd.EXIF,
+            Exif.Tag.PIXEL_X_DIMENSION, Exif.Format.SHORT, Exif.Format.LONG);
+        Exif.Entry height = Exif.find_entry_multiformat(exif, Exif.Ifd.EXIF,
+            Exif.Tag.PIXEL_Y_DIMENSION, Exif.Format.SHORT, Exif.Format.LONG);
+        if ((width == null) || (height == null))
+            return;
+        
+        if (width.format == Exif.Format.SHORT) {
+            Exif.Convert.set_short(width.data, exif.get_byte_order(), (uint16) dim.width);
+        } else {
+            assert(width.format == Exif.Format.LONG);
+            
+            Exif.Convert.set_long(width.data, exif.get_byte_order(), dim.width);
+        }
+        
+        if (height.format == Exif.Format.SHORT) {
+            Exif.Convert.set_short(height.data, exif.get_byte_order(), (uint16) dim.height);
+        } else {
+            assert(height.format == Exif.Format.LONG);
+            
+            Exif.Convert.set_long(height.data, exif.get_byte_order(), dim.height);
+        }
+    }
 }
 
 public errordomain ExifError {
@@ -193,58 +263,14 @@ public class PhotoExif  {
     
     public bool get_dimensions(out Dimensions dim) {
         update();
-        
-        Exif.Entry width = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_X_DIMENSION, 
-            Exif.Format.SHORT, Exif.Format.LONG);
-        Exif.Entry height = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_Y_DIMENSION, 
-            Exif.Format.SHORT, Exif.Format.LONG);
-        if ((width == null) || (height == null))
-            return false;
 
-        if (width.format == Exif.Format.SHORT) {
-            dim.width = Exif.Convert.get_short(width.data, exif.get_byte_order());
-        } else {
-            assert(width.format == Exif.Format.LONG);
-
-            dim.width = (int) Exif.Convert.get_long(width.data, exif.get_byte_order());
-        }
-
-        if (height.format == Exif.Format.SHORT) {
-            dim.height = Exif.Convert.get_short(height.data, exif.get_byte_order());
-        } else {
-            assert(height.format == Exif.Format.LONG);
-
-            dim.height = (int) Exif.Convert.get_long(height.data, exif.get_byte_order());
-        }
-        
-        return true;
+        return Exif.get_dimensions(exif, out dim);
     }
     
     public void set_dimensions(Dimensions dim) {
         update();
-        
-        Exif.Entry width = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_X_DIMENSION, 
-            Exif.Format.SHORT, Exif.Format.LONG);
-        Exif.Entry height = find_entry_multiformat(Exif.Ifd.EXIF, Exif.Tag.PIXEL_Y_DIMENSION, 
-            Exif.Format.SHORT, Exif.Format.LONG);
-        if ((width == null) || (height == null))
-            return;
-        
-        if (width.format == Exif.Format.SHORT) {
-            Exif.Convert.set_short(width.data, exif.get_byte_order(), (uint16) dim.width);
-        } else {
-            assert(width.format == Exif.Format.LONG);
-            
-            Exif.Convert.set_long(width.data, exif.get_byte_order(), dim.width);
-        }
-        
-        if (height.format == Exif.Format.SHORT) {
-            Exif.Convert.set_short(height.data, exif.get_byte_order(), (uint16) dim.height);
-        } else {
-            assert(height.format == Exif.Format.LONG);
-            
-            Exif.Convert.set_long(height.data, exif.get_byte_order(), dim.height);
-        }
+
+        Exif.set_dimensions(ref exif, dim);
     }
     
     public string? get_datetime() {
@@ -332,23 +358,7 @@ public class PhotoExif  {
         return Exif.find_first_entry(exif, tag, format);
     }
     
-    private Exif.Entry? find_entry_multiformat(Exif.Ifd ifd, Exif.Tag tag, Exif.Format format1,
-        Exif.Format format2) {
-        assert(exif != null);
-        
-        Exif.Content content = exif.ifd[(int) ifd];
-        assert(content != null);
-        
-        Exif.Entry entry = content.get_entry(tag);
-        if (entry == null)
-            return null;
-        
-        assert((entry.format == format1) || (entry.format == format2));
-        if ((entry.format != Exif.Format.ASCII) && (entry.format != Exif.Format.UNDEFINED))
-            assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
-        
-        return entry;
-    }
+    
     
     public void commit() throws Error {
         if (exif == null)

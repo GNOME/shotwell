@@ -25,6 +25,42 @@ public class DirectoryItem : LayoutItem {
 
         set_image(pixbuf);
     }
+
+    public override Queryable.Type get_queryable_type() {
+        return Queryable.Type.EVENT;
+    }
+
+    public override Value? query_property(Queryable.Property queryable_property) {
+        switch (queryable_property) {
+            case Queryable.Property.NAME:
+                return get_title();
+
+            case Queryable.Property.COUNT:
+                return get_photo_count();
+
+            case Queryable.Property.START_TIME:
+                return new BoxedTime((new EventTable()).get_start_time(event_id));
+
+            case Queryable.Property.END_TIME:
+                return new BoxedTime((new EventTable()).get_end_time(event_id));
+
+            default:
+                return null;
+        }
+    }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
+        Gee.ArrayList<Photo> photos = new Gee.ArrayList<Photo>();
+        foreach (PhotoID photo_id in photo_ids) {
+            photos.add(Photo.fetch(photo_id));
+        }
+        return photos;
+    }
+
+    private int get_photo_count() {
+        return (new PhotoTable()).get_event_photos(event_id).size;
+    }
 }
 
 public class EventsDirectoryPage : CheckerboardPage {

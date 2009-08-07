@@ -15,7 +15,7 @@ public enum ImportResult {
     UNSUPPORTED_FORMAT
 }
 
-public class Photo : Object {
+public class Photo : Object, Queryable {
     public const int EXCEPTION_NONE          = 0;
     public const int EXCEPTION_ORIENTATION   = 1 << 0;
     public const int EXCEPTION_CROP          = 1 << 1;
@@ -171,19 +171,39 @@ public class Photo : Object {
     public string get_name() {
         return photo_table.get_name(photo_id);
     }
-    
-    public uint64 query_filesize() {
-        FileInfo info = null;
-        try {
-            info = get_file().query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            debug("Unable to query filesize for %s: %s", get_file().get_path(), err.message);
 
-            return 0;
+    public Queryable.Type get_queryable_type() {
+        return Queryable.Type.PHOTO;
+    }
+
+    public Value? query_property(Queryable.Property queryable_property) {
+        switch (queryable_property) {
+            case Queryable.Property.NAME:
+                return get_name();
+
+            case Queryable.Property.DIMENSIONS:
+                return new BoxedDimensions(get_dimensions());
+
+            case Queryable.Property.TIME:
+                return new BoxedTime(get_exposure_time());
+
+            case Queryable.Property.SIZE:
+                return get_filesize();
+
+            case Queryable.Property.EXIF:
+                return (new PhotoExif(get_file())).get_exif();
+
+            default:
+                return null;
         }
-        
-        return info.get_size();
+    }
+
+    public Gee.Iterable<Queryable>? get_queryables() {
+        return null;    
+    }
+
+    public uint64 get_filesize() {
+        return photo_table.get_filesize(photo_id);    
     }
     
     public time_t get_exposure_time() {

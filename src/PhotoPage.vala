@@ -655,5 +655,15 @@ public class PhotoPage : SinglePhotoPage {
         this.thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
         update_display();
     }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        Gee.ArrayList<Photo> photo_array_list = new Gee.ArrayList<Photo>();
+        photo_array_list.add(photo);
+        return photo_array_list;
+    }
+
+    public override Gee.Iterable<Queryable>? get_selected_queryables() {
+        return get_queryables();
+    }
 }
 

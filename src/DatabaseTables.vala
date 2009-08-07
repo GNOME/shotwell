@@ -960,6 +960,13 @@ public class EventTable : DatabaseTable {
         return (time_t) stmt.column_int64(0);
     }
     
+    public time_t get_end_time(EventID event_id) {
+        Sqlite.Statement stmt;
+        if (!select_by_id(event_id.id, "end_time", out stmt))
+            return 0;
+        return (time_t) stmt.column_int64(0);
+    }
+
     public bool set_end_time(EventID event_id, time_t end_time) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE EventTable SET end_time = ? WHERE id = ?", -1, out stmt);

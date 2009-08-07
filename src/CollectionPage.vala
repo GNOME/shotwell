@@ -163,6 +163,16 @@ class SlideshowPage : SinglePhotoPage {
         
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        Gee.ArrayList<Photo> photo_array_list = new Gee.ArrayList<Photo>();
+        photo_array_list.add(thumbnail.get_photo());
+        return photo_array_list;
+    }
+
+    public override Gee.Iterable<Queryable>? get_selected_queryables() {
+        return get_queryables();
+    }
 }
 
 public class CollectionPage : CheckerboardPage {

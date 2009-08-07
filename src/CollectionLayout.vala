@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public abstract class LayoutItem : Gtk.Alignment {
+public abstract class LayoutItem : Gtk.Alignment, Queryable {
     public const int LABEL_PADDING = 4;
     public const int FRAME_PADDING = 4;
 
@@ -169,6 +169,12 @@ public abstract class LayoutItem : Gtk.Alignment {
         image.set_from_pixbuf(pixbuf);
         brightened = false;
     }
+
+    public abstract Queryable.Type get_queryable_type();
+
+    public abstract Value? query_property(Queryable.Property property);
+
+    public abstract Gee.Iterable<Queryable>? get_queryables();
 }
 
 public class CollectionLayout : Gtk.Layout {

@@ -404,6 +404,10 @@ public abstract class Page : Gtk.ScrolledWindow {
         
         return on_motion(event, x, y, mask);
     }
+
+    public abstract Gee.Iterable<Queryable>? get_queryables();
+
+    public abstract Gee.Iterable<Queryable>? get_selected_queryables();
 }
 
 public abstract class CheckerboardPage : Page {
@@ -1157,6 +1161,14 @@ public abstract class CheckerboardPage : Page {
             if (box.contains(point))
                 select(item);
         }
+    }
+  
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        return get_selected();
+    }
+
+    public override Gee.Iterable<Queryable>? get_selected_queryables() {
+        return get_items();
     }
 }
 
