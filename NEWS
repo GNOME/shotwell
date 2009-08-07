@@ -1,3 +1,16 @@
+Shotwell 0.2.0 - 05 August 2009
+-----------------------------
+
+  * Color histogram now available in adjustment tool.
+  * Drag-and-drop now supports the modifier keys for linking and asking
+    which operation to perform.
+  * Shotwell no longer uses a hardcoded directory for storing imported
+    photos.
+  * A nasty bug causing the X server to crash under compiz was fixed.
+    (#380)
+  * Support for libgee-0.3.0.
+
+
 Shotwell 0.1.2 - 03 August 2009
 -----------------------------
 

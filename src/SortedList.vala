@@ -17,8 +17,14 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         this.cmp = cmp;
     }
     
+    // for libgee <= 0.1.6
     public Type get_element_type() {
-        return list.get_element_type();
+        return typeof(G);
+    }
+    
+    // for libgee >= 0.3.0
+    public Type element_type {
+        get { return typeof(G); } 
     }
     
     public Gee.Iterator<G?> iterator() {

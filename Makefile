@@ -1,6 +1,6 @@
 
 PROGRAM = shotwell
-VERSION = 0.1.3
+VERSION = 0.2.0
 BUILD_ROOT = 1
 
 VALAC = valac
@@ -124,7 +124,7 @@ DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
-PACKAGE_ORIG_GZ = $(PROGRAM)_$(VERSION).orig.tar.gz
+PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
 
 VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
