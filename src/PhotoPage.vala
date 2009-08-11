@@ -338,7 +338,7 @@ public class PhotoPage : SinglePhotoPage {
     }
     
     private void on_return_to_collection() {
-        AppWindow.get_instance().switch_to_page(controller);
+        LibraryWindow.get_app().switch_to_page(controller);
     }
     
     private void on_export() {

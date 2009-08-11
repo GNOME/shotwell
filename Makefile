@@ -1,6 +1,6 @@
 
 PROGRAM = shotwell
-VERSION = 0.2.0
+VERSION = 0.2.1
 BUILD_ROOT = 1
 
 VALAC = valac
@@ -45,7 +45,9 @@ SRC_FILES = \
 	Sidebar.vala \
 	ColorTransformation.vala \
 	EditingTools.vala \
-    Queryable.vala
+	Queryable.vala \
+	LibraryWindow.vala \
+	CameraTable.vala
 
 VAPI_FILES = \
 	libexif.vapi \

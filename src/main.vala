@@ -9,16 +9,17 @@ enum ShotwellCommand {
     MOUNTED_CAMERA = 1
 }
 
-Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.MessageData data, uint timestamp) {
+Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.MessageData data, 
+    uint timestamp) {
     Unique.Response response = Unique.Response.OK;
     
     switch (command) {
         case ShotwellCommand.MOUNTED_CAMERA:
-            AppWindow.get_instance().mounted_camera_shell_notification(data.get_text());
+            LibraryWindow.get_app().mounted_camera_shell_notification(data.get_text());
         break;
         
         case Unique.Command.ACTIVATE:
-            AppWindow.get_instance().present_with_time(timestamp);
+            LibraryWindow.get_app().present_with_time(timestamp);
         break;
         
         default:
@@ -30,25 +31,8 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     return response;
 }
 
-void main(string[] args) {
-    // init GTK
-    Gtk.init(ref args);
-    
-    // init debug prior to anything else
-    Debug.init();
-    
-    // set up GLib environment
-    GLib.Environment.set_application_name(Resources.APP_TITLE);
-    
-    // examine command-line arguments for camera mounts
-    // (everything else is ignored for now)
-    string[] mounts = new string[0];
-    for (int ctr = 1; ctr < args.length; ctr++) {
-        if (AppWindow.is_mount_uri_supported(args[ctr]))
-            mounts += args[ctr];
-    }
-    
-    // single-instance app
+void library_exec(string[] mounts) {
+    // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
     shotwell.message_received += on_shotwell_message;
@@ -64,21 +48,30 @@ void main(string[] args) {
         
         shotwell.send_message((int) Unique.Command.ACTIVATE, null);
         
-        Debug.terminate();
-        
+        // notified running app; this one exits
         return;
     }
 
-    // initialize app-wide stuff
-    AppWindow.init(args);
-    Resources.init();
+    // init modules library relies on
     DatabaseTable.init();
     ThumbnailCache.init();
     Photo.init();
-    
+
+    // validate the databases prior to using them
     message("Verifying databases ...");
     string app_version;
-    if (!verify_databases(out app_version)) {
+    if (verify_databases(out app_version)) {
+        // create main library application window
+        LibraryWindow library_window = new LibraryWindow();
+        
+        // report mount points
+        foreach (string mount in mounts)
+            library_window.mounted_camera_shell_notification(mount);
+
+        library_window.show_all();
+        
+        Gtk.main();
+    } else {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, 
             "The database for your photo library is not compatible with this version of Shotwell.  "
@@ -86,24 +79,38 @@ void main(string[] args) {
         dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();
-    } else {
-        // create main application window
-        AppWindow app_window = new AppWindow();
-        
-        // report mount points
-        foreach (string mount in mounts)
-            app_window.mounted_camera_shell_notification(mount);
-        
-        // throw it all on the display
-        app_window.show_all();
-
-        // event loop
-        Gtk.main();
     }
     
     Photo.terminate();
     ThumbnailCache.terminate();
     DatabaseTable.terminate();
+}
+
+void main(string[] args) {
+    // init GTK
+    Gtk.init(ref args);
+    
+    // init debug prior to anything else (except Gtk, which it relies on)
+    Debug.init();
+    
+    // set up GLib environment
+    GLib.Environment.set_application_name(Resources.APP_TITLE);
+    
+    // walk command-line arguments for camera mounts
+    string[] mounts = new string[0];
+    for (int ctr = 1; ctr < args.length; ctr++) {
+        if (LibraryWindow.is_mount_uri_supported(args[ctr]))
+            mounts += args[ctr];
+    }
+    
+    // in both the case of running as the library or an editor, AppWindow and Resources are always
+    // initialized
+    AppWindow.init(args);
+    Resources.init();
+    
+    library_exec(mounts);
+    
+    // terminate mode-inspecific modules
     Resources.terminate();
     AppWindow.terminate();
     Debug.terminate();

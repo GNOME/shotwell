@@ -207,7 +207,7 @@ public class BatchImport {
         
         // report to AppWindow to organize into events
         if (success.size > 0)
-            AppWindow.get_instance().batch_import_complete(success);
+            LibraryWindow.get_app().batch_import_complete(success);
         
         // report completed
         import_complete(import_id, success, failed, skipped);
@@ -342,7 +342,7 @@ public class BatchImport {
         success.add(photo);
         
         // report to AppWindow for system-wide inclusion
-        AppWindow.get_instance().photo_imported(photo);
+        LibraryWindow.get_app().photo_imported(photo);
 
         // report to observers
         imported(photo);

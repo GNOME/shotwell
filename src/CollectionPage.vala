@@ -413,7 +413,7 @@ public class CollectionPage : CheckerboardPage {
         // switch to full-page view
         debug("switching to %s", thumbnail.get_photo().to_string());
 
-        AppWindow.get_instance().switch_to_photo_page(this, thumbnail);
+        LibraryWindow.get_app().switch_to_photo_page(this, thumbnail);
     }
     
     public override Gtk.Menu? get_context_menu() {

@@ -164,7 +164,9 @@ public abstract class Page : Gtk.ScrolledWindow {
     
     protected void init_ui_bind(string? menubar_path) {
         ui.insert_action_group(action_group, 0);
-        common_action_group = AppWindow.get_instance().get_common_action_group();
+        
+        common_action_group = new Gtk.ActionGroup("CommonActionGroup");
+        AppWindow.get_instance().add_common_actions(common_action_group);
         ui.insert_action_group(common_action_group, 0);
         
         if (menubar_path != null)

@@ -294,27 +294,109 @@ public class ImportPage : CheckerboardPage {
         return null;
     }
     
+    public override void switched_to() {
+        base.switched_to();
+        
+        try_refreshing_camera();
+    }
+
+    private void try_refreshing_camera() {
+        // if camera has been refreshed or is in the process of refreshing, go no further
+        if (refreshed || busy)
+            return;
+        
+        RefreshResult res = refresh_camera();
+        switch (res) {
+            case ImportPage.RefreshResult.OK:
+            case ImportPage.RefreshResult.BUSY:
+                // nothing to report; if busy, let it continue doing its thing
+                // (although earlier check should've caught this)
+            break;
+            
+            case ImportPage.RefreshResult.LOCKED:
+                // if locked because it's mounted, offer to unmount
+                debug("Checking if %s is mounted ...", uri);
+
+                File uri = File.new_for_uri(uri);
+
+                Mount mount = null;
+                try {
+                    mount = uri.find_enclosing_mount(null);
+                } catch (Error err) {
+                    // error means not mounted
+                }
+                
+                if (mount != null) {
+                    // it's mounted, offer to unmount for the user
+                    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), 
+                        Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
+                        Gtk.ButtonsType.YES_NO,
+                        "The camera is locked for use as a mounted drive.  "
+                        + "Shotwell can only access the camera when it's unlocked.  "
+                        + "Do you want Shotwell to unmount it for you?");
+                    dialog.title = Resources.APP_TITLE;
+                    int dialog_res = dialog.run();
+                    dialog.destroy();
+                    
+                    if (dialog_res != Gtk.ResponseType.YES) {
+                        set_page_message("Please unmount the camera.");
+                        refresh();
+                    } else {
+                        unmount_camera(mount);
+                    }
+                } else {
+                    // it's not mounted, so another application must have it locked
+                    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),
+                        Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
+                        Gtk.ButtonsType.OK,
+                        "The camera is locked by another application.  "
+                        + "Shotwell can only access the camera when it's unlocked.  "
+                        + "Please close any other application using the camera and try again.");
+                    dialog.title = Resources.APP_TITLE;
+                    dialog.run();
+                    dialog.destroy();
+                    
+                    set_page_message("Please close any other application using the camera.");
+                    refresh();
+                }
+            break;
+            
+            case ImportPage.RefreshResult.LIBRARY_ERROR:
+                AppWindow.error_message("Unable to fetch previews from the camera:\n%s".printf(
+                    get_refresh_message()));
+            break;
+            
+            default:
+                error("Unknown result type %d", (int) res);
+            break;
+        }
+    }
+    
     public bool unmount_camera(Mount mount) {
         if (busy)
             return false;
             
         busy = true;
+        refreshed = false;
         progress_bar.visible = true;
         progress_bar.set_fraction(0.0);
         progress_bar.set_text("Unmounting ...");
 
+        debug("Unmounting camera ...");
         mount.unmount(MountUnmountFlags.NONE, null, on_unmounted);
         
         return true;
     }
 
     private void on_unmounted(Object source, AsyncResult aresult) {
+        debug("Unmount complete");
+        
         Mount mount = (Mount) source;
         try {
             mount.unmount_finish(aresult);
         } catch (Error err) {
-            // TODO: Better error reporting
-            debug("%s", err.message);
+            AppWindow.error_message("Unable to unmount camera.  Try dismounting the camera from the "
+                + "file manager.");
             
             return;
         }
@@ -327,37 +409,10 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_text("");
         progress_bar.visible = false;
         
-        switch_to_and_refresh();
+        try_refreshing_camera();
     }
     
-    public void switch_to_and_refresh() {
-        // jump to page
-        AppWindow.get_instance().switch_to_page(this);
-
-        // now with camera unmounted, refresh the view
-        RefreshResult res = refresh_camera();
-        if (res != RefreshResult.OK) {
-            string reason = null;
-            switch (res) {
-                case RefreshResult.LOCKED:
-                    reason = "The camera is locked.";
-                break;
-                
-                case RefreshResult.BUSY:
-                    reason = "The camera is busy.";
-                break;
-                
-                case RefreshResult.LIBRARY_ERROR:
-                default:
-                    reason = "The camera is unavailable at this time.";
-                break;
-            }
-            
-            AppWindow.error_message("Unable to unmount camera.  %s  Please try again.".printf(reason));
-        }
-    }
-    
-    public RefreshResult refresh_camera() {
+    private RefreshResult refresh_camera() {
         if (busy)
             return RefreshResult.BUSY;
             
@@ -685,8 +740,8 @@ public class ImportPage : CheckerboardPage {
             BatchImport batch_import = new BatchImport(jobs, camera_name, total_bytes);
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.import_complete += close_import;
-            AppWindow.get_instance().enqueue_batch_import(batch_import);
-            AppWindow.get_instance().switch_to_import_queue_page();
+            LibraryWindow.get_app().enqueue_batch_import(batch_import);
+            LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
         } else {
             close_import();
@@ -825,7 +880,7 @@ public class ImportQueuePage : SinglePhotoPage {
         assert(removed);
         
         if (failed.size > 0 || skipped.size > 0)
-            AppWindow.report_import_failures(batch_import.get_name(), failed, skipped);
+            LibraryWindow.report_import_failures(batch_import.get_name(), failed, skipped);
         
         batch_removed(batch_import);
         

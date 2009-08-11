@@ -69,8 +69,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         private int sort;
         
         public CompareEventItem(EventTable event_table, int sort) {
-            assert(sort == AppWindow.SORT_EVENTS_ORDER_ASCENDING 
-                || sort == AppWindow.SORT_EVENTS_ORDER_DESCENDING);
+            assert(sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING 
+                || sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
             
             this.event_table = event_table;
             this.sort = sort;
@@ -81,10 +81,10 @@ public class EventsDirectoryPage : CheckerboardPage {
             int64 start_b = (int64) event_table.get_start_time(b.event_id);
             
             switch (sort) {
-                case AppWindow.SORT_EVENTS_ORDER_ASCENDING:
+                case LibraryWindow.SORT_EVENTS_ORDER_ASCENDING:
                     return start_a - start_b;
                 
-                case AppWindow.SORT_EVENTS_ORDER_DESCENDING:
+                case LibraryWindow.SORT_EVENTS_ORDER_DESCENDING:
                 default:
                     return start_b - start_a;
             }
@@ -112,7 +112,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        set_layout_comparator(new CompareEventItem(event_table, AppWindow.get_instance().get_events_sort()));
+        set_layout_comparator(new CompareEventItem(event_table, LibraryWindow.get_app().get_events_sort()));
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -121,7 +121,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     
     public override void on_item_activated(LayoutItem item) {
         DirectoryItem event = (DirectoryItem) item;
-        AppWindow.get_instance().switch_to_event(event.event_id);
+        LibraryWindow.get_app().switch_to_event(event.event_id);
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -135,7 +135,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         }
         
         foreach (LayoutItem item in iter) {
-            EventPage page = AppWindow.get_instance().find_event_page(((DirectoryItem) item).event_id);
+            EventPage page = LibraryWindow.get_app().find_event_page(((DirectoryItem) item).event_id);
             if (page != null)
                 return page.get_fullscreen_photo();
         }
