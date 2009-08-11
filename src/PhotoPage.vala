@@ -181,7 +181,7 @@ public class PhotoPage : SinglePhotoPage {
         Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
         int scale = int.max(screen.get_width(), screen.get_height());
 
-        set_pixbuf(photo.get_pixbuf(Photo.EXCEPTION_NONE, scale));
+        set_pixbuf(photo.get_pixbuf(PhotoTransformer.EXCEPTION_NONE, scale));
         
         return false;
     }

@@ -17,11 +17,11 @@ public class DatabaseTable {
 
     // Doing this because static construct {} not working
     public static void init() {
-        File dbFile = AppWindow.get_data_subdir("data").get_child("photo.db");
-        int res = Sqlite.Database.open_v2(dbFile.get_path(), out db, 
+        File db_file = AppWindow.get_data_subdir("data").get_child("photo.db");
+        int res = Sqlite.Database.open_v2(db_file.get_path(), out db, 
             Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
         if (res != Sqlite.OK)
-            error("Unable to open/create photo database %s: %d", dbFile.get_path(), res);
+            error("Unable to open/create photo database %s: %d", db_file.get_path(), res);
     }
     
     public static void terminate() {

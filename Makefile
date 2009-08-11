@@ -47,7 +47,8 @@ SRC_FILES = \
 	EditingTools.vala \
 	Queryable.vala \
 	LibraryWindow.vala \
-	CameraTable.vala
+	CameraTable.vala \
+	PhotoTransformer.vala
 
 VAPI_FILES = \
 	libexif.vapi \

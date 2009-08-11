@@ -101,7 +101,8 @@ public abstract class PhotoCanvas {
     
     public signal void new_drawable(Gdk.GC default_gc, Gdk.Drawable drawable);
     
-    public signal void resized_scaled_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position);
+    public signal void resized_scaled_pixbuf(Dimensions old_dim, Gdk.Pixbuf scaled, 
+        Gdk.Rectangle scaled_position);
     
     public Gdk.Point active_to_unscaled_point(Gdk.Point active_point) {
         Gdk.Rectangle scaled_position = get_scaled_pixbuf_position();
@@ -491,7 +492,7 @@ public class CropTool : EditingTool {
     public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
-        return photo.has_crop() ? photo.get_pixbuf(Photo.EXCEPTION_CROP) : null;
+        return photo.has_crop() ? photo.get_pixbuf(PhotoTransformer.EXCEPTION_CROP) : null;
     }
     
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -1027,7 +1028,7 @@ public class RedeyeTool : EditingTool {
             Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
             layout.add(slider_label);
             layout.add(slider);
-            layout.add(close_button);            
+            layout.add(close_button);
             layout.add(apply_button);
             
             add(layout);
@@ -1348,19 +1349,19 @@ public class AdjustTool : EditingTool {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
 
         float exposure_param =
-            canvas.get_photo().get_adjustment_parameter(
+            canvas.get_photo().get_color_adjustment(
             ColorTransformationKind.EXPOSURE);
         adjust_tool_window.exposure_slider.set_value(exposure_param);
         float saturation_param =
-            canvas.get_photo().get_adjustment_parameter(
+            canvas.get_photo().get_color_adjustment(
             ColorTransformationKind.SATURATION);
         adjust_tool_window.saturation_slider.set_value(saturation_param);
         float tint_param =
-            canvas.get_photo().get_adjustment_parameter(
+            canvas.get_photo().get_color_adjustment(
             ColorTransformationKind.TINT);
         adjust_tool_window.tint_slider.set_value(tint_param);
         float temperature_param =
-            canvas.get_photo().get_adjustment_parameter(
+            canvas.get_photo().get_color_adjustment(
             ColorTransformationKind.TEMPERATURE);
         adjust_tool_window.temperature_slider.set_value(temperature_param);
 
@@ -1393,7 +1394,7 @@ public class AdjustTool : EditingTool {
             adjust_tool_window = null;
         }
 
-        draw_to_pixbuf = null;    
+        draw_to_pixbuf = null;
 
         base.deactivate();
     }
@@ -1434,7 +1435,7 @@ public class AdjustTool : EditingTool {
     }
 
     public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
-        return photo.get_pixbuf(Photo.EXCEPTION_ADJUST);
+        return photo.get_pixbuf(PhotoTransformer.EXCEPTION_ADJUST);
     }
     
     
@@ -1491,7 +1492,7 @@ public class AdjustTool : EditingTool {
         current_instance.parameter = temperature_param;
         adjustments.add(current_instance);
 
-        canvas.get_photo().set_adjustments(adjustments);
+        canvas.get_photo().set_color_adjustments(adjustments);
         
         notify_apply();
         

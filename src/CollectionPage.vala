@@ -53,6 +53,8 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     public override void switched_to() {
+        base.switched_to();
+
         set_pixbuf(thumbnail.get_photo().get_pixbuf());
 
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
@@ -60,6 +62,8 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     public override void switching_from() {
+        base.switching_from();
+
         exiting = true;
     }
     
@@ -92,7 +96,7 @@ class SlideshowPage : SinglePhotoPage {
         Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
         int scale = int.max(screen.get_width(), screen.get_height());
         
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(Photo.EXCEPTION_NONE, scale));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.EXCEPTION_NONE, scale));
         
         // reset the timer
         timer.start();
