@@ -122,6 +122,12 @@ bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
     return (x >= rect.x && x < (rect.x + rect.width) && y >= rect.y && y <= (rect.y + rect.height));
 }
 
+int get_screen_scale() {
+    Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
+    
+    return int.max(screen.get_width(), screen.get_height());
+}
+
 namespace Jpeg {
     public const uint8 MARKER_PREFIX = 0xFF;
     

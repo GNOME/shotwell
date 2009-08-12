@@ -839,7 +839,7 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_imported(Photo photo) {
-        set_pixbuf(photo.get_pixbuf());
+        set_pixbuf(photo.get_pixbuf(PhotoTransformer.SCREEN));
         
         progress_bytes += photo.get_filesize();
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes

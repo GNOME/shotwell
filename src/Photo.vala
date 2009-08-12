@@ -206,8 +206,15 @@ public class Photo : PhotoTransformer, Queryable {
         return new Gdk.Pixbuf.from_file(get_file().get_path());
     }
     
-    public override Gdk.Pixbuf get_quick_pixbuf(int scale) throws Error {
-        return scale_pixbuf(get_thumbnail(scale), scale, Gdk.InterpType.BILINEAR);
+    public override Gdk.Pixbuf get_preview_pixbuf(int scale,
+        Gdk.InterpType interp = Gdk.InterpType.BILINEAR) throws Error {
+        Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.BIG_SCALE);
+        
+        int pixels = scale_to_pixels(scale);
+        if (pixels > 0)
+            pixbuf = scale_pixbuf(pixbuf, pixels, interp);
+        
+        return pixbuf;
     }
     
     public override Exif.Data? get_exif() {
@@ -459,7 +466,7 @@ public class Photo : PhotoTransformer, Queryable {
             dest_exif.set_orientation(photo_table.get_orientation(photo_id));
             dest_exif.commit();
         } else {
-            Gdk.Pixbuf pixbuf = get_pixbuf();
+            Gdk.Pixbuf pixbuf = get_pixbuf(PhotoTransformer.UNSCALED);
             pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
             copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
                 Dimensions.for_pixbuf(pixbuf));
@@ -503,7 +510,7 @@ public class Photo : PhotoTransformer, Queryable {
         // load transformed image for thumbnail generation
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = get_pixbuf();
+            pixbuf = get_pixbuf(PhotoTransformer.SCREEN);
         } catch (Error err) {
             error("%s", err.message);
         }

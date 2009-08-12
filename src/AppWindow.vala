@@ -255,6 +255,8 @@ public abstract class PageWindow : Gtk.Window {
 // AppWindow also offers support for going into fullscreen mode.  It handles the interface
 // notifications Page is expecting when switching back and forth.
 public abstract class AppWindow : PageWindow {
+    public const int DND_ICON_SCALE = 128;
+    
     private const string DATA_DIR = ".shotwell";
 
     public static Gdk.Color BG_COLOR = parse_color("#444");

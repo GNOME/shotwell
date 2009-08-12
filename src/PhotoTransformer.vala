@@ -9,14 +9,20 @@
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
 public abstract class PhotoTransformer : Object {
+    public const int UNSCALED = 0;
+    public const int SCREEN = -1;
+    
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
     public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.HYPER;
     
-    public const int EXCEPTION_NONE          = 0;
-    public const int EXCEPTION_ORIENTATION   = 1 << 0;
-    public const int EXCEPTION_CROP          = 1 << 1;
-    public const int EXCEPTION_REDEYE        = 1 << 2;
-    public const int EXCEPTION_ADJUST        = 1 << 3;
+    public enum Exception {
+        NONE            = 0,
+        ORIENTATION     = 1 << 0,
+        CROP            = 1 << 1,
+        REDEYE          = 1 << 2,
+        ADJUST          = 1 << 3,
+        ALL             = 0xFFFFFFFF
+    }
     
     private static PhotoTransformer cached_raw_instance = null;
     private static Gdk.Pixbuf cached_raw = null;
@@ -30,10 +36,20 @@ public abstract class PhotoTransformer : Object {
 
     // Returns a raw, untransformed, unrotated, unscaled pixbuf from the source
     public abstract Gdk.Pixbuf get_raw_pixbuf() throws Error;
+    
+    // Converts a scale parameter for get_pixbuf or get_preview_pixbuf into an actual pixel
+    // count to proportionally scale to.  Returns 0 if an unscaled pixbuf is specified.
+    public static int scale_to_pixels(int scale) {
+        return (scale == SCREEN) ? get_screen_scale() : scale;
+    }
 
     // Returns a fully transformed (and scaled, if specified) pixbuf from the source.
     // Transformations may be excluded via the mask.
-    public Gdk.Pixbuf get_pixbuf(int exceptions = EXCEPTION_NONE, int scale = 0, 
+    //
+    // Set scale to UNSCALED for unscaled pixbuf or SCREEN for a pixbuf scaled to the screen size
+    // (which can be scaled further, with some loss).  Note that UNSCALED can be extremely expensive, 
+    // and it's far better to specify an appropriate scale.
+    public Gdk.Pixbuf get_pixbuf(int scale, Exception exceptions = Exception.NONE,
         Gdk.InterpType interp = Gdk.InterpType.HYPER) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
@@ -84,7 +100,7 @@ public abstract class PhotoTransformer : Object {
         //
 
         // redeye reduction
-        if ((exceptions & EXCEPTION_REDEYE) == 0) {
+        if ((exceptions & Exception.REDEYE) == 0) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -97,7 +113,7 @@ public abstract class PhotoTransformer : Object {
         }
 
         // crop
-        if ((exceptions & EXCEPTION_CROP) == 0) {
+        if ((exceptions & Exception.CROP) == 0) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -112,18 +128,19 @@ public abstract class PhotoTransformer : Object {
         }
         
         // scale
-        if (scale > 0) {
+        int scale_pixels = scale_to_pixels(scale);
+        if (scale_pixels > 0) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            pixbuf = scale_pixbuf(pixbuf, scale, interp);
+            pixbuf = scale_pixbuf(pixbuf, scale_pixels, interp);
 #if MEASURE_PIPELINE
             scale_time = timer.elapsed();
 #endif
         }
 
         // color adjustment
-        if ((exceptions & EXCEPTION_ADJUST) == 0) {
+        if ((exceptions & Exception.ADJUST) == 0) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -136,7 +153,7 @@ public abstract class PhotoTransformer : Object {
         }
 
         // orientation (all modifications are stored in unrotated coordinate system)
-        if ((exceptions & EXCEPTION_ORIENTATION) == 0) {
+        if ((exceptions & Exception.ORIENTATION) == 0) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -157,12 +174,29 @@ public abstract class PhotoTransformer : Object {
         return pixbuf;
     }
     
-    // A quick pixbuf is one that can be quickly generated and scaled as a preview while the
+    // A preview pixbuf is one that can be quickly generated and scaled as a preview while the
     // fully transformed pixbuf is built.  It should be fully transformed for the user.  If the
     // subclass doesn't have one handy, PhotoTransformer will generate a usable one.
-    public virtual Gdk.Pixbuf get_quick_pixbuf(int scale) throws Error {
-        // as a fallback, return a small image that can be scaled quickly
-        return get_pixbuf(scale);
+    //
+    // Note that scale may be UNSCALED or SCREEN, and subclasses must support both.  Use 
+    // scale_to_pixels for conversion.  UNSCALED is not considered a performance-killer for this
+    // method, although the quality of the pixbuf may be quite poor compared to the actual
+    // unscaled transformed pixbuf.
+    public virtual Gdk.Pixbuf get_preview_pixbuf(int scale, 
+        Gdk.InterpType interp = Gdk.InterpType.BILINEAR) throws Error {
+        // as a fallback, return a small image that can be scaled quickly ... cap the size for
+        // performance reasons
+        if (scale == UNSCALED || scale == SCREEN || scale > 400)
+            scale = 400;
+            
+        Gdk.Pixbuf pixbuf = get_pixbuf(scale, Exception.NONE, interp);
+        
+        // scale to what the user is asking for
+        int scale_pixels = scale_to_pixels(scale);
+        if (scale_pixels > 0)
+            pixbuf = scale_pixbuf(pixbuf, scale_pixels, interp);
+        
+        return pixbuf;
     }
     
     //
@@ -212,7 +246,7 @@ public abstract class PhotoTransformer : Object {
             return;
         }
         
-        Gdk.Pixbuf pixbuf = get_pixbuf();
+        Gdk.Pixbuf pixbuf = get_pixbuf(PhotoTransformer.UNSCALED);
         Dimensions dim = Dimensions.for_pixbuf(pixbuf);
         Dimensions scaled = dim.get_scaled_by_constraint(scale, constraint);
 

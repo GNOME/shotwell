@@ -170,18 +170,12 @@ public class PhotoPage : SinglePhotoPage {
         
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
-        set_pixbuf(photo.get_thumbnail(ThumbnailCache.BIG_SCALE));
+        set_pixbuf(photo.get_preview_pixbuf(PhotoTransformer.SCREEN));
         Idle.add(update_pixbuf);
     }
     
     private bool update_pixbuf() {
-        // Photo.get_pixbuf() can optimize its pipeline if given a scale to work with ... since
-        // SinglePhotoPage may need to resize its unscaled image thousands of times if the user
-        // resizes the window, get a scaled image large enough for the screen
-        Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
-        int scale = int.max(screen.get_width(), screen.get_height());
-
-        set_pixbuf(photo.get_pixbuf(PhotoTransformer.EXCEPTION_NONE, scale));
+        set_pixbuf(photo.get_pixbuf(PhotoTransformer.SCREEN));
         
         return false;
     }
@@ -253,8 +247,12 @@ public class PhotoPage : SinglePhotoPage {
         }
         
         // set up icon for drag-and-drop
-        Gdk.Pixbuf icon = photo.get_thumbnail(ThumbnailCache.MEDIUM_SCALE);
-        Gtk.drag_source_set_icon_pixbuf(canvas, icon);
+        try {
+            Gdk.Pixbuf icon = photo.get_preview_pixbuf(AppWindow.DND_ICON_SCALE);
+            Gtk.drag_source_set_icon_pixbuf(canvas, icon);
+        } catch (Error err) {
+            message("Unable to get drag-and-drop icon: %s", err.message);
+        }
 
         debug("Prepared for export %s", file.get_path());
         

@@ -55,7 +55,7 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
-        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.SCREEN));
 
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
@@ -91,12 +91,7 @@ class SlideshowPage : SinglePhotoPage {
     private void on_next_automatic() {
         thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         
-        // Photo.get_pixbuf can optimize its pipeline with a scaled pixbuf, so ask for one that
-        // fits in the screen
-        Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
-        int scale = int.max(screen.get_width(), screen.get_height());
-        
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.EXCEPTION_NONE, scale));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.SCREEN));
         
         // reset the timer
         timer.start();
@@ -109,8 +104,8 @@ class SlideshowPage : SinglePhotoPage {
     private void manual_advance(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
         
-        // start with blown-up thumbnail
-        set_pixbuf(thumbnail.get_photo().get_thumbnail(ThumbnailCache.BIG_SCALE));
+        // start with blown-up preview
+        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(PhotoTransformer.SCREEN));
         
         // schedule improvement to real photo
         Idle.add(on_improvement);
@@ -120,7 +115,7 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private bool on_improvement() {
-        set_pixbuf(thumbnail.get_photo().get_pixbuf());
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.SCREEN));
         
         return false;
     }
@@ -484,7 +479,7 @@ public class CollectionPage : CheckerboardPage {
             
             // set up icon using the "first" photo, although Sets are not ordered
             if (icon == null)
-                icon = photo.get_thumbnail(ThumbnailCache.MEDIUM_SCALE);
+                icon = photo.get_preview_pixbuf(AppWindow.DND_ICON_SCALE);
             
             debug("Prepared %s for export", file.get_path());
         }
