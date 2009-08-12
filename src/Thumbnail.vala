@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public class Thumbnail : LayoutItem {
+public class Thumbnail : LayoutItem, PhotoSource {
     // cannot use consts in ThumbnailCache for some reason
     public const int MIN_SCALE = 64;
     public const int MAX_SCALE = 360;
@@ -119,16 +119,20 @@ public class Thumbnail : LayoutItem {
         return thumb_exposed;
     }
 
-    public override Queryable.Type get_queryable_type() {
-        return photo.get_queryable_type();
+    public time_t get_exposure_time() {
+        return photo.get_exposure_time();
     }
 
-    public override Value? query_property(Queryable.Property queryable_property) {
-        return photo.query_property(queryable_property);
+    public Dimensions get_dimensions() {
+        return photo.get_dimensions();
     }
 
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        return photo.get_queryables();    
+    public Exif.Data get_exif() {
+        return photo.get_exif();
+    }
+
+    public uint64 get_filesize() {
+        return photo.get_filesize();    
     }
 }
 

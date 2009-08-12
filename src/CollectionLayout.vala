@@ -68,6 +68,10 @@ public abstract class LayoutItem : Gtk.Alignment, Queryable {
         return title.get_text();
     }
     
+    public string get_name() {
+        return get_title();
+    }
+    
     public virtual void exposed() {
     }
     
@@ -169,12 +173,6 @@ public abstract class LayoutItem : Gtk.Alignment, Queryable {
         image.set_from_pixbuf(pixbuf);
         brightened = false;
     }
-
-    public abstract Queryable.Type get_queryable_type();
-
-    public abstract Value? query_property(Queryable.Property property);
-
-    public abstract Gee.Iterable<Queryable>? get_queryables();
 }
 
 public class CollectionLayout : Gtk.Layout {

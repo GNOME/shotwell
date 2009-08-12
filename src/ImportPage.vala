@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-class ImportPreview : LayoutItem {
+class ImportPreview : LayoutItem, PhotoSource {
     public const int MAX_SCALE = 128;
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
     
@@ -42,40 +42,7 @@ class ImportPreview : LayoutItem {
         set_image(orientation.rotate_pixbuf(scaled));
     }
 
-    public override Queryable.Type get_queryable_type() {
-        return Queryable.Type.IMPORT_PREVIEW;
-    }
-
-    public override Value? query_property(Queryable.Property queryable_property) {
-        switch (queryable_property) {
-            case Queryable.Property.NAME:
-                return filename;
-
-            case Queryable.Property.DIMENSIONS:
-                Dimensions dimensions;
-                if(!Exif.get_dimensions(exif, out dimensions))
-                    return null;
-                return new BoxedDimensions(dimensions);
-
-            case Queryable.Property.TIME:
-                return new BoxedTime(get_time());
-
-            case Queryable.Property.SIZE:
-                return get_filesize();
-
-            case Queryable.Property.EXIF:
-                return exif;
-
-            default:
-                return null;
-        }
-    }
-
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        return null;    
-    }
-
-    public time_t get_time() {
+    public time_t get_exposure_time() {
         time_t exposure_time;
         if (!Exif.get_timestamp(exif, out exposure_time))
             exposure_time = 0;
@@ -84,6 +51,17 @@ class ImportPreview : LayoutItem {
 
     public uint64 get_filesize() {
         return file_size;   
+    }
+
+    public Dimensions get_dimensions() { 
+        Dimensions dimensions;
+        if (!Exif.get_dimensions(exif, out dimensions))
+            dimensions = Dimensions(0,0);
+        return dimensions;
+    }
+
+    public Exif.Data get_exif() {
+        return exif;   
     }
 }
 

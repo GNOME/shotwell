@@ -161,36 +161,6 @@ public class Photo : PhotoTransformer, Queryable {
         return photo_table.get_name(photo_id);
     }
 
-    public Queryable.Type get_queryable_type() {
-        return Queryable.Type.PHOTO;
-    }
-
-    public Value? query_property(Queryable.Property queryable_property) {
-        switch (queryable_property) {
-            case Queryable.Property.NAME:
-                return get_name();
-
-            case Queryable.Property.DIMENSIONS:
-                return new BoxedDimensions(get_dimensions());
-
-            case Queryable.Property.TIME:
-                return new BoxedTime(get_exposure_time());
-
-            case Queryable.Property.SIZE:
-                return get_filesize();
-
-            case Queryable.Property.EXIF:
-                return (new PhotoExif(get_file())).get_exif();
-
-            default:
-                return null;
-        }
-    }
-
-    public Gee.Iterable<Queryable>? get_queryables() {
-        return null;    
-    }
-
     public uint64 get_filesize() {
         return photo_table.get_filesize(photo_id);    
     }

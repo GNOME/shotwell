@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public class DirectoryItem : LayoutItem {
+public class DirectoryItem : LayoutItem, EventSource {
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
     public const int SCALE =
         ThumbnailCache.MEDIUM_SCALE + ((ThumbnailCache.BIG_SCALE - ThumbnailCache.MEDIUM_SCALE) / 2);
@@ -26,30 +26,15 @@ public class DirectoryItem : LayoutItem {
         set_image(pixbuf);
     }
 
-    public override Queryable.Type get_queryable_type() {
-        return Queryable.Type.EVENT;
+    public time_t get_start_time() {
+        return (new EventTable()).get_start_time(event_id);
     }
 
-    public override Value? query_property(Queryable.Property queryable_property) {
-        switch (queryable_property) {
-            case Queryable.Property.NAME:
-                return get_title();
-
-            case Queryable.Property.COUNT:
-                return get_photo_count();
-
-            case Queryable.Property.START_TIME:
-                return new BoxedTime((new EventTable()).get_start_time(event_id));
-
-            case Queryable.Property.END_TIME:
-                return new BoxedTime((new EventTable()).get_end_time(event_id));
-
-            default:
-                return null;
-        }
+    public time_t get_end_time() {
+        return (new EventTable()).get_start_time(event_id);
     }
 
-    public override Gee.Iterable<Queryable>? get_queryables() {
+    public Gee.Iterable<PhotoSource> get_photos() {
         Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
         Gee.ArrayList<Photo> photos = new Gee.ArrayList<Photo>();
         foreach (PhotoID photo_id in photo_ids) {
@@ -58,7 +43,7 @@ public class DirectoryItem : LayoutItem {
         return photos;
     }
 
-    private int get_photo_count() {
+    public int get_photo_count() {
         return (new PhotoTable()).get_event_photos(event_id).size;
     }
 }
