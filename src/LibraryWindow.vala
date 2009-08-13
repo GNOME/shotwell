@@ -96,7 +96,7 @@ public class LibraryWindow : AppWindow {
     // Static (default) pages
     private CollectionPage collection_page = null;
     private EventsDirectoryPage events_directory_page = null;
-    private PhotoPage photo_page = null;
+    private LibraryPhotoPage photo_page = null;
     private ImportQueuePage import_queue_page = null;
     
     // Dynamically added/removed pages
@@ -119,7 +119,7 @@ public class LibraryWindow : AppWindow {
         // (these are never removed from the system)
         collection_page = new CollectionPage();
         events_directory_page = new EventsDirectoryPage();
-        photo_page = new PhotoPage();
+        photo_page = new LibraryPhotoPage();
         photo_page.set_container(this);
 
         // add the default parents and orphans to the notebook
@@ -225,35 +225,35 @@ public class LibraryWindow : AppWindow {
     }
     
     private override void on_fullscreen() {
-        CheckerboardPage controller = null;
-        Thumbnail start = null;
+        CollectionPage collection = null;
+        TransformablePhoto start = null;
         
-        if (current_page is CheckerboardPage) {
-            LayoutItem item = ((CheckerboardPage) current_page).get_fullscreen_photo();
+        if (current_page is CollectionPage) {
+            LayoutItem item = ((CollectionPage) current_page).get_fullscreen_photo();
             if (item == null) {
                 message("No fullscreen photo for this view");
                 
                 return;
             }
             
-            controller = (CheckerboardPage) current_page;
-            start = (Thumbnail) item;
-        } else if (current_page is PhotoPage) {
-            controller = ((PhotoPage) current_page).get_controller();
-            start = ((PhotoPage) current_page).get_thumbnail();
+            collection = (CollectionPage) current_page;
+            start = ((Thumbnail) item).get_photo();
+        } else if (current_page is LibraryPhotoPage) {
+            collection = ((LibraryPhotoPage) current_page).get_controller_page();
+            start = (LibraryPhoto) ((LibraryPhotoPage) current_page).get_photo();
         } else {
             message("Unable to present fullscreen view for this page");
             
             return;
         }
         
-        if (controller == null || start == null)
+        if (collection == null || start == null)
             return;
         
-        PhotoPage fs_photo = new PhotoPage();
+        LibraryPhotoPage fs_photo = new LibraryPhotoPage();
         FullscreenWindow fs_window = new FullscreenWindow(fs_photo);
         fs_photo.set_container(fs_window);
-        fs_photo.display(controller, start);
+        fs_photo.display_for_collection(collection, start);
 
         go_fullscreen(fs_window);
     }
@@ -550,8 +550,8 @@ public class LibraryWindow : AppWindow {
         switch_to_page(page);
     }
     
-    public void switch_to_photo_page(CheckerboardPage controller, Thumbnail current) {
-        photo_page.display(controller, current);
+    public void switch_to_photo_page(CollectionPage controller, Thumbnail current) {
+        photo_page.display_for_collection(controller, current.get_photo());
         switch_to_page(photo_page);
     }
     

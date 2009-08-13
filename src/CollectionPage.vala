@@ -231,6 +231,50 @@ public class CollectionPage : CheckerboardPage {
         }
     }
     
+    private class InternalPhotoCollection : Object, PhotoCollection {
+        private CollectionPage page;
+        
+        public InternalPhotoCollection(CollectionPage page) {
+            this.page = page;
+        }
+        
+        public int get_count() {
+            return page.get_count();
+        }
+        
+        public PhotoBase? get_first_photo() {
+            Thumbnail? thumbnail = (Thumbnail) page.get_first_item();
+            
+            return (thumbnail != null) ? thumbnail.get_photo() : null;
+        }
+        
+        public PhotoBase? get_last_photo() {
+            Thumbnail? thumbnail = (Thumbnail) page.get_last_item();
+            
+            return (thumbnail != null) ? thumbnail.get_photo() : null;
+        }
+        
+        public PhotoBase? get_next_photo(PhotoBase current) {
+            Thumbnail? thumbnail = page.get_thumbnail_for_photo((LibraryPhoto) current);
+            if (thumbnail == null)
+                return null;
+
+            thumbnail = (Thumbnail) page.get_next_item(thumbnail);
+            
+            return (thumbnail != null) ? thumbnail.get_photo() : null;
+        }
+        
+        public PhotoBase? get_previous_photo(PhotoBase current) {
+            Thumbnail? thumbnail = page.get_thumbnail_for_photo((LibraryPhoto) current);
+            if (thumbnail == null)
+                return null;
+            
+            thumbnail = (Thumbnail) page.get_previous_item(thumbnail);
+            
+            return (thumbnail != null) ? thumbnail.get_photo() : null;
+        }
+    }
+    
     private static Gtk.Adjustment slider_adjustment = null;
     
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
@@ -448,6 +492,10 @@ public class CollectionPage : CheckerboardPage {
             return item;
         
         return null;
+    }
+    
+    public PhotoCollection get_photo_collection() {
+        return new InternalPhotoCollection(this);
     }
     
     protected override void on_resize(Gdk.Rectangle rect) {

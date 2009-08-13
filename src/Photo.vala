@@ -25,6 +25,19 @@ public abstract class PhotoBase : Object, Queryable, PhotoSource {
     public abstract Exif.Data? get_exif();
 }
 
+// PhotoCollection represents a grouping of photos.
+public interface PhotoCollection : Object {
+    public abstract int get_count();
+    
+    public abstract PhotoBase? get_first_photo();
+    
+    public abstract PhotoBase? get_last_photo();
+    
+    public abstract PhotoBase? get_next_photo(PhotoBase current);
+    
+    public abstract PhotoBase? get_previous_photo(PhotoBase current);
+}
+
 // TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en

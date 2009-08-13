@@ -4,29 +4,27 @@
  * See the COPYING file in this distribution. 
  */
 
-public class PhotoPage : SinglePhotoPage {
+public abstract class EditingHostPage : SinglePhotoPage {
     public const int TOOL_WINDOW_SEPARATOR = 8;
     
-    private class PhotoPageCanvas : PhotoCanvas {
-        private PhotoPage photo_page;
+    private class EditingHostCanvas : PhotoCanvas {
+        private EditingHostPage host_page;
         
-        public PhotoPageCanvas(PhotoPage photo_page) {
-            base(photo_page.container, photo_page.canvas.window, photo_page.photo, photo_page.canvas_gc, 
-                photo_page.get_drawable(), photo_page.get_scaled_pixbuf(), photo_page.get_scaled_pixbuf_position());
+        public EditingHostCanvas(EditingHostPage host_page) {
+            base(host_page.container, host_page.canvas.window, host_page.photo, host_page.canvas_gc, 
+                host_page.get_drawable(), host_page.get_scaled_pixbuf(), host_page.get_scaled_pixbuf_position());
             
-            this.photo_page = photo_page;
+            this.host_page = host_page;
         }
         
         public override void repaint() {
-            photo_page.repaint(SinglePhotoPage.QUALITY_INTERP);
+            host_page.repaint(SinglePhotoPage.QUALITY_INTERP);
         }
     }
     
     private Gtk.Window container = null;
-    private Gtk.Menu context_menu;
-    private CheckerboardPage controller = null;
+    private PhotoCollection controller = null;
     private TransformablePhoto photo = null;
-    private Thumbnail thumbnail = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
@@ -39,32 +37,9 @@ public class PhotoPage : SinglePhotoPage {
     // drag-and-drop state
     private File drag_file = null;
     
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, null },
-        { "Export", Gtk.STOCK_SAVE_AS, "_Export Photos...", "<Ctrl>E", "Export photo to disk", on_export },
+    public EditingHostPage(string name) {
+        base(name);
         
-        { "ViewMenu", null, "_View", null, null, on_view_menu },
-        { "ReturnToPage", Resources.RETURN_TO_PAGE, "_Return to Photos", "Escape", null, on_return_to_collection },
-
-        { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
-        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
-        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
-        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
-        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", on_revert },
-
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
-    
-    public PhotoPage() {
-        base("Photo");
-        
-        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
-
-        context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
-
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         //
         // rotate tool
@@ -111,7 +86,10 @@ public class PhotoPage : SinglePhotoPage {
         next_button.set_tooltip_text("Next photo");
         next_button.clicked += on_next_photo;
         toolbar.insert(next_button, -1);
-        
+    }
+    
+    public Gtk.Window? get_container() {
+        return container;
     }
     
     public void set_container(Gtk.Window container) {
@@ -129,12 +107,12 @@ public class PhotoPage : SinglePhotoPage {
         return toolbar;
     }
     
-    public CheckerboardPage get_controller() {
+    public PhotoCollection get_controller() {
         return controller;
     }
     
-    public Thumbnail get_thumbnail() {
-        return thumbnail;
+    public TransformablePhoto get_photo() {
+        return photo;
     }
     
     public override void switching_from() {
@@ -149,25 +127,24 @@ public class PhotoPage : SinglePhotoPage {
         deactivate_tool();
     }
     
-    public void display(CheckerboardPage controller, Thumbnail thumbnail) {
+    protected void display(PhotoCollection controller, TransformablePhoto photo) {
         deactivate_tool();
         
+        if (photo != null)
+            photo.altered -= on_photo_altered;
+
         this.controller = controller;
-        this.thumbnail = thumbnail;
+        this.photo = photo;
         
-        set_page_name(thumbnail.get_title());
+        this.photo.altered += on_photo_altered;
+        
+        set_page_name(photo.get_name());
         
         update_display();
         update_sensitivity();
     }
     
     private void update_display() {
-        if (photo != null)
-            photo.altered -= on_photo_altered;
-            
-        photo = thumbnail.get_photo();
-        photo.altered += on_photo_altered;
-        
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         set_pixbuf(photo.get_preview_pixbuf(TransformablePhoto.SCREEN));
@@ -202,7 +179,7 @@ public class PhotoPage : SinglePhotoPage {
             set_pixbuf(unscaled);
         
         // create the PhotoCanvas object for a two-way interface to the tool
-        PhotoCanvas photo_canvas = new PhotoPageCanvas(this);
+        PhotoCanvas photo_canvas = new EditingHostCanvas(this);
 
         // hook tool into event system and activate it
         current_tool = tool;
@@ -284,16 +261,17 @@ public class PhotoPage : SinglePhotoPage {
         return false;
     }
     
+    // This virtual method is called only when the user double-clicks on the page and no tool
+    // is active
+    private virtual bool on_double_click(Gdk.EventButton event) {
+        return false;
+    }
+    
     // Return true to block the DnD handler from activating a drag
     private override bool on_left_click(Gdk.EventButton event) {
-        // on double-click, if not editing and not hosted by a fullscreen window, return to the
-        // controller collection
-        if (event.type == Gdk.EventType.2BUTTON_PRESS && current_tool == null 
-            && !(container is FullscreenWindow)) {
-            on_return_to_collection();
-            
-            return true;
-        }
+        // report double-click if no tool is active, otherwise all double-clicks are eaten
+        if (event.type == Gdk.EventType.2BUTTON_PRESS)
+            return (current_tool == null) ? on_double_click(event) : false;
         
         int x = (int) event.x;
         int y = (int) event.y;
@@ -326,39 +304,6 @@ public class PhotoPage : SinglePhotoPage {
         return on_context_menu(event);
     }
     
-    private void on_view_menu() {
-        Gtk.MenuItem return_item = (Gtk.MenuItem) ui.get_widget("/PhotoMenuBar/ViewMenu/ReturnToPage");
-        if (return_item != null && controller != null) {
-            Gtk.Label label = (Gtk.Label) return_item.get_child();
-            if (label != null)
-                label.set_text("Return to %s".printf(controller.get_page_name()));
-        }
-    }
-    
-    private void on_return_to_collection() {
-        LibraryWindow.get_app().switch_to_page(controller);
-    }
-    
-    private void on_export() {
-        ExportDialog export_dialog = new ExportDialog(1);
-        
-        int scale;
-        ScaleConstraint constraint;
-        Jpeg.Quality quality;
-        if (!export_dialog.execute(out scale, out constraint, out quality))
-            return;
-        
-        File save_as = ExportUI.choose_file(photo.get_file());
-        if (save_as == null)
-            return;
-        
-        try {
-            photo.export(save_as, scale, constraint, quality);
-        } catch (Error err) {
-            AppWindow.error_message("Unable to export %s: %s".printf(save_as.get_path(), err.message));
-        }
-    }
-    
     private void on_photo_altered(TransformablePhoto p) {
         update_pixbuf();
     }
@@ -370,15 +315,8 @@ public class PhotoPage : SinglePhotoPage {
         return false;
     }
     
-    private bool on_context_menu(Gdk.EventButton event) {
-        if (photo == null)
-            return false;
-        
-        set_item_sensitive("/PhotoContextMenu/ContextRevert", photo.has_transformations());
-
-        context_menu.popup(null, null, null, event.button, event.time);
-        
-        return true;
+    private virtual bool on_context_menu(Gdk.EventButton event) {
+        return false;
     }
     
     private override bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
@@ -449,19 +387,19 @@ public class PhotoPage : SinglePhotoPage {
         photo.rotate(rotation);
     }
     
-    private void on_rotate_clockwise() {
+    public void on_rotate_clockwise() {
         rotate(Rotation.CLOCKWISE);
     }
     
-    private void on_rotate_counterclockwise() {
+    public void on_rotate_counterclockwise() {
         rotate(Rotation.COUNTERCLOCKWISE);
     }
     
-    private void on_mirror() {
+    public void on_mirror() {
         rotate(Rotation.MIRROR);
     }
     
-    private void on_revert() {
+    public void on_revert() {
         deactivate_tool();
         
         photo.remove_all_transformations();
@@ -624,36 +562,24 @@ public class PhotoPage : SinglePhotoPage {
         tool_window.show_all();
     }
     
-    private void on_photo_menu() {
-        bool multiple = false;
-        if (controller != null)
-            multiple = controller.get_count() > 1;
-        
-        bool revert_possible = false;
-        if (photo != null)
-            revert_possible = photo.has_transformations();
-            
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
-    }
-    
-    private void on_next_photo() {
+    public void on_next_photo() {
         deactivate_tool();
         
-        this.thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
+        photo = (TransformablePhoto) controller.get_next_photo(photo);
+        
         update_display();
     }
     
-    private void on_previous_photo() {
+    public void on_previous_photo() {
         deactivate_tool();
         
-        this.thumbnail = (Thumbnail) controller.get_previous_item(thumbnail);
+        photo = (TransformablePhoto) controller.get_previous_photo(photo);
+        
         update_display();
     }
 
     public override Gee.Iterable<Queryable>? get_queryables() {
-        Gee.ArrayList<TransformablePhoto> photo_array_list = new Gee.ArrayList<TransformablePhoto>();
+        Gee.ArrayList<PhotoSource> photo_array_list = new Gee.ArrayList<PhotoSource>();
         photo_array_list.add(photo);
         return photo_array_list;
     }
@@ -663,3 +589,110 @@ public class PhotoPage : SinglePhotoPage {
     }
 }
 
+public class LibraryPhotoPage : EditingHostPage {
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "FileMenu", null, "_File", null, null, null },
+        { "Export", Gtk.STOCK_SAVE_AS, "_Export Photos...", "<Ctrl>E", "Export photo to disk", on_export },
+        
+        { "ViewMenu", null, "_View", null, null, on_view_menu },
+        { "ReturnToPage", Resources.RETURN_TO_PAGE, "_Return to Photos", "Escape", null, on_return_to_collection },
+
+        { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
+        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
+        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
+        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
+        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
+        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", on_revert },
+
+        { "HelpMenu", null, "_Help", null, null, null }
+    };
+    
+    private Gtk.Menu context_menu;
+    private CollectionPage return_page = null;
+    
+    public LibraryPhotoPage() {
+        base("Photo");
+        
+        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
+
+        context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
+    }
+    
+    public void display_for_collection(CollectionPage return_page, TransformablePhoto photo) {
+        this.return_page = return_page;
+        
+        display(return_page.get_photo_collection(), photo);
+    }
+    
+    public CollectionPage get_controller_page() {
+        return return_page;
+    }
+    
+    private override bool on_double_click(Gdk.EventButton event) {
+        if (!(get_container() is FullscreenWindow)) {
+            on_return_to_collection();
+            
+            return true;
+        }
+        
+        return false;
+    }
+
+    private override bool on_context_menu(Gdk.EventButton event) {
+        if (get_photo() == null)
+            return false;
+        
+        set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
+
+        context_menu.popup(null, null, null, event.button, event.time);
+        
+        return true;
+    }
+
+    private void on_view_menu() {
+        Gtk.MenuItem return_item = (Gtk.MenuItem) ui.get_widget("/PhotoMenuBar/ViewMenu/ReturnToPage");
+        if (return_item != null && return_page != null) {
+            Gtk.Label label = (Gtk.Label) return_item.get_child();
+            if (label != null)
+                label.set_text("Return to %s".printf(return_page.get_page_name()));
+        }
+    }
+    
+    private void on_return_to_collection() {
+        LibraryWindow.get_app().switch_to_page(return_page);
+    }
+    
+    private void on_export() {
+        if (get_photo() == null)
+            return;
+            
+        ExportDialog export_dialog = new ExportDialog(1);
+        
+        int scale;
+        ScaleConstraint constraint;
+        Jpeg.Quality quality;
+        if (!export_dialog.execute(out scale, out constraint, out quality))
+            return;
+        
+        File save_as = ExportUI.choose_file(get_photo().get_file());
+        if (save_as == null)
+            return;
+        
+        try {
+            get_photo().export(save_as, scale, constraint, quality);
+        } catch (Error err) {
+            AppWindow.error_message("Unable to export %s: %s".printf(save_as.get_path(), err.message));
+        }
+    }
+    
+    private void on_photo_menu() {
+        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
+        bool revert_possible = (get_photo() != null) ? get_photo().has_transformations() : false;
+            
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
+    }
+    
+}
