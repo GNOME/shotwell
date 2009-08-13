@@ -492,7 +492,8 @@ public class CropTool : EditingTool {
     public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
-        return photo.has_crop() ? photo.get_pixbuf(PhotoTransformer.Exception.CROP) : null;
+        return photo.has_crop() ? photo.get_pixbuf(PhotoTransformer.SCREEN, 
+            PhotoTransformer.Exception.CROP) : null;
     }
     
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -1435,7 +1436,7 @@ public class AdjustTool : EditingTool {
     }
 
     public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
-        return photo.get_pixbuf(PhotoTransformer.Exception.ADJUST);
+        return photo.get_pixbuf(PhotoTransformer.SCREEN, PhotoTransformer.Exception.ADJUST);
     }
     
     
