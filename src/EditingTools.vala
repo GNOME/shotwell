@@ -82,13 +82,13 @@ public abstract class EditingToolWindow : Gtk.Window {
 public abstract class PhotoCanvas {
     private Gtk.Window container;
     private Gdk.Window drawing_window;
-    private Photo photo;
+    private TransformablePhoto photo;
     private Gdk.GC default_gc;
     private Gdk.Drawable drawable;
     private Gdk.Pixbuf scaled;
     private Gdk.Rectangle scaled_position;
     
-    public PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, Photo photo, 
+    public PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, TransformablePhoto photo, 
         Gdk.GC default_gc, Gdk.Drawable drawable, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
         this.container = container;
         this.drawing_window = drawing_window;
@@ -170,7 +170,7 @@ public abstract class PhotoCanvas {
         return active_rect;
     }
 
-    public Photo get_photo() {
+    public TransformablePhoto get_photo() {
         return photo;
     }
     
@@ -359,7 +359,7 @@ public abstract class EditingTool {
     //
     // Note this this method doesn't need to be returning the "proper" pixbuf on-the-fly (i.e.
     // a pixbuf with unsaved tool edits in it).  That can be handled in the paint() virtual method.
-    public virtual Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
+    public virtual Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
         return null;
     }
     
@@ -489,11 +489,11 @@ public class CropTool : EditingTool {
         return crop_tool_window;
     }
     
-    public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
+    public override Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
-        return photo.has_crop() ? photo.get_pixbuf(PhotoTransformer.SCREEN, 
-            PhotoTransformer.Exception.CROP) : null;
+        return photo.has_crop() ? photo.get_pixbuf(TransformablePhoto.SCREEN, 
+            TransformablePhoto.Exception.CROP) : null;
     }
     
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -1435,8 +1435,8 @@ public class AdjustTool : EditingTool {
         canvas.paint_pixbuf(draw_to_pixbuf);
     }
 
-    public override Gdk.Pixbuf? get_unscaled_pixbuf(Photo photo) {
-        return photo.get_pixbuf(PhotoTransformer.SCREEN, PhotoTransformer.Exception.ADJUST);
+    public override Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
+        return photo.get_pixbuf(TransformablePhoto.SCREEN, TransformablePhoto.Exception.ADJUST);
     }
     
     

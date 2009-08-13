@@ -16,8 +16,8 @@ public abstract class BatchImportJob {
 public class BatchImport {
     public const int IMPORT_DIRECTORY_DEPTH = 3;
     
-    private class DateComparator : Comparator<Photo> {
-        public override int64 compare(Photo photo_a, Photo photo_b) {
+    private class DateComparator : Comparator<LibraryPhoto> {
+        public override int64 compare(LibraryPhoto photo_a, LibraryPhoto photo_b) {
             return photo_a.get_exposure_time() - photo_b.get_exposure_time();
         }
     }
@@ -120,7 +120,7 @@ public class BatchImport {
     private string name;
     private uint64 total_bytes;
     private BatchImport ref_holder = null;
-    private SortedList<Photo> success = null;
+    private SortedList<LibraryPhoto> success = null;
     private Gee.ArrayList<string> failed = null;
     private Gee.ArrayList<string> skipped = null;
     private ImportID import_id = ImportID();
@@ -144,13 +144,13 @@ public class BatchImport {
     public signal void starting();
     
     // Called for each Photo imported to the system
-    public signal void imported(Photo photo);
+    public signal void imported(LibraryPhoto photo);
     
     // Called when a job fails.  import_complete will also be called at the end of the batch
     public signal void import_job_failed(ImportResult result, BatchImportJob job, File? file);
     
     // Called at the end of the batched jobs; this will be signalled exactly once for the batch
-    public signal void import_complete(ImportID import_id, SortedList<Photo> photos_by_date, 
+    public signal void import_complete(ImportID import_id, SortedList<LibraryPhoto> photos_by_date, 
         Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped);
 
     public string get_name() {
@@ -179,7 +179,7 @@ public class BatchImport {
     private bool perform_import() {
         starting();
         
-        success = new SortedList<Photo>(new DateComparator());
+        success = new SortedList<LibraryPhoto>(new DateComparator());
         failed = new Gee.ArrayList<string>();
         skipped = new Gee.ArrayList<string>();
         import_id = (new PhotoTable()).generate_import_id();
@@ -324,8 +324,8 @@ public class BatchImport {
             import = copied;
         }
         
-        Photo photo;
-        ImportResult result = Photo.import(import, import_id, out photo);
+        LibraryPhoto photo;
+        ImportResult result = LibraryPhoto.import(import, import_id, out photo);
         if (result != ImportResult.SUCCESS) {
             if (copy_to_library) {
                 try {

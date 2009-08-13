@@ -15,7 +15,7 @@ public interface PhotoSource : Queryable {
 
     public abstract uint64 get_filesize();
 
-    public abstract Exif.Data get_exif();
+    public abstract Exif.Data? get_exif();
 }
 
 public interface EventSource : Queryable {

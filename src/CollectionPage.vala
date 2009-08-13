@@ -55,7 +55,7 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
 
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
@@ -91,7 +91,7 @@ class SlideshowPage : SinglePhotoPage {
     private void on_next_automatic() {
         thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
         
         // reset the timer
         timer.start();
@@ -105,7 +105,7 @@ class SlideshowPage : SinglePhotoPage {
         this.thumbnail = thumbnail;
         
         // start with blown-up preview
-        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(PhotoTransformer.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(TransformablePhoto.SCREEN));
         
         // schedule improvement to real photo
         Idle.add(on_improvement);
@@ -115,7 +115,7 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private bool on_improvement() {
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(PhotoTransformer.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
         
         return false;
     }
@@ -164,7 +164,7 @@ class SlideshowPage : SinglePhotoPage {
     }
 
     public override Gee.Iterable<Queryable>? get_queryables() {
-        Gee.ArrayList<Photo> photo_array_list = new Gee.ArrayList<Photo>();
+        Gee.ArrayList<LibraryPhoto> photo_array_list = new Gee.ArrayList<LibraryPhoto>();
         photo_array_list.add(thumbnail.get_photo());
         return photo_array_list;
     }
@@ -466,7 +466,7 @@ public class CollectionPage : CheckerboardPage {
         // files first
         Gdk.Pixbuf icon = null;
         foreach (LayoutItem item in get_selected()) {
-            Photo photo = ((Thumbnail) item).get_photo();
+            LibraryPhoto photo = ((Thumbnail) item).get_photo();
             
             File file = null;
             try {
@@ -513,10 +513,14 @@ public class CollectionPage : CheckerboardPage {
         
         drag_items.clear();
         
+        foreach (LayoutItem item in get_selected()) {
+            ((Thumbnail) item).get_photo().export_failed();
+        }
+        
         return false;
     }
     
-    public void add_photo(Photo photo) {
+    public void add_photo(LibraryPhoto photo) {
         // search for duplicates
         if (get_thumbnail_for_photo(photo) != null)
             return;
@@ -532,7 +536,7 @@ public class CollectionPage : CheckerboardPage {
         slideshow_button.sensitive = true;
     }
     
-    private void on_photo_removed(Photo photo) {
+    private void on_photo_removed(LibraryPhoto photo) {
         Thumbnail found = get_thumbnail_for_photo(photo);
         if (found != null)
             remove_item(found);
@@ -540,7 +544,7 @@ public class CollectionPage : CheckerboardPage {
         slideshow_button.sensitive = (get_count() > 0);
     }
     
-    private void on_thumbnail_altered(Photo photo) {
+    private void on_thumbnail_altered(LibraryPhoto photo) {
         // the thumbnail is only going to reload a low-quality interp, so schedule improval
         schedule_thumbnail_improval();
         
@@ -549,7 +553,7 @@ public class CollectionPage : CheckerboardPage {
             refresh();
     }
     
-    private Thumbnail? get_thumbnail_for_photo(Photo photo) {
+    private Thumbnail? get_thumbnail_for_photo(LibraryPhoto photo) {
         foreach (LayoutItem item in get_items()) {
             Thumbnail thumbnail = (Thumbnail) item;
             if (thumbnail.get_photo().equals(photo))
@@ -639,7 +643,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_export() {
-        Gee.ArrayList<Photo> export_list = new Gee.ArrayList<Photo>();
+        Gee.ArrayList<LibraryPhoto> export_list = new Gee.ArrayList<LibraryPhoto>();
         foreach (LayoutItem item in get_selected())
             export_list.add(((Thumbnail) item).get_photo());
 
@@ -656,7 +660,7 @@ public class CollectionPage : CheckerboardPage {
 
         // handle the single-photo case
         if (export_list.size == 1) {
-            Photo photo = export_list.get(0);
+            LibraryPhoto photo = export_list.get(0);
             
             File save_as = ExportUI.choose_file(photo.get_file());
             if (save_as == null)
@@ -681,7 +685,7 @@ public class CollectionPage : CheckerboardPage {
         
         AppWindow.get_instance().set_busy_cursor();
         
-        foreach (Photo photo in export_list) {
+        foreach (LibraryPhoto photo in export_list) {
             File save_as = export_dir.get_child(photo.get_file().get_basename());
             if (save_as.query_exists(null)) {
                 if (!ExportUI.query_overwrite(save_as))
@@ -712,7 +716,7 @@ public class CollectionPage : CheckerboardPage {
     
     private bool can_revert_selected() {
         foreach (LayoutItem item in get_selected()) {
-            Photo photo = ((Thumbnail) item).get_photo();
+            LibraryPhoto photo = ((Thumbnail) item).get_photo();
             if (photo.has_transformations())
                 return true;
         }
@@ -766,7 +770,7 @@ public class CollectionPage : CheckerboardPage {
         // in on_photo_removed being called, which we don't want in this case is because it will
         // remove from the list while iterating, so disconnect the signals and do the work here
         foreach (LayoutItem item in get_selected()) {
-            Photo photo = ((Thumbnail) item).get_photo();
+            LibraryPhoto photo = ((Thumbnail) item).get_photo();
             photo.removed -= on_photo_removed;
             photo.thumbnail_altered -= on_thumbnail_altered;
             
@@ -782,7 +786,7 @@ public class CollectionPage : CheckerboardPage {
     private void do_rotations(Gee.Iterable<LayoutItem> c, Rotation rotation) {
         bool rotation_performed = false;
         foreach (LayoutItem item in c) {
-            Photo photo = ((Thumbnail) item).get_photo();
+            LibraryPhoto photo = ((Thumbnail) item).get_photo();
             photo.rotate(rotation);
             
             rotation_performed = true;
@@ -808,7 +812,7 @@ public class CollectionPage : CheckerboardPage {
     private void on_revert() {
         bool revert_performed = false;
         foreach (LayoutItem item in get_selected()) {
-            Photo photo = ((Thumbnail) item).get_photo();
+            LibraryPhoto photo = ((Thumbnail) item).get_photo();
             photo.remove_all_transformations();
             
             revert_performed = true;

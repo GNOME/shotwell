@@ -5,7 +5,6 @@
  */
 
 public class DirectoryItem : LayoutItem, EventSource {
-    public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
     public const int SCALE =
         ThumbnailCache.MEDIUM_SCALE + ((ThumbnailCache.BIG_SCALE - ThumbnailCache.MEDIUM_SCALE) / 2);
     
@@ -19,8 +18,8 @@ public class DirectoryItem : LayoutItem, EventSource {
         PhotoID photo_id = event_table.get_primary_photo(event_id);
         assert(photo_id.is_valid());
         
-        Photo photo = Photo.fetch(photo_id);
-        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(SCALE, INTERP);
+        LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
+        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(SCALE);
 
         set_image(pixbuf);
     }
@@ -35,9 +34,9 @@ public class DirectoryItem : LayoutItem, EventSource {
 
     public Gee.Iterable<PhotoSource> get_photos() {
         Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
-        Gee.ArrayList<Photo> photos = new Gee.ArrayList<Photo>();
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         foreach (PhotoID photo_id in photo_ids) {
-            photos.add(Photo.fetch(photo_id));
+            photos.add(LibraryPhoto.fetch(photo_id));
         }
         return photos;
     }

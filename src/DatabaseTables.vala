@@ -92,18 +92,18 @@ public bool verify_databases(out string app_version) {
 
     // verify photo table
     foreach (PhotoID photo_id in photo_ids) {
-        Photo photo = Photo.fetch(photo_id);
+        LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
         switch (photo.check_currency()) {
-            case Photo.Currency.CURRENT:
+            case LibraryPhoto.Currency.CURRENT:
                 // do nothing
             break;
             
-            case Photo.Currency.DIRTY:
+            case LibraryPhoto.Currency.DIRTY:
                 message("Time or filesize changed on %s, reimporting ...", photo.to_string());
                 photo.update();
             break;
             
-            case Photo.Currency.GONE:
+            case LibraryPhoto.Currency.GONE:
                 message("Unable to locate %s: Removing from photo library", photo.to_string());
                 photo.remove(true);
             break;

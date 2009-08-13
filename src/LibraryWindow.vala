@@ -127,10 +127,10 @@ public class LibraryWindow : AppWindow {
         add_parent_page(events_directory_page);
         add_orphan_page(photo_page);
 
-        // create Photo objects for all photos in the database and load into the Photos page
+        // create LibraryPhoto objects for all photos in the database and load into the Photos page
         Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
         foreach (PhotoID photo_id in photo_ids) {
-             Photo photo = Photo.fetch(photo_id);
+             LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
              photo.removed += on_photo_removed;
              
              collection_page.add_photo(photo);
@@ -364,7 +364,7 @@ public class LibraryWindow : AppWindow {
         }
     }
 
-    public void photo_imported(Photo photo) {
+    public void photo_imported(LibraryPhoto photo) {
         // want to know when it's removed from the system for cleanup
         photo.removed += on_photo_removed;
 
@@ -373,7 +373,7 @@ public class LibraryWindow : AppWindow {
         collection_page.refresh();
     }
     
-    public void batch_import_complete(SortedList<Photo> imported_photos) {
+    public void batch_import_complete(SortedList<LibraryPhoto> imported_photos) {
         debug("Processing imported photos to create events ...");
 
         // walk through photos, splitting into events based on criteria
@@ -381,7 +381,7 @@ public class LibraryWindow : AppWindow {
         time_t current_event_start = 0;
         EventID current_event_id = EventID();
         EventPage current_event_page = null;
-        foreach (Photo photo in imported_photos) {
+        foreach (LibraryPhoto photo in imported_photos) {
             time_t exposure_time = photo.get_exposure_time();
 
             if (exposure_time == 0) {
@@ -448,7 +448,7 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private void on_photo_removed(Photo photo) {
+    private void on_photo_removed(LibraryPhoto photo) {
         PhotoID photo_id = photo.get_photo_id();
         
         // update event's primary photo if this is the one; remove event if no more photos in it
@@ -573,7 +573,7 @@ public class LibraryWindow : AppWindow {
         
         Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
         foreach (PhotoID photo_id in photo_ids)
-            event_page.add_photo(Photo.fetch(photo_id));
+            event_page.add_photo(LibraryPhoto.fetch(photo_id));
 
         insert_child_page_sorted(events_directory_page.get_marker(), event_page, 
             new CompareEventPage(get_events_sort()));

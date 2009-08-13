@@ -55,7 +55,7 @@ void library_exec(string[] mounts) {
     // init modules library relies on
     DatabaseTable.init();
     ThumbnailCache.init();
-    Photo.init();
+    LibraryPhoto.init();
 
     // validate the databases prior to using them
     message("Verifying databases ...");
@@ -81,7 +81,7 @@ void library_exec(string[] mounts) {
         dialog.destroy();
     }
     
-    Photo.terminate();
+    LibraryPhoto.terminate();
     ThumbnailCache.terminate();
     DatabaseTable.terminate();
 }

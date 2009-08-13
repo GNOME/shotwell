@@ -13,13 +13,13 @@ public class Thumbnail : LayoutItem, PhotoSource {
     public const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
-    private Photo photo;
+    private LibraryPhoto photo;
     private int scale;
     private Dimensions dim;
     private bool thumb_exposed = false;
     private Gdk.InterpType interp = LOW_QUALITY_INTERP;
     
-    public Thumbnail(Photo photo, int scale = DEFAULT_SCALE) {
+    public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         this.photo = photo;
         this.scale = scale;
         
@@ -36,11 +36,11 @@ public class Thumbnail : LayoutItem, PhotoSource {
         photo.thumbnail_altered += on_thumbnail_altered;
     }
     
-    public Photo get_photo() {
+    public LibraryPhoto get_photo() {
         return photo;
     }
     
-    private void on_thumbnail_altered(Photo p) {
+    private void on_thumbnail_altered(LibraryPhoto p) {
         assert(photo.equals(p));
         
         dim = photo.get_dimensions().get_scaled(scale);
@@ -127,7 +127,7 @@ public class Thumbnail : LayoutItem, PhotoSource {
         return photo.get_dimensions();
     }
 
-    public Exif.Data get_exif() {
+    public Exif.Data? get_exif() {
         return photo.get_exif();
     }
 

@@ -25,7 +25,7 @@ public class PhotoPage : SinglePhotoPage {
     private Gtk.Window container = null;
     private Gtk.Menu context_menu;
     private CheckerboardPage controller = null;
-    private Photo photo = null;
+    private TransformablePhoto photo = null;
     private Thumbnail thumbnail = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
@@ -170,12 +170,12 @@ public class PhotoPage : SinglePhotoPage {
         
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
-        set_pixbuf(photo.get_preview_pixbuf(PhotoTransformer.SCREEN));
+        set_pixbuf(photo.get_preview_pixbuf(TransformablePhoto.SCREEN));
         Idle.add(update_pixbuf);
     }
     
     private bool update_pixbuf() {
-        set_pixbuf(photo.get_pixbuf(PhotoTransformer.SCREEN));
+        set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN));
         
         return false;
     }
@@ -197,7 +197,7 @@ public class PhotoPage : SinglePhotoPage {
         deactivate_tool();
         
         // see if the tool wants a different pixbuf displayed
-        Gdk.Pixbuf unscaled = tool.get_unscaled_pixbuf(photo);
+        Gdk.Pixbuf unscaled = tool.get_display_pixbuf(photo);
         if (unscaled != null)
             set_pixbuf(unscaled);
         
@@ -359,9 +359,7 @@ public class PhotoPage : SinglePhotoPage {
         }
     }
     
-    private void on_photo_altered(Photo p) {
-        assert(photo.equals(p));
-        
+    private void on_photo_altered(TransformablePhoto p) {
         update_pixbuf();
     }
     
@@ -655,7 +653,7 @@ public class PhotoPage : SinglePhotoPage {
     }
 
     public override Gee.Iterable<Queryable>? get_queryables() {
-        Gee.ArrayList<Photo> photo_array_list = new Gee.ArrayList<Photo>();
+        Gee.ArrayList<TransformablePhoto> photo_array_list = new Gee.ArrayList<TransformablePhoto>();
         photo_array_list.add(photo);
         return photo_array_list;
     }

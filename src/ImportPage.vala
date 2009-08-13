@@ -60,8 +60,8 @@ class ImportPreview : LayoutItem, PhotoSource {
         return dimensions;
     }
 
-    public Exif.Data get_exif() {
-        return exif;   
+    public Exif.Data? get_exif() {
+        return exif;
     }
 }
 
@@ -838,8 +838,8 @@ public class ImportQueuePage : SinglePhotoPage {
         current_batch = batch_import;
     }
     
-    private void on_imported(Photo photo) {
-        set_pixbuf(photo.get_pixbuf(PhotoTransformer.SCREEN));
+    private void on_imported(LibraryPhoto photo) {
+        set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN));
         
         progress_bytes += photo.get_filesize();
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
@@ -850,7 +850,7 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_import_complete(BatchImport batch_import, ImportID import_id, 
-        SortedList<Photo> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
+        SortedList<LibraryPhoto> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
         assert(batch_import == current_batch);
         current_batch = null;
         

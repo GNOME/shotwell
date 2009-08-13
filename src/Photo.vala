@@ -4,6 +4,556 @@
  * See the COPYING file in this distribution. 
  */
 
+// PhotoBase is the base class for all objects which represent, in some form or another, an image
+// or photo.
+public abstract class PhotoBase : Object, Queryable, PhotoSource {
+    public PhotoBase() {
+    }
+    
+    // Queryable
+    
+    public abstract string get_name();
+    
+    // PhotoSource
+
+    public abstract time_t get_exposure_time();
+
+    public abstract Dimensions get_dimensions();
+
+    public abstract uint64 get_filesize();
+
+    public abstract Exif.Data? get_exif();
+}
+
+// TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
+// particular photo without modifying the backing image file.  The interface allows for
+// transformations to be stored persistently elsewhere or in memory until they're commited en
+// masse to an image file.
+public abstract class TransformablePhoto: PhotoBase {
+    public const int UNSCALED = 0;
+    public const int SCREEN = -1;
+    
+    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
+    
+    public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
+    public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.HYPER;
+    
+    public enum Exception {
+        NONE            = 0,
+        ORIENTATION     = 1 << 0,
+        CROP            = 1 << 1,
+        REDEYE          = 1 << 2,
+        ADJUST          = 1 << 3,
+        ALL             = 0xFFFFFFFF
+    }
+    
+    private static TransformablePhoto cached_raw_instance = null;
+    private static Gdk.Pixbuf cached_raw = null;
+    
+    private File file;
+    
+    // the subclass is responsible for firing this signal whenever a transformation is added
+    // or removed
+    public signal void altered();
+    
+    public TransformablePhoto(File file) {
+        this.file = file;
+    }
+    
+    public File get_file() {
+        return file;
+    }
+    
+    // Transformation storage and exporting
+
+    public abstract Dimensions get_raw_dimensions();
+    
+    public abstract bool has_transformations();
+    
+    public abstract void remove_all_transformations();
+    
+    public abstract Orientation get_orientation();
+    
+    public abstract void set_orientation(Orientation orientation);
+    
+    public virtual void rotate(Rotation rotation) {
+        Orientation orientation = get_orientation();
+
+        orientation = orientation.perform(rotation);
+
+        set_orientation(orientation);
+    }
+    
+    public virtual bool has_crop() {
+        Box crop;
+        return get_raw_crop(out crop);
+    }
+
+    // This returns the crop against the coordinate system of the unrotated photo.
+    public abstract bool get_raw_crop(out Box crop);
+    
+    // This sets the crop against the coordinate system of the unrotated photo.
+    public abstract void set_raw_crop(Box crop);
+
+    public abstract float get_color_adjustment(ColorTransformationKind kind);
+    
+    public abstract void set_color_adjustments(Gee.ArrayList<ColorTransformationInstance?> adjustments);
+
+    // All instances are against the coordinate system of the unrotated photo.
+    public abstract void add_raw_redeye_instance(RedeyeInstance redeye);
+    
+    // All instances are against the coordinate system of the unscaled, unrotated photo.
+    public abstract RedeyeInstance[] get_raw_redeye_instances();
+    
+    // Returns a File that can be used for exporting ... this file should persist for a reasonable
+    // amount of time, as drag-and-drop exports can conclude long after the DnD source has seen
+    // the end of the transaction. ... However, if failure is detected, export_failed() will be
+    // called, and the file can be removed if necessary.
+    public abstract File generate_exportable() throws Error;
+
+    // Called when an export has failed; the object can use this to delete the exportable file
+    // from generate_exportable() if necessary
+    public abstract void export_failed();
+    
+    // Pixbuf generation
+
+    // Returns a raw, untransformed, unrotated, unscaled pixbuf from the source
+    public Gdk.Pixbuf get_raw_pixbuf() throws Error {
+        return new Gdk.Pixbuf.from_file(file.get_path());
+    }
+
+    // Converts a scale parameter for get_pixbuf or get_preview_pixbuf into an actual pixel
+    // count to proportionally scale to.  Returns 0 if an unscaled pixbuf is specified.
+    public static int scale_to_pixels(int scale) {
+        return (scale == SCREEN) ? get_screen_scale() : scale;
+    }
+
+    // A preview pixbuf is one that can be quickly generated and scaled as a preview while the
+    // fully transformed pixbuf is built.  It is fully transformed.
+    //
+    // Note that scale may be UNSCALED or SCREEN.  UNSCALED is not 
+    // considered a performance-killer for this method, although the quality of the pixbuf may be 
+    // quite poor compared to the actual unscaled transformed pixbuf.
+    public abstract Gdk.Pixbuf get_preview_pixbuf(int scale) throws Error;
+    
+    // Returns a fully transformed (and scaled, if specified) pixbuf from the source.
+    // Transformations may be excluded via the mask.
+    //
+    // Set scale to UNSCALED for unscaled pixbuf or SCREEN for a pixbuf scaled to the screen size
+    // (which can be scaled further, with some loss).  Note that UNSCALED can be extremely expensive, 
+    // and it's far better to specify an appropriate scale.
+    public Gdk.Pixbuf get_pixbuf(int scale, Exception exceptions = Exception.NONE,
+        Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
+#if MEASURE_PIPELINE
+        Timer timer = new Timer();
+        Timer total_timer = new Timer();
+        double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, redeye_time = 0.0, 
+            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0;
+
+        total_timer.start();
+#endif
+        Gdk.Pixbuf pixbuf = null;
+        
+        //
+        // Image load-and-decode
+        //
+        
+        if (cached_raw != null && cached_raw_instance == this) {
+            // used the cached raw pixbuf for this instance, which is merely the decoded pixbuf
+            // (no transformations)
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = cached_raw.copy();
+#if MEASURE_PIPELINE
+            pixbuf_copy_time = timer.elapsed();
+#endif
+        } else {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = get_raw_pixbuf();
+#if MEASURE_PIPELINE
+            load_and_decode_time = timer.elapsed();
+#endif
+        
+            // stash for next time
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            cached_raw = pixbuf.copy();
+#if MEASURE_PIPELINE
+            pixbuf_copy_time = timer.elapsed();
+#endif
+            cached_raw_instance = this;
+        }
+
+        //
+        // Image transformation pipeline
+        //
+
+        // redeye reduction
+        if ((exceptions & Exception.REDEYE) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            RedeyeInstance[] redeye_instances = get_raw_redeye_instances();
+            foreach (RedeyeInstance instance in redeye_instances)
+                pixbuf = do_redeye(pixbuf, instance);
+#if MEASURE_PIPELINE
+            redeye_time = timer.elapsed();
+#endif
+        }
+
+        // crop
+        if ((exceptions & Exception.CROP) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            Box crop;
+            if (get_raw_crop(out crop))
+                pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
+                    crop.get_height());
+
+#if MEASURE_PIPELINE
+            crop_time = timer.elapsed();
+#endif
+        }
+        
+        // scale
+        int scale_pixels = scale_to_pixels(scale);
+        if (scale_pixels > 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = scale_pixbuf(pixbuf, scale_pixels, interp);
+#if MEASURE_PIPELINE
+            scale_time = timer.elapsed();
+#endif
+        }
+
+        // color adjustment
+        if ((exceptions & Exception.ADJUST) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            ColorTransformation composite_transform = get_composite_transformation();
+            if (!composite_transform.is_identity())
+                ColorTransformation.transform_pixbuf(composite_transform, pixbuf);
+#if MEASURE_PIPELINE
+            adjustment_time = timer.elapsed();
+#endif
+        }
+
+        // orientation (all modifications are stored in unrotated coordinate system)
+        if ((exceptions & Exception.ORIENTATION) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = get_orientation().rotate_pixbuf(pixbuf);
+#if MEASURE_PIPELINE
+            orientation_time = timer.elapsed();
+#endif
+        }
+        
+#if MEASURE_PIPELINE
+        double total_time = total_timer.elapsed();
+        
+        debug("Pipeline: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
+            load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time,
+            orientation_time, total_time);
+#endif
+        
+        return pixbuf;
+    }
+    
+    //
+    // File export
+    //
+    
+    public static void copy_exported_exif(Exif.Data source, PhotoExif dest, Orientation orientation, 
+        Dimensions dim) throws Error {
+        dest.set_exif(source);
+        dest.set_dimensions(dim);
+        dest.set_orientation(orientation);
+        dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_WIDTH);
+        dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_LENGTH);
+        dest.remove_thumbnail();
+        dest.commit();
+    }
+
+    // Writes a file appropriate for export meeting the specified parameters.
+    //
+    // TODO: Lossless transformations, especially for mere rotations of JFIF files.
+    public void export(File dest_file, int scale, ScaleConstraint constraint,
+        Jpeg.Quality quality) throws Error {
+        if (constraint == ScaleConstraint.ORIGINAL) {
+            // generate a raw exportable file and copy that
+            File exportable = generate_exportable();
+
+            try {
+                exportable.copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.ALL_METADATA,
+                    null, null);
+            } catch (Error err) {
+                export_failed();
+                
+                throw err;
+            }
+            
+            return;
+        }
+        
+        Gdk.Pixbuf pixbuf = get_pixbuf(UNSCALED);
+        Dimensions dim = Dimensions.for_pixbuf(pixbuf);
+        Dimensions scaled = dim.get_scaled_by_constraint(scale, constraint);
+
+        // only scale if necessary ... although scale_simple probably catches this, it's an easy
+        // check to avoid image loss
+        if (dim.width != scaled.width || dim.height != scaled.height)
+            pixbuf = pixbuf.scale_simple(scaled.width, scaled.height, EXPORT_INTERP);
+        
+        try {
+            pixbuf.save(dest_file.get_path(), "jpeg", "quality", quality.get_pct_text());
+            
+            Exif.Data exif = get_exif();
+            if (exif != null)
+                copy_exported_exif(exif, new PhotoExif(dest_file), Orientation.TOP_LEFT, scaled);
+        } catch (Error err) {
+            export_failed();
+            
+            throw err;
+        }
+    }
+    
+    // Aggregate/helper/translation functions
+    
+    // Returns cropped and rotated dimensions
+    public override Dimensions get_dimensions() {
+        Box crop;
+        if (get_crop(out crop))
+            return crop.get_dimensions();
+        
+        return get_uncropped_dimensions();
+    }
+
+    // Returns uncropped (but rotated) dimensions
+    public Dimensions get_uncropped_dimensions() {
+        Dimensions dim = get_raw_dimensions();
+        Orientation orientation = get_orientation();
+        
+        return orientation.rotate_dimensions(dim);
+    }
+    
+    // Returns the crop against the coordinate system of the rotated photo
+    public bool get_crop(out Box crop) {
+        Box raw;
+        if (!get_raw_crop(out raw))
+            return false;
+        
+        Dimensions dim = get_raw_dimensions();
+        Orientation orientation = get_orientation();
+        
+        crop = orientation.rotate_box(dim, raw);
+        
+        return true;
+    }
+    
+    // Sets the crop against the coordinate system of the rotated photo
+    public void set_crop(Box crop) {
+        Dimensions dim = get_raw_dimensions();
+        Orientation orientation = get_orientation();
+
+        Box derotated = orientation.derotate_box(dim, crop);
+        
+        assert(derotated.get_width() <= dim.width);
+        assert(derotated.get_height() <= dim.height);
+        
+        set_raw_crop(derotated);
+    }
+    
+    public void add_redeye_instance(RedeyeInstance inst_unscaled) {
+        Gdk.Rectangle bounds_rect_unscaled = RedeyeInstance.to_bounds_rect(inst_unscaled);
+        Gdk.Rectangle bounds_rect_raw = unscaled_to_raw_rect(bounds_rect_unscaled);
+        RedeyeInstance inst = RedeyeInstance.from_bounds_rect(bounds_rect_raw);
+        
+        add_raw_redeye_instance(inst);
+    }
+    private Gdk.Pixbuf do_redeye(owned Gdk.Pixbuf pixbuf, owned RedeyeInstance inst) {
+        /* we remove redeye within a circular region called the "effect
+           extent." the effect extent is inscribed within its "bounding
+           rectangle." */
+
+        /* for each scanline in the top half-circle of the effect extent,
+           compute the number of pixels by which the effect extent is inset
+           from the edges of its bounding rectangle. note that we only have
+           to do this for the first quadrant because the second quadrant's
+           insets can be derived by symmetry */
+        double r = (double) inst.radius;
+        int[] x_insets_first_quadrant = new int[inst.radius + 1];
+        
+        int i = 0;
+        for (double y = r; y >= 0.0; y -= 1.0) {
+            double theta = Math.asin(y / r);
+            int x = (int)((r * Math.cos(theta)) + 0.5);
+            x_insets_first_quadrant[i] = inst.radius - x;
+            
+            i++;
+        }
+
+        int x_bounds_min = inst.center.x - inst.radius;
+        int x_bounds_max = inst.center.x + inst.radius;
+        int ymin = inst.center.y - inst.radius;
+        ymin = (ymin < 0) ? 0 : ymin;
+        int ymax = inst.center.y;
+        ymax = (ymax > (pixbuf.height - 1)) ? (pixbuf.height - 1) : ymax;
+
+        /* iterate over all the pixels in the top half-circle of the effect
+           extent from top to bottom */
+        int inset_index = 0;
+        for (int y_it = ymin; y_it <= ymax; y_it++) {
+            int xmin = x_bounds_min + x_insets_first_quadrant[inset_index];
+            xmin = (xmin < 0) ? 0 : xmin;
+            int xmax = x_bounds_max - x_insets_first_quadrant[inset_index];
+            xmax = (xmax > (pixbuf.width - 1)) ? (pixbuf.width - 1) : xmax;
+
+            for (int x_it = xmin; x_it <= xmax; x_it++) {
+                red_reduce_pixel(pixbuf, x_it, y_it);
+            }
+            inset_index++;
+        }
+
+        /* iterate over all the pixels in the top half-circle of the effect
+           extent from top to bottom */
+        ymin = inst.center.y;
+        ymax = inst.center.y + inst.radius;
+        inset_index = x_insets_first_quadrant.length - 1;
+        for (int y_it = ymin; y_it <= ymax; y_it++) {  
+            int xmin = x_bounds_min + x_insets_first_quadrant[inset_index];
+            xmin = (xmin < 0) ? 0 : xmin;
+            int xmax = x_bounds_max - x_insets_first_quadrant[inset_index];
+            xmax = (xmax > (pixbuf.width - 1)) ? (pixbuf.width - 1) : xmax;
+
+            for (int x_it = xmin; x_it <= xmax; x_it++) {
+                red_reduce_pixel(pixbuf, x_it, y_it);
+            }
+            inset_index--;
+        }
+        
+        return pixbuf;
+    }
+
+    private Gdk.Pixbuf red_reduce_pixel(owned Gdk.Pixbuf pixbuf, int x, int y) {
+        int px_start_byte_offset = (y * pixbuf.get_rowstride()) +
+            (x * pixbuf.get_n_channels());
+        
+        unowned uchar[] pixel_data = pixbuf.get_pixels();
+        
+        /* The pupil of the human eye has no pigment, so we expect all
+           color channels to be of about equal intensity. This means that at
+           any point within the effects region, the value of the red channel
+           should be about the same as the values of the green and blue
+           channels. So set the value of the red channel to be the mean of the
+           values of the red and blue channels. This preserves achromatic
+           intensity across all channels while eliminating any extraneous flare
+           affecting the red channel only (i.e. the red-eye effect). */
+        uchar g = pixel_data[px_start_byte_offset + 1];
+        uchar b = pixel_data[px_start_byte_offset + 2];
+        
+        uchar r = (g + b) / 2;
+        
+        pixel_data[px_start_byte_offset] = r;
+        
+        return pixbuf;
+    }
+
+    public ColorTransformation get_composite_transformation() {
+        float exposure_param = get_color_adjustment(ColorTransformationKind.EXPOSURE);
+        float saturation_param = get_color_adjustment(ColorTransformationKind.SATURATION);
+        float tint_param = get_color_adjustment(ColorTransformationKind.TINT);
+        float temperature_param = get_color_adjustment(ColorTransformationKind.TEMPERATURE);
+
+        ColorTransformation exposure_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.EXPOSURE, exposure_param);
+
+        ColorTransformation saturation_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.SATURATION, saturation_param);
+
+        ColorTransformation tint_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.TINT, tint_param);
+
+        ColorTransformation temperature_transform =
+            ColorTransformationFactory.get_instance().from_parameter(
+            ColorTransformationKind.TEMPERATURE, temperature_param);
+
+        ColorTransformation composite_transform = ((
+                exposure_transform.compose_against(
+                saturation_transform)).compose_against(
+                temperature_transform)).compose_against(
+                tint_transform);
+        
+        return composite_transform;
+    }
+
+    public Gdk.Point unscaled_to_raw_point(Gdk.Point unscaled_point) {
+        Orientation unscaled_orientation = get_orientation();
+    
+        Dimensions unscaled_dims =
+            unscaled_orientation.rotate_dimensions(get_dimensions());
+
+        int unscaled_x_offset_raw = 0;
+        int unscaled_y_offset_raw = 0;
+
+        Box crop_box;
+        if (get_raw_crop(out crop_box)) {
+            unscaled_x_offset_raw = crop_box.left;
+            unscaled_y_offset_raw = crop_box.top;
+        }
+        
+        Gdk.Point derotated_point =
+            unscaled_orientation.derotate_point(unscaled_dims,
+            unscaled_point);
+
+        derotated_point.x += unscaled_x_offset_raw;
+        derotated_point.y += unscaled_y_offset_raw;
+
+        return derotated_point;
+    }
+    
+    public Gdk.Rectangle unscaled_to_raw_rect(Gdk.Rectangle unscaled_rect) {
+        Gdk.Point upper_left = {0};
+        Gdk.Point lower_right = {0};
+        upper_left.x = unscaled_rect.x;
+        upper_left.y = unscaled_rect.y;
+        lower_right.x = upper_left.x + unscaled_rect.width;
+        lower_right.y = upper_left.y + unscaled_rect.height;
+        
+        upper_left = unscaled_to_raw_point(upper_left);
+        lower_right = unscaled_to_raw_point(lower_right);
+        
+        if (upper_left.x > lower_right.x) {
+            int temp = upper_left.x;
+            upper_left.x = lower_right.x;
+            lower_right.x = temp;
+        }
+        if (upper_left.y > lower_right.y) {
+            int temp = upper_left.y;
+            upper_left.y = lower_right.y;
+            lower_right.y = temp;
+        }
+        
+        Gdk.Rectangle raw_rect = {0};
+        raw_rect.x = upper_left.x;
+        raw_rect.y = upper_left.y;
+        raw_rect.width = lower_right.x - upper_left.x;
+        raw_rect.height = lower_right.y - upper_left.y;
+        
+        return raw_rect;
+    }
+}
+
 public enum ImportResult {
     SUCCESS,
     FILE_ERROR,
@@ -15,8 +565,8 @@ public enum ImportResult {
     UNSUPPORTED_FORMAT
 }
 
-public class Photo : PhotoTransformer, Queryable {
-    private static Gee.HashMap<int64?, Photo> photo_map = null;
+public class LibraryPhoto : TransformablePhoto {
+    private static Gee.HashMap<int64?, LibraryPhoto> photo_map = null;
     private static PhotoTable photo_table = null;
     
     public enum Currency {
@@ -31,14 +581,14 @@ public class Photo : PhotoTransformer, Queryable {
     // here ... really want to be frugal about this, as maintaining coherency is complicated enough
     private time_t exposure_time = -1;
     
-    public signal void altered();
-    
     public signal void thumbnail_altered();
     
     public signal void removed();
     
-    private Photo(PhotoID photo_id) {
+    private LibraryPhoto(PhotoID photo_id) {
         assert(photo_id.is_valid());
+        
+        base(photo_table.get_file(photo_id));
         
         this.photo_id = photo_id;
         
@@ -47,14 +597,14 @@ public class Photo : PhotoTransformer, Queryable {
     }
     
     public static void init() {
-        photo_map = new Gee.HashMap<int64?, Photo>(int64_hash, int64_equal, direct_equal);
+        photo_map = new Gee.HashMap<int64?, LibraryPhoto>(int64_hash, int64_equal, direct_equal);
         photo_table = new PhotoTable();
     }
     
     public static void terminate() {
     }
     
-    public static ImportResult import(File file, ImportID import_id, out Photo photo) {
+    public static ImportResult import(File file, ImportID import_id, out LibraryPhoto photo) {
         debug("Importing file %s", file.get_path());
 
         FileInfo info = null;
@@ -138,11 +688,11 @@ public class Photo : PhotoTransformer, Queryable {
         return ImportResult.SUCCESS;
     }
     
-    public static Photo fetch(PhotoID photo_id) {
-        Photo photo = photo_map.get(photo_id.id);
+    public static LibraryPhoto fetch(PhotoID photo_id) {
+        LibraryPhoto photo = photo_map.get(photo_id.id);
 
         if (photo == null) {
-            photo = new Photo(photo_id);
+            photo = new LibraryPhoto(photo_id);
             photo_map.set(photo_id.id, photo);
         }
         
@@ -153,19 +703,15 @@ public class Photo : PhotoTransformer, Queryable {
         return photo_id;
     }
     
-    public File get_file() {
-        return photo_table.get_file(photo_id);
-    }
-    
-    public string get_name() {
+    public override string get_name() {
         return photo_table.get_name(photo_id);
     }
-
-    public uint64 get_filesize() {
-        return photo_table.get_filesize(photo_id);    
+    
+    public override uint64 get_filesize() {
+        return photo_table.get_filesize(photo_id);
     }
     
-    public time_t get_exposure_time() {
+    public override time_t get_exposure_time() {
         if (exposure_time == -1)
             exposure_time = photo_table.get_exposure_time(photo_id);
         
@@ -188,7 +734,7 @@ public class Photo : PhotoTransformer, Queryable {
         return "[%lld] %s".printf(photo_id.id, get_file().get_path());
     }
 
-    public bool equals(Photo photo) {
+    public bool equals(LibraryPhoto photo) {
         // identity works because of the photo_map, but the photo_table primary key is where the
         // rubber hits the road
         if (this == photo) {
@@ -202,17 +748,12 @@ public class Photo : PhotoTransformer, Queryable {
         return false;
     }
     
-    public override Gdk.Pixbuf get_raw_pixbuf() throws Error {
-        return new Gdk.Pixbuf.from_file(get_file().get_path());
-    }
-    
-    public override Gdk.Pixbuf get_preview_pixbuf(int scale,
-        Gdk.InterpType interp = Gdk.InterpType.BILINEAR) throws Error {
+    public override Gdk.Pixbuf get_preview_pixbuf(int scale) {
         Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.BIG_SCALE);
         
         int pixels = scale_to_pixels(scale);
         if (pixels > 0)
-            pixbuf = scale_pixbuf(pixbuf, pixels, interp);
+            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.BILINEAR);
         
         return pixbuf;
     }
@@ -221,10 +762,6 @@ public class Photo : PhotoTransformer, Queryable {
         PhotoExif photo_exif = new PhotoExif(get_file());
         
         return photo_exif.has_exif() ? photo_exif.get_exif() : null;
-    }
-    
-    public override Dimensions get_raw_dimensions() {
-        return photo_table.get_dimensions(photo_id);
     }
     
     public override bool has_transformations() {
@@ -246,11 +783,15 @@ public class Photo : PhotoTransformer, Queryable {
             photo_altered();
     }
     
-    private override Orientation get_orientation() {
+    public override Dimensions get_raw_dimensions() {
+        return photo_table.get_dimensions(photo_id);
+    }
+
+    public override Orientation get_orientation() {
         return photo_table.get_orientation(photo_id);
     }
     
-    private override void set_orientation(Orientation orientation) {
+    public override void set_orientation(Orientation orientation) {
         photo_table.set_orientation(photo_id, orientation);
         
         altered();
@@ -466,13 +1007,18 @@ public class Photo : PhotoTransformer, Queryable {
             dest_exif.set_orientation(photo_table.get_orientation(photo_id));
             dest_exif.commit();
         } else {
-            Gdk.Pixbuf pixbuf = get_pixbuf(PhotoTransformer.UNSCALED);
+            Gdk.Pixbuf pixbuf = get_pixbuf(UNSCALED);
             pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
             copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
                 Dimensions.for_pixbuf(pixbuf));
         }
         
         return dest_file;
+    }
+    
+    // We keep exportable photos around for now, as they're expensive to generate ...
+    // this may change in the future.
+    public override void export_failed() {
     }
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
@@ -510,7 +1056,7 @@ public class Photo : PhotoTransformer, Queryable {
         // load transformed image for thumbnail generation
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = get_pixbuf(PhotoTransformer.SCREEN);
+            pixbuf = get_pixbuf(SCREEN);
         } catch (Error err) {
             error("%s", err.message);
         }
