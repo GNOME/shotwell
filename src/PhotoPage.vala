@@ -128,23 +128,26 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected void display(PhotoCollection controller, TransformablePhoto photo) {
+        this.controller = controller;
+        replace_photo(photo);
+    }
+    
+    protected void replace_photo(TransformablePhoto new_photo) {
         deactivate_tool();
         
         if (photo != null)
             photo.altered -= on_photo_altered;
 
-        this.controller = controller;
-        this.photo = photo;
-        
-        this.photo.altered += on_photo_altered;
+        photo = new_photo;
+        photo.altered += on_photo_altered;
         
         set_page_name(photo.get_name());
         
-        update_display();
-        update_sensitivity();
+        quick_update_pixbuf();
+        update_ui();
     }
     
-    private void update_display() {
+    private void quick_update_pixbuf() {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         set_pixbuf(photo.get_preview_pixbuf(TransformablePhoto.SCREEN));
@@ -157,7 +160,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
-    private void update_sensitivity() {
+    private void update_ui() {
         bool multiple = controller.get_count() > 1;
         
         prev_button.sensitive = multiple;
@@ -209,7 +212,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         set_default_interp(FAST_INTERP);
         
         // display the (possibly) new photo
-        update_pixbuf();
+        quick_update_pixbuf();
     }
     
     private override void drag_begin(Gdk.DragContext context) {
@@ -305,7 +308,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_photo_altered(TransformablePhoto p) {
-        update_pixbuf();
+        quick_update_pixbuf();
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
@@ -565,17 +568,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public void on_next_photo() {
         deactivate_tool();
         
-        photo = (TransformablePhoto) controller.get_next_photo(photo);
-        
-        update_display();
+        TransformablePhoto new_photo = (TransformablePhoto) controller.get_next_photo(photo);
+        if (new_photo != null)
+            replace_photo(new_photo);
     }
     
     public void on_previous_photo() {
         deactivate_tool();
         
-        photo = (TransformablePhoto) controller.get_previous_photo(photo);
-        
-        update_display();
+        TransformablePhoto new_photo = (TransformablePhoto) controller.get_previous_photo(photo);
+        if (new_photo != null)
+            replace_photo(new_photo);
     }
 
     public override Gee.Iterable<Queryable>? get_queryables() {
