@@ -38,6 +38,17 @@ public interface PhotoCollection : Object {
     public abstract PhotoBase? get_previous_photo(PhotoBase current);
 }
 
+public enum ImportResult {
+    SUCCESS,
+    FILE_ERROR,
+    DECODE_ERROR,
+    DATABASE_ERROR,
+    USER_ABORT,
+    NOT_A_FILE,
+    PHOTO_EXISTS,
+    UNSUPPORTED_FORMAT
+}
+
 // TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
@@ -60,34 +71,245 @@ public abstract class TransformablePhoto: PhotoBase {
         ALL             = 0xFFFFFFFF
     }
     
-    private static TransformablePhoto cached_raw_instance = null;
+    public enum Alteration {
+        IMAGE,
+        METADATA
+    }
+    
+    protected static PhotoTable photo_table = null;
+
+    private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
     
-    private File file;
+    protected PhotoID photo_id;
     
-    // the subclass is responsible for firing this signal whenever a transformation is added
-    // or removed
+    // because fetching some items from the database is high-overhead, certain items are cached
+    // here ... really want to be frugal about this, as maintaining coherency is complicated enough
+    private time_t exposure_time = -1;
+    
+    // fired when the image itself (its visual representation) has changed
     public signal void altered();
     
-    public TransformablePhoto(File file) {
-        this.file = file;
+    // fired when information about the image has changed
+    public signal void metadata_altered();
+    
+    // The key to this implementation is that multiple instances of TransformablePhoto with the
+    // same PhotoID cannot exist; it is up to the subclasses to ensure this.
+    protected TransformablePhoto(PhotoID photo_id) {
+        this.photo_id = photo_id;
+    }
+    
+    protected static void base_init() {
+        if (photo_table == null)
+            photo_table = new PhotoTable();
+    }
+    
+    protected static void base_terminate() {
+    }
+    
+    public static ImportResult import_photo(File file, ImportID import_id, out PhotoID photo_id,
+        out Gdk.Pixbuf pixbuf) {
+        if (photo_table.is_photo_stored(file))
+            return ImportResult.PHOTO_EXISTS;
+        
+        debug("Importing file %s", file.get_path());
+
+        FileInfo info = null;
+        try {
+            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            return ImportResult.FILE_ERROR;
+        }
+        
+        if (info.get_file_type() != FileType.REGULAR)
+            return ImportResult.NOT_A_FILE;
+        
+        if (info.get_content_type() != GPhoto.MIME.JPEG) {
+            message("Not importing %s: Unsupported content type %s", file.get_path(),
+                info.get_content_type());
+
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
+        
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(timestamp);
+        
+        Dimensions dim = Dimensions();
+        Orientation orientation = Orientation.TOP_LEFT;
+        time_t exposure_time = 0;
+        
+        // TODO: Try to read JFIF metadata too
+        PhotoExif exif = new PhotoExif(file);
+        if (exif.has_exif()) {
+            if (!exif.get_dimensions(out dim))
+                message("Unable to read EXIF dimensions for %s", file.get_path());
+            
+            if (!exif.get_timestamp(out exposure_time))
+                message("Unable to read EXIF orientation for %s", file.get_path());
+
+            orientation = exif.get_orientation();
+        }
+        
+        try {
+            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
+        } catch (Error err) {
+            // assume a decode error, although technically it could be I/O ... need better Gdk
+            // bindings to determine which
+            return ImportResult.DECODE_ERROR;
+        }
+        
+        // verify basic mechanics of photo: RGB 8-bit encoding
+        if (pixbuf.get_colorspace() != Gdk.Colorspace.RGB || pixbuf.get_n_channels() < 3 
+            || pixbuf.get_bits_per_sample() != 8) {
+            message("Not importing %s: Unsupported color format", file.get_path());
+            
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
+        
+        // XXX: Trust EXIF or Pixbuf for dimensions?
+        if (!dim.has_area())
+            dim = Dimensions(pixbuf.get_width(), pixbuf.get_height());
+
+        // photo information is stored in database in raw, non-modified format ... this is especially
+        // important dealing with dimensions and orientation
+        photo_id = photo_table.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            orientation, import_id);
+        if (photo_id.is_invalid())
+            return ImportResult.DATABASE_ERROR;
+        
+        // transform pixbuf into initial image
+        pixbuf = orientation.rotate_pixbuf(pixbuf);
+        
+        return ImportResult.SUCCESS;
     }
     
     public File get_file() {
-        return file;
+        return photo_table.get_file(photo_id);
+    }
+    
+    public time_t get_timestamp() {
+        return photo_table.get_timestamp(photo_id);
+    }
+
+    public PhotoID get_photo_id() {
+        return photo_id;
+    }
+    
+    public string to_string() {
+        return "[%lld] %s".printf(photo_id.id, get_file().get_path());
+    }
+
+    public bool equals(TransformablePhoto photo) {
+        // identity works because of the photo_map, but the photo_table primary key is where the
+        // rubber hits the road
+        if (this == photo) {
+            assert(photo_id.id == photo.photo_id.id);
+            
+            return true;
+        }
+        
+        assert(photo_id.id != photo.photo_id.id);
+        
+        return false;
+    }
+    
+    protected virtual void on_altered() {
+    }
+    
+    protected virtual void on_metadata_altered() {
+    }
+    
+    // This emulates virtual signals, which aren't working right now in Vala ... first allow the
+    // subclass to react to the event change, then notify listeners
+    protected void notify_altered(Alteration alteration) {
+        switch (alteration) {
+            case Alteration.IMAGE:
+                on_altered();
+                altered();
+            break;
+            
+            case Alteration.METADATA:
+                // cache coherency
+                exposure_time = photo_table.get_exposure_time(photo_id);
+                
+                on_metadata_altered();
+                metadata_altered();
+            break;
+            
+            default:
+                error("Unknown alteration: %d", (int) alteration);
+            break;
+        }
+    }
+    
+    // Queryable
+    
+    public override string get_name() {
+        return photo_table.get_name(photo_id);
+    }
+    
+    // PhotoSource
+    
+    public override uint64 get_filesize() {
+        return photo_table.get_filesize(photo_id);
+    }
+    
+    public override time_t get_exposure_time() {
+        if (exposure_time == -1)
+            exposure_time = photo_table.get_exposure_time(photo_id);
+        
+        return exposure_time;
+    }
+    
+    // Returns cropped and rotated dimensions
+    public override Dimensions get_dimensions() {
+        Box crop;
+        if (get_crop(out crop))
+            return crop.get_dimensions();
+        
+        return get_uncropped_dimensions();
+    }
+
+    public override Exif.Data? get_exif() {
+        PhotoExif photo_exif = new PhotoExif(get_file());
+        
+        return photo_exif.has_exif() ? photo_exif.get_exif() : null;
     }
     
     // Transformation storage and exporting
 
-    public abstract Dimensions get_raw_dimensions();
+    public Dimensions get_raw_dimensions() {
+        return photo_table.get_dimensions(photo_id);
+    }
+
+    public bool has_transformations() {
+        return photo_table.has_transformations(photo_id) 
+            || (photo_table.get_orientation(photo_id) != photo_table.get_original_orientation(photo_id));
+    }
     
-    public abstract bool has_transformations();
+    public void remove_all_transformations() {
+        bool altered = photo_table.remove_all_transformations(photo_id);
+        
+        Orientation orientation = photo_table.get_orientation(photo_id);
+        Orientation original_orientation = photo_table.get_original_orientation(photo_id);
+        if (orientation != original_orientation) {
+            photo_table.set_orientation(photo_id, original_orientation);
+            altered = true;
+        }
+
+        if (altered)
+            notify_altered(Alteration.IMAGE);
+    }
     
-    public abstract void remove_all_transformations();
+    public Orientation get_orientation() {
+        return photo_table.get_orientation(photo_id);
+    }
     
-    public abstract Orientation get_orientation();
-    
-    public abstract void set_orientation(Orientation orientation);
+    public void set_orientation(Orientation orientation) {
+        photo_table.set_orientation(photo_id, orientation);
+        
+        notify_altered(Alteration.IMAGE);
+    }
     
     public virtual void rotate(Rotation rotation) {
         Orientation orientation = get_orientation();
@@ -97,27 +319,154 @@ public abstract class TransformablePhoto: PhotoBase {
         set_orientation(orientation);
     }
     
-    public virtual bool has_crop() {
-        Box crop;
-        return get_raw_crop(out crop);
+    public bool has_crop() {
+        return photo_table.get_transformation(photo_id, "crop") != null;
+    }
+    
+    // Returns the crop in the raw photo's coordinate system
+    private bool get_raw_crop(out Box crop) {
+        KeyValueMap map = photo_table.get_transformation(photo_id, "crop");
+        if (map == null)
+            return false;
+        
+        int left = map.get_int("left", -1);
+        int top = map.get_int("top", -1);
+        int right = map.get_int("right", -1);
+        int bottom = map.get_int("bottom", -1);
+        
+        if (left == -1 || top == -1 || right == -1 || bottom == -1)
+            return false;
+        
+        crop = Box(left, top, right, bottom);
+        
+        return true;
+    }
+    
+    // Sets the crop using the raw photo's unrotated coordinate system
+    private void set_raw_crop(Box crop) {
+        KeyValueMap map = new KeyValueMap("crop");
+        map.set_int("left", crop.left);
+        map.set_int("top", crop.top);
+        map.set_int("right", crop.right);
+        map.set_int("bottom", crop.bottom);
+        
+        if (photo_table.set_transformation(photo_id, map))
+            notify_altered(Alteration.IMAGE);
+    }
+    
+    public float get_color_adjustment(ColorTransformationKind adjust_kind) {
+        KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
+        if (map == null)
+            return 0.0f;
+        
+        switch (adjust_kind) {
+            case ColorTransformationKind.EXPOSURE:
+                return (float) map.get_double("exposure", 0.0f);
+
+            case ColorTransformationKind.SATURATION:
+                return (float) map.get_double("saturation", 0.0f);
+
+            case ColorTransformationKind.TEMPERATURE:
+                return (float) map.get_double("temperature", 0.0f);
+
+            case ColorTransformationKind.TINT:
+                return (float) map.get_double("tint", 0.0f);
+
+            default:
+                error("unrecognized ColorTransformationKind enumeration value");
+                
+                return 0.0f;
+        }
+    }
+    
+    public void set_color_adjustments(Gee.ArrayList<ColorTransformationInstance?> adjustments) {
+        KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
+        if (map == null)
+            map = new KeyValueMap("adjustments");
+        
+        foreach (ColorTransformationInstance adjustment in adjustments) {
+            switch(adjustment.kind) {
+                case ColorTransformationKind.EXPOSURE:
+                    map.set_double("exposure", adjustment.parameter);
+                break;
+
+                case ColorTransformationKind.SATURATION:
+                    map.set_double("saturation", adjustment.parameter);
+                break;
+
+                case ColorTransformationKind.TEMPERATURE:
+                    map.set_double("temperature", adjustment.parameter);
+                break;
+
+                case ColorTransformationKind.TINT:
+                    map.set_double("tint", adjustment.parameter);
+                break;
+
+                default:
+                    error("unrecognized ColorTransformationKind enumeration value");
+                break;
+            }
+        }
+
+        if (photo_table.set_transformation(photo_id, map))
+            notify_altered(Alteration.IMAGE);
     }
 
-    // This returns the crop against the coordinate system of the unrotated photo.
-    public abstract bool get_raw_crop(out Box crop);
-    
-    // This sets the crop against the coordinate system of the unrotated photo.
-    public abstract void set_raw_crop(Box crop);
+    // All instances are against the coordinate system of the unscaled, unrotated photo.
+    private RedeyeInstance[] get_raw_redeye_instances() {
+        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
+        if (map == null)
+            return new RedeyeInstance[0];
+            
+        int num_points = map.get_int("num_points", -1);
+        assert(num_points > 0);
 
-    public abstract float get_color_adjustment(ColorTransformationKind kind);
-    
-    public abstract void set_color_adjustments(Gee.ArrayList<ColorTransformationInstance?> adjustments);
+        RedeyeInstance[] res = new RedeyeInstance[num_points];
+
+        Gdk.Point default_point = {0};
+        default_point.x = -1;
+        default_point.y = -1;
+
+        for (int i = 0; i < num_points; i++) {
+            string center_key = "center%d".printf(i);
+            string radius_key = "radius%d".printf(i);
+
+            res[i].center = map.get_point(center_key, default_point);
+            assert(res[i].center.x != default_point.x);
+            assert(res[i].center.y != default_point.y);
+
+            res[i].radius = map.get_int(radius_key, -1);
+            assert(res[i].radius != -1);
+        }
+
+        return res;
+    }
 
     // All instances are against the coordinate system of the unrotated photo.
-    public abstract void add_raw_redeye_instance(RedeyeInstance redeye);
-    
-    // All instances are against the coordinate system of the unscaled, unrotated photo.
-    public abstract RedeyeInstance[] get_raw_redeye_instances();
-    
+    private void add_raw_redeye_instance(RedeyeInstance redeye) {
+        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
+        if (map == null) {
+            map = new KeyValueMap("redeye");
+            map.set_int("num_points", 0);
+        }
+        
+        int num_points = map.get_int("num_points", -1);
+        assert(num_points >= 0);
+        
+        num_points++;
+        
+        string radius_key = "radius%d".printf(num_points - 1);
+        string center_key = "center%d".printf(num_points - 1);
+        
+        map.set_int(radius_key, redeye.radius);
+        map.set_point(center_key, redeye.center);
+        
+        map.set_int("num_points", num_points);
+
+        if (photo_table.set_transformation(photo_id, map))
+            notify_altered(Alteration.IMAGE);
+    }
+
     // Returns a File that can be used for exporting ... this file should persist for a reasonable
     // amount of time, as drag-and-drop exports can conclude long after the DnD source has seen
     // the end of the transaction. ... However, if failure is detected, export_failed() will be
@@ -126,13 +475,14 @@ public abstract class TransformablePhoto: PhotoBase {
 
     // Called when an export has failed; the object can use this to delete the exportable file
     // from generate_exportable() if necessary
-    public abstract void export_failed();
+    public virtual void export_failed() {
+    }
     
     // Pixbuf generation
 
     // Returns a raw, untransformed, unrotated, unscaled pixbuf from the source
     public Gdk.Pixbuf get_raw_pixbuf() throws Error {
-        return new Gdk.Pixbuf.from_file(file.get_path());
+        return new Gdk.Pixbuf.from_file(get_file().get_path());
     }
 
     // Converts a scale parameter for get_pixbuf or get_preview_pixbuf into an actual pixel
@@ -171,7 +521,7 @@ public abstract class TransformablePhoto: PhotoBase {
         // Image load-and-decode
         //
         
-        if (cached_raw != null && cached_raw_instance == this) {
+        if (cached_raw != null && cached_photo_id.id == photo_id.id) {
             // used the cached raw pixbuf for this instance, which is merely the decoded pixbuf
             // (no transformations)
 #if MEASURE_PIPELINE
@@ -198,7 +548,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
-            cached_raw_instance = this;
+            cached_photo_id = photo_id;
         }
 
         //
@@ -340,15 +690,6 @@ public abstract class TransformablePhoto: PhotoBase {
     
     // Aggregate/helper/translation functions
     
-    // Returns cropped and rotated dimensions
-    public override Dimensions get_dimensions() {
-        Box crop;
-        if (get_crop(out crop))
-            return crop.get_dimensions();
-        
-        return get_uncropped_dimensions();
-    }
-
     // Returns uncropped (but rotated) dimensions
     public Dimensions get_uncropped_dimensions() {
         Dimensions dim = get_raw_dimensions();
@@ -391,6 +732,7 @@ public abstract class TransformablePhoto: PhotoBase {
         
         add_raw_redeye_instance(inst);
     }
+
     private Gdk.Pixbuf do_redeye(owned Gdk.Pixbuf pixbuf, owned RedeyeInstance inst) {
         /* we remove redeye within a circular region called the "effect
            extent." the effect extent is inscribed within its "bounding
@@ -567,20 +909,8 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 }
 
-public enum ImportResult {
-    SUCCESS,
-    FILE_ERROR,
-    DECODE_ERROR,
-    DATABASE_ERROR,
-    USER_ABORT,
-    NOT_A_FILE,
-    PHOTO_EXISTS,
-    UNSUPPORTED_FORMAT
-}
-
 public class LibraryPhoto : TransformablePhoto {
     private static Gee.HashMap<int64?, LibraryPhoto> photo_map = null;
-    private static PhotoTable photo_table = null;
     
     public enum Currency {
         CURRENT,
@@ -588,119 +918,43 @@ public class LibraryPhoto : TransformablePhoto {
         GONE
     }
     
-    private PhotoID photo_id;
-    
-    // because fetching some items from the database is high-overhead, certain items are cached
-    // here ... really want to be frugal about this, as maintaining coherency is complicated enough
-    private time_t exposure_time = -1;
-    
     public signal void thumbnail_altered();
     
     public signal void removed();
     
     private LibraryPhoto(PhotoID photo_id) {
-        assert(photo_id.is_valid());
-        
-        base(photo_table.get_file(photo_id));
-        
-        this.photo_id = photo_id;
-        
-        // catch our own signal, as this can happen in many different places throughout the code
-        altered += remove_exportable_file;
+        base(photo_id);
     }
     
     public static void init() {
+        TransformablePhoto.base_init();
+        
         photo_map = new Gee.HashMap<int64?, LibraryPhoto>(int64_hash, int64_equal, direct_equal);
-        photo_table = new PhotoTable();
     }
     
     public static void terminate() {
+        TransformablePhoto.base_terminate();
     }
     
     public static ImportResult import(File file, ImportID import_id, out LibraryPhoto photo) {
-        debug("Importing file %s", file.get_path());
+        PhotoID photo_id;
+        Gdk.Pixbuf initial_pixbuf;
+        ImportResult result = TransformablePhoto.import_photo(file, import_id, out photo_id,
+            out initial_pixbuf);
+        if (result != ImportResult.SUCCESS)
+            return result;
 
-        FileInfo info = null;
-        try {
-            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            return ImportResult.FILE_ERROR;
-        }
-        
-        if (info.get_file_type() != FileType.REGULAR)
-            return ImportResult.NOT_A_FILE;
-        
-        if (info.get_content_type() != GPhoto.MIME.JPEG) {
-            message("Not importing %s: Unsupported content type %s", file.get_path(),
-                info.get_content_type());
-
-            return ImportResult.UNSUPPORTED_FORMAT;
-        }
-        
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
-        
-        Dimensions dim = Dimensions();
-        Orientation orientation = Orientation.TOP_LEFT;
-        time_t exposure_time = 0;
-        
-        // TODO: Try to read JFIF metadata too
-        PhotoExif exif = new PhotoExif(file);
-        if (exif.has_exif()) {
-            if (!exif.get_dimensions(out dim))
-                message("Unable to read EXIF dimensions for %s", file.get_path());
-            
-            if (!exif.get_timestamp(out exposure_time))
-                message("Unable to read EXIF orientation for %s", file.get_path());
-
-            orientation = exif.get_orientation();
-        }
-        
-        Gdk.Pixbuf pixbuf;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            // assume a decode error, although technically it could be I/O ... need better Gdk
-            // bindings to determine which
-            return ImportResult.DECODE_ERROR;
-        }
-        
-        // verify basic mechanics of photo: RGB 8-bit encoding
-        if (pixbuf.get_colorspace() != Gdk.Colorspace.RGB || pixbuf.get_n_channels() < 3 
-            || pixbuf.get_bits_per_sample() != 8) {
-            message("Not importing %s: Unsupported color format", file.get_path());
-            
-            return ImportResult.UNSUPPORTED_FORMAT;
-        }
-        
-        // XXX: Trust EXIF or Pixbuf for dimensions?
-        if (!dim.has_area())
-            dim = Dimensions(pixbuf.get_width(), pixbuf.get_height());
-
-        if (photo_table.is_photo_stored(file))
-            return ImportResult.PHOTO_EXISTS;
-        
-        // photo information is stored in database in raw, non-modified format ... this is especially
-        // important dealing with dimensions and orientation
-        PhotoID photo_id = photo_table.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-            orientation, import_id);
-        if (photo_id.is_invalid())
-            return ImportResult.DATABASE_ERROR;
-        
         // sanity ... this would be very bad
         assert(!photo_map.contains(photo_id.id));
         
-        // modify pixbuf for thumbnails, which are stored with modifications
-        pixbuf = orientation.rotate_pixbuf(pixbuf);
-        
-        // import it into the thumbnail cache with modifications
-        ThumbnailCache.import(photo_id, pixbuf);
+        // import initial image into the thumbnail cache with modifications
+        ThumbnailCache.import(photo_id, initial_pixbuf);
         
         photo = fetch(photo_id);
         
         return ImportResult.SUCCESS;
     }
-    
+
     public static LibraryPhoto fetch(PhotoID photo_id) {
         LibraryPhoto photo = photo_map.get(photo_id.id);
 
@@ -712,27 +966,22 @@ public class LibraryPhoto : TransformablePhoto {
         return photo;
     }
     
-    public PhotoID get_photo_id() {
-        return photo_id;
-    }
-    
-    public override string get_name() {
-        return photo_table.get_name(photo_id);
-    }
-    
-    public override uint64 get_filesize() {
-        return photo_table.get_filesize(photo_id);
-    }
-    
-    public override time_t get_exposure_time() {
-        if (exposure_time == -1)
-            exposure_time = photo_table.get_exposure_time(photo_id);
+    private override void on_altered () {
+        // the exportable file is now not in sync with transformed photo
+        remove_exportable_file();
+
+        // load transformed image for thumbnail generation
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = get_pixbuf(SCREEN);
+        } catch (Error err) {
+            error("%s", err.message);
+        }
         
-        return exposure_time;
-    }
-    
-    public time_t get_timestamp() {
-        return photo_table.get_timestamp(photo_id);
+        ThumbnailCache.import(photo_id, pixbuf, true);
+        
+        // fire signal that thumbnails have changed
+        thumbnail_altered();
     }
 
     public EventID get_event_id() {
@@ -741,26 +990,9 @@ public class LibraryPhoto : TransformablePhoto {
     
     public void set_event_id(EventID event_id) {
         photo_table.set_event(photo_id, event_id);
+        notify_altered(Alteration.METADATA);
     }
 
-    public string to_string() {
-        return "[%lld] %s".printf(photo_id.id, get_file().get_path());
-    }
-
-    public bool equals(LibraryPhoto photo) {
-        // identity works because of the photo_map, but the photo_table primary key is where the
-        // rubber hits the road
-        if (this == photo) {
-            assert(photo_id.id == photo.photo_id.id);
-            
-            return true;
-        }
-        
-        assert(photo_id.id != photo.photo_id.id);
-        
-        return false;
-    }
-    
     public override Gdk.Pixbuf get_preview_pixbuf(int scale) {
         Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.BIG_SCALE);
         
@@ -769,45 +1001,6 @@ public class LibraryPhoto : TransformablePhoto {
             pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.BILINEAR);
         
         return pixbuf;
-    }
-    
-    public override Exif.Data? get_exif() {
-        PhotoExif photo_exif = new PhotoExif(get_file());
-        
-        return photo_exif.has_exif() ? photo_exif.get_exif() : null;
-    }
-    
-    public override bool has_transformations() {
-        return photo_table.has_transformations(photo_id) 
-            || (photo_table.get_orientation(photo_id) != photo_table.get_original_orientation(photo_id));
-    }
-    
-    public override void remove_all_transformations() {
-        bool altered = photo_table.remove_all_transformations(photo_id);
-        
-        Orientation orientation = photo_table.get_orientation(photo_id);
-        Orientation original_orientation = photo_table.get_original_orientation(photo_id);
-        if (orientation != original_orientation) {
-            photo_table.set_orientation(photo_id, original_orientation);
-            altered = true;
-        }
-
-        if (altered)
-            photo_altered();
-    }
-    
-    public override Dimensions get_raw_dimensions() {
-        return photo_table.get_dimensions(photo_id);
-    }
-
-    public override Orientation get_orientation() {
-        return photo_table.get_orientation(photo_id);
-    }
-    
-    public override void set_orientation(Orientation orientation) {
-        photo_table.set_orientation(photo_id, orientation);
-        
-        altered();
     }
     
     public override void rotate(Rotation rotation) {
@@ -827,152 +1020,6 @@ public class LibraryPhoto : TransformablePhoto {
         thumbnail_altered();
     }
     
-    public override bool has_crop() {
-        return photo_table.get_transformation(photo_id, "crop") != null;
-    }
-    
-    // Returns the crop in the raw photo's coordinate system
-    private override bool get_raw_crop(out Box crop) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "crop");
-        if (map == null)
-            return false;
-        
-        int left = map.get_int("left", -1);
-        int top = map.get_int("top", -1);
-        int right = map.get_int("right", -1);
-        int bottom = map.get_int("bottom", -1);
-        
-        if (left == -1 || top == -1 || right == -1 || bottom == -1)
-            return false;
-        
-        crop = Box(left, top, right, bottom);
-        
-        return true;
-    }
-    
-    // Sets the crop using the raw photo's unrotated coordinate system
-    private override void set_raw_crop(Box crop) {
-        KeyValueMap map = new KeyValueMap("crop");
-        map.set_int("left", crop.left);
-        map.set_int("top", crop.top);
-        map.set_int("right", crop.right);
-        map.set_int("bottom", crop.bottom);
-        
-        if (photo_table.set_transformation(photo_id, map))
-            photo_altered();
-    }
-    
-    private override void add_raw_redeye_instance(RedeyeInstance redeye) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
-        if (map == null) {
-            map = new KeyValueMap("redeye");
-            map.set_int("num_points", 0);
-        }
-        
-        int num_points = map.get_int("num_points", -1);
-        assert(num_points >= 0);
-        
-        num_points++;
-        
-        string radius_key = "radius%d".printf(num_points - 1);
-        string center_key = "center%d".printf(num_points - 1);
-        
-        map.set_int(radius_key, redeye.radius);
-        map.set_point(center_key, redeye.center);
-        
-        map.set_int("num_points", num_points);
-
-        if (photo_table.set_transformation(photo_id, map))
-            photo_altered();
-    }
-
-    private override RedeyeInstance[] get_raw_redeye_instances() {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
-        if (map == null)
-            return new RedeyeInstance[0];
-            
-        int num_points = map.get_int("num_points", -1);
-        assert(num_points > 0);
-
-        RedeyeInstance[] res = new RedeyeInstance[num_points];
-
-        Gdk.Point default_point = {0};
-        default_point.x = -1;
-        default_point.y = -1;
-
-        for (int i = 0; i < num_points; i++) {
-            string center_key = "center%d".printf(i);
-            string radius_key = "radius%d".printf(i);
-
-            res[i].center = map.get_point(center_key, default_point);
-            assert(res[i].center.x != default_point.x);
-            assert(res[i].center.y != default_point.y);
-
-            res[i].radius = map.get_int(radius_key, -1);
-            assert(res[i].radius != -1);
-        }
-
-        return res;
-    }
-
-    public override float get_color_adjustment(ColorTransformationKind adjust_kind) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
-        if (map == null)
-            return 0.0f;
-        
-        switch (adjust_kind) {
-            case ColorTransformationKind.EXPOSURE:
-                return (float) map.get_double("exposure", 0.0f);
-
-            case ColorTransformationKind.SATURATION:
-                return (float) map.get_double("saturation", 0.0f);
-
-            case ColorTransformationKind.TEMPERATURE:
-                return (float) map.get_double("temperature", 0.0f);
-
-            case ColorTransformationKind.TINT:
-                return (float) map.get_double("tint", 0.0f);
-
-            default:
-                error("unrecognized ColorTransformationKind enumeration value");
-                
-                return 0.0f;
-        }
-    }
-    
-    public override void set_color_adjustments(Gee.ArrayList<ColorTransformationInstance?> adjustments) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
-        if (map == null)
-            map = new KeyValueMap("adjustments");
-        
-        foreach (ColorTransformationInstance adjustment in adjustments) {
-            switch(adjustment.kind) {
-                case ColorTransformationKind.EXPOSURE:
-                    map.set_double("exposure", adjustment.parameter);
-                break;
-
-                case ColorTransformationKind.SATURATION:
-                    map.set_double("saturation", adjustment.parameter);
-                break;
-
-                case ColorTransformationKind.TEMPERATURE:
-                    map.set_double("temperature", adjustment.parameter);
-                break;
-
-                case ColorTransformationKind.TINT:
-                    map.set_double("tint", adjustment.parameter);
-                break;
-
-                default:
-                    error("unrecognized ColorTransformationKind enumeration value");
-                break;
-            }
-        }
-
-        if (photo_table.set_transformation(photo_id, map))
-            photo_altered();
-    }
-
     private File generate_exportable_file() throws Error {
         File original_file = get_file();
 
@@ -1060,24 +1107,6 @@ public class LibraryPhoto : TransformablePhoto {
         
         // remove from global map
         photo_map.remove(photo_id.id);
-    }
-    
-    private void photo_altered() {
-        // fire signal
-        altered();
-
-        // load transformed image for thumbnail generation
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = get_pixbuf(SCREEN);
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        ThumbnailCache.import(photo_id, pixbuf, true);
-        
-        // fire signal
-        thumbnail_altered();
     }
     
     private void remove_exportable_file() {
@@ -1185,11 +1214,69 @@ public class LibraryPhoto : TransformablePhoto {
         
         if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
             orientation)) {
-            // cache coherency
-            this.exposure_time = exposure_time;
-            
-            photo_altered();
+            // could be both
+            notify_altered(Alteration.METADATA);
+            notify_altered(Alteration.IMAGE);
         }
+    }
+}
+
+public class DirectPhoto : TransformablePhoto {
+    private Gdk.Pixbuf current_pixbuf;
+    
+    private DirectPhoto(PhotoID photo_id, Gdk.Pixbuf? initial_pixbuf) {
+        base(photo_id);
+        
+        current_pixbuf = (initial_pixbuf != null) ? initial_pixbuf : get_pixbuf(SCREEN);
+    }
+    
+    public static void init() {
+        TransformablePhoto.base_init();
+    }
+    
+    public static void terminate() {
+        TransformablePhoto.base_terminate();
+    }
+    
+    public static DirectPhoto? fetch(File file) {
+        // for direct photos using an in-memory database, a fetch is an import if the file is
+        // unknown
+        PhotoID photo_id;
+        Gdk.Pixbuf initial_pixbuf;
+        ImportResult result = TransformablePhoto.import_photo(file, photo_table.generate_import_id(), 
+            out photo_id, out initial_pixbuf);
+        switch (result) {
+            case ImportResult.SUCCESS:
+                return new DirectPhoto(photo_id, initial_pixbuf);
+            
+            case ImportResult.PHOTO_EXISTS:
+                photo_id = photo_table.get_id(file);
+                assert(photo_id.is_valid());
+                
+                return new DirectPhoto(photo_id, null);
+            
+            default:
+                // TODO: Better error reporting
+                return null;
+        }
+    }
+    
+    public override File generate_exportable() {
+        return (File) null;
+    }
+    
+    public override Gdk.Pixbuf get_preview_pixbuf(int scale) throws Error {
+        Gdk.Pixbuf pixbuf = current_pixbuf;
+        
+        int pixels = scale_to_pixels(scale);
+        if (pixels > 0)
+            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.BILINEAR);
+        
+        return pixbuf;
+    }
+    
+    private override void on_altered() {
+        current_pixbuf = get_pixbuf(SCREEN);
     }
 }
 

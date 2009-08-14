@@ -47,7 +47,8 @@ SRC_FILES = \
 	EditingTools.vala \
 	Queryable.vala \
 	LibraryWindow.vala \
-	CameraTable.vala
+	CameraTable.vala \
+	DirectWindow.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -62,7 +63,8 @@ RESOURCE_FILES = \
 	fullscreen.ui \
 	import_queue.ui \
 	events_directory.ui \
-	event.ui
+	event.ui \
+	direct.ui
 
 SRC_HEADER_FILES = \
 	gphoto.h

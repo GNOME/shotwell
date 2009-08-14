@@ -53,7 +53,7 @@ void library_exec(string[] mounts) {
     }
 
     // init modules library relies on
-    DatabaseTable.init();
+    DatabaseTable.init(AppWindow.get_data_subdir("data").get_child("photo.db"));
     ThumbnailCache.init();
     LibraryPhoto.init();
 
@@ -86,6 +86,27 @@ void library_exec(string[] mounts) {
     DatabaseTable.terminate();
 }
 
+void editing_exec(string filename) {
+    // validate filename ... direct editing only works on files that exist
+    if (!FileUtils.test(filename, FileTest.EXISTS) || !FileUtils.test(filename, FileTest.IS_REGULAR)) {
+        stdout.printf("%s not found.", filename);
+        
+        return;
+    }
+    
+    // init module direct-editing relies on
+    DatabaseTable.init(null);
+    DirectPhoto.init();
+    
+    DirectWindow direct_window = new DirectWindow(File.new_for_path(filename));
+    direct_window.show_all();
+    
+    Gtk.main();
+    
+    DirectPhoto.terminate();
+    DatabaseTable.terminate();
+}
+
 void main(string[] args) {
     // init GTK
     Gtk.init(ref args);
@@ -96,11 +117,16 @@ void main(string[] args) {
     // set up GLib environment
     GLib.Environment.set_application_name(Resources.APP_TITLE);
     
-    // walk command-line arguments for camera mounts
+    // walk command-line arguments for camera mounts or filename for direct editing ... only one
+    // filename supported for now, so take the first one and drop the rest ... note that URIs for
+    // filenames are currently not permitted, to differentiate between mount points
     string[] mounts = new string[0];
+    string filename = null;
     for (int ctr = 1; ctr < args.length; ctr++) {
         if (LibraryWindow.is_mount_uri_supported(args[ctr]))
             mounts += args[ctr];
+        else if (filename == null && !args[ctr].contains("://"))
+            filename = args[ctr];
     }
     
     // in both the case of running as the library or an editor, AppWindow and Resources are always
@@ -108,7 +134,13 @@ void main(string[] args) {
     AppWindow.init(args);
     Resources.init();
     
-    library_exec(mounts);
+    // since it's possible for a mount name to be passed that's not supported (and hence an empty
+    // mount list), or for nothing to be on the command-line at all, only go to direct editing if a
+    // filename is spec'd
+    if (filename == null)
+        library_exec(mounts);
+    else
+        editing_exec(filename);
     
     // terminate mode-inspecific modules
     Resources.terminate();

@@ -694,5 +694,68 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
     }
+}
+
+public class DirectPhotoCollection : Object, PhotoCollection {
+    private File dir;
     
+    public DirectPhotoCollection(File dir) {
+        this.dir = dir;
+    }
+    
+    public int get_count() {
+        return 0;
+    }
+    
+    public PhotoBase? get_first_photo() {
+        return null;
+    }
+    
+    public PhotoBase? get_last_photo() {
+        return null;
+    }
+    
+    public PhotoBase? get_next_photo(PhotoBase current) {
+        return null;
+    }
+    
+    public PhotoBase? get_previous_photo(PhotoBase current) {
+        return null;
+    }
+}
+
+public class DirectPhotoPage : EditingHostPage {
+    private const Gtk.ActionEntry[] ACTIONS = {
+        { "FileMenu", null, "_File", null, null, null },
+        
+        { "ViewMenu", null, "_View", null, null, null },
+        
+        { "HelpMenu", null, "_Help", null, null, null }
+    };
+    
+    private File file;
+    private DirectPhoto photo = null;
+    private DirectPhotoCollection photo_collection = null;
+    
+    public DirectPhotoPage(File file) {
+        base(file.get_basename());
+        
+        this.file = file;
+        
+        init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", ACTIONS);
+        
+        photo = DirectPhoto.fetch(file);
+        photo_collection = new DirectPhotoCollection(file.get_parent());
+    }
+    
+    private override void realize() {
+        if (base.realize != null)
+            base.realize();
+
+        display(photo_collection, photo);
+    }
+    
+    public File get_current_file() {
+        return file;
+    }
 }

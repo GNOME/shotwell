@@ -15,13 +15,15 @@ public class DatabaseTable {
     
     public string table_name = null;
 
-    // Doing this because static construct {} not working
-    public static void init() {
-        File db_file = AppWindow.get_data_subdir("data").get_child("photo.db");
-        int res = Sqlite.Database.open_v2(db_file.get_path(), out db, 
-            Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, null);
+    // Doing this because static construct {} not working ... passing null will make all databases
+    // exist in-memory *only*, which is may be useless for certain tables
+    public static void init(File? db_file) {
+        string filename = (db_file != null) ? db_file.get_path() : ":memory:";
+
+        int res = Sqlite.Database.open_v2(filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, 
+            null);
         if (res != Sqlite.OK)
-            error("Unable to open/create photo database %s: %d", db_file.get_path(), res);
+            error("Unable to open/create photo database %s: %d", filename, res);
     }
     
     public static void terminate() {
