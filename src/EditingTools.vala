@@ -417,8 +417,8 @@ public class CropTool : EditingTool {
             apply_button.set_image_position(Gtk.PositionType.LEFT);
 
             Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
-            layout.add(apply_button);
             layout.add(cancel_button);
+            layout.add(apply_button);
             
             add(layout);
         }
