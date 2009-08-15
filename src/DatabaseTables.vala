@@ -723,6 +723,19 @@ public class PhotoTable : DatabaseTable {
         
         return true;
     }
+
+    public int get_transformation_count(PhotoID photo_id) {
+        string trans = get_raw_transformations(photo_id);
+        if (trans == null)
+            return 0;
+
+        FixedKeyFile keyfile = new FixedKeyFile();
+        if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+            return 0;
+        string[] groups = keyfile.get_groups();
+
+        return groups.length;
+    }
 }
 
 public class ThumbnailCacheTable : DatabaseTable {

@@ -68,6 +68,7 @@ public abstract class TransformablePhoto: PhotoBase {
         CROP            = 1 << 1,
         REDEYE          = 1 << 2,
         ADJUST          = 1 << 3,
+        ENHANCE         = 1 << 4,
         ALL             = 0xFFFFFFFF
     }
     
@@ -283,8 +284,22 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 
     public bool has_transformations() {
-        return photo_table.has_transformations(photo_id) 
-            || (photo_table.get_orientation(photo_id) != photo_table.get_original_orientation(photo_id));
+        // trivial check -- if the photo has been reoriented, then it has transformations
+        if (photo_table.get_orientation(photo_id) != photo_table.get_original_orientation(photo_id))
+            return true;
+
+        // if execution reaches this point, we didn't return above, so perform a more
+        // complicated series of tests
+        if (!photo_table.has_transformations(photo_id))
+            return false;
+        if ((photo_table.get_transformation_count(photo_id) == 1) &&
+            (photo_table.get_transformation(photo_id, "enhancement") != null) &&
+            (!is_enhancement_enabled()))
+            return false;
+        
+        // if we haven't returned by this point, then we have transformations other
+        // than disabled enhancement, so return true
+        return true;
     }
     
     public void remove_all_transformations() {
@@ -354,56 +369,56 @@ public abstract class TransformablePhoto: PhotoBase {
             notify_altered(Alteration.IMAGE);
     }
     
-    public float get_color_adjustment(ColorTransformationKind adjust_kind) {
+    public float get_color_adjustment(RGBTransformationKind adjust_kind) {
         KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
         if (map == null)
             return 0.0f;
         
         switch (adjust_kind) {
-            case ColorTransformationKind.EXPOSURE:
+            case RGBTransformationKind.EXPOSURE:
                 return (float) map.get_double("exposure", 0.0f);
 
-            case ColorTransformationKind.SATURATION:
+            case RGBTransformationKind.SATURATION:
                 return (float) map.get_double("saturation", 0.0f);
 
-            case ColorTransformationKind.TEMPERATURE:
+            case RGBTransformationKind.TEMPERATURE:
                 return (float) map.get_double("temperature", 0.0f);
 
-            case ColorTransformationKind.TINT:
+            case RGBTransformationKind.TINT:
                 return (float) map.get_double("tint", 0.0f);
 
             default:
-                error("unrecognized ColorTransformationKind enumeration value");
+                error("unrecognized RGBTransformationKind enumeration value");
                 
                 return 0.0f;
         }
     }
     
-    public void set_color_adjustments(Gee.ArrayList<ColorTransformationInstance?> adjustments) {
+    public void set_color_adjustments(Gee.ArrayList<RGBTransformationInstance?> adjustments) {
         KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
         if (map == null)
             map = new KeyValueMap("adjustments");
         
-        foreach (ColorTransformationInstance adjustment in adjustments) {
+        foreach (RGBTransformationInstance adjustment in adjustments) {
             switch(adjustment.kind) {
-                case ColorTransformationKind.EXPOSURE:
+                case RGBTransformationKind.EXPOSURE:
                     map.set_double("exposure", adjustment.parameter);
                 break;
 
-                case ColorTransformationKind.SATURATION:
+                case RGBTransformationKind.SATURATION:
                     map.set_double("saturation", adjustment.parameter);
                 break;
 
-                case ColorTransformationKind.TEMPERATURE:
+                case RGBTransformationKind.TEMPERATURE:
                     map.set_double("temperature", adjustment.parameter);
                 break;
 
-                case ColorTransformationKind.TINT:
+                case RGBTransformationKind.TINT:
                     map.set_double("tint", adjustment.parameter);
                 break;
 
                 default:
-                    error("unrecognized ColorTransformationKind enumeration value");
+                    error("unrecognized RGBTransformationKind enumeration value");
                 break;
             }
         }
@@ -467,6 +482,88 @@ public abstract class TransformablePhoto: PhotoBase {
             notify_altered(Alteration.IMAGE);
     }
 
+    public void set_enhancement_enabled() {
+        KeyValueMap map = photo_table.get_transformation(photo_id,
+            "enhancement");
+
+        if (map == null) {
+            map = new KeyValueMap("enhancement");
+        }
+
+        if (!map.has_key("encoded_transformation")) {
+            Gdk.Pixbuf histogram_pixbuf = null;        
+            try {
+                histogram_pixbuf = get_pixbuf(1024, Exception.ALL, Gdk.InterpType.HYPER);
+            } catch (Error e) {
+                error("pixbuf generation failed");
+            }
+            IntensityTransformation transform =
+                EnhancementFactory.create_current(histogram_pixbuf);
+            map.set_int("version", EnhancementFactory.get_current_version());
+            map.set_string("encoded_transformation", transform.to_string());
+        }
+
+        map.set_bool("enhanced", true);
+
+        if (photo_table.set_transformation(photo_id, map))
+            notify_altered(Alteration.IMAGE);
+    }
+    
+    public void set_enhancement_disabled() {
+        KeyValueMap map = photo_table.get_transformation(photo_id,
+            "enhancement");
+
+        if (map == null) {
+            map = new KeyValueMap("enhancement");
+        }
+        
+        map.set_bool("enhanced", false);
+
+        if (photo_table.set_transformation(photo_id, map))
+            notify_altered(Alteration.IMAGE);
+    }
+    
+    private IntensityTransformation get_enhancement_transformation() {
+        assert(is_enhancement_enabled());
+        
+        KeyValueMap map = photo_table.get_transformation(photo_id,
+            "enhancement");
+        assert(map != null);
+        assert(map.has_key("encoded_transformation"));
+        
+        string encoded_transformation = map.get_string("encoded_transformation",
+            "");
+        assert(encoded_transformation != "");
+        
+        int version = map.get_int("version", 0);
+
+        return EnhancementFactory.create_from_encoding(version,
+            encoded_transformation);
+    }
+    
+    public bool is_enhancement_enabled() {
+        KeyValueMap map = photo_table.get_transformation(photo_id,
+            "enhancement");
+
+        /* if there's no enhancement group in the map, then enhancement is
+           disabled */
+        if (map == null)
+            return false;
+
+        /* if there is an enhancement group in the map, but the "enhanced" key
+           has value false, then enhancement is disabled */
+        if (!map.get_bool("enhanced", true))
+            return false;
+
+        /* if enhanced is set to true in the map, but the encoding version used
+           is unsupported, then enhancement is disabled */
+        if (!EnhancementFactory.is_encoding_version_supported(map.get_int("version", 0)))
+            return false;
+        
+        /* otherwise, enhancement is enabled */
+        return true;
+    }
+
     // Returns a File that can be used for exporting ... this file should persist for a reasonable
     // amount of time, as drag-and-drop exports can conclude long after the DnD source has seen
     // the end of the transaction. ... However, if failure is detected, export_failed() will be
@@ -510,8 +607,9 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
-        double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, redeye_time = 0.0, 
-            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0;
+         double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, redeye_time = 0.0, 
+            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0,
+            enhance_time = 0.0;
 
         total_timer.start();
 #endif
@@ -600,11 +698,26 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            ColorTransformation composite_transform = get_composite_transformation();
+            RGBTransformation composite_transform = get_composite_transformation();
             if (!composite_transform.is_identity())
-                ColorTransformation.transform_pixbuf(composite_transform, pixbuf);
+                RGBTransformation.transform_pixbuf(composite_transform, pixbuf);
 #if MEASURE_PIPELINE
             adjustment_time = timer.elapsed();
+#endif
+        }
+        // auto-enhancement
+        if ((exceptions & Exception.ENHANCE) == 0) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            if (is_enhancement_enabled()) {
+                IntensityTransformation adaptive_transform =
+                    get_enhancement_transformation();
+                IntensityTransformation.transform_pixbuf(adaptive_transform, pixbuf);
+            }
+
+#if MEASURE_PIPELINE
+            enhance_time = timer.elapsed();
 #endif
         }
 
@@ -622,9 +735,9 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         double total_time = total_timer.elapsed();
         
-        debug("Pipeline: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
-            load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time,
-            orientation_time, total_time);
+        debug("Pipeline: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf enhancement=%lf orientation=%lf total=%lf",
+            load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time, 
+            enhance_time, orientation_time, total_time);
 #endif
         
         return pixbuf;
@@ -821,29 +934,29 @@ public abstract class TransformablePhoto: PhotoBase {
         return pixbuf;
     }
 
-    public ColorTransformation get_composite_transformation() {
-        float exposure_param = get_color_adjustment(ColorTransformationKind.EXPOSURE);
-        float saturation_param = get_color_adjustment(ColorTransformationKind.SATURATION);
-        float tint_param = get_color_adjustment(ColorTransformationKind.TINT);
-        float temperature_param = get_color_adjustment(ColorTransformationKind.TEMPERATURE);
+    public RGBTransformation get_composite_transformation() {
+        float exposure_param = get_color_adjustment(RGBTransformationKind.EXPOSURE);
+        float saturation_param = get_color_adjustment(RGBTransformationKind.SATURATION);
+        float tint_param = get_color_adjustment(RGBTransformationKind.TINT);
+        float temperature_param = get_color_adjustment(RGBTransformationKind.TEMPERATURE);
 
-        ColorTransformation exposure_transform =
-            ColorTransformationFactory.get_instance().from_parameter(
-            ColorTransformationKind.EXPOSURE, exposure_param);
+        RGBTransformation exposure_transform =
+            RGBTransformationFactory.get_instance().from_parameter(
+            RGBTransformationKind.EXPOSURE, exposure_param);
 
-        ColorTransformation saturation_transform =
-            ColorTransformationFactory.get_instance().from_parameter(
-            ColorTransformationKind.SATURATION, saturation_param);
+        RGBTransformation saturation_transform =
+            RGBTransformationFactory.get_instance().from_parameter(
+            RGBTransformationKind.SATURATION, saturation_param);
 
-        ColorTransformation tint_transform =
-            ColorTransformationFactory.get_instance().from_parameter(
-            ColorTransformationKind.TINT, tint_param);
+        RGBTransformation tint_transform =
+            RGBTransformationFactory.get_instance().from_parameter(
+            RGBTransformationKind.TINT, tint_param);
 
-        ColorTransformation temperature_transform =
-            ColorTransformationFactory.get_instance().from_parameter(
-            ColorTransformationKind.TEMPERATURE, temperature_param);
+        RGBTransformation temperature_transform =
+            RGBTransformationFactory.get_instance().from_parameter(
+            RGBTransformationKind.TEMPERATURE, temperature_param);
 
-        ColorTransformation composite_transform = ((
+        RGBTransformation composite_transform = ((
                 exposure_transform.compose_against(
                 saturation_transform)).compose_against(
                 temperature_transform)).compose_against(

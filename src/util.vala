@@ -73,7 +73,13 @@ public class KeyValueMap {
         
         map.set(key, value.to_string());
     }
-    
+
+    public void set_bool(string key, bool value) {
+        assert(key != null);
+        
+        map.set(key, value.to_string());
+    }
+
     public string get_string(string key, string? def) {
         string value = map.get(key);
         
@@ -90,6 +96,12 @@ public class KeyValueMap {
         string value = map.get(key);
         
         return (value != null) ? value.to_double() : def;
+    }
+
+    public bool get_bool(string key, bool def) {
+        string value = map.get(key);
+        
+        return (value != null) ? value.to_bool() : def;
     }
     
     // REDEYE: redeye reduction operates on circular regions defined by

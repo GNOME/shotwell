@@ -24,5 +24,6 @@ public class FixedKeyFile {
     // g_key_file_to_data never throws an error according to the documentation
     public string to_data (out size_t length = null, out GLib.Error error = null);
     public void remove_group (string group_name) throws GLib.KeyFileError;
+    public string[] get_groups();
 }
 

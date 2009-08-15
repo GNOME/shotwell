@@ -30,6 +30,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToggleToolButton adjust_button = null;
+    private Gtk.ToggleToolButton enhance_button = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private EditingTool current_tool = null;
@@ -69,6 +70,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button.set_tooltip_text("Adjust the photo's color and tone");
         adjust_button.toggled += on_adjust_toggled;
         toolbar.insert(adjust_button, -1);
+
+        // ehance tool
+        enhance_button = new Gtk.ToggleToolButton.from_stock(Resources.ENHANCE);
+        enhance_button.set_label("Enhance");
+        enhance_button.set_tooltip_text("Automatically improve the photo's appearance");
+        enhance_button.toggled += on_enhance_toggled;
+        toolbar.insert(enhance_button, -1);
 
         // separator to force next/prev buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -140,10 +148,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         photo = new_photo;
         photo.altered += on_photo_altered;
-        
+
         set_page_name(photo.get_name());
         
         quick_update_pixbuf();
+        
         update_ui();
     }
     
@@ -163,6 +172,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void update_ui() {
         bool multiple = controller.get_count() > 1;
         
+        /* disconnect the on_enhance_toggled signal before calling set_active on the
+           button to avoid having on_enhance_toggled invoked twice */
+        enhance_button.toggled -= on_enhance_toggled;
+        enhance_button.set_active(photo.is_enhancement_enabled());
+        enhance_button.toggled += on_enhance_toggled;        
+
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
     }
@@ -309,6 +324,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_photo_altered(TransformablePhoto p) {
         quick_update_pixbuf();
+
+        update_ui();
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
@@ -512,6 +529,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_adjust_deactivated() {
         adjust_button.set_active(false);
+    }
+
+    private void on_enhance_toggled() {
+        if (current_tool != null)
+            deactivate_tool();
+        
+        AppWindow.get_instance().set_busy_cursor();
+        if (enhance_button.get_active()) {
+            photo.set_enhancement_enabled();
+        } else {
+            photo.set_enhancement_disabled();
+        }
+        AppWindow.get_instance().set_normal_cursor();
     }
 
     private void place_tool_window() {

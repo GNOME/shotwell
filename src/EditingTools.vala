@@ -1278,8 +1278,8 @@ public class AdjustTool : EditingTool {
         public AdjustToolWindow(Gtk.Window container) {
             base(container);
 
-            histogram_image_tray.set_size_request(ImageHistogram.GRAPHIC_WIDTH,
-                ImageHistogram.GRAPHIC_HEIGHT);
+            histogram_image_tray.set_size_request(RGBHistogram.GRAPHIC_WIDTH,
+                RGBHistogram.GRAPHIC_HEIGHT);
 
             Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
             slider_organizer.set_row_spacings(12);
@@ -1351,19 +1351,19 @@ public class AdjustTool : EditingTool {
 
         float exposure_param =
             canvas.get_photo().get_color_adjustment(
-            ColorTransformationKind.EXPOSURE);
+            RGBTransformationKind.EXPOSURE);
         adjust_tool_window.exposure_slider.set_value(exposure_param);
         float saturation_param =
             canvas.get_photo().get_color_adjustment(
-            ColorTransformationKind.SATURATION);
+            RGBTransformationKind.SATURATION);
         adjust_tool_window.saturation_slider.set_value(saturation_param);
         float tint_param =
             canvas.get_photo().get_color_adjustment(
-            ColorTransformationKind.TINT);
+            RGBTransformationKind.TINT);
         adjust_tool_window.tint_slider.set_value(tint_param);
         float temperature_param =
             canvas.get_photo().get_color_adjustment(
-            ColorTransformationKind.TEMPERATURE);
+            RGBTransformationKind.TEMPERATURE);
         adjust_tool_window.temperature_slider.set_value(temperature_param);
 
         adjust_tool_window.apply_button.clicked += on_apply;
@@ -1380,7 +1380,7 @@ public class AdjustTool : EditingTool {
 
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
         adjust_tool_window.histogram_image_tray.set_from_pixbuf(
-            new ImageHistogram(draw_to_pixbuf).get_graphic());
+            new RGBHistogram(draw_to_pixbuf).get_graphic());
 
         base.activate(canvas);
     }
@@ -1402,33 +1402,33 @@ public class AdjustTool : EditingTool {
 
     public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         if (!suppress_effect_redraw) {
-            ColorTransformation tint_transform =
-                ColorTransformationFactory.get_instance().from_parameter(
-                ColorTransformationKind.TINT,
+            RGBTransformation tint_transform =
+                RGBTransformationFactory.get_instance().from_parameter(
+                RGBTransformationKind.TINT,
                 (float) adjust_tool_window.tint_slider.get_value());
 
-            ColorTransformation temperature_transform =
-                ColorTransformationFactory.get_instance().from_parameter(
-                ColorTransformationKind.TEMPERATURE,
+            RGBTransformation temperature_transform =
+                RGBTransformationFactory.get_instance().from_parameter(
+                RGBTransformationKind.TEMPERATURE,
                 (float) adjust_tool_window.temperature_slider.get_value());
 
-            ColorTransformation saturation_transform =
-                ColorTransformationFactory.get_instance().from_parameter(
-                ColorTransformationKind.SATURATION,
+            RGBTransformation saturation_transform =
+                RGBTransformationFactory.get_instance().from_parameter(
+                RGBTransformationKind.SATURATION,
                 (float) adjust_tool_window.saturation_slider.get_value());
             
-            ColorTransformation exposure_transform =
-                ColorTransformationFactory.get_instance().from_parameter(
-                ColorTransformationKind.EXPOSURE,
+            RGBTransformation exposure_transform =
+                RGBTransformationFactory.get_instance().from_parameter(
+                RGBTransformationKind.EXPOSURE,
                 (float) adjust_tool_window.exposure_slider.get_value());
             
-            ColorTransformation composite_transform = ((
+            RGBTransformation composite_transform = ((
                 exposure_transform.compose_against(
                 saturation_transform)).compose_against(
                 temperature_transform)).compose_against(
                 tint_transform);
 
-            ColorTransformation.transform_existing_pixbuf(composite_transform,
+            RGBTransformation.transform_existing_pixbuf(composite_transform,
                canvas.get_scaled_pixbuf(), draw_to_pixbuf);
         }
 
@@ -1455,7 +1455,7 @@ public class AdjustTool : EditingTool {
         suppress_effect_redraw = false;
         canvas.repaint();
         adjust_tool_window.histogram_image_tray.set_from_pixbuf(
-            new ImageHistogram(draw_to_pixbuf).get_graphic());
+            new RGBHistogram(draw_to_pixbuf).get_graphic());
     }
     
     private void on_apply() {
@@ -1465,31 +1465,31 @@ public class AdjustTool : EditingTool {
         
         AppWindow.get_instance().set_busy_cursor();
 
-        Gee.ArrayList<ColorTransformationInstance?> adjustments =
-            new Gee.ArrayList<ColorTransformationInstance?>();
+        Gee.ArrayList<RGBTransformationInstance?> adjustments =
+            new Gee.ArrayList<RGBTransformationInstance?>();
 
-        ColorTransformationInstance current_instance = {0};
+        RGBTransformationInstance current_instance = {0};
         float exposure_param =
             (float) adjust_tool_window.exposure_slider.get_value();
-        current_instance.kind = ColorTransformationKind.EXPOSURE;
+        current_instance.kind = RGBTransformationKind.EXPOSURE;
         current_instance.parameter = exposure_param;
         adjustments.add(current_instance);
 
         float saturation_param =
             (float) adjust_tool_window.saturation_slider.get_value();
-        current_instance.kind = ColorTransformationKind.SATURATION;
+        current_instance.kind = RGBTransformationKind.SATURATION;
         current_instance.parameter = saturation_param;
         adjustments.add(current_instance);
 
         float tint_param =
             (float) adjust_tool_window.tint_slider.get_value();
-        current_instance.kind = ColorTransformationKind.TINT;
+        current_instance.kind = RGBTransformationKind.TINT;
         current_instance.parameter = tint_param;
         adjustments.add(current_instance);
 
         float temperature_param =
             (float) adjust_tool_window.temperature_slider.get_value();
-        current_instance.kind = ColorTransformationKind.TEMPERATURE;
+        current_instance.kind = RGBTransformationKind.TEMPERATURE;
         current_instance.parameter = temperature_param;
         adjustments.add(current_instance);
 
@@ -1503,7 +1503,7 @@ public class AdjustTool : EditingTool {
     private void on_adjustment() {
         canvas.repaint();
         adjust_tool_window.histogram_image_tray.set_from_pixbuf(
-            new ImageHistogram(draw_to_pixbuf).get_graphic());
+            new RGBHistogram(draw_to_pixbuf).get_graphic());
     }
 
     private void on_canvas_resize() {

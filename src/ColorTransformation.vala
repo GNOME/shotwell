@@ -3,26 +3,26 @@
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution. 
  */
- 
-public struct AnalyticPixel {
+
+public struct RGBAnalyticPixel {
     public float red;
     public float green;
     public float blue;
     
-    public AnalyticPixel() {
+    public RGBAnalyticPixel() {
         red = 0.0f;
         green = 0.0f;
         blue = 0.0f;
     }
     
-    public AnalyticPixel.from_components(float red, float green,
+    public RGBAnalyticPixel.from_components(float red, float green,
         float blue) {
         this.red = red.clamp(0.0f, 1.0f);
         this.green = green.clamp(0.0f, 1.0f);
         this.blue = blue.clamp(0.0f, 1.0f);
     }
     
-    public AnalyticPixel.from_quantized_components(uchar red_quantized,
+    public RGBAnalyticPixel.from_quantized_components(uchar red_quantized,
         uchar green_quantized, uchar blue_quantized) {
         this.red = ((float) red_quantized) / 255.0f;
         this.green = ((float) green_quantized) / 255.0f;
@@ -41,7 +41,7 @@ public struct AnalyticPixel {
         return (uchar)(blue * 255.0f);
     }
     
-    public static AnalyticPixel get_pixbuf_pixel(owned Gdk.Pixbuf pixbuf,
+    public static RGBAnalyticPixel get_pixbuf_pixel(owned Gdk.Pixbuf pixbuf,
         int x, int y) {
         assert((x >= 0) && (x < pixbuf.width));
         assert((y >= 0) && (y < pixbuf.height));
@@ -51,14 +51,14 @@ public struct AnalyticPixel {
         
         unowned uchar[] pixel_data = pixbuf.get_pixels();
         
-        return AnalyticPixel.from_quantized_components(
+        return RGBAnalyticPixel.from_quantized_components(
             pixel_data[px_start_byte_offset],
             pixel_data[px_start_byte_offset + 1],
             pixel_data[px_start_byte_offset + 2]);
     }
     
     public static void set_pixbuf_pixel(owned Gdk.Pixbuf pixbuf,
-        AnalyticPixel pixel, int x, int y) {
+        RGBAnalyticPixel pixel, int x, int y) {
         assert((x >= 0) && (x < pixbuf.width));
         assert((y >= 0) && (y < pixbuf.height));
         
@@ -73,19 +73,147 @@ public struct AnalyticPixel {
     }    
 }
 
-public enum ColorTransformationKind {
+public struct HSVAnalyticPixel {
+    public float hue;
+    public float saturation;
+    public float light_value;
+
+    public HSVAnalyticPixel() {
+        hue = 0.0f;
+        saturation = 0.0f;
+        light_value = 0.0f;
+    }
+
+    public HSVAnalyticPixel.from_components(float hue, float saturation,
+        float light_value) {
+        this.hue = hue.clamp(0.0f, 1.0f);
+        this.saturation = saturation.clamp(0.0f, 1.0f);
+        this.light_value = light_value.clamp(0.0f, 1.0f);
+    }
+    
+    public HSVAnalyticPixel.from_rgb(RGBAnalyticPixel p) {
+        float max_component = float.max(float.max(p.red, p.green), p.blue);
+        float min_component = float.min(float.min(p.red, p.green), p.blue);
+        
+        light_value = max_component;
+        saturation = (max_component != 0.0f) ? ((max_component - min_component) /
+            max_component) : 0.0f;
+        
+        if (saturation == 0.0f) {
+            hue = 0.0f; /* hue is undefined in the zero saturation case */
+        } else {
+            float delta = max_component - min_component;
+            if (p.red == max_component) {
+                hue = (p.green - p.blue) / delta;
+            } else if (p.green == max_component) {
+                hue = 2.0f + ((p.blue - p.red) / delta);
+            } else if (p.blue == max_component) {
+                hue = 4.0f + ((p.red - p.green) / delta);
+            }
+            
+            hue *= 60.0f;
+            if (hue < 0.0f)
+                hue += 360.0f;
+            
+            hue /= 360.0f; /* normalize hue */
+        }
+        
+        hue = hue.clamp(0.0f, 1.0f);
+        saturation = saturation.clamp(0.0f, 1.0f);
+        light_value = light_value.clamp(0.0f, 1.0f);
+    }
+    
+    public RGBAnalyticPixel to_rgb() {
+        RGBAnalyticPixel result = RGBAnalyticPixel();
+
+        if (saturation == 0.0f) {
+            result.red = light_value;
+            result.green = light_value;
+            result.blue = light_value;
+        } else {
+            float hue_denorm = hue * 360.0f;
+            if (hue_denorm == 360.0f)
+                hue_denorm = 0.0f;
+            
+            float hue_hexant = hue_denorm / 60.0f;
+            
+            int hexant_i_part = (int) hue_hexant;
+            
+            float hexant_f_part = hue_hexant - ((float) hexant_i_part);
+            
+            /* the p, q, and t quantities from section 13.3 of Foley, et. al. */
+            float p = light_value * (1.0f - saturation);
+            float q = light_value * (1.0f - (saturation * hexant_f_part));
+            float t = light_value * (1.0f - (saturation * (1.0f - hexant_f_part)));
+            switch (hexant_i_part) {
+                /* the (r, g, b) components of the output pixel are computed
+                   from the light_value, p, q, and t quantities differently
+                   depending on which "hexant" (1/6 of a full rotation) of the
+                   HSV color cone the hue lies in. For example, if the hue lies
+                   in the yellow hexant, the dominant channels in the output
+                   are red and green, so we map relatively more of the light_value
+                   into these colors than if, say, the hue were to lie in the
+                   cyan hexant. See chapter 13 of Foley, et. al. for more
+                   information. */
+                case 0:
+                    result.red = light_value;
+                    result.green = t;
+                    result.blue = p;
+                break;
+
+                case 1:
+                    result.red = q;
+                    result.green = light_value;
+                    result.blue = p;
+                break;
+
+                case 2:
+                    result.red = p;
+                    result.green = light_value;
+                    result.blue = t;
+                break;
+
+                case 3:
+                    result.red = p;
+                    result.green = q;
+                    result.blue = light_value;
+                break;
+                
+                case 4:
+                    result.red = t;
+                    result.green = p;
+                    result.blue = light_value;
+                break;
+
+                case 5:
+                    result.red = light_value;
+                    result.green = p;
+                    result.blue = q;
+                break;
+                
+                default:
+                    error("bad color hexant in HSV-to-RGB conversion");
+                break;
+            }
+        }
+
+        return result;
+    }
+}
+
+public enum RGBTransformationKind {
     EXPOSURE,
     SATURATION,
     TINT,
     TEMPERATURE
 }
 
-public struct ColorTransformationInstance {
-    public ColorTransformationKind kind;
+public struct RGBTransformationInstance {
+    public RGBTransformationKind kind;
     public float parameter;
 }
 
-public class ColorTransformation {
+public class RGBTransformation {
     /* matrix entries are stored in row-major; by default, the matrix formed
        by matrix_entries is the 4x4 identity matrix */
     protected float[] matrix_entries = {
@@ -96,14 +224,14 @@ public class ColorTransformation {
     
     protected bool identity = true;
 
-    public ColorTransformation() {
+    public RGBTransformation() {
     }
     
     public bool is_identity() {
         return identity;
     }
     
-    public AnalyticPixel transform_pixel(AnalyticPixel pixel) {
+    public RGBAnalyticPixel transform_pixel(RGBAnalyticPixel pixel) {
         float red_out = (pixel.red * matrix_entries[0]) +
             (pixel.green * matrix_entries[1]) +
             (pixel.blue * matrix_entries[2]) +
@@ -122,12 +250,11 @@ public class ColorTransformation {
             matrix_entries[11];
         blue_out = blue_out.clamp(0.0f, 1.0f);
         
-        return AnalyticPixel.from_components(red_out, green_out, blue_out);
-            
+        return RGBAnalyticPixel.from_components(red_out, green_out, blue_out);
     }
     
-    public ColorTransformation compose_against(ColorTransformation transform) {
-        ColorTransformation result = new ColorTransformation();
+    public RGBTransformation compose_against(RGBTransformation transform) {
+        RGBTransformation result = new RGBTransformation();
         
         /* row 0 */
         result.matrix_entries[0] =
@@ -239,44 +366,44 @@ public class ColorTransformation {
         return result;
     }
 
-    public static void transform_pixbuf(ColorTransformation transform,
+    public static void transform_pixbuf(RGBTransformation transform,
         owned Gdk.Pixbuf pixbuf) {
         for (int j = 0; j < pixbuf.height; j++) {
             for (int i = 0; i < pixbuf.width; i++) {
             
-                AnalyticPixel pixel_ij =
-                    AnalyticPixel.get_pixbuf_pixel(pixbuf, i, j);
+                RGBAnalyticPixel pixel_ij =
+                    RGBAnalyticPixel.get_pixbuf_pixel(pixbuf, i, j);
 
-                AnalyticPixel pixel_ij_transformed =
+                RGBAnalyticPixel pixel_ij_transformed =
                     transform.transform_pixel(pixel_ij);
                 
-                AnalyticPixel.set_pixbuf_pixel(pixbuf, pixel_ij_transformed,
+                RGBAnalyticPixel.set_pixbuf_pixel(pixbuf, pixel_ij_transformed,
                     i, j);
             }
         }
     }
     
-    public static void transform_existing_pixbuf(ColorTransformation transform,
+    public static void transform_existing_pixbuf(RGBTransformation transform,
         owned Gdk.Pixbuf in_pixbuf, owned Gdk.Pixbuf out_pixbuf) {
         assert((in_pixbuf.width == out_pixbuf.width) && (in_pixbuf.height ==
             out_pixbuf.height));
         for (int j = 0; j < in_pixbuf.height; j++) {
             for (int i = 0; i < in_pixbuf.width; i++) {
             
-                AnalyticPixel pixel_ij =
-                    AnalyticPixel.get_pixbuf_pixel(in_pixbuf, i, j);
+                RGBAnalyticPixel pixel_ij =
+                    RGBAnalyticPixel.get_pixbuf_pixel(in_pixbuf, i, j);
 
-                AnalyticPixel pixel_ij_transformed =
+                RGBAnalyticPixel pixel_ij_transformed =
                     transform.transform_pixel(pixel_ij);
                 
-                AnalyticPixel.set_pixbuf_pixel(out_pixbuf, pixel_ij_transformed,
+                RGBAnalyticPixel.set_pixbuf_pixel(out_pixbuf, pixel_ij_transformed,
                     i, j);
             }
         }
     }
 }
  
-public class ExposureTransformation : ColorTransformation {
+public class ExposureTransformation : RGBTransformation {
 
     private const float EPSILON = 0.08f;
     private const float PARAMETER_SCALE = (1.0f / 32.0f);
@@ -309,7 +436,7 @@ public class ExposureTransformation : ColorTransformation {
     }
 }
 
-public class SaturationTransformation : ColorTransformation {
+public class SaturationTransformation : RGBTransformation {
 
     private enum WeightKind { NTSC, LINEAR, FLAT }
 
@@ -376,7 +503,7 @@ public class SaturationTransformation : ColorTransformation {
     }
 }
 
-public class TemperatureTransformation : ColorTransformation {
+public class TemperatureTransformation : RGBTransformation {
     private const float INTENSITY_FACTOR = 0.33f;
     public const float MIN_PARAMETER = -16.0f;
     public const float MAX_PARAMETER = 16.0f;
@@ -399,7 +526,7 @@ public class TemperatureTransformation : ColorTransformation {
     }
 }
 
-public class TintTransformation : ColorTransformation {
+public class TintTransformation : RGBTransformation {
     private const float INTENSITY_FACTOR = 0.25f;
     public const float MIN_PARAMETER = -16.0f;
     public const float MAX_PARAMETER = 16.0f;
@@ -422,40 +549,40 @@ public class TintTransformation : ColorTransformation {
     }
 }
 
-public class ColorTransformationFactory {
-    private static ColorTransformationFactory instance = null;
+public class RGBTransformationFactory {
+    private static RGBTransformationFactory instance = null;
     
-    public ColorTransformationFactory() {
+    public RGBTransformationFactory() {
     }
     
-    public static ColorTransformationFactory get_instance() {
+    public static RGBTransformationFactory get_instance() {
         if (instance == null)
-            instance = new ColorTransformationFactory();
+            instance = new RGBTransformationFactory();
 
         return instance;
     }
 
-    public ColorTransformation from_parameter(ColorTransformationKind kind,
+    public RGBTransformation from_parameter(RGBTransformationKind kind,
         float parameter) {
         switch (kind) {
-            case ColorTransformationKind.EXPOSURE:
+            case RGBTransformationKind.EXPOSURE:
                 return new ExposureTransformation((float) parameter);
-            case ColorTransformationKind.SATURATION:
+            case RGBTransformationKind.SATURATION:
                 return new SaturationTransformation((float) parameter);
-            case ColorTransformationKind.TINT:
+            case RGBTransformationKind.TINT:
                 return new TintTransformation((float) parameter);
-            case ColorTransformationKind.TEMPERATURE:
+            case RGBTransformationKind.TEMPERATURE:
                 return new TemperatureTransformation((float) parameter);
             default:
-                error("unrecognized ColorTransformationKind enumeration value");
+                error("unrecognized RGBTransformationKind enumeration value");
             break;
         }
         
-        return new ColorTransformation();
+        return new RGBTransformation();
     }
 }
 
-class ImageHistogram {
+class RGBHistogram {
     private const uchar MARKED_BACKGROUND = 30;
     private const uchar MARKED_FOREGROUND = 210;
     private const uchar UNMARKED_BACKGROUND = 40;
@@ -471,7 +598,7 @@ class ImageHistogram {
     private int[] qualitative_blue_counts = null;
     private Gdk.Pixbuf graphic = null;
 
-    public ImageHistogram(Gdk.Pixbuf pixbuf) {
+    public RGBHistogram(Gdk.Pixbuf pixbuf) {
         for (int i = 0; i < 256; i++)
             red_counts[i] = green_counts[i] = blue_counts[i] = 0;
 
@@ -703,6 +830,183 @@ class ImageHistogram {
         }
 
         return graphic;
+    }
+}
+
+public class IntensityHistogram {
+    private int[] counts = new int[256];
+    private float[] probabilities = new float[256];
+    private float[] cumulative_probabilities = new float[256];
+
+    public IntensityHistogram(Gdk.Pixbuf pixbuf) {
+        for (int y = 0; y < pixbuf.height; y++) {
+            for (int x = 0; x < pixbuf.width; x++) {
+                RGBAnalyticPixel pix_rgb = RGBAnalyticPixel.get_pixbuf_pixel(
+                    pixbuf, x, y);
+                HSVAnalyticPixel pix_hsi = HSVAnalyticPixel.from_rgb(pix_rgb);
+                int quantized_light_value = (int)(pix_hsi.light_value * 255.0f);
+                counts[quantized_light_value]++;
+            }
+        }
+
+        double pixel_count = (double)(pixbuf.width * pixbuf.height);
+        float accumulator = 0.0f;
+        for (int i = 0; i < 256; i++) {
+            probabilities[i] = (float)(((double) counts[i]) / pixel_count);
+            accumulator += probabilities[i];
+            cumulative_probabilities[i] = accumulator;
+        }
+    }
+
+    public float get_cumulative_probability(int level) {
+        assert((level >= 0) && (level < 256));
+        return cumulative_probabilities[level];
+    }
+}
+
+public abstract class IntensityTransformation {
+
+    public virtual HSVAnalyticPixel transform_pixel(HSVAnalyticPixel pixel) {
+        return pixel;
+    }
+
+    public static void transform_pixbuf(IntensityTransformation transform,
+        Gdk.Pixbuf pixbuf) {
+        for (int j = 0; j < pixbuf.height; j++) {
+            for (int i = 0; i < pixbuf.width; i++) {
+            
+                RGBAnalyticPixel pixel_ij_rgb =
+                    RGBAnalyticPixel.get_pixbuf_pixel(pixbuf, i, j);
+                    
+                HSVAnalyticPixel pixel_ij =
+                    HSVAnalyticPixel.from_rgb(pixel_ij_rgb);
+
+                HSVAnalyticPixel pixel_ij_transformed =
+                    transform.transform_pixel(pixel_ij);
+                
+                RGBAnalyticPixel pixel_ij_transformed_rgb =
+                    pixel_ij_transformed.to_rgb();
+                
+                RGBAnalyticPixel.set_pixbuf_pixel(pixbuf,
+                    pixel_ij_transformed_rgb, i, j);
+            }
+        }
+    }
+    
+    public abstract string to_string();
+}
+
+public class NormalizationTransformation : IntensityTransformation {
+    private float[] remap_table = null;
+    private const float LOW_DISCARD_MASS = 0.02f;
+    private const float HIGH_DISCARD_MASS = 0.02f;
+    private const float FIXED_SATURATION_MULTIPLIER = 1.0f;
+
+    private int low_kink;
+    private int high_kink;
+
+    public NormalizationTransformation(IntensityHistogram histogram) {
+        remap_table = new float[256];
+
+        float LOW_KINK_MASS = LOW_DISCARD_MASS;
+        low_kink = 0;
+        while (histogram.get_cumulative_probability(low_kink) < LOW_KINK_MASS)
+            low_kink++;
+        
+        float HIGH_KINK_MASS = 1.0f - HIGH_DISCARD_MASS;
+        high_kink = 255;
+        while (histogram.get_cumulative_probability(high_kink) > HIGH_KINK_MASS)
+            high_kink--;
+
+        build_remap_table();
+    }
+    
+    public NormalizationTransformation.from_string(string encoded_transformation) {
+        encoded_transformation.canon("0123456789. ", ' ');
+        encoded_transformation.chug();
+        encoded_transformation.chomp();
+
+        int num_captured = encoded_transformation.scanf("%d %d", &low_kink,
+            &high_kink);
+
+        assert(num_captured == 2);
+        
+        build_remap_table();
+    }
+    
+    private void build_remap_table() {
+        if (remap_table == null)
+            remap_table = new float[256];
+
+        float low_kink_f = ((float) low_kink) / 255.0f;
+        float high_kink_f = ((float) high_kink) / 255.0f;
+
+        float slope = 1.0f / (high_kink_f - low_kink_f);
+        float intercept = -(low_kink_f / (high_kink_f - low_kink_f));
+        
+        int i = 0;
+        for ( ; i <= low_kink; i++)
+            remap_table[i] = 0.0f;
+        
+        for ( ; i < high_kink; i++)
+            remap_table[i] = slope * (((float) i) / 255.0f) + intercept;
+        
+        for ( ; i < 256; i++)
+            remap_table[i] = 1.0f;
+    }
+
+    public override HSVAnalyticPixel transform_pixel(HSVAnalyticPixel pixel) {
+        int remap_index = (int)(pixel.light_value * 255.0f);
+
+        HSVAnalyticPixel result = pixel;
+        result.light_value = remap_table[remap_index];
+        result.saturation *= FIXED_SATURATION_MULTIPLIER;
+
+        result.saturation = result.saturation.clamp(0.0f, 1.0f);
+        result.light_value = result.light_value.clamp(0.0f, 1.0f);
+
+        return result;
+    }
+
+    public override string to_string() {
+        return "{ %d, %d }".printf(low_kink, high_kink);
+    }
+}
+
+public class EnhancementFactory {
+    private const int CURRENT_VERSION = 1;
+    private const int MIN_SUPPORTED_VERSION = 1;
+    
+    public static int get_current_version() {
+        return CURRENT_VERSION;
+    }
+    
+    public static bool is_encoding_version_supported(int encoding_version) {
+        if (encoding_version < MIN_SUPPORTED_VERSION)
+            return false;
+        
+        if (encoding_version > CURRENT_VERSION)
+            return false;
+        
+        return true;
+    }
+    
+    public static IntensityTransformation? create_from_encoding(int encoding_version,
+        string encoded_transformation) {
+        
+        switch (encoding_version) {
+            case 1:
+                return new NormalizationTransformation.from_string(encoded_transformation);
+
+            default:
+                warning("enhancement factory: unsupported transformation encoding version");
+                return null;
+        }
+    }
+    
+    public static IntensityTransformation create_current(Gdk.Pixbuf target) {
+        IntensityHistogram histogram = new IntensityHistogram(target);
+        return new NormalizationTransformation(histogram);
     }
 }
 
