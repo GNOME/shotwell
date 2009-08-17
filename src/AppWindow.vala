@@ -394,6 +394,18 @@ public abstract class AppWindow : PageWindow {
         dialog.run();
         dialog.destroy();
     }
+    
+    public static bool yes_no_question(string message, string? title = null) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
+            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "%s", message);
+        dialog.title = (title != null) ? title : Resources.APP_TITLE;
+        
+        bool yes = (dialog.run() == Gtk.ResponseType.YES);
+        
+        dialog.destroy();
+        
+        return yes;
+    }
 
     public static bool has_user_quit() {
         return user_quit;
@@ -421,7 +433,7 @@ public abstract class AppWindow : PageWindow {
         open_link(Resources.HELP_URL);
     }
     
-    private void on_quit() {
+    protected virtual void on_quit() {
         user_quit = true;
         Gtk.main_quit();
     }

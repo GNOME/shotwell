@@ -128,12 +128,10 @@ public abstract class TransformablePhoto: PhotoBase {
     private time_t exposure_time = -1;
     
     // fired when the image itself (its visual representation) has changed
-    public virtual signal void altered() {
-    }
+    public signal void altered();
     
     // fired when information about the image has changed
-    public virtual signal void metadata_altered() {
-    }
+    public signal void metadata_altered();
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -273,11 +271,17 @@ public abstract class TransformablePhoto: PhotoBase {
         return false;
     }
     
-    // This sends virtual signals, first allow the
-    // subclass to react to the event change, then notify listeners
+    protected virtual void on_altered() {
+    }
+    
+    protected virtual void on_metadata_altered() {
+    }
+    
+    // This first allows the subclass to react to the event change, then notify listeners
     protected void notify_altered(Alteration alteration) {
         switch (alteration) {
             case Alteration.IMAGE:
+                on_altered();
                 altered();
             break;
             
@@ -285,6 +289,7 @@ public abstract class TransformablePhoto: PhotoBase {
                 // cache coherency
                 exposure_time = photo_table.get_exposure_time(photo_id);
                 
+                on_metadata_altered();
                 metadata_altered();
             break;
             
@@ -1213,7 +1218,7 @@ public class LibraryPhoto : TransformablePhoto {
         return photo;
     }
     
-    private override void altered () {
+    private override void on_altered () {
         // the exportable file is now not in sync with transformed photo
         remove_exportable_file();
 
@@ -1230,7 +1235,7 @@ public class LibraryPhoto : TransformablePhoto {
         // fire signal that thumbnails have changed
         thumbnail_altered();
         
-        base.altered();
+        base.on_altered();
     }
 
     public EventID get_event_id() {
@@ -1488,17 +1493,17 @@ public class DirectPhoto : TransformablePhoto {
         
         int pixels = scale_to_pixels(scale);
         if (pixels > 0)
-            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.NEAREST);
+            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.BILINEAR);
         
         return pixbuf;
     }
     
-    private override void altered() {
+    private override void on_altered() {
         // stash the current pixbuf for previews and such, and flush the generated exportable file
         current_pixbuf = base.get_pixbuf(SCREEN);
         exportable = null;
         
-        base.altered();
+        base.on_altered();
     }
 }
 

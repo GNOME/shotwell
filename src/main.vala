@@ -87,15 +87,7 @@ void library_exec(string[] mounts) {
 }
 
 void editing_exec(string filename) {
-    // validate filename ... direct editing only works on files that exist
-    if (!FileUtils.test(filename, FileTest.EXISTS) || !FileUtils.test(filename, FileTest.IS_REGULAR)) {
-        // TODO: Better error reporting
-        stdout.printf("%s not found.", filename);
-        
-        return;
-    }
-    
-    // init module direct-editing relies on
+    // init modules direct-editing relies on
     DatabaseTable.init(null);
     DirectPhoto.init();
     

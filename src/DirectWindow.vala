@@ -29,12 +29,16 @@ public class DirectWindow : AppWindow {
         add(layout);
     }
     
+    public DirectPhotoPage get_direct_page() {
+        return (DirectPhotoPage) current_page;
+    }
+    
     public void update_title(File file) {
         title = file.get_basename() + " ~ " + Resources.APP_TITLE;
     }
     
     public override void on_fullscreen() {
-        File file = ((DirectPhotoPage) current_page).get_current_file();
+        File file = get_direct_page().get_current_file();
         
         DirectPhotoPage fs_photo = new DirectPhotoPage(file);
         FullscreenWindow fs_window = new FullscreenWindow(fs_photo);
@@ -43,8 +47,22 @@ public class DirectWindow : AppWindow {
         go_fullscreen(fs_window);
     }
     
-    private void on_photo_replaced(TransformablePhoto old_photo, TransformablePhoto new_photo) {
+    private void on_photo_replaced(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
         update_title(new_photo.get_file());
+    }
+    
+    private override void on_quit() {
+        if (!get_direct_page().check_quit())
+            return;
+        
+        base.on_quit();
+    }
+    
+    private override bool delete_event(Gdk.Event event) {
+        if (!get_direct_page().check_quit())
+            return true;
+        
+        return (base.delete_event != null) ? base.delete_event(event) : false;
     }
 }
 

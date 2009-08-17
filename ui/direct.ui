@@ -8,6 +8,19 @@
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="Undo" />
+        </menu>
+        
+        <menu name="PhotoMenu" action="PhotoMenu">
+            <menuitem name="PrevPhoto" action="PrevPhoto" />
+            <menuitem name="NextPhoto" action="NextPhoto" />
+            <separator />
+            <menuitem name="RotateClockwise" action="RotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+            <menuitem name="Mirror" action="Mirror" />
+        </menu>
+        
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
@@ -18,6 +31,14 @@
             <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
+    
+    <popup name="DirectContextMenu">
+        <menuitem name="ContextUndo" action="Undo" />
+        <separator />
+        <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
+        <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
+        <menuitem name="ContextMirror" action="Mirror" />
+    </popup>
 
 </ui>
 

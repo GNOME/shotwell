@@ -38,11 +38,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // drag-and-drop state
     private File drag_file = null;
     
-    public virtual signal bool check_replace_photo(TransformablePhoto old_photo, TransformablePhoto new_photo) {
-        return true;
+    public virtual signal void check_replace_photo(TransformablePhoto old_photo, 
+        TransformablePhoto new_photo, out bool ok) {
+        ok = true;
     }
     
-    public virtual signal void photo_replaced(TransformablePhoto old_photo, TransformablePhoto new_photo) {
+    public virtual signal void photo_replaced(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
     }
     
     public EditingHostPage(string name) {
@@ -150,9 +151,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected void replace_photo(TransformablePhoto new_photo) {
         // only check if okay if there's something to replace
         if (photo != null) {
-            if (!check_replace_photo(photo, new_photo)) {
+            bool ok;
+            check_replace_photo(photo, new_photo, out ok);
+            
+            if (!ok)
                 return;
-            }
         }
 
         deactivate_tool();
@@ -160,7 +163,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (photo != null)
             photo.altered -= on_photo_altered;
 
-        TransformablePhoto old_photo = photo;
+        TransformablePhoto? old_photo = photo;
         photo = new_photo;
         photo.altered += on_photo_altered;
 
@@ -652,10 +655,14 @@ public class LibraryPhotoPage : EditingHostPage {
         { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
         { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
         { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
-        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
-        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", on_revert },
+        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise",
+            on_rotate_clockwise },
+        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", 
+            "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", 
+            on_mirror },
+        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", 
+            on_revert },
 
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -791,7 +798,7 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         index++;
         if (index >= list.size)
             index = 0;
-
+        
         return DirectPhoto.fetch(list.get(index));
     }
     
@@ -820,11 +827,11 @@ public class DirectPhotoCollection : Object, PhotoCollection {
             
             FileInfo file_info = null;
             while ((file_info = enumerator.next_file(null)) != null) {
-                File file = File.new_for_path(file_info.get_name());
+                File file = dir.get_child(file_info.get_name());
                 
                 if (!TransformablePhoto.is_file_supported(file))
                     continue;
-
+                
                 list.add(file);
             }
 
@@ -841,24 +848,61 @@ public class DirectPhotoPage : EditingHostPage {
     private const Gtk.ActionEntry[] ACTIONS = {
         { "FileMenu", null, "_File", null, null, on_file },
         { "Save", Gtk.STOCK_SAVE, "_Save", "<Ctrl>S", "Save photo", on_save },
-        { "SaveAs", Gtk.STOCK_SAVE_AS, "Save _As...", "<Ctrl>A", "Save photo with a different name", 
+        { "SaveAs", Gtk.STOCK_SAVE_AS, "Save _As...", "<Ctrl><Shift>S", "Save photo with a different name", 
             on_save_as },
         
-        { "ViewMenu", null, "_View", null, null, null },
+        { "EditMenu", null, "_Edit", null, null, on_edit },
+        { "Undo", Gtk.STOCK_UNDO, "_Undo", "<Ctrl>Z", "Undo all transformations made to photo",
+            on_undo },
+        
+        { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
+        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
+        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
+        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise",
+            on_rotate_clockwise },
+        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", 
+            "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
+        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", 
+            on_mirror },
+
+       { "ViewMenu", null, "_View", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
+    private Gtk.Menu context_menu;
     private File initial_file;
     private File current_save_dir;
     
     public DirectPhotoPage(File file) {
         base(file.get_basename());
         
+        if (!check_editable_file(file)) {
+            Posix.exit(1);
+            
+            return;
+        }
+        
         initial_file = file;
         current_save_dir = file.get_parent();
         
         init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", ACTIONS);
+
+        context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
+    }
+    
+    private static bool check_editable_file(File file) {
+        bool ok = false;
+        if (!FileUtils.test(file.get_path(), FileTest.EXISTS))
+            AppWindow.error_message("%s does not exist.".printf(file.get_path()));
+        else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
+            AppWindow.error_message("%s is not a file.".printf(file.get_path()));
+        else if (!TransformablePhoto.is_file_supported(file))
+            AppWindow.error_message("The format of %s is not supported.".printf(file.get_path()));
+        else
+            ok = true;
+        
+        return ok;
     }
     
     private override void realize() {
@@ -875,6 +919,37 @@ public class DirectPhotoPage : EditingHostPage {
     
     public File get_current_file() {
         return get_photo().get_file();
+    }
+    
+    private override bool on_context_menu(Gdk.EventButton event) {
+        if (get_photo() == null)
+            return false;
+        
+        set_item_sensitive("/DirectContextMenu/ContextUndo", get_photo().has_transformations());
+
+        context_menu.popup(null, null, null, event.button, event.time);
+        
+        return true;
+    }
+    
+    private static bool check_ok_to_close_photo(TransformablePhoto photo) {
+        if (!photo.has_transformations())
+            return true;
+        
+        bool ok = AppWindow.yes_no_question("Lose changes to %s?".printf(photo.get_name()));
+        if (ok)
+            photo.remove_all_transformations();
+        
+        return ok;
+    }
+    
+    public bool check_quit() {
+        return check_ok_to_close_photo(get_photo());
+    }
+    
+    private override void check_replace_photo(TransformablePhoto old_photo, TransformablePhoto new_photo,
+        out bool ok) {
+        ok = check_ok_to_close_photo(old_photo);
     }
     
     private void on_file() {
@@ -936,5 +1011,20 @@ public class DirectPhotoPage : EditingHostPage {
         }
         
         save_as_dialog.destroy();
+    }
+    
+    private void on_edit() {
+        set_item_sensitive("/DirectMenuBar/EditMenu/Undo", get_photo().has_transformations());
+    }
+    
+    private void on_undo() {
+        get_photo().remove_all_transformations();
+    }
+
+    private void on_photo_menu() {
+        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
+            
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);
     }
 }

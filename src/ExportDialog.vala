@@ -50,16 +50,8 @@ namespace ExportUI {
     }
     
     public bool query_overwrite(File file) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "%s already exists.  Overwrite?",
-            file.get_path());
-        dialog.title = "Export Photos";
-
-        bool yes = (dialog.run() == Gtk.ResponseType.YES);
-
-        dialog.destroy();
-        
-        return yes;
+        return AppWindow.yes_no_question("%s already exists.  Overwrite?".printf(file.get_path()),
+            "Export Photos");
     }
 }
 
