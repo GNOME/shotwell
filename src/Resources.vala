@@ -21,7 +21,8 @@ namespace Resources {
 
     public const string[] AUTHORS = { 
         "Jim Nelson <jim@yorba.org>", 
-        null 
+        "Lucas Beeler <lucas@yorba.org>",
+        null
     };
 
     public const string LICENSE = """
