@@ -851,10 +851,6 @@ public class DirectPhotoPage : EditingHostPage {
         { "SaveAs", Gtk.STOCK_SAVE_AS, "Save _As...", "<Ctrl><Shift>S", "Save photo with a different name", 
             on_save_as },
         
-        { "EditMenu", null, "_Edit", null, null, on_edit },
-        { "Undo", Gtk.STOCK_UNDO, "_Undo", "<Ctrl>Z", "Undo all transformations made to photo",
-            on_undo },
-        
         { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
         { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
         { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
@@ -864,6 +860,8 @@ public class DirectPhotoPage : EditingHostPage {
             "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
         { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", 
             on_mirror },
+        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", 
+            on_revert },
 
        { "ViewMenu", null, "_View", null, null, null },
         
@@ -1013,18 +1011,12 @@ public class DirectPhotoPage : EditingHostPage {
         save_as_dialog.destroy();
     }
     
-    private void on_edit() {
-        set_item_sensitive("/DirectMenuBar/EditMenu/Undo", get_photo().has_transformations());
-    }
-    
-    private void on_undo() {
-        get_photo().remove_all_transformations();
-    }
-
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-            
+        bool revert_possible = (get_photo() != null) ? get_photo().has_transformations() : false;
+
         set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", revert_possible);
     }
 }
