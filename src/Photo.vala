@@ -46,7 +46,40 @@ public enum ImportResult {
     USER_ABORT,
     NOT_A_FILE,
     PHOTO_EXISTS,
-    UNSUPPORTED_FORMAT
+    UNSUPPORTED_FORMAT;
+    
+    public string to_string() {
+        switch (this) {
+            case SUCCESS:
+                return "Success";
+            
+            case FILE_ERROR:
+                return "File error";
+            
+            case DECODE_ERROR:
+                return "Unable to decode file";
+            
+            case DATABASE_ERROR:
+                return "Database error";
+            
+            case USER_ABORT:
+                return "User aborted import";
+            
+            case NOT_A_FILE:
+                return "Not a file";
+            
+            case PHOTO_EXISTS:
+                return "File already exists in database";
+            
+            case UNSUPPORTED_FORMAT:
+                return "Unsupported file format";
+            
+            default:
+                error("Bad import result: %d", (int) this);
+                
+                return "Bad import result (%d)".printf((int) this);
+        }
+    }
 }
 
 // TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
@@ -61,6 +94,12 @@ public abstract class TransformablePhoto: PhotoBase {
     
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
     public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.HYPER;
+    
+    public const string[] SUPPORTED_EXTENSIONS = {
+        "jpg",
+        "jpeg",
+        "jpe"
+    };
     
     public enum Exception {
         NONE            = 0,
@@ -89,10 +128,12 @@ public abstract class TransformablePhoto: PhotoBase {
     private time_t exposure_time = -1;
     
     // fired when the image itself (its visual representation) has changed
-    public signal void altered();
+    public virtual signal void altered() {
+    }
     
     // fired when information about the image has changed
-    public signal void metadata_altered();
+    public virtual signal void metadata_altered() {
+    }
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -184,6 +225,24 @@ public abstract class TransformablePhoto: PhotoBase {
         return ImportResult.SUCCESS;
     }
     
+    public static bool is_file_supported(File file) {
+        string name, ext;
+        disassemble_filename(file.get_basename(), out name, out ext);
+        if (ext == null)
+            return false;
+        
+        // treat extensions as case-insensitive
+        ext = ext.down();
+        
+        // search supported list
+        foreach (string supported in SUPPORTED_EXTENSIONS) {
+            if (ext == supported)
+                return true;
+        }
+        
+        return false;
+    }
+    
     public File get_file() {
         return photo_table.get_file(photo_id);
     }
@@ -214,18 +273,11 @@ public abstract class TransformablePhoto: PhotoBase {
         return false;
     }
     
-    protected virtual void on_altered() {
-    }
-    
-    protected virtual void on_metadata_altered() {
-    }
-    
-    // This emulates virtual signals, which aren't working right now in Vala ... first allow the
+    // This sends virtual signals, first allow the
     // subclass to react to the event change, then notify listeners
     protected void notify_altered(Alteration alteration) {
         switch (alteration) {
             case Alteration.IMAGE:
-                on_altered();
                 altered();
             break;
             
@@ -233,7 +285,6 @@ public abstract class TransformablePhoto: PhotoBase {
                 // cache coherency
                 exposure_time = photo_table.get_exposure_time(photo_id);
                 
-                on_metadata_altered();
                 metadata_altered();
             break;
             
@@ -243,6 +294,50 @@ public abstract class TransformablePhoto: PhotoBase {
         }
     }
     
+    public void update() {
+        File file = get_file();
+        
+        Dimensions dim = Dimensions();
+        Orientation orientation = Orientation.TOP_LEFT;
+        time_t exposure_time = 0;
+
+        // TODO: Try to read JFIF metadata too
+        PhotoExif exif = new PhotoExif(file);
+        if (exif.has_exif()) {
+            if (!exif.get_dimensions(out dim))
+                error("Unable to read EXIF dimensions for %s", to_string());
+            
+            if (!exif.get_timestamp(out exposure_time))
+                error("Unable to read EXIF orientation for %s", to_string());
+
+            orientation = exif.get_orientation();
+        } 
+    
+        FileInfo info = null;
+        try {
+            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            error("Unable to read file information for %s: %s", to_string(), err.message);
+        }
+        
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(timestamp);
+        
+        if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+            orientation)) {
+            // because image has changed, all transformations are suspect
+            photo_table.remove_all_transformations(photo_id);
+            
+            // remove from decode cache as well
+            if (cached_photo_id.id == photo_id.id)
+                cached_raw = null;
+            
+            // could be both
+            notify_altered(Alteration.METADATA);
+            notify_altered(Alteration.IMAGE);
+        }
+    }
+
     // Queryable
     
     public override string get_name() {
@@ -564,17 +659,6 @@ public abstract class TransformablePhoto: PhotoBase {
         return true;
     }
 
-    // Returns a File that can be used for exporting ... this file should persist for a reasonable
-    // amount of time, as drag-and-drop exports can conclude long after the DnD source has seen
-    // the end of the transaction. ... However, if failure is detected, export_failed() will be
-    // called, and the file can be removed if necessary.
-    public abstract File generate_exportable() throws Error;
-
-    // Called when an export has failed; the object can use this to delete the exportable file
-    // from generate_exportable() if necessary
-    public virtual void export_failed() {
-    }
-    
     // Pixbuf generation
 
     // Returns a raw, untransformed, unrotated, unscaled pixbuf from the source
@@ -602,7 +686,7 @@ public abstract class TransformablePhoto: PhotoBase {
     // Set scale to UNSCALED for unscaled pixbuf or SCREEN for a pixbuf scaled to the screen size
     // (which can be scaled further, with some loss).  Note that UNSCALED can be extremely expensive, 
     // and it's far better to specify an appropriate scale.
-    public Gdk.Pixbuf get_pixbuf(int scale, Exception exceptions = Exception.NONE,
+    public virtual Gdk.Pixbuf get_pixbuf(int scale, Exception exceptions = Exception.NONE,
         Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
@@ -705,6 +789,7 @@ public abstract class TransformablePhoto: PhotoBase {
             adjustment_time = timer.elapsed();
 #endif
         }
+        
         // auto-enhancement
         if ((exceptions & Exception.ENHANCE) == 0) {
 #if MEASURE_PIPELINE
@@ -747,6 +832,55 @@ public abstract class TransformablePhoto: PhotoBase {
     // File export
     //
     
+    // Returns a File object to create an unscaled copy of the photo suitable for exporting.  If
+    // the file exists, that is considered export-ready (allowing for exportables to persist).
+    // If it does not, it will be generated.
+    public abstract File generate_exportable_file();
+
+    // Returns a File of the unscaled image suitable for exporting ... this file should persist 
+    // for a reasonable amount of time, as drag-and-drop exports can conclude long after the DnD 
+    // source has seen the end of the transaction. ... However, if failure is detected, 
+    // export_failed() will be called, and the file can be removed if necessary.
+    //
+    // TODO: Lossless transformations, especially for mere rotations of JFIF files.
+    public File generate_exportable() throws Error {
+        if (!has_transformations())
+            return get_file();
+
+        File dest_file = generate_exportable_file();
+        if (dest_file.query_exists(null))
+            return dest_file;
+        
+        // generate_exportable_file only generates a filename; create directory if necessary
+        File dest_dir = dest_file.get_parent();
+        if (!dest_dir.query_exists(null))
+            dest_dir.make_directory_with_parents(null);
+        
+        File original_file = get_file();
+        Exif.Data original_exif = get_exif();
+        
+        // if only rotated, only need to copy and modify the EXIF
+        if (!photo_table.has_transformations(photo_id) && original_exif != null) {
+            original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
+
+            PhotoExif dest_exif = new PhotoExif(dest_file);
+            dest_exif.set_orientation(photo_table.get_orientation(photo_id));
+            dest_exif.commit();
+        } else {
+            Gdk.Pixbuf pixbuf = get_pixbuf(UNSCALED);
+            pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
+            copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
+                Dimensions.for_pixbuf(pixbuf));
+        }
+        
+        return dest_file;
+    }
+    
+    // Called when a generate_exportable has failed; the object can use this to delete the exportable 
+    // file from generate_exportable_file() if necessary
+    public virtual void export_failed() {
+    }
+    
     public static void copy_exported_exif(Exif.Data source, PhotoExif dest, Orientation orientation, 
         Dimensions dim) throws Error {
         dest.set_exif(source);
@@ -758,7 +892,7 @@ public abstract class TransformablePhoto: PhotoBase {
         dest.commit();
     }
 
-    // Writes a file appropriate for export meeting the specified parameters.
+    // Writes a file meeting the specified parameters.
     //
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     public void export(File dest_file, int scale, ScaleConstraint constraint,
@@ -1079,7 +1213,7 @@ public class LibraryPhoto : TransformablePhoto {
         return photo;
     }
     
-    private override void on_altered () {
+    private override void altered () {
         // the exportable file is now not in sync with transformed photo
         remove_exportable_file();
 
@@ -1095,6 +1229,8 @@ public class LibraryPhoto : TransformablePhoto {
         
         // fire signal that thumbnails have changed
         thumbnail_altered();
+        
+        base.altered();
     }
 
     public EventID get_event_id() {
@@ -1133,7 +1269,7 @@ public class LibraryPhoto : TransformablePhoto {
         thumbnail_altered();
     }
     
-    private File generate_exportable_file() throws Error {
+    private override File generate_exportable_file() {
         File original_file = get_file();
 
         File exportable_dir = AppWindow.get_data_subdir("export");
@@ -1151,42 +1287,6 @@ public class LibraryPhoto : TransformablePhoto {
         }
         
         return exportable_dir.get_child(original_file.get_basename());
-    }
-    
-    // Returns a file appropriate for export.  The file should NOT be deleted once it's been used.
-    //
-    // TODO: Lossless transformations, especially for mere rotations of JFIF files.
-    public override File generate_exportable() throws Error {
-        if (!has_transformations())
-            return get_file();
-
-        File dest_file = generate_exportable_file();
-        if (dest_file.query_exists(null))
-            return dest_file;
-        
-        // generate_exportable_file only generates a filename; create directory if necessary
-        File dest_dir = dest_file.get_parent();
-        if (!dest_dir.query_exists(null))
-            dest_dir.make_directory_with_parents(null);
-        
-        File original_file = get_file();
-        Exif.Data original_exif = get_exif();
-        
-        // if only rotated, only need to copy and modify the EXIF
-        if (!photo_table.has_transformations(photo_id) && original_exif != null) {
-            original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
-
-            PhotoExif dest_exif = new PhotoExif(dest_file);
-            dest_exif.set_orientation(photo_table.get_orientation(photo_id));
-            dest_exif.commit();
-        } else {
-            Gdk.Pixbuf pixbuf = get_pixbuf(UNSCALED);
-            pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
-            copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
-                Dimensions.for_pixbuf(pixbuf));
-        }
-        
-        return dest_file;
     }
     
     // We keep exportable photos around for now, as they're expensive to generate ...
@@ -1295,63 +1395,42 @@ public class LibraryPhoto : TransformablePhoto {
         
         return Currency.CURRENT;
     }
-    
-    public void update() {
-        File file = get_file();
-        
-        Dimensions dim = Dimensions();
-        Orientation orientation = Orientation.TOP_LEFT;
-        time_t exposure_time = 0;
-
-        // TODO: Try to read JFIF metadata too
-        PhotoExif exif = new PhotoExif(file);
-        if (exif.has_exif()) {
-            if (!exif.get_dimensions(out dim))
-                error("Unable to read EXIF dimensions for %s", to_string());
-            
-            if (!exif.get_timestamp(out exposure_time))
-                error("Unable to read EXIF orientation for %s", to_string());
-
-            orientation = exif.get_orientation();
-        } 
-    
-        FileInfo info = null;
-        try {
-            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            error("Unable to read file information for %s: %s", to_string(), err.message);
-        }
-        
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
-        
-        if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-            orientation)) {
-            // could be both
-            notify_altered(Alteration.METADATA);
-            notify_altered(Alteration.IMAGE);
-        }
-    }
 }
 
 public class DirectPhoto : TransformablePhoto {
+    private static Gee.HashMap<File, DirectPhoto> photo_map = null;
+    
     private Gdk.Pixbuf current_pixbuf;
+    private File exportable = null;
     
     private DirectPhoto(PhotoID photo_id, Gdk.Pixbuf? initial_pixbuf) {
         base(photo_id);
         
-        current_pixbuf = (initial_pixbuf != null) ? initial_pixbuf : get_pixbuf(SCREEN);
+        current_pixbuf = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(SCREEN);
     }
     
     public static void init() {
         TransformablePhoto.base_init();
+
+        photo_map = new Gee.HashMap<File, DirectPhoto>(file_hash, file_equal, direct_equal);
     }
     
     public static void terminate() {
         TransformablePhoto.base_terminate();
     }
     
-    public static DirectPhoto? fetch(File file) {
+    public static DirectPhoto? fetch(File file, bool reset = false) {
+        // fetch from the map first, which ensures that only one DirectPhoto exists for each file
+        DirectPhoto photo = photo_map.get(file);
+        if (photo != null) {
+            // if a reset is necessary, the database (and the object) need to reset to original
+            // easiest way to do this: perform an update, which is a kind of in-place re-import
+            if (reset)
+                photo.update();
+                
+            return photo;
+        }
+        
         // for direct photos using an in-memory database, a fetch is an import if the file is
         // unknown
         PhotoID photo_id;
@@ -1360,22 +1439,48 @@ public class DirectPhoto : TransformablePhoto {
             out photo_id, out initial_pixbuf);
         switch (result) {
             case ImportResult.SUCCESS:
-                return new DirectPhoto(photo_id, initial_pixbuf);
+                photo = new DirectPhoto(photo_id, initial_pixbuf);
+            break;
             
             case ImportResult.PHOTO_EXISTS:
-                photo_id = photo_table.get_id(file);
-                assert(photo_id.is_valid());
-                
-                return new DirectPhoto(photo_id, null);
+                // this should never happen; the photo_map guarantees it
+                error("import_photo reports photo exists that is not in photo_map");
+            break;
             
             default:
                 // TODO: Better error reporting
-                return null;
+                AppWindow.error_message("Unable to load %s: %s".printf(file.get_path(),
+                    result.to_string()));
+            break;
         }
+        
+        if (photo != null)
+            photo_map.set(file, photo);
+        
+        return photo;
     }
     
-    public override File generate_exportable() {
-        return (File) null;
+    public override File generate_exportable_file() {
+        // reuse exportable file if possible
+        if (exportable != null)
+            return exportable;
+        
+        // generate an exportable in the app temp directory with the same basename as the file
+        // being edited ... as generate_exportable will reuse the file if it exists, and if
+        // exportable is null then it's been discarded, delete the old file
+        exportable = AppWindow.get_temp_dir().get_child(get_file().get_basename());
+        if (exportable.query_exists(null)) {
+            try {
+                exportable.delete(null);
+            } catch (Error err) {
+                // this is actually a real problem, as the user will probably not get what they
+                // wanted
+                warning("Unable to delete exportable temp file %s: %s", exportable.get_path(),
+                    err.message);
+            }
+        }
+        
+        return exportable;
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(int scale) throws Error {
@@ -1383,13 +1488,17 @@ public class DirectPhoto : TransformablePhoto {
         
         int pixels = scale_to_pixels(scale);
         if (pixels > 0)
-            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.BILINEAR);
+            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.NEAREST);
         
         return pixbuf;
     }
     
-    private override void on_altered() {
-        current_pixbuf = get_pixbuf(SCREEN);
+    private override void altered() {
+        // stash the current pixbuf for previews and such, and flush the generated exportable file
+        current_pixbuf = base.get_pixbuf(SCREEN);
+        exportable = null;
+        
+        base.altered();
     }
 }
 

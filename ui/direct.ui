@@ -2,6 +2,9 @@
 
     <menubar name="DirectMenuBar">
         <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Save" action="Save" />
+            <menuitem name="SaveAs" action="SaveAs" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

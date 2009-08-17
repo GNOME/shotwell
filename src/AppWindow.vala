@@ -338,9 +338,24 @@ public abstract class AppWindow : PageWindow {
         return File.new_for_path(Environment.get_home_dir()).get_child("Pictures");
     }
     
+    // Not using system temp directory for a couple of reasons: Temp files are often generated for
+    // drag-and-drop and the temporary filename is the name transferred to the destination, and so
+    // it's possible for various instances to generate same-name temp files.  Also, the file may
+    // need to remain available after it's closed by Shotwell.  Vala bindings
+    // guarantee temp files by returning an OutputStream, but that's not how the temp files are
+    // generated in Shotwell many times
+    //
+    // TODO: At startup, clean out temp directory of old files.
     public static File get_temp_dir() {
-        // TODO: I know, I know.  Better ways to locate a temp file.
-        return get_data_subdir("tmp");
+        // Because multiple instances of the app can run at the same time, place temp files in
+        // subdir named after process ID
+        File tmp_dir = get_data_subdir("tmp").get_child("%d".printf((int) Posix.getpid()));
+        if (!tmp_dir.query_exists(null)) {
+            if (!tmp_dir.make_directory_with_parents(null))
+                error("Unable to create temporary directory %s", tmp_dir.get_path());
+        }
+        
+        return tmp_dir;
     }
     
     public static File get_data_subdir(string name, string? subname = null) {

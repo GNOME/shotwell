@@ -86,7 +86,8 @@ HEADER_DIRS = \
 
 LOCAL_PKGS = \
 	FStream \
-	FixedKeyFile
+	FixedKeyFile \
+	posix
 
 EXT_PKGS = \
 	gtk+-2.0 \

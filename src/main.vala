@@ -89,6 +89,7 @@ void library_exec(string[] mounts) {
 void editing_exec(string filename) {
     // validate filename ... direct editing only works on files that exist
     if (!FileUtils.test(filename, FileTest.EXISTS) || !FileUtils.test(filename, FileTest.IS_REGULAR)) {
+        // TODO: Better error reporting
         stdout.printf("%s not found.", filename);
         
         return;
@@ -98,7 +99,7 @@ void editing_exec(string filename) {
     DatabaseTable.init(null);
     DirectPhoto.init();
     
-    DirectWindow direct_window = new DirectWindow(File.new_for_path(filename));
+    DirectWindow direct_window = new DirectWindow(File.new_for_commandline_arg(filename));
     direct_window.show_all();
     
     Gtk.main();

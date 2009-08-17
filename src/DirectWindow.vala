@@ -8,10 +8,11 @@ public class DirectWindow : AppWindow {
     public DirectWindow(File file) {
         DirectPhotoPage direct_photo_page = new DirectPhotoPage(file);
         direct_photo_page.set_container(this);
+        direct_photo_page.photo_replaced += on_photo_replaced;
         
         current_page = direct_photo_page;
         
-        title = file.get_basename() + " ~ " + Resources.APP_TITLE;
+        update_title(file);
 
         // add accelerators
         Gtk.AccelGroup accel_group = current_page.ui.get_accel_group();
@@ -28,6 +29,10 @@ public class DirectWindow : AppWindow {
         add(layout);
     }
     
+    public void update_title(File file) {
+        title = file.get_basename() + " ~ " + Resources.APP_TITLE;
+    }
+    
     public override void on_fullscreen() {
         File file = ((DirectPhotoPage) current_page).get_current_file();
         
@@ -36,6 +41,10 @@ public class DirectWindow : AppWindow {
         fs_photo.set_container(fs_window);
 
         go_fullscreen(fs_window);
+    }
+    
+    private void on_photo_replaced(TransformablePhoto old_photo, TransformablePhoto new_photo) {
+        update_title(new_photo.get_file());
     }
 }
 

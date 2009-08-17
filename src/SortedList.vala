@@ -8,6 +8,13 @@ public abstract class Comparator<G> {
     public abstract int64 compare(G a, G b);
 }
 
+// Common comparators
+public class FileComparator : Comparator<File> {
+    public override int64 compare(File a, File b) {
+        return strcmp(a.get_path(), b.get_path());
+    }
+}
+    
 public class SortedList<G> : Object, Gee.Iterable<G> {
     private Gee.List<G> list;
     private Comparator<G> cmp;
@@ -64,8 +71,20 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         list.set(index, item);
     }
 
-    public int index_of(G item) {
-        return list.index_of(item);
+    public int index_of(G search) {
+        // because the internal ArrayList has no equal_func (and can't easily provide one without
+        // asking the user for a separate static comparator), search manually here
+        int index = 0;
+        foreach (G item in list) {
+            // use direct_equal if no comparator installed
+            bool found = (cmp != null) ? (cmp.compare(item, search) == 0) : direct_equal(item, search);
+            if (found)
+                return index;
+            
+            index++;
+        }
+        
+        return -1;
     }
     
     public void insert(int index, G item) {

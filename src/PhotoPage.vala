@@ -38,6 +38,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // drag-and-drop state
     private File drag_file = null;
     
+    public virtual signal bool check_replace_photo(TransformablePhoto old_photo, TransformablePhoto new_photo) {
+        return true;
+    }
+    
+    public virtual signal void photo_replaced(TransformablePhoto old_photo, TransformablePhoto new_photo) {
+    }
+    
     public EditingHostPage(string name) {
         base(name);
         
@@ -141,11 +148,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected void replace_photo(TransformablePhoto new_photo) {
+        // only check if okay if there's something to replace
+        if (photo != null) {
+            if (!check_replace_photo(photo, new_photo)) {
+                return;
+            }
+        }
+
         deactivate_tool();
         
         if (photo != null)
             photo.altered -= on_photo_altered;
 
+        TransformablePhoto old_photo = photo;
         photo = new_photo;
         photo.altered += on_photo_altered;
 
@@ -154,6 +169,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         quick_update_pixbuf();
         
         update_ui();
+        
+        // signal the photo has been replaced
+        photo_replaced(old_photo, photo);
     }
     
     private void quick_update_pixbuf() {
@@ -176,7 +194,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
            button to avoid having on_enhance_toggled invoked twice */
         enhance_button.toggled -= on_enhance_toggled;
         enhance_button.set_active(photo.is_enhancement_enabled());
-        enhance_button.toggled += on_enhance_toggled;        
+        enhance_button.toggled += on_enhance_toggled;
 
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
@@ -275,6 +293,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         debug("Drag failed: %d", (int) drag_result);
         
         drag_file = null;
+        photo.export_failed();
         
         return false;
     }
@@ -699,8 +718,8 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_export() {
         if (get_photo() == null)
             return;
-            
-        ExportDialog export_dialog = new ExportDialog(1);
+        
+        ExportDialog export_dialog = new ExportDialog("Export Photo");
         
         int scale;
         ScaleConstraint constraint;
@@ -730,6 +749,8 @@ public class LibraryPhotoPage : EditingHostPage {
 }
 
 public class DirectPhotoCollection : Object, PhotoCollection {
+    private static FileComparator file_comparator = new FileComparator();
+    
     private File dir;
     
     public DirectPhotoCollection(File dir) {
@@ -737,58 +758,183 @@ public class DirectPhotoCollection : Object, PhotoCollection {
     }
     
     public int get_count() {
-        return 0;
+        SortedList<File> list = get_children_photos();
+        
+        return (list != null) ? list.size : 0;
     }
     
     public PhotoBase? get_first_photo() {
-        return null;
+        SortedList<File> list = get_children_photos();
+        if (list == null || list.size == 0)
+            return null;
+        
+        return DirectPhoto.fetch(list.get(0));
     }
     
     public PhotoBase? get_last_photo() {
-        return null;
+        SortedList<File> list = get_children_photos();
+        if (list == null || list.size == 0)
+            return null;
+        
+        return DirectPhoto.fetch(list.get(list.size - 1));
     }
     
     public PhotoBase? get_next_photo(PhotoBase current) {
-        return null;
+        SortedList<File> list = get_children_photos();
+        if (list == null || list.size == 0)
+            return null;
+        
+        int index = list.index_of(((DirectPhoto) current).get_file());
+        if (index < 0)
+            return null;
+        
+        index++;
+        if (index >= list.size)
+            index = 0;
+
+        return DirectPhoto.fetch(list.get(index));
     }
     
     public PhotoBase? get_previous_photo(PhotoBase current) {
-        return null;
+        SortedList<File> list = get_children_photos();
+        if (list == null || list.size == 0)
+            return null;
+        
+        int index = list.index_of(((DirectPhoto) current).get_file());
+        if (index < 0)
+            return null;
+        
+        index--;
+        if (index < 0)
+            index = list.size - 1;
+
+        return DirectPhoto.fetch(list.get(index));
+    }
+    
+    private SortedList<File>? get_children_photos() {
+        try {
+            FileEnumerator enumerator = dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
+                FileQueryInfoFlags.NONE, null);
+            
+            SortedList<File> list = new SortedList<File>(file_comparator);
+            
+            FileInfo file_info = null;
+            while ((file_info = enumerator.next_file(null)) != null) {
+                File file = File.new_for_path(file_info.get_name());
+                
+                if (!TransformablePhoto.is_file_supported(file))
+                    continue;
+
+                list.add(file);
+            }
+
+            return list;
+        } catch (Error err) {
+            message("Unable to enumerate children in %s: %s", dir.get_path(), err.message);
+            
+            return null;
+        }
     }
 }
 
 public class DirectPhotoPage : EditingHostPage {
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, null },
+        { "FileMenu", null, "_File", null, null, on_file },
+        { "Save", Gtk.STOCK_SAVE, "_Save", "<Ctrl>S", "Save photo", on_save },
+        { "SaveAs", Gtk.STOCK_SAVE_AS, "Save _As...", "<Ctrl>A", "Save photo with a different name", 
+            on_save_as },
         
         { "ViewMenu", null, "_View", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
-    private File file;
-    private DirectPhoto photo = null;
-    private DirectPhotoCollection photo_collection = null;
+    private File initial_file;
+    private File current_save_dir;
     
     public DirectPhotoPage(File file) {
         base(file.get_basename());
         
-        this.file = file;
+        initial_file = file;
+        current_save_dir = file.get_parent();
         
         init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", ACTIONS);
-        
-        photo = DirectPhoto.fetch(file);
-        photo_collection = new DirectPhotoCollection(file.get_parent());
     }
     
     private override void realize() {
         if (base.realize != null)
             base.realize();
+        
+        DirectPhoto photo = DirectPhoto.fetch(initial_file);
+        if (photo == null)
+            return;
 
-        display(photo_collection, photo);
+        display(new DirectPhotoCollection(initial_file.get_parent()), photo);
+        initial_file = null;
     }
     
     public File get_current_file() {
-        return file;
+        return get_photo().get_file();
+    }
+    
+    private void on_file() {
+        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_transformations());
+    }
+    
+    private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality) {
+        try {
+            get_photo().export(dest, scale, constraint, quality);
+        } catch (Error err) {
+            AppWindow.error_message("Error while saving photo: %s".printf(err.message));
+            
+            return;
+        }
+        
+        // switch to that file ... if saving on top of the original file, this will re-import the
+        // photo into the in-memory database, which is key because its stored transformations no
+        // longer match the backing photo
+        display(new DirectPhotoCollection(dest.get_parent()), DirectPhoto.fetch(dest, true));
+    }
+    
+    private void on_save() {
+        if (!get_photo().has_transformations())
+            return;
+        
+        ExportDialog dialog = new ExportDialog("Save Photo");
+        
+        int scale;
+        ScaleConstraint constraint;
+        Jpeg.Quality quality;
+        if (!dialog.execute(out scale, out constraint, out quality))
+            return;
+        
+        // save right on top of the current file
+        save(get_photo().get_file(), scale, constraint, quality);
+    }
+    
+    private void on_save_as() {
+        ExportDialog export_dialog = new ExportDialog("Save Photo As...");
+        
+        int scale;
+        ScaleConstraint constraint;
+        Jpeg.Quality quality;
+        if (!export_dialog.execute(out scale, out constraint, out quality))
+            return;
+
+        Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog("Save Photo As...", 
+            AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
+            Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        save_as_dialog.set_select_multiple(false);
+        save_as_dialog.set_filename(get_photo().get_file().get_path());
+        save_as_dialog.set_current_folder(current_save_dir.get_path());
+        save_as_dialog.set_do_overwrite_confirmation(true);
+        
+        int response = save_as_dialog.run();
+        if (response == Gtk.ResponseType.OK) {
+            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, quality);
+            current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());
+        }
+        
+        save_as_dialog.destroy();
     }
 }

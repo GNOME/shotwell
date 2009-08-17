@@ -697,8 +697,9 @@ public class CollectionPage : CheckerboardPage {
 
         if (export_list.size == 0)
             return;
-            
-        ExportDialog export_dialog = new ExportDialog(export_list.size);
+
+        ExportDialog export_dialog = new ExportDialog(
+            "Export Photo%s".printf(export_list.size > 1 ? "s" : ""));
         
         int scale;
         ScaleConstraint constraint;
