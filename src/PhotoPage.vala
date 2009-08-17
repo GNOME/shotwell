@@ -896,7 +896,8 @@ public class DirectPhotoPage : EditingHostPage {
         else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
             AppWindow.error_message("%s is not a file.".printf(file.get_path()));
         else if (!TransformablePhoto.is_file_supported(file))
-            AppWindow.error_message("The format of %s is not supported.".printf(file.get_path()));
+            AppWindow.error_message("%s does not support the file format of\n%s.".printf(
+                Resources.APP_TITLE, file.get_path()));
         else
             ok = true;
         

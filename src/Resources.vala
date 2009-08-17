@@ -10,7 +10,8 @@ extern const string _VERSION;
 
 namespace Resources {
     public const string APP_TITLE = "Shotwell";
-    public const string APP_SUBTITLE = "Photo Organizer";
+    public const string APP_LIBRARY_ROLE = "Photo Organizer";
+    public const string APP_DIRECT_ROLE = "Photo Viewer";
     public const string APP_VERSION = _VERSION;
     public const string COPYRIGHT = "Copyright 2009 Yorba Foundation";
     

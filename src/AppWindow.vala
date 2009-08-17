@@ -410,11 +410,13 @@ public abstract class AppWindow : PageWindow {
     public static bool has_user_quit() {
         return user_quit;
     }
+    
+    public abstract string get_app_role();
 
     protected void on_about() {
         Gtk.show_about_dialog(this,
             "version", Resources.APP_VERSION,
-            "comments", Resources.APP_SUBTITLE,
+            "comments", get_app_role(),
             "copyright", Resources.COPYRIGHT,
             "website", Resources.YORBA_URL,
             "license", Resources.LICENSE,

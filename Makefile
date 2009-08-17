@@ -188,6 +188,7 @@ install:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
+	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
 	-update-desktop-database
 
 uninstall:
@@ -195,6 +196,7 @@ uninstall:
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
 	rm -fr $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/shotwell.svg
 	rm -f $(DESTDIR)/usr/share/applications/shotwell.desktop
+	rm -f $(DESTDIR)/usr/share/applications/shotwell-viewer.desktop
 	-update-desktop-database
 
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \

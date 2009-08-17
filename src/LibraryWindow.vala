@@ -224,6 +224,10 @@ public class LibraryWindow : AppWindow {
             on_events_sort_changed);
     }
     
+    public override string get_app_role() {
+        return Resources.APP_LIBRARY_ROLE;
+    }
+    
     private override void on_fullscreen() {
         CollectionPage collection = null;
         TransformablePhoto start = null;

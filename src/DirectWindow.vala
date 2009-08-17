@@ -47,6 +47,10 @@ public class DirectWindow : AppWindow {
         go_fullscreen(fs_window);
     }
     
+    public override string get_app_role() {
+        return Resources.APP_DIRECT_ROLE;
+    }
+    
     private void on_photo_replaced(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
         update_title(new_photo.get_file());
     }
