@@ -73,6 +73,23 @@ namespace Exif {
         return false;
     }
 
+    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format) {
+        assert(exif != null);
+        
+        Exif.Content content = exif.ifd[(int) ifd];
+        assert(content != null);
+        
+        Exif.Entry entry = content.get_entry(tag);
+        if (entry == null)
+            return null;
+        
+        assert(entry.format == format);
+        if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
+            assert(entry.size == format.get_size());
+        
+        return entry;
+    }
+
     private Exif.Entry? find_entry_multiformat(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag,
         Exif.Format format1, Exif.Format format2) {
         assert(exif != null);
@@ -89,6 +106,28 @@ namespace Exif {
             assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
         
         return entry;
+    }
+
+    public Orientation get_orientation(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.ZERO, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
+        if (entry == null)
+            return Orientation.TOP_LEFT;
+        
+        int o = Exif.Convert.get_short(entry.data, exif.get_byte_order());
+        if (o < (int) Orientation.MIN || o > (int) Orientation.MAX)
+            return Orientation.TOP_LEFT;
+        
+        return (Orientation) o;
+    }
+    
+    public void set_orientation(ref Exif.Data exif, Orientation orientation) {
+        Exif.Entry entry = find_first_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
+        if (entry == null) {
+            // TODO: Need a fall-back here
+            error("Unable to set orientation: no entry found");
+        }
+        
+        Exif.Convert.set_short(entry.data, exif.get_byte_order(), orientation);
     }
 
     public bool get_dimensions(Exif.Data exif, out Dimensions dim) {
@@ -238,27 +277,13 @@ public class PhotoExif  {
     public Orientation get_orientation() {
         update();
         
-        Exif.Entry entry = find_entry(Exif.Ifd.ZERO, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
-        if (entry == null)
-            return Orientation.TOP_LEFT;
-        
-        int o = Exif.Convert.get_short(entry.data, exif.get_byte_order());
-        if (o < (int) Orientation.MIN || o > (int) Orientation.MAX)
-            return Orientation.TOP_LEFT;
-        
-        return (Orientation) o;
+        return Exif.get_orientation(exif);
     }
     
     public void set_orientation(Orientation orientation) {
         update();
         
-        Exif.Entry entry = find_first_entry(Exif.Tag.ORIENTATION, Exif.Format.SHORT);
-        if (entry == null) {
-            // TODO: Need a fall-back here
-            error("Unable to set orientation: no entry found");
-        }
-        
-        Exif.Convert.set_short(entry.data, exif.get_byte_order(), orientation);
+        Exif.set_orientation(ref exif, orientation);
     }
     
     public bool get_dimensions(out Dimensions dim) {
@@ -276,7 +301,7 @@ public class PhotoExif  {
     public string? get_datetime() {
         update();
         
-        Exif.Entry datetime = find_entry(Exif.Ifd.EXIF, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
+        Exif.Entry datetime = Exif.find_entry(exif, Exif.Ifd.EXIF, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
         if (datetime == null)
             return null;
         
@@ -334,31 +359,6 @@ public class PhotoExif  {
         // fix now, all at once
         exif.fix();
     }
-    
-    private Exif.Entry? find_entry(Exif.Ifd ifd, Exif.Tag tag, Exif.Format format) {
-        assert(exif != null);
-        
-        Exif.Content content = exif.ifd[(int) ifd];
-        assert(content != null);
-        
-        Exif.Entry entry = content.get_entry(tag);
-        if (entry == null)
-            return null;
-        
-        assert(entry.format == format);
-        if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
-            assert(entry.size == format.get_size());
-        
-        return entry;
-    }
-    
-    private Exif.Entry? find_first_entry(Exif.Tag tag, Exif.Format format) {
-        assert(exif != null);
-        
-        return Exif.find_first_entry(exif, tag, format);
-    }
-    
-    
     
     public void commit() throws Error {
         if (exif == null)

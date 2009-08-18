@@ -28,6 +28,7 @@
         
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="ViewTitle" action="ViewTitle" />
+			<menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByName" action="SortByName" />

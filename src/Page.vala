@@ -48,11 +48,21 @@ public abstract class Page : Gtk.ScrolledWindow {
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
     private bool in_view = false;
+    
+    public signal void selection_changed(); 
 
     public Page(string page_name) {
         this.page_name = page_name;
         
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+    }
+
+    protected virtual void on_selection_changed(int count) {
+    }
+    
+    protected void notify_selection_changed(int count) {
+        on_selection_changed(count);
+        selection_changed();
     }
 
     public string get_page_name() {
@@ -407,7 +417,11 @@ public abstract class Page : Gtk.ScrolledWindow {
         return on_motion(event, x, y, mask);
     }
 
+    public abstract int get_queryable_count();
+
     public abstract Gee.Iterable<Queryable>? get_queryables();
+
+    public abstract int get_selected_queryable_count();
 
     public abstract Gee.Iterable<Queryable>? get_selected_queryables();
 }
@@ -444,9 +458,6 @@ public abstract class CheckerboardPage : Page {
     
     public void init_context_menu(string path) {
         context_menu = (Gtk.Menu) ui.get_widget(path);
-    }
-    
-    protected virtual void on_selection_changed(int count) {
     }
     
     public virtual Gtk.Menu? get_context_menu() {
@@ -500,18 +511,40 @@ public abstract class CheckerboardPage : Page {
     public Gee.Iterable<LayoutItem> get_items() {
         return layout.items;
     }
-    
+   
     public Gee.Iterable<LayoutItem> get_selected() {
         return selected_items;
     }
-    
+
+    public override int get_queryable_count() {
+        return get_count();
+    }
+
+    public override Gee.Iterable<Queryable>? get_queryables() {
+        return get_items();
+    }
+
+    public override int get_selected_queryable_count() {
+        return get_selected_count();
+    }
+
+    public override Gee.Iterable<Queryable>? get_selected_queryables() {
+        return get_selected();
+    }    
+
     public void add_item(LayoutItem item) {
         layout.add_item(item);
     }
     
     public void remove_item(LayoutItem item) {
+        int count = selected_items.size;
+
         selected_items.remove(item);
         layout.remove_item(item);
+
+        if (count != selected_items.size) {
+            notify_selection_changed(selected_items.size);
+        }
     }
     
     public int remove_selected() {
@@ -521,16 +554,25 @@ public abstract class CheckerboardPage : Page {
             layout.remove_item(item);
         
         selected_items.clear();
+
+        if (count != selected_items.size) {
+            notify_selection_changed(selected_items.size);
+        }
         
         return count;
     }
     
     public int remove_all() {
         int count = layout.items.size;
+        int selection_count = selected_items.size;
         
         layout.clear();
         selected_items.clear();
         
+        if (selection_count != selected_items.size) {
+            notify_selection_changed(selected_items.size);
+        }
+
         return count;
     }
     
@@ -549,7 +591,7 @@ public abstract class CheckerboardPage : Page {
         }
         
         if (changed)
-            on_selection_changed(selected_items.size);
+            notify_selection_changed(selected_items.size);
     }
 
     public void unselect_all() {
@@ -563,7 +605,7 @@ public abstract class CheckerboardPage : Page {
         
         selected_items.clear();
         
-        on_selection_changed(0);
+        notify_selection_changed(0);
     }
     
     public void unselect_all_but(LayoutItem exception) {
@@ -585,7 +627,7 @@ public abstract class CheckerboardPage : Page {
         selected_items.add(exception);
 
         if (changed)
-            on_selection_changed(1);
+            notify_selection_changed(1);
     }
 
     public void select(LayoutItem item) {
@@ -595,7 +637,7 @@ public abstract class CheckerboardPage : Page {
             item.select();
             selected_items.add(item);
 
-            on_selection_changed(selected_items.size);
+            notify_selection_changed(selected_items.size);
         }
     }
     
@@ -606,7 +648,7 @@ public abstract class CheckerboardPage : Page {
             item.unselect();
             selected_items.remove(item);
             
-            on_selection_changed(selected_items.size);
+            notify_selection_changed(selected_items.size);
         }
     }
 
@@ -619,13 +661,13 @@ public abstract class CheckerboardPage : Page {
             selected_items.remove(item);
         }
         
-        on_selection_changed(selected_items.size);
+        notify_selection_changed(selected_items.size);
     }
-
+    
     public int get_selected_count() {
         return selected_items.size;
     }
-    
+
     protected override bool key_press_event(Gdk.EventKey event) {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
@@ -1163,14 +1205,6 @@ public abstract class CheckerboardPage : Page {
             if (box.contains(point))
                 select(item);
         }
-    }
-  
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        return get_selected();
-    }
-
-    public override Gee.Iterable<Queryable>? get_selected_queryables() {
-        return get_items();
     }
 }
 

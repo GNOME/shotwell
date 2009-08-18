@@ -163,6 +163,14 @@ class SlideshowPage : SinglePhotoPage {
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
 
+    public override int get_queryable_count() {
+        return 1;
+    }
+
+    public override int get_selected_queryable_count() {
+        return get_queryable_count();
+    }
+
     public override Gee.Iterable<Queryable>? get_queryables() {
         Gee.ArrayList<LibraryPhoto> photo_array_list = new Gee.ArrayList<LibraryPhoto>();
         photo_array_list.add(thumbnail.get_photo());
@@ -593,6 +601,9 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_thumbnail_altered(LibraryPhoto photo) {
+        // TODO: use a different signal: e.g. contents_changed or photo_altered
+        notify_selection_changed(get_selected_queryable_count());        
+
         // the thumbnail is only going to reload a low-quality interp, so schedule improval
         schedule_thumbnail_improval();
         

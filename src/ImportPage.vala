@@ -55,9 +55,13 @@ class ImportPreview : LayoutItem, PhotoSource {
 
     public Dimensions get_dimensions() { 
         Dimensions dimensions;
-        if (!Exif.get_dimensions(exif, out dimensions))
+        Orientation orientation = Exif.get_orientation(exif);
+
+        if (!Exif.get_dimensions(exif, out dimensions)) {
             dimensions = Dimensions(0,0);
-        return dimensions;
+        }
+
+        return orientation.rotate_dimensions(dimensions);
     }
 
     public Exif.Data? get_exif() {
@@ -869,6 +873,14 @@ public class ImportQueuePage : SinglePhotoPage {
         } else {
             stop_button.sensitive = false;
         }
+    }
+
+    public override int get_queryable_count() {
+        return 1;
+    }
+
+    public override int get_selected_queryable_count() {
+        return get_queryable_count();
     }
 
     public override Gee.Iterable<Queryable>? get_queryables() {

@@ -168,13 +168,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         photo.altered += on_photo_altered;
 
         set_page_name(photo.get_name());
-        
+
         quick_update_pixbuf();
         
         update_ui();
         
         // signal the photo has been replaced
         photo_replaced(old_photo, photo);
+     
+        notify_selection_changed(1);
     }
     
     private void quick_update_pixbuf() {
@@ -186,7 +188,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private bool update_pixbuf() {
         set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN));
-        
         return false;
     }
     
@@ -345,6 +346,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_photo_altered(TransformablePhoto p) {
+        // TODO: use a different signal: e.g. contents_changed or photo_altered
+        notify_selection_changed(1);
+
         quick_update_pixbuf();
 
         update_ui();
@@ -635,12 +639,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     public override Gee.Iterable<Queryable>? get_queryables() {
         Gee.ArrayList<PhotoSource> photo_array_list = new Gee.ArrayList<PhotoSource>();
+
         photo_array_list.add(photo);
         return photo_array_list;
     }
 
     public override Gee.Iterable<Queryable>? get_selected_queryables() {
         return get_queryables();
+    }
+
+    public override int get_queryable_count() {
+        return 1;
+    }
+
+    public override int get_selected_queryable_count() {
+        return get_queryable_count();
     }
 }
 

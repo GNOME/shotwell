@@ -32,6 +32,10 @@ public class LibraryWindow : AppWindow {
             on_file_import },
         { "CommonSortEvents", null, "Sort _Events", null, null, on_sort_events }
     };
+
+    private const Gtk.ToggleActionEntry[] COMMON_TOGGLE_ACTIONS = {
+        { "CommonDisplayBasicProperties", null, "Basic _Information", "<Ctrl><Shift>I", "Display basic information of the selection", on_display_basic_properties, false }
+    };
     
     private const Gtk.RadioActionEntry[] COMMON_SORT_EVENTS_ORDER_ACTIONS = {
         { "CommonSortEventsAscending", Gtk.STOCK_SORT_ASCENDING, "_Ascending", null, 
@@ -43,6 +47,9 @@ public class LibraryWindow : AppWindow {
     public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
 
     private string import_dir = Environment.get_home_dir();
+
+    private Gtk.VPaned sidebar_paned = new Gtk.VPaned();
+    private Gtk.Frame bottom_frame = new Gtk.Frame(null);
 
     private class FileImportJob : BatchImportJob {
         private File file_or_dir;
@@ -110,6 +117,8 @@ public class LibraryWindow : AppWindow {
     
     private Sidebar sidebar = new Sidebar();
     private SidebarMarker cameras_marker = null;
+
+    private BasicProperties basic_properties = new BasicProperties();
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
@@ -163,7 +172,20 @@ public class LibraryWindow : AppWindow {
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
     }
-    
+
+    public override void show_all() {
+        base.show_all();
+
+        Gtk.ToggleAction basic_properties_action = 
+            (Gtk.ToggleAction) current_page.common_action_group.get_action(
+            "CommonDisplayBasicProperties");
+        assert(basic_properties_action != null);
+
+        if (!basic_properties_action.get_active()) {
+            bottom_frame.hide();
+        }
+    }    
+
     public static LibraryWindow get_app() {
         assert(instance is LibraryWindow);
         
@@ -220,6 +242,7 @@ public class LibraryWindow : AppWindow {
         base.add_common_actions(action_group);
         
         action_group.add_actions(COMMON_LIBRARY_ACTIONS, this);
+        action_group.add_toggle_actions(COMMON_TOGGLE_ACTIONS, this);
         action_group.add_radio_actions(COMMON_SORT_EVENTS_ORDER_ACTIONS, SORT_EVENTS_ORDER_ASCENDING,
             on_events_sort_changed);
     }
@@ -326,6 +349,18 @@ public class LibraryWindow : AppWindow {
 
         // the events directory page needs to know about this
         events_directory_page.notify_sort_changed(events_sort);
+    }
+
+    private void on_display_basic_properties(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+
+        if (display) {
+            bottom_frame.show();
+        } else {
+            if (sidebar_paned.child2 != null) {
+                bottom_frame.hide();
+            }
+        }
     }
     
     public void enqueue_batch_import(BatchImport batch_import) {
@@ -595,8 +630,8 @@ public class LibraryWindow : AppWindow {
     }
 
     private void add_camera_page(DiscoveredCamera camera) {
-        ImportPage page = new ImportPage(camera.gcamera, camera.uri);
-        
+        ImportPage page = new ImportPage(camera.gcamera, camera.uri);   
+
         // create the Cameras row if this is the first one
         if (cameras_marker == null)
             cameras_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
@@ -728,10 +763,21 @@ public class LibraryWindow : AppWindow {
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolled_sidebar.add(sidebar);
 
+        // divy the sidebar up into selection tree list and properties
+        Gtk.Frame top_frame = new Gtk.Frame(null);
+        top_frame.add(scrolled_sidebar);
+        top_frame.set_shadow_type(Gtk.ShadowType.IN);
+        bottom_frame.add(basic_properties);
+        bottom_frame.set_shadow_type(Gtk.ShadowType.IN);
+
+        sidebar_paned.pack1(top_frame, true, false);
+        sidebar_paned.pack2(bottom_frame, false, false);
+        sidebar_paned.set_position(1000);
+
         // layout the selection tree to the left of the collection/toolbar box with an adjustable
         // gutter between them, framed for presentation
         Gtk.Frame left_frame = new Gtk.Frame(null);
-        left_frame.add(scrolled_sidebar);
+        left_frame.add(sidebar_paned);
         left_frame.set_shadow_type(Gtk.ShadowType.IN);
         
         Gtk.Frame right_frame = new Gtk.Frame(null);
@@ -755,11 +801,27 @@ public class LibraryWindow : AppWindow {
     public void switch_to_page(Page page) {
         if (page == current_page)
             return;
-        
+
         if (current_page != null) {
             current_page.switching_from();
         
             remove_accel_group(current_page.ui.get_accel_group());
+
+            // carry over menubar toggle activity between pages
+            Gtk.ToggleAction old_action = 
+                (Gtk.ToggleAction) current_page.common_action_group.get_action(
+                "CommonDisplayBasicProperties");
+            assert(old_action != null);
+
+            Gtk.ToggleAction new_action = 
+                (Gtk.ToggleAction) page.common_action_group.get_action(
+                "CommonDisplayBasicProperties");
+            assert(new_action != null);
+            
+            new_action.set_active(old_action.get_active());
+
+            // unsubscribe to the basic properties display signal (new page subscribes below)
+            current_page.selection_changed -= on_selection_changed;
         }
 
         int pos = get_notebook_pos(page);
@@ -784,6 +846,11 @@ public class LibraryWindow : AppWindow {
         page.show_all();
         
         page.switched_to();
+
+        on_selection_changed();
+
+        // subscribe to this signal for each event page so basic properties display will update
+        current_page.selection_changed += on_selection_changed;
     }
 
     private bool is_page_selected(Page page, Gtk.TreePath path) {
@@ -845,6 +912,10 @@ public class LibraryWindow : AppWindow {
         // this has to be done in Idle handler because the focus won't change properly inside 
         // this signal
         Idle.add(focus_on_current_page);
+    }
+
+    private void on_selection_changed() {
+        basic_properties.update_properties(current_page);
     }
     
     public void mounted_camera_shell_notification(string uri) {

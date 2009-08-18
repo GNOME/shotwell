@@ -10,6 +10,8 @@
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />

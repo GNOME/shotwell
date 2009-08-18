@@ -29,12 +29,12 @@ public class DirectoryItem : LayoutItem, EventSource {
     }
 
     public time_t get_end_time() {
-        return (new EventTable()).get_start_time(event_id);
+        return (new EventTable()).get_end_time(event_id);
     }
 
     public Gee.Iterable<PhotoSource> get_photos() {
         Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<PhotoSource> photos = new Gee.ArrayList<PhotoSource>();
         foreach (PhotoID photo_id in photo_ids) {
             photos.add(LibraryPhoto.fetch(photo_id));
         }
@@ -125,7 +125,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         return null;
     }
-    
+
     public void add_event(EventID event_id) {
         DirectoryItem item = new DirectoryItem(event_id, event_table);
         add_item(item);
@@ -173,7 +173,8 @@ public class EventPage : CollectionPage {
     }
     
     protected override void on_photos_menu() {
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary", get_selected_count() == 1);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary",     
+            get_selected_count() == 1);
         
         base.on_photos_menu();
     }
