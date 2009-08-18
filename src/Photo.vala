@@ -1170,6 +1170,8 @@ public class LibraryPhoto : TransformablePhoto {
         GONE
     }
     
+    private bool generate_thumbnails = true;
+    
     public signal void thumbnail_altered();
     
     public signal void removed();
@@ -1222,18 +1224,20 @@ public class LibraryPhoto : TransformablePhoto {
         // the exportable file is now not in sync with transformed photo
         remove_exportable_file();
 
-        // load transformed image for thumbnail generation
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = get_pixbuf(SCREEN);
-        } catch (Error err) {
-            error("%s", err.message);
+        if (generate_thumbnails) {
+            // load transformed image for thumbnail generation
+            Gdk.Pixbuf pixbuf = null;
+            try {
+                pixbuf = get_pixbuf(SCREEN);
+            } catch (Error err) {
+                error("%s", err.message);
+            }
+            
+            ThumbnailCache.import(photo_id, pixbuf, true);
+            
+            // fire signal that thumbnails have changed
+            thumbnail_altered();
         }
-        
-        ThumbnailCache.import(photo_id, pixbuf, true);
-        
-        // fire signal that thumbnails have changed
-        thumbnail_altered();
         
         base.on_altered();
     }
@@ -1258,7 +1262,10 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     public override void rotate(Rotation rotation) {
+        // block thumbnail generation for this operation; taken care of below
+        generate_thumbnails = false;
         base.rotate(rotation);
+        generate_thumbnails = true;
 
         // because rotations are (a) common and available everywhere in the app, (b) the user expects
         // a level of responsiveness not necessarily required by other modifications, (c) can be
