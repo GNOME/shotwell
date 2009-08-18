@@ -43,9 +43,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         ok = true;
     }
     
-    public virtual signal void photo_replaced(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
-    }
-    
     public EditingHostPage(string name) {
         base(name);
         
@@ -163,7 +160,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (photo != null)
             photo.altered -= on_photo_altered;
 
-        TransformablePhoto? old_photo = photo;
         photo = new_photo;
         photo.altered += on_photo_altered;
 
@@ -174,9 +170,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_ui();
         
         // signal the photo has been replaced
-        photo_replaced(old_photo, photo);
-     
-        notify_selection_changed(1);
+        contents_changed(1);
+        selection_changed(1);
     }
     
     private void quick_update_pixbuf() {
@@ -346,8 +341,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_photo_altered(TransformablePhoto p) {
-        // TODO: use a different signal: e.g. contents_changed or photo_altered
-        notify_selection_changed(1);
+        assert(p.equals(photo));
+
+        // signal that the photo has been altered
+        queryable_altered(photo);
 
         quick_update_pixbuf();
 
@@ -449,6 +446,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
         
         photo.remove_all_transformations();
+        
+        queryable_altered(photo);
     }
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
@@ -876,7 +875,7 @@ public class DirectPhotoPage : EditingHostPage {
         { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", 
             on_revert },
 
-       { "ViewMenu", null, "_View", null, null, null },
+        { "ViewMenu", null, "_View", null, null, null },
         
         { "HelpMenu", null, "_Help", null, null, null }
     };
@@ -884,7 +883,8 @@ public class DirectPhotoPage : EditingHostPage {
     private Gtk.Menu context_menu;
     private File initial_file;
     private File current_save_dir;
-    
+    private bool drop_if_dirty = false;
+
     public DirectPhotoPage(File file) {
         base(file.get_basename());
         
@@ -922,8 +922,10 @@ public class DirectPhotoPage : EditingHostPage {
             base.realize();
         
         DirectPhoto photo = DirectPhoto.fetch(initial_file);
-        if (photo == null)
-            return;
+        if (photo == null) {
+            // dead in the water
+            Posix.exit(1);
+        }
 
         display(new DirectPhotoCollection(initial_file.get_parent()), photo);
         initial_file = null;
@@ -944,9 +946,17 @@ public class DirectPhotoPage : EditingHostPage {
         return true;
     }
     
-    private static bool check_ok_to_close_photo(TransformablePhoto photo) {
+    private bool check_ok_to_close_photo(TransformablePhoto photo) {
         if (!photo.has_transformations())
             return true;
+        
+        if (drop_if_dirty) {
+            // need to remove transformations, or else they stick around in memory (reappearing
+            // if the user opens the file again)
+            photo.remove_all_transformations();
+            
+            return true;
+        }
         
         bool ok = AppWindow.yes_no_question("Lose changes to %s?".printf(photo.get_name()));
         if (ok)
@@ -987,20 +997,13 @@ public class DirectPhotoPage : EditingHostPage {
         if (!get_photo().has_transformations())
             return;
         
-        ExportDialog dialog = new ExportDialog("Save Photo");
-        
-        int scale;
-        ScaleConstraint constraint;
-        Jpeg.Quality quality;
-        if (!dialog.execute(out scale, out constraint, out quality))
-            return;
-        
-        // save right on top of the current file
-        save(get_photo().get_file(), scale, constraint, quality);
+        // save full-sized version right on top of the current file
+        save(get_photo().get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH);
     }
     
     private void on_save_as() {
-        ExportDialog export_dialog = new ExportDialog("Save Photo As...");
+        ExportDialog export_dialog = new ExportDialog("Save As", ExportDialog.DEFAULT_SCALE,
+            ScaleConstraint.ORIGINAL, ExportDialog.DEFAULT_QUALITY);
         
         int scale;
         ScaleConstraint constraint;
@@ -1008,7 +1011,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (!export_dialog.execute(out scale, out constraint, out quality))
             return;
 
-        Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog("Save Photo As...", 
+        Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog("Save As", 
             AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
             Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
         save_as_dialog.set_select_multiple(false);
@@ -1018,7 +1021,12 @@ public class DirectPhotoPage : EditingHostPage {
         
         int response = save_as_dialog.run();
         if (response == Gtk.ResponseType.OK) {
+            // flag to prevent asking user about losing changes to the old file (since they'll be
+            // loaded right into the new one)
+            drop_if_dirty = true;
             save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, quality);
+            drop_if_dirty = false;
+
             current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());
         }
         

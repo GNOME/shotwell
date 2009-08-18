@@ -266,7 +266,7 @@ public class ImportPage : CheckerboardPage {
         return toolbar;
     }
     
-    public override void on_selection_changed(int count) {
+    public override void selection_changed(int count) {
         import_selected_button.sensitive = !busy && refreshed && (count > 0);
     }
     

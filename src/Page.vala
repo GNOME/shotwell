@@ -49,20 +49,19 @@ public abstract class Page : Gtk.ScrolledWindow {
     private bool dnd_enabled = false;
     private bool in_view = false;
     
-    public signal void selection_changed(); 
+    public virtual signal void selection_changed(int count) {
+    }
+    
+    public virtual signal void contents_changed(int count) {
+    }
+    
+    public virtual signal void queryable_altered(Queryable queryable) {
+    }
 
     public Page(string page_name) {
         this.page_name = page_name;
         
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
-    }
-
-    protected virtual void on_selection_changed(int count) {
-    }
-    
-    protected void notify_selection_changed(int count) {
-        on_selection_changed(count);
-        selection_changed();
     }
 
     public string get_page_name() {
@@ -534,32 +533,41 @@ public abstract class CheckerboardPage : Page {
 
     public void add_item(LayoutItem item) {
         layout.add_item(item);
+        contents_changed(layout.items.size);
     }
     
     public void remove_item(LayoutItem item) {
-        int count = selected_items.size;
+        int count = layout.items.size;
+        int selected_count = selected_items.size;
 
         selected_items.remove(item);
         layout.remove_item(item);
+        
+        if (count != layout.items.size)
+            contents_changed(layout.items.size);
 
-        if (count != selected_items.size) {
-            notify_selection_changed(selected_items.size);
+        if (selected_count != selected_items.size) {
+            selection_changed(selected_items.size);
         }
     }
     
     public int remove_selected() {
-        int count = selected_items.size;
+        int count = layout.items.size;
+        int selected_count = selected_items.size;
         
         foreach (LayoutItem item in selected_items)
             layout.remove_item(item);
         
         selected_items.clear();
+        
+        if (count != layout.items.size)
+            contents_changed(layout.items.size);
 
-        if (count != selected_items.size) {
-            notify_selection_changed(selected_items.size);
+        if (selected_count != selected_items.size) {
+            selection_changed(selected_items.size);
         }
         
-        return count;
+        return selected_count;
     }
     
     public int remove_all() {
@@ -569,8 +577,11 @@ public abstract class CheckerboardPage : Page {
         layout.clear();
         selected_items.clear();
         
+        if (count != layout.items.size)
+            contents_changed(layout.items.size);
+        
         if (selection_count != selected_items.size) {
-            notify_selection_changed(selected_items.size);
+            selection_changed(selected_items.size);
         }
 
         return count;
@@ -591,7 +602,7 @@ public abstract class CheckerboardPage : Page {
         }
         
         if (changed)
-            notify_selection_changed(selected_items.size);
+            selection_changed(selected_items.size);
     }
 
     public void unselect_all() {
@@ -605,7 +616,7 @@ public abstract class CheckerboardPage : Page {
         
         selected_items.clear();
         
-        notify_selection_changed(0);
+        selection_changed(0);
     }
     
     public void unselect_all_but(LayoutItem exception) {
@@ -627,7 +638,7 @@ public abstract class CheckerboardPage : Page {
         selected_items.add(exception);
 
         if (changed)
-            notify_selection_changed(1);
+            selection_changed(1);
     }
 
     public void select(LayoutItem item) {
@@ -637,7 +648,7 @@ public abstract class CheckerboardPage : Page {
             item.select();
             selected_items.add(item);
 
-            notify_selection_changed(selected_items.size);
+            selection_changed(selected_items.size);
         }
     }
     
@@ -648,7 +659,7 @@ public abstract class CheckerboardPage : Page {
             item.unselect();
             selected_items.remove(item);
             
-            notify_selection_changed(selected_items.size);
+            selection_changed(selected_items.size);
         }
     }
 
@@ -661,7 +672,7 @@ public abstract class CheckerboardPage : Page {
             selected_items.remove(item);
         }
         
-        notify_selection_changed(selected_items.size);
+        selection_changed(selected_items.size);
     }
     
     public int get_selected_count() {

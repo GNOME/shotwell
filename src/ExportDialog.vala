@@ -56,15 +56,19 @@ namespace ExportUI {
 }
 
 public class ExportDialog : Gtk.Dialog {
-    public static const ScaleConstraint[] CONSTRAINT_ARRAY = { ScaleConstraint.ORIGINAL,
+    public const int DEFAULT_SCALE = 1200;
+    public const ScaleConstraint DEFAULT_CONSTRAINT = ScaleConstraint.DIMENSIONS;
+    public const Jpeg.Quality DEFAULT_QUALITY = Jpeg.Quality.HIGH;
+    
+    public const ScaleConstraint[] CONSTRAINT_ARRAY = { ScaleConstraint.ORIGINAL,
         ScaleConstraint.DIMENSIONS, ScaleConstraint.WIDTH, ScaleConstraint.HEIGHT };
     
-    public static const Jpeg.Quality[] QUALITY_ARRAY = { Jpeg.Quality.LOW, Jpeg.Quality.MEDIUM, 
+    public const Jpeg.Quality[] QUALITY_ARRAY = { Jpeg.Quality.LOW, Jpeg.Quality.MEDIUM, 
         Jpeg.Quality.HIGH, Jpeg.Quality.MAXIMUM };
 
     private static ScaleConstraint current_constraint = ScaleConstraint.DIMENSIONS;
     private static Jpeg.Quality current_quality = Jpeg.Quality.HIGH;
-    private static int current_scale = 1200;
+    private static int current_scale = DEFAULT_SCALE;
     
     private Gtk.Table table = new Gtk.Table(0, 0, false);
     private Gtk.ComboBox quality_combo;
@@ -73,10 +77,17 @@ public class ExportDialog : Gtk.Dialog {
     private Gtk.Widget ok_button;
     private bool in_insert = false;
     
-    public ExportDialog(string title) {
+    public ExportDialog(string title, int default_scale = DEFAULT_SCALE, 
+        ScaleConstraint default_constraint = DEFAULT_CONSTRAINT, 
+        Jpeg.Quality default_quality = DEFAULT_QUALITY) {
         this.title = title;
         has_separator = false;
         allow_grow = false;
+        
+        // use defaults for controls
+        current_scale = default_scale;
+        current_constraint = default_constraint;
+        current_quality = default_quality;
         
         // prepare controls
         quality_combo = new Gtk.ComboBox.text();

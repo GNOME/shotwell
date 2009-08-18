@@ -454,7 +454,7 @@ public class CollectionPage : CheckerboardPage {
         base.returning_from_fullscreen();
     }
     
-    protected override void on_selection_changed(int count) {
+    protected override void selection_changed(int count) {
         rotate_button.sensitive = (count > 0);
     }
     
@@ -601,8 +601,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_thumbnail_altered(LibraryPhoto photo) {
-        // TODO: use a different signal: e.g. contents_changed or photo_altered
-        notify_selection_changed(get_selected_queryable_count());        
+        queryable_altered(photo);
 
         // the thumbnail is only going to reload a low-quality interp, so schedule improval
         schedule_thumbnail_improval();

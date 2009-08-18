@@ -235,3 +235,17 @@ public bool query_is_directory_empty(File dir) throws Error {
     
     return enumerator.next_file(null) == null;
 }
+
+public string get_display_pathname(File file) {
+    // attempt to replace home path with tilde in a user-pleasable way
+    string path = file.get_parse_name();
+    string home = Environment.get_home_dir();
+
+    if (path == home)
+        return "~";
+    
+    if (path.has_prefix(home))
+        return "~%s".printf(path.substring(home.length));
+
+    return path;
+}
