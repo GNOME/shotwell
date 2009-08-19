@@ -71,6 +71,10 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         list.set(index, item);
     }
 
+    // index_of uses the Comparator to find the item being searched for.  Because SortedList allows
+    // for items identified as equal by the Comparator to co-exist in the list, this method will
+    // return the first item found where its compare() method returns zero.  Use locate() if a
+    // specific EqualFunc is required for searching.
     public int index_of(G search) {
         // because the internal ArrayList has no equal_func (and can't easily provide one without
         // asking the user for a separate static comparator), search manually here
@@ -79,6 +83,19 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
             // use direct_equal if no comparator installed
             bool found = (cmp != null) ? (cmp.compare(item, search) == 0) : direct_equal(item, search);
             if (found)
+                return index;
+            
+            index++;
+        }
+        
+        return -1;
+    }
+    
+    // See notes at index_of for the difference between this method and it.
+    public int locate(G search, EqualFunc equal_func = direct_equal) {
+        int index = 0;
+        foreach (G item in list) {
+            if (equal_func(item, search))
                 return index;
             
             index++;

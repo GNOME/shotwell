@@ -25,6 +25,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.Window container = null;
     private PhotoCollection controller = null;
     private TransformablePhoto photo = null;
+    private Gdk.Pixbuf original = null;
+    private Gdk.Pixbuf swapped = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
@@ -34,10 +36,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private EditingTool current_tool = null;
-    
-    // drag-and-drop state
     private File drag_file = null;
-    
+    private uint32 last_nav_key = 0;
+
     public virtual signal void check_replace_photo(TransformablePhoto old_photo, 
         TransformablePhoto new_photo, out bool ok) {
         ok = true;
@@ -145,6 +146,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected void replace_photo(TransformablePhoto new_photo) {
+        assert(new_photo != photo);
+        
         // only check if okay if there's something to replace
         if (photo != null) {
             bool ok;
@@ -171,6 +174,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // signal the photo has been replaced
         contents_changed(1);
         selection_changed(1);
+        
+        // clear out the comparison buffers
+        original = null;
+        swapped = null;
     }
     
     private void quick_update_pixbuf() {
@@ -182,6 +189,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private bool update_pixbuf() {
         set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN));
+
+        // fetch the original for quick comparisons ... want a pixbuf with no transformations
+        // (except original orientation)
+        if (original == null)
+            original = photo.get_original_pixbuf(TransformablePhoto.SCREEN);
+
         return false;
     }
     
@@ -196,6 +209,34 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
+    }
+    
+    private override bool on_shift_pressed(Gdk.EventKey event) {
+        // show quick compare of original only if no tool is in use, the original pixbuf is handy,
+        // and using quality interp to avoid pixellation if the user goes crazy with the shift key
+        if (current_tool == null && original != null) {
+            // store what's currently displayed only for the duration of the shift pressing
+            swapped = get_unscaled_pixbuf();
+            
+            Gdk.InterpType interp = set_default_interp(QUALITY_INTERP);
+            set_pixbuf(original);
+            set_default_interp(interp);
+        }
+        
+        return base.on_shift_pressed(event);
+    }
+    
+    private override bool on_shift_released(Gdk.EventKey event) {
+        if (current_tool == null && swapped != null) {
+            Gdk.InterpType interp = set_default_interp(QUALITY_INTERP);
+            set_pixbuf(swapped);
+            set_default_interp(interp);
+            
+            // only store swapped once; it'll be set the next on_shift_pressed
+            swapped = null;
+        }
+        
+        return base.on_shift_pressed(event);
     }
 
     private void activate_tool(EditingTool tool) {
@@ -379,16 +420,27 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 return true;
         }
         
+        // if the user holds the arrow keys down, we will receive a steady stream of key press
+        // events for an operation that isn't designed for a rapid succession of output ... 
+        // we staunch the supply of new photos to once a second (#533)
+        bool nav_ok = (event.time - last_nav_key) > 1000;
+        
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
             case "Left":
             case "KP_Left":
-                on_previous_photo();
+                if (nav_ok)
+                    on_previous_photo();
+                else
+                    handled = false;
             break;
             
             case "Right":
             case "KP_Right":
-                on_next_photo();
+                if (nav_ok)
+                    on_next_photo();
+                else
+                    handled = false;
             break;
             
             default:
@@ -396,9 +448,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             break;
         }
         
-        if (handled)
-            return true;
+        if (handled) {
+            last_nav_key = event.time;
         
+            return true;
+        }
+
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
     

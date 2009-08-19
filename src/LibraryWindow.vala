@@ -485,6 +485,15 @@ public class LibraryWindow : AppWindow {
 
             last_exposure = exposure_time;
         }
+        
+        // mark the last event's end time
+        if (current_event_id.is_valid()) {
+            assert(last_exposure != 0);
+            event_table.set_end_time(current_event_id, last_exposure);
+            
+            events_directory_page.add_event(current_event_id);
+            events_directory_page.refresh();
+        }
     }
     
     private void on_photo_removed(LibraryPhoto photo) {

@@ -885,9 +885,13 @@ public class CollectionPage : CheckerboardPage {
     private void on_slideshow() {
         if (get_count() == 0)
             return;
+        
+        Thumbnail thumbnail = (Thumbnail) get_fullscreen_photo();
+        if (thumbnail == null)
+            return;
             
         AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(this,
-            (Thumbnail) get_first_item())));
+            thumbnail)));
     }
 
     private void on_view_menu() {

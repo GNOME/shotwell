@@ -677,6 +677,72 @@ public abstract class TransformablePhoto: PhotoBase {
         return (scale == SCREEN) ? get_screen_scale() : scale;
     }
 
+    // Returns a raw, untransformed, unscaled pixbuf from the source that has been rotated
+    // according to its original EXIF settings
+    public Gdk.Pixbuf get_original_pixbuf(int scale, Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
+#if MEASURE_PIPELINE
+        Timer timer = new Timer();
+        Timer total_timer = new Timer();
+        double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, scale_time = 0.0,
+            orientation_time = 0.0;
+        
+        total_timer.start();
+#endif
+
+        Gdk.Pixbuf pixbuf = null;
+        
+        if (cached_raw != null && cached_photo_id.id == photo_id.id) {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = cached_raw.copy();
+#if MEASURE_PIPELINE
+            pixbuf_copy_time = timer.elapsed();
+#endif
+        } else {
+#if MEASURE_PIPELINE
+            timer.start();
+#endif
+            pixbuf = get_raw_pixbuf();
+#if MEASURE_PIPELINE
+            load_and_decode_time = timer.elapsed();
+            
+            timer.start();
+#endif
+            cached_raw = pixbuf.copy();
+#if MEASURE_PIPELINE
+            pixbuf_copy_time = timer.elapsed();
+#endif
+            cached_photo_id = photo_id;
+        }
+        
+        // scale
+#if MEASURE_PIPELINE
+        timer.start();
+#endif
+        int pixels = scale_to_pixels(scale);
+        if (pixels > 0)
+            pixbuf = scale_pixbuf(pixbuf, pixels, interp);
+#if MEASURE_PIPELINE
+        scale_time = timer.elapsed();
+#endif
+        
+        // orientation
+#if MEASURE_PIPELINE
+        timer.start();
+#endif
+        Orientation orientation = photo_table.get_original_orientation(photo_id);
+        pixbuf = orientation.rotate_pixbuf(pixbuf);
+#if MEASURE_PIPELINE
+        orientation_time = timer.elapsed();
+
+        debug("ORIGINAL PIPELINE: load_and_decode=%lf pixbuf_copy=%lf scale=%lf orientation=%lf total=%lf",
+            load_and_decode_time, pixbuf_copy_time, scale_time, orientation_time, total_timer.elapsed());
+#endif
+        
+        return pixbuf;
+    }
+
     // A preview pixbuf is one that can be quickly generated and scaled as a preview while the
     // fully transformed pixbuf is built.  It is fully transformed.
     //
@@ -825,7 +891,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         double total_time = total_timer.elapsed();
         
-        debug("Pipeline: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf enhancement=%lf orientation=%lf total=%lf",
+        debug("PIPELINE: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf enhancement=%lf orientation=%lf total=%lf",
             load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time, 
             enhance_time, orientation_time, total_time);
 #endif

@@ -67,6 +67,8 @@ public class FullscreenWindow : PageWindow {
         toolbar_window.set_border_width(0);
         toolbar_window.add(toolbar);
         
+        toolbar_window.realize += on_toolbar_realized;
+        
         add(current_page);
         
         // need to create a Gdk.Window to set masks
@@ -133,9 +135,7 @@ public class FullscreenWindow : PageWindow {
         return false;
     }
     
-    private void invoke_toolbar() {
-        toolbar_window.show_all();
-
+    private void on_toolbar_realized() {
         Gtk.Requisition req;
         toolbar_window.size_request(out req);
         
@@ -151,6 +151,10 @@ public class FullscreenWindow : PageWindow {
             
         toolbar_window.move(tx, ty);
         toolbar_window.set_opacity(TOOLBAR_OPACITY);
+    }
+
+    private void invoke_toolbar() {
+        toolbar_window.show_all();
 
         is_toolbar_shown = true;
         

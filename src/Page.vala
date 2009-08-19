@@ -1101,7 +1101,7 @@ public abstract class CheckerboardPage : Page {
         if (layout.items.size == 0)
             return null;
         
-        int index = layout.items.index_of(current);
+        int index = layout.items.locate(current);
 
         // although items may be added while the page is away, not handling situations where an active
         // item is removed
@@ -1118,7 +1118,7 @@ public abstract class CheckerboardPage : Page {
         if (layout.items.size == 0)
             return null;
         
-        int index = layout.items.index_of(current);
+        int index = layout.items.locate(current);
         
         // although items may be added while the page is away, not handling situations where an active
         // item is removed
@@ -1266,8 +1266,11 @@ public abstract class SinglePhotoPage : Page {
         set_event_source(canvas);
     }
     
-    public void set_default_interp(Gdk.InterpType default_interp) {
+    public Gdk.InterpType set_default_interp(Gdk.InterpType default_interp) {
+        Gdk.InterpType old = this.default_interp;
         this.default_interp = default_interp;
+        
+        return old;
     }
     
     public void set_pixbuf(Gdk.Pixbuf unscaled) {
