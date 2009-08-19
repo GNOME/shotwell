@@ -119,11 +119,29 @@ public bool verify_databases(out string app_version) {
     EventTable event_table = new EventTable();
     Gee.ArrayList<EventID?> event_ids = event_table.get_events();
 
-    // verify primary photo for all events
+    // verify photos for all events and check that the end_time is set (see Bug #665 and #670).
     foreach (EventID event_id in event_ids) {
         if (!photo_table.event_has_photos(event_id)) {
-            message("Removing event %lld: No photos associated with event", event_id.id);
+            message("Removing event [%lld] %s: No photos associated with event", event_id.id,
+                event_table.get_name(event_id));
             event_table.remove(event_id);
+        }
+        
+        // if no end time, set to exposure time of last photo in event
+        if (event_table.get_end_time(event_id) == 0) {
+            message("Missing end_time for [%lld] %s", event_id.id, event_table.get_name(event_id));
+            photo_ids = photo_table.get_event_photos(event_id);
+            time_t end_time = event_table.get_start_time(event_id);
+            foreach (PhotoID photo_id in photo_ids) {
+                time_t photo_time = photo_table.get_exposure_time(photo_id);
+                if (photo_time != 0 && (end_time == 0 || photo_time > end_time))
+                    end_time = photo_time;
+            }
+            
+            if (end_time != 0) {
+                message("Correcting end_time for [%lld] %s", event_id.id, event_table.get_name(event_id));
+                event_table.set_end_time(event_id, end_time);
+            }
         }
     }
     
