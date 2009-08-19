@@ -146,7 +146,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected void replace_photo(TransformablePhoto new_photo) {
-        assert(new_photo != photo);
+        if (new_photo == photo)
+            return;
         
         // only check if okay if there's something to replace
         if (photo != null) {

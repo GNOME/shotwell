@@ -107,7 +107,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         LibraryWindow.get_app().switch_to_event(event.event_id);
     }
     
-    public override LayoutItem? get_fullscreen_photo() {
+    private DirectoryItem? get_fullscreen_item() {
         Gee.Iterable<LayoutItem> iter = null;
         
         // use first selected item, otherwise use first item
@@ -117,13 +117,22 @@ public class EventsDirectoryPage : CheckerboardPage {
             iter = get_items();
         }
         
-        foreach (LayoutItem item in iter) {
-            EventPage page = LibraryWindow.get_app().find_event_page(((DirectoryItem) item).event_id);
-            if (page != null)
-                return page.get_fullscreen_photo();
-        }
+        foreach (LayoutItem item in iter)
+            return (DirectoryItem) item;
         
         return null;
+    }
+    
+    public EventPage? get_fullscreen_event() {
+        DirectoryItem item = get_fullscreen_item();
+
+        return (item != null) ? LibraryWindow.get_app().find_event_page(item.event_id) : null;
+    }
+    
+    public override LayoutItem? get_fullscreen_photo() {
+        EventPage page = get_fullscreen_event();
+        
+        return (page != null) ? page.get_fullscreen_photo() : null;
     }
 
     public void add_event(EventID event_id) {

@@ -255,6 +255,10 @@ public class LibraryWindow : AppWindow {
         CollectionPage collection = null;
         TransformablePhoto start = null;
         
+        // This method indicates one of the shortcomings right now in our design: we need a generic
+        // way to access the collection of items each page is responsible for displaying.  Once
+        // that refactoring is done, this code should get much simpler.
+        
         if (current_page is CollectionPage) {
             LayoutItem item = ((CollectionPage) current_page).get_fullscreen_photo();
             if (item == null) {
@@ -265,6 +269,9 @@ public class LibraryWindow : AppWindow {
             
             collection = (CollectionPage) current_page;
             start = ((Thumbnail) item).get_photo();
+        } else if (current_page is EventsDirectoryPage) {
+            collection = ((EventsDirectoryPage) current_page).get_fullscreen_event();
+            start = ((Thumbnail) collection.get_fullscreen_photo()).get_photo();
         } else if (current_page is LibraryPhotoPage) {
             collection = ((LibraryPhotoPage) current_page).get_controller_page();
             start = (LibraryPhoto) ((LibraryPhotoPage) current_page).get_photo();

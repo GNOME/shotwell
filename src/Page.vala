@@ -1275,11 +1275,9 @@ public abstract class SinglePhotoPage : Page {
     
     public void set_pixbuf(Gdk.Pixbuf unscaled) {
         this.unscaled = unscaled;
+        scaled = null;
         
-        // flush pixmap to force repaint
-        pixmap = null;
-        
-        // need to make sure this happens
+        // need to make sure this has happened
         canvas.realize();
         
         repaint(default_interp);
@@ -1368,7 +1366,7 @@ public abstract class SinglePhotoPage : Page {
         if (width <= 0 || height <= 0)
             return;
             
-        bool new_photo = (pixmap == null);
+        bool new_photo = (scaled == null);
         
         // save if reporting an image being rescaled
         Dimensions old_scaled_dim = Dimensions.for_rectangle(scaled_pos);
@@ -1384,6 +1382,23 @@ public abstract class SinglePhotoPage : Page {
             // block calls where the pixmap is not being regenerated and the caller is asking for
             // a lower interp
             repaint_interp = QUALITY_INTERP;
+        }
+        
+        if (new_photo) {
+            // determine size of pixbuf that will fit on the canvas
+            Dimensions scaled_dim = Dimensions.for_pixbuf(unscaled).get_scaled_proportional(pixmap_dim);
+            
+            assert(width >= scaled_dim.width);
+            assert(height >= scaled_dim.height);
+
+            // center pixbuf on the canvas
+            scaled_pos.x = (width - scaled_dim.width) / 2;
+            scaled_pos.y = (height - scaled_dim.height) / 2;
+            scaled_pos.width = scaled_dim.width;
+            scaled_pos.height = scaled_dim.height;
+
+            // draw background
+            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
         }
         
         // rescale if canvas rescaled or better quality is requested
@@ -1421,26 +1436,12 @@ public abstract class SinglePhotoPage : Page {
         // need a new pixbuf to fit this scale
         scaled = null;
 
-        // determine size of pixbuf that will fit on the canvas
-        Dimensions scaled_dim = Dimensions.for_pixbuf(unscaled).get_scaled_proportional(pixmap_dim);
-        
-        assert(width >= scaled_dim.width);
-        assert(height >= scaled_dim.height);
-
-        // center pixbuf on the canvas
-        scaled_pos.x = (width - scaled_dim.width) / 2;
-        scaled_pos.y = (height - scaled_dim.height) / 2;
-        scaled_pos.width = scaled_dim.width;
-        scaled_pos.height = scaled_dim.height;
-
+        // GC for drawing on the pixmap
         canvas_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
 
         // resize canvas for the pixmap (that is, the entire viewport)
         canvas.set_size_request(width, height);
 
-        // draw background
-        pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
-        
         new_drawable(canvas_gc, pixmap);
     }
 
