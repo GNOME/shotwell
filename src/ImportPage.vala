@@ -373,6 +373,10 @@ public class ImportPage : CheckerboardPage {
     private void on_unmounted(Object source, AsyncResult aresult) {
         debug("Unmount complete");
         
+        busy = false;
+        progress_bar.set_text("");
+        progress_bar.visible = false;
+        
         Mount mount = (Mount) source;
         try {
             mount.unmount_finish(aresult);
@@ -386,10 +390,6 @@ public class ImportPage : CheckerboardPage {
         // XXX: iPhone/iPod returns a USB error if a camera_init() is done too quickly after an
         // unmount.  A 50ms sleep gives it time to reorient itself.
         Thread.usleep(50000);
-        
-        busy = false;
-        progress_bar.set_text("");
-        progress_bar.visible = false;
         
         try_refreshing_camera();
     }
