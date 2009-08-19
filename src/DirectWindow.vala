@@ -28,6 +28,8 @@ public class DirectWindow : AppWindow {
         layout.pack_end(current_page.get_toolbar(), false, false, 0);
         
         add(layout);
+        
+        current_page.switched_to();
     }
     
     public DirectPhotoPage get_direct_page() {

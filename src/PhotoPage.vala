@@ -87,7 +87,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
         separator.set_draw(false);
-        
         toolbar.insert(separator, -1);
         
         // previous button
@@ -939,7 +938,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (get_photo() == null)
             return false;
         
-        set_item_sensitive("/DirectContextMenu/ContextUndo", get_photo().has_transformations());
+        set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations());
 
         context_menu.popup(null, null, null, event.button, event.time);
         
