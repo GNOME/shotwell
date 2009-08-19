@@ -1376,15 +1376,17 @@ public abstract class SinglePhotoPage : Page {
             pixmap = null;
         
         // if necessary, create a pixmap as large as the entire viewport
+        bool new_pixmap = false;
         if (pixmap == null) {
             init_pixmap(width, height);
+            new_pixmap = true;
         } else if (repaint_interp == FAST_INTERP && interp == QUALITY_INTERP) {
             // block calls where the pixmap is not being regenerated and the caller is asking for
             // a lower interp
             repaint_interp = QUALITY_INTERP;
         }
         
-        if (new_photo) {
+        if (new_photo || new_pixmap) {
             // determine size of pixbuf that will fit on the canvas
             Dimensions scaled_dim = Dimensions.for_pixbuf(unscaled).get_scaled_proportional(pixmap_dim);
             
