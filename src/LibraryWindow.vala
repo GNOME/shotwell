@@ -836,8 +836,10 @@ public class LibraryWindow : AppWindow {
             
             new_action.set_active(old_action.get_active());
 
-            // unsubscribe to the basic properties display signal (new page subscribes below)
+            // old page unsubscribes to these signals (new page subscribes below)
             current_page.selection_changed -= on_selection_changed;
+            current_page.contents_changed -= on_selection_changed;
+            current_page.queryable_altered -= on_selection_changed;
         }
 
         int pos = get_notebook_pos(page);
@@ -865,8 +867,10 @@ public class LibraryWindow : AppWindow {
 
         on_selection_changed();
 
-        // subscribe to this signal for each event page so basic properties display will update
+        // subscribe to these signals for each event page so basic properties display will update
         current_page.selection_changed += on_selection_changed;
+        current_page.contents_changed += on_selection_changed;
+        current_page.queryable_altered += on_selection_changed;
     }
 
     private bool is_page_selected(Page page, Gtk.TreePath path) {
