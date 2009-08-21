@@ -294,6 +294,8 @@ public class CollectionPage : CheckerboardPage {
     private bool reschedule_improval = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
     private bool thumbs_resized = false;
+    private Gee.HashMap<LibraryPhoto, Thumbnail> thumbnail_map = 
+        new Gee.HashMap<LibraryPhoto, Thumbnail>(direct_hash, direct_equal, direct_equal);
 
     // TODO: Mark fields for translation
     private const Gtk.ActionEntry[] ACTIONS = {
@@ -588,14 +590,19 @@ public class CollectionPage : CheckerboardPage {
         thumbnail.display_title(display_titles());
         
         add_item(thumbnail);
+        thumbnail_map.set(photo, thumbnail);
         
         slideshow_button.sensitive = true;
     }
     
+    // This method is called when the LibraryPhoto -- not the Thumbnail -- is removed from the
+    // system, which can happen anywhere (whereas only this page can remove its thumbnails)
     private void on_photo_removed(LibraryPhoto photo) {
         Thumbnail found = get_thumbnail_for_photo(photo);
-        if (found != null)
+        if (found != null) {
             remove_item(found);
+            thumbnail_map.remove(photo);
+        }
         
         slideshow_button.sensitive = (get_count() > 0);
     }
@@ -612,13 +619,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private Thumbnail? get_thumbnail_for_photo(LibraryPhoto photo) {
-        foreach (LayoutItem item in get_items()) {
-            Thumbnail thumbnail = (Thumbnail) item;
-            if (thumbnail.get_photo().equals(photo))
-                return thumbnail;
-        }
-        
-        return null;
+        return thumbnail_map.get(photo);
     }
     
     public int increase_thumb_size() {
@@ -834,6 +835,8 @@ public class CollectionPage : CheckerboardPage {
             photo.thumbnail_altered -= on_thumbnail_altered;
             
             photo.remove(result == Gtk.ResponseType.NO);
+            
+            thumbnail_map.remove(photo);
         }
         
         // now remove from page, outside of iterator
