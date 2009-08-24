@@ -90,32 +90,6 @@ public bool verify_databases(out string app_version) {
     }
     
     PhotoTable photo_table = new PhotoTable();
-    Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
-
-    // verify photo table
-    foreach (PhotoID photo_id in photo_ids) {
-        LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
-        switch (photo.check_currency()) {
-            case LibraryPhoto.Currency.CURRENT:
-                // do nothing
-            break;
-            
-            case LibraryPhoto.Currency.DIRTY:
-                message("Time or filesize changed on %s, reimporting ...", photo.to_string());
-                photo.update();
-            break;
-            
-            case LibraryPhoto.Currency.GONE:
-                message("Unable to locate %s: Removing from photo library", photo.to_string());
-                photo.remove(true);
-            break;
-            
-            default:
-                warn_if_reached();
-            break;
-        }
-    }
-
     EventTable event_table = new EventTable();
     Gee.ArrayList<EventID?> event_ids = event_table.get_events();
 
@@ -130,7 +104,7 @@ public bool verify_databases(out string app_version) {
         // if no end time, set to exposure time of last photo in event
         if (event_table.get_end_time(event_id) == 0) {
             message("Missing end_time for [%lld] %s", event_id.id, event_table.get_name(event_id));
-            photo_ids = photo_table.get_event_photos(event_id);
+            Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
             time_t end_time = event_table.get_start_time(event_id);
             foreach (PhotoID photo_id in photo_ids) {
                 time_t photo_time = photo_table.get_exposure_time(photo_id);
@@ -250,6 +224,23 @@ public struct ImportID {
     }
 }
 
+public struct PhotoRow {
+    public PhotoID photo_id;
+    public File file;
+    public Dimensions dim;
+    public int64 filesize;
+    public time_t timestamp;
+    public time_t exposure_time;
+    public Orientation orientation;
+    public Orientation original_orientation;
+    public ImportID import_id;
+    public EventID event_id;
+    public Gee.HashMap<string, KeyValueMap>? transformations;
+    
+    public PhotoRow() {
+    }
+}
+
 public class PhotoTable : DatabaseTable {
     public PhotoTable() {
         Sqlite.Statement stmt;
@@ -364,6 +355,64 @@ public class PhotoTable : DatabaseTable {
         }
 
         return true;
+    }
+    
+    public PhotoRow? get_row(PhotoID photo_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2(
+            "SELECT filename,width,height,filesize,timestamp,exposure_time,orientation,original_orientation,import_id,event_id,transformations FROM PhotoTable WHERE id=?", 
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        if (stmt.step() != Sqlite.ROW)
+            return null;
+            
+        PhotoRow row = PhotoRow();
+        row.photo_id = photo_id;
+        row.file = File.new_for_path(stmt.column_text(0));
+        row.dim = Dimensions(stmt.column_int(1), stmt.column_int(2));
+        row.filesize = stmt.column_int64(3);
+        row.timestamp = (time_t) stmt.column_int64(4);
+        row.exposure_time = (time_t) stmt.column_int64(5);
+        row.orientation = (Orientation) stmt.column_int(6);
+        row.original_orientation = (Orientation) stmt.column_int(7);
+        row.import_id.id = stmt.column_int64(8);
+        row.event_id.id = stmt.column_int64(9);
+        row.transformations = marshall_all_transformations(stmt.column_text(10));
+        
+        return row;
+    }
+    
+    public Gee.ArrayList<PhotoRow?> get_all() {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2(
+            "SELECT id,filename,width,height,filesize,timestamp,exposure_time,orientation,original_orientation,import_id,event_id,transformations FROM PhotoTable", 
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        Gee.ArrayList<PhotoRow?> all = new Gee.ArrayList<PhotoRow?>();
+        
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            PhotoRow row = PhotoRow();
+            row.photo_id.id = stmt.column_int64(0);
+            row.file = File.new_for_path(stmt.column_text(1));
+            row.dim = Dimensions(stmt.column_int(2), stmt.column_int(3));
+            row.filesize = stmt.column_int64(4);
+            row.timestamp = (time_t) stmt.column_int64(5);
+            row.exposure_time = (time_t) stmt.column_int64(6);
+            row.orientation = (Orientation) stmt.column_int(7);
+            row.original_orientation = (Orientation) stmt.column_int(8);
+            row.import_id.id = stmt.column_int64(9);
+            row.event_id.id = stmt.column_int64(10);
+            row.transformations = marshall_all_transformations(stmt.column_text(11));
+            
+            all.add(row);
+        }
+        
+        return all;
     }
     
     public bool exists(PhotoID photo_id) {
@@ -634,6 +683,46 @@ public class PhotoTable : DatabaseTable {
     
     public bool has_transformations(PhotoID photo_id) {
         return get_raw_transformations(photo_id) != null;
+    }
+    
+    public static Gee.HashMap<string, KeyValueMap>? marshall_all_transformations(string? trans) {
+        if (trans == null || trans.length == 0)
+            return null;
+            
+        try {
+            FixedKeyFile keyfile = new FixedKeyFile();
+            if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+                return null;
+            
+            Gee.HashMap<string, KeyValueMap> map = new Gee.HashMap<string, KeyValueMap>(str_hash,
+                str_equal, direct_equal);
+            
+            string[] objects = keyfile.get_groups();
+            foreach (string object in objects) {
+                size_t count;
+                string[] keys = keyfile.get_keys(object, out count);
+                if (keys == null || count == 0)
+                    continue;
+                
+                KeyValueMap key_map = new KeyValueMap(object);
+                for (int ctr =0 ; ctr < count; ctr++)
+                    key_map.set_string(keys[ctr], keyfile.get_string(object, keys[ctr]));
+                
+                map.set(object, key_map);
+            }
+            
+            return map;
+        } catch (Error err) {
+            error("%s", err.message);
+            
+            return null;
+        }
+    }
+    
+    public Gee.HashMap<string, KeyValueMap>? get_all_transformations(PhotoID photo_id) {
+        string trans = get_raw_transformations(photo_id);
+        
+        return (trans != null) ? marshall_all_transformations(trans) : null;
     }
     
     public KeyValueMap? get_transformation(PhotoID photo_id, string object) {

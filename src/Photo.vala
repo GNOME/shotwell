@@ -121,11 +121,9 @@ public abstract class TransformablePhoto: PhotoBase {
     private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
     
-    protected PhotoID photo_id;
-    
-    // because fetching some items from the database is high-overhead, certain items are cached
-    // here ... really want to be frugal about this, as maintaining coherency is complicated enough
-    private time_t exposure_time = -1;
+    // because fetching individual items from the database is high-overhead, store all of
+    // the photo row in memory
+    private PhotoRow row;
     
     // fired when the image itself (its visual representation) has changed
     public signal void altered();
@@ -135,8 +133,8 @@ public abstract class TransformablePhoto: PhotoBase {
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
-    protected TransformablePhoto(PhotoID photo_id) {
-        this.photo_id = photo_id;
+    protected TransformablePhoto(PhotoRow row) {
+        this.row = row;
     }
     
     protected static void base_init() {
@@ -242,31 +240,42 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public File get_file() {
-        return photo_table.get_file(photo_id);
+        return row.file;
     }
     
     public time_t get_timestamp() {
-        return photo_table.get_timestamp(photo_id);
+        return row.timestamp;
     }
 
     public PhotoID get_photo_id() {
-        return photo_id;
+        return row.photo_id;
     }
     
+    public EventID get_event_id() {
+        return row.event_id;
+    }
+    
+    public void set_event_id(EventID event_id) {
+        if (photo_table.set_event(row.photo_id, event_id)) {
+            row.event_id = event_id;
+            notify_altered(Alteration.METADATA);
+        }
+    }
+
     public string to_string() {
-        return "[%lld] %s".printf(photo_id.id, get_file().get_path());
+        return "[%lld] %s".printf(row.photo_id.id, get_file().get_path());
     }
 
     public bool equals(TransformablePhoto photo) {
         // identity works because of the photo_map, but the photo_table primary key is where the
         // rubber hits the road
         if (this == photo) {
-            assert(photo_id.id == photo.photo_id.id);
+            assert(row.photo_id.id == photo.row.photo_id.id);
             
             return true;
         }
         
-        assert(photo_id.id != photo.photo_id.id);
+        assert(row.photo_id.id != photo.row.photo_id.id);
         
         return false;
     }
@@ -286,9 +295,6 @@ public abstract class TransformablePhoto: PhotoBase {
             break;
             
             case Alteration.METADATA:
-                // cache coherency
-                exposure_time = photo_table.get_exposure_time(photo_id);
-                
                 on_metadata_altered();
                 metadata_altered();
             break;
@@ -328,13 +334,21 @@ public abstract class TransformablePhoto: PhotoBase {
         TimeVal timestamp = TimeVal();
         info.get_modification_time(timestamp);
         
-        if (photo_table.update(photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
+        if (photo_table.update(row.photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
             orientation)) {
+            // cache coherency
+            row.dim = dim;
+            row.filesize = info.get_size();
+            row.timestamp = timestamp.tv_sec;
+            row.exposure_time = exposure_time;
+            row.orientation = orientation;
+            row.original_orientation = orientation;
+            
             // because image has changed, all transformations are suspect
-            photo_table.remove_all_transformations(photo_id);
+            remove_all_transformations();
             
             // remove from decode cache as well
-            if (cached_photo_id.id == photo_id.id)
+            if (cached_photo_id.id == row.photo_id.id)
                 cached_raw = null;
             
             // could be both
@@ -346,20 +360,17 @@ public abstract class TransformablePhoto: PhotoBase {
     // Queryable
     
     public override string get_name() {
-        return photo_table.get_name(photo_id);
+        return row.file.get_basename();
     }
     
     // PhotoSource
     
     public override uint64 get_filesize() {
-        return photo_table.get_filesize(photo_id);
+        return row.filesize;
     }
     
     public override time_t get_exposure_time() {
-        if (exposure_time == -1)
-            exposure_time = photo_table.get_exposure_time(photo_id);
-        
-        return exposure_time;
+        return row.exposure_time;
     }
     
     // Returns cropped and rotated dimensions
@@ -380,20 +391,21 @@ public abstract class TransformablePhoto: PhotoBase {
     // Transformation storage and exporting
 
     public Dimensions get_raw_dimensions() {
-        return photo_table.get_dimensions(photo_id);
+        return row.dim;
     }
 
     public bool has_transformations() {
         // trivial check -- if the photo has been reoriented, then it has transformations
-        if (photo_table.get_orientation(photo_id) != photo_table.get_original_orientation(photo_id))
+        if (row.orientation != row.original_orientation)
             return true;
 
         // if execution reaches this point, we didn't return above, so perform a more
         // complicated series of tests
-        if (!photo_table.has_transformations(photo_id))
+        if (row.transformations == null)
             return false;
-        if ((photo_table.get_transformation_count(photo_id) == 1) &&
-            (photo_table.get_transformation(photo_id, "enhancement") != null) &&
+
+        if ((row.transformations.size == 1) &&
+            (row.transformations.contains("enhancement")) &&
             (!is_enhancement_enabled()))
             return false;
         
@@ -403,12 +415,12 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public void remove_all_transformations() {
-        bool altered = photo_table.remove_all_transformations(photo_id);
+        bool altered = photo_table.remove_all_transformations(row.photo_id);
+        row.transformations = null;
         
-        Orientation orientation = photo_table.get_orientation(photo_id);
-        Orientation original_orientation = photo_table.get_original_orientation(photo_id);
-        if (orientation != original_orientation) {
-            photo_table.set_orientation(photo_id, original_orientation);
+        if (row.orientation != row.original_orientation) {
+            photo_table.set_orientation(row.photo_id, row.original_orientation);
+            row.orientation = row.original_orientation;
             altered = true;
         }
 
@@ -417,11 +429,12 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public Orientation get_orientation() {
-        return photo_table.get_orientation(photo_id);
+        return row.orientation;
     }
     
     public void set_orientation(Orientation orientation) {
-        photo_table.set_orientation(photo_id, orientation);
+        row.orientation = orientation;
+        photo_table.set_orientation(row.photo_id, orientation);
         
         notify_altered(Alteration.IMAGE);
     }
@@ -434,13 +447,26 @@ public abstract class TransformablePhoto: PhotoBase {
         set_orientation(orientation);
     }
     
+    private KeyValueMap? get_transformation(string name) {
+        return (row.transformations != null) ? row.transformations.get(name) : null;
+    }
+    
+    private bool set_transformation(KeyValueMap trans) {
+        if (row.transformations == null)
+            row.transformations = new Gee.HashMap<string, KeyValueMap>(str_hash, str_equal, direct_equal);
+        
+        row.transformations.set(trans.get_group(), trans);
+        
+        return photo_table.set_transformation(row.photo_id, trans);
+    }
+    
     public bool has_crop() {
-        return photo_table.get_transformation(photo_id, "crop") != null;
+        return row.transformations.contains("crop");
     }
     
     // Returns the crop in the raw photo's coordinate system
     private bool get_raw_crop(out Box crop) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "crop");
+        KeyValueMap map = get_transformation("crop");
         if (map == null)
             return false;
         
@@ -465,12 +491,12 @@ public abstract class TransformablePhoto: PhotoBase {
         map.set_int("right", crop.right);
         map.set_int("bottom", crop.bottom);
         
-        if (photo_table.set_transformation(photo_id, map))
+        if (set_transformation(map))
             notify_altered(Alteration.IMAGE);
     }
     
     public float get_color_adjustment(RGBTransformationKind adjust_kind) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
+        KeyValueMap map = get_transformation("adjustments");
         if (map == null)
             return 0.0f;
         
@@ -495,7 +521,7 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public void set_color_adjustments(Gee.ArrayList<RGBTransformationInstance?> adjustments) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "adjustments");
+        KeyValueMap map = get_transformation("adjustments");
         if (map == null)
             map = new KeyValueMap("adjustments");
         
@@ -523,13 +549,13 @@ public abstract class TransformablePhoto: PhotoBase {
             }
         }
 
-        if (photo_table.set_transformation(photo_id, map))
+        if (set_transformation(map))
             notify_altered(Alteration.IMAGE);
     }
 
     // All instances are against the coordinate system of the unscaled, unrotated photo.
     private RedeyeInstance[] get_raw_redeye_instances() {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
+        KeyValueMap map = get_transformation("redeye");
         if (map == null)
             return new RedeyeInstance[0];
             
@@ -559,7 +585,7 @@ public abstract class TransformablePhoto: PhotoBase {
 
     // All instances are against the coordinate system of the unrotated photo.
     private void add_raw_redeye_instance(RedeyeInstance redeye) {
-        KeyValueMap map = photo_table.get_transformation(photo_id, "redeye");
+        KeyValueMap map = get_transformation("redeye");
         if (map == null) {
             map = new KeyValueMap("redeye");
             map.set_int("num_points", 0);
@@ -578,13 +604,12 @@ public abstract class TransformablePhoto: PhotoBase {
         
         map.set_int("num_points", num_points);
 
-        if (photo_table.set_transformation(photo_id, map))
+        if (set_transformation(map))
             notify_altered(Alteration.IMAGE);
     }
 
     public void set_enhancement_enabled() {
-        KeyValueMap map = photo_table.get_transformation(photo_id,
-            "enhancement");
+        KeyValueMap map = get_transformation("enhancement");
 
         if (map == null) {
             map = new KeyValueMap("enhancement");
@@ -605,13 +630,12 @@ public abstract class TransformablePhoto: PhotoBase {
 
         map.set_bool("enhanced", true);
 
-        if (photo_table.set_transformation(photo_id, map))
+        if (set_transformation(map))
             notify_altered(Alteration.IMAGE);
     }
     
     public void set_enhancement_disabled() {
-        KeyValueMap map = photo_table.get_transformation(photo_id,
-            "enhancement");
+        KeyValueMap map = get_transformation("enhancement");
 
         if (map == null) {
             map = new KeyValueMap("enhancement");
@@ -619,31 +643,27 @@ public abstract class TransformablePhoto: PhotoBase {
         
         map.set_bool("enhanced", false);
 
-        if (photo_table.set_transformation(photo_id, map))
+        if (set_transformation(map))
             notify_altered(Alteration.IMAGE);
     }
     
     private IntensityTransformation get_enhancement_transformation() {
         assert(is_enhancement_enabled());
         
-        KeyValueMap map = photo_table.get_transformation(photo_id,
-            "enhancement");
+        KeyValueMap map = get_transformation("enhancement");
         assert(map != null);
         assert(map.has_key("encoded_transformation"));
         
-        string encoded_transformation = map.get_string("encoded_transformation",
-            "");
+        string encoded_transformation = map.get_string("encoded_transformation", "");
         assert(encoded_transformation != "");
         
         int version = map.get_int("version", 0);
 
-        return EnhancementFactory.create_from_encoding(version,
-            encoded_transformation);
+        return EnhancementFactory.create_from_encoding(version, encoded_transformation);
     }
     
     public bool is_enhancement_enabled() {
-        KeyValueMap map = photo_table.get_transformation(photo_id,
-            "enhancement");
+        KeyValueMap map = get_transformation("enhancement");
 
         /* if there's no enhancement group in the map, then enhancement is
            disabled */
@@ -691,7 +711,7 @@ public abstract class TransformablePhoto: PhotoBase {
 
         Gdk.Pixbuf pixbuf = null;
         
-        if (cached_raw != null && cached_photo_id.id == photo_id.id) {
+        if (cached_raw != null && cached_photo_id.id == row.photo_id.id) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -713,7 +733,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
-            cached_photo_id = photo_id;
+            cached_photo_id = row.photo_id;
         }
         
         // scale
@@ -731,8 +751,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         timer.start();
 #endif
-        Orientation orientation = photo_table.get_original_orientation(photo_id);
-        pixbuf = orientation.rotate_pixbuf(pixbuf);
+        pixbuf = row.original_orientation.rotate_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
 
@@ -774,7 +793,7 @@ public abstract class TransformablePhoto: PhotoBase {
         // Image load-and-decode
         //
         
-        if (cached_raw != null && cached_photo_id.id == photo_id.id) {
+        if (cached_raw != null && cached_photo_id.id == row.photo_id.id) {
             // used the cached raw pixbuf for this instance, which is merely the decoded pixbuf
             // (no transformations)
 #if MEASURE_PIPELINE
@@ -801,7 +820,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
-            cached_photo_id = photo_id;
+            cached_photo_id = row.photo_id;
         }
 
         //
@@ -931,11 +950,11 @@ public abstract class TransformablePhoto: PhotoBase {
         Exif.Data original_exif = get_exif();
         
         // if only rotated, only need to copy and modify the EXIF
-        if (!photo_table.has_transformations(photo_id) && original_exif != null) {
+        if (row.transformations == null && original_exif != null) {
             original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
 
             PhotoExif dest_exif = new PhotoExif(dest_file);
-            dest_exif.set_orientation(photo_table.get_orientation(photo_id));
+            dest_exif.set_orientation(row.orientation);
             dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf(UNSCALED);
@@ -1242,14 +1261,21 @@ public class LibraryPhoto : TransformablePhoto {
     
     public signal void removed();
     
-    private LibraryPhoto(PhotoID photo_id) {
-        base(photo_id);
+    private LibraryPhoto(PhotoRow row) {
+        base(row);
     }
     
     public static void init() {
         TransformablePhoto.base_init();
         
         photo_map = new Gee.HashMap<int64?, LibraryPhoto>(int64_hash, int64_equal, direct_equal);
+
+        // prefetch all the photos from the database and cache their values in memory
+        Gee.ArrayList<PhotoRow?> all = photo_table.get_all();
+        foreach (PhotoRow row in all) {
+            LibraryPhoto photo = new LibraryPhoto(row);
+            photo_map.set(row.photo_id.id, photo);
+        }
     }
     
     public static void terminate() {
@@ -1279,7 +1305,8 @@ public class LibraryPhoto : TransformablePhoto {
         LibraryPhoto photo = photo_map.get(photo_id.id);
 
         if (photo == null) {
-            photo = new LibraryPhoto(photo_id);
+            PhotoRow row = photo_table.get_row(photo_id);
+            photo = new LibraryPhoto(row);
             photo_map.set(photo_id.id, photo);
         }
         
@@ -1298,23 +1325,13 @@ public class LibraryPhoto : TransformablePhoto {
             } catch (Error err) {
                 error("%s", err.message);
             }
-            
-            ThumbnailCache.import(photo_id, pixbuf, true);
+            ThumbnailCache.import(get_photo_id(), pixbuf, true);
             
             // fire signal that thumbnails have changed
             thumbnail_altered();
         }
         
         base.on_altered();
-    }
-
-    public EventID get_event_id() {
-        return photo_table.get_event(photo_id);
-    }
-    
-    public void set_event_id(EventID event_id) {
-        photo_table.set_event(photo_id, event_id);
-        notify_altered(Alteration.METADATA);
     }
 
     public override Gdk.Pixbuf get_preview_pixbuf(int scale) {
@@ -1339,9 +1356,9 @@ public class LibraryPhoto : TransformablePhoto {
         // pixbufs for rotate-and-scale ops, perform the rotation directly on the already-modified 
         // thumbnails.
         foreach (int scale in ThumbnailCache.SCALES) {
-            Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(photo_id, scale);
+            Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(get_photo_id(), scale);
             thumbnail = rotation.perform(thumbnail);
-            ThumbnailCache.replace(photo_id, scale, thumbnail);
+            ThumbnailCache.replace(get_photo_id(), scale, thumbnail);
         }
 
         thumbnail_altered();
@@ -1374,12 +1391,15 @@ public class LibraryPhoto : TransformablePhoto {
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
     public Gdk.Pixbuf? get_thumbnail(int scale) {
-        return ThumbnailCache.fetch(photo_id, scale);
+        return ThumbnailCache.fetch(get_photo_id(), scale);
     }
     
     public void remove(bool remove_original) {
         // signal all interested parties prior to removal from map
         removed();
+        
+        // necessary to avoid valac bug in photo_map.remove
+        PhotoID photo_id = get_photo_id();
 
         // remove all cached thumbnails
         ThumbnailCache.remove(photo_id);
@@ -1464,11 +1484,11 @@ public class LibraryPhoto : TransformablePhoto {
         info.get_modification_time(timestamp);
         
         // trust modification time and file size
-        if ((timestamp.tv_sec != get_timestamp()) || (info.get_size() != photo_table.get_filesize(photo_id)))
+        if ((timestamp.tv_sec != get_timestamp()) || (info.get_size() != get_filesize()))
             return Currency.DIRTY;
         
         // verify thumbnail cache is all set
-        if (!ThumbnailCache.exists(photo_id))
+        if (!ThumbnailCache.exists(get_photo_id()))
             return Currency.DIRTY;
         
         return Currency.CURRENT;
@@ -1481,8 +1501,8 @@ public class DirectPhoto : TransformablePhoto {
     private Gdk.Pixbuf current_pixbuf;
     private File exportable = null;
     
-    private DirectPhoto(PhotoID photo_id, Gdk.Pixbuf? initial_pixbuf) {
-        base(photo_id);
+    private DirectPhoto(PhotoRow row, Gdk.Pixbuf? initial_pixbuf) {
+        base(row);
         
         current_pixbuf = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(SCREEN);
     }
@@ -1517,7 +1537,8 @@ public class DirectPhoto : TransformablePhoto {
             out photo_id, out initial_pixbuf);
         switch (result) {
             case ImportResult.SUCCESS:
-                photo = new DirectPhoto(photo_id, initial_pixbuf);
+                PhotoRow row = photo_table.get_row(photo_id);
+                photo = new DirectPhoto(row, initial_pixbuf);
             break;
             
             case ImportResult.PHOTO_EXISTS:

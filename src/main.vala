@@ -31,6 +31,8 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     return response;
 }
 
+private Timer startup_timer = null;
+
 void library_exec(string[] mounts) {
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
@@ -70,6 +72,8 @@ void library_exec(string[] mounts) {
 
         library_window.show_all();
         
+        debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
+        
         Gtk.main();
     } else {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
@@ -94,6 +98,8 @@ void editing_exec(string filename) {
     DirectWindow direct_window = new DirectWindow(File.new_for_commandline_arg(filename));
     direct_window.show_all();
     
+    debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
+    
     Gtk.main();
     
     DirectPhoto.terminate();
@@ -103,6 +109,9 @@ void editing_exec(string filename) {
 void main(string[] args) {
     // init GTK
     Gtk.init(ref args);
+    
+    startup_timer = new Timer();
+    startup_timer.start();
     
     // init debug prior to anything else (except Gtk, which it relies on)
     Debug.init();
