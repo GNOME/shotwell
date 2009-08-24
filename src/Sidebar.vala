@@ -21,10 +21,20 @@ public class SidebarMarker {
         return row.get_path();
     }
 }
+
+public interface SidebarPage : Object {
+    public abstract string get_sidebar_text();
+    
+    public abstract SidebarMarker? get_marker();
+    
+    public abstract void set_marker(SidebarMarker marker);
+    
+    public abstract void clear_marker();
+}
     
 public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(1, typeof(string));
-    private Gee.HashSet<Page> pages = new Gee.HashSet<Page>();
+    private Gee.HashSet<SidebarPage> pages = new Gee.HashSet<SidebarPage>();
 
     public Sidebar() {
         set_model(store);
@@ -49,7 +59,7 @@ public class Sidebar : Gtk.TreeView {
         selection.set_select_function(on_selection, null);
     }
     
-    public void place_cursor(Page page) {
+    public void place_cursor(SidebarPage page) {
         if (page.get_marker() != null)
             get_selection().select_path(page.get_marker().get_path());
     }
@@ -58,9 +68,9 @@ public class Sidebar : Gtk.TreeView {
         expand_row(marker.get_path(), true);
     }
     
-    private SidebarMarker attach_page(Page page, Gtk.TreeIter iter) {
+    private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter) {
         // set up the columns
-        store.set(iter, 0, page.get_page_name());
+        store.set(iter, 0, page.get_sidebar_text());
         
         // create a marker for this page
         SidebarMarker marker = new SidebarMarker(store, store.get_path(iter));
@@ -75,7 +85,7 @@ public class Sidebar : Gtk.TreeView {
         return marker;
     }
     
-    private void detach_page(Page page) {
+    private void detach_page(SidebarPage page) {
         // destroy the marker linking the page to the sidebar
         page.clear_marker();
         
@@ -83,8 +93,8 @@ public class Sidebar : Gtk.TreeView {
         pages.remove(page);
     }
     
-    private Page? locate_page(Gtk.TreePath path) {
-        foreach (Page page in pages) {
+    private SidebarPage? locate_page(Gtk.TreePath path) {
+        foreach (SidebarPage page in pages) {
             if (page.get_marker().get_path().compare(path) == 0)
                 return page;
         }
@@ -93,7 +103,7 @@ public class Sidebar : Gtk.TreeView {
     }
 
     // adds a top-level parent to the sidebar
-    public SidebarMarker add_parent(Page parent) {
+    public SidebarMarker add_parent(SidebarPage parent) {
         // add a row, get its iter
         Gtk.TreeIter parent_iter;
         store.append(out parent_iter, null);
@@ -101,7 +111,7 @@ public class Sidebar : Gtk.TreeView {
         return attach_page(parent, parent_iter);
     }    
 
-    public SidebarMarker add_child(SidebarMarker parent, Page child) {
+    public SidebarMarker add_child(SidebarMarker parent, SidebarPage child) {
         // find the parent
         Gtk.TreeIter parent_iter;
         store.get_iter(out parent_iter, parent.get_path());
@@ -141,7 +151,7 @@ public class Sidebar : Gtk.TreeView {
          return new SidebarMarker(store, store.get_path(grouping_iter));
      }
     
-    public SidebarMarker insert_sibling_before(SidebarMarker before, Page page) {
+    public SidebarMarker insert_sibling_before(SidebarMarker before, SidebarPage page) {
         // find sibling in tree
         Gtk.TreeIter before_iter;
         store.get_iter(out before_iter, before.get_path());
@@ -153,7 +163,7 @@ public class Sidebar : Gtk.TreeView {
         return attach_page(page, page_iter);
     }
     
-    public SidebarMarker insert_sibling_after(SidebarMarker after, Page page) {
+    public SidebarMarker insert_sibling_after(SidebarMarker after, SidebarPage page) {
         // find sibling in tree
         Gtk.TreeIter after_iter;
         store.get_iter(out after_iter, after.get_path());
@@ -165,7 +175,8 @@ public class Sidebar : Gtk.TreeView {
         return attach_page(page, page_iter);
     }
     
-    public SidebarMarker insert_child_sorted(SidebarMarker parent, Page child, Comparator<Page> comparator) {
+    public SidebarMarker insert_child_sorted(SidebarMarker parent, SidebarPage child, 
+        Comparator<SidebarPage> comparator) {
         // find parent in sidebar using its row reference
         Gtk.TreeIter parent_iter;
         bool found = store.get_iter(out parent_iter, parent.get_path());
@@ -175,7 +186,7 @@ public class Sidebar : Gtk.TreeView {
         Gtk.TreeIter child_iter;
         found = store.iter_children(out child_iter, parent_iter);
         while (found) {
-            Page page = locate_page(store.get_path(child_iter));
+            SidebarPage page = locate_page(store.get_path(child_iter));
             if (page != null) {
                 // look to insert before the current page
                 if (comparator.compare(child, page) < 0)
@@ -205,7 +216,7 @@ public class Sidebar : Gtk.TreeView {
         Gtk.TreeIter child_iter;
         bool valid = store.iter_children(out child_iter, parent_iter);
         while (valid) {
-            Page page = locate_page(store.get_path(child_iter));
+            SidebarPage page = locate_page(store.get_path(child_iter));
             if (page != null)
                 detach_page(page);
             
@@ -213,7 +224,7 @@ public class Sidebar : Gtk.TreeView {
         }
     }
     
-    public void remove_page(Page page) {
+    public void remove_page(SidebarPage page) {
         // do nothing if page is not in sidebar
         if (page.get_marker() != null) {
             // Path can be null if the row is blown away ... need to detach, but it's obviously

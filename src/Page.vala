@@ -19,7 +19,7 @@ public class PageLayout : Gtk.VBox {
     }
 }
 
-public abstract class Page : Gtk.ScrolledWindow {
+public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
     public const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
     public const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
@@ -104,11 +104,15 @@ public abstract class Page : Gtk.ScrolledWindow {
         return event_source;
     }
     
+    public string get_sidebar_text() {
+        return page_name;
+    }
+    
     public void set_marker(SidebarMarker marker) {
         this.marker = marker;
     }
     
-    public SidebarMarker get_marker() {
+    public SidebarMarker? get_marker() {
         return marker;
     }
     

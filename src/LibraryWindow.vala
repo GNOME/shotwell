@@ -72,17 +72,75 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private class CompareEventPage : Comparator<EventPage> {
+    // In order to prevent creating a slew of EventPages at app startup, lazily create them as the
+    // user needs them ... this may be supplemented in the future to discard unused EventPages (in
+    // a lifo), or simply replace them all with a single EventPage which reloads itself with
+    // photos for the asked-for event.
+    private class EventPageProxy : Object, SidebarPage {
+        public EventID event_id;
+
+        private string name;
+        private EventPage page = null;
+        private SidebarMarker marker = null;
+        
+        public EventPageProxy(EventID event_id, string name) {
+            this.event_id = event_id;
+            this.name = name;
+        }
+        
+        public bool has_page() {
+            return page != null;
+        }
+        
+        public EventPage get_page() {
+            if (page == null) {
+                debug("Creating new event page for %s", name);
+                
+                // create the event and set it the marker, if one has been supplied
+                page = new EventPage(event_id);
+                if (marker != null)
+                    page.set_marker(marker);
+                
+                // add this to the notebook and tell the notebook to show it (as per DevHelp)
+                LibraryWindow.get_app().add_to_notebook(page);
+                LibraryWindow.get_app().notebook.show_all();
+            }
+            
+            return page;
+        }
+        
+        public string get_sidebar_text() {
+            return (page != null) ? page.get_sidebar_text() : name;
+        }
+        
+        public SidebarMarker? get_marker() {
+            return (page != null) ? page.get_marker() : marker;
+        }
+        
+        public void set_marker(SidebarMarker marker) {
+            this.marker = marker;
+            if (page != null)
+                page.set_marker(marker);
+        }
+        
+        public void clear_marker() {
+            this.marker = null;
+            if (page != null)
+                page.clear_marker();
+        }
+    }
+    
+    private class CompareEventPageProxy : Comparator<EventPageProxy> {
         private int event_sort;
         private EventTable event_table = new EventTable();
         
-        public CompareEventPage(int event_sort) {
+        public CompareEventPageProxy(int event_sort) {
             assert(event_sort == SORT_EVENTS_ORDER_ASCENDING || event_sort == SORT_EVENTS_ORDER_DESCENDING);
             
             this.event_sort = event_sort;
         }
         
-        public override int64 compare(EventPage a, EventPage b) {
+        public override int64 compare(EventPageProxy a, EventPageProxy b) {
             int64 start_a = (int64) event_table.get_start_time(a.event_id);
             int64 start_b = (int64) event_table.get_start_time(b.event_id);
             
@@ -107,7 +165,7 @@ public class LibraryWindow : AppWindow {
     private ImportQueuePage import_queue_page = null;
     
     // Dynamically added/removed pages
-    private Gee.ArrayList<EventPage> event_list = new Gee.ArrayList<EventPage>();
+    private Gee.ArrayList<EventPageProxy> event_list = new Gee.ArrayList<EventPageProxy>();
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
@@ -339,12 +397,12 @@ public class LibraryWindow : AppWindow {
         // (note that this doesn't remove the pages from the notebook object)
         sidebar.prune_branch_children(events_directory_page.get_marker());
         
-        CompareEventPage comparator = new CompareEventPage(events_sort);
+        CompareEventPageProxy comparator = new CompareEventPageProxy(events_sort);
         
         // re-insert each page in the sidebar in the new order ... does not add page
         // to notebook again or create a new layout
-        foreach (EventPage event_page in event_list)
-            sidebar.insert_child_sorted(events_directory_page.get_marker(), event_page, comparator);
+        foreach (EventPageProxy event_proxy in event_list)
+            sidebar.insert_child_sorted(events_directory_page.get_marker(), event_proxy, comparator);
         
         // pruning will collapse the branch, expand automatically
         // TODO: Only expand if already expanded?
@@ -426,7 +484,6 @@ public class LibraryWindow : AppWindow {
         time_t last_exposure = 0;
         time_t current_event_start = 0;
         EventID current_event_id = EventID();
-        EventPage current_event_page = null;
         foreach (LibraryPhoto photo in imported_photos) {
             time_t exposure_time = photo.get_exposure_time();
 
@@ -476,7 +533,7 @@ public class LibraryWindow : AppWindow {
                 current_event_start = exposure_time;
                 current_event_id = event_table.create(photo.get_photo_id(), current_event_start);
                 
-                current_event_page = add_event_page(current_event_id);
+                add_event_page(current_event_id);
 
                 debug("Created event [%lld]", current_event_id.id);
             }
@@ -487,8 +544,6 @@ public class LibraryWindow : AppWindow {
                 current_event_id.id, exposure_time, last_exposure);
             
             photo.set_event_id(current_event_id);
-
-            current_event_page.add_photo(photo);
 
             last_exposure = exposure_time;
         }
@@ -595,7 +650,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_event(EventID event_id) {
-        EventPage page = find_event_page(event_id);
+        EventPage page = load_event_page(event_id);
         if (page == null) {
             debug("Cannot find page for event %lld", event_id.id);
 
@@ -614,35 +669,56 @@ public class LibraryWindow : AppWindow {
         switch_to_page(import_queue_page);
     }
     
-    public EventPage? find_event_page(EventID event_id) {
-        foreach (EventPage page in event_list) {
-            if (page.event_id.id == event_id.id)
-                return page;
+    public EventPage? load_event_page(EventID event_id) {
+        foreach (EventPageProxy proxy in event_list) {
+            if (proxy.event_id.id == event_id.id) {
+                // this will create the EventPage if not already created
+                return proxy.get_page();
+            }
         }
         
         return null;
     }
     
-    private EventPage add_event_page(EventID event_id) {
-        EventPage event_page = new EventPage(event_id);
+    private void add_event_page(EventID event_id) {
+        EventPageProxy event_proxy = new EventPageProxy(event_id, event_table.get_name(event_id));
         
-        Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
-        foreach (PhotoID photo_id in photo_ids)
-            event_page.add_photo(LibraryPhoto.fetch(photo_id));
-
-        insert_child_page_sorted(events_directory_page.get_marker(), event_page, 
-            new CompareEventPage(get_events_sort()));
-        event_list.add(event_page);
+        sidebar.insert_child_sorted(events_directory_page.get_marker(), event_proxy,
+            new CompareEventPageProxy(get_events_sort()));
         
-        return event_page;
+        event_list.add(event_proxy);
     }
     
     private void remove_event_page(EventID event_id) {
-        EventPage page = find_event_page(event_id);
-        assert(page != null);
+        // don't use load_event_page, because that will create an EventPage (which we're simply
+        // going to remove)
+        EventPageProxy event_proxy = null;
+        foreach (EventPageProxy proxy in event_list) {
+            if (proxy.event_id.id == event_id.id) {
+                event_proxy = proxy;
+                
+                break;
+            }
+        }
+
+        if (event_proxy == null)
+            return;
+
+        // remove the page from the notebook, if it's been added
+        if (event_proxy.has_page()) {
+            int pos = get_notebook_pos(event_proxy.get_page());
+            assert(pos >= 0);
+            notebook.remove_page(pos);
+        }
+
+        // remove from sidebar
+        sidebar.remove_page(event_proxy);
+    
+        // finally, remove from the events list itself
+        event_list.remove(event_proxy);
         
-        remove_page(page);
-        event_list.remove(page);
+        // jump to the Photos page
+        switch_to_collection_page();
     }
 
     private void add_camera_page(DiscoveredCamera camera) {
@@ -708,15 +784,6 @@ public class LibraryWindow : AppWindow {
         add_to_notebook(page);
         
         sidebar.insert_sibling_after(after_marker, page);
-        
-        notebook.show_all();
-    }
-    
-    private void insert_child_page_sorted(SidebarMarker parent_marker, Page page,
-        Comparator<Page> comparator) {
-        add_to_notebook(page);
-        
-        sidebar.insert_child_sorted(parent_marker, page, comparator);
         
         notebook.show_all();
     }
@@ -873,8 +940,8 @@ public class LibraryWindow : AppWindow {
         current_page.queryable_altered += on_selection_changed;
     }
 
-    private bool is_page_selected(Page page, Gtk.TreePath path) {
-        SidebarMarker marker = page.get_marker();
+    private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
+        SidebarMarker? marker = page.get_marker();
         if (marker == null)
             return false;
         
@@ -894,9 +961,9 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_event_selected(Gtk.TreePath path) {
-        foreach (EventPage page in event_list) {
-            if (is_page_selected(page, path)) {
-                switch_to_page(page);
+        foreach (EventPageProxy event_proxy in event_list) {
+            if (is_page_selected(event_proxy, path)) {
+                switch_to_page(event_proxy.get_page());
                 
                 return true;
             }

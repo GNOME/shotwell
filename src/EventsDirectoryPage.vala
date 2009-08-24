@@ -126,7 +126,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     public EventPage? get_fullscreen_event() {
         DirectoryItem item = get_fullscreen_item();
 
-        return (item != null) ? LibraryWindow.get_app().find_event_page(item.event_id) : null;
+        return (item != null) ? LibraryWindow.get_app().load_event_page(item.event_id) : null;
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -179,6 +179,11 @@ public class EventPage : CollectionPage {
         this.event_id = event_id;
 
         set_page_name(event_table.get_name(event_id));
+
+        // load in all the photos associated with this event
+        Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
+        foreach (PhotoID photo_id in photo_ids)
+            add_photo(LibraryPhoto.fetch(photo_id));
     }
     
     protected override void on_photos_menu() {
