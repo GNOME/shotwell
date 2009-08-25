@@ -331,7 +331,7 @@ public abstract class EditingTool {
         
         activated();
     }
-    
+
     // Like activate(), this should always be called from an overriding subclass.
     public virtual void deactivate() {
         // multiple deactivates are tolerated
@@ -1273,13 +1273,11 @@ public class AdjustTool : EditingTool {
             new Gtk.Button.with_label("Reset");
         public Gtk.Button cancel_button =
             new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
-        public Gtk.Image histogram_image_tray = new Gtk.Image();
+        public RGBHistogramManipulator histogram_manipulator =
+            new RGBHistogramManipulator();
 
         public AdjustToolWindow(Gtk.Window container) {
             base(container);
-
-            histogram_image_tray.set_size_request(RGBHistogram.GRAPHIC_WIDTH,
-                RGBHistogram.GRAPHIC_HEIGHT);
 
             Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
             slider_organizer.set_row_spacings(12);
@@ -1317,19 +1315,15 @@ public class AdjustTool : EditingTool {
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
             temperature_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
-
+            
             Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
             button_layouter.set_homogeneous(true);
             button_layouter.pack_start(cancel_button, true, true, 1);
             button_layouter.pack_start(reset_button, true, true, 1);
             button_layouter.pack_start(apply_button, true, true, 1);
 
-            Gtk.Frame histogram_tray_wrapper = new Gtk.Frame(null);
-            histogram_tray_wrapper.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
-            histogram_tray_wrapper.add(histogram_image_tray);
-
             Gtk.VBox pane_layouter = new Gtk.VBox(false, 8);
-            pane_layouter.add(histogram_tray_wrapper);
+            pane_layouter.add(histogram_manipulator);
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
 
@@ -1345,42 +1339,18 @@ public class AdjustTool : EditingTool {
     private AdjustToolWindow adjust_tool_window = null;
     private bool suppress_effect_redraw = false;
     private Gdk.Pixbuf draw_to_pixbuf = null;
+    private Gdk.Pixbuf virgin_pixbuf = null;
 
     public override void activate(PhotoCanvas canvas) {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
 
-        float exposure_param =
-            canvas.get_photo().get_color_adjustment(
-            RGBTransformationKind.EXPOSURE);
-        adjust_tool_window.exposure_slider.set_value(exposure_param);
-        float saturation_param =
-            canvas.get_photo().get_color_adjustment(
-            RGBTransformationKind.SATURATION);
-        adjust_tool_window.saturation_slider.set_value(saturation_param);
-        float tint_param =
-            canvas.get_photo().get_color_adjustment(
-            RGBTransformationKind.TINT);
-        adjust_tool_window.tint_slider.set_value(tint_param);
-        float temperature_param =
-            canvas.get_photo().get_color_adjustment(
-            RGBTransformationKind.TEMPERATURE);
-        adjust_tool_window.temperature_slider.set_value(temperature_param);
+        sync_control_state(canvas.get_photo());
 
-        adjust_tool_window.apply_button.clicked += on_apply;
-        adjust_tool_window.reset_button.clicked += on_reset;
-        adjust_tool_window.cancel_button.clicked += on_cancel;
-        adjust_tool_window.exposure_slider.value_changed += on_adjustment;
-        adjust_tool_window.saturation_slider.value_changed +=
-            on_adjustment;
-        adjust_tool_window.tint_slider.value_changed += on_adjustment;
-        adjust_tool_window.temperature_slider.value_changed +=
-            on_adjustment;
-    
+        bind_handlers();
         canvas.resized_scaled_pixbuf += on_canvas_resize;
 
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
-        adjust_tool_window.histogram_image_tray.set_from_pixbuf(
-            new RGBHistogram(draw_to_pixbuf).get_graphic());
+        virgin_pixbuf = draw_to_pixbuf.copy();
 
         base.activate(canvas);
     }
@@ -1396,6 +1366,7 @@ public class AdjustTool : EditingTool {
         }
 
         draw_to_pixbuf = null;
+        virgin_pixbuf = null;
 
         base.deactivate();
     }
@@ -1429,7 +1400,21 @@ public class AdjustTool : EditingTool {
                 tint_transform);
 
             RGBTransformation.transform_existing_pixbuf(composite_transform,
-               canvas.get_scaled_pixbuf(), draw_to_pixbuf);
+               virgin_pixbuf, draw_to_pixbuf);
+
+            int left_constraint =
+                adjust_tool_window.histogram_manipulator.get_left_nub_position();
+            int right_constraint =
+                adjust_tool_window.histogram_manipulator.get_right_nub_position();
+            
+            adjust_tool_window.histogram_manipulator.update_histogram(draw_to_pixbuf);
+
+            if ((left_constraint > 0) || (right_constraint < 255)) {
+                IntensityTransformation constraint_transform =
+                    new NormalizationTransformation.from_extrema(left_constraint, right_constraint);
+
+                IntensityTransformation.transform_pixbuf(constraint_transform, draw_to_pixbuf);
+            }
         }
 
         canvas.paint_pixbuf(draw_to_pixbuf);
@@ -1438,8 +1423,7 @@ public class AdjustTool : EditingTool {
     public override Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
         return photo.get_pixbuf(TransformablePhoto.SCREEN, TransformablePhoto.Exception.ADJUST);
     }
-    
-    
+
     private void on_cancel() {
         notify_cancel();
     }
@@ -1451,11 +1435,12 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.saturation_slider.set_value(0.0);
         adjust_tool_window.temperature_slider.set_value(0.0);
         adjust_tool_window.tint_slider.set_value(0.0);
+        
+        adjust_tool_window.histogram_manipulator.set_left_nub_position(0);
+        adjust_tool_window.histogram_manipulator.set_right_nub_position(255);
     
         suppress_effect_redraw = false;
         canvas.repaint();
-        adjust_tool_window.histogram_image_tray.set_from_pixbuf(
-            new RGBHistogram(draw_to_pixbuf).get_graphic());
     }
     
     private void on_apply() {
@@ -1480,7 +1465,7 @@ public class AdjustTool : EditingTool {
         current_instance.kind = RGBTransformationKind.SATURATION;
         current_instance.parameter = saturation_param;
         adjustments.add(current_instance);
-
+        adjust_tool_window.exposure_slider.set_value(0.0);
         float tint_param =
             (float) adjust_tool_window.tint_slider.get_value();
         current_instance.kind = RGBTransformationKind.TINT;
@@ -1493,8 +1478,12 @@ public class AdjustTool : EditingTool {
         current_instance.parameter = temperature_param;
         adjustments.add(current_instance);
 
-        canvas.get_photo().set_color_adjustments(adjustments);
-        
+        NormalizationInstance normalization_inst = new NormalizationInstance.from_extrema(
+            adjust_tool_window.histogram_manipulator.get_left_nub_position(),
+            adjust_tool_window.histogram_manipulator.get_right_nub_position());
+
+        canvas.get_photo().set_color_adjustments(adjustments, normalization_inst);
+
         notify_apply();
         
         AppWindow.get_instance().set_normal_cursor();
@@ -1502,12 +1491,84 @@ public class AdjustTool : EditingTool {
     
     private void on_adjustment() {
         canvas.repaint();
-        adjust_tool_window.histogram_image_tray.set_from_pixbuf(
-            new RGBHistogram(draw_to_pixbuf).get_graphic());
+    }
+    
+    private void on_histogram_constraint() {
+        canvas.repaint();
     }
 
     private void on_canvas_resize() {
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
+    }
+    
+    private void bind_handlers() {
+        adjust_tool_window.apply_button.clicked += on_apply;
+        adjust_tool_window.reset_button.clicked += on_reset;
+        adjust_tool_window.cancel_button.clicked += on_cancel;
+        adjust_tool_window.exposure_slider.value_changed += on_adjustment;
+        adjust_tool_window.saturation_slider.value_changed +=
+            on_adjustment;
+        adjust_tool_window.tint_slider.value_changed += on_adjustment;
+        adjust_tool_window.temperature_slider.value_changed +=
+            on_adjustment;
+        adjust_tool_window.histogram_manipulator.nub_position_changed +=
+            on_histogram_constraint;
+    }
+    
+    private void sync_control_state(TransformablePhoto photo) {
+        float exposure_param =
+            photo.get_color_adjustment(RGBTransformationKind.EXPOSURE);
+        adjust_tool_window.exposure_slider.set_value(exposure_param);
+        float saturation_param =
+            photo.get_color_adjustment(RGBTransformationKind.SATURATION);
+        adjust_tool_window.saturation_slider.set_value(saturation_param);
+        float tint_param =
+            photo.get_color_adjustment(RGBTransformationKind.TINT);
+        adjust_tool_window.tint_slider.set_value(tint_param);
+        float temperature_param =
+            photo.get_color_adjustment(RGBTransformationKind.TEMPERATURE);
+        adjust_tool_window.temperature_slider.set_value(temperature_param);
+        
+        NormalizationInstance normalization_inst =
+            photo.get_normalization();
+        adjust_tool_window.histogram_manipulator.set_left_nub_position(
+            normalization_inst.get_black_point());
+        adjust_tool_window.histogram_manipulator.set_right_nub_position(
+            normalization_inst.get_white_point());
+    }
+    
+    private void set_adjustment_slider(Gtk.HScale slider, int val) {
+        slider.value_changed -= on_adjustment;
+        slider.set_value(val);
+        slider.value_changed += on_adjustment;
+    }
+
+    public void set_exposure_adjustment(int exposure) {
+        set_adjustment_slider(adjust_tool_window.exposure_slider, exposure);
+    }
+
+    public void set_saturation_adjustment(int saturation) {
+        set_adjustment_slider(adjust_tool_window.saturation_slider, saturation);
+    }
+
+    public void set_temperature_adjustment(int temp) {
+        set_adjustment_slider(adjust_tool_window.temperature_slider, temp);
+    }
+
+    public void set_tint_adjustment(int tint) {
+        set_adjustment_slider(adjust_tool_window.tint_slider, tint);
+    }
+
+    public void set_histogram_left_nub(int position) {
+        adjust_tool_window.histogram_manipulator.set_left_nub_position(position);
+    }
+
+    public void set_histogram_right_nub(int position) {
+        adjust_tool_window.histogram_manipulator.set_right_nub_position(position);
+    }
+
+    public void force_repaint() {
+        canvas.repaint();
     }
 }
 

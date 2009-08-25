@@ -70,7 +70,16 @@ public struct RGBAnalyticPixel {
         pixel_data[px_start_byte_offset] = pixel.quantized_red();
         pixel_data[px_start_byte_offset + 1] = pixel.quantized_green();
         pixel_data[px_start_byte_offset + 2] = pixel.quantized_blue();
-    }    
+    }
+    
+    public bool equals(ref RGBAnalyticPixel rhs) {
+        return ((red == rhs.red) && (green == rhs.green) && (blue == rhs.blue));
+    }
+    
+    public uint hash_code() {
+        return (((uint)(red * 255.0f)) << 16) + (((uint)(green * 255.0f)) << 8) +
+            ((uint)(blue * 255.0f));
+    }
 }
 
 public struct HSVAnalyticPixel {
@@ -198,6 +207,16 @@ public struct HSVAnalyticPixel {
         }
 
         return result;
+    }
+
+    public bool equals(ref HSVAnalyticPixel rhs) {
+        return ((hue == rhs.hue) && (saturation == rhs.saturation) &&
+                (light_value == rhs.light_value));
+    }
+    
+    public uint hash_code() {
+        return (((uint)(hue * 255.0f)) << 16) + (((uint)(saturation * 255.0f)) << 8) +
+            ((uint)(light_value * 255.0f));
     }
 }
 
@@ -585,7 +604,7 @@ public class RGBTransformationFactory {
 class RGBHistogram {
     private const uchar MARKED_BACKGROUND = 30;
     private const uchar MARKED_FOREGROUND = 210;
-    private const uchar UNMARKED_BACKGROUND = 40;
+    private const uchar UNMARKED_BACKGROUND = 120;
 
     public const int GRAPHIC_WIDTH = 256;
     public const int GRAPHIC_HEIGHT = 100;
@@ -896,6 +915,45 @@ public abstract class IntensityTransformation {
     public abstract string to_string();
 }
 
+public class NormalizationInstance {
+    private uchar black_point = 0;
+    private uchar white_point = 255;
+    
+    public NormalizationInstance() {
+    }
+    
+    public NormalizationInstance.from_extrema(int user_black_point,
+        int user_white_point) {
+        assert((user_black_point >= 0) && (user_black_point <= 255));
+        assert((user_white_point >= 0) && (user_white_point <= 255));
+
+        black_point = (uchar) user_black_point;
+        white_point = (uchar) user_white_point;
+    }
+    
+    public bool is_identity() {
+        return ((black_point == 0) && (white_point == 255));
+    }
+    
+    public int get_black_point() {
+        return black_point;
+    }
+    
+    public int get_white_point() {
+        return white_point;
+    }
+    
+    public void set_black_point(int user_black_point) {
+        assert((user_black_point >= 0) && (user_black_point <= 255));
+        black_point = (uchar) user_black_point;
+    }
+
+    public void set_white_point(int user_white_point) {
+        assert((user_white_point >= 0) && (user_white_point <= 255));
+        white_point = (uchar) user_white_point;
+    }
+}
+
 public class NormalizationTransformation : IntensityTransformation {
     private float[] remap_table = null;
     private const float LOW_DISCARD_MASS = 0.02f;
@@ -919,6 +977,17 @@ public class NormalizationTransformation : IntensityTransformation {
             high_kink--;
 
         build_remap_table();
+    }
+    
+    public NormalizationTransformation.from_extrema(int black_point, int white_point) {
+        assert((black_point >= 0) && (black_point <= 255));
+        assert((white_point >= 0) && (white_point <= 255));
+        assert(black_point < white_point);
+
+        low_kink = black_point;
+        high_kink = white_point;
+
+        build_remap_table();        
     }
     
     public NormalizationTransformation.from_string(string encoded_transformation) {
@@ -971,42 +1040,14 @@ public class NormalizationTransformation : IntensityTransformation {
     public override string to_string() {
         return "{ %d, %d }".printf(low_kink, high_kink);
     }
-}
-
-public class EnhancementFactory {
-    private const int CURRENT_VERSION = 1;
-    private const int MIN_SUPPORTED_VERSION = 1;
     
-    public static int get_current_version() {
-        return CURRENT_VERSION;
+    public int get_white_point() {
+        return high_kink;
     }
     
-    public static bool is_encoding_version_supported(int encoding_version) {
-        if (encoding_version < MIN_SUPPORTED_VERSION)
-            return false;
-        
-        if (encoding_version > CURRENT_VERSION)
-            return false;
-        
-        return true;
-    }
-    
-    public static IntensityTransformation? create_from_encoding(int encoding_version,
-        string encoded_transformation) {
-        
-        switch (encoding_version) {
-            case 1:
-                return new NormalizationTransformation.from_string(encoded_transformation);
-
-            default:
-                warning("enhancement factory: unsupported transformation encoding version");
-                return null;
-        }
-    }
-    
-    public static IntensityTransformation create_current(Gdk.Pixbuf target) {
-        IntensityHistogram histogram = new IntensityHistogram(target);
-        return new NormalizationTransformation(histogram);
+    public int get_black_point() {
+        return low_kink;
     }
 }
+
 

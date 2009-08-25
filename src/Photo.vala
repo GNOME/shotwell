@@ -107,7 +107,6 @@ public abstract class TransformablePhoto: PhotoBase {
         CROP            = 1 << 1,
         REDEYE          = 1 << 2,
         ADJUST          = 1 << 3,
-        ENHANCE         = 1 << 4,
         ALL             = 0xFFFFFFFF
     }
     
@@ -395,23 +394,13 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 
     public bool has_transformations() {
-        // trivial check -- if the photo has been reoriented, then it has transformations
         if (row.orientation != row.original_orientation)
             return true;
 
-        // if execution reaches this point, we didn't return above, so perform a more
-        // complicated series of tests
         if (row.transformations == null)
             return false;
-
-        if ((row.transformations.size == 1) &&
-            (row.transformations.contains("enhancement")) &&
-            (!is_enhancement_enabled()))
-            return false;
-        
-        // if we haven't returned by this point, then we have transformations other
-        // than disabled enhancement, so return true
-        return true;
+        else
+            return true;
     }
     
     public void remove_all_transformations() {
@@ -519,8 +508,36 @@ public abstract class TransformablePhoto: PhotoBase {
                 return 0.0f;
         }
     }
+
+    public NormalizationInstance get_normalization() {
+        NormalizationInstance identity = new NormalizationInstance();
+
+        KeyValueMap map = get_transformation("adjustments");
+        if (map == null)
+            return identity;
+
+        string encoded_transformation = map.get_string("normalization", "-");
+        if (encoded_transformation == "-")
+            return identity;
+
+        encoded_transformation.canon("0123456789. ", ' ');
+        encoded_transformation.chug();
+        encoded_transformation.chomp();
+        
+        int black_point_i = 0;
+        int white_point_i = 0;;
+        int num_captured = encoded_transformation.scanf("%d %d", &black_point_i,
+            &white_point_i);
+        assert(num_captured == 2);
+        NormalizationInstance user_transformation =
+            new NormalizationInstance.from_extrema(black_point_i,
+                white_point_i);
+
+        return user_transformation;
+    }
     
-    public void set_color_adjustments(Gee.ArrayList<RGBTransformationInstance?> adjustments) {
+    public void set_color_adjustments(Gee.ArrayList<RGBTransformationInstance?> adjustments,
+        NormalizationInstance? normalization_inst = null) {
         KeyValueMap map = get_transformation("adjustments");
         if (map == null)
             map = new KeyValueMap("adjustments");
@@ -547,6 +564,12 @@ public abstract class TransformablePhoto: PhotoBase {
                     error("unrecognized RGBTransformationKind enumeration value");
                 break;
             }
+        }
+
+        if (normalization_inst != null) {
+            string encoded_normalization = "{ %d, %d }".printf(
+                normalization_inst.get_black_point(), normalization_inst.get_white_point());
+            map.set_string("normalization", encoded_normalization);
         }
 
         if (set_transformation(map))
@@ -606,82 +629,6 @@ public abstract class TransformablePhoto: PhotoBase {
 
         if (set_transformation(map))
             notify_altered(Alteration.IMAGE);
-    }
-
-    public void set_enhancement_enabled() {
-        KeyValueMap map = get_transformation("enhancement");
-
-        if (map == null) {
-            map = new KeyValueMap("enhancement");
-        }
-
-        if (!map.has_key("encoded_transformation")) {
-            Gdk.Pixbuf histogram_pixbuf = null;        
-            try {
-                histogram_pixbuf = get_pixbuf(1024, Exception.ALL, Gdk.InterpType.HYPER);
-            } catch (Error e) {
-                error("pixbuf generation failed");
-            }
-            IntensityTransformation transform =
-                EnhancementFactory.create_current(histogram_pixbuf);
-            map.set_int("version", EnhancementFactory.get_current_version());
-            map.set_string("encoded_transformation", transform.to_string());
-        }
-
-        map.set_bool("enhanced", true);
-
-        if (set_transformation(map))
-            notify_altered(Alteration.IMAGE);
-    }
-    
-    public void set_enhancement_disabled() {
-        KeyValueMap map = get_transformation("enhancement");
-
-        if (map == null) {
-            map = new KeyValueMap("enhancement");
-        }
-        
-        map.set_bool("enhanced", false);
-
-        if (set_transformation(map))
-            notify_altered(Alteration.IMAGE);
-    }
-    
-    private IntensityTransformation get_enhancement_transformation() {
-        assert(is_enhancement_enabled());
-        
-        KeyValueMap map = get_transformation("enhancement");
-        assert(map != null);
-        assert(map.has_key("encoded_transformation"));
-        
-        string encoded_transformation = map.get_string("encoded_transformation", "");
-        assert(encoded_transformation != "");
-        
-        int version = map.get_int("version", 0);
-
-        return EnhancementFactory.create_from_encoding(version, encoded_transformation);
-    }
-    
-    public bool is_enhancement_enabled() {
-        KeyValueMap map = get_transformation("enhancement");
-
-        /* if there's no enhancement group in the map, then enhancement is
-           disabled */
-        if (map == null)
-            return false;
-
-        /* if there is an enhancement group in the map, but the "enhanced" key
-           has value false, then enhancement is disabled */
-        if (!map.get_bool("enhanced", true))
-            return false;
-
-        /* if enhanced is set to true in the map, but the encoding version used
-           is unsupported, then enhancement is disabled */
-        if (!EnhancementFactory.is_encoding_version_supported(map.get_int("version", 0)))
-            return false;
-        
-        /* otherwise, enhancement is enabled */
-        return true;
     }
 
     // Pixbuf generation
@@ -782,8 +729,7 @@ public abstract class TransformablePhoto: PhotoBase {
         Timer timer = new Timer();
         Timer total_timer = new Timer();
          double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, redeye_time = 0.0, 
-            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0,
-            enhance_time = 0.0;
+            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0;
 
         total_timer.start();
 #endif
@@ -875,24 +821,18 @@ public abstract class TransformablePhoto: PhotoBase {
             RGBTransformation composite_transform = get_composite_transformation();
             if (!composite_transform.is_identity())
                 RGBTransformation.transform_pixbuf(composite_transform, pixbuf);
+
+            NormalizationInstance normalization_inst = get_normalization();
+            if (!normalization_inst.is_identity()) {
+                IntensityTransformation normalization_xform =
+                    new NormalizationTransformation.from_extrema(
+                    normalization_inst.get_black_point(),
+                    normalization_inst.get_white_point());
+                IntensityTransformation.transform_pixbuf(normalization_xform,
+                    pixbuf);
+            }
 #if MEASURE_PIPELINE
             adjustment_time = timer.elapsed();
-#endif
-        }
-        
-        // auto-enhancement
-        if ((exceptions & Exception.ENHANCE) == 0) {
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            if (is_enhancement_enabled()) {
-                IntensityTransformation adaptive_transform =
-                    get_enhancement_transformation();
-                IntensityTransformation.transform_pixbuf(adaptive_transform, pixbuf);
-            }
-
-#if MEASURE_PIPELINE
-            enhance_time = timer.elapsed();
 #endif
         }
 
@@ -910,9 +850,9 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         double total_time = total_timer.elapsed();
         
-        debug("PIPELINE: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf enhancement=%lf orientation=%lf total=%lf",
+        debug("PIPELINE: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
             load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time, 
-            enhance_time, orientation_time, total_time);
+            orientation_time, total_time);
 #endif
         
         return pixbuf;

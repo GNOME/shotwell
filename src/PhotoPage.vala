@@ -32,7 +32,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToggleToolButton redeye_button = null;
     private Gtk.ToggleToolButton adjust_button = null;
-    private Gtk.ToggleToolButton enhance_button = null;
+    private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private EditingTool current_tool = null;
@@ -43,7 +43,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         TransformablePhoto new_photo, out bool ok) {
         ok = true;
     }
-    
+
     public EditingHostPage(string name) {
         base(name);
         
@@ -78,10 +78,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(adjust_button, -1);
 
         // ehance tool
-        enhance_button = new Gtk.ToggleToolButton.from_stock(Resources.ENHANCE);
+        enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
         enhance_button.set_label("Enhance");
         enhance_button.set_tooltip_text("Automatically improve the photo's appearance");
-        enhance_button.toggled += on_enhance_toggled;
+        enhance_button.clicked += on_enhance_clicked;
         toolbar.insert(enhance_button, -1);
 
         // separator to force next/prev buttons to right side of toolbar
@@ -201,12 +201,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void update_ui() {
         bool multiple = controller.get_count() > 1;
-        
-        /* disconnect the on_enhance_toggled signal before calling set_active on the
-           button to avoid having on_enhance_toggled invoked twice */
-        enhance_button.toggled -= on_enhance_toggled;
-        enhance_button.set_active(photo.is_enhancement_enabled());
-        enhance_button.toggled += on_enhance_toggled;
 
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
@@ -611,16 +605,67 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button.set_active(false);
     }
 
-    private void on_enhance_toggled() {
-        if (current_tool != null)
-            deactivate_tool();
-        
+    private void on_enhance_clicked() {
         AppWindow.get_instance().set_busy_cursor();
-        if (enhance_button.get_active()) {
-            photo.set_enhancement_enabled();
-        } else {
-            photo.set_enhancement_disabled();
+
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = photo.get_pixbuf(1024, TransformablePhoto.Exception.ALL);
+        } catch (Error e) {
+            error("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
+                "transform histogram");
         }
+
+        /* zero out any existing color transformations as these may conflict with
+           auto-enhancement */
+        Gee.ArrayList<RGBTransformationInstance?> adjustments =
+            new Gee.ArrayList<RGBTransformationInstance?>();
+
+        RGBTransformationInstance current_instance = {0};
+
+        current_instance.kind = RGBTransformationKind.EXPOSURE;
+        current_instance.parameter = 0.0f;
+        adjustments.add(current_instance);
+
+        current_instance.kind = RGBTransformationKind.SATURATION;
+        current_instance.parameter = 0.0f;
+        adjustments.add(current_instance);
+
+        current_instance.kind = RGBTransformationKind.TINT;
+        current_instance.parameter = 0.0f;
+        adjustments.add(current_instance);
+
+        current_instance.kind = RGBTransformationKind.TEMPERATURE;
+        current_instance.parameter = 0.0f;
+        adjustments.add(current_instance);
+
+        /* create a new normalization transformation representing the
+           auto-enhancement */
+        NormalizationTransformation trans = new NormalizationTransformation(
+            new IntensityHistogram(pixbuf));
+        int black_point = trans.get_black_point();
+        int white_point = trans.get_white_point();
+
+        NormalizationInstance normalization_inst =
+            new NormalizationInstance.from_extrema(black_point, white_point);
+        
+        /* if the current tool isn't the adjust tool then commit the changes to the database */
+        if (!(current_tool is AdjustTool)) {
+            photo.set_color_adjustments(adjustments, normalization_inst);
+        } else {
+            /* if the current tool is the adjust tool, then don't commit to the database --
+               just set the slider values in the adjust dialog and force it to repaint
+               the canvas */
+            AdjustTool current_tool_adjust = (AdjustTool) current_tool;
+            current_tool_adjust.set_exposure_adjustment(0);
+            current_tool_adjust.set_saturation_adjustment(0);
+            current_tool_adjust.set_tint_adjustment(0);
+            current_tool_adjust.set_temperature_adjustment(0);
+            current_tool_adjust.set_histogram_left_nub(black_point);
+            current_tool_adjust.set_histogram_right_nub(white_point);
+            current_tool_adjust.force_repaint();
+        }
+
         AppWindow.get_instance().set_normal_cursor();
     }
 
