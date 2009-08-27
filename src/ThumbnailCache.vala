@@ -26,6 +26,35 @@ public class ThumbnailCache : Object {
     private static ThumbnailCache medium = null;
     private static ThumbnailCache small = null;
     
+    private static int cycle_fetched_thumbnails = 0;
+    private static int cycle_overflow_thumbnails = 0;
+    private static bool debug_scheduled = false;
+    
+    private File cache_dir;
+    private int scale;
+    private ulong max_cached_bytes;
+    private Gdk.InterpType interp;
+    private string jpeg_quality;
+    private Gee.HashMap<int64?, ImageData> cache_map = new Gee.HashMap<int64?, ImageData>(
+        int64_hash, int64_equal, direct_equal);
+    private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
+    private ulong cached_bytes = 0;
+    private ThumbnailCacheTable cache_table;
+    private PhotoTable photo_table = new PhotoTable();
+    
+    private ThumbnailCache(int scale, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
+        int jpeg_quality = DEFAULT_JPEG_QUALITY) {
+        assert(scale != 0);
+        assert((jpeg_quality >= 0) && (jpeg_quality <= 100));
+
+        this.cache_dir = AppWindow.get_data_subdir("thumbs", "thumbs%d".printf(scale));
+        this.scale = scale;
+        this.max_cached_bytes = max_cached_bytes;
+        this.interp = interp;
+        this.jpeg_quality = "%d".printf(jpeg_quality);
+        this.cache_table = new ThumbnailCacheTable(scale);
+    }
+    
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
         big = new ThumbnailCache(BIG_SCALE, MAX_BIG_CACHED_BYTES);
@@ -108,29 +137,31 @@ public class ThumbnailCache : Object {
         }
     }
 
-    private File cache_dir;
-    private int scale;
-    private ulong max_cached_bytes;
-    private Gdk.InterpType interp;
-    private string jpeg_quality;
-    private Gee.HashMap<int64?, ImageData> cache_map = new Gee.HashMap<int64?, ImageData>(
-        int64_hash, int64_equal, direct_equal);
-    private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
-    private ulong cached_bytes = 0;
-    private ThumbnailCacheTable cache_table;
-    private PhotoTable photo_table = new PhotoTable();
-    
-    private ThumbnailCache(int scale, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
-        int jpeg_quality = DEFAULT_JPEG_QUALITY) {
-        assert(scale != 0);
-        assert((jpeg_quality >= 0) && (jpeg_quality <= 100));
+    // Displaying a debug message for each thumbnail loaded and dropped can cause a ton of messages
+    // and slow down scrolling operations ... this delays reporting them, and only then reporting
+    // them in one aggregate sum
+    private static void schedule_debug() {
+        if (debug_scheduled)
+            return;
 
-        this.cache_dir = AppWindow.get_data_subdir("thumbs", "thumbs%d".printf(scale));
-        this.scale = scale;
-        this.max_cached_bytes = max_cached_bytes;
-        this.interp = interp;
-        this.jpeg_quality = "%d".printf(jpeg_quality);
-        this.cache_table = new ThumbnailCacheTable(scale);
+        Timeout.add_full(Priority.LOW, 500, report_cycle);
+        debug_scheduled = true;
+    }
+
+    private static bool report_cycle() {
+        if (cycle_fetched_thumbnails > 0) {
+            debug("%d thumbnails fetched into memory", cycle_fetched_thumbnails);
+            cycle_fetched_thumbnails = 0;
+        }
+        
+        if (cycle_overflow_thumbnails > 0) {
+            debug("%d thumbnails overflowed from memory cache", cycle_overflow_thumbnails);
+            cycle_overflow_thumbnails = 0;
+        }
+        
+        debug_scheduled = false;
+        
+        return false;
     }
     
     private Gdk.Pixbuf? _fetch(PhotoID photo_id) {
@@ -141,15 +172,15 @@ public class ThumbnailCache : Object {
 
         File file = get_cached_file(photo_id);
 
-        debug("Fetching thumbnail for %s from disk [%lld] %s", photo_table.get_name(photo_id),
-            photo_id.id, file.get_path());
-
         Gdk.Pixbuf pixbuf = null;
         try {
             pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         } catch (Error err) {
             error("%s", err.message);
         }
+        
+        cycle_fetched_thumbnails++;
+        schedule_debug();
         
         int filesize = cache_table.get_filesize(photo_id);
         if(filesize > MAX_INMEMORY_DATA_SIZE) {
@@ -284,8 +315,8 @@ public class ThumbnailCache : Object {
             assert(data.bytes <= cached_bytes);
             cached_bytes -= data.bytes;
             
-            debug("Thumbnail cache %d overflow: removed %lu bytes, now %lu", scale, data.bytes, 
-                cached_bytes);
+            cycle_overflow_thumbnails++;
+            schedule_debug();
             
             bool removed = cache_map.remove(id);
             assert(removed);

@@ -49,14 +49,21 @@ public class CameraTable {
         if (!hal_context.set_device_removed(on_device_removed))
             error("Unable to register device-removed callback");
 
-        // initialize and update camera table ... since this is the constructor, no observers
-        // are signalled
+        // because loading the camera abilities list takes a bit of time and slows down app
+        // startup, delay loading it (and notifying any observers) for a small period of time,
+        // after the dust has settled
+        Timeout.add(500, delayed_init);
+    }
+    
+    private bool delayed_init() {
         try {
             init_camera_table();
             update_camera_table();
         } catch (GPhotoError err) {
             error("%s", err.message);
         }
+        
+        return false;
     }
     
     public static CameraTable get_instance() {

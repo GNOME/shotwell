@@ -404,13 +404,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         Gdk.ModifierType mask;
         if (event.is_hint) {
             event_source.window.get_pointer(out x, out y, out mask);
-            
-            Gtk.Adjustment hadj = get_hadjustment();
-            Gtk.Adjustment vadj = get_vadjustment();
-            
-            // adjust x and y to viewport values
-            x = (x + (int) hadj.get_value()).clamp((int) hadj.get_lower(), (int) hadj.get_upper());
-            y = (y + (int) vadj.get_value()).clamp((int) vadj.get_lower(), (int) vadj.get_upper());
         } else {
             x = (int) event.x;
             y = (int) event.y;
@@ -437,6 +430,7 @@ public abstract class CheckerboardPage : Page {
 
     private Gtk.Menu context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
+    private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private LayoutItem last_clicked_item = null;
     private LayoutItem highlighted = null;
@@ -456,7 +450,37 @@ public abstract class CheckerboardPage : Page {
         layout.expose_after += on_layout_exposed;
         layout.map += on_layout_mapped;
 
-        add(layout);
+        get_hadjustment().value_changed += on_viewport_shifted;
+        get_vadjustment().value_changed += on_viewport_shifted;
+
+        viewport.size_allocate += on_viewport_resized;
+        viewport.set_border_width(0);
+        viewport.set_shadow_type(Gtk.ShadowType.NONE);
+        
+        viewport.add(layout);
+        
+        add(viewport);
+    }
+    
+    private void on_viewport_resized() {
+        Gtk.Requisition layout_size;
+        layout.size_request(out layout_size);
+        
+        if (!layout.in_message_mode()) {
+            // set the layout's new size to be the same as the viewport's width but maintain 
+            // it's own height
+            layout.set_size_request(viewport.allocation.width, layout_size.height);
+        } else {
+            // set the layout's width and height to always match the viewport's
+            layout.set_size_request(viewport.allocation.width, viewport.allocation.height);
+        }
+
+        // report size change
+        layout.set_visible_page(get_adjustment_page(get_hadjustment(), get_vadjustment()));
+    }
+    
+    private void on_viewport_shifted() {
+        layout.set_visible_page(get_adjustment_page(get_hadjustment(), get_vadjustment()));
     }
     
     public void init_context_menu(string path) {
@@ -482,6 +506,7 @@ public abstract class CheckerboardPage : Page {
     
     public override void switched_to() {
         layout.set_in_view(true);
+        layout.set_visible_page(get_adjustment_page(get_hadjustment(), get_vadjustment()));
         
         base.switched_to();
     }
@@ -497,10 +522,9 @@ public abstract class CheckerboardPage : Page {
     
     public void set_page_message(string message) {
         layout.set_message(message);
-    }
-    
-    public void set_refresh_on_resize(bool refresh_on_resize) {
-        layout.set_refresh_on_resize(refresh_on_resize);
+        
+        // set the layout's size to be exactly the same as the viewport's
+        layout.set_size_request(viewport.allocation.width, viewport.allocation.height);
     }
     
     public void set_layout_comparator(Comparator<LayoutItem> cmp) {
@@ -825,7 +849,7 @@ public abstract class CheckerboardPage : Page {
             selection_band.height = 0;
             
             // force a repaint to remove the selection band
-            layout.bin_window.invalidate_rect(null, false);
+            layout.window.invalidate_rect(null, false);
             
             return true;
         }
@@ -937,9 +961,11 @@ public abstract class CheckerboardPage : Page {
         if (!drag_select)
             return false;
         
+        // bound the drag rectangle to left-top edges (so Box doesn't complain) ... expose code
+        // takes care of other boundaries
         Gdk.Point drag_end = Gdk.Point();
-        drag_end.x = x;
-        drag_end.y = y;
+        drag_end.x = x.clamp(0, int.MAX);
+        drag_end.y = y.clamp(0, int.MAX);
         
         // save new drag rectangle
         selection_band = Box.from_points(drag_start, drag_end).get_rectangle();
@@ -977,7 +1003,7 @@ public abstract class CheckerboardPage : Page {
             select(item);
         
         // for a refresh to paint the selection band
-        layout.bin_window.invalidate_rect(null, false);
+        layout.window.invalidate_rect(null, false);
     }
     
     private bool selection_autoscroll() {
@@ -992,13 +1018,14 @@ public abstract class CheckerboardPage : Page {
 
         int x, y;
         Gdk.ModifierType mask;
-        layout.bin_window.get_pointer(out x, out y, out mask);
+        layout.window.get_pointer(out x, out y, out mask);
         
         int new_value = (int) vadj.get_value();
         switch (get_adjustment_relation(vadj, y)) {
             case AdjustmentRelation.BELOW:
                 new_value -= AUTOSCROLL_PIXELS;
                 selection_band.y -= AUTOSCROLL_PIXELS;
+                selection_band.height += AUTOSCROLL_PIXELS;
                 if (selection_band.y < (int) vadj.get_lower())
                     selection_band.y = (int) vadj.get_lower();
             break;
@@ -1029,7 +1056,7 @@ public abstract class CheckerboardPage : Page {
     
     private void on_layout_mapped() {
         // set up selection colors
-        Gdk.Color selection_color = fetch_color(LayoutItem.SELECTED_COLOR, layout.bin_window);
+        Gdk.Color selection_color = fetch_color(LayoutItem.SELECTED_COLOR, layout.window);
         selection_transparency_color = convert_rgba(selection_color, 0x40);
 
         // set up GC's for painting selection
@@ -1045,7 +1072,7 @@ public abstract class CheckerboardPage : Page {
             | Gdk.GCValuesMask.FILL
             | Gdk.GCValuesMask.LINE_WIDTH;
 
-        selection_gc = new Gdk.GC.with_values(layout.bin_window, gc_values, mask);
+        selection_gc = new Gdk.GC.with_values(layout.window, gc_values, mask);
     }
 
     private void on_layout_exposed() {
@@ -1084,12 +1111,12 @@ public abstract class CheckerboardPage : Page {
                selection_interior.fill(selection_transparency_color);
             }
             
-            layout.bin_window.draw_pixbuf(selection_gc, selection_interior, 0, 0, visible_x, visible_y,
+            layout.window.draw_pixbuf(selection_gc, selection_interior, 0, 0, visible_x, visible_y,
                 visible_width, visible_height, Gdk.RgbDither.NORMAL, 0, 0);
         }
 
         // border
-        Gdk.draw_rectangle(layout.bin_window, selection_gc, false, selection_band.x, selection_band.y,
+        Gdk.draw_rectangle(layout.window, selection_gc, false, selection_band.x, selection_band.y,
             selection_band.width - 1, selection_band.height - 1);
     }
     

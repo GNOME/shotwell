@@ -399,6 +399,9 @@ public class CollectionPage : CheckerboardPage {
         
         toolbar.insert(toolitem, -1);
         
+        // initialize scale from slider (since the scale adjustment may be modified from default)
+        scale = slider_to_scale(slider.get_value());
+
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
@@ -407,11 +410,6 @@ public class CollectionPage : CheckerboardPage {
         get_hadjustment().value_changed += schedule_thumbnail_improval;
         get_vadjustment().value_changed += schedule_thumbnail_improval;
         
-        // turn this off until we're switched to
-        set_refresh_on_resize(false);
-
-        refresh();
-
         show_all();
 
         schedule_thumbnail_improval();
@@ -423,17 +421,9 @@ public class CollectionPage : CheckerboardPage {
         return toolbar;
     }
     
-    public override void switching_from() {
-        base.switching_from();
-
-        set_refresh_on_resize(false);
-    }
-    
     public override void switched_to() {
         base.switched_to();
 
-        set_refresh_on_resize(true);
-        
         // if the thumbnails were resized while viewing another page, resize the ones on this page
         // now ... set_thumb_size does the refresh and thumbnail improval, so don't schedule if
         // going this route
@@ -678,7 +668,6 @@ public class CollectionPage : CheckerboardPage {
     
     private bool improve_thumbnail_quality() {
         if (reschedule_improval) {
-            debug("rescheduled improval");
             reschedule_improval = false;
             
             return true;

@@ -31,7 +31,7 @@ public class Thumbnail : LayoutItem, PhotoSource {
         // not present, the widget will collapse, and so the layout manager won't account for it
         // properly when it's off the viewport.  The solution is to manually set the widget's
         // requisition size, even when it contains no pixbuf
-        set_image_size(dim.width, dim.height);
+        clear_image(dim.width, dim.height);
 
         photo.thumbnail_altered += on_thumbnail_altered;
     }
@@ -52,9 +52,9 @@ public class Thumbnail : LayoutItem, PhotoSource {
             interp = LOW_QUALITY_INTERP;
             
             set_image(pixbuf);
+        } else {
+            clear_image(dim.width, dim.height);
         }
-        
-        set_image_size(dim.width, dim.height);
     }
     
     public void resize(int new_scale) {
@@ -100,7 +100,6 @@ public class Thumbnail : LayoutItem, PhotoSource {
         interp = LOW_QUALITY_INTERP;
 
         set_image(pixbuf);
-        set_image_size(dim.width, dim.height);
         
         thumb_exposed = true;
     }
@@ -109,8 +108,7 @@ public class Thumbnail : LayoutItem, PhotoSource {
         if (!thumb_exposed)
             return;
 
-        clear_image();
-        set_image_size(dim.width, dim.height);
+        clear_image(dim.width, dim.height);
         
         thumb_exposed = false;
     }
