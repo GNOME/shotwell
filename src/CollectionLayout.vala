@@ -249,45 +249,90 @@ public class CollectionLayout : Gtk.DrawingArea {
     public const int RIGHT_PADDING = 16;
     public const int COLUMN_GUTTER_PADDING = 24;
     
+    private static Gdk.Pixbuf selection_interior = null;
+
     public SortedList<LayoutItem> items = new SortedList<LayoutItem>();
 
+    private Gtk.Adjustment hadjustment = null;
+    private Gtk.Adjustment vadjustment = null;
     private string message = null;
     private Gdk.GC selected_gc = null;
     private Gdk.GC unselected_gc = null;
+    private Gdk.GC selection_band_gc = null;
     private bool in_view = false;
     private Gdk.Rectangle visible_page = Gdk.Rectangle();
     private int last_width = 0;
     private int columns = 0;
     private int rows = 0;
+    private Gdk.Point drag_origin = Gdk.Point();
+    private Gdk.Point drag_endpoint = Gdk.Point();
+    private Gdk.Rectangle selection_band = Gdk.Rectangle();
+    private uint32 selection_transparency_color = 0;
 
     public CollectionLayout() {
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
     }
     
-    public signal void expose_after();
+    public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
+        this.hadjustment = hadjustment;
+        this.vadjustment = vadjustment;
+        
+        // monitor adjustment changes to report when the visible page shifts
+        hadjustment.value_changed += on_viewport_shifted;
+        vadjustment.value_changed += on_viewport_shifted;
+        
+        // monitor parent's size changes for a similar reason
+        parent.size_allocate += on_viewport_resized;
+    }
+    
+    private void on_viewport_resized() {
+        Gtk.Requisition req;
+        size_request(out req);
+
+        if (message == null) {
+            // set the layout's new size to be the same as the parent's width but maintain 
+            // it's own height
+            set_size_request(parent.allocation.width, req.height);
+        } else {
+            // set the layout's width and height to always match the parent's
+            set_size_request(parent.allocation.width, parent.allocation.height);
+        }
+
+        // report page change
+        update_visible_page();
+    }
+    
+    private void on_viewport_shifted() {
+        update_visible_page();
+    }
     
     public void set_message(string text) {
         // remove all items from layout
         clear();
 
         message = text;
+
+        // set the layout's size to be exactly the same as the parent's
+        if (parent != null)
+            set_size_request(parent.allocation.width, parent.allocation.height);
     }
     
-    public bool in_message_mode() {
-        return message != null;
-    }
-    
-    public void set_visible_page(Gdk.Rectangle visible_page) {
+    private void update_visible_page() {
         if (!in_view)
             return;
         
-        if (visible_page.width <= 1 || visible_page.height <= 1)
+        if (hadjustment == null || vadjustment == null)
+            return;
+            
+        Gdk.Rectangle current_visible = get_adjustment_page(hadjustment, vadjustment);
+        
+        if (current_visible.width <= 1 || current_visible.height <= 1)
             return;
         
-        if (rectangles_equal(this.visible_page, visible_page))
+        if (rectangles_equal(visible_page, current_visible))
             return;
         
-        this.visible_page = visible_page;
+        visible_page = current_visible;
         
         // LayoutItems are told both when they're exposed and when they're unexposed; thus, the
         // reason the loop doesn't bail out at some point or attempt to be smart about finding
@@ -307,8 +352,11 @@ public class CollectionLayout : Gtk.DrawingArea {
     
     public void set_in_view(bool in_view) {
         this.in_view = in_view;
-        if (in_view)
+        if (in_view) {
+            update_visible_page();
+
             return;
+        }
         
         // clear this to force a re-expose when back in view
         visible_page = Gdk.Rectangle();
@@ -440,6 +488,47 @@ public class CollectionLayout : Gtk.DrawingArea {
         items.clear();
         columns = 0;
         rows = 0;
+    }
+    
+    public void set_drag_select_origin(int x, int y) {
+        clear_drag_select();
+        
+        drag_origin.x = x.clamp(0, allocation.width);
+        drag_origin.y = y.clamp(0, allocation.height);
+    }
+    
+    public void set_drag_select_endpoint(int x, int y) {
+        drag_endpoint.x = x.clamp(0, allocation.width);
+        drag_endpoint.y = y.clamp(0, allocation.height);
+        
+        // drag_origin and drag_endpoint are maintained only to generate selection_band; all reporting
+        // and drawing functions refer to it, not drag_origin and drag_endpoint
+        Gdk.Rectangle old_selection_band = selection_band;
+        selection_band = Box.from_points(drag_origin, drag_endpoint).get_rectangle();
+        
+        // force repaint of the union of the old and new, which covers the band reducing in size
+        if (window != null) {
+            Gdk.Rectangle union;
+            selection_band.union(old_selection_band, out union);
+            
+            queue_draw_area(union.x, union.y, union.width, union.height);
+        }
+    }
+    
+    public Gee.List<LayoutItem>? items_in_selection_band() {
+        if (!Dimensions.for_rectangle(selection_band).has_area())
+            return null;
+
+        return intersection(selection_band);
+    }
+    
+    public void clear_drag_select() {
+        selection_band = Gdk.Rectangle();
+        drag_origin = Gdk.Point();
+        drag_endpoint = Gdk.Point();
+        
+        // force a total repaint to clear the selection band
+        queue_draw();
     }
     
     public void refresh() {
@@ -619,9 +708,8 @@ public class CollectionLayout : Gtk.DrawingArea {
         assert(items.contains(item));
         assert(item.allocation.width > 0 && item.allocation.height > 0);
         
-        // this can come in before the window has been realized; ignore for obvious reasons
-        if (window != null)
-            window.invalidate_rect(item.allocation, true);
+        queue_draw_area(item.allocation.x, item.allocation.y, item.allocation.width,
+            item.allocation.height);
     }
     
     private override void map() {
@@ -630,6 +718,7 @@ public class CollectionLayout : Gtk.DrawingArea {
         // set up selected/unselected colors
         Gdk.Color selected_color = fetch_color(LayoutItem.SELECTED_COLOR, window);
         Gdk.Color unselected_color = fetch_color(LayoutItem.UNSELECTED_COLOR, window);
+        selection_transparency_color = convert_rgba(selected_color, 0x40);
 
         // set up GC's for painting layout items
         Gdk.GCValues gc_values = Gdk.GCValues();
@@ -649,6 +738,11 @@ public class CollectionLayout : Gtk.DrawingArea {
         gc_values.foreground = unselected_color;
         
         unselected_gc = new Gdk.GC.with_values(window, gc_values, mask);
+
+        gc_values.line_width = 1;
+        gc_values.foreground = selected_color;
+        
+        selection_band_gc = new Gdk.GC.with_values(window, gc_values, mask);
     }
 
     private override void size_allocate(Gdk.Rectangle allocation) {
@@ -677,7 +771,7 @@ public class CollectionLayout : Gtk.DrawingArea {
                 // short-circuit: if past the dimensions of the box in the sorted list, bail out
                 if (item.allocation.y > bottom && item.allocation.x > right)
                     break;
-               }
+           }
         } else {
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);
@@ -695,8 +789,44 @@ public class CollectionLayout : Gtk.DrawingArea {
 
         bool result = (base.expose_event != null) ? base.expose_event(event) : true;
         
-        expose_after();
-        
+        // draw the selection band last, so it appears floating over everything else
+        draw_selection_band(event);
+
         return result;
+    }
+    
+    private void draw_selection_band(Gdk.EventExpose event) {
+        // no selection band, nothing to draw
+        if (selection_band.width <= 1 || selection_band.height <= 1)
+            return;
+        
+        // This requires adjustments
+        if (hadjustment == null || vadjustment == null)
+            return;
+        
+        // find the visible intersection of the viewport and the selection band
+        Gdk.Rectangle visible_page = get_adjustment_page(hadjustment, vadjustment);
+        Gdk.Rectangle visible_band = Gdk.Rectangle();
+        visible_page.intersect(selection_band, visible_band);
+        
+        // pixelate selection rectangle interior
+        if (visible_band.width > 1 && visible_band.height > 1) {
+            // generate a pixbuf of the selection color with a transparency to paint over the
+            // visible selection area ... reuse old pixbuf (which is shared among all instances)
+            // if possible
+            if (selection_interior == null || selection_interior.width < visible_band.width
+                || selection_interior.height < visible_band.height) {
+                selection_interior = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, visible_band.width,
+                    visible_band.height);
+               selection_interior.fill(selection_transparency_color);
+            }
+            
+            window.draw_pixbuf(selection_band_gc, selection_interior, 0, 0, visible_band.x, 
+                visible_band.y, visible_band.width, visible_band.height, Gdk.RgbDither.NORMAL, 0, 0);
+        }
+
+        // border
+        Gdk.draw_rectangle(window, selection_band_gc, false, selection_band.x, selection_band.y,
+            selection_band.width - 1, selection_band.height - 1);
     }
 }
