@@ -436,6 +436,10 @@ public abstract class TransformablePhoto: PhotoBase {
         set_orientation(orientation);
     }
     
+    private bool has_transformation(string name) {
+        return (row.transformations != null) ? row.transformations.contains(name) : false;
+    }
+    
     private KeyValueMap? get_transformation(string name) {
         return (row.transformations != null) ? row.transformations.get(name) : null;
     }
@@ -450,7 +454,7 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public bool has_crop() {
-        return row.transformations.contains("crop");
+        return has_transformation("crop");
     }
     
     // Returns the crop in the raw photo's coordinate system
