@@ -5,18 +5,85 @@
  */
 
 class SlideshowPage : SinglePhotoPage {
-    public const int DELAY_SEC = 3;
-    
     private const int CHECK_ADVANCE_MSEC = 250;
     
     private CheckerboardPage controller;
     private Thumbnail thumbnail;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton play_pause_button;
+    private Gtk.ToolButton settings_button;
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
+
+    public signal void hide_toolbar();
     
+    private class SettingsDialog : Gtk.Dialog {
+        Gtk.Entry delay_entry;
+        double delay;
+        Gtk.HScale hscale;
+
+        private bool update_entry(Gtk.ScrollType scroll, double new_value) {
+            new_value = new_value.clamp(Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX);
+
+            delay_entry.set_text("%.1f".printf(new_value));
+            return false;
+        }
+
+        private void check_text() { //rename this function
+            // parse through text, set delay
+            string delay_text = delay_entry.get_text();
+            delay_text.canon("0123456789.",'?');
+            delay_text = delay_text.replace("?","");
+         
+            delay = delay_text.to_double();
+            delay_entry.set_text(delay_text);
+
+            delay = delay.clamp(Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX);
+            hscale.set_value(delay);
+        }        
+
+        public SettingsDialog() {
+            delay = Config.get_instance().get_slideshow_delay();
+
+            set_modal(true);
+            set_transient_for(AppWindow.get_fullscreen());
+
+            add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
+                        Gtk.STOCK_OK, Gtk.ResponseType.OK);
+            set_title("Settings");
+
+            Gtk.Label delay_label = new Gtk.Label("Delay:");
+            Gtk.Label units_label = new Gtk.Label("seconds");   
+            delay_entry = new Gtk.Entry();
+            delay_entry.set_max_length(5);
+            delay_entry.set_text("%.1f".printf(delay));
+            delay_entry.set_width_chars(4);
+            delay_entry.set_activates_default(true);
+            delay_entry.changed += check_text;
+
+            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX + 1, 0.1, 1, 1);
+            hscale = new Gtk.HScale(adjustment);
+            hscale.set_draw_value(false);
+            hscale.set_size_request(150,-1);
+            hscale.change_value += update_entry;
+
+            Gtk.HBox query = new Gtk.HBox(false, 0);
+            query.pack_start(delay_label, false, false, 3);
+            query.pack_start(hscale, true, true, 3);
+            query.pack_start(delay_entry, false, false, 3);
+            query.pack_start(units_label, false, false, 3);
+
+            set_default_response(Gtk.ResponseType.OK);
+
+            vbox.pack_start(query, true, false, 6);
+        }
+
+        public double get_delay() {
+            return delay;        
+        }
+    }
+
     public SlideshowPage(CheckerboardPage controller, Thumbnail start) {
         base("Slideshow");
         
@@ -46,6 +113,13 @@ class SlideshowPage : SinglePhotoPage {
         next_button.clicked += on_next_manual;
         
         toolbar.insert(next_button, -1);
+
+        settings_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_PREFERENCES);
+        settings_button.set_label("Settings");
+        settings_button.set_tooltip_text("Change slideshow settings");
+        settings_button.clicked += on_change_settings;
+        
+        toolbar.insert(settings_button, -1);
     }
     
     public override Gtk.Toolbar get_toolbar() {
@@ -127,7 +201,7 @@ class SlideshowPage : SinglePhotoPage {
         if (!playing)
             return true;
         
-        if ((int) timer.elapsed() < DELAY_SEC)
+        if (timer.elapsed() < Config.get_instance().get_slideshow_delay())
             return true;
         
         on_next_automatic();
@@ -161,6 +235,24 @@ class SlideshowPage : SinglePhotoPage {
             return true;
         
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
+    }
+
+    private void on_change_settings() {
+        SettingsDialog settings_dialog = new SettingsDialog();
+        settings_dialog.show_all();
+        bool slideshow_playing = playing;
+        playing = false;
+        hide_toolbar();
+
+        int response = settings_dialog.run();
+        if (response == Gtk.ResponseType.OK) {
+            // sync with the config setting so it will persist
+            Config.get_instance().set_slideshow_delay(settings_dialog.get_delay());
+        }
+
+        settings_dialog.destroy();
+        playing = slideshow_playing;
+        timer.start();
     }
 
     public override int get_queryable_count() {

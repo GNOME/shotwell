@@ -50,7 +50,8 @@ SRC_FILES = \
 	CameraTable.vala \
 	DirectWindow.vala \
     Properties.vala \
-    CustomComponents.vala
+    CustomComponents.vala \
+    Config.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -99,7 +100,8 @@ EXT_PKGS = \
 	dbus-glib-1 \
 	unique-1.0 \
 	libexif \
-	libgphoto2
+	libgphoto2 \
+	gconf-2.0
 
 EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.14.4 \
@@ -109,7 +111,8 @@ EXT_PKG_VERSIONS = \
 	dbus-glib-1 >= 0.76 \
 	unique-1.0 >= 1.0.0 \
 	libexif >= 0.6.16 \
-	libgphoto2 >= 2.4.2
+	libgphoto2 >= 2.4.2 \
+	gconf-2.0 >= 2.24.1
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 
@@ -192,6 +195,8 @@ install:
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
 	-update-desktop-database
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-install-rule misc/shotwell.schemas
+	killall -HUP gconfd-2
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
@@ -200,6 +205,8 @@ uninstall:
 	rm -f $(DESTDIR)/usr/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)/usr/share/applications/shotwell-viewer.desktop
 	-update-desktop-database
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-uninstall-rule misc/shotwell.schemas
+	killall -HUP gconfd-2
 
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
 	$(CONFIG_IN)

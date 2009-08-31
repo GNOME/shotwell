@@ -217,6 +217,9 @@ public class LibraryWindow : AppWindow {
         
         create_layout(collection_page);
 
+        // settings that should persist between sessions
+        load_configuration();
+
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to collection_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
@@ -426,6 +429,9 @@ public class LibraryWindow : AppWindow {
                 bottom_frame.hide();
             }
         }
+
+        // sync the setting so it will persist
+        Config.get_instance().set_display_basic_properties(display);
     }
     
     public void enqueue_batch_import(BatchImport batch_import) {
@@ -834,6 +840,15 @@ public class LibraryWindow : AppWindow {
         return false;
     }
     
+    // check for settings that should persist between instances
+    private void load_configuration() {
+        Gtk.ToggleAction action = 
+            (Gtk.ToggleAction) current_page.common_action_group.get_action(
+            "CommonDisplayBasicProperties");
+        assert(action != null);
+        action.set_active(Config.get_instance().get_display_basic_properties());
+    }
+
     private void create_layout(Page start_page) {
         // use a Notebook to hold all the pages, which are switched when a sidebar child is selected
         notebook.set_show_tabs(false);

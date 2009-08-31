@@ -59,7 +59,15 @@ public class FullscreenWindow : PageWindow {
         
         Gtk.Toolbar toolbar = current_page.get_toolbar();
         toolbar.set_show_arrow(false);
-        toolbar.insert(pin_button, -1);
+
+        if (page is SlideshowPage) {
+            // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
+            ((SlideshowPage) current_page).hide_toolbar += hide_toolbar;          
+        } else {
+            // only non-slideshow pages should have pin button
+            toolbar.insert(pin_button, -1); 
+        }
+
         toolbar.insert(close_button, -1);
         
         // set up toolbar along bottom of screen
@@ -85,7 +93,7 @@ public class FullscreenWindow : PageWindow {
     }
     
     private void on_close() {
-        toolbar_window.hide();
+        hide_toolbar();
         toolbar_window = null;
         
         current_page.switching_from();
@@ -193,10 +201,14 @@ public class FullscreenWindow : PageWindow {
         if (now - left_toolbar_time < TOOLBAR_DISMISSAL_SEC)
             return true;
         
-        toolbar_window.hide();
-        is_toolbar_shown = false;
+        hide_toolbar();
         
         return false;
+    }
+    
+    private void hide_toolbar() {
+        toolbar_window.hide();
+        is_toolbar_shown = false;
     }
 }
 
@@ -316,6 +328,10 @@ public abstract class AppWindow : PageWindow {
     
     public static AppWindow get_instance() {
         return instance;
+    }
+
+    public static FullscreenWindow get_fullscreen() {
+        return fullscreen_window;
     }
     
     public static string[] get_commandline_args() {

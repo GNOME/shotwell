@@ -1,0 +1,32 @@
+<gconfschemafile>
+    <schemalist>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/display_basic_properties</key>
+            <applyto>/apps/shotwell/preferences/ui/display_basic_properties</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+
+            <locale name="C">
+                <short>basic properties display bool</short>
+                <long>Basic properties display bool.  True if the window is displayed, false otherwise.</long>
+            </locale>
+
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/slideshow/delay</key>
+            <applyto>/apps/shotwell/preferences/slideshow/delay</applyto>
+            <type>float</type>
+            <owner>shotwell</owner>
+            <default>5.0</default>
+
+            <locale name="C">
+                <short>delay</short>
+                <long>Delay (in seconds) between photos in the slideshow.</long>
+            </locale>
+        </schema>
+
+    </schemalist>
+</gconfschemafile>
