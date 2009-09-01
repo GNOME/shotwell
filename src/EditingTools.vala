@@ -1503,7 +1503,7 @@ public class AdjustTool : EditingTool {
     private void on_exposure_adjustment() {
         ExposureTransformation new_exp_trans = new ExposureTransformation(
             (float) adjust_tool_window.exposure_slider.get_value());
-        update_and_repaint(SupportedAdjustments.TONE_EXPANSION, new_exp_trans);
+        update_and_repaint(SupportedAdjustments.EXPOSURE, new_exp_trans);
     }
 
     private void on_histogram_constraint() {
