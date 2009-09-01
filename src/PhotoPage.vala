@@ -606,6 +606,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void on_enhance_clicked() {
+        // because running multiple tools at once is not currently supported, deactivate any current
+        // tool; however, there is a special case of running enhancement while the AdjustTool is
+        // open, so allow for that
+        if (!(current_tool is AdjustTool))
+            deactivate_tool();
+        
         AppWindow.get_instance().set_busy_cursor();
 
         Gdk.Pixbuf pixbuf = null;
