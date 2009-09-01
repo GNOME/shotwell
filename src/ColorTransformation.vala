@@ -543,18 +543,19 @@ public class ExposureTransformation : RGBTransformation {
 
         if (parameter != 0.0f) {
         
-            parameter *= PARAMETER_SCALE;
-            if (parameter < 0.0f)
-                parameter = 1.0f / (-parameter + 1.0f);
+            float adjusted_param = parameter * PARAMETER_SCALE;
+
+            if (adjusted_param < 0.0f)
+                adjusted_param = 1.0f / (-adjusted_param + 1.0f);
             else
-                parameter += 1.0f;
+                adjusted_param += 1.0f;
             
-            matrix_entries[0] = parameter;
-            matrix_entries[5] = parameter;
-            matrix_entries[10] = parameter;
-            matrix_entries[3] = parameter * EPSILON;
-            matrix_entries[7] = parameter * EPSILON;
-            matrix_entries[11] = parameter * EPSILON;
+            matrix_entries[0] = adjusted_param;
+            matrix_entries[5] = adjusted_param;
+            matrix_entries[10] = adjusted_param;
+            matrix_entries[3] = adjusted_param * EPSILON;
+            matrix_entries[7] = adjusted_param * EPSILON;
+            matrix_entries[11] = adjusted_param * EPSILON;
             
             identity = false;
         }
@@ -659,6 +660,38 @@ public class PixelTransformer {
 
     public void transform_pixbuf(Gdk.Pixbuf pixbuf) {
         transform_to_other_pixbuf(pixbuf, pixbuf);
+    }
+
+    public void transform_from_fp(ref float[] fp_pixel_cache, Gdk.Pixbuf dest) {
+        if (optimized_transformations == null)
+            build_optimized_transformations();
+
+        int dest_width = dest.get_width();
+        int dest_height = dest.get_height();
+        int dest_num_channels = dest.get_n_channels();
+        int dest_rowstride = dest.get_rowstride();
+        unowned uchar[] dest_pixels = dest.get_pixels();
+        
+        int cache_pixel_ticker = 0;
+
+        for (int j = 0; j < dest_height; j++) {
+            int row_start_index = j * dest_rowstride;
+            int row_end_index = row_start_index + (dest_width * dest_num_channels);
+            for (int i = row_start_index; i < row_end_index; i += dest_num_channels) {
+                RGBAnalyticPixel pixel = RGBAnalyticPixel.from_components(
+                    fp_pixel_cache[cache_pixel_ticker],
+                    fp_pixel_cache[cache_pixel_ticker + 1],
+                    fp_pixel_cache[cache_pixel_ticker + 2]);
+
+                cache_pixel_ticker += 3;
+
+                pixel = apply_transformations(pixel);
+
+                dest_pixels[i] = (uchar) (pixel.red * 255.0f);
+                dest_pixels[i + 1] = (uchar) (pixel.green * 255.0f);
+                dest_pixels[i + 2] = (uchar) (pixel.blue * 255.0f);
+            }
+        }
     }
 
     public void transform_to_other_pixbuf(Gdk.Pixbuf source, Gdk.Pixbuf dest) {

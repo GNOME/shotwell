@@ -458,6 +458,25 @@ public abstract class TransformablePhoto: PhotoBase {
         if (new_adjustments.length != SupportedAdjustments.NUM)
             error("TransformablePhoto: set_adjustments( ): all adjustments must be set");
 
+        /* if every transformation in 'new_adjustments' is the identity, then just remove all
+           adjustments from the database */
+        bool all_identity = true;
+        for (int i = 0; i < ((int) SupportedAdjustments.NUM); i++) {
+            if (!new_adjustments[i].is_identity()) {
+                all_identity = false;
+                break;
+            }
+        }
+        if (all_identity) {
+            bool result = remove_transformation("adjustments");
+
+            adjustments = null;
+            transformer = null;
+            if (result)
+                notify_altered(Alteration.IMAGE);
+            return;
+        }
+
         if (adjustments == null)
             create_adjustments_from_data();
 
@@ -551,7 +570,7 @@ public abstract class TransformablePhoto: PhotoBase {
         
         notify_altered(Alteration.IMAGE);
     }
-    
+
     public virtual void rotate(Rotation rotation) {
         Orientation orientation = get_orientation();
 
@@ -559,15 +578,15 @@ public abstract class TransformablePhoto: PhotoBase {
 
         set_orientation(orientation);
     }
-    
+
     private bool has_transformation(string name) {
         return (row.transformations != null) ? row.transformations.contains(name) : false;
     }
-    
+
     private KeyValueMap? get_transformation(string name) {
         return (row.transformations != null) ? row.transformations.get(name) : null;
     }
-    
+
     private bool set_transformation(KeyValueMap trans) {
         if (row.transformations == null)
             row.transformations = new Gee.HashMap<string, KeyValueMap>(str_hash, str_equal, direct_equal);
@@ -576,15 +595,22 @@ public abstract class TransformablePhoto: PhotoBase {
         
         return photo_table.set_transformation(row.photo_id, trans);
     }
-    
-    private bool remove_transformation(string name) {
-        bool altered = false;
-        if (row.transformations != null)
-            altered = row.transformations.remove(name);
 
-        return (altered || photo_table.remove_transformation(row.photo_id, name));
+    private bool remove_transformation(string name) {
+        bool altered_cache = false;
+        if (row.transformations != null) {
+            altered_cache = row.transformations.remove(name);
+            if (row.transformations.size == 0)
+                row.transformations = null;
+        }
+        
+        /* need to use a local variable here to prevent short-circuit evaluation by the '||'
+           operator when altered_cache == TRUE */
+        bool altered_persistent = photo_table.remove_transformation(row.photo_id, name);
+
+        return (altered_cache || altered_persistent);
     }
-    
+
     public bool has_crop() {
         return has_transformation("crop");
     }
@@ -863,10 +889,11 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            if (transformer == null)
-                create_adjustments_from_data();
-
-            transformer.transform_pixbuf(pixbuf);
+            if (has_transformation("adjustments")) {
+                if (transformer == null)
+                    create_adjustments_from_data();
+                transformer.transform_pixbuf(pixbuf);
+            }
 #if MEASURE_PIPELINE
             adjustment_time = timer.elapsed();
 #endif

@@ -1315,7 +1315,7 @@ public class AdjustTool : EditingTool {
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
             temperature_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
-            
+
             Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
             button_layouter.set_homogeneous(true);
             button_layouter.pack_start(cancel_button, true, true, 1);
@@ -1334,13 +1334,13 @@ public class AdjustTool : EditingTool {
     private AdjustToolWindow adjust_tool_window = null;
     private bool suppress_effect_redraw = false;
     private Gdk.Pixbuf draw_to_pixbuf = null;
-    private Gdk.Pixbuf virgin_pixbuf = null;
     private Gdk.Pixbuf histogram_pixbuf = null;
     private Gdk.Pixbuf virgin_histogram_pixbuf = null;
     private PixelTransformer transformer = null;
     private PixelTransformer histogram_transformer = null;
     private PixelTransformation[] transformations =
         new PixelTransformation[SupportedAdjustments.NUM];
+    private float[] fp_pixel_cache = null;
 
     public override void activate(PhotoCanvas canvas) {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
@@ -1392,9 +1392,10 @@ public class AdjustTool : EditingTool {
         canvas.resized_scaled_pixbuf += on_canvas_resize;
 
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
-        virgin_pixbuf = draw_to_pixbuf.copy();
-        histogram_pixbuf = virgin_pixbuf.scale_simple(virgin_pixbuf.width / 2,
-            virgin_pixbuf.height / 2, Gdk.InterpType.HYPER);
+        init_fp_pixel_cache(canvas.get_scaled_pixbuf());
+
+        histogram_pixbuf = draw_to_pixbuf.scale_simple(draw_to_pixbuf.width / 2,
+            draw_to_pixbuf.height / 2, Gdk.InterpType.HYPER);
         virgin_histogram_pixbuf = histogram_pixbuf.copy();
 
         base.activate(canvas);
@@ -1411,14 +1412,14 @@ public class AdjustTool : EditingTool {
         }
 
         draw_to_pixbuf = null;
-        virgin_pixbuf = null;
+        fp_pixel_cache = null;
 
         base.deactivate();
     }
 
     public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         if (!suppress_effect_redraw) {
-            transformer.transform_to_other_pixbuf(virgin_pixbuf, draw_to_pixbuf);
+            transformer.transform_from_fp(ref fp_pixel_cache, draw_to_pixbuf);
             histogram_transformer.transform_to_other_pixbuf(virgin_histogram_pixbuf,
                 histogram_pixbuf);
             adjust_tool_window.histogram_manipulator.update_histogram(histogram_pixbuf);
@@ -1518,7 +1519,7 @@ public class AdjustTool : EditingTool {
 
     private void on_canvas_resize() {
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
-        virgin_pixbuf = draw_to_pixbuf.copy();
+        init_fp_pixel_cache(canvas.get_scaled_pixbuf());
     }
     
     private void bind_handlers() {
@@ -1569,6 +1570,28 @@ public class AdjustTool : EditingTool {
 
         bind_handlers();
         canvas.repaint();
+    }
+    
+    private void init_fp_pixel_cache(Gdk.Pixbuf source) {
+        int source_width = source.get_width();
+        int source_height = source.get_height();
+        int source_num_channels = source.get_n_channels();
+        int source_rowstride = source.get_rowstride();
+        unowned uchar[] source_pixels = source.get_pixels();
+
+        fp_pixel_cache = new float[3 * source_width * source_height];
+        int cache_pixel_index = 0;
+        float INV_255 = 1.0f / 255.0f;
+
+        for (int j = 0; j < source_height; j++) {
+            int row_start_index = j * source_rowstride;
+            int row_end_index = row_start_index + (source_width * source_num_channels);
+            for (int i = row_start_index; i < row_end_index; i += source_num_channels) {
+                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i]) * INV_255;
+                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 1]) * INV_255;
+                fp_pixel_cache[cache_pixel_index++] = ((float) source_pixels[i + 2]) * INV_255;
+            }
+        }
     }
 }
 
