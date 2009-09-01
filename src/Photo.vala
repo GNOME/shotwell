@@ -4,6 +4,15 @@
  * See the COPYING file in this distribution. 
  */
 
+public enum SupportedAdjustments {
+    TONE_EXPANSION,
+    TEMPERATURE,
+    TINT,
+    SATURATION,
+    EXPOSURE,
+    NUM
+}
+
 // PhotoBase is the base class for all objects which represent, in some form or another, an image
 // or photo.
 public abstract class PhotoBase : Object, Queryable, PhotoSource {
@@ -109,7 +118,7 @@ public abstract class TransformablePhoto: PhotoBase {
         ADJUST          = 1 << 3,
         ALL             = 0xFFFFFFFF
     }
-    
+
     public enum Alteration {
         IMAGE,
         METADATA
@@ -123,6 +132,9 @@ public abstract class TransformablePhoto: PhotoBase {
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
     private PhotoRow row;
+    
+    private PixelTransformer transformer = null;
+    private PixelTransformation[] adjustments = null;
     
     // fired when the image itself (its visual representation) has changed
     public signal void altered();
@@ -381,6 +393,115 @@ public abstract class TransformablePhoto: PhotoBase {
         return get_uncropped_dimensions();
     }
 
+    private void create_adjustments_from_data() {
+        KeyValueMap map = get_transformation("adjustments");
+
+        adjustments = new PixelTransformation[SupportedAdjustments.NUM];
+        transformer = new PixelTransformer();
+
+        if (map == null) {
+            adjustments[SupportedAdjustments.TONE_EXPANSION] =
+                new ExpansionTransformation.from_extrema(0, 255);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION]);
+
+            adjustments[SupportedAdjustments.TEMPERATURE] =
+                new TemperatureTransformation(0.0f);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.TEMPERATURE]);
+
+            adjustments[SupportedAdjustments.TINT] =
+                new TintTransformation(0.0f);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.TINT]);
+
+            adjustments[SupportedAdjustments.SATURATION] =
+                new SaturationTransformation(0.0f);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.SATURATION]);
+
+            adjustments[SupportedAdjustments.EXPOSURE] =
+                new ExposureTransformation(0.0f);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.EXPOSURE]);
+        } else {
+            string expansion_params_encoded = map.get_string("expansion", "-");
+            if (expansion_params_encoded == "-")
+                adjustments[SupportedAdjustments.TONE_EXPANSION] =
+                    new ExpansionTransformation.from_extrema(0, 255);
+            else
+                adjustments[SupportedAdjustments.TONE_EXPANSION] =
+                    new ExpansionTransformation.from_string(expansion_params_encoded);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION]);
+
+            float temp_param = (float) map.get_double("temperature", 0.0);
+            adjustments[SupportedAdjustments.TEMPERATURE] = new TemperatureTransformation(temp_param);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.TEMPERATURE]);
+
+            float tint_param = (float) map.get_double("tint", 0.0);
+            adjustments[SupportedAdjustments.TINT] = new TintTransformation(tint_param);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.TINT]);
+            
+            float sat_param = (float) map.get_double("saturation", 0.0);
+            adjustments[SupportedAdjustments.SATURATION] = new SaturationTransformation(sat_param);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.SATURATION]);
+
+            float exposure_param = (float) map.get_double("exposure", 0.0);
+            adjustments[SupportedAdjustments.EXPOSURE] = new ExposureTransformation(exposure_param);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.EXPOSURE]);
+        }
+    }
+
+    public PixelTransformation get_adjustment(SupportedAdjustments kind) {
+        if (adjustments == null)
+            create_adjustments_from_data();
+
+        return adjustments[kind];
+    }
+
+    public void set_adjustments(owned PixelTransformation[] new_adjustments) {
+        if (new_adjustments.length != SupportedAdjustments.NUM)
+            error("TransformablePhoto: set_adjustments( ): all adjustments must be set");
+
+        if (adjustments == null)
+            create_adjustments_from_data();
+
+        KeyValueMap map = new KeyValueMap("adjustments");
+
+        ExpansionTransformation new_expansion_trans =
+            (ExpansionTransformation) new_adjustments[SupportedAdjustments.TONE_EXPANSION];
+        map.set_string("expansion", new_expansion_trans.to_string());
+        transformer.replace_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION],
+            new_expansion_trans);
+        adjustments[SupportedAdjustments.TONE_EXPANSION] = new_expansion_trans;
+        
+        TemperatureTransformation new_temp_trans =
+            (TemperatureTransformation) new_adjustments[SupportedAdjustments.TEMPERATURE];
+        map.set_double("temperature", new_temp_trans.get_parameter());
+        transformer.replace_transformation(adjustments[SupportedAdjustments.TEMPERATURE],
+            new_temp_trans);
+        adjustments[SupportedAdjustments.TEMPERATURE] = new_temp_trans;
+
+        TintTransformation new_tint_trans =
+            (TintTransformation) new_adjustments[SupportedAdjustments.TINT];
+        map.set_double("tint", new_tint_trans.get_parameter());
+        transformer.replace_transformation(adjustments[SupportedAdjustments.TINT],
+            new_tint_trans);
+        adjustments[SupportedAdjustments.TINT] = new_tint_trans;
+
+        SaturationTransformation new_sat_trans =
+            (SaturationTransformation) new_adjustments[SupportedAdjustments.SATURATION];
+        map.set_double("saturation", new_sat_trans.get_parameter());
+        transformer.replace_transformation(adjustments[SupportedAdjustments.SATURATION],
+            new_sat_trans);
+        adjustments[SupportedAdjustments.SATURATION] = new_sat_trans;
+
+        ExposureTransformation new_exposure_trans =
+            (ExposureTransformation) new_adjustments[SupportedAdjustments.EXPOSURE];
+        map.set_double("exposure", new_exposure_trans.get_parameter());
+        transformer.replace_transformation(adjustments[SupportedAdjustments.EXPOSURE],
+            new_exposure_trans);
+        adjustments[SupportedAdjustments.EXPOSURE] = new_exposure_trans;
+
+        if (set_transformation(map))
+            notify_altered(Alteration.IMAGE);
+    }
+
     public override Exif.Data? get_exif() {
         PhotoExif photo_exif = new PhotoExif(get_file());
         
@@ -406,6 +527,9 @@ public abstract class TransformablePhoto: PhotoBase {
     public void remove_all_transformations() {
         bool altered = photo_table.remove_all_transformations(row.photo_id);
         row.transformations = null;
+        
+        transformer = null;
+        adjustments = null;
         
         if (row.orientation != row.original_orientation) {
             photo_table.set_orientation(row.photo_id, row.original_orientation);
@@ -456,7 +580,7 @@ public abstract class TransformablePhoto: PhotoBase {
     public bool has_crop() {
         return has_transformation("crop");
     }
-    
+
     // Returns the crop in the raw photo's coordinate system
     private bool get_raw_crop(out Box crop) {
         KeyValueMap map = get_transformation("crop");
@@ -488,98 +612,6 @@ public abstract class TransformablePhoto: PhotoBase {
             notify_altered(Alteration.IMAGE);
     }
     
-    public float get_color_adjustment(RGBTransformationKind adjust_kind) {
-        KeyValueMap map = get_transformation("adjustments");
-        if (map == null)
-            return 0.0f;
-        
-        switch (adjust_kind) {
-            case RGBTransformationKind.EXPOSURE:
-                return (float) map.get_double("exposure", 0.0f);
-
-            case RGBTransformationKind.SATURATION:
-                return (float) map.get_double("saturation", 0.0f);
-
-            case RGBTransformationKind.TEMPERATURE:
-                return (float) map.get_double("temperature", 0.0f);
-
-            case RGBTransformationKind.TINT:
-                return (float) map.get_double("tint", 0.0f);
-
-            default:
-                error("unrecognized RGBTransformationKind enumeration value");
-                
-                return 0.0f;
-        }
-    }
-
-    public NormalizationInstance get_normalization() {
-        NormalizationInstance identity = new NormalizationInstance();
-
-        KeyValueMap map = get_transformation("adjustments");
-        if (map == null)
-            return identity;
-
-        string encoded_transformation = map.get_string("normalization", "-");
-        if (encoded_transformation == "-")
-            return identity;
-
-        encoded_transformation.canon("0123456789. ", ' ');
-        encoded_transformation.chug();
-        encoded_transformation.chomp();
-        
-        int black_point_i = 0;
-        int white_point_i = 0;;
-        int num_captured = encoded_transformation.scanf("%d %d", &black_point_i,
-            &white_point_i);
-        assert(num_captured == 2);
-        NormalizationInstance user_transformation =
-            new NormalizationInstance.from_extrema(black_point_i,
-                white_point_i);
-
-        return user_transformation;
-    }
-    
-    public void set_color_adjustments(Gee.ArrayList<RGBTransformationInstance?> adjustments,
-        NormalizationInstance? normalization_inst = null) {
-        KeyValueMap map = get_transformation("adjustments");
-        if (map == null)
-            map = new KeyValueMap("adjustments");
-        
-        foreach (RGBTransformationInstance adjustment in adjustments) {
-            switch(adjustment.kind) {
-                case RGBTransformationKind.EXPOSURE:
-                    map.set_double("exposure", adjustment.parameter);
-                break;
-
-                case RGBTransformationKind.SATURATION:
-                    map.set_double("saturation", adjustment.parameter);
-                break;
-
-                case RGBTransformationKind.TEMPERATURE:
-                    map.set_double("temperature", adjustment.parameter);
-                break;
-
-                case RGBTransformationKind.TINT:
-                    map.set_double("tint", adjustment.parameter);
-                break;
-
-                default:
-                    error("unrecognized RGBTransformationKind enumeration value");
-                break;
-            }
-        }
-
-        if (normalization_inst != null) {
-            string encoded_normalization = "{ %d, %d }".printf(
-                normalization_inst.get_black_point(), normalization_inst.get_white_point());
-            map.set_string("normalization", encoded_normalization);
-        }
-
-        if (set_transformation(map))
-            notify_altered(Alteration.IMAGE);
-    }
-
     // All instances are against the coordinate system of the unscaled, unrotated photo.
     private RedeyeInstance[] get_raw_redeye_instances() {
         KeyValueMap map = get_transformation("redeye");
@@ -729,6 +761,7 @@ public abstract class TransformablePhoto: PhotoBase {
     // and it's far better to specify an appropriate scale.
     public virtual Gdk.Pixbuf get_pixbuf(int scale, Exception exceptions = Exception.NONE,
         Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
+
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -822,19 +855,10 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            RGBTransformation composite_transform = get_composite_transformation();
-            if (!composite_transform.is_identity())
-                RGBTransformation.transform_pixbuf(composite_transform, pixbuf);
+            if (transformer == null)
+                create_adjustments_from_data();
 
-            NormalizationInstance normalization_inst = get_normalization();
-            if (!normalization_inst.is_identity()) {
-                IntensityTransformation normalization_xform =
-                    new NormalizationTransformation.from_extrema(
-                    normalization_inst.get_black_point(),
-                    normalization_inst.get_white_point());
-                IntensityTransformation.transform_pixbuf(normalization_xform,
-                    pixbuf);
-            }
+            transformer.transform_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
             adjustment_time = timer.elapsed();
 #endif
@@ -1100,37 +1124,6 @@ public abstract class TransformablePhoto: PhotoBase {
         pixel_data[px_start_byte_offset] = r;
         
         return pixbuf;
-    }
-
-    public RGBTransformation get_composite_transformation() {
-        float exposure_param = get_color_adjustment(RGBTransformationKind.EXPOSURE);
-        float saturation_param = get_color_adjustment(RGBTransformationKind.SATURATION);
-        float tint_param = get_color_adjustment(RGBTransformationKind.TINT);
-        float temperature_param = get_color_adjustment(RGBTransformationKind.TEMPERATURE);
-
-        RGBTransformation exposure_transform =
-            RGBTransformationFactory.get_instance().from_parameter(
-            RGBTransformationKind.EXPOSURE, exposure_param);
-
-        RGBTransformation saturation_transform =
-            RGBTransformationFactory.get_instance().from_parameter(
-            RGBTransformationKind.SATURATION, saturation_param);
-
-        RGBTransformation tint_transform =
-            RGBTransformationFactory.get_instance().from_parameter(
-            RGBTransformationKind.TINT, tint_param);
-
-        RGBTransformation temperature_transform =
-            RGBTransformationFactory.get_instance().from_parameter(
-            RGBTransformationKind.TEMPERATURE, temperature_param);
-
-        RGBTransformation composite_transform = ((
-                exposure_transform.compose_against(
-                saturation_transform)).compose_against(
-                temperature_transform)).compose_against(
-                tint_transform);
-        
-        return composite_transform;
     }
 
     public Gdk.Point unscaled_to_raw_point(Gdk.Point unscaled_point) {

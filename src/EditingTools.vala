@@ -1327,11 +1327,6 @@ public class AdjustTool : EditingTool {
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
 
-            exposure_slider.set_value(0.0);
-            saturation_slider.set_value(0.0);
-            tint_slider.set_value(0.0);
-            temperature_slider.set_value(0.0);
-
             add(pane_layouter);            
         }
     }
@@ -1340,17 +1335,67 @@ public class AdjustTool : EditingTool {
     private bool suppress_effect_redraw = false;
     private Gdk.Pixbuf draw_to_pixbuf = null;
     private Gdk.Pixbuf virgin_pixbuf = null;
+    private Gdk.Pixbuf histogram_pixbuf = null;
+    private Gdk.Pixbuf virgin_histogram_pixbuf = null;
+    private PixelTransformer transformer = null;
+    private PixelTransformer histogram_transformer = null;
+    private PixelTransformation[] transformations =
+        new PixelTransformation[SupportedAdjustments.NUM];
 
     public override void activate(PhotoCanvas canvas) {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
+        transformer = new PixelTransformer();
+        histogram_transformer = new PixelTransformer();
 
-        sync_control_state(canvas.get_photo());
+        /* set up expansion */
+        ExpansionTransformation expansion_trans = (ExpansionTransformation)
+            canvas.get_photo().get_adjustment(SupportedAdjustments.TONE_EXPANSION);
+        transformations[SupportedAdjustments.TONE_EXPANSION] = expansion_trans;
+        transformer.attach_transformation(transformations[SupportedAdjustments.TONE_EXPANSION]);
+        adjust_tool_window.histogram_manipulator.set_left_nub_position(
+            expansion_trans.get_black_point());
+        adjust_tool_window.histogram_manipulator.set_right_nub_position(
+            expansion_trans.get_white_point());
+
+        /* set up temperature & tint */
+        TemperatureTransformation temp_trans = (TemperatureTransformation)
+            canvas.get_photo().get_adjustment(SupportedAdjustments.TEMPERATURE);
+        transformations[SupportedAdjustments.TEMPERATURE] = temp_trans;
+        transformer.attach_transformation(transformations[SupportedAdjustments.TEMPERATURE]);
+        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.TEMPERATURE]);
+        adjust_tool_window.temperature_slider.set_value(temp_trans.get_parameter());
+
+        TintTransformation tint_trans = (TintTransformation)
+            canvas.get_photo().get_adjustment(SupportedAdjustments.TINT);
+        transformations[SupportedAdjustments.TINT] = tint_trans;
+        transformer.attach_transformation(transformations[SupportedAdjustments.TINT]);
+        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.TINT]);
+        adjust_tool_window.tint_slider.set_value(tint_trans.get_parameter());
+
+        /* set up saturation */
+        SaturationTransformation sat_trans = (SaturationTransformation)
+            canvas.get_photo().get_adjustment(SupportedAdjustments.SATURATION);
+        transformations[SupportedAdjustments.SATURATION] = sat_trans;
+        transformer.attach_transformation(transformations[SupportedAdjustments.SATURATION]);
+        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.SATURATION]);
+        adjust_tool_window.saturation_slider.set_value(sat_trans.get_parameter());
+
+        /* set up exposure */
+        ExposureTransformation exposure_trans = (ExposureTransformation)
+            canvas.get_photo().get_adjustment(SupportedAdjustments.EXPOSURE);
+        transformations[SupportedAdjustments.EXPOSURE] = exposure_trans;
+        transformer.attach_transformation(transformations[SupportedAdjustments.EXPOSURE]);
+        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.EXPOSURE]);
+        adjust_tool_window.exposure_slider.set_value(exposure_trans.get_parameter());
 
         bind_handlers();
         canvas.resized_scaled_pixbuf += on_canvas_resize;
 
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
         virgin_pixbuf = draw_to_pixbuf.copy();
+        histogram_pixbuf = virgin_pixbuf.scale_simple(virgin_pixbuf.width / 2,
+            virgin_pixbuf.height / 2, Gdk.InterpType.HYPER);
+        virgin_histogram_pixbuf = histogram_pixbuf.copy();
 
         base.activate(canvas);
     }
@@ -1373,48 +1418,10 @@ public class AdjustTool : EditingTool {
 
     public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         if (!suppress_effect_redraw) {
-            RGBTransformation tint_transform =
-                RGBTransformationFactory.get_instance().from_parameter(
-                RGBTransformationKind.TINT,
-                (float) adjust_tool_window.tint_slider.get_value());
-
-            RGBTransformation temperature_transform =
-                RGBTransformationFactory.get_instance().from_parameter(
-                RGBTransformationKind.TEMPERATURE,
-                (float) adjust_tool_window.temperature_slider.get_value());
-
-            RGBTransformation saturation_transform =
-                RGBTransformationFactory.get_instance().from_parameter(
-                RGBTransformationKind.SATURATION,
-                (float) adjust_tool_window.saturation_slider.get_value());
-            
-            RGBTransformation exposure_transform =
-                RGBTransformationFactory.get_instance().from_parameter(
-                RGBTransformationKind.EXPOSURE,
-                (float) adjust_tool_window.exposure_slider.get_value());
-            
-            RGBTransformation composite_transform = ((
-                exposure_transform.compose_against(
-                saturation_transform)).compose_against(
-                temperature_transform)).compose_against(
-                tint_transform);
-
-            RGBTransformation.transform_existing_pixbuf(composite_transform,
-               virgin_pixbuf, draw_to_pixbuf);
-
-            int left_constraint =
-                adjust_tool_window.histogram_manipulator.get_left_nub_position();
-            int right_constraint =
-                adjust_tool_window.histogram_manipulator.get_right_nub_position();
-            
-            adjust_tool_window.histogram_manipulator.update_histogram(draw_to_pixbuf);
-
-            if ((left_constraint > 0) || (right_constraint < 255)) {
-                IntensityTransformation constraint_transform =
-                    new NormalizationTransformation.from_extrema(left_constraint, right_constraint);
-
-                IntensityTransformation.transform_pixbuf(constraint_transform, draw_to_pixbuf);
-            }
+            transformer.transform_to_other_pixbuf(virgin_pixbuf, draw_to_pixbuf);
+            histogram_transformer.transform_to_other_pixbuf(virgin_histogram_pixbuf,
+                histogram_pixbuf);
+            adjust_tool_window.histogram_manipulator.update_histogram(histogram_pixbuf);
         }
 
         canvas.paint_pixbuf(draw_to_pixbuf);
@@ -1427,7 +1434,7 @@ public class AdjustTool : EditingTool {
     private void on_cancel() {
         notify_cancel();
     }
-    
+
     private void on_reset() {
         suppress_effect_redraw = true;
 
@@ -1438,11 +1445,12 @@ public class AdjustTool : EditingTool {
         
         adjust_tool_window.histogram_manipulator.set_left_nub_position(0);
         adjust_tool_window.histogram_manipulator.set_right_nub_position(255);
+        on_histogram_constraint();
     
         suppress_effect_redraw = false;
         canvas.repaint();
     }
-    
+
     private void on_apply() {
         suppress_effect_redraw = true;
 
@@ -1450,124 +1458,116 @@ public class AdjustTool : EditingTool {
         
         AppWindow.get_instance().set_busy_cursor();
 
-        Gee.ArrayList<RGBTransformationInstance?> adjustments =
-            new Gee.ArrayList<RGBTransformationInstance?>();
-
-        RGBTransformationInstance current_instance = {0};
-        float exposure_param =
-            (float) adjust_tool_window.exposure_slider.get_value();
-        current_instance.kind = RGBTransformationKind.EXPOSURE;
-        current_instance.parameter = exposure_param;
-        adjustments.add(current_instance);
-
-        float saturation_param =
-            (float) adjust_tool_window.saturation_slider.get_value();
-        current_instance.kind = RGBTransformationKind.SATURATION;
-        current_instance.parameter = saturation_param;
-        adjustments.add(current_instance);
-        adjust_tool_window.exposure_slider.set_value(0.0);
-        float tint_param =
-            (float) adjust_tool_window.tint_slider.get_value();
-        current_instance.kind = RGBTransformationKind.TINT;
-        current_instance.parameter = tint_param;
-        adjustments.add(current_instance);
-
-        float temperature_param =
-            (float) adjust_tool_window.temperature_slider.get_value();
-        current_instance.kind = RGBTransformationKind.TEMPERATURE;
-        current_instance.parameter = temperature_param;
-        adjustments.add(current_instance);
-
-        NormalizationInstance normalization_inst = new NormalizationInstance.from_extrema(
-            adjust_tool_window.histogram_manipulator.get_left_nub_position(),
-            adjust_tool_window.histogram_manipulator.get_right_nub_position());
-
-        canvas.get_photo().set_color_adjustments(adjustments, normalization_inst);
+        canvas.get_photo().set_adjustments(transformations);
 
         notify_apply();
         
         AppWindow.get_instance().set_normal_cursor();
     }
     
-    private void on_adjustment() {
-        canvas.repaint();
+    private void update_transformations(PixelTransformation[] new_transformations) {
+        for (int i = 0; i < ((int) SupportedAdjustments.NUM); i++)
+            update_transformation((SupportedAdjustments) i, new_transformations[i]);
     }
     
-    private void on_histogram_constraint() {
+    private void update_transformation(SupportedAdjustments type, PixelTransformation trans) {
+        transformer.replace_transformation(transformations[type], trans);
+        if (type != SupportedAdjustments.TONE_EXPANSION)
+            histogram_transformer.replace_transformation(transformations[type], trans);
+        transformations[type] = trans;
+    }
+    
+    private void update_and_repaint(SupportedAdjustments type, PixelTransformation trans) {
+        update_transformation(type, trans);
         canvas.repaint();
+    }
+
+    private void on_temperature_adjustment() {
+        TemperatureTransformation new_temp_trans = new TemperatureTransformation(
+            (float) adjust_tool_window.temperature_slider.get_value());
+        update_and_repaint(SupportedAdjustments.TEMPERATURE, new_temp_trans);
+    }
+
+    private void on_tint_adjustment() {
+        TintTransformation new_tint_trans = new TintTransformation(
+            (float) adjust_tool_window.tint_slider.get_value());
+        update_and_repaint(SupportedAdjustments.TINT, new_tint_trans);
+    }
+
+    private void on_saturation_adjustment() {
+        SaturationTransformation new_sat_trans = new SaturationTransformation(
+            (float) adjust_tool_window.saturation_slider.get_value());
+        update_and_repaint(SupportedAdjustments.SATURATION, new_sat_trans);
+    }
+
+    private void on_exposure_adjustment() {
+        ExposureTransformation new_exp_trans = new ExposureTransformation(
+            (float) adjust_tool_window.exposure_slider.get_value());
+        update_and_repaint(SupportedAdjustments.TONE_EXPANSION, new_exp_trans);
+    }
+
+    private void on_histogram_constraint() {
+        int expansion_black_point =
+            adjust_tool_window.histogram_manipulator.get_left_nub_position();
+        int expansion_white_point =
+            adjust_tool_window.histogram_manipulator.get_right_nub_position();
+        ExpansionTransformation new_exp_trans =
+            new ExpansionTransformation.from_extrema(expansion_black_point, expansion_white_point);
+        update_and_repaint(SupportedAdjustments.TONE_EXPANSION, new_exp_trans);
     }
 
     private void on_canvas_resize() {
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
+        virgin_pixbuf = draw_to_pixbuf.copy();
     }
     
     private void bind_handlers() {
         adjust_tool_window.apply_button.clicked += on_apply;
         adjust_tool_window.reset_button.clicked += on_reset;
         adjust_tool_window.cancel_button.clicked += on_cancel;
-        adjust_tool_window.exposure_slider.value_changed += on_adjustment;
+        adjust_tool_window.exposure_slider.value_changed += on_exposure_adjustment;
         adjust_tool_window.saturation_slider.value_changed +=
-            on_adjustment;
-        adjust_tool_window.tint_slider.value_changed += on_adjustment;
+            on_saturation_adjustment;
+        adjust_tool_window.tint_slider.value_changed += on_tint_adjustment;
         adjust_tool_window.temperature_slider.value_changed +=
-            on_adjustment;
+            on_temperature_adjustment;
         adjust_tool_window.histogram_manipulator.nub_position_changed +=
             on_histogram_constraint;
     }
-    
-    private void sync_control_state(TransformablePhoto photo) {
-        float exposure_param =
-            photo.get_color_adjustment(RGBTransformationKind.EXPOSURE);
-        adjust_tool_window.exposure_slider.set_value(exposure_param);
-        float saturation_param =
-            photo.get_color_adjustment(RGBTransformationKind.SATURATION);
-        adjust_tool_window.saturation_slider.set_value(saturation_param);
-        float tint_param =
-            photo.get_color_adjustment(RGBTransformationKind.TINT);
-        adjust_tool_window.tint_slider.set_value(tint_param);
-        float temperature_param =
-            photo.get_color_adjustment(RGBTransformationKind.TEMPERATURE);
-        adjust_tool_window.temperature_slider.set_value(temperature_param);
-        
-        NormalizationInstance normalization_inst =
-            photo.get_normalization();
-        adjust_tool_window.histogram_manipulator.set_left_nub_position(
-            normalization_inst.get_black_point());
-        adjust_tool_window.histogram_manipulator.set_right_nub_position(
-            normalization_inst.get_white_point());
+
+    private void unbind_handlers() {
+        adjust_tool_window.apply_button.clicked -= on_apply;
+        adjust_tool_window.reset_button.clicked -= on_reset;
+        adjust_tool_window.cancel_button.clicked -= on_cancel;
+        adjust_tool_window.exposure_slider.value_changed -= on_exposure_adjustment;
+        adjust_tool_window.saturation_slider.value_changed -=
+            on_saturation_adjustment;
+        adjust_tool_window.tint_slider.value_changed -= on_tint_adjustment;
+        adjust_tool_window.temperature_slider.value_changed -=
+            on_temperature_adjustment;
+        adjust_tool_window.histogram_manipulator.nub_position_changed -=
+            on_histogram_constraint;
     }
     
-    private void set_adjustment_slider(Gtk.HScale slider, int val) {
-        slider.value_changed -= on_adjustment;
-        slider.set_value(val);
-        slider.value_changed += on_adjustment;
-    }
+    public void set_adjustments(PixelTransformation[] new_adjustments) {
+        unbind_handlers();
 
-    public void set_exposure_adjustment(int exposure) {
-        set_adjustment_slider(adjust_tool_window.exposure_slider, exposure);
-    }
+        update_transformations(new_adjustments);
 
-    public void set_saturation_adjustment(int saturation) {
-        set_adjustment_slider(adjust_tool_window.saturation_slider, saturation);
-    }
+        adjust_tool_window.histogram_manipulator.set_left_nub_position(((ExpansionTransformation)
+            new_adjustments[SupportedAdjustments.TONE_EXPANSION]).get_black_point());
+        adjust_tool_window.histogram_manipulator.set_right_nub_position(((ExpansionTransformation)
+            new_adjustments[SupportedAdjustments.TONE_EXPANSION]).get_white_point());
+        adjust_tool_window.exposure_slider.set_value(((ExposureTransformation)
+            new_adjustments[SupportedAdjustments.EXPOSURE]).get_parameter());
+        adjust_tool_window.saturation_slider.set_value(((SaturationTransformation)
+            new_adjustments[SupportedAdjustments.SATURATION]).get_parameter());
+        adjust_tool_window.tint_slider.set_value(((TintTransformation)
+            new_adjustments[SupportedAdjustments.TINT]).get_parameter());
+        adjust_tool_window.temperature_slider.set_value(((TemperatureTransformation)
+            new_adjustments[SupportedAdjustments.TEMPERATURE]).get_parameter());
 
-    public void set_temperature_adjustment(int temp) {
-        set_adjustment_slider(adjust_tool_window.temperature_slider, temp);
-    }
-
-    public void set_tint_adjustment(int tint) {
-        set_adjustment_slider(adjust_tool_window.tint_slider, tint);
-    }
-
-    public void set_histogram_left_nub(int position) {
-        adjust_tool_window.histogram_manipulator.set_left_nub_position(position);
-    }
-
-    public void set_histogram_right_nub(int position) {
-        adjust_tool_window.histogram_manipulator.set_right_nub_position(position);
-    }
-
-    public void force_repaint() {
+        bind_handlers();
         canvas.repaint();
     }
 }

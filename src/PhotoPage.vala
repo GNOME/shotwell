@@ -616,54 +616,32 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 "transform histogram");
         }
 
+        PixelTransformation[] transformations =
+            new PixelTransformation[SupportedAdjustments.NUM];
+
+        transformations[SupportedAdjustments.TONE_EXPANSION] =
+            new ExpansionTransformation(new IntensityHistogram(pixbuf));
+
         /* zero out any existing color transformations as these may conflict with
            auto-enhancement */
-        Gee.ArrayList<RGBTransformationInstance?> adjustments =
-            new Gee.ArrayList<RGBTransformationInstance?>();
+        transformations[SupportedAdjustments.TEMPERATURE] =
+            new TemperatureTransformation(0.0f);
+        transformations[SupportedAdjustments.TINT] =
+            new TintTransformation(0.0f);
+        transformations[SupportedAdjustments.EXPOSURE] =
+            new ExposureTransformation(0.0f);
+        transformations[SupportedAdjustments.SATURATION] =
+            new SaturationTransformation(0.0f);
 
-        RGBTransformationInstance current_instance = {0};
-
-        current_instance.kind = RGBTransformationKind.EXPOSURE;
-        current_instance.parameter = 0.0f;
-        adjustments.add(current_instance);
-
-        current_instance.kind = RGBTransformationKind.SATURATION;
-        current_instance.parameter = 0.0f;
-        adjustments.add(current_instance);
-
-        current_instance.kind = RGBTransformationKind.TINT;
-        current_instance.parameter = 0.0f;
-        adjustments.add(current_instance);
-
-        current_instance.kind = RGBTransformationKind.TEMPERATURE;
-        current_instance.parameter = 0.0f;
-        adjustments.add(current_instance);
-
-        /* create a new normalization transformation representing the
-           auto-enhancement */
-        NormalizationTransformation trans = new NormalizationTransformation(
-            new IntensityHistogram(pixbuf));
-        int black_point = trans.get_black_point();
-        int white_point = trans.get_white_point();
-
-        NormalizationInstance normalization_inst =
-            new NormalizationInstance.from_extrema(black_point, white_point);
-        
-        /* if the current tool isn't the adjust tool then commit the changes to the database */
-        if (!(current_tool is AdjustTool)) {
-            photo.set_color_adjustments(adjustments, normalization_inst);
+        /* if the current tool is the adjust tool, then don't commit to the database --
+           just set the slider values in the adjust dialog and force it to repaint
+           the canvas */
+        if (current_tool is AdjustTool) {
+            ((AdjustTool) current_tool).set_adjustments(transformations);
         } else {
-            /* if the current tool is the adjust tool, then don't commit to the database --
-               just set the slider values in the adjust dialog and force it to repaint
-               the canvas */
-            AdjustTool current_tool_adjust = (AdjustTool) current_tool;
-            current_tool_adjust.set_exposure_adjustment(0);
-            current_tool_adjust.set_saturation_adjustment(0);
-            current_tool_adjust.set_tint_adjustment(0);
-            current_tool_adjust.set_temperature_adjustment(0);
-            current_tool_adjust.set_histogram_left_nub(black_point);
-            current_tool_adjust.set_histogram_right_nub(white_point);
-            current_tool_adjust.force_repaint();
+              /* if the current tool isn't the adjust tool then commit the changes
+                 to the database */
+            photo.set_adjustments(transformations);
         }
 
         AppWindow.get_instance().set_normal_cursor();
