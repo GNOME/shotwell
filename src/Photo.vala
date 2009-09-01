@@ -577,6 +577,14 @@ public abstract class TransformablePhoto: PhotoBase {
         return photo_table.set_transformation(row.photo_id, trans);
     }
     
+    private bool remove_transformation(string name) {
+        bool altered = false;
+        if (row.transformations != null)
+            altered = row.transformations.remove(name);
+
+        return (altered || photo_table.remove_transformation(row.photo_id, name));
+    }
+    
     public bool has_crop() {
         return has_transformation("crop");
     }
