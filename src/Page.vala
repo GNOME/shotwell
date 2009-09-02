@@ -1137,7 +1137,7 @@ public abstract class CheckerboardPage : Page {
 
 public abstract class SinglePhotoPage : Page {
     public const Gdk.InterpType FAST_INTERP = Gdk.InterpType.NEAREST;
-    public const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.HYPER;
+    public const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
     public enum UpdateReason {
         NEW_PHOTO,
@@ -1189,14 +1189,14 @@ public abstract class SinglePhotoPage : Page {
         return old;
     }
     
-    public void set_pixbuf(Gdk.Pixbuf unscaled) {
+    public void set_pixbuf(Gdk.Pixbuf unscaled, bool use_improvement = true) {
         this.unscaled = unscaled;
         scaled = null;
         
         // need to make sure this has happened
         canvas.realize();
         
-        repaint(default_interp);
+        repaint(use_improvement ? default_interp : QUALITY_INTERP);
     }
     
     public Gdk.Drawable? get_drawable() {

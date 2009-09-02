@@ -168,6 +168,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         set_page_name(photo.get_name());
 
+        // clear out the comparison buffers
+        original = null;
+        swapped = null;
+        
         quick_update_pixbuf();
         
         update_ui();
@@ -175,26 +179,34 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // signal the photo has been replaced
         contents_changed(1);
         selection_changed(1);
-        
-        // clear out the comparison buffers
-        original = null;
-        swapped = null;
     }
     
     private void quick_update_pixbuf() {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
-        set_pixbuf(photo.get_preview_pixbuf(TransformablePhoto.SCREEN));
+        set_pixbuf(photo.get_preview_pixbuf(TransformablePhoto.SCREEN), false);
         Idle.add(update_pixbuf);
     }
     
     private bool update_pixbuf() {
-        set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN));
+#if MEASURE_PIPELINE
+        Timer timer = new Timer();
+#endif
+        set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN), false);
+#if MEASURE_PIPELINE
+        debug("UPDATE_PIXBUF: total=%lf", timer.elapsed());
+#endif
 
-        // fetch the original for quick comparisons ... want a pixbuf with no transformations
-        // (except original orientation)
-        if (original == null)
-            original = photo.get_original_pixbuf(TransformablePhoto.SCREEN);
+        // fetch the original for quick comparisons, again in the background ... need to let the
+        // message loop run to get the real pixbuf on-screen.  If no transformations, don't bother.
+        if (original == null && photo.has_transformations())
+            Idle.add(fetch_original);
+        
+        return false;
+    }
+    
+    private bool fetch_original() {
+        original = photo.get_original_pixbuf(TransformablePhoto.SCREEN);
 
         return false;
     }
@@ -213,9 +225,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             // store what's currently displayed only for the duration of the shift pressing
             swapped = get_unscaled_pixbuf();
             
-            Gdk.InterpType interp = set_default_interp(QUALITY_INTERP);
-            set_pixbuf(original);
-            set_default_interp(interp);
+            set_pixbuf(original, false);
         }
         
         return base.on_shift_pressed(event);
@@ -223,9 +233,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_released(Gdk.EventKey event) {
         if (current_tool == null && swapped != null) {
-            Gdk.InterpType interp = set_default_interp(QUALITY_INTERP);
-            set_pixbuf(swapped);
-            set_default_interp(interp);
+            set_pixbuf(swapped, false);
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
@@ -417,8 +425,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // if the user holds the arrow keys down, we will receive a steady stream of key press
         // events for an operation that isn't designed for a rapid succession of output ... 
-        // we staunch the supply of new photos to once a second (#533)
-        bool nav_ok = (event.time - last_nav_key) > 1000;
+        // we staunch the supply of new photos to under a quarter second (#533)
+        bool nav_ok = (event.time - last_nav_key) > 200;
         
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {

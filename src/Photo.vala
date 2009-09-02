@@ -99,7 +99,7 @@ public abstract class TransformablePhoto: PhotoBase {
     public const int UNSCALED = 0;
     public const int SCREEN = -1;
     
-    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
+    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
     
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
     public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.HYPER;
@@ -277,7 +277,10 @@ public abstract class TransformablePhoto: PhotoBase {
         return "[%lld] %s".printf(row.photo_id.id, get_file().get_path());
     }
 
-    public bool equals(TransformablePhoto photo) {
+    public bool equals(TransformablePhoto? photo) {
+        if (photo == null)
+            return false;
+            
         // identity works because of the photo_map, but the photo_table primary key is where the
         // rubber hits the road
         if (this == photo) {
@@ -446,6 +449,10 @@ public abstract class TransformablePhoto: PhotoBase {
             transformer.attach_transformation(adjustments[SupportedAdjustments.EXPOSURE]);
         }
     }
+    
+    public bool has_color_adjustments() {
+        return has_transformation("adjustments");
+    }
 
     public PixelTransformation get_adjustment(SupportedAdjustments kind) {
         if (adjustments == null)
@@ -537,10 +544,7 @@ public abstract class TransformablePhoto: PhotoBase {
         if (row.orientation != row.original_orientation)
             return true;
 
-        if (row.transformations == null)
-            return false;
-        else
-            return true;
+        return row.transformations != null;
     }
     
     public void remove_all_transformations() {
@@ -675,6 +679,10 @@ public abstract class TransformablePhoto: PhotoBase {
 
         return res;
     }
+    
+    public bool has_redeye_transformations() {
+        return has_transformation("redeye");
+    }
 
     // All instances are against the coordinate system of the unrotated photo.
     private void add_raw_redeye_instance(RedeyeInstance redeye) {
@@ -703,36 +711,42 @@ public abstract class TransformablePhoto: PhotoBase {
 
     // Pixbuf generation
 
-    // Returns a raw, untransformed, unrotated, unscaled pixbuf from the source
-    public Gdk.Pixbuf get_raw_pixbuf() throws Error {
+    // Returns a raw, untransformed, unrotated, unscaled pixbuf directly from the source
+    public Gdk.Pixbuf load_raw_pixbuf() throws Error {
         return new Gdk.Pixbuf.from_file(get_file().get_path());
     }
 
     // Converts a scale parameter for get_pixbuf or get_preview_pixbuf into an actual pixel
-    // count to proportionally scale to.  Returns 0 if an unscaled pixbuf is specified.
+    // count to proportionally scale to.  Returns 0 (UNSCALED) if an unscaled pixbuf is specified
+    // (or a bad value).
     public static int scale_to_pixels(int scale) {
-        return (scale == SCREEN) ? get_screen_scale() : scale;
+        if (scale == SCREEN)
+            return get_screen_scale();
+        
+        return (scale >= 0) ? scale : 0;
     }
 
-    // Returns a raw, untransformed, unscaled pixbuf from the source that has been rotated
-    // according to its original EXIF settings
-    public Gdk.Pixbuf get_original_pixbuf(int scale, Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
+    // This find the best method possible to load-and-decode the photo's pixbuf, using caches
+    // whenever possible.  This pixbuf is untransformed, unrotated, and unscaled.  no_copy should
+    // only be set to true if the user specifically knows no transformations will be made
+    // on the pixbuf.
+    private Gdk.Pixbuf get_raw_pixbuf(bool no_copy) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
-        double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, scale_time = 0.0,
-            orientation_time = 0.0;
+        double pixbuf_copy_time = 0.0, load_and_decode_time = 0.0;
         
         total_timer.start();
 #endif
-
         Gdk.Pixbuf pixbuf = null;
         
+        // check if a cached pixbuf is available to use, to avoid load-and-decode
         if (cached_raw != null && cached_photo_id.id == row.photo_id.id) {
+            // need to make a copy, since it's possible it will be transformed pixel-by-pixel later
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            pixbuf = cached_raw.copy();
+            pixbuf = (no_copy) ? cached_raw : cached_raw.copy();
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
@@ -740,19 +754,43 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            pixbuf = get_raw_pixbuf();
+            pixbuf = load_raw_pixbuf();
 #if MEASURE_PIPELINE
             load_and_decode_time = timer.elapsed();
             
             timer.start();
 #endif
-            cached_raw = pixbuf.copy();
+            // stash in the cache
+            cached_photo_id = row.photo_id;
+            cached_raw = (no_copy) ? pixbuf : pixbuf.copy();
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
-            cached_photo_id = row.photo_id;
         }
         
+#if MEASURE_PIPELINE
+        debug("GET_RAW_PIXBUF: load_and_decode=%lf pixbuf_copy=%lf total=%lf", 
+            load_and_decode_time, pixbuf_copy_time, total_timer.elapsed());
+#endif
+
+        return pixbuf;
+    }
+
+    // Returns a raw, untransformed, scaled pixbuf from the source that has been rotated
+    // according to its original EXIF settings
+    public Gdk.Pixbuf get_original_pixbuf(int scale, Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
+#if MEASURE_PIPELINE
+        Timer timer = new Timer();
+        Timer total_timer = new Timer();
+        double scale_time = 0.0, orientation_time = 0.0;
+        
+        total_timer.start();
+#endif
+
+        // load-and-decode
+        // no copy made because the pixbuf goes unmodified in this pipeline
+        Gdk.Pixbuf pixbuf = get_raw_pixbuf(true);
+
         // scale
 #if MEASURE_PIPELINE
         timer.start();
@@ -772,8 +810,8 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
 
-        debug("ORIGINAL PIPELINE: load_and_decode=%lf pixbuf_copy=%lf scale=%lf orientation=%lf total=%lf",
-            load_and_decode_time, pixbuf_copy_time, scale_time, orientation_time, total_timer.elapsed());
+        debug("ORIGINAL PIPELINE: scale=%lf orientation=%lf total=%lf",
+            scale_time, orientation_time, total_timer.elapsed());
 #endif
         
         return pixbuf;
@@ -795,50 +833,23 @@ public abstract class TransformablePhoto: PhotoBase {
     // and it's far better to specify an appropriate scale.
     public virtual Gdk.Pixbuf get_pixbuf(int scale, Exception exceptions = Exception.NONE,
         Gdk.InterpType interp = DEFAULT_INTERP) throws Error {
-
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
-         double load_and_decode_time = 0.0, pixbuf_copy_time = 0.0, redeye_time = 0.0, 
-            adjustment_time = 0.0, crop_time = 0.0, orientation_time = 0.0, scale_time = 0.0;
+        double redeye_time = 0.0, crop_time = 0.0, scale_time = 0.0, adjustment_time = 0.0,
+            orientation_time = 0.0;
 
         total_timer.start();
 #endif
-        Gdk.Pixbuf pixbuf = null;
-        
         //
         // Image load-and-decode
         //
         
-        if (cached_raw != null && cached_photo_id.id == row.photo_id.id) {
-            // used the cached raw pixbuf for this instance, which is merely the decoded pixbuf
-            // (no transformations)
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            pixbuf = cached_raw.copy();
-#if MEASURE_PIPELINE
-            pixbuf_copy_time = timer.elapsed();
-#endif
-        } else {
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            pixbuf = get_raw_pixbuf();
-#if MEASURE_PIPELINE
-            load_and_decode_time = timer.elapsed();
-#endif
-        
-            // stash for next time
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            cached_raw = pixbuf.copy();
-#if MEASURE_PIPELINE
-            pixbuf_copy_time = timer.elapsed();
-#endif
-            cached_photo_id = row.photo_id;
-        }
+        // look for ways to avoid the pixbuf copy; the following transformations do modify the
+        // pixbuf
+        bool no_copy = !has_redeye_transformations() && !has_color_adjustments();
+
+        Gdk.Pixbuf pixbuf = get_raw_pixbuf(no_copy);
 
         //
         // Image transformation pipeline
@@ -873,12 +884,12 @@ public abstract class TransformablePhoto: PhotoBase {
         }
         
         // scale
-        int scale_pixels = scale_to_pixels(scale);
-        if (scale_pixels > 0) {
+        int pixels = scale_to_pixels(scale);
+        if (pixels > 0) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            pixbuf = scale_pixbuf(pixbuf, scale_pixels, interp);
+            pixbuf = scale_pixbuf(pixbuf, pixels, interp);
 #if MEASURE_PIPELINE
             scale_time = timer.elapsed();
 #endif
@@ -911,11 +922,8 @@ public abstract class TransformablePhoto: PhotoBase {
         }
         
 #if MEASURE_PIPELINE
-        double total_time = total_timer.elapsed();
-        
-        debug("PIPELINE: load_and_decode=%lf pixbuf_copy=%lf redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
-            load_and_decode_time, pixbuf_copy_time, redeye_time, crop_time, scale_time, adjustment_time, 
-            orientation_time, total_time);
+        debug("PIPELINE: redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
+            redeye_time, crop_time, scale_time, adjustment_time, orientation_time, total_timer.elapsed());
 #endif
         
         return pixbuf;
@@ -1311,7 +1319,7 @@ public class LibraryPhoto : TransformablePhoto {
         
         int pixels = scale_to_pixels(scale);
         if (pixels > 0)
-            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.BILINEAR);
+            pixbuf = scale_pixbuf(pixbuf, pixels, Gdk.InterpType.NEAREST);
         
         return pixbuf;
     }
