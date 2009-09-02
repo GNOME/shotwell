@@ -530,33 +530,22 @@ public class SaturationTransformation : RGBTransformation {
 }
 
 public class ExposureTransformation : RGBTransformation {
-    private const float EPSILON = 0.08f;
-    private const float PARAMETER_SCALE = (1.0f / 32.0f);
-    
     public const float MIN_PARAMETER = -16.0f;
     public const float MAX_PARAMETER = 16.0f;
-    
+
     float parameter;
-    
+
     public ExposureTransformation(float client_parameter) {
         parameter = client_parameter.clamp(MIN_PARAMETER, MAX_PARAMETER);
 
         if (parameter != 0.0f) {
-        
-            float adjusted_param = parameter * PARAMETER_SCALE;
 
-            if (adjusted_param < 0.0f)
-                adjusted_param = 1.0f / (-adjusted_param + 1.0f);
-            else
-                adjusted_param += 1.0f;
-            
+            float adjusted_param = ((parameter + 16.0f) / 32.0f) + 0.5f;
+
             matrix_entries[0] = adjusted_param;
             matrix_entries[5] = adjusted_param;
             matrix_entries[10] = adjusted_param;
-            matrix_entries[3] = adjusted_param * EPSILON;
-            matrix_entries[7] = adjusted_param * EPSILON;
-            matrix_entries[11] = adjusted_param * EPSILON;
-            
+
             identity = false;
         }
     }
