@@ -53,7 +53,7 @@ public abstract class EditingToolWindow : Gtk.Window {
     }
     
     private override void realize() {
-        set_opacity(FullscreenWindow.TOOLBAR_OPACITY);
+        set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();
     }

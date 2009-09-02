@@ -9,8 +9,6 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_DISMISSAL_SEC = 2;
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
-    public const double TOOLBAR_OPACITY = 0.75;
-    
     private Gdk.ModifierType ANY_BUTTON_MASK = 
         Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
     
@@ -158,7 +156,7 @@ public class FullscreenWindow : PageWindow {
             ty = 0;
             
         toolbar_window.move(tx, ty);
-        toolbar_window.set_opacity(TOOLBAR_OPACITY);
+        toolbar_window.set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
     }
 
     private void invoke_toolbar() {

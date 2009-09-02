@@ -20,6 +20,8 @@ namespace Resources {
     
     public const string PREFIX = _PREFIX;
 
+    public const double TRANSIENT_WINDOW_OPACITY = 0.90;
+    
     public const string[] AUTHORS = { 
         "Jim Nelson <jim@yorba.org>", 
         "Lucas Beeler <lucas@yorba.org>",
