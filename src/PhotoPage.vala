@@ -638,6 +638,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         /* zero out any existing color transformations as these may conflict with
            auto-enhancement */
+        transformations[SupportedAdjustments.SHADOWS] =
+            new ShadowDetailTransformation(0.0f);
         transformations[SupportedAdjustments.TEMPERATURE] =
             new TemperatureTransformation(0.0f);
         transformations[SupportedAdjustments.TINT] =

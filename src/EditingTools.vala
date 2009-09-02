@@ -1254,19 +1254,23 @@ public class RedeyeTool : EditingTool {
 }
 
 public class AdjustTool : EditingTool {
-    const int SLIDER_MIN_VALUE = -16;
-    const int SLIDER_MAX_VALUE = 16;
     const int SLIDER_WIDTH = 160;
 
     private class AdjustToolWindow : EditingToolWindow {
         public Gtk.HScale exposure_slider = new Gtk.HScale.with_range(
-            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+            ExposureTransformation.MIN_PARAMETER, ExposureTransformation.MAX_PARAMETER,
+            1.0);
         public Gtk.HScale saturation_slider = new Gtk.HScale.with_range(
-            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+            SaturationTransformation.MIN_PARAMETER, SaturationTransformation.MAX_PARAMETER,
+            1.0);
         public Gtk.HScale tint_slider = new Gtk.HScale.with_range(
-            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+            TintTransformation.MIN_PARAMETER, TintTransformation.MAX_PARAMETER, 1.0);
         public Gtk.HScale temperature_slider = new Gtk.HScale.with_range(
-            SLIDER_MIN_VALUE, SLIDER_MAX_VALUE, 1.0);
+            TemperatureTransformation.MIN_PARAMETER, TemperatureTransformation.MAX_PARAMETER,
+            1.0);
+        public Gtk.HScale shadows_slider = new Gtk.HScale.with_range(
+            ShadowDetailTransformation.MIN_PARAMETER, ShadowDetailTransformation.MAX_PARAMETER,
+            1.0);
         public Gtk.Button apply_button =
             new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
         public Gtk.Button reset_button =
@@ -1316,6 +1320,14 @@ public class AdjustTool : EditingTool {
             temperature_slider.set_draw_value(false);
             temperature_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
 
+            Gtk.Label shadows_label = new Gtk.Label.with_mnemonic("Shadows:");
+            shadows_label.set_alignment(0.0f, 0.5f);
+            slider_organizer.attach_defaults(shadows_label, 0, 1, 4, 5);
+            slider_organizer.attach_defaults(shadows_slider, 1, 2, 4, 5);
+            shadows_slider.set_size_request(SLIDER_WIDTH, -1);
+            shadows_slider.set_draw_value(false);
+            shadows_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+
             Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
             button_layouter.set_homogeneous(true);
             button_layouter.pack_start(cancel_button, true, true, 1);
@@ -1356,6 +1368,14 @@ public class AdjustTool : EditingTool {
             expansion_trans.get_black_point());
         adjust_tool_window.histogram_manipulator.set_right_nub_position(
             expansion_trans.get_white_point());
+
+        /* set up shadows */
+        ShadowDetailTransformation shadows_trans = (ShadowDetailTransformation)
+            canvas.get_photo().get_adjustment(SupportedAdjustments.SHADOWS);
+        transformations[SupportedAdjustments.SHADOWS] = shadows_trans;
+        transformer.attach_transformation(transformations[SupportedAdjustments.SHADOWS]);
+        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.SHADOWS]);
+        adjust_tool_window.shadows_slider.set_value(shadows_trans.get_parameter());
 
         /* set up temperature & tint */
         TemperatureTransformation temp_trans = (TemperatureTransformation)
@@ -1443,6 +1463,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.saturation_slider.set_value(0.0);
         adjust_tool_window.temperature_slider.set_value(0.0);
         adjust_tool_window.tint_slider.set_value(0.0);
+        adjust_tool_window.shadows_slider.set_value(0.0);
         
         adjust_tool_window.histogram_manipulator.set_left_nub_position(0);
         adjust_tool_window.histogram_manipulator.set_right_nub_position(255);
@@ -1506,6 +1527,12 @@ public class AdjustTool : EditingTool {
             (float) adjust_tool_window.exposure_slider.get_value());
         update_and_repaint(SupportedAdjustments.EXPOSURE, new_exp_trans);
     }
+    
+    private void on_shadows_adjustment() {
+        ShadowDetailTransformation new_shadows_trans = new ShadowDetailTransformation(
+            (float) adjust_tool_window.shadows_slider.get_value());
+        update_and_repaint(SupportedAdjustments.SHADOWS, new_shadows_trans);
+    }
 
     private void on_histogram_constraint() {
         int expansion_black_point =
@@ -1532,6 +1559,8 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.value_changed += on_tint_adjustment;
         adjust_tool_window.temperature_slider.value_changed +=
             on_temperature_adjustment;
+        adjust_tool_window.shadows_slider.value_changed +=
+            on_shadows_adjustment;
         adjust_tool_window.histogram_manipulator.nub_position_changed +=
             on_histogram_constraint;
     }
@@ -1546,6 +1575,8 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.tint_slider.value_changed -= on_tint_adjustment;
         adjust_tool_window.temperature_slider.value_changed -=
             on_temperature_adjustment;
+        adjust_tool_window.shadows_slider.value_changed -=
+            on_shadows_adjustment;
         adjust_tool_window.histogram_manipulator.nub_position_changed -=
             on_histogram_constraint;
     }
@@ -1559,6 +1590,8 @@ public class AdjustTool : EditingTool {
             new_adjustments[SupportedAdjustments.TONE_EXPANSION]).get_black_point());
         adjust_tool_window.histogram_manipulator.set_right_nub_position(((ExpansionTransformation)
             new_adjustments[SupportedAdjustments.TONE_EXPANSION]).get_white_point());
+        adjust_tool_window.shadows_slider.set_value(((ShadowDetailTransformation)
+            new_adjustments[SupportedAdjustments.SHADOWS]).get_parameter());
         adjust_tool_window.exposure_slider.set_value(((ExposureTransformation)
             new_adjustments[SupportedAdjustments.EXPOSURE]).get_parameter());
         adjust_tool_window.saturation_slider.set_value(((SaturationTransformation)

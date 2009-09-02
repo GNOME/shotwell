@@ -6,6 +6,7 @@
 
 public enum SupportedAdjustments {
     TONE_EXPANSION,
+    SHADOWS,
     TEMPERATURE,
     TINT,
     SATURATION,
@@ -407,6 +408,10 @@ public abstract class TransformablePhoto: PhotoBase {
                 new ExpansionTransformation.from_extrema(0, 255);
             transformer.attach_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION]);
 
+            adjustments[SupportedAdjustments.SHADOWS] =
+                new ShadowDetailTransformation(0.0f);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.SHADOWS]);
+
             adjustments[SupportedAdjustments.TEMPERATURE] =
                 new TemperatureTransformation(0.0f);
             transformer.attach_transformation(adjustments[SupportedAdjustments.TEMPERATURE]);
@@ -431,6 +436,10 @@ public abstract class TransformablePhoto: PhotoBase {
                 adjustments[SupportedAdjustments.TONE_EXPANSION] =
                     new ExpansionTransformation.from_string(expansion_params_encoded);
             transformer.attach_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION]);
+            
+            float shadow_param = (float) map.get_double("shadows", 0.0);
+            adjustments[SupportedAdjustments.SHADOWS] = new ShadowDetailTransformation(shadow_param);
+            transformer.attach_transformation(adjustments[SupportedAdjustments.SHADOWS]);
 
             float temp_param = (float) map.get_double("temperature", 0.0);
             adjustments[SupportedAdjustments.TEMPERATURE] = new TemperatureTransformation(temp_param);
@@ -495,7 +504,14 @@ public abstract class TransformablePhoto: PhotoBase {
         transformer.replace_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION],
             new_expansion_trans);
         adjustments[SupportedAdjustments.TONE_EXPANSION] = new_expansion_trans;
-        
+
+        ShadowDetailTransformation new_shadows_trans =
+            (ShadowDetailTransformation) new_adjustments[SupportedAdjustments.SHADOWS];
+        map.set_double("shadows", new_shadows_trans.get_parameter());
+        transformer.replace_transformation(adjustments[SupportedAdjustments.SHADOWS],
+            new_shadows_trans);
+        adjustments[SupportedAdjustments.SHADOWS] = new_shadows_trans;
+
         TemperatureTransformation new_temp_trans =
             (TemperatureTransformation) new_adjustments[SupportedAdjustments.TEMPERATURE];
         map.set_double("temperature", new_temp_trans.get_parameter());

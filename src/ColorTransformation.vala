@@ -1097,7 +1097,6 @@ public class ExpansionTransformation : HSVTransformation {
         HSVAnalyticPixel result = pixel;
         result.light_value = remap_table[remap_index];
 
-        result.saturation = result.saturation.clamp(0.0f, 1.0f);
         result.light_value = result.light_value.clamp(0.0f, 1.0f);
 
         return result;
@@ -1123,3 +1122,76 @@ public class ExpansionTransformation : HSVTransformation {
         return new ExpansionTransformation.from_extrema(low_kink, high_kink);
     }
 }
+
+public class ShadowDetailTransformation : HSVTransformation {
+    private const float MAX_EFFECT_SHIFT = 0.5f;
+    private const float MIN_TONAL_WIDTH = 0.1f;
+    private const float MAX_TONAL_WIDTH = 1.0f;
+    private const float TONAL_WIDTH = 1.0f;
+
+    private float intensity = 0.0f;
+    private float[] remap_table = null;
+    
+    public const float MIN_PARAMETER = 0.0f;
+    public const float MAX_PARAMETER = 32.0f;
+
+    public ShadowDetailTransformation(float user_intensity) {
+        intensity = user_intensity;
+        float intensity_adj = (intensity / MAX_PARAMETER).clamp(0.0f, 1.0f);
+
+        float effect_shift = MAX_EFFECT_SHIFT * intensity_adj;
+        HermiteGammaApproximationFunction func =
+            new HermiteGammaApproximationFunction(TONAL_WIDTH);
+        
+        remap_table = new float[256];
+        for (int i = 0; i < 256; i++) {
+            float x = ((float) i) / 255.0f;
+            float weight = func.evaluate(x);
+            remap_table[i] = (weight * (x + effect_shift)) + ((1.0f - weight) * x);
+        }
+    }
+
+    public override HSVAnalyticPixel transform_pixel_hsv(HSVAnalyticPixel pixel) {
+        HSVAnalyticPixel result = pixel;
+        result.light_value = (remap_table[(int)(pixel.light_value * 255.0f)]).clamp(0.0f, 1.0f);
+        return result;
+    }
+
+    public override PixelTransformation copy() {
+        return new ShadowDetailTransformation(intensity);
+    }
+    
+    public override bool is_identity() {
+        return (intensity == 0.0f);
+    }
+
+    public float get_parameter() {
+        return intensity;
+    }
+}
+
+public class HermiteGammaApproximationFunction {
+    private float x_scale = 1.0f;
+    private float nonzero_interval_upper = 1.0f;
+    
+    public HermiteGammaApproximationFunction(float user_interval_upper) {
+        nonzero_interval_upper = user_interval_upper.clamp(0.1f, 1.0f);
+        x_scale = 1.0f / nonzero_interval_upper;
+    }
+    
+    public float evaluate(float x) {
+        if (x < 0.0f)
+            return 0.0f;
+        else if (x > nonzero_interval_upper)
+            return 0.0f;
+        else {
+            float indep_var = x_scale * x;
+            
+            float dep_var =  6.0f * ((indep_var * indep_var * indep_var) -
+                (2.0f * (indep_var * indep_var)) + (indep_var));
+            
+            return dep_var.clamp(0.0f, 1.0f);
+        }
+    }
+}
+
