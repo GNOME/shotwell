@@ -9,6 +9,7 @@ class SlideshowPage : SinglePhotoPage {
     
     private CheckerboardPage controller;
     private Thumbnail thumbnail;
+    private Gdk.Pixbuf next_pixbuf = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton play_pause_button;
     private Gtk.ToolButton settings_button;
@@ -80,7 +81,7 @@ class SlideshowPage : SinglePhotoPage {
         }
 
         public double get_delay() {
-            return delay;        
+            return delay;
         }
     }
 
@@ -129,16 +130,38 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
+        // since the canvas might not be ready at this point, start with screen-sized photo
         set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
 
+        // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
+        
+        // prefetch the next pixbuf so it's ready when auto-advance fires
+        schedule_prefetch();
     }
     
     public override void switching_from() {
         base.switching_from();
 
         exiting = true;
+    }
+    
+    private void schedule_prefetch() {
+        next_pixbuf = null;
+        Idle.add(prefetch_next_pixbuf);
+    }
+    
+    private bool prefetch_next_pixbuf() {
+        // if multiple prefetches get lined up in the queue, this stops them from doing multiple
+        // pipelines
+        if (next_pixbuf != null)
+            return false;
+        
+        Thumbnail next = (Thumbnail) controller.get_next_item(thumbnail);
+        next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scale());
+        
+        return false;
     }
     
     private void on_play_pause() {
@@ -165,10 +188,20 @@ class SlideshowPage : SinglePhotoPage {
     private void on_next_automatic() {
         thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
         
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
+        // if prefetch didn't happen in time, get pixbuf now
+        Gdk.Pixbuf pixbuf = next_pixbuf;
+        if (pixbuf == null) {
+            warning("Slideshow prefetch was not ready");
+            pixbuf = thumbnail.get_photo().get_pixbuf(get_canvas_scale());
+        }
+        
+        set_pixbuf(pixbuf);
         
         // reset the timer
         timer.start();
+        
+        // prefetch the next pixbuf
+        schedule_prefetch();
     }
     
     private void on_next_manual() {
@@ -179,17 +212,20 @@ class SlideshowPage : SinglePhotoPage {
         this.thumbnail = thumbnail;
         
         // start with blown-up preview
-        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(TransformablePhoto.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(get_canvas_scale()));
         
         // schedule improvement to real photo
         Idle.add(on_improvement);
         
         // reset the advance timer
         timer.start();
+        
+        // prefetch the next pixbuf
+        schedule_prefetch();
     }
     
     private bool on_improvement() {
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(get_canvas_scale()));
         
         return false;
     }

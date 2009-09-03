@@ -88,6 +88,11 @@ public struct Dimensions {
             return get_scaled_by_height(scale);
         }
     }
+    
+    public void get_scale_factors(Dimensions scaled, out double x_scale, out double y_scale) {
+        x_scale = (double) scaled.width / (double) width;
+        y_scale = (double) scaled.height / (double) height;
+    }
 
     public Dimensions get_scaled_proportional(Dimensions viewport) {
         Dimensions scaled = Dimensions();
@@ -108,9 +113,9 @@ public struct Dimensions {
         return scaled;
     }
 
-    public Gdk.Rectangle get_scaled_rectangle(Dimensions scale, Gdk.Rectangle rect) {
-        double x_scale = (double) scale.width / (double) width;
-        double y_scale = (double) scale.height / (double) height;
+    public Gdk.Rectangle get_scaled_rectangle(Dimensions scaled, Gdk.Rectangle rect) {
+        double x_scale, y_scale;
+        get_scale_factors(scaled, out x_scale, out y_scale);
         
         Gdk.Rectangle scaled_rect = Gdk.Rectangle();
         scaled_rect.x = (int) (rect.x * x_scale);

@@ -184,7 +184,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void quick_update_pixbuf() {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
-        set_pixbuf(photo.get_preview_pixbuf(TransformablePhoto.SCREEN), false);
+        set_pixbuf(photo.get_preview_pixbuf(get_canvas_scale()), false);
         Idle.add(update_pixbuf);
     }
     
@@ -192,7 +192,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
 #endif
-        set_pixbuf(photo.get_pixbuf(TransformablePhoto.SCREEN), false);
+        set_pixbuf(photo.get_pixbuf(get_canvas_scale()), false);
 #if MEASURE_PIPELINE
         debug("UPDATE_PIXBUF: total=%lf", timer.elapsed());
 #endif
@@ -206,9 +206,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private bool fetch_original() {
-        original = photo.get_original_pixbuf(TransformablePhoto.SCREEN);
+        original = photo.get_original_pixbuf(get_canvas_scale());
 
         return false;
+    }
+    
+    private override void on_resize_finished(Gdk.Rectangle rect) {
+        // because we've loaded SinglePhotoPage with an image scaled to window size, as the window
+        // is resized it scales that, which pixellates, especially scaling upward.  Once the window
+        // resize is complete, we get a fresh image for the new window's size
+        update_pixbuf();
     }
     
     private void update_ui() {

@@ -91,8 +91,8 @@ public struct Box {
     }
     
     public Box get_scaled(Dimensions scaled) {
-        double x_scale = (double) scaled.width / (double) get_width();
-        double y_scale = (double) scaled.height / (double) get_height();
+        double x_scale, y_scale;
+        get_dimensions().get_scale_factors(scaled, out x_scale, out y_scale);
         
         int l = (int) Math.round(left * x_scale);
         int t = (int) Math.round(top * y_scale);
@@ -108,8 +108,8 @@ public struct Box {
     }
     
     public Box get_scaled_proportional(Dimensions orig, Dimensions scaled) {
-        double x_scale = (double) scaled.width / (double) orig.width;
-        double y_scale = (double) scaled.height / (double) orig.height;
+        double x_scale, y_scale;
+        orig.get_scale_factors(scaled, out x_scale, out y_scale);
         
         int l = (int) Math.round(left * x_scale);
         int t = (int) Math.round(top * y_scale);

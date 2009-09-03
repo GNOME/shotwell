@@ -26,6 +26,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
     public const uint KEY_SHIFT_L = Gdk.keyval_from_name("Shift_L");
     public const uint KEY_SHIFT_R = Gdk.keyval_from_name("Shift_R");
+    
+    private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
 
     protected enum TargetType {
         URI_LIST
@@ -48,6 +50,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private Gtk.Widget event_source = null;
     private bool dnd_enabled = false;
     private bool in_view = false;
+    private ulong last_configure_ms = 0;
+    private bool report_move_finished = false;
+    private bool report_resize_finished = false;
+    
     
     public virtual signal void selection_changed(int count) {
     }
@@ -370,7 +376,19 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     protected virtual void on_move(Gdk.Rectangle rect) {
     }
     
+    protected virtual void on_move_start(Gdk.Rectangle rect) {
+    }
+    
+    protected virtual void on_move_finished(Gdk.Rectangle rect) {
+    }
+    
     protected virtual void on_resize(Gdk.Rectangle rect) {
+    }
+    
+    protected virtual void on_resize_start(Gdk.Rectangle rect) {
+    }
+    
+    protected virtual void on_resize_finished(Gdk.Rectangle rect) {
     }
     
     protected virtual bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
@@ -389,10 +407,45 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         if (last_position.width != rect.width || last_position.height != rect.height)
             on_resize(rect);
+        
+        // special case events, to report when a configure first starts (and appears to end)
+        if (last_configure_ms == 0) {
+            if (last_position.x != rect.x || last_position.y != rect.y) {
+                on_move_start(rect);
+                report_move_finished = true;
+            }
+            
+            if (last_position.width != rect.width || last_position.height != rect.height) {
+                on_resize_start(rect);
+                report_resize_finished = true;
+            }
+
+            // need to check more often then the timeout, otherwise it could be up to twice the
+            // wait time before it's noticed
+            Timeout.add(CONSIDER_CONFIGURE_HALTED_MSEC / 8, check_configure_halted);
+        }
 
         last_position = rect;
-        
+        last_configure_ms = now_ms();
+
         return on_configure(event, rect);
+    }
+    
+    private bool check_configure_halted() {
+        if ((now_ms() - last_configure_ms) < CONSIDER_CONFIGURE_HALTED_MSEC)
+            return true;
+            
+        if (report_move_finished)
+            on_move_finished((Gdk.Rectangle) allocation);
+        
+        if (report_resize_finished)
+            on_resize_finished((Gdk.Rectangle) allocation);
+        
+        last_configure_ms = 0;
+        report_move_finished = false;
+        report_resize_finished = false;
+        
+        return false;
     }
     
     protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
@@ -1207,6 +1260,10 @@ public abstract class SinglePhotoPage : Page {
         return pixmap_dim;
     }
     
+    public int get_canvas_scale() {
+        return int.max(canvas.allocation.width, canvas.allocation.height);
+    }
+
     public Gdk.Pixbuf? get_unscaled_pixbuf() {
         return unscaled;
     }

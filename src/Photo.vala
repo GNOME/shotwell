@@ -117,7 +117,15 @@ public abstract class TransformablePhoto: PhotoBase {
         CROP            = 1 << 1,
         REDEYE          = 1 << 2,
         ADJUST          = 1 << 3,
-        ALL             = 0xFFFFFFFF
+        ALL             = 0xFFFFFFFF;
+        
+        public bool includes(Exception exception) {
+            return ((this & exception) != 0);
+        }
+        
+        public bool excludes(Exception exception) {
+            return ((this & exception) == 0);
+        }
     }
 
     public enum Alteration {
@@ -129,6 +137,7 @@ public abstract class TransformablePhoto: PhotoBase {
 
     private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
+    private static int cached_scale = 0;
     
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
@@ -728,8 +737,12 @@ public abstract class TransformablePhoto: PhotoBase {
     // Pixbuf generation
 
     // Returns a raw, untransformed, unrotated, unscaled pixbuf directly from the source
-    public Gdk.Pixbuf load_raw_pixbuf() throws Error {
-        return new Gdk.Pixbuf.from_file(get_file().get_path());
+    public Gdk.Pixbuf load_raw_pixbuf(int scale) throws Error {
+        int pixels = scale_to_pixels(scale);
+        string path = get_file().get_path();
+        
+        return (pixels > 0) ? new Gdk.Pixbuf.from_file_at_size(path, pixels, pixels)
+            : new Gdk.Pixbuf.from_file(path);
     }
 
     // Converts a scale parameter for get_pixbuf or get_preview_pixbuf into an actual pixel
@@ -743,10 +756,10 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 
     // This find the best method possible to load-and-decode the photo's pixbuf, using caches
-    // whenever possible.  This pixbuf is untransformed, unrotated, and unscaled.  no_copy should
-    // only be set to true if the user specifically knows no transformations will be made
-    // on the pixbuf.
-    private Gdk.Pixbuf get_raw_pixbuf(bool no_copy) throws Error {
+    // and scaled decodes whenever possible.  This pixbuf is untransformed, unrotated, and unscaled
+    // no_copy should only be set to true if the user specifically knows no transformations will 
+    // be made on the returned pixbuf.
+    private Gdk.Pixbuf get_raw_pixbuf(int scale, bool no_copy) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -757,8 +770,7 @@ public abstract class TransformablePhoto: PhotoBase {
         Gdk.Pixbuf pixbuf = null;
         
         // check if a cached pixbuf is available to use, to avoid load-and-decode
-        if (cached_raw != null && cached_photo_id.id == row.photo_id.id) {
-            // need to make a copy, since it's possible it will be transformed pixel-by-pixel later
+        if (cached_raw != null && cached_scale == scale && cached_photo_id.id == row.photo_id.id) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -770,7 +782,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            pixbuf = load_raw_pixbuf();
+            pixbuf = load_raw_pixbuf(scale);
 #if MEASURE_PIPELINE
             load_and_decode_time = timer.elapsed();
             
@@ -779,14 +791,15 @@ public abstract class TransformablePhoto: PhotoBase {
             // stash in the cache
             cached_photo_id = row.photo_id;
             cached_raw = (no_copy) ? pixbuf : pixbuf.copy();
+            cached_scale = scale;
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
         }
         
 #if MEASURE_PIPELINE
-        debug("GET_RAW_PIXBUF: load_and_decode=%lf pixbuf_copy=%lf total=%lf", 
-            load_and_decode_time, pixbuf_copy_time, total_timer.elapsed());
+        debug("GET_RAW_PIXBUF (%d): load_and_decode=%lf pixbuf_copy=%lf total=%lf", 
+            scale, load_and_decode_time, pixbuf_copy_time, total_timer.elapsed());
 #endif
 
         return pixbuf;
@@ -798,26 +811,15 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
-        double scale_time = 0.0, orientation_time = 0.0;
+        double orientation_time = 0.0;
         
         total_timer.start();
 #endif
 
-        // load-and-decode
+        // load-and-decode and scale
         // no copy made because the pixbuf goes unmodified in this pipeline
-        Gdk.Pixbuf pixbuf = get_raw_pixbuf(true);
+        Gdk.Pixbuf pixbuf = get_raw_pixbuf(scale, true);
 
-        // scale
-#if MEASURE_PIPELINE
-        timer.start();
-#endif
-        int pixels = scale_to_pixels(scale);
-        if (pixels > 0)
-            pixbuf = scale_pixbuf(pixbuf, pixels, interp);
-#if MEASURE_PIPELINE
-        scale_time = timer.elapsed();
-#endif
-        
         // orientation
 #if MEASURE_PIPELINE
         timer.start();
@@ -826,8 +828,8 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
 
-        debug("ORIGINAL PIPELINE: scale=%lf orientation=%lf total=%lf",
-            scale_time, orientation_time, total_timer.elapsed());
+        debug("ORIGINAL PIPELINE: orientation=%lf total=%lf", orientation_time,
+            total_timer.elapsed());
 #endif
         
         return pixbuf;
@@ -852,8 +854,7 @@ public abstract class TransformablePhoto: PhotoBase {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
-        double redeye_time = 0.0, crop_time = 0.0, scale_time = 0.0, adjustment_time = 0.0,
-            orientation_time = 0.0;
+        double redeye_time = 0.0, crop_time = 0.0, adjustment_time = 0.0, orientation_time = 0.0;
 
         total_timer.start();
 #endif
@@ -863,56 +864,68 @@ public abstract class TransformablePhoto: PhotoBase {
         
         // look for ways to avoid the pixbuf copy; the following transformations do modify the
         // pixbuf
-        bool no_copy = !has_redeye_transformations() && !has_color_adjustments();
+        bool no_copy = (exceptions.includes(Exception.REDEYE) || !has_redeye_transformations())
+            && (exceptions.includes(Exception.ADJUST) || !has_color_adjustments());
 
-        Gdk.Pixbuf pixbuf = get_raw_pixbuf(no_copy);
+        Gdk.Pixbuf pixbuf = get_raw_pixbuf(scale, no_copy);
 
         //
         // Image transformation pipeline
         //
+        
+        int pixels = scale_to_pixels(scale);
 
         // redeye reduction
-        if ((exceptions & Exception.REDEYE) == 0) {
+        if (exceptions.excludes(Exception.REDEYE)) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
+            // redeye is stored in raw coordinates; need to scale to scaled image coordinates
+            Dimensions original = (pixels > 0) ? get_raw_dimensions() : Dimensions();
+            Dimensions scaled = (pixels > 0) ? Dimensions.for_pixbuf(pixbuf) : Dimensions();
+
             RedeyeInstance[] redeye_instances = get_raw_redeye_instances();
-            foreach (RedeyeInstance instance in redeye_instances)
+            foreach (RedeyeInstance instance in redeye_instances) {
+                if (pixels > 0) {
+                    instance.center = coord_scaled_in_space(instance.center.x, instance.center.y, 
+                        original, scaled);
+                    instance.radius = radius_scaled_in_space(instance.radius, original, scaled);
+                    assert(instance.radius != -1);
+                }
+                
                 pixbuf = do_redeye(pixbuf, instance);
+            }
 #if MEASURE_PIPELINE
             redeye_time = timer.elapsed();
 #endif
         }
 
         // crop
-        if ((exceptions & Exception.CROP) == 0) {
+        if (exceptions.excludes(Exception.CROP)) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
             Box crop;
-            if (get_raw_crop(out crop))
+            if (get_raw_crop(out crop)) {
+                // crop is stored in raw coordinates; need to scale to scaled image coordinates
+                if (pixels > 0) {
+                    Dimensions original = get_raw_dimensions();
+                    Dimensions scaled = Dimensions.for_pixbuf(pixbuf);
+                    
+                    crop = crop.get_scaled_proportional(original, scaled);
+                }
+                
                 pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
                     crop.get_height());
+            }
 
 #if MEASURE_PIPELINE
             crop_time = timer.elapsed();
 #endif
         }
         
-        // scale
-        int pixels = scale_to_pixels(scale);
-        if (pixels > 0) {
-#if MEASURE_PIPELINE
-            timer.start();
-#endif
-            pixbuf = scale_pixbuf(pixbuf, pixels, interp);
-#if MEASURE_PIPELINE
-            scale_time = timer.elapsed();
-#endif
-        }
-
         // color adjustment
-        if ((exceptions & Exception.ADJUST) == 0) {
+        if (exceptions.excludes(Exception.ADJUST)) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -927,7 +940,7 @@ public abstract class TransformablePhoto: PhotoBase {
         }
 
         // orientation (all modifications are stored in unrotated coordinate system)
-        if ((exceptions & Exception.ORIENTATION) == 0) {
+        if (exceptions.excludes(Exception.ORIENTATION)) {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
@@ -938,8 +951,8 @@ public abstract class TransformablePhoto: PhotoBase {
         }
         
 #if MEASURE_PIPELINE
-        debug("PIPELINE: redeye=%lf crop=%lf scale=%lf adjustment=%lf orientation=%lf total=%lf",
-            redeye_time, crop_time, scale_time, adjustment_time, orientation_time, total_timer.elapsed());
+        debug("PIPELINE: redeye=%lf crop=%lf adjustment=%lf orientation=%lf total=%lf",
+            redeye_time, crop_time, adjustment_time, orientation_time, total_timer.elapsed());
 #endif
         
         return pixbuf;
