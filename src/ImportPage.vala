@@ -843,7 +843,7 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_imported(LibraryPhoto photo) {
-        set_pixbuf(photo.get_pixbuf(get_canvas_scale()));
+        set_pixbuf(photo.get_pixbuf(get_canvas_scaling()));
         
         progress_bytes += photo.get_filesize();
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes

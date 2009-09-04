@@ -226,6 +226,10 @@ public enum Orientation {
                 return dim;
         }
     }
+    
+    public Dimensions derotate_dimensions(Dimensions dim) {
+        return rotate_dimensions(dim);
+    }
 
     public Gdk.Pixbuf rotate_pixbuf(owned Gdk.Pixbuf pixbuf) {
         switch (this) {
@@ -401,6 +405,7 @@ public enum Orientation {
         return derotated;
     }
     
+    // space is the unrotated dimensions the point is rotating with
     public Box rotate_box(Dimensions space, Box box) {
         Gdk.Point top_left, bottom_right;
         box.get_points(out top_left, out bottom_right);
@@ -411,6 +416,7 @@ public enum Orientation {
         return Box.from_points(top_left, bottom_right);
     }
     
+    // space is the unrotated dimensions the point is return to
     public Box derotate_box(Dimensions space, Box box) {
         Gdk.Point top_left, bottom_right;
         box.get_points(out top_left, out bottom_right);

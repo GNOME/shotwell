@@ -359,7 +359,7 @@ public abstract class EditingTool {
     //
     // Note this this method doesn't need to be returning the "proper" pixbuf on-the-fly (i.e.
     // a pixbuf with unsaved tool edits in it).  That can be handled in the paint() virtual method.
-    public virtual Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
+    public virtual Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
         return null;
     }
     
@@ -467,7 +467,7 @@ public class CropTool : EditingTool {
         
         // scale the crop to the scaled photo's size ... the scaled crop is maintained in
         // coordinates not relative to photo's position on canvas
-        scaled_crop = crop.get_scaled_proportional(uncropped_dim, 
+        scaled_crop = crop.get_scaled_similar(uncropped_dim, 
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()));
         
         base.activate(canvas);
@@ -489,11 +489,11 @@ public class CropTool : EditingTool {
         return crop_tool_window;
     }
     
-    public override Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
+    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
-        return photo.has_crop() ? photo.get_pixbuf(TransformablePhoto.SCREEN, 
-            TransformablePhoto.Exception.CROP) : null;
+        return photo.has_crop() ? photo.get_pixbuf(scaling, TransformablePhoto.Exception.CROP) 
+            : null;
     }
     
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -531,10 +531,10 @@ public class CropTool : EditingTool {
         Dimensions uncropped_dim = canvas.get_photo().get_uncropped_dimensions();
         
         // rescale to full crop
-        Box crop = scaled_crop.get_scaled_proportional(old_dim, uncropped_dim);
+        Box crop = scaled_crop.get_scaled_similar(old_dim, uncropped_dim);
         
         // rescale back to new size
-        scaled_crop = crop.get_scaled_proportional(uncropped_dim, new_dim);
+        scaled_crop = crop.get_scaled_similar(uncropped_dim, new_dim);
 
         prepare_visuals(scaled);
     }
@@ -600,7 +600,7 @@ public class CropTool : EditingTool {
     
     private void on_crop_apply() {
         // up-scale scaled crop to photo's dimensions
-        Box crop = scaled_crop.get_scaled_proportional(
+        Box crop = scaled_crop.get_scaled_similar(
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()), 
             canvas.get_photo().get_uncropped_dimensions());
 
@@ -1448,8 +1448,8 @@ public class AdjustTool : EditingTool {
         canvas.paint_pixbuf(draw_to_pixbuf);
     }
 
-    public override Gdk.Pixbuf? get_display_pixbuf(TransformablePhoto photo) {
-        return photo.get_pixbuf(TransformablePhoto.SCREEN, TransformablePhoto.Exception.ADJUST);
+    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
+        return photo.get_pixbuf(scaling, TransformablePhoto.Exception.ADJUST);
     }
 
     private void on_cancel() {

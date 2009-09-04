@@ -100,15 +100,10 @@ public class ThemeLoader {
         return into;
     }
 
-    public static Gdk.Pixbuf load_icon(string source_file) {
+    public static Gdk.Pixbuf load_icon(string source_basename) {
         populate_theme_params();
 
-        Gdk.Pixbuf loaded_pixbuf = null;
-        try {
-            loaded_pixbuf = new Gdk.Pixbuf.from_file(source_file);
-        } catch (Error e) {
-            error("ThemeLoader: load_icon: couldn't read icon data from disk");
-        }
+        Gdk.Pixbuf loaded_pixbuf = Resources.get_icon(source_basename, 0);
 
         /* Sweep through the icon image data loaded from disk and determine how many
            unique colors are in it. We do this with the aid of a HashSet. */
@@ -210,7 +205,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private RGBHistogram histogram = null;
     private int left_nub_position = 0;
     private int right_nub_position = 255;
-    private Gdk.Pixbuf nub_pixbuf = ThemeLoader.load_icon("icons/drag_nub.png");
+    private Gdk.Pixbuf nub_pixbuf = ThemeLoader.load_icon("drag_nub.png");
     private bool is_left_nub_tracking = false;
     private bool is_right_nub_tracking = false;
     private int track_start_x = 0;

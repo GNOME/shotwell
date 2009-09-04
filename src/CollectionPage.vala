@@ -131,7 +131,7 @@ class SlideshowPage : SinglePhotoPage {
         base.switched_to();
 
         // since the canvas might not be ready at this point, start with screen-sized photo
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(TransformablePhoto.SCREEN));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(Scaling.for_screen()));
 
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
@@ -159,7 +159,7 @@ class SlideshowPage : SinglePhotoPage {
             return false;
         
         Thumbnail next = (Thumbnail) controller.get_next_item(thumbnail);
-        next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scale());
+        next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scaling());
         
         return false;
     }
@@ -192,7 +192,7 @@ class SlideshowPage : SinglePhotoPage {
         Gdk.Pixbuf pixbuf = next_pixbuf;
         if (pixbuf == null) {
             warning("Slideshow prefetch was not ready");
-            pixbuf = thumbnail.get_photo().get_pixbuf(get_canvas_scale());
+            next_pixbuf = thumbnail.get_photo().get_pixbuf(get_canvas_scaling());
         }
         
         set_pixbuf(pixbuf);
@@ -212,7 +212,7 @@ class SlideshowPage : SinglePhotoPage {
         this.thumbnail = thumbnail;
         
         // start with blown-up preview
-        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(get_canvas_scale()));
+        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(get_canvas_scaling()));
         
         // schedule improvement to real photo
         Idle.add(on_improvement);
@@ -225,7 +225,7 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private bool on_improvement() {
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(get_canvas_scale()));
+        set_pixbuf(thumbnail.get_photo().get_pixbuf(get_canvas_scaling()));
         
         return false;
     }
@@ -655,7 +655,7 @@ public class CollectionPage : CheckerboardPage {
             
             // set up icon using the "first" photo, although Sets are not ordered
             if (icon == null)
-                icon = photo.get_preview_pixbuf(AppWindow.DND_ICON_SCALE);
+                icon = photo.get_preview_pixbuf(Scaling.for_best_fit(AppWindow.DND_ICON_SCALE));
             
             debug("Prepared %s for export", file.get_path());
         }

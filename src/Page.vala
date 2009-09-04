@@ -1260,8 +1260,8 @@ public abstract class SinglePhotoPage : Page {
         return pixmap_dim;
     }
     
-    public int get_canvas_scale() {
-        return int.max(canvas.allocation.width, canvas.allocation.height);
+    public Scaling get_canvas_scaling() {
+        return Scaling.for_widget(viewport);
     }
 
     public Gdk.Pixbuf? get_unscaled_pixbuf() {
@@ -1378,7 +1378,7 @@ public abstract class SinglePhotoPage : Page {
         
         // rescale if canvas rescaled or better quality is requested
         if (scaled == null || interp != repaint_interp) {
-            scaled = unscaled.scale_simple(scaled_pos.width, scaled_pos.height, repaint_interp);
+            scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), repaint_interp);
             
             UpdateReason reason = UpdateReason.RESIZED_CANVAS;
             if (new_photo) 

@@ -184,7 +184,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void quick_update_pixbuf() {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
-        set_pixbuf(photo.get_preview_pixbuf(get_canvas_scale()), false);
+        set_pixbuf(photo.get_preview_pixbuf(get_canvas_scaling()), false);
         Idle.add(update_pixbuf);
     }
     
@@ -192,7 +192,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
 #endif
-        set_pixbuf(photo.get_pixbuf(get_canvas_scale()), false);
+        set_pixbuf(photo.get_pixbuf(get_canvas_scaling()), false);
 #if MEASURE_PIPELINE
         debug("UPDATE_PIXBUF: total=%lf", timer.elapsed());
 #endif
@@ -206,7 +206,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private bool fetch_original() {
-        original = photo.get_original_pixbuf(get_canvas_scale());
+        original = photo.get_original_pixbuf(get_canvas_scaling());
 
         return false;
     }
@@ -259,7 +259,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
         
         // see if the tool wants a different pixbuf displayed
-        Gdk.Pixbuf unscaled = tool.get_display_pixbuf(photo);
+        Gdk.Pixbuf unscaled = tool.get_display_pixbuf(get_canvas_scaling(), photo);
         if (unscaled != null)
             set_pixbuf(unscaled);
         
@@ -310,7 +310,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // set up icon for drag-and-drop
         try {
-            Gdk.Pixbuf icon = photo.get_preview_pixbuf(AppWindow.DND_ICON_SCALE);
+            Gdk.Pixbuf icon = photo.get_preview_pixbuf(Scaling.for_best_fit(AppWindow.DND_ICON_SCALE));
             Gtk.drag_source_set_icon_pixbuf(canvas, icon);
         } catch (Error err) {
             message("Unable to get drag-and-drop icon: %s", err.message);
@@ -631,7 +631,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = photo.get_pixbuf(1024, TransformablePhoto.Exception.ALL);
+            pixbuf = photo.get_pixbuf(Scaling.for_best_fit(1024), TransformablePhoto.Exception.ALL);
         } catch (Error e) {
             error("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
                 "transform histogram");

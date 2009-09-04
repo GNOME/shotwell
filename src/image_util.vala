@@ -69,12 +69,20 @@ public enum Rotation {
 }
     
 Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
-    Dimensions original = Dimensions(pixbuf.get_width(), pixbuf.get_height());
+    Dimensions original = Dimensions.for_pixbuf(pixbuf);
     Dimensions scaled = original.get_scaled(scale);
     if ((original.width == scaled.width) && (original.height == scaled.height))
         return pixbuf;
 
     return pixbuf.scale_simple(scaled.width, scaled.height, interp);
+}
+
+Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType interp) {
+    Dimensions original = Dimensions.for_pixbuf(pixbuf);
+    if (original.width == resized.width && original.height == resized.height)
+        return pixbuf;
+    
+    return pixbuf.scale_simple(resized.width, resized.height, interp);
 }
 
 inline uchar shift_color_byte(int b, int shift) {
@@ -150,12 +158,6 @@ int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
     y_scale = Math.floor(y_scale * 100.0) / 100.0;
     
     return (x_scale == y_scale) ? (int) Math.round(radius * x_scale) : -1;
-}
-
-int get_screen_scale() {
-    Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
-    
-    return int.max(screen.get_width(), screen.get_height());
 }
 
 namespace Jpeg {

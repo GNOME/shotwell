@@ -94,8 +94,8 @@ public struct Box {
         double x_scale, y_scale;
         get_dimensions().get_scale_factors(scaled, out x_scale, out y_scale);
         
-        int l = (int) Math.round(left * x_scale);
-        int t = (int) Math.round(top * y_scale);
+        int l = (int) Math.round((double) left * x_scale);
+        int t = (int) Math.round((double) top * y_scale);
         
         // fix-up to match the scaled dimensions
         int r = l + scaled.width - 1;
@@ -107,15 +107,15 @@ public struct Box {
         return box;
     }
     
-    public Box get_scaled_proportional(Dimensions orig, Dimensions scaled) {
+    public Box get_scaled_similar(Dimensions original, Dimensions scaled) {
         double x_scale, y_scale;
-        orig.get_scale_factors(scaled, out x_scale, out y_scale);
+        original.get_scale_factors(scaled, out x_scale, out y_scale);
         
-        int l = (int) Math.round(left * x_scale);
-        int t = (int) Math.round(top * y_scale);
-        int r = (int) Math.round(right * x_scale);
-        int b = (int) Math.round(bottom * y_scale);
-        
+        int l = (int) Math.round((double) left * x_scale);
+        int t = (int) Math.round((double) top * y_scale);
+        int r = (int) Math.round((double) right * x_scale);
+        int b = (int) Math.round((double) bottom * y_scale);
+
         // catch rounding errors
         if (r >= scaled.width)
             r = scaled.width - 1;
@@ -314,7 +314,7 @@ public struct Box {
     }
     
     public string to_string() {
-        return "%d,%d %d,%d".printf(left, top, right, bottom);
+        return "%d,%d %d,%d (%s)".printf(left, top, right, bottom, get_dimensions().to_string());
     }
 
     private static bool in_zone(double pos, int zone) {

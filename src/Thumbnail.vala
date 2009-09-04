@@ -48,7 +48,7 @@ public class Thumbnail : LayoutItem, PhotoSource {
         // only fetch and scale if exposed
         if (thumb_exposed) {
             Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
-            pixbuf = pixbuf.scale_simple(dim.width, dim.height, LOW_QUALITY_INTERP);
+            pixbuf = resize_pixbuf(pixbuf, dim, LOW_QUALITY_INTERP);
             interp = LOW_QUALITY_INTERP;
             
             set_image(pixbuf);
@@ -79,12 +79,10 @@ public class Thumbnail : LayoutItem, PhotoSource {
         
         Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
 
-        // only change pixbufs if indeed the image is scaled ... although
-        // scale_simple() will probably just return the pixbuf if it sees the stupid case, Gtk.Image
-        // does not see the case, and will fire off resized events when the new image (which is not 
-        // really new) is added
-        if ((pixbuf.get_width() != dim.width) || (pixbuf.get_height() != dim.height)) {
-            pixbuf = pixbuf.scale_simple(dim.width, dim.height, HIGH_QUALITY_INTERP);
+        // only change pixbufs if indeed the image is scaled
+        Gdk.Pixbuf scaled = resize_pixbuf(pixbuf, dim, HIGH_QUALITY_INTERP);
+        if (scaled != pixbuf) {
+            pixbuf = scaled;
             set_image(pixbuf);
         }
 

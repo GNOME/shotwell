@@ -19,7 +19,7 @@ public class DirectoryItem : LayoutItem, EventSource {
         assert(photo_id.is_valid());
         
         LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
-        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(SCALE);
+        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE));
 
         set_image(pixbuf);
     }
