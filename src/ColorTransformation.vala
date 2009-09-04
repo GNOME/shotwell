@@ -1184,3 +1184,75 @@ public class HermiteGammaApproximationFunction {
     }
 }
 
+namespace AutoEnhance {
+    const int SHADOW_DETECT_MIN_INTENSITY = 4;
+    const int SHADOW_DETECT_MAX_INTENSITY = 128;
+    const int SHADOW_DETECT_INTENSITY_RANGE = SHADOW_DETECT_MAX_INTENSITY -
+            SHADOW_DETECT_MIN_INTENSITY;
+    const float SHADOW_MODE_HIGH_DISCARD_MASS = 0.03f;
+    const float SHADOW_AGGRESSIVENESS_MUL = 0.5f;
+    const int EMPIRICAL_DARK = 50;
+
+public void create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf,
+    out PixelTransformation[] adjustments) {
+    IntensityHistogram analysis_histogram = new IntensityHistogram(pixbuf);
+    /* compute the percentage of pixels in the image that fall into the shadow range --
+       this measures "of the pixels in the image, how many of them are in shadow?" */
+    float pct_in_range =
+        100.0f *(analysis_histogram.get_cumulative_probability(SHADOW_DETECT_MAX_INTENSITY) -
+        analysis_histogram.get_cumulative_probability(SHADOW_DETECT_MIN_INTENSITY));
+
+    /* compute the mean intensity of the pixels that are in the shadow range -- this measures
+       "of those pixels that are in shadow, just how dark are they?" */
+    float shadow_range_mean_prob_val =
+        (analysis_histogram.get_cumulative_probability(SHADOW_DETECT_MIN_INTENSITY) +
+        analysis_histogram.get_cumulative_probability(SHADOW_DETECT_MAX_INTENSITY)) * 0.5f;
+    int shadow_mean_intensity = SHADOW_DETECT_MIN_INTENSITY;
+    for ( ; shadow_mean_intensity <= SHADOW_DETECT_MAX_INTENSITY; shadow_mean_intensity++) {
+        if (analysis_histogram.get_cumulative_probability(shadow_mean_intensity) >= shadow_range_mean_prob_val)
+            break;
+    }
+
+    /* if more than 40 percent of the pixels in the image are in the shadow detection range,
+       or if the mean intensity within the shadow range is less than 50 (an empirically
+       determined threshold below which pixels appear very dark), regardless of the
+       percent of pixels in it, then perform shadow detail enhancement. Otherwise,
+       skip shadow detail enhancement and perform a traditional contrast expansion */
+    if ((pct_in_range > 40.0f) || (shadow_mean_intensity < EMPIRICAL_DARK)) {
+        float shadow_trans_effect_size = ((((float) SHADOW_DETECT_MAX_INTENSITY) -
+            ((float) shadow_mean_intensity)) / ((float) SHADOW_DETECT_INTENSITY_RANGE)) *
+            ShadowDetailTransformation.MAX_PARAMETER;
+
+        shadow_trans_effect_size *= SHADOW_AGGRESSIVENESS_MUL;
+
+        adjustments[SupportedAdjustments.SHADOWS] =
+            new ShadowDetailTransformation(shadow_trans_effect_size);
+            
+        /* if shadow detail expansion is being performed, we still perform contrast expansion,
+           but only on the top end */
+        int discard_point = 255;
+        for ( ; discard_point > -1; discard_point--) {
+            if ((1.0f - analysis_histogram.get_cumulative_probability(discard_point)) >
+                SHADOW_MODE_HIGH_DISCARD_MASS)
+                    break;
+        }
+        adjustments[SupportedAdjustments.TONE_EXPANSION] =
+            new ExpansionTransformation.from_extrema(0, discard_point);
+    }
+    else {
+        adjustments[SupportedAdjustments.TONE_EXPANSION] =
+            new ExpansionTransformation(analysis_histogram);
+    }
+    /* zero out any existing color transformations as these may conflict with
+       auto-enhancement */
+    adjustments[SupportedAdjustments.TEMPERATURE] =
+        new TemperatureTransformation(0.0f);
+    adjustments[SupportedAdjustments.TINT] =
+        new TintTransformation(0.0f);
+    adjustments[SupportedAdjustments.EXPOSURE] =
+        new ExposureTransformation(0.0f);
+    adjustments[SupportedAdjustments.SATURATION] =
+        new SaturationTransformation(0.0f);
+}
+}
+

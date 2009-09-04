@@ -639,22 +639,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         PixelTransformation[] transformations =
             new PixelTransformation[SupportedAdjustments.NUM];
-
-        transformations[SupportedAdjustments.TONE_EXPANSION] =
-            new ExpansionTransformation(new IntensityHistogram(pixbuf));
-
-        /* zero out any existing color transformations as these may conflict with
-           auto-enhancement */
-        transformations[SupportedAdjustments.SHADOWS] =
-            new ShadowDetailTransformation(0.0f);
-        transformations[SupportedAdjustments.TEMPERATURE] =
-            new TemperatureTransformation(0.0f);
-        transformations[SupportedAdjustments.TINT] =
-            new TintTransformation(0.0f);
-        transformations[SupportedAdjustments.EXPOSURE] =
-            new ExposureTransformation(0.0f);
-        transformations[SupportedAdjustments.SATURATION] =
-            new SaturationTransformation(0.0f);
+        
+        AutoEnhance.create_auto_enhance_adjustments(pixbuf, out transformations);
 
         /* if the current tool is the adjust tool, then don't commit to the database --
            just set the slider values in the adjust dialog and force it to repaint
