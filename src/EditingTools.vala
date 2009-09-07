@@ -190,6 +190,13 @@ public abstract class PhotoCanvas {
         return drawable;
     }
     
+    public Scaling get_scaling() {
+        int width, height;
+        drawable.get_size(out width, out height);
+        
+        return Scaling.for_viewport(Dimensions(width, height));
+    }
+    
     public void set_drawable(Gdk.GC default_gc, Gdk.Drawable drawable) {
         this.default_gc = default_gc;
         this.drawable = drawable;
@@ -310,12 +317,14 @@ public abstract class PhotoCanvas {
 
 public abstract class EditingTool {
     public PhotoCanvas canvas = null;
+    
+    public static delegate EditingTool Factory();
 
     public signal void activated();
     
     public signal void deactivated();
     
-    public signal void applied();
+    public signal void applied(Gdk.Pixbuf? new_pixbuf);
     
     public signal void cancelled();
     
@@ -379,10 +388,7 @@ public abstract class EditingTool {
     public virtual void paint(Gdk.GC gc, Gdk.Drawable drawable) {
     }
     
-    protected void notify_apply() {
-        applied();
-    }
-    
+    // Helper function that fires the cancelled signal.  (Can be connected to other signals.)
     protected void notify_cancel() {
         cancelled();
     }
@@ -437,7 +443,11 @@ public class CropTool : EditingTool {
     private int last_grab_x = -1;
     private int last_grab_y = -1;
     
-    public CropTool() {
+    private CropTool() {
+    }
+    
+    public static CropTool factory() {
+        return new CropTool();
     }
     
     public override void activate(PhotoCanvas canvas) {
@@ -607,8 +617,8 @@ public class CropTool : EditingTool {
         // store the new crop
         canvas.get_photo().set_crop(crop);
 
-        // signal application
-        notify_apply();
+        // signal application; we don't have the cropped image, so the host needs to fetch it
+        applied(null);
     }
     
     private void update_cursor(int x, int y) {
@@ -1037,7 +1047,7 @@ public class RedeyeTool : EditingTool {
     }
     
     private Gdk.GC thin_white_gc = null;
-    private Gdk.GC wider_gray_gc = null;    
+    private Gdk.GC wider_gray_gc = null;
     private RedeyeToolWindow redeye_tool_window = null;
     private RedeyeInstance user_interaction_instance;
     private bool is_reticle_move_in_progress = false;
@@ -1046,6 +1056,14 @@ public class RedeyeTool : EditingTool {
     private Gdk.Cursor cached_arrow_cursor;
     private Gdk.Cursor cached_grab_cursor;
     private Gdk.Rectangle old_scaled_pixbuf_position;
+    private Gdk.Pixbuf current_pixbuf = null;
+    
+    private RedeyeTool() {
+    }
+    
+    public static RedeyeTool factory() {
+        return new RedeyeTool();
+    }
 
     private RedeyeInstance new_interaction_instance(PhotoCanvas canvas) {
         Gdk.Rectangle photo_bounds = canvas.get_scaled_pixbuf_position();
@@ -1116,8 +1134,13 @@ public class RedeyeTool : EditingTool {
             RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
 
         canvas.get_photo().add_redeye_instance(instance_unscaled);
+        current_pixbuf = canvas.get_photo().get_pixbuf(canvas.get_scaling());
         
-        notify_apply();
+        canvas.repaint();
+    }
+    
+    private void on_close() {
+        applied(current_pixbuf);
     }
     
     private void on_canvas_resize() {
@@ -1153,12 +1176,13 @@ public class RedeyeTool : EditingTool {
         canvas.resized_scaled_pixbuf += on_canvas_resize;
         
         old_scaled_pixbuf_position = canvas.get_scaled_pixbuf_position();
+        current_pixbuf = canvas.get_scaled_pixbuf();
 
         redeye_tool_window = new RedeyeToolWindow(canvas.get_container());
         redeye_tool_window.slider.set_value(user_interaction_instance.radius);
         redeye_tool_window.slider.change_value += on_size_slider_adjust;
         redeye_tool_window.apply_button.clicked += on_apply;
-        redeye_tool_window.close_button.clicked += notify_cancel;
+        redeye_tool_window.close_button.clicked += on_close;
 
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.ARROW);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
@@ -1180,8 +1204,7 @@ public class RedeyeTool : EditingTool {
     }
     
     public override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-
-        canvas.paint_pixbuf(canvas.get_scaled_pixbuf());
+        canvas.paint_pixbuf((current_pixbuf != null) ? current_pixbuf : canvas.get_scaled_pixbuf());
         
         /* user_interaction_instance has its radius in user coords, and
            draw_redeye_instance expects active region coords */
@@ -1339,7 +1362,7 @@ public class AdjustTool : EditingTool {
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
 
-            add(pane_layouter);            
+            add(pane_layouter);
         }
     }
 
@@ -1353,6 +1376,13 @@ public class AdjustTool : EditingTool {
     private PixelTransformation[] transformations =
         new PixelTransformation[SupportedAdjustments.NUM];
     private float[] fp_pixel_cache = null;
+    
+    private AdjustTool() {
+    }
+    
+    public static AdjustTool factory() {
+        return new AdjustTool();
+    }
 
     public override void activate(PhotoCanvas canvas) {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
@@ -1449,11 +1479,8 @@ public class AdjustTool : EditingTool {
     }
 
     public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
-        return photo.get_pixbuf(scaling, TransformablePhoto.Exception.ADJUST);
-    }
-
-    private void on_cancel() {
-        notify_cancel();
+        return photo.has_color_adjustments() 
+            ? photo.get_pixbuf(scaling, TransformablePhoto.Exception.ADJUST) : null;
     }
 
     private void on_reset() {
@@ -1482,9 +1509,9 @@ public class AdjustTool : EditingTool {
 
         canvas.get_photo().set_adjustments(transformations);
 
-        notify_apply();
-        
         AppWindow.get_instance().set_normal_cursor();
+
+        applied(draw_to_pixbuf);
     }
     
     private void update_transformations(PixelTransformation[] new_transformations) {
@@ -1552,7 +1579,7 @@ public class AdjustTool : EditingTool {
     private void bind_handlers() {
         adjust_tool_window.apply_button.clicked += on_apply;
         adjust_tool_window.reset_button.clicked += on_reset;
-        adjust_tool_window.cancel_button.clicked += on_cancel;
+        adjust_tool_window.cancel_button.clicked += notify_cancel;
         adjust_tool_window.exposure_slider.value_changed += on_exposure_adjustment;
         adjust_tool_window.saturation_slider.value_changed +=
             on_saturation_adjustment;
@@ -1568,7 +1595,7 @@ public class AdjustTool : EditingTool {
     private void unbind_handlers() {
         adjust_tool_window.apply_button.clicked -= on_apply;
         adjust_tool_window.reset_button.clicked -= on_reset;
-        adjust_tool_window.cancel_button.clicked -= on_cancel;
+        adjust_tool_window.cancel_button.clicked -= notify_cancel;
         adjust_tool_window.exposure_slider.value_changed -= on_exposure_adjustment;
         adjust_tool_window.saturation_slider.value_changed -=
             on_saturation_adjustment;

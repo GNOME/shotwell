@@ -796,6 +796,9 @@ public class PhotoTable : DatabaseTable {
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return false;
             
+            if (!keyfile.has_group(object))
+                return true;
+            
             keyfile.remove_group(object);
             
             size_t length;

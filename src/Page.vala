@@ -1193,7 +1193,7 @@ public abstract class SinglePhotoPage : Page {
     public const Gdk.InterpType QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
     public enum UpdateReason {
-        NEW_PHOTO,
+        NEW_PIXBUF,
         QUALITY_IMPROVEMENT,
         RESIZED_CANVAS
     }
@@ -1339,7 +1339,7 @@ public abstract class SinglePhotoPage : Page {
         if (width <= 0 || height <= 0)
             return;
             
-        bool new_photo = (scaled == null);
+        bool new_pixbuf = (scaled == null);
         
         // save if reporting an image being rescaled
         Dimensions old_scaled_dim = Dimensions.for_rectangle(scaled_pos);
@@ -1359,7 +1359,7 @@ public abstract class SinglePhotoPage : Page {
             repaint_interp = QUALITY_INTERP;
         }
         
-        if (new_photo || new_pixmap) {
+        if (new_pixbuf || new_pixmap) {
             // determine size of pixbuf that will fit on the canvas
             Dimensions scaled_dim = Dimensions.for_pixbuf(unscaled).get_scaled_proportional(pixmap_dim);
             
@@ -1381,8 +1381,8 @@ public abstract class SinglePhotoPage : Page {
             scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), repaint_interp);
             
             UpdateReason reason = UpdateReason.RESIZED_CANVAS;
-            if (new_photo) 
-                reason = UpdateReason.NEW_PHOTO;
+            if (new_pixbuf) 
+                reason = UpdateReason.NEW_PIXBUF;
             else if (interp == FAST_INTERP && repaint_interp == QUALITY_INTERP)
                 reason = UpdateReason.QUALITY_IMPROVEMENT;
             

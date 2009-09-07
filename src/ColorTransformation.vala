@@ -454,7 +454,7 @@ public class TintTransformation : RGBTransformation {
              matrix_entries[7] += adjusted_param;
              matrix_entries[3] -= (adjusted_param / 2);
  
-             identity = false;             
+             identity = false;
          }
     }
 
@@ -1242,6 +1242,8 @@ public void create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf,
     else {
         adjustments[SupportedAdjustments.TONE_EXPANSION] =
             new ExpansionTransformation(analysis_histogram);
+        adjustments[SupportedAdjustments.SHADOWS] =
+            new ShadowDetailTransformation(0);
     }
     /* zero out any existing color transformations as these may conflict with
        auto-enhancement */

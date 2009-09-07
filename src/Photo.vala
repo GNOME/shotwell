@@ -1081,7 +1081,8 @@ public abstract class TransformablePhoto: PhotoBase {
         // this is to verify the generated pixbuf matches the scale requirements; crop and 
         // orientation are the only transformations that change the dimensions of the pixbuf, and
         // must be accounted for the test to be valid
-        assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf)));
+        if (is_scaled)
+            assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf)));
 
 #if MEASURE_PIPELINE
         debug("PIPELINE %s (%s): redeye=%lf crop=%lf adjustment=%lf orientation=%lf total=%lf",

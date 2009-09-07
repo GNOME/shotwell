@@ -36,6 +36,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToolButton prev_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
     private Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
     private EditingTool current_tool = null;
+    private Gtk.ToggleToolButton current_editing_toggle = null;
+    private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private File drag_file = null;
     private uint32 last_nav_key = 0;
 
@@ -192,14 +194,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
 #endif
-        set_pixbuf(photo.get_pixbuf(get_canvas_scaling()), false);
+        Gdk.Pixbuf pixbuf = null;
+        if (current_tool != null)
+            pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo);
+        
+        if (pixbuf == null)
+            pixbuf = photo.get_pixbuf(get_canvas_scaling());
+
+        set_pixbuf(pixbuf, false);
 #if MEASURE_PIPELINE
         debug("UPDATE_PIXBUF: total=%lf", timer.elapsed());
 #endif
 
         // fetch the original for quick comparisons, again in the background ... need to let the
         // message loop run to get the real pixbuf on-screen.  If no transformations, don't bother.
-        if (original == null && photo.has_transformations())
+        // TODO: Allow viewing the original while a tool is activated.
+        if (original == null && photo.has_transformations() && current_tool == null)
             Idle.add(fetch_original);
         
         return false;
@@ -258,6 +268,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // tools may be allowed to be executing at the same time.
         deactivate_tool();
         
+        // save current pixbuf to use if user cancels operation
+        cancel_editing_pixbuf = get_unscaled_pixbuf();
+        
         // see if the tool wants a different pixbuf displayed
         Gdk.Pixbuf unscaled = tool.get_display_pixbuf(get_canvas_scaling(), photo);
         if (unscaled != null)
@@ -280,7 +293,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         default_repaint();
     }
     
-    private void deactivate_tool() {
+    private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null) {
         if (current_tool == null)
             return;
         
@@ -289,12 +302,26 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // deactivate with the tool taken out of the hooks
         tool.deactivate();
+        tool = null;
         
+        // only null the toggle when the tool is completely deactivated; that is, deactive the tool
+        // before updating the UI
+        current_editing_toggle = null;
+
+        // display the (possibly) new photo
+        Gdk.Pixbuf replacement = null;
+        if (new_pixbuf != null)
+            replacement = new_pixbuf;
+        else if (cancel_editing_pixbuf != null)
+            replacement = cancel_editing_pixbuf;
+        else
+            replacement = photo.get_pixbuf(get_canvas_scaling());
+        
+        set_pixbuf(replacement);
+        cancel_editing_pixbuf = null;
+
         // return to fast interpolation for viewing
         set_default_interp(FAST_INTERP);
-        
-        // display the (possibly) new photo
-        quick_update_pixbuf();
     }
     
     private override void drag_begin(Gdk.DragContext context) {
@@ -396,8 +423,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // signal that the photo has been altered
         queryable_altered(photo);
 
-        quick_update_pixbuf();
-
         update_ui();
     }
     
@@ -412,15 +437,25 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
-    private override bool on_configure(Gdk.EventConfigure event, Gdk.Rectangle rect) {
+    private void track_tool_window() {
         // if editing tool window is present and the user hasn't touched it, it moves with the window
         if (current_tool != null) {
             EditingToolWindow tool_window = current_tool.get_tool_window();
             if (tool_window != null && !tool_window.has_user_moved())
                 place_tool_window();
         }
+    }
+    
+    private override void on_move(Gdk.Rectangle rect) {
+        track_tool_window();
         
-        return (base.on_configure != null) ? base.on_configure(event, rect) : false;
+        base.on_move(rect);
+    }
+    
+    private override void on_resize(Gdk.Rectangle rect) {
+        track_tool_window();
+        
+        base.on_resize(rect);
     }
     
     private override bool key_press_event(Gdk.EventKey event) {
@@ -475,9 +510,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     protected override void updated_pixbuf(Gdk.Pixbuf pixbuf, SinglePhotoPage.UpdateReason reason, 
         Dimensions old_dim) {
-        // only purpose here is to inform editing tool of change
-        if (current_tool != null)
+        // only purpose here is to inform editing tool of change and drop the cancelled
+        // pixbuf, which is now sized incorrectly
+        if (current_tool != null && reason != SinglePhotoPage.UpdateReason.QUALITY_IMPROVEMENT) {
             current_tool.canvas.resized_pixbuf(old_dim, pixbuf, get_scaled_pixbuf_position());
+            cancel_editing_pixbuf = null;
+        }
     }
     
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
@@ -490,8 +528,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void rotate(Rotation rotation) {
         deactivate_tool();
         
-        // let the signal generate a repaint
         photo.rotate(rotation);
+        quick_update_pixbuf();
     }
     
     public void on_rotate_clockwise() {
@@ -510,6 +548,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
         
         photo.remove_all_transformations();
+        quick_update_pixbuf();
         
         queryable_altered(photo);
     }
@@ -534,92 +573,61 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
+    private void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTool.Factory factory) {
+        // if the button is an activate, deactivate any current tool running; if the button is
+        // a deactivate, deactivate the current tool and exit
+        bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
+        deactivate_tool();
+        
+        if (deactivating_only)
+            return;
+        
+        current_editing_toggle = toggle;
+        
+        // create the tool, hook its signals, and activate
+        EditingTool tool = factory();
+        tool.activated += on_tool_activated;
+        tool.deactivated += on_tool_deactivated;
+        tool.applied += on_tool_applied;
+        tool.cancelled += on_tool_cancelled;
+        
+        activate_tool(tool);
+    }
+    
+    private void on_tool_activated() {
+        assert(current_editing_toggle != null);
+        current_editing_toggle.active = true;
+    }
+    
+    private void on_tool_deactivated() {
+        assert(current_editing_toggle != null);
+        current_editing_toggle.active = false;
+    }
+    
+    private void on_tool_applied(Gdk.Pixbuf? new_pixbuf) {
+        // if the tool didn't supply a pixbuf, it's relying on the host to generate it from Photo
+        Gdk.Pixbuf final_pixbuf = (new_pixbuf != null) ? new_pixbuf 
+            : photo.get_pixbuf(get_canvas_scaling());
+        
+        deactivate_tool(final_pixbuf);
+    }
+    
+    private void on_tool_cancelled() {
+        deactivate_tool();
+    }
+    
     private void on_crop_toggled() {
-        if (crop_button.active) {
-            // create the tool, hook its signals, and activate it
-            CropTool crop_tool = new CropTool();
-            crop_tool.activated += on_crop_activated;
-            crop_tool.deactivated += on_crop_deactivated;
-            crop_tool.applied += on_crop_done;
-            crop_tool.cancelled += on_crop_done;
-            
-            activate_tool(crop_tool);
-        } else {
-            deactivate_tool();
-        }
+        on_tool_button_toggled(crop_button, CropTool.factory);
     }
 
     private void on_redeye_toggled() {
-        if (redeye_button.active) {
-            RedeyeTool redeye_tool = new RedeyeTool();
-            redeye_tool.activated += on_redeye_activated;
-            redeye_tool.deactivated += on_redeye_deactivated;
-            redeye_tool.applied += on_redeye_applied;
-            redeye_tool.cancelled += on_redeye_closed;
-            
-            activate_tool(redeye_tool);
-        } else {
-            deactivate_tool();
-        }
+        on_tool_button_toggled(redeye_button, RedeyeTool.factory);
     }
     
     private void on_adjust_toggled() {
-        if (adjust_button.active) {
-            AdjustTool adjust_tool = new AdjustTool();
-            adjust_tool.activated += on_adjust_activated;
-            adjust_tool.deactivated += on_adjust_deactivated;
-            adjust_tool.cancelled += on_adjust_closed;
-            adjust_tool.applied += on_adjust_applied;
-
-            activate_tool(adjust_tool);
-        } else {
-            deactivate_tool();
-        }
+        on_tool_button_toggled(adjust_button, AdjustTool.factory);
     }
     
-    private void on_crop_done() {
-        deactivate_tool();
-    }
-
-    private void on_redeye_applied() {
-    }
-
-    private void on_redeye_closed() {
-        deactivate_tool();
-    }
-    
-    private void on_adjust_closed() {
-        deactivate_tool();
-    }
-    
-    private void on_adjust_applied() {
-        deactivate_tool();
-    }
-    
-    private void on_crop_activated() {
-        crop_button.set_active(true);
-    }
-
-    private void on_redeye_activated() {
-        redeye_button.set_active(true);
-    }
-
-    private void on_crop_deactivated() {
-        crop_button.set_active(false);
-    }
-
-    private void on_redeye_deactivated() {
-        redeye_button.set_active(false);
-    }
-
-    private void on_adjust_activated() {
-        adjust_button.set_active(true);
-    }
-    
-    private void on_adjust_deactivated() {
-        adjust_button.set_active(false);
-    }
-
     private void on_enhance_clicked() {
         // because running multiple tools at once is not currently supported, deactivate any current
         // tool; however, there is a special case of running enhancement while the AdjustTool is
@@ -654,6 +662,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
 
         AppWindow.get_instance().set_normal_cursor();
+        
+        quick_update_pixbuf();
     }
 
     private void place_tool_window() {
