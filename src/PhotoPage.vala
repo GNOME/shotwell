@@ -27,6 +27,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private TransformablePhoto photo = null;
     private Gdk.Pixbuf original = null;
     private Gdk.Pixbuf swapped = null;
+    private Scaling? pixbuf_scaling = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
@@ -148,11 +149,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected void replace_photo(TransformablePhoto new_photo) {
-        if (new_photo == photo)
+        // if it's the same Photo object and the scaling hasn't changed, there's nothing to do
+        // otherwise, need to reload the image for the proper scaling
+        if (new_photo == photo && (pixbuf_scaling == null || pixbuf_scaling.equals(get_canvas_scaling())))
             return;
         
         // only check if okay if there's something to replace
-        if (photo != null) {
+        if (photo != null && photo != new_photo) {
             bool ok;
             check_replace_photo(photo, new_photo, out ok);
             
@@ -162,11 +165,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         deactivate_tool();
         
-        if (photo != null)
+        if (photo != null && photo != new_photo)
             photo.altered -= on_photo_altered;
 
-        photo = new_photo;
-        photo.altered += on_photo_altered;
+        if (photo != new_photo) {
+            photo = new_photo;
+            photo.altered += on_photo_altered;
+        }
 
         set_page_name(photo.get_name());
 
@@ -194,12 +199,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
 #endif
+        pixbuf_scaling = get_canvas_scaling();
+        
         Gdk.Pixbuf pixbuf = null;
         if (current_tool != null)
-            pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo);
+            pixbuf = current_tool.get_display_pixbuf(pixbuf_scaling, photo);
         
         if (pixbuf == null)
-            pixbuf = photo.get_pixbuf(get_canvas_scaling());
+            pixbuf = photo.get_pixbuf(pixbuf_scaling);
 
         set_pixbuf(pixbuf, false);
 #if MEASURE_PIPELINE
@@ -419,6 +426,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_photo_altered(TransformablePhoto p) {
         assert(p.equals(photo));
+        
+        pixbuf_scaling = null;
 
         // signal that the photo has been altered
         queryable_altered(photo);

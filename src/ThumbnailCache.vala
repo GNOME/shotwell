@@ -19,7 +19,7 @@ public class ThumbnailCache : Object {
     public const ulong MBYTE = 1024 * KBYTE;
     
     public const ulong MAX_BIG_CACHED_BYTES = 25 * MBYTE;
-    public const ulong MAX_MEDIUM_CACHED_BYTES = 15 * MBYTE;
+    public const ulong MAX_MEDIUM_CACHED_BYTES = 25 * MBYTE;
     public const ulong MAX_SMALL_CACHED_BYTES = 10 * MBYTE;
 
     private static ThumbnailCache big = null;
@@ -133,7 +133,7 @@ public class ThumbnailCache : Object {
 
             // This is not entirely accurate (see Gtk doc note on pixbuf Image Data), but close enough
             // for government work
-            bytes = pixbuf.get_rowstride() * pixbuf.get_height();
+            bytes = (ulong) pixbuf.get_rowstride() * (ulong) pixbuf.get_height();
         }
     }
 
@@ -275,12 +275,10 @@ public class ThumbnailCache : Object {
         cache_table.remove(photo_id);
  
         // remove from disk
-        if (file.query_exists(null)) {
-            try {
-                file.delete(null);
-            } catch (Error err) {
-                warning("%s", err.message);
-            }
+        try {
+            file.delete(null);
+        } catch (Error err) {
+            warning("%s", err.message);
         }
     }
     
