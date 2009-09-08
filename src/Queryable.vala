@@ -23,13 +23,7 @@ public interface EventSource : Queryable {
 
     public abstract time_t get_end_time();
 
-    public uint64 get_total_filesize() {
-        uint64 total_filesize = 0;
-        foreach (PhotoSource photo in get_photos()) {
-            total_filesize += photo.get_filesize();
-        }
-        return total_filesize;
-    }
+    public abstract uint64 get_total_filesize();
 
     public abstract int get_photo_count();
 

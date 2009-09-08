@@ -58,6 +58,7 @@ void library_exec(string[] mounts) {
     DatabaseTable.init(AppWindow.get_data_subdir("data").get_child("photo.db"));
     ThumbnailCache.init();
     LibraryPhoto.init();
+    Event.init();
 
     // validate the databases prior to using them
     message("Verifying databases ...");
@@ -85,6 +86,7 @@ void library_exec(string[] mounts) {
         dialog.destroy();
     }
     
+    Event.terminate();
     LibraryPhoto.terminate();
     ThumbnailCache.terminate();
     DatabaseTable.terminate();

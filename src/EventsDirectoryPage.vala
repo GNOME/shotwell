@@ -4,64 +4,60 @@
  * See the COPYING file in this distribution. 
  */
 
-public class DirectoryItem : LayoutItem, EventSource {
+class EventDirectoryItem : LayoutItem, EventSource {
     public const int SCALE =
         ThumbnailCache.MEDIUM_SCALE + ((ThumbnailCache.BIG_SCALE - ThumbnailCache.MEDIUM_SCALE) / 2);
     
-    public EventID event_id;
+    public Event event;
 
-    public DirectoryItem(EventID event_id, EventTable event_table) {
-        this.event_id = event_id;
+    public EventDirectoryItem(Event event) {
+        this.event = event;
         
-        set_title(event_table.get_name(event_id));
+        event.altered += update_display;
         
-        PhotoID photo_id = event_table.get_primary_photo(event_id);
-        assert(photo_id.is_valid());
-        
-        LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
-        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE));
-
-        set_image(pixbuf);
+        update_display();
     }
 
     public time_t get_start_time() {
-        return (new EventTable()).get_start_time(event_id);
+        return event.get_start_time();
     }
 
     public time_t get_end_time() {
-        return (new EventTable()).get_end_time(event_id);
+        return event.get_end_time();
     }
 
     public Gee.Iterable<PhotoSource> get_photos() {
-        Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
-        Gee.ArrayList<PhotoSource> photos = new Gee.ArrayList<PhotoSource>();
-        foreach (PhotoID photo_id in photo_ids) {
-            photos.add(LibraryPhoto.fetch(photo_id));
-        }
-        return photos;
+        return event.get_photos();
     }
 
     public int get_photo_count() {
-        return (new PhotoTable()).get_event_photos(event_id).size;
+        return event.get_photo_count();
+    }
+    
+    public uint64 get_total_filesize() {
+        return event.get_total_filesize();
+    }
+    
+    private void update_display() {
+        set_title(event.get_name());
+        set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
     }
 }
 
 public class EventsDirectoryPage : CheckerboardPage {
-    private class CompareEventItem : Comparator<DirectoryItem> {
-        private EventTable event_table;
+    private class CompareEventItem : Comparator<EventDirectoryItem> {
         private int sort;
         
-        public CompareEventItem(EventTable event_table, int sort) {
+        public CompareEventItem(int sort) {
             assert(sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING 
                 || sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
             
-            this.event_table = event_table;
             this.sort = sort;
         }
         
-        public override int64 compare(DirectoryItem a, DirectoryItem b) {
-            int64 start_a = (int64) event_table.get_start_time(a.event_id);
-            int64 start_b = (int64) event_table.get_start_time(b.event_id);
+        public override int64 compare(EventDirectoryItem a, EventDirectoryItem b) {
+            int64 start_a = (int64) a.event.get_start_time();
+            int64 start_b = (int64) b.event.get_start_time();
             
             switch (sort) {
                 case LibraryWindow.SORT_EVENTS_ORDER_ASCENDING:
@@ -83,11 +79,13 @@ public class EventsDirectoryPage : CheckerboardPage {
         { "HelpMenu", null, "_Help", null, null, null }
     };
     
-    private EventTable event_table = new EventTable();
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
 
     public EventsDirectoryPage() {
         base("Events");
+        
+        // watch for creation of new events
+        Event.notifier.added += on_added_event;
         
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", ACTIONS);
         init_ui_bind("/EventsDirectoryMenuBar");
@@ -95,19 +93,36 @@ public class EventsDirectoryPage : CheckerboardPage {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        set_layout_comparator(new CompareEventItem(event_table, LibraryWindow.get_app().get_events_sort()));
+        set_layout_comparator(new CompareEventItem(LibraryWindow.get_app().get_events_sort()));
+
+        // add all events to the page
+        Gee.ArrayList<Event> events = Event.fetch_all();
+        foreach (Event event in events)
+            add_event(event);
+    }
+    
+    public override void realize() {
+        refresh();
+        
+        base.realize();
     }
     
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
     
-    public override void on_item_activated(LayoutItem item) {
-        DirectoryItem event = (DirectoryItem) item;
-        LibraryWindow.get_app().switch_to_event(event.event_id);
+    public override void switched_to() {
+        base.switched_to();
+        
+        refresh();
     }
     
-    private DirectoryItem? get_fullscreen_item() {
+    public override void on_item_activated(LayoutItem item) {
+        EventDirectoryItem event = (EventDirectoryItem) item;
+        LibraryWindow.get_app().switch_to_event(event.event);
+    }
+    
+    private EventDirectoryItem? get_fullscreen_item() {
         Gee.Iterable<LayoutItem> iter = null;
         
         // use first selected item, otherwise use first item
@@ -118,15 +133,16 @@ public class EventsDirectoryPage : CheckerboardPage {
         }
         
         foreach (LayoutItem item in iter)
-            return (DirectoryItem) item;
+            return (EventDirectoryItem) item;
         
         return null;
     }
     
     public EventPage? get_fullscreen_event() {
-        DirectoryItem item = get_fullscreen_item();
+        EventDirectoryItem item = get_fullscreen_item();
 
-        return (item != null) ? LibraryWindow.get_app().load_event_page(item.event_id) : null;
+        // Yeah, this sucks.  We can do better.
+        return (item != null) ? LibraryWindow.get_app().load_event_page(item.event) : null;
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -135,60 +151,65 @@ public class EventsDirectoryPage : CheckerboardPage {
         return (page != null) ? page.get_fullscreen_photo() : null;
     }
 
-    public void add_event(EventID event_id) {
-        DirectoryItem item = new DirectoryItem(event_id, event_table);
+    public void add_event(Event event) {
+        EventDirectoryItem item = new EventDirectoryItem(event);
         add_item(item);
-    }
-    
-    public override void switched_to() {
-        base.switched_to();
-
-        remove_all();
         
-        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
-        foreach (EventID event_id in event_ids)
-            add_event(event_id);
-        
-        show_all();
-
-        refresh();
+        event.removed += on_event_removed;
     }
     
     public void notify_sort_changed(int sort) {
-        set_layout_comparator(new CompareEventItem(event_table, sort));
+        set_layout_comparator(new CompareEventItem(sort));
         refresh();
     }
     
     private void on_view_menu() {
         set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_count() > 0);
     }
+    
+    private void on_added_event(Event event) {
+        add_event(event);
+        
+        refresh();
+    }
+    
+    private void on_event_removed(Event event) {
+        // have to remove the item outside the iterator
+        EventDirectoryItem to_remove = null;
+        foreach (LayoutItem item in get_items()) {
+            EventDirectoryItem event_item = (EventDirectoryItem) item;
+            if (event_item.event.equals(event)) {
+                to_remove = event_item;
+                
+                break;
+            }
+        }
+        
+        if (to_remove != null)
+            remove_item(to_remove);
+    }
 }
 
 public class EventPage : CollectionPage {
-    public EventID event_id;
-    
-    private EventTable event_table = new EventTable();
+    public Event page_event;
     
     private const Gtk.ActionEntry[] ACTIONS = {
         { "MakePrimary", Resources.MAKE_PRIMARY, "Make _Key Photo for Event", null, null, on_make_primary }
     };
 
-    public EventPage(EventID event_id) {
-        base("Event", "event.ui", ACTIONS);
+    public EventPage(Event page_event) {
+        base(page_event.get_name(), "event.ui", ACTIONS);
         
-        this.event_id = event_id;
-
-        set_page_name(event_table.get_name(event_id));
+        this.page_event = page_event;
 
         // load in all the photos associated with this event
-        Gee.ArrayList<PhotoID?> photo_ids = (new PhotoTable()).get_event_photos(event_id);
-        foreach (PhotoID photo_id in photo_ids)
-            add_photo(LibraryPhoto.fetch(photo_id));
+        Gee.Iterable<PhotoSource> photos = page_event.get_photos();
+        foreach (PhotoSource source in photos)
+            add_photo((LibraryPhoto) source);
     }
     
     protected override void on_photos_menu() {
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary",     
-            get_selected_count() == 1);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary", get_selected_count() == 1);
         
         base.on_photos_menu();
     }
@@ -198,8 +219,7 @@ public class EventPage : CollectionPage {
         
         // iterate to first one, use that, bail out
         foreach (LayoutItem item in get_selected()) {
-            Thumbnail thumbnail = (Thumbnail) item;
-            event_table.set_primary_photo(event_id, thumbnail.get_photo().get_photo_id());
+            page_event.set_primary_photo(((Thumbnail) item).get_photo());
             
             break;
         }

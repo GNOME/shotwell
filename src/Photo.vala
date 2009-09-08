@@ -125,11 +125,6 @@ public abstract class TransformablePhoto: PhotoBase {
         }
     }
 
-    public enum Alteration {
-        IMAGE,
-        METADATA
-    }
-    
     protected static PhotoTable photo_table = null;
 
     private static PhotoID cached_photo_id = PhotoID();
@@ -143,10 +138,12 @@ public abstract class TransformablePhoto: PhotoBase {
     private PixelTransformation[] adjustments = null;
     
     // fired when the image itself (its visual representation) has changed
-    public signal void altered();
+    public virtual signal void altered() {
+    }
     
     // fired when information about the image has changed
-    public signal void metadata_altered();
+    public virtual signal void metadata_altered() {
+    }
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -268,17 +265,24 @@ public abstract class TransformablePhoto: PhotoBase {
         return row.photo_id;
     }
     
-    public EventID get_event_id() {
-        return row.event_id;
+    public Event? get_event() {
+        return row.event_id.is_valid() ? Event.fetch(row.event_id) : null;
     }
     
-    public void set_event_id(EventID event_id) {
-        if (photo_table.set_event(row.photo_id, event_id)) {
-            row.event_id = event_id;
-            notify_altered(Alteration.METADATA);
+    // WARNING: This method does not do all the hard work of removing the photo properly from an
+    // event prior to adding it to the supplied one.  This merely associates this photo with an
+    // event, quietly dropping its association with whatever event it currently is a member of.
+    public bool set_event(Event event) {
+        bool committed = photo_table.set_event(row.photo_id, event.get_event_id());
+        if (committed) {
+            row.event_id = event.get_event_id();
+            
+            metadata_altered();
         }
+        
+        return committed;
     }
-
+    
     public string to_string() {
         return "[%lld] %s".printf(row.photo_id.id, get_file().get_path());
     }
@@ -298,31 +302,6 @@ public abstract class TransformablePhoto: PhotoBase {
         assert(row.photo_id.id != photo.row.photo_id.id);
         
         return false;
-    }
-    
-    protected virtual void on_altered() {
-    }
-    
-    protected virtual void on_metadata_altered() {
-    }
-    
-    // This first allows the subclass to react to the event change, then notify listeners
-    protected void notify_altered(Alteration alteration) {
-        switch (alteration) {
-            case Alteration.IMAGE:
-                on_altered();
-                altered();
-            break;
-            
-            case Alteration.METADATA:
-                on_metadata_altered();
-                metadata_altered();
-            break;
-            
-            default:
-                error("Unknown alteration: %d", (int) alteration);
-            break;
-        }
     }
     
     public void update() {
@@ -372,8 +351,8 @@ public abstract class TransformablePhoto: PhotoBase {
                 cached_raw = null;
             
             // could be both
-            notify_altered(Alteration.METADATA);
-            notify_altered(Alteration.IMAGE);
+            metadata_altered();
+            altered();
         }
     }
 
@@ -494,7 +473,8 @@ public abstract class TransformablePhoto: PhotoBase {
             adjustments = null;
             transformer = null;
             if (result)
-                notify_altered(Alteration.IMAGE);
+                altered();
+
             return;
         }
 
@@ -546,7 +526,7 @@ public abstract class TransformablePhoto: PhotoBase {
         adjustments[SupportedAdjustments.EXPOSURE] = new_exposure_trans;
 
         if (set_transformation(map))
-            notify_altered(Alteration.IMAGE);
+            altered();
     }
 
     public override Exif.Data? get_exif() {
@@ -569,7 +549,7 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public void remove_all_transformations() {
-        bool altered = photo_table.remove_all_transformations(row.photo_id);
+        bool is_altered = photo_table.remove_all_transformations(row.photo_id);
         row.transformations = null;
         
         transformer = null;
@@ -578,11 +558,11 @@ public abstract class TransformablePhoto: PhotoBase {
         if (row.orientation != row.original_orientation) {
             photo_table.set_orientation(row.photo_id, row.original_orientation);
             row.orientation = row.original_orientation;
-            altered = true;
+            is_altered = true;
         }
 
-        if (altered)
-            notify_altered(Alteration.IMAGE);
+        if (is_altered)
+            altered();
     }
     
     public Orientation get_orientation() {
@@ -593,7 +573,7 @@ public abstract class TransformablePhoto: PhotoBase {
         row.orientation = orientation;
         photo_table.set_orientation(row.photo_id, orientation);
         
-        notify_altered(Alteration.IMAGE);
+        altered();
     }
 
     public virtual void rotate(Rotation rotation) {
@@ -668,7 +648,7 @@ public abstract class TransformablePhoto: PhotoBase {
         map.set_int("bottom", crop.bottom);
         
         if (set_transformation(map))
-            notify_altered(Alteration.IMAGE);
+            altered();
     }
     
     // All instances are against the coordinate system of the unscaled, unrotated photo.
@@ -727,7 +707,7 @@ public abstract class TransformablePhoto: PhotoBase {
         map.set_int("num_points", num_points);
 
         if (set_transformation(map))
-            notify_altered(Alteration.IMAGE);
+            altered();
     }
 
     // Pixbuf generation
@@ -1390,14 +1370,24 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 }
 
-public class LibraryPhoto : TransformablePhoto {
-    private static Gee.HashMap<int64?, LibraryPhoto> photo_map = null;
+public class LibraryPhotoNotifier : ClassNotifier {
+    public signal void added(LibraryPhoto photo);
     
+    public signal void altered(LibraryPhoto photo);
+    
+    public signal void removed(LibraryPhoto photo);
+}
+
+public class LibraryPhoto : TransformablePhoto {
     public enum Currency {
         CURRENT,
         DIRTY,
         GONE
     }
+    
+    public static LibraryPhotoNotifier notifier = null;
+    
+    private static Gee.HashMap<int64?, LibraryPhoto> photo_map = null;
     
     private bool generate_thumbnails = true;
     
@@ -1413,6 +1403,7 @@ public class LibraryPhoto : TransformablePhoto {
         TransformablePhoto.base_init();
         
         photo_map = new Gee.HashMap<int64?, LibraryPhoto>(int64_hash, int64_equal, direct_equal);
+        notifier = new LibraryPhotoNotifier();
 
         // prefetch all the photos from the database and cache their values in memory
         Gee.ArrayList<PhotoRow?> all = photo_table.get_all();
@@ -1442,7 +1433,19 @@ public class LibraryPhoto : TransformablePhoto {
         
         photo = fetch(photo_id);
         
+        notify_added(photo);
+        
         return ImportResult.SUCCESS;
+    }
+    
+    public static Gee.ArrayList<LibraryPhoto> fetch_all() {
+        Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
+        
+        Gee.ArrayList<LibraryPhoto> all = new Gee.ArrayList<LibraryPhoto>();
+        foreach (PhotoID photo_id in photo_ids)
+            all.add(fetch(photo_id));
+        
+        return all;
     }
 
     public static LibraryPhoto fetch(PhotoID photo_id) {
@@ -1457,7 +1460,16 @@ public class LibraryPhoto : TransformablePhoto {
         return photo;
     }
     
-    private override void on_altered () {
+    private static void notify_added(LibraryPhoto photo) {
+        notifier.added(photo);
+    }
+    
+    private void notify_removed() {
+        removed();
+        notifier.removed(this);
+    }
+    
+    private override void altered () {
         // the exportable file is now not in sync with transformed photo
         remove_exportable_file();
 
@@ -1475,7 +1487,9 @@ public class LibraryPhoto : TransformablePhoto {
             thumbnail_altered();
         }
         
-        base.on_altered();
+        base.altered();
+        
+        notifier.altered(this);
     }
 
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) {
@@ -1536,7 +1550,7 @@ public class LibraryPhoto : TransformablePhoto {
     
     public void remove(bool remove_original) {
         // signal all interested parties prior to removal from map
-        removed();
+        notify_removed();
         
         // necessary to avoid valac bug in photo_map.remove
         PhotoID photo_id = get_photo_id();
@@ -1726,12 +1740,12 @@ public class DirectPhoto : TransformablePhoto {
         return scaling.perform_on_pixbuf(current_pixbuf, Gdk.InterpType.BILINEAR);
     }
     
-    private override void on_altered() {
+    private override void altered() {
         // stash the current pixbuf for previews and such, and flush the generated exportable file
         current_pixbuf = base.get_pixbuf(Scaling.for_screen());
         exportable = null;
         
-        base.on_altered();
+        base.altered();
     }
 }
 

@@ -584,6 +584,56 @@ public class PhotoTable : DatabaseTable {
         return EventID(stmt.column_int64(0));
     }
     
+    public int get_event_photo_count(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE event_id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        int count = 0;
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE) {
+                break;
+            } else if (res != Sqlite.ROW) {
+                fatal("get_event_photo_count", res);
+                
+                break;
+            }
+            
+            count++;
+        }
+        
+        return count;
+    }
+    
+    public uint64 get_event_photo_filesize(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT filesize FROM PhotoTable WHERE event_id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        uint64 total = 0;
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE) {
+                break;
+            } else if (res != Sqlite.ROW) {
+                fatal("get_event_photo_filesize", res);
+                
+                break;
+            }
+            
+            total += stmt.column_int64(0);
+        }
+        
+        return total;
+    }
+    
     public Gee.ArrayList<PhotoID?> get_event_photos(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE event_id = ?", -1, out stmt);
@@ -622,6 +672,26 @@ public class PhotoTable : DatabaseTable {
             return false;
         } else if (res != Sqlite.ROW) {
             fatal("event_has_photos", res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+
+    public bool drop_event(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE PhotoTable SET event_id = ? WHERE event_id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, EventID.INVALID);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            fatal("drop_event", res);
             
             return false;
         }

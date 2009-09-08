@@ -51,7 +51,8 @@ SRC_FILES = \
 	DirectWindow.vala \
     Properties.vala \
     CustomComponents.vala \
-    Config.vala
+    Config.vala \
+    Event.vala
 
 VAPI_FILES = \
 	libexif.vapi \

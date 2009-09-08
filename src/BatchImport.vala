@@ -207,7 +207,7 @@ public class BatchImport {
         
         // report to AppWindow to organize into events
         if (success.size > 0)
-            LibraryWindow.get_app().batch_import_complete(success);
+            Event.generate_events(success);
         
         // report completed
         import_complete(import_id, success, failed, skipped);

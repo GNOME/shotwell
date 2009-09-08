@@ -10,9 +10,6 @@ public class LibraryWindow : AppWindow {
     public const int PAGE_MIN_WIDTH = 
         Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
     
-    public const long EVENT_LULL_SEC = 3 * 60 * 60;
-    public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
-    
     public const int SORT_EVENTS_ORDER_ASCENDING = 0;
     public const int SORT_EVENTS_ORDER_DESCENDING = 1;
 
@@ -77,15 +74,13 @@ public class LibraryWindow : AppWindow {
     // a lifo), or simply replace them all with a single EventPage which reloads itself with
     // photos for the asked-for event.
     private class EventPageProxy : Object, SidebarPage {
-        public EventID event_id;
+        public Event event;
 
-        private string name;
         private EventPage page = null;
         private SidebarMarker marker = null;
         
-        public EventPageProxy(EventID event_id, string name) {
-            this.event_id = event_id;
-            this.name = name;
+        public EventPageProxy(Event event) {
+            this.event = event;
         }
         
         public bool has_page() {
@@ -94,10 +89,10 @@ public class LibraryWindow : AppWindow {
         
         public EventPage get_page() {
             if (page == null) {
-                debug("Creating new event page for %s", name);
+                debug("Creating new event page for %s", event.get_name());
                 
                 // create the event and set it the marker, if one has been supplied
-                page = new EventPage(event_id);
+                page = new EventPage(event);
                 if (marker != null)
                     page.set_marker(marker);
                 
@@ -110,7 +105,7 @@ public class LibraryWindow : AppWindow {
         }
         
         public string get_sidebar_text() {
-            return (page != null) ? page.get_sidebar_text() : name;
+            return (page != null) ? page.get_sidebar_text() : event.get_name();
         }
         
         public SidebarMarker? get_marker() {
@@ -132,7 +127,6 @@ public class LibraryWindow : AppWindow {
     
     private class CompareEventPageProxy : Comparator<EventPageProxy> {
         private int event_sort;
-        private EventTable event_table = new EventTable();
         
         public CompareEventPageProxy(int event_sort) {
             assert(event_sort == SORT_EVENTS_ORDER_ASCENDING || event_sort == SORT_EVENTS_ORDER_DESCENDING);
@@ -141,8 +135,8 @@ public class LibraryWindow : AppWindow {
         }
         
         public override int64 compare(EventPageProxy a, EventPageProxy b) {
-            int64 start_a = (int64) event_table.get_start_time(a.event_id);
-            int64 start_b = (int64) event_table.get_start_time(b.event_id);
+            int64 start_a = (int64) a.event.get_start_time();
+            int64 start_b = (int64) b.event.get_start_time();
             
             switch (event_sort) {
                 case SORT_EVENTS_ORDER_ASCENDING:
@@ -170,9 +164,6 @@ public class LibraryWindow : AppWindow {
         str_hash, str_equal, direct_equal);
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
 
-    private PhotoTable photo_table = new PhotoTable();
-    private EventTable event_table = new EventTable();
-    
     private Sidebar sidebar = new Sidebar();
     private SidebarMarker cameras_marker = null;
 
@@ -195,18 +186,18 @@ public class LibraryWindow : AppWindow {
         add_orphan_page(photo_page);
 
         // create LibraryPhoto objects for all photos in the database and load into the Photos page
-        Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
-        foreach (PhotoID photo_id in photo_ids) {
-             LibraryPhoto photo = LibraryPhoto.fetch(photo_id);
-             photo.removed += on_photo_removed;
-             
+        Gee.ArrayList<LibraryPhoto> photos = LibraryPhoto.fetch_all();
+        foreach (LibraryPhoto photo in photos)
              collection_page.add_photo(photo);
-        }
+
+        // watch for new & removed events
+        Event.notifier.added += on_added_event;
+        Event.notifier.removed += on_event_removed;
 
         // add stored events
-        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
-        foreach (EventID event_id in event_ids)
-            add_event_page(event_id);
+        Gee.ArrayList<Event> events = Event.fetch_all();
+        foreach (Event event in events)
+            add_event_page(event);
         
         // start in the collection page
         sidebar.place_cursor(collection_page);
@@ -475,122 +466,9 @@ public class LibraryWindow : AppWindow {
     }
 
     public void photo_imported(LibraryPhoto photo) {
-        // want to know when it's removed from the system for cleanup
-        photo.removed += on_photo_removed;
-
         // automatically add to the Photos page
         collection_page.add_photo(photo);
         collection_page.refresh();
-    }
-    
-    public void batch_import_complete(SortedList<LibraryPhoto> imported_photos) {
-        debug("Processing imported photos to create events ...");
-
-        // walk through photos, splitting into events based on criteria
-        time_t last_exposure = 0;
-        time_t current_event_start = 0;
-        EventID current_event_id = EventID();
-        foreach (LibraryPhoto photo in imported_photos) {
-            time_t exposure_time = photo.get_exposure_time();
-
-            if (exposure_time == 0) {
-                // no time recorded; skip
-                debug("Skipping event assignment to %s: No exposure time", photo.to_string());
-                
-                continue;
-            }
-            
-            if (photo.get_event_id().is_valid()) {
-                // already part of an event; skip
-                debug("Skipping event assignment to %s: Already part of event %lld", photo.to_string(),
-                    photo.get_event_id().id);
-                    
-                continue;
-            }
-            
-            // see if enough time has elapsed to create a new event, or to store this photo in
-            // the current one
-            bool create_event = false;
-            if (last_exposure == 0) {
-                // first photo, start a new event
-                create_event = true;
-            } else {
-                assert(last_exposure <= exposure_time);
-                assert(current_event_start <= exposure_time);
-
-                if (exposure_time - last_exposure >= EVENT_LULL_SEC) {
-                    // enough time has passed between photos to signify a new event
-                    create_event = true;
-                } else if (exposure_time - current_event_start >= EVENT_MAX_DURATION_SEC) {
-                    // the current event has gone on for too long, stop here and start a new one
-                    create_event = true;
-                }
-            }
-            
-            if (create_event) {
-                if (current_event_id.is_valid()) {
-                    assert(last_exposure != 0);
-                    event_table.set_end_time(current_event_id, last_exposure);
-
-                    events_directory_page.add_event(current_event_id);
-                    events_directory_page.refresh();
-                }
-
-                current_event_start = exposure_time;
-                current_event_id = event_table.create(photo.get_photo_id(), current_event_start);
-                
-                add_event_page(current_event_id);
-
-                debug("Created event [%lld]", current_event_id.id);
-            }
-            
-            assert(current_event_id.is_valid());
-            
-            debug("Adding %s to event %lld (exposure=%ld last_exposure=%ld)", photo.to_string(), 
-                current_event_id.id, exposure_time, last_exposure);
-            
-            photo.set_event_id(current_event_id);
-
-            last_exposure = exposure_time;
-        }
-        
-        // mark the last event's end time
-        if (current_event_id.is_valid()) {
-            assert(last_exposure != 0);
-            event_table.set_end_time(current_event_id, last_exposure);
-            
-            events_directory_page.add_event(current_event_id);
-            events_directory_page.refresh();
-        }
-    }
-    
-    private void on_photo_removed(LibraryPhoto photo) {
-        PhotoID photo_id = photo.get_photo_id();
-        
-        // update event's primary photo if this is the one; remove event if no more photos in it
-        EventID event_id = photo_table.get_event(photo_id);
-        if (event_id.is_valid() && (event_table.get_primary_photo(event_id).id == photo_id.id)) {
-            Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
-            
-            PhotoID found = PhotoID();
-            // TODO: For now, simply selecting the first photo possible
-            foreach (PhotoID id in photo_ids) {
-                if (id.id != photo_id.id) {
-                    found = id;
-                    
-                    break;
-                }
-            }
-            
-            if (found.is_valid()) {
-                event_table.set_primary_photo(event_id, found);
-            } else {
-                // this indicates this is the last photo of the event, so no more event
-                assert(photo_ids.size <= 1);
-                remove_event_page(event_id);
-                event_table.remove(event_id);
-            }
-        }
     }
     
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
@@ -655,10 +533,10 @@ public class LibraryWindow : AppWindow {
         switch_to_page(events_directory_page);
     }
     
-    public void switch_to_event(EventID event_id) {
-        EventPage page = load_event_page(event_id);
+    public void switch_to_event(Event event) {
+        EventPage page = load_event_page(event);
         if (page == null) {
-            debug("Cannot find page for event %lld", event_id.id);
+            debug("Cannot find page for event %s", event.to_string());
 
             return;
         }
@@ -675,9 +553,9 @@ public class LibraryWindow : AppWindow {
         switch_to_page(import_queue_page);
     }
     
-    public EventPage? load_event_page(EventID event_id) {
+    public EventPage? load_event_page(Event event) {
         foreach (EventPageProxy proxy in event_list) {
-            if (proxy.event_id.id == event_id.id) {
+            if (proxy.event.equals(event)) {
                 // this will create the EventPage if not already created
                 return proxy.get_page();
             }
@@ -686,8 +564,16 @@ public class LibraryWindow : AppWindow {
         return null;
     }
     
-    private void add_event_page(EventID event_id) {
-        EventPageProxy event_proxy = new EventPageProxy(event_id, event_table.get_name(event_id));
+    private void on_added_event(Event event) {
+        add_event_page(event);
+    }
+    
+    private void on_event_removed(Event event) {
+        remove_event_page(event);
+    }
+    
+    private void add_event_page(Event event) {
+        EventPageProxy event_proxy = new EventPageProxy(event);
         
         sidebar.insert_child_sorted(events_directory_page.get_marker(), event_proxy,
             new CompareEventPageProxy(get_events_sort()));
@@ -695,12 +581,12 @@ public class LibraryWindow : AppWindow {
         event_list.add(event_proxy);
     }
     
-    private void remove_event_page(EventID event_id) {
+    private void remove_event_page(Event event) {
         // don't use load_event_page, because that will create an EventPage (which we're simply
         // going to remove)
         EventPageProxy event_proxy = null;
         foreach (EventPageProxy proxy in event_list) {
-            if (proxy.event_id.id == event_id.id) {
+            if (proxy.event.equals(event)) {
                 event_proxy = proxy;
                 
                 break;
