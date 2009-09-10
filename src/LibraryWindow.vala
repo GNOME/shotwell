@@ -123,6 +123,18 @@ public class LibraryWindow : AppWindow {
             if (page != null)
                 page.clear_marker();
         }
+
+        public virtual string get_page_name() {
+            if (page == null)
+                return event.get_name();
+            return page.get_page_name();
+        }
+
+        public Gtk.Menu? get_page_context_menu() {
+            if (page == null)
+                get_page();
+            return page.get_page_context_menu();
+        }
     }
     
     private class CompareEventPageProxy : Comparator<EventPageProxy> {
@@ -193,6 +205,7 @@ public class LibraryWindow : AppWindow {
         // watch for new & removed events
         Event.notifier.added += on_added_event;
         Event.notifier.removed += on_event_removed;
+        Event.notifier.altered += on_event_altered;
 
         // add stored events
         Gee.ArrayList<Event> events = Event.fetch_all();
@@ -570,6 +583,20 @@ public class LibraryWindow : AppWindow {
     
     private void on_event_removed(Event event) {
         remove_event_page(event);
+    }
+
+    private void on_event_altered(Event event) {
+        // refresh sidebar
+        foreach (EventPageProxy proxy in event_list) {
+            if (proxy.event.equals(event)) {
+                SidebarMarker marker = proxy.get_marker();
+                sidebar.rename(marker, event.get_name());
+                break;
+            }
+        }
+
+        // refresh basic properties
+        basic_properties.update_properties(current_page);
     }
     
     private void add_event_page(Event event) {

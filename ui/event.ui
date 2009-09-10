@@ -5,11 +5,21 @@
             <separator />
             <menuitem name="MakePrimary" action="MakePrimary" />
         </menu>
+
+        <menu name="EditMenu" action="EditMenu">
+            <separator />
+            <menuitem name="EventRename" action="Rename" />
+        </menu>
+
     </menubar>
 
     <popup name="CollectionContextMenu">
         <separator />
         <menuitem name="ContextMakePrimary" action="MakePrimary" />
+    </popup>
+
+    <popup name="EventContextMenu">
+        <menuitem name="ContextRename" action="Rename" />
     </popup>
     
 </ui>

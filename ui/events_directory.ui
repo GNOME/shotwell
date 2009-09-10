@@ -6,6 +6,10 @@
             <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
+
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="EventRename" action="Rename" />
+        </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
@@ -24,6 +28,11 @@
             <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
+
+    <popup name="EventsDirectoryContextMenu">
+        <separator />
+        <menuitem name="ContextRename" action="Rename" />
+    </popup>
 
 </ui>
 

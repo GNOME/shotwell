@@ -219,6 +219,10 @@ public class Event : Object, Queryable, EventSource {
         return event_table.get_name(event_id);
     }
     
+    public string? get_raw_name() {
+        return event_table.get_raw_name(event_id);
+    }
+    
     public bool rename(string name) {
         bool renamed = event_table.rename(event_id, name);
         if (renamed)

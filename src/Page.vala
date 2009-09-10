@@ -53,8 +53,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
-    
-    
+   
     public virtual signal void selection_changed(int count) {
     }
     
@@ -473,13 +472,18 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public abstract int get_selected_queryable_count();
 
     public abstract Gee.Iterable<Queryable>? get_selected_queryables();
+
+    public virtual Gtk.Menu? get_page_context_menu() {
+        return null;
+    }
 }
 
 public abstract class CheckerboardPage : Page {
     private const int AUTOSCROLL_PIXELS = 50;
     private const int AUTOSCROLL_TICKS_MSEC = 50;
     
-    private Gtk.Menu context_menu = null;
+    private Gtk.Menu item_context_menu = null;
+    private Gtk.Menu page_context_menu = null;
     private CollectionLayout layout = new CollectionLayout();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
@@ -510,12 +514,21 @@ public abstract class CheckerboardPage : Page {
         add(viewport);
     }
     
-    public void init_context_menu(string path) {
-        context_menu = (Gtk.Menu) ui.get_widget(path);
+    public void init_item_context_menu(string path) {
+        item_context_menu = (Gtk.Menu) ui.get_widget(path);
     }
-    
-    public virtual Gtk.Menu? get_context_menu() {
-        return context_menu;
+
+    public void init_page_context_menu(string path) {
+        page_context_menu = (Gtk.Menu) ui.get_widget(path);
+    }
+   
+    public Gtk.Menu? get_context_menu() {
+        // show page context menu if nothing is selected
+        return (get_selected_count() != 0) ? item_context_menu : page_context_menu;
+    }
+
+    public override Gtk.Menu? get_page_context_menu() {
+        return page_context_menu;
     }
     
     protected virtual void on_item_activated(LayoutItem item) {
@@ -930,14 +943,14 @@ public abstract class CheckerboardPage : Page {
             // clicked in "dead" space, unselect everything
             unselect_all();
         }
-        
+       
         Gtk.Menu context_menu = get_context_menu();
         if (context_menu == null)
             return false;
-            
+
         if (!on_context_invoked(context_menu))
             return false;
-            
+
         context_menu.popup(null, null, null, event.button, event.time);
 
         return true;

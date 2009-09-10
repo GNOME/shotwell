@@ -134,7 +134,11 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         { "ViewMenu", null, "_View", null, null, on_view_menu },
 
-        { "HelpMenu", null, "_Help", null, null, null }
+        { "HelpMenu", null, "_Help", null, null, null },
+
+        { "EditMenu", null, "_Edit", null, null, on_edit_menu },
+
+        { "Rename", null, "Rename Event...", "F2", "Rename event", on_rename }
     };
     
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
@@ -157,6 +161,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         Gee.ArrayList<Event> events = Event.fetch_all();
         foreach (Event event in events)
             add_event(event);
+
+        init_item_context_menu("/EventsDirectoryContextMenu");
     }
     
     public override void realize() {
@@ -180,6 +186,13 @@ public class EventsDirectoryPage : CheckerboardPage {
         LibraryWindow.get_app().switch_to_event(event.event);
     }
     
+    
+    protected override bool on_context_invoked(Gtk.Menu context_menu) {
+        set_item_sensitive("/EventsDirectoryContextMenu/ContextRename", get_selected_count() == 1);
+        
+        return true;
+    }
+
     private EventDirectoryItem? get_fullscreen_item() {
         Gee.Iterable<LayoutItem> iter = null;
         
@@ -224,6 +237,19 @@ public class EventsDirectoryPage : CheckerboardPage {
     private void on_view_menu() {
         set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_count() > 0);
     }
+
+    private void on_edit_menu() {
+        set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", get_selected_count() == 1);
+    }
+
+    private void on_rename() {
+        foreach (LayoutItem item in get_selected()) {
+            Event event = ((EventDirectoryItem) item).event;
+
+            EventRenameDialog rename_dialog = new EventRenameDialog(event.get_raw_name());
+            event.rename(rename_dialog.execute());
+        }
+    }
     
     private void on_added_event(Event event) {
         add_event(event);
@@ -252,7 +278,9 @@ public class EventPage : CollectionPage {
     public Event page_event;
     
     private const Gtk.ActionEntry[] ACTIONS = {
-        { "MakePrimary", Resources.MAKE_PRIMARY, "Make _Key Photo for Event", null, null, on_make_primary }
+        { "MakePrimary", Resources.MAKE_PRIMARY, "Make _Key Photo for Event", null, null, on_make_primary },
+
+        { "Rename", null, "Rename Event...", "F2", "Rename event", on_rename }
     };
 
     public EventPage(Event page_event) {
@@ -264,6 +292,8 @@ public class EventPage : CollectionPage {
         Gee.Iterable<PhotoSource> photos = page_event.get_photos();
         foreach (PhotoSource source in photos)
             add_photo((LibraryPhoto) source);
+
+        init_page_context_menu("/EventContextMenu");
     }
     
     protected override void on_photos_menu() {
@@ -281,6 +311,16 @@ public class EventPage : CollectionPage {
             
             break;
         }
+    }
+
+    public void rename(string name) {
+        page_event.rename(name);
+        set_page_name(page_event.get_name());
+    }
+
+    private void on_rename() {      
+        EventRenameDialog rename_dialog = new EventRenameDialog(page_event.get_raw_name());
+        rename(rename_dialog.execute());
     }
 }
 

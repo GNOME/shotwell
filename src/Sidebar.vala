@@ -30,11 +30,16 @@ public interface SidebarPage : Object {
     public abstract void set_marker(SidebarMarker marker);
     
     public abstract void clear_marker();
+
+    public abstract string get_page_name();
+
+    public abstract Gtk.Menu? get_page_context_menu();
 }
     
 public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(1, typeof(string));
     private Gee.HashSet<SidebarPage> pages = new Gee.HashSet<SidebarPage>();
+    private Gtk.Menu context_menu = null;
 
     public Sidebar() {
         set_model(store);
@@ -247,6 +252,83 @@ public class Sidebar : Gtk.TreeView {
         // only allow selection if a page is associated with the path; if not, it's a grouping row,
         // which is unselectable
         return locate_page(path) != null;
+    }
+
+    protected Gtk.Menu? get_context_menu(Gdk.EventButton event) {
+        int x, y, cell_x, cell_y;
+        Gdk.ModifierType mask;
+        event.window.get_pointer(out x, out y, out mask);
+        Gtk.TreePath path;
+        get_path_at_pos(x, y, out path, null, out cell_x, out cell_y);
+        SidebarPage page = locate_page(path);
+
+        return (page != null) ? page.get_page_context_menu() : null;
+    }
+
+    private override bool button_press_event(Gdk.EventButton event) {
+        // single right click
+        if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
+
+            context_menu = get_context_menu(event);
+            if (context_menu == null)
+                return false;
+        
+            context_menu.popup(null, null, null, event.button, event.time);
+
+             return false;
+        }
+
+        return base.button_press_event(event);
+    }
+
+    public void rename(SidebarMarker marker, string name) {
+        // set up the columns
+        Gtk.TreeIter iter;        
+        store.get_iter(out iter, marker.get_path());
+        store.set(iter, 0, name);
+    }
+}
+
+public class EventRenameDialog : Gtk.Dialog {
+    Gtk.Entry name_entry;
+
+    public EventRenameDialog(string? event_name) {
+        set_modal(true);
+
+        add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
+                    Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        set_title("Rename Event");
+
+        Gtk.Label name_label = new Gtk.Label("Name:");
+        name_entry = new Gtk.Entry();
+
+        if (event_name != null)
+            name_entry.set_text(event_name);
+
+        name_entry.set_activates_default(true);
+
+        Gtk.HBox query = new Gtk.HBox(false, 0);
+        query.pack_start(name_label, false, false, 3);
+        query.pack_start(name_entry, false, false, 3);
+
+        set_default_response(Gtk.ResponseType.OK);
+
+        vbox.pack_start(query, true, false, 6);
+    }
+
+    public string execute() {
+        show_all();
+
+        string event_name = name_entry.get_text();
+
+        int response = run();
+        if (response == Gtk.ResponseType.OK) {
+            event_name = name_entry.get_text();
+        }
+
+        destroy();
+
+        return event_name;
     }
 }
 

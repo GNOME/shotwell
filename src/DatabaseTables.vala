@@ -1224,15 +1224,28 @@ public class EventTable : DatabaseTable {
         return true;
     }
     
-    public string? get_name(EventID event_id) {
+    public string? get_raw_name(EventID event_id) {
         Sqlite.Statement stmt;
-        if (!select_by_id(event_id.id, "name, start_time", out stmt))
+        if (!select_by_id(event_id.id, "name", out stmt))
             return null;
 
-        // if no name, pretty up the start time
         string name = stmt.column_text(0);
-        if ((name == null) || (name.length == 0)) {
-            int64 timet = stmt.column_int64(1);
+
+        return (name != "") ? name : null;
+    }
+    
+
+    public string get_name(EventID event_id) {
+        string name = get_raw_name(event_id);
+
+        // if no name, pretty up the start time
+        if (name == null) {
+            Sqlite.Statement stmt;
+
+            if (!select_by_id(event_id.id, "start_time", out stmt))
+                return "";
+
+            int64 timet = stmt.column_int64(0);
             assert(timet != 0);
             
             Time start_time = Time.local((time_t) timet);
