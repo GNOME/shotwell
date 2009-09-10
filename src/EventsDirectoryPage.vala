@@ -23,6 +23,7 @@ class EventDirectoryItem : LayoutItem, EventSource {
         
         // stash the image size for when it's not being displayed
         image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
+        clear_image(image_dim.width, image_dim.height);
         
         // monitor the event for changes
         event.altered += on_event_altered;
