@@ -1193,8 +1193,9 @@ namespace AutoEnhance {
     const float SHADOW_AGGRESSIVENESS_MUL = 0.5f;
     const int EMPIRICAL_DARK = 50;
 
-public void create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf,
-    out PixelTransformation[] adjustments) {
+public PixelTransformation[] create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf) {
+    PixelTransformation[] adjustments = new PixelTransformation[SupportedAdjustments.NUM];
+
     IntensityHistogram analysis_histogram = new IntensityHistogram(pixbuf);
     /* compute the percentage of pixels in the image that fall into the shadow range --
        this measures "of the pixels in the image, how many of them are in shadow?" */
@@ -1255,6 +1256,8 @@ public void create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf,
         new ExposureTransformation(0.0f);
     adjustments[SupportedAdjustments.SATURATION] =
         new SaturationTransformation(0.0f);
+    
+    return adjustments;
 }
 }
 

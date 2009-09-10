@@ -5,17 +5,27 @@
  */
 
 class EventDirectoryItem : LayoutItem, EventSource {
-    public const int SCALE =
-        ThumbnailCache.MEDIUM_SCALE + ((ThumbnailCache.BIG_SCALE - ThumbnailCache.MEDIUM_SCALE) / 2);
+    public const int SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
+        + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
     
     public Event event;
+    
+    private bool is_exposed = false;
+    private LibraryPhoto primary_photo;
+    private Dimensions image_dim = Dimensions();
 
     public EventDirectoryItem(Event event) {
         this.event = event;
         
-        event.altered += update_display;
+        // monitor the primary photo's thumbnail
+        primary_photo = event.get_primary_photo();
+        primary_photo.thumbnail_altered += on_thumbnail_altered;
         
-        update_display();
+        // stash the image size for when it's not being displayed
+        image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
+        
+        // monitor the event for changes
+        event.altered += on_event_altered;
     }
 
     public time_t get_start_time() {
@@ -38,9 +48,56 @@ class EventDirectoryItem : LayoutItem, EventSource {
         return event.get_total_filesize();
     }
     
+    public override void exposed() {
+        if (is_exposed)
+            return;
+        
+        is_exposed = true;
+        update_display();
+    }
+    
+    public override void unexposed() {
+        if (!is_exposed)
+            return;
+        
+        is_exposed = false;
+        clear_image(image_dim.width, image_dim.height);
+    }
+    
+    private void on_event_altered() {
+        // check if the primary photo changed
+        LibraryPhoto new_primary = event.get_primary_photo();
+        if (!new_primary.equals(primary_photo)) {
+            // disconnect and connect signal
+            primary_photo.thumbnail_altered -= on_thumbnail_altered;
+            primary_photo = new_primary;
+            primary_photo.thumbnail_altered += on_thumbnail_altered;
+            
+            // update image dimensions
+            image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
+        }
+        
+        if (is_exposed)
+            update_display();
+        else
+            clear_image(image_dim.width, image_dim.height);
+    }
+    
+    private void on_thumbnail_altered() {
+        // get new dimensions
+        image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
+        
+        if (is_exposed)
+            update_thumbnail_display();
+    }
+    
     private void update_display() {
         set_title(event.get_name());
-        set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+        update_thumbnail_display();
+    }
+    
+    private void update_thumbnail_display() {
+        set_image(primary_photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
     }
 }
 

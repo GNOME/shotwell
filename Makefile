@@ -49,10 +49,10 @@ SRC_FILES = \
 	LibraryWindow.vala \
 	CameraTable.vala \
 	DirectWindow.vala \
-    Properties.vala \
-    CustomComponents.vala \
-    Config.vala \
-    Event.vala
+	Properties.vala \
+	CustomComponents.vala \
+	Config.vala \
+	Event.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -170,7 +170,7 @@ cleantemps:
 
 package:
 	$(MAKE) dist
-	cp $(DIST_TAR_GZ) ../$(PACKAGE_ORIG_GZ)
+	cp $(DIST_TAR_GZ) $(PACKAGE_ORIG_GZ)
 	rm -f $(DIST_TAR_GZ)
 	rm -f $(DIST_TAR_BZ2)
 

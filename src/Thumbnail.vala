@@ -19,6 +19,10 @@ public class Thumbnail : LayoutItem, PhotoSource {
     private bool thumb_exposed = false;
     private Gdk.InterpType interp = LOW_QUALITY_INTERP;
     
+    public signal void low_quality_thumbnail();
+    
+    public signal void geometry_changed();
+    
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         this.photo = photo;
         this.scale = scale;
@@ -52,9 +56,12 @@ public class Thumbnail : LayoutItem, PhotoSource {
             interp = LOW_QUALITY_INTERP;
             
             set_image(pixbuf);
+            low_quality_thumbnail();
         } else {
             clear_image(dim.width, dim.height);
         }
+        
+        geometry_changed();
     }
     
     public void resize(int new_scale) {
@@ -98,6 +105,7 @@ public class Thumbnail : LayoutItem, PhotoSource {
         interp = LOW_QUALITY_INTERP;
 
         set_image(pixbuf);
+        low_quality_thumbnail();
         
         thumb_exposed = true;
     }
@@ -128,7 +136,7 @@ public class Thumbnail : LayoutItem, PhotoSource {
     }
 
     public uint64 get_filesize() {
-        return photo.get_filesize();    
+        return photo.get_filesize();
     }
 }
 

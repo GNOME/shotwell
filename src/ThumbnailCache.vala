@@ -5,36 +5,43 @@
  */
 
 public class ThumbnailCache : Object {
-    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
-    public const int DEFAULT_JPEG_QUALITY = 90;
-    public const int MAX_INMEMORY_DATA_SIZE = 256 * 1024;
+    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
+    public const Jpeg.Quality DEFAULT_QUALITY = Jpeg.Quality.HIGH;
+    public const int MAX_INMEMORY_DATA_SIZE = 512 * 1024;
     
-    public const int BIG_SCALE = 360;
-    public const int MEDIUM_SCALE = 128;
-    public const int SMALL_SCALE = 64;
+    public enum Size {
+        BIG = 360,
+        MEDIUM = 128;
+        
+        public int get_scale() {
+            return (int) this;
+        }
+        
+        public static Size get_best_size(int scale) {
+            return scale <= MEDIUM.get_scale() ? MEDIUM : BIG;
+        }
+    }
     
-    public const int[] SCALES = { BIG_SCALE, MEDIUM_SCALE, SMALL_SCALE };
+    public static const Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
     
     public const ulong KBYTE = 1024;
     public const ulong MBYTE = 1024 * KBYTE;
     
-    public const ulong MAX_BIG_CACHED_BYTES = 25 * MBYTE;
-    public const ulong MAX_MEDIUM_CACHED_BYTES = 25 * MBYTE;
-    public const ulong MAX_SMALL_CACHED_BYTES = 10 * MBYTE;
+    public const ulong MAX_BIG_CACHED_BYTES = 40 * MBYTE;
+    public const ulong MAX_MEDIUM_CACHED_BYTES = 30 * MBYTE;
 
     private static ThumbnailCache big = null;
     private static ThumbnailCache medium = null;
-    private static ThumbnailCache small = null;
     
     private static int cycle_fetched_thumbnails = 0;
     private static int cycle_overflow_thumbnails = 0;
     private static bool debug_scheduled = false;
     
     private File cache_dir;
-    private int scale;
+    private Size size;
     private ulong max_cached_bytes;
     private Gdk.InterpType interp;
-    private string jpeg_quality;
+    private Jpeg.Quality quality;
     private Gee.HashMap<int64?, ImageData> cache_map = new Gee.HashMap<int64?, ImageData>(
         int64_hash, int64_equal, direct_equal);
     private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
@@ -42,24 +49,20 @@ public class ThumbnailCache : Object {
     private ThumbnailCacheTable cache_table;
     private PhotoTable photo_table = new PhotoTable();
     
-    private ThumbnailCache(int scale, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
-        int jpeg_quality = DEFAULT_JPEG_QUALITY) {
-        assert(scale != 0);
-        assert((jpeg_quality >= 0) && (jpeg_quality <= 100));
-
-        this.cache_dir = AppWindow.get_data_subdir("thumbs", "thumbs%d".printf(scale));
-        this.scale = scale;
+    private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
+        Jpeg.Quality quality = DEFAULT_QUALITY) {
+        this.cache_dir = AppWindow.get_data_subdir("thumbs", "thumbs%d".printf(size.get_scale()));
+        this.size = size;
         this.max_cached_bytes = max_cached_bytes;
         this.interp = interp;
-        this.jpeg_quality = "%d".printf(jpeg_quality);
-        this.cache_table = new ThumbnailCacheTable(scale);
+        this.quality = quality;
+        this.cache_table = new ThumbnailCacheTable(size.get_scale());
     }
     
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
-        big = new ThumbnailCache(BIG_SCALE, MAX_BIG_CACHED_BYTES);
-        medium = new ThumbnailCache(MEDIUM_SCALE, MAX_MEDIUM_CACHED_BYTES);
-        small = new ThumbnailCache(SMALL_SCALE, MAX_SMALL_CACHED_BYTES);
+        big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
+        medium = new ThumbnailCache(Size.MEDIUM, MAX_MEDIUM_CACHED_BYTES);
     }
     
     public static void terminate() {
@@ -71,9 +74,6 @@ public class ThumbnailCache : Object {
 
         medium._import(photo_id, original, force);
         spin_event_loop();
-
-        small._import(photo_id, original, force);
-        spin_event_loop();
     }
     
     public static void remove(PhotoID photo_id) {
@@ -82,38 +82,32 @@ public class ThumbnailCache : Object {
         
         medium._remove(photo_id);
         spin_event_loop();
-        
-        small._remove(photo_id);
-        spin_event_loop();
     }
-
+    
     public static Gdk.Pixbuf? fetch(PhotoID photo_id, int scale) {
-        if (scale > MEDIUM_SCALE) {
+        Size size = Size.get_best_size(scale);
+        if (size == Size.BIG) {
             return big._fetch(photo_id);
-        } else if(scale > SMALL_SCALE) {
-            return medium._fetch(photo_id);
         } else {
-            return small._fetch(photo_id);
+            assert(size == Size.MEDIUM);
+            
+            return medium._fetch(photo_id);
         }
     }
     
-    public static void replace(PhotoID photo_id, int scale, Gdk.Pixbuf replacement) {
+    public static void replace(PhotoID photo_id, Size size, Gdk.Pixbuf replacement) {
         ThumbnailCache cache = null;
-        switch (scale) {
-            case SMALL_SCALE:
-                cache = small;
-            break;
-            
-            case MEDIUM_SCALE:
-                cache = medium;
-            break;
-            
-            case BIG_SCALE:
+        switch (size) {
+            case Size.BIG:
                 cache = big;
             break;
             
+            case Size.MEDIUM:
+                cache = medium;
+            break;
+            
             default:
-                error("Unknown scale %d", scale);
+                error("Unknown thumbnail size %d", size.get_scale());
             break;
         }
         
@@ -121,7 +115,7 @@ public class ThumbnailCache : Object {
     }
     
     public static bool exists(PhotoID photo_id) {
-        return big._exists(photo_id) && medium._exists(photo_id) && small._exists(photo_id);
+        return big._exists(photo_id) && medium._exists(photo_id);
     }
     
     private class ImageData {
@@ -182,15 +176,6 @@ public class ThumbnailCache : Object {
         cycle_fetched_thumbnails++;
         schedule_debug();
         
-        int filesize = cache_table.get_filesize(photo_id);
-        if(filesize > MAX_INMEMORY_DATA_SIZE) {
-            // too big to store in memory, so return the pixbuf straight from disk
-            debug("Persistant thumbnail [%lld] %s too large to cache in memory, loading straight from disk", 
-                photo_id.id, file.get_path());
-
-            return pixbuf;
-        }
-        
         // stash in memory for next time
         store_in_memory(photo_id, pixbuf);
 
@@ -214,7 +199,7 @@ public class ThumbnailCache : Object {
             photo_id.id, file.get_path());
         
         // scale according to cache's parameters
-        Gdk.Pixbuf scaled = scale_pixbuf(original, scale, interp);
+        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp);
         
         // save scaled image as JPEG
         int filesize = -1;
@@ -242,7 +227,7 @@ public class ThumbnailCache : Object {
         remove_from_memory(photo_id);
         
         // scale to cache's parameters
-        Gdk.Pixbuf scaled = scale_pixbuf(original, scale, interp);
+        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp);
         
         // save scaled image as JPEG
         int filesize = -1;
@@ -296,6 +281,14 @@ public class ThumbnailCache : Object {
         remove_from_memory(photo_id);
         
         ImageData data = new ImageData(thumbnail);
+
+        // see if this is too large to keep in memory
+        if(data.bytes > MAX_INMEMORY_DATA_SIZE) {
+            debug("Persistant thumbnail [%lld] too large to cache in memory", photo_id.id);
+
+            return;
+        }
+        
         cache_map.set(photo_id.id, data);
         cache_lru.insert(0, photo_id.id);
         
@@ -310,14 +303,15 @@ public class ThumbnailCache : Object {
             cache_lru.remove_at(index);
             
             data = cache_map.get(id);
-            assert(data.bytes <= cached_bytes);
-            cached_bytes -= data.bytes;
             
             cycle_overflow_thumbnails++;
             schedule_debug();
             
             bool removed = cache_map.remove(id);
             assert(removed);
+
+            assert(data.bytes <= cached_bytes);
+            cached_bytes -= data.bytes;
         }
     }
     
@@ -341,7 +335,7 @@ public class ThumbnailCache : Object {
     }
     
     private int save_thumbnail(File file, Gdk.Pixbuf pixbuf) throws Error {
-        if (!pixbuf.save(file.get_path(), "jpeg", "quality", jpeg_quality))
+        if (!pixbuf.save(file.get_path(), "jpeg", "quality", quality.get_pct_text()))
             error("Unable to save thumbnail %s", file.get_path());
 
         FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 

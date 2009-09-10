@@ -324,7 +324,7 @@ public abstract class EditingTool {
     
     public signal void deactivated();
     
-    public signal void applied(Gdk.Pixbuf? new_pixbuf);
+    public signal void applied(Gdk.Pixbuf? new_pixbuf, bool needs_improvement);
     
     public signal void cancelled();
     
@@ -616,9 +616,14 @@ public class CropTool : EditingTool {
 
         // store the new crop
         canvas.get_photo().set_crop(crop);
+        
+        // crop the current pixbuf and offer it to the editing host
+        Gdk.Pixbuf cropped = new Gdk.Pixbuf.subpixbuf(canvas.get_scaled_pixbuf(), scaled_crop.left,
+            scaled_crop.top, scaled_crop.get_width(), scaled_crop.get_height());
 
-        // signal application; we don't have the cropped image, so the host needs to fetch it
-        applied(null);
+        // signal host; we have a cropped image, but it will be scaled upward, and so a better one
+        // should be fetched
+        applied(cropped, true);
     }
     
     private void update_cursor(int x, int y) {
@@ -1140,7 +1145,7 @@ public class RedeyeTool : EditingTool {
     }
     
     private void on_close() {
-        applied(current_pixbuf);
+        applied(current_pixbuf, false);
     }
     
     private void on_canvas_resize() {
@@ -1511,7 +1516,7 @@ public class AdjustTool : EditingTool {
 
         AppWindow.get_instance().set_normal_cursor();
 
-        applied(draw_to_pixbuf);
+        applied(draw_to_pixbuf, false);
     }
     
     private void update_transformations(PixelTransformation[] new_transformations) {

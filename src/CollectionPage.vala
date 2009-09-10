@@ -420,6 +420,7 @@ public class CollectionPage : CheckerboardPage {
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
     private bool reschedule_improval = false;
+    private bool layout_refresh_scheduled = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
     private bool thumbs_resized = false;
     private Gee.HashMap<LibraryPhoto, Thumbnail> thumbnail_map = 
@@ -702,10 +703,12 @@ public class CollectionPage : CheckerboardPage {
             return;
         
         photo.removed += on_photo_removed;
-        photo.thumbnail_altered += on_thumbnail_altered;
+        photo.altered += on_photo_altered;
         
         Thumbnail thumbnail = new Thumbnail(photo, scale);
         thumbnail.display_title(display_titles());
+        thumbnail.low_quality_thumbnail += schedule_thumbnail_improval;
+        thumbnail.geometry_changed += schedule_layout_refresh;
         
         add_item(thumbnail);
         thumbnail_map.set(photo, thumbnail);
@@ -725,15 +728,8 @@ public class CollectionPage : CheckerboardPage {
         slideshow_button.sensitive = (get_count() > 0);
     }
     
-    private void on_thumbnail_altered(LibraryPhoto photo) {
+    private void on_photo_altered(LibraryPhoto photo) {
         queryable_altered(photo);
-
-        // the thumbnail is only going to reload a low-quality interp, so schedule improval
-        schedule_thumbnail_improval();
-        
-        // since the geometry might have changed, refresh the layout
-        if (is_in_view())
-            refresh();
     }
     
     private Thumbnail? get_thumbnail_for_photo(LibraryPhoto photo) {
@@ -774,11 +770,6 @@ public class CollectionPage : CheckerboardPage {
         
         foreach (LayoutItem item in get_items())
             ((Thumbnail) item).resize(scale);
-        
-        if (is_in_view()) {
-            refresh();
-            schedule_thumbnail_improval();
-        }
     }
     
     private void schedule_thumbnail_improval() {
@@ -810,6 +801,25 @@ public class CollectionPage : CheckerboardPage {
         improval_scheduled = false;
         
         debug("improve_thumbnail_quality");
+        
+        return false;
+    }
+    
+    private void schedule_layout_refresh() {
+        if (!is_in_view())
+            return;
+            
+        if (layout_refresh_scheduled)
+            return;
+        
+        Idle.add_full(Priority.HIGH, background_refresh);
+        layout_refresh_scheduled = true;
+    }
+    
+    private bool background_refresh() {
+        refresh();
+        
+        layout_refresh_scheduled = false;
         
         return false;
     }
@@ -949,7 +959,7 @@ public class CollectionPage : CheckerboardPage {
         foreach (LayoutItem item in get_selected()) {
             LibraryPhoto photo = ((Thumbnail) item).get_photo();
             photo.removed -= on_photo_removed;
-            photo.thumbnail_altered -= on_thumbnail_altered;
+            photo.altered -= on_photo_altered;
             
             photo.remove(result == Gtk.ResponseType.NO);
             
@@ -963,17 +973,10 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void do_rotations(Gee.Iterable<LayoutItem> c, Rotation rotation) {
-        bool rotation_performed = false;
         foreach (LayoutItem item in c) {
             LibraryPhoto photo = ((Thumbnail) item).get_photo();
             photo.rotate(rotation);
-            
-            rotation_performed = true;
         }
-        
-        // geometry could've changed
-        if (rotation_performed)
-            refresh();
     }
 
     private void on_rotate_clockwise() {
@@ -989,17 +992,10 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_revert() {
-        bool revert_performed = false;
         foreach (LayoutItem item in get_selected()) {
             LibraryPhoto photo = ((Thumbnail) item).get_photo();
             photo.remove_all_transformations();
-            
-            revert_performed = true;
         }
-        
-        // geometry could change
-        if (revert_performed)
-            refresh();
     }
     
     private void on_slideshow() {

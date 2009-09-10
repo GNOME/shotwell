@@ -131,6 +131,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo;
     }
     
+    public override void switched_to() {
+        base.switched_to();
+
+        // check if the photo altered while away
+        if (pixbuf_scaling == null)
+            replace_photo(photo);
+    }
+    
     public override void switching_from() {
         base.switching_from();
 
@@ -151,7 +159,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected void replace_photo(TransformablePhoto new_photo) {
         // if it's the same Photo object and the scaling hasn't changed, there's nothing to do
         // otherwise, need to reload the image for the proper scaling
-        if (new_photo == photo && (pixbuf_scaling == null || pixbuf_scaling.equals(get_canvas_scaling())))
+        if (new_photo == photo && pixbuf_scaling != null && pixbuf_scaling.equals(get_canvas_scaling()))
             return;
         
         // only check if okay if there's something to replace
@@ -217,7 +225,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // message loop run to get the real pixbuf on-screen.  If no transformations, don't bother.
         // TODO: Allow viewing the original while a tool is activated.
         if (original == null && photo.has_transformations() && current_tool == null)
-            Idle.add(fetch_original);
+            Idle.add_full(Priority.LOW, fetch_original);
         
         return false;
     }
@@ -300,7 +308,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         default_repaint();
     }
     
-    private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null) {
+    private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null, bool needs_improvement = false) {
         if (current_tool == null)
             return;
         
@@ -317,15 +325,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // display the (possibly) new photo
         Gdk.Pixbuf replacement = null;
-        if (new_pixbuf != null)
+        if (new_pixbuf != null) {
             replacement = new_pixbuf;
-        else if (cancel_editing_pixbuf != null)
+        } else if (cancel_editing_pixbuf != null) {
             replacement = cancel_editing_pixbuf;
-        else
+            needs_improvement = false;
+        } else {
             replacement = photo.get_pixbuf(get_canvas_scaling());
+            needs_improvement = false;
+        }
         
         set_pixbuf(replacement);
         cancel_editing_pixbuf = null;
+        
+        // if this is a rough pixbuf, schedule an improvement
+        if (needs_improvement)
+            Idle.add(update_pixbuf);
 
         // return to fast interpolation for viewing
         set_default_interp(FAST_INTERP);
@@ -613,12 +628,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         current_editing_toggle.active = false;
     }
     
-    private void on_tool_applied(Gdk.Pixbuf? new_pixbuf) {
+    private void on_tool_applied(Gdk.Pixbuf? new_pixbuf, bool needs_improvement) {
         // if the tool didn't supply a pixbuf, it's relying on the host to generate it from Photo
-        Gdk.Pixbuf final_pixbuf = (new_pixbuf != null) ? new_pixbuf 
-            : photo.get_pixbuf(get_canvas_scaling());
+        Gdk.Pixbuf final_pixbuf = new_pixbuf;
+        if (final_pixbuf == null) {
+            final_pixbuf = photo.get_pixbuf(get_canvas_scaling());
+            needs_improvement = false;
+        }
         
-        deactivate_tool(final_pixbuf);
+        deactivate_tool(final_pixbuf, needs_improvement);
     }
     
     private void on_tool_cancelled() {
@@ -654,10 +672,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 "transform histogram");
         }
 
-        PixelTransformation[] transformations =
-            new PixelTransformation[SupportedAdjustments.NUM];
-        
-        AutoEnhance.create_auto_enhance_adjustments(pixbuf, out transformations);
+        PixelTransformation[] transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
 
         /* if the current tool is the adjust tool, then don't commit to the database --
            just set the slider values in the adjust dialog and force it to repaint
@@ -672,7 +687,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         AppWindow.get_instance().set_normal_cursor();
         
-        quick_update_pixbuf();
+        update_pixbuf();
     }
 
     private void place_tool_window() {

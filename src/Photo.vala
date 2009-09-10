@@ -1389,7 +1389,7 @@ public class LibraryPhoto : TransformablePhoto {
     
     private static Gee.HashMap<int64?, LibraryPhoto> photo_map = null;
     
-    private bool generate_thumbnails = true;
+    private bool block_thumbnail_generation = false;
     
     public signal void thumbnail_altered();
     
@@ -1469,23 +1469,29 @@ public class LibraryPhoto : TransformablePhoto {
         notifier.removed(this);
     }
     
+    private bool generate_thumbnails() {
+        // load transformed image for thumbnail generation
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = get_pixbuf(Scaling.for_best_fit(ThumbnailCache.Size.BIG.get_scale()));
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        ThumbnailCache.import(get_photo_id(), pixbuf, true);
+        
+        // fire signal that thumbnails have changed
+        thumbnail_altered();
+        
+        return false;
+    }
+    
     private override void altered () {
         // the exportable file is now not in sync with transformed photo
         remove_exportable_file();
 
-        if (generate_thumbnails) {
-            // load transformed image for thumbnail generation
-            Gdk.Pixbuf pixbuf = null;
-            try {
-                pixbuf = get_pixbuf(Scaling.for_screen());
-            } catch (Error err) {
-                error("%s", err.message);
-            }
-            ThumbnailCache.import(get_photo_id(), pixbuf, true);
-            
-            // fire signal that thumbnails have changed
-            thumbnail_altered();
-        }
+        // generate new thumbnails in the background
+        if (!block_thumbnail_generation)
+            Idle.add_full(Priority.LOW, generate_thumbnails);
         
         base.altered();
         
@@ -1493,26 +1499,26 @@ public class LibraryPhoto : TransformablePhoto {
     }
 
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) {
-        Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.BIG_SCALE);
+        Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.Size.BIG);
         
         return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST);
     }
     
     public override void rotate(Rotation rotation) {
         // block thumbnail generation for this operation; taken care of below
-        generate_thumbnails = false;
+        block_thumbnail_generation = true;
         base.rotate(rotation);
-        generate_thumbnails = true;
+        block_thumbnail_generation = false;
 
         // because rotations are (a) common and available everywhere in the app, (b) the user expects
         // a level of responsiveness not necessarily required by other modifications, (c) can be
         // performed on multiple images simultaneously, and (d) can't cache a lot of full-sized
         // pixbufs for rotate-and-scale ops, perform the rotation directly on the already-modified 
         // thumbnails.
-        foreach (int scale in ThumbnailCache.SCALES) {
-            Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(get_photo_id(), scale);
+        foreach (ThumbnailCache.Size size in ThumbnailCache.ALL_SIZES) {
+            Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(get_photo_id(), size);
             thumbnail = rotation.perform(thumbnail);
-            ThumbnailCache.replace(get_photo_id(), scale, thumbnail);
+            ThumbnailCache.replace(get_photo_id(), size, thumbnail);
         }
 
         thumbnail_altered();
