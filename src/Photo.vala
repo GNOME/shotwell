@@ -1656,15 +1656,20 @@ public class LibraryPhoto : TransformablePhoto {
 }
 
 public class DirectPhoto : TransformablePhoto {
+    private const int PREVIEW_BEST_FIT = 360;
+    
     private static Gee.HashMap<File, DirectPhoto> photo_map = null;
     
-    private Gdk.Pixbuf current_pixbuf;
+    private Gdk.Pixbuf preview;
     private File exportable = null;
     
     private DirectPhoto(PhotoRow row, Gdk.Pixbuf? initial_pixbuf) {
         base(row);
         
-        current_pixbuf = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(Scaling.for_screen());
+        // Use the initial pixbuf for preview, since it's decoded; if not available generate one
+        // now
+        preview = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(
+            Scaling.for_best_fit(PREVIEW_BEST_FIT));
     }
     
     public static void init() {
@@ -1743,12 +1748,12 @@ public class DirectPhoto : TransformablePhoto {
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
-        return scaling.perform_on_pixbuf(current_pixbuf, Gdk.InterpType.BILINEAR);
+        return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR);
     }
     
     private override void altered() {
         // stash the current pixbuf for previews and such, and flush the generated exportable file
-        current_pixbuf = base.get_pixbuf(Scaling.for_screen());
+        preview = base.get_pixbuf(Scaling.for_best_fit(PREVIEW_BEST_FIT));
         exportable = null;
         
         base.altered();

@@ -135,7 +135,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.switched_to();
 
         // check if the photo altered while away
-        if (pixbuf_scaling == null)
+        if (photo != null && pixbuf_scaling == null)
             replace_photo(photo);
     }
     
