@@ -266,7 +266,7 @@ public abstract class TransformablePhoto: PhotoBase {
     }
     
     public Event? get_event() {
-        return row.event_id.is_valid() ? Event.fetch(row.event_id) : null;
+        return row.event_id.is_valid() ? Event.global.fetch(row.event_id) : null;
     }
     
     // WARNING: This method does not do all the hard work of removing the photo properly from an
@@ -1370,7 +1370,7 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 }
 
-public class LibraryPhotoNotifier : ClassNotifier {
+public class LibraryPhotoNotifier {
     public signal void added(LibraryPhoto photo);
     
     public signal void altered(LibraryPhoto photo);

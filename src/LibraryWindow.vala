@@ -203,14 +203,13 @@ public class LibraryWindow : AppWindow {
              collection_page.add_photo(photo);
 
         // watch for new & removed events
-        Event.notifier.added += on_added_event;
-        Event.notifier.removed += on_event_removed;
-        Event.notifier.altered += on_event_altered;
+        Event.global.items_added += on_added_events;
+        Event.global.items_removed += on_removed_events;
+        Event.global.item_altered += on_event_altered;
 
         // add stored events
-        Gee.ArrayList<Event> events = Event.fetch_all();
-        foreach (Event event in events)
-            add_event_page(event);
+        foreach (DataObject object in Event.global.get_all())
+            add_event_page((Event) object);
         
         // start in the collection page
         sidebar.place_cursor(collection_page);
@@ -577,15 +576,19 @@ public class LibraryWindow : AppWindow {
         return null;
     }
     
-    private void on_added_event(Event event) {
-        add_event_page(event);
+    private void on_added_events(Gee.Iterable<DataObject> objects) {
+        foreach (DataObject object in objects)
+            add_event_page((Event) object);
     }
     
-    private void on_event_removed(Event event) {
-        remove_event_page(event);
+    private void on_removed_events(Gee.Iterable<DataObject> objects) {
+        foreach (DataObject object in objects)
+            remove_event_page((Event) object);
     }
 
-    private void on_event_altered(Event event) {
+    private void on_event_altered(DataObject object) {
+        Event event = (Event) object;
+        
         // refresh sidebar
         foreach (EventPageProxy proxy in event_list) {
             if (proxy.event.equals(event)) {

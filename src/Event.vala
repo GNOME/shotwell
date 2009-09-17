@@ -4,85 +4,69 @@
  * See the COPYING file in this distribution. 
  */
 
-// A ClassNotifier is designed for many-to-one signalling in large-scale situations.  There are
-// times when a single object wants to be signalled on changes on many (or all) of a type of
-// object in the system.
-public class ClassNotifier {
+public class EventSourceCollection : SourceCollection {
+    private Gee.HashMap<int64?, Event> map = new Gee.HashMap<int64?, Event>(int64_hash, int64_equal,
+        direct_equal);
+        
+    public override void items_added(Gee.Iterable<DataObject> added) {
+        foreach (DataObject object in added) {
+            Event event = (Event) object;
+            EventID event_id = event.get_event_id();
+            map.set(event_id.id, event);
+        }
+        
+        base.items_added(added);
+    }
+    
+    public override void items_removed(Gee.Iterable<DataObject> removed) {
+        foreach (DataObject object in removed) {
+            Event event = (Event) object;
+            EventID event_id = event.get_event_id();
+            bool is_removed = map.remove(event_id.id);
+            assert(is_removed);
+        }
+        
+        base.items_removed(removed);
+    }
+    
+    public EventSourceCollection() {
+    }
+
+    public Event fetch(EventID event_id) {
+        return map.get(event_id.id);
+    }
 }
 
-public class EventNotifier : ClassNotifier {
-    public signal void added(Event event);
-    
-    public signal void altered(Event event);
-    
-    public signal void removed(Event event);
-}
-
-public class Event : Object, Queryable, EventSource {
+public class Event : EventSource {
     public const long EVENT_LULL_SEC = 3 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     
-    public static EventNotifier notifier = null;
+    public static EventSourceCollection global = null;
     
-    private static Gee.HashMap<int64?, Event> event_map = null;
     private static EventTable event_table = null;
 
     private EventID event_id;
-    
-    public virtual signal void altered() {
-    }
-    
-    public virtual signal void removed() {
-    }
     
     private Event(EventID event_id) {
         this.event_id = event_id;
     }
     
     public static void init() {
-        event_map = new Gee.HashMap<int64?, Event>(int64_hash, int64_equal, direct_equal);
         event_table = new EventTable();
-        notifier = new EventNotifier();
+        global = new EventSourceCollection();
+        
+        // add all events to the global collection
+        Gee.ArrayList<EventID?> events = event_table.get_events();
+        foreach (EventID event_id in events) {
+            Event event = new Event(event_id);
+            global.add(event);
+        }
         
         // Event watches LibraryPhoto for removals
         LibraryPhoto.notifier.removed += on_photo_removed;
     }
     
     public static void terminate() {
-    }
-    
-    public static Gee.ArrayList<Event> fetch_all() {
-        Gee.ArrayList<EventID?> events = event_table.get_events();
-        
-        Gee.ArrayList<Event> all = new Gee.ArrayList<Event>();
-        foreach (EventID event_id in events)
-            all.add(fetch(event_id));
-        
-        return all;
-    }
-    
-    public static Event fetch(EventID event_id) {
-        Event event = event_map.get(event_id.id);
-        if (event == null) {
-            event = new Event(event_id);
-            event_map.set(event_id.id, event);
-        }
-        
-        return event;
-    }
-    
-    private static void notify_added(Event event) {
-        notifier.added(event);
-    }
-    
-    private void notify_altered() {
-        altered();
-        notifier.altered(this);
-    }
-    
-    private void notify_removed() {
-        removed();
-        notifier.removed(this);
     }
     
     // Event needs to know whenever a photo is removed from the system to update the event
@@ -107,7 +91,7 @@ public class Event : Object, Queryable, EventSource {
             } else {
                 // this indicates this is the last photo of the event, so no more event
                 assert(event.get_photo_count() <= 1);
-                event.remove();
+                event.destroy();
             }
         }
     }
@@ -161,13 +145,13 @@ public class Event : Object, Queryable, EventSource {
                     assert(last_exposure != 0);
                     current_event.set_end_time(last_exposure);
                     
-                    notify_added(current_event);
+                    global.add(current_event);
                     
                     debug("Reported event creation %s", current_event.to_string());
                 }
 
                 current_event_start = exposure_time;
-                current_event = Event.fetch(
+                current_event = new Event(
                     event_table.create(photo.get_photo_id(), current_event_start));
 
                 debug("Created event %s", current_event.to_string());
@@ -188,7 +172,7 @@ public class Event : Object, Queryable, EventSource {
             assert(last_exposure != 0);
             current_event.set_end_time(last_exposure);
             
-            notify_added(current_event);
+            global.add(current_event);
             
             debug("Reported event creation %s", current_event.to_string());
         }
@@ -215,7 +199,7 @@ public class Event : Object, Queryable, EventSource {
         return "[%lld] %s".printf(event_id.id, get_name());
     }
     
-    public string get_name() {
+    public override string get_name() {
         return event_table.get_name(event_id);
     }
     
@@ -231,11 +215,11 @@ public class Event : Object, Queryable, EventSource {
         return renamed;
     }
     
-    public time_t get_start_time() {
+    public override time_t get_start_time() {
         return event_table.get_start_time(event_id);
     }
     
-    public time_t get_end_time() {
+    public override time_t get_end_time() {
         return event_table.get_end_time(event_id);
     }
     
@@ -247,15 +231,15 @@ public class Event : Object, Queryable, EventSource {
         return committed;
     }
     
-    public uint64 get_total_filesize() {
+    public override uint64 get_total_filesize() {
         return (new PhotoTable()).get_event_photo_filesize(event_id);
     }
     
-    public int get_photo_count() {
+    public override int get_photo_count() {
         return (new PhotoTable()).get_event_photo_count(event_id);
     }
     
-    public Gee.Iterable<PhotoSource> get_photos() {
+    public override Gee.Iterable<PhotoSource> get_photos() {
         Gee.ArrayList<PhotoID?> photos = (new PhotoTable()).get_event_photos(event_id);
         
         Gee.ArrayList<PhotoSource> result = new Gee.ArrayList<PhotoSource>();
@@ -281,14 +265,14 @@ public class Event : Object, Queryable, EventSource {
         return get_primary_photo().get_preview_pixbuf(scaling);
     }
 
-    public void remove() {
-        // signal that the event is being removed
-        notify_removed();
-
+    public override void destroy() {
         // remove from the database
         event_table.remove(event_id);
         
         // mark all photos for this event as now event-less
         (new PhotoTable()).drop_event(event_id);
+        
+        base.destroy();
    }
 }
+

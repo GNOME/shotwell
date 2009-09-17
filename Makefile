@@ -46,6 +46,7 @@ SRC_FILES = \
 	ColorTransformation.vala \
 	EditingTools.vala \
 	Queryable.vala \
+	DataSource.vala \
 	LibraryWindow.vala \
 	CameraTable.vala \
 	DirectWindow.vala \

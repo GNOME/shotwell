@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-class EventDirectoryItem : LayoutItem, EventSource {
+class EventDirectoryItem : LayoutItem {
     public const int SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
         + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
     
@@ -29,26 +29,6 @@ class EventDirectoryItem : LayoutItem, EventSource {
         event.altered += on_event_altered;
     }
 
-    public time_t get_start_time() {
-        return event.get_start_time();
-    }
-
-    public time_t get_end_time() {
-        return event.get_end_time();
-    }
-
-    public Gee.Iterable<PhotoSource> get_photos() {
-        return event.get_photos();
-    }
-
-    public int get_photo_count() {
-        return event.get_photo_count();
-    }
-    
-    public uint64 get_total_filesize() {
-        return event.get_total_filesize();
-    }
-    
     public override void exposed() {
         if (is_exposed)
             return;
@@ -146,8 +126,9 @@ public class EventsDirectoryPage : CheckerboardPage {
     public EventsDirectoryPage() {
         base("Events");
         
-        // watch for creation of new events
-        Event.notifier.added += on_added_event;
+        // watch for creation and destruction of events
+        Event.global.items_added += on_added_events;
+        Event.global.items_removed += on_removed_events;
         
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", ACTIONS);
         init_ui_bind("/EventsDirectoryMenuBar");
@@ -158,9 +139,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         set_layout_comparator(new CompareEventItem(LibraryWindow.get_app().get_events_sort()));
 
         // add all events to the page
-        Gee.ArrayList<Event> events = Event.fetch_all();
-        foreach (Event event in events)
-            add_event(event);
+        on_added_events(Event.global.get_all());
 
         init_item_context_menu("/EventsDirectoryContextMenu");
     }
@@ -222,11 +201,9 @@ public class EventsDirectoryPage : CheckerboardPage {
         return (page != null) ? page.get_fullscreen_photo() : null;
     }
 
-    public void add_event(Event event) {
+    private void add_event(Event event) {
         EventDirectoryItem item = new EventDirectoryItem(event);
         add_item(item);
-        
-        event.removed += on_event_removed;
     }
     
     public void notify_sort_changed(int sort) {
@@ -251,26 +228,29 @@ public class EventsDirectoryPage : CheckerboardPage {
         }
     }
     
-    private void on_added_event(Event event) {
-        add_event(event);
+    private void on_added_events(Gee.Iterable<DataObject> objects) {
+        foreach (DataObject object in objects)
+            add_event((Event) object);
         
         refresh();
     }
     
-    private void on_event_removed(Event event) {
-        // have to remove the item outside the iterator
-        EventDirectoryItem to_remove = null;
-        foreach (LayoutItem item in get_items()) {
-            EventDirectoryItem event_item = (EventDirectoryItem) item;
-            if (event_item.event.equals(event)) {
-                to_remove = event_item;
-                
-                break;
+    private void on_removed_events(Gee.Iterable<Event> events) {
+        foreach (Event event in events) {
+            // have to remove the item outside the iterator
+            EventDirectoryItem to_remove = null;
+            foreach (LayoutItem item in get_items()) {
+                EventDirectoryItem event_item = (EventDirectoryItem) item;
+                if (event_item.event.equals(event)) {
+                    to_remove = event_item;
+                    
+                    break;
+                }
             }
+            
+            if (to_remove != null)
+                remove_item(to_remove);
         }
-        
-        if (to_remove != null)
-            remove_item(to_remove);
     }
 }
 
@@ -318,7 +298,7 @@ public class EventPage : CollectionPage {
         set_page_name(page_event.get_name());
     }
 
-    private void on_rename() {      
+    private void on_rename() {
         EventRenameDialog rename_dialog = new EventRenameDialog(page_event.get_raw_name());
         rename(rename_dialog.execute());
     }

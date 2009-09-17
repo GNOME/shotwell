@@ -17,15 +17,3 @@ public interface PhotoSource : Queryable {
 
     public abstract Exif.Data? get_exif();
 }
-
-public interface EventSource : Queryable {
-    public abstract time_t get_start_time();
-
-    public abstract time_t get_end_time();
-
-    public abstract uint64 get_total_filesize();
-
-    public abstract int get_photo_count();
-
-    public abstract Gee.Iterable<PhotoSource> get_photos();
-}
