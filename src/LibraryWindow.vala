@@ -22,24 +22,6 @@ public class LibraryWindow : AppWindow {
     private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
     };
-    
-    // Common actions available to all pages
-    private const Gtk.ActionEntry[] COMMON_LIBRARY_ACTIONS = {
-        { "CommonFileImport", Resources.IMPORT, "_Import From Folder...", "<Ctrl>I", "Import photos from disk to library",
-            on_file_import },
-        { "CommonSortEvents", null, "Sort _Events", null, null, on_sort_events }
-    };
-
-    private const Gtk.ToggleActionEntry[] COMMON_TOGGLE_ACTIONS = {
-        { "CommonDisplayBasicProperties", null, "Basic _Information", "<Ctrl><Shift>I", "Display basic information of the selection", on_display_basic_properties, false }
-    };
-    
-    private const Gtk.RadioActionEntry[] COMMON_SORT_EVENTS_ORDER_ACTIONS = {
-        { "CommonSortEventsAscending", Gtk.STOCK_SORT_ASCENDING, "_Ascending", null, 
-            "Sort photos in an ascending order", SORT_EVENTS_ORDER_ASCENDING },
-        { "CommonSortEventsDescending", Gtk.STOCK_SORT_DESCENDING, "D_escending", null, 
-            "Sort photos in a descending order", SORT_EVENTS_ORDER_DESCENDING }
-    };
 
     public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
 
@@ -236,6 +218,55 @@ public class LibraryWindow : AppWindow {
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
     }
+    
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry import = { "CommonFileImport", Resources.IMPORT,
+            TRANSLATABLE, "<Ctrl>I", TRANSLATABLE, on_file_import };
+        import.label = _("_Import From Folder...");
+        import.tooltip = _("Import photos from disk to library");
+        actions += import;
+
+        Gtk.ActionEntry sort = { "CommonSortEvents", null, TRANSLATABLE, null, null,
+            on_sort_events };
+        sort.label = _("Sort _Events");
+        actions += sort;
+        
+        return actions;
+    }
+    
+    private Gtk.ToggleActionEntry[] create_toggle_actions() {
+        Gtk.ToggleActionEntry[] actions = new Gtk.ToggleActionEntry[0];
+
+        Gtk.ToggleActionEntry basic_props = { "CommonDisplayBasicProperties", null,
+            TRANSLATABLE, "<Ctrl><Shift>I", TRANSLATABLE, on_display_basic_properties, false };
+        basic_props.label = _("Basic _Information");
+        basic_props.tooltip = _("Display basic information of the selection");
+        actions += basic_props;
+
+        return actions;
+    }
+
+    private Gtk.RadioActionEntry[] create_order_actions() {
+        Gtk.RadioActionEntry[] actions = new Gtk.RadioActionEntry[0];
+
+        Gtk.RadioActionEntry ascending = { "CommonSortEventsAscending",
+            Gtk.STOCK_SORT_ASCENDING, TRANSLATABLE, null, TRANSLATABLE,
+            SORT_EVENTS_ORDER_ASCENDING };
+        ascending.label = _("_Ascending");
+        ascending.tooltip = _("Sort photos in an ascending order");
+        actions += ascending;
+
+        Gtk.RadioActionEntry descending = { "CommonSortEventsDescending",
+            Gtk.STOCK_SORT_DESCENDING, TRANSLATABLE, null, TRANSLATABLE,
+            SORT_EVENTS_ORDER_DESCENDING };
+        descending.label = _("D_escending");
+        descending.tooltip = _("Sort photos in a descending order");
+        actions += descending;
+
+        return actions;
+    }
 
     public override void show_all() {
         base.show_all();
@@ -274,7 +305,7 @@ public class LibraryWindow : AppWindow {
             list += "%s\n".printf(failed.get(ctr));
         
         if (failed.size > 4)
-            list += "%d more photo(s) not imported.\n".printf(failed.size - 4);
+            list += _("%d more photo(s) not imported.\n").printf(failed.size - 4);
         
         return list;
     }
@@ -287,15 +318,15 @@ public class LibraryWindow : AppWindow {
         if (failed_list == null && skipped_list == null)
             return;
             
-        string message = "Import from %s did not complete.\n".printf(name);
+        string message = _("Import from %s did not complete.\n").printf(name);
 
         if (failed_list != null) {
-            message += "\n%d photos failed due to error:\n".printf(failed.size);
+            message += _("\n%d photos failed due to error:\n").printf(failed.size);
             message += failed_list;
         }
         
         if (skipped_list != null) {
-            message += "\n%d photos were skipped:\n".printf(skipped.size);
+            message += _("\n%d photos were skipped:\n").printf(skipped.size);
             message += skipped_list;
         }
         
@@ -305,10 +336,10 @@ public class LibraryWindow : AppWindow {
     public override void add_common_actions(Gtk.ActionGroup action_group) {
         base.add_common_actions(action_group);
         
-        action_group.add_actions(COMMON_LIBRARY_ACTIONS, this);
-        action_group.add_toggle_actions(COMMON_TOGGLE_ACTIONS, this);
-        action_group.add_radio_actions(COMMON_SORT_EVENTS_ORDER_ACTIONS, SORT_EVENTS_ORDER_ASCENDING,
-            on_events_sort_changed);
+        action_group.add_actions(create_actions(), this);
+        action_group.add_toggle_actions(create_toggle_actions(), this);
+        action_group.add_radio_actions(create_order_actions(),
+            SORT_EVENTS_ORDER_ASCENDING, on_events_sort_changed);
     }
     
     public override string get_app_role() {
@@ -358,10 +389,10 @@ public class LibraryWindow : AppWindow {
     
     private void on_file_import() {
         Gtk.CheckButton copy_toggle = new Gtk.CheckButton.with_mnemonic(
-            "_Copy files to %s photo library".printf(get_photos_dir().get_basename()));
+            _("_Copy files to %s photo library").printf(get_photos_dir().get_basename()));
         copy_toggle.set_active(true);
         
-        Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog("Import From Folder", null,
+        Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
             Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
             Gtk.STOCK_OK, Gtk.ResponseType.OK);
         import_dialog.set_select_multiple(true);
@@ -500,16 +531,15 @@ public class LibraryWindow : AppWindow {
         }
         
         if (context.suggested_action == Gdk.DragAction.ASK) {
-            string msg = "Shotwell can copy or move the photos into your %s directory, or it can "
-                + "link to the photos without duplicating them.";
+            string msg = _("Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them.");
             msg = msg.printf(get_photos_dir().get_basename());
 
             Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
                 Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, msg);
 
-            dialog.add_button("Copy into Library", Gdk.DragAction.COPY);
-            dialog.add_button("Create Links", Gdk.DragAction.LINK);
-            dialog.title = "Import to Library";
+            dialog.add_button(_("Copy into Library"), Gdk.DragAction.COPY);
+            dialog.add_button(_("Create Links"), Gdk.DragAction.LINK);
+            dialog.title = _("Import to Library");
 
             Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
             
@@ -649,7 +679,7 @@ public class LibraryWindow : AppWindow {
         // create the Cameras row if this is the first one
         if (cameras_marker == null)
             cameras_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
-                "Cameras");
+                _("Cameras"));
         
         camera_pages.set(camera.uri, page);
         add_child_page(cameras_marker, page);

@@ -297,9 +297,9 @@ public class EventRenameDialog : Gtk.Dialog {
 
         add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
                     Gtk.STOCK_OK, Gtk.ResponseType.OK);
-        set_title("Rename Event");
+        set_title(_("Rename Event"));
 
-        Gtk.Label name_label = new Gtk.Label("Name:");
+        Gtk.Label name_label = new Gtk.Label(_("Name:"));
         name_entry = new Gtk.Entry();
 
         if (event_name != null)

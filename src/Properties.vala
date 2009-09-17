@@ -39,19 +39,23 @@ private class BasicProperties : Gtk.HBox {
     }
     
     private string get_prettyprint_time(Time time) {
-        return "%d:%02d %s".printf(((time.hour + 11) % 12) + 1, time.minute, 
-            time.hour < 12 ? "AM" : "PM");    
+        string timestring = time.format(_("%I:%M %p"));
+        
+        if (timestring[0] == '0')
+            timestring = timestring.substring(1, -1);
+        
+        return timestring;
     }
 
     private string get_prettyprint_date(Time date) {
         string date_string = "";
         Time today = Time.local(time_t());
         if (date.day_of_year == today.day_of_year && date.year == today.year) {
-            date_string = "Today";
+            date_string = _("Today");
         } else if (date.day_of_year == (today.day_of_year - 1) && date.year == today.year) {
-            date_string = "Yesterday";
+            date_string = _("Yesterday");
         } else {
-            date_string = date.format("%a %b") + " %d, %d".printf(date.day, 1900 + date.year);
+            date_string = format_local_date(date);
         }
 
         return date_string;   
@@ -170,17 +174,29 @@ private class BasicProperties : Gtk.HBox {
         get_properties(current_page);   
 
         if (title != "")
-            add_line("Title:",title);
+            add_line(_("Title:"),title);
 
         if (photo_count >= 0) {
             string label = "Items:";
   
             if (event_count >= 0) {
-                add_line(label, "%d Event%s".printf(event_count, event_count == 1 ? "" : "s"));
+                string event_num_string;
+                if (event_count == 1)
+                    event_num_string = _("%d Event");
+                else
+                    event_num_string = _("%d Events");
+
+                add_line(label, event_num_string.printf(event_count));
                 label = "";
             }
 
-            add_line(label, "%d Photo%s".printf(photo_count, photo_count == 1 ? "" : "s"));
+            string photo_num_string;
+            if (photo_count == 1)
+                photo_num_string = _("%d Photo");
+            else
+                photo_num_string = _("%d Photos");    
+
+            add_line(label, photo_num_string.printf(photo_count));
         }
 
         if (start_time != 0) {
@@ -191,25 +207,25 @@ private class BasicProperties : Gtk.HBox {
 
             if (start_date == end_date) {
                 // display only one date if start and end are the same
-                add_line("Date:", start_date);
+                add_line(_("Date:"), start_date);
 
                 if (start_time == end_time) {
                     // display only one time if start and end are the same
-                    add_line("Time:", start_time);
+                    add_line(_("Time:"), start_time);
                 } else {
                     // display time range
-                    add_line("From:", start_time);
-                    add_line("To:", end_time);
+                    add_line(_("From:"), start_time);
+                    add_line(_("To:"), end_time);
                 }
             } else {
                 // display date range
-                add_line("From:", start_date);
-                add_line("To:", end_date);
+                add_line(_("From:"), start_date);
+                add_line(_("To:"), end_date);
             }
         }
 
         if (filesize > 0 || dimensions.has_area()) {
-            string label = "Size:";
+            string label = _("Size:");
 
             if (dimensions.has_area()) {
                 add_line(label, "%d x %d".printf(dimensions.width, dimensions.height));

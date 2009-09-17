@@ -11,11 +11,6 @@ public class FullscreenWindow : PageWindow {
     
     private Gdk.ModifierType ANY_BUTTON_MASK = 
         Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
-    
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN, "Leave _Fullscreen", "Escape", "Leave fullscreen", 
-            on_close }
-    };
 
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
     private Gtk.UIManager ui = new Gtk.UIManager();
@@ -37,7 +32,7 @@ public class FullscreenWindow : PageWindow {
         }
         
         Gtk.ActionGroup action_group = new Gtk.ActionGroup("FullscreenActionGroup");
-        action_group.add_actions(ACTIONS, this);
+        action_group.add_actions(create_actions(), this);
         ui.insert_action_group(action_group, 0);
         ui.ensure_update();
 
@@ -88,6 +83,18 @@ public class FullscreenWindow : PageWindow {
         invoke_toolbar();
 
         current_page.switched_to();
+    }
+    
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN,
+            TRANSLATABLE, "Escape", TRANSLATABLE, on_close };
+        leave_fullscreen.label = _("Leave _Fullscreen");
+        leave_fullscreen.tooltip = _("Leave fullscreen");
+        actions += leave_fullscreen;
+
+        return actions;
     }
     
     private void on_close() {
@@ -283,16 +290,6 @@ public abstract class AppWindow : PageWindow {
     private static bool user_quit = false;
     private static FullscreenWindow fullscreen_window = null;
 
-    // Common actions available to all pages
-    private const Gtk.ActionEntry[] COMMON_ACTIONS = {
-        { "CommonQuit", Gtk.STOCK_QUIT, "_Quit", "<Ctrl>Q", "Quit Shotwell", on_quit },
-        { "CommonAbout", Gtk.STOCK_ABOUT, "_About", null, "About Shotwell", on_about },
-        { "CommonFullscreen", Gtk.STOCK_FULLSCREEN, "_Fullscreen", "F11", "Use Shotwell at fullscreen", 
-            on_fullscreen },
-        { "CommonHelpContents", Gtk.STOCK_HELP, "_Contents", "F1", "More informaton on Shotwell", 
-            on_help_contents }
-    };
-    
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
         assert(instance == null);
@@ -305,6 +302,36 @@ public abstract class AppWindow : PageWindow {
         // this permits the AboutDialog to properly load an URL
         Gtk.AboutDialog.set_url_hook(on_about_link);
         Gtk.AboutDialog.set_email_hook(on_about_link);
+    }
+    
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry quit = { "CommonQuit", Gtk.STOCK_QUIT, TRANSLATABLE, "<Ctrl>Q",
+            TRANSLATABLE, on_quit };
+        quit.label = _("_Quit");
+        quit.tooltip = _("Quit Shotwell");
+        actions += quit;
+
+        Gtk.ActionEntry about = { "CommonAbout", Gtk.STOCK_ABOUT, TRANSLATABLE, null,
+            TRANSLATABLE, on_about };
+        about.label = _("_About");
+        about.tooltip = _("About Shotwell");
+        actions += about;
+
+        Gtk.ActionEntry fullscreen = { "CommonFullscreen", Gtk.STOCK_FULLSCREEN,
+            TRANSLATABLE, "F11", TRANSLATABLE, on_fullscreen };
+        fullscreen.label = _("_Fullscreen");
+        fullscreen.tooltip = _("Use Shotwell at fullscreen");
+        actions += fullscreen;
+
+        Gtk.ActionEntry help_contents = { "CommonHelpContents", Gtk.STOCK_HELP,
+            TRANSLATABLE, "F1", TRANSLATABLE, on_help_contents };
+        help_contents.label = _("_Contents");
+        help_contents.tooltip = _("More informaton on Shotwell");
+        actions += help_contents;
+        
+        return actions;
     }
     
     protected abstract void on_fullscreen();
@@ -440,7 +467,7 @@ public abstract class AppWindow : PageWindow {
             "copyright", Resources.COPYRIGHT,
             "website", Resources.YORBA_URL,
             "license", Resources.LICENSE,
-            "website-label", "Visit the Yorba web site",
+            "website-label", _("Visit the Yorba web site"),
             "authors", Resources.AUTHORS,
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1)
         );
@@ -473,7 +500,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     public virtual void add_common_actions(Gtk.ActionGroup action_group) {
-        action_group.add_actions(COMMON_ACTIONS, this);
+        action_group.add_actions(create_actions(), this);
     }
 
     public void go_fullscreen(FullscreenWindow fsw) {

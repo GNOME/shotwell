@@ -107,30 +107,17 @@ public class EventsDirectoryPage : CheckerboardPage {
             }
         }
     }
-    
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, null },
-        
-        { "ViewMenu", null, "_View", null, null, on_view_menu },
-
-        { "HelpMenu", null, "_Help", null, null, null },
-
-        { "EditMenu", null, "_Edit", null, null, on_edit_menu },
-
-        { "Rename", null, "Rename Event...", "F2", "Rename event", on_rename }
-    };
-    
+   
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
 
     public EventsDirectoryPage() {
-        base("Events");
-        
+        base(_("Events"));
+
         // watch for creation and destruction of events
         Event.global.items_added += on_added_events;
         Event.global.items_removed += on_removed_events;
         
-        init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", ACTIONS);
+        init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
         
         // scrollbar policy
@@ -142,6 +129,33 @@ public class EventsDirectoryPage : CheckerboardPage {
         on_added_events(Event.global.get_all());
 
         init_item_context_menu("/EventsDirectoryContextMenu");
+    }
+    
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
+        edit.label = _("_Edit");
+        actions += edit;
+
+        Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, "F2", TRANSLATABLE, on_rename };
+        rename.label = _("Rename Event...");
+        rename.tooltip = _("Rename event");
+        actions += rename;
+       
+        return actions;
     }
     
     public override void realize() {
@@ -256,15 +270,9 @@ public class EventsDirectoryPage : CheckerboardPage {
 
 public class EventPage : CollectionPage {
     public Event page_event;
-    
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "MakePrimary", Resources.MAKE_PRIMARY, "Make _Key Photo for Event", null, null, on_make_primary },
-
-        { "Rename", null, "Rename Event...", "F2", "Rename event", on_rename }
-    };
 
     public EventPage(Event page_event) {
-        base(page_event.get_name(), "event.ui", ACTIONS);
+        base(page_event.get_name(), "event.ui", create_actions());
         
         this.page_event = page_event;
 
@@ -274,6 +282,22 @@ public class EventPage : CollectionPage {
             add_photo((LibraryPhoto) source);
 
         init_page_context_menu("/EventContextMenu");
+    }
+    
+    private static Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] new_actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry make_primary = { "MakePrimary", Resources.MAKE_PRIMARY,
+            TRANSLATABLE, null, null, on_make_primary };
+        make_primary.label = _("Make _Key Photo for Event");
+        new_actions += make_primary;
+
+        Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, "F2", TRANSLATABLE, on_rename };
+        rename.label = _("Rename Event...");
+        rename.tooltip = _("Rename event");
+        new_actions += rename;
+
+        return new_actions;
     }
     
     protected override void on_photos_menu() {

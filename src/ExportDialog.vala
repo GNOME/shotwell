@@ -11,7 +11,7 @@ namespace ExportUI {
         if (current_export_dir == null)
             current_export_dir = File.new_for_path(Environment.get_home_dir());
             
-        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog("Export Photo",
+        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(_("Export Photo"),
             AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
             Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT, null);
         chooser.set_do_overwrite_confirmation(true);
@@ -33,7 +33,7 @@ namespace ExportUI {
         if (current_export_dir == null)
             current_export_dir = File.new_for_path(Environment.get_home_dir());
 
-        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog("Export Photos",
+        Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog(_("Export Photos"),
             AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, 
             Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT, null);
         chooser.set_current_folder(current_export_dir.get_path());
@@ -50,8 +50,8 @@ namespace ExportUI {
     }
     
     public bool query_overwrite(File file) {
-        return AppWindow.yes_no_question("%s already exists.  Overwrite?".printf(file.get_path()),
-            "Export Photos");
+        return AppWindow.yes_no_question(_("%s already exists.  Overwrite?").printf(file.get_path()),
+            _("Export Photos"));
     }
 }
 
@@ -119,15 +119,15 @@ public class ExportDialog : Gtk.Dialog {
         pixels_entry.activate += on_activate;
 
         // layout controls 
-        add_label("Quality", 0, 0);
+        add_label(_("Quality"), 0, 0);
         add_control(quality_combo, 1, 0);
         
-        add_label("Scaling constraint", 0, 1);
+        add_label(_("Scaling constraint"), 0, 1);
         add_control(constraint_combo, 1, 1);
         
         Gtk.HBox pixels_box = new Gtk.HBox(false, 0);
         pixels_box.pack_start(pixels_entry, true, true, 0);
-        pixels_box.pack_end(new Gtk.Label(" pixels"), false, false, 0);
+        pixels_box.pack_end(new Gtk.Label(_(" pixels")), false, false, 0);
         add_control(pixels_box, 1, 2);
         
         ((Gtk.VBox) get_content_area()).add(table);

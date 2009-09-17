@@ -7,13 +7,15 @@
 // defined by ./configure or Makefile and included by gcc -D
 extern const string _PREFIX;
 extern const string _VERSION;
+extern const string GETTEXT_PACKAGE;
 
 namespace Resources {
     public const string APP_TITLE = "Shotwell";
-    public const string APP_LIBRARY_ROLE = "Photo Organizer";
-    public const string APP_DIRECT_ROLE = "Photo Viewer";
+    public const string APP_LIBRARY_ROLE = _("Photo Organizer");
+    public const string APP_DIRECT_ROLE = _("Photo Viewer");
     public const string APP_VERSION = _VERSION;
-    public const string COPYRIGHT = "Copyright 2009 Yorba Foundation";
+    public const string COPYRIGHT = _("Copyright 2009 Yorba Foundation");
+    public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";
     public const string HELP_URL = "http://trac.yorba.org/wiki/Shotwell";
@@ -60,17 +62,16 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
 
-    public const string ROTATE_CLOCKWISE_LABEL = "Rotate";
-    public const string ROTATE_CLOCKWISE_TOOLTIP = "Rotate the photo(s) right";
-    
-    public const string ROTATE_COUNTERCLOCKWISE_LABEL = "Rotate";
-    public const string ROTATE_COUNTERCLOCKWISE_TOOLTIP = "Rotate the photo(s) left";
-    
+    public const string ROTATE_CW_LABEL = _("Rotate");
+    public const string ROTATE_CCW_LABEL = _("Rotate");
+    public const string ROTATE_CW_TOOLTIP = _("Rotate the photo(s) right");
+    public const string ROTATE_CCW_TOOLTIP = _("Rotate the photo(s) left");
+
     private Gtk.IconFactory factory = null;
     
     public void init () {
         factory = new Gtk.IconFactory();
-        
+
         File icons_dir = AppWindow.get_resources_dir().get_child("icons");
         add_stock_icon(icons_dir.get_child("object-rotate-right.svg"), CLOCKWISE);
         add_stock_icon(icons_dir.get_child("object-rotate-left.svg"), COUNTERCLOCKWISE);
@@ -90,7 +91,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public void terminate() {
     }
-    
+
     public File get_ui(string filename) {
         return AppWindow.get_resources_dir().get_child("ui").get_child(filename);
     }

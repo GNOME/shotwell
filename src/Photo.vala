@@ -61,28 +61,28 @@ public enum ImportResult {
     public string to_string() {
         switch (this) {
             case SUCCESS:
-                return "Success";
+                return _("Success");
             
             case FILE_ERROR:
-                return "File error";
+                return _("File error");
             
             case DECODE_ERROR:
-                return "Unable to decode file";
+                return _("Unable to decode file");
             
             case DATABASE_ERROR:
-                return "Database error";
+                return _("Database error");
             
             case USER_ABORT:
-                return "User aborted import";
+                return _("User aborted import");
             
             case NOT_A_FILE:
-                return "Not a file";
+                return _("Not a file");
             
             case PHOTO_EXISTS:
-                return "File already exists in database";
+                return _("File already exists in database");
             
             case UNSUPPORTED_FORMAT:
-                return "Unsupported file format";
+                return _("Unsupported file format");
             
             default:
                 error("Bad import result: %d", (int) this);

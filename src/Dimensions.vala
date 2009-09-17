@@ -13,16 +13,16 @@ public enum ScaleConstraint {
     public string? to_string() {
         switch (this) {
             case ORIGINAL:
-                return "Original size";
+                return _("Original size");
                 
             case DIMENSIONS:
-                return "Width or height";
+                return _("Width or height");
             
             case WIDTH:
-                return "Width";
+                return _("Width");
             
             case HEIGHT:
-                return "Height";
+                return _("Height");
         }
 
         warn_if_reached();

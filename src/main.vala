@@ -77,10 +77,9 @@ void library_exec(string[] mounts) {
         
         Gtk.main();
     } else {
+        string errormsg = _("The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please use that version or later.");
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, 
-            "The database for your photo library is not compatible with this version of Shotwell.  "
-            + "It appears it was created by Shotwell %s.  Please use that version or later.", app_version);
+            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, errormsg, app_version);
         dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();
@@ -111,6 +110,9 @@ void editing_exec(string filename) {
 void main(string[] args) {
     // init GTK
     Gtk.init(ref args);
+    
+    // init internationalization with the default system locale
+    InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE);
     
     startup_timer = new Timer();
     startup_timer.start();

@@ -276,3 +276,18 @@ public string get_display_pathname(File file) {
 
     return path;
 }
+
+public string format_local_date(Time date) {
+    string date_string = date.format(_("%a %b %d, %Y"));
+    StringBuilder date_string_stripped = new StringBuilder("");
+    bool pre_is_space = true;
+    for (int i = 0; i < date_string.length; i++) {
+        if (pre_is_space && (date_string[i] == '0')) {
+            pre_is_space = false;
+        } else {
+            date_string_stripped.append_unichar(date_string[i]);
+            pre_is_space = date_string[i].isspace();
+        }
+    }
+    return date_string_stripped.str;
+}

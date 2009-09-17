@@ -192,16 +192,16 @@ namespace Jpeg {
         public string? to_string() {
             switch (this) {
                 case LOW:
-                    return "Low (%d%%)".printf((int) this);
+                    return _("Low (%d%%)").printf((int) this);
                 
                 case MEDIUM:
-                    return "Medium (%d%%)".printf((int) this);
+                    return _("Medium (%d%%)").printf((int) this);
                 
                 case HIGH:
-                    return "High (%d%%)".printf((int) this);
+                    return _("High (%d%%)").printf((int) this);
                     
                 case MAXIMUM:
-                    return "Maximum (%d%%)".printf((int) this);
+                    return _("Maximum (%d%%)").printf((int) this);
             }
             
             warn_if_reached();

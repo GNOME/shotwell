@@ -1,6 +1,7 @@
 
 PROGRAM = shotwell
 VERSION = 0.2.1
+GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
 VALAC = valac
@@ -15,7 +16,8 @@ BUILD_RELEASE=1
 -include configure.mk
 
 VALAFLAGS = -g --enable-checking $(USER_VALAFLAGS)
-DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"'
+DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
+     _LANG_SUPPORT_DIR='"/usr/share/locale-langpack"'
 
 SRC_FILES = \
 	main.vala \
@@ -53,7 +55,8 @@ SRC_FILES = \
 	Properties.vala \
 	CustomComponents.vala \
 	Config.vala \
-	Event.vala
+	Event.vala \
+	International.vala
 
 VAPI_FILES = \
 	libexif.vapi \

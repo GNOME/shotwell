@@ -16,6 +16,7 @@ public class ThemeLoader {
             red = green = blue = 0;
         }
     }
+
     private const int NUM_SUPPORTED_INTENSITIES = 6;
     private const int THEME_OUTLINE_COLOR = 0;
     private const int THEME_BEVEL_DARKER_COLOR = 1;
@@ -23,7 +24,7 @@ public class ThemeLoader {
     private const int THEME_BASE_COLOR = 3;
     private const int THEME_BEVEL_LIGHT_COLOR = 4;
     private const int THEME_BEVEL_LIGHTER_COLOR = 5;
-    
+
     private static LightweightColor[] theme_colors = null;
 
     private static void populate_theme_params() {

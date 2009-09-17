@@ -54,36 +54,36 @@ public abstract class EditingHostPage : SinglePhotoPage {
         //
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
+        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked += on_rotate_clockwise;
         toolbar.insert(rotate_button, -1);
         
         // crop tool
         crop_button = new Gtk.ToggleToolButton.from_stock(Resources.CROP);
-        crop_button.set_label("Crop");
-        crop_button.set_tooltip_text("Crop the photo's size");
+        crop_button.set_label(_("Crop"));
+        crop_button.set_tooltip_text(_("Crop the photo's size"));
         crop_button.toggled += on_crop_toggled;
         toolbar.insert(crop_button, -1);
 
         // redeye reduction tool
         redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
-        redeye_button.set_label("Red-eye");
-        redeye_button.set_tooltip_text("Reduce or eliminate any red-eye effects in the photo");
+        redeye_button.set_label(_("Red-eye"));
+        redeye_button.set_tooltip_text(_("Reduce or eliminate any red-eye effects in the photo"));
         redeye_button.toggled += on_redeye_toggled;
         toolbar.insert(redeye_button, -1);
         
         // adjust tool
         adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
-        adjust_button.set_label("Adjust");
-        adjust_button.set_tooltip_text("Adjust the photo's color and tone");
+        adjust_button.set_label(_("Adjust"));
+        adjust_button.set_tooltip_text(_("Adjust the photo's color and tone"));
         adjust_button.toggled += on_adjust_toggled;
         toolbar.insert(adjust_button, -1);
 
         // ehance tool
         enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
-        enhance_button.set_label("Enhance");
-        enhance_button.set_tooltip_text("Automatically improve the photo's appearance");
+        enhance_button.set_label(_("Enhance"));
+        enhance_button.set_tooltip_text(_("Automatically improve the photo's appearance"));
         enhance_button.clicked += on_enhance_clicked;
         toolbar.insert(enhance_button, -1);
 
@@ -94,12 +94,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(separator, -1);
         
         // previous button
-        prev_button.set_tooltip_text("Previous photo");
+        prev_button.set_tooltip_text(_("Previous photo"));
         prev_button.clicked += on_previous_photo;
         toolbar.insert(prev_button, -1);
         
         // next button
-        next_button.set_tooltip_text("Next photo");
+        next_button.set_tooltip_text(_("Next photo"));
         next_button.clicked += on_next_photo;
         toolbar.insert(next_button, -1);
     }
@@ -579,8 +579,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_COUNTERCLOCKWISE_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_COUNTERCLOCKWISE_TOOLTIP);
+        rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -589,8 +589,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.CLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
+        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         
@@ -778,37 +778,84 @@ public abstract class EditingHostPage : SinglePhotoPage {
 }
 
 public class LibraryPhotoPage : EditingHostPage {
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, null },
-        { "Export", Gtk.STOCK_SAVE_AS, "_Export Photos...", "<Ctrl>E", "Export photo to disk", on_export },
-        
-        { "ViewMenu", null, "_View", null, null, on_view_menu },
-        { "ReturnToPage", Resources.RETURN_TO_PAGE, "_Return to Photos", "Escape", null, on_return_to_collection },
-
-        { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
-        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
-        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
-        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise",
-            on_rotate_clockwise },
-        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", 
-            "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", 
-            on_mirror },
-        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", 
-            on_revert },
-
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
-    
     private Gtk.Menu context_menu;
     private CollectionPage return_page = null;
-    
+
     public LibraryPhotoPage() {
         base("Photo");
-        
-        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", ACTIONS);
+
+        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
 
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
+    }
+    
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl>E",
+            TRANSLATABLE, on_export };
+        export.label = _("_Export Photos...");
+        export.tooltip = _("Export photo to disk");
+        actions += export;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
+        view.label = _("_View");
+        actions += view;
+        
+        Gtk.ActionEntry return_to = { "ReturnToPage", Resources.RETURN_TO_PAGE, TRANSLATABLE,
+            "Escape", null, on_return_to_collection };
+        return_to.label = _("_Return to Photos");
+        actions += return_to;
+
+        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, on_photo_menu };
+        photo.label = _("_Photo");
+        actions += photo;
+
+        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
+            TRANSLATABLE, on_previous_photo };
+        prev.label = _("_Previous Photo");
+        prev.tooltip = _("Previous Photo");
+        actions += prev;
+
+        Gtk.ActionEntry next = { "NextPhoto", Gtk.STOCK_GO_FORWARD, TRANSLATABLE, null,
+            TRANSLATABLE, on_next_photo };
+        next.label = _("_Next Photo");
+        next.tooltip = _("Next Photo");
+        actions += next;
+
+        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE, TRANSLATABLE,
+            "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
+        rotate_right.label = _("Rotate _Right");
+        rotate_right.tooltip = _("Rotate the selected photos clockwise");
+        actions += rotate_right;
+
+        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
+            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
+        rotate_left.label = _("Rotate _Left");
+        rotate_left.tooltip = _("Rotate the selected photos counterclockwise");
+        actions += rotate_left;
+
+        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, "<Ctrl>M",
+            TRANSLATABLE, on_mirror };
+        mirror.label = _("_Mirror");
+        mirror.tooltip = _("Make mirror images of the selected photos");
+        actions += mirror;
+
+        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
+            null, TRANSLATABLE, on_revert };
+        revert.label = _("Re_vert to Original");
+        revert.tooltip = _("Revert to the original photo");
+        actions += revert;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
+        return actions;
     }
     
     public void display_for_collection(CollectionPage return_page, TransformablePhoto photo) {
@@ -859,7 +906,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (get_photo() == null)
             return;
         
-        ExportDialog export_dialog = new ExportDialog("Export Photo");
+        ExportDialog export_dialog = new ExportDialog(_("Export Photo"));
         
         int scale;
         ScaleConstraint constraint;
@@ -874,7 +921,7 @@ public class LibraryPhotoPage : EditingHostPage {
         try {
             get_photo().export(save_as, scale, constraint, quality);
         } catch (Error err) {
-            AppWindow.error_message("Unable to export %s: %s".printf(save_as.get_path(), err.message));
+            AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
         }
     }
     
@@ -978,29 +1025,6 @@ public class DirectPhotoCollection : Object, PhotoCollection {
 }
 
 public class DirectPhotoPage : EditingHostPage {
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, on_file },
-        { "Save", Gtk.STOCK_SAVE, "_Save", "<Ctrl>S", "Save photo", on_save },
-        { "SaveAs", Gtk.STOCK_SAVE_AS, "Save _As...", "<Ctrl><Shift>S", "Save photo with a different name", 
-            on_save_as },
-        
-        { "PhotoMenu", null, "_Photo", null, null, on_photo_menu },
-        { "PrevPhoto", Gtk.STOCK_GO_BACK, "_Previous Photo", null, "Previous Photo", on_previous_photo },
-        { "NextPhoto", Gtk.STOCK_GO_FORWARD, "_Next Photo", null, "Next Photo", on_next_photo },
-        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise",
-            on_rotate_clockwise },
-        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", 
-            "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", 
-            on_mirror },
-        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to the original photo", 
-            on_revert },
-
-        { "ViewMenu", null, "_View", null, null, null },
-        
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
-    
     private Gtk.Menu context_menu;
     private File initial_file;
     private File current_save_dir;
@@ -1018,9 +1042,80 @@ public class DirectPhotoPage : EditingHostPage {
         initial_file = file;
         current_save_dir = file.get_parent();
         
-        init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", ACTIONS);
+        init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", create_actions());
 
         context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
+    }
+    
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry save = { "Save", Gtk.STOCK_SAVE, TRANSLATABLE, "<Ctrl>S", TRANSLATABLE,
+            on_save };
+        save.label = _("_Save");
+        save.tooltip = _("Save photo");
+        actions += save;
+
+        Gtk.ActionEntry save_as = { "SaveAs", Gtk.STOCK_SAVE_AS, TRANSLATABLE,
+            "<Ctrl><Shift>S", TRANSLATABLE, on_save_as };
+        save_as.label = _("Save _As...");
+        save_as.tooltip = _("Save photo with a different name");
+        actions += save_as;
+
+        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null,
+            on_photo_menu };
+        photo.label = _("_Photo");
+        actions += photo;
+
+        Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
+            TRANSLATABLE, on_previous_photo };
+        prev.label = _("_Previous Photo");
+        prev.tooltip = _("Previous Photo");
+        actions += prev;
+
+        Gtk.ActionEntry next = { "NextPhoto", Gtk.STOCK_GO_FORWARD, TRANSLATABLE, null,
+            TRANSLATABLE, on_next_photo };
+        next.label = _("_Next Photo");
+        next.tooltip = _("Next Photo");
+        actions += next;
+
+        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
+            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
+        rotate_right.label = _("Rotate _Right");
+        rotate_right.tooltip = _("Rotate the selected photos clockwise");
+        actions += rotate_right;
+
+        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
+            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
+        rotate_left.label = _("Rotate _Left");
+        rotate_left.tooltip = _("Rotate the selected photos counterclockwise");
+        actions += rotate_left;
+
+        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, "<Ctrl>M",
+            TRANSLATABLE, on_mirror };
+        mirror.label = _("_Mirror");
+        mirror.tooltip = _("Make mirror images of the selected photos");
+        actions += mirror;
+
+        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
+            null, TRANSLATABLE, on_revert };
+        revert.label = _("Re_vert to Original");
+        revert.tooltip = _("Revert to the original photo");
+        actions += revert;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
+        return actions;
     }
     
     private static bool check_editable_file(File file) {
@@ -1079,7 +1174,7 @@ public class DirectPhotoPage : EditingHostPage {
             return true;
         }
         
-        bool ok = AppWindow.yes_no_question("Lose changes to %s?".printf(photo.get_name()));
+        bool ok = AppWindow.yes_no_question(_("Lose changes to %s?").printf(photo.get_name()));
         if (ok)
             photo.remove_all_transformations();
         
@@ -1103,7 +1198,7 @@ public class DirectPhotoPage : EditingHostPage {
         try {
             get_photo().export(dest, scale, constraint, quality);
         } catch (Error err) {
-            AppWindow.error_message("Error while saving photo: %s".printf(err.message));
+            AppWindow.error_message(_("Error while saving photo: %s").printf(err.message));
             
             return;
         }
@@ -1123,7 +1218,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_save_as() {
-        ExportDialog export_dialog = new ExportDialog("Save As", ExportDialog.DEFAULT_SCALE,
+        ExportDialog export_dialog = new ExportDialog(_("Save As"), ExportDialog.DEFAULT_SCALE,
             ScaleConstraint.ORIGINAL, ExportDialog.DEFAULT_QUALITY);
         
         int scale;
@@ -1132,7 +1227,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (!export_dialog.execute(out scale, out constraint, out quality))
             return;
 
-        Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog("Save As", 
+        Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog(_("Save As"), 
             AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
             Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
         save_as_dialog.set_select_multiple(false);

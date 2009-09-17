@@ -52,10 +52,10 @@ class SlideshowPage : SinglePhotoPage {
 
             add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
                         Gtk.STOCK_OK, Gtk.ResponseType.OK);
-            set_title("Settings");
+            set_title(_("Settings"));
 
-            Gtk.Label delay_label = new Gtk.Label("Delay:");
-            Gtk.Label units_label = new Gtk.Label("seconds");   
+            Gtk.Label delay_label = new Gtk.Label(_("Delay:"));
+            Gtk.Label units_label = new Gtk.Label(_("seconds"));   
             delay_entry = new Gtk.Entry();
             delay_entry.set_max_length(5);
             delay_entry.set_text("%.1f".printf(delay));
@@ -86,7 +86,7 @@ class SlideshowPage : SinglePhotoPage {
     }
 
     public SlideshowPage(CheckerboardPage controller, Thumbnail start) {
-        base("Slideshow");
+        base(_("Slideshow"));
         
         this.controller = controller;
         this.thumbnail = start;
@@ -95,29 +95,29 @@ class SlideshowPage : SinglePhotoPage {
         
         // add toolbar buttons
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
-        previous_button.set_label("Back");
-        previous_button.set_tooltip_text("Go to the previous photo");
+        previous_button.set_label(_("Back"));
+        previous_button.set_tooltip_text(_("Go to the previous photo"));
         previous_button.clicked += on_previous_manual;
         
         toolbar.insert(previous_button, -1);
         
         play_pause_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PAUSE);
-        play_pause_button.set_label("Pause");
-        play_pause_button.set_tooltip_text("Pause the slideshow");
+        play_pause_button.set_label(_("Pause"));
+        play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         play_pause_button.clicked += on_play_pause;
         
         toolbar.insert(play_pause_button, -1);
         
         Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
-        next_button.set_label("Next");
-        next_button.set_tooltip_text("Go to the next photo");
+        next_button.set_label(_("Next"));
+        next_button.set_tooltip_text(_("Go to the next photo"));
         next_button.clicked += on_next_manual;
         
         toolbar.insert(next_button, -1);
 
         settings_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_PREFERENCES);
-        settings_button.set_label("Settings");
-        settings_button.set_tooltip_text("Change slideshow settings");
+        settings_button.set_label(_("Settings"));
+        settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked += on_change_settings;
         
         toolbar.insert(settings_button, -1);
@@ -167,12 +167,12 @@ class SlideshowPage : SinglePhotoPage {
     private void on_play_pause() {
         if (playing) {
             play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PLAY);
-            play_pause_button.set_label("Play");
-            play_pause_button.set_tooltip_text("Continue the slideshow");
+            play_pause_button.set_label(_("Play"));
+            play_pause_button.set_tooltip_text(_("Continue the slideshow"));
         } else {
             play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PAUSE);
-            play_pause_button.set_label("Pause");
-            play_pause_button.set_tooltip_text("Pause the slideshow");
+            play_pause_button.set_label(_("Pause"));
+            play_pause_button.set_tooltip_text(_("Pause the slideshow"));
         }
         
         playing = !playing;
@@ -426,51 +426,16 @@ public class CollectionPage : CheckerboardPage {
     private Gee.HashMap<LibraryPhoto, Thumbnail> thumbnail_map = 
         new Gee.HashMap<LibraryPhoto, Thumbnail>(direct_hash, direct_equal, direct_equal);
 
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, on_file_menu },
-        { "Export", Gtk.STOCK_SAVE_AS, "_Export Photos...", "<Ctrl>E", "Export selected photos to disk", on_export },
-
-        { "EditMenu", null, "_Edit", null, null, on_edit_menu },
-        { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos in the library", on_select_all },
-        { "Remove", Gtk.STOCK_DELETE, "_Remove", "Delete", "Remove the selected photos from the library", on_remove },
-        
-        { "PhotosMenu", null, "_Photos", null, null, on_photos_menu },
-        { "IncreaseSize", Gtk.STOCK_ZOOM_IN, "Zoom _In", "bracketright", "Increase the magnification of the thumbnails", on_increase_size },
-        { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, "Zoom _Out", "bracketleft", "Decrease the magnification of the thumbnails", on_decrease_size },
-        { "RotateClockwise", Resources.CLOCKWISE, "Rotate _Right", "<Ctrl>R", "Rotate the selected photos clockwise", on_rotate_clockwise },
-        { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE, "Rotate _Left", "<Ctrl><Shift>R", "Rotate the selected photos counterclockwise", on_rotate_counterclockwise },
-        { "Mirror", Resources.MIRROR, "_Mirror", "<Ctrl>M", "Make mirror images of the selected photos", on_mirror },
-        { "Revert", Gtk.STOCK_REVERT_TO_SAVED, "Re_vert to Original", null, "Revert to original photo", on_revert },
-        { "Slideshow", Gtk.STOCK_MEDIA_PLAY, "_Slideshow", "F5", "Play a slideshow", on_slideshow },
-        
-        { "ViewMenu", null, "_View", null, null, on_view_menu },
-        { "SortPhotos", null, "Sort _Photos", null, null, null },
-        
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
-    
-    private const Gtk.ToggleActionEntry[] TOGGLE_ACTIONS = {
-        { "ViewTitle", null, "_Titles", "<Ctrl><Shift>T", "Display the title of each photo", on_display_titles, true }
-    };
-    
-    private const Gtk.RadioActionEntry[] SORT_CRIT_ACTIONS = {
-        { "SortByName", null, "By _Name", null, "Sort photos by name", SORT_BY_NAME },
-        { "SortByExposureDate", null, "By Exposure _Date", null, "Sort photos by exposure date", SORT_BY_EXPOSURE_DATE }
-    };
-    
-    private const Gtk.RadioActionEntry[] SORT_ORDER_ACTIONS = {
-        { "SortAscending", Gtk.STOCK_SORT_ASCENDING, "_Ascending", null, "Sort photos in an ascending order", SORT_ORDER_ASCENDING },
-        { "SortDescending", Gtk.STOCK_SORT_DESCENDING, "D_escending", null, "Sort photos in a descending order", SORT_ORDER_DESCENDING }
-    };
-    
     public CollectionPage(string? page_name = null, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
         base(page_name != null ? page_name : "Photos");
-        
-        init_ui_start("collection.ui", "CollectionActionGroup", ACTIONS, TOGGLE_ACTIONS);
-        action_group.add_radio_actions(SORT_CRIT_ACTIONS, DEFAULT_SORT_BY, on_sort_changed);
-        action_group.add_radio_actions(SORT_ORDER_ACTIONS, DEFAULT_SORT_ORDER, on_sort_changed);
+       
+        init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
+            create_toggle_actions());
+        action_group.add_radio_actions(create_sort_crit_actions(), DEFAULT_SORT_BY,
+            on_sort_changed);
+        action_group.add_radio_actions(create_sort_order_actions(), DEFAULT_SORT_ORDER,
+            on_sort_changed);
 
         if (ui_filename != null)
             init_load_ui(ui_filename);
@@ -492,8 +457,8 @@ public class CollectionPage : CheckerboardPage {
         //
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
+        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.sensitive = false;
         rotate_button.clicked += on_rotate_clockwise;
         
@@ -501,8 +466,8 @@ public class CollectionPage : CheckerboardPage {
         
         // slideshow button
         slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
-        slideshow_button.set_label("Slideshow");
-        slideshow_button.set_tooltip_text("Start a slideshow of these photos");
+        slideshow_button.set_label(_("Slideshow"));
+        slideshow_button.set_tooltip_text(_("Start a slideshow of these photos"));
         slideshow_button.sensitive = false;
         slideshow_button.clicked += on_slideshow;
         
@@ -524,7 +489,7 @@ public class CollectionPage : CheckerboardPage {
         toolitem.add(slider);
         toolitem.set_expand(false);
         toolitem.set_size_request(200, -1);
-        toolitem.set_tooltip_text("Adjust the size of the thumbnails");
+        toolitem.set_tooltip_text(_("Adjust the size of the thumbnails"));
         
         toolbar.insert(toolitem, -1);
         
@@ -546,6 +511,145 @@ public class CollectionPage : CheckerboardPage {
         enable_drag_source(Gdk.DragAction.COPY);
     }
     
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl>E",
+            TRANSLATABLE, on_export };
+        export.label = _("_Export Photos...");
+        export.tooltip = _("Export selected photos to disk");
+        actions += export;
+
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
+        edit.label = _("_Edit");
+        actions += edit;
+
+        Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
+            "<Ctrl>A", TRANSLATABLE, on_select_all };
+        select_all.label = _("Select _All");
+        select_all.tooltip = _("Select all the photos in the library");
+        actions += select_all;
+
+        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_remove };
+        remove.label = _("_Remove");
+        remove.tooltip = _("Remove the selected photos from the library");
+        actions += remove;
+
+        Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null,
+            on_photos_menu };
+        photos.label = _("_Photos");
+        actions += photos;
+
+        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
+            "bracketright", TRANSLATABLE, on_increase_size };
+        increase_size.label = _("Zoom _In");
+        increase_size.tooltip = _("Increase the magnification of the thumbnails");
+        actions += increase_size;
+
+        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
+            "bracketleft", TRANSLATABLE, on_decrease_size };
+        decrease_size.label = _("Zoom _Out");
+        decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
+        actions += decrease_size;
+
+        Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
+            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
+        rotate_right.label = _("Rotate _Right");
+        rotate_right.tooltip = _("Rotate the selected photos clockwise");
+        actions += rotate_right;
+
+        Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
+            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
+        rotate_left.label = _("Rotate _Left");
+        rotate_left.tooltip = _("Rotate the selected photos counterclockwise");
+        actions += rotate_left;
+
+        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, "<Ctrl>M",
+            TRANSLATABLE, on_mirror };
+        mirror.label = _("_Mirror");
+        mirror.tooltip = _("Make mirror images of the selected photos");
+        actions += mirror;
+
+        Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE, null,
+            TRANSLATABLE, on_revert };
+        revert.label = _("Re_vert to Original");
+        revert.tooltip = _("Revert to original photo");
+        actions += revert;
+
+        Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
+            TRANSLATABLE, on_slideshow };
+        slideshow.label = _("_Slideshow");
+        slideshow.tooltip = _("Play a slideshow");
+        actions += slideshow;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry sort_photos = { "SortPhotos", null, TRANSLATABLE, null, null, null };
+        sort_photos.label = _("Sort _Photos");
+        actions += sort_photos;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+        
+        return actions;
+    }
+    
+    private Gtk.ToggleActionEntry[] create_toggle_actions() {
+        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+
+        Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
+            TRANSLATABLE, on_display_titles, true };
+        titles.label = _("_Titles");
+        titles.tooltip = _("Display the title of each photo");
+        toggle_actions += titles;
+
+        return toggle_actions;
+    }
+    
+    private Gtk.RadioActionEntry[] create_sort_crit_actions() {
+        Gtk.RadioActionEntry[] sort_crit_actions = new Gtk.RadioActionEntry[0];
+
+        Gtk.RadioActionEntry by_name = { "SortByName", null, TRANSLATABLE, null, TRANSLATABLE,
+            SORT_BY_NAME };
+        by_name.label = _("By _Name");
+        by_name.tooltip = _("Sort photos by name");
+        sort_crit_actions += by_name;
+
+        Gtk.RadioActionEntry by_date = { "SortByExposureDate", null, TRANSLATABLE, null,
+            TRANSLATABLE, SORT_BY_EXPOSURE_DATE };
+        by_date.label = _("By Exposure _Date");
+        by_date.tooltip = _("Sort photos by exposure date");
+        sort_crit_actions += by_date;
+
+        return sort_crit_actions;
+    }
+    
+    private Gtk.RadioActionEntry[] create_sort_order_actions() {
+        Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
+
+        Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.STOCK_SORT_ASCENDING,
+            TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_ASCENDING };
+        ascending.label = _("_Ascending");
+        ascending.tooltip = _("Sort photos in an ascending order");
+        sort_order_actions += ascending;
+
+        Gtk.RadioActionEntry descending = { "SortDescending", Gtk.STOCK_SORT_DESCENDING,
+            TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_DESCENDING };
+        descending.label = _("D_escending");
+        descending.tooltip = _("Sort photos in a descending order");
+        sort_order_actions += descending;
+
+        return sort_order_actions;
+    }
+
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }
@@ -831,8 +935,11 @@ public class CollectionPage : CheckerboardPage {
         if (export_list.size == 0)
             return;
 
-        ExportDialog export_dialog = new ExportDialog(
-            "Export Photo%s".printf(export_list.size > 1 ? "s" : ""));
+        ExportDialog export_dialog = null;
+        if (export_list.size == 1)
+            export_dialog = new ExportDialog(_("Export Photo"));
+        else
+            export_dialog = new ExportDialog(_("Export Photos"));
         
         int scale;
         ScaleConstraint constraint;
@@ -853,7 +960,7 @@ public class CollectionPage : CheckerboardPage {
             try {
                 photo.export(save_as, scale, constraint, quality);
             } catch (Error err) {
-                AppWindow.error_message("Unable to export photo %s: %s".printf(
+                AppWindow.error_message(_("Unable to export photo %s: %s").printf(
                     photo.get_file().get_path(), err.message));
             }
             
@@ -879,7 +986,7 @@ public class CollectionPage : CheckerboardPage {
             try {
                 photo.export(save_as, scale, constraint, quality);
             } catch (Error err) {
-                AppWindow.error_message("Unable to export photo %s: %s".printf(save_as.get_path(),
+                AppWindow.error_message(_("Unable to export photo %s: %s").printf(save_as.get_path(),
                     err.message));
             }
         }
@@ -933,13 +1040,13 @@ public class CollectionPage : CheckerboardPage {
         if (get_selected_count() == 0)
             return;
 
+        string msg_string = _("If you remove these photos from your library you will lose all edits you've made to them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
+
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL,
-            "If you remove these photos from your library you will lose all edits you've made to "
-            + "them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
+            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, msg_string);
         dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.NO);
-        dialog.add_button("Keep files", Gtk.ResponseType.YES);
-        dialog.title = "Remove photos?";
+        dialog.add_button(_("Keep files"), Gtk.ResponseType.YES);
+        dialog.title = _("Remove photos?");
 
         Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
         
@@ -1052,8 +1159,8 @@ public class CollectionPage : CheckerboardPage {
     
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_COUNTERCLOCKWISE_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_COUNTERCLOCKWISE_TOOLTIP);
+        rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
@@ -1062,8 +1169,8 @@ public class CollectionPage : CheckerboardPage {
     
     private override bool on_ctrl_released(Gdk.EventKey event) {
         rotate_button.set_stock_id(Resources.CLOCKWISE);
-        rotate_button.set_label(Resources.ROTATE_CLOCKWISE_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CLOCKWISE_TOOLTIP);
+        rotate_button.set_label(Resources.ROTATE_CW_LABEL);
+        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         

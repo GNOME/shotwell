@@ -416,10 +416,10 @@ public class CropTool : EditingTool {
         public CropToolWindow(Gtk.Window container) {
             base(container);
             
-            cancel_button.set_tooltip_text("Return to current photo dimensions");
+            cancel_button.set_tooltip_text(_("Return to current photo dimensions"));
             cancel_button.set_image_position(Gtk.PositionType.LEFT);
             
-            apply_button.set_tooltip_text("Set the crop for this photo");
+            apply_button.set_tooltip_text(_("Set the crop for this photo"));
             apply_button.set_image_position(Gtk.PositionType.LEFT);
 
             Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
@@ -1020,7 +1020,7 @@ public class RedeyeTool : EditingTool {
     private class RedeyeToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
 
-        private Gtk.Label slider_label = new Gtk.Label.with_mnemonic("Size:");
+        private Gtk.Label slider_label = new Gtk.Label.with_mnemonic(_("Size:"));
 
         public Gtk.Button apply_button =
             new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
@@ -1035,10 +1035,10 @@ public class RedeyeTool : EditingTool {
             slider.set_size_request(80, -1);
             slider.set_draw_value(false);
 
-            close_button.set_tooltip_text("Close the red-eye tool");
+            close_button.set_tooltip_text(_("Close the red-eye tool"));
             close_button.set_image_position(Gtk.PositionType.LEFT);
             
-            apply_button.set_tooltip_text("Remove any red-eye effects in the selected region");
+            apply_button.set_tooltip_text(_("Remove any red-eye effects in the selected region"));
             apply_button.set_image_position(Gtk.PositionType.LEFT);
 
             Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
@@ -1302,7 +1302,7 @@ public class AdjustTool : EditingTool {
         public Gtk.Button apply_button =
             new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
         public Gtk.Button reset_button =
-            new Gtk.Button.with_label("Reset");
+            new Gtk.Button.with_label(_("Reset"));
         public Gtk.Button cancel_button =
             new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
         public RGBHistogramManipulator histogram_manipulator =
@@ -1315,7 +1315,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.set_row_spacings(12);
             slider_organizer.set_col_spacings(12);
 
-            Gtk.Label exposure_label = new Gtk.Label.with_mnemonic("Exposure:");
+            Gtk.Label exposure_label = new Gtk.Label.with_mnemonic(_("Exposure:"));
             exposure_label.set_alignment(0.0f, 0.5f);
             slider_organizer.attach_defaults(exposure_label, 0, 1, 0, 1);
             slider_organizer.attach_defaults(exposure_slider, 1, 2, 0, 1);
@@ -1323,7 +1323,7 @@ public class AdjustTool : EditingTool {
             exposure_slider.set_draw_value(false);
             exposure_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
 
-            Gtk.Label saturation_label = new Gtk.Label.with_mnemonic("Saturation:");
+            Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
             saturation_label.set_alignment(0.0f, 0.5f);
             slider_organizer.attach_defaults(saturation_label, 0, 1, 1, 2);
             slider_organizer.attach_defaults(saturation_slider, 1, 2, 1, 2);
@@ -1331,7 +1331,7 @@ public class AdjustTool : EditingTool {
             saturation_slider.set_draw_value(false);
             saturation_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
 
-            Gtk.Label tint_label = new Gtk.Label.with_mnemonic("Tint:");
+            Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
             tint_label.set_alignment(0.0f, 0.5f);
             slider_organizer.attach_defaults(tint_label, 0, 1, 2, 3);
             slider_organizer.attach_defaults(tint_slider, 1, 2, 2, 3);
@@ -1340,7 +1340,7 @@ public class AdjustTool : EditingTool {
             tint_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
 
             Gtk.Label temperature_label =
-                new Gtk.Label.with_mnemonic("Temperature:");
+                new Gtk.Label.with_mnemonic(_("Temperature:"));
             temperature_label.set_alignment(0.0f, 0.5f);
             slider_organizer.attach_defaults(temperature_label, 0, 1, 3, 4);
             slider_organizer.attach_defaults(temperature_slider, 1, 2, 3, 4);
@@ -1348,7 +1348,7 @@ public class AdjustTool : EditingTool {
             temperature_slider.set_draw_value(false);
             temperature_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
 
-            Gtk.Label shadows_label = new Gtk.Label.with_mnemonic("Shadows:");
+            Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
             shadows_label.set_alignment(0.0f, 0.5f);
             slider_organizer.attach_defaults(shadows_label, 0, 1, 4, 5);
             slider_organizer.attach_defaults(shadows_slider, 1, 2, 4, 5);
@@ -1362,10 +1362,14 @@ public class AdjustTool : EditingTool {
             button_layouter.pack_start(reset_button, true, true, 1);
             button_layouter.pack_start(apply_button, true, true, 1);
 
+            Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.5f, 0.0f, 0.0f, 0.0f);
+            histogram_aligner.add(histogram_manipulator);
+
             Gtk.VBox pane_layouter = new Gtk.VBox(false, 8);
-            pane_layouter.add(histogram_manipulator);
+            pane_layouter.add(histogram_aligner);
             pane_layouter.add(slider_organizer);
             pane_layouter.add(button_layouter);
+            pane_layouter.set_child_packing(histogram_aligner, true, true, 0, Gtk.PackType.START);
 
             add(pane_layouter);
         }

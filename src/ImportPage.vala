@@ -147,22 +147,7 @@ public class ImportPage : CheckerboardPage {
     private GPhoto.Result refresh_result = GPhoto.Result.OK;
     private string refresh_error = null;
     private string camera_name;
-    
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, on_file_menu },
-        { "ImportSelected", Resources.IMPORT, "Import _Selected", null, null, on_import_selected },
-        { "ImportAll", Resources.IMPORT_ALL, "Import _All", null, null, on_import_all },
-        
-        { "EditMenu", null, "_Edit", null, null, on_edit_menu },
-        { "SelectAll", Gtk.STOCK_SELECT_ALL, "Select _All", "<Ctrl>A", "Select all the photos for importing",
-            on_select_all },
-        
-        { "ViewMenu", null, "_View", null, null, null },
 
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
-    
     public enum RefreshResult {
         OK,
         BUSY,
@@ -173,11 +158,11 @@ public class ImportPage : CheckerboardPage {
     public ImportPage(GPhoto.Camera camera, string uri) {
         base("Camera");
         camera_name = "Camera";
-        
+
         this.camera = camera;
         this.uri = uri;
         
-        init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", ACTIONS);
+        init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions());
         
         // toolbar
         // Camera label
@@ -231,6 +216,44 @@ public class ImportPage : CheckerboardPage {
         }
 
         show_all();
+    }
+
+    private Gtk.ActionEntry[] create_actions() {        
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry import_selected = { "ImportSelected", Resources.IMPORT,
+            TRANSLATABLE, null, null, on_import_selected };
+        import_selected.label = _("Import _Selected");
+        actions += import_selected;
+
+        Gtk.ActionEntry import_all = { "ImportAll", Resources.IMPORT_ALL, TRANSLATABLE,
+            null, null, on_import_all };
+        import_all.label = _("Import _All");
+        actions += import_all;
+
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
+        edit.label = _("_Edit");
+        actions += edit;
+
+        Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
+            "<Ctrl>A", TRANSLATABLE, on_select_all };
+        select_all.label = _("Select _All");
+        select_all.tooltip = _("Select all the photos for importing");
+        actions += select_all;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
+        return actions;
     }
     
     public GPhoto.Camera get_camera() {
@@ -310,41 +333,39 @@ public class ImportPage : CheckerboardPage {
                 
                 if (mount != null) {
                     // it's mounted, offer to unmount for the user
+                    string mounted_message = _("The camera is locked for use as a mounted drive.  Shotwell can only access the camera when it's unlocked.  Do you want Shotwell to unmount it for you?");
+
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), 
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
-                        Gtk.ButtonsType.YES_NO,
-                        "The camera is locked for use as a mounted drive.  "
-                        + "Shotwell can only access the camera when it's unlocked.  "
-                        + "Do you want Shotwell to unmount it for you?");
+                        Gtk.ButtonsType.YES_NO, mounted_message);
                     dialog.title = Resources.APP_TITLE;
                     int dialog_res = dialog.run();
                     dialog.destroy();
                     
                     if (dialog_res != Gtk.ResponseType.YES) {
-                        set_page_message("Please unmount the camera.");
+                        set_page_message(_("Please unmount the camera."));
                         refresh();
                     } else {
                         unmount_camera(mount);
                     }
                 } else {
+                    string locked_message = _("The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again.");
+
                     // it's not mounted, so another application must have it locked
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
-                        Gtk.ButtonsType.OK,
-                        "The camera is locked by another application.  "
-                        + "Shotwell can only access the camera when it's unlocked.  "
-                        + "Please close any other application using the camera and try again.");
+                        Gtk.ButtonsType.OK, locked_message);
                     dialog.title = Resources.APP_TITLE;
                     dialog.run();
                     dialog.destroy();
                     
-                    set_page_message("Please close any other application using the camera.");
+                    set_page_message(_("Please close any other application using the camera."));
                     refresh();
                 }
             break;
             
             case ImportPage.RefreshResult.LIBRARY_ERROR:
-                AppWindow.error_message("Unable to fetch previews from the camera:\n%s".printf(
+                AppWindow.error_message(_("Unable to fetch previews from the camera:\n%s").printf(
                     get_refresh_message()));
             break;
             
@@ -381,8 +402,7 @@ public class ImportPage : CheckerboardPage {
         try {
             mount.unmount_finish(aresult);
         } catch (Error err) {
-            AppWindow.error_message("Unable to unmount camera.  Try dismounting the camera from the "
-                + "file manager.");
+            AppWindow.error_message(_("Unable to unmount camera.  Try dismounting the camera from the file manager."));
             
             return;
         }
@@ -414,7 +434,7 @@ public class ImportPage : CheckerboardPage {
         ulong total_bytes = 0;
         ulong total_preview_bytes = 0;
         
-        progress_bar.set_text("Fetching photo information");
+        progress_bar.set_text(_("Fetching photo information"));
         progress_bar.set_fraction(0.0);
         progress_bar.set_pulse_step(0.01);
         progress_bar.visible = true;
@@ -604,7 +624,7 @@ public class ImportPage : CheckerboardPage {
                 if (fulldir == null)
                     continue;
                 
-                progress_bar.set_text("Fetching preview for %s".printf(import_file.filename));
+                progress_bar.set_text(_("Fetching preview for %s").printf(import_file.filename));
                 
                 // if no preview, load full image for preview
                 Gdk.Pixbuf pixbuf = null;
@@ -632,7 +652,7 @@ public class ImportPage : CheckerboardPage {
                     break;
             }
         } catch (Error err) {
-            AppWindow.error_message("Error while fetching previews from %s: %s".printf(camera_name,
+            AppWindow.error_message(_("Error while fetching previews from %s: %s").printf(camera_name,
                 err.message));
         }
     }
@@ -661,7 +681,7 @@ public class ImportPage : CheckerboardPage {
     private void import(Gee.Iterable<LayoutItem> items) {
         GPhoto.Result res = camera.init(null_context.context);
         if (res != GPhoto.Result.OK) {
-            AppWindow.error_message("Unable to lock camera: %s".printf(res.as_string()));
+            AppWindow.error_message(_("Unable to lock camera: %s").printf(res.as_string()));
             
             return;
         }
@@ -712,10 +732,13 @@ public class ImportPage : CheckerboardPage {
         }
 
         if (failed > 0) {
-            // TODO: I18N
-            string plural = (failed > 1) ? "s" : "";
-            AppWindow.error_message("Unable to import %d photo%s from the camera due to fatal error%s.".printf(
-                failed, plural, plural));
+            string error_message;
+            if (failed == 1)
+                error_message = _("Unable to import a photo from the camera due to a fatal error.");
+            else
+                error_message = _("Unable to import %d photos from the camera due to a fatal error.").printf(failed);
+
+            AppWindow.error_message(error_message);
         }
         
         if (jobs.size > 0) {
@@ -764,21 +787,12 @@ public class ImportQueuePage : SinglePhotoPage {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private uint64 progress_bytes = 0;
     private uint64 total_bytes = 0;
-    
-    // TODO: Mark fields for translation
-    private const Gtk.ActionEntry[] ACTIONS = {
-        { "FileMenu", null, "_File", null, null, on_file_menu },
-        { "Stop", Gtk.STOCK_STOP, "_Stop Import", null, "Stop importing photos", on_stop },
-        
-        { "ViewMenu", null, "_View", null, null, null },
-        
-        { "HelpMenu", null, "_Help", null, null, null }
-    };
-    
+ 
     public ImportQueuePage() {
-        base("Importing ...");
-        
-        init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup", ACTIONS);
+        base(_("Importing ..."));
+
+        init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
+            create_actions());
         
         stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
         stop_button.set_tooltip_text("Stop importing photos");
@@ -798,7 +812,31 @@ public class ImportQueuePage : SinglePhotoPage {
         progress_item.add(progress_bar);
         
         toolbar.insert(progress_item, -1);
-   }
+    }
+
+    private Gtk.ActionEntry[] create_actions() {
+        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        file.label = _("_File");
+        actions += file;
+
+        Gtk.ActionEntry stop = { "Stop", Gtk.STOCK_STOP, TRANSLATABLE, null, TRANSLATABLE,
+            on_stop };
+        stop.label = _("_Stop Import");
+        stop.tooltip = _("Stop importing photos");
+        actions += stop;
+
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
+        view.label = _("_View");
+        actions += view;
+
+        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
+        help.label = _("_Help");
+        actions += help;
+
+        return actions;
+    }
     
     public signal void batch_added(BatchImport batch_import);
     
@@ -849,7 +887,7 @@ public class ImportQueuePage : SinglePhotoPage {
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
             : 0.0;
         
-        progress_bar.set_text("Imported %s".printf(photo.get_name()));
+        progress_bar.set_text(_("Imported %s").printf(photo.get_name()));
         progress_bar.set_fraction(pct);
     }
     
