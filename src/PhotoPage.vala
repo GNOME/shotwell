@@ -950,7 +950,7 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         return (list != null) ? list.size : 0;
     }
     
-    public PhotoBase? get_first_photo() {
+    public PhotoSource? get_first_photo() {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
@@ -958,7 +958,7 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         return DirectPhoto.fetch(list.get(0));
     }
     
-    public PhotoBase? get_last_photo() {
+    public PhotoSource? get_last_photo() {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
@@ -966,7 +966,7 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         return DirectPhoto.fetch(list.get(list.size - 1));
     }
     
-    public PhotoBase? get_next_photo(PhotoBase current) {
+    public PhotoSource? get_next_photo(PhotoSource current) {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
@@ -982,7 +982,7 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         return DirectPhoto.fetch(list.get(index));
     }
     
-    public PhotoBase? get_previous_photo(PhotoBase current) {
+    public PhotoSource? get_previous_photo(PhotoSource current) {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;

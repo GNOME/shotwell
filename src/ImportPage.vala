@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-class ImportPreview : LayoutItem, PhotoSource {
+class ImportPreview : LayoutItem {
     public const int MAX_SCALE = 128;
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
     
@@ -40,32 +40,6 @@ class ImportPreview : LayoutItem, PhotoSource {
 
         // honor rotation and display
         set_image(orientation.rotate_pixbuf(scaled));
-    }
-
-    public time_t get_exposure_time() {
-        time_t exposure_time;
-        if (!Exif.get_timestamp(exif, out exposure_time))
-            exposure_time = 0;
-        return exposure_time;
-    }
-
-    public uint64 get_filesize() {
-        return file_size;   
-    }
-
-    public Dimensions get_dimensions() { 
-        Dimensions dimensions;
-        Orientation orientation = Exif.get_orientation(exif);
-
-        if (!Exif.get_dimensions(exif, out dimensions)) {
-            dimensions = Dimensions(0,0);
-        }
-
-        return orientation.rotate_dimensions(dimensions);
-    }
-
-    public Exif.Data? get_exif() {
-        return exif;
     }
 }
 

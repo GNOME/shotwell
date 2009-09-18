@@ -4,36 +4,20 @@
  * See the COPYING file in this distribution. 
  */
 
-public class EventSourceCollection : SourceCollection {
-    private Gee.HashMap<int64?, Event> map = new Gee.HashMap<int64?, Event>(int64_hash, int64_equal,
-        direct_equal);
-        
-    public override void items_added(Gee.Iterable<DataObject> added) {
-        foreach (DataObject object in added) {
-            Event event = (Event) object;
-            EventID event_id = event.get_event_id();
-            map.set(event_id.id, event);
-        }
-        
-        base.items_added(added);
-    }
-    
-    public override void items_removed(Gee.Iterable<DataObject> removed) {
-        foreach (DataObject object in removed) {
-            Event event = (Event) object;
-            EventID event_id = event.get_event_id();
-            bool is_removed = map.remove(event_id.id);
-            assert(is_removed);
-        }
-        
-        base.items_removed(removed);
-    }
-    
+public class EventSourceCollection : DatabaseSourceCollection {
     public EventSourceCollection() {
+        base(get_event_key);
     }
-
+    
+    private static int64 get_event_key(DataSource source) {
+        Event event = (Event) source;
+        EventID event_id = event.get_event_id();
+        
+        return event_id.id;
+    }
+    
     public Event fetch(EventID event_id) {
-        return map.get(event_id.id);
+        return (Event) fetch_by_key(event_id.id);
     }
 }
 
@@ -57,19 +41,22 @@ public class Event : EventSource {
         
         // add all events to the global collection
         Gee.ArrayList<EventID?> events = event_table.get_events();
-        foreach (EventID event_id in events) {
-            Event event = new Event(event_id);
-            global.add(event);
-        }
+        foreach (EventID event_id in events)
+            global.add(new Event(event_id));
         
         // Event watches LibraryPhoto for removals
-        LibraryPhoto.notifier.removed += on_photo_removed;
+        LibraryPhoto.global.items_removed += on_photos_removed;
     }
     
     public static void terminate() {
     }
     
     // Event needs to know whenever a photo is removed from the system to update the event
+    private static void on_photos_removed(Gee.Iterable<DataObject> removed) {
+        foreach (DataObject object in removed)
+            on_photo_removed((LibraryPhoto) object);
+    }
+    
     private static void on_photo_removed(LibraryPhoto photo) {
         // update event's primary photo if this is the one; remove event if no more photos in it
         Event event = photo.get_event();
@@ -244,13 +231,13 @@ public class Event : EventSource {
         
         Gee.ArrayList<PhotoSource> result = new Gee.ArrayList<PhotoSource>();
         foreach (PhotoID photo_id in photos)
-            result.add(LibraryPhoto.fetch(photo_id));
+            result.add(LibraryPhoto.global.fetch(photo_id));
         
         return result;
     }
     
     public LibraryPhoto get_primary_photo() {
-        return LibraryPhoto.fetch(event_table.get_primary_photo(event_id));
+        return LibraryPhoto.global.fetch(event_table.get_primary_photo(event_id));
     }
     
     public bool set_primary_photo(LibraryPhoto photo) {

@@ -8,7 +8,7 @@
 // DataObject
 //
 
-public abstract class DataObject {
+public abstract class DataObject : Object {
     protected DataCollection member_of = null;
 
     // This signal is fired when the source of the data is altered in a way that's significant
@@ -24,7 +24,7 @@ public abstract class DataObject {
     public void notify_altered() {
         altered();
         if (member_of != null)
-            member_of.notify_altered(this);
+            member_of.internal_notify_altered(this);
     }
     
     // This signal is fired prior to the object being destroyed.  It is up to all observers to 
@@ -35,22 +35,25 @@ public abstract class DataObject {
     public abstract string get_name();
     
     // Child classes should call this base class to ensure that the collection this object is
-    // a member of is notified and the signal is properly called.
+    // a member of is notified and the signal is properly called.  The collection will remove this
+    // object automatically.
     public virtual void destroy() {
         destroyed();
         if (member_of != null)
-            member_of.notify_destroyed(this);
+            member_of.internal_notify_destroyed(this);
     }
     
     public DataCollection? get_membership() {
         return member_of;
     }
     
-    public void set_membership(DataCollection collection) {
+    // This method is only called by DataCollection.
+    public void internal_set_membership(DataCollection collection) {
         member_of = collection;
     }
     
-    public void clear_membership() {
+    // This method is only called by DataCollection
+    public void internal_clear_membership() {
         member_of = null;
     }
 }
@@ -71,8 +74,18 @@ public abstract class DataSource : DataObject {
 
         SourceCollection sc = member_of as SourceCollection;
         if (sc != null)
-            sc.notify_metadata_altered(this);
+            sc.internal_notify_metadata_altered(this);
     }
+}
+
+public abstract class PhotoSource : DataSource {
+    public abstract time_t get_exposure_time();
+
+    public abstract Dimensions get_dimensions();
+
+    public abstract uint64 get_filesize();
+
+    public abstract Exif.Data? get_exif();
 }
 
 public abstract class EventSource : DataSource {
@@ -189,7 +202,7 @@ public class DataCollection {
     }
     
     private void internal_add(DataObject object) {
-        object.set_membership(this);
+        object.internal_set_membership(this);
         
         bool added = list.add(object);
         assert(added);
@@ -198,7 +211,7 @@ public class DataCollection {
     }
     
     private void internal_remove(DataObject object) {
-        object.clear_membership();
+        object.internal_clear_membership();
         
         bool removed = list.remove(object);
         assert(removed);
@@ -235,6 +248,11 @@ public class DataCollection {
             items_added(added);
         
         return added.size;
+    }
+    
+    // Clears the list of marked objects
+    public void reset_mark() {
+        marked.clear();
     }
 
     // Returns false if item is not in collection.
@@ -292,6 +310,22 @@ public class DataCollection {
         return count;
     }
     
+    // Destroy all marked items.  This allows for iterating in a foreach loop and destroying without
+    // creating a separate list.  Returns number of items destroyed.
+    public int destroy_marked() {
+        if (marked.size == 0)
+            return 0;
+        
+        // No need to remove; the destroy signal from the object does that for us.
+        foreach (DataObject object in marked)
+            object.destroy();
+        
+        int count = marked.size;
+        marked.clear();
+        
+        return count;
+    }
+    
     public void clear() {
         if (list.size == 0)
             return;
@@ -308,7 +342,7 @@ public class DataCollection {
     
     // This method is only called by DataObject to report when it has been altered, so observers of
     // this collection may be notified as well.
-    public void notify_altered(DataObject object) {
+    public void internal_notify_altered(DataObject object) {
         assert(contains(object));
         
         item_altered(object);
@@ -316,10 +350,15 @@ public class DataCollection {
     
     // This method is only called by DataObject to report when it is being destroyed, so observers
     // of this collection may be notified as well.
-    public void notify_destroyed(DataObject object) {
+    public void internal_notify_destroyed(DataObject object) {
         assert(contains(object));
         
+        // report to observers
+        items_removed(get_singleton(object));
         item_destroyed(object);
+        
+        // remove from collection
+        internal_remove(object);
     }
 }
 
@@ -332,10 +371,52 @@ public class SourceCollection : DataCollection {
     
     // This method is only called by DataSource to report when its metadata has been altered, so
     // observers of this collection may be notified as well.
-    public void notify_metadata_altered(DataSource source) {
+    public void internal_notify_metadata_altered(DataSource source) {
         assert(contains(source));
         
         item_metadata_altered(source);
     }
 }
 
+public delegate int64 GetSourceDatabaseKey(DataSource source);
+
+// A DatabaseSourceCollection is a SourceCollection that understands database keys (IDs) and the
+// nature that a row in a database can only be instantiated once in the system, and so it tracks
+// their existance in a map so they can be fetched by their key.
+public class DatabaseSourceCollection : SourceCollection {
+    private GetSourceDatabaseKey source_key_func;
+    private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash, 
+        int64_equal, direct_equal);
+        
+    public DatabaseSourceCollection(GetSourceDatabaseKey source_key_func) {
+        this.source_key_func = source_key_func;
+    }
+
+    public override void items_added(Gee.Iterable<DataObject> added) {
+        foreach (DataObject object in added) {
+            DataSource source = (DataSource) object;
+            int64 key = source_key_func(source);
+            
+            assert(!map.contains(key));
+            
+            map.set(key, source);
+        }
+        
+        base.items_added(added);
+    }
+    
+    public override void items_removed(Gee.Iterable<DataObject> removed) {
+        foreach (DataObject object in removed) {
+            int64 key = source_key_func((DataSource) object);
+
+            bool is_removed = map.remove(key);
+            assert(is_removed);
+        }
+        
+        base.items_removed(removed);
+    }
+    
+    protected DataSource fetch_by_key(int64 key) {
+        return map.get(key);
+    }
+}

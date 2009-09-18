@@ -14,38 +14,17 @@ public enum SupportedAdjustments {
     NUM
 }
 
-// PhotoBase is the base class for all objects which represent, in some form or another, an image
-// or photo.
-public abstract class PhotoBase : Object, Queryable, PhotoSource {
-    public PhotoBase() {
-    }
-    
-    // Queryable
-    
-    public abstract string get_name();
-    
-    // PhotoSource
-
-    public abstract time_t get_exposure_time();
-
-    public abstract Dimensions get_dimensions();
-
-    public abstract uint64 get_filesize();
-
-    public abstract Exif.Data? get_exif();
-}
-
 // PhotoCollection represents a grouping of photos.
 public interface PhotoCollection : Object {
     public abstract int get_count();
     
-    public abstract PhotoBase? get_first_photo();
+    public abstract PhotoSource? get_first_photo();
     
-    public abstract PhotoBase? get_last_photo();
+    public abstract PhotoSource? get_last_photo();
     
-    public abstract PhotoBase? get_next_photo(PhotoBase current);
+    public abstract PhotoSource? get_next_photo(PhotoSource current);
     
-    public abstract PhotoBase? get_previous_photo(PhotoBase current);
+    public abstract PhotoSource? get_previous_photo(PhotoSource current);
 }
 
 public enum ImportResult {
@@ -96,7 +75,7 @@ public enum ImportResult {
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
-public abstract class TransformablePhoto: PhotoBase {
+public abstract class TransformablePhoto: PhotoSource, Queryable {
     public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
     
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
@@ -136,14 +115,6 @@ public abstract class TransformablePhoto: PhotoBase {
     
     private PixelTransformer transformer = null;
     private PixelTransformation[] adjustments = null;
-    
-    // fired when the image itself (its visual representation) has changed
-    public virtual signal void altered() {
-    }
-    
-    // fired when information about the image has changed
-    public virtual signal void metadata_altered() {
-    }
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -277,7 +248,7 @@ public abstract class TransformablePhoto: PhotoBase {
         if (committed) {
             row.event_id = event.get_event_id();
             
-            metadata_altered();
+            notify_metadata_altered();
         }
         
         return committed;
@@ -351,18 +322,16 @@ public abstract class TransformablePhoto: PhotoBase {
                 cached_raw = null;
             
             // could be both
-            metadata_altered();
-            altered();
+            notify_metadata_altered();
+            notify_altered();
         }
     }
 
-    // Queryable
+    // PhotoSource
     
     public override string get_name() {
         return row.file.get_basename();
     }
-    
-    // PhotoSource
     
     public override uint64 get_filesize() {
         return row.filesize;
@@ -473,7 +442,7 @@ public abstract class TransformablePhoto: PhotoBase {
             adjustments = null;
             transformer = null;
             if (result)
-                altered();
+                notify_altered();
 
             return;
         }
@@ -526,7 +495,7 @@ public abstract class TransformablePhoto: PhotoBase {
         adjustments[SupportedAdjustments.EXPOSURE] = new_exposure_trans;
 
         if (set_transformation(map))
-            altered();
+            notify_altered();
     }
 
     public override Exif.Data? get_exif() {
@@ -562,7 +531,7 @@ public abstract class TransformablePhoto: PhotoBase {
         }
 
         if (is_altered)
-            altered();
+            notify_altered();
     }
     
     public Orientation get_orientation() {
@@ -573,7 +542,7 @@ public abstract class TransformablePhoto: PhotoBase {
         row.orientation = orientation;
         photo_table.set_orientation(row.photo_id, orientation);
         
-        altered();
+        notify_altered();
     }
 
     public virtual void rotate(Rotation rotation) {
@@ -648,7 +617,7 @@ public abstract class TransformablePhoto: PhotoBase {
         map.set_int("bottom", crop.bottom);
         
         if (set_transformation(map))
-            altered();
+            notify_altered();
     }
     
     // All instances are against the coordinate system of the unscaled, unrotated photo.
@@ -707,7 +676,7 @@ public abstract class TransformablePhoto: PhotoBase {
         map.set_int("num_points", num_points);
 
         if (set_transformation(map))
-            altered();
+            notify_altered();
     }
 
     // Pixbuf generation
@@ -1370,12 +1339,21 @@ public abstract class TransformablePhoto: PhotoBase {
     }
 }
 
-public class LibraryPhotoNotifier {
-    public signal void added(LibraryPhoto photo);
+public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
+    public LibraryPhotoSourceCollection() {
+        base(get_photo_key);
+    }
     
-    public signal void altered(LibraryPhoto photo);
+    private static int64 get_photo_key(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        PhotoID photo_id = photo.get_photo_id();
+        
+        return photo_id.id;
+    }
     
-    public signal void removed(LibraryPhoto photo);
+    public LibraryPhoto fetch(PhotoID photo_id) {
+        return (LibraryPhoto) fetch_by_key(photo_id.id);
+    }
 }
 
 public class LibraryPhoto : TransformablePhoto {
@@ -1385,15 +1363,11 @@ public class LibraryPhoto : TransformablePhoto {
         GONE
     }
     
-    public static LibraryPhotoNotifier notifier = null;
-    
-    private static Gee.HashMap<int64?, LibraryPhoto> photo_map = null;
+    public static LibraryPhotoSourceCollection global = null;
     
     private bool block_thumbnail_generation = false;
     
     public signal void thumbnail_altered();
-    
-    public signal void removed();
     
     private LibraryPhoto(PhotoRow row) {
         base(row);
@@ -1402,15 +1376,12 @@ public class LibraryPhoto : TransformablePhoto {
     public static void init() {
         TransformablePhoto.base_init();
         
-        photo_map = new Gee.HashMap<int64?, LibraryPhoto>(int64_hash, int64_equal, direct_equal);
-        notifier = new LibraryPhotoNotifier();
-
-        // prefetch all the photos from the database and cache their values in memory
+        global = new LibraryPhotoSourceCollection();
+        
+        // prefetch all the photos from the database and add them to the global collection
         Gee.ArrayList<PhotoRow?> all = photo_table.get_all();
-        foreach (PhotoRow row in all) {
-            LibraryPhoto photo = new LibraryPhoto(row);
-            photo_map.set(row.photo_id.id, photo);
-        }
+        foreach (PhotoRow row in all)
+            global.add(new LibraryPhoto(row));
     }
     
     public static void terminate() {
@@ -1425,48 +1396,14 @@ public class LibraryPhoto : TransformablePhoto {
         if (result != ImportResult.SUCCESS)
             return result;
 
-        // sanity ... this would be very bad
-        assert(!photo_map.contains(photo_id.id));
-        
         // import initial image into the thumbnail cache with modifications
         ThumbnailCache.import(photo_id, initial_pixbuf);
         
-        photo = fetch(photo_id);
-        
-        notify_added(photo);
+        // add to global
+        photo = new LibraryPhoto(photo_table.get_row(photo_id));
+        global.add(photo);
         
         return ImportResult.SUCCESS;
-    }
-    
-    public static Gee.ArrayList<LibraryPhoto> fetch_all() {
-        Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_photos();
-        
-        Gee.ArrayList<LibraryPhoto> all = new Gee.ArrayList<LibraryPhoto>();
-        foreach (PhotoID photo_id in photo_ids)
-            all.add(fetch(photo_id));
-        
-        return all;
-    }
-
-    public static LibraryPhoto fetch(PhotoID photo_id) {
-        LibraryPhoto photo = photo_map.get(photo_id.id);
-
-        if (photo == null) {
-            PhotoRow row = photo_table.get_row(photo_id);
-            photo = new LibraryPhoto(row);
-            photo_map.set(photo_id.id, photo);
-        }
-        
-        return photo;
-    }
-    
-    private static void notify_added(LibraryPhoto photo) {
-        notifier.added(photo);
-    }
-    
-    private void notify_removed() {
-        removed();
-        notifier.removed(this);
     }
     
     private bool generate_thumbnails() {
@@ -1487,15 +1424,13 @@ public class LibraryPhoto : TransformablePhoto {
     
     private override void altered () {
         // the exportable file is now not in sync with transformed photo
-        remove_exportable_file();
+        delete_exportable_file();
 
         // generate new thumbnails in the background
         if (!block_thumbnail_generation)
             Idle.add_full(Priority.LOW, generate_thumbnails);
         
         base.altered();
-        
-        notifier.altered(this);
     }
 
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) {
@@ -1554,10 +1489,13 @@ public class LibraryPhoto : TransformablePhoto {
         return ThumbnailCache.fetch(get_photo_id(), scale);
     }
     
-    public void remove(bool remove_original) {
-        // signal all interested parties prior to removal from map
-        notify_removed();
-        
+    private bool delete_original = false;
+    
+    public void delete_original_on_destroy() {
+        delete_original = true;
+    }
+    
+    public override void destroy() {
         // necessary to avoid valac bug in photo_map.remove
         PhotoID photo_id = get_photo_id();
 
@@ -1565,22 +1503,21 @@ public class LibraryPhoto : TransformablePhoto {
         ThumbnailCache.remove(photo_id);
         
         // remove exportable file
-        remove_exportable_file();
+        delete_exportable_file();
         
         // remove original
-        if (remove_original)
-            remove_original_file();
+        if (delete_original)
+            delete_original_file();
 
         // remove from photo table -- should be wiped from storage now (other classes may have added
         // photo_id to other parts of the database ... it's their responsibility to remove them
         // when removed() is called)
         photo_table.remove(photo_id);
         
-        // remove from global map
-        photo_map.remove(photo_id.id);
+        base.destroy();
     }
     
-    private void remove_exportable_file() {
+    private void delete_exportable_file() {
         File file = null;
         try {
             file = generate_exportable_file();
@@ -1594,7 +1531,7 @@ public class LibraryPhoto : TransformablePhoto {
         }
     }
     
-    private void remove_original_file() {
+    private void delete_original_file() {
         File file = get_file();
         
         debug("Deleting original photo file %s", file.get_path());

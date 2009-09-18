@@ -180,9 +180,8 @@ public class LibraryWindow : AppWindow {
         add_orphan_page(photo_page);
 
         // create LibraryPhoto objects for all photos in the database and load into the Photos page
-        Gee.ArrayList<LibraryPhoto> photos = LibraryPhoto.fetch_all();
-        foreach (LibraryPhoto photo in photos)
-             collection_page.add_photo(photo);
+        foreach (DataObject object in LibraryPhoto.global.get_all())
+             collection_page.add_photo((LibraryPhoto) object);
 
         // watch for new & removed events
         Event.global.items_added += on_added_events;

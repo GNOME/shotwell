@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public class Thumbnail : LayoutItem, PhotoSource {
+public class Thumbnail : LayoutItem {
     // cannot use consts in ThumbnailCache for some reason
     public const int MIN_SCALE = 64;
     public const int MAX_SCALE = 360;
@@ -121,22 +121,6 @@ public class Thumbnail : LayoutItem, PhotoSource {
     
     public bool is_exposed() {
         return thumb_exposed;
-    }
-
-    public time_t get_exposure_time() {
-        return photo.get_exposure_time();
-    }
-
-    public Dimensions get_dimensions() {
-        return photo.get_dimensions();
-    }
-
-    public Exif.Data? get_exif() {
-        return photo.get_exif();
-    }
-
-    public uint64 get_filesize() {
-        return photo.get_filesize();
     }
 }
 

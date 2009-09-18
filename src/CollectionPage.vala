@@ -378,19 +378,19 @@ public class CollectionPage : CheckerboardPage {
             return page.get_count();
         }
         
-        public PhotoBase? get_first_photo() {
+        public PhotoSource? get_first_photo() {
             Thumbnail? thumbnail = (Thumbnail) page.get_first_item();
             
             return (thumbnail != null) ? thumbnail.get_photo() : null;
         }
         
-        public PhotoBase? get_last_photo() {
+        public PhotoSource? get_last_photo() {
             Thumbnail? thumbnail = (Thumbnail) page.get_last_item();
             
             return (thumbnail != null) ? thumbnail.get_photo() : null;
         }
         
-        public PhotoBase? get_next_photo(PhotoBase current) {
+        public PhotoSource? get_next_photo(PhotoSource current) {
             Thumbnail? thumbnail = page.get_thumbnail_for_photo((LibraryPhoto) current);
             if (thumbnail == null)
                 return null;
@@ -400,7 +400,7 @@ public class CollectionPage : CheckerboardPage {
             return (thumbnail != null) ? thumbnail.get_photo() : null;
         }
         
-        public PhotoBase? get_previous_photo(PhotoBase current) {
+        public PhotoSource? get_previous_photo(PhotoSource current) {
             Thumbnail? thumbnail = page.get_thumbnail_for_photo((LibraryPhoto) current);
             if (thumbnail == null)
                 return null;
@@ -801,7 +801,7 @@ public class CollectionPage : CheckerboardPage {
         if (get_thumbnail_for_photo(photo) != null)
             return;
         
-        photo.removed += on_photo_removed;
+        photo.destroyed += on_photo_destroyed;
         photo.altered += on_photo_altered;
         
         Thumbnail thumbnail = new Thumbnail(photo, scale);
@@ -817,7 +817,7 @@ public class CollectionPage : CheckerboardPage {
     
     // This method is called when the LibraryPhoto -- not the Thumbnail -- is removed from the
     // system, which can happen anywhere (whereas only this page can remove its thumbnails)
-    private void on_photo_removed(LibraryPhoto photo) {
+    private void on_photo_destroyed(LibraryPhoto photo) {
         Thumbnail found = get_thumbnail_for_photo(photo);
         if (found != null) {
             remove_item(found);
@@ -1060,10 +1060,13 @@ public class CollectionPage : CheckerboardPage {
         // remove from the list while iterating, so disconnect the signals and do the work here
         foreach (LayoutItem item in get_selected()) {
             LibraryPhoto photo = ((Thumbnail) item).get_photo();
-            photo.removed -= on_photo_removed;
+            photo.destroyed -= on_photo_destroyed;
             photo.altered -= on_photo_altered;
             
-            photo.remove(result == Gtk.ResponseType.NO);
+            if (result == Gtk.ResponseType.NO)
+                photo.delete_original_on_destroy();
+            
+            photo.destroy();
             
             thumbnail_map.remove(photo);
         }
