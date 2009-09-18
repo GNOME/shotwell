@@ -1,4 +1,3 @@
-
 PROGRAM = shotwell
 VERSION = 0.2.1
 GETTEXT_PACKAGE = $(PROGRAM)
@@ -13,11 +12,15 @@ INSTALL_DATA = install -m 644
 PREFIX=/usr/local
 BUILD_RELEASE=1
 
+SUPPORTED_LANGUAGES=fr
+LOCAL_LANG_DIR=locale-langpack
+SYSTEM_LANG_DIR=/usr/share/locale-langpack
+
 -include configure.mk
 
 VALAFLAGS = -g --enable-checking $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
-     _LANG_SUPPORT_DIR='"/usr/share/locale-langpack"'
+     _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
 
 SRC_FILES = \
 	main.vala \
@@ -125,6 +128,7 @@ ifndef BUILD_DIR
 BUILD_DIR=src
 endif
 
+EXPANDED_PO_FILES = $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
 EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
 EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
@@ -133,9 +137,11 @@ EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),src/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),src/$(header))
 EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
 VALA_STAMP = $(BUILD_DIR)/.stamp
+LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
 DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
-	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/*
+	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/* \
+	$(EXPANDED_PO_FILES)
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
@@ -158,6 +164,11 @@ endif
 
 all: $(PROGRAM)
 
+$(LANG_STAMP): $(EXPANDED_PO_FILES)
+	$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
+        msgfmt -o $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES/shotwell.mo po/$(po).po`)
+	touch $(LANG_STAMP)
+
 clean:
 	rm -f $(EXPANDED_C_FILES)
 	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
@@ -165,12 +176,15 @@ clean:
 	rm -f $(VALA_STAMP)
 	rm -rf $(PROGRAM)-$(VERSION)
 	rm -f $(PROGRAM)
+	rm -rf $(LOCAL_LANG_DIR)
+	rm -f $(LANG_STAMP)
 
 cleantemps:
 	rm -f $(EXPANDED_C_FILES)
 	rm -f $(EXPANDED_SAVE_TEMPS_FILES)
 	rm -f $(EXPANDED_OBJ_FILES)
 	rm -f $(VALA_STAMP)
+	rm -f $(LANG_STAMP)
 
 package:
 	$(MAKE) dist
@@ -202,6 +216,9 @@ install:
 	-update-desktop-database
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-install-rule misc/shotwell.schemas
 	killall -HUP gconfd-2
+	$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
+        $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
+            $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
@@ -212,6 +229,7 @@ uninstall:
 	-update-desktop-database
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-uninstall-rule misc/shotwell.schemas
 	killall -HUP gconfd-2
+	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
 	$(CONFIG_IN)
@@ -240,6 +258,6 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES)
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(LANG_STAMP)
 	$(CC) $(VALA_LDFLAGS) $(EXPANDED_OBJ_FILES) $(CFLAGS) -o $@
 

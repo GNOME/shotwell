@@ -112,7 +112,7 @@ void main(string[] args) {
     Gtk.init(ref args);
     
     // init internationalization with the default system locale
-    InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE);
+    InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE, args);
     
     startup_timer = new Timer();
     startup_timer.start();
