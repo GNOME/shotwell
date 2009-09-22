@@ -1082,7 +1082,8 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
             dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
-            pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
+            pixbuf.save(dest_file.get_path(), "jpeg", "quality", 
+                EXPORT_JPEG_QUALITY.get_pct_text());
             copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
                 Dimensions.for_pixbuf(pixbuf));
         }
@@ -1412,7 +1413,8 @@ public class LibraryPhoto : TransformablePhoto {
         try {
             pixbuf = get_pixbuf(Scaling.for_best_fit(ThumbnailCache.Size.BIG.get_scale()));
         } catch (Error err) {
-            error("%s", err.message);
+            warning("%s", err.message);
+            return false;
         }
         ThumbnailCache.import(get_photo_id(), pixbuf, true);
         
@@ -1603,10 +1605,14 @@ public class DirectPhoto : TransformablePhoto {
     private DirectPhoto(PhotoRow row, Gdk.Pixbuf? initial_pixbuf) {
         base(row);
         
-        // Use the initial pixbuf for preview, since it's decoded; if not available generate one
-        // now
-        preview = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(
-            Scaling.for_best_fit(PREVIEW_BEST_FIT));
+        try {
+            // Use the initial pixbuf for preview, since it's decoded; if not available generate
+            // one now
+            preview = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(
+                Scaling.for_best_fit(PREVIEW_BEST_FIT));
+        } catch (Error err) {
+            warning("%s", err.message);
+        } 
     }
     
     public static void init() {
@@ -1690,7 +1696,12 @@ public class DirectPhoto : TransformablePhoto {
     
     private override void altered() {
         // stash the current pixbuf for previews and such, and flush the generated exportable file
-        preview = base.get_pixbuf(Scaling.for_best_fit(PREVIEW_BEST_FIT));
+        try {
+            preview = base.get_pixbuf(Scaling.for_best_fit(PREVIEW_BEST_FIT));
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
+
         exportable = null;
         
         base.altered();

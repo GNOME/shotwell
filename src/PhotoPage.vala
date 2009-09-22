@@ -12,7 +12,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         public EditingHostCanvas(EditingHostPage host_page) {
             base(host_page.container, host_page.canvas.window, host_page.photo, host_page.canvas_gc, 
-                host_page.get_drawable(), host_page.get_scaled_pixbuf(), host_page.get_scaled_pixbuf_position());
+                host_page.get_drawable(), host_page.get_scaled_pixbuf(),
+                host_page.get_scaled_pixbuf_position());
             
             this.host_page = host_page;
         }
@@ -41,6 +42,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private File drag_file = null;
     private uint32 last_nav_key = 0;
+    private bool photo_missing = false;
+    private bool drag_event_failed = true;
 
     public virtual signal void check_replace_photo(TransformablePhoto old_photo, 
         TransformablePhoto new_photo, out bool ok) {
@@ -155,13 +158,75 @@ public abstract class EditingHostPage : SinglePhotoPage {
         this.controller = controller;
         replace_photo(photo);
     }
-    
-    protected void replace_photo(TransformablePhoto new_photo) {
-        // if it's the same Photo object and the scaling hasn't changed, there's nothing to do
-        // otherwise, need to reload the image for the proper scaling
-        if (new_photo == photo && pixbuf_scaling != null && pixbuf_scaling.equals(get_canvas_scaling()))
-            return;
+
+    protected void set_missing_photo_sensitivities(bool sensitivity) {
+        rotate_button.sensitive = sensitivity;
+        crop_button.sensitive = sensitivity;
+        redeye_button.sensitive = sensitivity;
+        adjust_button.sensitive = sensitivity;
+        enhance_button.sensitive = sensitivity;
+
+        deactivate_tool();
+
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+
+        set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextMirror", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
+    }
+
+    private void draw_message(string message) {
+        // draw the message in the center of the window
+        Pango.Layout pango_layout = create_pango_layout(message);
+        int text_width, text_height;
+        pango_layout.get_pixel_size(out text_width, out text_height);
+
+        int x = allocation.width - text_width;
+        x = (x > 0) ? x / 2 : 0;
         
+        int y = allocation.height - text_height;
+        y = (y > 0) ? y / 2 : 0;
+
+        Gdk.draw_layout(get_drawable(), text_gc, x, y, pango_layout);
+    }
+
+    protected void set_photo_missing(bool missing) {
+        if (photo_missing == missing) {
+            return;
+        }
+
+        photo_missing = missing;
+
+        set_missing_photo_sensitivities(!photo_missing);
+
+        if (photo_missing) {
+            try {
+                Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(get_canvas_scaling());
+
+                pixbuf = pixbuf.composite_color_simple(pixbuf.get_width(), pixbuf.get_height(),
+                    Gdk.InterpType.NEAREST, 100, 2, 0, 0);
+
+                set_pixbuf(pixbuf, false);
+            } catch (GLib.Error err) {
+                warning("%s", err.message);
+            }
+        }
+    }
+
+    protected void replace_photo(TransformablePhoto new_photo) {
+        // if it's the same Photo object, the scaling hasn't changed, and the photo's file
+        // has not gone missing or re-appeared, there's nothing to do otherwise,
+        // just need to reload the image for the proper scaling
+        if (new_photo == photo && pixbuf_scaling != null && 
+            pixbuf_scaling.equals(get_canvas_scaling()) && 
+            photo_missing == false) {
+            return;
+        }
+
         // only check if okay if there's something to replace
         if (photo != null && photo != new_photo) {
             bool ok;
@@ -186,11 +251,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // clear out the comparison buffers
         original = null;
         swapped = null;
-        
+
+        set_photo_missing(false);
+
         quick_update_pixbuf();
         
         update_ui();
-        
+
         // signal the photo has been replaced
         contents_changed(1);
         selection_changed(1);
@@ -199,7 +266,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void quick_update_pixbuf() {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
-        set_pixbuf(photo.get_preview_pixbuf(get_canvas_scaling()), false);
+        try {
+            set_pixbuf(photo.get_preview_pixbuf(get_canvas_scaling()), false);
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
+
         Idle.add(update_pixbuf);
     }
     
@@ -210,13 +282,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
         pixbuf_scaling = get_canvas_scaling();
         
         Gdk.Pixbuf pixbuf = null;
-        if (current_tool != null)
-            pixbuf = current_tool.get_display_pixbuf(pixbuf_scaling, photo);
-        
-        if (pixbuf == null)
-            pixbuf = photo.get_pixbuf(pixbuf_scaling);
 
-        set_pixbuf(pixbuf, false);
+        try {
+            if (current_tool != null)
+                pixbuf = current_tool.get_display_pixbuf(pixbuf_scaling, photo);
+
+            if (pixbuf == null)
+                pixbuf = photo.get_pixbuf(pixbuf_scaling);
+  
+        } catch (Error err) {
+            warning("%s", err.message);
+            set_photo_missing(true);
+        }
+
+        if (!photo_missing)
+            set_pixbuf(pixbuf, false);
+
 #if MEASURE_PIPELINE
         debug("UPDATE_PIXBUF: total=%lf", timer.elapsed());
 #endif
@@ -226,12 +307,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // TODO: Allow viewing the original while a tool is activated.
         if (original == null && photo.has_transformations() && current_tool == null)
             Idle.add_full(Priority.LOW, fetch_original);
-        
+
         return false;
     }
     
     private bool fetch_original() {
-        original = photo.get_original_pixbuf(get_canvas_scaling());
+        try {
+            original = photo.get_original_pixbuf(get_canvas_scaling());
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
 
         return false;
     }
@@ -287,7 +372,20 @@ public abstract class EditingHostPage : SinglePhotoPage {
         cancel_editing_pixbuf = get_unscaled_pixbuf();
         
         // see if the tool wants a different pixbuf displayed
-        Gdk.Pixbuf unscaled = tool.get_display_pixbuf(get_canvas_scaling(), photo);
+        Gdk.Pixbuf unscaled;
+        try {
+            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), photo);
+        } catch (Error err) {
+            warning("%s", err.message);
+            set_photo_missing(true);
+
+            // untoggle tool button (usually done after deactivate, but tool never deactivated)
+            assert(current_editing_toggle != null);
+            current_editing_toggle.active = false;
+           
+            return;
+        }
+
         if (unscaled != null)
             set_pixbuf(unscaled);
         
@@ -311,7 +409,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null, bool needs_improvement = false) {
         if (current_tool == null)
             return;
-        
+
         EditingTool tool = current_tool;
         current_tool = null;
         
@@ -331,11 +429,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
             replacement = cancel_editing_pixbuf;
             needs_improvement = false;
         } else {
-            replacement = photo.get_pixbuf(get_canvas_scaling());
-            needs_improvement = false;
+            needs_improvement = true;
         }
         
-        set_pixbuf(replacement);
+        if (replacement != null)
+            set_pixbuf(replacement);
         cancel_editing_pixbuf = null;
         
         // if this is a rough pixbuf, schedule an improvement
@@ -351,10 +449,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // query for target type and information ... to prevent a lot of file generation, do all
         // the work up front
         File file = null;
+        drag_event_failed = false;
         try {
             file = photo.generate_exportable();
         } catch (Error err) {
-            error("%s", err.message);
+            drag_event_failed = true;
+            file = null;
+            warning("%s", err.message);
         }
         
         // set up icon for drag-and-drop
@@ -385,6 +486,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override void drag_end(Gdk.DragContext context) {
         drag_file = null;
+
+        if (drag_event_failed) {
+            Idle.add(report_drag_failed);
+        }
+    }
+
+    private bool report_drag_failed() {
+        AppWindow.error_message(_("Photo source file is missing."));
+        drag_event_failed = false;
+
+        return false;
     }
     
     private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
@@ -478,7 +590,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override void on_resize(Gdk.Rectangle rect) {
         track_tool_window();
-        
+
         base.on_resize(rect);
     }
     
@@ -547,6 +659,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
             current_tool.paint(gc, drawable);
         else
             base.paint(gc, drawable);
+
+        if (photo_missing) {
+            draw_message(_("Photo source file missing: %s").printf(photo.get_file().get_path()));
+        }
     }
 
     private void rotate(Rotation rotation) {
@@ -572,6 +688,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
         
         photo.remove_all_transformations();
+
+        set_photo_missing(false);
+        
         quick_update_pixbuf();
         
         queryable_altered(photo);
@@ -614,6 +733,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool.deactivated += on_tool_deactivated;
         tool.applied += on_tool_applied;
         tool.cancelled += on_tool_cancelled;
+        tool.aborted += on_tool_aborted;
         
         activate_tool(tool);
     }
@@ -629,18 +749,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_tool_applied(Gdk.Pixbuf? new_pixbuf, bool needs_improvement) {
-        // if the tool didn't supply a pixbuf, it's relying on the host to generate it from Photo
-        Gdk.Pixbuf final_pixbuf = new_pixbuf;
-        if (final_pixbuf == null) {
-            final_pixbuf = photo.get_pixbuf(get_canvas_scaling());
-            needs_improvement = false;
-        }
-        
-        deactivate_tool(final_pixbuf, needs_improvement);
+        deactivate_tool(new_pixbuf, needs_improvement);
     }
     
     private void on_tool_cancelled() {
         deactivate_tool();
+    }
+
+    private void on_tool_aborted() {
+        deactivate_tool();
+        set_photo_missing(true);
     }
     
     private void on_crop_toggled() {
@@ -668,8 +786,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         try {
             pixbuf = photo.get_pixbuf(Scaling.for_best_fit(1024), TransformablePhoto.Exception.ALL);
         } catch (Error e) {
-            error("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
+            warning("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
                 "transform histogram");
+            set_photo_missing(true);
+            AppWindow.get_instance().set_normal_cursor();
+            return;
         }
 
         PixelTransformation[] transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
@@ -702,8 +823,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         tool_window.size_request(out req);
 
         if (container == AppWindow.get_instance()) {
-            // Normal: position crop tool window centered on viewport/canvas at the bottom, straddling
-            // the canvas and the toolbar
+            // Normal: position crop tool window centered on viewport/canvas at the bottom,
+            // straddling the canvas and the toolbar
             int rx, ry;
             container.window.get_root_origin(out rx, out ry);
             
@@ -881,7 +1002,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private override bool on_context_menu(Gdk.EventButton event) {
         if (get_photo() == null)
             return false;
-        
+
         set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
 
         context_menu.popup(null, null, null, event.button, event.time);

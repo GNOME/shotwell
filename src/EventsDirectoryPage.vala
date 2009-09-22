@@ -78,7 +78,11 @@ class EventDirectoryItem : LayoutItem {
     }
     
     private void update_thumbnail_display() {
-        set_image(primary_photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+        try {
+            set_image(primary_photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
     }
 }
 

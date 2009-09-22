@@ -1214,6 +1214,7 @@ public abstract class SinglePhotoPage : Page {
     protected Gdk.GC canvas_gc = null;
     protected Gtk.DrawingArea canvas = new Gtk.DrawingArea();
     protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
+    protected Gdk.GC text_gc = null;
     
     private Gdk.Pixmap pixmap = null;
     private Dimensions pixmap_dim = Dimensions();
@@ -1426,6 +1427,9 @@ public abstract class SinglePhotoPage : Page {
 
         // GC for drawing on the pixmap
         canvas_gc = canvas.style.fg_gc[(int) Gtk.StateType.NORMAL];
+
+        // GC for text
+        text_gc = canvas.style.white_gc;
 
         // resize canvas for the pixmap (that is, the entire viewport)
         canvas.set_size_request(width, height);

@@ -130,8 +130,12 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
-        // since the canvas might not be ready at this point, start with screen-sized photo
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(Scaling.for_screen()));
+        try {
+            // since the canvas might not be ready at this point, start with screen-sized photo
+            set_pixbuf(thumbnail.get_photo().get_pixbuf(Scaling.for_screen()));
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
 
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
@@ -159,7 +163,12 @@ class SlideshowPage : SinglePhotoPage {
             return false;
         
         Thumbnail next = (Thumbnail) controller.get_next_item(thumbnail);
-        next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scaling());
+
+        try {
+            next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scaling());
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
         
         return false;
     }
@@ -192,10 +201,16 @@ class SlideshowPage : SinglePhotoPage {
         Gdk.Pixbuf pixbuf = next_pixbuf;
         if (pixbuf == null) {
             warning("Slideshow prefetch was not ready");
-            next_pixbuf = thumbnail.get_photo().get_pixbuf(get_canvas_scaling());
+
+            try {
+                pixbuf = thumbnail.get_photo().get_pixbuf(get_canvas_scaling());
+            } catch (Error err) {
+                warning("%s", err.message);
+            }
         }
         
-        set_pixbuf(pixbuf);
+        if (pixbuf != null)
+            set_pixbuf(pixbuf);
         
         // reset the timer
         timer.start();
@@ -211,8 +226,12 @@ class SlideshowPage : SinglePhotoPage {
     private void manual_advance(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
         
-        // start with blown-up preview
-        set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(get_canvas_scaling()));
+        try {
+            // start with blown-up preview
+            set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(get_canvas_scaling()));
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
         
         // schedule improvement to real photo
         Idle.add(on_improvement);
@@ -225,7 +244,11 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private bool on_improvement() {
-        set_pixbuf(thumbnail.get_photo().get_pixbuf(get_canvas_scaling()));
+        try {
+            set_pixbuf(thumbnail.get_photo().get_pixbuf(get_canvas_scaling()));
+        } catch (Error err) {
+            warning("%s", err.message);
+        }
         
         return false;
     }
@@ -330,6 +353,8 @@ public class CollectionPage : CheckerboardPage {
 
     private const int IMPROVAL_PRIORITY = Priority.LOW;
     private const int IMPROVAL_DELAY_MS = 250;
+
+    private int drag_failed_item_count = 0;
     
     private class CompareName : Comparator<LayoutItem> {
         public override int64 compare(LayoutItem a, LayoutItem b) {
@@ -741,27 +766,35 @@ public class CollectionPage : CheckerboardPage {
         // because drag_data_get may be called multiple times in a single drag, prepare all the exported
         // files first
         Gdk.Pixbuf icon = null;
+        drag_failed_item_count = 0;
         foreach (LayoutItem item in get_selected()) {
             LibraryPhoto photo = ((Thumbnail) item).get_photo();
             
             File file = null;
             try {
                 file = photo.generate_exportable();
+                drag_items.add(file);
             } catch (Error err) {
-                error("%s", err.message);
+                drag_failed_item_count++;
+                warning("%s", err.message);
             }
             
-            drag_items.add(file);
-            
-            // set up icon using the "first" photo, although Sets are not ordered
-            if (icon == null)
-                icon = photo.get_preview_pixbuf(Scaling.for_best_fit(AppWindow.DND_ICON_SCALE));
-            
-            debug("Prepared %s for export", file.get_path());
+            try {
+                // set up icon using the "first" photo, although Sets are not ordered
+                if (icon == null) {
+                    icon = photo.get_preview_pixbuf(Scaling.for_best_fit(
+                        AppWindow.DND_ICON_SCALE));
+                }
+            } catch (Error err) {
+                warning("%s", err.message);
+            }
+
+            if (file != null)
+                debug("Prepared %s for export", file.get_path());
         }
         
-        assert(icon != null);
-        Gtk.drag_source_set_icon_pixbuf(get_event_source(), icon);
+        if (icon != null)
+            Gtk.drag_source_set_icon_pixbuf(get_event_source(), icon);
     }
     
     private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
@@ -782,6 +815,18 @@ public class CollectionPage : CheckerboardPage {
     
     private override void drag_end(Gdk.DragContext context) {
         drag_items.clear();
+
+        if (drag_failed_item_count > 0) {
+            Idle.add(report_drag_failed);
+        }
+    }
+
+    private bool report_drag_failed() {
+        AppWindow.error_message(drag_failed_item_count == 1 ? _("A photo source file is missing.") : 
+            _("%d photo source files missing.").printf(drag_failed_item_count));
+        drag_failed_item_count = 0;
+
+        return false;
     }
     
     private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {

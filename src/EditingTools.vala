@@ -327,6 +327,8 @@ public abstract class EditingTool {
     public signal void applied(Gdk.Pixbuf? new_pixbuf, bool needs_improvement);
     
     public signal void cancelled();
+
+    public signal void aborted();
     
     // base.activate() should always be called by an overriding member to ensure the base class
     // gets to set up and store the PhotoCanvas in the canvas member field.  More importantly,
@@ -368,7 +370,7 @@ public abstract class EditingTool {
     //
     // Note this this method doesn't need to be returning the "proper" pixbuf on-the-fly (i.e.
     // a pixbuf with unsaved tool edits in it).  That can be handled in the paint() virtual method.
-    public virtual Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
+    public virtual Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) throws Error {
         return null;
     }
     
@@ -499,11 +501,10 @@ public class CropTool : EditingTool {
         return crop_tool_window;
     }
     
-    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
+    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) throws Error {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
-        return photo.has_crop() ? photo.get_pixbuf(scaling, TransformablePhoto.Exception.CROP) 
-            : null;
+        return photo.has_crop() ? photo.get_pixbuf(scaling, TransformablePhoto.Exception.CROP) : null;
     }
     
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -1139,8 +1140,16 @@ public class RedeyeTool : EditingTool {
             RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
 
         canvas.get_photo().add_redeye_instance(instance_unscaled);
-        current_pixbuf = canvas.get_photo().get_pixbuf(canvas.get_scaling());
-        
+    
+        try {
+            current_pixbuf = canvas.get_photo().get_pixbuf(canvas.get_scaling());
+        } catch (Error err) {
+            warning("%s", err.message);
+            aborted();
+
+            return;
+        }
+
         canvas.repaint();
     }
     
@@ -1200,7 +1209,7 @@ public class RedeyeTool : EditingTool {
             redeye_tool_window.hide();
             redeye_tool_window = null;
         }
-    
+ 
         base.deactivate();
     }
 
@@ -1273,7 +1282,7 @@ public class RedeyeTool : EditingTool {
                 RedeyeInstance.to_bounds_rect(user_interaction_instance);
 
             if (coord_in_rectangle(x, y, bounds)) {
-                    canvas.get_drawing_window().set_cursor(cached_grab_cursor);
+                canvas.get_drawing_window().set_cursor(cached_grab_cursor);
             } else {
                 canvas.get_drawing_window().set_cursor(cached_arrow_cursor);
             }
@@ -1487,7 +1496,7 @@ public class AdjustTool : EditingTool {
         canvas.paint_pixbuf(draw_to_pixbuf);
     }
 
-    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) {
+    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo) throws Error {
         return photo.has_color_adjustments() 
             ? photo.get_pixbuf(scaling, TransformablePhoto.Exception.ADJUST) : null;
     }
