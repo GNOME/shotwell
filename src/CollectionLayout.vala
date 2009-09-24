@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public abstract class LayoutItem : Object, Queryable {
+public abstract class LayoutItem : ThumbnailView {
     public const int FRAME_WIDTH = 1;
     public const int LABEL_PADDING = 4;
     public const int FRAME_PADDING = 4;
@@ -18,28 +18,32 @@ public abstract class LayoutItem : Object, Queryable {
     
     public Gdk.Rectangle allocation = Gdk.Rectangle();
     
-    private CollectionLayout parent = null;
+    private CheckerboardLayout parent = null;
     private Pango.Layout pango_layout = null;
     private string title = "";
     private bool title_displayed = true;
+    private bool exposure = false;
     private Gdk.Pixbuf pixbuf = null;
     private Gdk.Pixbuf display_pixbuf = null;
     private Gdk.Pixbuf brightened = null;
     private Dimensions pixbuf_dim = Dimensions();
-    private bool selected = false;
     private int col = -1;
     private int row = -1;
     
-    public LayoutItem() {
+    public LayoutItem(ThumbnailSource source, Dimensions initial_pixbuf_dim) {
+        base(source);
+        
+        pixbuf_dim = initial_pixbuf_dim;
     }
     
-    public void set_parent(CollectionLayout parent) {
+    // allocation will be invalid (or unset) until this call is made
+    public void set_parent(CheckerboardLayout parent) {
         assert(this.parent == null);
         
         this.parent = parent;
 
         update_pango();
-        recalc_size(false);
+        recalc_size();
     }
     
     public void abandon_parent() {
@@ -56,13 +60,15 @@ public abstract class LayoutItem : Object, Queryable {
 
         update_pango();
         recalc_size();
+
+        notify_view_altered();
     }
     
     public string get_title() {
         return title;
     }
     
-    public string get_name() {
+    public override string get_name() {
         return get_title();
     }
     
@@ -71,9 +77,15 @@ public abstract class LayoutItem : Object, Queryable {
     }
     
     public virtual void exposed() {
+        exposure = true;
     }
     
     public virtual void unexposed() {
+        exposure = false;
+    }
+    
+    public virtual bool is_exposed() {
+        return exposure;
     }
 
     public void display_title(bool display) {
@@ -83,6 +95,8 @@ public abstract class LayoutItem : Object, Queryable {
         title_displayed = display;
 
         recalc_size();
+        
+        notify_view_altered();
     }
     
     public void set_image(Gdk.Pixbuf pixbuf) {
@@ -91,6 +105,8 @@ public abstract class LayoutItem : Object, Queryable {
         pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
 
         recalc_size();
+        
+        notify_view_altered();
     }
     
     public void clear_image(int width, int height) {
@@ -99,6 +115,8 @@ public abstract class LayoutItem : Object, Queryable {
         pixbuf_dim = Dimensions(width, height);
 
         recalc_size();
+        
+        notify_view_altered();
     }
     
     private void update_pango() {
@@ -119,7 +137,7 @@ public abstract class LayoutItem : Object, Queryable {
             pango_layout.get_pixel_size(null, out cached_pango_height);
     }
     
-    public void recalc_size(bool force_invalidate = true) {
+    public void recalc_size() {
         // resize the text width to be no more than the pixbuf's
         if (pango_layout != null && pixbuf_dim.width > 0)
             pango_layout.set_width(pixbuf_dim.width * Pango.SCALE);
@@ -135,21 +153,12 @@ public abstract class LayoutItem : Object, Queryable {
         // + height of text + label padding (between pixbuf and text)
         allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height
             + text_height + LABEL_PADDING;
-        
-        if (force_invalidate)
-            invalidate();
     }
     
-    public void invalidate() {
-        if (parent != null) {
-            parent.repaint_item(this);
-        }
-    }
-
     public void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         // frame of FRAME_WIDTH size (determined by GC) only if selected ... however, this is
         // accounted for in allocation so the frame can appear without resizing the item
-        if (selected)
+        if (is_selected())
             drawable.draw_rectangle(gc, false, allocation.x, allocation.y, allocation.width - 1,
                 allocation.height - 1);
         
@@ -165,36 +174,7 @@ public abstract class LayoutItem : Object, Queryable {
                 pango_layout);
         }
     }
-    
-    public virtual void select() {
-        if (selected)
-            return;
-            
-        selected = true;
-        invalidate();
-    }
 
-    public virtual void unselect() {
-        if (!selected)
-            return;
-            
-        selected = false;
-        invalidate();
-    }
-
-    public bool toggle_select() {
-        if (selected)
-            unselect();
-        else
-            select();
-        
-        return selected;
-    }
-
-    public bool is_selected() {
-        return selected;
-    }
-    
     public void set_pixel_coordinates(int x, int y) {
         allocation.x = x;
         allocation.y = y;
@@ -223,7 +203,8 @@ public abstract class LayoutItem : Object, Queryable {
         shift_colors(brightened, BRIGHTEN_SHIFT, BRIGHTEN_SHIFT, BRIGHTEN_SHIFT, 0);
         
         display_pixbuf = brightened;
-        invalidate();
+        
+        notify_view_altered();
     }
     
     public void unbrighten() {
@@ -235,11 +216,12 @@ public abstract class LayoutItem : Object, Queryable {
 
         // return to the normal image
         display_pixbuf = pixbuf;
-        invalidate();
+        
+        notify_view_altered();
     }
 }
 
-public class CollectionLayout : Gtk.DrawingArea {
+public class CheckerboardLayout : Gtk.DrawingArea {
     public const int TOP_PADDING = 16;
     public const int BOTTOM_PADDING = 16;
     public const int ROW_GUTTER_PADDING = 24;
@@ -251,8 +233,7 @@ public class CollectionLayout : Gtk.DrawingArea {
     
     private static Gdk.Pixbuf selection_interior = null;
 
-    public SortedList<LayoutItem> items = new SortedList<LayoutItem>();
-
+    private ViewCollection view;
     private Gtk.Adjustment hadjustment = null;
     private Gtk.Adjustment vadjustment = null;
     private string message = null;
@@ -269,7 +250,21 @@ public class CollectionLayout : Gtk.DrawingArea {
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
     private uint32 selection_transparency_color = 0;
 
-    public CollectionLayout() {
+    public CheckerboardLayout(ViewCollection view) {
+        this.view = view;
+
+        // set existing items to be part of this layout
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
+            item.set_parent(this);
+        }
+
+        // subscribe to the new collection
+        view.contents_altered += on_contents_altered;
+        view.items_state_changed += on_items_state_changed;
+        view.ordering_changed += on_ordering_changed;
+        view.item_view_altered += on_item_view_altered;
+        
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
     }
     
@@ -306,10 +301,55 @@ public class CollectionLayout : Gtk.DrawingArea {
         update_visible_page();
     }
     
-    public void set_message(string text) {
-        // remove all items from layout
-        clear();
+    private void on_contents_altered(Gee.Iterable<DataObject>? added, 
+        Gee.Iterable<DataObject>? removed) {
+        if (added != null) {
+            foreach (DataObject object in added) {
+                LayoutItem item = (LayoutItem) object;
 
+                item.set_parent(this);
+            }
+            
+            // this clears the message
+            message = null;
+        }
+        
+        if (removed != null) {
+            foreach (DataObject object in removed) {
+                LayoutItem item = (LayoutItem) object;
+                
+                item.abandon_parent();
+            }
+        }
+        
+        if (in_view) {
+            refresh();
+            queue_draw();
+        }
+    }
+    
+    private void on_items_state_changed(Gee.Iterable<DataView> changed) {
+        if (!in_view)
+            return;
+            
+        foreach (DataView view in changed)
+            repaint_item((LayoutItem) view);
+    }
+    
+    private void on_ordering_changed() {
+        if (!in_view)
+            return;
+        
+        refresh();
+        queue_draw();
+    }
+    
+    private void on_item_view_altered(DataView view) {
+        if (in_view)
+            repaint_item((LayoutItem) view);
+    }
+    
+    public void set_message(string text) {
         message = text;
 
         // set the layout's size to be exactly the same as the parent's
@@ -338,7 +378,9 @@ public class CollectionLayout : Gtk.DrawingArea {
         // reason the loop doesn't bail out at some point or attempt to be smart about finding
         // only the exposed items
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
-        foreach (LayoutItem item in items) {
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
+            
             // only expose/unexpose if the item has been placed on the layout
             if (!item.get_requisition().has_area())
                 continue;
@@ -362,32 +404,17 @@ public class CollectionLayout : Gtk.DrawingArea {
         visible_page = Gdk.Rectangle();
 
         // unload everything now that not in view
-        foreach (LayoutItem item in items)
-            item.unexposed();
+        foreach (DataObject object in view.get_all())
+            ((LayoutItem) object).unexposed();
     }
     
-    public void set_comparator(Comparator<LayoutItem> cmp) {
-        items.resort(cmp);
-    }
-    
-    public void add_item(LayoutItem item) {
-        items.add(item);
-        item.set_parent(this);
-        
-        // this demolishes any message that's been set
-        message = null;
-    }
-    
-    public void remove_item(LayoutItem item) {
-        items.remove(item);
-        item.abandon_parent();
-    }
-
     public LayoutItem? get_item_at_pixel(double xd, double yd) {
         int x = (int) xd;
         int y = (int) yd;
 
-        foreach (LayoutItem item in items) {
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
+            
             Gdk.Rectangle alloc = item.allocation;
             if ((x >= alloc.x) && (y >= alloc.y) && (x <= (alloc.x + alloc.width))
                 && (y <= (alloc.y + alloc.height))) {
@@ -406,7 +433,9 @@ public class CollectionLayout : Gtk.DrawingArea {
         
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
         
-        foreach (LayoutItem item in items) {
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
+            
             if (rect.intersect((Gdk.Rectangle) item.allocation, bitbucket))
                 intersects.add(item);
             
@@ -419,7 +448,7 @@ public class CollectionLayout : Gtk.DrawingArea {
     }
     
     public LayoutItem? get_item_relative_to(LayoutItem item, CompassPoint point) {
-        if (items.size == 0)
+        if (view.get_count() == 0)
             return null;
         
         assert(columns > 0);
@@ -468,26 +497,14 @@ public class CollectionLayout : Gtk.DrawingArea {
     public LayoutItem? get_item_at_coordinate(int col, int row) {
         // TODO: If searching by coordinates becomes more vital, the items could be stored
         // in an array of arrays for quicker lookup.
-        foreach (LayoutItem item in items) {
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
+            
             if (item.get_column() == col && item.get_row() == row)
                 return item;
         }
         
         return null;
-    }
-    
-    public void clear() {
-        // remove page message
-        message = null;
-        
-        // abandon children
-        foreach (LayoutItem item in items)
-            item.abandon_parent();
-        
-        // clear internal list
-        items.clear();
-        columns = 0;
-        rows = 0;
     }
     
     public void set_drag_select_origin(int x, int y) {
@@ -533,7 +550,7 @@ public class CollectionLayout : Gtk.DrawingArea {
     
     public void refresh() {
         // if set in message mode, nothing to do here
-        if (message!= null)
+        if (message != null)
             return;
         
         // don't bother until layout is of some appreciable size (even this is too low)
@@ -541,7 +558,7 @@ public class CollectionLayout : Gtk.DrawingArea {
             return;
         
         // need to set_size in case all items were removed and the viewport size has changed
-        if (items.size == 0) {
+        if (view.get_count() == 0) {
             set_size_request(allocation.width, 0);
 
             return;
@@ -554,7 +571,8 @@ public class CollectionLayout : Gtk.DrawingArea {
         int row_width = 0;
         int widest_row = 0;
 
-        foreach (LayoutItem item in items) {
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
             Dimensions req = item.get_requisition();
             
             // the items must be requisitioned for this code to work
@@ -593,11 +611,12 @@ public class CollectionLayout : Gtk.DrawingArea {
         int total_width = 0;
         col = 0;
         int[] column_widths = new int[max_cols];
-        int[] row_heights = new int[(items.size / max_cols) + 1];
+        int[] row_heights = new int[(view.get_count() / max_cols) + 1];
         int gutter = 0;
         
         for (;;) {
-            foreach (LayoutItem item in items) {
+            foreach (DataObject object in view.get_all()) {
+                LayoutItem item = (LayoutItem) object;
                 Dimensions req = item.get_requisition();
                 
                 if (req.height > tallest)
@@ -640,7 +659,7 @@ public class CollectionLayout : Gtk.DrawingArea {
                 tallest = 0;
                 total_width = 0;
                 column_widths = new int[max_cols];
-                row_heights = new int[(items.size / max_cols) + 1];
+                row_heights = new int[(view.get_count() / max_cols) + 1];
                 /*
                 debug("refresh(): readjusting columns: max_cols=%d", max_cols);
                 */
@@ -662,7 +681,8 @@ public class CollectionLayout : Gtk.DrawingArea {
         bool report_exposure = (visible_page.width > 1 && visible_page.height > 1);
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
-        foreach (LayoutItem item in items) {
+        foreach (DataObject object in view.get_all()) {
+            LayoutItem item = (LayoutItem) object;
             Dimensions req = item.get_requisition();
 
             // this centers the item in the column
@@ -705,7 +725,7 @@ public class CollectionLayout : Gtk.DrawingArea {
     }
     
     public void repaint_item(LayoutItem item) {
-        assert(items.contains(item));
+        assert(view.contains(item));
         assert(item.allocation.width > 0 && item.allocation.height > 0);
         
         queue_draw_area(item.allocation.x, item.allocation.y, item.allocation.width,
@@ -764,7 +784,9 @@ public class CollectionLayout : Gtk.DrawingArea {
             int right = event.area.x + event.area.width + 1;
         
             Gdk.Rectangle bitbucket = Gdk.Rectangle();
-            foreach (LayoutItem item in items) {
+            foreach (DataObject object in view.get_all()) {
+                LayoutItem item = (LayoutItem) object;
+                
                 if (event.area.intersect(item.allocation, bitbucket))
                     item.paint(item.is_selected() ? selected_gc : unselected_gc, window);
 

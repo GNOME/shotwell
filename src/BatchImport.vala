@@ -205,7 +205,7 @@ public class BatchImport {
             }
         }
         
-        // report to AppWindow to organize into events
+        // report to Event to organize into events
         if (success.size > 0)
             Event.generate_events(success);
         
@@ -341,9 +341,6 @@ public class BatchImport {
         
         success.add(photo);
         
-        // report to AppWindow for system-wide inclusion
-        LibraryWindow.get_app().photo_imported(photo);
-
         // report to observers
         imported(photo);
 

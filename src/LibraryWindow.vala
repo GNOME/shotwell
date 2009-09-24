@@ -8,7 +8,7 @@ public class LibraryWindow : AppWindow {
     public const int SIDEBAR_MIN_WIDTH = 160;
     public const int SIDEBAR_MAX_WIDTH = 320;
     public const int PAGE_MIN_WIDTH = 
-        Thumbnail.MAX_SCALE + CollectionLayout.LEFT_PADDING + CollectionLayout.RIGHT_PADDING;
+        Thumbnail.MAX_SCALE + CheckerboardLayout.LEFT_PADDING + CheckerboardLayout.RIGHT_PADDING;
     
     public const int SORT_EVENTS_ORDER_ASCENDING = 0;
     public const int SORT_EVENTS_ORDER_DESCENDING = 1;
@@ -73,7 +73,7 @@ public class LibraryWindow : AppWindow {
             if (page == null) {
                 debug("Creating new event page for %s", event.get_name());
                 
-                // create the event and set it the marker, if one has been supplied
+                // create the event and set its marker, if one has been supplied
                 page = new EventPage(event);
                 if (marker != null)
                     page.set_marker(marker);
@@ -147,10 +147,11 @@ public class LibraryWindow : AppWindow {
     private int events_sort = SORT_EVENTS_ORDER_DESCENDING;
     
     // Static (default) pages
-    private CollectionPage collection_page = null;
+    private LibraryPage library_page = null;
     private EventsDirectoryPage events_directory_page = null;
     private LibraryPhotoPage photo_page = null;
     private ImportQueuePage import_queue_page = null;
+    private bool displaying_import_queue_page = false;
     
     // Dynamically added/removed pages
     private Gee.ArrayList<EventPageProxy> event_list = new Gee.ArrayList<EventPageProxy>();
@@ -169,19 +170,17 @@ public class LibraryWindow : AppWindow {
     public LibraryWindow() {
         // prepare the default parent and orphan pages
         // (these are never removed from the system)
-        collection_page = new CollectionPage();
+        library_page = new LibraryPage();
         events_directory_page = new EventsDirectoryPage();
+        import_queue_page = new ImportQueuePage();
+        import_queue_page.batch_removed += import_queue_batch_finished;
         photo_page = new LibraryPhotoPage();
         photo_page.set_container(this);
 
         // add the default parents and orphans to the notebook
-        add_parent_page(collection_page);
+        add_parent_page(library_page);
         add_parent_page(events_directory_page);
         add_orphan_page(photo_page);
-
-        // create LibraryPhoto objects for all photos in the database and load into the Photos page
-        foreach (DataObject object in LibraryPhoto.global.get_all())
-             collection_page.add_photo((LibraryPhoto) object);
 
         // watch for new & removed events
         Event.global.items_added += on_added_events;
@@ -193,19 +192,19 @@ public class LibraryWindow : AppWindow {
             add_event_page((Event) object);
         
         // start in the collection page
-        sidebar.place_cursor(collection_page);
+        sidebar.place_cursor(library_page);
         sidebar.expand_all();
         
         // monitor cursor changes to select proper page in notebook
         sidebar.cursor_changed += on_sidebar_cursor_changed;
         
-        create_layout(collection_page);
+        create_layout(library_page);
 
         // settings that should persist between sessions
         load_configuration();
 
         // set up main window as a drag-and-drop destination (rather than each page; assume
-        // a drag and drop is for general library import, which means it goes to collection_page)
+        // a drag and drop is for general library import, which means it goes to library_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
         
@@ -347,7 +346,7 @@ public class LibraryWindow : AppWindow {
     
     private override void on_fullscreen() {
         CollectionPage collection = null;
-        TransformablePhoto start = null;
+        Thumbnail start = null;
         
         // This method indicates one of the shortcomings right now in our design: we need a generic
         // way to access the collection of items each page is responsible for displaying.  Once
@@ -362,13 +361,14 @@ public class LibraryWindow : AppWindow {
             }
             
             collection = (CollectionPage) current_page;
-            start = ((Thumbnail) item).get_photo();
+            start = (Thumbnail) item;
         } else if (current_page is EventsDirectoryPage) {
             collection = ((EventsDirectoryPage) current_page).get_fullscreen_event();
-            start = ((Thumbnail) collection.get_fullscreen_photo()).get_photo();
+            start = (Thumbnail) collection.get_fullscreen_photo();
         } else if (current_page is LibraryPhotoPage) {
             collection = ((LibraryPhotoPage) current_page).get_controller_page();
-            start = (LibraryPhoto) ((LibraryPhotoPage) current_page).get_photo();
+            start =  (Thumbnail) collection.get_view().get_view_for_source(
+                ((LibraryPhotoPage) current_page).get_photo());
         } else {
             message("Unable to present fullscreen view for this page");
             
@@ -468,17 +468,22 @@ public class LibraryWindow : AppWindow {
     }
     
     public void enqueue_batch_import(BatchImport batch_import) {
-        if (import_queue_page == null) {
-            import_queue_page = new ImportQueuePage();
-            import_queue_page.batch_removed += remove_import_queue_row;
-            
+        if (!displaying_import_queue_page) {
             insert_page_after(events_directory_page.get_marker(), import_queue_page);
+            displaying_import_queue_page = true;
         }
         
         import_queue_page.enqueue_and_schedule(batch_import);
     }
+    
+    private void import_queue_batch_finished() {
+        if (displaying_import_queue_page && import_queue_page.get_batch_count() == 0) {
+            remove_page(import_queue_page);
+            displaying_import_queue_page = false;
+        }
+    }
 
-    void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
+    private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
         uint64 total_bytes = 0;
 
@@ -499,20 +504,6 @@ public class LibraryWindow : AppWindow {
         }
     }
 
-    
-    private void remove_import_queue_row() {
-        if (import_queue_page.get_batch_count() == 0) {
-            remove_page(import_queue_page);
-            import_queue_page = null;
-        }
-    }
-
-    public void photo_imported(LibraryPhoto photo) {
-        // automatically add to the Photos page
-        collection_page.add_photo(photo);
-        collection_page.refresh();
-    }
-    
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
         // don't accept drops from our own application
@@ -566,8 +557,8 @@ public class LibraryWindow : AppWindow {
         Gtk.drag_finish(context, true, false, time);
     }
     
-    public void switch_to_collection_page() {
-        switch_to_page(collection_page);
+    public void switch_to_library_page() {
+        switch_to_page(library_page);
     }
     
     public void switch_to_events_directory_page() {
@@ -586,7 +577,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_photo_page(CollectionPage controller, Thumbnail current) {
-        photo_page.display_for_collection(controller, current.get_photo());
+        photo_page.display_for_collection(controller, current);
         switch_to_page(photo_page);
     }
     
@@ -669,7 +660,7 @@ public class LibraryWindow : AppWindow {
         event_list.remove(event_proxy);
         
         // jump to the Photos page
-        switch_to_collection_page();
+        switch_to_library_page();
     }
 
     private void add_camera_page(DiscoveredCamera camera) {
@@ -749,7 +740,7 @@ public class LibraryWindow : AppWindow {
     
     private void remove_page(Page page) {
         // a handful of pages just don't go away
-        assert(page != collection_page);
+        assert(page != library_page);
         assert(page != events_directory_page);
         assert(page != photo_page);
         
@@ -763,7 +754,7 @@ public class LibraryWindow : AppWindow {
         
         // switch away if necessary to collection page (which is always present)
         if (current_page == page)
-            switch_to_collection_page();
+            switch_to_library_page();
     }
     
     private bool remove_page_internal() {
@@ -864,9 +855,10 @@ public class LibraryWindow : AppWindow {
             new_action.set_active(old_action.get_active());
 
             // old page unsubscribes to these signals (new page subscribes below)
-            current_page.selection_changed -= on_selection_changed;
-            current_page.contents_changed -= on_selection_changed;
-            current_page.queryable_altered -= on_selection_changed;
+            current_page.get_view().items_state_changed -= on_selection_changed;
+            current_page.get_view().item_altered -= on_selection_changed;
+            current_page.get_view().item_metadata_altered -= on_selection_changed;
+            current_page.get_view().contents_altered -= on_selection_changed;
         }
 
         int pos = get_notebook_pos(page);
@@ -888,16 +880,17 @@ public class LibraryWindow : AppWindow {
 
         sidebar.place_cursor(page);
         
-        page.show_all();
-        
-        page.switched_to();
-
         on_selection_changed();
 
+        page.show_all();
+        
         // subscribe to these signals for each event page so basic properties display will update
-        current_page.selection_changed += on_selection_changed;
-        current_page.contents_changed += on_selection_changed;
-        current_page.queryable_altered += on_selection_changed;
+        current_page.get_view().items_state_changed += on_selection_changed;
+        current_page.get_view().item_altered += on_selection_changed;
+        current_page.get_view().item_metadata_altered += on_selection_changed;
+        current_page.get_view().contents_altered += on_selection_changed;
+
+        page.switched_to();
     }
 
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
@@ -942,8 +935,8 @@ public class LibraryWindow : AppWindow {
         Gtk.TreePath path;
         sidebar.get_cursor(out path, null);
         
-        if (is_page_selected(collection_page, path)) {
-            switch_to_collection_page();
+        if (is_page_selected(library_page, path)) {
+            switch_to_library_page();
         } else if (is_page_selected(events_directory_page, path)) {
             switch_to_events_directory_page();
         } else if (import_queue_page != null && is_page_selected(import_queue_page, path)) {

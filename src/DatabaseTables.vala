@@ -1231,28 +1231,25 @@ public class EventTable : DatabaseTable {
 
         string name = stmt.column_text(0);
 
-        return (name != "") ? name : null;
+        return (name != null && name.length > 0) ? name : null;
     }
     
 
     public string get_name(EventID event_id) {
         string name = get_raw_name(event_id);
-
-        // if no name, pretty up the start time
-        if (name == null) {
-            Sqlite.Statement stmt;
-
-            if (!select_by_id(event_id.id, "start_time", out stmt))
-                return "";
-
-            int64 timet = stmt.column_int64(0);
-            assert(timet != 0);
-            
-            Time start_time = Time.local((time_t) timet);
-            name = format_local_date(start_time);
-        }
+        if (name != null)
+            return name;
         
-        return name;
+        // if no name, pretty up the start time
+        time_t start_time = 0;
+
+        Sqlite.Statement stmt;
+        if (select_by_id(event_id.id, "start_time", out stmt))
+            start_time = (time_t) stmt.column_int64(0);
+        
+        return (start_time != 0) 
+            ? format_local_date(Time.local(start_time)) 
+            : _("Event %lld").printf(event_id.id);
     }
     
     public PhotoID get_primary_photo(EventID event_id) {

@@ -43,6 +43,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public Gtk.ActionGroup common_action_group = null;
     
     private string page_name;
+    private ViewCollection view = new ViewCollection();
     private PageLayout layout = null;
     private Gtk.MenuBar menu_bar = null;
     private SidebarMarker marker = null;
@@ -53,16 +54,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
-   
-    public virtual signal void selection_changed(int count) {
-    }
     
-    public virtual signal void contents_changed(int count) {
-    }
-    
-    public virtual signal void queryable_altered(Queryable queryable) {
-    }
-
     public Page(string page_name) {
         this.page_name = page_name;
         
@@ -71,6 +63,23 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
 
     public string get_page_name() {
         return page_name;
+    }
+    
+    public void set_page_name(string page_name) {
+        this.page_name = page_name;
+    }
+    
+    public ViewCollection get_view() {
+        return view;
+    }
+    
+    // Usually when a controller is needed to iterate through a page's ViewCollection, the page's
+    // own ViewCollection is the right choice.  Some pages may keep their own ViewCollection but
+    // are actually referring to another ViewController for input (such as PhotoPage, whose own
+    // ViewCollection merely refers to what's currently on the page while it uses another 
+    // ViewController to flip through a collection of thumbnails).
+    public virtual ViewCollection get_controller() {
+        return view;
     }
     
     public PageLayout get_layout() {
@@ -84,10 +93,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         layout = new PageLayout(this);
         
         return layout;
-    }
-    
-    public void set_page_name(string page_name) {
-        this.page_name = page_name;
     }
     
     public void set_event_source(Gtk.Widget event_source) {
@@ -465,14 +470,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return on_motion(event, x, y, mask);
     }
 
-    public abstract int get_queryable_count();
-
-    public abstract Gee.Iterable<Queryable>? get_queryables();
-
-    public abstract int get_selected_queryable_count();
-
-    public abstract Gee.Iterable<Queryable>? get_selected_queryables();
-
     public virtual Gtk.Menu? get_page_context_menu() {
         return null;
     }
@@ -482,11 +479,10 @@ public abstract class CheckerboardPage : Page {
     private const int AUTOSCROLL_PIXELS = 50;
     private const int AUTOSCROLL_TICKS_MSEC = 50;
     
+    private CheckerboardLayout layout;
     private Gtk.Menu item_context_menu = null;
     private Gtk.Menu page_context_menu = null;
-    private CollectionLayout layout = new CollectionLayout();
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    private Gee.HashSet<LayoutItem> selected_items = new Gee.HashSet<LayoutItem>();
     private LayoutItem last_clicked_item = null;
     private LayoutItem highlighted = null;
 
@@ -496,6 +492,8 @@ public abstract class CheckerboardPage : Page {
 
     public CheckerboardPage(string page_name) {
         base(page_name);
+        
+        layout = new CheckerboardLayout(get_view());
         
         set_event_source(layout);
 
@@ -510,7 +508,7 @@ public abstract class CheckerboardPage : Page {
         // want to set_adjustments before adding to ScrolledWindow to let our signal handlers
         // run first ... otherwise, the thumbnails draw late
         layout.set_adjustments(get_hadjustment(), get_vadjustment());
-
+        
         add(viewport);
     }
     
@@ -524,9 +522,9 @@ public abstract class CheckerboardPage : Page {
    
     public Gtk.Menu? get_context_menu() {
         // show page context menu if nothing is selected
-        return (get_selected_count() != 0) ? item_context_menu : page_context_menu;
+        return (get_view().get_selected_count() != 0) ? item_context_menu : page_context_menu;
     }
-
+    
     public override Gtk.Menu? get_page_context_menu() {
         return page_context_menu;
     }
@@ -554,191 +552,17 @@ public abstract class CheckerboardPage : Page {
     
     public void refresh() {
         layout.refresh();
-        layout.queue_draw();
+        if (is_in_view())
+            layout.queue_draw();
     }
     
     public void set_page_message(string message) {
         layout.set_message(message);
-    }
-    
-    public void set_layout_comparator(Comparator<LayoutItem> cmp) {
-        layout.set_comparator(cmp);
+        refresh();
     }
     
     public LayoutItem? get_item_at_pixel(double x, double y) {
         return layout.get_item_at_pixel(x, y);
-    }
-    
-    public Gee.Iterable<LayoutItem> get_items() {
-        return layout.items;
-    }
-   
-    public Gee.Iterable<LayoutItem> get_selected() {
-        return selected_items;
-    }
-
-    public override int get_queryable_count() {
-        return get_count();
-    }
-
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        return get_items();
-    }
-
-    public override int get_selected_queryable_count() {
-        return get_selected_count();
-    }
-
-    public override Gee.Iterable<Queryable>? get_selected_queryables() {
-        return get_selected();
-    }    
-
-    public void add_item(LayoutItem item) {
-        layout.add_item(item);
-        contents_changed(layout.items.size);
-    }
-    
-    public void remove_item(LayoutItem item) {
-        int count = layout.items.size;
-        int selected_count = selected_items.size;
-
-        selected_items.remove(item);
-        layout.remove_item(item);
-        
-        if (count != layout.items.size)
-            contents_changed(layout.items.size);
-
-        if (selected_count != selected_items.size) {
-            selection_changed(selected_items.size);
-        }
-    }
-    
-    public int remove_selected() {
-        int count = layout.items.size;
-        int selected_count = selected_items.size;
-        
-        foreach (LayoutItem item in selected_items)
-            layout.remove_item(item);
-        
-        selected_items.clear();
-        
-        if (count != layout.items.size)
-            contents_changed(layout.items.size);
-
-        if (selected_count != selected_items.size) {
-            selection_changed(selected_items.size);
-        }
-        
-        return selected_count;
-    }
-    
-    public int remove_all() {
-        int count = layout.items.size;
-        int selection_count = selected_items.size;
-        
-        layout.clear();
-        selected_items.clear();
-        
-        if (count != layout.items.size)
-            contents_changed(layout.items.size);
-        
-        if (selection_count != selected_items.size) {
-            selection_changed(selected_items.size);
-        }
-
-        return count;
-    }
-    
-    public int get_count() {
-        return layout.items.size;
-    }
-    
-    public void select_all() {
-        bool changed = false;
-        foreach (LayoutItem item in layout.items) {
-            if (!item.is_selected()) {
-                selected_items.add(item);
-                item.select();
-                changed = true;
-            }
-        }
-        
-        if (changed)
-            selection_changed(selected_items.size);
-    }
-
-    public void unselect_all() {
-        if (selected_items.size == 0)
-            return;
-
-        foreach (LayoutItem item in selected_items) {
-            assert(item.is_selected());
-            item.unselect();
-        }
-        
-        selected_items.clear();
-        
-        selection_changed(0);
-    }
-    
-    public void unselect_all_but(LayoutItem exception) {
-        assert(exception.is_selected());
-        
-        if (selected_items.size == 0)
-            return;
-        
-        bool changed = false;
-        foreach (LayoutItem item in selected_items) {
-            assert(item.is_selected());
-            if (item != exception) {
-                item.unselect();
-                changed = true;
-            }
-        }
-        
-        selected_items.clear();
-        selected_items.add(exception);
-
-        if (changed)
-            selection_changed(1);
-    }
-
-    public void select(LayoutItem item) {
-        assert(layout.items.contains(item));
-        
-        if (!item.is_selected()) {
-            item.select();
-            selected_items.add(item);
-
-            selection_changed(selected_items.size);
-        }
-    }
-    
-    public void unselect(LayoutItem item) {
-        assert(layout.items.contains(item));
-        
-        if (item.is_selected()) {
-            item.unselect();
-            selected_items.remove(item);
-            
-            selection_changed(selected_items.size);
-        }
-    }
-
-    public void toggle_select(LayoutItem item) {
-        if (item.toggle_select()) {
-            // now selected
-            selected_items.add(item);
-        } else {
-            // now unselected
-            selected_items.remove(item);
-        }
-        
-        selection_changed(selected_items.size);
-    }
-    
-    public int get_selected_count() {
-        return selected_items.size;
     }
 
     protected override bool key_press_event(Gdk.EventKey event) {
@@ -766,29 +590,24 @@ public abstract class CheckerboardPage : Page {
             
             case "Home":
             case "KP_Home":
-                LayoutItem first = get_first_item();
+                LayoutItem? first = (LayoutItem?) get_view().get_first();
                 if (first != null)
                     cursor_to_item(first);
             break;
             
             case "End":
             case "KP_End":
-                LayoutItem last = get_last_item();
+                LayoutItem? last = (LayoutItem?) get_view().get_last();
                 if (last != null)
                     cursor_to_item(last);
             break;
             
             case "Return":
             case "KP_Enter":
-                if (get_selected_count() == 1) {
-                    foreach (LayoutItem item in get_selected()) {
-                        on_item_activated(item);
-                        
-                        break;
-                    }
-                } else {
+                if (get_view().get_selected_count() == 1)
+                    on_item_activated((LayoutItem) get_view().get_selected_at(0));
+                else
                     handled = false;
-                }
             break;
             
             default:
@@ -818,7 +637,8 @@ public abstract class CheckerboardPage : Page {
                 case Gdk.ModifierType.CONTROL_MASK:
                     // with only Ctrl pressed, multiple selections are possible ... chosen item
                     // is toggled
-                    toggle_select(item);
+                    Marker marker = get_view().mark(item);
+                    get_view().toggle_marked(marker);
                 break;
                 
                 case Gdk.ModifierType.SHIFT_MASK:
@@ -840,21 +660,23 @@ public abstract class CheckerboardPage : Page {
                 break;
                 
                 default:
-                    if (event.type == Gdk.EventType.2BUTTON_PRESS)
+                    if (event.type == Gdk.EventType.2BUTTON_PRESS) {
                         on_item_activated(item);
-                    else {
+                    } else {
                         // if user has selected multiple items and is preparing for a drag, don't
                         // want to unselect immediately, otherwise, let the released handler deal
                         // with it
-                        if (get_selected_count() == 1)
-                            unselect_all();
-                        select(item);
+                        if (get_view().get_selected_count() == 1)
+                            get_view().unselect_all();
+                        
+                        Marker marker = get_view().mark(item);
+                        get_view().select_marked(marker);
                     }
                 break;
             }
         } else {
             // user clicked on "dead" area
-            unselect_all();
+            get_view().unselect_all();
         }
         
         last_clicked_item = item;
@@ -869,7 +691,7 @@ public abstract class CheckerboardPage : Page {
             return true;
         }
 
-        return selected_items.size == 0;
+        return get_view().get_selected_count() == 0;
     }
     
     protected override bool on_left_released(Gdk.EventButton event) {
@@ -894,14 +716,14 @@ public abstract class CheckerboardPage : Page {
         if (last_clicked_item != item) {
             // user released mouse button after moving it off the initial item, or moved from dead
             // space onto one.  either way, unselect everything
-            unselect_all();
+            get_view().unselect_all();
         } else {
             // the idea is, if a user single-clicks on an item with no modifiers, then all other items
             // should be deselected, however, if they single-click in order to drag one or more items,
             // they should remain selected, hence performing this here rather than on_left_click
             // (item may not be selected if an unimplemented modifier key was used)
             if (item.is_selected())
-                unselect_all_but(item);
+                get_view().unselect_all_but(item);
         }
 
         return true;
@@ -919,7 +741,8 @@ public abstract class CheckerboardPage : Page {
             switch (event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
                 case Gdk.ModifierType.CONTROL_MASK:
                     // chosen item is toggled
-                    toggle_select(item);
+                    Marker marker = get_view().mark(item);
+                    get_view().toggle_marked(marker);
                 break;
                 
                 case Gdk.ModifierType.SHIFT_MASK:
@@ -934,14 +757,16 @@ public abstract class CheckerboardPage : Page {
                     // if the item is already selected, proceed; if item is not selected, a bare right
                     // click unselects everything else but it
                     if (!item.is_selected()) {
-                        unselect_all();
-                        select(item);
+                        get_view().unselect_all();
+                        
+                        Marker marker = get_view().mark(item);
+                        get_view().select_marked(marker);
                     }
                 break;
             }
         } else {
             // clicked in "dead" space, unselect everything
-            unselect_all();
+            get_view().unselect_all();
         }
        
         Gtk.Menu context_menu = get_context_menu();
@@ -1011,19 +836,23 @@ public abstract class CheckerboardPage : Page {
         if (intersection == null)
             return;
 
-        // deselect everything not in the intersection ... needs to be done outside the iterator
-        Gee.ArrayList<LayoutItem> outside = new Gee.ArrayList<LayoutItem>();
-        foreach (LayoutItem item in selected_items) {
+        // unselect everything not in the intersection
+        Marker marker = get_view().start_marking();
+        foreach (DataView view in get_view().get_selected()) {
+            LayoutItem item = (LayoutItem) view;
+            
             if (!intersection.contains(item))
-                outside.add(item);
+                marker.mark(item);
         }
         
-        foreach (LayoutItem item in outside)
-            unselect(item);
+        get_view().unselect_marked(marker);
         
         // select everything in the intersection
+        marker = get_view().start_marking();
         foreach (LayoutItem item in intersection)
-            select(item);
+            marker.mark(item);
+        
+        get_view().select_marked(marker);
     }
     
     private bool selection_autoscroll() {
@@ -1071,53 +900,13 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
-    public LayoutItem? get_first_item() {
-        return (layout.items.size != 0) ? layout.items.get(0) : null;
-    }
-    
-    public LayoutItem? get_last_item() {
-        return (layout.items.size != 0) ? layout.items.get(layout.items.size - 1) : null;
-    }
-    
-    public LayoutItem? get_next_item(LayoutItem current) {
-        if (layout.items.size == 0)
-            return null;
-        
-        int index = layout.items.locate(current);
-
-        // although items may be added while the page is away, not handling situations where an active
-        // item is removed
-        assert(index >= 0);
-
-        index++;
-        if (index >= layout.items.size)
-            index = 0;
-        
-        return layout.items.get(index);
-    }
-    
-    public LayoutItem? get_previous_item(LayoutItem current) {
-        if (layout.items.size == 0)
-            return null;
-        
-        int index = layout.items.locate(current);
-        
-        // although items may be added while the page is away, not handling situations where an active
-        // item is removed
-        assert(index >= 0);
-
-        index--;
-        if (index < 0)
-            index = (layout.items.size - 1);
-        
-        return layout.items.get(index);
-    }
-    
     public void cursor_to_item(LayoutItem item) {
-        assert(layout.items.contains(item));
+        assert(get_view().contains(item));
         
-        unselect_all();
-        select(item);
+        get_view().unselect_all();
+        
+        Marker marker = get_view().mark(item);
+        get_view().select_marked(marker);
 
         // if item is in any way out of view, scroll to it
         Gtk.Adjustment vadj = get_vadjustment();
@@ -1129,19 +918,23 @@ public abstract class CheckerboardPage : Page {
         int top = 0;
         if (item.allocation.y < vadj.get_value()) {
             top = item.allocation.y;
-            top -= CollectionLayout.ROW_GUTTER_PADDING / 2;
+            top -= CheckerboardLayout.ROW_GUTTER_PADDING / 2;
         } else {
             top = item.allocation.y + item.allocation.height - (int) vadj.get_page_size();
-            top += CollectionLayout.ROW_GUTTER_PADDING / 2;
+            top += CheckerboardLayout.ROW_GUTTER_PADDING / 2;
         }
         
         vadj.set_value(top);
     }
     
     public void move_cursor(CompassPoint point) {
+        // if no items, nothing to do
+        if (get_view().get_count() == 0)
+            return;
+            
         // if nothing is selected, simply select the first and exit
-        if (selected_items.size == 0) {
-            cursor_to_item(layout.items.get(0));
+        if (get_view().get_selected_count() == 0) {
+            cursor_to_item(layout.get_item_at_coordinate(0, 0));
             
             return;
         }
@@ -1150,7 +943,9 @@ public abstract class CheckerboardPage : Page {
         // TODO: Revisit if this is the right choice.
         int first_col = int.MAX;
         int first_row = int.MAX;
-        foreach (LayoutItem selected in selected_items) {
+        foreach (DataView view in get_view().get_selected()) {
+            LayoutItem selected = (LayoutItem) view;
+
             first_col = int.min(selected.get_column(), first_col);
             first_row = int.min(selected.get_row(), first_row);
         }
@@ -1159,26 +954,29 @@ public abstract class CheckerboardPage : Page {
         assert(item != null);
         
         // if more than one selected, select the first without moving, to not surprise the user
-        if (selected_items.size > 1) {
+        if (get_view().get_selected_count() > 1) {
             cursor_to_item(item);
             
             return;
         }
         
+        // move the cursor relative to the "first" item
         item = layout.get_item_relative_to(item, point);
         if (item != null)
             cursor_to_item(item);
    }
    
     public bool get_selected_box(out Box selected_box) {
-        if (selected_items.size == 0)
+        if (get_view().get_selected_count() == 0)
             return false;
             
         int left = int.MAX;
         int top = int.MAX;
         int right = int.MIN;
         int bottom = int.MIN;
-        foreach (LayoutItem selected in selected_items) {
+        foreach (DataView view in get_view().get_selected()) {
+            LayoutItem selected = (LayoutItem) view;
+            
             left = int.min(selected.get_column(), left);
             top = int.min(selected.get_row(), top);
             right = int.max(selected.get_column(), right);
@@ -1191,13 +989,18 @@ public abstract class CheckerboardPage : Page {
     }
    
     public void select_all_in_box(Box box) {
+        Marker marker = get_view().start_marking();
         Gdk.Point point = Gdk.Point();
-        foreach (LayoutItem item in layout.items) {
+        foreach (DataObject object in get_view().get_all()) {
+            LayoutItem item = (LayoutItem) object;
+            
             point.x = item.get_column();
             point.y = item.get_row();
             if (box.contains(point))
-                select(item);
+                marker.mark((DataView) object);
         }
+        
+        get_view().select_marked(marker);
     }
 }
 
@@ -1264,6 +1067,18 @@ public abstract class SinglePhotoPage : Page {
         canvas.realize();
         
         repaint(use_improvement ? default_interp : QUALITY_INTERP);
+    }
+    
+    public void blank_display() {
+        unscaled = null;
+        scaled = null;
+        pixmap = null;
+        
+        // this has to have happened
+        canvas.realize();
+        
+        // force a redraw
+        invalidate_all();
     }
     
     public Gdk.Drawable? get_drawable() {

@@ -7,8 +7,8 @@
 class SlideshowPage : SinglePhotoPage {
     private const int CHECK_ADVANCE_MSEC = 250;
     
-    private CheckerboardPage controller;
-    private Thumbnail thumbnail;
+    private ViewCollection controller;
+    private Thumbnail current;
     private Gdk.Pixbuf next_pixbuf = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton play_pause_button;
@@ -55,7 +55,7 @@ class SlideshowPage : SinglePhotoPage {
             set_title(_("Settings"));
 
             Gtk.Label delay_label = new Gtk.Label(_("Delay:"));
-            Gtk.Label units_label = new Gtk.Label(_("seconds"));   
+            Gtk.Label units_label = new Gtk.Label(_("seconds"));
             delay_entry = new Gtk.Entry();
             delay_entry.set_max_length(5);
             delay_entry.set_text("%.1f".printf(delay));
@@ -85,11 +85,11 @@ class SlideshowPage : SinglePhotoPage {
         }
     }
 
-    public SlideshowPage(CheckerboardPage controller, Thumbnail start) {
+    public SlideshowPage(ViewCollection controller, Thumbnail start) {
         base(_("Slideshow"));
         
         this.controller = controller;
-        this.thumbnail = start;
+        current = start;
         
         set_default_interp(QUALITY_INTERP);
         
@@ -132,7 +132,7 @@ class SlideshowPage : SinglePhotoPage {
 
         try {
             // since the canvas might not be ready at this point, start with screen-sized photo
-            set_pixbuf(thumbnail.get_photo().get_pixbuf(Scaling.for_screen()));
+            set_pixbuf(current.get_photo().get_pixbuf(Scaling.for_screen()));
         } catch (Error err) {
             warning("%s", err.message);
         }
@@ -162,7 +162,7 @@ class SlideshowPage : SinglePhotoPage {
         if (next_pixbuf != null)
             return false;
         
-        Thumbnail next = (Thumbnail) controller.get_next_item(thumbnail);
+        Thumbnail next = (Thumbnail) controller.get_next(current);
 
         try {
             next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scaling());
@@ -191,11 +191,11 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private void on_previous_manual() {
-        manual_advance((Thumbnail) controller.get_previous_item(thumbnail));
+        manual_advance((Thumbnail) controller.get_previous(current));
     }
     
     private void on_next_automatic() {
-        thumbnail = (Thumbnail) controller.get_next_item(thumbnail);
+        current = (Thumbnail) controller.get_next(current);
         
         // if prefetch didn't happen in time, get pixbuf now
         Gdk.Pixbuf pixbuf = next_pixbuf;
@@ -203,7 +203,7 @@ class SlideshowPage : SinglePhotoPage {
             warning("Slideshow prefetch was not ready");
 
             try {
-                pixbuf = thumbnail.get_photo().get_pixbuf(get_canvas_scaling());
+                pixbuf = current.get_photo().get_pixbuf(get_canvas_scaling());
             } catch (Error err) {
                 warning("%s", err.message);
             }
@@ -220,15 +220,15 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private void on_next_manual() {
-        manual_advance((Thumbnail) controller.get_next_item(thumbnail));
+        manual_advance((Thumbnail) controller.get_next(current));
     }
     
     private void manual_advance(Thumbnail thumbnail) {
-        this.thumbnail = thumbnail;
+        current = thumbnail;
         
         try {
             // start with blown-up preview
-            set_pixbuf(thumbnail.get_photo().get_preview_pixbuf(get_canvas_scaling()));
+            set_pixbuf(current.get_photo().get_preview_pixbuf(get_canvas_scaling()));
         } catch (Error err) {
             warning("%s", err.message);
         }
@@ -245,7 +245,7 @@ class SlideshowPage : SinglePhotoPage {
     
     private bool on_improvement() {
         try {
-            set_pixbuf(thumbnail.get_photo().get_pixbuf(get_canvas_scaling()));
+            set_pixbuf(current.get_photo().get_pixbuf(get_canvas_scaling()));
         } catch (Error err) {
             warning("%s", err.message);
         }
@@ -313,23 +313,17 @@ class SlideshowPage : SinglePhotoPage {
         playing = slideshow_playing;
         timer.start();
     }
+}
 
-    public override int get_queryable_count() {
-        return 1;
+public class CollectionViewManager : ViewManager {
+    private CollectionPage page;
+    
+    public CollectionViewManager(CollectionPage page) {
+        this.page = page;
     }
-
-    public override int get_selected_queryable_count() {
-        return get_queryable_count();
-    }
-
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        Gee.ArrayList<LibraryPhoto> photo_array_list = new Gee.ArrayList<LibraryPhoto>();
-        photo_array_list.add(thumbnail.get_photo());
-        return photo_array_list;
-    }
-
-    public override Gee.Iterable<Queryable>? get_selected_queryables() {
-        return get_queryables();
+    
+    public override DataView create_view(DataSource source) {
+        return page.create_thumbnail((LibraryPhoto) source);
     }
 }
 
@@ -357,82 +351,32 @@ public class CollectionPage : CheckerboardPage {
     private int drag_failed_item_count = 0;
     
     private class CompareName : Comparator<LayoutItem> {
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            string namea = ((Thumbnail) a).get_title();
-            string nameb = ((Thumbnail) b).get_title();
-            
-            return strcmp(namea, nameb);
+        private bool ascending;
+        
+        public CompareName(bool ascending) {
+            this.ascending = ascending;
         }
-    }
-    
-    private class ReverseCompareName : Comparator<LayoutItem> {
+        
         public override int64 compare(LayoutItem a, LayoutItem b) {
             string namea = ((Thumbnail) a).get_title();
             string nameb = ((Thumbnail) b).get_title();
             
-            return strcmp(nameb, namea);
+            return (ascending) ? strcmp(namea, nameb) : strcmp(nameb, namea);
         }
     }
     
     private class CompareDate : Comparator<LayoutItem> {
+        private bool ascending;
+        
+        public CompareDate(bool ascending) {
+            this.ascending = ascending;
+        }
+        
         public override int64 compare(LayoutItem a, LayoutItem b) {
             time_t timea = ((Thumbnail) a).get_photo().get_exposure_time();
             time_t timeb = ((Thumbnail) b).get_photo().get_exposure_time();
             
-            return timea - timeb;
-        }
-    }
-    
-    private class ReverseCompareDate : Comparator<LayoutItem> {
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            time_t timea = ((Thumbnail) a).get_photo().get_exposure_time();
-            time_t timeb = ((Thumbnail) b).get_photo().get_exposure_time();
-            
-            return timeb - timea;
-        }
-    }
-    
-    private class InternalPhotoCollection : Object, PhotoCollection {
-        private CollectionPage page;
-        
-        public InternalPhotoCollection(CollectionPage page) {
-            this.page = page;
-        }
-        
-        public int get_count() {
-            return page.get_count();
-        }
-        
-        public PhotoSource? get_first_photo() {
-            Thumbnail? thumbnail = (Thumbnail) page.get_first_item();
-            
-            return (thumbnail != null) ? thumbnail.get_photo() : null;
-        }
-        
-        public PhotoSource? get_last_photo() {
-            Thumbnail? thumbnail = (Thumbnail) page.get_last_item();
-            
-            return (thumbnail != null) ? thumbnail.get_photo() : null;
-        }
-        
-        public PhotoSource? get_next_photo(PhotoSource current) {
-            Thumbnail? thumbnail = page.get_thumbnail_for_photo((LibraryPhoto) current);
-            if (thumbnail == null)
-                return null;
-
-            thumbnail = (Thumbnail) page.get_next_item(thumbnail);
-            
-            return (thumbnail != null) ? thumbnail.get_photo() : null;
-        }
-        
-        public PhotoSource? get_previous_photo(PhotoSource current) {
-            Thumbnail? thumbnail = page.get_thumbnail_for_photo((LibraryPhoto) current);
-            if (thumbnail == null)
-                return null;
-            
-            thumbnail = (Thumbnail) page.get_previous_item(thumbnail);
-            
-            return (thumbnail != null) ? thumbnail.get_photo() : null;
+            return (ascending) ? timea - timeb : timeb - timea;
         }
     }
     
@@ -448,13 +392,11 @@ public class CollectionPage : CheckerboardPage {
     private bool layout_refresh_scheduled = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
     private bool thumbs_resized = false;
-    private Gee.HashMap<LibraryPhoto, Thumbnail> thumbnail_map = 
-        new Gee.HashMap<LibraryPhoto, Thumbnail>(direct_hash, direct_equal, direct_equal);
 
-    public CollectionPage(string? page_name = null, string? ui_filename = null, 
+    public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
-        base(page_name != null ? page_name : "Photos");
-       
+        base(page_name);
+        
         init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
             create_toggle_actions());
         action_group.add_radio_actions(create_sort_crit_actions(), DEFAULT_SORT_BY,
@@ -471,8 +413,11 @@ public class CollectionPage : CheckerboardPage {
         init_ui_bind("/CollectionMenuBar");
         init_item_context_menu("/CollectionContextMenu");
         
-        set_layout_comparator(get_sort_comparator());
-        
+        get_view().set_comparator(get_sort_comparator());
+        get_view().contents_altered += on_contents_altered;
+        get_view().items_state_changed += on_selection_changed;
+        get_view().item_view_altered += on_thumbnail_view_altered;
+
         // adjustment which is shared by all sliders in the application
         if (slider_adjustment == null)
             slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0, 
@@ -679,6 +624,15 @@ public class CollectionPage : CheckerboardPage {
         return toolbar;
     }
     
+    // This method is called by CollectionViewManager to create thumbnails for the DataSource 
+    // (Photo) objects.
+    public virtual Thumbnail create_thumbnail(LibraryPhoto photo) {
+        Thumbnail thumbnail = new Thumbnail(photo, scale);
+        thumbnail.display_title(display_titles());
+        
+        return thumbnail;
+    }
+    
     public override void switched_to() {
         base.switched_to();
 
@@ -704,8 +658,12 @@ public class CollectionPage : CheckerboardPage {
         base.returning_from_fullscreen();
     }
     
-    protected override void selection_changed(int count) {
-        rotate_button.sensitive = (count > 0);
+    private void on_contents_altered() {
+        slideshow_button.sensitive = get_view().get_count() > 0;
+    }
+    
+    private void on_selection_changed(Gee.Iterable<DataView> items) {
+        rotate_button.sensitive = get_view().get_selected_count() > 0;
     }
     
     protected override void on_item_activated(LayoutItem item) {
@@ -718,7 +676,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     protected override bool on_context_invoked(Gtk.Menu context_menu) {
-        bool selected = (get_selected_count() > 0);
+        bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionContextMenu/ContextRemove", selected);
@@ -731,24 +689,13 @@ public class CollectionPage : CheckerboardPage {
     }
     
     public override LayoutItem? get_fullscreen_photo() {
-        Gee.Iterable<LayoutItem> iter = null;
-        
-        // if no selection, use the first item
-        if (get_selected_count() > 0) {
-            iter = get_selected();
-        } else {
-            iter = get_items();
-        }
-        
-        // use the first item of the selected collection to start things off
-        foreach (LayoutItem item in iter)
-            return item;
-        
-        return null;
-    }
-    
-    public PhotoCollection get_photo_collection() {
-        return new InternalPhotoCollection(this);
+        // use first selected item; if no selection, use first item
+        if (get_view().get_selected_count() > 0)
+            return (LayoutItem?) get_view().get_selected_at(0);
+        else if (get_view().get_count() > 0)
+            return (LayoutItem?) get_view().get_at(0);
+        else
+            return null;
     }
     
     protected override void on_resize(Gdk.Rectangle rect) {
@@ -758,7 +705,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private override void drag_begin(Gdk.DragContext context) {
-        if (get_selected_count() == 0)
+        if (get_view().get_selected_count() == 0)
             return;
         
         drag_items.clear();
@@ -767,8 +714,8 @@ public class CollectionPage : CheckerboardPage {
         // files first
         Gdk.Pixbuf icon = null;
         drag_failed_item_count = 0;
-        foreach (LayoutItem item in get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) item).get_photo();
+        foreach (DataView view in get_view().get_selected()) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             
             File file = null;
             try {
@@ -834,50 +781,10 @@ public class CollectionPage : CheckerboardPage {
         
         drag_items.clear();
         
-        foreach (LayoutItem item in get_selected()) {
-            ((Thumbnail) item).get_photo().export_failed();
-        }
+        foreach (DataView view in get_view().get_selected())
+            ((Thumbnail) view).get_photo().export_failed();
         
         return false;
-    }
-    
-    public void add_photo(LibraryPhoto photo) {
-        // search for duplicates
-        if (get_thumbnail_for_photo(photo) != null)
-            return;
-        
-        photo.destroyed += on_photo_destroyed;
-        photo.altered += on_photo_altered;
-        
-        Thumbnail thumbnail = new Thumbnail(photo, scale);
-        thumbnail.display_title(display_titles());
-        thumbnail.low_quality_thumbnail += schedule_thumbnail_improval;
-        thumbnail.geometry_changed += schedule_layout_refresh;
-        
-        add_item(thumbnail);
-        thumbnail_map.set(photo, thumbnail);
-        
-        slideshow_button.sensitive = true;
-    }
-    
-    // This method is called when the LibraryPhoto -- not the Thumbnail -- is removed from the
-    // system, which can happen anywhere (whereas only this page can remove its thumbnails)
-    private void on_photo_destroyed(LibraryPhoto photo) {
-        Thumbnail found = get_thumbnail_for_photo(photo);
-        if (found != null) {
-            remove_item(found);
-            thumbnail_map.remove(photo);
-        }
-        
-        slideshow_button.sensitive = (get_count() > 0);
-    }
-    
-    private void on_photo_altered(LibraryPhoto photo) {
-        queryable_altered(photo);
-    }
-    
-    private Thumbnail? get_thumbnail_for_photo(LibraryPhoto photo) {
-        return thumbnail_map.get(photo);
     }
     
     public int increase_thumb_size() {
@@ -912,8 +819,27 @@ public class CollectionPage : CheckerboardPage {
         
         scale = new_scale;
         
-        foreach (LayoutItem item in get_items())
-            ((Thumbnail) item).resize(scale);
+        foreach (DataObject object in get_view().get_all())
+            ((Thumbnail) object).resize(scale);
+    }
+    
+    private void on_thumbnail_view_altered(DataView view) {
+        // ignore if not in view
+        if (!is_in_view())
+            return;
+            
+        Thumbnail thumbnail = (Thumbnail) view;
+        
+        // no worries if not exposed
+        if (!thumbnail.is_exposed())
+            return;
+        
+        // if geometry has changed, need to refresh the layout
+        schedule_layout_refresh();
+
+        // if low-quality thumbnail, schedule for improval
+        if (thumbnail.is_low_quality_thumbnail())
+            schedule_thumbnail_improval();
     }
     
     private void schedule_thumbnail_improval() {
@@ -923,21 +849,21 @@ public class CollectionPage : CheckerboardPage {
             
         if (improval_scheduled == false) {
             improval_scheduled = true;
-            Timeout.add_full(IMPROVAL_PRIORITY, IMPROVAL_DELAY_MS, improve_thumbnail_quality);
+            Timeout.add_full(IMPROVAL_PRIORITY, IMPROVAL_DELAY_MS, background_improval);
         } else {
             reschedule_improval = true;
         }
     }
     
-    private bool improve_thumbnail_quality() {
+    private bool background_improval() {
         if (reschedule_improval) {
             reschedule_improval = false;
             
             return true;
         }
 
-        foreach (LayoutItem item in get_items()) {
-            Thumbnail thumbnail = (Thumbnail) item;
+        foreach (DataObject object in get_view().get_all()) {
+            Thumbnail thumbnail = (Thumbnail) object;
             if (thumbnail.is_exposed())
                 thumbnail.paint_high_quality();
         }
@@ -969,13 +895,13 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_file_menu() {
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", get_selected_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", get_view().get_selected_count() > 0);
     }
     
     private void on_export() {
         Gee.ArrayList<LibraryPhoto> export_list = new Gee.ArrayList<LibraryPhoto>();
-        foreach (LayoutItem item in get_selected())
-            export_list.add(((Thumbnail) item).get_photo());
+        foreach (DataView view in get_view().get_selected())
+            export_list.add(((Thumbnail) view).get_photo());
 
         if (export_list.size == 0)
             return;
@@ -1040,17 +966,17 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_edit_menu() {
-        set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_count() > 0);
-        set_item_sensitive("/CollectionMenuBar/EditMenu/Remove", get_selected_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_view().get_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/EditMenu/Remove", get_view().get_selected_count() > 0);
     }
     
     private void on_select_all() {
-        select_all();
+        get_view().select_all();
     }
     
     private bool can_revert_selected() {
-        foreach (LayoutItem item in get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) item).get_photo();
+        foreach (DataView view in get_view().get_selected()) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             if (photo.has_transformations())
                 return true;
         }
@@ -1059,7 +985,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     protected virtual void on_photos_menu() {
-        bool selected = (get_selected_count() > 0);
+        bool selected = (get_view().get_selected_count() > 0);
         bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
@@ -1068,7 +994,7 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
     }
     
     private void on_increase_size() {
@@ -1082,7 +1008,7 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_remove() {
-        if (get_selected_count() == 0)
+        if (get_view().get_selected_count() == 0)
             return;
 
         string msg_string = _("If you remove these photos from your library you will lose all edits you've made to them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
@@ -1099,69 +1025,63 @@ public class CollectionPage : CheckerboardPage {
         
         if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
             return;
-            
-        // iterate over selected photos and remove them from entire system .. this will result
-        // in on_photo_removed being called, which we don't want in this case is because it will
-        // remove from the list while iterating, so disconnect the signals and do the work here
-        foreach (LayoutItem item in get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) item).get_photo();
-            photo.destroyed -= on_photo_destroyed;
-            photo.altered -= on_photo_altered;
+        
+        // mark all the sources for the selected view items and destroy them ... note that simply
+        // removing the view items does not work here; the source items (i.e. the Photo objects)
+        // must be destroyed, which will remove the view items from this view (and all others)
+        Marker marker = LibraryPhoto.global.start_marking();
+        foreach (DataView view in get_view().get_selected()) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             
             if (result == Gtk.ResponseType.NO)
                 photo.delete_original_on_destroy();
             
-            photo.destroy();
-            
-            thumbnail_map.remove(photo);
+            marker.mark(photo);
         }
         
-        // now remove from page, outside of iterator
-        remove_selected();
-        
-        refresh();
+        LibraryPhoto.global.destroy_marked(marker);
     }
     
-    private void do_rotations(Gee.Iterable<LayoutItem> c, Rotation rotation) {
-        foreach (LayoutItem item in c) {
-            LibraryPhoto photo = ((Thumbnail) item).get_photo();
+    private void do_rotations(Gee.Iterable<DataView> c, Rotation rotation) {
+        foreach (DataView view in c) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             photo.rotate(rotation);
         }
     }
 
     private void on_rotate_clockwise() {
-        do_rotations(get_selected(), Rotation.CLOCKWISE);
+        do_rotations(get_view().get_selected(), Rotation.CLOCKWISE);
     }
     
     private void on_rotate_counterclockwise() {
-        do_rotations(get_selected(), Rotation.COUNTERCLOCKWISE);
+        do_rotations(get_view().get_selected(), Rotation.COUNTERCLOCKWISE);
     }
     
     private void on_mirror() {
-        do_rotations(get_selected(), Rotation.MIRROR);
+        do_rotations(get_view().get_selected(), Rotation.MIRROR);
     }
     
     private void on_revert() {
-        foreach (LayoutItem item in get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) item).get_photo();
+        foreach (DataView view in get_view().get_selected()) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             photo.remove_all_transformations();
         }
     }
     
     private void on_slideshow() {
-        if (get_count() == 0)
+        if (get_view().get_count() == 0)
             return;
         
         Thumbnail thumbnail = (Thumbnail) get_fullscreen_photo();
         if (thumbnail == null)
             return;
             
-        AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(this,
+        AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(get_view(),
             thumbnail)));
     }
 
     private void on_view_menu() {
-        set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
     }
     
     private bool display_titles() {
@@ -1173,8 +1093,8 @@ public class CollectionPage : CheckerboardPage {
     private void on_display_titles(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
-        foreach (LayoutItem item in get_items())
-            item.display_title(display);
+        foreach (DataObject object in get_view().get_all())
+            ((Thumbnail) object).display_title(display);
         
         refresh();
     }
@@ -1227,7 +1147,8 @@ public class CollectionPage : CheckerboardPage {
     
     private int get_sort_criteria() {
         // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortByName");
+        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
+            "/CollectionMenuBar/ViewMenu/SortPhotos/SortByName");
         assert(action != null);
         
         int value = action.get_current_value();
@@ -1239,7 +1160,8 @@ public class CollectionPage : CheckerboardPage {
     
     private int get_sort_order() {
         // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortAscending");
+        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
+            "/CollectionMenuBar/ViewMenu/SortPhotos/SortAscending");
         assert(action != null);
         
         int value = action.get_current_value();
@@ -1254,30 +1176,31 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_sort_changed() {
-        set_layout_comparator(get_sort_comparator());
-        refresh();
+        get_view().set_comparator(get_sort_comparator());
     }
     
     private Comparator<LayoutItem> get_sort_comparator() {
         switch (get_sort_criteria()) {
             case SORT_BY_NAME:
-                if (is_sort_ascending())
-                    return new CompareName();
-                else
-                    return new ReverseCompareName();
+                return new CompareName(is_sort_ascending());
             
             case SORT_BY_EXPOSURE_DATE:
-                if (is_sort_ascending())
-                    return new CompareDate();
-                else
-                    return new ReverseCompareDate();
+                return new CompareDate(is_sort_ascending());
             
             default:
                 error("Unknown sort criteria: %d", get_sort_criteria());
                 
-                return new CompareName();
+                return new CompareName(true);
         }
     }
 
+}
+
+public class LibraryPage : CollectionPage {
+    public LibraryPage() {
+        base(_("Photos"));
+        
+        get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this));
+    }
 }
 

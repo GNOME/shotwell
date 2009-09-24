@@ -4,94 +4,140 @@
  * See the COPYING file in this distribution. 
  */
 
-class ImportPreview : LayoutItem {
-    public const int MAX_SCALE = 128;
+class ImportSource : PhotoSource {
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
+
+    private string camera_name;
+    private GPhoto.Camera camera;
+    private int fsid;
+    private string folder;
+    private string filename;
+    private ulong file_size;
+    private ulong preview_size;
+    private Gdk.Pixbuf preview = null;
+    private Exif.Data exif = null;
     
-    public int fsid;
-    public string folder;
-    public string filename;
-    public ulong file_size;
-    public Exif.Data exif;
-    
-    public ImportPreview(Gdk.Pixbuf pixbuf, Exif.Data exif, int fsid, string folder, string filename,
-        ulong file_size) {
+    public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, string filename, 
+        ulong file_size, ulong preview_size) {
+        this.camera_name = camera_name;
+        this.camera = camera;
         this.fsid = fsid;
         this.folder = folder;
         this.filename = filename;
         this.file_size = file_size;
+        this.preview_size = preview_size;
+    }
+    
+    public override string get_name() {
+        return filename;
+    }
+    
+    public override string to_string() {
+        return "%s %s/%s".printf(camera_name, folder, filename);
+    }
+    
+    // Needed because previews and exif are loaded after other information has been gathered.
+    public void update(Gdk.Pixbuf preview, Exif.Data exif) {
+        this.preview = preview;
         this.exif = exif;
-        
-        Orientation orientation = Orientation.TOP_LEFT;
-        
-        Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
-        if (entry != null) {
-            int o = Exif.Convert.get_short(entry.data, exif.get_byte_order());
-            if (o >= (int) Orientation.MIN && o <= (int) Orientation.MAX)
-                orientation = (Orientation) o;
-        }
+    }
+    
+    public GPhoto.Camera get_camera() {
+        return camera;
+    }
+    
+    public string get_filename() {
+        return filename;
+    }
+    
+    public string get_fulldir() {
+        return ImportPage.get_fulldir(camera, camera_name, fsid, folder);
+    }
+    
+    public ulong get_preview_size() {
+        return preview_size;
+    }
 
-        set_title(filename);
+    public override time_t get_exposure_time() {
+        time_t timestamp;
+        if (!Exif.get_timestamp(exif, out timestamp))
+            return 0;
+            
+        return timestamp;
+    }
+
+    public override Dimensions get_dimensions() {
+        Dimensions dim;
+        if (!Exif.get_dimensions(exif, out dim))
+            return Dimensions(0, 0);
+        
+        return Exif.get_orientation(exif).rotate_dimensions(dim);
+    }
+
+    public override uint64 get_filesize() {
+        return file_size;
+    }
+
+    public override Exif.Data? get_exif() {
+        return exif;
+    }
+    
+    public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
+        return scaling.perform_on_pixbuf(preview, INTERP);
+    }
+    
+    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
+        return (scale > 0) ? scale_pixbuf(preview, scale, INTERP) : preview;
+    }
+}
+
+class ImportPreview : LayoutItem {
+    public const int MAX_SCALE = 128;
+    
+    public ImportPreview(ImportSource source) {
+        base(source, Dimensions());
+        
+        set_title(source.get_filename());
         
         // scale down pixbuf if necessary
-        Gdk.Pixbuf scaled = pixbuf;
+        Gdk.Pixbuf pixbuf = source.get_thumbnail(0);
         if (pixbuf.get_width() > MAX_SCALE || pixbuf.get_height() > MAX_SCALE)
-            scaled = scale_pixbuf(pixbuf, MAX_SCALE, INTERP);
+            pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP);
 
-        // honor rotation and display
-        set_image(orientation.rotate_pixbuf(scaled));
+        // honor rotation
+        Orientation orientation = Exif.get_orientation(source.get_exif());
+        set_image(orientation.rotate_pixbuf(pixbuf));
     }
 }
 
 public class ImportPage : CheckerboardPage {
-    private class ImportFile {
-        public int fsid;
-        public string dir;
-        public string filename;
-        public ulong file_size;
-        public ulong preview_size;
-        
-        public ImportFile(int fsid, string dir, string filename, ulong file_size, ulong preview_size) {
-            this.fsid = fsid;
-            this.dir = dir;
-            this.filename = filename;
-            this.file_size = file_size;
-            this.preview_size = preview_size;
-        }
-    }
-    
     private class CameraImportJob : BatchImportJob {
         private GPhoto.ContextWrapper context;
-        private GPhoto.Camera camera;
-        private string dir;
-        private string filename;
-        private ulong file_size;
-        private time_t exposure_time;
+        private ImportSource import_file;
         private File dest_file;
         
-        public CameraImportJob(GPhoto.ContextWrapper context, GPhoto.Camera camera, string dir, 
-            string filename, ulong file_size, time_t exposure_time, File dest_file) {
+        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file, File dest_file) {
             this.context = context;
-            this.camera = camera;
-            this.dir = dir;
-            this.filename = filename;
-            this.file_size = file_size;
-            this.exposure_time = exposure_time;
+            this.import_file = import_file;
             this.dest_file = dest_file;
         }
         
         public time_t get_exposure_time() {
-            return exposure_time;
+            return import_file.get_exposure_time();
         }
         
         public override string get_identifier() {
-            return filename;
+            return import_file.get_filename();
         }
         
         public override bool prepare(out File file_to_import, out bool copy_to_library) {
             try {
-                GPhoto.save_image(context.context, camera, dir, filename, dest_file);
+                GPhoto.save_image(context.context, import_file.get_camera(), import_file.get_fulldir(),
+                    import_file.get_filename(), dest_file);
             } catch (Error err) {
+                warning("Unable to fetch photo from %s to %s: %s", import_file.to_string(), 
+                    dest_file.get_path(), err.message);
+
                 return false;
             }
             
@@ -108,13 +154,14 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
+    private static GPhoto.ContextWrapper null_context = null;
+
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.ToolButton import_selected_button;
     private Gtk.ToolButton import_all_button;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private GPhoto.Camera camera;
-    private GPhoto.ContextWrapper null_context = new GPhoto.ContextWrapper();
     private string uri;
     private bool busy = false;
     private bool refreshed = false;
@@ -130,11 +177,18 @@ public class ImportPage : CheckerboardPage {
     }
     
     public ImportPage(GPhoto.Camera camera, string uri) {
-        base("Camera");
-        camera_name = "Camera";
+        base(_("Camera"));
+        camera_name = _("Camera");
 
         this.camera = camera;
         this.uri = uri;
+        
+        // set up the global null context when needed
+        if (null_context == null)
+            null_context = new GPhoto.ContextWrapper();
+        
+        // monitor selection for UI
+        get_view().items_state_changed += on_selection_changed;
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions());
         
@@ -192,7 +246,7 @@ public class ImportPage : CheckerboardPage {
         show_all();
     }
 
-    private Gtk.ActionEntry[] create_actions() {        
+    private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
@@ -263,8 +317,8 @@ public class ImportPage : CheckerboardPage {
         return toolbar;
     }
     
-    public override void selection_changed(int count) {
-        import_selected_button.sensitive = !busy && refreshed && (count > 0);
+    private void on_selection_changed() {
+        import_selected_button.sensitive = !busy && refreshed && (get_view().get_selected_count() > 0);
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -318,7 +372,6 @@ public class ImportPage : CheckerboardPage {
                     
                     if (dialog_res != Gtk.ResponseType.YES) {
                         set_page_message(_("Please unmount the camera."));
-                        refresh();
                     } else {
                         unmount_camera(mount);
                     }
@@ -334,7 +387,6 @@ public class ImportPage : CheckerboardPage {
                     dialog.destroy();
                     
                     set_page_message(_("Please close any other application using the camera."));
-                    refresh();
                 }
             break;
             
@@ -404,7 +456,7 @@ public class ImportPage : CheckerboardPage {
         import_selected_button.sensitive = false;
         import_all_button.sensitive = false;
         
-        Gee.ArrayList<ImportFile> file_list = new Gee.ArrayList<ImportFile>();
+        SourceCollection import_list = new SourceCollection();
         ulong total_bytes = 0;
         ulong total_preview_bytes = 0;
         
@@ -417,16 +469,15 @@ public class ImportPage : CheckerboardPage {
         int count = 0;
         refresh_result = camera.get_storageinfo(&sifs, out count, null_context.context);
         if (refresh_result == GPhoto.Result.OK) {
-            remove_all();
-            refresh();
+            get_view().clear();
             
             for (int fsid = 0; fsid < count; fsid++) {
-                if (!enumerate_files(fsid, "/", file_list, out total_bytes, out total_preview_bytes))
+                if (!enumerate_files(fsid, "/", import_list, out total_bytes, out total_preview_bytes))
                     break;
             }
         }
         
-        load_previews(file_list, total_preview_bytes);
+        load_previews(import_list, total_preview_bytes);
         
         progress_bar.visible = false;
         progress_bar.set_text("");
@@ -438,8 +489,8 @@ public class ImportPage : CheckerboardPage {
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
         }
         
-        import_selected_button.sensitive = get_selected_count() > 0;
-        import_all_button.sensitive = get_count() > 0;
+        import_selected_button.sensitive = get_view().get_selected_count() > 0;
+        import_all_button.sensitive = get_view().get_count() > 0;
         
         busy = false;
 
@@ -447,7 +498,7 @@ public class ImportPage : CheckerboardPage {
             refreshed = false;
             
             // show 'em all or show none
-            remove_all();
+            get_view().clear();
             refresh();
             
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
@@ -458,9 +509,16 @@ public class ImportPage : CheckerboardPage {
         return RefreshResult.OK;
     }
     
+    public static string append_path(string basepath, string addition) {
+        if (!basepath.has_suffix("/") && !addition.has_prefix("/"))
+            return basepath + "/" + addition;
+        else
+            return basepath + addition;
+    }
+    
     // Need to do this because some phones (iPhone, in particular) changes the name of their filesystem
     // between each mount
-    private string? get_fs_basedir(int fsid) {
+    public static string? get_fs_basedir(GPhoto.Camera camera, int fsid) {
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
         GPhoto.Result res = camera.get_storageinfo(&sifs, out count, null_context.context);
@@ -475,23 +533,20 @@ public class ImportPage : CheckerboardPage {
         return (ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0 ? ifs->basedir : "/";
     }
     
-    private string? get_fulldir(int fsid, string dir) {
-        string basedir = get_fs_basedir(fsid);
+    public static string get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {
+        string basedir = ImportPage.get_fs_basedir(camera, fsid);
         if (basedir == null) {
-            debug("Unable to find base directory for fsid %d", fsid);
+            debug("Unable to find base directory for %s fsid %d", camera_name, fsid);
             
-            return null;
+            return folder;
         }
         
-        if (!basedir.has_suffix("/") && !dir.has_prefix("/"))
-            basedir += "/";
-        
-        return basedir + dir;
+        return append_path(basedir, folder);
     }
-    
-    private bool enumerate_files(int fsid, string dir, Gee.ArrayList<ImportFile> file_list, 
+
+    private bool enumerate_files(int fsid, string dir, SourceCollection import_list, 
         out ulong total_bytes, out ulong total_preview_bytes) {
-        string fulldir = get_fulldir(fsid, dir);
+        string fulldir = get_fulldir(camera, camera_name, fsid, dir);
         if (fulldir == null)
             return false;
         
@@ -543,10 +598,10 @@ public class ImportPage : CheckerboardPage {
                     }
                 }
                 
-                ImportFile import_file = new ImportFile(fsid, dir, filename, info.file.size,
-                    preview_size);
-                
-                file_list.add(import_file);
+                ImportSource import_file = new ImportSource(camera_name, camera, fsid, dir, filename, 
+                    info.file.size, preview_size);
+
+                import_list.add(import_file);
                 total_bytes += info.file.size;
                 total_preview_bytes += (preview_size != 0) ? preview_size : info.file.size;
                 
@@ -577,49 +632,46 @@ public class ImportPage : CheckerboardPage {
             if (refresh_result != GPhoto.Result.OK)
                 return false;
             
-            string recurse_dir = null;
-            if (!dir.has_suffix("/") && !subdir.has_prefix("/"))
-                recurse_dir = dir + "/" + subdir;
-            else
-                recurse_dir = dir + subdir;
-
-            if (!enumerate_files(fsid, recurse_dir, file_list, out total_bytes, out total_preview_bytes))
+            if (!enumerate_files(fsid, append_path(dir, subdir), import_list, out total_bytes, 
+                out total_preview_bytes))
                 return false;
         }
         
         return true;
     }
     
-    private void load_previews(Gee.ArrayList<ImportFile> file_list, ulong total_preview_bytes) {
-        ulong bytes = 0;
+    private void load_previews(SourceCollection import_list, ulong total_preview_bytes) {
+        uint64 bytes = 0;
         try {
-            foreach (ImportFile import_file in file_list) {
-                string fulldir = get_fulldir(import_file.fsid, import_file.dir);
-                if (fulldir == null)
-                    continue;
+            foreach (DataObject object in import_list.get_all()) {
+                ImportSource import_file = (ImportSource) object;
                 
-                progress_bar.set_text(_("Fetching preview for %s").printf(import_file.filename));
+                string filename = import_file.get_filename();
+                string fulldir = import_file.get_fulldir();
+                
+                progress_bar.set_text(_("Fetching preview for %s").printf(import_file.get_name()));
                 
                 // if no preview, load full image for preview
                 Gdk.Pixbuf pixbuf = null;
-                if (import_file.preview_size > 0)
-                    pixbuf = GPhoto.load_preview(null_context.context, camera, fulldir, 
-                        import_file.filename);
-                else
-                    pixbuf = GPhoto.load_image(null_context.context, camera, fulldir,
-                        import_file.filename);
+                uint64 preview_bytes = 0;
+                if (import_file.get_preview_size() > 0) {
+                    preview_bytes = import_file.get_preview_size();
+                    pixbuf = GPhoto.load_preview(null_context.context, camera, fulldir, filename);
+                } else {
+                    preview_bytes = import_file.get_filesize();
+                    pixbuf = GPhoto.load_image(null_context.context, camera, fulldir, filename);
+                }
                         
-                Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, 
-                    import_file.filename);
+                Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, filename);
                 
-                bytes += (import_file.preview_size != 0) ? import_file.preview_size : import_file.file_size;
+                // update the ImportSource with the fetched information
+                import_file.update(pixbuf, exif);
+                
+                bytes += preview_bytes;
                 progress_bar.set_fraction((double) bytes / (double) total_preview_bytes);
                 
-                ImportPreview preview = new ImportPreview(pixbuf, exif, import_file.fsid, import_file.dir, 
-                    import_file.filename, import_file.file_size);
-                add_item(preview);
-            
-                refresh();
+                ImportPreview preview = new ImportPreview(import_file);
+                get_view().add(preview);
                 
                 // spin the event loop so the UI doesn't freeze
                 if (!spin_event_loop())
@@ -632,27 +684,28 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_file_menu() {
-        set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", !busy && (get_selected_count() > 0));
-        set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", !busy && (get_count() > 0));
+        set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", 
+            !busy && (get_view().get_selected_count() > 0));
+        set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", !busy && (get_view().get_count() > 0));
     }
     
     private void on_import_selected() {
-        import(get_selected());
+        import(get_view().get_selected());
     }
     
     private void on_import_all() {
-        import(get_items());
+        import(get_view().get_all());
     }
     
     private void on_edit_menu() {
-        set_item_sensitive("/ImportMenuBar/EditMenu/SelectAll", !busy && (get_count() > 0));
+        set_item_sensitive("/ImportMenuBar/EditMenu/SelectAll", !busy && (get_view().get_count() > 0));
     }
     
     private void on_select_all() {
-        select_all();
+        get_view().select_all();
     }
     
-    private void import(Gee.Iterable<LayoutItem> items) {
+    private void import(Gee.Iterable<DataObject> items) {
         GPhoto.Result res = camera.init(null_context.context);
         if (res != GPhoto.Result.OK) {
             AppWindow.error_message(_("Unable to lock camera: %s").printf(res.as_string()));
@@ -666,43 +719,25 @@ public class ImportPage : CheckerboardPage {
         progress_bar.visible = false;
 
         int failed = 0;
-        ulong total_bytes = 0;
+        uint64 total_bytes = 0;
         SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(new CameraImportComparator());
         
-        foreach (LayoutItem item in items) {
-            ImportPreview preview = (ImportPreview) item;
-            
-            string basedir = get_fs_basedir(preview.fsid);
-            if (basedir == null) {
-                debug("Unable to find basedir for fsid %d", preview.fsid);
-                failed++;
-                
-                continue;
-            }
-            
-            string dir = preview.folder;
-            if (!dir.has_prefix("/"))
-                dir = "/" + dir;
-                
-            dir = basedir + dir;
+        foreach (DataObject object in items) {
+            ImportPreview preview = (ImportPreview) object;
+            ImportSource import_file = (ImportSource) preview.get_source();
             
             bool collision;
-            File dest_file = BatchImport.create_library_path(preview.filename, preview.exif, time_t(),
-                out collision);
+            File dest_file = BatchImport.create_library_path(import_file.get_filename(), 
+                import_file.get_exif(), time_t(), out collision);
             if (dest_file == null) {
-                message("Unable to generate local file for %s/%s", dir, preview.filename);
+                message("Unable to generate local file for %s", import_file.get_filename());
                 failed++;
                 
                 continue;
             }
             
-            time_t exposure_time;
-            if (!Exif.get_timestamp(preview.exif, out exposure_time))
-                exposure_time = 0;
-            
-            jobs.add(new CameraImportJob(null_context, camera, dir, preview.filename, 
-                preview.file_size, exposure_time, dest_file));
-            total_bytes += preview.file_size;
+            jobs.add(new CameraImportJob(null_context, import_file, dest_file));
+            total_bytes += import_file.get_filesize();
         }
 
         if (failed > 0) {
@@ -740,8 +775,8 @@ public class ImportPage : CheckerboardPage {
     }
 
     private void close_import() {
-        import_selected_button.sensitive = get_selected_count() > 0;
-        import_all_button.sensitive = get_count() > 0;
+        import_selected_button.sensitive = get_view().get_selected_count() > 0;
+        import_all_button.sensitive = get_view().get_count() > 0;
         
         GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
@@ -769,7 +804,7 @@ public class ImportQueuePage : SinglePhotoPage {
             create_actions());
         
         stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
-        stop_button.set_tooltip_text("Stop importing photos");
+        stop_button.set_tooltip_text(_("Stop importing photos"));
         stop_button.clicked += on_stop;
         stop_button.sensitive = false;
         
@@ -821,6 +856,8 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     public void enqueue_and_schedule(BatchImport batch_import) {
+        assert(!queue.contains(batch_import));
+        
         total_bytes += batch_import.get_total_bytes();
         
         batch_import.starting += on_starting;
@@ -861,6 +898,10 @@ public class ImportQueuePage : SinglePhotoPage {
             warning("%s", err.message);
         }
         
+        // set the singleton collection to this item
+        get_view().clear();
+        get_view().add(new PhotoView(photo));
+        
         progress_bytes += photo.get_filesize();
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
             : 0.0;
@@ -873,6 +914,9 @@ public class ImportQueuePage : SinglePhotoPage {
         SortedList<LibraryPhoto> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
         assert(batch_import == current_batch);
         current_batch = null;
+        
+        assert(queue.size > 0);
+        assert(queue.get(0) == batch_import);
         
         bool removed = queue.remove(batch_import);
         assert(removed);
@@ -887,23 +931,17 @@ public class ImportQueuePage : SinglePhotoPage {
             stop_button.sensitive = true;
             queue.get(0).schedule();
         } else {
+            // reset state
+            progress_bytes = 0;
+            total_bytes = 0;
+
+            // reset UI
             stop_button.sensitive = false;
+            progress_bar.set_text("");
+            progress_bar.set_fraction(0.0);
+
+            // blank the display
+            blank_display();
         }
-    }
-
-    public override int get_queryable_count() {
-        return 1;
-    }
-
-    public override int get_selected_queryable_count() {
-        return get_queryable_count();
-    }
-
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        return null;
-    }
-
-    public override Gee.Iterable<Queryable>? get_selected_queryables() {
-        return get_queryables();
     }
 }

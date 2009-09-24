@@ -50,8 +50,8 @@ SRC_FILES = \
 	Sidebar.vala \
 	ColorTransformation.vala \
 	EditingTools.vala \
-	Queryable.vala \
-	DataSource.vala \
+	DataObject.vala \
+	DataCollection.vala \
 	LibraryWindow.vala \
 	CameraTable.vala \
 	DirectWindow.vala \

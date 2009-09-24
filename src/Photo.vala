@@ -14,19 +14,6 @@ public enum SupportedAdjustments {
     NUM
 }
 
-// PhotoCollection represents a grouping of photos.
-public interface PhotoCollection : Object {
-    public abstract int get_count();
-    
-    public abstract PhotoSource? get_first_photo();
-    
-    public abstract PhotoSource? get_last_photo();
-    
-    public abstract PhotoSource? get_next_photo(PhotoSource current);
-    
-    public abstract PhotoSource? get_previous_photo(PhotoSource current);
-}
-
 public enum ImportResult {
     SUCCESS,
     FILE_ERROR,
@@ -75,7 +62,7 @@ public enum ImportResult {
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
-public abstract class TransformablePhoto: PhotoSource, Queryable {
+public abstract class TransformablePhoto: PhotoSource {
     public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
     
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
@@ -236,13 +223,14 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
         return row.photo_id;
     }
     
+    public EventID get_event_id() {
+        return row.event_id;
+    }
+    
     public Event? get_event() {
         return row.event_id.is_valid() ? Event.global.fetch(row.event_id) : null;
     }
     
-    // WARNING: This method does not do all the hard work of removing the photo properly from an
-    // event prior to adding it to the supplied one.  This merely associates this photo with an
-    // event, quietly dropping its association with whatever event it currently is a member of.
     public bool set_event(Event event) {
         bool committed = photo_table.set_event(row.photo_id, event.get_event_id());
         if (committed) {
@@ -254,7 +242,7 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
         return committed;
     }
     
-    public string to_string() {
+    public override string to_string() {
         return "[%lld] %s".printf(row.photo_id.id, get_file().get_path());
     }
 
@@ -321,8 +309,7 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
             if (cached_photo_id.id == row.photo_id.id)
                 cached_raw = null;
             
-            // could be both
-            notify_metadata_altered();
+            // metadata currently only means Event
             notify_altered();
         }
     }
@@ -781,7 +768,9 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
         
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
+#if MEASURE_PIPELINE
             debug("LOAD_RAW_PIXBUF UNSCALED: requested");
+#endif
             
             return new Gdk.Pixbuf.from_file(path);
         }
@@ -791,7 +780,9 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
         bool is_scaled = calculate_pixbuf_dimensions(scaling, exceptions, out scaled_image, 
             out scaled_to_viewport);
         if (!is_scaled) {
+#if MEASURE_PIPELINE
             debug("LOAD_RAW_PIXBUF UNSCALED: scaling unavailable");
+#endif
             
             return new Gdk.Pixbuf.from_file(path);
         }
@@ -799,9 +790,11 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
         Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file_at_size(path, scaled_image.width, 
             scaled_image.height);
 
+#if MEASURE_PIPELINE
         debug("LOAD_RAW_PIXBUF %s: %s -> %s (actual: %s)", scaling.to_string(),
             get_raw_dimensions().to_string(), scaled_image.to_string(), 
             Dimensions.for_pixbuf(pixbuf).to_string());
+#endif
         
         assert(scaled_image.approx_equals(Dimensions.for_pixbuf(pixbuf)));
         
@@ -910,14 +903,17 @@ public abstract class TransformablePhoto: PhotoSource, Queryable {
     // transformed pixbuf.
     public abstract Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error;
     
+    public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
+        return get_pixbuf_with_exceptions(scaling, Exception.NONE);
+    }
+    
     // Returns a fully transformed and scaled pixbuf.  Transformations may be excluded via the mask.
     // If the image is smaller than the scaling, it will be returned in its actual size.  The
     // caller is responsible for scaling thereafter.
     //
     // Note that an unscaled fetch can be extremely expensive, and it's far better to specify an 
     // appropriate scale.
-    public virtual Gdk.Pixbuf get_pixbuf(Scaling scaling, Exception exceptions = Exception.NONE) 
-        throws Error {
+    public Gdk.Pixbuf get_pixbuf_with_exceptions(Scaling scaling, Exception exceptions) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -1368,8 +1364,6 @@ public class LibraryPhoto : TransformablePhoto {
     
     private bool block_thumbnail_generation = false;
     
-    public signal void thumbnail_altered();
-    
     private LibraryPhoto(PhotoRow row) {
         base(row);
     }
@@ -1379,10 +1373,14 @@ public class LibraryPhoto : TransformablePhoto {
         
         global = new LibraryPhotoSourceCollection();
         
-        // prefetch all the photos from the database and add them to the global collection
+        // prefetch all the photos from the database and add them to the global collection ...
+        // do in batches to take advantage of add_many()
         Gee.ArrayList<PhotoRow?> all = photo_table.get_all();
+        Gee.ArrayList<LibraryPhoto> all_photos = new Gee.ArrayList<LibraryPhoto>();
         foreach (PhotoRow row in all)
-            global.add(new LibraryPhoto(row));
+            all_photos.add(new LibraryPhoto(row));
+        
+        global.add_many(all_photos);
     }
     
     public static void terminate() {
@@ -1419,7 +1417,7 @@ public class LibraryPhoto : TransformablePhoto {
         ThumbnailCache.import(get_photo_id(), pixbuf, true);
         
         // fire signal that thumbnails have changed
-        thumbnail_altered();
+        notify_thumbnail_altered();
         
         return false;
     }
@@ -1435,7 +1433,7 @@ public class LibraryPhoto : TransformablePhoto {
         base.altered();
     }
 
-    public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) {
+    public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
         Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.Size.BIG);
         
         return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST);
@@ -1453,12 +1451,17 @@ public class LibraryPhoto : TransformablePhoto {
         // pixbufs for rotate-and-scale ops, perform the rotation directly on the already-modified 
         // thumbnails.
         foreach (ThumbnailCache.Size size in ThumbnailCache.ALL_SIZES) {
-            Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(get_photo_id(), size);
-            thumbnail = rotation.perform(thumbnail);
-            ThumbnailCache.replace(get_photo_id(), size, thumbnail);
+            try {
+                Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(get_photo_id(), size);
+                thumbnail = rotation.perform(thumbnail);
+                ThumbnailCache.replace(get_photo_id(), size, thumbnail);
+            } catch (Error err) {
+                // TODO: Mark thumbnails as dirty in database
+                warning("Unable to update thumbnails for %s: %s", to_string(), err.message);
+            }
         }
 
-        thumbnail_altered();
+        notify_thumbnail_altered();
     }
     
     private override File generate_exportable_file() {
@@ -1487,7 +1490,7 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
-    public Gdk.Pixbuf? get_thumbnail(int scale) {
+    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return ThumbnailCache.fetch(get_photo_id(), scale);
     }
     
@@ -1692,6 +1695,10 @@ public class DirectPhoto : TransformablePhoto {
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
         return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR);
+    }
+    
+    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
+        return scale_pixbuf(preview, scale, Gdk.InterpType.BILINEAR);
     }
     
     private override void altered() {

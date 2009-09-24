@@ -55,7 +55,7 @@ public class FullscreenWindow : PageWindow {
 
         if (page is SlideshowPage) {
             // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
-            ((SlideshowPage) current_page).hide_toolbar += hide_toolbar;          
+            ((SlideshowPage) current_page).hide_toolbar += hide_toolbar;
         } else {
             // only non-slideshow pages should have pin button
             toolbar.insert(pin_button, -1); 

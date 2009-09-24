@@ -24,7 +24,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private Gtk.Window container = null;
-    private PhotoCollection controller = null;
+    private ViewCollection controller = null;
     private TransformablePhoto photo = null;
     private Gdk.Pixbuf original = null;
     private Gdk.Pixbuf swapped = null;
@@ -44,11 +44,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private uint32 last_nav_key = 0;
     private bool photo_missing = false;
     private bool drag_event_failed = true;
-
-    public virtual signal void check_replace_photo(TransformablePhoto old_photo, 
-        TransformablePhoto new_photo, out bool ok) {
-        ok = true;
-    }
+    
+    // This signals when the current photo has changed (that is, a new photo is being viewed, not
+    // that the current photo has been altered).
+    public signal void photo_changed(TransformablePhoto? old_photo, TransformablePhoto new_photo);
 
     public EditingHostPage(string name) {
         base(name);
@@ -126,7 +125,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return toolbar;
     }
     
-    public PhotoCollection get_controller() {
+    public override ViewCollection get_controller() {
         return controller;
     }
     
@@ -154,7 +153,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
     }
     
-    protected void display(PhotoCollection controller, TransformablePhoto photo) {
+    protected void display(ViewCollection controller, TransformablePhoto photo) {
+        assert(controller.get_view_for_source(photo) != null);
+        
         this.controller = controller;
         replace_photo(photo);
     }
@@ -217,6 +218,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
 
+    protected virtual bool confirm_replace_photo(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
+        return true;
+}
+
     protected void replace_photo(TransformablePhoto new_photo) {
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
@@ -227,23 +232,26 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         }
 
-        // only check if okay if there's something to replace
-        if (photo != null && photo != new_photo) {
-            bool ok;
-            check_replace_photo(photo, new_photo, out ok);
-            
-            if (!ok)
+        // only check if okay to replace if there's something to replace and someone's concerned
+        if (photo != null && photo != new_photo && confirm_replace_photo != null) {
+            if (!confirm_replace_photo(photo, new_photo))
                 return;
         }
 
         deactivate_tool();
         
+        // unsubscribe from the old photo and subscribe to the new one
         if (photo != null && photo != new_photo)
             photo.altered -= on_photo_altered;
 
+        TransformablePhoto old_photo = photo;
         if (photo != new_photo) {
             photo = new_photo;
             photo.altered += on_photo_altered;
+
+            // clear out the collection and use this as its sole member
+            get_view().clear();
+            get_view().add(new PhotoView(photo));
         }
 
         set_page_name(photo.get_name());
@@ -258,9 +266,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         update_ui();
 
-        // signal the photo has been replaced
-        contents_changed(1);
-        selection_changed(1);
+        if (old_photo != new_photo)
+            photo_changed(old_photo, new_photo);
     }
     
     private void quick_update_pixbuf() {
@@ -556,9 +563,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         pixbuf_scaling = null;
 
-        // signal that the photo has been altered
-        queryable_altered(photo);
-
         update_ui();
     }
     
@@ -692,8 +696,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         set_photo_missing(false);
         
         quick_update_pixbuf();
-        
-        queryable_altered(photo);
     }
 
     private override bool on_ctrl_pressed(Gdk.EventKey event) {
@@ -784,7 +786,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = photo.get_pixbuf(Scaling.for_best_fit(1024), TransformablePhoto.Exception.ALL);
+            pixbuf = photo.get_pixbuf_with_exceptions(Scaling.for_best_fit(1024), 
+                TransformablePhoto.Exception.ALL);
         } catch (Error e) {
             warning("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
                 "transform histogram");
@@ -865,36 +868,33 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public void on_next_photo() {
         deactivate_tool();
         
-        TransformablePhoto new_photo = (TransformablePhoto) controller.get_next_photo(photo);
-        if (new_photo != null)
-            replace_photo(new_photo);
+        if (photo == null)
+            return;
+        
+        DataView current = controller.get_view_for_source(photo);
+        assert(current != null);
+        
+        DataView next = controller.get_next(current);
+
+        TransformablePhoto next_photo = next.get_source() as TransformablePhoto;
+        if (next_photo != null)
+            replace_photo(next_photo);
     }
     
     public void on_previous_photo() {
         deactivate_tool();
         
-        TransformablePhoto new_photo = (TransformablePhoto) controller.get_previous_photo(photo);
-        if (new_photo != null)
-            replace_photo(new_photo);
-    }
-
-    public override Gee.Iterable<Queryable>? get_queryables() {
-        Gee.ArrayList<PhotoSource> photo_array_list = new Gee.ArrayList<PhotoSource>();
-
-        photo_array_list.add(photo);
-        return photo_array_list;
-    }
-
-    public override Gee.Iterable<Queryable>? get_selected_queryables() {
-        return get_queryables();
-    }
-
-    public override int get_queryable_count() {
-        return 1;
-    }
-
-    public override int get_selected_queryable_count() {
-        return get_queryable_count();
+        if (photo == null)
+            return;
+        
+        DataView current = controller.get_view_for_source(photo);
+        assert(current != null);
+        
+        DataView previous = controller.get_previous(current);
+        
+        TransformablePhoto previous_photo = previous.get_source() as TransformablePhoto;
+        if (previous_photo != null)
+            replace_photo(previous_photo);
     }
 }
 
@@ -979,10 +979,10 @@ public class LibraryPhotoPage : EditingHostPage {
         return actions;
     }
     
-    public void display_for_collection(CollectionPage return_page, TransformablePhoto photo) {
+    public void display_for_collection(CollectionPage return_page, Thumbnail thumbnail) {
         this.return_page = return_page;
         
-        display(return_page.get_photo_collection(), photo);
+        display(return_page.get_view(), thumbnail.get_photo());
     }
     
     public CollectionPage get_controller_page() {
@@ -1056,38 +1056,40 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 }
 
-public class DirectPhotoCollection : Object, PhotoCollection {
+// TODO: This implementation of a ViewCollection is solely for use in direct editing mode, and will 
+// not satisfy all the requirements of a checkerboard-style file browser without additional work.
+private class DirectViewCollection : ViewCollection {
     private static FileComparator file_comparator = new FileComparator();
     
     private File dir;
     
-    public DirectPhotoCollection(File dir) {
+    public DirectViewCollection(File dir) {
         this.dir = dir;
     }
     
-    public int get_count() {
+    public override int get_count() {
         SortedList<File> list = get_children_photos();
         
         return (list != null) ? list.size : 0;
     }
     
-    public PhotoSource? get_first_photo() {
+    public override DataView? get_first() {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
         
-        return DirectPhoto.fetch(list.get(0));
+        return new DataView(DirectPhoto.fetch(list.get(0)));
     }
     
-    public PhotoSource? get_last_photo() {
+    public override DataView? get_last() {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
         
-        return DirectPhoto.fetch(list.get(list.size - 1));
+        return new DataView(DirectPhoto.fetch(list.get(list.size - 1)));
     }
     
-    public PhotoSource? get_next_photo(PhotoSource current) {
+    public override DataView? get_next(DataView current) {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
@@ -1100,10 +1102,10 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         if (index >= list.size)
             index = 0;
         
-        return DirectPhoto.fetch(list.get(index));
+        return new DataView(DirectPhoto.fetch(list.get(index)));
     }
     
-    public PhotoSource? get_previous_photo(PhotoSource current) {
+    public override DataView? get_previous(DataView current) {
         SortedList<File> list = get_children_photos();
         if (list == null || list.size == 0)
             return null;
@@ -1116,7 +1118,7 @@ public class DirectPhotoCollection : Object, PhotoCollection {
         if (index < 0)
             index = list.size - 1;
 
-        return DirectPhoto.fetch(list.get(index));
+        return new DataView(DirectPhoto.fetch(list.get(index)));
     }
     
     private SortedList<File>? get_children_photos() {
@@ -1264,7 +1266,7 @@ public class DirectPhotoPage : EditingHostPage {
             Posix.exit(1);
         }
 
-        display(new DirectPhotoCollection(initial_file.get_parent()), photo);
+        display(new DirectViewCollection(initial_file.get_parent()), photo);
         initial_file = null;
     }
     
@@ -1306,9 +1308,8 @@ public class DirectPhotoPage : EditingHostPage {
         return check_ok_to_close_photo(get_photo());
     }
     
-    private override void check_replace_photo(TransformablePhoto old_photo, TransformablePhoto new_photo,
-        out bool ok) {
-        ok = check_ok_to_close_photo(old_photo);
+    private override bool confirm_replace_photo(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
+        return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
     }
     
     private void on_file() {
@@ -1327,7 +1328,7 @@ public class DirectPhotoPage : EditingHostPage {
         // switch to that file ... if saving on top of the original file, this will re-import the
         // photo into the in-memory database, which is key because its stored transformations no
         // longer match the backing photo
-        display(new DirectPhotoCollection(dest.get_parent()), DirectPhoto.fetch(dest, true));
+        display(new DirectViewCollection(dest.get_parent()), DirectPhoto.fetch(dest, true));
     }
     
     private void on_save() {

@@ -30,9 +30,15 @@ public class Event : EventSource {
     private static EventTable event_table = null;
 
     private EventID event_id;
+    private LibraryPhoto primary_photo;
     
     private Event(EventID event_id) {
         this.event_id = event_id;
+        primary_photo = get_primary_photo();
+        
+        // watch the primary photo to reflect thumbnail changes
+        if (primary_photo != null)
+            primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
     }
     
     public static void init() {
@@ -78,7 +84,10 @@ public class Event : EventSource {
             } else {
                 // this indicates this is the last photo of the event, so no more event
                 assert(event.get_photo_count() <= 1);
-                event.destroy();
+
+                debug("Destroying event %s", event.to_string());
+                Marker marker = Event.global.mark(event);
+                Event.global.destroy_marked(marker);
             }
         }
     }
@@ -161,10 +170,10 @@ public class Event : EventSource {
             
             global.add(current_event);
             
-            debug("Reported event creation %s", current_event.to_string());
+            debug("Created event %s", current_event.to_string());
         }
     }
-
+    
     public EventID get_event_id() {
         return event_id;
     }
@@ -182,7 +191,7 @@ public class Event : EventSource {
         return false;
     }
     
-    public string to_string() {
+    public override string to_string() {
         return "[%lld] %s".printf(event_id.id, get_name());
     }
     
@@ -236,16 +245,32 @@ public class Event : EventSource {
         return result;
     }
     
+    private void on_primary_thumbnail_altered() {
+        notify_thumbnail_altered();
+    }
+
     public LibraryPhoto get_primary_photo() {
         return LibraryPhoto.global.fetch(event_table.get_primary_photo(event_id));
     }
     
     public bool set_primary_photo(LibraryPhoto photo) {
         bool committed = event_table.set_primary_photo(event_id, photo.get_photo_id());
-        if (committed)
-            notify_altered();
+        if (committed) {
+            // switch to the new photo
+            if (primary_photo != null)
+                primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+
+            primary_photo = photo;
+            primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
+            
+            notify_thumbnail_altered();
+        }
         
         return committed;
+    }
+    
+    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
+        return primary_photo != null ? primary_photo.get_thumbnail(scale) : null;
     }
     
     public Gdk.Pixbuf? get_preview_pixbuf(Scaling scaling) {

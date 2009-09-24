@@ -14,9 +14,9 @@ private class BasicProperties : Gtk.HBox {
     private uint64 filesize;
     private int photo_count;      
     private int event_count;
-    string basic_properties_labels;
-    string basic_properties_info;
-    bool first_line; 
+    private string basic_properties_labels;
+    private string basic_properties_info;
+    private bool first_line; 
 
     public BasicProperties() {
         label.set_justify(Gtk.Justification.RIGHT);
@@ -48,7 +48,7 @@ private class BasicProperties : Gtk.HBox {
     }
 
     private string get_prettyprint_date(Time date) {
-        string date_string = "";
+        string date_string = null;
         Time today = Time.local(time_t());
         if (date.day_of_year == today.day_of_year && date.year == today.year) {
             date_string = _("Today");
@@ -58,7 +58,7 @@ private class BasicProperties : Gtk.HBox {
             date_string = format_local_date(date);
         }
 
-        return date_string;   
+        return date_string;
     }
 
     private void set_text() {
@@ -79,10 +79,13 @@ private class BasicProperties : Gtk.HBox {
         first_line = true;
     }
 
-    private void get_single_properties(Queryable queryable) {
-        title = queryable.get_name();
-        if (queryable is PhotoSource) {
-            PhotoSource photo_source = queryable as PhotoSource;
+    private void get_single_properties(DataView view) {
+        DataSource source = view.get_source();
+
+        title = source.get_name();
+        
+        if (source is PhotoSource) {
+            PhotoSource photo_source = (PhotoSource) source;
             
             start_time = photo_source.get_exposure_time();
             end_time = start_time;
@@ -90,8 +93,8 @@ private class BasicProperties : Gtk.HBox {
             dimensions = photo_source.get_dimensions();
             
             filesize = photo_source.get_filesize();
-        } else if (queryable is EventSource) {
-            EventSource event_source = queryable as EventSource;
+        } else if (source is EventSource) {
+            EventSource event_source = (EventSource) source;
 
             start_time = event_source.get_start_time();
             end_time = event_source.get_end_time();
@@ -101,11 +104,13 @@ private class BasicProperties : Gtk.HBox {
         }
     }
 
-    private void get_multiple_properties(Gee.Iterable<Queryable>? queryables) {
+    private void get_multiple_properties(Gee.Iterable<DataView>? iter) {
         photo_count = 0;
-        foreach (Queryable queryable in queryables) {
-            if (queryable is PhotoSource) {
-                PhotoSource photo_source = queryable as PhotoSource;
+        foreach (DataView view in iter) {
+            DataSource source = view.get_source();
+            
+            if (source is PhotoSource) {
+                PhotoSource photo_source = (PhotoSource) source;
                     
                 time_t exposure_time = photo_source.get_exposure_time();
 
@@ -118,10 +123,9 @@ private class BasicProperties : Gtk.HBox {
                 }
                 
                 filesize += photo_source.get_filesize();
-                photo_count += 1;
-
-            } else if (queryable is EventSource) {
-                EventSource event_source = queryable as EventSource;
+                photo_count++;
+            } else if (source is EventSource) {
+                EventSource event_source = (EventSource) source;
           
                 if (event_count == -1)
                     event_count = 0;
@@ -130,7 +134,7 @@ private class BasicProperties : Gtk.HBox {
                     event_source.get_start_time() != 0 ) {
                     start_time = event_source.get_start_time();
                 }
-                if ((end_time == 0 || event_source.get_end_time() > end_time) &&            
+                if ((end_time == 0 || event_source.get_end_time() > end_time) &&
                     event_source.get_end_time() != 0 ) {
                     end_time = event_source.get_end_time();
                 } else if (end_time == 0 || event_source.get_start_time() > end_time) {
@@ -139,28 +143,37 @@ private class BasicProperties : Gtk.HBox {
 
                 filesize += event_source.get_total_filesize();
                 photo_count += event_source.get_photo_count();
-                event_count += 1;
+                event_count++;
             }
-        }       
-    }  
+        }
+    }
 
     private void get_properties(Page current_page) {
-        int count = current_page.get_selected_queryable_count();
-        Gee.Iterable<Queryable>? queryables = current_page.get_selected_queryables();
+        ViewCollection view = current_page.get_view();
+        if (view == null)
+            return;
 
-        if (count == 0) {
-            count = current_page.get_queryable_count();
-            queryables = current_page.get_queryables();
+        // summarize selected items, if none selected, summarize all
+        int count = view.get_selected_count();
+        Gee.Iterable<DataView> iter = null;
+        if (count != 0) {
+            iter = view.get_selected();
+        } else {
+            count = view.get_count();
+            iter = (Gee.Iterable<DataView>) view.get_all();
         }
-
-        if (queryables == null || count == 0)
+        
+        if (iter == null || count == 0)
             return;
 
         if (count == 1) {
-            foreach (Queryable queryable in queryables)
-                get_single_properties(queryable);
+            foreach (DataView item in iter) {
+                get_single_properties(item);
+                
+                break;
+            }
         } else {
-            get_multiple_properties(queryables);
+            get_multiple_properties(iter);
         }
 
         if (end_time == 0)
@@ -171,13 +184,13 @@ private class BasicProperties : Gtk.HBox {
 
     public void update_properties(Page current_page) {
         clear_properties();
-        get_properties(current_page);   
+        get_properties(current_page);
 
         if (title != "")
-            add_line(_("Title:"),title);
+            add_line(_("Title:"), title);
 
         if (photo_count >= 0) {
-            string label = "Items:";
+            string label = _("Items:");
   
             if (event_count >= 0) {
                 string event_num_string;
@@ -194,7 +207,7 @@ private class BasicProperties : Gtk.HBox {
             if (photo_count == 1)
                 photo_num_string = _("%d Photo");
             else
-                photo_num_string = _("%d Photos");    
+                photo_num_string = _("%d Photos");
 
             add_line(label, photo_num_string.printf(photo_count));
         }

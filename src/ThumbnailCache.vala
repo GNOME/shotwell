@@ -10,8 +10,10 @@ public class ThumbnailCache : Object {
     public const int MAX_INMEMORY_DATA_SIZE = 512 * 1024;
     
     public enum Size {
+        LARGEST = 360,
         BIG = 360,
-        MEDIUM = 128;
+        MEDIUM = 128,
+        SMALLEST = 128;
         
         public int get_scale() {
             return (int) this;
@@ -84,7 +86,7 @@ public class ThumbnailCache : Object {
         spin_event_loop();
     }
     
-    public static Gdk.Pixbuf? fetch(PhotoID photo_id, int scale) {
+    public static Gdk.Pixbuf fetch(PhotoID photo_id, int scale) throws Error {
         Size size = Size.get_best_size(scale);
         if (size == Size.BIG) {
             return big._fetch(photo_id);
@@ -95,7 +97,7 @@ public class ThumbnailCache : Object {
         }
     }
     
-    public static void replace(PhotoID photo_id, Size size, Gdk.Pixbuf replacement) {
+    public static void replace(PhotoID photo_id, Size size, Gdk.Pixbuf replacement) throws Error {
         ThumbnailCache cache = null;
         switch (size) {
             case Size.BIG:
@@ -158,7 +160,7 @@ public class ThumbnailCache : Object {
         return false;
     }
     
-    private Gdk.Pixbuf? _fetch(PhotoID photo_id) {
+    private Gdk.Pixbuf _fetch(PhotoID photo_id) throws Error {
         // use JPEG in memory cache if available
         ImageData data = cache_map.get(photo_id.id);
         if (data != null)
@@ -166,12 +168,7 @@ public class ThumbnailCache : Object {
 
         File file = get_cached_file(photo_id);
 
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
-        } catch (Error err) {
-            error("%s", err.message);
-        }
+        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
         
         cycle_fetched_thumbnails++;
         schedule_debug();
@@ -217,7 +214,7 @@ public class ThumbnailCache : Object {
         cache_table.add(photo_id, filesize, Dimensions.for_pixbuf(scaled));
     }
     
-    private void _replace(PhotoID photo_id, Gdk.Pixbuf original) {
+    private void _replace(PhotoID photo_id, Gdk.Pixbuf original) throws Error {
         File file = get_cached_file(photo_id);
         
         debug ("Replacing thumbnail for %s with [%lld] %s", photo_table.get_name(photo_id),
@@ -230,12 +227,7 @@ public class ThumbnailCache : Object {
         Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp);
         
         // save scaled image as JPEG
-        int filesize = -1;
-        try {
-            filesize = save_thumbnail(file, scaled);
-        } catch (Error err) {
-            error("%s", err.message);
-        }
+        int filesize = save_thumbnail(file, scaled);
         
         // Store in in-memory cache; a _replace() probably represents a user-initiated
         // action (<cough>rotate</cough>) and the thumbnail will probably be fetched immediately.
@@ -335,8 +327,7 @@ public class ThumbnailCache : Object {
     }
     
     private int save_thumbnail(File file, Gdk.Pixbuf pixbuf) throws Error {
-        if (!pixbuf.save(file.get_path(), "jpeg", "quality", quality.get_pct_text()))
-            error("Unable to save thumbnail %s", file.get_path());
+        pixbuf.save(file.get_path(), "jpeg", "quality", quality.get_pct_text());
 
         FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
             null);

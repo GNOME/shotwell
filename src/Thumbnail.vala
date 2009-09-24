@@ -5,63 +5,62 @@
  */
 
 public class Thumbnail : LayoutItem {
-    // cannot use consts in ThumbnailCache for some reason
-    public const int MIN_SCALE = 64;
-    public const int MAX_SCALE = 360;
-    public const int DEFAULT_SCALE = 128;
+    public const int MIN_SCALE = ThumbnailCache.Size.SMALLEST.get_scale() / 2;
+    public const int MAX_SCALE = ThumbnailCache.Size.LARGEST.get_scale();
+    public const int DEFAULT_SCALE = ThumbnailCache.Size.MEDIUM.get_scale();
     
     public const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
-    private LibraryPhoto photo;
     private int scale;
     private Dimensions dim;
-    private bool thumb_exposed = false;
     private Gdk.InterpType interp = LOW_QUALITY_INTERP;
     
-    public signal void low_quality_thumbnail();
-    
-    public signal void geometry_changed();
-    
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
-        this.photo = photo;
+        base(photo, photo.get_dimensions().get_scaled(scale));
+        
         this.scale = scale;
         
-        set_title(photo.get_file().get_basename());
+        set_title(photo.get_name());
 
+        // store for exposed/unexposed events
         dim = photo.get_dimensions().get_scaled(scale);
-
-        // the image widget is only filled with a Pixbuf when exposed; if the pixbuf is cleared or
-        // not present, the widget will collapse, and so the layout manager won't account for it
-        // properly when it's off the viewport.  The solution is to manually set the widget's
-        // requisition size, even when it contains no pixbuf
-        clear_image(dim.width, dim.height);
-
-        photo.thumbnail_altered += on_thumbnail_altered;
     }
     
     public LibraryPhoto get_photo() {
-        return photo;
+        return (LibraryPhoto) get_source();
     }
     
-    private void on_thumbnail_altered(LibraryPhoto p) {
-        assert(photo.equals(p));
-        
-        dim = photo.get_dimensions().get_scaled(scale);
+    private Gdk.Pixbuf? get_thumbnail(int scale) {
+        try {
+            return get_photo().get_thumbnail(scale);
+        } catch (Error err) {
+            error("Unable to fetch thumbnail at %d scale for %s: %s", scale, 
+                get_photo().to_string(), err.message);
+            
+            return null;
+        }
+    }
+    
+    private override void thumbnail_altered() {
+        dim = get_photo().get_dimensions().get_scaled(scale);
         
         // only fetch and scale if exposed
-        if (thumb_exposed) {
-            Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
+        if (is_exposed()) {
+            Gdk.Pixbuf pixbuf = get_thumbnail(scale);
             pixbuf = resize_pixbuf(pixbuf, dim, LOW_QUALITY_INTERP);
             interp = LOW_QUALITY_INTERP;
             
             set_image(pixbuf);
-            low_quality_thumbnail();
         } else {
             clear_image(dim.width, dim.height);
         }
-        
-        geometry_changed();
+
+        base.thumbnail_altered();
+    }
+    
+    public bool is_low_quality_thumbnail() {
+        return interp != HIGH_QUALITY_INTERP;
     }
     
     public void resize(int new_scale) {
@@ -74,17 +73,17 @@ public class Thumbnail : LayoutItem {
         scale = new_scale;
         
         // piggy-back on signal handler
-        on_thumbnail_altered(photo);
+        notify_thumbnail_altered();
     }
     
     public void paint_high_quality() {
-        if (!thumb_exposed)
+        if (!is_exposed())
             return;
         
         if (interp == HIGH_QUALITY_INTERP)
             return;
         
-        Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
+        Gdk.Pixbuf pixbuf = get_thumbnail(scale);
 
         // only change pixbufs if indeed the image is scaled
         Gdk.Pixbuf scaled = resize_pixbuf(pixbuf, dim, HIGH_QUALITY_INTERP);
@@ -97,30 +96,25 @@ public class Thumbnail : LayoutItem {
     }
     
     public override void exposed() {
-        if (thumb_exposed)
+        if (is_exposed())
             return;
 
-        Gdk.Pixbuf pixbuf = photo.get_thumbnail(scale);
+        Gdk.Pixbuf pixbuf = get_thumbnail(scale);
         pixbuf = scale_pixbuf(pixbuf, scale, LOW_QUALITY_INTERP);
         interp = LOW_QUALITY_INTERP;
 
         set_image(pixbuf);
-        low_quality_thumbnail();
-        
-        thumb_exposed = true;
+
+        base.exposed();
     }
     
     public override void unexposed() {
-        if (!thumb_exposed)
+        if (!is_exposed())
             return;
 
         clear_image(dim.width, dim.height);
         
-        thumb_exposed = false;
-    }
-    
-    public bool is_exposed() {
-        return thumb_exposed;
+        base.unexposed();
     }
 }
 

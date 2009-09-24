@@ -9,20 +9,18 @@ class EventDirectoryItem : LayoutItem {
         + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
     
     public Event event;
-    
-    private bool is_exposed = false;
-    private LibraryPhoto primary_photo;
+
     private Dimensions image_dim = Dimensions();
 
     public EventDirectoryItem(Event event) {
+        base(event, event.get_primary_photo().get_dimensions().get_scaled(SCALE));
+        
         this.event = event;
         
-        // monitor the primary photo's thumbnail
-        primary_photo = event.get_primary_photo();
-        primary_photo.thumbnail_altered += on_thumbnail_altered;
+        set_title(event.get_name());
         
         // stash the image size for when it's not being displayed
-        image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
+        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE);
         clear_image(image_dim.width, image_dim.height);
         
         // monitor the event for changes
@@ -30,85 +28,59 @@ class EventDirectoryItem : LayoutItem {
     }
 
     public override void exposed() {
-        if (is_exposed)
+        if (is_exposed())
             return;
         
-        is_exposed = true;
-        update_display();
+        set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+        
+        base.exposed();
     }
     
     public override void unexposed() {
-        if (!is_exposed)
+        if (!is_exposed())
             return;
         
-        is_exposed = false;
         clear_image(image_dim.width, image_dim.height);
+        
+        base.unexposed();
     }
     
     private void on_event_altered() {
-        // check if the primary photo changed
-        LibraryPhoto new_primary = event.get_primary_photo();
-        if (!new_primary.equals(primary_photo)) {
-            // disconnect and connect signal
-            primary_photo.thumbnail_altered -= on_thumbnail_altered;
-            primary_photo = new_primary;
-            primary_photo.thumbnail_altered += on_thumbnail_altered;
-            
-            // update image dimensions
-            image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
-        }
+        set_title(event.get_name());
+    }
+    
+    private override void thumbnail_altered() {
+        // get new dimensions
+        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE);
         
-        if (is_exposed)
-            update_display();
+        if (is_exposed())
+            set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
         else
             clear_image(image_dim.width, image_dim.height);
-    }
-    
-    private void on_thumbnail_altered() {
-        // get new dimensions
-        image_dim = primary_photo.get_dimensions().get_scaled(SCALE);
         
-        if (is_exposed)
-            update_thumbnail_display();
-    }
-    
-    private void update_display() {
-        set_title(event.get_name());
-        update_thumbnail_display();
-    }
-    
-    private void update_thumbnail_display() {
-        try {
-            set_image(primary_photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
+        base.thumbnail_altered();
     }
 }
 
 public class EventsDirectoryPage : CheckerboardPage {
     private class CompareEventItem : Comparator<EventDirectoryItem> {
-        private int sort;
+        private bool ascending;
         
-        public CompareEventItem(int sort) {
-            assert(sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING 
-                || sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
-            
-            this.sort = sort;
+        public CompareEventItem(bool ascending) {
+            this.ascending = ascending;
         }
         
         public override int64 compare(EventDirectoryItem a, EventDirectoryItem b) {
             int64 start_a = (int64) a.event.get_start_time();
             int64 start_b = (int64) b.event.get_start_time();
             
-            switch (sort) {
-                case LibraryWindow.SORT_EVENTS_ORDER_ASCENDING:
-                    return start_a - start_b;
-                
-                case LibraryWindow.SORT_EVENTS_ORDER_DESCENDING:
-                default:
-                    return start_b - start_a;
-            }
+            return (ascending) ? start_a - start_b : start_b - start_a;
+        }
+    }
+    
+    private class EventDirectoryManager : ViewManager {
+        public override DataView create_view(DataSource source) {
+            return new EventDirectoryItem((Event) source);
         }
     }
    
@@ -116,21 +88,17 @@ public class EventsDirectoryPage : CheckerboardPage {
 
     public EventsDirectoryPage() {
         base(_("Events"));
-
-        // watch for creation and destruction of events
-        Event.global.items_added += on_added_events;
-        Event.global.items_removed += on_removed_events;
         
+        get_view().monitor_source_collection(Event.global, new EventDirectoryManager());
+
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        set_layout_comparator(new CompareEventItem(LibraryWindow.get_app().get_events_sort()));
-
-        // add all events to the page
-        on_added_events(Event.global.get_all());
+        get_view().set_comparator(new CompareEventItem(
+            LibraryWindow.get_app().get_events_sort() == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING));
 
         init_item_context_menu("/EventsDirectoryContextMenu");
     }
@@ -182,28 +150,22 @@ public class EventsDirectoryPage : CheckerboardPage {
         EventDirectoryItem event = (EventDirectoryItem) item;
         LibraryWindow.get_app().switch_to_event(event.event);
     }
-    
-    
+
     protected override bool on_context_invoked(Gtk.Menu context_menu) {
-        set_item_sensitive("/EventsDirectoryContextMenu/ContextRename", get_selected_count() == 1);
+        set_item_sensitive("/EventsDirectoryContextMenu/ContextRename", 
+            get_view().get_selected_count() == 1);
         
         return true;
     }
 
     private EventDirectoryItem? get_fullscreen_item() {
-        Gee.Iterable<LayoutItem> iter = null;
-        
         // use first selected item, otherwise use first item
-        if (get_selected_count() > 0) {
-            iter = get_selected();
-        } else {
-            iter = get_items();
-        }
-        
-        foreach (LayoutItem item in iter)
-            return (EventDirectoryItem) item;
-        
-        return null;
+        if (get_view().get_selected_count() > 0)
+            return (EventDirectoryItem?) get_view().get_selected_at(0);
+        else if (get_view().get_count() > 0)
+            return (EventDirectoryItem?) get_view().get_at(0);
+        else
+            return null;
     }
     
     public EventPage? get_fullscreen_event() {
@@ -219,72 +181,58 @@ public class EventsDirectoryPage : CheckerboardPage {
         return (page != null) ? page.get_fullscreen_photo() : null;
     }
 
-    private void add_event(Event event) {
-        EventDirectoryItem item = new EventDirectoryItem(event);
-        add_item(item);
-    }
-    
     public void notify_sort_changed(int sort) {
-        set_layout_comparator(new CompareEventItem(sort));
-        refresh();
+        get_view().set_comparator(new CompareEventItem(sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING));
     }
     
     private void on_view_menu() {
-        set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_count() > 0);
+        set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
     }
 
     private void on_edit_menu() {
-        set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", get_selected_count() == 1);
+        set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", 
+            get_view().get_selected_count() == 1);
     }
 
     private void on_rename() {
-        foreach (LayoutItem item in get_selected()) {
-            Event event = ((EventDirectoryItem) item).event;
-
-            EventRenameDialog rename_dialog = new EventRenameDialog(event.get_raw_name());
-            event.rename(rename_dialog.execute());
-        }
-    }
-    
-    private void on_added_events(Gee.Iterable<DataObject> objects) {
-        foreach (DataObject object in objects)
-            add_event((Event) object);
+        // only rename one at a time
+        if (get_view().get_selected_count() == 0)
+            return;
         
-        refresh();
-    }
-    
-    private void on_removed_events(Gee.Iterable<Event> events) {
-        foreach (Event event in events) {
-            // have to remove the item outside the iterator
-            EventDirectoryItem to_remove = null;
-            foreach (LayoutItem item in get_items()) {
-                EventDirectoryItem event_item = (EventDirectoryItem) item;
-                if (event_item.event.equals(event)) {
-                    to_remove = event_item;
-                    
-                    break;
-                }
-            }
-            
-            if (to_remove != null)
-                remove_item(to_remove);
-        }
+        EventDirectoryItem item = (EventDirectoryItem) get_view().get_selected_at(0);
+
+        EventRenameDialog rename_dialog = new EventRenameDialog(item.event.get_raw_name());
+        item.event.rename(rename_dialog.execute());
     }
 }
 
 public class EventPage : CollectionPage {
+    private class EventViewManager : CollectionViewManager {
+        private EventID event_id;
+        
+        public EventViewManager(EventPage page) {
+            base(page);
+            
+            event_id = page.page_event.get_event_id();
+        }
+        
+        public override bool include_in_view(DataSource source) {
+            LibraryPhoto photo = (LibraryPhoto) source;
+            EventID photo_event_id = photo.get_event_id();
+            
+            return photo_event_id.id == event_id.id;
+        }
+    }
+    
     public Event page_event;
 
     public EventPage(Event page_event) {
         base(page_event.get_name(), "event.ui", create_actions());
         
         this.page_event = page_event;
-
-        // load in all the photos associated with this event
-        Gee.Iterable<PhotoSource> photos = page_event.get_photos();
-        foreach (PhotoSource source in photos)
-            add_photo((LibraryPhoto) source);
-
+        
+        get_view().monitor_source_collection(LibraryPhoto.global, new EventViewManager(this));
+        
         init_page_context_menu("/EventContextMenu");
     }
     
@@ -305,20 +253,19 @@ public class EventPage : CollectionPage {
     }
     
     protected override void on_photos_menu() {
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary", get_selected_count() == 1);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary", 
+            get_view().get_selected_count() == 1);
         
         base.on_photos_menu();
     }
     
     private void on_make_primary() {
-        assert(get_selected_count() == 1);
+        if (get_view().get_selected_count() == 0)
+            return;
         
-        // iterate to first one, use that, bail out
-        foreach (LayoutItem item in get_selected()) {
-            page_event.set_primary_photo(((Thumbnail) item).get_photo());
-            
-            break;
-        }
+        // use first one
+        DataView view = get_view().get_selected_at(0);
+        page_event.set_primary_photo(((Thumbnail) view).get_photo());
     }
 
     public void rename(string name) {
