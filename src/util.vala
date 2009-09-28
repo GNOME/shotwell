@@ -247,7 +247,7 @@ public time_t query_file_modified(File file) throws Error {
         null);
 
     TimeVal timestamp = TimeVal();
-    info.get_modification_time(timestamp);
+    info.get_modification_time(out timestamp);
     
     return timestamp.tv_sec;
 }

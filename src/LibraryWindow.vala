@@ -531,7 +531,7 @@ public class LibraryWindow : AppWindow {
             dialog.add_button(_("Create Links"), Gdk.DragAction.LINK);
             dialog.title = _("Import to Library");
 
-            Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+            Gdk.DragAction result = (Gdk.DragAction) dialog.run();
             
             dialog.destroy();
             

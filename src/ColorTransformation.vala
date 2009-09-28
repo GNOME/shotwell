@@ -755,9 +755,9 @@ class RGBHistogram {
             int b_offset = row_start_offset + sample_bytes + sample_bytes;
 
             while (b_offset < (row_start_offset + row_length_bytes)) {
-                red_counts[pixel_data[r_offset]]++;
-                green_counts[pixel_data[g_offset]]++;
-                blue_counts[pixel_data[b_offset]]++;
+                red_counts[pixel_data[r_offset]] += 1;
+                green_counts[pixel_data[g_offset]] += 1;
+                blue_counts[pixel_data[b_offset]] += 1;
 
                 r_offset += pixel_bytes;
                 g_offset += pixel_bytes;
@@ -992,7 +992,7 @@ public class IntensityHistogram {
                     pixels[i], pixels[i + 1], pixels[i + 2]);
                 HSVAnalyticPixel pix_hsi = HSVAnalyticPixel.from_rgb(pix_rgb);
                 int quantized_light_value = (int)(pix_hsi.light_value * 255.0f);
-                counts[quantized_light_value]++;
+                counts[quantized_light_value] += 1;
             }
         }    
 

@@ -142,7 +142,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
+        info.get_modification_time(out timestamp);
         
         Dimensions dim = Dimensions();
         Orientation orientation = Orientation.TOP_LEFT;
@@ -290,7 +290,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
+        info.get_modification_time(out timestamp);
         
         if (photo_table.update(row.photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
             orientation)) {
@@ -1583,7 +1583,7 @@ public class LibraryPhoto : TransformablePhoto {
         }
         
         TimeVal timestamp = TimeVal();
-        info.get_modification_time(timestamp);
+        info.get_modification_time(out timestamp);
         
         // trust modification time and file size
         if ((timestamp.tv_sec != get_timestamp()) || (info.get_size() != get_filesize()))

@@ -218,8 +218,8 @@ public class ExportDialog : Gtk.Dialog {
             length = (int) text.length;
 
         // only permit numeric text
-        string buffer = new string();
-        string new_text = new string();
+        string buffer = "";
+        string new_text = "";
         for (int ctr = 0; ctr < length; ctr++) {
             if (text[ctr].isdigit()) {
                 text[ctr].to_utf8(buffer);

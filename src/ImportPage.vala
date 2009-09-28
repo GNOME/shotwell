@@ -100,7 +100,14 @@ class ImportPreview : LayoutItem {
         set_title(source.get_filename());
         
         // scale down pixbuf if necessary
-        Gdk.Pixbuf pixbuf = source.get_thumbnail(0);
+        Gdk.Pixbuf pixbuf = null;
+        try {
+            pixbuf = source.get_thumbnail(0);
+        } catch (Error err) {
+            error("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
+        }
+        
+        // scale down if too large
         if (pixbuf.get_width() > MAX_SCALE || pixbuf.get_height() > MAX_SCALE)
             pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP);
 
@@ -417,7 +424,7 @@ public class ImportPage : CheckerboardPage {
         return true;
     }
 
-    private void on_unmounted(Object source, AsyncResult aresult) {
+    private void on_unmounted(Object? source, AsyncResult aresult) {
         debug("Unmount complete");
         
         busy = false;
