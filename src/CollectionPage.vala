@@ -10,6 +10,7 @@ class SlideshowPage : SinglePhotoPage {
     private ViewCollection controller;
     private Thumbnail current;
     private Gdk.Pixbuf next_pixbuf = null;
+    private Thumbnail next_thumbnail = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton play_pause_button;
     private Gtk.ToolButton settings_button;
@@ -130,19 +131,25 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
-        try {
-            // since the canvas might not be ready at this point, start with screen-sized photo
-            set_pixbuf(current.get_photo().get_pixbuf(Scaling.for_screen()));
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
+        Idle.add(start_slideshow);
+    }
 
+    private bool start_slideshow() {
+        // since the canvas might not be ready at this point, start with screen-sized photo
+        Gdk.Pixbuf pixbuf;
+        if (!get_fullscreen_pixbuf(current, true, out current, out pixbuf))
+            return false;
+
+        set_pixbuf(pixbuf);      
+        
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
         
         // prefetch the next pixbuf so it's ready when auto-advance fires
         schedule_prefetch();
+
+        return false;
     }
     
     public override void switching_from() {
@@ -155,20 +162,50 @@ class SlideshowPage : SinglePhotoPage {
         next_pixbuf = null;
         Idle.add(prefetch_next_pixbuf);
     }
-    
+
+    private bool get_fullscreen_pixbuf(Thumbnail start, bool forward, out Thumbnail next, out Gdk.Pixbuf next_pixbuf) {
+        next = start;
+
+        for (;;) {
+            try {
+                // Fails if a photo source file is missing.
+                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen());
+            } catch (Error err) {
+                warning("%s", err.message);
+
+                // Look for the next good photo.
+                next = (Thumbnail) ((forward) ? controller.get_next(next) : controller.get_previous(next));
+
+                // An entire slideshow set might be missing, so check for a loop.
+                if ((next == start && next != current) || next == current) {
+                    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_fullscreen(),
+                        Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s",
+                        _("All photo source files are missing."));
+                    dialog.title = Resources.APP_TITLE;
+                    dialog.run();
+                    dialog.destroy();
+
+                    AppWindow.get_instance().end_fullscreen();
+
+                    next = null;
+                    next_pixbuf = null;
+
+                    return false;
+                }
+
+                continue;
+            }
+            return true;
+        }
+    }
+
     private bool prefetch_next_pixbuf() {
         // if multiple prefetches get lined up in the queue, this stops them from doing multiple
         // pipelines
         if (next_pixbuf != null)
             return false;
         
-        Thumbnail next = (Thumbnail) controller.get_next(current);
-
-        try {
-            next_pixbuf = next.get_photo().get_pixbuf(get_canvas_scaling());
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
+        get_fullscreen_pixbuf((Thumbnail) controller.get_next(current), true, out next_thumbnail, out next_pixbuf);
         
         return false;
     }
@@ -191,22 +228,18 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private void on_previous_manual() {
-        manual_advance((Thumbnail) controller.get_previous(current));
+        manual_advance((Thumbnail) controller.get_previous(current), false);
     }
     
     private void on_next_automatic() {
-        current = (Thumbnail) controller.get_next(current);
+        current = ((current == next_thumbnail) ? (Thumbnail) controller.get_next(current) : next_thumbnail);
         
         // if prefetch didn't happen in time, get pixbuf now
         Gdk.Pixbuf pixbuf = next_pixbuf;
         if (pixbuf == null) {
             warning("Slideshow prefetch was not ready");
 
-            try {
-                pixbuf = current.get_photo().get_pixbuf(get_canvas_scaling());
-            } catch (Error err) {
-                warning("%s", err.message);
-            }
+            get_fullscreen_pixbuf(current, true, out current, out pixbuf);
         }
         
         if (pixbuf != null)
@@ -220,21 +253,16 @@ class SlideshowPage : SinglePhotoPage {
     }
     
     private void on_next_manual() {
-        manual_advance((Thumbnail) controller.get_next(current));
+        manual_advance((Thumbnail) controller.get_next(current), true);
     }
     
-    private void manual_advance(Thumbnail thumbnail) {
+    private void manual_advance(Thumbnail thumbnail, bool forward) {
         current = thumbnail;
         
-        try {
-            // start with blown-up preview
-            set_pixbuf(current.get_photo().get_preview_pixbuf(get_canvas_scaling()));
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
-        
-        // schedule improvement to real photo
-        Idle.add(on_improvement);
+        // set pixbuf
+        Gdk.Pixbuf next_pixbuf;
+        get_fullscreen_pixbuf(current, forward, out current, out next_pixbuf);
+        set_pixbuf(next_pixbuf);
         
         // reset the advance timer
         timer.start();
@@ -242,17 +270,7 @@ class SlideshowPage : SinglePhotoPage {
         // prefetch the next pixbuf
         schedule_prefetch();
     }
-    
-    private bool on_improvement() {
-        try {
-            set_pixbuf(current.get_photo().get_pixbuf(get_canvas_scaling()));
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
-        
-        return false;
-    }
-    
+
     private bool auto_advance() {
         if (exiting)
             return false;
@@ -1075,7 +1093,7 @@ public class CollectionPage : CheckerboardPage {
         Thumbnail thumbnail = (Thumbnail) get_fullscreen_photo();
         if (thumbnail == null)
             return;
-            
+
         AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(get_view(),
             thumbnail)));
     }

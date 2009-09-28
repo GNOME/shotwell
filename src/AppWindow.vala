@@ -81,6 +81,10 @@ public class FullscreenWindow : PageWindow {
         
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
+    }
+
+    private override void realize() {
+        base.realize();
 
         current_page.switched_to();
     }
