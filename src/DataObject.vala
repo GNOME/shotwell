@@ -182,7 +182,7 @@ public abstract class ThumbnailSource : DataSource {
         // fire signal on self
         thumbnail_altered();
         
-        // signal reflection
+        // signal reflection to DataViews
         contact_subscribers(subscriber_thumbnail_altered);
     }
     
@@ -228,7 +228,13 @@ public class DataView : DataObject {
     public virtual signal void state_changed(bool selected) {
     }
     
+    // Indicates that the display (what is seen by the user) of the DataView has changed.
     public virtual signal void view_altered() {
+    }
+    
+    // Indicates that the geometry of the DataView has changed (which implies the view has altered,
+    // but only in that the same elements have changed size).
+    public virtual signal void geometry_altered() {
     }
     
     public DataView(DataSource source) {
@@ -290,6 +296,18 @@ public class DataView : DataObject {
         if (vc != null)
             vc.internal_notify_view_altered(this);
     }
+
+    // XXX: Because the "this" variable is not available in virtual signals, using this method
+    // to signal until bug is fixed.
+    //
+    // See: https://bugzilla.gnome.org/show_bug.cgi?id=593734
+    public virtual void notify_geometry_altered() {
+        geometry_altered();
+        
+        ViewCollection vc = get_membership() as ViewCollection;
+        if (vc != null)
+            vc.internal_notify_geometry_altered(this);
+    }
 }
 
 public class ThumbnailView : DataView {
@@ -308,8 +326,11 @@ public class ThumbnailView : DataView {
         // fire signal on self
         thumbnail_altered();
         
-        // this also implies the view has changed
+        // this implies the view has changed
         notify_view_altered();
+        
+        // this implies the geometry has changed
+        notify_geometry_altered();
     }
 }
 

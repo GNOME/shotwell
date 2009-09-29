@@ -30,7 +30,7 @@ SRC_FILES = \
 	DatabaseTables.vala \
 	ThumbnailCache.vala \
 	image_util.vala \
-	CollectionLayout.vala \
+	CheckerboardLayout.vala \
 	PhotoPage.vala \
 	Exif.vala \
 	Page.vala \

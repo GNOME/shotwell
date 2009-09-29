@@ -550,15 +550,15 @@ public abstract class CheckerboardPage : Page {
     
     public abstract LayoutItem? get_fullscreen_photo();
     
-    public void refresh() {
-        layout.refresh();
+    public void refresh(string caller) {
+        layout.refresh(caller);
         if (is_in_view())
             layout.queue_draw();
     }
     
     public void set_page_message(string message) {
         layout.set_message(message);
-        refresh();
+        refresh("set_page_message");
     }
     
     public LayoutItem? get_item_at_pixel(double x, double y) {

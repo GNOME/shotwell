@@ -140,7 +140,7 @@ class SlideshowPage : SinglePhotoPage {
         if (!get_fullscreen_pixbuf(current, true, out current, out pixbuf))
             return false;
 
-        set_pixbuf(pixbuf);      
+        set_pixbuf(pixbuf);
         
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
@@ -407,7 +407,6 @@ public class CollectionPage : CheckerboardPage {
     private int scale = Thumbnail.DEFAULT_SCALE;
     private bool improval_scheduled = false;
     private bool reschedule_improval = false;
-    private bool layout_refresh_scheduled = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
     private bool thumbs_resized = false;
 
@@ -663,7 +662,7 @@ public class CollectionPage : CheckerboardPage {
         } else {
             // need to refresh the layout in case any of the thumbnail dimensions were altered while we
             // were gone
-            refresh();
+            refresh("switched_to");
             
             // schedule improvement in case any new photos were added
             schedule_thumbnail_improval();
@@ -671,7 +670,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     public override void returning_from_fullscreen() {
-        refresh();
+        refresh("returning_from_fullscreen");
         
         base.returning_from_fullscreen();
     }
@@ -852,9 +851,6 @@ public class CollectionPage : CheckerboardPage {
         if (!thumbnail.is_exposed())
             return;
         
-        // if geometry has changed, need to refresh the layout
-        schedule_layout_refresh();
-
         // if low-quality thumbnail, schedule for improval
         if (thumbnail.is_low_quality_thumbnail())
             schedule_thumbnail_improval();
@@ -889,25 +885,6 @@ public class CollectionPage : CheckerboardPage {
         improval_scheduled = false;
         
         debug("improve_thumbnail_quality");
-        
-        return false;
-    }
-    
-    private void schedule_layout_refresh() {
-        if (!is_in_view())
-            return;
-            
-        if (layout_refresh_scheduled)
-            return;
-        
-        Idle.add_full(Priority.HIGH, background_refresh);
-        layout_refresh_scheduled = true;
-    }
-    
-    private bool background_refresh() {
-        refresh();
-        
-        layout_refresh_scheduled = false;
         
         return false;
     }
@@ -1114,7 +1091,7 @@ public class CollectionPage : CheckerboardPage {
         foreach (DataObject object in get_view().get_all())
             ((Thumbnail) object).display_title(display);
         
-        refresh();
+        refresh("on_display_titles");
     }
     
     private static double scale_to_slider(int value) {

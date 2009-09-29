@@ -506,7 +506,7 @@ public class ImportPage : CheckerboardPage {
             
             // show 'em all or show none
             get_view().clear();
-            refresh();
+            refresh("refresh_camera");
             
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }

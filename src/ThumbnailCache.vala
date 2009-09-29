@@ -35,9 +35,9 @@ public class ThumbnailCache : Object {
     private static ThumbnailCache big = null;
     private static ThumbnailCache medium = null;
     
+    private static OneShotScheduler debug_scheduler = null;
     private static int cycle_fetched_thumbnails = 0;
     private static int cycle_overflow_thumbnails = 0;
-    private static bool debug_scheduled = false;
     
     private File cache_dir;
     private Size size;
@@ -53,16 +53,18 @@ public class ThumbnailCache : Object {
     
     private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
         Jpeg.Quality quality = DEFAULT_QUALITY) {
-        this.cache_dir = AppWindow.get_data_subdir("thumbs", "thumbs%d".printf(size.get_scale()));
+        cache_dir = AppWindow.get_data_subdir("thumbs", "thumbs%d".printf(size.get_scale()));
         this.size = size;
         this.max_cached_bytes = max_cached_bytes;
         this.interp = interp;
         this.quality = quality;
-        this.cache_table = new ThumbnailCacheTable(size.get_scale());
+        cache_table = new ThumbnailCacheTable(size.get_scale());
     }
     
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
+        debug_scheduler = new OneShotScheduler(report_cycle);
+        
         big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
         medium = new ThumbnailCache(Size.MEDIUM, MAX_MEDIUM_CACHED_BYTES);
     }
@@ -86,17 +88,21 @@ public class ThumbnailCache : Object {
         spin_event_loop();
     }
     
-    public static Gdk.Pixbuf fetch(PhotoID photo_id, int scale) throws Error {
+    private static ThumbnailCache get_best_cache(int scale) {
         Size size = Size.get_best_size(scale);
         if (size == Size.BIG) {
-            return big._fetch(photo_id);
+            return big;
         } else {
             assert(size == Size.MEDIUM);
             
-            return medium._fetch(photo_id);
+            return medium;
         }
     }
     
+    public static Gdk.Pixbuf fetch(PhotoID photo_id, int scale) throws Error {
+        return get_best_cache(scale)._fetch(photo_id);
+    }
+
     public static void replace(PhotoID photo_id, Size size, Gdk.Pixbuf replacement) throws Error {
         ThumbnailCache cache = null;
         switch (size) {
@@ -137,14 +143,10 @@ public class ThumbnailCache : Object {
     // and slow down scrolling operations ... this delays reporting them, and only then reporting
     // them in one aggregate sum
     private static void schedule_debug() {
-        if (debug_scheduled)
-            return;
-
-        Timeout.add_full(Priority.LOW, 500, report_cycle);
-        debug_scheduled = true;
+        debug_scheduler.priority_after_timeout(Priority.LOW, 500);
     }
 
-    private static bool report_cycle() {
+    private static void report_cycle() {
         if (cycle_fetched_thumbnails > 0) {
             debug("%d thumbnails fetched into memory", cycle_fetched_thumbnails);
             cycle_fetched_thumbnails = 0;
@@ -154,10 +156,6 @@ public class ThumbnailCache : Object {
             debug("%d thumbnails overflowed from memory cache", cycle_overflow_thumbnails);
             cycle_overflow_thumbnails = 0;
         }
-        
-        debug_scheduled = false;
-        
-        return false;
     }
     
     private Gdk.Pixbuf _fetch(PhotoID photo_id) throws Error {
@@ -166,9 +164,7 @@ public class ThumbnailCache : Object {
         if (data != null)
             return data.pixbuf;
 
-        File file = get_cached_file(photo_id);
-
-        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
+        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file(get_cached_file(photo_id).get_path());
         
         cycle_fetched_thumbnails++;
         schedule_debug();

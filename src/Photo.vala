@@ -1363,7 +1363,8 @@ public class LibraryPhoto : TransformablePhoto {
     public static LibraryPhotoSourceCollection global = null;
     
     private bool block_thumbnail_generation = false;
-    
+    private bool delete_original = false;
+
     private LibraryPhoto(PhotoRow row) {
         base(row);
     }
@@ -1493,8 +1494,6 @@ public class LibraryPhoto : TransformablePhoto {
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return ThumbnailCache.fetch(get_photo_id(), scale);
     }
-    
-    private bool delete_original = false;
     
     public void delete_original_on_destroy() {
         delete_original = true;

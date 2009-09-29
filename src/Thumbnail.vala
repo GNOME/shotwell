@@ -31,7 +31,7 @@ public class Thumbnail : LayoutItem {
         return (LibraryPhoto) get_source();
     }
     
-    private Gdk.Pixbuf? get_thumbnail(int scale) {
+    private Gdk.Pixbuf? get_thumbnail() {
         try {
             return get_photo().get_thumbnail(scale);
         } catch (Error err) {
@@ -47,7 +47,7 @@ public class Thumbnail : LayoutItem {
         
         // only fetch and scale if exposed
         if (is_exposed()) {
-            Gdk.Pixbuf pixbuf = get_thumbnail(scale);
+            Gdk.Pixbuf pixbuf = get_thumbnail();
             pixbuf = resize_pixbuf(pixbuf, dim, LOW_QUALITY_INTERP);
             interp = LOW_QUALITY_INTERP;
             
@@ -83,7 +83,7 @@ public class Thumbnail : LayoutItem {
         if (interp == HIGH_QUALITY_INTERP)
             return;
         
-        Gdk.Pixbuf pixbuf = get_thumbnail(scale);
+        Gdk.Pixbuf pixbuf = get_thumbnail();
 
         // only change pixbufs if indeed the image is scaled
         Gdk.Pixbuf scaled = resize_pixbuf(pixbuf, dim, HIGH_QUALITY_INTERP);
@@ -96,25 +96,21 @@ public class Thumbnail : LayoutItem {
     }
     
     public override void exposed() {
-        if (is_exposed())
-            return;
-
-        Gdk.Pixbuf pixbuf = get_thumbnail(scale);
-        pixbuf = scale_pixbuf(pixbuf, scale, LOW_QUALITY_INTERP);
-        interp = LOW_QUALITY_INTERP;
-
-        set_image(pixbuf);
+        if (!is_exposed()) {
+            Gdk.Pixbuf pixbuf = get_thumbnail();
+            pixbuf = scale_pixbuf(pixbuf, scale, LOW_QUALITY_INTERP);
+            interp = LOW_QUALITY_INTERP;
+            
+            set_image(pixbuf);
+        }
 
         base.exposed();
     }
     
     public override void unexposed() {
-        if (!is_exposed())
-            return;
-
-        clear_image(dim.width, dim.height);
+        if (is_exposed())
+            clear_image(dim.width, dim.height);
         
         base.unexposed();
     }
 }
-

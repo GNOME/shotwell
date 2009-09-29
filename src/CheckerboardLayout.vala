@@ -138,6 +138,8 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     public void recalc_size() {
+        Gdk.Rectangle old_allocation = allocation;
+        
         // resize the text width to be no more than the pixbuf's
         if (pango_layout != null && pixbuf_dim.width > 0)
             pango_layout.set_width(pixbuf_dim.width * Pango.SCALE);
@@ -153,6 +155,9 @@ public abstract class LayoutItem : ThumbnailView {
         // + height of text + label padding (between pixbuf and text)
         allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height
             + text_height + LABEL_PADDING;
+        
+        if (allocation.width != old_allocation.width || allocation.height != old_allocation.height)
+            notify_geometry_altered();
     }
     
     public void paint(Gdk.GC gc, Gdk.Drawable drawable) {
@@ -249,9 +254,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.Point drag_endpoint = Gdk.Point();
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
     private uint32 selection_transparency_color = 0;
+    private OneShotScheduler refresh_scheduler = null;
 
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
+        
+        refresh_scheduler = new OneShotScheduler(on_background_refresh);
 
         // set existing items to be part of this layout
         foreach (DataObject object in view.get_all()) {
@@ -264,6 +272,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.items_state_changed += on_items_state_changed;
         view.ordering_changed += on_ordering_changed;
         view.item_view_altered += on_item_view_altered;
+        view.item_geometry_altered += on_item_geometry_altered;
         
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
     }
@@ -323,7 +332,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
         
         if (in_view) {
-            refresh();
+            refresh("on_contents_altered");
             queue_draw();
         }
     }
@@ -340,13 +349,25 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (!in_view)
             return;
         
-        refresh();
+        refresh("on_ordering_changed");
         queue_draw();
     }
     
     private void on_item_view_altered(DataView view) {
         if (in_view)
             repaint_item((LayoutItem) view);
+    }
+    
+    private void on_item_geometry_altered(DataView view) {
+        if (!in_view)
+            return;
+        
+        refresh_scheduler.at_idle();
+    }
+    
+    private void on_background_refresh() {
+        refresh("on_background_refresh");
+        queue_draw();
     }
     
     public void set_message(string text) {
@@ -548,7 +569,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
-    public void refresh() {
+    public void refresh(string caller) {
+        debug("refresh: %s", caller);
+
         // if set in message mode, nothing to do here
         if (message != null)
             return;
@@ -771,7 +794,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // only refresh() if the width has changed
         if (in_view && (allocation.width != last_width)) {
             last_width = allocation.width;
-            refresh();
+            refresh("CheckerboardLayout size_allocate");
         }
     }
     

@@ -192,7 +192,6 @@ public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vad
     return rect;
 }
 
-
 public bool rectangles_equal(Gdk.Rectangle a, Gdk.Rectangle b) {
     return (a.x == b.x) && (a.y == b.y) && (a.width == b.width) && (a.height == b.height);
 }
@@ -291,3 +290,58 @@ public string format_local_date(Time date) {
     }
     return date_string_stripped.str;
 }
+
+public delegate void OneShotCallback();
+
+public class OneShotScheduler {
+    private OneShotCallback callback;
+    private bool scheduled = false;
+    
+    public OneShotScheduler(OneShotCallback callback) {
+        this.callback = callback;
+    }
+    
+    public bool is_scheduled() {
+        return scheduled;
+    }
+    
+    public void at_idle() {
+        if (scheduled)
+            return;
+            
+        scheduled = true;
+        Idle.add(callback_wrapper);
+    }
+    
+    public void at_priority_idle(int priority) {
+        if (scheduled)
+            return;
+        
+        scheduled = true;
+        Idle.add_full(priority, callback_wrapper);
+    }
+    
+    public void after_timeout(uint msec) {
+        if (scheduled)
+            return;
+        
+        scheduled = true;
+        Timeout.add(msec, callback_wrapper);
+    }
+    
+    public void priority_after_timeout(int priority, uint msec) {
+        if (scheduled)
+            return;
+        
+        scheduled = true;
+        Timeout.add_full(priority, msec, callback_wrapper);
+    }
+    
+    private bool callback_wrapper() {
+        scheduled = false;
+        callback();
+        
+        return false;
+    }
+}
+

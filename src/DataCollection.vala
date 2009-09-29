@@ -472,6 +472,10 @@ public class ViewCollection : DataCollection {
     public virtual signal void item_view_altered(DataView view) {
     }
     
+    // Signal aggregator.
+    public virtual signal void item_geometry_altered(DataView view) {
+    }
+    
     public ViewCollection() {
     }
     
@@ -739,6 +743,11 @@ public class ViewCollection : DataCollection {
     // This is only used by DataView.
     public void internal_notify_view_altered(DataView view) {
         item_view_altered(view);
+    }
+    
+    // This is only used by DataView.
+    public void internal_notify_geometry_altered(DataView view) {
+        item_geometry_altered(view);
     }
 }
 

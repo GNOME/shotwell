@@ -131,7 +131,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
     
     public override void realize() {
-        refresh();
+        refresh("realize");
         
         base.realize();
     }
@@ -143,7 +143,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     public override void switched_to() {
         base.switched_to();
         
-        refresh();
+        refresh("switched_to");
     }
     
     public override void on_item_activated(LayoutItem item) {
