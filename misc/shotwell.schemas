@@ -8,7 +8,7 @@
             <owner>shotwell</owner>
             <default>false</default>
 
-            <locale name="C">
+            <locale name="en">
                 <short>basic properties display bool</short>
                 <long>Basic properties display bool.  True if the window is displayed, false otherwise.</long>
             </locale>
@@ -22,7 +22,7 @@
             <owner>shotwell</owner>
             <default>5.0</default>
 
-            <locale name="C">
+            <locale name="en">
                 <short>delay</short>
                 <long>Delay (in seconds) between photos in the slideshow.</long>
             </locale>

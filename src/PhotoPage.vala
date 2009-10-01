@@ -784,10 +784,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         AppWindow.get_instance().set_busy_cursor();
 
+#if MEASURE_ENHANCE
+        Timer overall_timer = new Timer();
+        Timer fetch_timer = new Timer();
+#endif
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = photo.get_pixbuf_with_exceptions(Scaling.for_best_fit(1024), 
+            pixbuf = photo.get_pixbuf_with_exceptions(Scaling.for_best_fit(360), 
                 TransformablePhoto.Exception.ALL);
+#if MEASURE_ENHANCE
+            fetch_timer.stop();
+#endif
         } catch (Error e) {
             warning("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
                 "transform histogram");
@@ -796,8 +803,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         }
 
+#if MEASURE_ENHANCE
+        Timer analyze_timer = new Timer();
+#endif
         PixelTransformation[] transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
+#if MEASURE_ENHANCE
+        analyze_timer.stop();
+#endif
 
+#if MEASURE_ENHANCE
+        Timer apply_timer = new Timer();
+#endif
         /* if the current tool is the adjust tool, then don't commit to the database --
            just set the slider values in the adjust dialog and force it to repaint
            the canvas */
@@ -807,11 +823,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
               /* if the current tool isn't the adjust tool then commit the changes
                  to the database */
             photo.set_adjustments(transformations);
+            update_pixbuf();
+#if MEASURE_ENHANCE
+            apply_timer.stop();
+#endif
         }
 
+#if MEASURE_ENHANCE
+        overall_timer.stop();
+#endif
+
+#if MEASURE_ENHANCE
+        debug("Auto-Enhance Performance Statistics = overall time: %f sec; fetch time: %f sec; analyze time: %f sec; apply time: %f sec", overall_timer.elapsed(), fetch_timer.elapsed(), analyze_timer.elapsed(), apply_timer.elapsed());
+#endif
+
         AppWindow.get_instance().set_normal_cursor();
-        
-        update_pixbuf();
     }
 
     private void place_tool_window() {
