@@ -1,8 +1,11 @@
 [Desktop Entry]
 Version=1.0
 Name=Shotwell
+Name[fr]=Shotwell
 GenericName=Photo Organizer
+GenericName[fr]=Organiseur de Photos
 Comment=Organize your photos
+Comment[fr]=Organisez vos photos
 Exec=shotwell %U
 Icon=shotwell
 Terminal=false

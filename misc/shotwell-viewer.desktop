@@ -1,7 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Name=Shotwell Photo Viewer
+Name[fr]=Visionneuse de Photo Shotwell
 GenericName=Photo Viewer
+GenericName[fr]=Visionneuse de Photo
 Exec=shotwell %f
 Icon=shotwell
 Terminal=false
