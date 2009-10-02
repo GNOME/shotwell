@@ -68,9 +68,9 @@ public enum Rotation {
     }
 }
     
-Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp) {
+Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp, bool scale_up) {
     Dimensions original = Dimensions.for_pixbuf(pixbuf);
-    Dimensions scaled = original.get_scaled(scale);
+    Dimensions scaled = original.get_scaled(scale, scale_up);
     if ((original.width == scaled.width) && (original.height == scaled.height))
         return pixbuf;
 

@@ -15,44 +15,31 @@ public class Thumbnail : LayoutItem {
     private int scale;
     private Dimensions dim;
     private Gdk.InterpType interp = LOW_QUALITY_INTERP;
+    private Cancellable cancellable = null;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
-        base(photo, photo.get_dimensions().get_scaled(scale));
+        base(photo, photo.get_dimensions().get_scaled(scale, true));
         
         this.scale = scale;
         
         set_title(photo.get_name());
 
         // store for exposed/unexposed events
-        dim = photo.get_dimensions().get_scaled(scale);
+        dim = photo.get_dimensions().get_scaled(scale, true);
     }
     
     public LibraryPhoto get_photo() {
         return (LibraryPhoto) get_source();
     }
     
-    private Gdk.Pixbuf? get_thumbnail() {
-        try {
-            return get_photo().get_thumbnail(scale);
-        } catch (Error err) {
-            error("Unable to fetch thumbnail at %d scale for %s: %s", scale, 
-                get_photo().to_string(), err.message);
-            
-            return null;
-        }
-    }
-    
     private override void thumbnail_altered() {
-        dim = get_photo().get_dimensions().get_scaled(scale);
+        dim = get_photo().get_dimensions().get_scaled(scale, true);
         
         // only fetch and scale if exposed
         if (is_exposed()) {
-            Gdk.Pixbuf pixbuf = get_thumbnail();
-            pixbuf = resize_pixbuf(pixbuf, dim, LOW_QUALITY_INTERP);
-            interp = LOW_QUALITY_INTERP;
-            
-            set_image(pixbuf);
+            schedule_async_fetch(LOW_QUALITY_INTERP);
         } else {
+            cancel_async_fetch();
             clear_image(dim.width, dim.height);
         }
 
@@ -72,44 +59,63 @@ public class Thumbnail : LayoutItem {
         
         scale = new_scale;
         
-        // piggy-back on signal handler
         notify_thumbnail_altered();
     }
     
     public void paint_high_quality() {
-        if (!is_exposed())
+        if (!is_exposed() || interp == HIGH_QUALITY_INTERP)
             return;
         
-        if (interp == HIGH_QUALITY_INTERP)
+        schedule_async_fetch(HIGH_QUALITY_INTERP);
+    }
+    
+    private void schedule_async_fetch(Gdk.InterpType interp) {
+        cancel_async_fetch();
+        cancellable = new Cancellable();
+        
+        // stash interp as current interp, to indicate what's coming in (may be changed while
+        // waiting for fetch to complete)
+        this.interp = interp;
+        ThumbnailCache.fetch_async_scaled(get_photo().get_photo_id(), scale, interp,
+            on_pixbuf_fetched, cancellable);
+    }
+    
+    private void cancel_async_fetch() {
+        if (cancellable == null)
             return;
         
-        Gdk.Pixbuf pixbuf = get_thumbnail();
-
-        // only change pixbufs if indeed the image is scaled
-        Gdk.Pixbuf scaled = resize_pixbuf(pixbuf, dim, HIGH_QUALITY_INTERP);
-        if (scaled != pixbuf) {
-            pixbuf = scaled;
-            set_image(pixbuf);
-        }
-
-        interp = HIGH_QUALITY_INTERP;
+        cancellable.cancel();
+        cancellable = null;
+    }
+    
+    private void on_pixbuf_fetched(Gdk.Pixbuf? pixbuf, int scale, Gdk.InterpType interp, Error? err) {
+        if (err != null)
+            error("Unable to fetch thumbnail for %s (scale: %d): %s", to_string(), scale, err.message);
+        
+        assert(pixbuf != null);
+        assert(this.scale == scale);
+        
+        Dimensions pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
+        if (!dim.approx_equals(pixbuf_dim))
+            debug("Thumbnail: Wanted %s got %s", dim.to_string(), pixbuf_dim.to_string());
+        assert(dim.approx_equals(pixbuf_dim));
+        
+        this.interp = interp;
+        set_image(pixbuf);
     }
     
     public override void exposed() {
-        if (!is_exposed()) {
-            Gdk.Pixbuf pixbuf = get_thumbnail();
-            pixbuf = scale_pixbuf(pixbuf, scale, LOW_QUALITY_INTERP);
-            interp = LOW_QUALITY_INTERP;
-            
-            set_image(pixbuf);
-        }
+        if (!is_exposed())
+            schedule_async_fetch(LOW_QUALITY_INTERP);
 
         base.exposed();
     }
     
     public override void unexposed() {
-        if (is_exposed())
+        if (is_exposed()) {
+            cancel_async_fetch();
             clear_image(dim.width, dim.height);
+        }
         
         base.unexposed();
     }

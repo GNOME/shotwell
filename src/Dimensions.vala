@@ -71,31 +71,24 @@ public struct Dimensions {
         return (width - dim.width).abs() <= fudge && (height - dim.height).abs() <= fudge;
     }
     
-    public Dimensions get_scaled(int scale) {
+    public Dimensions get_scaled(int scale, bool scale_up) {
         assert(scale > 0);
-
+        
+        // check for existing best-fit
+        if (width == scale || height == scale)
+            return Dimensions(width, height);
+        
+        // watch for scaling up
+        if (!scale_up && (width < scale && height < scale))
+            return Dimensions(width, height);
+        
         int diff_width = width - scale;
         int diff_height = height - scale;
-
-        if (diff_width == diff_height) {
-            // square image -- unlikely -- but this is the easy case
-            return Dimensions(scale, scale);
-        } else if (diff_width <= 0) {
-            if (diff_height <= 0) {
-                // if both dimensions are less than the scaled size, return as-is
-                return Dimensions(width, height);
-            } 
-            
-            // height needs to be scaled down, so it determines the ratio
-            return get_scaled_by_height(scale);
-        } else if (diff_width > diff_height) {
-            // width is greater, so it's the determining factor
-            // (this case is true even when diff_height is negative)
+        
+        if (diff_width > diff_height)
             return get_scaled_by_width(scale);
-        } else {
-            // height is the determining factor
+        else
             return get_scaled_by_height(scale);
-        }
     }
     
     public void get_scale_factors(Dimensions scaled, out double x_scale, out double y_scale) {
@@ -252,7 +245,7 @@ public struct Scaling {
         if (!is_best_fit(original, out pixels))
             return false;
         
-        scaled = original.get_scaled(pixels);
+        scaled = original.get_scaled(pixels, false);
         
         return true;
     }
@@ -281,7 +274,7 @@ public struct Scaling {
         return scaled;
     }
     
-    public Gdk.Pixbuf perform_on_pixbuf(Gdk.Pixbuf pixbuf, Gdk.InterpType interp) {
+    public Gdk.Pixbuf perform_on_pixbuf(Gdk.Pixbuf pixbuf, Gdk.InterpType interp, bool scale_up) {
         if (is_unscaled())
             return pixbuf;
         
@@ -289,7 +282,7 @@ public struct Scaling {
         
         int pixels;
         if (is_best_fit(pixbuf_dim, out pixels))
-            return scale_pixbuf(pixbuf, pixels, interp);
+            return scale_pixbuf(pixbuf, pixels, interp, scale_up);
         
         Dimensions scaled;
         bool is_viewport = is_for_viewport(pixbuf_dim, out scaled);

@@ -525,7 +525,7 @@ public class LibraryWindow : AppWindow {
             msg = msg.printf(get_photos_dir().get_basename());
 
             Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, msg);
+                Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, "%s", msg);
 
             dialog.add_button(_("Copy into Library"), Gdk.DragAction.COPY);
             dialog.add_button(_("Create Links"), Gdk.DragAction.LINK);

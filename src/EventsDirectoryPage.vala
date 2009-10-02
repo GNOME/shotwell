@@ -13,14 +13,14 @@ class EventDirectoryItem : LayoutItem {
     private Dimensions image_dim = Dimensions();
 
     public EventDirectoryItem(Event event) {
-        base(event, event.get_primary_photo().get_dimensions().get_scaled(SCALE));
+        base(event, event.get_primary_photo().get_dimensions().get_scaled(SCALE, true));
         
         this.event = event;
         
         set_title(event.get_name());
         
         // stash the image size for when it's not being displayed
-        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE);
+        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE, true);
         clear_image(image_dim.width, image_dim.height);
         
         // monitor the event for changes
@@ -51,7 +51,7 @@ class EventDirectoryItem : LayoutItem {
     
     private override void thumbnail_altered() {
         // get new dimensions
-        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE);
+        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE, true);
         
         if (is_exposed())
             set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));

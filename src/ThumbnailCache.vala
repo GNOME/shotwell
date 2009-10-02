@@ -26,6 +26,60 @@ public class ThumbnailCache : Object {
     
     public static const Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
     
+    public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, int scale, Gdk.InterpType interp, 
+        Error? err);
+    
+    private class ImageData {
+        public Gdk.Pixbuf pixbuf;
+        public ulong bytes;
+        
+        public ImageData(Gdk.Pixbuf pixbuf) {
+            this.pixbuf = pixbuf;
+
+            // This is not entirely accurate (see Gtk doc note on pixbuf Image Data), but close enough
+            // for government work
+            bytes = (ulong) pixbuf.get_rowstride() * (ulong) pixbuf.get_height();
+        }
+    }
+
+    private class AsyncFetchJob : BackgroundJob {
+        public ThumbnailCache cache;
+        public PhotoID photo_id;
+        public int scale;
+        public Gdk.InterpType interp;
+        public AsyncFetchCallback callback;
+        public Gdk.Pixbuf pixbuf = null;
+        public Gdk.Pixbuf scaled = null;
+        public Error err = null;
+        
+        public AsyncFetchJob(ThumbnailCache cache, PhotoID photo_id, Gdk.Pixbuf? prefetched, int scale, 
+            Gdk.InterpType interp,  AsyncFetchCallback callback, Cancellable? cancellable) {
+            base(async_fetch_completion_callback, cancellable);
+            
+            this.cache = cache;
+            this.photo_id = photo_id;
+            this.pixbuf = prefetched;
+            this.scale = scale;
+            this.interp = interp;
+            this.callback = callback;
+        }
+        
+        private override void execute() {
+            try {
+                // load-and-decode if not already prefetched
+                if (pixbuf == null)
+                    pixbuf = new Gdk.Pixbuf.from_file(cache.get_cached_file(photo_id).get_path());
+                
+                // scale if specified
+                scaled = (scale > 0) ? scale_pixbuf(pixbuf, scale, interp, true) : pixbuf;
+            } catch (Error err) {
+                this.err = err;
+            }
+        }
+    }
+        
+    private static Workers fetch_workers = null;
+    
     public const ulong KBYTE = 1024;
     public const ulong MBYTE = 1024 * KBYTE;
     
@@ -64,6 +118,7 @@ public class ThumbnailCache : Object {
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
         debug_scheduler = new OneShotScheduler(report_cycle);
+        fetch_workers = new Workers(Workers.THREAD_PER_CPU, false);
         
         big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
         medium = new ThumbnailCache(Size.MEDIUM, MAX_MEDIUM_CACHED_BYTES);
@@ -102,6 +157,16 @@ public class ThumbnailCache : Object {
     public static Gdk.Pixbuf fetch(PhotoID photo_id, int scale) throws Error {
         return get_best_cache(scale)._fetch(photo_id);
     }
+    
+    public static void fetch_async(PhotoID photo_id, int scale, AsyncFetchCallback callback,
+        Cancellable? cancellable = null) {
+        get_best_cache(scale)._fetch_async(photo_id, 0, DEFAULT_INTERP, callback, cancellable);
+    }
+    
+    public static void fetch_async_scaled(PhotoID photo_id, int scale, Gdk.InterpType interp,
+        AsyncFetchCallback callback, Cancellable? cancellable = null) {
+        get_best_cache(scale)._fetch_async(photo_id, scale, interp, callback, cancellable);
+    }
 
     public static void replace(PhotoID photo_id, Size size, Gdk.Pixbuf replacement) throws Error {
         ThumbnailCache cache = null;
@@ -126,19 +191,6 @@ public class ThumbnailCache : Object {
         return big._exists(photo_id) && medium._exists(photo_id);
     }
     
-    private class ImageData {
-        public Gdk.Pixbuf pixbuf;
-        public ulong bytes;
-        
-        public ImageData(Gdk.Pixbuf pixbuf) {
-            this.pixbuf = pixbuf;
-
-            // This is not entirely accurate (see Gtk doc note on pixbuf Image Data), but close enough
-            // for government work
-            bytes = (ulong) pixbuf.get_rowstride() * (ulong) pixbuf.get_height();
-        }
-    }
-
     // Displaying a debug message for each thumbnail loaded and dropped can cause a ton of messages
     // and slow down scrolling operations ... this delays reporting them, and only then reporting
     // them in one aggregate sum
@@ -160,11 +212,11 @@ public class ThumbnailCache : Object {
     
     private Gdk.Pixbuf _fetch(PhotoID photo_id) throws Error {
         // use JPEG in memory cache if available
-        ImageData data = cache_map.get(photo_id.id);
-        if (data != null)
-            return data.pixbuf;
+        Gdk.Pixbuf pixbuf = fetch_from_memory(photo_id);
+        if (pixbuf != null)
+            return pixbuf;
 
-        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file(get_cached_file(photo_id).get_path());
+        pixbuf = new Gdk.Pixbuf.from_file(get_cached_file(photo_id).get_path());
         
         cycle_fetched_thumbnails++;
         schedule_debug();
@@ -173,6 +225,53 @@ public class ThumbnailCache : Object {
         store_in_memory(photo_id, pixbuf);
 
         return pixbuf;
+    }
+    
+    private void _fetch_async(PhotoID photo_id, int scale, Gdk.InterpType interp, 
+        AsyncFetchCallback callback, Cancellable? cancellable) {
+        // check if the pixbuf is already in memory
+        Gdk.Pixbuf pixbuf = fetch_from_memory(photo_id);
+        if (pixbuf != null) {
+            // if no scaling operation required, callback in this context and done (otherwise,
+            // let the background threads perform the scaling operation, to spread out the work)
+            if (scale == 0 || (pixbuf.width == scale || pixbuf.height == scale)) {
+                callback(pixbuf, scale, interp, null);
+                
+                return;
+            }
+        }
+        
+        // TODO: Note that there exists a cache condition in this current implementation.  It's
+        // possible for two requests for the same thumbnail to come in back-to-back.  Since there's
+        // no "reservation" system to indicate that an outstanding job is fetching that thumbnail
+        // (and the other should wait until it's done), two (or more) fetches could occur on the
+        // same thumbnail file.
+        //
+        // Due to the design of Shotwell, with one thumbnail per page, this is seen as an unlikely
+        // situation, and the infrastucture to handle it is not in place.  This may change in the
+        // future, and the caching situation will need to be handled.
+        
+        AsyncFetchJob job = new AsyncFetchJob(this, photo_id, pixbuf, scale, interp, callback, 
+            cancellable);
+        
+        try {
+            fetch_workers.enqueue(job);
+        } catch (Error err) {
+            error("Unable to enqueue async thumbnail fetch: %s", err.message);
+        }
+    }
+    
+    // Called within Gtk.main's thread context
+    private static void async_fetch_completion_callback(BackgroundJob background_job) {
+        AsyncFetchJob job = (AsyncFetchJob) background_job;
+        
+        // if a pixbuf was loaded, store it in the cache
+        if (job.pixbuf != null)
+            job.cache.store_in_memory(job.photo_id, job.pixbuf);
+        
+        // check one final time if the job was cancelled before notifying
+        if (!job.is_cancelled())
+            job.callback(job.scaled, job.scale, job.interp, job.err);
     }
     
     private void _import(PhotoID photo_id, Gdk.Pixbuf original, bool force = false) {
@@ -192,7 +291,7 @@ public class ThumbnailCache : Object {
             photo_id.id, file.get_path());
         
         // scale according to cache's parameters
-        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp);
+        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
         
         // save scaled image as JPEG
         int filesize = -1;
@@ -220,7 +319,7 @@ public class ThumbnailCache : Object {
         remove_from_memory(photo_id);
         
         // scale to cache's parameters
-        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp);
+        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
         
         // save scaled image as JPEG
         int filesize = save_thumbnail(file, scaled);
@@ -263,6 +362,12 @@ public class ThumbnailCache : Object {
     
     private File get_cached_file(PhotoID photo_id) {
         return cache_dir.get_child("thumb%016llx.jpg".printf(photo_id.id));
+    }
+    
+    private Gdk.Pixbuf? fetch_from_memory(PhotoID photo_id) {
+        ImageData data = cache_map.get(photo_id.id);
+        
+        return (data != null) ? data.pixbuf : null;
     }
     
     private void store_in_memory(PhotoID photo_id, Gdk.Pixbuf thumbnail) {
@@ -335,3 +440,4 @@ public class ThumbnailCache : Object {
         return filesize;
     }
 }
+

@@ -1009,7 +1009,7 @@ public class CollectionPage : CheckerboardPage {
         string msg_string = _("If you remove these photos from your library you will lose all edits you've made to them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
 
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, msg_string);
+            Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", msg_string);
         dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.NO);
         dialog.add_button(_("Keep files"), Gtk.ResponseType.YES);
         dialog.title = _("Remove photos?");

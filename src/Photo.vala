@@ -1437,7 +1437,7 @@ public class LibraryPhoto : TransformablePhoto {
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
         Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.Size.BIG);
         
-        return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST);
+        return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
     }
     
     public override void rotate(Rotation rotation) {
@@ -1693,11 +1693,11 @@ public class DirectPhoto : TransformablePhoto {
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
-        return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR);
+        return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR, true);
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return scale_pixbuf(preview, scale, Gdk.InterpType.BILINEAR);
+        return scale_pixbuf(preview, scale, Gdk.InterpType.BILINEAR, true);
     }
     
     private override void altered() {

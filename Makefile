@@ -18,7 +18,7 @@ SYSTEM_LANG_DIR=/usr/share/locale-langpack
 
 -include configure.mk
 
-VALAFLAGS = -g --enable-checking $(USER_VALAFLAGS)
+VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
      _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
 
@@ -59,13 +59,15 @@ SRC_FILES = \
 	CustomComponents.vala \
 	Config.vala \
 	Event.vala \
-	International.vala
+	International.vala \
+	Workers.vala
 
 VAPI_FILES = \
 	libexif.vapi \
 	FStream.vapi \
 	libgphoto2.vapi \
-	FixedKeyFile.vapi
+	FixedKeyFile.vapi \
+	ExtendedPosix.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -98,6 +100,7 @@ HEADER_DIRS = \
 LOCAL_PKGS = \
 	FStream \
 	FixedKeyFile \
+	ExtendedPosix \
 	posix
 
 EXT_PKGS = \

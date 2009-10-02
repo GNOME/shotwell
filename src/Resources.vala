@@ -109,7 +109,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         if (pixbuf == null)
             return null;
         
-        return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR) : pixbuf;
+        return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
     }
     
     private void add_stock_icon(File file, string stock_id) {

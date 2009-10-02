@@ -33,6 +33,14 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
 
 private Timer startup_timer = null;
 
+void main_loop() {
+    // wrap Gtk.main() with UI thread locking; Gtk.main will unlock the thread internally when
+    // sleeping, allowing other threads to perform UI work
+    Gdk.threads_enter();
+    Gtk.main();
+    Gdk.threads_leave();
+}
+
 void library_exec(string[] mounts) {
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
@@ -75,7 +83,7 @@ void library_exec(string[] mounts) {
         
         debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
         
-        Gtk.main();
+        main_loop();
     } else {
         string errormsg = _("The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please use that version or later.");
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
@@ -101,13 +109,16 @@ void editing_exec(string filename) {
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
-    Gtk.main();
+    main_loop();
     
     DirectPhoto.terminate();
     DatabaseTable.terminate();
 }
 
 void main(string[] args) {
+    // initialize threads (valac has already called g_threads_init())
+    Gdk.threads_init();
+    
     // init GTK
     Gtk.init(ref args);
     

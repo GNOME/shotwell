@@ -83,11 +83,11 @@ class ImportSource : PhotoSource {
     }
     
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
-        return scaling.perform_on_pixbuf(preview, INTERP);
+        return scaling.perform_on_pixbuf(preview, INTERP, false);
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return (scale > 0) ? scale_pixbuf(preview, scale, INTERP) : preview;
+        return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
     }
 }
 
@@ -109,7 +109,7 @@ class ImportPreview : LayoutItem {
         
         // scale down if too large
         if (pixbuf.get_width() > MAX_SCALE || pixbuf.get_height() > MAX_SCALE)
-            pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP);
+            pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP, false);
 
         // honor rotation
         Orientation orientation = Exif.get_orientation(source.get_exif());
@@ -372,7 +372,7 @@ public class ImportPage : CheckerboardPage {
 
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), 
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
-                        Gtk.ButtonsType.YES_NO, mounted_message);
+                        Gtk.ButtonsType.YES_NO, "%s", mounted_message);
                     dialog.title = Resources.APP_TITLE;
                     int dialog_res = dialog.run();
                     dialog.destroy();
@@ -388,7 +388,7 @@ public class ImportPage : CheckerboardPage {
                     // it's not mounted, so another application must have it locked
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
-                        Gtk.ButtonsType.OK, locked_message);
+                        Gtk.ButtonsType.OK, "%s", locked_message);
                     dialog.title = Resources.APP_TITLE;
                     dialog.run();
                     dialog.destroy();
