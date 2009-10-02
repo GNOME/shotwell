@@ -156,7 +156,7 @@ public abstract class LayoutItem : ThumbnailView {
         allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height
             + text_height + LABEL_PADDING;
         
-        if (allocation.width != old_allocation.width || allocation.height != old_allocation.height)
+        if (!Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))
             notify_geometry_altered();
     }
     
@@ -236,9 +236,23 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     public const int RIGHT_PADDING = 16;
     public const int COLUMN_GUTTER_PADDING = 24;
     
+    private class LayoutRow {
+        public int y;
+        public int height;
+        public LayoutItem[] items;
+        
+        public LayoutRow(int y, int height, int num_in_row) {
+            this.y = y;
+            this.height = height;
+            this.items = new LayoutItem[num_in_row];
+        }
+    }
+    
     private static Gdk.Pixbuf selection_interior = null;
 
     private ViewCollection view;
+    private LayoutRow[] item_rows = null;
+    private Gee.HashSet<LayoutItem> exposed_items = new Gee.HashSet<LayoutItem>();
     private Gtk.Adjustment hadjustment = null;
     private Gtk.Adjustment vadjustment = null;
     private string message = null;
@@ -262,10 +276,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         refresh_scheduler = new OneShotScheduler(on_background_refresh);
 
         // set existing items to be part of this layout
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
-            item.set_parent(this);
-        }
+        foreach (DataObject object in view.get_all())
+            ((LayoutItem) object).set_parent(this);
 
         // subscribe to the new collection
         view.contents_altered += on_contents_altered;
@@ -328,8 +340,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 LayoutItem item = (LayoutItem) object;
                 
                 item.abandon_parent();
+                exposed_items.remove(item);
             }
         }
+        
+        // release spatial data structure ... contents_altered means a reflow is required, and since
+        // items may be removed, this ensures we're not holding the ref on a removed view
+        item_rows = null;
         
         if (in_view) {
             refresh("on_contents_altered");
@@ -395,22 +412,25 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         visible_page = current_visible;
         
-        // LayoutItems are told both when they're exposed and when they're unexposed; thus, the
-        // reason the loop doesn't bail out at some point or attempt to be smart about finding
-        // only the exposed items
-        Gdk.Rectangle bitbucket = Gdk.Rectangle();
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
-            
-            // only expose/unexpose if the item has been placed on the layout
-            if (!item.get_requisition().has_area())
-                continue;
-                
-            if (visible_page.intersect(item.allocation, bitbucket))
+        // create a new hash set of exposed items that represents an intersection of the old set
+        // and the new
+        Gee.HashSet<LayoutItem> new_exposed_items = new Gee.HashSet<LayoutItem>();
+        
+        Gee.List<LayoutItem> items = intersection(visible_page);
+        foreach (LayoutItem item in items) {
+            new_exposed_items.add(item);
+
+            // if not in the old list, then need to expose
+            if (!exposed_items.remove(item))
                 item.exposed();
-            else
-                item.unexposed();
         }
+        
+        // everything remaining in the old exposed list is now unexposed
+        foreach (LayoutItem item in exposed_items)
+            item.unexposed();
+        
+        // swap out lists
+        exposed_items = new_exposed_items;
     }
     
     public void set_in_view(bool in_view) {
@@ -424,47 +444,99 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // clear this to force a re-expose when back in view
         visible_page = Gdk.Rectangle();
 
-        // unload everything now that not in view
-        foreach (DataObject object in view.get_all())
-            ((LayoutItem) object).unexposed();
+        // unexpose everything currently exposed
+        foreach (LayoutItem item in exposed_items)
+            item.unexposed();
+        
+        exposed_items.clear();
     }
     
     public LayoutItem? get_item_at_pixel(double xd, double yd) {
         int x = (int) xd;
         int y = (int) yd;
-
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
+        
+        // look for the row in the range of the pixel
+        LayoutRow in_range = null;
+        foreach (LayoutRow row in item_rows) {
+            // this happens when there is an exact number of elements to fill the last row
+            if (row == null)
+                continue;
             
-            Gdk.Rectangle alloc = item.allocation;
-            if ((x >= alloc.x) && (y >= alloc.y) && (x <= (alloc.x + alloc.width))
-                && (y <= (alloc.y + alloc.height))) {
-                return item;
+            if (y < row.y) {
+                // overshot ... this happens because there's gaps in the rows
+                break;
+            }
+
+            // if inside height range, this is it
+            if (y <= (row.y + row.height)) {
+                in_range = row;
+                
+                break;
             }
         }
         
+        if (in_range == null)
+            return null;
+        
+        // look for item in row's column in range of the pixel
+        foreach (LayoutItem item in in_range.items) {
+            // this happens on an incompletely filled-in row (usually the last one with empty
+            // space remaining)
+            if (item == null)
+                continue;
+            
+            if (x < item.allocation.x) {
+                // overshot ... this happens because there's gaps in the columns
+                break;
+            }
+            
+            // need to verify actually over item's full dimensions, since they vary in size inside 
+            // a row
+            if (x <= (item.allocation.x + item.allocation.width) && y >= item.allocation.y 
+                && y <= (item.allocation.y + item.allocation.height))
+                return item;
+        }
+
         return null;
     }
     
-    public Gee.List<LayoutItem> intersection(Gdk.Rectangle rect) {
-        int bottom = rect.y + rect.height + 1;
-        int right = rect.x + rect.width + 1;
-        
+    public Gee.List<LayoutItem> intersection(Gdk.Rectangle area) {
         Gee.ArrayList<LayoutItem> intersects = new Gee.ArrayList<LayoutItem>();
         
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
-        
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
+        foreach (LayoutRow row in item_rows) {
+            if (row == null)
+                continue;
             
-            if (rect.intersect((Gdk.Rectangle) item.allocation, bitbucket))
-                intersects.add(item);
-            
-            // short-circuit: if past the dimensions of the box in the sorted list, bail out
-            if (item.allocation.y > bottom && item.allocation.x > right)
+            if ((area.y + area.height) < row.y) {
+                // overshoot
                 break;
+            }
+            
+            if ((row.y + row.height) < area.y) {
+                // haven't reached it yet
+                continue;
+            }
+            
+            // see if the row intersects the area
+            Gdk.Rectangle row_rect = Gdk.Rectangle();
+            row_rect.x = 0;
+            row_rect.y = row.y;
+            row_rect.width = allocation.width;
+            row_rect.height = row.height;
+            
+            if (area.intersect(row_rect, bitbucket)) {
+                // see what elements, if any, intersect the area
+                foreach (LayoutItem item in row.items) {
+                    if (item == null)
+                        continue;
+                    
+                    if (area.intersect(item.allocation, bitbucket))
+                        intersects.add(item);
+                }
+            }
         }
-        
+
         return intersects;
     }
     
@@ -516,16 +588,17 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     public LayoutItem? get_item_at_coordinate(int col, int row) {
-        // TODO: If searching by coordinates becomes more vital, the items could be stored
-        // in an array of arrays for quicker lookup.
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
+        if (row >= item_rows.length)
+            return null;
             
-            if (item.get_column() == col && item.get_row() == row)
-                return item;
-        }
+        LayoutRow item_row = item_rows[row];
+        if (item_row == null)
+            return null;
         
-        return null;
+        if (col >= item_row.items.length)
+            return null;
+        
+        return item_row.items[col];
     }
     
     public void set_drag_select_origin(int x, int y) {
@@ -587,6 +660,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return;
         }
         
+        // clear the rows data structure, as the reflow will completely rearrange it
+        item_rows = null;
+        
         // Step 1: Determine the widest row in the layout, and from it the number of columns
         int x = LEFT_PADDING;
         int col = 0;
@@ -626,6 +702,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
         
         assert(max_cols > 0);
+        int max_rows = (view.get_count() / max_cols) + 1;
         
         // Step 2: Now that the number of columns is known, find the maximum height for each row
         // and the maximum width for each column
@@ -634,7 +711,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         int total_width = 0;
         col = 0;
         int[] column_widths = new int[max_cols];
-        int[] row_heights = new int[(view.get_count() / max_cols) + 1];
+        int[] row_heights = new int[max_rows];
         int gutter = 0;
         
         for (;;) {
@@ -677,12 +754,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // added up, they could overflow
             if ((gutter < LEFT_PADDING) || (gutter < RIGHT_PADDING) || (gutter < COLUMN_GUTTER_PADDING)) {
                 max_cols--;
+                max_rows = (view.get_count() / max_cols) + 1;
+                
                 col = 0;
                 row = 0;
                 tallest = 0;
                 total_width = 0;
                 column_widths = new int[max_cols];
-                row_heights = new int[(view.get_count() / max_cols) + 1];
+                row_heights = new int[max_rows];
                 /*
                 debug("refresh(): readjusting columns: max_cols=%d", max_cols);
                 */
@@ -701,6 +780,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         int y = TOP_PADDING;
         col = 0;
         row = 0;
+        LayoutRow current_row = null;
         bool report_exposure = (visible_page.width > 1 && visible_page.height > 1);
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
 
@@ -722,16 +802,33 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             // report exposed or unexposed
             if (report_exposure) {
-                if (item.allocation.intersect(visible_page, bitbucket))
+                if (item.allocation.intersect(visible_page, bitbucket)) {
+                    exposed_items.add(item);
                     item.exposed();
-                else
+                } else {
+                    exposed_items.remove(item);
                     item.unexposed();
+                }
             }
+            
+            // add to current row in spatial data structure
+            if (current_row == null)
+                current_row = new LayoutRow(y, row_heights[row], max_cols);
+            
+            current_row.items[col] = item;
 
             x += column_widths[col] + gutter;
 
             // carriage return
             if (++col >= max_cols) {
+                // add current_row to the spatial data structure
+                if (item_rows == null)
+                    item_rows = new LayoutRow[max_rows];
+                
+                assert(current_row != null);
+                item_rows[row] = current_row;
+                current_row = null;
+
                 x = gutter;
                 y += row_heights[row] + ROW_GUTTER_PADDING;
                 col = 0;
@@ -739,8 +836,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             }
         }
         
+        // add last row to spatial data structure
+        if (current_row != null)
+            item_rows[row] = current_row;
+        
+        // save dimensions of checkerboard
         columns = max_cols;
         rows = row + 1;
+        assert(rows == max_rows);
         
         // Step 5: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
@@ -803,20 +906,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // watch for message mode
         if (message == null) {
-            int bottom = event.area.y + event.area.height + 1;
-            int right = event.area.x + event.area.width + 1;
-        
-            Gdk.Rectangle bitbucket = Gdk.Rectangle();
-            foreach (DataObject object in view.get_all()) {
-                LayoutItem item = (LayoutItem) object;
-                
-                if (event.area.intersect(item.allocation, bitbucket))
-                    item.paint(item.is_selected() ? selected_gc : unselected_gc, window);
-
-                // short-circuit: if past the dimensions of the box in the sorted list, bail out
-                if (item.allocation.y > bottom && item.allocation.x > right)
-                    break;
-           }
+            // have all items in the exposed area paint themselves
+            foreach (LayoutItem item in intersection(event.area))
+                item.paint(item.is_selected() ? selected_gc : unselected_gc, window);
         } else {
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);

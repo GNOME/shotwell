@@ -152,7 +152,7 @@ public class DataCollection {
     }
     
     public virtual int index_of(DataObject object) {
-        return list.index_of(object);
+        return list.locate(object);
     }
     
     public bool contains(DataObject object) {
