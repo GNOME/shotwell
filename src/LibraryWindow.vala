@@ -50,7 +50,7 @@ public class LibraryWindow : AppWindow {
             return true;
         }
     }
-    
+
     // In order to prevent creating a slew of EventPages at app startup, lazily create them as the
     // user needs them ... this may be supplemented in the future to discard unused EventPages (in
     // a lifo), or simply replace them all with a single EventPage which reloads itself with
@@ -143,6 +143,30 @@ public class LibraryWindow : AppWindow {
         }
     }
 
+    private class CompareSubEventsDirectoryPage : Comparator<SubEventsDirectoryPage> {
+        private int event_sort;
+            
+        public CompareSubEventsDirectoryPage(int event_sort) {
+            assert(event_sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING || event_sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
+            
+            this.event_sort = event_sort;
+        }
+        
+        public override int64 compare(SubEventsDirectoryPage a, SubEventsDirectoryPage b) {
+            int64 start_a = (int64) ((a.get_year() * 100) + a.get_month());
+            int64 start_b = (int64) ((b.get_year() * 100) + b.get_month());
+            
+            switch (event_sort) {
+                case LibraryWindow.SORT_EVENTS_ORDER_ASCENDING:
+                    return start_a - start_b;
+                
+                case LibraryWindow.SORT_EVENTS_ORDER_DESCENDING:
+                default:
+                    return start_b - start_a;
+            }
+        }
+    }
+
     // configuration values set app-wide
     private int events_sort = SORT_EVENTS_ORDER_DESCENDING;
     
@@ -155,6 +179,8 @@ public class LibraryWindow : AppWindow {
     
     // Dynamically added/removed pages
     private Gee.ArrayList<EventPageProxy> event_list = new Gee.ArrayList<EventPageProxy>();
+    private Gee.ArrayList<SubEventsDirectoryPage> events_dir_list = 
+        new Gee.ArrayList<SubEventsDirectoryPage>();
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
@@ -171,7 +197,7 @@ public class LibraryWindow : AppWindow {
         // prepare the default parent and orphan pages
         // (these are never removed from the system)
         library_page = new LibraryPage();
-        events_directory_page = new EventsDirectoryPage();
+        events_directory_page = new MasterEventsDirectoryPage();
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed += import_queue_batch_finished;
         photo_page = new LibraryPhotoPage();
@@ -416,7 +442,7 @@ public class LibraryWindow : AppWindow {
         Gtk.RadioAction action = (Gtk.RadioAction) current_page.common_action_group.get_action(
             "CommonSortEventsAscending");
         assert(action != null);
-        
+
         action.set_current_value(events_sort);
     }
     
@@ -426,19 +452,40 @@ public class LibraryWindow : AppWindow {
             "CommonSortEventsAscending");
         assert(action != null);
         
-        events_sort = action.get_current_value();
+        int new_events_sort = action.get_current_value();
+        
+        // don't resort if the order hasn't changed
+        if (new_events_sort == events_sort)
+            return;
+
+        events_sort = new_events_sort;
+
         assert(events_sort == SORT_EVENTS_ORDER_ASCENDING || events_sort == SORT_EVENTS_ORDER_DESCENDING);
         
         // rebuild sidebar with new sorting rules ... start by pruning branch from sidebar
         // (note that this doesn't remove the pages from the notebook object)
         sidebar.prune_branch_children(events_directory_page.get_marker());
         
+        CompareSubEventsDirectoryPage dir_comparator = new CompareSubEventsDirectoryPage(events_sort);
+
+        // re-insert each directory page in the sidebar in the new order
+        foreach (SubEventsDirectoryPage events_dir in events_dir_list) {
+            EventsDirectoryPage parent = get_dir_parent(events_dir);
+
+            assert(parent != null);
+
+            sidebar.insert_child_sorted(parent.get_marker(), events_dir, dir_comparator);
+
+            // the events directory pages need to know about this
+            events_dir.notify_sort_changed(events_sort);
+        }
+       
         CompareEventPageProxy comparator = new CompareEventPageProxy(events_sort);
-        
+
         // re-insert each page in the sidebar in the new order ... does not add page
         // to notebook again or create a new layout
-        foreach (EventPageProxy event_proxy in event_list)
-            sidebar.insert_child_sorted(events_directory_page.get_marker(), event_proxy, comparator);
+        foreach (EventPageProxy event_proxy in event_list) 
+            sidebar.insert_child_sorted(get_parent_page(event_proxy.event).get_marker(), event_proxy, comparator);
         
         // pruning will collapse the branch, expand automatically
         // TODO: Only expand if already expanded?
@@ -621,11 +668,68 @@ public class LibraryWindow : AppWindow {
         // refresh basic properties
         basic_properties.update_properties(current_page);
     }
-    
+
+    private EventsDirectoryPage? get_dir_parent(SubEventsDirectoryPage page) {
+        if (page.get_event_directory_type() == SubEventsDirectoryPage.EventDirectoryType.YEAR)
+            return events_directory_page;
+
+        foreach (SubEventsDirectoryPage dir in events_dir_list) {
+            if (dir.get_event_directory_type() == SubEventsDirectoryPage.EventDirectoryType.YEAR &&
+                dir.get_year() == page.get_year()) {
+                return dir;
+            }
+        }
+
+        return null;
+    }
+
+    private SubEventsDirectoryPage get_parent_page(Event event) {
+        Time event_time = Time.local(event.get_start_time());
+
+        foreach (SubEventsDirectoryPage dir in events_dir_list) {
+            // if a month directory already exists, return it
+            if (dir.get_event_directory_type() == SubEventsDirectoryPage.EventDirectoryType.MONTH &&
+                dir.get_month() == event_time.month &&
+                dir.get_year() == event_time.year) {
+                    return dir;
+            }
+        }
+
+        CompareSubEventsDirectoryPage comparator = new CompareSubEventsDirectoryPage(get_events_sort());      
+
+        // make a new month directory page
+        SubEventsDirectoryPage month = 
+            new SubEventsDirectoryPage(SubEventsDirectoryPage.EventDirectoryType.MONTH, event_time);
+
+        SubEventsDirectoryPage year = (SubEventsDirectoryPage) get_dir_parent(month);
+        // if a year directory page is not found, make one
+        if (year == null) {
+            year = new SubEventsDirectoryPage(SubEventsDirectoryPage.EventDirectoryType.YEAR,  
+               event_time);
+
+            sidebar.insert_child_sorted(events_directory_page.get_marker(), year, comparator);
+
+            LibraryWindow.get_app().add_to_notebook(year);
+
+            events_dir_list.add(year);
+        }
+
+        sidebar.insert_child_sorted(year.get_marker(), month, comparator);
+
+        LibraryWindow.get_app().add_to_notebook(month);
+
+        events_dir_list.add(month);
+
+        return month;
+
+    }
+
     private void add_event_page(Event event) {
+        SubEventsDirectoryPage parent_page = get_parent_page(event);
+
         EventPageProxy event_proxy = new EventPageProxy(event);
         
-        sidebar.insert_child_sorted(events_directory_page.get_marker(), event_proxy,
+        sidebar.insert_child_sorted(parent_page.get_marker(), event_proxy,
             new CompareEventPageProxy(get_events_sort()));
         
         event_list.add(event_proxy);
@@ -646,21 +750,45 @@ public class LibraryWindow : AppWindow {
         if (event_proxy == null)
             return;
 
-        // remove the page from the notebook, if it's been added
-        if (event_proxy.has_page()) {
-            int pos = get_notebook_pos(event_proxy.get_page());
+        // remove from sidebar
+        remove_event_tree(event_proxy);    
+        
+        // jump to the Photos page
+        switch_to_library_page();
+    }
+
+    private void remove_event_tree(SidebarPage page) {
+        // remove from notebook
+        if (page is SubEventsDirectoryPage ||
+            (page is EventPageProxy && ((EventPageProxy) page).has_page())) {
+            
+            int pos = get_notebook_pos(((page is EventPageProxy) ?
+                ((EventPageProxy) page).get_page() : (Page) page));
+
             assert(pos >= 0);
             notebook.remove_page(pos);
         }
 
+        // grab parent page
+        SidebarPage parent = sidebar.get_parent_page(page);
+
         // remove from sidebar
-        sidebar.remove_page(event_proxy);
-    
-        // finally, remove from the events list itself
-        event_list.remove(event_proxy);
-        
-        // jump to the Photos page
-        switch_to_library_page();
+        sidebar.remove_page(page);
+
+        // remove parent if empty
+        if (parent != null && !(parent is MasterEventsDirectoryPage)) {
+            if (!sidebar.has_children(parent))
+                remove_event_tree(parent);
+        }
+
+        if (page is SubEventsDirectoryPage) {
+            // remove from events directory list 
+            events_dir_list.remove((SubEventsDirectoryPage) page);
+        } else if (page is EventPageProxy) {
+            // remove from the events list
+            event_list.remove((EventPageProxy) page);
+        }
+
     }
 
     private void add_camera_page(DiscoveredCamera camera) {
@@ -913,6 +1041,18 @@ public class LibraryWindow : AppWindow {
         return false;
     }
     
+    private bool is_events_directory_selected(Gtk.TreePath path) {
+        foreach (SubEventsDirectoryPage events_dir in events_dir_list) {
+            if (is_page_selected(events_dir, path)) {
+                switch_to_page(events_dir);
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     private bool is_event_selected(Gtk.TreePath path) {
         foreach (EventPageProxy event_proxy in event_list) {
             if (is_page_selected(event_proxy, path)) {
@@ -943,6 +1083,8 @@ public class LibraryWindow : AppWindow {
             switch_to_import_queue_page();
         } else if (is_camera_selected(path)) {
             // camera path selected and updated
+        } else if (is_events_directory_selected(path)) {
+            // events directory page selected and updated
         } else if (is_event_selected(path)) {
             // event page selected and updated
         } else {

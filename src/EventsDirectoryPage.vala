@@ -78,19 +78,18 @@ public class EventsDirectoryPage : CheckerboardPage {
         }
     }
     
-    private class EventDirectoryManager : ViewManager {
+    public class EventDirectoryManager : ViewManager {
         public override DataView create_view(DataSource source) {
             return new EventDirectoryItem((Event) source);
         }
     }
    
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    protected ViewManager view_manager;
 
-    public EventsDirectoryPage() {
-        base(_("Events"));
-        
-        get_view().monitor_source_collection(Event.global, new EventDirectoryManager());
-
+    public EventsDirectoryPage(string page_name, ViewManager view_manager) {
+        base(page_name);
+        get_view().monitor_source_collection(Event.global, view_manager);
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
         
@@ -101,6 +100,8 @@ public class EventsDirectoryPage : CheckerboardPage {
             LibraryWindow.get_app().get_events_sort() == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING));
 
         init_item_context_menu("/EventsDirectoryContextMenu");
+
+        this.view_manager = view_manager;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -279,3 +280,70 @@ public class EventPage : CollectionPage {
     }
 }
 
+public class MasterEventsDirectoryPage : EventsDirectoryPage {
+    public MasterEventsDirectoryPage() {
+        base(_("Events"), new EventDirectoryManager());
+    }
+}
+
+public class SubEventsDirectoryPage : EventsDirectoryPage {
+    public enum EventDirectoryType {
+        YEAR,
+        MONTH;
+    }
+
+    private class SubEventDirectoryManager : EventsDirectoryPage.EventDirectoryManager {
+        private int month = 0;
+        private int year = 0;
+        EventDirectoryType type;
+
+        public SubEventDirectoryManager(EventDirectoryType type, Time time) {
+            base();
+            
+            if (type == EventDirectoryType.MONTH)
+                month = time.month;
+            this.type = type;
+            year = time.year; 
+        }
+
+        public override bool include_in_view(DataSource source) {
+            EventSource event = (EventSource) source;            
+            Time event_time = Time.local(event.get_start_time());
+            if (event_time.year == year) {
+                if (type == EventDirectoryType.MONTH) {
+                    return (event_time.month == month);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public int get_month() {
+            return month;
+        }
+
+        public int get_year() {
+            return year;
+        }
+
+        public EventDirectoryType get_event_directory_type() {
+            return type;
+        }
+    }
+
+    public SubEventsDirectoryPage(EventDirectoryType type, Time time) {
+        base(time.format((type == EventDirectoryType.YEAR) ? _("%Y") : _("%B")), new SubEventDirectoryManager(type, time)); 
+    }
+
+    public int get_month() {
+        return ((SubEventDirectoryManager) view_manager).get_month();
+    }
+
+    public int get_year() {
+        return ((SubEventDirectoryManager) view_manager).get_year();
+    }
+
+    public EventDirectoryType get_event_directory_type() {
+        return ((SubEventDirectoryManager) view_manager).get_event_directory_type();
+    }
+}

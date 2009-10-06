@@ -222,8 +222,11 @@ public class Sidebar : Gtk.TreeView {
         bool valid = store.iter_children(out child_iter, parent_iter);
         while (valid) {
             SidebarPage page = locate_page(store.get_path(child_iter));
-            if (page != null)
+            if (page != null) {
+                if (has_children(page))
+                    prune_branch_children(page.get_marker());
                 detach_page(page);
+            }
             
             valid = store.remove(child_iter);
         }
@@ -286,6 +289,32 @@ public class Sidebar : Gtk.TreeView {
         Gtk.TreeIter iter;        
         store.get_iter(out iter, marker.get_path());
         store.set(iter, 0, name);
+    }
+
+    public SidebarPage? get_parent_page(SidebarPage page) {
+        if (page.get_marker() != null) {
+            Gtk.TreePath path = page.get_marker().get_path();
+            if (path != null) {
+                if (path.up())
+                    return locate_page(path);
+            }
+        }
+
+        return null;
+    }
+
+    public bool has_children(SidebarPage page) {
+        if (page.get_marker() != null) {
+            Gtk.TreePath path = page.get_marker().get_path();
+            if (path != null) {
+                Gtk.TreeIter iter;
+                
+                if (store.get_iter(out iter, path))
+                    return store.iter_has_child(iter);
+            }
+        }
+
+        return false;
     }
 }
 
