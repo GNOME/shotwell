@@ -148,7 +148,7 @@ public class DataCollection {
     }
     
     public virtual DataObject? get_at(int index) {
-        return (list.size > 0) ? list.get(index) : null;
+        return list.get(index);
     }
     
     public virtual int index_of(DataObject object) {
@@ -450,6 +450,8 @@ public class ViewCollection : DataCollection {
     
     private ViewManager manager = null;
     private Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
+    private int geometry_freeze = 0;
+    private int view_freeze = 0;
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
@@ -474,6 +476,12 @@ public class ViewCollection : DataCollection {
     
     // Signal aggregator.
     public virtual signal void item_geometry_altered(DataView view) {
+    }
+    
+    public virtual signal void views_altered() {
+    }
+    
+    public virtual signal void geometries_altered() {
     }
     
     public ViewCollection() {
@@ -742,12 +750,56 @@ public class ViewCollection : DataCollection {
     
     // This is only used by DataView.
     public void internal_notify_view_altered(DataView view) {
-        item_view_altered(view);
+        if (view_freeze == 0)
+            item_view_altered(view);
+    }
+    
+    // This is available to all users, for use when all items views change.
+    public void notify_views_altered() {
+        views_altered();
+    }
+    
+    public void freeze_view_notifications() {
+        view_freeze++;
+    }
+    
+    public void thaw_view_notifications(bool autonotify) {
+        assert(view_freeze > 0);
+        view_freeze--;
+        
+        if (autonotify && view_freeze == 0)
+            notify_views_altered();
+    }
+    
+    public bool are_view_notifications_frozen() {
+        return view_freeze > 0;
     }
     
     // This is only used by DataView.
     public void internal_notify_geometry_altered(DataView view) {
-        item_geometry_altered(view);
+        if (geometry_freeze == 0)
+            item_geometry_altered(view);
+    }
+    
+    // This is available to all users, for use when all items in the view have changed sizes.
+    public void notify_geometries_altered() {
+        geometries_altered();
+    }
+    
+    public void freeze_geometry_notifications() {
+        geometry_freeze++;
+    }
+    
+    public void thaw_geometry_notifications(bool autonotify) {
+        assert(geometry_freeze > 0);
+        geometry_freeze--;
+        
+        if (autonotify && geometry_freeze == 0)
+            notify_geometries_altered();
+    }
+    
+    public bool are_geometry_notifications_frozen() {
+        return geometry_freeze > 0;
     }
 }
 

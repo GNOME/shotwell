@@ -290,9 +290,12 @@ public class DataView : DataObject {
     //
     // See: https://bugzilla.gnome.org/show_bug.cgi?id=593734
     public virtual void notify_view_altered() {
+        ViewCollection vc = get_membership() as ViewCollection;
+        if (vc != null && vc.are_view_notifications_frozen())
+            return;
+
         view_altered();
         
-        ViewCollection vc = get_membership() as ViewCollection;
         if (vc != null)
             vc.internal_notify_view_altered(this);
     }
@@ -302,9 +305,12 @@ public class DataView : DataObject {
     //
     // See: https://bugzilla.gnome.org/show_bug.cgi?id=593734
     public virtual void notify_geometry_altered() {
+        ViewCollection vc = get_membership() as ViewCollection;
+        if (vc != null && vc.are_geometry_notifications_frozen())
+            return;
+
         geometry_altered();
         
-        ViewCollection vc = get_membership() as ViewCollection;
         if (vc != null)
             vc.internal_notify_geometry_altered(this);
     }
@@ -325,12 +331,6 @@ public class ThumbnailView : DataView {
     public virtual void notify_thumbnail_altered() {
         // fire signal on self
         thumbnail_altered();
-        
-        // this implies the view has changed
-        notify_view_altered();
-        
-        // this implies the geometry has changed
-        notify_geometry_altered();
     }
 }
 

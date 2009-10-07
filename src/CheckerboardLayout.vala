@@ -56,6 +56,9 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     public void set_title(string text) {
+        if (text == title)
+            return;
+        
         title = text;
 
         update_pango();
@@ -99,24 +102,38 @@ public abstract class LayoutItem : ThumbnailView {
         notify_view_altered();
     }
     
-    public void set_image(Gdk.Pixbuf pixbuf) {
+    public bool has_image() {
+        return pixbuf != null;
+    }
+    
+    public Gdk.Pixbuf? get_image() {
+        return pixbuf;
+    }
+    
+    public void set_image(Gdk.Pixbuf pixbuf, bool notify = true) {
+        bool image_changed = pixbuf != this.pixbuf;
+        
         this.pixbuf = pixbuf;
         display_pixbuf = pixbuf;
         pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
 
-        recalc_size();
+        recalc_size(notify);
         
-        notify_view_altered();
+        if (image_changed && notify)
+            notify_view_altered();
     }
     
-    public void clear_image(int width, int height) {
+    public void clear_image(Dimensions dim, bool notify = true) {
+        bool had_image = pixbuf != null;
+        
         pixbuf = null;
         display_pixbuf = null;
-        pixbuf_dim = Dimensions(width, height);
-
-        recalc_size();
+        pixbuf_dim = dim;
         
-        notify_view_altered();
+        recalc_size(notify);
+        
+        if (had_image && notify)
+            notify_view_altered();
     }
     
     private void update_pango() {
@@ -137,12 +154,14 @@ public abstract class LayoutItem : ThumbnailView {
             pango_layout.get_pixel_size(null, out cached_pango_height);
     }
     
-    public void recalc_size() {
+    public static int get_max_width(int scale) {
+        // width is frame width (two sides) + frame padding (two sides) + width of pixbuf (text
+        // never wider)
+        return (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + scale;
+    }
+    
+    public void recalc_size(bool notify_change = true) {
         Gdk.Rectangle old_allocation = allocation;
-        
-        // resize the text width to be no more than the pixbuf's
-        if (pango_layout != null && pixbuf_dim.width > 0)
-            pango_layout.set_width(pixbuf_dim.width * Pango.SCALE);
         
         // only add in the text height if it's being displayed
         int text_height = (title_displayed) ? cached_pango_height : 0;
@@ -156,7 +175,8 @@ public abstract class LayoutItem : ThumbnailView {
         allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height
             + text_height + LABEL_PADDING;
         
-        if (!Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))
+        if (notify_change && 
+            !Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))
             notify_geometry_altered();
     }
     
@@ -174,6 +194,10 @@ public abstract class LayoutItem : ThumbnailView {
             
         // text itself LABEL_PADDING below bottom of pixbuf
         if (pango_layout != null && title_displayed) {
+            // resize the text width to be no more than the pixbuf's
+            if (pango_layout != null && pixbuf_dim.width > 0)
+                pango_layout.set_width(pixbuf_dim.width * Pango.SCALE);
+        
             Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING,
                 allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + LABEL_PADDING,
                 pango_layout);
@@ -232,8 +256,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     public const int ROW_GUTTER_PADDING = 24;
 
     // the following are minimums, as the pads and gutters expand to fill up the window width
-    public const int LEFT_PADDING = 16;
-    public const int RIGHT_PADDING = 16;
     public const int COLUMN_GUTTER_PADDING = 24;
     
     private class LayoutRow {
@@ -268,13 +290,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.Point drag_endpoint = Gdk.Point();
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
     private uint32 selection_transparency_color = 0;
-    private OneShotScheduler refresh_scheduler = null;
+    private int scale = 0;
 
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
         
-        refresh_scheduler = new OneShotScheduler(on_background_refresh);
-
         // set existing items to be part of this layout
         foreach (DataObject object in view.get_all())
             ((LayoutItem) object).set_parent(this);
@@ -285,6 +305,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.ordering_changed += on_ordering_changed;
         view.item_view_altered += on_item_view_altered;
         view.item_geometry_altered += on_item_geometry_altered;
+        view.views_altered += on_views_altered;
+        view.geometries_altered += on_geometries_altered;
         
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
     }
@@ -299,6 +321,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // monitor parent's size changes for a similar reason
         parent.size_allocate += on_viewport_resized;
+    }
+    
+    // This method allows for some optimizations to occur in reflow() by using the known max.
+    // width of all items in the layout.
+    public void set_scale(int scale) {
+        this.scale = scale;
+    }
+    
+    public int get_scale() {
+        return scale;
     }
     
     private void on_viewport_resized() {
@@ -349,7 +381,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         item_rows = null;
         
         if (in_view) {
-            refresh("on_contents_altered");
+            reflow("on_contents_altered");
             queue_draw();
         }
     }
@@ -366,7 +398,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (!in_view)
             return;
         
-        refresh("on_ordering_changed");
+        reflow("on_ordering_changed");
         queue_draw();
     }
     
@@ -379,11 +411,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (!in_view)
             return;
         
-        refresh_scheduler.at_idle();
+        reflow("on_item_geometry_altered");
+        repaint_item((LayoutItem) view);
     }
     
-    private void on_background_refresh() {
-        refresh("on_background_refresh");
+    private void on_views_altered() {
+        if (in_view)
+            queue_draw();
+    }
+    
+    private void on_geometries_altered() {
+        if (!in_view)
+            return;
+        
+        reflow("on_geometries_altered");
         queue_draw();
     }
     
@@ -498,6 +539,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
 
         return null;
+    }
+    
+    public Gee.List<LayoutItem> get_visible_items() {
+        return intersection(visible_page);
     }
     
     public Gee.List<LayoutItem> intersection(Gdk.Rectangle area) {
@@ -642,8 +687,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
-    public void refresh(string caller) {
-        debug("refresh: %s", caller);
+    public void reflow(string caller) {
+        /*
+        debug("reflow: %s", caller);
+        */
 
         // if set in message mode, nothing to do here
         if (message != null)
@@ -654,7 +701,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return;
         
         // need to set_size in case all items were removed and the viewport size has changed
-        if (view.get_count() == 0) {
+        int total_items = view.get_count();
+        if (total_items == 0) {
             set_size_request(allocation.width, 0);
 
             return;
@@ -664,63 +712,80 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         item_rows = null;
         
         // Step 1: Determine the widest row in the layout, and from it the number of columns
-        int x = LEFT_PADDING;
-        int col = 0;
+        // If owner supplies an image scaling for all items in the layout, then this can be
+        // calculated quickly.
         int max_cols = 0;
-        int row_width = 0;
-        int widest_row = 0;
+        if (scale > 0) {
+            // calculate interior width
+            int remaining_width = allocation.width - (COLUMN_GUTTER_PADDING * 2);
+            int max_item_width = LayoutItem.get_max_width(scale);
+            max_cols = remaining_width / max_item_width;
+            
+            // if too large with gutters, decrease until columns fit
+            while (max_cols > 1 
+                && ((max_cols * max_item_width) + ((max_cols - 1) * COLUMN_GUTTER_PADDING) > remaining_width)) {
+                max_cols--;
+            }
+        } else {
+            int x = COLUMN_GUTTER_PADDING;
+            int col = 0;
+            int row_width = 0;
+            int widest_row = 0;
 
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
-            Dimensions req = item.get_requisition();
-            
-            // the items must be requisitioned for this code to work
-            assert(req.has_area());
-            
-            // carriage return (i.e. this item will overflow the view)
-            if ((x + req.width + RIGHT_PADDING) > allocation.width) {
-                if (row_width > widest_row) {
-                    widest_row = row_width;
-                    max_cols = col;
+            for (int ctr = 0; ctr < total_items; ctr++) {
+                LayoutItem item = (LayoutItem) view.get_at(ctr);
+                Dimensions req = item.get_requisition();
+                
+                // the items must be requisitioned for this code to work
+                assert(req.has_area());
+                
+                // carriage return (i.e. this item will overflow the view)
+                if ((x + req.width + COLUMN_GUTTER_PADDING) > allocation.width) {
+                    if (row_width > widest_row) {
+                        widest_row = row_width;
+                        max_cols = col;
+                    }
+                    
+                    col = 0;
+                    x = COLUMN_GUTTER_PADDING;
+                    row_width = 0;
                 }
                 
-                col = 0;
-                x = LEFT_PADDING;
-                row_width = 0;
+                x += req.width + COLUMN_GUTTER_PADDING;
+                row_width += req.width;
+                
+                col++;
             }
             
-            x += req.width + COLUMN_GUTTER_PADDING;
-            row_width += req.width;
-            
-            col++;
-        }
-        
-        // account for dangling last row
-        if (row_width > widest_row) {
-            widest_row = row_width;
-            max_cols = col;
+            // account for dangling last row
+            if (row_width > widest_row)
+                max_cols = col;
         }
         
         assert(max_cols > 0);
-        int max_rows = (view.get_count() / max_cols) + 1;
+        int max_rows = (total_items / max_cols) + 1;
         
         // Step 2: Now that the number of columns is known, find the maximum height for each row
         // and the maximum width for each column
         int row = 0;
         int tallest = 0;
+        int widest = 0;
         int total_width = 0;
-        col = 0;
+        int col = 0;
         int[] column_widths = new int[max_cols];
         int[] row_heights = new int[max_rows];
         int gutter = 0;
         
         for (;;) {
-            foreach (DataObject object in view.get_all()) {
-                LayoutItem item = (LayoutItem) object;
+            for (int ctr = 0; ctr < total_items; ctr++ ) {
+                LayoutItem item = (LayoutItem) view.get_at(ctr);
                 Dimensions req = item.get_requisition();
                 
                 if (req.height > tallest)
                     tallest = req.height;
+                
+                if (req.width > widest)
+                    widest = req.width;
                 
                 // store largest thumb size of each column as well as track the total width of the
                 // layout (which is the sum of the width of each column)
@@ -752,19 +817,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // have to reassemble if the gutter is too small ... this happens because Step One
             // takes a guess at the best column count, but when the max. widths of the columns are
             // added up, they could overflow
-            if ((gutter < LEFT_PADDING) || (gutter < RIGHT_PADDING) || (gutter < COLUMN_GUTTER_PADDING)) {
+            if (gutter < COLUMN_GUTTER_PADDING) {
                 max_cols--;
                 max_rows = (view.get_count() / max_cols) + 1;
                 
+                debug("readjusting columns: alloc.width=%d total_width=%d widest=%d gutter=%d max_cols now=%d", 
+                    allocation.width, total_width, widest, gutter, max_cols);
+
                 col = 0;
                 row = 0;
                 tallest = 0;
+                widest = 0;
                 total_width = 0;
                 column_widths = new int[max_cols];
                 row_heights = new int[max_rows];
-                /*
-                debug("refresh(): readjusting columns: max_cols=%d", max_cols);
-                */
             } else {
                 break;
             }
@@ -775,17 +841,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             max_cols, gutter);
         */
 
+        // for the spatial structure
+        item_rows = new LayoutRow[max_rows];
+
         // Step 4: Lay out the items in the space using all the information gathered
-        x = gutter;
+        int x = gutter;
         int y = TOP_PADDING;
         col = 0;
         row = 0;
         LayoutRow current_row = null;
         bool report_exposure = (visible_page.width > 1 && visible_page.height > 1);
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
-
-        foreach (DataObject object in view.get_all()) {
-            LayoutItem item = (LayoutItem) object;
+        
+        for (int ctr = 0; ctr < total_items; ctr++) {
+            LayoutItem item = (LayoutItem) view.get_at(ctr);
             Dimensions req = item.get_requisition();
 
             // this centers the item in the column
@@ -821,10 +890,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
             // carriage return
             if (++col >= max_cols) {
-                // add current_row to the spatial data structure
-                if (item_rows == null)
-                    item_rows = new LayoutRow[max_rows];
-                
                 assert(current_row != null);
                 item_rows[row] = current_row;
                 current_row = null;
@@ -850,9 +915,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         set_size_request(allocation.width, y + row_heights[row] + BOTTOM_PADDING);
     }
     
-    public void repaint_item(LayoutItem item) {
+    private void repaint_item(LayoutItem item) {
         assert(view.contains(item));
         assert(item.allocation.width > 0 && item.allocation.height > 0);
+        
+        // only repaint if visible in viewport
+        Gdk.Rectangle bitbucket = Gdk.Rectangle();
+        if (!visible_page.intersect(item.allocation, bitbucket))
+            return;
         
         queue_draw_area(item.allocation.x, item.allocation.y, item.allocation.width,
             item.allocation.height);
@@ -897,7 +967,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // only refresh() if the width has changed
         if (in_view && (allocation.width != last_width)) {
             last_width = allocation.width;
-            refresh("CheckerboardLayout size_allocate");
+            reflow("CheckerboardLayout size_allocate");
         }
     }
     

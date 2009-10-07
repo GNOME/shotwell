@@ -296,6 +296,8 @@ public delegate void OneShotCallback();
 public class OneShotScheduler {
     private OneShotCallback callback;
     private bool scheduled = false;
+    private bool reschedule = false;
+    private bool cancelled = false;
     
     public OneShotScheduler(OneShotCallback callback) {
         this.callback = callback;
@@ -310,6 +312,7 @@ public class OneShotScheduler {
             return;
             
         scheduled = true;
+        cancelled = false;
         Idle.add(callback_wrapper);
     }
     
@@ -318,26 +321,56 @@ public class OneShotScheduler {
             return;
         
         scheduled = true;
+        cancelled = false;
         Idle.add_full(priority, callback_wrapper);
     }
     
-    public void after_timeout(uint msec) {
-        if (scheduled)
+    public void after_timeout(uint msec, bool reschedule) {
+        if (scheduled) {
+            if (reschedule)
+                this.reschedule = true;
+            
             return;
+        }
         
         scheduled = true;
+        cancelled = false;
         Timeout.add(msec, callback_wrapper);
     }
     
-    public void priority_after_timeout(int priority, uint msec) {
-        if (scheduled)
+    public void priority_after_timeout(int priority, uint msec, bool reschedule) {
+        if (scheduled) {
+            if (reschedule)
+                this.reschedule = true;
+                
             return;
+        }
         
         scheduled = true;
+        cancelled = false;
         Timeout.add_full(priority, msec, callback_wrapper);
     }
     
+    public void cancel() {
+        cancelled = true;
+        reschedule = false;
+        scheduled = false;
+    }
+    
     private bool callback_wrapper() {
+        if (cancelled) {
+            cancelled = false;
+            scheduled = false;
+            
+            return false;
+        }
+        
+        if (reschedule) {
+            reschedule = false;
+            
+            return true;
+        }
+        
         scheduled = false;
         callback();
         

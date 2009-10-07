@@ -361,10 +361,7 @@ public class CollectionPage : CheckerboardPage {
 
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public const int MANUAL_STEPPING = 16;
-    public const int SLIDER_STEPPING = 2;
-
-    private const int IMPROVAL_PRIORITY = Priority.LOW;
-    private const int IMPROVAL_DELAY_MS = 250;
+    public const int SLIDER_STEPPING = 4;
 
     private int drag_failed_item_count = 0;
     
@@ -405,10 +402,7 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton slideshow_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
-    private bool improval_scheduled = false;
-    private bool reschedule_improval = false;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
-    private bool thumbs_resized = false;
 
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
@@ -433,7 +427,6 @@ public class CollectionPage : CheckerboardPage {
         get_view().set_comparator(get_sort_comparator());
         get_view().contents_altered += on_contents_altered;
         get_view().items_state_changed += on_selection_changed;
-        get_view().item_view_altered += on_thumbnail_view_altered;
 
         // adjustment which is shared by all sliders in the application
         if (slider_adjustment == null)
@@ -486,14 +479,7 @@ public class CollectionPage : CheckerboardPage {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        // this schedules thumbnail improvement whenever the window is scrolled (and new
-        // thumbnails may be exposed)
-        get_hadjustment().value_changed += schedule_thumbnail_improval;
-        get_vadjustment().value_changed += schedule_thumbnail_improval;
-        
         show_all();
-
-        schedule_thumbnail_improval();
 
         enable_drag_source(Gdk.DragAction.COPY);
     }
@@ -654,19 +640,10 @@ public class CollectionPage : CheckerboardPage {
         base.switched_to();
 
         // if the thumbnails were resized while viewing another page, resize the ones on this page
-        // now ... set_thumb_size does the refresh and thumbnail improval, so don't schedule if
-        // going this route
-        if (thumbs_resized) {
-            set_thumb_size(slider_to_scale(slider.get_value()));
-            thumbs_resized = false;
-        } else {
-            // need to refresh the layout in case any of the thumbnail dimensions were altered while we
-            // were gone
-            refresh("switched_to");
-            
-            // schedule improvement in case any new photos were added
-            schedule_thumbnail_improval();
-        }
+        // now
+        int current_scale = slider_to_scale(slider.get_value());
+        if (scale != current_scale)
+            set_thumb_size(current_scale);
     }
     
     public override void returning_from_fullscreen() {
@@ -713,12 +690,6 @@ public class CollectionPage : CheckerboardPage {
             return (LayoutItem?) get_view().get_at(0);
         else
             return null;
-    }
-    
-    protected override void on_resize(Gdk.Rectangle rect) {
-        // this schedules thumbnail improvement whenever the window size changes (and new thumbnails
-        // may be exposed), therefore, uninterested in window position move
-        schedule_thumbnail_improval();
     }
     
     private override void drag_begin(Gdk.DragContext context) {
@@ -804,89 +775,33 @@ public class CollectionPage : CheckerboardPage {
         return false;
     }
     
-    public int increase_thumb_size() {
-        if (scale == Thumbnail.MAX_SCALE)
-            return scale;
-        
-        scale += MANUAL_STEPPING;
-        if (scale > Thumbnail.MAX_SCALE)
-            scale = Thumbnail.MAX_SCALE;
-        
-        set_thumb_size(scale);
-        
-        return scale;
+    public void increase_thumb_size() {
+        set_thumb_size(scale + MANUAL_STEPPING);
     }
     
-    public int decrease_thumb_size() {
-        if (scale == Thumbnail.MIN_SCALE)
-            return scale;
-        
-        scale -= MANUAL_STEPPING;
-        if (scale < Thumbnail.MIN_SCALE)
-            scale = Thumbnail.MIN_SCALE;
-        
-        set_thumb_size(scale);
-
-        return scale;
+    public void decrease_thumb_size() {
+        set_thumb_size(scale - MANUAL_STEPPING);
     }
     
     public void set_thumb_size(int new_scale) {
-        assert(new_scale >= Thumbnail.MIN_SCALE);
-        assert(new_scale <= Thumbnail.MAX_SCALE);
-        
-        scale = new_scale;
-        
-        foreach (DataObject object in get_view().get_all())
-            ((Thumbnail) object).resize(scale);
-    }
-    
-    private void on_thumbnail_view_altered(DataView view) {
-        // ignore if not in view
-        if (!is_in_view())
-            return;
-            
-        Thumbnail thumbnail = (Thumbnail) view;
-        
-        // no worries if not exposed
-        if (!thumbnail.is_exposed())
+        if (scale == new_scale || !is_in_view())
             return;
         
-        // if low-quality thumbnail, schedule for improval
-        if (thumbnail.is_low_quality_thumbnail())
-            schedule_thumbnail_improval();
-    }
-    
-    private void schedule_thumbnail_improval() {
-        // don't bother if not in view
-        if (!is_in_view())
-            return;
-            
-        if (improval_scheduled == false) {
-            improval_scheduled = true;
-            Timeout.add_full(IMPROVAL_PRIORITY, IMPROVAL_DELAY_MS, background_improval);
-        } else {
-            reschedule_improval = true;
-        }
-    }
-    
-    private bool background_improval() {
-        if (reschedule_improval) {
-            reschedule_improval = false;
-            
-            return true;
-        }
+        scale = new_scale.clamp(Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
+        get_checkerboard_layout().set_scale(scale);
+        
+        ViewCollection view = get_view();
 
-        foreach (DataObject object in get_view().get_all()) {
-            Thumbnail thumbnail = (Thumbnail) object;
-            if (thumbnail.is_exposed())
-                thumbnail.paint_high_quality();
-        }
+        // when doing mass operations on LayoutItems, freeze individual notifications
+        view.freeze_view_notifications();
+        view.freeze_geometry_notifications();
         
-        improval_scheduled = false;
+        int count = view.get_count();
+        for (int ctr = 0; ctr < count; ctr++)
+            ((Thumbnail) view.get_at(ctr)).resize(scale);
         
-        debug("improve_thumbnail_quality");
-        
-        return false;
+        view.thaw_geometry_notifications(true);
+        view.thaw_view_notifications(true);
     }
     
     private void on_file_menu() {
@@ -1088,10 +1003,14 @@ public class CollectionPage : CheckerboardPage {
     private void on_display_titles(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
+        get_view().freeze_view_notifications();
+        get_view().freeze_geometry_notifications();
+        
         foreach (DataObject object in get_view().get_all())
             ((Thumbnail) object).display_title(display);
         
-        refresh("on_display_titles");
+        get_view().thaw_geometry_notifications(true);
+        get_view().thaw_view_notifications(true);
     }
     
     private static double scale_to_slider(int value) {
@@ -1111,12 +1030,6 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private void on_slider_changed() {
-        if (!is_in_view()) {
-            thumbs_resized = true;
-            
-            return;
-        }
-        
         set_thumb_size(slider_to_scale(slider.get_value()));
     }
     

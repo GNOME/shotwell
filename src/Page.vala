@@ -536,6 +536,10 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
+    public CheckerboardLayout get_checkerboard_layout() {
+        return layout;
+    }
+    
     public override void switching_from() {
         layout.set_in_view(false);
         
@@ -551,14 +555,15 @@ public abstract class CheckerboardPage : Page {
     public abstract LayoutItem? get_fullscreen_photo();
     
     public void refresh(string caller) {
-        layout.refresh(caller);
+        layout.reflow(caller);
         if (is_in_view())
             layout.queue_draw();
     }
     
     public void set_page_message(string message) {
         layout.set_message(message);
-        refresh("set_page_message");
+        if (is_in_view())
+            layout.queue_draw();
     }
     
     public LayoutItem? get_item_at_pixel(double x, double y) {

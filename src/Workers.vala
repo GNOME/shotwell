@@ -71,22 +71,34 @@ public class Workers {
     public const int UNLIMITED_THREADS = -1;
     public const int THREAD_PER_CPU = 0;
     
+    private class DieJob : BackgroundJob {
+        public override void execute() {
+        }
+    }
+    
+    private static DieJob die_job = null;
+    
     private AsyncQueue<BackgroundJob> queue;
+    private int thread_count;
     
     public Workers(int max_threads, bool exclusive) {
+        if (die_job == null)
+            die_job = new DieJob();
+        
         if (max_threads == UNLIMITED_THREADS)
             max_threads = THREAD_PER_CPU;
         
         if (max_threads == THREAD_PER_CPU) {
-            max_threads = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN);
+            max_threads = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN) - 1;
             if (max_threads <= 0)
                 max_threads = 1;
         }
         
         queue = new AsyncQueue<BackgroundJob>();
+        thread_count = max_threads;
         
-        assert(max_threads > 0);
-        for (int ctr = 0; ctr < max_threads; ctr++) {
+        assert(thread_count > 0);
+        for (int ctr = 0; ctr < thread_count; ctr++) {
             try {
                 Thread.create(thread_start, false);
             } catch (Error err) {
@@ -101,10 +113,19 @@ public class Workers {
         queue.push(background_job);
     }
     
+    public void die() {
+        try {
+            for (int ctr = 0; ctr < thread_count; ctr++)
+                enqueue(die_job);
+        } catch (Error err) {
+            warning("Unable to kill worker threads: %s", err.message);
+        }
+    }
+    
     private void *thread_start() {
         for (;;) {
             BackgroundJob job = queue.pop();
-            if (job == null)
+            if (job == null || job == die_job)
                 break;
             
             thread_work(job);

@@ -8,7 +8,7 @@ public class LibraryWindow : AppWindow {
     public const int SIDEBAR_MIN_WIDTH = 160;
     public const int SIDEBAR_MAX_WIDTH = 320;
     public const int PAGE_MIN_WIDTH = 
-        Thumbnail.MAX_SCALE + CheckerboardLayout.LEFT_PADDING + CheckerboardLayout.RIGHT_PADDING;
+        Thumbnail.MAX_SCALE + (CheckerboardLayout.COLUMN_GUTTER_PADDING * 2);
     
     public const int SORT_EVENTS_ORDER_ASCENDING = 0;
     public const int SORT_EVENTS_ORDER_DESCENDING = 1;

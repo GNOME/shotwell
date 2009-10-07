@@ -21,7 +21,7 @@ class EventDirectoryItem : LayoutItem {
         
         // stash the image size for when it's not being displayed
         image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE, true);
-        clear_image(image_dim.width, image_dim.height);
+        clear_image(image_dim);
         
         // monitor the event for changes
         event.altered += on_event_altered;
@@ -40,7 +40,7 @@ class EventDirectoryItem : LayoutItem {
         if (!is_exposed())
             return;
         
-        clear_image(image_dim.width, image_dim.height);
+        clear_image(image_dim);
         
         base.unexposed();
     }
@@ -56,7 +56,7 @@ class EventDirectoryItem : LayoutItem {
         if (is_exposed())
             set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
         else
-            clear_image(image_dim.width, image_dim.height);
+            clear_image(image_dim);
         
         base.thumbnail_altered();
     }
@@ -139,12 +139,6 @@ public class EventsDirectoryPage : CheckerboardPage {
     
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
-    }
-    
-    public override void switched_to() {
-        base.switched_to();
-        
-        refresh("switched_to");
     }
     
     public override void on_item_activated(LayoutItem item) {
@@ -307,7 +301,7 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         }
 
         public override bool include_in_view(DataSource source) {
-            EventSource event = (EventSource) source;            
+            EventSource event = (EventSource) source;
             Time event_time = Time.local(event.get_start_time());
             if (event_time.year == year) {
                 if (type == EventDirectoryType.MONTH) {
