@@ -960,6 +960,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         selection_band_gc = new Gdk.GC.with_values(window, gc_values, mask);
     }
+    
+    private override void realize() {
+        base.realize();
+        
+        reflow("realize");
+    }
 
     private override void size_allocate(Gdk.Rectangle allocation) {
         base.size_allocate(allocation);
@@ -967,7 +973,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // only refresh() if the width has changed
         if (in_view && (allocation.width != last_width)) {
             last_width = allocation.width;
-            reflow("CheckerboardLayout size_allocate");
+            reflow("CheckerboardLayout size_allocate %d".printf(last_width));
         }
     }
     
