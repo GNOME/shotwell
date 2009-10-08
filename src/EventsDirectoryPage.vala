@@ -131,12 +131,6 @@ public class EventsDirectoryPage : CheckerboardPage {
         return actions;
     }
     
-    public override void realize() {
-        refresh("realize");
-        
-        base.realize();
-    }
-    
     public override Gtk.Toolbar get_toolbar() {
         return toolbar;
     }

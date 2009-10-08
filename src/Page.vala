@@ -65,7 +65,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return page_name;
     }
     
-    public void set_page_name(string page_name) {
+    public virtual void set_page_name(string page_name) {
         this.page_name = page_name;
     }
     
@@ -494,6 +494,7 @@ public abstract class CheckerboardPage : Page {
         base(page_name);
         
         layout = new CheckerboardLayout(get_view());
+        layout.set_name(name);
         
         set_event_source(layout);
 
@@ -554,16 +555,16 @@ public abstract class CheckerboardPage : Page {
     
     public abstract LayoutItem? get_fullscreen_photo();
     
-    public void refresh(string caller) {
-        layout.reflow(caller);
-        if (is_in_view())
-            layout.queue_draw();
-    }
-    
     public void set_page_message(string message) {
         layout.set_message(message);
         if (is_in_view())
             layout.queue_draw();
+    }
+    
+    public override void set_page_name(string name) {
+        base.set_page_name(name);
+        
+        layout.set_name(name);
     }
     
     public LayoutItem? get_item_at_pixel(double x, double y) {

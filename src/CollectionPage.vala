@@ -646,12 +646,6 @@ public class CollectionPage : CheckerboardPage {
             set_thumb_size(current_scale);
     }
     
-    public override void returning_from_fullscreen() {
-        refresh("returning_from_fullscreen");
-        
-        base.returning_from_fullscreen();
-    }
-    
     private void on_contents_altered() {
         slideshow_button.sensitive = get_view().get_count() > 0;
     }

@@ -273,6 +273,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private static Gdk.Pixbuf selection_interior = null;
 
     private ViewCollection view;
+    private string page_name = "";
     private LayoutRow[] item_rows = null;
     private Gee.HashSet<LayoutItem> exposed_items = new Gee.HashSet<LayoutItem>();
     private Gtk.Adjustment hadjustment = null;
@@ -290,10 +291,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.Point drag_endpoint = Gdk.Point();
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
     private uint32 selection_transparency_color = 0;
+    private OneShotScheduler reflow_scheduler = null;
     private int scale = 0;
+    private bool flow_dirty = true;
 
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
+        
+        reflow_scheduler = new OneShotScheduler(background_reflow);
         
         // set existing items to be part of this layout
         foreach (DataObject object in view.get_all())
@@ -333,6 +338,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return scale;
     }
     
+    public void set_name(string name) {
+        page_name = name;
+    }
+    
     private void on_viewport_resized() {
         Gtk.Requisition req;
         size_request(out req);
@@ -345,8 +354,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // set the layout's width and height to always match the parent's
             set_size_request(parent.allocation.width, parent.allocation.height);
         }
-
-        // report page change
+        
+        // possible for this widget's size_allocate not to be called, so need to update the page
+        // rect here
         update_visible_page();
     }
     
@@ -380,10 +390,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // items may be removed, this ensures we're not holding the ref on a removed view
         item_rows = null;
         
-        if (in_view) {
-            reflow("on_contents_altered");
-            queue_draw();
-        }
+        schedule_background_reflow();
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {
@@ -395,11 +402,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_ordering_changed() {
-        if (!in_view)
-            return;
-        
-        reflow("on_ordering_changed");
-        queue_draw();
+        schedule_background_reflow();
     }
     
     private void on_item_view_altered(DataView view) {
@@ -408,11 +411,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_item_geometry_altered(DataView view) {
-        if (!in_view)
-            return;
-        
-        reflow("on_item_geometry_altered");
-        repaint_item((LayoutItem) view);
+        schedule_background_reflow();
     }
     
     private void on_views_altered() {
@@ -421,11 +420,18 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_geometries_altered() {
-        if (!in_view)
-            return;
-        
-        reflow("on_geometries_altered");
-        queue_draw();
+        // don't schedule as this indicates all have resized and are ready for reflow
+        if (reflow("on_geometries_altered"))
+            queue_draw();
+    }
+    
+    private void schedule_background_reflow() {
+        reflow_scheduler.at_idle();
+    }
+    
+    private void background_reflow() {
+        if (reflow("background_reflow"))
+            queue_draw();
     }
     
     public void set_message(string text) {
@@ -436,22 +442,18 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             set_size_request(parent.allocation.width, parent.allocation.height);
     }
     
-    private void update_visible_page() {
-        if (!in_view)
-            return;
-        
+    private void update_visible_page(bool reexpose = true) {
         if (hadjustment == null || vadjustment == null)
             return;
             
         Gdk.Rectangle current_visible = get_adjustment_page(hadjustment, vadjustment);
         
-        if (current_visible.width <= 1 || current_visible.height <= 1)
-            return;
-        
-        if (rectangles_equal(visible_page, current_visible))
-            return;
+        bool changed = !rectangles_equal(visible_page, current_visible);
         
         visible_page = current_visible;
+        
+        if (!reexpose || !in_view || !changed)
+            return;
         
         // create a new hash set of exposed items that represents an intersection of the old set
         // and the new
@@ -477,7 +479,15 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     public void set_in_view(bool in_view) {
         this.in_view = in_view;
         if (in_view) {
-            update_visible_page();
+            // update the visible page rectangle, but only re-expose items if not going to reflow
+            // the layout (which exposes already)
+            update_visible_page(!flow_dirty);
+            
+            // if the flow dirtied at some point, now reflow the layout
+            if (flow_dirty) {
+                if (reflow("set_in_view"))
+                    queue_draw();
+            }
 
             return;
         }
@@ -687,26 +697,35 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
-    public void reflow(string caller) {
-        /*
-        debug("reflow: %s", caller);
-        */
-
+    // Returns true if a redraw is required
+    private bool reflow(string caller) {
         // if set in message mode, nothing to do here
         if (message != null)
-            return;
+            return false;
         
         // don't bother until layout is of some appreciable size (even this is too low)
         if (allocation.width <= 1)
-            return;
+            return false;
+        
+        // don't reflow if not in view of the user
+        if (!in_view) {
+            flow_dirty = true;
+            
+            return false;
+        }
         
         // need to set_size in case all items were removed and the viewport size has changed
         int total_items = view.get_count();
         if (total_items == 0) {
             set_size_request(allocation.width, 0);
+            flow_dirty = false;
 
-            return;
+            return true;
         }
+        
+ #if TRACE_REFLOW
+        debug("reflow %s: %s", page_name, caller);
+#endif
         
         // clear the rows data structure, as the reflow will completely rearrange it
         item_rows = null;
@@ -821,8 +840,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 max_cols--;
                 max_rows = (view.get_count() / max_cols) + 1;
                 
-                debug("readjusting columns: alloc.width=%d total_width=%d widest=%d gutter=%d max_cols now=%d", 
-                    allocation.width, total_width, widest, gutter, max_cols);
+#if TRACE_REFLOW
+                debug("reflow %s: readjusting columns: alloc.width=%d total_width=%d widest=%d gutter=%d max_cols now=%d", 
+                    page_name, allocation.width, total_width, widest, gutter, max_cols);
+#endif
 
                 col = 0;
                 row = 0;
@@ -836,10 +857,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             }
         }
 
-        /*
-        debug("refresh(): width:%d total_width:%d max_cols:%d gutter:%d", allocation.width, total_width, 
-            max_cols, gutter);
-        */
+#if TRACE_REFLOW
+        debug("reflow %s: width:%d total_width:%d max_cols:%d gutter:%d", page_name, allocation.width, 
+            total_width, max_cols, gutter);
+#endif
 
         // for the spatial structure
         item_rows = new LayoutRow[max_rows];
@@ -913,6 +934,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // Step 5: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
         set_size_request(allocation.width, y + row_heights[row] + BOTTOM_PADDING);
+        
+        flow_dirty = false;
+        
+        return true;
     }
     
     private void repaint_item(LayoutItem item) {
@@ -961,19 +986,21 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         selection_band_gc = new Gdk.GC.with_values(window, gc_values, mask);
     }
     
-    private override void realize() {
-        base.realize();
-        
-        reflow("realize");
-    }
-
     private override void size_allocate(Gdk.Rectangle allocation) {
         base.size_allocate(allocation);
         
-        // only refresh() if the width has changed
-        if (in_view && (allocation.width != last_width)) {
+        // only reflow() if the width has changed
+        if (allocation.width != last_width) {
             last_width = allocation.width;
-            reflow("CheckerboardLayout size_allocate %d".printf(last_width));
+            
+            // update visible page rect but don't call expose events, as reflow will do that
+            update_visible_page(false);
+            
+            if (reflow("size_allocate (%d)".printf(last_width)))
+                queue_draw();
+        } else {
+            // update visible page rect, re-exposing as necessary
+            update_visible_page();
         }
     }
     
