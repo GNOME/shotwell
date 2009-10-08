@@ -65,12 +65,37 @@ public class Sidebar : Gtk.TreeView {
     }
     
     public void place_cursor(SidebarPage page) {
-        if (page.get_marker() != null)
+        if (page.get_marker() != null) {
             get_selection().select_path(page.get_marker().get_path());
+        
+            // scroll to page in sidebar, if needed
+            scroll_to_page(page.get_marker());
+        }
     }
     
     public void expand_branch(SidebarMarker marker) {
         expand_row(marker.get_path(), true);
+    }
+
+    public void expand_tree(SidebarMarker marker) {
+        expand_to_path(marker.get_path());
+    }
+
+    public void expand_first_branch_only(SidebarMarker marker) {
+        collapse_all();
+
+        Gtk.TreePath path = marker.get_path();
+        
+        Gtk.TreeIter iter;
+        while (store.get_iter(out iter, path)) {
+            if (store.iter_has_child(iter)) {
+                path.down();
+            } else {
+                break;
+            }
+        }
+
+        expand_to_path(path);
     }
     
     private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter) {
@@ -223,7 +248,7 @@ public class Sidebar : Gtk.TreeView {
         while (valid) {
             SidebarPage page = locate_page(store.get_path(child_iter));
             if (page != null) {
-                if (has_children(page))
+                if (has_children(page.get_marker()))
                     prune_branch_children(page.get_marker());
                 detach_page(page);
             }
@@ -303,18 +328,66 @@ public class Sidebar : Gtk.TreeView {
         return null;
     }
 
-    public bool has_children(SidebarPage page) {
-        if (page.get_marker() != null) {
-            Gtk.TreePath path = page.get_marker().get_path();
-            if (path != null) {
-                Gtk.TreeIter iter;
-                
-                if (store.get_iter(out iter, path))
-                    return store.iter_has_child(iter);
-            }
+    public bool has_children(SidebarMarker marker) {
+        Gtk.TreePath path = marker.get_path();
+        if (path != null) {
+            Gtk.TreeIter iter;
+            
+            if (store.get_iter(out iter, path))
+                return store.iter_has_child(iter);
         }
 
         return false;
+    }
+
+    public void scroll_to_page(SidebarMarker marker) {
+        Gtk.TreePath path = marker.get_path();
+        scroll_to_cell(path, null, false, 0, 0);
+    }
+
+    public void sort_branch(SidebarMarker marker, Comparator<SidebarPage> comparator) {
+        Gtk.TreePath path = marker.get_path();
+
+        if (path == null)
+            return;
+
+        Gtk.TreeIter iter;
+        store.get_iter(out iter, path);
+
+        int num_children = store.iter_n_children(iter);
+        bool changes_made = (num_children > 0);
+
+        // sort this level with bubble sort
+        while (changes_made) {        
+            changes_made = false;
+
+            path.down();
+
+            for (int i = 0; i < (num_children - 1); i++) {
+                Gtk.TreeIter iter1, iter2 = Gtk.TreeIter();
+                Gtk.TreePath path1 = path;
+                path.next();
+                Gtk.TreePath path2 = path;
+
+                if (store.iter_nth_child(out iter1, iter, i) && 
+                    store.iter_nth_child(out iter2, iter, i + 1) &&
+                    comparator.compare(locate_page(path1), locate_page(path2)) > 0) {
+                    
+                    store.swap(iter1, iter2);
+                    changes_made = true;
+                }
+            }
+
+            path.up();
+        }
+
+        // sort each sublevel
+        path.down();
+        while (num_children > 0) {
+            sort_branch(locate_page(path).get_marker(), comparator);
+            path.next();
+            num_children--;
+        }
     }
 }
 

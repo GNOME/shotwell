@@ -119,43 +119,31 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private class CompareEventPageProxy : Comparator<EventPageProxy> {
+    private class CompareEventBranch : Comparator<SidebarPage> {
         private int event_sort;
         
-        public CompareEventPageProxy(int event_sort) {
-            assert(event_sort == SORT_EVENTS_ORDER_ASCENDING || event_sort == SORT_EVENTS_ORDER_DESCENDING);
-            
-            this.event_sort = event_sort;
-        }
-        
-        public override int64 compare(EventPageProxy a, EventPageProxy b) {
-            int64 start_a = (int64) a.event.get_start_time();
-            int64 start_b = (int64) b.event.get_start_time();
-            
-            switch (event_sort) {
-                case SORT_EVENTS_ORDER_ASCENDING:
-                    return start_a - start_b;
-                
-                case SORT_EVENTS_ORDER_DESCENDING:
-                default:
-                    return start_b - start_a;
-            }
-        }
-    }
-
-    private class CompareSubEventsDirectoryPage : Comparator<SubEventsDirectoryPage> {
-        private int event_sort;
-            
-        public CompareSubEventsDirectoryPage(int event_sort) {
+        public CompareEventBranch(int event_sort) {
             assert(event_sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING || event_sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
             
             this.event_sort = event_sort;
         }
         
-        public override int64 compare(SubEventsDirectoryPage a, SubEventsDirectoryPage b) {
-            int64 start_a = (int64) ((a.get_year() * 100) + a.get_month());
-            int64 start_b = (int64) ((b.get_year() * 100) + b.get_month());
-            
+        public override int64 compare(SidebarPage a, SidebarPage b) {
+            int64 start_a, start_b;
+
+            if (a is SubEventsDirectoryPage && b is SubEventsDirectoryPage) {
+                start_a = (int64) ((((SubEventsDirectoryPage) a).get_year() * 100) +
+                    ((SubEventsDirectoryPage) a).get_month());
+                start_b = (int64) ((((SubEventsDirectoryPage) b).get_year() * 100) + 
+                    ((SubEventsDirectoryPage) b).get_month());
+            } else {
+                assert(a is EventPageProxy);
+                assert(b is EventPageProxy);
+
+                start_a = (int64) ((EventPageProxy) a).event.get_start_time();
+                start_b = (int64) ((EventPageProxy) b).event.get_start_time();
+            }
+
             switch (event_sort) {
                 case LibraryWindow.SORT_EVENTS_ORDER_ASCENDING:
                     return start_a - start_b;
@@ -241,6 +229,9 @@ public class LibraryWindow : AppWindow {
         // need to populate pages with what's known now by the camera table
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
+
+        // start with only most recent month directory open
+        sidebar.expand_first_branch_only(events_directory_page.get_marker());
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -462,34 +453,13 @@ public class LibraryWindow : AppWindow {
 
         assert(events_sort == SORT_EVENTS_ORDER_ASCENDING || events_sort == SORT_EVENTS_ORDER_DESCENDING);
         
-        // rebuild sidebar with new sorting rules ... start by pruning branch from sidebar
-        // (note that this doesn't remove the pages from the notebook object)
-        sidebar.prune_branch_children(events_directory_page.get_marker());
-        
-        CompareSubEventsDirectoryPage dir_comparator = new CompareSubEventsDirectoryPage(events_sort);
+        sidebar.sort_branch(events_directory_page.get_marker(), 
+            new CompareEventBranch(events_sort));
 
-        // re-insert each directory page in the sidebar in the new order
-        foreach (SubEventsDirectoryPage events_dir in events_dir_list) {
-            EventsDirectoryPage parent = get_dir_parent(events_dir);
-
-            assert(parent != null);
-
-            sidebar.insert_child_sorted(parent.get_marker(), events_dir, dir_comparator);
-
-            // the events directory pages need to know about this
+        // the events directory pages need to know about resort
+        foreach (SubEventsDirectoryPage events_dir in events_dir_list) {        
             events_dir.notify_sort_changed(events_sort);
         }
-       
-        CompareEventPageProxy comparator = new CompareEventPageProxy(events_sort);
-
-        // re-insert each page in the sidebar in the new order ... does not add page
-        // to notebook again or create a new layout
-        foreach (EventPageProxy event_proxy in event_list) 
-            sidebar.insert_child_sorted(get_parent_page(event_proxy.event).get_marker(), event_proxy, comparator);
-        
-        // pruning will collapse the branch, expand automatically
-        // TODO: Only expand if already expanded?
-        sidebar.expand_branch(events_directory_page.get_marker());
         
         // set the tree cursor to the current page, which might have been lost in the
         // delete/insert
@@ -695,7 +665,7 @@ public class LibraryWindow : AppWindow {
             }
         }
 
-        CompareSubEventsDirectoryPage comparator = new CompareSubEventsDirectoryPage(get_events_sort());      
+        CompareEventBranch comparator = new CompareEventBranch(get_events_sort());      
 
         // make a new month directory page
         SubEventsDirectoryPage month = 
@@ -730,7 +700,7 @@ public class LibraryWindow : AppWindow {
         EventPageProxy event_proxy = new EventPageProxy(event);
         
         sidebar.insert_child_sorted(parent_page.get_marker(), event_proxy,
-            new CompareEventPageProxy(get_events_sort()));
+            new CompareEventBranch(get_events_sort()));
         
         event_list.add(event_proxy);
     }
@@ -777,7 +747,7 @@ public class LibraryWindow : AppWindow {
 
         // remove parent if empty
         if (parent != null && !(parent is MasterEventsDirectoryPage)) {
-            if (!sidebar.has_children(parent))
+            if (!sidebar.has_children(parent.get_marker()))
                 remove_event_tree(parent);
         }
 
@@ -964,6 +934,10 @@ public class LibraryWindow : AppWindow {
         if (page == current_page)
             return;
 
+        // open sidebar directory containing page, if any
+        if (page.get_marker() != null)
+            sidebar.expand_tree(page.get_marker());
+
         if (current_page != null) {
             current_page.switching_from();
         
@@ -1006,7 +980,7 @@ public class LibraryWindow : AppWindow {
         // which will then call this function again
         current_page = page;
 
-        sidebar.place_cursor(page);
+        Idle.add_full(Priority.HIGH, place_sidebar_cursor);
         
         on_selection_changed();
 
@@ -1019,6 +993,11 @@ public class LibraryWindow : AppWindow {
         current_page.get_view().contents_altered += on_selection_changed;
 
         page.switched_to();
+    }
+
+    private bool place_sidebar_cursor() {
+        sidebar.place_cursor(current_page);
+        return false;
     }
 
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
