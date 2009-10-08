@@ -8,11 +8,13 @@ public abstract class EditingToolWindow : Gtk.Window {
     private const int FRAME_BORDER = 6;
 
     private Gtk.Window container;
+    private EditingTool tool;
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
     private bool user_moved = false;
 
-    public EditingToolWindow(Gtk.Window container) {
+    public EditingToolWindow(Gtk.Window container, EditingTool tool) {
         this.container = container;
+        this.tool = tool;
 
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
         set_transient_for(container);
@@ -384,6 +386,13 @@ public abstract class EditingTool {
     }
     
     public virtual bool on_keypress(Gdk.EventKey event) {
+        // check for an escape/abort first
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            notify_cancel();
+
+            return true;
+        }
+
         return false;
     }
     
@@ -415,8 +424,8 @@ public class CropTool : EditingTool {
         public Gtk.Button apply_button = new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
 
-        public CropToolWindow(Gtk.Window container) {
-            base(container);
+        public CropToolWindow(Gtk.Window container, CropTool tool) {
+            base(container, tool);
             
             cancel_button.set_tooltip_text(_("Return to current photo dimensions"));
             cancel_button.set_image_position(Gtk.PositionType.LEFT);
@@ -460,7 +469,7 @@ public class CropTool : EditingTool {
         prepare_visuals(canvas.get_scaled_pixbuf());
 
         // create the crop tool window, where the user can apply or cancel the crop
-        crop_tool_window = new CropToolWindow(canvas.get_container());
+        crop_tool_window = new CropToolWindow(canvas.get_container(), this);
         crop_tool_window.apply_button.clicked += on_crop_apply;
         crop_tool_window.cancel_button.clicked += notify_cancel;
         
@@ -1030,8 +1039,8 @@ public class RedeyeTool : EditingTool {
         public Gtk.HScale slider = new Gtk.HScale.with_range(
             RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
     
-        public RedeyeToolWindow(Gtk.Window container) {
-            base(container);
+        public RedeyeToolWindow(Gtk.Window container, RedeyeTool tool) {
+            base(container, tool);
             
             slider.set_size_request(80, -1);
             slider.set_draw_value(false);
@@ -1192,7 +1201,7 @@ public class RedeyeTool : EditingTool {
         old_scaled_pixbuf_position = canvas.get_scaled_pixbuf_position();
         current_pixbuf = canvas.get_scaled_pixbuf();
 
-        redeye_tool_window = new RedeyeToolWindow(canvas.get_container());
+        redeye_tool_window = new RedeyeToolWindow(canvas.get_container(), this);
         redeye_tool_window.slider.set_value(user_interaction_instance.radius);
         redeye_tool_window.slider.change_value += on_size_slider_adjust;
         redeye_tool_window.apply_button.clicked += on_apply;
@@ -1317,8 +1326,8 @@ public class AdjustTool : EditingTool {
         public RGBHistogramManipulator histogram_manipulator =
             new RGBHistogramManipulator();
 
-        public AdjustToolWindow(Gtk.Window container) {
-            base(container);
+        public AdjustToolWindow(Gtk.Window container, AdjustTool tool) {
+            base(container, tool);
 
             Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
             slider_organizer.set_row_spacings(12);
@@ -1403,7 +1412,7 @@ public class AdjustTool : EditingTool {
     }
 
     public override void activate(PhotoCanvas canvas) {
-        adjust_tool_window = new AdjustToolWindow(canvas.get_container());
+        adjust_tool_window = new AdjustToolWindow(canvas.get_container(), this);
         transformer = new PixelTransformer();
         histogram_transformer = new PixelTransformer();
 

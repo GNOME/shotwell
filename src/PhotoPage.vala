@@ -949,15 +949,10 @@ public class LibraryPhotoPage : EditingHostPage {
         export.tooltip = _("Export photo to disk");
         actions += export;
 
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
         view.label = _("_View");
         actions += view;
         
-        Gtk.ActionEntry return_to = { "ReturnToPage", Resources.RETURN_TO_PAGE, TRANSLATABLE,
-            "Escape", null, on_return_to_collection };
-        return_to.label = _("_Return to Photos");
-        actions += return_to;
-
         Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, on_photo_menu };
         photo.label = _("_Photo");
         actions += photo;
@@ -1015,9 +1010,22 @@ public class LibraryPhotoPage : EditingHostPage {
         return return_page;
     }
     
+    private override bool key_press_event(Gdk.EventKey event) {
+        if (base.key_press_event != null && base.key_press_event(event) == true)
+            return true;
+        
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            return_to_collection();
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
     private override bool on_double_click(Gdk.EventButton event) {
         if (!(get_container() is FullscreenWindow)) {
-            on_return_to_collection();
+            return_to_collection();
             
             return true;
         }
@@ -1036,16 +1044,7 @@ public class LibraryPhotoPage : EditingHostPage {
         return true;
     }
 
-    private void on_view_menu() {
-        Gtk.MenuItem return_item = (Gtk.MenuItem) ui.get_widget("/PhotoMenuBar/ViewMenu/ReturnToPage");
-        if (return_item != null && return_page != null) {
-            Gtk.Label label = (Gtk.Label) return_item.get_child();
-            if (label != null)
-                label.set_text("Return to %s".printf(return_page.get_page_name()));
-        }
-    }
-    
-    private void on_return_to_collection() {
+    private void return_to_collection() {
         LibraryWindow.get_app().switch_to_page(return_page);
     }
     

@@ -27,7 +27,6 @@
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
             </menu>
             <separator />
-            <menuitem name="ReturnToPage" action="ReturnToPage" />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         
