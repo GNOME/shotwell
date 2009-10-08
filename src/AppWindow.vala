@@ -93,13 +93,26 @@ public class FullscreenWindow : PageWindow {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
         Gtk.ActionEntry leave_fullscreen = { "LeaveFullscreen", Gtk.STOCK_LEAVE_FULLSCREEN,
-            TRANSLATABLE, "Escape", TRANSLATABLE, on_close };
+            TRANSLATABLE, "F11", TRANSLATABLE, on_close };
         leave_fullscreen.label = _("Leave _Fullscreen");
         leave_fullscreen.tooltip = _("Leave fullscreen");
         actions += leave_fullscreen;
 
         return actions;
     }
+
+    private override bool key_press_event(Gdk.EventKey event) {
+        // check for an escape/abort 
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            on_close();
+            
+            return true;
+        }
+
+       // ...then let the base class take over
+       return (base.key_press_event != null) ? base.key_press_event(event) : false;
+    }
+
     
     private void on_close() {
         hide_toolbar();
