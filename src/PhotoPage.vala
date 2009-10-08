@@ -1083,13 +1083,25 @@ public class LibraryPhotoPage : EditingHostPage {
 
 // TODO: This implementation of a ViewCollection is solely for use in direct editing mode, and will 
 // not satisfy all the requirements of a checkerboard-style file browser without additional work.
+//
+// TODO: With the new SourceCollection/ViewCollection model, we can start monitoring the cwd for
+// files and generating DirectPhotoSource stubs to represent each possible image file in the
+// directory, only importing them into the system when selected by the user.
 private class DirectViewCollection : ViewCollection {
     private static FileComparator file_comparator = new FileComparator();
+    
+    private class DirectViewManager : ViewManager {
+        public override DataView create_view(DataSource source) {
+            return new DataView(source);
+        }
+    }
     
     private File dir;
     
     public DirectViewCollection(File dir) {
         this.dir = dir;
+        
+        monitor_source_collection(DirectPhoto.global, new DirectViewManager());
     }
     
     public override int get_count() {
@@ -1103,7 +1115,7 @@ private class DirectViewCollection : ViewCollection {
         if (list == null || list.size == 0)
             return null;
         
-        return new DataView(DirectPhoto.fetch(list.get(0)));
+        return get_view_for_source(DirectPhoto.global.fetch(list.get(0)));
     }
     
     public override DataView? get_last() {
@@ -1111,7 +1123,7 @@ private class DirectViewCollection : ViewCollection {
         if (list == null || list.size == 0)
             return null;
         
-        return new DataView(DirectPhoto.fetch(list.get(list.size - 1)));
+        return get_view_for_source(DirectPhoto.global.fetch(list.get(list.size - 1)));
     }
     
     public override DataView? get_next(DataView current) {
@@ -1119,7 +1131,7 @@ private class DirectViewCollection : ViewCollection {
         if (list == null || list.size == 0)
             return null;
         
-        int index = list.index_of(((DirectPhoto) current).get_file());
+        int index = list.index_of(((DirectPhoto) current.get_source()).get_file());
         if (index < 0)
             return null;
         
@@ -1127,7 +1139,7 @@ private class DirectViewCollection : ViewCollection {
         if (index >= list.size)
             index = 0;
         
-        return new DataView(DirectPhoto.fetch(list.get(index)));
+        return get_view_for_source(DirectPhoto.global.fetch(list.get(index)));
     }
     
     public override DataView? get_previous(DataView current) {
@@ -1135,15 +1147,15 @@ private class DirectViewCollection : ViewCollection {
         if (list == null || list.size == 0)
             return null;
         
-        int index = list.index_of(((DirectPhoto) current).get_file());
+        int index = list.index_of(((DirectPhoto) current.get_source()).get_file());
         if (index < 0)
             return null;
         
         index--;
         if (index < 0)
             index = list.size - 1;
-
-        return new DataView(DirectPhoto.fetch(list.get(index)));
+        
+        return get_view_for_source(DirectPhoto.global.fetch(list.get(index)));
     }
     
     private SortedList<File>? get_children_photos() {
@@ -1285,7 +1297,7 @@ public class DirectPhotoPage : EditingHostPage {
         if (base.realize != null)
             base.realize();
         
-        DirectPhoto photo = DirectPhoto.fetch(initial_file);
+        DirectPhoto photo = DirectPhoto.global.fetch(initial_file);
         if (photo == null) {
             // dead in the water
             Posix.exit(1);
@@ -1353,7 +1365,7 @@ public class DirectPhotoPage : EditingHostPage {
         // switch to that file ... if saving on top of the original file, this will re-import the
         // photo into the in-memory database, which is key because its stored transformations no
         // longer match the backing photo
-        display(new DirectViewCollection(dest.get_parent()), DirectPhoto.fetch(dest, true));
+        display(new DirectViewCollection(dest.get_parent()), DirectPhoto.global.fetch(dest, true));
     }
     
     private void on_save() {

@@ -1596,10 +1596,69 @@ public class LibraryPhoto : TransformablePhoto {
     }
 }
 
+public class DirectPhotoSourceCollection : DatabaseSourceCollection {
+    private Gee.HashMap<File, DirectPhoto> file_map = new Gee.HashMap<File, DirectPhoto>(file_hash, 
+        file_equal, direct_equal);
+    
+    public DirectPhotoSourceCollection() {
+        base(get_direct_key);
+    }
+    
+    private static int64 get_direct_key(DataSource source) {
+        DirectPhoto photo = (DirectPhoto) source;
+        PhotoID photo_id = photo.get_photo_id();
+        
+        return photo_id.id;
+    }
+    
+    public override void items_added(Gee.Iterable<DataObject> added) {
+        foreach (DataObject object in added) {
+            DirectPhoto photo = (DirectPhoto) object;
+            File file = photo.get_file();
+            
+            assert(!file_map.contains(file));
+            
+            file_map.set(file, photo);
+        }
+        
+        base.items_added(added);
+    }
+    
+    public override void items_removed(Gee.Iterable<DataObject> removed) {
+        foreach (DataObject object in removed) {
+            DirectPhoto photo = (DirectPhoto) object;
+            File file = photo.get_file();
+            
+            bool is_removed = file_map.remove(file);
+            assert(is_removed);
+        }
+        
+        base.items_removed(removed);
+    }
+    
+    public DirectPhoto? fetch(File file, bool reset = false) {
+        // fetch from the map first, which ensures that only one DirectPhoto exists for each file
+        DirectPhoto? photo = (DirectPhoto?) file_map.get(file);
+        if (photo != null) {
+            // if a reset is necessary, the database (and the object) need to reset to original
+            // easiest way to do this: perform an update, which is a kind of in-place re-import
+            if (reset)
+                photo.update();
+            
+            return photo;
+        }
+            
+        // for DirectPhoto, a fetch on an unknown file is an implicit import into the in-memory
+        // database (which automatically adds the new DirectPhoto object to DirectPhoto.global,
+        // which be us)
+        return DirectPhoto.internal_import(file);
+    }
+}
+
 public class DirectPhoto : TransformablePhoto {
     private const int PREVIEW_BEST_FIT = 360;
     
-    private static Gee.HashMap<File, DirectPhoto> photo_map = null;
+    public static DirectPhotoSourceCollection global = null;
     
     private Gdk.Pixbuf preview;
     private File exportable = null;
@@ -1619,28 +1678,19 @@ public class DirectPhoto : TransformablePhoto {
     
     public static void init() {
         TransformablePhoto.base_init();
-
-        photo_map = new Gee.HashMap<File, DirectPhoto>(file_hash, file_equal, direct_equal);
+        
+        global = new DirectPhotoSourceCollection();
     }
     
     public static void terminate() {
         TransformablePhoto.base_terminate();
     }
     
-    public static DirectPhoto? fetch(File file, bool reset = false) {
-        // fetch from the map first, which ensures that only one DirectPhoto exists for each file
-        DirectPhoto photo = photo_map.get(file);
-        if (photo != null) {
-            // if a reset is necessary, the database (and the object) need to reset to original
-            // easiest way to do this: perform an update, which is a kind of in-place re-import
-            if (reset)
-                photo.update();
-                
-            return photo;
-        }
+    // This method should only be called by DirectPhotoSourceCollection.  Use
+    // DirectPhoto.global.fetch to import files into the system.
+    public static DirectPhoto? internal_import(File file) {
+        DirectPhoto photo = null;
         
-        // for direct photos using an in-memory database, a fetch is an import if the file is
-        // unknown
         PhotoID photo_id;
         Gdk.Pixbuf initial_pixbuf;
         ImportResult result = TransformablePhoto.import_photo(file, photo_table.generate_import_id(), 
@@ -1652,8 +1702,8 @@ public class DirectPhoto : TransformablePhoto {
             break;
             
             case ImportResult.PHOTO_EXISTS:
-                // this should never happen; the photo_map guarantees it
-                error("import_photo reports photo exists that is not in photo_map");
+                // this should never happen; DirectPhotoSourceCollection guarantees it.
+                error("import_photo reports photo exists that is not in file_map");
             break;
             
             default:
@@ -1663,8 +1713,9 @@ public class DirectPhoto : TransformablePhoto {
             break;
         }
         
+        // add to SourceCollection
         if (photo != null)
-            photo_map.set(file, photo);
+            global.add(photo);
         
         return photo;
     }
