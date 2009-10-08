@@ -435,7 +435,7 @@ public class ThumbnailCache : Object {
             cycle_overflow_thumbnails++;
             schedule_debug();
             
-            bool removed = cache_map.remove(id);
+            bool removed = cache_map.unset(id);
             assert(removed);
 
             assert(data.bytes <= cached_bytes);
@@ -452,7 +452,7 @@ public class ThumbnailCache : Object {
         cached_bytes -= data.bytes;
 
         // remove data from in-memory cache
-        bool removed = cache_map.remove(photo_id.id);
+        bool removed = cache_map.unset(photo_id.id);
         assert(removed);
         
         // remove from LRU

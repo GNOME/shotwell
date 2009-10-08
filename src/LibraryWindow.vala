@@ -779,7 +779,7 @@ public class LibraryWindow : AppWindow {
     private void remove_camera_page(DiscoveredCamera camera) {
         // remove from page table and then from the notebook
         ImportPage page = camera_pages.get(camera.uri);
-        camera_pages.remove(camera.uri);
+        camera_pages.unset(camera.uri);
         remove_page(page);
 
         // if no cameras present, remove row
@@ -1009,7 +1009,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_camera_selected(Gtk.TreePath path) {
-        foreach (ImportPage page in camera_pages.get_values()) {
+        foreach (ImportPage page in camera_pages.values) {
             if (is_page_selected(page, path)) {
                 switch_to_page(page);
                 

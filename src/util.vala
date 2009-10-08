@@ -57,11 +57,11 @@ public class KeyValueMap {
     }
     
     public Gee.Set<string> get_keys() {
-        return map.get_keys();
+        return map.keys;
     }
     
     public bool has_key(string key) {
-        return map.contains(key);
+        return map.has_key(key);
     }
     
     public void set_string(string key, string value) {

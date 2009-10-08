@@ -74,7 +74,7 @@ public class CameraTable {
     }
     
     public Gee.Iterable<DiscoveredCamera> get_cameras() {
-        return camera_map.get_values();
+        return camera_map.values;
     }
     
     public int get_count() {
@@ -210,7 +210,7 @@ public class CameraTable {
         
         // find cameras that have disappeared
         DiscoveredCamera[] missing = new DiscoveredCamera[0];
-        foreach (DiscoveredCamera camera in camera_map.get_values()) {
+        foreach (DiscoveredCamera camera in camera_map.values) {
             GPhoto.PortInfo port_info;
             do_op(camera.gcamera.get_port_info(out port_info), 
                 "retrieve missing camera port information");
@@ -218,7 +218,7 @@ public class CameraTable {
             GPhoto.CameraAbilities abilities;
             do_op(camera.gcamera.get_abilities(out abilities), "retrieve camera abilities");
             
-            if (detected_map.contains(port_info.path)) {
+            if (detected_map.has_key(port_info.path)) {
                 debug("Found page for %s @ %s in detected cameras", abilities.model, port_info.path);
                 
                 continue;
@@ -240,17 +240,17 @@ public class CameraTable {
 
             debug("Removing from camera table: %s @ %s", abilities.model, port_info.path);
 
-            camera_map.remove(get_port_uri(port_info.path));
+            camera_map.unset(get_port_uri(port_info.path));
             
             camera_removed(camera);
         }
 
         // add cameras which were not present before
-        foreach (string port in detected_map.get_keys()) {
+        foreach (string port in detected_map.keys) {
             string name = detected_map.get(port);
             string uri = get_port_uri(port);
 
-            if (camera_map.contains(uri)) {
+            if (camera_map.has_key(uri)) {
                 // already known about
                 debug("%s @ %s already registered, skipping", name, port);
                 

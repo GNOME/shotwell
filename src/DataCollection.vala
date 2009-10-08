@@ -392,7 +392,7 @@ public class DatabaseSourceCollection : SourceCollection {
             DataSource source = (DataSource) object;
             int64 key = source_key_func(source);
             
-            assert(!map.contains(key));
+            assert(!map.has_key(key));
             
             map.set(key, source);
         }
@@ -404,7 +404,7 @@ public class DatabaseSourceCollection : SourceCollection {
         foreach (DataObject object in removed) {
             int64 key = source_key_func((DataSource) object);
 
-            bool is_removed = map.remove(key);
+            bool is_removed = map.unset(key);
             assert(is_removed);
         }
         
@@ -561,7 +561,7 @@ public class ViewCollection : DataCollection {
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
 
-            bool is_removed = source_map.remove(view.get_source());
+            bool is_removed = source_map.unset(view.get_source());
             assert(is_removed);
             
             selected.remove(view);
@@ -741,7 +741,7 @@ public class ViewCollection : DataCollection {
     }
     
     public bool has_view_for_source(DataSource source) {
-        return source_map.contains(source);
+        return source_map.has_key(source);
     }
     
     public DataView? get_view_for_source(DataSource source) {

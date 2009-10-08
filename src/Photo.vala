@@ -541,7 +541,7 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 
     private bool has_transformation(string name) {
-        return (row.transformations != null) ? row.transformations.contains(name) : false;
+        return (row.transformations != null) ? row.transformations.has_key(name) : false;
     }
 
     private KeyValueMap? get_transformation(string name) {
@@ -560,7 +560,7 @@ public abstract class TransformablePhoto: PhotoSource {
     private bool remove_transformation(string name) {
         bool altered_cache = false;
         if (row.transformations != null) {
-            altered_cache = row.transformations.remove(name);
+            altered_cache = row.transformations.unset(name);
             if (row.transformations.size == 0)
                 row.transformations = null;
         }
@@ -1616,7 +1616,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
             DirectPhoto photo = (DirectPhoto) object;
             File file = photo.get_file();
             
-            assert(!file_map.contains(file));
+            assert(!file_map.has_key(file));
             
             file_map.set(file, photo);
         }
@@ -1629,7 +1629,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
             DirectPhoto photo = (DirectPhoto) object;
             File file = photo.get_file();
             
-            bool is_removed = file_map.remove(file);
+            bool is_removed = file_map.unset(file);
             assert(is_removed);
         }
         
