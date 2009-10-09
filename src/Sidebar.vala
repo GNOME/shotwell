@@ -47,7 +47,7 @@ public class Sidebar : Gtk.TreeView {
         var text = new Gtk.CellRendererText();
         var text_column = new Gtk.TreeViewColumn();
         text_column.pack_start(text, true);
-        text_column.add_attribute(text, "text", 0);
+        text_column.add_attribute(text, "markup", 0);
         append_column(text_column);
         
         set_headers_visible(false);
@@ -100,7 +100,7 @@ public class Sidebar : Gtk.TreeView {
     
     private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter) {
         // set up the columns
-        store.set(iter, 0, page.get_sidebar_text());
+        store.set(iter, 0, Markup.escape_text(page.get_sidebar_text()));
         
         // create a marker for this page
         SidebarMarker marker = new SidebarMarker(store, store.get_path(iter));
@@ -159,7 +159,7 @@ public class Sidebar : Gtk.TreeView {
         store.append(out grouping_iter, null);
         
         // set the columns
-        store.set(grouping_iter, 0, name);
+        store.set(grouping_iter, 0, Markup.escape_text(name));
         
         // return the row reference, which is the only way to refer to the grouping now
         return new SidebarMarker(store, store.get_path(grouping_iter));
@@ -175,7 +175,7 @@ public class Sidebar : Gtk.TreeView {
          store.insert_after(out grouping_iter, null, after_iter);
          
          // set the columns
-         store.set(grouping_iter, 0, name);
+         store.set(grouping_iter, 0, Markup.escape_text(name));
          
          // return row reference, which is only way to refer to grouping
          return new SidebarMarker(store, store.get_path(grouping_iter));
@@ -313,7 +313,7 @@ public class Sidebar : Gtk.TreeView {
         // set up the columns
         Gtk.TreeIter iter;        
         store.get_iter(out iter, marker.get_path());
-        store.set(iter, 0, name);
+        store.set(iter, 0, Markup.escape_text(name));
     }
 
     public SidebarPage? get_parent_page(SidebarPage page) {

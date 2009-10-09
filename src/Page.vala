@@ -645,20 +645,14 @@ public abstract class CheckerboardPage : Page {
                     // is toggled
                     Marker marker = get_view().mark(item);
                     get_view().toggle_marked(marker);
+
+                    if (item.is_selected())
+                        last_clicked_item = item;
                 break;
                 
                 case Gdk.ModifierType.SHIFT_MASK:
-                    Box selected_box;
-                    if (!get_selected_box(out selected_box))
-                        break;
-                    
-                    Gdk.Point point = Gdk.Point();
-                    point.x = item.get_column();
-                    point.y = item.get_row();
-                    
-                    Box new_selected_box = selected_box.rubber_band(point);
-                    
-                    select_all_in_box(new_selected_box);
+                    get_view().unselect_all();
+                    select_between_items(last_clicked_item, item);
                 break;
                 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
@@ -678,14 +672,14 @@ public abstract class CheckerboardPage : Page {
                         Marker marker = get_view().mark(item);
                         get_view().select_marked(marker);
                     }
+
+                    last_clicked_item = item;
                 break;
             }
         } else {
             // user clicked on "dead" area
             get_view().unselect_all();
         }
-        
-        last_clicked_item = item;
 
         // need to determine if the signal should be passed to the DnD handlers
         // Return true to block the DnD handler, false otherwise
@@ -718,7 +712,7 @@ public abstract class CheckerboardPage : Page {
             // released button on "dead" area
             return true;
         }
-        
+
         if (last_clicked_item != item) {
             // user released mouse button after moving it off the initial item, or moved from dead
             // space onto one.  either way, unselect everything
@@ -994,16 +988,26 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
    
-    public void select_all_in_box(Box box) {
+    public void select_between_items(LayoutItem item_start, LayoutItem item_end) {
         Marker marker = get_view().start_marking();
-        Gdk.Point point = Gdk.Point();
+
+        bool passed_start = false;
+        bool passed_end = false;
+
         foreach (DataObject object in get_view().get_all()) {
             LayoutItem item = (LayoutItem) object;
             
-            point.x = item.get_column();
-            point.y = item.get_row();
-            if (box.contains(point))
+            if (item_start == item)
+                passed_start = true;
+
+            if (item_end == item)
+                passed_end = true;
+
+            if (passed_start || passed_end)
                 marker.mark((DataView) object);
+
+            if (passed_start && passed_end)
+                break;
         }
         
         get_view().select_marked(marker);

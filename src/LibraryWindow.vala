@@ -160,7 +160,7 @@ public class LibraryWindow : AppWindow {
     
     // Static (default) pages
     private LibraryPage library_page = null;
-    private EventsDirectoryPage events_directory_page = null;
+    private MasterEventsDirectoryPage events_directory_page = null;
     private LibraryPhotoPage photo_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
