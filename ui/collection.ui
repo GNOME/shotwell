@@ -31,7 +31,7 @@
 			<menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
-                <menuitem name="SortByName" action="SortByName" />
+                <menuitem name="SortByTitle" action="SortByTitle" />
                 <menuitem name="SortByExposureDate" action="SortByExposureDate" />
                 <separator />
                 <menuitem name="SortAscending" action="SortAscending" />

@@ -347,7 +347,7 @@ public class CollectionViewManager : ViewManager {
 
 public class CollectionPage : CheckerboardPage {
     public const int SORT_BY_MIN = 0;
-    public const int SORT_BY_NAME = 0;
+    public const int SORT_BY_TITLE = 0;
     public const int SORT_BY_EXPOSURE_DATE = 1;
     public const int SORT_BY_MAX = 1;
     
@@ -365,18 +365,18 @@ public class CollectionPage : CheckerboardPage {
 
     private int drag_failed_item_count = 0;
     
-    private class CompareName : Comparator<LayoutItem> {
+    private class CompareTitle : Comparator<LayoutItem> {
         private bool ascending;
         
-        public CompareName(bool ascending) {
+        public CompareTitle(bool ascending) {
             this.ascending = ascending;
         }
         
         public override int64 compare(LayoutItem a, LayoutItem b) {
-            string namea = ((Thumbnail) a).get_title();
-            string nameb = ((Thumbnail) b).get_title();
+            string titlea = ((Thumbnail) a).get_title();
+            string titleb = ((Thumbnail) b).get_title();
             
-            return (ascending) ? strcmp(namea, nameb) : strcmp(nameb, namea);
+            return (ascending) ? strcmp(titlea, titleb) : strcmp(titleb, titlea);
         }
     }
     
@@ -579,7 +579,7 @@ public class CollectionPage : CheckerboardPage {
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
 
         Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, true };
+            TRANSLATABLE, on_display_titles, false };
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
@@ -590,11 +590,11 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.RadioActionEntry[] create_sort_crit_actions() {
         Gtk.RadioActionEntry[] sort_crit_actions = new Gtk.RadioActionEntry[0];
 
-        Gtk.RadioActionEntry by_name = { "SortByName", null, TRANSLATABLE, null, TRANSLATABLE,
-            SORT_BY_NAME };
-        by_name.label = _("By _Name");
-        by_name.tooltip = _("Sort photos by name");
-        sort_crit_actions += by_name;
+        Gtk.RadioActionEntry by_title = { "SortByTitle", null, TRANSLATABLE, null, TRANSLATABLE,
+            SORT_BY_TITLE };
+        by_title.label = _("By _Title");
+        by_title.tooltip = _("Sort photos by title");
+        sort_crit_actions += by_title;
 
         Gtk.RadioActionEntry by_date = { "SortByExposureDate", null, TRANSLATABLE, null,
             TRANSLATABLE, SORT_BY_EXPOSURE_DATE };
@@ -1050,7 +1050,7 @@ public class CollectionPage : CheckerboardPage {
     private int get_sort_criteria() {
         // any member of the group knows the current value
         Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/CollectionMenuBar/ViewMenu/SortPhotos/SortByName");
+            "/CollectionMenuBar/ViewMenu/SortPhotos/SortByTitle");
         assert(action != null);
         
         int value = action.get_current_value();
@@ -1083,8 +1083,8 @@ public class CollectionPage : CheckerboardPage {
     
     private Comparator<LayoutItem> get_sort_comparator() {
         switch (get_sort_criteria()) {
-            case SORT_BY_NAME:
-                return new CompareName(is_sort_ascending());
+            case SORT_BY_TITLE:
+                return new CompareTitle(is_sort_ascending());
             
             case SORT_BY_EXPOSURE_DATE:
                 return new CompareDate(is_sort_ascending());
@@ -1092,7 +1092,7 @@ public class CollectionPage : CheckerboardPage {
             default:
                 error("Unknown sort criteria: %d", get_sort_criteria());
                 
-                return new CompareName(true);
+                return new CompareTitle(true);
         }
     }
 
