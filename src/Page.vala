@@ -483,7 +483,7 @@ public abstract class CheckerboardPage : Page {
     private Gtk.Menu item_context_menu = null;
     private Gtk.Menu page_context_menu = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    private LayoutItem last_clicked_item = null;
+    private LayoutItem last_selected_item = null;
     private LayoutItem highlighted = null;
 
     // for drag selection
@@ -573,6 +573,10 @@ public abstract class CheckerboardPage : Page {
 
     protected override bool key_press_event(Gdk.EventKey event) {
         bool handled = true;
+
+        // mask out the modifiers we're interested in
+        uint state = event.state & Gdk.ModifierType.SHIFT_MASK;
+
         switch (Gdk.keyval_name(event.keyval)) {
             case "Up":
             case "KP_Up":
@@ -599,6 +603,7 @@ public abstract class CheckerboardPage : Page {
                 LayoutItem? first = (LayoutItem?) get_view().get_first();
                 if (first != null)
                     cursor_to_item(first);
+                select_to_item(state, first);
             break;
             
             case "End":
@@ -606,6 +611,7 @@ public abstract class CheckerboardPage : Page {
                 LayoutItem? last = (LayoutItem?) get_view().get_last();
                 if (last != null)
                     cursor_to_item(last);
+                select_to_item(state, last);
             break;
             
             case "Return":
@@ -647,12 +653,12 @@ public abstract class CheckerboardPage : Page {
                     get_view().toggle_marked(marker);
 
                     if (item.is_selected())
-                        last_clicked_item = item;
+                        last_selected_item = item;
                 break;
                 
                 case Gdk.ModifierType.SHIFT_MASK:
                     get_view().unselect_all();
-                    select_between_items(last_clicked_item, item);
+                    select_between_items(last_selected_item, item);
                 break;
                 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
@@ -673,7 +679,7 @@ public abstract class CheckerboardPage : Page {
                         get_view().select_marked(marker);
                     }
 
-                    last_clicked_item = item;
+                    last_selected_item = item;
                 break;
             }
         } else {
@@ -713,7 +719,7 @@ public abstract class CheckerboardPage : Page {
             return true;
         }
 
-        if (last_clicked_item != item) {
+        if (last_selected_item != item) {
             // user released mouse button after moving it off the initial item, or moved from dead
             // space onto one.  either way, unselect everything
             get_view().unselect_all();
@@ -934,7 +940,9 @@ public abstract class CheckerboardPage : Page {
             
         // if nothing is selected, simply select the first and exit
         if (get_view().get_selected_count() == 0) {
-            cursor_to_item(layout.get_item_at_coordinate(0, 0));
+            LayoutItem item = layout.get_item_at_coordinate(0, 0);
+            cursor_to_item(item);
+            last_selected_item = item;
             
             return;
         }
@@ -956,38 +964,19 @@ public abstract class CheckerboardPage : Page {
         // if more than one selected, select the first without moving, to not surprise the user
         if (get_view().get_selected_count() > 1) {
             cursor_to_item(item);
+            last_selected_item = item;
             
             return;
         }
         
         // move the cursor relative to the "first" item
         item = layout.get_item_relative_to(item, point);
-        if (item != null)
+        if (item != null) {
             cursor_to_item(item);
-   }
-   
-    public bool get_selected_box(out Box selected_box) {
-        if (get_view().get_selected_count() == 0)
-            return false;
-            
-        int left = int.MAX;
-        int top = int.MAX;
-        int right = int.MIN;
-        int bottom = int.MIN;
-        foreach (DataView view in get_view().get_selected()) {
-            LayoutItem selected = (LayoutItem) view;
-            
-            left = int.min(selected.get_column(), left);
-            top = int.min(selected.get_row(), top);
-            right = int.max(selected.get_column(), right);
-            bottom = int.max(selected.get_row(), bottom);
+            last_selected_item = item;
         }
-        
-        selected_box = Box(left, top, right, bottom);
-        
-        return true;
-    }
-   
+   }
+
     public void select_between_items(LayoutItem item_start, LayoutItem item_end) {
         Marker marker = get_view().start_marking();
 
@@ -1011,6 +1000,18 @@ public abstract class CheckerboardPage : Page {
         }
         
         get_view().select_marked(marker);
+    }
+
+    public void select_to_item(uint state, LayoutItem item) {
+        if (item == null)
+            return;
+
+        if (state == Gdk.ModifierType.SHIFT_MASK) {
+            get_view().unselect_all();
+            select_between_items(last_selected_item, item);
+        } else {
+            last_selected_item = item;
+        }
     }
 }
 
