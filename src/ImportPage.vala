@@ -486,8 +486,6 @@ public class ImportPage : CheckerboardPage {
         hide_imported.sensitive = false;
         
         SourceCollection import_list = new SourceCollection();
-        ulong total_bytes = 0;
-        ulong total_preview_bytes = 0;
         
         progress_bar.set_text(_("Fetching photo information"));
         progress_bar.set_fraction(0.0);
@@ -501,12 +499,12 @@ public class ImportPage : CheckerboardPage {
             get_view().clear();
             
             for (int fsid = 0; fsid < count; fsid++) {
-                if (!enumerate_files(fsid, "/", import_list, out total_bytes, out total_preview_bytes))
+                if (!enumerate_files(fsid, "/", import_list))
                     break;
             }
         }
         
-        load_previews(import_list, total_preview_bytes);
+        load_previews(import_list);
         
         progress_bar.visible = false;
         progress_bar.set_text("");
@@ -573,8 +571,7 @@ public class ImportPage : CheckerboardPage {
         return append_path(basedir, folder);
     }
 
-    private bool enumerate_files(int fsid, string dir, SourceCollection import_list, 
-        out ulong total_bytes, out ulong total_preview_bytes) {
+    private bool enumerate_files(int fsid, string dir, SourceCollection import_list) {
         string fulldir = get_fulldir(camera, camera_name, fsid, dir);
         if (fulldir == null)
             return false;
@@ -631,8 +628,6 @@ public class ImportPage : CheckerboardPage {
                     info.file.size, preview_size);
 
                 import_list.add(import_file);
-                total_bytes += info.file.size;
-                total_preview_bytes += (preview_size != 0) ? preview_size : info.file.size;
                 
                 progress_bar.pulse();
                 
@@ -661,16 +656,15 @@ public class ImportPage : CheckerboardPage {
             if (refresh_result != GPhoto.Result.OK)
                 return false;
             
-            if (!enumerate_files(fsid, append_path(dir, subdir), import_list, out total_bytes, 
-                out total_preview_bytes))
+            if (!enumerate_files(fsid, append_path(dir, subdir), import_list))
                 return false;
         }
         
         return true;
     }
     
-    private void load_previews(SourceCollection import_list, ulong total_preview_bytes) {
-        uint64 bytes = 0;
+    private void load_previews(SourceCollection import_list) {
+        int loaded_photos = 0;
         try {
             foreach (DataObject object in import_list.get_all()) {
                 ImportSource import_file = (ImportSource) object;
@@ -717,8 +711,7 @@ public class ImportPage : CheckerboardPage {
                 // update the ImportSource with the fetched information
                 import_file.update(preview, preview_md5, exif, exif_md5);
                 
-                bytes += exif.size;
-                progress_bar.set_fraction((double) bytes / (double) total_preview_bytes);
+                progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.get_count());
                 
                 ImportPreview import_preview = new ImportPreview(import_file);
                 get_view().add(import_preview);
