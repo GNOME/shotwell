@@ -307,6 +307,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // subscribe to the new collection
         view.contents_altered += on_contents_altered;
         view.items_state_changed += on_items_state_changed;
+        view.items_visibility_changed += on_items_visibility_changed;
         view.ordering_changed += on_ordering_changed;
         view.item_view_altered += on_item_view_altered;
         view.item_geometry_altered += on_item_geometry_altered;
@@ -390,7 +391,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // items may be removed, this ensures we're not holding the ref on a removed view
         item_rows = null;
         
-        schedule_background_reflow();
+        schedule_background_reflow("on_contents_altered");
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {
@@ -401,8 +402,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             repaint_item((LayoutItem) view);
     }
     
+    private void on_items_visibility_changed(Gee.Iterable<DataView> changed) {
+        schedule_background_reflow("on_items_visibility_changed");
+    }
+    
     private void on_ordering_changed() {
-        schedule_background_reflow();
+        schedule_background_reflow("on_ordering_changed");
     }
     
     private void on_item_view_altered(DataView view) {
@@ -411,7 +416,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_item_geometry_altered(DataView view) {
-        schedule_background_reflow();
+        schedule_background_reflow("on_item_geometry_altered");
     }
     
     private void on_views_altered() {
@@ -425,8 +430,15 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             queue_draw();
     }
     
-    private void schedule_background_reflow() {
-        reflow_scheduler.at_idle();
+    private void schedule_background_reflow(string caller) {
+#if TRACE_REFLOW
+        debug("schedule_background_reflow %s: %s (in_view=%d)", page_name, caller, (int) in_view);
+#endif
+        
+        if (in_view)
+            reflow_scheduler.at_idle();
+        else
+            flow_dirty = true;
     }
     
     private void background_reflow() {
@@ -714,21 +726,23 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return false;
         }
         
-        // need to set_size in case all items were removed and the viewport size has changed
         int total_items = view.get_count();
+        
+        // clear the rows data structure, as the reflow will completely rearrange it
+        item_rows = null;
+        
+#if TRACE_REFLOW
+        debug("reflow %s: %s (%d items)", page_name, caller, total_items);
+#endif
+        
+        // need to set_size in case all items were removed and the viewport size has changed
         if (total_items == 0) {
             set_size_request(allocation.width, 0);
+            item_rows = new LayoutRow[0];
             flow_dirty = false;
 
             return true;
         }
-        
- #if TRACE_REFLOW
-        debug("reflow %s: %s", page_name, caller);
-#endif
-        
-        // clear the rows data structure, as the reflow will completely rearrange it
-        item_rows = null;
         
         // Step 1: Determine the widest row in the layout, and from it the number of columns
         // If owner supplies an image scaling for all items in the layout, then this can be
@@ -743,8 +757,21 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // if too large with gutters, decrease until columns fit
             while (max_cols > 1 
                 && ((max_cols * max_item_width) + ((max_cols - 1) * COLUMN_GUTTER_PADDING) > remaining_width)) {
+#if TRACE_REFLOW
+                debug("reflow: scaled cols estimate: reducing max_cols from %d to %d", max_cols,
+                    max_cols - 1);
+#endif
                 max_cols--;
             }
+            
+            // special case: if fewer items than columns, they are they columns
+            if (total_items < max_cols)
+                max_cols = total_items;
+            
+#if TRACE_REFLOW
+            debug("reflow: scaled cols estimate: max_cols=%d remaining_width=%d max_item_width=%d",
+                max_cols, remaining_width, max_item_width);
+#endif
         } else {
             int x = COLUMN_GUTTER_PADDING;
             int col = 0;
@@ -779,6 +806,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // account for dangling last row
             if (row_width > widest_row)
                 max_cols = col;
+            
+#if TRACE_REFLOW
+            debug("reflow: manual cols estimate: max_cols=%d widest_row=%d", max_cols, widest_row);
+#endif
         }
         
         assert(max_cols > 0);
@@ -838,7 +869,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // added up, they could overflow
             if (gutter < COLUMN_GUTTER_PADDING) {
                 max_cols--;
-                max_rows = (view.get_count() / max_cols) + 1;
+                max_rows = (total_items / max_cols) + 1;
                 
 #if TRACE_REFLOW
                 debug("reflow %s: readjusting columns: alloc.width=%d total_width=%d widest=%d gutter=%d max_cols now=%d", 

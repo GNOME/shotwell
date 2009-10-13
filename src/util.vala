@@ -43,6 +43,21 @@ public ulong now_ms() {
     return timeval_to_ms(TimeVal());
 }
 
+public ulong now_sec() {
+    TimeVal time_val = TimeVal();
+    
+    return time_val.tv_sec;
+}
+
+public string md5_binary(uint8 *buffer, size_t length) {
+    assert(length != 0);
+
+    Checksum md5 = new Checksum(ChecksumType.MD5);
+    md5.update((uchar []) buffer, length);
+    
+    return md5.get_string();
+}
+
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,

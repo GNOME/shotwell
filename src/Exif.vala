@@ -199,62 +199,70 @@ public class PhotoExif  {
     }
     
     public bool has_exif() {
+        // because libexif will return an empty Data structure for files with no EXIF, manually
+        // take a peek for ourselves and get the skinny
+        return get_raw_exif() != null;
+    }
+    
+    // Returns raw bytes for the EXIF data, including signature but not the thumbnail
+    public uint8[]? get_raw_exif() throws Error {
         update();
         
         if (no_exif)
-            return false;
+            return null;
         
-        // because libexif will return an empty Data structure for files with no EXIF, manually
-        // take a peek for ourselves and get the skinny
-        try {
-            FileInputStream fins = file.read(null);
-            
-            Jpeg.Marker marker;
-            int segment_length;
+        FileInputStream fins = file.read(null);
+        
+        Jpeg.Marker marker;
+        int segment_length;
 
-            // first marker should be SOI
-            segment_length = Jpeg.read_marker(fins, out marker);
-            if ((marker != Jpeg.Marker.SOI) || (segment_length != 0)) {
-                no_exif = true;
-                
-                return false;
-            }
+        // first marker should be SOI
+        segment_length = Jpeg.read_marker(fins, out marker);
+        if ((marker != Jpeg.Marker.SOI) || (segment_length != 0)) {
+            warning("No SOI marker found in %s", file.get_path());
             
-            // for EXIF, next marker is always APP1
-            segment_length = Jpeg.read_marker(fins, out marker);
-            if ((marker != Jpeg.Marker.APP1) || (segment_length < 0)) {
-                no_exif = true;
-                
-                return false;
-            }
-            
-            uint8[] sig = new uint8[Exif.SIGNATURE.length];
-            size_t bytes_read;
-            fins.read_all(sig, Exif.SIGNATURE.length, out bytes_read, null);
-            if (bytes_read != Exif.SIGNATURE.length) {
-                no_exif = true;
-                
-                return false;
-            }
-            
-            for (int ctr = 0; ctr < Exif.SIGNATURE.length; ctr++) {
-                if (sig[ctr] != Exif.SIGNATURE[ctr]) {
-                    no_exif = true;
-
-                    return false;
-                }
-            }
-            
-            no_exif = false;
-            
-            return true;
-        } catch (Error err) {
-            debug("Error checking for EXIF presence: %s", err.message);
+            return null;
         }
         
-        no_exif = true;
+        // for EXIF, next marker is always APP1
+        segment_length = Jpeg.read_marker(fins, out marker);
+        if ((marker != Jpeg.Marker.APP1) || (segment_length < Exif.SIGNATURE.length)) {
+            warning("No APP1 marker found in %s", file.get_path());
+            
+            return null;
+        }
         
-        return false;
+        // since returning all of EXIF block, including signature but not the thumbnail (which is how
+        // GPhoto returns it, and therefore makes it easy to compare checksums), allocate full block 
+        // and read it all in (that is, use optimism here)
+        //
+        // TODO: Although read_marker removes the length of the length bytes from the segment, it
+        // appears the reported size is still two bytes longer than it should be; removing here.
+        uint exif_size = segment_length - exif.size - 2;
+        if (exif_size <= 0) {
+            warning("No EXIF data to read in %s", file.get_path());
+            
+            return null;
+        }
+        
+        uint8[] raw = new uint8[exif_size];
+        
+        size_t bytes_read;
+        fins.read_all(raw, raw.length, out bytes_read, null);
+        if (bytes_read != raw.length) {
+            warning("Unable to read full segment in %s", file.get_path());
+            
+            return null;
+        }
+        
+        // verify signature
+        if (Memory.cmp(raw, Exif.SIGNATURE, Exif.SIGNATURE.length) != 0) {
+            warning("Invalid EXIF signature in %s", file.get_path());
+            
+            return null;
+        }
+        
+        return raw;
     }
     
     public Exif.Data? get_exif() {

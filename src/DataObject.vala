@@ -10,6 +10,7 @@
 
 public abstract class DataObject {
     private DataCollection member_of = null;
+    private int ordinal = 0;
 
     // This signal is fired when the source of the data is altered in a way that's significant
     // to how it's represented in the application.  This base signal must be called by child
@@ -58,14 +59,22 @@ public abstract class DataObject {
     }
     
     // This method is only called by DataCollection.
-    public void internal_set_membership(DataCollection collection) {
+    public void internal_set_membership(DataCollection collection, int ordinal) {
         assert(member_of == null);
         member_of = collection;
+        this.ordinal = ordinal;
     }
     
     // This method is only called by DataCollection
     public void internal_clear_membership() {
         member_of = null;
+    }
+    
+    // This method is only called by DataCollection
+    public int internal_get_ordinal() {
+        assert(member_of != null);
+
+        return ordinal;
     }
 }
 
@@ -224,8 +233,14 @@ public abstract class EventSource : ThumbnailSource {
 public class DataView : DataObject {
     private DataSource source;
     private bool selected = false;
+    private bool visible = true;
     
+    // Indicates that the selection state has changed.
     public virtual signal void state_changed(bool selected) {
+    }
+    
+    // Indicates the visible state has changed.
+    public virtual signal void visibility_changed(bool visible) {
     }
     
     // Indicates that the display (what is seen by the user) of the DataView has changed.
@@ -273,6 +288,9 @@ public class DataView : DataObject {
     
     // This method is only called by ViewCollection.
     public void internal_set_selected(bool selected) {
+        if (this.selected == selected)
+            return;
+        
         this.selected = selected;
         state_changed(selected);
     }
@@ -283,6 +301,19 @@ public class DataView : DataObject {
         state_changed(selected);
         
         return selected;
+    }
+    
+    public bool is_visible() {
+        return visible;
+    }
+    
+    // This method is only called by ViewCollection.
+    public void internal_set_visible(bool visible) {
+        if (this.visible == visible)
+            return;
+        
+        this.visible = visible;
+        visibility_changed(visible);
     }
 
     // XXX: Because the "this" variable is not available in virtual signals, using this method

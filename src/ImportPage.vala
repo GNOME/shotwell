@@ -15,7 +15,9 @@ class ImportSource : PhotoSource {
     private ulong file_size;
     private ulong preview_size;
     private Gdk.Pixbuf preview = null;
+    private string preview_md5 = null;
     private Exif.Data exif = null;
+    private string exif_md5 = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, string filename, 
         ulong file_size, ulong preview_size) {
@@ -37,9 +39,11 @@ class ImportSource : PhotoSource {
     }
     
     // Needed because previews and exif are loaded after other information has been gathered.
-    public void update(Gdk.Pixbuf preview, Exif.Data exif) {
+    public void update(Gdk.Pixbuf preview, string preview_md5, Exif.Data exif, string exif_md5) {
         this.preview = preview;
+        this.preview_md5 = preview_md5;
         this.exif = exif;
+        this.exif_md5 = exif_md5;
     }
     
     public GPhoto.Camera get_camera() {
@@ -54,10 +58,6 @@ class ImportSource : PhotoSource {
         return ImportPage.get_fulldir(camera, camera_name, fsid, folder);
     }
     
-    public ulong get_preview_size() {
-        return preview_size;
-    }
-
     public override time_t get_exposure_time() {
         time_t timestamp;
         if (!Exif.get_timestamp(exif, out timestamp))
@@ -82,12 +82,20 @@ class ImportSource : PhotoSource {
         return exif;
     }
     
+    public string get_exif_md5() {
+        return exif_md5;
+    }
+    
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return scaling.perform_on_pixbuf(preview, INTERP, false);
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
+    }
+    
+    public string get_preview_md5() {
+        return preview_md5;
     }
 }
 
@@ -165,6 +173,7 @@ public class ImportPage : CheckerboardPage {
 
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label camera_label = new Gtk.Label(null);
+    private Gtk.ToggleToolButton hide_imported;
     private Gtk.ToolButton import_selected_button;
     private Gtk.ToolButton import_all_button;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
@@ -196,15 +205,22 @@ public class ImportPage : CheckerboardPage {
         
         // monitor selection for UI
         get_view().items_state_changed += on_selection_changed;
+        get_view().items_visibility_changed += on_selection_changed;
+        
+        // monitor Photos for removals, at that will change the result of the ViewFilter
+        LibraryPhoto.global.contents_altered += on_photos_added_removed;
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions());
         
         // toolbar
-        // Camera label
-        Gtk.ToolItem camera_label_item = new Gtk.ToolItem();
-        camera_label_item.add(camera_label);
-
-        toolbar.insert(camera_label_item, -1);
+        // hide duplicates checkbox
+        hide_imported = new Gtk.ToggleToolButton();
+        hide_imported.set_label(_("Hide Imported"));
+        hide_imported.set_tooltip_text(_("Hide photos that have already been imported"));
+        hide_imported.clicked += on_hide_imported;
+        hide_imported.sensitive = false;
+        
+        toolbar.insert(hide_imported, -1);
         
         // separator to force buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -326,6 +342,10 @@ public class ImportPage : CheckerboardPage {
     
     private void on_selection_changed() {
         import_selected_button.sensitive = !busy && refreshed && (get_view().get_selected_count() > 0);
+    }
+    
+    private void on_photos_added_removed() {
+        get_view().reapply_view_filter();
     }
     
     public override LayoutItem? get_fullscreen_photo() {
@@ -462,6 +482,7 @@ public class ImportPage : CheckerboardPage {
         
         import_selected_button.sensitive = false;
         import_all_button.sensitive = false;
+        hide_imported.sensitive = false;
         
         SourceCollection import_list = new SourceCollection();
         ulong total_bytes = 0;
@@ -498,6 +519,7 @@ public class ImportPage : CheckerboardPage {
         
         import_selected_button.sensitive = get_view().get_selected_count() > 0;
         import_all_button.sensitive = get_view().get_count() > 0;
+        hide_imported.sensitive = get_view().get_count() > 0;
         
         busy = false;
 
@@ -593,7 +615,7 @@ public class ImportPage : CheckerboardPage {
                 ulong preview_size = info.preview.size;
                 
                 // skip preview if it isn't JPEG
-                // TODO: Accept previews if of any type recognized by Gdk.Pixbuf
+                // TODO: Support all possible EXIF thumbnail file types
                 if (preview_size != 0) {
                     if ((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) != 0
                         && info.preview.type != GPhoto.MIME.JPEG) {
@@ -657,23 +679,38 @@ public class ImportPage : CheckerboardPage {
                 
                 progress_bar.set_text(_("Fetching preview for %s").printf(import_file.get_name()));
                 
-                // if no preview, load full image for preview
+                // load EXIF for photo, which will include the preview thumbnail
+                uint8[] raw;
+                size_t raw_length;
+                Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, filename,
+                    out raw, out raw_length);
+                
                 Gdk.Pixbuf pixbuf = null;
-                uint64 preview_bytes = 0;
-                if (import_file.get_preview_size() > 0) {
-                    preview_bytes = import_file.get_preview_size();
-                    pixbuf = GPhoto.load_preview(null_context.context, camera, fulldir, filename);
-                } else {
-                    preview_bytes = import_file.get_filesize();
-                    pixbuf = GPhoto.load_image(null_context.context, camera, fulldir, filename);
+                string preview_md5 = null;
+                
+                if (exif != null && exif.data != null && exif.size > 0) {
+                    // load the preview thumbnail
+                    MemoryInputStream mins = new MemoryInputStream.from_data(exif.data, exif.size, 
+                        null);
+                    try {
+                        pixbuf = new Gdk.Pixbuf.from_stream(mins, null);
+                    } catch (Error err) {
+                        warning("Unable to load preview for %s: %s", filename, err.message);
+                    }
+                    
+                    // calculate thumbnail's MD5
+                    preview_md5 = md5_binary(exif.data, exif.size);
                 }
-                        
-                Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, filename);
+                
+                // calculate EXIF's fingerprint
+                string exif_md5 = null;
+                if (raw != null && raw_length > 0)
+                    exif_md5 = md5_binary(raw, raw_length);
                 
                 // update the ImportSource with the fetched information
-                import_file.update(pixbuf, exif);
+                import_file.update(pixbuf, preview_md5, exif, exif_md5);
                 
-                bytes += preview_bytes;
+                bytes += exif.size;
                 progress_bar.set_fraction((double) bytes / (double) total_preview_bytes);
                 
                 ImportPreview preview = new ImportPreview(import_file);
@@ -693,6 +730,23 @@ public class ImportPage : CheckerboardPage {
         set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", 
             !busy && (get_view().get_selected_count() > 0));
         set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", !busy && (get_view().get_count() > 0));
+    }
+    
+    private bool show_unimported_filter(DataView view) {
+        ImportPreview preview = (ImportPreview) view;
+        ImportSource source = (ImportSource) preview.get_source();
+        
+        bool exif_match = PhotoTable.get_instance().has_exif_md5(source.get_exif_md5());
+        bool thumbnail_match = PhotoTable.get_instance().has_thumbnail_md5(source.get_preview_md5());
+        
+        return !(exif_match && thumbnail_match);
+    }
+    
+    private void on_hide_imported() {
+        if (hide_imported.get_active())
+            get_view().install_view_filter(show_unimported_filter);
+        else
+            get_view().reset_view_filter();
     }
     
     private void on_import_selected() {

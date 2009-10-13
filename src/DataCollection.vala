@@ -46,15 +46,15 @@ public class DataCollection {
         }
         
         public void mark_many(Gee.Iterable<DataObject> list) {
-            foreach (DataObject object in owner.list) {
-                assert(contains(object));
+            foreach (DataObject object in list) {
+                assert(owner.contains(object));
                 
                 marked.add(object);
             }
         }
         
         public void mark_all() {
-            foreach (DataObject object in owner.list)
+            foreach (DataObject object in owner.get_all())
                 marked.add(object);
         }
         
@@ -83,8 +83,17 @@ public class DataCollection {
         }
     }
     
+    public class OrderAddedComparator : Comparator<DataObject> {
+        public override int64 compare(DataObject a, DataObject b) {
+            return a.internal_get_ordinal() - b.internal_get_ordinal();
+        }
+    }
+    
+    private static OrderAddedComparator order_added_comparator = null;
+    
     private SortedList<DataObject> list = new SortedList<DataObject>();
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
+    private int added_counter = 0;
 
     // When this signal has been fired, the added items are part of the collection
     public virtual signal void items_added(Gee.Iterable<DataObject> added) {
@@ -116,6 +125,7 @@ public class DataCollection {
     }
     
     public DataCollection() {
+        list.resort(get_order_added_comparator());
     }
     
     // A singleton list is used when a single item has been added/remove/selected/unselected
@@ -134,12 +144,25 @@ public class DataCollection {
         return true;
     }
     
-    public void set_comparator(Comparator<DataObject> comparator) {
+    public static OrderAddedComparator get_order_added_comparator() {
+        if (order_added_comparator == null)
+            order_added_comparator = new OrderAddedComparator();
+        
+        return order_added_comparator;
+    }
+    
+    public virtual void set_comparator(Comparator<DataObject> comparator) {
         list.resort(comparator);
         ordering_changed();
     }
     
-    public Gee.Iterable<DataObject> get_all() {
+    // Return to natural ordering of DataObjects, which is order-added
+    public virtual void reset_comparator() {
+        list.resort(get_order_added_comparator());
+        ordering_changed();
+    }
+    
+    public virtual Gee.Iterable<DataObject> get_all() {
         return list;
     }
     
@@ -147,7 +170,7 @@ public class DataCollection {
         return list.size;
     }
     
-    public virtual DataObject? get_at(int index) {
+    public virtual DataObject get_at(int index) {
         return list.get(index);
     }
     
@@ -155,7 +178,7 @@ public class DataCollection {
         return list.locate(object);
     }
     
-    public bool contains(DataObject object) {
+    public virtual bool contains(DataObject object) {
         if (!hash_set.contains(object))
             return false;
         
@@ -167,7 +190,7 @@ public class DataCollection {
     private void internal_add(DataObject object) {
         assert(valid_type(object));
         
-        object.internal_set_membership(this);
+        object.internal_set_membership(this, added_counter++);
         
         bool added = list.add(object);
         assert(added);
@@ -435,10 +458,18 @@ public abstract class ViewManager {
     public abstract DataView create_view(DataSource source);
 }
 
+// A ViewFilter allows for items in a ViewCollection to be shown or hidden depending on the
+// supplied predicate method.  For now, only one ViewFilter may be installed, although this may
+// change in the future.
+//
+// Return true if view should be visible, false if it should be hidden.
+public delegate bool ViewFilter(DataView view);
+
 // A ViewCollection holds DataView objects, which are view instances wrapping DataSource objects.
 // Thus, multiple views can exist of a single SourceCollection, each view displaying all or some
 // of that SourceCollection.  A view collection also has a notion of order
-// (first/last/next/previous) that can be overridden by child classes.
+// (first/last/next/previous) that can be overridden by child classes.  It also understands hidden
+// objects, which are withheld entirely from the collection until they're made visible.
 //
 // The default implementation provides a browser which orders the view in the order they're
 // stored in DataCollection, which is not specified.
@@ -449,7 +480,9 @@ public class ViewCollection : DataCollection {
     }
     
     private ViewManager manager = null;
-    private Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
+    private ViewFilter filter = null;
+    private SortedList<DataView> selected = new SortedList<DataView>();
+    private SortedList<DataView> visible = new SortedList<DataView>();
     private int geometry_freeze = 0;
     private int view_freeze = 0;
     
@@ -471,6 +504,18 @@ public class ViewCollection : DataCollection {
     }
     
     // Signal aggregator.
+    public virtual signal void items_shown(Gee.Iterable<DataView> visible) {
+    }
+    
+    // Signal aggregator.
+    public virtual signal void items_hidden(Gee.Iterable<DataView> hidden) {
+    }
+    
+    // Signal aggregator.
+    public virtual signal void items_visibility_changed(Gee.Iterable<DataView> changed) {
+    }
+    
+    // Signal aggregator.
     public virtual signal void item_view_altered(DataView view) {
     }
     
@@ -485,6 +530,8 @@ public class ViewCollection : DataCollection {
     }
     
     public ViewCollection() {
+        selected.resort(get_order_added_comparator());
+        visible.resort(get_order_added_comparator());
     }
     
     public void monitor_source_collection(SourceCollection sources, ViewManager manager) {
@@ -499,6 +546,47 @@ public class ViewCollection : DataCollection {
         sources.items_removed += on_sources_removed;
         sources.item_altered += on_source_altered;
         sources.item_metadata_altered += on_source_altered;
+    }
+    
+    public void install_view_filter(ViewFilter filter) {
+        // this currently replaces any existing ViewFilter
+        this.filter = filter;
+        
+        // filter existing items
+        reapply_view_filter();
+    }
+    
+    // This is used when conditions outside of the collection have changed and the entire collection
+    // should be re-filtered.
+    public void reapply_view_filter() {
+        if (filter == null)
+            return;
+        
+        Marker visible_marker = start_marking();
+        Marker hidden_marker = start_marking();
+        
+        // iterate through base.all(), otherwise merely iterating the visible items
+        foreach (DataObject object in base.get_all()) {
+            DataView view = (DataView) object;
+            
+            if (filter(view)) {
+                if (!view.is_visible())
+                    visible_marker.mark(object);
+            } else {
+                if (view.is_visible())
+                    hidden_marker.mark(object);
+            }
+        }
+        
+        show_marked(visible_marker);
+        hide_marked(hidden_marker);
+    }
+    
+    public void reset_view_filter() {
+        this.filter = null;
+        
+        // reset visibility of all items
+        show_all();
     }
     
     public override bool valid_type(DataObject object) {
@@ -546,17 +634,26 @@ public class ViewCollection : DataCollection {
         }
     }
     
-    // Keep the source map synchronized
+    // Keep the source map and state tables synchronized
     public override void items_added(Gee.Iterable<DataObject> added) {
         foreach (DataObject object in added) {
             DataView view = (DataView) object;
             source_map.set(view.get_source(), view);
+            
+            if (view.is_selected())
+                selected.add(view);
+            
+            if (filter != null)
+                view.internal_set_visible(filter(view));
+            
+            if (view.is_visible())
+                visible.add(view);
         }
         
         base.items_added(added);
     }
     
-    // Keep the source map and selected list synchronized
+    // Keep the source map and state tables synchronized
     public override void items_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
@@ -564,10 +661,67 @@ public class ViewCollection : DataCollection {
             bool is_removed = source_map.unset(view.get_source());
             assert(is_removed);
             
-            selected.remove(view);
+            if (view.is_selected()) {
+                is_removed = selected.remove(view);
+                assert(is_removed);
+            }
+            
+            if (view.is_visible()) {
+                is_removed = visible.remove(view);
+                assert(is_removed);
+            }
         }
         
         base.items_removed(removed);
+    }
+    
+    private void filter_altered_item(DataObject object) {
+        if (filter == null)
+            return;
+        
+        Marker marker = mark(object);
+        if (filter((DataView) object))
+            show_marked(marker);
+        else
+            hide_marked(marker);
+    }
+    
+    public override void item_altered(DataObject object) {
+        filter_altered_item(object);
+        
+        base.item_altered(object);
+    }
+    
+    public override void item_metadata_altered(DataObject object) {
+        filter_altered_item(object);
+        
+        base.item_metadata_altered(object);
+    }
+    
+    public override void set_comparator(Comparator<DataView> comparator) {
+        selected.resort(comparator);
+        visible.resort(comparator);
+        
+        base.set_comparator(comparator);
+    }
+    
+    public override void reset_comparator() {
+        selected.resort(get_order_added_comparator());
+        visible.resort(get_order_added_comparator());
+        
+        base.reset_comparator();
+    }
+    
+    public override Gee.Iterable<DataObject> get_all() {
+        return visible;
+    }
+    
+    public override int get_count() {
+        return visible.size;
+    }
+    
+    public override DataObject get_at(int index) {
+        return visible.get(index);
     }
     
     public virtual DataView? get_first() {
@@ -737,7 +891,94 @@ public class ViewCollection : DataCollection {
     }
     
     public DataView? get_selected_at(int index) {
-        return (selected.size > 0) ? selected.get(index) : null;
+        return selected.get(index);
+    }
+    
+    public void hide_marked(Marker marker) {
+        Gee.ArrayList<DataView> hidden = new Gee.ArrayList<DataView>();
+        act_on_marked(marker, hide_item, hidden);
+        
+        if (hidden.size > 0) {
+            items_hidden(hidden);
+            items_visibility_changed(hidden);
+        }
+    }
+    
+    private bool hide_item(DataObject object, Object user) {
+        DataView view = (DataView) object;
+        if (!view.is_visible()) {
+            assert(!visible.contains(view));
+            
+            return true;
+        }
+        
+        view.internal_set_visible(false);
+        bool removed = visible.remove(view);
+        assert(removed);
+        
+        // hidden items must be removed from the selected list as well ... however, don't need
+        // to actually deselect them, merely remove from the list while hidden and add back
+        // when shown, hence no need to fire selection_changed signals
+        if (view.is_selected()) {
+            removed = selected.remove(view);
+            assert(removed);
+        }
+        
+        ((Gee.ArrayList<DataView>) user).add(view);
+        
+        return true;
+    }
+    
+    public void show_marked(Marker marker) {
+        Gee.ArrayList<DataView> shown = new Gee.ArrayList<DataView>();
+        act_on_marked(marker, show_item, shown);
+        
+        if (shown.size > 0) {
+            items_shown(shown);
+            items_visibility_changed(shown);
+        }
+    }
+    
+    private bool show_item(DataObject object, Object user) {
+        DataView view = (DataView) object;
+        if (view.is_visible()) {
+            assert(visible.contains(view));
+            
+            return true;
+        }
+        
+        view.internal_set_visible(true);
+        bool added = visible.add(view);
+        assert(added);
+        
+        // see note in hide_item for selection handling with hidden/visible items
+        if (view.is_selected()) {
+            assert(!selected.contains(view));
+            selected.add(view);
+        }
+        
+        ((Gee.ArrayList<DataView>) user).add(view);
+        
+        return true;
+    }
+    
+    public void show_all() {
+        Marker marker = start_marking();
+        
+        // can't use mark_all() because that will only mark the visible items
+        foreach (DataObject object in base.get_all())
+            marker.mark(object);
+        
+        show_marked(marker);
+    }
+    
+    public void hide_all() {
+        Marker marker = start_marking();
+        
+        // *can* use mark_all() because it only marks the visible items, which is perfect
+        marker.mark_all();
+        
+        hide_marked(marker);
     }
     
     public bool has_view_for_source(DataSource source) {

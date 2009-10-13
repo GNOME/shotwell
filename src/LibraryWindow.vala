@@ -961,6 +961,7 @@ public class LibraryWindow : AppWindow {
             current_page.get_view().item_altered -= on_selection_changed;
             current_page.get_view().item_metadata_altered -= on_selection_changed;
             current_page.get_view().contents_altered -= on_selection_changed;
+            current_page.get_view().items_visibility_changed -= on_selection_changed;
         }
 
         int pos = get_notebook_pos(page);
@@ -991,6 +992,7 @@ public class LibraryWindow : AppWindow {
         current_page.get_view().item_altered += on_selection_changed;
         current_page.get_view().item_metadata_altered += on_selection_changed;
         current_page.get_view().contents_altered += on_selection_changed;
+        current_page.get_view().items_visibility_changed += on_selection_changed;
 
         page.switched_to();
     }

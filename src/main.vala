@@ -56,38 +56,44 @@ void library_exec(string[] mounts) {
 
     // init modules library relies on
     DatabaseTable.init(AppWindow.get_data_subdir("data").get_child("photo.db"));
-    ThumbnailCache.init();
-    LibraryPhoto.init();
-    Event.init();
 
     // validate the databases prior to using them
     message("Verifying databases ...");
     string app_version;
-    if (verify_databases(out app_version)) {
-        // create main library application window
-        LibraryWindow library_window = new LibraryWindow();
-        
-        // report mount points
-        foreach (string mount in mounts)
-            library_window.mounted_camera_shell_notification(mount);
-
-        library_window.show_all();
-        
-        debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
-        
-        Gtk.main();
-    } else {
-        string errormsg = _("The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please use that version or later.");
+    if (!verify_databases(out app_version)) {
+        string errormsg = _("The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please clear your library and re-import your photos.");
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, errormsg, app_version);
         dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();
+        
+        DatabaseTable.terminate();
+        
+        return;
     }
+    
+    ThumbnailCache.init();
+    LibraryPhoto.init();
+    Event.init();
+
+    // create main library application window
+    LibraryWindow library_window = new LibraryWindow();
+    
+    // report mount points
+    foreach (string mount in mounts)
+        library_window.mounted_camera_shell_notification(mount);
+
+    library_window.show_all();
+    
+    debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
+    
+    Gtk.main();
     
     Event.terminate();
     LibraryPhoto.terminate();
     ThumbnailCache.terminate();
+
     DatabaseTable.terminate();
 }
 

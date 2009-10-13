@@ -9,7 +9,7 @@ public class DatabaseTable {
      * This number should be incremented every time any database schema is altered between
      * releases.
      ***/
-    public const int SCHEMA_VERSION = 1;
+    public const int SCHEMA_VERSION = 2;
     
     protected static Sqlite.Database db;
     
@@ -72,6 +72,58 @@ public class DatabaseTable {
             fatal("select_by_id [%lld] %s %s".printf(id, table_name, columns), res);
         
         return (res == Sqlite.ROW);
+    }
+    
+    // Caller needs to bind value #1 before calling execute_update_by_id()
+    private void prepare_update_by_id(int64 id, string column, out Sqlite.Statement stmt) {
+        string sql = "UPDATE %s SET %s=? WHERE id=?".printf(table_name, column);
+        
+        int res = db.prepare_v2(sql, -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(2, id);
+        assert(res == Sqlite.OK);
+    }
+    
+    private bool execute_update_by_id(Sqlite.Statement stmt) {
+        int res = stmt.step();
+        if (res != Sqlite.DONE) {
+            fatal("execute_update_by_id", res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    protected bool update_text_by_id(int64 id, string column, string text) {
+        Sqlite.Statement stmt;
+        prepare_update_by_id(id, column, out stmt);
+        
+        int res = stmt.bind_text(1, text);
+        assert(res == Sqlite.OK);
+        
+        return execute_update_by_id(stmt);
+    }
+    
+    protected bool update_int_by_id(int64 id, string column, int value) {
+        Sqlite.Statement stmt;
+        prepare_update_by_id(id, column, out stmt);
+        
+        int res = stmt.bind_int(1, value);
+        assert(res == Sqlite.OK);
+        
+        return execute_update_by_id(stmt);
+    }
+    
+    protected bool update_int64_by_id(int64 id, string column, int64 value) {
+        Sqlite.Statement stmt;
+        prepare_update_by_id(id, column, out stmt);
+        
+        int res = stmt.bind_int64(1, value);
+        assert(res == Sqlite.OK);
+        
+        return execute_update_by_id(stmt);
     }
 }
 
@@ -236,12 +288,18 @@ public struct PhotoRow {
     public ImportID import_id;
     public EventID event_id;
     public Gee.HashMap<string, KeyValueMap>? transformations;
+    public string md5;
+    public string thumbnail_md5;
+    public string exif_md5;
+    public time_t time_created;
     
     public PhotoRow() {
     }
 }
 
 public class PhotoTable : DatabaseTable {
+    private static PhotoTable global = null;
+    
     public PhotoTable() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS PhotoTable ("
@@ -256,7 +314,11 @@ public class PhotoTable : DatabaseTable {
             + "original_orientation INTEGER, "
             + "import_id INTEGER, "
             + "event_id INTEGER, "
-            + "transformations TEXT"
+            + "transformations TEXT, "
+            + "md5 TEXT, "
+            + "thumbnail_md5 TEXT, "
+            + "exif_md5 TEXT, "
+            + "time_created INTEGER"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -265,6 +327,13 @@ public class PhotoTable : DatabaseTable {
             fatal("create photo table", res);
         
         set_table_name("PhotoTable");
+    }
+    
+    public static PhotoTable get_instance() {
+        if (global == null)
+            global = new PhotoTable();
+        
+        return global;
     }
     
     public ImportID generate_import_id() {
@@ -278,10 +347,12 @@ public class PhotoTable : DatabaseTable {
     }
     
     public PhotoID add(File file, Dimensions dim, int64 filesize, long timestamp, time_t exposure_time,
-        Orientation orientation, ImportID import_id) {
+        Orientation orientation, ImportID import_id, string? md5, string? thumbnail_md5, string? exif_md5) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, orientation, original_orientation, import_id, event_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
+            + "orientation, original_orientation, import_id, event_id, md5, thumbnail_md5, exif_md5, "
+            + "time_created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -304,6 +375,14 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_int64(9, import_id.id);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(10, PhotoID.INVALID);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(11, md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(12, thumbnail_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(13, exif_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(14, now_sec());
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -360,7 +439,9 @@ public class PhotoTable : DatabaseTable {
     public PhotoRow? get_row(PhotoID photo_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "SELECT filename,width,height,filesize,timestamp,exposure_time,orientation,original_orientation,import_id,event_id,transformations FROM PhotoTable WHERE id=?", 
+            "SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, "
+            + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
+            + "exif_md5, time_created FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -382,6 +463,10 @@ public class PhotoTable : DatabaseTable {
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
         row.transformations = marshall_all_transformations(stmt.column_text(10));
+        row.md5 = stmt.column_text(11);
+        row.thumbnail_md5 = stmt.column_text(12);
+        row.exif_md5 = stmt.column_text(13);
+        row.time_created = (time_t) stmt.column_int64(14);
         
         return row;
     }
@@ -389,7 +474,9 @@ public class PhotoTable : DatabaseTable {
     public Gee.ArrayList<PhotoRow?> get_all() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "SELECT id,filename,width,height,filesize,timestamp,exposure_time,orientation,original_orientation,import_id,event_id,transformations FROM PhotoTable", 
+            "SELECT id, filename, width, height, filesize, timestamp, exposure_time, orientation, "
+            + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
+            + "exif_md5, time_created FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -408,6 +495,10 @@ public class PhotoTable : DatabaseTable {
             row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
             row.transformations = marshall_all_transformations(stmt.column_text(11));
+            row.md5 = stmt.column_text(12);
+            row.thumbnail_md5 = stmt.column_text(13);
+            row.exif_md5 = stmt.column_text(14);
+            row.time_created = (time_t) stmt.column_int64(15);
             
             all.add(row);
         }
@@ -557,23 +648,7 @@ public class PhotoTable : DatabaseTable {
     }
     
     public bool set_orientation(PhotoID photo_id, Orientation orientation) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE PhotoTable SET orientation = ? WHERE id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int(1, (int) orientation);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) { 
-            fatal("photo set_orientation", res);
-            
-            return false;
-        }
-        
-        return true;
+        return update_int_by_id(photo_id.id, "orientation", (int) orientation);
     }
 
     public EventID get_event(PhotoID photo_id) {
@@ -700,23 +775,7 @@ public class PhotoTable : DatabaseTable {
     }
 
     public bool set_event(PhotoID photo_id, EventID event_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE PhotoTable SET event_id = ? WHERE id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, event_id.id);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) { 
-            fatal("set_event", res);
-            
-            return false;
-        }
-        
-        return true;
+        return update_int64_by_id(photo_id.id, "event_id", event_id.id);
     }
 
     private string? get_raw_transformations(PhotoID photo_id) {
@@ -732,23 +791,7 @@ public class PhotoTable : DatabaseTable {
     }
     
     private bool set_raw_transformations(PhotoID photo_id, string trans) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE PhotoTable SET transformations = ? WHERE id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_text(1, trans);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) { 
-            fatal("set_raw_transformations", res);
-            
-            return false;
-        }
-
-        return true;
+        return update_text_by_id(photo_id.id, "transformations", trans);
     }
     
     public bool has_transformations(PhotoID photo_id) {
@@ -886,22 +929,8 @@ public class PhotoTable : DatabaseTable {
     public bool remove_all_transformations(PhotoID photo_id) {
         if (get_raw_transformations(photo_id) == null)
             return false;
-            
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE PhotoTable SET transformations='' WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
         
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            fatal("remove_all_transformations", res);
-            
-            return false;
-        }
-        
-        return true;
+        return update_text_by_id(photo_id.id, "transformations", "");
     }
 
     public int get_transformation_count(PhotoID photo_id) {
@@ -915,6 +944,29 @@ public class PhotoTable : DatabaseTable {
         string[] groups = keyfile.get_groups();
 
         return groups.length;
+    }
+    
+    private bool has_hash(string column, string md5) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE %s=?".printf(column), -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(1, md5);
+        assert(res == Sqlite.OK);
+        
+        return stmt.step() == Sqlite.ROW;
+    }
+    
+    public bool has_full_md5(string md5) {
+        return has_hash("md5", md5);
+    }
+    
+    public bool has_thumbnail_md5(string thumbnail_md5) {
+        return has_hash("thumbnail_md5", thumbnail_md5);
+    }
+    
+    public bool has_exif_md5(string exif_md5) {
+        return has_hash("exif_md5", exif_md5);
     }
 }
 
@@ -1103,9 +1155,6 @@ public class EventTable : DatabaseTable {
         assert(primary_photo_id.is_valid());
         assert(start_time != 0);
         
-        TimeVal time_created = TimeVal();
-        time_created.get_current_time();
-        
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "INSERT INTO EventTable (primary_photo_id, time_created, start_time) VALUES (?, ?, ?)",
@@ -1114,7 +1163,7 @@ public class EventTable : DatabaseTable {
         
         res = stmt.bind_int64(1, primary_photo_id.id);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, time_created.tv_sec);
+        res = stmt.bind_int64(2, now_sec());
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(3, start_time);
         assert(res == Sqlite.OK);
@@ -1163,23 +1212,7 @@ public class EventTable : DatabaseTable {
     }
 
     public bool set_end_time(EventID event_id, time_t end_time) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE EventTable SET end_time = ? WHERE id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, end_time);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, event_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            fatal("set_end_time", res);
-            
-            return false;
-        }
-        
-        return true;
+        return update_int64_by_id(event_id.id, "end_time", (int64) end_time);
     }
     
     public Gee.ArrayList<EventID?> get_events() {
@@ -1205,23 +1238,7 @@ public class EventTable : DatabaseTable {
     }
     
     public bool rename(EventID event_id, string name) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE EventTable SET name = ? WHERE id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_text(1, name);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, event_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            fatal("event rename", res);
-            
-            return false;
-        }
-        
-        return true;
+        return update_text_by_id(event_id.id, "name", name);
     }
     
     public string? get_raw_name(EventID event_id) {
@@ -1234,7 +1251,6 @@ public class EventTable : DatabaseTable {
         return (name != null && name.length > 0) ? name : null;
     }
     
-
     public string get_name(EventID event_id) {
         string name = get_raw_name(event_id);
         if (name != null)
@@ -1261,23 +1277,7 @@ public class EventTable : DatabaseTable {
     }
     
     public bool set_primary_photo(EventID event_id, PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE EventTable SET primary_photo_id = ? WHERE id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, event_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            fatal("set_primary_photo", res);
-            
-            return false;
-        }
-        
-        return true;
+        return update_int64_by_id(event_id.id, "primary_photo_id", photo_id.id);
     }
 }
 

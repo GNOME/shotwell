@@ -147,6 +147,8 @@ public abstract class TransformablePhoto: PhotoSource {
         Dimensions dim = Dimensions();
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
+        string thumbnail_md5 = null;
+        string exif_md5 = null;
         
         // TODO: Try to read JFIF metadata too
         PhotoExif exif = new PhotoExif(file);
@@ -158,15 +160,79 @@ public abstract class TransformablePhoto: PhotoSource {
                 message("Unable to read EXIF orientation for %s", file.get_path());
 
             orientation = exif.get_orientation();
+            
+            // calculate the entire EXIF's checksum, excluding thumbnail
+            try {
+                uint8[] raw_exif = exif.get_raw_exif();
+                if (raw_exif != null)
+                    exif_md5 = md5_binary(raw_exif, raw_exif.length);
+            } catch (Error err) {
+                warning("Unable to calculate EXIF MD5 for %s: %s", file.get_path(), err.message);
+            }
+            
+            // calculate only the thumbnail's checksum
+            Exif.Data data = exif.get_exif();
+            if (data != null && data.data != null && data.size > 0)
+                thumbnail_md5 = md5_binary((uchar[]) data.data, data.size);
         }
         
+        string md5 = null;
+        
+        // load Pixbuf for thumbnail generation and image preview, but also to generate its MD5
+        // fingerprint
+        ImportResult decode_result = ImportResult.SUCCESS;
+        FileInputStream fins = null;
+        Gdk.PixbufLoader pixbuf_loader = new Gdk.PixbufLoader();
+        Checksum md5_checksum = new Checksum(ChecksumType.MD5);
         try {
-            pixbuf = new Gdk.Pixbuf.from_file(file.get_path());
+            uint8[] buffer = new uint8[64 * 1024];
+            
+            fins = file.read(null);
+            for(;;) {
+                size_t bytes_read = fins.read(buffer, buffer.length, null);
+                if (bytes_read <= 0)
+                    break;
+                
+                md5_checksum.update(buffer, bytes_read);
+                
+                // because of bad bindings, PixbufLoader.write() only accepts the buffer reference,
+                // not the length of data in the buffer, meaning partially-filled buffers need to 
+                // be special-cased
+                if (bytes_read == buffer.length) {
+                    pixbuf_loader.write(buffer);
+                } else {
+                    uint8[] tmp = new uint8[bytes_read];
+                    Memory.copy(tmp, buffer, bytes_read);
+                    pixbuf_loader.write(tmp);
+                }
+            }
+            
+            pixbuf = pixbuf_loader.get_pixbuf();
+            md5 = md5_checksum.get_string();
         } catch (Error err) {
+            warning("Read/decode/checksum error for %s: %s", file.get_path(), err.message);
+            
             // assume a decode error, although technically it could be I/O ... need better Gdk
             // bindings to determine which
-            return ImportResult.DECODE_ERROR;
+            decode_result = ImportResult.DECODE_ERROR;
+        } finally {
+            try {
+                pixbuf_loader.close();
+            } catch (Error err) {
+                warning("Unable to close pixbuf loader for %s: %s", file.get_path(), err.message);
+            }
+            
+            if (fins != null) {
+                try {
+                    fins.close(null);
+                } catch (Error err) {
+                    warning("Unable to close import file %s: %s", file.get_path(), err.message);
+                }
+            }
         }
+        
+        if (decode_result != ImportResult.SUCCESS)
+            return decode_result;
         
         // verify basic mechanics of photo: RGB 8-bit encoding
         if (pixbuf.get_colorspace() != Gdk.Colorspace.RGB || pixbuf.get_n_channels() < 3 
@@ -183,7 +249,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // photo information is stored in database in raw, non-modified format ... this is especially
         // important dealing with dimensions and orientation
         photo_id = photo_table.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-            orientation, import_id);
+            orientation, import_id, md5, thumbnail_md5, exif_md5);
         if (photo_id.is_invalid())
             return ImportResult.DATABASE_ERROR;
         
