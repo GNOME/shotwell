@@ -163,9 +163,10 @@ public abstract class TransformablePhoto: PhotoSource {
             
             // calculate the entire EXIF's checksum, excluding thumbnail
             try {
-                uint8[] raw_exif = exif.get_raw_exif();
+                size_t raw_exif_length;
+                uint8[] raw_exif = exif.get_raw_exif(out raw_exif_length);
                 if (raw_exif != null)
-                    exif_md5 = md5_binary(raw_exif, raw_exif.length);
+                    exif_md5 = md5_binary(raw_exif, raw_exif_length);
             } catch (Error err) {
                 warning("Unable to calculate EXIF MD5 for %s: %s", file.get_path(), err.message);
             }

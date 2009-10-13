@@ -84,13 +84,17 @@ namespace GPhoto {
                 (int) res, folder, filename, res.as_string());
     }
     
-    public Gdk.Pixbuf? load_preview(Context context, Camera camera, string folder, string filename)
-        throws Error {
-        InputStream ins = load_file_into_stream(context, camera, folder, filename, GPhoto.CameraFileType.PREVIEW);
-        if (ins == null)
+    public Gdk.Pixbuf? load_preview(Context context, Camera camera, string folder, string filename,
+        out uint8[] raw, out size_t raw_length) throws Error {
+        raw = load_file_into_buffer(context, camera, folder, filename, GPhoto.CameraFileType.PREVIEW);
+        if (raw == null)
             return null;
         
-        return new Gdk.Pixbuf.from_stream(ins, null);
+        raw_length = raw.length;
+        
+        MemoryInputStream mins = new MemoryInputStream.from_data(raw, raw.length, null);
+        
+        return new Gdk.Pixbuf.from_stream(mins, null);
     }
     
     public Gdk.Pixbuf? load_image(Context context, Camera camera, string folder, string filename) 

@@ -681,41 +681,47 @@ public class ImportPage : CheckerboardPage {
                 progress_bar.set_text(_("Fetching preview for %s").printf(import_file.get_name()));
                 
                 // load EXIF for photo, which will include the preview thumbnail
-                uint8[] raw;
-                size_t raw_length;
+                uint8[] exif_raw;
+                size_t exif_raw_length;
                 Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, filename,
-                    out raw, out raw_length);
-                
-                Gdk.Pixbuf pixbuf = null;
-                string preview_md5 = null;
-                
-                if (exif != null && exif.data != null && exif.size > 0) {
-                    // load the preview thumbnail
-                    MemoryInputStream mins = new MemoryInputStream.from_data(exif.data, exif.size, 
-                        null);
-                    try {
-                        pixbuf = new Gdk.Pixbuf.from_stream(mins, null);
-                    } catch (Error err) {
-                        warning("Unable to load preview for %s: %s", filename, err.message);
-                    }
-                    
-                    // calculate thumbnail's MD5
-                    preview_md5 = md5_binary(exif.data, exif.size);
-                }
+                    out exif_raw, out exif_raw_length);
                 
                 // calculate EXIF's fingerprint
                 string exif_md5 = null;
-                if (raw != null && raw_length > 0)
-                    exif_md5 = md5_binary(raw, raw_length);
+                if (exif != null && exif_raw != null && exif_raw_length > 0)
+                    exif_md5 = md5_binary(exif_raw, exif_raw_length);
+                
+                // XXX: Cannot use the exif.data field for the thumbnail preview because libgphoto2
+                // 2.4.6 has a bug where the returned EXIF data object is complete garbage.  This
+                // is fixed in 2.4.7, but need to work around this as best we can.  In particular,
+                // this means the preview orientation will be wrong and the MD5 is not generated
+                // if the EXIF did not parse properly (see above)
+                
+                uint8[] preview_raw;
+                size_t preview_raw_length;
+                Gdk.Pixbuf preview = GPhoto.load_preview(null_context.context, camera, fulldir,
+                    filename, out preview_raw, out preview_raw_length);
+                
+                // calculate thumbnail fingerprint
+                string preview_md5 = null;
+                if (preview != null && preview_raw != null && preview_raw_length > 0)
+                    preview_md5 = md5_binary(preview_raw, preview_raw_length);
+                
+                // use placeholder if no pixbuf available
+                if (preview == null) {
+                    preview = render_icon(Gtk.STOCK_MISSING_IMAGE, Gtk.IconSize.DIALOG, null);
+                    preview = scale_pixbuf(preview, ImportPreview.MAX_SCALE, Gdk.InterpType.BILINEAR,
+                        true);
+                }
                 
                 // update the ImportSource with the fetched information
-                import_file.update(pixbuf, preview_md5, exif, exif_md5);
+                import_file.update(preview, preview_md5, exif, exif_md5);
                 
                 bytes += exif.size;
                 progress_bar.set_fraction((double) bytes / (double) total_preview_bytes);
                 
-                ImportPreview preview = new ImportPreview(import_file);
-                get_view().add(preview);
+                ImportPreview import_preview = new ImportPreview(import_file);
+                get_view().add(import_preview);
                 
                 // spin the event loop so the UI doesn't freeze
                 if (!spin_event_loop())
@@ -740,7 +746,7 @@ public class ImportPage : CheckerboardPage {
         bool exif_match = PhotoTable.get_instance().has_exif_md5(source.get_exif_md5());
         bool thumbnail_match = PhotoTable.get_instance().has_thumbnail_md5(source.get_preview_md5());
         
-        return !(exif_match && thumbnail_match);
+        return !(exif_match || thumbnail_match);
     }
     
     private void on_hide_imported() {

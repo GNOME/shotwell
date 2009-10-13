@@ -201,11 +201,12 @@ public class PhotoExif  {
     public bool has_exif() {
         // because libexif will return an empty Data structure for files with no EXIF, manually
         // take a peek for ourselves and get the skinny
-        return get_raw_exif() != null;
+        size_t raw_length;
+        return get_raw_exif(out raw_length) != null;
     }
     
     // Returns raw bytes for the EXIF data, including signature but not the thumbnail
-    public uint8[]? get_raw_exif() throws Error {
+    public uint8[]? get_raw_exif(out size_t raw_length) throws Error {
         update();
         
         if (no_exif)
@@ -235,17 +236,14 @@ public class PhotoExif  {
         // since returning all of EXIF block, including signature but not the thumbnail (which is how
         // GPhoto returns it, and therefore makes it easy to compare checksums), allocate full block 
         // and read it all in (that is, use optimism here)
-        //
-        // TODO: Although read_marker removes the length of the length bytes from the segment, it
-        // appears the reported size is still two bytes longer than it should be; removing here.
-        uint exif_size = segment_length - exif.size - 2;
-        if (exif_size <= 0) {
+        raw_length = segment_length - exif.size;
+        if (raw_length <= 0) {
             warning("No EXIF data to read in %s", file.get_path());
             
             return null;
         }
         
-        uint8[] raw = new uint8[exif_size];
+        uint8[] raw = new uint8[raw_length];
         
         size_t bytes_read;
         fins.read_all(raw, raw.length, out bytes_read, null);
@@ -261,6 +259,13 @@ public class PhotoExif  {
             
             return null;
         }
+        
+        // TODO: Although read_marker removes the length of the length bytes from the segment, it
+        // appears at least one camera produces JPEGS with the segment reported size still two bytes
+        // longer than it should be (due to it not including the length field in the size itself)?
+        // This checks if the size overshot and needs to be reduced.
+        if (raw[raw_length - 2] == Jpeg.MARKER_PREFIX)
+            raw_length -= 2;
         
         return raw;
     }
