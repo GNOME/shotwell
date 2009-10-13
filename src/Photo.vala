@@ -161,20 +161,8 @@ public abstract class TransformablePhoto: PhotoSource {
 
             orientation = exif.get_orientation();
             
-            // calculate the entire EXIF's checksum, excluding thumbnail
-            try {
-                size_t raw_exif_length;
-                uint8[] raw_exif = exif.get_raw_exif(out raw_exif_length);
-                if (raw_exif != null)
-                    exif_md5 = md5_binary(raw_exif, raw_exif_length);
-            } catch (Error err) {
-                warning("Unable to calculate EXIF MD5 for %s: %s", file.get_path(), err.message);
-            }
-            
-            // calculate only the thumbnail's checksum
-            Exif.Data data = exif.get_exif();
-            if (data != null && data.data != null && data.size > 0)
-                thumbnail_md5 = md5_binary((uchar[]) data.data, data.size);
+            exif_md5 = exif.get_md5();
+            thumbnail_md5 = exif.get_thumbnail_md5();
         }
         
         string md5 = null;

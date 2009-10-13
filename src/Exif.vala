@@ -270,6 +270,36 @@ public class PhotoExif  {
         return raw;
     }
     
+    // Returns the MD5 hash for the EXIF (excluding thumbnail)
+    public string? get_md5() {
+        size_t raw_length;
+        uint8[] raw = null;
+        
+        try {
+            raw = get_raw_exif(out raw_length);
+        } catch (Error err) {
+            warning("Unable to get EXIF to calculate checksum for %s: %s", file.get_path(),
+                err.message);
+        }
+        
+        if (raw == null || raw_length <= 0)
+            return null;
+        
+        return md5_binary(raw, raw_length);
+    }
+    
+    // Returns the MD5 hash of the thumbnail
+    public string? get_thumbnail_md5() {
+        Exif.Data data = get_exif();
+        if (data == null)
+            return null;
+        
+        if (data.data == null || data.size <= 0)
+            return null;
+        
+        return md5_binary(data.data, data.size);
+    }
+    
     public Exif.Data? get_exif() {
         if (exif != null)
             return exif;

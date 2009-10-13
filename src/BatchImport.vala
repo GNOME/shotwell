@@ -123,6 +123,7 @@ public class BatchImport {
     private SortedList<LibraryPhoto> success = null;
     private Gee.ArrayList<string> failed = null;
     private Gee.ArrayList<string> skipped = null;
+    private Gee.ArrayList<string> already_imported = null;
     private ImportID import_id = ImportID();
     private bool scheduled = false;
     private bool user_aborted = false;
@@ -132,10 +133,13 @@ public class BatchImport {
     private int fail_every = 0;
     private int skip_every = 0;
     
-    public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, uint64 total_bytes = 0) {
+    public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, uint64 total_bytes = 0,
+        Gee.ArrayList<string>? prefailed = null, Gee.ArrayList<string>? pre_already_imported = null) {
         this.jobs = jobs;
         this.name = name;
         this.total_bytes = total_bytes;
+        failed = prefailed;
+        already_imported = pre_already_imported;
         this.fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
         this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
     }
@@ -151,7 +155,8 @@ public class BatchImport {
     
     // Called at the end of the batched jobs; this will be signalled exactly once for the batch
     public signal void import_complete(ImportID import_id, SortedList<LibraryPhoto> photos_by_date, 
-        Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped);
+        Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped,
+        Gee.ArrayList<string> already_imported);
 
     public string get_name() {
         return name;
@@ -180,8 +185,11 @@ public class BatchImport {
         starting();
         
         success = new SortedList<LibraryPhoto>(new DateComparator());
-        failed = new Gee.ArrayList<string>();
+        if (failed == null)
+            failed = new Gee.ArrayList<string>();
         skipped = new Gee.ArrayList<string>();
+        if (already_imported == null)
+            already_imported = new Gee.ArrayList<string>();
         import_id = (new PhotoTable()).generate_import_id();
 
         foreach (BatchImportJob job in jobs) {
@@ -210,7 +218,7 @@ public class BatchImport {
             Event.generate_events(success);
         
         // report completed
-        import_complete(import_id, success, failed, skipped);
+        import_complete(import_id, success, failed, skipped, already_imported);
 
         // XXX: unref "this" ... vital that the self pointer is not touched from here on out
         ref_holder = null;
@@ -256,9 +264,13 @@ public class BatchImport {
             break;
 
             case ImportResult.NOT_A_FILE:
-            case ImportResult.PHOTO_EXISTS:
             case ImportResult.UNSUPPORTED_FORMAT:
                 skipped.add(id);
+                import_job_failed(result, job, file);
+            break;
+            
+            case ImportResult.PHOTO_EXISTS:
+                already_imported.add(id);
                 import_job_failed(result, job, file);
             break;
             
@@ -298,14 +310,51 @@ public class BatchImport {
             return ImportResult.USER_ABORT;
 
         import_file_count++;
+        
+        // test case (can be set with SHOTWELL_FAIL_EVERY environment variable)
         if (fail_every > 0) {
             if (import_file_count % fail_every == 0)
                 return ImportResult.FILE_ERROR;
         }
         
+        // test case (can be set with SHOTWELL_SKIP_EVERY environment variable)
         if (skip_every > 0) {
             if (import_file_count % skip_every == 0)
                 return ImportResult.NOT_A_FILE;
+        }
+        
+        // duplicate detection: If EXIF data present, look for a match with either EXIF itself
+        // or the thumbnail
+        PhotoExif photo_exif = new PhotoExif(file);
+        if (photo_exif.has_exif()) {
+            // get EXIF and thumbnail fingerprints
+            string exif_md5 = photo_exif.get_md5();
+            string thumbnail_md5 = photo_exif.get_thumbnail_md5();
+            
+            // look for matches
+            bool exif_matched = (exif_md5 != null) ? PhotoTable.get_instance().has_exif_md5(exif_md5) 
+                : false;
+            bool thumbnail_matched = (thumbnail_md5 != null) 
+                ? PhotoTable.get_instance().has_thumbnail_md5(exif_md5) : false;
+            
+            debug("MD5 of %s: EXIF=%s (%d) thumbnail=%s (%d)", file.get_path(), exif_md5, 
+                (int) exif_matched, thumbnail_md5, (int) thumbnail_matched);
+            
+            // either one will do
+            if (exif_matched || thumbnail_matched)
+                return ImportResult.PHOTO_EXISTS;
+        } else {
+            // if no EXIF data, then do full MD5 match
+            string full_md5 = null;
+            try {
+                full_md5 = md5_file(file);
+                debug("Full MD5 checksum of %s: %s", file.get_path(), full_md5);
+            } catch (Error err) {
+                warning("Unable to perform MD5 checksum on %s: %s", file.get_path(), err.message);
+            }
+            
+            if (full_md5 != null && PhotoTable.get_instance().has_full_md5(full_md5))
+                return ImportResult.PHOTO_EXISTS;
         }
         
         File import = file;

@@ -40,7 +40,7 @@ public class LibraryWindow : AppWindow {
         }
         
         public override string get_identifier() {
-            return file_or_dir.get_uri();
+            return file_or_dir.get_path();
         }
         
         public override bool prepare(out File file_to_import, out bool copy) {
@@ -326,23 +326,30 @@ public class LibraryWindow : AppWindow {
     }
     
     public static void report_import_failures(string name, Gee.List<string> failed, 
-        Gee.List<string> skipped) {
+        Gee.List<string> skipped, Gee.ArrayList<string> already_imported) {
         string failed_list = generate_import_failure_list(failed);
         string skipped_list = generate_import_failure_list(skipped);
+        string already_imported_list = generate_import_failure_list(already_imported);
         
-        if (failed_list == null && skipped_list == null)
+        if (failed_list == null && skipped_list == null && already_imported_list == null)
             return;
             
-        string message = _("Import from %s did not complete.\n").printf(name);
+        string message = _("Not all photos from %s were imported.\n").printf(name);
 
         if (failed_list != null) {
-            message += _("\n%d photos failed due to error:\n").printf(failed.size);
+            message += _("\n%d photo(s) failed due to error:\n").printf(failed.size);
             message += failed_list;
         }
         
         if (skipped_list != null) {
-            message += _("\n%d photos were skipped:\n").printf(skipped.size);
+            message += _("\n%d photo(s) were skipped:\n").printf(skipped.size);
             message += skipped_list;
+        }
+        
+        if (already_imported_list != null) {
+            message += _("\n%d photo(s) were skipped as they are already in the library:\n").printf(
+                already_imported.size);
+            message += already_imported_list;
         }
         
         error_message(message);

@@ -123,6 +123,15 @@ class ImportPreview : LayoutItem {
         Orientation orientation = Exif.get_orientation(source.get_exif());
         set_image(orientation.rotate_pixbuf(pixbuf));
     }
+    
+    public bool is_already_imported() {
+        ImportSource source = (ImportSource) get_source();
+        
+        bool exif_match = PhotoTable.get_instance().has_exif_md5(source.get_exif_md5());
+        bool thumbnail_match = PhotoTable.get_instance().has_thumbnail_md5(source.get_preview_md5());
+        
+        return exif_match || thumbnail_match;
+    }
 }
 
 public class ImportPage : CheckerboardPage {
@@ -733,13 +742,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private bool show_unimported_filter(DataView view) {
-        ImportPreview preview = (ImportPreview) view;
-        ImportSource source = (ImportSource) preview.get_source();
-        
-        bool exif_match = PhotoTable.get_instance().has_exif_md5(source.get_exif_md5());
-        bool thumbnail_match = PhotoTable.get_instance().has_thumbnail_md5(source.get_preview_md5());
-        
-        return !(exif_match || thumbnail_match);
+        return !((ImportPreview) view).is_already_imported();
     }
     
     private void on_hide_imported() {
@@ -778,20 +781,29 @@ public class ImportPage : CheckerboardPage {
         import_all_button.sensitive = false;
         progress_bar.visible = false;
 
-        int failed = 0;
         uint64 total_bytes = 0;
         SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(new CameraImportComparator());
+        Gee.ArrayList<string> already_imported = new Gee.ArrayList<string>();
+        Gee.ArrayList<string> failed = new Gee.ArrayList<string>();
         
         foreach (DataObject object in items) {
             ImportPreview preview = (ImportPreview) object;
             ImportSource import_file = (ImportSource) preview.get_source();
+            
+            if (preview.is_already_imported()) {
+                message("Skipping import of %s: checksum detected in library", 
+                    import_file.get_filename());
+                already_imported.add(import_file.get_filename());
+                
+                continue;
+            }
             
             bool collision;
             File dest_file = BatchImport.create_library_path(import_file.get_filename(), 
                 import_file.get_exif(), time_t(), out collision);
             if (dest_file == null) {
                 message("Unable to generate local file for %s", import_file.get_filename());
-                failed++;
+                failed.add(import_file.get_filename());
                 
                 continue;
             }
@@ -799,25 +811,21 @@ public class ImportPage : CheckerboardPage {
             jobs.add(new CameraImportJob(null_context, import_file, dest_file));
             total_bytes += import_file.get_filesize();
         }
-
-        if (failed > 0) {
-            string error_message;
-            if (failed == 1)
-                error_message = _("Unable to import a photo from the camera due to a fatal error.");
-            else
-                error_message = _("Unable to import %d photos from the camera due to a fatal error.").printf(failed);
-
-            AppWindow.error_message(error_message);
-        }
         
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs, camera_name, total_bytes);
+            BatchImport batch_import = new BatchImport(jobs, camera_name, total_bytes, failed,
+                already_imported);
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.import_complete += close_import;
             LibraryWindow.get_app().enqueue_batch_import(batch_import);
             LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
         } else {
+            if (failed.size > 0 || already_imported.size > 0) {
+                LibraryWindow.report_import_failures(camera_name, failed, new Gee.ArrayList<string>(),
+                    already_imported);
+            }
+            
             close_import();
         }
     }
@@ -971,7 +979,8 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_import_complete(BatchImport batch_import, ImportID import_id, 
-        SortedList<LibraryPhoto> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped) {
+        SortedList<LibraryPhoto> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped,
+        Gee.ArrayList<string> already_imported) {
         assert(batch_import == current_batch);
         current_batch = null;
         
@@ -980,9 +989,12 @@ public class ImportQueuePage : SinglePhotoPage {
         
         bool removed = queue.remove(batch_import);
         assert(removed);
+        assert(!queue.contains(batch_import));
         
-        if (failed.size > 0 || skipped.size > 0)
-            LibraryWindow.report_import_failures(batch_import.get_name(), failed, skipped);
+        if (failed.size > 0 || skipped.size > 0 || already_imported.size > 0) {
+            LibraryWindow.report_import_failures(batch_import.get_name(), failed, skipped, 
+                already_imported);
+        }
         
         batch_removed(batch_import);
         

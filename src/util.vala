@@ -58,6 +58,28 @@ public string md5_binary(uint8 *buffer, size_t length) {
     return md5.get_string();
 }
 
+public string md5_file(File file) throws Error {
+    Checksum md5 = new Checksum(ChecksumType.MD5);
+    uint8[] buffer = new uint8[64 * 1024];
+    
+    FileInputStream fins = file.read(null);
+    for (;;) {
+        size_t bytes_read = fins.read(buffer, buffer.length, null);
+        if (bytes_read <= 0)
+            break;
+        
+        md5.update((uchar[]) buffer, bytes_read);
+    }
+    
+    try {
+        fins.close(null);
+    } catch (Error err) {
+        warning("Unable to close MD5 input stream for %s: %s", file.get_path(), err.message);
+    }
+    
+    return md5.get_string();
+}
+
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,
