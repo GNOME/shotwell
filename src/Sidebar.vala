@@ -300,10 +300,8 @@ public class Sidebar : Gtk.TreeView {
             context_menu = get_context_menu(event);
             if (context_menu == null)
                 return false;
-        
-            context_menu.popup(null, null, null, event.button, event.time);
 
-             return false;
+            context_menu.popup(null, null, null, event.button, event.time);
         }
 
         return base.button_press_event(event);

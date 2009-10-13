@@ -388,12 +388,13 @@ public class ImportPage : CheckerboardPage {
                 
                 if (mount != null) {
                     // it's mounted, offer to unmount for the user
-                    string mounted_message = _("The camera is locked for use as a mounted drive.  Shotwell can only access the camera when it's unlocked.  Do you want Shotwell to unmount it for you?");
+                    string mounted_message = _("Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?");
 
                     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), 
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
-                        Gtk.ButtonsType.YES_NO, "%s", mounted_message);
+                        Gtk.ButtonsType.CANCEL, "%s", mounted_message);
                     dialog.title = Resources.APP_TITLE;
+                    dialog.add_button(_("Unmount"), Gtk.ResponseType.YES);
                     int dialog_res = dialog.run();
                     dialog.destroy();
                     

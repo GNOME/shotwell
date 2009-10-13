@@ -483,7 +483,8 @@ public abstract class CheckerboardPage : Page {
     private Gtk.Menu item_context_menu = null;
     private Gtk.Menu page_context_menu = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    private LayoutItem last_selected_item = null;
+    protected LayoutItem anchor = null;
+    protected LayoutItem cursor = null;
     private LayoutItem highlighted = null;
 
     // for drag selection
@@ -581,21 +582,25 @@ public abstract class CheckerboardPage : Page {
             case "Up":
             case "KP_Up":
                 move_cursor(CompassPoint.NORTH);
+                select_anchor_to_cursor(state);
             break;
             
             case "Down":
             case "KP_Down":
                 move_cursor(CompassPoint.SOUTH);
+                select_anchor_to_cursor(state);
             break;
             
             case "Left":
             case "KP_Left":
                 move_cursor(CompassPoint.WEST);
+                select_anchor_to_cursor(state);
             break;
             
             case "Right":
             case "KP_Right":
                 move_cursor(CompassPoint.EAST);
+                select_anchor_to_cursor(state);
             break;
             
             case "Home":
@@ -603,7 +608,7 @@ public abstract class CheckerboardPage : Page {
                 LayoutItem? first = (LayoutItem?) get_view().get_first();
                 if (first != null)
                     cursor_to_item(first);
-                select_to_item(state, first);
+                select_anchor_to_cursor(state);
             break;
             
             case "End":
@@ -611,7 +616,7 @@ public abstract class CheckerboardPage : Page {
                 LayoutItem? last = (LayoutItem?) get_view().get_last();
                 if (last != null)
                     cursor_to_item(last);
-                select_to_item(state, last);
+                select_anchor_to_cursor(state);
             break;
             
             case "Return":
@@ -652,13 +657,16 @@ public abstract class CheckerboardPage : Page {
                     Marker marker = get_view().mark(item);
                     get_view().toggle_marked(marker);
 
-                    if (item.is_selected())
-                        last_selected_item = item;
+                    if (item.is_selected()) {
+                        anchor = item;
+                        cursor = item;
+                    }
                 break;
                 
                 case Gdk.ModifierType.SHIFT_MASK:
                     get_view().unselect_all();
-                    select_between_items(last_selected_item, item);
+                    select_between_items(anchor, item);
+                    cursor = item;
                 break;
                 
                 case Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK:
@@ -679,7 +687,8 @@ public abstract class CheckerboardPage : Page {
                         get_view().select_marked(marker);
                     }
 
-                    last_selected_item = item;
+                    anchor = item;
+                    cursor = item;
                 break;
             }
         } else {
@@ -705,6 +714,7 @@ public abstract class CheckerboardPage : Page {
         if (drag_select) {
             drag_select = false;
             layout.clear_drag_select();
+            anchor = cursor;
 
             return true;
         }
@@ -719,7 +729,7 @@ public abstract class CheckerboardPage : Page {
             return true;
         }
 
-        if (last_selected_item != item) {
+        if (cursor != item) {
             // user released mouse button after moving it off the initial item, or moved from dead
             // space onto one.  either way, unselect everything
             get_view().unselect_all();
@@ -853,10 +863,14 @@ public abstract class CheckerboardPage : Page {
         
         get_view().unselect_marked(marker);
         
-        // select everything in the intersection
+        // select everything in the intersection and update the cursor
         marker = get_view().start_marking();
-        foreach (LayoutItem item in intersection)
+        cursor = null;
+        foreach (LayoutItem item in intersection) {
             marker.mark(item);
+            if (cursor == null)
+                cursor = item;
+        }
         
         get_view().select_marked(marker);
     }
@@ -908,6 +922,8 @@ public abstract class CheckerboardPage : Page {
     
     public void cursor_to_item(LayoutItem item) {
         assert(get_view().contains(item));
+
+        cursor = item;
         
         get_view().unselect_all();
         
@@ -939,42 +955,18 @@ public abstract class CheckerboardPage : Page {
             return;
             
         // if nothing is selected, simply select the first and exit
-        if (get_view().get_selected_count() == 0) {
+        if (get_view().get_selected_count() == 0 || cursor == null) {
             LayoutItem item = layout.get_item_at_coordinate(0, 0);
             cursor_to_item(item);
-            last_selected_item = item;
-            
-            return;
-        }
-        
-        // find the "first" selected item, which for now is the topmost, leftmost item in the layout
-        // TODO: Revisit if this is the right choice.
-        int first_col = int.MAX;
-        int first_row = int.MAX;
-        foreach (DataView view in get_view().get_selected()) {
-            LayoutItem selected = (LayoutItem) view;
+            anchor = item;
 
-            first_col = int.min(selected.get_column(), first_col);
-            first_row = int.min(selected.get_row(), first_row);
-        }
-        
-        LayoutItem item = layout.get_item_at_coordinate(first_col, first_row);
-        assert(item != null);
-        
-        // if more than one selected, select the first without moving, to not surprise the user
-        if (get_view().get_selected_count() > 1) {
-            cursor_to_item(item);
-            last_selected_item = item;
-            
             return;
         }
-        
+               
         // move the cursor relative to the "first" item
-        item = layout.get_item_relative_to(item, point);
-        if (item != null) {
+        LayoutItem? item = layout.get_item_relative_to(cursor, point);
+        if (item != null)
             cursor_to_item(item);
-            last_selected_item = item;
-        }
    }
 
     public void select_between_items(LayoutItem item_start, LayoutItem item_end) {
@@ -1002,15 +994,15 @@ public abstract class CheckerboardPage : Page {
         get_view().select_marked(marker);
     }
 
-    public void select_to_item(uint state, LayoutItem item) {
-        if (item == null)
+    public void select_anchor_to_cursor(uint state) {
+        if (cursor == null || anchor == null)
             return;
 
         if (state == Gdk.ModifierType.SHIFT_MASK) {
             get_view().unselect_all();
-            select_between_items(last_selected_item, item);
+            select_between_items(anchor, cursor);
         } else {
-            last_selected_item = item;
+            anchor = cursor;
         }
     }
 }

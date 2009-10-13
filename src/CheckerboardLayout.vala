@@ -635,13 +635,25 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             break;
             
             case CompassPoint.EAST:
-                if (++col >= columns)
-                    col = columns - 1;
+                if (++col >= columns) {
+                    if(++row >= rows) {
+                        row = rows - 1;
+                        col = columns - 1;
+                    } else {
+                        col = 0;
+                    }
+                }
             break;
             
             case CompassPoint.WEST:
-                if (--col < 0)
-                    col = 0;
+                if (--col < 0) {
+                    if (--row < 0) {
+                        row = 0;
+                        col = 0;
+                    } else {
+                        col = columns - 1;
+                    }
+                }
             break;
             
             default:
