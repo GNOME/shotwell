@@ -18,9 +18,6 @@ public abstract class EditingToolWindow : Gtk.Window {
 
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
         set_transient_for(container);
-        unset_flags(Gtk.WidgetFlags.CAN_FOCUS);
-        set_accept_focus(false);
-        set_focus_on_map(false);
 
         Gtk.Frame outer_frame = new Gtk.Frame(null);
         outer_frame.set_border_width(0);
@@ -32,7 +29,10 @@ public abstract class EditingToolWindow : Gtk.Window {
         outer_frame.add(layout_frame);
         base.add(outer_frame);
 
-        add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK);
+        add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
+        focus_on_map = true;
+        set_accept_focus(true);
+        set_flags(Gtk.WidgetFlags.CAN_FOCUS);
     }
     
     public override void add(Gtk.Widget widget) {
@@ -58,23 +58,6 @@ public abstract class EditingToolWindow : Gtk.Window {
         set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();
-    }
-    
-    // This is necessary because some window managers (Metacity appears to be guilty of it) seem to
-    // ignore the set_focus_on_map flag, and give the toolbar focus when it appears on the screen.
-    // Thereafter, thanks to set_accept_focus, the toolbar will never accept it.  Because changing
-    // focus inside of a focus signal is problematic, if the toolbar ever does receive
-    // focus, it schedules a task to give it back to its owner.
-    private override bool focus(Gtk.DirectionType direction) {
-        Idle.add_full(Priority.HIGH, unsteal_focus);
-        
-        return true;
-    }
-    
-    private bool unsteal_focus() {
-        container.present_with_time(Gdk.CURRENT_TIME);
-        
-        return false;
     }
 }
 
@@ -341,7 +324,9 @@ public abstract class EditingTool {
         assert(this.canvas == null);
         
         this.canvas = canvas;
-        
+
+        get_tool_window().key_press_event += on_keypress;
+
         activated();
     }
 
@@ -409,20 +394,72 @@ public class CropTool : EditingTool {
     private const double CROP_INIT_X_PCT = 0.15;
     private const double CROP_INIT_Y_PCT = 0.15;
 
-    private const int CROP_MIN_WIDTH = 100;
-    private const int CROP_MIN_HEIGHT = 100;
+    private const int CROP_MIN_SIZE = 100;
 
     private const float CROP_EXTERIOR_SATURATION = 0.00f;
     private const int CROP_EXTERIOR_RED_SHIFT = -32;
     private const int CROP_EXTERIOR_GREEN_SHIFT = -32;
     private const int CROP_EXTERIOR_BLUE_SHIFT = -32;
     private const int CROP_EXTERIOR_ALPHA_SHIFT = 0;
+
+    private const float ANY_ASPECT_RATIO = -1.0f;
+    private const float SCREEN_ASPECT_RATIO = -2.0f;
+    private const float ORIGINAL_ASPECT_RATIO = -3.0f;
+    private const float CUSTOM_ASPECT_RATIO = -4.0f;
+    private const float COMPUTE_FROM_BASIS = -5.0f;
+    private const float SEPARATOR = -6.0f;
+    private const float MIN_ASPECT_RATIO = 1.0f / 4.0f;
+    private const float MAX_ASPECT_RATIO = 4.0f;
     
+    private struct ConstraintDescription {
+        public string name;
+        public int basis_width;
+        public int basis_height;
+        public bool is_pivotable;
+        public float aspect_ratio;
+        
+        public ConstraintDescription(string new_name, int new_basis_width, int new_basis_height,
+            bool new_pivotable, float new_aspect_ratio = COMPUTE_FROM_BASIS) {
+            name = new_name;
+            basis_width = new_basis_width;
+            basis_height = new_basis_height;
+            if (new_aspect_ratio == COMPUTE_FROM_BASIS)
+                aspect_ratio = ((float) basis_width) / ((float) basis_height);
+            else
+                aspect_ratio = new_aspect_ratio;
+            is_pivotable = new_pivotable;
+        }
+    }
+    
+    private enum ReticleOrientation {
+        LANDSCAPE,
+        PORTRAIT;
+        
+        public ReticleOrientation toggle() {
+            return (this == ReticleOrientation.LANDSCAPE) ? ReticleOrientation.PORTRAIT :
+                ReticleOrientation.LANDSCAPE;
+        }
+    }
+    
+    private enum ConstraintMode {
+        NORMAL,
+        CUSTOM
+    }
+
     private class CropToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
         
         public Gtk.Button apply_button = new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+        public Gtk.ComboBox constraint_combo;
+        public Gtk.Button pivot_reticle_button = new Gtk.Button();
+        public Gtk.Entry custom_width_entry = new Gtk.Entry();
+        public Gtk.Entry custom_height_entry = new Gtk.Entry();
+        public Gtk.Label custom_mulsign_label = new Gtk.Label.with_mnemonic("x");
+        public Gtk.Entry most_recently_edited = null;
+        public Gtk.HBox layout = null;
+        public int normal_width = -1;
+        public int normal_height = -1;
 
         public CropToolWindow(Gtk.Window container, CropTool tool) {
             base(container, tool);
@@ -432,12 +469,41 @@ public class CropTool : EditingTool {
             
             apply_button.set_tooltip_text(_("Set the crop for this photo"));
             apply_button.set_image_position(Gtk.PositionType.LEFT);
+            
+            constraint_combo = new Gtk.ComboBox();
+            Gtk.CellRendererText combo_text_renderer = new Gtk.CellRendererText();
+            constraint_combo.pack_start(combo_text_renderer, true);
+            constraint_combo.add_attribute(combo_text_renderer, "text", 0);
+            constraint_combo.set_row_separator_func(constraint_combo_separator_func,
+                constraint_combo_destroy_func);
+            constraint_combo.set_active(0);
+            
+            pivot_reticle_button.set_image(new Gtk.Image.from_stock(Resources.CROP_PIVOT_RETICLE,
+                Gtk.IconSize.LARGE_TOOLBAR));
+            pivot_reticle_button.set_tooltip_text(_("Pivot the crop rectangle between portrait and landscape orientations"));
 
-            Gtk.HBox layout = new Gtk.HBox(false, CONTROL_SPACING);
+            custom_width_entry.set_width_chars(4);
+            custom_width_entry.editable = true;
+            custom_height_entry.set_width_chars(4);
+            custom_height_entry.editable = true;
+
+            layout = new Gtk.HBox(false, CONTROL_SPACING);
+            layout.add(constraint_combo);
+            layout.add(pivot_reticle_button);
             layout.add(cancel_button);
             layout.add(apply_button);
             
             add(layout);
+        }
+
+        private static bool constraint_combo_separator_func(Gtk.TreeModel model, Gtk.TreeIter iter) {
+            Value val;
+            model.get_value(iter, 0, out val);
+
+            return (val.dup_string() == "-");
+        }
+
+        private static void constraint_combo_destroy_func() {
         }
     }
 
@@ -454,13 +520,381 @@ public class CropTool : EditingTool {
     private int last_grab_x = -1;
     private int last_grab_y = -1;
     
+    private ConstraintDescription[] constraints = create_constraints();
+    private Gtk.ListStore constraint_list = create_constraint_list(create_constraints());
+    private ReticleOrientation reticle_orientation = ReticleOrientation.LANDSCAPE;
+    private ConstraintMode constraint_mode = ConstraintMode.NORMAL;
+    private bool entry_insert_in_progress = false;
+    private float custom_aspect_ratio = 1.0f;
+    private int custom_width = -1;
+    private int custom_height = -1;
+    private int custom_init_width = -1;
+    private int custom_init_height = -1;
+    private float pre_aspect_ratio = ANY_ASPECT_RATIO;
+    
     private CropTool() {
     }
     
     public static CropTool factory() {
         return new CropTool();
     }
+
+    private static ConstraintDescription[] create_constraints() {
+        ConstraintDescription[] result = new ConstraintDescription[0];
+
+        result += ConstraintDescription(_("Unconstrained"), 0, 0, false, ANY_ASPECT_RATIO);
+        result += ConstraintDescription(_("Square"), 1, 1, false);
+        result += ConstraintDescription(_("Screen"), 0, 0, false, SCREEN_ASPECT_RATIO);
+        result += ConstraintDescription(_("Original Size"), 0, 0, false, ORIGINAL_ASPECT_RATIO);
+        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += ConstraintDescription(_("SD Video (4 : 3)"), 4, 3, false);
+        result += ConstraintDescription(_("HD Video (16 : 9)"), 16, 9, false);
+        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += ConstraintDescription(_("Wallet (2 x 3 in.)"), 3, 2, true);
+        result += ConstraintDescription(_("Notecard (3 x 5 in.)"), 5, 3, true);
+        result += ConstraintDescription(_("4 x 6 in."), 6, 4, true);
+        result += ConstraintDescription(_("5 x 7 in."), 7, 5, true);
+        result += ConstraintDescription(_("8 x 10 in."), 10, 8, true);
+        result += ConstraintDescription(_("11 x 14 in."), 14, 11, true);
+        result += ConstraintDescription(_("16 x 20 in."), 20, 16, true);
+        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += ConstraintDescription(_("Metric Wallet (9 x 13 cm.)"), 13, 9, true);
+        result += ConstraintDescription(_("Postcard (10 x 15 cm.)"), 15, 10, true);
+        result += ConstraintDescription(_("13 x 18 cm."), 18, 13, true);
+        result += ConstraintDescription(_("18 x 24 cm."), 24, 18, true);
+        result += ConstraintDescription(_("20 x 30 cm."), 30, 20, true);
+        result += ConstraintDescription(_("24 x 40 cm."), 40, 24, true);
+        result += ConstraintDescription(_("30 x 40 cm."), 40, 30, true);
+        result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
+        result += ConstraintDescription(_("Custom"), 0, 0, true, CUSTOM_ASPECT_RATIO);
+
+        return result;
+    }
     
+    private static Gtk.ListStore create_constraint_list(ConstraintDescription[] constraint_data) {
+        Gtk.ListStore result = new Gtk.ListStore(1, typeof(string), typeof(string));
+
+        Gtk.TreeIter iter;
+        foreach (ConstraintDescription constraint in constraint_data) {
+            result.append(out iter);
+            result.set_value(iter, 0, constraint.name);
+        }
+
+        return result;
+    }
+    
+    private void update_pivot_button_state() {
+        crop_tool_window.pivot_reticle_button.set_sensitive(
+            get_selected_constraint().is_pivotable);
+    }
+
+    private ConstraintDescription get_selected_constraint() {
+        ConstraintDescription result = constraints[crop_tool_window.constraint_combo.get_active()];
+
+        if (result.aspect_ratio == ORIGINAL_ASPECT_RATIO) {
+            result.basis_width = canvas.get_scaled_pixbuf().width;
+            result.basis_height = canvas.get_scaled_pixbuf().height;
+        } else if (result.aspect_ratio == SCREEN_ASPECT_RATIO) {
+            Gdk.Screen screen = Gdk.Screen.get_default();
+            result.basis_width = screen.get_width();
+            result.basis_height = screen.get_height();
+        }
+
+        return result;
+    }
+    
+    private bool on_width_entry_focus_out(Gdk.EventFocus event) {
+        crop_tool_window.most_recently_edited = crop_tool_window.custom_width_entry;
+        return on_custom_entry_focus_out(event);
+    }
+    
+    private bool on_height_entry_focus_out(Gdk.EventFocus event) {
+        crop_tool_window.most_recently_edited = crop_tool_window.custom_height_entry;
+        return on_custom_entry_focus_out(event);
+    }
+    
+    private bool on_custom_entry_focus_out(Gdk.EventFocus event) {
+        int width = crop_tool_window.custom_width_entry.text.to_int();
+        int height = crop_tool_window.custom_height_entry.text.to_int();
+        
+        if ((width == custom_width) && (height == custom_height))
+            return false;
+
+        custom_aspect_ratio = ((float) width) / ((float) height);
+        
+        if (custom_aspect_ratio < MIN_ASPECT_RATIO) {
+            if (crop_tool_window.most_recently_edited == crop_tool_window.custom_height_entry) {
+                height = (int) (width / MIN_ASPECT_RATIO);
+                crop_tool_window.custom_height_entry.set_text("%d".printf(height));
+            } else {
+                width = (int) (height * MIN_ASPECT_RATIO);
+                crop_tool_window.custom_width_entry.set_text("%d".printf(width));
+            }
+        } else if (custom_aspect_ratio > MAX_ASPECT_RATIO) {
+            if (crop_tool_window.most_recently_edited == crop_tool_window.custom_height_entry) {
+                height = (int) (width / MAX_ASPECT_RATIO);
+                crop_tool_window.custom_height_entry.set_text("%d".printf(height));
+            } else {
+                width = (int) (height * MAX_ASPECT_RATIO);
+                crop_tool_window.custom_width_entry.set_text("%d".printf(width));
+            }
+        }
+
+        custom_aspect_ratio = ((float) width) / ((float) height);
+
+        Box new_crop = constrain_crop(scaled_crop);
+        
+        crop_resized(new_crop);
+        scaled_crop = new_crop;
+        canvas.invalidate_area(new_crop);
+        canvas.repaint();
+
+        custom_width = width;
+        custom_height = height;
+
+        return false;
+    }
+
+    private void on_width_insert_text(string text, int length, void *position) {
+        on_entry_insert_text(crop_tool_window.custom_width_entry, text, length, position);
+    }
+
+    private void on_height_insert_text(string text, int length, void *position) {
+        on_entry_insert_text(crop_tool_window.custom_height_entry, text, length, position);
+    }
+
+    private void on_entry_insert_text(Gtk.Entry sender, string text, int length, void *position) {
+        if (entry_insert_in_progress)
+            return;
+            
+        entry_insert_in_progress = true;
+        
+        if (length == -1)
+            length = (int) text.length;
+
+        // only permit numeric text
+        string new_text = "";
+        for (int ctr = 0; ctr < length; ctr++) {
+            if (text[ctr].isdigit()) {
+                new_text += ((char) text[ctr]).to_string();
+            }
+        }
+        
+        if (new_text.length > 0)
+            sender.insert_text(new_text, (int) new_text.length, position);
+
+        Signal.stop_emission_by_name(sender, "insert-text");
+        
+        entry_insert_in_progress = false;
+    }
+    
+    private float get_constraint_aspect_ratio() {
+        float result = get_selected_constraint().aspect_ratio;
+
+        if (result == ORIGINAL_ASPECT_RATIO) {
+            result = ((float) canvas.get_scaled_pixbuf().width) /
+                ((float) canvas.get_scaled_pixbuf().height);
+        } else if (result == SCREEN_ASPECT_RATIO) {
+            Gdk.Screen screen = Gdk.Screen.get_default();
+            result = ((float) screen.get_width()) / ((float) screen.get_height());
+        } else if (result == CUSTOM_ASPECT_RATIO) {
+            result = custom_aspect_ratio;
+        }
+        if (reticle_orientation == ReticleOrientation.PORTRAIT)
+            result = 1.0f / result;
+
+        return result;
+    }
+    
+    private void constraint_changed() {
+        ConstraintDescription selected_constraint = get_selected_constraint();
+        if (selected_constraint.aspect_ratio == CUSTOM_ASPECT_RATIO) {
+            set_custom_constraint_mode();
+        } else {
+            set_normal_constraint_mode();
+
+            if (selected_constraint.aspect_ratio != ANY_ASPECT_RATIO) {
+                custom_init_width = selected_constraint.basis_width;
+                custom_init_height = selected_constraint.basis_height;
+                custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
+            }
+        }
+        
+        update_pivot_button_state();
+
+        if (!get_selected_constraint().is_pivotable)
+            reticle_orientation = ReticleOrientation.LANDSCAPE;
+
+        if (get_constraint_aspect_ratio() != pre_aspect_ratio) {
+            Box new_crop = constrain_crop(scaled_crop);
+            
+            crop_resized(new_crop);
+            scaled_crop = new_crop;
+            canvas.invalidate_area(new_crop);
+            canvas.repaint();
+            
+            pre_aspect_ratio = get_constraint_aspect_ratio();
+        }
+    }
+    
+    private void set_custom_constraint_mode() {
+        if (constraint_mode == ConstraintMode.CUSTOM)
+            return;
+        
+        if ((crop_tool_window.normal_width == -1) || (crop_tool_window.normal_height == -1))
+            crop_tool_window.get_size(out crop_tool_window.normal_width,
+                out crop_tool_window.normal_height);
+
+        int window_x_pos = 0;
+        int window_y_pos = 0;
+        crop_tool_window.get_position(out window_x_pos, out window_y_pos);
+
+        crop_tool_window.hide();
+
+        crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
+        crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
+        crop_tool_window.layout.remove(crop_tool_window.cancel_button);
+        crop_tool_window.layout.remove(crop_tool_window.apply_button);
+
+        crop_tool_window.layout.add(crop_tool_window.constraint_combo);
+        crop_tool_window.layout.add(crop_tool_window.custom_height_entry);
+        crop_tool_window.layout.add(crop_tool_window.custom_mulsign_label);
+        crop_tool_window.layout.add(crop_tool_window.custom_width_entry);
+        crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
+        crop_tool_window.layout.add(crop_tool_window.cancel_button);
+        crop_tool_window.layout.add(crop_tool_window.apply_button);
+        
+        if (reticle_orientation == ReticleOrientation.LANDSCAPE) {
+            crop_tool_window.custom_width_entry.set_text("%d".printf(custom_init_width));
+            crop_tool_window.custom_height_entry.set_text("%d".printf(custom_init_height));
+        } else {
+            crop_tool_window.custom_width_entry.set_text("%d".printf(custom_init_height));
+            crop_tool_window.custom_height_entry.set_text("%d".printf(custom_init_width));
+        }
+        custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
+
+        crop_tool_window.move(window_x_pos, window_y_pos);
+        crop_tool_window.show_all();
+        
+        constraint_mode = ConstraintMode.CUSTOM;
+    }
+    
+    private void set_normal_constraint_mode() {
+        if (constraint_mode == ConstraintMode.NORMAL)
+            return;
+
+        int window_x_pos = 0;
+        int window_y_pos = 0;
+        crop_tool_window.get_position(out window_x_pos, out window_y_pos);
+
+        crop_tool_window.hide();
+
+        crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
+        crop_tool_window.layout.remove(crop_tool_window.custom_width_entry);
+        crop_tool_window.layout.remove(crop_tool_window.custom_mulsign_label);
+        crop_tool_window.layout.remove(crop_tool_window.custom_height_entry);
+        crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
+        crop_tool_window.layout.remove(crop_tool_window.cancel_button);
+        crop_tool_window.layout.remove(crop_tool_window.apply_button);
+
+        crop_tool_window.layout.add(crop_tool_window.constraint_combo);
+        crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
+        crop_tool_window.layout.add(crop_tool_window.cancel_button);
+        crop_tool_window.layout.add(crop_tool_window.apply_button);
+
+        crop_tool_window.resize(crop_tool_window.normal_width,
+            crop_tool_window.normal_height);
+
+        crop_tool_window.move(window_x_pos, window_y_pos);
+        crop_tool_window.show_all();
+
+        constraint_mode = ConstraintMode.NORMAL;
+    }
+    
+    private Box constrain_crop(Box crop) {
+        float user_aspect_ratio = get_constraint_aspect_ratio();
+        if (user_aspect_ratio == ANY_ASPECT_RATIO)
+            return crop;
+
+        float scaled_width = (float) crop.get_width();
+        float scaled_height = (float) crop.get_height();
+        float scaled_center_x = ((float) crop.left) + (scaled_width / 2.0f);
+        float scaled_center_y = ((float) crop.top) + (scaled_height / 2.0f);
+        float scaled_aspect_ratio = scaled_width / scaled_height;
+
+        // Crop positioning in the presence of constraint is a three-phase process
+
+        // PHASE 1: Naively rescale the width and the height of the box so that it has the
+        //          user-specified aspect ratio. Even in this initial transformation, the
+        //          box's center and minor axis length are preserved. Preserving the center
+        //          is especially important since this way the subject that the user has framed
+        //          within the crop reticle is preserved.
+        if (scaled_aspect_ratio > 1.0f)
+            scaled_width = scaled_height;
+        else
+            scaled_height = scaled_width;
+        scaled_width *= user_aspect_ratio;
+
+        // PHASE 2: Now that the box has the correct aspect ratio, grow it or shrink it such
+        //          that it has the same area that it had prior to constraint. This prevents
+        //          the box from growing or shrinking erratically as constraints are set and
+        //          unset.
+        float old_area = (float) (crop.get_width() * crop.get_height());
+        float new_area = scaled_width * scaled_height;
+        float area_correct_factor = (float) Math.sqrt(old_area / new_area);
+        scaled_width *= area_correct_factor;
+        scaled_height *= area_correct_factor;
+
+        // PHASE 3: The new crop box may have edges that fall outside of the boundaries of
+        //          the photo. Here, we rescale it such that it fits within the boundaries
+        //          of the photo. Note that we prefer scaling to translation (as does iPhoto)
+        //          because scaling preserves the center point of the box, so if the user
+        //          has framed a particular subject, the frame remains on the subject after
+        //          boundary correction.
+        int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
+        int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
+
+        int new_box_left = (int) ((scaled_center_x - (scaled_width / 2.0f)));
+        int new_box_right = (int) ((scaled_center_x + (scaled_width / 2.0f)));
+        int new_box_top = (int) ((scaled_center_y - (scaled_height / 2.0f)));
+        int new_box_bottom = (int) ((scaled_center_y + (scaled_height / 2.0f)));
+        
+        if (new_box_left < 0) {
+            float overshoot = (float) (-new_box_left);
+            float box_rescale_factor = (scaled_width - (2.0f * overshoot)) / scaled_width;
+            scaled_width *= box_rescale_factor;
+            scaled_height *= box_rescale_factor;
+        }
+
+        if (new_box_right > photo_right_edge) {
+            float overshoot = (float) (new_box_right - photo_right_edge);
+            float box_rescale_factor = (scaled_width - (2.0f * overshoot)) / scaled_width;
+            scaled_width *= box_rescale_factor;
+            scaled_height *= box_rescale_factor;
+        }
+
+        if (new_box_top < 0) {
+            float overshoot = (float) (-new_box_top);
+            float box_rescale_factor = (scaled_height - (2.0f * overshoot)) / scaled_height;
+            scaled_width *= box_rescale_factor;
+            scaled_height *= box_rescale_factor;
+        }
+
+        if (new_box_bottom > photo_bottom_edge) {
+            float overshoot = (float) (new_box_bottom - photo_bottom_edge);
+            float box_rescale_factor = (scaled_height - (2.0f * overshoot)) / scaled_height;
+            scaled_width *= box_rescale_factor;
+            scaled_height *= box_rescale_factor;
+        }
+
+        Box new_crop_box = Box((int) ((scaled_center_x - (scaled_width / 2.0f))),
+            (int) ((scaled_center_y - (scaled_height / 2.0f))),
+            (int) ((scaled_center_x + (scaled_width / 2.0f))),
+            (int) ((scaled_center_y + (scaled_height / 2.0f))));
+        
+        return new_crop_box;
+    }
+
     public override void activate(PhotoCanvas canvas) {
         canvas.new_drawable += prepare_gc;
         canvas.resized_scaled_pixbuf += on_resized_pixbuf;
@@ -473,6 +907,21 @@ public class CropTool : EditingTool {
         crop_tool_window.apply_button.clicked += on_crop_apply;
         crop_tool_window.cancel_button.clicked += notify_cancel;
         
+        // set up the constraint combo box
+        crop_tool_window.constraint_combo.set_model(constraint_list);
+        crop_tool_window.constraint_combo.changed += constraint_changed;
+
+        // set up the pivot reticle button
+        update_pivot_button_state();
+        reticle_orientation = ReticleOrientation.LANDSCAPE;
+        crop_tool_window.pivot_reticle_button.clicked += on_pivot_button_clicked;
+
+        // set up the custom width and height entry boxes
+        crop_tool_window.custom_width_entry.focus_out_event += on_width_entry_focus_out;
+        crop_tool_window.custom_height_entry.focus_out_event += on_height_entry_focus_out;
+        crop_tool_window.custom_width_entry.insert_text += on_width_insert_text;
+        crop_tool_window.custom_height_entry.insert_text += on_height_insert_text;
+
         // obtain crop dimensions and paint against the uncropped photo
         Dimensions uncropped_dim = canvas.get_photo().get_uncropped_dimensions();
 
@@ -491,9 +940,30 @@ public class CropTool : EditingTool {
         scaled_crop = crop.get_scaled_similar(uncropped_dim, 
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()));
         
+        custom_init_width = scaled_crop.get_width();
+        custom_init_height = scaled_crop.get_height();
+        pre_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
+        
+        constraint_mode = ConstraintMode.NORMAL;
+
         base.activate(canvas);
     }
     
+    private void on_pivot_button_clicked() {
+        if (get_selected_constraint().aspect_ratio == CUSTOM_ASPECT_RATIO) {
+            string width_text = crop_tool_window.custom_width_entry.get_text();
+            string height_text = crop_tool_window.custom_height_entry.get_text();
+            crop_tool_window.custom_width_entry.set_text(height_text);
+            crop_tool_window.custom_height_entry.set_text(width_text);
+
+            int temp = custom_width;
+            custom_width = custom_height;
+            custom_height = temp;
+        }
+        reticle_orientation = reticle_orientation.toggle();
+        constraint_changed();
+    }
+   
     public override void deactivate() {
         if (crop_tool_window != null) {
             crop_tool_window.hide();
@@ -515,7 +985,7 @@ public class CropTool : EditingTool {
         // is used
         return photo.has_crop() ? photo.get_pixbuf_with_exceptions(scaling, TransformablePhoto.Exception.CROP) : null;
     }
-    
+ 
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
         Gdk.GCValues gc_values = Gdk.GCValues();
         gc_values.foreground = fetch_color("#000", drawable);
@@ -635,7 +1105,7 @@ public class CropTool : EditingTool {
         // should be fetched
         applied(cropped, true);
     }
-    
+
     private void update_cursor(int x, int y) {
         // scaled_crop is not maintained relative to photo's position on canvas
         Gdk.Rectangle scaled_pos = canvas.get_scaled_pixbuf_position();
@@ -691,6 +1161,21 @@ public class CropTool : EditingTool {
         }
     }
 
+    private void revert_crop(out int left, out int top, out int right, out int bottom) {
+        left = scaled_crop.left;
+        top = scaled_crop.top;
+        right = scaled_crop.right;
+        bottom = scaled_crop.bottom;
+    }
+
+    private int eval_radial_line(double center_x, double center_y, double bounds_x,
+        double bounds_y, double user_x) {
+        double decision_slope = (bounds_y - center_y) / (bounds_x - center_x);
+        double decision_intercept = bounds_y - (decision_slope * bounds_x);
+
+        return (int) (decision_slope * user_x + decision_intercept);
+    }
+
     private bool on_canvas_manipulation(int x, int y) {
         Gdk.Rectangle scaled_pos = canvas.get_scaled_pixbuf_position();
         
@@ -715,41 +1200,111 @@ public class CropTool : EditingTool {
         int right = scaled_crop.right;
         int bottom = scaled_crop.bottom;
 
+        // get extra geometric information needed to enforce constraints
+        int photo_right_edge = canvas.get_scaled_pixbuf().width - 1;
+        int photo_bottom_edge = canvas.get_scaled_pixbuf().height - 1;
+        int center_x = (left + right) / 2;
+        int center_y = (top + bottom) / 2;
+
         switch (in_manipulation) {
             case BoxLocation.LEFT_SIDE:
                 left = x;
+                if (get_constraint_aspect_ratio() != ANY_ASPECT_RATIO) {
+                    float new_height = ((float) (right - left)) / get_constraint_aspect_ratio();
+                    bottom = top + ((int) new_height);
+                }
             break;
 
             case BoxLocation.TOP_SIDE:
                 top = y;
+                if (get_constraint_aspect_ratio() != ANY_ASPECT_RATIO) {
+                    float new_width = ((float) (bottom - top)) * get_constraint_aspect_ratio();
+                    right = left + ((int) new_width);
+                }
             break;
 
             case BoxLocation.RIGHT_SIDE:
                 right = x;
+                if (get_constraint_aspect_ratio() != ANY_ASPECT_RATIO) {
+                    float new_height = ((float) (right - left)) / get_constraint_aspect_ratio();
+                    bottom = top + ((int) new_height);
+                }
             break;
 
             case BoxLocation.BOTTOM_SIDE:
                 bottom = y;
+                if (get_constraint_aspect_ratio() != ANY_ASPECT_RATIO) {
+                    float new_width = ((float) (bottom - top)) * get_constraint_aspect_ratio();
+                    right = left + ((int) new_width);
+                }
             break;
 
             case BoxLocation.TOP_LEFT:
-                top = y;
-                left = x;
+                if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
+                    top = y;
+                    left = x;
+                } else {
+                    if (y < eval_radial_line(center_x, center_y, left, top, x)) {
+                        top = y;
+                        float new_width = ((float) (bottom - top)) * get_constraint_aspect_ratio();
+                        left = right - ((int) new_width);
+                    } else {
+                        left = x;
+                        float new_height = ((float) (right - left)) / get_constraint_aspect_ratio();
+                        top = bottom - ((int) new_height);
+                    }
+                }
             break;
 
             case BoxLocation.BOTTOM_LEFT:
-                bottom = y;
-                left = x;
+                if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
+                    bottom = y;
+                    left = x;
+                } else {
+                    if (y < eval_radial_line(center_x, center_y, left, bottom, x)) {
+                        left = x;
+                        float new_height = ((float) (right - left)) / get_constraint_aspect_ratio();
+                        bottom = top + ((int) new_height);
+                    } else {
+                        bottom = y;
+                        float new_width = ((float) (bottom - top)) * get_constraint_aspect_ratio();
+                        left = right - ((int) new_width);
+                    }
+                }
             break;
 
             case BoxLocation.TOP_RIGHT:
-                top = y;
-                right = x;
+                if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
+                    top = y;
+                    right = x;
+                } else {
+                    if (y < eval_radial_line(center_x, center_y, right, top, x)) {
+                        top = y;
+                        float new_width = ((float) (bottom - top)) * get_constraint_aspect_ratio();
+                        right = left + ((int) new_width);
+                    } else {
+                        right = x;
+                        float new_height = ((float) (right - left)) / get_constraint_aspect_ratio();
+                        top = bottom - ((int) new_height);
+                    }
+                }
             break;
 
             case BoxLocation.BOTTOM_RIGHT:
-                bottom = y;
-                right = x;
+                if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
+                    bottom = y;
+                    right = x;
+                } else {
+                    if (y < eval_radial_line(center_x, center_y, right, bottom, x)) {
+                        right = x;
+                        float new_height = ((float) (right - left)) / get_constraint_aspect_ratio();
+                        bottom = top + ((int) new_height);
+                    } else {
+                        bottom = y;
+                        float new_width = ((float) (bottom - top)) * get_constraint_aspect_ratio();
+                        right = left + ((int) new_width);
+                    }
+                }
             break;
 
             case BoxLocation.INSIDE:
@@ -806,50 +1361,74 @@ public class CropTool : EditingTool {
                 // do nothing, not even a repaint
                 return false;
         }
-        
+
+        // Check if the mouse has gone out of bounds, and if it has, make sure that the
+        // crop reticle's edges stay within the photo bounds. This bounds check works
+        // differently in constrained versus unconstrained mode. In unconstrained mode,
+        // we need only to bounds clamp the one or two edge(s) that are actually out-of-bounds.
+        // In constrained mode however, we need to bounds clamp the entire box, because the
+        // positions of edges are all interdependent (so as to enforce the aspect ratio
+        // constraint).
         int width = right - left + 1;
         int height = bottom - top + 1;
-        
-        // max sure minimums are respected ... have to adjust the right value depending on what's
-        // being manipulated
-        switch (in_manipulation) {
-            case BoxLocation.LEFT_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.BOTTOM_LEFT:
-                if (width < CROP_MIN_WIDTH)
-                    left = right - CROP_MIN_WIDTH;
-            break;
-            
-            case BoxLocation.RIGHT_SIDE:
-            case BoxLocation.TOP_RIGHT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (width < CROP_MIN_WIDTH)
-                    right = left + CROP_MIN_WIDTH;
-            break;
+        if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
+            if (left < 0)
+                left = 0;
+            if (top < 0)
+                top = 0;
+            if (right > photo_right_edge)
+                right = photo_right_edge;
+            if (bottom > photo_bottom_edge)
+                bottom = photo_bottom_edge;
 
-            default:
-            break;
+            width = right - left + 1;
+            height = bottom - top + 1;
+
+            switch (in_manipulation) {
+                case BoxLocation.LEFT_SIDE:
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.BOTTOM_LEFT:
+                    if (width < CROP_MIN_SIZE)
+                        left = right - CROP_MIN_SIZE;
+                break;
+                
+                case BoxLocation.RIGHT_SIDE:
+                case BoxLocation.TOP_RIGHT:
+                case BoxLocation.BOTTOM_RIGHT:
+                    if (width < CROP_MIN_SIZE)
+                        right = left + CROP_MIN_SIZE;
+                break;
+
+                default:
+                break;
+            }
+
+            switch (in_manipulation) {
+                case BoxLocation.TOP_SIDE:
+                case BoxLocation.TOP_LEFT:
+                case BoxLocation.TOP_RIGHT:
+                    if (height < CROP_MIN_SIZE)
+                        top = bottom - CROP_MIN_SIZE;
+                break;
+
+                case BoxLocation.BOTTOM_SIDE:
+                case BoxLocation.BOTTOM_LEFT:
+                case BoxLocation.BOTTOM_RIGHT:
+                    if (height < CROP_MIN_SIZE)
+                        bottom = top + CROP_MIN_SIZE;
+                break;
+                
+                default:
+                break;
+            }
+        } else {
+            if ((left < 0) || (top < 0) || (right > photo_right_edge) ||
+                (bottom > photo_bottom_edge) || (width < CROP_MIN_SIZE) ||
+                (height < CROP_MIN_SIZE)) {
+                    revert_crop(out left, out top, out right, out bottom);
+            }
         }
-
-        switch (in_manipulation) {
-            case BoxLocation.TOP_SIDE:
-            case BoxLocation.TOP_LEFT:
-            case BoxLocation.TOP_RIGHT:
-                if (height < CROP_MIN_HEIGHT)
-                    top = bottom - CROP_MIN_HEIGHT;
-            break;
-
-            case BoxLocation.BOTTOM_SIDE:
-            case BoxLocation.BOTTOM_LEFT:
-            case BoxLocation.BOTTOM_RIGHT:
-                if (height < CROP_MIN_HEIGHT)
-                    bottom = top + CROP_MIN_HEIGHT;
-            break;
-            
-            default:
-            break;
-        }
-        
+       
         Box new_crop = Box(left, top, right, bottom);
         
         if (in_manipulation != BoxLocation.INSIDE)
@@ -859,6 +1438,12 @@ public class CropTool : EditingTool {
         
         // load new values
         scaled_crop = new_crop;
+
+        if (get_constraint_aspect_ratio() == ANY_ASPECT_RATIO) {
+            custom_init_width = scaled_crop.get_width();
+            custom_init_height = scaled_crop.get_height();
+            custom_aspect_ratio = ((float) custom_init_width) / ((float) custom_init_height);
+        }
 
         return false;
     }

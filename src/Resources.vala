@@ -59,6 +59,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string IMPORT = "shotwell-import";
     public const string IMPORT_ALL = "shotwell-import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
+    public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
@@ -86,6 +87,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
         add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
+        add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         
         factory.add_default();
     }

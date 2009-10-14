@@ -893,8 +893,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
             tool_window.move(x, y);
         }
 
-        // not show_all() because children have already been shown
+        // we need both show & present so we get keyboard focus
         tool_window.show();
+        tool_window.present();
     }
     
     public void on_next_photo() {

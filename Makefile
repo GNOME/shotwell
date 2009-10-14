@@ -92,7 +92,8 @@ TEXT_FILES = \
 	THANKS
 
 VAPI_DIRS = \
-	./src
+	./src \
+	./vapi
 
 HEADER_DIRS = \
 	./src
@@ -144,7 +145,7 @@ LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
 DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/* \
-	$(EXPANDED_PO_FILES)
+	$(EXPANDED_PO_FILES) vapi/*
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
