@@ -1772,6 +1772,8 @@ public class RedeyeTool : EditingTool {
         user_interaction_instance.center.y += scaled_pixbuf_position.y;
 
         old_scaled_pixbuf_position = scaled_pixbuf_position;
+        
+        current_pixbuf = null;
     }
     
     public override void activate(PhotoCanvas canvas) {
