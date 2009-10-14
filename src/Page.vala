@@ -1005,6 +1005,18 @@ public abstract class CheckerboardPage : Page {
             anchor = cursor;
         }
     }
+
+    protected virtual void set_display_titles(bool display) {
+        get_view().freeze_view_notifications();
+        get_view().freeze_geometry_notifications();
+        
+        foreach (DataObject object in get_view().get_all()) {
+            ((LayoutItem) object).display_title(display);
+        }
+        
+        get_view().thaw_geometry_notifications(true);
+        get_view().thaw_view_notifications(true);
+    }
 }
 
 public abstract class SinglePhotoPage : Page {

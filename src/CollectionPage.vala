@@ -491,7 +491,7 @@ public class CollectionPage : CheckerboardPage {
         file.label = _("_File");
         actions += file;
 
-        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl>E",
+        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = _("_Export Photos...");
         export.tooltip = _("Export selected photos to disk");
@@ -579,7 +579,7 @@ public class CollectionPage : CheckerboardPage {
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
 
         Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, false };
+            TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
@@ -643,7 +643,9 @@ public class CollectionPage : CheckerboardPage {
         // now
         int current_scale = slider_to_scale(slider.get_value());
         if (scale != current_scale)
-            set_thumb_size(current_scale);
+            set_thumb_size(current_scale);        
+
+        set_display_titles(Config.get_instance().get_display_photo_titles());
     }
     
     private void on_contents_altered() {
@@ -996,15 +998,9 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_display_titles(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        get_view().freeze_view_notifications();
-        get_view().freeze_geometry_notifications();
-        
-        foreach (DataObject object in get_view().get_all())
-            ((Thumbnail) object).display_title(display);
-        
-        get_view().thaw_geometry_notifications(true);
-        get_view().thaw_view_notifications(true);
+
+        set_display_titles(display);
+        Config.get_instance().set_display_photo_titles(display);
     }
     
     private static double scale_to_slider(int value) {
@@ -1096,6 +1092,13 @@ public class CollectionPage : CheckerboardPage {
         }
     }
 
+    private override void set_display_titles(bool display) {
+        base.set_display_titles(display);
+    
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
+        if (action != null)
+            action.set_active(display);
+    }
 }
 
 public class LibraryPage : CollectionPage {

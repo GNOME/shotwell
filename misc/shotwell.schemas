@@ -16,6 +16,20 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/display_photo_titles</key>
+            <applyto>/apps/shotwell/preferences/ui/display_photo_titles</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+
+            <locale name="en">
+                <short>photo titles display bool</short>
+                <long>Photo_titles display bool.  True if the photo titles are displayed, false otherwise.</long>
+            </locale>
+
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/preferences/slideshow/delay</key>
             <applyto>/apps/shotwell/preferences/slideshow/delay</applyto>
             <type>float</type>

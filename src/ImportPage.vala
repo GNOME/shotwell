@@ -219,7 +219,8 @@ public class ImportPage : CheckerboardPage {
         // monitor Photos for removals, at that will change the result of the ViewFilter
         LibraryPhoto.global.contents_altered += on_photos_added_removed;
         
-        init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions());
+        init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions(),
+            create_toggle_actions());
         
         // toolbar
         // hide duplicates checkbox
@@ -276,6 +277,18 @@ public class ImportPage : CheckerboardPage {
         }
 
         show_all();
+    }
+
+    private Gtk.ToggleActionEntry[] create_toggle_actions() {
+        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+
+        Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
+            TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
+        titles.label = _("_Titles");
+        titles.tooltip = _("Display the title of each photo");
+        toggle_actions += titles;
+
+        return toggle_actions;
     }
 
     private Gtk.ActionEntry[] create_actions() {
@@ -356,6 +369,13 @@ public class ImportPage : CheckerboardPage {
     private void on_photos_added_removed() {
         get_view().reapply_view_filter();
     }
+
+    private void on_display_titles(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+
+        set_display_titles(display);
+        Config.get_instance().set_display_photo_titles(display);
+    }
     
     public override LayoutItem? get_fullscreen_photo() {
         error("No fullscreen support for import pages");
@@ -367,6 +387,8 @@ public class ImportPage : CheckerboardPage {
         base.switched_to();
         
         try_refreshing_camera();
+    
+        set_display_titles(Config.get_instance().get_display_photo_titles());
     }
 
     private void try_refreshing_camera() {
@@ -721,9 +743,11 @@ public class ImportPage : CheckerboardPage {
                 import_file.update(preview, preview_md5, exif, exif_md5);
                 
                 progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.get_count());
-                
+
                 ImportPreview import_preview = new ImportPreview(import_file);
+                import_preview.display_title(display_titles());
                 get_view().add(import_preview);
+
                 
                 // spin the event loop so the UI doesn't freeze
                 if (!spin_event_loop())
@@ -853,6 +877,20 @@ public class ImportPage : CheckerboardPage {
         }
 
         busy = false;
+    }
+
+    private bool display_titles() {
+        Gtk.ToggleAction action = (Gtk.ToggleAction) ui.get_action("/ImportMenuBar/ViewMenu/ViewTitle");
+        
+        return action.get_active();
+    }
+
+    private override void set_display_titles(bool display) {
+        base.set_display_titles(display);
+    
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
+        if (action != null)
+            action.set_active(display);
     }
 }
 

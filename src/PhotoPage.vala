@@ -86,7 +86,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
         enhance_button.set_label(_("Enhance"));
         enhance_button.set_tooltip_text(_("Automatically improve the photo's appearance"));
-        enhance_button.clicked += on_enhance_clicked;
+        enhance_button.clicked += on_enhance;
         toolbar.insert(enhance_button, -1);
 
         // separator to force next/prev buttons to right side of toolbar
@@ -172,11 +172,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
 
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextMirror", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
     }
 
@@ -274,7 +276,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         try {
-            set_pixbuf(photo.get_preview_pixbuf(get_canvas_scaling()), false);
+            Scaling scaling = (container is FullscreenWindow) ? Scaling.for_screen() :
+                get_canvas_scaling();
+            
+            set_pixbuf(photo.get_preview_pixbuf(scaling), false);
+
         } catch (Error err) {
             warning("%s", err.message);
         }
@@ -405,9 +411,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // if the tool has an auxilliary window, move it properly on the screen
         place_tool_window();
-        
-        // now that the tool window has been placed, show it
-        show_tool_window();
 
         // repaint entire view, with the tool now hooked in
         default_repaint();
@@ -775,7 +778,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         on_tool_button_toggled(adjust_button, AdjustTool.factory);
     }
     
-    private void on_enhance_clicked() {
+    public void on_enhance() {
         // because running multiple tools at once is not currently supported, deactivate any current
         // tool; however, there is a special case of running enhancement while the AdjustTool is
         // open, so allow for that
@@ -796,7 +799,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             fetch_timer.stop();
 #endif
         } catch (Error e) {
-            warning("PhotoPage: on_enhance_clicked: couldn't obtain pixbuf to build " +
+            warning("PhotoPage: on_enhance: couldn't obtain pixbuf to build " +
                 "transform histogram");
             set_photo_missing(true);
             AppWindow.get_instance().set_normal_cursor();
@@ -848,8 +851,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (tool_window == null)
             return;
 
-        Gtk.Requisition req;
-        tool_window.size_request(out req);
+        // do this so window size is properly allocated, but window not shown
+        tool_window.show_all();
+        tool_window.hide();
+
+        Gtk.Allocation tool_alloc = tool_window.allocation;
 
         if (container == AppWindow.get_instance()) {
             // Normal: position crop tool window centered on viewport/canvas at the bottom,
@@ -863,32 +869,32 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cwidth = viewport.allocation.width;
             cheight = viewport.allocation.height;
             
-            tool_window.move(rx + cx + (cwidth / 2) - (req.width / 2), ry + cy + cheight);
+            tool_window.move(rx + cx + (cwidth / 2) - (tool_alloc.width / 2), ry + cy + cheight);
         } else {
             assert(container is FullscreenWindow);
             
             // Fullscreen: position crop tool window centered on screen at the bottom, just above the
             // toolbar
-            Gtk.Requisition toolbar_req;
-            toolbar.size_request(out toolbar_req);
+            Gtk.Allocation toolbar_alloc = toolbar.allocation;
             
             Gdk.Screen screen = container.get_screen();
-            int x = (screen.get_width() - req.width) / 2;
-            int y = screen.get_height() - toolbar_req.height - req.height - TOOL_WINDOW_SEPARATOR;
-            
+
+            int x = screen.get_width();
+            int y = screen.get_height() - toolbar_alloc.height -
+                    tool_alloc.height - TOOL_WINDOW_SEPARATOR;
+        
+            // put larger adjust tool off to the side
+            if (current_tool is AdjustTool) {
+                x = x * 3 / 4;
+            } else {
+                x = (x - tool_alloc.width) / 2;
+            }            
+
             tool_window.move(x, y);
         }
-    }
-    
-    private void show_tool_window() {
-         if (current_tool == null)
-            return;
 
-        EditingToolWindow tool_window = current_tool.get_tool_window();
-        if (tool_window == null)
-            return;
-        
-        tool_window.show_all();
+        // not show_all() because children have already been shown
+        tool_window.show();
     }
     
     public void on_next_photo() {
@@ -943,7 +949,7 @@ public class LibraryPhotoPage : EditingHostPage {
         file.label = _("_File");
         actions += file;
 
-        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl>E",
+        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = _("_Export Photos...");
         export.tooltip = _("Export photo to disk");
@@ -986,6 +992,12 @@ public class LibraryPhotoPage : EditingHostPage {
         mirror.label = _("_Mirror");
         mirror.tooltip = _("Make mirror images of the selected photos");
         actions += mirror;
+
+        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
+            TRANSLATABLE, on_enhance };
+        enhance.label = _("_Enhance");
+        enhance.tooltip = _("Automatically improve the photo's appearance");
+        actions += enhance;
 
         Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };

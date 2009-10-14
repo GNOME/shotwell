@@ -906,8 +906,14 @@ public class LibraryWindow : AppWindow {
         Gtk.Frame top_frame = new Gtk.Frame(null);
         top_frame.add(scrolled_sidebar);
         top_frame.set_shadow_type(Gtk.ShadowType.IN);
-        bottom_frame.add(basic_properties);
-        bottom_frame.set_shadow_type(Gtk.ShadowType.IN);
+
+        // pad the bottom frame (properties)
+        Gtk.Alignment bottom_alignment = new Gtk.Alignment(0, 0.5f, 1, 1);
+        bottom_alignment.set_padding(10, 10, 2, 0);
+        bottom_alignment.add(basic_properties);
+
+        bottom_frame.add(bottom_alignment);
+        bottom_frame.set_shadow_type(Gtk.ShadowType.IN);       
 
         sidebar_paned.pack1(top_frame, true, false);
         sidebar_paned.pack2(bottom_frame, false, false);

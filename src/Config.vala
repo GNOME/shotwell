@@ -45,6 +45,25 @@ public class Config {
         }
     }
 
+    public bool set_display_photo_titles(bool display) {
+        try {
+            client.set_bool("/apps/shotwell/preferences/ui/display_photo_titles", display);
+            return true;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return false;
+        }
+    }
+
+    public bool get_display_photo_titles() {
+        try {
+            return client.get_bool("/apps/shotwell/preferences/ui/display_photo_titles");
+        } catch (GLib.Error err) {
+            message("Unable to get GConf value.  Error message: %s", err.message);
+            return false;
+        }
+    }
+
     public bool set_slideshow_delay(double delay) {
         try {
             client.set_float("/apps/shotwell/preferences/slideshow/delay", delay);
