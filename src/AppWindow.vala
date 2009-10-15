@@ -399,7 +399,7 @@ public abstract class AppWindow : PageWindow {
         if (path != null)
             return File.new_for_path(path);
         
-        return File.new_for_path(Environment.get_home_dir()).get_child("Pictures");
+        return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
     }
     
     // Not using system temp directory for a couple of reasons: Temp files are often generated for

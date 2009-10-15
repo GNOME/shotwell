@@ -424,7 +424,9 @@ public class BatchImport {
         LibraryPhoto photo;
         ImportResult result = LibraryPhoto.import(import, manifest.import_id, out photo);
         if (result != ImportResult.SUCCESS) {
-            if (copy_to_library) {
+            // if file was copied, delete the copy
+            if (import != file) {
+                debug("Deleting failed imported copy %s", import.get_path());
                 try {
                     import.delete(null);
                 } catch (Error err) {
