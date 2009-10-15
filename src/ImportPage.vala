@@ -135,12 +135,27 @@ class ImportPreview : LayoutItem {
 }
 
 public class ImportPage : CheckerboardPage {
+    private class ImportViewManager : ViewManager {
+        private ImportPage owner;
+        
+        public ImportViewManager(ImportPage owner) {
+            this.owner = owner;
+        }
+        
+        public override DataView create_view(DataSource source) {
+            ImportPreview import_preview = new ImportPreview((ImportSource) source);
+            import_preview.display_title(owner.display_titles());
+            
+            return import_preview;
+        }
+    }
+    
     private class CameraImportJob : BatchImportJob {
         private GPhoto.ContextWrapper context;
         private ImportSource import_file;
-        private File dest_file;
+        private File? dest_file;
         
-        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file, File dest_file) {
+        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file, File? dest_file) {
             this.context = context;
             this.import_file = import_file;
             this.dest_file = dest_file;
@@ -154,7 +169,14 @@ public class ImportPage : CheckerboardPage {
             return import_file.get_filename();
         }
         
+        public ImportSource get_source() {
+            return import_file;
+        }
+        
         public override bool prepare(out File file_to_import, out bool copy_to_library) {
+            if (dest_file == null)
+                return false;
+            
             try {
                 GPhoto.save_image(context.context, import_file.get_camera(), import_file.get_fulldir(),
                     import_file.get_filename(), dest_file);
@@ -180,9 +202,10 @@ public class ImportPage : CheckerboardPage {
     
     private static GPhoto.ContextWrapper null_context = null;
 
+    private SourceCollection import_sources = new SourceCollection();
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label camera_label = new Gtk.Label(null);
-    private Gtk.ToggleToolButton hide_imported;
+    private Gtk.CheckButton hide_imported;
     private Gtk.ToolButton import_selected_button;
     private Gtk.ToolButton import_all_button;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
@@ -212,9 +235,13 @@ public class ImportPage : CheckerboardPage {
         if (null_context == null)
             null_context = new GPhoto.ContextWrapper();
         
+        // monitor source collection to add/remove views
+        get_view().monitor_source_collection(import_sources, new ImportViewManager(this));
+        
         // monitor selection for UI
-        get_view().items_state_changed += on_selection_changed;
-        get_view().items_visibility_changed += on_selection_changed;
+        get_view().items_state_changed += on_view_changed;
+        get_view().contents_altered += on_view_changed;
+        get_view().items_visibility_changed += on_view_changed;
         
         // monitor Photos for removals, at that will change the result of the ViewFilter
         LibraryPhoto.global.contents_altered += on_photos_added_removed;
@@ -224,13 +251,15 @@ public class ImportPage : CheckerboardPage {
         
         // toolbar
         // hide duplicates checkbox
-        hide_imported = new Gtk.ToggleToolButton();
-        hide_imported.set_label(_("Hide Imported"));
-        hide_imported.set_tooltip_text(_("Hide photos that have already been imported"));
+        hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
+        hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
         hide_imported.clicked += on_hide_imported;
         hide_imported.sensitive = false;
+        hide_imported.active = false;
+        Gtk.ToolItem hide_item = new Gtk.ToolItem();
+        hide_item.add(hide_imported);
         
-        toolbar.insert(hide_imported, -1);
+        toolbar.insert(hide_item, -1);
         
         // separator to force buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -362,8 +391,10 @@ public class ImportPage : CheckerboardPage {
         return toolbar;
     }
     
-    private void on_selection_changed() {
+    private void on_view_changed() {
+        hide_imported.sensitive = !busy && refreshed && (get_view().get_count() > 0);
         import_selected_button.sensitive = !busy && refreshed && (get_view().get_selected_count() > 0);
+        import_all_button.sensitive = !busy && refreshed && (get_view().get_count() > 0);
     }
     
     private void on_photos_added_removed() {
@@ -512,17 +543,15 @@ public class ImportPage : CheckerboardPage {
         
         busy = true;
         
-        import_selected_button.sensitive = false;
-        import_all_button.sensitive = false;
-        hide_imported.sensitive = false;
-        
-        SourceCollection import_list = new SourceCollection();
+        on_view_changed();
         
         progress_bar.set_text(_("Fetching photo information"));
         progress_bar.set_fraction(0.0);
         progress_bar.set_pulse_step(0.01);
         progress_bar.visible = true;
-
+        
+        Gee.ArrayList<ImportSource> import_list = new Gee.ArrayList<ImportSource>();
+        
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
         refresh_result = camera.get_storageinfo(&sifs, out count, null_context.context);
@@ -535,6 +564,7 @@ public class ImportPage : CheckerboardPage {
             }
         }
         
+        import_sources.clear();
         load_previews(import_list);
         
         progress_bar.visible = false;
@@ -547,24 +577,29 @@ public class ImportPage : CheckerboardPage {
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
         }
         
-        import_selected_button.sensitive = get_view().get_selected_count() > 0;
-        import_all_button.sensitive = get_view().get_count() > 0;
-        hide_imported.sensitive = get_view().get_count() > 0;
-        
         busy = false;
-
-        if (refresh_result != GPhoto.Result.OK) {
+        
+        if (refresh_result == GPhoto.Result.OK) {
+            refreshed = true;
+        } else {
             refreshed = false;
             
             // show 'em all or show none
             get_view().clear();
-            
-            return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
         
-        refreshed = true;
-
-        return RefreshResult.OK;
+        on_view_changed();
+        
+        switch (refresh_result) {
+            case GPhoto.Result.OK:
+                return RefreshResult.OK;
+            
+            case GPhoto.Result.IO_LOCK:
+                return RefreshResult.LOCKED;
+            
+            default:
+                return RefreshResult.LIBRARY_ERROR;
+        }
     }
     
     public static string append_path(string basepath, string addition) {
@@ -602,7 +637,7 @@ public class ImportPage : CheckerboardPage {
         return append_path(basedir, folder);
     }
 
-    private bool enumerate_files(int fsid, string dir, SourceCollection import_list) {
+    private bool enumerate_files(int fsid, string dir, Gee.List<ImportSource> import_list) {
         string fulldir = get_fulldir(camera, camera_name, fsid, dir);
         if (fulldir == null)
             return false;
@@ -655,10 +690,8 @@ public class ImportPage : CheckerboardPage {
                     }
                 }
                 
-                ImportSource import_file = new ImportSource(camera_name, camera, fsid, dir, filename, 
-                    info.file.size, preview_size);
-
-                import_list.add(import_file);
+                import_list.add(new ImportSource(camera_name, camera, fsid, dir, filename, 
+                    info.file.size, preview_size));
                 
                 progress_bar.pulse();
                 
@@ -694,16 +727,14 @@ public class ImportPage : CheckerboardPage {
         return true;
     }
     
-    private void load_previews(SourceCollection import_list) {
+    private void load_previews(Gee.List<ImportSource> import_list) {
         int loaded_photos = 0;
         try {
-            foreach (DataObject object in import_list.get_all()) {
-                ImportSource import_file = (ImportSource) object;
+            foreach (ImportSource import_source in import_list) {
+                string filename = import_source.get_filename();
+                string fulldir = import_source.get_fulldir();
                 
-                string filename = import_file.get_filename();
-                string fulldir = import_file.get_fulldir();
-                
-                progress_bar.set_text(_("Fetching preview for %s").printf(import_file.get_name()));
+                progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
                 
                 // load EXIF for photo, which will include the preview thumbnail
                 uint8[] exif_raw;
@@ -740,14 +771,12 @@ public class ImportPage : CheckerboardPage {
                 }
                 
                 // update the ImportSource with the fetched information
-                import_file.update(preview, preview_md5, exif, exif_md5);
+                import_source.update(preview, preview_md5, exif, exif_md5);
                 
-                progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.get_count());
-
-                ImportPreview import_preview = new ImportPreview(import_file);
-                import_preview.display_title(display_titles());
-                get_view().add(import_preview);
-
+                // *now* add to the SourceCollection, now that it is completed
+                import_sources.add(import_source);
+                
+                progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.size);
                 
                 // spin the event loop so the UI doesn't freeze
                 if (!spin_event_loop())
@@ -801,14 +830,14 @@ public class ImportPage : CheckerboardPage {
         }
         
         busy = true;
-        import_selected_button.sensitive = false;
-        import_all_button.sensitive = false;
+        
+        on_view_changed();
         progress_bar.visible = false;
 
         uint64 total_bytes = 0;
         SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(new CameraImportComparator());
-        Gee.ArrayList<string> already_imported = new Gee.ArrayList<string>();
-        Gee.ArrayList<string> failed = new Gee.ArrayList<string>();
+        Gee.ArrayList<CameraImportJob> already_imported = new Gee.ArrayList<CameraImportJob>();
+        Gee.ArrayList<CameraImportJob> failed = new Gee.ArrayList<CameraImportJob>();
         
         foreach (DataObject object in items) {
             ImportPreview preview = (ImportPreview) object;
@@ -817,7 +846,7 @@ public class ImportPage : CheckerboardPage {
             if (preview.is_already_imported()) {
                 message("Skipping import of %s: checksum detected in library", 
                     import_file.get_filename());
-                already_imported.add(import_file.get_filename());
+                already_imported.add(new CameraImportJob(null_context, import_file, null));
                 
                 continue;
             }
@@ -827,7 +856,7 @@ public class ImportPage : CheckerboardPage {
                 import_file.get_exif(), time_t(), out collision);
             if (dest_file == null) {
                 message("Unable to generate local file for %s", import_file.get_filename());
-                failed.add(import_file.get_filename());
+                failed.add(new CameraImportJob(null_context, import_file, null));
                 
                 continue;
             }
@@ -837,46 +866,87 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs, camera_name, total_bytes, failed,
-                already_imported);
+            BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter, total_bytes, 
+                failed, already_imported);
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.import_complete += close_import;
             LibraryWindow.get_app().enqueue_batch_import(batch_import);
             LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
         } else {
-            if (failed.size > 0 || already_imported.size > 0) {
-                LibraryWindow.report_import_failures(camera_name, failed, new Gee.ArrayList<string>(),
-                    already_imported);
-            }
+            // since failed up-front, build a fake (faux?) ImportManifest and report it here
+            if (failed.size > 0 || already_imported.size > 0)
+                import_reporter(new ImportManifest(failed, already_imported));
             
             close_import();
         }
     }
     
-    private void on_import_job_failed(ImportResult result, BatchImportJob job, File? file) {
-        if (file == null || result == ImportResult.SUCCESS)
+    private void on_import_job_failed(BatchImportResult result) {
+        if (result.file == null || result.result == ImportResult.SUCCESS)
             return;
             
         // delete the copied file
         try {
-            file.delete(null);
+            result.file.delete(null);
         } catch (Error err) {
-            message("Unable to delete downloaded file %s: %s", file.get_path(), err.message);
+            message("Unable to delete downloaded file %s: %s", result.file.get_path(), err.message);
         }
+    }
+    
+    private void import_reporter(ImportManifest manifest) {
+        // report to Event to organize into events
+        if (manifest.success.size > 0)
+            Event.generate_events(manifest.imported);
+        
+        ImportUI.QuestionParams question = new ImportUI.QuestionParams(
+            _("Delete this photo from camera?"),
+            _("Delete these %d photos from camera?"),
+            Gtk.STOCK_DELETE);
+        
+        if (!ImportUI.report_manifest(manifest, false, question))
+            return;
+        
+        int error_count = 0;
+        
+        // delete the photos from the camera and the SourceCollection... for now, this is an 
+        // all-or-nothing deal
+        Marker marker = import_sources.start_marking();
+        foreach (BatchImportResult batch_result in manifest.all) {
+            CameraImportJob job = batch_result.job as CameraImportJob;
+            ImportSource source = job.get_source();
+            
+            debug("Deleting from camera %s/%s", source.get_fulldir(), source.get_filename());
+            
+            GPhoto.Result result = source.get_camera().delete_file(source.get_fulldir(), 
+                source.get_filename(), null_context.context);
+            if (result == GPhoto.Result.OK) {
+                marker.mark(source);
+            } else {
+                error_count++;
+                debug("Error deleting from camera %s/%s: %s", source.get_fulldir(),
+                    source.get_filename(), result.as_string());
+            }
+        }
+        
+        if (error_count > 0) {
+            AppWindow.error_message(_("Unable to delete %d photos from the camera due to errors.").printf(
+                error_count));
+        }
+        
+        import_sources.remove_marked(marker);
     }
 
     private void close_import() {
-        import_selected_button.sensitive = get_view().get_selected_count() > 0;
-        import_all_button.sensitive = get_view().get_count() > 0;
-        
         GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
         }
-
+        
         busy = false;
+        
+        on_view_changed();
     }
 
     private bool display_titles() {
@@ -1016,9 +1086,7 @@ public class ImportQueuePage : SinglePhotoPage {
         progress_bar.set_fraction(pct);
     }
     
-    private void on_import_complete(BatchImport batch_import, ImportID import_id, 
-        SortedList<LibraryPhoto> imported, Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped,
-        Gee.ArrayList<string> already_imported) {
+    private void on_import_complete(BatchImport batch_import, ImportManifest manifest) {
         assert(batch_import == current_batch);
         current_batch = null;
         
@@ -1028,11 +1096,6 @@ public class ImportQueuePage : SinglePhotoPage {
         bool removed = queue.remove(batch_import);
         assert(removed);
         assert(!queue.contains(batch_import));
-        
-        if (failed.size > 0 || skipped.size > 0 || already_imported.size > 0) {
-            LibraryWindow.report_import_failures(batch_import.get_name(), failed, skipped, 
-                already_imported);
-        }
         
         batch_removed(batch_import);
         

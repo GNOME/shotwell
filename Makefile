@@ -44,7 +44,7 @@ SRC_FILES = \
 	Orientation.vala \
 	util.vala \
 	BatchImport.vala \
-	ExportDialog.vala \
+	Dialogs.vala \
 	Resources.vala \
 	Debug.vala \
 	Sidebar.vala \

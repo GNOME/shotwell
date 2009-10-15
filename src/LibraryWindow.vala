@@ -311,50 +311,6 @@ public class LibraryWindow : AppWindow {
         return false;
     }
     
-    private static string? generate_import_failure_list(Gee.List<string> failed) {
-        if (failed.size == 0)
-            return null;
-        
-        string list = "";
-        for (int ctr = 0; ctr < 4 && ctr < failed.size; ctr++)
-            list += "%s\n".printf(failed.get(ctr));
-        
-        if (failed.size > 4)
-            list += _("%d more photo(s) not imported.\n").printf(failed.size - 4);
-        
-        return list;
-    }
-    
-    public static void report_import_failures(string name, Gee.List<string> failed, 
-        Gee.List<string> skipped, Gee.ArrayList<string> already_imported) {
-        string failed_list = generate_import_failure_list(failed);
-        string skipped_list = generate_import_failure_list(skipped);
-        string already_imported_list = generate_import_failure_list(already_imported);
-        
-        if (failed_list == null && skipped_list == null && already_imported_list == null)
-            return;
-            
-        string message = _("Not all photos from %s were imported.\n").printf(name);
-
-        if (failed_list != null) {
-            message += _("\n%d photo(s) failed due to error:\n").printf(failed.size);
-            message += failed_list;
-        }
-        
-        if (skipped_list != null) {
-            message += _("\n%d photo(s) were skipped:\n").printf(skipped.size);
-            message += skipped_list;
-        }
-        
-        if (already_imported_list != null) {
-            message += _("\n%d photo(s) were skipped as they are already in the library:\n").printf(
-                already_imported.size);
-            message += already_imported_list;
-        }
-        
-        error_message(message);
-    }
-    
     public override void add_common_actions(Gtk.ActionGroup action_group) {
         base.add_common_actions(action_group);
         
@@ -506,6 +462,14 @@ public class LibraryWindow : AppWindow {
             displaying_import_queue_page = false;
         }
     }
+    
+    private void import_reporter(ImportManifest manifest) {
+        // report to Event to organize into events
+        if (manifest.success.size > 0)
+            Event.generate_events(manifest.imported);
+        
+        ImportUI.report_manifest(manifest, true);
+    }
 
     private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
@@ -522,7 +486,7 @@ public class LibraryWindow : AppWindow {
         }
         
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs, job_name, total_bytes);
+            BatchImport batch_import = new BatchImport(jobs, job_name, import_reporter, total_bytes);
             enqueue_batch_import(batch_import);
             switch_to_import_queue_page();
         }

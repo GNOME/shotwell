@@ -25,6 +25,12 @@ public class Event : EventSource {
     public const long EVENT_LULL_SEC = 3 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     
+    private class DateComparator : Comparator<LibraryPhoto> {
+        public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
+            return a.get_exposure_time() - b.get_exposure_time();
+        }
+    }
+    
     public static EventSourceCollection global = null;
     
     private static EventTable event_table = null;
@@ -92,8 +98,13 @@ public class Event : EventSource {
         }
     }
     
-    public static void generate_events(SortedList<LibraryPhoto> imported_photos) {
+    public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos) {
         debug("Processing imported photos to create events ...");
+        
+        // sort photos by date
+        SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(new DateComparator());
+        foreach (LibraryPhoto photo in unsorted_photos)
+            imported_photos.add(photo);
 
         // walk through photos, splitting into events based on criteria
         time_t last_exposure = 0;

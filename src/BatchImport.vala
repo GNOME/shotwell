@@ -4,22 +4,140 @@
  * See the COPYING file in this distribution. 
  */
 
+// A BatchImportJob describes a unit of work the BatchImport object should perform.  It returns
+// a file to be imported.  If the file is a directory, it is automatically recursed by BatchImport
+// to find all files that need to be imported into the library.
 public abstract class BatchImportJob {
     public abstract string get_identifier();
     
     public abstract bool prepare(out File file_to_import, out bool copy_to_library);
 }
 
+// A BatchImportResult associates a particular job with a File that an import was performed on
+// and the import result.  A BatchImportJob can specify multiple files, so there is not necessarily
+// a one-to-one relationship beteen it and this object.
+//
+// Note that job may be null (in the case of a pre-failed job that must be reported) and file may
+// be null (for similar reasons).
+public class BatchImportResult {
+    public BatchImportJob job;
+    public File file;
+    public string identifier;
+    public ImportResult result;
+    
+    public BatchImportResult(BatchImportJob job, File? file, string identifier, ImportResult result) {
+        this.job = job;
+        this.file = file;
+        this.identifier = identifier;
+        this.result = result;
+    }
+}
+
+public class ImportManifest {
+    public ImportID import_id = ImportID();
+    public uint64 total_imported_bytes = 0;
+    public Gee.List<LibraryPhoto> imported = new Gee.ArrayList<LibraryPhoto>();
+    public Gee.List<BatchImportResult> success = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> skipped = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> aborted = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> already_imported = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> all = new Gee.ArrayList<BatchImportResult>();
+    
+    public ImportManifest(Gee.List<BatchImportJob>? prefailed = null, Gee.List<BatchImportJob>? pre_already_imported = null) {
+        this.import_id = PhotoTable.get_instance().generate_import_id();
+        
+        if (prefailed != null) {
+            foreach (BatchImportJob job in prefailed) {
+                BatchImportResult batch_result = new BatchImportResult(job, null, job.get_identifier(), 
+                    ImportResult.FILE_ERROR);
+                add_result(batch_result);
+            }
+        }
+        
+        if (pre_already_imported != null) {
+            foreach (BatchImportJob job in pre_already_imported) {
+                BatchImportResult batch_result = new BatchImportResult(job, null, job.get_identifier(),
+                    ImportResult.PHOTO_EXISTS);
+                add_result(batch_result);
+            }
+        }
+    }
+    
+    public void add_result(BatchImportResult batch_result) {
+        switch (batch_result.result) {
+            case ImportResult.SUCCESS:
+                success.add(batch_result);
+            break;
+            
+            case ImportResult.USER_ABORT:
+                aborted.add(batch_result);
+            break;
+
+            case ImportResult.NOT_A_FILE:
+            case ImportResult.UNSUPPORTED_FORMAT:
+                skipped.add(batch_result);
+            break;
+            
+            case ImportResult.PHOTO_EXISTS:
+                already_imported.add(batch_result);
+            break;
+            
+            default:
+                failed.add(batch_result);
+            break;
+        }
+        
+        all.add(batch_result);
+    }
+}
+
 // BatchImport performs the work of taking a file (supplied by BatchImportJob's) and properly importing
-// it into the system, including database additions, thumbnail creation, and reporting it to AppWindow
-// so it's properly added to various views and events.
+// it into the system, including database additions and thumbnail creation.  It can be monitored by
+// multiple observers, but only one ImportReporter can be registered.
 public class BatchImport {
     public const int IMPORT_DIRECTORY_DEPTH = 3;
     
-    private class DateComparator : Comparator<LibraryPhoto> {
-        public override int64 compare(LibraryPhoto photo_a, LibraryPhoto photo_b) {
-            return photo_a.get_exposure_time() - photo_b.get_exposure_time();
-        }
+    private Gee.Iterable<BatchImportJob> jobs;
+    private string name;
+    private uint64 total_bytes;
+    private ImportReporter reporter;
+    private ImportManifest manifest;
+    private BatchImport ref_holder = null;
+    private bool scheduled = false;
+    private bool user_aborted = false;
+    private int import_file_count = 0;
+    
+    // these are for debugging and testing only
+    private int fail_every = 0;
+    private int skip_every = 0;
+    
+    // Called at the end of the batched jobs.  Can be used to report the result of the import
+    // to the user.  This is called BEFORE import_complete is fired.
+    public delegate void ImportReporter(ImportManifest manifest);
+    
+    // Called once, when the schedule task begins
+    public signal void starting();
+    
+    // Called for each Photo imported to the system
+    public signal void imported(LibraryPhoto photo);
+    
+    // Called when a job fails.  import_complete will also be called at the end of the batch
+    public signal void import_job_failed(BatchImportResult result);
+    
+    // Called at the end of the batched jobs; this will be signalled exactly once for the batch
+    public signal void import_complete(ImportManifest manifest);
+
+    public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, ImportReporter? reporter,
+        uint64 total_bytes = 0, Gee.ArrayList<BatchImportJob>? prefailed = null, 
+        Gee.ArrayList<BatchImportJob>? pre_already_imported = null) {
+        this.jobs = jobs;
+        this.name = name;
+        this.reporter = reporter;
+        this.total_bytes = total_bytes;
+        this.manifest = new ImportManifest(prefailed, pre_already_imported);
+        this.fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
+        this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
     }
     
     public static File? create_library_path(string filename, Exif.Data? exif, time_t ts, 
@@ -116,48 +234,6 @@ public class BatchImport {
         return value.to_int();
     }
     
-    private Gee.Iterable<BatchImportJob> jobs;
-    private string name;
-    private uint64 total_bytes;
-    private BatchImport ref_holder = null;
-    private SortedList<LibraryPhoto> success = null;
-    private Gee.ArrayList<string> failed = null;
-    private Gee.ArrayList<string> skipped = null;
-    private Gee.ArrayList<string> already_imported = null;
-    private ImportID import_id = ImportID();
-    private bool scheduled = false;
-    private bool user_aborted = false;
-    private int import_file_count = 0;
-    
-    // these are for debugging and testing only
-    private int fail_every = 0;
-    private int skip_every = 0;
-    
-    public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, uint64 total_bytes = 0,
-        Gee.ArrayList<string>? prefailed = null, Gee.ArrayList<string>? pre_already_imported = null) {
-        this.jobs = jobs;
-        this.name = name;
-        this.total_bytes = total_bytes;
-        failed = prefailed;
-        already_imported = pre_already_imported;
-        this.fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
-        this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
-    }
-    
-    // Called once, when the schedule task begins
-    public signal void starting();
-    
-    // Called for each Photo imported to the system
-    public signal void imported(LibraryPhoto photo);
-    
-    // Called when a job fails.  import_complete will also be called at the end of the batch
-    public signal void import_job_failed(ImportResult result, BatchImportJob job, File? file);
-    
-    // Called at the end of the batched jobs; this will be signalled exactly once for the batch
-    public signal void import_complete(ImportID import_id, SortedList<LibraryPhoto> photos_by_date, 
-        Gee.ArrayList<string> failed, Gee.ArrayList<string> skipped,
-        Gee.ArrayList<string> already_imported);
-
     public string get_name() {
         return name;
     }
@@ -180,45 +256,44 @@ public class BatchImport {
         Idle.add(perform_import);
         scheduled = true;
     }
+    
+    private void job_result(BatchImportJob job, File? file, string identifier, ImportResult result) {
+        BatchImportResult batch_result = new BatchImportResult(job, file, identifier, result);
+        manifest.add_result(batch_result);
+        
+        if (result == ImportResult.USER_ABORT)
+            user_aborted = true;
+        
+        if (result != ImportResult.SUCCESS)
+            import_job_failed(batch_result);
+    }
 
     private bool perform_import() {
         starting();
         
-        success = new SortedList<LibraryPhoto>(new DateComparator());
-        if (failed == null)
-            failed = new Gee.ArrayList<string>();
-        skipped = new Gee.ArrayList<string>();
-        if (already_imported == null)
-            already_imported = new Gee.ArrayList<string>();
-        import_id = (new PhotoTable()).generate_import_id();
-
         foreach (BatchImportJob job in jobs) {
             if (AppWindow.has_user_quit())
                 user_aborted = true;
                 
             if (user_aborted) {
-                import_job_failed(ImportResult.USER_ABORT, job, null);
-                skipped.add(job.get_identifier());
+                job_result(job, null, job.get_identifier(), ImportResult.USER_ABORT);
                 
                 continue;
             }
             
             File file;
             bool copy_to_library;
-            if (job.prepare(out file, out copy_to_library)) {
+            if (job.prepare(out file, out copy_to_library))
                 import(job, file, copy_to_library, job.get_identifier());
-            } else {
-                import_job_failed(ImportResult.FILE_ERROR, job, null);
-                failed.add(job.get_identifier());
-            }
+            else
+                job_result(job, null, job.get_identifier(), ImportResult.FILE_ERROR);
         }
         
-        // report to Event to organize into events
-        if (success.size > 0)
-            Event.generate_events(success);
-        
         // report completed
-        import_complete(import_id, success, failed, skipped, already_imported);
+        if (reporter != null)
+            reporter(manifest);
+        
+        import_complete(manifest);
 
         // XXX: unref "this" ... vital that the self pointer is not touched from here on out
         ref_holder = null;
@@ -228,7 +303,7 @@ public class BatchImport {
 
     private void import(BatchImportJob job, File file, bool copy_to_library, string id) {
         if (user_aborted) {
-            skipped.add(id);
+            job_result(job, file, id, ImportResult.USER_ABORT);
             
             return;
         }
@@ -251,34 +326,7 @@ public class BatchImport {
             break;
         }
         
-        switch (result) {
-            case ImportResult.SUCCESS:
-                // all is well, photo(s) added to success list
-            break;
-            
-            case ImportResult.USER_ABORT:
-                // no fall-through in Vala
-                user_aborted = true;
-                skipped.add(id);
-                import_job_failed(result, job, file);
-            break;
-
-            case ImportResult.NOT_A_FILE:
-            case ImportResult.UNSUPPORTED_FORMAT:
-                skipped.add(id);
-                import_job_failed(result, job, file);
-            break;
-            
-            case ImportResult.PHOTO_EXISTS:
-                already_imported.add(id);
-                import_job_failed(result, job, file);
-            break;
-            
-            default:
-                failed.add(id);
-                import_job_failed(result, job, file);
-            break;
-        }
+        job_result(job, file, id, result);
     }
     
     private ImportResult import_dir(BatchImportJob job, File dir, bool copy_to_library) {
@@ -374,7 +422,7 @@ public class BatchImport {
         }
         
         LibraryPhoto photo;
-        ImportResult result = LibraryPhoto.import(import, import_id, out photo);
+        ImportResult result = LibraryPhoto.import(import, manifest.import_id, out photo);
         if (result != ImportResult.SUCCESS) {
             if (copy_to_library) {
                 try {
@@ -388,7 +436,8 @@ public class BatchImport {
             return result;
         }
         
-        success.add(photo);
+        // add LibraryPhoto to manifest (BatchImportResult is added elsewhere)
+        manifest.imported.add(photo);
         
         // report to observers
         imported(photo);
