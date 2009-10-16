@@ -218,7 +218,7 @@ install:
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
 	-update-desktop-database
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-install-rule misc/shotwell.schemas
+	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool --makefile-install-rule misc/shotwell.schemas
 	killall -HUP gconfd-2
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
@@ -231,7 +231,7 @@ uninstall:
 	rm -f $(DESTDIR)/usr/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)/usr/share/applications/shotwell-viewer.desktop
 	-update-desktop-database
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-uninstall-rule misc/shotwell.schemas
+	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool --makefile-uninstall-rule misc/shotwell.schemas
 	killall -HUP gconfd-2
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
