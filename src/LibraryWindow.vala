@@ -912,7 +912,7 @@ public class LibraryWindow : AppWindow {
             return;
 
         // open sidebar directory containing page, if any
-        if (page.get_marker() != null)
+        if (page.get_marker() != null && page is EventPage)
             sidebar.expand_tree(page.get_marker());
 
         if (current_page != null) {
@@ -1022,12 +1022,6 @@ public class LibraryWindow : AppWindow {
         
         return false;
     }
-    
-    private bool focus_on_current_page() {
-        current_page.grab_focus();
-        
-        return false;
-    }
 
     private void on_sidebar_cursor_changed() {
         Gtk.TreePath path;
@@ -1048,10 +1042,6 @@ public class LibraryWindow : AppWindow {
         } else {
             // nothing recognized selected
         }
-
-        // this has to be done in Idle handler because the focus won't change properly inside 
-        // this signal
-        Idle.add(focus_on_current_page);
     }
 
     private void on_selection_changed() {

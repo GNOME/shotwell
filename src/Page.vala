@@ -550,7 +550,10 @@ public abstract class CheckerboardPage : Page {
     
     public override void switched_to() {
         layout.set_in_view(true);
-        
+
+        // unselect everything so selection won't persist after page loses focus       
+        get_view().unselect_all();        
+
         base.switched_to();
     }
     

@@ -40,6 +40,7 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(1, typeof(string));
     private Gee.HashSet<SidebarPage> pages = new Gee.HashSet<SidebarPage>();
     private Gtk.Menu context_menu = null;
+    private Gtk.TreePath current_path = null;
 
     public Sidebar() {
         set_model(store);
@@ -74,7 +75,14 @@ public class Sidebar : Gtk.TreeView {
     }
     
     public void expand_branch(SidebarMarker marker) {
-        expand_row(marker.get_path(), true);
+        expand_row(marker.get_path(), false);
+    }
+
+    public void toggle_branch_expansion(Gtk.TreePath path) {
+        if (is_row_expanded(path))
+            collapse_row(path);
+        else
+            expand_row(path, false);
     }
 
     public void expand_tree(SidebarMarker marker) {
@@ -279,32 +287,55 @@ public class Sidebar : Gtk.TreeView {
         bool path_currently_selected) {
         // only allow selection if a page is associated with the path; if not, it's a grouping row,
         // which is unselectable
-        return locate_page(path) != null;
+        if (locate_page(path) != null) {
+            current_path = path;
+            return true;
+        }
+
+        return false;
     }
 
-    protected Gtk.Menu? get_context_menu(Gdk.EventButton event) {
+    private Gtk.TreePath get_path_from_event(Gdk.EventButton event) {
         int x, y, cell_x, cell_y;
         Gdk.ModifierType mask;
         event.window.get_pointer(out x, out y, out mask);
         Gtk.TreePath path;
         get_path_at_pos(x, y, out path, null, out cell_x, out cell_y);
-        SidebarPage page = locate_page(path);
+
+        return path;
+    }
+    
+    protected Gtk.Menu? get_context_menu(Gdk.EventButton event) {
+        SidebarPage page = locate_page(get_path_from_event(event));
 
         return (page != null) ? page.get_page_context_menu() : null;
     }
 
     private override bool button_press_event(Gdk.EventButton event) {
-        // single right click
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
+            // single right click
 
             context_menu = get_context_menu(event);
             if (context_menu == null)
                 return false;
 
             context_menu.popup(null, null, null, event.button, event.time);
+        } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
+            // double left click
+
+            toggle_branch_expansion(get_path_from_event(event));
         }
 
         return base.button_press_event(event);
+    }
+
+    private override bool key_press_event(Gdk.EventKey event) {
+        if (Gdk.keyval_name(event.keyval) == "Return" || Gdk.keyval_name(event.keyval) == "KP_Enter") {
+            toggle_branch_expansion(current_path);
+            return false;
+        }
+
+        return base.key_press_event(event);
     }
 
     public void rename(SidebarMarker marker, string name) {
@@ -388,4 +419,3 @@ public class Sidebar : Gtk.TreeView {
         }
     }
 }
-
