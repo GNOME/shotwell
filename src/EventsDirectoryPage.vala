@@ -275,7 +275,7 @@ public class MasterEventsDirectoryPage : EventsDirectoryPage {
 }
 
 public class SubEventsDirectoryPage : EventsDirectoryPage {
-    public enum EventDirectoryType {
+    public enum DirectoryType {
         YEAR,
         MONTH;
     }
@@ -283,12 +283,12 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
     private class SubEventDirectoryManager : EventsDirectoryPage.EventDirectoryManager {
         private int month = 0;
         private int year = 0;
-        EventDirectoryType type;
+        DirectoryType type;
 
-        public SubEventDirectoryManager(EventDirectoryType type, Time time) {
+        public SubEventDirectoryManager(DirectoryType type, Time time) {
             base();
             
-            if (type == EventDirectoryType.MONTH)
+            if (type == DirectoryType.MONTH)
                 month = time.month;
             this.type = type;
             year = time.year; 
@@ -298,7 +298,7 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
             EventSource event = (EventSource) source;
             Time event_time = Time.local(event.get_start_time());
             if (event_time.year == year) {
-                if (type == EventDirectoryType.MONTH) {
+                if (type == DirectoryType.MONTH) {
                     return (event_time.month == month);
                 }
                 return true;
@@ -314,13 +314,13 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
             return year;
         }
 
-        public EventDirectoryType get_event_directory_type() {
+        public DirectoryType get_event_directory_type() {
             return type;
         }
     }
 
-    public SubEventsDirectoryPage(EventDirectoryType type, Time time) {
-        base(time.format((type == EventDirectoryType.YEAR) ? _("%Y") : _("%B")), new SubEventDirectoryManager(type, time)); 
+    public SubEventsDirectoryPage(DirectoryType type, Time time) {
+        base(time.format((type == DirectoryType.YEAR) ? _("%Y") : _("%B")), new SubEventDirectoryManager(type, time)); 
     }
 
     public int get_month() {
@@ -331,7 +331,7 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         return ((SubEventDirectoryManager) view_manager).get_year();
     }
 
-    public EventDirectoryType get_event_directory_type() {
+    public DirectoryType get_event_directory_type() {
         return ((SubEventDirectoryManager) view_manager).get_event_directory_type();
     }
 }

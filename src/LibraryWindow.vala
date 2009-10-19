@@ -51,30 +51,25 @@ public class LibraryWindow : AppWindow {
         }
     }
 
-    // In order to prevent creating a slew of EventPages at app startup, lazily create them as the
-    // user needs them ... this may be supplemented in the future to discard unused EventPages (in
-    // a lifo), or simply replace them all with a single EventPage which reloads itself with
-    // photos for the asked-for event.
-    private class EventPageProxy : Object, SidebarPage {
-        public Event event;
-
-        private EventPage page = null;
+    // In order to prevent creating a slew of Pages at app startup, lazily create them as the
+    // user needs them ... this may be supplemented in the future to discard unused Pages (in
+    // a lifo)
+    private abstract class PageStub : Object, SidebarPage {
+        private Page page = null;
         private SidebarMarker marker = null;
         
-        public EventPageProxy(Event event) {
-            this.event = event;
-        }
-        
+        protected abstract Page construct_page();
+
+        public abstract string get_name();
+
         public bool has_page() {
             return page != null;
         }
         
-        public EventPage get_page() {
-            if (page == null) {
-                debug("Creating new event page for %s", event.get_name());
-                
-                // create the event and set its marker, if one has been supplied
-                page = new EventPage(event);
+        protected Page get_page() {
+            if (page == null) {              
+                // create the page and set its marker, if one has been supplied
+                page = construct_page();
                 if (marker != null)
                     page.set_marker(marker);
                 
@@ -82,12 +77,12 @@ public class LibraryWindow : AppWindow {
                 LibraryWindow.get_app().add_to_notebook(page);
                 LibraryWindow.get_app().notebook.show_all();
             }
-            
+
             return page;
         }
         
         public string get_sidebar_text() {
-            return (page != null) ? page.get_sidebar_text() : event.get_name();
+            return (page != null) ? page.get_sidebar_text() : get_name();
         }
         
         public SidebarMarker? get_marker() {
@@ -108,7 +103,7 @@ public class LibraryWindow : AppWindow {
 
         public virtual string get_page_name() {
             if (page == null)
-                return event.get_name();
+                return get_name();
             return page.get_page_name();
         }
 
@@ -116,6 +111,53 @@ public class LibraryWindow : AppWindow {
             if (page == null)
                 get_page();
             return page.get_page_context_menu();
+        }
+    }
+
+    private class SubEventsDirectoryPageStub : PageStub {
+        public SubEventsDirectoryPage.DirectoryType type;
+        public Time time;
+        private string page_name;
+
+        public SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType type, Time time) {
+            this.page_name = time.format((type == SubEventsDirectoryPage.DirectoryType.YEAR) ? 
+                _("%Y") : _("%B"));
+            this.type = type;
+            this.time = time;
+        }
+
+        protected override Page construct_page() {
+            debug("Creating new event directory page for %s", page_name);
+            return new SubEventsDirectoryPage(type, time);
+        }
+
+        public int get_month() {
+            return (type == SubEventsDirectoryPage.DirectoryType.MONTH) ? time.month : 0;
+        }
+
+        public int get_year() {
+            return time.year;
+        }
+
+        public override string get_name() {
+            return page_name;
+        }
+    }
+
+    private class EventPageStub : PageStub {
+        public Event event;
+
+        public EventPageStub(Event event) {
+            this.event = event;
+        }
+
+        public override string get_name() {
+            return event.get_name();
+        }
+
+        protected override Page construct_page() {
+            debug("Creating new event page for %s", event.get_name());
+            return ((Page) new EventPage(event));
         }
     }
     
@@ -131,17 +173,17 @@ public class LibraryWindow : AppWindow {
         public override int64 compare(SidebarPage a, SidebarPage b) {
             int64 start_a, start_b;
 
-            if (a is SubEventsDirectoryPage && b is SubEventsDirectoryPage) {
-                start_a = (int64) ((((SubEventsDirectoryPage) a).get_year() * 100) +
-                    ((SubEventsDirectoryPage) a).get_month());
-                start_b = (int64) ((((SubEventsDirectoryPage) b).get_year() * 100) + 
-                    ((SubEventsDirectoryPage) b).get_month());
+            if (a is SubEventsDirectoryPageStub && b is SubEventsDirectoryPageStub) {
+                start_a = (int64) ((((SubEventsDirectoryPageStub) a).get_year() * 100) +
+                    ((SubEventsDirectoryPageStub) a).get_month());
+                start_b = (int64) ((((SubEventsDirectoryPageStub) b).get_year() * 100) + 
+                    ((SubEventsDirectoryPageStub) b).get_month());
             } else {
-                assert(a is EventPageProxy);
-                assert(b is EventPageProxy);
+                assert(a is EventPageStub);
+                assert(b is EventPageStub);
 
-                start_a = (int64) ((EventPageProxy) a).event.get_start_time();
-                start_b = (int64) ((EventPageProxy) b).event.get_start_time();
+                start_a = (int64) ((EventPageStub) a).event.get_start_time();
+                start_b = (int64) ((EventPageStub) b).event.get_start_time();
             }
 
             switch (event_sort) {
@@ -166,9 +208,9 @@ public class LibraryWindow : AppWindow {
     private bool displaying_import_queue_page = false;
     
     // Dynamically added/removed pages
-    private Gee.ArrayList<EventPageProxy> event_list = new Gee.ArrayList<EventPageProxy>();
-    private Gee.ArrayList<SubEventsDirectoryPage> events_dir_list = 
-        new Gee.ArrayList<SubEventsDirectoryPage>();
+    private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
+    private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
+        new Gee.ArrayList<SubEventsDirectoryPageStub>();
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
@@ -420,8 +462,9 @@ public class LibraryWindow : AppWindow {
             new CompareEventBranch(events_sort));
 
         // the events directory pages need to know about resort
-        foreach (SubEventsDirectoryPage events_dir in events_dir_list) {        
-            events_dir.notify_sort_changed(events_sort);
+        foreach (SubEventsDirectoryPageStub events_dir in events_dir_list) {
+            if (events_dir.has_page())
+                ((SubEventsDirectoryPage) events_dir.get_page()).notify_sort_changed(events_sort);
         }
         
         // set the tree cursor to the current page, which might have been lost in the
@@ -574,10 +617,10 @@ public class LibraryWindow : AppWindow {
     }
     
     public EventPage? load_event_page(Event event) {
-        foreach (EventPageProxy proxy in event_list) {
-            if (proxy.event.equals(event)) {
+        foreach (EventPageStub stub in event_list) {
+            if (stub.event.equals(event)) {
                 // this will create the EventPage if not already created
-                return proxy.get_page();
+                return (EventPage) stub.get_page();
             }
         }
         
@@ -598,9 +641,9 @@ public class LibraryWindow : AppWindow {
         Event event = (Event) object;
         
         // refresh sidebar
-        foreach (EventPageProxy proxy in event_list) {
-            if (proxy.event.equals(event)) {
-                SidebarMarker marker = proxy.get_marker();
+        foreach (EventPageStub stub in event_list) {
+            if (stub.event.equals(event)) {
+                SidebarMarker marker = stub.get_marker();
                 sidebar.rename(marker, event.get_name());
                 break;
             }
@@ -610,26 +653,26 @@ public class LibraryWindow : AppWindow {
         basic_properties.update_properties(current_page);
     }
 
-    private EventsDirectoryPage? get_dir_parent(SubEventsDirectoryPage page) {
-        if (page.get_event_directory_type() == SubEventsDirectoryPage.EventDirectoryType.YEAR)
-            return events_directory_page;
+    private SubEventsDirectoryPageStub? get_dir_parent(SubEventsDirectoryPageStub dir) {
+        if (dir.type == SubEventsDirectoryPage.DirectoryType.YEAR)
+            return null;
 
-        foreach (SubEventsDirectoryPage dir in events_dir_list) {
-            if (dir.get_event_directory_type() == SubEventsDirectoryPage.EventDirectoryType.YEAR &&
-                dir.get_year() == page.get_year()) {
-                return dir;
+        foreach (SubEventsDirectoryPageStub stub in events_dir_list) {
+            if (stub.type == SubEventsDirectoryPage.DirectoryType.YEAR &&
+                stub.get_year() == dir.get_year()) {
+                return stub;
             }
         }
 
         return null;
     }
 
-    private SubEventsDirectoryPage get_parent_page(Event event) {
+    private SubEventsDirectoryPageStub get_parent_page(Event event) {
         Time event_time = Time.local(event.get_start_time());
 
-        foreach (SubEventsDirectoryPage dir in events_dir_list) {
+        foreach (SubEventsDirectoryPageStub dir in events_dir_list) {
             // if a month directory already exists, return it
-            if (dir.get_event_directory_type() == SubEventsDirectoryPage.EventDirectoryType.MONTH &&
+            if (dir.type == SubEventsDirectoryPage.DirectoryType.MONTH &&
                 dir.get_month() == event_time.month &&
                 dir.get_year() == event_time.year) {
                     return dir;
@@ -639,25 +682,21 @@ public class LibraryWindow : AppWindow {
         CompareEventBranch comparator = new CompareEventBranch(get_events_sort());      
 
         // make a new month directory page
-        SubEventsDirectoryPage month = 
-            new SubEventsDirectoryPage(SubEventsDirectoryPage.EventDirectoryType.MONTH, event_time);
+        SubEventsDirectoryPageStub month = 
+            new SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType.MONTH, event_time);
 
-        SubEventsDirectoryPage year = (SubEventsDirectoryPage) get_dir_parent(month);
+        SubEventsDirectoryPageStub year = (SubEventsDirectoryPageStub) get_dir_parent(month);
         // if a year directory page is not found, make one
         if (year == null) {
-            year = new SubEventsDirectoryPage(SubEventsDirectoryPage.EventDirectoryType.YEAR,  
+            year = new SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType.YEAR,  
                event_time);
 
             sidebar.insert_child_sorted(events_directory_page.get_marker(), year, comparator);
-
-            LibraryWindow.get_app().add_to_notebook(year);
 
             events_dir_list.add(year);
         }
 
         sidebar.insert_child_sorted(year.get_marker(), month, comparator);
-
-        LibraryWindow.get_app().add_to_notebook(month);
 
         events_dir_list.add(month);
 
@@ -666,33 +705,33 @@ public class LibraryWindow : AppWindow {
     }
 
     private void add_event_page(Event event) {
-        SubEventsDirectoryPage parent_page = get_parent_page(event);
+        SubEventsDirectoryPageStub parent_page = get_parent_page(event);
 
-        EventPageProxy event_proxy = new EventPageProxy(event);
+        EventPageStub event_stub = new EventPageStub(event);
         
-        sidebar.insert_child_sorted(parent_page.get_marker(), event_proxy,
+        sidebar.insert_child_sorted(parent_page.get_marker(), event_stub,
             new CompareEventBranch(get_events_sort()));
         
-        event_list.add(event_proxy);
+        event_list.add(event_stub);
     }
     
     private void remove_event_page(Event event) {
         // don't use load_event_page, because that will create an EventPage (which we're simply
         // going to remove)
-        EventPageProxy event_proxy = null;
-        foreach (EventPageProxy proxy in event_list) {
-            if (proxy.event.equals(event)) {
-                event_proxy = proxy;
+        EventPageStub event_stub = null;
+        foreach (EventPageStub stub in event_list) {
+            if (stub.event.equals(event)) {
+                event_stub = stub;
                 
                 break;
             }
         }
 
-        if (event_proxy == null)
+        if (event_stub == null)
             return;
 
         // remove from sidebar
-        remove_event_tree(event_proxy);    
+        remove_event_tree(event_stub);    
         
         // jump to the Photos page
         switch_to_library_page();
@@ -700,13 +739,10 @@ public class LibraryWindow : AppWindow {
 
     private void remove_event_tree(SidebarPage page) {
         // remove from notebook
-        if (page is SubEventsDirectoryPage ||
-            (page is EventPageProxy && ((EventPageProxy) page).has_page())) {
-            
-            int pos = get_notebook_pos(((page is EventPageProxy) ?
-                ((EventPageProxy) page).get_page() : (Page) page));
-
+        if (page is PageStub && ((PageStub) page).has_page()) {
+            int pos = get_notebook_pos(((PageStub) page).get_page());
             assert(pos >= 0);
+
             notebook.remove_page(pos);
         }
 
@@ -724,10 +760,10 @@ public class LibraryWindow : AppWindow {
 
         if (page is SubEventsDirectoryPage) {
             // remove from events directory list 
-            events_dir_list.remove((SubEventsDirectoryPage) page);
-        } else if (page is EventPageProxy) {
+            events_dir_list.remove((SubEventsDirectoryPageStub) page);
+        } else if (page is EventPageStub) {
             // remove from the events list
-            event_list.remove((EventPageProxy) page);
+            event_list.remove((EventPageStub) page);
         }
 
     }
@@ -1000,9 +1036,9 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_events_directory_selected(Gtk.TreePath path) {
-        foreach (SubEventsDirectoryPage events_dir in events_dir_list) {
+        foreach (SubEventsDirectoryPageStub events_dir in events_dir_list) {
             if (is_page_selected(events_dir, path)) {
-                switch_to_page(events_dir);
+                switch_to_page(events_dir.get_page());
                 
                 return true;
             }
@@ -1012,9 +1048,9 @@ public class LibraryWindow : AppWindow {
     }
 
     private bool is_event_selected(Gtk.TreePath path) {
-        foreach (EventPageProxy event_proxy in event_list) {
-            if (is_page_selected(event_proxy, path)) {
-                switch_to_page(event_proxy.get_page());
+        foreach (EventPageStub event_stub in event_list) {
+            if (is_page_selected(event_stub, path)) {
+                switch_to_page(event_stub.get_page());
                 
                 return true;
             }
