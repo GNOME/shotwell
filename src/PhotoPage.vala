@@ -6,8 +6,8 @@
 
 public abstract class EditingHostPage : SinglePhotoPage {
     public const int TOOL_WINDOW_SEPARATOR = 8;
-    public const int PIXBUF_CACHE_COUNT = 7;
-    public const int ORIGINAL_PIXBUF_CACHE_COUNT = 7;
+    public const int PIXBUF_CACHE_COUNT = 5;
+    public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
     public const int KEY_REPEAT_INTERVAL_MSEC = 150;
     
     private class EditingHostCanvas : PhotoCanvas {
@@ -27,6 +27,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private SourceCollection sources;
+    private bool use_readahead;
     private Gtk.Window container = null;
     private ViewCollection controller = null;
     private TransformablePhoto photo = null;
@@ -54,10 +55,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // that the current photo has been altered).
     public signal void photo_changed(TransformablePhoto? old_photo, TransformablePhoto new_photo);
 
-    public EditingHostPage(SourceCollection sources, string name) {
+    public EditingHostPage(SourceCollection sources, string name, bool use_readahead) {
         base(name);
         
         this.sources = sources;
+        this.use_readahead = use_readahead;
         
         // when photo is altered need to update it here
         sources.item_altered += on_photo_altered;
@@ -174,11 +176,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cache.cancel_all();
         }
         
-        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, PIXBUF_CACHE_COUNT);
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, 
+            use_readahead ? PIXBUF_CACHE_COUNT : 1);
         cache.fetched += on_pixbuf_fetched;
         
         original_cache = new PixbufCache(sources, PixbufCache.PhotoType.ORIGINAL, scaling,
-            ORIGINAL_PIXBUF_CACHE_COUNT);
+            use_readahead ? ORIGINAL_PIXBUF_CACHE_COUNT : 1);
         
         if (photo != null)
             prefetch_neighbors(controller, photo);
@@ -248,6 +251,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void prefetch_neighbors(ViewCollection controller, TransformablePhoto photo) {
+        if (!use_readahead)
+            return;
+        
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
         foreach (TransformablePhoto neighbor in get_extended_neighbors(controller, photo)) {
             cache.prefetch(neighbor);
@@ -261,6 +267,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // neighbors
     private void cancel_prefetch_neighbors(ViewCollection old_controller, TransformablePhoto old_photo,
         ViewCollection new_controller, TransformablePhoto new_photo) {
+        if (!use_readahead)
+            return;
+        
         Gee.Set<TransformablePhoto> old_neighbors = get_extended_neighbors(old_controller,
             old_photo);
         Gee.Set<TransformablePhoto> new_neighbors = get_extended_neighbors(new_controller,
@@ -390,7 +399,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // underlying canvas has a scaling, so use that
         rebuild_caches("replace_photo");
         
-        if (old_photo != null && cache != null)
+        if (old_photo != null)
             cancel_prefetch_neighbors(old_controller, old_photo, new_controller, new_photo);
         
         quick_update_pixbuf();
@@ -1082,7 +1091,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private CollectionPage return_page = null;
 
     public LibraryPhotoPage() {
-        base(LibraryPhoto.global, "Photo");
+        base(LibraryPhoto.global, "Photo", true);
 
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
 
@@ -1358,7 +1367,7 @@ public class DirectPhotoPage : EditingHostPage {
     private bool drop_if_dirty = false;
 
     public DirectPhotoPage(File file) {
-        base(DirectPhoto.global, file.get_basename());
+        base(DirectPhoto.global, file.get_basename(), false);
         
         if (!check_editable_file(file)) {
             Posix.exit(1);
