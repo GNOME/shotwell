@@ -211,8 +211,10 @@ public class LibraryWindow : AppWindow {
     private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
     private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
         new Gee.ArrayList<SubEventsDirectoryPageStub>();
+#if !NO_CAMERA        
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
+#endif        
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
 
     private Sidebar sidebar = new Sidebar();
@@ -263,7 +265,8 @@ public class LibraryWindow : AppWindow {
         // a drag and drop is for general library import, which means it goes to library_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
-        
+
+#if !NO_CAMERA        
         // monitor the camera table for additions and removals
         CameraTable.get_instance().camera_added += add_camera_page;
         CameraTable.get_instance().camera_removed += remove_camera_page;
@@ -271,6 +274,7 @@ public class LibraryWindow : AppWindow {
         // need to populate pages with what's known now by the camera table
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
+#endif            
 
         // start with only most recent month directory open
         sidebar.expand_first_branch_only(events_directory_page.get_marker());
@@ -768,6 +772,7 @@ public class LibraryWindow : AppWindow {
 
     }
 
+#if !NO_CAMERA
     private void add_camera_page(DiscoveredCamera camera) {
         ImportPage page = new ImportPage(camera.gcamera, camera.uri);   
 
@@ -795,6 +800,7 @@ public class LibraryWindow : AppWindow {
             cameras_marker = null;
         }
     }
+#endif
 
     private void add_to_notebook(Page page) {
         // need to show all before handing over to notebook
@@ -1024,6 +1030,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_camera_selected(Gtk.TreePath path) {
+#if !NO_CAMERA    
         foreach (ImportPage page in camera_pages.values) {
             if (is_page_selected(page, path)) {
                 switch_to_page(page);
@@ -1031,7 +1038,7 @@ public class LibraryWindow : AppWindow {
                 return true;
             }
         }
-        
+#endif        
         return false;
     }
     
@@ -1084,6 +1091,7 @@ public class LibraryWindow : AppWindow {
         basic_properties.update_properties(current_page);
     }
     
+#if !NO_CAMERA    
     public void mounted_camera_shell_notification(string uri) {
         debug("mount point reported: %s", uri);
 
@@ -1134,5 +1142,6 @@ public class LibraryWindow : AppWindow {
             switch_to_page(page);
         }
     }
+#endif    
 }
 

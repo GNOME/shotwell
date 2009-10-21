@@ -60,8 +60,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string IMPORT_ALL = "shotwell-import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
-    
-    public const string ICON_APP = "shotwell.svg";
+
+#if NO_SVG
+	public const string SVG_SUFFIX = ".png";
+#else
+	public const string SVG_SUFFIX = ".svg";
+#endif    
+
+    public const string ICON_APP = "shotwell" + SVG_SUFFIX;
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
 
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -75,16 +81,16 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         factory = new Gtk.IconFactory();
 
         File icons_dir = AppWindow.get_resources_dir().get_child("icons");
-        add_stock_icon(icons_dir.get_child("object-rotate-right.svg"), CLOCKWISE);
-        add_stock_icon(icons_dir.get_child("object-rotate-left.svg"), COUNTERCLOCKWISE);
-        add_stock_icon(icons_dir.get_child("object-flip-horizontal.svg"), MIRROR);
-        add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
+        add_stock_icon(icons_dir.get_child("object-rotate-right" + SVG_SUFFIX), CLOCKWISE);
+        add_stock_icon(icons_dir.get_child("object-rotate-left" + SVG_SUFFIX), COUNTERCLOCKWISE);
+        add_stock_icon(icons_dir.get_child("object-flip-horizontal" + SVG_SUFFIX), MIRROR);
+        add_stock_icon(icons_dir.get_child("crop" + SVG_SUFFIX), CROP);
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
         add_stock_icon(icons_dir.get_child("adjust.png"), ADJUST);
-        add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);
-        add_stock_icon(icons_dir.get_child("return-to-page.svg"), RETURN_TO_PAGE);
-        add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
-        add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
+        add_stock_icon(icons_dir.get_child("pin-toolbar" + SVG_SUFFIX), PIN_TOOLBAR);
+        add_stock_icon(icons_dir.get_child("return-to-page" + SVG_SUFFIX), RETURN_TO_PAGE);
+        add_stock_icon(icons_dir.get_child("make-primary" + SVG_SUFFIX), MAKE_PRIMARY);
+        add_stock_icon(icons_dir.get_child("import" + SVG_SUFFIX), IMPORT);
         add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);

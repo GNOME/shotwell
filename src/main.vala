@@ -4,6 +4,10 @@
  * See the COPYING file in this distribution. 
  */
 
+#if NO_LIBUNIQUE
+extern bool already_running();
+#else
+
 enum ShotwellCommand {
     // user-defined commands must be positive ints
     MOUNTED_CAMERA = 1
@@ -30,10 +34,15 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     
     return response;
 }
+#endif
 
 private Timer startup_timer = null;
 
 void library_exec(string[] mounts) {
+#if NO_LIBUNIQUE
+    if (already_running())
+        return;
+#else
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
@@ -53,6 +62,7 @@ void library_exec(string[] mounts) {
         // notified running app; this one exits
         return;
     }
+#endif
 
     // init modules library relies on
     DatabaseTable.init(AppWindow.get_data_subdir("data").get_child("photo.db"));
@@ -79,10 +89,12 @@ void library_exec(string[] mounts) {
 
     // create main library application window
     LibraryWindow library_window = new LibraryWindow();
-    
+
+#if !NO_CAMERA    
     // report mount points
     foreach (string mount in mounts)
         library_window.mounted_camera_shell_notification(mount);
+#endif
 
     library_window.show_all();
     

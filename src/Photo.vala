@@ -134,10 +134,8 @@ public abstract class TransformablePhoto: PhotoSource {
         if (info.get_file_type() != FileType.REGULAR)
             return ImportResult.NOT_A_FILE;
         
-        if (info.get_content_type() != GPhoto.MIME.JPEG) {
-            message("Not importing %s: Unsupported content type %s", file.get_path(),
-                info.get_content_type());
-
+        if (!is_file_supported(file)) {
+            message("Not importing %s: Unsupported type", file.get_path());
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         

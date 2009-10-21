@@ -4,6 +4,8 @@
  * See the COPYING file in this distribution. 
  */
 
+#if !NO_CAMERA
+
 class ImportSource : PhotoSource {
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
 
@@ -964,6 +966,8 @@ public class ImportPage : CheckerboardPage {
     }
 }
 
+#endif
+
 public class ImportQueuePage : SinglePhotoPage {
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton stop_button = null;
@@ -1118,3 +1122,4 @@ public class ImportQueuePage : SinglePhotoPage {
         }
     }
 }
+

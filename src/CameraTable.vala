@@ -4,6 +4,8 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+#if !NO_CAMERA
+
 public class DiscoveredCamera {
     public GPhoto.Camera gcamera;
     public string uri;
@@ -325,3 +327,6 @@ public class CameraTable {
         return false;
     }
 }
+
+#endif
+

@@ -4,6 +4,8 @@
  * See the COPYING file in this distribution. 
  */
 
+#if !NO_CAMERA
+
 public errordomain GPhotoError {
     LIBRARY
 }
@@ -220,4 +222,6 @@ namespace GPhoto {
         return buffer;
     }
 }
+
+#endif
 

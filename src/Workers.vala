@@ -89,9 +89,13 @@ public class Workers {
             max_threads = THREAD_PER_CPU;
         
         if (max_threads == THREAD_PER_CPU) {
+#if NO_EXTENDED_POSIX
+            max_threads = 1;        
+#else
             max_threads = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN) - 1;
             if (max_threads <= 0)
                 max_threads = 1;
+#endif            
         }
         
         queue = new AsyncQueue<BackgroundJob>();

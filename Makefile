@@ -16,6 +16,13 @@ SUPPORTED_LANGUAGES=fr
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=/usr/share/locale-langpack
 
+# The COMSPEC environment variable is defined only on Windows.
+ifdef COMSPEC
+  WINDOWS = 1
+  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D NO_EXTENDED_POSIX
+  EXTRA_OBJ_FILES = src/windows.o
+endif
+
 -include configure.mk
 
 VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
@@ -106,25 +113,35 @@ LOCAL_PKGS = \
 
 EXT_PKGS = \
 	gtk+-2.0 \
-	sqlite3 \
+	gdk-2.0 \
+	atk \
 	gee-1.0 \
+	libexif \
+	sqlite3
+	
+ifndef WINDOWS	
+EXT_PKGS += \
 	hal \
 	dbus-glib-1 \
 	unique-1.0 \
-	libexif \
 	libgphoto2 \
 	gconf-2.0
+endif
 
 EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.14.4 \
-	sqlite3 >= 3.5.9 \
 	gee-1.0 >= 0.5.0 \
+	libexif >= 0.6.16 \
+	sqlite3 >= 3.5.9
+	
+ifndef WINDOWS
+EXT_PKG_VERSIONS += \
 	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
 	unique-1.0 >= 1.0.0 \
-	libexif >= 0.6.16 \
 	libgphoto2 >= 2.4.2 \
 	gconf-2.0 >= 2.24.1
+endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
 
@@ -136,7 +153,8 @@ EXPANDED_PO_FILES = $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
 EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
 EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
-EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
+EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o)) $(EXTRA_OBJ_FILES)
+
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),src/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),src/$(header))
 EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
@@ -155,7 +173,7 @@ PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.or
 VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
 
-VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)`
+VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
 
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
@@ -251,6 +269,7 @@ endif
 	$(foreach vapidir,$(VAPI_DIRS),--vapidir=$(vapidir)) \
 	$(foreach def,$(DEFINES),-X -D$(def)) \
 	$(foreach hdir,$(HEADER_DIRS),-X -I$(hdir)) \
+	$(VALA_DEFINES) \
 	$(EXPANDED_SRC_FILES)
 	touch $@
 
@@ -263,5 +282,5 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(LANG_STAMP)
-	$(CC) $(VALA_LDFLAGS) $(EXPANDED_OBJ_FILES) $(CFLAGS) -o $@
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(VALA_LDFLAGS) -o $@
 
