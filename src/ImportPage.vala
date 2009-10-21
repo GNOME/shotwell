@@ -974,7 +974,7 @@ public class ImportQueuePage : SinglePhotoPage {
     private uint64 total_bytes = 0;
  
     public ImportQueuePage() {
-        base(_("Importing ..."));
+        base(_("Importing..."));
 
         init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
             create_actions());

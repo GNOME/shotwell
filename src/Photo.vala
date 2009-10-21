@@ -53,7 +53,7 @@ public enum ImportResult {
             default:
                 error("Bad import result: %d", (int) this);
                 
-                return "Bad import result (%d)".printf((int) this);
+                return _("Bad import result (%d)").printf((int) this);
         }
     }
 }
@@ -91,8 +91,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
 
-    protected static PhotoTable photo_table = null;
-
+    private static Mutex cache_mutex = null;
     private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
     
@@ -107,19 +106,14 @@ public abstract class TransformablePhoto: PhotoSource {
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
     protected TransformablePhoto(PhotoRow row) {
         this.row = row;
-    }
-    
-    protected static void base_init() {
-        if (photo_table == null)
-            photo_table = new PhotoTable();
-    }
-    
-    protected static void base_terminate() {
+        
+        if (cache_mutex == null)
+            cache_mutex = new Mutex();
     }
     
     public static ImportResult import_photo(File file, ImportID import_id, out PhotoID photo_id,
         out Gdk.Pixbuf pixbuf) {
-        if (photo_table.is_photo_stored(file))
+        if (PhotoTable.get_instance().is_photo_stored(file))
             return ImportResult.PHOTO_EXISTS;
         
         debug("Importing file %s", file.get_path());
@@ -208,7 +202,10 @@ public abstract class TransformablePhoto: PhotoSource {
             try {
                 pixbuf_loader.close();
             } catch (Error err) {
+                // this does count as a decode error, as this indicates with the close the loader
+                // didn't recognize the file format
                 warning("Unable to close pixbuf loader for %s: %s", file.get_path(), err.message);
+                decode_result = ImportResult.DECODE_ERROR;
             }
             
             if (fins != null) {
@@ -237,8 +234,8 @@ public abstract class TransformablePhoto: PhotoSource {
 
         // photo information is stored in database in raw, non-modified format ... this is especially
         // important dealing with dimensions and orientation
-        photo_id = photo_table.add(file, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-            orientation, import_id, md5, thumbnail_md5, exif_md5);
+        photo_id = PhotoTable.get_instance().add(file, dim, info.get_size(), timestamp.tv_sec, 
+            exposure_time, orientation, import_id, md5, thumbnail_md5, exif_md5);
         if (photo_id.is_invalid())
             return ImportResult.DATABASE_ERROR;
         
@@ -266,54 +263,103 @@ public abstract class TransformablePhoto: PhotoSource {
         return false;
     }
     
+    // Data element accessors ... by making these thread-safe, and by the remainder of this class
+    // (and subclasses) accessing row *only* through these, helps ensure this object is suitable
+    // for threads.  This implementation is specifically for PixbufCache to work properly.
+    //
+    // Much of the setter's thread-safety (especially in regard to writing to the database) is
+    // that there is a single Photo object per row of the database.  The PhotoTable is accessed
+    // elsewhere in the system (usually for aggregate and search functions).  Those would need to
+    // be factored and locked in order to guarantee full thread safety.
+    //
+    // Note that return inside a lock block generates warnings and does not properly release the
+    // mutex: https://bugzilla.gnome.org/show_bug.cgi?id=582553
+    //
+    // Also note there is a certain amount of paranoia here.  Many of PhotoRow's elements are
+    // currently static, with no setters to change them.  However, since some of these may become
+    // mutable in the future, the entire structure is locked.  If performance becomes an issue,
+    // more fine-tuned locking may be implemented -- another reason to *only* use these getters
+    // and setters inside this class.
+    
     public File get_file() {
-        return row.file;
+        File file = null;
+        lock (row) {
+            file = row.file;
+        }
+        
+        return file;
     }
     
     public time_t get_timestamp() {
-        return row.timestamp;
+        time_t timestamp;
+        lock (row) {
+            timestamp = row.timestamp;
+        }
+        
+        return timestamp;
     }
 
     public PhotoID get_photo_id() {
-        return row.photo_id;
+        PhotoID photo_id;
+        lock (row) {
+            photo_id = row.photo_id;
+        }
+        
+        return photo_id;
     }
     
     public EventID get_event_id() {
-        return row.event_id;
+        EventID event_id;
+        lock (row) {
+            event_id = row.event_id;
+        }
+        
+        return event_id;
     }
     
     public Event? get_event() {
-        return row.event_id.is_valid() ? Event.global.fetch(row.event_id) : null;
+        EventID event_id = get_event_id();
+        
+        return event_id.is_valid() ? Event.global.fetch(event_id) : null;
     }
     
     public bool set_event(Event event) {
-        bool committed = photo_table.set_event(row.photo_id, event.get_event_id());
-        if (committed) {
-            row.event_id = event.get_event_id();
-            
-            notify_metadata_altered();
+        bool committed = false;
+        lock (row) {
+            committed = PhotoTable.get_instance().set_event(row.photo_id, event.get_event_id());
+            if (committed)
+                row.event_id = event.get_event_id();
         }
+        
+        if (committed)
+            notify_metadata_altered();
         
         return committed;
     }
     
     public override string to_string() {
-        return "[%lld] %s".printf(row.photo_id.id, get_file().get_path());
+        PhotoID photo_id = get_photo_id();
+        File file = get_file();
+        
+        return "[%lld] %s".printf(photo_id.id, file.get_path());
     }
 
     public bool equals(TransformablePhoto? photo) {
         if (photo == null)
             return false;
             
-        // identity works because of the photo_map, but the photo_table primary key is where the
+        PhotoID photo_id = get_photo_id();
+        PhotoID other_photo_id = photo.get_photo_id();
+        
+        // identity works because of the photo_map, but the PhotoTable primary key is where the
         // rubber hits the road
         if (this == photo) {
-            assert(row.photo_id.id == photo.row.photo_id.id);
+            assert(photo_id.id == other_photo_id.id);
             
             return true;
         }
         
-        assert(row.photo_id.id != photo.row.photo_id.id);
+        assert(photo_id.id != other_photo_id.id);
         
         return false;
     }
@@ -347,22 +393,30 @@ public abstract class TransformablePhoto: PhotoSource {
         TimeVal timestamp = TimeVal();
         info.get_modification_time(out timestamp);
         
-        if (photo_table.update(row.photo_id, dim, info.get_size(), timestamp.tv_sec, exposure_time,
-            orientation)) {
+        // TODO: Use actual pixbuf dimensions, not EXIF
+        // TODO: Generate MD5 fingerprints
+        
+        PhotoID photo_id = get_photo_id();
+        if (PhotoTable.get_instance().update(photo_id, dim, info.get_size(), timestamp.tv_sec, 
+            exposure_time, orientation)) {
             // cache coherency
-            row.dim = dim;
-            row.filesize = info.get_size();
-            row.timestamp = timestamp.tv_sec;
-            row.exposure_time = exposure_time;
-            row.orientation = orientation;
-            row.original_orientation = orientation;
-            
-            // because image has changed, all transformations are suspect
-            remove_all_transformations();
+            lock (row) {
+                row.dim = dim;
+                row.filesize = info.get_size();
+                row.timestamp = timestamp.tv_sec;
+                row.exposure_time = exposure_time;
+                row.orientation = orientation;
+                row.original_orientation = orientation;
+                
+                // because image has changed, all transformations are suspect
+                remove_all_transformations();
+            }
             
             // remove from decode cache as well
-            if (cached_photo_id.id == row.photo_id.id)
+            cache_mutex.lock();
+            if (cached_photo_id.id == photo_id.id)
                 cached_raw = null;
+            cache_mutex.unlock();
             
             // metadata currently only means Event
             notify_altered();
@@ -372,15 +426,25 @@ public abstract class TransformablePhoto: PhotoSource {
     // PhotoSource
     
     public override string get_name() {
-        return row.file.get_basename();
+        return get_file().get_basename();
     }
     
     public override uint64 get_filesize() {
-        return row.filesize;
+        uint64 filesize;
+        lock (row) {
+            filesize = row.filesize;
+        }
+        
+        return filesize;
     }
     
     public override time_t get_exposure_time() {
-        return row.exposure_time;
+        time_t exposure_time;
+        lock (row) {
+            exposure_time = row.exposure_time;
+        }
+        
+        return exposure_time;
     }
     
     // Returns cropped and rotated dimensions
@@ -391,7 +455,8 @@ public abstract class TransformablePhoto: PhotoSource {
         
         return get_uncropped_dimensions();
     }
-
+    
+    // This method *must* be called with row locked.
     private void create_adjustments_from_data() {
         KeyValueMap map = get_transformation("adjustments");
 
@@ -454,15 +519,49 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
+    // Returns a copy of the color adjustments array.  Use set_color_adjustments to persist.
+    private PixelTransformation[] get_color_adjustments() {
+        PixelTransformation[] result;
+        lock (row) {
+            if (adjustments == null)
+                create_adjustments_from_data();
+            
+            int length = adjustments.length;
+            result = new PixelTransformation[length];
+            for (int ctr = 0; ctr < length; ctr++)
+                result[ctr] = adjustments[ctr];
+        }
+        
+        return result;
+    }
+    
+    private void set_color_adjustments(PixelTransformation[] adjustments) {
+        lock (row) {
+            int length = adjustments.length;
+            this.adjustments = new PixelTransformation[length];
+            for (int ctr = 0; ctr < length; ctr++)
+                this.adjustments[ctr] = adjustments[ctr];
+        }
+    }
+    
+    private PixelTransformer get_pixel_transformer() {
+        PixelTransformer result;
+        lock (row) {
+            if (transformer == null)
+                create_adjustments_from_data();
+            
+            result = transformer;
+        }
+        
+        return result;
+    }
+
     public bool has_color_adjustments() {
         return has_transformation("adjustments");
     }
-
+    
     public PixelTransformation get_adjustment(SupportedAdjustments kind) {
-        if (adjustments == null)
-            create_adjustments_from_data();
-
-        return adjustments[kind];
+        return get_color_adjustments()[kind];
     }
 
     public void set_adjustments(owned PixelTransformation[] new_adjustments) {
@@ -478,19 +577,22 @@ public abstract class TransformablePhoto: PhotoSource {
                 break;
             }
         }
+        
         if (all_identity) {
-            bool result = remove_transformation("adjustments");
-
-            adjustments = null;
-            transformer = null;
+            bool result;
+            lock (row) {
+                result = remove_transformation("adjustments");
+                adjustments = null;
+                transformer = null;
+            }
+            
             if (result)
                 notify_altered();
 
             return;
         }
 
-        if (adjustments == null)
-            create_adjustments_from_data();
+        PixelTransformation[] adjustments = get_color_adjustments();
 
         KeyValueMap map = new KeyValueMap("adjustments");
 
@@ -535,7 +637,9 @@ public abstract class TransformablePhoto: PhotoSource {
         transformer.replace_transformation(adjustments[SupportedAdjustments.EXPOSURE],
             new_exposure_trans);
         adjustments[SupportedAdjustments.EXPOSURE] = new_exposure_trans;
-
+        
+        set_color_adjustments(adjustments);
+        
         if (set_transformation(map))
             notify_altered();
     }
@@ -549,80 +653,145 @@ public abstract class TransformablePhoto: PhotoSource {
     // Transformation storage and exporting
 
     public Dimensions get_raw_dimensions() {
-        return row.dim;
+        Dimensions dim;
+        lock (row) {
+            dim = row.dim;
+        }
+        
+        return dim;
     }
 
     public bool has_transformations() {
-        if (row.orientation != row.original_orientation)
-            return true;
-
-        return row.transformations != null;
+        bool transformed;
+        lock (row) {
+            if (row.orientation != row.original_orientation)
+                transformed = true;
+            else
+                transformed = row.transformations != null;
+        }
+        
+        return transformed;
+    }
+    
+    private bool is_only_rotated() {
+        bool only_rotated;
+        lock (row) {
+            only_rotated = row.transformations == null && row.orientation != row.original_orientation;
+        }
+        
+        return only_rotated;
     }
     
     public void remove_all_transformations() {
-        bool is_altered = photo_table.remove_all_transformations(row.photo_id);
-        row.transformations = null;
-        
-        transformer = null;
-        adjustments = null;
-        
-        if (row.orientation != row.original_orientation) {
-            photo_table.set_orientation(row.photo_id, row.original_orientation);
-            row.orientation = row.original_orientation;
-            is_altered = true;
+        bool is_altered = false;
+        lock (row) {
+            is_altered = PhotoTable.get_instance().remove_all_transformations(row.photo_id);
+            row.transformations = null;
+            
+            transformer = null;
+            adjustments = null;
+            
+            if (row.orientation != row.original_orientation) {
+                PhotoTable.get_instance().set_orientation(row.photo_id, row.original_orientation);
+                row.orientation = row.original_orientation;
+                is_altered = true;
+            }
         }
 
         if (is_altered)
             notify_altered();
     }
     
+    public Orientation get_original_orientation() {
+        Orientation original_orientation;
+        lock (row) {
+            original_orientation = row.original_orientation;
+        }
+        
+        return original_orientation;
+    }
+    
     public Orientation get_orientation() {
-        return row.orientation;
+        Orientation orientation;
+        lock (row) {
+            orientation = row.orientation;
+        }
+        
+        return orientation;
     }
     
     public void set_orientation(Orientation orientation) {
-        row.orientation = orientation;
-        photo_table.set_orientation(row.photo_id, orientation);
+        lock (row) {
+            row.orientation = orientation;
+            PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
+        }
         
         notify_altered();
     }
 
     public virtual void rotate(Rotation rotation) {
-        Orientation orientation = get_orientation();
-
-        orientation = orientation.perform(rotation);
-
-        set_orientation(orientation);
+        lock (row) {
+            Orientation orientation = get_orientation();
+            
+            orientation = orientation.perform(rotation);
+            
+            set_orientation(orientation);
+        }
     }
 
     private bool has_transformation(string name) {
-        return (row.transformations != null) ? row.transformations.has_key(name) : false;
+        bool present;
+        lock (row) {
+            present = (row.transformations != null) ? row.transformations.has_key(name) : false;
+        }
+        
+        return present;
     }
-
+    
+    // Note that obtaining the proper map is thread-safe here.  The returned map is a copy of
+    // the original, so it is thread-safe as well.  However: modifying the returned map
+    // does not modify the original; set_transformation() must be used.
     private KeyValueMap? get_transformation(string name) {
-        return (row.transformations != null) ? row.transformations.get(name) : null;
+        KeyValueMap map = null;
+        lock (row) {
+            if (row.transformations != null) {
+                map = row.transformations.get(name);
+                if (map != null)
+                    map = map.copy();
+            }
+        }
+        
+        return map;
     }
 
     private bool set_transformation(KeyValueMap trans) {
-        if (row.transformations == null)
-            row.transformations = new Gee.HashMap<string, KeyValueMap>(str_hash, str_equal, direct_equal);
+        bool committed;
+        lock (row) {
+            if (row.transformations == null)
+                row.transformations = new Gee.HashMap<string, KeyValueMap>(str_hash, str_equal, direct_equal);
+            
+            row.transformations.set(trans.get_group(), trans);
+            
+            committed = PhotoTable.get_instance().set_transformation(row.photo_id, trans);
+        }
         
-        row.transformations.set(trans.get_group(), trans);
-        
-        return photo_table.set_transformation(row.photo_id, trans);
+        return committed;
     }
 
     private bool remove_transformation(string name) {
-        bool altered_cache = false;
-        if (row.transformations != null) {
-            altered_cache = row.transformations.unset(name);
-            if (row.transformations.size == 0)
-                row.transformations = null;
+        bool altered_cache, altered_persistent;
+        lock (row) {
+            if (row.transformations != null) {
+                altered_cache = row.transformations.unset(name);
+                if (row.transformations.size == 0)
+                    row.transformations = null;
+            } else {
+                altered_cache = false;
+            }
+            
+            altered_persistent = PhotoTable.get_instance().remove_transformation(row.photo_id, 
+                name);
         }
-        
-        /* need to use a local variable here to prevent short-circuit evaluation by the '||'
-           operator when altered_cache == TRUE */
-        bool altered_persistent = photo_table.remove_transformation(row.photo_id, name);
 
         return (altered_cache || altered_persistent);
     }
@@ -667,7 +836,7 @@ public abstract class TransformablePhoto: PhotoSource {
         KeyValueMap map = get_transformation("redeye");
         if (map == null)
             return new RedeyeInstance[0];
-            
+        
         int num_points = map.get_int("num_points", -1);
         assert(num_points > 0);
 
@@ -872,7 +1041,9 @@ public abstract class TransformablePhoto: PhotoSource {
         string method = null;
         
         // check if a cached pixbuf is available to use, to avoid load-and-decode
-        if (cached_raw != null && cached_photo_id.id == row.photo_id.id) {
+        PhotoID photo_id = get_photo_id();
+        cache_mutex.lock();
+        if (cached_raw != null && cached_photo_id.id == photo_id.id) {
             // verify that the scaled image required for this request matches the dimensions of
             // the one in the cache
             Dimensions scaled_image, scaled_to_viewport;
@@ -891,6 +1062,7 @@ public abstract class TransformablePhoto: PhotoSource {
                 method = "CACHE BLOWN";
             }
         }
+        cache_mutex.unlock();
         
         if (pixbuf == null) {
             method = "LOADING";
@@ -903,9 +1075,14 @@ public abstract class TransformablePhoto: PhotoSource {
             
             timer.start();
 #endif
-            // stash in the cache
-            cached_photo_id = row.photo_id;
+            // stash in the cache ... note that this is thread-safe but not necessarily holding
+            // the "last" pixbuf due to race conditions.
+            //
+            // TODO: Remove this cache.  Other caching mechanisms are better used.
+            cache_mutex.lock();
+            cached_photo_id = photo_id;
             cached_raw = (no_copy) ? pixbuf : pixbuf.copy();
+            cache_mutex.unlock();
 #if MEASURE_PIPELINE
             pixbuf_copy_time = timer.elapsed();
 #endif
@@ -939,7 +1116,7 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
         timer.start();
 #endif
-        pixbuf = row.original_orientation.rotate_pixbuf(pixbuf);
+        pixbuf = get_original_orientation().rotate_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
 
@@ -1058,9 +1235,7 @@ public abstract class TransformablePhoto: PhotoSource {
             timer.start();
 #endif
             if (has_transformation("adjustments")) {
-                if (transformer == null)
-                    create_adjustments_from_data();
-                transformer.transform_pixbuf(pixbuf);
+                get_pixel_transformer().transform_pixbuf(pixbuf);
             }
 #if MEASURE_PIPELINE
             adjustment_time = timer.elapsed();
@@ -1125,11 +1300,11 @@ public abstract class TransformablePhoto: PhotoSource {
         Exif.Data original_exif = get_exif();
         
         // if only rotated, only need to copy and modify the EXIF
-        if (row.transformations == null && original_exif != null) {
+        if (is_only_rotated() && original_exif != null) {
             original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
 
             PhotoExif dest_exif = new PhotoExif(dest_file);
-            dest_exif.set_orientation(row.orientation);
+            dest_exif.set_orientation(get_orientation());
             dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
@@ -1425,13 +1600,11 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     public static void init() {
-        TransformablePhoto.base_init();
-        
         global = new LibraryPhotoSourceCollection();
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
-        Gee.ArrayList<PhotoRow?> all = photo_table.get_all();
+        Gee.ArrayList<PhotoRow?> all = PhotoTable.get_instance().get_all();
         Gee.ArrayList<LibraryPhoto> all_photos = new Gee.ArrayList<LibraryPhoto>();
         foreach (PhotoRow row in all)
             all_photos.add(new LibraryPhoto(row));
@@ -1440,7 +1613,6 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     public static void terminate() {
-        TransformablePhoto.base_terminate();
     }
     
     public static ImportResult import(File file, ImportID import_id, out LibraryPhoto photo) {
@@ -1455,7 +1627,7 @@ public class LibraryPhoto : TransformablePhoto {
         ThumbnailCache.import(photo_id, initial_pixbuf);
         
         // add to global
-        photo = new LibraryPhoto(photo_table.get_row(photo_id));
+        photo = new LibraryPhoto(PhotoTable.get_instance().get_row(photo_id));
         global.add(photo);
         
         return ImportResult.SUCCESS;
@@ -1555,7 +1727,6 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     public override void destroy() {
-        // necessary to avoid valac bug in photo_map.remove
         PhotoID photo_id = get_photo_id();
 
         // remove all cached thumbnails
@@ -1571,7 +1742,7 @@ public class LibraryPhoto : TransformablePhoto {
         // remove from photo table -- should be wiped from storage now (other classes may have added
         // photo_id to other parts of the database ... it's their responsibility to remove them
         // when removed() is called)
-        photo_table.remove(photo_id);
+        PhotoTable.get_instance().remove(photo_id);
         
         base.destroy();
     }
@@ -1732,13 +1903,10 @@ public class DirectPhoto : TransformablePhoto {
     }
     
     public static void init() {
-        TransformablePhoto.base_init();
-        
         global = new DirectPhotoSourceCollection();
     }
     
     public static void terminate() {
-        TransformablePhoto.base_terminate();
     }
     
     // This method should only be called by DirectPhotoSourceCollection.  Use
@@ -1748,11 +1916,11 @@ public class DirectPhoto : TransformablePhoto {
         
         PhotoID photo_id;
         Gdk.Pixbuf initial_pixbuf;
-        ImportResult result = TransformablePhoto.import_photo(file, photo_table.generate_import_id(), 
-            out photo_id, out initial_pixbuf);
+        ImportResult result = TransformablePhoto.import_photo(file, 
+            PhotoTable.get_instance().generate_import_id(), out photo_id, out initial_pixbuf);
         switch (result) {
             case ImportResult.SUCCESS:
-                PhotoRow row = photo_table.get_row(photo_id);
+                PhotoRow row = PhotoTable.get_instance().get_row(photo_id);
                 photo = new DirectPhoto(row, initial_pixbuf);
             break;
             
@@ -1762,9 +1930,7 @@ public class DirectPhoto : TransformablePhoto {
             break;
             
             default:
-                // TODO: Better error reporting
-                AppWindow.error_message("Unable to load %s: %s".printf(file.get_path(),
-                    result.to_string()));
+                photo = null;
             break;
         }
         

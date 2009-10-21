@@ -60,7 +60,8 @@ SRC_FILES = \
 	Config.vala \
 	Event.vala \
 	International.vala \
-	Workers.vala
+	Workers.vala \
+	PixbufCache.vala
 
 VAPI_FILES = \
 	libexif.vapi \

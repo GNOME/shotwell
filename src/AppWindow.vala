@@ -19,6 +19,7 @@ public class FullscreenWindow : PageWindow {
     private bool is_toolbar_shown = false;
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
+    private bool switched_to = false;
 
     public FullscreenWindow(Page page) {
         current_page = page;
@@ -82,11 +83,16 @@ public class FullscreenWindow : PageWindow {
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
     }
-
-    private override void realize() {
-        base.realize();
-
-        current_page.switched_to();
+    
+    private override bool configure_event(Gdk.EventConfigure event) {
+        bool result = base.configure_event(event);
+        
+        if (!switched_to) {
+            current_page.switched_to();
+            switched_to = true;
+        }
+        
+        return result;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -119,6 +125,7 @@ public class FullscreenWindow : PageWindow {
         toolbar_window = null;
         
         current_page.switching_from();
+        current_page = null;
         
         AppWindow.get_instance().end_fullscreen();
     }

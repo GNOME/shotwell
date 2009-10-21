@@ -1037,6 +1037,7 @@ public abstract class SinglePhotoPage : Page {
     protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected Gdk.GC text_gc = null;
     
+    private Gtk.Window container = null;
     private Gdk.Pixmap pixmap = null;
     private Dimensions pixmap_dim = Dimensions();
     private Gdk.Pixbuf unscaled = null;
@@ -1068,6 +1069,17 @@ public abstract class SinglePhotoPage : Page {
         canvas.expose_event += on_canvas_exposed;
         
         set_event_source(canvas);
+    }
+    
+    public Gtk.Window? get_container() {
+        return container;
+    }
+    
+    public virtual void set_container(Gtk.Window container) {
+        // this should only be called once
+        assert(this.container == null);
+        
+        this.container = container;
     }
     
     public Gdk.InterpType set_default_interp(Gdk.InterpType default_interp) {
@@ -1108,7 +1120,7 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public Scaling get_canvas_scaling() {
-        return Scaling.for_widget(viewport);
+        return (container is FullscreenWindow) ? Scaling.for_screen() : Scaling.for_widget(viewport);
     }
 
     public Gdk.Pixbuf? get_unscaled_pixbuf() {

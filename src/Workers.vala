@@ -13,6 +13,19 @@ public delegate void CompletionCallback(BackgroundJob job);
 // worker thread prior to calling execute()).  The BackgroundJob may also specify a
 // CompletionCallback to be executed within Gtk's event loop.
 public abstract class BackgroundJob {
+    public enum JobPriority {
+        HIGHEST = 100,
+        HIGH = 75,
+        NORMAL = 50,
+        LOW = 25,
+        LOWEST = 0;
+        
+        // Returns negative if this is higher, zero if equal, positive if this is lower
+        public int compare(JobPriority other) {
+            return (int) other - (int) this;
+        }
+    }
+    
     private CompletionCallback callback;
     private Cancellable cancellable;
     private BackgroundJob self = null;
@@ -23,6 +36,10 @@ public abstract class BackgroundJob {
     }
     
     public abstract void execute();
+    
+    public virtual JobPriority get_priority() {
+        return JobPriority.NORMAL;
+    }
     
     public bool is_cancelled() {
         return (cancellable != null) ? cancellable.is_cancelled() : false;
@@ -89,7 +106,7 @@ public class Workers {
             max_threads = THREAD_PER_CPU;
         
         if (max_threads == THREAD_PER_CPU) {
-            max_threads = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN) - 1;
+            max_threads = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN);
             if (max_threads <= 0)
                 max_threads = 1;
         }
@@ -109,17 +126,20 @@ public class Workers {
 
     // Enqueues a BackgroundJob for work in a thread context.  BackgroundJob.execute() is called
     // within the thread's context, while its CompletionCallback is called within the Gtk event loop.
-    public void enqueue(BackgroundJob background_job) throws Error {
-        queue.push(background_job);
+    public void enqueue(BackgroundJob background_job) {
+        queue.push_sorted(background_job, compare_jobs);
+    }
+    
+    private static int compare_jobs(void *a, void *b) {
+        BackgroundJob.JobPriority a_priority = ((BackgroundJob *) a)->get_priority();
+        BackgroundJob.JobPriority b_priority = ((BackgroundJob *) b)->get_priority();
+        
+        return a_priority.compare(b_priority);
     }
     
     public void die() {
-        try {
-            for (int ctr = 0; ctr < thread_count; ctr++)
-                enqueue(die_job);
-        } catch (Error err) {
-            warning("Unable to kill worker threads: %s", err.message);
-        }
+        for (int ctr = 0; ctr < thread_count; ctr++)
+            enqueue(die_job);
     }
     
     private void *thread_start() {
