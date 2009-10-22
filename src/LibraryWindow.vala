@@ -548,7 +548,11 @@ public class LibraryWindow : AppWindow {
             return;
         }
 
-        string[] uris_array = selection_data.get_uris();
+        // We extract the URI list using Uri.list_extract_uris() rather than
+        // Gtk.SelectionData.get_uris() to work around this bug on Windows:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=599321
+        string uri_string = (string) selection_data.data;
+        string[] uris_array = Uri.list_extract_uris(uri_string);
 
         GLib.SList<string> uris = new GLib.SList<string>();
         foreach (string uri in uris_array) {

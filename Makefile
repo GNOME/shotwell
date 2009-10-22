@@ -19,8 +19,6 @@ SYSTEM_LANG_DIR=/usr/share/locale-langpack
 # The COMSPEC environment variable is defined only on Windows.
 ifdef COMSPEC
   WINDOWS = 1
-  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D NO_EXTENDED_POSIX
-  EXTRA_OBJ_FILES = src/windows.o
 endif
 
 -include configure.mk
@@ -153,7 +151,7 @@ EXPANDED_PO_FILES = $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
 EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
 EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
-EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o)) $(EXTRA_OBJ_FILES)
+EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
 
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),src/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),src/$(header))
@@ -174,6 +172,12 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I
 	$(foreach def,$(DEFINES),-D$(def))
 
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
+
+ifdef WINDOWS
+  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D NO_EXTENDED_POSIX
+  EXPANDED_OBJ_FILES += src/windows.o
+  VALA_LDFLAGS += -mwindows
+endif
 
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
