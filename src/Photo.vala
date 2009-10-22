@@ -138,7 +138,6 @@ public abstract class TransformablePhoto: PhotoSource {
         TimeVal timestamp = TimeVal();
         info.get_modification_time(out timestamp);
         
-        Dimensions dim = Dimensions();
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         string thumbnail_md5 = null;
@@ -147,9 +146,6 @@ public abstract class TransformablePhoto: PhotoSource {
         // TODO: Try to read JFIF metadata too
         PhotoExif exif = new PhotoExif(file);
         if (exif.has_exif()) {
-            if (!exif.get_dimensions(out dim))
-                message("Unable to read EXIF dimensions for %s", file.get_path());
-            
             if (!exif.get_timestamp(out exposure_time))
                 message("Unable to read EXIF orientation for %s", file.get_path());
 
@@ -228,9 +224,8 @@ public abstract class TransformablePhoto: PhotoSource {
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
-        // XXX: Trust EXIF or Pixbuf for dimensions?
-        if (!dim.has_area())
-            dim = Dimensions(pixbuf.get_width(), pixbuf.get_height());
+        // Don't trust EXIF dimensions, they can lie or not be present
+        Dimensions dim = Dimensions.for_pixbuf(pixbuf);
 
         // photo information is stored in database in raw, non-modified format ... this is especially
         // important dealing with dimensions and orientation

@@ -14,7 +14,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
-            base(host_page.container, host_page.canvas.window, host_page.photo, host_page.canvas_gc, 
+            base(host_page.get_container(), host_page.canvas.window, host_page.photo, host_page.canvas_gc, 
                 host_page.get_drawable(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
@@ -28,7 +28,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private SourceCollection sources;
     private bool use_readahead;
-    private Gtk.Window container = null;
     private ViewCollection controller = null;
     private TransformablePhoto photo = null;
     private Gdk.Pixbuf swapped = null;
@@ -1008,11 +1007,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         Gtk.Allocation tool_alloc = tool_window.allocation;
 
-        if (container == AppWindow.get_instance()) {
+        if (get_container() == AppWindow.get_instance()) {
             // Normal: position crop tool window centered on viewport/canvas at the bottom,
             // straddling the canvas and the toolbar
             int rx, ry;
-            container.window.get_root_origin(out rx, out ry);
+            get_container().window.get_root_origin(out rx, out ry);
             
             int cx, cy, cwidth, cheight;
             cx = viewport.allocation.x;
@@ -1022,13 +1021,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             tool_window.move(rx + cx + (cwidth / 2) - (tool_alloc.width / 2), ry + cy + cheight);
         } else {
-            assert(container is FullscreenWindow);
+            assert(get_container() is FullscreenWindow);
             
             // Fullscreen: position crop tool window centered on screen at the bottom, just above the
             // toolbar
             Gtk.Allocation toolbar_alloc = toolbar.allocation;
             
-            Gdk.Screen screen = container.get_screen();
+            Gdk.Screen screen = get_container().get_screen();
 
             int x = screen.get_width();
             int y = screen.get_height() - toolbar_alloc.height -
