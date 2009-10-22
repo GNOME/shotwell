@@ -22,7 +22,7 @@ public class EventSourceCollection : DatabaseSourceCollection {
 }
 
 public class Event : EventSource {
-    public const long EVENT_LULL_SEC = 3 * 60 * 60;
+    public const long EVENT_LULL_SEC = 4 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     
     private class DateComparator : Comparator<LibraryPhoto> {
