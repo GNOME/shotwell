@@ -411,3 +411,71 @@ public class EventRenameDialog : Gtk.Dialog {
     }
 }
 
+public class ProgressDialog : Gtk.Window {
+    private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
+    private Gtk.Button cancel_button = null;
+    private Cancellable cancellable;
+    
+    public ProgressDialog(Gtk.Window owner, string text, Cancellable? cancellable = null) {
+        this.cancellable = cancellable;
+        
+        set_title(text);
+        set_resizable(false);
+        set_transient_for(owner);
+        set_modal(true);
+        set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
+        
+        progress_bar.set_size_request(300, -1);
+        
+        Gtk.VBox vbox = new Gtk.VBox(false, 0);
+        vbox.pack_start(progress_bar, true, false, 0);
+        
+        if (cancellable != null) {
+            cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+            cancel_button.clicked += on_cancel;
+        }
+        
+        Gtk.HBox hbox = new Gtk.HBox(false, 8);
+        hbox.pack_start(vbox, true, false, 0);
+        if (cancel_button != null)
+            hbox.pack_end(cancel_button, false, false, 0);
+        
+        Gtk.Alignment alignment = new Gtk.Alignment(0.5f, 0.5f, 1.0f, 1.0f);
+        alignment.set_padding(4, 4, 0, 0);
+        alignment.add(hbox);
+        
+        add(alignment);
+        
+        show_all();
+    }
+    
+    public void set_fraction(int current, int total) {
+        set_percentage((double) current / (double) total);
+    }
+    
+    public void set_percentage(double pct) {
+        progress_bar.set_fraction(pct);
+        progress_bar.set_text(_("%d%%").printf((int) (pct * 100.0)));
+    }
+    
+    // This can be used as a ProgressMonitor delegate.
+    public bool monitor(uint64 count, uint64 total) {
+        set_percentage((double) count / (double) total);
+        spin_event_loop();
+        
+        return (cancellable != null) ? !cancellable.is_cancelled() : true;
+    }
+    
+    public void close() {
+        hide();
+        destroy();
+    }
+    
+    private void on_cancel() {
+        if (cancellable != null)
+            cancellable.cancel();
+        
+        cancel_button.sensitive = false;
+    }
+}
+

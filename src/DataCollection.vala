@@ -19,12 +19,16 @@ public interface Marker : Object {
     
     public abstract void mark_all();
     
-    public abstract int count();
+    public abstract int get_count();
 }
 
 // MarkedAction is a callback to perform an action on the marked DataObject.  Return false to
 // end iterating.
 public delegate bool MarkedAction(DataObject object, Object user);
+
+// A ProgressMonitor allows for notifications of progress on operations on multiple items (via
+// the marked interfaces).  Return false if the operation is cancelled and should end immediately.
+public delegate bool ProgressMonitor(uint64 current, uint64 total);
 
 public class DataCollection {
     private class MarkerImpl : Object, Marker {
@@ -58,7 +62,7 @@ public class DataCollection {
                 marked.add(object);
         }
         
-        public int count() {
+        public int get_count() {
             return marked.size;
         }
         
@@ -263,13 +267,17 @@ public class DataCollection {
     
     // Iterate over all the marked objects performing a user-supplied action on each one.  The
     // marker is invalid after calling this method.
-    public void act_on_marked(Marker m, MarkedAction action, Object? user = null) {
+    public void act_on_marked(Marker m, MarkedAction action, ProgressMonitor? monitor = null, 
+        Object? user = null) {
         MarkerImpl marker = (MarkerImpl) m;
         
         assert(marker.is_valid(this));
         
         // freeze the marker to prepare it for iteration
         marker.freeze();
+        
+        uint64 count = 0;
+        uint64 total = marker.marked.size;
         
         // iterate, breaking if the callback asks to stop
         foreach (DataObject object in marker.marked) {
@@ -282,6 +290,11 @@ public class DataCollection {
             
             if (!action(object, user))
                 break;
+            
+            if (monitor != null) {
+                if (!monitor(++count, total))
+                    break;
+            }
         }
         
         // invalidate the marker
@@ -375,9 +388,9 @@ public class SourceCollection : DataCollection {
     }
     
     // Destroy all marked items.
-    public void destroy_marked(Marker marker) {
+    public void destroy_marked(Marker marker, ProgressMonitor? monitor = null) {
         Marker remove_marker = start_marking();
-        act_on_marked(marker, destroy_source, remove_marker);
+        act_on_marked(marker, destroy_source, monitor, remove_marker);
         
         // remove once all destroyed
         remove_marked(remove_marker);
@@ -765,7 +778,7 @@ public class ViewCollection : DataCollection {
     // Selects all the marked items.  The marker will be invalid after this call.
     public void select_marked(Marker marker) {
         Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, select_item, selected);
+        act_on_marked(marker, select_item, null, selected);
         
         if (selected.size > 0) {
             items_selected(selected);
@@ -800,7 +813,7 @@ public class ViewCollection : DataCollection {
     // Unselects all the marked items.  The marker will be invalid after this call.
     public void unselect_marked(Marker marker) {
         Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, unselect_item, unselected);
+        act_on_marked(marker, unselect_item, null, unselected);
         
         if (unselected.size > 0) {
             items_unselected(unselected);
@@ -848,7 +861,7 @@ public class ViewCollection : DataCollection {
     // call.
     public void toggle_marked(Marker marker) {
         ToggleLists lists = new ToggleLists();
-        act_on_marked(marker, toggle_item, lists);
+        act_on_marked(marker, toggle_item, null, lists);
         
         if (lists.selected.size > 0) {
             items_selected(lists.selected);
@@ -896,7 +909,7 @@ public class ViewCollection : DataCollection {
     
     public void hide_marked(Marker marker) {
         Gee.ArrayList<DataView> hidden = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, hide_item, hidden);
+        act_on_marked(marker, hide_item, null, hidden);
         
         if (hidden.size > 0) {
             items_hidden(hidden);
@@ -931,7 +944,7 @@ public class ViewCollection : DataCollection {
     
     public void show_marked(Marker marker) {
         Gee.ArrayList<DataView> shown = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, show_item, shown);
+        act_on_marked(marker, show_item, null, shown);
         
         if (shown.size > 0) {
             items_shown(shown);
