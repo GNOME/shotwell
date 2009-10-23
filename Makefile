@@ -16,9 +16,19 @@ SUPPORTED_LANGUAGES=fr
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=/usr/share/locale-langpack
 
-# The COMSPEC environment variable is defined only on Windows.
-ifdef COMSPEC
+UNAME := $(shell uname)
+SYSTEM := $(UNAME:MINGW32_=MinGW)
+
+ifeq "$(SYSTEM)" "Linux"
+  LINUX = 1
+endif
+
+ifeq "$(SYSTEM)" "MinGW"
   WINDOWS = 1
+endif
+
+ifeq "$(SYSTEM)" "Darwin"
+  MAC = 1
 endif
 
 -include configure.mk
@@ -117,7 +127,7 @@ EXT_PKGS = \
 	libexif \
 	sqlite3
 	
-ifndef WINDOWS	
+ifdef LINUX
 EXT_PKGS += \
 	hal \
 	dbus-glib-1 \
@@ -126,13 +136,17 @@ EXT_PKGS += \
 	gconf-2.0
 endif
 
+ifdef MAC
+  EXT_PKGS += ige-mac-integration
+endif
+
 EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.14.4 \
 	gee-1.0 >= 0.5.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9
 	
-ifndef WINDOWS
+ifdef LINUX
 EXT_PKG_VERSIONS += \
 	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
@@ -177,6 +191,11 @@ ifdef WINDOWS
   VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D NO_EXTENDED_POSIX
   EXPANDED_OBJ_FILES += src/windows.o
   VALA_LDFLAGS += -mwindows
+endif
+
+ifdef MAC
+  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D MAC
+  EXPANDED_OBJ_FILES += src/mac.o
 endif
 
 # setting CFLAGS in configure.mk overrides build type
