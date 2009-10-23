@@ -4,9 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-#if NO_LIBUNIQUE
-extern bool already_running();
-#else
+#if !NO_LIBUNIQUE
 
 enum ShotwellCommand {
     // user-defined commands must be positive ints

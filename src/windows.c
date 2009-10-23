@@ -5,3 +5,9 @@ BOOL already_running() {
     return mutex && GetLastError() == ERROR_ALREADY_EXISTS;
 }
 
+int number_of_processors() {
+    SYSTEM_INFO info;
+    GetSystemInfo(&info);
+    return info.dwNumberOfProcessors;
+}
+

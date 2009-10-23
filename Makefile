@@ -17,7 +17,7 @@ LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=/usr/share/locale-langpack
 
 UNAME := $(shell uname)
-SYSTEM := $(UNAME:MINGW32_=MinGW)
+SYSTEM := $(UNAME:MINGW32_%=MinGW)
 
 ifeq "$(SYSTEM)" "Linux"
   LINUX = 1
@@ -75,7 +75,8 @@ SRC_FILES = \
 	Config.vala \
 	Event.vala \
 	International.vala \
-	Workers.vala
+	Workers.vala \
+	system.vala
 
 VAPI_FILES = \
 	libexif.vapi \
@@ -190,7 +191,11 @@ VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
 ifdef WINDOWS
   VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D NO_EXTENDED_POSIX
   EXPANDED_OBJ_FILES += src/windows.o
+ifndef BUILD_DEBUG
+# -mwindows prevents a console window from appearing when we run Shotwell, but also hides
+# all logging/debugging output, so we specify it only in a release build.
   VALA_LDFLAGS += -mwindows
+endif  
 endif
 
 ifdef MAC
