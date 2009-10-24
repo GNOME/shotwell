@@ -22,7 +22,27 @@ public class LibraryWindow : AppWindow {
     private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", 0, 0 }
     };
-
+    
+    // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
+    // esp. regarding when the widget is realized and when it should first try and throw them image
+    // on the page.  This handles this without introducing lots of special cases in
+    // LibraryPhotoPage.
+    private class FullscreenPhotoPage : LibraryPhotoPage {
+        private CollectionPage collection;
+        private Thumbnail start;
+        
+        public FullscreenPhotoPage(CollectionPage collection, Thumbnail start) {
+            this.collection = collection;
+            this.start = start;
+        }
+        
+        public override void switched_to() {
+            base.switched_to();
+            
+            display_for_collection(collection, start);
+        }
+    }
+    
     public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
 
     private string import_dir = Environment.get_home_dir();
@@ -189,7 +209,6 @@ public class LibraryWindow : AppWindow {
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed += import_queue_batch_finished;
         photo_page = new LibraryPhotoPage();
-        photo_page.set_container(this);
 
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
@@ -287,7 +306,7 @@ public class LibraryWindow : AppWindow {
         base.show_all();
 
         Gtk.ToggleAction basic_properties_action = 
-            (Gtk.ToggleAction) current_page.common_action_group.get_action(
+            (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
             "CommonDisplayBasicProperties");
         assert(basic_properties_action != null);
 
@@ -332,6 +351,7 @@ public class LibraryWindow : AppWindow {
         // way to access the collection of items each page is responsible for displaying.  Once
         // that refactoring is done, this code should get much simpler.
         
+        Page current_page = get_current_page();
         if (current_page is CollectionPage) {
             LayoutItem item = ((CollectionPage) current_page).get_fullscreen_photo();
             if (item == null) {
@@ -358,12 +378,9 @@ public class LibraryWindow : AppWindow {
         if (collection == null || start == null)
             return;
         
-        LibraryPhotoPage fs_photo = new LibraryPhotoPage();
-        FullscreenWindow fs_window = new FullscreenWindow(fs_photo);
-        fs_photo.set_container(fs_window);
-        fs_photo.display_for_collection(collection, start);
+        FullscreenPhotoPage fs_photo = new FullscreenPhotoPage(collection, start);
 
-        go_fullscreen(fs_window);
+        go_fullscreen(fs_photo);
     }
     
     private void on_file_import() {
@@ -393,7 +410,7 @@ public class LibraryWindow : AppWindow {
     
     private void on_sort_events() {
         // any member of the group can be told the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) current_page.common_action_group.get_action(
+        Gtk.RadioAction action = (Gtk.RadioAction) get_current_page().common_action_group.get_action(
             "CommonSortEventsAscending");
         assert(action != null);
 
@@ -402,7 +419,7 @@ public class LibraryWindow : AppWindow {
     
     private void on_events_sort_changed() {
         // any member of the group knows the value
-        Gtk.RadioAction action = (Gtk.RadioAction) current_page.common_action_group.get_action(
+        Gtk.RadioAction action = (Gtk.RadioAction) get_current_page().common_action_group.get_action(
             "CommonSortEventsAscending");
         assert(action != null);
         
@@ -426,7 +443,7 @@ public class LibraryWindow : AppWindow {
         
         // set the tree cursor to the current page, which might have been lost in the
         // delete/insert
-        sidebar.place_cursor(current_page);
+        sidebar.place_cursor(get_current_page());
 
         // the events directory page needs to know about this
         events_directory_page.notify_sort_changed(events_sort);
@@ -607,7 +624,7 @@ public class LibraryWindow : AppWindow {
         }
 
         // refresh basic properties
-        basic_properties.update_properties(current_page);
+        basic_properties.update_properties(get_current_page());
     }
 
     private EventsDirectoryPage? get_dir_parent(SubEventsDirectoryPage page) {
@@ -822,7 +839,7 @@ public class LibraryWindow : AppWindow {
         }
         
         // switch away if necessary to collection page (which is always present)
-        if (current_page == page)
+        if (get_current_page() == page)
             switch_to_library_page();
     }
     
@@ -848,7 +865,7 @@ public class LibraryWindow : AppWindow {
     // check for settings that should persist between instances
     private void load_configuration() {
         Gtk.ToggleAction action = 
-            (Gtk.ToggleAction) current_page.common_action_group.get_action(
+            (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
             "CommonDisplayBasicProperties");
         assert(action != null);
         action.set_active(Config.get_instance().get_display_basic_properties());
@@ -908,21 +925,21 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_page(Page page) {
-        if (page == current_page)
+        if (page == get_current_page())
             return;
 
         // open sidebar directory containing page, if any
         if (page.get_marker() != null && page is EventPage)
             sidebar.expand_tree(page.get_marker());
 
-        if (current_page != null) {
-            current_page.switching_from();
+        if (get_current_page() != null) {
+            get_current_page().switching_from();
         
-            remove_accel_group(current_page.ui.get_accel_group());
+            remove_accel_group(get_current_page().ui.get_accel_group());
 
             // carry over menubar toggle activity between pages
             Gtk.ToggleAction old_action = 
-                (Gtk.ToggleAction) current_page.common_action_group.get_action(
+                (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
                 "CommonDisplayBasicProperties");
             assert(old_action != null);
 
@@ -934,11 +951,11 @@ public class LibraryWindow : AppWindow {
             new_action.set_active(old_action.get_active());
 
             // old page unsubscribes to these signals (new page subscribes below)
-            current_page.get_view().items_state_changed -= on_selection_changed;
-            current_page.get_view().item_altered -= on_selection_changed;
-            current_page.get_view().item_metadata_altered -= on_selection_changed;
-            current_page.get_view().contents_altered -= on_selection_changed;
-            current_page.get_view().items_visibility_changed -= on_selection_changed;
+            get_current_page().get_view().items_state_changed -= on_selection_changed;
+            get_current_page().get_view().item_altered -= on_selection_changed;
+            get_current_page().get_view().item_metadata_altered -= on_selection_changed;
+            get_current_page().get_view().contents_altered -= on_selection_changed;
+            get_current_page().get_view().items_visibility_changed -= on_selection_changed;
         }
 
         int pos = get_notebook_pos(page);
@@ -946,8 +963,8 @@ public class LibraryWindow : AppWindow {
             notebook.set_current_page(pos);
 
         // switch menus
-        if (current_page != null)
-            layout.remove(current_page.get_menubar());
+        if (get_current_page() != null)
+            layout.remove(get_current_page().get_menubar());
         layout.pack_start(page.get_menubar(), false, false, 0);
 
         Gtk.AccelGroup accel_group = page.ui.get_accel_group();
@@ -956,7 +973,7 @@ public class LibraryWindow : AppWindow {
         
         // do this prior to changing selection, as the change will fire a cursor-changed event,
         // which will then call this function again
-        current_page = page;
+        set_current_page(page);
 
         Idle.add_full(Priority.HIGH, place_sidebar_cursor);
         
@@ -965,17 +982,17 @@ public class LibraryWindow : AppWindow {
         page.show_all();
         
         // subscribe to these signals for each event page so basic properties display will update
-        current_page.get_view().items_state_changed += on_selection_changed;
-        current_page.get_view().item_altered += on_selection_changed;
-        current_page.get_view().item_metadata_altered += on_selection_changed;
-        current_page.get_view().contents_altered += on_selection_changed;
-        current_page.get_view().items_visibility_changed += on_selection_changed;
+        get_current_page().get_view().items_state_changed += on_selection_changed;
+        get_current_page().get_view().item_altered += on_selection_changed;
+        get_current_page().get_view().item_metadata_altered += on_selection_changed;
+        get_current_page().get_view().contents_altered += on_selection_changed;
+        get_current_page().get_view().items_visibility_changed += on_selection_changed;
 
         page.switched_to();
     }
 
     private bool place_sidebar_cursor() {
-        sidebar.place_cursor(current_page);
+        sidebar.place_cursor(get_current_page());
         return false;
     }
 
@@ -1045,7 +1062,7 @@ public class LibraryWindow : AppWindow {
     }
 
     private void on_selection_changed() {
-        basic_properties.update_properties(current_page);
+        basic_properties.update_properties(get_current_page());
     }
     
     public void mounted_camera_shell_notification(string uri) {

@@ -128,6 +128,14 @@ public class PixbufCache {
         return pixbuf;
     }
     
+    // This can be used to clear specific pixbufs from the cache, allowing finer control over what
+    // pixbufs remain and avoid being dropped when other fetches follow.  It implicitly cancels
+    // any outstanding prefetches for the photo.
+    public void drop(TransformablePhoto photo) {
+        cancel_prefetch(photo);
+        decache(photo);
+    }
+    
     // This call signals the cache to pre-load the pixbuf for the photo.  When loaded the fetched
     // signal is fired.
     public void prefetch(TransformablePhoto photo, 
@@ -206,9 +214,15 @@ public class PixbufCache {
         TransformablePhoto photo = object as TransformablePhoto;
         assert(photo != null);
         
-        debug("Removing altered pixbuf from cache: %s", photo.to_string());
+        // only interested if in this cache and not an originals cache, as they never alter
+        if (!cache.contains(photo) && type != PhotoType.ORIGINAL)
+            return;
         
         decache(photo);
+        
+        debug("Re-fetching altered pixbuf from cache: %s", photo.to_string());
+        
+        prefetch(photo, BackgroundJob.JobPriority.HIGH);
     }
     
     private void on_sources_removed(Gee.Iterable<DataObject> removed) {
@@ -230,8 +244,11 @@ public class PixbufCache {
         // move up in the LRU
         int index = lru.index_of(photo);
         assert(index >= 0);
-        lru.remove_at(index);
-        lru.insert(0, photo);
+        
+        if (index > 0) {
+            lru.remove_at(index);
+            lru.insert(0, photo);
+        }
         
         return pixbuf;
     }

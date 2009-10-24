@@ -92,8 +92,6 @@ class SlideshowPage : SinglePhotoPage {
         this.controller = controller;
         current = start;
         
-        set_default_interp(QUALITY_INTERP);
-        
         // add toolbar buttons
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label(_("Back"));
@@ -131,14 +129,9 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
-        Idle.add(start_slideshow);
-    }
-
-    private bool start_slideshow() {
-        // since the canvas might not be ready at this point, start with screen-sized photo
         Gdk.Pixbuf pixbuf;
         if (!get_fullscreen_pixbuf(current, true, out current, out pixbuf))
-            return false;
+            return;
 
         set_pixbuf(pixbuf);
         
@@ -148,8 +141,6 @@ class SlideshowPage : SinglePhotoPage {
         
         // prefetch the next pixbuf so it's ready when auto-advance fires
         schedule_prefetch();
-
-        return false;
     }
     
     public override void switching_from() {
@@ -169,7 +160,7 @@ class SlideshowPage : SinglePhotoPage {
         for (;;) {
             try {
                 // Fails if a photo source file is missing.
-                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen());
+                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen(get_container()));
             } catch (Error err) {
                 warning("%s", err.message);
 
@@ -1072,9 +1063,8 @@ public class CollectionPage : CheckerboardPage {
         Thumbnail thumbnail = (Thumbnail) get_fullscreen_photo();
         if (thumbnail == null)
             return;
-
-        AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(get_view(),
-            thumbnail)));
+        
+        AppWindow.get_instance().go_fullscreen(new SlideshowPage(get_view(), thumbnail));
     }
 
     private void on_view_menu() {

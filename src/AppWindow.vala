@@ -22,7 +22,7 @@ public class FullscreenWindow : PageWindow {
     private bool switched_to = false;
 
     public FullscreenWindow(Page page) {
-        current_page = page;
+        set_current_page(page);
 
         File ui_file = Resources.get_ui("fullscreen.ui");
 
@@ -51,12 +51,12 @@ public class FullscreenWindow : PageWindow {
         close_button.set_tooltip_text("Leave fullscreen");
         close_button.clicked += on_close;
         
-        Gtk.Toolbar toolbar = current_page.get_toolbar();
+        Gtk.Toolbar toolbar = page.get_toolbar();
         toolbar.set_show_arrow(false);
 
         if (page is SlideshowPage) {
             // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
-            ((SlideshowPage) current_page).hide_toolbar += hide_toolbar;
+            ((SlideshowPage) page).hide_toolbar += hide_toolbar;
         } else {
             // only non-slideshow pages should have pin button
             toolbar.insert(pin_button, -1); 
@@ -71,7 +71,7 @@ public class FullscreenWindow : PageWindow {
         
         toolbar_window.realize += on_toolbar_realized;
         
-        add(current_page);
+        add(page);
         
         // need to create a Gdk.Window to set masks
         fullscreen();
@@ -88,7 +88,7 @@ public class FullscreenWindow : PageWindow {
         bool result = base.configure_event(event);
         
         if (!switched_to) {
-            current_page.switched_to();
+            get_current_page().switched_to();
             switched_to = true;
         }
         
@@ -124,8 +124,8 @@ public class FullscreenWindow : PageWindow {
         hide_toolbar();
         toolbar_window = null;
         
-        current_page.switching_from();
-        current_page = null;
+        get_current_page().switching_from();
+        clear_current_page();
         
         AppWindow.get_instance().end_fullscreen();
     }
@@ -249,12 +249,31 @@ public class FullscreenWindow : PageWindow {
 // various notifications.  It is the responsibility of the subclass to notify Pages when they're
 // switched to and from, and other aspects of the Page interface.
 public abstract class PageWindow : Gtk.Window {
-    protected Page current_page = null;
+    private Page current_page = null;
     
     public PageWindow() {
         // the current page needs to know when modifier keys are pressed
         add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
             | Gdk.EventMask.STRUCTURE_MASK);
+    }
+    
+    public Page? get_current_page() {
+        return current_page;
+    }
+    
+    public virtual void set_current_page(Page page) {
+        if (current_page != null)
+            current_page.clear_container();
+        
+        current_page = page;
+        current_page.set_container(this);
+    }
+    
+    public virtual void clear_current_page() {
+        if (current_page != null)
+            current_page.clear_container();
+        
+        current_page = null;
     }
     
     private override bool key_press_event(Gdk.EventKey event) {
@@ -527,7 +546,7 @@ public abstract class AppWindow : PageWindow {
         action_group.add_actions(create_actions(), this);
     }
 
-    public void go_fullscreen(FullscreenWindow fsw) {
+    public void go_fullscreen(Page page) {
         // if already fullscreen, use that
         if (fullscreen_window != null) {
             fullscreen_window.present();
@@ -535,8 +554,10 @@ public abstract class AppWindow : PageWindow {
             return;
         }
         
-        if (current_page != null)
-            current_page.switching_to_fullscreen();
+        FullscreenWindow fsw = new FullscreenWindow(page);
+        
+        if (get_current_page() != null)
+            get_current_page().switching_to_fullscreen();
         
         fullscreen_window = fsw;
         fullscreen_window.present();
@@ -552,8 +573,8 @@ public abstract class AppWindow : PageWindow {
         fullscreen_window.hide();
         fullscreen_window = null;
         
-        if (current_page != null)
-            current_page.returning_from_fullscreen();
+        if (get_current_page() != null)
+            get_current_page().returning_from_fullscreen();
         
         present();
     }

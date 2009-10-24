@@ -22,7 +22,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         
         public override void repaint() {
-            host_page.repaint(SinglePhotoPage.QUALITY_INTERP);
+            host_page.repaint();
         }
     }
     
@@ -191,7 +191,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         if (pixbuf != null) {
-            set_pixbuf(pixbuf, false);
+            set_pixbuf(pixbuf);
             pixbuf_dirty = false;
         } else if (err != null) {
             set_photo_missing(true);
@@ -253,9 +253,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!use_readahead)
             return;
         
+        TransformablePhoto next, prev;
+        get_immediate_neighbors(controller, photo, out next, out prev);
+        
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
         foreach (TransformablePhoto neighbor in get_extended_neighbors(controller, photo)) {
-            cache.prefetch(neighbor);
+            BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL;
+            if (neighbor.equals(next) || neighbor.equals(prev))
+                priority = BackgroundJob.JobPriority.HIGH;
+            
+            cache.prefetch(neighbor, priority);
             
             if (neighbor.has_transformations())
                 original_cache.prefetch(neighbor, BackgroundJob.JobPriority.LOWEST);
@@ -275,10 +282,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
             new_photo);
         
         foreach (TransformablePhoto old_neighbor in old_neighbors) {
-            if (!new_neighbors.contains(old_neighbor)) {
-                cache.cancel_prefetch(old_neighbor);
-                original_cache.cancel_prefetch(old_neighbor);
+            // cancel prefetch and drop from cache if old neighbor is not part of the new
+            // neighborhood
+            if (!new_neighbors.contains(old_neighbor) && !new_photo.equals(old_neighbor)) {
+                cache.drop(old_neighbor);
+                original_cache.drop(old_neighbor);
             }
+        }
+        
+        // do same for old photo
+        if (!new_neighbors.contains(old_photo) && !new_photo.equals(old_photo)) {
+            cache.drop(old_photo);
+            original_cache.drop(old_photo);
         }
     }
     
@@ -341,7 +356,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 pixbuf = pixbuf.composite_color_simple(pixbuf.get_width(), pixbuf.get_height(),
                     Gdk.InterpType.NEAREST, 100, 2, 0, 0);
 
-                set_pixbuf(pixbuf, false);
+                set_pixbuf(pixbuf);
             } catch (GLib.Error err) {
                 warning("%s", err.message);
             }
@@ -414,7 +429,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void quick_update_pixbuf() {
         Gdk.Pixbuf pixbuf = cache.get_ready_pixbuf(photo);
         if (pixbuf != null) {
-            set_pixbuf(pixbuf, false);
+            set_pixbuf(pixbuf);
             pixbuf_dirty = false;
             
             return;
@@ -427,7 +442,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         try {
-            set_pixbuf(photo.get_preview_pixbuf(scaling), false);
+            set_pixbuf(photo.get_preview_pixbuf(scaling));
         } catch (Error err) {
             warning("%s", err.message);
         }
@@ -457,7 +472,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         
         if (!photo_missing) {
-            set_pixbuf(pixbuf, false);
+            set_pixbuf(pixbuf);
             pixbuf_dirty = false;
         }
         
@@ -472,9 +487,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.on_resize(rect);
 
         track_tool_window();
-        
-        if (get_container() is FullscreenWindow)
-            rebuild_caches("on_resize");
     }
     
     private override void on_resize_finished(Gdk.Rectangle rect) {
@@ -502,7 +514,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 // store what's currently displayed only for the duration of the shift pressing
                 swapped = get_unscaled_pixbuf();
                 
-                set_pixbuf(original, false);
+                set_pixbuf(original);
             }
         }
         
@@ -511,7 +523,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_released(Gdk.EventKey event) {
         if (current_tool == null && swapped != null) {
-            set_pixbuf(swapped, false);
+            set_pixbuf(swapped);
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
@@ -521,10 +533,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void activate_tool(EditingTool tool) {
-        // during editing, always use the quality interpolation, so the editing tool is only
-        // dealing with one pixbuf (unless page is resized)
-        set_default_interp(QUALITY_INTERP);
-        
         // deactivate current tool ... current implementation is one tool at a time.  In the future,
         // tools may be allowed to be executing at the same time.
         deactivate_tool();
@@ -561,7 +569,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         place_tool_window();
 
         // repaint entire view, with the tool now hooked in
-        default_repaint();
+        repaint();
     }
     
     private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null, bool needs_improvement = false) {
@@ -599,9 +607,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             pixbuf_dirty = true;
             Idle.add(update_pixbuf);
         }
-
-        // return to fast interpolation for viewing
-        set_default_interp(FAST_INTERP);
     }
     
     private override void drag_begin(Gdk.DragContext context) {
@@ -719,8 +724,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         pixbuf_dirty = true;
-
+        
+        // if transformed, want to prefetch the original pixbuf for this photo, but after the
+        // signal is completed as PixbufCache may remove it in this round of fired signals
+        if (photo.has_transformations())
+            Idle.add(on_fetch_original);
+        
         update_ui();
+    }
+    
+    private bool on_fetch_original() {
+        original_cache.prefetch(photo, BackgroundJob.JobPriority.LOW);
+        
+        return false;
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {

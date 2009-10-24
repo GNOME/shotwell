@@ -5,11 +5,7 @@
  */
 
 public class PageLayout : Gtk.VBox {
-    public Page page;
-    
     public PageLayout(Page page) {
-        this.page = page;
-        
         set_homogeneous(false);
         set_spacing(0);
         
@@ -44,6 +40,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     private string page_name;
     private ViewCollection view = new ViewCollection();
+    private Gtk.Window container = null;
     private PageLayout layout = null;
     private Gtk.MenuBar menu_bar = null;
     private SidebarMarker marker = null;
@@ -80,6 +77,21 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // ViewController to flip through a collection of thumbnails).
     public virtual ViewCollection get_controller() {
         return view;
+    }
+    
+    public Gtk.Window? get_container() {
+        return container;
+    }
+    
+    public virtual void set_container(Gtk.Window container) {
+        // this should only be called once
+        assert(this.container == null);
+        
+        this.container = container;
+    }
+    
+    public virtual void clear_container() {
+        container = null;
     }
     
     public PageLayout get_layout() {
@@ -406,12 +418,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         rect.width = event.width;
         rect.height = event.height;
         
-        if (last_position.x != rect.x || last_position.y != rect.y)
-            on_move(rect);
-        
-        if (last_position.width != rect.width || last_position.height != rect.height)
-            on_resize(rect);
-        
         // special case events, to report when a configure first starts (and appears to end)
         if (last_configure_ms == 0) {
             if (last_position.x != rect.x || last_position.y != rect.y) {
@@ -428,7 +434,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
             // wait time before it's noticed
             Timeout.add(CONSIDER_CONFIGURE_HALTED_MSEC / 8, check_configure_halted);
         }
-
+        
+        if (last_position.x != rect.x || last_position.y != rect.y)
+            on_move(rect);
+        
+        if (last_position.width != rect.width || last_position.height != rect.height)
+            on_resize(rect);
+        
         last_position = rect;
         last_configure_ms = now_ms();
 
@@ -1037,21 +1049,20 @@ public abstract class SinglePhotoPage : Page {
     protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected Gdk.GC text_gc = null;
     
-    private Gtk.Window container = null;
     private Gdk.Pixmap pixmap = null;
     private Dimensions pixmap_dim = Dimensions();
     private Gdk.Pixbuf unscaled = null;
     private Gdk.Pixbuf scaled = null;
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
-    private Gdk.InterpType default_interp = FAST_INTERP;
-    private Gdk.InterpType interp = FAST_INTERP;
-    private SinglePhotoPage improval_scheduled = null;
-    private bool reschedule_improval = false;
     
     public SinglePhotoPage(string page_name) {
         base(page_name);
         
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        // Although we currently never show scrollbars (image is always scaled to same size as
+        // viewport), if both are NEVER then the window cannot be resized vertically, only
+        // horizontally ... this allows for the resizing, but due to out auto-resizing code, the
+        // scrollbars never display
+        set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
 
         viewport.set_shadow_type(Gtk.ShadowType.NONE);
         viewport.set_border_width(0);
@@ -1071,32 +1082,30 @@ public abstract class SinglePhotoPage : Page {
         set_event_source(canvas);
     }
     
-    public Gtk.Window? get_container() {
-        return container;
-    }
-    
-    public virtual void set_container(Gtk.Window container) {
-        // this should only be called once
-        assert(this.container == null);
+    public override void switched_to() {
+        base.switched_to();
         
-        this.container = container;
+        if (unscaled != null)
+            repaint();
     }
     
-    public Gdk.InterpType set_default_interp(Gdk.InterpType default_interp) {
-        Gdk.InterpType old = this.default_interp;
-        this.default_interp = default_interp;
+    public override void set_container(Gtk.Window container) {
+        base.set_container(container);
         
-        return old;
+        // scrollbar policy in fullscreen mode needs to be auto/auto, else the pixbuf will shift
+        // off the screen
+        if (container is FullscreenWindow)
+            set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
     
-    public void set_pixbuf(Gdk.Pixbuf unscaled, bool use_improvement = true) {
+    public void set_pixbuf(Gdk.Pixbuf unscaled) {
         this.unscaled = unscaled;
         scaled = null;
         
         // need to make sure this has happened
         canvas.realize();
         
-        repaint(use_improvement ? default_interp : QUALITY_INTERP);
+        repaint();
     }
     
     public void blank_display() {
@@ -1120,7 +1129,8 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public Scaling get_canvas_scaling() {
-        return (container is FullscreenWindow) ? Scaling.for_screen() : Scaling.for_widget(viewport);
+        return (get_container() is FullscreenWindow) ? Scaling.for_screen(get_container()) 
+            : Scaling.for_widget(viewport);
     }
 
     public Gdk.Pixbuf? get_unscaled_pixbuf() {
@@ -1151,7 +1161,15 @@ public abstract class SinglePhotoPage : Page {
     }
     
     private void on_viewport_resize() {
-        repaint(default_interp);
+        // do fast repaints while resizing
+        internal_repaint(FAST_INTERP);
+    }
+    
+    private override void on_resize_finished(Gdk.Rectangle rect) {
+        base.on_resize_finished(rect);
+        
+        // when the resize is completed, do a high-quality repaint
+        repaint();
     }
     
     private bool on_canvas_exposed(Gdk.EventExpose event) {
@@ -1183,11 +1201,19 @@ public abstract class SinglePhotoPage : Page {
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    public void default_repaint() {
-        repaint(default_interp);
+    public void repaint() {
+        internal_repaint(QUALITY_INTERP);
     }
     
-    public void repaint(Gdk.InterpType repaint_interp) {
+    private void internal_repaint(Gdk.InterpType interp) {
+        // if not in view, assume a full repaint needed in future but do nothing more
+        if (!is_in_view()) {
+            pixmap = null;
+            scaled = null;
+            
+            return;
+        }
+        
         // no image or window, no painting
         if (unscaled == null || canvas.window == null)
             return;
@@ -1212,10 +1238,6 @@ public abstract class SinglePhotoPage : Page {
         if (pixmap == null) {
             init_pixmap(width, height);
             new_pixmap = true;
-        } else if (repaint_interp == FAST_INTERP && interp == QUALITY_INTERP) {
-            // block calls where the pixmap is not being regenerated and the caller is asking for
-            // a lower interp
-            repaint_interp = QUALITY_INTERP;
         }
         
         if (new_pixbuf || new_pixmap) {
@@ -1236,17 +1258,15 @@ public abstract class SinglePhotoPage : Page {
         }
         
         // rescale if canvas rescaled or better quality is requested
-        if (scaled == null || interp != repaint_interp) {
-            scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), repaint_interp);
+        if (scaled == null) {
+            scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), interp);
             
             UpdateReason reason = UpdateReason.RESIZED_CANVAS;
-            if (new_pixbuf) 
+            if (new_pixbuf)
                 reason = UpdateReason.NEW_PIXBUF;
-            else if (interp == FAST_INTERP && repaint_interp == QUALITY_INTERP)
+            else if (!new_pixmap && interp == QUALITY_INTERP)
                 reason = UpdateReason.QUALITY_IMPROVEMENT;
             
-            interp = repaint_interp;
-
             updated_pixbuf(scaled, reason, old_scaled_dim);
         }
         
@@ -1254,10 +1274,6 @@ public abstract class SinglePhotoPage : Page {
 
         // invalidate everything
         invalidate_all();
-        
-        // schedule improvement if low-quality pixbuf was used
-        if (interp != QUALITY_INTERP)
-            schedule_improval();
     }
     
     private void init_pixmap(int width, int height) {
@@ -1280,35 +1296,6 @@ public abstract class SinglePhotoPage : Page {
         canvas.set_size_request(width, height);
 
         new_drawable(canvas_gc, pixmap);
-    }
-
-    private void schedule_improval() {
-        if (improval_scheduled != null) {
-            reschedule_improval = true;
-            
-            return;
-        }
-        
-        Idle.add(image_improval);
-        
-        // because Idle doesn't maintain a ref to this, need to maintain one ourself
-        // (in case the page is destroyed between schedules)
-        improval_scheduled = this;
-    }
-    
-    private bool image_improval() {
-        if (reschedule_improval) {
-            reschedule_improval = false;
-            
-            return true;
-        }
-        
-        repaint(QUALITY_INTERP);
-        
-        // do not touch self after clearing this
-        improval_scheduled = null;
-        
-        return false;
     }
 }
 
