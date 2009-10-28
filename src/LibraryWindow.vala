@@ -100,7 +100,6 @@ public class LibraryWindow : AppWindow {
                 
                 // add this to the notebook and tell the notebook to show it (as per DevHelp)
                 LibraryWindow.get_app().add_to_notebook(page);
-                LibraryWindow.get_app().notebook.show_all();
             }
             
             return page;
@@ -678,14 +677,14 @@ public class LibraryWindow : AppWindow {
 
             sidebar.insert_child_sorted(events_directory_page.get_marker(), year, comparator);
 
-            LibraryWindow.get_app().add_to_notebook(year);
+            add_to_notebook(year);
 
             events_dir_list.add(year);
         }
 
         sidebar.insert_child_sorted(year.get_marker(), month, comparator);
 
-        LibraryWindow.get_app().add_to_notebook(month);
+        add_to_notebook(month);
 
         events_dir_list.add(month);
 
@@ -728,15 +727,10 @@ public class LibraryWindow : AppWindow {
 
     private void remove_event_tree(SidebarPage page) {
         // remove from notebook
-        if (page is SubEventsDirectoryPage ||
-            (page is EventPageProxy && ((EventPageProxy) page).has_page())) {
-            
-            int pos = get_notebook_pos(((page is EventPageProxy) ?
-                ((EventPageProxy) page).get_page() : (Page) page));
-
-            assert(pos >= 0);
-            notebook.remove_page(pos);
-        }
+        if (page is SubEventsDirectoryPage)
+            remove_from_notebook((SubEventsDirectoryPage) page);
+        else if (page is EventPageProxy && ((EventPageProxy) page).has_page())
+            remove_from_notebook(((EventPageProxy) page).get_page());
 
         // grab parent page
         SidebarPage parent = sidebar.get_parent_page(page);
@@ -794,6 +788,16 @@ public class LibraryWindow : AppWindow {
         
         int pos = notebook.append_page(page.get_layout(), null);
         assert(pos >= 0);
+        
+        // need to show_all() after pages are added and removed
+        notebook.show_all();
+    }
+    
+    private void remove_from_notebook(Page page) {
+        notebook.remove_page(get_notebook_pos(page));
+        
+        // need to show_all() after pages are added and removed
+        notebook.show_all();
     }
     
     private int get_notebook_pos(Page page) {
@@ -807,32 +811,24 @@ public class LibraryWindow : AppWindow {
         add_to_notebook(parent);
 
         sidebar.add_parent(parent);
-        
-        notebook.show_all();
     }
     
     private void add_child_page(SidebarMarker parent_marker, Page child) {
         add_to_notebook(child);
         
         sidebar.add_child(parent_marker, child);
-        
-        notebook.show_all();
     }
     
     private void insert_page_after(SidebarMarker after_marker, Page page) {
         add_to_notebook(page);
         
         sidebar.insert_sibling_after(after_marker, page);
-        
-        notebook.show_all();
     }
     
     // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
     // is not listed in the sidebar
     private void add_orphan_page(Page orphan) {
         add_to_notebook(orphan);
-        
-        notebook.show_all();
     }
     
     private void remove_page(Page page) {
@@ -859,10 +855,7 @@ public class LibraryWindow : AppWindow {
         while (pages_to_be_removed.size > 0) {
             Page page = pages_to_be_removed.get(0);
             
-            // remove from notebook
-            int pos = get_notebook_pos(page);
-            assert(pos >= 0);
-            notebook.remove_page(pos);
+            remove_from_notebook(page);
 
             // remove from sidebar, if present
             sidebar.remove_page(page);
@@ -965,9 +958,7 @@ public class LibraryWindow : AppWindow {
             unsubscribe_from_basic_information(get_current_page());
         }
 
-        int pos = get_notebook_pos(page);
-        if (pos >= 0)
-            notebook.set_current_page(pos);
+        notebook.set_current_page(get_notebook_pos(page));
 
         // switch menus
         if (get_current_page() != null)

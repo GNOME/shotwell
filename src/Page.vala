@@ -555,7 +555,7 @@ public abstract class CheckerboardPage : Page {
         base(page_name);
         
         layout = new CheckerboardLayout(get_view());
-        layout.set_name(name);
+        layout.set_name(page_name);
         
         set_event_source(layout);
 

@@ -159,14 +159,14 @@ public class Event : EventSource {
                     
                     global.add(current_event);
                     
-                    debug("Reported event creation %s", current_event.to_string());
+                    debug("Added event %s to global collection", current_event.to_string());
                 }
 
                 current_event_start = exposure_time;
                 current_event = new Event(
                     event_table.create(photo.get_photo_id(), current_event_start));
 
-                debug("Created event %s", current_event.to_string());
+                debug("Created new event %s", current_event.to_string());
             }
             
             assert(current_event != null);
@@ -186,7 +186,7 @@ public class Event : EventSource {
             
             global.add(current_event);
             
-            debug("Created event %s", current_event.to_string());
+            debug("Added event %s to global collection", current_event.to_string());
         }
     }
     
