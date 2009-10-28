@@ -326,7 +326,10 @@ public class BatchImport {
             break;
         }
         
-        job_result(job, file, id, result);
+        // only report results for files and error cases, not directories which are successfully
+        // traversed (since they result in files)
+        if (type != FileType.DIRECTORY || result != ImportResult.SUCCESS)
+            job_result(job, file, id, result);
     }
     
     private ImportResult import_dir(BatchImportJob job, File dir, bool copy_to_library) {
@@ -342,7 +345,7 @@ public class BatchImport {
             FileInfo info = null;
             while ((info = enumerator.next_file(null)) != null) {
                 File child = dir.get_child(info.get_name());
-                import(job, child, copy_to_library, child.get_uri());
+                import(job, child, copy_to_library, child.get_path());
             }
         } catch (Error err) {
             debug("Unable to import from %s: %s", dir.get_path(), err.message);

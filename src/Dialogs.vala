@@ -335,10 +335,12 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     
     int total = manifest.success.size + manifest.failed.size + manifest.skipped.size 
         + manifest.already_imported.size + manifest.aborted.size;
-    if (total == 0)
-        return false;
-    
     assert(total == manifest.all.size);
+    
+    // if no photos imported at all (i.e. an empty directory attempted), need to at least report
+    // that nothing was imported
+    if (total == 0)
+        message += _("No photos imported.\n");
     
     Gtk.MessageDialog dialog = null;
     if (question == null) {
