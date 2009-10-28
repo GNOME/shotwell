@@ -11,3 +11,18 @@ int number_of_processors() {
 }
 #endif
 
+#if WINDOWS
+// Return the directory in which Shotwell is installed, or null if uninstalled.
+File? get_install_dir(File exec_dir) {
+    File install_dir = File.new_for_path(
+        Win32.get_package_installation_directory_of_module(null));
+    return install_dir.equal(exec_dir) ? null : install_dir;
+}
+#else
+// Return the directory in which Shotwell is installed, or null if uninstalled.
+File? get_install_dir(File exec_dir) {
+    File prefix_dir = File.new_for_path(Resources.PREFIX);
+    return exec_dir.has_prefix(prefix_dir) ? prefix_dir : null;
+}
+#endif
+

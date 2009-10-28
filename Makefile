@@ -196,7 +196,7 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
 
 ifdef WINDOWS
-  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_SVG -D NO_EXTENDED_POSIX
+  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_SVG -D NO_EXTENDED_POSIX -D WINDOWS
   EXPANDED_OBJ_FILES += src/windows.o
 ifndef BUILD_DEBUG
 # -mwindows prevents a console window from appearing when we run Shotwell, but also hides

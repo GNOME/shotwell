@@ -441,14 +441,12 @@ public abstract class AppWindow : PageWindow {
     
     public static File get_resources_dir() {
         File exec_dir = get_exec_dir();
-        File prefix_dir = File.new_for_path(Resources.PREFIX);
-
-        // if running in the prefix'd path, the app has been installed and is running from there;
-        // use its installed resources; otherwise running locally, so use local resources
-        if (exec_dir.has_prefix(prefix_dir))
-            return prefix_dir.get_child("share").get_child("shotwell");
-        else
-            return AppWindow.get_exec_dir();
+        File install_dir = get_install_dir(exec_dir);
+        
+        if (install_dir != null)
+            return install_dir.get_child("share").get_child("shotwell");
+        else    // running locally
+            return exec_dir;
     }
 
     public static void error_message(string message) {
