@@ -928,13 +928,14 @@ public class CollectionPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
 
-        string msg_string = _("If you remove these photos from your library you will lose all edits you've made to them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
+        string msg_string = 
+            _("This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n\nThis action cannot be undone.");
 
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
             Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", msg_string);
-        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.NO);
-        dialog.add_button(_("Keep files"), Gtk.ResponseType.YES);
-        dialog.title = _("Remove photos?");
+        dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
+        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.YES);
+        dialog.title = _("Remove");
 
         Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
         
@@ -950,7 +951,7 @@ public class CollectionPage : CheckerboardPage {
         foreach (DataView view in get_view().get_selected()) {
             LibraryPhoto photo = ((Thumbnail) view).get_photo();
             
-            if (result == Gtk.ResponseType.NO)
+            if (result == Gtk.ResponseType.YES)
                 photo.delete_original_on_destroy();
             
             marker.mark(photo);
