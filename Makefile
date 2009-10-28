@@ -133,12 +133,15 @@ EXT_PKGS += \
 	hal \
 	dbus-glib-1 \
 	unique-1.0 \
-	libgphoto2 \
-	gconf-2.0
+	libgphoto2
 endif
 
 ifdef MAC
-  EXT_PKGS += ige-mac-integration
+EXT_PKGS += \
+    ige-mac-integration
+else
+EXT_PKGS += \
+    gconf-2.0
 endif
 
 EXT_PKG_VERSIONS = \
@@ -152,8 +155,12 @@ EXT_PKG_VERSIONS += \
 	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
 	unique-1.0 >= 1.0.0 \
-	libgphoto2 >= 2.4.2 \
-	gconf-2.0 >= 2.24.1
+	libgphoto2 >= 2.4.2
+endif
+
+ifndef MAC
+EXT_PKG_VERSIONS += \
+	gconf-2.0 >= 2.22.0
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
@@ -189,7 +196,7 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
 
 ifdef WINDOWS
-  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D NO_EXTENDED_POSIX
+  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_SVG -D NO_EXTENDED_POSIX
   EXPANDED_OBJ_FILES += src/windows.o
 ifndef BUILD_DEBUG
 # -mwindows prevents a console window from appearing when we run Shotwell, but also hides
