@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # Copyright 2009 Yorba Foundation
 #
@@ -85,7 +85,7 @@ done
 rm -f $CONFIG_IN
 if [ $variables ]
 then
-    echo -n $variables > $CONFIG_IN
+    echo -e -n $variables > $CONFIG_IN
 fi
 echo "CONFIG_IN=${CONFIG_IN}" >> $CONFIG_IN
 
