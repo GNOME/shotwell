@@ -558,13 +558,13 @@ public class CropTool : EditingTool {
         result += ConstraintDescription(_("11 x 14 in."), 14, 11, true);
         result += ConstraintDescription(_("16 x 20 in."), 20, 16, true);
         result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
-        result += ConstraintDescription(_("Metric Wallet (9 x 13 cm.)"), 13, 9, true);
-        result += ConstraintDescription(_("Postcard (10 x 15 cm.)"), 15, 10, true);
-        result += ConstraintDescription(_("13 x 18 cm."), 18, 13, true);
-        result += ConstraintDescription(_("18 x 24 cm."), 24, 18, true);
-        result += ConstraintDescription(_("20 x 30 cm."), 30, 20, true);
-        result += ConstraintDescription(_("24 x 40 cm."), 40, 24, true);
-        result += ConstraintDescription(_("30 x 40 cm."), 40, 30, true);
+        result += ConstraintDescription(_("Metric Wallet (9 x 13 cm)"), 13, 9, true);
+        result += ConstraintDescription(_("Postcard (10 x 15 cm)"), 15, 10, true);
+        result += ConstraintDescription(_("13 x 18 cm"), 18, 13, true);
+        result += ConstraintDescription(_("18 x 24 cm"), 24, 18, true);
+        result += ConstraintDescription(_("20 x 30 cm"), 30, 20, true);
+        result += ConstraintDescription(_("24 x 40 cm"), 40, 24, true);
+        result += ConstraintDescription(_("30 x 40 cm"), 40, 30, true);
         result += ConstraintDescription(_("-"), 0, 0, false, SEPARATOR);
         result += ConstraintDescription(_("Custom"), 0, 0, true, CUSTOM_ASPECT_RATIO);
 
