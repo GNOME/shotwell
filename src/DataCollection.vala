@@ -43,6 +43,10 @@ public class DataCollection {
             owner.items_removed += on_items_removed;
         }
         
+        ~MarkerImpl() {
+            owner.items_removed -= on_items_removed;
+        }
+        
         public void mark(DataObject object) {
             assert(owner.contains(object));
             
@@ -492,6 +496,7 @@ public class ViewCollection : DataCollection {
         public Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
     }
     
+    private SourceCollection sources = null;
     private ViewManager manager = null;
     private ViewFilter filter = null;
     private SortedList<DataView> selected = new SortedList<DataView>();
@@ -547,7 +552,17 @@ public class ViewCollection : DataCollection {
         visible.resort(get_order_added_comparator());
     }
     
+    ~ViewCollection () {
+        if (sources != null) {
+            sources.items_added -= on_sources_added;
+            sources.items_removed -= on_sources_removed;
+            sources.item_altered -= on_source_altered;
+            sources.item_metadata_altered -= on_source_altered;
+        }
+    }
+    
     public void monitor_source_collection(SourceCollection sources, ViewManager manager) {
+        this.sources = sources;
         this.manager = manager;
         
         // load in all items from the SourceCollection, filtering with the manager

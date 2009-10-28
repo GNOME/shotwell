@@ -26,7 +26,11 @@ class EventDirectoryItem : LayoutItem {
         // monitor the event for changes
         event.altered += on_event_altered;
     }
-
+    
+    ~EventDirectoryItem() {
+        event.altered -= on_event_altered;
+    }
+    
     public override void exposed() {
         if (is_exposed())
             return;

@@ -47,6 +47,11 @@ public class Event : EventSource {
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
     }
     
+    ~Event() {
+        if (primary_photo != null)
+            primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+    }
+    
     public static void init() {
         event_table = new EventTable();
         global = new EventSourceCollection();

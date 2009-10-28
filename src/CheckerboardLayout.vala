@@ -298,6 +298,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
         
+        clear_drag_select();
+        
         reflow_scheduler = new OneShotScheduler(background_reflow);
         
         // set existing items to be part of this layout
@@ -315,6 +317,23 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.geometries_altered += on_geometries_altered;
         
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
+    }
+    
+    ~CheckerboardLayout() {
+        view.contents_altered -= on_contents_altered;
+        view.items_state_changed -= on_items_state_changed;
+        view.items_visibility_changed -= on_items_visibility_changed;
+        view.ordering_changed -= on_ordering_changed;
+        view.item_view_altered -= on_item_view_altered;
+        view.item_geometry_altered -= on_item_geometry_altered;
+        view.views_altered -= on_views_altered;
+        view.geometries_altered -= on_geometries_altered;
+        
+        if (hadjustment != null && vadjustment != null) {
+            hadjustment.value_changed -= on_viewport_shifted;
+            vadjustment.value_changed -= on_viewport_shifted;
+            parent.size_allocate -= on_viewport_resized;
+        }
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -712,10 +731,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return intersection(selection_band);
     }
     
+    public bool is_drag_select_active() {
+        return drag_origin.x >= 0 && drag_origin.y >= 0;
+    }
+    
     public void clear_drag_select() {
         selection_band = Gdk.Rectangle();
-        drag_origin = Gdk.Point();
-        drag_endpoint = Gdk.Point();
+        drag_origin.x = -1;
+        drag_origin.y = -1;
+        drag_endpoint.x = -1;
+        drag_endpoint.y = -1;
         
         // force a total repaint to clear the selection band
         queue_draw();

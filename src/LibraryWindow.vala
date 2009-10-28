@@ -253,6 +253,17 @@ public class LibraryWindow : AppWindow {
         sidebar.expand_first_branch_only(events_directory_page.get_marker());
     }
     
+    ~LibraryWindow() {
+        Event.global.items_added -= on_added_events;
+        Event.global.items_removed -= on_removed_events;
+        Event.global.item_altered -= on_event_altered;
+        
+        CameraTable.get_instance().camera_added -= add_camera_page;
+        CameraTable.get_instance().camera_removed -= remove_camera_page;
+        
+        unsubscribe_from_basic_information(get_current_page());
+    }
+    
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
@@ -951,11 +962,7 @@ public class LibraryWindow : AppWindow {
             new_action.set_active(old_action.get_active());
 
             // old page unsubscribes to these signals (new page subscribes below)
-            get_current_page().get_view().items_state_changed -= on_selection_changed;
-            get_current_page().get_view().item_altered -= on_selection_changed;
-            get_current_page().get_view().item_metadata_altered -= on_selection_changed;
-            get_current_page().get_view().contents_altered -= on_selection_changed;
-            get_current_page().get_view().items_visibility_changed -= on_selection_changed;
+            unsubscribe_from_basic_information(get_current_page());
         }
 
         int pos = get_notebook_pos(page);
@@ -982,11 +989,7 @@ public class LibraryWindow : AppWindow {
         page.show_all();
         
         // subscribe to these signals for each event page so basic properties display will update
-        get_current_page().get_view().items_state_changed += on_selection_changed;
-        get_current_page().get_view().item_altered += on_selection_changed;
-        get_current_page().get_view().item_metadata_altered += on_selection_changed;
-        get_current_page().get_view().contents_altered += on_selection_changed;
-        get_current_page().get_view().items_visibility_changed += on_selection_changed;
+        subscribe_for_basic_information(get_current_page());
 
         page.switched_to();
     }
@@ -1059,6 +1062,26 @@ public class LibraryWindow : AppWindow {
         } else {
             // nothing recognized selected
         }
+    }
+    
+    private void subscribe_for_basic_information(Page page) {
+        ViewCollection view = page.get_view();
+        
+        view.items_state_changed += on_selection_changed;
+        view.item_altered += on_selection_changed;
+        view.item_metadata_altered += on_selection_changed;
+        view.contents_altered += on_selection_changed;
+        view.items_visibility_changed += on_selection_changed;
+    }
+    
+    private void unsubscribe_from_basic_information(Page page) {
+        ViewCollection view = page.get_view();
+        
+        view.items_state_changed -= on_selection_changed;
+        view.item_altered -= on_selection_changed;
+        view.item_metadata_altered -= on_selection_changed;
+        view.contents_altered -= on_selection_changed;
+        view.items_visibility_changed -= on_selection_changed;
     }
 
     private void on_selection_changed() {

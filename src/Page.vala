@@ -51,13 +51,20 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
+    private Gdk.Point last_down = Gdk.Point();
     
     public Page(string page_name) {
         this.page_name = page_name;
         
+        last_down = { -1, -1 };
+        
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
     }
-
+    
+    ~Page() {
+        detach_event_source();
+    }
+    
     public string get_page_name() {
         return page_name;
     }
@@ -120,6 +127,17 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.button_press_event += on_button_pressed_internal;
         event_source.button_release_event += on_button_released_internal;
         event_source.motion_notify_event += on_motion_internal;
+    }
+    
+    private void detach_event_source() {
+        if (event_source == null)
+            return;
+        
+        event_source.button_press_event -= on_button_pressed_internal;
+        event_source.button_release_event -= on_button_released_internal;
+        event_source.motion_notify_event -= on_motion_internal;
+        
+        disable_drag_source();
     }
     
     public Gtk.Widget? get_event_source() {
@@ -276,6 +294,32 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return source_drag_failed(context, drag_result);
     }
     
+    // Use this function rather than GDK or GTK's get_pointer, especially if called during a 
+    // button-down mouse drag (i.e. a window grab).
+    //
+    // For more information, see: https://bugzilla.gnome.org/show_bug.cgi?id=599937
+    public bool get_event_source_pointer(out int x, out int y, out Gdk.ModifierType mask) {
+        if (event_source == null)
+            return false;
+        
+        event_source.window.get_pointer(out x, out y, out mask);
+        
+        if (last_down.x < 0 || last_down.y < 0)
+            return true;
+            
+        // check for bogus values inside a drag which goes outside the window
+        // caused by (most likely) X windows signed 16-bit int overflow and fixup
+        // (https://bugzilla.gnome.org/show_bug.cgi?id=599937)
+        
+        if ((x - last_down.x).abs() >= 0x7FFF)
+            x += 0xFFFF;
+        
+        if ((y - last_down.y).abs() >= 0x7FFF)
+            y += 0xFFFF;
+        
+        return true;
+    }
+    
     protected virtual bool on_left_click(Gdk.EventButton event) {
         return false;
     }
@@ -306,6 +350,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
                 if (event_source != null)
                     event_source.grab_focus();
                 
+                // stash location of mouse down for drag fixups
+                last_down.x = (int) event.x;
+                last_down.y = (int) event.y;
+                
                 return on_left_click(event);
 
             case 2:
@@ -322,6 +370,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool on_button_released_internal(Gdk.EventButton event) {
         switch (event.button) {
             case 1:
+                // clear when button released, only for drag fixups
+                last_down = { -1, -1 };
+                
                 return on_left_released(event);
             
             case 2:
@@ -472,7 +523,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         int x, y;
         Gdk.ModifierType mask;
         if (event.is_hint) {
-            event_source.window.get_pointer(out x, out y, out mask);
+            get_event_source_pointer(out x, out y, out mask);
         } else {
             x = (int) event.x;
             y = (int) event.y;
@@ -498,9 +549,6 @@ public abstract class CheckerboardPage : Page {
     protected LayoutItem anchor = null;
     protected LayoutItem cursor = null;
     private LayoutItem highlighted = null;
-
-    // for drag selection
-    private bool drag_select = false;
     private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
@@ -680,7 +728,12 @@ public abstract class CheckerboardPage : Page {
                 
                 case Gdk.ModifierType.SHIFT_MASK:
                     get_view().unselect_all();
+                    
+                    if (anchor == null)
+                        anchor = item;
+                    
                     select_between_items(anchor, item);
+                    
                     cursor = item;
                 break;
                 
@@ -715,7 +768,6 @@ public abstract class CheckerboardPage : Page {
         // Return true to block the DnD handler, false otherwise
 
         if (item == null) {
-            drag_select = true;
             layout.set_drag_select_origin((int) event.x, (int) event.y);
 
             return true;
@@ -726,8 +778,7 @@ public abstract class CheckerboardPage : Page {
     
     protected override bool on_left_released(Gdk.EventButton event) {
         // if drag-selecting, stop here and do nothing else
-        if (drag_select) {
-            drag_select = false;
+        if (layout.is_drag_select_active()) {
             layout.clear_drag_select();
             anchor = cursor;
 
@@ -841,7 +892,7 @@ public abstract class CheckerboardPage : Page {
             return false;
         
         // go no further if not drag-selecting
-        if (!drag_select)
+        if (!layout.is_drag_select_active())
             return false;
         
         // set the new endpoint of the drag selection
@@ -860,7 +911,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     private void updated_selection_band() {
-        assert(drag_select);
+        assert(layout.is_drag_select_active());
         
         // get all items inside the selection
         Gee.List<LayoutItem>? intersection = layout.items_in_selection_band();
@@ -891,7 +942,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     private bool selection_autoscroll() {
-        if (!drag_select) { 
+        if (!layout.is_drag_select_active()) { 
             autoscroll_scheduled = false;
             
             return false;
@@ -899,10 +950,10 @@ public abstract class CheckerboardPage : Page {
         
         // as the viewport never scrolls horizontally, only interested in vertical
         Gtk.Adjustment vadj = get_vadjustment();
-
+        
         int x, y;
         Gdk.ModifierType mask;
-        layout.window.get_pointer(out x, out y, out mask);
+        get_event_source_pointer(out x, out y, out mask);
         
         int new_value = (int) vadj.get_value();
         switch (get_adjustment_relation(vadj, y)) {

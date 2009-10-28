@@ -307,6 +307,10 @@ public class ImportPage : CheckerboardPage {
 
         show_all();
     }
+    
+    ~ImportPage() {
+        LibraryPhoto.global.contents_altered -= on_photos_added_removed;
+    }
 
     private Gtk.ToggleActionEntry[] create_toggle_actions() {
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
@@ -1097,6 +1101,12 @@ public class ImportQueuePage : SinglePhotoPage {
         assert(removed);
         assert(!queue.contains(batch_import));
         
+        // strip signal handlers
+        batch_import.starting -= on_starting;
+        batch_import.imported -= on_imported;
+        batch_import.import_complete -= on_import_complete;
+        
+        // report the batch has been removed from the queue
         batch_removed(batch_import);
         
         // schedule next if available

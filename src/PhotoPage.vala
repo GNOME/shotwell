@@ -117,6 +117,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(next_button, -1);
     }
     
+    ~EditingHostPage() {
+        sources.item_altered -= on_photo_altered;
+    }
+    
     public override void set_container(Gtk.Window container) {
         base.set_container(container);
         

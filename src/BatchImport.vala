@@ -371,6 +371,7 @@ public class BatchImport {
                 return ImportResult.NOT_A_FILE;
         }
         
+#if !NO_DUPE_DETECTION
         // duplicate detection: If EXIF data present, look for a match with either EXIF itself
         // or the thumbnail
         PhotoExif photo_exif = new PhotoExif(file);
@@ -404,6 +405,7 @@ public class BatchImport {
             if (full_md5 != null && PhotoTable.get_instance().has_full_md5(full_md5))
                 return ImportResult.PHOTO_EXISTS;
         }
+#endif
         
         File import = file;
         
