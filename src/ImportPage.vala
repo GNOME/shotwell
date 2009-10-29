@@ -503,7 +503,7 @@ public class ImportPage : CheckerboardPage {
         refreshed = false;
         progress_bar.visible = true;
         progress_bar.set_fraction(0.0);
-        progress_bar.set_text("Unmounting ...");
+        progress_bar.set_text(_("Unmounting..."));
 
         debug("Unmounting camera ...");
         mount.unmount(MountUnmountFlags.NONE, null, on_unmounted);

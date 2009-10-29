@@ -7,15 +7,10 @@
 public abstract class EditingToolWindow : Gtk.Window {
     private const int FRAME_BORDER = 6;
 
-    private Gtk.Window container;
-    private EditingTool tool;
     private Gtk.Frame layout_frame = new Gtk.Frame(null);
     private bool user_moved = false;
 
-    public EditingToolWindow(Gtk.Window container, EditingTool tool) {
-        this.container = container;
-        this.tool = tool;
-
+    public EditingToolWindow(Gtk.Window container) {
         type_hint = Gdk.WindowTypeHint.TOOLBAR;
         set_transient_for(container);
 
@@ -303,6 +298,8 @@ public abstract class PhotoCanvas {
 public abstract class EditingTool {
     public PhotoCanvas canvas = null;
     
+    private EditingToolWindow tool_window = null;
+    
     public static delegate EditingTool Factory();
 
     public signal void activated();
@@ -315,6 +312,9 @@ public abstract class EditingTool {
 
     public signal void aborted();
     
+    public EditingTool() {
+    }
+    
     // base.activate() should always be called by an overriding member to ensure the base class
     // gets to set up and store the PhotoCanvas in the canvas member field.  More importantly,
     // the activated signal is called here, and should only be called once the tool is completely
@@ -322,10 +322,13 @@ public abstract class EditingTool {
     public virtual void activate(PhotoCanvas canvas) {
         // multiple activates are not tolerated
         assert(this.canvas == null);
+        assert(tool_window == null);
         
         this.canvas = canvas;
-
-        get_tool_window().key_press_event += on_keypress;
+        
+        tool_window = get_tool_window();
+        if (tool_window != null)
+            tool_window.key_press_event += on_keypress;
 
         activated();
     }
@@ -333,10 +336,15 @@ public abstract class EditingTool {
     // Like activate(), this should always be called from an overriding subclass.
     public virtual void deactivate() {
         // multiple deactivates are tolerated
-        if (canvas == null)
+        if (canvas == null && tool_window == null)
             return;
         
         canvas = null;
+        
+        if (tool_window != null) {
+            tool_window.key_press_event -= on_keypress;
+            tool_window = null;
+        }
         
         deactivated();
     }
@@ -461,8 +469,8 @@ public class CropTool : EditingTool {
         public int normal_width = -1;
         public int normal_height = -1;
 
-        public CropToolWindow(Gtk.Window container, CropTool tool) {
-            base(container, tool);
+        public CropToolWindow(Gtk.Window container) {
+            base(container);
             
             cancel_button.set_tooltip_text(_("Return to current photo dimensions"));
             cancel_button.set_image_position(Gtk.PositionType.LEFT);
@@ -896,31 +904,22 @@ public class CropTool : EditingTool {
     }
 
     public override void activate(PhotoCanvas canvas) {
-        canvas.new_drawable += prepare_gc;
-        canvas.resized_scaled_pixbuf += on_resized_pixbuf;
-
+        bind_canvas_handlers(canvas);
+        
         prepare_gc(canvas.get_default_gc(), canvas.get_drawable());
         prepare_visuals(canvas.get_scaled_pixbuf());
-
+        
         // create the crop tool window, where the user can apply or cancel the crop
-        crop_tool_window = new CropToolWindow(canvas.get_container(), this);
-        crop_tool_window.apply_button.clicked += on_crop_apply;
-        crop_tool_window.cancel_button.clicked += notify_cancel;
+        crop_tool_window = new CropToolWindow(canvas.get_container());
         
         // set up the constraint combo box
         crop_tool_window.constraint_combo.set_model(constraint_list);
-        crop_tool_window.constraint_combo.changed += constraint_changed;
 
         // set up the pivot reticle button
         update_pivot_button_state();
         reticle_orientation = ReticleOrientation.LANDSCAPE;
-        crop_tool_window.pivot_reticle_button.clicked += on_pivot_button_clicked;
-
-        // set up the custom width and height entry boxes
-        crop_tool_window.custom_width_entry.focus_out_event += on_width_entry_focus_out;
-        crop_tool_window.custom_height_entry.focus_out_event += on_height_entry_focus_out;
-        crop_tool_window.custom_width_entry.insert_text += on_width_insert_text;
-        crop_tool_window.custom_height_entry.insert_text += on_height_insert_text;
+        
+        bind_window_handlers();
 
         // obtain crop dimensions and paint against the uncropped photo
         Dimensions uncropped_dim = canvas.get_photo().get_uncropped_dimensions();
@@ -949,6 +948,41 @@ public class CropTool : EditingTool {
         base.activate(canvas);
     }
     
+    private void bind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.new_drawable += prepare_gc;
+        canvas.resized_scaled_pixbuf += on_resized_pixbuf;
+    }
+    
+    private void unbind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.new_drawable -= prepare_gc;
+        canvas.resized_scaled_pixbuf -= on_resized_pixbuf;
+    }
+    
+    private void bind_window_handlers() {
+        crop_tool_window.apply_button.clicked += on_crop_apply;
+        crop_tool_window.cancel_button.clicked += notify_cancel;
+        crop_tool_window.constraint_combo.changed += constraint_changed;
+        crop_tool_window.pivot_reticle_button.clicked += on_pivot_button_clicked;
+        
+        // set up the custom width and height entry boxes
+        crop_tool_window.custom_width_entry.focus_out_event += on_width_entry_focus_out;
+        crop_tool_window.custom_height_entry.focus_out_event += on_height_entry_focus_out;
+        crop_tool_window.custom_width_entry.insert_text += on_width_insert_text;
+        crop_tool_window.custom_height_entry.insert_text += on_height_insert_text;
+    }
+    
+    private void unbind_window_handlers() {
+        crop_tool_window.apply_button.clicked -= on_crop_apply;
+        crop_tool_window.cancel_button.clicked -= notify_cancel;
+        crop_tool_window.constraint_combo.changed -= constraint_changed;
+        crop_tool_window.pivot_reticle_button.clicked -= on_pivot_button_clicked;
+        
+        // set up the custom width and height entry boxes
+        crop_tool_window.custom_width_entry.focus_out_event -= on_width_entry_focus_out;
+        crop_tool_window.custom_height_entry.focus_out_event -= on_height_entry_focus_out;
+        crop_tool_window.custom_width_entry.insert_text -= on_width_insert_text;
+    }
+    
     private void on_pivot_button_clicked() {
         if (get_selected_constraint().aspect_ratio == CUSTOM_ASPECT_RATIO) {
             string width_text = crop_tool_window.custom_width_entry.get_text();
@@ -965,13 +999,19 @@ public class CropTool : EditingTool {
     }
    
     public override void deactivate() {
+        if (canvas != null)
+            unbind_canvas_handlers(canvas);
+        
         if (crop_tool_window != null) {
+            unbind_window_handlers();
             crop_tool_window.hide();
+            crop_tool_window.destroy();
             crop_tool_window = null;
         }
 
         // make sure the cursor isn't set to a modify indicator
-        canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+        if (canvas != null)
+            canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
 
         base.deactivate();
     }
@@ -1624,8 +1664,8 @@ public class RedeyeTool : EditingTool {
         public Gtk.HScale slider = new Gtk.HScale.with_range(
             RedeyeInstance.MIN_RADIUS, RedeyeInstance.MAX_RADIUS, 1.0);
     
-        public RedeyeToolWindow(Gtk.Window container, RedeyeTool tool) {
-            base(container, tool);
+        public RedeyeToolWindow(Gtk.Window container) {
+            base(container);
             
             slider.set_size_request(80, -1);
             slider.set_draw_value(false);
@@ -1778,35 +1818,59 @@ public class RedeyeTool : EditingTool {
     
     public override void activate(PhotoCanvas canvas) {
         user_interaction_instance = new_interaction_instance(canvas);
-
-        canvas.new_drawable += prepare_gc;
-
+        
         prepare_gc(canvas.get_default_gc(), canvas.get_drawable());
         
-        canvas.resized_scaled_pixbuf += on_canvas_resize;
+        bind_canvas_handlers(canvas);
         
         old_scaled_pixbuf_position = canvas.get_scaled_pixbuf_position();
         current_pixbuf = canvas.get_scaled_pixbuf();
 
-        redeye_tool_window = new RedeyeToolWindow(canvas.get_container(), this);
+        redeye_tool_window = new RedeyeToolWindow(canvas.get_container());
         redeye_tool_window.slider.set_value(user_interaction_instance.radius);
-        redeye_tool_window.slider.change_value += on_size_slider_adjust;
-        redeye_tool_window.apply_button.clicked += on_apply;
-        redeye_tool_window.close_button.clicked += on_close;
-
+        
+        bind_window_handlers();
+        
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.ARROW);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
-
+        
         base.activate(canvas);
     }
     
     public override void deactivate() {
+        if (canvas != null)
+            unbind_canvas_handlers(canvas);
+        
         if (redeye_tool_window != null) {
+            unbind_window_handlers();
             redeye_tool_window.hide();
+            redeye_tool_window.destroy();
             redeye_tool_window = null;
         }
- 
+        
         base.deactivate();
+    }
+    
+    private void bind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.new_drawable += prepare_gc;
+        canvas.resized_scaled_pixbuf += on_canvas_resize;
+    }
+    
+    private void unbind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.new_drawable -= prepare_gc;
+        canvas.resized_scaled_pixbuf -= on_canvas_resize;
+    }
+    
+    private void bind_window_handlers() {
+        redeye_tool_window.apply_button.clicked += on_apply;
+        redeye_tool_window.close_button.clicked += on_close;
+        redeye_tool_window.slider.change_value += on_size_slider_adjust;
+    }
+    
+    private void unbind_window_handlers() {
+        redeye_tool_window.apply_button.clicked -= on_apply;
+        redeye_tool_window.close_button.clicked -= on_close;
+        redeye_tool_window.slider.change_value -= on_size_slider_adjust;
     }
 
     public override EditingToolWindow? get_tool_window() {
@@ -1913,8 +1977,8 @@ public class AdjustTool : EditingTool {
         public RGBHistogramManipulator histogram_manipulator =
             new RGBHistogramManipulator();
 
-        public AdjustToolWindow(Gtk.Window container, AdjustTool tool) {
-            base(container, tool);
+        public AdjustToolWindow(Gtk.Window container) {
+            base(container);
 
             Gtk.Table slider_organizer = new Gtk.Table(4, 2, false);
             slider_organizer.set_row_spacings(12);
@@ -1999,7 +2063,7 @@ public class AdjustTool : EditingTool {
     }
 
     public override void activate(PhotoCanvas canvas) {
-        adjust_tool_window = new AdjustToolWindow(canvas.get_container(), this);
+        adjust_tool_window = new AdjustToolWindow(canvas.get_container());
         transformer = new PixelTransformer();
         histogram_transformer = new PixelTransformer();
 
@@ -2052,8 +2116,8 @@ public class AdjustTool : EditingTool {
         histogram_transformer.attach_transformation(transformations[SupportedAdjustments.EXPOSURE]);
         adjust_tool_window.exposure_slider.set_value(exposure_trans.get_parameter());
 
-        bind_handlers();
-        canvas.resized_scaled_pixbuf += on_canvas_resize;
+        bind_canvas_handlers(canvas);
+        bind_window_handlers();
 
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
         init_fp_pixel_cache(canvas.get_scaled_pixbuf());
@@ -2070,8 +2134,13 @@ public class AdjustTool : EditingTool {
     }
 
     public override void deactivate() {
+        if (canvas != null)
+            unbind_canvas_handlers(canvas);
+        
         if (adjust_tool_window != null) {
+            unbind_window_handlers();
             adjust_tool_window.hide();
+            adjust_tool_window.destroy();
             adjust_tool_window = null;
         }
 
@@ -2191,7 +2260,15 @@ public class AdjustTool : EditingTool {
         init_fp_pixel_cache(canvas.get_scaled_pixbuf());
     }
     
-    private void bind_handlers() {
+    private void bind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.resized_scaled_pixbuf += on_canvas_resize;
+    }
+    
+    private void unbind_canvas_handlers(PhotoCanvas canvas) {
+        canvas.resized_scaled_pixbuf -= on_canvas_resize;
+    }
+    
+    private void bind_window_handlers() {
         adjust_tool_window.apply_button.clicked += on_apply;
         adjust_tool_window.reset_button.clicked += on_reset;
         adjust_tool_window.cancel_button.clicked += notify_cancel;
@@ -2207,7 +2284,7 @@ public class AdjustTool : EditingTool {
             on_histogram_constraint;
     }
 
-    private void unbind_handlers() {
+    private void unbind_window_handlers() {
         adjust_tool_window.apply_button.clicked -= on_apply;
         adjust_tool_window.reset_button.clicked -= on_reset;
         adjust_tool_window.cancel_button.clicked -= notify_cancel;
@@ -2224,7 +2301,7 @@ public class AdjustTool : EditingTool {
     }
     
     public void set_adjustments(PixelTransformation[] new_adjustments) {
-        unbind_handlers();
+        unbind_window_handlers();
 
         update_transformations(new_adjustments);
 
@@ -2243,7 +2320,7 @@ public class AdjustTool : EditingTool {
         adjust_tool_window.temperature_slider.set_value(((TemperatureTransformation)
             new_adjustments[SupportedAdjustments.TEMPERATURE]).get_parameter());
 
-        bind_handlers();
+        bind_window_handlers();
         canvas.repaint();
     }
     
