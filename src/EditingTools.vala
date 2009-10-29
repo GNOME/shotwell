@@ -1990,7 +1990,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(exposure_slider, 1, 2, 0, 1);
             exposure_slider.set_size_request(SLIDER_WIDTH, -1);
             exposure_slider.set_draw_value(false);
-            exposure_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+            exposure_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label saturation_label = new Gtk.Label.with_mnemonic(_("Saturation:"));
             saturation_label.set_alignment(0.0f, 0.5f);
@@ -1998,7 +1998,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(saturation_slider, 1, 2, 1, 2);
             saturation_slider.set_size_request(SLIDER_WIDTH, -1);
             saturation_slider.set_draw_value(false);
-            saturation_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+            saturation_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label tint_label = new Gtk.Label.with_mnemonic(_("Tint:"));
             tint_label.set_alignment(0.0f, 0.5f);
@@ -2006,7 +2006,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(tint_slider, 1, 2, 2, 3);
             tint_slider.set_size_request(SLIDER_WIDTH, -1);
             tint_slider.set_draw_value(false);
-            tint_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+            tint_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label temperature_label =
                 new Gtk.Label.with_mnemonic(_("Temperature:"));
@@ -2015,7 +2015,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(temperature_slider, 1, 2, 3, 4);
             temperature_slider.set_size_request(SLIDER_WIDTH, -1);
             temperature_slider.set_draw_value(false);
-            temperature_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+            temperature_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.Label shadows_label = new Gtk.Label.with_mnemonic(_("Shadows:"));
             shadows_label.set_alignment(0.0f, 0.5f);
@@ -2023,7 +2023,7 @@ public class AdjustTool : EditingTool {
             slider_organizer.attach_defaults(shadows_slider, 1, 2, 4, 5);
             shadows_slider.set_size_request(SLIDER_WIDTH, -1);
             shadows_slider.set_draw_value(false);
-            shadows_slider.set_update_policy(Gtk.UpdateType.DISCONTINUOUS);
+            shadows_slider.set_update_policy(Gtk.UpdateType.DELAYED);
 
             Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
             button_layouter.set_homogeneous(true);
