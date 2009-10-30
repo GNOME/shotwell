@@ -1109,12 +1109,13 @@ public abstract class SinglePhotoPage : Page {
     public SinglePhotoPage(string page_name) {
         base(page_name);
         
-        // Although we currently never show scrollbars (image is always scaled to same size as
-        // viewport), if both are NEVER then the window cannot be resized vertically, only
-        // horizontally ... this allows for the resizing, but due to out auto-resizing code, the
-        // scrollbars never display
-        set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+        // With the current code automatically resizing the image to the viewport, scrollbars
+        // should never be shown, but this may change if/when zooming is supported
+        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
+        set_border_width(0);
+        set_shadow_type(Gtk.ShadowType.NONE);
+        
         viewport.set_shadow_type(Gtk.ShadowType.NONE);
         viewport.set_border_width(0);
         viewport.add(canvas);
@@ -1343,8 +1344,7 @@ public abstract class SinglePhotoPage : Page {
         // GC for text
         text_gc = canvas.style.white_gc;
 
-        // resize canvas for the pixmap (that is, the entire viewport)
-        canvas.set_size_request(width, height);
+        // no need to resize canvas, viewport does that automatically
 
         new_drawable(canvas_gc, pixmap);
     }
