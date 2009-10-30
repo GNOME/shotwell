@@ -1521,7 +1521,7 @@ public class LibraryPhoto : TransformablePhoto {
     private override File generate_exportable_file() {
         File original_file = get_file();
 
-        File exportable_dir = AppWindow.get_data_subdir("export");
+        File exportable_dir = AppDirs.get_data_subdir("export");
     
         // use exposure time, then file modified time, for directory (to prevent name collision)
         time_t timestamp = get_exposure_time();
@@ -1603,7 +1603,7 @@ public class LibraryPhoto : TransformablePhoto {
         
         // remove empty directories corresponding to imported path, but only if file is located
         // inside the user's Pictures directory
-        if (file.has_prefix(AppWindow.get_photos_dir())) {
+        if (file.has_prefix(AppDirs.get_photos_dir())) {
             File parent = file;
             for (int depth = 0; depth < BatchImport.IMPORT_DIRECTORY_DEPTH; depth++) {
                 parent = parent.get_parent();
@@ -1781,7 +1781,7 @@ public class DirectPhoto : TransformablePhoto {
         // generate an exportable in the app temp directory with the same basename as the file
         // being edited ... as generate_exportable will reuse the file if it exists, and if
         // exportable is null then it's been discarded, delete the old file
-        exportable = AppWindow.get_temp_dir().get_child(get_file().get_basename());
+        exportable = AppDirs.get_temp_dir().get_child(get_file().get_basename());
         if (exportable.query_exists(null)) {
             try {
                 exportable.delete(null);

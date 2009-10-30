@@ -76,7 +76,8 @@ SRC_FILES = \
 	Event.vala \
 	International.vala \
 	Workers.vala \
-	system.vala
+	system.vala \
+	AppDirs.vala
 
 VAPI_FILES = \
 	libexif.vapi \

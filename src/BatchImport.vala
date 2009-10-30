@@ -142,7 +142,7 @@ public class BatchImport {
     
     public static File? create_library_path(string filename, Exif.Data? exif, time_t ts, 
         out bool collision) {
-        File dir = AppWindow.get_photos_dir();
+        File dir = AppDirs.get_photos_dir();
         time_t timestamp = ts;
         
         // use EXIF exposure timestamp over the supplied one (which probably comes from the file's
@@ -408,7 +408,7 @@ public class BatchImport {
         File import = file;
         
         // never copy file if already in library directory
-        bool is_in_library_dir = file.has_prefix(AppWindow.get_photos_dir());
+        bool is_in_library_dir = file.has_prefix(AppDirs.get_photos_dir());
         
         if (copy_to_library && !is_in_library_dir) {
             File copied;

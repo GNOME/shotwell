@@ -297,13 +297,10 @@ public abstract class PageWindow : Gtk.Window {
 public abstract class AppWindow : PageWindow {
     public const int DND_ICON_SCALE = 128;
     
-    private const string DATA_DIR = ".shotwell";
-
     public static Gdk.Color BG_COLOR = parse_color("#444");
 
     protected static AppWindow instance = null;
     
-    private static string[] args = null;
     private static bool user_quit = false;
     private static FullscreenWindow fullscreen_window = null;
 
@@ -353,20 +350,6 @@ public abstract class AppWindow : PageWindow {
     
     protected abstract void on_fullscreen();
 
-    public static void init(string[] args) {
-        AppWindow.args = args;
-
-        File data_dir = get_data_dir();
-        try {
-            if (data_dir.query_exists(null) == false) {
-                if (!data_dir.make_directory_with_parents(null))
-                    error("Unable to create data directory %s", data_dir.get_path());
-            } 
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-    }
-    
     public static void terminate() {
     }
     
@@ -378,77 +361,6 @@ public abstract class AppWindow : PageWindow {
         return fullscreen_window;
     }
     
-    public static string[] get_commandline_args() {
-        return args;
-    }
-    
-    public static GLib.File get_exec_file() {
-        return File.new_for_path(Environment.find_program_in_path(args[0]));
-    }
-
-    public static File get_exec_dir() {
-        return get_exec_file().get_parent();
-    }
-    
-    public static File get_data_dir() {
-        return File.new_for_path(Environment.get_home_dir()).get_child(DATA_DIR);
-    }
-    
-    public static File get_photos_dir() {
-        string path = Environment.get_user_special_dir(UserDirectory.PICTURES);
-        if (path != null)
-            return File.new_for_path(path);
-        
-        return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
-    }
-    
-    // Not using system temp directory for a couple of reasons: Temp files are often generated for
-    // drag-and-drop and the temporary filename is the name transferred to the destination, and so
-    // it's possible for various instances to generate same-name temp files.  Also, the file may
-    // need to remain available after it's closed by Shotwell.  Vala bindings
-    // guarantee temp files by returning an OutputStream, but that's not how the temp files are
-    // generated in Shotwell many times
-    //
-    // TODO: At startup, clean out temp directory of old files.
-    public static File get_temp_dir() {
-        // Because multiple instances of the app can run at the same time, place temp files in
-        // subdir named after process ID
-        File tmp_dir = get_data_subdir("tmp").get_child("%d".printf((int) Posix.getpid()));
-        if (!tmp_dir.query_exists(null)) {
-            if (!tmp_dir.make_directory_with_parents(null))
-                error("Unable to create temporary directory %s", tmp_dir.get_path());
-        }
-        
-        return tmp_dir;
-    }
-    
-    public static File get_data_subdir(string name, string? subname = null) {
-        File subdir = get_data_dir().get_child(name);
-        if (subname != null)
-            subdir = subdir.get_child(subname);
-
-        try {
-            if (subdir.query_exists(null) == false) {
-                if (!subdir.make_directory_with_parents(null))
-                    error("Unable to create data subdirectory %s", subdir.get_path());
-            }
-        } catch (Error err) {
-            error("%s", err.message);
-        }
-        
-        return subdir;
-    }
-    
-    public static File get_resources_dir() {
-        File exec_dir = get_exec_dir();
-        File install_dir = get_install_dir(exec_dir);
-        
-        if (install_dir != null)
-            return install_dir.get_child("share").get_child("shotwell");
-        else    // running locally
-            return exec_dir;
-    }
-
     public static void error_message(string message) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
             Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);

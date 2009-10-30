@@ -80,7 +80,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public void init () {
         factory = new Gtk.IconFactory();
 
-        File icons_dir = AppWindow.get_resources_dir().get_child("icons");
+        File icons_dir = AppDirs.get_resources_dir().get_child("icons");
         add_stock_icon(icons_dir.get_child("object-rotate-right" + SVG_SUFFIX), CLOCKWISE);
         add_stock_icon(icons_dir.get_child("object-rotate-left" + SVG_SUFFIX), COUNTERCLOCKWISE);
         add_stock_icon(icons_dir.get_child("object-flip-horizontal" + SVG_SUFFIX), MIRROR);
@@ -102,11 +102,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
 
     public File get_ui(string filename) {
-        return AppWindow.get_resources_dir().get_child("ui").get_child(filename);
+        return AppDirs.get_resources_dir().get_child("ui").get_child(filename);
     }
     
     public Gdk.Pixbuf? get_icon(string name, int scale = 24) {
-        File icons_dir = AppWindow.get_resources_dir().get_child("icons");
+        File icons_dir = AppDirs.get_resources_dir().get_child("icons");
         
         Gdk.Pixbuf pixbuf = null;
         try {

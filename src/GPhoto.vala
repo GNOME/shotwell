@@ -183,7 +183,7 @@ namespace GPhoto {
         }
 
         // if not stored in memory, try copying it to a temp file and then reading out of that
-        File temp = AppWindow.get_temp_dir().get_child("import.tmp");
+        File temp = AppDirs.get_temp_dir().get_child("import.tmp");
         res = camera_file.save(temp.get_path());
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error copying file %s/%s to %s: %s", (int) res, 
