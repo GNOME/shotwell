@@ -304,7 +304,7 @@ public class ImportPage : CheckerboardPage {
             
             set_page_name(camera_name);
         }
-
+        
         show_all();
     }
     
@@ -424,6 +424,12 @@ public class ImportPage : CheckerboardPage {
         try_refreshing_camera();
     
         set_display_titles(Config.get_instance().get_display_photo_titles());
+        
+        // when new pages are added to the notebook in LibraryWindow, notebook.show_all() must
+        // be called ... this trickles down and causes all hidden widgets to be shown, so re-hide
+        // here
+        if (!busy)
+            progress_bar.visible = false;
     }
 
     private void try_refreshing_camera() {
