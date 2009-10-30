@@ -34,6 +34,9 @@ public class Thumbnail : LayoutItem {
     }
     
     ~Thumbnail() {
+        if (cancellable != null)
+            cancellable.cancel();
+        
         hq_scheduler.cancel();
     }
     
