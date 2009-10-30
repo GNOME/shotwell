@@ -887,15 +887,29 @@ public abstract class TransformablePhoto: PhotoSource {
 
     // Pixbuf generation
     
-    // Returns dimensions for the pixbuf at various stages of the pipeline.  raw is for the pixbuf
-    // with no scaling.  scaled_image is the dimensions of the image after a scaled load-and-decode.
-    // scaled_viewport is the dimensions of the image sized according to the scaling parameter.
-    // scaled_image and scaled_viewport may be different if the photo is cropped.
+    // Returns dimensions for the pixbuf at various stages of the pipeline.
+    //
+    // scaled_image is the dimensions of the image after a scaled load-and-decode.
+    // scaled_to_viewport is the dimensions of the image sized according to the scaling parameter.
+    // scaled_image and scaled_to_viewport may be different if the photo is cropped.
     //
     // Returns true if scaling is to occur, false otherwise.  If false, scaled_image will be set to
     // the raw image dimensions and scaled_to_viewport will be the dimensions of the image scaled
     // to the Scaling viewport.
     private bool calculate_pixbuf_dimensions(Scaling scaling, Exception exceptions, 
+        out Dimensions scaled_image, out Dimensions scaled_to_viewport) {
+        bool scaling_required;
+        lock (row) {
+            // this function needs to access various elements of the Photo atomically
+            scaling_required = locked_calculate_pixbuf_dimensions(scaling, exceptions,
+                out scaled_image, out scaled_to_viewport);
+        }
+        
+        return scaling_required;
+    }
+    
+    // Must be called with row locked.
+    private bool locked_calculate_pixbuf_dimensions(Scaling scaling, Exception exceptions,
         out Dimensions scaled_image, out Dimensions scaled_to_viewport) {
         Dimensions raw = get_raw_dimensions();
         
@@ -1024,7 +1038,8 @@ public abstract class TransformablePhoto: PhotoSource {
     // and scaled decodes whenever possible.  This pixbuf is untransformed and unrotated.
     // no_copy should only be set to true if the user specifically knows no transformations will 
     // be made on the returned pixbuf.
-    private Gdk.Pixbuf get_raw_pixbuf(Scaling scaling, Exception exceptions, bool no_copy) throws Error {
+    private Gdk.Pixbuf get_raw_pixbuf(Scaling scaling, Exception exceptions, bool no_copy,
+        Dimensions scaled_image) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -1041,9 +1056,6 @@ public abstract class TransformablePhoto: PhotoSource {
         if (cached_raw != null && cached_photo_id.id == photo_id.id) {
             // verify that the scaled image required for this request matches the dimensions of
             // the one in the cache
-            Dimensions scaled_image, scaled_to_viewport;
-            calculate_pixbuf_dimensions(scaling, exceptions, out scaled_image, out scaled_to_viewport);
-
             if (scaled_image.approx_equals(Dimensions.for_pixbuf(cached_raw))) {
                 method = "USING CACHED";
 #if MEASURE_PIPELINE
@@ -1102,19 +1114,28 @@ public abstract class TransformablePhoto: PhotoSource {
         
         total_timer.start();
 #endif
-
+        // get required fields all at once, to avoid holding the row lock
+        Dimensions scaled_image, scaled_to_viewport;
+        Orientation original_orientation;
+        
+        lock (row) {
+            calculate_pixbuf_dimensions(scaling, Exception.NONE, out scaled_image, 
+                out scaled_to_viewport);
+            original_orientation = get_original_orientation();
+        }
+        
         // load-and-decode and scale
         // no copy made because the pixbuf goes unmodified in this pipeline
-        Gdk.Pixbuf pixbuf = get_raw_pixbuf(scaling, Exception.NONE, true);
-
+        Gdk.Pixbuf pixbuf = get_raw_pixbuf(scaling, Exception.NONE, true, scaled_image);
+            
         // orientation
 #if MEASURE_PIPELINE
         timer.start();
 #endif
-        pixbuf = get_original_orientation().rotate_pixbuf(pixbuf);
+        pixbuf = original_orientation.rotate_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
-
+        
         debug("ORIGINAL PIPELINE %s (%s): orientation=%lf total=%lf", to_string(), scaling.to_string(),
             orientation_time, total_timer.elapsed());
 #endif
@@ -1148,6 +1169,35 @@ public abstract class TransformablePhoto: PhotoSource {
 
         total_timer.start();
 #endif
+        // to minimize holding the row lock, fetch everything needed for the pipeline up-front
+        bool is_scaled, is_cropped;
+        Dimensions scaled_image, scaled_to_viewport;
+        Dimensions original = Dimensions();
+        Dimensions scaled = Dimensions();
+        RedeyeInstance[] redeye_instances = null;
+        Box crop;
+        PixelTransformer transformer = null;
+        Orientation orientation;
+        
+        lock (row) {
+            // it's possible for get_raw_pixbuf to not return an image scaled to the spec'd scaling,
+            // particularly when the raw crop is smaller than the viewport
+            is_scaled = calculate_pixbuf_dimensions(scaling, exceptions, out scaled_image,
+                out scaled_to_viewport);
+            
+            if (is_scaled)
+                original = get_raw_dimensions();
+            
+            redeye_instances = get_raw_redeye_instances();
+            
+            is_cropped = get_raw_crop(out crop);
+            
+            if (has_transformation("adjustments"))
+                transformer = get_pixel_transformer();
+            
+            orientation = get_orientation();
+        }
+        
         //
         // Image load-and-decode
         //
@@ -1156,14 +1206,11 @@ public abstract class TransformablePhoto: PhotoSource {
         // pixbuf
         bool no_copy = (exceptions.prohibits(Exception.REDEYE) || !has_redeye_transformations())
             && (exceptions.prohibits(Exception.ADJUST) || !has_color_adjustments());
-
-        Gdk.Pixbuf pixbuf = get_raw_pixbuf(scaling, exceptions, no_copy);
         
-        // it's possible for get_raw_pixbuf to not return an image scaled to the spec'd scaling,
-        // particularly when the raw crop is smaller than the viewport
-        Dimensions scaled_image, scaled_to_viewport;
-        bool is_scaled = calculate_pixbuf_dimensions(scaling, exceptions, out scaled_image,
-            out scaled_to_viewport);
+        Gdk.Pixbuf pixbuf = get_raw_pixbuf(scaling, exceptions, no_copy, scaled_image);
+        
+        if (is_scaled)
+            scaled = Dimensions.for_pixbuf(pixbuf);
         
         //
         // Image transformation pipeline
@@ -1174,16 +1221,8 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            // redeye is stored in raw coordinates; need to scale to scaled image coordinates
-            Dimensions original = Dimensions();
-            Dimensions scaled = Dimensions();
-            if (is_scaled) {
-                original = get_raw_dimensions();
-                scaled = Dimensions.for_pixbuf(pixbuf);
-            }
-
-            RedeyeInstance[] redeye_instances = get_raw_redeye_instances();
             foreach (RedeyeInstance instance in redeye_instances) {
+                // redeye is stored in raw coordinates; need to scale to scaled image coordinates
                 if (is_scaled) {
                     instance.center = coord_scaled_in_space(instance.center.x, instance.center.y, 
                         original, scaled);
@@ -1203,17 +1242,12 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            Box crop;
-            if (get_raw_crop(out crop)) {
+            if (is_cropped) {
                 // crop is stored in raw coordinates; need to scale to scaled image coordinates;
                 // also, no need to do this if the image itself was unscaled (which can happen
                 // if the crop is smaller than the viewport)
-                if (is_scaled) {
-                    Dimensions original = get_raw_dimensions();
-                    Dimensions scaled = Dimensions.for_pixbuf(pixbuf);
-                    
+                if (is_scaled)
                     crop = crop.get_scaled_similar(original, scaled);
-                }
                 
                 pixbuf = new Gdk.Pixbuf.subpixbuf(pixbuf, crop.left, crop.top, crop.get_width(),
                     crop.get_height());
@@ -1229,9 +1263,8 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            if (has_transformation("adjustments")) {
-                get_pixel_transformer().transform_pixbuf(pixbuf);
-            }
+            if (transformer != null)
+                transformer.transform_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
             adjustment_time = timer.elapsed();
 #endif
@@ -1242,7 +1275,7 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
             timer.start();
 #endif
-            pixbuf = get_orientation().rotate_pixbuf(pixbuf);
+            pixbuf = orientation.rotate_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
             orientation_time = timer.elapsed();
 #endif
@@ -1253,7 +1286,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // must be accounted for the test to be valid
         if (is_scaled)
             assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf)));
-
+        
 #if MEASURE_PIPELINE
         debug("PIPELINE %s (%s): redeye=%lf crop=%lf adjustment=%lf orientation=%lf total=%lf",
             to_string(), scaling.to_string(), redeye_time, crop_time, adjustment_time, 
