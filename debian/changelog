@@ -1,3 +1,26 @@
+shotwell (0.3.0-1~jaunty1) jaunty; urgency=low
+  * Major update with numerous feature additions and performance and 
+    scalability enhancements.
+  * Auto enhance button, shadows control, and histogram contrast expansion now
+    available.
+  * Hierarchical event tree in sidebar.  Events can now be renamed.
+  * Background readahead to display full-window and fullscreen photos faster.
+  * Crop aspect ratios.
+  * Basic information pane to display photo title, exposure time, dimensions,
+    and file size.
+  * Configurable slideshow delay.
+  * Direct edit mode.  Shotwell can open any JPEG file, move between other
+    JPEGS in the same directory, and edit them with the same tools available in
+    the photo manager.
+  * Better keyboard handling for selecting photos and moving between pages on
+    the sidebar.
+  * In camera view, option to hide photos already imported into Shotwell.
+    User now offered full report of imported photos and asked if they wish to
+    delete the photos from the camera.
+  * User-configurable items now stored persistently via GConf.
+  * Code internationalized.  Partial French translation now available.
+
+
 shotwell (0.2.0-1~jaunty1) jaunty; urgency=low
 
   * Color histogram now available in adjustment tool.
