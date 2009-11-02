@@ -914,7 +914,8 @@ public class ImportPage : CheckerboardPage {
         ImportUI.QuestionParams question = new ImportUI.QuestionParams(
             _("Delete this photo from camera?"),
             _("Delete these %d photos from camera?"),
-            Gtk.STOCK_DELETE);
+            Gtk.STOCK_DELETE,
+            _("Keep"));
         
         if (!ImportUI.report_manifest(manifest, false, question))
             return;

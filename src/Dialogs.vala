@@ -260,11 +260,13 @@ public class QuestionParams {
     public string singular;
     public string plural;
     public string yes_button;
+    public string no_button;
     
-    public QuestionParams(string singular, string plural, string yes_button) {
+    public QuestionParams(string singular, string plural, string yes_button, string no_button) {
         this.singular = singular;
         this.plural = plural;
         this.yes_button = yes_button;
+        this.no_button = no_button;
     }
 }
 
@@ -356,7 +358,7 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     
         dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
             Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
-        dialog.add_button(Gtk.STOCK_NO, Gtk.ResponseType.NO);
+        dialog.add_button(question.no_button, Gtk.ResponseType.NO);
         dialog.add_button(question.yes_button, Gtk.ResponseType.YES);
     }
     
