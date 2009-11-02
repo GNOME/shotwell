@@ -5,11 +5,7 @@
  */
 
 public class PageLayout : Gtk.VBox {
-    public Page page;
-    
     public PageLayout(Page page) {
-        this.page = page;
-        
         set_homogeneous(false);
         set_spacing(0);
         
@@ -44,6 +40,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     private string page_name;
     private ViewCollection view = new ViewCollection();
+    private Gtk.Window container = null;
     private PageLayout layout = null;
     private Gtk.MenuBar menu_bar = null;
     private SidebarMarker marker = null;
@@ -54,13 +51,20 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ulong last_configure_ms = 0;
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
+    private Gdk.Point last_down = Gdk.Point();
     
     public Page(string page_name) {
         this.page_name = page_name;
         
+        last_down = { -1, -1 };
+        
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
     }
-
+    
+    ~Page() {
+        detach_event_source();
+    }
+    
     public string get_page_name() {
         return page_name;
     }
@@ -80,6 +84,21 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // ViewController to flip through a collection of thumbnails).
     public virtual ViewCollection get_controller() {
         return view;
+    }
+    
+    public Gtk.Window? get_container() {
+        return container;
+    }
+    
+    public virtual void set_container(Gtk.Window container) {
+        // this should only be called once
+        assert(this.container == null);
+        
+        this.container = container;
+    }
+    
+    public virtual void clear_container() {
+        container = null;
     }
     
     public PageLayout get_layout() {
@@ -108,6 +127,17 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.button_press_event += on_button_pressed_internal;
         event_source.button_release_event += on_button_released_internal;
         event_source.motion_notify_event += on_motion_internal;
+    }
+    
+    private void detach_event_source() {
+        if (event_source == null)
+            return;
+        
+        event_source.button_press_event -= on_button_pressed_internal;
+        event_source.button_release_event -= on_button_released_internal;
+        event_source.motion_notify_event -= on_motion_internal;
+        
+        disable_drag_source();
     }
     
     public Gtk.Widget? get_event_source() {
@@ -264,6 +294,32 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return source_drag_failed(context, drag_result);
     }
     
+    // Use this function rather than GDK or GTK's get_pointer, especially if called during a 
+    // button-down mouse drag (i.e. a window grab).
+    //
+    // For more information, see: https://bugzilla.gnome.org/show_bug.cgi?id=599937
+    public bool get_event_source_pointer(out int x, out int y, out Gdk.ModifierType mask) {
+        if (event_source == null)
+            return false;
+        
+        event_source.window.get_pointer(out x, out y, out mask);
+        
+        if (last_down.x < 0 || last_down.y < 0)
+            return true;
+            
+        // check for bogus values inside a drag which goes outside the window
+        // caused by (most likely) X windows signed 16-bit int overflow and fixup
+        // (https://bugzilla.gnome.org/show_bug.cgi?id=599937)
+        
+        if ((x - last_down.x).abs() >= 0x7FFF)
+            x += 0xFFFF;
+        
+        if ((y - last_down.y).abs() >= 0x7FFF)
+            y += 0xFFFF;
+        
+        return true;
+    }
+    
     protected virtual bool on_left_click(Gdk.EventButton event) {
         return false;
     }
@@ -294,6 +350,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
                 if (event_source != null)
                     event_source.grab_focus();
                 
+                // stash location of mouse down for drag fixups
+                last_down.x = (int) event.x;
+                last_down.y = (int) event.y;
+                
                 return on_left_click(event);
 
             case 2:
@@ -310,6 +370,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool on_button_released_internal(Gdk.EventButton event) {
         switch (event.button) {
             case 1:
+                // clear when button released, only for drag fixups
+                last_down = { -1, -1 };
+                
                 return on_left_released(event);
             
             case 2:
@@ -406,12 +469,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         rect.width = event.width;
         rect.height = event.height;
         
-        if (last_position.x != rect.x || last_position.y != rect.y)
-            on_move(rect);
-        
-        if (last_position.width != rect.width || last_position.height != rect.height)
-            on_resize(rect);
-        
         // special case events, to report when a configure first starts (and appears to end)
         if (last_configure_ms == 0) {
             if (last_position.x != rect.x || last_position.y != rect.y) {
@@ -428,7 +485,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
             // wait time before it's noticed
             Timeout.add(CONSIDER_CONFIGURE_HALTED_MSEC / 8, check_configure_halted);
         }
-
+        
+        if (last_position.x != rect.x || last_position.y != rect.y)
+            on_move(rect);
+        
+        if (last_position.width != rect.width || last_position.height != rect.height)
+            on_resize(rect);
+        
         last_position = rect;
         last_configure_ms = now_ms();
 
@@ -460,7 +523,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         int x, y;
         Gdk.ModifierType mask;
         if (event.is_hint) {
-            event_source.window.get_pointer(out x, out y, out mask);
+            get_event_source_pointer(out x, out y, out mask);
         } else {
             x = (int) event.x;
             y = (int) event.y;
@@ -486,16 +549,13 @@ public abstract class CheckerboardPage : Page {
     protected LayoutItem anchor = null;
     protected LayoutItem cursor = null;
     private LayoutItem highlighted = null;
-
-    // for drag selection
-    private bool drag_select = false;
     private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
         base(page_name);
         
         layout = new CheckerboardLayout(get_view());
-        layout.set_name(name);
+        layout.set_name(page_name);
         
         set_event_source(layout);
 
@@ -668,7 +728,12 @@ public abstract class CheckerboardPage : Page {
                 
                 case Gdk.ModifierType.SHIFT_MASK:
                     get_view().unselect_all();
+                    
+                    if (anchor == null)
+                        anchor = item;
+                    
                     select_between_items(anchor, item);
+                    
                     cursor = item;
                 break;
                 
@@ -703,7 +768,6 @@ public abstract class CheckerboardPage : Page {
         // Return true to block the DnD handler, false otherwise
 
         if (item == null) {
-            drag_select = true;
             layout.set_drag_select_origin((int) event.x, (int) event.y);
 
             return true;
@@ -714,8 +778,7 @@ public abstract class CheckerboardPage : Page {
     
     protected override bool on_left_released(Gdk.EventButton event) {
         // if drag-selecting, stop here and do nothing else
-        if (drag_select) {
-            drag_select = false;
+        if (layout.is_drag_select_active()) {
             layout.clear_drag_select();
             anchor = cursor;
 
@@ -829,7 +892,7 @@ public abstract class CheckerboardPage : Page {
             return false;
         
         // go no further if not drag-selecting
-        if (!drag_select)
+        if (!layout.is_drag_select_active())
             return false;
         
         // set the new endpoint of the drag selection
@@ -848,7 +911,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     private void updated_selection_band() {
-        assert(drag_select);
+        assert(layout.is_drag_select_active());
         
         // get all items inside the selection
         Gee.List<LayoutItem>? intersection = layout.items_in_selection_band();
@@ -879,7 +942,7 @@ public abstract class CheckerboardPage : Page {
     }
     
     private bool selection_autoscroll() {
-        if (!drag_select) { 
+        if (!layout.is_drag_select_active()) { 
             autoscroll_scheduled = false;
             
             return false;
@@ -887,10 +950,10 @@ public abstract class CheckerboardPage : Page {
         
         // as the viewport never scrolls horizontally, only interested in vertical
         Gtk.Adjustment vadj = get_vadjustment();
-
+        
         int x, y;
         Gdk.ModifierType mask;
-        layout.window.get_pointer(out x, out y, out mask);
+        get_event_source_pointer(out x, out y, out mask);
         
         int new_value = (int) vadj.get_value();
         switch (get_adjustment_relation(vadj, y)) {
@@ -1042,16 +1105,17 @@ public abstract class SinglePhotoPage : Page {
     private Gdk.Pixbuf unscaled = null;
     private Gdk.Pixbuf scaled = null;
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
-    private Gdk.InterpType default_interp = FAST_INTERP;
-    private Gdk.InterpType interp = FAST_INTERP;
-    private SinglePhotoPage improval_scheduled = null;
-    private bool reschedule_improval = false;
     
     public SinglePhotoPage(string page_name) {
         base(page_name);
         
+        // With the current code automatically resizing the image to the viewport, scrollbars
+        // should never be shown, but this may change if/when zooming is supported
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
+        set_border_width(0);
+        set_shadow_type(Gtk.ShadowType.NONE);
+        
         viewport.set_shadow_type(Gtk.ShadowType.NONE);
         viewport.set_border_width(0);
         viewport.add(canvas);
@@ -1070,21 +1134,30 @@ public abstract class SinglePhotoPage : Page {
         set_event_source(canvas);
     }
     
-    public Gdk.InterpType set_default_interp(Gdk.InterpType default_interp) {
-        Gdk.InterpType old = this.default_interp;
-        this.default_interp = default_interp;
+    public override void switched_to() {
+        base.switched_to();
         
-        return old;
+        if (unscaled != null)
+            repaint();
     }
     
-    public void set_pixbuf(Gdk.Pixbuf unscaled, bool use_improvement = true) {
+    public override void set_container(Gtk.Window container) {
+        base.set_container(container);
+        
+        // scrollbar policy in fullscreen mode needs to be auto/auto, else the pixbuf will shift
+        // off the screen
+        if (container is FullscreenWindow)
+            set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+    }
+    
+    public void set_pixbuf(Gdk.Pixbuf unscaled) {
         this.unscaled = unscaled;
         scaled = null;
         
         // need to make sure this has happened
         canvas.realize();
         
-        repaint(use_improvement ? default_interp : QUALITY_INTERP);
+        repaint();
     }
     
     public void blank_display() {
@@ -1108,7 +1181,8 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public Scaling get_canvas_scaling() {
-        return Scaling.for_widget(viewport);
+        return (get_container() is FullscreenWindow) ? Scaling.for_screen(get_container()) 
+            : Scaling.for_widget(viewport);
     }
 
     public Gdk.Pixbuf? get_unscaled_pixbuf() {
@@ -1139,7 +1213,15 @@ public abstract class SinglePhotoPage : Page {
     }
     
     private void on_viewport_resize() {
-        repaint(default_interp);
+        // do fast repaints while resizing
+        internal_repaint(FAST_INTERP);
+    }
+    
+    private override void on_resize_finished(Gdk.Rectangle rect) {
+        base.on_resize_finished(rect);
+        
+        // when the resize is completed, do a high-quality repaint
+        repaint();
     }
     
     private bool on_canvas_exposed(Gdk.EventExpose event) {
@@ -1171,11 +1253,19 @@ public abstract class SinglePhotoPage : Page {
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    public void default_repaint() {
-        repaint(default_interp);
+    public void repaint() {
+        internal_repaint(QUALITY_INTERP);
     }
     
-    public void repaint(Gdk.InterpType repaint_interp) {
+    private void internal_repaint(Gdk.InterpType interp) {
+        // if not in view, assume a full repaint needed in future but do nothing more
+        if (!is_in_view()) {
+            pixmap = null;
+            scaled = null;
+            
+            return;
+        }
+        
         // no image or window, no painting
         if (unscaled == null || canvas.window == null)
             return;
@@ -1200,10 +1290,6 @@ public abstract class SinglePhotoPage : Page {
         if (pixmap == null) {
             init_pixmap(width, height);
             new_pixmap = true;
-        } else if (repaint_interp == FAST_INTERP && interp == QUALITY_INTERP) {
-            // block calls where the pixmap is not being regenerated and the caller is asking for
-            // a lower interp
-            repaint_interp = QUALITY_INTERP;
         }
         
         if (new_pixbuf || new_pixmap) {
@@ -1224,17 +1310,15 @@ public abstract class SinglePhotoPage : Page {
         }
         
         // rescale if canvas rescaled or better quality is requested
-        if (scaled == null || interp != repaint_interp) {
-            scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), repaint_interp);
+        if (scaled == null) {
+            scaled = resize_pixbuf(unscaled, Dimensions.for_rectangle(scaled_pos), interp);
             
             UpdateReason reason = UpdateReason.RESIZED_CANVAS;
-            if (new_pixbuf) 
+            if (new_pixbuf)
                 reason = UpdateReason.NEW_PIXBUF;
-            else if (interp == FAST_INTERP && repaint_interp == QUALITY_INTERP)
+            else if (!new_pixmap && interp == QUALITY_INTERP)
                 reason = UpdateReason.QUALITY_IMPROVEMENT;
             
-            interp = repaint_interp;
-
             updated_pixbuf(scaled, reason, old_scaled_dim);
         }
         
@@ -1242,10 +1326,6 @@ public abstract class SinglePhotoPage : Page {
 
         // invalidate everything
         invalidate_all();
-        
-        // schedule improvement if low-quality pixbuf was used
-        if (interp != QUALITY_INTERP)
-            schedule_improval();
     }
     
     private void init_pixmap(int width, int height) {
@@ -1264,39 +1344,9 @@ public abstract class SinglePhotoPage : Page {
         // GC for text
         text_gc = canvas.style.white_gc;
 
-        // resize canvas for the pixmap (that is, the entire viewport)
-        canvas.set_size_request(width, height);
+        // no need to resize canvas, viewport does that automatically
 
         new_drawable(canvas_gc, pixmap);
-    }
-
-    private void schedule_improval() {
-        if (improval_scheduled != null) {
-            reschedule_improval = true;
-            
-            return;
-        }
-        
-        Idle.add(image_improval);
-        
-        // because Idle doesn't maintain a ref to this, need to maintain one ourself
-        // (in case the page is destroyed between schedules)
-        improval_scheduled = this;
-    }
-    
-    private bool image_improval() {
-        if (reschedule_improval) {
-            reschedule_improval = false;
-            
-            return true;
-        }
-        
-        repaint(QUALITY_INTERP);
-        
-        // do not touch self after clearing this
-        improval_scheduled = null;
-        
-        return false;
     }
 }
 

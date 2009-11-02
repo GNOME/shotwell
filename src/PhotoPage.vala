@@ -6,29 +6,31 @@
 
 public abstract class EditingHostPage : SinglePhotoPage {
     public const int TOOL_WINDOW_SEPARATOR = 8;
+    public const int PIXBUF_CACHE_COUNT = 5;
+    public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
+    public const int KEY_REPEAT_INTERVAL_MSEC = 150;
     
     private class EditingHostCanvas : PhotoCanvas {
         private EditingHostPage host_page;
         
         public EditingHostCanvas(EditingHostPage host_page) {
-            base(host_page.container, host_page.canvas.window, host_page.photo, host_page.canvas_gc, 
-                host_page.get_drawable(), host_page.get_scaled_pixbuf(),
+            base(host_page.get_container(), host_page.canvas.window, host_page.get_photo(),
+                host_page.canvas_gc, host_page.get_drawable(), host_page.get_scaled_pixbuf(),
                 host_page.get_scaled_pixbuf_position());
             
             this.host_page = host_page;
         }
         
         public override void repaint() {
-            host_page.repaint(SinglePhotoPage.QUALITY_INTERP);
+            host_page.repaint();
         }
     }
     
-    private Gtk.Window container = null;
+    private SourceCollection sources;
+    private bool use_readahead;
     private ViewCollection controller = null;
-    private TransformablePhoto photo = null;
-    private Gdk.Pixbuf original = null;
     private Gdk.Pixbuf swapped = null;
-    private Scaling? pixbuf_scaling = null;
+    private bool pixbuf_dirty = true;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
@@ -44,13 +46,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private uint32 last_nav_key = 0;
     private bool photo_missing = false;
     private bool drag_event_failed = true;
+    private PixbufCache cache = null;
+    private PixbufCache original_cache = null;
     
     // This signals when the current photo has changed (that is, a new photo is being viewed, not
     // that the current photo has been altered).
     public signal void photo_changed(TransformablePhoto? old_photo, TransformablePhoto new_photo);
 
-    public EditingHostPage(string name) {
+    public EditingHostPage(SourceCollection sources, string name, bool use_readahead) {
         base(name);
+        
+        this.sources = sources;
+        this.use_readahead = use_readahead;
+        
+        // when photo is altered need to update it here
+        sources.item_altered += on_photo_altered;
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         //
@@ -106,16 +116,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         toolbar.insert(next_button, -1);
     }
     
-    public Gtk.Window? get_container() {
-        return container;
+    ~EditingHostPage() {
+        sources.item_altered -= on_photo_altered;
     }
     
-    public void set_container(Gtk.Window container) {
-        // this should only be called once
-        assert(this.container == null);
-
-        this.container = container;
-
+    public override void set_container(Gtk.Window container) {
+        base.set_container(container);
+        
         // DnD only available in full-window view
         if (!(container is FullscreenWindow))
             enable_drag_source(Gdk.DragAction.COPY);
@@ -129,16 +136,40 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return controller;
     }
     
-    public TransformablePhoto get_photo() {
-        return photo;
+    public bool has_photo() {
+        // ViewCollection should have either zero or one photos in it at all times
+        assert(get_view().get_count() <= 1);
+        
+        return get_view().get_count() == 1;
+    }
+    
+    public TransformablePhoto? get_photo() {
+        // use the photo stored in our ViewCollection ... should either be zero or one in the
+        // collection at all times
+        assert(get_view().get_count() <= 1);
+        
+        if (get_view().get_count() == 0)
+            return null;
+        
+        PhotoView photo_view = (PhotoView) get_view().get_at(0);
+        
+        return (TransformablePhoto) photo_view.get_source();
+    }
+    
+    private void set_photo(TransformablePhoto photo) {
+        // clear out the collection and use this as its sole member
+        get_view().clear();
+        get_view().add(new PhotoView(photo));
     }
     
     public override void switched_to() {
         base.switched_to();
-
+        
+        rebuild_caches("switched_to");
+        
         // check if the photo altered while away
-        if (photo != null && pixbuf_scaling == null)
-            replace_photo(photo);
+        if (has_photo() && pixbuf_dirty)
+            replace_photo(controller, get_photo());
     }
     
     public override void switching_from() {
@@ -153,11 +184,148 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
     }
     
+    private void rebuild_caches(string caller) {
+        Scaling scaling = get_canvas_scaling();
+        
+        // only rebuild if not the same scaling
+        if (cache != null && cache.get_scaling().equals(scaling))
+            return;
+        
+        debug("Rebuild cache: %s (%s)", caller, scaling.to_string());
+        
+        // if dropping an old cache, clear the signal handler so currently executing requests
+        // don't complete and cancel anything queued up
+        if (cache != null) {
+            cache.fetched -= on_pixbuf_fetched;
+            cache.cancel_all();
+        }
+        
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, 
+            use_readahead ? PIXBUF_CACHE_COUNT : 1);
+        cache.fetched += on_pixbuf_fetched;
+        
+        original_cache = new PixbufCache(sources, PixbufCache.PhotoType.ORIGINAL, scaling,
+            use_readahead ? ORIGINAL_PIXBUF_CACHE_COUNT : 1);
+        
+        if (has_photo())
+            prefetch_neighbors(controller, get_photo());
+    }
+    
+    private void on_pixbuf_fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err) {
+        if (!photo.equals(get_photo()))
+            return;
+        
+        if (pixbuf != null) {
+            set_pixbuf(pixbuf);
+            pixbuf_dirty = false;
+        } else if (err != null) {
+            set_photo_missing(true);
+        }
+    }
+    
+    private void get_immediate_neighbors(ViewCollection controller, TransformablePhoto photo, 
+        out TransformablePhoto? next, out TransformablePhoto? prev) {
+        DataView photo_view = controller.get_view_for_source(photo);
+        assert(photo_view != null);
+        
+        DataView? next_view = controller.get_next(photo_view);
+        next = (next_view != null) ? (TransformablePhoto) next_view.get_source() : null;
+        
+        DataView? prev_view = controller.get_previous(photo_view);
+        prev = (prev_view != null) ? (TransformablePhoto) prev_view.get_source() : null;
+    }
+    
+    private Gee.Set<TransformablePhoto> get_extended_neighbors(ViewCollection controller,
+        TransformablePhoto photo) {
+        // build list of new neighbors
+        Gee.Set<TransformablePhoto> neighbors = new Gee.HashSet<TransformablePhoto>();
+        
+        // immediate neighbors
+        TransformablePhoto next, prev;
+        get_immediate_neighbors(controller, photo, out next, out prev);
+        
+        // add next and its distant neighbor
+        if (next != null) {
+            neighbors.add(next);
+            
+            TransformablePhoto next_next, next_prev;
+            get_immediate_neighbors(controller, next, out next_next, out next_prev);
+            
+            // only add next-next because next-prev is this photo
+            if (next_next != null)
+                neighbors.add(next_next);
+        }
+        
+        // add previous and its distant neighbor
+        if (prev != null) {
+            neighbors.add(prev);
+            
+            TransformablePhoto next_prev, prev_prev;
+            get_immediate_neighbors(controller, prev, out next_prev, out prev_prev);
+            
+            // only add prev-prev because next-prev is this photo
+            if (prev_prev != null)
+                neighbors.add(prev_prev);
+        }
+        
+        // finally, in a small collection a neighbor could be this photo itself, so exclude it
+        neighbors.remove(photo);
+        
+        return neighbors;
+    }
+    
+    private void prefetch_neighbors(ViewCollection controller, TransformablePhoto photo) {
+        if (!use_readahead)
+            return;
+        
+        TransformablePhoto next, prev;
+        get_immediate_neighbors(controller, photo, out next, out prev);
+        
+        // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
+        foreach (TransformablePhoto neighbor in get_extended_neighbors(controller, photo)) {
+            BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL;
+            if (neighbor.equals(next) || neighbor.equals(prev))
+                priority = BackgroundJob.JobPriority.HIGH;
+            
+            cache.prefetch(neighbor, priority);
+            
+            if (neighbor.has_transformations())
+                original_cache.prefetch(neighbor, BackgroundJob.JobPriority.LOWEST);
+        }
+    }
+    
+    // Cancels prefetches of old neighbors, but does not cancel them if they are the new
+    // neighbors
+    private void cancel_prefetch_neighbors(ViewCollection old_controller, TransformablePhoto old_photo,
+        ViewCollection new_controller, TransformablePhoto new_photo) {
+        if (!use_readahead)
+            return;
+        
+        Gee.Set<TransformablePhoto> old_neighbors = get_extended_neighbors(old_controller,
+            old_photo);
+        Gee.Set<TransformablePhoto> new_neighbors = get_extended_neighbors(new_controller,
+            new_photo);
+        
+        foreach (TransformablePhoto old_neighbor in old_neighbors) {
+            // cancel prefetch and drop from cache if old neighbor is not part of the new
+            // neighborhood
+            if (!new_neighbors.contains(old_neighbor) && !new_photo.equals(old_neighbor)) {
+                cache.drop(old_neighbor);
+                original_cache.drop(old_neighbor);
+            }
+        }
+        
+        // do same for old photo
+        if (!new_neighbors.contains(old_photo) && !new_photo.equals(old_photo)) {
+            cache.drop(old_photo);
+            original_cache.drop(old_photo);
+        }
+    }
+    
     protected void display(ViewCollection controller, TransformablePhoto photo) {
         assert(controller.get_view_for_source(photo) != null);
         
-        this.controller = controller;
-        replace_photo(photo);
+        replace_photo(controller, photo);
     }
 
     protected void set_missing_photo_sensitivities(bool sensitivity) {
@@ -208,12 +376,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         if (photo_missing) {
             try {
-                Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(get_canvas_scaling());
+                Gdk.Pixbuf pixbuf = get_photo().get_preview_pixbuf(get_canvas_scaling());
 
                 pixbuf = pixbuf.composite_color_simple(pixbuf.get_width(), pixbuf.get_height(),
                     Gdk.InterpType.NEAREST, 100, 2, 0, 0);
 
-                set_pixbuf(pixbuf, false);
+                set_pixbuf(pixbuf);
             } catch (GLib.Error err) {
                 warning("%s", err.message);
             }
@@ -222,122 +390,131 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     protected virtual bool confirm_replace_photo(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
         return true;
-}
+    }
 
-    protected void replace_photo(TransformablePhoto new_photo) {
+    protected void replace_photo(ViewCollection new_controller, TransformablePhoto new_photo) {
+        ViewCollection old_controller = this.controller;
+        controller = new_controller;
+        
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
         // just need to reload the image for the proper scaling
-        if (new_photo == photo && pixbuf_scaling != null && 
-            pixbuf_scaling.equals(get_canvas_scaling()) && 
-            photo_missing == false) {
+        if (new_photo.equals(get_photo()) && !pixbuf_dirty && !photo_missing)
             return;
-        }
 
         // only check if okay to replace if there's something to replace and someone's concerned
-        if (photo != null && photo != new_photo && confirm_replace_photo != null) {
-            if (!confirm_replace_photo(photo, new_photo))
+        if (has_photo() && !new_photo.equals(get_photo()) && confirm_replace_photo != null) {
+            if (!confirm_replace_photo(get_photo(), new_photo))
                 return;
         }
 
         deactivate_tool();
         
-        // unsubscribe from the old photo and subscribe to the new one
-        if (photo != null && photo != new_photo)
-            photo.altered -= on_photo_altered;
+        // swap out new photo and old photo and process change
+        TransformablePhoto old_photo = get_photo();
+        set_photo(new_photo);
+        
+        set_page_name(new_photo.get_name());
 
-        TransformablePhoto old_photo = photo;
-        if (photo != new_photo) {
-            photo = new_photo;
-            photo.altered += on_photo_altered;
-
-            // clear out the collection and use this as its sole member
-            get_view().clear();
-            get_view().add(new PhotoView(photo));
-        }
-
-        set_page_name(photo.get_name());
-
-        // clear out the comparison buffers
-        original = null;
+        // clear out the swap buffer
         swapped = null;
 
+        // reset flags
         set_photo_missing(false);
+        pixbuf_dirty = true;
 
-        quick_update_pixbuf();
-        
         update_ui();
 
-        if (old_photo != new_photo)
+        if (!new_photo.equals(old_photo))
             photo_changed(old_photo, new_photo);
+        
+        // it's possible for this to be called prior to the page being realized, however, the
+        // underlying canvas has a scaling, so use that
+        rebuild_caches("replace_photo");
+        
+        if (old_photo != null)
+            cancel_prefetch_neighbors(old_controller, old_photo, new_controller, new_photo);
+        
+        quick_update_pixbuf();
+        
+        prefetch_neighbors(new_controller, new_photo);
+        
+        // quick_update_pixbuf takes care of loading photo, need to prefetch the original (which
+        // is not considered a neighbor)
+        if (new_photo.has_transformations())
+            original_cache.prefetch(new_photo, BackgroundJob.JobPriority.LOW);
     }
     
     private void quick_update_pixbuf() {
+        Gdk.Pixbuf pixbuf = cache.get_ready_pixbuf(get_photo());
+        if (pixbuf != null) {
+            set_pixbuf(pixbuf);
+            pixbuf_dirty = false;
+            
+            return;
+        }
+        
+        Scaling scaling = get_canvas_scaling();
+        
+        debug("Using progressive load for %s (%s)", get_photo().to_string(), scaling.to_string());
+        
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         try {
-            Scaling scaling = (container is FullscreenWindow) ? Scaling.for_screen() :
-                get_canvas_scaling();
-            
-            set_pixbuf(photo.get_preview_pixbuf(scaling), false);
-
+            set_pixbuf(get_photo().get_preview_pixbuf(scaling));
         } catch (Error err) {
             warning("%s", err.message);
         }
-
-        Idle.add(update_pixbuf);
+        
+        cache.prefetch(get_photo(), BackgroundJob.JobPriority.HIGHEST);
+        
+        // although final pixbuf not in place, it's on its way, so set this to clean so later calls
+        // don't reload again
+        pixbuf_dirty = false;
     }
     
     private bool update_pixbuf() {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
 #endif
-        pixbuf_scaling = get_canvas_scaling();
-        
         Gdk.Pixbuf pixbuf = null;
-
+        
         try {
             if (current_tool != null)
-                pixbuf = current_tool.get_display_pixbuf(pixbuf_scaling, photo);
-
+                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), get_photo());
+            
             if (pixbuf == null)
-                pixbuf = photo.get_pixbuf(pixbuf_scaling);
-  
+                pixbuf = cache.fetch(get_photo());
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
         }
-
-        if (!photo_missing)
-            set_pixbuf(pixbuf, false);
-
+        
+        if (!photo_missing) {
+            set_pixbuf(pixbuf);
+            pixbuf_dirty = false;
+        }
+        
 #if MEASURE_PIPELINE
         debug("UPDATE_PIXBUF: total=%lf", timer.elapsed());
 #endif
-
-        // fetch the original for quick comparisons, again in the background ... need to let the
-        // message loop run to get the real pixbuf on-screen.  If no transformations, don't bother.
-        // TODO: Allow viewing the original while a tool is activated.
-        if (original == null && photo.has_transformations() && current_tool == null)
-            Idle.add_full(Priority.LOW, fetch_original);
-
+        
         return false;
     }
     
-    private bool fetch_original() {
-        try {
-            original = photo.get_original_pixbuf(get_canvas_scaling());
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
+    private override void on_resize(Gdk.Rectangle rect) {
+        base.on_resize(rect);
 
-        return false;
+        track_tool_window();
     }
     
     private override void on_resize_finished(Gdk.Rectangle rect) {
         // because we've loaded SinglePhotoPage with an image scaled to window size, as the window
         // is resized it scales that, which pixellates, especially scaling upward.  Once the window
         // resize is complete, we get a fresh image for the new window's size
+        rebuild_caches("on_resize_finished");
+        pixbuf_dirty = true;
+        
         update_pixbuf();
     }
     
@@ -349,13 +526,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private override bool on_shift_pressed(Gdk.EventKey event) {
-        // show quick compare of original only if no tool is in use, the original pixbuf is handy,
-        // and using quality interp to avoid pixellation if the user goes crazy with the shift key
-        if (current_tool == null && original != null) {
-            // store what's currently displayed only for the duration of the shift pressing
-            swapped = get_unscaled_pixbuf();
-            
-            set_pixbuf(original, false);
+        // show quick compare of original only if no tool is in use, the original pixbuf is handy
+        if (current_tool == null) {
+            Gdk.Pixbuf original = original_cache.get_ready_pixbuf(get_photo());
+            if (original != null) {
+                // store what's currently displayed only for the duration of the shift pressing
+                swapped = get_unscaled_pixbuf();
+                
+                set_pixbuf(original);
+            }
         }
         
         return base.on_shift_pressed(event);
@@ -363,7 +542,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_released(Gdk.EventKey event) {
         if (current_tool == null && swapped != null) {
-            set_pixbuf(swapped, false);
+            set_pixbuf(swapped);
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
@@ -373,10 +552,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void activate_tool(EditingTool tool) {
-        // during editing, always use the quality interpolation, so the editing tool is only
-        // dealing with one pixbuf (unless page is resized)
-        set_default_interp(QUALITY_INTERP);
-        
         // deactivate current tool ... current implementation is one tool at a time.  In the future,
         // tools may be allowed to be executing at the same time.
         deactivate_tool();
@@ -387,7 +562,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // see if the tool wants a different pixbuf displayed
         Gdk.Pixbuf unscaled;
         try {
-            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), photo);
+            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), get_photo());
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
@@ -413,7 +588,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         place_tool_window();
 
         // repaint entire view, with the tool now hooked in
-        default_repaint();
+        repaint();
     }
     
     private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null, bool needs_improvement = false) {
@@ -447,21 +622,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         cancel_editing_pixbuf = null;
         
         // if this is a rough pixbuf, schedule an improvement
-        if (needs_improvement)
+        if (needs_improvement) {
+            pixbuf_dirty = true;
             Idle.add(update_pixbuf);
-
-        // return to fast interpolation for viewing
-        set_default_interp(FAST_INTERP);
+        }
     }
     
     private override void drag_begin(Gdk.DragContext context) {
+        if (!has_photo() || photo_missing)
+            return;
+        
         // drag_data_get may be called multiple times within a drag as different applications
         // query for target type and information ... to prevent a lot of file generation, do all
         // the work up front
         File file = null;
         drag_event_failed = false;
         try {
-            file = photo.generate_exportable();
+            file = get_photo().generate_exportable();
         } catch (Error err) {
             drag_event_failed = true;
             file = null;
@@ -470,7 +647,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // set up icon for drag-and-drop
         try {
-            Gdk.Pixbuf icon = photo.get_preview_pixbuf(Scaling.for_best_fit(AppWindow.DND_ICON_SCALE));
+            Gdk.Pixbuf icon = get_photo().get_preview_pixbuf(Scaling.for_best_fit(AppWindow.DND_ICON_SCALE));
             Gtk.drag_source_set_icon_pixbuf(canvas, icon);
         } catch (Error err) {
             message("Unable to get drag-and-drop icon: %s", err.message);
@@ -513,7 +690,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         debug("Drag failed: %d", (int) drag_result);
         
         drag_file = null;
-        photo.export_failed();
+        get_photo().export_failed();
         
         return false;
     }
@@ -561,12 +738,28 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return on_context_menu(event);
     }
     
-    private void on_photo_altered(TransformablePhoto p) {
-        assert(p.equals(photo));
-        
-        pixbuf_scaling = null;
+    private void on_photo_altered(DataObject object) {
+        TransformablePhoto p = object as TransformablePhoto;
 
+        // only interested in current photo
+        if (p == null || !p.equals(get_photo()))
+            return;
+        
+        pixbuf_dirty = true;
+        
+        // if transformed, want to prefetch the original pixbuf for this photo, but after the
+        // signal is completed as PixbufCache may remove it in this round of fired signals
+        if (get_photo().has_transformations())
+            Idle.add(on_fetch_original);
+        
         update_ui();
+    }
+    
+    private bool on_fetch_original() {
+        if (has_photo())
+            original_cache.prefetch(get_photo(), BackgroundJob.JobPriority.LOW);
+        
+        return false;
     }
     
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
@@ -595,12 +788,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.on_move(rect);
     }
     
-    private override void on_resize(Gdk.Rectangle rect) {
-        track_tool_window();
-
-        base.on_resize(rect);
-    }
-    
     private override bool key_press_event(Gdk.EventKey event) {
         // editing tool gets first crack at the keypress
         if (current_tool != null) {
@@ -611,24 +798,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // if the user holds the arrow keys down, we will receive a steady stream of key press
         // events for an operation that isn't designed for a rapid succession of output ... 
         // we staunch the supply of new photos to under a quarter second (#533)
-        bool nav_ok = (event.time - last_nav_key) > 200;
+        bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
         
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
             case "Left":
             case "KP_Left":
-                if (nav_ok)
+                if (nav_ok) {
                     on_previous_photo();
-                else
-                    handled = false;
+                    last_nav_key = event.time;
+                }
             break;
             
             case "Right":
             case "KP_Right":
-                if (nav_ok)
+                if (nav_ok) {
                     on_next_photo();
-                else
-                    handled = false;
+                    last_nav_key = event.time;
+                }
             break;
             
             default:
@@ -636,11 +823,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             break;
         }
         
-        if (handled) {
-            last_nav_key = event.time;
-        
+        if (handled)
             return true;
-        }
 
         return (base.key_press_event != null) ? base.key_press_event(event) : true;
     }
@@ -667,15 +851,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         else
             base.paint(gc, drawable);
 
-        if (photo_missing) {
-            draw_message(_("Photo source file missing: %s").printf(photo.get_file().get_path()));
-        }
+        if (photo_missing && has_photo())
+            draw_message(_("Photo source file missing: %s").printf(get_photo().get_file().get_path()));
     }
 
     private void rotate(Rotation rotation) {
         deactivate_tool();
         
-        photo.rotate(rotation);
+        if (!has_photo())
+            return;
+        
+        get_photo().rotate(rotation);
+        pixbuf_dirty = true;
+        
         quick_update_pixbuf();
     }
     
@@ -694,9 +882,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public void on_revert() {
         deactivate_tool();
         
-        photo.remove_all_transformations();
+        if (!has_photo())
+            return;
+        
+        get_photo().remove_all_transformations();
 
         set_photo_missing(false);
+        pixbuf_dirty = true;
         
         quick_update_pixbuf();
     }
@@ -785,6 +977,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!(current_tool is AdjustTool))
             deactivate_tool();
         
+        if (!has_photo())
+            return;
+        
         AppWindow.get_instance().set_busy_cursor();
 
 #if MEASURE_ENHANCE
@@ -793,7 +988,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #endif
         Gdk.Pixbuf pixbuf = null;
         try {
-            pixbuf = photo.get_pixbuf_with_exceptions(Scaling.for_best_fit(360), 
+            pixbuf = get_photo().get_pixbuf_with_exceptions(Scaling.for_best_fit(360), 
                 TransformablePhoto.Exception.ALL);
 #if MEASURE_ENHANCE
             fetch_timer.stop();
@@ -825,7 +1020,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         } else {
               /* if the current tool isn't the adjust tool then commit the changes
                  to the database */
-            photo.set_adjustments(transformations);
+            get_photo().set_adjustments(transformations);
+            pixbuf_dirty = true;
+            
             update_pixbuf();
 #if MEASURE_ENHANCE
             apply_timer.stop();
@@ -857,11 +1054,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         Gtk.Allocation tool_alloc = tool_window.allocation;
 
-        if (container == AppWindow.get_instance()) {
+        if (get_container() == AppWindow.get_instance()) {
             // Normal: position crop tool window centered on viewport/canvas at the bottom,
             // straddling the canvas and the toolbar
             int rx, ry;
-            container.window.get_root_origin(out rx, out ry);
+            get_container().window.get_root_origin(out rx, out ry);
             
             int cx, cy, cwidth, cheight;
             cx = viewport.allocation.x;
@@ -871,13 +1068,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             tool_window.move(rx + cx + (cwidth / 2) - (tool_alloc.width / 2), ry + cy + cheight);
         } else {
-            assert(container is FullscreenWindow);
+            assert(get_container() is FullscreenWindow);
             
             // Fullscreen: position crop tool window centered on screen at the bottom, just above the
             // toolbar
             Gtk.Allocation toolbar_alloc = toolbar.allocation;
             
-            Gdk.Screen screen = container.get_screen();
+            Gdk.Screen screen = get_container().get_screen();
 
             int x = screen.get_width();
             int y = screen.get_height() - toolbar_alloc.height -
@@ -901,33 +1098,37 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public void on_next_photo() {
         deactivate_tool();
         
-        if (photo == null)
+        if (!has_photo())
             return;
         
-        DataView current = controller.get_view_for_source(photo);
+        DataView current = controller.get_view_for_source(get_photo());
         assert(current != null);
         
-        DataView next = controller.get_next(current);
+        DataView? next = controller.get_next(current);
+        if (next == null)
+            return;
 
         TransformablePhoto next_photo = next.get_source() as TransformablePhoto;
         if (next_photo != null)
-            replace_photo(next_photo);
+            replace_photo(controller, next_photo);
     }
     
     public void on_previous_photo() {
         deactivate_tool();
         
-        if (photo == null)
+        if (!has_photo())
             return;
         
-        DataView current = controller.get_view_for_source(photo);
+        DataView current = controller.get_view_for_source(get_photo());
         assert(current != null);
         
-        DataView previous = controller.get_previous(current);
+        DataView? previous = controller.get_previous(current);
+        if (previous == null)
+            return;
         
         TransformablePhoto previous_photo = previous.get_source() as TransformablePhoto;
         if (previous_photo != null)
-            replace_photo(previous_photo);
+            replace_photo(controller, previous_photo);
     }
 }
 
@@ -936,7 +1137,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private CollectionPage return_page = null;
 
     public LibraryPhotoPage() {
-        base("Photo");
+        base(LibraryPhoto.global, "Photo", true);
 
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
 
@@ -1047,7 +1248,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private override bool on_context_menu(Gdk.EventButton event) {
-        if (get_photo() == null)
+        if (!has_photo())
             return false;
 
         set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
@@ -1062,7 +1263,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_export() {
-        if (get_photo() == null)
+        if (!has_photo())
             return;
         
         ExportDialog export_dialog = new ExportDialog(_("Export Photo"));
@@ -1086,7 +1287,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool revert_possible = (get_photo() != null) ? get_photo().has_transformations() : false;
+        bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
             
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
@@ -1128,7 +1329,9 @@ private class DirectViewCollection : ViewCollection {
         if (list == null || list.size == 0)
             return null;
         
-        return get_view_for_source(DirectPhoto.global.fetch(list.get(0)));
+        DirectPhoto photo = DirectPhoto.global.fetch(list.get(0));
+        
+        return (photo != null) ? get_view_for_source(photo) : null;
     }
     
     public override DataView? get_last() {
@@ -1136,7 +1339,9 @@ private class DirectViewCollection : ViewCollection {
         if (list == null || list.size == 0)
             return null;
         
-        return get_view_for_source(DirectPhoto.global.fetch(list.get(list.size - 1)));
+        DirectPhoto photo = DirectPhoto.global.fetch(list.get(list.size - 1));
+        
+        return (photo != null) ? get_view_for_source(photo) : null;
     }
     
     public override DataView? get_next(DataView current) {
@@ -1152,7 +1357,9 @@ private class DirectViewCollection : ViewCollection {
         if (index >= list.size)
             index = 0;
         
-        return get_view_for_source(DirectPhoto.global.fetch(list.get(index)));
+        DirectPhoto photo = DirectPhoto.global.fetch(list.get(index));
+        
+        return (photo != null) ? get_view_for_source(photo) : null;
     }
     
     public override DataView? get_previous(DataView current) {
@@ -1168,7 +1375,9 @@ private class DirectViewCollection : ViewCollection {
         if (index < 0)
             index = list.size - 1;
         
-        return get_view_for_source(DirectPhoto.global.fetch(list.get(index)));
+        DirectPhoto photo = DirectPhoto.global.fetch(list.get(index));
+        
+        return (photo != null) ? get_view_for_source(photo) : null;
     }
     
     private SortedList<File>? get_children_photos() {
@@ -1204,7 +1413,7 @@ public class DirectPhotoPage : EditingHostPage {
     private bool drop_if_dirty = false;
 
     public DirectPhotoPage(File file) {
-        base(file.get_basename());
+        base(DirectPhoto.global, file.get_basename(), false);
         
         if (!check_editable_file(file)) {
             Posix.exit(1);
@@ -1375,10 +1584,16 @@ public class DirectPhotoPage : EditingHostPage {
             return;
         }
         
+        DirectPhoto photo = DirectPhoto.global.fetch(dest, true);
+        if (photo == null) {
+            // dead in the water
+            Posix.exit(1);
+        }
+        
         // switch to that file ... if saving on top of the original file, this will re-import the
         // photo into the in-memory database, which is key because its stored transformations no
         // longer match the backing photo
-        display(new DirectViewCollection(dest.get_parent()), DirectPhoto.global.fetch(dest, true));
+        display(new DirectViewCollection(dest.get_parent()), photo);
     }
     
     private void on_save() {
@@ -1423,7 +1638,7 @@ public class DirectPhotoPage : EditingHostPage {
     
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool revert_possible = (get_photo() != null) ? get_photo().has_transformations() : false;
+        bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
 
         set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);

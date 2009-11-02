@@ -71,7 +71,7 @@ void library_exec(string[] mounts) {
     if (!verify_databases(out app_version)) {
         string errormsg = _("The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please clear your library by deleting %s and re-import your photos.");
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, errormsg, app_version, AppDirs.get_data_dir());
+            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, errormsg, app_version, AppDirs.get_data_dir().get_path());
         dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();

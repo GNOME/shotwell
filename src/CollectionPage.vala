@@ -92,8 +92,6 @@ class SlideshowPage : SinglePhotoPage {
         this.controller = controller;
         current = start;
         
-        set_default_interp(QUALITY_INTERP);
-        
         // add toolbar buttons
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label(_("Back"));
@@ -131,14 +129,9 @@ class SlideshowPage : SinglePhotoPage {
     public override void switched_to() {
         base.switched_to();
 
-        Idle.add(start_slideshow);
-    }
-
-    private bool start_slideshow() {
-        // since the canvas might not be ready at this point, start with screen-sized photo
         Gdk.Pixbuf pixbuf;
         if (!get_fullscreen_pixbuf(current, true, out current, out pixbuf))
-            return false;
+            return;
 
         set_pixbuf(pixbuf);
         
@@ -148,8 +141,6 @@ class SlideshowPage : SinglePhotoPage {
         
         // prefetch the next pixbuf so it's ready when auto-advance fires
         schedule_prefetch();
-
-        return false;
     }
     
     public override void switching_from() {
@@ -169,7 +160,7 @@ class SlideshowPage : SinglePhotoPage {
         for (;;) {
             try {
                 // Fails if a photo source file is missing.
-                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen());
+                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen(get_container()));
             } catch (Error err) {
                 warning("%s", err.message);
 
@@ -358,13 +349,13 @@ public class CollectionPage : CheckerboardPage {
     
     public const int DEFAULT_SORT_BY = SORT_BY_EXPOSURE_DATE;
     public const int DEFAULT_SORT_ORDER = SORT_ORDER_DESCENDING;
+    
+    public const int MIN_OPS_FOR_PROGRESS_WINDOW = 5;
 
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public const int MANUAL_STEPPING = 16;
     public const int SLIDER_STEPPING = 4;
 
-    private int drag_failed_item_count = 0;
-    
     private class CompareTitle : Comparator<LayoutItem> {
         private bool ascending;
         
@@ -403,7 +394,8 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton slideshow_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
-
+    private int drag_failed_item_count = 0;
+    
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
         base(page_name);
@@ -851,6 +843,16 @@ public class CollectionPage : CheckerboardPage {
         
         AppWindow.get_instance().set_busy_cursor();
         
+        int count = 0;
+        int total = export_list.size;
+        
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (total >= MIN_OPS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Exporting..."), cancellable);
+        }
+        
         foreach (LibraryPhoto photo in export_list) {
             File save_as = export_dir.get_child(photo.get_file().get_basename());
             if (save_as.query_exists(null)) {
@@ -858,15 +860,24 @@ public class CollectionPage : CheckerboardPage {
                     continue;
             }
             
-            spin_event_loop();
-
             try {
                 photo.export(save_as, scale, constraint, quality);
             } catch (Error err) {
                 AppWindow.error_message(_("Unable to export photo %s: %s").printf(save_as.get_path(),
                     err.message));
             }
+            
+            if (progress != null) {
+                progress.set_fraction(++count, total);
+                spin_event_loop();
+                
+                if (cancellable.is_cancelled())
+                    break;
+            }
         }
+        
+        if (progress != null)
+            progress.close();
         
         AppWindow.get_instance().set_normal_cursor();
     }
@@ -917,13 +928,14 @@ public class CollectionPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
 
-        string msg_string = _("If you remove these photos from your library you will lose all edits you've made to them.  Shotwell can also delete the files from your drive.\n\nThis action cannot be undone.");
+        string msg_string = 
+            _("This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n\nThis action cannot be undone.");
 
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
             Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", msg_string);
-        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.NO);
-        dialog.add_button(_("Keep files"), Gtk.ResponseType.YES);
-        dialog.title = _("Remove photos?");
+        dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
+        dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.YES);
+        dialog.title = _("Remove");
 
         Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
         
@@ -939,39 +951,110 @@ public class CollectionPage : CheckerboardPage {
         foreach (DataView view in get_view().get_selected()) {
             LibraryPhoto photo = ((Thumbnail) view).get_photo();
             
-            if (result == Gtk.ResponseType.NO)
+            if (result == Gtk.ResponseType.YES)
                 photo.delete_original_on_destroy();
             
             marker.mark(photo);
         }
         
-        LibraryPhoto.global.destroy_marked(marker);
+        AppWindow.get_instance().set_busy_cursor();
+        
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (marker.get_count() >= MIN_OPS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Removing..."), cancellable);
+        }
+        
+        // valac complains about passing an argument for a delegate using ternary operator:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=599349
+        if (progress != null)
+            LibraryPhoto.global.destroy_marked(marker, progress.monitor);
+        else
+            LibraryPhoto.global.destroy_marked(marker);
+        
+        if (progress != null)
+            progress.close();
+        
+        AppWindow.get_instance().set_normal_cursor();
     }
     
-    private void do_rotations(Gee.Iterable<DataView> c, Rotation rotation) {
-        foreach (DataView view in c) {
-            LibraryPhoto photo = ((Thumbnail) view).get_photo();
-            photo.rotate(rotation);
+    private void rotate_selected(Rotation rotation, string text) {
+        AppWindow.get_instance().set_busy_cursor();
+        
+        int count = 0;
+        int total = get_view().get_selected_count();
+        
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (total >= MIN_OPS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), text, cancellable);
         }
+        
+        foreach (DataView view in get_view().get_selected()) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            
+            photo.rotate(rotation);
+            
+            if (progress != null) {
+                progress.set_fraction(++count, total);
+                spin_event_loop();
+                
+                if (cancellable.is_cancelled())
+                    break;
+            }
+        }
+        
+        if (progress != null)
+            progress.close();
+        
+        AppWindow.get_instance().set_normal_cursor();
     }
 
     private void on_rotate_clockwise() {
-        do_rotations(get_view().get_selected(), Rotation.CLOCKWISE);
+        rotate_selected(Rotation.CLOCKWISE, _("Rotating..."));
     }
     
     private void on_rotate_counterclockwise() {
-        do_rotations(get_view().get_selected(), Rotation.COUNTERCLOCKWISE);
+        rotate_selected(Rotation.COUNTERCLOCKWISE, _("Rotating..."));
     }
     
     private void on_mirror() {
-        do_rotations(get_view().get_selected(), Rotation.MIRROR);
+        rotate_selected(Rotation.MIRROR, _("Mirroring..."));
     }
     
     private void on_revert() {
+        AppWindow.get_instance().set_busy_cursor();
+        
+        int count = 0;
+        int total = get_view().get_selected_count();
+        
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (total >= MIN_OPS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Reverting..."), cancellable);
+        }
+        
         foreach (DataView view in get_view().get_selected()) {
             LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            
             photo.remove_all_transformations();
+            
+            if (progress != null) {
+                progress.set_fraction(++count, total);
+                spin_event_loop();
+                
+                if (cancellable.is_cancelled())
+                    break;
+            }
         }
+        
+        if (progress != null)
+            progress.close();
+        
+        AppWindow.get_instance().set_normal_cursor();
     }
     
     private void on_slideshow() {
@@ -981,9 +1064,8 @@ public class CollectionPage : CheckerboardPage {
         Thumbnail thumbnail = (Thumbnail) get_fullscreen_photo();
         if (thumbnail == null)
             return;
-
-        AppWindow.get_instance().go_fullscreen(new FullscreenWindow(new SlideshowPage(get_view(),
-            thumbnail)));
+        
+        AppWindow.get_instance().go_fullscreen(new SlideshowPage(get_view(), thumbnail));
     }
 
     private void on_view_menu() {

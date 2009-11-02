@@ -77,7 +77,8 @@ SRC_FILES = \
 	International.vala \
 	Workers.vala \
 	system.vala \
-	AppDirs.vala
+	AppDirs.vala \
+	PixbufCache.vala
 
 VAPI_FILES = \
 	libexif.vapi \

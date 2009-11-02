@@ -306,8 +306,12 @@ public class ImportPage : CheckerboardPage {
             
             set_page_name(camera_name);
         }
-
+        
         show_all();
+    }
+    
+    ~ImportPage() {
+        LibraryPhoto.global.contents_altered -= on_photos_added_removed;
     }
 
     private Gtk.ToggleActionEntry[] create_toggle_actions() {
@@ -422,6 +426,12 @@ public class ImportPage : CheckerboardPage {
         try_refreshing_camera();
     
         set_display_titles(Config.get_instance().get_display_photo_titles());
+        
+        // when new pages are added to the notebook in LibraryWindow, notebook.show_all() must
+        // be called ... this trickles down and causes all hidden widgets to be shown, so re-hide
+        // here
+        if (!busy)
+            progress_bar.visible = false;
     }
 
     private void try_refreshing_camera() {
@@ -501,7 +511,7 @@ public class ImportPage : CheckerboardPage {
         refreshed = false;
         progress_bar.visible = true;
         progress_bar.set_fraction(0.0);
-        progress_bar.set_text("Unmounting ...");
+        progress_bar.set_text(_("Unmounting..."));
 
         debug("Unmounting camera ...");
         mount.unmount(MountUnmountFlags.NONE, null, on_unmounted);
@@ -978,7 +988,7 @@ public class ImportQueuePage : SinglePhotoPage {
     private uint64 total_bytes = 0;
  
     public ImportQueuePage() {
-        base(_("Importing ..."));
+        base(_("Importing..."));
 
         init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
             create_actions());
@@ -1101,6 +1111,12 @@ public class ImportQueuePage : SinglePhotoPage {
         assert(removed);
         assert(!queue.contains(batch_import));
         
+        // strip signal handlers
+        batch_import.starting -= on_starting;
+        batch_import.imported -= on_imported;
+        batch_import.import_complete -= on_import_complete;
+        
+        // report the batch has been removed from the queue
         batch_removed(batch_import);
         
         // schedule next if available

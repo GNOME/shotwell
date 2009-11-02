@@ -22,7 +22,7 @@ public class EventSourceCollection : DatabaseSourceCollection {
 }
 
 public class Event : EventSource {
-    public const long EVENT_LULL_SEC = 3 * 60 * 60;
+    public const long EVENT_LULL_SEC = 4 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     
     private class DateComparator : Comparator<LibraryPhoto> {
@@ -45,6 +45,11 @@ public class Event : EventSource {
         // watch the primary photo to reflect thumbnail changes
         if (primary_photo != null)
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
+    }
+    
+    ~Event() {
+        if (primary_photo != null)
+            primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
     }
     
     public static void init() {
@@ -154,14 +159,14 @@ public class Event : EventSource {
                     
                     global.add(current_event);
                     
-                    debug("Reported event creation %s", current_event.to_string());
+                    debug("Added event %s to global collection", current_event.to_string());
                 }
 
                 current_event_start = exposure_time;
                 current_event = new Event(
                     event_table.create(photo.get_photo_id(), current_event_start));
 
-                debug("Created event %s", current_event.to_string());
+                debug("Created new event %s", current_event.to_string());
             }
             
             assert(current_event != null);
@@ -181,7 +186,7 @@ public class Event : EventSource {
             
             global.add(current_event);
             
-            debug("Created event %s", current_event.to_string());
+            debug("Added event %s to global collection", current_event.to_string());
         }
     }
     

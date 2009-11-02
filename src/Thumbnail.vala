@@ -33,6 +33,13 @@ public class Thumbnail : LayoutItem {
         dim = original_dim.get_scaled(scale, true);
     }
     
+    ~Thumbnail() {
+        if (cancellable != null)
+            cancellable.cancel();
+        
+        hq_scheduler.cancel();
+    }
+    
     public LibraryPhoto get_photo() {
         return (LibraryPhoto) get_source();
     }
@@ -106,7 +113,7 @@ public class Thumbnail : LayoutItem {
     private void on_low_quality_fetched(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
         Error? err) {
         if (err != null)
-            error("Unable to fetch low-quality thumbnail for %s (scale: %d): %s", to_string(), scale,
+            critical("Unable to fetch low-quality thumbnail for %s (scale: %d): %s", to_string(), scale,
                 err.message);
         
         if (pixbuf != null)
@@ -118,7 +125,7 @@ public class Thumbnail : LayoutItem {
     private void on_high_quality_fetched(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
         Error? err) {
         if (err != null)
-            error("Unable to fetch high-quality thumbnail for %s (scale: %d): %s", to_string(), scale, 
+            critical("Unable to fetch high-quality thumbnail for %s (scale: %d): %s", to_string(), scale, 
                 err.message);
         
         if (pixbuf != null)

@@ -89,6 +89,14 @@ public class KeyValueMap {
         this.group = group;
     }
     
+    public KeyValueMap copy() {
+        KeyValueMap clone = new KeyValueMap(group);
+        foreach (string key in map.keys)
+            clone.map.set(key, map.get(key));
+        
+        return clone;
+    }
+    
     public string get_group() {
         return group;
     }

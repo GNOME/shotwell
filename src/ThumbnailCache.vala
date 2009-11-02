@@ -277,14 +277,8 @@ public class ThumbnailCache : Object {
         // situation.  This may change in the future, and the caching situation will need to be 
         // handled.
         
-        AsyncFetchJob job = new AsyncFetchJob(this, photo_id, pixbuf, dim, interp, callback, 
-            cancellable);
-        
-        try {
-            fetch_workers.enqueue(job);
-        } catch (Error err) {
-            error("Unable to enqueue async thumbnail fetch: %s", err.message);
-        }
+        fetch_workers.enqueue(new AsyncFetchJob(this, photo_id, pixbuf, dim, interp, callback, 
+            cancellable));
     }
     
     // Called within Gtk.main's thread context

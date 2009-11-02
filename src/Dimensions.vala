@@ -174,7 +174,6 @@ public struct Dimensions {
 
 public struct Scaling {
     private const int NO_SCALE = 0;
-    private const int SCREEN = -1;
     
     private ScaleConstraint constraint;
     private int scale;
@@ -190,8 +189,8 @@ public struct Scaling {
         return Scaling(ScaleConstraint.ORIGINAL, NO_SCALE, Dimensions());
     }
     
-    public static Scaling for_screen() {
-        return Scaling(ScaleConstraint.DIMENSIONS, SCREEN, Dimensions());
+    public static Scaling for_screen(Gtk.Window window) {
+        return for_viewport(get_screen_dimensions(window));
     }
     
     public static Scaling for_best_fit(int pixels) {
@@ -213,16 +212,13 @@ public struct Scaling {
         return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport);
     }
     
-    private static int get_screen_scale() {
-        Gdk.Screen screen = AppWindow.get_instance().window.get_screen();
+    private static Dimensions get_screen_dimensions(Gtk.Window window) {
+        Gdk.Screen screen = window.get_screen();
         
-        return int.max(screen.get_width(), screen.get_height());
+        return Dimensions(screen.get_width(), screen.get_height());
     }
 
     private int scale_to_pixels() {
-        if (scale == SCREEN)
-            return get_screen_scale();
-        
         return (scale >= 0) ? scale : 0;
     }
     
