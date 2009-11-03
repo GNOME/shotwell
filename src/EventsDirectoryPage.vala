@@ -88,6 +88,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         }
     }
    
+    private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 50;
+
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton merge_button;
     protected ViewManager view_manager;
@@ -251,9 +253,31 @@ public class EventsDirectoryPage : CheckerboardPage {
             }
         }
 
+        int count = 0;
+        int total = photos.size;
+
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (total >= MIN_PHOTOS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Merging..."), cancellable);
+        }
+
         // add each photo to master event
-        foreach (LibraryPhoto photo in photos)
+        foreach (LibraryPhoto photo in photos) {
             photo.set_event(master_event);
+
+            if (progress != null) {
+                progress.set_fraction(++count, total);
+                spin_event_loop();
+                
+                if (cancellable.is_cancelled())
+                    break;
+            }
+        }
+
+        if (progress != null)
+            progress.close();
 
         LibraryWindow.get_app().set_normal_cursor();
     }
