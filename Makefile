@@ -220,8 +220,8 @@ install:
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
 	-update-desktop-database
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool --makefile-install-rule misc/shotwell.schemas
-	killall -HUP gconfd-2
-	$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
+	-killall -HUP gconfd-2
+	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
             $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 

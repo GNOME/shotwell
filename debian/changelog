@@ -1,4 +1,5 @@
 shotwell (0.3.0-1~jaunty1) jaunty; urgency=low
+
   * Major update with numerous feature additions and performance and 
     scalability enhancements.
   * Auto enhance button, shadows control, and histogram contrast expansion now
@@ -20,7 +21,7 @@ shotwell (0.3.0-1~jaunty1) jaunty; urgency=low
   * User-configurable items now stored persistently via GConf.
   * Code internationalized.  Partial French translation now available.
 
--- Jim Nelson <jim@yorba.org>  Mon, 02 Nov 2009 13:27:01 -0800 
+ -- Jim Nelson <jim@yorba.org>  Mon, 02 Nov 2009 13:40:58 -0800
 
 
 shotwell (0.2.0-1~jaunty1) jaunty; urgency=low
