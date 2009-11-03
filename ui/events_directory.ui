@@ -9,6 +9,7 @@
 
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="EventRename" action="Rename" />
+            <menuitem name="EventMerge" action="Merge" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
@@ -32,6 +33,7 @@
     <popup name="EventsDirectoryContextMenu">
         <separator />
         <menuitem name="ContextRename" action="Rename" />
+        <menuitem name="ContextMerge" action="Merge" />
     </popup>
 
 </ui>

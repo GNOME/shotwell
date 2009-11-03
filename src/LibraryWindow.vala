@@ -674,10 +674,28 @@ public class LibraryWindow : AppWindow {
 
     private void on_event_altered(DataObject object) {
         Event event = (Event) object;
-        
-        // refresh sidebar
         foreach (EventPageStub stub in event_list) {
-            if (stub.event.equals(event)) {
+            if (event.equals(stub.event)) {
+                SubEventsDirectoryPageStub old_parent = 
+                    (SubEventsDirectoryPageStub) sidebar.get_parent_page(stub);
+
+                // only re-add to sidebar if the event has changed directories or shares its dir
+                if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
+                    !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
+                     old_parent.get_year() == Time.local(event.get_start_time()).year)) {
+                    // remove from sidebar
+                    remove_event_tree(stub, false);
+
+                    // add to sidebar again
+                    sidebar.insert_child_sorted(get_parent_page(stub.event).get_marker(), stub,
+                        new CompareEventBranch(get_events_sort()));    
+
+                    if (get_current_page() is EventPage &&
+                        ((EventPage) get_current_page()).page_event.equals(event))
+                        sidebar.place_cursor(stub);           
+                }
+
+                // refresh name
                 SidebarMarker marker = stub.get_marker();
                 sidebar.rename(marker, event.get_name());
                 break;
@@ -736,7 +754,6 @@ public class LibraryWindow : AppWindow {
         events_dir_list.add(month);
 
         return month;
-
     }
 
     private void add_event_page(Event event) {
@@ -757,7 +774,6 @@ public class LibraryWindow : AppWindow {
         foreach (EventPageStub stub in event_list) {
             if (stub.event.equals(event)) {
                 event_stub = stub;
-                
                 break;
             }
         }
@@ -766,15 +782,18 @@ public class LibraryWindow : AppWindow {
             return;
 
         // remove from sidebar
-        remove_event_tree(event_stub);    
-        
-        // jump to the Photos page
-        switch_to_library_page();
+        remove_event_tree(event_stub, true);
+                
+        // jump to the Photos page if current page is being deleted
+        if (get_current_page() is EventPage)
+            switch_to_library_page();
+        else
+            sidebar.place_cursor(get_current_page());
     }
 
-    private void remove_event_tree(SidebarPage page) {
+    private void remove_event_tree(SidebarPage page, bool permanent_remove) {
         // remove from notebook
-        if (page is PageStub && ((PageStub) page).has_page())
+        if (page is PageStub && ((PageStub) page).has_page() && permanent_remove)
             remove_from_notebook(((PageStub) page).get_page());
 
         // grab parent page
@@ -786,17 +805,16 @@ public class LibraryWindow : AppWindow {
         // remove parent if empty
         if (parent != null && !(parent is MasterEventsDirectoryPage)) {
             if (!sidebar.has_children(parent.get_marker()))
-                remove_event_tree(parent);
+                remove_event_tree(parent, true);
         }
 
-        if (page is SubEventsDirectoryPage) {
+        if (page is SubEventsDirectoryPageStub) {
             // remove from events directory list 
             events_dir_list.remove((SubEventsDirectoryPageStub) page);
-        } else if (page is EventPageStub) {
+        } else if (page is EventPageStub && permanent_remove) {
             // remove from the events list
             event_list.remove((EventPageStub) page);
         }
-
     }
 
 #if !NO_CAMERA

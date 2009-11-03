@@ -30,6 +30,23 @@ public class Event : EventSource {
             return a.get_exposure_time() - b.get_exposure_time();
         }
     }
+
+    private class EventManager : ViewManager {
+        private EventID event_id;
+
+        public EventManager(EventID event_id) {
+            this.event_id = event_id;
+        }
+
+        public override bool include_in_view(DataSource source) {
+            TransformablePhoto photo = (TransformablePhoto) source;
+            return photo.get_event_id().id == event_id.id;
+        }
+
+        public override DataView create_view(DataSource source) {
+            return new PhotoView((PhotoSource) source);
+        }
+    }
     
     public static EventSourceCollection global = null;
     
@@ -37,6 +54,7 @@ public class Event : EventSource {
 
     private EventID event_id;
     private LibraryPhoto primary_photo;
+    private ViewCollection view;
     
     private Event(EventID event_id) {
         this.event_id = event_id;
@@ -45,11 +63,21 @@ public class Event : EventSource {
         // watch the primary photo to reflect thumbnail changes
         if (primary_photo != null)
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
+
+        view = new ViewCollection();
+        view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
+
+        // watch for for removal and alteration of photos
+        view.items_removed += on_photos_removed;
+        view.items_added += on_photos_added;
     }
-    
+
     ~Event() {
         if (primary_photo != null)
             primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+
+        view.items_removed -= on_photos_removed;
+        view.items_added -= on_photos_added;
     }
     
     public static void init() {
@@ -60,46 +88,35 @@ public class Event : EventSource {
         Gee.ArrayList<EventID?> events = event_table.get_events();
         foreach (EventID event_id in events)
             global.add(new Event(event_id));
-        
-        // Event watches LibraryPhoto for removals
-        LibraryPhoto.global.items_removed += on_photos_removed;
     }
     
     public static void terminate() {
     }
-    
+
+    private void on_photos_added() {
+        notify_altered();
+    }
+  
     // Event needs to know whenever a photo is removed from the system to update the event
-    private static void on_photos_removed(Gee.Iterable<DataObject> removed) {
-        foreach (DataObject object in removed)
-            on_photo_removed((LibraryPhoto) object);
+    private void on_photos_removed(Gee.Iterable<DataObject> removed) {
+        // remove event if no more photos in it
+        if (get_photo_count() == 0) {
+            debug("Destroying event %s", to_string());
+            Marker marker = Event.global.mark(this);
+            Event.global.destroy_marked(marker);
+        } else {
+            foreach (DataObject object in removed)
+                on_photo_removed((LibraryPhoto) ((PhotoView) object).get_source());
+
+            notify_altered();
+        }
     }
     
-    private static void on_photo_removed(LibraryPhoto photo) {
-        // update event's primary photo if this is the one; remove event if no more photos in it
-        Event event = photo.get_event();
-        if (event != null && event.get_primary_photo() == photo) {
-            Gee.Iterable<PhotoSource> photos = event.get_photos();
-            
-            LibraryPhoto found = null;
-            // TODO: For now, simply selecting the first photo possible
-            foreach (PhotoSource event_photo in photos) {
-                if (photo != (LibraryPhoto) event_photo) {
-                    found = (LibraryPhoto) event_photo;
-                    
-                    break;
-                }
-            }
-            
-            if (found != null) {
-                event.set_primary_photo(found);
-            } else {
-                // this indicates this is the last photo of the event, so no more event
-                assert(event.get_photo_count() <= 1);
-
-                debug("Destroying event %s", event.to_string());
-                Marker marker = Event.global.mark(event);
-                Event.global.destroy_marked(marker);
-            }
+    private void on_photo_removed(LibraryPhoto photo) {
+        // update primary photo if this is the one
+        if (event_table.get_primary_photo(event_id).id == photo.get_photo_id().id) {
+            PhotoView first = (PhotoView) view.get_at(0);
+            set_primary_photo((LibraryPhoto) first.get_photo_source());
         }
     }
     
@@ -154,17 +171,13 @@ public class Event : EventSource {
             
             if (create_event) {
                 if (current_event != null) {
-                    assert(last_exposure != 0);
-                    current_event.set_end_time(last_exposure);
-                    
                     global.add(current_event);
                     
                     debug("Added event %s to global collection", current_event.to_string());
                 }
 
                 current_event_start = exposure_time;
-                current_event = new Event(
-                    event_table.create(photo.get_photo_id(), current_event_start));
+                current_event = new Event(event_table.create(photo.get_photo_id()));
 
                 debug("Created new event %s", current_event.to_string());
             }
@@ -178,12 +191,8 @@ public class Event : EventSource {
 
             last_exposure = exposure_time;
         }
-        
-        // mark the last event's end time
-        if (current_event != null) {
-            assert(last_exposure != 0);
-            current_event.set_end_time(last_exposure);
-            
+
+        if (current_event != null) {         
             global.add(current_event);
             
             debug("Added event %s to global collection", current_event.to_string());
@@ -212,11 +221,21 @@ public class Event : EventSource {
     }
     
     public override string get_name() {
-        return event_table.get_name(event_id);
+        string event_name = event_table.get_name(event_id);
+
+        // if no name, pretty up the start time
+        if (event_name != null)
+            return event_name;
+
+        time_t start_time = get_start_time();
+        
+        return (start_time != 0) 
+            ? format_local_date(Time.local(start_time)) 
+            : _("Event %lld").printf(event_id.id);       
     }
     
     public string? get_raw_name() {
-        return event_table.get_raw_name(event_id);
+        return event_table.get_name(event_id);
     }
     
     public bool rename(string name) {
@@ -228,37 +247,42 @@ public class Event : EventSource {
     }
     
     public override time_t get_start_time() {
-        return event_table.get_start_time(event_id);
+        time_t start_time = time_t();
+
+        foreach (PhotoSource photo in get_photos()) {
+            if (photo.get_exposure_time() < start_time)
+                start_time = photo.get_exposure_time();      
+        }
+
+        return start_time;
     }
     
     public override time_t get_end_time() {
-        return event_table.get_end_time(event_id);
-    }
-    
-    public bool set_end_time(time_t end_time) {
-        bool committed = event_table.set_end_time(event_id, end_time);
-        if (committed)
-            notify_altered();
-        
-        return committed;
+        time_t end_time = 0;
+
+        foreach (PhotoSource photo in get_photos()) {
+            if (photo.get_exposure_time() > end_time)
+                end_time = photo.get_exposure_time();       
+        }
+
+        return end_time;
     }
     
     public override uint64 get_total_filesize() {
-        return (new PhotoTable()).get_event_photo_filesize(event_id);
+        uint64 total = 0;
+        foreach (PhotoSource photo in get_photos()) {           
+            total += photo.get_filesize();
+        }
+        
+        return total;
     }
     
     public override int get_photo_count() {
-        return (new PhotoTable()).get_event_photo_count(event_id);
+        return view.get_count();
     }
     
     public override Gee.Iterable<PhotoSource> get_photos() {
-        Gee.ArrayList<PhotoID?> photos = (new PhotoTable()).get_event_photos(event_id);
-        
-        Gee.ArrayList<PhotoSource> result = new Gee.ArrayList<PhotoSource>();
-        foreach (PhotoID photo_id in photos)
-            result.add(LibraryPhoto.global.fetch(photo_id));
-        
-        return result;
+        return (Gee.Iterable<PhotoSource>) view.get_sources();
     }
     
     private void on_primary_thumbnail_altered() {

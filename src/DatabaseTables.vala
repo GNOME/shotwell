@@ -152,23 +152,6 @@ public bool verify_databases(out string app_version) {
                 event_table.get_name(event_id));
             event_table.remove(event_id);
         }
-        
-        // if no end time, set to exposure time of last photo in event
-        if (event_table.get_end_time(event_id) == 0) {
-            message("Missing end_time for [%lld] %s", event_id.id, event_table.get_name(event_id));
-            Gee.ArrayList<PhotoID?> photo_ids = photo_table.get_event_photos(event_id);
-            time_t end_time = event_table.get_start_time(event_id);
-            foreach (PhotoID photo_id in photo_ids) {
-                time_t photo_time = photo_table.get_exposure_time(photo_id);
-                if (photo_time != 0 && (end_time == 0 || photo_time > end_time))
-                    end_time = photo_time;
-            }
-            
-            if (end_time != 0) {
-                message("Correcting end_time for [%lld] %s", event_id.id, event_table.get_name(event_id));
-                event_table.set_end_time(event_id, end_time);
-            }
-        }
     }
     
     return true;
@@ -326,6 +309,16 @@ public class PhotoTable : DatabaseTable {
         if (res != Sqlite.DONE)
             fatal("create photo table", res);
         
+        // index on event_id
+        Sqlite.Statement stmt2;
+        int res2 = db.prepare_v2("CREATE INDEX IF NOT EXISTS PhotoEventIDIndex ON PhotoTable (event_id)",
+            -1, out stmt2);
+        assert(res2 == Sqlite.OK);
+
+        res2 = stmt2.step();
+        if (res2 != Sqlite.DONE)
+            fatal("create photo table", res2);
+
         set_table_name("PhotoTable");
     }
     
@@ -682,31 +675,6 @@ public class PhotoTable : DatabaseTable {
         }
         
         return count;
-    }
-    
-    public uint64 get_event_photo_filesize(EventID event_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT filesize FROM PhotoTable WHERE event_id = ?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, event_id.id);
-        assert(res == Sqlite.OK);
-        
-        uint64 total = 0;
-        for (;;) {
-            res = stmt.step();
-            if (res == Sqlite.DONE) {
-                break;
-            } else if (res != Sqlite.ROW) {
-                fatal("get_event_photo_filesize", res);
-                
-                break;
-            }
-            
-            total += stmt.column_int64(0);
-        }
-        
-        return total;
     }
     
     public Gee.ArrayList<PhotoID?> get_event_photos(EventID event_id) {
@@ -1138,8 +1106,6 @@ public class EventTable : DatabaseTable {
             + "id INTEGER PRIMARY KEY, "
             + "name TEXT, "
             + "primary_photo_id INTEGER, "
-            + "start_time INTEGER, "
-            + "end_time INTEGER, "
             + "time_created INTEGER"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
@@ -1151,21 +1117,18 @@ public class EventTable : DatabaseTable {
         set_table_name("EventTable");
     }
     
-    public EventID create(PhotoID primary_photo_id, time_t start_time) {
+    public EventID create(PhotoID primary_photo_id) {
         assert(primary_photo_id.is_valid());
-        assert(start_time != 0);
         
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO EventTable (primary_photo_id, time_created, start_time) VALUES (?, ?, ?)",
+            "INSERT INTO EventTable (primary_photo_id, time_created) VALUES (?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.bind_int64(1, primary_photo_id.id);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(2, now_sec());
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(3, start_time);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -1196,25 +1159,6 @@ public class EventTable : DatabaseTable {
         return true;
     }
     
-    public time_t get_start_time(EventID event_id) {
-        Sqlite.Statement stmt;
-        if (!select_by_id(event_id.id, "start_time", out stmt))
-            return 0;
-
-        return (time_t) stmt.column_int64(0);
-    }
-    
-    public time_t get_end_time(EventID event_id) {
-        Sqlite.Statement stmt;
-        if (!select_by_id(event_id.id, "end_time", out stmt))
-            return 0;
-        return (time_t) stmt.column_int64(0);
-    }
-
-    public bool set_end_time(EventID event_id, time_t end_time) {
-        return update_int64_by_id(event_id.id, "end_time", (int64) end_time);
-    }
-    
     public Gee.ArrayList<EventID?> get_events() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM EventTable", -1, out stmt);
@@ -1241,7 +1185,7 @@ public class EventTable : DatabaseTable {
         return update_text_by_id(event_id.id, "name", name);
     }
     
-    public string? get_raw_name(EventID event_id) {
+    public string? get_name(EventID event_id) {
         Sqlite.Statement stmt;
         if (!select_by_id(event_id.id, "name", out stmt))
             return null;
@@ -1249,23 +1193,6 @@ public class EventTable : DatabaseTable {
         string name = stmt.column_text(0);
 
         return (name != null && name.length > 0) ? name : null;
-    }
-    
-    public string get_name(EventID event_id) {
-        string name = get_raw_name(event_id);
-        if (name != null)
-            return name;
-        
-        // if no name, pretty up the start time
-        time_t start_time = 0;
-
-        Sqlite.Statement stmt;
-        if (select_by_id(event_id.id, "start_time", out stmt))
-            start_time = (time_t) stmt.column_int64(0);
-        
-        return (start_time != 0) 
-            ? format_local_date(Time.local(start_time)) 
-            : _("Event %lld").printf(event_id.id);
     }
     
     public PhotoID get_primary_photo(EventID event_id) {

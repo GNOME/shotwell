@@ -369,6 +369,18 @@ public class Sidebar : Gtk.TreeView {
         return false;
     }
 
+    public int get_children_count(SidebarMarker marker) {
+        Gtk.TreePath path = marker.get_path();
+        if (path != null) {
+            Gtk.TreeIter iter;
+            
+            if (store.get_iter(out iter, path))
+                return store.iter_n_children(iter);
+        }
+
+        return 0;
+    }
+
     public void scroll_to_page(SidebarMarker marker) {
         Gtk.TreePath path = marker.get_path();
         scroll_to_cell(path, null, false, 0, 0);

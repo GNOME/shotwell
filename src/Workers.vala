@@ -34,6 +34,11 @@ public abstract class BackgroundJob {
         this.callback = callback;
         this.cancellable = cancellable;
     }
+
+    ~BackgroundJob() {
+        if (cancellable != null)
+            cancellable.cancel();
+    }
     
     public abstract void execute();
     

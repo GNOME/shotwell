@@ -136,6 +136,15 @@ public class DataCollection {
         list.resort(get_order_added_comparator());
     }
     
+    // use notifies to ensure proper chronology of signal handling
+    public virtual void notify_items_added(Gee.Iterable<DataObject> added) {
+        items_added(added);
+    }
+
+    public virtual void notify_items_removed(Gee.Iterable<DataObject> removed) {
+        items_removed(removed);
+    }
+
     // A singleton list is used when a single item has been added/remove/selected/unselected
     // and needs to be reported via a signal, which uses a list as a parameter ... although this
     // seems wasteful, can't reuse a single singleton list because it's possible for a method
@@ -227,7 +236,7 @@ public class DataCollection {
         
         // fire signal after added using singleton list
         Gee.List<DataObject> added = get_singleton(object);
-        items_added(added);
+        notify_items_added(added);
         contents_altered(added, null);
         
         return true;
@@ -249,7 +258,7 @@ public class DataCollection {
         
         // signal once all have been added
         if (added.size > 0) {
-            items_added(added);
+            notify_items_added(added);
             contents_altered(added, null);
         }
         
@@ -329,7 +338,7 @@ public class DataCollection {
         
         // signal after removing
         if (marker.marked.size > 0) {
-            items_removed(marker.marked);
+            notify_items_removed(marker.marked);
             contents_altered(null, marker.marked);
         }
         
@@ -354,7 +363,7 @@ public class DataCollection {
         }
         
         // report after removal
-        items_removed(removed);
+        notify_items_removed(removed);
         contents_altered(null, removed);
         
         // the hash set should be cleared as well when finished
@@ -427,7 +436,7 @@ public class DatabaseSourceCollection : SourceCollection {
         this.source_key_func = source_key_func;
     }
 
-    public override void items_added(Gee.Iterable<DataObject> added) {
+    public override void notify_items_added(Gee.Iterable<DataObject> added) {
         foreach (DataObject object in added) {
             DataSource source = (DataSource) object;
             int64 key = source_key_func(source);
@@ -437,10 +446,10 @@ public class DatabaseSourceCollection : SourceCollection {
             map.set(key, source);
         }
         
-        base.items_added(added);
+        base.notify_items_added(added);
     }
     
-    public override void items_removed(Gee.Iterable<DataObject> removed) {
+    public override void notify_items_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
             int64 key = source_key_func((DataSource) object);
 
@@ -448,7 +457,7 @@ public class DatabaseSourceCollection : SourceCollection {
             assert(is_removed);
         }
         
-        base.items_removed(removed);
+        base.notify_items_removed(removed);
     }
     
     protected DataSource fetch_by_key(int64 key) {
@@ -551,8 +560,8 @@ public class ViewCollection : DataCollection {
         selected.resort(get_order_added_comparator());
         visible.resort(get_order_added_comparator());
     }
-    
-    ~ViewCollection () {
+
+    ~ViewCollection() {
         if (sources != null) {
             sources.items_added -= on_sources_added;
             sources.items_removed -= on_sources_removed;
@@ -663,7 +672,7 @@ public class ViewCollection : DataCollection {
     }
     
     // Keep the source map and state tables synchronized
-    public override void items_added(Gee.Iterable<DataObject> added) {
+    public override void notify_items_added(Gee.Iterable<DataObject> added) {
         foreach (DataObject object in added) {
             DataView view = (DataView) object;
             source_map.set(view.get_source(), view);
@@ -678,11 +687,11 @@ public class ViewCollection : DataCollection {
                 visible.add(view);
         }
         
-        base.items_added(added);
+        base.notify_items_added(added);
     }
     
     // Keep the source map and state tables synchronized
-    public override void items_removed(Gee.Iterable<DataObject> removed) {
+    public override void notify_items_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
 
@@ -700,7 +709,7 @@ public class ViewCollection : DataCollection {
             }
         }
         
-        base.items_removed(removed);
+        base.notify_items_removed(removed);
     }
     
     private void filter_altered_item(DataObject object) {
@@ -1015,6 +1024,10 @@ public class ViewCollection : DataCollection {
     
     public DataView? get_view_for_source(DataSource source) {
         return source_map.get(source);
+    }
+
+    public Gee.Iterable<DataSource> get_sources() {
+        return source_map.keys;
     }
     
     // This is only used by DataView.

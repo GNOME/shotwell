@@ -32,11 +32,11 @@ public class Thumbnail : LayoutItem {
         original_dim = photo.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
     }
-    
+
     ~Thumbnail() {
         if (cancellable != null)
             cancellable.cancel();
-        
+
         hq_scheduler.cancel();
     }
     

@@ -1189,7 +1189,7 @@ public class LibraryPhotoPage : EditingHostPage {
         rotate_left.tooltip = _("Rotate the selected photos counterclockwise");
         actions += rotate_left;
 
-        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, "<Ctrl>M",
+        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, null,
             TRANSLATABLE, on_mirror };
         mirror.label = _("_Mirror");
         mirror.tooltip = _("Make mirror images of the selected photos");
@@ -1477,7 +1477,7 @@ public class DirectPhotoPage : EditingHostPage {
         rotate_left.tooltip = _("Rotate the selected photos counterclockwise");
         actions += rotate_left;
 
-        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, "<Ctrl>M",
+        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, null,
             TRANSLATABLE, on_mirror };
         mirror.label = _("_Mirror");
         mirror.tooltip = _("Make mirror images of the selected photos");

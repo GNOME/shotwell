@@ -1863,7 +1863,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         return photo_id.id;
     }
     
-    public override void items_added(Gee.Iterable<DataObject> added) {
+    public override void notify_items_added(Gee.Iterable<DataObject> added) {
         foreach (DataObject object in added) {
             DirectPhoto photo = (DirectPhoto) object;
             File file = photo.get_file();
@@ -1873,10 +1873,10 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
             file_map.set(file, photo);
         }
         
-        base.items_added(added);
+        base.notify_items_added(added);
     }
     
-    public override void items_removed(Gee.Iterable<DataObject> removed) {
+    public override void notify_items_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
             DirectPhoto photo = (DirectPhoto) object;
             File file = photo.get_file();
@@ -1885,7 +1885,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
             assert(is_removed);
         }
         
-        base.items_removed(removed);
+        base.notify_items_removed(removed);
     }
     
     public DirectPhoto? fetch(File file, bool reset = false) {

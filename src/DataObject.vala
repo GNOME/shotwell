@@ -135,18 +135,11 @@ public abstract class DataSource : DataObject {
     public virtual void destroy() {
         assert(marked_for_destroy);
         
-        // notify DataViews first that the source is being destroyed
-        contact_subscribers(subscriber_source_destroyed);
-        
         // clear the subscriber list
         subscribers.clear();
         
         // propagate the signal
         destroyed();
-    }
-    
-    private void subscriber_source_destroyed(DataView view) {
-        view.internal_source_destroyed();
     }
 
     // DataViews subscribe to the DataSource to inform it of their existance.  Not only does this
@@ -259,17 +252,7 @@ public class DataView : DataObject {
         // first notification of destruction.
         source.internal_subscribe(this);
     }
-    
-    // This method is only called by DataSource.  It should not be called otherwise.
-    public void internal_source_destroyed() {
-        // The DataSource is being destroyed, so remove this view from its ViewCollection.
-        ViewCollection vc = get_membership() as ViewCollection;
-        if (vc != null) {
-            Marker marker = vc.mark(this);
-            vc.remove_marked(marker);
-        }
-    }
-    
+ 
     public override string get_name() {
         return "View of %s".printf(source.get_name());
     }

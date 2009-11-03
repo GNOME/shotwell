@@ -30,7 +30,7 @@ class EventDirectoryItem : LayoutItem {
     ~EventDirectoryItem() {
         event.altered -= on_event_altered;
     }
-    
+
     public override void exposed() {
         if (is_exposed())
             return;
@@ -89,6 +89,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
    
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
+    private Gtk.ToolButton merge_button;
     protected ViewManager view_manager;
 
     public EventsDirectoryPage(string page_name, ViewManager view_manager) {
@@ -106,6 +107,22 @@ public class EventsDirectoryPage : CheckerboardPage {
         init_item_context_menu("/EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
+
+        // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
+        //
+        // merge tool
+        merge_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_ADD);
+        merge_button.set_label(_("Merge"));
+        merge_button.set_tooltip_text(_("Merge into a single event"));
+        merge_button.clicked += on_merge;
+        merge_button.sensitive = (get_view().get_selected_count() > 1);
+        toolbar.insert(merge_button, -1);
+
+        get_view().items_state_changed += on_selection_changed;
+    }
+
+    private void on_selection_changed() {
+        merge_button.sensitive = (get_view().get_selected_count() > 1);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -132,6 +149,11 @@ public class EventsDirectoryPage : CheckerboardPage {
         rename.tooltip = _("Rename event");
         actions += rename;
        
+        Gtk.ActionEntry merge = { "Merge", Gtk.STOCK_ADD, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, on_merge };
+        merge.label = _("Merge Events");
+        merge.tooltip = _("Merge into a single event");
+        actions += merge;
+
         return actions;
     }
     
@@ -147,6 +169,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     protected override bool on_context_invoked(Gtk.Menu context_menu) {
         set_item_sensitive("/EventsDirectoryContextMenu/ContextRename", 
             get_view().get_selected_count() == 1);
+        set_item_sensitive("/EventsDirectoryContextMenu/ContextMerge", 
+            get_view().get_selected_count() > 1);
         
         return true;
     }
@@ -185,6 +209,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     private void on_edit_menu() {
         set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", 
             get_view().get_selected_count() == 1);
+        set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventMerge", 
+            get_view().get_selected_count() > 1);
     }
 
     private void on_rename() {
@@ -196,6 +222,40 @@ public class EventsDirectoryPage : CheckerboardPage {
 
         EventRenameDialog rename_dialog = new EventRenameDialog(item.event.get_raw_name());
         item.event.rename(rename_dialog.execute());
+    }
+    
+    private void on_merge() {
+        if (get_view().get_selected_count() <= 1)
+            return;
+
+        LibraryWindow.get_app().set_busy_cursor();
+
+        Event master_event = ((EventDirectoryItem) get_view().get_selected_at(0)).event;
+        bool has_name = (master_event.get_raw_name() != null && master_event.get_raw_name() != "");
+
+        // list of photos to merge
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+
+        // must iterate through all events before touching photos (which can delete events)
+        foreach (DataView view in get_view().get_selected()) {
+            Event event = ((EventDirectoryItem) view).event;
+
+            if (!has_name && event.get_raw_name() != null && event.get_raw_name() != "") {
+                master_event.rename(event.get_raw_name());
+                has_name = true;                
+            }
+
+            foreach (PhotoSource photo in event.get_photos()) {
+                if (photo is LibraryPhoto)
+                    photos.add((LibraryPhoto) photo);
+            }
+        }
+
+        // add each photo to master event
+        foreach (LibraryPhoto photo in photos)
+            photo.set_event(master_event);
+
+        LibraryWindow.get_app().set_normal_cursor();
     }
 }
 
