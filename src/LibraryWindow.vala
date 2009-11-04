@@ -302,9 +302,11 @@ public class LibraryWindow : AppWindow {
         Event.global.items_added -= on_added_events;
         Event.global.items_removed -= on_removed_events;
         Event.global.item_altered -= on_event_altered;
-        
+
+#if !NO_CAMERA        
         CameraTable.get_instance().camera_added -= add_camera_page;
         CameraTable.get_instance().camera_removed -= remove_camera_page;
+#endif
         
         unsubscribe_from_basic_information(get_current_page());
     }
