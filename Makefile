@@ -12,15 +12,15 @@ INSTALL_DATA = install -m 644
 PREFIX=/usr/local
 BUILD_RELEASE=1
 
-SUPPORTED_LANGUAGES=fr
-LOCAL_LANG_DIR=locale-langpack
-SYSTEM_LANG_DIR=/usr/share/locale-langpack
-
 -include configure.mk
 
 VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
      _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
+
+SUPPORTED_LANGUAGES=fr
+LOCAL_LANG_DIR=locale-langpack
+SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
 
 SRC_FILES = \
 	main.vala \
@@ -161,9 +161,9 @@ VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)`
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
 ifdef BUILD_DEBUG
-CFLAGS = -g -O0
+CFLAGS = -O0 -g -pipe
 else
-CFLAGS = -g -O2 -mfpmath=sse -march=nocona
+CFLAGS = -O2 -g -pipe -mfpmath=sse -march=nocona
 endif
 endif
 
@@ -213,14 +213,19 @@ install:
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
 	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
-	-update-icon-caches $(DESTDIR)/usr/share/icons/hicolor
+ifndef XDG_DISABLE_MAKEFILE_UPDATES
+	-gtk-update-icon-cache $(DESTDIR)/usr/share/icons/hicolor || :
+endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
-	-update-desktop-database
-	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool --makefile-install-rule misc/shotwell.schemas
-	-killall -HUP gconfd-2
+ifndef XDG_DISABLE_MAKEFILE_UPDATES
+	-update-desktop-database || :
+endif
+ifndef GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
+	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule misc/shotwell.schemas
+endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
             $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
@@ -231,9 +236,12 @@ uninstall:
 	rm -fr $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/shotwell.svg
 	rm -f $(DESTDIR)/usr/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)/usr/share/applications/shotwell-viewer.desktop
-	-update-desktop-database
-	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool --makefile-uninstall-rule misc/shotwell.schemas
-	killall -HUP gconfd-2
+ifndef XDG_DISABLE_MAKEFILE_UPDATES
+	-update-desktop-database || :
+endif
+ifndef GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
+	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
+endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
 $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADER_FILES) Makefile \
