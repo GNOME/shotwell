@@ -208,6 +208,7 @@ distclean: clean
 	rm -f configure.mk
 
 install:
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
@@ -218,6 +219,7 @@ ifndef XDG_DISABLE_MAKEFILE_UPDATES
 endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
+	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/applications
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
 ifndef XDG_DISABLE_MAKEFILE_UPDATES
