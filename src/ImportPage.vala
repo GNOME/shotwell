@@ -257,6 +257,7 @@ public class ImportPage : CheckerboardPage {
         hide_imported.sensitive = false;
         hide_imported.active = false;
         Gtk.ToolItem hide_item = new Gtk.ToolItem();
+        hide_item.is_important = true;
         hide_item.add(hide_imported);
         
         toolbar.insert(hide_item, -1);
@@ -279,6 +280,7 @@ public class ImportPage : CheckerboardPage {
         import_selected_button.set_label("Import Selected");
         import_selected_button.set_tooltip_text("Import the selected photos into your library");
         import_selected_button.clicked += on_import_selected;
+        import_selected_button.is_important = true;
         import_selected_button.sensitive = false;
         
         toolbar.insert(import_selected_button, -1);
@@ -288,6 +290,7 @@ public class ImportPage : CheckerboardPage {
         import_all_button.set_tooltip_text("Import all the photos on this camera into your library");
         import_all_button.clicked += on_import_all;
         import_all_button.sensitive = false;
+        import_all_button.is_important = true;
         
         toolbar.insert(import_all_button, -1);
         

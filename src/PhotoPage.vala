@@ -69,6 +69,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked += on_rotate_clockwise;
+        rotate_button.is_important = true;
         toolbar.insert(rotate_button, -1);
         
         // crop tool
@@ -76,6 +77,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         crop_button.set_label(_("Crop"));
         crop_button.set_tooltip_text(_("Crop the photo's size"));
         crop_button.toggled += on_crop_toggled;
+        crop_button.is_important = true;
         toolbar.insert(crop_button, -1);
 
         // redeye reduction tool
@@ -83,6 +85,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         redeye_button.set_label(_("Red-eye"));
         redeye_button.set_tooltip_text(_("Reduce or eliminate any red-eye effects in the photo"));
         redeye_button.toggled += on_redeye_toggled;
+        redeye_button.is_important = true;
         toolbar.insert(redeye_button, -1);
         
         // adjust tool
@@ -90,6 +93,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button.set_label(_("Adjust"));
         adjust_button.set_tooltip_text(_("Adjust the photo's color and tone"));
         adjust_button.toggled += on_adjust_toggled;
+        adjust_button.is_important = true;
         toolbar.insert(adjust_button, -1);
 
         // ehance tool
@@ -97,6 +101,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.set_label(_("Enhance"));
         enhance_button.set_tooltip_text(_("Automatically improve the photo's appearance"));
         enhance_button.clicked += on_enhance;
+        enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
 
         // separator to force next/prev buttons to right side of toolbar
