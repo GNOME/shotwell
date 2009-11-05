@@ -118,6 +118,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         merge_button.set_tooltip_text(_("Merge into a single event"));
         merge_button.clicked += on_merge;
         merge_button.sensitive = (get_view().get_selected_count() > 1);
+        merge_button.is_important = true;
         toolbar.insert(merge_button, -1);
 
         get_view().items_state_changed += on_selection_changed;
