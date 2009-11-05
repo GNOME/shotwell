@@ -939,8 +939,15 @@ public class PhotoTable : DatabaseTable {
             return 0;
 
         FixedKeyFile keyfile = new FixedKeyFile();
-        if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+        try {
+            if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
+                return 0;
+        } catch (KeyFileError err) {
+            GLib.warning("Unable to load keyfile from data: %s", err.message);
+            
             return 0;
+        }
+        
         string[] groups = keyfile.get_groups();
 
         return groups.length;

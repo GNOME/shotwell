@@ -290,7 +290,11 @@ public class Event : EventSource {
     }
     
     public Gdk.Pixbuf? get_preview_pixbuf(Scaling scaling) {
-        return get_primary_photo().get_preview_pixbuf(scaling);
+        try {
+            return get_primary_photo().get_preview_pixbuf(scaling);
+        } catch (Error err) {
+            return null;
+        }
     }
 
     public override void destroy() {

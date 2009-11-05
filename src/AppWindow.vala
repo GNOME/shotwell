@@ -441,7 +441,14 @@ public abstract class AppWindow : PageWindow {
         // subdir named after process ID
         File tmp_dir = get_data_subdir("tmp").get_child("%d".printf((int) Posix.getpid()));
         if (!tmp_dir.query_exists(null)) {
-            if (!tmp_dir.make_directory_with_parents(null))
+            bool created = false;
+            try {
+                created = tmp_dir.make_directory_with_parents(null);
+            } catch (Error err) {
+                created = false;
+            }
+            
+            if (!created)
                 error("Unable to create temporary directory %s", tmp_dir.get_path());
         }
         

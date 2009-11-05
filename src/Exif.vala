@@ -201,8 +201,14 @@ public class PhotoExif  {
     public bool has_exif() {
         // because libexif will return an empty Data structure for files with no EXIF, manually
         // take a peek for ourselves and get the skinny
-        size_t raw_length;
-        return get_raw_exif(out raw_length) != null;
+        try {
+            size_t raw_length;
+            return get_raw_exif(out raw_length) != null;
+        } catch (Error err) {
+            warning("Unable to load EXIF from %s: %s", file.get_path(), err.message);
+            
+            return false;
+        }
     }
     
     // Returns raw bytes for the EXIF data, including signature but not the thumbnail
