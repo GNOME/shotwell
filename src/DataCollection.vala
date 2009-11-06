@@ -374,7 +374,11 @@ public class DataCollection {
     // this collection may be notified as well.
     public void internal_notify_altered(DataObject object) {
         assert(contains(object));
-        
+
+        // re-add to maintain sort
+        list.remove(object);
+        list.add(object);
+
         item_altered(object);
     }
     
@@ -668,6 +672,18 @@ public class ViewCollection : DataCollection {
         } else if (!include && has_view_for_source(source)) {
             Marker marker = mark(get_view_for_source(source));
             remove_marked(marker);
+        } else if (include && has_view_for_source(source)) {
+            DataView view = get_view_for_source(source);
+            // make sure altered photo is sorted properly by re-adding it
+            if (selected.contains(view)) {
+                selected.remove(view);
+                selected.add(view);
+            }
+
+            if (visible.contains(view)) {
+                visible.remove(view);
+                visible.add(view);
+            }
         }
     }
     
@@ -725,7 +741,7 @@ public class ViewCollection : DataCollection {
     
     public override void item_altered(DataObject object) {
         filter_altered_item(object);
-        
+
         base.item_altered(object);
     }
     

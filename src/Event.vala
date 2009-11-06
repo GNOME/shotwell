@@ -67,7 +67,7 @@ public class Event : EventSource {
         view = new ViewCollection();
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
 
-        // watch for for removal and alteration of photos
+        // watch for for removal and addition of photos
         view.items_removed += on_photos_removed;
         view.items_added += on_photos_added;
     }

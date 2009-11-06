@@ -124,6 +124,10 @@ public class EventsDirectoryPage : CheckerboardPage {
         get_view().items_state_changed += on_selection_changed;
     }
 
+    ~EventsDirectoryPage() {
+        get_view().items_state_changed -= on_selection_changed;
+    }
+
     private void on_selection_changed() {
         merge_button.sensitive = (get_view().get_selected_count() > 1);
     }
