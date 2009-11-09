@@ -118,6 +118,7 @@ class SlideshowPage : SinglePhotoPage {
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
         settings_button.clicked += on_change_settings;
+        settings_button.is_important = true;
         
         toolbar.insert(settings_button, -1);
     }
@@ -433,6 +434,7 @@ public class CollectionPage : CheckerboardPage {
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.sensitive = false;
+        rotate_button.is_important = true;
         rotate_button.clicked += on_rotate_clockwise;
         
         toolbar.insert(rotate_button, -1);
@@ -451,6 +453,7 @@ public class CollectionPage : CheckerboardPage {
         slideshow_button.set_label(_("Slideshow"));
         slideshow_button.set_tooltip_text(_("Start a slideshow of these photos"));
         slideshow_button.sensitive = false;
+        slideshow_button.is_important = true;
         slideshow_button.clicked += on_slideshow;
         
         toolbar.insert(slideshow_button, -1);

@@ -38,7 +38,12 @@ public class CameraTable {
     
     private CameraTable() {
         // set up HAL connection to monitor for device insertion/removal, to look for cameras
-        hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
+        try {
+            hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
+        } catch (DBus.Error err) {
+            error("Unable to get DBus system connection: %s", err.message);
+        }
+        
         if (!hal_context.set_dbus_connection(hal_conn.get_connection()))
             error("Unable to set DBus connection for HAL");
 

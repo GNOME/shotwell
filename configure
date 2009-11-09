@@ -67,7 +67,7 @@ do
         --release)          variables="${variables}BUILD_DEBUG=\nBUILD_RELEASE=1\n"
                             ;;
         
-        --define)          variables="${variables}USER_VALAFLAGS+=--define=$value\n"
+        --define)           variables="${variables}USER_VALAFLAGS+=--define=$value\n"
                             ;;
 
         *)                  if [ ! $value ]

@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 7),
  libunique-dev (>= 1.0.0),
  libhal-dev (>= 0.5.11),
  libdbus-glib-1-dev (>= 0.76),
- libgconf2-dev (>= 2.24.1)
+ libgconf2-dev (>= 2.22.0)
 Standards-Version: 3.8.0
 Homepage: http://www.yorba.org/shotwell
 

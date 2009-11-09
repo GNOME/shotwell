@@ -35,7 +35,11 @@ class EventDirectoryItem : LayoutItem {
         if (is_exposed())
             return;
         
-        set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+        try {
+            set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+        } catch (Error err) {
+            critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
+        }
         
         base.exposed();
     }
@@ -57,10 +61,15 @@ class EventDirectoryItem : LayoutItem {
         // get new dimensions
         image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE, true);
         
-        if (is_exposed())
-            set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
-        else
+        if (is_exposed()) {
+            try {
+                set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+            } catch (Error err) {
+                critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
+            }
+        } else {
             clear_image(image_dim);
+        }
         
         base.thumbnail_altered();
     }

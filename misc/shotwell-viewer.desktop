@@ -9,6 +9,6 @@ Icon=shotwell
 Terminal=false
 NoDisplay=true
 Type=Application
-MimeType=image/jpeg
+MimeType=image/jpeg;
 Categories=Graphics;Viewer;Photography;GNOME;GTK;
 X-GIO-NoFuse=true

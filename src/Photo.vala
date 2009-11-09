@@ -1809,8 +1809,14 @@ public class LibraryPhoto : TransformablePhoto {
                 if (parent == null)
                     break;
                 
-                if (!query_is_directory_empty(parent))
+                try {
+                    if (!query_is_directory_empty(parent))
+                        break;
+                } catch (Error err) {
+                    warning("Unable to query file info for %s: %s", parent.get_path(), err.message);
+                    
                     break;
+                }
                 
                 try {
                     parent.delete(null);
