@@ -223,16 +223,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-    private void get_immediate_neighbors(ViewCollection controller, TransformablePhoto photo, 
+    private bool get_immediate_neighbors(ViewCollection controller, TransformablePhoto photo, 
         out TransformablePhoto? next, out TransformablePhoto? prev) {
         DataView photo_view = controller.get_view_for_source(photo);
-        assert(photo_view != null);
+        if (photo_view == null)
+            return false;
         
         DataView? next_view = controller.get_next(photo_view);
         next = (next_view != null) ? (TransformablePhoto) next_view.get_source() : null;
         
         DataView? prev_view = controller.get_previous(photo_view);
         prev = (prev_view != null) ? (TransformablePhoto) prev_view.get_source() : null;
+
+        return true;
     }
     
     private Gee.Set<TransformablePhoto> get_extended_neighbors(ViewCollection controller,
@@ -242,7 +245,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // immediate neighbors
         TransformablePhoto next, prev;
-        get_immediate_neighbors(controller, photo, out next, out prev);
+        if (!get_immediate_neighbors(controller, photo, out next, out prev))
+            return neighbors;
         
         // add next and its distant neighbor
         if (next != null) {
@@ -279,7 +283,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         TransformablePhoto next, prev;
-        get_immediate_neighbors(controller, photo, out next, out prev);
+        if (!get_immediate_neighbors(controller, photo, out next, out prev))
+            return;
         
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
         foreach (TransformablePhoto neighbor in get_extended_neighbors(controller, photo)) {

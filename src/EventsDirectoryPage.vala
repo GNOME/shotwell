@@ -151,6 +151,10 @@ public class EventsDirectoryPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
 
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, on_events_menu };
+        event.label = _("Even_ts");
+        actions += event;
+
         Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, "F2", TRANSLATABLE, on_rename };
         rename.label = _("Rename Event...");
         rename.tooltip = _("Rename event");
@@ -216,7 +220,10 @@ public class EventsDirectoryPage : CheckerboardPage {
     private void on_edit_menu() {
         set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", 
             get_view().get_selected_count() == 1);
-        set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventMerge", 
+    }
+
+    private void on_events_menu() {
+        set_item_sensitive("/EventsDirectoryMenuBar/EventsMenu/EventMerge", 
             get_view().get_selected_count() > 1);
     }
 

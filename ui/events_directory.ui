@@ -9,7 +9,6 @@
 
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="EventRename" action="Rename" />
-            <menuitem name="EventMerge" action="Merge" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
@@ -22,6 +21,10 @@
             <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
+
+        <menu name="EventsMenu" action="EventsMenu">
+            <menuitem name="EventMerge" action="Merge" />
+        </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />
@@ -31,8 +34,8 @@
     </menubar>
 
     <popup name="EventsDirectoryContextMenu">
-        <separator />
         <menuitem name="ContextRename" action="Rename" />
+        <separator />
         <menuitem name="ContextMerge" action="Merge" />
     </popup>
 

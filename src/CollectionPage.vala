@@ -390,6 +390,7 @@ public class CollectionPage : CheckerboardPage {
     
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
+    private Gtk.ToolButton new_event_button = null;
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton slideshow_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
@@ -435,6 +436,15 @@ public class CollectionPage : CheckerboardPage {
         rotate_button.clicked += on_rotate_clockwise;
         
         toolbar.insert(rotate_button, -1);
+
+        // create new event
+        new_event_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_NEW);
+        new_event_button.set_label(_("New Event"));
+        new_event_button.set_tooltip_text(_("Create new event from selected photos"));
+        new_event_button.sensitive = false;
+        new_event_button.clicked += on_new_event;
+        
+        toolbar.insert(new_event_button, -1);
         
         // slideshow button
         slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
@@ -492,6 +502,10 @@ public class CollectionPage : CheckerboardPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
+        
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, on_events_menu };
+        event.label = _("Even_ts");
+        actions += event;
 
         Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
             "<Ctrl>A", TRANSLATABLE, on_select_all };
@@ -559,6 +573,11 @@ public class CollectionPage : CheckerboardPage {
         Gtk.ActionEntry sort_photos = { "SortPhotos", null, TRANSLATABLE, null, null, null };
         sort_photos.label = _("Sort _Photos");
         actions += sort_photos;
+
+        Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
+            TRANSLATABLE, on_new_event };
+        new_event.label = _("_New Event");
+        actions += new_event;
 
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
@@ -646,6 +665,7 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> items) {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
+        new_event_button.sensitive = get_view().get_selected_count() > 0;
     }
     
     protected override void on_item_activated(LayoutItem item) {
@@ -662,6 +682,7 @@ public class CollectionPage : CheckerboardPage {
         bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionContextMenu/ContextRemove", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextNewEvent", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextMirror", selected);
@@ -885,6 +906,10 @@ public class CollectionPage : CheckerboardPage {
     private void on_edit_menu() {
         set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_view().get_count() > 0);
         set_item_sensitive("/CollectionMenuBar/EditMenu/Remove", get_view().get_selected_count() > 0);
+    }
+
+    private void on_events_menu() {
+        set_item_sensitive("/CollectionMenuBar/EventsMenu/NewEvent", get_view().get_selected_count() > 0);
     }
     
     private void on_select_all() {
@@ -1180,6 +1205,19 @@ public class CollectionPage : CheckerboardPage {
         Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
         if (action != null)
             action.set_active(display);
+    }
+
+    private void on_new_event() {
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        foreach (DataView view in get_view().get_selected()) {
+            photos.add(((Thumbnail) view).get_photo());
+        }
+
+        Event new_event = Event.generate_event(photos);
+
+        // switch to new event page
+        if (new_event != null)
+            LibraryWindow.get_app().switch_to_event(new_event);
     }
 }
 

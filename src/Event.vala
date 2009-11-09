@@ -24,6 +24,7 @@ public class EventSourceCollection : DatabaseSourceCollection {
 public class Event : EventSource {
     public const long EVENT_LULL_SEC = 4 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
+    private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 100;
     
     private class DateComparator : Comparator<LibraryPhoto> {
         public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
@@ -120,6 +121,48 @@ public class Event : EventSource {
         }
     }
     
+    public static Event? generate_event(Gee.List<LibraryPhoto> photos) {
+        // check length
+        if (photos.size == 0)
+            return null;
+
+        LibraryWindow.get_app().set_busy_cursor();
+
+        int count = 0;
+        int total = photos.size;
+
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (total >= MIN_PHOTOS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Creating New Event..."),
+                cancellable);
+        }
+
+        Event new_event = new Event(event_table.create(photos.get(0).get_photo_id()));
+        global.add(new_event);
+        debug("Created new event %s", new_event.to_string());
+
+        foreach (LibraryPhoto photo in photos) {
+            photo.set_event(new_event);
+
+            if (progress != null) {
+                progress.set_fraction(++count, total);
+                spin_event_loop();
+                
+                if (cancellable.is_cancelled())
+                    break;
+            }
+        }
+
+        if (progress != null)
+            progress.close();
+
+        LibraryWindow.get_app().set_normal_cursor();
+
+        return new_event;
+    }
+
     public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos) {
         debug("Processing imported photos to create events ...");
         
