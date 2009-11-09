@@ -1,3 +1,12 @@
+Shotwell 0.3.1 - 9 November 2009
+--------------------------------
+
+  * Makefile changes to facilitate packaging.
+  * Warnings caught by Vala 0.7.8 corrected.
+  * Toolbar items now marked "important" where appropriate.
+  * Binary dependencies corrected in Debian packaging.
+
+
 Shotwell 0.3.0 - 2 November 2009
 --------------------------------
 

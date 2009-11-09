@@ -18,7 +18,17 @@ Homepage: http://www.yorba.org/shotwell
 
 Package: shotwell
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+ libgee2 (>= 0.5.0),
+ libgtk2.0-0 (>= 2.14.4),
+ libgphoto2-2 (>= 2.4.2),
+ libexif12 (>= 0.6.16),
+ sqlite3 (>= 3.5.9),
+ libunique-1.0-0 (>= 1.0.0),
+ libhal1 (>= 0.5.11),
+ hal (>= 0.5.11),
+ libdbus-glib-1-2 (>= 0.76),
+ libgconf2-4 (>= 2.22.0)
 Description: Digital photo organizer
  Shotwell is a digital photo organizer designed for the GNOME desktop 
  environment. It allows you to import photos from disk or camera, organize 

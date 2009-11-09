@@ -1,3 +1,13 @@
+shotwell (0.3.1-1~jaunty1) jaunty; urgency=low
+
+  * Makefile changes to facilitate packaging.
+  * Warnings caught by Vala 0.7.8 corrected.
+  * Toolbar items now marked "important" where appropriate.
+  * Binary dependencies corrected in Debian packaging.
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 09 Nov 2009 14:25:31 -0800
+
+
 shotwell (0.3.0-1~jaunty1) jaunty; urgency=low
 
   * Major update with numerous feature additions and performance and 
