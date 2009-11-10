@@ -141,5 +141,13 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         }
         
     }
+
+    public SortedList<G> copy() {
+        SortedList<G> copy = new SortedList<G>(cmp);
+
+        copy.list.add_all(list);
+
+        return copy;
+    }
 }
 

@@ -393,6 +393,7 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.HScale slider = null;
     private Gtk.ToolButton new_event_button = null;
     private Gtk.ToolButton rotate_button = null;
+    private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
@@ -439,11 +440,22 @@ public class CollectionPage : CheckerboardPage {
         
         toolbar.insert(rotate_button, -1);
 
+        // enhance tool
+        enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
+        enhance_button.set_label(Resources.ENHANCE_LABEL);
+        enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
+        enhance_button.sensitive = false;
+        enhance_button.is_important = true;
+        enhance_button.clicked += on_enhance;
+
+        toolbar.insert(enhance_button, -1);
+
         // create new event
         new_event_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_NEW);
         new_event_button.set_label(_("New Event"));
         new_event_button.set_tooltip_text(_("Create new event from selected photos"));
         new_event_button.sensitive = false;
+        new_event_button.is_important = true;
         new_event_button.clicked += on_new_event;
         
         toolbar.insert(new_event_button, -1);
@@ -557,6 +569,12 @@ public class CollectionPage : CheckerboardPage {
         mirror.tooltip = _("Make mirror images of the selected photos");
         actions += mirror;
 
+        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
+            TRANSLATABLE, on_enhance };
+        enhance.label = Resources.ENHANCE_LABEL;
+        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
+        actions += enhance;
+
         Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE, null,
             TRANSLATABLE, on_revert };
         revert.label = _("Re_vert to Original");
@@ -668,6 +686,7 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> items) {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
+        enhance_button.sensitive = get_view().get_selected_count() > 0;
         new_event_button.sensitive = get_view().get_selected_count() > 0;
     }
     
@@ -689,6 +708,7 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextMirror", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
 
         return true;
@@ -938,6 +958,7 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
     }
@@ -1085,6 +1106,40 @@ public class CollectionPage : CheckerboardPage {
         AppWindow.get_instance().set_normal_cursor();
     }
     
+    private void on_enhance() {
+        if (get_view().get_selected_count() == 0)
+            return;
+
+        AppWindow.get_instance().set_busy_cursor();
+
+        int count = 0;
+        int total = get_view().get_selected_count();
+
+        Cancellable cancellable = null;
+        ProgressDialog progress = null;
+        if (total >= MIN_OPS_FOR_PROGRESS_WINDOW) {
+            cancellable = new Cancellable();
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Enhancing..."), cancellable);
+        }
+
+        foreach (DataView view in get_view().get_selected()) {
+            ((TransformablePhoto) view.get_source()).enhance();
+
+            if (progress != null) {
+                progress.set_fraction(++count, total);
+                spin_event_loop();
+                
+                if (cancellable.is_cancelled())
+                    break;
+            }
+        }
+
+        if (progress != null)
+            progress.close();
+
+        AppWindow.get_instance().set_normal_cursor();
+    }
+
     private void on_slideshow() {
         if (get_view().get_count() == 0)
             return;

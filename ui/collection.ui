@@ -41,6 +41,7 @@
             <menuitem name="Mirror" action="Mirror" />
             <separator />
             <menuitem name="Revert" action="Revert" />
+            <menuitem name="Enhance" action="Enhance" />
             <separator />
             <menuitem name="Slideshow" action="Slideshow" />
         </menu>
@@ -63,6 +64,7 @@
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
         <menuitem name="ContextMirror" action="Mirror" />
         <separator />
+        <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
         <menuitem name="ContextNewEvent" action="NewEvent" />

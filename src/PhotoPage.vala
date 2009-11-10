@@ -98,8 +98,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // ehance tool
         enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
-        enhance_button.set_label(_("Enhance"));
-        enhance_button.set_tooltip_text(_("Automatically improve the photo's appearance"));
+        enhance_button.set_label(Resources.ENHANCE_LABEL);
+        enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
         enhance_button.clicked += on_enhance;
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
@@ -994,57 +994,32 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
 #if MEASURE_ENHANCE
         Timer overall_timer = new Timer();
-        Timer fetch_timer = new Timer();
-#endif
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = get_photo().get_pixbuf_with_exceptions(Scaling.for_best_fit(360), 
-                TransformablePhoto.Exception.ALL);
-#if MEASURE_ENHANCE
-            fetch_timer.stop();
-#endif
-        } catch (Error e) {
-            warning("PhotoPage: on_enhance: couldn't obtain pixbuf to build " +
-                "transform histogram");
-            set_photo_missing(true);
-            AppWindow.get_instance().set_normal_cursor();
-            return;
-        }
-
-#if MEASURE_ENHANCE
-        Timer analyze_timer = new Timer();
-#endif
-        PixelTransformation[] transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
-#if MEASURE_ENHANCE
-        analyze_timer.stop();
-#endif
-
-#if MEASURE_ENHANCE
-        Timer apply_timer = new Timer();
 #endif
         /* if the current tool is the adjust tool, then don't commit to the database --
            just set the slider values in the adjust dialog and force it to repaint
            the canvas */
         if (current_tool is AdjustTool) {
-            ((AdjustTool) current_tool).set_adjustments(transformations);
+            PixelTransformation[] transformations = get_photo().get_enhance_transformations();
+            if (transformations != null) {
+                ((AdjustTool) current_tool).set_adjustments(transformations);
+            } else {
+                set_photo_missing(true);
+            }
         } else {
-              /* if the current tool isn't the adjust tool then commit the changes
-                 to the database */
-            get_photo().set_adjustments(transformations);
-            pixbuf_dirty = true;
-            
-            update_pixbuf();
-#if MEASURE_ENHANCE
-            apply_timer.stop();
-#endif
+            /* if the current tool isn't the adjust tool then commit the changes
+               to the database */
+            if (get_photo().enhance()) {
+                pixbuf_dirty = true;
+                
+                update_pixbuf();
+            } else {
+                set_photo_missing(true);
+            }
         }
 
 #if MEASURE_ENHANCE
         overall_timer.stop();
-#endif
-
-#if MEASURE_ENHANCE
-        debug("Auto-Enhance Performance Statistics = overall time: %f sec; fetch time: %f sec; analyze time: %f sec; apply time: %f sec", overall_timer.elapsed(), fetch_timer.elapsed(), analyze_timer.elapsed(), apply_timer.elapsed());
+        debug("Auto-Enhance overall time: %f sec", overall_timer.elapsed());
 #endif
 
         AppWindow.get_instance().set_normal_cursor();
@@ -1207,8 +1182,8 @@ public class LibraryPhotoPage : EditingHostPage {
 
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
-        enhance.label = _("_Enhance");
-        enhance.tooltip = _("Automatically improve the photo's appearance");
+        enhance.label = Resources.ENHANCE_LABEL;
+        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
 
         Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,

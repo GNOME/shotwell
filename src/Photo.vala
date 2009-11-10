@@ -1590,6 +1590,60 @@ public abstract class TransformablePhoto: PhotoSource {
         
         return raw_rect;
     }
+
+    public PixelTransformation[]? get_enhance_transformations() {
+        Gdk.Pixbuf pixbuf = null;
+
+#if MEASURE_ENHANCE
+        Timer fetch_timer = new Timer();
+#endif
+
+        try {
+            pixbuf = get_pixbuf_with_exceptions(Scaling.for_best_fit(360), 
+                TransformablePhoto.Exception.ALL);
+
+#if MEASURE_ENHANCE
+            fetch_timer.stop();
+#endif
+        } catch (Error e) {
+            warning("Photo: get_enhance_transformations: couldn't obtain pixbuf to build " + 
+                "transform histogram");
+            return null;
+        }
+
+#if MEASURE_ENHANCE
+        Timer analyze_timer = new Timer();
+#endif
+
+        PixelTransformation[] transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
+
+#if MEASURE_ENHANCE
+        analyze_timer.stop();
+        debug("Auto-Enhance fetch time: %f sec; analyze time: %f sec", fetch_timer.elapsed(),
+            analyze_timer.elapsed());
+#endif
+
+        return transformations;
+    }
+
+    public bool enhance() {
+        PixelTransformation[] transformations = get_enhance_transformations();
+
+        if (transformations == null)
+            return false;
+
+#if MEASURE_ENHANCE
+        Timer apply_timer = new Timer();
+#endif
+
+        set_adjustments(transformations);
+
+#if MEASURE_ENHANCE
+        apply_timer.stop();
+        debug("Auto-Enhance apply time: %f sec", apply_timer.elapsed());
+#endif
+        return true;          
+    }
 }
 
 public class LibraryPhotoSourceCollection : DatabaseSourceCollection {

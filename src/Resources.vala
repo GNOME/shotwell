@@ -75,6 +75,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ROTATE_CW_TOOLTIP = _("Rotate the photo(s) right");
     public const string ROTATE_CCW_TOOLTIP = _("Rotate the photo(s) left");
 
+    public const string ENHANCE_LABEL = _("Enhance");
+    public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
+
     private Gtk.IconFactory factory = null;
     
     public void init () {

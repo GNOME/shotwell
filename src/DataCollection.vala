@@ -97,6 +97,26 @@ public class DataCollection {
         }
     }
     
+    protected class ComparatorWrapper : Comparator<DataObject> {
+        private Comparator<DataObject> comparator;
+        
+        public ComparatorWrapper(Comparator<DataObject> comparator) {
+            this.comparator = comparator;
+        }
+        
+        public override int64 compare(DataObject a, DataObject b) {
+            int64 result = comparator.compare(a, b);
+            if (result == 0)
+                result = a.internal_get_ordinal() - b.internal_get_ordinal();
+
+            if (a != b) {
+                assert(result != 0);
+            }
+            
+            return result;
+        }
+    }
+    
     private static OrderAddedComparator order_added_comparator = null;
     
     private SortedList<DataObject> list = new SortedList<DataObject>();
@@ -169,7 +189,7 @@ public class DataCollection {
     }
     
     public virtual void set_comparator(Comparator<DataObject> comparator) {
-        list.resort(comparator);
+        list.resort(new ComparatorWrapper(comparator));
         ordering_changed();
     }
     
@@ -180,7 +200,7 @@ public class DataCollection {
     }
     
     public virtual Gee.Iterable<DataObject> get_all() {
-        return list;
+        return list.copy();
     }
     
     public virtual int get_count() {
@@ -752,8 +772,8 @@ public class ViewCollection : DataCollection {
     }
     
     public override void set_comparator(Comparator<DataView> comparator) {
-        selected.resort(comparator);
-        visible.resort(comparator);
+        selected.resort(new ComparatorWrapper(comparator));
+        visible.resort(new ComparatorWrapper(comparator));
         
         base.set_comparator(comparator);
     }
@@ -766,7 +786,7 @@ public class ViewCollection : DataCollection {
     }
     
     public override Gee.Iterable<DataObject> get_all() {
-        return visible;
+        return visible.copy();
     }
     
     public override int get_count() {
@@ -940,7 +960,7 @@ public class ViewCollection : DataCollection {
     }
     
     public Gee.Iterable<DataView> get_selected() {
-        return selected;
+        return selected.copy();
     }
     
     public DataView? get_selected_at(int index) {
