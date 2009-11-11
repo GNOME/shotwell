@@ -132,7 +132,7 @@ bool coord_in_rectangle(int x, int y, Gdk.Rectangle rect) {
 
 Gdk.Point coord_scaled_in_space(int x, int y, Dimensions original, Dimensions scaled) {
     double x_scale, y_scale;
-    original.get_scale_factors(scaled, out x_scale, out y_scale);
+    original.get_scale_ratios(scaled, out x_scale, out y_scale);
     
     Gdk.Point point = Gdk.Point();
     point.x = (int) Math.round(x * x_scale);
@@ -152,7 +152,7 @@ Gdk.Point coord_scaled_in_space(int x, int y, Dimensions original, Dimensions sc
 // precision are considered here.
 int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
     double x_scale, y_scale;
-    original.get_scale_factors(scaled, out x_scale, out y_scale);
+    original.get_scale_ratios(scaled, out x_scale, out y_scale);
     
     x_scale = Math.floor(x_scale * 100.0) / 100.0;
     y_scale = Math.floor(y_scale * 100.0) / 100.0;
