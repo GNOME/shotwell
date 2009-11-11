@@ -1,3 +1,10 @@
+Shotwell 0.3.2 - 11 November 2009
+
+  * Loosened photo pipeline assertion that checked for pixbuf scaling.
+  * Better error handling for situation where the HAL daemon (hald) is not
+    running or ready.
+
+
 Shotwell 0.3.1 - 9 November 2009
 --------------------------------
 
