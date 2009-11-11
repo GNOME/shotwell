@@ -35,29 +35,60 @@ public class CameraTable {
     public signal void camera_removed(DiscoveredCamera camera);
     
     private CameraTable() {
-        // set up HAL connection to monitor for device insertion/removal, to look for cameras
-        try {
-            hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
-        } catch (DBus.Error err) {
-            error("Unable to get DBus system connection: %s", err.message);
+        string? errmsg = init_hal();
+        if (errmsg != null) {
+            critical(errmsg);
+            AppWindow.error_message(
+               _("Shotwell could not initialize a connection to the HAL daemon (hald).  This usually means it is not running or not ready.  Rebooting may solve this problem.\n\nShotwell cannot detect cameras without the HAL daemon."));
         }
         
-        if (!hal_context.set_dbus_connection(hal_conn.get_connection()))
-            error("Unable to set DBus connection for HAL");
-
-        DBus.RawError raw = DBus.RawError();
-        if (!hal_context.init(ref raw))
-            error("Unable to initialize context: %s", raw.message);
-
-        if (!hal_context.set_device_added(on_device_added))
-            error("Unable to register device-added callback");
-        if (!hal_context.set_device_removed(on_device_removed))
-            error("Unable to register device-removed callback");
-
         // because loading the camera abilities list takes a bit of time and slows down app
         // startup, delay loading it (and notifying any observers) for a small period of time,
         // after the dust has settled
         Timeout.add(500, delayed_init);
+    }
+    
+    private string? init_hal() {
+        // set up HAL connection to monitor for device insertion/removal, to look for cameras
+        try {
+            hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
+        } catch (DBus.Error err) {
+            hal_context = null;
+            
+            return "Unable to get DBus system connection (%s)".printf(err.message);
+        }
+        
+        // don't unref hal_conn from hereafter because DBus complains about it is not closed and
+        // there is no binding for Hal.Connection.close().  Note that the connection is a shared
+        // connection, and the docs also say not to close shared connections.  We'll just hold on
+        // to the connection, even if HAL initialization fails.
+        
+        if (!hal_context.set_dbus_connection(hal_conn.get_connection())) {
+            hal_context = null;
+            
+            return "Unable to set DBus connection for HAL";
+        }
+
+        DBus.RawError raw = DBus.RawError();
+        if (!hal_context.init(ref raw)) {
+            hal_context = null;
+            
+            return "Unable to initialize context (%s)".printf(raw.message);
+        }
+
+        if (!hal_context.set_device_added(on_device_added)) {
+            hal_context = null;
+            
+            return "Unable to register device-added callback";
+        }
+        
+        if (!hal_context.set_device_removed(on_device_removed)) {
+            hal_context = null;
+            
+            return "Unable to register device-removed callback";
+        }
+        
+        return null;
     }
     
     private bool delayed_init() {
@@ -111,6 +142,12 @@ public class CameraTable {
     private string? esp_usb_to_udi(int camera_count, string port, out string full_port) {
         // sanity
         assert(camera_count > 0);
+        
+        if (hal_context == null) {
+            debug("ESP: HAL context not established");
+            
+            return null;
+        }
         
         debug("ESP: camera_count=%d port=%s", camera_count, port);
 
