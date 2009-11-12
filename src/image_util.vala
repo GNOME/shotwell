@@ -66,8 +66,27 @@ public enum Rotation {
                 return pixbuf;
         }
     }
-}
     
+    public Rotation opposite() {
+        switch (this) {
+            case CLOCKWISE:
+                return COUNTERCLOCKWISE;
+            
+            case COUNTERCLOCKWISE:
+                return CLOCKWISE;
+            
+            case MIRROR:
+            case UPSIDE_DOWN:
+                return this;
+            
+            default:
+                error("Unknown rotation: %d", (int) this);
+                
+                return this;
+        }
+    }
+}
+
 Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp, bool scale_up) {
     Dimensions original = Dimensions.for_pixbuf(pixbuf);
     Dimensions scaled = original.get_scaled(scale, scale_up);

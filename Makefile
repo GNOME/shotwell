@@ -78,7 +78,10 @@ SRC_FILES = \
 	Workers.vala \
 	system.vala \
 	AppDirs.vala \
-	PixbufCache.vala
+	PixbufCache.vala \
+	CommandManager.vala \
+	Commands.vala \
+	SlideshowPage.vala
 
 VAPI_FILES = \
 	libexif.vapi \

@@ -399,15 +399,13 @@ public class EventRenameDialog : Gtk.Dialog {
         vbox.pack_start(query, true, false, 6);
     }
 
-    public string execute() {
+    public string? execute() {
         show_all();
 
-        string event_name = name_entry.get_text();
+        string? event_name = null;
 
-        int response = run();
-        if (response == Gtk.ResponseType.OK) {
+        if (run() == Gtk.ResponseType.OK)
             event_name = name_entry.get_text();
-        }
 
         destroy();
 

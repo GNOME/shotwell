@@ -188,6 +188,34 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         ui.get_widget(path).sensitive = sensitive;
     }
     
+    public CommandManager get_command_manager() {
+        return AppWindow.get_command_manager();
+    }
+    
+    private void decorate_command_manager_item(string path, string prefix, string default_explanation,
+        CommandDescription? desc) {
+        set_item_sensitive(path, desc != null);
+        
+        Gtk.Action action = ui.get_action(path);
+        if (desc != null) {
+            action.label = "%s %s".printf(prefix, desc.get_name());
+            action.tooltip = desc.get_explanation();
+        } else {
+            action.label = prefix;
+            action.tooltip = default_explanation;
+        }
+    }
+    
+    public void decorate_undo_item(string path) {
+        decorate_command_manager_item(path, Resources.UNDO_MENU, Resources.UNDO_TOOLTIP,
+            AppWindow.get_command_manager().get_undo_description());
+    }
+    
+    public void decorate_redo_item(string path) {
+        decorate_command_manager_item(path, Resources.REDO_MENU, Resources.REDO_TOOLTIP,
+            AppWindow.get_command_manager().get_redo_description());
+    }
+    
     protected void init_ui(string ui_filename, string? menubar_path, string action_group_name, 
         Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
         init_ui_start(ui_filename, action_group_name, entries, toggle_entries);

@@ -8,6 +8,11 @@
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="CommonUndo" />
+            <menuitem name="Redo" action="CommonRedo" />
+        </menu>
+        
         <menu name="PhotoMenu" action="PhotoMenu">
             <menuitem name="PrevPhoto" action="PrevPhoto" />
             <menuitem name="NextPhoto" action="NextPhoto" />

@@ -9,13 +9,16 @@
         </menu>
         
         <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="CommonUndo" />
+            <menuitem name="Redo" action="CommonRedo" />
+            <separator />
             <menuitem name="SelectAll" action="SelectAll" />
             <menuitem name="Remove" action="Remove" />
         </menu>
 
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="ViewTitle" action="ViewTitle" />
-			<menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />

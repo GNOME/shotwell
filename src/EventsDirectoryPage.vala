@@ -165,8 +165,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         actions += event;
 
         Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, "F2", TRANSLATABLE, on_rename };
-        rename.label = _("Rename Event...");
-        rename.tooltip = _("Rename event");
+        rename.label = Resources.RENAME_EVENT_MENU;
+        rename.tooltip = Resources.RENAME_EVENT_TOOLTIP;
         actions += rename;
        
         Gtk.ActionEntry merge = { "Merge", Gtk.STOCK_ADD, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, on_merge };
@@ -227,6 +227,8 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
 
     private void on_edit_menu() {
+        decorate_undo_item("/EventsDirectoryMenuBar/EditMenu/Undo");
+        decorate_redo_item("/EventsDirectoryMenuBar/EditMenu/Redo");
         set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", 
             get_view().get_selected_count() == 1);
     }
@@ -238,13 +240,18 @@ public class EventsDirectoryPage : CheckerboardPage {
 
     private void on_rename() {
         // only rename one at a time
-        if (get_view().get_selected_count() == 0)
+        if (get_view().get_selected_count() != 1)
             return;
         
         EventDirectoryItem item = (EventDirectoryItem) get_view().get_selected_at(0);
-
+        
         EventRenameDialog rename_dialog = new EventRenameDialog(item.event.get_raw_name());
-        item.event.rename(rename_dialog.execute());
+        string? new_name = rename_dialog.execute();
+        if (new_name == null)
+            return;
+        
+        RenameEventCommand command = new RenameEventCommand(item.event, new_name);
+        get_command_manager().execute(command);
     }
     
     private void on_merge() {
@@ -265,7 +272,7 @@ public class EventsDirectoryPage : CheckerboardPage {
 
             if (!has_name && event.get_raw_name() != null && event.get_raw_name() != "") {
                 master_event.rename(event.get_raw_name());
-                has_name = true;                
+                has_name = true;
             }
 
             foreach (PhotoSource photo in event.get_photos()) {
@@ -339,12 +346,13 @@ public class EventPage : CollectionPage {
         
         Gtk.ActionEntry make_primary = { "MakePrimary", Resources.MAKE_PRIMARY,
             TRANSLATABLE, null, null, on_make_primary };
-        make_primary.label = _("Make _Key Photo for Event");
+        make_primary.label = Resources.MAKE_KEY_PHOTO_MENU;
+        make_primary.tooltip = Resources.MAKE_KEY_PHOTO_TOOLTIP;
         new_actions += make_primary;
 
         Gtk.ActionEntry rename = { "Rename", null, TRANSLATABLE, "F2", TRANSLATABLE, on_rename };
-        rename.label = _("Rename Event...");
-        rename.tooltip = _("Rename event");
+        rename.label = Resources.RENAME_EVENT_MENU;
+        rename.tooltip = Resources.RENAME_EVENT_TOOLTIP;
         new_actions += rename;
 
         return new_actions;
@@ -373,7 +381,12 @@ public class EventPage : CollectionPage {
 
     private void on_rename() {
         EventRenameDialog rename_dialog = new EventRenameDialog(page_event.get_raw_name());
-        rename(rename_dialog.execute());
+        string? new_name = rename_dialog.execute();
+        if (new_name == null)
+            return;
+        
+        RenameEventCommand command = new RenameEventCommand(page_event, new_name);
+        get_command_manager().execute(command);
     }
 }
 

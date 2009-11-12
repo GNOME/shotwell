@@ -8,6 +8,9 @@
         </menu>
 
         <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="CommonUndo" />
+            <menuitem name="Redo" action="CommonRedo" />
+            <separator />
             <menuitem name="EventRename" action="Rename" />
         </menu>
         

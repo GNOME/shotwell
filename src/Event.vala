@@ -281,7 +281,7 @@ public class Event : EventSource {
         return event_table.get_name(event_id);
     }
     
-    public bool rename(string name) {
+    public bool rename(string? name) {
         bool renamed = event_table.rename(event_id, name);
         if (renamed)
             notify_altered();

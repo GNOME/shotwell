@@ -752,7 +752,7 @@ public class PhotoTable : DatabaseTable {
             return null;
 
         string trans = stmt.column_text(0);
-        if (trans != null && trans.length == 0)
+        if (trans == null || trans.length == 0)
             return null;
 
         return trans;
@@ -760,6 +760,30 @@ public class PhotoTable : DatabaseTable {
     
     private bool set_raw_transformations(PhotoID photo_id, string trans) {
         return update_text_by_id(photo_id.id, "transformations", trans);
+    }
+    
+    public bool set_transformation_state(PhotoID photo_id, Orientation orientation,
+        Gee.HashMap<string, KeyValueMap>? transformations) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE PhotoTable SET orientation = ?, transformations = ? WHERE id = ?",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int(1, orientation);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(2, unmarshall_all_transformations(transformations));
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(3, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            fatal("set_transformation_state", res);
+            
+            return false;
+        }
+        
+        return true;
     }
     
     public bool has_transformations(PhotoID photo_id) {
@@ -798,6 +822,31 @@ public class PhotoTable : DatabaseTable {
             
             return null;
         }
+    }
+    
+    public static string? unmarshall_all_transformations(Gee.HashMap<string, KeyValueMap>? transformations) {
+        if (transformations == null || transformations.keys.size == 0)
+            return null;
+        
+        FixedKeyFile keyfile = new FixedKeyFile();
+        
+        foreach (string object in transformations.keys) {
+            KeyValueMap map = transformations.get(object);
+            
+            foreach (string key in map.get_keys()) {
+                string? value = map.get_string(key, null);
+                assert(value != null);
+                
+                keyfile.set_string(object, key, value);
+            }
+        }
+        
+        size_t length;
+        string unmarshalled = keyfile.to_data(out length);
+        assert(unmarshalled != null);
+        assert(unmarshalled.length > 0);
+        
+        return unmarshalled;
     }
     
     public Gee.HashMap<string, KeyValueMap>? get_all_transformations(PhotoID photo_id) {
@@ -1188,8 +1237,8 @@ public class EventTable : DatabaseTable {
         return event_ids;
     }
     
-    public bool rename(EventID event_id, string name) {
-        return update_text_by_id(event_id.id, "name", name);
+    public bool rename(EventID event_id, string? name) {
+        return update_text_by_id(event_id.id, "name", name != null ? name : "");
     }
     
     public string? get_name(EventID event_id) {

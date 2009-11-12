@@ -329,6 +329,7 @@ public abstract class AppWindow : PageWindow {
     
     private static bool user_quit = false;
     private static FullscreenWindow fullscreen_window = null;
+    private static CommandManager command_manager = null;
 
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
@@ -342,6 +343,9 @@ public abstract class AppWindow : PageWindow {
         // this permits the AboutDialog to properly load an URL
         Gtk.AboutDialog.set_url_hook(on_about_link);
         Gtk.AboutDialog.set_email_hook(on_about_link);
+        
+        assert(command_manager == null);
+        command_manager = new CommandManager();
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -370,6 +374,18 @@ public abstract class AppWindow : PageWindow {
         help_contents.label = _("_Contents");
         help_contents.tooltip = _("More informaton on Shotwell");
         actions += help_contents;
+        
+        Gtk.ActionEntry undo = { "CommonUndo", Gtk.STOCK_UNDO, TRANSLATABLE, "<Ctrl>Z",
+            TRANSLATABLE, on_undo };
+        undo.label = Resources.UNDO_MENU;
+        undo.tooltip = Resources.UNDO_TOOLTIP;
+        actions += undo;
+        
+        Gtk.ActionEntry redo = { "CommonRedo", Gtk.STOCK_REDO, TRANSLATABLE, "<Ctrl><Shift>Z",
+            TRANSLATABLE, on_redo };
+        redo.label = Resources.REDO_MENU;
+        redo.tooltip = Resources.REDO_TOOLTIP;
+        actions += redo;
         
         return actions;
     }
@@ -487,6 +503,18 @@ public abstract class AppWindow : PageWindow {
             get_current_page().returning_from_fullscreen();
         
         present();
+    }
+    
+    public static CommandManager get_command_manager() {
+        return command_manager;
+    }
+    
+    private void on_undo() {
+        command_manager.undo();
+    }
+    
+    private void on_redo() {
+        command_manager.redo();
     }
 }
 

@@ -58,6 +58,9 @@ public enum ImportResult {
     }
 }
 
+public interface PhotoTransformationState : Object {
+}
+
 // TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
@@ -94,6 +97,16 @@ public abstract class TransformablePhoto: PhotoSource {
         
         public bool allows(Exception exception) {
             return ((this & exception) == 0);
+        }
+    }
+    
+    private class PhotoTransformationStateImpl : Object, PhotoTransformationState {
+        public Orientation orientation;
+        public Gee.HashMap<string, KeyValueMap>? transformations;
+        
+        public PhotoTransformationStateImpl(PhotoRow row) {
+            orientation = row.orientation;
+            transformations = row.transformations;
         }
     }
 
@@ -322,12 +335,13 @@ public abstract class TransformablePhoto: PhotoSource {
         return event_id.is_valid() ? Event.global.fetch(event_id) : null;
     }
     
-    public bool set_event(Event event) {
+    public bool set_event(Event? event) {
         bool committed = false;
         lock (row) {
-            committed = PhotoTable.get_instance().set_event(row.photo_id, event.get_event_id());
+            EventID event_id = (event != null) ? event.get_event_id() : EventID();
+            committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
             if (committed)
-                row.event_id = event.get_event_id();
+                row.event_id = event_id;
         }
         
         if (committed)
@@ -681,6 +695,40 @@ public abstract class TransformablePhoto: PhotoSource {
         return only_rotated;
     }
     
+    public PhotoTransformationState save_transformation_state() {
+        PhotoTransformationState state = null;
+        lock (row) {
+            state = new PhotoTransformationStateImpl(row);
+        }
+        
+        return state;
+    }
+    
+    public bool load_transformation_state(PhotoTransformationState state) {
+        PhotoTransformationStateImpl state_impl = state as PhotoTransformationStateImpl;
+        if (state_impl == null)
+            return false;
+        
+        bool committed;
+        lock (row) {
+            committed = PhotoTable.get_instance().set_transformation_state(row.photo_id,
+                state_impl.orientation, state_impl.transformations);
+            if (committed) {
+                row.orientation = state_impl.orientation;
+                row.transformations = state_impl.transformations;
+                
+                // blow away cached color transformers
+                transformer = null;
+                adjustments = null;
+            }
+        }
+        
+        if (committed)
+            notify_altered();
+        
+        return committed;
+    }
+    
     public void remove_all_transformations() {
         bool is_altered = false;
         lock (row) {
@@ -719,13 +767,18 @@ public abstract class TransformablePhoto: PhotoSource {
         return orientation;
     }
     
-    public void set_orientation(Orientation orientation) {
+    public bool set_orientation(Orientation orientation) {
+        bool committed;
         lock (row) {
-            row.orientation = orientation;
-            PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
+            committed = PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
+            if (committed)
+                row.orientation = orientation;
         }
         
-        notify_altered();
+        if (committed)
+            notify_altered();
+        
+        return committed;
     }
 
     public virtual void rotate(Rotation rotation) {
@@ -762,7 +815,7 @@ public abstract class TransformablePhoto: PhotoSource {
         
         return map;
     }
-
+    
     private bool set_transformation(KeyValueMap trans) {
         bool committed;
         lock (row) {

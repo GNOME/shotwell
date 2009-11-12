@@ -70,13 +70,43 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_APP = "shotwell" + SVG_SUFFIX;
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
 
+    public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
+    public const string ROTATE_CW_FULL_LABEL = _("Rotate Right");
+    public const string ROTATE_CW_TOOLTIP = _("Rotate the photos right");
+    
+    public const string ROTATE_CCW_MENU = _("Rotate _Left");
     public const string ROTATE_CCW_LABEL = _("Rotate");
-    public const string ROTATE_CW_TOOLTIP = _("Rotate the photo(s) right");
-    public const string ROTATE_CCW_TOOLTIP = _("Rotate the photo(s) left");
-
+    public const string ROTATE_CCW_FULL_LABEL = _("Rotate Left");
+    public const string ROTATE_CCW_TOOLTIP = _("Rotate the photos left");
+    
+    public const string MIRROR_MENU = _("_Mirror");
+    public const string MIRROR_LABEL = _("Mirror");
+    public const string MIRROR_TOOLTIP = _("Make mirror images of the photos");
+    
+    public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
     public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
+    
+    public const string REVERT_MENU = _("Re_vert to Original");
+    public const string REVERT_LABEL = _("Revert to Original");
+    public const string REVERT_TOOLTIP = _("Revert to the original photo");
+    
+    public const string UNDO_MENU = _("_Undo");
+    public const string UNDO_LABEL = _("Undo");
+    public const string UNDO_TOOLTIP = _("Undo the last action");
+    
+    public const string REDO_MENU = _("_Redo");
+    public const string REDO_LABEL = _("Redo");
+    public const string REDO_TOOLTIP = _("Redo the last undone action");
+    
+    public const string RENAME_EVENT_MENU = _("Re_name Event...");
+    public const string RENAME_EVENT_LABEL = _("Rename Event");
+    public const string RENAME_EVENT_TOOLTIP = _("Rename the selected event");
+    
+    public const string MAKE_KEY_PHOTO_MENU = _("Make _Key Photo for Event");
+    public const string MAKE_KEY_PHOTO_LABEL = _("Make Key Photo for Event");
+    public const string MAKE_KEY_PHOTO_TOOLTIP = _("Make the selected photo the thumbnail for the event");
 
     private Gtk.IconFactory factory = null;
     
