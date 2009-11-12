@@ -92,7 +92,7 @@ public struct Box {
     
     public Box get_scaled(Dimensions scaled) {
         double x_scale, y_scale;
-        get_dimensions().get_scale_factors(scaled, out x_scale, out y_scale);
+        get_dimensions().get_scale_ratios(scaled, out x_scale, out y_scale);
         
         int l = (int) Math.round((double) left * x_scale);
         int t = (int) Math.round((double) top * y_scale);
@@ -109,7 +109,7 @@ public struct Box {
     
     public Box get_scaled_similar(Dimensions original, Dimensions scaled) {
         double x_scale, y_scale;
-        original.get_scale_factors(scaled, out x_scale, out y_scale);
+        original.get_scale_ratios(scaled, out x_scale, out y_scale);
         
         int l = (int) Math.round((double) left * x_scale);
         int t = (int) Math.round((double) top * y_scale);

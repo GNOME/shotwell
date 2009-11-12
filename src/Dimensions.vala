@@ -91,24 +91,25 @@ public struct Dimensions {
             return get_scaled_by_height(scale);
     }
     
-    public void get_scale_factors(Dimensions scaled, out double x_scale, out double y_scale) {
-        x_scale = (double) scaled.width / (double) width;
-        y_scale = (double) scaled.height / (double) height;
+    public void get_scale_ratios(Dimensions scaled, out double width_ratio, out double height_ratio) {
+        width_ratio = (double) scaled.width / (double) width;
+        height_ratio = (double) scaled.height / (double) height;
     }
 
     public Dimensions get_scaled_proportional(Dimensions viewport) {
-        Dimensions scaled = Dimensions();
-
-        // TODO: Surely this can be done by examining dimensions to avoid double calculations.
-        scaled.width = viewport.width;
-        double ratio = (double) viewport.width / (double) width;
-        scaled.height = (int) Math.round((double) height * ratio);
-        if (scaled.height > viewport.height) {
-            scaled.height = viewport.height;
-            ratio = (double) viewport.height / (double) height;
-            scaled.width = (int) Math.round((double) width * ratio);
+        double width_ratio, height_ratio;
+        get_scale_ratios(viewport, out width_ratio, out height_ratio);
+        
+        double scaled_width, scaled_height;
+        if (width_ratio < height_ratio) {
+            scaled_width = viewport.width;
+            scaled_height = (double) height * width_ratio;
+        } else {
+            scaled_width = (double) width * height_ratio;
+            scaled_height = viewport.height;
         }
-
+        
+        Dimensions scaled = Dimensions((int) Math.round(scaled_width), (int) Math.round(scaled_height));
         assert(scaled.height <= viewport.height);
         assert(scaled.width <= viewport.width);
         
@@ -117,7 +118,7 @@ public struct Dimensions {
 
     public Gdk.Rectangle get_scaled_rectangle(Dimensions scaled, Gdk.Rectangle rect) {
         double x_scale, y_scale;
-        get_scale_factors(scaled, out x_scale, out y_scale);
+        get_scale_ratios(scaled, out x_scale, out y_scale);
         
         Gdk.Rectangle scaled_rect = Gdk.Rectangle();
         scaled_rect.x = (int) Math.round((double) rect.x * x_scale);
@@ -131,7 +132,7 @@ public struct Dimensions {
     // Returns the current dimensions scaled in a similar proportion as the two suppled dimensions
     public Dimensions get_scaled_similar(Dimensions original, Dimensions scaled) {
         double x_scale, y_scale;
-        original.get_scale_factors(scaled, out x_scale, out y_scale);
+        original.get_scale_ratios(scaled, out x_scale, out y_scale);
         
         double scale = double.min(x_scale, y_scale);
         

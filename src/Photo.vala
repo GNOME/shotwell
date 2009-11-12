@@ -74,6 +74,12 @@ public abstract class TransformablePhoto: PhotoSource {
         "jpe"
     };
     
+    // There are assertions in the photo pipeline to verify that the generated (or loaded) pixbuf
+    // is scaled properly.  We have to allow for some wobble here because of rounding errors and
+    // precision limitations of various subsystems.  Pixel-accuracy would be best, but barring that,
+    // need to just make sure the pixbuf is in the ballpark.
+    private const int SCALING_FUDGE = 8;
+    
     public enum Exception {
         NONE            = 0,
         ORIENTATION     = 1 << 0,
@@ -1000,7 +1006,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
 #if MEASURE_PIPELINE
-            debug("LOAD_RAW_PIXBUF UNSCALED: requested");
+            debug("LOAD_RAW_PIXBUF UNSCALED %s: requested", path);
 #endif
             
             return new Gdk.Pixbuf.from_file(path);
@@ -1012,7 +1018,7 @@ public abstract class TransformablePhoto: PhotoSource {
             out scaled_to_viewport);
         if (!is_scaled) {
 #if MEASURE_PIPELINE
-            debug("LOAD_RAW_PIXBUF UNSCALED: scaling unavailable");
+            debug("LOAD_RAW_PIXBUF UNSCALED %s: scaling unavailable", path);
 #endif
             
             return new Gdk.Pixbuf.from_file(path);
@@ -1022,12 +1028,12 @@ public abstract class TransformablePhoto: PhotoSource {
             scaled_image.height);
 
 #if MEASURE_PIPELINE
-        debug("LOAD_RAW_PIXBUF %s: %s -> %s (actual: %s)", scaling.to_string(),
+        debug("LOAD_RAW_PIXBUF %s %s: %s -> %s (actual: %s)", scaling.to_string(), path,
             get_raw_dimensions().to_string(), scaled_image.to_string(), 
             Dimensions.for_pixbuf(pixbuf).to_string());
 #endif
         
-        assert(scaled_image.approx_equals(Dimensions.for_pixbuf(pixbuf)));
+        assert(scaled_image.approx_equals(Dimensions.for_pixbuf(pixbuf), SCALING_FUDGE));
         
         return pixbuf;
     }
@@ -1283,7 +1289,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // orientation are the only transformations that change the dimensions of the pixbuf, and
         // must be accounted for the test to be valid
         if (is_scaled)
-            assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf)));
+            assert(scaled_to_viewport.approx_equals(Dimensions.for_pixbuf(pixbuf), SCALING_FUDGE));
         
 #if MEASURE_PIPELINE
         debug("PIPELINE %s (%s): redeye=%lf crop=%lf adjustment=%lf orientation=%lf total=%lf",
