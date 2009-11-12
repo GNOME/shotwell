@@ -266,16 +266,16 @@ install:
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
-	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
-	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)/usr/share/icons/hicolor/scalable/apps
+	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
+	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
 ifndef XDG_DISABLE_MAKEFILE_UPDATES
-	-gtk-update-icon-cache $(DESTDIR)/usr/share/icons/hicolor || :
+	-gtk-update-icon-cache $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
-	mkdir -p $(DESTDIR)$(PREFIX)/usr/share/applications
-	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)/usr/share/applications
-	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)/usr/share/applications
+	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
+	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)$(PREFIX)/share/applications
+	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)$(PREFIX)/share/applications
 ifndef XDG_DISABLE_MAKEFILE_UPDATES
 	-update-desktop-database || :
 endif
@@ -292,9 +292,9 @@ endif
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(PROGRAM)
 	rm -fr $(DESTDIR)$(PREFIX)/share/shotwell
-	rm -fr $(DESTDIR)/usr/share/icons/hicolor/scalable/apps/shotwell.svg
-	rm -f $(DESTDIR)/usr/share/applications/shotwell.desktop
-	rm -f $(DESTDIR)/usr/share/applications/shotwell-viewer.desktop
+	rm -fr $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
+	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell.desktop
+	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell-viewer.desktop
 ifndef XDG_DISABLE_MAKEFILE_UPDATES
 	-update-desktop-database || :
 endif
