@@ -11,7 +11,7 @@ namespace Debug {
     private bool warning_enabled = false;
     private bool critical_enabled = false;
     
-    public void init() {
+    public static void init() {
         if (Environment.get_variable("SHOTWELL_LOG") != null) {
             info_enabled = true;
             debug_enabled = true;
@@ -33,7 +33,7 @@ namespace Debug {
         Log.set_handler(null, LogLevelFlags.LEVEL_CRITICAL, critical_handler);
     }
     
-    public void terminate() {
+    public static void terminate() {
     }
     
     private void log(FileStream stream, string prefix, string message) {

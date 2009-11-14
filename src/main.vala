@@ -62,7 +62,7 @@ void library_exec(string[] mounts) {
     }
 #endif
 
-    // init modules library relies on
+    // initialize DatabaseTable before verification
     DatabaseTable.init(AppDirs.get_data_subdir("data").get_child("photo.db"));
 
     // validate the databases prior to using them
@@ -170,7 +170,7 @@ void main(string[] args) {
     
     // terminate mode-inspecific modules
     Resources.terminate();
-    AppWindow.terminate();
     Debug.terminate();
+    AppDirs.terminate();
 }
 

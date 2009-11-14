@@ -392,9 +392,6 @@ public abstract class AppWindow : PageWindow {
     
     protected abstract void on_fullscreen();
 
-    public static void terminate() {
-    }
-    
     public static AppWindow get_instance() {
         return instance;
     }
