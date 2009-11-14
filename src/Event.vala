@@ -52,7 +52,7 @@ public class Event : EventSource {
     public static EventSourceCollection global = null;
     
     private static EventTable event_table = null;
-
+    
     private EventID event_id;
     private LibraryPhoto primary_photo;
     private ViewCollection view;
@@ -82,7 +82,7 @@ public class Event : EventSource {
     }
     
     public static void init() {
-        event_table = new EventTable();
+        event_table = EventTable.get_instance();
         global = new EventSourceCollection();
         
         // add all events to the global collection
@@ -235,7 +235,7 @@ public class Event : EventSource {
             last_exposure = exposure_time;
         }
 
-        if (current_event != null) {         
+        if (current_event != null) {
             global.add(current_event);
             
             debug("Added event %s to global collection", current_event.to_string());
@@ -274,7 +274,7 @@ public class Event : EventSource {
         
         return (start_time != 0) 
             ? format_local_date(Time.local(start_time)) 
-            : _("Event %lld").printf(event_id.id);       
+            : _("Event %lld").printf(event_id.id);
     }
     
     public string? get_raw_name() {
@@ -294,7 +294,7 @@ public class Event : EventSource {
 
         foreach (PhotoSource photo in get_photos()) {
             if (photo.get_exposure_time() < start_time)
-                start_time = photo.get_exposure_time();      
+                start_time = photo.get_exposure_time();
         }
 
         return start_time;
@@ -305,7 +305,7 @@ public class Event : EventSource {
 
         foreach (PhotoSource photo in get_photos()) {
             if (photo.get_exposure_time() > end_time)
-                end_time = photo.get_exposure_time();       
+                end_time = photo.get_exposure_time();
         }
 
         return end_time;
@@ -313,7 +313,7 @@ public class Event : EventSource {
     
     public override uint64 get_total_filesize() {
         uint64 total = 0;
-        foreach (PhotoSource photo in get_photos()) {           
+        foreach (PhotoSource photo in get_photos()) {
             total += photo.get_filesize();
         }
         
@@ -369,7 +369,7 @@ public class Event : EventSource {
         event_table.remove(event_id);
         
         // mark all photos for this event as now event-less
-        (new PhotoTable()).drop_event(event_id);
+        PhotoTable.get_instance().drop_event(event_id);
         
         base.destroy();
    }

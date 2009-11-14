@@ -113,7 +113,7 @@ public class ThumbnailCache : Object {
     private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
     private ulong cached_bytes = 0;
     private ThumbnailCacheTable cache_table;
-    private PhotoTable photo_table = new PhotoTable();
+    private PhotoTable photo_table = null;
     
     private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
         Jpeg.Quality quality = DEFAULT_QUALITY) {
@@ -123,6 +123,7 @@ public class ThumbnailCache : Object {
         this.interp = interp;
         this.quality = quality;
         cache_table = new ThumbnailCacheTable(size.get_scale());
+        photo_table = PhotoTable.get_instance();
     }
     
     // Doing this because static construct {} not working nor new'ing in the above statement

@@ -130,7 +130,7 @@ public class DatabaseTable {
 public bool verify_databases(out string app_version) {
     // Since this is the first database version, the only thing checked for is the right one,
     // no upgrades attempted (since the only real alternative is downgrading)
-    VersionTable version_table = new VersionTable();
+    VersionTable version_table = VersionTable.get_instance();
     int version = version_table.get_version(out app_version);
     debug("Database version %d create by app version %s", version, app_version);
     
@@ -141,8 +141,8 @@ public bool verify_databases(out string app_version) {
         return false;
     }
     
-    PhotoTable photo_table = new PhotoTable();
-    EventTable event_table = new EventTable();
+    PhotoTable photo_table = PhotoTable.get_instance();
+    EventTable event_table = EventTable.get_instance();
     Gee.ArrayList<EventID?> event_ids = event_table.get_events();
 
     // verify photos for all events and check that the end_time is set (see Bug #665 and #670).
@@ -158,7 +158,9 @@ public bool verify_databases(out string app_version) {
 }
 
 public class VersionTable : DatabaseTable {
-    public VersionTable() {
+    private static VersionTable instance = null;
+    
+    private VersionTable() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS VersionTable ("
             + "id INTEGER PRIMARY KEY, "
@@ -173,6 +175,13 @@ public class VersionTable : DatabaseTable {
             fatal("create version table", res);
 
         set_table_name("VersionTable");
+    }
+    
+    public static VersionTable get_instance() {
+        if (instance == null)
+            instance = new VersionTable();
+        
+        return instance;
     }
     
     public int get_version(out string app_version) {
@@ -281,9 +290,9 @@ public struct PhotoRow {
 }
 
 public class PhotoTable : DatabaseTable {
-    private static PhotoTable global = null;
+    private static PhotoTable instance = null;
     
-    public PhotoTable() {
+    private PhotoTable() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS PhotoTable ("
             + "id INTEGER PRIMARY KEY, "
@@ -323,10 +332,10 @@ public class PhotoTable : DatabaseTable {
     }
     
     public static PhotoTable get_instance() {
-        if (global == null)
-            global = new PhotoTable();
+        if (instance == null)
+            instance = new PhotoTable();
         
-        return global;
+        return instance;
     }
     
     public ImportID generate_import_id() {
@@ -1156,7 +1165,9 @@ public struct EventID {
 }
 
 public class EventTable : DatabaseTable {
-    public EventTable() {
+    private static EventTable instance = null;
+    
+    private EventTable() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS EventTable ("
             + "id INTEGER PRIMARY KEY, "
@@ -1171,6 +1182,13 @@ public class EventTable : DatabaseTable {
             fatal("create photo table", res);
         
         set_table_name("EventTable");
+    }
+    
+    public static EventTable get_instance() {
+        if (instance == null)
+            instance = new EventTable();
+        
+        return instance;
     }
     
     public EventID create(PhotoID primary_photo_id) {
