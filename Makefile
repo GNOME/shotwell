@@ -113,11 +113,10 @@ TEXT_FILES = \
 	THANKS
 
 VAPI_DIRS = \
-	./src \
 	./vapi
 
 HEADER_DIRS = \
-	./src
+	./vapi
 
 LOCAL_PKGS = \
 	FStream \
@@ -180,8 +179,8 @@ EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
 EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
 EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
 
-EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),src/$(vapi))
-EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),src/$(header))
+EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
+EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
 VALA_STAMP = $(BUILD_DIR)/.stamp
 LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
