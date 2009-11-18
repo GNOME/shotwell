@@ -372,7 +372,7 @@ public abstract class AppWindow : PageWindow {
         Gtk.ActionEntry help_contents = { "CommonHelpContents", Gtk.STOCK_HELP,
             TRANSLATABLE, "F1", TRANSLATABLE, on_help_contents };
         help_contents.label = _("_Contents");
-        help_contents.tooltip = _("More informaton on Shotwell");
+        help_contents.tooltip = _("More information on Shotwell");
         actions += help_contents;
         
         Gtk.ActionEntry undo = { "CommonUndo", Gtk.STOCK_UNDO, TRANSLATABLE, "<Ctrl>Z",
