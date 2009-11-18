@@ -56,6 +56,7 @@ namespace Exif {
         public static int16 get_sshort(uchar *buffer, ByteOrder byteOrder);
         public static uint32 get_long(uchar *buffer, ByteOrder byteOrder);
         public static int32 get_slong(uchar *buffer, ByteOrder byteOrder);
+        public static Rational get_rational(uchar *buffer, ByteOrder byteOrder);
         public static void set_short(uchar *buffer, ByteOrder byteOrder, uint16 val);
         public static void set_sshort(uchar *buffer, ByteOrder byteOrder, int16 val);
         public static void set_long(uchar *buffer, ByteOrder byteOrder, uint32 val);
@@ -224,6 +225,16 @@ namespace Exif {
         public weak string get_message();
     }
 
+    [SimpleType]
+    [CCode (
+        cname="ExifRational",
+        cheader_filename="libexif/exif-utils.h"
+    )]
+    public struct Rational {
+        uint32 numerator;
+        uint32 denominator;
+    }
+
     [CCode (
         cname="ExifTag",
         cheader_filename="libexif/exif-tag.h",
@@ -236,7 +247,21 @@ namespace Exif {
         DATE_TIME_ORIGINAL,
         ORIENTATION,
         RELATED_IMAGE_WIDTH,
-        RELATED_IMAGE_LENGTH;
+        RELATED_IMAGE_LENGTH,
+        EXPOSURE_TIME,
+        FNUMBER,
+        ISO_SPEED_RATINGS,
+        MAKE,
+        MODEL,
+        FLASH,
+        FOCAL_LENGTH,
+        GPS_LATITUDE,
+        GPS_LATITUDE_REF,
+        GPS_LONGITUDE,
+        GPS_LONGITUDE_REF,
+        ARTIST,
+        COPYRIGHT,
+        SOFTWARE;
 
         public weak string get_name_in_ifd(Ifd ifd);
         public weak string get_title_in_ifd(Ifd ifd);

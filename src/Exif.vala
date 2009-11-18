@@ -73,7 +73,7 @@ namespace Exif {
         return false;
     }
 
-    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format) {
+    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format, int size = 1) {
         assert(exif != null);
         
         Exif.Content content = exif.ifd[(int) ifd];
@@ -85,7 +85,7 @@ namespace Exif {
         
         assert(entry.format == format);
         if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
-            assert(entry.size == format.get_size());
+            assert(entry.size == format.get_size() * size);
         
         return entry;
     }
@@ -106,6 +106,10 @@ namespace Exif {
             assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
         
         return entry;
+    }
+
+    private double rational_to_double(Exif.Rational rational) {
+        return (((double) rational.numerator) / ((double) rational.denominator));
     }
 
     public Orientation get_orientation(Exif.Data exif) {
@@ -180,6 +184,190 @@ namespace Exif {
             
             Exif.Convert.set_long(height.data, exif.get_byte_order(), dim.height);
         }
+    }
+
+    public string get_exposure(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.EXIF, Exif.Tag.EXPOSURE_TIME, Exif.Format.RATIONAL);
+
+        if (entry == null)
+            return "";
+
+        Exif.Rational exposure = Exif.Convert.get_rational(entry.data, exif.get_byte_order());
+
+        if (rational_to_double(exposure) >= 1) {
+            return "%f s".printf(rational_to_double(exposure));
+        } else {
+            // round to the nearest five
+
+            int denominator = (int) exposure.denominator;
+
+            if (denominator > 10) {
+                int off = denominator % 5;
+                denominator += (off >= 3) ? 5 - off : -1 * off;
+            }
+            
+            return "%d/%d s".printf((int) exposure.numerator, denominator);
+        }
+    }
+
+    public string get_aperture(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.EXIF, Exif.Tag.FNUMBER, Exif.Format.RATIONAL);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_iso(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.EXIF, Exif.Tag.ISO_SPEED_RATINGS, Exif.Format.SHORT);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_camera_make(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.ZERO, Exif.Tag.MAKE, Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_camera_model(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.ZERO, Exif.Tag.MODEL, Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+
+    public string get_flash(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.EXIF, Exif.Tag.FLASH, Exif.Format.SHORT);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+
+    public string get_focal_length(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.EXIF, Exif.Tag.FOCAL_LENGTH,
+            Exif.Format.RATIONAL);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    private Exif.Rational[] get_gps_rationals(Exif.Entry entry, Exif.ByteOrder byte_order) {
+        Exif.Rational[] rationals = new Exif.Rational[3];
+
+        uchar* data = entry.data;
+
+        rationals[0] = Exif.Convert.get_rational(data, byte_order);
+        data += entry.format.get_size();
+        rationals[1] = Exif.Convert.get_rational(data, byte_order);
+        data += entry.format.get_size();
+        rationals[2] = Exif.Convert.get_rational(data, byte_order);
+
+        return rationals;
+    }
+
+    public Exif.Rational[]? get_raw_gps_lat(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.GPS, Exif.Tag.GPS_LATITUDE,
+            Exif.Format.RATIONAL, 3);
+
+        if (entry == null)
+            return null;
+
+        return get_gps_rationals(entry, exif.get_byte_order());
+    }
+
+    public Exif.Rational[]? get_raw_gps_long(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.GPS, Exif.Tag.GPS_LONGITUDE,
+            Exif.Format.RATIONAL, 3);
+
+        if (entry == null)
+            return null;
+
+        return get_gps_rationals(entry, exif.get_byte_order());
+    }
+
+    private double get_angle(Exif.Rational[] rationals) {
+        return rational_to_double(rationals[0]) + ((1.0 / 60.0) * rational_to_double(rationals[1])) +
+            ((1.0 / 360.0) * rational_to_double(rationals[2]));
+    }
+
+    public double get_gps_lat(Exif.Data exif) {
+        Exif.Rational[] rationals = get_raw_gps_lat(exif);
+        if (rationals == null)
+            return -1;
+
+        return get_angle(rationals);
+    }
+
+    public double get_gps_long(Exif.Data exif) {
+        Exif.Rational[] rationals = get_raw_gps_long(exif);
+
+        if (rationals == null)
+            return -1;
+
+        return get_angle(rationals);
+    }
+
+    public string get_gps_lat_ref(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.GPS, Exif.Tag.GPS_LATITUDE_REF,
+            Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_gps_long_ref(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.GPS, Exif.Tag.GPS_LONGITUDE_REF,
+            Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_artist(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.ZERO, Exif.Tag.ARTIST, Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_copyright(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.ZERO, Exif.Tag.COPYRIGHT, Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
+    }
+
+    public string get_software(Exif.Data exif) {
+        Exif.Entry entry = find_entry(exif, Exif.Ifd.ZERO, Exif.Tag.SOFTWARE, Exif.Format.ASCII);
+
+        if (entry == null)
+            return "";
+
+        return entry.get_value();
     }
 }
 

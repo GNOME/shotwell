@@ -7,6 +7,7 @@
 public class Config {
 #if NO_GCONF
     bool display_basic_properties;
+    bool display_extended_properties;
     bool display_photo_titles;
     double slideshow_delay = SLIDESHOW_DELAY_DEFAULT;
 #else
@@ -55,6 +56,34 @@ public class Config {
 #else
         try {
             return client.get_bool("/apps/shotwell/preferences/ui/display_basic_properties");
+        } catch (GLib.Error err) {
+            message("Unable to get GConf value.  Error message: %s", err.message);
+            return false;
+        }
+#endif        
+    }
+
+    public bool set_display_extended_properties(bool display) {
+#if NO_GCONF    
+        display_extended_properties = display;
+        return true;        
+#else
+        try {
+            client.set_bool("/apps/shotwell/preferences/ui/display_extended_properties", display);
+            return true;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return false;
+        }
+#endif        
+    }
+
+    public bool get_display_extended_properties() {
+#if NO_GCONF
+        return display_extended_properties;
+#else
+        try {
+            return client.get_bool("/apps/shotwell/preferences/ui/display_extended_properties");
         } catch (GLib.Error err) {
             message("Unable to get GConf value.  Error message: %s", err.message);
             return false;

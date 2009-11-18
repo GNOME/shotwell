@@ -5,7 +5,7 @@
  */
 
 public class LibraryWindow : AppWindow {
-    public const int SIDEBAR_MIN_WIDTH = 160;
+    public const int SIDEBAR_MIN_WIDTH = 180;
     public const int SIDEBAR_MAX_WIDTH = 320;
     public const int PAGE_MIN_WIDTH = 
         Thumbnail.MAX_SCALE + (CheckerboardLayout.COLUMN_GUTTER_PADDING * 2);
@@ -240,6 +240,7 @@ public class LibraryWindow : AppWindow {
     private SidebarMarker cameras_marker = null;
 
     private BasicProperties basic_properties = new BasicProperties();
+    private ExtendedPropertiesWindow extended_properties = new ExtendedPropertiesWindow();
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
@@ -296,6 +297,9 @@ public class LibraryWindow : AppWindow {
 
         // start with only most recent month directory open
         sidebar.expand_first_branch_only(events_directory_page.get_marker());
+
+        extended_properties.hide += hide_extended_properties;
+        extended_properties.show += show_extended_properties;
     }
     
     ~LibraryWindow() {
@@ -309,6 +313,9 @@ public class LibraryWindow : AppWindow {
 #endif
         
         unsubscribe_from_basic_information(get_current_page());
+
+        extended_properties.hide -= hide_extended_properties;
+        extended_properties.show -= show_extended_properties;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -334,8 +341,14 @@ public class LibraryWindow : AppWindow {
         Gtk.ToggleActionEntry basic_props = { "CommonDisplayBasicProperties", null,
             TRANSLATABLE, "<Ctrl><Shift>I", TRANSLATABLE, on_display_basic_properties, false };
         basic_props.label = _("Basic _Information");
-        basic_props.tooltip = _("Display basic information of the selection");
+        basic_props.tooltip = _("Display basic information for the selection");
         actions += basic_props;
+
+        Gtk.ToggleActionEntry extended_props = { "CommonDisplayExtendedProperties", null,
+            TRANSLATABLE, "<Ctrl><Shift>X", TRANSLATABLE, on_display_extended_properties, false };
+        extended_props.label = _("Extended _Information");
+        extended_props.tooltip = _("Display extended information for the selection");
+        actions += extended_props;
 
         return actions;
     }
@@ -512,6 +525,7 @@ public class LibraryWindow : AppWindow {
         bool display = ((Gtk.ToggleAction) action).get_active();
 
         if (display) {
+            basic_properties.update_properties(get_current_page());
             bottom_frame.show();
         } else {
             if (sidebar_paned.child2 != null) {
@@ -522,7 +536,37 @@ public class LibraryWindow : AppWindow {
         // sync the setting so it will persist
         Config.get_instance().set_display_basic_properties(display);
     }
-    
+
+    private void on_display_extended_properties(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+
+        if (display) {
+            extended_properties.update_properties(get_current_page());
+            extended_properties.show_all();
+        } else {
+            extended_properties.hide();
+        }
+    }
+
+    private void show_extended_properties() {
+        sync_extended_properties(true);
+    }
+
+    private void hide_extended_properties() {
+        sync_extended_properties(false);
+    }
+
+    private void sync_extended_properties(bool show) {
+        Gtk.ToggleAction extended_display_action = 
+            (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
+            "CommonDisplayExtendedProperties");
+        assert(extended_display_action != null);
+        extended_display_action.set_active(show);
+
+        // sync the setting so it will persist
+        Config.get_instance().set_display_extended_properties(show);
+    }
+
     public void enqueue_batch_import(BatchImport batch_import) {
         if (!displaying_import_queue_page) {
             insert_page_after(events_directory_page.get_marker(), import_queue_page);
@@ -704,8 +748,7 @@ public class LibraryWindow : AppWindow {
             }
         }
 
-        // refresh basic properties
-        basic_properties.update_properties(get_current_page());
+        on_selection_changed();
     }
 
     private SubEventsDirectoryPageStub? get_dir_parent(SubEventsDirectoryPageStub dir) {
@@ -935,11 +978,17 @@ public class LibraryWindow : AppWindow {
     
     // check for settings that should persist between instances
     private void load_configuration() {
-        Gtk.ToggleAction action = 
+        Gtk.ToggleAction basic_display_action = 
             (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
             "CommonDisplayBasicProperties");
-        assert(action != null);
-        action.set_active(Config.get_instance().get_display_basic_properties());
+        assert(basic_display_action != null);
+        basic_display_action.set_active(Config.get_instance().get_display_basic_properties());
+
+        Gtk.ToggleAction extended_display_action = 
+            (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
+            "CommonDisplayExtendedProperties");
+        assert(extended_display_action != null);
+        extended_display_action.set_active(Config.get_instance().get_display_extended_properties());
     }
 
     private void create_layout(Page start_page) {
@@ -1009,17 +1058,29 @@ public class LibraryWindow : AppWindow {
             remove_accel_group(get_current_page().ui.get_accel_group());
 
             // carry over menubar toggle activity between pages
-            Gtk.ToggleAction old_action = 
+            Gtk.ToggleAction old_basic_display_action = 
                 (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
                 "CommonDisplayBasicProperties");
-            assert(old_action != null);
+            assert(old_basic_display_action != null);
 
-            Gtk.ToggleAction new_action = 
+            Gtk.ToggleAction new_basic_display_action = 
                 (Gtk.ToggleAction) page.common_action_group.get_action(
                 "CommonDisplayBasicProperties");
-            assert(new_action != null);
+            assert(new_basic_display_action != null);
             
-            new_action.set_active(old_action.get_active());
+            new_basic_display_action.set_active(old_basic_display_action.get_active());
+
+            Gtk.ToggleAction old_extended_display_action = 
+                (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
+                "CommonDisplayExtendedProperties");
+            assert(old_basic_display_action != null);
+
+            Gtk.ToggleAction new_extended_display_action = 
+                (Gtk.ToggleAction) page.common_action_group.get_action(
+                "CommonDisplayExtendedProperties");
+            assert(new_basic_display_action != null);
+            
+            new_extended_display_action.set_active(old_extended_display_action.get_active());
 
             // old page unsubscribes to these signals (new page subscribes below)
             unsubscribe_from_basic_information(get_current_page());
@@ -1148,7 +1209,11 @@ public class LibraryWindow : AppWindow {
     }
 
     private void on_selection_changed() {
-        basic_properties.update_properties(get_current_page());
+        if (bottom_frame.visible)        
+            basic_properties.update_properties(get_current_page());
+
+        if (extended_properties.visible)
+            extended_properties.update_properties(get_current_page());
     }
     
 #if !NO_CAMERA    

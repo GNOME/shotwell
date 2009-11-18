@@ -16,6 +16,20 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/display_extended_properties</key>
+            <applyto>/apps/shotwell/preferences/ui/display_extended_properties</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+
+            <locale name="en">
+                <short>extended properties display bool</short>
+                <long>Extended properties display bool.  True if the window is displayed, false otherwise.</long>
+            </locale>
+
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/preferences/ui/display_photo_titles</key>
             <applyto>/apps/shotwell/preferences/ui/display_photo_titles</applyto>
             <type>bool</type>

@@ -15,6 +15,7 @@
         
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
