@@ -10,6 +10,7 @@ INSTALL_DATA = install -m 644
 
 # defaults that may be overridden by configure.mk
 PREFIX=/usr/local
+SCHEMA_FILE_DIR=/etc/gconf/schemas
 BUILD_RELEASE=1
 
 UNAME := $(shell uname)
@@ -270,7 +271,7 @@ install:
 	$(INSTALL_DATA) icons/* $(DESTDIR)$(PREFIX)/share/shotwell/icons
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
 	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
-ifndef XDG_DISABLE_MAKEFILE_UPDATES
+ifndef DISABLE_ICON_UPDATE
 	-gtk-update-icon-cache $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
@@ -278,14 +279,14 @@ endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 	$(INSTALL_DATA) misc/shotwell.desktop $(DESTDIR)$(PREFIX)/share/applications
 	$(INSTALL_DATA) misc/shotwell-viewer.desktop $(DESTDIR)$(PREFIX)/share/applications
-ifndef XDG_DISABLE_MAKEFILE_UPDATES
+ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
-ifndef GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
+ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule misc/shotwell.schemas
 else
-	mkdir -p $(DESTDIR)/etc/gconf/schemas
-	$(INSTALL_DATA) misc/shotwell.schemas $(DESTDIR)/etc/gconf/schemas
+	mkdir -p $(DESTDIR)$(SCHEMA_FILE_DIR)
+	$(INSTALL_DATA) misc/shotwell.schemas $(DESTDIR)$(SCHEMA_FILE_DIR)
 endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
@@ -297,13 +298,13 @@ uninstall:
 	rm -fr $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps/shotwell.svg
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/shotwell-viewer.desktop
-ifndef XDG_DISABLE_MAKEFILE_UPDATES
+ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
-ifndef GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
+ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
 else
-	rm -f $(DESTDIR)/etc/gconf/schemas/shotwell.schemas
+	rm -f $(DESTDIR)$(SCHEMA_FILE_DIR)/shotwell.schemas
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
