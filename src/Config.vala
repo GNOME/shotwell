@@ -10,6 +10,10 @@ public class Config {
     bool display_extended_properties;
     bool display_photo_titles;
     double slideshow_delay = SLIDESHOW_DELAY_DEFAULT;
+    string facebook_session_key = "";
+    string facebook_session_secret = "";
+    string facebook_uid = "";
+    string facebook_user_name = "";
 #else
     GConf.Client client;
 #endif    
@@ -33,6 +37,140 @@ public class Config {
             instance = new Config();
         
         return instance;
+    }
+
+    public bool clear_facebook_session_key() {
+        return set_facebook_session_key("");
+    }
+
+    public bool set_facebook_session_key(string key) {
+#if NO_GCONF    
+        facebook_session_key = key;
+        return true;        
+#else
+        try {
+            client.set_string("/apps/shotwell/sharing/facebook/session_key", key);
+            return true;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return false;
+        }
+#endif        
+    }
+
+    public string? get_facebook_session_key() {
+#if NO_GCONF
+        return facebook_session_key;
+#else
+        try {
+            string stored_value = client.get_string("/apps/shotwell/sharing/facebook/session_key");
+            return (stored_value != "") ? stored_value : null;
+        } catch (GLib.Error err) {
+            message("Unable to get GConf value.  Error message: %s", err.message);
+            return null;
+        }
+#endif        
+    }
+
+    public bool clear_facebook_session_secret() {
+        return set_facebook_session_secret("");
+    }
+
+    public bool set_facebook_session_secret(string secret) {
+#if NO_GCONF    
+        facebook_session_secret = secret;
+        return true;
+#else
+        try {
+            client.set_string("/apps/shotwell/sharing/facebook/session_secret", secret);
+            return true;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return false;
+        }
+#endif
+    }
+
+    public string? get_facebook_session_secret() {
+#if NO_GCONF
+        return facebook_session_secret;
+#else
+        try {
+            string stored_value =
+                client.get_string("/apps/shotwell/sharing/facebook/session_secret");
+            return (stored_value != "") ? stored_value : null;
+        } catch (GLib.Error err) {
+            message("Unable to get GConf value.  Error message: %s", err.message);
+            return null;
+        }
+#endif        
+    }
+
+    public bool clear_facebook_uid() {
+        return set_facebook_uid("");
+    }
+
+    public bool set_facebook_uid(string uid) {
+#if NO_GCONF    
+        facebook_uid = uid;
+        return true;
+#else
+        try {
+            client.set_string("/apps/shotwell/sharing/facebook/uid", uid);
+            return true;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return false;
+        }
+#endif
+    }
+
+    public string? get_facebook_uid() {
+#if NO_GCONF
+        return facebook_uid;
+#else
+        try {
+            string stored_value = client.get_string("/apps/shotwell/sharing/facebook/uid");
+            return (stored_value != "") ? stored_value : null;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return null;
+        }
+#endif        
+    }
+
+    public bool clear_facebook_user_name() {
+        return set_facebook_user_name("");
+    }
+
+    public bool set_facebook_user_name(string user_name) {
+#if NO_GCONF    
+        facebook_user_name = user_name;
+        return true;
+#else
+        try {
+            client.set_string("/apps/shotwell/sharing/facebook/user_name", user_name);
+            return true;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return false;
+        }
+#endif
+    }
+
+    public string? get_facebook_user_name() {
+#if NO_GCONF
+        return facebook_user_name;
+#else
+        try {
+            string stored_value =
+                client.get_string("/apps/shotwell/sharing/facebook/user_name");
+            return (stored_value != "") ? stored_value : null;
+        } catch (GLib.Error err) {
+            message("Unable to set GConf value.  Error message: %s", err.message);
+            return null;
+        }
+#endif        
     }
 
     public bool set_display_basic_properties(bool display) {

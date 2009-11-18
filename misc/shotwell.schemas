@@ -56,5 +56,70 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/facebook/session_key</key>
+            <applyto>/apps/shotwell/sharing/facebook/session_key</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>session key</short>
+                <long>Facebook API session key for the currently logged in session, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/facebook/session_secret</key>
+            <applyto>/apps/shotwell/sharing/facebook/session_secret</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>session secret</short>
+                <long>Facebook API session secret for the currently logged in session, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/facebook/uid</key>
+            <applyto>/apps/shotwell/sharing/facebook/uid</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>user i.d.</short>
+                <long>Facebook user i.d. for the currently logged in user, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/facebook/uid</key>
+            <applyto>/apps/shotwell/sharing/facebook/uid</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>user i.d.</short>
+                <long>Facebook user i.d. for the currently logged in user, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/facebook/user_name</key>
+            <applyto>/apps/shotwell/sharing/facebook/user_name</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>user name</short>
+                <long>The name of the currently logged in Facebook user, if any</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>

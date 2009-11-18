@@ -74,6 +74,7 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
+    private Gtk.ToolButton publish_button = null;
     private int scale = Thumbnail.DEFAULT_SCALE;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
     private int drag_failed_item_count = 0;
@@ -148,6 +149,16 @@ public class CollectionPage : CheckerboardPage {
         slideshow_button.clicked += on_slideshow;
         
         toolbar.insert(slideshow_button, -1);
+        
+        // publish button
+        publish_button = new Gtk.ToolButton.from_stock(Resources.PUBLISH);
+        publish_button.set_label(_("Publish"));
+        publish_button.set_tooltip_text(_("Publish the selected photos to various websites"));
+        publish_button.set_sensitive(false);
+        publish_button.is_important = true;
+        publish_button.clicked += on_publish;
+        
+        toolbar.insert(publish_button, -1);
         
         // separator to force slider to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -365,6 +376,7 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> items) {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
+        publish_button.set_sensitive(get_view().get_selected_count() > 0);
         enhance_button.sensitive = get_view().get_selected_count() > 0;
         new_event_button.sensitive = get_view().get_selected_count() > 0;
     }
@@ -718,7 +730,13 @@ public class CollectionPage : CheckerboardPage {
             _("Rotating..."), _("Undoing Rotate..."));
         get_command_manager().execute(command);
     }
-    
+
+    private void on_publish() {
+        PublishingDialog publishing_dialog = new PublishingDialog(get_view().get_selected(),
+            get_view().get_selected_count());
+        publishing_dialog.run();
+    }
+
     private void on_rotate_counterclockwise() {
         if (get_view().get_selected_count() == 0)
             return;

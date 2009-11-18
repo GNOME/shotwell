@@ -80,6 +80,8 @@ SRC_FILES = \
 	system.vala \
 	AppDirs.vala \
 	PixbufCache.vala \
+	WebConnectors.vala \
+	FacebookConnector.vala \
 	CommandManager.vala \
 	Commands.vala \
 	SlideshowPage.vala
@@ -131,7 +133,10 @@ EXT_PKGS = \
 	atk \
 	gee-1.0 \
 	libexif \
-	sqlite3
+	sqlite3 \
+	webkit-1.0 \
+	libsoup-2.4 \
+	libxml-2.0
 	
 ifdef LINUX
 EXT_PKGS += \
