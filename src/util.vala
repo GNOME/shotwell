@@ -126,6 +126,12 @@ public class KeyValueMap {
         
         map.set(key, value.to_string());
     }
+    
+    public void set_float(string key, float value) {
+        assert(key != null);
+        
+        map.set(key, value.to_string());
+    }
 
     public void set_bool(string key, bool value) {
         assert(key != null);
@@ -149,6 +155,12 @@ public class KeyValueMap {
         string value = map.get(key);
         
         return (value != null) ? value.to_double() : def;
+    }
+    
+    public float get_float(string key, float def) {
+        string value = map.get(key);
+        
+        return (value != null) ? (float) value.to_double() : def;
     }
 
     public bool get_bool(string key, bool def) {

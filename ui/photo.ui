@@ -13,6 +13,17 @@
             <menuitem name="Redo" action="CommonRedo" />
         </menu>
         
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <separator />
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
+            <menuitem name="Fullscreen" action="CommonFullscreen" />
+        </menu>
+        
         <menu name="PhotoMenu" action="PhotoMenu">
             <menuitem name="PrevPhoto" action="PrevPhoto" />
             <menuitem name="NextPhoto" action="NextPhoto" />
@@ -24,17 +35,6 @@
             <menuitem name="Enhance" action="Enhance" />
             <separator />
             <menuitem name="Revert" action="Revert" />
-        </menu>
-        
-        <menu name="ViewMenu" action="ViewMenu">
-            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
-            <separator />
-            <menu name="SortEvents" action="CommonSortEvents">
-                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
-                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
-            </menu>
-            <separator />
-            <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">

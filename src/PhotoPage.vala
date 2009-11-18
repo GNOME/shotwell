@@ -74,24 +74,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // crop tool
         crop_button = new Gtk.ToggleToolButton.from_stock(Resources.CROP);
-        crop_button.set_label(_("Crop"));
-        crop_button.set_tooltip_text(_("Crop the photo's size"));
+        crop_button.set_label(CropTool.TOOL_LABEL);
+        crop_button.set_tooltip_text(CropTool.TOOL_TOOLTIP);
         crop_button.toggled += on_crop_toggled;
         crop_button.is_important = true;
         toolbar.insert(crop_button, -1);
 
         // redeye reduction tool
         redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
-        redeye_button.set_label(_("Red-eye"));
-        redeye_button.set_tooltip_text(_("Reduce or eliminate any red-eye effects in the photo"));
+        redeye_button.set_label(RedeyeTool.TOOL_LABEL);
+        redeye_button.set_tooltip_text(RedeyeTool.TOOL_TOOLTIP);
         redeye_button.toggled += on_redeye_toggled;
         redeye_button.is_important = true;
         toolbar.insert(redeye_button, -1);
         
         // adjust tool
         adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
-        adjust_button.set_label(_("Adjust"));
-        adjust_button.set_tooltip_text(_("Adjust the photo's color and tone"));
+        adjust_button.set_label(AdjustTool.TOOL_LABEL);
+        adjust_button.set_tooltip_text(AdjustTool.TOOL_TOOLTIP);
         adjust_button.toggled += on_adjust_toggled;
         adjust_button.is_important = true;
         toolbar.insert(adjust_button, -1);
@@ -217,10 +217,27 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_pixbuf_fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err) {
+        // if not of the current photo, nothing more to do
         if (!photo.equals(get_photo()))
             return;
         
         if (pixbuf != null) {
+            // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
+            // displayed
+            if (current_tool != null) {
+                try {
+                    Gdk.Pixbuf? tool_pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(),
+                        photo);
+                    if (tool_pixbuf != null)
+                        pixbuf = tool_pixbuf;
+                } catch(Error err) {
+                    warning("Unable to fetch tool pixbuf for %s: %s", photo.to_string(), err.message);
+                    set_photo_missing(true);
+                    
+                    return;
+                }
+            }
+            
             set_pixbuf(pixbuf);
             pixbuf_dirty = false;
         } else if (err != null) {
@@ -601,7 +618,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         repaint();
     }
     
-    private void deactivate_tool(Gdk.Pixbuf? new_pixbuf = null, bool needs_improvement = false) {
+    private void deactivate_tool(Command? command = null, Gdk.Pixbuf? new_pixbuf = null, 
+        bool needs_improvement = false) {
         if (current_tool == null)
             return;
 
@@ -636,6 +654,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
             pixbuf_dirty = true;
             Idle.add(update_pixbuf);
         }
+        
+        // execute the tool's command
+        if (command != null)
+            get_command_manager().execute(command);
     }
     
     private override void drag_begin(Gdk.DragContext context) {
@@ -952,8 +974,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         current_editing_toggle.active = false;
     }
     
-    private void on_tool_applied(Gdk.Pixbuf? new_pixbuf, bool needs_improvement) {
-        deactivate_tool(new_pixbuf, needs_improvement);
+    private void on_tool_applied(Command? command, Gdk.Pixbuf? new_pixbuf, bool needs_improvement) {
+        deactivate_tool(command, new_pixbuf, needs_improvement);
     }
     
     private void on_tool_cancelled() {
@@ -987,39 +1009,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!has_photo())
             return;
         
-        AppWindow.get_instance().set_busy_cursor();
-
-#if MEASURE_ENHANCE
-        Timer overall_timer = new Timer();
-#endif
-        /* if the current tool is the adjust tool, then don't commit to the database --
-           just set the slider values in the adjust dialog and force it to repaint
-           the canvas */
-        if (current_tool is AdjustTool) {
-            PixelTransformation[] transformations = get_photo().get_enhance_transformations();
-            if (transformations != null) {
-                ((AdjustTool) current_tool).set_adjustments(transformations);
-            } else {
-                set_photo_missing(true);
-            }
-        } else {
-            /* if the current tool isn't the adjust tool then commit the changes
-               to the database */
-            if (get_photo().enhance()) {
-                pixbuf_dirty = true;
-                
-                update_pixbuf();
-            } else {
-                set_photo_missing(true);
-            }
+        AdjustTool adjust_tool = current_tool as AdjustTool;
+        if (adjust_tool != null) {
+            adjust_tool.enhance();
+            
+            return;
         }
-
-#if MEASURE_ENHANCE
-        overall_timer.stop();
-        debug("Auto-Enhance overall time: %f sec", overall_timer.elapsed());
-#endif
-
-        AppWindow.get_instance().set_normal_cursor();
+        
+        EnhanceSingleCommand command = new EnhanceSingleCommand(get_photo());
+        get_command_manager().execute(command);
     }
 
     private void place_tool_window() {

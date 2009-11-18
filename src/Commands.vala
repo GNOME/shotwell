@@ -7,8 +7,8 @@
 public abstract class SingleDataSourceCommand : Command {
     protected DataSource source;
     
-    public SingleDataSourceCommand(DataSource source, string? name = null, string? description = null) {
-        base(name, description);
+    public SingleDataSourceCommand(DataSource source, string name, string explanation) {
+        base(name, explanation);
         
         this.source = source;
         
@@ -17,6 +17,10 @@ public abstract class SingleDataSourceCommand : Command {
     
     ~SingleDataSourceCommand() {
         source.destroyed -= on_source_destroyed;
+    }
+    
+    public DataSource get_source() {
+        return source;
     }
     
     private void on_source_destroyed() {
@@ -29,15 +33,69 @@ public abstract class SingleDataSourceCommand : Command {
 public abstract class SinglePhotoTransformationCommand : SingleDataSourceCommand {
     private PhotoTransformationState state;
     
-    public SinglePhotoTransformationCommand(TransformablePhoto photo, string? name = null,
-        string? description = null) {
-        base(photo, name, description);
+    public SinglePhotoTransformationCommand(TransformablePhoto photo, string name, string explanation) {
+        base(photo, name, explanation);
         
         state = photo.save_transformation_state();
     }
     
     public override void undo() {
         ((TransformablePhoto) source).load_transformation_state(state);
+    }
+}
+
+public abstract class GenericPhotoTransformationCommand : SingleDataSourceCommand {
+    private PhotoTransformationState original_state = null;
+    private PhotoTransformationState transformed_state = null;
+    
+    public GenericPhotoTransformationCommand(TransformablePhoto photo, string name, string explanation) {
+        base(photo, name, explanation);
+    }
+    
+    public override void execute() {
+        TransformablePhoto photo = (TransformablePhoto) source;
+        
+        original_state = photo.save_transformation_state();
+        
+        execute_on_photo(photo);
+        
+        transformed_state = photo.save_transformation_state();
+    }
+    
+    public abstract void execute_on_photo(TransformablePhoto photo);
+    
+    public override void undo() {
+        // use the original state of the photo
+        ((TransformablePhoto) source).load_transformation_state(original_state);
+    }
+    
+    public override void redo() {
+        // use the state of the photo after transformation
+        ((TransformablePhoto) source).load_transformation_state(transformed_state);
+    }
+    
+    protected virtual bool can_compress(Command command) {
+        return false;
+    }
+    
+    public override bool compress(Command command) {
+        if (!can_compress(command))
+            return false;
+        
+        GenericPhotoTransformationCommand generic = command as GenericPhotoTransformationCommand;
+        if (generic == null)
+            return false;
+        
+        if (generic.source != source)
+            return false;
+        
+        // execute this new (and successive) command
+        generic.execute();
+        
+        // save it's new transformation state as ours
+        transformed_state = generic.transformed_state;
+        
+        return true;
     }
 }
 
@@ -52,8 +110,8 @@ public abstract class MultipleDataSourceCommand : Command {
     private Gee.ArrayList<DataSource> acted_upon = new Gee.ArrayList<DataSource>();
     
     public MultipleDataSourceCommand(Gee.Iterable<DataView> iter, string progress_text,
-        string undo_progress_text, string? name = null, string? description = null) {
-        base(name, description);
+        string undo_progress_text, string name, string explanation) {
+        base(name, explanation);
         
         this.progress_text = progress_text;
         this.undo_progress_text = undo_progress_text;
@@ -78,6 +136,14 @@ public abstract class MultipleDataSourceCommand : Command {
     ~MultipleDataSourceCommand() {
         if (collection != null)
             collection.item_destroyed -= on_source_destroyed;
+    }
+    
+    public Gee.Iterable<DataSource> get_sources() {
+        return source_list;
+    }
+    
+    public int get_source_count() {
+        return source_list.size;
     }
     
     private void on_source_destroyed(DataSource source) {
@@ -149,8 +215,8 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
         TransformablePhoto, PhotoTransformationState>();
     
     public MultiplePhotoTransformationCommand(Gee.Iterable<DataView> iter, string progress_text,
-        string undo_progress_text, string? name = null, string? description = null) {
-        base(iter, progress_text, undo_progress_text, name, description);
+        string undo_progress_text, string name, string explanation) {
+        base(iter, progress_text, undo_progress_text, name, explanation);
         
         foreach (DataSource source in source_list) {
             TransformablePhoto photo = (TransformablePhoto) source;
@@ -171,8 +237,8 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
 public class RotateSingleCommand : SingleDataSourceCommand {
     private Rotation rotation;
     
-    public RotateSingleCommand(TransformablePhoto photo, Rotation rotation, string name, string description) {
-        base(photo, name, description);
+    public RotateSingleCommand(TransformablePhoto photo, Rotation rotation, string name, string explanation) {
+        base(photo, name, explanation);
         
         this.rotation = rotation;
     }
@@ -190,8 +256,8 @@ public class RotateMultipleCommand : MultipleDataSourceCommand {
     private Rotation rotation;
     
     public RotateMultipleCommand(Gee.Iterable<DataView> iter, Rotation rotation, string name, 
-        string description, string progress_text, string undo_progress_text) {
-        base(iter, progress_text, undo_progress_text, name, description);
+        string explanation, string progress_text, string undo_progress_text) {
+        base(iter, progress_text, undo_progress_text, name, explanation);
         
         this.rotation = rotation;
     }
@@ -245,13 +311,26 @@ public class SetKeyPhotoCommand : SingleDataSourceCommand {
     }
 }
 
-public class RevertSingleCommand : SinglePhotoTransformationCommand {
+public class RevertSingleCommand : GenericPhotoTransformationCommand {
     public RevertSingleCommand(TransformablePhoto photo) {
         base(photo, Resources.REVERT_LABEL, Resources.REVERT_TOOLTIP);
     }
     
-    public override void execute() {
-        ((TransformablePhoto) source).remove_all_transformations();
+    public override void execute_on_photo(TransformablePhoto photo) {
+        photo.remove_all_transformations();
+    }
+    
+    public override bool compress(Command command) {
+        RevertSingleCommand revert_single_command = command as RevertSingleCommand;
+        if (revert_single_command == null)
+            return false;
+        
+        if (revert_single_command.source != source)
+            return false;
+        
+        // no need to execute anything; multiple successive reverts on the same photo are as good
+        // as one
+        return true;
     }
 }
 
@@ -266,6 +345,39 @@ public class RevertMultipleCommand : MultiplePhotoTransformationCommand {
     }
 }
 
+public class EnhanceSingleCommand : GenericPhotoTransformationCommand {
+    public EnhanceSingleCommand(TransformablePhoto photo) {
+        base(photo, Resources.ENHANCE_LABEL, Resources.ENHANCE_TOOLTIP);
+    }
+    
+    public override void execute_on_photo(TransformablePhoto photo) {
+        AppWindow.get_instance().set_busy_cursor();
+#if MEASURE_ENHANCE
+        Timer overall_timer = new Timer();
+#endif
+        
+        photo.enhance();
+        
+#if MEASURE_ENHANCE
+        overall_timer.stop();
+        debug("Auto-Enhance overall time: %f sec", overall_timer.elapsed());
+#endif
+        AppWindow.get_instance().set_normal_cursor();
+    }
+    
+    public override bool compress(Command command) {
+        EnhanceSingleCommand enhance_single_command = command as EnhanceSingleCommand;
+        if (enhance_single_command == null)
+            return false;
+        
+        if (enhance_single_command.source != source)
+            return false;
+        
+        // multiple successive enhances on the same photo are as good as a single
+        return true;
+    }
+}
+
 public class EnhanceMultipleCommand : MultiplePhotoTransformationCommand {
     public EnhanceMultipleCommand(Gee.Iterable<DataView> iter) {
         base(iter, _("Enhancing..."), _("Undoing Enhance..."), Resources.ENHANCE_LABEL,
@@ -274,6 +386,58 @@ public class EnhanceMultipleCommand : MultiplePhotoTransformationCommand {
     
     public override void execute_on_source(DataSource source) {
         ((TransformablePhoto) source).enhance();
+    }
+}
+
+public class CropCommand : GenericPhotoTransformationCommand {
+    private Box crop;
+    
+    public CropCommand(TransformablePhoto photo, Box crop, string name, string explanation) {
+        base(photo, name, explanation);
+        
+        this.crop = crop;
+    }
+    
+    public override void execute_on_photo(TransformablePhoto photo) {
+        photo.set_crop(crop);
+    }
+}
+
+public class AdjustColorsCommand : GenericPhotoTransformationCommand {
+    private PixelTransformationBundle transformations;
+    
+    public AdjustColorsCommand(TransformablePhoto photo, PixelTransformationBundle transformations,
+        string name, string explanation) {
+        base(photo, name, explanation);
+        
+        this.transformations = transformations;
+    }
+    
+    public override void execute_on_photo(TransformablePhoto photo) {
+        AppWindow.get_instance().set_busy_cursor();
+        
+        photo.set_color_adjustments(transformations);
+        
+        AppWindow.get_instance().set_normal_cursor();
+    }
+    
+    public override bool can_compress(Command command) {
+        return command is AdjustColorsCommand;
+    }
+}
+
+public class RedeyeCommand : GenericPhotoTransformationCommand {
+    private RedeyeInstance redeye_instance;
+    
+    public RedeyeCommand(TransformablePhoto photo, RedeyeInstance redeye_instance, string name,
+        string explanation) {
+        base(photo, name, explanation);
+        
+        this.redeye_instance = redeye_instance;
+    }
+    
+    public override void execute_on_photo(TransformablePhoto photo) {
+        photo.add_redeye_instance(redeye_instance);
     }
 }
 

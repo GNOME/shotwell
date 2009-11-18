@@ -306,7 +306,7 @@ public abstract class EditingTool {
     
     public signal void deactivated();
     
-    public signal void applied(Gdk.Pixbuf? new_pixbuf, bool needs_improvement);
+    public signal void applied(Command? command, Gdk.Pixbuf? new_pixbuf, bool needs_improvement);
     
     public signal void cancelled();
 
@@ -399,6 +399,9 @@ public abstract class EditingTool {
 }
 
 public class CropTool : EditingTool {
+    public const string TOOL_LABEL = _("Crop");
+    public const string TOOL_TOOLTIP = _("Crop the photo's size");
+    
     private const double CROP_INIT_X_PCT = 0.15;
     private const double CROP_INIT_Y_PCT = 0.15;
 
@@ -1129,21 +1132,18 @@ public class CropTool : EditingTool {
     }
     
     private void on_crop_apply() {
-        // up-scale scaled crop to photo's dimensions
+        // scale screen-coordinate crop to photo's coordinate system
         Box crop = scaled_crop.get_scaled_similar(
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()), 
             canvas.get_photo().get_uncropped_dimensions());
 
-        // store the new crop
-        canvas.get_photo().set_crop(crop);
-        
         // crop the current pixbuf and offer it to the editing host
         Gdk.Pixbuf cropped = new Gdk.Pixbuf.subpixbuf(canvas.get_scaled_pixbuf(), scaled_crop.left,
             scaled_crop.top, scaled_crop.get_width(), scaled_crop.get_height());
-
+        
         // signal host; we have a cropped image, but it will be scaled upward, and so a better one
         // should be fetched
-        applied(cropped, true);
+        applied(new CropCommand(canvas.get_photo(), crop, TOOL_LABEL, TOOL_TOOLTIP), cropped, true);
     }
 
     private void update_cursor(int x, int y) {
@@ -1652,6 +1652,9 @@ public struct RedeyeInstance {
 }
 
 public class RedeyeTool : EditingTool {
+    public const string TOOL_LABEL = _("Red-eye");
+    public const string TOOL_TOOLTIP = _("Reduce or eliminate any red-eye effects in the photo");
+    
     private class RedeyeToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
 
@@ -1772,23 +1775,27 @@ public class RedeyeTool : EditingTool {
         
         RedeyeInstance instance_unscaled =
             RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
-
-        canvas.get_photo().add_redeye_instance(instance_unscaled);
+        
+        RedeyeCommand command = new RedeyeCommand(canvas.get_photo(), instance_unscaled, TOOL_LABEL,
+            TOOL_TOOLTIP);
+        AppWindow.get_command_manager().execute(command);
+    }
     
+    private void on_photo_altered() {
         try {
             current_pixbuf = canvas.get_photo().get_pixbuf(canvas.get_scaling());
         } catch (Error err) {
             warning("%s", err.message);
             aborted();
-
+            
             return;
         }
-
+        
         canvas.repaint();
     }
     
     private void on_close() {
-        applied(current_pixbuf, false);
+        applied(null, current_pixbuf, false);
     }
     
     private void on_canvas_resize() {
@@ -1834,12 +1841,16 @@ public class RedeyeTool : EditingTool {
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.ARROW);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
         
+        canvas.get_photo().altered += on_photo_altered;
+        
         base.activate(canvas);
     }
     
     public override void deactivate() {
-        if (canvas != null)
+        if (canvas != null) {
+            canvas.get_photo().altered -= on_photo_altered;
             unbind_canvas_handlers(canvas);
+        }
         
         if (redeye_tool_window != null) {
             unbind_window_handlers();
@@ -1951,6 +1962,9 @@ public class RedeyeTool : EditingTool {
 }
 
 public class AdjustTool : EditingTool {
+    public const string TOOL_LABEL = _("Adjust");
+    public const string TOOL_TOOLTIP = _("Adjust the photo's color and tone");
+    
     const int SLIDER_WIDTH = 160;
 
     private class AdjustToolWindow : EditingToolWindow {
@@ -2043,7 +2057,170 @@ public class AdjustTool : EditingTool {
             add(pane_layouter);
         }
     }
-
+    
+    private abstract class AdjustToolCommand : Command {
+        protected weak AdjustTool owner;
+        
+        public AdjustToolCommand(AdjustTool owner, string name, string explanation) {
+            base (name, explanation);
+            
+            this.owner = owner;
+            owner.deactivated += on_owner_deactivated;
+        }
+        
+        ~AdjustToolCommand() {
+            if (owner != null)
+                owner.deactivated -= on_owner_deactivated;
+        }
+        
+        private void on_owner_deactivated() {
+            AppWindow.get_command_manager().reset();
+        }
+    }
+    
+    private class AdjustResetCommand : AdjustToolCommand {
+        private PixelTransformationBundle original;
+        private PixelTransformationBundle reset;
+        
+        public AdjustResetCommand(AdjustTool owner, PixelTransformationBundle current) {
+            base (owner, _("Reset Colors"), _("Reset all color adjustments to original"));
+            
+            original = current.copy();
+            reset = new PixelTransformationBundle();
+            reset.set_to_identity();
+        }
+        
+        public override void execute() {
+            owner.set_adjustments(reset);
+        }
+        
+        public override void undo() {
+            owner.set_adjustments(original);
+        }
+        
+        public override bool compress(Command command) {
+            AdjustResetCommand reset_command = command as AdjustResetCommand;
+            if (reset_command == null)
+                return false;
+            
+            if (reset_command.owner != owner)
+                return false;
+            
+            // multiple successive resets on the same photo as good as a single
+            return true;
+        }
+    }
+    
+    private class SliderAdjustmentCommand : AdjustToolCommand {
+        private PixelTransformationType transformation_type;
+        private PixelTransformation new_transformation;
+        private PixelTransformation old_transformation;
+        
+        public SliderAdjustmentCommand(AdjustTool owner, PixelTransformation old_transformation,
+            PixelTransformation new_transformation, string name) {
+            base(owner, name, name);
+            
+            this.old_transformation = old_transformation;
+            this.new_transformation = new_transformation;
+            transformation_type = old_transformation.get_transformation_type();
+            assert(new_transformation.get_transformation_type() == transformation_type);
+        }
+        
+        public override void execute() {
+            // don't update slider; it's been moved by the user
+            owner.update_transformation(new_transformation);
+            owner.canvas.repaint();
+        }
+        
+        public override void undo() {
+            owner.update_transformation(old_transformation);
+            
+            owner.unbind_window_handlers();
+            owner.update_slider(old_transformation);
+            owner.bind_window_handlers();
+            
+            owner.canvas.repaint();
+        }
+        
+        public override void redo() {
+            owner.update_transformation(new_transformation);
+            
+            owner.unbind_window_handlers();
+            owner.update_slider(new_transformation);
+            owner.bind_window_handlers();
+            
+            owner.canvas.repaint();
+        }
+        
+        public override bool compress(Command command) {
+            SliderAdjustmentCommand slider_adjustment = command as SliderAdjustmentCommand;
+            if (slider_adjustment == null)
+                return false;
+            
+            // same photo
+            if (slider_adjustment.owner != owner)
+                return false;
+            
+            // same adjustment
+            if (slider_adjustment.transformation_type != transformation_type)
+                return false;
+            
+            // execute the command
+            slider_adjustment.execute();
+            
+            // save it's transformation as ours
+            new_transformation = slider_adjustment.new_transformation;
+            
+            return true;
+        }
+    }
+    
+    private class AdjustEnhanceCommand : AdjustToolCommand {
+        private TransformablePhoto photo;
+        private PixelTransformationBundle original;
+        private PixelTransformationBundle enhanced = null;
+        
+        public AdjustEnhanceCommand(AdjustTool owner, TransformablePhoto photo) {
+            base(owner, Resources.ENHANCE_LABEL, Resources.ENHANCE_TOOLTIP);
+            
+            this.photo = photo;
+            original = photo.get_color_adjustments();
+        }
+        
+        public override void execute() {
+            if (enhanced == null)
+                enhanced = photo.get_enhance_transformations();
+            
+            owner.set_adjustments(enhanced);
+        }
+        
+        public override void undo() {
+            owner.set_adjustments(original);
+        }
+        
+        public override bool compress(Command command) {
+            // can compress both normal enhance and one with the adjust tool running
+            EnhanceSingleCommand enhance_single = command as EnhanceSingleCommand;
+            if (enhance_single != null) {
+                TransformablePhoto photo = (TransformablePhoto) enhance_single.get_source();
+                
+                // multiple successive enhances are as good as a single, as long as it's on the
+                // same photo
+                return photo.equals(owner.canvas.get_photo());
+            }
+            
+            AdjustEnhanceCommand enhance_command = command as AdjustEnhanceCommand;
+            if (enhance_command == null)
+                return false;
+            
+            if (enhance_command.owner != owner)
+                return false;
+            
+            // multiple successive as good as a single
+            return true;
+        }
+    }
+    
     private AdjustToolWindow adjust_tool_window = null;
     private bool suppress_effect_redraw = false;
     private Gdk.Pixbuf draw_to_pixbuf = null;
@@ -2051,8 +2228,7 @@ public class AdjustTool : EditingTool {
     private Gdk.Pixbuf virgin_histogram_pixbuf = null;
     private PixelTransformer transformer = null;
     private PixelTransformer histogram_transformer = null;
-    private PixelTransformation[] transformations =
-        new PixelTransformation[SupportedAdjustments.NUM];
+    private PixelTransformationBundle transformations = null;
     private float[] fp_pixel_cache = null;
     
     private AdjustTool() {
@@ -2064,14 +2240,17 @@ public class AdjustTool : EditingTool {
 
     public override void activate(PhotoCanvas canvas) {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
-        transformer = new PixelTransformer();
+        
+        TransformablePhoto photo = canvas.get_photo();
+        transformations = photo.get_color_adjustments();
+        transformer = transformations.generate_transformer();
+        
+        // the histogram transformer uses all transformations but contrast expansion
         histogram_transformer = new PixelTransformer();
 
         /* set up expansion */
         ExpansionTransformation expansion_trans = (ExpansionTransformation)
-            canvas.get_photo().get_adjustment(SupportedAdjustments.TONE_EXPANSION);
-        transformations[SupportedAdjustments.TONE_EXPANSION] = expansion_trans;
-        transformer.attach_transformation(transformations[SupportedAdjustments.TONE_EXPANSION]);
+            transformations.get_transformation(PixelTransformationType.TONE_EXPANSION);
         adjust_tool_window.histogram_manipulator.set_left_nub_position(
             expansion_trans.get_black_point());
         adjust_tool_window.histogram_manipulator.set_right_nub_position(
@@ -2079,41 +2258,31 @@ public class AdjustTool : EditingTool {
 
         /* set up shadows */
         ShadowDetailTransformation shadows_trans = (ShadowDetailTransformation)
-            canvas.get_photo().get_adjustment(SupportedAdjustments.SHADOWS);
-        transformations[SupportedAdjustments.SHADOWS] = shadows_trans;
-        transformer.attach_transformation(transformations[SupportedAdjustments.SHADOWS]);
-        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.SHADOWS]);
+            transformations.get_transformation(PixelTransformationType.SHADOWS);
+        histogram_transformer.attach_transformation(shadows_trans);
         adjust_tool_window.shadows_slider.set_value(shadows_trans.get_parameter());
 
         /* set up temperature & tint */
         TemperatureTransformation temp_trans = (TemperatureTransformation)
-            canvas.get_photo().get_adjustment(SupportedAdjustments.TEMPERATURE);
-        transformations[SupportedAdjustments.TEMPERATURE] = temp_trans;
-        transformer.attach_transformation(transformations[SupportedAdjustments.TEMPERATURE]);
-        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.TEMPERATURE]);
+            transformations.get_transformation(PixelTransformationType.TEMPERATURE);
+        histogram_transformer.attach_transformation(temp_trans);
         adjust_tool_window.temperature_slider.set_value(temp_trans.get_parameter());
 
         TintTransformation tint_trans = (TintTransformation)
-            canvas.get_photo().get_adjustment(SupportedAdjustments.TINT);
-        transformations[SupportedAdjustments.TINT] = tint_trans;
-        transformer.attach_transformation(transformations[SupportedAdjustments.TINT]);
-        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.TINT]);
+            transformations.get_transformation(PixelTransformationType.TINT);
+        histogram_transformer.attach_transformation(tint_trans);
         adjust_tool_window.tint_slider.set_value(tint_trans.get_parameter());
 
         /* set up saturation */
         SaturationTransformation sat_trans = (SaturationTransformation)
-            canvas.get_photo().get_adjustment(SupportedAdjustments.SATURATION);
-        transformations[SupportedAdjustments.SATURATION] = sat_trans;
-        transformer.attach_transformation(transformations[SupportedAdjustments.SATURATION]);
-        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.SATURATION]);
+            transformations.get_transformation(PixelTransformationType.SATURATION);
+        histogram_transformer.attach_transformation(sat_trans);
         adjust_tool_window.saturation_slider.set_value(sat_trans.get_parameter());
 
         /* set up exposure */
         ExposureTransformation exposure_trans = (ExposureTransformation)
-            canvas.get_photo().get_adjustment(SupportedAdjustments.EXPOSURE);
-        transformations[SupportedAdjustments.EXPOSURE] = exposure_trans;
-        transformer.attach_transformation(transformations[SupportedAdjustments.EXPOSURE]);
-        histogram_transformer.attach_transformation(transformations[SupportedAdjustments.EXPOSURE]);
+            transformations.get_transformation(PixelTransformationType.EXPOSURE);
+        histogram_transformer.attach_transformation(exposure_trans);
         adjust_tool_window.exposure_slider.set_value(exposure_trans.get_parameter());
 
         bind_canvas_handlers(canvas);
@@ -2125,6 +2294,8 @@ public class AdjustTool : EditingTool {
         histogram_pixbuf = draw_to_pixbuf.scale_simple(draw_to_pixbuf.width / 2,
             draw_to_pixbuf.height / 2, Gdk.InterpType.HYPER);
         virgin_histogram_pixbuf = histogram_pixbuf.copy();
+        
+        canvas.get_photo().altered += on_photo_altered;
 
         base.activate(canvas);
     }
@@ -2134,8 +2305,10 @@ public class AdjustTool : EditingTool {
     }
 
     public override void deactivate() {
-        if (canvas != null)
+        if (canvas != null) {
+            canvas.get_photo().altered -= on_photo_altered;
             unbind_canvas_handlers(canvas);
+        }
         
         if (adjust_tool_window != null) {
             unbind_window_handlers();
@@ -2168,20 +2341,8 @@ public class AdjustTool : EditingTool {
     }
 
     private void on_reset() {
-        suppress_effect_redraw = true;
-
-        adjust_tool_window.exposure_slider.set_value(0.0);
-        adjust_tool_window.saturation_slider.set_value(0.0);
-        adjust_tool_window.temperature_slider.set_value(0.0);
-        adjust_tool_window.tint_slider.set_value(0.0);
-        adjust_tool_window.shadows_slider.set_value(0.0);
-        
-        adjust_tool_window.histogram_manipulator.set_left_nub_position(0);
-        adjust_tool_window.histogram_manipulator.set_right_nub_position(255);
-        on_histogram_constraint();
-    
-        suppress_effect_redraw = false;
-        canvas.repaint();
+        AdjustResetCommand command = new AdjustResetCommand(this, transformations);
+        AppWindow.get_command_manager().execute(command);
     }
 
     private void on_apply() {
@@ -2189,60 +2350,62 @@ public class AdjustTool : EditingTool {
 
         get_tool_window().hide();
         
-        AppWindow.get_instance().set_busy_cursor();
-
-        canvas.get_photo().set_adjustments(transformations);
-
-        AppWindow.get_instance().set_normal_cursor();
-
-        applied(draw_to_pixbuf, false);
+        applied(new AdjustColorsCommand(canvas.get_photo(), transformations, TOOL_LABEL, TOOL_TOOLTIP),
+            draw_to_pixbuf, false);
     }
     
-    private void update_transformations(PixelTransformation[] new_transformations) {
-        for (int i = 0; i < ((int) SupportedAdjustments.NUM); i++)
-            update_transformation((SupportedAdjustments) i, new_transformations[i]);
+    private void update_transformations(PixelTransformationBundle new_transformations) {
+        foreach (PixelTransformation transformation in new_transformations.get_transformations())
+            update_transformation(transformation);
     }
     
-    private void update_transformation(SupportedAdjustments type, PixelTransformation trans) {
-        transformer.replace_transformation(transformations[type], trans);
-        if (type != SupportedAdjustments.TONE_EXPANSION)
-            histogram_transformer.replace_transformation(transformations[type], trans);
-        transformations[type] = trans;
+    private void update_transformation(PixelTransformation new_transformation) {
+        PixelTransformation old_transformation = transformations.get_transformation(
+            new_transformation.get_transformation_type());
+        
+        transformer.replace_transformation(old_transformation, new_transformation);
+        if (new_transformation.get_transformation_type() != PixelTransformationType.TONE_EXPANSION)
+            histogram_transformer.replace_transformation(old_transformation, new_transformation);
+        
+        transformations.set(new_transformation);
     }
     
-    private void update_and_repaint(SupportedAdjustments type, PixelTransformation trans) {
-        update_transformation(type, trans);
-        canvas.repaint();
+    private void slider_updated(PixelTransformation new_transformation, string name) {
+        PixelTransformation old_transformation = transformations.get_transformation(
+            new_transformation.get_transformation_type());
+        SliderAdjustmentCommand command = new SliderAdjustmentCommand(this, old_transformation,
+            new_transformation, name);
+        AppWindow.get_command_manager().execute(command);
     }
-
+    
     private void on_temperature_adjustment() {
         TemperatureTransformation new_temp_trans = new TemperatureTransformation(
             (float) adjust_tool_window.temperature_slider.get_value());
-        update_and_repaint(SupportedAdjustments.TEMPERATURE, new_temp_trans);
+        slider_updated(new_temp_trans, _("Temperature"));
     }
 
     private void on_tint_adjustment() {
         TintTransformation new_tint_trans = new TintTransformation(
             (float) adjust_tool_window.tint_slider.get_value());
-        update_and_repaint(SupportedAdjustments.TINT, new_tint_trans);
+        slider_updated(new_tint_trans, _("Tint"));
     }
 
     private void on_saturation_adjustment() {
         SaturationTransformation new_sat_trans = new SaturationTransformation(
             (float) adjust_tool_window.saturation_slider.get_value());
-        update_and_repaint(SupportedAdjustments.SATURATION, new_sat_trans);
+        slider_updated(new_sat_trans, _("Saturation"));
     }
 
     private void on_exposure_adjustment() {
         ExposureTransformation new_exp_trans = new ExposureTransformation(
             (float) adjust_tool_window.exposure_slider.get_value());
-        update_and_repaint(SupportedAdjustments.EXPOSURE, new_exp_trans);
+        slider_updated(new_exp_trans, _("Exposure"));
     }
     
     private void on_shadows_adjustment() {
         ShadowDetailTransformation new_shadows_trans = new ShadowDetailTransformation(
             (float) adjust_tool_window.shadows_slider.get_value());
-        update_and_repaint(SupportedAdjustments.SHADOWS, new_shadows_trans);
+        slider_updated(new_shadows_trans, _("Shadows"));
     }
 
     private void on_histogram_constraint() {
@@ -2252,7 +2415,7 @@ public class AdjustTool : EditingTool {
             adjust_tool_window.histogram_manipulator.get_right_nub_position();
         ExpansionTransformation new_exp_trans =
             new ExpansionTransformation.from_extrema(expansion_black_point, expansion_white_point);
-        update_and_repaint(SupportedAdjustments.TONE_EXPANSION, new_exp_trans);
+        slider_updated(new_exp_trans, _("Contrast Expansion"));
     }
 
     private void on_canvas_resize() {
@@ -2300,28 +2463,70 @@ public class AdjustTool : EditingTool {
             on_histogram_constraint;
     }
     
-    public void set_adjustments(PixelTransformation[] new_adjustments) {
+    public bool enhance() {
+        AdjustEnhanceCommand command = new AdjustEnhanceCommand(this, canvas.get_photo());
+        AppWindow.get_command_manager().execute(command);
+        
+        return true;
+    }
+    
+    private void on_photo_altered() {
+        PixelTransformationBundle adjustments = canvas.get_photo().get_color_adjustments();
+        set_adjustments(adjustments);
+    }
+    
+    private void set_adjustments(PixelTransformationBundle new_adjustments) {
         unbind_window_handlers();
 
         update_transformations(new_adjustments);
-
-        adjust_tool_window.histogram_manipulator.set_left_nub_position(((ExpansionTransformation)
-            new_adjustments[SupportedAdjustments.TONE_EXPANSION]).get_black_point());
-        adjust_tool_window.histogram_manipulator.set_right_nub_position(((ExpansionTransformation)
-            new_adjustments[SupportedAdjustments.TONE_EXPANSION]).get_white_point());
-        adjust_tool_window.shadows_slider.set_value(((ShadowDetailTransformation)
-            new_adjustments[SupportedAdjustments.SHADOWS]).get_parameter());
-        adjust_tool_window.exposure_slider.set_value(((ExposureTransformation)
-            new_adjustments[SupportedAdjustments.EXPOSURE]).get_parameter());
-        adjust_tool_window.saturation_slider.set_value(((SaturationTransformation)
-            new_adjustments[SupportedAdjustments.SATURATION]).get_parameter());
-        adjust_tool_window.tint_slider.set_value(((TintTransformation)
-            new_adjustments[SupportedAdjustments.TINT]).get_parameter());
-        adjust_tool_window.temperature_slider.set_value(((TemperatureTransformation)
-            new_adjustments[SupportedAdjustments.TEMPERATURE]).get_parameter());
+        
+        foreach (PixelTransformation adjustment in new_adjustments.get_transformations())
+            update_slider(adjustment);
 
         bind_window_handlers();
         canvas.repaint();
+    }
+    
+    // Note that window handlers should be unbound (unbind_window_handlers) prior to calling this
+    // if the caller doesn't want the widget's signals to fire with the change.
+    private void update_slider(PixelTransformation transformation) {
+        switch (transformation.get_transformation_type()) {
+            case PixelTransformationType.TONE_EXPANSION:
+                ExpansionTransformation expansion = (ExpansionTransformation) transformation;
+                
+                adjust_tool_window.histogram_manipulator.set_left_nub_position(expansion.get_black_point());
+                adjust_tool_window.histogram_manipulator.set_right_nub_position(expansion.get_white_point());
+            break;
+            
+            case PixelTransformationType.SHADOWS:
+                adjust_tool_window.shadows_slider.set_value(
+                    ((ShadowDetailTransformation) transformation).get_parameter());
+            break;
+            
+            case PixelTransformationType.EXPOSURE:
+                adjust_tool_window.exposure_slider.set_value(
+                    ((ExposureTransformation) transformation).get_parameter());
+            break;
+            
+            case PixelTransformationType.SATURATION:
+                adjust_tool_window.saturation_slider.set_value(
+                    ((SaturationTransformation) transformation).get_parameter());
+            break;
+            
+            case PixelTransformationType.TINT:
+                adjust_tool_window.tint_slider.set_value(
+                    ((TintTransformation) transformation).get_parameter());
+            break;
+            
+            case PixelTransformationType.TEMPERATURE:
+                adjust_tool_window.temperature_slider.set_value(
+                    ((TemperatureTransformation) transformation).get_parameter());
+            break;
+            
+            default:
+                error("Unknown adjustment: %d", (int) transformation.get_transformation_type());
+            break;
+        }
     }
     
     private void init_fp_pixel_cache(Gdk.Pixbuf source) {

@@ -10,11 +10,20 @@ public interface CommandDescription : Object {
    public abstract string get_explanation();
 }
 
+// Command's overrideable action calls are guaranteed to be called in this order:
+//
+//   * execute() (once and only once)
+//   * undo()
+//   * redo()
+//   * undo()
+//   * redo() ...
+//
+// redo()'s default implementation is to call execute, which in many cases is appropriate.
 public abstract class Command : Object, CommandDescription {
-    private string? name;
-    private string? explanation;
+    private string name;
+    private string explanation;
     
-    public Command(string? name = null, string? explanation = null) {
+    public Command(string name, string explanation) {
         this.name = name;
         this.explanation = explanation;
     }
@@ -23,23 +32,33 @@ public abstract class Command : Object, CommandDescription {
     
     public abstract void undo();
     
+    public virtual void redo() {
+        execute();
+    }
+    
+    // Command compression, allowing multiple commands of similar type to be undone/redone at the
+    // same time.  If this method returns true, it's assumed the passed Command has been executed.
+    public virtual bool compress(Command command) {
+        return false;
+    }
+    
     public virtual string get_name() {
-        return (name != null) ? name : "";
+        return name;
     }
     
     public virtual string get_explanation() {
-        return (explanation != null) ? explanation : "";
+        return explanation;
     }
 }
 
 public class CommandManager {
-    public const int DEFAULT_DEPTH = 10;
+    public const int DEFAULT_DEPTH = 20;
     
     private int depth;
     private Gee.ArrayList<Command> undo_stack = new Gee.ArrayList<Command>();
     private Gee.ArrayList<Command> redo_stack = new Gee.ArrayList<Command>();
     
-    public signal void state_altered(bool can_undo, bool can_redo);
+    public signal void altered(bool can_undo, bool can_redo);
     
     public CommandManager(int depth = DEFAULT_DEPTH) {
         assert(depth > 0);
@@ -51,12 +70,19 @@ public class CommandManager {
         undo_stack.clear();
         redo_stack.clear();
         
-        state_altered(false, false);
+        altered(false, false);
     }
     
     public void execute(Command command) {
         // clear redo stack; executing a command implies not going to undo an undo
         redo_stack.clear();
+        
+        // see if this command can be compressed (merged) with the topmost command
+        Command? top_command = top(undo_stack);
+        if (top_command != null) {
+            if (top_command.compress(command))
+                return;
+        }
         
         // update state before executing command
         push(undo_stack, command);
@@ -64,7 +90,7 @@ public class CommandManager {
         command.execute();
         
         // notify after execution
-        state_altered(can_undo(), can_redo());
+        altered(can_undo(), can_redo());
     }
     
     public bool can_undo() {
@@ -87,7 +113,7 @@ public class CommandManager {
         command.undo();
         
         // report state changed after command has executed
-        state_altered(can_undo(), can_redo());
+        altered(can_undo(), can_redo());
         
         return true;
     }
@@ -109,10 +135,10 @@ public class CommandManager {
         push(undo_stack, command);
         
         // redo command with state ready
-        command.execute();
+        command.redo();
         
         // report state changed after command has executed
-        state_altered(can_undo(), can_redo());
+        altered(can_undo(), can_redo());
         
         return true;
     }

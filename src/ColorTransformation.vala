@@ -218,7 +218,134 @@ public enum PixelFormat {
     HSV
 }
 
+public enum PixelTransformationType {
+    TONE_EXPANSION,
+    SHADOWS,
+    TEMPERATURE,
+    TINT,
+    SATURATION,
+    EXPOSURE
+}
+
+public class PixelTransformationBundle {
+    private Gee.HashMap<int, PixelTransformation> map = new Gee.HashMap<int, PixelTransformation>(
+        Gee.Functions.get_hash_func_for(typeof(int)), Gee.Functions.get_equal_func_for(typeof(int)));
+    
+    public PixelTransformationBundle() {
+    }
+    
+    public void set(PixelTransformation transformation) {
+        map.set((int) transformation.get_transformation_type(), transformation);
+    }
+    
+    public void set_to_identity() {
+        set(new ExpansionTransformation.from_extrema(0, 255));
+        set(new ShadowDetailTransformation(0.0f));
+        set(new TemperatureTransformation(0.0f));
+        set(new TintTransformation(0.0f));
+        set(new SaturationTransformation(0.0f));
+        set(new ExposureTransformation(0.0f));
+    }
+    
+    public void load(KeyValueMap store) {
+        string expansion_params_encoded = store.get_string("expansion", "-");
+        if (expansion_params_encoded == "-")
+            set(new ExpansionTransformation.from_extrema(0, 255));
+        else
+            set(new ExpansionTransformation.from_string(expansion_params_encoded));
+        
+        set(new ShadowDetailTransformation(store.get_float("shadows", 0.0f)));
+        set(new TemperatureTransformation(store.get_float("temperature", 0.0f)));
+        set(new TintTransformation(store.get_float("tint", 0.0f)));
+        set(new SaturationTransformation(store.get_float("saturation", 0.0f)));
+        set(new ExposureTransformation(store.get_float("exposure", 0.0f)));
+    }
+    
+    public KeyValueMap save(string group) {
+        KeyValueMap store = new KeyValueMap(group);
+        
+        ExpansionTransformation? new_expansion_trans =
+            (ExpansionTransformation) get_transformation(PixelTransformationType.TONE_EXPANSION);
+        assert(new_expansion_trans != null);
+        store.set_string("expansion", new_expansion_trans.to_string());
+        
+        ShadowDetailTransformation? new_shadows_trans =
+            (ShadowDetailTransformation) get_transformation(PixelTransformationType.SHADOWS);
+        assert(new_shadows_trans != null);
+        store.set_float("shadows", new_shadows_trans.get_parameter());
+        
+        TemperatureTransformation? new_temp_trans =
+            (TemperatureTransformation) get_transformation(PixelTransformationType.TEMPERATURE);
+        assert(new_temp_trans != null);
+        store.set_float("temperature", new_temp_trans.get_parameter());
+
+        TintTransformation? new_tint_trans =
+            (TintTransformation) get_transformation(PixelTransformationType.TINT);
+        assert(new_tint_trans != null);
+        store.set_float("tint", new_tint_trans.get_parameter());
+
+        SaturationTransformation? new_sat_trans =
+            (SaturationTransformation) get_transformation(PixelTransformationType.SATURATION);
+        assert(new_sat_trans != null);
+        store.set_float("saturation", new_sat_trans.get_parameter());
+
+        ExposureTransformation? new_exposure_trans =
+            (ExposureTransformation) get_transformation(PixelTransformationType.EXPOSURE);
+        assert(new_exposure_trans != null);
+        store.set_float("exposure", new_exposure_trans.get_parameter());
+        
+        return store;
+    }
+    
+    public int get_count() {
+        return map.size;
+    }
+    
+    public PixelTransformation? get_transformation(PixelTransformationType type) {
+        return map.get((int) type);
+    }
+    
+    public Gee.Iterable<PixelTransformation> get_transformations() {
+        return map.values;
+    }
+    
+    public bool is_identity() {
+        foreach (PixelTransformation adjustment in get_transformations()) {
+            if (!adjustment.is_identity())
+                return false;
+        }
+        
+        return true;
+    }
+    
+    public PixelTransformer generate_transformer() {
+        PixelTransformer transformer = new PixelTransformer();
+        foreach (PixelTransformation transformation in get_transformations())
+            transformer.attach_transformation(transformation);
+        
+        return transformer;
+    }
+    
+    public PixelTransformationBundle copy() {
+        PixelTransformationBundle bundle = new PixelTransformationBundle();
+        foreach (PixelTransformation transformation in get_transformations())
+            bundle.set(transformation);
+        
+        return bundle;
+    }
+}
+
 public abstract class PixelTransformation {
+    private PixelTransformationType type;
+    
+    public PixelTransformation(PixelTransformationType type) {
+        this.type = type;
+    }
+    
+    public PixelTransformationType get_transformation_type() {
+        return type;
+    }
+    
     public abstract PixelFormat get_preferred_format();
 
     public virtual CompositionMode get_composition_mode() {
@@ -261,6 +388,10 @@ public class RGBTransformation : PixelTransformation {
     protected const int MATRIX_SIZE = 16;
 
     protected bool identity = true;
+    
+    public RGBTransformation(PixelTransformationType type) {
+        base(type);
+    }
 
     public override PixelFormat get_preferred_format() {
         return PixelFormat.RGB;
@@ -416,7 +547,7 @@ public class RGBTransformation : PixelTransformation {
     }
     
     public override PixelTransformation copy() {
-        RGBTransformation result = new RGBTransformation();
+        RGBTransformation result = new RGBTransformation(get_transformation_type());
 
         for (int i = 0; i < MATRIX_SIZE; i++) {
             result.matrix_entries[i] = matrix_entries[i];
@@ -427,6 +558,10 @@ public class RGBTransformation : PixelTransformation {
 }
 
 public abstract class HSVTransformation : PixelTransformation {
+    public HSVTransformation(PixelTransformationType type) {
+        base(type);
+    }
+    
     public override PixelFormat get_preferred_format() {
         return PixelFormat.HSV;
     }
@@ -444,6 +579,8 @@ public class TintTransformation : RGBTransformation {
     private float parameter;
 
     public TintTransformation(float client_param) {
+        base(PixelTransformationType.TINT);
+        
         parameter = client_param.clamp(MIN_PARAMETER, MAX_PARAMETER);
 
          if (parameter != 0.0f) {
@@ -471,6 +608,8 @@ public class TemperatureTransformation : RGBTransformation {
     private float parameter;
 
     public TemperatureTransformation(float client_parameter) {
+        base(PixelTransformationType.TEMPERATURE);
+        
         parameter = client_parameter.clamp(MIN_PARAMETER, MAX_PARAMETER);
         
          if (parameter != 0.0f) {
@@ -497,6 +636,8 @@ public class SaturationTransformation : RGBTransformation {
     private float parameter;
 
     public SaturationTransformation(float client_parameter) {
+        base(PixelTransformationType.SATURATION);
+        
         parameter = client_parameter.clamp(MIN_PARAMETER, MAX_PARAMETER);
 
         if (parameter != 0.0f) {
@@ -536,6 +677,8 @@ public class ExposureTransformation : RGBTransformation {
     float parameter;
 
     public ExposureTransformation(float client_parameter) {
+        base(PixelTransformationType.EXPOSURE);
+        
         parameter = client_parameter.clamp(MIN_PARAMETER, MAX_PARAMETER);
 
         if (parameter != 0.0f) {
@@ -560,7 +703,19 @@ public class PixelTransformer {
         new Gee.ArrayList<PixelTransformation>();
     private PixelTransformation[] optimized_transformations = null;
     private int optimized_slots_used = 0;
-
+    
+    public PixelTransformer() {
+    }
+    
+    public PixelTransformer copy() {
+        PixelTransformer clone = new PixelTransformer();
+        
+        foreach (PixelTransformation transformation in transformations)
+            clone.transformations.add(transformation);
+        
+        return clone;
+    }
+    
     private void build_optimized_transformations() {
         optimized_transformations = new PixelTransformation[transformations.size];
 
@@ -1020,6 +1175,8 @@ public class ExpansionTransformation : HSVTransformation {
     private int high_kink;
 
     public ExpansionTransformation(IntensityHistogram histogram) {
+        base(PixelTransformationType.TONE_EXPANSION);
+        
         remap_table = new float[256];
 
         float LOW_KINK_MASS = LOW_DISCARD_MASS;
@@ -1036,6 +1193,8 @@ public class ExpansionTransformation : HSVTransformation {
     }
     
     public ExpansionTransformation.from_extrema(int black_point, int white_point) {
+        base(PixelTransformationType.TONE_EXPANSION);
+        
         assert((black_point >= 0) && (black_point <= 255));
         assert((white_point >= 0) && (white_point <= 255));
         assert(black_point < white_point);
@@ -1047,6 +1206,8 @@ public class ExpansionTransformation : HSVTransformation {
     }
 
     public ExpansionTransformation.from_string(string encoded_transformation) {
+        base(PixelTransformationType.TONE_EXPANSION);
+        
         encoded_transformation.canon("0123456789. ", ' ');
         encoded_transformation.chug();
         encoded_transformation.chomp();
@@ -1125,6 +1286,8 @@ public class ShadowDetailTransformation : HSVTransformation {
     public const float MAX_PARAMETER = 32.0f;
 
     public ShadowDetailTransformation(float user_intensity) {
+        base(PixelTransformationType.SHADOWS);
+        
         intensity = user_intensity;
         float intensity_adj = (intensity / MAX_PARAMETER).clamp(0.0f, 1.0f);
 
@@ -1193,8 +1356,8 @@ namespace AutoEnhance {
     const float SHADOW_AGGRESSIVENESS_MUL = 0.5f;
     const int EMPIRICAL_DARK = 50;
 
-public PixelTransformation[] create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf) {
-    PixelTransformation[] adjustments = new PixelTransformation[SupportedAdjustments.NUM];
+public PixelTransformationBundle create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf) {
+    PixelTransformationBundle adjustments = new PixelTransformationBundle();
 
     IntensityHistogram analysis_histogram = new IntensityHistogram(pixbuf);
     /* compute the percentage of pixels in the image that fall into the shadow range --
@@ -1226,8 +1389,7 @@ public PixelTransformation[] create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf) 
 
         shadow_trans_effect_size *= SHADOW_AGGRESSIVENESS_MUL;
 
-        adjustments[SupportedAdjustments.SHADOWS] =
-            new ShadowDetailTransformation(shadow_trans_effect_size);
+        adjustments.set(new ShadowDetailTransformation(shadow_trans_effect_size));
             
         /* if shadow detail expansion is being performed, we still perform contrast expansion,
            but only on the top end */
@@ -1237,25 +1399,19 @@ public PixelTransformation[] create_auto_enhance_adjustments(Gdk.Pixbuf pixbuf) 
                 SHADOW_MODE_HIGH_DISCARD_MASS)
                     break;
         }
-        adjustments[SupportedAdjustments.TONE_EXPANSION] =
-            new ExpansionTransformation.from_extrema(0, discard_point);
+        
+        adjustments.set(new ExpansionTransformation.from_extrema(0, discard_point));
     }
     else {
-        adjustments[SupportedAdjustments.TONE_EXPANSION] =
-            new ExpansionTransformation(analysis_histogram);
-        adjustments[SupportedAdjustments.SHADOWS] =
-            new ShadowDetailTransformation(0);
+        adjustments.set(new ExpansionTransformation(analysis_histogram));
+        adjustments.set(new ShadowDetailTransformation(0));
     }
     /* zero out any existing color transformations as these may conflict with
        auto-enhancement */
-    adjustments[SupportedAdjustments.TEMPERATURE] =
-        new TemperatureTransformation(0.0f);
-    adjustments[SupportedAdjustments.TINT] =
-        new TintTransformation(0.0f);
-    adjustments[SupportedAdjustments.EXPOSURE] =
-        new ExposureTransformation(0.0f);
-    adjustments[SupportedAdjustments.SATURATION] =
-        new SaturationTransformation(0.0f);
+    adjustments.set(new TemperatureTransformation(0.0f));
+    adjustments.set(new TintTransformation(0.0f));
+    adjustments.set(new ExposureTransformation(0.0f));
+    adjustments.set(new SaturationTransformation(0.0f));
     
     return adjustments;
 }

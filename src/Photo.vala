@@ -4,16 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-public enum SupportedAdjustments {
-    TONE_EXPANSION,
-    SHADOWS,
-    TEMPERATURE,
-    TINT,
-    SATURATION,
-    EXPOSURE,
-    NUM
-}
-
 public enum ImportResult {
     SUCCESS,
     FILE_ERROR,
@@ -100,13 +90,46 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
+    // NOTE: This class should only be instantiated when row is locked.
     private class PhotoTransformationStateImpl : Object, PhotoTransformationState {
-        public Orientation orientation;
-        public Gee.HashMap<string, KeyValueMap>? transformations;
+        private Orientation orientation;
+        private Gee.HashMap<string, KeyValueMap>? transformations;
+        private PixelTransformer transformer;
+        private PixelTransformationBundle adjustments;
         
-        public PhotoTransformationStateImpl(PhotoRow row) {
-            orientation = row.orientation;
-            transformations = row.transformations;
+        public PhotoTransformationStateImpl(TransformablePhoto photo) {
+            orientation = photo.row.orientation;
+            transformations = copy_transformations(photo.row.transformations);
+            transformer = photo.transformer != null ? photo.transformer.copy() : null;
+            adjustments = photo.adjustments != null ? photo.adjustments.copy() : null;
+        }
+        
+        public Orientation get_orientation() {
+            return orientation;
+        }
+        
+        public Gee.HashMap<string, KeyValueMap>? get_transformations() {
+            return copy_transformations(transformations);
+        }
+        
+        public PixelTransformer? get_transformer() {
+            return (transformer != null) ? transformer.copy() : null;
+        }
+        
+        public PixelTransformationBundle? get_color_adjustments() {
+            return (adjustments != null) ? adjustments.copy() : null;
+        }
+        
+        private static Gee.HashMap<string, KeyValueMap>? copy_transformations(
+            Gee.HashMap<string, KeyValueMap>? original) {
+            if (original == null)
+                return null;
+            
+            Gee.HashMap<string, KeyValueMap>? clone = new Gee.HashMap<string, KeyValueMap>();
+            foreach (string object in original.keys)
+                clone.set(object, original.get(object).copy());
+            
+            return clone;
         }
     }
 
@@ -119,7 +142,7 @@ public abstract class TransformablePhoto: PhotoSource {
     private PhotoRow row;
     
     private PixelTransformer transformer = null;
-    private PixelTransformation[] adjustments = null;
+    private PixelTransformationBundle adjustments = null;
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -470,100 +493,38 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // This method *must* be called with row locked.
-    private void create_adjustments_from_data() {
+    private void locked_create_adjustments_from_data() {
+        adjustments = new PixelTransformationBundle();
+        
         KeyValueMap map = get_transformation("adjustments");
-
-        adjustments = new PixelTransformation[SupportedAdjustments.NUM];
-        transformer = new PixelTransformer();
-
-        if (map == null) {
-            adjustments[SupportedAdjustments.TONE_EXPANSION] =
-                new ExpansionTransformation.from_extrema(0, 255);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION]);
-
-            adjustments[SupportedAdjustments.SHADOWS] =
-                new ShadowDetailTransformation(0.0f);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.SHADOWS]);
-
-            adjustments[SupportedAdjustments.TEMPERATURE] =
-                new TemperatureTransformation(0.0f);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.TEMPERATURE]);
-
-            adjustments[SupportedAdjustments.TINT] =
-                new TintTransformation(0.0f);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.TINT]);
-
-            adjustments[SupportedAdjustments.SATURATION] =
-                new SaturationTransformation(0.0f);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.SATURATION]);
-
-            adjustments[SupportedAdjustments.EXPOSURE] =
-                new ExposureTransformation(0.0f);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.EXPOSURE]);
-        } else {
-            string expansion_params_encoded = map.get_string("expansion", "-");
-            if (expansion_params_encoded == "-")
-                adjustments[SupportedAdjustments.TONE_EXPANSION] =
-                    new ExpansionTransformation.from_extrema(0, 255);
-            else
-                adjustments[SupportedAdjustments.TONE_EXPANSION] =
-                    new ExpansionTransformation.from_string(expansion_params_encoded);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION]);
-            
-            float shadow_param = (float) map.get_double("shadows", 0.0);
-            adjustments[SupportedAdjustments.SHADOWS] = new ShadowDetailTransformation(shadow_param);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.SHADOWS]);
-
-            float temp_param = (float) map.get_double("temperature", 0.0);
-            adjustments[SupportedAdjustments.TEMPERATURE] = new TemperatureTransformation(temp_param);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.TEMPERATURE]);
-
-            float tint_param = (float) map.get_double("tint", 0.0);
-            adjustments[SupportedAdjustments.TINT] = new TintTransformation(tint_param);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.TINT]);
-            
-            float sat_param = (float) map.get_double("saturation", 0.0);
-            adjustments[SupportedAdjustments.SATURATION] = new SaturationTransformation(sat_param);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.SATURATION]);
-
-            float exposure_param = (float) map.get_double("exposure", 0.0);
-            adjustments[SupportedAdjustments.EXPOSURE] = new ExposureTransformation(exposure_param);
-            transformer.attach_transformation(adjustments[SupportedAdjustments.EXPOSURE]);
-        }
+        if (map == null)
+            adjustments.set_to_identity();
+        else
+            adjustments.load(map);
+        
+        transformer = adjustments.generate_transformer();
     }
     
     // Returns a copy of the color adjustments array.  Use set_color_adjustments to persist.
-    private PixelTransformation[] get_color_adjustments() {
-        PixelTransformation[] result;
+    public PixelTransformationBundle get_color_adjustments() {
+        PixelTransformationBundle result = new PixelTransformationBundle();
         lock (row) {
             if (adjustments == null)
-                create_adjustments_from_data();
+                locked_create_adjustments_from_data();
             
-            int length = adjustments.length;
-            result = new PixelTransformation[length];
-            for (int ctr = 0; ctr < length; ctr++)
-                result[ctr] = adjustments[ctr];
+            result = adjustments.copy();
         }
         
         return result;
-    }
-    
-    private void set_color_adjustments(PixelTransformation[] adjustments) {
-        lock (row) {
-            int length = adjustments.length;
-            this.adjustments = new PixelTransformation[length];
-            for (int ctr = 0; ctr < length; ctr++)
-                this.adjustments[ctr] = adjustments[ctr];
-        }
     }
     
     private PixelTransformer get_pixel_transformer() {
         PixelTransformer result;
         lock (row) {
             if (transformer == null)
-                create_adjustments_from_data();
+                locked_create_adjustments_from_data();
             
-            result = transformer;
+            result = transformer.copy();
         }
         
         return result;
@@ -573,25 +534,14 @@ public abstract class TransformablePhoto: PhotoSource {
         return has_transformation("adjustments");
     }
     
-    public PixelTransformation get_adjustment(SupportedAdjustments kind) {
-        return get_color_adjustments()[kind];
+    public PixelTransformation? get_color_adjustment(PixelTransformationType type) {
+        return get_color_adjustments().get_transformation(type);
     }
 
-    public void set_adjustments(owned PixelTransformation[] new_adjustments) {
-        if (new_adjustments.length != SupportedAdjustments.NUM)
-            error("TransformablePhoto: set_adjustments( ): all adjustments must be set");
-
+    public void set_color_adjustments(PixelTransformationBundle new_adjustments) {
         /* if every transformation in 'new_adjustments' is the identity, then just remove all
            adjustments from the database */
-        bool all_identity = true;
-        for (int i = 0; i < ((int) SupportedAdjustments.NUM); i++) {
-            if (!new_adjustments[i].is_identity()) {
-                all_identity = false;
-                break;
-            }
-        }
-        
-        if (all_identity) {
+        if (new_adjustments.is_identity()) {
             bool result;
             lock (row) {
                 result = remove_transformation("adjustments");
@@ -604,56 +554,31 @@ public abstract class TransformablePhoto: PhotoSource {
 
             return;
         }
-
-        PixelTransformation[] adjustments = get_color_adjustments();
-
-        KeyValueMap map = new KeyValueMap("adjustments");
-
-        ExpansionTransformation new_expansion_trans =
-            (ExpansionTransformation) new_adjustments[SupportedAdjustments.TONE_EXPANSION];
-        map.set_string("expansion", new_expansion_trans.to_string());
-        transformer.replace_transformation(adjustments[SupportedAdjustments.TONE_EXPANSION],
-            new_expansion_trans);
-        adjustments[SupportedAdjustments.TONE_EXPANSION] = new_expansion_trans;
-
-        ShadowDetailTransformation new_shadows_trans =
-            (ShadowDetailTransformation) new_adjustments[SupportedAdjustments.SHADOWS];
-        map.set_double("shadows", new_shadows_trans.get_parameter());
-        transformer.replace_transformation(adjustments[SupportedAdjustments.SHADOWS],
-            new_shadows_trans);
-        adjustments[SupportedAdjustments.SHADOWS] = new_shadows_trans;
-
-        TemperatureTransformation new_temp_trans =
-            (TemperatureTransformation) new_adjustments[SupportedAdjustments.TEMPERATURE];
-        map.set_double("temperature", new_temp_trans.get_parameter());
-        transformer.replace_transformation(adjustments[SupportedAdjustments.TEMPERATURE],
-            new_temp_trans);
-        adjustments[SupportedAdjustments.TEMPERATURE] = new_temp_trans;
-
-        TintTransformation new_tint_trans =
-            (TintTransformation) new_adjustments[SupportedAdjustments.TINT];
-        map.set_double("tint", new_tint_trans.get_parameter());
-        transformer.replace_transformation(adjustments[SupportedAdjustments.TINT],
-            new_tint_trans);
-        adjustments[SupportedAdjustments.TINT] = new_tint_trans;
-
-        SaturationTransformation new_sat_trans =
-            (SaturationTransformation) new_adjustments[SupportedAdjustments.SATURATION];
-        map.set_double("saturation", new_sat_trans.get_parameter());
-        transformer.replace_transformation(adjustments[SupportedAdjustments.SATURATION],
-            new_sat_trans);
-        adjustments[SupportedAdjustments.SATURATION] = new_sat_trans;
-
-        ExposureTransformation new_exposure_trans =
-            (ExposureTransformation) new_adjustments[SupportedAdjustments.EXPOSURE];
-        map.set_double("exposure", new_exposure_trans.get_parameter());
-        transformer.replace_transformation(adjustments[SupportedAdjustments.EXPOSURE],
-            new_exposure_trans);
-        adjustments[SupportedAdjustments.EXPOSURE] = new_exposure_trans;
         
-        set_color_adjustments(adjustments);
+        // convert bundle to KeyValueMap, which can be saved in the database
+        KeyValueMap map = new_adjustments.save("adjustments");
         
-        if (set_transformation(map))
+        bool committed;
+        lock (row) {
+            if (transformer == null || adjustments == null) {
+                // create new 
+                adjustments = new_adjustments.copy();
+                transformer = new_adjustments.generate_transformer();
+            } else {
+                // replace existing
+                foreach (PixelTransformation transformation in new_adjustments.get_transformations()) {
+                    transformer.replace_transformation(
+                        adjustments.get_transformation(transformation.get_transformation_type()),
+                        transformation);
+                }
+                
+                adjustments = new_adjustments.copy();
+            }
+
+            committed = set_transformation(map);
+        }
+        
+        if (committed)
             notify_altered();
     }
 
@@ -698,7 +623,7 @@ public abstract class TransformablePhoto: PhotoSource {
     public PhotoTransformationState save_transformation_state() {
         PhotoTransformationState state = null;
         lock (row) {
-            state = new PhotoTransformationStateImpl(row);
+            state = new PhotoTransformationStateImpl(this);
         }
         
         return state;
@@ -709,17 +634,20 @@ public abstract class TransformablePhoto: PhotoSource {
         if (state_impl == null)
             return false;
         
+        Orientation saved_orientation = state_impl.get_orientation();
+        Gee.HashMap<string, KeyValueMap>? saved_transformations = state_impl.get_transformations();
+        PixelTransformer? saved_transformer = state_impl.get_transformer();
+        PixelTransformationBundle saved_adjustments = state_impl.get_color_adjustments();
+        
         bool committed;
         lock (row) {
             committed = PhotoTable.get_instance().set_transformation_state(row.photo_id,
-                state_impl.orientation, state_impl.transformations);
+                saved_orientation, saved_transformations);
             if (committed) {
-                row.orientation = state_impl.orientation;
-                row.transformations = state_impl.transformations;
-                
-                // blow away cached color transformers
-                transformer = null;
-                adjustments = null;
+                row.orientation = saved_orientation;
+                row.transformations = saved_transformations;
+                transformer = saved_transformer;
+                adjustments = saved_adjustments;
             }
         }
         
@@ -1249,7 +1177,7 @@ public abstract class TransformablePhoto: PhotoSource {
             
             is_cropped = get_raw_crop(out crop);
             
-            if (has_transformation("adjustments"))
+            if (has_color_adjustments())
                 transformer = get_pixel_transformer();
             
             orientation = get_orientation();
@@ -1650,7 +1578,7 @@ public abstract class TransformablePhoto: PhotoSource {
         return raw_rect;
     }
 
-    public PixelTransformation[]? get_enhance_transformations() {
+    public PixelTransformationBundle? get_enhance_transformations() {
         Gdk.Pixbuf pixbuf = null;
 
 #if MEASURE_ENHANCE
@@ -1674,7 +1602,7 @@ public abstract class TransformablePhoto: PhotoSource {
         Timer analyze_timer = new Timer();
 #endif
 
-        PixelTransformation[] transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
+        PixelTransformationBundle transformations = AutoEnhance.create_auto_enhance_adjustments(pixbuf);
 
 #if MEASURE_ENHANCE
         analyze_timer.stop();
@@ -1686,7 +1614,7 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 
     public bool enhance() {
-        PixelTransformation[] transformations = get_enhance_transformations();
+        PixelTransformationBundle transformations = get_enhance_transformations();
 
         if (transformations == null)
             return false;
@@ -1694,14 +1622,15 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_ENHANCE
         Timer apply_timer = new Timer();
 #endif
-
-        set_adjustments(transformations);
-
+        lock (row) {
+            set_color_adjustments(transformations);
+        }
+        
 #if MEASURE_ENHANCE
         apply_timer.stop();
         debug("Auto-Enhance apply time: %f sec", apply_timer.elapsed());
 #endif
-        return true;          
+        return true;
     }
 }
 
