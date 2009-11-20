@@ -39,7 +39,7 @@ public class CameraTable {
     private CameraTable() {
         string? errmsg = init_hal();
         if (errmsg != null) {
-            critical(errmsg);
+            critical("%s", errmsg);
             AppWindow.error_message(
                _("Shotwell could not initialize a connection to the HAL daemon (hald).  This usually means it is not running or not ready.  Rebooting may solve this problem.\n\nShotwell cannot detect cameras without the HAL daemon."));
         }

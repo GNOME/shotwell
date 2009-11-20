@@ -780,7 +780,7 @@ public class PhotoUploadRequest : Request {
         try {
             FileUtils.get_contents(source_file, out photo_data, out data_length);
         } catch (FileError e) {
-            error("PhotoUploadRequest: couldn't read date from file '%s'".printf(source_file));
+            error("PhotoUploadRequest: couldn't read date from file '%s'", source_file);
         }
 
         // bind the binary image data read from disk into a Soup.Buffer object so that we
