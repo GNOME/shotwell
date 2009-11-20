@@ -1164,6 +1164,13 @@ public struct EventID {
     }
 }
 
+public struct EventRow {
+    public EventID event_id;
+    public string? name;
+    public PhotoID primary_photo_id;
+    public time_t time_created;
+}
+
 public class EventTable : DatabaseTable {
     private static EventTable instance = null;
     
@@ -1213,6 +1220,55 @@ public class EventTable : DatabaseTable {
         }
 
         return EventID(db.last_insert_rowid());
+    }
+    
+    // NOTE: The event_id in EventRow is ignored here.  No checking is done to prevent
+    // against creating duplicate events or for the validity of other fields in the row (i.e.
+    // the primary photo ID).
+    public EventID create_from_row(EventRow row) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("INSERT INTO EventTable (name, primary_photo_id, time_created) VALUES (?, ?, ?)",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(1, row.name);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, row.primary_photo_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(3, row.time_created);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            fatal("Event create_from_row", res);
+            
+            return EventID();
+        }
+        
+        return EventID(db.last_insert_rowid());
+    }
+    
+    public EventRow? get_row(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2(
+            "SELECT name, primary_photo_id, time_created FROM EventTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        if (stmt.step() != Sqlite.ROW)
+            return null;
+        
+        EventRow row = EventRow();
+        row.event_id = event_id;
+        row.name = stmt.column_text(0);
+        if (row.name != null && row.name.length == 0)
+            row.name = null;
+        row.primary_photo_id.id = stmt.column_int64(1);
+        row.time_created = (time_t) stmt.column_int64(2);
+        
+        return row;
     }
     
     public bool remove(EventID event_id) {
@@ -1279,6 +1335,14 @@ public class EventTable : DatabaseTable {
     
     public bool set_primary_photo(EventID event_id, PhotoID photo_id) {
         return update_int64_by_id(event_id.id, "primary_photo_id", photo_id.id);
+    }
+    
+    public time_t get_time_created(EventID event_id) {
+        Sqlite.Statement stmt;
+        if (!select_by_id(event_id.id, "time_created", out stmt))
+            return 0;
+        
+        return (time_t) stmt.column_int64(0);
     }
 }
 

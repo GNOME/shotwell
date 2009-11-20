@@ -360,17 +360,24 @@ public abstract class TransformablePhoto: PhotoSource {
     
     public bool set_event(Event? event) {
         bool committed = false;
+        bool success = false;
         lock (row) {
             EventID event_id = (event != null) ? event.get_event_id() : EventID();
-            committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
-            if (committed)
-                row.event_id = event_id;
+            if (row.event_id.id == event_id.id) {
+                success = true;
+            } else {
+                committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
+                if (committed) {
+                    row.event_id = event_id;
+                    success = true;
+                }
+            }
         }
         
         if (committed)
             notify_metadata_altered();
         
-        return committed;
+        return success;
     }
     
     public override string to_string() {
@@ -1636,7 +1643,7 @@ public abstract class TransformablePhoto: PhotoSource {
 
 public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     public LibraryPhotoSourceCollection() {
-        base(get_photo_key);
+        base("LibraryPhotoSourceCollection", get_photo_key);
     }
     
     private static int64 get_photo_key(DataSource source) {
@@ -1901,7 +1908,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         file_equal, direct_equal);
     
     public DirectPhotoSourceCollection() {
-        base(get_direct_key);
+        base("DirectPhotoSourceCollection", get_direct_key);
     }
     
     private static int64 get_direct_key(DataSource source) {

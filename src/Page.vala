@@ -39,7 +39,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public Gtk.ActionGroup common_action_group = null;
     
     private string page_name;
-    private ViewCollection view = new ViewCollection();
+    private ViewCollection view = null;
     private Gtk.Window container = null;
     private PageLayout layout = null;
     private Gtk.MenuBar menu_bar = null;
@@ -55,6 +55,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     public Page(string page_name) {
         this.page_name = page_name;
+        this.view = new ViewCollection("ViewCollection for Page %s".printf(page_name));
         
         last_down = { -1, -1 };
         
@@ -138,6 +139,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.motion_notify_event -= on_motion_internal;
         
         disable_drag_source();
+        
+        event_source = null;
     }
     
     public Gtk.Widget? get_event_source() {

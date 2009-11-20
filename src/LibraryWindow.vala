@@ -87,7 +87,7 @@ public class LibraryWindow : AppWindow {
         }
         
         protected Page get_page() {
-            if (page == null) {              
+            if (page == null) {
                 // create the page and set its marker, if one has been supplied
                 page = construct_page();
                 if (marker != null)
@@ -855,10 +855,14 @@ public class LibraryWindow : AppWindow {
 
         if (page is SubEventsDirectoryPageStub) {
             // remove from events directory list 
-            events_dir_list.remove((SubEventsDirectoryPageStub) page);
+            bool removed = events_dir_list.remove((SubEventsDirectoryPageStub) page);
+            assert(removed);
+            debug("Removed page %s", page.get_page_name());
         } else if (page is EventPageStub && permanent_remove) {
             // remove from the events list
-            event_list.remove((EventPageStub) page);
+            bool removed = event_list.remove((EventPageStub) page);
+            assert(removed);
+            debug("Removed page %s", page.get_page_name());
         }
     }
 
@@ -969,6 +973,8 @@ public class LibraryWindow : AppWindow {
 
             // remove from sidebar, if present
             sidebar.remove_page(page);
+            
+            debug("Removed page %s", page.get_page_name());
             
             pages_to_be_removed.remove_at(0);
         }

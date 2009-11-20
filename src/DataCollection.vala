@@ -31,6 +31,8 @@ public delegate bool MarkedAction(DataObject object, Object user);
 public delegate bool ProgressMonitor(uint64 current, uint64 total);
 
 public class DataCollection {
+    public const int64 INVALID_OBJECT_ORDINAL = -1;
+    
     private class MarkerImpl : Object, Marker {
         public DataCollection owner;
         public Gee.HashSet<DataObject> marked = new Gee.HashSet<DataObject>();
@@ -119,9 +121,10 @@ public class DataCollection {
     
     private static OrderAddedComparator order_added_comparator = null;
     
+    private string name;
     private SortedList<DataObject> list = new SortedList<DataObject>();
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
-    private int added_counter = 0;
+    private int64 object_ordinal_generator = 0;
 
     // When this signal has been fired, the added items are part of the collection
     public virtual signal void items_added(Gee.Iterable<DataObject> added) {
@@ -152,8 +155,14 @@ public class DataCollection {
     public virtual signal void ordering_changed() {
     }
     
-    public DataCollection() {
+    public DataCollection(string name) {
+        this.name = name;
+        
         list.resort(get_order_added_comparator());
+    }
+    
+    public virtual string to_string() {
+        return "%s (%d)".printf(name, get_count());
     }
     
     // use notifies to ensure proper chronology of signal handling
@@ -164,7 +173,24 @@ public class DataCollection {
     public virtual void notify_items_removed(Gee.Iterable<DataObject> removed) {
         items_removed(removed);
     }
-
+    
+    public virtual void notify_contents_altered(Gee.Iterable<DataObject>? added,
+        Gee.Iterable<DataObject>? removed) {
+        contents_altered(added, removed);
+    }
+    
+    public virtual void notify_item_altered(DataObject item) {
+        item_altered(item);
+    }
+    
+    public virtual void notify_item_metadata_altered(DataObject item) {
+        item_metadata_altered(item);
+    }
+    
+    public virtual void notify_ordering_changed() {
+        ordering_changed();
+    }
+    
     // A singleton list is used when a single item has been added/remove/selected/unselected
     // and needs to be reported via a signal, which uses a list as a parameter ... although this
     // seems wasteful, can't reuse a single singleton list because it's possible for a method
@@ -190,13 +216,13 @@ public class DataCollection {
     
     public virtual void set_comparator(Comparator<DataObject> comparator) {
         list.resort(new ComparatorWrapper(comparator));
-        ordering_changed();
+        notify_ordering_changed();
     }
     
     // Return to natural ordering of DataObjects, which is order-added
     public virtual void reset_comparator() {
         list.resort(get_order_added_comparator());
-        ordering_changed();
+        notify_ordering_changed();
     }
     
     public virtual Gee.Iterable<DataObject> get_all() {
@@ -227,7 +253,7 @@ public class DataCollection {
     private void internal_add(DataObject object) {
         assert(valid_type(object));
         
-        object.internal_set_membership(this, added_counter++);
+        object.internal_set_membership(this, object_ordinal_generator++);
         
         bool added = list.add(object);
         assert(added);
@@ -247,7 +273,7 @@ public class DataCollection {
     // Returns false if item is already part of the collection.
     public bool add(DataObject object) {
         if (contains(object)) {
-            debug("Cannot add %s: already present", object.to_string());
+            debug("%s cannot add %s: already present", to_string(), object.to_string());
             
             return false;
         }
@@ -257,7 +283,7 @@ public class DataCollection {
         // fire signal after added using singleton list
         Gee.List<DataObject> added = get_singleton(object);
         notify_items_added(added);
-        contents_altered(added, null);
+        notify_contents_altered(added, null);
         
         return true;
     }
@@ -267,7 +293,7 @@ public class DataCollection {
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
             if (contains(object)) {
-                debug("Cannot add %s: already present", object.to_string());
+                debug("%s cannot add %s: already present", to_string(), object.to_string());
                 
                 continue;
             }
@@ -279,7 +305,7 @@ public class DataCollection {
         // signal once all have been added
         if (added.size > 0) {
             notify_items_added(added);
-            contents_altered(added, null);
+            notify_contents_altered(added, null);
         }
         
         return added.size;
@@ -359,7 +385,7 @@ public class DataCollection {
         // signal after removing
         if (marker.marked.size > 0) {
             notify_items_removed(marker.marked);
-            contents_altered(null, marker.marked);
+            notify_contents_altered(null, marker.marked);
         }
         
         // invalidate the marker
@@ -384,7 +410,7 @@ public class DataCollection {
         
         // report after removal
         notify_items_removed(removed);
-        contents_altered(null, removed);
+        notify_contents_altered(null, removed);
         
         // the hash set should be cleared as well when finished
         assert(hash_set.size == 0);
@@ -399,7 +425,7 @@ public class DataCollection {
         list.remove(object);
         list.add(object);
 
-        item_altered(object);
+        notify_item_altered(object);
     }
     
     // This method is only called by DataObject to report when its metadata has been altered, so
@@ -407,7 +433,7 @@ public class DataCollection {
     public void internal_notify_metadata_altered(DataObject object) {
         assert(contains(object));
         
-        item_metadata_altered(object);
+        notify_item_metadata_altered(object);
     }
 }
 
@@ -416,8 +442,17 @@ public class DataCollection {
 //
 
 public class SourceCollection : DataCollection {
-    // When this signal is fired, the item is still part of the collection
+    // When this signal is fired, the item is still part of the collection but its own destroy()
+    // has already been called.
     public virtual signal void item_destroyed(DataSource source) {
+    }
+    
+    public SourceCollection(string name) {
+        base (name);
+    }
+    
+    public virtual void notify_item_destroyed(DataSource source) {
+        item_destroyed(source);
     }
     
     public override bool valid_type(DataObject object) {
@@ -438,7 +473,7 @@ public class SourceCollection : DataCollection {
         
         source.internal_mark_for_destroy();
         source.destroy();
-        item_destroyed(source);
+        notify_item_destroyed(source);
         
         ((Marker) user).mark(source);
         
@@ -456,7 +491,9 @@ public class DatabaseSourceCollection : SourceCollection {
     private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash, 
         int64_equal, direct_equal);
         
-    public DatabaseSourceCollection(GetSourceDatabaseKey source_key_func) {
+    public DatabaseSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
+        base (name);
+        
         this.source_key_func = source_key_func;
     }
 
@@ -580,21 +617,20 @@ public class ViewCollection : DataCollection {
     public virtual signal void geometries_altered() {
     }
     
-    public ViewCollection() {
+    public ViewCollection(string name) {
+        base (name);
+        
         selected.resort(get_order_added_comparator());
         visible.resort(get_order_added_comparator());
     }
 
     ~ViewCollection() {
-        if (sources != null) {
-            sources.items_added -= on_sources_added;
-            sources.items_removed -= on_sources_removed;
-            sources.item_altered -= on_source_altered;
-            sources.item_metadata_altered -= on_source_altered;
-        }
+        halt_monitoring();
     }
     
     public void monitor_source_collection(SourceCollection sources, ViewManager manager) {
+        assert(this.sources == null && this.manager == null);
+        
         this.sources = sources;
         this.manager = manager;
         
@@ -607,6 +643,18 @@ public class ViewCollection : DataCollection {
         sources.items_removed += on_sources_removed;
         sources.item_altered += on_source_altered;
         sources.item_metadata_altered += on_source_altered;
+    }
+    
+    public void halt_monitoring() {
+        if (sources != null) {
+            sources.items_added -= on_sources_added;
+            sources.items_removed -= on_sources_removed;
+            sources.item_altered -= on_source_altered;
+            sources.item_metadata_altered -= on_source_altered;
+        }
+        
+        sources = null;
+        manager = null;
     }
     
     public void install_view_filter(ViewFilter filter) {

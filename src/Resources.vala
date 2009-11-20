@@ -108,6 +108,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MAKE_KEY_PHOTO_MENU = _("Make _Key Photo for Event");
     public const string MAKE_KEY_PHOTO_LABEL = _("Make Key Photo for Event");
     public const string MAKE_KEY_PHOTO_TOOLTIP = _("Make the selected photo the thumbnail for the event");
+    
+    public const string NEW_EVENT_MENU = _("_New Event");
+    public const string NEW_EVENT_LABEL = _("New Event");
+    public const string NEW_EVENT_TOOLTIP = _("Create new event from the selected photos");
 
     private Gtk.IconFactory factory = null;
     

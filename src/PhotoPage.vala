@@ -1302,6 +1302,8 @@ private class DirectViewCollection : ViewCollection {
     private File dir;
     
     public DirectViewCollection(File dir) {
+        base ("DirectViewCollection of %s".printf(dir.get_path()));
+        
         this.dir = dir;
         
         monitor_source_collection(DirectPhoto.global, new DirectViewManager());

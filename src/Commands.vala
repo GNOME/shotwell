@@ -441,3 +441,76 @@ public class RedeyeCommand : GenericPhotoTransformationCommand {
     }
 }
 
+public class NewEventCommand : MultipleDataSourceCommand {
+    private SourceProxy new_event_proxy = null;
+    private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = new Gee.HashMap<
+        LibraryPhoto, SourceProxy?>();
+    
+    public NewEventCommand(Gee.Iterable<DataView> iter) {
+        base(iter, _("Creating New Event..."), _("Removing Event..."), Resources.NEW_EVENT_LABEL, 
+            Resources.NEW_EVENT_TOOLTIP);
+        
+        // get proxies for the photos' events as well as the key photo for the new event (which is 
+        // simply the first one)
+        LibraryPhoto key_photo = null;
+        foreach (DataSource source in source_list) {
+            LibraryPhoto photo = (LibraryPhoto) source;
+            Event? event = photo.get_event();
+            SourceProxy? event_proxy = (event != null) ? event.get_proxy() : null;
+            
+            // if any of the proxies break, the show's off
+            if (event_proxy != null)
+                event_proxy.broken += on_proxy_broken;
+            
+            old_photo_events.set(photo, event_proxy);
+            
+            if (key_photo == null)
+                key_photo = photo;
+        }
+        
+        // key photo is required for an event
+        assert(key_photo != null);
+        
+        // create the new event but only stash the proxy
+        Event new_event = Event.create_empty_event(key_photo);
+        new_event_proxy = new_event.get_proxy();
+        new_event_proxy.broken += on_proxy_broken;
+    }
+    
+    ~NewEventCommand() {
+        new_event_proxy.broken -= on_proxy_broken;
+        
+        foreach (SourceProxy? proxy in old_photo_events.values) {
+            if (proxy != null)
+                proxy.broken -= on_proxy_broken;
+        }
+    }
+    
+    public override void execute() {
+        // create the new event
+        base.execute();
+        
+        // switch to new event page
+        LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        
+        photo.set_event((Event?) new_event_proxy.get_source());
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        
+        SourceProxy old_event_proxy = old_photo_events.get(photo);
+        Event? old_event = (old_event_proxy != null) ? (Event) old_event_proxy.get_source() : null;
+        
+        photo.set_event(old_event);
+    }
+    
+    private void on_proxy_broken() {
+        AppWindow.get_command_manager().reset();
+    }
+}
+

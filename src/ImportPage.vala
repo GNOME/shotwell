@@ -204,7 +204,7 @@ public class ImportPage : CheckerboardPage {
     
     private static GPhoto.ContextWrapper null_context = null;
 
-    private SourceCollection import_sources = new SourceCollection();
+    private SourceCollection import_sources = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.CheckButton hide_imported;
@@ -232,6 +232,7 @@ public class ImportPage : CheckerboardPage {
 
         this.camera = camera;
         this.uri = uri;
+        this.import_sources = new SourceCollection("ImportSources for %s".printf(uri));
         
         // set up the global null context when needed
         if (null_context == null)

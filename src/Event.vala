@@ -6,7 +6,7 @@
 
 public class EventSourceCollection : DatabaseSourceCollection {
     public EventSourceCollection() {
-        base(get_event_key);
+        base("EventSourceCollection", get_event_key);
     }
     
     private static int64 get_event_key(DataSource source) {
@@ -21,7 +21,7 @@ public class EventSourceCollection : DatabaseSourceCollection {
     }
 }
 
-public class Event : EventSource {
+public class Event : EventSource, Proxyable {
     public const long EVENT_LULL_SEC = 4 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
     private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 100;
@@ -49,6 +49,66 @@ public class Event : EventSource {
         }
     }
     
+    private class EventSnapshot : SourceSnapshot {
+        private EventRow row;
+        private LibraryPhoto key_photo;
+        private Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        
+        public EventSnapshot(Event event) {
+            // save current state of event
+            row = EventTable.get_instance().get_row(event.get_event_id());
+            key_photo = event.get_primary_photo();
+            
+            // stash all the photos in the event ... these are not used when reconstituting the
+            // event, but need to know when they're destroyed, as that means the event cannot
+            // be restored
+            foreach (PhotoSource photo in event.get_photos())
+                photos.add((LibraryPhoto) photo);
+            
+            LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        }
+        
+        ~EventSnapshot() {
+            LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        }
+        
+        public EventRow get_row() {
+            return row;
+        }
+        
+        public override void notify_broken() {
+            row = EventRow();
+            key_photo = null;
+            photos.clear();
+            
+            base.notify_broken();
+        }
+        
+        private void on_photo_destroyed(DataSource source) {
+            LibraryPhoto photo = (LibraryPhoto) source;
+            
+            // if one of the photos in the event goes away, reconstitution is impossible
+            if (key_photo != null && key_photo.equals(photo))
+                notify_broken();
+            else if (photos.contains(photo))
+                notify_broken();
+        }
+    }
+    
+    private class EventProxy : SourceProxy {
+        public EventProxy(Event event) {
+            base (event);
+        }
+        
+        public override DataSource reconstitute(int64 object_id, SourceSnapshot snapshot) {
+            EventSnapshot event_snapshot = snapshot as EventSnapshot;
+            assert(event_snapshot != null);
+            
+            return Event.reconstitute(object_id, event_snapshot.get_row());
+        }
+        
+    }
+    
     public static EventSourceCollection global = null;
     
     private static EventTable event_table = null;
@@ -57,7 +117,9 @@ public class Event : EventSource {
     private LibraryPhoto primary_photo;
     private ViewCollection view;
     
-    private Event(EventID event_id) {
+    private Event(EventID event_id, int64 object_id = INVALID_OBJECT_ID) {
+        base (object_id);
+        
         this.event_id = event_id;
         primary_photo = get_primary_photo();
         
@@ -65,7 +127,7 @@ public class Event : EventSource {
         if (primary_photo != null)
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
 
-        view = new ViewCollection();
+        view = new ViewCollection("ViewCollection for %lld".printf(event_id.id));
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
 
         // watch for for removal and addition of photos
@@ -76,7 +138,7 @@ public class Event : EventSource {
     ~Event() {
         if (primary_photo != null)
             primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
-
+        
         view.items_removed -= on_photos_removed;
         view.items_added -= on_photos_added;
     }
@@ -103,14 +165,19 @@ public class Event : EventSource {
         // remove event if no more photos in it
         if (get_photo_count() == 0) {
             debug("Destroying event %s", to_string());
+            
             Marker marker = Event.global.mark(this);
             Event.global.destroy_marked(marker);
-        } else {
-            foreach (DataObject object in removed)
-                on_photo_removed((LibraryPhoto) ((PhotoView) object).get_source());
-
-            notify_altered();
+            
+            // as it's possible (highly likely, in fact) that all refs to the Event object have
+            // gone out of scope now, do NOT touch this, but exit immediately
+            return;
         }
+        
+        foreach (DataObject object in removed)
+            on_photo_removed((LibraryPhoto) ((PhotoView) object).get_source());
+        
+        notify_altered();
     }
     
     private void on_photo_removed(LibraryPhoto photo) {
@@ -121,48 +188,30 @@ public class Event : EventSource {
         }
     }
     
-    public static Event? generate_event(Gee.List<LibraryPhoto> photos) {
-        // check length
-        if (photos.size == 0)
-            return null;
-
-        LibraryWindow.get_app().set_busy_cursor();
-
-        int count = 0;
-        int total = photos.size;
-
-        Cancellable cancellable = null;
-        ProgressDialog progress = null;
-        if (total >= MIN_PHOTOS_FOR_PROGRESS_WINDOW) {
-            cancellable = new Cancellable();
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Creating New Event..."),
-                cancellable);
-        }
-
-        Event new_event = new Event(event_table.create(photos.get(0).get_photo_id()));
-        global.add(new_event);
-        debug("Created new event %s", new_event.to_string());
-
-        foreach (LibraryPhoto photo in photos) {
-            photo.set_event(new_event);
-
-            if (progress != null) {
-                progress.set_fraction(++count, total);
-                spin_event_loop();
-                
-                if (cancellable.is_cancelled())
-                    break;
-            }
-        }
-
-        if (progress != null)
-            progress.close();
-
-        LibraryWindow.get_app().set_normal_cursor();
-
-        return new_event;
+    // This creates an empty event with the key photo.  NOTE: This does not add the key photo to
+    // the event.  That must be done manually.
+    public static Event create_empty_event(LibraryPhoto key_photo) {
+        EventID event_id = EventTable.get_instance().create(key_photo.get_photo_id());
+        Event event = new Event(event_id);
+        global.add(event);
+        
+        debug("Created empty event %s", event.to_string());
+        
+        return event;
     }
-
+    
+    // This will create an event using the fields supplied in EventRow.  The event_id is ignored.
+    private static Event reconstitute(int64 object_id, EventRow row) {
+        EventID event_id = EventTable.get_instance().create_from_row(row);
+        Event event = new Event(event_id, object_id);
+        global.add(event);
+        assert(global.contains(event));
+        
+        debug("Reconstituted event %s", event.to_string());
+        
+        return event;
+    }
+    
     public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos) {
         debug("Processing imported photos to create events ...");
         
@@ -246,6 +295,14 @@ public class Event : EventSource {
         return event_id;
     }
     
+    public override SourceSnapshot? save_snapshot() {
+        return new EventSnapshot(this);
+    }
+    
+    public SourceProxy get_proxy() {
+        return new EventProxy(this);
+    }
+    
     public bool equals(Event event) {
         // due to the event_map, identity should be preserved by pointers, but ID is the true test
         if (this == event) {
@@ -260,7 +317,7 @@ public class Event : EventSource {
     }
     
     public override string to_string() {
-        return "[%lld] %s".printf(event_id.id, get_name());
+        return "Event [%lld/%lld] %s".printf(event_id.id, get_object_id(), get_name());
     }
     
     public override string get_name() {
@@ -287,6 +344,10 @@ public class Event : EventSource {
             notify_altered();
         
         return renamed;
+    }
+    
+    public time_t get_creation_time() {
+        return event_table.get_time_created(event_id);
     }
     
     public override time_t get_start_time() {
@@ -365,6 +426,9 @@ public class Event : EventSource {
     }
 
     public override void destroy() {
+        // stop monitoring the photos collection
+        view.halt_monitoring();
+        
         // remove from the database
         event_table.remove(event_id);
         

@@ -132,8 +132,8 @@ public class CollectionPage : CheckerboardPage {
 
         // create new event
         new_event_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_NEW);
-        new_event_button.set_label(_("New Event"));
-        new_event_button.set_tooltip_text(_("Create new event from the selected photos"));
+        new_event_button.set_label(Resources.NEW_EVENT_LABEL);
+        new_event_button.set_tooltip_text(Resources.NEW_EVENT_TOOLTIP);
         new_event_button.sensitive = false;
         new_event_button.is_important = true;
         new_event_button.clicked += on_new_event;
@@ -287,7 +287,8 @@ public class CollectionPage : CheckerboardPage {
 
         Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
-        new_event.label = _("_New Event");
+        new_event.label = Resources.NEW_EVENT_MENU;
+        new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
         actions += new_event;
 
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
@@ -899,16 +900,8 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_new_event() {
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        foreach (DataView view in get_view().get_selected()) {
-            photos.add(((Thumbnail) view).get_photo());
-        }
-
-        Event new_event = Event.generate_event(photos);
-
-        // switch to new event page
-        if (new_event != null)
-            LibraryWindow.get_app().switch_to_event(new_event);
+        NewEventCommand command = new NewEventCommand(get_view().get_selected());
+        get_command_manager().execute(command);
     }
 }
 
