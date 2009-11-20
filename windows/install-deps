@@ -1,0 +1,49 @@
+# Install all build dependencies for Shotwell on Windows.
+
+cd /mingw
+
+list="\
+http://downloads.sourceforge.net/project/mingw/MinGW%20API%20for%20MS-Windows/Current%20Release_%20w32api-3.13/w32api-3.13-mingw32-dev.tar.gz \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/GConf/2.22/GConf_2.22.0-2_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/GConf/2.22/GConf-dev_2.22.0-2_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/ORBit2/2.14/ORBit2_2.14.16-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/ORBit2/2.14/ORBit2-dev_2.14.16-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3_3.6.0_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3-dev_3.6.0_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2_2.7.4-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.16/gtk+_2.16.6-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/libcroco/0.6/libcroco_0.6.2-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf_1.14.15-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/librsvg/2.26/librsvg_2.26.0-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/librsvg/2.26/svg-gdk-pixbuf-loader_2.26.0-1_win32.zip \
+http://valide.googlecode.com/files/libgee-0.5.0.zip \
+"
+
+for url in $list ; do
+  package=${url##*/}
+  package_file=/tmp/install/$package
+  if [ ! -e $package_file ] ; then
+    wget -P /tmp/install $url
+  fi
+  case ${package##*.} in
+  gz)
+    tar xvfz $package_file
+    ;;
+  zip)
+    if [ "${package%%_*}" == "gtk+" ] ; then
+      # We need a single file from the GTK distribution; the Vala installer doesn't include this file.
+      unzip -o $package_file share/themes/MS-Windows/gtk-2.0/gtkrc
+    else
+      unzip -o $package_file
+    fi
+    ;;
+  *)
+    echo unknown extension
+    exit 1
+  esac
+done
+
+mkdir -p etc/gtk-2.0
+gdk-pixbuf-query-loaders > etc/gtk-2.0/gdk-pixbuf.loaders
+echo 'gtk-theme-name = "MS-Windows"' > etc/gtk-2.0/gtkrc
+
