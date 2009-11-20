@@ -4,6 +4,8 @@
  * See the COPYING file in this distribution. 
  */
 
+#if !NO_PUBLISHING
+
 public errordomain PublishingError {
     COMMUNICATION
 }
@@ -354,4 +356,4 @@ public class PublishingDialog : Gtk.Dialog {
     }
 }
 
-
+#endif

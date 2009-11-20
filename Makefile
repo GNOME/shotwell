@@ -133,17 +133,17 @@ EXT_PKGS = \
 	atk \
 	gee-1.0 \
 	libexif \
-	sqlite3 \
-	webkit-1.0 \
-	libsoup-2.4 \
-	libxml-2.0
+	sqlite3
 	
 ifdef LINUX
 EXT_PKGS += \
 	hal \
 	dbus-glib-1 \
 	unique-1.0 \
-	libgphoto2
+	libgphoto2 \
+	webkit-1.0 \
+	libsoup-2.4 \
+	libxml-2.0
 endif
 
 ifdef MAC
@@ -206,7 +206,7 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
 
 ifdef WINDOWS
-  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D WINDOWS
+  VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX
   EXPANDED_OBJ_FILES += src/windows.o
 ifndef BUILD_DEBUG
 # -mwindows prevents a console window from appearing when we run Shotwell, but also hides
@@ -216,7 +216,7 @@ endif
 endif
 
 ifdef MAC
-  VALA_DEFINES = -D NO_CAMERA -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG -D MAC
+  VALA_DEFINES = -D MAC -D NO_CAMERA -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG
   EXPANDED_OBJ_FILES += src/mac.o
 endif
 

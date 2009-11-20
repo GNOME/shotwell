@@ -74,7 +74,11 @@ public class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
+
+#if !NO_PUBLISHING
     private Gtk.ToolButton publish_button = null;
+#endif
+
     private int scale = Thumbnail.DEFAULT_SCALE;
     private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
     private int drag_failed_item_count = 0;
@@ -149,7 +153,8 @@ public class CollectionPage : CheckerboardPage {
         slideshow_button.clicked += on_slideshow;
         
         toolbar.insert(slideshow_button, -1);
-        
+
+#if !NO_PUBLISHING        
         // publish button
         publish_button = new Gtk.ToolButton.from_stock(Resources.PUBLISH);
         publish_button.set_label(_("Publish"));
@@ -159,6 +164,7 @@ public class CollectionPage : CheckerboardPage {
         publish_button.clicked += on_publish;
         
         toolbar.insert(publish_button, -1);
+#endif
         
         // separator to force slider to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
@@ -377,7 +383,9 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> items) {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
+#if !NO_PUBLISHING
         publish_button.set_sensitive(get_view().get_selected_count() > 0);
+#endif
         enhance_button.sensitive = get_view().get_selected_count() > 0;
         new_event_button.sensitive = get_view().get_selected_count() > 0;
     }
@@ -732,11 +740,13 @@ public class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
 
+#if !NO_PUBLISHING
     private void on_publish() {
         PublishingDialog publishing_dialog = new PublishingDialog(get_view().get_selected(),
             get_view().get_selected_count());
         publishing_dialog.run();
     }
+#endif
 
     private void on_rotate_counterclockwise() {
         if (get_view().get_selected_count() == 0)

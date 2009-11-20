@@ -4,6 +4,8 @@
  * See the COPYING file in this distribution. 
  */
 
+#if !NO_PUBLISHING
+
 namespace FacebookConnector {
 // this should not be changed by anyone unless they know what they're doing
 public const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
@@ -846,3 +848,4 @@ public class SessionUserRequest : Request {
 }
 }
 
+#endif
