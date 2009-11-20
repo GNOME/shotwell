@@ -1,3 +1,9 @@
+/* Copyright 2009 Yorba Foundation
+ *
+ * This software is licensed under the GNU LGPL (version 2.1 or later).
+ * See the COPYING file in this distribution. 
+ */
+
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
@@ -6,12 +12,12 @@
 // but Windows doesn't have it.
 // I *believe* that the Windows implementation of localtime uses thread-local storage
 // and that this function is thread-safe as a result.  We could investigate this more.
-struct tm *localtime_r (const time_t *timer, struct tm *result) {
-   struct tm *local_result = localtime(timer);
+struct tm *localtime_r(const time_t *t, struct tm *result) {
+   struct tm *local_result = localtime(t);
    if (local_result == NULL || result == NULL)
      return NULL;
 
-   memcpy(result, local_result, sizeof(result));
+   memcpy(result, local_result, sizeof(*result));
    return result;
 }
 
