@@ -441,7 +441,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return false;
     }
     
-    public bool notify_modifier_pressed(Gdk.EventKey event) {
+    public bool notify_key_pressed(Gdk.EventKey event) {
         // can't use a switch statement here due to this bug:
         // http://bugzilla.gnome.org/show_bug.cgi?id=585292
         if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R)
@@ -456,7 +456,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return false;
     }
 
-    public bool notify_modifier_released(Gdk.EventKey event) {
+    public bool notify_key_released(Gdk.EventKey event) {
         // can't use a switch statement here due to this bug:
         // http://bugzilla.gnome.org/show_bug.cgi?id=585292
         if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R)
