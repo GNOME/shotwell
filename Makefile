@@ -1,4 +1,6 @@
 PROGRAM = shotwell
+all: $(PROGRAM)
+
 VERSION = 0.3.2+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
@@ -208,11 +210,17 @@ VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
 ifdef WINDOWS
   VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX
   EXPANDED_OBJ_FILES += src/windows.o
+  RESOURCES = shotwell.res
+
 ifndef BUILD_DEBUG
 # -mwindows prevents a console window from appearing when we run Shotwell, but also hides
 # all logging/debugging output, so we specify it only in a release build.
   VALA_LDFLAGS += -mwindows
 endif  
+
+shotwell.res: windows/shotwell.rc
+	windres windows/shotwell.rc -O coff -o shotwell.res
+
 endif
 
 ifdef MAC
@@ -228,8 +236,6 @@ else
 CFLAGS = -O2 -g -pipe -mfpmath=sse -march=nocona
 endif
 endif
-
-all: $(PROGRAM)
 
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
 	$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
@@ -341,6 +347,6 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
-$(PROGRAM): $(EXPANDED_OBJ_FILES) $(LANG_STAMP)
-	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(VALA_LDFLAGS) -o $@
+$(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -o $@
 
