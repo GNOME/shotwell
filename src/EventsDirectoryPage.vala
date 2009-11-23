@@ -123,8 +123,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         //
         // merge tool
         merge_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_ADD);
-        merge_button.set_label(_("Merge"));
-        merge_button.set_tooltip_text(_("Merge into a single event"));
+        merge_button.set_label(Resources.MERGE_LABEL);
+        merge_button.set_tooltip_text(Resources.MERGE_TOOLTIP);
         merge_button.clicked += on_merge;
         merge_button.sensitive = (get_view().get_selected_count() > 1);
         merge_button.is_important = true;
@@ -170,8 +170,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         actions += rename;
        
         Gtk.ActionEntry merge = { "Merge", Gtk.STOCK_ADD, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, on_merge };
-        merge.label = _("Merge Events");
-        merge.tooltip = _("Merge into a single event");
+        merge.label = Resources.MERGE_MENU;
+        merge.tooltip = Resources.MERGE_TOOLTIP;
         actions += merge;
 
         return actions;
@@ -257,57 +257,9 @@ public class EventsDirectoryPage : CheckerboardPage {
     private void on_merge() {
         if (get_view().get_selected_count() <= 1)
             return;
-
-        LibraryWindow.get_app().set_busy_cursor();
-
-        Event master_event = ((EventDirectoryItem) get_view().get_selected_at(0)).event;
-        bool has_name = (master_event.get_raw_name() != null && master_event.get_raw_name() != "");
-
-        // list of photos to merge
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-
-        // must iterate through all events before touching photos (which can delete events)
-        foreach (DataView view in get_view().get_selected()) {
-            Event event = ((EventDirectoryItem) view).event;
-
-            if (!has_name && event.get_raw_name() != null && event.get_raw_name() != "") {
-                master_event.rename(event.get_raw_name());
-                has_name = true;
-            }
-
-            foreach (PhotoSource photo in event.get_photos()) {
-                if (photo is LibraryPhoto)
-                    photos.add((LibraryPhoto) photo);
-            }
-        }
-
-        int count = 0;
-        int total = photos.size;
-
-        Cancellable cancellable = null;
-        ProgressDialog progress = null;
-        if (total >= MIN_PHOTOS_FOR_PROGRESS_WINDOW) {
-            cancellable = new Cancellable();
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Merging..."), cancellable);
-        }
-
-        // add each photo to master event
-        foreach (LibraryPhoto photo in photos) {
-            photo.set_event(master_event);
-
-            if (progress != null) {
-                progress.set_fraction(++count, total);
-                spin_event_loop();
-                
-                if (cancellable.is_cancelled())
-                    break;
-            }
-        }
-
-        if (progress != null)
-            progress.close();
-
-        LibraryWindow.get_app().set_normal_cursor();
+        
+        MergeEventsCommand command = new MergeEventsCommand(get_view().get_selected());
+        get_command_manager().execute(command);
     }
 }
 

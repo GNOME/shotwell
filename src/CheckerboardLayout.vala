@@ -308,6 +308,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         // subscribe to the new collection
         view.contents_altered += on_contents_altered;
+        view.item_altered += on_item_altered;
+        view.item_metadata_altered += on_item_metadata_altered;
         view.items_state_changed += on_items_state_changed;
         view.items_visibility_changed += on_items_visibility_changed;
         view.ordering_changed += on_ordering_changed;
@@ -321,6 +323,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     ~CheckerboardLayout() {
         view.contents_altered -= on_contents_altered;
+        view.item_altered -= on_item_altered;
+        view.item_metadata_altered -= on_item_metadata_altered;
         view.items_state_changed -= on_items_state_changed;
         view.items_visibility_changed -= on_items_visibility_changed;
         view.ordering_changed -= on_ordering_changed;
@@ -329,11 +333,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.views_altered -= on_views_altered;
         view.geometries_altered -= on_geometries_altered;
         
-        if (hadjustment != null && vadjustment != null) {
+        if (hadjustment != null)
             hadjustment.value_changed -= on_viewport_shifted;
+        
+        if (vadjustment != null)
             vadjustment.value_changed -= on_viewport_shifted;
+        
+        if (parent != null)
             parent.size_allocate -= on_viewport_resized;
-        }
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -411,6 +418,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         item_rows = null;
         
         schedule_background_reflow("on_contents_altered");
+    }
+    
+    private void on_item_altered() {
+        schedule_background_reflow("on_item_altered");
+    }
+    
+    private void on_item_metadata_altered() {
+        schedule_background_reflow("on_item_metadata_altered");
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {

@@ -4,7 +4,47 @@
  * See the COPYING file in this distribution. 
  */
 
-public abstract class SingleDataSourceCommand : Command {
+// PageCommand stores the current page when a Command is created.  Subclasses can call return_to_page()
+// if it's appropriate to return to that page when executing an undo() or redo().
+public abstract class PageCommand : Command {
+    private Page? page;
+    private bool auto_return = true;
+    
+    public PageCommand(string name, string explanation) {
+        base (name, explanation);
+        
+        page = AppWindow.get_instance().get_current_page();
+        if (page != null)
+            page.removed += on_page_removed;
+    }
+    
+    ~PageCommand() {
+        if (page != null)
+            page.removed -= on_page_removed;
+    }
+    
+    public void set_auto_return_to_page(bool auto_return) {
+        this.auto_return = auto_return;
+    }
+    
+    public override void prepare() {
+        if (auto_return)
+            return_to_page();
+        
+        base.prepare();
+    }
+    
+    public void return_to_page() {
+        if (page != null)
+            AppWindow.get_instance().set_current_page(page);
+    }
+    
+    private void on_page_removed() {
+        get_command_manager().reset();
+    }
+}
+
+public abstract class SingleDataSourceCommand : PageCommand {
     protected DataSource source;
     
     public SingleDataSourceCommand(DataSource source, string name, string explanation) {
@@ -26,7 +66,7 @@ public abstract class SingleDataSourceCommand : Command {
     private void on_source_destroyed() {
         // too much risk in simply removing this from the CommandManager; if this is considered too
         // broad a brushstroke, can return to this later
-        AppWindow.get_command_manager().reset();
+        get_command_manager().reset();
     }
 }
 
@@ -99,7 +139,7 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
     }
 }
 
-public abstract class MultipleDataSourceCommand : Command {
+public abstract class MultipleDataSourceCommand : PageCommand {
     protected const int MIN_OPS_FOR_PROGRESS_WINDOW = 5;
     
     protected Gee.ArrayList<DataSource> source_list = new Gee.ArrayList<DataSource>();
@@ -150,7 +190,7 @@ public abstract class MultipleDataSourceCommand : Command {
         // as with SingleDataSourceCommand, too risky to selectively remove commands from the stack,
         // although this could be reconsidered in the future
         if (source_list.contains(source))
-            AppWindow.get_command_manager().reset();
+            get_command_manager().reset();
     }
     
     public override void execute() {
@@ -447,7 +487,7 @@ public class NewEventCommand : MultipleDataSourceCommand {
         LibraryPhoto, SourceProxy?>();
     
     public NewEventCommand(Gee.Iterable<DataView> iter) {
-        base(iter, _("Creating New Event..."), _("Removing Event..."), Resources.NEW_EVENT_LABEL, 
+        base (iter, _("Creating New Event..."), _("Removing Event..."), Resources.NEW_EVENT_LABEL, 
             Resources.NEW_EVENT_TOOLTIP);
         
         // get proxies for the photos' events as well as the key photo for the new event (which is 
@@ -510,7 +550,84 @@ public class NewEventCommand : MultipleDataSourceCommand {
     }
     
     private void on_proxy_broken() {
-        AppWindow.get_command_manager().reset();
+        get_command_manager().reset();
+    }
+}
+
+public class MergeEventsCommand : Command {
+    // Piggyback on a private command that deals with the lump group of all photos in all events
+    // (which needs to be processed before creating the command)
+    private class RealMergeEventsCommand : MultipleDataSourceCommand {
+        private SourceProxy master_event_proxy;
+        private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = 
+            new Gee.HashMap<LibraryPhoto, SourceProxy?>();
+        
+        public RealMergeEventsCommand(Event master_event, Gee.Iterable<DataView> photos) {
+            base (photos, _("Merging..."), _("Unmerging..."), Resources.MERGE_LABEL, 
+                Resources.MERGE_TOOLTIP);
+            
+            master_event_proxy = master_event.get_proxy();
+            
+            foreach (DataSource source in source_list) {
+                LibraryPhoto photo = (LibraryPhoto) source;
+                Event? event = photo.get_event();
+                SourceProxy? event_proxy = (event != null) ? event.get_proxy() : null;
+                
+                old_photo_events.set(photo, event_proxy);
+            }
+        }
+        
+        public override void execute_on_source(DataSource source) {
+            ((LibraryPhoto) source).set_event((Event?) master_event_proxy.get_source());
+        }
+        
+        public override void undo_on_source(DataSource source) {
+            LibraryPhoto photo = (LibraryPhoto) source;
+            SourceProxy? event_proxy = old_photo_events.get(photo);
+            
+            photo.set_event(event_proxy != null ? (Event?) event_proxy.get_source() : null);
+        }
+    }
+    
+    private RealMergeEventsCommand real_command;
+    
+    public MergeEventsCommand(Gee.Iterable<DataView> iter) {
+        base (Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
+        
+        // the master event is the first one found with a name, otherwise the first one in the lot
+        Event master_event = null;
+        Gee.ArrayList<PhotoView> photos = new Gee.ArrayList<PhotoView>();
+        
+        foreach (DataView view in iter) {
+            Event event = (Event) view.get_source();
+            
+            if (master_event == null)
+                master_event = event;
+            else if (!master_event.has_name() && event.has_name())
+                master_event = event;
+            
+            // store all photos in this operation; they will be moved to the master event
+            // (keep proxies of their original event for undo)
+            foreach (PhotoSource photo_source in event.get_photos())
+                photos.add(new PhotoView(photo_source));
+        }
+        
+        assert(master_event != null);
+        assert(photos.size > 0);
+        
+        real_command = new RealMergeEventsCommand(master_event, photos);
+    }
+    
+    public override void prepare() {
+        real_command.prepare();
+    }
+    
+    public override void execute() {
+        real_command.execute();
+    }
+    
+    public override void undo() {
+        real_command.undo();
     }
 }
 

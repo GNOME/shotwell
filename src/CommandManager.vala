@@ -12,20 +12,35 @@ public interface CommandDescription : Object {
 
 // Command's overrideable action calls are guaranteed to be called in this order:
 //
+//   * prepare()
 //   * execute() (once and only once)
+//   * prepare()
 //   * undo()
+//   * prepare()
 //   * redo()
+//   * prepare()
 //   * undo()
+//   * prepare()
 //   * redo() ...
 //
 // redo()'s default implementation is to call execute, which in many cases is appropriate.
 public abstract class Command : Object, CommandDescription {
     private string name;
     private string explanation;
+    private weak CommandManager manager = null;
     
     public Command(string name, string explanation) {
         this.name = name;
         this.explanation = explanation;
+    }
+    
+    ~Command() {
+#if TRACE_DTORS
+        debug("Command dtor: %s/%s", name, explanation);
+#endif
+    }
+    
+    public virtual void prepare() {
     }
     
     public abstract void execute();
@@ -48,6 +63,17 @@ public abstract class Command : Object, CommandDescription {
     
     public virtual string get_explanation() {
         return explanation;
+    }
+    
+    public weak CommandManager? get_command_manager() {
+        return manager;
+    }
+    
+    // This should only be called by CommandManager.
+    public void internal_set_command_manager(CommandManager manager) {
+        assert(this.manager == null);
+        
+        this.manager = manager;
     }
 }
 
@@ -74,6 +100,9 @@ public class CommandManager {
     }
     
     public void execute(Command command) {
+        // assign command to this manager
+        command.internal_set_command_manager(this);
+        
         // clear redo stack; executing a command implies not going to undo an undo
         redo_stack.clear();
         
@@ -87,6 +116,7 @@ public class CommandManager {
         // update state before executing command
         push(undo_stack, command);
         
+        command.prepare();
         command.execute();
         
         // notify after execution
@@ -110,6 +140,7 @@ public class CommandManager {
         push(redo_stack, command);
         
         // undo command with state ready
+        command.prepare();
         command.undo();
         
         // report state changed after command has executed
@@ -135,6 +166,7 @@ public class CommandManager {
         push(undo_stack, command);
         
         // redo command with state ready
+        command.prepare();
         command.redo();
         
         // report state changed after command has executed

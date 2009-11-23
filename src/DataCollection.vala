@@ -161,6 +161,12 @@ public class DataCollection {
         list.resort(get_order_added_comparator());
     }
     
+    ~DataCollection() {
+#if TRACE_DTORS
+        debug("DataCollection dtor: %s", name);
+#endif
+    }
+    
     public virtual string to_string() {
         return "%s (%d)".printf(name, get_count());
     }

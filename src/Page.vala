@@ -42,7 +42,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ViewCollection view = null;
     private Gtk.Window container = null;
     private PageLayout layout = null;
-    private Gtk.MenuBar menu_bar = null;
+    private string menubar_path = null;
     private SidebarMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
@@ -52,6 +52,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
     private Gdk.Point last_down = Gdk.Point();
+    
+    public virtual signal void removed() {
+    }
     
     public Page(string page_name) {
         this.page_name = page_name;
@@ -63,7 +66,24 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     ~Page() {
+#if TRACE_DTORS
+        debug("Page destroyed: %s", page_name);
+#endif
+    }
+    
+    // This is called by the page controller when it has removed this page ... pages should override
+    // this (or the signal) to clean up
+    public virtual void notify_removed() {
+        // untie signals
         detach_event_source();
+        view.halt_monitoring();
+        
+        // remove refs to external objects which may be pointing to the Page
+        layout = null;
+        clear_marker();
+        clear_container();
+        
+        removed();
     }
     
     public string get_page_name() {
@@ -92,7 +112,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public virtual void set_container(Gtk.Window container) {
-        // this should only be called once
         assert(this.container == null);
         
         this.container = container;
@@ -164,7 +183,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public virtual Gtk.MenuBar get_menubar() {
-        return menu_bar;
+        assert(menubar_path != null);
+        
+        return (Gtk.MenuBar) ui.get_widget(menubar_path);
     }
 
     public abstract Gtk.Toolbar get_toolbar();
@@ -247,15 +268,14 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     protected void init_ui_bind(string? menubar_path) {
+        this.menubar_path = menubar_path;
+        
         ui.insert_action_group(action_group, 0);
         
         common_action_group = new Gtk.ActionGroup("CommonActionGroup");
         AppWindow.get_instance().add_common_actions(common_action_group);
         ui.insert_action_group(common_action_group, 0);
         
-        if (menubar_path != null)
-            menu_bar = (Gtk.MenuBar) ui.get_widget(menubar_path);
-
         ui.ensure_update();
     }
     

@@ -578,7 +578,7 @@ public class LibraryWindow : AppWindow {
     
     private void import_queue_batch_finished() {
         if (displaying_import_queue_page && import_queue_page.get_batch_count() == 0) {
-            remove_page(import_queue_page);
+            remove_page(import_queue_page, library_page);
             displaying_import_queue_page = false;
         }
     }
@@ -730,7 +730,7 @@ public class LibraryWindow : AppWindow {
                     !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
                      old_parent.get_year() == Time.local(event.get_start_time()).year)) {
                     // remove from sidebar
-                    remove_event_tree(stub, false);
+                    sidebar.remove_page(stub);
 
                     // add to sidebar again
                     sidebar.insert_child_sorted(get_parent_page(stub.event).get_marker(), stub,
@@ -819,50 +819,46 @@ public class LibraryWindow : AppWindow {
         foreach (EventPageStub stub in event_list) {
             if (stub.event.equals(event)) {
                 event_stub = stub;
+                
                 break;
             }
         }
-
+        
         if (event_stub == null)
             return;
-
+        
         // remove from sidebar
-        remove_event_tree(event_stub, true);
-                
-        // jump to the Photos page if current page is being deleted
-        if (get_current_page() is EventPage)
-            switch_to_library_page();
-        else
-            sidebar.place_cursor(get_current_page());
+        remove_event_tree(event_stub);
+        
+        // jump to the Events page
+        if (event_stub.has_page() && event_stub.get_page() == get_current_page())
+            switch_to_events_directory_page();
     }
 
-    private void remove_event_tree(SidebarPage page, bool permanent_remove) {
-        // remove from notebook
-        if (page is PageStub && ((PageStub) page).has_page() && permanent_remove)
-            remove_from_notebook(((PageStub) page).get_page());
-
+    private void remove_event_tree(PageStub stub) {
         // grab parent page
-        SidebarPage parent = sidebar.get_parent_page(page);
-
-        // remove from sidebar
-        sidebar.remove_page(page);
-
+        SidebarPage parent = sidebar.get_parent_page(stub);
+        
+        // remove from notebook and sidebar
+        remove_stub(stub);
+        
         // remove parent if empty
         if (parent != null && !(parent is MasterEventsDirectoryPage)) {
+            assert(parent is PageStub);
+            
             if (!sidebar.has_children(parent.get_marker()))
-                remove_event_tree(parent, true);
+                remove_event_tree((PageStub) parent);
         }
-
-        if (page is SubEventsDirectoryPageStub) {
+        
+        // remove from appropriate list
+        if (stub is SubEventsDirectoryPageStub) {
             // remove from events directory list 
-            bool removed = events_dir_list.remove((SubEventsDirectoryPageStub) page);
+            bool removed = events_dir_list.remove((SubEventsDirectoryPageStub) stub);
             assert(removed);
-            debug("Removed page %s", page.get_page_name());
-        } else if (page is EventPageStub && permanent_remove) {
+        } else if (stub is EventPageStub) {
             // remove from the events list
-            bool removed = event_list.remove((EventPageStub) page);
+            bool removed = event_list.remove((EventPageStub) stub);
             assert(removed);
-            debug("Removed page %s", page.get_page_name());
         }
     }
 
@@ -886,7 +882,7 @@ public class LibraryWindow : AppWindow {
         // remove from page table and then from the notebook
         ImportPage page = camera_pages.get(camera.uri);
         camera_pages.unset(camera.uri);
-        remove_page(page);
+        remove_page(page, library_page);
 
         // if no cameras present, remove row
         if (CameraTable.get_instance().get_count() == 0 && cameras_marker != null) {
@@ -945,7 +941,7 @@ public class LibraryWindow : AppWindow {
         add_to_notebook(orphan);
     }
     
-    private void remove_page(Page page) {
+    private void remove_page(Page page, Page fallback_page) {
         // a handful of pages just don't go away
         assert(page != library_page);
         assert(page != events_directory_page);
@@ -961,7 +957,19 @@ public class LibraryWindow : AppWindow {
         
         // switch away if necessary to collection page (which is always present)
         if (get_current_page() == page)
-            switch_to_library_page();
+            switch_to_page(fallback_page);
+    }
+    
+    private void remove_stub(PageStub stub) {
+        // see note in remove_page() for why this is done
+        if (stub.has_page()) {
+            pages_to_be_removed.add(stub.get_page());
+            Idle.add(remove_page_internal);
+        } 
+        
+        // remove stub (which holds a marker) from the sidebar
+        sidebar.remove_page(stub);
+        debug("Removed stub %s", stub.get_name());
     }
     
     private bool remove_page_internal() {
@@ -975,6 +983,8 @@ public class LibraryWindow : AppWindow {
             sidebar.remove_page(page);
             
             debug("Removed page %s", page.get_page_name());
+            
+            page.notify_removed();
             
             pages_to_be_removed.remove_at(0);
         }
@@ -1050,6 +1060,11 @@ public class LibraryWindow : AppWindow {
         switch_to_page(start_page);
     }
     
+    public override void set_current_page(Page page) {
+        // switch_to_page() will call base.set_current_page(), maintain the semantics of this call
+        switch_to_page(page);
+    }
+    
     public void switch_to_page(Page page) {
         if (page == get_current_page())
             return;
@@ -1109,7 +1124,7 @@ public class LibraryWindow : AppWindow {
         
         // do this prior to changing selection, as the change will fire a cursor-changed event,
         // which will then call this function again
-        set_current_page(page);
+        base.set_current_page(page);
 
         Idle.add_full(Priority.HIGH, place_sidebar_cursor);
         

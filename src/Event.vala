@@ -320,6 +320,12 @@ public class Event : EventSource, Proxyable {
         return "Event [%lld/%lld] %s".printf(event_id.id, get_object_id(), get_name());
     }
     
+    public bool has_name() {
+        string raw_name = get_raw_name();
+        
+        return raw_name != null && raw_name.length > 0;
+    }
+    
     public override string get_name() {
         string event_name = event_table.get_name(event_id);
 

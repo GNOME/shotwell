@@ -151,6 +151,7 @@ public abstract class DataSource : DataObject {
     private Gee.ArrayList<DataView> subscribers = new Gee.ArrayList<DataView>();
     private bool in_contact = false;
     private bool marked_for_destroy = false;
+    private bool is_destroyed = false;
     
     // This signal is fired at the end of the destroy() chain.  The object's state is either fragile
     // or unusable.  It is up to all observers to drop their references to the DataObject.
@@ -159,6 +160,12 @@ public abstract class DataSource : DataObject {
     
     public DataSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
+    }
+    
+    ~DataSource() {
+#if TRACE_DTORS
+        debug("DataSource destroyed");
+#endif
     }
     
     public override void notify_altered() {
@@ -183,6 +190,18 @@ public abstract class DataSource : DataObject {
         view.notify_metadata_altered();
     }
     
+    public override void notify_membership_changed(DataCollection? collection) {
+        // DataSources can only be removed once they've been destroyed, and may not be re-added
+        // likewise
+        if (collection == null) {
+            assert(is_destroyed);
+        } else {
+            assert(!is_destroyed);
+        }
+        
+        base.notify_membership_changed(collection);
+    }
+    
     // If a DataSource cannot produce snapshots, return null.
     public virtual SourceSnapshot? save_snapshot() {
         return null;
@@ -204,6 +223,9 @@ public abstract class DataSource : DataObject {
         
         // clear the subscriber list
         subscribers.clear();
+        
+        // mark as destroyed
+        is_destroyed = true;
         
         // propagate the signal
         destroyed();
@@ -474,6 +496,12 @@ public class DataView : DataObject {
         // subscribe to the DataSource, which sets up signal reflection and gives the DataView
         // first notification of destruction.
         source.internal_subscribe(this);
+    }
+    
+    ~DataView() {
+#if TRACE_DTORS
+        debug("DataView destroyed");
+#endif
     }
  
     public override string get_name() {
