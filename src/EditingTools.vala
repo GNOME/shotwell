@@ -11,7 +11,7 @@ public abstract class EditingToolWindow : Gtk.Window {
     private bool user_moved = false;
 
     public EditingToolWindow(Gtk.Window container) {
-        type_hint = Gdk.WindowTypeHint.TOOLBAR;
+        set_decorated(false);
         set_transient_for(container);
 
         Gtk.Frame outer_frame = new Gtk.Frame(null);
