@@ -237,7 +237,9 @@ public class LibraryWindow : AppWindow {
     private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
 
     private Sidebar sidebar = new Sidebar();
+#if !NO_CAMERA
     private SidebarMarker cameras_marker = null;
+#endif
 
     private BasicProperties basic_properties = new BasicProperties();
     private ExtendedPropertiesWindow extended_properties = new ExtendedPropertiesWindow();
@@ -922,12 +924,14 @@ public class LibraryWindow : AppWindow {
 
         sidebar.add_parent(parent);
     }
-    
+
+#if !NO_CAMERA    
     private void add_child_page(SidebarMarker parent_marker, Page child) {
         add_to_notebook(child);
         
         sidebar.add_child(parent_marker, child);
     }
+#endif
     
     private void insert_page_after(SidebarMarker after_marker, Page page) {
         add_to_notebook(page);
