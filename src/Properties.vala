@@ -380,7 +380,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             add_line(_("GPS Latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
                 gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
             
-            add_line(_("GPS Latitude:"), (gps_long != -1 && gps_long_ref != "" && 
+            add_line(_("GPS Longitude:"), (gps_long != -1 && gps_long_ref != "" && 
                 gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
 
             add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
