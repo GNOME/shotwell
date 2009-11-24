@@ -88,6 +88,11 @@ SRC_FILES = \
 	Commands.vala \
 	SlideshowPage.vala
 
+ifndef LINUX
+SRC_FILES += \
+    GConf.vala
+endif
+
 VAPI_FILES = \
 	libexif.vapi \
 	FStream.vapi \
@@ -145,15 +150,13 @@ EXT_PKGS += \
 	libgphoto2 \
 	webkit-1.0 \
 	libsoup-2.4 \
-	libxml-2.0
+	libxml-2.0 \
+    gconf-2.0
 endif
 
 ifdef MAC
 EXT_PKGS += \
     ige-mac-integration
-else
-EXT_PKGS += \
-    gconf-2.0
 endif
 
 EXT_PKG_VERSIONS = \
@@ -167,11 +170,7 @@ EXT_PKG_VERSIONS += \
 	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
 	unique-1.0 >= 1.0.0 \
-	libgphoto2 >= 2.4.2
-endif
-
-ifndef MAC
-EXT_PKG_VERSIONS += \
+	libgphoto2 >= 2.4.2 \
 	gconf-2.0 >= 2.22.0
 endif
 
@@ -224,7 +223,7 @@ shotwell.res: windows/shotwell.rc
 endif
 
 ifdef MAC
-  VALA_DEFINES = -D MAC -D NO_CAMERA -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_GCONF -D NO_SVG
+  VALA_DEFINES = -D MAC -D NO_CAMERA -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_SVG
   EXPANDED_OBJ_FILES += src/mac.o
 endif
 
@@ -293,11 +292,13 @@ endif
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
+ifdef LINUX
 ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-install-rule misc/shotwell.schemas
 else
 	mkdir -p $(DESTDIR)$(SCHEMA_FILE_DIR)
 	$(INSTALL_DATA) misc/shotwell.schemas $(DESTDIR)$(SCHEMA_FILE_DIR)
+endif
 endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
@@ -312,10 +313,12 @@ uninstall:
 ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
+ifdef LINUX
 ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
 else
 	rm -f $(DESTDIR)$(SCHEMA_FILE_DIR)/shotwell.schemas
+endif
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
 
