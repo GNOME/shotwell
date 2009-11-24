@@ -631,3 +631,53 @@ public class MergeEventsCommand : Command {
     }
 }
 
+public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
+    private Gee.HashMap<LibraryPhoto, LibraryPhoto> dupes = new Gee.HashMap<LibraryPhoto, LibraryPhoto>();
+    private int failed = 0;
+    
+    public DuplicateMultiplePhotosCommand(Gee.Iterable<DataView> iter) {
+        base (iter, _("Duplicating photos..."), _("Removing duplicated photos..."), 
+            Resources.DUPLICATE_PHOTO_LABEL, Resources.DUPLICATE_PHOTO_TOOLTIP);
+    }
+    
+    public override void execute() {
+        dupes.clear();
+        failed = 0;
+        
+        base.execute();
+        
+        if (failed > 0)
+            AppWindow.error_message(_("Unable to duplicate %d photos due to file errors.").printf(failed));
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        
+        try {
+            LibraryPhoto dupe = photo.duplicate();
+            dupes.set(photo, dupe);
+        } catch (Error err) {
+            critical("Unable to duplicate file %s: %s", photo.get_file().get_path(), err.message);
+            failed++;
+        }
+    }
+    
+    public override void undo() {
+        base.undo();
+        
+        // be sure to drop everything that was destroyed
+        dupes.clear();
+        failed = 0;
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        
+        LibraryPhoto dupe = dupes.get(photo);
+        dupe.delete_original_on_destroy();
+        
+        Marker marker = LibraryPhoto.global.mark(dupe);
+        LibraryPhoto.global.destroy_marked(marker);
+    }
+}
+

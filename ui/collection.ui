@@ -47,6 +47,8 @@
             <menuitem name="Revert" action="Revert" />
             <menuitem name="Enhance" action="Enhance" />
             <separator />
+            <menuitem name="Duplicate" action="Duplicate" />
+            <separator />
             <menuitem name="Slideshow" action="Slideshow" />
         </menu>
         
@@ -62,6 +64,7 @@
     </menubar>
     
     <popup name="CollectionContextMenu">
+        <menuitem name="ContextDuplicate" action="Duplicate" />
         <menuitem name="ContextRemove" action="Remove" />
         <separator />
         <menuitem name="ContextRotateClockwise" action="RotateClockwise" />

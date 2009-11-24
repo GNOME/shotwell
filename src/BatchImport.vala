@@ -96,8 +96,6 @@ public class ImportManifest {
 // it into the system, including database additions and thumbnail creation.  It can be monitored by
 // multiple observers, but only one ImportReporter can be registered.
 public class BatchImport {
-    public const int IMPORT_DIRECTORY_DEPTH = 3;
-    
     private Gee.Iterable<BatchImportJob> jobs;
     private string name;
     private uint64 total_bytes;
@@ -140,92 +138,6 @@ public class BatchImport {
         this.skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
     }
     
-    public static File? create_library_path(string filename, Exif.Data? exif, time_t ts, 
-        out bool collision) {
-        File dir = AppDirs.get_photos_dir();
-        time_t timestamp = ts;
-        
-        // use EXIF exposure timestamp over the supplied one (which probably comes from the file's
-        // modified time, or is simply now())
-        if (exif != null && !Exif.get_timestamp(exif, out timestamp)) {
-            // if no exposure time supplied, use now()
-            if (ts == 0)
-                timestamp = time_t();
-        }
-        
-        Time tm = Time.local(timestamp);
-        
-        // build a directory tree inside the library, as deep as IMPORT_DIRECTORY_DEPTH:
-        // yyyy/mm/dd
-        dir = dir.get_child("%04u".printf(tm.year + 1900));
-        dir = dir.get_child("%02u".printf(tm.month + 1));
-        dir = dir.get_child("%02u".printf(tm.day));
-        
-        try {
-            if (!dir.query_exists(null))
-                dir.make_directory_with_parents(null);
-        } catch (Error err) {
-            error("Unable to create photo library directory %s", dir.get_path());
-        }
-        
-        // if file doesn't exist, use that and done
-        File file = dir.get_child(filename);
-        if (!file.query_exists(null)) {
-            collision = false;
-
-            return file;
-        }
-
-        collision = true;
-
-        string name, ext;
-        disassemble_filename(file.get_basename(), out name, out ext);
-
-        // generate a unique filename
-        for (int ctr = 1; ctr < int.MAX; ctr++) {
-            string new_name = (ext != null) ? "%s_%d.%s".printf(name, ctr, ext) : "%s_%d".printf(name, ctr);
-
-            file = dir.get_child(new_name);
-            
-            if (!file.query_exists(null))
-                return file;
-        }
-        
-        return null;
-    }
-
-    private static ImportResult copy_file(File src, out File dest) {
-        PhotoExif exif = new PhotoExif(src);
-        time_t timestamp = 0;
-        try {
-            timestamp = query_file_modified(src);
-        } catch (Error err) {
-            critical("Unable to access file modification for %s: %s", src.get_path(), err.message);
-        }
-
-        bool collision;
-        dest = create_library_path(src.get_basename(), exif.get_exif(), timestamp, out collision);
-        if (dest == null)
-            return ImportResult.FILE_ERROR;
-        
-        debug("Copying %s to %s", src.get_path(), dest.get_path());
-        
-        try {
-            src.copy(dest, FileCopyFlags.ALL_METADATA, null, on_copy_progress);
-        } catch (Error err) {
-            critical("Unable to copy file %s to %s: %s", src.get_path(), dest.get_path(),
-                err.message);
-            
-            return ImportResult.FILE_ERROR;
-        }
-        
-        return ImportResult.SUCCESS;
-    }
-    
-    private static void on_copy_progress(int64 current, int64 total) {
-        spin_event_loop();
-    }
-
     private static int get_test_variable(string name) {
         string value = Environment.get_variable(name);
         if (value == null || value.length == 0)
@@ -416,10 +328,15 @@ public class BatchImport {
         bool is_in_library_dir = file.has_prefix(AppDirs.get_photos_dir());
         
         if (copy_to_library && !is_in_library_dir) {
-            File copied;
-            ImportResult result = copy_file(file, out copied);
-            if (result != ImportResult.SUCCESS)
-                return result;
+            File copied = null;
+            try {
+                copied = LibraryFiles.duplicate(file);
+            } catch (Error err) {
+                critical("Unable to duplicate file %s: %s", file.get_path(), err.message);
+            }
+            
+            if (copied == null)
+                return ImportResult.FILE_ERROR;
             
             debug("Copied %s into library at %s", file.get_path(), copied.get_path());
             

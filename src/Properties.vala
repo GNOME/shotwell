@@ -145,11 +145,12 @@ private class BasicProperties : Properties {
             
             dimensions = photo_source.get_dimensions();
 
-            Exif.Data exif = photo_source.get_exif();
-            exposure = Exif.get_exposure(exif);
-            aperture = Exif.get_aperture(exif);
-            iso = Exif.get_iso(exif);
-
+            Exif.Data? exif = photo_source.get_exif();
+            if (exif != null) {
+                exposure = Exif.get_exposure(exif);
+                aperture = Exif.get_aperture(exif);
+                iso = Exif.get_iso(exif);
+            }
         } else if (source is EventSource) {
             EventSource event_source = (EventSource) source;
 

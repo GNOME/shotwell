@@ -1797,6 +1797,26 @@ public class LibraryPhoto : TransformablePhoto {
         return ThumbnailCache.fetch(get_photo_id(), scale);
     }
     
+    public LibraryPhoto duplicate() throws Error {
+        // clone the backing file
+        File dupe_file = LibraryFiles.duplicate(get_file());
+        
+        // clone the row in the database so another that relies on this new backing file
+        PhotoID dupe_id = PhotoTable.get_instance().duplicate(get_photo_id(), dupe_file.get_path());
+        PhotoRow dupe_row = PhotoTable.get_instance().get_row(dupe_id);
+        
+        // clone thumbnails
+        ThumbnailCache.duplicate(get_photo_id(), dupe_id);
+        
+        // build the DataSource for the duplicate
+        LibraryPhoto dupe = new LibraryPhoto(dupe_row);
+        
+        // add it to the SourceCollection; this notifies everyone interested of its presence
+        global.add(dupe);
+        
+        return dupe;
+    }
+    
     public void delete_original_on_destroy() {
         delete_original = true;
     }
@@ -1853,7 +1873,7 @@ public class LibraryPhoto : TransformablePhoto {
         // inside the user's Pictures directory
         if (file.has_prefix(AppDirs.get_photos_dir())) {
             File parent = file;
-            for (int depth = 0; depth < BatchImport.IMPORT_DIRECTORY_DEPTH; depth++) {
+            for (int depth = 0; depth < LibraryFiles.DIRECTORY_DEPTH; depth++) {
                 parent = parent.get_parent();
                 if (parent == null)
                     break;

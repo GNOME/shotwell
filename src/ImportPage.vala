@@ -868,7 +868,7 @@ public class ImportPage : CheckerboardPage {
             }
             
             bool collision;
-            File dest_file = BatchImport.create_library_path(import_file.get_filename(), 
+            File dest_file = LibraryFiles.generate_unique_file(import_file.get_filename(), 
                 import_file.get_exif(), time_t(), out collision);
             if (dest_file == null) {
                 message("Unable to generate local file for %s", import_file.get_filename());

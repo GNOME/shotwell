@@ -147,6 +147,14 @@ public class ThumbnailCache : Object {
         spin_event_loop();
     }
     
+    public static void duplicate(PhotoID src_id, PhotoID dest_id) {
+        big._duplicate(src_id, dest_id);
+        spin_event_loop();
+        
+        medium._duplicate(src_id, dest_id);
+        spin_event_loop();
+    }
+    
     public static void remove(PhotoID photo_id) {
         big._remove(photo_id);
         spin_event_loop();
@@ -334,6 +342,25 @@ public class ThumbnailCache : Object {
 
         // store in database
         cache_table.add(photo_id, filesize, Dimensions.for_pixbuf(scaled));
+    }
+    
+    private void _duplicate(PhotoID src_id, PhotoID dest_id) {
+        File src_file = get_cached_file(src_id);
+        File dest_file = get_cached_file(dest_id);
+        
+        debug("Duplicating thumbnail for %s [%lld] to %s [%lld]", photo_table.get_name(src_id),
+            src_id.id, photo_table.get_name(dest_id), dest_id.id);
+        
+        try {
+            src_file.copy(dest_file, FileCopyFlags.ALL_METADATA, null, null);
+        } catch (Error err) {
+            error("%s", err.message);
+        }
+        
+        // Do NOT store in memory cache, for similar reasons as stated in _import().
+        
+        // duplicate in the database
+        cache_table.duplicate(src_id, dest_id);
     }
     
     private void _replace(PhotoID photo_id, Gdk.Pixbuf original) throws Error {

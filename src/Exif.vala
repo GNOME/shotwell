@@ -503,7 +503,7 @@ public class PhotoExif  {
             
         update();
 
-        return null;
+        return exif;
     }
     
     public void set_exif(Exif.Data exif) {

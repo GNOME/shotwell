@@ -116,6 +116,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MERGE_MENU = _("_Merge Events");
     public const string MERGE_LABEL = _("Merge");
     public const string MERGE_TOOLTIP = _("Merge into a single event");
+    
+    public const string DUPLICATE_PHOTO_MENU = _("_Duplicate");
+    public const string DUPLICATE_PHOTO_LABEL = _("Duplicate");
+    public const string DUPLICATE_PHOTO_TOOLTIP = _("Make a duplicate of the photo");
 
     private Gtk.IconFactory factory = null;
     

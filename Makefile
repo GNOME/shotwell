@@ -86,7 +86,8 @@ SRC_FILES = \
 	FacebookConnector.vala \
 	CommandManager.vala \
 	Commands.vala \
-	SlideshowPage.vala
+	SlideshowPage.vala \
+	LibraryFiles.vala
 
 ifndef LINUX
 SRC_FILES += \

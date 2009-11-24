@@ -508,6 +508,61 @@ public class PhotoTable : DatabaseTable {
         return all;
     }
     
+    // Create a duplicate of the specified row.  A new byte-for-byte duplicate of PhotoID's file 
+    // needs to back this duplicate.
+    public PhotoID duplicate(PhotoID photo_id, string new_filename) {
+        // get a copy of the original row, duplicating most (but not all) of it
+        PhotoRow original = get_row(photo_id);
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, "
+            + "exposure_time, orientation, original_orientation, import_id, event_id, transformations, "
+            + "md5, thumbnail_md5, exif_md5, time_created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(1, new_filename);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(2, original.dim.width);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(3, original.dim.height);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(4, original.filesize);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(5, original.timestamp);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(6, original.exposure_time);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(7, original.orientation);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(8, original.original_orientation);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(9, original.import_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(10, original.event_id.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(11, unmarshall_all_transformations(original.transformations));
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(12, original.md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(13, original.thumbnail_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(14, original.exif_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(15, now_sec());
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            if (res != Sqlite.CONSTRAINT)
+                fatal("duplicate", res);
+            
+            return PhotoID();
+        }
+        
+        return PhotoID(db.last_insert_rowid());
+    }
+    
     public bool exists(PhotoID photo_id) {
         return exists_by_id(photo_id.id);
     }
@@ -1003,6 +1058,12 @@ public class PhotoTable : DatabaseTable {
     }
 }
 
+public struct ThumbnailCacheRow {
+    PhotoID photo_id;
+    Dimensions dim;
+    int filesize;
+}
+
 public class ThumbnailCacheTable : DatabaseTable {
     public ThumbnailCacheTable(int scale) {
         assert(scale > 0);
@@ -1082,6 +1143,41 @@ public class ThumbnailCacheTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             fatal("%s add".printf(table_name), res);
+    }
+    
+    public ThumbnailCacheRow? get_row(PhotoID photo_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT width, height, filesize FROM %s WHERE photo_id=?".printf(table_name),
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, photo_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW) {
+            if (res != Sqlite.DONE)
+                fatal("%s get_row".printf(table_name), res);
+            
+            return null;
+        }
+        
+        ThumbnailCacheRow row = ThumbnailCacheRow();
+        row.photo_id = photo_id;
+        row.dim = Dimensions(stmt.column_int(0), stmt.column_int(1));
+        row.filesize = stmt.column_int(2);
+        
+        return row;
+    }
+    
+    public void duplicate(PhotoID src_id, PhotoID dest_id) {
+        // copy
+        ThumbnailCacheRow? row = get_row(src_id);
+        if (row == null)
+            error("Unable to duplicate thumbnail cache row %lld", src_id.id);
+        
+        // paste
+        add(dest_id, row.filesize, row.dim);
     }
     
     public void replace(PhotoID photo_id, int filesize, Dimensions dim) {

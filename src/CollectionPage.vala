@@ -276,6 +276,12 @@ public class CollectionPage : CheckerboardPage {
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
+        
+        Gtk.ActionEntry duplicate = { "Duplicate", null, TRANSLATABLE, "<Ctrl>D", TRANSLATABLE,
+            on_duplicate_photo };
+        duplicate.label = Resources.DUPLICATE_PHOTO_MENU;
+        duplicate.tooltip = Resources.DUPLICATE_PHOTO_TOOLTIP;
+        actions += duplicate;
 
         Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
             TRANSLATABLE, on_slideshow };
@@ -403,6 +409,7 @@ public class CollectionPage : CheckerboardPage {
         bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
         
+        set_item_sensitive("/CollectionContextMenu/ContextDuplicate", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRemove", selected);
         set_item_sensitive("/CollectionContextMenu/ContextNewEvent", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
@@ -662,6 +669,7 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Duplicate", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
     }
     
@@ -781,6 +789,15 @@ public class CollectionPage : CheckerboardPage {
             return;
         
         EnhanceMultipleCommand command = new EnhanceMultipleCommand(get_view().get_selected());
+        get_command_manager().execute(command);
+    }
+    
+    private void on_duplicate_photo() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        DuplicateMultiplePhotosCommand command = new DuplicateMultiplePhotosCommand(
+            get_view().get_selected());
         get_command_manager().execute(command);
     }
 
