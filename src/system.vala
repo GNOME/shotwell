@@ -35,11 +35,18 @@ File? get_sys_install_dir(File exec_dir) {
         Win32.get_package_installation_directory_of_module(null));
     return install_dir.equal(exec_dir) ? null : install_dir;
 }
+
+extern void sys_show_uri(void *screen, string uri) throws Error;
+
 #else
 // Return the directory in which Shotwell is installed, or null if uninstalled.
 File? get_sys_install_dir(File exec_dir) {
     File prefix_dir = File.new_for_path(Resources.PREFIX);
     return exec_dir.has_prefix(prefix_dir) ? prefix_dir : null;
+}
+
+void sys_show_uri(Gdk.Screen screen, string uri) throws Error {
+    Gtk.show_uri(screen, uri, Gdk.CURRENT_TIME);
 }
 #endif
 

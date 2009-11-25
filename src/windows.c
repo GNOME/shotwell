@@ -32,3 +32,7 @@ int number_of_processors() {
     return info.dwNumberOfProcessors;
 }
 
+void sys_show_uri(void *screen, const char *uri, void *error) {
+    ShellExecute(NULL, "open", uri, NULL, NULL, SW_SHOWNORMAL);
+}
+
