@@ -230,11 +230,13 @@ public class LibraryWindow : AppWindow {
     private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
     private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
         new Gee.ArrayList<SubEventsDirectoryPageStub>();
-#if !NO_CAMERA        
+#if !NO_CAMERA
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
-#endif        
-    private Gee.ArrayList<Page> pages_to_be_removed = new Gee.ArrayList<Page>();
+#endif
+    private OneShotScheduler page_removal_scheduler = null;
+    private Gee.HashSet<Page> pages_to_be_removed = new Gee.HashSet<Page>();
+    private Gee.HashSet<Page> pages_to_be_hidden = new Gee.HashSet<Page>();
 
     private Sidebar sidebar = new Sidebar();
 #if !NO_CAMERA
@@ -302,6 +304,8 @@ public class LibraryWindow : AppWindow {
 
         extended_properties.hide += hide_extended_properties;
         extended_properties.show += show_extended_properties;
+        
+        page_removal_scheduler = new OneShotScheduler(hide_remove_pages_internal);
     }
     
     ~LibraryWindow() {
@@ -580,7 +584,8 @@ public class LibraryWindow : AppWindow {
     
     private void import_queue_batch_finished() {
         if (displaying_import_queue_page && import_queue_page.get_batch_count() == 0) {
-            remove_page(import_queue_page, library_page);
+            // only hide the import queue page, as it might be used later
+            hide_page(import_queue_page, library_page);
             displaying_import_queue_page = false;
         }
     }
@@ -945,19 +950,29 @@ public class LibraryWindow : AppWindow {
         add_to_notebook(orphan);
     }
     
+    // This removes the page from the notebook and the sidebar, but does not actually notify it
+    // that it's been removed from the system, allowing it to be added back later.
+    private void hide_page(Page page, Page fallback_page) {
+        // See note in remove_page for the necessity of doing this
+        pages_to_be_hidden.add(page);
+        page_removal_scheduler.at_priority_idle(Priority.LOW);
+        
+        if (get_current_page() == page)
+            switch_to_page(fallback_page);
+    }
+    
     private void remove_page(Page page, Page fallback_page) {
         // a handful of pages just don't go away
         assert(page != library_page);
         assert(page != events_directory_page);
         assert(page != photo_page);
+        assert(page != import_queue_page);
         
         // because removing a page while executing inside a signal or from a call from the page
         // itself causes problems (i.e. the page being unref'd beneath its feet), schedule all
         // removals outside of UI event and in Idle handler
-        if (!pages_to_be_removed.contains(page)) {
-            pages_to_be_removed.add(page);
-            Idle.add(remove_page_internal);
-        }
+        pages_to_be_removed.add(page);
+        page_removal_scheduler.at_priority_idle(Priority.LOW);
         
         // switch away if necessary to collection page (which is always present)
         if (get_current_page() == page)
@@ -968,7 +983,7 @@ public class LibraryWindow : AppWindow {
         // see note in remove_page() for why this is done
         if (stub.has_page()) {
             pages_to_be_removed.add(stub.get_page());
-            Idle.add(remove_page_internal);
+            page_removal_scheduler.at_priority_idle(Priority.LOW);
         } 
         
         // remove stub (which holds a marker) from the sidebar
@@ -976,24 +991,22 @@ public class LibraryWindow : AppWindow {
         debug("Removed stub %s", stub.get_name());
     }
     
-    private bool remove_page_internal() {
-        // remove all the pages scheduled for removal (in Idle)
-        while (pages_to_be_removed.size > 0) {
-            Page page = pages_to_be_removed.get(0);
-            
+    private void hide_remove_pages_internal() {
+        foreach (Page page in pages_to_be_removed) {
             remove_from_notebook(page);
-
-            // remove from sidebar, if present
             sidebar.remove_page(page);
-            
-            debug("Removed page %s", page.get_page_name());
             
             page.notify_removed();
             
-            pages_to_be_removed.remove_at(0);
+            debug("Removed page %s", page.get_page_name());
         }
         
-        return false;
+        foreach (Page page in pages_to_be_hidden) {
+            remove_from_notebook(page);
+            sidebar.remove_page(page);
+            
+            debug("Hid page %s", page.get_page_name());
+        }
     }
     
     // check for settings that should persist between instances
