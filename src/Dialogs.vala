@@ -413,6 +413,26 @@ public class EventRenameDialog : Gtk.Dialog {
     }
 }
 
+// Returns: Gtk.ResponseType.YES (delete photos), Gtk.ResponseType.NO (only remove photos) and
+// Gtk.ResponseType.CANCEL.
+public Gtk.ResponseType remove_photos_dialog(Gtk.Window owner, bool plural) {
+    string msg_string = plural
+        ? _("This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n\nThis action cannot be undone.")
+        : _("This will remove the photo from your Shotwell library.  Would you also like to delete the file from disk?\n\nThis action cannot be undone.");
+    
+    Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", msg_string);
+    dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
+    dialog.add_button(Gtk.STOCK_DELETE, Gtk.ResponseType.YES);
+    dialog.title = _("Remove");
+    
+    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    
+    dialog.destroy();
+    
+    return result;
+}
+
 public class ProgressDialog : Gtk.Window {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private Gtk.Button cancel_button = null;

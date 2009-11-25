@@ -11,6 +11,8 @@
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
+            <separator />
+            <menuitem name="Remove" action="Remove" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
@@ -46,6 +48,8 @@
     </menubar>
     
     <popup name="PhotoContextMenu">
+        <menuitem name="ContextRemove" action="Remove" />
+        <separator />
         <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
         <menuitem name="ContextMirror" action="Mirror" />

@@ -1122,6 +1122,13 @@ public class LibraryPhotoPage : EditingHostPage {
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
 
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
+        
+        // watch for photos being destroyed, either here or in other pages
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+    }
+    
+    ~LibraryPhotoPage() {
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -1140,6 +1147,12 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
+        
+        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_remove };
+        remove.label = _("Remove");
+        remove.tooltip = _("Remove the photo from your library");
+        actions += remove;
 
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
         view.label = _("_View");
@@ -1212,13 +1225,25 @@ public class LibraryPhotoPage : EditingHostPage {
         if (base.key_press_event != null && base.key_press_event(event) == true)
             return true;
         
-        if (Gdk.keyval_name(event.keyval) == "Escape") {
-            return_to_collection();
+        bool handled = true;
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "Escape":
+                return_to_collection();
+            break;
             
-            return true;
+            case "Delete":
+                // although bound as an accelerator in the menu, accelerators are currently
+                // unavailable in fullscreen mode (a variant of #324), so we do this manually
+                // here
+                on_remove();
+            break;
+            
+            default:
+                handled = false;
+            break;
         }
         
-        return false;
+        return handled;
     }
     
     private override bool on_double_click(Gdk.EventButton event) {
@@ -1244,6 +1269,41 @@ public class LibraryPhotoPage : EditingHostPage {
 
     private void return_to_collection() {
         LibraryWindow.get_app().switch_to_page(return_page);
+    }
+    
+    private void on_remove() {
+        if (!has_photo())
+            return;
+        
+        LibraryPhoto? photo = (LibraryPhoto?) get_photo();
+        if (photo == null)
+            return;
+        
+        Gtk.ResponseType response = remove_photos_dialog(get_page_window(), false);
+        if (response != Gtk.ResponseType.YES && response != Gtk.ResponseType.NO)
+            return;
+        
+        if (response == Gtk.ResponseType.YES)
+            photo.delete_original_on_destroy();
+        
+        Marker marker = LibraryPhoto.global.mark(photo);
+        LibraryPhoto.global.destroy_marked(marker);
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        LibraryPhoto photo = source as LibraryPhoto;
+        
+        // only interested in current photo
+        if (photo == null || !photo.equals(get_photo()))
+            return;
+        
+        // move on to the next one in the collection
+        on_next_photo();
+        if (photo.equals(get_photo())) {
+            // this indicates there is only one photo in the controller, or now zero, so switch 
+            // back to the previous page
+            return_to_collection();
+        }
     }
     
     private void on_export() {
@@ -1272,6 +1332,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_edit_menu() {
         decorate_undo_item("/PhotoMenuBar/EditMenu/Undo");
         decorate_redo_item("/PhotoMenuBar/EditMenu/Redo");
+        set_item_sensitive("/PhotoMenuBar/EditMenu/Remove", has_photo());
     }
     
     private void on_photo_menu() {

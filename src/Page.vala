@@ -212,6 +212,18 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         ui.get_widget(path).sensitive = sensitive;
     }
     
+    public PageWindow? get_page_window() {
+        Gtk.Widget p = parent;
+        while (p != null) {
+            if (p is PageWindow)
+                return (PageWindow) p;
+            
+            p = p.parent;
+        }
+        
+        return null;
+    }
+    
     public CommandManager get_command_manager() {
         return AppWindow.get_command_manager();
     }

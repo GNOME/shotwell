@@ -11,7 +11,7 @@
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
-        </menuitem>
+        </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="Fullscreen" action="CommonFullscreen" />
