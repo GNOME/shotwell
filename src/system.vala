@@ -36,6 +36,8 @@ File? get_sys_install_dir(File exec_dir) {
     return install_dir.equal(exec_dir) ? null : install_dir;
 }
 
+// On Windows we can't call gtk_show_uri() because it's broken; see
+// https://bugzilla.gnome.org/show_bug.cgi?id=602968
 extern void sys_show_uri(void *screen, string uri) throws Error;
 
 #else
