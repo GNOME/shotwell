@@ -80,7 +80,8 @@ public class CollectionPage : CheckerboardPage {
 #endif
 
     private int scale = Thumbnail.DEFAULT_SCALE;
-    private Gee.ArrayList<File> drag_items = new Gee.ArrayList<File>();
+    private Gee.ArrayList<File> drag_files = new Gee.ArrayList<File>();
+    private Gee.ArrayList<LibraryPhoto> drag_photos = new Gee.ArrayList<LibraryPhoto>();
     private int drag_failed_item_count = 0;
     
     public CollectionPage(string page_name, string? ui_filename = null, 
@@ -435,7 +436,8 @@ public class CollectionPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-        drag_items.clear();
+        drag_files.clear();
+        drag_photos.clear();
 
         // because drag_data_get may be called multiple times in a single drag, prepare all the exported
         // files first
@@ -443,11 +445,13 @@ public class CollectionPage : CheckerboardPage {
         drag_failed_item_count = 0;
         foreach (DataView view in get_view().get_selected()) {
             LibraryPhoto photo = ((Thumbnail) view).get_photo();
-            
+
+            drag_photos.add(photo);
+
             File file = null;
             try {
                 file = photo.generate_exportable();
-                drag_items.add(file);
+                drag_files.add(file);
             } catch (Error err) {
                 drag_failed_item_count++;
                 warning("%s", err.message);
@@ -473,22 +477,31 @@ public class CollectionPage : CheckerboardPage {
     
     private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
         uint target_type, uint time) {
-        assert(target_type == TargetType.URI_LIST);
-        
-        if (drag_items.size == 0)
-            return;
-        
-        // prepare list of uris
-        string[] uris = new string[drag_items.size];
-        int ctr = 0;
-        foreach (File file in drag_items)
-            uris[ctr++] = file.get_uri();
-        
-        selection_data.set_uris(uris);
+        if (target_type == TargetType.URI_LIST) {
+            if (drag_files.size == 0)
+                return;
+            
+            // prepare list of uris
+            string[] uris = new string[drag_files.size];
+            int ctr = 0;
+            foreach (File file in drag_files)
+                uris[ctr++] = file.get_uri();
+            
+            selection_data.set_uris(uris);
+        } else {
+            assert(target_type == TargetType.PHOTO_LIST);
+
+            if (drag_photos.size == 0)
+                return;
+           
+            selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64),
+                serialize_photo_ids(drag_photos));
+        }
     }
     
     private override void drag_end(Gdk.DragContext context) {
-        drag_items.clear();
+        drag_files.clear();
+        drag_photos.clear();
 
         if (drag_failed_item_count > 0) {
             Idle.add(report_drag_failed);
@@ -506,7 +519,8 @@ public class CollectionPage : CheckerboardPage {
     private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
         debug("Drag failed: %d", (int) drag_result);
         
-        drag_items.clear();
+        drag_files.clear();
+        drag_photos.clear();
         
         foreach (DataView view in get_view().get_selected())
             ((Thumbnail) view).get_photo().export_failed();
@@ -662,8 +676,6 @@ public class CollectionPage : CheckerboardPage {
         bool selected = (get_view().get_selected_count() > 0);
         bool revert_possible = can_revert_selected();
         
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/DecreaseSize", scale > Thumbnail.MIN_SCALE);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
@@ -802,6 +814,8 @@ public class CollectionPage : CheckerboardPage {
     }
 
     private void on_view_menu() {
+        set_item_sensitive("/CollectionMenuBar/ViewMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
+        set_item_sensitive("/CollectionMenuBar/ViewMenu/DecreaseSize", scale > Thumbnail.MIN_SCALE);
         set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
     }
     

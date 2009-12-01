@@ -7,9 +7,9 @@
 public class Config {
     GConf.Client client;
     protected static Config instance = null;
-    public const double SLIDESHOW_DELAY_MAX = 30;
-    public const double SLIDESHOW_DELAY_MIN = 1;
-    public const double SLIDESHOW_DELAY_DEFAULT = 5;
+    public const double SLIDESHOW_DELAY_MAX = 30.0;
+    public const double SLIDESHOW_DELAY_MIN = 1.0;
+    public const double SLIDESHOW_DELAY_DEFAULT = 5.0;
     
     private Config() {
         // only one may exist per-process
@@ -195,6 +195,9 @@ public class Config {
         double delay;
         try {
             delay = client.get_float("/apps/shotwell/preferences/slideshow/delay");
+
+            if (delay == 0.0)
+                delay = SLIDESHOW_DELAY_DEFAULT;
         } catch (GLib.Error err) {
             message("Unable to get GConf value.  Error message: %s", err.message);
             delay = SLIDESHOW_DELAY_DEFAULT;

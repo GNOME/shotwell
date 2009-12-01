@@ -43,6 +43,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
     private File drag_file = null;
+    private TransformablePhoto drag_photo = null;
     private uint32 last_nav_key = 0;
     private bool photo_missing = false;
     private bool drag_event_failed = true;
@@ -688,23 +689,36 @@ public abstract class EditingHostPage : SinglePhotoPage {
         debug("Prepared for export %s", file.get_path());
         
         drag_file = file;
+        drag_photo = get_photo();
     }
     
     private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
         uint target_type, uint time) {
-        assert(target_type == TargetType.URI_LIST);
-        
-        if (drag_file == null)
-            return;
-        
-        string[] uris = new string[1];
-        uris[0] = drag_file.get_uri();
-        
-        selection_data.set_uris(uris);
+        if (target_type == TargetType.URI_LIST) {
+            if (drag_file == null)
+                return;
+            
+            string[] uris = new string[1];
+            uris[0] = drag_file.get_uri();
+            
+            selection_data.set_uris(uris);
+        } else {
+            assert(target_type == TargetType.PHOTO_LIST);
+
+            if (drag_photo == null)
+                return;
+
+            // bundle photo in a list in order to serialize
+            Gee.ArrayList<TransformablePhoto> photo = new Gee.ArrayList<TransformablePhoto>();
+            photo.add(drag_photo);
+            
+            selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64), serialize_photo_ids(photo));
+        }
     }
     
     private override void drag_end(Gdk.DragContext context) {
         drag_file = null;
+        drag_photo = null;
 
         if (drag_event_failed) {
             Idle.add(report_drag_failed);
@@ -722,6 +736,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         debug("Drag failed: %d", (int) drag_result);
         
         drag_file = null;
+        drag_photo = null;
         get_photo().export_failed();
         
         return false;

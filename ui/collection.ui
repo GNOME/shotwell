@@ -33,13 +33,13 @@
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
             </menu>
             <separator />
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
+            <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
                 
         <menu name="PhotosMenu" action="PhotosMenu">
-            <menuitem name="IncreaseSize" action="IncreaseSize" />
-            <menuitem name="DecreaseSize" action="DecreaseSize" />
-            <separator />
             <menuitem name="RotateClockwise" action="RotateClockwise" />
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />

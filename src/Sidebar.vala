@@ -42,6 +42,8 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.Menu context_menu = null;
     private Gtk.TreePath current_path = null;
 
+    public signal void drop_received(Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page);
+
     public Sidebar() {
         set_model(store);
 
@@ -63,6 +65,8 @@ public class Sidebar : Gtk.TreeView {
         Gtk.TreeSelection selection = get_selection();
         selection.set_mode(Gtk.SelectionMode.BROWSE);
         selection.set_select_function(on_selection, null);
+
+        enable_model_drag_dest(LibraryWindow.DEST_TARGET_ENTRIES, Gdk.DragAction.ASK);
     }
     
     public void place_cursor(SidebarPage page) {
@@ -429,5 +433,19 @@ public class Sidebar : Gtk.TreeView {
             path.next();
             num_children--;
         }
+    }
+
+    private override void drag_data_received(Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint info, uint time) {
+
+        Gtk.TreePath path;
+        Gtk.TreeViewDropPosition pos;
+        SidebarPage page = null;
+
+        if (get_dest_row_at_pos(x, y, out path, out pos)) {
+            page = locate_page(path);
+        }
+
+        drop_received(context, x, y, selection_data, info, time, page);
     }
 }

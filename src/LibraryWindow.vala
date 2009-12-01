@@ -18,9 +18,15 @@ public class LibraryWindow : AppWindow {
         "disk:",
         "file:"
     };
+
+    protected enum TargetType {
+        URI_LIST,
+        PHOTO_LIST
+    }
     
-    private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
-        { "text/uri-list", 0, 0 }
+    public const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
+        { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
+        { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
     };
     
     // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
@@ -301,6 +307,9 @@ public class LibraryWindow : AppWindow {
 
         // start with only most recent month directory open
         sidebar.expand_first_branch_only(events_directory_page.get_marker());
+
+        // connect to sidebar signal used ommited on drag-and-drop orerations
+        sidebar.drop_received += drop_received;
 
         extended_properties.hide += hide_extended_properties;
         extended_properties.show += show_extended_properties;
@@ -621,13 +630,51 @@ public class LibraryWindow : AppWindow {
 
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
-        // don't accept drops from our own application
-        if (Gtk.drag_get_source_widget(context) != null) {
-            Gtk.drag_finish(context, false, false, time);
+        drop_received(context, x, y, selection_data, info, time);
+    }
+
+    private void drop_received(Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page = null) {
+        // determine if drag is internal or external
+        if (Gtk.drag_get_source_widget(context) != null)
+            drag_internal(context, x, y, selection_data, info, time, page);
+        else
+            drag_external(context, x, y, selection_data, info, time);
+    }
+
+    private void drag_internal(Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page = null) {
+        if (page != null && page is EventPageStub) {
+            Event event = ((EventPageStub) page).event;
+
+            Gee.ArrayList<PhotoView> photos = new Gee.ArrayList<PhotoView>();
+            bool move_photos = false;
             
-            return;
+            Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
+                selection_data.get_length());
+
+            foreach (PhotoID photo_id in photo_ids) {
+                LibraryPhoto photo = LibraryPhoto.global.fetch(photo_id);
+
+                photos.add(new PhotoView(photo));
+
+                if (!photo.get_event().equals(event))
+                    move_photos = true;
+            }
+
+            if (move_photos) {
+                SetEventCommand command = new SetEventCommand(photos, event);
+                get_command_manager().execute(command);
+                Gtk.drag_finish(context, true, false, time);
+                return;
+            }
         }
 
+        Gtk.drag_finish(context, false, false, time);
+    }
+
+    private void drag_external(Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint info, uint time) {
         // We extract the URI list using Uri.list_extract_uris() rather than
         // Gtk.SelectionData.get_uris() to work around this bug on Windows:
         // https://bugzilla.gnome.org/show_bug.cgi?id=599321
@@ -670,7 +717,7 @@ public class LibraryWindow : AppWindow {
             // use the suggested action
             context.action = context.suggested_action;
         }
-        
+
         dispatch_import_jobs(uris, "drag-and-drop", context.action == Gdk.DragAction.COPY);
 
         Gtk.drag_finish(context, true, false, time);
@@ -737,7 +784,7 @@ public class LibraryWindow : AppWindow {
                     !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
                      old_parent.get_year() == Time.local(event.get_start_time()).year)) {
                     // remove from sidebar
-                    sidebar.remove_page(stub);
+                    remove_event_tree(stub, false);
 
                     // add to sidebar again
                     sidebar.insert_child_sorted(get_parent_page(stub.event).get_marker(), stub,
@@ -842,12 +889,15 @@ public class LibraryWindow : AppWindow {
             switch_to_events_directory_page();
     }
 
-    private void remove_event_tree(PageStub stub) {
+    private void remove_event_tree(PageStub stub, bool delete_stub = true) {
         // grab parent page
         SidebarPage parent = sidebar.get_parent_page(stub);
         
         // remove from notebook and sidebar
-        remove_stub(stub);
+        if (delete_stub)
+            remove_stub(stub);
+        else
+            sidebar.remove_page(stub);        
         
         // remove parent if empty
         if (parent != null && !(parent is MasterEventsDirectoryPage)) {
@@ -855,17 +905,6 @@ public class LibraryWindow : AppWindow {
             
             if (!sidebar.has_children(parent.get_marker()))
                 remove_event_tree((PageStub) parent);
-        }
-        
-        // remove from appropriate list
-        if (stub is SubEventsDirectoryPageStub) {
-            // remove from events directory list 
-            bool removed = events_dir_list.remove((SubEventsDirectoryPageStub) stub);
-            assert(removed);
-        } else if (stub is EventPageStub) {
-            // remove from the events list
-            bool removed = event_list.remove((EventPageStub) stub);
-            assert(removed);
         }
     }
 
@@ -988,6 +1027,18 @@ public class LibraryWindow : AppWindow {
         
         // remove stub (which holds a marker) from the sidebar
         sidebar.remove_page(stub);
+
+        // remove from appropriate list
+        if (stub is SubEventsDirectoryPageStub) {
+            // remove from events directory list 
+            bool removed = events_dir_list.remove((SubEventsDirectoryPageStub) stub);
+            assert(removed);
+        } else if (stub is EventPageStub) {
+            // remove from the events list
+            bool removed = event_list.remove((EventPageStub) stub);
+            assert(removed);
+        }
+
         debug("Removed stub %s", stub.get_name());
     }
     

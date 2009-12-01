@@ -26,12 +26,14 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
 
     protected enum TargetType {
-        URI_LIST
+        URI_LIST,
+        PHOTO_LIST
     }
     
     // For now, assuming all drag-and-drop source functions are providing the same set of targets
     protected const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
-        { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST }
+        { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
+        { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
     };
     
     public Gtk.UIManager ui = new Gtk.UIManager();

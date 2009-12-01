@@ -481,104 +481,55 @@ public class RedeyeCommand : GenericPhotoTransformationCommand {
     }
 }
 
-public class NewEventCommand : MultipleDataSourceCommand {
-    private SourceProxy new_event_proxy = null;
-    private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = new Gee.HashMap<
-        LibraryPhoto, SourceProxy?>();
-    
-    public NewEventCommand(Gee.Iterable<DataView> iter) {
-        base (iter, _("Creating New Event..."), _("Removing Event..."), Resources.NEW_EVENT_LABEL, 
-            Resources.NEW_EVENT_TOOLTIP);
+public abstract class MovePhotosCommand : Command {
+    // Piggyback on a private command so that processing to determine new_event can occur before
+    // contruction, if needed
+    protected class RealMovePhotosCommand : MultipleDataSourceCommand {
+        private SourceProxy new_event_proxy = null;
+        private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = new Gee.HashMap<
+            LibraryPhoto, SourceProxy?>();
         
-        // get proxies for the photos' events as well as the key photo for the new event (which is 
-        // simply the first one)
-        LibraryPhoto key_photo = null;
-        foreach (DataSource source in source_list) {
-            LibraryPhoto photo = (LibraryPhoto) source;
-            Event? event = photo.get_event();
-            SourceProxy? event_proxy = (event != null) ? event.get_proxy() : null;
+        public RealMovePhotosCommand( Event? new_event, Gee.Iterable<DataView> photos,
+            string progress_text, string undo_progress_text, string name, string explanation) {
+            base(photos, progress_text, undo_progress_text, name, explanation);
             
-            // if any of the proxies break, the show's off
-            if (event_proxy != null)
-                event_proxy.broken += on_proxy_broken;
-            
-            old_photo_events.set(photo, event_proxy);
-            
-            if (key_photo == null)
-                key_photo = photo;
-        }
-        
-        // key photo is required for an event
-        assert(key_photo != null);
-        
-        // create the new event but only stash the proxy
-        Event new_event = Event.create_empty_event(key_photo);
-        new_event_proxy = new_event.get_proxy();
-        new_event_proxy.broken += on_proxy_broken;
-    }
-    
-    ~NewEventCommand() {
-        new_event_proxy.broken -= on_proxy_broken;
-        
-        foreach (SourceProxy? proxy in old_photo_events.values) {
-            if (proxy != null)
-                proxy.broken -= on_proxy_broken;
-        }
-    }
-    
-    public override void execute() {
-        // create the new event
-        base.execute();
-        
-        // switch to new event page
-        LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
-    }
-    
-    public override void execute_on_source(DataSource source) {
-        LibraryPhoto photo = (LibraryPhoto) source;
-        
-        photo.set_event((Event?) new_event_proxy.get_source());
-    }
-    
-    public override void undo_on_source(DataSource source) {
-        LibraryPhoto photo = (LibraryPhoto) source;
-        
-        SourceProxy old_event_proxy = old_photo_events.get(photo);
-        Event? old_event = (old_event_proxy != null) ? (Event) old_event_proxy.get_source() : null;
-        
-        photo.set_event(old_event);
-    }
-    
-    private void on_proxy_broken() {
-        get_command_manager().reset();
-    }
-}
-
-public class MergeEventsCommand : Command {
-    // Piggyback on a private command that deals with the lump group of all photos in all events
-    // (which needs to be processed before creating the command)
-    private class RealMergeEventsCommand : MultipleDataSourceCommand {
-        private SourceProxy master_event_proxy;
-        private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = 
-            new Gee.HashMap<LibraryPhoto, SourceProxy?>();
-        
-        public RealMergeEventsCommand(Event master_event, Gee.Iterable<DataView> photos) {
-            base (photos, _("Merging..."), _("Unmerging..."), Resources.MERGE_LABEL, 
-                Resources.MERGE_TOOLTIP);
-            
-            master_event_proxy = master_event.get_proxy();
-            
+            // get proxies for the photos' events
             foreach (DataSource source in source_list) {
                 LibraryPhoto photo = (LibraryPhoto) source;
-                Event? event = photo.get_event();
-                SourceProxy? event_proxy = (event != null) ? event.get_proxy() : null;
+                Event? old_event = photo.get_event();
+                SourceProxy? old_event_proxy = (old_event != null) ? old_event.get_proxy() : null;
                 
-                old_photo_events.set(photo, event_proxy);
+                // if any of the proxies break, the show's off
+                if (old_event_proxy != null)
+                    old_event_proxy.broken += on_proxy_broken;
+                
+                old_photo_events.set(photo, old_event_proxy);
+            }
+            
+            // stash the proxy of the new event
+            new_event_proxy = new_event.get_proxy();
+            new_event_proxy.broken += on_proxy_broken;
+        }
+        
+        ~RealMovePhotosCommand() {
+            new_event_proxy.broken -= on_proxy_broken;
+            
+            foreach (SourceProxy? proxy in old_photo_events.values) {
+                if (proxy != null)
+                    proxy.broken -= on_proxy_broken;
             }
         }
         
+        public override void execute() {
+            // create the new event
+            base.execute();
+            
+            // switch to new event page
+            LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+        }
+        
         public override void execute_on_source(DataSource source) {
-            ((LibraryPhoto) source).set_event((Event?) master_event_proxy.get_source());
+            ((LibraryPhoto) source).set_event((Event?) new_event_proxy.get_source());
         }
         
         public override void undo_on_source(DataSource source) {
@@ -587,10 +538,71 @@ public class MergeEventsCommand : Command {
             
             photo.set_event(event_proxy != null ? (Event?) event_proxy.get_source() : null);
         }
+        
+        private void on_proxy_broken() {
+            get_command_manager().reset();
+        }
+    }
+
+    protected RealMovePhotosCommand real_command;
+    
+    public MovePhotosCommand(string name, string explanation) {
+        base(name, explanation);
     }
     
-    private RealMergeEventsCommand real_command;
+    public override void prepare() {
+        assert(real_command != null);
+        real_command.prepare();
+    }
     
+    public override void execute() {
+        assert(real_command != null);
+        real_command.execute();
+    }
+    
+    public override void undo() {
+        assert(real_command != null);
+        real_command.undo();
+    }
+}
+
+public class NewEventCommand : MovePhotosCommand {   
+    public NewEventCommand(Gee.Iterable<DataView> iter) {       
+        base(Resources.NEW_EVENT_LABEL, Resources.NEW_EVENT_TOOLTIP);
+
+        // get the key photo for the new event (which is simply the first one)
+        LibraryPhoto key_photo = null;
+        foreach (DataView view in iter) {
+            LibraryPhoto photo = (LibraryPhoto) view.get_source();;
+            
+            if (key_photo == null) {
+                key_photo = photo;
+                break;
+            }
+        }
+        
+        // key photo is required for an event
+        assert(key_photo != null);
+
+        Event new_event = Event.create_empty_event(key_photo);
+
+        real_command = new RealMovePhotosCommand(new_event, iter, _("Creating New Event..."),
+            _("Removing Event..."), Resources.NEW_EVENT_LABEL,
+            Resources.NEW_EVENT_TOOLTIP);        
+    }
+}
+
+public class SetEventCommand : MovePhotosCommand {   
+    public SetEventCommand(Gee.Iterable<DataView> iter, Event new_event) {
+        base(Resources.SET_PHOTO_EVENT_LABEL, Resources.SET_PHOTO_EVENT_TOOLTIP);
+
+        real_command = new RealMovePhotosCommand(new_event, iter, _("Moving Photos to New Event..."),
+            _("Setting Photos to Previous Event..."), Resources.SET_PHOTO_EVENT_LABEL, 
+            Resources.SET_PHOTO_EVENT_TOOLTIP);
+    }
+}
+
+public class MergeEventsCommand : MovePhotosCommand {
     public MergeEventsCommand(Gee.Iterable<DataView> iter) {
         base (Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
         
@@ -615,19 +627,8 @@ public class MergeEventsCommand : Command {
         assert(master_event != null);
         assert(photos.size > 0);
         
-        real_command = new RealMergeEventsCommand(master_event, photos);
-    }
-    
-    public override void prepare() {
-        real_command.prepare();
-    }
-    
-    public override void execute() {
-        real_command.execute();
-    }
-    
-    public override void undo() {
-        real_command.undo();
+        real_command = new RealMovePhotosCommand(master_event, photos, _("Merging..."), 
+            _("Unmerging..."), Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
     }
 }
 
@@ -680,4 +681,3 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
         LibraryPhoto.global.destroy_marked(marker);
     }
 }
-

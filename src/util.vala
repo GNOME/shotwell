@@ -80,6 +80,34 @@ public string md5_file(File file) throws Error {
     return md5.get_string();
 }
 
+public uchar[] serialize_photo_ids(Gee.List<TransformablePhoto> photos) {
+    int64[] ids = new int64[photos.size];
+    int ctr = 0;
+    foreach (TransformablePhoto photo in photos)
+        ids[ctr++] = photo.get_photo_id().id;
+    
+    size_t bytes = photos.size * sizeof(int64);
+    uchar[] serialized = new uchar[bytes];
+    Memory.copy(serialized, ids, bytes);
+    
+    return serialized;
+}
+
+public Gee.List<PhotoID?>? unserialize_photo_ids(uchar* serialized, int size) {
+    size_t count = (size / sizeof(int64));
+    if (count <= 0)
+        return null;
+    
+    int64[] ids = new int64[count];
+    Memory.copy(ids, serialized, size);
+    
+    Gee.ArrayList<PhotoID?> list = new Gee.ArrayList<PhotoID?>();
+    foreach (int64 id in ids)
+        list.add(PhotoID(id));
+    
+    return list;
+}
+
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,

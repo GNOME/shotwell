@@ -317,6 +317,13 @@ public class EventPage : CollectionPage {
         base.on_photos_menu();
     }
     
+    protected override bool on_context_invoked(Gtk.Menu context_menu) {
+        set_item_sensitive("/CollectionContextMenu/ContextMakePrimary", 
+            get_view().get_selected_count() == 1);
+
+        return base.on_context_invoked(context_menu);
+    }
+
     private void on_make_primary() {
         if (get_view().get_selected_count() == 0)
             return;
