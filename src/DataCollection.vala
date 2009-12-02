@@ -50,14 +50,14 @@ public class DataCollection {
         }
         
         public void mark(DataObject object) {
-            assert(owner.contains(object));
+            assert(owner.internal_contains(object));
             
             marked.add(object);
         }
         
         public void mark_many(Gee.Iterable<DataObject> list) {
             foreach (DataObject object in list) {
-                assert(owner.contains(object));
+                assert(owner.internal_contains(object));
                 
                 marked.add(object);
             }
@@ -248,6 +248,12 @@ public class DataCollection {
     }
     
     public virtual bool contains(DataObject object) {
+        return internal_contains(object);
+    }
+    
+    // Because subclasses may filter out objects (by overriding key methods here), need an
+    // internal_contains for consistency checking.
+    private bool internal_contains(DataObject object) {
         if (!hash_set.contains(object))
             return false;
         
@@ -278,7 +284,7 @@ public class DataCollection {
     
     // Returns false if item is already part of the collection.
     public bool add(DataObject object) {
-        if (contains(object)) {
+        if (internal_contains(object)) {
             debug("%s cannot add %s: already present", to_string(), object.to_string());
             
             return false;
@@ -298,7 +304,7 @@ public class DataCollection {
     public int add_many(Gee.Iterable<DataObject> objects) {
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
-            if (contains(object)) {
+            if (internal_contains(object)) {
                 debug("%s cannot add %s: already present", to_string(), object.to_string());
                 
                 continue;
@@ -347,7 +353,7 @@ public class DataCollection {
         // iterate, breaking if the callback asks to stop
         foreach (DataObject object in marker.marked) {
             // although marker tracks when items are removed, catch it here as well
-            if (!contains(object)) {
+            if (!internal_contains(object)) {
                 warning("act_on_marked: marker holding ref to unknown %s", object.to_string());
                 
                 continue;
@@ -379,7 +385,7 @@ public class DataCollection {
         // remove everything in the marked list
         foreach (DataObject object in marker.marked) {
             // although marker should track items already removed, catch it here as well
-            if (!contains(object)) {
+            if (!internal_contains(object)) {
                 warning("remove_marked: marker holding ref to unknown %s", object.to_string());
                 
                 continue;
@@ -425,7 +431,7 @@ public class DataCollection {
     // This method is only called by DataObject to report when it has been altered, so observers of
     // this collection may be notified as well.
     public void internal_notify_altered(DataObject object) {
-        assert(contains(object));
+        assert(internal_contains(object));
 
         // re-add to maintain sort
         list.remove(object);
@@ -437,7 +443,7 @@ public class DataCollection {
     // This method is only called by DataObject to report when its metadata has been altered, so
     // observers of this collection may be notified as well.
     public void internal_notify_metadata_altered(DataObject object) {
-        assert(contains(object));
+        assert(internal_contains(object));
         
         notify_item_metadata_altered(object);
     }
