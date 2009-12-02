@@ -553,7 +553,8 @@ public abstract class ViewManager {
 
 // A ViewFilter allows for items in a ViewCollection to be shown or hidden depending on the
 // supplied predicate method.  For now, only one ViewFilter may be installed, although this may
-// change in the future.
+// change in the future.  The ViewFilter is used whenever an object is added to the collection
+// and when its altered/metadata_altered signals fire.
 //
 // Return true if view should be visible, false if it should be hidden.
 public delegate bool ViewFilter(DataView view);
@@ -562,7 +563,8 @@ public delegate bool ViewFilter(DataView view);
 // Thus, multiple views can exist of a single SourceCollection, each view displaying all or some
 // of that SourceCollection.  A view collection also has a notion of order
 // (first/last/next/previous) that can be overridden by child classes.  It also understands hidden
-// objects, which are withheld entirely from the collection until they're made visible.
+// objects, which are withheld entirely from the collection until they're made visible.  Currently
+// the only way to hide objects is with a ViewFilter.
 //
 // The default implementation provides a browser which orders the view in the order they're
 // stored in DataCollection, which is not specified.
@@ -677,8 +679,11 @@ public class ViewCollection : DataCollection {
         if (filter == null)
             return;
         
-        Marker visible_marker = start_marking();
-        Marker hidden_marker = start_marking();
+        // Can't use the marking system because ViewCollection completely overrides DataCollection,
+        // hence hidden items can't be marked.  Okay to do this manually because we know what we're
+        // doing here in regards to adding and removing objects from lists.
+        Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
+        Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
         
         // iterate through base.all(), otherwise merely iterating the visible items
         foreach (DataObject object in base.get_all()) {
@@ -686,22 +691,35 @@ public class ViewCollection : DataCollection {
             
             if (filter(view)) {
                 if (!view.is_visible())
-                    visible_marker.mark(object);
+                    to_show.add((DataView) object);
             } else {
                 if (view.is_visible())
-                    hidden_marker.mark(object);
+                    to_hide.add((DataView) object);
             }
         }
         
-        show_marked(visible_marker);
-        hide_marked(hidden_marker);
+        show_items(to_show);
+        hide_items(to_hide);
     }
     
     public void reset_view_filter() {
         this.filter = null;
         
-        // reset visibility of all items
-        show_all();
+        // reset visibility of all hidden items ... can't use marker for reasons explained in
+        // reapply_view_filter().
+        Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
+        foreach (DataObject object in base.get_all()) {
+            DataView view = (DataView) object;
+            if (view.is_visible()) {
+                assert(visible.contains(view));
+                
+                continue;
+            }
+            
+            to_show.add(view);
+        }
+        
+        show_items(to_show);
     }
     
     public override bool valid_type(DataObject object) {
@@ -806,11 +824,23 @@ public class ViewCollection : DataCollection {
         if (filter == null)
             return;
         
-        Marker marker = mark(object);
-        if (filter((DataView) object))
-            show_marked(marker);
-        else
-            hide_marked(marker);
+        DataView view = (DataView) object;
+        
+        // Can't use the marker system because ViewCollection completely overrides DataCollection
+        // and hidden items cannot be marked.
+        if (filter(view)) {
+            if (!view.is_visible()) {
+                Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
+                to_show.add(view);
+                show_items(to_show);
+            }
+        } else {
+            if (view.is_visible()) {
+                Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
+                to_hide.add(view);
+                hide_items(to_hide);
+            }
+        }
     }
     
     public override void item_altered(DataObject object) {
@@ -849,6 +879,20 @@ public class ViewCollection : DataCollection {
     
     public override DataObject get_at(int index) {
         return visible.get(index);
+    }
+    
+    public override int index_of(DataObject object) {
+        return visible.locate((DataView) object);
+    }
+    
+    public override bool contains(DataObject object) {
+        // use base method first, which can quickly ascertain if the object is *not* a member of
+        // this collection
+        if (!base.contains(object))
+            return false;
+        
+        // even if a member, must be visible to be "contained"
+        return visible.locate((DataView) object) >= 0;
     }
     
     public virtual DataView? get_first() {
@@ -1021,91 +1065,50 @@ public class ViewCollection : DataCollection {
         return selected.get(index);
     }
     
-    public void hide_marked(Marker marker) {
-        Gee.ArrayList<DataView> hidden = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, hide_item, null, hidden);
-        
-        if (hidden.size > 0) {
-            items_hidden(hidden);
-            items_visibility_changed(hidden);
-        }
-    }
-    
-    private bool hide_item(DataObject object, Object user) {
-        DataView view = (DataView) object;
-        if (!view.is_visible()) {
-            assert(!visible.contains(view));
+    // This method requires that all items in to_hide are not hidden already.
+    private void hide_items(Gee.List<DataView> to_hide) {
+        foreach (DataView view in to_hide) {
+            assert(view.is_visible());
             
-            return true;
-        }
-        
-        view.internal_set_visible(false);
-        bool removed = visible.remove(view);
-        assert(removed);
-        
-        // hidden items must be removed from the selected list as well ... however, don't need
-        // to actually deselect them, merely remove from the list while hidden and add back
-        // when shown, hence no need to fire selection_changed signals
-        if (view.is_selected()) {
-            removed = selected.remove(view);
+            view.internal_set_visible(false);
+            bool removed = visible.remove(view);
             assert(removed);
-        }
-        
-        ((Gee.ArrayList<DataView>) user).add(view);
-        
-        return true;
-    }
-    
-    public void show_marked(Marker marker) {
-        Gee.ArrayList<DataView> shown = new Gee.ArrayList<DataView>();
-        act_on_marked(marker, show_item, null, shown);
-        
-        if (shown.size > 0) {
-            items_shown(shown);
-            items_visibility_changed(shown);
-        }
-    }
-    
-    private bool show_item(DataObject object, Object user) {
-        DataView view = (DataView) object;
-        if (view.is_visible()) {
-            assert(visible.contains(view));
             
-            return true;
+            // hidden items must be removed from the selected list as well ... however, don't need
+            // to actually deselect them, merely remove from the list while hidden and add back
+            // when shown, hence no need to fire selection_changed signals
+            if (view.is_selected()) {
+                removed = selected.remove(view);
+                assert(removed);
+            }
         }
         
-        view.internal_set_visible(true);
-        bool added = visible.add(view);
-        assert(added);
-        
-        // see note in hide_item for selection handling with hidden/visible items
-        if (view.is_selected()) {
-            assert(!selected.contains(view));
-            selected.add(view);
+        if (to_hide.size > 0) {
+            items_hidden(to_hide);
+            items_visibility_changed(to_hide);
+        }
+    }
+    
+    // This method requires that all items in to_show are hidden already.
+    private void show_items(Gee.List<DataView> to_show) {
+        foreach (DataView view in to_show) {
+            assert(!view.is_visible());
+            
+            view.internal_set_visible(true);
+            bool added = visible.add(view);
+            assert(added);
+            
+            // see note in hide_item for selection handling with hidden/visible items
+            if (view.is_selected()) {
+                assert(!selected.contains(view));
+                selected.add(view);
+            }
         }
         
-        ((Gee.ArrayList<DataView>) user).add(view);
-        
-        return true;
-    }
-    
-    public void show_all() {
-        Marker marker = start_marking();
-        
-        // can't use mark_all() because that will only mark the visible items
-        foreach (DataObject object in base.get_all())
-            marker.mark(object);
-        
-        show_marked(marker);
-    }
-    
-    public void hide_all() {
-        Marker marker = start_marking();
-        
-        // *can* use mark_all() because it only marks the visible items, which is perfect
-        marker.mark_all();
-        
-        hide_marked(marker);
+        if (to_show.size > 0) {
+            items_shown(to_show);
+            items_visibility_changed(to_show);
+        }
     }
     
     public bool has_view_for_source(DataSource source) {

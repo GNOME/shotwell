@@ -893,6 +893,10 @@ public class CollectionPage : CheckerboardPage {
             get_view().reset_view_filter();
         else
             get_view().install_view_filter(hidden_photo_filter);
+        
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewHidden");
+        if (action != null)
+            action.set_active(display);
     }
     
     private bool hidden_photo_filter(DataView view) {
