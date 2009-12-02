@@ -85,6 +85,7 @@ public class PublishingDialog : Gtk.Dialog {
     private int num_items;
     private bool user_cancelled = false;
     private Gtk.Widget active_pane;
+    FacebookConnector.LoginShell facebook_login_shell;
 
     public PublishingDialog(Gee.Iterable<DataView> to_publish, int publish_num_items) {
         active_instance = this;
@@ -156,7 +157,7 @@ public class PublishingDialog : Gtk.Dialog {
     }
     
     private void on_login_requested() {
-        FacebookConnector.LoginShell facebook_login_shell = new FacebookConnector.LoginShell();
+        facebook_login_shell = new FacebookConnector.LoginShell();
         facebook_login_shell.login_failure += on_facebook_login_failed;
         facebook_login_shell.login_success += on_facebook_login_success;
         facebook_login_shell.login_error += on_facebook_login_error;
@@ -213,7 +214,6 @@ public class PublishingDialog : Gtk.Dialog {
         not_logged_in_pane.login_requested += on_login_requested;
         central_area_layouter.add(not_logged_in_pane);
         central_area_layouter.show_all();
-        active_pane.destroy();
 
         active_pane = not_logged_in_pane;
     }
