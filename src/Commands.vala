@@ -681,3 +681,26 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
         LibraryPhoto.global.destroy_marked(marker);
     }
 }
+
+public class HideUnhideCommand : MultipleDataSourceCommand {
+    private bool hide;
+    
+    public HideUnhideCommand(Gee.Iterable<DataView> iter, bool hide) {
+        base (iter,
+            hide ? _("Hiding...") : _("Unhiding"),
+            hide ? _("Unhiding...") : _("Hiding"),
+            hide ? Resources.HIDE_LABEL : Resources.UNHIDE_LABEL,
+            hide ? Resources.HIDE_TOOLTIP : Resources.UNHIDE_TOOLTIP);
+        
+        this.hide = hide;
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((LibraryPhoto) source).set_hidden(hide);
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        ((LibraryPhoto) source).set_hidden(!hide);
+    }
+}
+

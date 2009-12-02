@@ -205,6 +205,27 @@ public class Config {
         
         return delay.clamp(SLIDESHOW_DELAY_MIN, SLIDESHOW_DELAY_MAX);
     }
-   
+    
+    public bool get_display_hidden_photos() {
+        try {
+            return client.get_bool("/apps/shotwell/preferences/ui/display_hidden_photos");
+        } catch (Error err) {
+            message("Unable to get GConf value: %s", err.message);
+            
+            return false;
+        }
+    }
+    
+    public bool set_display_hidden_photos(bool display) {
+        try {
+            client.set_bool("/apps/shotwell/preferences/ui/display_hidden_photos", display);
+            
+            return true;
+        } catch (Error err) {
+            message("Unable to set GConf value: %s", err.message);
+            
+            return false;
+        }
+    }
 }
 

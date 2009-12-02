@@ -67,11 +67,38 @@ void library_exec(string[] mounts) {
 
     // validate the databases prior to using them
     message("Verifying databases ...");
+    string errormsg = null;
     string app_version;
-    if (!verify_databases(out app_version)) {
-        string errormsg = _("The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please clear your library by deleting %s and re-import your photos.");
+    DatabaseVerifyResult result = verify_database(out app_version);
+    switch (result) {
+        case DatabaseVerifyResult.OK:
+            // do nothing; no problems
+        break;
+        
+        case DatabaseVerifyResult.FUTURE_VERSION:
+            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell.").printf(
+                app_version, Resources.APP_VERSION);
+        break;
+        
+        case DatabaseVerifyResult.UPGRADE_ERROR:
+            errormsg = _("Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s").printf(
+                app_version, Resources.APP_VERSION, Resources.HELP_URL);
+        break;
+        
+        case DatabaseVerifyResult.NO_UPGRADE_AVAILABLE:
+            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos.").printf(
+                app_version, Resources.APP_VERSION, AppDirs.get_data_dir().get_path());
+        break;
+        
+        default:
+            errormsg = _("Unknown error attempting to verify Shotwell's database: %d").printf(
+                (int) result);
+        break;
+    }
+    
+    if (errormsg != null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog(null, Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, errormsg, app_version, AppDirs.get_data_dir().get_path());
+            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", errormsg);
         dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();

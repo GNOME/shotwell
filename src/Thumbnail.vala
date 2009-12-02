@@ -154,4 +154,18 @@ public class Thumbnail : LayoutItem {
         
         base.unexposed();
     }
+    
+    public override Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
+        LibraryPhoto photo = get_photo();
+        
+        // don't let the hose run
+        if (!photo.is_hidden())
+            return null;
+        
+        Gee.List<Gdk.Pixbuf> trinkets = new Gee.ArrayList<Gdk.Pixbuf>();
+        trinkets.add(Resources.get_icon(Resources.ICON_HIDDEN, scale));
+        
+        return trinkets;
+    }
 }
+

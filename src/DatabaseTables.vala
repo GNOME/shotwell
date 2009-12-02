@@ -6,10 +6,9 @@
 
 public class DatabaseTable {
     /*** 
-     * This number should be incremented every time any database schema is altered between
-     * releases.
+     * This number should be incremented every time any database schema is altered.
      ***/
-    public const int SCHEMA_VERSION = 2;
+    public const int SCHEMA_VERSION = 3;
     
     protected static Sqlite.Database db;
     
@@ -125,20 +124,71 @@ public class DatabaseTable {
         
         return execute_update_by_id(stmt);
     }
+    
+    public static bool has_column(string table_name, string column_name) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("PRAGMA table_info(%s)".printf(table_name), -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE) {
+                break;
+            } else if (res != Sqlite.ROW) {
+                fatal("has_column %s".printf(table_name), res);
+                
+                break;
+            } else {
+                string column = stmt.column_text(1);
+                if (column != null && column == column_name)
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static bool add_column(string table_name, string column_name, string column_constraints) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("ALTER TABLE %s ADD COLUMN %s %s".printf(table_name, column_name,
+            column_constraints), -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            critical("Unable to add column %s %s %s: (%d) %s", table_name, column_name, column_constraints,
+                res, db.errmsg());
+            
+            return false;
+        }
+        
+        return true;
+    }
 }
 
-public bool verify_databases(out string app_version) {
-    // Since this is the first database version, the only thing checked for is the right one,
-    // no upgrades attempted (since the only real alternative is downgrading)
+public enum DatabaseVerifyResult {
+    OK,
+    FUTURE_VERSION,
+    UPGRADE_ERROR,
+    NO_UPGRADE_AVAILABLE
+}
+
+public DatabaseVerifyResult verify_database(out string app_version) {
     VersionTable version_table = VersionTable.get_instance();
     int version = version_table.get_version(out app_version);
     debug("Database version %d create by app version %s", version, app_version);
     
     if (version == -1) {
-        // no version set, do it now
+        // no version set, do it now (tables will be created on demand)
         version_table.set_version(DatabaseTable.SCHEMA_VERSION, Resources.APP_VERSION);
-    } else if (version != DatabaseTable.SCHEMA_VERSION) {
-        return false;
+    } else if (version > DatabaseTable.SCHEMA_VERSION) {
+        // Back to the future
+        return DatabaseVerifyResult.FUTURE_VERSION;
+    } else if (version < DatabaseTable.SCHEMA_VERSION) {
+        // Past is present
+        DatabaseVerifyResult result = upgrade_database(version);
+        if (result != DatabaseVerifyResult.OK)
+            return result;
     }
     
     PhotoTable photo_table = PhotoTable.get_instance();
@@ -154,7 +204,41 @@ public bool verify_databases(out string app_version) {
         }
     }
     
-    return true;
+    return DatabaseVerifyResult.OK;
+}
+
+private DatabaseVerifyResult upgrade_database(int version) {
+    assert(version < DatabaseTable.SCHEMA_VERSION);
+    
+    // No upgrade available from version 1.
+    if (version == 1)
+        return DatabaseVerifyResult.NO_UPGRADE_AVAILABLE;
+    
+    debug("Upgrading database from schema version %d to %d", version, DatabaseTable.SCHEMA_VERSION);
+    
+    //
+    // Version 2: For all intents and purposes, the baseline schema version.
+    // * Removed start_time and end_time from EventsTable
+    //
+    
+    //
+    // Version 3:
+    // * Added flags column to PhotoTable
+    //
+    
+    if (!DatabaseTable.has_column("PhotoTable", "flags")) {
+        debug("upgrade_database: adding flags column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "flags", "INTEGER DEFAULT 0"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 3;
+    
+    VersionTable.get_instance().update_version(version);
+    
+    debug("Database upgrade to schema version %d successful", version);
+    
+    return DatabaseVerifyResult.OK;
 }
 
 public class VersionTable : DatabaseTable {
@@ -230,6 +314,19 @@ public class VersionTable : DatabaseTable {
         if (res != Sqlite.DONE)
             fatal("set_version %d %s %s".printf(version, app_version, user_data), res);
     }
+    
+    public void update_version(int version) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE VersionTable SET schema_version=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int(1, version);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("update_version %d".printf(version), res);
+    }
 }
 
 public struct PhotoID {
@@ -284,6 +381,7 @@ public struct PhotoRow {
     public string thumbnail_md5;
     public string exif_md5;
     public time_t time_created;
+    public uint64 flags;
     
     public PhotoRow() {
     }
@@ -310,7 +408,8 @@ public class PhotoTable : DatabaseTable {
             + "md5 TEXT, "
             + "thumbnail_md5 TEXT, "
             + "exif_md5 TEXT, "
-            + "time_created INTEGER"
+            + "time_created INTEGER, "
+            + "flags INTEGER DEFAULT 0 "
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -443,7 +542,7 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
-            + "exif_md5, time_created FROM PhotoTable WHERE id=?", 
+            + "exif_md5, time_created, flags FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -469,6 +568,7 @@ public class PhotoTable : DatabaseTable {
         row.thumbnail_md5 = stmt.column_text(12);
         row.exif_md5 = stmt.column_text(13);
         row.time_created = (time_t) stmt.column_int64(14);
+        row.flags = stmt.column_int64(15);
         
         return row;
     }
@@ -478,7 +578,7 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT id, filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
-            + "exif_md5, time_created FROM PhotoTable", 
+            + "exif_md5, time_created, flags FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -501,6 +601,7 @@ public class PhotoTable : DatabaseTable {
             row.thumbnail_md5 = stmt.column_text(13);
             row.exif_md5 = stmt.column_text(14);
             row.time_created = (time_t) stmt.column_int64(15);
+            row.flags = stmt.column_int64(16);
             
             all.add(row);
         }
@@ -517,7 +618,7 @@ public class PhotoTable : DatabaseTable {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, "
             + "exposure_time, orientation, original_orientation, import_id, event_id, transformations, "
-            + "md5, thumbnail_md5, exif_md5, time_created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "md5, thumbnail_md5, exif_md5, time_created, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -551,6 +652,7 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(15, now_sec());
         assert(res == Sqlite.OK);
+        res = stmt.bind_int64(15, (int64) original.flags);
         
         res = stmt.step();
         if (res != Sqlite.DONE) {
@@ -706,6 +808,18 @@ public class PhotoTable : DatabaseTable {
     
     public bool set_orientation(PhotoID photo_id, Orientation orientation) {
         return update_int_by_id(photo_id.id, "orientation", (int) orientation);
+    }
+    
+    public uint64 get_flags(PhotoID photo_id) {
+        Sqlite.Statement stmt;
+        if (!select_by_id(photo_id.id, "flags", out stmt))
+            return 0;
+        
+        return stmt.column_int64(0);
+    }
+    
+    public bool set_flags(PhotoID photo_id, uint64 flags) {
+        return update_int64_by_id(photo_id.id, "flags", (int64) flags);
     }
 
     public EventID get_event(PhotoID photo_id) {

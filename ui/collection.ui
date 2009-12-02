@@ -18,6 +18,8 @@
 
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="ViewTitle" action="ViewTitle" />
+            <menuitem name="ViewHidden" action="ViewHidden" />
+            <separator />
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <separator />
@@ -47,6 +49,7 @@
             <menuitem name="Revert" action="Revert" />
             <menuitem name="Enhance" action="Enhance" />
             <separator />
+            <menuitem name="HideUnhide" action="HideUnhide" />
             <menuitem name="Duplicate" action="Duplicate" />
             <separator />
             <menuitem name="Slideshow" action="Slideshow" />

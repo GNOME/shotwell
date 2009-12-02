@@ -24,6 +24,8 @@ namespace Resources {
 
     public const double TRANSIENT_WINDOW_OPACITY = 0.90;
     
+    public const int DEFAULT_ICON_SCALE = 24;
+    
     public const string[] AUTHORS = { 
         "Jim Nelson <jim@yorba.org>", 
         "Lucas Beeler <lucas@yorba.org>",
@@ -70,6 +72,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string ICON_APP = "shotwell" + SVG_SUFFIX;
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
+    public const string ICON_HIDDEN = "hidden.svg";
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -120,13 +123,23 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MERGE_LABEL = _("Merge");
     public const string MERGE_TOOLTIP = _("Merge into a single event");
     
+    public const string HIDE_MENU = _("_Hide");
+    public const string HIDE_LABEL = _("Hide");
+    public const string HIDE_TOOLTIP = _("Hide the selected photos");
+    
+    public const string UNHIDE_MENU = _("Un_hide");
+    public const string UNHIDE_LABEL = _("Unhide");
+    public const string UNHIDE_TOOLTIP = _("Unhide the selected photos");
+    
     public const string DUPLICATE_PHOTO_MENU = _("_Duplicate");
     public const string DUPLICATE_PHOTO_LABEL = _("Duplicate");
     public const string DUPLICATE_PHOTO_TOOLTIP = _("Make a duplicate of the photo");
 
     private Gtk.IconFactory factory = null;
+    private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     
     public void init () {
+        // load application-wide stock icons as IconSets
         factory = new Gtk.IconFactory();
 
         File icons_dir = AppDirs.get_resources_dir().get_child("icons");
@@ -155,7 +168,26 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return AppDirs.get_resources_dir().get_child("ui").get_child(filename);
     }
     
-    public Gdk.Pixbuf? get_icon(string name, int scale = 24) {
+    public Gdk.Pixbuf? get_icon(string name, int scale = DEFAULT_ICON_SCALE) {
+        // stash icons not available through the UI Manager (i.e. used directly as pixbufs)
+        // in the local cache
+        if (icon_cache == null)
+            icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
+        
+        // fetch from cache and if not present, from disk
+        Gdk.Pixbuf? pixbuf = icon_cache.get(name);
+        if (pixbuf == null) {
+            pixbuf = load_icon(name, 0);
+            if (pixbuf == null)
+                return null;
+            
+            icon_cache.set(name, pixbuf);
+        }
+        
+        return (scale > 0) ? scale_pixbuf(pixbuf, scale, Gdk.InterpType.BILINEAR, false) : pixbuf;
+    }
+    
+    public Gdk.Pixbuf? load_icon(string name, int scale = DEFAULT_ICON_SCALE) {
         File icons_dir = AppDirs.get_resources_dir().get_child("icons");
         
         Gdk.Pixbuf pixbuf = null;

@@ -352,6 +352,97 @@ public abstract class TransformablePhoto: PhotoSource {
         return event_id;
     }
     
+    // Flags' meanings are determined by subclasses.  Top 16 flags (0xFFFF000000000000) reserved
+    // for TransformablePhoto.
+    public uint64 get_flags() {
+        uint64 flags;
+        lock (row) {
+            flags = row.flags;
+        }
+        
+        return flags;
+    }
+    
+    public uint64 set_flags(uint64 flags) {
+        bool committed;
+        lock (row) {
+            committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+            if (committed)
+                row.flags = flags;
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+        
+        return flags;
+    }
+    
+    public bool is_flag_set(uint64 mask) {
+        bool is_set;
+        lock (row) {
+            is_set = (row.flags & mask) != 0;
+        }
+        
+        return is_set;
+    }
+    
+    public uint64 add_flags(uint64 mask) {
+        uint64 flags = 0;
+        
+        bool committed = false;
+        lock (row) {
+            flags = row.flags | mask;
+            if (row.flags != flags) {
+                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                if (committed)
+                    row.flags = flags;
+            }
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+        
+        return flags;
+    }
+    
+    public uint64 remove_flags(uint64 mask) {
+        uint64 flags = 0;
+        
+        bool committed = false;
+        lock (row) {
+            flags = row.flags & ~mask;
+            if (row.flags != flags) {
+                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                if (committed)
+                    row.flags = flags;
+            }
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+        
+        return flags;
+    }
+    
+    public uint64 toggle_flags(uint64 mask) {
+        uint64 flags = 0;
+        
+        bool committed = false;
+        lock (row) {
+            flags = row.flags ^ mask;
+            if (row.flags != flags) {
+                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                if (committed)
+                    row.flags = flags;
+            }
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+        
+        return flags;
+    }
+    
     public Event? get_event() {
         EventID event_id = get_event_id();
         
@@ -1665,6 +1756,9 @@ public class LibraryPhoto : TransformablePhoto {
         GONE
     }
     
+    // Top 16 bits are reserved for TransformablePhoto
+    private const uint64 FLAG_HIDDEN = 0x0000000000000001;
+    
     public static LibraryPhotoSourceCollection global = null;
     
     private bool block_thumbnail_generation = false;
@@ -1815,6 +1909,21 @@ public class LibraryPhoto : TransformablePhoto {
         global.add(dupe);
         
         return dupe;
+    }
+    
+    public bool is_hidden() {
+        return is_flag_set(FLAG_HIDDEN);
+    }
+    
+    public void set_hidden(bool hidden) {
+        if (hidden)
+            add_flags(FLAG_HIDDEN);
+        else
+            remove_flags(FLAG_HIDDEN);
+    }
+    
+    public void toggle_hidden() {
+        toggle_flags(FLAG_HIDDEN);
     }
     
     public void delete_original_on_destroy() {

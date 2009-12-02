@@ -155,7 +155,7 @@ public class CollectionPage : CheckerboardPage {
         
         toolbar.insert(slideshow_button, -1);
 
-#if !NO_PUBLISHING        
+#if !NO_PUBLISHING
         // publish button
         publish_button = new Gtk.ToolButton.from_stock(Resources.PUBLISH);
         publish_button.set_label(_("Publish"));
@@ -278,6 +278,12 @@ public class CollectionPage : CheckerboardPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
         
+        Gtk.ActionEntry hide_unhide = { "HideUnhide", null, TRANSLATABLE, "<Ctrl>H", TRANSLATABLE,
+            on_hide_unhide };
+        hide_unhide.label = Resources.HIDE_MENU;
+        hide_unhide.tooltip = Resources.HIDE_TOOLTIP;
+        actions += hide_unhide;
+        
         Gtk.ActionEntry duplicate = { "Duplicate", null, TRANSLATABLE, "<Ctrl>D", TRANSLATABLE,
             on_duplicate_photo };
         duplicate.label = Resources.DUPLICATE_PHOTO_MENU;
@@ -319,6 +325,12 @@ public class CollectionPage : CheckerboardPage {
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
+
+        Gtk.ToggleActionEntry hidden = { "ViewHidden", null, TRANSLATABLE, "<Ctrl><Shift>H",
+            TRANSLATABLE, on_display_hidden_photos, Config.get_instance().get_display_hidden_photos() };
+        hidden.label = _("Hidden Photos");
+        hidden.tooltip = _("Show hidden photos");
+        toggle_actions += hidden;
 
         return toggle_actions;
     }
@@ -373,15 +385,18 @@ public class CollectionPage : CheckerboardPage {
     }
     
     public override void switched_to() {
+        // set display options to match Configuration toggles (which can change while switched away)
+        set_display_titles(Config.get_instance().get_display_photo_titles());
+        use_hidden_photo_filter(Config.get_instance().get_display_hidden_photos());
+        
+        // perform these operations before calling base method to prevent flicker
         base.switched_to();
-
+        
         // if the thumbnails were resized while viewing another page, resize the ones on this page
         // now
         int current_scale = slider_to_scale(slider.get_value());
         if (scale != current_scale)
-            set_thumb_size(current_scale);        
-
-        set_display_titles(Config.get_instance().get_display_photo_titles());
+            set_thumb_size(current_scale);
     }
     
     private void on_contents_altered() {
@@ -672,6 +687,16 @@ public class CollectionPage : CheckerboardPage {
         return false;
     }
     
+    private bool can_hide_selected() {
+        foreach (DataView view in get_view().get_selected()) {
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            if (!photo.is_hidden())
+                return true;
+        }
+        
+        return false;
+    }
+    
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool revert_possible = can_revert_selected();
@@ -683,6 +708,21 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Duplicate", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
+        
+        // Hide/Unhide menu item depends on several conditions
+        Gtk.MenuItem hide_menu_item = (Gtk.MenuItem) ui.get_widget("/CollectionMenuBar/PhotosMenu/HideUnhide");
+        assert(hide_menu_item != null);
+        
+        if (!selected) {
+            hide_menu_item.set_label(Resources.HIDE_MENU);
+            hide_menu_item.sensitive = false;
+        } else if (can_hide_selected()) {
+            hide_menu_item.set_label(Resources.HIDE_MENU);
+            hide_menu_item.sensitive = true;
+        } else {
+            hide_menu_item.set_label(Resources.UNHIDE_MENU);
+            hide_menu_item.sensitive = true;
+        }
     }
     
     private void on_increase_size() {
@@ -793,6 +833,14 @@ public class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
+    private void on_hide_unhide() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        HideUnhideCommand command = new HideUnhideCommand(get_view().get_selected(), can_hide_selected());
+        get_command_manager().execute(command);
+    }
+    
     private void on_duplicate_photo() {
         if (get_view().get_selected_count() == 0)
             return;
@@ -830,6 +878,27 @@ public class CollectionPage : CheckerboardPage {
 
         set_display_titles(display);
         Config.get_instance().set_display_photo_titles(display);
+    }
+    
+    private void on_display_hidden_photos(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        use_hidden_photo_filter(display);
+        
+        Config.get_instance().set_display_hidden_photos(display);
+    }
+    
+    private void use_hidden_photo_filter(bool display) {
+        if (display)
+            get_view().reset_view_filter();
+        else
+            get_view().install_view_filter(hidden_photo_filter);
+    }
+    
+    private bool hidden_photo_filter(DataView view) {
+        Thumbnail thumbnail = (Thumbnail) view;
+        
+        return !thumbnail.get_photo().is_hidden();
     }
     
     private static double scale_to_slider(int value) {
@@ -928,7 +997,7 @@ public class CollectionPage : CheckerboardPage {
         if (action != null)
             action.set_active(display);
     }
-
+    
     private void on_new_event() {
         NewEventCommand command = new NewEventCommand(get_view().get_selected());
         get_command_manager().execute(command);
