@@ -618,7 +618,7 @@ public class PhotoTable : DatabaseTable {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, "
             + "exposure_time, orientation, original_orientation, import_id, event_id, transformations, "
-            + "md5, thumbnail_md5, exif_md5, time_created, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "md5, thumbnail_md5, exif_md5, time_created, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
