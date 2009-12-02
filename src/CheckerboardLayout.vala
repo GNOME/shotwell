@@ -171,7 +171,7 @@ public abstract class LayoutItem : ThumbnailView {
         Gdk.Rectangle old_allocation = allocation;
         
         // only add in the text height if it's being displayed
-        int text_height = (title_displayed) ? cached_pango_height : 0;
+        int text_height = (title_displayed) ? cached_pango_height + LABEL_PADDING : TRINKET_OVERHANG;
         
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
@@ -191,7 +191,7 @@ public abstract class LayoutItem : ThumbnailView {
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text) + trinket overhang (top)
         allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height
-            + text_height + LABEL_PADDING + TRINKET_OVERHANG;
+            + text_height + TRINKET_OVERHANG;
         
         if (notify_change && 
             !Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))

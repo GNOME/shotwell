@@ -110,6 +110,7 @@ public class ExportDialog : Gtk.Dialog {
 
         pixels_entry = new Gtk.Entry();
         pixels_entry.set_max_length(6);
+        pixels_entry.set_size_request(60, -1);
         pixels_entry.set_text("%d".printf(current_scale));
         
         // register after preparation to avoid signals during init
@@ -119,15 +120,18 @@ public class ExportDialog : Gtk.Dialog {
         pixels_entry.activate += on_activate;
 
         // layout controls 
-        add_label(_("Quality"), 0, 0);
+        add_label(_("_Quality:"), 0, 0, quality_combo);
         add_control(quality_combo, 1, 0);
         
-        add_label(_("Scaling constraint"), 0, 1);
+        add_label(_("_Scaling constraint:"), 0, 1, constraint_combo);
         add_control(constraint_combo, 1, 1);
+
+        Gtk.Label pixels_label = new Gtk.Label.with_mnemonic(_(" _pixels"));
+        pixels_label.set_mnemonic_widget(pixels_entry);
         
         Gtk.HBox pixels_box = new Gtk.HBox(false, 0);
-        pixels_box.pack_start(pixels_entry, true, true, 0);
-        pixels_box.pack_end(new Gtk.Label(_(" pixels")), false, false, 0);
+        pixels_box.pack_start(pixels_entry, false, false, 0);
+        pixels_box.pack_end(pixels_label, false, false, 0);
         add_control(pixels_box, 1, 2);
         
         ((Gtk.VBox) get_content_area()).add(table);
@@ -173,9 +177,16 @@ public class ExportDialog : Gtk.Dialog {
         return ok;
     }
     
-    private void add_label(string text, int x, int y) {
+    private void add_label(string text, int x, int y, Gtk.Widget? widget = null) {
         Gtk.Alignment left_aligned = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
-        left_aligned.add(new Gtk.Label(text));
+
+        Gtk.Label new_label = new Gtk.Label.with_mnemonic(text);
+        new_label.set_use_underline(true);
+
+        if (widget != null)
+            new_label.set_mnemonic_widget(widget);
+        
+        left_aligned.add(new_label);
         
         table.attach(left_aligned, x, x + 1, y, y + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 
             10, 5);
@@ -446,7 +457,7 @@ public class ProgressDialog : Gtk.Window {
         set_transient_for(owner);
         set_modal(true);
         set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
-        
+
         progress_bar.set_size_request(300, -1);
         
         Gtk.VBox vbox = new Gtk.VBox(false, 0);
@@ -463,7 +474,7 @@ public class ProgressDialog : Gtk.Window {
             hbox.pack_end(cancel_button, false, false, 0);
         
         Gtk.Alignment alignment = new Gtk.Alignment(0.5f, 0.5f, 1.0f, 1.0f);
-        alignment.set_padding(4, 4, 0, 0);
+        alignment.set_padding(12, 12, 12, 12);
         alignment.add(hbox);
         
         add(alignment);
