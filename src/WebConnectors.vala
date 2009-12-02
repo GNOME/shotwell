@@ -64,6 +64,13 @@ class ErrorPane : PublishingDialogPane {
     }
 }
 
+class RestartMessagePane : PublishingDialogPane {
+    public RestartMessagePane() {
+        Gtk.Label error_label = new Gtk.Label(_("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again."));
+        add(error_label);
+    }
+}
+
 class SuccessPane : PublishingDialogPane {
     public SuccessPane() {
         Gtk.Label error_label = new Gtk.Label(_("The selected photos were successfully published."));
@@ -146,13 +153,23 @@ public class PublishingDialog : Gtk.Dialog {
                 on_error();
             }
         } else {
-            FacebookConnector.NotLoggedInPane not_logged_in_pane =
-                new FacebookConnector.NotLoggedInPane();
-            not_logged_in_pane.login_requested += on_login_requested;
-            central_area_layouter.add(not_logged_in_pane);
-            central_area_layouter.show_all();
-            
-            active_pane = not_logged_in_pane;
+            if (FacebookConnector.LoginShell.get_is_cache_dirty()) {
+                PublishingDialogPane restart_pane = new RestartMessagePane();
+                central_area_layouter.add(restart_pane);
+                central_area_layouter.show_all();
+                
+                active_pane = restart_pane;
+
+                close_cancel_button.set_label(_("Close"));
+            } else {
+                FacebookConnector.NotLoggedInPane not_logged_in_pane =
+                    new FacebookConnector.NotLoggedInPane();
+                not_logged_in_pane.login_requested += on_login_requested;
+                central_area_layouter.add(not_logged_in_pane);
+                central_area_layouter.show_all();
+                
+                active_pane = not_logged_in_pane;
+            }
         }
     }
     
@@ -249,15 +266,26 @@ public class PublishingDialog : Gtk.Dialog {
     
     private void on_facebook_logout() {
         FacebookConnector.invalidate_persistent_session();
-    
-        central_area_layouter.remove(active_pane);
-        FacebookConnector.NotLoggedInPane not_logged_in_pane =
-            new FacebookConnector.NotLoggedInPane();
-        not_logged_in_pane.login_requested += on_login_requested;
-        central_area_layouter.add(not_logged_in_pane);
-        central_area_layouter.show_all();
 
-        active_pane = not_logged_in_pane;
+        if (FacebookConnector.LoginShell.get_is_cache_dirty()) {
+            central_area_layouter.remove(active_pane);
+            PublishingDialogPane restart_pane = new RestartMessagePane();
+            central_area_layouter.add(restart_pane);
+            central_area_layouter.show_all();
+            
+            active_pane = restart_pane;
+
+            close_cancel_button.set_label(_("Close"));
+        } else {
+            central_area_layouter.remove(active_pane);
+            FacebookConnector.NotLoggedInPane not_logged_in_pane =
+                new FacebookConnector.NotLoggedInPane();
+            not_logged_in_pane.login_requested += on_login_requested;
+            central_area_layouter.add(not_logged_in_pane);
+            central_area_layouter.show_all();
+
+            active_pane = not_logged_in_pane;
+        }
     }
     
     private void on_facebook_publish(string target_album_name) {
