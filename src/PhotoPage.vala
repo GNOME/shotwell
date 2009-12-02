@@ -864,6 +864,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
                     last_nav_key = event.time;
                 }
             break;
+
+            // mark as handled to prevent base from moving focus to toolbar
+            case "Down":
+            case "KP_Down":
+                handled = true;
+            break;
             
             default:
                 handled = false;
