@@ -1,12 +1,12 @@
-# French translations for Frogspeak package.
-# Copyright (C) 2009 THE Frogspeak'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Frogspeak package.
-# Lucas Beeler <lucas@yorba.org>, 2009.
+# po/fr.po
+# French translation for Shotwell
+# Copyright (C) 2009 Yorba Foundation
+# This file is distributed under the GNU LGPL, version 2.1.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2009-09-17 12:12-0700\n"
 "PO-Revision-Date: 2009-09-17 12:15-0800\n"
 "Last-Translator: Lucas Beeler <lucas@yorba.org>\n"
