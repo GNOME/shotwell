@@ -373,7 +373,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextMirror", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
     }

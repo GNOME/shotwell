@@ -52,7 +52,6 @@
         <separator />
         <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
-        <menuitem name="ContextMirror" action="Mirror" />
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <separator />

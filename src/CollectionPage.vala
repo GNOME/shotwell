@@ -430,7 +430,6 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextNewEvent", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextMirror", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
 
