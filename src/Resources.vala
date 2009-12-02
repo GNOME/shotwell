@@ -168,6 +168,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return AppDirs.get_resources_dir().get_child("ui").get_child(filename);
     }
     
+    // This method returns a reference to a cached pixbuf that may be shared throughout the system.
+    // If the pixbuf is to be modified, make a copy of it.
     public Gdk.Pixbuf? get_icon(string name, int scale = DEFAULT_ICON_SCALE) {
         // stash icons not available through the UI Manager (i.e. used directly as pixbufs)
         // in the local cache

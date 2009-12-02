@@ -107,7 +107,7 @@ public class ThemeLoader {
     public static Gdk.Pixbuf load_icon(string source_basename) {
         populate_theme_params();
 
-        Gdk.Pixbuf loaded_pixbuf = Resources.get_icon(source_basename, 0);
+        Gdk.Pixbuf loaded_pixbuf = Resources.get_icon(source_basename, 0).copy();
 
         /* Sweep through the icon image data loaded from disk and determine how many
            unique colors are in it. We do this with the aid of a HashSet. */
