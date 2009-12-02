@@ -1038,12 +1038,12 @@ public class LibraryWindow : AppWindow {
             bool removed = event_list.remove((EventPageStub) stub);
             assert(removed);
         }
-
-        debug("Removed stub %s", stub.get_name());
     }
     
     private void hide_remove_pages_internal() {
         foreach (Page page in pages_to_be_removed) {
+            debug("Removing page %s", page.get_page_name());
+            
             remove_from_notebook(page);
             sidebar.remove_page(page);
             
@@ -1052,12 +1052,18 @@ public class LibraryWindow : AppWindow {
             debug("Removed page %s", page.get_page_name());
         }
         
+        pages_to_be_removed.clear();
+        
         foreach (Page page in pages_to_be_hidden) {
+            debug("Hiding page %s", page.get_page_name());
+            
             remove_from_notebook(page);
             sidebar.remove_page(page);
             
             debug("Hid page %s", page.get_page_name());
         }
+        
+        pages_to_be_hidden.clear();
     }
     
     // check for settings that should persist between instances
