@@ -21,6 +21,12 @@ public abstract class DataObject {
     
     private static int64 object_id_generator = 0;
     
+#if TRACE_DTORS
+    // because calling to_string() in a destructor is dangerous, stash to_string()'s result in
+    // this variable for reporting
+    protected string dbg_to_string = null;
+#endif
+    
     private int64 object_id = INVALID_OBJECT_ID;
     private DataCollection member_of = null;
     private int64 ordinal = DataCollection.INVALID_OBJECT_ORDINAL;
@@ -86,6 +92,10 @@ public abstract class DataObject {
         this.ordinal = ordinal;
 
         notify_membership_changed(member_of);
+        
+#if TRACE_DTORS
+        dbg_to_string = to_string();
+#endif
     }
     
     // This method is only called by DataCollection
@@ -164,7 +174,7 @@ public abstract class DataSource : DataObject {
     
     ~DataSource() {
 #if TRACE_DTORS
-        debug("DataSource destroyed");
+        debug("DTOR: DataSource %s", dbg_to_string);
 #endif
     }
     
@@ -500,7 +510,7 @@ public class DataView : DataObject {
     
     ~DataView() {
 #if TRACE_DTORS
-        debug("DataView destroyed");
+        debug("DTOR: DataView %s", dbg_to_string);
 #endif
     }
  

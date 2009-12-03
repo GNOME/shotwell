@@ -69,23 +69,24 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     ~Page() {
 #if TRACE_DTORS
-        debug("Page destroyed: %s", page_name);
+        debug("DTOR: Page %s", page_name);
 #endif
     }
     
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
     public virtual void notify_removed() {
+        // signal prior to shutdown
+        removed();
+        
         // untie signals
         detach_event_source();
-        view.halt_monitoring();
+        view.close();
         
         // remove refs to external objects which may be pointing to the Page
         layout = null;
         clear_marker();
         clear_container();
-        
-        removed();
     }
     
     public string get_page_name() {

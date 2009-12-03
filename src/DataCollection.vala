@@ -93,13 +93,13 @@ public class DataCollection {
         }
     }
     
-    public class OrderAddedComparator : Comparator<DataObject> {
+    public static class OrderAddedComparator : Comparator<DataObject> {
         public override int64 compare(DataObject a, DataObject b) {
             return a.internal_get_ordinal() - b.internal_get_ordinal();
         }
     }
     
-    protected class ComparatorWrapper : Comparator<DataObject> {
+    protected static class ComparatorWrapper : Comparator<DataObject> {
         private Comparator<DataObject> comparator;
         
         public ComparatorWrapper(Comparator<DataObject> comparator) {
@@ -163,7 +163,7 @@ public class DataCollection {
     
     ~DataCollection() {
 #if TRACE_DTORS
-        debug("DataCollection dtor: %s", name);
+        debug("DTOR: DataCollection %s", name);
 #endif
     }
     
@@ -428,6 +428,16 @@ public class DataCollection {
         assert(hash_set.size == 0);
     }
     
+    // close() must be called before disposing of the DataCollection, so all signals may be
+    // disconnected and all internal references to the collection can be dropped.  In the bare
+    // minimum, all items will be removed from the collection (and the appropriate signals and
+    // notify calls will be made).  Subclasses may fire other signals while disposing of their
+    // references.  However, if they are entirely synchronized on DataCollection's signals, that
+    // may be enough for them to clean up.
+    public virtual void close() {
+        clear();
+    }
+    
     // This method is only called by DataObject to report when it has been altered, so observers of
     // this collection may be notified as well.
     public void internal_notify_altered(DataObject object) {
@@ -638,8 +648,11 @@ public class ViewCollection : DataCollection {
         visible.resort(get_order_added_comparator());
     }
 
-    ~ViewCollection() {
+    public override void close() {
         halt_monitoring();
+        filter = null;
+        
+        base.close();
     }
     
     public void monitor_source_collection(SourceCollection sources, ViewManager manager) {
@@ -672,6 +685,9 @@ public class ViewCollection : DataCollection {
     }
     
     public void install_view_filter(ViewFilter filter) {
+        if (this.filter == filter)
+            return;
+        
         // this currently replaces any existing ViewFilter
         this.filter = filter;
         

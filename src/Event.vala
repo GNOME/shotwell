@@ -127,7 +127,7 @@ public class Event : EventSource, Proxyable {
         if (primary_photo != null)
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
 
-        view = new ViewCollection("ViewCollection for %lld".printf(event_id.id));
+        view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
 
         // watch for for removal and addition of photos

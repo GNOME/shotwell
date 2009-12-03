@@ -903,9 +903,7 @@ public class CollectionPage : CheckerboardPage {
     }
     
     private bool hidden_photo_filter(DataView view) {
-        Thumbnail thumbnail = (Thumbnail) view;
-        
-        return !thumbnail.get_photo().is_hidden();
+        return !((Thumbnail) view).get_photo().is_hidden();
     }
     
     private static double scale_to_slider(int value) {

@@ -25,7 +25,7 @@ public class Thumbnail : LayoutItem {
         base(photo, photo.get_dimensions().get_scaled(scale, true));
         
         this.scale = scale;
-        hq_scheduler = new OneShotScheduler(on_schedule_high_quality);
+        hq_scheduler = new OneShotScheduler("Thumbnail HQ scheduler", on_schedule_high_quality);
         
         set_title(photo.get_name());
 

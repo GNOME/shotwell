@@ -36,7 +36,7 @@ public abstract class Command : Object, CommandDescription {
     
     ~Command() {
 #if TRACE_DTORS
-        debug("Command dtor: %s/%s", name, explanation);
+        debug("DTOR: Command %s (%s)", name, explanation);
 #endif
     }
     

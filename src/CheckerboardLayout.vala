@@ -344,7 +344,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         clear_drag_select();
         
-        reflow_scheduler = new OneShotScheduler(background_reflow);
+        reflow_scheduler = new OneShotScheduler("CheckerboardLayout for %s".printf(view.to_string()),
+            background_reflow);
         
         // set existing items to be part of this layout
         foreach (DataObject object in view.get_all())
@@ -366,6 +367,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     ~CheckerboardLayout() {
+#if TRACE_DTORS
+        debug("DTOR: CheckerboardLayout for %s", view.to_string());
+#endif
+
         view.contents_altered -= on_contents_altered;
         view.item_altered -= on_item_altered;
         view.item_metadata_altered -= on_item_metadata_altered;
@@ -385,6 +390,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         if (parent != null)
             parent.size_allocate -= on_viewport_resized;
+        
+        reflow_scheduler.cancel();
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {

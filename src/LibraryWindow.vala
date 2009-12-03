@@ -314,7 +314,8 @@ public class LibraryWindow : AppWindow {
         extended_properties.hide += hide_extended_properties;
         extended_properties.show += show_extended_properties;
         
-        page_removal_scheduler = new OneShotScheduler(hide_remove_pages_internal);
+        page_removal_scheduler = new OneShotScheduler("Hide/Remove Pages Scheduler",
+            hide_remove_pages_internal);
     }
     
     ~LibraryWindow() {
@@ -331,6 +332,8 @@ public class LibraryWindow : AppWindow {
 
         extended_properties.hide -= hide_extended_properties;
         extended_properties.show -= show_extended_properties;
+        
+        page_removal_scheduler.cancel();
     }
     
     private Gtk.ActionEntry[] create_actions() {

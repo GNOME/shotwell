@@ -40,7 +40,8 @@ public abstract class PageCommand : Command {
     }
     
     private void on_page_removed() {
-        get_command_manager().reset();
+        page.removed -= on_page_removed;
+        page = null;
     }
 }
 

@@ -379,13 +379,23 @@ public string format_local_date(Time date) {
 public delegate void OneShotCallback();
 
 public class OneShotScheduler {
+    private string name;
     private OneShotCallback callback;
     private bool scheduled = false;
     private bool reschedule = false;
     private bool cancelled = false;
     
-    public OneShotScheduler(OneShotCallback callback) {
+    public OneShotScheduler(string name, OneShotCallback callback) {
+        this.name = name;
         this.callback = callback;
+    }
+    
+    ~OneShotScheduler() {
+#if TRACE_DTORS
+        debug("DTOR: OneShotScheduler for %s", name);
+#endif
+        
+        cancelled = true;
     }
     
     public bool is_scheduled() {

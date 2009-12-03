@@ -291,6 +291,12 @@ public class EventPage : CollectionPage {
         get_view().monitor_source_collection(LibraryPhoto.global, new EventViewManager(this));
         
         init_page_context_menu("/EventContextMenu");
+        
+        page_event.altered += on_event_altered;
+    }
+    
+    ~EventPage() {
+        page_event.altered -= on_event_altered;
     }
     
     private static Gtk.ActionEntry[] create_actions() {
@@ -308,6 +314,10 @@ public class EventPage : CollectionPage {
         new_actions += rename;
 
         return new_actions;
+    }
+    
+    private void on_event_altered() {
+        set_page_name(page_event.get_name());
     }
     
     protected override void on_photos_menu() {

@@ -128,7 +128,7 @@ public class ThumbnailCache : Object {
     
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
-        debug_scheduler = new OneShotScheduler(report_cycle);
+        debug_scheduler = new OneShotScheduler("ThumbnailCache cycle reporter", report_cycle);
         fetch_workers = new Workers(Workers.THREAD_PER_CPU, false);
         
         big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
