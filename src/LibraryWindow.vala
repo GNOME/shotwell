@@ -355,13 +355,13 @@ public class LibraryWindow : AppWindow {
 
         Gtk.ToggleActionEntry basic_props = { "CommonDisplayBasicProperties", null,
             TRANSLATABLE, "<Ctrl><Shift>I", TRANSLATABLE, on_display_basic_properties, false };
-        basic_props.label = _("Basic _Information");
+        basic_props.label = _("_Basic Information");
         basic_props.tooltip = _("Display basic information for the selection");
         actions += basic_props;
 
         Gtk.ToggleActionEntry extended_props = { "CommonDisplayExtendedProperties", null,
             TRANSLATABLE, "<Ctrl><Shift>X", TRANSLATABLE, on_display_extended_properties, false };
-        extended_props.label = _("Extended _Information");
+        extended_props.label = _("E_xtended Information");
         extended_props.tooltip = _("Display extended information for the selection");
         actions += extended_props;
 

@@ -1985,7 +1985,7 @@ public class AdjustTool : EditingTool {
         public Gtk.Button apply_button =
             new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
         public Gtk.Button reset_button =
-            new Gtk.Button.with_label(_("Reset"));
+            new Gtk.Button.with_mnemonic(_("_Reset"));
         public Gtk.Button cancel_button =
             new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
         public RGBHistogramManipulator histogram_manipulator =

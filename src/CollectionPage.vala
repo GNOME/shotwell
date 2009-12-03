@@ -227,7 +227,7 @@ public class CollectionPage : CheckerboardPage {
 
         Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_remove };
-        remove.label = _("_Remove");
+        remove.label = _("Re_move");
         remove.tooltip = _("Remove the selected photos from the library");
         actions += remove;
 
@@ -328,7 +328,7 @@ public class CollectionPage : CheckerboardPage {
 
         Gtk.ToggleActionEntry hidden = { "ViewHidden", null, TRANSLATABLE, "<Ctrl><Shift>H",
             TRANSLATABLE, on_display_hidden_photos, Config.get_instance().get_display_hidden_photos() };
-        hidden.label = _("Hidden Photos");
+        hidden.label = _("_Hidden Photos");
         hidden.tooltip = _("Show hidden photos");
         toggle_actions += hidden;
 
@@ -420,7 +420,24 @@ public class CollectionPage : CheckerboardPage {
 
         LibraryWindow.get_app().switch_to_photo_page(this, thumbnail);
     }
-    
+
+    private void set_hide_item_sensitive(string path, bool selected) {    
+        // Hide/Unhide menu item depends on several conditions
+        Gtk.MenuItem hide_menu_item = (Gtk.MenuItem) ui.get_widget(path);
+        assert(hide_menu_item != null);
+        
+        if (!selected) {
+            hide_menu_item.set_label(Resources.HIDE_MENU);
+            hide_menu_item.sensitive = false;
+        } else if (can_hide_selected()) {
+            hide_menu_item.set_label(Resources.HIDE_MENU);
+            hide_menu_item.sensitive = true;
+        } else {
+            hide_menu_item.set_label(Resources.UNHIDE_MENU);
+            hide_menu_item.sensitive = true;
+        }
+    }
+
     protected override bool on_context_invoked(Gtk.Menu context_menu) {
         bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
@@ -432,6 +449,7 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
+        set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
 
         return true;
     }
@@ -695,7 +713,7 @@ public class CollectionPage : CheckerboardPage {
         
         return false;
     }
-    
+
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool revert_possible = can_revert_selected();
@@ -707,21 +725,7 @@ public class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Duplicate", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
-        
-        // Hide/Unhide menu item depends on several conditions
-        Gtk.MenuItem hide_menu_item = (Gtk.MenuItem) ui.get_widget("/CollectionMenuBar/PhotosMenu/HideUnhide");
-        assert(hide_menu_item != null);
-        
-        if (!selected) {
-            hide_menu_item.set_label(Resources.HIDE_MENU);
-            hide_menu_item.sensitive = false;
-        } else if (can_hide_selected()) {
-            hide_menu_item.set_label(Resources.HIDE_MENU);
-            hide_menu_item.sensitive = true;
-        } else {
-            hide_menu_item.set_label(Resources.UNHIDE_MENU);
-            hide_menu_item.sensitive = true;
-        }
+        set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
     }
     
     private void on_increase_size() {

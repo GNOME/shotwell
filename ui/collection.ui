@@ -76,6 +76,8 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
+        <menuitem name="ContextHideUnhide" action="HideUnhide" />
+        <separator />
         <menuitem name="ContextNewEvent" action="NewEvent" />
     </popup>
 

@@ -1170,7 +1170,7 @@ public class LibraryPhotoPage : EditingHostPage {
         
         Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_remove };
-        remove.label = _("Remove");
+        remove.label = _("Re_move");
         remove.tooltip = _("Remove the photo from your library");
         actions += remove;
 
@@ -1214,7 +1214,7 @@ public class LibraryPhotoPage : EditingHostPage {
 
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
-        enhance.label = Resources.ENHANCE_LABEL;
+        enhance.label = Resources.ENHANCE_MENU;
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
 
