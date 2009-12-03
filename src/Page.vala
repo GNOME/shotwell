@@ -637,6 +637,9 @@ public abstract class CheckerboardPage : Page {
         layout.set_adjustments(get_hadjustment(), get_vadjustment());
         
         add(viewport);
+        
+        // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
+        get_view().items_hidden += on_items_hidden;
     }
     
     public void init_item_context_menu(string path) {
@@ -698,6 +701,21 @@ public abstract class CheckerboardPage : Page {
     
     public LayoutItem? get_item_at_pixel(double x, double y) {
         return layout.get_item_at_pixel(x, y);
+    }
+    
+    private void on_items_hidden(Gee.Iterable<DataView> hidden) {
+        foreach (DataView view in hidden) {
+            LayoutItem item = (LayoutItem) view;
+            
+            if (anchor == item)
+                anchor = null;
+            
+            if (cursor == item)
+                cursor = null;
+            
+            if (highlighted == item)
+                highlighted = null;
+        }
     }
 
     protected override bool key_press_event(Gdk.EventKey event) {

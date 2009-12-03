@@ -286,6 +286,12 @@ public abstract class LayoutItem : ThumbnailView {
         
         notify_view_altered();
     }
+    
+    public override void visibility_changed(bool visible) {
+         // if going from visible to hidden, unbrighten
+         if (!visible)
+            unbrighten();
+    }
 }
 
 public class CheckerboardLayout : Gtk.DrawingArea {

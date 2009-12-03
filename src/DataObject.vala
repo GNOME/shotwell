@@ -551,6 +551,10 @@ public class DataView : DataObject {
     }
 
     public virtual void notify_view_altered() {
+        // impossible when not visible
+        if (!visible)
+            return;
+        
         ViewCollection vc = get_membership() as ViewCollection;
         if (vc != null && vc.are_view_notifications_frozen())
             return;
@@ -562,6 +566,10 @@ public class DataView : DataObject {
     }
     
     public virtual void notify_geometry_altered() {
+        // impossible when not visible
+        if (!visible)
+            return;
+        
         ViewCollection vc = get_membership() as ViewCollection;
         if (vc != null && vc.are_geometry_notifications_frozen())
             return;
