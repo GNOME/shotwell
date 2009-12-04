@@ -688,8 +688,8 @@ public class HideUnhideCommand : MultipleDataSourceCommand {
     
     public HideUnhideCommand(Gee.Iterable<DataView> iter, bool hide) {
         base (iter,
-            hide ? _("Hiding...") : _("Unhiding"),
-            hide ? _("Unhiding...") : _("Hiding"),
+            hide ? _("Hiding...") : _("Unhiding..."),
+            hide ? _("Unhiding...") : _("Hiding..."),
             hide ? Resources.HIDE_LABEL : Resources.UNHIDE_LABEL,
             hide ? Resources.HIDE_TOOLTIP : Resources.UNHIDE_TOOLTIP);
         
