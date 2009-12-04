@@ -552,7 +552,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         next_button.sensitive = multiple;
     }
     
-    private override bool on_shift_pressed(Gdk.EventKey event) {
+    private override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
         if (current_tool == null) {
             Gdk.Pixbuf original = original_cache.get_ready_pixbuf(get_photo());
@@ -567,7 +567,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_shift_pressed(event);
     }
     
-    private override bool on_shift_released(Gdk.EventKey event) {
+    private override bool on_shift_released(Gdk.EventKey? event) {
         if (current_tool == null && swapped != null) {
             set_pixbuf(swapped);
             
@@ -575,7 +575,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             swapped = null;
         }
         
-        return base.on_shift_pressed(event);
+        return base.on_shift_released(event);
     }
 
     private void activate_tool(EditingTool tool) {
@@ -942,24 +942,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
-    private override bool on_ctrl_pressed(Gdk.EventKey event) {
+    private override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
-        return false;
+        return base.on_ctrl_pressed(event);
     }
     
-    private override bool on_ctrl_released(Gdk.EventKey event) {
+    private override bool on_ctrl_released(Gdk.EventKey? event) {
         rotate_button.set_stock_id(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         
-        return false;
+        return base.on_ctrl_released(event);
     }
     
     private void on_tool_button_toggled(Gtk.ToggleToolButton toggle, EditingTool.Factory factory) {

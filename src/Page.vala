@@ -54,6 +54,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
     private Gdk.Point last_down = Gdk.Point();
+    private bool ctrl_pressed = false;
+    private bool alt_pressed = false;
+    private bool shift_pressed = false;
     
     public virtual signal void removed() {
     }
@@ -199,6 +202,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     public virtual void switched_to() {
         in_view = true;
+        update_modifiers();
     }
     
     public bool is_in_view() {
@@ -213,6 +217,31 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     public void set_item_sensitive(string path, bool sensitive) {
         ui.get_widget(path).sensitive = sensitive;
+    }
+
+    private virtual void update_modifiers() {      
+        int x, y;
+        Gdk.ModifierType mask;
+        AppWindow.get_instance().window.get_pointer(out x, out y, out mask);       
+
+        bool ctrl_currently_pressed = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
+        bool alt_currently_pressed = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
+        bool shift_currently_pressed = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
+
+        if (ctrl_pressed && !ctrl_currently_pressed)
+            on_ctrl_released(null);
+        else if (!ctrl_pressed && ctrl_currently_pressed)
+            on_ctrl_pressed(null);
+
+        if (alt_pressed && !alt_currently_pressed)
+            on_alt_released(null);
+        else if (!alt_pressed && alt_currently_pressed)
+            on_alt_pressed(null);
+
+        if (shift_pressed && !shift_currently_pressed)
+            on_shift_released(null);
+        else if (!shift_pressed && shift_currently_pressed)
+            on_shift_pressed(null);
     }
     
     public PageWindow? get_page_window() {
@@ -452,57 +481,78 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         }
     }
 
-    protected virtual bool on_ctrl_pressed(Gdk.EventKey event) {
+    protected virtual bool on_ctrl_pressed(Gdk.EventKey? event) {
         return false;
     }
     
-    protected virtual bool on_ctrl_released(Gdk.EventKey event) {
+    protected virtual bool on_ctrl_released(Gdk.EventKey? event) {
         return false;
     }
     
-    protected virtual bool on_alt_pressed(Gdk.EventKey event) {
+    protected virtual bool on_alt_pressed(Gdk.EventKey? event) {
         return false;
     }
     
-    protected virtual bool on_alt_released(Gdk.EventKey event) {
+    protected virtual bool on_alt_released(Gdk.EventKey? event) {
         return false;
     }
     
-    protected virtual bool on_shift_pressed(Gdk.EventKey event) {
+    protected virtual bool on_shift_pressed(Gdk.EventKey? event) {
         return false;
     }
     
-    protected virtual bool on_shift_released(Gdk.EventKey event) {
+    protected virtual bool on_shift_released(Gdk.EventKey? event) {
         return false;
     }
     
-    public bool notify_key_pressed(Gdk.EventKey event) {
+    public bool notify_app_key_pressed(Gdk.EventKey event) {
         // can't use a switch statement here due to this bug:
         // http://bugzilla.gnome.org/show_bug.cgi?id=585292
-        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R)
+        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R) {
+            ctrl_pressed = true;
             return on_ctrl_pressed(event);
+        }
         
-        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R)
+        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R) {
+            alt_pressed = true;
             return on_alt_pressed(event);
+        }
         
-        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R)
+        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R) {
+            shift_pressed = true;
             return on_shift_pressed(event);
+        }
         
         return false;
     }
 
-    public bool notify_key_released(Gdk.EventKey event) {
+    public bool notify_app_key_released(Gdk.EventKey event) {
         // can't use a switch statement here due to this bug:
         // http://bugzilla.gnome.org/show_bug.cgi?id=585292
-        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R)
+        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R) {
+            ctrl_pressed = false;
             return on_ctrl_released(event);
+        }
         
-        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R)
+        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R) {
+            alt_pressed = false;
             return on_alt_released(event);
-        
-        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R)
+        }
+
+        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R) {
+            shift_pressed = false;
             return on_shift_released(event);
+        }
         
+        return false;
+    }
+
+    public bool notify_app_focus_in(Gdk.EventFocus event) {
+        update_modifiers();
+        return false;
+    }
+
+    public bool notify_app_focus_out(Gdk.EventFocus event) {
         return false;
     }
     

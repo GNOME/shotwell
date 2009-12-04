@@ -926,24 +926,24 @@ public class CollectionPage : CheckerboardPage {
         set_thumb_size(slider_to_scale(slider.get_value()));
     }
     
-    private override bool on_ctrl_pressed(Gdk.EventKey event) {
+    private override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
-        return false;
+        return base.on_ctrl_pressed(event);
     }
     
-    private override bool on_ctrl_released(Gdk.EventKey event) {
+    private override bool on_ctrl_released(Gdk.EventKey? event) {
         rotate_button.set_stock_id(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
         
-        return false;
+        return base.on_ctrl_released(event);
     }
     
     private int get_sort_criteria() {

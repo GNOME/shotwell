@@ -277,17 +277,31 @@ public abstract class PageWindow : Gtk.Window {
     }
     
     private override bool key_press_event(Gdk.EventKey event) {
-        if (current_page != null && current_page.notify_key_pressed(event))
+        if (current_page != null && current_page.notify_app_key_pressed(event))
                 return true;
         
         return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
     
     private override bool key_release_event(Gdk.EventKey event) {
-        if (current_page != null && current_page.notify_key_released(event))
+        if (current_page != null && current_page.notify_app_key_released(event))
                 return true;
         
         return (base.key_release_event != null) ? base.key_release_event(event) : false;
+    }
+
+    private override bool focus_in_event(Gdk.EventFocus event) {
+        if (current_page != null && current_page.notify_app_focus_in(event))
+                return true;
+        
+        return (base.focus_in_event != null) ? base.focus_in_event(event) : false;
+    }
+
+    private override bool focus_out_event(Gdk.EventFocus event) {
+        if (current_page != null && current_page.notify_app_focus_out(event))
+                return true;
+        
+        return (base.focus_out_event != null) ? base.focus_out_event(event) : false;
     }
     
     private override bool configure_event(Gdk.EventConfigure event) {
