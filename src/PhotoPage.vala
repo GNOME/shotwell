@@ -305,6 +305,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!use_readahead)
             return;
         
+        cache.prefetch(photo, BackgroundJob.JobPriority.HIGHEST);
+
+        if (photo.has_transformations())
+            original_cache.prefetch(photo, BackgroundJob.JobPriority.LOW);
+
         TransformablePhoto next, prev;
         if (!get_immediate_neighbors(controller, photo, out next, out prev))
             return;
@@ -465,11 +470,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         quick_update_pixbuf();
         
         prefetch_neighbors(new_controller, new_photo);
-        
-        // quick_update_pixbuf takes care of loading photo, need to prefetch the original (which
-        // is not considered a neighbor)
-        if (new_photo.has_transformations())
-            original_cache.prefetch(new_photo, BackgroundJob.JobPriority.LOW);
     }
     
     private void quick_update_pixbuf() {
