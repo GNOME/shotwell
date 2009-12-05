@@ -348,7 +348,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             background_reflow);
         
         // set existing items to be part of this layout
-        foreach (DataObject object in view.get_all())
+        foreach (DataObject object in view.get_all_unfiltered())
             ((LayoutItem) object).set_parent(this);
 
         // subscribe to the new collection

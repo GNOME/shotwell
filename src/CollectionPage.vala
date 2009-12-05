@@ -581,9 +581,8 @@ public class CollectionPage : CheckerboardPage {
         view.freeze_view_notifications();
         view.freeze_geometry_notifications();
         
-        int count = view.get_count();
-        for (int ctr = 0; ctr < count; ctr++)
-            ((Thumbnail) view.get_at(ctr)).resize(scale);
+        foreach(DataObject photo in view.get_all_unfiltered())
+            ((Thumbnail) photo).resize(scale);
         
         view.thaw_geometry_notifications(true);
         view.thaw_view_notifications(true);

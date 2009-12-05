@@ -894,7 +894,11 @@ public class ViewCollection : DataCollection {
     public override Gee.Iterable<DataObject> get_all() {
         return visible.copy();
     }
-    
+
+    public Gee.Iterable<DataObject> get_all_unfiltered() {
+        return base.get_all();
+    }    
+
     public override int get_count() {
         return visible.size;
     }

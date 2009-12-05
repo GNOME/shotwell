@@ -1210,7 +1210,7 @@ public abstract class CheckerboardPage : Page {
         get_view().freeze_view_notifications();
         get_view().freeze_geometry_notifications();
         
-        foreach (DataObject object in get_view().get_all()) {
+        foreach (DataObject object in get_view().get_all_unfiltered()) {
             ((LayoutItem) object).display_title(display);
         }
         
