@@ -99,7 +99,6 @@ public class EventsDirectoryPage : CheckerboardPage {
    
     private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 50;
 
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton merge_button;
     protected ViewManager view_manager;
 
@@ -120,7 +119,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         this.view_manager = view_manager;
 
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
-        //
+        Gtk.Toolbar toolbar = get_toolbar();
+        
         // merge tool
         merge_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_ADD);
         merge_button.set_label(Resources.MERGE_LABEL);
@@ -175,10 +175,6 @@ public class EventsDirectoryPage : CheckerboardPage {
         actions += merge;
 
         return actions;
-    }
-    
-    public override Gtk.Toolbar get_toolbar() {
-        return toolbar;
     }
     
     public override void on_item_activated(LayoutItem item) {

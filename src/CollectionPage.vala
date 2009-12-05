@@ -68,7 +68,6 @@ public class CollectionPage : CheckerboardPage {
     
     private static Gtk.Adjustment slider_adjustment = null;
     
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.HScale slider = null;
     private Gtk.ToolButton new_event_button = null;
     private Gtk.ToolButton rotate_button = null;
@@ -114,7 +113,8 @@ public class CollectionPage : CheckerboardPage {
                 scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
         
         // set up page's toolbar (used by AppWindow for layout)
-        //
+        Gtk.Toolbar toolbar = get_toolbar();
+        
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
@@ -371,10 +371,6 @@ public class CollectionPage : CheckerboardPage {
         return sort_order_actions;
     }
 
-    public override Gtk.Toolbar get_toolbar() {
-        return toolbar;
-    }
-    
     // This method is called by CollectionViewManager to create thumbnails for the DataSource 
     // (Photo) objects.
     public virtual Thumbnail create_thumbnail(LibraryPhoto photo) {

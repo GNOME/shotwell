@@ -205,7 +205,6 @@ public class ImportPage : CheckerboardPage {
     private static GPhoto.ContextWrapper null_context = null;
 
     private SourceCollection import_sources = null;
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.CheckButton hide_imported;
     private Gtk.ToolButton import_selected_button;
@@ -252,7 +251,9 @@ public class ImportPage : CheckerboardPage {
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions(),
             create_toggle_actions());
         
-        // toolbar
+        // Set up toolbar
+        Gtk.Toolbar toolbar = get_toolbar();
+        
         // hide duplicates checkbox
         hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
         hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
@@ -395,10 +396,6 @@ public class ImportPage : CheckerboardPage {
         }
         
         return msg;
-    }
-    
-    public override Gtk.Toolbar get_toolbar() {
-        return toolbar;
     }
     
     private void on_view_changed() {
@@ -984,7 +981,6 @@ public class ImportPage : CheckerboardPage {
 #endif
 
 public class ImportQueuePage : SinglePhotoPage {
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton stop_button = null;
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
     private BatchImport current_batch = null;
@@ -998,6 +994,10 @@ public class ImportQueuePage : SinglePhotoPage {
         init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
             create_actions());
         
+        // Set up toolbar
+        Gtk.Toolbar toolbar = get_toolbar();
+        
+        // Stop button
         stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
         stop_button.set_tooltip_text(_("Stop importing photos"));
         stop_button.clicked += on_stop;
@@ -1012,6 +1012,7 @@ public class ImportQueuePage : SinglePhotoPage {
         
         toolbar.insert(separator, -1);
         
+        // Progress bar
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
         progress_item.add(progress_bar);
         
@@ -1045,10 +1046,6 @@ public class ImportQueuePage : SinglePhotoPage {
     public signal void batch_added(BatchImport batch_import);
     
     public signal void batch_removed(BatchImport batch_import);
-    
-    public override Gtk.Toolbar get_toolbar() {
-        return toolbar;
-    }
     
     public void enqueue_and_schedule(BatchImport batch_import) {
         assert(!queue.contains(batch_import));

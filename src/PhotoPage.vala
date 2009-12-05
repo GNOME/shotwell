@@ -31,7 +31,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private ViewCollection controller = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToggleToolButton crop_button = null;
     private Gtk.ToggleToolButton redeye_button = null;
@@ -64,7 +63,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         sources.item_altered += on_photo_altered;
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
-        //
+        Gtk.Toolbar toolbar = get_toolbar();
+        
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
@@ -97,7 +97,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button.is_important = true;
         toolbar.insert(adjust_button, -1);
 
-        // ehance tool
+        // enhance tool
         enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
         enhance_button.set_label(Resources.ENHANCE_LABEL);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
@@ -132,10 +132,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // DnD only available in full-window view
         if (!(container is FullscreenWindow))
             enable_drag_source(Gdk.DragAction.COPY);
-    }
-    
-    public override Gtk.Toolbar get_toolbar() {
-        return toolbar;
     }
     
     public override ViewCollection get_controller() {
@@ -1072,7 +1068,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             // Fullscreen: position crop tool window centered on screen at the bottom, just above the
             // toolbar
-            Gtk.Allocation toolbar_alloc = toolbar.allocation;
+            Gtk.Allocation toolbar_alloc = get_toolbar().allocation;
             
             Gdk.Screen screen = get_container().get_screen();
 

@@ -11,7 +11,6 @@ class SlideshowPage : SinglePhotoPage {
     private Thumbnail current;
     private Gdk.Pixbuf next_pixbuf = null;
     private Thumbnail next_thumbnail = null;
-    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private Gtk.ToolButton play_pause_button;
     private Gtk.ToolButton settings_button;
     private Timer timer = new Timer();
@@ -92,6 +91,9 @@ class SlideshowPage : SinglePhotoPage {
         this.controller = controller;
         current = start;
         
+        // Set up toolbar
+        Gtk.Toolbar toolbar = get_toolbar();
+        
         // add toolbar buttons
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label(_("Back"));
@@ -121,10 +123,6 @@ class SlideshowPage : SinglePhotoPage {
         settings_button.is_important = true;
         
         toolbar.insert(settings_button, -1);
-    }
-    
-    public override Gtk.Toolbar get_toolbar() {
-        return toolbar;
     }
     
     public override void switched_to() {

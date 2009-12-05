@@ -4,17 +4,6 @@
  * See the COPYING file in this distribution. 
  */
 
-public class PageLayout : Gtk.VBox {
-    public PageLayout(Page page) {
-        set_homogeneous(false);
-        set_spacing(0);
-        
-        pack_start(page, true, true, 0);
-        if (page.get_toolbar() != null)
-            pack_end(page.get_toolbar(), false, false, 0);
-    }
-}
-
 public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
     public const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
@@ -43,7 +32,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private string page_name;
     private ViewCollection view = null;
     private Gtk.Window container = null;
-    private PageLayout layout = null;
+    private Gtk.Toolbar toolbar = new Gtk.Toolbar();
     private string menubar_path = null;
     private SidebarMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
@@ -57,9 +46,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool ctrl_pressed = false;
     private bool alt_pressed = false;
     private bool shift_pressed = false;
-    
-    public virtual signal void removed() {
-    }
     
     public Page(string page_name) {
         this.page_name = page_name;
@@ -76,20 +62,42 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
 #endif
     }
     
+    private void destroy_ui_manager_widgets(Gtk.UIManagerItemType item_type) {
+        unowned SList<Gtk.Widget> toplevels = ui.get_toplevels(item_type);
+        for (int ctr = 0; ctr < toplevels.length(); ctr++)
+            toplevels.nth(ctr).data.destroy();
+    }
+    
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
-    public virtual void notify_removed() {
-        // signal prior to shutdown
-        removed();
+    public override void destroy() {
+        debug("Destroying Page %s", get_page_name());
         
         // untie signals
         detach_event_source();
         view.close();
         
         // remove refs to external objects which may be pointing to the Page
-        layout = null;
         clear_marker();
         clear_container();
+        
+        // Without destroying the menubar, Gtk spits out an assertion related to
+        // a Gtk.AccelLabel being unable to disconnect a signal from the UI Manager's
+        // Gtk.AccelGroup because the AccelGroup has already been finalized.  This only
+        // happens during a drag-and-drop operation where the Page is destroyed.
+        // Destroying the menubar explicitly solves this problem.  These calls go through and
+        // ensure *all* widgets created by the UI manager are destroyed.
+        destroy_ui_manager_widgets(Gtk.UIManagerItemType.MENUBAR);
+        destroy_ui_manager_widgets(Gtk.UIManagerItemType.TOOLBAR);
+        destroy_ui_manager_widgets(Gtk.UIManagerItemType.POPUP);
+        
+        // toolbars (as of yet) are not created by the UI Manager and need to be destroyed
+        // explicitly
+        toolbar.destroy();
+        
+        debug("Destroyed Page %s", get_page_name());
+        
+        base.destroy();
     }
     
     public string get_page_name() {
@@ -125,19 +133,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     public virtual void clear_container() {
         container = null;
-    }
-    
-    public PageLayout get_layout() {
-        // This only places the Page into a PageLayout if requested;
-        // this is how a Page can live inside AppWindow's notebook or
-        // on its own in another window with a separate layout.
-        if (layout != null)
-            return layout;
-        
-        assert(parent == null);
-        layout = new PageLayout(this);
-        
-        return layout;
     }
     
     public void set_event_source(Gtk.Widget event_source) {
@@ -194,7 +189,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return (Gtk.MenuBar) ui.get_widget(menubar_path);
     }
 
-    public abstract Gtk.Toolbar get_toolbar();
+    public virtual Gtk.Toolbar get_toolbar() {
+        return toolbar;
+    }
+    
+    public virtual Gtk.Menu? get_page_context_menu() {
+        return null;
+    }
     
     public virtual void switching_from() {
         in_view = false;
@@ -219,7 +220,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         ui.get_widget(path).sensitive = sensitive;
     }
 
-    private virtual void update_modifiers() {      
+    private virtual void update_modifiers() {
         int x, y;
         Gdk.ModifierType mask;
         AppWindow.get_instance().window.get_pointer(out x, out y, out mask);       
@@ -647,10 +648,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         }
         
         return on_motion(event, x, y, mask);
-    }
-
-    public virtual Gtk.Menu? get_page_context_menu() {
-        return null;
     }
 }
 

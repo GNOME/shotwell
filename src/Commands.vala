@@ -15,12 +15,12 @@ public abstract class PageCommand : Command {
         
         page = AppWindow.get_instance().get_current_page();
         if (page != null)
-            page.removed += on_page_removed;
+            page.destroy += on_page_destroyed;
     }
     
     ~PageCommand() {
         if (page != null)
-            page.removed -= on_page_removed;
+            page.destroy -= on_page_destroyed;
     }
     
     public void set_auto_return_to_page(bool auto_return) {
@@ -39,8 +39,8 @@ public abstract class PageCommand : Command {
             AppWindow.get_instance().set_current_page(page);
     }
     
-    private void on_page_removed() {
-        page.removed -= on_page_removed;
+    private void on_page_destroyed() {
+        page.destroy -= on_page_destroyed;
         page = null;
     }
 }
@@ -522,11 +522,11 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute() {
+            // switch to new event page first (to prevent flicker if other pages are destroyed)
+            LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
+            
             // create the new event
             base.execute();
-            
-            // switch to new event page
-            LibraryWindow.get_app().switch_to_event((Event) new_event_proxy.get_source());
         }
         
         public override void execute_on_source(DataSource source) {

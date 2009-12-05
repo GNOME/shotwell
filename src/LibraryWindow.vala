@@ -49,6 +49,38 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    private class PageLayout : Gtk.VBox {
+        private string page_name;
+        private Gtk.Toolbar toolbar;
+        
+        public PageLayout(Page page) {
+            page_name = page.get_page_name();
+            toolbar = page.get_toolbar();
+            
+            set_homogeneous(false);
+            set_spacing(0);
+            
+            pack_start(page, true, true, 0);
+            pack_end(toolbar, false, false, 0);
+        }
+        
+        ~PageLayout() {
+#if TRACE_DTORS
+            debug("DTOR: PageLayout for %s", page_name);
+#endif
+        }
+        
+        public override void destroy() {
+            // because Page destroys all its own widgets, need to prevent a double-destroy on
+            // the toolbar
+            if (toolbar is Gtk.Widget)
+                remove(toolbar);
+            toolbar = null;
+            
+            base.destroy();
+        }
+    }
+    
     public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
 
     private string import_dir = Environment.get_home_dir();
@@ -233,6 +265,7 @@ public class LibraryWindow : AppWindow {
     private bool displaying_import_queue_page = false;
     
     // Dynamically added/removed pages
+    private Gee.HashMap<Page, PageLayout> page_layouts = new Gee.HashMap<Page, PageLayout>();
     private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
     private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
         new Gee.ArrayList<SubEventsDirectoryPageStub>();
@@ -240,9 +273,6 @@ public class LibraryWindow : AppWindow {
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
 #endif
-    private OneShotScheduler page_removal_scheduler = null;
-    private Gee.HashSet<Page> pages_to_be_removed = new Gee.HashSet<Page>();
-    private Gee.HashSet<Page> pages_to_be_hidden = new Gee.HashSet<Page>();
 
     private Sidebar sidebar = new Sidebar();
 #if !NO_CAMERA
@@ -313,9 +343,6 @@ public class LibraryWindow : AppWindow {
 
         extended_properties.hide += hide_extended_properties;
         extended_properties.show += show_extended_properties;
-        
-        page_removal_scheduler = new OneShotScheduler("Hide/Remove Pages Scheduler",
-            hide_remove_pages_internal);
     }
     
     ~LibraryWindow() {
@@ -332,8 +359,6 @@ public class LibraryWindow : AppWindow {
 
         extended_properties.hide -= hide_extended_properties;
         extended_properties.show -= show_extended_properties;
-        
-        page_removal_scheduler.cancel();
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -640,43 +665,42 @@ public class LibraryWindow : AppWindow {
         Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page = null) {
         // determine if drag is internal or external
         if (Gtk.drag_get_source_widget(context) != null)
-            drag_internal(context, x, y, selection_data, info, time, page);
+            drop_internal(context, x, y, selection_data, info, time, page);
         else
-            drag_external(context, x, y, selection_data, info, time);
+            drop_external(context, x, y, selection_data, info, time);
     }
 
-    private void drag_internal(Gdk.DragContext context, int x, int y,
+    private void drop_internal(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page = null) {
-        if (page != null && page is EventPageStub) {
+        bool success = false;
+        
+        if (page is EventPageStub) {
             Event event = ((EventPageStub) page).event;
 
-            Gee.ArrayList<PhotoView> photos = new Gee.ArrayList<PhotoView>();
-            bool move_photos = false;
-            
             Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
                 selection_data.get_length());
 
+            Gee.ArrayList<PhotoView> photos = new Gee.ArrayList<PhotoView>();
             foreach (PhotoID photo_id in photo_ids) {
                 LibraryPhoto photo = LibraryPhoto.global.fetch(photo_id);
-
-                photos.add(new PhotoView(photo));
-
+                
+                // don't move a photo into the event it already exists in
                 if (!photo.get_event().equals(event))
-                    move_photos = true;
+                    photos.add(new PhotoView(photo));
             }
 
-            if (move_photos) {
-                SetEventCommand command = new SetEventCommand(photos, event);
+            if (photos.size > 0) {
+                Command command = new SetEventCommand(photos, event);
                 get_command_manager().execute(command);
-                Gtk.drag_finish(context, true, false, time);
-                return;
+                
+                success = true;
             }
         }
-
-        Gtk.drag_finish(context, false, false, time);
+        
+        Gtk.drag_finish(context, success, false, time);
     }
 
-    private void drag_external(Gdk.DragContext context, int x, int y,
+    private void drop_external(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
         // We extract the URI list using Uri.list_extract_uris() rather than
         // Gtk.SelectionData.get_uris() to work around this bug on Windows:
@@ -898,9 +922,9 @@ public class LibraryWindow : AppWindow {
         
         // remove from notebook and sidebar
         if (delete_stub)
-            remove_stub(stub);
+            remove_stub(stub, events_directory_page);
         else
-            sidebar.remove_page(stub);        
+            sidebar.remove_page(stub);
         
         // remove parent if empty
         if (parent != null && !(parent is MasterEventsDirectoryPage)) {
@@ -940,12 +964,43 @@ public class LibraryWindow : AppWindow {
         }
     }
 #endif
-
-    private void add_to_notebook(Page page) {
-        // need to show all before handing over to notebook
-        page.show_all();
+    
+    private PageLayout? get_page_layout(Page page) {
+        return page_layouts.get(page);
+    }
+    
+    private PageLayout create_page_layout(Page page) {
+        PageLayout layout = new PageLayout(page);
+        page_layouts.set(page, layout);
         
-        int pos = notebook.append_page(page.get_layout(), null);
+        return layout;
+    }
+    
+    private bool destroy_page_layout(Page page) {
+        PageLayout? layout = get_page_layout(page);
+        if (layout == null)
+            return false;
+        
+        // destroy the layout, which destroys the page
+        layout.destroy();
+        
+        bool unset = page_layouts.unset(page);
+        assert(unset);
+        
+        return true;
+    }
+    
+    private void add_to_notebook(Page page) {
+        // shouldn't already be laid out
+        assert(get_page_layout(page) == null);
+        
+        // create layout for this page
+        PageLayout layout = create_page_layout(page);
+        
+        // need to show all before handing over to notebook
+        layout.show_all();
+        
+        int pos = notebook.append_page(layout, null);
         assert(pos >= 0);
         
         // need to show_all() after pages are added and removed
@@ -960,7 +1015,10 @@ public class LibraryWindow : AppWindow {
     }
     
     private int get_notebook_pos(Page page) {
-        int pos = notebook.page_num(page.get_layout());
+        PageLayout? layout = get_page_layout(page);
+        assert(layout != null);
+        
+        int pos = notebook.page_num(layout);
         assert(pos != -1);
         
         return pos;
@@ -995,12 +1053,15 @@ public class LibraryWindow : AppWindow {
     // This removes the page from the notebook and the sidebar, but does not actually notify it
     // that it's been removed from the system, allowing it to be added back later.
     private void hide_page(Page page, Page fallback_page) {
-        // See note in remove_page for the necessity of doing this
-        pages_to_be_hidden.add(page);
-        page_removal_scheduler.at_priority_idle(Priority.LOW);
-        
         if (get_current_page() == page)
             switch_to_page(fallback_page);
+        
+        debug("Hiding page %s", page.get_page_name());
+        
+        remove_from_notebook(page);
+        sidebar.remove_page(page);
+        
+        debug("Hid page %s", page.get_page_name());
     }
     
     private void remove_page(Page page, Page fallback_page) {
@@ -1010,27 +1071,24 @@ public class LibraryWindow : AppWindow {
         assert(page != photo_page);
         assert(page != import_queue_page);
         
-        // because removing a page while executing inside a signal or from a call from the page
-        // itself causes problems (i.e. the page being unref'd beneath its feet), schedule all
-        // removals outside of UI event and in Idle handler
-        pages_to_be_removed.add(page);
-        page_removal_scheduler.at_priority_idle(Priority.LOW);
-        
-        // switch away if necessary to collection page (which is always present)
+        // switch away if necessary to ensure Page is fully detached from system
         if (get_current_page() == page)
             switch_to_page(fallback_page);
+        
+        debug("Removing page %s", page.get_page_name());
+        
+        // detach from notebook and sidebar
+        sidebar.remove_page(page);
+        remove_from_notebook(page);
+        
+        // destroy layout if it exists, otherwise just the page
+        if (!destroy_page_layout(page))
+            page.destroy();
+        
+        debug("Removed page %s", page.get_page_name());
     }
     
-    private void remove_stub(PageStub stub) {
-        // see note in remove_page() for why this is done
-        if (stub.has_page()) {
-            pages_to_be_removed.add(stub.get_page());
-            page_removal_scheduler.at_priority_idle(Priority.LOW);
-        } 
-        
-        // remove stub (which holds a marker) from the sidebar
-        sidebar.remove_page(stub);
-
+    private void remove_stub(PageStub stub, Page fallback_page) {
         // remove from appropriate list
         if (stub is SubEventsDirectoryPageStub) {
             // remove from events directory list 
@@ -1041,32 +1099,26 @@ public class LibraryWindow : AppWindow {
             bool removed = event_list.remove((EventPageStub) stub);
             assert(removed);
         }
-    }
-    
-    private void hide_remove_pages_internal() {
-        foreach (Page page in pages_to_be_removed) {
-            debug("Removing page %s", page.get_page_name());
+        
+        // remove stub (which holds a marker) from the sidebar
+        sidebar.remove_page(stub);
+        
+        if (stub.has_page()) {
+            // ensure the page is fully detached
+            if (get_current_page() == stub.get_page())
+                switch_to_page(fallback_page);
             
-            remove_from_notebook(page);
-            sidebar.remove_page(page);
+            debug("Removing stubbed page %s", stub.get_page().get_page_name());
             
-            page.notify_removed();
+            // detach from notebook
+            remove_from_notebook(stub.get_page());
             
-            debug("Removed page %s", page.get_page_name());
+            // destroy page layout if it exists, otherwise just the page
+            if (!destroy_page_layout(stub.get_page()))
+                stub.get_page().destroy();
+            
+            debug("Removed stubbed page %s", stub.get_page().get_page_name());
         }
-        
-        pages_to_be_removed.clear();
-        
-        foreach (Page page in pages_to_be_hidden) {
-            debug("Hiding page %s", page.get_page_name());
-            
-            remove_from_notebook(page);
-            sidebar.remove_page(page);
-            
-            debug("Hid page %s", page.get_page_name());
-        }
-        
-        pages_to_be_hidden.clear();
     }
     
     // check for settings that should persist between instances
@@ -1152,8 +1204,10 @@ public class LibraryWindow : AppWindow {
 
         if (get_current_page() != null) {
             get_current_page().switching_from();
-        
-            remove_accel_group(get_current_page().ui.get_accel_group());
+            
+            Gtk.AccelGroup accel_group = get_current_page().ui.get_accel_group();
+            if (accel_group != null)
+                remove_accel_group(accel_group);
 
             // carry over menubar toggle activity between pages
             Gtk.ToggleAction old_basic_display_action = 
@@ -1202,8 +1256,10 @@ public class LibraryWindow : AppWindow {
         // do this prior to changing selection, as the change will fire a cursor-changed event,
         // which will then call this function again
         base.set_current_page(page);
-
-        Idle.add_full(Priority.HIGH, place_sidebar_cursor);
+        
+        sidebar.cursor_changed -= on_sidebar_cursor_changed;
+        sidebar.place_cursor(page);
+        sidebar.cursor_changed += on_sidebar_cursor_changed;
         
         on_selection_changed();
 
@@ -1213,11 +1269,6 @@ public class LibraryWindow : AppWindow {
         subscribe_for_basic_information(get_current_page());
 
         page.switched_to();
-    }
-
-    private bool place_sidebar_cursor() {
-        sidebar.place_cursor(get_current_page());
-        return false;
     }
 
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
