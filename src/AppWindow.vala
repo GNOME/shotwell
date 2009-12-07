@@ -350,15 +350,6 @@ public abstract class AppWindow : PageWindow {
         set_default_size(1024, 768);
         set_default_icon(Resources.get_icon(Resources.ICON_APP));
 
-#if !WINDOWS
-        // This permits the AboutDialog to properly load an URL.
-        // It appears that on GTK 2.16 at least, the registered on_about_link function
-        // never actually runs; GTK simply calls gtk_show_uri() to display the URI.
-        // On Windows, that function is broken and so we don't set these hooks.
-        Gtk.AboutDialog.set_url_hook(on_about_link);
-        Gtk.AboutDialog.set_email_hook(on_about_link);
-#endif
-        
         assert(command_manager == null);
         command_manager = new CommandManager();
     }
@@ -453,14 +444,7 @@ public abstract class AppWindow : PageWindow {
             "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1)
         );
     }
-    
-#if !WINDOWS
-    // This callback needs to be installed for the links to be active in the About dialog.  However,
-    // this callback doesn't actually have to do anything in order to activate the URL.
-    private void on_about_link(Gtk.AboutDialog about_dialog, string url) {
-    }
-#endif
-    
+
     private void on_help_contents() {
         open_link(Resources.HELP_URL);
     }
