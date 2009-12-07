@@ -991,11 +991,11 @@ public class LibraryWindow : AppWindow {
     }
     
     private void add_to_notebook(Page page) {
-        // shouldn't already be laid out
-        assert(get_page_layout(page) == null);
-        
-        // create layout for this page
-        PageLayout layout = create_page_layout(page);
+        // get/create layout for this page (if the page is hidden the layout has already been
+        // created)
+        PageLayout? layout = get_page_layout(page);
+        if (layout == null)
+            layout = create_page_layout(page);
         
         // need to show all before handing over to notebook
         layout.show_all();

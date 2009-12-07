@@ -1118,9 +1118,6 @@ public class ImportQueuePage : SinglePhotoPage {
         batch_import.imported -= on_imported;
         batch_import.import_complete -= on_import_complete;
         
-        // report the batch has been removed from the queue
-        batch_removed(batch_import);
-        
         // schedule next if available
         if (queue.size > 0) {
             stop_button.sensitive = true;
@@ -1138,6 +1135,9 @@ public class ImportQueuePage : SinglePhotoPage {
             // blank the display
             blank_display();
         }
+        
+        // report the batch has been removed from the queue after everything else is set
+        batch_removed(batch_import);
     }
 }
 
