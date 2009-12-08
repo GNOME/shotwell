@@ -54,7 +54,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public signal void photo_changed(TransformablePhoto? old_photo, TransformablePhoto new_photo);
 
     public EditingHostPage(SourceCollection sources, string name, bool use_readahead) {
-        base(name);
+        base(name, false);
         
         this.sources = sources;
         this.use_readahead = use_readahead;
@@ -221,10 +221,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (pixbuf != null) {
             // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
             // displayed
+            Dimensions max_dim = photo.get_dimensions();
             if (current_tool != null) {
                 try {
                     Gdk.Pixbuf? tool_pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(),
-                        photo);
+                        photo, out max_dim);
                     if (tool_pixbuf != null)
                         pixbuf = tool_pixbuf;
                 } catch(Error err) {
@@ -235,7 +236,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 }
             }
             
-            set_pixbuf(pixbuf);
+            set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
         } else if (err != null) {
             set_photo_missing(true);
@@ -409,7 +410,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 pixbuf = pixbuf.composite_color_simple(pixbuf.get_width(), pixbuf.get_height(),
                     Gdk.InterpType.NEAREST, 100, 2, 0, 0);
 
-                set_pixbuf(pixbuf);
+                set_pixbuf(pixbuf, get_photo().get_dimensions());
             } catch (GLib.Error err) {
                 warning("%s", err.message);
             }
@@ -471,7 +472,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void quick_update_pixbuf() {
         Gdk.Pixbuf pixbuf = cache.get_ready_pixbuf(get_photo());
         if (pixbuf != null) {
-            set_pixbuf(pixbuf);
+            set_pixbuf(pixbuf, get_photo().get_dimensions());
             pixbuf_dirty = false;
             
             return;
@@ -484,7 +485,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // throw a resized large thumbnail up to get an image on the screen quickly,
         // and when ready decode and display the full image
         try {
-            set_pixbuf(get_photo().get_preview_pixbuf(scaling));
+            set_pixbuf(get_photo().get_preview_pixbuf(scaling), get_photo().get_dimensions());
         } catch (Error err) {
             warning("%s", err.message);
         }
@@ -501,10 +502,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Timer timer = new Timer();
 #endif
         Gdk.Pixbuf pixbuf = null;
+        Dimensions max_dim = get_photo().get_dimensions();
         
         try {
             if (current_tool != null)
-                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), get_photo());
+                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), get_photo(), out max_dim);
             
             if (pixbuf == null)
                 pixbuf = cache.fetch(get_photo());
@@ -514,7 +516,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         
         if (!photo_missing) {
-            set_pixbuf(pixbuf);
+            set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
         }
         
@@ -556,7 +558,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 // store what's currently displayed only for the duration of the shift pressing
                 swapped = get_unscaled_pixbuf();
                 
-                set_pixbuf(original);
+                set_pixbuf(original, get_photo().get_original_dimensions());
             }
         }
         
@@ -565,7 +567,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_released(Gdk.EventKey? event) {
         if (current_tool == null && swapped != null) {
-            set_pixbuf(swapped);
+            set_pixbuf(swapped, get_photo().get_dimensions());
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
@@ -582,10 +584,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // save current pixbuf to use if user cancels operation
         cancel_editing_pixbuf = get_unscaled_pixbuf();
         
-        // see if the tool wants a different pixbuf displayed
+        // see if the tool wants a different pixbuf displayed and what its max dimensions should be
         Gdk.Pixbuf unscaled;
+        Dimensions max_dim = get_photo().get_dimensions();
         try {
-            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), get_photo());
+            unscaled = tool.get_display_pixbuf(get_canvas_scaling(), get_photo(), out max_dim);
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
@@ -598,7 +601,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
 
         if (unscaled != null)
-            set_pixbuf(unscaled);
+            set_pixbuf(unscaled, max_dim);
         
         // create the PhotoCanvas object for a two-way interface to the tool
         PhotoCanvas photo_canvas = new EditingHostCanvas(this);
@@ -615,7 +618,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void deactivate_tool(Command? command = null, Gdk.Pixbuf? new_pixbuf = null, 
-        bool needs_improvement = false) {
+        Dimensions new_max_dim = Dimensions(), bool needs_improvement = false) {
         if (current_tool == null)
             return;
 
@@ -642,7 +645,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
         
         if (replacement != null)
-            set_pixbuf(replacement);
+            set_pixbuf(replacement, new_max_dim);
         cancel_editing_pixbuf = null;
         
         // if this is a rough pixbuf, schedule an improvement
@@ -990,8 +993,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         current_editing_toggle.active = false;
     }
     
-    private void on_tool_applied(Command? command, Gdk.Pixbuf? new_pixbuf, bool needs_improvement) {
-        deactivate_tool(command, new_pixbuf, needs_improvement);
+    private void on_tool_applied(Command? command, Gdk.Pixbuf? new_pixbuf, Dimensions new_max_dim,
+        bool needs_improvement) {
+        deactivate_tool(command, new_pixbuf, new_max_dim, needs_improvement);
     }
     
     private void on_tool_cancelled() {

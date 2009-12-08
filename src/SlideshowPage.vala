@@ -86,7 +86,7 @@ class SlideshowPage : SinglePhotoPage {
     }
 
     public SlideshowPage(ViewCollection controller, Thumbnail start) {
-        base(_("Slideshow"));
+        base(_("Slideshow"), true);
         
         this.controller = controller;
         current = start;
@@ -132,7 +132,7 @@ class SlideshowPage : SinglePhotoPage {
         if (!get_fullscreen_pixbuf(current, true, out current, out pixbuf))
             return;
 
-        set_pixbuf(pixbuf);
+        set_pixbuf(pixbuf, current.get_photo().get_dimensions());
         
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
@@ -159,7 +159,7 @@ class SlideshowPage : SinglePhotoPage {
         for (;;) {
             try {
                 // Fails if a photo source file is missing.
-                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen(get_container()));
+                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen(get_container(), true));
             } catch (Error err) {
                 warning("%s", err.message);
 
@@ -233,7 +233,7 @@ class SlideshowPage : SinglePhotoPage {
         }
         
         if (pixbuf != null)
-            set_pixbuf(pixbuf);
+            set_pixbuf(pixbuf, current.get_photo().get_dimensions());
         
         // reset the timer
         timer.start();
@@ -252,7 +252,7 @@ class SlideshowPage : SinglePhotoPage {
         // set pixbuf
         Gdk.Pixbuf next_pixbuf;
         get_fullscreen_pixbuf(current, forward, out current, out next_pixbuf);
-        set_pixbuf(next_pixbuf);
+        set_pixbuf(next_pixbuf, current.get_photo().get_dimensions());
         
         // reset the advance timer
         timer.start();

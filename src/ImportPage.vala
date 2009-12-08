@@ -987,7 +987,7 @@ public class ImportQueuePage : SinglePhotoPage {
     private uint64 total_bytes = 0;
  
     public ImportQueuePage() {
-        base(_("Importing..."));
+        base(_("Importing..."), false);
 
         init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
             create_actions());
@@ -1083,7 +1083,7 @@ public class ImportQueuePage : SinglePhotoPage {
     
     private void on_imported(LibraryPhoto photo) {
         try {
-            set_pixbuf(photo.get_pixbuf(get_canvas_scaling()));
+            set_pixbuf(photo.get_pixbuf(get_canvas_scaling()), photo.get_dimensions());
         } catch (Error err) {
             warning("%s", err.message);
         }

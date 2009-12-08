@@ -606,7 +606,7 @@ public abstract class TransformablePhoto: PhotoSource {
         if (get_crop(out crop))
             return crop.get_dimensions();
         
-        return get_uncropped_dimensions();
+        return get_original_dimensions();
     }
     
     // This method *must* be called with row locked.
@@ -1509,7 +1509,7 @@ public abstract class TransformablePhoto: PhotoSource {
     // Aggregate/helper/translation functions
     
     // Returns uncropped (but rotated) dimensions
-    public Dimensions get_uncropped_dimensions() {
+    public Dimensions get_original_dimensions() {
         Dimensions dim = get_raw_dimensions();
         Orientation orientation = get_orientation();
         

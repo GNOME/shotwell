@@ -179,38 +179,40 @@ public struct Scaling {
     private ScaleConstraint constraint;
     private int scale;
     private Dimensions viewport;
+    private bool scale_up_to_viewport;
     
-    private Scaling(ScaleConstraint constraint, int scale, Dimensions viewport) {
+    private Scaling(ScaleConstraint constraint, int scale, Dimensions viewport, bool scale_up_to_viewport) {
         this.constraint = constraint;
         this.scale = scale;
         this.viewport = viewport;
+        this.scale_up_to_viewport = scale_up_to_viewport;
     }
     
     public static Scaling for_original() {
-        return Scaling(ScaleConstraint.ORIGINAL, NO_SCALE, Dimensions());
+        return Scaling(ScaleConstraint.ORIGINAL, NO_SCALE, Dimensions(), false);
     }
     
-    public static Scaling for_screen(Gtk.Window window) {
-        return for_viewport(get_screen_dimensions(window));
+    public static Scaling for_screen(Gtk.Window window, bool scale_up_for_viewport) {
+        return for_viewport(get_screen_dimensions(window), scale_up_for_viewport);
     }
     
     public static Scaling for_best_fit(int pixels) {
         assert(pixels > 0);
         
-        return Scaling(ScaleConstraint.DIMENSIONS, pixels, Dimensions());
+        return Scaling(ScaleConstraint.DIMENSIONS, pixels, Dimensions(), false);
     }
     
-    public static Scaling for_viewport(Dimensions viewport) {
+    public static Scaling for_viewport(Dimensions viewport, bool scale_up_for_viewport) {
         assert(viewport.has_area());
         
-        return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport);
+        return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport, scale_up_for_viewport);
     }
     
-    public static Scaling for_widget(Gtk.Widget widget) {
+    public static Scaling for_widget(Gtk.Widget widget, bool scale_up_for_viewport) {
         Dimensions viewport = Dimensions.for_allocation(widget.allocation);
         assert(viewport.has_area());
         
-        return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport);
+        return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport, scale_up_for_viewport);
     }
     
     private static Dimensions get_screen_dimensions(Gtk.Window window) {
@@ -218,7 +220,7 @@ public struct Scaling {
         
         return Dimensions(screen.get_width(), screen.get_height());
     }
-
+    
     private int scale_to_pixels() {
         return (scale >= 0) ? scale : 0;
     }
@@ -252,7 +254,11 @@ public struct Scaling {
             return false;
         
         assert(viewport.has_area());
-        scaled = original.get_scaled_proportional(viewport);
+        
+        if (!scale_up_to_viewport && original.width < viewport.width && original.height < viewport.height)
+            scaled = original;
+        else
+            scaled = original.get_scaled_proportional(viewport);
         
         return true;
     }
@@ -294,7 +300,8 @@ public struct Scaling {
         else if (scale != NO_SCALE)
             return "scaling: best-fit (%d pixels)".printf(scale_to_pixels());
         else
-            return "scaling: viewport %s".printf(viewport.to_string());
+            return "scaling: viewport %s (%s)".printf(viewport.to_string(),
+                scale_up_to_viewport ? "scaled up" : "not scaled up");
     }
     
     public bool equals(Scaling scaling) {

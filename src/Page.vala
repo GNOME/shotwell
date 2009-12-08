@@ -1231,14 +1231,18 @@ public abstract class SinglePhotoPage : Page {
     protected Gtk.Viewport viewport = new Gtk.Viewport(null, null);
     protected Gdk.GC text_gc = null;
     
+    private bool scale_up_to_viewport;
     private Gdk.Pixmap pixmap = null;
     private Dimensions pixmap_dim = Dimensions();
     private Gdk.Pixbuf unscaled = null;
+    private Dimensions max_dim = Dimensions();
     private Gdk.Pixbuf scaled = null;
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
     
-    public SinglePhotoPage(string page_name) {
+    public SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
+        
+        this.scale_up_to_viewport = scale_up_to_viewport;
         
         // With the current code automatically resizing the image to the viewport, scrollbars
         // should never be shown, but this may change if/when zooming is supported
@@ -1281,8 +1285,13 @@ public abstract class SinglePhotoPage : Page {
             set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
     
-    public void set_pixbuf(Gdk.Pixbuf unscaled) {
+    // max_dim represents the maximum size of the original pixbuf (i.e. pixbuf may be scaled and
+    // the caller capable of producing larger ones depending on the viewport size).  max_dim
+    // is used when scale_up_to_viewport is set to true.  Pass a Dimensions with no area if
+    // max_dim should be ignored (i.e. scale_up_to_viewport is false).
+    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim) {
         this.unscaled = unscaled;
+        this.max_dim = max_dim;
         scaled = null;
         
         // need to make sure this has happened
@@ -1293,6 +1302,7 @@ public abstract class SinglePhotoPage : Page {
     
     public void blank_display() {
         unscaled = null;
+        max_dim = Dimensions();
         scaled = null;
         pixmap = null;
         
@@ -1312,8 +1322,8 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public Scaling get_canvas_scaling() {
-        return (get_container() is FullscreenWindow) ? Scaling.for_screen(get_container()) 
-            : Scaling.for_widget(viewport);
+        return (get_container() is FullscreenWindow) ? Scaling.for_screen(get_container(), scale_up_to_viewport) 
+            : Scaling.for_widget(viewport, scale_up_to_viewport);
     }
 
     public Gdk.Pixbuf? get_unscaled_pixbuf() {
@@ -1345,7 +1355,7 @@ public abstract class SinglePhotoPage : Page {
     
     private void on_viewport_resize() {
         // do fast repaints while resizing
-        internal_repaint(FAST_INTERP);
+        internal_repaint(true);
     }
     
     private override void on_resize_finished(Gdk.Rectangle rect) {
@@ -1385,10 +1395,10 @@ public abstract class SinglePhotoPage : Page {
     }
     
     public void repaint() {
-        internal_repaint(QUALITY_INTERP);
+        internal_repaint(false);
     }
     
-    private void internal_repaint(Gdk.InterpType interp) {
+    private void internal_repaint(bool fast) {
         // if not in view, assume a full repaint needed in future but do nothing more
         if (!is_in_view()) {
             pixmap = null;
@@ -1424,8 +1434,15 @@ public abstract class SinglePhotoPage : Page {
         }
         
         if (new_pixbuf || new_pixmap) {
-            // determine size of pixbuf that will fit on the canvas
-            Dimensions scaled_dim = Dimensions.for_pixbuf(unscaled).get_scaled_proportional(pixmap_dim);
+            Dimensions unscaled_dim = Dimensions.for_pixbuf(unscaled);
+            
+            // determine scaled size of pixbuf ... if a max dimensions is set and not scaling up,
+            // respect it
+            Dimensions scaled_dim = Dimensions();
+            if (!scale_up_to_viewport && max_dim.has_area() && max_dim.width < width && max_dim.height < height)
+                scaled_dim = max_dim;
+            else
+                scaled_dim = unscaled_dim.get_scaled_proportional(pixmap_dim);
             
             assert(width >= scaled_dim.width);
             assert(height >= scaled_dim.height);
@@ -1439,6 +1456,8 @@ public abstract class SinglePhotoPage : Page {
             // draw background
             pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, width, height);
         }
+        
+        Gdk.InterpType interp = (fast) ? FAST_INTERP : QUALITY_INTERP;
         
         // rescale if canvas rescaled or better quality is requested
         if (scaled == null) {
