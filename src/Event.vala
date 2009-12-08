@@ -24,7 +24,6 @@ public class EventSourceCollection : DatabaseSourceCollection {
 public class Event : EventSource, Proxyable {
     public const long EVENT_LULL_SEC = 4 * 60 * 60;
     public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
-    private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 100;
     
     private class DateComparator : Comparator<LibraryPhoto> {
         public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
@@ -212,8 +211,11 @@ public class Event : EventSource, Proxyable {
         return event;
     }
     
-    public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos) {
+    public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos, ProgressMonitor? monitor) {
         debug("Processing imported photos to create events ...");
+
+        int count = 0;
+        int total = unsorted_photos.size;
         
         // sort photos by date
         SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(new DateComparator());
@@ -282,6 +284,11 @@ public class Event : EventSource, Proxyable {
             photo.set_event(current_event);
 
             last_exposure = exposure_time;
+
+            if (monitor != null) {
+                if (!monitor(++count, total))
+                    break;
+            }
         }
 
         if (current_event != null) {

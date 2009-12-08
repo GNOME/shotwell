@@ -910,7 +910,7 @@ public class ImportPage : CheckerboardPage {
     private void import_reporter(ImportManifest manifest) {
         // report to Event to organize into events
         if (manifest.success.size > 0)
-            Event.generate_events(manifest.imported);
+            generate_events_with_progress_dialog(manifest.imported);
         
         ImportUI.QuestionParams question = new ImportUI.QuestionParams(
             _("Delete this photo from camera?"),
