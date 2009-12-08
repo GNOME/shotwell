@@ -159,11 +159,16 @@ public class Thumbnail : LayoutItem {
         LibraryPhoto photo = get_photo();
         
         // don't let the hose run
-        if (!photo.is_hidden())
+        if (!photo.is_hidden() && !photo.is_favorite())
             return null;
         
         Gee.List<Gdk.Pixbuf> trinkets = new Gee.ArrayList<Gdk.Pixbuf>();
-        trinkets.add(Resources.get_icon(Resources.ICON_HIDDEN, scale));
+        
+        if (photo.is_hidden())
+            trinkets.add(Resources.get_icon(Resources.ICON_HIDDEN, scale));
+        
+        if (photo.is_favorite())
+            trinkets.add(Resources.get_icon(Resources.ICON_FAVORITE, scale));
         
         return trinkets;
     }

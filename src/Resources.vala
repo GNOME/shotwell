@@ -63,6 +63,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "shotwell-publish";
+    public const string HIDDEN = "shotwell-hidden";
+    public const string FAVORITE = "shotwell-favorite";
 
 #if NO_SVG
 	public const string SVG_SUFFIX = ".png";
@@ -73,6 +75,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_APP = "shotwell" + SVG_SUFFIX;
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
     public const string ICON_HIDDEN = "hidden.svg";
+    public const string ICON_FAVORITE = "favorite.svg";
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -123,6 +126,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MERGE_LABEL = _("Merge");
     public const string MERGE_TOOLTIP = _("Merge into a single event");
     
+    public const string FAVORITE_MENU = _("Mark as _Favorite");
+    public const string FAVORITE_LABEL = _("Mark as Favorite");
+    public const string FAVORITE_TOOLTIP = _("Mark the photo as one of your favorites");
+    
+    public const string UNFAVORITE_MENU = _("Unmark as _Favorite");
+    public const string UNFAVORITE_LABEL = _("Unmark as Favorite");
+    public const string UNFAVORITE_TOOLTIP = _("Unmark the photo as one of your favorites");
+    
     public const string HIDE_MENU = _("_Hide");
     public const string HIDE_LABEL = _("Hide");
     public const string HIDE_TOOLTIP = _("Hide the selected photos");
@@ -157,6 +168,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         add_stock_icon(icons_dir.get_child("publish.png"), PUBLISH);
+        add_stock_icon(icons_dir.get_child("hidden.svg"), HIDDEN);
+        add_stock_icon(icons_dir.get_child("favorite.svg"), FAVORITE);
         
         factory.add_default();
     }

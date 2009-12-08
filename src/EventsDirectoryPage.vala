@@ -225,13 +225,13 @@ public class EventsDirectoryPage : CheckerboardPage {
     private void on_edit_menu() {
         decorate_undo_item("/EventsDirectoryMenuBar/EditMenu/Undo");
         decorate_redo_item("/EventsDirectoryMenuBar/EditMenu/Redo");
-        set_item_sensitive("/EventsDirectoryMenuBar/EditMenu/EventRename", 
-            get_view().get_selected_count() == 1);
     }
 
     private void on_events_menu() {
         set_item_sensitive("/EventsDirectoryMenuBar/EventsMenu/EventMerge", 
             get_view().get_selected_count() > 1);
+        set_item_sensitive("/EventsDirectoryMenuBar/EventsMenu/EventRename", 
+            get_view().get_selected_count() == 1);
     }
 
     private void on_rename() {

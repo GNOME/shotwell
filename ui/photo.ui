@@ -36,7 +36,6 @@
             <menuitem name="Mirror" action="Mirror" />
             <separator />
             <menuitem name="Enhance" action="Enhance" />
-            <separator />
             <menuitem name="Revert" action="Revert" />
         </menu>
         
@@ -54,7 +53,6 @@
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
-        <separator />
         <menuitem name="ContextRevert" action="Revert" />
     </popup>
     

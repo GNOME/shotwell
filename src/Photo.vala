@@ -424,6 +424,25 @@ public abstract class TransformablePhoto: PhotoSource {
         return flags;
     }
     
+    public uint64 add_remove_flags(uint64 add, uint64 remove) {
+        uint64 flags = 0;
+        
+        bool committed = false;
+        lock (row) {
+            flags = (row.flags | add) & ~remove;
+            if (row.flags != flags) {
+                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                if (committed)
+                    row.flags = flags;
+            }
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+        
+        return flags;
+    }
+    
     public uint64 toggle_flags(uint64 mask) {
         uint64 flags = 0;
         
@@ -1757,7 +1776,8 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     // Top 16 bits are reserved for TransformablePhoto
-    private const uint64 FLAG_HIDDEN = 0x0000000000000001;
+    private const uint64 FLAG_HIDDEN =      0x0000000000000001;
+    private const uint64 FLAG_FAVORITE =    0x0000000000000002;
     
     public static LibraryPhotoSourceCollection global = null;
     
@@ -1911,19 +1931,26 @@ public class LibraryPhoto : TransformablePhoto {
         return dupe;
     }
     
+    public bool is_favorite() {
+        return is_flag_set(FLAG_FAVORITE);
+    }
+    
+    public void set_favorite(bool favorite) {
+        if (favorite)
+            add_remove_flags(FLAG_FAVORITE, FLAG_HIDDEN);
+        else
+            remove_flags(FLAG_FAVORITE);
+    }
+    
     public bool is_hidden() {
         return is_flag_set(FLAG_HIDDEN);
     }
     
     public void set_hidden(bool hidden) {
         if (hidden)
-            add_flags(FLAG_HIDDEN);
+            add_remove_flags(FLAG_HIDDEN, FLAG_FAVORITE);
         else
             remove_flags(FLAG_HIDDEN);
-    }
-    
-    public void toggle_hidden() {
-        toggle_flags(FLAG_HIDDEN);
     }
     
     public void delete_original_on_destroy() {

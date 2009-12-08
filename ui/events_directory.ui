@@ -10,8 +10,6 @@
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
-            <separator />
-            <menuitem name="EventRename" action="Rename" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
@@ -28,6 +26,7 @@
 
         <menu name="EventsMenu" action="EventsMenu">
             <menuitem name="EventMerge" action="Merge" />
+            <menuitem name="EventRename" action="Rename" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -38,9 +37,8 @@
     </menubar>
 
     <popup name="EventsDirectoryContextMenu">
-        <menuitem name="ContextRename" action="Rename" />
-        <separator />
         <menuitem name="ContextMerge" action="Merge" />
+        <menuitem name="ContextRename" action="Rename" />
     </popup>
 
 </ui>

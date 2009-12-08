@@ -683,6 +683,28 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     }
 }
 
+public class FavoriteUnfavoriteCommand : MultipleDataSourceCommand {
+    private bool favorite;
+    
+    public FavoriteUnfavoriteCommand(Gee.Iterable<DataView> iter, bool favorite) {
+        base (iter,
+            favorite ? _("Marking as Favorite...") : _("Unmarking as Favorite..."),
+            favorite ? _("Unmarking as Favorite...") : _("Marking as Favorite..."),
+            favorite ? Resources.FAVORITE_LABEL : Resources.UNFAVORITE_LABEL,
+            favorite ? Resources.FAVORITE_TOOLTIP : Resources.UNFAVORITE_TOOLTIP);
+        
+        this.favorite = favorite;
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((LibraryPhoto) source).set_favorite(favorite);
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        ((LibraryPhoto) source).set_favorite(!favorite);
+    }
+}
+
 public class HideUnhideCommand : MultipleDataSourceCommand {
     private bool hide;
     

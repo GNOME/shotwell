@@ -9,8 +9,8 @@ public abstract class LayoutItem : ThumbnailView {
     public const int LABEL_PADDING = 4;
     public const int FRAME_PADDING = 4;
     
-    public const int TRINKET_SCALE = 24;
-    public const int TRINKET_OVERHANG = 6;
+    public const int TRINKET_SCALE = 12;
+    public const int TRINKET_PADDING = 1;
 
     public const string SELECTED_COLOR = "#0FF";
     public const string UNSELECTED_COLOR = "#FFF";
@@ -171,7 +171,7 @@ public abstract class LayoutItem : ThumbnailView {
         Gdk.Rectangle old_allocation = allocation;
         
         // only add in the text height if it's being displayed
-        int text_height = (title_displayed) ? cached_pango_height + LABEL_PADDING : TRINKET_OVERHANG;
+        int text_height = (title_displayed) ? cached_pango_height + LABEL_PADDING : 0;
         
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
@@ -185,13 +185,12 @@ public abstract class LayoutItem : ThumbnailView {
         int image_width = int.max(trinkets_width, pixbuf_dim.width);
         
         // width is frame width (two sides) + frame padding (two sides) + width of pixbuf/trinkets
-        // (text never wider) + trinket overhang (both sides)
-        allocation.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + image_width + (TRINKET_OVERHANG * 2);
+        // (text never wider)
+        allocation.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + image_width;
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
-        // + height of text + label padding (between pixbuf and text) + trinket overhang (top)
-        allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height
-            + text_height + TRINKET_OVERHANG;
+        // + height of text + label padding (between pixbuf and text)
+        allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height + text_height;
         
         if (notify_change && 
             !Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))
@@ -205,10 +204,15 @@ public abstract class LayoutItem : ThumbnailView {
             drawable.draw_rectangle(gc, false, allocation.x, allocation.y, allocation.width - 1,
                 allocation.height - 1);
         
+        // find the top-left point of the pixbuf
+        Gdk.Point pixbuf_origin = Gdk.Point();
+        pixbuf_origin.x = allocation.x + FRAME_WIDTH + FRAME_PADDING;
+        pixbuf_origin.y = allocation.y + FRAME_WIDTH + FRAME_PADDING;
+        
         // pixbuf (or blank square) FRAME_PADDING interior from the frame
         if (display_pixbuf != null)
-            drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, allocation.x + FRAME_WIDTH + FRAME_PADDING + TRINKET_OVERHANG, 
-                allocation.y + FRAME_WIDTH + FRAME_PADDING + TRINKET_OVERHANG, -1, -1, Gdk.RgbDither.NORMAL, 0, 0);
+            drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, pixbuf_origin.x, pixbuf_origin.y, -1, -1, 
+                Gdk.RgbDither.NORMAL, 0, 0);
         
         // get trinkets to determine the max width (pixbuf vs. trinkets)
         int trinkets_width = 0;
@@ -226,18 +230,18 @@ public abstract class LayoutItem : ThumbnailView {
             if (pango_layout != null && image_width > 0)
                 pango_layout.set_width(image_width * Pango.SCALE);
         
-            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING + TRINKET_OVERHANG,
-                allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + LABEL_PADDING + TRINKET_OVERHANG,
+            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING,
+                allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + LABEL_PADDING,
                 pango_layout);
         }
         
-        // draw trinkets last, overhanging the image
+        // draw trinkets last
         if (trinkets != null) {
-            int x = allocation.x + allocation.width;
             foreach (Gdk.Pixbuf trinket in trinkets) {
-                x -= trinket.get_width();
-                drawable.draw_pixbuf(gc, trinket, 0, 0, x, allocation.y, trinket.get_width(),
-                    trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
+                drawable.draw_pixbuf(gc, trinket, 0, 0, 
+                    pixbuf_origin.x + pixbuf_dim.width - trinket.get_width() - TRINKET_PADDING, 
+                    pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() - TRINKET_PADDING, 
+                    trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
             }
         }
     }

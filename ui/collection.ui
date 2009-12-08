@@ -12,13 +12,17 @@
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
-            <menuitem name="SelectAll" action="SelectAll" />
+            <menuitem name="Duplicate" action="Duplicate" />
             <menuitem name="Remove" action="Remove" />
+            <separator />
+            <menuitem name="SelectAll" action="SelectAll" />
         </menu>
 
         <menu name="ViewMenu" action="ViewMenu">
-            <menuitem name="ViewTitle" action="ViewTitle" />
+            <menuitem name="ViewFavorites" action="ViewFavorites" />
             <menuitem name="ViewHidden" action="ViewHidden" />
+            <separator />
+            <menuitem name="ViewTitle" action="ViewTitle" />
             <separator />
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
@@ -46,11 +50,11 @@
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />
             <separator />
-            <menuitem name="Revert" action="Revert" />
             <menuitem name="Enhance" action="Enhance" />
+            <menuitem name="Revert" action="Revert" />
             <separator />
+            <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
-            <menuitem name="Duplicate" action="Duplicate" />
             <separator />
             <menuitem name="Slideshow" action="Slideshow" />
         </menu>
@@ -67,18 +71,19 @@
     </menubar>
     
     <popup name="CollectionContextMenu">
-        <menuitem name="ContextDuplicate" action="Duplicate" />
-        <menuitem name="ContextRemove" action="Remove" />
-        <separator />
         <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
+        <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
         <menuitem name="ContextNewEvent" action="NewEvent" />
+        <separator />
+        <menuitem name="ContextDuplicate" action="Duplicate" />
+        <menuitem name="ContextRemove" action="Remove" />
     </popup>
 
 </ui>
