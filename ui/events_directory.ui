@@ -10,6 +10,8 @@
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
+            <separator />
+            <menuitem name="SelectAll" action="SelectAll" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
