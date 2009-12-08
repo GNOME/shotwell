@@ -309,7 +309,7 @@ public abstract class PageWindow : Gtk.Window {
             if (current_page.notify_configure_event(event))
                 return true;
         }
-        
+
         return (base.configure_event != null) ? base.configure_event(event) : false;
     }
 
@@ -341,14 +341,29 @@ public abstract class AppWindow : PageWindow {
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
 
+    private bool maximized = false;
+    private Dimensions dimensions;
+
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
         assert(instance == null);
         instance = this;
 
         title = Resources.APP_TITLE;
-        set_default_size(1024, 768);
         set_default_icon(Resources.get_icon(Resources.ICON_APP));
+
+        // restore previous size and maximization state
+        if (this is LibraryWindow) {
+            Config.get_instance().get_library_window_state(out maximized, out dimensions);
+        } else {
+            assert(this is DirectWindow);
+            Config.get_instance().get_direct_window_state(out maximized, out dimensions);
+        }
+
+        set_default_size(dimensions.width, dimensions.height);
+
+        if (maximized)
+            maximize();
 
         assert(command_manager == null);
         command_manager = new CommandManager();
@@ -450,6 +465,13 @@ public abstract class AppWindow : PageWindow {
     }
     
     protected virtual void on_quit() {
+        if (this is LibraryWindow) {
+            Config.get_instance().set_library_window_state(maximized, dimensions);
+        } else {
+            assert(this is DirectWindow);
+            Config.get_instance().set_direct_window_state(maximized, dimensions);
+        }
+
         user_quit = true;
         Gtk.main_quit();
     }
@@ -513,6 +535,16 @@ public abstract class AppWindow : PageWindow {
     
     private void on_redo() {
         command_manager.redo();
+    }
+
+    private override bool configure_event(Gdk.EventConfigure event) {
+        if (window.get_state() == Gdk.WindowState.MAXIMIZED)
+            maximized = !maximized;
+
+        if (!maximized)
+            get_size(out dimensions.width, out dimensions.height);
+
+        return base.configure_event(event);
     }
 }
 

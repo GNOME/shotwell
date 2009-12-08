@@ -6,7 +6,7 @@
             <applyto>/apps/shotwell/preferences/ui/display_basic_properties</applyto>
             <type>bool</type>
             <owner>shotwell</owner>
-            <default>false</default>
+            <default>true</default>
 
             <locale name="en">
                 <short>basic properties display bool</short>
@@ -131,6 +131,84 @@
             <locale name="en">
                 <short>display hidden photos</short>
                 <long>True if hidden photos are displayed, false otherwise.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/library_maximize</key>
+            <applyto>/apps/shotwell/preferences/window/library_maximize</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>maximize library window</short>
+                <long>True if library application is maximized, false otherwise.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/library_width</key>
+            <applyto>/apps/shotwell/preferences/window/library_width</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>1024</default>
+            
+            <locale name="en">
+                <short>width of library window</short>
+                <long>The last recorded width of the library application window.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/library_height</key>
+            <applyto>/apps/shotwell/preferences/window/library_height</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>height of library window</short>
+                <long>The last recorded height of the library application window.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/direct_maximize</key>
+            <applyto>/apps/shotwell/preferences/window/direct_maximize</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>maximize direct-edit window</short>
+                <long>True if direct-edit application is maximized, false otherwise.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/direct_width</key>
+            <applyto>/apps/shotwell/preferences/window/direct_width</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>1024</default>
+            
+            <locale name="en">
+                <short>width of direct-edit window</short>
+                <long>The last recorded width of the direct-edit application window.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/direct_height</key>
+            <applyto>/apps/shotwell/preferences/window/direct_height</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>height of direct-edit window</short>
+                <long>The last recorded height of the direct-edit application window.</long>
             </locale>
         </schema>
 
