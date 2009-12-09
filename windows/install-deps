@@ -4,7 +4,7 @@ cd /mingw
 
 list="\
 http://downloads.sourceforge.net/project/mingw/GNU%20Binutils/binutils-2.20/binutils-2.20-1-mingw32-bin.tar.gz \
-http://downloads.sourceforge.net/project/mingw/MinGW%20API%20for%20MS-Windows/Current%20Release_%20w32api-3.13/w32api-3.13-mingw32-dev.tar.gz \
+http://downloads.sourceforge.net/project/mingw/MinGW%20API%20for%20MS-Windows/w32api-3.14/w32api-3.14-mingw32-dev.tar.gz \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3_3.6.0_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3-dev_3.6.0_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2_2.7.4-1_win32.zip \
