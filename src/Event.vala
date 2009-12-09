@@ -364,10 +364,13 @@ public class Event : EventSource, Proxyable {
     }
     
     public override time_t get_start_time() {
-        time_t start_time = time_t();
-
-        foreach (PhotoSource photo in get_photos()) {
-            if (photo.get_exposure_time() < start_time)
+        time_t start_time = 0;
+        
+        // Report start time of all photos, including hidden ones
+        foreach (DataObject object in view.get_all_unfiltered()) {
+            PhotoSource photo = (PhotoSource) ((DataView) object).get_source();
+            
+            if (start_time == 0 || photo.get_exposure_time() < start_time)
                 start_time = photo.get_exposure_time();
         }
 
@@ -376,9 +379,12 @@ public class Event : EventSource, Proxyable {
     
     public override time_t get_end_time() {
         time_t end_time = 0;
-
-        foreach (PhotoSource photo in get_photos()) {
-            if (photo.get_exposure_time() > end_time)
+        
+        // See note in get_start_time()
+        foreach (DataObject object in view.get_all_unfiltered()) {
+            PhotoSource photo = (PhotoSource) ((DataView) object).get_source();
+            
+            if (end_time == 0 || photo.get_exposure_time() > end_time)
                 end_time = photo.get_exposure_time();
         }
 
