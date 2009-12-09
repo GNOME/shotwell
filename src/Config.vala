@@ -10,6 +10,8 @@ public class Config {
     public const double SLIDESHOW_DELAY_DEFAULT = 5.0;
     public const int WIDTH_DEFAULT = 1024;
     public const int HEIGHT_DEFAULT = 768;
+    public const int SIDEBAR_MIN_POSITION = 180;
+    public const int SIDEBAR_MAX_POSITION = 1000;
     
     private static Config instance = null;
     
@@ -253,6 +255,14 @@ public class Config {
         return set_bool("/apps/shotwell/preferences/window/direct_maximize", maximize)
             && set_int("/apps/shotwell/preferences/window/direct_width", dimensions.width)
             && set_int("/apps/shotwell/preferences/window/direct_height", dimensions.height);
+    }
+
+    public int get_sidebar_position() {
+        return get_int("/apps/shotwell/preferences/window/pane_position", SIDEBAR_MIN_POSITION).clamp(SIDEBAR_MIN_POSITION, SIDEBAR_MAX_POSITION);
+    }
+    
+    public bool set_sidebar_position(int position) {
+        return set_int("/apps/shotwell/preferences/window/pane_position", position);
     }
 }
 

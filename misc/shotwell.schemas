@@ -212,5 +212,18 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/window/sidebar_position</key>
+            <applyto>/apps/shotwell/preferences/window/sidebar_position</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>sidebar divider position</short>
+                <long>The last recorded position of the divider between the sidebar and view in library application window.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>

@@ -86,6 +86,7 @@ public class LibraryWindow : AppWindow {
     private string import_dir = Environment.get_home_dir();
 
     private Gtk.VPaned sidebar_paned = new Gtk.VPaned();
+    private Gtk.HPaned client_paned = new Gtk.HPaned();
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
 
     private class FileImportJob : BatchImportJob {
@@ -455,6 +456,14 @@ public class LibraryWindow : AppWindow {
     
     public override string get_app_role() {
         return Resources.APP_LIBRARY_ROLE;
+    }
+
+    private override void on_quit() {
+        Config.get_instance().set_library_window_state(maximized, dimensions);
+
+        Config.get_instance().set_sidebar_position(client_paned.position);
+        
+        base.on_quit();
     }
     
     private override void on_fullscreen() {
@@ -1175,10 +1184,11 @@ public class LibraryWindow : AppWindow {
         right_frame.add(notebook);
         right_frame.set_shadow_type(Gtk.ShadowType.IN);
         
-        Gtk.HPaned client_paned = new Gtk.HPaned();
+        client_paned = new Gtk.HPaned();
         client_paned.pack1(left_frame, false, false);
         sidebar.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.pack2(right_frame, true, false);
+        client_paned.set_position(Config.get_instance().get_sidebar_position());
         // TODO: Calc according to layout's size, to give sidebar a maximum width
         notebook.set_size_request(PAGE_MIN_WIDTH, -1);
 

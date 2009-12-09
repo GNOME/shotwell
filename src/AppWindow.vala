@@ -341,8 +341,8 @@ public abstract class AppWindow : PageWindow {
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
 
-    private bool maximized = false;
-    private Dimensions dimensions;
+    protected bool maximized = false;
+    protected Dimensions dimensions;
 
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
@@ -465,13 +465,6 @@ public abstract class AppWindow : PageWindow {
     }
     
     protected virtual void on_quit() {
-        if (this is LibraryWindow) {
-            Config.get_instance().set_library_window_state(maximized, dimensions);
-        } else {
-            assert(this is DirectWindow);
-            Config.get_instance().set_direct_window_state(maximized, dimensions);
-        }
-
         user_quit = true;
         Gtk.main_quit();
     }

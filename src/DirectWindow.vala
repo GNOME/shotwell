@@ -56,6 +56,8 @@ public class DirectWindow : AppWindow {
     private override void on_quit() {
         if (!get_direct_page().check_quit())
             return;
+
+        Config.get_instance().set_direct_window_state(maximized, dimensions);
         
         base.on_quit();
     }
