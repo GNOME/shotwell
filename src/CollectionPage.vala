@@ -69,7 +69,6 @@ public class CollectionPage : CheckerboardPage {
     private static Gtk.Adjustment slider_adjustment = null;
     
     private Gtk.HScale slider = null;
-    private Gtk.ToolButton new_event_button = null;
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
@@ -135,15 +134,8 @@ public class CollectionPage : CheckerboardPage {
 
         toolbar.insert(enhance_button, -1);
 
-        // create new event
-        new_event_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_NEW);
-        new_event_button.set_label(Resources.NEW_EVENT_LABEL);
-        new_event_button.set_tooltip_text(Resources.NEW_EVENT_TOOLTIP);
-        new_event_button.sensitive = false;
-        new_event_button.is_important = true;
-        new_event_button.clicked += on_new_event;
-        
-        toolbar.insert(new_event_button, -1);
+        // separator
+        toolbar.insert(new Gtk.SeparatorToolItem(), -1);
         
         // slideshow button
         slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
@@ -420,7 +412,6 @@ public class CollectionPage : CheckerboardPage {
         publish_button.set_sensitive(get_view().get_selected_count() > 0);
 #endif
         enhance_button.sensitive = get_view().get_selected_count() > 0;
-        new_event_button.sensitive = get_view().get_selected_count() > 0;
     }
     
     protected override void on_item_activated(LayoutItem item) {
