@@ -1095,18 +1095,18 @@ public class ViewCollection : DataCollection {
     private void hide_items(Gee.List<DataView> to_hide) {
         foreach (DataView view in to_hide) {
             assert(view.is_visible());
-            
-            view.internal_set_visible(false);
-            bool removed = visible.remove(view);
-            assert(removed);
-            
-            // hidden items must be removed from the selected list as well ... however, don't need
-            // to actually deselect them, merely remove from the list while hidden and add back
-            // when shown, hence no need to fire selection_changed signals
+
+            bool removed = false;            
+
             if (view.is_selected()) {
+                view.internal_set_selected(false);
                 removed = selected.remove(view);
                 assert(removed);
             }
+            
+            view.internal_set_visible(false);
+            removed = visible.remove(view);
+            assert(removed);
         }
         
         if (to_hide.size > 0) {
