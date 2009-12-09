@@ -105,6 +105,7 @@ public class CollectionPage : CheckerboardPage {
         get_view().set_comparator(get_sort_comparator());
         get_view().contents_altered += on_contents_altered;
         get_view().items_state_changed += on_selection_changed;
+        get_view().items_visibility_changed += on_contents_altered;
 
         // adjustment which is shared by all sliders in the application
         if (slider_adjustment == null)

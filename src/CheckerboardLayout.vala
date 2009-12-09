@@ -1079,6 +1079,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void repaint_item(LayoutItem item) {
+        if (!item.is_visible())
+            return;
+
         assert(view.contains(item));
         assert(item.allocation.width > 0 && item.allocation.height > 0);
         

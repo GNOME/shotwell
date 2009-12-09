@@ -1093,6 +1093,8 @@ public class ViewCollection : DataCollection {
     
     // This method requires that all items in to_hide are not hidden already.
     private void hide_items(Gee.List<DataView> to_hide) {
+        Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
+
         foreach (DataView view in to_hide) {
             assert(view.is_visible());
 
@@ -1102,11 +1104,17 @@ public class ViewCollection : DataCollection {
                 view.internal_set_selected(false);
                 removed = selected.remove(view);
                 assert(removed);
+                unselected.add(view);
             }
             
             view.internal_set_visible(false);
             removed = visible.remove(view);
             assert(removed);
+        }
+
+        if (unselected.size > 0) {
+            items_state_changed(unselected);
+            items_unselected(unselected);
         }
         
         if (to_hide.size > 0) {
