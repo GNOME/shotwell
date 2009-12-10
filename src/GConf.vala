@@ -69,6 +69,19 @@ class Client {
         }
     }
     
+    public int get_int(string key) throws Error {
+        try {
+            return key_file.get_integer(DATA, key);
+        } catch (KeyFileError e) { return 0; }  
+    }
+
+    public void set_int(string key, int val) throws Error {
+        if (val != get_int(key)) {
+            key_file.set_integer(DATA, key, val);
+            write();
+        }
+    }
+
     public double get_float(string key) throws Error {
         try {
             return key_file.get_double(DATA, key);
