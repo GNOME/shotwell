@@ -67,6 +67,10 @@ public abstract class TransformablePhoto: PhotoSource {
         "jpe"
     };
     
+    public const string[] SUPPORTED_TYPE_NAMES = {
+        "jpeg"
+    };
+    
     // There are assertions in the photo pipeline to verify that the generated (or loaded) pixbuf
     // is scaled properly.  We have to allow for some wobble here because of rounding errors and
     // precision limitations of various subsystems.  Pixel-accuracy would be best, but barring that,
@@ -132,7 +136,7 @@ public abstract class TransformablePhoto: PhotoSource {
             return clone;
         }
     }
-
+    
     private static Mutex cache_mutex = null;
     private static PhotoID cached_photo_id = PhotoID();
     private static Gdk.Pixbuf cached_raw = null;
@@ -153,8 +157,10 @@ public abstract class TransformablePhoto: PhotoSource {
             cache_mutex = new Mutex();
     }
     
-    public static ImportResult import_photo(File file, ImportID import_id, out PhotoID photo_id,
-        out Gdk.Pixbuf pixbuf) {
+    public static ImportResult import_photo(File file, ImportID import_id, bool direct, out PhotoID photo_id) {
+#if MEASURE_IMPORT
+        Timer total_time = new Timer();
+#endif
         if (PhotoTable.get_instance().is_photo_stored(file))
             return ImportResult.PHOTO_EXISTS;
         
@@ -171,102 +177,74 @@ public abstract class TransformablePhoto: PhotoSource {
             return ImportResult.NOT_A_FILE;
         
         if (!is_file_supported(file)) {
-            message("Not importing %s: Unsupported type", file.get_path());
+            message("Not importing %s: Unsupported extension", file.get_path());
+            
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
         TimeVal timestamp = TimeVal();
         info.get_modification_time(out timestamp);
         
+        // interrogate file for photo information ... no need for md5 if in direct-edit mode
+        PhotoFileInterrogator interrogator = null;
+        try {
+            interrogator = new PhotoFileInterrogator(file, 
+                direct ? PhotoFileInterrogator.Options.NO_MD5 : PhotoFileInterrogator.Options.ALL);
+        } catch (Error err) {
+            warning("Unable to interrogate photo file %s: %s", file.get_path(), err.message);
+            
+            return ImportResult.DECODE_ERROR;
+        }
+        
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         string thumbnail_md5 = null;
         string exif_md5 = null;
         
-        // TODO: Try to read JFIF metadata too
-        PhotoExif exif = new PhotoExif(file);
-        if (exif.has_exif()) {
+        PhotoExif? exif = interrogator.get_exif();
+        if (exif != null) {
             if (!exif.get_timestamp(out exposure_time))
                 message("Unable to read EXIF orientation for %s", file.get_path());
 
             orientation = exif.get_orientation();
             
-            exif_md5 = exif.get_md5();
-            thumbnail_md5 = exif.get_thumbnail_md5();
-        }
-        
-        string md5 = null;
-        
-        // load Pixbuf for thumbnail generation and image preview, but also to generate its MD5
-        // fingerprint
-        ImportResult decode_result = ImportResult.SUCCESS;
-        FileInputStream fins = null;
-        Gdk.PixbufLoader pixbuf_loader = new Gdk.PixbufLoader();
-        Checksum md5_checksum = new Checksum(ChecksumType.MD5);
-        try {
-            uint8[] buffer = new uint8[64 * 1024];
-            
-            fins = file.read(null);
-            for(;;) {
-                size_t bytes_read = fins.read(buffer, buffer.length, null);
-                if (bytes_read <= 0)
-                    break;
-                
-                md5_checksum.update(buffer, bytes_read);
-                
-                // because of bad bindings, PixbufLoader.write() only accepts the buffer reference,
-                // not the length of data in the buffer, meaning partially-filled buffers need to 
-                // be special-cased
-                if (bytes_read == buffer.length) {
-                    pixbuf_loader.write(buffer);
-                } else {
-                    uint8[] tmp = new uint8[bytes_read];
-                    Memory.copy(tmp, buffer, bytes_read);
-                    pixbuf_loader.write(tmp);
-                }
-            }
-            
-            pixbuf = pixbuf_loader.get_pixbuf();
-            md5 = md5_checksum.get_string();
-        } catch (Error err) {
-            warning("Read/decode/checksum error for %s: %s", file.get_path(), err.message);
-            
-            // assume a decode error, although technically it could be I/O ... need better Gdk
-            // bindings to determine which
-            decode_result = ImportResult.DECODE_ERROR;
-        } finally {
-            try {
-                pixbuf_loader.close();
-            } catch (Error err) {
-                // this does count as a decode error, as this indicates with the close the loader
-                // didn't recognize the file format
-                warning("Unable to close pixbuf loader for %s: %s", file.get_path(), err.message);
-                decode_result = ImportResult.DECODE_ERROR;
-            }
-            
-            if (fins != null) {
-                try {
-                    fins.close(null);
-                } catch (Error err) {
-                    warning("Unable to close import file %s: %s", file.get_path(), err.message);
-                }
+            // only calculate MD5s if not in direct-edit mode
+            if (!direct) {
+                exif_md5 = exif.get_md5();
+                thumbnail_md5 = exif.get_thumbnail_md5();
             }
         }
-        
-        if (decode_result != ImportResult.SUCCESS)
-            return decode_result;
         
         // verify basic mechanics of photo: RGB 8-bit encoding
-        if (pixbuf.get_colorspace() != Gdk.Colorspace.RGB || pixbuf.get_n_channels() < 3 
-            || pixbuf.get_bits_per_sample() != 8) {
+        if (interrogator.get_colorspace() != Gdk.Colorspace.RGB 
+            || interrogator.get_channels() < 3 
+            || interrogator.get_bits_per_sample() != 8) {
             message("Not importing %s: Unsupported color format", file.get_path());
             
             return ImportResult.UNSUPPORTED_FORMAT;
         }
         
+        // Only support JPEG at this time
+        bool supported = false;
+        foreach (string name in SUPPORTED_TYPE_NAMES) {
+            if (interrogator.get_format_name() == name) {
+                supported = true;
+                
+                break;
+            }
+        }
+        
+        if (!supported) {
+            message("Not importing %s: Unsupported image type %s", file.get_path(), 
+                interrogator.get_format_name());
+            
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
+        
         // Don't trust EXIF dimensions, they can lie or not be present
-        Dimensions dim = Dimensions.for_pixbuf(pixbuf);
-
+        Dimensions dim = interrogator.get_dimensions();
+        string md5 = interrogator.get_md5();
+        
         // photo information is stored in database in raw, non-modified format ... this is especially
         // important dealing with dimensions and orientation
         photo_id = PhotoTable.get_instance().add(file, dim, info.get_size(), timestamp.tv_sec, 
@@ -274,15 +252,19 @@ public abstract class TransformablePhoto: PhotoSource {
         if (photo_id.is_invalid())
             return ImportResult.DATABASE_ERROR;
         
-        // transform pixbuf into initial image
-        pixbuf = orientation.rotate_pixbuf(pixbuf);
-        
+#if MEASURE_IMPORT
+        debug("IMPORT: total=%lf", total_time.elapsed());
+#endif
         return ImportResult.SUCCESS;
     }
     
     public static bool is_file_supported(File file) {
+        return is_basename_supported(file.get_basename());
+    }
+    
+    public static bool is_basename_supported(string basename) {
         string name, ext;
-        disassemble_filename(file.get_basename(), out name, out ext);
+        disassemble_filename(basename, out name, out ext);
         if (ext == null)
             return false;
         
@@ -1703,7 +1685,7 @@ public abstract class TransformablePhoto: PhotoSource {
 #endif
 
         try {
-            pixbuf = get_pixbuf_with_exceptions(Scaling.for_best_fit(360), 
+            pixbuf = get_pixbuf_with_exceptions(Scaling.for_best_fit(360, false), 
                 TransformablePhoto.Exception.ALL);
 
 #if MEASURE_ENHANCE
@@ -1768,6 +1750,10 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
 }
 
+//
+// LibraryPhoto
+//
+
 public class LibraryPhoto : TransformablePhoto {
     public enum Currency {
         CURRENT,
@@ -1783,9 +1769,12 @@ public class LibraryPhoto : TransformablePhoto {
     
     private bool block_thumbnail_generation = false;
     private bool delete_original = false;
+    private OneShotScheduler thumbnail_scheduler = null;
 
     private LibraryPhoto(PhotoRow row) {
         base(row);
+        
+        thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
     }
     
     public static void init() {
@@ -1806,37 +1795,25 @@ public class LibraryPhoto : TransformablePhoto {
     
     public static ImportResult import(File file, ImportID import_id, out LibraryPhoto photo) {
         PhotoID photo_id;
-        Gdk.Pixbuf initial_pixbuf;
-        ImportResult result = TransformablePhoto.import_photo(file, import_id, out photo_id,
-            out initial_pixbuf);
+        ImportResult result = TransformablePhoto.import_photo(file, import_id, false, out photo_id);
         if (result != ImportResult.SUCCESS)
             return result;
-
-        // import initial image into the thumbnail cache with modifications
-        ThumbnailCache.import(photo_id, initial_pixbuf);
         
-        // add to global
         photo = new LibraryPhoto(PhotoTable.get_instance().get_row(photo_id));
+        
+        ThumbnailCache.import(photo_id, photo, true);
+        
+        // add to global *after* generating thumbnails
         global.add(photo);
         
         return ImportResult.SUCCESS;
     }
     
-    private bool generate_thumbnails() {
-        // load transformed image for thumbnail generation
-        Gdk.Pixbuf pixbuf = null;
-        try {
-            pixbuf = get_pixbuf(Scaling.for_best_fit(ThumbnailCache.Size.BIG.get_scale()));
-        } catch (Error err) {
-            warning("%s", err.message);
-            return false;
-        }
-        ThumbnailCache.import(get_photo_id(), pixbuf, true);
+    private void generate_thumbnails() {
+        ThumbnailCache.import(get_photo_id(), this, true);
         
         // fire signal that thumbnails have changed
         notify_thumbnail_altered();
-        
-        return false;
     }
     
     private override void altered () {
@@ -1845,7 +1822,7 @@ public class LibraryPhoto : TransformablePhoto {
 
         // generate new thumbnails in the background
         if (!block_thumbnail_generation)
-            Idle.add_full(Priority.LOW, generate_thumbnails);
+            thumbnail_scheduler.at_priority_idle(Priority.LOW);
         
         base.altered();
     }
@@ -2059,6 +2036,10 @@ public class LibraryPhoto : TransformablePhoto {
     }
 }
 
+//
+// DirectPhoto
+//
+
 public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     private Gee.HashMap<File, DirectPhoto> file_map = new Gee.HashMap<File, DirectPhoto>(file_hash, 
         file_equal, direct_equal);
@@ -2101,7 +2082,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     
     public DirectPhoto? fetch(File file, bool reset = false) {
         // fetch from the map first, which ensures that only one DirectPhoto exists for each file
-        DirectPhoto? photo = (DirectPhoto?) file_map.get(file);
+        DirectPhoto? photo = file_map.get(file);
         if (photo != null) {
             // if a reset is necessary, the database (and the object) need to reset to original
             // easiest way to do this: perform an update, which is a kind of in-place re-import
@@ -2116,6 +2097,10 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         // which be us)
         return DirectPhoto.internal_import(file);
     }
+    
+    public DirectPhoto? get_file_source(File file) {
+        return file_map.get(file);
+    }
 }
 
 public class DirectPhoto : TransformablePhoto {
@@ -2123,20 +2108,11 @@ public class DirectPhoto : TransformablePhoto {
     
     public static DirectPhotoSourceCollection global = null;
     
-    private Gdk.Pixbuf preview;
+    private Gdk.Pixbuf preview = null;
     private File exportable = null;
     
-    private DirectPhoto(PhotoRow row, Gdk.Pixbuf? initial_pixbuf) {
+    private DirectPhoto(PhotoRow row) {
         base(row);
-        
-        try {
-            // Use the initial pixbuf for preview, since it's decoded; if not available generate
-            // one now
-            preview = (initial_pixbuf != null) ? initial_pixbuf : base.get_pixbuf(
-                Scaling.for_best_fit(PREVIEW_BEST_FIT));
-        } catch (Error err) {
-            warning("%s", err.message);
-        } 
     }
     
     public static void init() {
@@ -2152,13 +2128,12 @@ public class DirectPhoto : TransformablePhoto {
         DirectPhoto photo = null;
         
         PhotoID photo_id;
-        Gdk.Pixbuf initial_pixbuf;
         ImportResult result = TransformablePhoto.import_photo(file, 
-            PhotoTable.get_instance().generate_import_id(), out photo_id, out initial_pixbuf);
+            PhotoTable.get_instance().generate_import_id(), true, out photo_id);
         switch (result) {
             case ImportResult.SUCCESS:
                 PhotoRow row = PhotoTable.get_instance().get_row(photo_id);
-                photo = new DirectPhoto(row, initial_pixbuf);
+                photo = new DirectPhoto(row);
             break;
             
             case ImportResult.PHOTO_EXISTS:
@@ -2202,21 +2177,19 @@ public class DirectPhoto : TransformablePhoto {
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
+        if (preview == null)
+            preview = get_thumbnail(PREVIEW_BEST_FIT);
+        
         return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR, true);
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return scale_pixbuf(preview, scale, Gdk.InterpType.BILINEAR, true);
+        return get_pixbuf(Scaling.for_best_fit(scale, false));
     }
     
     private override void altered() {
-        // stash the current pixbuf for previews and such, and flush the generated exportable file
-        try {
-            preview = base.get_pixbuf(Scaling.for_best_fit(PREVIEW_BEST_FIT));
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
-
+        // flush the exportable and the preview
+        preview = null;
         exportable = null;
         
         base.altered();

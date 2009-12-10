@@ -511,10 +511,10 @@ public class CollectionPage : CheckerboardPage {
             }
             
             try {
-                // set up icon using the "first" photo, although Sets are not ordered
+                // set up icon using the first photo
                 if (icon == null) {
                     icon = photo.get_preview_pixbuf(Scaling.for_best_fit(
-                        AppWindow.DND_ICON_SCALE));
+                        AppWindow.DND_ICON_SCALE, true));
                 }
             } catch (Error err) {
                 warning("%s", err.message);

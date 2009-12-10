@@ -5,9 +5,13 @@
  */
 
 public class DirectWindow : AppWindow {
+    private DirectPhotoPage direct_photo_page;
+    
     public DirectWindow(File file) {
-        DirectPhotoPage direct_photo_page = new DirectPhotoPage(file);
-        direct_photo_page.photo_changed += on_photo_changed;
+        direct_photo_page = new DirectPhotoPage(file);
+        direct_photo_page.get_view().item_altered += on_photo_changed;
+        direct_photo_page.get_view().item_metadata_altered += on_photo_changed;
+        direct_photo_page.get_view().contents_altered += on_photo_changed;
         
         set_current_page(direct_photo_page);
         
@@ -49,8 +53,10 @@ public class DirectWindow : AppWindow {
         return Resources.APP_DIRECT_ROLE;
     }
     
-    private void on_photo_changed(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
-        update_title(new_photo.get_file(), new_photo.has_transformations());
+    private void on_photo_changed() {
+        TransformablePhoto? photo = direct_photo_page.get_photo();
+        if (photo != null)
+            update_title(photo.get_file(), photo.has_transformations());
     }
     
     private override void on_quit() {

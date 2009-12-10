@@ -217,7 +217,14 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public void set_item_sensitive(string path, bool sensitive) {
-        ui.get_widget(path).sensitive = sensitive;
+        Gtk.Widget widget = ui.get_widget(path);
+        if (widget == null) {
+            critical("No widget for UI element %s", path);
+            
+            return;
+        }
+        
+        widget.sensitive = sensitive;
     }
 
     private virtual void update_modifiers() {

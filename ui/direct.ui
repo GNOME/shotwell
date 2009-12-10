@@ -25,6 +25,7 @@
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />
             <separator />
+            <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
         </menu>
         
@@ -38,8 +39,8 @@
     <popup name="DirectContextMenu">
         <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
         <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
-        <menuitem name="ContextMirror" action="Mirror" />
         <separator />
+        <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
     </popup>
 

@@ -139,11 +139,11 @@ public class ThumbnailCache : Object {
         fetch_workers.die();
     }
     
-    public static void import(PhotoID photo_id, Gdk.Pixbuf original, bool force = false) {
-        big._import(photo_id, original, force);
+    public static void import(PhotoID photo_id, PhotoSource source, bool force = false) {
+        big._import(photo_id, source, force);
         spin_event_loop();
 
-        medium._import(photo_id, original, force);
+        medium._import(photo_id, source, force);
         spin_event_loop();
     }
     
@@ -309,7 +309,7 @@ public class ThumbnailCache : Object {
         job.callback(job.scaled, job.dim, job.interp, job.err);
     }
     
-    private void _import(PhotoID photo_id, Gdk.Pixbuf original, bool force = false) {
+    private void _import(PhotoID photo_id, PhotoSource source, bool force = false) {
         File file = get_cached_file(photo_id);
         
         // if not forcing the cache operation, check if file exists and is represented in the
@@ -325,13 +325,12 @@ public class ThumbnailCache : Object {
         debug("Importing thumbnail for %s to [%lld] %s", photo_table.get_name(photo_id), 
             photo_id.id, file.get_path());
         
-        // scale according to cache's parameters
-        Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
-        
-        // save scaled image as JPEG
         int filesize = -1;
+        Dimensions dim = Dimensions();
         try {
-            save_thumbnail(file, scaled);
+            Gdk.Pixbuf scaled = source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true));
+            dim = Dimensions.for_pixbuf(scaled);
+            filesize = save_thumbnail(file, scaled);
         } catch (Error err) {
             error("%s", err.message);
         }
@@ -341,7 +340,7 @@ public class ThumbnailCache : Object {
         // of the collection while new photos are added far off the viewport
 
         // store in database
-        cache_table.add(photo_id, filesize, Dimensions.for_pixbuf(scaled));
+        cache_table.add(photo_id, filesize, dim);
     }
     
     private void _duplicate(PhotoID src_id, PhotoID dest_id) {

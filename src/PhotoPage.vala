@@ -8,7 +8,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public const int TOOL_WINDOW_SEPARATOR = 8;
     public const int PIXBUF_CACHE_COUNT = 5;
     public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
-    public const int KEY_REPEAT_INTERVAL_MSEC = 150;
+    public const int KEY_REPEAT_INTERVAL_MSEC = 200;
     
     private class EditingHostCanvas : PhotoCanvas {
         private EditingHostPage host_page;
@@ -27,7 +27,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private SourceCollection sources;
-    private bool use_readahead;
     private ViewCollection controller = null;
     private Gdk.Pixbuf swapped = null;
     private bool pixbuf_dirty = true;
@@ -49,15 +48,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private PixbufCache cache = null;
     private PixbufCache original_cache = null;
     
-    // This signals when the current photo has changed (that is, a new photo is being viewed, not
-    // that the current photo has been altered).
-    public signal void photo_changed(TransformablePhoto? old_photo, TransformablePhoto new_photo);
-
-    public EditingHostPage(SourceCollection sources, string name, bool use_readahead) {
+    public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
         
         this.sources = sources;
-        this.use_readahead = use_readahead;
         
         // when photo is altered need to update it here
         sources.item_altered += on_photo_altered;
@@ -202,12 +196,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cache.cancel_all();
         }
         
-        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, 
-            use_readahead ? PIXBUF_CACHE_COUNT : 1);
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, PIXBUF_CACHE_COUNT);
         cache.fetched += on_pixbuf_fetched;
         
-        original_cache = new PixbufCache(sources, PixbufCache.PhotoType.ORIGINAL, scaling,
-            use_readahead ? ORIGINAL_PIXBUF_CACHE_COUNT : 1);
+        original_cache = new PixbufCache(sources, PixbufCache.PhotoType.ORIGINAL, scaling, 
+            ORIGINAL_PIXBUF_CACHE_COUNT);
         
         if (has_photo())
             prefetch_neighbors(controller, get_photo());
@@ -299,9 +292,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void prefetch_neighbors(ViewCollection controller, TransformablePhoto photo) {
-        if (!use_readahead)
-            return;
-        
         cache.prefetch(photo, BackgroundJob.JobPriority.HIGHEST);
 
         if (photo.has_transformations())
@@ -328,9 +318,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // neighbors
     private void cancel_prefetch_neighbors(ViewCollection old_controller, TransformablePhoto old_photo,
         ViewCollection new_controller, TransformablePhoto new_photo) {
-        if (!use_readahead)
-            return;
-        
         Gee.Set<TransformablePhoto> old_neighbors = get_extended_neighbors(old_controller,
             old_photo);
         Gee.Set<TransformablePhoto> new_neighbors = get_extended_neighbors(new_controller,
@@ -358,7 +345,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         replace_photo(controller, photo);
     }
 
-    protected void set_missing_photo_sensitivities(bool sensitivity) {
+    protected virtual void set_missing_photo_sensitivities(bool sensitivity) {
         rotate_button.sensitive = sensitivity;
         crop_button.sensitive = sensitivity;
         redeye_button.sensitive = sensitivity;
@@ -366,17 +353,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.sensitive = sensitivity;
 
         deactivate_tool();
-
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
-
-        set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
     }
 
     private void draw_message(string message) {
@@ -454,9 +430,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         update_ui();
 
-        if (!new_photo.equals(old_photo))
-            photo_changed(old_photo, new_photo);
-        
         // it's possible for this to be called prior to the page being realized, however, the
         // underlying canvas has a scaling, so use that
         rebuild_caches("replace_photo");
@@ -678,7 +651,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // set up icon for drag-and-drop
         try {
-            Gdk.Pixbuf icon = get_photo().get_preview_pixbuf(Scaling.for_best_fit(AppWindow.DND_ICON_SCALE));
+            Gdk.Pixbuf icon = get_photo().get_preview_pixbuf(
+                Scaling.for_best_fit(AppWindow.DND_ICON_SCALE, true));
             Gtk.drag_source_set_icon_pixbuf(canvas, icon);
         } catch (Error err) {
             message("Unable to get drag-and-drop icon: %s", err.message);
@@ -1132,12 +1106,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 }
 
+//
+// LibraryPhotoPage
+//
+
 public class LibraryPhotoPage : EditingHostPage {
     private Gtk.Menu context_menu;
     private CollectionPage return_page = null;
 
     public LibraryPhotoPage() {
-        base(LibraryPhoto.global, "Photo", true);
+        base(LibraryPhoto.global, "Photo");
 
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
 
@@ -1239,6 +1217,21 @@ public class LibraryPhotoPage : EditingHostPage {
     
     public CollectionPage get_controller_page() {
         return return_page;
+    }
+    
+    protected override void set_missing_photo_sensitivities(bool sensitivity) {
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+
+        set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
+        
+        base.set_missing_photo_sensitivities(sensitivity);
     }
     
     private override bool key_press_event(Gdk.EventKey event) {
@@ -1365,6 +1358,10 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 }
 
+//
+// DirectPhotoPage
+//
+
 // TODO: This implementation of a ViewCollection is solely for use in direct editing mode, and will 
 // not satisfy all the requirements of a checkerboard-style file browser without additional work.
 //
@@ -1381,6 +1378,7 @@ private class DirectViewCollection : ViewCollection {
     }
     
     private File dir;
+    private SortedList<File>? cached = null;
     
     public DirectViewCollection(File dir) {
         base ("DirectViewCollection of %s".printf(dir.get_path()));
@@ -1398,20 +1396,46 @@ private class DirectViewCollection : ViewCollection {
     
     public override DataView? get_first() {
         SortedList<File> list = get_children_photos();
-        if (list == null || list.size == 0)
+        if (list == null)
             return null;
         
-        DirectPhoto photo = DirectPhoto.global.fetch(list.get(0));
+        File file = null;
+        while (list.size > 0) {
+            file = list.get(0);
+            
+            if (validate(file))
+                break;
+            
+            file = null;
+        }
+        
+        if (file == null)
+            return null;
+        
+        DirectPhoto photo = DirectPhoto.global.fetch(file);
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
     
     public override DataView? get_last() {
         SortedList<File> list = get_children_photos();
-        if (list == null || list.size == 0)
+        if (list == null)
             return null;
         
-        DirectPhoto photo = DirectPhoto.global.fetch(list.get(list.size - 1));
+        File file = null;
+        while (list.size > 0) {
+            file = list.get(list.size - 1);
+            
+            if (validate(file))
+                break;
+            
+            file = null;
+        }
+        
+        if (file == null)
+            return null;
+        
+        DirectPhoto photo = DirectPhoto.global.fetch(file);
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
@@ -1423,13 +1447,27 @@ private class DirectViewCollection : ViewCollection {
         
         int index = list.index_of(((DirectPhoto) current.get_source()).get_file());
         if (index < 0)
+            index = 0;
+        else
+            index++;
+        
+        File file = null;
+        while (list.size > 0) {
+            if (index >= list.size)
+                index = 0;
+            
+            file = list.get(index);
+            
+            if (validate(file))
+                break;
+            
+            file = null;
+        }
+        
+        if (file == null)
             return null;
         
-        index++;
-        if (index >= list.size)
-            index = 0;
-        
-        DirectPhoto photo = DirectPhoto.global.fetch(list.get(index));
+        DirectPhoto photo = DirectPhoto.global.fetch(file);
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
@@ -1441,40 +1479,70 @@ private class DirectViewCollection : ViewCollection {
         
         int index = list.index_of(((DirectPhoto) current.get_source()).get_file());
         if (index < 0)
+            index = 0;
+        else
+            index--;
+        
+        File file = null;
+        while (list.size > 0) {
+            if (index < 0)
+                index = list.size - 1;
+            
+            file = list.get(index);
+            
+            if (validate(file))
+                break;
+            
+            file = null;
+        }
+        
+        if (file == null)
             return null;
         
-        index--;
-        if (index < 0)
-            index = list.size - 1;
-        
-        DirectPhoto photo = DirectPhoto.global.fetch(list.get(index));
+        DirectPhoto photo = DirectPhoto.global.fetch(file);
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
     
     private SortedList<File>? get_children_photos() {
+        if (cached != null)
+            return cached;
+        
+        cached = new SortedList<File>(file_comparator);
+        
         try {
             FileEnumerator enumerator = dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
                 FileQueryInfoFlags.NONE, null);
             
-            SortedList<File> list = new SortedList<File>(file_comparator);
-            
             FileInfo file_info = null;
             while ((file_info = enumerator.next_file(null)) != null) {
-                File file = dir.get_child(file_info.get_name());
+                string basename = file_info.get_name();
                 
-                if (!TransformablePhoto.is_file_supported(file))
-                    continue;
-                
-                list.add(file);
+                if (TransformablePhoto.is_basename_supported(basename))
+                    cached.add(dir.get_child(basename));
             }
-
-            return list;
         } catch (Error err) {
             message("Unable to enumerate children in %s: %s", dir.get_path(), err.message);
             
-            return null;
+            cached = null;
         }
+        
+        return cached;
+    }
+    
+    private bool validate(File file) {
+        if (file.query_exists(null))
+            return true;
+        
+        // Remove from SortedList but not from the SourceCollection.  If the lost photo is the
+        // current one, EditingHostPage has no way to determine what is next or previous, as the current
+        // location is now invalid.
+        //
+        // TODO: Fix this behavior.
+        if (cached != null)
+            cached.remove(file);
+        
+        return false;
     }
 }
 
@@ -1485,7 +1553,7 @@ public class DirectPhotoPage : EditingHostPage {
     private bool drop_if_dirty = false;
 
     public DirectPhotoPage(File file) {
-        base(DirectPhoto.global, file.get_basename(), false);
+        base(DirectPhoto.global, file.get_basename());
         
         if (!check_editable_file(file)) {
             Posix.exit(1);
@@ -1558,7 +1626,13 @@ public class DirectPhotoPage : EditingHostPage {
         mirror.label = Resources.MIRROR_MENU;
         mirror.tooltip = Resources.MIRROR_TOOLTIP;
         actions += mirror;
-
+        
+        Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
+            TRANSLATABLE, on_enhance };
+        enhance.label = Resources.ENHANCE_MENU;
+        enhance.tooltip = Resources.ENHANCE_TOOLTIP;
+        actions += enhance;
+        
         Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
@@ -1577,18 +1651,17 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private static bool check_editable_file(File file) {
-        bool ok = false;
         if (!FileUtils.test(file.get_path(), FileTest.EXISTS))
-            AppWindow.error_message("%s does not exist.".printf(file.get_path()));
+            AppWindow.error_message(_("%s does not exist.").printf(file.get_path()));
         else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
-            AppWindow.error_message("%s is not a file.".printf(file.get_path()));
+            AppWindow.error_message(_("%s is not a file.").printf(file.get_path()));
         else if (!TransformablePhoto.is_file_supported(file))
-            AppWindow.error_message("%s does not support the file format of\n%s.".printf(
+            AppWindow.error_message(_("%s does not support the file format of\n%s.").printf(
                 Resources.APP_TITLE, file.get_path()));
         else
-            ok = true;
+            return true;
         
-        return ok;
+        return false;
     }
     
     private override void realize() {
@@ -1607,6 +1680,24 @@ public class DirectPhotoPage : EditingHostPage {
     
     public File get_current_file() {
         return get_photo().get_file();
+    }
+    
+    protected override void set_missing_photo_sensitivities(bool sensitivity) {
+        set_item_sensitive("/DirectMenuBar/FileMenu/Save", sensitivity);
+        set_item_sensitive("/DirectMenuBar/FileMenu/SaveAs", sensitivity);
+        
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Enhance", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", sensitivity);
+
+        set_item_sensitive("/DirectContextMenu/ContextRotateClockwise", sensitivity);
+        set_item_sensitive("/DirectContextMenu/ContextRotateCounterclockwise", sensitivity);
+        set_item_sensitive("/DirectContextMenu/ContextEnhance", sensitivity);
+        set_item_sensitive("/DirectContextMenu/ContextRevert", sensitivity);
+        
+        base.set_missing_photo_sensitivities(sensitivity);
     }
     
     private override bool on_context_menu(Gdk.EventButton event) {
@@ -1655,7 +1746,8 @@ public class DirectPhotoPage : EditingHostPage {
         try {
             get_photo().export(dest, scale, constraint, quality);
         } catch (Error err) {
-            AppWindow.error_message(_("Error while saving photo: %s").printf(err.message));
+            AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
+                err.message));
             
             return;
         }

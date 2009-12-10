@@ -36,7 +36,7 @@ class EventDirectoryItem : LayoutItem {
             return;
         
         try {
-            set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+            set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE, true)));
         } catch (Error err) {
             critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
         }
@@ -63,7 +63,7 @@ class EventDirectoryItem : LayoutItem {
         
         if (is_exposed()) {
             try {
-                set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE)));
+                set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE, true)));
             } catch (Error err) {
                 critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
             }

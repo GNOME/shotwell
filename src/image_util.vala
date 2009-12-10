@@ -290,3 +290,158 @@ namespace Jpeg {
     }
 }
 
+public class PhotoFileInterrogator {
+    public enum Options {
+        ALL,
+        NO_MD5
+    }
+    
+    private File file;
+    private Options options;
+    private bool size_ready = false;
+    private bool pixbuf_prepared = false;
+    private PhotoExif photo_exif = null;
+    private string? md5 = null;
+    private string format_name = "";
+    private Dimensions dim = Dimensions();
+    private Gdk.Colorspace colorspace = Gdk.Colorspace.RGB;
+    private int channels = 0;
+    private int bits_per_sample = 0;
+    
+    public PhotoFileInterrogator(File file, Options options) throws Error {
+        this.file = file;
+        this.options = options;
+        
+        interrogate();
+    }
+    
+    private void interrogate() throws Error {
+        // both of these flags are set when enough of the image is decoded
+        size_ready = false;
+        pixbuf_prepared = false;
+        
+        bool calc_md5 = options != Options.NO_MD5;
+        
+        // clear prior to interrogation
+        photo_exif = null;
+        md5 = "";
+        dim = Dimensions();
+        colorspace = Gdk.Colorspace.RGB;
+        channels = 0;
+        bits_per_sample = 0;
+        
+        // only give the loader enough of the image file to get basic information
+        Gdk.PixbufLoader pixbuf_loader = new Gdk.PixbufLoader();
+        pixbuf_loader.size_prepared += on_size_prepared;
+        pixbuf_loader.area_prepared += on_area_prepared;
+        
+        // valac chokes on the ternary operator here
+        Checksum? md5_checksum = null;
+        if (calc_md5)
+            md5_checksum = new Checksum(ChecksumType.MD5);
+        
+        // load EXIF
+        photo_exif = new PhotoExif(file);
+        
+        // if no MD5, don't read as much, as the info will probably be gleaned
+        // in the first 8K to 16K
+        uint8[] buffer = (calc_md5) ? new uint8[64 * 1024] : new uint8[8 * 1024];
+        size_t count = 0;
+        
+        // loop through until all conditions we're searching for are met
+        FileInputStream fins = file.read(null);
+        for (;;) {
+            size_t bytes_read = fins.read(buffer, buffer.length, null);
+            if (bytes_read <= 0)
+                break;
+            
+            count += bytes_read;
+            
+            if (calc_md5)
+                md5_checksum.update(buffer, bytes_read);
+            
+            // keep parsing the image until the size is discovered
+            if (!size_ready || !pixbuf_prepared) {
+                // because of bad bindings, PixbufLoader.write() only accepts the buffer reference,
+                // not the length of data in the buffer, meaning partially-filled buffers need to 
+                // be special-cased: https://bugzilla.gnome.org/show_bug.cgi?id=597870
+                if (bytes_read == buffer.length) {
+                    pixbuf_loader.write(buffer);
+                } else {
+                    uint8[] tmp = new uint8[bytes_read];
+                    Memory.copy(tmp, buffer, bytes_read);
+                    pixbuf_loader.write(tmp);
+                }
+            }
+            
+            // if not searching for anything else, exit
+            if (!calc_md5 && size_ready && pixbuf_prepared)
+                break;
+        }
+        
+        // PixbufLoader throws an error if you close it with an incomplete image, so trap this
+        try {
+            pixbuf_loader.close();
+        } catch (Error err) {
+        }
+            
+        if (fins != null)
+            fins.close(null);
+        
+        if (calc_md5)
+            md5 = md5_checksum.get_string();
+    }
+    
+    public bool has_exif() {
+        return photo_exif.has_exif();
+    }
+    
+    public PhotoExif? get_exif() {
+        return photo_exif.has_exif() ? photo_exif : null;
+    }
+    
+    public string? get_md5() {
+        return md5;
+    }
+    
+    public string get_format_name() {
+        return format_name;
+    }
+    
+    public Dimensions get_dimensions() {
+        return dim;
+    }
+    
+    public Gdk.Colorspace get_colorspace() {
+        return colorspace;
+    }
+    
+    public int get_channels() {
+        return channels;
+    }
+    
+    public int get_bits_per_sample() {
+        return bits_per_sample;
+    }
+    
+    private void on_size_prepared(int width, int height) {
+        dim = Dimensions(width, height);
+        size_ready = true;
+    }
+    
+    private void on_area_prepared(Gdk.PixbufLoader pixbuf_loader) {
+        Gdk.Pixbuf? pixbuf = pixbuf_loader.get_pixbuf();
+        if (pixbuf == null)
+            return;
+        
+        colorspace = pixbuf.get_colorspace();
+        channels = pixbuf.get_n_channels();
+        bits_per_sample = pixbuf.get_bits_per_sample();
+        
+        unowned Gdk.PixbufFormat format = pixbuf_loader.get_format();
+        format_name = format.get_name();
+        
+        pixbuf_prepared = true;
+    }
+}
+
