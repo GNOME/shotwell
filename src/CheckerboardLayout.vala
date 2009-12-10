@@ -860,6 +860,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             int remaining_width = allocation.width - (COLUMN_GUTTER_PADDING * 2);
             int max_item_width = LayoutItem.get_max_width(scale);
             max_cols = remaining_width / max_item_width;
+            if (max_cols <= 0)
+                max_cols = 1;
             
             // if too large with gutters, decrease until columns fit
             while (max_cols > 1 
