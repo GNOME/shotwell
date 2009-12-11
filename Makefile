@@ -136,23 +136,23 @@ LOCAL_PKGS = \
 	posix
 
 EXT_PKGS = \
-	gtk+-2.0 \
-	gdk-2.0 \
 	atk \
+	gdk-2.0 \
 	gee-1.0 \
+	gtk+-2.0 \
 	libexif \
 	sqlite3
 	
 ifdef LINUX
 EXT_PKGS += \
-	hal \
 	dbus-glib-1 \
-	unique-1.0 \
+	gconf-2.0 \
+	hal \
 	libgphoto2 \
-	webkit-1.0 \
 	libsoup-2.4 \
 	libxml-2.0 \
-    gconf-2.0
+	unique-1.0 \
+	webkit-1.0
 endif
 
 ifdef MAC
@@ -161,18 +161,21 @@ EXT_PKGS += \
 endif
 
 EXT_PKG_VERSIONS = \
-	gtk+-2.0 >= 2.14.4 \
 	gee-1.0 >= 0.5.0 \
+	gtk+-2.0 >= 2.14.4 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9
 	
 ifdef LINUX
 EXT_PKG_VERSIONS += \
-	hal >= 0.5.11 \
 	dbus-glib-1 >= 0.76 \
-	unique-1.0 >= 1.0.0 \
+	gconf-2.0 >= 2.22.0 \
+	hal >= 0.5.11 \
 	libgphoto2 >= 2.4.2 \
-	gconf-2.0 >= 2.22.0
+	libsoup-2.4 >= 2.26.0 \
+	libxml-2.0 >= 2.6.32 \
+	unique-1.0 >= 1.0.0 \
+	webkit-1.0 >= 1.1.15.1
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
