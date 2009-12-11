@@ -175,7 +175,7 @@ EXT_PKG_VERSIONS += \
 	libsoup-2.4 >= 2.26.0 \
 	libxml-2.0 >= 2.6.32 \
 	unique-1.0 >= 1.0.0 \
-	webkit-1.0 >= 1.1.15.1
+	webkit-1.0 >= 1.1.5
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
