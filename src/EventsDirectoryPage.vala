@@ -111,8 +111,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        get_view().set_comparator(new CompareEventItem(
-            LibraryWindow.get_app().get_events_sort() == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING));
+        get_view().set_comparator(new CompareEventItem(Config.get_instance().get_events_sort_ascending()));
 
         init_item_context_menu("/EventsDirectoryContextMenu");
 
@@ -322,6 +321,14 @@ public class EventPage : CollectionPage {
         return new_actions;
     }
     
+    protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
+        Config.get_instance().get_event_photos_sort(out sort_order, out sort_by);
+    }
+
+    protected override void set_config_photos_sort(bool sort_order, int sort_by) {
+        Config.get_instance().set_event_photos_sort(sort_order, sort_by);
+    }
+
     private void on_event_altered() {
         set_page_name(page_event.get_name());
     }

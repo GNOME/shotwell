@@ -254,9 +254,6 @@ public class LibraryWindow : AppWindow {
             }
         }
     }
-
-    // configuration values set app-wide
-    private int events_sort = SORT_EVENTS_ORDER_DESCENDING;
     
     // Static (default) pages
     private LibraryPage library_page = null;
@@ -304,10 +301,6 @@ public class LibraryWindow : AppWindow {
         Event.global.items_added += on_added_events;
         Event.global.items_removed += on_removed_events;
         Event.global.item_altered += on_event_altered;
-
-        // add stored events
-        foreach (DataObject object in Event.global.get_all())
-            add_event_page((Event) object);
         
         // start in the collection page
         sidebar.place_cursor(library_page);
@@ -320,6 +313,10 @@ public class LibraryWindow : AppWindow {
 
         // settings that should persist between sessions
         load_configuration();
+
+        // add stored events
+        foreach (DataObject object in Event.global.get_all())
+            add_event_page((Event) object);
 
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to library_page)
@@ -528,16 +525,17 @@ public class LibraryWindow : AppWindow {
     }
 
     public int get_events_sort() {
-        return events_sort;
-    }
-    
+        return Config.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
+            SORT_EVENTS_ORDER_DESCENDING;
+    }    
+
     private void on_sort_events() {
         // any member of the group can be told the current value
         Gtk.RadioAction action = (Gtk.RadioAction) get_current_page().common_action_group.get_action(
             "CommonSortEventsAscending");
         assert(action != null);
 
-        action.set_current_value(events_sort);
+        action.set_current_value(get_events_sort());
     }
     
     private void on_events_sort_changed() {
@@ -549,20 +547,18 @@ public class LibraryWindow : AppWindow {
         int new_events_sort = action.get_current_value();
         
         // don't resort if the order hasn't changed
-        if (new_events_sort == events_sort)
+        if (new_events_sort == get_events_sort())
             return;
 
-        events_sort = new_events_sort;
-
-        assert(events_sort == SORT_EVENTS_ORDER_ASCENDING || events_sort == SORT_EVENTS_ORDER_DESCENDING);
-        
+        Config.get_instance().set_events_sort_ascending(new_events_sort == SORT_EVENTS_ORDER_ASCENDING);
+       
         sidebar.sort_branch(events_directory_page.get_marker(), 
-            new CompareEventBranch(events_sort));
+            new CompareEventBranch(new_events_sort));
 
         // the events directory pages need to know about resort
         foreach (SubEventsDirectoryPageStub events_dir in events_dir_list) {
             if (events_dir.has_page())
-                ((SubEventsDirectoryPage) events_dir.get_page()).notify_sort_changed(events_sort);
+                ((SubEventsDirectoryPage) events_dir.get_page()).notify_sort_changed(new_events_sort);
         }
         
         // set the tree cursor to the current page, which might have been lost in the
@@ -570,7 +566,7 @@ public class LibraryWindow : AppWindow {
         sidebar.place_cursor(get_current_page());
 
         // the events directory page needs to know about this
-        events_directory_page.notify_sort_changed(events_sort);
+        events_directory_page.notify_sort_changed(new_events_sort);
     }
 
     private void on_display_basic_properties(Gtk.Action action) {
@@ -1143,6 +1139,10 @@ public class LibraryWindow : AppWindow {
             "CommonDisplayExtendedProperties");
         assert(extended_display_action != null);
         extended_display_action.set_active(Config.get_instance().get_display_extended_properties());
+
+        Gtk.RadioAction sort_events_action = (Gtk.RadioAction) get_current_page().common_action_group.get_action("CommonSortEventsAscending");
+        assert(sort_events_action != null);
+        sort_events_action.set_active(Config.get_instance().get_events_sort_ascending());
     }
 
     private void create_layout(Page start_page) {

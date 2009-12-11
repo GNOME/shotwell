@@ -298,5 +298,33 @@ public class Config {
     public bool set_sidebar_position(int position) {
         return set_int("/apps/shotwell/preferences/window/pane_position", position);
     }
+
+    public bool get_events_sort_ascending() {
+        return get_bool("/apps/shotwell/preferences/ui/events_sort_ascending", false);
+    }
+    
+    public bool set_events_sort_ascending(bool sort) {
+        return set_bool("/apps/shotwell/preferences/ui/events_sort_ascending", sort);
+    }
+
+    public void get_library_photos_sort(out bool sort_order, out int sort_by) {
+        sort_order = get_bool("/apps/shotwell/preferences/ui/library_photos_sort_ascending", false);
+        sort_by = get_int("/apps/shotwell/preferences/ui/library_photos_sort_by", CollectionPage.SortBy.EXPOSURE_DATE);
+    }
+    
+    public bool set_library_photos_sort(bool sort_order, int sort_by) {
+        return set_bool("/apps/shotwell/preferences/ui/library_photos_sort_ascending", sort_order) &&
+             set_int("/apps/shotwell/preferences/ui/library_photos_sort_by", sort_by);
+    }
+
+    public void get_event_photos_sort(out bool sort_order, out int sort_by) {
+        sort_order = get_bool("/apps/shotwell/preferences/ui/event_photos_sort_ascending", true);
+        sort_by = get_int("/apps/shotwell/preferences/ui/event_photos_sort_by", CollectionPage.SortBy.EXPOSURE_DATE);
+    }
+    
+    public bool set_event_photos_sort(bool sort_order, int sort_by) {
+        return set_bool("/apps/shotwell/preferences/ui/event_photos_sort_ascending", sort_order) &&
+             set_int("/apps/shotwell/preferences/ui/event_photos_sort_by", sort_by);
+    }
 }
 

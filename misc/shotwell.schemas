@@ -225,5 +225,70 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/events_sort_ascending</key>
+            <applyto>/apps/shotwell/preferences/ui/events_sort_ascending</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>sort events ascending</short>
+                <long>True if events should be sorted ascending, false if descending.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/library_photos_sort_ascending</key>
+            <applyto>/apps/shotwell/preferences/ui/library_photos_sort_ascending</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>sort library photos ascending</short>
+                <long>True if library photos should be sorted ascending, false if descending.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/library_photos_sort_by</key>
+            <applyto>/apps/shotwell/preferences/ui/library_photos_sort_by</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>sort library photos criteria</short>
+                <long>Specifies the sort criteria for library photos.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/event_photos_sort_ascending</key>
+            <applyto>/apps/shotwell/preferences/ui/event_photos_sort_ascending</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>sort event photos ascending</short>
+                <long>True if event photos should be sorted ascending, false if descending.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/event_photos_sort_by</key>
+            <applyto>/apps/shotwell/preferences/ui/event_photos_sort_by</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>768</default>
+            
+            <locale name="en">
+                <short>sort event photos criteria</short>
+                <long>Specifies the sort criteria for event photos.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>

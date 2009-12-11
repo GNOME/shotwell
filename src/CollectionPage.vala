@@ -16,25 +16,20 @@ public class CollectionViewManager : ViewManager {
     }
 }
 
-public class CollectionPage : CheckerboardPage {
-    public const int SORT_BY_MIN = 0;
-    public const int SORT_BY_TITLE = 0;
-    public const int SORT_BY_EXPOSURE_DATE = 1;
-    public const int SORT_BY_MAX = 1;
-    
-    public const int SORT_ORDER_MIN = 0;
+public abstract class CollectionPage : CheckerboardPage {    
     public const int SORT_ORDER_ASCENDING = 0;
     public const int SORT_ORDER_DESCENDING = 1;
-    public const int SORT_ORDER_MAX = 1;
-    
-    public const int DEFAULT_SORT_BY = SORT_BY_EXPOSURE_DATE;
-    public const int DEFAULT_SORT_ORDER = SORT_ORDER_DESCENDING;
-    
+
     public const int MIN_OPS_FOR_PROGRESS_WINDOW = 5;
 
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public const int MANUAL_STEPPING = 16;
     public const int SLIDER_STEPPING = 4;
+
+    public enum SortBy {
+        TITLE = 1,
+        EXPOSURE_DATE = 2;
+    }
 
     private class CompareTitle : Comparator<LayoutItem> {
         private bool ascending;
@@ -88,10 +83,14 @@ public class CollectionPage : CheckerboardPage {
         
         init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
             create_toggle_actions());
-        action_group.add_radio_actions(create_sort_crit_actions(), DEFAULT_SORT_BY,
-            on_sort_changed);
-        action_group.add_radio_actions(create_sort_order_actions(), DEFAULT_SORT_ORDER,
-            on_sort_changed);
+
+        bool sort_order;
+        int sort_by;
+        get_config_photos_sort(out sort_order, out sort_by);
+
+        action_group.add_radio_actions(create_sort_crit_actions(), sort_by, on_sort_changed);
+        action_group.add_radio_actions(create_sort_order_actions(), sort_order ?
+            SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING, on_sort_changed);
 
         if (ui_filename != null)
             init_load_ui(ui_filename);
@@ -344,13 +343,13 @@ public class CollectionPage : CheckerboardPage {
         Gtk.RadioActionEntry[] sort_crit_actions = new Gtk.RadioActionEntry[0];
 
         Gtk.RadioActionEntry by_title = { "SortByTitle", null, TRANSLATABLE, null, TRANSLATABLE,
-            SORT_BY_TITLE };
+            SortBy.TITLE };
         by_title.label = _("By _Title");
         by_title.tooltip = _("Sort photos by title");
         sort_crit_actions += by_title;
 
         Gtk.RadioActionEntry by_date = { "SortByExposureDate", null, TRANSLATABLE, null,
-            TRANSLATABLE, SORT_BY_EXPOSURE_DATE };
+            TRANSLATABLE, SortBy.EXPOSURE_DATE };
         by_date.label = _("By Exposure _Date");
         by_date.tooltip = _("Sort photos by exposure date");
         sort_crit_actions += by_date;
@@ -388,6 +387,9 @@ public class CollectionPage : CheckerboardPage {
     public override void switched_to() {
         // set display options to match Configuration toggles (which can change while switched away)
         set_display_titles(Config.get_instance().get_display_photo_titles());
+
+        sync_sort();
+
         if (Config.get_instance().get_display_favorite_photos())
             use_favorite_photo_filter(true);
         else
@@ -1031,10 +1033,8 @@ public class CollectionPage : CheckerboardPage {
             "/CollectionMenuBar/ViewMenu/SortPhotos/SortByTitle");
         assert(action != null);
         
-        int value = action.get_current_value();
-        assert(value >= SORT_BY_MIN);
-        assert(value <= SORT_BY_MAX);
-        
+        int value = action.get_current_value();        
+
         return value;
     }
     
@@ -1045,8 +1045,6 @@ public class CollectionPage : CheckerboardPage {
         assert(action != null);
         
         int value = action.get_current_value();
-        assert(value >= SORT_ORDER_MIN);
-        assert(value <= SORT_ORDER_MAX);
         
         return value;
     }
@@ -1057,14 +1055,16 @@ public class CollectionPage : CheckerboardPage {
     
     private void on_sort_changed() {
         get_view().set_comparator(get_sort_comparator());
+
+        set_config_photos_sort(get_sort_order() == SORT_ORDER_ASCENDING, get_sort_criteria());
     }
     
     private Comparator<LayoutItem> get_sort_comparator() {
         switch (get_sort_criteria()) {
-            case SORT_BY_TITLE:
+            case SortBy.TITLE:
                 return new CompareTitle(is_sort_ascending());
             
-            case SORT_BY_EXPOSURE_DATE:
+            case SortBy.EXPOSURE_DATE:
                 return new CompareDate(is_sort_ascending());
             
             default:
@@ -1081,6 +1081,56 @@ public class CollectionPage : CheckerboardPage {
         if (action != null)
             action.set_active(display);
     }
+
+    protected abstract void get_config_photos_sort(out bool sort_order, out int sort_by);
+
+    protected abstract void set_config_photos_sort(bool sort_order, int sort_by);
+
+    private string get_sortby_path(int sort_by) {
+        string path = "";
+
+        switch(sort_by) {
+            case SortBy.TITLE:
+                path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByTitle";
+                break;
+            case SortBy.EXPOSURE_DATE:
+                path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByExposureDate";
+                break;
+            default:
+                error("Unknown sort criteria: %d", sort_by);
+                break;
+        }
+
+        return path;
+    }
+
+    private void sync_sort() {
+        bool sort_order;
+        int sort_by;
+        get_config_photos_sort(out sort_order, out sort_by);
+
+        string path = get_sortby_path(sort_by);
+
+        bool resort_needed = false;
+
+        Gtk.RadioAction sort_by_action = (Gtk.RadioAction) ui.get_action(path);
+        if (sort_by_action != null && sort_by_action.get_current_value() != sort_by) {
+            sort_by_action.set_current_value(sort_by);
+            resort_needed = true;
+        }
+
+        Gtk.RadioAction ascending_action = 
+            (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortAscending");
+
+        int sort_order_int = sort_order ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING;
+        if (ascending_action != null && ascending_action.get_current_value() != sort_order_int) {
+            ascending_action.set_current_value(sort_order_int);
+            resort_needed = true;
+        }
+
+        if (resort_needed)
+            get_view().set_comparator(get_sort_comparator());
+    }
     
     private void on_new_event() {
         NewEventCommand command = new NewEventCommand(get_view().get_selected());
@@ -1093,6 +1143,14 @@ public class LibraryPage : CollectionPage {
         base(_("Photos"));
         
         get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this));
+    }
+
+    protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
+        Config.get_instance().get_library_photos_sort(out sort_order, out sort_by);
+    }
+
+    protected override void set_config_photos_sort(bool sort_order, int sort_by) {
+        Config.get_instance().set_library_photos_sort(sort_order, sort_by);
     }
 }
 
