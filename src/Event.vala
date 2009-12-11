@@ -22,8 +22,8 @@ public class EventSourceCollection : DatabaseSourceCollection {
 }
 
 public class Event : EventSource, Proxyable {
-    public const long EVENT_LULL_SEC = 4 * 60 * 60;
-    public const long EVENT_MAX_DURATION_SEC = 12 * 60 * 60;
+    // In 24-hour time.
+    public const int EVENT_BOUNDARY_HOUR = 4;
     
     private class DateComparator : Comparator<LibraryPhoto> {
         public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
@@ -120,14 +120,23 @@ public class Event : EventSource, Proxyable {
         base (object_id);
         
         this.event_id = event_id;
-        primary_photo = get_primary_photo();
+        
+        view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
+        view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
+        
+        // get the primary photo for monitoring; if not available, use the first photo in the
+        // event
+        primary_photo = LibraryPhoto.global.fetch(event_table.get_primary_photo(event_id));
+        if (primary_photo == null) {
+            assert(view.get_count() > 0);
+        
+            primary_photo = (LibraryPhoto) ((DataView) view.get_at(0)).get_source();
+            event_table.set_primary_photo(event_id, primary_photo.get_photo_id());
+        }
         
         // watch the primary photo to reflect thumbnail changes
         if (primary_photo != null)
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
-
-        view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
-        view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
 
         // watch for for removal and addition of photos
         view.items_removed += on_photos_removed;
@@ -212,8 +221,6 @@ public class Event : EventSource, Proxyable {
     }
     
     public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos, ProgressMonitor? monitor) {
-        debug("Processing imported photos to create events ...");
-
         int count = 0;
         int total = unsorted_photos.size;
         
@@ -222,9 +229,8 @@ public class Event : EventSource, Proxyable {
         foreach (LibraryPhoto photo in unsorted_photos)
             imported_photos.add(photo);
 
-        // walk through photos, splitting into events based on criteria
+        // walk through photos, splitting into new events when the boundary hour is crossed
         time_t last_exposure = 0;
-        time_t current_event_start = 0;
         Event current_event = null;
         foreach (LibraryPhoto photo in imported_photos) {
             time_t exposure_time = photo.get_exposure_time();
@@ -244,57 +250,56 @@ public class Event : EventSource, Proxyable {
                 continue;
             }
             
-            // see if enough time has elapsed to create a new event, or to store this photo in
-            // the current one
-            bool create_event = false;
-            if (last_exposure == 0) {
-                // first photo, start a new event
-                create_event = true;
+            // check if time to create a new event
+            if (current_event == null) {
+                current_event = new Event(event_table.create(photo.get_photo_id()));
             } else {
-                assert(last_exposure <= exposure_time);
-                assert(current_event_start <= exposure_time);
-
-                if (exposure_time - last_exposure >= EVENT_LULL_SEC) {
-                    // enough time has passed between photos to signify a new event
-                    create_event = true;
-                } else if (exposure_time - current_event_start >= EVENT_MAX_DURATION_SEC) {
-                    // the current event has gone on for too long, stop here and start a new one
-                    create_event = true;
-                }
-            }
-            
-            if (create_event) {
-                if (current_event != null) {
+                // if a prior event has been created, it must have an exposure time of something
+                // other than epoch
+                assert(last_exposure != 0);
+                
+                // see if stepped past the event day boundary by converting to that hour on
+                // the current photo's day and seeing if it and the last one straddle it
+                Time exposure_tm = Time.local(exposure_time);
+                Time event_boundary_tm = Time();
+                
+                event_boundary_tm.second = 0;
+                event_boundary_tm.minute = 0;
+                event_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
+                event_boundary_tm.day = exposure_tm.day;
+                event_boundary_tm.month = exposure_tm.month;
+                event_boundary_tm.year = exposure_tm.year;
+                
+                time_t event_boundary = event_boundary_tm.mktime();
+                
+                // If photos straddle the boundary, new event is starting
+                if (exposure_time >= event_boundary && last_exposure < event_boundary) {
                     global.add(current_event);
                     
                     debug("Added event %s to global collection", current_event.to_string());
+                    
+                    current_event = new Event(event_table.create(photo.get_photo_id()));
                 }
-
-                current_event_start = exposure_time;
-                current_event = new Event(event_table.create(photo.get_photo_id()));
-
-                debug("Created new event %s", current_event.to_string());
             }
             
-            assert(current_event != null);
-            
-            debug("Adding %s to event %s (exposure=%ld last_exposure=%ld)", photo.to_string(), 
-                current_event.to_string(), exposure_time, last_exposure);
-            
+            // add photo to this event
             photo.set_event(current_event);
-
-            last_exposure = exposure_time;
-
+            
+            // save photo's time as the last exposure
+            last_exposure = photo.get_exposure_time();
+            
+            // report to ProgressMonitor
             if (monitor != null) {
                 if (!monitor(++count, total))
                     break;
             }
         }
-
+        
+        // make sure to add the current_event to the global
         if (current_event != null) {
             global.add(current_event);
             
-            debug("Added event %s to global collection", current_event.to_string());
+            debug("Added final event %s to global collection", current_event.to_string());
         }
     }
     
@@ -413,7 +418,7 @@ public class Event : EventSource, Proxyable {
     }
 
     public LibraryPhoto get_primary_photo() {
-        return LibraryPhoto.global.fetch(event_table.get_primary_photo(event_id));
+        return primary_photo;
     }
     
     public bool set_primary_photo(LibraryPhoto photo) {
