@@ -133,7 +133,41 @@ public class Config {
             return false;
         }
     }
-    
+
+    public bool clear_flickr_auth_token() {
+        return set_flickr_auth_token("");
+    }
+
+    public bool set_flickr_auth_token(string token) {
+    	return set_string("/apps/shotwell/sharing/flickr/auth_token", token);
+    }
+
+    public string? get_flickr_auth_token() {
+            string stored_value = get_string("/apps/shotwell/sharing/flickr/auth_token");
+            return (stored_value != "") ? stored_value : null;
+    }
+
+    public bool clear_flickr_username() {
+        return set_flickr_username("");
+    }
+
+    public bool set_flickr_username(string username) {
+		return set_string("/apps/shotwell/sharing/flickr/username", username);
+    }
+
+    public string? get_flickr_username() {
+        string stored_value = get_string("/apps/shotwell/sharing/flickr/username");
+        return (stored_value != "") ? stored_value : null;
+    }
+
+    public bool set_flickr_default_size(int sizecode) {
+        return set_int("/apps/shotwell/sharing/flickr/default_size", sizecode);
+    }
+
+    public int get_flickr_default_size() {
+        return get_int("/apps/shotwell/sharing/flickr/default_size", 1);
+    }
+
     public bool clear_facebook_session_key() {
         return set_facebook_session_key("");
     }

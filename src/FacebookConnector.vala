@@ -8,8 +8,14 @@
 
 namespace FacebookConnector {
 // this should not be changed by anyone unless they know what they're doing
-public const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
-public const int MAX_PHOTO_DIMENSION = 604;
+private const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
+private const int MAX_PHOTO_DIMENSION = 604;
+private const string USER_AGENT = "Java/1.6.0_16";
+private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
+private const int MAX_RETRIES = 4;
+private const string SERVICE_ERROR_MESSAGE = _("Publishing to Facebook can't continue because an error occurred.\n\nTo try publishing to another service, select one from the menu above.");
+private const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged in to Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process.");
+private const string RESTART_ERROR_MESSAGE = _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 
 class UploadPane : PublishingDialogPane {
     private Gtk.RadioButton use_existing_radio = null;
@@ -20,6 +26,9 @@ class UploadPane : PublishingDialogPane {
     private Gtk.Button logout_button = null;
     private Session host_session = null;
     private Gtk.Label how_to_label = null;
+
+    public signal void logout();
+    public signal void publish(string target_album);
 
     public UploadPane(Session creator_session) {
         host_session = creator_session;
@@ -94,7 +103,7 @@ class UploadPane : PublishingDialogPane {
         how_to_label.set_text(_("You are logged in to Facebook as %s.\nWhere would you like to publish the selected photos?").printf(host_session.get_user_name()));
 
         Album[] albums = get_albums(host_session);
-        
+
         bool got_default_album = false;
         int default_album_seq_num = 0;
         int seq_num = 0;
@@ -155,48 +164,6 @@ class UploadPane : PublishingDialogPane {
             publish(new_album_entry.get_text());
         }
     }
-    
-    public signal void logout();
-    public signal void publish(string target_album);
-}
-
-class NotLoggedInPane : PublishingDialogPane {
-    private Gtk.Button login_button;
-
-    public NotLoggedInPane() {
-        Gtk.SeparatorToolItem top_space = new Gtk.SeparatorToolItem();
-        top_space.set_draw(false);
-        Gtk.SeparatorToolItem bottom_space = new Gtk.SeparatorToolItem();
-        bottom_space.set_draw(false);
-        add(top_space);
-        top_space.set_size_request(-1, 112);
-
-        Gtk.Label not_logged_in_label = new Gtk.Label(_("You are not currently logged in to Facebook. Click 'Login' below to login.\nIf you don't yet have a Facebook account, you can create one during the login process."));
-        add(not_logged_in_label);
-
-        login_button = new Gtk.Button();
-        Gtk.HBox login_button_layouter = new Gtk.HBox(false, 8);
-        Gtk.SeparatorToolItem login_button_left_padding = new Gtk.SeparatorToolItem();
-        login_button_left_padding.set_draw(false);
-        Gtk.SeparatorToolItem login_button_right_padding = new Gtk.SeparatorToolItem();
-        login_button_right_padding.set_draw(false);
-        login_button_layouter.add(login_button_left_padding);
-        login_button_left_padding.set_size_request(100, -1);
-        login_button_layouter.add(login_button);
-        login_button_layouter.add(login_button_right_padding);
-        login_button_right_padding.set_size_request(100, -1);
-        login_button.set_label(_("Login"));
-        login_button.clicked += on_login_clicked;
-        add(login_button_layouter);
-        add(bottom_space);
-        bottom_space.set_size_request(-1, 112);
-    }
-    
-    private void on_login_clicked() {
-        login_requested();
-    }
-    
-    public signal void login_requested();
 }
 
 public struct Album {
@@ -209,18 +176,18 @@ public struct Album {
     }
 }
 
-private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
-private const int MAX_RETRIES = 4;
-
 private Album[] get_albums(Session session) throws PublishingError {
     Album[] result = new Album[0];
 
-    Request albums_request = new AlbumQueryRequest(session);
-    albums_request.execute();
-    string response = albums_request.get_response();
-    
-    Xml.Doc* response_doc = validate_document(response, "photos_getAlbums_response");   
-    Xml.Node* root = response_doc->get_root_element();
+    FacebookTransaction albums_transaction = (FacebookTransaction) session.create_transaction();
+    albums_transaction.add_argument("method", "photos.getAlbums");
+
+    albums_transaction.execute();
+
+    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(albums_transaction.get_response());
+
+    Xml.Node* root = response_doc.get_root_node();
+
     Xml.Node* doc_node_iter = root->children;
     for ( ; doc_node_iter != null; doc_node_iter = doc_node_iter->next) {
         if (doc_node_iter->name != "album")
@@ -237,27 +204,21 @@ private Album[] get_albums(Session session) throws PublishingError {
             }
         }
 
-        if (name_val == null) {
-            delete response_doc;
-            throw new PublishingError.COMMUNICATION("can't get albums: XML document contains " +
+        if (name_val == null)
+            throw new PublishingError.BAD_XML("can't get albums: XML document contains " +
                 "an <album> entity without a <name> child");
-        }
-        if (aid_val == null) {
-            delete response_doc;
-            throw new PublishingError.COMMUNICATION("can't get albums: XML document contains " +
+
+        if (aid_val == null) 
+            throw new PublishingError.BAD_XML("can't get albums: XML document contains " +
                 "an <album> entity without an <aid> child");
-        }
 
         result += Album(name_val, aid_val);
     }
     
-    if (result.length == 0) {
-        delete response_doc;
-        throw new PublishingError.COMMUNICATION("can't get albums: failed to get at least one " +
+    if (result.length == 0)
+        throw new PublishingError.BAD_XML("can't get albums: failed to get at least one " +
             "valid album");
-    }
 
-    delete response_doc;
     return result;
 }
 
@@ -273,31 +234,19 @@ public bool is_default_album_present(Session session) throws PublishingError {
 }
 
 public string create_album(Session session, string album_name) throws PublishingError {
-    AlbumCreationRequest creation_request =
-        new AlbumCreationRequest(session, album_name);
-    creation_request.execute();
-    
-    string response = creation_request.get_response();
+    FacebookTransaction creation_transaction = (FacebookTransaction) session.create_transaction();
+    creation_transaction.add_argument("method", "photos.createAlbum");
+    creation_transaction.add_argument("name", album_name);
 
-    Xml.Doc* response_doc = validate_document(response, "photos_createAlbum_response");
-    Xml.Node* root = response_doc->get_root_element();
-    Xml.Node* doc_node_iter = root->children;
-    
-    string aid = null;
-    for ( ; doc_node_iter != null; doc_node_iter = doc_node_iter->next) {
-        if (doc_node_iter->name == "aid") {
-            aid = doc_node_iter->get_content();
-        }
-    }
-    
-    if (aid == null) {
-        delete response_doc;
-        throw new PublishingError.COMMUNICATION("can't create album: got an XML document of " +
-            "unknown kind");
-    }
-    
-    delete response_doc;
-    return aid;
+    creation_transaction.execute();
+
+    RESTXmlDocument response_doc =
+        RESTXmlDocument.parse_string(creation_transaction.get_response());
+
+    Xml.Node* root = response_doc.get_root_node();
+    Xml.Node* aid_node = response_doc.get_named_child(root, "aid");
+
+    return aid_node->get_content();
 }
 
 bool is_persistent_session_valid() {
@@ -307,12 +256,9 @@ bool is_persistent_session_valid() {
     string session_secret = config.get_facebook_session_secret();
     string uid = config.get_facebook_uid();
     string user_name = config.get_facebook_user_name();
-    
-    if ((session_key == null) || (session_secret == null) || (uid == null) ||
-        (user_name == null))
-        return false;
-    else
-        return true;
+   
+    return ((session_key != null) && (session_secret != null) && (uid != null) &&
+        (user_name != null));
 }
 
 void invalidate_persistent_session() {
@@ -324,11 +270,14 @@ void invalidate_persistent_session() {
     config.clear_facebook_user_name();
 }
 
-public class LoginShell : Gtk.HBox {
-    private static bool is_cache_dirty = false;
-
+public class LoginShell : PublishingDialogPane {
     private WebKit.WebView webview = null;
     private Gtk.ScrolledWindow webview_frame = null;
+    private static bool is_cache_dirty = false;
+
+    public signal void login_success(Session host_session);
+    public signal void login_failure();
+    public signal void login_error();
 
     public LoginShell() {
         set_size_request(476, 360);
@@ -388,18 +337,12 @@ public class LoginShell : Gtk.HBox {
     private void on_load_started(WebKit.WebFrame frame) {
         webview.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
     }
-      
-    public signal void login_success(Session host_session);
-    public signal void login_failure();
-    public signal void login_error();
 }
 
-public class Session {
-    // The facebook REST endpoint will communicate with only a small set of
-    // approved user agents. The web client classes in the Java JDK are part of
-    // this officially blessed set, so we spoof the JDK.
-    private const string USER_AGENT = "Java/1.6.0_16";
-    private const string api_version = "1.0";
+public class Session : RESTSession {
+    private const string API_VERSION = "1.0";
+    private const string ENDPOINT_URL = "http://api.facebook.com/restserver.php";
+
     private string session_key = null;
     private string uid = null;
     private string secret = null;
@@ -409,6 +352,8 @@ public class Session {
     
     public Session(string creator_session_key, string creator_secret, string creator_uid,
         string creator_api_key, string creator_user_name) {
+        base(ENDPOINT_URL);
+
         session_key = creator_session_key;
         secret = creator_secret;
         uid = creator_uid;
@@ -421,6 +366,7 @@ public class Session {
     
     public Session.from_login_url(string creator_api_key, string good_login_uri)
         throws PublishingError {
+        base(ENDPOINT_URL);
         // the raw uri is percent-encoded, so decode it
         string decoded_uri = Soup.URI.decode(good_login_uri);
 
@@ -500,7 +446,7 @@ public class Session {
     }
 
     public string get_api_version() {
-        return api_version;
+        return API_VERSION;
     }
     
     public Soup.Session get_connection() {
@@ -509,349 +455,318 @@ public class Session {
 
     public string get_user_name() throws PublishingError {
         if (user_name == null) {
-            SessionUserRequest user_info_req = new SessionUserRequest(this);
+            FacebookTransaction user_info_transaction = (FacebookTransaction) create_transaction();
+            user_info_transaction.add_argument("method", "users.getInfo");
+            user_info_transaction.add_argument("uids", get_user_id());
+            user_info_transaction.add_argument("fields", "name");
             
-            user_info_req.execute();
-            
-            string response = user_info_req.get_response();
+            user_info_transaction.execute();
         
-            Xml.Doc* response_doc = validate_document(response, "users_getInfo_response");
-        
-            Xml.Node* root = response_doc->get_root_element();
-            Xml.Node* doc_node_iter = root->children;
-            if (doc_node_iter == null) {
-                delete response_doc;
-                throw new PublishingError.COMMUNICATION("can't get user name: got an XML " +
-                    "document from the server of unknown kind");
-            }
+            RESTXmlDocument response_doc =
+                RESTXmlDocument.parse_string(user_info_transaction.get_response());
 
-            for ( ; doc_node_iter != null; doc_node_iter = doc_node_iter->next) {
-                if (doc_node_iter->name != "user")
-                    continue;
+            Xml.Node* root_node = response_doc.get_root_node();
+            Xml.Node* user_node = response_doc.get_named_child(root_node, "user");
+            Xml.Node* name_node = response_doc.get_named_child(user_node, "name");
 
-                Xml.Node* user_node_iter = doc_node_iter->children;
-                for ( ; user_node_iter != null; user_node_iter = user_node_iter->next) {
-                    if (user_node_iter->name == "name") {
-                        user_name = user_node_iter->get_content();
-                        delete response_doc;
-                        return user_name;
-                    }
-                }
-            }
-            
-            delete response_doc;
-            throw new PublishingError.COMMUNICATION("can't get user name: XML document didn't " +
-                "contain a <user> or <name> element");
+            user_name = name_node->get_content();
         }
 
-        // not a memory leak -- no need to delete response_doc here since it's not in scope
         return user_name;
     }
-}
 
-public Xml.Doc* validate_document(string text, string root_node_name) throws PublishingError {
-    if ((text == null) || (text == "")) {
-        throw new PublishingError.COMMUNICATION("response text is empty");
-    }
+    public override RESTTransaction create_transaction() {
+        FacebookTransaction result = new FacebookTransaction(this);
 
-    Xml.Doc* doc = Xml.Parser.parse_doc(text);
-    if (doc == null) {
-        throw new PublishingError.COMMUNICATION("response text isn't valid XML");
-    }
+        result.add_argument("api_key", get_api_key());
+        result.add_argument("session_key", get_session_key());
+        result.add_argument("v", get_api_version());
 
-    Xml.Node* root = doc->get_root_element();
-    if (root == null) {
-        delete doc;
-        throw new PublishingError.COMMUNICATION("response text isn't valid XML");
-    }
-    
-    if (root->name != root_node_name) {
-        delete doc;
-        throw new PublishingError.COMMUNICATION("response text is an XML document of " +
-            "unknown kind");
-    }
-
-    Xml.Node* doc_node_iter = root->children;
-    if (doc_node_iter == null) {
-        delete doc;
-        throw new PublishingError.COMMUNICATION("response text is an XML document of " +
-            "unknown kind");
-    }
-    
-    return doc;
-}
-
-public class Request {
-    protected struct RESTArgument {
-        string key;
-        string value;
-
-        public RESTArgument(string creator_key, string creator_val) {
-            key = creator_key;
-            value = creator_val;
-        }
-        
-        public static int compare(void* p1, void* p2) {
-            RESTArgument* arg1 = (RESTArgument*) p1;
-            RESTArgument* arg2 = (RESTArgument*) p2;
-
-            return strcmp(arg1->key, arg2->key);
-        }
-    }
-
-    private Session host_session;
-    private string method;
-    private RESTArgument[] arguments = new RESTArgument[0];
-    private string signed_encoding = null;
-    private string call_id = null;
-    private string signature = null;
-    private bool is_executed = false;
-    private string response = null;
-
-    public Request(Session creator_session, string creator_method) {
-        host_session = creator_session;
-        method = creator_method;
-    }
-
-    public void add_argument(string key, string value) {
-        assert(!is_executed);
-
-        RESTArgument arg = RESTArgument(key, value);
-        arguments += arg;
-    }
-    
-    protected RESTArgument[] get_arguments() {
-        return arguments;
-    }
-
-    public virtual string execute() {
-        assert(!is_executed);
-
-        Soup.Message post_req = new Soup.Message("POST", "http://api.facebook.com/restserver.php");
-
-        string body_text = get_signed_encoding();
-        post_req.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-            body_text, body_text.length);
-
-        host_session.get_connection().send_message(post_req);
-
-        response = post_req.response_body.data;
-        is_executed = true;
-
-        return response;
-    }
-
-    protected RESTArgument[] get_sorted_arg_array() {
-        RESTArgument[] encoding_array = new RESTArgument[0];
-
-        // We distinguish two kinds of arguments passed to the Facebook web API via
-        // REST. The first kind of arguments, called "universal arguments" are
-        // required by all calls to facebook API. The second kind of arguments,
-        // "call-specific arguments" are unique to a specific call. For example,
-        // calls to notifications.send require a comma-separated list of user ids
-        // (the users to send the notifications to) whereas calls to photos.get
-        // require an album id.
-        
-        // set up the universal arguments
-        encoding_array += RESTArgument("api_key", host_session.get_api_key());
-        encoding_array += RESTArgument("session_key", host_session.get_session_key());
-        encoding_array += RESTArgument("v", host_session.get_api_version());
-        encoding_array += RESTArgument("call_id", get_call_id());
-        encoding_array += RESTArgument("method", method);
-        
-        // add any call-specific arguments previously added by the user
-        foreach (RESTArgument arg in arguments)
-            encoding_array += arg;
-
-        // sort the arguments -- this is necessary to properly compute a digital
-        // signature for the request
-        qsort(encoding_array, encoding_array.length, sizeof(RESTArgument), RESTArgument.compare);
-        
-        return encoding_array;
-    }
-
-    private string get_encoded_form() {
-        RESTArgument[] encoding_array = get_sorted_arg_array();
-
-        // concatenate the elements of the arg array into a HTTP POST formdata string
-        int last = encoding_array.length - 1;
-        string formdata_string = "";
-        for (int i = 0; i < last; i++)
-            formdata_string = formdata_string + ("%s=%s&".printf(encoding_array[i].key,
-                encoding_array[i].value));
-        formdata_string = formdata_string + ("%s=%s".printf(encoding_array[last].key,
-                encoding_array[last].value));
-
-        return formdata_string;
-    }
-   
-    private string get_signed_encoding() {
-        if (signed_encoding == null) {           
-            signed_encoding = (get_encoded_form() + ("&sig=%s".printf(get_signature())));
-        }
-        return signed_encoding;
-    }
-    
-    protected string get_signature() {
-        if (signature == null) {
-            string encoded_form = get_encoded_form();
-            string hashable_form = encoded_form.replace("&", "");         
-            string secret = host_session.get_session_secret();
-
-            signature = Checksum.compute_for_string(ChecksumType.MD5, (hashable_form + secret));
-        }
-        return signature;
-    }
-    
-    protected string get_call_id() {
-        if (call_id == null)
-            call_id = host_session.get_next_call_id();
-        
-        return call_id;
-    }
-    
-    protected Session get_host_session() {
-        return host_session;
-    }
-
-    protected void set_is_executed(bool val) {
-        is_executed = val;
-    }
-    
-    protected void set_response(string resp) {
-        response = resp;
-    }
-
-    public bool get_is_executed() {
-        return is_executed;
-    }
-
-    public string get_response() {
-        assert(is_executed);
-        
-        return response;
+        return result;
     }
 }
 
-public class PhotoUploadRequest : Request {
-    private string source_file = null;
+public class FacebookTransaction : RESTTransaction {
+    public const string SIGNATURE_KEY = "sig";
 
-    public PhotoUploadRequest(Session host_session, string creator_target_album,
-        string creator_source_file) {
-        base(host_session, "photos.upload");
-        
+    public FacebookTransaction(FacebookConnector.Session creator_session) {
+        base(creator_session);
+    }
+
+    protected override void sign() {
+        FacebookConnector.Session facebook_session =
+            (FacebookConnector.Session) get_parent_session();
+        add_argument("call_id", facebook_session.get_next_call_id());
+
+        string sig = generate_signature(get_sorted_arguments(), facebook_session);
+       
+        set_signature_key(SIGNATURE_KEY);
+        set_signature_value(sig);
+    }
+
+    public static string generate_signature(RESTArgument[] sorted_args, Session session) {
+        string hash_string = "";
+        foreach (RESTArgument arg in sorted_args)
+            hash_string = hash_string + ("%s=%s".printf(arg.key, arg.value));
+
+        return Checksum.compute_for_string(ChecksumType.MD5, (hash_string +
+            session.get_session_secret()));
+    }
+}
+
+public class FacebookUploadTransaction : PhotoUploadTransaction {
+    public FacebookUploadTransaction(FacebookConnector.Session creator_session,
+        string creator_target_album, string creator_source_file,
+        TransformablePhoto creator_source_photo) {
+        base(creator_session, creator_source_file, creator_source_photo);
+
+        add_argument("api_key", creator_session.get_api_key());
+        add_argument("session_key", creator_session.get_session_key());
+        add_argument("v", creator_session.get_api_version());
+        add_argument("method", "photos.upload");
         add_argument("aid", creator_target_album);
-
-        source_file = creator_source_file;
     }
 
-    public override string execute() {
-        assert(!get_is_executed());
+    protected override void sign() {
+        FacebookConnector.Session facebook_session =
+            (FacebookConnector.Session) get_parent_session();
+        add_argument("call_id", facebook_session.get_next_call_id());
 
-        // Photo upload requests are formatted as HTTP 1.1 multipart POST requests.
-        // Uploading a single photo requires n parts. Of these n parts, the first
-        // (n - 1) of them are plain text-valued parts encoding metadata, and the
-        // last n-th part is binary-encoded part containing the actual image
-        // bytes.
+        string sig = FacebookTransaction.generate_signature(get_sorted_arguments(),
+            facebook_session);
+       
+        set_signature_key(FacebookTransaction.SIGNATURE_KEY);
+        set_signature_value(sig);
+    }
+}
 
-        // create the multipart request container
-        Soup.Multipart message_parts = new Soup.Multipart("multipart/form-data");
+public class Interactor : ServiceInteractor {
+    private const string TEMP_FILE_PREFIX = "publishing-";
+    private LoginShell login_shell = null;
 
-        // loop through the array of call arguments and attach each one to the
-        // multipart request object as a separate, text-valued metadata part.
-        // Together, all the arguments constitute the first (n - 1) parts of
-        // the total n parts of the multipart request.
-        Request.RESTArgument[] arg_array = get_sorted_arg_array();
-        string sig = get_signature();
-        arg_array += Request.RESTArgument("sig", sig);
-        foreach (Request.RESTArgument arg in arg_array)
-            message_parts.append_form_string(arg.key, arg.value);
+    private Session session;
+    private bool user_cancelled = false;
+
+    public Interactor(PublishingDialog host) {
+        base(host);
+    }
+
+    public override void start_interaction() throws PublishingError {
+        get_host().set_standard_window_mode();
+
+        if (is_persistent_session_valid()) {
+            Config config = Config.get_instance();
+            session = new FacebookConnector.Session(config.get_facebook_session_key(),
+                config.get_facebook_session_secret(), config.get_facebook_uid(),
+                FacebookConnector.API_KEY, config.get_facebook_user_name());
+
+            UploadPane upload_pane = new UploadPane(session);
+            upload_pane.logout += on_logout;
+            upload_pane.publish += on_publish;
+            get_host().install_pane(upload_pane);
+            get_host().set_cancel_button_mode();
+
+            try {
+                upload_pane.run_interaction();
+            } catch (PublishingError e) {
+                get_host().on_error(SERVICE_ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            if (FacebookConnector.LoginShell.get_is_cache_dirty()) {
+                get_host().on_error(RESTART_ERROR_MESSAGE);
+            } else {
+                LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
+                not_logged_in_pane.login_requested += on_login_requested;
+                get_host().install_pane(not_logged_in_pane);
+                get_host().set_cancel_button_mode();
+            }
+        }
+    }
+    
+    public override void cancel_interaction() {
+        user_cancelled = true;
+    }
+
+    public override string get_service_error_message() {
+        return SERVICE_ERROR_MESSAGE;
+    }
+
+    private void on_logout() {
+        FacebookConnector.invalidate_persistent_session();
+
+        if (FacebookConnector.LoginShell.get_is_cache_dirty()) {
+            get_host().on_error(RESTART_ERROR_MESSAGE);
+        } else {
+            LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
+            not_logged_in_pane.login_requested += on_login_requested;
+            get_host().install_pane(not_logged_in_pane);
+            get_host().set_cancel_button_mode();
+        }
+    }
+    
+    private void on_publish(string target_album_name) {
+        get_host().lock_service();
+
+        FacebookUploadActionPane action_pane = new FacebookUploadActionPane(get_host(), session,
+            target_album_name);
+        get_host().install_pane(action_pane);
+        get_host().set_cancel_button_mode();
+
+        action_pane.upload();
+
+        if (user_cancelled)
+            return;
         
-        // iterate through all the (n - 1) text-valued metadata parts attached
-        // above and set their "Content-Type" headers to "text/plain". This is
-        // necessary to prevent the Facebook REST endpoint from incorrectly
-        // interpreting these text-valued parts as binary image data. It's not
-        // clear why libsoup doesn't do this automatically.
-        int num_parts = message_parts.get_length();
-        unowned Soup.MessageHeaders current_header;
-        unowned Soup.Buffer current_body;
-        for (int i = 0; i < num_parts; i++) {
-            message_parts.get_part(i, out current_header, out current_body);
-            current_header.append("Content-Type", "text/plain");
+        get_host().unlock_service();
+        get_host().on_success();
+
+        action_pane = null;
+    }
+
+    private void on_login_requested() {
+        if (!get_is_connection_alive()) {
+            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            return;
         }
 
-        // attempt to read the binary image data from disk
-        string photo_data;
-        ulong data_length;
+        login_shell = new LoginShell();
+        login_shell.login_failure += on_login_failed;
+        login_shell.login_success += on_login_success;
+        login_shell.login_error += on_login_error;
+
+        get_host().install_pane(login_shell);
+        get_host().set_cancel_button_mode();
+
+        login_shell.load_login_page();
+    }
+
+    private void on_login_failed() {
+        LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
+        not_logged_in_pane.login_requested += on_login_requested;
+        get_host().install_pane(not_logged_in_pane);
+        get_host().set_cancel_button_mode();
+    }
+
+    private void on_login_error() {
+        get_host().on_error(SERVICE_ERROR_MESSAGE);
+    }
+
+    private void on_login_success(Session login_session) {
+        session = login_session;
+        // retrieving the username associated with a session requires a network round-trip, so
+        // PublishingError.COMMUNICATION errors are possible
+        string username = null;
         try {
-            FileUtils.get_contents(source_file, out photo_data, out data_length);
-        } catch (FileError e) {
-            error("PhotoUploadRequest: couldn't read date from file '%s'", source_file);
+            username = login_session.get_user_name();
+        } catch (PublishingError e) {
+            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            return;
         }
 
-        // bind the binary image data read from disk into a Soup.Buffer object so that we
-        // can attach it to the multipart request, then actaully append the buffer
-        // to the multipart request. Note that when the buffer is appended, the MIME type
-        // must be set simply to "image" (NOT "image/jpeg" or even "image/*") even though
-        // this isn't entirely Kosher as per the W3C specs. We engage in this weirdness
-        // because the Facebook REST endpoint expects it. The Facebook endpoint doesn't use
-        // MIME to determine the type of image being uploaded. Instead, it parses the
-        // "filename" field of the "Content-Disposition" header in the image part and determines
-        // the type from that (e.g. if the filename field ends in "jpg" then the image is JPEG).
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data, data_length);
-        message_parts.append_form_file("", source_file, "image", bindable_data);
+        Config config = Config.get_instance();
+        config.set_facebook_session_key(login_session.get_session_key());
+        config.set_facebook_session_secret(login_session.get_session_secret());
+        config.set_facebook_uid(login_session.get_user_id());  
+        config.set_facebook_user_name(username);
 
-        // because the Facebook REST endpoint uses the Content-Disposition header to determine
-        // the type of image being uploaded, it is very finicky about which key-value pairs are
-        // present in the Content-Disposition header. Notably, libsoup by default includes the
-        // "name" control key in the Content-Disposition header (as per W3C specs), but the
-        // Facebook endpoint doesn't like this and issues an "Error 324" in this case. To
-        // prevent this behavior, we have to inject a new Content-Disposition header
-        // that does not contain a "name" key into the multipart request part that
-        // packages the image data.
-        message_parts.get_part(num_parts, out current_header, out current_body);
-        GLib.HashTable<string, string> disposition_table =
-            new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename", source_file);
-        current_header.set_content_disposition("form-data", disposition_table);
+        UploadPane upload_pane = new UploadPane(login_session);
+        upload_pane.logout += on_logout;
+        upload_pane.publish += on_publish;
 
-        Soup.Message outbound_message =
-            Soup.form_request_new_from_multipart("http://api.facebook.com/restserver.php",
-            message_parts);
-        
-        // set the MIME version on the outbound request. It's not clear why libsoup doesn't
-        // do this automatically.
-        outbound_message.request_headers.append("MIME-version", "1.0");
+        get_host().install_pane(upload_pane);
+        get_host().set_cancel_button_mode();
 
-        get_host_session().get_connection().send_message(outbound_message);
-
-        set_response(outbound_message.response_body.data);
-        set_is_executed(true);
-
-        return get_response();
+        try {
+            upload_pane.run_interaction();
+        } catch (PublishingError e) {
+            get_host().on_error(SERVICE_ERROR_MESSAGE);
+        }
     }
 }
 
-public class AlbumQueryRequest : Request {
-    public AlbumQueryRequest(Session host_session) {
-        base(host_session, "photos.getAlbums");
+class FacebookUploadActionPane : UploadActionPane {
+    private Session session;
+    private string target_album_name;
+    private string aid = null;
+    private bool aid_fetch_failed = false;
+    
+    public FacebookUploadActionPane(PublishingDialog host, Session session,
+        string target_album_name) {
+        base(host);
+
+        this.target_album_name = target_album_name;
+        this.session = session;
+    }
+
+    protected override void prepare_file(UploadActionPane.TemporaryFileDescriptor file) {
+        try {
+            file.source_photo.export(file.temp_file, MAX_PHOTO_DIMENSION,
+                ScaleConstraint.DIMENSIONS, Jpeg.Quality.MAXIMUM);
+        } catch (Error e) {
+            error("FacebookUploadPane: can't create temporary files");
+        }
+    }
+
+    protected override void upload_file(UploadActionPane.TemporaryFileDescriptor file) {
+        if (aid == null) {
+            aid_fetch_failed = false;
+            aid = fetch_aid();
+
+            if (aid_fetch_failed)
+                return;
+        }
+
+        FacebookUploadTransaction upload_transaction = new FacebookUploadTransaction(session,
+            aid, file.temp_file.get_path(), file.source_photo);
+        upload_transaction.chunk_transmitted += on_chunk_transmitted;
+        upload_transaction.execute();
+        upload_transaction.chunk_transmitted -= on_chunk_transmitted;
+    }
+
+    private string fetch_aid() {
+        Album[] albums = null;
+        try {
+            albums = get_albums(session);
+        } catch (PublishingError e) {
+            get_host().unlock_service();
+            get_host().on_error(SERVICE_ERROR_MESSAGE);
+
+            aid_fetch_failed = true;
+            return "";
+        }
+
+        string target_aid = null;
+        foreach (Album album in albums) {
+            if (album.name == target_album_name)
+                target_aid = album.id;
+        }
+        if (target_aid == null) {
+            try {
+                target_aid = create_album(session, target_album_name);
+            } catch (PublishingError e) {
+                get_host().unlock_service();
+                get_host().on_error(SERVICE_ERROR_MESSAGE);
+
+                aid_fetch_failed = true;
+                return "";
+            }
+        }
+
+        return target_aid;
     }
 }
 
-public class AlbumCreationRequest : Request {
-    public AlbumCreationRequest(Session host_session, string album_name) {
-        base(host_session, "photos.createAlbum");
-        add_argument("name", album_name);
-    }
+
+bool get_is_connection_alive() {
+    Soup.Session test_connection = new Soup.SessionSync();
+    test_connection.user_agent = USER_AGENT;
+    Soup.Message test_req = new Soup.Message("GET", "http://api.facebook.com/restserver.php");
+    test_connection.send_message(test_req);
+    return (test_req.response_body.data != null);
 }
 
-public class SessionUserRequest : Request {
-    public SessionUserRequest(Session host_session) {
-        base(host_session, "users.getInfo");
-        add_argument("uids", host_session.get_user_id());
-        add_argument("fields", "name");
-    }
-}
 }
 
 #endif
+
