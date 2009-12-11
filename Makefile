@@ -336,6 +336,7 @@ else ifdef EXT_PKGS
 	pkg-config --print-errors --exists $(EXT_PKGS)
 endif
 endif
+	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
 	mkdir -p $(BUILD_DIR)
 	$(VALAC) --ccode --directory=$(BUILD_DIR) --basedir=src $(VALAFLAGS) \
 	$(foreach pkg,$(PKGS),--pkg=$(pkg)) \
