@@ -120,7 +120,72 @@
                 <long>The name of the currently logged in Facebook user, if any</long>
             </locale>
         </schema>
-        
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/flickr/auth_token</key>
+            <applyto>/apps/shotwell/sharing/flickr/auth_token</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>auth token</short>
+                <long>The authorization token for the currently logged in Flickr user, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/flickr/username</key>
+            <applyto>/apps/shotwell/sharing/flickr/username</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>username</short>
+                <long>The user name of the currently logged in Flickr user, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/flickr/default_size</key>
+            <applyto>/apps/shotwell/sharing/flickr/default_size</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>2</default>
+
+            <locale name="en">
+                <short>default size code</short>
+                <long>A numeric code representing the default size for photos published to Flickr</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/flickr/visibility</key>
+            <applyto>/apps/shotwell/sharing/flickr/visibility</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>1</default>
+
+            <locale name="en">
+                <short>default visibility</short>
+                <long>A numeric code representing the default visibility for photos published to Flickr</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/default_service</key>
+            <applyto>/apps/shotwell/sharing/default_service</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>1</default>
+
+            <locale name="en">
+                <short>default service</short>
+                <long>A numeric code representing the default service to which photos are published</long>
+            </locale>
+        </schema>
+
         <schema>
             <key>/schemas/apps/shotwell/preferences/ui/display_hidden_photos</key>
             <applyto>/apps/shotwell/preferences/ui/display_hidden_photos</applyto>

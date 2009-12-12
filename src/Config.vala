@@ -161,19 +161,27 @@ public class Config {
     }
 
     public bool set_flickr_default_size(int sizecode) {
-        return set_int("/apps/shotwell/sharing/flickr/default_size", sizecode);
+        return set_int("/apps/shotwell/sharing/flickr/default_size", sizecode + 1);
     }
 
     public int get_flickr_default_size() {
-        return get_int("/apps/shotwell/sharing/flickr/default_size", 2);
+        return get_int("/apps/shotwell/sharing/flickr/default_size", 2) - 1;
     }
 
-    public bool set_flickr_visbility(int viscode) {
-        return set_int("/apps/shotwell/sharing/flickr/visibility", viscode);
+    public bool set_flickr_visibility(int viscode) {
+        return set_int("/apps/shotwell/sharing/flickr/visibility", viscode + 1);
     }
 
     public int get_flickr_visibility() {
-        return get_int("/apps/shotwell/sharing/flickr/visibility", 1);
+        return get_int("/apps/shotwell/sharing/flickr/visibility", 1) - 1;
+    }
+
+    public bool set_default_service(int service_code) {
+        return set_int("/apps/shotwell/sharing/default_service", service_code + 1);
+    }
+
+    public int get_default_service() {
+        return get_int("/apps/shotwell/sharing/default_service", 1) - 1;
     }
 
     public bool clear_facebook_session_key() {

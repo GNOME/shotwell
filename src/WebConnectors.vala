@@ -588,7 +588,9 @@ public class PublishingDialog : Gtk.Dialog {
 
         set_standard_window_mode();
 
-        service_selector_box.set_active(0);
+        Config config = Config.get_instance();
+        service_selector_box.set_active(config.get_default_service());
+
         interactor = ServiceFactory.get_instance().create_interactor(this,
             service_selector_box.get_active_text());
         try {
@@ -693,6 +695,8 @@ public class PublishingDialog : Gtk.Dialog {
     }
     
     private void on_service_changed() {
+        Config config = Config.get_instance();
+        config.set_default_service(service_selector_box.get_active());
         interactor = ServiceFactory.get_instance().create_interactor(this,
             service_selector_box.get_active_text());
         try {

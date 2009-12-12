@@ -398,6 +398,7 @@ class UploadPane : PublishingDialogPane {
         Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(_("Photos _visible to:"));
         Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size:"));
         visibility_combo = create_visibility_combo();
+        visibility_combo.changed += on_visibility_changed;
         visibility_label.set_mnemonic_widget(visibility_combo);
         size_combo = create_size_combo();
         size_label.set_mnemonic_widget(size_combo);
@@ -473,7 +474,8 @@ class UploadPane : PublishingDialogPane {
         foreach (VisibilityEntry v in visibilities)
             result.append_text(v.title);
 
-        result.set_active(0);
+        Config config = Config.get_instance();
+        result.set_active(config.get_flickr_visibility());
 
         return result;
     }
@@ -498,14 +500,19 @@ class UploadPane : PublishingDialogPane {
             result.append_text(e.title);
 
         Config config = Config.get_instance();
-        result.set_active(config.get_flickr_default_size() - 1);
+        result.set_active(config.get_flickr_default_size());
 
         return result;
     }
 
     private void on_size_changed() {
         Config config = Config.get_instance();
-        config.set_flickr_default_size(size_combo.get_active() + 1);
+        config.set_flickr_default_size(size_combo.get_active());
+    }
+
+    private void on_visibility_changed() {
+        Config config = Config.get_instance();
+        config.set_flickr_visibility(visibility_combo.get_active());
     }
 }
 
