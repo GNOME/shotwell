@@ -648,8 +648,11 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
         
         base.execute();
         
-        if (failed > 0)
-            AppWindow.error_message(_("Unable to duplicate %d photos due to file errors.").printf(failed));
+        if (failed > 0) {
+            string error_string = (ngettext("Unable to duplicate one photo due to a file error",
+                "Unable to duplicate %d photos due to file errors", failed)).printf(failed);
+            AppWindow.error_message(error_string);
+        }
     }
     
     public override void execute_on_source(DataSource source) {

@@ -224,23 +224,17 @@ private class BasicProperties : Properties {
             string label = _("Items:");
   
             if (event_count >= 0) {
-                string event_num_string;
-                if (event_count == 1)
-                    event_num_string = _("%d Event");
-                else
-                    event_num_string = _("%d Events");
+                string event_num_string = (ngettext("%d Event", "%d Events", event_count)).printf(
+                    event_count);
 
-                add_line(label, event_num_string.printf(event_count));
+                add_line(label, event_num_string);
                 label = "";
             }
 
-            string photo_num_string;
-            if (photo_count == 1)
-                photo_num_string = _("%d Photo");
-            else
-                photo_num_string = _("%d Photos");
+            string photo_num_string = (ngettext("%d Photo", "%d Photos", photo_count)).printf(
+                photo_count);
 
-            add_line(label, photo_num_string.printf(photo_count));
+            add_line(label, photo_num_string);
         }
 
         if (start_time != 0) {

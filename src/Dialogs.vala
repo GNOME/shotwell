@@ -258,24 +258,21 @@ private string? generate_import_failure_list(Gee.List<BatchImportResult> failed)
     
     int remaining = failed.size - REPORT_FAILURE_COUNT;
     if (remaining > 0) {
-        if (remaining == 1)
-            list += _("1 more photo not imported.\n");
-        else
-            list += _("%d more photos not imported.\n").printf(remaining);
+        string appendage = (ngettext("%d more photo not imported.\n",
+            "%d more photos not imported.\n", remaining)).printf(remaining);
+        list += appendage;
     }
     
     return list;
 }
 
 public class QuestionParams {
-    public string singular;
-    public string plural;
+    public string question;
     public string yes_button;
     public string no_button;
     
-    public QuestionParams(string singular, string plural, string yes_button, string no_button) {
-        this.singular = singular;
-        this.plural = plural;
+    public QuestionParams(string question, string yes_button, string no_button) {
+        this.question = question;
         this.yes_button = yes_button;
         this.no_button = no_button;
     }
@@ -286,21 +283,22 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     string message = "";
     
     if (manifest.success.size > 0) {
-        if (manifest.success.size == 1)
-            message += _("1 photo successfully imported.\n");
-        else
-            message += _("%d photos successfully imported.\n").printf(manifest.success.size);
+        string success_message = (ngettext("1 photo successfully imported.\n",
+            "%d photos successfully imported.\n", manifest.success.size)).printf(
+            manifest.success.size);
+        message += success_message;
     }
     
     if (manifest.already_imported.size > 0) {
         if (list && message.length > 0)
             message += "\n";
         
-        if (manifest.already_imported.size == 1)
-            message += _("1 photo already in library was not imported.\n");
-        else
-            message += _("%d photos already in library were not imported.\n").printf(
-                manifest.already_imported.size);
+        string already_imported_message =
+            (ngettext("1 photo already in library was not imported.\n",
+            "%d photos already in library were not imported.\n",
+            manifest.already_imported.size)).printf(manifest.already_imported.size);
+
+        message += already_imported_message;
         
         if (list)
             message += generate_import_failure_list(manifest.already_imported);
@@ -310,11 +308,12 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        if (manifest.failed.size == 1)
-            message += _("1 photo failed to import due to file or hardware error.\n");
-        else
-            message += _("%d photos failed to import due to file or hardware error.\n").printf(
-                manifest.failed.size);
+        string failed_message =
+            (ngettext("1 photo failed to import due to a file or hardware error.\n",
+                "%d photos failed to import due to a file or hardware error.\n",
+                manifest.failed.size)).printf(manifest.failed.size);
+
+        message += failed_message;
         
         if (list)
             message += generate_import_failure_list(manifest.failed);
@@ -324,10 +323,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        if (manifest.skipped.size == 1)
-            message += _("1 unsupported photo skipped.\n");
-        else
-            message += _("%d unsupported photos skipped.\n").printf(manifest.skipped.size);
+        string skipped_message = (ngettext("1 unsupported photo skipped.\n",
+            "%d unsupported photos skipped.\n", manifest.skipped.size)).printf(
+            manifest.skipped.size);
+
+        message += skipped_message;
         
         if (list)
             message += generate_import_failure_list(manifest.skipped);
@@ -337,10 +337,11 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        if (manifest.aborted.size == 1)
-            message += _("1 photo skipped due to user cancel.\n");
-        else
-            message += _("%d photos skipped due to user cancel.\n").printf(manifest.aborted.size);
+        string aborted_message = (ngettext("1 photo skipped due to user cancel.\n",
+            "%d photos skipped due to user cancel.\n", manifest.aborted.size)).printf(
+            manifest.aborted.size);
+
+        message += aborted_message;
         
         if (list)
             message += generate_import_failure_list(manifest.aborted);
@@ -360,12 +361,7 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
             Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "%s", message);
     } else {
-        message += "\n";
-        
-        if (total == 1)
-            message += question.singular;
-        else
-            message += question.plural.printf(total);
+        message += ("\n" + question.question);
     
         dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
             Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);

@@ -564,8 +564,10 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     private bool report_drag_failed() {
-        AppWindow.error_message(drag_failed_item_count == 1 ? _("A photo source file is missing.") : 
-            _("%d photo source files missing.").printf(drag_failed_item_count));
+        string error_string = (ngettext("A photo source file is missing.",
+            "%d photo source files missing.", drag_failed_item_count)).printf(
+            drag_failed_item_count);
+        AppWindow.error_message(error_string);
         drag_failed_item_count = 0;
 
         return false;

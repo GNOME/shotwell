@@ -910,11 +910,11 @@ public class ImportPage : CheckerboardPage {
         if (manifest.success.size > 0)
             generate_events_with_progress_dialog(manifest.imported);
         
+        string question_string = (ngettext("Delete this photo from camera?",
+            "Delete these %d photos from camera?", manifest.all.size)).printf(manifest.all.size);
+
         ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-            _("Delete this photo from camera?"),
-            _("Delete these %d photos from camera?"),
-            Gtk.STOCK_DELETE,
-            _("Keep"));
+            question_string, Gtk.STOCK_DELETE, _("Keep"));
         
         if (!ImportUI.report_manifest(manifest, false, question))
             return;
@@ -942,8 +942,11 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (error_count > 0) {
-            AppWindow.error_message(_("Unable to delete %d photos from the camera due to errors.").printf(
-                error_count));
+            string error_string =
+                (ngettext("Unable to delete %d photo from the camera due to errors.",
+                "Unable to delete %d photos from the camera due to errors.", error_count)).printf(
+                error_count);
+            AppWindow.error_message(error_string);
         }
         
         import_sources.remove_marked(marker);
