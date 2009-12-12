@@ -10,12 +10,12 @@ namespace FacebookConnector {
 // this should not be changed by anyone unless they know what they're doing
 private const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
 private const int MAX_PHOTO_DIMENSION = 604;
-private const string USER_AGENT = "Java/1.6.0_16";
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 private const int MAX_RETRIES = 4;
-private const string SERVICE_ERROR_MESSAGE = _("Publishing to Facebook can't continue because an error occurred.\n\nTo try publishing to another service, select one from the menu above.");
-private const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged in to Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process.");
-private const string RESTART_ERROR_MESSAGE = _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
+private const string SERVICE_WELCOME_MESSAGE = 
+    _("You are not currently logged in to Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process.");
+private const string RESTART_ERROR_MESSAGE = 
+    _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 
 class UploadPane : PublishingDialogPane {
     private Gtk.RadioButton use_existing_radio = null;
@@ -206,18 +206,18 @@ private Album[] get_albums(Session session) throws PublishingError {
         }
 
         if (name_val == null)
-            throw new PublishingError.BAD_XML("can't get albums: XML document contains " +
+            throw new PublishingError.MALFORMED_RESPONSE("can't get albums: XML document contains " +
                 "an <album> entity without a <name> child");
 
         if (aid_val == null) 
-            throw new PublishingError.BAD_XML("can't get albums: XML document contains " +
+            throw new PublishingError.MALFORMED_RESPONSE("can't get albums: XML document contains " +
                 "an <album> entity without an <aid> child");
 
         result += Album(name_val, aid_val);
     }
     
     if (result.length == 0)
-        throw new PublishingError.BAD_XML("can't get albums: failed to get at least one " +
+        throw new PublishingError.MALFORMED_RESPONSE("can't get albums: failed to get at least one " +
             "valid album");
 
     return result;
@@ -278,7 +278,7 @@ public class LoginShell : PublishingDialogPane {
 
     public signal void login_success(Session host_session);
     public signal void login_failure();
-    public signal void login_error();
+    public signal void login_error(PublishingError e);
 
     public LoginShell() {
         set_size_request(476, 360);
@@ -325,7 +325,8 @@ public class LoginShell : PublishingDialogPane {
                 login_success(new Session.from_login_url(FacebookConnector.API_KEY,
                     origin_frame.get_uri()));
             } catch (PublishingError e) {
-                login_error();
+                login_error(e);
+                
                 return;
             }
         }
@@ -342,39 +343,36 @@ public class LoginShell : PublishingDialogPane {
 
 public class Session : RESTSession {
     private const string API_VERSION = "1.0";
+    private const string USER_AGENT = "Java/1.6.0_16";
     private const string ENDPOINT_URL = "http://api.facebook.com/restserver.php";
 
     private string session_key = null;
     private string uid = null;
     private string secret = null;
     private string api_key = null;
-    private Soup.Session session_connection = null;
     private string user_name = null;
     
     public Session(string creator_session_key, string creator_secret, string creator_uid,
         string creator_api_key, string creator_user_name) {
-        base(ENDPOINT_URL);
+        base(ENDPOINT_URL, USER_AGENT);
 
         session_key = creator_session_key;
         secret = creator_secret;
         uid = creator_uid;
         api_key = creator_api_key;
         user_name = creator_user_name;
-
-        session_connection = new Soup.SessionSync();
-        session_connection.user_agent = USER_AGENT;
     }
     
-    public Session.from_login_url(string creator_api_key, string good_login_uri)
-        throws PublishingError {
-        base(ENDPOINT_URL);
+    public Session.from_login_url(string creator_api_key, string good_login_uri) throws PublishingError {
+        base(ENDPOINT_URL, USER_AGENT);
+        
         // the raw uri is percent-encoded, so decode it
         string decoded_uri = Soup.URI.decode(good_login_uri);
 
         // locate the session object description string within the decoded uri
         string session_desc = decoded_uri.str("session={");
         if (session_desc == null)
-            throw new PublishingError.COMMUNICATION("server redirect URL contained no " +
+            throw new PublishingError.MALFORMED_RESPONSE("server redirect URL contained no " +
                 "session description");
 
         // remove any trailing parameters from the session description string
@@ -405,17 +403,18 @@ public class Session : RESTSession {
         }
 
         if (session_key == null)
-            throw new PublishingError.COMMUNICATION("session description object has " +
+            throw new PublishingError.MALFORMED_RESPONSE("session description object has " +
                 "no session key");
         if (uid == null)
-            throw new PublishingError.COMMUNICATION("session description object has no user id");
+            throw new PublishingError.MALFORMED_RESPONSE("session description object has no user id");
         if (secret == null)
-            throw new PublishingError.COMMUNICATION("session description object has no session secret");
+            throw new PublishingError.MALFORMED_RESPONSE("session description object has no session secret");
 
         api_key = creator_api_key;
-
-        session_connection = new Soup.SessionSync();
-        session_connection.user_agent = USER_AGENT;
+    }
+    
+    public static void test() throws PublishingError {
+        RESTSession.test_endpoint(ENDPOINT_URL, USER_AGENT);
     }
 
     public string to_string() {
@@ -450,10 +449,6 @@ public class Session : RESTSession {
         return API_VERSION;
     }
     
-    public Soup.Session get_connection() {
-        return session_connection;
-    }
-
     public string get_user_name() throws PublishingError {
         if (user_name == null) {
             FacebookTransaction user_info_transaction = (FacebookTransaction) create_transaction();
@@ -551,6 +546,10 @@ public class Interactor : ServiceInteractor {
     public Interactor(PublishingDialog host) {
         base(host);
     }
+    
+    public override string get_name() {
+        return "Facebook";
+    }
 
     public override void start_interaction() throws PublishingError {
         get_host().set_standard_window_mode();
@@ -567,15 +566,10 @@ public class Interactor : ServiceInteractor {
             get_host().install_pane(upload_pane);
             get_host().set_cancel_button_mode();
 
-            try {
-                upload_pane.run_interaction();
-            } catch (PublishingError e) {
-                get_host().on_error(SERVICE_ERROR_MESSAGE);
-                return;
-            }
+            upload_pane.run_interaction();
         } else {
             if (FacebookConnector.LoginShell.get_is_cache_dirty()) {
-                get_host().on_error(RESTART_ERROR_MESSAGE);
+                get_host().on_error_message(RESTART_ERROR_MESSAGE);
             } else {
                 LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
                 not_logged_in_pane.login_requested += on_login_requested;
@@ -589,15 +583,11 @@ public class Interactor : ServiceInteractor {
         user_cancelled = true;
     }
 
-    public override string get_service_error_message() {
-        return SERVICE_ERROR_MESSAGE;
-    }
-
     private void on_logout() {
         FacebookConnector.invalidate_persistent_session();
 
         if (FacebookConnector.LoginShell.get_is_cache_dirty()) {
-            get_host().on_error(RESTART_ERROR_MESSAGE);
+            get_host().on_error_message(RESTART_ERROR_MESSAGE);
         } else {
             LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
             not_logged_in_pane.login_requested += on_login_requested;
@@ -613,8 +603,14 @@ public class Interactor : ServiceInteractor {
             target_album_name);
         get_host().install_pane(action_pane);
         get_host().set_cancel_button_mode();
-
-        action_pane.upload();
+        
+        try {
+            action_pane.upload();
+        } catch (PublishingError err) {
+            get_host().on_error(err);
+            
+            return;
+        }
 
         if (user_cancelled)
             return;
@@ -626,8 +622,13 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_login_requested() {
-        if (!get_is_connection_alive()) {
-            get_host().on_error(SERVICE_ERROR_MESSAGE);
+        // test that connectivity with the endpoint is available before throwing up the WebKit
+        // control, which will display an ugly error message in the pane
+        try {
+            Session.test();
+        } catch (PublishingError err) {
+            get_host().on_error(err);
+            
             return;
         }
 
@@ -649,19 +650,19 @@ public class Interactor : ServiceInteractor {
         get_host().set_cancel_button_mode();
     }
 
-    private void on_login_error() {
-        get_host().on_error(SERVICE_ERROR_MESSAGE);
+    private void on_login_error(PublishingError e) {
+        get_host().on_error(e);
     }
 
     private void on_login_success(Session login_session) {
         session = login_session;
         // retrieving the username associated with a session requires a network round-trip, so
-        // PublishingError.COMMUNICATION errors are possible
+        // PublishingError errors are possible
         string username = null;
         try {
             username = login_session.get_user_name();
         } catch (PublishingError e) {
-            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            get_host().on_error(e);
             return;
         }
 
@@ -681,7 +682,7 @@ public class Interactor : ServiceInteractor {
         try {
             upload_pane.run_interaction();
         } catch (PublishingError e) {
-            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            get_host().on_error(e);
         }
     }
 }
@@ -709,7 +710,8 @@ class FacebookUploadActionPane : UploadActionPane {
         }
     }
 
-    protected override void upload_file(UploadActionPane.TemporaryFileDescriptor file) {
+    protected override void upload_file(UploadActionPane.TemporaryFileDescriptor file) 
+        throws PublishingError {
         if (aid == null) {
             aid_fetch_failed = false;
             aid = fetch_aid();
@@ -731,7 +733,7 @@ class FacebookUploadActionPane : UploadActionPane {
             albums = get_albums(session);
         } catch (PublishingError e) {
             get_host().unlock_service();
-            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            get_host().on_error(e);
 
             aid_fetch_failed = true;
             return "";
@@ -747,7 +749,7 @@ class FacebookUploadActionPane : UploadActionPane {
                 target_aid = create_album(session, target_album_name);
             } catch (PublishingError e) {
                 get_host().unlock_service();
-                get_host().on_error(SERVICE_ERROR_MESSAGE);
+                get_host().on_error(e);
 
                 aid_fetch_failed = true;
                 return "";
@@ -756,15 +758,6 @@ class FacebookUploadActionPane : UploadActionPane {
 
         return target_aid;
     }
-}
-
-
-bool get_is_connection_alive() {
-    Soup.Session test_connection = new Soup.SessionSync();
-    test_connection.user_agent = USER_AGENT;
-    Soup.Message test_req = new Soup.Message("GET", "http://api.facebook.com/restserver.php");
-    test_connection.send_message(test_req);
-    return (test_req.response_body.data != null);
 }
 
 }

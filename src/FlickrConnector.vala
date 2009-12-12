@@ -9,9 +9,10 @@
 namespace FlickrConnector {
 
 private const int ORIGINAL_SIZE = -1;
-private const string SERVICE_ERROR_MESSAGE = _("Publishing to Flickr can't continue because an error occurred.\n\nTo try publishing to another service, select one from the menu above.");
-private const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged in to Flickr.\n\nYou must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account.");
-private const string RESTART_ERROR_MESSAGE = _("You have already logged in and out of Flickr during this Shotwell session.\nTo continue publishing to Flickr, quit and restart Shotwell, then try publishing again.");
+private const string SERVICE_WELCOME_MESSAGE = 
+    _("You are not currently logged in to Flickr.\n\nYou must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account.");
+private const string RESTART_ERROR_MESSAGE = 
+    _("You have already logged in and out of Flickr during this Shotwell session.\nTo continue publishing to Flickr, quit and restart Shotwell, then try publishing again.");
 
 public enum UserKind {
     PRO,
@@ -163,17 +164,17 @@ public class Interactor : ServiceInteractor {
             session = new FlickrSession();
         }
     }
+    
+    public override string get_name() {
+        return "Flickr";
+    }
 
     public override void start_interaction() throws PublishingError {
         if (is_persistent_session_valid()) {
             UserKind user_kind;
             int free_kb;
-            try {
-                get_upload_info(session, out user_kind, out free_kb);
-            } catch (PublishingError e) {
-                get_host().on_error(SERVICE_ERROR_MESSAGE);
-                return;
-            }
+            
+            get_upload_info(session, out user_kind, out free_kb);
 
             UploadPane upload_pane = new UploadPane(this, session.get_username(), user_kind,
                 free_kb);
@@ -181,8 +182,7 @@ public class Interactor : ServiceInteractor {
             get_host().set_cancel_button_mode();
         } else {
             if (LoginShell.get_is_cache_dirty()) {
-                get_host().on_error(RESTART_ERROR_MESSAGE);
-                get_host().set_close_button_mode();
+                get_host().on_error_message(RESTART_ERROR_MESSAGE);
             } else {
                 LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
                 not_logged_in_pane.login_requested += on_login_requested;
@@ -192,10 +192,6 @@ public class Interactor : ServiceInteractor {
         }
     }
 
-    public override string get_service_error_message() {
-        return SERVICE_ERROR_MESSAGE;
-    }
-    
     public override void cancel_interaction() {
         if (action_pane != null)
             action_pane.cancel_upload();
@@ -205,7 +201,7 @@ public class Interactor : ServiceInteractor {
         try {
             create_login_info(session, out login_frob, out login_url);
         } catch (PublishingError e) {
-            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            get_host().on_error(e);
             return;
         }
 
@@ -244,7 +240,7 @@ public class Interactor : ServiceInteractor {
         try {
             get_upload_info(session, out user_kind, out free_kb);
         } catch (PublishingError e) {
-            get_host().on_error(SERVICE_ERROR_MESSAGE);
+            get_host().on_error(e);
             return;
         }
 
@@ -256,7 +252,7 @@ public class Interactor : ServiceInteractor {
         invalidate_persistent_session();
 
         if (LoginShell.get_is_cache_dirty()) {
-            get_host().on_error(RESTART_ERROR_MESSAGE);
+            get_host().on_error_message(RESTART_ERROR_MESSAGE);
         } else {
                 LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
                 not_logged_in_pane.login_requested += on_login_requested;
@@ -265,8 +261,8 @@ public class Interactor : ServiceInteractor {
         }
     }
 
-    public void notify_error() {
-        get_host().on_error(SERVICE_ERROR_MESSAGE);
+    public void notify_error(PublishingError e) {
+        get_host().on_error(e);
     }
 
     public void notify_publish(int major_axis_size, VisibilitySpecification vis_spec) {
@@ -276,7 +272,13 @@ public class Interactor : ServiceInteractor {
         get_host().install_pane(action_pane);
         get_host().set_cancel_button_mode();
 
-        action_pane.upload();
+        try {
+            action_pane.upload();
+        } catch (PublishingError err) {
+            get_host().on_error(err);
+            
+            return;
+        }
 
         if (user_cancelled)
             return;
@@ -316,7 +318,8 @@ class FlickrUploadActionPane : UploadActionPane {
         }
     }
 
-    protected override void upload_file(UploadActionPane.TemporaryFileDescriptor file) {
+    protected override void upload_file(UploadActionPane.TemporaryFileDescriptor file) 
+        throws PublishingError {
         FlickrUploadTransaction upload_req = new FlickrUploadTransaction(session,
             file.temp_file.get_path(), vis_spec, file.source_photo);
         upload_req.chunk_transmitted += on_chunk_transmitted;
@@ -522,8 +525,8 @@ public void create_login_info(FlickrSession session, out string out_frob,
     string frob = frob_node->get_content();
 
     if (frob == null)
-        throw new PublishingError.BAD_XML("can't create login info: got a bad XML " +
-            "reponse to frob request");
+        throw new PublishingError.MALFORMED_RESPONSE("can't create login info: got a bad XML " +
+            "response to frob request");
 
     string hash_string = session.get_api_secret() + "api_key%s".printf(session.get_api_key()) +
         "frob%s".printf(frob) + "permswrite";
@@ -595,7 +598,7 @@ public void get_upload_info(FlickrSession session, out UserKind user_kind, out i
     else if (is_pro_str == "1")
         user_kind = UserKind.PRO;
     else
-        throw new PublishingError.BAD_XML("can't get upload info: can't determine if user " +
+        throw new PublishingError.MALFORMED_RESPONSE("can't get upload info: can't determine if user " +
             "is free or pro");
     quota_kb_left = remaining_kb_str.to_int();
 }
@@ -647,8 +650,11 @@ public class LoginShell : PublishingDialogPane {
             got_auth_info = get_auth_info(parent_interactor.get_session(),
                 parent_interactor.get_login_frob(), out token, out username);
         } catch (PublishingError e) {
-            parent_interactor.notify_error();
+            parent_interactor.notify_error(e);
+            
+            return;
         }
+        
         if (got_auth_info) {
             is_cache_dirty = true;
             parent_interactor.notify_login_completed(token, username);

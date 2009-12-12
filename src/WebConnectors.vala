@@ -7,17 +7,38 @@
 #if !NO_PUBLISHING
 
 public errordomain PublishingError {
-    COMMUNICATION,
-    BAD_XML
+    NO_ANSWER,
+    COMMUNICATION_FAILED,
+    PROTOCOL_ERROR,
+    SERVICE_ERROR,
+    MALFORMED_RESPONSE
 }
 
 public abstract class RESTSession {
     private string endpoint_url = null;
     private Soup.Session network_session = null;
     
-    public RESTSession(string creator_endpoint_url) {
+    public RESTSession(string creator_endpoint_url, string? user_agent = null) {
         endpoint_url = creator_endpoint_url;
         network_session = new Soup.SessionSync();
+        if (user_agent != null)
+            network_session.user_agent = user_agent;
+    }
+    
+    private static void check_response(Soup.Message message, string endpoint) throws PublishingError {
+        if (message.response_body.data == null || message.response_body.data.length == 0)
+            throw new PublishingError.COMMUNICATION_FAILED("Failure communicating with %s".printf(endpoint));
+    }
+    
+    public static void test_endpoint(string endpoint_url, string? user_agent) throws PublishingError {
+        Soup.Session test_session = new Soup.SessionSync();
+        if (user_agent != null)
+            test_session.user_agent = user_agent;
+        
+        Soup.Message test_message = new Soup.Message("GET", endpoint_url);
+        test_session.send_message(test_message);
+        
+        check_response(test_message, endpoint_url);
     }
     
     public string get_endpoint_url() {
@@ -26,8 +47,10 @@ public abstract class RESTSession {
     
     public abstract RESTTransaction create_transaction();
     
-    public Soup.Session get_network_session() {
-        return network_session;
+    public void send_message(Soup.Message message) throws PublishingError {
+        network_session.send_message(message);
+        
+        check_response(message, endpoint_url);
     }
 }
 
@@ -109,7 +132,7 @@ public abstract class RESTTransaction {
         return is_executed;
     }
     
-    public virtual void execute() {
+    public virtual void execute() throws PublishingError {
         sign();
         
         // before they can be executed, requests must be signed and must contain at least one
@@ -129,9 +152,9 @@ public abstract class RESTTransaction {
         Soup.Message post_req = new Soup.Message("POST", parent_session.get_endpoint_url());
         post_req.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
             formdata_string, formdata_string.length);
-        parent_session.get_network_session().send_message(post_req);
+        parent_session.send_message(post_req);
         response = post_req.response_body.data;
-
+        
         is_executed = true;
     }
     
@@ -171,7 +194,7 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
         binary_disposition_table = create_default_binary_disposition_table();
     }
 
-    public override void execute() {
+    public override void execute() throws PublishingError {
         sign();
 
         // before they can be executed, requests must be signed and must contain at least one
@@ -227,7 +250,7 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
         outbound_message.wrote_body_data += on_wrote_body_data;
         in_transmission = outbound_message;
         in_transmission_bytes_written = 0;
-        get_parent_session().get_network_session().send_message(outbound_message);
+        get_parent_session().send_message(outbound_message);
         in_transmission = null;
         outbound_message.wrote_body_data -= on_wrote_body_data;
         set_response(outbound_message.response_body.data);
@@ -364,7 +387,7 @@ public abstract class UploadActionPane : ProgressPane {
     private bool user_cancelled = false;
     private PublishingDialog host;
 
-    public struct TemporaryFileDescriptor {        
+    public struct TemporaryFileDescriptor {
         public File temp_file;
         public TransformablePhoto source_photo;
 
@@ -384,19 +407,48 @@ public abstract class UploadActionPane : ProgressPane {
         this.host = host;
     }
 
-    public void upload() {
-        File temp_dir = AppDirs.get_temp_dir();
+    public void upload() throws PublishingError {
         set_status_text(_("Preparing photos for upload"));
-
         spin_event_loop();
 
         num_files = host.get_target_collection_size();
-
+        
+        TemporaryFileDescriptor[] temp_files = prepare_files();
+        
+        PublishingError err = null;
+        try {
+            if (!user_cancelled && temp_files.length > 0)
+                send_files(temp_files);
+        } catch (PublishingError e) {
+            err = e;
+        } finally {
+            foreach (TemporaryFileDescriptor temp in temp_files) {
+                try {
+                    debug("Deleting temp %s", temp.temp_file.get_path());
+                    temp.temp_file.delete(null);
+                } catch (Error e) {
+                    // if deleting temporary files generates an exception, just print a warning
+                    // message -- temp directory clean-up will be done on launch or at exit or
+                    // both
+                    warning("UploadActionPane: deleting temporary files failed.");
+                }
+            }
+        }
+        
+        // Have to do it this way because Vala currently doesn't handle try...finally well right
+        // now, the finally block is executed but the exception is not propagated upwards
+        if (err != null)
+            throw err;
+    }
+    
+    private TemporaryFileDescriptor[] prepare_files() {
+        File temp_dir = AppDirs.get_temp_dir();
+        
         current_file_num = 0;
         TemporaryFileDescriptor[] temp_files = new TemporaryFileDescriptor[0];
         foreach (DataView view in host.get_target_collection()) {
             if (user_cancelled) {
-                return;
+                break;
             }
 
             TransformablePhoto photo = (TransformablePhoto) view.get_source();
@@ -416,7 +468,11 @@ public abstract class UploadActionPane : ProgressPane {
 
             spin_event_loop();
         }
-
+        
+        return temp_files;
+    }
+    
+    private void send_files(TemporaryFileDescriptor[] temp_files) throws PublishingError {
         current_file_num = 0;
         foreach (TemporaryFileDescriptor current_descriptor in temp_files) {
             if (user_cancelled) {
@@ -426,24 +482,16 @@ public abstract class UploadActionPane : ProgressPane {
             set_status_text(_("Uploading photo %d of %d").printf(current_file_num + 1,
                 num_files));
             spin_event_loop();
-
+            
             upload_file(current_descriptor);
-
-            try {
-                current_descriptor.temp_file.delete(null);
-            } catch (Error e) {
-                // if deleting temporary files generates an exception, just print a warning
-                // message -- temp directory clean-up will be done on launch or at exit or
-                // both
-                warning("UploadActionPane: deleting temporary files failed.");
-            }
-
+            
             current_file_num++;
         }
     }
 
     protected abstract void prepare_file(TemporaryFileDescriptor file);
-    protected abstract void upload_file(TemporaryFileDescriptor file);
+    
+    protected abstract void upload_file(TemporaryFileDescriptor file) throws PublishingError;
 
     protected void on_chunk_transmitted(int transmitted_bytes, int total_bytes) {
         if (!user_cancelled) {
@@ -467,13 +515,6 @@ public abstract class UploadActionPane : ProgressPane {
 
     public bool get_user_cancelled() {
         return user_cancelled;
-    }
-}
-
-public class ErrorPane : PublishingDialogPane {
-    public ErrorPane() {
-        Gtk.Label error_label = new Gtk.Label(_("Publishing can't continue because a communication error occurred.\nMake sure your Internet connection is working."));
-        add(error_label);
     }
 }
 
@@ -553,7 +594,7 @@ public class PublishingDialog : Gtk.Dialog {
         try {
             interactor.start_interaction();
         } catch (PublishingError e) {
-            on_error(interactor.get_service_error_message());
+            on_error(e);
         }
     }
 
@@ -610,11 +651,41 @@ public class PublishingDialog : Gtk.Dialog {
         return true;
     }
 
-    public void on_error(string error_message) {
-        install_pane(new StaticMessagePane(error_message));      
-        set_close_button_mode();
+    public void on_error(PublishingError err) {
+        string name = interactor.get_name();
+        
+        debug("%s publishing error: %s", name, err.message);
+        
+        string msg = null;
+        if (err is PublishingError.NO_ANSWER) {
+            msg = _("Publishing to %s can't continue because the service could not be contacted.").printf(
+                name);
+        } else if (err is PublishingError.COMMUNICATION_FAILED) {
+            msg = _("Publishing to %s can't continue because communication with the service failed.").printf(
+                name);
+        } else if (err is PublishingError.PROTOCOL_ERROR) {
+            msg = _("Publishing to %s can't continue due to a protocol error.").printf(name);
+        } else if (err is PublishingError.SERVICE_ERROR) {
+            msg = _("Publishing to %s can't continue because the service returned an error.").printf(name);
+        } else if (err is PublishingError.MALFORMED_RESPONSE) {
+            msg = _("Publishing to %s can't continue because the service returned a bad response.").printf(
+                name);
+        } else {
+            msg = _("Publishing to %s can't continue because an error occurred.").printf(name);
+        }
+        
+        msg += "\n\n";
+        msg += _("To try publishing to another service, select one from the above menu.");
+        
+        on_error_message(msg);
     }
-
+    
+    public void on_error_message(string msg) {
+        install_pane(new StaticMessagePane(msg));
+        set_close_button_mode();
+        unlock_service();
+    }
+    
     public void on_success() {
         install_pane(new SuccessPane());
         set_close_button_mode();
@@ -627,7 +698,7 @@ public class PublishingDialog : Gtk.Dialog {
         try {
             interactor.start_interaction();
         } catch (PublishingError e) {
-            on_error(interactor.get_service_error_message());
+            on_error(e);
         }
     }
     
@@ -655,9 +726,11 @@ public abstract class ServiceInteractor {
         return host;
     }
     
+    public abstract string get_name();
+    
     public abstract void start_interaction() throws PublishingError;
+    
     public abstract void cancel_interaction();
-    public abstract string get_service_error_message();
 }
 
 // TODO: in the future, when we support an arbitrary number of services potentially
@@ -724,28 +797,30 @@ public class RESTXmlDocument {
                 return doc_node_iter;
         }
 
-        throw new PublishingError.BAD_XML("RESTXmlDocument: can't get named child: named child " +
+        throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't get named child: named child " +
             "node doesn't exist");
     }
 
     public string get_property_value(Xml.Node* node, string property_key) throws PublishingError {  
         string value_string = node->get_prop(property_key);
         if (value_string == null)
-            throw new PublishingError.BAD_XML("RESTXmlDocument: can't get property: named " +
+            throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't get property: named " +
                 "property doesn't exist");
 
         return value_string;
     }
 
     public static RESTXmlDocument parse_string(string? input_string) throws PublishingError {
-        if (input_string == null)
-            throw new PublishingError.BAD_XML("RESTXmlDocument: can't parse input string: " +
+        if (input_string == null || input_string.length == 0)
+            throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't parse input string: " +
                 "input string is null");
-
+        
+        // Don't want blanks to be included as text nodes, and want the XML parser to tolerate
+        // tolerable XML
         Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.length, null, null,
-            Xml.ParserOption.NOBLANKS);
+            Xml.ParserOption.NOBLANKS | Xml.ParserOption.RECOVER);
         if (doc == null) {
-            throw new PublishingError.BAD_XML("RESTXmlDocument: can't parse input string");
+            throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't parse input string");
         }
 
         return new RESTXmlDocument(doc);
