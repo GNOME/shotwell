@@ -392,10 +392,12 @@ class UploadPane : PublishingDialogPane {
         combos_right_padding.set_draw(false);
         Gtk.Table combos_layouter = new Gtk.Table(2, 2, false);
         combos_layouter.set_row_spacing(0, 12);
-        Gtk.Label visibility_label = new Gtk.Label(_("Photos visible to:"));
-        Gtk.Label size_label = new Gtk.Label(_("Photo size:"));
+        Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(_("Photos _visible to:"));
+        Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size:"));
         visibility_combo = create_visibility_combo();
+        visibility_label.set_mnemonic_widget(visibility_combo);
         size_combo = create_size_combo();
+        size_label.set_mnemonic_widget(size_combo);
         size_combo.changed += on_size_changed;
         Gtk.Alignment vis_label_aligner = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
         vis_label_aligner.add(visibility_label);
@@ -415,9 +417,9 @@ class UploadPane : PublishingDialogPane {
         add(combos_buttons_spacer);
         combos_buttons_spacer.set_size_request(-1, 32);
 
-        logout_button = new Gtk.Button.with_label(_("Logout"));
+        logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked += on_logout_clicked;
-        publish_button = new Gtk.Button.with_label(_("Publish"));
+        publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked += on_publish_clicked;
         Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
         Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
@@ -493,14 +495,14 @@ class UploadPane : PublishingDialogPane {
             result.append_text(e.title);
 
         Config config = Config.get_instance();
-        result.set_active(config.get_flickr_default_size());
+        result.set_active(config.get_flickr_default_size() - 1);
 
         return result;
     }
 
     private void on_size_changed() {
         Config config = Config.get_instance();
-        config.set_flickr_default_size(size_combo.get_active());
+        config.set_flickr_default_size(size_combo.get_active() + 1);
     }
 }
 

@@ -165,7 +165,15 @@ public class Config {
     }
 
     public int get_flickr_default_size() {
-        return get_int("/apps/shotwell/sharing/flickr/default_size", 1);
+        return get_int("/apps/shotwell/sharing/flickr/default_size", 2);
+    }
+
+    public bool set_flickr_visbility(int viscode) {
+        return set_int("/apps/shotwell/sharing/flickr/visibility", viscode);
+    }
+
+    public int get_flickr_visibility() {
+        return get_int("/apps/shotwell/sharing/flickr/visibility", 1);
     }
 
     public bool clear_facebook_session_key() {

@@ -51,12 +51,12 @@ class UploadPane : PublishingDialogPane {
 
         Gtk.VBox album_mode_layouter = new Gtk.VBox(false, 8);
         album_mode_layouter.set_border_width(44);
-        use_existing_radio = new Gtk.RadioButton.with_label(null,
-            _("Publish to an existing album:"));
-        use_existing_radio.toggled += on_use_existing_toggled;
-        create_new_radio = new Gtk.RadioButton.with_label(use_existing_radio.get_group(),
-            _("Create a new album named:"));
-        create_new_radio.toggled += on_create_new_toggled;
+        use_existing_radio = new Gtk.RadioButton.with_mnemonic(null,
+            _("Publish to an e_xisting album:"));
+        use_existing_radio.clicked += on_use_existing_toggled;
+        create_new_radio = new Gtk.RadioButton.with_mnemonic(use_existing_radio.get_group(),
+            _("Create a _new album named:"));
+        create_new_radio.clicked += on_create_new_toggled;
 
         Gtk.HBox use_existing_layouter = new Gtk.HBox(false, 8);
         use_existing_layouter.add(use_existing_radio);
@@ -70,9 +70,9 @@ class UploadPane : PublishingDialogPane {
         create_new_layouter.add(new_album_entry);
         new_album_entry.set_size_request(142, -1);
 
-        publish_button = new Gtk.Button.with_label(_("Publish"));
+        publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked += on_publish_button_clicked;
-        logout_button = new Gtk.Button.with_label(_("Logout"));
+        logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked += on_logout_button_clicked;
         Gtk.HBox buttons_layouter = new Gtk.HBox(false, 8);
         Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
@@ -142,6 +142,7 @@ class UploadPane : PublishingDialogPane {
         if (use_existing_radio.active) {
             existing_albums_combo.set_sensitive(true);
             new_album_entry.set_sensitive(false);
+            existing_albums_combo.grab_focus();            
         }
     }
     
@@ -149,7 +150,7 @@ class UploadPane : PublishingDialogPane {
         if (create_new_radio.active) {
             existing_albums_combo.set_sensitive(false);
             new_album_entry.set_sensitive(true);
-            PublishingDialog.get_active_instance().set_focus(new_album_entry);
+            new_album_entry.grab_focus();
         }
     }
     

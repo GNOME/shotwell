@@ -293,7 +293,7 @@ public class LoginWelcomePane : PublishingDialogPane {
         not_logged_in_label.set_line_wrap(true);
         not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, -1);
 
-        login_button = new Gtk.Button();
+        login_button = new Gtk.Button.with_mnemonic(_("_Login"));
         Gtk.HBox login_button_layouter = new Gtk.HBox(false, 8);
         Gtk.SeparatorToolItem login_button_left_padding = new Gtk.SeparatorToolItem();
         login_button_left_padding.set_draw(false);
@@ -304,7 +304,6 @@ public class LoginWelcomePane : PublishingDialogPane {
         login_button_layouter.add(login_button);
         login_button_layouter.add(login_button_right_padding);
         login_button_right_padding.set_size_request(100, -1);
-        login_button.set_label(_("Login"));
         login_button.clicked += on_login_clicked;
         add(login_button_layouter);
         add(bottom_space);
@@ -517,7 +516,8 @@ public class PublishingDialog : Gtk.Dialog {
 
         service_selector_box = new Gtk.ComboBox.text();
         service_selector_box.set_active(0);
-        service_selector_box_label = new Gtk.Label(_("Publish photos to:"));
+        service_selector_box_label = new Gtk.Label.with_mnemonic(_("Publish photos _to:"));
+        service_selector_box_label.set_mnemonic_widget(service_selector_box);
         service_selector_box_label.set_alignment(0.0f, 0.5f);
         
         foreach (string service_name in ServiceFactory.get_instance().get_manifest())
@@ -540,8 +540,7 @@ public class PublishingDialog : Gtk.Dialog {
         central_area_layouter.show_all();
         service_central_separator.show_all();
         
-        close_cancel_button = new Gtk.Button();
-        close_cancel_button.set_label(_("Cancel"));
+        close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
         close_cancel_button.clicked += on_close_cancel_clicked;
         action_area.add(close_cancel_button);
         close_cancel_button.show_all();
@@ -581,11 +580,11 @@ public class PublishingDialog : Gtk.Dialog {
     }
 
     public void set_close_button_mode() {
-        close_cancel_button.set_label(_("Close"));
+        close_cancel_button.set_label(_("_Close"));
     }
 
     public void set_cancel_button_mode() {
-        close_cancel_button.set_label(_("Cancel"));
+        close_cancel_button.set_label(_("_Cancel"));
     }
 
     public void lock_service() {
