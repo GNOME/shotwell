@@ -150,8 +150,8 @@ public abstract class CollectionPage : CheckerboardPage {
 #if !NO_PUBLISHING
         // publish button
         publish_button = new Gtk.ToolButton.from_stock(Resources.PUBLISH);
-        publish_button.set_label(_("Publish"));
-        publish_button.set_tooltip_text(_("Publish the selected photos to various websites"));
+        publish_button.set_label(Resources.PUBLISH_LABEL);
+        publish_button.set_tooltip_text(Resources.PUBLISH_TOOLTIP);
         publish_button.set_sensitive(false);
         publish_button.is_important = true;
         publish_button.clicked += on_publish;
@@ -202,6 +202,12 @@ public abstract class CollectionPage : CheckerboardPage {
         export.label = _("_Export Photos...");
         export.tooltip = _("Export selected photos to disk");
         actions += export;
+
+        Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
+            TRANSLATABLE, on_publish };
+        publish.label = Resources.PUBLISH_MENU;
+        publish.tooltip = Resources.PUBLISH_LABEL;
+        actions += publish;
 
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
@@ -614,7 +620,10 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_file_menu() {
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", get_view().get_selected_count() > 0);
+        bool sensitivity = get_view().get_selected_count() > 0;
+
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", sensitivity);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Publish", sensitivity);
     }
     
     private void on_export() {

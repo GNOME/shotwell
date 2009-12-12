@@ -146,6 +146,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DUPLICATE_PHOTO_LABEL = _("Duplicate");
     public const string DUPLICATE_PHOTO_TOOLTIP = _("Make a duplicate of the photo");
 
+    public const string PUBLISH_MENU = _("_Publish Photos...");
+    public const string PUBLISH_LABEL = _("Publish");
+    public const string PUBLISH_TOOLTIP = _("Publish the selected photos to various websites");
+
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     

@@ -396,6 +396,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         set_keep_above(true);
         set_title(_("Extended Information"));
         set_size_request(300,-1);
+        set_default_size(520, -1);
         set_position(Gtk.WindowPosition.CENTER);
 
         delete_event += hide_on_delete;
