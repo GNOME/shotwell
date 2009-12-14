@@ -177,6 +177,29 @@ public struct Album {
     }
 }
 
+private string? check_for_error_response(RESTXmlDocument doc) {
+    Xml.Node* root = doc.get_root_node();
+    if (root->name != "error_response")
+        return null;
+    
+    Xml.Node* error_code = null;
+    try {
+        error_code = doc.get_named_child(root, "error_code");
+    } catch (PublishingError err) {
+        warning("Unable to parse error response for error code");
+    }
+    
+    Xml.Node* error_msg = null;
+    try {
+        error_msg = doc.get_named_child(root, "error_msg");
+    } catch (PublishingError err) {
+        warning("Unable to parse error response for error message");
+    }
+    
+    return "%s (%s)".printf(error_msg != null ? error_msg->get_content() : "(unknown)",
+        error_code != null ? error_code->get_content() : "(unknown)");
+}
+
 private Album[] get_albums(Session session) throws PublishingError {
     Album[] result = new Album[0];
 
@@ -185,7 +208,8 @@ private Album[] get_albums(Session session) throws PublishingError {
 
     albums_transaction.execute();
 
-    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(albums_transaction.get_response());
+    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(albums_transaction.get_response(),
+        check_for_error_response);
 
     Xml.Node* root = response_doc.get_root_node();
 
@@ -206,19 +230,16 @@ private Album[] get_albums(Session session) throws PublishingError {
         }
 
         if (name_val == null)
-            throw new PublishingError.MALFORMED_RESPONSE("can't get albums: XML document contains " +
-                "an <album> entity without a <name> child");
+            throw new PublishingError.MALFORMED_RESPONSE("No album name in document");
 
         if (aid_val == null) 
-            throw new PublishingError.MALFORMED_RESPONSE("can't get albums: XML document contains " +
-                "an <album> entity without an <aid> child");
+            throw new PublishingError.MALFORMED_RESPONSE("No album ID in document");
 
         result += Album(name_val, aid_val);
     }
     
     if (result.length == 0)
-        throw new PublishingError.MALFORMED_RESPONSE("can't get albums: failed to get at least one " +
-            "valid album");
+        throw new PublishingError.MALFORMED_RESPONSE("No albums found");
 
     return result;
 }
@@ -241,8 +262,8 @@ public string create_album(Session session, string album_name) throws Publishing
 
     creation_transaction.execute();
 
-    RESTXmlDocument response_doc =
-        RESTXmlDocument.parse_string(creation_transaction.get_response());
+    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(creation_transaction.get_response(),
+        check_for_error_response);
 
     Xml.Node* root = response_doc.get_root_node();
     Xml.Node* aid_node = response_doc.get_named_child(root, "aid");
@@ -372,8 +393,7 @@ public class Session : RESTSession {
         // locate the session object description string within the decoded uri
         string session_desc = decoded_uri.str("session={");
         if (session_desc == null)
-            throw new PublishingError.MALFORMED_RESPONSE("server redirect URL contained no " +
-                "session description");
+            throw new PublishingError.MALFORMED_RESPONSE("Server redirect URL contained no session description");
 
         // remove any trailing parameters from the session description string
         string trailing_params = session_desc.chr(-1, '&');
@@ -403,12 +423,11 @@ public class Session : RESTSession {
         }
 
         if (session_key == null)
-            throw new PublishingError.MALFORMED_RESPONSE("session description object has " +
-                "no session key");
+            throw new PublishingError.MALFORMED_RESPONSE("Session description object has no session key");
         if (uid == null)
-            throw new PublishingError.MALFORMED_RESPONSE("session description object has no user id");
+            throw new PublishingError.MALFORMED_RESPONSE("Session description object has no user ID");
         if (secret == null)
-            throw new PublishingError.MALFORMED_RESPONSE("session description object has no session secret");
+            throw new PublishingError.MALFORMED_RESPONSE("Session description object has no session secret");
 
         api_key = creator_api_key;
     }
@@ -458,8 +477,8 @@ public class Session : RESTSession {
             
             user_info_transaction.execute();
         
-            RESTXmlDocument response_doc =
-                RESTXmlDocument.parse_string(user_info_transaction.get_response());
+            RESTXmlDocument response_doc = RESTXmlDocument.parse_string(
+                user_info_transaction.get_response(), check_for_error_response);
 
             Xml.Node* root_node = response_doc.get_root_node();
             Xml.Node* user_node = response_doc.get_named_child(root_node, "user");

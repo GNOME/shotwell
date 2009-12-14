@@ -26,8 +26,37 @@ public abstract class RESTSession {
     }
     
     private static void check_response(Soup.Message message, string endpoint) throws PublishingError {
+        switch (message.status_code) {
+            case Soup.KnownStatusCode.OK:
+                // looks good -- but check response_body.data as well, see below
+            break;
+            
+            case Soup.KnownStatusCode.CANT_RESOLVE:
+            case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
+                throw new PublishingError.NO_ANSWER("Unable to resolve %s (%u)", endpoint,
+                    message.status_code);
+            
+            case Soup.KnownStatusCode.CANT_CONNECT:
+            case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
+                throw new PublishingError.NO_ANSWER("Unable to connect to %s (%u)", endpoint,
+                    message.status_code);
+            
+            default:
+                // status codes below 100 are used by Soup, 100 and above are defined HTTP codes
+                if (message.status_code >= 100) {
+                    throw new PublishingError.PROTOCOL_ERROR("Service %s returned HTTP status code %u %s",
+                        endpoint, message.status_code, message.reason_phrase);
+                } else {
+                    throw new PublishingError.COMMUNICATION_FAILED("Failure communicating with %s (%u)",
+                        endpoint, message.status_code);
+                }
+        }
+        
+        // All valid communication with the services involves body data in their response.  If there's
+        // ever a situation where the service might return a valid response with no body data, this
+        // code needs to be resolved.
         if (message.response_body.data == null || message.response_body.data.length == 0)
-            throw new PublishingError.COMMUNICATION_FAILED("Failure communicating with %s".printf(endpoint));
+            throw new PublishingError.MALFORMED_RESPONSE("No response data from %s", endpoint);
     }
     
     public static void test_endpoint(string endpoint_url, string? user_agent) throws PublishingError {
@@ -656,7 +685,7 @@ public class PublishingDialog : Gtk.Dialog {
     public void on_error(PublishingError err) {
         string name = interactor.get_name();
         
-        debug("%s publishing error: %s", name, err.message);
+        warning("%s publishing error: %s", name, err.message);
         
         string msg = null;
         if (err is PublishingError.NO_ANSWER) {
@@ -676,7 +705,7 @@ public class PublishingDialog : Gtk.Dialog {
             msg = _("Publishing to %s can't continue because an error occurred.").printf(name);
         }
         
-        msg += "\n\n";
+        msg += "\n%s\n\n".printf(err.message);
         msg += _("To try publishing to another service, select one from the above menu.");
         
         on_error_message(msg);
@@ -779,6 +808,11 @@ public class ServiceFactory {
 }
 
 public class RESTXmlDocument {
+    // Returns non-null string if an error condition is discovered in the XML (such as a well-known 
+    // node).  The string is used when generating a PublishingError exception.  This delegate does
+    // not need to check for general-case malformed XML.
+    public delegate string? CheckForErrorResponse(RESTXmlDocument doc);
+    
     private Xml.Doc* document;
 
     private RESTXmlDocument(Xml.Doc* doc) {
@@ -801,33 +835,37 @@ public class RESTXmlDocument {
                 return doc_node_iter;
         }
 
-        throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't get named child: named child " +
-            "node doesn't exist");
+        throw new PublishingError.MALFORMED_RESPONSE("Can't find XML node %s", child_name);
     }
 
     public string get_property_value(Xml.Node* node, string property_key) throws PublishingError {  
         string value_string = node->get_prop(property_key);
         if (value_string == null)
-            throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't get property: named " +
-                "property doesn't exist");
+            throw new PublishingError.MALFORMED_RESPONSE("Can't find XML property %s on node %s",
+                property_key, node->name);
 
         return value_string;
     }
 
-    public static RESTXmlDocument parse_string(string? input_string) throws PublishingError {
+    public static RESTXmlDocument parse_string(string? input_string, CheckForErrorResponse check_for_error_response) 
+        throws PublishingError {
         if (input_string == null || input_string.length == 0)
-            throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't parse input string: " +
-                "input string is null");
+            throw new PublishingError.MALFORMED_RESPONSE("Empty XML string");
         
         // Don't want blanks to be included as text nodes, and want the XML parser to tolerate
         // tolerable XML
         Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.length, null, null,
             Xml.ParserOption.NOBLANKS | Xml.ParserOption.RECOVER);
-        if (doc == null) {
-            throw new PublishingError.MALFORMED_RESPONSE("RESTXmlDocument: can't parse input string");
-        }
-
-        return new RESTXmlDocument(doc);
+        if (doc == null)
+            throw new PublishingError.MALFORMED_RESPONSE("Unable to parse XML document");
+        
+        RESTXmlDocument rest_doc = new RESTXmlDocument(doc);
+        
+        string? result = check_for_error_response(rest_doc);
+        if (result != null)
+            throw new PublishingError.SERVICE_ERROR("%s", result);
+        
+        return rest_doc;
     }
 }
 

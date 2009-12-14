@@ -516,6 +516,27 @@ class UploadPane : PublishingDialogPane {
     }
 }
 
+private string? check_for_error_response(RESTXmlDocument doc) {
+    Xml.Node* root = doc.get_root_node();
+    string? status = root->get_prop("stat");
+    
+    // treat malformed root as an error condition
+    if (status == null)
+        return "No status property in root node";
+    
+    if (status == "ok")
+        return null;
+    
+    Xml.Node* errcode;
+    try {
+        errcode = doc.get_named_child(root, "err");
+    } catch (PublishingError err) {
+        return "No error code specified";
+    }
+    
+    return "%s (%s)".printf(errcode->get_prop("msg"), errcode->get_prop("code"));
+}
+
 public void create_login_info(FlickrSession session, out string out_frob,
     out string out_login_url) throws PublishingError {
     RESTTransaction frob_transaction = session.create_transaction();
@@ -523,7 +544,8 @@ public void create_login_info(FlickrSession session, out string out_frob,
    
     frob_transaction.execute();
     
-    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(frob_transaction.get_response());
+    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(frob_transaction.get_response(),
+        check_for_error_response);
 
     Xml.Node* response_doc_root = response_doc.get_root_node();
 
@@ -554,15 +576,20 @@ public bool get_auth_info(FlickrSession session, string frob, out string? token,
 
     auth_transaction.execute();
 
-    RESTXmlDocument response_doc = RESTXmlDocument.parse_string(auth_transaction.get_response());
+    RESTXmlDocument response_doc = null;
+    try {
+        response_doc = RESTXmlDocument.parse_string(auth_transaction.get_response(),
+            check_for_error_response);
+    } catch (PublishingError err) {
+        // if this is a service error, return false, as that's what's being asked of this
+        // function
+        if (err is PublishingError.SERVICE_ERROR)
+            return false;
+        
+        throw err;
+    }
    
     Xml.Node* response_doc_root = response_doc.get_root_node();
-
-    // check to see if the request succeeded -- if it did, the "stat" property of the root node
-    // will have the value "ok"; if the request failed, the "stat" property will have the value
-    // "fail" -- if the request didn't succeed, then return false
-    if (response_doc.get_property_value(response_doc_root, "stat") == "fail")
-        return false;
 
     // search through the top-level child nodes looking for a node named '<auth>':
     // all authentication information is packaged within this node
@@ -589,7 +616,7 @@ public void get_upload_info(FlickrSession session, out UserKind user_kind, out i
     info_transaction.execute();
 
     RESTXmlDocument response_doc =
-        RESTXmlDocument.parse_string(info_transaction.get_response());
+        RESTXmlDocument.parse_string(info_transaction.get_response(), check_for_error_response);
     Xml.Node* root_node = response_doc.get_root_node();
 
     Xml.Node* user_node = response_doc.get_named_child(root_node, "user");
