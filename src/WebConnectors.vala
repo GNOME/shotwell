@@ -33,12 +33,12 @@ public abstract class RESTSession {
             
             case Soup.KnownStatusCode.CANT_RESOLVE:
             case Soup.KnownStatusCode.CANT_RESOLVE_PROXY:
-                throw new PublishingError.NO_ANSWER("Unable to resolve %s (%u)", endpoint,
+                throw new PublishingError.NO_ANSWER("Unable to resolve %s (error code %u)", endpoint,
                     message.status_code);
             
             case Soup.KnownStatusCode.CANT_CONNECT:
             case Soup.KnownStatusCode.CANT_CONNECT_PROXY:
-                throw new PublishingError.NO_ANSWER("Unable to connect to %s (%u)", endpoint,
+                throw new PublishingError.NO_ANSWER("Unable to connect to %s (error code %u)", endpoint,
                     message.status_code);
             
             default:
@@ -47,7 +47,7 @@ public abstract class RESTSession {
                     throw new PublishingError.PROTOCOL_ERROR("Service %s returned HTTP status code %u %s",
                         endpoint, message.status_code, message.reason_phrase);
                 } else {
-                    throw new PublishingError.COMMUNICATION_FAILED("Failure communicating with %s (%u)",
+                    throw new PublishingError.COMMUNICATION_FAILED("Failure communicating with %s (error code %u)",
                         endpoint, message.status_code);
                 }
         }
@@ -324,6 +324,13 @@ public class StaticMessagePane : PublishingDialogPane {
     public StaticMessagePane(string message_string) {
         Gtk.Label message_label = new Gtk.Label(message_string);
         add(message_label);
+    }
+    
+    public StaticMessagePane.with_pango(string msg) {
+        Gtk.Label label = new Gtk.Label(null);
+        label.set_markup(msg);
+        
+        add(label);
     }
 }
 
@@ -705,14 +712,20 @@ public class PublishingDialog : Gtk.Dialog {
             msg = _("Publishing to %s can't continue because an error occurred.").printf(name);
         }
         
-        msg += "\n%s\n\n".printf(err.message);
+        msg += "\n\n\t<i>%s</i>\n\n".printf(err.message);
         msg += _("To try publishing to another service, select one from the above menu.");
         
-        on_error_message(msg);
+        on_pango_error_message(msg);
     }
     
     public void on_error_message(string msg) {
         install_pane(new StaticMessagePane(msg));
+        set_close_button_mode();
+        unlock_service();
+    }
+    
+    public void on_pango_error_message(string msg) {
+        install_pane(new StaticMessagePane.with_pango(msg));
         set_close_button_mode();
         unlock_service();
     }

@@ -534,7 +534,7 @@ private string? check_for_error_response(RESTXmlDocument doc) {
         return "No error code specified";
     }
     
-    return "%s (%s)".printf(errcode->get_prop("msg"), errcode->get_prop("code"));
+    return "%s (error code %s)".printf(errcode->get_prop("msg"), errcode->get_prop("code"));
 }
 
 public void create_login_info(FlickrSession session, out string out_frob,
@@ -554,9 +554,8 @@ public void create_login_info(FlickrSession session, out string out_frob,
     string frob = frob_node->get_content();
 
     if (frob == null)
-        throw new PublishingError.MALFORMED_RESPONSE("can't create login info: got a bad XML " +
-            "response to frob request");
-
+        throw new PublishingError.MALFORMED_RESPONSE("No frob returned in request");
+        
     string hash_string = session.get_api_secret() + "api_key%s".printf(session.get_api_key()) +
         "frob%s".printf(frob) + "permswrite";
     string sig = Checksum.compute_for_string(ChecksumType.MD5, hash_string);
@@ -632,8 +631,8 @@ public void get_upload_info(FlickrSession session, out UserKind user_kind, out i
     else if (is_pro_str == "1")
         user_kind = UserKind.PRO;
     else
-        throw new PublishingError.MALFORMED_RESPONSE("can't get upload info: can't determine if user " +
-            "is free or pro");
+        throw new PublishingError.MALFORMED_RESPONSE("Unable to determine if user has free or pro account");
+    
     quota_kb_left = remaining_kb_str.to_int();
 }
 

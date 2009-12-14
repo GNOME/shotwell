@@ -196,7 +196,7 @@ private string? check_for_error_response(RESTXmlDocument doc) {
         warning("Unable to parse error response for error message");
     }
     
-    return "%s (%s)".printf(error_msg != null ? error_msg->get_content() : "(unknown)",
+    return "%s (error code %s)".printf(error_msg != null ? error_msg->get_content() : "(unknown)",
         error_code != null ? error_code->get_content() : "(unknown)");
 }
 
