@@ -118,6 +118,19 @@ class UploadPane : PublishingDialogPane {
             seq_num++;
         }
 
+        // if seq_num (the album sequence number) is zero, then we didn't get any albums
+        // back from the server (except, perhaps for Profile Pictures, which is not writable), so
+        // in this case the user must create a new album, so we disable the existing albums
+        // combo box and radio button, and put the keyboard focus on the create new album text box,
+        // after filling it in with the default album name
+        if (seq_num == 0) {
+            create_new_radio.set_active(true);
+            use_existing_radio.set_sensitive(false);
+            existing_albums_combo.set_sensitive(false);
+            new_album_entry.set_text(DEFAULT_ALBUM_NAME);
+            new_album_entry.grab_focus();
+        }
+
         if (got_default_album) {
             existing_albums_combo.set_active(default_album_seq_num);
         } else {
@@ -213,6 +226,10 @@ private Album[] get_albums(Session session) throws PublishingError {
 
     Xml.Node* root = response_doc.get_root_node();
 
+    if (root->name != "photos_getAlbums_response")
+       throw new PublishingError.MALFORMED_RESPONSE("Document root node has unexpected name '%s'",
+           root->name);
+
     Xml.Node* doc_node_iter = root->children;
     for ( ; doc_node_iter != null; doc_node_iter = doc_node_iter->next) {
         if (doc_node_iter->name != "album")
@@ -229,17 +246,8 @@ private Album[] get_albums(Session session) throws PublishingError {
             }
         }
 
-        if (name_val == null)
-            throw new PublishingError.MALFORMED_RESPONSE("No album name in document");
-
-        if (aid_val == null) 
-            throw new PublishingError.MALFORMED_RESPONSE("No album ID in document");
-
         result += Album(name_val, aid_val);
     }
-    
-    if (result.length == 0)
-        throw new PublishingError.MALFORMED_RESPONSE("No albums found");
 
     return result;
 }

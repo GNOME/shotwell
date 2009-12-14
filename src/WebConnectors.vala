@@ -565,7 +565,7 @@ public class PublishingDialog : Gtk.Dialog {
     private const int LARGE_WINDOW_WIDTH = 860;
     private const int LARGE_WINDOW_HEIGHT = 688;
     private const int STANDARD_WINDOW_WIDTH = 600;
-    private const int STANDARD_WINDOW_HEIGHT = 480;
+    private const int STANDARD_WINDOW_HEIGHT = 510;
     private const int BORDER_REGION_WIDTH = 16;
     private const int BORDER_REGION_HEIGHT = 100;
     public const int STANDARD_CONTENT_LABEL_WIDTH = 500;
