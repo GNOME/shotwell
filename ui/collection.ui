@@ -21,13 +21,13 @@
         </menu>
 
         <menu name="ViewMenu" action="ViewMenu">
-            <menuitem name="ViewFavorites" action="ViewFavorites" />
-            <menuitem name="ViewHidden" action="ViewHidden" />
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <separator />
             <menuitem name="ViewTitle" action="ViewTitle" />
             <separator />
-            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
-            <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
+            <menuitem name="ViewFavorites" action="ViewFavorites" />
+            <menuitem name="ViewHidden" action="ViewHidden" />
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />
