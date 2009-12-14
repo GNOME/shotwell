@@ -640,6 +640,18 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     public DuplicateMultiplePhotosCommand(Gee.Iterable<DataView> iter) {
         base (iter, _("Duplicating photos..."), _("Removing duplicated photos..."), 
             Resources.DUPLICATE_PHOTO_LABEL, Resources.DUPLICATE_PHOTO_TOOLTIP);
+        
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+    }
+    
+    ~DuplicateMultiplePhotosCommand() {
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        // if one of the duplicates is destroyed, can no longer undo it (which destroys it again)
+        if (dupes.values.contains((LibraryPhoto) source))
+            get_command_manager().reset();
     }
     
     public override void execute() {
@@ -668,11 +680,17 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     }
     
     public override void undo() {
+        // disconnect from monitoring the duplicates' destruction, as undo() does exactly that
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        
         base.undo();
         
         // be sure to drop everything that was destroyed
         dupes.clear();
         failed = 0;
+        
+        // re-monitor for duplicates' destruction
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
     }
     
     public override void undo_on_source(DataSource source) {
