@@ -259,10 +259,11 @@ public class Event : EventSource, Proxyable {
                 assert(last_exposure != 0);
                 
                 // see if stepped past the event day boundary by converting to that hour on
-                // the current photo's day and seeing if it and the last one straddle it
+                // the current photo's day and seeing if it and the last one straddle it or the
+                // day before's boundary
                 Time exposure_tm = Time.local(exposure_time);
-                Time event_boundary_tm = Time();
                 
+                Time event_boundary_tm = Time();
                 event_boundary_tm.second = 0;
                 event_boundary_tm.minute = 0;
                 event_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
@@ -271,9 +272,10 @@ public class Event : EventSource, Proxyable {
                 event_boundary_tm.year = exposure_tm.year;
                 
                 time_t event_boundary = event_boundary_tm.mktime();
+                time_t yesterday_boundary = (event_boundary - (24 * 60 * 60));
                 
-                // If photos straddle the boundary, new event is starting
-                if (exposure_time >= event_boundary && last_exposure < event_boundary) {
+                // If photos straddle either boundary, new event is starting
+                if (exposure_time >= event_boundary || last_exposure < yesterday_boundary) {
                     global.add(current_event);
                     
                     debug("Added event %s to global collection", current_event.to_string());
