@@ -712,7 +712,7 @@ public class PublishingDialog : Gtk.Dialog {
             msg = _("Publishing to %s can't continue because an error occurred.").printf(name);
         }
         
-        msg += "\n\n\t<i>%s</i>\n\n".printf(err.message);
+        msg += GLib.Markup.printf_escaped("\n\n\t<i>%s</i>\n\n", err.message);
         msg += _("To try publishing to another service, select one from the above menu.");
         
         on_pango_error_message(msg);

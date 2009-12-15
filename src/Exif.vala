@@ -51,6 +51,10 @@ namespace Exif {
         if (count != 6)
             return false;
         
+        // watch for bogus timestamps
+        if (tm.year <= 1900 || tm.month <= 0)
+            return false;
+        
         tm.year -= 1900;
         tm.month--;
         tm.isdst = -1;
