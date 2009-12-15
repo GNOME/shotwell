@@ -1117,7 +1117,11 @@ public abstract class CheckerboardPage : Page {
             break;
         }
         
-        vadj.set_value(new_value);
+        // It appears that in GTK+ 2.18, the adjustment is not clamped the way it was in 2.16.
+        // This may have to do with how adjustments are different w/ scrollbars, that they're upper
+        // clamp is upper - page_size ... either way, enforce these limits here
+        vadj.set_value(new_value.clamp((int) vadj.get_lower(), 
+            (int) vadj.get_upper() - (int) vadj.get_page_size()));
         
         updated_selection_band();
         
