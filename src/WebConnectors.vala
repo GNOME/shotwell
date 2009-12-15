@@ -759,6 +759,10 @@ public class PublishingDialog : Gtk.Dialog {
     public static PublishingDialog get_active_instance() {
         return active_instance;
     }
+
+    public ServiceInteractor get_interactor() {
+        return interactor;
+    }
 }
 
 public abstract class ServiceInteractor {
