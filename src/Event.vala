@@ -230,11 +230,17 @@ public class Event : EventSource, Proxyable {
             imported_photos.add(photo);
 
         // walk through photos, splitting into new events when the boundary hour is crossed
-        time_t last_exposure = 0;
         Event current_event = null;
+        Time event_tm = Time();
         foreach (LibraryPhoto photo in imported_photos) {
             time_t exposure_time = photo.get_exposure_time();
 
+            // report to ProgressMonitor
+            if (monitor != null) {
+                if (!monitor(++count, total))
+                    break;
+            }
+            
             if (exposure_time == 0) {
                 // no time recorded; skip
                 debug("Skipping event assignment to %s: No exposure time", photo.to_string());
@@ -253,48 +259,35 @@ public class Event : EventSource, Proxyable {
             // check if time to create a new event
             if (current_event == null) {
                 current_event = new Event(event_table.create(photo.get_photo_id()));
+                event_tm = Time.local(exposure_time);
             } else {
-                // if a prior event has been created, it must have an exposure time of something
-                // other than epoch
-                assert(last_exposure != 0);
-                
                 // see if stepped past the event day boundary by converting to that hour on
                 // the current photo's day and seeing if it and the last one straddle it or the
-                // day before's boundary
-                Time exposure_tm = Time.local(exposure_time);
+                // day after's boundary
+                Time start_boundary_tm = Time();
+                start_boundary_tm.second = 0;
+                start_boundary_tm.minute = 0;
+                start_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
+                start_boundary_tm.day = event_tm.day;
+                start_boundary_tm.month = event_tm.month;
+                start_boundary_tm.year = event_tm.year;
                 
-                Time event_boundary_tm = Time();
-                event_boundary_tm.second = 0;
-                event_boundary_tm.minute = 0;
-                event_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
-                event_boundary_tm.day = exposure_tm.day;
-                event_boundary_tm.month = exposure_tm.month;
-                event_boundary_tm.year = exposure_tm.year;
+                time_t start_boundary = start_boundary_tm.mktime();
+                time_t end_boundary = (start_boundary + (24 * 60 * 60) - 1);
                 
-                time_t event_boundary = event_boundary_tm.mktime();
-                time_t yesterday_boundary = (event_boundary - (24 * 60 * 60));
-                
-                // If photos straddle either boundary, new event is starting
-                if (exposure_time >= event_boundary || last_exposure < yesterday_boundary) {
+                // If photo outside either boundary, new event is starting
+                if (exposure_time < start_boundary || exposure_time > end_boundary) {
                     global.add(current_event);
                     
                     debug("Added event %s to global collection", current_event.to_string());
                     
                     current_event = new Event(event_table.create(photo.get_photo_id()));
+                    event_tm = Time.local(exposure_time);
                 }
             }
             
             // add photo to this event
             photo.set_event(current_event);
-            
-            // save photo's time as the last exposure
-            last_exposure = photo.get_exposure_time();
-            
-            // report to ProgressMonitor
-            if (monitor != null) {
-                if (!monitor(++count, total))
-                    break;
-            }
         }
         
         // make sure to add the current_event to the global
