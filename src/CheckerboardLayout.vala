@@ -1148,7 +1148,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private override bool expose_event(Gdk.EventExpose event) {
-        assert(in_view);
+        // Note: It's possible for expose_event to be called when in_view is false; this happens
+        // when pages are switched prior to switched_to() being called, and some of the other
+        // controls allow for events to be processed while they are orienting themselves.  Since
+        // we want switched_to() to be the final call in the process (indicating that the page is
+        // now in place and should do its thing to update itself), have to be be prepared for
+        // GTK/GDK calls between the widgets being actually present on the screen and "switched to"
         
         // watch for message mode
         if (message == null) {
