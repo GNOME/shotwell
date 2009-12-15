@@ -358,24 +358,24 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             add_line(_("File size:"), (filesize > 0) ? 
                 format_size_for_display((int64) filesize) : NO_VALUE);
 
-            add_line(_("Original Dimensions"), (original_dim.has_area()) ?
+            add_line(_("Original dimensions:"), (original_dim.has_area()) ?
                 "%d x %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
 
-            add_line(_("Camera Make:"), (camera_make != "" && camera_make != null) ?
+            add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
                 camera_make : NO_VALUE);
 
-            add_line(_("Camera Model:"), (camera_model != "" && camera_model != null) ?
+            add_line(_("Camera model:"), (camera_model != "" && camera_model != null) ?
                 camera_model : NO_VALUE);
 
             add_line(_("Flash:"), (flash != "" && flash != null) ? flash : NO_VALUE);
 
-            add_line(_("Focal Length:"), (focal_length != "" && focal_length != null) ?
+            add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
                 focal_length : NO_VALUE);
 
-            add_line(_("GPS Latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
+            add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
                 gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
             
-            add_line(_("GPS Longitude:"), (gps_long != -1 && gps_long_ref != "" && 
+            add_line(_("GPS longitude:"), (gps_long != -1 && gps_long_ref != "" && 
                 gps_long_ref != null) ? "%f °%s".printf(gps_long, gps_long_ref) : NO_VALUE);
 
             add_line(_("Artist:"), (artist != "" && artist != null) ? artist : NO_VALUE);
