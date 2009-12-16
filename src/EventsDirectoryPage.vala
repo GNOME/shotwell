@@ -60,9 +60,9 @@ class EventDirectoryItem : LayoutItem {
     private void set_formatted_title() {
         string count = ngettext("%d Photo", "%d Photos", event.get_photo_count()).printf(
             event.get_photo_count());
-        
-        set_markup_title("<b>%s</b>\n<small>%s</small>".printf(Markup.escape_text(event.get_name()),
-            count));
+        string title = "<b>%s</b>\n%s".printf(Markup.escape_text(event.get_name()),
+            Markup.escape_text(count));
+        set_markup_title(title);
     }
 
     public override void exposed() {

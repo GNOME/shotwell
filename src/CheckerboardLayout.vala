@@ -172,9 +172,9 @@ public abstract class LayoutItem : ThumbnailView {
         // pixbuf (handled in recalc_size)
         pango_layout = parent.create_pango_layout(null);
         if (!title_marked_up)
-            pango_layout.set_text(title, (int) title.length);
+            pango_layout.set_text(title, -1);
         else
-            pango_layout.set_markup(title, (int) title.length);
+            pango_layout.set_markup(title, -1);
         
         pango_layout.set_ellipsize(Pango.EllipsizeMode.END);
         pango_layout.set_alignment(title_alignment);
