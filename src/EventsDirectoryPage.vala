@@ -121,7 +121,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // merge tool
-        merge_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_ADD);
+        merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
         merge_button.set_label(Resources.MERGE_LABEL);
         merge_button.set_tooltip_text(Resources.MERGE_TOOLTIP);
         merge_button.clicked += on_merge;
@@ -168,7 +168,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         rename.tooltip = Resources.RENAME_EVENT_TOOLTIP;
         actions += rename;
        
-        Gtk.ActionEntry merge = { "Merge", Gtk.STOCK_ADD, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, on_merge };
+        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE,
+            on_merge };
         merge.label = Resources.MERGE_MENU;
         merge.tooltip = Resources.MERGE_TOOLTIP;
         actions += merge;
