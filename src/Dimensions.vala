@@ -71,6 +71,14 @@ public struct Dimensions {
         return (width - dim.width).abs() <= fudge && (height - dim.height).abs() <= fudge;
     }
     
+    public int major_axis() {
+        return int.max(width, height);
+    }
+    
+    public int minor_axis() {
+        return int.min(width, height);
+    }
+    
     public Dimensions get_scaled(int scale, bool scale_up) {
         assert(scale > 0);
         

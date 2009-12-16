@@ -104,6 +104,40 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
     return pixbuf.scale_simple(resized.width, resized.height, interp);
 }
 
+void draw_rounded_corners_pixbuf(Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin, 
+    double radius_proportion) {
+    // establish a reasonable range
+    radius_proportion = radius_proportion.clamp(2.0, 20.0);
+    
+    Dimensions dim = Dimensions.for_pixbuf(pixbuf);
+    
+    double left = origin.x;
+    double top = origin.y;
+    double right = origin.x + dim.width;
+    double bottom = origin.y + dim.height;
+    
+    // the radius of the corners is proportional to the distance of the minor axis
+    double radius = ((double) dim.minor_axis()) / radius_proportion;
+    
+    // create context and clipping region, starting from the top left curve and working around
+    // clockwise
+    Cairo.Context cx = Gdk.cairo_create(drawable);
+    cx.move_to(left, top + radius);
+    cx.curve_to(left, top, left, top, left + radius, top);
+    cx.line_to(right - radius, top);
+    cx.curve_to(right, top, right, top, right, top + radius);
+    cx.line_to(right, bottom - radius);
+    cx.curve_to(right, bottom, right, bottom, right - radius, bottom);
+    cx.line_to(left + radius, bottom);
+    cx.curve_to(left, bottom, left, bottom, left, bottom - radius);
+    cx.clip();
+    
+    // load pixbuf into the clipped context
+    Gdk.cairo_set_source_pixbuf(cx, pixbuf, origin.x, origin.y);
+    
+    cx.paint();
+}
+
 inline uchar shift_color_byte(int b, int shift) {
     return (uchar) (b + shift).clamp(0, 255);
 }
