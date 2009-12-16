@@ -388,7 +388,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         }
     }
 
-    public ExtendedPropertiesWindow() {
+    public ExtendedPropertiesWindow(Gtk.Window owner) {
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focus_on_map = true;
         set_accept_focus(true);
@@ -398,6 +398,8 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         set_size_request(300,-1);
         set_default_size(520, -1);
         set_position(Gtk.WindowPosition.CENTER);
+        set_transient_for(owner);
+        set_type_hint(Gdk.WindowTypeHint.DIALOG);
 
         delete_event += hide_on_delete;
 

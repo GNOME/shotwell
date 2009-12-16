@@ -278,7 +278,7 @@ public class LibraryWindow : AppWindow {
 #endif
 
     private BasicProperties basic_properties = new BasicProperties();
-    private ExtendedPropertiesWindow extended_properties = new ExtendedPropertiesWindow();
+    private ExtendedPropertiesWindow extended_properties;
     
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
@@ -291,6 +291,11 @@ public class LibraryWindow : AppWindow {
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed += import_queue_batch_finished;
         photo_page = new LibraryPhotoPage();
+
+        // create and connect extended properties window
+        extended_properties = new ExtendedPropertiesWindow(this);
+        extended_properties.hide += hide_extended_properties;
+        extended_properties.show += show_extended_properties;
 
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
@@ -338,9 +343,6 @@ public class LibraryWindow : AppWindow {
 
         // connect to sidebar signal used ommited on drag-and-drop orerations
         sidebar.drop_received += drop_received;
-
-        extended_properties.hide += hide_extended_properties;
-        extended_properties.show += show_extended_properties;
     }
     
     ~LibraryWindow() {
