@@ -1104,8 +1104,8 @@ public abstract class TransformablePhoto: PhotoSource {
             return new Gdk.Pixbuf.from_file(path);
         }
         
-        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file_at_size(path, scaled_image.width, 
-            scaled_image.height);
+        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file_at_scale(path, scaled_image.width, 
+            scaled_image.height, false);
 
 #if MEASURE_PIPELINE
         debug("LOAD_RAW_PIXBUF %s %s: %s -> %s (actual: %s)", scaling.to_string(), path,

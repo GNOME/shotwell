@@ -52,6 +52,13 @@ class EventDirectoryItem : LayoutItem {
     private static Gdk.Pixbuf get_paul_lynde(LibraryPhoto photo, Gdk.Rectangle paul_lynde) throws Error {
         Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE, true));
         
+        // watch for rounding errors from the scaling of the pixbuf (which can be different than
+        // scaling its dimensions)
+        paul_lynde.x = paul_lynde.x.clamp(0, pixbuf.get_width());
+        paul_lynde.y = paul_lynde.y.clamp(0, pixbuf.get_height());
+        paul_lynde.width = paul_lynde.width.clamp(0, pixbuf.get_width());
+        paul_lynde.height = paul_lynde.height.clamp(0, pixbuf.get_height());
+        
         // crop the center square
         return new Gdk.Pixbuf.subpixbuf(pixbuf, paul_lynde.x, paul_lynde.y, paul_lynde.width,
             paul_lynde.height);

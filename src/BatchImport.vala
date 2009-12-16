@@ -271,6 +271,12 @@ public class BatchImport {
     private ImportResult import_file(File file, bool copy_to_library) {
         if (!spin_event_loop())
             return ImportResult.USER_ABORT;
+        
+        if (!TransformablePhoto.is_file_supported(file)) {
+            message("Not importing %s: Unsupported extension", file.get_path());
+            
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
 
         import_file_count++;
         
