@@ -16,7 +16,7 @@ public class CollectionViewManager : ViewManager {
     }
 }
 
-public abstract class CollectionPage : CheckerboardPage {    
+public abstract class CollectionPage : CheckerboardPage {
     public const int SORT_ORDER_ASCENDING = 0;
     public const int SORT_ORDER_DESCENDING = 1;
 
@@ -235,13 +235,13 @@ public abstract class CollectionPage : CheckerboardPage {
         actions += photos;
 
         Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
-            "bracketright", TRANSLATABLE, on_increase_size };
+            "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
         increase_size.tooltip = _("Increase the magnification of the thumbnails");
         actions += increase_size;
 
         Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
-            "bracketleft", TRANSLATABLE, on_decrease_size };
+            "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
         decrease_size.label = _("Zoom _Out");
         decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
         actions += decrease_size;
@@ -589,6 +589,28 @@ public abstract class CollectionPage : CheckerboardPage {
             ((Thumbnail) view).get_photo().export_failed();
         
         return false;
+    }
+    
+    protected override bool on_app_key_pressed(Gdk.EventKey event) {
+        bool handled = true;
+        
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "equal":
+            case "plus":
+                on_increase_size();
+            break;
+            
+            case "minus":
+            case "underscore":
+                on_decrease_size();
+            break;
+            
+            default:
+                handled = false;
+            break;
+        }
+        
+        return handled ? true : base.on_app_key_pressed(event);
     }
     
     public void increase_thumb_size() {
