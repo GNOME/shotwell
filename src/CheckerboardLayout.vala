@@ -12,7 +12,7 @@ public abstract class LayoutItem : ThumbnailView {
     public const int TRINKET_SCALE = 12;
     public const int TRINKET_PADDING = 1;
 
-    public const string SELECTED_COLOR = "#0FF";
+    public const string SELECTED_COLOR = "#2DF";
     public const string UNSELECTED_COLOR = "#FFF";
     
     public const int BRIGHTEN_SHIFT = 0x18;
