@@ -84,6 +84,11 @@ public abstract class CollectionPage : CheckerboardPage {
         init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
             create_toggle_actions());
 
+#if !NO_PUBLISHING
+        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PublishPlaceholder", "Publish",
+            "Publish", Gtk.UIManagerItemType.MENUITEM, false);
+#endif
+
         bool sort_order;
         int sort_by;
         get_config_photos_sort(out sort_order, out sort_by);
@@ -202,12 +207,14 @@ public abstract class CollectionPage : CheckerboardPage {
         export.label = _("_Export Photos...");
         export.tooltip = _("Export selected photos to disk");
         actions += export;
-
+        
+#if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
         publish.label = Resources.PUBLISH_MENU;
         publish.tooltip = Resources.PUBLISH_LABEL;
         actions += publish;
+#endif
 
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
@@ -645,7 +652,9 @@ public abstract class CollectionPage : CheckerboardPage {
         bool sensitivity = get_view().get_selected_count() > 0;
 
         set_item_sensitive("/CollectionMenuBar/FileMenu/Export", sensitivity);
+#if !NO_PUBLISHING
         set_item_sensitive("/CollectionMenuBar/FileMenu/Publish", sensitivity);
+#endif
     }
     
     private void on_export() {
