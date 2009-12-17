@@ -12,7 +12,9 @@ public enum ImportResult {
     USER_ABORT,
     NOT_A_FILE,
     PHOTO_EXISTS,
-    UNSUPPORTED_FORMAT;
+    UNSUPPORTED_FORMAT,
+    DISK_FAILURE,
+    DISK_FULL;
     
     public string to_string() {
         switch (this) {

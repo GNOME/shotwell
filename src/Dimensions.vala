@@ -8,7 +8,8 @@ public enum ScaleConstraint {
     ORIGINAL,
     DIMENSIONS,
     WIDTH,
-    HEIGHT;
+    HEIGHT,
+    FILL_VIEWPORT;
     
     public string? to_string() {
         switch (this) {
@@ -23,6 +24,10 @@ public enum ScaleConstraint {
             
             case HEIGHT:
                 return _("Height");
+            
+            case FILL_VIEWPORT:
+                // TODO: Translate (not used in UI at this point)
+                return "Fill Viewport";
         }
 
         warn_if_reached();
@@ -90,10 +95,7 @@ public struct Dimensions {
         if (!scale_up && (width < scale && height < scale))
             return Dimensions(width, height);
         
-        int diff_width = width - scale;
-        int diff_height = height - scale;
-        
-        if (diff_width > diff_height)
+        if ((width - scale) > (height - scale))
             return get_scaled_by_width(scale);
         else
             return get_scaled_by_height(scale);
@@ -124,6 +126,30 @@ public struct Dimensions {
         return scaled;
     }
 
+    public Dimensions get_scaled_to_fill_viewport(Dimensions viewport) {
+        double width_ratio, height_ratio;
+        get_scale_ratios(viewport, out width_ratio, out height_ratio);
+        
+        double scaled_width, scaled_height;
+        if (width < viewport.width && height >= viewport.height) {
+            // too narrow
+            scaled_width = viewport.width;
+            scaled_height = (double) height * width_ratio;
+        } else if (width >= viewport.width && height < viewport.height) {
+            // too short
+            scaled_width = (double) width * height_ratio;
+            scaled_height = viewport.height;
+        } else {
+            // both are smaller or larger
+            double ratio = double.max(width_ratio, height_ratio);
+            
+            scaled_width = (double) width * ratio;
+            scaled_height = (double) height * ratio;
+        }
+        
+        return Dimensions((int) Math.round(scaled_width), (int) Math.round(scaled_height));
+    }
+    
     public Gdk.Rectangle get_scaled_rectangle(Dimensions scaled, Gdk.Rectangle rect) {
         double x_scale, y_scale;
         get_scale_ratios(scaled, out x_scale, out y_scale);
@@ -223,6 +249,12 @@ public struct Scaling {
         return Scaling(ScaleConstraint.DIMENSIONS, NO_SCALE, viewport, scale_up);
     }
     
+    public static Scaling to_fill_viewport(Dimensions viewport) {
+        assert(viewport.has_area());
+        
+        return Scaling(ScaleConstraint.FILL_VIEWPORT, NO_SCALE, viewport, true);
+    }
+    
     private static Dimensions get_screen_dimensions(Gtk.Window window) {
         Gdk.Screen screen = window.get_screen();
         
@@ -271,11 +303,24 @@ public struct Scaling {
         return true;
     }
     
+    public bool is_fill_viewport(Dimensions original, out Dimensions scaled) {
+        if (constraint != ScaleConstraint.FILL_VIEWPORT)
+            return false;
+        
+        assert(viewport.has_area());
+        scaled = original.get_scaled_to_fill_viewport(viewport);
+        
+        return true;
+    }
+    
     public Dimensions get_scaled_dimensions(Dimensions original) {
         if (is_unscaled())
             return original;
         
         Dimensions scaled;
+        if (is_fill_viewport(original, out scaled))
+            return scaled;
+        
         if (is_best_fit_dimensions(original, out scaled))
             return scaled;
         
@@ -296,6 +341,9 @@ public struct Scaling {
             return scale_pixbuf(pixbuf, pixels, interp, scale_up);
         
         Dimensions scaled;
+        if (is_fill_viewport(pixbuf_dim, out scaled))
+            return resize_pixbuf(pixbuf, scaled, interp);
+        
         bool is_viewport = is_for_viewport(pixbuf_dim, out scaled);
         assert(is_viewport);
         
@@ -305,6 +353,8 @@ public struct Scaling {
     public string to_string() {
         if (constraint == ScaleConstraint.ORIGINAL)
             return "scaling: UNSCALED";
+        else if (constraint == ScaleConstraint.FILL_VIEWPORT)
+            return "scaling: fill viewport %s".printf(viewport.to_string());
         else if (scale != NO_SCALE)
             return "scaling: best-fit (%d pixels %s)".printf(scale_to_pixels(),
                 scale_up ? "scaled up" : "not scaled up");

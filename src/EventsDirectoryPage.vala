@@ -5,15 +5,17 @@
  */
 
 class EventDirectoryItem : LayoutItem {
-    public const int SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
+    public const int CROPPED_SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
         + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
+        
+    public static Scaling squared_scaling = Scaling.to_fill_viewport(Dimensions(CROPPED_SCALE, CROPPED_SCALE));
     
     public Event event;
     
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base(event, event.get_primary_photo().get_dimensions().get_scaled(SCALE, true));
+        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE));
         
         this.event = event;
         
@@ -36,28 +38,23 @@ class EventDirectoryItem : LayoutItem {
     
     // square the photo's dimensions and locate the pixbuf's center square
     private static Gdk.Rectangle get_paul_lynde_rect(LibraryPhoto photo) {
-        Dimensions scaled = photo.get_dimensions().get_scaled(SCALE, true);
-        Dimensions squared = Dimensions(scaled.minor_axis(), scaled.minor_axis());
+        Dimensions scaled = squared_scaling.get_scaled_dimensions(photo.get_dimensions());
         
         Gdk.Rectangle paul_lynde = Gdk.Rectangle();
-        paul_lynde.x = (scaled.width - squared.width).clamp(0, scaled.width) / 2;
-        paul_lynde.y = (scaled.height - squared.height).clamp(0, scaled.height) / 2;
-        paul_lynde.width = squared.width;
-        paul_lynde.height = squared.height;
+        paul_lynde.x = (scaled.width - CROPPED_SCALE).clamp(0, scaled.width) / 2;
+        paul_lynde.y = (scaled.height - CROPPED_SCALE).clamp(0, scaled.height) / 2;
+        paul_lynde.width = CROPPED_SCALE;
+        paul_lynde.height = CROPPED_SCALE;
         
         return paul_lynde;
     }
     
     // scale and crop the center square of the photo
     private static Gdk.Pixbuf get_paul_lynde(LibraryPhoto photo, Gdk.Rectangle paul_lynde) throws Error {
-        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(Scaling.for_best_fit(SCALE, true));
+        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(squared_scaling);
         
-        // watch for rounding errors from the scaling of the pixbuf (which can be different than
-        // scaling its dimensions)
-        paul_lynde.x = paul_lynde.x.clamp(0, pixbuf.get_width());
-        paul_lynde.y = paul_lynde.y.clamp(0, pixbuf.get_height());
-        paul_lynde.width = paul_lynde.width.clamp(0, pixbuf.get_width());
-        paul_lynde.height = paul_lynde.height.clamp(0, pixbuf.get_height());
+        // to catch rounding errors in the two algorithms
+        paul_lynde = clamp_rectangle(paul_lynde, Dimensions.for_pixbuf(pixbuf));
         
         // crop the center square
         return new Gdk.Pixbuf.subpixbuf(pixbuf, paul_lynde.x, paul_lynde.y, paul_lynde.width,
