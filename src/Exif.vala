@@ -199,7 +199,7 @@ namespace Exif {
         Exif.Rational exposure = Exif.Convert.get_rational(entry.data, exif.get_byte_order());
 
         if (rational_to_double(exposure) >= 1) {
-            return "%f s".printf(rational_to_double(exposure));
+            return "%.1f s".printf(rational_to_double(exposure));
         } else {
             // round to the nearest five
 
