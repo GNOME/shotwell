@@ -52,7 +52,7 @@ namespace Exif {
             return false;
         
         // watch for bogus timestamps
-        if (tm.year <= 1900 || tm.month <= 0)
+        if (tm.year <= 1900 || tm.month <= 0 || tm.day < 0 || tm.hour < 0 || tm.minute < 0 || tm.second < 0)
             return false;
         
         tm.year -= 1900;
@@ -423,42 +423,68 @@ public class PhotoExif  {
             return null;
         }
         
-        // for EXIF, next marker is always APP1
-        segment_length = Jpeg.read_marker(fins, out marker);
-        if ((marker != Jpeg.Marker.APP1) || (segment_length < Exif.SIGNATURE.length)) {
+        // find first APP1 marker that is EXIF and use that
+        uint8[] raw = null;
+        for (;;) {
+            segment_length = Jpeg.read_marker(fins, out marker);
+            if (segment_length == -1) {
+                // EOS
+                return null;
+            }
+            
+            if (marker != Jpeg.Marker.APP1 || segment_length < Exif.SIGNATURE.length) {
+                debug("Skipping segment %X length %d in %s", marker.get_byte(), segment_length,
+                    file.get_path());
+                
+                if (segment_length > 0)
+                    fins.skip(segment_length, null);
+                
+                continue;
+            }
+        
+            // since returning all of EXIF block, including signature but not the thumbnail (which is how
+            // GPhoto returns it, and therefore makes it easy to compare checksums), allocate full block 
+            // and read it all in (that is, use optimism here)
+            raw_length = segment_length - exif.size;
+            if (raw_length <= 0) {
+                warning("No EXIF data to read in APP1 segment of %s", file.get_path());
+                
+                if (segment_length > 0)
+                    fins.skip(segment_length, null);
+                
+                continue;
+            }
+            
+            raw = new uint8[raw_length];
+            
+            size_t bytes_read;
+            fins.read_all(raw, raw.length, out bytes_read, null);
+            if (bytes_read != raw.length) {
+                warning("Unable to read full segment in %s", file.get_path());
+                
+                // don't attempt to resynchronize (because this condition probably means EOF), but 
+                // move on
+                continue;
+            }
+            
+            // verify signature
+            if (Memory.cmp(raw, Exif.SIGNATURE, Exif.SIGNATURE.length) != 0) {
+                warning("Invalid EXIF signature in APP1 segment of %s", file.get_path());
+                
+                continue;
+            }
+            
+            // found it
+            break;
+        }
+        
+        if (marker != Jpeg.Marker.APP1) {
             warning("No APP1 marker found in %s", file.get_path());
             
             return null;
         }
         
-        // since returning all of EXIF block, including signature but not the thumbnail (which is how
-        // GPhoto returns it, and therefore makes it easy to compare checksums), allocate full block 
-        // and read it all in (that is, use optimism here)
-        raw_length = segment_length - exif.size;
-        if (raw_length <= 0) {
-            warning("No EXIF data to read in %s", file.get_path());
-            
-            return null;
-        }
-        
-        uint8[] raw = new uint8[raw_length];
-        
-        size_t bytes_read;
-        fins.read_all(raw, raw.length, out bytes_read, null);
-        if (bytes_read != raw.length) {
-            warning("Unable to read full segment in %s", file.get_path());
-            
-            return null;
-        }
-        
-        // verify signature
-        if (Memory.cmp(raw, Exif.SIGNATURE, Exif.SIGNATURE.length) != 0) {
-            warning("Invalid EXIF signature in %s", file.get_path());
-            
-            return null;
-        }
-        
-        // TODO: Although read_marker removes the length of the length bytes from the segment, it
+        // Although read_marker removes the length of the length bytes from the segment, it
         // appears at least one camera produces JPEGS with the segment reported size still two bytes
         // longer than it should be (due to it not including the length field in the size itself)?
         // This checks if the size overshot and needs to be reduced.

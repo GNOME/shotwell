@@ -25,6 +25,8 @@ public class Event : EventSource, Proxyable {
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
     
+    private const time_t TIME_T_DAY = 24 * 60 * 60;
+    
     private class DateComparator : Comparator<LibraryPhoto> {
         public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
             return a.get_exposure_time() - b.get_exposure_time();
@@ -273,7 +275,13 @@ public class Event : EventSource, Proxyable {
                 start_boundary_tm.year = event_tm.year;
                 
                 time_t start_boundary = start_boundary_tm.mktime();
-                time_t end_boundary = (start_boundary + (24 * 60 * 60) - 1);
+                
+                // if the event's exposure time was on the day but *before* the boundary hour,
+                // step it back a day to the prior day's boundary
+                if (event_tm.hour < EVENT_BOUNDARY_HOUR)
+                    start_boundary -= TIME_T_DAY;
+                
+                time_t end_boundary = (start_boundary + TIME_T_DAY - 1);
                 
                 // If photo outside either boundary, new event is starting
                 if (exposure_time < start_boundary || exposure_time > end_boundary) {
