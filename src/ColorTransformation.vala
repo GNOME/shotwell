@@ -1079,11 +1079,20 @@ class RGBHistogram {
             int rowstride = graphic.rowstride;
             int sample_bytes = graphic.get_bits_per_sample() / 8;
             int pixel_bytes = sample_bytes * graphic.get_n_channels();
-            
+
             double scale_bar = 0.98 * ((double) GRAPHIC_HEIGHT) /
                 ((double) max_count);
 
             unowned uchar[] pixel_data = graphic.get_pixels();
+
+            /* detect pathological case of bilevel black & white images -- in this case, draw
+               a blank histogram and return it to the caller */
+            if (max_count == 0) {
+                for (int i = 0; i < (pixel_bytes * graphic.width * graphic.height); i++) {
+                    pixel_data[i] = UNMARKED_BACKGROUND;
+                }
+                return graphic;
+            }
 
             for (int x = 0; x < 256; x++) {
                 int red_bar_height = (int)(((double) qualitative_red_counts[x]) *
