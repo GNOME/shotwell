@@ -521,6 +521,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
+        
+        TransformablePhoto photo = get_photo();
+        rotate_button.sensitive = photo != null ? is_rotate_available(photo) : false;
+        crop_button.sensitive = photo != null ? CropTool.is_available(photo) : false;
+        redeye_button.sensitive = photo != null ? RedeyeTool.is_available(photo) : false;
+        adjust_button.sensitive = photo != null ? AdjustTool.is_available(photo) : false;
+        enhance_button.sensitive = photo != null ? is_enhance_available(photo) : false;
     }
     
     private override bool on_shift_pressed(Gdk.EventKey? event) {
@@ -612,6 +619,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             replacement = new_pixbuf;
         } else if (cancel_editing_pixbuf != null) {
             replacement = cancel_editing_pixbuf;
+            new_max_dim = Dimensions.for_pixbuf(replacement);
             needs_improvement = false;
         } else {
             needs_improvement = true;
@@ -879,6 +887,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (photo_missing && has_photo())
             draw_message(_("Photo source file missing: %s").printf(get_photo().get_file().get_path()));
     }
+    
+    public bool is_rotate_available(TransformablePhoto photo) {
+        return true;
+    }
 
     private void rotate(Rotation rotation, string name, string description) {
         deactivate_tool();
@@ -991,6 +1003,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_adjust_toggled() {
         on_tool_button_toggled(adjust_button, AdjustTool.factory);
+    }
+    
+    public bool is_enhance_available(TransformablePhoto photo) {
+        return true;
     }
     
     public void on_enhance() {
@@ -1273,6 +1289,10 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_photo())
             return false;
 
+        set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", is_rotate_available(get_photo()));
+        set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise",
+            is_rotate_available(get_photo()));
+        set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
         set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
 
         context_menu.popup(null, null, null, event.button, event.time);
@@ -1351,9 +1371,15 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
-            
+        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
+        
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", rotate_possible);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", enhance_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
     }
 }
@@ -1704,6 +1730,10 @@ public class DirectPhotoPage : EditingHostPage {
         if (get_photo() == null)
             return false;
         
+        set_item_sensitive("/DirectContextMenu/ContextRotateClockwise", is_rotate_available(get_photo()));
+        set_item_sensitive("/DirectContextMenu/ContextRotateCounterclockwise",
+            is_rotate_available(get_photo()));
+        set_item_sensitive("/DirectContextMenu/ContextEnhance", is_enhance_available(get_photo()));
         set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations());
 
         context_menu.popup(null, null, null, event.button, event.time);
@@ -1812,9 +1842,15 @@ public class DirectPhotoPage : EditingHostPage {
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
+        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
 
         set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", rotate_possible);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Enhance", enhance_possible);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", revert_possible);
     }
 }
