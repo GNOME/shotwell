@@ -433,9 +433,6 @@ public class PhotoExif  {
             }
             
             if (marker != Jpeg.Marker.APP1 || segment_length < Exif.SIGNATURE.length) {
-                debug("Skipping segment %X length %d in %s", marker.get_byte(), segment_length,
-                    file.get_path());
-                
                 if (segment_length > 0)
                     fins.skip(segment_length, null);
                 

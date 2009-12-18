@@ -271,11 +271,43 @@ private class BasicProperties : Properties {
             }
         }
 
-        if (exposure != "" && aperture != "" && iso != "") {
-            add_line(_("Exposure:"), exposure + ", " + aperture);
-            add_line("","ISO " + iso);
+        if (exposure != "" || aperture != "" || iso != "") {
+            string line = null;
+            
+            // attempt to put exposure and aperture on the same line
+            if (exposure != "")
+                line = exposure;
+            
+            if (aperture != "") {
+                if (line != null)
+                    line += ", " + aperture;
+                else
+                    line = aperture;
+            }
+            
+            // if not both available but ISO is, add it to the first line
+            if ((exposure == "" || aperture == "") && iso != "") {
+                if (line != null)
+                    line += ", " + "ISO " + iso;
+                else
+                    line = "ISO " + iso;
+                
+                add_line(_("Exposure:"), line);
+            } else {
+                // fit both on the top line, emit and move on
+                if (line != null)
+                    add_line(_("Exposure:"), line);
+                
+                // emit ISO on a second unadorned line
+                if (iso != "") {
+                    if (line != null)
+                        add_line("","ISO " + iso);
+                    else
+                        add_line(_("Exposure:"), "ISO " + iso);
+                }
+            }
         }
-
+        
         set_text();
     }
 }
