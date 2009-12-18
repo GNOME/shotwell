@@ -295,7 +295,7 @@
             <applyto>/apps/shotwell/preferences/ui/events_sort_ascending</applyto>
             <type>bool</type>
             <owner>shotwell</owner>
-            <default>768</default>
+            <default>false</default>
             
             <locale name="en">
                 <short>sort events ascending</short>
@@ -308,7 +308,7 @@
             <applyto>/apps/shotwell/preferences/ui/library_photos_sort_ascending</applyto>
             <type>bool</type>
             <owner>shotwell</owner>
-            <default>768</default>
+            <default>false</default>
             
             <locale name="en">
                 <short>sort library photos ascending</short>
@@ -321,7 +321,7 @@
             <applyto>/apps/shotwell/preferences/ui/library_photos_sort_by</applyto>
             <type>int</type>
             <owner>shotwell</owner>
-            <default>768</default>
+            <default>2</default>
             
             <locale name="en">
                 <short>sort library photos criteria</short>
@@ -334,7 +334,7 @@
             <applyto>/apps/shotwell/preferences/ui/event_photos_sort_ascending</applyto>
             <type>bool</type>
             <owner>shotwell</owner>
-            <default>768</default>
+            <default>true</default>
             
             <locale name="en">
                 <short>sort event photos ascending</short>
@@ -347,7 +347,7 @@
             <applyto>/apps/shotwell/preferences/ui/event_photos_sort_by</applyto>
             <type>int</type>
             <owner>shotwell</owner>
-            <default>768</default>
+            <default>2</default>
             
             <locale name="en">
                 <short>sort event photos criteria</short>
