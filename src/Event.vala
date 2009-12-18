@@ -25,6 +25,8 @@ public class Event : EventSource, Proxyable {
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
     
+    private const time_t TIME_T_DAY = 24 * 60 * 60;
+    
     private class DateComparator : Comparator<LibraryPhoto> {
         public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
             return a.get_exposure_time() - b.get_exposure_time();
@@ -230,11 +232,17 @@ public class Event : EventSource, Proxyable {
             imported_photos.add(photo);
 
         // walk through photos, splitting into new events when the boundary hour is crossed
-        time_t last_exposure = 0;
         Event current_event = null;
+        Time event_tm = Time();
         foreach (LibraryPhoto photo in imported_photos) {
             time_t exposure_time = photo.get_exposure_time();
 
+            // report to ProgressMonitor
+            if (monitor != null) {
+                if (!monitor(++count, total))
+                    break;
+            }
+            
             if (exposure_time == 0) {
                 // no time recorded; skip
                 debug("Skipping event assignment to %s: No exposure time", photo.to_string());
@@ -253,46 +261,41 @@ public class Event : EventSource, Proxyable {
             // check if time to create a new event
             if (current_event == null) {
                 current_event = new Event(event_table.create(photo.get_photo_id()));
+                event_tm = Time.local(exposure_time);
             } else {
-                // if a prior event has been created, it must have an exposure time of something
-                // other than epoch
-                assert(last_exposure != 0);
-                
                 // see if stepped past the event day boundary by converting to that hour on
-                // the current photo's day and seeing if it and the last one straddle it
-                Time exposure_tm = Time.local(exposure_time);
-                Time event_boundary_tm = Time();
+                // the current photo's day and seeing if it and the last one straddle it or the
+                // day after's boundary
+                Time start_boundary_tm = Time();
+                start_boundary_tm.second = 0;
+                start_boundary_tm.minute = 0;
+                start_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
+                start_boundary_tm.day = event_tm.day;
+                start_boundary_tm.month = event_tm.month;
+                start_boundary_tm.year = event_tm.year;
                 
-                event_boundary_tm.second = 0;
-                event_boundary_tm.minute = 0;
-                event_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
-                event_boundary_tm.day = exposure_tm.day;
-                event_boundary_tm.month = exposure_tm.month;
-                event_boundary_tm.year = exposure_tm.year;
+                time_t start_boundary = start_boundary_tm.mktime();
                 
-                time_t event_boundary = event_boundary_tm.mktime();
+                // if the event's exposure time was on the day but *before* the boundary hour,
+                // step it back a day to the prior day's boundary
+                if (event_tm.hour < EVENT_BOUNDARY_HOUR)
+                    start_boundary -= TIME_T_DAY;
                 
-                // If photos straddle the boundary, new event is starting
-                if (exposure_time >= event_boundary && last_exposure < event_boundary) {
+                time_t end_boundary = (start_boundary + TIME_T_DAY - 1);
+                
+                // If photo outside either boundary, new event is starting
+                if (exposure_time < start_boundary || exposure_time > end_boundary) {
                     global.add(current_event);
                     
                     debug("Added event %s to global collection", current_event.to_string());
                     
                     current_event = new Event(event_table.create(photo.get_photo_id()));
+                    event_tm = Time.local(exposure_time);
                 }
             }
             
             // add photo to this event
             photo.set_event(current_event);
-            
-            // save photo's time as the last exposure
-            last_exposure = photo.get_exposure_time();
-            
-            // report to ProgressMonitor
-            if (monitor != null) {
-                if (!monitor(++count, total))
-                    break;
-            }
         }
         
         // make sure to add the current_event to the global

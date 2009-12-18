@@ -862,9 +862,16 @@ public class ImportPage : CheckerboardPage {
                 continue;
             }
             
-            bool collision;
-            File dest_file = LibraryFiles.generate_unique_file(import_file.get_filename(), 
-                import_file.get_exif(), time_t(), out collision);
+            File dest_file = null;
+            try {
+                bool collision;
+                dest_file = LibraryFiles.generate_unique_file(import_file.get_filename(), 
+                    import_file.get_exif(), time_t(), out collision);
+            } catch (Error err) {
+                warning("Unable to generate local file for %s: %s", import_file.get_filename(),
+                    err.message);
+            }
+            
             if (dest_file == null) {
                 message("Unable to generate local file for %s", import_file.get_filename());
                 failed.add(new CameraImportJob(null_context, import_file, null));
@@ -1056,6 +1063,7 @@ public class ImportQueuePage : SinglePhotoPage {
         batch_import.starting += on_starting;
         batch_import.imported += on_imported;
         batch_import.import_complete += on_import_complete;
+        batch_import.fatal_error += on_fatal_error;
         
         queue.add(batch_import);
         batch_added(batch_import);
@@ -1118,6 +1126,7 @@ public class ImportQueuePage : SinglePhotoPage {
         batch_import.starting -= on_starting;
         batch_import.imported -= on_imported;
         batch_import.import_complete -= on_import_complete;
+        batch_import.fatal_error -= on_fatal_error;
         
         // schedule next if available
         if (queue.size > 0) {
@@ -1139,6 +1148,10 @@ public class ImportQueuePage : SinglePhotoPage {
         
         // report the batch has been removed from the queue after everything else is set
         batch_removed(batch_import);
+    }
+    
+    private void on_fatal_error(ImportResult result, string message) {
+        AppWindow.error_message(message);
     }
 }
 

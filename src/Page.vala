@@ -5,13 +5,6 @@
  */
 
 public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
-    public const uint KEY_CTRL_L = Gdk.keyval_from_name("Control_L");
-    public const uint KEY_CTRL_R = Gdk.keyval_from_name("Control_R");
-    public const uint KEY_ALT_L = Gdk.keyval_from_name("Alt_L");
-    public const uint KEY_ALT_R = Gdk.keyval_from_name("Alt_R");
-    public const uint KEY_SHIFT_L = Gdk.keyval_from_name("Shift_L");
-    public const uint KEY_SHIFT_R = Gdk.keyval_from_name("Shift_R");
-    
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
 
     protected enum TargetType {
@@ -230,7 +223,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private virtual void update_modifiers() {
         int x, y;
         Gdk.ModifierType mask;
-        AppWindow.get_instance().window.get_pointer(out x, out y, out mask);       
+        AppWindow.get_instance().window.get_pointer(out x, out y, out mask);
 
         bool ctrl_currently_pressed = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         bool alt_currently_pressed = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
@@ -513,50 +506,65 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return false;
     }
     
-    public bool notify_app_key_pressed(Gdk.EventKey event) {
-        // can't use a switch statement here due to this bug:
-        // http://bugzilla.gnome.org/show_bug.cgi?id=585292
-        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R) {
-            ctrl_pressed = true;
-            return on_ctrl_pressed(event);
-        }
-        
-        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R) {
-            alt_pressed = true;
-            return on_alt_pressed(event);
-        }
-        
-        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R) {
-            shift_pressed = true;
-            return on_shift_pressed(event);
-        }
-        
+    protected virtual bool on_app_key_pressed(Gdk.EventKey event) {
         return false;
     }
-
-    public bool notify_app_key_released(Gdk.EventKey event) {
-        // can't use a switch statement here due to this bug:
-        // http://bugzilla.gnome.org/show_bug.cgi?id=585292
-        if (event.keyval == KEY_CTRL_L || event.keyval == KEY_CTRL_R) {
-            ctrl_pressed = false;
-            return on_ctrl_released(event);
-        }
-        
-        if (event.keyval == KEY_ALT_L || event.keyval == KEY_ALT_R) {
-            alt_pressed = false;
-            return on_alt_released(event);
-        }
-
-        if (event.keyval == KEY_SHIFT_L || event.keyval == KEY_SHIFT_R) {
-            shift_pressed = false;
-            return on_shift_released(event);
-        }
-        
+    
+    protected virtual bool on_app_key_released(Gdk.EventKey event) {
         return false;
+    }
+    
+    public bool notify_app_key_pressed(Gdk.EventKey event) {
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "Control_L":
+            case "Control_R":
+                ctrl_pressed = true;
+                
+                return on_ctrl_pressed(event);
+            
+            case "Alt_L":
+            case "Alt_R":
+                alt_pressed = true;
+                
+                return on_alt_pressed(event);
+            
+            case "Shift_L":
+            case "Shift_R":
+                shift_pressed = true;
+                
+                return on_shift_pressed(event);
+        }
+        
+        return on_app_key_pressed(event);
+    }
+    
+    public bool notify_app_key_released(Gdk.EventKey event) {
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "Control_L":
+            case "Control_R":
+                ctrl_pressed = false;
+                
+                return on_ctrl_released(event);
+            
+            case "Alt_L":
+            case "Alt_R":
+                alt_pressed = false;
+                
+                return on_alt_released(event);
+            
+            case "Shift_L":
+            case "Shift_R":
+                shift_pressed = false;
+                
+                return on_shift_released(event);
+        }
+        
+        return on_app_key_released(event);
     }
 
     public bool notify_app_focus_in(Gdk.EventFocus event) {
         update_modifiers();
+        
         return false;
     }
 
@@ -1117,7 +1125,11 @@ public abstract class CheckerboardPage : Page {
             break;
         }
         
-        vadj.set_value(new_value);
+        // It appears that in GTK+ 2.18, the adjustment is not clamped the way it was in 2.16.
+        // This may have to do with how adjustments are different w/ scrollbars, that they're upper
+        // clamp is upper - page_size ... either way, enforce these limits here
+        vadj.set_value(new_value.clamp((int) vadj.get_lower(), 
+            (int) vadj.get_upper() - (int) vadj.get_page_size()));
         
         updated_selection_band();
         

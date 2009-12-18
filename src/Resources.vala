@@ -18,7 +18,7 @@ namespace Resources {
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";
-    public const string HELP_URL = "http://trac.yorba.org/wiki/UsingShotwell";
+    public const string HELP_URL = "http://trac.yorba.org/wiki/UsingShotwell0.4";
     
     public const string PREFIX = _PREFIX;
 
@@ -65,6 +65,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PUBLISH = "shotwell-publish";
     public const string HIDDEN = "shotwell-hidden";
     public const string FAVORITE = "shotwell-favorite";
+    public const string MERGE = "shotwell-merge-events";
 
 #if NO_SVG
 	public const string SVG_SUFFIX = ".png";
@@ -174,6 +175,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("publish.png"), PUBLISH);
         add_stock_icon(icons_dir.get_child("hidden.svg"), HIDDEN);
         add_stock_icon(icons_dir.get_child("favorite.svg"), FAVORITE);
+        add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
         
         factory.add_default();
     }

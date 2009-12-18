@@ -285,6 +285,16 @@ public string rectangle_to_string(Gdk.Rectangle rect) {
     return "%dx%d %d,%d".printf(rect.x, rect.y, rect.width, rect.height);
 }
 
+public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
+    Gdk.Rectangle rect = Gdk.Rectangle();
+    rect.x = original.x.clamp(0, max.width);
+    rect.y = original.y.clamp(0, max.height);
+    rect.width = original.width.clamp(0, max.width);
+    rect.height = original.height.clamp(0, max.height);
+    
+    return rect;
+}
+
 public enum CompassPoint {
     NORTH,
     SOUTH,
@@ -312,7 +322,7 @@ public uint64 query_total_file_size(File file_or_dir) throws Error {
         return 0;
     }
         
-    FileEnumerator enumerator = file_or_dir.enumerate_children("*",
+    FileEnumerator enumerator = file_or_dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
         FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
     if (enumerator == null)
         return 0;

@@ -103,7 +103,7 @@ public class BatchImport {
     private ImportManifest manifest;
     private BatchImport ref_holder = null;
     private bool scheduled = false;
-    private bool user_aborted = false;
+    private ImportResult abort_flag = ImportResult.SUCCESS;
     private int import_file_count = 0;
     
     // these are for debugging and testing only
@@ -119,6 +119,10 @@ public class BatchImport {
     
     // Called for each Photo imported to the system
     public signal void imported(LibraryPhoto photo);
+    
+    // Called when a fatal error occurs that stops the import entirely.  Remaining jobs will be
+    // failed and import_complete() is still fired.
+    public signal void fatal_error(ImportResult result, string message);
     
     // Called when a job fails.  import_complete will also be called at the end of the batch
     public signal void import_job_failed(BatchImportResult result);
@@ -154,8 +158,37 @@ public class BatchImport {
         return total_bytes;
     }
     
+    private void abort(ImportResult result) {
+        // only update the abort flag if not already set
+        if (abort_flag == ImportResult.SUCCESS)
+            abort_flag = result;
+    }
+    
+    private static bool is_fatal_result(ImportResult result) {
+        switch (result) {
+            case ImportResult.DISK_FULL:
+            case ImportResult.DISK_FAILURE:
+            case ImportResult.USER_ABORT:
+                return true;
+            
+            default:
+                return false;
+        }
+    }
+    
+    private static bool is_nonuser_fatal_result(ImportResult result) {
+        switch (result) {
+            case ImportResult.DISK_FULL:
+            case ImportResult.DISK_FAILURE:
+                return true;
+            
+            default:
+                return false;
+        }
+    }
+    
     public void user_halt() {
-        user_aborted = true;
+        abort(ImportResult.USER_ABORT);
     }
 
     public void schedule() {
@@ -173,8 +206,9 @@ public class BatchImport {
         BatchImportResult batch_result = new BatchImportResult(job, file, identifier, result);
         manifest.add_result(batch_result);
         
-        if (result == ImportResult.USER_ABORT)
-            user_aborted = true;
+        // if fatal but the flag not set, set it now
+        if (is_fatal_result(result))
+            abort(result);
         
         if (result != ImportResult.SUCCESS)
             import_job_failed(batch_result);
@@ -185,10 +219,10 @@ public class BatchImport {
         
         foreach (BatchImportJob job in jobs) {
             if (AppWindow.has_user_quit())
-                user_aborted = true;
-                
-            if (user_aborted) {
-                job_result(job, null, job.get_identifier(), ImportResult.USER_ABORT);
+                user_halt();
+            
+            if (abort_flag != ImportResult.SUCCESS) {
+                job_result(job, null, job.get_identifier(), abort_flag);
                 
                 continue;
             }
@@ -214,8 +248,9 @@ public class BatchImport {
     }
 
     private void import(BatchImportJob job, File file, bool copy_to_library, string id) {
-        if (user_aborted) {
-            job_result(job, file, id, ImportResult.USER_ABORT);
+        // abort all jobs if fatal result has occurred
+        if (abort_flag != ImportResult.SUCCESS) {
+            job_result(job, file, id, abort_flag);
             
             return;
         }
@@ -223,20 +258,55 @@ public class BatchImport {
         FileType type = file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         
         ImportResult result;
-        switch (type) {
-            case FileType.DIRECTORY:
-                result = import_dir(job, file, copy_to_library);
-            break;
+        string file_error = null;
+        try {
+            switch (type) {
+                case FileType.DIRECTORY:
+                    result = import_dir(job, file, copy_to_library);
+                break;
+                
+                case FileType.REGULAR:
+                    result = import_file(file, copy_to_library);
+                break;
+                
+                default:
+                    debug("Skipping file %s (neither a directory nor a file)", file.get_path());
+                    result = ImportResult.NOT_A_FILE;
+                break;
+            }
+        } catch (Error err) {
+            critical("Unable to import file/directory %s: %s", file.get_path(), err.message);
             
-            case FileType.REGULAR:
-                result = import_file(file, copy_to_library);
-            break;
+            result = ImportResult.FILE_ERROR;
             
-            default:
-                debug("Skipping file %s (neither a directory nor a file)", file.get_path());
-                result = ImportResult.NOT_A_FILE;
-            break;
+            if (err is FileError) {
+                FileError ferr = (FileError) err;
+                
+                if (ferr is FileError.NOSPC)
+                    result = ImportResult.DISK_FULL;
+                else if (ferr is FileError.IO)
+                    result = ImportResult.DISK_FAILURE;
+                else if (ferr is FileError.ISDIR)
+                    result = ImportResult.NOT_A_FILE;
+                
+                file_error = ferr.message;
+            } else if (err is IOError) {
+                IOError ioerr = (IOError) err;
+                
+                if (ioerr is IOError.NO_SPACE)
+                    result = ImportResult.DISK_FULL;
+                else if (ioerr is IOError.FAILED)
+                    result = ImportResult.DISK_FAILURE;
+                else if (ioerr is IOError.IS_DIRECTORY)
+                    result = ImportResult.NOT_A_FILE;
+                
+                file_error = ioerr.message;
+            }
         }
+        
+        // fire this signal only once, and only on non-user aborts
+        if (is_nonuser_fatal_result(result) && !is_nonuser_fatal_result(abort_flag))
+            fatal_error(result, file_error);
         
         // only report results for files and error cases, not directories which are successfully
         // traversed (since they result in files)
@@ -244,33 +314,38 @@ public class BatchImport {
             job_result(job, file, id, result);
     }
     
-    private ImportResult import_dir(BatchImportJob job, File dir, bool copy_to_library) {
+    private ImportResult import_dir(BatchImportJob job, File dir, bool copy_to_library) throws Error {
+        FileEnumerator enumerator = null;
         try {
-            FileEnumerator enumerator = dir.enumerate_children("*",
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-            if (enumerator == null)
-                return ImportResult.FILE_ERROR;
-            
-            if (!spin_event_loop())
-                return ImportResult.USER_ABORT;
-
-            FileInfo info = null;
-            while ((info = enumerator.next_file(null)) != null) {
-                File child = dir.get_child(info.get_name());
-                import(job, child, copy_to_library, child.get_path());
-            }
+            enumerator = dir.enumerate_children("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         } catch (Error err) {
-            debug("Unable to import from %s: %s", dir.get_path(), err.message);
-            
+            warning("Unable to obtain directory enumerator for %s: %s", dir.get_path(), err.message);
+        }
+        
+        if (enumerator == null)
             return ImportResult.FILE_ERROR;
+        
+        if (!spin_event_loop())
+            return ImportResult.USER_ABORT;
+
+        FileInfo info = null;
+        while ((info = enumerator.next_file(null)) != null) {
+            File child = dir.get_child(info.get_name());
+            import(job, child, copy_to_library, child.get_path());
         }
         
         return ImportResult.SUCCESS;
     }
     
-    private ImportResult import_file(File file, bool copy_to_library) {
+    private ImportResult import_file(File file, bool copy_to_library) throws Error {
         if (!spin_event_loop())
             return ImportResult.USER_ABORT;
+        
+        if (!TransformablePhoto.is_file_supported(file)) {
+            message("Not importing %s: Unsupported extension", file.get_path());
+            
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
 
         import_file_count++;
         
@@ -328,13 +403,7 @@ public class BatchImport {
         bool is_in_library_dir = file.has_prefix(AppDirs.get_photos_dir());
         
         if (copy_to_library && !is_in_library_dir) {
-            File copied = null;
-            try {
-                copied = LibraryFiles.duplicate(file);
-            } catch (Error err) {
-                critical("Unable to duplicate file %s: %s", file.get_path(), err.message);
-            }
-            
+            File copied = LibraryFiles.duplicate(file);
             if (copied == null)
                 return ImportResult.FILE_ERROR;
             
@@ -352,6 +421,7 @@ public class BatchImport {
                 try {
                     import.delete(null);
                 } catch (Error err) {
+                    // don't let this file error cause an abort
                     critical("Unable to delete copy of imported file %s: %s", import.get_path(),
                         err.message);
                 }

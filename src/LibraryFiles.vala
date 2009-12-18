@@ -7,7 +7,8 @@
 namespace LibraryFiles {
 public const int DIRECTORY_DEPTH = 3;
     
-public File? generate_unique_file(string filename, Exif.Data? exif, time_t ts, out bool collision) {
+public File? generate_unique_file(string filename, Exif.Data? exif, time_t ts, out bool collision)
+    throws Error {
     File dir = AppDirs.get_photos_dir();
     time_t timestamp = ts;
     
@@ -27,12 +28,8 @@ public File? generate_unique_file(string filename, Exif.Data? exif, time_t ts, o
     dir = dir.get_child("%02u".printf(tm.month + 1));
     dir = dir.get_child("%02u".printf(tm.day));
     
-    try {
-        if (!dir.query_exists(null))
-            dir.make_directory_with_parents(null);
-    } catch (Error err) {
-        error("Unable to create photo library directory %s", dir.get_path());
-    }
+    if (!dir.query_exists(null))
+        dir.make_directory_with_parents(null);
     
     // if file doesn't exist, use that and done
     File file = dir.get_child(filename);

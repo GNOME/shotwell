@@ -12,18 +12,19 @@ public abstract class LayoutItem : ThumbnailView {
     public const int TRINKET_SCALE = 12;
     public const int TRINKET_PADDING = 1;
 
-    public const string SELECTED_COLOR = "#0FF";
+    public const string SELECTED_COLOR = "#2DF";
     public const string UNSELECTED_COLOR = "#FFF";
     
     public const int BRIGHTEN_SHIFT = 0x18;
-    
-    private static int cached_pango_height = -1;
     
     public Gdk.Rectangle allocation = Gdk.Rectangle();
     
     private CheckerboardLayout parent = null;
     private Pango.Layout pango_layout = null;
+    private Pango.Alignment title_alignment = Pango.Alignment.LEFT;
+    private Dimensions pango_dim = Dimensions();
     private string title = "";
+    private bool title_marked_up = false;
     private bool title_displayed = true;
     private bool exposure = false;
     private Gdk.Pixbuf pixbuf = null;
@@ -58,11 +59,12 @@ public abstract class LayoutItem : ThumbnailView {
         return null;
     }
     
-    public void set_title(string text) {
+    public void set_title(string text, bool marked_up = false) {
         if (text == title)
             return;
         
         title = text;
+        title_marked_up = marked_up;
 
         update_pango();
         recalc_size();
@@ -70,8 +72,28 @@ public abstract class LayoutItem : ThumbnailView {
         notify_view_altered();
     }
     
+    public void set_markup_title(string markup) {
+        set_title(markup, true);
+    }
+    
     public string get_title() {
         return title;
+    }
+    
+    public Pango.Alignment get_title_alignment() {
+        return title_alignment;
+    }
+    
+    public void set_title_alignment(Pango.Alignment title_alignment) {
+        if (this.title_alignment == title_alignment)
+            return;
+        
+        this.title_alignment = title_alignment;
+        
+        update_pango();
+        recalc_size();
+        
+        notify_view_altered();
     }
     
     public override string get_name() {
@@ -148,13 +170,15 @@ public abstract class LayoutItem : ThumbnailView {
         
         // create layout for this string and ellipsize so it never extends past the width of the
         // pixbuf (handled in recalc_size)
-        pango_layout = parent.create_pango_layout(title);
-        pango_layout.set_ellipsize(Pango.EllipsizeMode.END);
+        pango_layout = parent.create_pango_layout(null);
+        if (!title_marked_up)
+            pango_layout.set_text(title, -1);
+        else
+            pango_layout.set_markup(title, -1);
         
-        // to avoid a lot of calls to get the pixel height of the label (which is the same for
-        // all the items), cache it the first time and be done with it
-        if (cached_pango_height < 0)
-            pango_layout.get_pixel_size(null, out cached_pango_height);
+        pango_layout.set_ellipsize(Pango.EllipsizeMode.END);
+        pango_layout.set_alignment(title_alignment);
+        pango_layout.get_pixel_size(out pango_dim.width, out pango_dim.height);
     }
     
     public static int get_max_width(int scale) {
@@ -171,7 +195,7 @@ public abstract class LayoutItem : ThumbnailView {
         Gdk.Rectangle old_allocation = allocation;
         
         // only add in the text height if it's being displayed
-        int text_height = (title_displayed) ? cached_pango_height + LABEL_PADDING : 0;
+        int text_height = (title_displayed) ? pango_dim.height + LABEL_PADDING : 0;
         
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
@@ -197,6 +221,11 @@ public abstract class LayoutItem : ThumbnailView {
             notify_geometry_altered();
     }
     
+    protected virtual void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
+        drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, origin.x, origin.y, -1, -1, 
+            Gdk.RgbDither.NORMAL, 0, 0);
+    }
+    
     public void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         // frame of FRAME_WIDTH size (determined by GC) only if selected ... however, this is
         // accounted for in allocation so the frame can appear without resizing the item
@@ -204,15 +233,13 @@ public abstract class LayoutItem : ThumbnailView {
             drawable.draw_rectangle(gc, false, allocation.x, allocation.y, allocation.width - 1,
                 allocation.height - 1);
         
-        // find the top-left point of the pixbuf
+        // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
         pixbuf_origin.x = allocation.x + FRAME_WIDTH + FRAME_PADDING;
         pixbuf_origin.y = allocation.y + FRAME_WIDTH + FRAME_PADDING;
         
-        // pixbuf (or blank square) FRAME_PADDING interior from the frame
         if (display_pixbuf != null)
-            drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, pixbuf_origin.x, pixbuf_origin.y, -1, -1, 
-                Gdk.RgbDither.NORMAL, 0, 0);
+            paint_image(gc, drawable, display_pixbuf, pixbuf_origin);
         
         // get trinkets to determine the max width (pixbuf vs. trinkets)
         int trinkets_width = 0;
@@ -1148,7 +1175,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private override bool expose_event(Gdk.EventExpose event) {
-        assert(in_view);
+        // Note: It's possible for expose_event to be called when in_view is false; this happens
+        // when pages are switched prior to switched_to() being called, and some of the other
+        // controls allow for events to be processed while they are orienting themselves.  Since
+        // we want switched_to() to be the final call in the process (indicating that the page is
+        // now in place and should do its thing to update itself), have to be be prepared for
+        // GTK/GDK calls between the widgets being actually present on the screen and "switched to"
         
         // watch for message mode
         if (message == null) {

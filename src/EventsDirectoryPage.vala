@@ -5,23 +5,28 @@
  */
 
 class EventDirectoryItem : LayoutItem {
-    public const int SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
+    public const int CROPPED_SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
         + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
+        
+    public static Scaling squared_scaling = Scaling.to_fill_viewport(Dimensions(CROPPED_SCALE, CROPPED_SCALE));
     
     public Event event;
-
-    private Dimensions image_dim = Dimensions();
-
+    
+    private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
+    
     public EventDirectoryItem(Event event) {
-        base(event, event.get_primary_photo().get_dimensions().get_scaled(SCALE, true));
+        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE));
         
         this.event = event;
         
-        set_title(event.get_name());
+        set_formatted_title();
+        set_title_alignment(Pango.Alignment.CENTER);
         
-        // stash the image size for when it's not being displayed
-        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE, true);
-        clear_image(image_dim);
+        // find the center square
+        paul_lynde = get_paul_lynde_rect(event.get_primary_photo());
+        
+        // don't display yet, but claim its dimensions
+        clear_image(Dimensions.for_rectangle(paul_lynde));
         
         // monitor the event for changes
         event.altered += on_event_altered;
@@ -30,13 +35,46 @@ class EventDirectoryItem : LayoutItem {
     ~EventDirectoryItem() {
         event.altered -= on_event_altered;
     }
+    
+    // square the photo's dimensions and locate the pixbuf's center square
+    private static Gdk.Rectangle get_paul_lynde_rect(LibraryPhoto photo) {
+        Dimensions scaled = squared_scaling.get_scaled_dimensions(photo.get_dimensions());
+        
+        Gdk.Rectangle paul_lynde = Gdk.Rectangle();
+        paul_lynde.x = (scaled.width - CROPPED_SCALE).clamp(0, scaled.width) / 2;
+        paul_lynde.y = (scaled.height - CROPPED_SCALE).clamp(0, scaled.height) / 2;
+        paul_lynde.width = CROPPED_SCALE;
+        paul_lynde.height = CROPPED_SCALE;
+        
+        return paul_lynde;
+    }
+    
+    // scale and crop the center square of the photo
+    private static Gdk.Pixbuf get_paul_lynde(LibraryPhoto photo, Gdk.Rectangle paul_lynde) throws Error {
+        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(squared_scaling);
+        
+        // to catch rounding errors in the two algorithms
+        paul_lynde = clamp_rectangle(paul_lynde, Dimensions.for_pixbuf(pixbuf));
+        
+        // crop the center square
+        return new Gdk.Pixbuf.subpixbuf(pixbuf, paul_lynde.x, paul_lynde.y, paul_lynde.width,
+            paul_lynde.height);
+    }
+    
+    private void set_formatted_title() {
+        string count = ngettext("%d Photo", "%d Photos", event.get_photo_count()).printf(
+            event.get_photo_count());
+        string title = "<b>%s</b>\n%s".printf(Markup.escape_text(event.get_name()),
+            Markup.escape_text(count));
+        set_markup_title(title);
+    }
 
     public override void exposed() {
         if (is_exposed())
             return;
         
         try {
-            set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE, true)));
+            set_image(get_paul_lynde(event.get_primary_photo(), paul_lynde));
         } catch (Error err) {
             critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
         }
@@ -48,30 +86,38 @@ class EventDirectoryItem : LayoutItem {
         if (!is_exposed())
             return;
         
-        clear_image(image_dim);
+        clear_image(Dimensions.for_rectangle(paul_lynde));
         
         base.unexposed();
     }
     
     private void on_event_altered() {
-        set_title(event.get_name());
+        set_formatted_title();
     }
     
     private override void thumbnail_altered() {
-        // get new dimensions
-        image_dim = event.get_primary_photo().get_dimensions().get_scaled(SCALE, true);
+        LibraryPhoto photo = event.get_primary_photo();
+        
+        // get new center square
+        paul_lynde = get_paul_lynde_rect(photo);
         
         if (is_exposed()) {
             try {
-                set_image(event.get_primary_photo().get_preview_pixbuf(Scaling.for_best_fit(SCALE, true)));
+                set_image(get_paul_lynde(photo, paul_lynde));
             } catch (Error err) {
                 critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
             }
         } else {
-            clear_image(image_dim);
+            clear_image(Dimensions.for_rectangle(paul_lynde));
         }
         
         base.thumbnail_altered();
+    }
+    
+    protected override void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf,
+        Gdk.Point origin) {
+        // use rounded corners on events
+        draw_rounded_corners_pixbuf(drawable, pixbuf, origin, 6.0);
     }
 }
 
@@ -121,7 +167,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // merge tool
-        merge_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_ADD);
+        merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
         merge_button.set_label(Resources.MERGE_LABEL);
         merge_button.set_tooltip_text(Resources.MERGE_TOOLTIP);
         merge_button.clicked += on_merge;
@@ -168,7 +214,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         rename.tooltip = Resources.RENAME_EVENT_TOOLTIP;
         actions += rename;
        
-        Gtk.ActionEntry merge = { "Merge", Gtk.STOCK_ADD, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, on_merge };
+        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE,
+            on_merge };
         merge.label = Resources.MERGE_MENU;
         merge.tooltip = Resources.MERGE_TOOLTIP;
         actions += merge;

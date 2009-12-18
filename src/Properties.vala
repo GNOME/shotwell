@@ -271,11 +271,43 @@ private class BasicProperties : Properties {
             }
         }
 
-        if (exposure != "" && aperture != "" && iso != "") {
-            add_line(_("Exposure:"), exposure + ", " + aperture);
-            add_line("","ISO " + iso);
+        if (exposure != "" || aperture != "" || iso != "") {
+            string line = null;
+            
+            // attempt to put exposure and aperture on the same line
+            if (exposure != "")
+                line = exposure;
+            
+            if (aperture != "") {
+                if (line != null)
+                    line += ", " + aperture;
+                else
+                    line = aperture;
+            }
+            
+            // if not both available but ISO is, add it to the first line
+            if ((exposure == "" || aperture == "") && iso != "") {
+                if (line != null)
+                    line += ", " + "ISO " + iso;
+                else
+                    line = "ISO " + iso;
+                
+                add_line(_("Exposure:"), line);
+            } else {
+                // fit both on the top line, emit and move on
+                if (line != null)
+                    add_line(_("Exposure:"), line);
+                
+                // emit ISO on a second unadorned line
+                if (iso != "") {
+                    if (line != null)
+                        add_line("","ISO " + iso);
+                    else
+                        add_line(_("Exposure:"), "ISO " + iso);
+                }
+            }
         }
-
+        
         set_text();
     }
 }
@@ -388,7 +420,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         }
     }
 
-    public ExtendedPropertiesWindow() {
+    public ExtendedPropertiesWindow(Gtk.Window owner) {
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.KEY_PRESS_MASK);
         focus_on_map = true;
         set_accept_focus(true);
@@ -398,6 +430,8 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         set_size_request(300,-1);
         set_default_size(520, -1);
         set_position(Gtk.WindowPosition.CENTER);
+        set_transient_for(owner);
+        set_type_hint(Gdk.WindowTypeHint.DIALOG);
 
         delete_event += hide_on_delete;
 

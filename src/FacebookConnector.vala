@@ -208,7 +208,15 @@ private string? check_for_error_response(RESTXmlDocument doc) {
     } catch (PublishingError err) {
         warning("Unable to parse error response for error message");
     }
-    
+
+    // 102 errors occur when the session key has become invalid -- the correct behavior in this
+    // case is to log the user out
+    if ((error_code != null) && (error_code->get_content() == "102")) {
+        PublishingDialog shell = PublishingDialog.get_active_instance();
+        Interactor interactor = (Interactor) shell.get_interactor();
+        interactor.logout_user();
+    }
+
     return "%s (error code %s)".printf(error_msg != null ? error_msg->get_content() : "(unknown)",
         error_code != null ? error_code->get_content() : "(unknown)");
 }
@@ -621,6 +629,10 @@ public class Interactor : ServiceInteractor {
             get_host().install_pane(not_logged_in_pane);
             get_host().set_cancel_button_mode();
         }
+    }
+
+    public void logout_user() {
+        on_logout();
     }
     
     private void on_publish(string target_album_name) {
