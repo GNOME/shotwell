@@ -653,7 +653,7 @@ public abstract class CollectionPage : CheckerboardPage {
 
         set_item_sensitive("/CollectionMenuBar/FileMenu/Export", sensitivity);
 #if !NO_PUBLISHING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Publish", sensitivity);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
 #endif
     }
     
