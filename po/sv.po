@@ -1,0 +1,1103 @@
+# po/shotwell.pot
+# Swedish PO Message string file for Shotwell
+# Copyright (C) 2009 Yorba Foundation
+# This file is distributed under the GNU LGPL, version 2.1.
+# Daniel Nylander <po@danielnylander.se>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell\n"
+"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
+"POT-Creation-Date: 2009-11-02 11:42-0800\n"
+"PO-Revision-Date: 2009-12-18 20:19+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/AppWindow.vala:103
+msgid "Leave _Fullscreen"
+msgstr "Lämna _helskärm"
+
+#: src/AppWindow.vala:104
+msgid "Leave fullscreen"
+msgstr "Lämna helskärm"
+
+#: src/AppWindow.vala:355
+msgid "_Quit"
+msgstr "A_vsluta"
+
+#: src/AppWindow.vala:356
+msgid "Quit Shotwell"
+msgstr "Avsluta Shotwell"
+
+#: src/AppWindow.vala:361
+msgid "_About"
+msgstr "_Om"
+
+#: src/AppWindow.vala:362
+msgid "About Shotwell"
+msgstr "Om Shotwell"
+
+#: src/AppWindow.vala:367
+msgid "_Fullscreen"
+msgstr "_Helskärm"
+
+#: src/AppWindow.vala:368
+msgid "Use Shotwell at fullscreen"
+msgstr ""
+
+#: src/AppWindow.vala:373
+msgid "_Contents"
+msgstr "_Innehåll"
+
+#: src/AppWindow.vala:374
+msgid "More informaton on Shotwell"
+msgstr "Mer informaton om Shotwell"
+
+#: src/AppWindow.vala:428
+msgid "Pictures"
+msgstr "Bilder"
+
+#: src/AppWindow.vala:513
+msgid "Visit the Yorba web site"
+msgstr ""
+
+#: src/CollectionPage.vala:56
+#: src/CollectionPage.vala:118
+msgid "Settings"
+msgstr "Inställningar"
+
+#: src/CollectionPage.vala:58
+msgid "Delay:"
+msgstr "Fördröjning:"
+
+#: src/CollectionPage.vala:59
+msgid "seconds"
+msgstr "sekunder"
+
+#: src/CollectionPage.vala:90
+#: src/CollectionPage.vala:441
+msgid "Slideshow"
+msgstr "Bildspel"
+
+#: src/CollectionPage.vala:97
+msgid "Back"
+msgstr ""
+
+#: src/CollectionPage.vala:98
+msgid "Go to the previous photo"
+msgstr ""
+
+#: src/CollectionPage.vala:104
+#: src/CollectionPage.vala:211
+msgid "Pause"
+msgstr "Paus"
+
+#: src/CollectionPage.vala:105
+#: src/CollectionPage.vala:212
+msgid "Pause the slideshow"
+msgstr ""
+
+#: src/CollectionPage.vala:111
+msgid "Next"
+msgstr "Nästa"
+
+#: src/CollectionPage.vala:112
+msgid "Go to the next photo"
+msgstr ""
+
+#: src/CollectionPage.vala:119
+msgid "Change slideshow settings"
+msgstr ""
+
+#: src/CollectionPage.vala:174
+msgid "All photo source files are missing."
+msgstr ""
+
+#: src/CollectionPage.vala:207
+msgid "Play"
+msgstr "Spela"
+
+#: src/CollectionPage.vala:208
+msgid "Continue the slideshow"
+msgstr "Fortsätt bildspelet"
+
+#: src/CollectionPage.vala:442
+msgid "Start a slideshow of these photos"
+msgstr ""
+
+#: src/CollectionPage.vala:464
+msgid "Adjust the size of the thumbnails"
+msgstr ""
+
+#: src/CollectionPage.vala:483
+#: src/EventsDirectoryPage.vala:115
+#: src/ImportPage.vala:331
+#: src/ImportPage.vala:1017
+#: src/PhotoPage.vala:1151
+#: src/PhotoPage.vala:1436
+msgid "_File"
+msgstr "_Arkiv"
+
+#: src/CollectionPage.vala:488
+#: src/PhotoPage.vala:1156
+msgid "_Export Photos..."
+msgstr "_Exportera foton..."
+
+#: src/CollectionPage.vala:489
+msgid "Export selected photos to disk"
+msgstr ""
+
+#: src/CollectionPage.vala:493
+#: src/EventsDirectoryPage.vala:127
+#: src/ImportPage.vala:345
+msgid "_Edit"
+msgstr "R_edigera"
+
+#: src/CollectionPage.vala:498
+#: src/ImportPage.vala:350
+msgid "Select _All"
+msgstr "Markera _allt"
+
+#: src/CollectionPage.vala:499
+msgid "Select all the photos in the library"
+msgstr ""
+
+#: src/CollectionPage.vala:504
+msgid "_Remove"
+msgstr "_Ta bort"
+
+#: src/CollectionPage.vala:505
+msgid "Remove the selected photos from the library"
+msgstr ""
+
+#: src/CollectionPage.vala:510
+msgid "_Photos"
+msgstr "_Foton"
+
+#: src/CollectionPage.vala:515
+msgid "Zoom _In"
+msgstr "Zooma _in"
+
+#: src/CollectionPage.vala:516
+msgid "Increase the magnification of the thumbnails"
+msgstr ""
+
+#: src/CollectionPage.vala:521
+msgid "Zoom _Out"
+msgstr "Zooma _ut"
+
+#: src/CollectionPage.vala:522
+msgid "Decrease the magnification of the thumbnails"
+msgstr ""
+
+#: src/CollectionPage.vala:527
+#: src/PhotoPage.vala:1182
+#: src/PhotoPage.vala:1470
+msgid "Rotate _Right"
+msgstr ""
+
+#: src/CollectionPage.vala:528
+#: src/PhotoPage.vala:1183
+#: src/PhotoPage.vala:1471
+msgid "Rotate the selected photos clockwise"
+msgstr ""
+
+#: src/CollectionPage.vala:533
+#: src/PhotoPage.vala:1188
+#: src/PhotoPage.vala:1476
+msgid "Rotate _Left"
+msgstr ""
+
+#: src/CollectionPage.vala:534
+#: src/PhotoPage.vala:1189
+#: src/PhotoPage.vala:1477
+msgid "Rotate the selected photos counterclockwise"
+msgstr ""
+
+#: src/CollectionPage.vala:539
+#: src/PhotoPage.vala:1194
+#: src/PhotoPage.vala:1482
+msgid "_Mirror"
+msgstr ""
+
+#: src/CollectionPage.vala:540
+#: src/PhotoPage.vala:1195
+#: src/PhotoPage.vala:1483
+msgid "Make mirror images of the selected photos"
+msgstr ""
+
+#: src/CollectionPage.vala:545
+#: src/PhotoPage.vala:1206
+#: src/PhotoPage.vala:1488
+msgid "Re_vert to Original"
+msgstr ""
+
+#: src/CollectionPage.vala:546
+msgid "Revert to original photo"
+msgstr ""
+
+#: src/CollectionPage.vala:551
+msgid "_Slideshow"
+msgstr "_Bildspel"
+
+#: src/CollectionPage.vala:552
+msgid "Play a slideshow"
+msgstr "Spela upp ett bildspel"
+
+#: src/CollectionPage.vala:556
+#: src/EventsDirectoryPage.vala:119
+#: src/ImportPage.vala:355
+#: src/ImportPage.vala:1027
+#: src/PhotoPage.vala:1161
+#: src/PhotoPage.vala:1493
+msgid "_View"
+msgstr "_Visa"
+
+#: src/CollectionPage.vala:560
+msgid "Sort _Photos"
+msgstr "Sortera _foton"
+
+#: src/CollectionPage.vala:564
+#: src/EventsDirectoryPage.vala:123
+#: src/ImportPage.vala:359
+#: src/ImportPage.vala:1031
+#: src/PhotoPage.vala:1211
+#: src/PhotoPage.vala:1497
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: src/CollectionPage.vala:575
+#: src/ImportPage.vala:320
+msgid "_Titles"
+msgstr "_Titlar"
+
+#: src/CollectionPage.vala:576
+#: src/ImportPage.vala:321
+msgid "Display the title of each photo"
+msgstr ""
+
+#: src/CollectionPage.vala:587
+msgid "By _Title"
+msgstr ""
+
+#: src/CollectionPage.vala:588
+msgid "Sort photos by title"
+msgstr ""
+
+#: src/CollectionPage.vala:593
+msgid "By Exposure _Date"
+msgstr ""
+
+#: src/CollectionPage.vala:594
+msgid "Sort photos by exposure date"
+msgstr ""
+
+#: src/CollectionPage.vala:605
+#: src/LibraryWindow.vala:301
+msgid "_Ascending"
+msgstr ""
+
+#: src/CollectionPage.vala:606
+#: src/LibraryWindow.vala:302
+msgid "Sort photos in an ascending order"
+msgstr ""
+
+#: src/CollectionPage.vala:611
+#: src/LibraryWindow.vala:308
+msgid "D_escending"
+msgstr ""
+
+#: src/CollectionPage.vala:612
+#: src/LibraryWindow.vala:309
+msgid "Sort photos in a descending order"
+msgstr ""
+
+#: src/CollectionPage.vala:748
+msgid "A photo source file is missing."
+msgstr ""
+
+#: src/CollectionPage.vala:749
+#, c-format
+msgid "%d photo source files missing."
+msgstr ""
+
+#: src/CollectionPage.vala:809
+#: src/Dialogs.vala:14
+#: src/PhotoPage.vala:1269
+msgid "Export Photo"
+msgstr "Exportera foto"
+
+#: src/CollectionPage.vala:811
+#: src/Dialogs.vala:36
+#: src/Dialogs.vala:54
+msgid "Export Photos"
+msgstr "Exportera foton"
+
+#: src/CollectionPage.vala:832
+#: src/CollectionPage.vala:866
+#, c-format
+msgid "Unable to export photo %s: %s"
+msgstr "Kunde inte exportera fotot %s: %s"
+
+#: src/CollectionPage.vala:853
+msgid "Exporting..."
+msgstr "Exporterar..."
+
+#: src/CollectionPage.vala:932
+msgid ""
+"This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+
+#: src/CollectionPage.vala:936
+msgid "Only _Remove"
+msgstr ""
+
+#: src/CollectionPage.vala:938
+msgid "Remove"
+msgstr "Ta bort"
+
+#: src/CollectionPage.vala:966
+msgid "Removing..."
+msgstr "Tar bort..."
+
+#: src/CollectionPage.vala:1016
+#: src/CollectionPage.vala:1020
+msgid "Rotating..."
+msgstr "Roterar..."
+
+#: src/CollectionPage.vala:1024
+msgid "Mirroring..."
+msgstr "Speglar..."
+
+#: src/CollectionPage.vala:1037
+msgid "Reverting..."
+msgstr "Återställer..."
+
+#: src/CollectionPage.vala:1188
+msgid "Photos"
+msgstr "Foton"
+
+#: src/DatabaseTables.vala:1268
+#, c-format
+msgid "Event %lld"
+msgstr ""
+
+#: src/Dialogs.vala:53
+#, c-format
+msgid "%s already exists.  Overwrite?"
+msgstr ""
+
+#: src/Dialogs.vala:122
+msgid "Quality"
+msgstr "Kvalitet"
+
+#: src/Dialogs.vala:125
+msgid "Scaling constraint"
+msgstr ""
+
+#: src/Dialogs.vala:130
+msgid " pixels"
+msgstr " bildpunkter"
+
+#: src/Dialogs.vala:251
+msgid "1 more photo not imported.\n"
+msgstr ""
+
+#: src/Dialogs.vala:253
+#, c-format
+msgid "%d more photos not imported.\n"
+msgstr ""
+
+#: src/Dialogs.vala:279
+msgid "1 photo successfully imported.\n"
+msgstr ""
+
+#: src/Dialogs.vala:281
+#, c-format
+msgid "%d photos successfully imported.\n"
+msgstr ""
+
+#: src/Dialogs.vala:289
+msgid "1 photo already in library was not imported.\n"
+msgstr ""
+
+#: src/Dialogs.vala:291
+#, c-format
+msgid "%d photos already in library were not imported.\n"
+msgstr ""
+
+#: src/Dialogs.vala:303
+msgid "1 photo failed to import due to file or hardware error.\n"
+msgstr ""
+
+#: src/Dialogs.vala:305
+#, c-format
+msgid "%d photos failed to import due to file or hardware error.\n"
+msgstr ""
+
+#: src/Dialogs.vala:317
+msgid "1 unsupported photo skipped.\n"
+msgstr ""
+
+#: src/Dialogs.vala:319
+#, c-format
+msgid "%d unsupported photos skipped.\n"
+msgstr ""
+
+#: src/Dialogs.vala:330
+msgid "1 photo skipped due to user cancel.\n"
+msgstr ""
+
+#: src/Dialogs.vala:332
+#, c-format
+msgid "%d photos skipped due to user cancel.\n"
+msgstr ""
+
+#: src/Dialogs.vala:345
+msgid "No photos imported.\n"
+msgstr "Inga foton importerades.\n"
+
+#: src/Dialogs.vala:365
+msgid "Import Complete"
+msgstr "Importeringen är färdig"
+
+#: src/Dialogs.vala:383
+msgid "Rename Event"
+msgstr ""
+
+#: src/Dialogs.vala:385
+msgid "Name:"
+msgstr "Namn:"
+
+#: src/Dialogs.vala:462
+#, c-format
+msgid "%d%%"
+msgstr "%d%%"
+
+#: src/Dimensions.vala:16
+msgid "Original size"
+msgstr "Ursprunglig storlek"
+
+#: src/Dimensions.vala:19
+msgid "Width or height"
+msgstr "Bredd eller höjd"
+
+#: src/Dimensions.vala:22
+msgid "Width"
+msgstr "Bredd"
+
+#: src/Dimensions.vala:25
+msgid "Height"
+msgstr "Höjd"
+
+#: src/EditingTools.vala:475
+msgid "Return to current photo dimensions"
+msgstr ""
+
+#: src/EditingTools.vala:478
+msgid "Set the crop for this photo"
+msgstr ""
+
+#: src/EditingTools.vala:491
+msgid "Pivot the crop rectangle between portrait and landscape orientations"
+msgstr ""
+
+#: src/EditingTools.vala:553
+msgid "Unconstrained"
+msgstr ""
+
+#: src/EditingTools.vala:554
+msgid "Square"
+msgstr "Fyrkant"
+
+#: src/EditingTools.vala:555
+msgid "Screen"
+msgstr "Skärm"
+
+#: src/EditingTools.vala:556
+msgid "Original Size"
+msgstr ""
+
+#: src/EditingTools.vala:557
+#: src/EditingTools.vala:560
+#: src/EditingTools.vala:568
+#: src/EditingTools.vala:576
+msgid "-"
+msgstr "-"
+
+#: src/EditingTools.vala:558
+msgid "SD Video (4 : 3)"
+msgstr ""
+
+#: src/EditingTools.vala:559
+msgid "HD Video (16 : 9)"
+msgstr ""
+
+#: src/EditingTools.vala:561
+msgid "Wallet (2 x 3 in.)"
+msgstr ""
+
+#: src/EditingTools.vala:562
+msgid "Notecard (3 x 5 in.)"
+msgstr ""
+
+#: src/EditingTools.vala:563
+msgid "4 x 6 in."
+msgstr ""
+
+#: src/EditingTools.vala:564
+msgid "5 x 7 in."
+msgstr ""
+
+#: src/EditingTools.vala:565
+msgid "8 x 10 in."
+msgstr ""
+
+#: src/EditingTools.vala:566
+msgid "11 x 14 in."
+msgstr ""
+
+#: src/EditingTools.vala:567
+msgid "16 x 20 in."
+msgstr ""
+
+#: src/EditingTools.vala:569
+msgid "Metric Wallet (9 x 13 cm)"
+msgstr ""
+
+#: src/EditingTools.vala:570
+msgid "Postcard (10 x 15 cm)"
+msgstr "Vykort (10 x 15 cm)"
+
+#: src/EditingTools.vala:571
+msgid "13 x 18 cm"
+msgstr "13 x 18 cm"
+
+#: src/EditingTools.vala:572
+msgid "18 x 24 cm"
+msgstr "18 x 24 cm"
+
+#: src/EditingTools.vala:573
+msgid "20 x 30 cm"
+msgstr "20 x 30 cm"
+
+#: src/EditingTools.vala:574
+msgid "24 x 40 cm"
+msgstr "24 x 40 cm"
+
+#: src/EditingTools.vala:575
+msgid "30 x 40 cm"
+msgstr "30 x 40 cm"
+
+#: src/EditingTools.vala:577
+msgid "Custom"
+msgstr "Anpassad"
+
+#: src/EditingTools.vala:1658
+#: src/Properties.vala:241
+msgid "Size:"
+msgstr "Storlek:"
+
+#: src/EditingTools.vala:1673
+msgid "Close the red-eye tool"
+msgstr ""
+
+#: src/EditingTools.vala:1676
+msgid "Remove any red-eye effects in the selected region"
+msgstr ""
+
+#: src/EditingTools.vala:1974
+msgid "Reset"
+msgstr "Återställ"
+
+#: src/EditingTools.vala:1987
+msgid "Exposure:"
+msgstr ""
+
+#: src/EditingTools.vala:1995
+msgid "Saturation:"
+msgstr ""
+
+#: src/EditingTools.vala:2003
+msgid "Tint:"
+msgstr ""
+
+#: src/EditingTools.vala:2012
+msgid "Temperature:"
+msgstr "Temperatur:"
+
+#: src/EditingTools.vala:2020
+msgid "Shadows:"
+msgstr "Skuggor:"
+
+#: src/EventsDirectoryPage.vala:131
+#: src/EventsDirectoryPage.vala:241
+msgid "Rename Event..."
+msgstr ""
+
+#: src/EventsDirectoryPage.vala:132
+#: src/EventsDirectoryPage.vala:242
+msgid "Rename event"
+msgstr ""
+
+#: src/EventsDirectoryPage.vala:237
+msgid "Make _Key Photo for Event"
+msgstr ""
+
+#: src/EventsDirectoryPage.vala:277
+msgid "Events"
+msgstr "Händelser"
+
+#: src/EventsDirectoryPage.vala:327
+msgid "%Y"
+msgstr "%Y"
+
+#: src/EventsDirectoryPage.vala:327
+msgid "%B"
+msgstr "%B"
+
+#: src/image_util.vala:195
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Låg (%d%%)"
+
+#: src/image_util.vala:198
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Medel (%d%%)"
+
+#: src/image_util.vala:201
+#, c-format
+msgid "High (%d%%)"
+msgstr "Hög (%d%%)"
+
+#: src/image_util.vala:204
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Maximalt (%d%%)"
+
+#: src/ImportPage.vala:228
+#: src/ImportPage.vala:229
+msgid "Camera"
+msgstr "Kamera"
+
+#: src/ImportPage.vala:254
+msgid "Hide photos already imported"
+msgstr ""
+
+#: src/ImportPage.vala:255
+msgid "Only display photos that have not been imported"
+msgstr ""
+
+#: src/ImportPage.vala:336
+msgid "Import _Selected"
+msgstr "Importera _markerade"
+
+#: src/ImportPage.vala:341
+msgid "Import _All"
+msgstr "Importera _allt"
+
+#: src/ImportPage.vala:351
+msgid "Select all the photos for importing"
+msgstr ""
+
+#: src/ImportPage.vala:463
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
+msgstr ""
+
+#: src/ImportPage.vala:469
+msgid "Unmount"
+msgstr "Avmontera"
+
+#: src/ImportPage.vala:474
+msgid "Please unmount the camera."
+msgstr "Avmontera kameran."
+
+#: src/ImportPage.vala:479
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgstr ""
+
+#: src/ImportPage.vala:489
+msgid "Please close any other application using the camera."
+msgstr ""
+
+#: src/ImportPage.vala:494
+#, c-format
+msgid ""
+"Unable to fetch previews from the camera:\n"
+"%s"
+msgstr ""
+
+#: src/ImportPage.vala:512
+msgid "Unmounting..."
+msgstr "Avmonterar..."
+
+#: src/ImportPage.vala:531
+msgid "Unable to unmount camera.  Try dismounting the camera from the file manager."
+msgstr ""
+
+#: src/ImportPage.vala:558
+msgid "Fetching photo information"
+msgstr ""
+
+#: src/ImportPage.vala:747
+#, c-format
+msgid "Fetching preview for %s"
+msgstr ""
+
+#: src/ImportPage.vala:796
+#, c-format
+msgid "Error while fetching previews from %s: %s"
+msgstr ""
+
+#: src/ImportPage.vala:837
+#, c-format
+msgid "Unable to lock camera: %s"
+msgstr "Kunde inte låsa kameran: %s"
+
+#: src/ImportPage.vala:913
+msgid "Delete this photo from camera?"
+msgstr "Ta bort detta foto från kameran?"
+
+#: src/ImportPage.vala:914
+#, c-format
+msgid "Delete these %d photos from camera?"
+msgstr "Ta bort dessa %d foton från kameran?"
+
+#: src/ImportPage.vala:916
+msgid "Keep"
+msgstr "Behåll"
+
+#: src/ImportPage.vala:944
+#, c-format
+msgid "Unable to delete %d photos from the camera due to errors."
+msgstr ""
+
+#: src/ImportPage.vala:988
+msgid "Importing..."
+msgstr "Importerar..."
+
+#: src/ImportPage.vala:994
+#: src/ImportPage.vala:1023
+msgid "Stop importing photos"
+msgstr ""
+
+#: src/ImportPage.vala:1022
+msgid "_Stop Import"
+msgstr "_Stoppa import"
+
+#: src/ImportPage.vala:1096
+#, c-format
+msgid "Imported %s"
+msgstr "Importerade %s"
+
+#: src/LibraryWindow.vala:271
+msgid "_Import From Folder..."
+msgstr "_Importera från mapp..."
+
+#: src/LibraryWindow.vala:272
+msgid "Import photos from disk to library"
+msgstr ""
+
+#: src/LibraryWindow.vala:277
+msgid "Sort _Events"
+msgstr ""
+
+#: src/LibraryWindow.vala:288
+msgid "Basic _Information"
+msgstr "Grundläggande _information"
+
+#: src/LibraryWindow.vala:289
+msgid "Display basic information of the selection"
+msgstr ""
+
+#: src/LibraryWindow.vala:398
+#, c-format
+msgid "_Copy files to %s photo library"
+msgstr ""
+
+#: src/LibraryWindow.vala:401
+msgid "Import From Folder"
+msgstr "Importera från mapp"
+
+#: src/LibraryWindow.vala:539
+#, c-format
+msgid "Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them."
+msgstr ""
+
+#: src/LibraryWindow.vala:545
+msgid "Copy into Library"
+msgstr ""
+
+#: src/LibraryWindow.vala:546
+msgid "Create Links"
+msgstr "Skapa länkar"
+
+#: src/LibraryWindow.vala:547
+msgid "Import to Library"
+msgstr ""
+
+#: src/LibraryWindow.vala:763
+msgid "Cameras"
+msgstr "Kameror"
+
+#: src/main.vala:64
+#, c-format
+msgid "The database for your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr ""
+
+#: src/PhotoPage.vala:76
+msgid "Crop"
+msgstr "Beskär"
+
+#: src/PhotoPage.vala:77
+msgid "Crop the photo's size"
+msgstr "Beskär fotots storlek"
+
+#: src/PhotoPage.vala:83
+msgid "Red-eye"
+msgstr "Röda ögon"
+
+#: src/PhotoPage.vala:84
+msgid "Reduce or eliminate any red-eye effects in the photo"
+msgstr ""
+
+#: src/PhotoPage.vala:90
+msgid "Adjust"
+msgstr "Justera"
+
+#: src/PhotoPage.vala:91
+msgid "Adjust the photo's color and tone"
+msgstr ""
+
+#: src/PhotoPage.vala:97
+msgid "Enhance"
+msgstr "Förbättra"
+
+#: src/PhotoPage.vala:98
+#: src/PhotoPage.vala:1201
+msgid "Automatically improve the photo's appearance"
+msgstr ""
+
+#: src/PhotoPage.vala:109
+msgid "Previous photo"
+msgstr "Föregående foto"
+
+#: src/PhotoPage.vala:114
+msgid "Next photo"
+msgstr "Nästa foto"
+
+#: src/PhotoPage.vala:683
+msgid "Photo source file is missing."
+msgstr ""
+
+#: src/PhotoPage.vala:855
+#, c-format
+msgid "Photo source file missing: %s"
+msgstr ""
+
+#: src/PhotoPage.vala:1157
+msgid "Export photo to disk"
+msgstr "Exportera foto till disk"
+
+#: src/PhotoPage.vala:1165
+#: src/PhotoPage.vala:1453
+msgid "_Photo"
+msgstr "_Foto"
+
+#: src/PhotoPage.vala:1170
+#: src/PhotoPage.vala:1458
+msgid "_Previous Photo"
+msgstr "_Föregående foto"
+
+#: src/PhotoPage.vala:1171
+#: src/PhotoPage.vala:1459
+msgid "Previous Photo"
+msgstr "Föregående foto"
+
+#: src/PhotoPage.vala:1176
+#: src/PhotoPage.vala:1464
+msgid "_Next Photo"
+msgstr "_Nästa foto"
+
+#: src/PhotoPage.vala:1177
+#: src/PhotoPage.vala:1465
+msgid "Next Photo"
+msgstr "Nästa foto"
+
+#: src/PhotoPage.vala:1200
+msgid "_Enhance"
+msgstr "För_bättra"
+
+#: src/PhotoPage.vala:1207
+#: src/PhotoPage.vala:1489
+msgid "Revert to the original photo"
+msgstr "Återställ till ursprungsfotot"
+
+#: src/PhotoPage.vala:1284
+#, c-format
+msgid "Unable to export %s: %s"
+msgstr "Kunde inte exportera %s: %s"
+
+#: src/PhotoPage.vala:1441
+msgid "_Save"
+msgstr "_Spara"
+
+#: src/PhotoPage.vala:1442
+msgid "Save photo"
+msgstr "Spara foto"
+
+#: src/PhotoPage.vala:1447
+msgid "Save _As..."
+msgstr "Spara so_m..."
+
+#: src/PhotoPage.vala:1448
+msgid "Save photo with a different name"
+msgstr "Spara fotot med ett annat namn"
+
+#: src/PhotoPage.vala:1559
+#, c-format
+msgid "Lose changes to %s?"
+msgstr ""
+
+#: src/PhotoPage.vala:1582
+#, c-format
+msgid "Error while saving photo: %s"
+msgstr ""
+
+#: src/PhotoPage.vala:1608
+#: src/PhotoPage.vala:1617
+msgid "Save As"
+msgstr "Spara som"
+
+#: src/Photo.vala:30
+msgid "Success"
+msgstr "Lyckades"
+
+#: src/Photo.vala:33
+msgid "File error"
+msgstr ""
+
+#: src/Photo.vala:36
+msgid "Unable to decode file"
+msgstr "Kunde inte avkoda filen"
+
+#: src/Photo.vala:39
+msgid "Database error"
+msgstr "Databasfel"
+
+#: src/Photo.vala:42
+msgid "User aborted import"
+msgstr ""
+
+#: src/Photo.vala:45
+msgid "Not a file"
+msgstr "Inte en fil"
+
+#: src/Photo.vala:48
+msgid "File already exists in database"
+msgstr ""
+
+#: src/Photo.vala:51
+msgid "Unsupported file format"
+msgstr ""
+
+#: src/Photo.vala:56
+#, c-format
+msgid "Bad import result (%d)"
+msgstr ""
+
+# Locale-specific time format string, conforming to POSIX time-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the time formatting conventions of their language, country, and region.
+#: src/Properties.vala:42
+msgid "%I:%M %p"
+msgstr "%H.%M"
+
+#: src/Properties.vala:54
+msgid "Today"
+msgstr "Idag"
+
+#: src/Properties.vala:56
+msgid "Yesterday"
+msgstr "Igår"
+
+#: src/Properties.vala:190
+msgid "Title:"
+msgstr "Titel:"
+
+#: src/Properties.vala:193
+msgid "Items:"
+msgstr ""
+
+#: src/Properties.vala:198
+#, c-format
+msgid "%d Event"
+msgstr ""
+
+#: src/Properties.vala:200
+#, c-format
+msgid "%d Events"
+msgstr ""
+
+#: src/Properties.vala:208
+#, c-format
+msgid "%d Photo"
+msgstr ""
+
+#: src/Properties.vala:210
+#, c-format
+msgid "%d Photos"
+msgstr ""
+
+#: src/Properties.vala:223
+msgid "Date:"
+msgstr "Datum:"
+
+#: src/Properties.vala:227
+msgid "Time:"
+msgstr "Tid:"
+
+#: src/Properties.vala:230
+#: src/Properties.vala:235
+msgid "From:"
+msgstr "Från:"
+
+#: src/Properties.vala:231
+#: src/Properties.vala:236
+msgid "To:"
+msgstr "Till:"
+
+#: src/Resources.vala:14
+msgid "Photo Organizer"
+msgstr "Fotoorganisatör"
+
+#: src/Resources.vala:15
+msgid "Photo Viewer"
+msgstr "Fotovisare"
+
+#: src/Resources.vala:17
+msgid "Copyright 2009 Yorba Foundation"
+msgstr "Copyright 2009 Yorba Foundation"
+
+#: src/Resources.vala:67
+#: src/Resources.vala:68
+msgid "Rotate"
+msgstr "Rotera"
+
+#: src/Resources.vala:69
+msgid "Rotate the photo(s) right"
+msgstr "Rotera foto(n) åt höger"
+
+#: src/Resources.vala:70
+msgid "Rotate the photo(s) left"
+msgstr "Rotera foto(n) åt vänster"
+
+# Locale-specific date format string, conforming to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the date formatting conventions of their language, country, and region.
+#: src/util.vala:325
+msgid "%a %b %d, %Y"
+msgstr "%a %d %b, %Y"
+
