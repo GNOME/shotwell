@@ -1203,10 +1203,18 @@ public class ExpansionTransformation : HSVTransformation {
     
     public ExpansionTransformation.from_extrema(int black_point, int white_point) {
         base(PixelTransformationType.TONE_EXPANSION);
-        
-        assert((black_point >= 0) && (black_point <= 255));
-        assert((white_point >= 0) && (white_point <= 255));
-        assert(black_point < white_point);
+
+        white_point = white_point.clamp(0, 255);
+        black_point = black_point.clamp(0, 255);
+
+        if (black_point == white_point) {
+            if (black_point == 0)
+                white_point = 1;
+            else if (white_point == 255)
+                black_point = 254;
+            else
+                black_point = white_point - 1;
+        }
 
         low_kink = black_point;
         high_kink = white_point;
