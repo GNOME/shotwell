@@ -63,6 +63,11 @@ public struct Dimensions {
         return (width > 0 && height > 0);
     }
     
+    public Dimensions floor(Dimensions min = Dimensions(1, 1)) {
+        return Dimensions((width > min.width) ? width : min.width, 
+            (height > min.height) ? height : min.height);
+    }
+    
     public string to_string() {
         return "%dx%d".printf(width, height);
     }
@@ -119,7 +124,8 @@ public struct Dimensions {
             scaled_height = viewport.height;
         }
         
-        Dimensions scaled = Dimensions((int) Math.round(scaled_width), (int) Math.round(scaled_height));
+        Dimensions scaled = Dimensions((int) Math.round(scaled_width), 
+            (int) Math.round(scaled_height)).floor();
         assert(scaled.height <= viewport.height);
         assert(scaled.width <= viewport.width);
         
@@ -147,7 +153,7 @@ public struct Dimensions {
             scaled_height = (double) height * ratio;
         }
         
-        return Dimensions((int) Math.round(scaled_width), (int) Math.round(scaled_height));
+        return Dimensions((int) Math.round(scaled_width), (int) Math.round(scaled_height)).floor();
     }
     
     public Gdk.Rectangle get_scaled_rectangle(Dimensions scaled, Gdk.Rectangle rect) {
@@ -160,6 +166,12 @@ public struct Dimensions {
         scaled_rect.width = (int) Math.round((double) rect.width * x_scale);
         scaled_rect.height = (int) Math.round((double) rect.height * y_scale);
         
+        if (scaled_rect.width <= 0)
+            scaled_rect.width = 1;
+        
+        if (scaled_rect.height <= 0)
+            scaled_rect.height = 1;
+        
         return scaled_rect;
     }
     
@@ -171,19 +183,23 @@ public struct Dimensions {
         double scale = double.min(x_scale, y_scale);
         
         return Dimensions((int) Math.round((double) width * scale), 
-            (int) Math.round((double) height * scale));
+            (int) Math.round((double) height * scale)).floor();
     }
     
     public Dimensions get_scaled_by_width(int scale) {
+        assert(scale > 0);
+        
         double ratio = (double) scale / (double) width;
         
-        return Dimensions(scale, (int) Math.round((double) height * ratio));
+        return Dimensions(scale, (int) Math.round((double) height * ratio)).floor();
     }
     
     public Dimensions get_scaled_by_height(int scale) {
+        assert(scale > 0);
+        
         double ratio = (double) scale / (double) height;
         
-        return Dimensions((int) Math.round((double) width * ratio), scale);
+        return Dimensions((int) Math.round((double) width * ratio), scale).floor();
     }
     
     public Dimensions get_scaled_by_constraint(int scale, ScaleConstraint constraint) {

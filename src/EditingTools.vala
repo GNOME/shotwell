@@ -558,8 +558,8 @@ public class CropTool : EditingTool {
         return new CropTool();
     }
     
-    public static bool is_available(TransformablePhoto photo) {
-        Dimensions dim = photo.get_original_dimensions();
+    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+        Dimensions dim = scaling.get_scaled_dimensions(photo.get_original_dimensions());
         
         return dim.width > CROP_MIN_SIZE && dim.height > CROP_MIN_SIZE;
     }
@@ -1729,11 +1729,11 @@ public class RedeyeTool : EditingTool {
         return new RedeyeTool();
     }
     
-    public static bool is_available(TransformablePhoto photo) {
-        Dimensions dim = photo.get_dimensions();
+    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+        Dimensions dim = scaling.get_scaled_dimensions(photo.get_dimensions());
         
-        return dim.width >= (RedeyeInstance.MIN_RADIUS * 2) 
-            && dim.height >= (RedeyeInstance.MIN_RADIUS * 2);
+        return dim.width >= (RedeyeInstance.MAX_RADIUS * 2) 
+            && dim.height >= (RedeyeInstance.MAX_RADIUS * 2);
     }
 
     private RedeyeInstance new_interaction_instance(PhotoCanvas canvas) {
@@ -2266,7 +2266,7 @@ public class AdjustTool : EditingTool {
         return new AdjustTool();
     }
     
-    public static bool is_available(TransformablePhoto photo) {
+    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
         return true;
     }
 

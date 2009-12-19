@@ -523,10 +523,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         next_button.sensitive = multiple;
         
         TransformablePhoto photo = get_photo();
+        Scaling scaling = get_canvas_scaling();
+        
         rotate_button.sensitive = photo != null ? is_rotate_available(photo) : false;
-        crop_button.sensitive = photo != null ? CropTool.is_available(photo) : false;
-        redeye_button.sensitive = photo != null ? RedeyeTool.is_available(photo) : false;
-        adjust_button.sensitive = photo != null ? AdjustTool.is_available(photo) : false;
+        crop_button.sensitive = photo != null ? CropTool.is_available(photo, scaling) : false;
+        redeye_button.sensitive = photo != null ? RedeyeTool.is_available(photo, scaling) : false;
+        adjust_button.sensitive = photo != null ? AdjustTool.is_available(photo, scaling) : false;
         enhance_button.sensitive = photo != null ? is_enhance_available(photo) : false;
     }
     
