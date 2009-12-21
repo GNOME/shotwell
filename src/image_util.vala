@@ -207,10 +207,12 @@ int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
     double x_scale, y_scale;
     original.get_scale_ratios(scaled, out x_scale, out y_scale);
     
-    x_scale = Math.round(x_scale * 100.0) / 100.0;
-    y_scale = Math.round(y_scale * 100.0) / 100.0;
+    // using floor() or round() both present problems, since the two values could straddle any FP
+    // boundary ... instead, look for a reasonable delta
+    if (Math.fabs(x_scale - y_scale) > 1.0)
+        return -1;
     
-    return (x_scale == y_scale) ? (int) Math.round(radius * x_scale) : -1;
+    return (int) Math.round(radius * x_scale);
 }
 
 namespace Jpeg {
