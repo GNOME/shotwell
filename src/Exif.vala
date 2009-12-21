@@ -22,15 +22,19 @@ namespace Exif {
     public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
         for (int ctr = 0; ctr < (int) Exif.IFD_COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
-            assert(content != null);
+            if (content == null)
+                continue;
             
             Exif.Entry entry = content.get_entry(tag);
             if (entry == null)
                 continue;
             
-            assert(entry.format == format);
+            if (entry.format != format)
+                continue;
+            
             if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED)) {
-                assert(entry.size == format.get_size());
+                if (entry.size != format.get_size())
+                    continue;
             }
             
             return entry;
@@ -43,7 +47,8 @@ namespace Exif {
         int count = 0;
         for (int ctr = 0; ctr < (int) Exif.IFD_COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
-            assert(content != null);
+            if (content == null)
+                continue;
             
             Exif.Entry entry = content.get_entry(tag);
             if (entry == null)
@@ -89,19 +94,23 @@ namespace Exif {
         return false;
     }
 
-    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format, int size = 1) {
-        assert(exif != null);
-        
+    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format,
+        int size = 1) {
         Exif.Content content = exif.ifd[(int) ifd];
-        assert(content != null);
+        if (content == null)
+            return null;
         
         Exif.Entry entry = content.get_entry(tag);
         if (entry == null)
             return null;
         
-        assert(entry.format == format);
+        if (entry.format != format)
+            return null;
+        
+        // can only verify size of fixed-length formats
         if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED)) {
-            assert(entry.size == format.get_size() * size);
+            if (entry.size != (format.get_size() * size))
+                return null;
         }
         
         return entry;
@@ -109,18 +118,22 @@ namespace Exif {
 
     private Exif.Entry? find_entry_multiformat(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag,
         Exif.Format format1, Exif.Format format2) {
-        assert(exif != null);
-        
         Exif.Content content = exif.ifd[(int) ifd];
-        assert(content != null);
+        if (content == null)
+            return null;
+        
         
         Exif.Entry entry = content.get_entry(tag);
         if (entry == null)
             return null;
         
-        assert((entry.format == format1) || (entry.format == format2));
+        if (entry.format != format1 && entry.format != format2)
+            return null;
+        
+        // can only verify size of fixed-length formats
         if ((entry.format != Exif.Format.ASCII) && (entry.format != Exif.Format.UNDEFINED)) {
-            assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
+            if (entry.size != format1.get_size() && entry.size != format2.get_size())
+                return null;
         }
         
         return entry;
