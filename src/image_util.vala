@@ -395,18 +395,8 @@ public class PhotoFileInterrogator {
                 md5_checksum.update(buffer, bytes_read);
             
             // keep parsing the image until the size is discovered
-            if (!size_ready || !pixbuf_prepared) {
-                // because of bad bindings, PixbufLoader.write() only accepts the buffer reference,
-                // not the length of data in the buffer, meaning partially-filled buffers need to 
-                // be special-cased: https://bugzilla.gnome.org/show_bug.cgi?id=597870
-                if (bytes_read == buffer.length) {
-                    pixbuf_loader.write(buffer);
-                } else {
-                    uint8[] tmp = new uint8[bytes_read];
-                    Memory.copy(tmp, buffer, bytes_read);
-                    pixbuf_loader.write(tmp);
-                }
-            }
+            if (!size_ready || !pixbuf_prepared)
+                pixbuf_loader.write(buffer, bytes_read);
             
             // if not searching for anything else, exit
             if (!calc_md5 && size_ready && pixbuf_prepared)
