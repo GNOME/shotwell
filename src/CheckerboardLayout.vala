@@ -23,7 +23,7 @@ public abstract class LayoutItem : ThumbnailView {
     private Pango.Layout pango_layout = null;
     private Pango.Alignment title_alignment = Pango.Alignment.LEFT;
     private Dimensions pango_dim = Dimensions();
-    private string title = "";
+    private string title = null;
     private bool title_marked_up = false;
     private bool title_displayed = true;
     private bool exposure = false;
@@ -77,7 +77,7 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     public string get_title() {
-        return title;
+        return (title != null) ? title : "";
     }
     
     public Pango.Alignment get_title_alignment() {
