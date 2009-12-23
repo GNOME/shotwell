@@ -30,6 +30,58 @@ public delegate bool MarkedAction(DataObject object, Object user);
 // the marked interfaces).  Return false if the operation is cancelled and should end immediately.
 public delegate bool ProgressMonitor(uint64 current, uint64 total);
 
+// UnknownTotalMonitor is useful when an interface cannot report the total count to a ProgressMonitor,
+// only a count, but the total is known by the caller.
+public class UnknownTotalMonitor {
+    private uint64 total;
+    private ProgressMonitor wrapped_monitor;
+    
+    public UnknownTotalMonitor(uint64 total, ProgressMonitor wrapped_monitor) {
+        this.total = total;
+        this.wrapped_monitor = wrapped_monitor;
+    }
+    
+    public bool monitor(uint64 count, uint64 total) {
+        return wrapped_monitor(count, this.total);
+    }
+}
+
+// AggregateProgressMonitor is useful when several discrete operations are being performed against
+// a single ProgressMonitor.
+public class AggregateProgressMonitor {
+    private uint64 grand_total;
+    private ProgressMonitor wrapped_monitor;
+    private uint64 aggregate_count = 0;
+    private uint64 last_count = uint64.MAX;
+    
+    public AggregateProgressMonitor(uint64 grand_total, ProgressMonitor wrapped_monitor) {
+        this.grand_total = grand_total;
+        this.wrapped_monitor = wrapped_monitor;
+    }
+    
+    public void next_step(string name) {
+        debug("next step: %s (%lld/%lld)", name, aggregate_count, grand_total);
+        last_count = uint64.MAX;
+    }
+    
+    public bool monitor(uint64 count, uint64 total) {
+        // add the difference from the last, unless a new step has started
+        aggregate_count += (last_count != uint64.MAX) ? (count - last_count) : count;
+        if (aggregate_count > grand_total)
+            aggregate_count = grand_total;
+        
+        // save for next time
+        last_count = count;
+        
+        return wrapped_monitor(aggregate_count, grand_total);
+    }
+}
+
+// Useful when debugging.
+public bool null_progress_monitor(uint64 count, uint64 total) {
+    return true;
+}
+
 public class DataCollection {
     public const int64 INVALID_OBJECT_ORDINAL = -1;
     
@@ -300,10 +352,16 @@ public class DataCollection {
         return true;
     }
     
-    // Returns number of items added to collection.
-    public int add_many(Gee.Iterable<DataObject> objects) {
+    // Returns number of items added to collection.  The ProgressMonitor total is reported as
+    // zero by this method, as the total count is not known.
+    public int add_many(Gee.Iterable<DataObject> objects, ProgressMonitor? monitor = null) {
+        int count = 0;
+        
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
+            if (monitor != null)
+                monitor(++count, 0);
+            
             if (internal_contains(object)) {
                 debug("%s cannot add %s: already present", to_string(), object.to_string());
                 
@@ -594,7 +652,9 @@ public class ViewCollection : DataCollection {
     private ViewManager manager = null;
     private ViewFilter filter = null;
     private SortedList<DataView> selected = new SortedList<DataView>();
+    private Gee.HashSet<DataView> selected_set = new Gee.HashSet<DataView>();
     private SortedList<DataView> visible = new SortedList<DataView>();
+    private Gee.HashSet<DataView> visible_set = new Gee.HashSet<DataView>();
     private int geometry_freeze = 0;
     private int view_freeze = 0;
     
@@ -655,14 +715,24 @@ public class ViewCollection : DataCollection {
         base.close();
     }
     
-    public void monitor_source_collection(SourceCollection sources, ViewManager manager) {
+    public void monitor_source_collection(SourceCollection sources, ViewManager manager,
+        Gee.Iterable<DataSource>? initial = null, ProgressMonitor? monitor = null) {
         assert(this.sources == null && this.manager == null);
         
         this.sources = sources;
         this.manager = manager;
         
-        // load in all items from the SourceCollection, filtering with the manager
-        on_sources_added((Gee.Iterable<DataSource>) sources.get_all());
+        if (initial != null) {
+            // add from the initial list handed to us, using the ViewManager to add/remove later
+            Gee.ArrayList<DataView> created_views = new Gee.ArrayList<DataView>();
+            foreach (DataSource source in initial)
+                created_views.add(manager.create_view(source));
+            
+            add_many(created_views, monitor);
+        } else {
+            // load in all items from the SourceCollection, filtering with the manager
+            add_sources((Gee.Iterable<DataSource>) sources.get_all(), monitor);
+        }
         
         // subscribe to the SourceCollection to monitor it for additions and removals, reflecting
         // those changes in this collection
@@ -733,7 +803,7 @@ public class ViewCollection : DataCollection {
         foreach (DataObject object in base.get_all()) {
             DataView view = (DataView) object;
             if (view.is_visible()) {
-                assert(visible.contains(view));
+                assert(visible_set.contains(view));
                 
                 continue;
             }
@@ -749,6 +819,10 @@ public class ViewCollection : DataCollection {
     }
     
     private void on_sources_added(Gee.Iterable<DataSource> added) {
+        add_sources(added);
+    }
+    
+    private void add_sources(Gee.Iterable<DataSource> added, ProgressMonitor? monitor = null) {
         // add only source items which are to be included by the manager ... do this in batches
         // to take advantage of add_many()
         Gee.ArrayList<DataView> created_views = new Gee.ArrayList<DataView>();
@@ -757,8 +831,17 @@ public class ViewCollection : DataCollection {
                 created_views.add(manager.create_view(source));
         }
         
-        if (created_views.size > 0)
-            add_many(created_views);
+        if (created_views.size > 0) {
+            // add_many() doesn't report totals, and need to hold ref to real_monitor until
+            // completed
+            UnknownTotalMonitor real_monitor = null;
+            if (monitor != null) {
+                real_monitor = new UnknownTotalMonitor(created_views.size, monitor);
+                monitor = real_monitor.monitor;
+            }
+            
+            add_many(created_views, monitor);
+        }
     }
     
     private void on_sources_removed(Gee.Iterable<DataSource> removed) {
@@ -789,12 +872,12 @@ public class ViewCollection : DataCollection {
         } else if (include && has_view_for_source(source)) {
             DataView view = get_view_for_source(source);
             // make sure altered photo is sorted properly by re-adding it
-            if (selected.contains(view)) {
+            if (selected_set.contains(view)) {
                 selected.remove(view);
                 selected.add(view);
             }
 
-            if (visible.contains(view)) {
+            if (visible_set.contains(view)) {
                 visible.remove(view);
                 visible.add(view);
             }
@@ -808,13 +891,13 @@ public class ViewCollection : DataCollection {
             source_map.set(view.get_source(), view);
             
             if (view.is_selected())
-                selected.add(view);
+                add_selected(view);
             
             if (filter != null)
                 view.internal_set_visible(filter(view));
             
             if (view.is_visible())
-                visible.add(view);
+                add_visible(view);
         }
         
         base.notify_items_added(added);
@@ -828,15 +911,11 @@ public class ViewCollection : DataCollection {
             bool is_removed = source_map.unset(view.get_source());
             assert(is_removed);
             
-            if (view.is_selected()) {
-                is_removed = selected.remove(view);
-                assert(is_removed);
-            }
+            if (view.is_selected())
+                remove_selected(view);
             
-            if (view.is_visible()) {
-                is_removed = visible.remove(view);
-                assert(is_removed);
-            }
+            if (view.is_visible())
+                remove_visible(view);
         }
         
         base.notify_items_removed(removed);
@@ -918,7 +997,7 @@ public class ViewCollection : DataCollection {
             return false;
         
         // even if a member, must be visible to be "contained"
-        return visible.locate((DataView) object) >= 0;
+        return visible_set.contains((DataView) object);
     }
     
     public virtual DataView? get_first() {
@@ -970,6 +1049,38 @@ public class ViewCollection : DataCollection {
         }
     }
     
+    private void add_selected(DataView view) {
+        bool added = selected.add(view);
+        assert(added);
+        
+        added = selected_set.add(view);
+        assert(added);
+    }
+    
+    private void remove_selected(DataView view) {
+        bool removed = selected.remove(view);
+        assert(removed);
+        
+        removed = selected_set.remove(view);
+        assert(removed);
+    }
+    
+    private void add_visible(DataView view) {
+        bool added = visible.add(view);
+        assert(added);
+        
+        added = visible_set.add(view);
+        assert(added);
+    }
+    
+    private void remove_visible(DataView view) {
+        bool removed = visible.remove(view);
+        assert(removed);
+        
+        removed = visible_set.remove(view);
+        assert(removed);
+    }
+    
     // Selects all items.
     public void select_all() {
         Marker marker = start_marking();
@@ -980,14 +1091,13 @@ public class ViewCollection : DataCollection {
     private bool select_item(DataObject object, Object user) {
         DataView view = (DataView) object;
         if (view.is_selected()) {
-            assert(selected.contains(view));
+            assert(selected_set.contains(view));
             
             return true;
         }
             
         view.internal_set_selected(true);
-        bool added = selected.add(view);
-        assert(added);
+        add_selected(view);
 
         ((Gee.ArrayList<DataView>) user).add(view);
         
@@ -1027,14 +1137,13 @@ public class ViewCollection : DataCollection {
     private bool unselect_item(DataObject object, Object user) {
         DataView view = (DataView) object;
         if (!view.is_selected()) {
-            assert(!selected.contains(view));
+            assert(!selected_set.contains(view));
             
             return true;
         }
         
         view.internal_set_selected(false);
-        bool removed = selected.remove(view);
-        assert(removed);
+        remove_selected(view);
         
         ((Gee.ArrayList<DataView>) user).add(view);
         
@@ -1065,13 +1174,11 @@ public class ViewCollection : DataCollection {
         // toggle the selection state of the view, adding or removing it from the selected list
         // to maintain state and adding it to the ToggleLists for the caller to signal with
         if (view.internal_toggle()) {
-            bool added = selected.add(view);
-            assert(added);
+            add_selected(view);
             
             lists.selected.add(view);
         } else {
-            bool removed = selected.remove(view);
-            assert(removed);
+            remove_selected(view);
             
             lists.unselected.add(view);
         }
@@ -1098,18 +1205,16 @@ public class ViewCollection : DataCollection {
         foreach (DataView view in to_hide) {
             assert(view.is_visible());
 
-            bool removed = false;            
+            bool removed = false;
 
             if (view.is_selected()) {
                 view.internal_set_selected(false);
-                removed = selected.remove(view);
-                assert(removed);
+                remove_selected(view);
                 unselected.add(view);
             }
             
             view.internal_set_visible(false);
-            removed = visible.remove(view);
-            assert(removed);
+            remove_visible(view);
         }
 
         if (unselected.size > 0) {
@@ -1129,13 +1234,12 @@ public class ViewCollection : DataCollection {
             assert(!view.is_visible());
             
             view.internal_set_visible(true);
-            bool added = visible.add(view);
-            assert(added);
+            add_visible(view);
             
             // see note in hide_item for selection handling with hidden/visible items
             if (view.is_selected()) {
-                assert(!selected.contains(view));
-                selected.add(view);
+                assert(!selected_set.contains(view));
+                add_selected(view);
             }
         }
         

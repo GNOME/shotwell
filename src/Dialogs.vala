@@ -444,13 +444,16 @@ public class ProgressDialog : Gtk.Window {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private Gtk.Button cancel_button = null;
     private Cancellable cancellable;
+    private uint64 last_count = uint64.MAX;
+    private int update_every = 1;
     
-    public ProgressDialog(Gtk.Window owner, string text, Cancellable? cancellable = null) {
+    public ProgressDialog(Gtk.Window? owner, string text, Cancellable? cancellable = null) {
         this.cancellable = cancellable;
         
         set_title(text);
         set_resizable(false);
-        set_transient_for(owner);
+        if (owner != null)
+            set_transient_for(owner);
         set_modal(true);
         set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
 
@@ -478,19 +481,34 @@ public class ProgressDialog : Gtk.Window {
         show_all();
     }
     
+    public void update_display_every(int update_every) {
+        assert(update_every >= 1);
+        
+        this.update_every = update_every;
+    }
+    
     public void set_fraction(int current, int total) {
         set_percentage((double) current / (double) total);
     }
     
     public void set_percentage(double pct) {
+        pct = pct.clamp(0.0, 1.0);
+        
         progress_bar.set_fraction(pct);
         progress_bar.set_text(_("%d%%").printf((int) (pct * 100.0)));
     }
     
     // This can be used as a ProgressMonitor delegate.
     public bool monitor(uint64 count, uint64 total) {
-        set_percentage((double) count / (double) total);
-        spin_event_loop();
+        if (last_count == uint64.MAX)
+            last_count = count;
+        
+        if ((count - last_count) > update_every) {
+            set_percentage((double) count / (double) total);
+            spin_event_loop();
+            
+            last_count = count;
+        }
         
         return (cancellable != null) ? !cancellable.is_cancelled() : true;
     }

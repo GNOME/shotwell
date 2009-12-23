@@ -1181,10 +1181,11 @@ public abstract class CollectionPage : CheckerboardPage {
 }
 
 public class LibraryPage : CollectionPage {
-    public LibraryPage() {
+    public LibraryPage(ProgressMonitor? monitor = null) {
         base(_("Photos"));
         
-        get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this));
+        get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this),
+            (Gee.Iterable<DataSource>) LibraryPhoto.global.get_all(), monitor);
     }
 
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {

@@ -1779,7 +1779,7 @@ public class LibraryPhoto : TransformablePhoto {
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
     }
     
-    public static void init() {
+    public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
         
         // prefetch all the photos from the database and add them to the global collection ...
@@ -1789,7 +1789,15 @@ public class LibraryPhoto : TransformablePhoto {
         foreach (PhotoRow row in all)
             all_photos.add(new LibraryPhoto(row));
         
-        global.add_many(all_photos);
+        // need to use a ProgressMonitor wrapper because add_many() doesn't report a total ... have
+        // to hold a ref on to real_monitor until the method exits
+        UnknownTotalMonitor real_monitor = null;
+        if (monitor != null) {
+            real_monitor = new UnknownTotalMonitor(all_photos.size, monitor);
+            monitor = real_monitor.monitor;
+        }
+        
+        global.add_many(all_photos, monitor);
     }
     
     public static void terminate() {

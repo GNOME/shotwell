@@ -148,17 +148,20 @@ public class EventsDirectoryPage : CheckerboardPage {
     private Gtk.ToolButton merge_button;
     protected ViewManager view_manager;
 
-    public EventsDirectoryPage(string page_name, ViewManager view_manager) {
+    public EventsDirectoryPage(string page_name, ViewManager view_manager, 
+        Gee.Iterable<Event>? initial_events) {
         base(page_name);
-        get_view().monitor_source_collection(Event.global, view_manager);
+        
+        // set comparator before monitoring source collection, to prevent a re-sort
+        get_view().set_comparator(new CompareEventItem(Config.get_instance().get_events_sort_ascending()));
+        get_view().monitor_source_collection(Event.global, view_manager, initial_events);
+        
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
-        get_view().set_comparator(new CompareEventItem(Config.get_instance().get_events_sort_ascending()));
-
         init_item_context_menu("/EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
@@ -340,7 +343,8 @@ public class EventPage : CollectionPage {
         
         this.page_event = page_event;
         
-        get_view().monitor_source_collection(LibraryPhoto.global, new EventViewManager(this));
+        get_view().monitor_source_collection(LibraryPhoto.global, new EventViewManager(this),
+            page_event.get_photos());
         
         init_page_context_menu("/EventContextMenu");
         
@@ -421,7 +425,7 @@ public class EventPage : CollectionPage {
 
 public class MasterEventsDirectoryPage : EventsDirectoryPage {
     public MasterEventsDirectoryPage() {
-        base(_("Events"), new EventDirectoryManager());
+        base(_("Events"), new EventDirectoryManager(), (Gee.Iterable<Event>) Event.global.get_all());
     }
 }
 
@@ -471,7 +475,8 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
     }
 
     public SubEventsDirectoryPage(DirectoryType type, Time time) {
-        base(time.format((type == DirectoryType.YEAR) ? _("%Y") : _("%B")), new SubEventDirectoryManager(type, time)); 
+        base(time.format((type == DirectoryType.YEAR) ? _("%Y") : _("%B")), new SubEventDirectoryManager(type, time),
+            null); 
     }
 
     public int get_month() {

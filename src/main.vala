@@ -108,12 +108,47 @@ void library_exec(string[] mounts) {
         return;
     }
     
+    ProgressDialog progress_dialog = null;
+    AggregateProgressMonitor aggregate_monitor = null;
+    ProgressMonitor monitor = null;
+    
+    // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
+    // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
+    // objects and then populating the initial page with them.
+    uint64 grand_total = (PhotoTable.get_instance().get_count() * 2) + EventTable.get_instance().get_count();
+    if (grand_total > 5000) {
+        progress_dialog = new ProgressDialog(null, _("Loading Shotwell..."));
+        progress_dialog.update_display_every(300);
+        spin_event_loop();
+        
+        aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
+        monitor = aggregate_monitor.monitor;
+    }
+    
     ThumbnailCache.init();
-    LibraryPhoto.init();
-    Event.init();
-
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("LibraryPhoto.init");
+    LibraryPhoto.init(monitor);
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("Event.init");
+    Event.init(monitor);
+    
     // create main library application window
-    LibraryWindow library_window = new LibraryWindow();
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("LibraryWindow");
+    LibraryWindow library_window = new LibraryWindow(monitor);
+    
+    if (aggregate_monitor != null)
+        aggregate_monitor.next_step("done");
+    
+    // destroy and tear down everything ... no need for them to stick around the lifetime of the
+    // application
+    
+    monitor = null;
+    aggregate_monitor = null;
+    if (progress_dialog != null)
+        progress_dialog.destroy();
+    progress_dialog = null;
 
 #if !NO_CAMERA    
     // report mount points
