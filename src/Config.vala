@@ -342,5 +342,29 @@ public class Config {
         return set_bool("/apps/shotwell/preferences/ui/event_photos_sort_ascending", sort_order) &&
              set_int("/apps/shotwell/preferences/ui/event_photos_sort_by", sort_by);
     }
+
+    public bool get_24_hr_time() {
+        return get_bool("/apps/shotwell/preferences/ui/twentyfour_hr_time", false);
+    }
+    
+    public bool set_24_hr_time(bool twentyfour_hr_time) {
+        return set_bool("/apps/shotwell/preferences/ui/twentyfour_hr_time", twentyfour_hr_time);
+    }
+
+    public bool get_keep_relativity() {
+        return get_bool("/apps/shotwell/preferences/ui/keep_relativity", true);
+    }
+    
+    public bool set_keep_relativity(bool keep_relativity) {
+        return set_bool("/apps/shotwell/preferences/ui/keep_relativity", keep_relativity);
+    }
+
+    public bool get_modify_originals() {
+        return get_bool("/apps/shotwell/preferences/ui/modify_originals", false);
+    }
+    
+    public bool set_modify_originals(bool modify_originals) {
+        return set_bool("/apps/shotwell/preferences/ui/modify_originals", modify_originals);
+    }
 }
 

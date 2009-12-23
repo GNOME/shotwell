@@ -58,6 +58,8 @@
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
             <separator />
+            <menuitem name="AdjustDateTime" action="AdjustDateTime" />
+            <separator />
             <menuitem name="Slideshow" action="Slideshow" />
         </menu>
         

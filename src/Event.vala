@@ -140,9 +140,10 @@ public class Event : EventSource, Proxyable {
         if (primary_photo != null)
             primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
 
-        // watch for for removal and addition of photos
-        view.items_removed += on_photos_removed;
+        // watch for for addition, removal, and alteration of photos
         view.items_added += on_photos_added;
+        view.items_removed += on_photos_removed;
+        view.item_metadata_altered += on_photo_metadata_altered;
     }
 
     ~Event() {
@@ -187,6 +188,10 @@ public class Event : EventSource, Proxyable {
         foreach (DataObject object in removed)
             on_photo_removed((LibraryPhoto) ((PhotoView) object).get_source());
         
+        notify_altered();
+    } 
+
+    private void on_photo_metadata_altered() {
         notify_altered();
     }
     

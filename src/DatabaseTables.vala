@@ -690,6 +690,10 @@ public class PhotoTable : DatabaseTable {
         
         return (time_t) stmt.column_int64(0);
     }
+
+    public bool set_exposure_time(PhotoID photo_id, time_t time) {
+        return update_int64_by_id(photo_id.id, "exposure_time", (int64) time);
+    }
     
     public time_t get_timestamp(PhotoID photo_id) {
         Sqlite.Statement stmt;

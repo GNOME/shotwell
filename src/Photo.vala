@@ -583,6 +583,18 @@ public abstract class TransformablePhoto: PhotoSource {
         
         return exposure_time;
     }
+
+    public void set_exposure_time(time_t time) {
+        bool committed;
+        lock (row) {
+            committed = PhotoTable.get_instance().set_exposure_time(row.photo_id, time);
+            if (committed)
+                row.exposure_time = time;
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+    }
     
     // Returns cropped and rotated dimensions
     public override Dimensions get_dimensions() {

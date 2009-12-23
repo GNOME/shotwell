@@ -748,3 +748,54 @@ public class HideUnhideCommand : MultipleDataSourceCommand {
     }
 }
 
+public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
+    private int64 time_shift;
+    private bool keep_relativity;
+
+    // used when photos are batch changed instead of shifted uniformly
+    private time_t? new_time = null;
+    private Gee.HashMap<LibraryPhoto, time_t?> old_times;
+
+    public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
+        bool keep_relativity, bool modify_originals) {
+        base(iter, _("Adjusting Date and Time..."), _("Undoing Date and Time Adjustment..."),
+            Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
+
+        this.time_shift = time_shift;
+        this.keep_relativity = keep_relativity;
+
+        // TODO: implement modify originals option
+
+        // this should be replaced by a first function when we migrate to Gee's List
+        foreach (DataView view in iter) { 
+           if (new_time == null) {
+                new_time = ((PhotoSource) view.get_source()).get_exposure_time() +
+                    (time_t) time_shift;
+                break;
+            }            
+        }
+
+        old_times = new Gee.HashMap<LibraryPhoto, time_t?>();
+    }
+
+    public override void execute_on_source(DataSource source) {
+        LibraryPhoto photo = ((LibraryPhoto) source);
+        if (keep_relativity && photo.get_exposure_time() != 0)
+            photo.set_exposure_time(photo.get_exposure_time() + (time_t) time_shift);
+        else {
+            old_times.set(photo, photo.get_exposure_time());
+            photo.set_exposure_time(new_time);
+        }
+    }
+
+    public override void undo_on_source(DataSource source) {
+        LibraryPhoto photo = ((LibraryPhoto) source);
+        if (old_times.has_key(photo)) {
+            photo.set_exposure_time(old_times.get(photo));
+            old_times.unset(photo);
+        } else {
+            photo.set_exposure_time(photo.get_exposure_time() - (time_t) time_shift);
+        }
+    }
+}
+

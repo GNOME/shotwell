@@ -526,3 +526,259 @@ public void generate_events_with_progress_dialog(Gee.List<LibraryPhoto> photos) 
     AppWindow.get_instance().set_normal_cursor();
 }
 
+public class AdjustDateTimeDialog : Gtk.Dialog {
+    private const int64 SECONDS_IN_DAY = 60 * 60 * 24;
+    private const int64 SECONDS_IN_HOUR = 60 * 60;
+    private const int64 SECONDS_IN_MINUTE = 60;
+    private const int YEAR_OFFSET = 1900;
+
+    time_t original_time;
+    Gtk.Label original_time_label;
+    Gtk.Calendar calendar;
+    Gtk.SpinButton hour;
+    Gtk.SpinButton minute;
+    Gtk.SpinButton second;
+    Gtk.ComboBox system;
+    Gtk.CheckButton relativity_check_button;
+    Gtk.CheckButton modify_originals_check_button;
+    Gtk.Label notification;
+
+    private enum TimeSystem {
+        AM,
+        PM,
+        24HR;
+    }    
+
+    TimeSystem previous_time_system;
+
+    public AdjustDateTimeDialog(PhotoSource source, int photo_count) {
+        assert(source != null);
+
+        set_modal(true);
+        set_resizable(false);
+        set_transient_for(AppWindow.get_instance());
+
+        add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
+                    Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        set_title(_(Resources.ADJUST_DATE_TIME_LABEL));
+
+        calendar = new Gtk.Calendar();
+        calendar.day_selected += on_time_changed;
+        calendar.month_changed += on_time_changed;
+        calendar.next_year += on_time_changed;
+        calendar.prev_year += on_time_changed;
+
+        if (Config.get_instance().get_24_hr_time())
+            hour = new Gtk.SpinButton.with_range(0, 23, 1);
+        else
+            hour = new Gtk.SpinButton.with_range(1, 12, 1);
+
+        hour.output += on_spin_button_output;
+        hour.set_width_chars(2);  
+
+        minute = new Gtk.SpinButton.with_range(0, 59, 1);
+        minute.set_width_chars(2);
+        minute.output += on_spin_button_output;
+
+        second = new Gtk.SpinButton.with_range(0, 59, 1);
+        second.set_width_chars(2);
+        second.output += on_spin_button_output;
+
+        system = new Gtk.ComboBox.text();
+        system.append_text(_("AM"));
+        system.append_text(_("PM"));
+        system.append_text(_("24 Hr"));
+        system.changed += on_time_system_changed;
+
+        Gtk.HBox clock = new Gtk.HBox(false, 0);
+
+        clock.pack_start(hour, false, false, 3);
+        clock.pack_start(new Gtk.Label(":"), false, false, 3); // internationalize?
+        clock.pack_start(minute, false, false, 3);
+        clock.pack_start(new Gtk.Label(":"), false, false, 3);
+        clock.pack_start(second, false, false, 3);
+        clock.pack_start(system, false, false, 3);
+
+        set_default_response(Gtk.ResponseType.OK);
+
+        relativity_check_button = new Gtk.CheckButton.with_mnemonic(_("Keep _Relativity"));
+        relativity_check_button.set_active(Config.get_instance().get_keep_relativity());
+        relativity_check_button.sensitive = photo_count > 1;
+
+        modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
+            "_Modify Original", "_Modify Originals", photo_count));
+        modify_originals_check_button.set_active(Config.get_instance().get_modify_originals());
+        modify_originals_check_button.sensitive = false;
+
+        Gtk.VBox time_content = new Gtk.VBox(false, 0);
+
+        time_content.pack_start(calendar, true, false, 3);
+        time_content.pack_start(clock, true, false, 3);
+        time_content.pack_start(relativity_check_button, true, false, 3);
+        time_content.pack_start(modify_originals_check_button, true, false, 3);
+
+        Gtk.VBox image_content = new Gtk.VBox(false, 0);
+        Gtk.Image image = new Gtk.Image.from_pixbuf(source.get_pixbuf(Scaling.for_viewport(
+            Dimensions(500, 260), false)));
+        original_time_label = new Gtk.Label(null);
+        image_content.pack_start(image, true, false, 3);
+        image_content.pack_start(original_time_label, true, false, 3);
+
+        Gtk.HBox hbox = new Gtk.HBox(false, 0);
+        hbox.pack_start(image_content, true, false, 6);
+        hbox.pack_start(time_content, true, false, 6);
+
+        Gtk.Alignment hbox_alignment = new Gtk.Alignment(0.5f, 0.5f, 0, 0);
+        hbox_alignment.set_padding(6, 3, 6, 6);
+        hbox_alignment.add(hbox);
+
+        vbox.pack_start(hbox_alignment, true, false, 6);
+
+        notification = new Gtk.Label("");
+        notification.set_line_wrap(true);
+        notification.set_justify(Gtk.Justification.CENTER);
+        notification.set_size_request(-1, -1);
+        notification.set_padding(12, 6);
+
+        vbox.pack_start(notification, true, true, 0);
+        
+        original_time = source.get_exposure_time();
+        set_time(Time.local(original_time));
+        set_original_time_label(Config.get_instance().get_24_hr_time());
+    }
+
+    private void set_time(Time time) {
+        calendar.select_month(time.month, time.year + YEAR_OFFSET);
+        calendar.select_day(time.day);
+
+        if (Config.get_instance().get_24_hr_time()) {
+            hour.set_value(time.hour);
+            system.set_active(TimeSystem.24HR);
+        } else {
+            int AMPM_hour = time.hour % 12;
+            hour.set_value((AMPM_hour == 0) ? 12 : AMPM_hour);
+            system.set_active((time.hour >= 12) ? TimeSystem.PM : TimeSystem.AM);
+        }
+
+        minute.set_value(time.minute);
+        second.set_value(time.second);
+
+        previous_time_system = (TimeSystem) system.get_active();
+    }
+
+    private void set_original_time_label(bool use_24_hr_format) {
+        original_time_label.set_text(_("Original: ") + 
+            Time.local(original_time).format(use_24_hr_format ? _("%m/%d/%Y, %H:%M:%S") :
+            _("%m/%d/%Y, %I:%M:%S %p")));
+    }
+
+    private time_t get_time() {
+        Time time = Time();
+
+        time.second = (int) second.get_value();
+        time.minute = (int) minute.get_value();
+
+        // convert to 24 hr
+        int hour = (int) hour.get_value();
+        time.hour = (hour == 12 && system.get_active() != TimeSystem.24HR) ? 0 : hour;
+        time.hour += ((system.get_active() == TimeSystem.PM) ? 12 : 0);
+
+        uint year, month, day;
+        calendar.get_date(out year, out month, out day);
+        time.year = ((int) year) - YEAR_OFFSET;
+        time.month = (int) month;
+        time.day = (int) day;
+
+        time.isdst = -1;
+
+        return time.mktime();
+    }
+
+    public bool execute(out int64 time_shift, out bool keep_relativity, 
+        out bool modify_originals) {
+        show_all();
+
+        bool response = false;
+
+        if (run() == Gtk.ResponseType.OK) {
+            time_shift = (int64) (get_time() - original_time);
+
+            keep_relativity = relativity_check_button.get_active();
+            Config.get_instance().set_keep_relativity(keep_relativity);
+
+            modify_originals = modify_originals_check_button.get_active();
+            Config.get_instance().set_modify_originals(modify_originals);
+
+            response = true;
+        }
+
+        destroy();
+
+        return response;
+    }
+
+    private bool on_spin_button_output(Gtk.SpinButton button) {
+        button.set_text("%02d".printf((int) button.get_value()));
+
+        on_time_changed();
+
+        return true;
+    }
+
+    private void on_time_changed() {
+        int64 time_shift = (int64) (get_time() - original_time);
+
+        previous_time_system = (TimeSystem) system.get_active();
+
+        if (time_shift == 0) {
+            notification.hide();
+        } else {
+            bool forward = time_shift > 0;
+            int days, hours, minutes, seconds;
+
+            time_shift = time_shift.abs();
+
+            days = (int) (time_shift / SECONDS_IN_DAY);
+            time_shift = time_shift % SECONDS_IN_DAY;
+            hours = (int) (time_shift / SECONDS_IN_HOUR);
+            time_shift = time_shift % SECONDS_IN_HOUR;
+            minutes = (int) (time_shift / SECONDS_IN_MINUTE);
+            seconds = (int) (time_shift % SECONDS_IN_MINUTE);
+
+            notification.set_text(
+                _("Exposure time will be shifted %s by\n%d %s, %d %s, %d %s, and %d %s.").printf(
+                forward ? _("forward") : _("backward"), days, ngettext("day", "days", days),
+                hours, ngettext("hour", "hours", hours), minutes, 
+                ngettext("minute", "minutes", minutes), seconds, 
+                ngettext("second", "seconds", seconds)));
+
+            notification.show();
+        }
+    }
+
+    private void on_time_system_changed() {
+        if (previous_time_system == system.get_active())
+            return;
+
+        Config.get_instance().set_24_hr_time(system.get_active() == TimeSystem.24HR);
+
+        if (system.get_active() == TimeSystem.24HR) {
+            int time = (hour.get_value() == 12.0) ? 0 : (int) hour.get_value();
+            time = time + ((previous_time_system == TimeSystem.PM) ? 12 : 0);
+
+            hour.set_range(0, 23);
+            set_original_time_label(true);
+
+            hour.set_value(time);
+        } else {
+            int AMPM_hour = ((int) hour.get_value()) % 12;
+
+            hour.set_range(1, 12);
+            set_original_time_label(false);
+
+            hour.set_value((AMPM_hour == 0) ? 12 : AMPM_hour);
+        }
+
+        on_time_changed();
+    }
+}

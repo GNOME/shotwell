@@ -301,6 +301,12 @@ public abstract class CollectionPage : CheckerboardPage {
         duplicate.tooltip = Resources.DUPLICATE_PHOTO_TOOLTIP;
         actions += duplicate;
 
+        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_adjust_date_time };
+        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
+        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
+        actions += adjust_date_time;
+
         Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
             TRANSLATABLE, on_slideshow };
         slideshow.label = _("_Slideshow");
@@ -800,6 +806,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
     }
     
     private void on_increase_size() {
@@ -934,6 +941,24 @@ public abstract class CollectionPage : CheckerboardPage {
         DuplicateMultiplePhotosCommand command = new DuplicateMultiplePhotosCommand(
             get_view().get_selected());
         get_command_manager().execute(command);
+    }
+
+    private void on_adjust_date_time() {
+        if (get_view().get_selected_count() == 0)
+            return;
+
+        PhotoSource photo_source = (PhotoSource) get_view().get_selected_at(0).get_source();
+
+        AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(photo_source,
+            get_view().get_selected_count());
+
+        int64 time_shift;
+        bool keep_relativity, modify_originals;
+        if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
+            AdjustDateTimePhotosCommand command = new AdjustDateTimePhotosCommand(
+                get_view().get_selected(), time_shift, keep_relativity, modify_originals);
+            get_command_manager().execute(command);
+        }
     }
 
     private void on_slideshow() {

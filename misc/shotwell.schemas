@@ -355,5 +355,44 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/twentyfour_hr_time</key>
+            <applyto>/apps/shotwell/preferences/ui/twentyfour_hr_time</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>use 24 hr time</short>
+                <long>True if should display times with a 24 hour clock, false if times should use AM/PM notation.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/keep_relativity</key>
+            <applyto>/apps/shotwell/preferences/ui/keep_relativity</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>true</default>
+            
+            <locale name="en">
+                <short>keep relative time between photos</short>
+                <long>True if when adjusting time/date of photos, relative time should be maintained.  False if all photos should be set to the same time.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/modify_originals</key>
+            <applyto>/apps/shotwell/preferences/ui/modify_originals</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>modify original photo files</short>
+                <long>True if when adjusting time/date of photos, the original files should be modified as well.  False if changes are made only in the database.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>
