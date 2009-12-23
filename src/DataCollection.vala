@@ -1205,8 +1205,6 @@ public class ViewCollection : DataCollection {
         foreach (DataView view in to_hide) {
             assert(view.is_visible());
 
-            bool removed = false;
-
             if (view.is_selected()) {
                 view.internal_set_selected(false);
                 remove_selected(view);

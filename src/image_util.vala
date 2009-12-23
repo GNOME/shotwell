@@ -352,16 +352,6 @@ public class PhotoFileInterrogator {
     }
     
     private void interrogate() throws Error {
-        // It's possible the image's headers are valid and the PixbufLoader can read enough of it
-        // to determine its type and size and even prepare an area for it, but choke on the actual
-        // encoding.  Since the whole point of the PhotoInterrogator is to avoid a full-scale
-        // decode, need to find a use a method of doing minimal investigation to determine the
-        // image is valid.
-        //
-        // Here, we use a scaled load-and-decode, which libjpeg has optimizations for.  This keeps
-        // the time to interrogate() down while verifying the image is basically sound.
-        new Gdk.Pixbuf.from_file_at_size(file.get_path(), 10, 10);
-        
         // both of these flags are set when enough of the image is decoded
         size_ready = false;
         pixbuf_prepared = false;
