@@ -1,3 +1,16 @@
+shotwell (0.4.0-1~jaunty1) jaunty; urgency=low
+  * Facebook and Flickr publishing.
+  * Events may now be split and merged.
+  * Alpha-release of Windows port now available.
+  * Undo/redo.
+  * Mark photos as favorite or hidden.  View only favorites or show hidden
+    photos.
+  * Duplicate photos.
+  * Numerous bug fixes.
+
+ -- Jim Nelson <jim@yorba.org>  Wed, 23 Dec 2009 14:37:49 -0800
+
+
 shotwell (0.3.2-1~jaunty1) jaunty; urgency=low
 
   * Loosened photo pipeline assertion that checked for pixbuf scaling.
