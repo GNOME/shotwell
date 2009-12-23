@@ -207,10 +207,12 @@ int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
     double x_scale, y_scale;
     original.get_scale_ratios(scaled, out x_scale, out y_scale);
     
-    x_scale = Math.round(x_scale * 100.0) / 100.0;
-    y_scale = Math.round(y_scale * 100.0) / 100.0;
+    // using floor() or round() both present problems, since the two values could straddle any FP
+    // boundary ... instead, look for a reasonable delta
+    if (Math.fabs(x_scale - y_scale) > 1.0)
+        return -1;
     
-    return (x_scale == y_scale) ? (int) Math.round(radius * x_scale) : -1;
+    return (int) Math.round(radius * x_scale);
 }
 
 namespace Jpeg {
@@ -395,18 +397,8 @@ public class PhotoFileInterrogator {
                 md5_checksum.update(buffer, bytes_read);
             
             // keep parsing the image until the size is discovered
-            if (!size_ready || !pixbuf_prepared) {
-                // because of bad bindings, PixbufLoader.write() only accepts the buffer reference,
-                // not the length of data in the buffer, meaning partially-filled buffers need to 
-                // be special-cased: https://bugzilla.gnome.org/show_bug.cgi?id=597870
-                if (bytes_read == buffer.length) {
-                    pixbuf_loader.write(buffer);
-                } else {
-                    uint8[] tmp = new uint8[bytes_read];
-                    Memory.copy(tmp, buffer, bytes_read);
-                    pixbuf_loader.write(tmp);
-                }
-            }
+            if (!size_ready || !pixbuf_prepared)
+                pixbuf_loader.write(buffer, bytes_read);
             
             // if not searching for anything else, exit
             if (!calc_md5 && size_ready && pixbuf_prepared)

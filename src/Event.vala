@@ -123,8 +123,13 @@ public class Event : EventSource, Proxyable {
         
         this.event_id = event_id;
         
+        Gee.ArrayList<PhotoID?> event_photo_ids = PhotoTable.get_instance().get_event_photos(event_id);
+        Gee.ArrayList<LibraryPhoto> event_photos = new Gee.ArrayList<LibraryPhoto>();
+        foreach (PhotoID photo_id in event_photo_ids)
+            event_photos.add(LibraryPhoto.global.fetch(photo_id));
+        
         view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
-        view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id)); 
+        view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id), event_photos); 
         
         // get the primary photo for monitoring; if not available, use the first photo in the
         // event
@@ -154,14 +159,25 @@ public class Event : EventSource, Proxyable {
         view.items_added -= on_photos_added;
     }
     
-    public static void init() {
+    public static void init(ProgressMonitor? monitor = null) {
         event_table = EventTable.get_instance();
         global = new EventSourceCollection();
         
         // add all events to the global collection
-        Gee.ArrayList<EventID?> events = event_table.get_events();
-        foreach (EventID event_id in events)
-            global.add(new Event(event_id));
+        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
+        Gee.ArrayList<Event> events = new Gee.ArrayList<Event>();
+        foreach (EventID event_id in event_ids)
+            events.add(new Event(event_id));
+        
+        // Use a ProgressMonitor wrapper because add_many() doesn't report totals ... need to hold
+        // on to a ref to real_monitor until method completes
+        UnknownTotalMonitor real_monitor = null;
+        if (monitor != null) {
+            real_monitor = new UnknownTotalMonitor(events.size, monitor);
+            monitor = real_monitor.monitor;
+        }
+        
+        global.add_many(events, monitor);
     }
     
     public static void terminate() {

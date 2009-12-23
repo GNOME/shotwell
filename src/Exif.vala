@@ -7,19 +7,35 @@
 namespace Exif {
     // "Exif"
     public const uint8[] SIGNATURE = { 0x45, 0x78, 0x69, 0x66 };
-
+    
+    // Caller must set Entry.data with one of the various convert functions.
+    public Exif.Entry alloc_entry(Exif.Content parent, Exif.Tag tag, Exif.Format format) {
+        // the recipe for alloc'ing an entry: allocate, add to parent, initialize.  Parent is
+        // required for initialize() to know the byte-order
+        Exif.Entry entry = new Exif.Entry();
+        parent.add_entry(entry);
+        entry.initialize(tag);
+        
+        return entry;
+    }
+    
     public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
         for (int ctr = 0; ctr < (int) Exif.IFD_COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
-            assert(content != null);
+            if (content == null)
+                continue;
             
             Exif.Entry entry = content.get_entry(tag);
             if (entry == null)
                 continue;
             
-            assert(entry.format == format);
-            if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
-                assert(entry.size == format.get_size());
+            if (entry.format != format)
+                continue;
+            
+            if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED)) {
+                if (entry.size != format.get_size())
+                    continue;
+            }
             
             return entry;
         }
@@ -31,7 +47,8 @@ namespace Exif {
         int count = 0;
         for (int ctr = 0; ctr < (int) Exif.IFD_COUNT; ctr++) {
             Exif.Content content = data.ifd[ctr];
-            assert(content != null);
+            if (content == null)
+                continue;
             
             Exif.Entry entry = content.get_entry(tag);
             if (entry == null)
@@ -77,37 +94,47 @@ namespace Exif {
         return false;
     }
 
-    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format, int size = 1) {
-        assert(exif != null);
-        
+    private Exif.Entry? find_entry(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag, Exif.Format format,
+        int size = 1) {
         Exif.Content content = exif.ifd[(int) ifd];
-        assert(content != null);
+        if (content == null)
+            return null;
         
         Exif.Entry entry = content.get_entry(tag);
         if (entry == null)
             return null;
         
-        assert(entry.format == format);
-        if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED))
-            assert(entry.size == format.get_size() * size);
+        if (entry.format != format)
+            return null;
+        
+        // can only verify size of fixed-length formats
+        if ((format != Exif.Format.ASCII) && (format != Exif.Format.UNDEFINED)) {
+            if (entry.size != (format.get_size() * size))
+                return null;
+        }
         
         return entry;
     }
 
     private Exif.Entry? find_entry_multiformat(Exif.Data exif, Exif.Ifd ifd, Exif.Tag tag,
         Exif.Format format1, Exif.Format format2) {
-        assert(exif != null);
-        
         Exif.Content content = exif.ifd[(int) ifd];
-        assert(content != null);
+        if (content == null)
+            return null;
+        
         
         Exif.Entry entry = content.get_entry(tag);
         if (entry == null)
             return null;
         
-        assert((entry.format == format1) || (entry.format == format2));
-        if ((entry.format != Exif.Format.ASCII) && (entry.format != Exif.Format.UNDEFINED))
-            assert((entry.size == format1.get_size()) || (entry.size == format2.get_size()));
+        if (entry.format != format1 && entry.format != format2)
+            return null;
+        
+        // can only verify size of fixed-length formats
+        if ((entry.format != Exif.Format.ASCII) && (entry.format != Exif.Format.UNDEFINED)) {
+            if (entry.size != format1.get_size() && entry.size != format2.get_size())
+                return null;
+        }
         
         return entry;
     }
@@ -131,8 +158,8 @@ namespace Exif {
     public void set_orientation(ref Exif.Data exif, Orientation orientation) {
         Exif.Entry entry = find_first_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
         if (entry == null) {
-            // TODO: Need a fall-back here
-            error("Unable to set orientation: no entry found");
+            // add the entry to the 0th (primary) IFD
+            entry = alloc_entry(exif.ifd[0], Exif.Tag.ORIENTATION, Exif.Format.SHORT);
         }
         
         Exif.Convert.set_short(entry.data, exif.get_byte_order(), orientation);
@@ -164,14 +191,23 @@ namespace Exif {
         
         return true;
     }
-
+    
+    // TODO: If dimensions are being overwritten and they're SHORTs, and the new dimensions are
+    // greater than uint16.MAX, need to remove the old ones and add new LONGs.
     public void set_dimensions(ref Exif.Data exif, Dimensions dim) {
         Exif.Entry width = Exif.find_entry_multiformat(exif, Exif.Ifd.EXIF,
             Exif.Tag.PIXEL_X_DIMENSION, Exif.Format.SHORT, Exif.Format.LONG);
+        if (width == null) {
+            // PixelXDimension belongs in the 0th IFD
+            width = alloc_entry(exif.ifd[0], Exif.Tag.PIXEL_X_DIMENSION, Exif.Format.LONG);
+        }
+        
         Exif.Entry height = Exif.find_entry_multiformat(exif, Exif.Ifd.EXIF,
             Exif.Tag.PIXEL_Y_DIMENSION, Exif.Format.SHORT, Exif.Format.LONG);
-        if ((width == null) || (height == null))
-            return;
+        if (height == null) {
+            // PixelYDimensions belongs in the 0th IFD
+            height = alloc_entry(exif.ifd[0], Exif.Tag.PIXEL_Y_DIMENSION, Exif.Format.LONG);
+        }
         
         if (width.format == Exif.Format.SHORT) {
             Exif.Convert.set_short(width.data, exif.get_byte_order(), (uint16) dim.width);

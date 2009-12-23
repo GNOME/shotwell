@@ -2,7 +2,7 @@
 AppName=Shotwell
 AppPublisher=Yorba Foundation
 AppPublisherURL=http://yorba.org
-AppVerName=Shotwell 0.3.2+trunk
+AppVerName=Shotwell 0.4.0+trunk
 DefaultDirName={pf}\Shotwell
 DefaultGroupName=Shotwell
 LicenseFile=COPYING
@@ -48,6 +48,7 @@ Source: "c:\MinGW\lib\gtk-2.0\2.10.0\loaders\svg_loader.dll"; DestDir: "{app}\li
 Source: "icons\*"; DestDir: "{app}\share\shotwell\icons"
 Source: "ui\*"; DestDir: "{app}\share\shotwell\ui"
 Source: "shotwell.exe"; DestDir: "{app}\bin\"
+
 
 
 

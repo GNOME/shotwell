@@ -158,7 +158,7 @@ public abstract class SourceSnapshot {
 public abstract class DataSource : DataObject {
     protected delegate void ContactSubscriber(DataView view);
     
-    private Gee.ArrayList<DataView> subscribers = new Gee.ArrayList<DataView>();
+    private Gee.ArrayList<DataView> subscribers = null;
     private bool in_contact = false;
     private bool marked_for_destroy = false;
     private bool is_destroyed = false;
@@ -232,7 +232,7 @@ public abstract class DataSource : DataObject {
         assert(marked_for_destroy);
         
         // clear the subscriber list
-        subscribers.clear();
+        subscribers = null;
         
         // mark as destroyed
         is_destroyed = true;
@@ -250,19 +250,29 @@ public abstract class DataSource : DataObject {
     public void internal_subscribe(DataView view) {
         assert(!in_contact);
         
+        if (subscribers == null)
+            subscribers = new Gee.ArrayList<DataView>();
+        
         subscribers.add(view);
     }
     
     // This method is only called by DataView.
     public void internal_unsubscribe(DataView view) {
         assert(!in_contact);
+        assert(subscribers != null);
         
         bool removed = subscribers.remove(view);
         assert(removed);
+        
+        if (subscribers.size == 0)
+            subscribers = null;
     }
     
     protected void contact_subscribers(ContactSubscriber contact_subscriber) {
         assert(!in_contact);
+        
+        if (subscribers == null)
+            return;
         
         in_contact = true;
         foreach (DataView view in subscribers)

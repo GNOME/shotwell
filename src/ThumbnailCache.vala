@@ -139,7 +139,7 @@ public class ThumbnailCache : Object {
         fetch_workers.die();
     }
     
-    public static void import(PhotoID photo_id, PhotoSource source, bool force = false) {
+    public static void import(PhotoID photo_id, PhotoSource source, bool force = false) throws Error {
         big._import(photo_id, source, force);
         spin_event_loop();
 
@@ -309,7 +309,7 @@ public class ThumbnailCache : Object {
         job.callback(job.scaled, job.dim, job.interp, job.err);
     }
     
-    private void _import(PhotoID photo_id, PhotoSource source, bool force = false) {
+    private void _import(PhotoID photo_id, PhotoSource source, bool force = false) throws Error {
         File file = get_cached_file(photo_id);
         
         // if not forcing the cache operation, check if file exists and is represented in the
@@ -325,15 +325,9 @@ public class ThumbnailCache : Object {
         debug("Importing thumbnail for %s to [%lld] %s", photo_table.get_name(photo_id), 
             photo_id.id, file.get_path());
         
-        int filesize = -1;
-        Dimensions dim = Dimensions();
-        try {
-            Gdk.Pixbuf scaled = source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true));
-            dim = Dimensions.for_pixbuf(scaled);
-            filesize = save_thumbnail(file, scaled);
-        } catch (Error err) {
-            error("%s", err.message);
-        }
+        Gdk.Pixbuf scaled = source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true));
+        Dimensions dim = Dimensions.for_pixbuf(scaled);
+        int filesize = save_thumbnail(file, scaled);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
         // once, this will blow cache locality, especially when the user is viewing one portion

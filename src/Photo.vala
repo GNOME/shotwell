@@ -1791,7 +1791,7 @@ public class LibraryPhoto : TransformablePhoto {
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
     }
     
-    public static void init() {
+    public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
         
         // prefetch all the photos from the database and add them to the global collection ...
@@ -1801,7 +1801,15 @@ public class LibraryPhoto : TransformablePhoto {
         foreach (PhotoRow row in all)
             all_photos.add(new LibraryPhoto(row));
         
-        global.add_many(all_photos);
+        // need to use a ProgressMonitor wrapper because add_many() doesn't report a total ... have
+        // to hold a ref on to real_monitor until the method exits
+        UnknownTotalMonitor real_monitor = null;
+        if (monitor != null) {
+            real_monitor = new UnknownTotalMonitor(all_photos.size, monitor);
+            monitor = real_monitor.monitor;
+        }
+        
+        global.add_many(all_photos, monitor);
     }
     
     public static void terminate() {
@@ -1815,7 +1823,20 @@ public class LibraryPhoto : TransformablePhoto {
         
         photo = new LibraryPhoto(PhotoTable.get_instance().get_row(photo_id));
         
-        ThumbnailCache.import(photo_id, photo, true);
+        // this is the acid-test; if unable to generate thumbnails, that indicates the photo itself
+        // is bogus and should be discarded
+        try {
+            ThumbnailCache.import(photo_id, photo, true);
+        } catch (Error err) {
+            warning("Unable to create thumbnails for %s: %s", file.get_path(), err.message);
+            
+            PhotoTable.get_instance().remove(photo_id);
+            
+            // assuming a decode error because Gdk.PixbufError is not properly bound as an exception
+            // TODO: ImportResult could have a utility method that converts errors into appropriate
+            // result codes.
+            return ImportResult.DECODE_ERROR;
+        }
         
         // add to global *after* generating thumbnails
         global.add(photo);
@@ -1824,7 +1845,11 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     private void generate_thumbnails() {
-        ThumbnailCache.import(get_photo_id(), this, true);
+        try {
+            ThumbnailCache.import(get_photo_id(), this, true);
+        } catch (Error err) {
+            warning("Unable to generate thumbnails for %s: %s", to_string(), err.message);
+        }
         
         // fire signal that thumbnails have changed
         notify_thumbnail_altered();

@@ -1079,11 +1079,20 @@ class RGBHistogram {
             int rowstride = graphic.rowstride;
             int sample_bytes = graphic.get_bits_per_sample() / 8;
             int pixel_bytes = sample_bytes * graphic.get_n_channels();
-            
+
             double scale_bar = 0.98 * ((double) GRAPHIC_HEIGHT) /
                 ((double) max_count);
 
             unowned uchar[] pixel_data = graphic.get_pixels();
+
+            /* detect pathological case of bilevel black & white images -- in this case, draw
+               a blank histogram and return it to the caller */
+            if (max_count == 0) {
+                for (int i = 0; i < (pixel_bytes * graphic.width * graphic.height); i++) {
+                    pixel_data[i] = UNMARKED_BACKGROUND;
+                }
+                return graphic;
+            }
 
             for (int x = 0; x < 256; x++) {
                 int red_bar_height = (int)(((double) qualitative_red_counts[x]) *
@@ -1194,10 +1203,18 @@ public class ExpansionTransformation : HSVTransformation {
     
     public ExpansionTransformation.from_extrema(int black_point, int white_point) {
         base(PixelTransformationType.TONE_EXPANSION);
-        
-        assert((black_point >= 0) && (black_point <= 255));
-        assert((white_point >= 0) && (white_point <= 255));
-        assert(black_point < white_point);
+
+        white_point = white_point.clamp(0, 255);
+        black_point = black_point.clamp(0, 255);
+
+        if (black_point == white_point) {
+            if (black_point == 0)
+                white_point = 1;
+            else if (white_point == 255)
+                black_point = 254;
+            else
+                black_point = white_point - 1;
+        }
 
         low_kink = black_point;
         high_kink = white_point;

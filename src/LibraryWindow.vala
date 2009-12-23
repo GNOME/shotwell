@@ -283,10 +283,10 @@ public class LibraryWindow : AppWindow {
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
     
-    public LibraryWindow() {
+    public LibraryWindow(ProgressMonitor monitor) {
         // prepare the default parent and orphan pages
         // (these are never removed from the system)
-        library_page = new LibraryPage();
+        library_page = new LibraryPage(monitor);
         events_directory_page = new MasterEventsDirectoryPage();
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed += import_queue_batch_finished;

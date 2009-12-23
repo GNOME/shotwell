@@ -659,7 +659,7 @@ public abstract class CollectionPage : CheckerboardPage {
 
         set_item_sensitive("/CollectionMenuBar/FileMenu/Export", sensitivity);
 #if !NO_PUBLISHING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Publish", sensitivity);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
 #endif
     }
     
@@ -1206,10 +1206,11 @@ public abstract class CollectionPage : CheckerboardPage {
 }
 
 public class LibraryPage : CollectionPage {
-    public LibraryPage() {
+    public LibraryPage(ProgressMonitor? monitor = null) {
         base(_("Photos"));
         
-        get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this));
+        get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this),
+            (Gee.Iterable<DataSource>) LibraryPhoto.global.get_all(), monitor);
     }
 
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {

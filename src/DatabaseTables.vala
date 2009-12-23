@@ -164,6 +164,21 @@ public class DatabaseTable {
         
         return true;
     }
+    
+    public int get_count() {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT COUNT(id) AS RowCount FROM %s".printf(table_name), -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.ROW) {
+            critical("Unable to retrieve row count on %s: (%d) %s", table_name, res, db.errmsg());
+            
+            return 0;
+        }
+        
+        return stmt.column_int(0);
+    }
 }
 
 public enum DatabaseVerifyResult {

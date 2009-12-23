@@ -413,7 +413,7 @@ public class CropTool : EditingTool {
     private const double CROP_INIT_X_PCT = 0.15;
     private const double CROP_INIT_Y_PCT = 0.15;
 
-    private const int CROP_MIN_SIZE = 100;
+    private const int CROP_MIN_SIZE = 50;
 
     private const float CROP_EXTERIOR_SATURATION = 0.00f;
     private const int CROP_EXTERIOR_RED_SHIFT = -32;
@@ -556,6 +556,12 @@ public class CropTool : EditingTool {
     
     public static CropTool factory() {
         return new CropTool();
+    }
+    
+    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+        Dimensions dim = scaling.get_scaled_dimensions(photo.get_original_dimensions());
+        
+        return dim.width > CROP_MIN_SIZE && dim.height > CROP_MIN_SIZE;
     }
 
     private static ConstraintDescription[] create_constraints() {
@@ -1722,6 +1728,13 @@ public class RedeyeTool : EditingTool {
     public static RedeyeTool factory() {
         return new RedeyeTool();
     }
+    
+    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+        Dimensions dim = scaling.get_scaled_dimensions(photo.get_dimensions());
+        
+        return dim.width >= (RedeyeInstance.MAX_RADIUS * 2) 
+            && dim.height >= (RedeyeInstance.MAX_RADIUS * 2);
+    }
 
     private RedeyeInstance new_interaction_instance(PhotoCanvas canvas) {
         Gdk.Rectangle photo_bounds = canvas.get_scaled_pixbuf_position();
@@ -2251,6 +2264,10 @@ public class AdjustTool : EditingTool {
     
     public static AdjustTool factory() {
         return new AdjustTool();
+    }
+    
+    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+        return true;
     }
 
     public override void activate(PhotoCanvas canvas) {

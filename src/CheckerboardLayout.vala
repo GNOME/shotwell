@@ -17,13 +17,15 @@ public abstract class LayoutItem : ThumbnailView {
     
     public const int BRIGHTEN_SHIFT = 0x18;
     
+    private static int one_line_height = 0;
+    
     public Gdk.Rectangle allocation = Gdk.Rectangle();
     
     private CheckerboardLayout parent = null;
     private Pango.Layout pango_layout = null;
     private Pango.Alignment title_alignment = Pango.Alignment.LEFT;
-    private Dimensions pango_dim = Dimensions();
-    private string title = "";
+    private int pango_height = 0;
+    private string title = null;
     private bool title_marked_up = false;
     private bool title_displayed = true;
     private bool exposure = false;
@@ -77,7 +79,7 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     public string get_title() {
-        return title;
+        return (title != null) ? title : "";
     }
     
     public Pango.Alignment get_title_alignment() {
@@ -178,7 +180,20 @@ public abstract class LayoutItem : ThumbnailView {
         
         pango_layout.set_ellipsize(Pango.EllipsizeMode.END);
         pango_layout.set_alignment(title_alignment);
-        pango_layout.get_pixel_size(out pango_dim.width, out pango_dim.height);
+        
+        // getting pixel size is expensive, and we only need the height, so use cached values
+        // whenever possible
+        bool single_line = (title.chr(-1, '\n') == null);
+        if (one_line_height != 0 && single_line) {
+            pango_height = one_line_height;
+        } else {
+            int width;
+            pango_layout.get_pixel_size(out width, out pango_height);
+            
+            // cache first one-line height discovered
+            if (one_line_height == 0 && single_line)
+                one_line_height = pango_height;
+        }
     }
     
     public static int get_max_width(int scale) {
@@ -195,7 +210,7 @@ public abstract class LayoutItem : ThumbnailView {
         Gdk.Rectangle old_allocation = allocation;
         
         // only add in the text height if it's being displayed
-        int text_height = (title_displayed) ? pango_dim.height + LABEL_PADDING : 0;
+        int text_height = (title_displayed) ? pango_height + LABEL_PADDING : 0;
         
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
