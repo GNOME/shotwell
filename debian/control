@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Jim Nelson <jim@yorba.org>
 Build-Depends: debhelper (>= 7), 
- valac (>= 0.7.7),
+ valac (>= 0.7.9),
  libgee-dev (>= 0.5.0),
  libgtk2.0-dev (>= 2.14.4),
  libgphoto2-2-dev (>= 2.4.2),
@@ -12,7 +12,10 @@ Build-Depends: debhelper (>= 7),
  libunique-dev (>= 1.0.0),
  libhal-dev (>= 0.5.11),
  libdbus-glib-1-dev (>= 0.76),
- libgconf2-dev (>= 2.22.0)
+ libgconf2-dev (>= 2.22.0),
+ libsoup2.4-dev (>= 2.26.0),
+ libxml2 (>= 2.6.32),
+ libwebkit-dev (>= 1.1.5)
 Standards-Version: 3.8.0
 Homepage: http://www.yorba.org/shotwell
 
@@ -28,7 +31,10 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libhal1 (>= 0.5.11),
  hal (>= 0.5.11),
  libdbus-glib-1-2 (>= 0.76),
- libgconf2-4 (>= 2.22.0)
+ libgconf2-4 (>= 2.22.0),
+ libsoup2.4-1 (>= 2.26.0),
+ libxml2 (>= 2.6.32),
+ libwebkit-1.0-2 (>= 1.1.5)
 Description: Digital photo organizer
  Shotwell is a digital photo organizer designed for the GNOME desktop 
  environment. It allows you to import photos from disk or camera, organize 

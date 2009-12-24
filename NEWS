@@ -1,4 +1,18 @@
+Shotwell 0.4.0 - 23 December 2009
+---------------------------------
+
+  * Facebook and Flickr publishing.
+  * Events may now be split and merged.
+  * Alpha-release of Windows port now available.
+  * Undo/redo.
+  * Mark photos as favorite or hidden.  View only favorites or show hidden
+    photos.
+  * Duplicate photos.
+  * Numerous bug fixes.
+
+
 Shotwell 0.3.2 - 11 November 2009
+---------------------------------
 
   * Loosened photo pipeline assertion that checked for pixbuf scaling.
   * Better error handling for situation where the HAL daemon (hald) is not
