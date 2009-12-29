@@ -1,7 +1,7 @@
 PROGRAM = shotwell
 all: $(PROGRAM)
 
-VERSION = 0.4.0+trunk
+VERSION = 0.4.1+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -197,7 +197,7 @@ EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
 VALA_STAMP = $(BUILD_DIR)/.stamp
 LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
-DIST_FILES = Makefile configure $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
+DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/* \
 	$(EXPANDED_PO_FILES) po/shotwell.pot vapi/*
 
