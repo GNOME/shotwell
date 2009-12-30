@@ -193,7 +193,7 @@ public class Event : EventSource, Proxyable {
             debug("Destroying event %s", to_string());
             
             Marker marker = Event.global.mark(this);
-            Event.global.destroy_marked(marker);
+            Event.global.destroy_marked(marker, true);
             
             // as it's possible (highly likely, in fact) that all refs to the Event object have
             // gone out of scope now, do NOT touch this, but exit immediately
