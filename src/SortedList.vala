@@ -14,7 +14,7 @@ public class FileComparator : Comparator<File> {
         return strcmp(a.get_path(), b.get_path());
     }
 }
-    
+
 public class SortedList<G> : Object, Gee.Iterable<G> {
     private Gee.List<G> list;
     private Comparator<G> cmp;
@@ -24,12 +24,6 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         this.cmp = cmp;
     }
     
-    // for libgee <= 0.1.6
-    public Type get_element_type() {
-        return typeof(G);
-    }
-    
-    // for libgee >= 0.3.0
     public Type element_type {
         get { return typeof(G); } 
     }
@@ -63,14 +57,10 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         get { return list.size; }
     }
 
-    public new G? get(int index) {
+    public G? get_at(int index) {
         return list.get(index);
     }
     
-    public new void set(int index, G item) {
-        list.set(index, item);
-    }
-
     // index_of uses the Comparator to find the item being searched for.  Because SortedList allows
     // for items identified as equal by the Comparator to co-exist in the list, this method will
     // return the first item found where its compare() method returns zero.  Use locate() if a
@@ -104,10 +94,6 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         return -1;
     }
     
-    public void insert(int index, G item) {
-        list.insert(index, item);
-    }
-    
     public void remove_at(int index) {
         list.remove_at(index);
     }
@@ -122,16 +108,36 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
             list.insert(get_sorted_insert_pos(item), item);
     }
     
+    // Returns true if item has moved.
+    public bool resort_item(G item) {
+        int index = locate(item);
+        int new_index = get_sorted_insert_pos(item);
+        
+        if (index == new_index)
+            return false;
+        
+        list.remove_at(index);
+        list.insert(new_index, item);
+        
+        return true;
+    }
+    
     private int get_sorted_insert_pos(G? item) {
         int low = 0;
         int high = list.size;
         for (;;) {
             if (low == high)
                 return low;
-                
+            
             int mid = low + ((high - low) / 2);
-
-            int64 result = cmp.compare(item, list.get(mid));
+            
+            // watch for the situation where the item is already in the list (can happen with
+            // resort_item())
+            G cmp_item = list.get(mid);
+            if (item == cmp_item)
+                cmp_item = list.get(mid + 1);
+            
+            int64 result = cmp.compare(item, cmp_item);
             if (result < 0)
                 high = mid;
             else if (result > 0)
@@ -139,7 +145,6 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
             else
                 return mid;
         }
-        
     }
 
     public SortedList<G> copy() {

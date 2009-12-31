@@ -1429,7 +1429,7 @@ private class DirectViewCollection : ViewCollection {
         
         File file = null;
         while (list.size > 0) {
-            file = list.get(0);
+            file = list.get_at(0);
             
             if (validate(file))
                 break;
@@ -1452,7 +1452,7 @@ private class DirectViewCollection : ViewCollection {
         
         File file = null;
         while (list.size > 0) {
-            file = list.get(list.size - 1);
+            file = list.get_at(list.size - 1);
             
             if (validate(file))
                 break;
@@ -1484,7 +1484,7 @@ private class DirectViewCollection : ViewCollection {
             if (index >= list.size)
                 index = 0;
             
-            file = list.get(index);
+            file = list.get_at(index);
             
             if (validate(file))
                 break;
@@ -1516,7 +1516,7 @@ private class DirectViewCollection : ViewCollection {
             if (index < 0)
                 index = list.size - 1;
             
-            file = list.get(index);
+            file = list.get_at(index);
             
             if (validate(file))
                 break;

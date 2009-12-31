@@ -634,10 +634,16 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         time_content.pack_start(clock, true, false, 3);
         time_content.pack_start(relativity_check_button, true, false, 3);
         time_content.pack_start(modify_originals_check_button, true, false, 3);
-
+        
+        Gdk.Pixbuf preview = null;
+        try {
+            preview = source.get_pixbuf(Scaling.for_viewport(Dimensions(500, 260), false));
+        } catch (Error err) {
+            warning("Unable to fetch preview for %s", source.to_string());
+        }
+        
         Gtk.VBox image_content = new Gtk.VBox(false, 0);
-        Gtk.Image image = new Gtk.Image.from_pixbuf(source.get_pixbuf(Scaling.for_viewport(
-            Dimensions(500, 260), false)));
+        Gtk.Image image = (preview != null) ? new Gtk.Image.from_pixbuf(preview) : new Gtk.Image();
         original_time_label = new Gtk.Label(null);
         image_content.pack_start(image, true, false, 3);
         image_content.pack_start(original_time_label, true, false, 3);

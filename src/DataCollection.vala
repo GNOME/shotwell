@@ -5,6 +5,128 @@
  */
 
 //
+// DataSet
+//
+// A DataSet is a collection class used for internal implementations of DataCollection
+// and its children.  It may be of use to other classes, however.
+//
+// The general purpose of DataSet is to provide low-cost implementations of various collection
+// operations at a cost of internally maintaining its objects in more than one simple collection.
+// contains(), for example, can return a result with hash-table performance while notions of
+// ordering are maintained by a SortedList.  The cost is in adding and removing objects (in general,
+// there are others).
+//
+// Because this class has no signalling mechanisms and does not manipulate DataObjects in ways
+// they expect to be manipulated (these features are performed by DataCollection), it's probably
+// best not to use this class.  Even in cases of building a list of DataObjects for some quick
+// operation is probably best done by a Gee.ArrayList.
+//
+
+public class DataSet {
+    private static class OrderAddedComparator : Comparator<DataObject> {
+        public override int64 compare(DataObject a, DataObject b) {
+            return a.internal_get_ordinal() - b.internal_get_ordinal();
+        }
+    }
+    
+    private static class ComparatorWrapper : Comparator<DataObject> {
+        private Comparator<DataObject> comparator;
+        
+        public ComparatorWrapper(Comparator<DataObject> comparator) {
+            this.comparator = comparator;
+        }
+        
+        public override int64 compare(DataObject a, DataObject b) {
+            if (a == b)
+                return 0;
+            
+            int64 result = comparator.compare(a, b);
+            if (result == 0)
+                result = a.internal_get_ordinal() - b.internal_get_ordinal();
+            
+            assert(result != 0);
+            
+            return result;
+        }
+    }
+    
+    private static OrderAddedComparator order_added_comparator = null;
+    
+    private SortedList<DataObject> list = new SortedList<DataObject>();
+    private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
+    
+    public DataSet() {
+        reset_comparator();
+    }
+    
+    public bool contains(DataObject object) {
+        return hash_set.contains(object);
+    }
+    
+    public int get_count() {
+        assert(list.size == hash_set.size);
+        
+        return list.size;
+    }
+    
+    public void reset_comparator() {
+        if (order_added_comparator == null)
+            order_added_comparator = new OrderAddedComparator();
+        
+        list.resort(order_added_comparator);
+    }
+    
+    public void set_comparator(Comparator<DataObject> comparator) {
+        list.resort(new ComparatorWrapper(comparator));
+    }
+    
+    public Gee.Iterable<DataObject> get_all() {
+        // TODO: Returning a copy because of code elsewhere that removes items during an iteration.
+        // This needs to be fixed.
+        return list.copy();
+    }
+    
+    public DataObject? get_at(int index) {
+        return list.get_at(index);
+    }
+    
+    public int index_of(DataObject object) {
+        return list.locate(object);
+    }
+    
+    public bool add(DataObject object) {
+        if (!list.add(object))
+            return false;
+        
+        if (!hash_set.add(object)) {
+            // attempt to back out of previous operation
+            list.remove(object);
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public bool remove(DataObject object) {
+        bool success = true;
+        
+        if (!list.remove(object))
+            success = false;
+        
+        if (!hash_set.remove(object))
+            success = false;
+        
+        return success;
+    }
+    
+    // Returns true if the item has moved.
+    public bool resort_object(DataObject object) {
+        return list.resort_item(object);
+    }
+}
+
+//
 // DataCollection
 //
 
@@ -145,37 +267,8 @@ public class DataCollection {
         }
     }
     
-    public static class OrderAddedComparator : Comparator<DataObject> {
-        public override int64 compare(DataObject a, DataObject b) {
-            return a.internal_get_ordinal() - b.internal_get_ordinal();
-        }
-    }
-    
-    protected static class ComparatorWrapper : Comparator<DataObject> {
-        private Comparator<DataObject> comparator;
-        
-        public ComparatorWrapper(Comparator<DataObject> comparator) {
-            this.comparator = comparator;
-        }
-        
-        public override int64 compare(DataObject a, DataObject b) {
-            int64 result = comparator.compare(a, b);
-            if (result == 0)
-                result = a.internal_get_ordinal() - b.internal_get_ordinal();
-
-            if (a != b) {
-                assert(result != 0);
-            }
-            
-            return result;
-        }
-    }
-    
-    private static OrderAddedComparator order_added_comparator = null;
-    
     private string name;
-    private SortedList<DataObject> list = new SortedList<DataObject>();
-    private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
+    private DataSet dataset = new DataSet();
     private int64 object_ordinal_generator = 0;
 
     // When this signal has been fired, the added items are part of the collection
@@ -203,14 +296,13 @@ public class DataCollection {
     public virtual signal void item_metadata_altered(DataObject object) {
     }
     
-    // Fired when a new sort comparator is registered.
+    // Fired when a new sort comparator is registered or an item has moved in the ordering due to
+    // an alteration.
     public virtual signal void ordering_changed() {
     }
     
     public DataCollection(string name) {
         this.name = name;
-        
-        list.resort(get_order_added_comparator());
     }
     
     ~DataCollection() {
@@ -265,38 +357,31 @@ public class DataCollection {
         return true;
     }
     
-    public static OrderAddedComparator get_order_added_comparator() {
-        if (order_added_comparator == null)
-            order_added_comparator = new OrderAddedComparator();
-        
-        return order_added_comparator;
-    }
-    
     public virtual void set_comparator(Comparator<DataObject> comparator) {
-        list.resort(new ComparatorWrapper(comparator));
+        dataset.set_comparator(comparator);
         notify_ordering_changed();
     }
     
     // Return to natural ordering of DataObjects, which is order-added
     public virtual void reset_comparator() {
-        list.resort(get_order_added_comparator());
+        dataset.reset_comparator();
         notify_ordering_changed();
     }
     
     public virtual Gee.Iterable<DataObject> get_all() {
-        return list.copy();
+        return dataset.get_all();
     }
     
     public virtual int get_count() {
-        return list.size;
+        return dataset.get_count();
     }
     
-    public virtual DataObject get_at(int index) {
-        return list.get(index);
+    public virtual DataObject? get_at(int index) {
+        return dataset.get_at(index);
     }
     
     public virtual int index_of(DataObject object) {
-        return list.locate(object);
+        return dataset.index_of(object);
     }
     
     public virtual bool contains(DataObject object) {
@@ -306,7 +391,7 @@ public class DataCollection {
     // Because subclasses may filter out objects (by overriding key methods here), need an
     // internal_contains for consistency checking.
     private bool internal_contains(DataObject object) {
-        if (!hash_set.contains(object))
+        if (!dataset.contains(object))
             return false;
         
         assert(object.get_membership() == this);
@@ -319,18 +404,14 @@ public class DataCollection {
         
         object.internal_set_membership(this, object_ordinal_generator++);
         
-        bool added = list.add(object);
-        assert(added);
-        added = hash_set.add(object);
+        bool added = dataset.add(object);
         assert(added);
     }
     
     private void internal_remove(DataObject object) {
         object.internal_clear_membership();
         
-        bool removed = list.remove(object);
-        assert(removed);
-        removed = hash_set.remove(object);
+        bool removed = dataset.remove(object);
         assert(removed);
     }
     
@@ -463,27 +544,23 @@ public class DataCollection {
     }
     
     public void clear() {
-        if (list.size == 0) {
-            assert(hash_set.size == 0);
-            
+        if (dataset.get_count() == 0)
             return;
-        }
         
         // remove everything in the list, but have to maintain a new list for reporting the signal.
         // Don't use an iterator, as list is modified in internal_remove().
         Gee.ArrayList<DataObject> removed = new Gee.ArrayList<DataObject>();
-        while (list.size > 0) {
-            DataObject object = list.get(0);
+        do {
+            DataObject? object = dataset.get_at(0);
+            assert(object != null);
+            
             removed.add(object);
             internal_remove(object);
-        }
+        } while (dataset.get_count() > 0);
         
         // report after removal
         notify_items_removed(removed);
         notify_contents_altered(null, removed);
-        
-        // the hash set should be cleared as well when finished
-        assert(hash_set.size == 0);
     }
     
     // close() must be called before disposing of the DataCollection, so all signals may be
@@ -500,10 +577,9 @@ public class DataCollection {
     // this collection may be notified as well.
     public void internal_notify_altered(DataObject object) {
         assert(internal_contains(object));
-
-        // re-add to maintain sort
-        list.remove(object);
-        list.add(object);
+        
+        if (dataset.resort_object(object))
+            notify_ordering_changed();
 
         notify_item_altered(object);
     }
@@ -651,10 +727,8 @@ public class ViewCollection : DataCollection {
     private SourceCollection sources = null;
     private ViewManager manager = null;
     private ViewFilter filter = null;
-    private SortedList<DataView> selected = new SortedList<DataView>();
-    private Gee.HashSet<DataView> selected_set = new Gee.HashSet<DataView>();
-    private SortedList<DataView> visible = new SortedList<DataView>();
-    private Gee.HashSet<DataView> visible_set = new Gee.HashSet<DataView>();
+    private DataSet selected = new DataSet();
+    private DataSet visible = new DataSet();
     private int geometry_freeze = 0;
     private int view_freeze = 0;
     
@@ -703,9 +777,6 @@ public class ViewCollection : DataCollection {
     
     public ViewCollection(string name) {
         base (name);
-        
-        selected.resort(get_order_added_comparator());
-        visible.resort(get_order_added_comparator());
     }
 
     public override void close() {
@@ -803,7 +874,7 @@ public class ViewCollection : DataCollection {
         foreach (DataObject object in base.get_all()) {
             DataView view = (DataView) object;
             if (view.is_visible()) {
-                assert(visible_set.contains(view));
+                assert(visible.contains(view));
                 
                 continue;
             }
@@ -871,15 +942,13 @@ public class ViewCollection : DataCollection {
             remove_marked(marker);
         } else if (include && has_view_for_source(source)) {
             DataView view = get_view_for_source(source);
-            // make sure altered photo is sorted properly by re-adding it
-            if (selected_set.contains(view)) {
-                selected.remove(view);
-                selected.add(view);
-            }
-
-            if (visible_set.contains(view)) {
-                visible.remove(view);
-                visible.add(view);
+            
+            if (selected.contains(view))
+                selected.resort_object(view);
+            
+            if (visible.contains(view)) {
+                if (visible.resort_object(view))
+                    notify_ordering_changed();
             }
         }
     }
@@ -957,21 +1026,21 @@ public class ViewCollection : DataCollection {
     }
     
     public override void set_comparator(Comparator<DataView> comparator) {
-        selected.resort(new ComparatorWrapper(comparator));
-        visible.resort(new ComparatorWrapper(comparator));
+        selected.set_comparator(comparator);
+        visible.set_comparator(comparator);
         
         base.set_comparator(comparator);
     }
     
     public override void reset_comparator() {
-        selected.resort(get_order_added_comparator());
-        visible.resort(get_order_added_comparator());
+        selected.reset_comparator();
+        visible.reset_comparator();
         
         base.reset_comparator();
     }
     
     public override Gee.Iterable<DataObject> get_all() {
-        return visible.copy();
+        return visible.get_all();
     }
 
     public Gee.Iterable<DataObject> get_all_unfiltered() {
@@ -979,15 +1048,15 @@ public class ViewCollection : DataCollection {
     }    
 
     public override int get_count() {
-        return visible.size;
+        return visible.get_count();
     }
     
-    public override DataObject get_at(int index) {
-        return visible.get(index);
+    public override DataObject? get_at(int index) {
+        return visible.get_at(index);
     }
     
     public override int index_of(DataObject object) {
-        return visible.locate((DataView) object);
+        return visible.index_of((DataView) object);
     }
     
     public override bool contains(DataObject object) {
@@ -997,7 +1066,7 @@ public class ViewCollection : DataCollection {
             return false;
         
         // even if a member, must be visible to be "contained"
-        return visible_set.contains((DataView) object);
+        return visible.contains(object);
     }
     
     public virtual DataView? get_first() {
@@ -1052,32 +1121,20 @@ public class ViewCollection : DataCollection {
     private void add_selected(DataView view) {
         bool added = selected.add(view);
         assert(added);
-        
-        added = selected_set.add(view);
-        assert(added);
     }
     
     private void remove_selected(DataView view) {
         bool removed = selected.remove(view);
-        assert(removed);
-        
-        removed = selected_set.remove(view);
         assert(removed);
     }
     
     private void add_visible(DataView view) {
         bool added = visible.add(view);
         assert(added);
-        
-        added = visible_set.add(view);
-        assert(added);
     }
     
     private void remove_visible(DataView view) {
         bool removed = visible.remove(view);
-        assert(removed);
-        
-        removed = visible_set.remove(view);
         assert(removed);
     }
     
@@ -1091,7 +1148,7 @@ public class ViewCollection : DataCollection {
     private bool select_item(DataObject object, Object user) {
         DataView view = (DataView) object;
         if (view.is_selected()) {
-            assert(selected_set.contains(view));
+            assert(selected.contains(view));
             
             return true;
         }
@@ -1137,7 +1194,7 @@ public class ViewCollection : DataCollection {
     private bool unselect_item(DataObject object, Object user) {
         DataView view = (DataView) object;
         if (!view.is_selected()) {
-            assert(!selected_set.contains(view));
+            assert(!selected.contains(view));
             
             return true;
         }
@@ -1187,15 +1244,15 @@ public class ViewCollection : DataCollection {
     }
     
     public int get_selected_count() {
-        return selected.size;
+        return selected.get_count();
     }
     
     public Gee.Iterable<DataView> get_selected() {
-        return selected.copy();
+        return (Gee.Iterable<DataView>) selected.get_all();
     }
     
     public DataView? get_selected_at(int index) {
-        return selected.get(index);
+        return (DataView?) selected.get_at(index);
     }
     
     // This method requires that all items in to_hide are not hidden already.
@@ -1236,7 +1293,7 @@ public class ViewCollection : DataCollection {
             
             // see note in hide_item for selection handling with hidden/visible items
             if (view.is_selected()) {
-                assert(!selected_set.contains(view));
+                assert(!selected.contains(view));
                 add_selected(view);
             }
         }
