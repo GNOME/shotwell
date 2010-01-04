@@ -14,6 +14,7 @@ Uninstallable=yes
 Name: "{commonprograms}\{groupname}\Shotwell"; Filename: "{app}\bin\shotwell.exe"
 
 [Files]
+Source: "c:\MinGW\bin\gdk-pixbuf-query-loaders.exe"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\intl.dll"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\jpeg62.dll"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\libatk-1.0-0.dll"; DestDir: "{app}\bin"
@@ -38,8 +39,6 @@ Source: "c:\MinGW\bin\libxml2-2.dll"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\sqlite3.dll"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\zlib1.dll"; DestDir: "{app}\bin"
 
-Source: "c:\MinGW\etc\gtk-2.0\gdk-pixbuf.loaders"; DestDir: "{app}\etc\gtk-2.0"
-
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\engines\libwimp.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\engines"
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-jpeg.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\loaders"
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-png.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\loaders"
@@ -49,8 +48,6 @@ Source: "icons\*"; DestDir: "{app}\share\shotwell\icons"
 Source: "ui\*"; DestDir: "{app}\share\shotwell\ui"
 Source: "shotwell.exe"; DestDir: "{app}\bin\"
 
-
-
-
-
+[Run]
+Filename: "cmd"; Parameters: "/c mkdir etc\gtk-2.0 & bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders"; WorkingDir: "{app}"; Flags: runhidden
 
