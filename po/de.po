@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.3\n"
+"Project-Id-Version: shotwell-0.4.2\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2009-12-11 18:20-0800\n"
-"PO-Revision-Date: 2009-12-19 19:16+0100\n"
-"Last-Translator: Martin Weißhaupt <mw88@mw88.org>\n"
+"PO-Revision-Date: 2009-12-27 15:50+0100\n"
+"Last-Translator: Ingo Lütkebohle <iluetkeb@techfak.uni-bielefeld.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,7 +115,7 @@ msgstr "_Bearbeiten"
 #: src/CollectionPage.vala:217
 #: src/EventsDirectoryPage.vala:163
 msgid "Even_ts"
-msgstr "Ereignisse"
+msgstr "_Ereignisse"
 
 #: src/CollectionPage.vala:222
 #: src/EventsDirectoryPage.vala:178
@@ -171,7 +171,7 @@ msgstr "Eine Diashow anzeigen"
 #: src/PhotoPage.vala:1156
 #: src/PhotoPage.vala:1643
 msgid "_View"
-msgstr "An_zeigen"
+msgstr "_Anzeigen"
 
 #: src/CollectionPage.vala:308
 msgid "Sort _Photos"
@@ -463,8 +463,8 @@ msgid ""
 "\n"
 "This action cannot be undone."
 msgstr ""
-"Dies wird die ausgewählen Fotos aus der Shotwell-Bibliothek entfernen. Möchten Sie die Dateien auch von\n"
-" der Festplatte löschen?\n"
+"Dies wird die ausgewählten Fotos aus der Shotwell-Bibliothek entfernen. Möchten Sie die Dateien auch von der Festplatte löschen?\n"
+"\n"
 "Diese Aktion kann nicht rückgängig gemacht werden!"
 
 #: src/Dialogs.vala:428
@@ -537,7 +537,7 @@ msgstr "Unbeschränkt"
 
 #: src/EditingTools.vala:565
 msgid "Square"
-msgstr "Rechteck"
+msgstr "Quadrat"
 
 #: src/EditingTools.vala:566
 msgid "Screen"
@@ -658,7 +658,7 @@ msgstr "_Reset"
 #: src/EditingTools.vala:2016
 #: src/Properties.vala:275
 msgid "Exposure:"
-msgstr "Belichtungszeit:"
+msgstr "Belichtung:"
 
 #: src/EditingTools.vala:2024
 msgid "Saturation:"
@@ -1002,7 +1002,7 @@ msgstr "Grundlegende Informationen über die Auswahl anzeigen"
 
 #: src/LibraryWindow.vala:390
 msgid "E_xtended Information"
-msgstr "_Erweiterte Informationen"
+msgstr "Er_weiterte Informationen"
 
 #: src/LibraryWindow.vala:391
 msgid "Display extended information for the selection"
@@ -1255,7 +1255,7 @@ msgstr "Von:"
 #: src/Properties.vala:256
 #: src/Properties.vala:261
 msgid "To:"
-msgstr "An:"
+msgstr "Bis:"
 
 #: src/Properties.vala:356
 msgid "Location:"
@@ -1464,7 +1464,7 @@ msgstr "Zu einem Ereignis zusammenfügen"
 
 #: src/Resources.vala:129
 msgid "Mark as _Favorite"
-msgstr "Als _Lieblingsbild markieren"
+msgstr "Als Lieblingsbild _markieren"
 
 #: src/Resources.vala:130
 msgid "Mark as Favorite"
@@ -1480,7 +1480,7 @@ msgstr "Entferne als _Lieblingsbild"
 
 #: src/Resources.vala:134
 msgid "Unmark as Favorite"
-msgstr "Entferne als _Lieblingsbild"
+msgstr "Entferne als Lieblingsbild"
 
 #: src/Resources.vala:135
 msgid "Unmark the photo as one of your favorites"
@@ -1488,7 +1488,7 @@ msgstr "Entferne die Markierung als Lieblingsbild"
 
 #: src/Resources.vala:137
 msgid "_Hide"
-msgstr "_Verstecken"
+msgstr "Ver_stecken"
 
 #: src/Resources.vala:138
 msgid "Hide"
@@ -1592,7 +1592,7 @@ msgstr "Diashow fortsetzen"
 # Locale-specific date format string, conforming to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the date formatting conventions of their language, country, and region.
 #: src/util.vala:365
 msgid "%a %b %d, %Y"
-msgstr "%a %b %d, %Y"
+msgstr "%a %d. %b, %Y"
 
 #: src/WebConnectors.vala:319
 msgid "_Login"
