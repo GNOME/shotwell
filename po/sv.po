@@ -1,12 +1,11 @@
-# po/shotwell.pot
-# Swedish PO Message string file for Shotwell
+# po/sv.po
+# Swedish translation for Shotwell
 # Copyright (C) 2009 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-# Daniel Nylander <po@danielnylander.se>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell\n"
+"Project-Id-Version: shotwell-0.4.2+trunk\n"
 "Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2009-12-11 18:20-0800\n"
 "PO-Revision-Date: 2009-12-20 19:09+0100\n"

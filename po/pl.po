@@ -1,12 +1,11 @@
-# po/shotwell.pot
-# PO Message string template file for Shotwell
+# po/pl.po
+# Polish translation for Shotwell
 # Copyright (C) 2009 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-# Piotr Drąg <piotrdrag@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pl\n"
+"Project-Id-Version: shotwell-0.4.2+trunk\n"
 "Report-Msgid-Bugs-To:  Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2009-12-11 18:20-0800\n"
 "PO-Revision-Date: 2009-12-12 21:36+0100\n"
