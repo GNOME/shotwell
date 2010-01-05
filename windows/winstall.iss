@@ -51,3 +51,8 @@ Source: "shotwell.exe"; DestDir: "{app}\bin\"
 [Run]
 Filename: "cmd"; Parameters: "/c mkdir etc\gtk-2.0 & bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders"; WorkingDir: "{app}"; Flags: runhidden
 
+[UninstallDelete]
+Type: files; Name: "{app}\etc\gtk-2.0\gdk-pixbuf.loaders"
+Type: dirifempty; Name: "{app}\etc\gtk-2.0"
+Type: dirifempty; Name: "{app}\etc"
+
