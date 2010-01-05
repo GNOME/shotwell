@@ -39,20 +39,25 @@ Source: "c:\MinGW\bin\libxml2-2.dll"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\sqlite3.dll"; DestDir: "{app}\bin"
 Source: "c:\MinGW\bin\zlib1.dll"; DestDir: "{app}\bin"
 
+Source: "c:\MinGW\etc\gtk-2.0\gtkrc"; DestDir: "{app}\etc\gtk-2.0"
+
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\engines\libwimp.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\engines"
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-jpeg.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\loaders"
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\loaders\libpixbufloader-png.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\loaders"
 Source: "c:\MinGW\lib\gtk-2.0\2.10.0\loaders\svg_loader.dll"; DestDir: "{app}\lib\gtk-2.0\2.10.0\loaders"
+
+Source: "c:\MinGW\share\themes\MS-Windows\gtk-2.0\gtkrc"; DestDir: "{app}\share\themes\MS-Windows\gtk-2.0"
 
 Source: "icons\*"; DestDir: "{app}\share\shotwell\icons"
 Source: "ui\*"; DestDir: "{app}\share\shotwell\ui"
 Source: "shotwell.exe"; DestDir: "{app}\bin\"
 
 [Run]
-Filename: "cmd"; Parameters: "/c mkdir etc\gtk-2.0 & bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders"; WorkingDir: "{app}"; Flags: runhidden
+Filename: "cmd"; Parameters: "/c bin\gdk-pixbuf-query-loaders.exe > etc\gtk-2.0\gdk-pixbuf.loaders"; WorkingDir: "{app}"; Flags: runhidden
 
 [UninstallDelete]
 Type: files; Name: "{app}\etc\gtk-2.0\gdk-pixbuf.loaders"
 Type: dirifempty; Name: "{app}\etc\gtk-2.0"
 Type: dirifempty; Name: "{app}\etc"
+
 
