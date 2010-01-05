@@ -1,8 +1,19 @@
+shotwell (0.4.2-1~karmic1) karmic; urgency=low
+
+  * Added Bulgarian, Portuguese, and Slovak translations.  Updated 
+    German translation.
+  * Windows installation fixed.
+  * Crash when deleting photos from camera fixed.
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 04 Jan 2010 15:02:42 -0800
+
+
 shotwell (0.4.1-1~jaunty1) jaunty; urgency=low
 
   * Minor update adding a script missing in the 0.4.0 release.
 
  -- Adam Dingle <adam@yorba.org>  Thu, 24 Dec 2009 08:07:04 -0500
+
 
 shotwell (0.4.0-1~jaunty1) jaunty; urgency=low
   * Facebook and Flickr publishing.

@@ -124,7 +124,20 @@ public abstract class DataObject {
 // A DataSource is an object that is unique throughout the system.  DataSources
 // commonly have external and/or persistent representations, hence they have a notion of being
 // destroyed (versus removed or freed).  Several DataViews may exist that reference a single
-// DataSource.
+// DataSource.  Note that DataSources MUST be destroyed (rather than simply removed) from their
+// SourceCollection, and that they MUST be destroyed via their SourceCollection (rather than
+// calling DataSource.destroy() directly.)
+//
+// Destroying a DataSource indicates it should remove all secondary and tertiary structures (such
+// as thumbnails) and any records pointing to its backing store.  SourceCollection.destroy_marked()
+// has a parameter indicating if the backing should be destroyed as well; that is when
+// internal_delete_backing() is called.
+//
+// There are no provisions (currently) for a DataSource to be removed from its SourceCollection
+// without destroying its backing and/or secondary and tertiary structures.  DataSources are intended
+// to go to the grave with their SourceCollection otherwise.  If a need arises for a DataSource to
+// be peaceably removed from its SourceCollection, code will need to be written.  SourceSnapshots
+// may be one solution to this problem.
 //
 // Some DataSources cannot be reconstituted (for example, if its backing file is deleted).  In
 // that case, dehydrate() should return null.  When reconstituted, it is the responsibility of the
@@ -221,7 +234,15 @@ public abstract class DataSource : DataObject {
     public void internal_mark_for_destroy() {
         marked_for_destroy = true;
     }
-
+    
+    // This method is called by SourceCollection.  It should not be called otherwise.
+    //
+    // This method deletes whatever backing this DataSource represents.  It should either return
+    // false or throw an error if the delete fails.
+    public virtual bool internal_delete_backing() throws Error {
+        return true;
+    }
+    
     // This method is called by SourceCollection.  It should not be called otherwise.  To destroy
     // a DataSource, destroy it from its SourceCollection.
     //

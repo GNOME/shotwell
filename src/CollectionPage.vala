@@ -828,18 +828,14 @@ public abstract class CollectionPage : CheckerboardPage {
         if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
             return;
         
+        bool delete_backing = (result == Gtk.ResponseType.YES);
+        
         // mark all the sources for the selected view items and destroy them ... note that simply
         // removing the view items does not work here; the source items (i.e. the Photo objects)
         // must be destroyed, which will remove the view items from this view (and all others)
         Marker marker = LibraryPhoto.global.start_marking();
-        foreach (DataView view in get_view().get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) view).get_photo();
-            
-            if (result == Gtk.ResponseType.YES)
-                photo.delete_original_on_destroy();
-            
-            marker.mark(photo);
-        }
+        foreach (DataView view in get_view().get_selected())
+            marker.mark(((Thumbnail) view).get_photo());
         
         AppWindow.get_instance().set_busy_cursor();
         
@@ -853,9 +849,9 @@ public abstract class CollectionPage : CheckerboardPage {
         // valac complains about passing an argument for a delegate using ternary operator:
         // https://bugzilla.gnome.org/show_bug.cgi?id=599349
         if (progress != null)
-            LibraryPhoto.global.destroy_marked(marker, progress.monitor);
+            LibraryPhoto.global.destroy_marked(marker, delete_backing, progress.monitor);
         else
-            LibraryPhoto.global.destroy_marked(marker);
+            LibraryPhoto.global.destroy_marked(marker, delete_backing);
         
         if (progress != null)
             progress.close();

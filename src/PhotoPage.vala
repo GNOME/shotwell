@@ -1318,11 +1318,8 @@ public class LibraryPhotoPage : EditingHostPage {
         if (response != Gtk.ResponseType.YES && response != Gtk.ResponseType.NO)
             return;
         
-        if (response == Gtk.ResponseType.YES)
-            photo.delete_original_on_destroy();
-        
         Marker marker = LibraryPhoto.global.mark(photo);
-        LibraryPhoto.global.destroy_marked(marker);
+        LibraryPhoto.global.destroy_marked(marker, (response == Gtk.ResponseType.YES));
     }
     
     private void on_photo_destroyed(DataSource source) {

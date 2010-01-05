@@ -95,9 +95,19 @@ class ImportSource : PhotoSource {
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
     }
-    
     public string get_preview_md5() {
         return preview_md5;
+    }
+    
+    public override bool internal_delete_backing() throws Error {
+        debug("Deleting %s", to_string());
+        
+        GPhoto.Result result = camera.delete_file(get_fulldir(), get_filename(),
+            ImportPage.null_context.context);
+        if (result != GPhoto.Result.OK)
+            warning("Error deleting %s: %s", to_string(), result.as_string());
+        
+        return result == GPhoto.Result.OK;
     }
 }
 
@@ -202,7 +212,7 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private static GPhoto.ContextWrapper null_context = null;
+    public static GPhoto.ContextWrapper null_context = null;
 
     private SourceCollection import_sources = null;
     private Gtk.Label camera_label = new Gtk.Label(null);
@@ -403,7 +413,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_view_changed() {
-        hide_imported.sensitive = !busy && refreshed && (get_view().get_count() > 0);
+        hide_imported.sensitive = !busy && refreshed && (get_view().get_unfiltered_count() > 0);
         import_selected_button.sensitive = !busy && refreshed && (get_view().get_selected_count() > 0);
         import_all_button.sensitive = !busy && refreshed && (get_view().get_count() > 0);
     }
@@ -926,28 +936,16 @@ public class ImportPage : CheckerboardPage {
         if (!ImportUI.report_manifest(manifest, false, question))
             return;
         
-        int error_count = 0;
-        
         // delete the photos from the camera and the SourceCollection... for now, this is an 
         // all-or-nothing deal
         Marker marker = import_sources.start_marking();
         foreach (BatchImportResult batch_result in manifest.all) {
             CameraImportJob job = batch_result.job as CameraImportJob;
-            ImportSource source = job.get_source();
             
-            debug("Deleting from camera %s/%s", source.get_fulldir(), source.get_filename());
-            
-            GPhoto.Result result = source.get_camera().delete_file(source.get_fulldir(), 
-                source.get_filename(), null_context.context);
-            if (result == GPhoto.Result.OK) {
-                marker.mark(source);
-            } else {
-                error_count++;
-                debug("Error deleting from camera %s/%s: %s", source.get_fulldir(),
-                    source.get_filename(), result.as_string());
-            }
+            marker.mark(job.get_source());
         }
         
+        int error_count = import_sources.destroy_marked(marker, true);
         if (error_count > 0) {
             string error_string =
                 (ngettext("Unable to delete %d photo from the camera due to errors.",
@@ -955,8 +953,6 @@ public class ImportPage : CheckerboardPage {
                 error_count);
             AppWindow.error_message(error_string);
         }
-        
-        import_sources.remove_marked(marker);
     }
 
     private void close_import() {

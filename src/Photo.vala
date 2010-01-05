@@ -1782,7 +1782,6 @@ public class LibraryPhoto : TransformablePhoto {
     public static LibraryPhotoSourceCollection global = null;
     
     private bool block_thumbnail_generation = false;
-    private bool delete_original = false;
     private OneShotScheduler thumbnail_scheduler = null;
 
     private LibraryPhoto(PhotoRow row) {
@@ -1969,8 +1968,10 @@ public class LibraryPhoto : TransformablePhoto {
             remove_flags(FLAG_HIDDEN);
     }
     
-    public void delete_original_on_destroy() {
-        delete_original = true;
+    public override bool internal_delete_backing() throws Error {
+        delete_original_file();
+        
+        return true;
     }
     
     public override void destroy() {
@@ -1982,10 +1983,6 @@ public class LibraryPhoto : TransformablePhoto {
         // remove exportable file
         delete_exportable_file();
         
-        // remove original
-        if (delete_original)
-            delete_original_file();
-
         // remove from photo table -- should be wiped from storage now (other classes may have added
         // photo_id to other parts of the database ... it's their responsibility to remove them
         // when removed() is called)

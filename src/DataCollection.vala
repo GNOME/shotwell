@@ -598,6 +598,15 @@ public class DataCollection {
 //
 
 public class SourceCollection : DataCollection {
+    private class DestroyCounter : Object {
+        public Marker remove_marker;
+        public int delete_failed = 0;
+        
+        public DestroyCounter(Marker remove_marker) {
+            this.remove_marker = remove_marker;
+        }
+    }
+    
     // When this signal is fired, the item is still part of the collection but its own destroy()
     // has already been called.
     public virtual signal void item_destroyed(DataSource source) {
@@ -615,13 +624,34 @@ public class SourceCollection : DataCollection {
         return object is DataSource;
     }
     
-    // Destroy all marked items.
-    public void destroy_marked(Marker marker, ProgressMonitor? monitor = null) {
-        Marker remove_marker = start_marking();
-        act_on_marked(marker, destroy_source, monitor, remove_marker);
+    // Destroy all marked items and optionally have them delete their backing.  Returns the
+    // number of items which failed to delete their backing (if delete_backing is true) or zero.
+    public int destroy_marked(Marker marker, bool delete_backing, ProgressMonitor? monitor = null) {
+        DestroyCounter counter = new DestroyCounter(start_marking());
+        
+        if (delete_backing)
+            act_on_marked(marker, destroy_and_delete_source, monitor, counter);
+        else
+            act_on_marked(marker, destroy_source, monitor, counter);
         
         // remove once all destroyed
-        remove_marked(remove_marker);
+        remove_marked(counter.remove_marker);
+        
+        return counter.delete_failed;
+    }
+    
+    private bool destroy_and_delete_source(DataObject object, Object user) {
+        bool success = false;
+        try {
+            success = ((DataSource) object).internal_delete_backing();
+        } catch (Error err) {
+            success = false;
+        }
+        
+        if (!success)
+            ((DestroyCounter) user).delete_failed++;
+        
+        return destroy_source(object, user);
     }
     
     private bool destroy_source(DataObject object, Object user) {
@@ -631,7 +661,7 @@ public class SourceCollection : DataCollection {
         source.destroy();
         notify_item_destroyed(source);
         
-        ((Marker) user).mark(source);
+        ((DestroyCounter) user).remove_marker.mark(source);
         
         return true;
     }
@@ -1049,6 +1079,10 @@ public class ViewCollection : DataCollection {
 
     public override int get_count() {
         return visible.get_count();
+    }
+    
+    public int get_unfiltered_count() {
+        return base.get_count();
     }
     
     public override DataObject? get_at(int index) {

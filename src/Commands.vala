@@ -696,11 +696,8 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     public override void undo_on_source(DataSource source) {
         LibraryPhoto photo = (LibraryPhoto) source;
         
-        LibraryPhoto dupe = dupes.get(photo);
-        dupe.delete_original_on_destroy();
-        
-        Marker marker = LibraryPhoto.global.mark(dupe);
-        LibraryPhoto.global.destroy_marked(marker);
+        Marker marker = LibraryPhoto.global.mark(dupes.get(photo));
+        LibraryPhoto.global.destroy_marked(marker, true);
     }
 }
 
