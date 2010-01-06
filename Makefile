@@ -364,3 +364,9 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
 	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -o $@
 
+shotwell-setup-$(VERSION).exe: $(PROGRAM) windows/winstall.iss
+	iscc windows\winstall.iss
+	mv setup.exe shotwell-setup-$(VERSION).exe
+
+winstaller: shotwell-setup-$(VERSION).exe
+
