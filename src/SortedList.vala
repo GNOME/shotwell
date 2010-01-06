@@ -116,8 +116,9 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         if (index == new_index)
             return false;
         
-        list.remove_at(index);
+        // insert first, as the indexes shift after the remove
         list.insert(new_index, item);
+        list.remove_at(index);
         
         return true;
     }
@@ -134,8 +135,13 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
             // watch for the situation where the item is already in the list (can happen with
             // resort_item())
             G cmp_item = list.get(mid);
-            if (item == cmp_item)
+            if (item == cmp_item) {
+                // if at the end of the list, add it there
+                if (mid >= list.size - 1)
+                    return list.size;
+                
                 cmp_item = list.get(mid + 1);
+            }
             
             int64 result = cmp.compare(item, cmp_item);
             if (result < 0)
