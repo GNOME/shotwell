@@ -100,7 +100,8 @@ VAPI_FILES = \
 	FStream.vapi \
 	libgphoto2.vapi \
 	FixedKeyFile.vapi \
-	ExtendedPosix.vapi
+	ExtendedPosix.vapi \
+	gudev-1.0.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -134,7 +135,8 @@ LOCAL_PKGS = \
 	FStream \
 	FixedKeyFile \
 	ExtendedPosix \
-	posix
+	posix \
+	gudev-1.0
 
 EXT_PKGS = \
 	atk \
@@ -146,14 +148,14 @@ EXT_PKGS = \
 	
 ifdef LINUX
 EXT_PKGS += \
-	dbus-glib-1 \
 	gconf-2.0 \
-	hal \
 	libgphoto2 \
 	libsoup-2.4 \
 	libxml-2.0 \
 	unique-1.0 \
-	webkit-1.0
+	webkit-1.0 \
+	libusb \
+	gudev-1.0
 endif
 
 ifdef MAC
@@ -169,14 +171,14 @@ EXT_PKG_VERSIONS = \
 	
 ifdef LINUX
 EXT_PKG_VERSIONS += \
-	dbus-glib-1 >= 0.76 \
 	gconf-2.0 >= 2.22.0 \
-	hal >= 0.5.11 \
 	libgphoto2 >= 2.4.2 \
 	libsoup-2.4 >= 2.26.0 \
 	libxml-2.0 >= 2.6.32 \
 	unique-1.0 >= 1.0.0 \
-	webkit-1.0 >= 1.1.5
+	webkit-1.0 >= 1.1.5 \
+	libusb >= 0.1.12 \
+	gudev-1.0 >= 147
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
@@ -240,6 +242,9 @@ else
 CFLAGS = -O2 -g -pipe -mfpmath=sse -march=nocona
 endif
 endif
+
+# Required for gudev-1.0
+CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
 
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
 	$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \

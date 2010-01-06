@@ -19,13 +19,13 @@ public class DiscoveredCamera {
 public class CameraTable {
     private const int UPDATE_DELAY_MSEC = 500;
     
-    private static CameraTable instance = null;
-    private static bool camera_update_scheduled = false;
+    // list of subsystems being monitored for events
+    private const string[] SUBSYSTEMS = { "usb", null };
     
-    // these need to be ref'd the lifetime of the instance, of which there is only one
-    private Hal.Context hal_context = new Hal.Context();
-    private DBus.Connection hal_conn = null;
-
+    private static CameraTable instance = null;
+    
+    private GUdev.Client client = new GUdev.Client(SUBSYSTEMS);
+    private OneShotScheduler camera_update_scheduler = null;
     private GPhoto.Context null_context = new GPhoto.Context();
     private GPhoto.CameraAbilitiesList abilities_list;
     
@@ -37,12 +37,11 @@ public class CameraTable {
     public signal void camera_removed(DiscoveredCamera camera);
     
     private CameraTable() {
-        string? errmsg = init_hal();
-        if (errmsg != null) {
-            critical("%s", errmsg);
-            AppWindow.error_message(
-               _("Shotwell could not initialize a connection to the HAL daemon (hald).  This usually means it is not running or not ready.  Rebooting may solve this problem.\n\nShotwell cannot detect cameras without the HAL daemon."));
-        }
+        camera_update_scheduler = new OneShotScheduler("CameraTable update scheduler",
+            on_update_cameras);
+        
+        // listen for interesting events on the specified subsystems
+        client.uevent += on_udev_event;
         
         // because loading the camera abilities list takes a bit of time and slows down app
         // startup, delay loading it (and notifying any observers) for a small period of time,
@@ -50,55 +49,19 @@ public class CameraTable {
         Timeout.add(500, delayed_init);
     }
     
-    private string? init_hal() {
-        // set up HAL connection to monitor for device insertion/removal, to look for cameras
-        try {
-            hal_conn = DBus.Bus.get(DBus.BusType.SYSTEM);
-        } catch (DBus.Error err) {
-            hal_context = null;
-            
-            return "Unable to get DBus system connection (%s)".printf(err.message);
-        }
-        
-        // don't unref hal_conn from hereafter because DBus complains about it is not closed and
-        // there is no binding for Hal.Connection.close().  Note that the connection is a shared
-        // connection, and the docs also say not to close shared connections.  We'll just hold on
-        // to the connection, even if HAL initialization fails.
-        
-        if (!hal_context.set_dbus_connection(hal_conn.get_connection())) {
-            hal_context = null;
-            
-            return "Unable to set DBus connection for HAL";
-        }
-
-        DBus.RawError raw = DBus.RawError();
-        if (!hal_context.init(ref raw)) {
-            hal_context = null;
-            
-            return "Unable to initialize context (%s)".printf(raw.message);
-        }
-
-        if (!hal_context.set_device_added(on_device_added)) {
-            hal_context = null;
-            
-            return "Unable to register device-added callback";
-        }
-        
-        if (!hal_context.set_device_removed(on_device_removed)) {
-            hal_context = null;
-            
-            return "Unable to register device-removed callback";
-        }
-        
-        return null;
-    }
-    
     private bool delayed_init() {
         try {
             init_camera_table();
+        } catch (GPhotoError err) {
+            warning("Unable to initialize camera table: %s", err.message);
+            
+            return false;
+        }
+        
+        try {
             update_camera_table();
         } catch (GPhotoError err) {
-            error("%s", err.message);
+            warning("Unable to update camera table: %s", err.message);
         }
         
         return false;
@@ -133,6 +96,40 @@ public class CameraTable {
         do_op(abilities_list.load(null_context), "load camera abilities list");
     }
     
+    private string[] get_all_usb_cameras() {
+        string[] cameras = new string[0];
+        
+        USB.find_busses();
+        USB.find_devices();
+        
+        unowned USB.Bus? bus = USB.get_busses();
+        while (bus != null) {
+            unowned USB.Device? device = bus.devices;
+            while (device != null) {
+                for (int ictr = 0; ictr < device.config.bNumInterfaces; ictr++) {
+                    unowned USB.Interface uif = device.config.interface[ictr];
+                    for (int dctr = 0; dctr < uif.altsetting.length; dctr++) {
+                        unowned USB.InterfaceDescriptor uifd = uif.altsetting[dctr];
+                        if (uifd.bInterfaceClass == USB.Class.PTP) {
+                            string camera = "usb:%s,%s".printf(bus.dirname, device.filename);
+                            debug("USB camera detected at %s", camera);
+                            
+                            cameras += camera;
+                            
+                            break;
+                        }
+                    }
+                }
+                
+                device = device.next;
+            }
+            
+            bus = bus.next;
+        }
+        
+        return cameras;
+    }
+    
     // USB (or libusb) is a funny beast; if only one USB device is present (i.e. the camera),
     // then a single camera is detected at port usb:.  However, if multiple USB devices are
     // present (including non-cameras), then the first attached camera will be listed twice,
@@ -140,76 +137,58 @@ public class CameraTable {
     // device will lose its full-path name and be referred to as usb: only.
     //
     // This function gleans the full port name of a particular port, even if it's the unadorned
-    // "usb:", by using HAL.
-    private string? esp_usb_to_udi(int camera_count, string port, out string full_port) {
+    // "usb:", by using GUdev.
+    private bool usb_esp(int current_camera_count, string[] usb_cameras, string port, 
+        out string full_port) {
         // sanity
-        assert(camera_count > 0);
+        assert(current_camera_count > 0);
         
-        if (hal_context == null) {
-            debug("ESP: HAL context not established");
-            
-            return null;
-        }
+        debug("USB ESP: current_camera_count=%d port=%s", current_camera_count, port);
         
-        debug("ESP: camera_count=%d port=%s", camera_count, port);
-
-        DBus.RawError raw = DBus.RawError();
-        string[] udis = hal_context.find_device_by_capability("camera", ref raw);
-        
-        string[] usbs = new string[0];
-        foreach (string udi in udis) {
-            if (hal_context.device_get_property_string(udi, "info.subsystem", ref raw) == "usb")
-                usbs += udi;
-        }
-
-        // if GPhoto detects one camera, and HAL reports one USB camera, all is swell
-        if (camera_count == 1 && usbs.length ==1) {
-            string usb = usbs[0];
+        // if GPhoto detects one camera, and USB reports one camera, all is swell
+        if (current_camera_count == 1 && usb_cameras.length == 1) {
+            full_port = usb_cameras[0];
             
-            int hal_bus = hal_context.device_get_property_int(usb, "usb.bus_number", ref raw);
-            int hal_device = hal_context.device_get_property_int(usb, "usb.linux.device_number",
-                ref raw);
-
-            if (port == "usb:") {
-                // the most likely case, so make a full path
-                full_port = "usb:%03d,%03d".printf(hal_bus, hal_device);
-            } else {
-                full_port = port;
-            }
+            debug("USB ESP: port=%s full_port=%s", port, full_port);
             
-            debug("ESP: port=%s full_port=%s udi=%s", port, full_port, usb);
-            
-            return usb;
+            return true;
         }
 
         // with more than one camera, skip the mirrored "usb:" port
         if (port == "usb:") {
-            debug("ESP: Skipping %s", port);
+            debug("USB ESP: Skipping %s", port);
             
-            return null;
+            return false;
         }
         
         // parse out the bus and device ID
         int bus, device;
-        if (port.scanf("usb:%d,%d", out bus, out device) < 2)
-            error("ESP: Failed to scanf %s", port);
-        
-        foreach (string usb in usbs) {
-            int hal_bus = hal_context.device_get_property_int(usb, "usb.bus_number", ref raw);
-            int hal_device = hal_context.device_get_property_int(usb, "usb.linux.device_number", ref raw);
+        if (port.scanf("usb:%d,%d", out bus, out device) < 2) {
+            critical("USB ESP: Failed to scanf %s", port);
             
-            if ((bus == hal_bus) && (device == hal_device)) {
+            return false;
+        }
+        
+        foreach (string usb_camera in usb_cameras) {
+            int camera_bus, camera_device;
+            if (usb_camera.scanf("usb:%d,%d", out camera_bus, out camera_device) < 2) {
+                critical("USB ESP: Failed to scanf %s", usb_camera);
+                
+                continue;
+            }
+            
+            if ((bus == camera_bus) && (device == camera_device)) {
                 full_port = port;
                 
-                debug("ESP: port=%s full_port=%s udi=%s", port, full_port, usb);
+                debug("USB ESP: port=%s full_port=%s", port, full_port);
 
-                return usb;
+                return true;
             }
         }
         
-        debug("ESP: No UDI found for port=%s", port);
+        debug("USB ESP: No matching bus/device found for port=%s", port);
         
-        return null;
+        return false;
     }
     
     public static string get_port_uri(string port) {
@@ -229,6 +208,9 @@ public class CameraTable {
         Gee.HashMap<string, string> detected_map = new Gee.HashMap<string, string>(str_hash, str_equal,
             str_equal);
         
+        // walk the USB chain and find all PTP cameras; this is necessary for usb_esp
+        string[] usb_cameras = get_all_usb_cameras();
+        
         // go through the detected camera list and glean their ports
         for (int ctr = 0; ctr < camera_list.count(); ctr++) {
             string name;
@@ -237,13 +219,12 @@ public class CameraTable {
             string port;
             do_op(camera_list.get_value(ctr, out port), "get detected camera port");
             
-            debug("Detected %s @ %s", name, port);
+            debug("Detected %d/%d %s @ %s", ctr + 1, camera_list.count(), name, port);
             
             // do some USB ESP, skipping ports that cannot be deduced
             if (port.has_prefix("usb:")) {
                 string full_port;
-                string udi = esp_usb_to_udi(camera_list.count(), port, out full_port);
-                if (udi == null)
+                if (!usb_esp(camera_list.count(), usb_cameras, port, out full_port))
                     continue;
                 
                 port = full_port;
@@ -263,7 +244,7 @@ public class CameraTable {
             do_op(camera.gcamera.get_abilities(out abilities), "retrieve camera abilities");
             
             if (detected_map.has_key(port_info.path)) {
-                debug("Found page for %s @ %s in detected cameras", abilities.model, port_info.path);
+                debug("Found camera for %s @ %s in detected map", abilities.model, port_info.path);
                 
                 continue;
             }
@@ -333,40 +314,20 @@ public class CameraTable {
         }
     }
     
-    private static void on_device_added(Hal.Context context, string udi) {
-        debug("on_device_added: %s", udi);
+    private void on_udev_event(string action, GUdev.Device device) {
+        debug("udev event: %s on %s", action, device.get_name());
         
-        schedule_camera_update();
+        // Device add/removes often arrive in pairs; this allows for a single
+        // update to occur when they come in all at once
+        camera_update_scheduler.after_timeout(UPDATE_DELAY_MSEC, true);
     }
     
-    private static void on_device_removed(Hal.Context context, string udi) {
-        debug("on_device_removed: %s", udi);
-        
-        schedule_camera_update();
-    }
-    
-    // Device add/removes often arrive in pairs; this allows for a single
-    // update to occur when they come in all at once
-    private static void schedule_camera_update() {
-        if (camera_update_scheduled)
-            return;
-        
-        Timeout.add(UPDATE_DELAY_MSEC, background_camera_update);
-        camera_update_scheduled = true;
-    }
-    
-    private static bool background_camera_update() {
-        debug("background_camera_update");
-    
+    private void on_update_cameras() {
         try {
             get_instance().update_camera_table();
         } catch (GPhotoError err) {
-            debug("Error updating camera table: %s", err.message);
+            warning("Error updating camera table: %s", err.message);
         }
-        
-        camera_update_scheduled = false;
-
-        return false;
     }
 }
 
