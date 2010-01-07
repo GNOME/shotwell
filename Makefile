@@ -1,7 +1,7 @@
 PROGRAM = shotwell
 all: $(PROGRAM)
 
-VERSION = 0.4.2
+VERSION = 0.4.2+branch
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -88,7 +88,7 @@ SRC_FILES = \
 	Commands.vala \
 	SlideshowPage.vala \
 	LibraryFiles.vala \
-    FlickrConnector.vala
+	FlickrConnector.vala
 
 ifndef LINUX
 SRC_FILES += \
