@@ -147,6 +147,8 @@ class ImportPreview : LayoutItem {
 }
 
 public class ImportPage : CheckerboardPage {
+    private const string UNMOUNT_FAILED_MSG = _("Unable to unmount camera.  Try unmounting the camera from the file manager.");
+    
     private class ImportViewManager : ViewManager {
         private ImportPage owner;
         
@@ -227,7 +229,8 @@ public class ImportPage : CheckerboardPage {
     private GPhoto.Result refresh_result = GPhoto.Result.OK;
     private string refresh_error = null;
     private string camera_name;
-
+    private VolumeMonitor volume_monitor = null;
+    
     public enum RefreshResult {
         OK,
         BUSY,
@@ -242,6 +245,9 @@ public class ImportPage : CheckerboardPage {
         this.camera = camera;
         this.uri = uri;
         this.import_sources = new SourceCollection("ImportSources for %s".printf(uri));
+        
+        // Mount.unmounted signal is *only* fired when a VolumeMonitor has been instantiated.
+        this.volume_monitor = VolumeMonitor.get();
         
         // set up the global null context when needed
         if (null_context == null)
@@ -438,12 +444,12 @@ public class ImportPage : CheckerboardPage {
     public override void switched_to() {
         base.switched_to();
         
-        try_refreshing_camera();
-    
+        try_refreshing_camera(false);
+        
         set_display_titles(Config.get_instance().get_display_photo_titles());
     }
 
-    private void try_refreshing_camera() {
+    private void try_refreshing_camera(bool fail_on_locked) {
         // if camera has been refreshed or is in the process of refreshing, go no further
         if (refreshed || busy)
             return;
@@ -457,6 +463,12 @@ public class ImportPage : CheckerboardPage {
             break;
             
             case ImportPage.RefreshResult.LOCKED:
+                if (fail_on_locked) {
+                    AppWindow.error_message(UNMOUNT_FAILED_MSG);
+                    
+                    break;
+                }
+                
                 // if locked because it's mounted, offer to unmount
                 debug("Checking if %s is mounted ...", uri);
 
@@ -515,40 +527,51 @@ public class ImportPage : CheckerboardPage {
     public bool unmount_camera(Mount mount) {
         if (busy)
             return false;
-            
+        
         busy = true;
         refreshed = false;
         progress_bar.visible = true;
         progress_bar.set_fraction(0.0);
         progress_bar.set_text(_("Unmounting..."));
-
+        
+        // unmount_with_operation() can/will complete with the volume still mounted (probably meaning
+        // it's been *scheduled* for unmounting).  However, this signal is fired when the mount
+        // really is unmounted -- *if* a VolumeMonitor has been instantiated.
+        mount.unmounted += on_unmounted;
+        
         debug("Unmounting camera ...");
-        mount.unmount(MountUnmountFlags.NONE, null, on_unmounted);
+        mount.unmount_with_operation(MountUnmountFlags.NONE, new Gtk.MountOperation(AppWindow.get_instance()),
+            null, on_unmount_finished);
         
         return true;
     }
-
-    private void on_unmounted(Object? source, AsyncResult aresult) {
-        debug("Unmount complete");
+    
+    private void on_unmount_finished(Object? source, AsyncResult aresult) {
+        debug("Async unmount finished");
+        
+        Mount mount = (Mount) source;
+        try {
+            mount.unmount_with_operation_finish(aresult);
+        } catch (Error err) {
+            AppWindow.error_message(UNMOUNT_FAILED_MSG);
+            
+            // don't trap this signal, even if it does come in, we've backed off
+            mount.unmounted -= on_unmounted;
+            
+            busy = false;
+            progress_bar.set_text("");
+            progress_bar.visible = false;
+        }
+    }
+    
+    private void on_unmounted(Mount mount) {
+        debug("on_unmounted");
         
         busy = false;
         progress_bar.set_text("");
         progress_bar.visible = false;
         
-        Mount mount = (Mount) source;
-        try {
-            mount.unmount_finish(aresult);
-        } catch (Error err) {
-            AppWindow.error_message(_("Unable to unmount camera.  Try dismounting the camera from the file manager."));
-            
-            return;
-        }
-        
-        // XXX: iPhone/iPod returns a USB error if a camera_init() is done too quickly after an
-        // unmount.  A 50ms sleep gives it time to reorient itself.
-        Thread.usleep(50000);
-        
-        try_refreshing_camera();
+        try_refreshing_camera(true);
     }
     
     private RefreshResult refresh_camera() {
@@ -559,8 +582,11 @@ public class ImportPage : CheckerboardPage {
         
         refresh_error = null;
         refresh_result = camera.init(null_context.context);
-        if (refresh_result != GPhoto.Result.OK)
+        if (refresh_result != GPhoto.Result.OK) {
+            warning("Unable to initialize camera: %s (%d)", refresh_result.as_string(), refresh_result);
+            
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
+        }
         
         busy = true;
         
@@ -591,11 +617,11 @@ public class ImportPage : CheckerboardPage {
         progress_bar.visible = false;
         progress_bar.set_text("");
         progress_bar.set_fraction(0.0);
-
+        
         GPhoto.Result res = camera.exit(null_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
-            message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+            warning("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
         }
         
         busy = false;
