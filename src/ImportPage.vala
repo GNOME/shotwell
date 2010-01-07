@@ -477,7 +477,7 @@ public class ImportPage : CheckerboardPage {
                         Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION,
                         Gtk.ButtonsType.CANCEL, "%s", mounted_message);
                     dialog.title = Resources.APP_TITLE;
-                    dialog.add_button(_("Unmount"), Gtk.ResponseType.YES);
+                    dialog.add_button(_("_Unmount"), Gtk.ResponseType.YES);
                     int dialog_res = dialog.run();
                     dialog.destroy();
                     
