@@ -1160,9 +1160,14 @@ public class LibraryPhotoPage : EditingHostPage {
         export.tooltip = _("Export photo to disk");
         actions += export;
 
+        Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
+            TRANSLATABLE, on_page_setup };
+        page_setup.label = _("Page _Setup...");
+        actions += page_setup;
+
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
-        print.label = _("_Print...");
+        print.label = _("Prin_t...");
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
         
@@ -1347,7 +1352,11 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());
     }
-    
+
+    private void on_page_setup() {
+        PrintManager.get_instance().do_page_setup();
+    }
+
     private void on_export() {
         if (!has_photo())
             return;

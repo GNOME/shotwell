@@ -210,9 +210,14 @@ public abstract class CollectionPage : CheckerboardPage {
 
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
-        print.label = _("_Print...");
+        print.label = _("Prin_t...");
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
+
+        Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
+            TRANSLATABLE, on_page_setup };
+        page_setup.label = _("Page _Setup...");
+        actions += page_setup;
         
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -441,6 +446,10 @@ public abstract class CollectionPage : CheckerboardPage {
         TransformablePhoto target_photo = (TransformablePhoto)
             ((SortedList<DataView>) get_view().get_selected()).get_at(0).get_source();
         PrintManager.get_instance().spool_photo(target_photo);
+    }
+
+    private void on_page_setup() {
+        PrintManager.get_instance().do_page_setup();
     }
 
     private void on_selection_changed(Gee.Iterable<DataView> items) {

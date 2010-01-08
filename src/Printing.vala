@@ -53,8 +53,10 @@ public class PrintManager {
     private double content_height = 5.0;
     private int content_ppi = 200;
     private ContentLayout content_layout = ContentLayout.FILL_PAGE;
+    private Gtk.PageSetup user_page_setup;
 
     private PrintManager() {
+        user_page_setup = new Gtk.PageSetup();
     }
 
     public static PrintManager get_instance() {
@@ -82,6 +84,7 @@ public class PrintManager {
         job.set_unit(Gtk.Unit.INCH);
         job.set_n_pages(1);
         job.set_job_name(source_photo.get_name());
+        job.set_default_page_setup(user_page_setup);
         job.draw_page += on_draw_page;
 
         Gtk.PrintOperationResult job_result;
@@ -92,6 +95,12 @@ public class PrintManager {
         } catch (Error e) {
             AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
         }
+    }
+
+    public void do_page_setup() {
+        Gtk.PrintSettings dummy_settings = new Gtk.PrintSettings();
+        user_page_setup = Gtk.print_run_page_setup_dialog(AppWindow.get_instance(),
+            user_page_setup, dummy_settings);
     }
 
     private void on_draw_page(Gtk.PrintOperation emitting_object,
@@ -106,7 +115,9 @@ public class PrintManager {
         Scaling pixbuf_scaling = Scaling.for_best_fit(major_axis_num_pixels, true);
         Gdk.Pixbuf photo_pixbuf = null;
         try {
-            photo_pixbuf = job.get_source_photo().get_pixbuf(pixbuf_scaling);
+            photo_pixbuf = job.get_source_photo().get_pixbuf(Scaling.for_original());
+            photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(photo_pixbuf, Gdk.InterpType.HYPER,
+                true);
         } catch (Error e) {
             error(_("Unable to print photo:\n\n%s").printf(e.message));
             job.cancel();
