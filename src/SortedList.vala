@@ -53,7 +53,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
             // don't use a full merge sort if the number of items is one ... a binary
             // insertion sort with the insert is quicker
             if (items.size == 1) {
-                list.insert(get_sorted_insert_pos(list.get(0)), list.get(0));
+                list.insert(get_sorted_insert_pos(items.get(0)), items.get(0));
                 added = true;
             } else {
                 added = merge_sort(items);
