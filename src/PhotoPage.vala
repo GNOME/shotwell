@@ -1159,6 +1159,12 @@ public class LibraryPhotoPage : EditingHostPage {
         export.label = _("_Export Photos...");
         export.tooltip = _("Export photo to disk");
         actions += export;
+
+        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+            TRANSLATABLE, on_print };
+        print.label = _("_Print...");
+        print.tooltip = _("Print the photo to a printer connected to your computer");
+        actions += print;
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
@@ -1336,6 +1342,10 @@ public class LibraryPhotoPage : EditingHostPage {
             // back to the previous page
             return_to_collection();
         }
+    }
+
+    private void on_print() {
+        PrintManager.get_instance().spool_photo(get_photo());
     }
     
     private void on_export() {

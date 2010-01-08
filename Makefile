@@ -88,7 +88,8 @@ SRC_FILES = \
 	Commands.vala \
 	SlideshowPage.vala \
 	LibraryFiles.vala \
-	FlickrConnector.vala
+	FlickrConnector.vala \
+	Printing.vala
 
 ifndef LINUX
 SRC_FILES += \

@@ -207,6 +207,12 @@ public abstract class CollectionPage : CheckerboardPage {
         export.label = _("_Export Photos...");
         export.tooltip = _("Export selected photos to disk");
         actions += export;
+
+        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+            TRANSLATABLE, on_print };
+        print.label = _("_Print...");
+        print.tooltip = _("Print the photo to a printer connected to your computer");
+        actions += print;
         
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -427,13 +433,23 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_contents_altered() {
         slideshow_button.sensitive = get_view().get_count() > 0;
     }
-    
+
+    private void on_print() {
+        if (get_view().get_selected_count() != 1)
+            return;
+
+        TransformablePhoto target_photo = (TransformablePhoto)
+            ((SortedList<DataView>) get_view().get_selected()).get_at(0).get_source();
+        PrintManager.get_instance().spool_photo(target_photo);
+    }
+
     private void on_selection_changed(Gee.Iterable<DataView> items) {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
 #if !NO_PUBLISHING
         publish_button.set_sensitive(get_view().get_selected_count() > 0);
 #endif
         enhance_button.sensitive = get_view().get_selected_count() > 0;
+        
     }
     
     protected override void on_item_activated(LayoutItem item) {
@@ -655,11 +671,14 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_file_menu() {
-        bool sensitivity = get_view().get_selected_count() > 0;
+        bool publishable_exportable = get_view().get_selected_count() > 0;
+        bool printable = get_view().get_selected_count() == 1;
 
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", sensitivity);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Print", printable);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", publishable_exportable);
 #if !NO_PUBLISHING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish",
+            publishable_exportable);
 #endif
     }
     

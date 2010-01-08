@@ -5,6 +5,8 @@
             <menuitem name="Import" action="CommonFileImport" />
             <menuitem name="Export" action="Export" />
             <separator />
+            <menuitem name="Print" action="Print" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         
