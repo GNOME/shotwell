@@ -382,7 +382,7 @@ public struct ImportID {
 
 public struct PhotoRow {
     public PhotoID photo_id;
-    public File file;
+    public string filepath;
     public Dimensions dim;
     public int64 filesize;
     public time_t timestamp;
@@ -569,7 +569,7 @@ public class PhotoTable : DatabaseTable {
             
         PhotoRow row = PhotoRow();
         row.photo_id = photo_id;
-        row.file = File.new_for_path(stmt.column_text(0));
+        row.filepath = stmt.column_text(0);
         row.dim = Dimensions(stmt.column_int(1), stmt.column_int(2));
         row.filesize = stmt.column_int64(3);
         row.timestamp = (time_t) stmt.column_int64(4);
@@ -602,7 +602,7 @@ public class PhotoTable : DatabaseTable {
         while ((res = stmt.step()) == Sqlite.ROW) {
             PhotoRow row = PhotoRow();
             row.photo_id.id = stmt.column_int64(0);
-            row.file = File.new_for_path(stmt.column_text(1));
+            row.filepath = stmt.column_text(1);
             row.dim = Dimensions(stmt.column_int(2), stmt.column_int(3));
             row.filesize = stmt.column_int64(4);
             row.timestamp = (time_t) stmt.column_int64(5);

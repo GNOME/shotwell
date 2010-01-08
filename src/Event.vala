@@ -32,6 +32,12 @@ public class Event : EventSource, Proxyable {
             return a.get_exposure_time() - b.get_exposure_time();
         }
     }
+    
+    private class ViewComparator : Comparator<PhotoView> {
+        public override int64 compare(PhotoView a, PhotoView b) {
+            return a.get_photo_source().get_exposure_time() - b.get_photo_source().get_exposure_time();
+        }
+    }
 
     private class EventManager : ViewManager {
         private EventID event_id;
@@ -129,6 +135,7 @@ public class Event : EventSource, Proxyable {
             event_photos.add(LibraryPhoto.global.fetch(photo_id));
         
         view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
+        view.set_comparator(new ViewComparator());
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id), event_photos); 
         
         // get the primary photo for monitoring; if not available, use the first photo in the
@@ -249,8 +256,7 @@ public class Event : EventSource, Proxyable {
         
         // sort photos by date
         SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(new DateComparator());
-        foreach (LibraryPhoto photo in unsorted_photos)
-            imported_photos.add(photo);
+        imported_photos.add_many(unsorted_photos);
 
         // walk through photos, splitting into new events when the boundary hour is crossed
         Event current_event = null;
@@ -393,31 +399,24 @@ public class Event : EventSource, Proxyable {
     }
     
     public override time_t get_start_time() {
-        time_t start_time = 0;
+        // Because the ViewCollection is sorted by a DateComparator, the start time is the
+        // first item
+        if (view.get_count() == 0)
+            return 0;
         
-        // Report start time of all photos, including hidden ones
-        foreach (DataObject object in view.get_all_unfiltered()) {
-            PhotoSource photo = (PhotoSource) ((DataView) object).get_source();
-            
-            if (start_time == 0 || photo.get_exposure_time() < start_time)
-                start_time = photo.get_exposure_time();
-        }
-
-        return start_time;
+        PhotoView photo = (PhotoView) view.get_at(0);
+        
+        return photo.get_photo_source().get_exposure_time();
     }
     
     public override time_t get_end_time() {
-        time_t end_time = 0;
+        // See note in get_start_time() for why this works
+        if (view.get_count() == 0)
+            return 0;
         
-        // See note in get_start_time()
-        foreach (DataObject object in view.get_all_unfiltered()) {
-            PhotoSource photo = (PhotoSource) ((DataView) object).get_source();
-            
-            if (end_time == 0 || photo.get_exposure_time() > end_time)
-                end_time = photo.get_exposure_time();
-        }
-
-        return end_time;
+        PhotoView photo = (PhotoView) view.get_at(view.get_count() - 1);
+        
+        return photo.get_photo_source().get_exposure_time();
     }
     
     public override uint64 get_total_filesize() {

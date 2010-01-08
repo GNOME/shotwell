@@ -107,13 +107,13 @@ public abstract class DataObject {
     }
     
     // This method is only called by DataCollection
-    public int64 internal_get_ordinal() {
+    public inline int64 internal_get_ordinal() {
         assert(member_of != null);
 
         return ordinal;
     }
 
-    public int64 get_object_id() {
+    public inline int64 get_object_id() {
         return object_id;
     }
 }

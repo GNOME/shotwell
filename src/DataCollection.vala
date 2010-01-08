@@ -86,6 +86,14 @@ public class DataSet {
         return list.copy();
     }
     
+    public DataSet copy() {
+        DataSet clone = new DataSet();
+        clone.list = list.copy();
+        clone.hash_set.add_all(hash_set);
+        
+        return clone;
+    }
+    
     public DataObject? get_at(int index) {
         return list.get_at(index);
     }
@@ -101,6 +109,24 @@ public class DataSet {
         if (!hash_set.add(object)) {
             // attempt to back out of previous operation
             list.remove(object);
+            
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public bool add_many(Gee.List<DataObject> objects) {
+        int count = objects.size;
+        if (count == 0)
+            return true;
+        
+        if (!list.add_many(objects))
+            return false;
+        
+        if (!hash_set.add_all(objects)) {
+            // back out previous operation
+            list.remove_many(objects);
             
             return false;
         }
@@ -372,6 +398,10 @@ public class DataCollection {
         return dataset.get_all();
     }
     
+    protected DataSet get_dataset() {
+        return dataset.copy();
+    }
+    
     public virtual int get_count() {
         return dataset.get_count();
     }
@@ -408,6 +438,22 @@ public class DataCollection {
         assert(added);
     }
     
+    private void internal_add_many(Gee.List<DataObject> objects, ProgressMonitor? monitor) {
+        int count = objects.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            DataObject object = objects.get(ctr);
+            
+            assert(valid_type(object));
+            object.internal_set_membership(this, object_ordinal_generator++);
+            
+            if (monitor != null)
+                monitor(ctr, count);
+        }
+        
+        bool added = dataset.add_many(objects);
+        assert(added);
+    }
+    
     private void internal_remove(DataObject object) {
         object.internal_clear_membership();
         
@@ -436,22 +482,18 @@ public class DataCollection {
     // Returns number of items added to collection.  The ProgressMonitor total is reported as
     // zero by this method, as the total count is not known.
     public int add_many(Gee.Iterable<DataObject> objects, ProgressMonitor? monitor = null) {
-        int count = 0;
-        
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
-            if (monitor != null)
-                monitor(++count, 0);
-            
             if (internal_contains(object)) {
                 debug("%s cannot add %s: already present", to_string(), object.to_string());
                 
                 continue;
             }
             
-            internal_add(object);
             added.add(object);
         }
+        
+        internal_add_many(added, monitor);
         
         // signal once all have been added
         if (added.size > 0) {
@@ -758,7 +800,7 @@ public class ViewCollection : DataCollection {
     private ViewManager manager = null;
     private ViewFilter filter = null;
     private DataSet selected = new DataSet();
-    private DataSet visible = new DataSet();
+    private DataSet visible = null;
     private int geometry_freeze = 0;
     private int view_freeze = 0;
     
@@ -904,7 +946,7 @@ public class ViewCollection : DataCollection {
         foreach (DataObject object in base.get_all()) {
             DataView view = (DataView) object;
             if (view.is_visible()) {
-                assert(visible.contains(view));
+                assert(is_visible(view));
                 
                 continue;
             }
@@ -976,7 +1018,7 @@ public class ViewCollection : DataCollection {
             if (selected.contains(view))
                 selected.resort_object(view);
             
-            if (visible.contains(view)) {
+            if (visible != null && is_visible(view)) {
                 if (visible.resort_object(view))
                     notify_ordering_changed();
             }
@@ -985,19 +1027,27 @@ public class ViewCollection : DataCollection {
     
     // Keep the source map and state tables synchronized
     public override void notify_items_added(Gee.Iterable<DataObject> added) {
+        Gee.ArrayList<DataView> added_visible = new Gee.ArrayList<DataView>();
+        Gee.ArrayList<DataView> added_selected = new Gee.ArrayList<DataView>();
+        
         foreach (DataObject object in added) {
             DataView view = (DataView) object;
             source_map.set(view.get_source(), view);
             
             if (view.is_selected())
-                add_selected(view);
+                added_selected.add(view);
             
             if (filter != null)
                 view.internal_set_visible(filter(view));
             
             if (view.is_visible())
-                add_visible(view);
+                added_visible.add(view);
         }
+        
+        bool is_added = add_many_visible(added_visible);
+        assert(is_added);
+        is_added = selected.add_many(added_selected);
+        assert(is_added);
         
         base.notify_items_added(added);
     }
@@ -1013,8 +1063,10 @@ public class ViewCollection : DataCollection {
             if (view.is_selected())
                 remove_selected(view);
             
-            if (view.is_visible())
-                remove_visible(view);
+            if (view.is_visible() && visible != null) {
+                is_removed = visible.remove(view);
+                assert(is_removed);
+            }
         }
         
         base.notify_items_removed(removed);
@@ -1057,28 +1109,30 @@ public class ViewCollection : DataCollection {
     
     public override void set_comparator(Comparator<DataView> comparator) {
         selected.set_comparator(comparator);
-        visible.set_comparator(comparator);
+        if (visible != null)
+            visible.set_comparator(comparator);
         
         base.set_comparator(comparator);
     }
     
     public override void reset_comparator() {
         selected.reset_comparator();
-        visible.reset_comparator();
+        if (visible != null)
+            visible.reset_comparator();
         
         base.reset_comparator();
     }
     
     public override Gee.Iterable<DataObject> get_all() {
-        return visible.get_all();
+        return (visible != null) ? visible.get_all() : base.get_all();
     }
-
+    
     public Gee.Iterable<DataObject> get_all_unfiltered() {
         return base.get_all();
     }    
 
     public override int get_count() {
-        return visible.get_count();
+        return (visible != null) ? visible.get_count() : base.get_count();
     }
     
     public int get_unfiltered_count() {
@@ -1086,11 +1140,11 @@ public class ViewCollection : DataCollection {
     }
     
     public override DataObject? get_at(int index) {
-        return visible.get_at(index);
+        return (visible != null) ? visible.get_at(index) : base.get_at(index);
     }
     
     public override int index_of(DataObject object) {
-        return visible.index_of((DataView) object);
+        return (visible != null) ? visible.index_of(object) : base.index_of(object);
     }
     
     public override bool contains(DataObject object) {
@@ -1100,7 +1154,7 @@ public class ViewCollection : DataCollection {
             return false;
         
         // even if a member, must be visible to be "contained"
-        return visible.contains(object);
+        return is_visible((DataView) object);
     }
     
     public virtual DataView? get_first() {
@@ -1162,16 +1216,6 @@ public class ViewCollection : DataCollection {
         assert(removed);
     }
     
-    private void add_visible(DataView view) {
-        bool added = visible.add(view);
-        assert(added);
-    }
-    
-    private void remove_visible(DataView view) {
-        bool removed = visible.remove(view);
-        assert(removed);
-    }
-    
     // Selects all items.
     public void select_all() {
         Marker marker = start_marking();
@@ -1208,6 +1252,9 @@ public class ViewCollection : DataCollection {
     
     // Unselects all items.
     public void unselect_all() {
+        if (selected.get_count() == 0)
+            return;
+        
         Marker marker = start_marking();
         marker.mark_all();
         unselect_marked(marker);
@@ -1289,6 +1336,23 @@ public class ViewCollection : DataCollection {
         return (DataView?) selected.get_at(index);
     }
     
+    private bool is_visible(DataView view) {
+        return (visible != null) ? visible.contains(view) : true;
+    }
+    
+    private bool add_many_visible(Gee.List<DataView> many) {
+        if (visible == null)
+            return true;
+        
+        if (!visible.add_many(many))
+            return false;
+        
+        if (visible.get_count() == base.get_count())
+            visible = null;
+        
+        return true;
+    }
+    
     // This method requires that all items in to_hide are not hidden already.
     private void hide_items(Gee.List<DataView> to_hide) {
         Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
@@ -1303,7 +1367,11 @@ public class ViewCollection : DataCollection {
             }
             
             view.internal_set_visible(false);
-            remove_visible(view);
+            if (visible != null) {
+                visible = get_dataset();
+                bool removed = visible.remove(view);
+                assert(removed);
+            }
         }
 
         if (unselected.size > 0) {
@@ -1319,18 +1387,26 @@ public class ViewCollection : DataCollection {
     
     // This method requires that all items in to_show are hidden already.
     private void show_items(Gee.List<DataView> to_show) {
+        Gee.ArrayList<DataView> added_visible = new Gee.ArrayList<DataView>();
+        Gee.ArrayList<DataView> added_selected = new Gee.ArrayList<DataView>();
+        
         foreach (DataView view in to_show) {
             assert(!view.is_visible());
             
             view.internal_set_visible(true);
-            add_visible(view);
+            added_visible.add(view);
             
             // see note in hide_item for selection handling with hidden/visible items
             if (view.is_selected()) {
                 assert(!selected.contains(view));
-                add_selected(view);
+                added_selected.add(view);
             }
         }
+        
+        bool added = add_many_visible(added_visible);
+        assert(added);
+        added = selected.add_many(added_selected);
+        assert(added);
         
         if (to_show.size > 0) {
             items_shown(to_show);

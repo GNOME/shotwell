@@ -36,7 +36,7 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
 
 private Timer startup_timer = null;
 
-void library_exec(string[] mounts) {
+void library_exec(string[] mounts, bool show_startup_progress) {
 #if NO_LIBUNIQUE
     if (already_running())
         return;
@@ -112,17 +112,19 @@ void library_exec(string[] mounts) {
     AggregateProgressMonitor aggregate_monitor = null;
     ProgressMonitor monitor = null;
     
-    // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
-    // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
-    // objects and then populating the initial page with them.
-    uint64 grand_total = (PhotoTable.get_instance().get_count() * 2) + EventTable.get_instance().get_count();
-    if (grand_total > 5000) {
-        progress_dialog = new ProgressDialog(null, _("Loading Shotwell..."));
-        progress_dialog.update_display_every(300);
-        spin_event_loop();
-        
-        aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
-        monitor = aggregate_monitor.monitor;
+    if (show_startup_progress) {
+        // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
+        // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
+        // objects and then populating the initial page with them.
+        uint64 grand_total = (PhotoTable.get_instance().get_count() * 2) + EventTable.get_instance().get_count();
+        if (grand_total > 5000) {
+            progress_dialog = new ProgressDialog(null, _("Loading Shotwell..."));
+            progress_dialog.update_display_every(300);
+            spin_event_loop();
+            
+            aggregate_monitor = new AggregateProgressMonitor(grand_total, progress_dialog.monitor);
+            monitor = aggregate_monitor.monitor;
+        }
     }
     
     ThumbnailCache.init();
@@ -211,11 +213,18 @@ void main(string[] args) {
     // filenames are currently not permitted, to differentiate between mount points
     string[] mounts = new string[0];
     string filename = null;
+    bool show_startup_progress = true;
     for (int ctr = 1; ctr < args.length; ctr++) {
-        if (LibraryWindow.is_mount_uri_supported(args[ctr]))
-            mounts += args[ctr];
-        else if (filename == null && !args[ctr].contains("://"))
-            filename = args[ctr];
+        string arg = args[ctr];
+        
+        if (arg.has_prefix("--")) {
+            if (arg == _("--no-startup-progress"))
+                show_startup_progress = false;
+        } else if (LibraryWindow.is_mount_uri_supported(arg)) {
+            mounts += arg;
+        } else if (filename == null && !arg.contains("://")) {
+            filename = arg;
+        }
     }
     
     // in both the case of running as the library or an editor, Resources is always
@@ -226,7 +235,7 @@ void main(string[] args) {
     // mount list), or for nothing to be on the command-line at all, only go to direct editing if a
     // filename is spec'd
     if (filename == null)
-        library_exec(mounts);
+        library_exec(mounts, show_startup_progress);
     else
         editing_exec(filename);
     

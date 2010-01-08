@@ -31,31 +31,28 @@ public abstract class CollectionPage : CheckerboardPage {
         EXPOSURE_DATE = 2;
     }
 
-    private class CompareTitle : Comparator<LayoutItem> {
+    private class CompareTitle : Comparator<Thumbnail> {
         private bool ascending;
         
         public CompareTitle(bool ascending) {
             this.ascending = ascending;
         }
         
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            string titlea = ((Thumbnail) a).get_title();
-            string titleb = ((Thumbnail) b).get_title();
-            
-            return (ascending) ? strcmp(titlea, titleb) : strcmp(titleb, titlea);
+        public override int64 compare(Thumbnail a, Thumbnail b) {
+            return (ascending) ? strcmp(a.get_title(), b.get_title()) : strcmp(b.get_title(), a.get_title());
         }
     }
     
-    private class CompareDate : Comparator<LayoutItem> {
+    private class CompareDate : Comparator<Thumbnail> {
         private bool ascending;
         
         public CompareDate(bool ascending) {
             this.ascending = ascending;
         }
         
-        public override int64 compare(LayoutItem a, LayoutItem b) {
-            time_t timea = ((Thumbnail) a).get_photo().get_exposure_time();
-            time_t timeb = ((Thumbnail) b).get_photo().get_exposure_time();
+        public override int64 compare(Thumbnail a, Thumbnail b) {
+            time_t timea = a.get_photo().get_exposure_time();
+            time_t timeb = b.get_photo().get_exposure_time();
             
             return (ascending) ? timea - timeb : timeb - timea;
         }

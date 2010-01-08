@@ -149,6 +149,7 @@ public abstract class TransformablePhoto: PhotoSource {
     
     private PixelTransformer transformer = null;
     private PixelTransformationBundle adjustments = null;
+    private string title = null;
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -157,6 +158,14 @@ public abstract class TransformablePhoto: PhotoSource {
         
         if (cache_mutex == null)
             cache_mutex = new Mutex();
+        
+        // get the title of the Photo without using a File object, skipping the separator itself
+        char *basename = row.filepath.rchr(-1, Path.DIR_SEPARATOR);
+        if (basename != null)
+            title = (string) (basename + 1);
+        
+        if (title == null || title[0] == '\0')
+            title = row.filepath;
     }
     
     public static ImportResult import_photo(File file, ImportID import_id, bool direct, out PhotoID photo_id) {
@@ -301,12 +310,12 @@ public abstract class TransformablePhoto: PhotoSource {
     // and setters inside this class.
     
     public File get_file() {
-        File file = null;
+        string filepath = null;
         lock (row) {
-            file = row.file;
+            filepath = row.filepath;
         }
         
-        return file;
+        return File.new_for_path(filepath);
     }
     
     public time_t get_timestamp() {
@@ -563,7 +572,7 @@ public abstract class TransformablePhoto: PhotoSource {
     // PhotoSource
     
     public override string get_name() {
-        return get_file().get_basename();
+        return title;
     }
     
     public override uint64 get_filesize() {
@@ -1797,8 +1806,9 @@ public class LibraryPhoto : TransformablePhoto {
         // do in batches to take advantage of add_many()
         Gee.ArrayList<PhotoRow?> all = PhotoTable.get_instance().get_all();
         Gee.ArrayList<LibraryPhoto> all_photos = new Gee.ArrayList<LibraryPhoto>();
-        foreach (PhotoRow row in all)
-            all_photos.add(new LibraryPhoto(row));
+        int count = all.size;
+        for (int ctr = 0; ctr < count; ctr++)
+            all_photos.add(new LibraryPhoto(all.get(ctr)));
         
         // need to use a ProgressMonitor wrapper because add_many() doesn't report a total ... have
         // to hold a ref on to real_monitor until the method exits

@@ -14,6 +14,7 @@ public class Thumbnail : LayoutItem {
     
     private const int HQ_IMPROVEMENT_MSEC = 250;
     
+    private LibraryPhoto photo;
     private int scale;
     private Dimensions original_dim;
     private Dimensions dim;
@@ -22,13 +23,12 @@ public class Thumbnail : LayoutItem {
     private Gdk.Pixbuf to_scale = null;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
-        base(photo, photo.get_dimensions().get_scaled(scale, true));
+        base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
         
+        this.photo = photo;
         this.scale = scale;
         hq_scheduler = new OneShotScheduler("Thumbnail HQ scheduler", on_schedule_high_quality);
         
-        set_title(photo.get_name());
-
         original_dim = photo.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
     }
@@ -41,7 +41,8 @@ public class Thumbnail : LayoutItem {
     }
     
     public LibraryPhoto get_photo() {
-        return (LibraryPhoto) get_source();
+        // There's enough overhead with 10,000 photos and casting from get_source() to do it this way
+        return photo;
     }
     
     private override void thumbnail_altered() {

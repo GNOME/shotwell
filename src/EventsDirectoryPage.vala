@@ -15,7 +15,7 @@ class EventDirectoryItem : LayoutItem {
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE));
+        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), null);
         
         this.event = event;
         

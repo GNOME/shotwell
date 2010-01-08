@@ -16,7 +16,7 @@ public class FileComparator : Comparator<File> {
 }
 
 public class SortedList<G> : Object, Gee.Iterable<G> {
-    private Gee.List<G> list;
+    private Gee.ArrayList<G> list;
     private Comparator<G> cmp;
     
     public SortedList(Comparator<G>? cmp = null) {
@@ -38,7 +38,35 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         else
             list.insert(get_sorted_insert_pos(item), item);
         
+#if VERIFY_SORTED_LIST
+        assert(is_sorted());
+#endif
+        
         return true;
+    }
+    
+    public bool add_many(Gee.List<G> items) {
+        bool added = false;
+        if (items.size == 0) {
+            // do nothing, return false
+        } else if (cmp != null) {
+            // don't use a full merge sort if the number of items is one ... a binary
+            // insertion sort with the insert is quicker
+            if (items.size == 1) {
+                list.insert(get_sorted_insert_pos(list.get(0)), list.get(0));
+                added = true;
+            } else {
+                added = merge_sort(items);
+            }
+        } else {
+            added = list.add_all(items);
+        }
+        
+#if VERIFY_SORTED_LIST
+        assert(is_sorted());
+#endif
+        
+        return added;
     }
     
     public void clear() {
@@ -51,6 +79,10 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     
     public bool remove(G? item) {
         return list.remove(item);
+    }
+    
+    public bool remove_many(Gee.Collection<G> items) {
+        return list.remove_all(items);
     }
     
     public int size {
@@ -66,16 +98,17 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     // return the first item found where its compare() method returns zero.  Use locate() if a
     // specific EqualFunc is required for searching.
     public int index_of(G search) {
+        // with no comparator, can only do a direct_equal search
+        if (cmp == null)
+            return locate(search);
+        
         // because the internal ArrayList has no equal_func (and can't easily provide one without
         // asking the user for a separate static comparator), search manually here
-        int index = 0;
-        foreach (G item in list) {
-            // use direct_equal if no comparator installed
-            bool found = (cmp != null) ? (cmp.compare(item, search) == 0) : direct_equal(item, search);
-            if (found)
-                return index;
-            
-            index++;
+        // TODO: Use a binary search.
+        int count = list.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            if (cmp.compare(list.get(ctr), search) == 0)
+                return ctr;
         }
         
         return -1;
@@ -83,12 +116,10 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     
     // See notes at index_of for the difference between this method and it.
     public int locate(G search, EqualFunc equal_func = direct_equal) {
-        int index = 0;
-        foreach (G item in list) {
-            if (equal_func(item, search))
-                return index;
-            
-            index++;
+        int count = list.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            if (equal_func(list.get(ctr), search))
+                return ctr;
         }
         
         return -1;
@@ -101,11 +132,11 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     public void resort(Comparator<G> new_cmp) {
         cmp = new_cmp;
         
-        Gee.List<G> old_list = list;
-        list = new Gee.ArrayList<G>();
+        merge_sort();
         
-        foreach (G item in old_list)
-            list.insert(get_sorted_insert_pos(item), item);
+#if VERIFY_SORTED_LIST
+        assert(is_sorted());
+#endif
     }
     
     // Returns true if item has moved.
@@ -119,6 +150,10 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         // insert first, as the indexes shift after the remove
         list.insert(new_index, item);
         list.remove_at(index);
+        
+#if VERIFY_SORTED_LIST
+        assert(is_sorted());
+#endif
         
         return true;
     }
@@ -159,6 +194,123 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         copy.list.add_all(list);
 
         return copy;
+    }
+    
+#if VERIFY_SORTED_LIST
+    private bool is_sorted() {
+        if (cmp == null)
+            return true;
+        
+        int length = list.size;
+        for (int ctr = 1; ctr < length; ctr++) {
+            if (cmp.compare(list.get(ctr - 1), list.get(ctr)) >= 0) {
+                critical("Out of order: %d and %d", ctr - 1, ctr);
+                
+                return false;
+            }
+        }
+        
+        return true;
+    }
+#endif
+    
+    private bool merge_sort(Gee.List<G>? add = null) {
+        assert(cmp != null);
+        
+        int list_count = list.size;
+        int add_count = (add != null) ? add.size : 0;
+        
+        int count = list_count + add_count;
+        if (count == 0)
+            return false;
+        
+        // because list access is slow in large-scale sorts, flatten list (with additions) to
+        // an array, merge sort that, and then place them back in the internal ArrayList.
+        G[] array = new G[count];
+        int offset = 0;
+        
+        while (offset < list_count) {
+            array[offset] = list.get(offset);
+            offset++;
+        }
+        
+        if (add != null) {
+            while (offset < count) {
+                array[offset] = add.get(offset);
+                offset++;
+            }
+        }
+        
+        assert(offset == count);
+        
+        _merge_sort(array, new G[count], 0, count - 1);
+        
+        offset = 0;
+        while (offset < list_count) {
+            list.set(offset, array[offset]);
+            offset++;
+        }
+        
+        while (offset < count) {
+            list.insert(offset, array[offset]);
+            offset++;
+        }
+        
+        return true;
+    }
+    
+    private void _merge_sort(G[] array, G[] scratch, int start_index, int end_index) {
+        assert(start_index <= end_index);
+        
+        int count = end_index - start_index + 1;
+        if (count <= 1)
+            return;
+        
+        int middle_index = start_index + (count / 2);
+        
+        _merge_sort(array, scratch, start_index, middle_index - 1);
+        _merge_sort(array, scratch, middle_index, end_index);
+        
+        if (cmp.compare(array[middle_index - 1], array[middle_index]) > 0)
+            merge(array, scratch, start_index, middle_index, end_index);
+    }
+    
+    private void merge(G[] array, G[] scratch, int start_index, int middle_index, int end_index) {
+        assert(start_index < end_index);
+        
+        int count = end_index - start_index + 1;
+        int left_start = start_index;
+        int left_end = middle_index - 1;
+        int right_start = middle_index;
+        int right_end = end_index;
+        
+        assert(scratch.length >= count);
+        int scratch_index = 0;
+        
+        while (left_start <= left_end && right_start <= right_end) {
+            G left = array[left_start];
+            G right = array[right_start];
+            
+            if (cmp.compare(left, right) <= 0) {
+                scratch[scratch_index++] = left;
+                left_start++;
+            } else {
+                scratch[scratch_index++] = right;
+                right_start++;
+            }
+        }
+        
+        while (left_start <= left_end)
+            scratch[scratch_index++] = array[left_start++];
+        
+        while (right_start <= right_end)
+            scratch[scratch_index++] = array[right_start++];
+        
+        assert(scratch_index == count);
+        
+        scratch_index = 0;
+        for (int list_index = start_index; list_index <= end_index; list_index++)
+            array[list_index] = scratch[scratch_index++];
     }
 }
 

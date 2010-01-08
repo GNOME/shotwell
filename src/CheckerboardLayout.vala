@@ -21,7 +21,6 @@ public abstract class LayoutItem : ThumbnailView {
     
     public Gdk.Rectangle allocation = Gdk.Rectangle();
     
-    private CheckerboardLayout parent = null;
     private Pango.Layout pango_layout = null;
     private Pango.Alignment title_alignment = Pango.Alignment.LEFT;
     private int pango_height = 0;
@@ -36,29 +35,17 @@ public abstract class LayoutItem : ThumbnailView {
     private int col = -1;
     private int row = -1;
     
-    public LayoutItem(ThumbnailSource source, Dimensions initial_pixbuf_dim) {
+    public LayoutItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string? title,
+        bool title_marked_up = false) {
         base(source);
         
         pixbuf_dim = initial_pixbuf_dim;
-    }
-    
-    // allocation will be invalid (or unset) until this call is made
-    public void set_parent(CheckerboardLayout parent) {
-        assert(this.parent == null);
         
-        this.parent = parent;
-
+        this.title = title;
+        this.title_marked_up = title_marked_up;
+        
         update_pango();
-        recalc_size();
-    }
-    
-    public void abandon_parent() {
-        parent = null;
-        pango_layout = null;
-    }
-    
-    public virtual Gtk.Widget? get_control_panel() {
-        return null;
+        recalc_size(false, true);
     }
     
     public void set_title(string text, bool marked_up = false) {
@@ -164,7 +151,7 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     private void update_pango() {
-        if (parent == null || title == null) {
+        if (title == null) {
             pango_layout = null;
             
             return;
@@ -172,7 +159,7 @@ public abstract class LayoutItem : ThumbnailView {
         
         // create layout for this string and ellipsize so it never extends past the width of the
         // pixbuf (handled in recalc_size)
-        pango_layout = parent.create_pango_layout(null);
+        pango_layout = AppWindow.get_instance().create_pango_layout(null);
         if (!title_marked_up)
             pango_layout.set_text(title, -1);
         else
@@ -206,7 +193,7 @@ public abstract class LayoutItem : ThumbnailView {
         return null;
     }
     
-    public void recalc_size(bool notify_change = true) {
+    public void recalc_size(bool notify_change = true, bool in_ctor = false) {
         Gdk.Rectangle old_allocation = allocation;
         
         // only add in the text height if it's being displayed
@@ -215,10 +202,12 @@ public abstract class LayoutItem : ThumbnailView {
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
         int trinkets_width = 0;
-        Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
-        if (trinkets != null) {
-            foreach (Gdk.Pixbuf trinket in trinkets)
-                trinkets_width += trinket.get_width();
+        if (!in_ctor) {
+            Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
+            if (trinkets != null) {
+                foreach (Gdk.Pixbuf trinket in trinkets)
+                    trinkets_width += trinket.get_width();
+            }
         }
         
         int image_width = int.max(trinkets_width, pixbuf_dim.width);
@@ -393,10 +382,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         reflow_scheduler = new OneShotScheduler("CheckerboardLayout for %s".printf(view.to_string()),
             background_reflow);
         
-        // set existing items to be part of this layout
-        foreach (DataObject object in view.get_all_unfiltered())
-            ((LayoutItem) object).set_parent(this);
-
         // subscribe to the new collection
         view.contents_altered += on_contents_altered;
         view.item_altered += on_item_altered;
@@ -490,24 +475,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private void on_contents_altered(Gee.Iterable<DataObject>? added, 
         Gee.Iterable<DataObject>? removed) {
-        if (added != null) {
-            foreach (DataObject object in added) {
-                LayoutItem item = (LayoutItem) object;
-
-                item.set_parent(this);
-            }
-            
-            // this clears the message
+        if (added != null)
             message = null;
-        }
         
         if (removed != null) {
-            foreach (DataObject object in removed) {
-                LayoutItem item = (LayoutItem) object;
-                
-                item.abandon_parent();
-                exposed_items.remove(item);
-            }
+            foreach (DataObject object in removed)
+                exposed_items.remove((LayoutItem) object);
         }
         
         // release spatial data structure ... contents_altered means a reflow is required, and since
