@@ -122,21 +122,6 @@ class EventDirectoryItem : LayoutItem {
 }
 
 public class EventsDirectoryPage : CheckerboardPage {
-    private class CompareEventItem : Comparator<EventDirectoryItem> {
-        private bool ascending;
-        
-        public CompareEventItem(bool ascending) {
-            this.ascending = ascending;
-        }
-        
-        public override int64 compare(EventDirectoryItem a, EventDirectoryItem b) {
-            int64 start_a = (int64) a.event.get_start_time();
-            int64 start_b = (int64) b.event.get_start_time();
-            
-            return (ascending) ? start_a - start_b : start_b - start_a;
-        }
-    }
-    
     public class EventDirectoryManager : ViewManager {
         public override DataView create_view(DataSource source) {
             return new EventDirectoryItem((Event) source);
@@ -153,7 +138,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         base(page_name);
         
         // set comparator before monitoring source collection, to prevent a re-sort
-        get_view().set_comparator(new CompareEventItem(Config.get_instance().get_events_sort_ascending()));
+        get_view().set_comparator(get_event_comparator());
         get_view().monitor_source_collection(Event.global, view_manager, initial_events);
         
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
@@ -184,7 +169,25 @@ public class EventsDirectoryPage : CheckerboardPage {
     ~EventsDirectoryPage() {
         get_view().items_state_changed -= on_selection_changed;
     }
-
+    
+    private int64 event_ascending_comparator(void *a, void *b) {
+        time_t start_a = ((EventDirectoryItem *) a)->event.get_start_time();
+        time_t start_b = ((EventDirectoryItem *) b)->event.get_start_time();
+        
+        return start_a - start_b;
+    }
+    
+    private int64 event_descending_comparator(void *a, void *b) {
+        return event_ascending_comparator(b, a);
+    }
+    
+    private Comparator get_event_comparator() {
+        if (Config.get_instance().get_events_sort_ascending())
+            return event_ascending_comparator;
+        else
+            return event_descending_comparator;
+    }
+    
     private void on_selection_changed() {
         merge_button.sensitive = (get_view().get_selected_count() > 1);
     }
@@ -269,8 +272,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         return (page != null) ? page.get_fullscreen_photo() : null;
     }
 
-    public void notify_sort_changed(int sort) {
-        get_view().set_comparator(new CompareEventItem(sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING));
+    public void notify_sort_changed() {
+        get_view().set_comparator(get_event_comparator());
     }
     
     private void on_view_menu() {

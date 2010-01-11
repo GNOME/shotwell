@@ -84,6 +84,10 @@ public abstract class DataObject {
         return member_of;
     }
     
+    public bool has_membership() {
+        return member_of != null;
+    }
+    
     // This method is only called by DataCollection.
     public void internal_set_membership(DataCollection collection, int64 ordinal) {
         assert(member_of == null);
@@ -106,7 +110,7 @@ public abstract class DataObject {
         notify_membership_changed(null);
     }
     
-    // This method is only called by DataCollection
+    // This method is only called by DataCollection and DataSet
     public inline int64 internal_get_ordinal() {
         assert(member_of != null);
 
@@ -550,7 +554,7 @@ public class DataView : DataObject {
     }
     
     public override string to_string() {
-        return "%s [%s]".printf(get_name(), source.to_string());
+        return "DataView %s [DataSource %s]".printf(get_name(), source.to_string());
     }
     
     public DataSource get_source() {

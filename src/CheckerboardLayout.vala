@@ -65,7 +65,7 @@ public abstract class LayoutItem : ThumbnailView {
         set_title(markup, true);
     }
     
-    public string get_title() {
+    public unowned string get_title() {
         return (title != null) ? title : "";
     }
     

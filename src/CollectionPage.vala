@@ -31,33 +31,6 @@ public abstract class CollectionPage : CheckerboardPage {
         EXPOSURE_DATE = 2;
     }
 
-    private class CompareTitle : Comparator<Thumbnail> {
-        private bool ascending;
-        
-        public CompareTitle(bool ascending) {
-            this.ascending = ascending;
-        }
-        
-        public override int64 compare(Thumbnail a, Thumbnail b) {
-            return (ascending) ? strcmp(a.get_title(), b.get_title()) : strcmp(b.get_title(), a.get_title());
-        }
-    }
-    
-    private class CompareDate : Comparator<Thumbnail> {
-        private bool ascending;
-        
-        public CompareDate(bool ascending) {
-            this.ascending = ascending;
-        }
-        
-        public override int64 compare(Thumbnail a, Thumbnail b) {
-            time_t timea = a.get_photo().get_exposure_time();
-            time_t timeb = b.get_photo().get_exposure_time();
-            
-            return (ascending) ? timea - timeb : timeb - timea;
-        }
-    }
-    
     private static Gtk.Adjustment slider_adjustment = null;
     
     private Gtk.HScale slider = null;
@@ -401,7 +374,7 @@ public abstract class CollectionPage : CheckerboardPage {
 
         return sort_order_actions;
     }
-
+    
     // This method is called by CollectionViewManager to create thumbnails for the DataSource 
     // (Photo) objects.
     public virtual Thumbnail create_thumbnail(LibraryPhoto photo) {
@@ -1147,18 +1120,24 @@ public abstract class CollectionPage : CheckerboardPage {
         set_config_photos_sort(get_sort_order() == SORT_ORDER_ASCENDING, get_sort_criteria());
     }
     
-    private Comparator<LayoutItem> get_sort_comparator() {
+    private Comparator get_sort_comparator() {
         switch (get_sort_criteria()) {
             case SortBy.TITLE:
-                return new CompareTitle(is_sort_ascending());
+                if (is_sort_ascending())
+                    return Thumbnail.title_ascending_comparator;
+                else
+                    return Thumbnail.title_descending_comparator;
             
             case SortBy.EXPOSURE_DATE:
-                return new CompareDate(is_sort_ascending());
+                if (is_sort_ascending())
+                    return Thumbnail.exposure_time_ascending_comparator;
+                else
+                    return Thumbnail.exposure_time_desending_comparator;
             
             default:
                 error("Unknown sort criteria: %d", get_sort_criteria());
                 
-                return new CompareTitle(true);
+                return Thumbnail.title_ascending_comparator;
         }
     }
 

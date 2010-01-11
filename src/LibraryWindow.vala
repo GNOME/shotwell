@@ -219,42 +219,6 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    private class CompareEventBranch : Comparator<SidebarPage> {
-        private int event_sort;
-        
-        public CompareEventBranch(int event_sort) {
-            assert(event_sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING || event_sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
-            
-            this.event_sort = event_sort;
-        }
-        
-        public override int64 compare(SidebarPage a, SidebarPage b) {
-            int64 start_a, start_b;
-
-            if (a is SubEventsDirectoryPageStub && b is SubEventsDirectoryPageStub) {
-                start_a = (int64) ((((SubEventsDirectoryPageStub) a).get_year() * 100) +
-                    ((SubEventsDirectoryPageStub) a).get_month());
-                start_b = (int64) ((((SubEventsDirectoryPageStub) b).get_year() * 100) + 
-                    ((SubEventsDirectoryPageStub) b).get_month());
-            } else {
-                assert(a is EventPageStub);
-                assert(b is EventPageStub);
-
-                start_a = (int64) ((EventPageStub) a).event.get_start_time();
-                start_b = (int64) ((EventPageStub) b).event.get_start_time();
-            }
-
-            switch (event_sort) {
-                case LibraryWindow.SORT_EVENTS_ORDER_ASCENDING:
-                    return start_a - start_b;
-                
-                case LibraryWindow.SORT_EVENTS_ORDER_DESCENDING:
-                default:
-                    return start_b - start_a;
-            }
-        }
-    }
-    
     // Static (default) pages
     private LibraryPage library_page = null;
     private MasterEventsDirectoryPage events_directory_page = null;
@@ -435,6 +399,47 @@ public class LibraryWindow : AppWindow {
         return (LibraryWindow) instance;
     }
     
+    private int64 get_event_directory_page_time(SubEventsDirectoryPageStub *stub) {
+        return (stub->get_year() * 100) + stub->get_month();
+    }
+    
+    private int64 event_branch_comparator(void *aptr, void *bptr) {
+        SidebarPage *a = (SidebarPage *) aptr;
+        SidebarPage *b = (SidebarPage *) bptr;
+        
+        int64 start_a, start_b;
+        if (a is SubEventsDirectoryPageStub && b is SubEventsDirectoryPageStub) {
+            start_a = get_event_directory_page_time((SubEventsDirectoryPageStub *) a);
+            start_b = get_event_directory_page_time((SubEventsDirectoryPageStub *) b);
+        } else {
+            assert(a is EventPageStub);
+            assert(b is EventPageStub);
+            
+            start_a = ((EventPageStub *) a)->event.get_start_time();
+            start_b = ((EventPageStub *) b)->event.get_start_time();
+        }
+        
+        return start_a - start_b;
+    }
+    
+    private int64 event_branch_ascending_comparator(void *a, void *b) {
+        return event_branch_comparator(a, b);
+    }
+    
+    private int64 event_branch_descending_comparator(void *a, void *b) {
+        return event_branch_comparator(b, a);
+    }
+    
+    private Comparator get_event_branch_comparator(int event_sort) {
+        if (event_sort == LibraryWindow.SORT_EVENTS_ORDER_ASCENDING) {
+            return event_branch_ascending_comparator;
+        } else {
+            assert(event_sort == LibraryWindow.SORT_EVENTS_ORDER_DESCENDING);
+            
+            return event_branch_descending_comparator;
+        }
+    }
+    
     public static bool is_mount_uri_supported(string uri) {
         foreach (string scheme in SUPPORTED_MOUNT_SCHEMES) {
             if (uri.has_prefix(scheme))
@@ -555,12 +560,12 @@ public class LibraryWindow : AppWindow {
         Config.get_instance().set_events_sort_ascending(new_events_sort == SORT_EVENTS_ORDER_ASCENDING);
        
         sidebar.sort_branch(events_directory_page.get_marker(), 
-            new CompareEventBranch(new_events_sort));
+            get_event_branch_comparator(new_events_sort));
 
         // the events directory pages need to know about resort
         foreach (SubEventsDirectoryPageStub events_dir in events_dir_list) {
             if (events_dir.has_page())
-                ((SubEventsDirectoryPage) events_dir.get_page()).notify_sort_changed(new_events_sort);
+                ((SubEventsDirectoryPage) events_dir.get_page()).notify_sort_changed();
         }
         
         // set the tree cursor to the current page, which might have been lost in the
@@ -568,7 +573,7 @@ public class LibraryWindow : AppWindow {
         sidebar.place_cursor(get_current_page());
 
         // the events directory page needs to know about this
-        events_directory_page.notify_sort_changed(new_events_sort);
+        events_directory_page.notify_sort_changed();
     }
 
     private void on_display_basic_properties(Gtk.Action action) {
@@ -822,11 +827,11 @@ public class LibraryWindow : AppWindow {
 
                     // add to sidebar again
                     sidebar.insert_child_sorted(get_parent_page(stub.event).get_marker(), stub,
-                        new CompareEventBranch(get_events_sort()));    
+                        get_event_branch_comparator(get_events_sort()));
 
                     if (get_current_page() is EventPage &&
                         ((EventPage) get_current_page()).page_event.equals(event))
-                        sidebar.place_cursor(stub);           
+                        sidebar.place_cursor(stub);
                 }
 
                 // refresh name
@@ -865,7 +870,7 @@ public class LibraryWindow : AppWindow {
             }
         }
 
-        CompareEventBranch comparator = new CompareEventBranch(get_events_sort());      
+        Comparator comparator = get_event_branch_comparator(get_events_sort());
 
         // make a new month directory page
         SubEventsDirectoryPageStub month = 
@@ -895,7 +900,7 @@ public class LibraryWindow : AppWindow {
         EventPageStub event_stub = new EventPageStub(event);
         
         sidebar.insert_child_sorted(parent_page.get_marker(), event_stub,
-            new CompareEventBranch(get_events_sort()));
+            get_event_branch_comparator(get_events_sort()));
         
         event_list.add(event_stub);
     }

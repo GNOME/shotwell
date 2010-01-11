@@ -4,22 +4,17 @@
  * See the COPYING file in this distribution. 
  */
 
-public abstract class Comparator<G> {
-    public abstract int64 compare(G a, G b);
-}
+public delegate int64 Comparator(void *a, void *b);
 
-// Common comparators
-public class FileComparator : Comparator<File> {
-    public override int64 compare(File a, File b) {
-        return strcmp(a.get_path(), b.get_path());
-    }
+public int64 file_comparator(void *a, void *b) {
+    return strcmp(((File *) a)->get_path(), ((File *) b)->get_path());
 }
 
 public class SortedList<G> : Object, Gee.Iterable<G> {
     private Gee.ArrayList<G> list;
-    private Comparator<G> cmp;
+    private Comparator? cmp;
     
-    public SortedList(Comparator<G>? cmp = null) {
+    public SortedList(Comparator? cmp = null) {
         this.list = new Gee.ArrayList<G>();
         this.cmp = cmp;
     }
@@ -107,7 +102,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         // TODO: Use a binary search.
         int count = list.size;
         for (int ctr = 0; ctr < count; ctr++) {
-            if (cmp.compare(list.get(ctr), search) == 0)
+            if (cmp(list.get(ctr), search) == 0)
                 return ctr;
         }
         
@@ -129,7 +124,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         list.remove_at(index);
     }
     
-    public void resort(Comparator<G> new_cmp) {
+    public void resort(Comparator new_cmp) {
         cmp = new_cmp;
         
         merge_sort();
@@ -142,14 +137,24 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
     // Returns true if item has moved.
     public bool resort_item(G item) {
         int index = locate(item);
+        assert(index >= 0);
+        
         int new_index = get_sorted_insert_pos(item);
         
         if (index == new_index)
             return false;
         
-        // insert first, as the indexes shift after the remove
-        list.insert(new_index, item);
-        list.remove_at(index);
+        // insert in such a way to avoid index shift (performing the rightmost
+        // operation before the leftmost)
+        if (new_index > index) {
+            list.insert(new_index, item);
+            G removed_item = list.remove_at(index);
+            assert(item == removed_item);
+        } else {
+            G removed_item = list.remove_at(index);
+            assert(item == removed_item);
+            list.insert(new_index, item);
+        }
         
 #if VERIFY_SORTED_LIST
         assert(is_sorted());
@@ -178,7 +183,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
                 cmp_item = list.get(mid + 1);
             }
             
-            int64 result = cmp.compare(item, cmp_item);
+            int64 result = cmp(item, cmp_item);
             if (result < 0)
                 high = mid;
             else if (result > 0)
@@ -203,7 +208,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         
         int length = list.size;
         for (int ctr = 1; ctr < length; ctr++) {
-            if (cmp.compare(list.get(ctr - 1), list.get(ctr)) >= 0) {
+            if (cmp(list.get(ctr - 1), list.get(ctr)) >= 0) {
                 critical("Out of order: %d and %d", ctr - 1, ctr);
                 
                 return false;
@@ -271,7 +276,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         _merge_sort(array, scratch, start_index, middle_index - 1);
         _merge_sort(array, scratch, middle_index, end_index);
         
-        if (cmp.compare(array[middle_index - 1], array[middle_index]) > 0)
+        if (cmp(array[middle_index - 1], array[middle_index]) > 0)
             merge(array, scratch, start_index, middle_index, end_index);
     }
     
@@ -291,7 +296,7 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
             G left = array[left_start];
             G right = array[right_start];
             
-            if (cmp.compare(left, right) <= 0) {
+            if (cmp(left, right) <= 0) {
                 scratch[scratch_index++] = left;
                 left_start++;
             } else {

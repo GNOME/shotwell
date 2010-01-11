@@ -27,18 +27,6 @@ public class Event : EventSource, Proxyable {
     
     private const time_t TIME_T_DAY = 24 * 60 * 60;
     
-    private class DateComparator : Comparator<LibraryPhoto> {
-        public override int64 compare(LibraryPhoto a, LibraryPhoto b) {
-            return a.get_exposure_time() - b.get_exposure_time();
-        }
-    }
-    
-    private class ViewComparator : Comparator<PhotoView> {
-        public override int64 compare(PhotoView a, PhotoView b) {
-            return a.get_photo_source().get_exposure_time() - b.get_photo_source().get_exposure_time();
-        }
-    }
-
     private class EventManager : ViewManager {
         private EventID event_id;
 
@@ -135,7 +123,7 @@ public class Event : EventSource, Proxyable {
             event_photos.add(LibraryPhoto.global.fetch(photo_id));
         
         view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
-        view.set_comparator(new ViewComparator());
+        view.set_comparator(view_comparator);
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id), event_photos); 
         
         // get the primary photo for monitoring; if not available, use the first photo in the
@@ -176,20 +164,21 @@ public class Event : EventSource, Proxyable {
         foreach (EventID event_id in event_ids)
             events.add(new Event(event_id));
         
-        // Use a ProgressMonitor wrapper because add_many() doesn't report totals ... need to hold
-        // on to a ref to real_monitor until method completes
-        UnknownTotalMonitor real_monitor = null;
-        if (monitor != null) {
-            real_monitor = new UnknownTotalMonitor(events.size, monitor);
-            monitor = real_monitor.monitor;
-        }
-        
         global.add_many(events, monitor);
     }
     
     public static void terminate() {
     }
-
+    
+    private static int64 source_comparator(void *a, void *b) {
+        return ((PhotoSource *) a)->get_exposure_time() - ((PhotoSource *) b)->get_exposure_time();
+    }
+    
+    private static int64 view_comparator(void *a, void *b) {
+        return ((PhotoView *) a)->get_photo_source().get_exposure_time() 
+            - ((PhotoView *) b)->get_photo_source().get_exposure_time();
+    }
+    
     private void on_photos_added() {
         notify_altered();
     }
@@ -255,7 +244,7 @@ public class Event : EventSource, Proxyable {
         int total = unsorted_photos.size;
         
         // sort photos by date
-        SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(new DateComparator());
+        SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(source_comparator);
         imported_photos.add_many(unsorted_photos);
 
         // walk through photos, splitting into new events when the boundary hour is crossed

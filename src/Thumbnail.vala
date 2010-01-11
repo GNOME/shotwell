@@ -45,6 +45,26 @@ public class Thumbnail : LayoutItem {
         return photo;
     }
     
+    //
+    // Comparators
+    //
+    
+    public static int64 title_ascending_comparator(void *a, void *b) {
+        return strcmp(((Thumbnail *) a)->get_title(), ((Thumbnail *) b)->get_title());
+    }
+    
+    public static int64 title_descending_comparator(void *a, void *b) {
+        return title_ascending_comparator(b, a);
+    }
+    
+    public static int64 exposure_time_ascending_comparator(void *a, void *b) {
+        return ((Thumbnail *) a)->photo.get_exposure_time() - ((Thumbnail *) b)->photo.get_exposure_time();
+    }
+    
+    public static int64 exposure_time_desending_comparator(void *a, void *b) {
+        return exposure_time_ascending_comparator(b, a);
+    }
+    
     private override void thumbnail_altered() {
         original_dim = get_photo().get_dimensions();
         dim = original_dim.get_scaled(scale, true);

@@ -1413,8 +1413,6 @@ public class LibraryPhotoPage : EditingHostPage {
 // files and generating DirectPhotoSource stubs to represent each possible image file in the
 // directory, only importing them into the system when selected by the user.
 private class DirectViewCollection : ViewCollection {
-    private static FileComparator file_comparator = new FileComparator();
-    
     private class DirectViewManager : ViewManager {
         public override DataView create_view(DataSource source) {
             return new DataView(source);

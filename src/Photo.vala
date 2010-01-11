@@ -1810,14 +1810,6 @@ public class LibraryPhoto : TransformablePhoto {
         for (int ctr = 0; ctr < count; ctr++)
             all_photos.add(new LibraryPhoto(all.get(ctr)));
         
-        // need to use a ProgressMonitor wrapper because add_many() doesn't report a total ... have
-        // to hold a ref on to real_monitor until the method exits
-        UnknownTotalMonitor real_monitor = null;
-        if (monitor != null) {
-            real_monitor = new UnknownTotalMonitor(all_photos.size, monitor);
-            monitor = real_monitor.monitor;
-        }
-        
         global.add_many(all_photos, monitor);
     }
     

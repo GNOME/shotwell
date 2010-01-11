@@ -206,12 +206,6 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private class CameraImportComparator : Comparator<CameraImportJob> {
-        public override int64 compare(CameraImportJob a, CameraImportJob b) {
-            return (int64) a.get_exposure_time() - (int64) b.get_exposure_time();
-        }
-    }
-    
     public static GPhoto.ContextWrapper null_context = null;
 
     private SourceCollection import_sources = null;
@@ -336,7 +330,11 @@ public class ImportPage : CheckerboardPage {
     ~ImportPage() {
         LibraryPhoto.global.contents_altered -= on_photos_added_removed;
     }
-
+    
+    private int64 import_job_comparator(void *a, void *b) {
+        return ((CameraImportJob *) a)->get_exposure_time() - ((CameraImportJob *) b)->get_exposure_time();
+    }
+    
     private Gtk.ToggleActionEntry[] create_toggle_actions() {
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
 
@@ -880,7 +878,7 @@ public class ImportPage : CheckerboardPage {
         progress_bar.visible = false;
 
         uint64 total_bytes = 0;
-        SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(new CameraImportComparator());
+        SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(import_job_comparator);
         Gee.ArrayList<CameraImportJob> already_imported = new Gee.ArrayList<CameraImportJob>();
         Gee.ArrayList<CameraImportJob> failed = new Gee.ArrayList<CameraImportJob>();
         

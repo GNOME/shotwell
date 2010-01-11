@@ -38,7 +38,7 @@ public interface SidebarPage : Object {
     
 public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(1, typeof(string));
-    private Gee.HashSet<SidebarPage> pages = new Gee.HashSet<SidebarPage>();
+    private Gee.ArrayList<SidebarPage> pages = new Gee.ArrayList<SidebarPage>();
     private Gtk.Menu context_menu = null;
     private Gtk.TreePath current_path = null;
 
@@ -132,11 +132,14 @@ public class Sidebar : Gtk.TreeView {
         page.clear_marker();
         
         // remove from master table
-        pages.remove(page);
+        bool removed = pages.remove(page);
+        assert(removed);
     }
     
     private SidebarPage? locate_page(Gtk.TreePath path) {
-        foreach (SidebarPage page in pages) {
+        int count = pages.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            SidebarPage page = pages.get(ctr);
             if (page.get_marker().get_path().compare(path) == 0)
                 return page;
         }
@@ -218,7 +221,7 @@ public class Sidebar : Gtk.TreeView {
     }
     
     public SidebarMarker insert_child_sorted(SidebarMarker parent, SidebarPage child, 
-        Comparator<SidebarPage> comparator) {
+        Comparator comparator) {
         // find parent in sidebar using its row reference
         Gtk.TreeIter parent_iter;
         bool found = store.get_iter(out parent_iter, parent.get_path());
@@ -231,7 +234,7 @@ public class Sidebar : Gtk.TreeView {
             SidebarPage page = locate_page(store.get_path(child_iter));
             if (page != null) {
                 // look to insert before the current page
-                if (comparator.compare(child, page) < 0)
+                if (comparator(child, page) < 0)
                     return insert_sibling_before(page.get_marker(), child);
             }
             
@@ -390,7 +393,7 @@ public class Sidebar : Gtk.TreeView {
         scroll_to_cell(path, null, false, 0, 0);
     }
 
-    public void sort_branch(SidebarMarker marker, Comparator<SidebarPage> comparator) {
+    public void sort_branch(SidebarMarker marker, Comparator comparator) {
         Gtk.TreePath path = marker.get_path();
 
         if (path == null)
@@ -416,7 +419,7 @@ public class Sidebar : Gtk.TreeView {
 
                 if (store.iter_nth_child(out iter1, iter, i) && 
                     store.iter_nth_child(out iter2, iter, i + 1) &&
-                    comparator.compare(locate_page(path1), locate_page(path2)) > 0) {
+                    comparator(locate_page(path1), locate_page(path2)) > 0) {
                     
                     store.swap(iter1, iter2);
                     changes_made = true;

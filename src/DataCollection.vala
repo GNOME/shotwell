@@ -23,40 +23,31 @@
 //
 
 public class DataSet {
-    private static class OrderAddedComparator : Comparator<DataObject> {
-        public override int64 compare(DataObject a, DataObject b) {
-            return a.internal_get_ordinal() - b.internal_get_ordinal();
-        }
-    }
-    
-    private static class ComparatorWrapper : Comparator<DataObject> {
-        private Comparator<DataObject> comparator;
-        
-        public ComparatorWrapper(Comparator<DataObject> comparator) {
-            this.comparator = comparator;
-        }
-        
-        public override int64 compare(DataObject a, DataObject b) {
-            if (a == b)
-                return 0;
-            
-            int64 result = comparator.compare(a, b);
-            if (result == 0)
-                result = a.internal_get_ordinal() - b.internal_get_ordinal();
-            
-            assert(result != 0);
-            
-            return result;
-        }
-    }
-    
-    private static OrderAddedComparator order_added_comparator = null;
-    
     private SortedList<DataObject> list = new SortedList<DataObject>();
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
+    private Comparator user_comparator = null;
     
     public DataSet() {
         reset_comparator();
+    }
+    
+    private int64 order_added_comparator(void *a, void *b) {
+        return ((DataObject *) a)->internal_get_ordinal() - ((DataObject *) b)->internal_get_ordinal();
+    }
+    
+    private int64 comparator_wrapper(void *a, void *b) {
+        if (a == b)
+            return 0;
+        
+        // use the order-added comparator if the user's compare returns equal, to stabilize the
+        // sort
+        int64 result = user_comparator(a, b);
+        if (result == 0)
+            result = order_added_comparator(a, b);
+        
+        assert(result != 0);
+        
+        return result;
     }
     
     public bool contains(DataObject object) {
@@ -70,14 +61,13 @@ public class DataSet {
     }
     
     public void reset_comparator() {
-        if (order_added_comparator == null)
-            order_added_comparator = new OrderAddedComparator();
-        
+        user_comparator = null;
         list.resort(order_added_comparator);
     }
     
-    public void set_comparator(Comparator<DataObject> comparator) {
-        list.resort(new ComparatorWrapper(comparator));
+    public void set_comparator(Comparator user_comparator) {
+        this.user_comparator = user_comparator;
+        list.resort(comparator_wrapper);
     }
     
     public Gee.Iterable<DataObject> get_all() {
@@ -383,7 +373,7 @@ public class DataCollection {
         return true;
     }
     
-    public virtual void set_comparator(Comparator<DataObject> comparator) {
+    public virtual void set_comparator(Comparator comparator) {
         dataset.set_comparator(comparator);
         notify_ordering_changed();
     }
@@ -442,8 +432,8 @@ public class DataCollection {
         int count = objects.size;
         for (int ctr = 0; ctr < count; ctr++) {
             DataObject object = objects.get(ctr);
-            
             assert(valid_type(object));
+            
             object.internal_set_membership(this, object_ordinal_generator++);
             
             if (monitor != null)
@@ -479,8 +469,7 @@ public class DataCollection {
         return true;
     }
     
-    // Returns number of items added to collection.  The ProgressMonitor total is reported as
-    // zero by this method, as the total count is not known.
+    // Returns number of items added to collection.
     public int add_many(Gee.Iterable<DataObject> objects, ProgressMonitor? monitor = null) {
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
@@ -492,6 +481,9 @@ public class DataCollection {
             
             added.add(object);
         }
+        
+        if (added.size == 0)
+            return 0;
         
         internal_add_many(added, monitor);
         
@@ -974,17 +966,8 @@ public class ViewCollection : DataCollection {
                 created_views.add(manager.create_view(source));
         }
         
-        if (created_views.size > 0) {
-            // add_many() doesn't report totals, and need to hold ref to real_monitor until
-            // completed
-            UnknownTotalMonitor real_monitor = null;
-            if (monitor != null) {
-                real_monitor = new UnknownTotalMonitor(created_views.size, monitor);
-                monitor = real_monitor.monitor;
-            }
-            
+        if (created_views.size > 0)
             add_many(created_views, monitor);
-        }
     }
     
     private void on_sources_removed(Gee.Iterable<DataSource> removed) {
