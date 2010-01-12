@@ -15,12 +15,10 @@ class EventDirectoryItem : LayoutItem {
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), null);
+        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event),
+            Pango.Alignment.CENTER, true);
         
         this.event = event;
-        
-        set_formatted_title();
-        set_title_alignment(Pango.Alignment.CENTER);
         
         // find the center square
         paul_lynde = get_paul_lynde_rect(event.get_primary_photo());
@@ -61,12 +59,12 @@ class EventDirectoryItem : LayoutItem {
             paul_lynde.height);
     }
     
-    private void set_formatted_title() {
-        string count = ngettext("%d Photo", "%d Photos", event.get_photo_count()).printf(
-            event.get_photo_count());
-        string title = "<b>%s</b>\n%s".printf(Markup.escape_text(event.get_name()),
-            Markup.escape_text(count));
-        set_markup_title(title);
+    private static string get_formatted_title(Event event) {
+        int count = event.get_photo_count();
+        string count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
+        
+        return "<b>%s</b>\n%s".printf(Markup.escape_text(event.get_name()),
+            Markup.escape_text(count_text));
     }
 
     public override void exposed() {
@@ -92,7 +90,7 @@ class EventDirectoryItem : LayoutItem {
     }
     
     private void on_event_altered() {
-        set_formatted_title();
+        set_markup_title(get_formatted_title(event));
     }
     
     private override void thumbnail_altered() {

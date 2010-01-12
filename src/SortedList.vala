@@ -240,8 +240,9 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         }
         
         if (add != null) {
+            int add_ctr = 0;
             while (offset < count) {
-                array[offset] = add.get(offset);
+                array[offset] = add.get(add_ctr++);
                 offset++;
             }
         }

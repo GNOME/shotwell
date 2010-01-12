@@ -27,6 +27,7 @@ public abstract class LayoutItem : ThumbnailView {
     private string title = null;
     private bool title_marked_up = false;
     private bool title_displayed = true;
+    private bool single_line = false;
     private bool exposure = false;
     private Gdk.Pixbuf pixbuf = null;
     private Gdk.Pixbuf display_pixbuf = null;
@@ -36,16 +37,22 @@ public abstract class LayoutItem : ThumbnailView {
     private int row = -1;
     
     public LayoutItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string? title,
-        bool title_marked_up = false) {
+        Pango.Alignment title_alignment = Pango.Alignment.LEFT, bool title_marked_up = false) {
         base(source);
         
         pixbuf_dim = initial_pixbuf_dim;
         
         this.title = title;
         this.title_marked_up = title_marked_up;
+        this.title_alignment = title_alignment;
+        this.single_line = is_single_line(title);
         
-        update_pango();
+        update_text_height();
         recalc_size(false, true);
+    }
+    
+    private static bool is_single_line(string text) {
+        return text.chr(-1, '\n') == null;
     }
     
     public void set_title(string text, bool marked_up = false) {
@@ -54,8 +61,10 @@ public abstract class LayoutItem : ThumbnailView {
         
         title = text;
         title_marked_up = marked_up;
+        single_line = is_single_line(title);
+        pango_layout = null;
 
-        update_pango();
+        update_text_height();
         recalc_size();
 
         notify_view_altered();
@@ -71,18 +80,6 @@ public abstract class LayoutItem : ThumbnailView {
     
     public Pango.Alignment get_title_alignment() {
         return title_alignment;
-    }
-    
-    public void set_title_alignment(Pango.Alignment title_alignment) {
-        if (this.title_alignment == title_alignment)
-            return;
-        
-        this.title_alignment = title_alignment;
-        
-        update_pango();
-        recalc_size();
-        
-        notify_view_altered();
     }
     
     public override string get_name() {
@@ -150,10 +147,27 @@ public abstract class LayoutItem : ThumbnailView {
             notify_view_altered();
     }
     
-    private void update_pango() {
+    private void update_text_height() {
         if (title == null) {
+            pango_height = 0;
             pango_layout = null;
             
+            return;
+        }
+        
+        if (one_line_height != 0 && single_line)
+            pango_height = one_line_height;
+        else
+            update_pango();
+    }
+    
+    private void update_pango() {
+        if (title == null) {
+            pango_height = 0;
+            pango_layout = null;
+            
+            return;
+        } else if (pango_layout != null) {
             return;
         }
         
@@ -170,7 +184,6 @@ public abstract class LayoutItem : ThumbnailView {
         
         // getting pixel size is expensive, and we only need the height, so use cached values
         // whenever possible
-        bool single_line = (title.chr(-1, '\n') == null);
         if (one_line_height != 0 && single_line) {
             pango_height = one_line_height;
         } else {
@@ -231,6 +244,9 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     public void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+        if (pango_layout == null && title_displayed)
+            update_pango();
+        
         // frame of FRAME_WIDTH size (determined by GC) only if selected ... however, this is
         // accounted for in allocation so the frame can appear without resizing the item
         if (is_selected())

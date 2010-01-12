@@ -109,6 +109,7 @@ public class Event : EventSource, Proxyable {
     private static EventTable event_table = null;
     
     private EventID event_id;
+    private string? raw_name;
     private LibraryPhoto primary_photo;
     private ViewCollection view;
     
@@ -116,6 +117,7 @@ public class Event : EventSource, Proxyable {
         base (object_id);
         
         this.event_id = event_id;
+        this.raw_name = event_table.get_name(event_id);
         
         Gee.ArrayList<PhotoID?> event_photo_ids = PhotoTable.get_instance().get_event_photos(event_id);
         Gee.ArrayList<LibraryPhoto> event_photos = new Gee.ArrayList<LibraryPhoto>();
@@ -352,18 +354,14 @@ public class Event : EventSource, Proxyable {
     }
     
     public bool has_name() {
-        string raw_name = get_raw_name();
-        
         return raw_name != null && raw_name.length > 0;
     }
     
     public override string get_name() {
-        string event_name = event_table.get_name(event_id);
-
+        if (raw_name != null)
+            return raw_name;
+        
         // if no name, pretty up the start time
-        if (event_name != null)
-            return event_name;
-
         time_t start_time = get_start_time();
         
         return (start_time != 0) 
@@ -372,13 +370,15 @@ public class Event : EventSource, Proxyable {
     }
     
     public string? get_raw_name() {
-        return event_table.get_name(event_id);
+        return raw_name;
     }
     
     public bool rename(string? name) {
         bool renamed = event_table.rename(event_id, name);
-        if (renamed)
+        if (renamed) {
+            raw_name = name;
             notify_altered();
+        }
         
         return renamed;
     }

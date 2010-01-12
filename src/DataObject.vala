@@ -43,11 +43,6 @@ public abstract class DataObject {
     public virtual signal void metadata_altered() {
     }
     
-    // This signal is fired when the membership of a DataObject changes.  This may be called twice
-    // in succession: once when the DataObject leaves a collection and again when it joins another.
-    public virtual signal void membership_changed(DataCollection? collection) {
-    }
-    
     // NOTE: Supplying an object ID should *only* be used when reconstituting the object (generally
     // only done by DataSources).
     public DataObject(int64 object_id = INVALID_OBJECT_ID) {
@@ -72,8 +67,9 @@ public abstract class DataObject {
             member_of.internal_notify_metadata_altered(this);
     }
     
+    // There is no membership_changed signal as it's expensive (esp. at startup) and not needed
+    // at this time.  The notify_membership_changed mechanism is still in place for subclasses.
     public virtual void notify_membership_changed(DataCollection? collection) {
-        membership_changed(collection);
     }
     
     public abstract string get_name();
@@ -175,7 +171,7 @@ public abstract class SourceSnapshot {
 public abstract class DataSource : DataObject {
     protected delegate void ContactSubscriber(DataView view);
     
-    private Gee.ArrayList<DataView> subscribers = null;
+    private DataView[] subscribers = new DataView[4];
     private bool in_contact = false;
     private bool marked_for_destroy = false;
     private bool is_destroyed = false;
@@ -256,9 +252,6 @@ public abstract class DataSource : DataObject {
     public virtual void destroy() {
         assert(marked_for_destroy);
         
-        // clear the subscriber list
-        subscribers = null;
-        
         // mark as destroyed
         is_destroyed = true;
         
@@ -275,33 +268,45 @@ public abstract class DataSource : DataObject {
     public void internal_subscribe(DataView view) {
         assert(!in_contact);
         
-        if (subscribers == null)
-            subscribers = new Gee.ArrayList<DataView>();
+        bool added = false;
+        for (int ctr = 0; ctr < subscribers.length; ctr++) {
+            if (subscribers[ctr] == null) {
+                subscribers[ctr] = view;
+                added = true;
+                
+                break;
+            }
+        }
         
-        subscribers.add(view);
+        if (!added)
+            subscribers += view;
     }
     
     // This method is only called by DataView.
     public void internal_unsubscribe(DataView view) {
         assert(!in_contact);
-        assert(subscribers != null);
         
-        bool removed = subscribers.remove(view);
+        bool removed = false;
+        for (int ctr = 0; ctr < subscribers.length; ctr++) {
+            if (subscribers[ctr] == view) {
+                subscribers[ctr] = null;
+                removed = true;
+                
+                break;
+            }
+        }
+        
         assert(removed);
-        
-        if (subscribers.size == 0)
-            subscribers = null;
     }
     
     protected void contact_subscribers(ContactSubscriber contact_subscriber) {
         assert(!in_contact);
         
-        if (subscribers == null)
-            return;
-        
         in_contact = true;
-        foreach (DataView view in subscribers)
-            contact_subscriber(view);
+        for (int ctr = 0; ctr < subscribers.length; ctr++) {
+            if (subscribers[ctr] != null)
+                contact_subscriber(subscribers[ctr]);
+        }
         in_contact = false;
     }
 }

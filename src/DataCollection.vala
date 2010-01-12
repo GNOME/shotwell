@@ -55,8 +55,6 @@ public class DataSet {
     }
     
     public int get_count() {
-        assert(list.size == hash_set.size);
-        
         return list.size;
     }
     
@@ -131,6 +129,18 @@ public class DataSet {
             success = false;
         
         if (!hash_set.remove(object))
+            success = false;
+        
+        return success;
+    }
+    
+    public bool remove_many(Gee.List<DataObject> objects) {
+        bool success = true;
+        
+        if (!list.remove_many(objects))
+            success = false;
+        
+        if (!hash_set.remove_all(objects))
             success = false;
         
         return success;
@@ -388,7 +398,7 @@ public class DataCollection {
         return dataset.get_all();
     }
     
-    protected DataSet get_dataset() {
+    protected DataSet get_dataset_copy() {
         return dataset.copy();
     }
     
@@ -925,8 +935,11 @@ public class ViewCollection : DataCollection {
             }
         }
         
-        show_items(to_show);
-        hide_items(to_hide);
+        if (to_show.size > 0)
+            show_items(to_show);
+        
+        if (to_hide.size > 0)
+            hide_items(to_hide);
     }
     
     public void reset_view_filter() {
@@ -1330,6 +1343,7 @@ public class ViewCollection : DataCollection {
         if (!visible.add_many(many))
             return false;
         
+        // if all are visible, then revert to using base class's set
         if (visible.get_count() == base.get_count())
             visible = null;
         
@@ -1340,7 +1354,9 @@ public class ViewCollection : DataCollection {
     private void hide_items(Gee.List<DataView> to_hide) {
         Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
 
-        foreach (DataView view in to_hide) {
+        int count = to_hide.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            DataView view = to_hide.get(ctr);
             assert(view.is_visible());
 
             if (view.is_selected()) {
@@ -1350,13 +1366,16 @@ public class ViewCollection : DataCollection {
             }
             
             view.internal_set_visible(false);
-            if (visible != null) {
-                visible = get_dataset();
-                bool removed = visible.remove(view);
-                assert(removed);
-            }
         }
-
+        
+        if (visible == null) {
+            // make a copy of the full set before removing items
+            visible = get_dataset_copy();
+        }
+            
+        bool removed = visible.remove_many(to_hide);
+        assert(removed);
+        
         if (unselected.size > 0) {
             items_state_changed(unselected);
             items_unselected(unselected);
@@ -1370,14 +1389,14 @@ public class ViewCollection : DataCollection {
     
     // This method requires that all items in to_show are hidden already.
     private void show_items(Gee.List<DataView> to_show) {
-        Gee.ArrayList<DataView> added_visible = new Gee.ArrayList<DataView>();
         Gee.ArrayList<DataView> added_selected = new Gee.ArrayList<DataView>();
         
-        foreach (DataView view in to_show) {
+        int count = to_show.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            DataView view = to_show.get(ctr);
             assert(!view.is_visible());
             
             view.internal_set_visible(true);
-            added_visible.add(view);
             
             // see note in hide_item for selection handling with hidden/visible items
             if (view.is_selected()) {
@@ -1386,7 +1405,7 @@ public class ViewCollection : DataCollection {
             }
         }
         
-        bool added = add_many_visible(added_visible);
+        bool added = add_many_visible(to_show);
         assert(added);
         added = selected.add_many(added_selected);
         assert(added);

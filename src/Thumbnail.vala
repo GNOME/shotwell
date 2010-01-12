@@ -19,7 +19,7 @@ public class Thumbnail : LayoutItem {
     private Dimensions original_dim;
     private Dimensions dim;
     private Cancellable cancellable = null;
-    private OneShotScheduler hq_scheduler = null;
+    private bool hq_scheduled = false;
     private Gdk.Pixbuf to_scale = null;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
@@ -27,7 +27,6 @@ public class Thumbnail : LayoutItem {
         
         this.photo = photo;
         this.scale = scale;
-        hq_scheduler = new OneShotScheduler("Thumbnail HQ scheduler", on_schedule_high_quality);
         
         original_dim = photo.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
@@ -36,8 +35,6 @@ public class Thumbnail : LayoutItem {
     ~Thumbnail() {
         if (cancellable != null)
             cancellable.cancel();
-
-        hq_scheduler.cancel();
     }
     
     public LibraryPhoto get_photo() {
@@ -109,23 +106,28 @@ public class Thumbnail : LayoutItem {
     }
     
     private void schedule_high_quality_fetch() {
-        hq_scheduler.after_timeout(HQ_IMPROVEMENT_MSEC, true);
+        if (hq_scheduled)
+            return;
+        
+        Timeout.add(HQ_IMPROVEMENT_MSEC, on_schedule_high_quality);
+        hq_scheduled = true;
     }
     
-    private void on_schedule_high_quality() {
-        // cancel outstanding I/O (but not the hq_scheduler, hence not using cancel_async_fetch)
+    private bool on_schedule_high_quality() {
+        // cancel outstanding I/O
         if (cancellable != null)
             cancellable.cancel();
         cancellable = new Cancellable();
         
         ThumbnailCache.fetch_async_scaled(get_photo().get_photo_id(), scale, dim, HIGH_QUALITY_INTERP,
             on_high_quality_fetched, cancellable);
+        
+        hq_scheduled = false;
+        
+        return false;
     }
     
     private void cancel_async_fetch() {
-        // cancel the delayed fetch
-        hq_scheduler.cancel();
-        
         // cancel outstanding I/O
         if (cancellable != null)
             cancellable.cancel();

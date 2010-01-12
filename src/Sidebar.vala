@@ -37,8 +37,7 @@ public interface SidebarPage : Object {
 }
     
 public class Sidebar : Gtk.TreeView {
-    private Gtk.TreeStore store = new Gtk.TreeStore(1, typeof(string));
-    private Gee.ArrayList<SidebarPage> pages = new Gee.ArrayList<SidebarPage>();
+    private Gtk.TreeStore store = new Gtk.TreeStore(2, typeof(string), typeof(SidebarPage));
     private Gtk.Menu context_menu = null;
     private Gtk.TreePath current_path = null;
 
@@ -47,11 +46,17 @@ public class Sidebar : Gtk.TreeView {
     public Sidebar() {
         set_model(store);
 
-        var text = new Gtk.CellRendererText();
-        var text_column = new Gtk.TreeViewColumn();
+        Gtk.CellRendererText text = new Gtk.CellRendererText();
+        Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.pack_start(text, true);
         text_column.add_attribute(text, "markup", 0);
         append_column(text_column);
+        
+        Gtk.CellRendererText invisitext = new Gtk.CellRendererText();
+        Gtk.TreeViewColumn page_holder = new Gtk.TreeViewColumn();
+        page_holder.pack_start(invisitext, true);
+        page_holder.visible = false;
+        append_column(page_holder);
         
         set_headers_visible(false);
         set_enable_search(false);
@@ -113,6 +118,7 @@ public class Sidebar : Gtk.TreeView {
     private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter) {
         // set up the columns
         store.set(iter, 0, Markup.escape_text(page.get_sidebar_text()));
+        store.set(iter, 1, page);
         
         // create a marker for this page
         SidebarMarker marker = new SidebarMarker(store, store.get_path(iter));
@@ -120,33 +126,25 @@ public class Sidebar : Gtk.TreeView {
         // stash the marker in the page itself
         page.set_marker(marker);
         
-        // add to the master table
-        assert(!pages.contains(page));
-        pages.add(page);
-        
         return marker;
     }
     
     private void detach_page(SidebarPage page) {
         // destroy the marker linking the page to the sidebar
         page.clear_marker();
-        
-        // remove from master table
-        bool removed = pages.remove(page);
-        assert(removed);
     }
     
     private SidebarPage? locate_page(Gtk.TreePath path) {
-        int count = pages.size;
-        for (int ctr = 0; ctr < count; ctr++) {
-            SidebarPage page = pages.get(ctr);
-            if (page.get_marker().get_path().compare(path) == 0)
-                return page;
-        }
+        Gtk.TreeIter iter;
+        if (!store.get_iter(out iter, path))
+            return null;
         
-        return null;
+        Value val;
+        store.get_value(iter, 1, out val);
+        
+        return (SidebarPage) val;
     }
-
+    
     // adds a top-level parent to the sidebar
     public SidebarMarker add_parent(SidebarPage parent) {
         // add a row, get its iter
