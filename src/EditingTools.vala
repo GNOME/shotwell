@@ -493,8 +493,7 @@ public class CropTool : EditingTool {
             Gtk.CellRendererText combo_text_renderer = new Gtk.CellRendererText();
             constraint_combo.pack_start(combo_text_renderer, true);
             constraint_combo.add_attribute(combo_text_renderer, "text", 0);
-            constraint_combo.set_row_separator_func(constraint_combo_separator_func,
-                constraint_combo_destroy_func);
+            constraint_combo.set_row_separator_func(constraint_combo_separator_func);
             constraint_combo.set_active(0);
             
             pivot_reticle_button.set_image(new Gtk.Image.from_stock(Resources.CROP_PIVOT_RETICLE,
@@ -520,9 +519,6 @@ public class CropTool : EditingTool {
             model.get_value(iter, 0, out val);
 
             return (val.dup_string() == "-");
-        }
-
-        private static void constraint_combo_destroy_func() {
         }
     }
 
