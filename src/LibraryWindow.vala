@@ -1182,17 +1182,13 @@ public class LibraryWindow : AppWindow {
         sidebar_paned.set_position(1000);
 
         // layout the selection tree to the left of the collection/toolbar box with an adjustable
-        // gutter between them, framed for presentation
-        Gtk.Frame left_frame = new Gtk.Frame(null);
-        left_frame.add(sidebar_paned);
-        left_frame.set_shadow_type(Gtk.ShadowType.IN);
-        
+        // gutter between them, framed for presentation       
         Gtk.Frame right_frame = new Gtk.Frame(null);
         right_frame.add(notebook);
         right_frame.set_shadow_type(Gtk.ShadowType.IN);
         
         client_paned = new Gtk.HPaned();
-        client_paned.pack1(left_frame, false, false);
+        client_paned.pack1(sidebar_paned, false, false);
         sidebar.set_size_request(SIDEBAR_MIN_WIDTH, -1);
         client_paned.pack2(right_frame, true, false);
         client_paned.set_position(Config.get_instance().get_sidebar_position());
