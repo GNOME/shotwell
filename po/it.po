@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.4.2\n"
 "Report-Msgid-Bugs-To:  Lucas Beeler <lucas@yorba.org>\n"
 "POT-Creation-Date: 2009-12-11 18:20-0800\n"
-"PO-Revision-Date: 2009-12-22 12:44+0100\n"
+"PO-Revision-Date: 2010-01-14 15:24+0100\n"
 "Last-Translator: Emanuele Grande <caccolangrifata@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -284,11 +284,11 @@ msgstr "Foto"
 
 #: src/Commands.vala:380
 msgid "Reverting..."
-msgstr ""
+msgstr "Ritorno all'originale..."
 
 #: src/Commands.vala:380
 msgid "Undoing Revert..."
-msgstr ""
+msgstr "Ripristino ritorno all'originale..."
 
 #: src/Commands.vala:424
 msgid "Enhancing..."
@@ -319,7 +319,6 @@ msgid "Merging..."
 msgstr "Unire..."
 
 #: src/Commands.vala:632
-#, fuzzy
 msgid "Unmerging..."
 msgstr "Disunire..."
 
@@ -329,7 +328,7 @@ msgstr "Duplicazionre foto..."
 
 #: src/Commands.vala:641
 msgid "Removing duplicated photos..."
-msgstr "Rimozione foto duplicate"
+msgstr "Rimozione foto duplicate..."
 
 #: src/Commands.vala:652
 #, c-format
@@ -340,11 +339,11 @@ msgstr[1] "Impossibile duplicare %d foto a causa di errori su file."
 
 #: src/Commands.vala:694 src/Commands.vala:695
 msgid "Marking as Favorite..."
-msgstr "Marca come preferito"
+msgstr "Marca come preferito..."
 
 #: src/Commands.vala:694 src/Commands.vala:695
 msgid "Unmarking as Favorite..."
-msgstr "Smarca come preferito"
+msgstr "Smarca come preferito..."
 
 #: src/Commands.vala:716 src/Commands.vala:717
 msgid "Hiding..."
@@ -352,7 +351,7 @@ msgstr "Nascondi..."
 
 #: src/Commands.vala:716 src/Commands.vala:717
 msgid "Unhiding..."
-msgstr ""
+msgstr "Mostra..."
 
 #: src/Dialogs.vala:53
 #, c-format
@@ -797,7 +796,7 @@ msgstr "L'account gratuito di Flickr limiti la quantità di dati caricabili"
 #: src/FlickrConnector.vala:373
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
-"L'account Pro di Flickr da il diritto di caricare foto illimitatamente."
+"L'account Pro di Flickr da la possibilità di caricare foto illimitatamente."
 
 #: src/FlickrConnector.vala:398
 msgid "Photos _visible to:"
@@ -1035,7 +1034,7 @@ msgstr "Importa nella libreria"
 
 #: src/LibraryWindow.vala:950
 msgid "Cameras"
-msgstr "Camere"
+msgstr "Fotocamere"
 
 #: src/main.vala:79
 #, c-format
@@ -1153,7 +1152,7 @@ msgstr "%s non esiste."
 #: src/PhotoPage.vala:1657
 #, c-format
 msgid "%s is not a file."
-msgstr "%s è un file."
+msgstr "%s non è un file."
 
 #: src/PhotoPage.vala:1659
 #, c-format
@@ -1280,7 +1279,7 @@ msgstr "Dimensione originale"
 
 #: src/Properties.vala:364
 msgid "Camera Make:"
-msgstr "Marca Fotocamera"
+msgstr "Marca Fotocamera:"
 
 #: src/Properties.vala:367
 msgid "Camera Model:"
@@ -1508,15 +1507,15 @@ msgstr "Nasconde le foto selezionate"
 
 #: src/Resources.vala:141
 msgid "Un_hide"
-msgstr ""
+msgstr "_Mostra"
 
 #: src/Resources.vala:142
 msgid "Unhide"
-msgstr ""
+msgstr "Mostra"
 
 #: src/Resources.vala:143
 msgid "Unhide the selected photos"
-msgstr ""
+msgstr "Mostra le foto selezionate"
 
 #: src/Resources.vala:145
 msgid "_Duplicate"
