@@ -1,7 +1,7 @@
 PROGRAM = shotwell
 all: $(PROGRAM)
 
-VERSION = 0.4.2+trunk
+VERSION = 0.4.3+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
