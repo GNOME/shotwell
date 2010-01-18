@@ -1,3 +1,12 @@
+shotwell (0.4.3-1~karmic1) karmic; urgency=low
+
+  * Updated Italian and French translations.
+  * Windows theme installed correctly.
+  * Problems unmounting camera fixed.
+
+ -- Jim Nelson <jim@yorba.org>  Mon, 18 Jan 2010 14:09:39 -0800
+
+
 shotwell (0.4.2-1~karmic1) karmic; urgency=low
 
   * Added Bulgarian, Portuguese, and Slovak translations.  Updated 
