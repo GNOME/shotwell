@@ -745,13 +745,49 @@ public class HideUnhideCommand : MultipleDataSourceCommand {
     }
 }
 
+public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
+    private LibraryPhoto photo;
+    private int64 time_shift;
+    private bool modify_original;
+
+    public AdjustDateTimePhotoCommand(LibraryPhoto photo, int64 time_shift, bool modify_original) {
+        base(photo, Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
+
+        this.photo = photo;
+        this.time_shift = time_shift;
+        this.modify_original = modify_original;
+    }
+
+    public override void execute() {
+        set_time(photo, photo.get_exposure_time() + (time_t) time_shift);
+    }
+
+    public override void undo() {
+        set_time(photo, photo.get_exposure_time() - (time_t) time_shift);
+    }
+
+    private void set_time(LibraryPhoto photo, time_t exposure_time) {
+        if (modify_original) {
+            try {
+                photo.set_exposure_time_persistent(exposure_time);
+            } catch(GLib.Error err) {
+                AppWindow.error_message(_("Original photo could not be adjusted."));
+            }
+        } else {
+            photo.set_exposure_time(exposure_time);
+        }
+    }
+}
+
 public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     private int64 time_shift;
     private bool keep_relativity;
+    private bool modify_originals;
 
     // used when photos are batch changed instead of shifted uniformly
     private time_t? new_time = null;
     private Gee.HashMap<LibraryPhoto, time_t?> old_times;
+    private Gee.ArrayList<LibraryPhoto> error_list;
 
     public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
         bool keep_relativity, bool modify_originals) {
@@ -760,6 +796,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
 
         this.time_shift = time_shift;
         this.keep_relativity = keep_relativity;
+        this.modify_originals = modify_originals;
 
         // TODO: implement modify originals option
 
@@ -775,24 +812,61 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         old_times = new Gee.HashMap<LibraryPhoto, time_t?>();
     }
 
+    public override void execute() {
+        error_list = new Gee.ArrayList<LibraryPhoto>();
+        base.execute();
+
+        if (error_list.size > 0) {
+            multiple_object_error_dialog(error_list, 
+                ngettext("One original photo could not be adjusted.",
+                "The following original photos could not be adjusted.", error_list.size), 
+                _("Time Adjustment Error"));
+        }
+    }
+
+    public override void undo() {
+        error_list = new Gee.ArrayList<LibraryPhoto>();
+        base.undo();
+
+        if (error_list.size > 0) {
+            multiple_object_error_dialog(error_list, 
+                ngettext("Time adjustments could not be undone on the following photo file.",
+                "Time adjustments could not be undone on the following photo files.", 
+                error_list.size), _("Time Adjustment Error"));
+        }
+    }
+
+    private void set_time(LibraryPhoto photo, time_t exposure_time) {
+        if (modify_originals) {
+            try {
+                photo.set_exposure_time_persistent(exposure_time);
+            } catch(GLib.Error err) {
+                error_list.add(photo);
+            }
+        } else {
+            photo.set_exposure_time(exposure_time);
+        }
+    }
+
     public override void execute_on_source(DataSource source) {
         LibraryPhoto photo = ((LibraryPhoto) source);
-        if (keep_relativity && photo.get_exposure_time() != 0)
-            photo.set_exposure_time(photo.get_exposure_time() + (time_t) time_shift);
-        else {
+
+        if (keep_relativity && photo.get_exposure_time() != 0) {
+            set_time(photo, photo.get_exposure_time() + (time_t) time_shift);
+        } else {
             old_times.set(photo, photo.get_exposure_time());
-            photo.set_exposure_time(new_time);
+            set_time(photo, new_time);
         }
     }
 
     public override void undo_on_source(DataSource source) {
         LibraryPhoto photo = ((LibraryPhoto) source);
+
         if (old_times.has_key(photo)) {
-            photo.set_exposure_time(old_times.get(photo));
+            set_time(photo, old_times.get(photo));
             old_times.unset(photo);
         } else {
-            photo.set_exposure_time(photo.get_exposure_time() - (time_t) time_shift);
+            set_time(photo, photo.get_exposure_time() - (time_t) time_shift);
         }
     }
 }
-

@@ -626,7 +626,6 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
             "_Modify Original", "_Modify Originals", photo_count));
         modify_originals_check_button.set_active(Config.get_instance().get_modify_originals());
-        modify_originals_check_button.sensitive = false;
 
         Gtk.VBox time_content = new Gtk.VBox(false, 0);
 
@@ -805,4 +804,28 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         on_time_changed();
     }
+}
+
+public const int MAX_OBJECTS_DISPLAYED = 3;
+public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, string message, 
+    string title) {
+    string dialog_message = message + "\n";
+
+    //add objects
+    for(int i = 0; i < MAX_OBJECTS_DISPLAYED && objects.size > i; i++)
+        dialog_message += "\n" + objects.get(i).to_string();
+
+    int remainder = objects.size - MAX_OBJECTS_DISPLAYED;
+    if (remainder > 0) {
+        dialog_message += ngettext("\n\nAnd 1 other.", "\n\nAnd %d others.",
+            remainder);
+    }
+
+    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),
+        Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", dialog_message);
+    
+    dialog.title = title;
+    
+    dialog.run();
+    dialog.destroy();
 }

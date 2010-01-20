@@ -212,8 +212,8 @@ public abstract class TransformablePhoto: PhotoSource {
         string thumbnail_md5 = null;
         string exif_md5 = null;
         
-        PhotoExif? exif = interrogator.get_exif();
-        if (exif != null) {
+        if (interrogator.has_exif()) {
+            PhotoExif exif = interrogator.get_exif();
             if (!exif.get_timestamp(out exposure_time))
                 message("Unable to read EXIF orientation for %s", file.get_path());
 
@@ -540,11 +540,26 @@ public abstract class TransformablePhoto: PhotoSource {
         info.get_modification_time(out timestamp);
         
         // TODO: Use actual pixbuf dimensions, not EXIF
-        // TODO: Generate MD5 fingerprints
+
+        // interrogate file for photo information
+        PhotoFileInterrogator interrogator = null;
+        try {
+            interrogator = new PhotoFileInterrogator(file, PhotoFileInterrogator.Options.ALL);
+        } catch (Error err) {
+            warning("Unable to interrogate photo file %s: %s", file.get_path(), err.message);
+        }
+
+        string md5 = interrogator.get_md5();
+
+        string? exif_md5 = null, thumbnail_md5 = null;
+        if (exif != null) {
+            exif_md5 = exif.get_md5();
+            thumbnail_md5 = exif.get_thumbnail_md5();
+        }
         
         PhotoID photo_id = get_photo_id();
         if (PhotoTable.get_instance().update(photo_id, dim, info.get_size(), timestamp.tv_sec, 
-            exposure_time, orientation)) {
+            exposure_time, orientation, md5, exif_md5, thumbnail_md5)) {
             // cache coherency
             lock (row) {
                 row.dim = dim;
@@ -553,6 +568,12 @@ public abstract class TransformablePhoto: PhotoSource {
                 row.exposure_time = exposure_time;
                 row.orientation = orientation;
                 row.original_orientation = orientation;
+                row.md5 = md5;
+
+                if (exif != null) {
+                    row.exif_md5 = exif_md5;
+                    row.thumbnail_md5 = thumbnail_md5;
+                }
                 
                 // because image has changed, all transformations are suspect
                 remove_all_transformations();
@@ -566,6 +587,58 @@ public abstract class TransformablePhoto: PhotoSource {
             
             // metadata currently only means Event
             notify_altered();
+            notify_metadata_altered();
+        }
+    }
+
+    // used to update the database after an internal metadata exif write
+    public void file_exif_updated() {
+        File file = get_file();
+    
+        FileInfo info = null;
+        try {
+            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            error("Unable to read file information for %s: %s", to_string(), err.message);
+        }
+        
+        TimeVal timestamp = TimeVal();
+        info.get_modification_time(out timestamp);
+        
+        // interrogate file for photo information
+        PhotoFileInterrogator interrogator = null;
+        try {
+            interrogator = new PhotoFileInterrogator(file, PhotoFileInterrogator.Options.ALL);
+        } catch (Error err) {
+            warning("Unable to interrogate photo file %s: %s", file.get_path(), err.message);
+        }
+
+        PhotoID photo_id = get_photo_id();
+        string md5 = interrogator.get_md5();
+
+        PhotoExif exif = new PhotoExif(file);
+        string? exif_md5 = null, thumbnail_md5 = null;
+        if (exif != null) {
+            exif_md5 = exif.get_md5();
+            thumbnail_md5 = exif.get_thumbnail_md5();
+        }
+
+        if (PhotoTable.get_instance().file_exif_updated(photo_id, info.get_size(),
+            timestamp.tv_sec, md5, exif_md5, thumbnail_md5)) {
+            // cache coherency
+            lock (row) {
+                row.filesize = info.get_size();
+                row.timestamp = timestamp.tv_sec;
+                row.md5 = md5;
+
+                if (exif != null) {
+                    row.exif_md5 = exif_md5;
+                    row.thumbnail_md5 = thumbnail_md5;
+                }
+            }
+            
+            // metadata currently only means Event
+            notify_metadata_altered();
         }
     }
 
@@ -603,6 +676,16 @@ public abstract class TransformablePhoto: PhotoSource {
         
         if (committed)
             notify_metadata_altered();
+    }
+
+    public void set_exposure_time_persistent(time_t time) throws Error {
+        PhotoExif exif = get_photoexif();
+        exif.set_timestamp(time);
+        exif.commit();
+
+        set_exposure_time(time);
+        
+        file_exif_updated();
     }
     
     // Returns cropped and rotated dimensions
@@ -704,10 +787,12 @@ public abstract class TransformablePhoto: PhotoSource {
             notify_altered();
     }
 
+    public PhotoExif get_photoexif() {
+        return new PhotoExif(get_file());
+    }
+
     public override Exif.Data? get_exif() {
-        PhotoExif photo_exif = new PhotoExif(get_file());
-        
-        return photo_exif.has_exif() ? photo_exif.get_exif() : null;
+        return get_photoexif().get_exif();
     }
     
     // Transformation storage and exporting
@@ -733,13 +818,15 @@ public abstract class TransformablePhoto: PhotoSource {
         return transformed;
     }
     
-    private bool is_only_rotated() {
-        bool only_rotated;
+    private bool only_exif_changed() {
+        bool exif_changed;
         lock (row) {
-            only_rotated = row.transformations == null && row.orientation != row.original_orientation;
+            exif_changed = row.transformations == null && 
+                          row.orientation != row.original_orientation;
+            // TODO: check if exposure_time has changed
         }
         
-        return only_rotated;
+        return exif_changed;
     }
     
     public PhotoTransformationState save_transformation_state() {
@@ -1434,19 +1521,19 @@ public abstract class TransformablePhoto: PhotoSource {
         File original_file = get_file();
         Exif.Data original_exif = get_exif();
         
-        // if only rotated, only need to copy and modify the EXIF
-        if (is_only_rotated() && original_exif != null) {
+        if (only_exif_changed() && original_exif != null) {
             original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
 
             PhotoExif dest_exif = new PhotoExif(dest_file);
             dest_exif.set_orientation(get_orientation());
+            //TODO: set timestamp
             dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
             pixbuf.save(dest_file.get_path(), "jpeg", "quality", 
                 EXPORT_JPEG_QUALITY.get_pct_text());
             copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
-                Dimensions.for_pixbuf(pixbuf));
+                Dimensions.for_pixbuf(pixbuf), get_exposure_time());
         }
         
         return dest_file;
@@ -1457,11 +1544,12 @@ public abstract class TransformablePhoto: PhotoSource {
     public virtual void export_failed() {
     }
     
-    public static void copy_exported_exif(Exif.Data source, PhotoExif dest, Orientation orientation, 
-        Dimensions dim) throws Error {
+    public static void copy_exported_exif(Exif.Data source, PhotoExif dest, Orientation orientation,
+        Dimensions dim, time_t timestamp) throws Error {
         dest.set_exif(source);
         dest.set_dimensions(dim);
         dest.set_orientation(orientation);
+        dest.set_timestamp(timestamp);
         dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_WIDTH);
         dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_LENGTH);
         dest.remove_thumbnail();
@@ -1503,7 +1591,8 @@ public abstract class TransformablePhoto: PhotoSource {
             
             Exif.Data exif = get_exif();
             if (exif != null)
-                copy_exported_exif(exif, new PhotoExif(dest_file), Orientation.TOP_LEFT, scaled);
+                copy_exported_exif(exif, new PhotoExif(dest_file), Orientation.TOP_LEFT, scaled,
+                    get_exposure_time());
         } catch (Error err) {
             export_failed();
             

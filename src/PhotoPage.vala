@@ -929,6 +929,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
+    public void on_adjust_date_time() {
+        if (!has_photo())
+            return;
+
+        AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(get_photo(), 1);
+
+        int64 time_shift;
+        bool keep_relativity, modify_originals;
+        if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
+            get_view().get_selected();
+            
+            AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(
+                (LibraryPhoto) get_photo(), time_shift, modify_originals);
+            get_command_manager().execute(command);
+        }
+    }
+
     public void on_set_background() {
         if (!has_photo())
             return;
@@ -1237,6 +1254,12 @@ public class LibraryPhotoPage : EditingHostPage {
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
+
+        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_adjust_date_time };
+        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
+        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
+        actions += adjust_date_time;
 
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };

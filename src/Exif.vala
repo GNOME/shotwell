@@ -10,6 +10,8 @@ namespace Exif {
     
     // Caller must set Entry.data with one of the various convert functions.
     public Exif.Entry alloc_entry(Exif.Content parent, Exif.Tag tag, Exif.Format format) {
+        debug("Allocating new exif entry");
+
         // the recipe for alloc'ing an entry: allocate, add to parent, initialize.  Parent is
         // required for initialize() to know the byte-order
         Exif.Entry entry = new Exif.Entry();
@@ -17,6 +19,13 @@ namespace Exif {
         entry.initialize(tag);
         
         return entry;
+    }
+    
+    public void set_ascii(Exif.Entry entry, string str) {
+        entry.format = Exif.Format.ASCII;
+        entry.components = str.length + 1;
+        entry.size = Exif.Format.ASCII.get_size() * (uint) entry.components;
+        entry.data = str.dup();
     }
     
     public Exif.Entry? find_first_entry(Data data, Exif.Tag tag, Exif.Format format) {
@@ -79,6 +88,10 @@ namespace Exif {
         timestamp = tm.mktime();
         
         return true;
+    }
+
+    public string convert_timestamp(time_t timestamp) {
+        return Time.local(timestamp).format("%Y:%m:%d %H:%M:%S");
     }
 
     public bool get_timestamp(Exif.Data exif, out time_t timestamp) {
@@ -419,7 +432,7 @@ extern void free(void *ptr);
 
 public class PhotoExif  {
     private File file;
-    private Exif.Data exif = null;
+    private Exif.Data exif = new Exif.Data();
     private bool no_exif = false;
     
     public PhotoExif(File file) {
@@ -547,24 +560,19 @@ public class PhotoExif  {
     
     // Returns the MD5 hash of the thumbnail
     public string? get_thumbnail_md5() {
-        Exif.Data data = get_exif();
-        if (data == null)
+        if (has_exif())
             return null;
-        
+
+        Exif.Data data = get_exif();
         if (data.data == null || data.size <= 0)
             return null;
         
         return md5_binary(data.data, data.size);
     }
     
-    public Exif.Data? get_exif() {
-        if (exif != null)
-            return exif;
-        
-        if (!has_exif())
-            return null;
-            
-        update();
+    public Exif.Data get_exif() {  
+        if (has_exif())         
+            update();
 
         return exif;
     }
@@ -607,6 +615,20 @@ public class PhotoExif  {
         
         return datetime.get_value();
     }
+
+    public void set_datetime(string datetime) {
+        update();
+    
+        Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.DATE_TIME_ORIGINAL,
+            Exif.Format.ASCII);
+        
+        if (entry == null) {
+            // add the entry to the 0th (primary) IFD
+            entry = Exif.alloc_entry(exif.ifd[0], Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
+        }
+        
+        Exif.set_ascii(entry, datetime);
+    }
     
     public bool get_timestamp(out time_t timestamp) {
         string datetime = get_datetime();
@@ -615,21 +637,19 @@ public class PhotoExif  {
         
         return Exif.convert_datetime(datetime, out timestamp);
     }
+
+    public void set_timestamp(time_t timestamp) {
+        set_datetime(Exif.convert_timestamp(timestamp));
+    }
     
     public int remove_all_tags(Exif.Tag tag) {
         update();
-        
-        if (exif == null)
-            return 0;
     
         return Exif.remove_all_tags(exif, tag);
     }
     
     public bool remove_thumbnail() {
         update();
-        
-        if (exif == null)
-            return false;
         
         if (exif.data == null)
             return false;
@@ -646,24 +666,21 @@ public class PhotoExif  {
             return;
             
         // TODO: Update internal data structures if file changes
-        if (exif != null)
-            return;
         
-        exif = Exif.Data.new_from_file(file.get_path());
-        if (exif == null) {
+        Exif.Data new_exif = Exif.Data.new_from_file(file.get_path());
+        if (new_exif == null) {
             no_exif = true;
             
             return;
         }
 
+        exif = new_exif;
+
         // fix now, all at once
         exif.fix();
     }
     
-    public void commit() throws Error {
-        if (exif == null)
-            return;
-        
+    public void commit() throws Error {       
         FileInputStream fins = file.read(null);
         
         Jpeg.Marker marker;
@@ -688,7 +705,7 @@ public class PhotoExif  {
         exif.save_data(&flattened, &flattened_size);
         assert(flattened != null);
         assert(flattened_size > 0);
-
+        
         try {
             if ((flattened_size == segment_length) && original_has_exif) {
                 // the new EXIF data is exactly the same size as the data in the file, so simply
@@ -768,6 +785,8 @@ public class PhotoExif  {
         } finally {
             free(flattened);
         }
+
+        no_exif = false;
     }
 
     private static FileOutputStream? create_temp(File original, out File temp) throws Error {

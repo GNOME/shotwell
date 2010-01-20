@@ -513,12 +513,15 @@ public class PhotoTable : DatabaseTable {
     }
     
     public bool update(PhotoID photoID, Dimensions dim, int64 filesize, long timestamp, 
-        time_t exposure_time, Orientation orientation) {
+        time_t exposure_time, Orientation orientation, string md5, string? exif_md5, 
+        string? thumbnail_md5) {
         
         Sqlite.Statement stmt;
+
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET width = ?, height = ?, filesize = ?, timestamp = ?, "
-            + "exposure_time = ?, orientation = ?, original_orientation = ? WHERE id = ?", -1, out stmt);
+            + "exposure_time = ?, orientation = ?, original_orientation = ?, md5 = ?, " 
+            + "exif_md5 = ?, thumbnail_md5 =? WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         debug("Update [%lld] %dx%d size=%lld mod=%ld exp=%ld or=%d", photoID.id, dim.width, 
@@ -538,13 +541,56 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int(7, orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(7, photoID.id);
+        res = stmt.bind_text(8, md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(9, exif_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(10, thumbnail_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(11, photoID.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
         if (res != Sqlite.DONE) {
             if (res != Sqlite.CONSTRAINT)
                 fatal("update_photo", res);
+            
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool file_exif_updated(PhotoID photoID, int64 filesize, long timestamp, 
+        string md5, string? exif_md5, string? thumbnail_md5) {
+        
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2(
+            "UPDATE PhotoTable SET filesize = ?, timestamp = ?, md5 = ?, exif_md5 = ?,"
+            + "thumbnail_md5 =? WHERE id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        debug("Update [%lld] size=%lld mod=%ld md5=%s exifmd5=%s thumbmd5=%s", photoID.id,
+            filesize, timestamp, md5, exif_md5, thumbnail_md5);
+
+        res = stmt.bind_int64(1, filesize);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, timestamp);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(3, md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(4, exif_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(5, thumbnail_md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(6, photoID.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            if (res != Sqlite.CONSTRAINT)
+                fatal("write_update_photo", res);
             
             return false;
         }
