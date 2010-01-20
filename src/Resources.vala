@@ -99,6 +99,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string REVERT_MENU = _("Re_vert to Original");
     public const string REVERT_LABEL = _("Revert to Original");
     public const string REVERT_TOOLTIP = _("Revert to the original photo");
+
+    public const string SET_BACKGROUND_MENU = _("Set as Desktop _Background");
+    public const string SET_BACKGROUND_TOOLTIP = _("Set selected image to be the new desktop background");
     
     public const string UNDO_MENU = _("_Undo");
     public const string UNDO_LABEL = _("Undo");

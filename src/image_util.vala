@@ -471,3 +471,19 @@ public class PhotoFileInterrogator {
     }
 }
 
+
+public void set_desktop_background(TransformablePhoto photo) {
+    File save_as = AppDirs.get_data_subdir("wallpaper").get_child("wallpaper.jpg");
+
+    if (save_as == null)
+        return;
+    
+    try {
+        photo.export(save_as, 1, ScaleConstraint.ORIGINAL, Jpeg.Quality.MAXIMUM);
+    } catch (Error err) {
+        AppWindow.error_message(_("Unable to export background to %s: %s").printf(save_as.get_path(), err.message));
+        return;
+    }
+
+    Config.get_instance().set_background(save_as.get_path());
+}

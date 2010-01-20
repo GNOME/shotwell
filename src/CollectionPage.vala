@@ -263,6 +263,12 @@ public abstract class CollectionPage : CheckerboardPage {
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
+
+        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
+            TRANSLATABLE, on_set_background };
+        set_background.label = Resources.SET_BACKGROUND_MENU;
+        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
+        actions += set_background;
         
         Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
             "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
@@ -487,6 +493,13 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
+
+#if WINDOWS
+        set_item_sensitive("/CollectionContextMenu/ContextSetBackground", false);
+#else
+        set_item_sensitive("/CollectionContextMenu/ContextSetBackground",
+            get_view().get_selected_count() == 1);
+#endif 
 
         return true;
     }
@@ -805,6 +818,13 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
+
+#if WINDOWS
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/ContextSetBackground", false);
+#else
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetBackground",
+            get_view().get_selected_count() == 1);
+#endif 
     }
     
     private void on_increase_size() {
@@ -953,6 +973,17 @@ public abstract class CollectionPage : CheckerboardPage {
                 get_view().get_selected(), time_shift, keep_relativity, modify_originals);
             get_command_manager().execute(command);
         }
+    }
+
+    public void on_set_background() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        TransformablePhoto photo = (TransformablePhoto) get_view().get_selected_at(0).get_source();
+        if (photo == null)
+            return;        
+        
+        set_desktop_background(photo);
     }
 
     private void on_slideshow() {

@@ -929,6 +929,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
+    public void on_set_background() {
+        if (!has_photo())
+            return;
+        
+        set_desktop_background(get_photo());
+    }
+
     private override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
@@ -1231,6 +1238,12 @@ public class LibraryPhotoPage : EditingHostPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
 
+        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
+            TRANSLATABLE, on_set_background };
+        set_background.label = Resources.SET_BACKGROUND_MENU;
+        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
+        actions += set_background;
+
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
         actions += help;
@@ -1254,11 +1267,13 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackground", sensitivity);
 
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/ContextSetBackground", sensitivity);
         
         base.set_missing_photo_sensitivities(sensitivity);
     }
@@ -1307,6 +1322,10 @@ public class LibraryPhotoPage : EditingHostPage {
             is_rotate_available(get_photo()));
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
         set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
+
+#if WINDOWS
+        set_item_sensitive("/PhotoContextMenu/ContextSetBackground", false);
+#endif 
 
         context_menu.popup(null, null, null, event.button, event.time);
         
@@ -1399,6 +1418,10 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", enhance_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
+
+#if WINDOWS
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackground", false);
+#endif 
     }
 }
 
@@ -1681,6 +1704,12 @@ public class DirectPhotoPage : EditingHostPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
 
+        Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
+            TRANSLATABLE, on_set_background };
+        set_background.label = Resources.SET_BACKGROUND_MENU;
+        set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
+        actions += set_background;
+
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
         view.label = _("_View");
         actions += view;
@@ -1738,6 +1767,7 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/DirectContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/DirectContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/DirectContextMenu/ContextRevert", sensitivity);
+        set_item_sensitive("/DirectContextMenu/ContextSetBackground", sensitivity);
         
         base.set_missing_photo_sensitivities(sensitivity);
     }

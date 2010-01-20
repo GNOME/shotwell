@@ -40,6 +40,8 @@
             <separator />
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
+            <separator />
+            <menuitem name="SetBackground" action="SetBackground" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -57,6 +59,8 @@
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
+        <separator />
+        <menuitem name="ContextSetBackground" action="SetBackground" />
     </popup>
     
 </ui>

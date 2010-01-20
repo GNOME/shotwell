@@ -366,5 +366,14 @@ public class Config {
     public bool set_modify_originals(bool modify_originals) {
         return set_bool("/apps/shotwell/preferences/ui/modify_originals", modify_originals);
     }
+
+    public string get_background() {
+        return get_string("/desktop/gnome/background/picture_filename", null);
+    }
+
+    public bool set_background(string filename) {
+        set_string("/desktop/gnome/background/picture_options", "zoom");
+        return set_string("/desktop/gnome/background/picture_filename", filename);
+    }
 }
 
