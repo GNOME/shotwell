@@ -111,6 +111,10 @@ public struct Dimensions {
         height_ratio = (double) scaled.height / (double) height;
     }
 
+    public double get_aspect_ratio() {
+        return ((double) width) / height;
+    }
+
     public Dimensions get_scaled_proportional(Dimensions viewport) {
         double width_ratio, height_ratio;
         get_scale_ratios(viewport, out width_ratio, out height_ratio);

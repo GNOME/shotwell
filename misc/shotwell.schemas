@@ -187,6 +187,84 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/printing/content_layout</key>
+            <applyto>/apps/shotwell/printing/content_layout</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>3</default>
+
+            <locale name="en">
+                <short>content layout mode</short>
+                <long>A numeric code that describes how photos are laid out on the page during printing</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/printing/content_width</key>
+            <applyto>/apps/shotwell/printing/content_width</applyto>
+            <type>float</type>
+            <owner>shotwell</owner>
+            <default>7.0</default>
+
+            <locale name="en">
+                <short>content width</short>
+                <long>The width of the printed emulsion on the page when printing</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/printing/content_height</key>
+            <applyto>/apps/shotwell/printing/content_height</applyto>
+            <type>float</type>
+            <owner>shotwell</owner>
+            <default>5.0</default>
+
+            <locale name="en">
+                <short>content height</short>
+                <long>The height of the printed emulsion on the page when printing</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/printing/content_units</key>
+            <applyto>/apps/shotwell/printing/content_units</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>1</default>
+
+            <locale name="en">
+                <short>content units</short>
+                <long>A numeric code representing unit of measure (inches or centimeters) used when printing</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/printing/size_selection</key>
+            <applyto>/apps/shotwell/printing/size_selection</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>3</default>
+
+            <locale name="en">
+                <short>size selection</short>
+                <long>The index of the current print size in a pre-defined list of standard sizes</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/printing/match_aspect_ratio</key>
+            <applyto>/apps/shotwell/printing/match_aspect_ratio</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>true</default>
+
+            <locale name="en">
+                <short>match aspect ratio</short>
+                <long>Determines whether custom print sizes must match the aspect ratio of the original photo</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/preferences/ui/display_hidden_photos</key>
             <applyto>/apps/shotwell/preferences/ui/display_hidden_photos</applyto>
             <type>bool</type>

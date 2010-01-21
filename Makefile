@@ -102,7 +102,8 @@ VAPI_FILES = \
 	libgphoto2.vapi \
 	FixedKeyFile.vapi \
 	ExtendedPosix.vapi \
-	gudev-1.0.vapi
+	gudev-1.0.vapi \
+    LConv.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -137,7 +138,8 @@ LOCAL_PKGS = \
 	FixedKeyFile \
 	ExtendedPosix \
 	posix \
-	gudev-1.0
+	gudev-1.0 \
+    LConv
 
 EXT_PKGS = \
 	atk \

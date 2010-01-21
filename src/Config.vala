@@ -232,6 +232,54 @@ public class Config {
         return get_string("/apps/shotwell/sharing/facebook/user_name");
     }
 
+    public bool set_printing_content_layout(int layout_code) {
+        return set_int("/apps/shotwell/printing/content_layout", layout_code + 1);
+    }
+
+    public int get_printing_content_layout() {
+        return get_int("/apps/shotwell/printing/content_layout", 1) - 1;
+    }
+
+    public bool set_printing_content_width(double content_width) {
+        return set_double("/apps/shotwell/printing/content_width", content_width);
+    }
+
+    public double get_printing_content_width() {
+        return get_double("/apps/shotwell/printing/content_width", 7.0);
+    }
+
+    public bool set_printing_content_height(double content_height) {
+        return set_double("/apps/shotwell/printing/content_height", content_height);
+    }
+
+    public double get_printing_content_height() {
+        return get_double("/apps/shotwell/printing/content_height", 5.0);
+    }
+
+    public bool set_printing_content_units(int units_code) {
+        return set_int("/apps/shotwell/printing/content_units", units_code + 1);
+    }
+
+    public int get_printing_content_units() {
+        return get_int("/apps/shotwell/printing/content_units", 1) - 1;
+    }
+
+    public bool set_printing_size_selection(int size_code) {
+        return set_int("/apps/shotwell/printing/size_selection", size_code + 1);
+    }
+
+    public int get_printing_size_selection() {
+        return get_int("/apps/shotwell/printing/size_selection", 1) - 1;
+    }
+
+    public bool set_printing_match_aspect_ratio(bool match_aspect_ratio) {
+        return set_bool("/apps/shotwell/printing/match_aspect_ratio", match_aspect_ratio);
+    }
+
+    public bool get_printing_match_aspect_ratio() {
+        return get_bool("/apps/shotwell/printing/match_aspect_ratio", true);
+    }
+
     public bool set_display_basic_properties(bool display) {
         return set_bool("/apps/shotwell/preferences/ui/display_basic_properties", display);
     }
