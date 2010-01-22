@@ -10,6 +10,12 @@ public enum ContentLayout {
 }
 
 public struct PrintSettings {
+    public const int MIN_CONTENT_PPI = 72;    /* 72 ppi is the pixel resolution of a 14" VGA
+                                                 display -- it's standard for historical reasons */
+    public const int MAX_CONTENT_PPI = 1200;  /* 1200 ppi is appropriate for a 3600 dpi imagesetter
+                                                 used to produce photographic plates for commercial
+                                                 printing -- it's the highest pixel resolution
+                                                 commonly used */
     private ContentLayout content_layout;
     private Measurement content_width;
     private Measurement content_height;
@@ -27,7 +33,7 @@ public struct PrintSettings {
         size_selection = config.get_printing_size_selection();
         content_layout = (ContentLayout) config.get_printing_content_layout();
         match_aspect_ratio = config.get_printing_match_aspect_ratio();
-        content_ppi = 200;
+        content_ppi = config.get_printing_content_ppi();
     }
 
     public void save() {
@@ -39,6 +45,7 @@ public struct PrintSettings {
         config.set_printing_size_selection(size_selection);
         config.set_printing_content_layout(content_layout);
         config.set_printing_match_aspect_ratio(match_aspect_ratio);
+        config.set_printing_content_ppi(content_ppi);
     }
 
 
@@ -186,6 +193,7 @@ public class CustomPrintTab : Gtk.Fixed {
     private Gtk.ComboBox units_combo = null;
     private Gtk.Entry custom_width_entry = null;
     private Gtk.Entry custom_height_entry = null;
+    private Gtk.Entry ppi_entry;
     private Gtk.CheckButton aspect_ratio_check = null;
     private Measurement local_content_width = Measurement(5.0, MeasurementUnit.INCHES);
     private Measurement local_content_height = Measurement(5.0, MeasurementUnit.INCHES);
@@ -198,7 +206,7 @@ public class CustomPrintTab : Gtk.Fixed {
 
         Gtk.VBox inner_wrapper = new Gtk.VBox(true, 8);
 
-        Gtk.Table image_size_layouter = new Gtk.Table(4, 3, false);
+        Gtk.Table image_size_layouter = new Gtk.Table(7, 3, false);
 
         Gtk.Label image_size_header = new Gtk.Label("");
         image_size_header.set_markup("<b>" + _("Printed Image Size") + "</b>");
@@ -294,6 +302,44 @@ public class CustomPrintTab : Gtk.Fixed {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
 
+        Gtk.SeparatorToolItem size_ppi_spacer = new Gtk.SeparatorToolItem();
+        size_ppi_spacer.set_size_request(-1, 20);
+        size_ppi_spacer.set_draw(false);
+        image_size_layouter.attach(size_ppi_spacer, 0, 2, 4, 5,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+
+        Gtk.Label ppi_header = new Gtk.Label("");
+        ppi_header.set_markup("<b>" + _("Pixel Resolution") + "</b>");
+        image_size_layouter.attach(ppi_header, 0, 2, 5, 6,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+        ppi_header.set_alignment(0.0f, 0.5f);
+
+        Gtk.HBox ppi_entry_layouter = new Gtk.HBox(false, 0);
+        Gtk.Label ppi_entry_title = new Gtk.Label.with_mnemonic(_("_Output photo at:"));
+        ppi_entry_title.set_alignment(0.0f, 0.5f);
+        ppi_entry_layouter.add(ppi_entry_title);
+        ppi_entry = new Gtk.Entry();
+        ppi_entry.focus_out_event += on_ppi_entry_focus_out;
+        ppi_entry.insert_text += on_ppi_entry_insert_text;
+        ppi_entry_title.set_mnemonic_widget(ppi_entry);
+        ppi_entry.set_size_request(60, -1);
+        Gtk.Alignment ppi_entry_aligner =
+            new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
+        ppi_entry_aligner.add(ppi_entry);
+        ppi_entry_layouter.add(ppi_entry_aligner);
+        Gtk.Label ppi_units_label = new Gtk.Label(_("pixels per inch"));
+        ppi_entry_layouter.add(ppi_units_label);
+        ppi_units_label.set_alignment(0.0f, 0.5f);
+        Gtk.SeparatorToolItem ppi_entry_right_padding = new Gtk.SeparatorToolItem();
+        ppi_entry_right_padding.set_size_request(220, -1);
+        ppi_entry_right_padding.set_draw(false);
+        ppi_entry_layouter.add(ppi_entry_right_padding);
+        image_size_layouter.attach(ppi_entry_layouter, 1, 3, 6, 7,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+
         Gtk.HBox horiz_packer = new Gtk.HBox(false, 8);
         horiz_packer.add(image_size_layouter);
         Gtk.SeparatorToolItem right_padding = new Gtk.SeparatorToolItem();
@@ -302,12 +348,12 @@ public class CustomPrintTab : Gtk.Fixed {
         horiz_packer.add(right_padding);
         inner_wrapper.add(horiz_packer);
         Gtk.SeparatorToolItem bottom_padding = new Gtk.SeparatorToolItem();
-        bottom_padding.set_size_request(-1, 100);
+        bottom_padding.set_size_request(-1, 40);
         bottom_padding.set_draw(false);
         inner_wrapper.add(bottom_padding);
 
         put(inner_wrapper, 8, 8);
-        inner_wrapper.set_size_request(550, 240);
+        inner_wrapper.set_size_request(550, 340);
 
         sync_state_from_job(source_job);
 
@@ -361,6 +407,35 @@ public class CustomPrintTab : Gtk.Fixed {
         Measurement converted_measurement = (measurement.unit == to_unit) ? measurement :
             measurement.convert_to(to_unit);
         return format_measurement(converted_measurement);
+    }
+
+    private bool on_ppi_entry_focus_out(Gdk.EventFocus event) {
+        set_content_ppi(ppi_entry.get_text().to_int());
+        return false;
+    }
+
+    private void on_ppi_entry_insert_text(Gtk.Entry sender, string text, int length,
+        void *position) {
+        if (is_text_insertion_in_progress)
+            return;
+
+        is_text_insertion_in_progress = true;
+        
+        if (length == -1)
+            length = (int) text.length;
+
+        string new_text = "";
+        for (int ctr = 0; ctr < length; ctr++) {
+            if (text[ctr].isdigit())
+                new_text += ((char) text[ctr]).to_string();
+        }
+
+        if (new_text.length > 0)
+            sender.insert_text(new_text, (int) new_text.length, position);
+
+        Signal.stop_emission_by_name(sender, "insert-text");
+
+        is_text_insertion_in_progress = false;
     }
 
     private bool on_height_entry_focus_out(Gdk.EventFocus event) {
@@ -588,7 +663,10 @@ public class CustomPrintTab : Gtk.Fixed {
     }
 
     private void set_content_ppi(int content_ppi) {
-        local_content_ppi = content_ppi;
+        local_content_ppi = content_ppi.clamp(PrintSettings.MIN_CONTENT_PPI,
+            PrintSettings.MAX_CONTENT_PPI);
+
+        ppi_entry.set_text("%d".printf(local_content_ppi));
     }
 
     private int get_content_ppi() {
@@ -744,6 +822,7 @@ public class PrintManager {
 
     public void spool_photo(TransformablePhoto source_photo) {
         PrintJob job = new PrintJob(source_photo);
+        job.set_custom_tab_label(_("Image Settings"));
         job.set_unit(Gtk.Unit.INCH);
         job.set_n_pages(1);
         job.set_job_name(source_photo.get_name());
@@ -937,7 +1016,7 @@ public class PrintManager {
         Scaling pixbuf_scaling = Scaling.for_best_fit(major_axis_num_pixels, true);
         photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(photo_pixbuf, Gdk.InterpType.HYPER,
             true);
-        
+
         double inv_dpi = 1.0 / ((double) job.get_local_settings().get_content_ppi());
         dc.translate(x_offset, y_offset);
         dc.scale(inv_dpi, inv_dpi);

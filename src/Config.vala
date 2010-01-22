@@ -240,6 +240,14 @@ public class Config {
         return get_int("/apps/shotwell/printing/content_layout", 1) - 1;
     }
 
+    public bool set_printing_content_ppi(int content_ppi) {
+        return set_int("/apps/shotwell/printing/content_ppi", content_ppi);
+    }
+
+    public int get_printing_content_ppi() {
+        return get_int("/apps/shotwell/printing/content_ppi", 600);
+    }
+
     public bool set_printing_content_width(double content_width) {
         return set_double("/apps/shotwell/printing/content_width", content_width);
     }

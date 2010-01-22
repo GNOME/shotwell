@@ -200,6 +200,19 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/printing/content_ppi</key>
+            <applyto>/apps/shotwell/printing/content_ppi</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>600</default>
+
+            <locale name="en">
+                <short>content ppi</short>
+                <long>The number of pixels per inch (ppi) sent to the printer during printing</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/printing/content_width</key>
             <applyto>/apps/shotwell/printing/content_width</applyto>
             <type>float</type>
