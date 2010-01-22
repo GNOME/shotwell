@@ -1199,7 +1199,7 @@ public class LibraryPhotoPage : EditingHostPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_remove };
         remove.label = _("Re_move");
         remove.tooltip = _("Remove the photo from your library");

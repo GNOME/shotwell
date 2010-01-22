@@ -211,7 +211,7 @@ public abstract class CollectionPage : CheckerboardPage {
         select_all.tooltip = _("Select all the photos in the library");
         actions += select_all;
 
-        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_remove };
         remove.label = _("Re_move");
         remove.tooltip = _("Remove the selected photos from the library");
