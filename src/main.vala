@@ -218,7 +218,8 @@ void main(string[] args) {
         string arg = args[ctr];
         
         if (arg.has_prefix("--")) {
-            if (arg == _("--no-startup-progress"))
+            // command-line switches are *not* localized
+            if (arg == "--no-startup-progress")
                 show_startup_progress = false;
         } else if (LibraryWindow.is_mount_uri_supported(arg)) {
             mounts += arg;
