@@ -103,7 +103,7 @@ class ImportSource : PhotoSource {
         debug("Deleting %s", to_string());
         
         GPhoto.Result result = camera.delete_file(get_fulldir(), get_filename(),
-            ImportPage.null_context.context);
+            ImportPage.spin_idle_context.context);
         if (result != GPhoto.Result.OK)
             warning("Error deleting %s: %s", to_string(), result.as_string());
         
@@ -137,10 +137,8 @@ class ImportPreview : LayoutItem {
     public bool is_already_imported() {
         ImportSource source = (ImportSource) get_source();
         
-        bool exif_match = PhotoTable.get_instance().has_exif_md5(source.get_exif_md5());
-        bool thumbnail_match = PhotoTable.get_instance().has_thumbnail_md5(source.get_preview_md5());
-        
-        return exif_match || thumbnail_match;
+        return TransformablePhoto.is_duplicate(null, source.get_exif_md5(), source.get_preview_md5(),
+            null);
     }
 }
 
@@ -166,11 +164,19 @@ public class ImportPage : CheckerboardPage {
         private GPhoto.ContextWrapper context;
         private ImportSource import_file;
         private File? dest_file;
+        private GPhoto.Camera camera;
+        private string fulldir;
+        private string filename;
         
         public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file, File? dest_file) {
             this.context = context;
             this.import_file = import_file;
             this.dest_file = dest_file;
+            
+            // stash everything called in prepare(), as it may/will be called from a separate thread
+            camera = import_file.get_camera();
+            fulldir = import_file.get_fulldir();
+            filename = import_file.get_filename();
         }
         
         public time_t get_exposure_time() {
@@ -178,26 +184,22 @@ public class ImportPage : CheckerboardPage {
         }
         
         public override string get_identifier() {
-            return import_file.get_filename();
+            return filename;
         }
         
         public ImportSource get_source() {
             return import_file;
         }
         
-        public override bool prepare(out File file_to_import, out bool copy_to_library) {
+        public override bool is_directory() {
+            return false;
+        }
+        
+        public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
             if (dest_file == null)
                 return false;
             
-            try {
-                GPhoto.save_image(context.context, import_file.get_camera(), import_file.get_fulldir(),
-                    import_file.get_filename(), dest_file);
-            } catch (Error err) {
-                warning("Unable to fetch photo from %s to %s: %s", import_file.to_string(), 
-                    dest_file.get_path(), err.message);
-
-                return false;
-            }
+            GPhoto.save_image(context.context, camera, fulldir, filename, dest_file);
             
             file_to_import = dest_file;
             copy_to_library = false;
@@ -207,6 +209,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     public static GPhoto.ContextWrapper null_context = null;
+    public static GPhoto.SpinIdleWrapper spin_idle_context = null;
 
     private SourceCollection import_sources = null;
     private Gtk.Label camera_label = new Gtk.Label(null);
@@ -244,6 +247,10 @@ public class ImportPage : CheckerboardPage {
         // set up the global null context when needed
         if (null_context == null)
             null_context = new GPhoto.ContextWrapper();
+        
+        // same with idle-loop wrapper
+        if (spin_idle_context == null)
+            spin_idle_context = new GPhoto.SpinIdleWrapper();
         
         // monitor source collection to add/remove views
         get_view().monitor_source_collection(import_sources, new ImportViewManager(this));
@@ -577,7 +584,7 @@ public class ImportPage : CheckerboardPage {
         refreshed = false;
         
         refresh_error = null;
-        refresh_result = camera.init(null_context.context);
+        refresh_result = camera.init(spin_idle_context.context);
         if (refresh_result != GPhoto.Result.OK) {
             warning("Unable to initialize camera: %s (%d)", refresh_result.as_string(), refresh_result);
             
@@ -597,7 +604,7 @@ public class ImportPage : CheckerboardPage {
         
         GPhoto.CameraStorageInformation *sifs = null;
         int count = 0;
-        refresh_result = camera.get_storageinfo(&sifs, out count, null_context.context);
+        refresh_result = camera.get_storageinfo(&sifs, out count, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
             get_view().clear();
             
@@ -614,7 +621,7 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_text("");
         progress_bar.set_fraction(0.0);
         
-        GPhoto.Result res = camera.exit(null_context.context);
+        GPhoto.Result res = camera.exit(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             warning("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
@@ -690,7 +697,7 @@ public class ImportPage : CheckerboardPage {
         if (refresh_result != GPhoto.Result.OK)
             return false;
         
-        refresh_result = camera.list_files(fulldir, files, null_context.context);
+        refresh_result = camera.list_files(fulldir, files, spin_idle_context.context);
         if (refresh_result != GPhoto.Result.OK)
             return false;
         
@@ -702,7 +709,7 @@ public class ImportPage : CheckerboardPage {
             
             try {
                 GPhoto.CameraFileInfo info;
-                GPhoto.get_info(null_context.context, camera, fulldir, filename, out info);
+                GPhoto.get_info(spin_idle_context.context, camera, fulldir, filename, out info);
                 
                 // at this point, only interested in JPEG files
                 // TODO: Increase file format support, for TIFF and RAW at least
@@ -753,7 +760,7 @@ public class ImportPage : CheckerboardPage {
         if (refresh_result != GPhoto.Result.OK)
             return false;
 
-        refresh_result = camera.list_folders(fulldir, folders, null_context.context);
+        refresh_result = camera.list_folders(fulldir, folders, spin_idle_context.context);
         if (refresh_result != GPhoto.Result.OK)
             return false;
         
@@ -782,7 +789,7 @@ public class ImportPage : CheckerboardPage {
                 // load EXIF for photo, which will include the preview thumbnail
                 uint8[] exif_raw;
                 size_t exif_raw_length;
-                Exif.Data exif = GPhoto.load_exif(null_context.context, camera, fulldir, filename,
+                Exif.Data exif = GPhoto.load_exif(spin_idle_context.context, camera, fulldir, filename,
                     out exif_raw, out exif_raw_length);
                 
                 // calculate EXIF's fingerprint
@@ -798,7 +805,7 @@ public class ImportPage : CheckerboardPage {
                 
                 uint8[] preview_raw;
                 size_t preview_raw_length;
-                Gdk.Pixbuf preview = GPhoto.load_preview(null_context.context, camera, fulldir,
+                Gdk.Pixbuf preview = GPhoto.load_preview(spin_idle_context.context, camera, fulldir,
                     filename, out preview_raw, out preview_raw_length);
                 
                 // calculate thumbnail fingerprint
@@ -865,7 +872,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import(Gee.Iterable<DataObject> items) {
-        GPhoto.Result res = camera.init(null_context.context);
+        GPhoto.Result res = camera.init(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             AppWindow.error_message(_("Unable to lock camera: %s").printf(res.as_string()));
             
@@ -953,7 +960,7 @@ public class ImportPage : CheckerboardPage {
             "Delete these %d photos from camera?", manifest.all.size)).printf(manifest.all.size);
 
         ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-            question_string, Gtk.STOCK_DELETE, _("Keep"));
+            question_string, Gtk.STOCK_DELETE, _("_Keep"));
         
         if (!ImportUI.report_manifest(manifest, false, question))
             return;
@@ -978,7 +985,7 @@ public class ImportPage : CheckerboardPage {
     }
 
     private void close_import() {
-        GPhoto.Result res = camera.exit(null_context.context);
+        GPhoto.Result res = camera.exit(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
             message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
@@ -1110,12 +1117,8 @@ public class ImportQueuePage : SinglePhotoPage {
         current_batch = batch_import;
     }
     
-    private void on_imported(LibraryPhoto photo) {
-        try {
-            set_pixbuf(photo.get_pixbuf(get_canvas_scaling()), photo.get_dimensions());
-        } catch (Error err) {
-            warning("%s", err.message);
-        }
+    private void on_imported(LibraryPhoto photo, Gdk.Pixbuf pixbuf) {
+        set_pixbuf(pixbuf, Dimensions());
         
         // set the singleton collection to this item
         get_view().clear();

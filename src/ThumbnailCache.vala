@@ -4,8 +4,28 @@
  * See the COPYING file in this distribution. 
  */
 
+public class Thumbnails {
+    private Gee.HashMap<ThumbnailCache.Size, Gdk.Pixbuf> map = new Gee.HashMap<ThumbnailCache.Size,
+        Gdk.Pixbuf>();
+    
+    public Thumbnails() {
+    }
+    
+    public void set(ThumbnailCache.Size size, Gdk.Pixbuf pixbuf) {
+        map.set(size, pixbuf);
+    }
+    
+    public void remove(ThumbnailCache.Size size) {
+        map.unset(size);
+    }
+    
+    public Gdk.Pixbuf? get(ThumbnailCache.Size size) {
+        return map.get(size);
+    }
+}
+
 public class ThumbnailCache : Object {
-    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
+    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.HYPER;
     public const Jpeg.Quality DEFAULT_QUALITY = Jpeg.Quality.HIGH;
     public const int MAX_INMEMORY_DATA_SIZE = 512 * 1024;
     
@@ -19,12 +39,16 @@ public class ThumbnailCache : Object {
             return (int) this;
         }
         
+        public Scaling get_scaling() {
+            return Scaling.for_best_fit(get_scale(), true);
+        }
+        
         public static Size get_best_size(int scale) {
             return scale <= MEDIUM.get_scale() ? MEDIUM : BIG;
         }
     }
     
-    public static const Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
+    public const Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
     
     public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
         Error? err);
@@ -113,7 +137,6 @@ public class ThumbnailCache : Object {
     private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
     private ulong cached_bytes = 0;
     private ThumbnailCacheTable cache_table;
-    private PhotoTable photo_table = null;
     
     private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
         Jpeg.Quality quality = DEFAULT_QUALITY) {
@@ -123,7 +146,6 @@ public class ThumbnailCache : Object {
         this.interp = interp;
         this.quality = quality;
         cache_table = new ThumbnailCacheTable(size.get_scale());
-        photo_table = PhotoTable.get_instance();
     }
     
     // Doing this because static construct {} not working nor new'ing in the above statement
@@ -139,11 +161,21 @@ public class ThumbnailCache : Object {
         fetch_workers.die();
     }
     
-    public static void import(PhotoID photo_id, PhotoSource source, bool force = false) throws Error {
-        big._import(photo_id, source, force);
+    public static void import_from_source(PhotoID photo_id, PhotoSource source, bool force = false)
+        throws Error {
+        big._import_from_source(photo_id, source, force);
         spin_event_loop();
-
-        medium._import(photo_id, source, force);
+        
+        medium._import_from_source(photo_id, source, force);
+        spin_event_loop();
+    }
+    
+    public static void import_thumbnails(PhotoID photo_id, Thumbnails thumbnails, bool force = false)
+        throws Error {
+        big._import_thumbnail(photo_id, thumbnails.get(Size.BIG), force);
+        spin_event_loop();
+        
+        medium._import_thumbnail(photo_id, thumbnails.get(Size.MEDIUM), force);
         spin_event_loop();
     }
     
@@ -309,7 +341,36 @@ public class ThumbnailCache : Object {
         job.callback(job.scaled, job.dim, job.interp, job.err);
     }
     
-    private void _import(PhotoID photo_id, PhotoSource source, bool force = false) throws Error {
+    private void _import_from_source(PhotoID photo_id, PhotoSource source, bool force = false)
+        throws Error {
+        File file = get_cached_file(photo_id);
+        
+        // if not forcing the cache operation, check if file exists and is represented in the
+        // database before continuing
+        if (!force) {
+            if (_exists(photo_id))
+                return;
+        } else {
+            // wipe from system and continue
+            _remove(photo_id);
+        }
+        
+        Gdk.Pixbuf scaled = source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true));
+        Dimensions dim = Dimensions.for_pixbuf(scaled);
+        int filesize = save_thumbnail(file, scaled);
+        
+        // See note in _import_with_pixbuf for reason why this is not maintained in in-memory
+        // cache
+        
+        // store in database
+        cache_table.add(photo_id, filesize, dim);
+    }
+    
+    private void _import_thumbnail(PhotoID photo_id, Gdk.Pixbuf? scaled, bool force = false) 
+        throws Error {
+        assert(scaled != null);
+        assert(Dimensions.for_pixbuf(scaled).approx_scaled(size.get_scale()));
+        
         File file = get_cached_file(photo_id);
         
         // if not forcing the cache operation, check if file exists and is represented in the
@@ -321,12 +382,7 @@ public class ThumbnailCache : Object {
             // wipe previous from system and continue
             _remove(photo_id);
         }
-
-        debug("Importing thumbnail for %s to [%lld] %s", photo_table.get_name(photo_id), 
-            photo_id.id, file.get_path());
         
-        Gdk.Pixbuf scaled = source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true));
-        Dimensions dim = Dimensions.for_pixbuf(scaled);
         int filesize = save_thumbnail(file, scaled);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
@@ -334,15 +390,12 @@ public class ThumbnailCache : Object {
         // of the collection while new photos are added far off the viewport
 
         // store in database
-        cache_table.add(photo_id, filesize, dim);
+        cache_table.add(photo_id, filesize, Dimensions.for_pixbuf(scaled));
     }
     
     private void _duplicate(PhotoID src_id, PhotoID dest_id) {
         File src_file = get_cached_file(src_id);
         File dest_file = get_cached_file(dest_id);
-        
-        debug("Duplicating thumbnail for %s [%lld] to %s [%lld]", photo_table.get_name(src_id),
-            src_id.id, photo_table.get_name(dest_id), dest_id.id);
         
         try {
             src_file.copy(dest_file, FileCopyFlags.ALL_METADATA, null, null);
@@ -358,9 +411,6 @@ public class ThumbnailCache : Object {
     
     private void _replace(PhotoID photo_id, Gdk.Pixbuf original) throws Error {
         File file = get_cached_file(photo_id);
-        
-        debug ("Replacing thumbnail for %s with [%lld] %s", photo_table.get_name(photo_id),
-            photo_id.id, file.get_path());
         
         // Remove from in-memory cache, if present
         remove_from_memory(photo_id);
@@ -384,9 +434,6 @@ public class ThumbnailCache : Object {
     private void _remove(PhotoID photo_id) {
         File file = get_cached_file(photo_id);
         
-        debug("Removing thumbnail for %s [%lld] %s", photo_table.get_name(photo_id), photo_id.id, 
-            file.get_path());
-
         // remove from in-memory cache
         remove_from_memory(photo_id);
         
@@ -397,7 +444,7 @@ public class ThumbnailCache : Object {
         try {
             file.delete(null);
         } catch (Error err) {
-            warning("%s", err.message);
+            // ignored
         }
     }
     

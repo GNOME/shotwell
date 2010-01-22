@@ -81,6 +81,10 @@ public struct Dimensions {
         return (width - dim.width).abs() <= fudge && (height - dim.height).abs() <= fudge;
     }
     
+    public bool approx_scaled(int scale, int fudge = 1) {
+        return (width <= (scale + fudge)) && (height <= (scale + fudge));
+    }
+    
     public int major_axis() {
         return int.max(width, height);
     }

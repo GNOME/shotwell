@@ -47,7 +47,6 @@ namespace GPhoto {
         
         private void on_idle(Context context) {
             idle();
-            spin_event_loop();
         }
 
         private void on_error(Context context, string format, void *va_list) {
@@ -70,11 +69,27 @@ namespace GPhoto {
         
         private void on_progress_update(Context context, uint id, float current) {
             progress_update(current);
-            spin_event_loop();
         }
         
         private void on_progress_stop(Context context, uint id) {
             progress_stop();
+        }
+    }
+    
+    public class SpinIdleWrapper : ContextWrapper {
+        public SpinIdleWrapper() {
+        }
+        
+        public override void idle() {
+            base.idle();
+            
+            spin_event_loop();
+        }
+        
+        public override void progress_update(float current) {
+            base.progress_update(current);
+            
+            spin_event_loop();
         }
     }
     

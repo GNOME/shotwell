@@ -1237,7 +1237,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 || selection_interior.height < visible_band.height) {
                 selection_interior = new Gdk.Pixbuf(Gdk.Colorspace.RGB, true, 8, visible_band.width,
                     visible_band.height);
-               selection_interior.fill(selection_transparency_color);
+                selection_interior.fill(selection_transparency_color);
             }
             
             window.draw_pixbuf(selection_band_gc, selection_interior, 0, 0, visible_band.x, 

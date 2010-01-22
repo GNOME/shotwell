@@ -8,6 +8,34 @@
 // the Gtk event loop, *not* the background thread's context.
 public delegate void CompletionCallback(BackgroundJob job);
 
+// This callback is executed when an associated BackgroundJob has been cancelled (via its
+// Cancellable).  Note that it's *possible* the BackgroundJob performed some or all of its work
+// prior to executing this delegate.
+public delegate void CancellationCallback(BackgroundJob job);
+
+// This callback is executed by the BackgroundJob when a unit of work is completed, but not the
+// entire job.  It is called from within the Gtk event loop, *not* the background thread's
+// context.
+//
+// Note that there does not seem to be any guarantees of order in the Idle queue documentation,
+// and this it's possible (and, depending on assigned priorities, likely) that notifications could
+// arrive in different orders, and even after the CompletionCallback.  Thus, no guarantees of
+// ordering is made here.
+//
+// NOTE: Would like Value to be nullable, but can't due to this bug:
+// https://bugzilla.gnome.org/show_bug.cgi?id=607098
+//
+// NOTE: There will be a memory leak using NotificationCallbacks due to this bug:
+// https://bugzilla.gnome.org/show_bug.cgi?id=571264
+//
+// NOTE: Because of these two bugs, using an abstract base class rather than Value.  When both are
+// fixed (at least the second), may consider going back to Value.
+
+public abstract class NotificationObject {
+}
+
+public delegate void NotificationCallback(BackgroundJob job, NotificationObject user);
+
 // This abstract class represents a unit of work that can be executed within a background thread's
 // context.  If specified, the job may be cancellable (which can be checked by execute() and the
 // worker thread prior to calling execute()).  The BackgroundJob may also specify a
@@ -26,24 +54,55 @@ public abstract class BackgroundJob {
         }
     }
     
+    private class NotificationJob {
+        public NotificationCallback callback;
+        public BackgroundJob background_job;
+        public NotificationObject user;
+        
+        public NotificationJob(NotificationCallback callback, BackgroundJob background_job,
+            NotificationObject user) {
+            this.callback = callback;
+            this.background_job = background_job;
+            this.user = user;
+        }
+    }
+    
+    private static Gee.ArrayList<NotificationJob> notify_queue = new Gee.ArrayList<NotificationJob>();
+    
     private CompletionCallback callback;
     private Cancellable cancellable;
+    private CancellationCallback cancellation;
     private BackgroundJob self = null;
     
-    public BackgroundJob(CompletionCallback? callback = null, Cancellable? cancellable = null) {
+    // The thinking here is that there is exactly one CompletionCallback per job, and the caller
+    // probably wants to know that to set off UI and other events in response.  There are several
+    // (possibly hundreds or thousands) or notifications, and thus should arrive in a more
+    // controlled way (to avoid locking up the UI, for example).  This has ramifications about
+    // the order in which completion and notifications arrive (see above note).
+    private int completion_priority = Priority.HIGH;
+    private int notification_priority = Priority.DEFAULT_IDLE;
+    
+    public BackgroundJob(CompletionCallback? callback = null, Cancellable? cancellable = null,
+        CancellationCallback? cancellation = null) {
         this.callback = callback;
         this.cancellable = cancellable;
-    }
-
-    ~BackgroundJob() {
-        if (cancellable != null)
-            cancellable.cancel();
+        this.cancellation = cancellation;
     }
     
     public abstract void execute();
     
     public virtual JobPriority get_priority() {
         return JobPriority.NORMAL;
+    }
+    
+    // This method is not thread-safe.  Best to set priority before the job is enqueued.
+    public void set_completion_priority(int priority) {
+        completion_priority = priority;
+    }
+    
+    // This method is not thread-safe.  Best to set priority before the job is enqueued.
+    public void set_notification_priority(int priority) {
+        notification_priority = priority;
     }
     
     public bool is_cancelled() {
@@ -57,14 +116,14 @@ public abstract class BackgroundJob {
     
     // This should only be called by Workers.  Beware to all who fail to heed.
     public void internal_notify_completion() {
-        if (callback == null)
+        if (callback == null && cancellation == null)
             return;
         
         // Because Idle doesn't maintain a ref count of the job, and it's going to be dropped by
         // the worker thread soon, need to maintain a ref until the completion callback is made
         self = this;
         
-        Idle.add_full(Priority.HIGH, on_notify_completion);
+        Idle.add_full(completion_priority, on_notify_completion);
     }
     
     private bool on_notify_completion() {
@@ -72,11 +131,41 @@ public abstract class BackgroundJob {
         // method was called ... since the completion work can be costly for a job that was
         // already cancelled, and the caller might've dropped all references to the job by now,
         // only notify completion in this context if not cancelled
-        if (!is_cancelled())
-            callback(this);
+        if (is_cancelled()) {
+            if (cancellation != null)
+                cancellation(this);
+        } else {
+            if (callback != null)
+                callback(this);
+        }
         
         // drop the ref so this object can be freed ... must not touch "this" after this point
         self = null;
+        
+        return false;
+    }
+    
+    // This call may be executed by the child class during execute() to inform of a unit of
+    // work being completed
+    protected void notify(NotificationCallback callback, NotificationObject user) {
+        lock (notify_queue) {
+            notify_queue.add(new NotificationJob(callback, this, user));
+        }
+        
+        Idle.add_full(notification_priority, on_notification_ready);
+    }
+    
+    private bool on_notification_ready() {
+        // this is called once for every notification added, so there should always be something
+        // waiting for us
+        NotificationJob? notification_job = null;
+        lock (notify_queue) {
+            if (notify_queue.size > 0)
+                notification_job = notify_queue.remove_at(0);
+        }
+        assert(notification_job != null);
+        
+        notification_job.callback(notification_job.background_job, notification_job.user);
         
         return false;
     }
@@ -150,19 +239,13 @@ public class Workers {
             if (job == null || job == die_job)
                 break;
             
-            thread_work(job);
+            if (!job.is_cancelled())
+                job.execute();
+            
+            job.internal_notify_completion();
         }
         
         return null;
-    }
-    
-    private void thread_work(BackgroundJob job) {
-        if (job.is_cancelled())
-            return;
-        
-        job.execute();
-        
-        job.internal_notify_completion();
     }
 }
 

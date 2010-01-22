@@ -337,7 +337,6 @@ public abstract class AppWindow : PageWindow {
 
     protected static AppWindow instance = null;
     
-    private static bool user_quit = false;
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
 
@@ -368,6 +367,8 @@ public abstract class AppWindow : PageWindow {
         assert(command_manager == null);
         command_manager = new CommandManager();
     }
+    
+    public signal void user_quit();
     
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
@@ -441,10 +442,6 @@ public abstract class AppWindow : PageWindow {
         return yes;
     }
 
-    public static bool has_user_quit() {
-        return user_quit;
-    }
-    
     public abstract string get_app_role();
 
     protected void on_about() {
@@ -465,7 +462,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     protected virtual void on_quit() {
-        user_quit = true;
+        user_quit();
         Gtk.main_quit();
     }
     

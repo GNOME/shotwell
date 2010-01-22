@@ -884,15 +884,21 @@ class RGBHistogram {
     public const int GRAPHIC_WIDTH = 256;
     public const int GRAPHIC_HEIGHT = 100;
 
-    private int[] red_counts = new int[256];
-    private int[] green_counts = new int[256];
-    private int[] blue_counts = new int[256];
+    private int[] red_counts = null;
+    private int[] green_counts = null;
+    private int[] blue_counts = null;
     private int[] qualitative_red_counts = null;
     private int[] qualitative_green_counts = null;
     private int[] qualitative_blue_counts = null;
     private Gdk.Pixbuf graphic = null;
 
     public RGBHistogram(Gdk.Pixbuf pixbuf) {
+        // allocating here rather than at declaration time due to this bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=607714
+        red_counts = new int[256];
+        green_counts = new int[256];
+        blue_counts = new int[256];
+        
         for (int i = 0; i < 256; i++)
             red_counts[i] = green_counts[i] = blue_counts[i] = 0;
 
@@ -1137,11 +1143,17 @@ class RGBHistogram {
 }
 
 public class IntensityHistogram {
-    private int[] counts = new int[256];
-    private float[] probabilities = new float[256];
-    private float[] cumulative_probabilities = new float[256];
+    private int[] counts = null;
+    private float[] probabilities = null;
+    private float[] cumulative_probabilities = null;
 
     public IntensityHistogram(Gdk.Pixbuf pixbuf) {
+        // allocating here rather than at declaration time due to this bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=607714
+        counts = new int[256];
+        probabilities = new float[256];
+        cumulative_probabilities = new float[256];
+        
         int n_channels = pixbuf.get_n_channels();
         int rowstride = pixbuf.get_rowstride();
         int width = pixbuf.get_width();

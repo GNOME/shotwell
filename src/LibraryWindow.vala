@@ -102,6 +102,10 @@ public class LibraryWindow : AppWindow {
             return file_or_dir.get_path();
         }
         
+        public override bool is_directory() {
+            return query_is_directory(file_or_dir);
+        }
+        
         public override bool prepare(out File file_to_import, out bool copy) {
             file_to_import = file_or_dir;
             copy = copy_to_library;

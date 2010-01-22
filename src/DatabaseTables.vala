@@ -462,8 +462,9 @@ public class PhotoTable : DatabaseTable {
         return ImportID(id);
     }
     
-    public PhotoID add(File file, Dimensions dim, int64 filesize, long timestamp, time_t exposure_time,
-        Orientation orientation, ImportID import_id, string? md5, string? thumbnail_md5, string? exif_md5) {
+    // PhotoRow.photo_id, event_id, orientation, flags, and time_created are ignored on input.  All
+    // fields are set on exit with values stored in the database.
+    public PhotoID add(ref PhotoRow photo_row) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
@@ -472,33 +473,35 @@ public class PhotoTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
-        res = stmt.bind_text(1, file.get_path());
+        ulong time_created = now_sec();
+        
+        res = stmt.bind_text(1, photo_row.filepath);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(2, dim.width);
+        res = stmt.bind_int(2, photo_row.dim.width);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(3, dim.height);
+        res = stmt.bind_int(3, photo_row.dim.height);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(4, filesize);
+        res = stmt.bind_int64(4, photo_row.filesize);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(5, timestamp);
+        res = stmt.bind_int64(5, photo_row.timestamp);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(6, exposure_time);
+        res = stmt.bind_int64(6, photo_row.exposure_time);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(7, orientation);
+        res = stmt.bind_int(7, photo_row.original_orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(8, orientation);
+        res = stmt.bind_int(8, photo_row.original_orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(9, import_id.id);
+        res = stmt.bind_int64(9, photo_row.import_id.id);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(10, PhotoID.INVALID);
+        res = stmt.bind_int64(10, EventID.INVALID);
         assert(res == Sqlite.OK);
-        res = stmt.bind_text(11, md5);
+        res = stmt.bind_text(11, photo_row.md5);
         assert(res == Sqlite.OK);
-        res = stmt.bind_text(12, thumbnail_md5);
+        res = stmt.bind_text(12, photo_row.thumbnail_md5);
         assert(res == Sqlite.OK);
-        res = stmt.bind_text(13, exif_md5);
+        res = stmt.bind_text(13, photo_row.exif_md5);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(14, now_sec());
+        res = stmt.bind_int64(14, time_created);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -508,8 +511,15 @@ public class PhotoTable : DatabaseTable {
             
             return PhotoID();
         }
-
-        return PhotoID(db.last_insert_rowid());
+        
+        // fill in ignored fields with database values
+        photo_row.photo_id = PhotoID(db.last_insert_rowid());
+        photo_row.orientation = photo_row.original_orientation;
+        photo_row.event_id = EventID();
+        photo_row.time_created = (time_t) time_created;
+        photo_row.flags = 0;
+        
+        return photo_row.photo_id;
     }
     
     public bool update(PhotoID photoID, Dimensions dim, int64 filesize, long timestamp, 
@@ -1234,6 +1244,84 @@ public class PhotoTable : DatabaseTable {
     
     public bool has_exif_md5(string exif_md5) {
         return has_hash("exif_md5", exif_md5);
+    }
+    
+    public bool has_duplicate(File? file, string? exif_md5, string? thumbnail_md5, string? md5) {
+        assert(file != null || exif_md5 != null || thumbnail_md5 != null || md5 != null);
+        
+        string sql = "SELECT id FROM PhotoTable WHERE";
+        
+        if (file != null)
+            sql += " filename=?";
+        
+        if (exif_md5 != null || thumbnail_md5 != null || md5 != null) {
+            if (file != null)
+                sql += " OR ";
+            
+            sql += " (";
+            bool first = true;
+            
+            if (exif_md5 != null) {
+                sql += "exif_md5=?";
+                first = false;
+            }
+            
+            if (thumbnail_md5 != null) {
+                if (first)
+                    sql += "thumbnail_md5=?";
+                else
+                    sql += " OR thumbnail_md5=?";
+                first = false;
+            }
+            
+            if (md5 != null) {
+                if (first)
+                    sql += "md5=?";
+                else
+                    sql += " OR md5=?";
+            }
+            
+            sql += ")";
+        }
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2(sql, -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        int col = 1;
+        
+        if (file != null) {
+            res = stmt.bind_text(col++, file.get_path());
+            assert(res == Sqlite.OK);
+        }
+        
+        if (exif_md5 != null) {
+            res = stmt.bind_text(col++, exif_md5);
+            assert(res == Sqlite.OK);
+        }
+        
+        if (thumbnail_md5 != null) {
+            res = stmt.bind_text(col++, thumbnail_md5);
+            assert(res == Sqlite.OK);
+        }
+        
+        if (md5 != null) {
+            res = stmt.bind_text(col++, md5);
+            assert(res == Sqlite.OK);
+        }
+        
+        res = stmt.step();
+        if (res == Sqlite.DONE) {
+            // not found
+            return false;
+        } else if (res == Sqlite.ROW) {
+            // at least one found
+            return true;
+        } else {
+            fatal("has_duplicate", res);
+            
+            return false;
+        }
     }
 }
 

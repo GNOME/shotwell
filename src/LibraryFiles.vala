@@ -6,8 +6,31 @@
 
 namespace LibraryFiles {
 public const int DIRECTORY_DEPTH = 3;
-    
-public File? generate_unique_file(string filename, Exif.Data? exif, time_t ts, out bool collision)
+
+// Returns true if the file is claimed, false if it exists, and throws an Error otherwise.
+private bool claim_file(File file) throws Error {
+    try {
+        file.create(FileCreateFlags.NONE, null);
+        
+        // created; success
+        return true;
+    } catch (Error err) {
+        // check for file-exists error
+        if (!(err is IOError.EXISTS)) {
+            debug("claim_file %s: %s", file.get_path(), err.message);
+            
+            throw err;
+        }
+        
+        return false;
+    }
+}
+
+// This method uses File.create() in order to "claim" a file in the filesystem.  Thus, when the
+// method returns success a file may exist already, and should be overwritten.
+//
+// This function is thread safe.
+public File? generate_unique_file(string basename, Exif.Data? exif, time_t ts, out bool collision)
     throws Error {
     File dir = AppDirs.get_photos_dir();
     time_t timestamp = ts;
@@ -28,36 +51,45 @@ public File? generate_unique_file(string filename, Exif.Data? exif, time_t ts, o
     dir = dir.get_child("%02u".printf(tm.month + 1));
     dir = dir.get_child("%02u".printf(tm.day));
     
-    if (!dir.query_exists(null))
+    try {
         dir.make_directory_with_parents(null);
+    } catch (Error err) {
+        if (!(err is IOError.EXISTS))
+            throw err;
+        
+        // silently ignore not creating a directory that already exists
+    }
     
-    // if file doesn't exist, use that and done
-    File file = dir.get_child(filename);
-    if (!file.query_exists(null)) {
+    // create the file to atomically "claim" it
+    File file = dir.get_child(basename);
+    if (claim_file(file)) {
         collision = false;
-
+        
         return file;
     }
-
+    
+    // file exists, collision and keep searching
     collision = true;
-
+    
     string name, ext;
-    disassemble_filename(file.get_basename(), out name, out ext);
-
+    disassemble_filename(basename, out name, out ext);
+    
     // generate a unique filename
     for (int ctr = 1; ctr < int.MAX; ctr++) {
         string new_name = (ext != null) ? "%s_%d.%s".printf(name, ctr, ext) : "%s_%d".printf(name, ctr);
-
-        file = dir.get_child(new_name);
         
-        if (!file.query_exists(null))
+        file = dir.get_child(new_name);
+        if (claim_file(file))
             return file;
     }
+    
+    debug("generate_unique_filename for %s: unable to claim file", basename);
     
     return null;
 }
 
-private File duplicate(File src) throws Error {
+// This function is thread-safe.
+private File duplicate(File src, FileProgressCallback? progress_callback) throws Error {
     time_t timestamp = 0;
     try {
         timestamp = query_file_modified(src);
@@ -72,14 +104,8 @@ private File duplicate(File src) throws Error {
     if (dest == null)
         throw new FileError.FAILED("Unable to generate unique pathname for destination");
     
-    debug("Copying %s to %s", src.get_path(), dest.get_path());
-    
-    src.copy(dest, FileCopyFlags.ALL_METADATA, null, on_copy_progress);
+    src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);
     
     return dest;
-}
-
-private void on_copy_progress(int64 current, int64 total) {
-    spin_event_loop();
 }
 }

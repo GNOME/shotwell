@@ -346,6 +346,10 @@ public time_t query_file_modified(File file) throws Error {
     return timestamp.tv_sec;
 }
 
+public bool query_is_directory(File file) {
+    return file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) == FileType.DIRECTORY;
+}
+
 public bool query_is_directory_empty(File dir) throws Error {
     if (dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) != FileType.DIRECTORY)
         return false;

@@ -211,10 +211,10 @@ DIST_TAR_BZ2 = $(DIST_TAR).bz2
 DIST_TAR_GZ = $(DIST_TAR).gz
 PACKAGE_ORIG_GZ = $(PROGRAM)_`parsechangelog | grep Version | sed 's/.*: //'`.orig.tar.gz
 
-VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS)` $(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
+VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) gthread-2.0` $(foreach hdir,$(HEADER_DIRS),-I$(hdir)) \
 	$(foreach def,$(DEFINES),-D$(def))
 
-VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS)` -lgthread-2.0
+VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) gthread-2.0`
 
 ifdef WINDOWS
   VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX

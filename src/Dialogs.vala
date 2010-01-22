@@ -319,6 +319,21 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
             message += generate_import_failure_list(manifest.failed);
     }
     
+    if (manifest.camera_failed.size > 0) {
+        if (list && message.length > 0)
+            message += "\n";
+        
+        string camera_failed_message =
+            ngettext("1 photo failed to import due to a camera error.\n",
+                "%d photos failed to import due to a camera error.\n",
+                manifest.camera_failed.size).printf(manifest.camera_failed.size);
+            
+        message += camera_failed_message;
+        
+        if (list)
+            message += generate_import_failure_list(manifest.camera_failed);
+    }
+    
     if (manifest.skipped.size > 0) {
         if (list && message.length > 0)
             message += "\n";
@@ -347,8 +362,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
             message += generate_import_failure_list(manifest.aborted);
     }
     
-    int total = manifest.success.size + manifest.failed.size + manifest.skipped.size 
-        + manifest.already_imported.size + manifest.aborted.size;
+    int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
+        + manifest.skipped.size + manifest.already_imported.size + manifest.aborted.size;
     assert(total == manifest.all.size);
     
     // if no photos imported at all (i.e. an empty directory attempted), need to at least report

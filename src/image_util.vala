@@ -328,15 +328,18 @@ namespace Jpeg {
 
 public class PhotoFileInterrogator {
     public enum Options {
-        ALL,
-        NO_MD5
+        GET_ALL,
+        NO_MD5,
+        NO_PIXBUF
     }
     
     private File file;
     private Options options;
+    private Scaling? scaling;
     private bool size_ready = false;
-    private bool pixbuf_prepared = false;
+    private bool area_prepared = false;
     private PhotoExif photo_exif = null;
+    private Gdk.Pixbuf pixbuf = null;
     private string? md5 = null;
     private string format_name = "";
     private Dimensions dim = Dimensions();
@@ -344,19 +347,23 @@ public class PhotoFileInterrogator {
     private int channels = 0;
     private int bits_per_sample = 0;
     
-    public PhotoFileInterrogator(File file, Options options) throws Error {
+    public PhotoFileInterrogator(File file, Options options, Scaling? scaling) {
         this.file = file;
         this.options = options;
-        
-        interrogate();
+        this.scaling = scaling;
     }
     
-    private void interrogate() throws Error {
+    public Options get_options() {
+        return options;
+    }
+    
+    public void interrogate() throws Error {
         // both of these flags are set when enough of the image is decoded
         size_ready = false;
-        pixbuf_prepared = false;
+        area_prepared = false;
         
-        bool calc_md5 = options != Options.NO_MD5;
+        bool calc_md5 = (options & Options.NO_MD5) == 0;
+        bool gen_pixbuf = (options & Options.NO_PIXBUF) == 0;
         
         // clear prior to interrogation
         photo_exif = null;
@@ -381,7 +388,7 @@ public class PhotoFileInterrogator {
         
         // if no MD5, don't read as much, as the info will probably be gleaned
         // in the first 8K to 16K
-        uint8[] buffer = (calc_md5) ? new uint8[64 * 1024] : new uint8[8 * 1024];
+        uint8[] buffer = (calc_md5 || gen_pixbuf) ? new uint8[64 * 1024] : new uint8[8 * 1024];
         size_t count = 0;
         
         // loop through until all conditions we're searching for are met
@@ -397,11 +404,11 @@ public class PhotoFileInterrogator {
                 md5_checksum.update(buffer, bytes_read);
             
             // keep parsing the image until the size is discovered
-            if (!size_ready || !pixbuf_prepared)
+            if (gen_pixbuf || !size_ready || !area_prepared)
                 pixbuf_loader.write(buffer, bytes_read);
             
             // if not searching for anything else, exit
-            if (!calc_md5 && size_ready && pixbuf_prepared)
+            if (!calc_md5 && !gen_pixbuf && size_ready && area_prepared)
                 break;
         }
         
@@ -410,12 +417,23 @@ public class PhotoFileInterrogator {
             pixbuf_loader.close();
         } catch (Error err) {
         }
+        
+        if (gen_pixbuf && area_prepared)
+            pixbuf = pixbuf_loader.get_pixbuf();
             
         if (fins != null)
             fins.close(null);
         
         if (calc_md5)
             md5 = md5_checksum.get_string();
+    }
+    
+    public bool has_pixbuf() {
+        return pixbuf != null;
+    }
+    
+    public Gdk.Pixbuf? get_pixbuf() {
+        return pixbuf;
     }
     
     public bool has_exif() {
@@ -450,8 +468,15 @@ public class PhotoFileInterrogator {
         return bits_per_sample;
     }
     
-    private void on_size_prepared(int width, int height) {
+    private void on_size_prepared(Gdk.PixbufLoader loader, int width, int height) {
         dim = Dimensions(width, height);
+        
+        // set the scaled size to load
+        if (scaling != null && (options & Options.NO_PIXBUF) == 0) {
+            Dimensions scaled = scaling.get_scaled_dimensions(dim);
+            loader.set_size(scaled.width, scaled.height);
+        }
+        
         size_ready = true;
     }
     
@@ -467,7 +492,7 @@ public class PhotoFileInterrogator {
         unowned Gdk.PixbufFormat format = pixbuf_loader.get_format();
         format_name = format.get_name();
         
-        pixbuf_prepared = true;
+        area_prepared = true;
     }
 }
 

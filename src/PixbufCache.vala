@@ -230,8 +230,6 @@ public class PixbufCache {
             TransformablePhoto photo = object as TransformablePhoto;
             assert(photo != null);
             
-            debug("Removing destroyed photo from cache: %s", photo.to_string());
-            
             decache(photo);
         }
     }

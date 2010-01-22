@@ -10,8 +10,11 @@ namespace Debug {
     private bool message_enabled = false;
     private bool warning_enabled = false;
     private bool critical_enabled = false;
+    private Mutex log_mutex = null;
     
     public static void init() {
+        log_mutex = new Mutex();
+        
         if (Environment.get_variable("SHOTWELL_LOG") != null) {
             info_enabled = true;
             debug_enabled = true;
@@ -37,10 +40,12 @@ namespace Debug {
     }
     
     private void log(FileStream stream, string prefix, string message) {
+        log_mutex.lock();
         stream.puts(prefix);
         stream.puts(message);
         stream.putc('\n');
         stream.flush();
+        log_mutex.unlock();
     }
     
     private void info_handler(string? domain, LogLevelFlags flags, string message) {
