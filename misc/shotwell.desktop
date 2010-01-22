@@ -1,9 +1,7 @@
 [Desktop Entry]
 Version=1.0
-Name=Shotwell
-Name[fr]=Shotwell
-GenericName=Photo Organizer
-GenericName[fr]=Organiseur de Photos
+Name=Shotwell Photo Manager
+GenericName=Photo Manager
 Comment=Organize your photos
 Comment[fr]=Organisez vos photos
 Exec=shotwell %U
@@ -13,3 +11,4 @@ Type=Application
 MimeType=x-content/image-dcf;
 Categories=Graphics;Photography;GNOME;GTK;
 X-GIO-NoFuse=true
+
