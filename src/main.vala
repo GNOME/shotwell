@@ -36,7 +36,7 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
 
 private Timer startup_timer = null;
 
-void library_exec(string[] mounts, bool show_startup_progress) {
+void library_exec(string[] mounts) {
 #if NO_LIBUNIQUE
     if (already_running())
         return;
@@ -112,7 +112,7 @@ void library_exec(string[] mounts, bool show_startup_progress) {
     AggregateProgressMonitor aggregate_monitor = null;
     ProgressMonitor monitor = null;
     
-    if (show_startup_progress) {
+    if (!no_startup_progress) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
         // objects and then populating the initial page with them.
@@ -187,6 +187,14 @@ void editing_exec(string filename) {
     DatabaseTable.terminate();
 }
 
+bool no_startup_progress = false;
+
+const OptionEntry[] options = {
+     { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
+       N_("Don't display startup progress meter"), null },
+     { null }
+};
+
 void main(string[] args) {
     AppDirs.init(args[0]);
 #if WINDOWS
@@ -194,7 +202,9 @@ void main(string[] args) {
 #endif
 
     // init GTK (valac has already called g_threads_init())
-    Gtk.init(ref args);
+    try {
+        Gtk.init_with_args(ref args, _("[FILE]"), (OptionEntry []) options, Resources.APP_GETTEXT_PACKAGE);
+    } catch (Error e) { error(e.message); }
     
     // init internationalization with the default system locale
     InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE, args);
@@ -213,15 +223,11 @@ void main(string[] args) {
     // filenames are currently not permitted, to differentiate between mount points
     string[] mounts = new string[0];
     string filename = null;
-    bool show_startup_progress = true;
+
     for (int ctr = 1; ctr < args.length; ctr++) {
         string arg = args[ctr];
         
-        if (arg.has_prefix("--")) {
-            // command-line switches are *not* localized
-            if (arg == "--no-startup-progress")
-                show_startup_progress = false;
-        } else if (LibraryWindow.is_mount_uri_supported(arg)) {
+        if (LibraryWindow.is_mount_uri_supported(arg)) {
             mounts += arg;
         } else if (filename == null && !arg.contains("://")) {
             filename = arg;
@@ -236,7 +242,7 @@ void main(string[] args) {
     // mount list), or for nothing to be on the command-line at all, only go to direct editing if a
     // filename is spec'd
     if (filename == null)
-        library_exec(mounts, show_startup_progress);
+        library_exec(mounts);
     else
         editing_exec(filename);
     
