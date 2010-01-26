@@ -136,7 +136,6 @@ public class ThumbnailCache : Object {
         int64_hash, int64_equal, direct_equal);
     private Gee.ArrayList<int64?> cache_lru = new Gee.ArrayList<int64?>(int64_equal);
     private ulong cached_bytes = 0;
-    private ThumbnailCacheTable cache_table;
     
     private ThumbnailCache(Size size, ulong max_cached_bytes, Gdk.InterpType interp = DEFAULT_INTERP,
         Jpeg.Quality quality = DEFAULT_QUALITY) {
@@ -145,7 +144,6 @@ public class ThumbnailCache : Object {
         this.max_cached_bytes = max_cached_bytes;
         this.interp = interp;
         this.quality = quality;
-        cache_table = new ThumbnailCacheTable(size.get_scale());
     }
     
     // Doing this because static construct {} not working nor new'ing in the above statement
@@ -355,15 +353,10 @@ public class ThumbnailCache : Object {
             _remove(photo_id);
         }
         
-        Gdk.Pixbuf scaled = source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true));
-        Dimensions dim = Dimensions.for_pixbuf(scaled);
-        int filesize = save_thumbnail(file, scaled);
+        save_thumbnail(file, source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true)));
         
         // See note in _import_with_pixbuf for reason why this is not maintained in in-memory
         // cache
-        
-        // store in database
-        cache_table.add(photo_id, filesize, dim);
     }
     
     private void _import_thumbnail(PhotoID photo_id, Gdk.Pixbuf? scaled, bool force = false) 
@@ -383,14 +376,11 @@ public class ThumbnailCache : Object {
             _remove(photo_id);
         }
         
-        int filesize = save_thumbnail(file, scaled);
+        save_thumbnail(file, scaled);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
         // once, this will blow cache locality, especially when the user is viewing one portion
         // of the collection while new photos are added far off the viewport
-
-        // store in database
-        cache_table.add(photo_id, filesize, Dimensions.for_pixbuf(scaled));
     }
     
     private void _duplicate(PhotoID src_id, PhotoID dest_id) {
@@ -404,9 +394,6 @@ public class ThumbnailCache : Object {
         }
         
         // Do NOT store in memory cache, for similar reasons as stated in _import().
-        
-        // duplicate in the database
-        cache_table.duplicate(src_id, dest_id);
     }
     
     private void _replace(PhotoID photo_id, Gdk.Pixbuf original) throws Error {
@@ -419,16 +406,13 @@ public class ThumbnailCache : Object {
         Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
         
         // save scaled image as JPEG
-        int filesize = save_thumbnail(file, scaled);
+        save_thumbnail(file, scaled);
         
         // Store in in-memory cache; a _replace() probably represents a user-initiated
         // action (<cough>rotate</cough>) and the thumbnail will probably be fetched immediately.
         // This means the thumbnail will be cached in scales that aren't immediately needed, but the
         // benefit seems to outweigh the side-effects
         store_in_memory(photo_id, scaled);
-        
-        // store changes in database
-        cache_table.replace(photo_id, filesize, Dimensions.for_pixbuf(scaled));
     }
     
     private void _remove(PhotoID photo_id) {
@@ -437,9 +421,6 @@ public class ThumbnailCache : Object {
         // remove from in-memory cache
         remove_from_memory(photo_id);
         
-        // remove from db table
-        cache_table.remove(photo_id);
- 
         // remove from disk
         try {
             file.delete(null);
@@ -451,7 +432,7 @@ public class ThumbnailCache : Object {
     private bool _exists(PhotoID photo_id) {
         File file = get_cached_file(photo_id);
 
-        return file.query_exists(null) && cache_table.exists(photo_id);
+        return file.query_exists(null);
     }
     
     private File get_cached_file(PhotoID photo_id) {
@@ -524,17 +505,8 @@ public class ThumbnailCache : Object {
         return true;
     }
     
-    private int save_thumbnail(File file, Gdk.Pixbuf pixbuf) throws Error {
+    private void save_thumbnail(File file, Gdk.Pixbuf pixbuf) throws Error {
         pixbuf.save(file.get_path(), "jpeg", "quality", quality.get_pct_text());
-
-        FileInfo info = file.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
-            null);
-        
-        // this should never be huge
-        assert(info.get_size() <= int.MAX);
-        int filesize = (int) info.get_size();
-        
-        return filesize;
     }
 }
 

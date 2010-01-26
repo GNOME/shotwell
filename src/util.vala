@@ -487,3 +487,43 @@ public class OneShotScheduler {
     }
 }
 
+public class OpTimer {
+    private string name;
+    private Timer timer = new Timer();
+    private long count = 0;
+    private double elapsed = 0;
+    private double shortest = double.MAX;
+    private double longest = double.MIN;
+    
+    public OpTimer(string name) {
+        this.name = name;
+    }
+    
+    public void start() {
+        timer.start();
+    }
+    
+    public void stop() {
+        double time = timer.elapsed();
+        
+        elapsed += time;
+        
+        if (time < shortest)
+            shortest = time;
+        
+        if (time > longest)
+            longest = time;
+        
+        count++;
+    }
+    
+    public string to_string() {
+        if (count > 0) {
+            return "%s: count=%ld elapsed=%.03lfs min/avg/max=%.03lf/%.03lf/%.03lf".printf(name, 
+                count, elapsed, shortest, elapsed / (double) count, longest);
+        } else {
+            return "%s: no operations".printf(name);
+        }
+    }
+}
+

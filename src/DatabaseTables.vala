@@ -23,9 +23,17 @@ public class DatabaseTable {
             null);
         if (res != Sqlite.OK)
             error("Unable to open/create photo database %s: %d", filename, res);
+        
+        // disable synchronized commits for performance reasons ... this is not vital, hence we
+        // don't error out if this fails
+        res = db.exec("PRAGMA synchronous=OFF");
+        if (res != Sqlite.OK)
+            warning("Unable to disable synchronous mode", res);
     }
     
     public static void terminate() {
+        // freeing the database closes it
+        db = null;
     }
     
     // XXX: errmsg() is global, and so this will not be accurate in a threaded situation
@@ -248,6 +256,10 @@ private DatabaseVerifyResult upgrade_database(int version) {
     }
     
     version = 3;
+    
+    //
+    // ThumbnailTable(s) removed.
+    //
     
     VersionTable.get_instance().update_version(version);
     
@@ -1322,190 +1334,6 @@ public class PhotoTable : DatabaseTable {
             
             return false;
         }
-    }
-}
-
-public struct ThumbnailCacheRow {
-    PhotoID photo_id;
-    Dimensions dim;
-    int filesize;
-}
-
-public class ThumbnailCacheTable : DatabaseTable {
-    public ThumbnailCacheTable(int scale) {
-        assert(scale > 0);
-
-        set_table_name("Thumb%dTable".printf(scale));
-        
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
-            + table_name
-            + "("
-            + "id INTEGER PRIMARY KEY, "
-            + "photo_id INTEGER UNIQUE, "
-            + "width INTEGER, "
-            + "height INTEGER, "
-            + "filesize INTEGER"
-            + ")", -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.step();
-        if (res != Sqlite.DONE)
-            fatal("create %s".printf(table_name), res);
-    }
-    
-    public bool remove(PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("DELETE FROM %s WHERE photo_id=?".printf(table_name), -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            warning("%s remove".printf(table_name), res);
-
-            return false;
-        }
-        
-        return true;
-    }
-    
-    public bool exists(PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id FROM %s WHERE photo_id=?".printf(table_name), -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE)
-                fatal("%s exists".printf(table_name), res);
-            
-            return false;
-        }
-        
-        return true;
-    }
-    
-    public void add(PhotoID photo_id, int filesize, Dimensions dim) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2(
-            "INSERT INTO %s (photo_id, filesize, width, height) VALUES (?, ?, ?, ?)".printf(table_name),
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int(2, filesize);
-        assert(res == Sqlite.OK);
-        stmt.bind_int(3, dim.width);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int(4, dim.height);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE)
-            fatal("%s add".printf(table_name), res);
-    }
-    
-    public ThumbnailCacheRow? get_row(PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT width, height, filesize FROM %s WHERE photo_id=?".printf(table_name),
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE)
-                fatal("%s get_row".printf(table_name), res);
-            
-            return null;
-        }
-        
-        ThumbnailCacheRow row = ThumbnailCacheRow();
-        row.photo_id = photo_id;
-        row.dim = Dimensions(stmt.column_int(0), stmt.column_int(1));
-        row.filesize = stmt.column_int(2);
-        
-        return row;
-    }
-    
-    public void duplicate(PhotoID src_id, PhotoID dest_id) {
-        // copy
-        ThumbnailCacheRow? row = get_row(src_id);
-        if (row == null)
-            error("Unable to duplicate thumbnail cache row %lld", src_id.id);
-        
-        // paste
-        add(dest_id, row.filesize, row.dim);
-    }
-    
-    public void replace(PhotoID photo_id, int filesize, Dimensions dim) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2(
-            "UPDATE %s SET filesize=?, width=?, height=? WHERE photo_id=?".printf(table_name),
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int(1, filesize);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int(2, dim.width);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int(3, dim.height);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(4, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE)
-            fatal("%s replace".printf(table_name), res);
-    }
-    
-    public Dimensions get_dimensions(PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT width, height FROM %s WHERE photo_id=?".printf(table_name), 
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if(res != Sqlite.DONE)
-                fatal("%s get_dimensions".printf(table_name), res);
-
-            return Dimensions();
-        }
-        
-        return Dimensions(stmt.column_int(0), stmt.column_int(1));
-    }
-    
-    public int get_filesize(PhotoID photo_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT filesize FROM %s WHERE photo_id=?".printf(table_name),
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.ROW) {
-            if (res != Sqlite.DONE)
-                fatal("%s get_filesize".printf(table_name), res);
-            
-            return -1;
-        }
-        
-        return stmt.column_int(0);
     }
 }
 
