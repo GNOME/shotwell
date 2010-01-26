@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.4.3+trunk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-25 18:23-0800\n"
-"PO-Revision-Date: 2010-01-25 18:23-0800\n"
+"PO-Revision-Date: 2010-01-25 18:40-0800\n"
 "Last-Translator: Lucas Beeler <lucas@yorba.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -565,6 +565,7 @@ msgstr ""
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr ""
 
+# Each "%d %s" pair gets replaced with a number and a string to describe a time value and a time unit, such as "35 minutes" where the %d is resolved to "35" and the %s is resolved to "minutes." There are multiple "%d %s" pairs so that we can say things like "4 days, 5 hours, 35 minutes and 8 seconds."
 #: src/Dialogs.vala:787
 #, c-format
 msgid ""
