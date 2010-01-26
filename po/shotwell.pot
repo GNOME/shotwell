@@ -6,13 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.4.3+trunk\n"
-"Report-Msgid-Bugs-To:  Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2009-12-11 18:20-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-25 18:23-0800\n"
+"PO-Revision-Date: 2010-01-25 18:23-0800\n"
+"Last-Translator: Lucas Beeler <lucas@yorba.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
@@ -568,45 +568,42 @@ msgstr ""
 #: src/Dialogs.vala:787
 #, c-format
 msgid ""
-"Exposure time will be shifted %s by\n"
+"Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 
 #: src/Dialogs.vala:788
 #, c-format
-msgid "forward"
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 
-#: src/Dialogs.vala:788
-#, c-format
-msgid "backward"
-msgstr ""
-
-#: src/Dialogs.vala:788
+#: src/Dialogs.vala:790
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:789
+#: src/Dialogs.vala:791
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:792
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:793
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:835
+#: src/Dialogs.vala:837
 #, c-format
 msgid ""
 "\n"
@@ -620,7 +617,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Dimensions.vala:17
-#: src/FlickrConnector.vala:488
+#: src/FlickrConnector.vala:486
 msgid "Original size"
 msgstr ""
 
@@ -906,12 +903,12 @@ msgid "Create a _new album named:"
 msgstr ""
 
 #: src/FacebookConnector.vala:73
-#: src/FlickrConnector.vala:426
+#: src/FlickrConnector.vala:424
 msgid "_Publish"
 msgstr ""
 
 #: src/FacebookConnector.vala:75
-#: src/FlickrConnector.vala:424
+#: src/FlickrConnector.vala:422
 msgid "_Logout"
 msgstr ""
 
@@ -943,38 +940,41 @@ msgid ""
 msgstr ""
 
 #: src/FlickrConnector.vala:369
-msgid "Your free Flickr account limits how much data you can "
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
 
-#: src/FlickrConnector.vala:373
+#: src/FlickrConnector.vala:371
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 
-#: src/FlickrConnector.vala:398
+#: src/FlickrConnector.vala:396
 msgid "Photos _visible to:"
 msgstr ""
 
-#: src/FlickrConnector.vala:399
+#: src/FlickrConnector.vala:397
 msgid "Photo _size:"
 msgstr ""
 
-#: src/FlickrConnector.vala:461
+#: src/FlickrConnector.vala:459
 msgid "Everyone"
 msgstr ""
 
-#: src/FlickrConnector.vala:462
+#: src/FlickrConnector.vala:460
 msgid "Friends & family only"
 msgstr ""
 
-#: src/FlickrConnector.vala:463
+#: src/FlickrConnector.vala:461
 msgid "Just me"
 msgstr ""
 
-#: src/FlickrConnector.vala:486
+#: src/FlickrConnector.vala:484
 msgid "Medium (500 x 375 pixels)"
 msgstr ""
 
-#: src/FlickrConnector.vala:487
+#: src/FlickrConnector.vala:485
 msgid "Large (1024 x 768 pixels)"
 msgstr ""
 
@@ -1198,6 +1198,10 @@ msgstr ""
 
 #: src/main.vala:121
 msgid "Loading Shotwell..."
+msgstr ""
+
+#: src/main.vala:206
+msgid "[FILE]"
 msgstr ""
 
 #: src/PhotoPage.vala:109
@@ -1509,7 +1513,7 @@ msgid "Extended Information"
 msgstr ""
 
 #: src/Resources.vala:14
-msgid "Photo Organizer"
+msgid "Photo Manager"
 msgstr ""
 
 #: src/Resources.vala:15

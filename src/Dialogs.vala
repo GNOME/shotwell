@@ -783,9 +783,11 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             minutes = (int) (time_shift / SECONDS_IN_MINUTE);
             seconds = (int) (time_shift % SECONDS_IN_MINUTE);
 
-            notification.set_text(
-                _("Exposure time will be shifted %s by\n%d %s, %d %s, %d %s, and %d %s.").printf(
-                forward ? _("forward") : _("backward"), days, ngettext("day", "days", days),
+            string shift_status = (forward) ?
+                _("Exposure time will be shifted forward by\n%d %s, %d %s, %d %s, and %d %s.") :
+                _("Exposure time will be shifted backward by\n%d %s, %d %s, %d %s, and %d %s.");
+
+            notification.set_text(shift_status.printf(days, ngettext("day", "days", days),
                 hours, ngettext("hour", "hours", hours), minutes, 
                 ngettext("minute", "minutes", minutes), seconds, 
                 ngettext("second", "seconds", seconds)));

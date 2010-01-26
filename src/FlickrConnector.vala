@@ -366,9 +366,7 @@ class UploadPane : PublishingDialogPane {
         string upload_label_text = _("You are logged into Flickr as %s.\n\n").printf(username);
         if (user_kind == UserKind.FREE) {
             int remaining_mb = remaining_kb / 1024;
-            upload_label_text += _("Your free Flickr account limits how much data you can " +
-                "upload per month.\nThis month, you have %d megabytes remaining in your upload " +
-                "quota.").printf(remaining_mb);
+            upload_label_text += _("Your free Flickr account limits how much data you can upload per month.\nThis month, you have %d megabytes remaining in your upload quota.").printf(remaining_mb);
         } else {
             upload_label_text += _("Your Flickr Pro account entitles you to unlimited uploads.");
         }
