@@ -103,7 +103,6 @@ private abstract class Properties : Gtk.HBox {
         clear_properties();
         get_properties(page);
     }
-    
 }
 
 private class BasicProperties : Properties {
@@ -116,6 +115,10 @@ private class BasicProperties : Properties {
     private string exposure;
     private string aperture;
     private string iso;
+
+    public BasicProperties() {
+        info.set_selectable(true);
+    }
 
     private override void clear_properties() {
         base.clear_properties();
@@ -460,4 +463,9 @@ private class ExtendedPropertiesWindow : Gtk.Window {
     public void update_properties(Page page) {
         properties.update_properties(page);
     }
+
+    public override void show_all() {
+        base.show_all();
+        properties.info.set_selectable(true);
+    }  
 }
