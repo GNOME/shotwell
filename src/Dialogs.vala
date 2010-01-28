@@ -564,6 +564,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     private const int64 SECONDS_IN_HOUR = 60 * 60;
     private const int64 SECONDS_IN_MINUTE = 60;
     private const int YEAR_OFFSET = 1900;
+    private bool no_original_time = false;
 
     time_t original_time;
     Gtk.Label original_time_label;
@@ -681,6 +682,12 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         vbox.pack_start(notification, true, true, 0);
         
         original_time = source.get_exposure_time();
+
+        if (original_time == 0) {
+            original_time = time_t();
+            no_original_time = true;
+        }
+
         set_time(Time.local(original_time));
         set_original_time_label(Config.get_instance().get_24_hr_time());
     }
@@ -705,6 +712,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     }
 
     private void set_original_time_label(bool use_24_hr_format) {
+        if (no_original_time)
+            return;
+
         original_time_label.set_text(_("Original: ") + 
             Time.local(original_time).format(use_24_hr_format ? _("%m/%d/%Y, %H:%M:%S") :
             _("%m/%d/%Y, %I:%M:%S %p")));
@@ -739,7 +749,10 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         bool response = false;
 
         if (run() == Gtk.ResponseType.OK) {
-            time_shift = (int64) (get_time() - original_time);
+            if (no_original_time)
+                time_shift = (int64) get_time();
+            else
+                time_shift = (int64) (get_time() - original_time);
 
             keep_relativity = relativity_check_button.get_active();
             Config.get_instance().set_keep_relativity(keep_relativity);
@@ -768,7 +781,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         previous_time_system = (TimeSystem) system.get_active();
 
-        if (time_shift == 0) {
+        if (time_shift == 0 || no_original_time) {
             notification.hide();
         } else {
             bool forward = time_shift > 0;
