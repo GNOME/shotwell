@@ -624,7 +624,8 @@ public class PhotoExif  {
         
         if (entry == null) {
             // add the entry to the 0th (primary) IFD
-            entry = Exif.alloc_entry(exif.ifd[0], Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
+            entry = Exif.alloc_entry(exif.ifd[Exif.Ifd.EXIF],
+                Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
         }
         
         Exif.set_ascii(entry, datetime);
@@ -685,19 +686,23 @@ public class PhotoExif  {
         
         Jpeg.Marker marker;
         int segment_length;
-        bool original_has_exif = true;
+        bool original_has_exif = false;
 
         // first marker is always SOI
         segment_length = Jpeg.read_marker(fins, out marker);
         if ((marker != Jpeg.Marker.SOI) || (segment_length != 0))
             throw new ExifError.FILE_FORMAT("SOI not found in %s".printf(file.get_path()));
         
-        // for EXIF, next marker is always APP1
         segment_length = Jpeg.read_marker(fins, out marker);
-        if (segment_length <= 0)
-            throw new ExifError.FILE_FORMAT("EXIF APP1 length of %d".printf(segment_length));
-        if (marker != Jpeg.Marker.APP1)
-            original_has_exif = false;
+
+        // skip any APP0 (drop JFIF)
+        if (marker == Jpeg.Marker.APP0) {
+            fins.skip(segment_length, null);
+            segment_length = Jpeg.read_marker(fins, out marker);
+        }
+        
+        if (marker == Jpeg.Marker.APP1)
+            original_has_exif = true;
             
         // flatten exif to buffer
         uchar *flattened = null;
@@ -734,34 +739,28 @@ public class PhotoExif  {
             } else {
                 // create a new photo file with the updated EXIF and move it on top of the old one
 
-                // skip past APP1
-                if (original_has_exif)
-                    fins.skip(segment_length, null);
-
                 File temp = null;
                 FileOutputStream fouts = create_temp(file, out temp);
                 size_t bytes_written = 0;
                 
-                debug("Building new file at %s with %d bytes EXIF, overwriting %s", temp.get_path(),
-                    flattened_size, file.get_path());
+                debug("Building new file at %s with %d bytes EXIF, overwriting %s", 
+                    temp.get_path(), flattened_size, file.get_path());
 
                 // write SOI
                 Jpeg.write_marker(fouts, Jpeg.Marker.SOI, 0);
-                
+
+                // skip past APP1
+                if (original_has_exif)
+                    fins.skip(segment_length, null);
+
                 // write APP1 with EXIF data
                 Jpeg.write_marker(fouts, Jpeg.Marker.APP1, flattened_size);
                 fouts.write_all(flattened, flattened_size, out bytes_written, null);
                 assert(bytes_written == flattened_size);
                 
                 // if original has no EXIF, need to write the marker read in earlier
-                if (!original_has_exif) {
-                    // if APP0, then it's JFIF, and don't want to write this segment
-                    if (marker != Jpeg.Marker.APP0) {
-                        Jpeg.write_marker(fouts, marker, segment_length);
-                    } else {
-                        fins.skip(segment_length, null);
-                    }
-                }
+                if (!original_has_exif)
+                    Jpeg.write_marker(fouts, marker, segment_length);
                 
                 // copy remainder of file into new file
                 uint8[] copy_buffer = new uint8[64 * 1024];

@@ -920,10 +920,14 @@ public abstract class TransformablePhoto: PhotoSource {
     
     private bool only_exif_changed() {
         bool exif_changed;
+
+        time_t timestamp;
+        get_photoexif().get_timestamp(out timestamp);
+
         lock (row) {
             exif_changed = row.transformations == null && 
-                          row.orientation != row.original_orientation;
-            // TODO: check if exposure_time has changed
+                          (row.orientation != row.original_orientation ||
+                           row.timestamp != timestamp);
         }
         
         return exif_changed;
@@ -1531,7 +1535,7 @@ public abstract class TransformablePhoto: PhotoSource {
     //
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     public File generate_exportable() throws Error {
-        if (!has_transformations())
+        if (!has_transformations() && !only_exif_changed())
             return get_file();
 
         File dest_file = generate_exportable_file();
@@ -1546,12 +1550,12 @@ public abstract class TransformablePhoto: PhotoSource {
         File original_file = get_file();
         Exif.Data original_exif = get_exif();
         
-        if (only_exif_changed() && original_exif != null) {
+        if (only_exif_changed() && original_file != null) {
             original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
 
             PhotoExif dest_exif = new PhotoExif(dest_file);
             dest_exif.set_orientation(get_orientation());
-            //TODO: set timestamp
+            dest_exif.set_timestamp(get_exposure_time());
             dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());

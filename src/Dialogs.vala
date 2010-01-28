@@ -847,8 +847,8 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
 
     int remainder = objects.size - MAX_OBJECTS_DISPLAYED;
     if (remainder > 0) {
-        dialog_message += ngettext("\n\nAnd 1 other.", "\n\nAnd %d others.",
-            remainder);
+        dialog_message += ngettext("\n\nAnd %d other.", "\n\nAnd %d others.",
+            remainder).printf(remainder);
     }
 
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(),
