@@ -1605,11 +1605,8 @@ public abstract class TransformablePhoto: PhotoSource {
         Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
         Dimensions dim = Dimensions.for_pixbuf(pixbuf);
         Dimensions scaled = dim.get_scaled_by_constraint(scale, constraint);
-
-        // only scale if necessary ... although scale_simple probably catches this, it's an easy
-        // check to avoid image loss
-        if (dim.width != scaled.width || dim.height != scaled.height)
-            pixbuf = pixbuf.scale_simple(scaled.width, scaled.height, EXPORT_INTERP);
+        
+        pixbuf = resize_pixbuf(pixbuf, scaled, EXPORT_INTERP);
         
         try {
             pixbuf.save(dest_file.get_path(), "jpeg", "quality", quality.get_pct_text());

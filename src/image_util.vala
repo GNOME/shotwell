@@ -87,12 +87,18 @@ public enum Rotation {
     }
 }
 
+private const int MIN_SCALED_WIDTH = 10;
+private const int MIN_SCALED_HEIGHT = 10;
+
 Gdk.Pixbuf scale_pixbuf(Gdk.Pixbuf pixbuf, int scale, Gdk.InterpType interp, bool scale_up) {
     Dimensions original = Dimensions.for_pixbuf(pixbuf);
     Dimensions scaled = original.get_scaled(scale, scale_up);
     if ((original.width == scaled.width) && (original.height == scaled.height))
         return pixbuf;
-
+    
+    // use sane minimums ... scale_simple will hang if this is too low
+    scaled = scaled.with_min(MIN_SCALED_WIDTH, MIN_SCALED_HEIGHT);
+    
     return pixbuf.scale_simple(scaled.width, scaled.height, interp);
 }
 
@@ -100,6 +106,9 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
     Dimensions original = Dimensions.for_pixbuf(pixbuf);
     if (original.width == resized.width && original.height == resized.height)
         return pixbuf;
+    
+    // use sane minimums ... scale_simple will hang if this is too low
+    resized = resized.with_min(MIN_SCALED_WIDTH, MIN_SCALED_HEIGHT);
     
     return pixbuf.scale_simple(resized.width, resized.height, interp);
 }
