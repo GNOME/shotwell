@@ -633,6 +633,9 @@ public class DataCollection {
     public void internal_notify_metadata_altered(DataObject object) {
         assert(internal_contains(object));
         
+        if (dataset.resort_object(object))
+            notify_ordering_changed();
+
         notify_item_metadata_altered(object);
     }
 }
