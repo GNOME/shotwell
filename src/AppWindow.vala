@@ -319,7 +319,7 @@ public abstract class PageWindow : Gtk.Window {
     }
     
     public void set_normal_cursor() {
-        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+        window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
         spin_event_loop();
     }
 }

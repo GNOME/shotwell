@@ -345,7 +345,7 @@ public class LoginShell : PublishingDialogPane {
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
-        webview.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+        webview.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
 
         string loaded_url = origin_frame.get_uri().dup();
 

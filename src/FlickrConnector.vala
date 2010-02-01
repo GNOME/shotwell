@@ -673,7 +673,7 @@ public class LoginShell : PublishingDialogPane {
     }
     
     private void on_page_load(WebKit.WebFrame origin_frame) {
-        white_pane.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+        white_pane.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
         string token;
         string username;
         bool got_auth_info = false;

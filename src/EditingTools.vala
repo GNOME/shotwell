@@ -524,7 +524,7 @@ public class CropTool : EditingTool {
 
     private CropToolWindow crop_tool_window = null;
     private Gdk.Pixbuf color_shifted = null;
-    private Gdk.CursorType current_cursor_type = Gdk.CursorType.ARROW;
+    private Gdk.CursorType current_cursor_type = Gdk.CursorType.LEFT_PTR;
     private BoxLocation in_manipulation = BoxLocation.OUTSIDE;
     private Gdk.GC wide_black_gc = null;
     private Gdk.GC wide_white_gc = null;
@@ -1024,7 +1024,7 @@ public class CropTool : EditingTool {
 
         // make sure the cursor isn't set to a modify indicator
         if (canvas != null)
-            canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.ARROW));
+            canvas.get_drawing_window().set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
 
         base.deactivate();
     }
@@ -1168,7 +1168,7 @@ public class CropTool : EditingTool {
         Gdk.Rectangle scaled_pos = canvas.get_scaled_pixbuf_position();
         Box offset_scaled_crop = scaled_crop.get_offset(scaled_pos.x, scaled_pos.y);
         
-        Gdk.CursorType cursor_type = Gdk.CursorType.ARROW;
+        Gdk.CursorType cursor_type = Gdk.CursorType.LEFT_PTR;
         switch (offset_scaled_crop.approx_location(x, y)) {
             case BoxLocation.LEFT_SIDE:
                 cursor_type = Gdk.CursorType.LEFT_SIDE;
@@ -1207,7 +1207,7 @@ public class CropTool : EditingTool {
             break;
             
             default:
-                // use Gdk.CursorType.ARROW
+                // use Gdk.CursorType.LEFT_PTR
             break;
         }
         
@@ -1862,7 +1862,7 @@ public class RedeyeTool : EditingTool {
         
         bind_window_handlers();
         
-        cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.ARROW);
+        cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.LEFT_PTR);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
         
         canvas.get_photo().altered += on_photo_altered;
