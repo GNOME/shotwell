@@ -4,11 +4,11 @@
  * See the COPYING file in this distribution. 
  */
 
-#if !NO_CAMERA
-
 public errordomain GPhotoError {
     LIBRARY
 }
+
+#if !NO_CAMERA
 
 namespace GPhoto {
     // ContextWrapper assigns signals to the various GPhoto.Context callbacks, as well as spins
