@@ -245,22 +245,7 @@ namespace Exif {
         if (entry == null)
             return "";
 
-        Exif.Rational exposure = Exif.Convert.get_rational(entry.data, exif.get_byte_order());
-
-        if (rational_to_double(exposure) >= 1) {
-            return "%.1f s".printf(rational_to_double(exposure));
-        } else {
-            // round to the nearest five
-
-            int denominator = (int) exposure.denominator;
-
-            if (denominator > 10) {
-                int off = denominator % 5;
-                denominator += (off >= 3) ? 5 - off : -1 * off;
-            }
-            
-            return "%d/%d s".printf((int) exposure.numerator, denominator);
-        }
+        return entry.get_value();
     }
 
     public string get_aperture(Exif.Data exif) {

@@ -498,6 +498,9 @@ private class WorkSniffer : BackgroundImportJob {
             FileType file_type = info.get_file_type();
             
             if (file_type == FileType.DIRECTORY) {
+                if (info.get_name().has_prefix("."))
+                    continue;
+
                 try {
                     search_dir(job, child, copy_to_library);
                 } catch (Error err) {
