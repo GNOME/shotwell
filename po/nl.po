@@ -5,13 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.4.3+trunk\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2010-01-24 18:20-0800\n"
-"PO-Revision-Date: 2010-01-24 18:30+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-25 18:23-0800\n"
+"PO-Revision-Date: 2010-02-01 21:34+0100\n"
 "Last-Translator: Kaj-Ivar van der Wijst <kaj-ivar@vanderwijst.com>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
@@ -573,47 +573,46 @@ msgstr "%d/%m/%Y, %H:%M:%S"
 #: src/Dialogs.vala:787
 #, c-format
 msgid ""
-"Exposure time will be shifted %s by\n"
+"Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"De tijd zal worden %s opgeschoven met\n"
+"De tijd zal naar voren worden opgeschoven met\n"
 "%d %s, %d %s, %d %s, en %d %s."
 
 #: src/Dialogs.vala:788
 #, c-format
-msgid "forward"
-msgstr "naar voren"
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"De tijd zal naar achteren worden opgeschoven met\n"
+"%d %s, %d %s, %d %s, en %d %s."
 
-#: src/Dialogs.vala:788
-#, c-format
-msgid "backward"
-msgstr "naar achteren"
-
-#: src/Dialogs.vala:788
+#: src/Dialogs.vala:790
 msgid "day"
 msgid_plural "days"
 msgstr[0] "dag"
 msgstr[1] "dagen"
 
-#: src/Dialogs.vala:789
+#: src/Dialogs.vala:791
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "uur"
 msgstr[1] "uur"
 
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:792
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minuut"
 msgstr[1] "minuten"
 
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:793
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "seconde"
 msgstr[1] "seconden"
 
-#: src/Dialogs.vala:835
+#: src/Dialogs.vala:837
 #, c-format
 msgid ""
 "\n"
@@ -633,7 +632,7 @@ msgstr[1] ""
 "En %d anderen."
 
 #: src/Dimensions.vala:17
-#: src/FlickrConnector.vala:488
+#: src/FlickrConnector.vala:486
 msgid "Original size"
 msgstr "Oorspronkelijk formaat"
 
@@ -924,12 +923,12 @@ msgid "Create a _new album named:"
 msgstr "Maak een nieuw album aan:"
 
 #: src/FacebookConnector.vala:73
-#: src/FlickrConnector.vala:426
+#: src/FlickrConnector.vala:424
 msgid "_Publish"
 msgstr "_Publiceren"
 
 #: src/FacebookConnector.vala:75
-#: src/FlickrConnector.vala:424
+#: src/FlickrConnector.vala:422
 msgid "_Logout"
 msgstr "_Uitloggen"
 
@@ -970,38 +969,43 @@ msgstr ""
 "\n"
 
 #: src/FlickrConnector.vala:369
-msgid "Your free Flickr account limits how much data you can "
-msgstr "Je gratis Flickr account beperkt hoeveel data je kunt uploaden "
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Je gratis Flickr account beperkt je maandelijks upload quota.\n"
+"Voor deze maand heb je nog %d megabytes over."
 
-#: src/FlickrConnector.vala:373
+#: src/FlickrConnector.vala:371
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Je Flickr Pro account geeft je het recht om ongelimiteerd te uploaden."
 
-#: src/FlickrConnector.vala:398
+#: src/FlickrConnector.vala:396
 msgid "Photos _visible to:"
 msgstr "Foto's zichtbaar voor:"
 
-#: src/FlickrConnector.vala:399
+#: src/FlickrConnector.vala:397
 msgid "Photo _size:"
 msgstr "Foto grootte:"
 
-#: src/FlickrConnector.vala:461
+#: src/FlickrConnector.vala:459
 msgid "Everyone"
 msgstr "Iedereen"
 
-#: src/FlickrConnector.vala:462
+#: src/FlickrConnector.vala:460
 msgid "Friends & family only"
 msgstr "Alleen vrienden & familie"
 
-#: src/FlickrConnector.vala:463
+#: src/FlickrConnector.vala:461
 msgid "Just me"
 msgstr "Alleen ik"
 
-#: src/FlickrConnector.vala:486
+#: src/FlickrConnector.vala:484
 msgid "Medium (500 x 375 pixels)"
 msgstr "Medium (500 x 375 pixels)"
 
-#: src/FlickrConnector.vala:487
+#: src/FlickrConnector.vala:485
 msgid "Large (1024 x 768 pixels)"
 msgstr "Groot (1024 x 768 pixels)"
 
@@ -1228,6 +1232,10 @@ msgstr "Er is een onbekend probleem opgetreden bij het controleren van Shotwell'
 #: src/main.vala:121
 msgid "Loading Shotwell..."
 msgstr "Shotwell laden..."
+
+#: src/main.vala:206
+msgid "[FILE]"
+msgstr "[FILE]"
 
 #: src/PhotoPage.vala:109
 msgid "Previous photo"
@@ -1527,6 +1535,9 @@ msgid "GPS longitude:"
 msgstr "GPS Longitude:"
 
 #: src/Properties.vala:413
+msgid "Artist:"
+msgstr "Artiest:"
+
 #: src/Properties.vala:415
 msgid "Copyright:"
 msgstr "Copyright:"
@@ -1540,8 +1551,8 @@ msgid "Extended Information"
 msgstr "Uitgebreide Informatie"
 
 #: src/Resources.vala:14
-msgid "Photo Organizer"
-msgstr "Fotobeheerder"
+msgid "Photo Manager"
+msgstr "Photo Manager"
 
 #: src/Resources.vala:15
 msgid "Photo Viewer"
@@ -1910,4 +1921,11 @@ msgstr "Het publiceren naar %s kan niet doorgaan omdat er een probleem was."
 #: src/WebConnectors.vala:716
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "Om te proberen om te publiceren naar een andere service, selecteer het uit het bovenstaande menu."
+
+#~ msgid "forward"
+#~ msgstr "naar voren"
+#~ msgid "backward"
+#~ msgstr "naar achteren"
+#~ msgid "Your free Flickr account limits how much data you can "
+#~ msgstr "Je gratis Flickr account beperkt hoeveel data je kunt uploaden "
 
