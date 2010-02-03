@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.4.3+trunk\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2009-12-11 18:20-0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-25 18:23-0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Jose Luis Navarro <jlnavarro111@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -59,14 +59,13 @@ msgstr ""
 
 #: src/AppWindow.vala:397
 msgid "More information on Shotwell"
-msgstr ""
+msgstr "Más información sobre Shotwell"
 
 #: src/AppWindow.vala:454
 msgid "Visit the Yorba web site"
-msgstr ""
+msgstr "Visite el sitio web de Yorba"
 
-#: src/CollectionPage.vala:117
-#: src/SlideshowPage.vala:89
+#: src/CollectionPage.vala:117 src/SlideshowPage.vala:89
 msgid "Slideshow"
 msgstr ""
 
@@ -78,17 +77,13 @@ msgstr ""
 msgid "Adjust the size of the thumbnails"
 msgstr ""
 
-#: src/CollectionPage.vala:172
-#: src/EventsDirectoryPage.vala:197
-#: src/ImportPage.vala:361
-#: src/ImportPage.vala:1059
-#: src/PhotoPage.vala:1178
+#: src/CollectionPage.vala:172 src/EventsDirectoryPage.vala:197
+#: src/ImportPage.vala:361 src/ImportPage.vala:1059 src/PhotoPage.vala:1178
 #: src/PhotoPage.vala:1664
 msgid "_File"
 msgstr "_Archivo"
 
-#: src/CollectionPage.vala:177
-#: src/PhotoPage.vala:1183
+#: src/CollectionPage.vala:177 src/PhotoPage.vala:1183
 msgid "_Export Photos..."
 msgstr "_Exportar fotos..."
 
@@ -96,45 +91,37 @@ msgstr "_Exportar fotos..."
 msgid "Export selected photos to disk"
 msgstr ""
 
-#: src/CollectionPage.vala:183
-#: src/PhotoPage.vala:1194
+#: src/CollectionPage.vala:183 src/PhotoPage.vala:1194
 msgid "Prin_t..."
-msgstr ""
+msgstr "_Imprimir..."
 
-#: src/CollectionPage.vala:184
-#: src/PhotoPage.vala:1195
+#: src/CollectionPage.vala:184 src/PhotoPage.vala:1195
 msgid "Print the photo to a printer connected to your computer"
-msgstr ""
+msgstr "Imprimir la foto a una impresora conectada a su ordenador"
 
-#: src/CollectionPage.vala:189
-#: src/PhotoPage.vala:1189
+#: src/CollectionPage.vala:189 src/PhotoPage.vala:1189
 msgid "Page _Setup..."
 msgstr ""
 
-#: src/CollectionPage.vala:201
-#: src/EventsDirectoryPage.vala:209
-#: src/ImportPage.vala:375
-#: src/PhotoPage.vala:1199
+#: src/CollectionPage.vala:201 src/EventsDirectoryPage.vala:209
+#: src/ImportPage.vala:375 src/PhotoPage.vala:1199
 msgid "_Edit"
 msgstr "_Editar"
 
-#: src/CollectionPage.vala:205
-#: src/EventsDirectoryPage.vala:213
+#: src/CollectionPage.vala:205 src/EventsDirectoryPage.vala:213
 msgid "Even_ts"
-msgstr ""
+msgstr "Even_tos"
 
-#: src/CollectionPage.vala:210
-#: src/EventsDirectoryPage.vala:229
+#: src/CollectionPage.vala:210 src/EventsDirectoryPage.vala:229
 #: src/ImportPage.vala:380
 msgid "Select _All"
-msgstr ""
+msgstr "Seleccionar _todo"
 
 #: src/CollectionPage.vala:211
 msgid "Select all the photos in the library"
-msgstr ""
+msgstr "Seleccionar todas las fotos de la biblioteca"
 
-#: src/CollectionPage.vala:216
-#: src/PhotoPage.vala:1204
+#: src/CollectionPage.vala:216 src/PhotoPage.vala:1204
 msgid "Re_move"
 msgstr "_Eliminar"
 
@@ -170,11 +157,8 @@ msgstr ""
 msgid "Play a slideshow"
 msgstr ""
 
-#: src/CollectionPage.vala:304
-#: src/EventsDirectoryPage.vala:201
-#: src/ImportPage.vala:385
-#: src/ImportPage.vala:1069
-#: src/PhotoPage.vala:1209
+#: src/CollectionPage.vala:304 src/EventsDirectoryPage.vala:201
+#: src/ImportPage.vala:385 src/ImportPage.vala:1069 src/PhotoPage.vala:1209
 #: src/PhotoPage.vala:1737
 msgid "_View"
 msgstr "_Ver"
@@ -183,30 +167,25 @@ msgstr "_Ver"
 msgid "Sort _Photos"
 msgstr "Ordenar _Fotos"
 
-#: src/CollectionPage.vala:318
-#: src/EventsDirectoryPage.vala:205
-#: src/ImportPage.vala:389
-#: src/ImportPage.vala:1073
-#: src/PhotoPage.vala:1271
+#: src/CollectionPage.vala:318 src/EventsDirectoryPage.vala:205
+#: src/ImportPage.vala:389 src/ImportPage.vala:1073 src/PhotoPage.vala:1271
 #: src/PhotoPage.vala:1741
 msgid "_Help"
 msgstr "_Ayuda"
 
 #: src/CollectionPage.vala:329
 msgid "Only _Favorites"
-msgstr ""
+msgstr "Solo _Favoritas"
 
 #: src/CollectionPage.vala:330
 msgid "Show only your favorite photos"
-msgstr ""
+msgstr "Mostrar sólo tus fotos favoritas"
 
-#: src/CollectionPage.vala:335
-#: src/ImportPage.vala:350
+#: src/CollectionPage.vala:335 src/ImportPage.vala:350
 msgid "_Titles"
 msgstr "_Titulos"
 
-#: src/CollectionPage.vala:336
-#: src/ImportPage.vala:351
+#: src/CollectionPage.vala:336 src/ImportPage.vala:351
 msgid "Display the title of each photo"
 msgstr "Mostrar el título de cada foto"
 
@@ -215,16 +194,18 @@ msgid "_Hidden Photos"
 msgstr "_Ocultar Fotos"
 
 #: src/CollectionPage.vala:342
+#, fuzzy
 msgid "Show hidden photos"
-msgstr ""
+msgstr "Muestra las fotos ocultas"
 
 #: src/CollectionPage.vala:353
 msgid "By _Title"
-msgstr ""
+msgstr "Por _Título"
 
 #: src/CollectionPage.vala:354
+#, fuzzy
 msgid "Sort photos by title"
-msgstr ""
+msgstr "Ordenar fotos por título"
 
 #: src/CollectionPage.vala:359
 msgid "By Exposure _Date"
@@ -234,23 +215,19 @@ msgstr ""
 msgid "Sort photos by exposure date"
 msgstr ""
 
-#: src/CollectionPage.vala:371
-#: src/LibraryWindow.vala:373
+#: src/CollectionPage.vala:371 src/LibraryWindow.vala:373
 msgid "_Ascending"
 msgstr "_Ascendente"
 
-#: src/CollectionPage.vala:372
-#: src/LibraryWindow.vala:374
+#: src/CollectionPage.vala:372 src/LibraryWindow.vala:374
 msgid "Sort photos in an ascending order"
 msgstr "Ordenar fotos en orden ascendente"
 
-#: src/CollectionPage.vala:377
-#: src/LibraryWindow.vala:380
+#: src/CollectionPage.vala:377 src/LibraryWindow.vala:380
 msgid "D_escending"
 msgstr "D_escendiente"
 
-#: src/CollectionPage.vala:378
-#: src/LibraryWindow.vala:381
+#: src/CollectionPage.vala:378 src/LibraryWindow.vala:381
 msgid "Sort photos in a descending order"
 msgstr ""
 
@@ -261,20 +238,15 @@ msgid_plural "%d photo source files missing."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/CollectionPage.vala:687
-#: src/Dialogs.vala:14
-#: src/PhotoPage.vala:1406
+#: src/CollectionPage.vala:687 src/Dialogs.vala:14 src/PhotoPage.vala:1406
 msgid "Export Photo"
 msgstr "Exportar Foto"
 
-#: src/CollectionPage.vala:689
-#: src/Dialogs.vala:36
-#: src/Dialogs.vala:54
+#: src/CollectionPage.vala:689 src/Dialogs.vala:36 src/Dialogs.vala:54
 msgid "Export Photos"
 msgstr "Exportar Fotos"
 
-#: src/CollectionPage.vala:710
-#: src/CollectionPage.vala:744
+#: src/CollectionPage.vala:710 src/CollectionPage.vala:744
 #, c-format
 msgid "Unable to export photo %s: %s"
 msgstr ""
@@ -287,8 +259,7 @@ msgstr "Exportando"
 msgid "Removing..."
 msgstr "Eliminando..."
 
-#: src/CollectionPage.vala:886
-#: src/CollectionPage.vala:904
+#: src/CollectionPage.vala:886 src/CollectionPage.vala:904
 msgid "Rotating..."
 msgstr "Rotando"
 
@@ -367,23 +338,19 @@ msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Commands.vala:709
-#: src/Commands.vala:710
+#: src/Commands.vala:709 src/Commands.vala:710
 msgid "Marking as Favorite..."
 msgstr ""
 
-#: src/Commands.vala:709
-#: src/Commands.vala:710
+#: src/Commands.vala:709 src/Commands.vala:710
 msgid "Unmarking as Favorite..."
 msgstr ""
 
-#: src/Commands.vala:731
-#: src/Commands.vala:732
+#: src/Commands.vala:731 src/Commands.vala:732
 msgid "Hiding..."
 msgstr ""
 
-#: src/Commands.vala:731
-#: src/Commands.vala:732
+#: src/Commands.vala:731 src/Commands.vala:732
 msgid "Unhiding..."
 msgstr ""
 
@@ -405,8 +372,7 @@ msgid_plural "The following original photos could not be adjusted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Commands.vala:823
-#: src/Commands.vala:835
+#: src/Commands.vala:823 src/Commands.vala:835
 msgid "Time Adjustment Error"
 msgstr ""
 
@@ -490,8 +456,7 @@ msgstr ""
 msgid "Import Complete"
 msgstr "Importación Completa"
 
-#: src/Dialogs.vala:405
-#: src/Resources.vala:115
+#: src/Dialogs.vala:405 src/Resources.vala:115
 msgid "Rename Event"
 msgstr "Renombrar Evento"
 
@@ -556,58 +521,65 @@ msgstr[1] ""
 msgid "Original: "
 msgstr ""
 
-# Change %m/%d/%y to a locale-specific date format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable date format specifiers and their meanings.
+# Change %m/%d/%y to a locale-specific date format string appropriate for your
+# language, country and region. The date format string should conform to POSIX
+# date-formatting conventions. See the manpage for strftime for a list of
+# applicable date format specifiers and their meanings.
 #: src/Dialogs.vala:709
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr ""
 
-# Change %m/%d/%y to a locale-specific date format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable date format specifiers and their meanings.
+# Change %m/%d/%y to a locale-specific date format string appropriate for your
+# language, country and region. The date format string should conform to POSIX
+# date-formatting conventions. See the manpage for strftime for a list of
+# applicable date format specifiers and their meanings.
 #: src/Dialogs.vala:710
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr ""
 
+# Each "%d %s" pair gets replaced with a number and a string to describe a
+# time value and a time unit, such as "35 minutes" where the %d is resolved to
+# "35" and the %s is resolved to "minutes." There are multiple "%d %s" pairs
+# so that we can say things like "4 days, 5 hours, 35 minutes and 8 seconds."
 #: src/Dialogs.vala:787
 #, c-format
 msgid ""
-"Exposure time will be shifted %s by\n"
+"Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 
 #: src/Dialogs.vala:788
 #, c-format
-msgid "forward"
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
 
-#: src/Dialogs.vala:788
-#, c-format
-msgid "backward"
-msgstr ""
-
-#: src/Dialogs.vala:788
+#: src/Dialogs.vala:790
 msgid "day"
 msgid_plural "days"
 msgstr[0] "día"
 msgstr[1] "días"
 
-#: src/Dialogs.vala:789
+#: src/Dialogs.vala:791
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:792
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:793
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dialogs.vala:835
+#: src/Dialogs.vala:837
 #, c-format
 msgid ""
 "\n"
@@ -620,8 +592,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dimensions.vala:17
-#: src/FlickrConnector.vala:488
+#: src/Dimensions.vala:17 src/FlickrConnector.vala:486
 msgid "Original size"
 msgstr "Tamaño original"
 
@@ -673,10 +644,8 @@ msgstr ""
 msgid "Original Size"
 msgstr "Tamaño original"
 
-#: src/EditingTools.vala:570
-#: src/EditingTools.vala:573
-#: src/EditingTools.vala:581
-#: src/EditingTools.vala:589
+#: src/EditingTools.vala:570 src/EditingTools.vala:573
+#: src/EditingTools.vala:581 src/EditingTools.vala:589
 msgid "-"
 msgstr ""
 
@@ -688,73 +657,59 @@ msgstr ""
 msgid "HD Video (16 : 9)"
 msgstr ""
 
-#: src/EditingTools.vala:574
-#: src/Printing.vala:767
+#: src/EditingTools.vala:574 src/Printing.vala:767
 msgid "Wallet (2 x 3 in.)"
 msgstr ""
 
-#: src/EditingTools.vala:575
-#: src/Printing.vala:770
+#: src/EditingTools.vala:575 src/Printing.vala:770
 msgid "Notecard (3 x 5 in.)"
 msgstr ""
 
-#: src/EditingTools.vala:576
-#: src/Printing.vala:773
+#: src/EditingTools.vala:576 src/Printing.vala:773
 msgid "4 x 6 in."
 msgstr "4 x 6 in."
 
-#: src/EditingTools.vala:577
-#: src/Printing.vala:776
+#: src/EditingTools.vala:577 src/Printing.vala:776
 msgid "5 x 7 in."
 msgstr "5 x 7 in."
 
-#: src/EditingTools.vala:578
-#: src/Printing.vala:779
+#: src/EditingTools.vala:578 src/Printing.vala:779
 msgid "8 x 10 in."
 msgstr "8 x 10 in."
 
-#: src/EditingTools.vala:579
-#: src/Printing.vala:782
+#: src/EditingTools.vala:579 src/Printing.vala:782
 msgid "11 x 14 in."
 msgstr "11 x 14 in."
 
-#: src/EditingTools.vala:580
-#: src/Printing.vala:785
+#: src/EditingTools.vala:580 src/Printing.vala:785
 msgid "16 x 20 in."
 msgstr "16 x 20 in."
 
-#: src/EditingTools.vala:582
-#: src/Printing.vala:791
+#: src/EditingTools.vala:582 src/Printing.vala:791
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr ""
 
-#: src/EditingTools.vala:583
-#: src/Printing.vala:794
+#: src/EditingTools.vala:583 src/Printing.vala:794
 msgid "Postcard (10 x 15 cm)"
 msgstr ""
 
-#: src/EditingTools.vala:584
-#: src/Printing.vala:797
+#: src/EditingTools.vala:584 src/Printing.vala:797
 msgid "13 x 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/EditingTools.vala:585
-#: src/Printing.vala:800
+#: src/EditingTools.vala:585 src/Printing.vala:800
 msgid "18 x 24 cm"
 msgstr "18 x 24 cm"
 
-#: src/EditingTools.vala:586
-#: src/Printing.vala:803
+#: src/EditingTools.vala:586 src/Printing.vala:803
 msgid "20 x 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/EditingTools.vala:587
-#: src/Printing.vala:806
+#: src/EditingTools.vala:587 src/Printing.vala:806
 msgid "24 x 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/EditingTools.vala:588
-#: src/Printing.vala:809
+#: src/EditingTools.vala:588 src/Printing.vala:809
 msgid "30 x 40 cm"
 msgstr "30 x 40 cm"
 
@@ -770,8 +725,7 @@ msgstr ""
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr ""
 
-#: src/EditingTools.vala:1678
-#: src/Properties.vala:266
+#: src/EditingTools.vala:1678 src/Properties.vala:266
 msgid "Size:"
 msgstr ""
 
@@ -795,9 +749,7 @@ msgstr ""
 msgid "_Reset"
 msgstr ""
 
-#: src/EditingTools.vala:2025
-#: src/Properties.vala:295
-#: src/Properties.vala:299
+#: src/EditingTools.vala:2025 src/Properties.vala:295 src/Properties.vala:299
 #: src/Properties.vala:306
 msgid "Exposure:"
 msgstr ""
@@ -850,8 +802,7 @@ msgstr ""
 msgid "Contrast Expansion"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:64
-#: src/Properties.vala:234
+#: src/EventsDirectoryPage.vala:64 src/Properties.vala:234
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -866,13 +817,11 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:479
-#: src/LibraryWindow.vala:186
+#: src/EventsDirectoryPage.vala:479 src/LibraryWindow.vala:186
 msgid "%Y"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:479
-#: src/LibraryWindow.vala:186
+#: src/EventsDirectoryPage.vala:479 src/LibraryWindow.vala:186
 msgid "%B"
 msgstr ""
 
@@ -906,13 +855,11 @@ msgstr ""
 msgid "Create a _new album named:"
 msgstr ""
 
-#: src/FacebookConnector.vala:73
-#: src/FlickrConnector.vala:426
+#: src/FacebookConnector.vala:73 src/FlickrConnector.vala:424
 msgid "_Publish"
 msgstr "_Publicar"
 
-#: src/FacebookConnector.vala:75
-#: src/FlickrConnector.vala:424
+#: src/FacebookConnector.vala:75 src/FlickrConnector.vala:422
 msgid "_Logout"
 msgstr ""
 
@@ -944,38 +891,41 @@ msgid ""
 msgstr ""
 
 #: src/FlickrConnector.vala:369
-msgid "Your free Flickr account limits how much data you can "
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
 
-#: src/FlickrConnector.vala:373
+#: src/FlickrConnector.vala:371
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
 
-#: src/FlickrConnector.vala:398
+#: src/FlickrConnector.vala:396
 msgid "Photos _visible to:"
 msgstr ""
 
-#: src/FlickrConnector.vala:399
+#: src/FlickrConnector.vala:397
 msgid "Photo _size:"
 msgstr ""
 
-#: src/FlickrConnector.vala:461
+#: src/FlickrConnector.vala:459
 msgid "Everyone"
 msgstr ""
 
-#: src/FlickrConnector.vala:462
+#: src/FlickrConnector.vala:460
 msgid "Friends & family only"
 msgstr ""
 
-#: src/FlickrConnector.vala:463
+#: src/FlickrConnector.vala:461
 msgid "Just me"
 msgstr ""
 
-#: src/FlickrConnector.vala:486
+#: src/FlickrConnector.vala:484
 msgid "Medium (500 x 375 pixels)"
 msgstr ""
 
-#: src/FlickrConnector.vala:487
+#: src/FlickrConnector.vala:485
 msgid "Large (1024 x 768 pixels)"
 msgstr ""
 
@@ -1008,8 +958,7 @@ msgstr ""
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 
-#: src/ImportPage.vala:237
-#: src/ImportPage.vala:238
+#: src/ImportPage.vala:237 src/ImportPage.vala:238
 msgid "Camera"
 msgstr "Camara"
 
@@ -1105,8 +1054,7 @@ msgstr[1] ""
 msgid "Importing..."
 msgstr ""
 
-#: src/ImportPage.vala:1035
-#: src/ImportPage.vala:1065
+#: src/ImportPage.vala:1035 src/ImportPage.vala:1065
 msgid "Stop importing photos"
 msgstr ""
 
@@ -1201,6 +1149,10 @@ msgstr ""
 msgid "Loading Shotwell..."
 msgstr ""
 
+#: src/main.vala:206
+msgid "[FILE]"
+msgstr ""
+
 #: src/PhotoPage.vala:109
 msgid "Previous photo"
 msgstr ""
@@ -1226,28 +1178,23 @@ msgstr ""
 msgid "Remove the photo from your library"
 msgstr ""
 
-#: src/PhotoPage.vala:1213
-#: src/PhotoPage.vala:1685
+#: src/PhotoPage.vala:1213 src/PhotoPage.vala:1685
 msgid "_Photo"
 msgstr "_Foto"
 
-#: src/PhotoPage.vala:1218
-#: src/PhotoPage.vala:1690
+#: src/PhotoPage.vala:1218 src/PhotoPage.vala:1690
 msgid "_Previous Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1219
-#: src/PhotoPage.vala:1691
+#: src/PhotoPage.vala:1219 src/PhotoPage.vala:1691
 msgid "Previous Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1224
-#: src/PhotoPage.vala:1696
+#: src/PhotoPage.vala:1224 src/PhotoPage.vala:1696
 msgid "_Next Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1225
-#: src/PhotoPage.vala:1697
+#: src/PhotoPage.vala:1225 src/PhotoPage.vala:1697
 msgid "Next Photo"
 msgstr ""
 
@@ -1303,8 +1250,7 @@ msgstr ""
 msgid "Error while saving to %s: %s"
 msgstr ""
 
-#: src/PhotoPage.vala:1875
-#: src/PhotoPage.vala:1884
+#: src/PhotoPage.vala:1875 src/PhotoPage.vala:1884
 msgid "Save As"
 msgstr "Guardar como"
 
@@ -1401,9 +1347,7 @@ msgstr ""
 msgid "Image Settings"
 msgstr ""
 
-#: src/Printing.vala:839
-#: src/Printing.vala:940
-#: src/Printing.vala:979
+#: src/Printing.vala:839 src/Printing.vala:940 src/Printing.vala:979
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -1411,7 +1355,11 @@ msgid ""
 "%s"
 msgstr ""
 
-# Locale-specific time format string, conforming to POSIX time-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the time formatting conventions of their language, country, and region.
+# Locale-specific time format string, conforming to POSIX time-formatting
+# conventions. See the manpage for strftime for a list of applicable format
+# specifiers and their meanings. Translators should localize this string to
+# reflect the time formatting conventions of their language, country, and
+# region.
 #: src/Properties.vala:35
 msgid "%I:%M %p"
 msgstr ""
@@ -1447,13 +1395,11 @@ msgstr ""
 msgid "Time:"
 msgstr ""
 
-#: src/Properties.vala:255
-#: src/Properties.vala:260
+#: src/Properties.vala:255 src/Properties.vala:260
 msgid "From:"
 msgstr ""
 
-#: src/Properties.vala:256
-#: src/Properties.vala:261
+#: src/Properties.vala:256 src/Properties.vala:261
 msgid "To:"
 msgstr ""
 
@@ -1510,7 +1456,7 @@ msgid "Extended Information"
 msgstr ""
 
 #: src/Resources.vala:14
-msgid "Photo Organizer"
+msgid "Photo Manager"
 msgstr ""
 
 #: src/Resources.vala:15
@@ -1525,8 +1471,7 @@ msgstr "Copyright 2009-2010 Yorba Foundation"
 msgid "Rotate _Right"
 msgstr ""
 
-#: src/Resources.vala:82
-#: src/Resources.vala:87
+#: src/Resources.vala:82 src/Resources.vala:87
 msgid "Rotate"
 msgstr ""
 
@@ -1754,8 +1699,7 @@ msgstr ""
 msgid "Adjust date and time of selected photos"
 msgstr ""
 
-#: src/SlideshowPage.vala:55
-#: src/SlideshowPage.vala:120
+#: src/SlideshowPage.vala:55 src/SlideshowPage.vala:120
 msgid "Settings"
 msgstr ""
 
@@ -1775,13 +1719,11 @@ msgstr ""
 msgid "Go to the previous photo"
 msgstr ""
 
-#: src/SlideshowPage.vala:106
-#: src/SlideshowPage.vala:210
+#: src/SlideshowPage.vala:106 src/SlideshowPage.vala:210
 msgid "Pause"
 msgstr ""
 
-#: src/SlideshowPage.vala:107
-#: src/SlideshowPage.vala:211
+#: src/SlideshowPage.vala:107 src/SlideshowPage.vala:211
 msgid "Pause the slideshow"
 msgstr ""
 
@@ -1809,7 +1751,11 @@ msgstr ""
 msgid "Continue the slideshow"
 msgstr ""
 
-# Locale-specific date format string, conforming to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the date formatting conventions of their language, country, and region.
+# Locale-specific date format string, conforming to POSIX date-formatting
+# conventions. See the manpage for strftime for a list of applicable format
+# specifiers and their meanings. Translators should localize this string to
+# reflect the date formatting conventions of their language, country, and
+# region.
 #: src/util.vala:379
 msgid "%a %b %d, %Y"
 msgstr ""
@@ -1880,4 +1826,3 @@ msgstr ""
 #: src/WebConnectors.vala:716
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
-
