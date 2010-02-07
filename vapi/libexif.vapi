@@ -63,8 +63,8 @@ namespace Exif {
         public static void set_slong(uchar *buffer, ByteOrder byteOrder, int32 val);
     }
 
-    [CCode (cheader_filename="libexif/exif-content.h")]
-    public static delegate void ForeachEntryFunc(Entry e, void *user);
+    [CCode (cheader_filename="libexif/exif-content.h", has_target=false)]
+    public delegate void ForeachEntryFunc(Entry e, void *user);
 
     [Compact]
     [CCode (
@@ -94,8 +94,8 @@ namespace Exif {
         public uint size;
     }
 
-    [CCode (cheader_filename="libexif/exif-data.h")]
-    public static delegate void ForeachContentFunc(Content c, void *user);
+    [CCode (cheader_filename="libexif/exif-data.h", has_target=false)]
+    public delegate void ForeachContentFunc(Content c, void *user);
 
     [CCode (
         cname="ExifDataOption",

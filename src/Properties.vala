@@ -5,11 +5,11 @@
  */
 
 private abstract class Properties : Gtk.HBox {
-    protected Gtk.Label label = new Gtk.Label("");
-    protected Gtk.Label info = new Gtk.Label(""); 
-    protected string basic_properties_labels;
-    protected string basic_properties_info;
-    protected bool first_line;
+    private Gtk.Label label = new Gtk.Label("");
+    private Gtk.Label info = new Gtk.Label(""); 
+    private string basic_properties_labels;
+    private string basic_properties_info;
+    private bool first_line;
 
     public Properties() {
         label.set_justify(Gtk.Justification.RIGHT);
@@ -19,6 +19,7 @@ private abstract class Properties : Gtk.HBox {
         pack_start(info, true, true, 3);
         
         info.set_ellipsize(Pango.EllipsizeMode.END);
+        info.set_selectable(true);
     }
 
     protected void add_line(string label, string info) {
@@ -85,7 +86,7 @@ private abstract class Properties : Gtk.HBox {
 
         if (count == 1) {
             foreach (DataView item in iter) {
-                get_single_properties(item);                
+                get_single_properties(item);
                 break;
             }
         } else {
@@ -110,14 +111,13 @@ private class BasicProperties : Properties {
     private time_t start_time = time_t();
     private time_t end_time = time_t();
     private Dimensions dimensions;
-    private int photo_count;      
+    private int photo_count;
     private int event_count;
     private string exposure;
     private string aperture;
     private string iso;
 
     public BasicProperties() {
-        info.set_selectable(true);
     }
 
     private override void clear_properties() {
@@ -361,7 +361,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             DataSource source = view.get_source();
 
             if (source is PhotoSource) {
-                if (source is TransformablePhoto)                
+                if (source is TransformablePhoto)
                     file_path = ((TransformablePhoto) source).get_file().get_path();
 
                 filesize = ((PhotoSource) source).get_filesize();
@@ -463,9 +463,4 @@ private class ExtendedPropertiesWindow : Gtk.Window {
     public void update_properties(Page page) {
         properties.update_properties(page);
     }
-
-    public override void show_all() {
-        base.show_all();
-        properties.info.set_selectable(true);
-    }  
 }

@@ -303,7 +303,8 @@ public abstract class EditingTool {
     
     private EditingToolWindow tool_window = null;
     
-    public static delegate EditingTool Factory();
+    [CCode (has_target=false)]
+    public delegate EditingTool Factory();
 
     public signal void activated();
     

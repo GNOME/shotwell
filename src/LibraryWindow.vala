@@ -129,7 +129,7 @@ public class LibraryWindow : AppWindow {
             return page != null;
         }
         
-        protected Page get_page() {
+        public Page get_page() {
             if (page == null) {
                 // create the page and set its marker, if one has been supplied
                 page = construct_page();

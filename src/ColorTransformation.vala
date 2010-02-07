@@ -379,11 +379,7 @@ public abstract class PixelTransformation {
 public class RGBTransformation : PixelTransformation {
     /* matrix entries are stored in row-major order; by default, the matrix formed
        by matrix_entries is the 4x4 identity matrix */
-    protected float[] matrix_entries = {
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f };
+    protected float[] matrix_entries;
     
     protected const int MATRIX_SIZE = 16;
 
@@ -391,6 +387,16 @@ public class RGBTransformation : PixelTransformation {
     
     public RGBTransformation(PixelTransformationType type) {
         base(type);
+        
+        // Can't initialize these in their member declarations because of a valac bug that
+        // I've been unable to produce a minimal test case for to report (JN).  May be 
+        // related to this bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=570821
+        matrix_entries = {
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f };
     }
 
     public override PixelFormat get_preferred_format() {

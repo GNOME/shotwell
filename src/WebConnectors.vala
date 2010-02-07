@@ -132,8 +132,12 @@ public abstract class RESTTransaction {
         return arguments;
     }
 
-    protected void set_response(string new_response) {
-        response = new_response;
+    protected void set_response(uint8[] new_response) {
+        StringBuilder builder = new StringBuilder();
+        foreach (uint8 b in new_response)
+            builder.append(b.to_string());
+        
+        response = builder.str;
     }
 
     protected RESTArgument[] get_sorted_arguments() {
@@ -182,7 +186,7 @@ public abstract class RESTTransaction {
         post_req.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
             formdata_string, formdata_string.length);
         parent_session.send_message(post_req);
-        response = post_req.response_body.data;
+        set_response(post_req.response_body.data);
         
         is_executed = true;
     }
@@ -451,12 +455,9 @@ public abstract class UploadActionPane : ProgressPane {
         
         TemporaryFileDescriptor[] temp_files = prepare_files();
         
-        PublishingError err = null;
         try {
             if (!user_cancelled && temp_files.length > 0)
                 send_files(temp_files);
-        } catch (PublishingError e) {
-            err = e;
         } finally {
             foreach (TemporaryFileDescriptor temp in temp_files) {
                 try {
@@ -470,11 +471,6 @@ public abstract class UploadActionPane : ProgressPane {
                 }
             }
         }
-        
-        // Have to do it this way because Vala currently doesn't handle try...finally well right
-        // now, the finally block is executed but the exception is not propagated upwards
-        if (err != null)
-            throw err;
     }
     
     private TemporaryFileDescriptor[] prepare_files() {
