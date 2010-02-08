@@ -104,6 +104,10 @@ private abstract class Properties : Gtk.HBox {
         clear_properties();
         get_properties(page);
     }
+
+    public void unselect_text() {
+        info.select_region(0,0);
+    }
 }
 
 private class BasicProperties : Properties {
@@ -462,5 +466,10 @@ private class ExtendedPropertiesWindow : Gtk.Window {
 
     public void update_properties(Page page) {
         properties.update_properties(page);
+    }
+
+    public override void show_all() {
+        base.show_all();
+        properties.unselect_text();
     }
 }
