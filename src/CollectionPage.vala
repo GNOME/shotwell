@@ -480,7 +480,7 @@ public abstract class CollectionPage : CheckerboardPage {
         }
     }
 
-    protected override bool on_context_invoked(Gtk.Menu context_menu) {
+    protected override bool on_context_invoked() {
         bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
         
@@ -501,7 +501,7 @@ public abstract class CollectionPage : CheckerboardPage {
             get_view().get_selected_count() == 1);
 #endif 
 
-        return true;
+        return base.on_context_invoked();
     }
     
     public override LayoutItem? get_fullscreen_photo() {

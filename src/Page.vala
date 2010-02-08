@@ -36,9 +36,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
     private Gdk.Point last_down = Gdk.Point();
-    private bool ctrl_pressed = false;
-    private bool alt_pressed = false;
-    private bool shift_pressed = false;
+    protected bool ctrl_pressed = false;
+    protected bool alt_pressed = false;
+    protected bool shift_pressed = false;
     
     public Page(string page_name) {
         this.page_name = page_name;
@@ -47,6 +47,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         last_down = { -1, -1 };
         
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
+
+        popup_menu += on_context_keypress;
     }
     
     ~Page() {
@@ -220,15 +222,21 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         widget.sensitive = sensitive;
     }
 
-    private virtual void update_modifiers() {
-        int x, y;
+    private void get_modifiers(out bool ctrl, out bool alt, out bool shift) {
+            int x, y;
         Gdk.ModifierType mask;
         AppWindow.get_instance().window.get_pointer(out x, out y, out mask);
 
-        bool ctrl_currently_pressed = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
-        bool alt_currently_pressed = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
-        bool shift_currently_pressed = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
+        ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
+        alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
+        shift = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
+    }
 
+    private virtual void update_modifiers() {
+        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed;
+        get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
+            out shift_currently_pressed);
+        
         if (ctrl_pressed && !ctrl_currently_pressed)
             on_ctrl_released(null);
         else if (!ctrl_pressed && ctrl_currently_pressed)
@@ -515,21 +523,36 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public bool notify_app_key_pressed(Gdk.EventKey event) {
+        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed;
+        get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
+            out shift_currently_pressed);
+
         switch (Gdk.keyval_name(event.keyval)) {
             case "Control_L":
             case "Control_R":
+                if (!ctrl_currently_pressed || ctrl_pressed)
+                    return false;
+
                 ctrl_pressed = true;
                 
                 return on_ctrl_pressed(event);
-            
+
+            case "Meta_L":
+            case "Meta_R":
             case "Alt_L":
             case "Alt_R":
+                if (!alt_currently_pressed || alt_pressed)
+                    return false;
+
                 alt_pressed = true;
                 
                 return on_alt_pressed(event);
             
             case "Shift_L":
             case "Shift_R":
+                if (!shift_currently_pressed || shift_pressed)
+                    return false;
+
                 shift_pressed = true;
                 
                 return on_shift_pressed(event);
@@ -539,21 +562,36 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public bool notify_app_key_released(Gdk.EventKey event) {
+        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed;
+        get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
+            out shift_currently_pressed);
+
         switch (Gdk.keyval_name(event.keyval)) {
             case "Control_L":
             case "Control_R":
+                if (ctrl_currently_pressed || !ctrl_pressed)
+                    return false;
+
                 ctrl_pressed = false;
                 
                 return on_ctrl_released(event);
             
+            case "Meta_L":
+            case "Meta_R":
             case "Alt_L":
             case "Alt_R":
+                if (alt_currently_pressed || !alt_pressed)
+                    return false;
+
                 alt_pressed = false;
                 
                 return on_alt_released(event);
             
             case "Shift_L":
             case "Shift_R":
+                if (shift_currently_pressed || !shift_pressed)
+                    return false;
+
                 shift_pressed = false;
                 
                 return on_shift_released(event);
@@ -664,6 +702,33 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         return on_motion(event, x, y, mask);
     }
+
+    protected virtual bool on_context_keypress() {
+        return false;
+    }
+    
+    protected virtual bool on_context_buttonpress(Gdk.EventButton event) {
+        return false;
+    }
+    
+    protected virtual bool on_context_invoked() {
+        return true;
+    }
+
+    protected bool popup_context_menu(Gtk.Menu? context_menu,
+        Gdk.EventButton? event = null) {
+        on_context_invoked();
+
+        if (context_menu == null)
+            return false;
+
+        if (event == null)
+            context_menu.popup(null, null, null, 0, Gtk.get_current_event_time());
+        else
+            context_menu.popup(null, null, null, event.button, event.time);
+
+        return true;
+    }
 }
 
 public abstract class CheckerboardPage : Page {
@@ -722,11 +787,11 @@ public abstract class CheckerboardPage : Page {
         return page_context_menu;
     }
     
-    protected virtual void on_item_activated(LayoutItem item) {
+    protected override bool on_context_keypress() {
+        return popup_context_menu(get_context_menu());
     }
     
-    protected virtual bool on_context_invoked(Gtk.Menu context_menu) {
-        return true;
+    protected virtual void on_item_activated(LayoutItem item) {
     }
     
     public CheckerboardLayout get_checkerboard_layout() {
@@ -1001,7 +1066,7 @@ public abstract class CheckerboardPage : Page {
         if (context_menu == null)
             return false;
 
-        if (!on_context_invoked(context_menu))
+        if (!on_context_invoked())
             return false;
 
         context_menu.popup(null, null, null, event.button, event.time);
@@ -1516,6 +1581,10 @@ public abstract class SinglePhotoPage : Page {
         // no need to resize canvas, viewport does that automatically
 
         new_drawable(canvas_gc, pixmap);
+    }
+
+    protected override bool on_context_keypress() {
+        return popup_context_menu(get_page_context_menu());
     }
 }
 

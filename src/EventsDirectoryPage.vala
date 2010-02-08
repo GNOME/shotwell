@@ -238,13 +238,13 @@ public class EventsDirectoryPage : CheckerboardPage {
         LibraryWindow.get_app().switch_to_event(event.event);
     }
 
-    protected override bool on_context_invoked(Gtk.Menu context_menu) {
+    protected override bool on_context_invoked() {
         set_item_sensitive("/EventsDirectoryContextMenu/ContextRename", 
             get_view().get_selected_count() == 1);
         set_item_sensitive("/EventsDirectoryContextMenu/ContextMerge", 
             get_view().get_selected_count() > 1);
         
-        return true;
+        return base.on_context_invoked();
     }
 
     private EventDirectoryItem? get_fullscreen_item() {
@@ -392,11 +392,11 @@ public class EventPage : CollectionPage {
         base.on_photos_menu();
     }
     
-    protected override bool on_context_invoked(Gtk.Menu context_menu) {
+    protected override bool on_context_invoked() {
         set_item_sensitive("/CollectionContextMenu/ContextMakePrimary", 
             get_view().get_selected_count() == 1);
 
-        return base.on_context_invoked(context_menu);
+        return base.on_context_invoked();
     }
 
     private void on_make_primary() {

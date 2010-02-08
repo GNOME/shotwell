@@ -534,28 +534,51 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
-        if (current_tool == null) {
-            Gdk.Pixbuf original = original_cache.get_ready_pixbuf(get_photo());
-            if (original != null) {
-                // store what's currently displayed only for the duration of the shift pressing
-                swapped = get_unscaled_pixbuf();
-                
-                set_pixbuf(original, get_photo().get_original_dimensions());
-            }
+        if (current_tool == null && !ctrl_pressed && !alt_pressed) {
+            swap_in_original();
         }
         
         return base.on_shift_pressed(event);
     }
     
     private override bool on_shift_released(Gdk.EventKey? event) {
-        if (current_tool == null && swapped != null) {
+        if (current_tool == null)
+            swap_out_original();
+        
+        return base.on_shift_released(event);
+    }
+
+    private override bool on_alt_pressed(Gdk.EventKey? event) {
+        if (current_tool == null)
+            swap_out_original();
+        
+        return base.on_alt_pressed(event);
+    }
+    
+    private override bool on_alt_released(Gdk.EventKey? event) {
+        if (current_tool == null && shift_pressed && !ctrl_pressed)
+            swap_in_original();
+        
+        return base.on_alt_released(event);
+    }
+
+    private void swap_in_original() {
+        Gdk.Pixbuf original = original_cache.get_ready_pixbuf(get_photo());
+        if (original != null) {
+            // store what's currently displayed only for the duration of the shift pressing
+            swapped = get_unscaled_pixbuf();
+            
+            set_pixbuf(original, get_photo().get_original_dimensions());
+        }
+    }
+
+    private void swap_out_original() {
+        if (swapped != null) {
             set_pixbuf(swapped, get_photo().get_dimensions());
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
         }
-        
-        return base.on_shift_released(event);
     }
 
     private void activate_tool(EditingTool tool) {
@@ -764,7 +787,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private override bool on_right_click(Gdk.EventButton event) {
-        return on_context_menu(event);
+        return on_context_buttonpress(event);
     }
     
     private void on_photo_altered(DataObject object) {
@@ -795,10 +818,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (current_tool != null)
             current_tool.on_motion(x, y, mask);
             
-        return false;
-    }
-    
-    private virtual bool on_context_menu(Gdk.EventButton event) {
         return false;
     }
     
@@ -960,6 +979,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.clicked -= on_rotate_clockwise;
         rotate_button.clicked += on_rotate_counterclockwise;
         
+        if (current_tool == null)
+            swap_out_original();
+
         return base.on_ctrl_pressed(event);
     }
     
@@ -969,6 +991,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked -= on_rotate_counterclockwise;
         rotate_button.clicked += on_rotate_clockwise;
+
+        if (current_tool == null && shift_pressed && !alt_pressed)
+            swap_in_original();
         
         return base.on_ctrl_released(event);
     }
@@ -1336,7 +1361,7 @@ public class LibraryPhotoPage : EditingHostPage {
         return false;
     }
 
-    private override bool on_context_menu(Gdk.EventButton event) {
+    private override bool on_context_invoked() {
         if (!has_photo())
             return false;
 
@@ -1350,7 +1375,17 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextSetBackground", false);
 #endif 
 
-        context_menu.popup(null, null, null, event.button, event.time);
+        return base.on_context_invoked();
+    }    
+
+    private override bool on_context_buttonpress(Gdk.EventButton event) {
+        popup_context_menu(context_menu, event);
+
+        return true;
+    }
+
+    private override bool on_context_keypress() {
+        popup_context_menu(context_menu);
         
         return true;
     }
@@ -1795,7 +1830,7 @@ public class DirectPhotoPage : EditingHostPage {
         base.set_missing_photo_sensitivities(sensitivity);
     }
     
-    private override bool on_context_menu(Gdk.EventButton event) {
+    private override bool on_context_invoked() {
         if (get_photo() == null)
             return false;
         
@@ -1804,10 +1839,8 @@ public class DirectPhotoPage : EditingHostPage {
             is_rotate_available(get_photo()));
         set_item_sensitive("/DirectContextMenu/ContextEnhance", is_enhance_available(get_photo()));
         set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations());
-
-        context_menu.popup(null, null, null, event.button, event.time);
         
-        return true;
+        return base.on_context_invoked();
     }
     
     private bool check_ok_to_close_photo(TransformablePhoto photo) {

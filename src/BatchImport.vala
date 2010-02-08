@@ -88,7 +88,8 @@ public class ImportManifest {
             break;
             
             case ImportResult.USER_ABORT:
-                aborted.add(batch_result);
+                if (!query_is_directory(batch_result.file))
+                    aborted.add(batch_result);
             break;
 
             case ImportResult.NOT_A_FILE:

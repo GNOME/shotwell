@@ -38,7 +38,6 @@ public interface SidebarPage : Object {
     
 public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(2, typeof(string), typeof(SidebarPage));
-    private Gtk.Menu context_menu = null;
     private Gtk.TreePath current_path = null;
 
     public signal void drop_received(Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page);
@@ -72,6 +71,8 @@ public class Sidebar : Gtk.TreeView {
         selection.set_select_function(on_selection, null);
 
         enable_model_drag_dest(LibraryWindow.DEST_TARGET_ENTRIES, Gdk.DragAction.ASK);
+
+        popup_menu += on_context_menu_keypress;
     }
     
     public void place_cursor(SidebarPage page) {
@@ -309,9 +310,36 @@ public class Sidebar : Gtk.TreeView {
 
         return path;
     }
+
+
+
+    private bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null) {
+        // TODO: share this code with Page, possibly through a contextable interface
+
+        if (context_menu == null)
+            return false;
+
+        if (event == null)
+            context_menu.popup(null, null, null, 0, Gtk.get_current_event_time());
+        else
+            context_menu.popup(null, null, null, event.button, event.time);
+
+        return true;
+    }
+
+    private bool on_context_menu_keypress() {
+        Gtk.TreePath path = get_selection().get_selected_rows(null).data;
+        Gtk.Menu context_menu = get_context_menu(path);
+
+        scroll_to_cell(path, null, false, 0, 0);
+
+        popup_context_menu(context_menu);
+
+        return true;
+    }
     
-    protected Gtk.Menu? get_context_menu(Gdk.EventButton event) {
-        SidebarPage page = locate_page(get_path_from_event(event));
+    protected Gtk.Menu? get_context_menu(Gtk.TreePath path) {
+        SidebarPage page = locate_page(path);
 
         return (page != null) ? page.get_page_context_menu() : null;
     }
@@ -320,11 +348,7 @@ public class Sidebar : Gtk.TreeView {
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
 
-            context_menu = get_context_menu(event);
-            if (context_menu == null)
-                return false;
-
-            context_menu.popup(null, null, null, event.button, event.time);
+            popup_context_menu(get_context_menu(get_path_from_event(event)), event);
         } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
             // double left click
 
