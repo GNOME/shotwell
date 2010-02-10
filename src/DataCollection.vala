@@ -1106,7 +1106,7 @@ public class ViewCollection : DataCollection {
         base.item_metadata_altered(object);
     }
     
-    public override void set_comparator(Comparator<DataView> comparator) {
+    public override void set_comparator(Comparator comparator) {
         selected.set_comparator(comparator);
         if (visible != null)
             visible.set_comparator(comparator);

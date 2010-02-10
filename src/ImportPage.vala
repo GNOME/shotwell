@@ -140,6 +140,10 @@ class ImportPreview : LayoutItem {
         return TransformablePhoto.is_duplicate(null, source.get_exif_md5(), source.get_preview_md5(),
             null);
     }
+    
+    public ImportSource get_import_source() {
+        return (ImportSource) get_source();
+    }
 }
 
 public class ImportPage : CheckerboardPage {
@@ -255,6 +259,9 @@ public class ImportPage : CheckerboardPage {
         // monitor source collection to add/remove views
         get_view().monitor_source_collection(import_sources, new ImportViewManager(this));
         
+        // sort by exposure time
+        get_view().set_comparator(preview_comparator);
+        
         // monitor selection for UI
         get_view().items_state_changed += on_view_changed;
         get_view().contents_altered += on_view_changed;
@@ -336,6 +343,11 @@ public class ImportPage : CheckerboardPage {
     
     ~ImportPage() {
         LibraryPhoto.global.contents_altered -= on_photos_added_removed;
+    }
+    
+    private int64 preview_comparator(void *a, void *b) {
+        return ((ImportPreview *) a)->get_import_source().get_exposure_time()
+            - ((ImportPreview *) b)->get_import_source().get_exposure_time();
     }
     
     private int64 import_job_comparator(void *a, void *b) {
