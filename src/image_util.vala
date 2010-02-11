@@ -328,8 +328,8 @@ namespace Jpeg {
         // +2 to account for length bytes
         length += 2;
         
-        uint16 host = (uint16) length;
-        uint16 motorola = (uint16) host.to_big_endian();
+        uint16 host = (uint16) length.clamp(0, uint16.MAX);
+        uint16 motorola = (uint16) host.to_big_endian().clamp(0, uint16.MAX);
 
         fouts.write_all(&motorola, 2, out written, null);
     }
@@ -394,6 +394,12 @@ public class PhotoFileInterrogator {
         
         // load EXIF
         photo_exif = new PhotoExif(file);
+        try {
+            photo_exif.load();
+        } catch (ExifError exif_err) {
+            // no EXIF to speak of
+            photo_exif = null;
+        }
         
         // if no MD5, don't read as much, as the info will probably be gleaned
         // in the first 8K to 16K
@@ -446,11 +452,11 @@ public class PhotoFileInterrogator {
     }
     
     public bool has_exif() {
-        return photo_exif.has_exif();
+        return photo_exif != null;
     }
     
     public PhotoExif? get_exif() {
-        return photo_exif.has_exif() ? photo_exif : null;
+        return photo_exif;
     }
     
     public string? get_md5() {

@@ -593,9 +593,6 @@ public class PhotoTable : DatabaseTable {
             + "thumbnail_md5 =? WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
-        debug("Update [%lld] size=%lld mod=%ld md5=%s exifmd5=%s thumbmd5=%s", photoID.id,
-            filesize, timestamp, md5, exif_md5, thumbnail_md5);
-
         res = stmt.bind_int64(1, filesize);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(2, timestamp);

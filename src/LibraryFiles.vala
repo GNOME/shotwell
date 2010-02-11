@@ -98,9 +98,16 @@ private File duplicate(File src, FileProgressCallback? progress_callback) throws
     }
     
     PhotoExif exif = new PhotoExif(src);
+    Exif.Data data;
+    try {
+        exif.load();
+        data = exif.get_exif();
+    } catch (ExifError exif_err) {
+        data = null;
+    }
     
     bool collision;
-    File? dest = generate_unique_file(src.get_basename(), exif.get_exif(), timestamp, out collision);
+    File? dest = generate_unique_file(src.get_basename(), data, timestamp, out collision);
     if (dest == null)
         throw new FileError.FAILED("Unable to generate unique pathname for destination");
     

@@ -623,7 +623,13 @@ public abstract class TransformablePhoto: PhotoSource {
 
         // TODO: Try to read JFIF metadata too
         PhotoExif exif = new PhotoExif(file);
-        if (exif.has_exif()) {
+        try {
+            exif.load();
+        } catch (Error err) {
+            exif = null;
+        }
+        
+        if (exif != null) {
             if (!exif.get_dimensions(out dim))
                 error("Unable to read EXIF dimensions for %s", to_string());
             
@@ -715,14 +721,17 @@ public abstract class TransformablePhoto: PhotoSource {
 
         PhotoID photo_id = get_photo_id();
         string md5 = interrogator.get_md5();
-
-        PhotoExif exif = new PhotoExif(file);
         string? exif_md5 = null, thumbnail_md5 = null;
-        if (exif != null) {
+        
+        PhotoExif exif = new PhotoExif(file);
+        try {
+            exif.load();
             exif_md5 = exif.get_md5();
             thumbnail_md5 = exif.get_thumbnail_md5();
+        } catch (Error err) {
+            warning("Unable to load EXIF from %s: %s", file.get_path(), err.message);
         }
-
+        
         if (PhotoTable.get_instance().file_exif_updated(photo_id, info.get_size(),
             timestamp.tv_sec, md5, exif_md5, thumbnail_md5)) {
             // cache coherency
@@ -888,11 +897,30 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 
     public PhotoExif get_photoexif() {
-        return new PhotoExif(get_file());
+        PhotoExif photo_exif = new PhotoExif(get_file());
+        try {
+            photo_exif.load();
+        } catch (Error err) {
+            // ignored, return PhotoExif with empty Exif.Data
+            warning("Unable to load EXIF from %s: %s", get_file().get_path(), err.message);
+        }
+        
+        return photo_exif;
     }
 
     public override Exif.Data? get_exif() {
-        return get_photoexif().get_exif();
+        Exif.Data? exif = null;
+        
+        PhotoExif photo_exif = new PhotoExif(get_file());
+        try {
+            photo_exif.load();
+            exif = photo_exif.get_exif();
+        } catch (Error err) {
+            // return null
+            warning("Unable to load EXIF from %s: %s", get_file().get_path(), err.message);
+        }
+        
+        return exif;
     }
     
     // Transformation storage and exporting
@@ -1550,17 +1578,22 @@ public abstract class TransformablePhoto: PhotoSource {
         File original_file = get_file();
         Exif.Data original_exif = get_exif();
         
-        if (only_exif_changed() && original_file != null) {
+        if (only_exif_changed()) {
             original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
-
+            
             PhotoExif dest_exif = new PhotoExif(dest_file);
+            try {
+                dest_exif.load();
+            } catch (Error err) {
+                warning("Unable to load EXIF in exportable %s: %s", dest_file.get_path(), err.message);
+            }
+            
             dest_exif.set_orientation(get_orientation());
             dest_exif.set_timestamp(get_exposure_time());
             dest_exif.commit();
         } else {
             Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
-            pixbuf.save(dest_file.get_path(), "jpeg", "quality", 
-                EXPORT_JPEG_QUALITY.get_pct_text());
+            pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
             copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
                 Dimensions.for_pixbuf(pixbuf), get_exposure_time());
         }

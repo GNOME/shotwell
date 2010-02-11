@@ -635,7 +635,13 @@ private class PrepareFilesJob : BackgroundImportJob {
         // duplicate detection: If EXIF data present, look for a match with either EXIF itself
         // or the thumbnail.  If not, do a full MD5.
         PhotoExif photo_exif = new PhotoExif(file);
-        if (photo_exif.has_exif()) {
+        try {
+            photo_exif.load();
+        } catch (Error err) {
+            photo_exif = null;
+        }
+        
+        if (photo_exif != null) {
             // get EXIF and thumbnail fingerprints
             exif_md5 = photo_exif.get_md5();
             thumbnail_md5 = photo_exif.get_thumbnail_md5();

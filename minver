@@ -5,7 +5,7 @@
 # This software is licensed under the GNU LGPL (version 2.1 or later).
 # See the COPYING file in this distribution. 
 
-# vercmp <major.minor.revision> <minimum major.minor.revision>
+# minver <major.minor.revision> <minimum major.minor.revision>
 #
 # Returns 0 if queried version is greater than or equal to second, 1 otherwise.
 # Set VERBOSE environment variable for somewhat useful output.
@@ -14,7 +14,7 @@
 # This is an ultra-naive implementation with just enough error-checking.
 
 usage() {
-    echo 'usage: vercmp <major.minor.revision> <minimum major.minor.revision>'
+    echo 'usage: minver <major.minor.revision> <minimum major.minor.revision>'
 }
 
 abort() {
