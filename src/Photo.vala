@@ -2294,6 +2294,8 @@ public class DirectPhoto : TransformablePhoto {
             return null;
         }
         
+        PhotoTable.get_instance().add(ref photo_row);
+        
         // create DataSource and add to SourceCollection
         DirectPhoto photo = new DirectPhoto(photo_row);
         global.add(photo);
