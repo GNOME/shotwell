@@ -223,6 +223,23 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    private class TagPageStub : PageStub {
+        public Tag tag;
+        
+        public TagPageStub(Tag tag) {
+            this.tag = tag;
+        }
+        
+        public override string get_name() {
+            return tag.get_name();
+        }
+        
+        protected override Page construct_page() {
+            debug("Creating new tag page for %s", tag.get_name());
+            return new TagPage(tag);
+        }
+    }
+    
     // Static (default) pages
     private LibraryPage library_page = null;
     private MasterEventsDirectoryPage events_directory_page = null;
@@ -235,6 +252,7 @@ public class LibraryWindow : AppWindow {
     private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
     private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
         new Gee.ArrayList<SubEventsDirectoryPageStub>();
+    private Gee.ArrayList<TagPageStub> tag_list = new Gee.ArrayList<TagPageStub>();
 #if !NO_CAMERA
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
@@ -244,6 +262,7 @@ public class LibraryWindow : AppWindow {
 #if !NO_CAMERA
     private SidebarMarker cameras_marker = null;
 #endif
+    private SidebarMarker tags_marker = null;
 
     private BasicProperties basic_properties = new BasicProperties();
     private ExtendedPropertiesWindow extended_properties;
@@ -275,6 +294,9 @@ public class LibraryWindow : AppWindow {
         Event.global.items_removed += on_removed_events;
         Event.global.item_altered += on_event_altered;
         
+        // watch for new & removed tags
+        Tag.global.contents_altered += on_tags_added_removed;
+        
         // start in the collection page
         sidebar.place_cursor(library_page);
         sidebar.expand_all();
@@ -290,13 +312,17 @@ public class LibraryWindow : AppWindow {
         // add stored events
         foreach (DataObject object in Event.global.get_all())
             add_event_page((Event) object);
-
+        
+        // add tags
+        foreach (DataObject object in Tag.global.get_all())
+            add_tag_page((Tag) object);
+        
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to library_page)
         Gtk.drag_dest_set(this, Gtk.DestDefaults.ALL, DEST_TARGET_ENTRIES,
             Gdk.DragAction.COPY | Gdk.DragAction.LINK | Gdk.DragAction.ASK);
-
-#if !NO_CAMERA        
+        
+#if !NO_CAMERA
         // monitor the camera table for additions and removals
         CameraTable.get_instance().camera_added += add_camera_page;
         CameraTable.get_instance().camera_removed += remove_camera_page;
@@ -304,7 +330,7 @@ public class LibraryWindow : AppWindow {
         // need to populate pages with what's known now by the camera table
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
-#endif            
+#endif
 
         // start with only most recent month directory open
         sidebar.expand_first_branch_only(events_directory_page.get_marker());
@@ -318,7 +344,7 @@ public class LibraryWindow : AppWindow {
         Event.global.items_removed -= on_removed_events;
         Event.global.item_altered -= on_event_altered;
 
-#if !NO_CAMERA        
+#if !NO_CAMERA
         CameraTable.get_instance().camera_added -= add_camera_page;
         CameraTable.get_instance().camera_removed -= remove_camera_page;
 #endif
@@ -847,7 +873,19 @@ public class LibraryWindow : AppWindow {
 
         on_selection_changed();
     }
-
+    
+    private void on_tags_added_removed(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
+        if (added != null) {
+            foreach (DataObject object in added)
+                add_tag_page((Tag) object);
+        }
+        
+        if (removed != null) {
+            foreach (DataObject object in removed)
+                remove_tag_page((Tag) object);
+        }
+    }
+    
     private SubEventsDirectoryPageStub? get_dir_parent(SubEventsDirectoryPageStub dir) {
         if (dir.type == SubEventsDirectoryPage.DirectoryType.YEAR)
             return null;
@@ -896,6 +934,43 @@ public class LibraryWindow : AppWindow {
         events_dir_list.add(month);
 
         return month;
+    }
+    
+    private int64 tag_page_comparator(void *a, void *b) {
+        Tag atag = ((TagPageStub *) a)->tag;
+        Tag btag = ((TagPageStub *) b)->tag;
+        
+        return atag.get_name().collate(btag.get_name());
+    }
+    
+    private void add_tag_page(Tag tag) {
+        if (tags_marker == null) {
+            tags_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
+                _("Tags"));
+        }
+        
+        TagPageStub stub = new TagPageStub(tag);
+        sidebar.insert_child_sorted(tags_marker, stub, tag_page_comparator);
+        tag_list.add(stub);
+        
+        // expand branch so user sees new tag immediately ... must be done after addition of
+        // first child
+        sidebar.expand_branch(tags_marker);
+    }
+    
+    private void remove_tag_page(Tag tag) {
+        foreach (TagPageStub stub in tag_list) {
+            if (stub.tag.equals(tag)) {
+                remove_stub(stub, library_page);
+                
+                break;
+            }
+        }
+        
+        if (tag_list.size == 0 && tags_marker != null) {
+            sidebar.prune_branch(tags_marker);
+            tags_marker = null;
+        }
     }
 
     private void add_event_page(Event event) {
@@ -956,9 +1031,11 @@ public class LibraryWindow : AppWindow {
         ImportPage page = new ImportPage(camera.gcamera, camera.uri);   
 
         // create the Cameras row if this is the first one
-        if (cameras_marker == null)
-            cameras_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
+        if (cameras_marker == null) {
+            cameras_marker = sidebar.insert_grouping_after(
+                (tags_marker != null) ? tags_marker : events_directory_page.get_marker(),
                 _("Cameras"));
+        }
         
         camera_pages.set(camera.uri, page);
         add_child_page(cameras_marker, page);
@@ -1113,6 +1190,9 @@ public class LibraryWindow : AppWindow {
         } else if (stub is EventPageStub) {
             // remove from the events list
             bool removed = event_list.remove((EventPageStub) stub);
+            assert(removed);
+        } else if (stub is TagPageStub) {
+            bool removed = tag_list.remove((TagPageStub) stub);
             assert(removed);
         }
         
@@ -1332,7 +1412,19 @@ public class LibraryWindow : AppWindow {
         
         return false;
     }
-
+    
+    private bool is_tag_selected(Gtk.TreePath path) {
+        foreach (TagPageStub stub in tag_list) {
+            if (is_page_selected(stub, path)) {
+                switch_to_page(stub.get_page());
+                
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     private void on_sidebar_cursor_changed() {
         Gtk.TreePath path;
         sidebar.get_cursor(out path, null);
@@ -1349,6 +1441,8 @@ public class LibraryWindow : AppWindow {
             // events directory page selected and updated
         } else if (is_event_selected(path)) {
             // event page selected and updated
+        } else if (is_tag_selected(path)) {
+            // tag page selected and updated
         } else {
             // nothing recognized selected
         }

@@ -247,6 +247,12 @@ public abstract class DataSource : DataObject {
         return true;
     }
     
+    // Because of the rules of DataSources, a DataSource is only equal to itself; subclasses
+    // may override this to perform validations and/or assertions
+    public virtual bool equals(DataSource? source) {
+        return (this == source);
+    }
+    
     // This method is called by SourceCollection.  It should not be called otherwise.  To destroy
     // a DataSource, destroy it from its SourceCollection.
     //

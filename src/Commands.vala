@@ -567,8 +567,8 @@ public abstract class MovePhotosCommand : Command {
     }
 }
 
-public class NewEventCommand : MovePhotosCommand {   
-    public NewEventCommand(Gee.Iterable<DataView> iter) {       
+public class NewEventCommand : MovePhotosCommand {
+    public NewEventCommand(Gee.Iterable<DataView> iter) {
         base(Resources.NEW_EVENT_LABEL, Resources.NEW_EVENT_TOOLTIP);
 
         // get the key photo for the new event (which is simply the first one)
@@ -589,7 +589,7 @@ public class NewEventCommand : MovePhotosCommand {
 
         real_command = new RealMovePhotosCommand(new_event, iter, _("Creating New Event..."),
             _("Removing Event..."), Resources.NEW_EVENT_LABEL,
-            Resources.NEW_EVENT_TOOLTIP);        
+            Resources.NEW_EVENT_TOOLTIP);
     }
 }
 
@@ -870,3 +870,65 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         }
     }
 }
+
+public class EditTagsCommand : SingleDataSourceCommand {
+    private LibraryPhoto photo;
+    private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();
+    private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
+    
+    public EditTagsCommand(LibraryPhoto photo, Gee.Collection<Tag> new_tag_list) {
+        base (photo, Resources.TAG_LABEL, Resources.TAG_TOOLTIP);
+        
+        this.photo = photo;
+        
+        // Remove any tag that's in the original list but not the new one
+        Gee.List<Tag> original_tags = Tag.get_tags(photo);
+        foreach (Tag tag in original_tags) {
+            if (!new_tag_list.contains(tag)) {
+                SourceProxy proxy = tag.get_proxy();
+                
+                to_remove.add(proxy);
+                proxy.broken += on_proxy_broken;
+            }
+        }
+        
+        // Add any tag that's in the new list but not the original
+        foreach (Tag tag in new_tag_list) {
+            if (!original_tags.contains(tag)) {
+                SourceProxy proxy = tag.get_proxy();
+                
+                to_add.add(proxy);
+                proxy.broken += on_proxy_broken;
+            }
+        }
+    }
+    
+    ~EditTagsCommand() {
+        foreach (SourceProxy proxy in to_add)
+            proxy.broken -= on_proxy_broken;
+        
+        foreach (SourceProxy proxy in to_remove)
+            proxy.broken -= on_proxy_broken;
+    }
+    
+    public override void execute() {
+        foreach (SourceProxy proxy in to_add)
+            ((Tag) proxy.get_source()).attach(photo);
+        
+        foreach (SourceProxy proxy in to_remove)
+            ((Tag) proxy.get_source()).detach(photo);
+    }
+    
+    public override void undo() {
+        foreach (SourceProxy proxy in to_add)
+            ((Tag) proxy.get_source()).detach(photo);
+        
+        foreach (SourceProxy proxy in to_remove)
+            ((Tag) proxy.get_source()).attach(photo);
+    }
+    
+    private void on_proxy_broken() {
+        get_command_manager().reset();
+    }
+}
+

@@ -594,24 +594,19 @@ public abstract class TransformablePhoto: PhotoSource {
         return "[%lld] %s".printf(photo_id.id, file.get_path());
     }
 
-    public bool equals(TransformablePhoto? photo) {
-        if (photo == null)
-            return false;
+    public override bool equals(DataSource? source) {
+        // Primary key is where the rubber hits the road
+        TransformablePhoto? photo = source as TransformablePhoto;
+        if (photo != null) {
+            PhotoID photo_id = get_photo_id();
+            PhotoID other_photo_id = photo.get_photo_id();
             
-        PhotoID photo_id = get_photo_id();
-        PhotoID other_photo_id = photo.get_photo_id();
-        
-        // identity works because of the photo_map, but the PhotoTable primary key is where the
-        // rubber hits the road
-        if (this == photo) {
-            assert(photo_id.id == other_photo_id.id);
-            
-            return true;
+            if (this != photo) {
+                assert(photo_id.id != other_photo_id.id);
+            }
         }
         
-        assert(photo_id.id != other_photo_id.id);
-        
-        return false;
+        return base.equals(source);
     }
     
     public void update() {

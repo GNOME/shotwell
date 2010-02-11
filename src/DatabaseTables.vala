@@ -4,9 +4,22 @@
  * See the COPYING file in this distribution. 
  */
 
+public errordomain DatabaseError {
+    ERROR,
+    BACKING,
+    MEMORY,
+    ABORT,
+    LIMITS,
+    TYPESPEC
+}
+
 public class DatabaseTable {
     /*** 
      * This number should be incremented every time any database schema is altered.
+     * 
+     * NOTE: Adding or removing tables or removing columns do not need a new schema version, because
+     * tables are created on demand and tables and columns are easily ignored when already present.
+     * However, the change should be noted in upgrade_database() as a comment.
      ***/
     public const int SCHEMA_VERSION = 3;
     
@@ -48,6 +61,56 @@ public class DatabaseTable {
     
     protected void set_table_name(string table_name) {
         this.table_name = table_name;
+    }
+    
+    // This method will throw an error on an SQLite return code unless it's OK, DONE, or ROW, which
+    // are considered normal results.
+    protected void throw_error(string method, int res) throws DatabaseError {
+        string msg = "(%s) [%d] - %s".printf(method, res, db.errmsg());
+        
+        switch (res) {
+            case Sqlite.OK:
+            case Sqlite.DONE:
+            case Sqlite.ROW:
+                return;
+            
+            case Sqlite.PERM:
+            case Sqlite.BUSY:
+            case Sqlite.READONLY:
+            case Sqlite.IOERR:
+            case Sqlite.CORRUPT:
+            case Sqlite.CANTOPEN:
+            case Sqlite.NOLFS:
+            case Sqlite.AUTH:
+            case Sqlite.FORMAT:
+            case Sqlite.NOTADB:
+                throw new DatabaseError.BACKING(msg);
+            
+            case Sqlite.NOMEM:
+                throw new DatabaseError.MEMORY(msg);
+            
+            case Sqlite.ABORT:
+            case Sqlite.LOCKED:
+            case Sqlite.INTERRUPT:
+                throw new DatabaseError.ABORT(msg);
+            
+            case Sqlite.FULL:
+            case Sqlite.EMPTY:
+            case Sqlite.TOOBIG:
+            case Sqlite.CONSTRAINT:
+            case Sqlite.RANGE:
+                throw new DatabaseError.LIMITS(msg);
+            
+            case Sqlite.SCHEMA:
+            case Sqlite.MISMATCH:
+                throw new DatabaseError.TYPESPEC(msg);
+            
+            case Sqlite.ERROR:
+            case Sqlite.INTERNAL:
+            case Sqlite.MISUSE:
+            default:
+                throw new DatabaseError.ERROR(msg);
+        }
     }
     
     protected bool exists_by_id(int64 id) {
@@ -216,15 +279,28 @@ public DatabaseVerifyResult verify_database(out string app_version) {
     
     PhotoTable photo_table = PhotoTable.get_instance();
     EventTable event_table = EventTable.get_instance();
+    TagTable tag_table = TagTable.get_instance();
+    
+    // verify all events have at least one photo
     Gee.ArrayList<EventID?> event_ids = event_table.get_events();
-
-    // verify photos for all events and check that the end_time is set (see Bug #665 and #670).
     foreach (EventID event_id in event_ids) {
         if (!photo_table.event_has_photos(event_id)) {
             message("Removing event [%lld] %s: No photos associated with event", event_id.id,
                 event_table.get_name(event_id));
             event_table.remove(event_id);
         }
+    }
+    
+    // verify all tags have at least one photo associated with them
+    try {
+        Gee.List<TagID?> tag_ids = tag_table.get_abandoned();
+        foreach (TagID tag_id in tag_ids) {
+            message("Removing tag [%lld] %s: No photos associated with tag", tag_id.id,
+                tag_table.get_name(tag_id));
+            tag_table.remove(tag_id);
+        }
+    } catch (DatabaseError err) {
+        critical("Unable to verify TagTable: %s", err.message);
     }
     
     return DatabaseVerifyResult.OK;
@@ -356,6 +432,10 @@ public class VersionTable : DatabaseTable {
     }
 }
 
+//
+// PhotoTable
+//
+
 public struct PhotoID {
     public const int64 INVALID = -1;
 
@@ -371,6 +451,14 @@ public struct PhotoID {
     
     public bool is_valid() {
         return (id != INVALID);
+    }
+    
+    public static uint hash(void *a) {
+        return int64_hash(&((PhotoID *) a)->id);
+    }
+    
+    public static bool equal(void *a, void *b) {
+        return ((PhotoID *) a)->id == ((PhotoID *) b)->id;
     }
 }
 
@@ -1334,6 +1422,10 @@ public class PhotoTable : DatabaseTable {
     }
 }
 
+//
+// EventTable
+//
+
 public struct EventID {
     public const int64 INVALID = -1;
 
@@ -1531,6 +1623,260 @@ public class EventTable : DatabaseTable {
             return 0;
         
         return (time_t) stmt.column_int64(0);
+    }
+}
+
+//
+// TagTable
+//
+
+public struct TagID {
+    public const int64 INVALID = -1;
+
+    public int64 id;
+    
+    public TagID(int64 id = INVALID) {
+        this.id = id;
+    }
+    
+    public bool is_invalid() {
+        return (id == INVALID);
+    }
+    
+    public bool is_valid() {
+        return (id != INVALID);
+    }
+}
+
+public struct TagRow {
+    public TagID tag_id;
+    public string name;
+    public Gee.Set<PhotoID?>? photo_id_list;
+    public time_t time_created;
+}
+
+public class TagTable : DatabaseTable {
+    private static TagTable instance = null;
+    
+    private TagTable() {
+        set_table_name("TagTable");
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
+            + "TagTable "
+            + "("
+            + "id INTEGER PRIMARY KEY, "
+            + "name TEXT UNIQUE NOT NULL, "
+            + "photo_id_list TEXT, "
+            + "time_created INTEGER"
+            + ")", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create TagTable", res);
+    }
+    
+    public static TagTable get_instance() {
+        if (instance == null)
+            instance = new TagTable();
+        
+        return instance;
+    }
+    
+    public TagRow add(string name) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("INSERT INTO TagTable (name, time_created) VALUES (?, ?)", -1,
+            out stmt);
+        assert(res == Sqlite.OK);
+        
+        time_t time_created = (time_t) now_sec();
+        
+        res = stmt.bind_text(1, name);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, time_created);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("TagTable.add", res);
+        
+        TagRow row = TagRow();
+        row.tag_id = TagID(db.last_insert_rowid());
+        row.name = name;
+        row.photo_id_list = null;
+        row.time_created = time_created;
+        
+        return row;
+    }
+    
+    // All fields but tag_id are respected in TagRow.
+    public TagID create_from_row(TagRow row) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("INSERT INTO TagTable (name, photo_id_list, time_created) VALUES (?, ?, ?)",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(1, row.name);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(2, serialize_photo_ids(row.photo_id_list));
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(3, row.time_created);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("TagTable.create_from_row", res);
+        
+        return TagID(db.last_insert_rowid());
+    }
+    
+    public void remove(TagID tag_id) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("DELETE FROM TagTable WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, tag_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("TagTable.remove", res);
+    }
+    
+    public string? get_name(TagID tag_id) throws DatabaseError {
+        Sqlite.Statement stmt;
+        if (!select_by_id(tag_id.id, "name", out stmt))
+            return null;
+        
+        return stmt.column_text(0);
+    }
+    
+    public TagRow? get_row(TagID tag_id) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT name, photo_id_list, time_created FROM TagTable WHERE id=?",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, tag_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res == Sqlite.DONE)
+            return null;
+        else if (res != Sqlite.ROW)
+            throw_error("TagTable.get_row", res);
+        
+        TagRow row = TagRow();
+        row.tag_id = tag_id;
+        row.name = stmt.column_text(0);
+        row.photo_id_list = unserialize_photo_ids(stmt.column_text(1));
+        row.time_created = (time_t) stmt.column_int64(2);
+        
+        return row;
+    }
+    
+    public Gee.List<TagRow?> get_all_rows() throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id, name, photo_id_list, time_created FROM TagTable", -1,
+            out stmt);
+        assert(res == Sqlite.OK);
+        
+        Gee.List<TagRow?> rows = new Gee.ArrayList<TagRow?>();
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("TagTable.get_all_rows", res);
+            
+            // res == Sqlite.ROW
+            TagRow row = TagRow();
+            row.tag_id = TagID(stmt.column_int64(0));
+            row.name = stmt.column_text(1);
+            row.photo_id_list = unserialize_photo_ids(stmt.column_text(2));
+            row.time_created = (time_t) stmt.column_int64(3);
+            
+            rows.add(row);
+        }
+        
+        return rows;
+    }
+    
+    public void set_tagged_photos(TagID tag_id, Gee.Collection<PhotoID?> photo_ids) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE TagTable SET photo_id_list=? WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_text(1, serialize_photo_ids(photo_ids));
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, tag_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("TagTable.set_tagged_photos", res);
+    }
+    
+    public Gee.List<TagID?> get_abandoned() throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id FROM TagTable WHERE length(photo_id_list) IS NULL OR length(photo_id_list)=0",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        Gee.ArrayList<TagID?> abandoned = new Gee.ArrayList<TagID?>();
+        
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("TagTable.get_abandoned", res);
+            
+            // res == Sqlite.ROW
+            abandoned.add(TagID(stmt.column_int64(0)));
+        }
+        
+        return abandoned;
+    }
+    
+    private string? serialize_photo_ids(Gee.Collection<PhotoID?>? photo_ids) {
+        if (photo_ids == null)
+            return null;
+        
+        StringBuilder result = new StringBuilder();
+        
+        foreach (PhotoID photo_id in photo_ids) {
+            result.append(photo_id.id.to_string());
+            result.append(",");
+        }
+        
+        return (result.len != 0) ? result.str : null;
+    }
+    
+    private Gee.Set<PhotoID?> unserialize_photo_ids(string? text_list) {
+        Gee.Set<PhotoID?> result = new Gee.HashSet<PhotoID?>(PhotoID.hash, PhotoID.equal);
+        
+        if (text_list == null)
+            return result;
+        
+        string[] split = text_list.split(",");
+        foreach (string token in split) {
+            if (is_string_empty(token))
+                continue;
+            
+            unowned string endptr;
+            int64 id = token.to_int64(out endptr, 10);
+            
+            // this verifies that the string was properly translated
+            if (endptr[0] != '\0')
+                continue;
+            
+            result.add(PhotoID(id));
+        }
+        
+        return result;
     }
 }
 

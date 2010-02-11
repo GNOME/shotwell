@@ -778,6 +778,10 @@ public abstract class ViewManager {
     public abstract DataView create_view(DataSource source);
 }
 
+// CreateView is a construction delegate used when mirroring a ViewCollection in another
+// ViewCollection.
+public delegate DataView CreateView(DataSource source);
+
 // A ViewFilter allows for items in a ViewCollection to be shown or hidden depending on the
 // supplied predicate method.  For now, only one ViewFilter may be installed, although this may
 // change in the future.  The ViewFilter is used whenever an object is added to the collection
@@ -803,6 +807,8 @@ public class ViewCollection : DataCollection {
     
     private SourceCollection sources = null;
     private ViewManager manager = null;
+    private ViewCollection mirroring = null;
+    private CreateView mirroring_ctor = null;
     private ViewFilter filter = null;
     private DataSet selected = new DataSet();
     private DataSet visible = null;
@@ -858,6 +864,7 @@ public class ViewCollection : DataCollection {
 
     public override void close() {
         halt_monitoring();
+        halt_mirroring();
         filter = null;
         
         base.close();
@@ -865,7 +872,9 @@ public class ViewCollection : DataCollection {
     
     public void monitor_source_collection(SourceCollection sources, ViewManager manager,
         Gee.Iterable<DataSource>? initial = null, ProgressMonitor? monitor = null) {
-        assert(this.sources == null && this.manager == null);
+        halt_monitoring();
+        halt_mirroring();
+        clear();
         
         this.sources = sources;
         this.manager = manager;
@@ -900,6 +909,30 @@ public class ViewCollection : DataCollection {
         
         sources = null;
         manager = null;
+    }
+    
+    public void mirror(ViewCollection to_mirror, CreateView mirroring_ctor) {
+        halt_mirroring();
+        halt_monitoring();
+        clear();
+        
+        mirroring = to_mirror;
+        this.mirroring_ctor = mirroring_ctor;
+        
+        // load up with current items
+        on_mirror_contents_added(mirroring.get_all());
+        
+        mirroring.items_added += on_mirror_contents_added;
+        mirroring.items_removed += on_mirror_contents_removed;
+    }
+    
+    public void halt_mirroring() {
+        if (mirroring != null) {
+            mirroring.items_added -= on_mirror_contents_added;
+            mirroring.items_removed -= on_mirror_contents_removed;
+        }
+        
+        mirroring = null;
     }
     
     public void install_view_filter(ViewFilter filter) {
@@ -1022,6 +1055,30 @@ public class ViewCollection : DataCollection {
                     notify_ordering_changed();
             }
         }
+    }
+    
+    private void on_mirror_contents_added(Gee.Iterable<DataObject> added) {
+        Gee.ArrayList<DataView> to_add = new Gee.ArrayList<DataView>();
+        foreach (DataObject object in added) {
+            DataView view = (DataView) object;
+            
+            to_add.add(mirroring_ctor(view.get_source()));
+        }
+        
+        if (to_add.size > 0)
+            add_many(to_add);
+    }
+    
+    private void on_mirror_contents_removed(Gee.Iterable<DataObject> removed) {
+        Marker marker = start_marking();
+        foreach (DataObject object in removed) {
+            DataView view = (DataView) object;
+            
+            DataView our_view = get_view_for_source(view.get_source());
+            marker.mark(our_view);
+        }
+        
+        remove_marked(marker);
     }
     
     // Keep the source map and state tables synchronized

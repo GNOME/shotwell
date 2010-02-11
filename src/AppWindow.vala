@@ -441,7 +441,15 @@ public abstract class AppWindow : PageWindow {
         
         return yes;
     }
-
+    
+    public static void database_error(DatabaseError err) {
+        string msg = _("A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n\n%s").printf(
+            err.message);
+        error_message(msg);
+        
+        Posix.exit(1);
+    }
+    
     public abstract string get_app_role();
 
     protected void on_about() {

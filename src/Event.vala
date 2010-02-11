@@ -35,8 +35,7 @@ public class Event : EventSource, Proxyable {
         }
 
         public override bool include_in_view(DataSource source) {
-            TransformablePhoto photo = (TransformablePhoto) source;
-            return photo.get_event_id().id == event_id.id;
+            return ((TransformablePhoto) source).get_event_id().id == event_id.id;
         }
 
         public override DataView create_view(DataSource source) {
@@ -336,17 +335,16 @@ public class Event : EventSource, Proxyable {
         return new EventProxy(this);
     }
     
-    public bool equals(Event event) {
-        // due to the event_map, identity should be preserved by pointers, but ID is the true test
-        if (this == event) {
-            assert(event_id.id == event.event_id.id);
-            
-            return true;
+    public override bool equals(DataSource? source) {
+        // Validate primary key is unique, which is vital to all this working
+        Event? event = source as Event;
+        if (event != null) {
+            if (this != event) {
+                assert(event_id.id != event.event_id.id);
+            }
         }
         
-        assert(event_id.id != event.event_id.id);
-        
-        return false;
+        return base.equals(source);
     }
     
     public override string to_string() {

@@ -134,6 +134,7 @@ void library_exec(string[] mounts) {
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("Event.init");
     Event.init(monitor);
+    Tag.init();
     
     // create main library application window
     if (aggregate_monitor != null)
@@ -164,6 +165,7 @@ void library_exec(string[] mounts) {
     
     Gtk.main();
     
+    Tag.terminate();
     Event.terminate();
     LibraryPhoto.terminate();
     ThumbnailCache.terminate();

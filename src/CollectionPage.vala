@@ -12,7 +12,7 @@ public class CollectionViewManager : ViewManager {
     }
     
     public override DataView create_view(DataSource source) {
-        return page.create_thumbnail((LibraryPhoto) source);
+        return page.create_thumbnail(source);
     }
 }
 
@@ -270,6 +270,11 @@ public abstract class CollectionPage : CheckerboardPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
         
+        Gtk.ActionEntry tag = { "Tag", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, on_tag };
+        tag.label = Resources.TAG_MENU;
+        tag.tooltip = Resources.TAG_TOOLTIP;
+        actions += tag;
+        
         Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
             "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
         favorite.label = Resources.FAVORITE_MENU;
@@ -383,7 +388,8 @@ public abstract class CollectionPage : CheckerboardPage {
     
     // This method is called by CollectionViewManager to create thumbnails for the DataSource 
     // (Photo) objects.
-    public virtual Thumbnail create_thumbnail(LibraryPhoto photo) {
+    public virtual DataView create_thumbnail(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
         Thumbnail thumbnail = new Thumbnail(photo, scale);
         thumbnail.display_title(display_titles());
         
@@ -481,6 +487,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     protected override bool on_context_invoked() {
+        bool one_selected = get_view().get_selected_count() == 1;
         bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
         
@@ -493,6 +500,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextTag", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionContextMenu/ContextSetBackground", false);
@@ -806,6 +814,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     protected virtual void on_photos_menu() {
+        bool one_selected = get_view().get_selected_count() == 1;
         bool selected = (get_view().get_selected_count() > 0);
         bool revert_possible = can_revert_selected();
         
@@ -818,6 +827,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Tag", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/ContextSetBackground", false);
@@ -929,6 +939,33 @@ public abstract class CollectionPage : CheckerboardPage {
         
         EnhanceMultipleCommand command = new EnhanceMultipleCommand(get_view().get_selected());
         get_command_manager().execute(command);
+    }
+    
+    private void on_tag() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
+        
+        // get all tags for this photo to display in the dialog
+        Gee.SortedSet<Tag> tags = Tag.get_sorted_tags(photo);
+        
+        // make a list of their names for the dialog
+        string[] tag_names = new string[0];
+        foreach (Tag tag in tags)
+            tag_names += tag.get_name();
+        
+        TagsDialog dialog = new TagsDialog(tag_names);
+        tag_names = dialog.execute();
+        if (tag_names == null)
+            return;
+        
+        // turn the resulting names back into Tags, creating empty ones if necessary
+        Gee.ArrayList<Tag> new_tags = new Gee.ArrayList<Tag>();
+        foreach (string name in tag_names)
+            new_tags.add(Tag.for_name(name));
+        
+        get_command_manager().execute(new EditTagsCommand(photo, new_tags));
     }
     
     private void on_favorite_unfavorite() {
@@ -1125,7 +1162,7 @@ public abstract class CollectionPage : CheckerboardPage {
             "/CollectionMenuBar/ViewMenu/SortPhotos/SortByTitle");
         assert(action != null);
         
-        int value = action.get_current_value();        
+        int value = action.get_current_value();
 
         return value;
     }

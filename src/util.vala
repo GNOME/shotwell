@@ -108,6 +108,10 @@ public Gee.List<PhotoID?>? unserialize_photo_ids(uchar* serialized, int size) {
     return list;
 }
 
+public inline bool is_string_empty(string? s) {
+    return (s == null || s[0] == '\0');
+}
+
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,

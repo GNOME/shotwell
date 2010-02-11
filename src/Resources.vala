@@ -157,6 +157,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     public const string ADJUST_DATE_TIME_TOOLTIP = _("Adjust date and time of selected photos");
+    
+    public const string TAG_MENU = _("Set _Tags...");
+    public const string TAG_LABEL = _("Set Tags");
+    public const string TAG_TOOLTIP = _("Tag photo with labels");
 
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;

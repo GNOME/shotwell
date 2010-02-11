@@ -859,3 +859,73 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
     dialog.run();
     dialog.destroy();
 }
+
+public class TagsDialog : Gtk.Dialog {
+    Gtk.Entry name_entry;
+    
+    public TagsDialog(string[]? current_tags) {
+        set_modal(true);
+        
+        add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
+                    Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        set_title(Resources.TAG_LABEL);
+        
+        Gtk.Label name_label = new Gtk.Label(_("Tags (separated by commas):"));
+        name_entry = new Gtk.Entry();
+        
+        if (current_tags != null) {
+            string text = null;
+            foreach (string tag in current_tags) {
+                if (text == null)
+                    text = "";
+                else
+                    text += ", ";
+                
+                text += tag;
+            }
+            
+            if (text != null)
+                name_entry.set_text(text);
+        }
+        
+        name_entry.set_activates_default(true);
+        
+        Gtk.HBox query = new Gtk.HBox(false, 0);
+        query.pack_start(name_label, false, false, 3);
+        query.pack_start(name_entry, false, false, 3);
+        
+        set_default_response(Gtk.ResponseType.OK);
+        
+        vbox.pack_start(query, true, false, 6);
+    }
+    
+    public string[]? execute() {
+        show_all();
+        
+        int response = run();
+        string text = name_entry.get_text();
+        
+        destroy();
+        
+        // return null when cancelled
+        if (response != Gtk.ResponseType.OK)
+            return null;
+        
+        // return empty list of no tags specified
+        if (is_string_empty(text))
+            return new string[0];
+        
+        string[] tags = new string[0];
+        
+        // break up by comma-delimiter, trim whitespace, and separate into list
+        string[] tokens = text.split(",");
+        for (int ctr = 0; ctr < tokens.length; ctr++) {
+            string stripped = tokens[ctr].strip();
+            if (!is_string_empty(stripped))
+                tags += stripped;
+        }
+        
+        return tags;
+    }
+}
+

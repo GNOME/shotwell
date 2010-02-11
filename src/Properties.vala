@@ -224,6 +224,10 @@ private class BasicProperties : Properties {
     public override void update_properties(Page page) {
         base.update_properties(page);
 
+        // display the title if a Tag page
+        if (title == "" && page is TagPage)
+            title = ((TagPage) page).get_tag().get_name();
+            
         if (title != "")
             add_line(_("Title:"), title);
 
