@@ -1484,8 +1484,21 @@ public class ViewCollection : DataCollection {
         return source_map.get(source);
     }
 
-    public Gee.Iterable<DataSource> get_sources() {
-        return source_map.keys;
+    public Gee.Collection<DataSource> get_sources() {
+        Gee.Collection<DataSource> sources = new Gee.ArrayList<DataSource>();
+        sources.add_all(source_map.keys);
+        
+        return sources;
+    }
+    
+    public Gee.Collection<DataSource> get_selected_sources() {
+        Gee.Collection<DataSource> sources = new Gee.ArrayList<DataSource>();
+        
+        int count = selected.get_count();
+        for (int ctr = 0; ctr < count; ctr++)
+            sources.add(((DataView) selected.get_at(ctr)).get_source());
+        
+        return sources;
     }
     
     // This is only used by DataView.

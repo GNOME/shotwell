@@ -394,44 +394,66 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
 }
 }
 
-public class EventRenameDialog : Gtk.Dialog {
-    Gtk.Entry name_entry;
+public abstract class TextEntryDialog : Gtk.Dialog {
+    private Gtk.Entry entry;
 
-    public EventRenameDialog(string? event_name) {
+    public TextEntryDialog(string title, string label, string? initial_text = null) {
         set_modal(true);
 
         add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
                     Gtk.STOCK_OK, Gtk.ResponseType.OK);
-        set_title(_("Rename Event"));
+        set_title(title);
 
-        Gtk.Label name_label = new Gtk.Label(_("Name:"));
-        name_entry = new Gtk.Entry();
+        Gtk.Label name_label = new Gtk.Label(label);
+        entry = new Gtk.Entry();
 
-        if (event_name != null)
-            name_entry.set_text(event_name);
+        if (initial_text != null)
+            entry.set_text(initial_text);
 
-        name_entry.set_activates_default(true);
+        entry.set_activates_default(true);
 
         Gtk.HBox query = new Gtk.HBox(false, 0);
         query.pack_start(name_label, false, false, 3);
-        query.pack_start(name_entry, false, false, 3);
+        query.pack_start(entry, false, false, 3);
 
         set_default_response(Gtk.ResponseType.OK);
 
         vbox.pack_start(query, true, false, 6);
     }
 
-    public string? execute() {
+    protected string? _execute() {
+        string? text = null;
+        
         show_all();
-
-        string? event_name = null;
-
-        if (run() == Gtk.ResponseType.OK)
-            event_name = name_entry.get_text();
-
+        
+        for (;;) {
+            if (run() != Gtk.ResponseType.OK)
+                break;
+            
+            text = entry.get_text();
+            if (validate(text))
+                break;
+            
+            text = null;
+        }
+        
         destroy();
+        
+        return text;
+    }
+    
+    protected virtual bool validate(string text) {
+        return true;
+    }
+}
 
-        return event_name;
+public class EventRenameDialog : TextEntryDialog {
+    public EventRenameDialog(string? event_name) {
+        base (_("Rename Event"), _("Name:"), event_name);
+    }
+    
+    public string? execute() {
+        return _execute();
     }
 }
 
@@ -860,58 +882,54 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
     dialog.destroy();
 }
 
-public class TagsDialog : Gtk.Dialog {
-    Gtk.Entry name_entry;
+public class NewTagDialog : TextEntryDialog {
+    public NewTagDialog() {
+        base (Resources.NEW_TAG_LABEL, _("Tag:"));
+    }
     
-    public TagsDialog(string[]? current_tags) {
-        set_modal(true);
+    public string? execute() {
+        return _execute();
+    }
+    
+    protected override bool validate(string text) {
+        if (!Tag.global.exists(text))
+            return true;
         
-        add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
-                    Gtk.STOCK_OK, Gtk.ResponseType.OK);
-        set_title(Resources.TAG_LABEL);
+        AppWindow.error_message(_("%s already exists.  Please choose a new tag name.").printf(text),
+            this);
         
-        Gtk.Label name_label = new Gtk.Label(_("Tags (separated by commas):"));
-        name_entry = new Gtk.Entry();
+        return false;
+    }
+}
+
+public class SetTagsDialog : TextEntryDialog {
+    public SetTagsDialog(string[]? current_tags) {
+        base (Resources.SET_TAG_LABEL, _("Tags (separated by commas):"), get_initial_text(current_tags));
+    }
+    
+    private static string? get_initial_text(string[]? tags) {
+        if (tags == null)
+            return null;
         
-        if (current_tags != null) {
-            string text = null;
-            foreach (string tag in current_tags) {
-                if (text == null)
-                    text = "";
-                else
-                    text += ", ";
-                
-                text += tag;
-            }
+        string text = null;
+        foreach (string tag in tags) {
+            if (text == null)
+                text = "";
+            else
+                text += ", ";
             
-            if (text != null)
-                name_entry.set_text(text);
+            text += tag;
         }
         
-        name_entry.set_activates_default(true);
-        
-        Gtk.HBox query = new Gtk.HBox(false, 0);
-        query.pack_start(name_label, false, false, 3);
-        query.pack_start(name_entry, false, false, 3);
-        
-        set_default_response(Gtk.ResponseType.OK);
-        
-        vbox.pack_start(query, true, false, 6);
+        return text;
     }
     
     public string[]? execute() {
-        show_all();
-        
-        int response = run();
-        string text = name_entry.get_text();
-        
-        destroy();
-        
-        // return null when cancelled
-        if (response != Gtk.ResponseType.OK)
+        string? text = _execute();
+        if (text == null)
             return null;
         
-        // return empty list of no tags specified
+        // return empty list if no tags specified
         if (is_string_empty(text))
             return new string[0];
         

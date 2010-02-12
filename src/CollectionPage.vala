@@ -270,10 +270,10 @@ public abstract class CollectionPage : CheckerboardPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
         
-        Gtk.ActionEntry tag = { "Tag", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, on_tag };
-        tag.label = Resources.TAG_MENU;
-        tag.tooltip = Resources.TAG_TOOLTIP;
-        actions += tag;
+        Gtk.ActionEntry set_tag = { "SetTag", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, on_set_tag };
+        set_tag.label = Resources.SET_TAG_MENU;
+        set_tag.tooltip = Resources.SET_TAG_TOOLTIP;
+        actions += set_tag;
         
         Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
             "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
@@ -318,7 +318,16 @@ public abstract class CollectionPage : CheckerboardPage {
         new_event.label = Resources.NEW_EVENT_MENU;
         new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
         actions += new_event;
-
+        
+        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, on_tags_menu };
+        tags.label = _("Tags");
+        actions += tags;
+        
+        Gtk.ActionEntry new_tag = { "NewTag", null, TRANSLATABLE, null, null, on_new_tag };
+        new_tag.label = Resources.NEW_TAG_MENU;
+        new_tag.tooltip = Resources.NEW_TAG_TOOLTIP;
+        actions += new_tag;
+        
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
         actions += help;
@@ -500,7 +509,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextTag", one_selected);
+        set_item_sensitive("/CollectionContextMenu/ContextSetTag", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionContextMenu/ContextSetBackground", false);
@@ -782,6 +791,10 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/EventsMenu/NewEvent", get_view().get_selected_count() > 0);
     }
     
+    private void on_tags_menu() {
+        set_item_sensitive("/CollectionMenuBar/TagsMenu/NewTag", get_view().get_selected_count() > 0);
+    }
+    
     private void on_select_all() {
         get_view().select_all();
     }
@@ -827,7 +840,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Tag", one_selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetTag", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/ContextSetBackground", false);
@@ -941,7 +954,7 @@ public abstract class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
-    private void on_tag() {
+    private void on_set_tag() {
         if (get_view().get_selected_count() != 1)
             return;
         
@@ -955,7 +968,7 @@ public abstract class CollectionPage : CheckerboardPage {
         foreach (Tag tag in tags)
             tag_names += tag.get_name();
         
-        TagsDialog dialog = new TagsDialog(tag_names);
+        SetTagsDialog dialog = new SetTagsDialog(tag_names);
         tag_names = dialog.execute();
         if (tag_names == null)
             return;
@@ -1268,8 +1281,20 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_new_event() {
-        NewEventCommand command = new NewEventCommand(get_view().get_selected());
-        get_command_manager().execute(command);
+        if (get_view().get_selected_count() > 0)
+            get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
+    }
+    
+    private void on_new_tag() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        NewTagDialog dialog = new NewTagDialog();
+        string? name = dialog.execute();
+        if (name != null) {
+            get_command_manager().execute(new NewTagCommand(name, 
+                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
+        }
     }
 }
 

@@ -58,7 +58,7 @@
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
             <separator />
-            <menuitem name="Tag" action="Tag" />
+            <menuitem name="SetTag" action="SetTag" />
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
             <separator />
@@ -71,6 +71,10 @@
         
         <menu name="EventsMenu" action="EventsMenu">
             <menuitem name="NewEvent" action="NewEvent" />
+        </menu>
+        
+        <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="NewTag" action="NewTag" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -87,7 +91,9 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
-        <menuitem name="ContextTag" action="Tag" />
+        <menuitem name="ContextNewTag" action="NewTag" />
+        <menuitem name="ContextSetTag" action="SetTag" />
+        <separator />
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />

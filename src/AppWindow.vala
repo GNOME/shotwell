@@ -422,17 +422,17 @@ public abstract class AppWindow : PageWindow {
         return fullscreen_window;
     }
     
-    public static void error_message(string message) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL, 
-            Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
+    public static void error_message(string message, Gtk.Window? parent = null) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s", message);
         dialog.title = Resources.APP_TITLE;
         dialog.run();
         dialog.destroy();
     }
     
-    public static bool yes_no_question(string message, string? title = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
-            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "%s", message);
+    public static bool yes_no_question(string message, string? title = null, Gtk.Window? parent = null) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "%s", message);
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
         
         bool yes = (dialog.run() == Gtk.ResponseType.YES);

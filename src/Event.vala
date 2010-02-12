@@ -374,7 +374,7 @@ public class Event : EventSource, Proxyable {
     public bool rename(string? name) {
         bool renamed = event_table.rename(event_id, name);
         if (renamed) {
-            raw_name = name;
+            raw_name = is_string_empty(name) ? null : name;
             notify_altered();
         }
         

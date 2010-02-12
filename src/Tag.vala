@@ -22,6 +22,10 @@ public class TagSourceCollection : DatabaseSourceCollection {
         return (Tag) fetch_by_key(tag_id.id);
     }
     
+    public bool exists(string name) {
+        return map.has_key(name);
+    }
+    
     // Returns null if not Tag with name exists.
     public Tag? fetch_by_name(string name) {
         return map.get(name);
@@ -259,7 +263,7 @@ public class Tag : DataSource, Proxyable {
             photos.add(new PhotoView(photo));
     }
     
-    public void attach_many(Gee.List<LibraryPhoto> sources) {
+    public void attach_many(Gee.Collection<LibraryPhoto> sources) {
         Gee.ArrayList<PhotoView> view_list = new Gee.ArrayList<PhotoView>();
         foreach (LibraryPhoto photo in sources) {
             if (!photos.has_view_for_source(photo))
@@ -280,7 +284,7 @@ public class Tag : DataSource, Proxyable {
         return true;
     }
     
-    public int detach_many(Gee.List<LibraryPhoto> sources) {
+    public int detach_many(Gee.Collection<LibraryPhoto> sources) {
         int count = 0;
         
         Marker marker = photos.start_marking();
@@ -332,7 +336,7 @@ public class Tag : DataSource, Proxyable {
         if (photos.get_count() == 0) {
             debug("Destroying %s", to_string());
             
-            global.destroy_marked(global.mark(this), true);
+            global.destroy_marked(global.mark(this), false);
             
             // exit now, do not touch this or any external representation of Tag from here on
             return;

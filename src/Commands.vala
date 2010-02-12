@@ -871,13 +871,68 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     }
 }
 
+public class NewTagCommand : PageCommand {
+    private string name;
+    private Gee.Collection<LibraryPhoto> photos;
+    private SourceProxy tag_proxy = null;
+    
+    public NewTagCommand(string name, Gee.Collection<LibraryPhoto> photos) {
+        base ("%s %s".printf(Resources.NEW_TAG_LABEL, name), Resources.NEW_TAG_TOOLTIP);
+        
+        this.name = name;
+        this.photos = photos;
+        
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+    }
+    
+    ~NewTagCommand() {
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        if (tag_proxy != null)
+            tag_proxy.broken -= on_proxy_broken;
+    }
+    
+    public override void execute() {
+        // this command only works with creating new tags ... if it needs to handle the possibility
+        // that the tag already exists, more work must be done
+        assert(tag_proxy == null);
+        assert(!Tag.global.exists(name));
+        
+        Tag tag = Tag.for_name(name);
+        tag.attach_many(photos);
+        
+        // store a proxy in case it's destroyed/reconstituted later
+        tag_proxy = tag.get_proxy();
+        tag_proxy.broken += on_proxy_broken;
+    }
+    
+    public override void undo() {
+        assert(tag_proxy != null);
+        
+        // drop the proxy before destroying the tag
+        Tag tag = (Tag) tag_proxy.get_source();
+        tag_proxy.broken -= on_proxy_broken;
+        tag_proxy = null;
+        
+        Tag.global.destroy_marked(Tag.global.mark(tag), false);
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        if (photos.contains((LibraryPhoto) source))
+            get_command_manager().reset();
+    }
+    
+    private void on_proxy_broken() {
+        get_command_manager().reset();
+    }
+}
+
 public class EditTagsCommand : SingleDataSourceCommand {
     private LibraryPhoto photo;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();
     private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
     
     public EditTagsCommand(LibraryPhoto photo, Gee.Collection<Tag> new_tag_list) {
-        base (photo, Resources.TAG_LABEL, Resources.TAG_TOOLTIP);
+        base (photo, Resources.SET_TAG_LABEL, Resources.SET_TAG_TOOLTIP);
         
         this.photo = photo;
         
