@@ -253,7 +253,7 @@ public class Tag : DataSource, Proxyable {
         Tag tag = new Tag(row, object_id);
         global.add(tag);
         
-        debug("Reconstituted tag %s", tag.to_string());
+        debug("Reconstituted %s", tag.to_string());
         
         return tag;
     }

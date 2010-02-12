@@ -926,6 +926,36 @@ public class NewTagCommand : PageCommand {
     }
 }
 
+public class DeleteTagCommand : PageCommand {
+    private SourceProxy tag_proxy;
+    
+    public DeleteTagCommand(Tag tag) {
+        base (Resources.DELETE_TAG_LABEL.printf(tag.get_name()), Resources.DELETE_TAG_TOOLTIP);
+        
+        tag_proxy = tag.get_proxy();
+        tag_proxy.broken += on_proxy_broken;
+    }
+    
+    ~DeleteTagCommand() {
+        tag_proxy.broken -= on_proxy_broken;
+    }
+    
+    public override void execute() {
+        Tag.global.destroy_marked(Tag.global.mark(tag_proxy.get_source()), false);
+    }
+    
+    public override void undo() {
+        // merely instantiating the Tag will rehydrate it ... should always work, because the 
+        // undo stack is cleared if the proxy ever breaks
+        Tag tag = (Tag) tag_proxy.get_source();
+        assert(tag != null);
+    }
+    
+    private void on_proxy_broken() {
+        get_command_manager().reset();
+    }
+}
+
 public class EditTagsCommand : SingleDataSourceCommand {
     private LibraryPhoto photo;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();

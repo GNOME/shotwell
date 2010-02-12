@@ -162,6 +162,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string NEW_TAG_LABEL = _("New Tag");
     public const string NEW_TAG_TOOLTIP = _("Create a new tag for the selected photos");
     
+    public const string DELETE_TAG_MENU = _("_Delete Tag");
+    public const string DELETE_TAG_LABEL = _("Delete Tag \"%s\"");
+    public const string DELETE_TAG_TOOLTIP = _("Remove the tag from all photos");
+    
     public const string SET_TAG_MENU = _("Set _Tags...");
     public const string SET_TAG_LABEL = _("Set Tags");
     public const string SET_TAG_TOOLTIP = _("Tag photo with labels");
