@@ -176,6 +176,18 @@ public class DatabaseTable {
         return execute_update_by_id(stmt);
     }
     
+    protected void update_text_by_id_2(int64 id, string column, string text) throws DatabaseError {
+        Sqlite.Statement stmt;
+        prepare_update_by_id(id, column, out stmt);
+        
+        int res = stmt.bind_text(1, text);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("DatabaseTable.update_text_by_id_2 %s.%s".printf(table_name, column), res);
+    }
+    
     protected bool update_int_by_id(int64 id, string column, int value) {
         Sqlite.Statement stmt;
         prepare_update_by_id(id, column, out stmt);
@@ -1802,6 +1814,10 @@ public class TagTable : DatabaseTable {
         }
         
         return rows;
+    }
+    
+    public void rename(TagID tag_id, string new_name) throws DatabaseError {
+        update_text_by_id_2(tag_id.id, "name", new_name);
     }
     
     public void set_tagged_photos(TagID tag_id, Gee.Collection<PhotoID?> photo_ids) throws DatabaseError {

@@ -302,6 +302,18 @@ public class Tag : DataSource, Proxyable {
         return count;
     }
     
+    public void rename(string new_name) {
+        try {
+            TagTable.get_instance().rename(row.tag_id, new_name);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
+        
+        row.name = new_name;
+        
+        notify_altered();
+    }
+    
     public bool contains(LibraryPhoto photo) {
         return photos.has_view_for_source(photo);
     }

@@ -252,7 +252,7 @@ public class LibraryWindow : AppWindow {
     private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
     private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
         new Gee.ArrayList<SubEventsDirectoryPageStub>();
-    private Gee.ArrayList<TagPageStub> tag_list = new Gee.ArrayList<TagPageStub>();
+    private Gee.HashMap<Tag, TagPageStub> tag_map = new Gee.HashMap<Tag, TagPageStub>();
 #if !NO_CAMERA
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
@@ -296,6 +296,7 @@ public class LibraryWindow : AppWindow {
         
         // watch for new & removed tags
         Tag.global.contents_altered += on_tags_added_removed;
+        Tag.global.item_altered += on_tag_altered;
         
         // start in the collection page
         sidebar.place_cursor(library_page);
@@ -886,6 +887,18 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    private void on_tag_altered(DataObject object) {
+        TagPageStub page_stub = tag_map.get((Tag) object);
+        assert(page_stub != null);
+        
+        bool expanded = sidebar.is_branch_expanded(tags_marker);
+        sidebar.remove_page(page_stub);
+        sidebar.insert_child_sorted(tags_marker, page_stub, tag_page_comparator);
+        if (expanded)
+            sidebar.expand_branch(tags_marker);
+        sidebar.place_cursor(page_stub);
+    }
+    
     private SubEventsDirectoryPageStub? get_dir_parent(SubEventsDirectoryPageStub dir) {
         if (dir.type == SubEventsDirectoryPage.DirectoryType.YEAR)
             return null;
@@ -951,7 +964,7 @@ public class LibraryWindow : AppWindow {
         
         TagPageStub stub = new TagPageStub(tag);
         sidebar.insert_child_sorted(tags_marker, stub, tag_page_comparator);
-        tag_list.add(stub);
+        tag_map.set(tag, stub);
         
         // expand branch so user sees new tag immediately ... must be done after addition of
         // first child
@@ -959,15 +972,12 @@ public class LibraryWindow : AppWindow {
     }
     
     private void remove_tag_page(Tag tag) {
-        foreach (TagPageStub stub in tag_list) {
-            if (stub.tag.equals(tag)) {
-                remove_stub(stub, library_page);
-                
-                break;
-            }
-        }
+        TagPageStub stub = tag_map.get(tag);
+        assert(stub != null);
         
-        if (tag_list.size == 0 && tags_marker != null) {
+        remove_stub(stub, library_page);
+        
+        if (tag_map.size == 0 && tags_marker != null) {
             sidebar.prune_branch(tags_marker);
             tags_marker = null;
         }
@@ -1192,7 +1202,7 @@ public class LibraryWindow : AppWindow {
             bool removed = event_list.remove((EventPageStub) stub);
             assert(removed);
         } else if (stub is TagPageStub) {
-            bool removed = tag_list.remove((TagPageStub) stub);
+            bool removed = tag_map.unset(((TagPageStub) stub).tag);
             assert(removed);
         }
         
@@ -1414,7 +1424,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_tag_selected(Gtk.TreePath path) {
-        foreach (TagPageStub stub in tag_list) {
+        foreach (TagPageStub stub in tag_map.values) {
             if (is_page_selected(stub, path)) {
                 switch_to_page(stub.get_page());
                 

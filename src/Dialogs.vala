@@ -410,7 +410,11 @@ public abstract class TextEntryDialog : Gtk.Dialog {
         if (initial_text != null)
             entry.set_text(initial_text);
 
+        // validate entry to start with
+        set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
+
         entry.set_activates_default(true);
+        entry.changed += on_entry_changed;
 
         Gtk.HBox query = new Gtk.HBox(false, 0);
         query.pack_start(name_label, false, false, 3);
@@ -431,7 +435,7 @@ public abstract class TextEntryDialog : Gtk.Dialog {
                 break;
             
             text = entry.get_text();
-            if (validate(text))
+            if (on_ok_validate(text))
                 break;
             
             text = null;
@@ -442,7 +446,15 @@ public abstract class TextEntryDialog : Gtk.Dialog {
         return text;
     }
     
-    protected virtual bool validate(string text) {
+    private void on_entry_changed() {
+        set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
+    }
+    
+    protected virtual bool on_modify_validate(string text) {
+        return true;
+    }
+    
+    protected virtual bool on_ok_validate(string text) {
         return true;
     }
 }
@@ -891,7 +903,7 @@ public class NewTagDialog : TextEntryDialog {
         return _execute();
     }
     
-    protected override bool validate(string text) {
+    protected override bool on_ok_validate(string text) {
         if (!Tag.global.exists(text))
             return true;
         
@@ -899,6 +911,20 @@ public class NewTagDialog : TextEntryDialog {
             this);
         
         return false;
+    }
+}
+
+public class RenameTagDialog : TextEntryDialog {
+    public RenameTagDialog(string current_name) {
+        base (_("Rename Tag"), _("Name:"), current_name);
+    }
+    
+    public string? execute() {
+        return _execute();
+    }
+    
+    protected override bool on_modify_validate(string text) {
+        return !is_string_empty(text);
     }
 }
 

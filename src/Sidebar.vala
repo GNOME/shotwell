@@ -87,7 +87,11 @@ public class Sidebar : Gtk.TreeView {
     public void expand_branch(SidebarMarker marker) {
         expand_row(marker.get_path(), false);
     }
-
+    
+    public bool is_branch_expanded(SidebarMarker marker) {
+        return is_row_expanded(marker.get_path());
+    }
+    
     public void toggle_branch_expansion(Gtk.TreePath path) {
         if (is_row_expanded(path))
             collapse_row(path);

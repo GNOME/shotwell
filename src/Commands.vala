@@ -71,6 +71,37 @@ public abstract class SingleDataSourceCommand : PageCommand {
     }
 }
 
+public abstract class SimpleProxyableCommand : PageCommand {
+    private SourceProxy proxy;
+    
+    public SimpleProxyableCommand(Proxyable proxyable, string name, string explanation) {
+        base (name, explanation);
+        
+        proxy = proxyable.get_proxy();
+        proxy.broken += on_proxy_broken;
+    }
+    
+    ~SimpleProxyableCommand() {
+        proxy.broken -= on_proxy_broken;
+    }
+    
+    public override void execute() {
+        execute_on_source(proxy.get_source());
+    }
+    
+    protected abstract void execute_on_source(DataSource source);
+    
+    public override void undo() {
+        undo_on_source(proxy.get_source());
+    }
+    
+    protected abstract void undo_on_source(DataSource source);
+    
+    private void on_proxy_broken() {
+        get_command_manager().reset();
+    }
+}
+
 public abstract class SinglePhotoTransformationCommand : SingleDataSourceCommand {
     private PhotoTransformationState state;
     
@@ -926,33 +957,40 @@ public class NewTagCommand : PageCommand {
     }
 }
 
-public class DeleteTagCommand : PageCommand {
-    private SourceProxy tag_proxy;
+public class RenameTagCommand : SimpleProxyableCommand {
+    private string old_name;
+    private string new_name;
     
-    public DeleteTagCommand(Tag tag) {
-        base (Resources.DELETE_TAG_LABEL.printf(tag.get_name()), Resources.DELETE_TAG_TOOLTIP);
+    public RenameTagCommand(Tag tag, string new_name) {
+        base (tag, Resources.RENAME_TAG_LABEL.printf(tag.get_name(), new_name), 
+            Resources.RENAME_TAG_TOOLTIP);
         
-        tag_proxy = tag.get_proxy();
-        tag_proxy.broken += on_proxy_broken;
+        old_name = tag.get_name();
+        this.new_name = new_name;
     }
     
-    ~DeleteTagCommand() {
-        tag_proxy.broken -= on_proxy_broken;
+    protected override void execute_on_source(DataSource source) {
+        ((Tag) source).rename(new_name);
+    }
+
+    protected override void undo_on_source(DataSource source) {
+        ((Tag) source).rename(old_name);
+    }
+}
+
+public class DeleteTagCommand : SimpleProxyableCommand {
+    public DeleteTagCommand(Tag tag) {
+        base (tag, Resources.DELETE_TAG_LABEL.printf(tag.get_name()), Resources.DELETE_TAG_TOOLTIP);
     }
     
-    public override void execute() {
-        Tag.global.destroy_marked(Tag.global.mark(tag_proxy.get_source()), false);
+    protected override void execute_on_source(DataSource source) {
+        Tag.global.destroy_marked(Tag.global.mark(source), false);
     }
     
-    public override void undo() {
+    protected override void undo_on_source(DataSource source) {
         // merely instantiating the Tag will rehydrate it ... should always work, because the 
         // undo stack is cleared if the proxy ever breaks
-        Tag tag = (Tag) tag_proxy.get_source();
-        assert(tag != null);
-    }
-    
-    private void on_proxy_broken() {
-        get_command_manager().reset();
+        assert(source is Tag);
     }
 }
 
