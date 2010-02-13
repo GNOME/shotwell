@@ -521,7 +521,7 @@ public abstract class MovePhotosCommand : Command {
         private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = new Gee.HashMap<
             LibraryPhoto, SourceProxy?>();
         
-        public RealMovePhotosCommand( Event? new_event, Gee.Iterable<DataView> photos,
+        public RealMovePhotosCommand(Event? new_event, Gee.Iterable<DataView> photos,
             string progress_text, string undo_progress_text, string name, string explanation) {
             base(photos, progress_text, undo_progress_text, name, explanation);
             
@@ -624,7 +624,7 @@ public class NewEventCommand : MovePhotosCommand {
     }
 }
 
-public class SetEventCommand : MovePhotosCommand {   
+public class SetEventCommand : MovePhotosCommand {
     public SetEventCommand(Gee.Iterable<DataView> iter, Event new_event) {
         base(Resources.SET_PHOTO_EVENT_LABEL, Resources.SET_PHOTO_EVENT_TOOLTIP);
 
@@ -908,7 +908,7 @@ public class NewTagCommand : PageCommand {
     private SourceProxy tag_proxy = null;
     
     public NewTagCommand(string name, Gee.Collection<LibraryPhoto> photos) {
-        base ("%s %s".printf(Resources.NEW_TAG_LABEL, name), Resources.NEW_TAG_TOOLTIP);
+        base (Resources.NEW_TAG_LABEL.printf(name), Resources.NEW_TAG_TOOLTIP);
         
         this.name = name;
         this.photos = photos;
@@ -934,6 +934,9 @@ public class NewTagCommand : PageCommand {
         // store a proxy in case it's destroyed/reconstituted later
         tag_proxy = tag.get_proxy();
         tag_proxy.broken += on_proxy_broken;
+        
+        // switch to new tag
+        LibraryWindow.get_app().switch_to_tag(tag);
     }
     
     public override void undo() {
@@ -1052,6 +1055,35 @@ public class EditTagsCommand : SingleDataSourceCommand {
     
     private void on_proxy_broken() {
         get_command_manager().reset();
+    }
+}
+
+public class TagPhotosCommand : SimpleProxyableCommand {
+    private Gee.Collection<LibraryPhoto> photos;
+    
+    public TagPhotosCommand(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+        base (tag, Resources.TAG_PHOTOS_LABEL.printf(tag.get_name()), Resources.TAG_PHOTOS_TOOLTIP);
+        
+        this.photos = photos;
+        
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+    }
+    
+    ~TagPhotosCommand() {
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        ((Tag) source).attach_many(photos);
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        ((Tag) source).detach_many(photos);
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        if (photos.contains((LibraryPhoto) source))
+            get_command_manager().reset();
     }
 }
 

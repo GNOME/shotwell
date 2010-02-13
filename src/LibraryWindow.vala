@@ -701,41 +701,57 @@ public class LibraryWindow : AppWindow {
 
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
-        drop_received(context, x, y, selection_data, info, time);
+        drop_received(context, x, y, selection_data, info, time, null, null);
     }
 
     private void drop_received(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page = null) {
+        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, 
+        SidebarPage? page) {
         // determine if drag is internal or external
         if (Gtk.drag_get_source_widget(context) != null)
-            drop_internal(context, x, y, selection_data, info, time, page);
+            drop_internal(context, x, y, selection_data, info, time, path, page);
         else
             drop_external(context, x, y, selection_data, info, time);
     }
 
     private void drop_internal(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page = null) {
-        bool success = false;
+        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page = null) {
+        Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
+            selection_data.get_length());
+
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        foreach (PhotoID photo_id in photo_ids)
+            photos.add(LibraryPhoto.global.fetch(photo_id));
         
+        if (photos.size == 0) {
+            Gtk.drag_finish(context, false, false, time);
+            
+            return;
+        }
+        
+        bool success = false;
         if (page is EventPageStub) {
             Event event = ((EventPageStub) page).event;
 
-            Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
-                selection_data.get_length());
-
-            Gee.ArrayList<PhotoView> photos = new Gee.ArrayList<PhotoView>();
-            foreach (PhotoID photo_id in photo_ids) {
-                LibraryPhoto photo = LibraryPhoto.global.fetch(photo_id);
-                
+            Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
+            foreach (LibraryPhoto photo in photos) {
                 // don't move a photo into the event it already exists in
                 if (!photo.get_event().equals(event))
-                    photos.add(new PhotoView(photo));
+                    views.add(new PhotoView(photo));
             }
 
-            if (photos.size > 0) {
-                Command command = new SetEventCommand(photos, event);
-                get_command_manager().execute(command);
-                
+            if (views.size > 0) {
+                get_command_manager().execute(new SetEventCommand(views, event));
+                success = true;
+            }
+        } else if (page is TagPageStub) {
+            get_command_manager().execute(new TagPhotosCommand(((TagPageStub) page).tag, photos));
+            success = true;
+        } else if (path != null && path.compare(tags_marker.get_path()) == 0) {
+            NewTagDialog dialog = new NewTagDialog();
+            string? name = dialog.execute();
+            if (name != null) {
+                get_command_manager().execute(new NewTagCommand(name, photos));
                 success = true;
             }
         }
@@ -810,6 +826,13 @@ public class LibraryWindow : AppWindow {
         }
 
         switch_to_page(page);
+    }
+    
+    public void switch_to_tag(Tag tag) {
+        TagPageStub? stub = tag_map.get(tag);
+        assert(stub != null);
+        
+        switch_to_page(stub.get_page());
     }
     
     public void switch_to_photo_page(CollectionPage controller, Thumbnail current) {

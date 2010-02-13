@@ -40,7 +40,8 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(2, typeof(string), typeof(SidebarPage));
     private Gtk.TreePath current_path = null;
 
-    public signal void drop_received(Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint info, uint time, SidebarPage? page);
+    public signal void drop_received(Gdk.DragContext context, int x, int y, 
+        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page);
 
     public Sidebar() {
         set_model(store);
@@ -314,9 +315,7 @@ public class Sidebar : Gtk.TreeView {
 
         return path;
     }
-
-
-
+    
     private bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null) {
         // TODO: share this code with Page, possibly through a contextable interface
 
@@ -373,7 +372,7 @@ public class Sidebar : Gtk.TreeView {
 
     public void rename(SidebarMarker marker, string name) {
         // set up the columns
-        Gtk.TreeIter iter;        
+        Gtk.TreeIter iter;
         store.get_iter(out iter, marker.get_path());
         store.set(iter, 0, Markup.escape_text(name));
     }
@@ -432,7 +431,7 @@ public class Sidebar : Gtk.TreeView {
         bool changes_made = (num_children > 0);
 
         // sort this level with bubble sort
-        while (changes_made) {        
+        while (changes_made) {
             changes_made = false;
 
             path.down();
@@ -467,7 +466,7 @@ public class Sidebar : Gtk.TreeView {
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
 
-        Gtk.TreePath path;
+        Gtk.TreePath path = null;
         Gtk.TreeViewDropPosition pos;
         SidebarPage page = null;
 
@@ -475,6 +474,6 @@ public class Sidebar : Gtk.TreeView {
             page = locate_page(path);
         }
 
-        drop_received(context, x, y, selection_data, info, time, page);
+        drop_received(context, x, y, selection_data, info, time, path, page);
     }
 }

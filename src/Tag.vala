@@ -293,7 +293,7 @@ public class Tag : DataSource, Proxyable {
             if (view == null)
                 continue;
             
-            photos.mark(view);
+            marker.mark(view);
             count++;
         }
         

@@ -159,7 +159,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST_DATE_TIME_TOOLTIP = _("Adjust date and time of selected photos");
     
     public const string NEW_TAG_MENU = _("_New Tag...");
-    public const string NEW_TAG_LABEL = _("New Tag");
+    public const string NEW_TAG_LABEL = _("New Tag \"%s\"");
     public const string NEW_TAG_TOOLTIP = _("Create a new tag for the selected photos");
     
     public const string DELETE_TAG_MENU = _("_Delete Tag");
@@ -173,7 +173,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string SET_TAG_MENU = _("Set _Tags...");
     public const string SET_TAG_LABEL = _("Set Tags");
     public const string SET_TAG_TOOLTIP = _("Tag photo with labels");
-
+    
+    public const string TAG_PHOTOS_LABEL = _("Tag Photos \"%s\"");
+    public const string TAG_PHOTOS_TOOLTIP = _("Tag photos with label");
+    
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     
