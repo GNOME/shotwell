@@ -115,7 +115,8 @@ RESOURCE_FILES = \
 	import_queue.ui \
 	events_directory.ui \
 	event.ui \
-	direct.ui
+	direct.ui \
+	tags.ui
 
 SRC_HEADER_FILES = \
 	gphoto.h
