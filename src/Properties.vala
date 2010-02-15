@@ -10,6 +10,7 @@ private abstract class Properties : Gtk.HBox {
     private string basic_properties_labels;
     private string basic_properties_info;
     private bool first_line;
+    private bool line_selected_complete = true;
 
     public Properties() {
         label.set_justify(Gtk.Justification.RIGHT);
@@ -20,6 +21,9 @@ private abstract class Properties : Gtk.HBox {
         
         info.set_ellipsize(Pango.EllipsizeMode.END);
         info.set_selectable(true);
+
+        info.button_press_event += on_button_pressed;
+        info.button_release_event += on_button_released;
     }
 
     protected void add_line(string label, string info) {
@@ -106,7 +110,61 @@ private abstract class Properties : Gtk.HBox {
     }
 
     public void unselect_text() {
-        info.select_region(0,0);
+        info.select_region(0, 0);
+    }
+
+    public void select_line(int cursor_position) {
+        string text = info.get_text();
+        int start, end, cursor;
+
+        if (text[cursor_position] == '\n' && cursor_position > 0)
+            cursor = cursor_position - 1;
+        else
+            cursor = cursor_position;
+
+        // find the locations of the line breaks preceding and following the cursor location
+        for (start = cursor; start > 0 && text[start - 1] != '\n'; start--);
+        for (end = cursor; end < text.size() && text[end] != '\n'; end++);
+
+        info.select_region(start, end);
+    }
+
+    protected virtual bool on_button_pressed(Gdk.EventButton event) {
+        // only deal with left triple-click, everything else happens automagically with labels
+        if (event.button == 1) {
+            switch (event.type) {
+                case Gdk.EventType.2BUTTON_PRESS:
+                    if (info.get_text()[info.cursor_position - 1] == '\n' ||
+                        info.get_text()[info.cursor_position - 2] == '\n') {
+                        return true;
+                    }
+
+                    if (info.get_text()[info.cursor_position] == '\n' && info.cursor_position > 0) {
+                        info.select_region(info.cursor_position - 1, info.cursor_position - 1);
+                    }
+
+                    return false;
+
+                case Gdk.EventType.3BUTTON_PRESS:
+                    line_selected_complete = false;
+                    select_line(info.cursor_position);
+                    return true;
+            }
+        }      
+
+        return false;
+    }
+
+    private bool on_button_released(Gdk.EventButton event) {
+        // only deal with left triple-click, everything else happens automagically with labels
+        if (!line_selected_complete) {
+            select_line(info.cursor_position);
+            line_selected_complete = true;
+
+            return true;
+        }      
+
+        return false;
     }
 }
 
@@ -328,7 +386,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
     private const int FRAME_BORDER = 6;
 
     private class ExtendedProperties : Properties {
-        private const string NO_VALUE = " --";
+        private const string NO_VALUE = "";
         private string file_path;
         private uint64 filesize;
         private Dimensions original_dim;

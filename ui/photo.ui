@@ -41,6 +41,9 @@
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
             <separator />
+            <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
+            <menuitem name="HideUnhide" action="HideUnhide" />
+            <separator />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
             <menuitem name="SetBackground" action="SetBackground" />
@@ -61,6 +64,9 @@
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
+        <separator />
+        <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
+        <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
         <menuitem name="ContextSetBackground" action="SetBackground" />
     </popup>

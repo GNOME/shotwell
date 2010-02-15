@@ -1171,6 +1171,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (previous_photo != null)
             replace_photo(controller, previous_photo);
     }
+
+    public bool has_current_tool() {
+        return (current_tool != null);
+    }
 }
 
 //
@@ -1181,6 +1185,9 @@ public class LibraryPhotoPage : EditingHostPage {
     private Gtk.Menu context_menu;
     private CollectionPage return_page = null;
 
+    public const int TRINKET_SCALE = 20;
+    public const int TRINKET_PADDING = 1;
+
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
 
@@ -1189,11 +1196,13 @@ public class LibraryPhotoPage : EditingHostPage {
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
         // watch for photos being destroyed, either here or in other pages
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed += on_photo_removed;
+        LibraryPhoto.global.item_metadata_altered += on_metadata_altered;
     }
     
     ~LibraryPhotoPage() {
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed -= on_photo_removed;
+        LibraryPhoto.global.item_metadata_altered -= on_metadata_altered;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -1292,6 +1301,18 @@ public class LibraryPhotoPage : EditingHostPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
 
+        Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
+            "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
+        favorite.label = Resources.FAVORITE_MENU;
+        favorite.tooltip = Resources.FAVORITE_TOOLTIP;
+        actions += favorite;
+        
+        Gtk.ActionEntry hide_unhide = { "HideUnhide", Resources.HIDDEN, TRANSLATABLE, "<Ctrl>H",
+            TRANSLATABLE, on_hide_unhide };
+        hide_unhide.label = Resources.HIDE_MENU;
+        hide_unhide.tooltip = Resources.HIDE_TOOLTIP;
+        actions += hide_unhide;
+
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
         actions += help;
@@ -1308,6 +1329,35 @@ public class LibraryPhotoPage : EditingHostPage {
     public CollectionPage get_controller_page() {
         return return_page;
     }
+
+    protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+        base.paint(gc, drawable);
+
+        if (!has_current_tool()) {
+            Gdk.Pixbuf? trinket = null;
+            
+            if (((LibraryPhoto) get_photo()).is_hidden())
+                trinket = Resources.get_icon(Resources.ICON_HIDDEN, TRINKET_SCALE);
+            else if (((LibraryPhoto) get_photo()).is_favorite())
+                trinket = Resources.get_icon(Resources.ICON_FAVORITE, TRINKET_SCALE);
+            
+            if (trinket == null)
+                return;
+            
+            Gdk.Pixbuf? pixbuf = get_scaled_pixbuf();
+            
+            if (pixbuf == null)
+                return;
+
+            int x, y;
+            drawable.get_size(out x, out y);
+
+            drawable.draw_pixbuf(gc, trinket, 0, 0, 
+                (x / 2) + (pixbuf.get_width() / 2) - trinket.get_width() - TRINKET_PADDING, 
+                (y / 2) + (pixbuf.get_height() / 2) - trinket.get_height() - TRINKET_PADDING, 
+                trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
+        }
+    }
     
     protected override void set_missing_photo_sensitivities(bool sensitivity) {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
@@ -1322,6 +1372,9 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ContextSetBackground", sensitivity);
+
+        set_item_sensitive("/PhotoContextMenu/ContextHideUnhide", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextFavoriteUnfavorite", sensitivity);
         
         base.set_missing_photo_sensitivities(sensitivity);
     }
@@ -1371,6 +1424,9 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
         set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
 
+        set_hide_item_label("/PhotoContextMenu/ContextHideUnhide");
+        set_favorite_item_label("/PhotoContextMenu/ContextFavoriteUnfavorite");
+
 #if WINDOWS
         set_item_sensitive("/PhotoContextMenu/ContextSetBackground", false);
 #endif 
@@ -1393,7 +1449,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private void return_to_collection() {
         LibraryWindow.get_app().switch_to_page(return_page);
     }
-    
+
     private void on_remove() {
         if (!has_photo())
             return;
@@ -1410,7 +1466,7 @@ public class LibraryPhotoPage : EditingHostPage {
         LibraryPhoto.global.destroy_marked(marker, (response == Gtk.ResponseType.YES));
     }
     
-    private void on_photo_destroyed(DataSource source) {
+    private void on_photo_removed(DataSource source) {
         LibraryPhoto photo = source as LibraryPhoto;
         
         // only interested in current photo
@@ -1463,6 +1519,23 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/EditMenu/Remove", has_photo());
     }
     
+    protected void set_favorite_item_label(string path) {
+        // Favorite/Unfavorite menu item depends on several conditions
+        Gtk.MenuItem favorite_menu_item = (Gtk.MenuItem) ui.get_widget(path);
+        assert(favorite_menu_item != null);
+        
+        favorite_menu_item.set_label(can_favorite() ? Resources.FAVORITE_MENU :
+            Resources.UNFAVORITE_MENU);
+    }
+
+    protected void set_hide_item_label(string path) {
+        // Hide/Unhide menu item depends on several conditions
+        Gtk.MenuItem hide_menu_item = (Gtk.MenuItem) ui.get_widget(path);
+        assert(hide_menu_item != null);
+
+        hide_menu_item.set_label(can_hide() ? Resources.HIDE_MENU : Resources.UNHIDE_MENU);
+    }
+    
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
@@ -1476,10 +1549,54 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", enhance_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
+        set_hide_item_label("/PhotoMenuBar/PhotoMenu/HideUnhide");
+        set_favorite_item_label("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite");
 
 #if WINDOWS
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackground", false);
 #endif 
+    }
+    
+    private void on_favorite_unfavorite() {
+        if (!has_photo())
+            return;
+
+        FavoriteUnfavoriteSingleCommand command = new FavoriteUnfavoriteSingleCommand(get_photo(),
+            can_favorite());
+
+        get_command_manager().execute(command);
+    }
+    
+    private void on_hide_unhide() {
+        if (!has_photo())
+            return;
+
+        HideUnhideSingleCommand command = new HideUnhideSingleCommand(get_photo(),
+            can_hide());
+
+        if (!Config.get_instance().get_display_hidden_photos())
+            on_photo_removed(get_photo());
+
+        get_command_manager().execute(command);
+    }
+
+    protected bool can_favorite() {
+        if (!has_photo())
+            return false;
+ 
+        return !((LibraryPhoto) get_photo()).is_favorite();
+    }
+    
+    protected bool can_hide() {
+        if (!has_photo())
+            return false;
+
+        return !((LibraryPhoto) get_photo()).is_hidden();
+    }
+
+    private void on_metadata_altered(DataObject item) {
+        if (((TransformablePhoto) item).equals(get_photo()))
+            repaint();
     }
 }
 

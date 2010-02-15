@@ -732,6 +732,26 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     }
 }
 
+public class FavoriteUnfavoriteSingleCommand : SingleDataSourceCommand {
+    private bool favorite;
+    
+    public FavoriteUnfavoriteSingleCommand(DataSource source, bool favorite) {
+        base (source, 
+            favorite ? Resources.FAVORITE_LABEL : Resources.UNFAVORITE_LABEL,
+            favorite ? Resources.FAVORITE_TOOLTIP : Resources.UNFAVORITE_TOOLTIP);
+        
+        this.favorite = favorite;
+    }
+    
+    public override void execute() {
+        ((LibraryPhoto) source).set_favorite(favorite);
+    }
+    
+    public override void undo() {
+        ((LibraryPhoto) source).set_favorite(!favorite);
+    }
+}
+
 public class FavoriteUnfavoriteCommand : MultipleDataSourceCommand {
     private bool favorite;
     
@@ -751,6 +771,26 @@ public class FavoriteUnfavoriteCommand : MultipleDataSourceCommand {
     
     public override void undo_on_source(DataSource source) {
         ((LibraryPhoto) source).set_favorite(!favorite);
+    }
+}
+
+public class HideUnhideSingleCommand : SingleDataSourceCommand {
+    private bool hide;
+    
+    public HideUnhideSingleCommand(DataSource source, bool hide) {
+        base (source,
+            hide ? Resources.HIDE_LABEL : Resources.UNHIDE_LABEL,
+            hide ? Resources.HIDE_TOOLTIP : Resources.UNHIDE_TOOLTIP);
+        
+        this.hide = hide;
+    }
+    
+    public override void execute() {
+        ((LibraryPhoto) source).set_hidden(hide);
+    }
+    
+    public override void undo() {
+        ((LibraryPhoto) source).set_hidden(!hide);
     }
 }
 
