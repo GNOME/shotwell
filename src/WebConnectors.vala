@@ -14,7 +14,46 @@ public errordomain PublishingError {
     MALFORMED_RESPONSE
 }
 
-public abstract class RESTSession {
+public enum HttpMethod {
+    GET,
+    POST,
+    PUT;
+
+    public string to_string() {
+        switch (this) {
+            case HttpMethod.GET:
+                return "GET";
+
+            case HttpMethod.PUT:
+                return "PUT";
+
+            case HttpMethod.POST:
+                return "POST";
+
+            default:
+                error("unrecognized HTTP method enumeration value");
+                return "";
+        }
+    }
+
+    public static HttpMethod from_string(string str) {
+        if (str == "GET") {
+            return HttpMethod.GET;
+        } else if (str == "PUT") {
+            return HttpMethod.PUT;
+        } else if (str == "POST") {
+            return HttpMethod.POST;
+        } else {
+            error("unrecognized HTTP method name: %s", str);
+            return HttpMethod.GET;
+        }
+    }
+    
+}
+
+public const int ORIGINAL_SIZE = -1;
+
+public class RESTSession {
     private string endpoint_url = null;
     private Soup.Session network_session = null;
     
@@ -28,6 +67,8 @@ public abstract class RESTSession {
     private static void check_response(Soup.Message message, string endpoint) throws PublishingError {
         switch (message.status_code) {
             case Soup.KnownStatusCode.OK:
+            case Soup.KnownStatusCode.CREATED: // HTTP code 201 (CREATED) signals that a new
+                                               // resource was created in response to a PUT or POST
                 // looks good -- but check response_body.data as well, see below
             break;
             
@@ -74,7 +115,9 @@ public abstract class RESTSession {
         return endpoint_url;
     }
     
-    public abstract RESTTransaction create_transaction();
+    public virtual RESTTransaction create_transaction() {
+        return new RESTTransaction(this);
+    }
     
     public void send_message(Soup.Message message) throws PublishingError {
         network_session.send_message(message);
@@ -100,18 +143,26 @@ public struct RESTArgument {
     }
 }
 
-public abstract class RESTTransaction {
+public class RESTTransaction {
     private RESTArgument[] arguments;
     private string signature_key = null;
     private string signature_value = null;
     private bool is_executed = false;
-    private string response = null;
     private RESTSession parent_session = null;
+    private Soup.Message active_message = null;
+    private bool use_custom_payload = false;
 
-    public RESTTransaction(RESTSession creator_session) {
-        parent_session = creator_session;
+    public RESTTransaction(RESTSession session, HttpMethod method = HttpMethod.POST) {
+        parent_session = session;
+        active_message = new Soup.Message(method.to_string(), parent_session.get_endpoint_url());
     }
-    
+
+    public RESTTransaction.with_endpoint_url(RESTSession session, string endpoint_url,
+        HttpMethod method = HttpMethod.POST) {
+        parent_session = session;
+        active_message = new Soup.Message(method.to_string(), endpoint_url);
+    }
+
     protected void set_signature_key(string sig_key) {
         signature_key = sig_key;
     }
@@ -128,16 +179,31 @@ public abstract class RESTTransaction {
         return signature_value;
     }
 
-    protected RESTArgument[] get_arguments() {
-        return arguments;
+    // set custom_payload to null to have this transaction send the default payload of
+    // key-value pairs appended through add_argument(...) (this is how most REST requests work).
+    // To send a payload other than traditional key-value pairs (such as an XML document or a JPEG
+    // image) to the endpoint, set the custom_payload parameter to a non-null value. If the
+    // custom_payload you specify is text data, then it's null terminated, and its length is just 
+    // custom_payload.length, so you don't have to pass in a payload_length parameter in this case.
+    // If, however, custom_payload is binary data (such as a JEPG), then the caller must set
+    // payload_length to the byte length of the custom_payload buffer
+    protected void set_custom_payload(string? custom_payload, string payload_content_type,
+        ulong payload_length = 0) {
+        assert (get_method() != HttpMethod.GET); // GET messages don't have payloads
+
+        if (custom_payload == null) {
+            use_custom_payload = false;
+            return;
+        }
+
+        active_message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload,
+                (payload_length > 0) ? payload_length : custom_payload.length);
+
+        use_custom_payload = true;
     }
 
-    protected void set_response(uint8[] new_response) {
-        StringBuilder builder = new StringBuilder();
-        foreach (uint8 b in new_response)
-            builder.append(b.to_string());
-        
-        response = builder.str;
+    protected RESTArgument[] get_arguments() {
+        return arguments;
     }
 
     protected RESTArgument[] get_sorted_arguments() {
@@ -151,7 +217,10 @@ public abstract class RESTTransaction {
         return sorted_array;
     }
 
-    protected abstract void sign();
+    protected virtual void sign() {
+        signature_key = "";
+        signature_value = "";
+    }
     
     protected bool get_is_signed() {
         return ((signature_key != null) && (signature_value != null));
@@ -161,46 +230,105 @@ public abstract class RESTTransaction {
         is_executed = new_is_executed;
     }
 
+    protected Soup.Message get_active_message() {
+        return active_message;
+    }
+
+    // When writing a specialized transaction subclass you should rarely need to
+    // call this method. In general, it's better to leave the active_message alone and let
+    // the RESTTransaction class manage it for you. You should only need to install a
+    // a new active_message if your subclass has radically different behavior from
+    // normal RESTTransactions -- like multipart encoding.
+    protected void set_active_message(Soup.Message active_message) {
+        this.active_message = active_message;
+    }
+
+    protected HttpMethod get_method() {
+        return HttpMethod.from_string(active_message.method);
+    }
+
+    protected void add_header(string key, string value) {
+        active_message.request_headers.append(key, value);
+    }
+
     public bool get_is_executed() {
         return is_executed;
     }
+
+    public uint get_status_code() {
+        assert(get_is_executed());
+        return active_message.status_code;
+    }
     
     public virtual void execute() throws PublishingError {
-        sign();
-        
-        // before they can be executed, requests must be signed and must contain at least one
-        // argument
-        assert(get_is_signed());
-        assert(arguments.length > 0);
+        // if a custom payload is being used, we don't need to peform the tasks that are necessary
+        // to sign and encode a traditional key-value pair REST request; Instead (since we don't
+        // know anything about the custom payload, we just put it on the wire and return)
+        if (use_custom_payload) {
+            is_executed = true;
+            parent_session.send_message(active_message);
 
-        // concatenate the REST arguments array into a HTTP POST formdata string 
-        string formdata_string = "";
-        foreach (RESTArgument arg in arguments)
-            formdata_string = formdata_string + ("%s=%s&".printf(arg.key, arg.value));
-        
-        // append the signature key-value pair to the formdata string
-        formdata_string = formdata_string + ("%s=%s".printf(signature_key, signature_value));
+            return;
+        } else {
+            // not a custom payload, so do the traditional REST key-value pair encoding and
+            // make sure that it's signed
+            sign();
 
-        // post the formadata string to the remote REST endpoint
-        Soup.Message post_req = new Soup.Message("POST", parent_session.get_endpoint_url());
-        post_req.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
-            formdata_string, formdata_string.length);
-        parent_session.send_message(post_req);
-        set_response(post_req.response_body.data);
-        
-        is_executed = true;
-    }
-    
-    public string get_response() {
-        assert(get_is_executed());
-        return response;
-    }
+            // before they can be executed, traditional requests must be signed
+            assert(get_is_signed());
+
+            // traditional REST POST requests must transmit at least one argument
+            if (get_method() == HttpMethod.POST)
+                assert(arguments.length > 0);
+
+            // concatenate the REST arguments array into an HTTP formdata string
+            string formdata_string = "";
+            foreach (RESTArgument arg in arguments)
+                formdata_string = formdata_string + ("%s=%s&".printf(arg.key, arg.value));
+
+            // append the signature key-value pair to the formdata string and percent-encode the
+            // whole string, but only if the key isn't the null string
+            if (signature_key != "") {
+                formdata_string = formdata_string + ("%s=%s".printf(signature_key, signature_value));
+                formdata_string = Soup.URI.encode(formdata_string, null);
+            }
+
+            // for GET requests with arguments, append the formdata string to the endpoint url after a
+            // query divider ('?') -- but make sure to save the old (caller-specified) endpoint URL
+            // and restore it after the GET so that the active_message remains consistent
+            string old_url = null;
+            string url_with_query = null;
+            if (get_method() == HttpMethod.GET && arguments.length > 0) {
+                old_url = active_message.get_uri().to_string(false);
+                url_with_query = get_endpoint_url() + "?" + formdata_string;
+                active_message.set_uri(new Soup.URI(url_with_query));
+            }
+
+            active_message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY,
+                formdata_string, formdata_string.length);
+            is_executed = true;
+            parent_session.send_message(active_message);
+
+            // if old_url is non-null, then restore it
+            if (old_url != null)
+                active_message.set_uri(new Soup.URI(old_url));
+        }
+      }
+      
+      public string get_response() {
+          assert(get_is_executed());
+          return (string) active_message.response_body.data;
+      }
    
     public void add_argument(string name, string value) {
         // if a request has already been signed, it's an error to add further arguments to it
         assert(!get_is_signed());
 
         arguments += RESTArgument(name, value);
+    }
+    
+    public string get_endpoint_url() {
+        return active_message.get_uri().to_string(false);
     }
     
     public RESTSession get_parent_session() {
@@ -230,8 +358,8 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
     public override void execute() throws PublishingError {
         sign();
 
-        // before they can be executed, requests must be signed and must contain at least one
-        // argument
+        // before they can be executed, photo upload requests must be signed and must
+        // contain at least one argument
         assert(get_is_signed());
 
         RESTArgument[] request_arguments = get_arguments();
@@ -278,6 +406,7 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
         Soup.Message outbound_message =
             Soup.form_request_new_from_multipart((special_endpoint_url == null) ?
             get_parent_session().get_endpoint_url() : special_endpoint_url, message_parts);
+        set_active_message(outbound_message);
         
         // send the message and get its response
         outbound_message.wrote_body_data += on_wrote_body_data;
@@ -286,7 +415,6 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
         get_parent_session().send_message(outbound_message);
         in_transmission = null;
         outbound_message.wrote_body_data -= on_wrote_body_data;
-        set_response(outbound_message.response_body.data);
 
         set_is_executed(true);
     }
@@ -349,26 +477,30 @@ public class LoginWelcomePane : PublishingDialogPane {
         Gtk.SeparatorToolItem bottom_space = new Gtk.SeparatorToolItem();
         bottom_space.set_draw(false);
         add(top_space);
-        top_space.set_size_request(-1, 112);
+        top_space.set_size_request(-1, 140);
+
+        Gtk.Table content_layouter = new Gtk.Table(2, 1, false);
 
         Gtk.Label not_logged_in_label = new Gtk.Label(service_welcome_message);
-        add(not_logged_in_label);
         not_logged_in_label.set_line_wrap(true);
         not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, -1);
+        content_layouter.attach(not_logged_in_label, 0, 1, 0, 1,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+        not_logged_in_label.set_size_request(PublishingDialog.STANDARD_CONTENT_LABEL_WIDTH, 112);
+        not_logged_in_label.set_alignment(0.5f, 0.0f);
 
         login_button = new Gtk.Button.with_mnemonic(_("_Login"));
-        Gtk.HBox login_button_layouter = new Gtk.HBox(false, 8);
-        Gtk.SeparatorToolItem login_button_left_padding = new Gtk.SeparatorToolItem();
-        login_button_left_padding.set_draw(false);
-        Gtk.SeparatorToolItem login_button_right_padding = new Gtk.SeparatorToolItem();
-        login_button_right_padding.set_draw(false);
-        login_button_layouter.add(login_button_left_padding);
-        login_button_left_padding.set_size_request(100, -1);
-        login_button_layouter.add(login_button);
-        login_button_layouter.add(login_button_right_padding);
-        login_button_right_padding.set_size_request(100, -1);
+        Gtk.Alignment login_button_aligner =
+            new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);      
+        login_button_aligner.add(login_button);
+        login_button.set_size_request(80, -1);
         login_button.clicked += on_login_clicked;
-        add(login_button_layouter);
+
+        content_layouter.attach(login_button_aligner, 0, 1, 1, 2,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+        add(content_layouter);
         add(bottom_space);
         bottom_space.set_size_request(-1, 112);
     }
@@ -638,6 +770,7 @@ public class PublishingDialog : Gtk.Dialog {
 
         central_area_layouter.add(pane);
         central_area_layouter.show_all();
+        spin_event_loop();
 
         active_pane = pane;
     }
@@ -763,7 +896,7 @@ public class PublishingDialog : Gtk.Dialog {
 
 public abstract class ServiceInteractor {
     private PublishingDialog host;
-    
+
     public ServiceInteractor(PublishingDialog creator_host) {
         host = creator_host;
     }
@@ -801,10 +934,11 @@ public class ServiceFactory {
     
     public string[] get_manifest() {
         string[] result = new string[0];
-        
+
         result += "Facebook";
         result += "Flickr";
-        
+        result += "Picasa Web Albums";
+
         return result;
     }
     
@@ -813,6 +947,8 @@ public class ServiceFactory {
             return new FacebookConnector.Interactor(host);
         } else if (service_name == "Flickr") {
             return new FlickrConnector.Interactor(host);
+        } else if (service_name == "Picasa Web Albums") {
+            return new PicasaConnector.Interactor(host);
         } else {
             error("ServiceInteractor: unsupported service '%s'", service_name);
             return null;

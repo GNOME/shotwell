@@ -7,8 +7,6 @@
 #if !NO_PUBLISHING
 
 namespace FlickrConnector {
-
-private const int ORIGINAL_SIZE = -1;
 private const string SERVICE_WELCOME_MESSAGE = 
     _("You are not currently logged in to Flickr.\n\nYou must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account.");
 private const string RESTART_ERROR_MESSAGE = 

@@ -174,6 +174,45 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/sharing/picasa/auth_token</key>
+            <applyto>/apps/shotwell/sharing/picasa/auth_token</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>auth token</short>
+                <long>The authorization token for the currently logged in Picasa Web Albums user, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/picasa/user_name</key>
+            <applyto>/apps/shotwell/sharing/picasa/user_name</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>username</short>
+                <long>The user name of the currently logged in Picasa Web Albums user, if any</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/sharing/picasa/default_size</key>
+            <applyto>/apps/shotwell/sharing/picasa/default_size</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>2</default>
+
+            <locale name="en">
+                <short>default_size</short>
+                <long>A numeric code representing the default size for photos uploaded to Picasa Web Albums</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/sharing/default_service</key>
             <applyto>/apps/shotwell/sharing/default_service</applyto>
             <type>int</type>
