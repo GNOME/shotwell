@@ -184,6 +184,9 @@ namespace Exif {
 
     public bool get_timestamp(Exif.Data exif, out time_t timestamp) {
         Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
+
+        timestamp = 0;
+
         if (entry != null) {
             string datetime = entry.get_string();
             if (datetime != null) {
@@ -238,6 +241,8 @@ namespace Exif {
     }
 
     public bool get_dimensions(Exif.Data exif, out Dimensions dim) {
+        dim = Dimensions();
+
         Exif.Entry width = find_first_entry_multiformat(exif, Exif.Tag.PIXEL_X_DIMENSION,
             Exif.Format.SHORT, Exif.Format.LONG);
         Exif.Entry height = find_first_entry_multiformat(exif, Exif.Tag.PIXEL_Y_DIMENSION,
@@ -418,6 +423,10 @@ public class PhotoExif  {
     
     public PhotoExif(File file) {
         this.file = file;
+        
+        // TODO: Assuming JPEG; in future, will need to detect file type and select proper image
+        // data arrangement
+        exif.set_data_type(Exif.DataType.COMPRESSED);
     }
     
     public void load() throws Error, ExifError {

@@ -626,10 +626,10 @@ public abstract class TransformablePhoto: PhotoSource {
         
         if (exif != null) {
             if (!exif.get_dimensions(out dim))
-                error("Unable to read EXIF dimensions for %s", to_string());
+                warning("Unable to read EXIF dimensions for %s", to_string());
             
             if (!exif.get_timestamp(out exposure_time))
-                error("Unable to read EXIF orientation for %s", to_string());
+                warning("Unable to read EXIF orientation for %s", to_string());
 
             orientation = exif.get_orientation();
         } 
@@ -941,20 +941,35 @@ public abstract class TransformablePhoto: PhotoSource {
         return transformed;
     }
     
-    private bool only_exif_changed() {
+    public bool only_exif_changed() {
         bool exif_changed;
 
-        time_t timestamp;
-        get_photoexif().get_timestamp(out timestamp);
+        time_t exposure_time;
+        get_photoexif().get_timestamp(out exposure_time);
 
         lock (row) {
             exif_changed = row.transformations == null && 
                           (row.orientation != row.original_orientation ||
-                           row.timestamp != timestamp);
+                           row.exposure_time != exposure_time);
         }
         
         return exif_changed;
     }
+
+    public bool has_alterations() {        
+        bool altered;
+
+        time_t exposure_time;
+        get_photoexif().get_timestamp(out exposure_time);
+
+        lock (row) {
+            altered = row.transformations != null || row.orientation != row.original_orientation ||
+                row.exposure_time != exposure_time;
+        }
+        
+        return altered;
+    }
+    
     
     public PhotoTransformationState save_transformation_state() {
         PhotoTransformationState state = null;
@@ -1558,7 +1573,7 @@ public abstract class TransformablePhoto: PhotoSource {
     //
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     public File generate_exportable() throws Error {
-        if (!has_transformations() && !only_exif_changed())
+        if (!has_alterations())
             return get_file();
 
         File dest_file = generate_exportable_file();

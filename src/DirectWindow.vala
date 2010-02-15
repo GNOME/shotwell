@@ -56,7 +56,7 @@ public class DirectWindow : AppWindow {
     private void on_photo_changed() {
         TransformablePhoto? photo = direct_photo_page.get_photo();
         if (photo != null)
-            update_title(photo.get_file(), photo.has_transformations());
+            update_title(photo.get_file(), photo.has_alterations());
     }
     
     private override void on_quit() {

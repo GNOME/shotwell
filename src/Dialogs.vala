@@ -619,7 +619,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     TimeSystem previous_time_system;
 
-    public AdjustDateTimeDialog(PhotoSource source, int photo_count) {
+    public AdjustDateTimeDialog(PhotoSource source, int photo_count, bool display_modify_original = true) {
         assert(source != null);
 
         set_modal(true);
@@ -675,7 +675,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
             "_Modify Original", "_Modify Originals", photo_count));
-        modify_originals_check_button.set_active(Config.get_instance().get_modify_originals());
+        modify_originals_check_button.set_active(Config.get_instance().get_modify_originals() &&
+            display_modify_original);
+        modify_originals_check_button.sensitive = display_modify_original;
 
         Gtk.VBox time_content = new Gtk.VBox(false, 0);
 
@@ -789,10 +791,14 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
                 time_shift = (int64) (get_time() - original_time);
 
             keep_relativity = relativity_check_button.get_active();
-            Config.get_instance().set_keep_relativity(keep_relativity);
+
+            if (relativity_check_button.sensitive)
+                Config.get_instance().set_keep_relativity(keep_relativity);
 
             modify_originals = modify_originals_check_button.get_active();
-            Config.get_instance().set_modify_originals(modify_originals);
+
+            if (modify_originals_check_button.sensitive)
+                Config.get_instance().set_modify_originals(modify_originals);
 
             response = true;
         }

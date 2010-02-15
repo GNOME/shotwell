@@ -89,7 +89,8 @@ namespace Exif {
         public void set_option(DataOption option);
         public void unset_option(DataOption option);
         public void save_data(uchar **buffer, uint *size);
-
+        public void set_data_type(DataType data_type);
+        
         // length is Exif.IFD_COUNT
         public Content[] ifd;
         public uchar *data;

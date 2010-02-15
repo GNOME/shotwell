@@ -28,6 +28,8 @@
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
             <separator />
+            <menuitem name="AdjustDateTime" action="AdjustDateTime" />
+            <separator />
             <menuitem name="SetBackground" action="SetBackground" />
         </menu>
         

@@ -952,15 +952,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!has_photo())
             return;
 
-        AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(get_photo(), 1);
+        AdjustDateTimeDialog dialog = new AdjustDateTimeDialog(get_photo(), 1, !(this is DirectPhotoPage));
 
         int64 time_shift;
         bool keep_relativity, modify_originals;
         if (dialog.execute(out time_shift, out keep_relativity, out modify_originals)) {
             get_view().get_selected();
             
-            AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(
-                (LibraryPhoto) get_photo(), time_shift, modify_originals);
+            AdjustDateTimePhotoCommand command = new AdjustDateTimePhotoCommand(get_photo(),
+                time_shift, modify_originals);
             get_command_manager().execute(command);
         }
     }
@@ -1762,6 +1762,12 @@ public class DirectPhotoPage : EditingHostPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
 
+        Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_adjust_date_time };
+        adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
+        adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
+        actions += adjust_date_time;
+
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
         set_background.label = Resources.SET_BACKGROUND_MENU;
@@ -1844,7 +1850,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private bool check_ok_to_close_photo(TransformablePhoto photo) {
-        if (!photo.has_transformations())
+        if (!photo.has_alterations())
             return true;
         
         if (drop_if_dirty) {
@@ -1871,7 +1877,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_file_menu() {
-        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_transformations());
+        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations());
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality) {
@@ -1895,11 +1901,11 @@ public class DirectPhotoPage : EditingHostPage {
         // longer match the backing photo
         display(new DirectViewCollection(dest.get_parent()), photo);
     }
-    
+
     private void on_save() {
-        if (!get_photo().has_transformations())
+        if (!get_photo().has_alterations())
             return;
-        
+
         // save full-sized version right on top of the current file
         save(get_photo().get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH);
     }
