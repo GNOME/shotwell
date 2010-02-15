@@ -436,7 +436,6 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         focus_on_map = true;
         set_accept_focus(true);
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
-        set_keep_above(true);
         set_title(_("Extended Information"));
         set_size_request(300,-1);
         set_default_size(520, -1);

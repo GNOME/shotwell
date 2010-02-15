@@ -1816,6 +1816,12 @@ public class DirectPhotoPage : EditingHostPage {
     public File get_current_file() {
         return get_photo().get_file();
     }
+
+    private override bool on_context_buttonpress(Gdk.EventButton event) {
+        popup_context_menu(context_menu, event);
+
+        return true;
+    }
     
     protected override void set_missing_photo_sensitivities(bool sensitivity) {
         set_item_sensitive("/DirectMenuBar/FileMenu/Save", sensitivity);
