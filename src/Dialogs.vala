@@ -936,7 +936,7 @@ public class RenameTagDialog : TextEntryDialog {
 
 public class SetTagsDialog : TextEntryDialog {
     public SetTagsDialog(string[]? current_tags) {
-        base (Resources.SET_TAG_LABEL, _("Tags (separated by commas):"), get_initial_text(current_tags));
+        base (Resources.SET_TAGS_LABEL, _("Tags (separated by commas):"), get_initial_text(current_tags));
     }
     
     private static string? get_initial_text(string[]? tags) {

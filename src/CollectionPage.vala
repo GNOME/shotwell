@@ -270,9 +270,9 @@ public abstract class CollectionPage : CheckerboardPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
         
-        Gtk.ActionEntry set_tag = { "SetTag", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, on_set_tag };
-        set_tag.label = Resources.SET_TAG_MENU;
-        set_tag.tooltip = Resources.SET_TAG_TOOLTIP;
+        Gtk.ActionEntry set_tag = { "SetTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, on_set_tag };
+        set_tag.label = Resources.SET_TAGS_MENU;
+        set_tag.tooltip = Resources.SET_TAGS_TOOLTIP;
         actions += set_tag;
         
         Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
@@ -301,7 +301,7 @@ public abstract class CollectionPage : CheckerboardPage {
 
         Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
             TRANSLATABLE, on_slideshow };
-        slideshow.label = _("_Slideshow");
+        slideshow.label = _("S_lideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
 
@@ -509,7 +509,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextSetTag", one_selected);
+        set_item_sensitive("/CollectionContextMenu/ContextSetTags", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionContextMenu/ContextSetBackground", false);
@@ -840,7 +840,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetTag", one_selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetTags", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/ContextSetBackground", false);

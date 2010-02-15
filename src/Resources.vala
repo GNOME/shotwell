@@ -172,12 +172,16 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RENAME_TAG_TITLE = _("Rename Tag");
     public const string RENAME_TAG_TOOLTIP = _("Rename the tag");
     
-    public const string SET_TAG_MENU = _("Set _Tags...");
-    public const string SET_TAG_LABEL = _("Set Tags");
-    public const string SET_TAG_TOOLTIP = _("Tag photo with labels");
+    public const string SET_TAGS_MENU = _("_Set Tags...");
+    public const string SET_TAGS_LABEL = _("Set Tags");
+    public const string SET_TAGS_TOOLTIP = _("Tag photo with labels");
     
-    public const string TAG_PHOTOS_LABEL = _("Tag Photos \"%s\"");
-    public const string TAG_PHOTOS_TOOLTIP = _("Tag photos with label");
+    public const string TAG_PHOTOS_LABEL = _("Tag Photos as \"%s\"");
+    public const string TAG_PHOTOS_TOOLTIP = _("Tag the selected photos");
+    
+    public const string UNTAG_PHOTOS_MENU = _("Remove _Tag");
+    public const string UNTAG_PHOTOS_LABEL = _("Remove Tag \"%s\" from Photos");
+    public const string UNTAG_PHOTOS_TOOLTIP = _("Remove tag from the selected photos");
     
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;

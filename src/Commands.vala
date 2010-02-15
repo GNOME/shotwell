@@ -1043,7 +1043,7 @@ public class EditTagsCommand : SingleDataSourceCommand {
     private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
     
     public EditTagsCommand(LibraryPhoto photo, Gee.Collection<Tag> new_tag_list) {
-        base (photo, Resources.SET_TAG_LABEL, Resources.SET_TAG_TOOLTIP);
+        base (photo, Resources.SET_TAGS_LABEL, Resources.SET_TAGS_TOOLTIP);
         
         this.photo = photo;
         
@@ -1098,13 +1098,17 @@ public class EditTagsCommand : SingleDataSourceCommand {
     }
 }
 
-public class TagPhotosCommand : SimpleProxyableCommand {
+public class TagUntagPhotosCommand : SimpleProxyableCommand {
     private Gee.Collection<LibraryPhoto> photos;
+    private bool attach;
     
-    public TagPhotosCommand(Tag tag, Gee.Collection<LibraryPhoto> photos) {
-        base (tag, Resources.TAG_PHOTOS_LABEL.printf(tag.get_name()), Resources.TAG_PHOTOS_TOOLTIP);
+    public TagUntagPhotosCommand(Tag tag, Gee.Collection<LibraryPhoto> photos, bool attach) {
+        base (tag,
+            (attach ? Resources.TAG_PHOTOS_LABEL : Resources.UNTAG_PHOTOS_LABEL).printf(tag.get_name()),
+            attach ? Resources.TAG_PHOTOS_TOOLTIP : Resources.UNTAG_PHOTOS_TOOLTIP);
         
         this.photos = photos;
+        this.attach = attach;
         
         LibraryPhoto.global.item_destroyed += on_photo_destroyed;
     }
@@ -1114,11 +1118,17 @@ public class TagPhotosCommand : SimpleProxyableCommand {
     }
     
     public override void execute_on_source(DataSource source) {
-        ((Tag) source).attach_many(photos);
+        if (attach)
+            ((Tag) source).attach_many(photos);
+        else
+            ((Tag) source).detach_many(photos);
     }
     
     public override void undo_on_source(DataSource source) {
-        ((Tag) source).detach_many(photos);
+        if (attach)
+            ((Tag) source).detach_many(photos);
+        else
+            ((Tag) source).attach_many(photos);
     }
     
     private void on_photo_destroyed(DataSource source) {

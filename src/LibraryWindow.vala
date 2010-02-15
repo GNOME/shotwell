@@ -745,7 +745,7 @@ public class LibraryWindow : AppWindow {
                 success = true;
             }
         } else if (page is TagPageStub) {
-            get_command_manager().execute(new TagPhotosCommand(((TagPageStub) page).tag, photos));
+            get_command_manager().execute(new TagUntagPhotosCommand(((TagPageStub) page).tag, photos, true));
             success = true;
         } else if (path != null && path.compare(tags_marker.get_path()) == 0) {
             NewTagDialog dialog = new NewTagDialog();
