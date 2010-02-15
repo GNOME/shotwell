@@ -577,7 +577,7 @@ public class ProgressDialog : Gtk.Window {
 
 public void generate_events_with_progress_dialog(Gee.List<LibraryPhoto> photos) {
     AppWindow.get_instance().set_busy_cursor();
-            
+    
     Cancellable cancellable = null;
     ProgressDialog progress = null;
     if (photos.size > 25) {
@@ -902,7 +902,7 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
 
 public class NewTagDialog : TextEntryDialog {
     public NewTagDialog() {
-        base (Resources.NEW_TAG_LABEL, _("Tag:"));
+        base (Resources.NEW_TAG_TITLE, _("Tag:"));
     }
     
     public string? execute() {
@@ -922,7 +922,7 @@ public class NewTagDialog : TextEntryDialog {
 
 public class RenameTagDialog : TextEntryDialog {
     public RenameTagDialog(string current_name) {
-        base (_("Rename Tag"), _("Name:"), current_name);
+        base (Resources.RENAME_TAG_TITLE, _("Name:"), current_name);
     }
     
     public string? execute() {

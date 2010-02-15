@@ -160,6 +160,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string NEW_TAG_MENU = _("_New Tag...");
     public const string NEW_TAG_LABEL = _("New Tag \"%s\"");
+    public const string NEW_TAG_TITLE = _("New Tag");
     public const string NEW_TAG_TOOLTIP = _("Create a new tag for the selected photos");
     
     public const string DELETE_TAG_MENU = _("_Delete Tag");
@@ -168,6 +169,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string RENAME_TAG_MENU = _("_Rename Tag...");
     public const string RENAME_TAG_LABEL = _("Rename Tag \"%s\" to \"%s\"");
+    public const string RENAME_TAG_TITLE = _("Rename Tag");
     public const string RENAME_TAG_TOOLTIP = _("Rename the tag");
     
     public const string SET_TAG_MENU = _("Set _Tags...");
