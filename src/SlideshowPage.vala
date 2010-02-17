@@ -1,4 +1,4 @@
-/* Copyright 2009 Yorba Foundation
+/* Copyright 2009-2010 Yorba Foundation
  *
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution. 
@@ -16,6 +16,9 @@ class SlideshowPage : SinglePhotoPage {
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
+#if !WINDOWS
+    private Screensaver screensaver;
+#endif
 
     public signal void hide_toolbar();
     
@@ -123,6 +126,10 @@ class SlideshowPage : SinglePhotoPage {
         settings_button.is_important = true;
         
         toolbar.insert(settings_button, -1);
+
+#if !WINDOWS
+        screensaver = new Screensaver();
+#endif
     }
     
     public override void switched_to() {
@@ -140,10 +147,18 @@ class SlideshowPage : SinglePhotoPage {
         
         // prefetch the next pixbuf so it's ready when auto-advance fires
         schedule_prefetch();
+
+#if !WINDOWS
+        screensaver.inhibit("Playing slideshow");
+#endif
     }
     
     public override void switching_from() {
         base.switching_from();
+
+#if !WINDOWS
+        screensaver.uninhibit();
+#endif
 
         exiting = true;
     }

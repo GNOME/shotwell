@@ -92,7 +92,8 @@ SRC_FILES = \
 	Printing.vala \
 	Tag.vala \
 	TagPage.vala \
-	PicasaConnector.vala
+	PicasaConnector.vala \
+    Screensaver.vala
 
 ifndef LINUX
 SRC_FILES += \
@@ -162,7 +163,8 @@ EXT_PKGS += \
 	unique-1.0 \
 	webkit-1.0 \
 	libusb \
-	gudev-1.0
+	gudev-1.0 \
+    dbus-glib-1
 endif
 
 ifdef MAC
