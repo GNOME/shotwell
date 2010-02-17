@@ -269,6 +269,11 @@ public class BatchImport {
             // mark this job as completed
             file_imports_completed++;
             
+            // because notifications can come in after completion, have to watch if this is the
+            // last file
+            if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
+                report_completed("completed preparing files, all outstanding imports completed");
+            
             return;
         }
         
