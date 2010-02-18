@@ -790,8 +790,9 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/EventsMenu/NewEvent", get_view().get_selected_count() > 0);
     }
     
-    private void on_tags_menu() {
+    protected virtual void on_tags_menu() {
         set_item_sensitive("/CollectionMenuBar/TagsMenu/NewTag", get_view().get_selected_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/TagsMenu/SetTags", get_view().get_selected_count() == 1);
     }
     
     private void on_select_all() {
@@ -826,7 +827,6 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     protected virtual void on_photos_menu() {
-        bool one_selected = get_view().get_selected_count() == 1;
         bool selected = (get_view().get_selected_count() > 0);
         bool revert_possible = can_revert_selected();
         
@@ -839,7 +839,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetTags", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/ContextSetBackground", false);

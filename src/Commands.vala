@@ -1102,10 +1102,12 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     private Gee.Collection<LibraryPhoto> photos;
     private bool attach;
     
-    public TagUntagPhotosCommand(Tag tag, Gee.Collection<LibraryPhoto> photos, bool attach) {
+    public TagUntagPhotosCommand(Tag tag, Gee.Collection<LibraryPhoto> photos, int count, bool attach) {
         base (tag,
-            (attach ? Resources.TAG_PHOTOS_LABEL : Resources.UNTAG_PHOTOS_LABEL).printf(tag.get_name()),
-            attach ? Resources.TAG_PHOTOS_TOOLTIP : Resources.UNTAG_PHOTOS_TOOLTIP);
+            attach ? Resources.tag_photos_label(tag.get_name(), count) 
+                : Resources.untag_photos_label(tag.get_name(), count),
+            attach ? Resources.tag_photos_tooltip(count) 
+                : Resources.untag_photos_tooltip(count));
         
         this.photos = photos;
         this.attach = attach;

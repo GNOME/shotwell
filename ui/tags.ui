@@ -2,6 +2,8 @@
 
     <menubar name="CollectionMenuBar">
         <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
+            <separator />
             <menuitem name="RenameTag" action="RenameTag" />
             <menuitem name="DeleteTag" action="DeleteTag" />
         </menu>

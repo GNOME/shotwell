@@ -221,7 +221,24 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         widget.sensitive = sensitive;
     }
-
+    
+    public void set_item_display(string path, string? label, string? tooltip, bool sensitive) {
+        Gtk.Action? action = ui.get_action(path);
+        if (action == null) {
+            critical("No action for UI element %s", path);
+            
+            return;
+        }
+        
+        if (label != null)
+            action.label = label;
+        
+        if (tooltip != null)
+            action.tooltip = tooltip;
+        
+        action.sensitive = sensitive;
+    }
+    
     private void get_modifiers(out bool ctrl, out bool alt, out bool shift) {
             int x, y;
         Gdk.ModifierType mask;
