@@ -948,7 +948,7 @@ public class NewTagCommand : PageCommand {
     private SourceProxy tag_proxy = null;
     
     public NewTagCommand(string name, Gee.Collection<LibraryPhoto> photos) {
-        base (Resources.NEW_TAG_LABEL.printf(name), Resources.NEW_TAG_TOOLTIP);
+        base (Resources.new_tag_label(name), Resources.NEW_TAG_TOOLTIP);
         
         this.name = name;
         this.photos = photos;
@@ -1005,8 +1005,8 @@ public class RenameTagCommand : SimpleProxyableCommand {
     private string new_name;
     
     public RenameTagCommand(Tag tag, string new_name) {
-        base (tag, Resources.RENAME_TAG_LABEL.printf(tag.get_name(), new_name), 
-            Resources.RENAME_TAG_TOOLTIP);
+        base (tag, Resources.rename_tag_label(tag.get_name(), new_name), 
+            Resources.rename_tag_tooltip(tag.get_name()));
         
         old_name = tag.get_name();
         this.new_name = new_name;
@@ -1023,7 +1023,8 @@ public class RenameTagCommand : SimpleProxyableCommand {
 
 public class DeleteTagCommand : SimpleProxyableCommand {
     public DeleteTagCommand(Tag tag) {
-        base (tag, Resources.DELETE_TAG_LABEL.printf(tag.get_name()), Resources.DELETE_TAG_TOOLTIP);
+        base (tag, Resources.delete_tag_label(tag.get_name()),
+            Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()));
     }
     
     protected override void execute_on_source(DataSource source) {
@@ -1106,8 +1107,8 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
         base (tag,
             attach ? Resources.tag_photos_label(tag.get_name(), count) 
                 : Resources.untag_photos_label(tag.get_name(), count),
-            attach ? Resources.tag_photos_tooltip(count) 
-                : Resources.untag_photos_tooltip(count));
+            attach ? Resources.tag_photos_tooltip(tag.get_name(), count) 
+                : Resources.untag_photos_tooltip(tag.get_name(), count));
         
         this.photos = photos;
         this.attach = attach;

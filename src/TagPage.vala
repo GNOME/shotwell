@@ -41,13 +41,11 @@ public class TagPage : CollectionPage {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
         Gtk.ActionEntry delete_tag = { "DeleteTag", null, TRANSLATABLE, null, null, on_delete_tag };
-        delete_tag.label = Resources.DELETE_TAG_MENU;
-        delete_tag.tooltip = Resources.DELETE_TAG_TOOLTIP;
+        // label and tooltip are assigned when the menu is displayed
         actions += delete_tag;
         
         Gtk.ActionEntry rename_tag = { "RenameTag", null, TRANSLATABLE, null, null, on_rename_tag };
-        rename_tag.label = Resources.RENAME_TAG_MENU;
-        rename_tag.tooltip = Resources.RENAME_TAG_TOOLTIP;
+        // label and tooltip are assigned when the menu is displayed
         actions += rename_tag;
         
         Gtk.ActionEntry remove_tag = { "RemoveTagFromPhotos", null, TRANSLATABLE, null, null, 
@@ -65,9 +63,19 @@ public class TagPage : CollectionPage {
     protected override void on_tags_menu() {
         int selected_count = get_view().get_selected_count();
         
+        set_item_display("/CollectionMenuBar/TagsMenu/DeleteTag",
+            Resources.delete_tag_menu(tag.get_name()),
+            Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()),
+            true);
+        
+        set_item_display("/CollectionMenuBar/TagsMenu/RenameTag",
+            Resources.rename_tag_menu(tag.get_name()),
+            Resources.rename_tag_tooltip(tag.get_name()),
+            true);
+        
         set_item_display("/CollectionMenuBar/TagsMenu/RemoveTagFromPhotos", 
-            Resources.untag_photos_menu(selected_count),
-            Resources.untag_photos_tooltip(selected_count),
+            Resources.untag_photos_menu(tag.get_name(), selected_count),
+            Resources.untag_photos_tooltip(tag.get_name(), selected_count),
             selected_count > 0);
         
         base.on_tags_menu();
@@ -77,11 +85,25 @@ public class TagPage : CollectionPage {
         int selected_count = get_view().get_selected_count();
         
         set_item_display("/CollectionContextMenu/ContextTagsPlaceholder/ContextRemoveTagFromPhotos",
-            Resources.untag_photos_menu(selected_count),
-            Resources.untag_photos_tooltip(selected_count),
+            Resources.untag_photos_menu(tag.get_name(), selected_count),
+            Resources.untag_photos_tooltip(tag.get_name(), selected_count),
             selected_count > 0);
         
         return base.on_context_invoked();
+    }
+    
+    public override Gtk.Menu? get_page_context_menu() {
+        set_item_display("/TagsContextMenu/ContextRenameTag",
+            Resources.rename_tag_menu(tag.get_name()),
+            Resources.rename_tag_tooltip(tag.get_name()),
+            true);
+        
+        set_item_display("/TagsContextMenu/ContextDeleteTag",
+            Resources.delete_tag_menu(tag.get_name()),
+            Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()),
+            true);
+        
+        return base.get_page_context_menu();
     }
     
     private void on_rename_tag() {

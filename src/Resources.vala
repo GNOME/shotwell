@@ -159,19 +159,41 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST_DATE_TIME_TOOLTIP = _("Adjust date and time of selected photos");
     
     public const string NEW_TAG_MENU = _("New _Tag...");
-    public const string NEW_TAG_LABEL = _("New Tag \"%s\"");
     public const string NEW_TAG_TITLE = _("New Tag");
     public const string NEW_TAG_TOOLTIP = _("Create a new tag for the selected photos");
     
-    public const string DELETE_TAG_MENU = _("_Delete Tag");
-    public const string DELETE_TAG_LABEL = _("Delete Tag \"%s\"");
-    public const string DELETE_TAG_TITLE = _("Delete Tag");
-    public const string DELETE_TAG_TOOLTIP = _("Remove the tag from all photos");
+    public string new_tag_label(string name) {
+        return _("New Tag \"%s\"").printf(name);
+    }
     
-    public const string RENAME_TAG_MENU = _("Re_name Tag...");
-    public const string RENAME_TAG_LABEL = _("Rename Tag \"%s\" to \"%s\"");
+    public string delete_tag_menu(string name) {
+        return _("_Delete Tag \"%s\"").printf(name);
+    }
+    
+    public string delete_tag_label(string name) {
+        return _("Delete Tag \"%s\"").printf(name);
+    }
+    
+    public string delete_tag_tooltip(string name, int count) {
+        return ngettext("Remove the tag \"%s\" from one photo", "Remove the tag \"%s\" from %d photos",
+            count).printf(name, count);
+    }
+    
+    public const string DELETE_TAG_TITLE = _("Delete Tag");
+    
+    public string rename_tag_menu(string name) {
+        return _("Re_name Tag \"%s\"...").printf(name);
+    }
+    
+    public string rename_tag_label(string old_name, string new_name) {
+        return _("Rename Tag \"%s\" to \"%s\"").printf(old_name, new_name);
+    }
+    
+    public string rename_tag_tooltip(string name) {
+        return _("Rename the tag \"%s\"").printf(name);
+    }
+    
     public const string RENAME_TAG_TITLE = _("Rename Tag");
-    public const string RENAME_TAG_TOOLTIP = _("Rename the tag");
     
     public const string SET_TAGS_MENU = _("_Set Tags...");
     public const string SET_TAGS_LABEL = _("Set Tags");
@@ -181,12 +203,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return ngettext("Tag Photo as \"%s\"", "Tag Photos as \"%s\"", count).printf(name);
     }
     
-    public string tag_photos_tooltip(int count) {
-        return ngettext("Tag the selected photo", "Tag the selected photos", count);
+    public string tag_photos_tooltip(string name, int count) {
+        return ngettext("Tag the selected photo as \"%s\"", "Tag the selected photos as \"%s\"", count).printf(name);
     }
     
-    public string untag_photos_menu(int count) {
-        return ngettext("_Remove Tag from Photo", "_Remove Tag from Photos", count);
+    public string untag_photos_menu(string name, int count) {
+        return ngettext("_Remove Tag \"%s\" from Photo", "_Remove Tag \"%s\" from Photos", count).printf(name);
     }
     
     public string untag_photos_label(string name, int count) {
@@ -194,9 +216,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             name);
     }
     
-    public string untag_photos_tooltip(int count) {
-        return ngettext("Remove tag from the selected photo", "Remove tag from the selected photos",
-            count);
+    public string untag_photos_tooltip(string name, int count) {
+        return ngettext("Remove tag \"%s\" from the selected photo", "Remove tag \"%s\" from the selected photos",
+            count).printf(name);
     }
     
     private Gtk.IconFactory factory = null;
