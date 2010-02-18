@@ -166,18 +166,31 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // check if the photo altered while away
         if (has_photo() && pixbuf_dirty)
             replace_photo(controller, get_photo());
+        
+        if (controller != null)
+            controller.items_selected += selection_changed;
     }
     
     public override void switching_from() {
         base.switching_from();
-
+        
         deactivate_tool();
+        
+        if (controller != null)
+            controller.items_selected -= selection_changed;
     }
     
     public override void switching_to_fullscreen() {
         base.switching_to_fullscreen();
 
         deactivate_tool();
+    }
+
+    private void selection_changed(Gee.Iterable<DataView> selected) {
+        foreach (DataView view in selected) {
+            replace_photo(controller, (TransformablePhoto) view.get_source());
+            break;
+        }
     }
     
     private void rebuild_caches(string caller) {
@@ -400,6 +413,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected void replace_photo(ViewCollection new_controller, TransformablePhoto new_photo) {
         ViewCollection old_controller = this.controller;
         controller = new_controller;
+        
+        // hook
+        if (old_controller != null)
+            old_controller.items_selected -= selection_changed;
+        if (controller != null)        
+            controller.items_selected += selection_changed;
         
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
@@ -1152,6 +1171,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         TransformablePhoto next_photo = next.get_source() as TransformablePhoto;
         if (next_photo != null)
             replace_photo(controller, next_photo);
+        
+        controller.unselect_all();
+        Marker marker = controller.mark(controller.get_view_for_source(next_photo));
+        controller.select_marked(marker);
     }
     
     public void on_previous_photo() {
@@ -1170,6 +1193,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         TransformablePhoto previous_photo = previous.get_source() as TransformablePhoto;
         if (previous_photo != null)
             replace_photo(controller, previous_photo);
+        
+        controller.unselect_all();
+        Marker marker = controller.mark(controller.get_view_for_source(previous_photo));
+        controller.select_marked(marker);
     }
 
     public bool has_current_tool() {

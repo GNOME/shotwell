@@ -817,15 +817,15 @@ public abstract class CheckerboardPage : Page {
     
     public override void switching_from() {
         layout.set_in_view(false);
+
+        // unselect everything so selection won't persist after page loses focus 
+        get_view().unselect_all();
         
         base.switching_from();
     }
     
     public override void switched_to() {
-        layout.set_in_view(true);
-
-        // unselect everything so selection won't persist after page loses focus       
-        get_view().unselect_all();        
+        layout.set_in_view(true);       
 
         base.switched_to();
     }
