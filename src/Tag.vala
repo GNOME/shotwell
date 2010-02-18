@@ -346,6 +346,10 @@ public class Tag : DataSource, Proxyable {
         return photos.has_view_for_source(photo);
     }
     
+    public int get_photos_count() {
+        return photos.get_count();
+    }
+    
     public Gee.Iterable<LibraryPhoto> get_photos() {
         return (Gee.Iterable<LibraryPhoto>) photos.get_sources();
     }

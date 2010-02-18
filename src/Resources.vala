@@ -165,6 +165,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string DELETE_TAG_MENU = _("_Delete Tag");
     public const string DELETE_TAG_LABEL = _("Delete Tag \"%s\"");
+    public const string DELETE_TAG_TITLE = _("Delete Tag");
     public const string DELETE_TAG_TOOLTIP = _("Remove the tag from all photos");
     
     public const string RENAME_TAG_MENU = _("_Rename Tag...");

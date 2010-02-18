@@ -86,6 +86,15 @@ public class TagPage : CollectionPage {
     }
     
     private void on_delete_tag() {
+        int count = tag.get_photos_count();
+        string msg = ngettext(
+            "This will remove the tag \"%s\" from one photo.  Continue?",
+            "This will remove the tag \"%s\" from %d photos.  Continue?",
+            count).printf(tag.get_name(), count);
+        
+        if (!AppWindow.yes_no_question(msg, Resources.DELETE_TAG_TITLE))
+            return;
+        
         get_command_manager().execute(new DeleteTagCommand(tag));
     }
     
