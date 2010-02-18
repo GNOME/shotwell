@@ -4,7 +4,90 @@
  * See the COPYING file in this distribution. 
  */
 
-public abstract class LayoutItem : ThumbnailView {
+private class CheckerboardItemText {
+    private static int one_line_height = 0;
+    
+    private string text;
+    private bool marked_up;
+    private Pango.Alignment alignment;
+    private Pango.Layout layout = null;
+    private bool single_line = true;
+    private int height = 0;
+    
+    public CheckerboardItemText(string text, Pango.Alignment alignment = Pango.Alignment.LEFT,
+        bool marked_up = false) {
+        this.text = text;
+        this.marked_up = marked_up;
+        this.alignment = alignment;
+        
+        single_line = is_single_line();
+    }
+    
+    private bool is_single_line() {
+        return text.chr(-1, '\n') == null;
+    }
+    
+    public string get_text() {
+        return text;
+    }
+    
+    public int get_height() {
+        if (height == 0)
+            update_height();
+        
+        return height;
+    }
+    
+    public Pango.Layout get_pango_layout(int max_width) {
+        if (layout == null)
+            create_pango();
+        
+        if (max_width > 0)
+            layout.set_width(max_width * Pango.SCALE);
+        
+        return layout;
+    }
+    
+    private void update_height() {
+        if (one_line_height != 0 && single_line)
+            height = one_line_height;
+        else
+            create_pango();
+    }
+    
+    private void create_pango() {
+        // create layout for this string and ellipsize so it never extends past its laid-down width
+        layout = AppWindow.get_instance().create_pango_layout(null);
+        if (!marked_up)
+            layout.set_text(text, -1);
+        else
+            layout.set_markup(text, -1);
+        
+        layout.set_ellipsize(Pango.EllipsizeMode.END);
+        layout.set_alignment(alignment);
+        
+        // getting pixel size is expensive, and we only need the height, so use cached values
+        // whenever possible
+        if (one_line_height != 0 && single_line) {
+            height = one_line_height;
+        } else {
+            int width;
+            layout.get_pixel_size(out width, out height);
+            
+            // cache first one-line height discovered
+            if (one_line_height == 0 && single_line)
+                one_line_height = height;
+        }
+    }
+}
+
+public abstract class CheckerboardItem : ThumbnailView {
+    // Collection properties CheckerboardItem understands
+    // SHOW_TITLES (bool)
+    public const string PROP_SHOW_TITLES = "show-titles";
+    // SHOW_SUBTITLES (bool)
+    public const string PROP_SHOW_SUBTITLES = "show-subtitles";
+    
     public const int FRAME_WIDTH = 1;
     public const int LABEL_PADDING = 4;
     public const int FRAME_PADDING = 4;
@@ -17,18 +100,13 @@ public abstract class LayoutItem : ThumbnailView {
     
     public const int BRIGHTEN_SHIFT = 0x18;
     
-    private static int one_line_height = 0;
-    
     public Gdk.Rectangle allocation = Gdk.Rectangle();
     
-    private Pango.Layout pango_layout = null;
-    private Pango.Alignment title_alignment = Pango.Alignment.LEFT;
-    private int pango_height = 0;
-    private string title = null;
-    private bool title_marked_up = false;
-    private bool title_displayed = true;
-    private bool single_line = false;
     private bool exposure = false;
+    private CheckerboardItemText? title = null;
+    private bool title_visible = true;
+    private CheckerboardItemText? subtitle = null;
+    private bool subtitle_visible = false;
     private Gdk.Pixbuf pixbuf = null;
     private Gdk.Pixbuf display_pixbuf = null;
     private Gdk.Pixbuf brightened = null;
@@ -36,54 +114,85 @@ public abstract class LayoutItem : ThumbnailView {
     private int col = -1;
     private int row = -1;
     
-    public LayoutItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string? title,
-        Pango.Alignment title_alignment = Pango.Alignment.LEFT, bool title_marked_up = false) {
+    public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim) {
         base(source);
         
         pixbuf_dim = initial_pixbuf_dim;
         
-        this.title = title;
-        this.title_marked_up = title_marked_up;
-        this.title_alignment = title_alignment;
-        this.single_line = is_single_line(title);
-        
-        update_text_height();
-        recalc_size(false, true);
-    }
-    
-    private static bool is_single_line(string text) {
-        return text.chr(-1, '\n') == null;
-    }
-    
-    public void set_title(string text, bool marked_up = false) {
-        if (text == title)
-            return;
-        
-        title = text;
-        title_marked_up = marked_up;
-        single_line = is_single_line(title);
-        pango_layout = null;
-
-        update_text_height();
-        recalc_size();
-
-        notify_view_altered();
-    }
-    
-    public void set_markup_title(string markup) {
-        set_title(markup, true);
-    }
-    
-    public unowned string get_title() {
-        return (title != null) ? title : "";
-    }
-    
-    public Pango.Alignment get_title_alignment() {
-        return title_alignment;
+        recalc_size(true);
     }
     
     public override string get_name() {
-        return get_title();
+        return (title != null) ? title.get_text() : base.get_name();
+    }
+    
+    public string get_title() {
+        return (title != null) ? title.get_text() : "";
+    }
+    
+    public void set_title(string text, bool marked_up = false,
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        title = new CheckerboardItemText(text, alignment, marked_up);
+        
+        if (title_visible) {
+            recalc_size();
+            notify_view_altered();
+        }
+    }
+    
+    private void set_title_visible(bool visible) {
+        if (title_visible == visible)
+            return;
+        
+        title_visible = visible;
+        
+        recalc_size();
+        notify_view_altered();
+    }
+    
+    public string get_subtitle() {
+        return (subtitle != null) ? subtitle.get_text() : "";
+    }
+    
+    public void set_subtitle(string text, bool marked_up = false, 
+        Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        subtitle = new CheckerboardItemText(text, alignment, marked_up);
+        
+        if (subtitle_visible) {
+            recalc_size();
+            notify_view_altered();
+        }
+    }
+    
+    private void set_subtitle_visible(bool visible) {
+        if (subtitle_visible == visible)
+            return;
+        
+        subtitle_visible = visible;
+        
+        recalc_size();
+        notify_view_altered();
+    }
+    
+    protected override void notify_membership_changed(DataCollection? collection) {
+        title_visible = (bool) get_collection_property(PROP_SHOW_TITLES, true);
+        subtitle_visible = (bool) get_collection_property(PROP_SHOW_SUBTITLES, false);
+        
+        base.notify_membership_changed(collection);
+    }
+    
+    protected override void notify_collection_property_set(string name, Value? old, Value val) {
+        switch (name) {
+            case PROP_SHOW_TITLES:
+                set_title_visible((bool) val);
+            break;
+            
+            case PROP_SHOW_SUBTITLES:
+                set_subtitle_visible((bool) val);
+            break;
+        }
+        
+        base.notify_collection_property_set(name, old, val);
     }
     
     public Dimensions get_requisition() {
@@ -102,17 +211,6 @@ public abstract class LayoutItem : ThumbnailView {
         return exposure;
     }
 
-    public void display_title(bool display) {
-        if (display == title_displayed)
-            return;
-            
-        title_displayed = display;
-
-        recalc_size();
-        
-        notify_view_altered();
-    }
-    
     public bool has_image() {
         return pixbuf != null;
     }
@@ -121,79 +219,30 @@ public abstract class LayoutItem : ThumbnailView {
         return pixbuf;
     }
     
-    public void set_image(Gdk.Pixbuf pixbuf, bool notify = true) {
+    public void set_image(Gdk.Pixbuf pixbuf) {
         bool image_changed = pixbuf != this.pixbuf;
         
         this.pixbuf = pixbuf;
         display_pixbuf = pixbuf;
         pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
 
-        recalc_size(notify);
+        recalc_size();
         
-        if (image_changed && notify)
+        if (image_changed)
             notify_view_altered();
     }
     
-    public void clear_image(Dimensions dim, bool notify = true) {
+    public void clear_image(Dimensions dim) {
         bool had_image = pixbuf != null;
         
         pixbuf = null;
         display_pixbuf = null;
         pixbuf_dim = dim;
         
-        recalc_size(notify);
+        recalc_size();
         
-        if (had_image && notify)
+        if (had_image)
             notify_view_altered();
-    }
-    
-    private void update_text_height() {
-        if (title == null) {
-            pango_height = 0;
-            pango_layout = null;
-            
-            return;
-        }
-        
-        if (one_line_height != 0 && single_line)
-            pango_height = one_line_height;
-        else
-            update_pango();
-    }
-    
-    private void update_pango() {
-        if (title == null) {
-            pango_height = 0;
-            pango_layout = null;
-            
-            return;
-        } else if (pango_layout != null) {
-            return;
-        }
-        
-        // create layout for this string and ellipsize so it never extends past the width of the
-        // pixbuf (handled in recalc_size)
-        pango_layout = AppWindow.get_instance().create_pango_layout(null);
-        if (!title_marked_up)
-            pango_layout.set_text(title, -1);
-        else
-            pango_layout.set_markup(title, -1);
-        
-        pango_layout.set_ellipsize(Pango.EllipsizeMode.END);
-        pango_layout.set_alignment(title_alignment);
-        
-        // getting pixel size is expensive, and we only need the height, so use cached values
-        // whenever possible
-        if (one_line_height != 0 && single_line) {
-            pango_height = one_line_height;
-        } else {
-            int width;
-            pango_layout.get_pixel_size(out width, out pango_height);
-            
-            // cache first one-line height discovered
-            if (one_line_height == 0 && single_line)
-                one_line_height = pango_height;
-        }
     }
     
     public static int get_max_width(int scale) {
@@ -206,11 +255,17 @@ public abstract class LayoutItem : ThumbnailView {
         return null;
     }
     
-    public void recalc_size(bool notify_change = true, bool in_ctor = false) {
+    public void recalc_size(bool in_ctor = false) {
         Gdk.Rectangle old_allocation = allocation;
         
-        // only add in the text height if it's being displayed
-        int text_height = (title_displayed) ? pango_height + LABEL_PADDING : 0;
+        // only add in the text heights if they're displayed
+        int title_height = 0;
+        if (title != null && title_visible)
+            title_height = title.get_height() + LABEL_PADDING;
+        
+        int subtitle_height = 0;
+        if (subtitle != null && subtitle_visible)
+            subtitle_height = subtitle.get_height() + LABEL_PADDING;
         
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
@@ -231,9 +286,10 @@ public abstract class LayoutItem : ThumbnailView {
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
-        allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height + text_height;
+        allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height + title_height
+            + subtitle_height;
         
-        if (notify_change && 
+        if (!in_ctor && 
             !Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))
             notify_geometry_altered();
     }
@@ -244,9 +300,6 @@ public abstract class LayoutItem : ThumbnailView {
     }
     
     public void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-        if (pango_layout == null && title_displayed)
-            update_pango();
-        
         // frame of FRAME_WIDTH size (determined by GC) only if selected ... however, this is
         // accounted for in allocation so the frame can appear without resizing the item
         if (is_selected())
@@ -271,15 +324,21 @@ public abstract class LayoutItem : ThumbnailView {
         
         int image_width = int.max(trinkets_width, pixbuf_dim.width);
         
-        // text itself LABEL_PADDING below bottom of pixbuf
-        if (pango_layout != null && title_displayed) {
+        // title and subtitles are LABEL_PADDING below bottom of pixbuf
+        int text_y = allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + LABEL_PADDING;
+        if (title != null && title_visible) {
+            // get the layout sized so its with is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
-            if (pango_layout != null && image_width > 0)
-                pango_layout.set_width(image_width * Pango.SCALE);
+            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+                title.get_pango_layout(image_width));
+            text_y += title.get_height() + LABEL_PADDING;
+        }
         
-            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING,
-                allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + LABEL_PADDING,
-                pango_layout);
+        if (subtitle != null && subtitle_visible) {
+            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+                subtitle.get_pango_layout(image_width));
+            
+            // increment text_y if more text lines follow
         }
         
         // draw trinkets last
@@ -356,12 +415,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private class LayoutRow {
         public int y;
         public int height;
-        public LayoutItem[] items;
+        public CheckerboardItem[] items;
         
         public LayoutRow(int y, int height, int num_in_row) {
             this.y = y;
             this.height = height;
-            this.items = new LayoutItem[num_in_row];
+            this.items = new CheckerboardItem[num_in_row];
         }
     }
     
@@ -370,7 +429,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private ViewCollection view;
     private string page_name = "";
     private LayoutRow[] item_rows = null;
-    private Gee.HashSet<LayoutItem> exposed_items = new Gee.HashSet<LayoutItem>();
+    private Gee.HashSet<CheckerboardItem> exposed_items = new Gee.HashSet<CheckerboardItem>();
     private Gtk.Adjustment hadjustment = null;
     private Gtk.Adjustment vadjustment = null;
     private string message = null;
@@ -400,13 +459,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // subscribe to the new collection
         view.contents_altered += on_contents_altered;
-        view.item_altered += on_item_altered;
-        view.item_metadata_altered += on_item_metadata_altered;
+        view.items_altered += on_items_altered;
+        view.items_metadata_altered += on_items_metadata_altered;
         view.items_state_changed += on_items_state_changed;
         view.items_visibility_changed += on_items_visibility_changed;
         view.ordering_changed += on_ordering_changed;
         view.item_view_altered += on_item_view_altered;
-        view.item_geometry_altered += on_item_geometry_altered;
         view.views_altered += on_views_altered;
         view.geometries_altered += on_geometries_altered;
         
@@ -419,13 +477,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 #endif
 
         view.contents_altered -= on_contents_altered;
-        view.item_altered -= on_item_altered;
-        view.item_metadata_altered -= on_item_metadata_altered;
+        view.items_altered -= on_items_altered;
+        view.items_metadata_altered -= on_items_metadata_altered;
         view.items_state_changed -= on_items_state_changed;
         view.items_visibility_changed -= on_items_visibility_changed;
         view.ordering_changed -= on_ordering_changed;
         view.item_view_altered -= on_item_view_altered;
-        view.item_geometry_altered -= on_item_geometry_altered;
         view.views_altered -= on_views_altered;
         view.geometries_altered -= on_geometries_altered;
         
@@ -496,7 +553,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         if (removed != null) {
             foreach (DataObject object in removed)
-                exposed_items.remove((LayoutItem) object);
+                exposed_items.remove((CheckerboardItem) object);
         }
         
         // release spatial data structure ... contents_altered means a reflow is required, and since
@@ -506,12 +563,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         schedule_background_reflow("on_contents_altered");
     }
     
-    private void on_item_altered() {
-        schedule_background_reflow("on_item_altered");
+    private void on_items_altered() {
+        schedule_background_reflow("on_items_altered");
     }
     
-    private void on_item_metadata_altered() {
-        schedule_background_reflow("on_item_metadata_altered");
+    private void on_items_metadata_altered() {
+        schedule_background_reflow("on_items_metadata_altered");
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {
@@ -519,7 +576,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return;
             
         foreach (DataView view in changed)
-            repaint_item((LayoutItem) view);
+            repaint_item((CheckerboardItem) view);
     }
     
     private void on_items_visibility_changed(Gee.Iterable<DataView> changed) {
@@ -532,11 +589,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private void on_item_view_altered(DataView view) {
         if (in_view)
-            repaint_item((LayoutItem) view);
-    }
-    
-    private void on_item_geometry_altered(DataView view) {
-        schedule_background_reflow("on_item_geometry_altered");
+            repaint_item((CheckerboardItem) view);
     }
     
     private void on_views_altered() {
@@ -589,10 +642,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // create a new hash set of exposed items that represents an intersection of the old set
         // and the new
-        Gee.HashSet<LayoutItem> new_exposed_items = new Gee.HashSet<LayoutItem>();
+        Gee.HashSet<CheckerboardItem> new_exposed_items = new Gee.HashSet<CheckerboardItem>();
         
-        Gee.List<LayoutItem> items = intersection(visible_page);
-        foreach (LayoutItem item in items) {
+        Gee.List<CheckerboardItem> items = intersection(visible_page);
+        foreach (CheckerboardItem item in items) {
             new_exposed_items.add(item);
 
             // if not in the old list, then need to expose
@@ -601,7 +654,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
         
         // everything remaining in the old exposed list is now unexposed
-        foreach (LayoutItem item in exposed_items)
+        foreach (CheckerboardItem item in exposed_items)
             item.unexposed();
         
         // swap out lists
@@ -628,13 +681,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         visible_page = Gdk.Rectangle();
 
         // unexpose everything currently exposed
-        foreach (LayoutItem item in exposed_items)
+        foreach (CheckerboardItem item in exposed_items)
             item.unexposed();
         
         exposed_items.clear();
     }
     
-    public LayoutItem? get_item_at_pixel(double xd, double yd) {
+    public CheckerboardItem? get_item_at_pixel(double xd, double yd) {
         int x = (int) xd;
         int y = (int) yd;
         
@@ -662,7 +715,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return null;
         
         // look for item in row's column in range of the pixel
-        foreach (LayoutItem item in in_range.items) {
+        foreach (CheckerboardItem item in in_range.items) {
             // this happens on an incompletely filled-in row (usually the last one with empty
             // space remaining)
             if (item == null)
@@ -683,12 +736,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return null;
     }
     
-    public Gee.List<LayoutItem> get_visible_items() {
+    public Gee.List<CheckerboardItem> get_visible_items() {
         return intersection(visible_page);
     }
     
-    public Gee.List<LayoutItem> intersection(Gdk.Rectangle area) {
-        Gee.ArrayList<LayoutItem> intersects = new Gee.ArrayList<LayoutItem>();
+    public Gee.List<CheckerboardItem> intersection(Gdk.Rectangle area) {
+        Gee.ArrayList<CheckerboardItem> intersects = new Gee.ArrayList<CheckerboardItem>();
         
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
         foreach (LayoutRow row in item_rows) {
@@ -714,7 +767,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             if (area.intersect(row_rect, bitbucket)) {
                 // see what elements, if any, intersect the area
-                foreach (LayoutItem item in row.items) {
+                foreach (CheckerboardItem item in row.items) {
                     if (item == null)
                         continue;
                     
@@ -727,7 +780,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return intersects;
     }
     
-    public LayoutItem? get_item_relative_to(LayoutItem item, CompassPoint point) {
+    public CheckerboardItem? get_item_relative_to(CheckerboardItem item, CompassPoint point) {
         if (view.get_count() == 0)
             return null;
         
@@ -781,12 +834,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             break;
         }
         
-        LayoutItem new_item = get_item_at_coordinate(col, row);
+        CheckerboardItem new_item = get_item_at_coordinate(col, row);
         
         return (new_item != null) ? new_item : item;
     }
     
-    public LayoutItem? get_item_at_coordinate(int col, int row) {
+    public CheckerboardItem? get_item_at_coordinate(int col, int row) {
         if (row >= item_rows.length)
             return null;
             
@@ -825,7 +878,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
     }
     
-    public Gee.List<LayoutItem>? items_in_selection_band() {
+    public Gee.List<CheckerboardItem>? items_in_selection_band() {
         if (!Dimensions.for_rectangle(selection_band).has_area())
             return null;
 
@@ -889,7 +942,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (scale > 0) {
             // calculate interior width
             int remaining_width = allocation.width - (COLUMN_GUTTER_PADDING * 2);
-            int max_item_width = LayoutItem.get_max_width(scale);
+            int max_item_width = CheckerboardItem.get_max_width(scale);
             max_cols = remaining_width / max_item_width;
             if (max_cols <= 0)
                 max_cols = 1;
@@ -919,7 +972,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             int widest_row = 0;
 
             for (int ctr = 0; ctr < total_items; ctr++) {
-                LayoutItem item = (LayoutItem) view.get_at(ctr);
+                CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
                 Dimensions req = item.get_requisition();
                 
                 // the items must be requisitioned for this code to work
@@ -968,7 +1021,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         for (;;) {
             for (int ctr = 0; ctr < total_items; ctr++ ) {
-                LayoutItem item = (LayoutItem) view.get_at(ctr);
+                CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
                 Dimensions req = item.get_requisition();
                 
                 if (req.height > tallest)
@@ -1046,7 +1099,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         Gdk.Rectangle bitbucket = Gdk.Rectangle();
         
         for (int ctr = 0; ctr < total_items; ctr++) {
-            LayoutItem item = (LayoutItem) view.get_at(ctr);
+            CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
             Dimensions req = item.get_requisition();
 
             // this centers the item in the column
@@ -1111,7 +1164,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return true;
     }
     
-    private void repaint_item(LayoutItem item) {
+    private void repaint_item(CheckerboardItem item) {
         if (!item.is_visible())
             return;
 
@@ -1131,8 +1184,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         base.map();
         
         // set up selected/unselected colors
-        Gdk.Color selected_color = fetch_color(LayoutItem.SELECTED_COLOR, window);
-        Gdk.Color unselected_color = fetch_color(LayoutItem.UNSELECTED_COLOR, window);
+        Gdk.Color selected_color = fetch_color(CheckerboardItem.SELECTED_COLOR, window);
+        Gdk.Color unselected_color = fetch_color(CheckerboardItem.UNSELECTED_COLOR, window);
         selection_transparency_color = convert_rgba(selected_color, 0x40);
 
         // set up GC's for painting layout items
@@ -1140,7 +1193,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         gc_values.foreground = selected_color;
         gc_values.function = Gdk.Function.COPY;
         gc_values.fill = Gdk.Fill.SOLID;
-        gc_values.line_width = LayoutItem.FRAME_WIDTH;
+        gc_values.line_width = CheckerboardItem.FRAME_WIDTH;
         
         Gdk.GCValuesMask mask = 
             Gdk.GCValuesMask.FOREGROUND 
@@ -1189,7 +1242,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // watch for message mode
         if (message == null) {
             // have all items in the exposed area paint themselves
-            foreach (LayoutItem item in intersection(event.area))
+            foreach (CheckerboardItem item in intersection(event.area))
                 item.paint(item.is_selected() ? selected_gc : unselected_gc, window);
         } else {
             // draw the message in the center of the window

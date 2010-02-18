@@ -320,7 +320,7 @@ public abstract class CollectionPage : CheckerboardPage {
         actions += new_event;
         
         Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, on_tags_menu };
-        tags.label = _("Tags");
+        tags.label = _("Ta_gs");
         actions += tags;
         
         Gtk.ActionEntry new_tag = { "NewTag", null, TRANSLATABLE, null, null, on_new_tag };
@@ -349,7 +349,13 @@ public abstract class CollectionPage : CheckerboardPage {
         titles.label = _("_Titles");
         titles.tooltip = _("Display the title of each photo");
         toggle_actions += titles;
-
+        
+        Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
+            TRANSLATABLE, on_display_tags, Config.get_instance().get_display_photo_tags() };
+        tags.label = _("Ta_gs");
+        tags.tooltip = _("Display each photo's tags");
+        toggle_actions += tags;
+        
         Gtk.ToggleActionEntry hidden = { "ViewHidden", null, TRANSLATABLE, "<Ctrl><Shift>H",
             TRANSLATABLE, on_display_hidden_photos, Config.get_instance().get_display_hidden_photos() };
         hidden.label = _("_Hidden Photos");
@@ -400,7 +406,6 @@ public abstract class CollectionPage : CheckerboardPage {
     public virtual DataView create_thumbnail(DataSource source) {
         LibraryPhoto photo = (LibraryPhoto) source;
         Thumbnail thumbnail = new Thumbnail(photo, scale);
-        thumbnail.display_title(display_titles());
         
         return thumbnail;
     }
@@ -408,6 +413,7 @@ public abstract class CollectionPage : CheckerboardPage {
     public override void switched_to() {
         // set display options to match Configuration toggles (which can change while switched away)
         set_display_titles(Config.get_instance().get_display_photo_titles());
+        set_display_tags(Config.get_instance().get_display_photo_tags());
 
         sync_sort();
 
@@ -452,7 +458,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
     }
     
-    protected override void on_item_activated(LayoutItem item) {
+    protected override void on_item_activated(CheckerboardItem item) {
         Thumbnail thumbnail = (Thumbnail) item;
         
         // switch to full-page view
@@ -521,12 +527,12 @@ public abstract class CollectionPage : CheckerboardPage {
         return base.on_context_invoked();
     }
     
-    public override LayoutItem? get_fullscreen_photo() {
+    public override CheckerboardItem? get_fullscreen_photo() {
         // use first selected item; if no selection, use first item
         if (get_view().get_selected_count() > 0)
-            return (LayoutItem?) get_view().get_selected_at(0);
+            return (CheckerboardItem?) get_view().get_selected_at(0);
         else if (get_view().get_count() > 0)
-            return (LayoutItem?) get_view().get_at(0);
+            return (CheckerboardItem?) get_view().get_at(0);
         else
             return null;
     }
@@ -666,17 +672,10 @@ public abstract class CollectionPage : CheckerboardPage {
         scale = new_scale.clamp(Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
         get_checkerboard_layout().set_scale(scale);
         
-        ViewCollection view = get_view();
-
         // when doing mass operations on LayoutItems, freeze individual notifications
-        view.freeze_view_notifications();
-        view.freeze_geometry_notifications();
-        
-        foreach(DataObject photo in view.get_all_unfiltered())
-            ((Thumbnail) photo).resize(scale);
-        
-        view.thaw_geometry_notifications(true);
-        view.thaw_view_notifications(true);
+        get_view().freeze_notifications();
+        get_view().set_property(Thumbnail.PROP_SIZE, scale);
+        get_view().thaw_notifications();
     }
     
     private void on_file_menu() {
@@ -1053,12 +1052,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
     }
     
-    private bool display_titles() {
-        Gtk.ToggleAction action = (Gtk.ToggleAction) ui.get_action("/CollectionMenuBar/ViewMenu/ViewTitle");
-        
-        return action.get_active();
-    }
-    
     private void on_display_only_favorites(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
@@ -1073,6 +1066,14 @@ public abstract class CollectionPage : CheckerboardPage {
         set_display_titles(display);
         
         Config.get_instance().set_display_photo_titles(display);
+    }
+    
+    private void on_display_tags(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        set_display_tags(display);
+        
+        Config.get_instance().set_display_photo_tags(display);
     }
     
     private void on_display_hidden_photos(Gtk.Action action) {
@@ -1226,6 +1227,16 @@ public abstract class CollectionPage : CheckerboardPage {
         base.set_display_titles(display);
     
         Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
+        if (action != null)
+            action.set_active(display);
+    }
+    
+    private void set_display_tags(bool display) {
+        get_view().freeze_notifications();
+        get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);
+        get_view().thaw_notifications();
+        
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTags");
         if (action != null)
             action.set_active(display);
     }

@@ -335,6 +335,14 @@ public class Config {
     public bool get_display_photo_titles() {
         return get_bool("/apps/shotwell/preferences/ui/display_photo_titles", false);
     }
+    
+    public bool get_display_photo_tags() {
+        return get_bool("/apps/shotwell/preferences/ui/display_photo_tags", false);
+    }
+    
+    public bool set_display_photo_tags(bool display) {
+        return set_bool("/apps/shotwell/preferences/ui/display_photo_tags", display);
+    }
 
     public bool set_slideshow_delay(double delay) {
         return set_double("/apps/shotwell/preferences/slideshow/delay", delay);

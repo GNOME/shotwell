@@ -344,7 +344,10 @@ public class LibraryWindow : AppWindow {
         Event.global.items_added -= on_added_events;
         Event.global.items_removed -= on_removed_events;
         Event.global.item_altered -= on_event_altered;
-
+        
+        Tag.global.contents_altered -= on_tags_added_removed;
+        Tag.global.item_altered -= on_tag_altered;
+        
 #if !NO_CAMERA
         CameraTable.get_instance().camera_added -= add_camera_page;
         CameraTable.get_instance().camera_removed -= remove_camera_page;
@@ -511,7 +514,7 @@ public class LibraryWindow : AppWindow {
         
         Page current_page = get_current_page();
         if (current_page is CollectionPage) {
-            LayoutItem item = ((CollectionPage) current_page).get_fullscreen_photo();
+            CheckerboardItem item = ((CollectionPage) current_page).get_fullscreen_photo();
             if (item == null) {
                 message("No fullscreen photo for this view");
                 
@@ -1485,8 +1488,8 @@ public class LibraryWindow : AppWindow {
         ViewCollection view = page.get_view();
         
         view.items_state_changed += on_selection_changed;
-        view.item_altered += on_selection_changed;
-        view.item_metadata_altered += on_selection_changed;
+        view.items_altered += on_selection_changed;
+        view.items_metadata_altered += on_selection_changed;
         view.contents_altered += on_selection_changed;
         view.items_visibility_changed += on_selection_changed;
     }
@@ -1495,14 +1498,14 @@ public class LibraryWindow : AppWindow {
         ViewCollection view = page.get_view();
         
         view.items_state_changed -= on_selection_changed;
-        view.item_altered -= on_selection_changed;
-        view.item_metadata_altered -= on_selection_changed;
+        view.items_altered -= on_selection_changed;
+        view.items_metadata_altered -= on_selection_changed;
         view.contents_altered -= on_selection_changed;
         view.items_visibility_changed -= on_selection_changed;
     }
 
     private void on_selection_changed() {
-        if (bottom_frame.visible)        
+        if (bottom_frame.visible)
             basic_properties.update_properties(get_current_page());
 
         if (extended_properties.visible)

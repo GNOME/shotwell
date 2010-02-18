@@ -4,7 +4,13 @@
  * See the COPYING file in this distribution. 
  */
 
-public class Thumbnail : LayoutItem {
+public class Thumbnail : CheckerboardItem {
+    // Collection properties Thumbnail responds to
+    // SHOW_TAGS (bool)
+    public const string PROP_SHOW_TAGS = CheckerboardItem.PROP_SHOW_SUBTITLES;
+    // SIZE (int, scale)
+    public const string PROP_SIZE = "thumbnail-size";
+    
     public const int MIN_SCALE = 72;
     public const int MAX_SCALE = ThumbnailCache.Size.LARGEST.get_scale();
     public const int DEFAULT_SCALE = ThumbnailCache.Size.MEDIUM.get_scale();
@@ -20,21 +26,57 @@ public class Thumbnail : LayoutItem {
     private Dimensions dim;
     private Cancellable cancellable = null;
     private bool hq_scheduled = false;
-    private Gdk.Pixbuf to_scale = null;
+    private bool needs_improvement = false;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
-        base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
+        base(photo, photo.get_dimensions().get_scaled(scale, true));
         
         this.photo = photo;
         this.scale = scale;
         
+        set_title(photo.get_name());
+        set_subtitle(get_tags_subtitle(photo), true);
+        
         original_dim = photo.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
+        
+        // if the photo's tags changes, update it here
+        Tag.global.item_contents_altered += on_tag_contents_altered;
     }
 
     ~Thumbnail() {
         if (cancellable != null)
             cancellable.cancel();
+        
+        Tag.global.item_contents_altered -= on_tag_contents_altered;
+    }
+    
+    private static string get_tags_subtitle(LibraryPhoto photo) {
+        Gee.Collection<Tag> tags = Tag.get_sorted_tags(photo);
+        int count = tags.size;
+        if (count == 0)
+            return "";
+        
+        StringBuilder builder = new StringBuilder("<small>");
+        int ctr = 0;
+        foreach (Tag tag in tags) {
+            builder.append(tag.get_name());
+            if (ctr++ < count - 1)
+                builder.append(", ");
+        }
+        builder.append("</small>");
+        
+        return builder.str;
+    }
+    
+    private void on_tag_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
+        Gee.Collection<LibraryPhoto>? removed) {
+        bool tag_added = (added != null) ? added.contains(photo) : false;
+        bool tag_removed = (removed != null) ? removed.contains(photo) : false;
+        
+        // if photo we're monitoring is added or removed to any tag, update tag list
+        if (tag_added || tag_removed)
+            set_subtitle(get_tags_subtitle(photo), true);
     }
     
     public LibraryPhoto get_photo() {
@@ -74,9 +116,17 @@ public class Thumbnail : LayoutItem {
         base.thumbnail_altered();
     }
     
-    // This method fires no signals.  It's assumed this is being called as part of a
-    // mass resizing and depends on the caller to initiate repaint/reflows.
-    public void resize(int new_scale) {
+    protected override void notify_collection_property_set(string name, Value? old, Value val) {
+        switch (name) {
+            case PROP_SIZE:
+                resize((int) val);
+            break;
+        }
+        
+        base.notify_collection_property_set(name, old, val);
+    }
+    
+    private void resize(int new_scale) {
         assert(new_scale >= MIN_SCALE);
         assert(new_scale <= MAX_SCALE);
         
@@ -88,8 +138,12 @@ public class Thumbnail : LayoutItem {
         
         cancel_async_fetch();
         
-        to_scale = get_image();
-        clear_image(dim, false);
+        if (is_exposed() && has_image())
+            set_image(resize_pixbuf(get_image(), dim, LOW_QUALITY_INTERP));
+        else
+            clear_image(dim);
+        
+        needs_improvement = true;
     }
     
     private void paint_empty() {
@@ -156,24 +210,21 @@ public class Thumbnail : LayoutItem {
     }
     
     public override void exposed() {
-        if (!is_exposed() || !has_image()) {
-            if (to_scale != null) {
-                set_image(resize_pixbuf(to_scale, dim, LOW_QUALITY_INTERP), false);
-                to_scale = null;
-            }
-            
+        if (!is_exposed() || !has_image() || needs_improvement) {
             schedule_low_quality_fetch();
+            needs_improvement = false;
         }
-
+        
         base.exposed();
     }
     
     public override void unexposed() {
         cancel_async_fetch();
-        to_scale = null;
         
         if (is_exposed() || has_image())
             paint_empty();
+        
+        needs_improvement = false;
         
         base.unexposed();
     }

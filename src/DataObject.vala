@@ -43,6 +43,15 @@ public abstract class DataObject {
     public virtual signal void metadata_altered() {
     }
     
+    // This signal is fired when a collection property the DataObject is a member of is set (or
+    // changed).
+    public virtual signal void collection_property_set(string name, Value? old, Value val) {
+    }
+    
+    // This signal is fired when a collection property the DataObject is a member of is cleared.
+    public virtual signal void collection_property_cleared(string name) {
+    }
+    
     // NOTE: Supplying an object ID should *only* be used when reconstituting the object (generally
     // only done by DataSources).
     public DataObject(int64 object_id = INVALID_OBJECT_ID) {
@@ -50,19 +59,29 @@ public abstract class DataObject {
     }
     
     public virtual void notify_altered() {
-        // fire signal on self
-        altered();
+        // fire signal on self, if notifications aren't frozen
+        if (member_of != null) {
+            if (!member_of.are_notifications_frozen())
+                altered();
+        } else {
+            altered();
+        }
         
-        // notify DataCollection
+        // notify DataCollection in any event
         if (member_of != null)
             member_of.internal_notify_altered(this);
     }
     
     public virtual void notify_metadata_altered() {
-        // fire signal on self
-        metadata_altered();
+        // fire signal on self, if notifications aren't frozen
+        if (member_of != null) {
+            if (!member_of.are_notifications_frozen())
+                metadata_altered();
+        } else {
+            metadata_altered();
+        }
         
-        // notify DataCollection
+        // notify DataCollection in any event
         if (member_of != null)
             member_of.internal_notify_metadata_altered(this);
     }
@@ -70,6 +89,16 @@ public abstract class DataObject {
     // There is no membership_changed signal as it's expensive (esp. at startup) and not needed
     // at this time.  The notify_membership_changed mechanism is still in place for subclasses.
     public virtual void notify_membership_changed(DataCollection? collection) {
+    }
+    
+    // Generally, this is only called by DataCollection.
+    public virtual void notify_collection_property_set(string name, Value? old, Value val) {
+        collection_property_set(name, old, val);
+    }
+    
+    // Generally, this is only called by DataCollection.
+    public virtual void notify_collection_property_cleared(string name) {
+        collection_property_cleared(name);
     }
     
     public abstract string get_name();
@@ -115,6 +144,25 @@ public abstract class DataObject {
 
     public inline int64 get_object_id() {
         return object_id;
+    }
+    
+    public Value? get_collection_property(string name, Value? def = null) {
+        if (member_of == null)
+            return def;
+        
+        Value? result = member_of.get_property(name);
+        
+        return (result != null) ? result : def;
+    }
+    
+    public void set_collection_property(string name, Value val) {
+        if (member_of != null)
+            member_of.set_property(name, val);
+    }
+    
+    public void clear_collection_property(string name) {
+        if (member_of != null)
+            member_of.clear_property(name);
     }
 }
 
@@ -610,34 +658,38 @@ public class DataView : DataObject {
         visibility_changed(visible);
     }
 
-    public virtual void notify_view_altered() {
+    protected virtual void notify_view_altered() {
         // impossible when not visible
         if (!visible)
             return;
         
         ViewCollection vc = get_membership() as ViewCollection;
-        if (vc != null && vc.are_view_notifications_frozen())
-            return;
-
-        view_altered();
-        
-        if (vc != null)
+        if (vc != null) {
+            if (!vc.are_notifications_frozen())
+                view_altered();
+            
+            // notify ViewCollection in any event
             vc.internal_notify_view_altered(this);
+        } else {
+            view_altered();
+        }
     }
     
-    public virtual void notify_geometry_altered() {
+    protected virtual void notify_geometry_altered() {
         // impossible when not visible
         if (!visible)
             return;
         
         ViewCollection vc = get_membership() as ViewCollection;
-        if (vc != null && vc.are_geometry_notifications_frozen())
-            return;
-
-        geometry_altered();
-        
-        if (vc != null)
+        if (vc != null) {
+            if (!vc.are_notifications_frozen())
+                geometry_altered();
+            
+            // notify ViewCollection in any event
             vc.internal_notify_geometry_altered(this);
+        } else {
+            geometry_altered();
+        }
     }
 }
 

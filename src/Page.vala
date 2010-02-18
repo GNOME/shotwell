@@ -739,9 +739,9 @@ public abstract class CheckerboardPage : Page {
     private Gtk.Menu item_context_menu = null;
     private Gtk.Menu page_context_menu = null;
     private Gtk.Viewport viewport = new Gtk.Viewport(null, null);
-    protected LayoutItem anchor = null;
-    protected LayoutItem cursor = null;
-    private LayoutItem highlighted = null;
+    protected CheckerboardItem anchor = null;
+    protected CheckerboardItem cursor = null;
+    private CheckerboardItem highlighted = null;
     private bool autoscroll_scheduled = false;
 
     public CheckerboardPage(string page_name) {
@@ -791,7 +791,7 @@ public abstract class CheckerboardPage : Page {
         return popup_context_menu(get_context_menu());
     }
     
-    protected virtual void on_item_activated(LayoutItem item) {
+    protected virtual void on_item_activated(CheckerboardItem item) {
     }
     
     public CheckerboardLayout get_checkerboard_layout() {
@@ -813,7 +813,7 @@ public abstract class CheckerboardPage : Page {
         base.switched_to();
     }
     
-    public abstract LayoutItem? get_fullscreen_photo();
+    public abstract CheckerboardItem? get_fullscreen_photo();
     
     public void set_page_message(string message) {
         layout.set_message(message);
@@ -827,13 +827,13 @@ public abstract class CheckerboardPage : Page {
         layout.set_name(name);
     }
     
-    public LayoutItem? get_item_at_pixel(double x, double y) {
+    public CheckerboardItem? get_item_at_pixel(double x, double y) {
         return layout.get_item_at_pixel(x, y);
     }
     
     private void on_items_hidden(Gee.Iterable<DataView> hidden) {
         foreach (DataView view in hidden) {
-            LayoutItem item = (LayoutItem) view;
+            CheckerboardItem item = (CheckerboardItem) view;
             
             if (anchor == item)
                 anchor = null;
@@ -879,7 +879,7 @@ public abstract class CheckerboardPage : Page {
             
             case "Home":
             case "KP_Home":
-                LayoutItem? first = (LayoutItem?) get_view().get_first();
+                CheckerboardItem? first = (CheckerboardItem?) get_view().get_first();
                 if (first != null)
                     cursor_to_item(first);
                 select_anchor_to_cursor(state);
@@ -887,7 +887,7 @@ public abstract class CheckerboardPage : Page {
             
             case "End":
             case "KP_End":
-                LayoutItem? last = (LayoutItem?) get_view().get_last();
+                CheckerboardItem? last = (CheckerboardItem?) get_view().get_last();
                 if (last != null)
                     cursor_to_item(last);
                 select_anchor_to_cursor(state);
@@ -896,7 +896,7 @@ public abstract class CheckerboardPage : Page {
             case "Return":
             case "KP_Enter":
                 if (get_view().get_selected_count() == 1)
-                    on_item_activated((LayoutItem) get_view().get_selected_at(0));
+                    on_item_activated((CheckerboardItem) get_view().get_selected_at(0));
                 else
                     handled = false;
             break;
@@ -922,7 +922,7 @@ public abstract class CheckerboardPage : Page {
         
         // use clicks for multiple selection and activation only; single selects are handled by
         // button release, to allow for multiple items to be selected then dragged
-        LayoutItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
         if (item != null) {
             switch (state) {
                 case Gdk.ModifierType.CONTROL_MASK:
@@ -1000,7 +1000,7 @@ public abstract class CheckerboardPage : Page {
         if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
             return false;
             
-        LayoutItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
         if (item == null) {
             // released button on "dead" area
             return true;
@@ -1028,7 +1028,7 @@ public abstract class CheckerboardPage : Page {
             return false;
         
         // get what's right-clicked upon
-        LayoutItem item = get_item_at_pixel(event.x, event.y);
+        CheckerboardItem item = get_item_at_pixel(event.x, event.y);
         if (item != null) {
             // mask out the modifiers we're interested in
             switch (event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) {
@@ -1074,7 +1074,7 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
-    protected virtual bool on_mouse_over(LayoutItem? item, int x, int y, Gdk.ModifierType mask) {
+    protected virtual bool on_mouse_over(CheckerboardItem? item, int x, int y, Gdk.ModifierType mask) {
         // if hovering over the last hovered item, or both are null (nothing highlighted and
         // hovering over empty space), do nothing
         if (item == highlighted)
@@ -1125,14 +1125,14 @@ public abstract class CheckerboardPage : Page {
         assert(layout.is_drag_select_active());
         
         // get all items inside the selection
-        Gee.List<LayoutItem>? intersection = layout.items_in_selection_band();
+        Gee.List<CheckerboardItem>? intersection = layout.items_in_selection_band();
         if (intersection == null)
             return;
 
         // unselect everything not in the intersection
         Marker marker = get_view().start_marking();
         foreach (DataView view in get_view().get_selected()) {
-            LayoutItem item = (LayoutItem) view;
+            CheckerboardItem item = (CheckerboardItem) view;
             
             if (!intersection.contains(item))
                 marker.mark(item);
@@ -1143,7 +1143,7 @@ public abstract class CheckerboardPage : Page {
         // select everything in the intersection and update the cursor
         marker = get_view().start_marking();
         cursor = null;
-        foreach (LayoutItem item in intersection) {
+        foreach (CheckerboardItem item in intersection) {
             marker.mark(item);
             if (cursor == null)
                 cursor = item;
@@ -1201,7 +1201,7 @@ public abstract class CheckerboardPage : Page {
         return true;
     }
     
-    public void cursor_to_item(LayoutItem item) {
+    public void cursor_to_item(CheckerboardItem item) {
         assert(get_view().contains(item));
 
         cursor = item;
@@ -1237,7 +1237,7 @@ public abstract class CheckerboardPage : Page {
             
         // if nothing is selected, simply select the first and exit
         if (get_view().get_selected_count() == 0 || cursor == null) {
-            LayoutItem item = layout.get_item_at_coordinate(0, 0);
+            CheckerboardItem item = layout.get_item_at_coordinate(0, 0);
             cursor_to_item(item);
             anchor = item;
 
@@ -1245,19 +1245,19 @@ public abstract class CheckerboardPage : Page {
         }
                
         // move the cursor relative to the "first" item
-        LayoutItem? item = layout.get_item_relative_to(cursor, point);
+        CheckerboardItem? item = layout.get_item_relative_to(cursor, point);
         if (item != null)
             cursor_to_item(item);
    }
 
-    public void select_between_items(LayoutItem item_start, LayoutItem item_end) {
+    public void select_between_items(CheckerboardItem item_start, CheckerboardItem item_end) {
         Marker marker = get_view().start_marking();
 
         bool passed_start = false;
         bool passed_end = false;
 
         foreach (DataObject object in get_view().get_all()) {
-            LayoutItem item = (LayoutItem) object;
+            CheckerboardItem item = (CheckerboardItem) object;
             
             if (item_start == item)
                 passed_start = true;
@@ -1288,15 +1288,9 @@ public abstract class CheckerboardPage : Page {
     }
 
     protected virtual void set_display_titles(bool display) {
-        get_view().freeze_view_notifications();
-        get_view().freeze_geometry_notifications();
-        
-        foreach (DataObject object in get_view().get_all_unfiltered()) {
-            ((LayoutItem) object).display_title(display);
-        }
-        
-        get_view().thaw_geometry_notifications(true);
-        get_view().thaw_view_notifications(true);
+        get_view().freeze_notifications();
+        get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, display);
+        get_view().thaw_notifications();
     }
 }
 

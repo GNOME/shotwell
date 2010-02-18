@@ -144,13 +144,14 @@ public class Event : EventSource, Proxyable {
         // watch for for addition, removal, and alteration of photos
         view.items_added += on_photos_added;
         view.items_removed += on_photos_removed;
-        view.item_metadata_altered += on_photo_metadata_altered;
+        view.items_metadata_altered += on_photos_metadata_altered;
     }
 
     ~Event() {
         if (primary_photo != null)
             primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
         
+        view.items_metadata_altered -= on_photos_metadata_altered;
         view.items_removed -= on_photos_removed;
         view.items_added -= on_photos_added;
     }
@@ -204,7 +205,7 @@ public class Event : EventSource, Proxyable {
         notify_altered();
     } 
 
-    private void on_photo_metadata_altered() {
+    private void on_photos_metadata_altered() {
         notify_altered();
     }
     

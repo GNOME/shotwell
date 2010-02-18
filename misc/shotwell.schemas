@@ -42,6 +42,19 @@
             </locale>
 
         </schema>
+        
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/display_photo_tags</key>
+            <applyto>/apps/shotwell/preferences/ui/display_photo_tags</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>photo tags display bool</short>
+                <long>Photo_tags display bool.  True if photo tags are display, false otherwise.</long>
+            </locale>
+        </schema>
 
         <schema>
             <key>/schemas/apps/shotwell/preferences/slideshow/delay</key>

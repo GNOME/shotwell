@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-class EventDirectoryItem : LayoutItem {
+class EventDirectoryItem : CheckerboardItem {
     public const int CROPPED_SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
         + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
         
@@ -15,8 +15,9 @@ class EventDirectoryItem : LayoutItem {
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event),
-            Pango.Alignment.CENTER, true);
+        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE));
+        
+        set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
         
         this.event = event;
         
@@ -90,7 +91,7 @@ class EventDirectoryItem : LayoutItem {
     }
     
     private void on_event_altered() {
-        set_markup_title(get_formatted_title(event));
+        set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
     }
     
     private override void thumbnail_altered() {
@@ -233,7 +234,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         return actions;
     }
     
-    public override void on_item_activated(LayoutItem item) {
+    public override void on_item_activated(CheckerboardItem item) {
         EventDirectoryItem event = (EventDirectoryItem) item;
         LibraryWindow.get_app().switch_to_event(event.event);
     }
@@ -264,7 +265,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         return (item != null) ? LibraryWindow.get_app().load_event_page(item.event) : null;
     }
     
-    public override LayoutItem? get_fullscreen_photo() {
+    public override CheckerboardItem? get_fullscreen_photo() {
         EventPage page = get_fullscreen_event();
         
         return (page != null) ? page.get_fullscreen_photo() : null;

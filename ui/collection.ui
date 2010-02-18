@@ -28,6 +28,7 @@
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <separator />
             <menuitem name="ViewTitle" action="ViewTitle" />
+            <menuitem name="ViewTags" action="ViewTags" />
             <separator />
             <menuitem name="ViewFavorites" action="ViewFavorites" />
             <menuitem name="ViewHidden" action="ViewHidden" />

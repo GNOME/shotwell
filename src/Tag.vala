@@ -7,6 +7,16 @@
 public class TagSourceCollection : DatabaseSourceCollection {
     private Gee.HashMap<string, Tag> map = new Gee.HashMap<string, Tag>();
     
+    public virtual signal void item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+    }
+    
+    public virtual signal void item_contents_removed(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+    }
+    
+    public virtual signal void item_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
+        Gee.Collection<LibraryPhoto>? removed) {
+    }
+    
     public TagSourceCollection() {
         base ("TagSourceCollection", get_tag_key);
     }
@@ -52,6 +62,19 @@ public class TagSourceCollection : DatabaseSourceCollection {
         }
         
         base.notify_items_removed(removed);
+    }
+    
+    public virtual void notify_item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+        item_contents_added(tag, photos);
+    }
+    
+    public virtual void notify_item_contents_removed(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+        item_contents_removed(tag, photos);
+    }
+    
+    public virtual void notify_item_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
+        Gee.Collection<LibraryPhoto>? removed) {
+        item_contents_altered(tag, added, removed);
     }
 }
 
@@ -133,10 +156,15 @@ public class Tag : DataSource, Proxyable {
         // monitor ViewCollection to (a) keep the in-memory list of photo IDs up-to-date, and
         // (b) update the database whenever there's a change
         photos.contents_altered += on_photos_contents_altered;
+        
+        // monitor LibraryPhoto to trap when photos are destroyed and automatically remove from
+        // the tag
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
     }
     
     ~Tag() {
         photos.contents_altered -= on_photos_contents_altered;
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
     }
     
     public static void init() {
@@ -328,21 +356,43 @@ public class Tag : DataSource, Proxyable {
     
     private void on_photos_contents_altered(Gee.Iterable<DataView>? added,
         Gee.Iterable<DataView>? removed) {
+        Gee.Collection<LibraryPhoto> added_photos = null;
         if (added != null) {
+            added_photos = new Gee.ArrayList<LibraryPhoto>();
             foreach (DataView view in added) {
                 LibraryPhoto photo = (LibraryPhoto) view.get_source();
+                
                 bool is_added = row.photo_id_list.add(photo.get_photo_id());
+                assert(is_added);
+                
+                is_added = added_photos.add(photo);
                 assert(is_added);
             }
         }
         
+        Gee.Collection<LibraryPhoto> removed_photos = null;
         if (removed != null) {
+            removed_photos = new Gee.ArrayList<LibraryPhoto>();
             foreach (DataView view in removed) {
                 LibraryPhoto photo = (LibraryPhoto) view.get_source();
+                
                 bool is_removed = row.photo_id_list.remove(photo.get_photo_id());
                 assert(is_removed);
+                
+                bool is_added = removed_photos.add(photo);
+                assert(is_added);
             }
         }
+        
+        // notify of changes to this tag
+        if (added_photos != null)
+            global.notify_item_contents_added(this, added_photos);
+        
+        if (removed_photos != null)
+            global.notify_item_contents_removed(this, removed_photos);
+        
+        if (added_photos != null || removed_photos != null)
+            global.notify_item_contents_altered(this, added_photos, removed_photos);
         
         // if no more photos, tag evaporates
         if (photos.get_count() == 0) {
@@ -361,6 +411,10 @@ public class Tag : DataSource, Proxyable {
         }
         
         notify_altered();
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        detach((LibraryPhoto) source);
     }
     
     public override void destroy() {

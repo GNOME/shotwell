@@ -295,7 +295,12 @@ public class DataCollection {
     
     private string name;
     private DataSet dataset = new DataSet();
+    private Gee.HashMap<string, Value?> properties = new Gee.HashMap<string, Value?>();
     private int64 object_ordinal_generator = 0;
+    private int notifies_frozen = 0;
+    private bool fire_items_altered = false;
+    private bool fire_items_metadata_altered = false;
+    private bool fire_ordering_changed = false;
 
     // When this signal has been fired, the added items are part of the collection
     public virtual signal void items_added(Gee.Iterable<DataObject> added) {
@@ -315,6 +320,12 @@ public class DataCollection {
     // signal handler for each one
     public virtual signal void item_altered(DataObject item) {
     }
+    
+    // This signal fires whenever any (or multiple) items in the collection signal they've been
+    // altered.  This is more useful than item_altered() because it isn't blocked when notifications
+    // are frozen and is called when they are thawed.
+    public virtual signal void items_altered() {
+    }
 
     // This signal fires whenever any item in the collection signals its metadata has been altered ...
     // this allows monitoring of all objects in the collection without having to register a
@@ -322,9 +333,24 @@ public class DataCollection {
     public virtual signal void item_metadata_altered(DataObject object) {
     }
     
+    // This signal fires whenever any (or multiple) items in the collection signal their
+    // metadata has been altered.  Like items_altered(), it isn't blocked when notifications are
+    // frozen and is called when they're thawed.
+    public virtual signal void items_metadata_altered() {
+    }
+    
     // Fired when a new sort comparator is registered or an item has moved in the ordering due to
     // an alteration.
     public virtual signal void ordering_changed() {
+    }
+    
+    // Fired when a collection property is set.  The old value is passed as well, null if not set
+    // previously.
+    public virtual signal void property_set(string name, Value? old, Value val) {
+    }
+    
+    // Fired when a collection property is cleared.
+    public virtual signal void property_cleared(string name) {
     }
     
     public DataCollection(string name) {
@@ -342,29 +368,45 @@ public class DataCollection {
     }
     
     // use notifies to ensure proper chronology of signal handling
-    public virtual void notify_items_added(Gee.Iterable<DataObject> added) {
+    protected virtual void notify_items_added(Gee.Iterable<DataObject> added) {
         items_added(added);
     }
 
-    public virtual void notify_items_removed(Gee.Iterable<DataObject> removed) {
+    protected virtual void notify_items_removed(Gee.Iterable<DataObject> removed) {
         items_removed(removed);
     }
     
-    public virtual void notify_contents_altered(Gee.Iterable<DataObject>? added,
+    protected virtual void notify_contents_altered(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
         contents_altered(added, removed);
     }
     
-    public virtual void notify_item_altered(DataObject item) {
+    protected virtual void notify_item_altered(DataObject item) {
         item_altered(item);
     }
     
-    public virtual void notify_item_metadata_altered(DataObject item) {
+    protected virtual void notify_items_altered() {
+        items_altered();
+    }
+    
+    protected virtual void notify_item_metadata_altered(DataObject item) {
         item_metadata_altered(item);
     }
     
-    public virtual void notify_ordering_changed() {
+    protected virtual void notify_items_metadata_altered() {
+        items_metadata_altered();
+    }
+    
+    protected virtual void notify_ordering_changed() {
         ordering_changed();
+    }
+    
+    protected virtual void notify_property_set(string name, Value? old, Value val) {
+        property_set(name, old, val);
+    }
+    
+    protected virtual void notify_property_cleared(string name) {
+        property_cleared(name);
     }
     
     // A singleton list is used when a single item has been added/remove/selected/unselected
@@ -622,10 +664,20 @@ public class DataCollection {
     public void internal_notify_altered(DataObject object) {
         assert(internal_contains(object));
         
-        if (dataset.resort_object(object))
+        bool resort_occurred = dataset.resort_object(object);
+        
+        if (are_notifications_frozen()) {
+            fire_items_altered = true;
+            fire_ordering_changed = fire_ordering_changed || resort_occurred;
+            
+            return;
+        }
+        
+        if (resort_occurred)
             notify_ordering_changed();
-
+        
         notify_item_altered(object);
+        notify_items_altered();
     }
     
     // This method is only called by DataObject to report when its metadata has been altered, so
@@ -633,10 +685,104 @@ public class DataCollection {
     public void internal_notify_metadata_altered(DataObject object) {
         assert(internal_contains(object));
         
-        if (dataset.resort_object(object))
+        bool resort_occurred = dataset.resort_object(object);
+        
+        if (are_notifications_frozen()) {
+            fire_items_metadata_altered = true;
+            fire_ordering_changed = fire_ordering_changed || resort_occurred;
+            
+            return;
+        }
+        
+        if (resort_occurred)
             notify_ordering_changed();
-
+        
         notify_item_metadata_altered(object);
+        notify_items_metadata_altered();
+    }
+    
+    public Value? get_property(string name) {
+        return properties.get(name);
+    }
+    
+    public void set_property(string name, Value val) {
+        Value? old = properties.get(name);
+        properties.set(name, val);
+        
+        notify_property_set(name, old, val);
+        
+        // notify all items in the collection of the change
+        int count = dataset.get_count();
+        for (int ctr = 0; ctr < count; ctr++)
+            dataset.get_at(ctr).notify_collection_property_set(name, old, val);
+    }
+    
+    public void clear_property(string name) {
+        if (!properties.unset(name))
+            return;
+        
+        // only notify if the propery was unset (that is, was set to begin with)
+        notify_property_cleared(name);
+            
+        // notify all items
+        int count = dataset.get_count();
+        for (int ctr = 0; ctr < count; ctr++)
+            dataset.get_at(ctr).notify_collection_property_cleared(name);
+    }
+    
+    // This is only guaranteed to freeze notifications that come in from contained objects and
+    // need to be propagated with collection signals.  Thus, the caller can freeze notifications,
+    // make modifications to many or all member objects, then unthaw and have the aggregated signals
+    // fired at once.
+    //
+    // DataObject/DataSource/DataView should also "eat" their signals as well, to prevent observers
+    // from being notified while their collection is frozen.
+    //
+    // For DataCollection, the signals affected are item_altered, item_metadata_altered, and
+    // ordering_changed (and their corresponding signals in DataObject).
+    //
+    // WARNING: In current implementation, this drops incoming signals from the DataObjects, relying
+    // on aggregate signals (items_altered rather than item_altered, etc.) to notify observers.
+    // This should be used selectively, and with caution.
+    public void freeze_notifications() {
+        if (notifies_frozen++ == 0)
+            frozen();
+    }
+    
+    public void thaw_notifications() {
+        if (notifies_frozen == 0)
+            return;
+        
+        if (--notifies_frozen == 0)
+            thawed();
+    }
+    
+    public bool are_notifications_frozen() {
+        return notifies_frozen > 0;
+    }
+    
+    // This is called when notifications have frozen.  Child collections should halt notifications
+    // until thawed() is called.
+    protected virtual void frozen() {
+    }
+    
+    // This is called when enough thaw_notifications() calls have been made.  Child collections
+    // should issue caught notifications.
+    protected virtual void thawed() {
+        if (fire_items_altered) {
+            fire_items_altered = false;
+            notify_items_altered();
+        }
+        
+        if (fire_items_metadata_altered) {
+            fire_items_metadata_altered = false;
+            notify_items_metadata_altered();
+        }
+        
+        if (fire_ordering_changed) {
+            fire_ordering_changed = false;
+            notify_ordering_changed();
+        }
     }
 }
 
@@ -663,11 +809,11 @@ public class SourceCollection : DataCollection {
         base (name);
     }
     
-    public virtual void notify_item_destroyed(DataSource source) {
+    protected virtual void notify_item_destroyed(DataSource source) {
         item_destroyed(source);
     }
     
-    public override bool valid_type(DataObject object) {
+    protected override bool valid_type(DataObject object) {
         return object is DataSource;
     }
     
@@ -812,8 +958,8 @@ public class ViewCollection : DataCollection {
     private ViewFilter filter = null;
     private DataSet selected = new DataSet();
     private DataSet visible = null;
-    private int geometry_freeze = 0;
-    private int view_freeze = 0;
+    private bool fire_views_altered = false;
+    private bool fire_geometries_altered = false;
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
@@ -861,7 +1007,23 @@ public class ViewCollection : DataCollection {
     public ViewCollection(string name) {
         base (name);
     }
-
+    
+    protected virtual void notify_item_view_altered(DataView view) {
+        item_view_altered(view);
+    }
+    
+    protected virtual void notify_views_altered() {
+        views_altered();
+    }
+    
+    protected virtual void notify_item_geometry_altered(DataView view) {
+        item_geometry_altered(view);
+    }
+    
+    public virtual void notify_geometries_altered() {
+        geometries_altered();
+    }
+    
     public override void close() {
         halt_monitoring();
         halt_mirroring();
@@ -1503,56 +1665,36 @@ public class ViewCollection : DataCollection {
     
     // This is only used by DataView.
     public void internal_notify_view_altered(DataView view) {
-        if (view_freeze == 0)
-            item_view_altered(view);
-    }
-    
-    // This is available to all users, for use when all items views change.
-    public void notify_views_altered() {
-        views_altered();
-    }
-    
-    public void freeze_view_notifications() {
-        view_freeze++;
-    }
-    
-    public void thaw_view_notifications(bool autonotify) {
-        assert(view_freeze > 0);
-        view_freeze--;
-        
-        if (autonotify && view_freeze == 0)
+        if (!are_notifications_frozen()) {
+            notify_item_view_altered(view);
             notify_views_altered();
-    }
-    
-    public bool are_view_notifications_frozen() {
-        return view_freeze > 0;
+        } else {
+            fire_views_altered = true;
+        }
     }
     
     // This is only used by DataView.
     public void internal_notify_geometry_altered(DataView view) {
-        if (geometry_freeze == 0)
-            item_geometry_altered(view);
-    }
-    
-    // This is available to all users, for use when all items in the view have changed sizes.
-    public void notify_geometries_altered() {
-        geometries_altered();
-    }
-    
-    public void freeze_geometry_notifications() {
-        geometry_freeze++;
-    }
-    
-    public void thaw_geometry_notifications(bool autonotify) {
-        assert(geometry_freeze > 0);
-        geometry_freeze--;
-        
-        if (autonotify && geometry_freeze == 0)
+        if (!are_notifications_frozen()) {
+            notify_item_geometry_altered(view);
             notify_geometries_altered();
+        } else {
+            fire_geometries_altered = true;
+        }
     }
     
-    public bool are_geometry_notifications_frozen() {
-        return geometry_freeze > 0;
+    protected override void thawed() {
+        if (fire_views_altered) {
+            fire_views_altered = false;
+            notify_views_altered();
+        }
+        
+        if (fire_geometries_altered) {
+            fire_geometries_altered = false;
+            notify_geometries_altered();
+        }
+        
+        base.thawed();
     }
 }
 

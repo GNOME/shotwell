@@ -111,11 +111,13 @@ class ImportSource : PhotoSource {
     }
 }
 
-class ImportPreview : LayoutItem {
+class ImportPreview : CheckerboardItem {
     public const int MAX_SCALE = 128;
     
     public ImportPreview(ImportSource source) {
-        base(source, Dimensions(), source.get_filename());
+        base(source, Dimensions());
+        
+        set_title(source.get_filename());
         
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
@@ -157,10 +159,7 @@ public class ImportPage : CheckerboardPage {
         }
         
         public override DataView create_view(DataSource source) {
-            ImportPreview import_preview = new ImportPreview((ImportSource) source);
-            import_preview.display_title(owner.display_titles());
-            
-            return import_preview;
+            return new ImportPreview((ImportSource) source);
         }
     }
     
@@ -450,18 +449,18 @@ public class ImportPage : CheckerboardPage {
         Config.get_instance().set_display_photo_titles(display);
     }
     
-    public override LayoutItem? get_fullscreen_photo() {
+    public override CheckerboardItem? get_fullscreen_photo() {
         error("No fullscreen support for import pages");
         
         return null;
     }
     
     public override void switched_to() {
+        set_display_titles(Config.get_instance().get_display_photo_titles());
+        
         base.switched_to();
         
         try_refreshing_camera(false);
-        
-        set_display_titles(Config.get_instance().get_display_photo_titles());
     }
 
     private void try_refreshing_camera(bool fail_on_locked) {
@@ -1006,12 +1005,6 @@ public class ImportPage : CheckerboardPage {
         busy = false;
         
         on_view_changed();
-    }
-
-    private bool display_titles() {
-        Gtk.ToggleAction action = (Gtk.ToggleAction) ui.get_action("/ImportMenuBar/ViewMenu/ViewTitle");
-        
-        return action.get_active();
     }
 
     private override void set_display_titles(bool display) {
