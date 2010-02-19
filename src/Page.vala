@@ -66,8 +66,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
     public override void destroy() {
-        debug("Destroying Page %s", get_page_name());
-        
         // untie signals
         detach_event_source();
         view.close();
@@ -89,8 +87,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         // toolbars (as of yet) are not created by the UI Manager and need to be destroyed
         // explicitly
         toolbar.destroy();
-        
-        debug("Destroyed Page %s", get_page_name());
         
         base.destroy();
     }

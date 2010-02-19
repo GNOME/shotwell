@@ -63,16 +63,7 @@ public class Thumbnail : CheckerboardItem {
             return;
         }
         
-        StringBuilder builder = new StringBuilder("<small>");
-        int ctr = 0;
-        foreach (Tag tag in tags) {
-            builder.append(tag.get_name());
-            if (ctr++ < count - 1)
-                builder.append(", ");
-        }
-        builder.append("</small>");
-        
-        set_subtitle(builder.str, true);
+        set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>"), true);
     }
     
     private void on_tag_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,

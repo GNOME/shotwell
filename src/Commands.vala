@@ -950,44 +950,38 @@ public class NewTagCommand : PageCommand {
     public NewTagCommand(string name, Gee.Collection<LibraryPhoto> photos) {
         base (Resources.new_tag_label(name), Resources.NEW_TAG_TOOLTIP);
         
+        // this command only works with new tags
+        assert(!Tag.global.exists(name));
+        
         this.name = name;
         this.photos = photos;
+        
+        // create the new tag here rather than in execute() so that we can merely use the proxy
+        // to access it ... this is important with the redo() case, where the tag may have been
+        // created by another proxy elsewhere
+        Tag tag = Tag.for_name(name);
+        tag_proxy = tag.get_proxy();
+        tag_proxy.broken += on_proxy_broken;
         
         LibraryPhoto.global.item_destroyed += on_photo_destroyed;
     }
     
     ~NewTagCommand() {
+        tag_proxy.broken -= on_proxy_broken;
         LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
-        if (tag_proxy != null)
-            tag_proxy.broken -= on_proxy_broken;
     }
     
     public override void execute() {
-        // this command only works with creating new tags ... if it needs to handle the possibility
-        // that the tag already exists, more work must be done
-        assert(tag_proxy == null);
-        assert(!Tag.global.exists(name));
-        
-        Tag tag = Tag.for_name(name);
+        Tag tag = (Tag) tag_proxy.get_source();
         tag.attach_many(photos);
-        
-        // store a proxy in case it's destroyed/reconstituted later
-        tag_proxy = tag.get_proxy();
-        tag_proxy.broken += on_proxy_broken;
         
         // switch to new tag
         LibraryWindow.get_app().switch_to_tag(tag);
     }
     
     public override void undo() {
-        assert(tag_proxy != null);
-        
-        // drop the proxy before destroying the tag
-        Tag tag = (Tag) tag_proxy.get_source();
-        tag_proxy.broken -= on_proxy_broken;
-        tag_proxy = null;
-        
-        Tag.global.destroy_marked(Tag.global.mark(tag), false);
+        // Destroy the tag, but maintain the proxy in case we need it again
+        Tag.global.destroy_marked(Tag.global.mark((Tag) tag_proxy.get_source()), false);
     }
     
     private void on_photo_destroyed(DataSource source) {

@@ -1241,16 +1241,12 @@ public class LibraryWindow : AppWindow {
             if (get_current_page() == stub.get_page())
                 switch_to_page(fallback_page);
             
-            debug("Removing stubbed page %s", stub.get_page().get_page_name());
-            
             // detach from notebook
             remove_from_notebook(stub.get_page());
             
             // destroy page layout if it exists, otherwise just the page
             if (!destroy_page_layout(stub.get_page()))
                 stub.get_page().destroy();
-            
-            debug("Removed stubbed page %s", stub.get_page().get_page_name());
         }
     }
     

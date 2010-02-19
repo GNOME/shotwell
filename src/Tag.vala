@@ -255,6 +255,22 @@ public class Tag : DataSource, Proxyable {
         return tags;
     }
     
+    public static string make_tag_string(Gee.Collection<Tag> tags, string? start = null, 
+        string separator = ", ", string? end = null) {
+        StringBuilder builder = new StringBuilder(start ?? "");
+        int ctr = 0;
+        int count = tags.size;
+        foreach (Tag tag in tags) {
+            builder.append(tag.get_name());
+            if (ctr++ < count - 1)
+                builder.append(separator);
+        }
+        if (end != null)
+            builder.append(end);
+        
+        return builder.str;
+    }
+    
     private static void collect_tags(LibraryPhoto photo, Gee.Collection<Tag> tags) {
         foreach (DataObject object in global.get_all()) {
             Tag tag = (Tag) object;
