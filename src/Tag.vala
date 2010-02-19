@@ -264,6 +264,31 @@ public class Tag : DataSource, Proxyable {
         }
     }
     
+    // Utility function to cleanup a tag name that comes from user input and prepare it for use
+    // in the system and storage in the database.  Returns null if the name is unacceptable.
+    public static string? prep_tag_name(string name) {
+        if (name == null)
+            return null;
+        
+        string new_name = name.strip();
+        
+        return (!is_string_empty(new_name)) ? new_name : null;
+    }
+    
+    // Akin to prep_tag_name.  Returned array may be smaller than the in parameter (or empty!) if
+    // names are discovered that cannot be used.
+    public static string[] prep_tag_names(string[] names) {
+        string[] result = new string[0];
+        
+        for (int ctr = 0; ctr < names.length; ctr++) {
+            string? new_name = prep_tag_name(names[ctr]);
+            if (new_name != null)
+                result += new_name;
+        }
+        
+        return result;
+    }
+    
     public override string get_name() {
         return row.name;
     }

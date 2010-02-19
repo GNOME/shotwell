@@ -906,17 +906,29 @@ public class NewTagDialog : TextEntryDialog {
     }
     
     public string? execute() {
-        return _execute();
+        string? name = _execute();
+        if (name == null)
+            return null;
+        
+        // only want to return null if the user chose cancel, however, on_modify_validate ensures
+        // that prep_tag_name won't return null
+        return Tag.prep_tag_name(name);
     }
     
     protected override bool on_ok_validate(string text) {
-        if (!Tag.global.exists(text))
+        string prepped = Tag.prep_tag_name(text);
+        
+        if (!Tag.global.exists(prepped))
             return true;
         
-        AppWindow.error_message(_("%s already exists.  Please choose a new tag name.").printf(text),
+        AppWindow.error_message(_("A tag named \"%s\" already exists.  Please choose a new tag name.").printf(prepped),
             this);
         
         return false;
+    }
+    
+    protected override bool on_modify_validate(string text) {
+        return Tag.prep_tag_name(text) != null;
     }
 }
 
@@ -930,11 +942,19 @@ public class RenameTagDialog : TextEntryDialog {
     }
     
     public string? execute() {
-        return _execute();
+        string? name = _execute();
+        if (name == null)
+            return null;
+        
+        // don't want to return null unless the user chose cancel, however, on_modify_validate
+        // ensures that prep_tag_name won't return null
+        return Tag.prep_tag_name(name);
     }
     
     protected override bool on_modify_validate(string text) {
-        return !is_string_empty(text) && text != current_name;
+        string? prepped = Tag.prep_tag_name(text);
+        
+        return !is_string_empty(prepped) && prepped != current_name;
     }
 }
 
@@ -969,17 +989,8 @@ public class SetTagsDialog : TextEntryDialog {
         if (is_string_empty(text))
             return new string[0];
         
-        string[] tags = new string[0];
-        
-        // break up by comma-delimiter, trim whitespace, and separate into list
-        string[] tokens = text.split(",");
-        for (int ctr = 0; ctr < tokens.length; ctr++) {
-            string stripped = tokens[ctr].strip();
-            if (!is_string_empty(stripped))
-                tags += stripped;
-        }
-        
-        return tags;
+        // break up by comma-delimiter, prep for use, and separate into list
+        return Tag.prep_tag_names(text.split(","));
     }
 }
 

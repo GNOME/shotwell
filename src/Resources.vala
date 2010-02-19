@@ -208,11 +208,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public string untag_photos_menu(string name, int count) {
-        return ngettext("_Remove Tag \"%s\" from Photo", "_Remove Tag \"%s\" from Photos", count).printf(name);
+        return ngettext("_Remove Tag \"%s\" From Photo", "_Remove Tag \"%s\" From Photos", count).printf(name);
     }
     
     public string untag_photos_label(string name, int count) {
-        return ngettext("Remove Tag \"%s\" from Photo", "Remove Tag \"%s\" from Photos", count).printf(
+        return ngettext("Remove Tag \"%s\" From Photo", "Remove Tag \"%s\" From Photos", count).printf(
             name);
     }
     
