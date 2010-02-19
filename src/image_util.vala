@@ -210,6 +210,24 @@ Gdk.Point coord_scaled_in_space(int x, int y, Dimensions original, Dimensions sc
     return point;
 }
 
+public bool rectangles_equal(Gdk.Rectangle a, Gdk.Rectangle b) {
+    return (a.x == b.x) && (a.y == b.y) && (a.width == b.width) && (a.height == b.height);
+}
+
+public string rectangle_to_string(Gdk.Rectangle rect) {
+    return "%dx%d %d,%d".printf(rect.x, rect.y, rect.width, rect.height);
+}
+
+public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
+    Gdk.Rectangle rect = Gdk.Rectangle();
+    rect.x = original.x.clamp(0, max.width);
+    rect.y = original.y.clamp(0, max.height);
+    rect.width = original.width.clamp(0, max.width);
+    rect.height = original.height.clamp(0, max.height);
+    
+    return rect;
+}
+
 // Can only scale a radius when the scale is proportional; returns -1 if not.  Only two points of
 // precision are considered here.
 int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {

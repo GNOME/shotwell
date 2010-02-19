@@ -14,6 +14,8 @@ private class CheckerboardItemText {
     private bool single_line = true;
     private int height = 0;
     
+    public Gdk.Rectangle allocation = Gdk.Rectangle();
+    
     public CheckerboardItemText(string text, Pango.Alignment alignment = Pango.Alignment.LEFT,
         bool marked_up = false) {
         this.text = text;
@@ -27,6 +29,10 @@ private class CheckerboardItemText {
         return text.chr(-1, '\n') == null;
     }
     
+    public bool is_marked_up() {
+        return marked_up;
+    }
+    
     public string get_text() {
         return text;
     }
@@ -38,7 +44,7 @@ private class CheckerboardItemText {
         return height;
     }
     
-    public Pango.Layout get_pango_layout(int max_width) {
+    public Pango.Layout get_pango_layout(int max_width = 0) {
         if (layout == null)
             create_pango();
         
@@ -329,13 +335,20 @@ public abstract class CheckerboardItem : ThumbnailView {
         if (title != null && title_visible) {
             // get the layout sized so its with is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
-            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+            title.allocation = { allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+                image_width, title.get_height() };
+            
+            Gdk.draw_layout(drawable, gc, title.allocation.x, title.allocation.y,
                 title.get_pango_layout(image_width));
+            
             text_y += title.get_height() + LABEL_PADDING;
         }
         
         if (subtitle != null && subtitle_visible) {
-            Gdk.draw_layout(drawable, gc, allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+            subtitle.allocation = { allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+                image_width, subtitle.get_height() };
+            
+            Gdk.draw_layout(drawable, gc, subtitle.allocation.x, subtitle.allocation.y,
                 subtitle.get_pango_layout(image_width));
             
             // increment text_y if more text lines follow
@@ -401,6 +414,28 @@ public abstract class CheckerboardItem : ThumbnailView {
          // if going from visible to hidden, unbrighten
          if (!visible)
             unbrighten();
+    }
+    
+    private bool query_tooltip_on_text(CheckerboardItemText text, Gtk.Tooltip tooltip) {
+        if (!text.get_pango_layout().is_ellipsized())
+            return false;
+        
+        if (text.is_marked_up())
+            tooltip.set_markup(text.get_text());
+        else
+            tooltip.set_text(text.get_text());
+        
+        return true;
+    }
+    
+    public bool query_tooltip(int x, int y, Gtk.Tooltip tooltip) {
+        if (title != null && title_visible && coord_in_rectangle(x, y, title.allocation))
+            return query_tooltip_on_text(title, tooltip);
+        
+        if (subtitle != null && subtitle_visible && coord_in_rectangle(x, y, subtitle.allocation))
+            return query_tooltip_on_text(subtitle, tooltip);
+        
+        return false;
     }
 }
 
@@ -469,6 +504,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.geometries_altered += on_geometries_altered;
         
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
+        
+        // CheckerboardItems offer tooltips
+        has_tooltip = true;
     }
     
     ~CheckerboardLayout() {
@@ -1300,5 +1338,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // border
         Gdk.draw_rectangle(window, selection_band_gc, false, selection_band.x, selection_band.y,
             selection_band.width - 1, selection_band.height - 1);
+    }
+    
+    private override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
+        CheckerboardItem? item = get_item_at_pixel(x, y);
+        
+        return (item != null) ? item.query_tooltip(x, y, tooltip) : false;
     }
 }

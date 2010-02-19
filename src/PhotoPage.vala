@@ -367,7 +367,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // hook
         if (old_controller != null)
             old_controller.items_selected -= selection_changed;
-        if (controller != null)        
+        
+        if (controller != null)
             controller.items_selected += selection_changed;
         
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file

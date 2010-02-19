@@ -281,24 +281,6 @@ public Gdk.Rectangle get_adjustment_page(Gtk.Adjustment hadj, Gtk.Adjustment vad
     return rect;
 }
 
-public bool rectangles_equal(Gdk.Rectangle a, Gdk.Rectangle b) {
-    return (a.x == b.x) && (a.y == b.y) && (a.width == b.width) && (a.height == b.height);
-}
-
-public string rectangle_to_string(Gdk.Rectangle rect) {
-    return "%dx%d %d,%d".printf(rect.x, rect.y, rect.width, rect.height);
-}
-
-public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
-    Gdk.Rectangle rect = Gdk.Rectangle();
-    rect.x = original.x.clamp(0, max.width);
-    rect.y = original.y.clamp(0, max.height);
-    rect.width = original.width.clamp(0, max.width);
-    rect.height = original.height.clamp(0, max.height);
-    
-    return rect;
-}
-
 public enum CompassPoint {
     NORTH,
     SOUTH,
