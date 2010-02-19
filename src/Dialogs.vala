@@ -410,9 +410,6 @@ public abstract class TextEntryDialog : Gtk.Dialog {
         if (initial_text != null)
             entry.set_text(initial_text);
 
-        // validate entry to start with
-        set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
-
         entry.set_activates_default(true);
         entry.changed += on_entry_changed;
 
@@ -428,6 +425,9 @@ public abstract class TextEntryDialog : Gtk.Dialog {
     protected string? _execute() {
         string? text = null;
         
+        // validate entry to start with
+        set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
+
         show_all();
         
         for (;;) {
@@ -921,8 +921,12 @@ public class NewTagDialog : TextEntryDialog {
 }
 
 public class RenameTagDialog : TextEntryDialog {
+    private string current_name;
+    
     public RenameTagDialog(string current_name) {
         base (Resources.RENAME_TAG_TITLE, _("Name:"), current_name);
+        
+        this.current_name = current_name;
     }
     
     public string? execute() {
@@ -930,7 +934,7 @@ public class RenameTagDialog : TextEntryDialog {
     }
     
     protected override bool on_modify_validate(string text) {
-        return !is_string_empty(text);
+        return !is_string_empty(text) && text != current_name;
     }
 }
 

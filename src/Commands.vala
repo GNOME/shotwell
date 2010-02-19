@@ -1013,11 +1013,13 @@ public class RenameTagCommand : SimpleProxyableCommand {
     }
     
     protected override void execute_on_source(DataSource source) {
-        ((Tag) source).rename(new_name);
+        if (!((Tag) source).rename(new_name))
+            AppWindow.error_message(Resources.rename_tag_exists_message(new_name));
     }
 
     protected override void undo_on_source(DataSource source) {
-        ((Tag) source).rename(old_name);
+        if (!((Tag) source).rename(old_name))
+            AppWindow.error_message(Resources.rename_tag_exists_message(old_name));
     }
 }
 

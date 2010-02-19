@@ -221,6 +221,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
             count).printf(name);
     }
     
+    public static string rename_tag_exists_message(string name) {
+        return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
+    }
+    
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     

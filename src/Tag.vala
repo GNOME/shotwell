@@ -330,7 +330,11 @@ public class Tag : DataSource, Proxyable {
         return count;
     }
     
-    public void rename(string new_name) {
+    // Returns false if the name already exists
+    public bool rename(string new_name) {
+        if (Tag.global.exists(new_name))
+            return false;
+        
         try {
             TagTable.get_instance().rename(row.tag_id, new_name);
         } catch (DatabaseError err) {
@@ -340,6 +344,8 @@ public class Tag : DataSource, Proxyable {
         row.name = new_name;
         
         notify_altered();
+        
+        return true;
     }
     
     public bool contains(LibraryPhoto photo) {

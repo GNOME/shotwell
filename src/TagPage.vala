@@ -107,10 +107,22 @@ public class TagPage : CollectionPage {
     }
     
     private void on_rename_tag() {
-        RenameTagDialog dialog = new RenameTagDialog(tag.get_name());
-        string? new_name = dialog.execute();
-        if (new_name != null)
-            get_command_manager().execute(new RenameTagCommand(tag, new_name));
+        for (;;) {
+            RenameTagDialog dialog = new RenameTagDialog(tag.get_name());
+            string? new_name = dialog.execute();
+            if (new_name == null)
+                return;
+        
+            if (!Tag.global.exists(new_name)) {
+                get_command_manager().execute(new RenameTagCommand(tag, new_name));
+                
+                return;
+            }
+            
+            AppWindow.error_message(Resources.rename_tag_exists_message(new_name));
+        }
+        
+        
     }
     
     private void on_delete_tag() {
