@@ -1412,7 +1412,61 @@ public class ViewCollection : DataCollection {
         
         return (DataView?) get_at(index);
     }
+    
+    public bool get_immediate_neighbors(DataSource home, out DataSource? next, out DataSource? prev) {
+        DataView home_view = get_view_for_source(home);
+        if (home_view == null)
+            return false;
+        
+        DataView? next_view = get_next(home_view);
+        next = (next_view != null) ? next_view.get_source() : null;
+        
+        DataView? prev_view = get_previous(home_view);
+        prev = (prev_view != null) ? prev_view.get_source() : null;
 
+        return true;
+    }
+    
+    // "Extended" as in immediate neighbors and their neighbors.
+    public Gee.Set<DataSource> get_extended_neighbors(DataSource home) {
+        // build set of neighbors
+        Gee.Set<DataSource> neighbors = new Gee.HashSet<DataSource>();
+        
+        // immediate neighbors
+        DataSource next, prev;
+        if (!get_immediate_neighbors(home, out next, out prev))
+            return neighbors;
+        
+        // add next and its distant neighbor
+        if (next != null) {
+            neighbors.add(next);
+            
+            DataSource next_next, next_prev;
+            get_immediate_neighbors(next, out next_next, out next_prev);
+            
+            // only add next-next because next-prev is home
+            if (next_next != null)
+                neighbors.add(next_next);
+        }
+        
+        // add previous and its distant neighbor
+        if (prev != null) {
+            neighbors.add(prev);
+            
+            DataSource next_prev, prev_prev;
+            get_immediate_neighbors(prev, out next_prev, out prev_prev);
+            
+            // only add prev-prev because next-prev is home
+            if (prev_prev != null)
+                neighbors.add(prev_prev);
+        }
+        
+        // finally, in a small collection a neighbor could be home itself, so exclude it
+        neighbors.remove(home);
+        
+        return neighbors;
+    }
+    
     // Selects all the marked items.  The marker will be invalid after this call.
     public void select_marked(Marker marker) {
         Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();

@@ -1029,7 +1029,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         TransformablePhoto photo = (TransformablePhoto) get_view().get_selected_at(0).get_source();
         if (photo == null)
-            return;        
+            return;
         
         set_desktop_background(photo);
     }
@@ -1042,7 +1042,8 @@ public abstract class CollectionPage : CheckerboardPage {
         if (thumbnail == null)
             return;
         
-        AppWindow.get_instance().go_fullscreen(new SlideshowPage(get_view(), thumbnail));
+        AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_view(),
+            thumbnail.get_photo()));
     }
 
     private void on_view_menu() {

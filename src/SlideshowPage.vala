@@ -5,14 +5,20 @@
  */
 
 class SlideshowPage : SinglePhotoPage {
+    private const int READAHEAD_COUNT = 5;
     private const int CHECK_ADVANCE_MSEC = 250;
     
+    private enum Direction {
+        FORWARD,
+        BACKWARD
+    }
+    
+    private SourceCollection sources;
     private ViewCollection controller;
-    private Thumbnail current;
-    private Gdk.Pixbuf next_pixbuf = null;
-    private Thumbnail next_thumbnail = null;
+    private TransformablePhoto current;
     private Gtk.ToolButton play_pause_button;
     private Gtk.ToolButton settings_button;
+    private PixbufCache cache = null;
     private Timer timer = new Timer();
     private bool playing = true;
     private bool exiting = false;
@@ -45,7 +51,7 @@ class SlideshowPage : SinglePhotoPage {
 
             delay = delay.clamp(Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX);
             hscale.set_value(delay);
-        }        
+        }
 
         public SettingsDialog() {
             delay = Config.get_instance().get_slideshow_delay();
@@ -88,9 +94,10 @@ class SlideshowPage : SinglePhotoPage {
         }
     }
 
-    public SlideshowPage(ViewCollection controller, Thumbnail start) {
+    public SlideshowPage(SourceCollection sources, ViewCollection controller, TransformablePhoto start) {
         base(_("Slideshow"), true);
         
+        this.sources = sources;
         this.controller = controller;
         current = start;
         
@@ -101,7 +108,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label(_("Back"));
         previous_button.set_tooltip_text(_("Go to the previous photo"));
-        previous_button.clicked += on_previous_manual;
+        previous_button.clicked += on_previous;
         
         toolbar.insert(previous_button, -1);
         
@@ -115,7 +122,7 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
         next_button.set_label(_("Next"));
         next_button.set_tooltip_text(_("Go to the next photo"));
-        next_button.clicked += on_next_manual;
+        next_button.clicked += on_next;
         
         toolbar.insert(next_button, -1);
 
@@ -134,20 +141,19 @@ class SlideshowPage : SinglePhotoPage {
     
     public override void switched_to() {
         base.switched_to();
-
+        
+        // create a cache for the size of this display
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, get_canvas_scaling(),
+            READAHEAD_COUNT);
+        
         Gdk.Pixbuf pixbuf;
-        if (!get_fullscreen_pixbuf(current, true, out current, out pixbuf))
-            return;
-
-        set_pixbuf(pixbuf, current.get_photo().get_dimensions());
+        if (get_next_photo(current, Direction.FORWARD, out current, out pixbuf))
+            set_pixbuf(pixbuf, current.get_dimensions());
         
         // start the auto-advance timer
         Timeout.add(CHECK_ADVANCE_MSEC, auto_advance);
         timer.start();
         
-        // prefetch the next pixbuf so it's ready when auto-advance fires
-        schedule_prefetch();
-
 #if !WINDOWS
         screensaver.inhibit("Playing slideshow");
 #endif
@@ -163,58 +169,56 @@ class SlideshowPage : SinglePhotoPage {
         exiting = true;
     }
     
-    private void schedule_prefetch() {
-        next_pixbuf = null;
-        Idle.add(prefetch_next_pixbuf);
-    }
-
-    private bool get_fullscreen_pixbuf(Thumbnail start, bool forward, out Thumbnail next, out Gdk.Pixbuf next_pixbuf) {
+    private bool get_next_photo(TransformablePhoto start, Direction direction, out TransformablePhoto next, 
+        out Gdk.Pixbuf next_pixbuf) {
         next = start;
-
+        
         for (;;) {
             try {
                 // Fails if a photo source file is missing.
-                next_pixbuf = next.get_photo().get_pixbuf(Scaling.for_screen(get_container(), true));
+                next_pixbuf = cache.fetch(next);
             } catch (Error err) {
-                warning("%s", err.message);
-
-                // Look for the next good photo.
-                next = (Thumbnail) ((forward) ? controller.get_next(next) : controller.get_previous(next));
-
+                warning("Unable to fetch pixbuf for %s: %s", next.to_string(), err.message);
+                
+                // Look for the next good photo
+                DataView view = controller.get_view_for_source(next);
+                view = (direction == Direction.FORWARD) 
+                    ? controller.get_next(view) 
+                    : controller.get_previous(view);
+                next = (TransformablePhoto) view.get_source();
+                
                 // An entire slideshow set might be missing, so check for a loop.
                 if ((next == start && next != current) || next == current) {
-                    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_fullscreen(),
-                        Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "%s",
-                        _("All photo source files are missing."));
-                    dialog.title = Resources.APP_TITLE;
-                    dialog.run();
-                    dialog.destroy();
-
+                    AppWindow.error_message(_("All photo source files are missing."), get_container());
                     AppWindow.get_instance().end_fullscreen();
-
+                    
                     next = null;
                     next_pixbuf = null;
-
+                    
                     return false;
                 }
-
+                
                 continue;
             }
+            
+            // prefetch this photo's extended neighbors: the next photo highest priority, the prior
+            // one normal, and the extended neighbors lowest, to recognize immediate needs
+            DataSource forward, back;
+            controller.get_immediate_neighbors(next, out forward, out back);
+            cache.prefetch((TransformablePhoto) forward, BackgroundJob.JobPriority.HIGHEST);
+            cache.prefetch((TransformablePhoto) back, BackgroundJob.JobPriority.NORMAL);
+            
+            Gee.Set<DataSource> neighbors = controller.get_extended_neighbors(next);
+            neighbors.remove(forward);
+            neighbors.remove(back);
+            
+            cache.prefetch_many((Gee.Collection<TransformablePhoto>) neighbors,
+                BackgroundJob.JobPriority.LOWEST);
+            
             return true;
         }
     }
 
-    private bool prefetch_next_pixbuf() {
-        // if multiple prefetches get lined up in the queue, this stops them from doing multiple
-        // pipelines
-        if (next_pixbuf != null)
-            return false;
-        
-        get_fullscreen_pixbuf((Thumbnail) controller.get_next(current), true, out next_thumbnail, out next_pixbuf);
-        
-        return false;
-    }
-    
     private void on_play_pause() {
         if (playing) {
             play_pause_button.set_stock_id(Gtk.STOCK_MEDIA_PLAY);
@@ -232,48 +236,26 @@ class SlideshowPage : SinglePhotoPage {
         timer.start();
     }
     
-    private void on_previous_manual() {
-        manual_advance((Thumbnail) controller.get_previous(current), false);
+    private void on_previous() {
+        DataView view = controller.get_view_for_source(current);
+        advance((TransformablePhoto) controller.get_previous(view).get_source(), Direction.BACKWARD);
     }
     
-    private void on_next_automatic() {
-        current = ((current == next_thumbnail) ? (Thumbnail) controller.get_next(current) : next_thumbnail);
-        
-        // if prefetch didn't happen in time, get pixbuf now
-        Gdk.Pixbuf pixbuf = next_pixbuf;
-        if (pixbuf == null) {
-            warning("Slideshow prefetch was not ready");
-
-            get_fullscreen_pixbuf(current, true, out current, out pixbuf);
-        }
-        
-        if (pixbuf != null)
-            set_pixbuf(pixbuf, current.get_photo().get_dimensions());
-        
-        // reset the timer
-        timer.start();
-        
-        // prefetch the next pixbuf
-        schedule_prefetch();
+    private void on_next() {
+        DataView view = controller.get_view_for_source(current);
+        advance((TransformablePhoto) controller.get_next(view).get_source(), Direction.FORWARD);
     }
     
-    private void on_next_manual() {
-        manual_advance((Thumbnail) controller.get_next(current), true);
-    }
-    
-    private void manual_advance(Thumbnail thumbnail, bool forward) {
-        current = thumbnail;
+    private void advance(TransformablePhoto photo, Direction direction) {
+        current = photo;
         
         // set pixbuf
         Gdk.Pixbuf next_pixbuf;
-        get_fullscreen_pixbuf(current, forward, out current, out next_pixbuf);
-        set_pixbuf(next_pixbuf, current.get_photo().get_dimensions());
+        if (get_next_photo(current, direction, out current, out next_pixbuf))
+            set_pixbuf(next_pixbuf, current.get_dimensions());
         
         // reset the advance timer
         timer.start();
-        
-        // prefetch the next pixbuf
-        schedule_prefetch();
     }
 
     private bool auto_advance() {
@@ -286,7 +268,7 @@ class SlideshowPage : SinglePhotoPage {
         if (timer.elapsed() < Config.get_instance().get_slideshow_delay())
             return true;
         
-        on_next_automatic();
+        on_next();
         
         return true;
     }
@@ -300,12 +282,12 @@ class SlideshowPage : SinglePhotoPage {
             
             case "Left":
             case "KP_Left":
-                on_previous_manual();
+                on_previous();
             break;
             
             case "Right":
             case "KP_Right":
-                on_next_manual();
+                on_next();
             break;
             
             default:

@@ -515,6 +515,7 @@ public abstract class AppWindow : PageWindow {
         show_all();
         
         fullscreen_window.hide();
+        fullscreen_window.destroy();
         fullscreen_window = null;
         
         if (get_current_page() != null)

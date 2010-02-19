@@ -40,7 +40,7 @@ public class PixbufCache {
             Scaling scaling, CompletionCallback callback, Cancellable cancellable) {
             base(owner, priority, photo, scaling, callback, cancellable);
         }
-    
+        
         public override void execute() {
             try {
                 pixbuf = photo.get_pixbuf(scaling);
@@ -55,7 +55,7 @@ public class PixbufCache {
             Scaling scaling, CompletionCallback callback, Cancellable cancellable) {
             base(owner, priority, photo, scaling, callback, cancellable);
         }
-    
+        
         public override void execute() {
             try {
                 pixbuf = photo.get_original_pixbuf(scaling);
@@ -96,7 +96,9 @@ public class PixbufCache {
     }
     
     ~PixbufCache() {
+#if TRACE_PIXBUF_CACHE
         debug("Freeing %d pixbufs and cancelling %d jobs", cache.size, in_progress.size);
+#endif
         
         sources.item_altered -= on_source_altered;
         sources.items_removed -= on_sources_removed;
@@ -118,8 +120,17 @@ public class PixbufCache {
     // be cached.  No signal is fired.
     public Gdk.Pixbuf? fetch(TransformablePhoto photo) throws Error {
         Gdk.Pixbuf pixbuf = get_cached(photo);
-        if (pixbuf != null)
+        if (pixbuf != null) {
+#if TRACE_PIXBUF_CACHE
+            debug("Fetched in-memory pixbuf for %s @ %s", photo.to_string(), scaling.to_string());
+#endif
+            
             return pixbuf;
+        }
+        
+#if TRACE_PIXBUF_CACHE
+        debug("Forced to make a blocking fetch of %s @ %s", photo.to_string(), scaling.to_string());
+#endif
         
         pixbuf = photo.get_pixbuf(scaling);
         
@@ -167,6 +178,14 @@ public class PixbufCache {
         background_workers.enqueue(job);
     }
     
+    // This call signals the cache to pre-load the pixbufs for all supplied photos.  Each fires
+    // the fetch signal as they arrive.
+    public void prefetch_many(Gee.Collection<TransformablePhoto> photos,
+        BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
+        foreach (TransformablePhoto photo in photos)
+            prefetch(photo, priority, force);
+    }
+    
     public bool cancel_prefetch(TransformablePhoto photo) {
         Cancellable cancellable = in_progress.get(photo);
         if (cancellable == null)
@@ -178,10 +197,17 @@ public class PixbufCache {
         
         cancellable.cancel();
         
+#if TRACE_PIXBUF_CACHE
+        debug("Cancelled prefetch of %s @ %s", photo.to_string(), scaling.to_string());
+#endif
+        
         return true;
     }
     
     public void cancel_all() {
+#if TRACE_PIXBUF_CACHE
+        debug("Cancelling prefetch of %d photos at %s", in_progress.values.size, scaling.to_string());
+#endif
         foreach (Cancellable cancellable in in_progress.values)
             cancellable.cancel();
         
@@ -220,7 +246,9 @@ public class PixbufCache {
         
         decache(photo);
         
-        debug("Re-fetching altered pixbuf from cache: %s", photo.to_string());
+#if TRACE_PIXBUF_CACHE
+        debug("Re-fetching altered pixbuf from cache: %s @ %s", photo.to_string(), scaling.to_string());
+#endif
         
         prefetch(photo, BackgroundJob.JobPriority.HIGH);
     }

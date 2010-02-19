@@ -249,73 +249,23 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-    private bool get_immediate_neighbors(ViewCollection controller, TransformablePhoto photo, 
-        out TransformablePhoto? next, out TransformablePhoto? prev) {
-        DataView photo_view = controller.get_view_for_source(photo);
-        if (photo_view == null)
-            return false;
-        
-        DataView? next_view = controller.get_next(photo_view);
-        next = (next_view != null) ? (TransformablePhoto) next_view.get_source() : null;
-        
-        DataView? prev_view = controller.get_previous(photo_view);
-        prev = (prev_view != null) ? (TransformablePhoto) prev_view.get_source() : null;
-
-        return true;
-    }
-    
-    private Gee.Set<TransformablePhoto> get_extended_neighbors(ViewCollection controller,
-        TransformablePhoto photo) {
-        // build list of new neighbors
-        Gee.Set<TransformablePhoto> neighbors = new Gee.HashSet<TransformablePhoto>();
-        
-        // immediate neighbors
-        TransformablePhoto next, prev;
-        if (!get_immediate_neighbors(controller, photo, out next, out prev))
-            return neighbors;
-        
-        // add next and its distant neighbor
-        if (next != null) {
-            neighbors.add(next);
-            
-            TransformablePhoto next_next, next_prev;
-            get_immediate_neighbors(controller, next, out next_next, out next_prev);
-            
-            // only add next-next because next-prev is this photo
-            if (next_next != null)
-                neighbors.add(next_next);
-        }
-        
-        // add previous and its distant neighbor
-        if (prev != null) {
-            neighbors.add(prev);
-            
-            TransformablePhoto next_prev, prev_prev;
-            get_immediate_neighbors(controller, prev, out next_prev, out prev_prev);
-            
-            // only add prev-prev because next-prev is this photo
-            if (prev_prev != null)
-                neighbors.add(prev_prev);
-        }
-        
-        // finally, in a small collection a neighbor could be this photo itself, so exclude it
-        neighbors.remove(photo);
-        
-        return neighbors;
-    }
-    
     private void prefetch_neighbors(ViewCollection controller, TransformablePhoto photo) {
         cache.prefetch(photo, BackgroundJob.JobPriority.HIGHEST);
 
         if (photo.has_transformations())
             original_cache.prefetch(photo, BackgroundJob.JobPriority.LOW);
 
-        TransformablePhoto next, prev;
-        if (!get_immediate_neighbors(controller, photo, out next, out prev))
+        DataSource next_source, prev_source;
+        if (!controller.get_immediate_neighbors(photo, out next_source, out prev_source))
             return;
         
+        TransformablePhoto next = (TransformablePhoto) next_source;
+        TransformablePhoto prev = (TransformablePhoto) prev_source;
+        
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
-        foreach (TransformablePhoto neighbor in get_extended_neighbors(controller, photo)) {
+        foreach (DataSource neighbor_source in controller.get_extended_neighbors(photo)) {
+            TransformablePhoto neighbor = (TransformablePhoto) neighbor_source;
+            
             BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL;
             if (neighbor.equals(next) || neighbor.equals(prev))
                 priority = BackgroundJob.JobPriority.HIGH;
@@ -331,10 +281,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     // neighbors
     private void cancel_prefetch_neighbors(ViewCollection old_controller, TransformablePhoto old_photo,
         ViewCollection new_controller, TransformablePhoto new_photo) {
-        Gee.Set<TransformablePhoto> old_neighbors = get_extended_neighbors(old_controller,
-            old_photo);
-        Gee.Set<TransformablePhoto> new_neighbors = get_extended_neighbors(new_controller,
-            new_photo);
+        Gee.Set<TransformablePhoto> old_neighbors = (Gee.Set<TransformablePhoto>)
+            old_controller.get_extended_neighbors(old_photo);
+        Gee.Set<TransformablePhoto> new_neighbors = (Gee.Set<TransformablePhoto>)
+            new_controller.get_extended_neighbors(new_photo);
         
         foreach (TransformablePhoto old_neighbor in old_neighbors) {
             // cancel prefetch and drop from cache if old neighbor is not part of the new
