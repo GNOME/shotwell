@@ -64,6 +64,32 @@ public class TagSourceCollection : DatabaseSourceCollection {
         base.notify_items_removed(removed);
     }
     
+    public override void notify_item_altered(DataObject item) {
+        Tag tag = (Tag) item;
+        
+        string? old_name = null;
+        
+        // look for this tag being renamed
+        Gee.MapIterator<string, Tag> iter = map.map_iterator();
+        while (iter.next()) {
+            if (!iter.get_value().equals(tag))
+                continue;
+            
+            old_name = iter.get_key();
+            
+            break;
+        }
+        
+        assert(old_name != null);
+        
+        if (tag.get_name() != old_name) {
+            map.unset(old_name);
+            map.set(tag.get_name(), tag);
+        }
+        
+        base.notify_item_altered(item);
+    }
+    
     public virtual void notify_item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
         item_contents_added(tag, photos);
     }
