@@ -35,13 +35,15 @@ public class Thumbnail : CheckerboardItem {
         this.scale = scale;
         
         set_title(photo.get_name());
-        set_subtitle(get_tags_subtitle(photo), true);
+        update_tags();
         
         original_dim = photo.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
         // if the photo's tags changes, update it here
         Tag.global.item_contents_altered += on_tag_contents_altered;
+        Tag.global.items_added += on_tags_added;
+        Tag.global.item_altered += on_tag_altered;
     }
 
     ~Thumbnail() {
@@ -49,13 +51,17 @@ public class Thumbnail : CheckerboardItem {
             cancellable.cancel();
         
         Tag.global.item_contents_altered -= on_tag_contents_altered;
+        Tag.global.item_altered += on_tag_altered;
     }
     
-    private static string get_tags_subtitle(LibraryPhoto photo) {
+    private void update_tags() {
         Gee.Collection<Tag> tags = Tag.get_sorted_tags(photo);
         int count = tags.size;
-        if (count == 0)
-            return "";
+        if (count == 0) {
+            set_subtitle("", false);
+            
+            return;
+        }
         
         StringBuilder builder = new StringBuilder("<small>");
         int ctr = 0;
@@ -66,7 +72,7 @@ public class Thumbnail : CheckerboardItem {
         }
         builder.append("</small>");
         
-        return builder.str;
+        set_subtitle(builder.str, true);
     }
     
     private void on_tag_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
@@ -76,7 +82,27 @@ public class Thumbnail : CheckerboardItem {
         
         // if photo we're monitoring is added or removed to any tag, update tag list
         if (tag_added || tag_removed)
-            set_subtitle(get_tags_subtitle(photo), true);
+            update_tags();
+    }
+    
+    private void on_tags_added(Gee.Iterable<DataObject> added) {
+        foreach (DataObject object in added) {
+            Tag tag = (Tag) object;
+            
+            if (tag.get_photos().contains(photo)) {
+                update_tags();
+                
+                // only need to update once
+                break;
+            }
+        }
+    }
+    
+    private void on_tag_altered(DataObject source) {
+        Tag tag = (Tag) source;
+        
+        if (tag.get_photos().contains(photo))
+            update_tags();
     }
     
     public LibraryPhoto get_photo() {

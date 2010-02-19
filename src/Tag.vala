@@ -350,8 +350,8 @@ public class Tag : DataSource, Proxyable {
         return photos.get_count();
     }
     
-    public Gee.Iterable<LibraryPhoto> get_photos() {
-        return (Gee.Iterable<LibraryPhoto>) photos.get_sources();
+    public Gee.Collection<LibraryPhoto> get_photos() {
+        return (Gee.Collection<LibraryPhoto>) photos.get_sources();
     }
     
     public void mirror_photos(ViewCollection view, CreateView mirroring_ctor) {
@@ -422,6 +422,23 @@ public class Tag : DataSource, Proxyable {
     }
     
     public override void destroy() {
+        // detach all remaining photos from the tag, so observers are informed ... need to detach
+        // the contents_altered handler because it will destroy this object when photos is empty,
+        // which is bad reentrancy mojo (but hook it back up for the dtor's sake)
+        if (photos.get_count() > 0) {
+            photos.contents_altered -= on_photos_contents_altered;
+            
+            Gee.ArrayList<LibraryPhoto> removed = new Gee.ArrayList<LibraryPhoto>();
+            removed.add_all((Gee.Collection<LibraryPhoto>) photos.get_sources());
+            
+            photos.clear();
+            
+            global.notify_item_contents_removed(this, removed);
+            global.notify_item_contents_altered(this, null, removed);
+            
+            photos.contents_altered += on_photos_contents_altered;
+        }
+        
         try {
             TagTable.get_instance().remove(row.tag_id);
         } catch (DatabaseError err) {
