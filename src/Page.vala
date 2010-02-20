@@ -969,14 +969,14 @@ public abstract class CheckerboardPage : Page {
                     if (event.type == Gdk.EventType.2BUTTON_PRESS) {
                         on_item_activated(item);
                     } else {
-                        // if user has selected multiple items and is preparing for a drag, don't
-                        // want to unselect immediately, otherwise, let the released handler deal
-                        // with it
-                        if (get_view().get_selected_count() == 1)
+                        // if the user has selected one or more items and is preparing for a drag,
+                        // don't want to blindly unselect: if they've clicked on an unselected item
+                        // unselect all and select that one; if they've clicked on a previously
+                        // selected item, do nothing
+                        if (!item.is_selected()) {
                             get_view().unselect_all();
-                        
-                        Marker marker = get_view().mark(item);
-                        get_view().select_marked(marker);
+                            get_view().select_marked(get_view().mark(item));
+                        }
                     }
 
                     anchor = item;
