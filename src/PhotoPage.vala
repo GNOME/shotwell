@@ -1170,7 +1170,12 @@ public class LibraryPhotoPage : EditingHostPage {
         base(LibraryPhoto.global, "Photo");
 
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
-
+        
+#if !NO_PUBLISHING
+        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PublishPlaceholder", "Publish",
+            "Publish", Gtk.UIManagerItemType.MENUITEM, false);
+#endif
+        
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
         // watch for photos being destroyed, either here or in other pages
@@ -1186,7 +1191,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
         file.label = _("_File");
         actions += file;
 
@@ -1206,6 +1211,13 @@ public class LibraryPhotoPage : EditingHostPage {
         print.label = _("Prin_t...");
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
+        
+#if !NO_PUBLISHING
+        Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
+            TRANSLATABLE, on_publish };
+        // label and tooltip set when menu activated
+        actions += publish;
+#endif
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
@@ -1490,6 +1502,24 @@ public class LibraryPhotoPage : EditingHostPage {
             AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
         }
     }
+    
+    private void on_file_menu() {
+#if !NO_PUBLISHING
+        set_item_display("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", Resources.publish_menu(1),
+            Resources.publish_tooltip(1), has_photo());
+#endif
+    }
+    
+#if !NO_PUBLISHING
+    private void on_publish() {
+        if (get_view().get_count() == 0)
+            return;
+        
+        PublishingDialog publishing_dialog = new PublishingDialog(
+            (Gee.Iterable<DataView>) get_view().get_all(), 1);
+        publishing_dialog.run();
+    }
+#endif
     
     private void on_edit_menu() {
         decorate_undo_item("/PhotoMenuBar/EditMenu/Undo");

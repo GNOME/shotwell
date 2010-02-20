@@ -126,7 +126,7 @@ public abstract class CollectionPage : CheckerboardPage {
         // publish button
         publish_button = new Gtk.ToolButton.from_stock(Resources.PUBLISH);
         publish_button.set_label(Resources.PUBLISH_LABEL);
-        publish_button.set_tooltip_text(Resources.PUBLISH_TOOLTIP);
+        publish_button.set_tooltip_text(Resources.publish_tooltip(0));
         publish_button.set_sensitive(false);
         publish_button.is_important = true;
         publish_button.clicked += on_publish;
@@ -192,8 +192,7 @@ public abstract class CollectionPage : CheckerboardPage {
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
-        publish.label = Resources.PUBLISH_MENU;
-        publish.tooltip = Resources.PUBLISH_LABEL;
+        // label and tooltip set when menu is activated
         actions += publish;
 #endif
 
@@ -453,6 +452,7 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
 #if !NO_PUBLISHING
         publish_button.set_sensitive(get_view().get_selected_count() > 0);
+        publish_button.set_tooltip_text(Resources.publish_tooltip(get_view().get_selected_count()));
 #endif
         enhance_button.sensitive = get_view().get_selected_count() > 0;
         
@@ -679,14 +679,13 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_file_menu() {
-        bool publishable_exportable = get_view().get_selected_count() > 0;
-        bool printable = get_view().get_selected_count() == 1;
+        int count = get_view().get_selected_count();
 
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Print", printable);
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", publishable_exportable);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Print", count == 1);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", count > 0);
 #if !NO_PUBLISHING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish",
-            publishable_exportable);
+        set_item_display("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish",
+            Resources.publish_menu(count), Resources.publish_tooltip(count), count > 0);
 #endif
     }
     
@@ -910,6 +909,9 @@ public abstract class CollectionPage : CheckerboardPage {
 
 #if !NO_PUBLISHING
     private void on_publish() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
         PublishingDialog publishing_dialog = new PublishingDialog(get_view().get_selected(),
             get_view().get_selected_count());
         publishing_dialog.run();

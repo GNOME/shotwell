@@ -8,6 +8,8 @@
             <menuitem name="PageSetup" action="PageSetup" />
             <menuitem name="Print" action="Print" />
             <separator />
+            <placeholder name="PublishPlaceholder"/>
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

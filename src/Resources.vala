@@ -149,10 +149,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string DUPLICATE_PHOTO_MENU = _("_Duplicate");
     public const string DUPLICATE_PHOTO_LABEL = _("Duplicate");
     public const string DUPLICATE_PHOTO_TOOLTIP = _("Make a duplicate of the photo");
-
-    public const string PUBLISH_MENU = _("_Publish Photos...");
+    
+    public string publish_menu(int count) {
+        return ngettext("_Publish Photo...", "_Publish Photos...", count);
+    }
+    
     public const string PUBLISH_LABEL = _("Publish");
-    public const string PUBLISH_TOOLTIP = _("Publish the selected photos to various websites");
+    
+    public string publish_tooltip(int count) {
+        return ngettext("Publish the photo to various websites", "Publish the selected photos to various websites",
+            count);
+    }
 
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
