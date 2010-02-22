@@ -10,6 +10,8 @@ namespace Exif {
     
     // Caller must set Entry.data with one of the various convert functions.
     public Exif.Entry alloc_entry(Data exif, Tag tag, Format format) {
+        assert(exif.get_data_type().is_valid());
+        
         // the recipe for alloc'ing an entry: allocate, add to parent, initialize.  Parent is
         // required for initialize() to know the byte-order.  First, find the IFD that the
         // entry should be placed in.
@@ -436,6 +438,10 @@ public class PhotoExif  {
             throw new ExifError.FILE_FORMAT("EXIF not found in %s", file.get_path());
         
         exif = Exif.Data.new_from_data(raw, raw_length);
+        // TODO: Assuming JPEG; in future, will need to detect file type and select proper
+        // image data arrangement (note that new_from_data(), new_from_file(), and the other
+        // variants don't set this automatically)
+        exif.set_data_type(Exif.DataType.COMPRESSED);
         
         // fix now, all at once
         exif.fix();

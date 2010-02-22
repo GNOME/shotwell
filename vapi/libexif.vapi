@@ -123,7 +123,20 @@ namespace Exif {
         UNCOMPRESSED_CHUNKY,
         UNCOMPRESSED_PLANAR,
         UNCOMPRESSED_YCC,
-        COMPRESSED
+        COMPRESSED;
+        
+        public bool is_valid() {
+            switch (this) {
+                case UNCOMPRESSED_CHUNKY:
+                case UNCOMPRESSED_PLANAR:
+                case UNCOMPRESSED_YCC:
+                case COMPRESSED:
+                    return true;
+                
+                default:
+                    return false;
+            }
+        }
     }
     
     [CCode (cname="EXIF_DATA_TYPE_COUNT")]
