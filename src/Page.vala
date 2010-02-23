@@ -793,7 +793,11 @@ public abstract class CheckerboardPage : Page {
    
     public Gtk.Menu? get_context_menu() {
         // show page context menu if nothing is selected
-        return (get_view().get_selected_count() != 0) ? item_context_menu : page_context_menu;
+        return (get_view().get_selected_count() != 0) ? get_item_context_menu() : get_page_context_menu();
+    }
+    
+    public virtual Gtk.Menu? get_item_context_menu() {
+        return item_context_menu;
     }
     
     public override Gtk.Menu? get_page_context_menu() {
