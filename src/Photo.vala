@@ -1586,7 +1586,7 @@ public abstract class TransformablePhoto: PhotoSource {
             dest_dir.make_directory_with_parents(null);
         
         File original_file = get_file();
-        Exif.Data original_exif = get_exif();
+        Exif.Data? original_exif = get_exif();
         
         if (only_exif_changed()) {
             original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
@@ -1616,9 +1616,11 @@ public abstract class TransformablePhoto: PhotoSource {
     public virtual void export_failed() {
     }
     
-    public static void copy_exported_exif(Exif.Data source, PhotoExif dest, Orientation orientation,
-        Dimensions dim, time_t timestamp) throws Error {
-        dest.set_exif(source);
+    public static void copy_exported_exif(Exif.Data? source, PhotoExif dest, 
+        Orientation orientation, Dimensions dim, time_t timestamp) throws Error {
+        if (source != null)
+            dest.set_exif(source);
+
         dest.set_dimensions(dim);
         dest.set_orientation(orientation);
         dest.set_timestamp(timestamp);
