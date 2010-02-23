@@ -20,7 +20,7 @@ public class CameraTable {
     private const int UPDATE_DELAY_MSEC = 500;
     
     // list of subsystems being monitored for events
-    private const string[] SUBSYSTEMS = { "usb", null };
+    private const string[] SUBSYSTEMS = { "usb", "block", null };
     
     private static CameraTable instance = null;
     
