@@ -643,11 +643,13 @@ public abstract class CollectionPage : CheckerboardPage {
         switch (Gdk.keyval_name(event.keyval)) {
             case "equal":
             case "plus":
+            case "KP_Add":
                 on_increase_size();
             break;
             
             case "minus":
             case "underscore":
+            case "KP_Subtract":
                 on_decrease_size();
             break;
             
