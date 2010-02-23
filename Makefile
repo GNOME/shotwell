@@ -362,8 +362,7 @@ endif
 	$(EXPANDED_SRC_FILES)
 	touch $@
 
-# Do not remove hard tab or at symbol; necessary for dependencies to complete.  (Possible make
-# bug.)
+# Do not remove hard tab or at symbol; necessary for dependencies to complete.
 $(EXPANDED_C_FILES): $(VALA_STAMP)
 	@
 
