@@ -864,7 +864,7 @@ public abstract class CollectionPage : CheckerboardPage {
             return;
         
         Gtk.ResponseType result = remove_photos_dialog(get_page_window(), 
-            get_view().get_selected_count() > 1);
+            get_view().get_selected_count());
         if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
             return;
         

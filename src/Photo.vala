@@ -2173,7 +2173,7 @@ public class LibraryPhoto : TransformablePhoto {
         File file = get_file();
         
         try {
-            file.delete(null);
+            file.trash(null);
         } catch (Error err) {
             // log error but don't abend, as this is not fatal to operation (also, could be
             // the photo is removed because it could not be found during a verify)

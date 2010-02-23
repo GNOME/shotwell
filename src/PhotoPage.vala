@@ -1448,7 +1448,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (photo == null)
             return;
         
-        Gtk.ResponseType response = remove_photos_dialog(get_page_window(), false);
+        Gtk.ResponseType response = remove_photos_dialog(get_page_window(), 1);
         if (response != Gtk.ResponseType.YES && response != Gtk.ResponseType.NO)
             return;
         
