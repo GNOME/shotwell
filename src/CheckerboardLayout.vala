@@ -310,7 +310,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         // accounted for in allocation so the frame can appear without resizing the item
         if (is_selected())
             drawable.draw_rectangle(gc, false, allocation.x, allocation.y, allocation.width - 1,
-                allocation.height - 1);
+                pixbuf_dim.height + (FRAME_PADDING * 2) + FRAME_WIDTH);
         
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
@@ -331,7 +331,8 @@ public abstract class CheckerboardItem : ThumbnailView {
         int image_width = int.max(trinkets_width, pixbuf_dim.width);
         
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
-        int text_y = allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + LABEL_PADDING;
+        int text_y = allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + FRAME_PADDING
+            + FRAME_WIDTH + LABEL_PADDING;
         if (title != null && title_visible) {
             // get the layout sized so its with is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
