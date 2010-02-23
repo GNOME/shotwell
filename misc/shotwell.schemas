@@ -48,7 +48,7 @@
             <applyto>/apps/shotwell/preferences/ui/display_photo_tags</applyto>
             <type>bool</type>
             <owner>shotwell</owner>
-            <default>false</default>
+            <default>true</default>
             
             <locale name="en">
                 <short>photo tags display bool</short>

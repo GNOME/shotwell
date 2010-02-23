@@ -42,6 +42,9 @@ public class Config {
     
     private bool get_bool(string path, bool def) {
         try {
+            if (client.get(path) == null)
+                return def;
+            
             return client.get_bool(path);
         } catch (Error err) {
             report_get_error(path, err);
@@ -64,6 +67,9 @@ public class Config {
     
     private int get_int(string path, int def) {
         try {
+            if (client.get(path) == null)
+                return def;
+            
             int value = client.get_int(path);
             
             return (value != 0.0) ? value : def;
@@ -88,6 +94,9 @@ public class Config {
     
     private double get_double(string path, double def) {
         try {
+            if (client.get(path) == null)
+                return def;
+            
             double value = client.get_float(path);
             
             return (value != 0.0) ? value : def;
@@ -112,9 +121,12 @@ public class Config {
     
     private string? get_string(string path, string? def = null) {
         try {
+            if (client.get(path) == null)
+                return def;
+            
             string stored = client.get_string(path);
             
-            return (stored == null || stored.length == 0) ? null : stored;
+            return is_string_empty(stored) ? null : stored;
         } catch (Error err) {
             report_get_error(path, err);
             
@@ -337,7 +349,7 @@ public class Config {
     }
     
     public bool get_display_photo_tags() {
-        return get_bool("/apps/shotwell/preferences/ui/display_photo_tags", false);
+        return get_bool("/apps/shotwell/preferences/ui/display_photo_tags", true);
     }
     
     public bool set_display_photo_tags(bool display) {

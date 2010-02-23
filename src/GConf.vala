@@ -41,6 +41,17 @@ class Client {
         output.puts(key_file.to_data());
     }
     
+    // This doesn't actually return the GConf.Value and should not be used that way.  This merely
+    // returns null or non-null to indicate key existance, which Config uses to determine if the
+    // default should be returned.
+    public Value? get(string key) throws Error {
+        // valac complains about using a ternary here
+        if (key_file.has_key(DATA, key))
+            return Value(0);
+        else
+            return null;
+    }
+    
     public bool get_bool(string key) throws Error {
         // The KeyFile.get_xxx() methods throws an error when a key is absent,
         // but the GConf.get_xxx() methods return a default value without error in this case.
