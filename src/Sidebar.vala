@@ -72,7 +72,7 @@ public class Sidebar : Gtk.TreeView {
         selection.set_select_function(on_selection, null);
 
         enable_model_drag_dest(LibraryWindow.DEST_TARGET_ENTRIES, Gdk.DragAction.ASK);
-
+        
         popup_menu += on_context_menu_keypress;
     }
     
@@ -475,5 +475,25 @@ public class Sidebar : Gtk.TreeView {
         }
 
         drop_received(context, x, y, selection_data, info, time, path, page);
+    }
+
+    private override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
+        // call the base signal to get rows with children to spring open
+        base.drag_motion(context, x, y, time);
+
+        Gtk.TreePath path = null;
+        Gtk.TreeViewDropPosition pos;
+        
+        bool has_dest = get_dest_row_at_pos(x, y, out path, out pos);
+        
+        // we don't want to insert between rows, only select the rows themselves
+        if (pos == Gtk.TreeViewDropPosition.BEFORE)
+            set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_BEFORE);
+        else if (pos == Gtk.TreeViewDropPosition.AFTER)
+            set_drag_dest_row(path, Gtk.TreeViewDropPosition.INTO_OR_AFTER);
+
+        Gdk.drag_status(context, context.suggested_action, time);
+
+        return has_dest;
     }
 }
