@@ -74,8 +74,8 @@
         </menu>
         
         <menu name="TagsMenu" action="TagsMenu">
-            <menuitem name="NewTag" action="NewTag" />
-            <menuitem name="SetTags" action="SetTags" />
+            <menuitem name="AddTags" action="AddTags" />
+            <menuitem name="ModifyTags" action="ModifyTags" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -92,8 +92,8 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
-        <menuitem name="ContextNewTag" action="NewTag" />
-        <menuitem name="ContextSetTags" action="SetTags" />
+        <menuitem name="ContextAddTags" action="AddTags" />
+        <menuitem name="ContextModifyTags" action="ModifyTags" />
         <placeholder name="ContextTagsPlaceholder" />
         <separator />
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />

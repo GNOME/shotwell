@@ -165,12 +165,17 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     public const string ADJUST_DATE_TIME_TOOLTIP = _("Adjust date and time of selected photos");
     
-    public const string NEW_TAG_MENU = _("New _Tag...");
-    public const string NEW_TAG_TITLE = _("New Tag");
-    public const string NEW_TAG_TOOLTIP = _("Create a new tag for the selected photos");
+    public const string ADD_TAGS_MENU = _("Add _Tags...");
+    public const string ADD_TAGS_TITLE = _("Add Tags");
+    public const string ADD_TAGS_TOOLTIP = _("Add one or more tags to the selected photos");
     
-    public string new_tag_label(string name) {
-        return _("New Tag \"%s\"").printf(name);
+    public string add_tags_label(string[] names) {
+        if (names.length == 1)
+            return _("Add Tag \"%s\"").printf(names[0]);
+        else if (names.length == 2)
+            return _("Add Tags \"%s\" and \"%s\"").printf(names[0], names[1]);
+        else
+            return _("Add Tags");
     }
     
     public string delete_tag_menu(string name) {
@@ -202,9 +207,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string RENAME_TAG_TITLE = _("Rename Tag");
     
-    public const string SET_TAGS_MENU = _("_Set Tags...");
-    public const string SET_TAGS_LABEL = _("Set Tags");
-    public const string SET_TAGS_TOOLTIP = _("Tag photo with labels");
+    public const string MODIFY_TAGS_MENU = _("_Modify Tags...");
+    public const string MODIFY_TAGS_LABEL = _("Modify Tags");
+    public const string MODIFY_TAGS_TOOLTIP = _("Modify the tags for this photo");
     
     public string tag_photos_label(string name, int count) {
         return ngettext("Tag Photo as \"%s\"", "Tag Photos as \"%s\"", count).printf(name);

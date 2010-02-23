@@ -269,11 +269,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
         
-        Gtk.ActionEntry set_tag = { "SetTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, on_set_tag };
-        set_tag.label = Resources.SET_TAGS_MENU;
-        set_tag.tooltip = Resources.SET_TAGS_TOOLTIP;
-        actions += set_tag;
-        
         Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
             "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
         favorite.label = Resources.FAVORITE_MENU;
@@ -322,10 +317,17 @@ public abstract class CollectionPage : CheckerboardPage {
         tags.label = _("Ta_gs");
         actions += tags;
         
-        Gtk.ActionEntry new_tag = { "NewTag", null, TRANSLATABLE, null, null, on_new_tag };
-        new_tag.label = Resources.NEW_TAG_MENU;
-        new_tag.tooltip = Resources.NEW_TAG_TOOLTIP;
-        actions += new_tag;
+        Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
+            on_add_tags };
+        add_tags.label = Resources.ADD_TAGS_MENU;
+        add_tags.tooltip = Resources.ADD_TAGS_TOOLTIP;
+        actions += add_tags;
+        
+        Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
+            on_modify_tags };
+        modify_tags.label = Resources.MODIFY_TAGS_MENU;
+        modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
+        actions += modify_tags;
         
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
@@ -515,7 +517,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextSetTags", one_selected);
+        set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
 
 #if WINDOWS
         set_item_sensitive("/CollectionContextMenu/ContextSetBackground", false);
@@ -790,8 +792,8 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     protected virtual void on_tags_menu() {
-        set_item_sensitive("/CollectionMenuBar/TagsMenu/NewTag", get_view().get_selected_count() > 0);
-        set_item_sensitive("/CollectionMenuBar/TagsMenu/SetTags", get_view().get_selected_count() == 1);
+        set_item_sensitive("/CollectionMenuBar/TagsMenu/AddTags", get_view().get_selected_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/TagsMenu/ModifyTags", get_view().get_selected_count() == 1);
     }
     
     private void on_select_all() {
@@ -954,7 +956,7 @@ public abstract class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
-    private void on_set_tag() {
+    private void on_modify_tags() {
         if (get_view().get_selected_count() != 1)
             return;
         
@@ -968,7 +970,7 @@ public abstract class CollectionPage : CheckerboardPage {
         foreach (Tag tag in tags)
             tag_names += tag.get_name();
         
-        SetTagsDialog dialog = new SetTagsDialog(tag_names);
+        ModifyTagsDialog dialog = new ModifyTagsDialog(tag_names);
         tag_names = dialog.execute();
         if (tag_names == null)
             return;
@@ -978,7 +980,7 @@ public abstract class CollectionPage : CheckerboardPage {
         foreach (string name in tag_names)
             new_tags.add(Tag.for_name(name));
         
-        get_command_manager().execute(new EditTagsCommand(photo, new_tags));
+        get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
     
     private void on_favorite_unfavorite() {
@@ -1298,14 +1300,14 @@ public abstract class CollectionPage : CheckerboardPage {
             get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
     }
     
-    private void on_new_tag() {
+    private void on_add_tags() {
         if (get_view().get_selected_count() == 0)
             return;
         
-        NewTagDialog dialog = new NewTagDialog();
-        string? name = dialog.execute();
-        if (name != null) {
-            get_command_manager().execute(new NewTagCommand(name, 
+        AddTagsDialog dialog = new AddTagsDialog();
+        string[]? names = dialog.execute();
+        if (names != null) {
+            get_command_manager().execute(new AddTagsCommand(names, 
                 (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
         }
     }

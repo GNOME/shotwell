@@ -900,35 +900,27 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
     dialog.destroy();
 }
 
-public class NewTagDialog : TextEntryDialog {
-    public NewTagDialog() {
-        base (Resources.NEW_TAG_TITLE, _("Tag:"));
+public class AddTagsDialog : TextEntryDialog {
+    public AddTagsDialog() {
+        base (Resources.ADD_TAGS_TITLE, _("Tags (separated by commas):"));
     }
     
-    public string? execute() {
-        string? name = _execute();
-        if (name == null)
+    public string[]? execute() {
+        string? text = _execute();
+        if (text == null)
             return null;
         
         // only want to return null if the user chose cancel, however, on_modify_validate ensures
-        // that prep_tag_name won't return null
-        return Tag.prep_tag_name(name);
-    }
-    
-    protected override bool on_ok_validate(string text) {
-        string prepped = Tag.prep_tag_name(text);
-        
-        if (!Tag.global.exists(prepped))
-            return true;
-        
-        AppWindow.error_message(_("A tag named \"%s\" already exists.  Please choose a new tag name.").printf(prepped),
-            this);
-        
-        return false;
+        // that Tag.prep_tag_names won't return a zero-length array (and it never returns null)
+        return Tag.prep_tag_names(text.split(","));
     }
     
     protected override bool on_modify_validate(string text) {
-        return Tag.prep_tag_name(text) != null;
+        // Can't simply call Tag.prep_tag_names().length because of this bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=609440
+        string[] names = Tag.prep_tag_names(text.split(","));
+        
+        return names.length > 0;
     }
 }
 
@@ -958,9 +950,9 @@ public class RenameTagDialog : TextEntryDialog {
     }
 }
 
-public class SetTagsDialog : TextEntryDialog {
-    public SetTagsDialog(string[]? current_tags) {
-        base (Resources.SET_TAGS_LABEL, _("Tags (separated by commas):"), get_initial_text(current_tags));
+public class ModifyTagsDialog : TextEntryDialog {
+    public ModifyTagsDialog(string[]? current_tags) {
+        base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), get_initial_text(current_tags));
     }
     
     private static string? get_initial_text(string[]? tags) {

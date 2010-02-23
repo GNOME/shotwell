@@ -219,7 +219,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         rename.tooltip = Resources.RENAME_EVENT_TOOLTIP;
         actions += rename;
        
-        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE,
+        Gtk.ActionEntry merge = { "Merge", Resources.MERGE, TRANSLATABLE, null, TRANSLATABLE,
             on_merge };
         merge.label = Resources.MERGE_MENU;
         merge.tooltip = Resources.MERGE_TOOLTIP;

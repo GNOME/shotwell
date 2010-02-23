@@ -752,10 +752,10 @@ public class LibraryWindow : AppWindow {
                 photos.size, true));
             success = true;
         } else if (path != null && path.compare(tags_marker.get_path()) == 0) {
-            NewTagDialog dialog = new NewTagDialog();
-            string? name = dialog.execute();
-            if (name != null) {
-                get_command_manager().execute(new NewTagCommand(name, photos));
+            AddTagsDialog dialog = new AddTagsDialog();
+            string[]? names = dialog.execute();
+            if (names != null) {
+                get_command_manager().execute(new AddTagsCommand(names, photos));
                 success = true;
             }
         }

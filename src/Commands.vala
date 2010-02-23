@@ -942,51 +942,62 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     }
 }
 
-public class NewTagCommand : PageCommand {
-    private string name;
-    private Gee.Collection<LibraryPhoto> photos;
-    private SourceProxy tag_proxy = null;
+public class AddTagsCommand : PageCommand {
+    private Gee.HashMap<SourceProxy, Gee.ArrayList<LibraryPhoto>> map =
+        new Gee.HashMap<SourceProxy, Gee.ArrayList<LibraryPhoto>>();
     
-    public NewTagCommand(string name, Gee.Collection<LibraryPhoto> photos) {
-        base (Resources.new_tag_label(name), Resources.NEW_TAG_TOOLTIP);
+    public AddTagsCommand(string[] names, Gee.Collection<LibraryPhoto> photos) {
+        base (Resources.add_tags_label(names), Resources.ADD_TAGS_TOOLTIP);
         
-        // this command only works with new tags
-        assert(!Tag.global.exists(name));
-        
-        this.name = name;
-        this.photos = photos;
-        
-        // create the new tag here rather than in execute() so that we can merely use the proxy
-        // to access it ... this is important with the redo() case, where the tag may have been
+        // load/create the tags here rather than in execute() so that we can merely use the proxy
+        // to access it ... this is important with the redo() case, where the tags may have been
         // created by another proxy elsewhere
-        Tag tag = Tag.for_name(name);
-        tag_proxy = tag.get_proxy();
-        tag_proxy.broken += on_proxy_broken;
+        foreach (string name in names) {
+            Tag tag = Tag.for_name(name);
+            SourceProxy tag_proxy = tag.get_proxy();
+            
+            // for each Tag, only attach photos which are not already attached, otherwise undo()
+            // will not be symmetric
+            Gee.ArrayList<LibraryPhoto> add_photos = new Gee.ArrayList<LibraryPhoto>();
+            foreach (LibraryPhoto photo in photos) {
+                if (!tag.contains(photo))
+                    add_photos.add(photo);
+            }
+            
+            if (add_photos.size > 0) {
+                tag_proxy.broken += on_proxy_broken;
+                map.set(tag_proxy, add_photos);
+            }
+        }
         
         LibraryPhoto.global.item_destroyed += on_photo_destroyed;
     }
     
-    ~NewTagCommand() {
-        tag_proxy.broken -= on_proxy_broken;
+    ~AddTagsCommand() {
+        foreach (SourceProxy tag_proxy in map.keys)
+            tag_proxy.broken -= on_proxy_broken;
+        
         LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
     }
     
     public override void execute() {
-        Tag tag = (Tag) tag_proxy.get_source();
-        tag.attach_many(photos);
-        
-        // switch to new tag
-        LibraryWindow.get_app().switch_to_tag(tag);
+        foreach (SourceProxy tag_proxy in map.keys)
+            ((Tag) tag_proxy.get_source()).attach_many(map.get(tag_proxy));
     }
     
     public override void undo() {
-        // Destroy the tag, but maintain the proxy in case we need it again
-        Tag.global.destroy_marked(Tag.global.mark((Tag) tag_proxy.get_source()), false);
+        foreach (SourceProxy tag_proxy in map.keys)
+            ((Tag) tag_proxy.get_source()).detach_many(map.get(tag_proxy));
     }
     
     private void on_photo_destroyed(DataSource source) {
-        if (photos.contains((LibraryPhoto) source))
-            get_command_manager().reset();
+        foreach (Gee.ArrayList<LibraryPhoto> photos in map.values) {
+            if (photos.contains((LibraryPhoto) source)) {
+                get_command_manager().reset();
+                
+                return;
+            }
+        }
     }
     
     private void on_proxy_broken() {
@@ -1034,13 +1045,13 @@ public class DeleteTagCommand : SimpleProxyableCommand {
     }
 }
 
-public class EditTagsCommand : SingleDataSourceCommand {
+public class ModifyTagsCommand : SingleDataSourceCommand {
     private LibraryPhoto photo;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();
     private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
     
-    public EditTagsCommand(LibraryPhoto photo, Gee.Collection<Tag> new_tag_list) {
-        base (photo, Resources.SET_TAGS_LABEL, Resources.SET_TAGS_TOOLTIP);
+    public ModifyTagsCommand(LibraryPhoto photo, Gee.Collection<Tag> new_tag_list) {
+        base (photo, Resources.MODIFY_TAGS_LABEL, Resources.MODIFY_TAGS_TOOLTIP);
         
         this.photo = photo;
         
@@ -1066,7 +1077,7 @@ public class EditTagsCommand : SingleDataSourceCommand {
         }
     }
     
-    ~EditTagsCommand() {
+    ~ModifyTagsCommand() {
         foreach (SourceProxy proxy in to_add)
             proxy.broken -= on_proxy_broken;
         
