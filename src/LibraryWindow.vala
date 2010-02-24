@@ -300,7 +300,6 @@ public class LibraryWindow : AppWindow {
         
         // start in the collection page
         sidebar.place_cursor(library_page);
-        sidebar.expand_all();
         
         // monitor cursor changes to select proper page in notebook
         sidebar.cursor_changed += on_sidebar_cursor_changed;
@@ -314,9 +313,17 @@ public class LibraryWindow : AppWindow {
         foreach (DataObject object in Event.global.get_all())
             add_event_page((Event) object);
         
+        // if events exist, expand to first one
+        if (Event.global.get_count() > 0)
+            sidebar.expand_to_first_child(events_directory_page.get_marker());
+        
         // add tags
         foreach (DataObject object in Tag.global.get_all())
             add_tag_page((Tag) object);
+        
+        // if tags exist, expand them
+        if (tags_marker != null)
+            sidebar.expand_branch(tags_marker);
         
         // set up main window as a drag-and-drop destination (rather than each page; assume
         // a drag and drop is for general library import, which means it goes to library_page)
@@ -332,10 +339,7 @@ public class LibraryWindow : AppWindow {
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
             add_camera_page(camera);
 #endif
-
-        // start with only most recent month directory open
-        sidebar.expand_first_branch_only(events_directory_page.get_marker());
-
+        
         // connect to sidebar signal used ommited on drag-and-drop orerations
         sidebar.drop_received += drop_received;
     }
@@ -912,6 +916,10 @@ public class LibraryWindow : AppWindow {
             foreach (DataObject object in removed)
                 remove_tag_page((Tag) object);
         }
+        
+        // open Tags so user sees the new ones
+        if (added != null && tags_marker != null)
+            sidebar.expand_branch(tags_marker);
     }
     
     private void on_tag_altered(DataObject object) {
@@ -923,7 +931,6 @@ public class LibraryWindow : AppWindow {
         sidebar.insert_child_sorted(tags_marker, page_stub, tag_page_comparator);
         if (expanded)
             sidebar.expand_branch(tags_marker);
-        sidebar.place_cursor(page_stub);
     }
     
     private SubEventsDirectoryPageStub? get_dir_parent(SubEventsDirectoryPageStub dir) {
@@ -992,10 +999,6 @@ public class LibraryWindow : AppWindow {
         TagPageStub stub = new TagPageStub(tag);
         sidebar.insert_child_sorted(tags_marker, stub, tag_page_comparator);
         tag_map.set(tag, stub);
-        
-        // expand branch so user sees new tag immediately ... must be done after addition of
-        // first child
-        sidebar.expand_branch(tags_marker);
     }
     
     private void remove_tag_page(Tag tag) {

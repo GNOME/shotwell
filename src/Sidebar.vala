@@ -104,9 +104,7 @@ public class Sidebar : Gtk.TreeView {
         expand_to_path(marker.get_path());
     }
 
-    public void expand_first_branch_only(SidebarMarker marker) {
-        collapse_all();
-
+    public void expand_to_first_child(SidebarMarker marker) {
         Gtk.TreePath path = marker.get_path();
         
         Gtk.TreeIter iter;
