@@ -609,7 +609,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
     Gtk.SpinButton minute;
     Gtk.SpinButton second;
     Gtk.ComboBox system;
-    Gtk.CheckButton relativity_check_button;
+    Gtk.RadioButton relativity_radio_button;
+    Gtk.RadioButton batch_radio_button;
     Gtk.CheckButton modify_originals_check_button;
     Gtk.Label notification;
 
@@ -670,10 +671,17 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         clock.pack_start(system, false, false, 3);
 
         set_default_response(Gtk.ResponseType.OK);
+        
+        relativity_radio_button = new Gtk.RadioButton.with_mnemonic(null, 
+            _("_Shift photos by the same amount"));
+        relativity_radio_button.set_active(Config.get_instance().get_keep_relativity());
+        relativity_radio_button.sensitive = photo_count > 1;
 
-        relativity_check_button = new Gtk.CheckButton.with_mnemonic(_("Keep _Relativity"));
-        relativity_check_button.set_active(Config.get_instance().get_keep_relativity());
-        relativity_check_button.sensitive = photo_count > 1;
+        batch_radio_button = new Gtk.RadioButton.with_mnemonic(relativity_radio_button.get_group(),
+            _("Set _all photos to this time"));
+        batch_radio_button.set_active(!Config.get_instance().get_keep_relativity());
+        batch_radio_button.sensitive = photo_count > 1;
+        batch_radio_button.toggled += on_time_changed;
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
             "_Modify Original", "_Modify Originals", photo_count));
@@ -685,12 +693,13 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         time_content.pack_start(calendar, true, false, 3);
         time_content.pack_start(clock, true, false, 3);
-        time_content.pack_start(relativity_check_button, true, false, 3);
+        time_content.pack_start(relativity_radio_button, true, false, 3);
+        time_content.pack_start(batch_radio_button, true, false, 3);
         time_content.pack_start(modify_originals_check_button, true, false, 3);
         
         Gdk.Pixbuf preview = null;
         try {
-            preview = source.get_pixbuf(Scaling.for_viewport(Dimensions(500, 260), false));
+            preview = source.get_pixbuf(Scaling.for_viewport(Dimensions(500, 280), false));
         } catch (Error err) {
             warning("Unable to fetch preview for %s", source.to_string());
         }
@@ -792,9 +801,9 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             else
                 time_shift = (int64) (get_time() - original_time);
 
-            keep_relativity = relativity_check_button.get_active();
+            keep_relativity = relativity_radio_button.get_active();
 
-            if (relativity_check_button.sensitive)
+            if (relativity_radio_button.sensitive)
                 Config.get_instance().set_keep_relativity(keep_relativity);
 
             modify_originals = modify_originals_check_button.get_active();
@@ -823,7 +832,8 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         previous_time_system = (TimeSystem) system.get_active();
 
-        if (time_shift == 0 || no_original_time) {
+        if (time_shift == 0 || no_original_time || (batch_radio_button.get_active() &&
+            batch_radio_button.sensitive)) {
             notification.hide();
         } else {
             bool forward = time_shift > 0;
