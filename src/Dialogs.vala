@@ -473,7 +473,7 @@ public class EventRenameDialog : TextEntryDialog {
 // Gtk.ResponseType.CANCEL.
 public Gtk.ResponseType remove_photos_dialog(Gtk.Window owner, int count) {
     string msg = ngettext(
-        "This will remove the photo from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
+        "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
         "This will remove the selected photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
         count);
     string trash_action = ngettext("_Trash File", "_Trash Files", count);
