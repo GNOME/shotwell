@@ -301,7 +301,7 @@ install:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
 	$(INSTALL_DATA) icons/shotwell.svg $(DESTDIR)$(PREFIX)/share/icons/hicolor/scalable/apps
 ifndef DISABLE_ICON_UPDATE
-	-gtk-update-icon-cache $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
+	-gtk-update-icon-cache -t -f $(DESTDIR)$(PREFIX)/share/icons/hicolor || :
 endif
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/ui
 	$(INSTALL_DATA) ui/* $(DESTDIR)$(PREFIX)/share/shotwell/ui
