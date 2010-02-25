@@ -1028,7 +1028,7 @@ public class WelcomeDialog : Gtk.Dialog {
         header_content.pack_start(header_text, false, false, 0);
 
         Gtk.Label instructions = new Gtk.Label("");
-        instructions.set_markup("• %s\n• %s\n• %s".printf(
+        instructions.set_markup("&#8226; %s\n&#8226; %s\n&#8226; %s".printf(
             _("Choose <span weight=\"bold\">File > Import From Folder</span>"),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
