@@ -54,6 +54,13 @@ public abstract class CollectionPage : CheckerboardPage {
         init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
             create_toggle_actions());
 
+#if !NO_PRINTING
+        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
+            "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
+        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PrintPlaceholder", "Print",
+            "Print", Gtk.UIManagerItemType.MENUITEM, false);
+#endif
+
 #if !NO_PUBLISHING
         ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PublishPlaceholder", "Publish",
             "Publish", Gtk.UIManagerItemType.MENUITEM, false);
@@ -178,6 +185,7 @@ public abstract class CollectionPage : CheckerboardPage {
         export.tooltip = _("Export selected photos to disk");
         actions += export;
 
+#if !NO_PRINTING
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
         print.label = _("Prin_t...");
@@ -188,6 +196,7 @@ public abstract class CollectionPage : CheckerboardPage {
             TRANSLATABLE, on_page_setup };
         page_setup.label = _("Page _Setup...");
         actions += page_setup;
+#endif        
         
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -437,6 +446,7 @@ public abstract class CollectionPage : CheckerboardPage {
         slideshow_button.sensitive = get_view().get_count() > 0;
     }
 
+#if !NO_PRINTING
     private void on_print() {
         if (get_view().get_selected_count() != 1)
             return;
@@ -449,6 +459,7 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_page_setup() {
         PrintManager.get_instance().do_page_setup();
     }
+#endif
 
     private void on_selection_changed(Gee.Iterable<DataView> items) {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
@@ -685,7 +696,9 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_file_menu() {
         int count = get_view().get_selected_count();
 
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Print", count == 1);
+#if !NO_PRINTING
+        set_item_sensitive("/CollectionMenuBar/FileMenu/PrintPlaceholder/Print", count == 1);
+#endif        
         set_item_sensitive("/CollectionMenuBar/FileMenu/Export", count > 0);
 #if !NO_PUBLISHING
         set_item_display("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish",

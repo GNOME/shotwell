@@ -5,8 +5,7 @@
             <menuitem name="Import" action="CommonFileImport" />
             <menuitem name="Export" action="Export" />
             <separator />
-            <menuitem name="PageSetup" action="PageSetup" />
-            <menuitem name="Print" action="Print" />
+            <placeholder name="PrintPlaceholder"/>
             <separator />
             <placeholder name="PublishPlaceholder"/>
             <separator />

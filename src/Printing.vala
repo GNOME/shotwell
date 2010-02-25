@@ -3,6 +3,9 @@
  * This software is licensed under the GNU LGPL (version 2.1 or later).
  * See the COPYING file in this distribution. 
  */
+
+#if !NO_PRINTING
+ 
 public enum ContentLayout {
     FILL_PAGE,
     STANDARD_SIZE,
@@ -1038,3 +1041,5 @@ public class PrintManager {
         settings.save();
     }
 }
+
+#endif

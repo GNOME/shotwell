@@ -1171,6 +1171,13 @@ public class LibraryPhotoPage : EditingHostPage {
 
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
         
+#if !NO_PRINTING
+        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
+            "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
+        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PrintPlaceholder", "Print",
+            "Print", Gtk.UIManagerItemType.MENUITEM, false);
+#endif
+
 #if !NO_PUBLISHING
         ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PublishPlaceholder", "Publish",
             "Publish", Gtk.UIManagerItemType.MENUITEM, false);
@@ -1201,6 +1208,7 @@ public class LibraryPhotoPage : EditingHostPage {
         export.tooltip = _("Export photo to disk");
         actions += export;
 
+#if !NO_PRINTING
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
             TRANSLATABLE, on_page_setup };
         page_setup.label = _("Page _Setup...");
@@ -1211,6 +1219,7 @@ public class LibraryPhotoPage : EditingHostPage {
         print.label = _("Prin_t...");
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
+#endif
         
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -1472,6 +1481,7 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
+#if !NO_PRINTING
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());
     }
@@ -1479,6 +1489,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_page_setup() {
         PrintManager.get_instance().do_page_setup();
     }
+#endif
 
     private void on_export() {
         if (!has_photo())
