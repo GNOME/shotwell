@@ -475,5 +475,13 @@ public class Config {
         set_string("/desktop/gnome/background/picture_options", "zoom");
         return set_string("/desktop/gnome/background/picture_filename", filename);
     }
+    
+    public bool get_show_welcome_dialog() {
+        return get_bool("/apps/shotwell/preferences/ui/show_welcome_dialog", true);
+    }
+    
+    public bool set_show_welcome_dialog(bool show) {
+        return set_bool("/apps/shotwell/preferences/ui/show_welcome_dialog", show);
+    }
 }
 

@@ -631,7 +631,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
                     Gtk.STOCK_OK, Gtk.ResponseType.OK);
-        set_title(_(Resources.ADJUST_DATE_TIME_LABEL));
+        set_title(Resources.ADJUST_DATE_TIME_LABEL);
 
         calendar = new Gtk.Calendar();
         calendar.day_selected += on_time_changed;
@@ -995,6 +995,72 @@ public class ModifyTagsDialog : TextEntryDialog {
         
         // break up by comma-delimiter, prep for use, and separate into list
         return Tag.prep_tag_names(text.split(","));
+    }
+}
+
+public class WelcomeDialog : Gtk.Dialog {
+    Gtk.CheckButton hide_button;
+
+    public WelcomeDialog(Gtk.Window owner) {
+        Gtk.Widget ok_button = add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
+        set_title(_("Welcome!"));
+        set_resizable(false);
+        set_type_hint(Gdk.WindowTypeHint.DIALOG);
+        set_transient_for(owner);
+        set_position(Gtk.WindowPosition.CENTER);
+
+        Gtk.Label primary_text = new Gtk.Label("");
+        primary_text.set_markup(
+            "<span size=\"large\" weight=\"bold\">%s</span>".printf(_("Welcome to Shotwell!")));
+        primary_text.set_alignment(0, 0.5f);
+        Gtk.Label secondary_text = new Gtk.Label("");
+        secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
+            _("To get started, import photos in any of these ways:")));
+        secondary_text.set_alignment(0, 0.5f);
+        Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.get_icon(Resources.ICON_APP, 50));
+
+        Gtk.VBox header_text = new Gtk.VBox(false, 0);
+        header_text.pack_start(primary_text, false, false, 5);
+        header_text.pack_start(secondary_text, false, false, 0);
+
+        Gtk.HBox header_content = new Gtk.HBox(false, 12);
+        header_content.pack_start(image, false, false, 0);
+        header_content.pack_start(header_text, false, false, 0);
+
+        Gtk.Label instructions = new Gtk.Label("");
+        instructions.set_markup("• %s\n• %s\n• %s".printf(
+            _("Choose <span weight=\"bold\">File ▸ Import From Folder</span>"),
+            _("Drag and drop photos onto the Shotwell window"),
+            _("Connect a camera to your computer and import")));
+        instructions.set_alignment(0, 0.5f);
+        
+        Gtk.VBox content = new Gtk.VBox(false, 12);
+        content.pack_start(header_content, true, true, 0);
+        content.pack_start(instructions, false, false, 0);
+
+        hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));
+        hide_button.set_active(true);
+        content.pack_start(hide_button, false, false, 6);
+
+        content.set_border_width(12);
+
+        vbox.pack_start(content, false, false, 0);
+
+        ok_button.grab_focus();
+    }
+
+    public bool execute() {
+        show_all();
+
+        bool ok = (run() == Gtk.ResponseType.OK);
+        bool show_dialog = true;
+
+        if (ok)
+            show_dialog = !hide_button.get_active();
+
+        destroy();
+
+        return show_dialog;
     }
 }
 

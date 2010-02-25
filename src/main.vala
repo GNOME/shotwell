@@ -161,6 +161,14 @@ void library_exec(string[] mounts) {
 
     library_window.show_all();
     
+    if (Config.get_instance().get_show_welcome_dialog() &&
+        LibraryPhoto.global.get_count() == 0) {
+        WelcomeDialog welcome = new WelcomeDialog(library_window);
+        Config.get_instance().set_show_welcome_dialog(welcome.execute());
+    } else {
+        Config.get_instance().set_show_welcome_dialog(false);
+    }
+
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
     Gtk.main();

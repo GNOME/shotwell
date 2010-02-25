@@ -537,5 +537,18 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/show_welcome_dialog</key>
+            <applyto>/apps/shotwell/preferences/ui/show_welcome_dialog</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>true</default>
+            
+            <locale name="en">
+                <short>show welcome dialog on startup</short>
+                <long>True if, when on startup, a welcome dialog should be shown.  False if it should not be shown.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>
