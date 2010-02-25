@@ -1029,7 +1029,7 @@ public class WelcomeDialog : Gtk.Dialog {
 
         Gtk.Label instructions = new Gtk.Label("");
         instructions.set_markup("&#8226; %s\n&#8226; %s\n&#8226; %s".printf(
-            _("Choose <span weight=\"bold\">File > Import From Folder</span>"),
+            _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf("▸"),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
         instructions.set_alignment(0, 0.5f);
