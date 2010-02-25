@@ -106,6 +106,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public const int BRIGHTEN_SHIFT = 0x18;
     
+    public Dimensions requisition = Dimensions();
     public Gdk.Rectangle allocation = Gdk.Rectangle();
     
     private bool exposure = false;
@@ -125,7 +126,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         pixbuf_dim = initial_pixbuf_dim;
         
-        recalc_size(true);
+        recalc_size("ctor", true);
     }
     
     public override string get_name() {
@@ -141,7 +142,16 @@ public abstract class CheckerboardItem : ThumbnailView {
         title = new CheckerboardItemText(text, alignment, marked_up);
         
         if (title_visible) {
-            recalc_size();
+            recalc_size("set_title");
+            notify_view_altered();
+        }
+    }
+    
+    public void clear_title() {
+        title = null;
+        
+        if (title_visible) {
+            recalc_size("clear_title");
             notify_view_altered();
         }
     }
@@ -152,7 +162,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         title_visible = visible;
         
-        recalc_size();
+        recalc_size("set_title_visible");
         notify_view_altered();
     }
     
@@ -165,7 +175,16 @@ public abstract class CheckerboardItem : ThumbnailView {
         subtitle = new CheckerboardItemText(text, alignment, marked_up);
         
         if (subtitle_visible) {
-            recalc_size();
+            recalc_size("set_subtitle");
+            notify_view_altered();
+        }
+    }
+    
+    public void clear_subtitle() {
+        subtitle = null;
+        
+        if (subtitle_visible) {
+            recalc_size("clear_subtitle");
             notify_view_altered();
         }
     }
@@ -176,7 +195,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         subtitle_visible = visible;
         
-        recalc_size();
+        recalc_size("set_subtitle_visible");
         notify_view_altered();
     }
     
@@ -201,8 +220,11 @@ public abstract class CheckerboardItem : ThumbnailView {
         base.notify_collection_property_set(name, old, val);
     }
     
-    public Dimensions get_requisition() {
-        return Dimensions.for_rectangle(allocation);
+    // The alignment point is the coordinate on the y-axis (relative to the top of the
+    // CheckerboardItem) which this item should be aligned to.  This allows for
+    // bottom-alignment along the bottom edge of the thumbnail.
+    public int get_alignment_point() {
+        return FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height;
     }
     
     public virtual void exposed() {
@@ -232,7 +254,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         display_pixbuf = pixbuf;
         pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
 
-        recalc_size();
+        recalc_size("set_image");
         
         if (image_changed)
             notify_view_altered();
@@ -245,7 +267,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         display_pixbuf = null;
         pixbuf_dim = dim;
         
-        recalc_size();
+        recalc_size("clear_image");
         
         if (had_image)
             notify_view_altered();
@@ -261,17 +283,14 @@ public abstract class CheckerboardItem : ThumbnailView {
         return null;
     }
     
-    public void recalc_size(bool in_ctor = false) {
-        Gdk.Rectangle old_allocation = allocation;
+    private void recalc_size(string reason, bool in_ctor = false) {
+        Dimensions old_requisition = requisition;
         
         // only add in the text heights if they're displayed
-        int title_height = 0;
-        if (title != null && title_visible)
-            title_height = title.get_height() + LABEL_PADDING;
-        
-        int subtitle_height = 0;
-        if (subtitle != null && subtitle_visible)
-            subtitle_height = subtitle.get_height() + LABEL_PADDING;
+        int title_height = (title != null && title_visible)
+            ? title.get_height() + LABEL_PADDING : 0;
+        int subtitle_height = (subtitle != null && subtitle_visible)
+            ? subtitle.get_height() + LABEL_PADDING : 0;
         
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
@@ -288,16 +307,24 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         // width is frame width (two sides) + frame padding (two sides) + width of pixbuf/trinkets
         // (text never wider)
-        allocation.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + image_width;
+        requisition.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + image_width;
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
-        allocation.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height + title_height
+        requisition.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height + title_height
             + subtitle_height;
         
-        if (!in_ctor && 
-            !Dimensions.for_rectangle(allocation).approx_equals(Dimensions.for_rectangle(old_allocation)))
+#if TRACE_REFLOW_ITEMS
+        debug("recalc_size %s: %s title_height=%d subtitle_height=%d requisition=%s", 
+            get_source().get_name(), reason, title_height, subtitle_height, requisition.to_string());
+#endif
+        
+        if (!in_ctor && !requisition.approx_equals(old_requisition)) {
+#if TRACE_REFLOW_ITEMS
+            debug("recalc_size %s: %s notifying geometry altered", get_source().get_name(), reason);
+#endif
             notify_geometry_altered();
+        }
     }
     
     protected virtual void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
@@ -366,11 +393,6 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
     }
 
-    public void set_pixel_coordinates(int x, int y) {
-        allocation.x = x;
-        allocation.y = y;
-    }
-    
     public void set_grid_coordinates(int col, int row) {
         this.col = col;
         this.row = row;
@@ -961,10 +983,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // clear the rows data structure, as the reflow will completely rearrange it
         item_rows = null;
         
-#if TRACE_REFLOW
-        debug("reflow %s: %s (%d items)", page_name, caller, total_items);
-#endif
-        
         // need to set_size in case all items were removed and the viewport size has changed
         if (total_items == 0) {
             set_size_request(allocation.width, 0);
@@ -974,7 +992,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             return true;
         }
         
-        // Step 1: Determine the widest row in the layout, and from it the number of columns
+#if TRACE_REFLOW
+        debug("reflow %s: %s (%d items)", page_name, caller, total_items);
+#endif
+        
+        // Step 1: Determine the widest row in the layout, and from it the number of columns.
         // If owner supplies an image scaling for all items in the layout, then this can be
         // calculated quickly.
         int max_cols = 0;
@@ -990,19 +1012,19 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             while (max_cols > 1 
                 && ((max_cols * max_item_width) + ((max_cols - 1) * COLUMN_GUTTER_PADDING) > remaining_width)) {
 #if TRACE_REFLOW
-                debug("reflow: scaled cols estimate: reducing max_cols from %d to %d", max_cols,
-                    max_cols - 1);
+                debug("reflow %s: scaled cols estimate: reducing max_cols from %d to %d", page_name,
+                    max_cols, max_cols - 1);
 #endif
                 max_cols--;
             }
             
-            // special case: if fewer items than columns, they are they columns
+            // special case: if fewer items than columns, they are the columns
             if (total_items < max_cols)
                 max_cols = total_items;
             
 #if TRACE_REFLOW
-            debug("reflow: scaled cols estimate: max_cols=%d remaining_width=%d max_item_width=%d",
-                max_cols, remaining_width, max_item_width);
+            debug("reflow %s: scaled cols estimate: max_cols=%d remaining_width=%d max_item_width=%d",
+                page_name, max_cols, remaining_width, max_item_width);
 #endif
         } else {
             int x = COLUMN_GUTTER_PADDING;
@@ -1012,7 +1034,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
             for (int ctr = 0; ctr < total_items; ctr++) {
                 CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
-                Dimensions req = item.get_requisition();
+                Dimensions req = item.requisition;
                 
                 // the items must be requisitioned for this code to work
                 assert(req.has_area());
@@ -1040,7 +1062,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 max_cols = col;
             
 #if TRACE_REFLOW
-            debug("reflow: manual cols estimate: max_cols=%d widest_row=%d", max_cols, widest_row);
+            debug("reflow %s: manual cols estimate: max_cols=%d widest_row=%d", page_name, max_cols,
+                widest_row);
 #endif
         }
         
@@ -1052,22 +1075,31 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         int row = 0;
         int tallest = 0;
         int widest = 0;
+        int row_alignment_point = 0;
         int total_width = 0;
         int col = 0;
         int[] column_widths = new int[max_cols];
         int[] row_heights = new int[max_rows];
+        int[] alignment_points = new int[max_rows];
         int gutter = 0;
         
         for (;;) {
             for (int ctr = 0; ctr < total_items; ctr++ ) {
                 CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
-                Dimensions req = item.get_requisition();
+                Dimensions req = item.requisition;
+                int alignment_point = item.get_alignment_point();
+                
+                // alignment point better be sane
+                assert(alignment_point < req.height);
                 
                 if (req.height > tallest)
                     tallest = req.height;
                 
                 if (req.width > widest)
                     widest = req.width;
+                
+                if (alignment_point > row_alignment_point)
+                    row_alignment_point = alignment_point;
                 
                 // store largest thumb size of each column as well as track the total width of the
                 // layout (which is the sum of the width of each column)
@@ -1078,15 +1110,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 }
 
                 if (++col >= max_cols) {
-                    col = 0;
+                    alignment_points[row] = row_alignment_point;
                     row_heights[row++] = tallest;
+                    
+                    col = 0;
+                    row_alignment_point = 0;
                     tallest = 0;
                 }
             }
             
             // account for final dangling row
-            if (col != 0)
+            if (col != 0) {
+                alignment_points[row] = row_alignment_point;
                 row_heights[row] = tallest;
+            }
             
             // Step 3: Calculate the gutter between the items as being equidistant of the
             // remaining space (adding one gutter to account for the right-hand one)
@@ -1115,6 +1152,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 total_width = 0;
                 column_widths = new int[max_cols];
                 row_heights = new int[max_rows];
+                alignment_points = new int[max_rows];
             } else {
                 break;
             }
@@ -1124,11 +1162,43 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         debug("reflow %s: width:%d total_width:%d max_cols:%d gutter:%d", page_name, allocation.width, 
             total_width, max_cols, gutter);
 #endif
-
+        
+        // Step 4: Recalculate the height of each row according to the row's alignment point (which
+        // may cause shorter items to extend below the bottom of the tallest one, extending the
+        // height of the row)
+        col = 0;
+        row = 0;
+        
+        for (int ctr = 0; ctr < total_items; ctr++) {
+            CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
+            Dimensions req = item.requisition;
+            
+            // this determines how much padding the item requires to be bottom-alignment along the
+            // alignment point; add to the height and you have the item's "true" height on the 
+            // laid-down row
+            int true_height = req.height + (alignment_points[row] - item.get_alignment_point());
+            assert(true_height >= req.height);
+            
+            // add that to its height to determine it's actual height on the laid-down row
+            if (true_height > row_heights[row]) {
+#if TRACE_REFLOW
+                debug("reflow %s: Adjusting height of row %d from %d to %d", page_name, row,
+                    row_heights[row], true_height);
+#endif
+                row_heights[row] = true_height;
+            }
+            
+            // carriage return
+            if (++col >= max_cols) {
+                col = 0;
+                row++;
+            }
+        }
+        
         // for the spatial structure
         item_rows = new LayoutRow[max_rows];
-
-        // Step 4: Lay out the items in the space using all the information gathered
+        
+        // Step 5: Lay out the items in the space using all the information gathered
         int x = gutter;
         int y = TOP_PADDING;
         col = 0;
@@ -1139,18 +1209,18 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         for (int ctr = 0; ctr < total_items; ctr++) {
             CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
-            Dimensions req = item.get_requisition();
-
+            Dimensions req = item.requisition;
+            
             // this centers the item in the column
             int xpadding = (column_widths[col] - req.width) / 2;
             assert(xpadding >= 0);
             
-            // this bottom-aligns the item along the row
-            int ypadding = (row_heights[row] - req.height);
+            // this bottom-aligns the item along the discovered alignment point
+            int ypadding = alignment_points[row] - item.get_alignment_point();
             assert(ypadding >= 0);
             
             // save pixel and grid coordinates
-            item.set_pixel_coordinates(x + xpadding, y + ypadding);
+            item.allocation = { x + xpadding, y + ypadding, req.width, req.height };
             item.set_grid_coordinates(col, row);
             
             // report exposed or unexposed
@@ -1194,7 +1264,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         rows = row + 1;
         assert(rows == max_rows);
         
-        // Step 5: Define the total size of the page as the size of the allocated width and
+        // Step 6: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
         set_size_request(allocation.width, y + row_heights[row] + BOTTOM_PADDING);
         

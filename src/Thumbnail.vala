@@ -56,14 +56,10 @@ public class Thumbnail : CheckerboardItem {
     
     private void update_tags() {
         Gee.Collection<Tag> tags = Tag.get_sorted_tags(photo);
-        int count = tags.size;
-        if (count == 0) {
-            set_subtitle("", false);
-            
-            return;
-        }
-        
-        set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>"), true);
+        if (tags.size == 0)
+            clear_subtitle();
+        else
+            set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>"), true);
     }
     
     private void on_tag_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
