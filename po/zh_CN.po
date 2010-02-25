@@ -6,15 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.4.3+trunk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-25 18:23-0800\n"
-"PO-Revision-Date: 2010-02-14 23:51+0100\n"
+"Report-Msgid-Bugs-To: lucas@yorba.org\n"
+"POT-Creation-Date: 2010-02-17 15:22-0800\n"
+"PO-Revision-Date: 2010-02-20 00:08+0100\n"
 "Last-Translator: Tommy He <tommy.he@linux.com>\n"
-"Language-Team: Simplified Chinese <trans-zh_cn@lists.fedoraproject.org>\n"
+"Language-Team: Fedora i18n zh_CN <trans-zh_cn@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -60,12 +63,23 @@ msgstr "目录(_C)"
 msgid "More information on Shotwell"
 msgstr "更多关于 Shotwell 内容"
 
-#: src/AppWindow.vala:454
+#: src/AppWindow.vala:446
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
+"\n"
+"%s"
+msgstr ""
+"访问 Shotwell 照片库时出现致命错误。Shotwell 无法继续。\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:462
 msgid "Visit the Yorba web site"
 msgstr "访问 Yorba 网站"
 
 #: src/CollectionPage.vala:117
-#: src/SlideshowPage.vala:89
+#: src/SlideshowPage.vala:92
 msgid "Slideshow"
 msgstr "幻灯片演示"
 
@@ -79,15 +93,15 @@ msgstr "改变缩略图大小"
 
 #: src/CollectionPage.vala:172
 #: src/EventsDirectoryPage.vala:197
-#: src/ImportPage.vala:361
-#: src/ImportPage.vala:1059
-#: src/PhotoPage.vala:1178
-#: src/PhotoPage.vala:1664
+#: src/ImportPage.vala:373
+#: src/ImportPage.vala:1071
+#: src/PhotoPage.vala:1212
+#: src/PhotoPage.vala:1816
 msgid "_File"
 msgstr "文件(_F)"
 
 #: src/CollectionPage.vala:177
-#: src/PhotoPage.vala:1183
+#: src/PhotoPage.vala:1217
 msgid "_Export Photos..."
 msgstr "导出照片(_E)"
 
@@ -96,24 +110,24 @@ msgid "Export selected photos to disk"
 msgstr "导出选定照片到磁盘"
 
 #: src/CollectionPage.vala:183
-#: src/PhotoPage.vala:1194
+#: src/PhotoPage.vala:1228
 msgid "Prin_t..."
 msgstr "打印(_T)"
 
 #: src/CollectionPage.vala:184
-#: src/PhotoPage.vala:1195
+#: src/PhotoPage.vala:1229
 msgid "Print the photo to a printer connected to your computer"
 msgstr "使用连接到此电脑的打印机打印照片"
 
 #: src/CollectionPage.vala:189
-#: src/PhotoPage.vala:1189
+#: src/PhotoPage.vala:1223
 msgid "Page _Setup..."
 msgstr "页面设置(_S)"
 
 #: src/CollectionPage.vala:201
 #: src/EventsDirectoryPage.vala:209
-#: src/ImportPage.vala:375
-#: src/PhotoPage.vala:1199
+#: src/ImportPage.vala:387
+#: src/PhotoPage.vala:1233
 msgid "_Edit"
 msgstr "编辑(_E)"
 
@@ -124,7 +138,7 @@ msgstr "活动(_T)"
 
 #: src/CollectionPage.vala:210
 #: src/EventsDirectoryPage.vala:229
-#: src/ImportPage.vala:380
+#: src/ImportPage.vala:392
 msgid "Select _All"
 msgstr "选择全部(_A)"
 
@@ -133,7 +147,7 @@ msgid "Select all the photos in the library"
 msgstr "选择在照片库的全部照片"
 
 #: src/CollectionPage.vala:216
-#: src/PhotoPage.vala:1204
+#: src/PhotoPage.vala:1238
 msgid "Re_move"
 msgstr "移除(_M)"
 
@@ -161,252 +175,257 @@ msgstr "缩小(_O)"
 msgid "Decrease the magnification of the thumbnails"
 msgstr "缩小缩略图"
 
-#: src/CollectionPage.vala:299
-msgid "_Slideshow"
-msgstr "幻灯片演示(_S)"
+#: src/CollectionPage.vala:304
+msgid "S_lideshow"
+msgstr "幻灯片演示(_L)"
 
-#: src/CollectionPage.vala:300
+#: src/CollectionPage.vala:305
 msgid "Play a slideshow"
 msgstr "开始幻灯片播放"
 
-#: src/CollectionPage.vala:304
+#: src/CollectionPage.vala:309
 #: src/EventsDirectoryPage.vala:201
-#: src/ImportPage.vala:385
-#: src/ImportPage.vala:1069
-#: src/PhotoPage.vala:1209
-#: src/PhotoPage.vala:1737
+#: src/ImportPage.vala:397
+#: src/ImportPage.vala:1081
+#: src/PhotoPage.vala:1243
+#: src/PhotoPage.vala:1895
 msgid "_View"
 msgstr "查看(_V)"
 
-#: src/CollectionPage.vala:308
+#: src/CollectionPage.vala:313
 msgid "Sort _Photos"
 msgstr "照片排序(_P)"
 
-#: src/CollectionPage.vala:318
+#: src/CollectionPage.vala:323
+#: src/LibraryWindow.vala:985
+msgid "Tags"
+msgstr "标签"
+
+#: src/CollectionPage.vala:332
 #: src/EventsDirectoryPage.vala:205
-#: src/ImportPage.vala:389
-#: src/ImportPage.vala:1073
-#: src/PhotoPage.vala:1271
-#: src/PhotoPage.vala:1741
+#: src/ImportPage.vala:401
+#: src/ImportPage.vala:1085
+#: src/PhotoPage.vala:1317
+#: src/PhotoPage.vala:1899
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: src/CollectionPage.vala:329
+#: src/CollectionPage.vala:343
 msgid "Only _Favorites"
 msgstr "只显示收藏(_F)"
 
-#: src/CollectionPage.vala:330
+#: src/CollectionPage.vala:344
 msgid "Show only your favorite photos"
 msgstr "只显示收藏的照片"
 
-#: src/CollectionPage.vala:335
-#: src/ImportPage.vala:350
+#: src/CollectionPage.vala:349
+#: src/ImportPage.vala:362
 msgid "_Titles"
 msgstr "标题(_T)"
 
-#: src/CollectionPage.vala:336
-#: src/ImportPage.vala:351
+#: src/CollectionPage.vala:350
+#: src/ImportPage.vala:363
 msgid "Display the title of each photo"
 msgstr "显示每张照片的标题"
 
-#: src/CollectionPage.vala:341
+#: src/CollectionPage.vala:355
 msgid "_Hidden Photos"
 msgstr "隐藏照片(_H)"
 
-#: src/CollectionPage.vala:342
+#: src/CollectionPage.vala:356
 msgid "Show hidden photos"
 msgstr "显示隐藏的照片"
 
-#: src/CollectionPage.vala:353
+#: src/CollectionPage.vala:367
 msgid "By _Title"
 msgstr "按照标题(_T)"
 
-#: src/CollectionPage.vala:354
+#: src/CollectionPage.vala:368
 msgid "Sort photos by title"
 msgstr "按照标题排序"
 
-#: src/CollectionPage.vala:359
+#: src/CollectionPage.vala:373
 msgid "By Exposure _Date"
 msgstr "按照曝光日期(_D)"
 
-#: src/CollectionPage.vala:360
+#: src/CollectionPage.vala:374
 msgid "Sort photos by exposure date"
 msgstr "按照曝光日期排序"
 
-#: src/CollectionPage.vala:371
-#: src/LibraryWindow.vala:373
+#: src/CollectionPage.vala:385
+#: src/LibraryWindow.vala:400
 msgid "_Ascending"
 msgstr "升序(_A)"
 
-#: src/CollectionPage.vala:372
-#: src/LibraryWindow.vala:374
+#: src/CollectionPage.vala:386
+#: src/LibraryWindow.vala:401
 msgid "Sort photos in an ascending order"
 msgstr "按照升序排列照片"
 
-#: src/CollectionPage.vala:377
-#: src/LibraryWindow.vala:380
+#: src/CollectionPage.vala:391
+#: src/LibraryWindow.vala:407
 msgid "D_escending"
 msgstr "降序(_D)"
 
-#: src/CollectionPage.vala:378
-#: src/LibraryWindow.vala:381
+#: src/CollectionPage.vala:392
+#: src/LibraryWindow.vala:408
 msgid "Sort photos in a descending order"
 msgstr "按照降序排列照片"
 
-#: src/CollectionPage.vala:594
+#: src/CollectionPage.vala:611
 #, c-format
 msgid "A photo source file is missing."
 msgid_plural "%d photo source files missing."
 msgstr[0] "丢失了 %d 照片源"
 
-#: src/CollectionPage.vala:687
+#: src/CollectionPage.vala:704
 #: src/Dialogs.vala:14
-#: src/PhotoPage.vala:1406
+#: src/PhotoPage.vala:1497
 msgid "Export Photo"
 msgstr "导出照片"
 
-#: src/CollectionPage.vala:689
+#: src/CollectionPage.vala:706
 #: src/Dialogs.vala:36
 #: src/Dialogs.vala:54
 msgid "Export Photos"
 msgstr "导出照片"
 
-#: src/CollectionPage.vala:710
-#: src/CollectionPage.vala:744
+#: src/CollectionPage.vala:727
+#: src/CollectionPage.vala:761
 #, c-format
 msgid "Unable to export photo %s: %s"
-msgstr "无法导出到照片 %s: %s"
+msgstr "无法导出到照片 %s ： %s"
 
-#: src/CollectionPage.vala:731
+#: src/CollectionPage.vala:748
 msgid "Exporting..."
 msgstr "导出..."
 
-#: src/CollectionPage.vala:864
+#: src/CollectionPage.vala:887
 msgid "Removing..."
 msgstr "移除..."
 
-#: src/CollectionPage.vala:886
-#: src/CollectionPage.vala:904
+#: src/CollectionPage.vala:909
+#: src/CollectionPage.vala:927
 msgid "Rotating..."
 msgstr "旋转..."
 
-#: src/CollectionPage.vala:886
+#: src/CollectionPage.vala:909
 msgid "Undoing Rotate..."
 msgstr "取消旋转..."
 
-#: src/CollectionPage.vala:904
+#: src/CollectionPage.vala:927
 msgid "Undoing Rotate"
 msgstr "取消旋转"
 
-#: src/CollectionPage.vala:913
+#: src/CollectionPage.vala:936
 msgid "Mirroring..."
 msgstr "制作镜像..."
 
-#: src/CollectionPage.vala:914
+#: src/CollectionPage.vala:937
 msgid "Undoing Mirror..."
 msgstr "取消镜像"
 
-#: src/CollectionPage.vala:1241
+#: src/CollectionPage.vala:1303
 msgid "Photos"
 msgstr "照片"
 
-#: src/Commands.vala:380
+#: src/Commands.vala:411
 msgid "Reverting..."
 msgstr "还原..."
 
-#: src/Commands.vala:380
+#: src/Commands.vala:411
 msgid "Undoing Revert..."
 msgstr "取消还原..."
 
-#: src/Commands.vala:424
+#: src/Commands.vala:455
 msgid "Enhancing..."
 msgstr "增强..."
 
-#: src/Commands.vala:424
+#: src/Commands.vala:455
 msgid "Undoing Enhance..."
 msgstr "取消增强..."
 
-#: src/Commands.vala:590
+#: src/Commands.vala:621
 msgid "Creating New Event..."
 msgstr "创建新的活动..."
 
-#: src/Commands.vala:591
+#: src/Commands.vala:622
 msgid "Removing Event..."
 msgstr "移除活动..."
 
-#: src/Commands.vala:600
+#: src/Commands.vala:631
 msgid "Moving Photos to New Event..."
 msgstr "移动照片到新活动..."
 
-#: src/Commands.vala:601
+#: src/Commands.vala:632
 msgid "Setting Photos to Previous Event..."
 msgstr "设置照片到先前的活动..."
 
-#: src/Commands.vala:631
+#: src/Commands.vala:662
 msgid "Merging..."
 msgstr "合并..."
 
-#: src/Commands.vala:632
+#: src/Commands.vala:663
 msgid "Unmerging..."
 msgstr "取消合并..."
 
-#: src/Commands.vala:641
+#: src/Commands.vala:672
 msgid "Duplicating photos..."
 msgstr "创建照片副本..."
 
-#: src/Commands.vala:641
+#: src/Commands.vala:672
 msgid "Removing duplicated photos..."
 msgstr "移除照片副本..."
 
-#: src/Commands.vala:664
+#: src/Commands.vala:695
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] "由于文件错误无法创建 %d 照片副本"
 
-#: src/Commands.vala:709
-#: src/Commands.vala:710
+#: src/Commands.vala:760
+#: src/Commands.vala:761
 msgid "Marking as Favorite..."
 msgstr "标记为收藏..."
 
-#: src/Commands.vala:709
-#: src/Commands.vala:710
+#: src/Commands.vala:760
+#: src/Commands.vala:761
 msgid "Unmarking as Favorite..."
 msgstr "取消收藏标记..."
 
-#: src/Commands.vala:731
-#: src/Commands.vala:732
+#: src/Commands.vala:802
+#: src/Commands.vala:803
 msgid "Hiding..."
 msgstr "隐藏..."
 
-#: src/Commands.vala:731
-#: src/Commands.vala:732
+#: src/Commands.vala:802
+#: src/Commands.vala:803
 msgid "Unhiding..."
 msgstr "撤销隐藏..."
 
-#: src/Commands.vala:774
+#: src/Commands.vala:845
 msgid "Original photo could not be adjusted."
 msgstr "原始照片无法被修改。"
 
-#: src/Commands.vala:794
+#: src/Commands.vala:865
 msgid "Adjusting Date and Time..."
 msgstr "调整日期和时间..."
 
-#: src/Commands.vala:794
+#: src/Commands.vala:865
 msgid "Undoing Date and Time Adjustment..."
 msgstr "取消日期和时间调整..."
 
-#: src/Commands.vala:821
+#: src/Commands.vala:892
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "下列原始照片无法被修改。"
 
-#: src/Commands.vala:823
-#: src/Commands.vala:835
+#: src/Commands.vala:894
+#: src/Commands.vala:906
 msgid "Time Adjustment Error"
 msgstr "时间修改出错"
 
-#: src/Commands.vala:833
+#: src/Commands.vala:904
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "时间修改无法在以下照片上取消。"
@@ -478,16 +497,17 @@ msgstr "没有照片导入。\n"
 msgid "Import Complete"
 msgstr "导入完成"
 
-#: src/Dialogs.vala:405
+#: src/Dialogs.vala:464
 #: src/Resources.vala:115
 msgid "Rename Event"
 msgstr "重命名活动"
 
-#: src/Dialogs.vala:407
+#: src/Dialogs.vala:464
+#: src/Dialogs.vala:925
 msgid "Name:"
 msgstr "名称："
 
-#: src/Dialogs.vala:442
+#: src/Dialogs.vala:476
 msgid ""
 "This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n"
 "\n"
@@ -497,7 +517,7 @@ msgstr ""
 "\n"
 "该操作将不可撤销。"
 
-#: src/Dialogs.vala:443
+#: src/Dialogs.vala:477
 msgid ""
 "This will remove the photo from your Shotwell library.  Would you also like to delete the file from disk?\n"
 "\n"
@@ -507,60 +527,60 @@ msgstr ""
 "\n"
 "该操作将不可撤销。"
 
-#: src/Dialogs.vala:447
+#: src/Dialogs.vala:481
 msgid "Only _Remove"
 msgstr "只移除(_R)"
 
-#: src/Dialogs.vala:449
+#: src/Dialogs.vala:483
 msgid "Remove"
 msgstr "移除"
 
-#: src/Dialogs.vala:513
+#: src/Dialogs.vala:547
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:551
+#: src/Dialogs.vala:585
 msgid "Generating Events..."
 msgstr "生成活动..."
 
-#: src/Dialogs.vala:621
+#: src/Dialogs.vala:656
 msgid "AM"
 msgstr "AM"
 
-#: src/Dialogs.vala:622
+#: src/Dialogs.vala:657
 msgid "PM"
 msgstr "PM"
 
-#: src/Dialogs.vala:623
+#: src/Dialogs.vala:658
 msgid "24 Hr"
 msgstr "24 时"
 
-#: src/Dialogs.vala:637
+#: src/Dialogs.vala:672
 msgid "Keep _Relativity"
 msgstr "保持相对比例(_R)"
 
-#: src/Dialogs.vala:642
+#: src/Dialogs.vala:677
 msgid "_Modify Original"
 msgid_plural "_Modify Originals"
 msgstr[0] "修改原稿(_M)"
 
-#: src/Dialogs.vala:708
+#: src/Dialogs.vala:754
 msgid "Original: "
 msgstr "原始："
 
 # Change %m/%d/%y to a locale-specific date format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable date format specifiers and their meanings.
-#: src/Dialogs.vala:709
+#: src/Dialogs.vala:755
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%m/%d/%Y, %H:%M:%S"
 
 # Change %m/%d/%y to a locale-specific date format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable date format specifiers and their meanings.
-#: src/Dialogs.vala:710
+#: src/Dialogs.vala:756
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%m/%d/%Y, %I:%M:%S %p"
 
 # Each "%d %s" pair gets replaced with a number and a string to describe a time value and a time unit, such as "35 minutes" where the %d is resolved to "35" and the %s is resolved to "minutes." There are multiple "%d %s" pairs so that we can say things like "4 days, 5 hours, 35 minutes and 8 seconds."
-#: src/Dialogs.vala:787
+#: src/Dialogs.vala:840
 #, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
@@ -569,7 +589,7 @@ msgstr ""
 "曝光时间将会被向较早时改变 \n"
 "%d %s, %d %s, %d %s, 和 %d %s."
 
-#: src/Dialogs.vala:788
+#: src/Dialogs.vala:841
 #, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
@@ -578,32 +598,32 @@ msgstr ""
 "曝光时间将会被向较晚时改变 \n"
 "%d %s, %d %s, %d %s, 和 %d %s."
 
-#: src/Dialogs.vala:790
+#: src/Dialogs.vala:843
 msgid "day"
 msgid_plural "days"
 msgstr[0] "日"
 
-#: src/Dialogs.vala:791
+#: src/Dialogs.vala:844
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "小时"
 
-#: src/Dialogs.vala:792
+#: src/Dialogs.vala:845
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "分钟"
 
-#: src/Dialogs.vala:793
+#: src/Dialogs.vala:846
 msgid "second"
 msgid_plural "seconds"
 msgstr[0] "秒"
 
-#: src/Dialogs.vala:837
+#: src/Dialogs.vala:890
 #, c-format
 msgid ""
 "\n"
 "\n"
-"And 1 other."
+"And %d other."
 msgid_plural ""
 "\n"
 "\n"
@@ -613,8 +633,21 @@ msgstr[0] ""
 "\n"
 "和另外 %d 个。"
 
+#: src/Dialogs.vala:905
+msgid "Tag:"
+msgstr "标签："
+
+#: src/Dialogs.vala:916
+#, c-format
+msgid "%s already exists.  Please choose a new tag name."
+msgstr "%s 已存在。请选择新的标签名。"
+
+#: src/Dialogs.vala:939
+msgid "Tags (separated by commas):"
+msgstr "标签(由逗号分割)："
+
 #: src/Dimensions.vala:17
-#: src/FlickrConnector.vala:486
+#: src/FlickrConnector.vala:484
 msgid "Original size"
 msgstr "原始尺寸"
 
@@ -630,221 +663,222 @@ msgstr "宽度"
 msgid "Height"
 msgstr "高度"
 
-#: src/EditingTools.vala:410
+#: src/EditingTools.vala:411
 msgid "Crop"
 msgstr "剪裁"
 
-#: src/EditingTools.vala:411
+#: src/EditingTools.vala:412
 msgid "Crop the photo's size"
 msgstr "剪裁照片尺寸"
 
-#: src/EditingTools.vala:486
+#: src/EditingTools.vala:487
 msgid "Return to current photo dimensions"
 msgstr "回到当前照片尺寸"
 
-#: src/EditingTools.vala:489
+#: src/EditingTools.vala:490
 msgid "Set the crop for this photo"
 msgstr "对这张照片进行剪裁"
 
-#: src/EditingTools.vala:501
+#: src/EditingTools.vala:502
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "在肖像和风景方向上旋转剪裁矩形"
 
-#: src/EditingTools.vala:566
+#: src/EditingTools.vala:567
 msgid "Unconstrained"
 msgstr "不限制"
 
-#: src/EditingTools.vala:567
+#: src/EditingTools.vala:568
 msgid "Square"
 msgstr "方形"
 
-#: src/EditingTools.vala:568
+#: src/EditingTools.vala:569
 msgid "Screen"
 msgstr "屏幕"
 
-#: src/EditingTools.vala:569
+#: src/EditingTools.vala:570
+#: src/PicasaConnector.vala:763
 msgid "Original Size"
 msgstr "原始尺寸"
 
-#: src/EditingTools.vala:570
-#: src/EditingTools.vala:573
-#: src/EditingTools.vala:581
-#: src/EditingTools.vala:589
+#: src/EditingTools.vala:571
+#: src/EditingTools.vala:574
+#: src/EditingTools.vala:582
+#: src/EditingTools.vala:590
 msgid "-"
 msgstr "-"
 
-#: src/EditingTools.vala:571
-msgid "SD Video (4 : 3)"
-msgstr "标清视频(4:3)"
-
 #: src/EditingTools.vala:572
+msgid "SD Video (4 : 3)"
+msgstr "标清视频(4 : 3)"
+
+#: src/EditingTools.vala:573
 msgid "HD Video (16 : 9)"
 msgstr "高清视频 (16 : 9)"
 
-#: src/EditingTools.vala:574
+#: src/EditingTools.vala:575
 #: src/Printing.vala:767
 msgid "Wallet (2 x 3 in.)"
 msgstr "用于皮夹(2 x 3 )英寸"
 
-#: src/EditingTools.vala:575
+#: src/EditingTools.vala:576
 #: src/Printing.vala:770
 msgid "Notecard (3 x 5 in.)"
 msgstr "留言卡(3 x 5 英寸)"
 
-#: src/EditingTools.vala:576
+#: src/EditingTools.vala:577
 #: src/Printing.vala:773
 msgid "4 x 6 in."
 msgstr "4 x 6 英寸"
 
-#: src/EditingTools.vala:577
+#: src/EditingTools.vala:578
 #: src/Printing.vala:776
 msgid "5 x 7 in."
 msgstr "5 x 7 英寸"
 
-#: src/EditingTools.vala:578
+#: src/EditingTools.vala:579
 #: src/Printing.vala:779
 msgid "8 x 10 in."
 msgstr "8 x 10 英寸"
 
-#: src/EditingTools.vala:579
+#: src/EditingTools.vala:580
 #: src/Printing.vala:782
 msgid "11 x 14 in."
 msgstr "11 x 14 英寸"
 
-#: src/EditingTools.vala:580
+#: src/EditingTools.vala:581
 #: src/Printing.vala:785
 msgid "16 x 20 in."
 msgstr "16 x 20 英寸"
 
-#: src/EditingTools.vala:582
+#: src/EditingTools.vala:583
 #: src/Printing.vala:791
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "用于皮夹 (9 x 13 cm)"
 
-#: src/EditingTools.vala:583
+#: src/EditingTools.vala:584
 #: src/Printing.vala:794
 msgid "Postcard (10 x 15 cm)"
 msgstr "明信片 (10 x 15 cm)"
 
-#: src/EditingTools.vala:584
+#: src/EditingTools.vala:585
 #: src/Printing.vala:797
 msgid "13 x 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/EditingTools.vala:585
+#: src/EditingTools.vala:586
 #: src/Printing.vala:800
 msgid "18 x 24 cm"
 msgstr "18 x 24 cm"
 
-#: src/EditingTools.vala:586
+#: src/EditingTools.vala:587
 #: src/Printing.vala:803
 msgid "20 x 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/EditingTools.vala:587
+#: src/EditingTools.vala:588
 #: src/Printing.vala:806
 msgid "24 x 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/EditingTools.vala:588
+#: src/EditingTools.vala:589
 #: src/Printing.vala:809
 msgid "30 x 40 cm"
 msgstr "30 x 40 cm"
 
-#: src/EditingTools.vala:590
+#: src/EditingTools.vala:591
 msgid "Custom"
 msgstr "自定义"
 
-#: src/EditingTools.vala:1672
+#: src/EditingTools.vala:1673
 msgid "Red-eye"
 msgstr "红眼"
 
-#: src/EditingTools.vala:1673
+#: src/EditingTools.vala:1674
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "降低或去除照片上的红眼效果"
 
-#: src/EditingTools.vala:1678
-#: src/Properties.vala:266
+#: src/EditingTools.vala:1679
+#: src/Properties.vala:335
 msgid "Size:"
 msgstr "尺寸："
 
-#: src/EditingTools.vala:1693
+#: src/EditingTools.vala:1694
 msgid "Close the red-eye tool"
 msgstr "关闭红眼工具"
 
-#: src/EditingTools.vala:1696
+#: src/EditingTools.vala:1697
 msgid "Remove any red-eye effects in the selected region"
 msgstr "移除在选定区域内的所有红眼效果"
 
-#: src/EditingTools.vala:1989
+#: src/EditingTools.vala:1990
 msgid "Adjust"
 msgstr "修正"
 
-#: src/EditingTools.vala:1990
+#: src/EditingTools.vala:1991
 msgid "Adjust the photo's color and tone"
 msgstr "修正照片的色彩和色调"
 
-#: src/EditingTools.vala:2012
+#: src/EditingTools.vala:2013
 msgid "_Reset"
 msgstr "重置(_R)"
 
-#: src/EditingTools.vala:2025
-#: src/Properties.vala:295
-#: src/Properties.vala:299
-#: src/Properties.vala:306
+#: src/EditingTools.vala:2026
+#: src/Properties.vala:364
+#: src/Properties.vala:368
+#: src/Properties.vala:375
 msgid "Exposure:"
 msgstr "曝光："
 
-#: src/EditingTools.vala:2033
+#: src/EditingTools.vala:2034
 msgid "Saturation:"
 msgstr "饱和度："
 
-#: src/EditingTools.vala:2041
+#: src/EditingTools.vala:2042
 msgid "Tint:"
 msgstr "色彩："
 
-#: src/EditingTools.vala:2050
+#: src/EditingTools.vala:2051
 msgid "Temperature:"
 msgstr "色温："
 
-#: src/EditingTools.vala:2058
+#: src/EditingTools.vala:2059
 msgid "Shadows:"
 msgstr "阴影："
 
-#: src/EditingTools.vala:2110
+#: src/EditingTools.vala:2111
 msgid "Reset Colors"
 msgstr "重置颜色"
 
-#: src/EditingTools.vala:2110
+#: src/EditingTools.vala:2111
 msgid "Reset all color adjustments to original"
 msgstr "将所有颜色修正重置至原始"
 
-#: src/EditingTools.vala:2416
+#: src/EditingTools.vala:2417
 msgid "Temperature"
 msgstr "色温"
 
-#: src/EditingTools.vala:2422
+#: src/EditingTools.vala:2423
 msgid "Tint"
 msgstr "色彩"
 
-#: src/EditingTools.vala:2428
+#: src/EditingTools.vala:2429
 msgid "Saturation"
 msgstr "饱和度"
 
-#: src/EditingTools.vala:2434
+#: src/EditingTools.vala:2435
 msgid "Exposure"
 msgstr "曝光"
 
-#: src/EditingTools.vala:2440
+#: src/EditingTools.vala:2441
 msgid "Shadows"
 msgstr "阴影"
 
-#: src/EditingTools.vala:2450
+#: src/EditingTools.vala:2451
 msgid "Contrast Expansion"
 msgstr "对比度扩展"
 
 #: src/EventsDirectoryPage.vala:64
-#: src/Properties.vala:234
+#: src/Properties.vala:303
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -868,12 +902,13 @@ msgstr "%Y"
 msgid "%B"
 msgstr "%B"
 
-#: src/Event.vala:369
+#: src/Event.vala:367
 #, c-format
 msgid "Event %lld"
 msgstr "活动 %lld"
 
 #: src/FacebookConnector.vala:13
+#: src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
 msgstr "Shotwell 连接"
 
@@ -904,12 +939,14 @@ msgid "Create a _new album named:"
 msgstr "创建一个新相册名为(_N)："
 
 #: src/FacebookConnector.vala:73
-#: src/FlickrConnector.vala:424
+#: src/FlickrConnector.vala:422
+#: src/PicasaConnector.vala:636
 msgid "_Publish"
 msgstr "发布(_P)"
 
 #: src/FacebookConnector.vala:75
-#: src/FlickrConnector.vala:422
+#: src/FlickrConnector.vala:420
+#: src/PicasaConnector.vala:626
 msgid "_Logout"
 msgstr "登出(_L)"
 
@@ -919,10 +956,10 @@ msgid ""
 "You are logged in to Facebook as %s.\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
-"您已经登录 Facebook 为: %s 。\n"
+"您已经登录 Facebook 为： %s 。\n"
 "想在那里发布您选中的照片？"
 
-#: src/FlickrConnector.vala:13
+#: src/FlickrConnector.vala:11
 msgid ""
 "You are not currently logged in to Flickr.\n"
 "\n"
@@ -932,7 +969,7 @@ msgstr ""
 "\n"
 "您必需在注册一个 Flickr 账户才能完成登录过程。在登录过程中您需要特别授权 Shotwell 连接到您的 Flickr 账户。"
 
-#: src/FlickrConnector.vala:15
+#: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
@@ -940,7 +977,7 @@ msgstr ""
 "您已经登录 Flickr 但在本次 Shotwell 进程中已离开。\n"
 "要继续发布到 Flickr，请退出并重新启动 Shotwell，然后再尝试发布。"
 
-#: src/FlickrConnector.vala:366
+#: src/FlickrConnector.vala:364
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -949,7 +986,7 @@ msgstr ""
 "您已经作为 %s 登入 Flickr。\n"
 "\n"
 
-#: src/FlickrConnector.vala:369
+#: src/FlickrConnector.vala:367
 #, c-format
 msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
@@ -958,113 +995,113 @@ msgstr ""
 "您的 Flickr 免费账户限制您每月可以上传的数据。\n"
 "本月您的流量限额还剩 %d MB。"
 
-#: src/FlickrConnector.vala:371
+#: src/FlickrConnector.vala:369
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "您的 Flickr Pro 账户让您可以无限上传。"
 
-#: src/FlickrConnector.vala:396
+#: src/FlickrConnector.vala:394
 msgid "Photos _visible to:"
 msgstr "照片可见(_V)："
 
-#: src/FlickrConnector.vala:397
+#: src/FlickrConnector.vala:395
 msgid "Photo _size:"
-msgstr "照片尺寸(_S):"
+msgstr "照片尺寸(_S)："
 
-#: src/FlickrConnector.vala:459
+#: src/FlickrConnector.vala:457
 msgid "Everyone"
 msgstr "所有人"
 
-#: src/FlickrConnector.vala:460
+#: src/FlickrConnector.vala:458
 msgid "Friends & family only"
 msgstr "仅有朋友和家人"
 
-#: src/FlickrConnector.vala:461
+#: src/FlickrConnector.vala:459
 msgid "Just me"
 msgstr "仅有我"
 
-#: src/FlickrConnector.vala:484
+#: src/FlickrConnector.vala:482
 msgid "Medium (500 x 375 pixels)"
-msgstr "中型 (500 x 375 pixels)"
+msgstr "中型 (500 x 375 像素)"
 
-#: src/FlickrConnector.vala:485
+#: src/FlickrConnector.vala:483
 msgid "Large (1024 x 768 pixels)"
-msgstr "大型 (1024 x 768 pixels)"
+msgstr "大型 (1024 x 768 像素)"
 
-#: src/image_util.vala:250
+#: src/image_util.vala:259
 #, c-format
 msgid "Low (%d%%)"
 msgstr "低 (%d%%)"
 
-#: src/image_util.vala:253
+#: src/image_util.vala:262
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "中 (%d%%)"
 
-#: src/image_util.vala:256
+#: src/image_util.vala:265
 #, c-format
 msgid "High (%d%%)"
 msgstr "高 (%d%%)"
 
-#: src/image_util.vala:259
+#: src/image_util.vala:268
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "最大 (%d%%)"
 
-#: src/image_util.vala:509
+#: src/image_util.vala:524
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr "不能输出为背景到 %s : %s"
+msgstr "不能输出为背景到 %s ： %s"
 
-#: src/ImportPage.vala:146
+#: src/ImportPage.vala:150
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr "不能卸载相机。尝试从文件管理器中卸载相机。"
 
-#: src/ImportPage.vala:237
-#: src/ImportPage.vala:238
+#: src/ImportPage.vala:241
+#: src/ImportPage.vala:242
 msgid "Camera"
 msgstr "相机"
 
-#: src/ImportPage.vala:273
+#: src/ImportPage.vala:280
 msgid "Hide photos already imported"
 msgstr "隐藏已经导入的照片"
 
-#: src/ImportPage.vala:274
+#: src/ImportPage.vala:281
 msgid "Only display photos that have not been imported"
 msgstr "只显示尚未导入的照片"
 
-#: src/ImportPage.vala:366
+#: src/ImportPage.vala:378
 msgid "Import _Selected"
 msgstr "导入选中的(_S)"
 
-#: src/ImportPage.vala:371
+#: src/ImportPage.vala:383
 msgid "Import _All"
 msgstr "导入全部(_A)"
 
-#: src/ImportPage.vala:381
+#: src/ImportPage.vala:393
 msgid "Select all the photos for importing"
 msgstr "选择全部照片导入"
 
-#: src/ImportPage.vala:489
+#: src/ImportPage.vala:501
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
 msgstr "Shotwell 需要从文件系统卸载相机来访问它。继续？"
 
-#: src/ImportPage.vala:495
+#: src/ImportPage.vala:507
 msgid "_Unmount"
 msgstr "卸载(_U)"
 
-#: src/ImportPage.vala:500
+#: src/ImportPage.vala:512
 msgid "Please unmount the camera."
 msgstr "请卸载相机。"
 
-#: src/ImportPage.vala:505
+#: src/ImportPage.vala:517
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
 msgstr "该相机被其他程序锁定。Shotwell 在解锁之后才能访问该相机。请关闭其他使用该相机的程序再重试。"
 
-#: src/ImportPage.vala:515
+#: src/ImportPage.vala:527
 msgid "Please close any other application using the camera."
 msgstr "请关闭其他使用该相机的程序。"
 
-#: src/ImportPage.vala:520
+#: src/ImportPage.vala:532
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -1073,348 +1110,448 @@ msgstr ""
 "无法从相机获取预览：\n"
 "%s"
 
-#: src/ImportPage.vala:538
+#: src/ImportPage.vala:550
 msgid "Unmounting..."
 msgstr "卸载..."
 
-#: src/ImportPage.vala:598
+#: src/ImportPage.vala:610
 msgid "Fetching photo information"
 msgstr "获取照片信息"
 
-#: src/ImportPage.vala:787
+#: src/ImportPage.vala:799
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "获取 %s 的预览"
 
-#: src/ImportPage.vala:836
+#: src/ImportPage.vala:848
 #, c-format
 msgid "Error while fetching previews from %s: %s"
 msgstr "从 %s 获取预览错误：%s"
 
-#: src/ImportPage.vala:877
+#: src/ImportPage.vala:889
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "无法锁定相机：%s"
 
-#: src/ImportPage.vala:959
+#: src/ImportPage.vala:971
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "从相机删除 %d 张照片？"
 
-#: src/ImportPage.vala:963
+#: src/ImportPage.vala:975
 msgid "_Keep"
 msgstr "保留(_K)"
 
-#: src/ImportPage.vala:980
+#: src/ImportPage.vala:992
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
 msgstr[0] "由于错误无法从相机中删除 %d 张照片。"
 
-#: src/ImportPage.vala:1025
+#: src/ImportPage.vala:1037
 msgid "Importing..."
 msgstr "导入..."
 
-#: src/ImportPage.vala:1035
-#: src/ImportPage.vala:1065
+#: src/ImportPage.vala:1047
+#: src/ImportPage.vala:1077
 msgid "Stop importing photos"
 msgstr "停止导入照片"
 
-#: src/ImportPage.vala:1064
+#: src/ImportPage.vala:1076
 msgid "_Stop Import"
 msgstr "停止导入(_S)"
 
-#: src/ImportPage.vala:1131
+#: src/ImportPage.vala:1143
 #, c-format
 msgid "Imported %s"
 msgstr "已导入 %s"
 
-#: src/LibraryWindow.vala:337
+#: src/LibraryWindow.vala:364
 msgid "_Import From Folder..."
 msgstr "从文件夹导入(_I)..."
 
-#: src/LibraryWindow.vala:338
+#: src/LibraryWindow.vala:365
 msgid "Import photos from disk to library"
 msgstr "从磁盘导入照片到照片库"
 
-#: src/LibraryWindow.vala:343
+#: src/LibraryWindow.vala:370
 msgid "Sort _Events"
 msgstr "排列活动(_E)"
 
-#: src/LibraryWindow.vala:354
+#: src/LibraryWindow.vala:381
 msgid "_Basic Information"
-msgstr ""
+msgstr "基本信息(_B)"
 
-#: src/LibraryWindow.vala:355
+#: src/LibraryWindow.vala:382
 msgid "Display basic information for the selection"
-msgstr ""
+msgstr "显示所选项的基本信息"
 
-#: src/LibraryWindow.vala:360
+#: src/LibraryWindow.vala:387
 msgid "E_xtended Information"
-msgstr ""
+msgstr "扩展信息(_X)"
 
-#: src/LibraryWindow.vala:361
+#: src/LibraryWindow.vala:388
 msgid "Display extended information for the selection"
-msgstr ""
+msgstr "显示所选项的扩展信息"
 
-#: src/LibraryWindow.vala:519
+#: src/LibraryWindow.vala:546
 #, c-format
 msgid "_Copy files to %s photo library"
-msgstr ""
+msgstr "复制文件到 %s 照片库(_C)"
 
-#: src/LibraryWindow.vala:522
+#: src/LibraryWindow.vala:549
 msgid "Import From Folder"
-msgstr ""
+msgstr "从文件夹导入"
 
-#: src/LibraryWindow.vala:733
+#: src/LibraryWindow.vala:776
 #, c-format
 msgid "Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them."
-msgstr ""
+msgstr "Shotwell 将复制或移动照片到您 %s 的目录，或者链接到照片来避免重复。"
 
-#: src/LibraryWindow.vala:739
+#: src/LibraryWindow.vala:782
 msgid "Copy into Library"
-msgstr ""
+msgstr "复制到照片库"
 
-#: src/LibraryWindow.vala:740
+#: src/LibraryWindow.vala:783
 msgid "Create Links"
-msgstr ""
+msgstr "创建链接"
 
-#: src/LibraryWindow.vala:741
+#: src/LibraryWindow.vala:784
 msgid "Import to Library"
-msgstr ""
+msgstr "导入到照片库"
 
-#: src/LibraryWindow.vala:961
+#: src/LibraryWindow.vala:1070
 msgid "Cameras"
-msgstr ""
+msgstr "相机"
 
 #: src/main.vala:79
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
-msgstr ""
+msgstr "您的照片库和当前版本的 Shotwell 不兼容。它似乎是由 Shotwell %s 创建的。当前版本是 %s 。请使用最新版本的 Shotwell。"
 
 #: src/main.vala:84
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
-msgstr ""
+msgstr "Shotwell 无法将您的照片库从 %s 版本升级到 %s 版本。更多的信息请查询 Shotwell 维基 %s"
 
 #: src/main.vala:89
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
-msgstr ""
+msgstr "您的照片库和当前版本的 Shotwell 不兼容。它似乎是由 Shotwell %s 创建的。当前版本是 %s 。请删除 %s 来释放您的照片库然后重新导入照片。"
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
-msgstr ""
+msgstr "验证 Shotwell 数据库时发生未知错误： %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell..."
-msgstr ""
+msgstr "载入 Shotwell..."
 
-#: src/main.vala:206
+#: src/main.vala:208
 msgid "[FILE]"
-msgstr ""
+msgstr "[FILE]"
 
 #: src/PhotoPage.vala:109
 msgid "Previous photo"
-msgstr ""
+msgstr "前一张照片"
 
 #: src/PhotoPage.vala:114
 msgid "Next photo"
-msgstr ""
+msgstr "下一张照片"
 
-#: src/PhotoPage.vala:711
+#: src/PhotoPage.vala:734
 msgid "Photo source file is missing."
-msgstr ""
+msgstr "照片源文件丢失。"
 
-#: src/PhotoPage.vala:890
+#: src/PhotoPage.vala:909
 #, c-format
 msgid "Photo source file missing: %s"
-msgstr ""
-
-#: src/PhotoPage.vala:1184
-msgid "Export photo to disk"
-msgstr ""
-
-#: src/PhotoPage.vala:1205
-msgid "Remove the photo from your library"
-msgstr ""
-
-#: src/PhotoPage.vala:1213
-#: src/PhotoPage.vala:1685
-msgid "_Photo"
-msgstr ""
+msgstr "照片源文件丢失： %s"
 
 #: src/PhotoPage.vala:1218
-#: src/PhotoPage.vala:1690
+msgid "Export photo to disk"
+msgstr "导出照片到磁盘"
+
+#: src/PhotoPage.vala:1239
+msgid "Remove the photo from your library"
+msgstr "从照片库移除照片"
+
+#: src/PhotoPage.vala:1247
+#: src/PhotoPage.vala:1837
+msgid "_Photo"
+msgstr "照片(_P)"
+
+#: src/PhotoPage.vala:1252
+#: src/PhotoPage.vala:1842
 msgid "_Previous Photo"
-msgstr ""
+msgstr "前一张照片(_P)"
 
-#: src/PhotoPage.vala:1219
-#: src/PhotoPage.vala:1691
+#: src/PhotoPage.vala:1253
+#: src/PhotoPage.vala:1843
 msgid "Previous Photo"
-msgstr ""
+msgstr "前一张照片"
 
-#: src/PhotoPage.vala:1224
-#: src/PhotoPage.vala:1696
+#: src/PhotoPage.vala:1258
+#: src/PhotoPage.vala:1848
 msgid "_Next Photo"
-msgstr ""
+msgstr "下一张照片(_N)"
 
-#: src/PhotoPage.vala:1225
-#: src/PhotoPage.vala:1697
+#: src/PhotoPage.vala:1259
+#: src/PhotoPage.vala:1849
 msgid "Next Photo"
-msgstr ""
+msgstr "下一张照片"
 
-#: src/PhotoPage.vala:1421
+#: src/PhotoPage.vala:1512
 #, c-format
 msgid "Unable to export %s: %s"
-msgstr ""
+msgstr "无法导出 %s ： %s"
 
-#: src/PhotoPage.vala:1669
+#: src/PhotoPage.vala:1821
 msgid "_Save"
-msgstr ""
+msgstr "保存(_S)"
 
-#: src/PhotoPage.vala:1670
+#: src/PhotoPage.vala:1822
 msgid "Save photo"
-msgstr ""
+msgstr "保存照片"
 
-#: src/PhotoPage.vala:1675
+#: src/PhotoPage.vala:1827
 msgid "Save _As..."
-msgstr ""
+msgstr "另存为(_A)..."
 
-#: src/PhotoPage.vala:1676
+#: src/PhotoPage.vala:1828
 msgid "Save photo with a different name"
-msgstr ""
+msgstr "以其他名字保存照片"
 
-#: src/PhotoPage.vala:1680
+#: src/PhotoPage.vala:1832
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
-#: src/PhotoPage.vala:1749
+#: src/PhotoPage.vala:1907
 #, c-format
 msgid "%s does not exist."
-msgstr ""
+msgstr "%s 不存在。"
 
-#: src/PhotoPage.vala:1751
+#: src/PhotoPage.vala:1909
 #, c-format
 msgid "%s is not a file."
-msgstr ""
+msgstr "%s 不是一个文件。"
 
-#: src/PhotoPage.vala:1753
+#: src/PhotoPage.vala:1911
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
 "%s."
 msgstr ""
+"%s 不支持的文件类型\n"
+"%s"
 
-#: src/PhotoPage.vala:1825
+#: src/PhotoPage.vala:1987
 #, c-format
 msgid "Lose changes to %s?"
-msgstr ""
+msgstr "放弃对 %s 的更改？"
 
-#: src/PhotoPage.vala:1848
+#: src/PhotoPage.vala:2010
 #, c-format
 msgid "Error while saving to %s: %s"
-msgstr ""
+msgstr "保存 %s 时出错： %s"
 
-#: src/PhotoPage.vala:1875
-#: src/PhotoPage.vala:1884
+#: src/PhotoPage.vala:2037
+#: src/PhotoPage.vala:2046
 msgid "Save As"
-msgstr ""
+msgstr "保存为"
 
 #: src/Photo.vala:23
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #: src/Photo.vala:26
 msgid "File error"
-msgstr ""
+msgstr "文件错误"
 
 #: src/Photo.vala:29
 msgid "Unable to decode file"
-msgstr ""
+msgstr "无法解码文件"
 
 #: src/Photo.vala:32
 msgid "Database error"
-msgstr ""
+msgstr "数据库错误"
 
 #: src/Photo.vala:35
 msgid "User aborted import"
-msgstr ""
+msgstr "用户中止导入"
 
 #: src/Photo.vala:38
 msgid "Not a file"
-msgstr ""
+msgstr "不是一个文件"
 
 #: src/Photo.vala:41
 msgid "File already exists in database"
-msgstr ""
+msgstr "文件已存在于数据库中"
 
 #: src/Photo.vala:44
 msgid "Unsupported file format"
-msgstr ""
+msgstr "不支持的文件格式"
 
 #: src/Photo.vala:47
 msgid "Disk failure"
-msgstr ""
+msgstr "磁盘错误"
 
 #: src/Photo.vala:50
 msgid "Disk full"
-msgstr ""
+msgstr "磁盘已满"
 
 #: src/Photo.vala:53
 msgid "Camera error"
-msgstr ""
+msgstr "相机错误"
 
 #: src/Photo.vala:56
 #, c-format
 msgid "Imported failed (%d)"
+msgstr "导入失败(%d)"
+
+#: src/PicasaConnector.vala:11
+msgid ""
+"You are not currently logged in to Picasa Web Albums.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to login to the Picasa Web Albums site at least once."
 msgstr ""
+"您尚未登入 Picasa 网络相册。\n"
+"\n"
+"您必须已经注册了一个 Google 账户并设定为使用 Picasa 才能继续。您可以通过浏览器至少登录一次到 Picasa 网络相册来开启设定。"
+
+#: src/PicasaConnector.vala:298
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgstr "输入您关联 Picasa 网络相册账户的 Email 地址和密码。"
+
+#: src/PicasaConnector.vala:299
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr "Picasa 网络相册无法识别您所输入的 Email 地址和密码。若再次尝试，重新在下方输入您的 Email 地址和密码。"
+
+#: src/PicasaConnector.vala:300
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to login to the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr "您所输入的 Email 地址和密码链接到的 Google 账户并没有设定使用 Picasa 网络相册。您可以通过浏览器至少登录一次到 Picasa 网络相册来开启设定。若再次尝试，重新在下方输入您的 Email 地址和密码。"
+
+#: src/PicasaConnector.vala:335
+#, c-format
+msgid "Unrecognized User"
+msgstr "无法识别的用户"
+
+#: src/PicasaConnector.vala:339
+#, c-format
+msgid "Account Not Ready"
+msgstr "账户尚未就绪"
+
+#: src/PicasaConnector.vala:350
+msgid "_Email address:"
+msgstr "Email 地址(_E):"
+
+#: src/PicasaConnector.vala:352
+msgid "_Password:"
+msgstr "密码(_P)："
+
+#: src/PicasaConnector.vala:370
+msgid "Go _Back"
+msgstr "后退(_B)"
+
+#: src/PicasaConnector.vala:375
+#: src/WebConnectors.vala:493
+msgid "_Login"
+msgstr "登录(_L)"
+
+#: src/PicasaConnector.vala:415
+msgid "Logging in..."
+msgstr "正在登入……"
+
+#: src/PicasaConnector.vala:458
+msgid "Creating album..."
+msgstr "创建相册..."
+
+#: src/PicasaConnector.vala:533
+#, c-format
+msgid "You are logged in to Picasa Web Albums as %s"
+msgstr "您已经作为 %s 登入 Picasa 网络相册。"
+
+#: src/PicasaConnector.vala:545
+msgid "Photos will appear in:"
+msgstr "照片将出现在："
+
+#: src/PicasaConnector.vala:558
+msgid "An _existing album:"
+msgstr "一个已有的相册(_E)："
+
+#: src/PicasaConnector.vala:572
+msgid "A _new album named:"
+msgstr "一个新相册名为(_N)："
+
+#: src/PicasaConnector.vala:584
+msgid "L_ist album in public gallery"
+msgstr "显示公开相片库里的相册(_I)"
+
+#: src/PicasaConnector.vala:596
+msgid "Photo _size preset:"
+msgstr "预置照片尺寸(_S)："
+
+#: src/PicasaConnector.vala:666
+msgid "Fetching account information..."
+msgstr "获取账户信息..."
+
+#: src/PicasaConnector.vala:760
+msgid "Small (640 x 480 pixels)"
+msgstr "小型 (640 x 480 像素)"
+
+#: src/PicasaConnector.vala:761
+msgid "Medium (1024 x 768 pixels)"
+msgstr "中型 (1024 x 768 像素)"
+
+#: src/PicasaConnector.vala:762
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "推荐 (1600 x 1200 像素)"
 
 #: src/Printing.vala:212
 msgid "Printed Image Size"
-msgstr ""
+msgstr "图片打印尺寸"
 
 #: src/Printing.vala:224
 msgid "Use a _standard size:"
-msgstr ""
+msgstr "使用标准尺寸(_S)："
 
 #: src/Printing.vala:228
 msgid "Use a c_ustom size:"
-msgstr ""
+msgstr "使用自定义尺寸(_U)："
 
 #: src/Printing.vala:232
 msgid "_Fill the entire page"
-msgstr ""
+msgstr "填充整个页面(_F)"
 
 #: src/Printing.vala:279
 msgid "in."
-msgstr ""
+msgstr "英寸"
 
 #: src/Printing.vala:280
 msgid "cm"
-msgstr ""
+msgstr "厘米"
 
 #: src/Printing.vala:299
 msgid "_Match photo aspect ratio"
-msgstr ""
+msgstr "匹配照片比例(_M)"
 
 #: src/Printing.vala:313
 msgid "Pixel Resolution"
-msgstr ""
+msgstr "像素分辨率"
 
 #: src/Printing.vala:320
 msgid "_Output photo at:"
-msgstr ""
+msgstr "输出照片为(_O)："
 
 #: src/Printing.vala:332
 msgid "pixels per inch"
-msgstr ""
+msgstr "每英寸像素数"
 
 #: src/Printing.vala:825
 msgid "Image Settings"
-msgstr ""
+msgstr "图像设置"
 
 #: src/Printing.vala:839
 #: src/Printing.vala:940
@@ -1425,474 +1562,555 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"无法打印照片：\n"
+"\n"
+"%s"
 
 # Locale-specific time format string, conforming to POSIX time-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the time formatting conventions of their language, country, and region.
-#: src/Properties.vala:35
+#: src/Properties.vala:40
 msgid "%I:%M %p"
-msgstr ""
+msgstr "%I:%M %p"
 
-#: src/Properties.vala:47
+#: src/Properties.vala:52
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
-#: src/Properties.vala:49
+#: src/Properties.vala:54
 msgid "Yesterday"
-msgstr ""
+msgstr "昨天"
 
-#: src/Properties.vala:221
+#: src/Properties.vala:290
 msgid "Title:"
-msgstr ""
+msgstr "标题："
 
-#: src/Properties.vala:224
+#: src/Properties.vala:293
 msgid "Items:"
-msgstr ""
+msgstr "项目："
 
-#: src/Properties.vala:227
+#: src/Properties.vala:296
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d 个活动"
 
-#: src/Properties.vala:248
+#: src/Properties.vala:317
 msgid "Date:"
-msgstr ""
+msgstr "日期："
 
-#: src/Properties.vala:252
+#: src/Properties.vala:321
 msgid "Time:"
-msgstr ""
+msgstr "时间："
 
-#: src/Properties.vala:255
-#: src/Properties.vala:260
+#: src/Properties.vala:324
+#: src/Properties.vala:329
 msgid "From:"
-msgstr ""
+msgstr "从："
 
-#: src/Properties.vala:256
-#: src/Properties.vala:261
+#: src/Properties.vala:325
+#: src/Properties.vala:330
 msgid "To:"
-msgstr ""
+msgstr "到："
 
-#: src/Properties.vala:388
+#: src/Properties.vala:457
 msgid "Location:"
-msgstr ""
+msgstr "地点："
 
-#: src/Properties.vala:390
+#: src/Properties.vala:459
 msgid "File size:"
-msgstr ""
+msgstr "文件大小："
 
-#: src/Properties.vala:393
+#: src/Properties.vala:462
 msgid "Original dimensions:"
-msgstr ""
+msgstr "原始尺寸："
 
-#: src/Properties.vala:396
+#: src/Properties.vala:465
 msgid "Camera make:"
-msgstr ""
+msgstr "相机厂商："
 
-#: src/Properties.vala:399
+#: src/Properties.vala:468
 msgid "Camera model:"
-msgstr ""
+msgstr "相机型号："
 
-#: src/Properties.vala:402
+#: src/Properties.vala:471
 msgid "Flash:"
-msgstr ""
+msgstr "闪光灯："
 
-#: src/Properties.vala:404
+#: src/Properties.vala:473
 msgid "Focal length:"
-msgstr ""
+msgstr "焦距："
 
-#: src/Properties.vala:407
+#: src/Properties.vala:476
 msgid "GPS latitude:"
-msgstr ""
+msgstr "GPS 纬度"
 
-#: src/Properties.vala:410
+#: src/Properties.vala:479
 msgid "GPS longitude:"
-msgstr ""
+msgstr "GPS 经度："
 
-#: src/Properties.vala:413
+#: src/Properties.vala:482
 msgid "Artist:"
-msgstr ""
+msgstr "艺术家："
 
-#: src/Properties.vala:415
+#: src/Properties.vala:484
 msgid "Copyright:"
-msgstr ""
+msgstr "版权："
 
-#: src/Properties.vala:417
+#: src/Properties.vala:486
 msgid "Software:"
-msgstr ""
+msgstr "软件："
 
-#: src/Properties.vala:429
+#: src/Properties.vala:497
 msgid "Extended Information"
-msgstr ""
+msgstr "扩展信息"
 
 #: src/Resources.vala:14
 msgid "Photo Manager"
-msgstr ""
+msgstr "照片管理器"
 
 #: src/Resources.vala:15
 msgid "Photo Viewer"
-msgstr ""
+msgstr "照片查看器"
 
 #: src/Resources.vala:17
 msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr ""
+msgstr "版权所有 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:81
 msgid "Rotate _Right"
-msgstr ""
+msgstr "向右旋转(_R)"
 
 #: src/Resources.vala:82
 #: src/Resources.vala:87
 msgid "Rotate"
-msgstr ""
+msgstr "旋转"
 
 #: src/Resources.vala:83
 msgid "Rotate Right"
-msgstr ""
+msgstr "向右旋转"
 
 #: src/Resources.vala:84
 msgid "Rotate the photos right"
-msgstr ""
+msgstr "向右旋转照片"
 
 #: src/Resources.vala:86
 msgid "Rotate _Left"
-msgstr ""
+msgstr "向左旋转(_L)"
 
 #: src/Resources.vala:88
 msgid "Rotate Left"
-msgstr ""
+msgstr "向左旋转"
 
 #: src/Resources.vala:89
 msgid "Rotate the photos left"
-msgstr ""
+msgstr "向左旋转照片"
 
 #: src/Resources.vala:91
 msgid "_Mirror"
-msgstr ""
+msgstr "镜像(_M)"
 
 #: src/Resources.vala:92
 msgid "Mirror"
-msgstr ""
+msgstr "镜像"
 
 #: src/Resources.vala:93
 msgid "Make mirror images of the photos"
-msgstr ""
+msgstr "制作照片镜像"
 
 #: src/Resources.vala:95
 msgid "_Enhance"
-msgstr ""
+msgstr "增强(_E)"
 
 #: src/Resources.vala:96
 msgid "Enhance"
-msgstr ""
+msgstr "增强"
 
 #: src/Resources.vala:97
 msgid "Automatically improve the photo's appearance"
-msgstr ""
+msgstr "自动增强照片的观感"
 
 #: src/Resources.vala:99
 msgid "Re_vert to Original"
-msgstr ""
+msgstr "恢复到原始(_V)"
 
 #: src/Resources.vala:100
 msgid "Revert to Original"
-msgstr ""
+msgstr "恢复到原始"
 
 #: src/Resources.vala:101
 msgid "Revert to the original photo"
-msgstr ""
+msgstr "恢复到原始照片"
 
 #: src/Resources.vala:103
 msgid "Set as Desktop _Background"
-msgstr ""
+msgstr "设置为桌面背景(_B)"
 
 #: src/Resources.vala:104
 msgid "Set selected image to be the new desktop background"
-msgstr ""
+msgstr "设置选定照片为新的桌面背景"
 
 #: src/Resources.vala:106
 msgid "_Undo"
-msgstr ""
+msgstr "取消(_U)"
 
 #: src/Resources.vala:107
 msgid "Undo"
-msgstr ""
+msgstr "取消"
 
 #: src/Resources.vala:108
 msgid "Undo the last action"
-msgstr ""
+msgstr "取消最后的操作"
 
 #: src/Resources.vala:110
 msgid "_Redo"
-msgstr ""
+msgstr "重做(_R)"
 
 #: src/Resources.vala:111
 msgid "Redo"
-msgstr ""
+msgstr "重做"
 
 #: src/Resources.vala:112
 msgid "Redo the last undone action"
-msgstr ""
+msgstr "重做最近被取消的操作"
 
 #: src/Resources.vala:114
 msgid "Re_name Event..."
-msgstr ""
+msgstr "重新命名活动(_N)..."
 
 #: src/Resources.vala:116
 msgid "Rename the selected event"
-msgstr ""
+msgstr "重命名选中活动"
 
 #: src/Resources.vala:118
 msgid "Make _Key Photo for Event"
-msgstr ""
+msgstr "创建活动关键照片(_K)"
 
 #: src/Resources.vala:119
 msgid "Make Key Photo for Event"
-msgstr ""
+msgstr "创建活动关键照片"
 
 #: src/Resources.vala:120
 msgid "Make the selected photo the thumbnail for the event"
-msgstr ""
+msgstr "用选中照片作为活动的缩略图"
 
 #: src/Resources.vala:122
 msgid "_New Event"
-msgstr ""
+msgstr "新活动(_N)"
 
 #: src/Resources.vala:123
 msgid "New Event"
-msgstr ""
+msgstr "新活动"
 
 #: src/Resources.vala:124
 msgid "Create new event from the selected photos"
-msgstr ""
+msgstr "用选中照片创建一个新活动"
 
 #: src/Resources.vala:126
 msgid "Move Photos"
-msgstr ""
+msgstr "移动照片"
 
 #: src/Resources.vala:127
 msgid "Move photos to an event"
-msgstr ""
+msgstr "将照片移动到一个活动"
 
 #: src/Resources.vala:129
 msgid "_Merge Events"
-msgstr ""
+msgstr "合并活动(_M)"
 
 #: src/Resources.vala:130
 msgid "Merge"
-msgstr ""
+msgstr "合并"
 
 #: src/Resources.vala:131
 msgid "Merge into a single event"
-msgstr ""
+msgstr "合并为一个活动"
 
 #: src/Resources.vala:133
 msgid "Mark as _Favorite"
-msgstr ""
+msgstr "标记为收藏(_F)"
 
 #: src/Resources.vala:134
 msgid "Mark as Favorite"
-msgstr ""
+msgstr "标记为收藏"
 
 #: src/Resources.vala:135
 msgid "Mark the photo as one of your favorites"
-msgstr ""
+msgstr "标记照片为一个您的收藏"
 
 #: src/Resources.vala:137
 msgid "Unmark as _Favorite"
-msgstr ""
+msgstr "取消收藏(_F)"
 
 #: src/Resources.vala:138
 msgid "Unmark as Favorite"
-msgstr ""
+msgstr "取消收藏"
 
 #: src/Resources.vala:139
 msgid "Unmark the photo as one of your favorites"
-msgstr ""
+msgstr "取消照片的收藏标记"
 
 #: src/Resources.vala:141
 msgid "_Hide"
-msgstr ""
+msgstr "隐藏(_H)"
 
 #: src/Resources.vala:142
 msgid "Hide"
-msgstr ""
+msgstr "隐藏"
 
 #: src/Resources.vala:143
 msgid "Hide the selected photos"
-msgstr ""
+msgstr "隐藏所选照片"
 
 #: src/Resources.vala:145
 msgid "Un_hide"
-msgstr ""
+msgstr "取消隐藏(_H)"
 
 #: src/Resources.vala:146
 msgid "Unhide"
-msgstr ""
+msgstr "取消隐藏"
 
 #: src/Resources.vala:147
 msgid "Unhide the selected photos"
-msgstr ""
+msgstr "取消隐藏所选照片"
 
 #: src/Resources.vala:149
 msgid "_Duplicate"
-msgstr ""
+msgstr "副本(_D)"
 
 #: src/Resources.vala:150
 msgid "Duplicate"
-msgstr ""
+msgstr "副本"
 
 #: src/Resources.vala:151
 msgid "Make a duplicate of the photo"
-msgstr ""
+msgstr "创建照片副本"
 
 #: src/Resources.vala:153
 msgid "_Publish Photos..."
-msgstr ""
+msgstr "发布照片(_P)..."
 
 #: src/Resources.vala:154
 msgid "Publish"
-msgstr ""
+msgstr "发布"
 
 #: src/Resources.vala:155
 msgid "Publish the selected photos to various websites"
-msgstr ""
+msgstr "将所选照片发布到各种网站上"
 
 #: src/Resources.vala:157
 msgid "_Adjust Date and Time..."
-msgstr ""
+msgstr "修改日期和时间(_A)..."
 
 #: src/Resources.vala:158
 msgid "Adjust Date and Time"
-msgstr ""
+msgstr "修改日期和时间"
 
 #: src/Resources.vala:159
 msgid "Adjust date and time of selected photos"
-msgstr ""
+msgstr "修改所选照片的日期和时间"
 
-#: src/SlideshowPage.vala:55
-#: src/SlideshowPage.vala:120
-msgid "Settings"
-msgstr ""
+#: src/Resources.vala:161
+msgid "_New Tag..."
+msgstr "新标签(_N)..."
 
-#: src/SlideshowPage.vala:57
-msgid "Delay:"
-msgstr ""
+#: src/Resources.vala:162
+#, c-format
+msgid "New Tag \"%s\""
+msgstr "新标签 \"%s\""
+
+#: src/Resources.vala:163
+msgid "New Tag"
+msgstr "新标签"
+
+#: src/Resources.vala:164
+msgid "Create a new tag for the selected photos"
+msgstr "用选中照片创建一个新标签"
+
+#: src/Resources.vala:166
+msgid "_Delete Tag"
+msgstr "删除标签(_D)"
+
+#: src/Resources.vala:167
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "删除标签 \"%s\""
+
+#: src/Resources.vala:168
+msgid "Remove the tag from all photos"
+msgstr "从所有照片移除标签"
+
+#: src/Resources.vala:170
+msgid "_Rename Tag..."
+msgstr "重命名标签(_R)..."
+
+#: src/Resources.vala:171
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "重命名标签 \"%s\" 为 \"%s\""
+
+#: src/Resources.vala:172
+msgid "Rename Tag"
+msgstr "重命名标签"
+
+#: src/Resources.vala:173
+msgid "Rename the tag"
+msgstr "重命名标签"
+
+#: src/Resources.vala:175
+msgid "_Set Tags..."
+msgstr "设定标签(_S)..."
+
+#: src/Resources.vala:176
+msgid "Set Tags"
+msgstr "设定标签"
+
+#: src/Resources.vala:177
+msgid "Tag photo with labels"
+msgstr "用标签标注"
+
+#: src/Resources.vala:179
+#, c-format
+msgid "Tag Photos as \"%s\""
+msgstr "标注照片为 \"%s\""
+
+#: src/Resources.vala:180
+msgid "Tag the selected photos"
+msgstr "标注所选照片"
+
+#: src/Resources.vala:182
+msgid "Remove _Tag"
+msgstr "移除标签(_T)"
+
+#: src/Resources.vala:183
+#, c-format
+msgid "Remove Tag \"%s\" from Photos"
+msgstr "照片移除标签 \"%s\""
+
+#: src/Resources.vala:184
+msgid "Remove tag from the selected photos"
+msgstr "从所选照片移除标签"
 
 #: src/SlideshowPage.vala:58
+#: src/SlideshowPage.vala:123
+msgid "Settings"
+msgstr "设定"
+
+#: src/SlideshowPage.vala:60
+msgid "Delay:"
+msgstr "延时："
+
+#: src/SlideshowPage.vala:61
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
-#: src/SlideshowPage.vala:99
+#: src/SlideshowPage.vala:102
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
-#: src/SlideshowPage.vala:100
+#: src/SlideshowPage.vala:103
 msgid "Go to the previous photo"
-msgstr ""
+msgstr "跳到上一张照片"
 
-#: src/SlideshowPage.vala:106
-#: src/SlideshowPage.vala:210
+#: src/SlideshowPage.vala:109
+#: src/SlideshowPage.vala:225
 msgid "Pause"
-msgstr ""
+msgstr "暂停"
 
-#: src/SlideshowPage.vala:107
-#: src/SlideshowPage.vala:211
+#: src/SlideshowPage.vala:110
+#: src/SlideshowPage.vala:226
 msgid "Pause the slideshow"
-msgstr ""
+msgstr "暂停幻灯片演示"
 
-#: src/SlideshowPage.vala:113
+#: src/SlideshowPage.vala:116
 msgid "Next"
-msgstr ""
+msgstr "下一张"
 
-#: src/SlideshowPage.vala:114
+#: src/SlideshowPage.vala:117
 msgid "Go to the next photo"
-msgstr ""
+msgstr "跳到下一张照片"
 
-#: src/SlideshowPage.vala:121
+#: src/SlideshowPage.vala:124
 msgid "Change slideshow settings"
-msgstr ""
+msgstr "改变幻灯片演示设定"
 
-#: src/SlideshowPage.vala:173
+#: src/SlideshowPage.vala:188
 msgid "All photo source files are missing."
-msgstr ""
+msgstr "所有的照片源文件丢失。"
 
-#: src/SlideshowPage.vala:206
+#: src/SlideshowPage.vala:221
 msgid "Play"
-msgstr ""
+msgstr "播放"
 
-#: src/SlideshowPage.vala:207
+#: src/SlideshowPage.vala:222
 msgid "Continue the slideshow"
-msgstr ""
+msgstr "继续幻灯片演示"
 
 # Locale-specific date format string, conforming to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the date formatting conventions of their language, country, and region.
-#: src/util.vala:379
+#: src/util.vala:383
 msgid "%a %b %d, %Y"
-msgstr ""
+msgstr "%a %b %d, %Y"
 
-#: src/WebConnectors.vala:355
-msgid "_Login"
-msgstr ""
-
-#: src/WebConnectors.vala:447
+#: src/WebConnectors.vala:583
 msgid "Preparing photos for upload"
-msgstr ""
+msgstr "准备要上传的照片"
 
-#: src/WebConnectors.vala:518
+#: src/WebConnectors.vala:646
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr ""
+msgstr "%d 在 %d 中的照片上传中"
 
-#: src/WebConnectors.vala:559
+#: src/WebConnectors.vala:687
 msgid "The selected photos were successfully published."
-msgstr ""
+msgstr "选中照片已经成功发布。"
 
-#: src/WebConnectors.vala:587
+#: src/WebConnectors.vala:715
 msgid "Publish Photos"
-msgstr ""
+msgstr "发布照片"
 
-#: src/WebConnectors.vala:596
+#: src/WebConnectors.vala:724
 msgid "Publish photos _to:"
-msgstr ""
+msgstr "发布照片到(_T)："
 
-#: src/WebConnectors.vala:662
+#: src/WebConnectors.vala:791
 msgid "_Close"
-msgstr ""
+msgstr "关闭(_C)"
 
-#: src/WebConnectors.vala:666
+#: src/WebConnectors.vala:795
 msgid "_Cancel"
-msgstr ""
+msgstr "取消(_C)"
 
-#: src/WebConnectors.vala:699
+#: src/WebConnectors.vala:828
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
+msgstr "无法继续发布到 %s 因为无法链接到服务。"
 
-#: src/WebConnectors.vala:702
+#: src/WebConnectors.vala:831
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
-msgstr ""
+msgstr "无法继续发布到 %s 因为和服务的联系失败。"
 
-#: src/WebConnectors.vala:705
+#: src/WebConnectors.vala:834
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr ""
+msgstr "无法继续发布到 %s 由于协议错误。"
 
-#: src/WebConnectors.vala:707
+#: src/WebConnectors.vala:836
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr ""
+msgstr "无法继续发布到 %s 因为服务返回一个错误。"
 
-#: src/WebConnectors.vala:709
+#: src/WebConnectors.vala:838
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
+msgstr "无法继续发布到 %s 因为服务返回错误的相应。"
 
-#: src/WebConnectors.vala:712
+#: src/WebConnectors.vala:841
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr ""
+msgstr "无法继续发布到 %s 因为发生了一个错误。"
 
-#: src/WebConnectors.vala:716
+#: src/WebConnectors.vala:845
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
+msgstr "尝试发布到其他的服务，从上面的菜单中选择一个。"
 
+#~ msgid "_Slideshow"
+#~ msgstr "幻灯片演示(_S)"
