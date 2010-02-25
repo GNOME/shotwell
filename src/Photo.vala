@@ -609,31 +609,10 @@ public abstract class TransformablePhoto: PhotoSource {
         return base.equals(source);
     }
     
-    public void update() {
+    public void update() throws Error {
         File file = get_file();
-        
-        Dimensions dim = Dimensions();
-        Orientation orientation = Orientation.TOP_LEFT;
-        time_t exposure_time = 0;
 
         // TODO: Try to read JFIF metadata too
-        PhotoExif exif = new PhotoExif(file);
-        try {
-            exif.load();
-        } catch (Error err) {
-            exif = null;
-        }
-        
-        if (exif != null) {
-            if (!exif.get_dimensions(out dim))
-                warning("Unable to read EXIF dimensions for %s", to_string());
-            
-            if (!exif.get_timestamp(out exposure_time))
-                warning("Unable to read EXIF orientation for %s", to_string());
-
-            orientation = exif.get_orientation();
-        } 
-    
         FileInfo info = null;
         try {
             info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
@@ -643,24 +622,27 @@ public abstract class TransformablePhoto: PhotoSource {
         
         TimeVal timestamp = TimeVal();
         info.get_modification_time(out timestamp);
-        
-        // TODO: Use actual pixbuf dimensions, not EXIF
 
         // interrogate file for photo information
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file,
             PhotoFileInterrogator.Options.NO_PIXBUF, null);
-        try {
-            interrogator.interrogate();
-        } catch (Error err) {
-            warning("Unable to interrogate photo file %s: %s", file.get_path(), err.message);
-        }
+
+        interrogator.interrogate();
 
         string md5 = interrogator.get_md5();
+        Dimensions dim = interrogator.get_dimensions();
 
+        Orientation orientation = Orientation.TOP_LEFT;
+        time_t exposure_time = 0;
         string? exif_md5 = null, thumbnail_md5 = null;
+
+        PhotoExif exif = interrogator.get_exif();
+
         if (exif != null) {
             exif_md5 = exif.get_md5();
             thumbnail_md5 = exif.get_thumbnail_md5();
+            orientation = exif.get_orientation();
+            exif.get_timestamp(out exposure_time);
         }
         
         PhotoID photo_id = get_photo_id();
@@ -675,11 +657,8 @@ public abstract class TransformablePhoto: PhotoSource {
                 row.orientation = orientation;
                 row.original_orientation = orientation;
                 row.md5 = md5;
-
-                if (exif != null) {
-                    row.exif_md5 = exif_md5;
-                    row.thumbnail_md5 = thumbnail_md5;
-                }
+                row.exif_md5 = exif_md5;
+                row.thumbnail_md5 = thumbnail_md5;
                 
                 // because image has changed, all transformations are suspect
                 remove_all_transformations();
@@ -2280,7 +2259,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         base.notify_items_removed(removed);
     }
     
-    public DirectPhoto? fetch(File file, bool reset = false) {
+    public DirectPhoto? fetch(File file, bool reset = false) throws Error {
         // fetch from the map first, which ensures that only one DirectPhoto exists for each file
         DirectPhoto? photo = file_map.get(file);
         if (photo != null) {

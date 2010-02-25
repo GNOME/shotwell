@@ -1671,7 +1671,12 @@ private class DirectViewCollection : ViewCollection {
         if (file == null)
             return null;
         
-        DirectPhoto photo = DirectPhoto.global.fetch(file);
+        DirectPhoto? photo = null;
+        try {
+            photo = DirectPhoto.global.fetch(file);
+        } catch (Error error) {
+            warning("Fetching photo failed: %s", error.message);
+        }
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
@@ -1694,7 +1699,12 @@ private class DirectViewCollection : ViewCollection {
         if (file == null)
             return null;
         
-        DirectPhoto photo = DirectPhoto.global.fetch(file);
+        DirectPhoto? photo = null;
+        try {
+            photo = DirectPhoto.global.fetch(file);
+        } catch (Error error) {
+            warning("Fetching photo failed: %s", error.message);
+        }
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
@@ -1726,7 +1736,12 @@ private class DirectViewCollection : ViewCollection {
         if (file == null)
             return null;
         
-        DirectPhoto photo = DirectPhoto.global.fetch(file);
+        DirectPhoto? photo = null;
+        try {
+            photo = DirectPhoto.global.fetch(file);
+        } catch (Error error) {
+            warning("Fetching photo failed: %s", error.message);
+        }
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
@@ -1758,7 +1773,12 @@ private class DirectViewCollection : ViewCollection {
         if (file == null)
             return null;
         
-        DirectPhoto photo = DirectPhoto.global.fetch(file);
+        DirectPhoto? photo = null;
+        try {
+            photo = DirectPhoto.global.fetch(file);
+        } catch (Error error) {
+            warning("Fetching photo failed: %s", error.message);
+        }
         
         return (photo != null) ? get_view_for_source(photo) : null;
     }
@@ -1939,7 +1959,13 @@ public class DirectPhotoPage : EditingHostPage {
         if (base.realize != null)
             base.realize();
         
-        DirectPhoto photo = DirectPhoto.global.fetch(initial_file);
+        DirectPhoto photo = null;
+        try {
+            photo = DirectPhoto.global.fetch(initial_file);
+        } catch (Error error) {
+            warning("Fetching photo failed: %s", error.message);
+        }
+        
         if (photo == null) {
             // dead in the water
             Posix.exit(1);
@@ -2032,7 +2058,13 @@ public class DirectPhotoPage : EditingHostPage {
             return;
         }
         
-        DirectPhoto photo = DirectPhoto.global.fetch(dest, true);
+        DirectPhoto photo = null;
+        try {
+            photo = DirectPhoto.global.fetch(dest, true);
+        } catch (Error error) {
+            warning("Fetching photo failed: %s", error.message);
+        }
+        
         if (photo == null) {
             // dead in the water
             Posix.exit(1);
