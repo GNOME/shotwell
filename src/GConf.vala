@@ -16,6 +16,10 @@
 
 namespace GConf {
 
+// This is a dummy class for Client.get() to return to indicate the presence of a key.
+class Value {
+}
+
 class Client {
     KeyFile key_file = new KeyFile();
     
@@ -44,12 +48,8 @@ class Client {
     // This doesn't actually return the GConf.Value and should not be used that way.  This merely
     // returns null or non-null to indicate key existance, which Config uses to determine if the
     // default should be returned.
-    public Value? get(string key) throws Error {
-        // valac complains about using a ternary here
-        if (key_file.has_key(DATA, key))
-            return Value(0);
-        else
-            return null;
+    public GConf.Value? get(string key) throws Error {
+        return key_file.has_key(DATA, key) ? new GConf.Value() : null;
     }
     
     public bool get_bool(string key) throws Error {
