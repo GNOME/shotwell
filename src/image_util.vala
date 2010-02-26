@@ -529,7 +529,7 @@ public class PhotoFileInterrogator {
     }
 }
 
-
+#if !NO_SET_BACKGROUND
 public void set_desktop_background(TransformablePhoto photo) {
     File save_as = AppDirs.get_data_subdir("wallpaper").get_child("wallpaper.jpg");
 
@@ -545,3 +545,4 @@ public void set_desktop_background(TransformablePhoto photo) {
 
     Config.get_instance().set_background(save_as.get_path());
 }
+#endif

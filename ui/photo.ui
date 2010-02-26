@@ -47,7 +47,7 @@
             <separator />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
-            <menuitem name="SetBackground" action="SetBackground" />
+            <placeholder name="SetBackgroundPlaceholder"/>
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -69,7 +69,7 @@
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
-        <menuitem name="ContextSetBackground" action="SetBackground" />
+        <placeholder name="ContextSetBackgroundPlaceholder"/>
     </popup>
     
 </ui>

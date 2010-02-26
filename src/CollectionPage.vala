@@ -66,6 +66,13 @@ public abstract class CollectionPage : CheckerboardPage {
             "Publish", Gtk.UIManagerItemType.MENUITEM, false);
 #endif
 
+#if !NO_SET_BACKGROUND
+        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder", "SetBackground",
+            "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
+        ui.add_ui(ui.new_merge_id(), "/CollectionContextMenu/ContextSetBackgroundPlaceholder", "SetBackground",
+            "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
+#endif 
+            
         bool sort_order;
         int sort_by;
         get_config_photos_sort(out sort_order, out sort_by);
@@ -272,12 +279,14 @@ public abstract class CollectionPage : CheckerboardPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
 
+#if !NO_SET_BACKGROUND            
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
         set_background.label = Resources.SET_BACKGROUND_MENU;
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
-        
+#endif
+
         Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
             "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
         favorite.label = Resources.FAVORITE_MENU;
@@ -530,10 +539,8 @@ public abstract class CollectionPage : CheckerboardPage {
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
 
-#if WINDOWS
-        set_item_sensitive("/CollectionContextMenu/ContextSetBackground", false);
-#else
-        set_item_sensitive("/CollectionContextMenu/ContextSetBackground",
+#if !NO_SET_BACKGROUND
+        set_item_sensitive("/CollectionContextMenu/ContextSetBackgroundPlaceholder/SetBackground",
             get_view().get_selected_count() == 1);
 #endif 
 
@@ -856,10 +863,8 @@ public abstract class CollectionPage : CheckerboardPage {
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
 
-#if WINDOWS
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/ContextSetBackground", false);
-#else
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetBackground",
+#if !NO_SET_BACKGROUND
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder/SetBackground",
             get_view().get_selected_count() == 1);
 #endif 
     }
@@ -1041,7 +1046,8 @@ public abstract class CollectionPage : CheckerboardPage {
             get_command_manager().execute(command);
         }
     }
-
+    
+#if !NO_SET_BACKGROUND
     public void on_set_background() {
         if (get_view().get_selected_count() != 1)
             return;
@@ -1052,6 +1058,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         set_desktop_background(photo);
     }
+#endif
 
     private void on_slideshow() {
         if (get_view().get_count() == 0)

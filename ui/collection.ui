@@ -63,7 +63,7 @@
             <separator />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
-            <menuitem name="SetBackground" action="SetBackground" />
+            <placeholder name="SetBackgroundPlaceholder"/>
             <separator />
             <menuitem name="Slideshow" action="Slideshow" />
         </menu>
@@ -103,7 +103,7 @@
         <menuitem name="ContextDuplicate" action="Duplicate" />
         <menuitem name="ContextRemove" action="Remove" />
         <separator />
-        <menuitem name="ContextSetBackground" action="SetBackground" />
+        <placeholder name="ContextSetBackgroundPlaceholder"/>
     </popup>
 
 </ui>
