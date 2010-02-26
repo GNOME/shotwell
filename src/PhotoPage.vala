@@ -1853,6 +1853,13 @@ public class DirectPhotoPage : EditingHostPage {
         
         init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", create_actions());
 
+#if !NO_PRINTING
+        ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
+            "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
+        ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/PrintPlaceholder", "Print",
+            "Print", Gtk.UIManagerItemType.MENUITEM, false);
+#endif
+
         context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
     }
     
@@ -1874,6 +1881,19 @@ public class DirectPhotoPage : EditingHostPage {
         save_as.label = _("Save _As...");
         save_as.tooltip = _("Save photo with a different name");
         actions += save_as;
+
+#if !NO_PRINTING
+        Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
+            TRANSLATABLE, on_page_setup };
+        page_setup.label = _("Page _Setup...");
+        actions += page_setup;
+
+        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+            TRANSLATABLE, on_print };
+        print.label = _("Prin_t...");
+        print.tooltip = _("Print the photo to a printer connected to your computer");
+        actions += print;
+#endif
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("Edit");
@@ -2128,6 +2148,16 @@ public class DirectPhotoPage : EditingHostPage {
         
         save_as_dialog.destroy();
     }
+
+#if !NO_PRINTING
+    private void on_print() {
+        PrintManager.get_instance().spool_photo(get_photo());
+    }
+
+    private void on_page_setup() {
+        PrintManager.get_instance().do_page_setup();
+    }
+#endif
     
     private void on_edit_menu() {
         decorate_undo_item("/DirectMenuBar/EditMenu/Undo");

@@ -5,6 +5,8 @@
             <menuitem name="Save" action="Save" />
             <menuitem name="SaveAs" action="SaveAs" />
             <separator />
+            <placeholder name="PrintPlaceholder"/>
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

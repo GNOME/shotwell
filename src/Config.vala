@@ -467,6 +467,7 @@ public class Config {
         return set_bool("/apps/shotwell/preferences/ui/modify_originals", modify_originals);
     }
 
+#if !NO_SET_BACKGROUND
     public string get_background() {
         return get_string("/desktop/gnome/background/picture_filename", null);
     }
@@ -475,6 +476,7 @@ public class Config {
         set_string("/desktop/gnome/background/picture_options", "zoom");
         return set_string("/desktop/gnome/background/picture_filename", filename);
     }
+#endif
     
     public bool get_show_welcome_dialog() {
         return get_bool("/apps/shotwell/preferences/ui/show_welcome_dialog", true);
