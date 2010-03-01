@@ -18,7 +18,8 @@ namespace Resources {
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";
-    public const string HELP_URL = "http://trac.yorba.org/wiki/UsingShotwell0.4";
+    public const string HELP_URL = "http://trac.yorba.org/wiki/UsingShotwell" +
+        APP_VERSION.substring(0, 3);
     
     public const string PREFIX = _PREFIX;
 

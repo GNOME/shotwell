@@ -334,18 +334,29 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
             message += generate_import_failure_list(manifest.camera_failed);
     }
     
-    if (manifest.skipped.size > 0) {
+    if (manifest.skipped_photos.size > 0) {
         if (list && message.length > 0)
             message += "\n";
         
-        string skipped_message = (ngettext("1 unsupported photo skipped.\n",
-            "%d unsupported photos skipped.\n", manifest.skipped.size)).printf(
-            manifest.skipped.size);
+        string skipped_photos_message = (ngettext("1 unsupported photo skipped.\n",
+            "%d unsupported photos skipped.\n", manifest.skipped_photos.size)).printf(
+            manifest.skipped_photos.size);
 
-        message += skipped_message;
+        message += skipped_photos_message;
         
         if (list)
-            message += generate_import_failure_list(manifest.skipped);
+            message += generate_import_failure_list(manifest.skipped_photos);
+    }
+
+    if (manifest.skipped_files.size > 0) {
+        if (list && message.length > 0)
+            message += "\n";
+        
+        string skipped_files_message = (ngettext("1 non-image file skipped.",
+            "%d non-image files skipped.", manifest.skipped_files.size)).printf(
+            manifest.skipped_files.size);
+
+        message += skipped_files_message;
     }
     
     if (manifest.aborted.size > 0) {
@@ -363,7 +374,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     }
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
-        + manifest.skipped.size + manifest.already_imported.size + manifest.aborted.size;
+        + manifest.skipped_photos.size + manifest.skipped_files.size
+        + manifest.already_imported.size + manifest.aborted.size;
     assert(total == manifest.all.size);
     
     // if no photos imported at all (i.e. an empty directory attempted), need to at least report

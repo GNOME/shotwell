@@ -13,6 +13,7 @@ public enum ImportResult {
     NOT_A_FILE,
     PHOTO_EXISTS,
     UNSUPPORTED_FORMAT,
+    NOT_AN_IMAGE,
     DISK_FAILURE,
     DISK_FULL,
     CAMERA_ERROR;
@@ -42,6 +43,9 @@ public enum ImportResult {
             
             case UNSUPPORTED_FORMAT:
                 return _("Unsupported file format");
+
+            case NOT_AN_IMAGE:
+                return _("Not an image file");
             
             case DISK_FAILURE:
                 return _("Disk failure");
@@ -124,14 +128,38 @@ public abstract class TransformablePhoto: PhotoSource {
     public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
     public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.HYPER;
     
-    public const string[] SUPPORTED_EXTENSIONS = {
+    private const string[] SUPPORTED_EXTENSIONS = {
         "jpg",
         "jpeg",
         "jpe"
     };
     
-    public const string[] SUPPORTED_TYPE_NAMES = {
+    private const string[] SUPPORTED_TYPE_NAMES = {
         "jpeg"
+    };
+
+    private const string[] IMAGE_EXTENSIONS = {
+        // raster formats
+        "jpg", "jpeg", "jpe",
+        "tiff", "tif",
+        "png",
+        "gif",
+        "bmp",
+        "ppm", "pgm", "pbm", "pnm",
+
+        // less common...do we want to include these?
+        "tga", "ilbm", "pcx", "ecw", "img", "sid", "cd5", "fits", "pgf",
+
+        // vector
+        "cgm", "svg", "odg", "eps", "pdf", "swf", "wmf", "emf", "xps",
+
+        // 3D
+        "pns", "jps", "mpo",
+
+        // RAW extensions
+        "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
+        "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
+        "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f"        
     };
     
     // There are assertions in the photo pipeline to verify that the generated (or loaded) pixbuf
@@ -250,6 +278,12 @@ public abstract class TransformablePhoto: PhotoSource {
         if (info.get_file_type() != FileType.REGULAR)
             return ImportResult.NOT_A_FILE;
         
+        if (!is_file_image(file)) {
+            message("Not importing %s: Not an image file", file.get_path());
+            
+            return ImportResult.NOT_AN_IMAGE;
+        }
+
         if (!is_file_supported(file)) {
             message("Not importing %s: Unsupported extension", file.get_path());
             
@@ -368,6 +402,14 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     public static bool is_basename_supported(string basename) {
+        return is_extension_found(basename, SUPPORTED_EXTENSIONS);
+    }
+    
+    public static bool is_file_image(File file) {
+        return is_extension_found(file.get_basename(), IMAGE_EXTENSIONS);
+    }
+    
+    private static bool is_extension_found(string basename, string[] extensions) {
         string name, ext;
         disassemble_filename(basename, out name, out ext);
         if (ext == null)
@@ -377,8 +419,8 @@ public abstract class TransformablePhoto: PhotoSource {
         ext = ext.down();
         
         // search supported list
-        foreach (string supported in SUPPORTED_EXTENSIONS) {
-            if (ext == supported)
+        foreach (string extension in extensions) {
+            if (ext == extension)
                 return true;
         }
         

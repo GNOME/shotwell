@@ -56,7 +56,8 @@ public class ImportManifest {
     public Gee.List<BatchImportResult> success = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> camera_failed = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
-    public Gee.List<BatchImportResult> skipped = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> skipped_photos = new Gee.ArrayList<BatchImportResult>();
+    public Gee.List<BatchImportResult> skipped_files = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> aborted = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> already_imported = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> all = new Gee.ArrayList<BatchImportResult>();
@@ -86,15 +87,19 @@ public class ImportManifest {
             case ImportResult.SUCCESS:
                 success.add(batch_result);
             break;
-            
+
             case ImportResult.USER_ABORT:
                 if (!query_is_directory(batch_result.file))
                     aborted.add(batch_result);
             break;
 
-            case ImportResult.NOT_A_FILE:
             case ImportResult.UNSUPPORTED_FORMAT:
-                skipped.add(batch_result);
+                skipped_photos.add(batch_result);
+            break;
+
+            case ImportResult.NOT_A_FILE:
+            case ImportResult.NOT_AN_IMAGE:
+                skipped_files.add(batch_result);
             break;
             
             case ImportResult.PHOTO_EXISTS:
@@ -613,6 +618,12 @@ private class PrepareFilesJob : BackgroundImportJob {
     }
     
     private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library) throws Error {
+        if (!TransformablePhoto.is_file_image(file)) {
+            message("Not importing %s: Not an image file", file.get_path());
+            
+            return ImportResult.NOT_AN_IMAGE;
+        }
+
         if (!TransformablePhoto.is_file_supported(file)) {
             message("Not importing %s: Unsupported extension", file.get_path());
             
