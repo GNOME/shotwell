@@ -266,14 +266,11 @@ private class UploadPane : UploadActionPane {
     }
 
     protected override void prepare_file(UploadActionPane.TemporaryFileDescriptor file) {
+        Scaling scaling = (request.get_photo_major_axis_size() == ORIGINAL_SIZE)
+            ? Scaling.for_original() : Scaling.for_best_fit(request.get_photo_major_axis_size(), false);
+        
         try {
-            if (request.get_photo_major_axis_size() == ORIGINAL_SIZE) {
-                file.source_photo.export(file.temp_file, 1, ScaleConstraint.ORIGINAL,
-                    Jpeg.Quality.MAXIMUM);
-            } else {
-                file.source_photo.export(file.temp_file, request.get_photo_major_axis_size(),
-                    ScaleConstraint.DIMENSIONS, Jpeg.Quality.MAXIMUM);
-            }
+            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM);
         } catch (Error e) {
             error("UploadPane: can't create temporary files");
         }

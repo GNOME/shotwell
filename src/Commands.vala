@@ -1056,14 +1056,16 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         this.photo = photo;
         
         // Remove any tag that's in the original list but not the new one
-        Gee.List<Tag> original_tags = Tag.get_tags(photo);
-        foreach (Tag tag in original_tags) {
-            if (!new_tag_list.contains(tag)) {
-                SourceProxy proxy = tag.get_proxy();
-                
-                to_remove.add(proxy);
-                proxy.broken += on_proxy_broken;
-            }
+        Gee.List<Tag>? original_tags = Tag.global.fetch_for_photo(photo);
+        if (original_tags != null) {
+		    foreach (Tag tag in original_tags) {
+		        if (!new_tag_list.contains(tag)) {
+		            SourceProxy proxy = tag.get_proxy();
+		            
+		            to_remove.add(proxy);
+		            proxy.broken += on_proxy_broken;
+		        }
+		    }
         }
         
         // Add any tag that's in the new list but not the original

@@ -741,9 +741,11 @@ class FacebookUploadActionPane : UploadActionPane {
     }
 
     protected override void prepare_file(UploadActionPane.TemporaryFileDescriptor file) {
+        Scaling scaling = Scaling.for_constraint(ScaleConstraint.DIMENSIONS, MAX_PHOTO_DIMENSION,
+            false);
+        
         try {
-            file.source_photo.export(file.temp_file, MAX_PHOTO_DIMENSION,
-                ScaleConstraint.DIMENSIONS, Jpeg.Quality.MAXIMUM);
+            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM);
         } catch (Error e) {
             error("FacebookUploadPane: can't create temporary files");
         }

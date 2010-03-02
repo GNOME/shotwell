@@ -1701,10 +1701,7 @@ public class ViewCollection : DataCollection {
     }
 
     public Gee.Collection<DataSource> get_sources() {
-        Gee.Collection<DataSource> sources = new Gee.ArrayList<DataSource>();
-        sources.add_all(source_map.keys);
-        
-        return sources;
+        return source_map.keys.read_only_view;
     }
     
     public Gee.Collection<DataSource> get_selected_sources() {

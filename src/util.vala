@@ -80,7 +80,7 @@ public string md5_file(File file) throws Error {
     return md5.get_string();
 }
 
-public uchar[] serialize_photo_ids(Gee.List<TransformablePhoto> photos) {
+public uchar[] serialize_photo_ids(Gee.Collection<TransformablePhoto> photos) {
     int64[] ids = new int64[photos.size];
     int ctr = 0;
     foreach (TransformablePhoto photo in photos)
@@ -110,6 +110,29 @@ public Gee.List<PhotoID?>? unserialize_photo_ids(uchar* serialized, int size) {
 
 public inline bool is_string_empty(string? s) {
     return (s == null || s[0] == '\0');
+}
+
+public string uchar_array_to_string(uchar[] data, int length = -1) {
+    if (length < 0)
+        length = data.length;
+    
+    StringBuilder builder = new StringBuilder();
+    for (int ctr = 0; ctr < length; ctr++) {
+        if (data[ctr] != '\0')
+            builder.append_c((char) data[ctr]);
+        else
+            break;
+    }
+    
+    return builder.str;
+}
+
+public uchar[] string_to_uchar_array(string str) {
+    uchar[] data = new uchar[0];
+    for (int ctr = 0; ctr < str.length; ctr++)
+        data += (uchar) str[ctr];
+    
+    return data;
 }
 
 public class KeyValueMap {

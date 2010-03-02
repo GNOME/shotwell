@@ -287,6 +287,10 @@ public struct Scaling {
         return Scaling(ScaleConstraint.FILL_VIEWPORT, NO_SCALE, viewport, true);
     }
     
+    public static Scaling for_constraint(ScaleConstraint constraint, int scale, bool scale_up) {
+        return Scaling(constraint, scale, Dimensions(), scale_up);
+    }
+    
     private static Dimensions get_screen_dimensions(Gtk.Window window) {
         Gdk.Screen screen = window.get_screen();
         
@@ -302,37 +306,60 @@ public struct Scaling {
     }
     
     public bool is_best_fit(Dimensions original, out int pixels) {
-        if (constraint == ScaleConstraint.ORIGINAL || scale == NO_SCALE)
+        if (scale == NO_SCALE)
             return false;
-            
-        pixels = scale_to_pixels();
-        assert(pixels > 0);
         
-        return true;
+        switch (constraint) {
+            case ScaleConstraint.ORIGINAL:
+            case ScaleConstraint.FILL_VIEWPORT:
+                return false;
+            
+            default:
+                pixels = scale_to_pixels();
+                assert(pixels > 0);
+                
+                return true;
+        }
     }
     
     public bool is_best_fit_dimensions(Dimensions original, out Dimensions scaled) {
-        int pixels;
-        if (!is_best_fit(original, out pixels))
+        if (scale == NO_SCALE)
             return false;
         
-        scaled = original.get_scaled(pixels, scale_up);
-        
-        return true;
+        switch (constraint) {
+            case ScaleConstraint.ORIGINAL:
+            case ScaleConstraint.FILL_VIEWPORT:
+                return false;
+            
+            default:
+                int pixels = scale_to_pixels();
+                assert(pixels > 0);
+                
+                scaled = original.get_scaled_by_constraint(pixels, constraint);
+                
+                return true;
+        }
     }
     
     public bool is_for_viewport(Dimensions original, out Dimensions scaled) {
-        if (constraint == ScaleConstraint.ORIGINAL || scale != NO_SCALE)
+        if (scale != NO_SCALE)
             return false;
         
-        assert(viewport.has_area());
-        
-        if (!scale_up && original.width < viewport.width && original.height < viewport.height)
-            scaled = original;
-        else
-            scaled = original.get_scaled_proportional(viewport);
-        
-        return true;
+        switch (constraint) {
+            case ScaleConstraint.ORIGINAL:
+            case ScaleConstraint.FILL_VIEWPORT:
+                return false;
+            
+            default:
+                assert(viewport.has_area());
+                
+                if (!scale_up && original.width < viewport.width && original.height < viewport.height)
+                    scaled = original;
+                else
+                    scaled = original.get_scaled_proportional(viewport);
+                
+                return true;
+        }
     }
     
     public bool is_fill_viewport(Dimensions original, out Dimensions scaled) {
@@ -388,8 +415,8 @@ public struct Scaling {
         else if (constraint == ScaleConstraint.FILL_VIEWPORT)
             return "scaling: fill viewport %s".printf(viewport.to_string());
         else if (scale != NO_SCALE)
-            return "scaling: best-fit (%d pixels %s)".printf(scale_to_pixels(),
-                scale_up ? "scaled up" : "not scaled up");
+            return "scaling: best-fit (%s %d pixels %s)".printf(constraint.to_string(),
+                scale_to_pixels(), scale_up ? "scaled up" : "not scaled up");
         else
             return "scaling: viewport %s (%s)".printf(viewport.to_string(),
                 scale_up ? "scaled up" : "not scaled up");

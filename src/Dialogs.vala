@@ -53,7 +53,80 @@ public bool query_overwrite(File file) {
     return AppWindow.yes_no_question(_("%s already exists.  Overwrite?").printf(file.get_path()),
         _("Export Photos"));
 }
+
+public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos) {
+    ProgressDialog dialog = null;
+    Cancellable cancellable = null;
+    if (photos.size > 2) {
+        cancellable = new Cancellable();
+        dialog = new ProgressDialog(AppWindow.get_instance(), _("Exporting..."), cancellable);
+    }
+    
+    AppWindow.get_instance().set_busy_cursor();
+    
+    int count = 0;
+    int failed = 0;
+    foreach (TransformablePhoto photo in photos) {
+        string basename = photo.get_file().get_basename();
+        File dest = folder.get_child(basename);
+        
+        if (dest.query_exists(null)) {
+            string question = _("File %s already exists.  Overwrite?").printf(basename);
+            Gtk.ResponseType response = AppWindow.yes_no_cancel_question(question, _("Export Photos"));
+            
+            bool skip = false;
+            switch (response) {
+                case Gtk.ResponseType.YES:
+                    // fall through
+                break;
+                
+                case Gtk.ResponseType.CANCEL:
+                    cancellable.cancel();
+                break;
+                
+                case Gtk.ResponseType.NO:
+                default:
+                    if (dialog != null) {
+                        dialog.set_fraction(++count, photos.size);
+                        spin_event_loop();
+                    }
+                    
+                    skip = true;
+                break;
+            }
+            
+            if (skip)
+                continue;
+        }
+        
+        if (cancellable != null && cancellable.is_cancelled())
+            break;
+        
+        try {
+            photo.export(dest, Scaling.for_original(), Jpeg.Quality.HIGH);
+        } catch (Error err) {
+            failed++;
+        }
+        
+        if (dialog != null) {
+            dialog.set_fraction(++count, photos.size);
+            spin_event_loop();
+        }
+    }
+    
+    if (dialog != null)
+        dialog.close();
+    
+    AppWindow.get_instance().set_normal_cursor();
+    
+    if (failed > 0) {
+        string msg = ngettext("Unable to export the photo due to a file error.",
+            "Unable to export %d photos due to file errors.", failed).printf(failed);
+        AppWindow.error_message(msg);
+    }
 }
+}
+
 
 public class ExportDialog : Gtk.Dialog {
     public const int DEFAULT_SCALE = 1200;

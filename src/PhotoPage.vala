@@ -40,13 +40,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private EditingTool current_tool = null;
     private Gtk.ToggleToolButton current_editing_toggle = null;
     private Gdk.Pixbuf cancel_editing_pixbuf = null;
-    private File drag_file = null;
-    private TransformablePhoto drag_photo = null;
     private uint32 last_nav_key = 0;
     private bool photo_missing = false;
-    private bool drag_event_failed = true;
     private PixbufCache cache = null;
     private PixbufCache original_cache = null;
+    private PhotoDragAndDropHandler dnd_handler = null;
     
     public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
@@ -123,9 +121,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public override void set_container(Gtk.Window container) {
         base.set_container(container);
         
-        // DnD only available in full-window view
+        // DnD not available in fullscreen mode
         if (!(container is FullscreenWindow))
-            enable_drag_source(Gdk.DragAction.COPY);
+            dnd_handler = new PhotoDragAndDropHandler(this);
     }
     
     public override ViewCollection get_controller() {
@@ -633,88 +631,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // execute the tool's command
         if (command != null)
             get_command_manager().execute(command);
-    }
-    
-    private override void drag_begin(Gdk.DragContext context) {
-        if (!has_photo() || photo_missing)
-            return;
-        
-        // drag_data_get may be called multiple times within a drag as different applications
-        // query for target type and information ... to prevent a lot of file generation, do all
-        // the work up front
-        File file = null;
-        drag_event_failed = false;
-        try {
-            file = get_photo().generate_exportable();
-        } catch (Error err) {
-            drag_event_failed = true;
-            file = null;
-            warning("%s", err.message);
-        }
-        
-        // set up icon for drag-and-drop
-        try {
-            Gdk.Pixbuf icon = get_photo().get_preview_pixbuf(
-                Scaling.for_best_fit(AppWindow.DND_ICON_SCALE, true));
-            Gtk.drag_source_set_icon_pixbuf(canvas, icon);
-        } catch (Error err) {
-            message("Unable to get drag-and-drop icon: %s", err.message);
-        }
-
-        debug("Prepared for export %s", file.get_path());
-        
-        drag_file = file;
-        drag_photo = get_photo();
-    }
-    
-    private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
-        uint target_type, uint time) {
-        if (target_type == TargetType.URI_LIST) {
-            if (drag_file == null)
-                return;
-            
-            string[] uris = new string[1];
-            uris[0] = drag_file.get_uri();
-            
-            selection_data.set_uris(uris);
-        } else {
-            assert(target_type == TargetType.PHOTO_LIST);
-
-            if (drag_photo == null)
-                return;
-
-            // bundle photo in a list in order to serialize
-            Gee.ArrayList<TransformablePhoto> photo = new Gee.ArrayList<TransformablePhoto>();
-            photo.add(drag_photo);
-            
-            selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64), serialize_photo_ids(photo));
-        }
-    }
-    
-    private override void drag_end(Gdk.DragContext context) {
-        drag_file = null;
-        drag_photo = null;
-
-        if (drag_event_failed) {
-            Idle.add(report_drag_failed);
-        }
-    }
-
-    private bool report_drag_failed() {
-        AppWindow.error_message(_("Photo source file is missing."));
-        drag_event_failed = false;
-
-        return false;
-    }
-    
-    private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
-        debug("Drag failed: %d", (int) drag_result);
-        
-        drag_file = null;
-        drag_photo = null;
-        get_photo().export_failed();
-        
-        return false;
     }
     
     // This virtual method is called only when the user double-clicks on the page and no tool
@@ -1519,8 +1435,10 @@ public class LibraryPhotoPage : EditingHostPage {
         if (save_as == null)
             return;
         
+        Scaling scaling = Scaling.for_constraint(constraint, scale, false);
+        
         try {
-            get_photo().export(save_as, scale, constraint, quality);
+            get_photo().export(save_as, scaling, quality);
         } catch (Error err) {
             AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
         }
@@ -2082,8 +2000,10 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality) {
+        Scaling scaling = Scaling.for_constraint(constraint, scale, false);
+        
         try {
-            get_photo().export(dest, scale, constraint, quality);
+            get_photo().export(dest, scaling, quality);
         } catch (Error err) {
             AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
                 err.message));

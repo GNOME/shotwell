@@ -659,9 +659,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_geometries_altered() {
-        // don't schedule as this indicates all have resized and are ready for reflow
-        if (reflow("on_geometries_altered"))
-            queue_draw();
+        schedule_background_reflow("on_geometries_altered");
     }
     
     private void schedule_background_reflow(string caller) {

@@ -55,8 +55,8 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void update_tags() {
-        Gee.Collection<Tag> tags = Tag.get_sorted_tags(photo);
-        if (tags.size == 0)
+        Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_photo(photo);
+        if (tags == null || tags.size == 0)
             clear_subtitle();
         else
             set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>"), true);

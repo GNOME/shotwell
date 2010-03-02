@@ -743,7 +743,7 @@ public class LibraryWindow : AppWindow {
             Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
             foreach (LibraryPhoto photo in photos) {
                 // don't move a photo into the event it already exists in
-                if (!photo.get_event().equals(event))
+                if (photo.get_event() == null || !photo.get_event().equals(event))
                     views.add(new PhotoView(photo));
             }
 

@@ -37,15 +37,12 @@ public abstract class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
-
+    private PhotoDragAndDropHandler dnd_handler = null;
 #if !NO_PUBLISHING
     private Gtk.ToolButton publish_button = null;
 #endif
 
     private int scale = Thumbnail.DEFAULT_SCALE;
-    private Gee.ArrayList<File> drag_files = new Gee.ArrayList<File>();
-    private Gee.ArrayList<LibraryPhoto> drag_photos = new Gee.ArrayList<LibraryPhoto>();
-    private int drag_failed_item_count = 0;
     
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
@@ -175,8 +172,9 @@ public abstract class CollectionPage : CheckerboardPage {
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
         show_all();
-
-        enable_drag_source(Gdk.DragAction.COPY);
+        
+        // enable photo drag-and-drop on our ViewCollection
+        dnd_handler = new PhotoDragAndDropHandler(this);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -557,104 +555,6 @@ public abstract class CollectionPage : CheckerboardPage {
             return null;
     }
     
-    private override void drag_begin(Gdk.DragContext context) {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        drag_files.clear();
-        drag_photos.clear();
-
-        // because drag_data_get may be called multiple times in a single drag, prepare all the exported
-        // files first
-        Gdk.Pixbuf icon = null;
-        drag_failed_item_count = 0;
-        foreach (DataView view in get_view().get_selected()) {
-            LibraryPhoto photo = ((Thumbnail) view).get_photo();
-
-            drag_photos.add(photo);
-
-            File file = null;
-            try {
-                file = photo.generate_exportable();
-                drag_files.add(file);
-            } catch (Error err) {
-                drag_failed_item_count++;
-                warning("%s", err.message);
-            }
-            
-            try {
-                // set up icon using the first photo
-                if (icon == null) {
-                    icon = photo.get_preview_pixbuf(Scaling.for_best_fit(
-                        AppWindow.DND_ICON_SCALE, true));
-                }
-            } catch (Error err) {
-                warning("%s", err.message);
-            }
-
-            if (file != null)
-                debug("Prepared %s for export", file.get_path());
-        }
-        
-        if (icon != null)
-            Gtk.drag_source_set_icon_pixbuf(get_event_source(), icon);
-    }
-    
-    private override void drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
-        uint target_type, uint time) {
-        if (target_type == TargetType.URI_LIST) {
-            if (drag_files.size == 0)
-                return;
-            
-            // prepare list of uris
-            string[] uris = new string[drag_files.size];
-            int ctr = 0;
-            foreach (File file in drag_files)
-                uris[ctr++] = file.get_uri();
-            
-            selection_data.set_uris(uris);
-        } else {
-            assert(target_type == TargetType.PHOTO_LIST);
-
-            if (drag_photos.size == 0)
-                return;
-           
-            selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64),
-                serialize_photo_ids(drag_photos));
-        }
-    }
-    
-    private override void drag_end(Gdk.DragContext context) {
-        drag_files.clear();
-        drag_photos.clear();
-
-        if (drag_failed_item_count > 0) {
-            Idle.add(report_drag_failed);
-        }
-    }
-
-    private bool report_drag_failed() {
-        string error_string = (ngettext("A photo source file is missing.",
-            "%d photo source files missing.", drag_failed_item_count)).printf(
-            drag_failed_item_count);
-        AppWindow.error_message(error_string);
-        drag_failed_item_count = 0;
-
-        return false;
-    }
-    
-    private override bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
-        debug("Drag failed: %d", (int) drag_result);
-        
-        drag_files.clear();
-        drag_photos.clear();
-        
-        foreach (DataView view in get_view().get_selected())
-            ((Thumbnail) view).get_photo().export_failed();
-        
-        return false;
-    }
-    
     protected override bool on_app_key_pressed(Gdk.EventKey event) {
         bool handled = true;
         
@@ -714,28 +614,29 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_export() {
-        Gee.ArrayList<LibraryPhoto> export_list = new Gee.ArrayList<LibraryPhoto>();
-        foreach (DataView view in get_view().get_selected())
-            export_list.add(((Thumbnail) view).get_photo());
-
+        Gee.Collection<LibraryPhoto> export_list =
+            (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources();
         if (export_list.size == 0)
             return;
-
-        ExportDialog export_dialog = null;
-        if (export_list.size == 1)
-            export_dialog = new ExportDialog(_("Export Photo"));
-        else
-            export_dialog = new ExportDialog(_("Export Photos"));
+        
+        string title = ngettext("Export Photo", "Export Photos", export_list.size);
+        ExportDialog export_dialog = new ExportDialog(title);
         
         int scale;
         ScaleConstraint constraint;
         Jpeg.Quality quality;
         if (!export_dialog.execute(out scale, out constraint, out quality))
             return;
-
-        // handle the single-photo case
+        
+        Scaling scaling = Scaling.for_constraint(constraint, scale, false);
+        
+        // handle the single-photo case, which is treated like a Save As file operation
         if (export_list.size == 1) {
-            LibraryPhoto photo = export_list.get(0);
+            LibraryPhoto photo = null;
+            foreach (LibraryPhoto p in export_list) {
+                photo = p;
+                break;
+            }
             
             File save_as = ExportUI.choose_file(photo.get_file());
             if (save_as == null)
@@ -744,7 +645,7 @@ public abstract class CollectionPage : CheckerboardPage {
             spin_event_loop();
             
             try {
-                photo.export(save_as, scale, constraint, quality);
+                photo.export(save_as, scaling, quality);
             } catch (Error err) {
                 AppWindow.error_message(_("Unable to export photo %s: %s").printf(
                     photo.get_file().get_path(), err.message));
@@ -758,45 +659,7 @@ public abstract class CollectionPage : CheckerboardPage {
         if (export_dir == null)
             return;
         
-        AppWindow.get_instance().set_busy_cursor();
-        
-        int count = 0;
-        int total = export_list.size;
-        
-        Cancellable cancellable = null;
-        ProgressDialog progress = null;
-        if (total >= MIN_OPS_FOR_PROGRESS_WINDOW) {
-            cancellable = new Cancellable();
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Exporting..."), cancellable);
-        }
-        
-        foreach (LibraryPhoto photo in export_list) {
-            File save_as = export_dir.get_child(photo.get_file().get_basename());
-            if (save_as.query_exists(null)) {
-                if (!ExportUI.query_overwrite(save_as))
-                    continue;
-            }
-            
-            try {
-                photo.export(save_as, scale, constraint, quality);
-            } catch (Error err) {
-                AppWindow.error_message(_("Unable to export photo %s: %s").printf(save_as.get_path(),
-                    err.message));
-            }
-            
-            if (progress != null) {
-                progress.set_fraction(++count, total);
-                spin_event_loop();
-                
-                if (cancellable.is_cancelled())
-                    break;
-            }
-        }
-        
-        if (progress != null)
-            progress.close();
-        
-        AppWindow.get_instance().set_normal_cursor();
+        ExportUI.export_photos(export_dir, export_list);
     }
 
     private void on_edit_menu() {
@@ -983,12 +846,14 @@ public abstract class CollectionPage : CheckerboardPage {
         LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
         
         // get all tags for this photo to display in the dialog
-        Gee.SortedSet<Tag> tags = Tag.get_sorted_tags(photo);
+        Gee.SortedSet<Tag>? tags = Tag.global.fetch_sorted_for_photo(photo);
         
         // make a list of their names for the dialog
         string[] tag_names = new string[0];
-        foreach (Tag tag in tags)
-            tag_names += tag.get_name();
+        if (tags != null) {
+		    foreach (Tag tag in tags)
+		        tag_names += tag.get_name();
+        }
         
         ModifyTagsDialog dialog = new ModifyTagsDialog(tag_names);
         tag_names = dialog.execute();

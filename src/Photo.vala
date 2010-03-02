@@ -804,10 +804,11 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 
     public void set_exposure_time_persistent(time_t time) throws Error {
-        PhotoExif exif = get_photoexif();
+        PhotoExif exif = new PhotoExif(get_file());
+        exif.load();
         exif.set_timestamp(time);
         exif.commit();
-
+        
         set_exposure_time(time);
         
         file_exif_updated();
@@ -911,19 +912,7 @@ public abstract class TransformablePhoto: PhotoSource {
         if (committed)
             notify_altered();
     }
-
-    public PhotoExif get_photoexif() {
-        PhotoExif photo_exif = new PhotoExif(get_file());
-        try {
-            photo_exif.load();
-        } catch (Error err) {
-            // ignored, return PhotoExif with empty Exif.Data
-            warning("Unable to load EXIF from %s: %s", get_file().get_path(), err.message);
-        }
-        
-        return photo_exif;
-    }
-
+    
     public override Exif.Data? get_exif() {
         Exif.Data? exif = null;
         
@@ -964,33 +953,40 @@ public abstract class TransformablePhoto: PhotoSource {
     
     public bool only_exif_changed() {
         bool exif_changed;
-
-        time_t exposure_time;
-        get_photoexif().get_timestamp(out exposure_time);
-
+        
+        time_t exposure_time = 0;
+        bool compare_time = false;
+        
+        Exif.Data? exif = get_exif();
+        if (exif != null)
+            compare_time = Exif.get_timestamp(exif, out exposure_time);
+        
         lock (row) {
             exif_changed = row.transformations == null && 
                           (row.orientation != row.original_orientation ||
-                           row.exposure_time != exposure_time);
+                           (compare_time && row.exposure_time != exposure_time));
         }
         
         return exif_changed;
     }
-
-    public bool has_alterations() {        
+    
+    public bool has_alterations() {
         bool altered;
-
-        time_t exposure_time;
-        get_photoexif().get_timestamp(out exposure_time);
-
+        
+        time_t exposure_time = 0;
+        bool compare_time = false;
+        
+        Exif.Data? exif = get_exif();
+        if (exif != null)
+            compare_time = Exif.get_timestamp(exif, out exposure_time);
+        
         lock (row) {
             altered = row.transformations != null || row.orientation != row.original_orientation ||
-                row.exposure_time != exposure_time;
+                (compare_time && row.exposure_time != exposure_time);
         }
         
         return altered;
     }
-    
     
     public PhotoTransformationState save_transformation_state() {
         PhotoTransformationState state = null;
@@ -1582,117 +1578,73 @@ public abstract class TransformablePhoto: PhotoSource {
     // File export
     //
     
-    // Returns a File object to create an unscaled copy of the photo suitable for exporting.  If
-    // the file exists, that is considered export-ready (allowing for exportables to persist).
-    // If it does not, it will be generated.
-    public abstract File generate_exportable_file();
-
-    // Returns a File of the unscaled image suitable for exporting ... this file should persist 
-    // for a reasonable amount of time, as drag-and-drop exports can conclude long after the DnD 
-    // source has seen the end of the transaction. ... However, if failure is detected, 
-    // export_failed() will be called, and the file can be removed if necessary.
-    //
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
-    public File generate_exportable() throws Error {
-        if (!has_alterations())
-            return get_file();
-
-        File dest_file = generate_exportable_file();
-        if (dest_file.query_exists(null))
-            return dest_file;
-        
-        // generate_exportable_file only generates a filename; create directory if necessary
-        File dest_dir = dest_file.get_parent();
-        if (!dest_dir.query_exists(null))
-            dest_dir.make_directory_with_parents(null);
-        
-        File original_file = get_file();
-        Exif.Data? original_exif = get_exif();
-        
-        if (only_exif_changed()) {
-            original_file.copy(dest_file, FileCopyFlags.OVERWRITE, null, null);
+    public void export(File dest_file, Scaling scaling, Jpeg.Quality quality) throws Error {
+        // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that
+        // degrades image quality.  If alterations, but only EXIF has changed, then can copy
+        // original file and update relevant EXIF.
+        if (scaling.is_unscaled() && (!has_alterations() || only_exif_changed())) {
+            debug("Exporting copy of %s", to_string());
             
+            get_file().copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.ALL_METADATA,
+                null, null);
+            
+            // If asking for an original-sized file and there are no alterations (transformations or
+            // EXIF), then done
+            if (!has_alterations())
+                return;
+            
+            debug("Updating EXIF of %s", dest_file.get_path());
+            
+            // copy over relevant EXIF and done
             PhotoExif dest_exif = new PhotoExif(dest_file);
             try {
                 dest_exif.load();
             } catch (Error err) {
-                warning("Unable to load EXIF in exportable %s: %s", dest_file.get_path(), err.message);
+                // probably indicates no EXIF in original, in which case, we're done
+                return;
             }
             
             dest_exif.set_orientation(get_orientation());
             dest_exif.set_timestamp(get_exposure_time());
+            if (get_orientation() != get_original_orientation())
+                dest_exif.remove_thumbnail();
+            
             dest_exif.commit();
-        } else {
-            Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
-            pixbuf.save(dest_file.get_path(), "jpeg", "quality", EXPORT_JPEG_QUALITY.get_pct_text());
-            copy_exported_exif(original_exif, new PhotoExif(dest_file), Orientation.TOP_LEFT,
-                Dimensions.for_pixbuf(pixbuf), get_exposure_time());
-        }
-        
-        return dest_file;
-    }
-    
-    // Called when a generate_exportable has failed; the object can use this to delete the exportable 
-    // file from generate_exportable_file() if necessary
-    public virtual void export_failed() {
-    }
-    
-    public static void copy_exported_exif(Exif.Data? source, PhotoExif dest, 
-        Orientation orientation, Dimensions dim, time_t timestamp) throws Error {
-        if (source != null)
-            dest.set_exif(source);
-
-        dest.set_dimensions(dim);
-        dest.set_orientation(orientation);
-        dest.set_timestamp(timestamp);
-        dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_WIDTH);
-        dest.remove_all_tags(Exif.Tag.RELATED_IMAGE_LENGTH);
-        dest.remove_thumbnail();
-        dest.commit();
-    }
-
-    // Writes a file meeting the specified parameters.
-    //
-    // TODO: Lossless transformations, especially for mere rotations of JFIF files.
-    public void export(File dest_file, int scale, ScaleConstraint constraint,
-        Jpeg.Quality quality) throws Error {
-        if (constraint == ScaleConstraint.ORIGINAL) {
-            // generate a raw exportable file and copy that
-            File exportable = generate_exportable();
-
-            try {
-                exportable.copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.ALL_METADATA,
-                    null, null);
-            } catch (Error err) {
-                export_failed();
-                
-                throw err;
-            }
             
             return;
         }
         
-        Gdk.Pixbuf pixbuf = get_pixbuf(Scaling.for_original());
+        debug("Saving transformed version of %s", to_string());
+        
+        Gdk.Pixbuf pixbuf = get_pixbuf(scaling);
         Dimensions dim = Dimensions.for_pixbuf(pixbuf);
-        Dimensions scaled = dim.get_scaled_by_constraint(scale, constraint);
         
-        pixbuf = resize_pixbuf(pixbuf, scaled, EXPORT_INTERP);
+        pixbuf.save(dest_file.get_path(), "jpeg", "quality", quality.get_pct_text());
         
-        try {
-            pixbuf.save(dest_file.get_path(), "jpeg", "quality", quality.get_pct_text());
-            
-            Exif.Data exif = get_exif();
-            if (exif != null)
-                copy_exported_exif(exif, new PhotoExif(dest_file), Orientation.TOP_LEFT, scaled,
-                    get_exposure_time());
-        } catch (Error err) {
-            export_failed();
-            
-            throw err;
-        }
+        debug("Setting EXIF for %s", dest_file.get_path());
+        
+        // Gdk.Pixbuf.save() adds no EXIF to file, so must gather what EXIF we support and commit
+        // it to the new file.
+        PhotoExif dest_exif = new PhotoExif(dest_file);
+        
+        // copy over existing EXIF from source if available
+        Exif.Data exif = get_exif();
+        if (exif != null)
+            dest_exif.set_exif(exif);
+        
+        dest_exif.set_dimensions(dim);
+        dest_exif.set_orientation(Orientation.TOP_LEFT);
+        dest_exif.set_timestamp(get_exposure_time());
+        dest_exif.remove_all_tags(Exif.Tag.RELATED_IMAGE_WIDTH);
+        dest_exif.remove_all_tags(Exif.Tag.RELATED_IMAGE_LENGTH);
+        dest_exif.remove_thumbnail();
+        dest_exif.commit();
     }
     
+    //
     // Aggregate/helper/translation functions
+    //
     
     // Returns uncropped (but rotated) dimensions
     public Dimensions get_original_dimensions() {
@@ -2038,9 +1990,6 @@ public class LibraryPhoto : TransformablePhoto {
     }
     
     private override void altered () {
-        // the exportable file is now not in sync with transformed photo
-        delete_exportable_file();
-
         // generate new thumbnails in the background
         if (!block_thumbnail_generation)
             thumbnail_scheduler.at_priority_idle(Priority.LOW);
@@ -2077,31 +2026,6 @@ public class LibraryPhoto : TransformablePhoto {
         }
 
         notify_thumbnail_altered();
-    }
-    
-    private override File generate_exportable_file() {
-        File original_file = get_file();
-
-        File exportable_dir = AppDirs.get_data_subdir("export");
-    
-        // use exposure time, then file modified time, for directory (to prevent name collision)
-        time_t timestamp = get_exposure_time();
-        if (timestamp == 0)
-            timestamp = get_timestamp();
-        
-        if (timestamp != 0) {
-            Time tm = Time.local(timestamp);
-            exportable_dir = exportable_dir.get_child("%04u".printf(tm.year + 1900));
-            exportable_dir = exportable_dir.get_child("%02u".printf(tm.month + 1));
-            exportable_dir = exportable_dir.get_child("%02u".printf(tm.day));
-        }
-        
-        return exportable_dir.get_child(original_file.get_basename());
-    }
-    
-    // We keep exportable photos around for now, as they're expensive to generate ...
-    // this may change in the future.
-    public override void export_failed() {
     }
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
@@ -2167,29 +2091,12 @@ public class LibraryPhoto : TransformablePhoto {
         // remove all cached thumbnails
         ThumbnailCache.remove(photo_id);
         
-        // remove exportable file
-        delete_exportable_file();
-        
         // remove from photo table -- should be wiped from storage now (other classes may have added
         // photo_id to other parts of the database ... it's their responsibility to remove them
         // when removed() is called)
         PhotoTable.get_instance().remove(photo_id);
         
         base.destroy();
-    }
-    
-    private void delete_exportable_file() {
-        File file = null;
-        try {
-            file = generate_exportable_file();
-            if (file.query_exists(null))
-                file.delete(null);
-        } catch (Error err) {
-            if (file != null)
-                message("Unable to delete exportable photo file %s: %s", file.get_path(), err.message);
-            else
-                message("Unable to generate exportable filename for %s", to_string());
-        }
     }
     
     private void delete_original_file() {
@@ -2330,7 +2237,6 @@ public class DirectPhoto : TransformablePhoto {
     public static DirectPhotoSourceCollection global = null;
     
     private Gdk.Pixbuf preview = null;
-    private File exportable = null;
     
     private DirectPhoto(PhotoRow row) {
         base(row);
@@ -2369,29 +2275,6 @@ public class DirectPhoto : TransformablePhoto {
         return photo;
     }
     
-    public override File generate_exportable_file() {
-        // reuse exportable file if possible
-        if (exportable != null)
-            return exportable;
-        
-        // generate an exportable in the app temp directory with the same basename as the file
-        // being edited ... as generate_exportable will reuse the file if it exists, and if
-        // exportable is null then it's been discarded, delete the old file
-        exportable = AppDirs.get_temp_dir().get_child(get_file().get_basename());
-        if (exportable.query_exists(null)) {
-            try {
-                exportable.delete(null);
-            } catch (Error err) {
-                // this is actually a real problem, as the user will probably not get what they
-                // wanted
-                warning("Unable to delete exportable temp file %s: %s", exportable.get_path(),
-                    err.message);
-            }
-        }
-        
-        return exportable;
-    }
-    
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
         if (preview == null)
             preview = get_thumbnail(PREVIEW_BEST_FIT);
@@ -2404,9 +2287,7 @@ public class DirectPhoto : TransformablePhoto {
     }
     
     private override void altered() {
-        // flush the exportable and the preview
         preview = null;
-        exportable = null;
         
         base.altered();
     }

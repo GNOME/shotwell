@@ -6,17 +6,6 @@
 
 public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
-
-    protected enum TargetType {
-        URI_LIST,
-        PHOTO_LIST
-    }
-    
-    // For now, assuming all drag-and-drop source functions are providing the same set of targets
-    protected const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
-        { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
-        { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
-    };
     
     public Gtk.UIManager ui = new Gtk.UIManager();
     public Gtk.ActionGroup action_group = null;
@@ -347,13 +336,16 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     
     // This method enables drag-and-drop on the event source and routes its events through this
     // object
-    public void enable_drag_source(Gdk.DragAction actions) {
+    public void enable_drag_source(Gdk.DragAction actions, Gtk.TargetEntry[] source_target_entries) {
         if (dnd_enabled)
             return;
             
         assert(event_source != null);
         
-        Gtk.drag_source_set(event_source, Gdk.ModifierType.BUTTON1_MASK, SOURCE_TARGET_ENTRIES, actions);
+        Gtk.drag_source_set(event_source, Gdk.ModifierType.BUTTON1_MASK, source_target_entries, actions);
+        
+        // hook up handlers which route the event_source's DnD signals to the Page's (necessary
+        // because Page is a NO_WINDOW widget and cannot support DnD on its own).
         event_source.drag_begin += on_drag_begin;
         event_source.drag_data_get += on_drag_data_get;
         event_source.drag_data_delete += on_drag_data_delete;
@@ -403,6 +395,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // wierdly, Gtk 2.16.1 doesn't supply a drag_failed virtual method in the GtkWidget impl ...
     // Vala binds to it, but it's not available in gtkwidget.h, and so gcc complains.  Have to
     // makeshift one for now.
+    // https://bugzilla.gnome.org/show_bug.cgi?id=584247
     public virtual bool source_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
         return false;
     }
@@ -1596,6 +1589,175 @@ public abstract class SinglePhotoPage : Page {
 
     protected override bool on_context_keypress() {
         return popup_context_menu(get_page_context_menu());
+    }
+}
+
+// This can be removed and the call changed to Gdk.property_get when this bug is fixed:
+// https://bugzilla.gnome.org/show_bug.cgi?id=611250
+extern bool gdk_property_get(Gdk.Window window, Gdk.Atom property, Gdk.Atom type, ulong offset,
+    ulong data_length, int pdelete, out Gdk.Atom actual_type, out int actual_format, 
+    out int actual_length,
+    [CCode (array_length=false)] out uchar[] data);
+
+//
+// DragPhotoHandler attaches signals to a Page so properly handle drag-and-drop requests for the
+// Page as a DnD Source.  (DnD Destination handling is handled by the appropriate AppWindow, i.e.
+// LibraryWindow and DirectWindow).
+//
+// The Page's ViewCollection *must* be holding TransformablePhotos or the show is off.
+//
+public class PhotoDragAndDropHandler {
+    private enum TargetType {
+        XDS,
+        PHOTO_LIST
+    }
+    
+    private const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
+        { "XdndDirectSave0", Gtk.TargetFlags.OTHER_APP, TargetType.XDS },
+        { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
+    };
+    
+    private static Gdk.Atom? XDS_ATOM = null;
+    private static Gdk.Atom? TEXT_ATOM = null;
+    private static uchar[]? XDS_FAKE_TARGET = null;
+    
+    private weak Page page;
+    private Gtk.Widget event_source;
+    private File? drag_destination = null;
+    
+    public PhotoDragAndDropHandler(Page page) {
+        this.page = page;
+        this.event_source = page.get_event_source();
+        assert(event_source != null);
+        
+        // Need to do this because static member variables are not properly handled
+        if (XDS_ATOM == null)
+            XDS_ATOM = Gdk.Atom.intern_static_string("XdndDirectSave0");
+        
+        if (TEXT_ATOM == null)
+            TEXT_ATOM = Gdk.Atom.intern_static_string("text/plain");
+        
+        if (XDS_FAKE_TARGET == null)
+            XDS_FAKE_TARGET = string_to_uchar_array("shotwell.txt");
+        
+        // register what's available on this DnD Source
+        Gtk.drag_source_set(event_source, Gdk.ModifierType.BUTTON1_MASK, SOURCE_TARGET_ENTRIES,
+            Gdk.DragAction.COPY);
+        
+        // attach to the event source's DnD signals, not the Page's, which is a NO_WINDOW widget
+        // and does not emit them
+        event_source.drag_begin += on_drag_begin;
+        event_source.drag_data_get += on_drag_data_get;
+        event_source.drag_end += on_drag_end;
+        event_source.drag_failed += on_drag_failed;
+    }
+    
+    ~PhotoDragAndDropHandler() {
+        if (event_source != null) {
+            event_source.drag_begin -= on_drag_begin;
+            event_source.drag_data_get -= on_drag_data_get;
+            event_source.drag_end -= on_drag_end;
+            event_source.drag_failed -= on_drag_failed;
+        }
+        
+        page = null;
+        event_source = null;
+    }
+    
+    private void on_drag_begin(Gdk.DragContext context) {
+        if (page == null || page.get_view().get_selected_count() == 0)
+            return;
+        
+        debug("on_drag_begin (%s)", page.get_page_name());
+        
+        drag_destination = null;
+        
+        // use the first photo as the icon
+        TransformablePhoto photo = (TransformablePhoto) page.get_view().get_selected_at(0).get_source();
+        
+        try {
+            Gdk.Pixbuf icon = photo.get_thumbnail(AppWindow.DND_ICON_SCALE);
+            Gtk.drag_source_set_icon_pixbuf(event_source, icon);
+        } catch (Error err) {
+            warning("Unable to fetch icon for drag-and-drop from %s: %s", photo.to_string(),
+                err.message);
+        }
+        
+        // set the XDS property to indicate an XDS save is available
+        Gdk.property_change(context.source_window, XDS_ATOM, TEXT_ATOM, 8, Gdk.PropMode.REPLACE,
+            XDS_FAKE_TARGET, XDS_FAKE_TARGET.length);
+    }
+    
+    private void on_drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
+        uint target_type, uint time) {
+        if (page == null || page.get_view().get_selected_count() == 0)
+            return;
+        
+        switch (target_type) {
+            case TargetType.XDS:
+                // Fetch the XDS property that has been set with the destination path
+                uchar[] data = new uchar[4096];
+                Gdk.Atom actual_type;
+                int actual_format = 0;
+                int actual_length = 0;
+                bool fetched = gdk_property_get(context.source_window, XDS_ATOM, TEXT_ATOM,
+                    0, data.length, 0, out actual_type, out actual_format, out actual_length, out data);
+                
+                // the destination path is actually for our XDS_FAKE_TARGET, use its parent
+                // to determine where the file(s) should go
+                if (fetched && actual_length > 0)
+                    drag_destination = File.new_for_uri(uchar_array_to_string(data, actual_length)).get_parent();
+                
+                debug("on_drag_data_get (%s): %s", page.get_page_name(),
+                    (drag_destination != null) ? drag_destination.get_path() : "(no path)");
+                
+                // Set the property to "S" for Success or "E" for Error
+                selection_data.set(XDS_ATOM, 8,
+                    string_to_uchar_array((drag_destination != null) ? "S" : "E"));
+            break;
+            
+            case TargetType.PHOTO_LIST:
+                Gee.Collection<TransformablePhoto> sources =
+                    (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources();
+                
+                // convert the selected sources to serialized PhotoIDs for internal drag-and-drop
+                selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64),
+                    serialize_photo_ids(sources));
+            break;
+            
+            default:
+                warning("on_drag_data_get (%s): unknown target type %u", page.get_page_name(),
+                    target_type);
+            break;
+        }
+    }
+    
+    private void on_drag_end() {
+        if (page == null || page.get_view().get_selected_count() == 0)
+            return;
+        
+        debug("on_drag_end (%s)", page.get_page_name());
+        
+        if (drag_destination == null)
+            return;
+        
+        debug("Exporting to %s", drag_destination.get_path());
+        
+        ExportUI.export_photos(drag_destination,
+            (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources());
+        
+        drag_destination = null;
+    }
+    
+    private bool on_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
+        if (page == null)
+            return false;
+        
+        debug("on_drag_failed (%s): %d", page.get_page_name(), (int) drag_result);
+        
+        drag_destination = null;
+        
+        return false;
     }
 }
 

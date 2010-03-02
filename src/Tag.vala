@@ -5,7 +5,11 @@
  */
 
 public class TagSourceCollection : DatabaseSourceCollection {
-    private Gee.HashMap<string, Tag> map = new Gee.HashMap<string, Tag>();
+    private Gee.HashMap<string, Tag> name_map = new Gee.HashMap<string, Tag>();
+    private Gee.HashMap<LibraryPhoto, Gee.List<Tag>> photo_map =
+        new Gee.HashMap<LibraryPhoto, Gee.List<Tag>>();
+    private Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>> sorted_photo_map =
+        new Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>>();
     
     public virtual signal void item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
     }
@@ -33,21 +37,30 @@ public class TagSourceCollection : DatabaseSourceCollection {
     }
     
     public bool exists(string name) {
-        return map.has_key(name);
+        return name_map.has_key(name);
+    }
+    
+    // Returns a list of all Tags associated with the Photo in no particular order.
+    public Gee.List<Tag>? fetch_for_photo(LibraryPhoto photo) {
+        return photo_map.get(photo);
+    }
+    
+    // Returns a sorted set of all Tags associated with the Photo (ascending by name).
+    public Gee.SortedSet<Tag>? fetch_sorted_for_photo(LibraryPhoto photo) {
+        return sorted_photo_map.get(photo);
     }
     
     // Returns null if not Tag with name exists.
     public Tag? fetch_by_name(string name) {
-        return map.get(name);
+        return name_map.get(name);
     }
     
     private override void notify_items_added(Gee.Iterable<DataObject> added) {
         foreach (DataObject object in added) {
             Tag tag = (Tag) object;
             
-            assert(!map.has_key(tag.get_name()));
-            
-            map.set(tag.get_name(), tag);
+            assert(!name_map.has_key(tag.get_name()));
+            name_map.set(tag.get_name(), tag);
         }
         
         base.notify_items_added(added);
@@ -57,7 +70,7 @@ public class TagSourceCollection : DatabaseSourceCollection {
         foreach (DataObject object in removed) {
             Tag tag = (Tag) object;
             
-            bool unset = map.unset(tag.get_name());
+            bool unset = name_map.unset(tag.get_name());
             assert(unset);
         }
         
@@ -70,7 +83,7 @@ public class TagSourceCollection : DatabaseSourceCollection {
         string? old_name = null;
         
         // look for this tag being renamed
-        Gee.MapIterator<string, Tag> iter = map.map_iterator();
+        Gee.MapIterator<string, Tag> iter = name_map.map_iterator();
         while (iter.next()) {
             if (!iter.get_value().equals(tag))
                 continue;
@@ -83,18 +96,62 @@ public class TagSourceCollection : DatabaseSourceCollection {
         assert(old_name != null);
         
         if (tag.get_name() != old_name) {
-            map.unset(old_name);
-            map.set(tag.get_name(), tag);
+            name_map.unset(old_name);
+            name_map.set(tag.get_name(), tag);
         }
         
         base.notify_item_altered(item);
     }
     
+    private static int compare_tag_name(void *a, void *b) {
+        return ((Tag *) a)->get_name().collate(((Tag *) b)->get_name());
+    }
+    
     public virtual void notify_item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+        foreach (LibraryPhoto photo in photos) {
+            Gee.List<Tag>? tags = photo_map.get(photo);
+            if (tags == null) {
+                tags = new Gee.ArrayList<Tag>();
+                photo_map.set(photo, tags);
+            }
+            
+            bool added = tags.add(tag);
+            assert(added);
+            
+            Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
+            if (sorted_tags == null) {
+                sorted_tags = new Gee.TreeSet<Tag>(compare_tag_name);
+                sorted_photo_map.set(photo, sorted_tags);
+            }
+            
+            added = sorted_tags.add(tag);
+            assert(added);
+        }
+        
         item_contents_added(tag, photos);
     }
     
     public virtual void notify_item_contents_removed(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+        foreach (LibraryPhoto photo in photos) {
+            Gee.List<Tag>? tags = photo_map.get(photo);
+            assert(tags != null);
+            
+            bool removed = tags.remove(tag);
+            assert(removed);
+            
+            if (tags.size == 0)
+                photo_map.remove(photo);
+            
+            Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
+            assert(sorted_tags != null);
+            
+            removed = sorted_tags.remove(tag);
+            assert(removed);
+            
+            if (sorted_tags.size == 0)
+                sorted_photo_map.remove(photo);
+        }
+        
         item_contents_removed(tag, photos);
     }
     
@@ -162,13 +219,17 @@ public class Tag : DataSource, Proxyable {
         
         this.row = row;
         
-        // convert PhotoIDs to LibraryPhoto
-        Gee.ArrayList<PhotoView> photo_list = new Gee.ArrayList<PhotoView>();
+        // convert PhotoIDs to LibraryPhotos and PhotoViews for the internal ViewCollection
+        Gee.ArrayList<LibraryPhoto> photo_list = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<PhotoView> photo_views = new Gee.ArrayList<PhotoView>();
         if (this.row.photo_id_list != null) {
             foreach (PhotoID photo_id in this.row.photo_id_list) {
                 LibraryPhoto photo = LibraryPhoto.global.fetch(photo_id);
-                if (photo != null)
-                    photo_list.add(new PhotoView(photo));
+                if (photo == null)
+                    continue;
+                
+                photo_list.add(photo);
+                photo_views.add(new PhotoView(photo));
             }
         } else {
             // allocate the photo_id_list for use if/when photos are added
@@ -177,10 +238,15 @@ public class Tag : DataSource, Proxyable {
         
         // add to internal ViewCollection, which maintains photos associated with this tag
         photos = new ViewCollection("ViewCollection for tag %lld".printf(row.tag_id.id));
-        photos.add_many(photo_list);
+        photos.add_many(photo_views);
+        
+        // need to do this manually here because only want to monitor photo_contents_altered
+        // after add_many() here; but need to keep the TagSourceCollection apprised
+        global.notify_item_contents_added(this, photo_list);
+        global.notify_item_contents_altered(this, photo_list, null);
         
         // monitor ViewCollection to (a) keep the in-memory list of photo IDs up-to-date, and
-        // (b) update the database whenever there's a change
+        // (b) update the database whenever there's a change;
         photos.contents_altered += on_photos_contents_altered;
         
         // monitor LibraryPhoto to trap when photos are destroyed and automatically remove from
@@ -235,26 +301,6 @@ public class Tag : DataSource, Proxyable {
         return tag;
     }
     
-    private static int compare_tag_name(void *a, void *b) {
-        return ((Tag *) a)->get_name().collate(((Tag *) b)->get_name());
-    }
-    
-    // Returns a sorted set of all Tags associated with the Photo (ascending by name).
-    public static Gee.SortedSet<Tag> get_sorted_tags(LibraryPhoto photo) {
-        Gee.SortedSet<Tag> tags = new Gee.TreeSet<Tag>(compare_tag_name);
-        collect_tags(photo, tags);
-        
-        return tags;
-    }
-    
-    // Returns a list of all Tags associated with the Photo, in no guaranteed order.
-    public static Gee.List<Tag> get_tags(LibraryPhoto photo) {
-        Gee.List<Tag> tags = new Gee.ArrayList<Tag>();
-        collect_tags(photo, tags);
-        
-        return tags;
-    }
-    
     public static string make_tag_string(Gee.Collection<Tag> tags, string? start = null, 
         string separator = ", ", string? end = null) {
         StringBuilder builder = new StringBuilder(start ?? "");
@@ -269,15 +315,6 @@ public class Tag : DataSource, Proxyable {
             builder.append(end);
         
         return builder.str;
-    }
-    
-    private static void collect_tags(LibraryPhoto photo, Gee.Collection<Tag> tags) {
-        foreach (DataObject object in global.get_all()) {
-            Tag tag = (Tag) object;
-            
-            if (tag.contains(photo))
-                tags.add(tag);
-        }
     }
     
     // Utility function to cleanup a tag name that comes from user input and prepare it for use

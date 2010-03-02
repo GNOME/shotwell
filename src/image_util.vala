@@ -537,7 +537,7 @@ public void set_desktop_background(TransformablePhoto photo) {
         return;
     
     try {
-        photo.export(save_as, 1, ScaleConstraint.ORIGINAL, Jpeg.Quality.MAXIMUM);
+        photo.export(save_as, Scaling.for_original(), Jpeg.Quality.MAXIMUM);
     } catch (Error err) {
         AppWindow.error_message(_("Unable to export background to %s: %s").printf(save_as.get_path(), err.message));
         return;

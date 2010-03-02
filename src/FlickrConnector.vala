@@ -303,14 +303,11 @@ class FlickrUploadActionPane : UploadActionPane {
     }
 
     protected override void prepare_file(UploadActionPane.TemporaryFileDescriptor file) {
+        Scaling scaling = (major_axis_size == ORIGINAL_SIZE)
+            ? Scaling.for_original() : Scaling.for_best_fit(major_axis_size, false);
+        
         try {
-            if (major_axis_size == ORIGINAL_SIZE) {
-                file.source_photo.export(file.temp_file, major_axis_size, ScaleConstraint.ORIGINAL,
-                    Jpeg.Quality.MAXIMUM);
-            } else {
-                file.source_photo.export(file.temp_file, major_axis_size,
-                    ScaleConstraint.DIMENSIONS, Jpeg.Quality.MAXIMUM);
-            }
+            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM);
         } catch (Error e) {
             error("FlickrUploadPane: can't create temporary files");
         }
