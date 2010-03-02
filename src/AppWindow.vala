@@ -430,24 +430,26 @@ public abstract class AppWindow : PageWindow {
         dialog.destroy();
     }
     
-    public static bool yes_no_question(string message, string? title = null, Gtk.Window? parent = null) {
-        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
-            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, "%s", message);
-        dialog.title = (title != null) ? title : Resources.APP_TITLE;
-        
-        bool yes = (dialog.run() == Gtk.ResponseType.YES);
-        
-        dialog.destroy();
-        
-        return yes;
-    }
-    
-    public static Gtk.ResponseType yes_no_cancel_question(string message, string? title = null,
-        Gtk.Window? parent = null) {
+    public static bool negate_affirm_question(string message, string negative, string affirmative,
+        string? title = null, Gtk.Window? parent = null) {
         Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
             Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
         dialog.title = (title != null) ? title : Resources.APP_TITLE;
-        dialog.add_buttons(_("_No"), Gtk.ResponseType.NO, _("_Yes"), Gtk.ResponseType.YES,
+        dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES);
+        
+        bool response = (dialog.run() == Gtk.ResponseType.YES);
+        
+        dialog.destroy();
+        
+        return response;
+    }
+
+    public static Gtk.ResponseType negate_affirm_cancel_question(string message, string negative,
+        string affirmative, string? title = null, Gtk.Window? parent = null) {
+        Gtk.MessageDialog dialog = new Gtk.MessageDialog((parent != null) ? parent : get_instance(),
+            Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "%s", message);
+        dialog.title = (title != null) ? title : Resources.APP_TITLE;
+        dialog.add_buttons(negative, Gtk.ResponseType.NO, affirmative, Gtk.ResponseType.YES,
             _("_Cancel"), Gtk.ResponseType.CANCEL);
         
         int response = dialog.run();

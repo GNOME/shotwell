@@ -1987,11 +1987,18 @@ public class DirectPhotoPage : EditingHostPage {
             return true;
         }
         
-        bool ok = AppWindow.yes_no_question(_("Lose changes to %s?").printf(photo.get_name()));
-        if (ok)
+        Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
+            _("Lose changes to %s?").printf(photo.get_name()), _("_Save"),
+            _("Close _without Saving"));
+
+        if (response == Gtk.ResponseType.YES)
             photo.remove_all_transformations();
-        
-        return ok;
+        else if (response == Gtk.ResponseType.NO)
+            save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH);
+        else if (response == Gtk.ResponseType.CANCEL)
+            return false;
+
+        return true;
     }
     
     public bool check_quit() {

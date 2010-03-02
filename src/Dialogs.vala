@@ -49,11 +49,6 @@ public File? choose_dir() {
     return dir;
 }
 
-public bool query_overwrite(File file) {
-    return AppWindow.yes_no_question(_("%s already exists.  Overwrite?").printf(file.get_path()),
-        _("Export Photos"));
-}
-
 public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos) {
     ProgressDialog dialog = null;
     Cancellable cancellable = null;
@@ -71,8 +66,9 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
         File dest = folder.get_child(basename);
         
         if (dest.query_exists(null)) {
-            string question = _("File %s already exists.  Overwrite?").printf(basename);
-            Gtk.ResponseType response = AppWindow.yes_no_cancel_question(question, _("Export Photos"));
+            string question = _("File %s already exists.  Replace?").printf(basename);
+            Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(question, 
+                _("_Skip"), _("_Replace"), _("Export Photos"));
             
             bool skip = false;
             switch (response) {

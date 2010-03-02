@@ -132,7 +132,8 @@ public class TagPage : CollectionPage {
             "This will remove the tag \"%s\" from %d photos.  Continue?",
             count).printf(tag.get_name(), count);
         
-        if (!AppWindow.yes_no_question(msg, Resources.DELETE_TAG_TITLE))
+        if (!AppWindow.negate_affirm_question(msg, _("_Cancel"), _("_Delete"),
+            Resources.DELETE_TAG_TITLE))
             return;
         
         get_command_manager().execute(new DeleteTagCommand(tag));
