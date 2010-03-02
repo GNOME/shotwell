@@ -769,7 +769,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         batch_radio_button.toggled += on_time_changed;
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
-            "_Modify Original", "_Modify Originals", photo_count));
+            "_Modify original file", "_Modify original files", photo_count));
         modify_originals_check_button.set_active(Config.get_instance().get_modify_originals() &&
             display_modify_original);
         modify_originals_check_button.sensitive = display_modify_original;

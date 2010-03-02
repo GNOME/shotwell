@@ -137,7 +137,7 @@ public abstract class CollectionPage : CheckerboardPage {
         // publish button
         publish_button = new Gtk.ToolButton.from_stock(Resources.PUBLISH);
         publish_button.set_label(Resources.PUBLISH_LABEL);
-        publish_button.set_tooltip_text(Resources.publish_tooltip(0));
+        publish_button.set_tooltip_text(Resources.PUBLISH_TOOLTIP);
         publish_button.set_sensitive(false);
         publish_button.is_important = true;
         publish_button.clicked += on_publish;
@@ -186,7 +186,8 @@ public abstract class CollectionPage : CheckerboardPage {
 
         Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
-        export.label = _("_Export Photos...");
+        export.label = Resources.EXPORT_MENU;
+        export.tooltip = Resources.EXPORT_TOOLTIP;
         export.tooltip = _("Export selected photos to disk");
         actions += export;
 
@@ -206,7 +207,8 @@ public abstract class CollectionPage : CheckerboardPage {
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
-        // label and tooltip set when menu is activated
+        publish.label = Resources.PUBLISH_MENU;
+        publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
 #endif
 
@@ -472,7 +474,6 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.sensitive = get_view().get_selected_count() > 0;
 #if !NO_PUBLISHING
         publish_button.set_sensitive(get_view().get_selected_count() > 0);
-        publish_button.set_tooltip_text(Resources.publish_tooltip(get_view().get_selected_count()));
 #endif
         enhance_button.sensitive = get_view().get_selected_count() > 0;
         
@@ -604,11 +605,12 @@ public abstract class CollectionPage : CheckerboardPage {
 
 #if !NO_PRINTING
         set_item_sensitive("/CollectionMenuBar/FileMenu/PrintPlaceholder/Print", count == 1);
-#endif        
+#endif    
+    
         set_item_sensitive("/CollectionMenuBar/FileMenu/Export", count > 0);
+
 #if !NO_PUBLISHING
-        set_item_display("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish",
-            Resources.publish_menu(count), Resources.publish_tooltip(count), count > 0);
+        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish", count > 0);
 #endif
     }
     

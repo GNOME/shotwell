@@ -1130,8 +1130,8 @@ public class LibraryPhotoPage : EditingHostPage {
 
         Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
-        export.label = _("_Export Photos...");
-        export.tooltip = _("Export photo to disk");
+        export.label = Resources.EXPORT_MENU;
+        export.tooltip = Resources.EXPORT_TOOLTIP;
         actions += export;
 
 #if !NO_PRINTING
@@ -1150,7 +1150,8 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
-        // label and tooltip set when menu activated
+        publish.label = Resources.PUBLISH_MENU;
+        publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
 #endif
         
@@ -1446,9 +1447,14 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_file_menu() {
+#if !NO_PRINTING
+        set_item_sensitive("/CollectionMenuBar/FileMenu/PrintPlaceholder/Print", has_photo());
+#endif
+
+        set_item_sensitive("/PhotoMenuBar/FileMenu/Export", has_photo());
+
 #if !NO_PUBLISHING
-        set_item_display("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", Resources.publish_menu(1),
-            Resources.publish_tooltip(1), has_photo());
+        set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", has_photo());
 #endif
     }
     
