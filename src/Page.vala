@@ -25,6 +25,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool report_move_finished = false;
     private bool report_resize_finished = false;
     private Gdk.Point last_down = Gdk.Point();
+    private bool is_destroyed = false;
     protected bool ctrl_pressed = false;
     protected bool alt_pressed = false;
     protected bool shift_pressed = false;
@@ -55,6 +56,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     // This is called by the page controller when it has removed this page ... pages should override
     // this (or the signal) to clean up
     public override void destroy() {
+        debug("Page %s Destroyed", get_page_name());
+
         // untie signals
         detach_event_source();
         view.close();
@@ -76,6 +79,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         // toolbars (as of yet) are not created by the UI Manager and need to be destroyed
         // explicitly
         toolbar.destroy();
+
+        is_destroyed = true;
         
         base.destroy();
     }
@@ -675,9 +680,12 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     private bool check_configure_halted() {
+        if (is_destroyed)
+            return false;
+
         if ((now_ms() - last_configure_ms) < CONSIDER_CONFIGURE_HALTED_MSEC)
             return true;
-            
+        
         if (report_move_finished)
             on_move_finished((Gdk.Rectangle) allocation);
         

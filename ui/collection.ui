@@ -98,8 +98,6 @@
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
-        <menuitem name="ContextNewEvent" action="NewEvent" />
-        <separator />
         <menuitem name="ContextDuplicate" action="Duplicate" />
         <menuitem name="ContextRemove" action="Remove" />
         <separator />

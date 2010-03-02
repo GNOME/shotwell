@@ -311,7 +311,7 @@ public abstract class CollectionPage : CheckerboardPage {
 
         Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
             TRANSLATABLE, on_slideshow };
-        slideshow.label = _("S_lideshow");
+        slideshow.label = _("_Slideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
 
@@ -528,7 +528,6 @@ public abstract class CollectionPage : CheckerboardPage {
         
         set_item_sensitive("/CollectionContextMenu/ContextDuplicate", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRemove", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextNewEvent", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);

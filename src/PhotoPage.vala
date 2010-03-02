@@ -442,6 +442,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
 #endif
+
         Gdk.Pixbuf pixbuf = null;
         Dimensions max_dim = get_photo().get_dimensions();
         
