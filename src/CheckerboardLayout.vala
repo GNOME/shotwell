@@ -299,7 +299,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
             if (trinkets != null) {
                 foreach (Gdk.Pixbuf trinket in trinkets)
-                    trinkets_width += trinket.get_width();
+                    trinkets_width += trinket.get_width() + TRINKET_PADDING;
             }
         }
         
@@ -384,9 +384,11 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         // draw trinkets last
         if (trinkets != null) {
+            int current_trinkets_width = 0;
             foreach (Gdk.Pixbuf trinket in trinkets) {
+                current_trinkets_width = current_trinkets_width + trinket.get_width() + TRINKET_PADDING;
                 drawable.draw_pixbuf(gc, trinket, 0, 0, 
-                    pixbuf_origin.x + pixbuf_dim.width - trinket.get_width() - TRINKET_PADDING, 
+                    pixbuf_origin.x + pixbuf_dim.width - current_trinkets_width,
                     pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() - TRINKET_PADDING, 
                     trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
             }
