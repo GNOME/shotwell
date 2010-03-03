@@ -54,24 +54,29 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
     Cancellable cancellable = null;
     if (photos.size > 2) {
         cancellable = new Cancellable();
-        dialog = new ProgressDialog(AppWindow.get_instance(), _("Exporting..."), cancellable);
+        dialog = new ProgressDialog(AppWindow.get_instance(), _("Exporting"), cancellable);
     }
     
     AppWindow.get_instance().set_busy_cursor();
     
     int count = 0;
     int failed = 0;
+    bool replace_all = false;
     foreach (TransformablePhoto photo in photos) {
         string basename = photo.get_file().get_basename();
         File dest = folder.get_child(basename);
         
-        if (dest.query_exists(null)) {
+        if (!replace_all && dest.query_exists(null)) {
             string question = _("File %s already exists.  Replace?").printf(basename);
-            Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(question, 
-                _("_Skip"), _("_Replace"), _("Export Photos"));
+            Gtk.ResponseType response = AppWindow.negate_affirm_all_cancel_question(question, 
+                _("_Skip"), _("_Replace"), _("Replace _All"), _("Export Photos"));
             
             bool skip = false;
             switch (response) {
+                case Gtk.ResponseType.APPLY:
+                    replace_all = true;
+                break;
+
                 case Gtk.ResponseType.YES:
                     // fall through
                 break;
@@ -588,11 +593,11 @@ public class ProgressDialog : Gtk.Window {
             set_transient_for(owner);
         set_modal(true);
         set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
-
+        
         progress_bar.set_size_request(300, -1);
         
-        Gtk.VBox vbox = new Gtk.VBox(false, 0);
-        vbox.pack_start(progress_bar, true, false, 0);
+        Gtk.VBox vbox_bar = new Gtk.VBox(false, 0);
+        vbox_bar.pack_start(progress_bar, true, false, 0);
         
         if (cancellable != null) {
             cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
@@ -600,13 +605,22 @@ public class ProgressDialog : Gtk.Window {
         }
         
         Gtk.HBox hbox = new Gtk.HBox(false, 8);
-        hbox.pack_start(vbox, true, false, 0);
+        hbox.pack_start(vbox_bar, true, false, 0);
         if (cancel_button != null)
             hbox.pack_end(cancel_button, false, false, 0);
         
+        
+        Gtk.Label primary_text_label = new Gtk.Label("");
+        primary_text_label.set_markup("<span weight=\"bold\">%s</span>".printf(text));
+        primary_text_label.set_alignment(0, 0.5f);
+
+        Gtk.VBox vbox = new Gtk.VBox(false, 12);
+        vbox.pack_start(primary_text_label, false, false, 0);
+        vbox.pack_start(hbox, true, false, 0);
+
         Gtk.Alignment alignment = new Gtk.Alignment(0.5f, 0.5f, 1.0f, 1.0f);
         alignment.set_padding(12, 12, 12, 12);
-        alignment.add(hbox);
+        alignment.add(vbox);
         
         add(alignment);
         
@@ -665,7 +679,7 @@ public void generate_events_with_progress_dialog(Gee.List<LibraryPhoto> photos) 
     ProgressDialog progress = null;
     if (photos.size > 25) {
         cancellable = new Cancellable();
-        progress = new ProgressDialog(AppWindow.get_instance(), _("Generating Events..."),
+        progress = new ProgressDialog(AppWindow.get_instance(), _("Generating Events"),
             cancellable);
         Event.generate_events(photos, progress.monitor);
         progress.close();

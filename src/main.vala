@@ -118,7 +118,7 @@ void library_exec(string[] mounts) {
         // objects and then populating the initial page with them.
         uint64 grand_total = (PhotoTable.get_instance().get_count() * 2) + EventTable.get_instance().get_count();
         if (grand_total > 20000) {
-            progress_dialog = new ProgressDialog(null, _("Loading Shotwell..."));
+            progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
             progress_dialog.update_display_every(300);
             spin_event_loop();
             

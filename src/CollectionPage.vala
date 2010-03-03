@@ -767,7 +767,7 @@ public abstract class CollectionPage : CheckerboardPage {
         ProgressDialog progress = null;
         if (marker.get_count() >= MIN_OPS_FOR_PROGRESS_WINDOW) {
             cancellable = new Cancellable();
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Removing..."), cancellable);
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Removing"), cancellable);
         }
         
         // valac complains about passing an argument for a delegate using ternary operator:
@@ -789,7 +789,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(), 
             Rotation.CLOCKWISE, Resources.ROTATE_CW_FULL_LABEL, Resources.ROTATE_CW_TOOLTIP,
-            _("Rotating..."), _("Undoing Rotate..."));
+            _("Rotating"), _("Undoing Rotate"));
         get_command_manager().execute(command);
     }
 
@@ -810,7 +810,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(), 
             Rotation.COUNTERCLOCKWISE, Resources.ROTATE_CCW_FULL_LABEL, Resources.ROTATE_CCW_TOOLTIP,
-            _("Rotating..."), _("Undoing Rotate"));
+            _("Rotating"), _("Undoing Rotate"));
         get_command_manager().execute(command);
     }
     
@@ -819,8 +819,8 @@ public abstract class CollectionPage : CheckerboardPage {
             return;
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
-            Rotation.MIRROR, Resources.MIRROR_LABEL, Resources.MIRROR_TOOLTIP, _("Mirroring..."),
-            _("Undoing Mirror..."));
+            Rotation.MIRROR, Resources.MIRROR_LABEL, Resources.MIRROR_TOOLTIP, _("Mirroring"),
+            _("Undoing Mirror"));
         get_command_manager().execute(command);
     }
     

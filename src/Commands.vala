@@ -408,7 +408,7 @@ public class RevertSingleCommand : GenericPhotoTransformationCommand {
 
 public class RevertMultipleCommand : MultiplePhotoTransformationCommand {
     public RevertMultipleCommand(Gee.Iterable<DataView> iter) {
-        base(iter, _("Reverting..."), _("Undoing Revert..."), Resources.REVERT_LABEL,
+        base(iter, _("Reverting"), _("Undoing Revert"), Resources.REVERT_LABEL,
             Resources.REVERT_TOOLTIP);
     }
     
@@ -452,7 +452,7 @@ public class EnhanceSingleCommand : GenericPhotoTransformationCommand {
 
 public class EnhanceMultipleCommand : MultiplePhotoTransformationCommand {
     public EnhanceMultipleCommand(Gee.Iterable<DataView> iter) {
-        base(iter, _("Enhancing..."), _("Undoing Enhance..."), Resources.ENHANCE_LABEL,
+        base(iter, _("Enhancing"), _("Undoing Enhance"), Resources.ENHANCE_LABEL,
             Resources.ENHANCE_TOOLTIP);
     }
     
@@ -618,8 +618,8 @@ public class NewEventCommand : MovePhotosCommand {
 
         Event new_event = Event.create_empty_event(key_photo);
 
-        real_command = new RealMovePhotosCommand(new_event, iter, _("Creating New Event..."),
-            _("Removing Event..."), Resources.NEW_EVENT_LABEL,
+        real_command = new RealMovePhotosCommand(new_event, iter, _("Creating New Event"),
+            _("Removing Event"), Resources.NEW_EVENT_LABEL,
             Resources.NEW_EVENT_TOOLTIP);
     }
 }
@@ -628,8 +628,8 @@ public class SetEventCommand : MovePhotosCommand {
     public SetEventCommand(Gee.Iterable<DataView> iter, Event new_event) {
         base(Resources.SET_PHOTO_EVENT_LABEL, Resources.SET_PHOTO_EVENT_TOOLTIP);
 
-        real_command = new RealMovePhotosCommand(new_event, iter, _("Moving Photos to New Event..."),
-            _("Setting Photos to Previous Event..."), Resources.SET_PHOTO_EVENT_LABEL, 
+        real_command = new RealMovePhotosCommand(new_event, iter, _("Moving Photos to New Event"),
+            _("Setting Photos to Previous Event"), Resources.SET_PHOTO_EVENT_LABEL, 
             Resources.SET_PHOTO_EVENT_TOOLTIP);
     }
 }
@@ -659,8 +659,8 @@ public class MergeEventsCommand : MovePhotosCommand {
         assert(master_event != null);
         assert(photos.size > 0);
         
-        real_command = new RealMovePhotosCommand(master_event, photos, _("Merging..."), 
-            _("Unmerging..."), Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
+        real_command = new RealMovePhotosCommand(master_event, photos, _("Merging"), 
+            _("Unmerging"), Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
     }
 }
 
@@ -669,7 +669,7 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     private int failed = 0;
     
     public DuplicateMultiplePhotosCommand(Gee.Iterable<DataView> iter) {
-        base (iter, _("Duplicating photos..."), _("Removing duplicated photos..."), 
+        base (iter, _("Duplicating photos"), _("Removing duplicated photos"), 
             Resources.DUPLICATE_PHOTO_LABEL, Resources.DUPLICATE_PHOTO_TOOLTIP);
         
         LibraryPhoto.global.item_destroyed += on_photo_destroyed;
@@ -757,8 +757,8 @@ public class FavoriteUnfavoriteCommand : MultipleDataSourceCommand {
     
     public FavoriteUnfavoriteCommand(Gee.Iterable<DataView> iter, bool favorite) {
         base (iter,
-            favorite ? _("Marking as Favorite...") : _("Unmarking as Favorite..."),
-            favorite ? _("Unmarking as Favorite...") : _("Marking as Favorite..."),
+            favorite ? _("Marking as Favorite") : _("Unmarking as Favorite"),
+            favorite ? _("Unmarking as Favorite") : _("Marking as Favorite"),
             favorite ? Resources.FAVORITE_LABEL : Resources.UNFAVORITE_LABEL,
             favorite ? Resources.FAVORITE_TOOLTIP : Resources.UNFAVORITE_TOOLTIP);
         
@@ -799,8 +799,8 @@ public class HideUnhideCommand : MultipleDataSourceCommand {
     
     public HideUnhideCommand(Gee.Iterable<DataView> iter, bool hide) {
         base (iter,
-            hide ? _("Hiding...") : _("Unhiding..."),
-            hide ? _("Unhiding...") : _("Hiding..."),
+            hide ? _("Hiding") : _("Unhiding"),
+            hide ? _("Unhiding") : _("Hiding"),
             hide ? Resources.HIDE_LABEL : Resources.UNHIDE_LABEL,
             hide ? Resources.HIDE_TOOLTIP : Resources.UNHIDE_TOOLTIP);
         
@@ -862,7 +862,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
 
     public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
         bool keep_relativity, bool modify_originals) {
-        base(iter, _("Adjusting Date and Time..."), _("Undoing Date and Time Adjustment..."),
+        base(iter, _("Adjusting Date and Time"), _("Undoing Date and Time Adjustment"),
             Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
 
         this.time_shift = time_shift;
