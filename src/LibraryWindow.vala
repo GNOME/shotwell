@@ -725,10 +725,12 @@ public class LibraryWindow : AppWindow {
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page = null) {
         Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
             selection_data.get_length());
-
+        
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
-        foreach (PhotoID photo_id in photo_ids)
-            photos.add(LibraryPhoto.global.fetch(photo_id));
+        if (photo_ids != null) {
+            foreach (PhotoID photo_id in photo_ids)
+                photos.add(LibraryPhoto.global.fetch(photo_id));
+        }
         
         if (photos.size == 0) {
             Gtk.drag_finish(context, false, false, time);

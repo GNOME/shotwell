@@ -95,7 +95,7 @@ public uchar[] serialize_photo_ids(Gee.Collection<TransformablePhoto> photos) {
 
 public Gee.List<PhotoID?>? unserialize_photo_ids(uchar* serialized, int size) {
     size_t count = (size / sizeof(int64));
-    if (count <= 0)
+    if (count <= 0 || serialized == null)
         return null;
     
     int64[] ids = new int64[count];
