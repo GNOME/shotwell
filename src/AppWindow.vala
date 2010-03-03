@@ -76,12 +76,27 @@ public class FullscreenWindow : PageWindow {
         // need to create a Gdk.Window to set masks
         fullscreen();
         show_all();
+
+        Gdk.Rectangle monitor = get_monitor_geometry();
+
+        set_size_request(monitor.width, monitor.height);
+
+	    move(monitor.x, monitor.y);
         
         // capture motion events to show the toolbar
         add_events(Gdk.EventMask.POINTER_MOTION_MASK);
         
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
+    }
+
+    private Gdk.Rectangle get_monitor_geometry() {
+        Gdk.Rectangle monitor;
+
+        get_screen().get_monitor_geometry(
+            get_screen().get_monitor_at_window(AppWindow.get_instance().get_window()), out monitor);
+
+        return monitor;
     }
     
     private override bool configure_event(Gdk.EventConfigure event) {
@@ -176,13 +191,13 @@ public class FullscreenWindow : PageWindow {
         Gtk.Requisition req;
         toolbar_window.size_request(out req);
         
-        // place the toolbar in the center of the screen along the bottom edge
-        Gdk.Screen screen = toolbar_window.get_screen();
-        int tx = (screen.get_width() - req.width) / 2;
+        // place the toolbar in the center of the monitor along the bottom edge
+        Gdk.Rectangle monitor = get_monitor_geometry();
+        int tx = monitor.x + (monitor.width - req.width) / 2;
         if (tx < 0)
             tx = 0;
 
-        int ty = screen.get_height() - req.height;
+        int ty = monitor.y + monitor.height - req.height;
         if (ty < 0)
             ty = 0;
             
