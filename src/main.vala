@@ -82,7 +82,7 @@ void library_exec(string[] mounts) {
         
         case DatabaseVerifyResult.UPGRADE_ERROR:
             errormsg = _("Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s").printf(
-                app_version, Resources.APP_VERSION, Resources.HELP_URL);
+                app_version, Resources.APP_VERSION, Resources.get_help_url());
         break;
         
         case DatabaseVerifyResult.NO_UPGRADE_AVAILABLE:

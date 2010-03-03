@@ -18,8 +18,7 @@ namespace Resources {
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";
-    public const string HELP_URL = "http://trac.yorba.org/wiki/UsingShotwell" +
-        APP_VERSION.substring(0, 3);
+    private const string HELP_URL_BASE = "http://trac.yorba.org/wiki/UsingShotwell";
     
     public const string PREFIX = _PREFIX;
 
@@ -317,6 +316,12 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         
         Gtk.IconSet icon_set = new Gtk.IconSet.from_pixbuf(pixbuf);
         factory.add(stock_id, icon_set);
+    }
+
+    // we can't have a plain ol' HELP_URL const due to a vala bug:
+    // https://bugzilla.gnome.org/show_bug.cgi?id=611716
+    public string get_help_url() {
+        return HELP_URL_BASE + APP_VERSION.substring(0, 3);
     }
 }
 

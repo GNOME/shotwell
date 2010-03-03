@@ -515,7 +515,7 @@ public abstract class AppWindow : PageWindow {
     }
 
     private void on_help_contents() {
-        open_link(Resources.HELP_URL);
+        open_link(Resources.get_help_url());
     }
     
     protected virtual void on_quit() {
