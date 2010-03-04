@@ -798,8 +798,7 @@ public abstract class CollectionPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-        PublishingDialog publishing_dialog = new PublishingDialog(get_view().get_selected(),
-            get_view().get_selected_count());
+        PublishingDialog publishing_dialog = new PublishingDialog(get_view().get_selected());
         publishing_dialog.run();
     }
 #endif

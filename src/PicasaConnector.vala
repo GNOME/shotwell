@@ -8,14 +8,8 @@
 
 namespace PicasaConnector {
 private const string SERVICE_WELCOME_MESSAGE = 
-    _("You are not currently logged in to Picasa Web Albums.\n\nYou must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to login to the Picasa Web Albums site at least once.");
+    _("You are not currently logged into Picasa Web Albums.\n\nYou must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once.");
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
-
-private enum FeedState {
-    INDETERMINATE,
-    EXISTS,
-    DOES_NOT_EXIST
-}
 
 private struct Album {
     string name;
@@ -27,23 +21,23 @@ private struct Album {
     }
 }
 
-private class PublishingRequest {
+private class PublishingParameters {
     private string album_name;
     private string album_url;
     private bool album_public;
     public int photo_major_axis_size;
     
-    private PublishingRequest() {
+    private PublishingParameters() {
     }
 
-    public PublishingRequest.to_new_album(int photo_major_axis_size, string album_name,
+    public PublishingParameters.to_new_album(int photo_major_axis_size, string album_name,
         bool album_public) {
         this.photo_major_axis_size = photo_major_axis_size;
         this.album_name = album_name;
         this.album_public = album_public;
     }
 
-    public PublishingRequest.to_existing_album(int photo_major_axis_size, string album_url) {
+    public PublishingParameters.to_existing_album(int photo_major_axis_size, string album_url) {
         this.photo_major_axis_size = photo_major_axis_size;
         this.album_url = album_url;
     }
@@ -78,7 +72,8 @@ private class PublishingRequest {
         return photo_major_axis_size;
     }
 
-    // converts a publish-to-new-album request into a publish-to-existing-album request
+    // converts a publish-to-new-album parameters object into a publish-to-existing-album
+    // parameters object
     public void convert(string album_url) {
         assert(is_to_new_album());
         album_name = null;
@@ -87,187 +82,406 @@ private class PublishingRequest {
 }
 
 public class Interactor : ServiceInteractor {
-    private Session session;
-    private FeedState state;
+    private Session session = null;
+    private Album[] albums = null;
+    private PublishingParameters parameters = null;
+    private Uploader uploader = null;
+    private bool cancelled = false;
+    private ProgressPane progress_pane = null;
 
     public Interactor(PublishingDialog host) {
         base(host);
         session = new Session();
-        state = FeedState.INDETERMINATE;
-    }
-   
-    public override string get_name() {
-        return "Picasa Web Albums";
-    }
-    
-    public override void start_interaction() throws PublishingError {
-        if (!session.is_authenticated()) {
-            on_logout();
-        } else {
-            on_login_authentication_succeeded();
-        }
     }
 
-    internal void on_feed_state_determined(FeedState state) {
-        this.state = state;
-    }
-    
-    public override void cancel_interaction() {
-    }
-
-    private void on_show_login_pane_requested() {
-        CredentialsCapturePane login_pane =
-            new CredentialsCapturePane(this, CredentialsCapturePane.Mode.INTRO);
-        login_pane.go_back += on_go_back_action_requested;
-        login_pane.login += on_login_action_requested;
-        get_host().set_cancel_button_mode();
-        get_host().install_pane(login_pane);
-        try {
-            login_pane.run_interaction();
-        } catch (PublishingError e) {
-            get_host().on_error(e);
+    // EVENT: triggered when the user clicks the "Go Back" button in the credentials capture pane
+    private void on_credentials_go_back() {
+        // ignore all events if the user has cancelled or we have and error situation
+        if (has_error() || cancelled)
             return;
-        }
+
+        do_show_service_welcome_pane();
     }
 
-    private void on_login_action_requested(string username, string password) {
-        LoginActionPane network_action_pane = new LoginActionPane(this, username, password);
-        network_action_pane.authentication_failed += on_login_authentication_failed;
-        network_action_pane.authentication_succeeded += on_login_authentication_succeeded;
-        install_temporary_pane(network_action_pane);
-        try {
-            network_action_pane.run_interaction();
-        } catch (PublishingError e) {
-            get_host().on_error(e);
-        }
-    }
+    // EVENT: triggered when the network transaction that fetches the authentication token for
+    //        the login account is completed successfully
+    private void on_token_fetch_complete(RESTTransaction txn) {
+        txn.completed -= on_token_fetch_complete;
+        txn.network_error -= on_token_fetch_error;
 
-    private void on_go_back_action_requested() {
-        LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
-        not_logged_in_pane.login_requested += on_show_login_pane_requested;
-        get_host().set_cancel_button_mode();
-        get_host().install_pane(not_logged_in_pane);
-    }
-
-    private void on_login_authentication_failed() {
-        CredentialsCapturePane login_pane =
-            new CredentialsCapturePane(this, CredentialsCapturePane.Mode.FAILED_RETRY);
-        login_pane.go_back += on_go_back_action_requested;
-        login_pane.login += on_login_action_requested;
-        get_host().set_cancel_button_mode();
-        get_host().unlock_service();
-        get_host().install_pane(login_pane);
-        try {
-            login_pane.run_interaction();
-        } catch (PublishingError e) {
-            get_host().on_error(e);
+        if (has_error() || cancelled)
             return;
+        if (session.is_authenticated()) // ignore these events if the session is already auth'd
+            return;
+
+        string auth_substring = txn.get_response().str("Auth=");
+        auth_substring = auth_substring.chomp();
+        string auth_token = auth_substring.substring(5);
+
+        TokenFetchTransaction downcast_txn = (TokenFetchTransaction) txn;
+        session.authenticate(auth_token, downcast_txn.get_username());
+
+        do_fetch_account_information();
+    }
+
+    // EVENT: triggered when the network transaction that fetches the authentication token for
+    //        the login account fails
+    private void on_token_fetch_error(RESTTransaction bad_txn, PublishingError err) {
+        bad_txn.completed -= on_token_fetch_complete;
+        bad_txn.network_error -= on_token_fetch_error;
+
+        if (has_error() || cancelled)
+            return;
+        if (session.is_authenticated()) // ignore these events if the session is already auth'd
+            return;
+
+        // HTTP error 403 is invalid authentication -- if we get this error during token fetch
+        // then we can just show the login screen again with a retry message; if we get any error
+        // other than 403 though, we can't recover from it, so just post the error to the user
+        if (bad_txn.get_status_code() == 403) {
+            if (bad_txn.get_response().contains("CaptchaRequired"))
+                do_show_credentials_capture_pane(CredentialsCapturePane.Mode.ADDITIONAL_SECURITY);
+            else
+                do_show_credentials_capture_pane(CredentialsCapturePane.Mode.FAILED_RETRY);
+        }
+        else {
+            post_error(err);
         }
     }
 
-    private void on_login_authentication_succeeded() {
-        assert(session.is_authenticated());
-        PublishingOptionsPane opts_pane = new PublishingOptionsPane(this);
-        opts_pane.feed_state_determined += on_feed_state_determined;
-        opts_pane.publish += on_publish;
-        opts_pane.logout += on_logout;
-        try {
-            opts_pane.run_interaction();
-        } catch (PublishingError e) {
-            get_host().on_error(e);
+    // EVENT: triggered when the user clicks "Login" in the credentials capture pane
+    private void on_credentials_login(string username, string password) {
+        if (has_error() || cancelled)
             return;
-        }
-        assert(state != FeedState.INDETERMINATE); // part of the contract we have with the options
-                                                  // pane is that it will determine the state of the
-                                                  // authenticated user's feed when its interaction
-                                                  // is run
-        get_host().set_cancel_button_mode();
-        get_host().unlock_service();
-        if (state == FeedState.EXISTS) {
-            get_host().install_pane(opts_pane);
-        } else {
-            CredentialsCapturePane login_pane =
-                new CredentialsCapturePane(this, CredentialsCapturePane.Mode.NOT_SET_UP);
-            login_pane.go_back += on_go_back_action_requested;
-            login_pane.login += on_login_action_requested;
-            get_host().install_pane(login_pane);
-            try {
-                login_pane.run_interaction();
-            } catch (PublishingError e) {
-                get_host().on_error(e);
-                return;
-            }
-        }
-        state = FeedState.INDETERMINATE;
+
+        do_network_login(username, password);
     }
-    
-    private void on_logout() {
+
+    // EVENT: triggered when the user clicks "Login" in the service welcome pane
+    private void on_service_welcome_login() {
+        if (has_error() || cancelled)
+            return;
+
+        do_show_credentials_capture_pane(CredentialsCapturePane.Mode.INTRO);
+    }
+
+    // EVENT: triggered when the user clicks "Logout" in the publishing options pane
+    private void on_publishing_options_logout() {
+        if (has_error() || cancelled)
+            return;
+
         session.deauthenticate();
-        state = FeedState.INDETERMINATE;
 
-        LoginWelcomePane not_logged_in_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
-        not_logged_in_pane.login_requested += on_show_login_pane_requested;
-        get_host().set_cancel_button_mode();
-        get_host().install_pane(not_logged_in_pane);
-        get_host().unlock_service();
+        do_show_service_welcome_pane();
     }
-    
-    private void on_publish(PublishingRequest request) {
-        get_host().set_cancel_button_mode();
-        get_host().lock_service();
-        if (request.is_to_new_album()) {
-            AlbumCreationPane album_creation_pane = new AlbumCreationPane(this, request);
-            get_host().install_pane(album_creation_pane);
-            try {
-                album_creation_pane.run_interaction();
-            } catch (PublishingError e) {
-                get_host().on_error(e);
-                return;
-            }
+
+    // EVENT: triggered when the user clicks "Publish" in the publishing options pane
+    private void on_publishing_options_publish(PublishingParameters parameters) {
+        if (has_error() || cancelled)
+            return;
+
+        this.parameters = parameters;
+
+        if (parameters.is_to_new_album()) {
+            do_create_album(parameters);
+        } else {
+            do_upload();
         }
-        UploadPane upload_pane = new UploadPane(get_host(), session, request);
-        get_host().install_pane(upload_pane);
+    }
+
+    // EVENT: triggered when the network transaction that fetches the user's account information
+    //        is completed successfully
+    private void on_initial_album_fetch_complete(RESTTransaction txn) {
+        txn.completed -= on_initial_album_fetch_complete;
+        txn.network_error -= on_initial_album_fetch_error;
+
+        if (has_error() || cancelled)
+            return;
+
+        do_parse_and_display_account_information((AlbumDirectoryTransaction) txn);
+    }
+
+    // EVENT: triggered when the network transaction that creates a new album is completed
+    //        successfully. This event should occur only when the user is publishing to a
+    //        new album.
+    private void on_album_creation_complete(RESTTransaction txn) {
+        txn.completed -= on_album_creation_complete;
+        txn.network_error -= on_album_creation_error;
+
+        if (has_error() || cancelled)
+            return;
+
+        AlbumCreationTransaction downcast_txn = (AlbumCreationTransaction) txn;
+        RESTXmlDocument response_doc;
         try {
-            upload_pane.upload();
-        } catch (PublishingError e) {
-            get_host().on_error(e);
+            response_doc = RESTXmlDocument.parse_string(
+                downcast_txn.get_response(), AlbumCreationTransaction.check_response);
+        } catch (PublishingError err) {
+            post_error(err);
             return;
         }
-        SuccessPane success_pane = new SuccessPane();
-        get_host().install_pane(success_pane);
-        get_host().set_close_button_mode();
+
+        Album[] response_albums;
+        try {
+            response_albums = extract_albums(response_doc.get_root_node());
+        } catch (PublishingError err) {
+            post_error(err);
+            return;
+        }
+
+        if (response_albums.length != 1) {
+            post_error(new PublishingError.MALFORMED_RESPONSE("album creation transaction " +
+                "responses must contain one and only one album directory entry"));
+            return;
+        }
+        parameters.convert(response_albums[0].url);
+
+        do_upload();
+    }
+
+    // EVENT: triggered when the network transaction that creates a new album fails
+    private void on_album_creation_error(RESTTransaction bad_txn, PublishingError err) {
+        bad_txn.completed -= on_album_creation_complete;
+        bad_txn.network_error -= on_album_creation_error;
+
+        if (has_error() || cancelled)
+            return;
+
+        post_error(err);
+    }
+
+    // EVENT: triggered when the network transaction that fetches the user's account information
+    //        fails
+    private void on_initial_album_fetch_error(RESTTransaction bad_txn, PublishingError err) {
+        bad_txn.completed -= on_initial_album_fetch_complete;
+        bad_txn.network_error -= on_initial_album_fetch_error;
+
+        if (has_error() || cancelled)
+            return;
+
+        // if we get a 404 error (resource not found) on the initial album fetch, then the
+        // user's album feed doesn't exist -- this occurs when the user has a valid Google
+        // account but it hasn't yet been set up for use with Picasa. In this case, we
+        // re-display the credentials capture pane with an "account not set up" message.
+        // In addition, we deauthenticate the session. Deauth is neccessary because we
+        // did previously auth the user's account. If we get any other kind of error, we can't
+        // recover, so just post it to the user
+        if (bad_txn.get_status_code() == 404) {
+            session.deauthenticate();
+            do_show_credentials_capture_pane(CredentialsCapturePane.Mode.NOT_SET_UP);
+        } else {
+            post_error(err);
+        }
+    }
+
+    // EVENT: triggered when the batch uploader reports that all of the network transactions
+    //        encapsulating uploads have completed successfully
+    private void on_upload_complete(BatchUploader uploader) {
+        uploader.upload_complete -= on_upload_complete;
+        uploader.upload_error -= on_upload_error;
+        uploader.status_updated -= progress_pane.set_status;
+
+        if (has_error() || cancelled)
+            return;
+
+        do_show_success_pane();
+    }
+
+    // EVENT: triggered when the batch uploader reports that at least one of the network
+    //        transactions encapsulating uploads has caused a network error
+    private void on_upload_error(BatchUploader uploader, PublishingError err) {
+        uploader.upload_complete -= on_upload_complete;
+        uploader.upload_error -= on_upload_error;
+        uploader.status_updated -= progress_pane.set_status;
+
+        if (has_error() || cancelled)
+            return;
+
+        post_error(err);
+    }
+
+    // ACTION: display the service welcome pane in the publishing dialog
+    private void do_show_service_welcome_pane() {
+        LoginWelcomePane service_welcome_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
+        service_welcome_pane.login_requested += on_service_welcome_login;
+
         get_host().unlock_service();
+        get_host().set_cancel_button_mode();
+
+        get_host().install_pane(service_welcome_pane);
+    }
+
+    // ACTION: display the credentials capture pane in the publishing dialog; the credentials
+    //         capture pane can be displayed in different "modes" that display different
+    //         messages to the user
+    private void do_show_credentials_capture_pane(CredentialsCapturePane.Mode mode) {
+        CredentialsCapturePane creds_pane = new CredentialsCapturePane(this, mode);
+        creds_pane.go_back += on_credentials_go_back;
+        creds_pane.login += on_credentials_login;
+
+        get_host().unlock_service();
+        get_host().set_cancel_button_mode();
+
+        get_host().install_pane(creds_pane);
+    }
+
+    // ACTION: given a username and password, run a REST transaction over the network to
+    //         log a user into the Picasa Web Albums service
+    private void do_network_login(string username, string password) {
+        get_host().install_pane(new LoginWaitPane());
+
+        get_host().lock_service();
+        get_host().set_cancel_button_mode();
+
+        TokenFetchTransaction fetch_trans = new TokenFetchTransaction(session, username, password);
+        fetch_trans.network_error += on_token_fetch_error;
+        fetch_trans.completed += on_token_fetch_complete;
+
+        fetch_trans.execute();
+    }
+
+    // ACTION: run a REST transaction over the network to fetch the user's account information
+    //         (e.g. the names of the user's albums and their corresponding REST URLs). While
+    //         the network transaction is running, display a wait pane with an info message in
+    //         the publishing dialog.
+    private void do_fetch_account_information() {
+        get_host().install_pane(new AccountFetchWaitPane());
+
+        get_host().lock_service();
+        get_host().set_cancel_button_mode();
+
+        AlbumDirectoryTransaction directory_trans =
+            new AlbumDirectoryTransaction(session);
+        directory_trans.network_error += on_initial_album_fetch_error;
+        directory_trans.completed += on_initial_album_fetch_complete;
+        directory_trans.execute();
+    }
+
+    // ACTION: display the publishing options pane in the publishing dialog
+    private void do_show_publishing_options_pane() {
+        PublishingOptionsPane opts_pane = new PublishingOptionsPane(this, albums);
+        opts_pane.publish += on_publishing_options_publish;
+        opts_pane.logout += on_publishing_options_logout;
+        get_host().install_pane(opts_pane);
+
+        get_host().unlock_service();
+        get_host().set_cancel_button_mode();
+    }
+
+    // ACTION: run a REST transaction over the network to create a new album with the parameters
+    //         specified in 'parameters'. Display a wait pane with an info message in the
+    //         publishing dialog while the transaction is running. This action should only
+    //         occur if 'parameters' describes a publish-to-new-album operation.
+    private void do_create_album(PublishingParameters parameters) {
+        assert(parameters.is_to_new_album());
+
+        get_host().install_pane(new StaticMessagePane(_("Creating album...")));
+
+        get_host().lock_service();
+        get_host().set_cancel_button_mode();
+
+        AlbumCreationTransaction creation_trans = new AlbumCreationTransaction(session,
+            parameters);
+        creation_trans.network_error += on_album_creation_error;
+        creation_trans.completed += on_album_creation_complete;
+        creation_trans.execute();
+    }
+
+    // ACTION: run a REST transaction over the network to upload the user's photos to the remote
+    //         endpoint. Display a progress pane while the transaction is running.
+    private void do_upload() {
+        progress_pane = new ProgressPane();
+        get_host().install_pane(progress_pane);
+
+        get_host().lock_service();
+        get_host().set_cancel_button_mode();
+
+        TransformablePhoto[] photos = get_host().get_photos();
+        uploader = new Uploader(session, parameters, photos);
+
+        uploader.upload_complete += on_upload_complete;
+        uploader.upload_error += on_upload_error;
+        uploader.status_updated += progress_pane.set_status;
+
+        uploader.upload();
+    }
+
+    // ACTION: the response body of 'transaction' is an XML document that describes the user's
+    //         Picasa Web Albums account (e.g. the names of the user's albums and their
+    //         REST URLs). Parse the response body of 'transaction' and display the publishing
+    //         options pane with its widgets populated such that they reflect the user's
+    //         account info
+    private void do_parse_and_display_account_information(AlbumDirectoryTransaction transaction) {
+        RESTXmlDocument response_doc;
+        try {
+            response_doc = RESTXmlDocument.parse_string(transaction.get_response(),
+                AlbumDirectoryTransaction.check_response);
+        } catch (PublishingError err) {
+            post_error(err);
+            return;
+        }
+
+        try {
+            albums = extract_albums(response_doc.get_root_node());
+        } catch (PublishingError err) {
+            post_error(err);
+            return;
+        }
+
+        do_show_publishing_options_pane();
+    }
+
+    // ACTION: display the success pane in the publishing dialog
+    private void do_show_success_pane() {
+        get_host().unlock_service();
+        get_host().set_close_button_mode();
+
+        get_host().install_pane(new SuccessPane());
     }
 
     internal Session get_session() {
         return session;
     }
 
-    internal new  PublishingDialog get_host() {
+    internal new PublishingDialog get_host() {
         return base.get_host();
     }
 
-    public void install_temporary_pane(PublishingDialogPane pane) {
-        get_host().lock_service();
-        get_host().set_cancel_button_mode();
-        get_host().install_pane(pane);
+    public override string get_name() {
+        return "Picasa Web Albums";
+    }
+
+    public override void start_interaction() {
+        get_host().set_standard_window_mode();
+
+        if (!session.is_authenticated()) {
+            do_show_service_welcome_pane();
+        } else {
+            do_fetch_account_information();
+        }
+    }
+
+    public override void cancel_interaction() {
+        cancelled = true;
+        session.stop_transactions();
     }
 }
 
-private class UploadPane : UploadActionPane {
-    private PublishingRequest request;
+private class Uploader : BatchUploader {
+    private PublishingParameters parameters;
     private Session session;
 
-    public UploadPane(PublishingDialog host, Session session, PublishingRequest request) {
-        base(host);
+    public Uploader(Session session, PublishingParameters parameters, TransformablePhoto[] photos) {
+        base(photos);
 
+        this.parameters = parameters;
         this.session = session;
-        this.request = request;
     }
 
-    protected override void prepare_file(UploadActionPane.TemporaryFileDescriptor file) {
-        Scaling scaling = (request.get_photo_major_axis_size() == ORIGINAL_SIZE)
-            ? Scaling.for_original() : Scaling.for_best_fit(request.get_photo_major_axis_size(), false);
+    protected override void prepare_file(BatchUploader.TemporaryFileDescriptor file) {
+        Scaling scaling = (parameters.get_photo_major_axis_size() == ORIGINAL_SIZE)
+            ? Scaling.for_original() : Scaling.for_best_fit(parameters.get_photo_major_axis_size(),
+            false);
         
         try {
             file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM);
@@ -276,13 +490,10 @@ private class UploadPane : UploadActionPane {
         }
     }
 
-    protected override void upload_file(UploadActionPane.TemporaryFileDescriptor file) 
-        throws PublishingError {
-        PicasaUploadTransaction upload_req = new PicasaUploadTransaction(session, request,
-            file.temp_file.get_path(), file.source_photo.get_name());
-        upload_req.chunk_transmitted += on_chunk_transmitted;
-        upload_req.execute();
-        upload_req.chunk_transmitted -= on_chunk_transmitted;
+    protected override RESTTransaction create_transaction_for_file(
+        BatchUploader.TemporaryFileDescriptor file) {
+        return new PicasaUploadTransaction(session, parameters, file.temp_file.get_path(),
+            file.source_photo.get_name());
     }
 }
 
@@ -290,11 +501,13 @@ private class CredentialsCapturePane : PublishingDialogPane {
     public enum Mode {
         INTRO,
         FAILED_RETRY,
-        NOT_SET_UP
+        NOT_SET_UP,
+        ADDITIONAL_SECURITY
     }
     private const string INTRO_MESSAGE = _("Enter the email address and password associated with your Picasa Web Albums account.");
     private const string FAILED_RETRY_MESSAGE = _("Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below.");
-    private const string NOT_SET_UP_MESSAGE = _("The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to login to the Picasa Web Albums site at least once. To try again, re-enter your email address and password below.");
+    private const string NOT_SET_UP_MESSAGE = _("The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below.");
+    private const string ADDITIONAL_SECURITY_MESSAGE = _("The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below.");
     
     private const int UNIFORM_ACTION_BUTTON_WIDTH = 92;
 
@@ -335,6 +548,15 @@ private class CredentialsCapturePane : PublishingDialogPane {
             case Mode.NOT_SET_UP:
                 intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("Account Not Ready"),
                     NOT_SET_UP_MESSAGE));
+                Gtk.SeparatorToolItem long_message_space = new Gtk.SeparatorToolItem();
+                long_message_space.set_draw(false);
+                add(long_message_space);
+                long_message_space.set_size_request(-1, 40);
+            break;
+
+            case Mode.ADDITIONAL_SECURITY:
+                intro_message_label.set_markup("<b>%s</b>\n\n%s".printf(_("Additional Security Required"),
+                    ADDITIONAL_SECURITY_MESSAGE));
                 Gtk.SeparatorToolItem long_message_space = new Gtk.SeparatorToolItem();
                 long_message_space.set_draw(false);
                 add(long_message_space);
@@ -388,13 +610,6 @@ private class CredentialsCapturePane : PublishingDialogPane {
         bottom_space.set_size_request(-1, 40);
     }
 
-    public override void run_interaction() throws PublishingError {
-        email_entry.grab_focus();
-        password_entry.set_activates_default(true);
-        login_button.can_default = true;
-        interactor.get_host().set_default(login_button);
-    }
-
     private void on_login_button_clicked() {
         login(email_entry.get_text(), password_entry.get_text());
     }
@@ -406,76 +621,12 @@ private class CredentialsCapturePane : PublishingDialogPane {
     private void on_email_changed() {
         login_button.set_sensitive(email_entry.get_text() != "");
     }
-}
 
-private class LoginActionPane : StaticMessagePane {
-    private const string LOGIN_WAIT_MESSAGE = _("Logging in...");
-
-    private string username;
-    private string password;
-    private weak Interactor interactor;
-
-    public signal void authentication_failed();
-    public signal void authentication_succeeded();
-
-    public LoginActionPane(Interactor interactor, string username, string password) {
-        base(LOGIN_WAIT_MESSAGE);
-        this.interactor = interactor;
-        this.username = username;
-        this.password = password;
-    }
-
-    public override void run_interaction() throws PublishingError {
-        Session session = interactor.get_session();
-        TokenFetchTransaction fetch_trans = new TokenFetchTransaction(session, username, password);
-
-        try {
-            fetch_trans.execute();
-        } catch (PublishingError err) {
-            if (fetch_trans.get_status_code() == 403) { // HTTP error 403 is invalid authentication
-                authentication_failed();
-                return;
-            }
-            else {
-                throw err;
-            }
-        }
-
-        string auth_substring = fetch_trans.get_response().str("Auth=");
-        auth_substring = auth_substring.chomp();
-        string auth_token = auth_substring.substring(5);
-
-        session.authenticate(auth_token, username);
-
-        authentication_succeeded();
-    }
-}
-
-private class AlbumCreationPane : StaticMessagePane {
-    private const string CREATE_WAIT_MESSAGE = _("Creating album...");
-
-    private weak Interactor interactor;
-    private PublishingRequest request;
-
-    public AlbumCreationPane(Interactor interactor, PublishingRequest request) {
-        base(CREATE_WAIT_MESSAGE);
-        assert(request.is_to_new_album());
-        this.request = request;
-        this.interactor = interactor;
-    }
-
-    public override void run_interaction() throws PublishingError {
-        Session session = interactor.get_session();
-        AlbumCreationTransaction creation_trans = new AlbumCreationTransaction(session, request);
-        creation_trans.execute();
-
-        RESTXmlDocument response_doc = RESTXmlDocument.parse_string(creation_trans.get_response(),
-            AlbumCreationTransaction.check_response);
-        Album[] response_albums = extract_albums(response_doc.get_root_node());
-        if (response_albums.length != 1)
-            throw new PublishingError.MALFORMED_RESPONSE("album creation transaction " +
-                "responses must contain one and only one album directory entry");
-        request.convert(response_albums[0].url);
+    public override void installed() {
+        email_entry.grab_focus();
+        password_entry.set_activates_default(true);
+        login_button.can_default = true;
+        interactor.get_host().set_default(login_button);
     }
 }
 
@@ -490,7 +641,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         }
     }
 
-    private const int PACKER_VERTICAL_PADDING = 32;
+    private const int PACKER_VERTICAL_PADDING = 16;
     private const int PACKER_HORIZ_PADDING = 128;
     private const int INTERSTITIAL_VERTICAL_SPACING = 20;
     private const int ACTION_BUTTON_SPACING = 48;
@@ -502,17 +653,28 @@ private class PublishingOptionsPane : PublishingDialogPane {
     private Gtk.RadioButton use_existing_radio;
     private Gtk.RadioButton create_new_radio;
     private Interactor interactor;
-    private Album[] albums_cache = null;
+    private Album[] albums;
     private SizeDescription[] size_descriptions;
     private Gtk.Button publish_button;
 
-    public signal void feed_state_determined(FeedState state);
-    public signal void publish(PublishingRequest request);
+    public signal void publish(PublishingParameters parameters);
     public signal void logout();
 
-    public PublishingOptionsPane(Interactor interactor) {
+    public PublishingOptionsPane(Interactor interactor, Album[] albums) {
         this.interactor = interactor;
+        this.albums = albums;
         size_descriptions = create_size_descriptions();
+
+        Gtk.SeparatorToolItem top_pusher = new Gtk.SeparatorToolItem();
+        top_pusher.set_draw(false);
+        top_pusher.set_size_request(-1, 8);
+        add(top_pusher);
+
+        Gtk.Label login_identity_label =
+            new Gtk.Label(_("You are logged into Picasa Web Albums as %s.").printf(
+            interactor.get_session().get_username()));
+
+        add(login_identity_label);
 
         Gtk.HBox horiz_packer = new Gtk.HBox(false, 0);
         Gtk.SeparatorToolItem packer_left_padding = new Gtk.SeparatorToolItem();
@@ -524,13 +686,6 @@ private class PublishingOptionsPane : PublishingDialogPane {
         Gtk.SeparatorToolItem packer_top_padding = new Gtk.SeparatorToolItem();
         packer_top_padding.set_draw(false);
         packer_top_padding.set_size_request(-1, PACKER_VERTICAL_PADDING);
-        vert_packer.add(packer_top_padding);
-
-        Gtk.Label login_identity_label =
-            new Gtk.Label(_("You are logged in to Picasa Web Albums as %s").printf(
-            interactor.get_session().get_username()));
-
-        vert_packer.add(login_identity_label);
 
         Gtk.SeparatorToolItem identity_table_spacer = new Gtk.SeparatorToolItem();
         identity_table_spacer.set_draw(false);
@@ -645,7 +800,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
         Gtk.SeparatorToolItem packer_bottom_padding = new Gtk.SeparatorToolItem();
         packer_bottom_padding.set_draw(false);
-        packer_bottom_padding.set_size_request(-1, PACKER_VERTICAL_PADDING);
+        packer_bottom_padding.set_size_request(-1, 2 * PACKER_VERTICAL_PADDING);
         vert_packer.add(packer_bottom_padding);
 
         horiz_packer.add(vert_packer);
@@ -658,69 +813,17 @@ private class PublishingOptionsPane : PublishingDialogPane {
         add(horiz_packer);
     }
 
-    public override void run_interaction() throws PublishingError {
-        StaticMessagePane wait_notification_pane =
-            new StaticMessagePane(_("Fetching account information..."));
-        interactor.install_temporary_pane(wait_notification_pane);
-
-        AlbumDirectoryTransaction directory_trans =
-            new AlbumDirectoryTransaction(interactor.get_session());
-        directory_trans.execute();
-        if (directory_trans.get_status_code() == 404) {
-            // if we get a 404 error here, we were able to complete Google federated
-            // login (so the user has a valid Google account), but his account hasn't been
-            // associated with a Picasa feed because the user hasn't yet used Picasa with his
-            // account. We can't proceed, so signal the Interactor that we've determined that
-            // no feed exists for this user
-            feed_state_determined(FeedState.DOES_NOT_EXIST);
-        } else {
-            feed_state_determined(FeedState.EXISTS);
-        }
-
-        RESTXmlDocument response_doc = RESTXmlDocument.parse_string(directory_trans.get_response(),
-            AlbumDirectoryTransaction.check_response);
-
-        Album[] albums = extract_albums(response_doc.get_root_node());
-        albums_cache = albums;
-        int default_album_id = -1;
-        for (int i = 0; i < albums.length; i++) {
-            existing_albums_combo.append_text(albums[i].name);
-            if (albums[i].name == DEFAULT_ALBUM_NAME)
-                default_album_id = i;
-        }
-
-        if (albums.length == 0) {
-            existing_albums_combo.set_sensitive(false);
-            use_existing_radio.set_sensitive(false);
-            create_new_radio.set_active(true);
-            new_album_entry.grab_focus();
-            new_album_entry.set_text(DEFAULT_ALBUM_NAME);
-        } else {
-            if (default_album_id >= 0) {
-                use_existing_radio.set_active(true);
-                existing_albums_combo.set_active(default_album_id);
-                new_album_entry.set_sensitive(false);
-            } else {
-                create_new_radio.set_active(true);
-                existing_albums_combo.set_active(0);
-                new_album_entry.set_text(DEFAULT_ALBUM_NAME);
-                new_album_entry.grab_focus();
-            }
-        }
-        update_publish_button_sensitivity();
-    }
-
     private void on_publish_clicked() {
         Config.get_instance().set_picasa_default_size(size_combo.get_active());            
         int photo_major_axis_size = size_descriptions[size_combo.get_active()].major_axis_pixels;
         if (create_new_radio.get_active()) {
             string album_name = new_album_entry.get_text();
             bool is_public = public_check.get_active();
-            publish(new PublishingRequest.to_new_album(photo_major_axis_size, album_name,
+            publish(new PublishingParameters.to_new_album(photo_major_axis_size, album_name,
                 is_public));
         } else {
-            string album_url = albums_cache[existing_albums_combo.get_active()].url;
-            publish(new PublishingRequest.to_existing_album(photo_major_axis_size, album_url));
+            string album_url = albums[existing_albums_combo.get_active()].url;
+            publish(new PublishingParameters.to_existing_album(photo_major_axis_size, album_url));
         }
     }
 
@@ -729,6 +832,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         new_album_entry.set_sensitive(false);
         existing_albums_combo.grab_focus();
         update_publish_button_sensitivity();
+        public_check.set_sensitive(false);
     }
 
     private void on_create_new_radio_clicked() {
@@ -736,6 +840,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         existing_albums_combo.set_sensitive(false);
         new_album_entry.grab_focus();
         update_publish_button_sensitivity();
+        public_check.set_sensitive(true);
     }
 
     private void on_logout_clicked() {
@@ -761,6 +866,37 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
         return result;
     }
+
+    public override void installed() {
+        int default_album_id = -1;
+        for (int i = 0; i < albums.length; i++) {
+            existing_albums_combo.append_text(albums[i].name);
+            if (albums[i].name == DEFAULT_ALBUM_NAME)
+                default_album_id = i;
+        }
+
+        if (albums.length == 0) {
+            existing_albums_combo.set_sensitive(false);
+            use_existing_radio.set_sensitive(false);
+            create_new_radio.set_active(true);
+            new_album_entry.grab_focus();
+            new_album_entry.set_text(DEFAULT_ALBUM_NAME);
+        } else {
+            if (default_album_id >= 0) {
+                use_existing_radio.set_active(true);
+                existing_albums_combo.set_active(default_album_id);
+                new_album_entry.set_sensitive(false);
+                public_check.set_sensitive(false);
+            } else {
+                create_new_radio.set_active(true);
+                existing_albums_combo.set_active(0);
+                new_album_entry.set_text(DEFAULT_ALBUM_NAME);
+                new_album_entry.grab_focus();
+                public_check.set_sensitive(true);
+            }
+        }
+        update_publish_button_sensitivity();
+    }
 }
 
 private class Session : RESTSession {
@@ -771,37 +907,6 @@ private class Session : RESTSession {
         base("");
         if (has_persistent_state())
             load_persistent_state();
-    }
-
-    public bool is_authenticated() {
-        return (auth_token != null);
-    }
-
-    public void authenticate(string auth_token, string username) {
-        this.auth_token = auth_token;
-        this.username = username;
-        
-        save_persistent_state();
-    }
-    
-    public void deauthenticate() {
-        auth_token = null;
-        username = null;
-        
-        clear_persistent_state();
-    }
-
-    public string get_username() {
-        return username;
-    }
-
-    public string get_auth_token() {
-        return auth_token;
-    }
-
-    public override RESTTransaction create_transaction() {
-        error("PicasaWeb sessions don't support creating generic child transactions");
-        return new TokenFetchTransaction(this, "", "");
     }
 
     private bool has_persistent_state() {
@@ -831,13 +936,42 @@ private class Session : RESTSession {
         config.set_picasa_user_name("");
         config.set_picasa_auth_token("");
     }
+
+    public bool is_authenticated() {
+        return (auth_token != null);
+    }
+
+    public void authenticate(string auth_token, string username) {
+        this.auth_token = auth_token;
+        this.username = username;
+        
+        save_persistent_state();
+    }
+    
+    public void deauthenticate() {
+        auth_token = null;
+        username = null;
+        
+        clear_persistent_state();
+    }
+
+    public string get_username() {
+        return username;
+    }
+
+    public string get_auth_token() {
+        return auth_token;
+    }
 }
 
 private class TokenFetchTransaction : RESTTransaction {
     private const string ENDPOINT_URL = "https://www.google.com/accounts/ClientLogin";
+    private string username;
 
     public TokenFetchTransaction(Session session, string username, string password) {
         base.with_endpoint_url(session, ENDPOINT_URL);
+
+        this.username = username;
 
         add_argument("accountType", "HOSTED_OR_GOOGLE");
         add_argument("Email", username);
@@ -848,6 +982,10 @@ private class TokenFetchTransaction : RESTTransaction {
     protected override void sign() {
         set_signature_key("source");
         set_signature_value("yorba-shotwell-" + Resources.APP_VERSION);
+    }
+
+    public string get_username() {
+        return username;
     }
 }
 
@@ -873,7 +1011,7 @@ private class AlbumDirectoryTransaction : AuthenticatedTransaction {
         base(session, ENDPOINT_URL, HttpMethod.GET);
     }
 
-    public static string? check_response(RESTXmlDocument doc) {
+    public static new string? check_response(RESTXmlDocument doc) {
         Xml.Node* document_root = doc.get_root_node();
         if ((document_root->name == "feed") || (document_root->name == "entry"))
             return null;
@@ -887,40 +1025,37 @@ private class AlbumCreationTransaction : AuthenticatedTransaction {
         "default";
     private const string ALBUM_ENTRY_TEMPLATE = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gphoto='http://schemas.google.com/photos/2007'><title type='text'>%s</title><gphoto:access>%s</gphoto:access><category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#album'></category></entry>";
     
-    public AlbumCreationTransaction(Session session, PublishingRequest request) {
+    public AlbumCreationTransaction(Session session, PublishingParameters parameters) {
         base(session, ENDPOINT_URL, HttpMethod.POST);
 
-        string post_body = ALBUM_ENTRY_TEMPLATE.printf(request.get_album_name(),
-            request.is_album_public() ? "public" : "private");
+        string post_body = ALBUM_ENTRY_TEMPLATE.printf(parameters.get_album_name(),
+            parameters.is_album_public() ? "public" : "private");
         set_custom_payload(post_body, "application/atom+xml");
     }
 
-    public static string? check_response(RESTXmlDocument doc) {
+    public new static string? check_response(RESTXmlDocument doc) {
         // The album creation response uses the same schema as the album directory response
         return AlbumDirectoryTransaction.check_response(doc);
     }
 }
 
 private class PicasaUploadTransaction : AuthenticatedTransaction {
-    private PublishingRequest request;
+    private PublishingParameters parameters;
     private string source_file;
     private string photo_name;
-    private int bytes_written = 0;
 
-    public signal void chunk_transmitted(int transmitted_bytes, int total_bytes);
-
-    public PicasaUploadTransaction(Session session, PublishingRequest request, string source_file,
+    public PicasaUploadTransaction(Session session, PublishingParameters parameters, string source_file,
         string photo_name) {
-        base(session, request.get_album_feed_url(), HttpMethod.POST);
+        base(session, parameters.get_album_feed_url(), HttpMethod.POST);
         assert(session.is_authenticated());
-        this.request = request;
+        this.parameters = parameters;
         this.source_file = source_file;
         this.photo_name = photo_name;
 
         add_header("Slug", photo_name);
 
         string photo_data;
-        ulong data_length;
+        size_t data_length;
         try {
             FileUtils.get_contents(source_file, out photo_data, out data_length);
         } catch (FileError e) {
@@ -928,12 +1063,6 @@ private class PicasaUploadTransaction : AuthenticatedTransaction {
         }
 
         set_custom_payload(photo_data, "image/jpeg", data_length);
-        get_active_message().wrote_body_data += on_wrote_body_data;
-    }
-
-    private void on_wrote_body_data(Soup.Buffer written_data) {
-        bytes_written += (int) written_data.length;
-        chunk_transmitted(bytes_written, (int) get_active_message().request_body.length);
     }
 }
 

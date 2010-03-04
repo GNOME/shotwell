@@ -1464,7 +1464,7 @@ public class LibraryPhotoPage : EditingHostPage {
             return;
         
         PublishingDialog publishing_dialog = new PublishingDialog(
-            (Gee.Iterable<DataView>) get_view().get_all(), 1);
+            (Gee.Iterable<DataView>) get_view().get_all());
         publishing_dialog.run();
     }
 #endif
