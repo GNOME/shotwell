@@ -1,14 +1,14 @@
 # po/et.po
 # Estonian translation for Shotwell
-# Copyright (C) 2009 Yorba Foundation
+# Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.4.3+trunk\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2009-12-11 18:20-0800\n"
-"PO-Revision-Date: 2009-12-18 12:59+0300\n"
+"Report-Msgid-Bugs-To: lucas@yorba.org\n"
+"POT-Creation-Date: 2010-02-17 15:22-0800\n"
+"PO-Revision-Date: 2010-02-26 10:58+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Gnome Estonian Translation Team <gnome-et linux ee>\n"
 "MIME-Version: 1.0\n"
@@ -30,358 +30,412 @@ msgstr "_Välju täisekraanist"
 msgid "Leave fullscreen"
 msgstr "Täisekraanist väljumine"
 
-#: src/AppWindow.vala:377
+#: src/AppWindow.vala:378
 msgid "_Quit"
 msgstr "_Lõpeta"
 
-#: src/AppWindow.vala:378
+#: src/AppWindow.vala:379
 msgid "Quit Shotwell"
 msgstr "Shotwellist väljumine"
 
-#: src/AppWindow.vala:383
+#: src/AppWindow.vala:384
 msgid "_About"
 msgstr "_Lähemalt"
 
-#: src/AppWindow.vala:384
+#: src/AppWindow.vala:385
 msgid "About Shotwell"
 msgstr "Shotwellist lähemalt"
 
-#: src/AppWindow.vala:389
+#: src/AppWindow.vala:390
 msgid "_Fullscreen"
 msgstr "_Täisekraan"
 
-#: src/AppWindow.vala:390
+#: src/AppWindow.vala:391
 msgid "Use Shotwell at fullscreen"
 msgstr "Shotwelli kasutamine täisekraani režiimis"
 
-#: src/AppWindow.vala:395
-msgid "_Contents"
-msgstr "_Abi"
-
 #: src/AppWindow.vala:396
+msgid "_Contents"
+msgstr "A_bi"
+
+#: src/AppWindow.vala:397
 msgid "More information on Shotwell"
 msgstr "Lähem teave Shotwelli kohta"
 
-#: src/AppWindow.vala:457
+#: src/AppWindow.vala:446
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Shotwelli pildikogu kasutamisel esines saatuslik viga. Shotwell ei saa jätkata.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:463
 msgid "Visit the Yorba web site"
 msgstr "Külasta Yorba veebilehte"
 
-#: src/CameraTable.vala:44
-msgid ""
-"Shotwell could not initialize a connection to the HAL daemon (hald).  This usually means it is not running or not ready.  Rebooting may solve this problem.\n"
-"\n"
-"Shotwell cannot detect cameras without the HAL daemon."
-msgstr ""
-"Shotwell ei suuda alustada ühendust HAL-deemoniga (hald). See tähendab tavaliselt, et hald ei tööta või pole veel valmis. Arvuti taaskäivitus võib selle probleemi lahendada.\n"
-"\n"
-"Shotwell ei suuda ilma HAL-deemonita kaameraid tuvastada."
-
-#: src/CollectionPage.vala:142
-#: src/SlideshowPage.vala:89
+#: src/CollectionPage.vala:117
+#: src/SlideshowPage.vala:98
 msgid "Slideshow"
 msgstr "Slaidiesitlus"
 
-#: src/CollectionPage.vala:143
+#: src/CollectionPage.vala:118
 msgid "Start a slideshow of these photos"
 msgstr "Nende fotode slaidiesitluse alustamine"
 
-#: src/CollectionPage.vala:178
+#: src/CollectionPage.vala:153
 msgid "Adjust the size of the thumbnails"
 msgstr "Pisipiltide suuruse muutmine"
 
-#: src/CollectionPage.vala:197
-#: src/EventsDirectoryPage.vala:147
-#: src/ImportPage.vala:342
-#: src/ImportPage.vala:1027
-#: src/PhotoPage.vala:1136
-#: src/PhotoPage.vala:1576
+#: src/CollectionPage.vala:172
+#: src/EventsDirectoryPage.vala:198
+#: src/ImportPage.vala:372
+#: src/ImportPage.vala:1064
+#: src/PhotoPage.vala:1195
+#: src/PhotoPage.vala:1824
 msgid "_File"
 msgstr "_Fail"
 
-#: src/CollectionPage.vala:202
-#: src/PhotoPage.vala:1141
+#: src/CollectionPage.vala:177
+#: src/PhotoPage.vala:1200
 msgid "_Export Photos..."
 msgstr "_Fotode eksportimine..."
 
-#: src/CollectionPage.vala:203
+#: src/CollectionPage.vala:178
 msgid "Export selected photos to disk"
 msgstr "Valitud fotode eksportimine kettale"
 
-#: src/CollectionPage.vala:213
-#: src/EventsDirectoryPage.vala:159
-#: src/ImportPage.vala:356
-#: src/PhotoPage.vala:1146
+#: src/CollectionPage.vala:183
+#: src/PhotoPage.vala:1211
+msgid "Prin_t..."
+msgstr "_Prindi..."
+
+#: src/CollectionPage.vala:184
+#: src/PhotoPage.vala:1212
+msgid "Print the photo to a printer connected to your computer"
+msgstr "Foto printimine arvuti külge ühendatud printerisse"
+
+#: src/CollectionPage.vala:189
+#: src/PhotoPage.vala:1206
+msgid "Page _Setup..."
+msgstr "Lehe _sätted..."
+
+#: src/CollectionPage.vala:200
+#: src/EventsDirectoryPage.vala:210
+#: src/ImportPage.vala:386
+#: src/PhotoPage.vala:1223
 msgid "_Edit"
 msgstr "_Redigeerimine"
 
-#: src/CollectionPage.vala:217
-#: src/EventsDirectoryPage.vala:163
+#: src/CollectionPage.vala:204
+#: src/EventsDirectoryPage.vala:214
 msgid "Even_ts"
 msgstr "_Sündmused"
 
-#: src/CollectionPage.vala:222
-#: src/EventsDirectoryPage.vala:178
-#: src/ImportPage.vala:361
+#: src/CollectionPage.vala:209
+#: src/EventsDirectoryPage.vala:230
+#: src/ImportPage.vala:391
 msgid "Select _All"
 msgstr "Vali _kõik"
 
-#: src/CollectionPage.vala:223
+#: src/CollectionPage.vala:210
 msgid "Select all the photos in the library"
 msgstr "Kõigi pildikogu fotode valimine"
 
-#: src/CollectionPage.vala:228
-#: src/PhotoPage.vala:1151
+#: src/CollectionPage.vala:215
+#: src/PhotoPage.vala:1228
 msgid "Re_move"
 msgstr "_Eemalda"
 
-#: src/CollectionPage.vala:229
+#: src/CollectionPage.vala:216
 msgid "Remove the selected photos from the library"
 msgstr "Valitud fotode eemaldamine "
 
-#: src/CollectionPage.vala:234
+#: src/CollectionPage.vala:221
 msgid "_Photos"
 msgstr "_Fotod"
 
-#: src/CollectionPage.vala:239
+#: src/CollectionPage.vala:226
 msgid "Zoom _In"
 msgstr "_Suurenda"
 
-#: src/CollectionPage.vala:240
+#: src/CollectionPage.vala:227
 msgid "Increase the magnification of the thumbnails"
 msgstr "Pisipiltide suurendamine"
 
-#: src/CollectionPage.vala:245
+#: src/CollectionPage.vala:232
 msgid "Zoom _Out"
 msgstr "_Vähenda"
 
-#: src/CollectionPage.vala:246
+#: src/CollectionPage.vala:233
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Pisipiltide vähendamine"
 
-#: src/CollectionPage.vala:299
-msgid "_Slideshow"
+#: src/CollectionPage.vala:298
+msgid "S_lideshow"
 msgstr "_Slaidiesitlus"
 
-#: src/CollectionPage.vala:300
+#: src/CollectionPage.vala:299
 msgid "Play a slideshow"
 msgstr "Slaidiesitluse alustamine"
 
-#: src/CollectionPage.vala:304
-#: src/EventsDirectoryPage.vala:151
-#: src/ImportPage.vala:366
-#: src/ImportPage.vala:1037
-#: src/PhotoPage.vala:1156
-#: src/PhotoPage.vala:1643
+#: src/CollectionPage.vala:303
+#: src/EventsDirectoryPage.vala:202
+#: src/ImportPage.vala:396
+#: src/ImportPage.vala:1074
+#: src/PhotoPage.vala:1233
+#: src/PhotoPage.vala:1903
 msgid "_View"
 msgstr "_Vaade"
 
-#: src/CollectionPage.vala:308
+#: src/CollectionPage.vala:307
 msgid "Sort _Photos"
 msgstr "_Fotode järjestus"
 
-#: src/CollectionPage.vala:318
-#: src/EventsDirectoryPage.vala:155
-#: src/ImportPage.vala:370
-#: src/ImportPage.vala:1041
-#: src/PhotoPage.vala:1206
-#: src/PhotoPage.vala:1647
+#: src/CollectionPage.vala:317
+#: src/CollectionPage.vala:356
+msgid "Ta_gs"
+msgstr "_Sildid"
+
+#: src/CollectionPage.vala:333
+#: src/EventsDirectoryPage.vala:206
+#: src/ImportPage.vala:400
+#: src/ImportPage.vala:1078
+#: src/PhotoPage.vala:1307
+#: src/PhotoPage.vala:1907
 msgid "_Help"
 msgstr "_Abi"
 
-#: src/CollectionPage.vala:329
+#: src/CollectionPage.vala:344
 msgid "Only _Favorites"
 msgstr "Ainult _lemmikud"
 
-#: src/CollectionPage.vala:330
+#: src/CollectionPage.vala:345
 msgid "Show only your favorite photos"
 msgstr "Ainult lemmikpiltide kuvamine"
 
-#: src/CollectionPage.vala:335
-#: src/ImportPage.vala:331
+#: src/CollectionPage.vala:350
+#: src/ImportPage.vala:361
 msgid "_Titles"
 msgstr "_Pealkirjad"
 
-#: src/CollectionPage.vala:336
-#: src/ImportPage.vala:332
+#: src/CollectionPage.vala:351
+#: src/ImportPage.vala:362
 msgid "Display the title of each photo"
 msgstr "Igale fotole pealkirja näitamine"
 
-#: src/CollectionPage.vala:341
+#: src/CollectionPage.vala:357
+msgid "Display each photo's tags"
+msgstr "Kõigi fotode märksõnade näitamine"
+
+#: src/CollectionPage.vala:362
 msgid "_Hidden Photos"
 msgstr "_Varjatud fotod"
 
-#: src/CollectionPage.vala:342
+#: src/CollectionPage.vala:363
 msgid "Show hidden photos"
 msgstr "Varjatud fotode kuvamine"
 
-#: src/CollectionPage.vala:353
+#: src/CollectionPage.vala:374
 msgid "By _Title"
 msgstr "_Pealkirja järgi"
 
-#: src/CollectionPage.vala:354
+#: src/CollectionPage.vala:375
 msgid "Sort photos by title"
 msgstr "Fotode sorteerimine pealkirja järgi"
 
-#: src/CollectionPage.vala:359
+#: src/CollectionPage.vala:380
 msgid "By Exposure _Date"
 msgstr "_Kuupäeva järgi"
 
-#: src/CollectionPage.vala:360
+#: src/CollectionPage.vala:381
 msgid "Sort photos by exposure date"
 msgstr "Fotode sorteerimine võttekuupäeva järgi"
 
-#: src/CollectionPage.vala:371
-#: src/LibraryWindow.vala:403
+#: src/CollectionPage.vala:392
+#: src/LibraryWindow.vala:407
 msgid "_Ascending"
 msgstr "_Kasvav"
 
-#: src/CollectionPage.vala:372
-#: src/LibraryWindow.vala:404
+#: src/CollectionPage.vala:393
+#: src/LibraryWindow.vala:408
 msgid "Sort photos in an ascending order"
 msgstr "Fotod sorditakse kasvavalt"
 
-#: src/CollectionPage.vala:377
-#: src/LibraryWindow.vala:410
+#: src/CollectionPage.vala:398
+#: src/LibraryWindow.vala:414
 msgid "D_escending"
 msgstr "_Kahanev"
 
-#: src/CollectionPage.vala:378
-#: src/LibraryWindow.vala:411
+#: src/CollectionPage.vala:399
+#: src/LibraryWindow.vala:415
 msgid "Sort photos in a descending order"
 msgstr "Fotod sorditakse kahanevalt"
 
-#: src/CollectionPage.vala:573
+#: src/CollectionPage.vala:619
 #, c-format
 msgid "A photo source file is missing."
 msgid_plural "%d photo source files missing."
 msgstr[0] "Ühe foto lähtefail puudub."
 msgstr[1] "%d foto lähtefail puudub."
 
-#: src/CollectionPage.vala:639
+#: src/CollectionPage.vala:706
 #: src/Dialogs.vala:14
-#: src/PhotoPage.vala:1326
+#: src/PhotoPage.vala:1487
 msgid "Export Photo"
 msgstr "Foto eksportimine"
 
-#: src/CollectionPage.vala:641
+#: src/CollectionPage.vala:708
 #: src/Dialogs.vala:36
 #: src/Dialogs.vala:54
 msgid "Export Photos"
 msgstr "Fotode eksportimine"
 
-#: src/CollectionPage.vala:662
-#: src/CollectionPage.vala:696
+#: src/CollectionPage.vala:729
+#: src/CollectionPage.vala:763
 #, c-format
 msgid "Unable to export photo %s: %s"
 msgstr "Foto %s eksportimine pole võimalik: %s"
 
-#: src/CollectionPage.vala:683
+#: src/CollectionPage.vala:750
 msgid "Exporting..."
 msgstr "Eksportimine..."
 
-#: src/CollectionPage.vala:812
+#: src/CollectionPage.vala:888
 msgid "Removing..."
 msgstr "Eemaldamine..."
 
-#: src/CollectionPage.vala:834
-#: src/CollectionPage.vala:852
+#: src/CollectionPage.vala:910
+#: src/CollectionPage.vala:931
 msgid "Rotating..."
 msgstr "Pööramine..."
 
-#: src/CollectionPage.vala:834
+#: src/CollectionPage.vala:910
 msgid "Undoing Rotate..."
 msgstr "Pööramise tagasivõtmine..."
 
-#: src/CollectionPage.vala:852
+#: src/CollectionPage.vala:931
 msgid "Undoing Rotate"
 msgstr "Pööramise tagasivõtmine"
 
-#: src/CollectionPage.vala:861
+#: src/CollectionPage.vala:940
 msgid "Mirroring..."
 msgstr "Peegeldamine..."
 
-#: src/CollectionPage.vala:862
+#: src/CollectionPage.vala:941
 msgid "Undoing Mirror..."
 msgstr "Peegeldamise tagasivõtmine..."
 
-#: src/CollectionPage.vala:1154
+#: src/CollectionPage.vala:1320
 msgid "Photos"
 msgstr "Fotod"
 
-#: src/Commands.vala:380
+#: src/Commands.vala:411
 msgid "Reverting..."
 msgstr "Taastamine..."
 
-#: src/Commands.vala:380
+#: src/Commands.vala:411
 msgid "Undoing Revert..."
 msgstr "Taastamise tagasivõtmine..."
 
-#: src/Commands.vala:424
+#: src/Commands.vala:455
 msgid "Enhancing..."
 msgstr "Parendamine..."
 
-#: src/Commands.vala:424
+#: src/Commands.vala:455
 msgid "Undoing Enhance..."
 msgstr "Parendamise tagasivõtmine..."
 
-#: src/Commands.vala:590
+#: src/Commands.vala:621
 msgid "Creating New Event..."
 msgstr "Uue sündmuse loomine..."
 
-#: src/Commands.vala:591
+#: src/Commands.vala:622
 msgid "Removing Event..."
 msgstr "Sündmuse eemaldamine..."
 
-#: src/Commands.vala:600
+#: src/Commands.vala:631
 msgid "Moving Photos to New Event..."
 msgstr "Fotode tõstmine uue sündmuse juurde..."
 
-#: src/Commands.vala:601
+#: src/Commands.vala:632
 msgid "Setting Photos to Previous Event..."
 msgstr "Fotode määramine eelmise sündmuse juurde..."
 
-#: src/Commands.vala:631
+#: src/Commands.vala:662
 msgid "Merging..."
 msgstr "Liitmine..."
 
-#: src/Commands.vala:632
+#: src/Commands.vala:663
 msgid "Unmerging..."
 msgstr "Lahutamine..."
 
-#: src/Commands.vala:641
+#: src/Commands.vala:672
 msgid "Duplicating photos..."
 msgstr "Fotode paljundamine..."
 
-#: src/Commands.vala:641
+#: src/Commands.vala:672
 msgid "Removing duplicated photos..."
 msgstr "Duplikaatfotode eemaldamine..."
 
-#: src/Commands.vala:652
+#: src/Commands.vala:695
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] "Ühe foto kustutamine kaamerast pole võimalik, kuna esines vigu."
 msgstr[1] "%d foto kustutamine kaamerast pole võimalik, kuna esines vigu."
 
-#: src/Commands.vala:694
-#: src/Commands.vala:695
+#: src/Commands.vala:760
+#: src/Commands.vala:761
 msgid "Marking as Favorite..."
 msgstr "Lemmikuks märkimine..."
 
-#: src/Commands.vala:694
-#: src/Commands.vala:695
+#: src/Commands.vala:760
+#: src/Commands.vala:761
 msgid "Unmarking as Favorite..."
 msgstr "Lemmikumärke eemaldamine..."
 
-#: src/Commands.vala:716
-#: src/Commands.vala:717
+#: src/Commands.vala:802
+#: src/Commands.vala:803
 msgid "Hiding..."
 msgstr "Peitmine..."
 
-#: src/Commands.vala:716
-#: src/Commands.vala:717
+#: src/Commands.vala:802
+#: src/Commands.vala:803
 msgid "Unhiding..."
 msgstr "Peidust väljavõtmine..."
+
+#: src/Commands.vala:845
+msgid "Original photo could not be adjusted."
+msgstr "Foto originaali pole võimalik kohandada."
+
+#: src/Commands.vala:865
+msgid "Adjusting Date and Time..."
+msgstr "Kuupäeva ja kellaaja kohandamine..."
+
+#: src/Commands.vala:865
+msgid "Undoing Date and Time Adjustment..."
+msgstr "Kuupäeva ja kellaaja kohanduse tagasivõtmine..."
+
+#: src/Commands.vala:892
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Ühe foto originaali pole võimalik kohandada."
+msgstr[1] "Järgnevate fotode originaale pole võimalik kohandada."
+
+#: src/Commands.vala:894
+#: src/Commands.vala:906
+msgid "Time Adjustment Error"
+msgstr "Viga aja kohendamisel"
+
+#: src/Commands.vala:904
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural "Time adjustments could not be undone on the following photo files."
+msgstr[0] "Kohendusi pole võimalik järgnevalt fotolt eemaldada."
+msgstr[1] "Kohendusi pole võimalik järgnevatelt fotodelt eemaldada."
 
 #: src/Dialogs.vala:53
 #, c-format
@@ -394,7 +448,7 @@ msgstr "_Kvaliteet:"
 
 #: src/Dialogs.vala:126
 msgid "_Scaling constraint:"
-msgstr "_Skaleerimise tegur:"
+msgstr "_Skaleerimise alus:"
 
 #: src/Dialogs.vala:129
 msgid " _pixels"
@@ -428,104 +482,253 @@ msgid_plural "%d photos failed to import due to a file or hardware error.\n"
 msgstr[0] "1 foto importimine nurjus faili- või raudvaralise tõrke tõttu.\n"
 msgstr[1] "%d foto importimine nurjus faili- või raudvaralise tõrke tõttu.\n"
 
-#: src/Dialogs.vala:326
+#: src/Dialogs.vala:327
+#, c-format
+msgid "1 photo failed to import due to a camera error.\n"
+msgid_plural "%d photos failed to import due to a camera error.\n"
+msgstr[0] "1 foto importimine nurjus kaamera tõrke tõttu.\n"
+msgstr[1] "%d foto importimine nurjus kaamera tõrke tõttu.\n"
+
+#: src/Dialogs.vala:341
 #, c-format
 msgid "1 unsupported photo skipped.\n"
 msgid_plural "%d unsupported photos skipped.\n"
 msgstr[0] "1 mittetoetatud foto jäeti vahele.\n"
 msgstr[1] "%d mittetoetatud fotot jäeti vahele.\n"
 
-#: src/Dialogs.vala:340
+#: src/Dialogs.vala:355
 #, c-format
 msgid "1 photo skipped due to user cancel.\n"
 msgid_plural "%d photos skipped due to user cancel.\n"
 msgstr[0] "1 foto jäeti kasutaja katkestuse tõttu vahele.\n"
 msgstr[1] "%d fotot jäeti kasutaja katkestuse tõttu vahele.\n"
 
-#: src/Dialogs.vala:357
+#: src/Dialogs.vala:372
 msgid "No photos imported.\n"
 msgstr "Ühtegi fotot ei imporditud.\n"
 
-#: src/Dialogs.vala:372
+#: src/Dialogs.vala:387
 msgid "Import Complete"
 msgstr "Importimine lõpetatud"
 
-#: src/Dialogs.vala:390
-#: src/Resources.vala:111
+#: src/Dialogs.vala:464
+#: src/Resources.vala:115
 msgid "Rename Event"
 msgstr "Ümbernimetamine"
 
-#: src/Dialogs.vala:392
+#: src/Dialogs.vala:464
+#: src/Dialogs.vala:943
 msgid "Name:"
 msgstr "Nimi:"
 
-#: src/Dialogs.vala:427
+#: src/Dialogs.vala:476
 msgid ""
-"This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
-msgstr ""
-"See eemaldab valitud fotod Shotwelli kogust. Kas need tuleks kustutada ka kettalt?\n"
-"\n"
-"Kustutamist pole võimalik tagasi võtta."
-
-#: src/Dialogs.vala:428
-msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like to delete the file from disk?\n"
+msgid_plural ""
+"This will remove the selected photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
-msgstr ""
-"See eemaldab valitud fotod Shotwelli kogust. Kas need tuleks kustutada ka kettalt?\n"
+msgstr[0] ""
+"See eemaldab valitud foto Shotwelli kogust. Kas ka failid tuleks visata prügikasti?\n"
 "\n"
-"Kustutamist pole võimalik tagasi võtta."
+"Seda tegevust pole võimalik tagasi võtta."
+msgstr[1] ""
+"See eemaldab valitud fotod Shotwelli kogust. Kas ka failid tuleks visata prügikasti?\n"
+"\n"
+"Seda tegevust pole võimalik tagasi võtta."
 
-#: src/Dialogs.vala:432
+#: src/Dialogs.vala:479
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Fail prügikasti"
+msgstr[1] "_Failid prügikasti"
+
+#: src/Dialogs.vala:483
 msgid "Only _Remove"
 msgstr "Ainult _eemalda"
 
-#: src/Dialogs.vala:434
+#: src/Dialogs.vala:485
 msgid "Remove"
 msgstr "Eemalda"
 
-#: src/Dialogs.vala:487
+#: src/Dialogs.vala:549
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:518
+#: src/Dialogs.vala:587
 msgid "Generating Events..."
 msgstr "Sündmuse loomine..."
 
-#: src/Dimensions.vala:16
-#: src/FlickrConnector.vala:488
+#: src/Dialogs.vala:659
+msgid "AM"
+msgstr "AM"
+
+#: src/Dialogs.vala:660
+msgid "PM"
+msgstr "PM"
+
+#: src/Dialogs.vala:661
+msgid "24 Hr"
+msgstr "24 h"
+
+#: src/Dialogs.vala:676
+msgid "_Shift photos by the same amount"
+msgstr "Kõiki fotosid _nihutatakse võrdselt"
+
+#: src/Dialogs.vala:681
+msgid "Set _all photos to this time"
+msgstr "_Kõigile fotodele määratakse see aeg"
+
+#: src/Dialogs.vala:687
+msgid "_Modify Original"
+msgid_plural "_Modify Originals"
+msgstr[0] "_Muudetakse originaali"
+msgstr[1] "_Muudetakse originaale"
+
+#: src/Dialogs.vala:765
+msgid "Original: "
+msgstr "Originaal:"
+
+# Change %m/%d/%y, %H:%M:%S to a locale-specific date and time format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the strftime manpage for a list of applicable date format specifiers and their meanings.
+#: src/Dialogs.vala:766
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr "%d-%m-%Y, %H:%M:%S"
+
+# Change %m/%d/%y, %I:%M:%S %p to a locale-specific date and time format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the strftime manpage for a list of applicable date format specifiers and their meanings.
+#: src/Dialogs.vala:767
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d-%m-%Y, %I:%M:%S %p"
+
+#: src/Dialogs.vala:852
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Pildistamise aega nihutatakse edasi\n"
+"%d %s, %d %s, %d %s, ja %d %s."
+
+#: src/Dialogs.vala:853
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+"Pildistamise aega nihutatakse tagasi\n"
+"%d %s, %d %s, %d %s, ja %d %s."
+
+#: src/Dialogs.vala:855
+msgid "day"
+msgid_plural "days"
+msgstr[0] "päev"
+msgstr[1] "päeva"
+
+#: src/Dialogs.vala:856
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "tund"
+msgstr[1] "tundi"
+
+#: src/Dialogs.vala:857
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "minut"
+msgstr[1] "minutit"
+
+#: src/Dialogs.vala:858
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekund"
+msgstr[1] "sekundit"
+
+#: src/Dialogs.vala:902
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+"\n"
+"\n"
+"Ja %d teine."
+msgstr[1] ""
+"\n"
+"\n"
+"Ja %d teist."
+
+#: src/Dialogs.vala:917
+#: src/Dialogs.vala:967
+msgid "Tags (separated by commas):"
+msgstr "Märksõnad (eraldatud komadega):"
+
+#: src/Dialogs.vala:1006
+msgid "Welcome!"
+msgstr "Tere tulemast!"
+
+#: src/Dialogs.vala:1014
+#, c-format
+msgid "Welcome to Shotwell!"
+msgstr "Tere tulemast Shotwelli kasutama!"
+
+#: src/Dialogs.vala:1018
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr "Alustamiseks impordi fotod ühel järgnevaist viisidest:"
+
+#: src/Dialogs.vala:1032
+#, c-format
+msgid "Choose <span weight=\"bold\">File > Import From Folder</span>"
+msgstr "Vali <span weight=\"bold\">File >Importimine kataloogist</span>"
+
+#: src/Dialogs.vala:1033
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr "Lohista failid Shotwelli aknasse"
+
+#: src/Dialogs.vala:1034
+msgid "Connect a camera to your computer and import"
+msgstr "Ühenda kaamera arvutiga ja impordi"
+
+#: src/Dialogs.vala:1041
+msgid "_Don't show this message again"
+msgstr "_Seda enam mitte näidata"
+
+#: src/Dimensions.vala:17
+#: src/FlickrConnector.vala:484
 msgid "Original size"
 msgstr "Originaalsuurus"
 
-#: src/Dimensions.vala:19
+#: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "Laius või kõrgus"
 
-#: src/Dimensions.vala:22
+#: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Laius"
 
-#: src/Dimensions.vala:25
+#: src/Dimensions.vala:26
 msgid "Height"
 msgstr "Kõrgus"
 
-#: src/EditingTools.vala:410
+#: src/EditingTools.vala:411
 msgid "Crop"
 msgstr "Kärbi"
 
-#: src/EditingTools.vala:411
+#: src/EditingTools.vala:412
 msgid "Crop the photo's size"
 msgstr "Foto suuruse kärpimine"
 
-#: src/EditingTools.vala:486
+#: src/EditingTools.vala:487
 msgid "Return to current photo dimensions"
 msgstr "Tagasipöördumine foto praeguste mõõtmete juurde"
 
-#: src/EditingTools.vala:489
+#: src/EditingTools.vala:490
 msgid "Set the crop for this photo"
 msgstr "Selle foto kärpimise määramine"
 
@@ -533,207 +736,233 @@ msgstr "Selle foto kärpimise määramine"
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "Kärperistküliku pööramine püstiseks või rõhtseks"
 
-#: src/EditingTools.vala:564
+#: src/EditingTools.vala:567
 msgid "Unconstrained"
 msgstr "Piiranguteta"
 
-#: src/EditingTools.vala:565
+#: src/EditingTools.vala:568
 msgid "Square"
 msgstr "Ruut"
 
-#: src/EditingTools.vala:566
+#: src/EditingTools.vala:569
 msgid "Screen"
 msgstr "Monitor"
 
-#: src/EditingTools.vala:567
+#: src/EditingTools.vala:570
+#: src/PicasaConnector.vala:763
 msgid "Original Size"
 msgstr "Originaalsuurus"
 
-#: src/EditingTools.vala:568
 #: src/EditingTools.vala:571
-#: src/EditingTools.vala:579
-#: src/EditingTools.vala:587
+#: src/EditingTools.vala:574
+#: src/EditingTools.vala:582
+#: src/EditingTools.vala:590
 msgid "-"
 msgstr "-"
 
-#: src/EditingTools.vala:569
+#: src/EditingTools.vala:572
 msgid "SD Video (4 : 3)"
 msgstr "SD-video (4 : 3)"
 
-#: src/EditingTools.vala:570
+#: src/EditingTools.vala:573
 msgid "HD Video (16 : 9)"
 msgstr "HD-video (16 : 9)"
 
-#: src/EditingTools.vala:572
+#: src/EditingTools.vala:575
+#: src/Printing.vala:767
 msgid "Wallet (2 x 3 in.)"
 msgstr "Visiitkaart USA (2\" x 3\")"
 
-#: src/EditingTools.vala:573
+#: src/EditingTools.vala:576
+#: src/Printing.vala:770
 msgid "Notecard (3 x 5 in.)"
 msgstr "Märkekaart (3\" x 5\")"
 
-#: src/EditingTools.vala:574
+#: src/EditingTools.vala:577
+#: src/Printing.vala:773
 msgid "4 x 6 in."
 msgstr "4\" x 6\""
 
-#: src/EditingTools.vala:575
+#: src/EditingTools.vala:578
+#: src/Printing.vala:776
 msgid "5 x 7 in."
 msgstr "5\" x 7\""
 
-#: src/EditingTools.vala:576
+#: src/EditingTools.vala:579
+#: src/Printing.vala:779
 msgid "8 x 10 in."
 msgstr "8\" x 10\""
 
-#: src/EditingTools.vala:577
+#: src/EditingTools.vala:580
+#: src/Printing.vala:782
 msgid "11 x 14 in."
 msgstr "11\" x 14\""
 
-#: src/EditingTools.vala:578
+#: src/EditingTools.vala:581
+#: src/Printing.vala:785
 msgid "16 x 20 in."
 msgstr "16\" x 20\""
 
-#: src/EditingTools.vala:580
+#: src/EditingTools.vala:583
+#: src/Printing.vala:791
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "Visiitkaart (9 x 13 cm)"
 
-#: src/EditingTools.vala:581
+#: src/EditingTools.vala:584
+#: src/Printing.vala:794
 msgid "Postcard (10 x 15 cm)"
 msgstr "Postkaart (10 x 15 cm)"
 
-#: src/EditingTools.vala:582
+#: src/EditingTools.vala:585
+#: src/Printing.vala:797
 msgid "13 x 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/EditingTools.vala:583
+#: src/EditingTools.vala:586
+#: src/Printing.vala:800
 msgid "18 x 24 cm"
 msgstr "18 x 24 cm"
 
-#: src/EditingTools.vala:584
+#: src/EditingTools.vala:587
+#: src/Printing.vala:803
 msgid "20 x 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/EditingTools.vala:585
+#: src/EditingTools.vala:588
+#: src/Printing.vala:806
 msgid "24 x 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/EditingTools.vala:586
+#: src/EditingTools.vala:589
+#: src/Printing.vala:809
 msgid "30 x 40 cm"
 msgstr "30 x 40 cm"
 
-#: src/EditingTools.vala:588
+#: src/EditingTools.vala:591
 msgid "Custom"
 msgstr "Muu"
 
-#: src/EditingTools.vala:1670
+#: src/EditingTools.vala:1673
 msgid "Red-eye"
 msgstr "Punasilmsus"
 
-#: src/EditingTools.vala:1671
+#: src/EditingTools.vala:1674
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Foto punasilmsuse vähendamine või kaotamine"
 
-#: src/EditingTools.vala:1676
-#: src/Properties.vala:266
+#: src/EditingTools.vala:1679
+#: src/Properties.vala:335
 msgid "Size:"
 msgstr "Suurus:"
 
-#: src/EditingTools.vala:1691
+#: src/EditingTools.vala:1694
 msgid "Close the red-eye tool"
 msgstr "Punasilmsuse eemaldaja sulgemine"
 
-#: src/EditingTools.vala:1694
+#: src/EditingTools.vala:1697
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Punasilmsuse eemaldamine valitud piirkonnast"
 
-#: src/EditingTools.vala:1980
+#: src/EditingTools.vala:1990
 msgid "Adjust"
 msgstr "Kohenda"
 
-#: src/EditingTools.vala:1981
+#: src/EditingTools.vala:1991
 msgid "Adjust the photo's color and tone"
 msgstr "Foto värvide ja tonaalsuse kohendamine"
 
-#: src/EditingTools.vala:2003
+#: src/EditingTools.vala:2013
 msgid "_Reset"
 msgstr "_Lähtesta"
 
-#: src/EditingTools.vala:2016
-#: src/Properties.vala:275
+#: src/EditingTools.vala:2026
+#: src/Properties.vala:364
+#: src/Properties.vala:368
+#: src/Properties.vala:375
 msgid "Exposure:"
 msgstr "Säritus:"
 
-#: src/EditingTools.vala:2024
+#: src/EditingTools.vala:2034
 msgid "Saturation:"
 msgstr "Küllastus:"
 
-#: src/EditingTools.vala:2032
+#: src/EditingTools.vala:2042
 msgid "Tint:"
 msgstr "Värvus:"
 
-#: src/EditingTools.vala:2041
+#: src/EditingTools.vala:2051
 msgid "Temperature:"
 msgstr "Temperatuur:"
 
-#: src/EditingTools.vala:2049
+#: src/EditingTools.vala:2059
 msgid "Shadows:"
 msgstr "Varjud:"
 
-#: src/EditingTools.vala:2101
+#: src/EditingTools.vala:2111
 msgid "Reset Colors"
 msgstr "Värvide lähtestamine"
 
-#: src/EditingTools.vala:2101
+#: src/EditingTools.vala:2111
 msgid "Reset all color adjustments to original"
 msgstr "Kõigi värvikohenduste tühistamine"
 
-#: src/EditingTools.vala:2403
+#: src/EditingTools.vala:2417
 msgid "Temperature"
 msgstr "Temperatuur"
 
-#: src/EditingTools.vala:2409
+#: src/EditingTools.vala:2423
 msgid "Tint"
 msgstr "Värvus"
 
-#: src/EditingTools.vala:2415
+#: src/EditingTools.vala:2429
 msgid "Saturation"
 msgstr "Küllastus"
 
-#: src/EditingTools.vala:2421
+#: src/EditingTools.vala:2435
 msgid "Exposure"
 msgstr "Säritus"
 
-#: src/EditingTools.vala:2427
+#: src/EditingTools.vala:2441
 msgid "Shadows"
 msgstr "Varjud"
 
-#: src/EditingTools.vala:2437
+#: src/EditingTools.vala:2451
 msgid "Contrast Expansion"
 msgstr "Kontrastsuse suurendamine"
 
-#: src/EventsDirectoryPage.vala:179
+#: src/EventsDirectoryPage.vala:65
+#: src/Properties.vala:303
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d foto"
+msgstr[1] "%d fotot"
+
+#: src/EventsDirectoryPage.vala:231
 msgid "Select all the events in the directory"
 msgstr "Kõigi kataloogis asuvate sündmuste valimine"
 
-#: src/EventsDirectoryPage.vala:377
+#: src/EventsDirectoryPage.vala:430
 msgid "Events"
 msgstr "Sündmused"
 
-#: src/EventsDirectoryPage.vala:427
-#: src/LibraryWindow.vala:182
+#: src/EventsDirectoryPage.vala:480
+#: src/LibraryWindow.vala:186
 msgid "%Y"
 msgstr "%Y"
 
-#: src/EventsDirectoryPage.vala:427
-#: src/LibraryWindow.vala:182
+#: src/EventsDirectoryPage.vala:480
+#: src/LibraryWindow.vala:186
 msgid "%B"
 msgstr "%B"
 
-#: src/Event.vala:352
+#: src/Event.vala:368
 #, c-format
 msgid "Event %lld"
 msgstr "Sündmus %lld"
 
 #: src/FacebookConnector.vala:13
+#: src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
 msgstr "Shotwelli ühendus"
 
@@ -764,12 +993,14 @@ msgid "Create a _new album named:"
 msgstr "Luuakse _uus album nimega:"
 
 #: src/FacebookConnector.vala:73
-#: src/FlickrConnector.vala:426
+#: src/FlickrConnector.vala:422
+#: src/PicasaConnector.vala:636
 msgid "_Publish"
 msgstr "_Avalda"
 
 #: src/FacebookConnector.vala:75
-#: src/FlickrConnector.vala:424
+#: src/FlickrConnector.vala:420
+#: src/PicasaConnector.vala:626
 msgid "_Logout"
 msgstr "_Logi välja"
 
@@ -782,7 +1013,7 @@ msgstr ""
 "Sa oled Facebooki sisse logitud kasutajana %s.\n"
 "Kas tahad valitud fotod avaldada?"
 
-#: src/FlickrConnector.vala:13
+#: src/FlickrConnector.vala:11
 msgid ""
 "You are not currently logged in to Flickr.\n"
 "\n"
@@ -792,7 +1023,7 @@ msgstr ""
 "\n"
 "Sisselogimiseks peab sul Flickri konto juba olemas olema. Sisselogimise käigus pead eraldi lubama Shotwelli ühenduse Flickri kontosse. "
 
-#: src/FlickrConnector.vala:15
+#: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
@@ -800,7 +1031,7 @@ msgstr ""
 "Sa oled pärast Shotwelli käivitamist korra juba Flickr-isse sisse ja jälle välja loginud.\n"
 "Fotode avaldamiseks Flickr-is tuleb Shotwelli kinni ja uuesti käima panna ning siis võib uuesti proovida."
 
-#: src/FlickrConnector.vala:366
+#: src/FlickrConnector.vala:364
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -809,108 +1040,122 @@ msgstr ""
 "Sa oled Flickr-isse sisse logitud kasutajana %s.\n"
 "\n"
 
-#: src/FlickrConnector.vala:369
-msgid "Your free Flickr account limits how much data you can "
-msgstr "Sinu tasuta Flickri konto maht on piiratud, kui palju sa saad"
+#: src/FlickrConnector.vala:367
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
+"Flickri tasuta konto igakuine üleslaaditav maht on piiratud.\n"
+"Sellekuisest üleslaadimise kvoodist on alles jäänud %d megabaiti."
 
-#: src/FlickrConnector.vala:373
+#: src/FlickrConnector.vala:369
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Sinu Flickr Pro konto võimaldab üles laadida piiramatult pilte."
 
-#: src/FlickrConnector.vala:398
+#: src/FlickrConnector.vala:394
 msgid "Photos _visible to:"
 msgstr "Fotod on _nähtavad kellele:"
 
-#: src/FlickrConnector.vala:399
+#: src/FlickrConnector.vala:395
 msgid "Photo _size:"
 msgstr "Foto _suurus:"
 
-#: src/FlickrConnector.vala:461
+#: src/FlickrConnector.vala:457
 msgid "Everyone"
 msgstr "Kõik"
 
-#: src/FlickrConnector.vala:462
+#: src/FlickrConnector.vala:458
 msgid "Friends & family only"
 msgstr "Ainult sõbrad ja pere"
 
-#: src/FlickrConnector.vala:463
+#: src/FlickrConnector.vala:459
 msgid "Just me"
 msgstr "Ainult mina"
 
-#: src/FlickrConnector.vala:486
+#: src/FlickrConnector.vala:482
 msgid "Medium (500 x 375 pixels)"
 msgstr "Keskmine (500 x 375 pikslit)"
 
-#: src/FlickrConnector.vala:487
+#: src/FlickrConnector.vala:483
 msgid "Large (1024 x 768 pixels)"
 msgstr "Suur (1024 x 768 pikslit)"
 
-#: src/image_util.vala:214
+#: src/image_util.vala:277
 #, c-format
 msgid "Low (%d%%)"
 msgstr "Madal (%d%%)"
 
-#: src/image_util.vala:217
+#: src/image_util.vala:280
 #, c-format
 msgid "Medium (%d%%)"
 msgstr "Keskmine (%d%%)"
 
-#: src/image_util.vala:220
+#: src/image_util.vala:283
 #, c-format
 msgid "High (%d%%)"
 msgstr "Kõrge (%d%%)"
 
-#: src/image_util.vala:223
+#: src/image_util.vala:286
 #, c-format
 msgid "Maximum (%d%%)"
 msgstr "Parim (%d%%)"
 
-#: src/ImportPage.vala:229
-#: src/ImportPage.vala:230
+#: src/image_util.vala:542
+#, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Tausta eksportimine kohta %s pole võimalik: %s"
+
+#: src/ImportPage.vala:152
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "Kaamera lahtihaakimine pole võimalik. Proovi kaamera failihaldurist lahti haakida."
+
+#: src/ImportPage.vala:240
+#: src/ImportPage.vala:241
 msgid "Camera"
 msgstr "Kaamera"
 
-#: src/ImportPage.vala:258
+#: src/ImportPage.vala:279
 msgid "Hide photos already imported"
 msgstr "Juba imporditud fotod varjatakse"
 
-#: src/ImportPage.vala:259
+#: src/ImportPage.vala:280
 msgid "Only display photos that have not been imported"
 msgstr "Kuvatakse ainult importimata jäänud fotosid"
 
-#: src/ImportPage.vala:347
+#: src/ImportPage.vala:377
 msgid "Import _Selected"
 msgstr "_Impordi valitud"
 
-#: src/ImportPage.vala:352
+#: src/ImportPage.vala:382
 msgid "Import _All"
 msgstr "Impordi _kõik"
 
-#: src/ImportPage.vala:362
+#: src/ImportPage.vala:392
 msgid "Select all the photos for importing"
 msgstr "Kõigi fotode märkimine importimiseks"
 
-#: src/ImportPage.vala:464
+#: src/ImportPage.vala:500
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
 msgstr "Shotwell kaamerale ligipääsemiseks selle failisüsteemist lahti haakima. Kas jätkata?"
 
-#: src/ImportPage.vala:470
-msgid "Unmount"
-msgstr "Haagi lahti"
+#: src/ImportPage.vala:506
+msgid "_Unmount"
+msgstr "_Haagi lahti"
 
-#: src/ImportPage.vala:475
+#: src/ImportPage.vala:511
 msgid "Please unmount the camera."
 msgstr "Palun haagi kaamera lahti."
 
-#: src/ImportPage.vala:480
+#: src/ImportPage.vala:516
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
 msgstr "Mingi teine rakendus on lukustanud kaamera kasutuse. Shotwell pääseb kaamerale ligi alles siis, kui lukk on lahti. Palun sulge kõik teised rakendused, mis võiksid kaamerat kasutada ja proovi siis uuesti."
 
-#: src/ImportPage.vala:490
+#: src/ImportPage.vala:526
 msgid "Please close any other application using the camera."
 msgstr "Palun sulge kõik teised rakendused, mis kaamerat kasutavad."
 
-#: src/ImportPage.vala:495
+#: src/ImportPage.vala:531
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -919,124 +1164,124 @@ msgstr ""
 "Kaamerast ei suudetud hankida eelvaatepilte:\n"
 "%s"
 
-#: src/ImportPage.vala:513
+#: src/ImportPage.vala:549
 msgid "Unmounting..."
 msgstr "Lahtihaakimine..."
 
-#: src/ImportPage.vala:532
-msgid "Unable to unmount camera.  Try dismounting the camera from the file manager."
-msgstr "Kaamera lahtihaakimine pole võimalik. Proovi kaamera failihaldurist lahti haakida."
-
-#: src/ImportPage.vala:559
+#: src/ImportPage.vala:609
 msgid "Fetching photo information"
 msgstr "Foto teabe hankimine"
 
-#: src/ImportPage.vala:748
+#: src/ImportPage.vala:798
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "%s eelvaate hankimine"
 
-#: src/ImportPage.vala:797
+#: src/ImportPage.vala:847
 #, c-format
 msgid "Error while fetching previews from %s: %s"
 msgstr "Viga eelvaadete hankimisel kohast %s: %s"
 
-#: src/ImportPage.vala:838
+#: src/ImportPage.vala:888
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Kaamera lukustamine pole võimalik: %s"
 
-#: src/ImportPage.vala:913
+#: src/ImportPage.vala:970
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Kas kustutada see foto kaamerast?"
 msgstr[1] "Kas kustutada need %d fotot kaamerast?"
 
-#: src/ImportPage.vala:917
-msgid "Keep"
-msgstr "Säilita"
+#: src/ImportPage.vala:974
+msgid "_Keep"
+msgstr "_Säilita"
 
-#: src/ImportPage.vala:946
+#: src/ImportPage.vala:991
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
 msgstr[0] "%d foto kustutamine kaamerast pole võimalik, kuna esines vigu."
 msgstr[1] "%d foto kustutamine kaamerast pole võimalik, kuna esines vigu."
 
-#: src/ImportPage.vala:993
+#: src/ImportPage.vala:1030
 msgid "Importing..."
 msgstr "Importimine..."
 
-#: src/ImportPage.vala:1003
-#: src/ImportPage.vala:1033
+#: src/ImportPage.vala:1040
+#: src/ImportPage.vala:1070
 msgid "Stop importing photos"
 msgstr "Fotode importimise lõpetamine"
 
-#: src/ImportPage.vala:1032
+#: src/ImportPage.vala:1069
 msgid "_Stop Import"
 msgstr "_Katkesta importimine"
 
-#: src/ImportPage.vala:1102
+#: src/ImportPage.vala:1136
 #, c-format
 msgid "Imported %s"
 msgstr "Imporditud %s"
 
-#: src/LibraryWindow.vala:367
+#: src/LibraryWindow.vala:371
 msgid "_Import From Folder..."
 msgstr "_Importimine kataloogist..."
 
-#: src/LibraryWindow.vala:368
+#: src/LibraryWindow.vala:372
 msgid "Import photos from disk to library"
 msgstr "Failide importimine kettalt"
 
-#: src/LibraryWindow.vala:373
+#: src/LibraryWindow.vala:377
 msgid "Sort _Events"
 msgstr "_Sündmuste sortimine"
 
-#: src/LibraryWindow.vala:384
+#: src/LibraryWindow.vala:388
 msgid "_Basic Information"
 msgstr "Peamine _teave"
 
-#: src/LibraryWindow.vala:385
+#: src/LibraryWindow.vala:389
 msgid "Display basic information for the selection"
 msgstr "Valiku kohta põhiteabe kuvamine"
 
-#: src/LibraryWindow.vala:390
+#: src/LibraryWindow.vala:394
 msgid "E_xtended Information"
 msgstr "Laiem _teave"
 
-#: src/LibraryWindow.vala:391
+#: src/LibraryWindow.vala:395
 msgid "Display extended information for the selection"
 msgstr "Valiku kohta laiema teabe kuvamine"
 
-#: src/LibraryWindow.vala:508
+#: src/LibraryWindow.vala:553
 #, c-format
 msgid "_Copy files to %s photo library"
-msgstr "_Kopeeri failid %s fotokogusse"
+msgstr "_Kopeeri failid fotokogusse %s"
 
-#: src/LibraryWindow.vala:511
+#: src/LibraryWindow.vala:556
 msgid "Import From Folder"
 msgstr "Importimine kataloogist"
 
-#: src/LibraryWindow.vala:722
+#: src/LibraryWindow.vala:784
 #, c-format
 msgid "Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them."
 msgstr "Shotwell võib fotod kopeerida või liigutada kataloogi %s, või linkida fotodele ilma neist duplikaate loomata."
 
-#: src/LibraryWindow.vala:728
+#: src/LibraryWindow.vala:790
 msgid "Copy into Library"
 msgstr "Kogusse kopeerimine"
 
-#: src/LibraryWindow.vala:729
+#: src/LibraryWindow.vala:791
 msgid "Create Links"
 msgstr "Linkide loomine"
 
-#: src/LibraryWindow.vala:730
+#: src/LibraryWindow.vala:792
 msgid "Import to Library"
 msgstr "Importimine kogusse"
 
-#: src/LibraryWindow.vala:950
+#: src/LibraryWindow.vala:996
+msgid "Tags"
+msgstr "Märksõnad"
+
+#: src/LibraryWindow.vala:1077
 msgid "Cameras"
 msgstr "Kaamerad"
 
@@ -1060,6 +1305,14 @@ msgstr "Sinu fotokogu andmebaas ei ühildu selle Shotwelli versiooniga. Tundub, 
 msgid "Unknown error attempting to verify Shotwell's database: %d"
 msgstr "Shotwelli andmebaasi kontrollimisel esines tundmatu viga: %d"
 
+#: src/main.vala:121
+msgid "Loading Shotwell..."
+msgstr "Shotwelli laadimine..."
+
+#: src/main.vala:216
+msgid "[FILE]"
+msgstr "[FAIL]"
+
 #: src/PhotoPage.vala:109
 msgid "Previous photo"
 msgstr "Eelmine foto"
@@ -1068,84 +1321,84 @@ msgstr "Eelmine foto"
 msgid "Next photo"
 msgstr "Järgmine foto"
 
-#: src/PhotoPage.vala:701
+#: src/PhotoPage.vala:704
 msgid "Photo source file is missing."
 msgstr "Foto lähtefail on puudu."
 
-#: src/PhotoPage.vala:880
+#: src/PhotoPage.vala:879
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Foto lähtefail on puudu: %s"
 
-#: src/PhotoPage.vala:1142
+#: src/PhotoPage.vala:1201
 msgid "Export photo to disk"
 msgstr "Foto eksportimine kettale"
 
-#: src/PhotoPage.vala:1152
+#: src/PhotoPage.vala:1229
 msgid "Remove the photo from your library"
 msgstr "Foto eemaldamine kogust"
 
-#: src/PhotoPage.vala:1160
-#: src/PhotoPage.vala:1597
+#: src/PhotoPage.vala:1237
+#: src/PhotoPage.vala:1845
 msgid "_Photo"
 msgstr "_Foto"
 
-#: src/PhotoPage.vala:1165
-#: src/PhotoPage.vala:1602
+#: src/PhotoPage.vala:1242
+#: src/PhotoPage.vala:1850
 msgid "_Previous Photo"
 msgstr "_Eelmine foto"
 
-#: src/PhotoPage.vala:1166
-#: src/PhotoPage.vala:1603
+#: src/PhotoPage.vala:1243
+#: src/PhotoPage.vala:1851
 msgid "Previous Photo"
 msgstr "Eelmine foto"
 
-#: src/PhotoPage.vala:1171
-#: src/PhotoPage.vala:1608
+#: src/PhotoPage.vala:1248
+#: src/PhotoPage.vala:1856
 msgid "_Next Photo"
 msgstr "_Järgmine foto"
 
-#: src/PhotoPage.vala:1172
-#: src/PhotoPage.vala:1609
+#: src/PhotoPage.vala:1249
+#: src/PhotoPage.vala:1857
 msgid "Next Photo"
 msgstr "Järgmine foto"
 
-#: src/PhotoPage.vala:1341
+#: src/PhotoPage.vala:1502
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "%s eksportimine pole võimalik: %s"
 
-#: src/PhotoPage.vala:1581
+#: src/PhotoPage.vala:1829
 msgid "_Save"
 msgstr "_Salvesta"
 
-#: src/PhotoPage.vala:1582
+#: src/PhotoPage.vala:1830
 msgid "Save photo"
 msgstr "Foto salvestamine"
 
-#: src/PhotoPage.vala:1587
+#: src/PhotoPage.vala:1835
 msgid "Save _As..."
 msgstr "Salvesta _kui..."
 
-#: src/PhotoPage.vala:1588
+#: src/PhotoPage.vala:1836
 msgid "Save photo with a different name"
 msgstr "Foto salvestamine uue nimega"
 
-#: src/PhotoPage.vala:1592
+#: src/PhotoPage.vala:1840
 msgid "Edit"
 msgstr "Muuda"
 
-#: src/PhotoPage.vala:1655
+#: src/PhotoPage.vala:1915
 #, c-format
 msgid "%s does not exist."
 msgstr "%s ei ole olemas."
 
-#: src/PhotoPage.vala:1657
+#: src/PhotoPage.vala:1917
 #, c-format
 msgid "%s is not a file."
 msgstr "%s ei ole fail."
 
-#: src/PhotoPage.vala:1659
+#: src/PhotoPage.vala:1919
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -1154,165 +1407,325 @@ msgstr ""
 "%s ei toeta järgnevat failivormingut\n"
 "%s."
 
-#: src/PhotoPage.vala:1726
+#: src/PhotoPage.vala:1995
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Kas kaotada pildile %s tehtud muudatused?"
 
-#: src/PhotoPage.vala:1749
+#: src/PhotoPage.vala:2018
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Tõrge salvestamisel faili %s: %s"
 
-#: src/PhotoPage.vala:1776
-#: src/PhotoPage.vala:1785
+#: src/PhotoPage.vala:2045
+#: src/PhotoPage.vala:2054
 msgid "Save As"
 msgstr "Salvestamine nimega"
 
-#: src/Photo.vala:20
+#: src/Photo.vala:23
 msgid "Success"
 msgstr "Õnnestus"
 
-#: src/Photo.vala:23
+#: src/Photo.vala:26
 msgid "File error"
 msgstr "Failitõrge"
 
-#: src/Photo.vala:26
+#: src/Photo.vala:29
 msgid "Unable to decode file"
 msgstr "Faili dekodeerimine pole võimalik"
 
-#: src/Photo.vala:29
+#: src/Photo.vala:32
 msgid "Database error"
 msgstr "Andmebaasi viga"
 
-#: src/Photo.vala:32
+#: src/Photo.vala:35
 msgid "User aborted import"
 msgstr "Kasutaja katkestatud importimine"
 
-#: src/Photo.vala:35
+#: src/Photo.vala:38
 msgid "Not a file"
 msgstr "Pole fail"
 
-#: src/Photo.vala:38
+#: src/Photo.vala:41
 msgid "File already exists in database"
 msgstr "Fail on andmebaasis juba olemas"
 
-#: src/Photo.vala:41
+#: src/Photo.vala:44
 msgid "Unsupported file format"
 msgstr "Toetamata failivorming"
 
-#: src/Photo.vala:46
+#: src/Photo.vala:47
+msgid "Disk failure"
+msgstr "Ketta rike"
+
+#: src/Photo.vala:50
+msgid "Disk full"
+msgstr "Ketas täis"
+
+#: src/Photo.vala:53
+msgid "Camera error"
+msgstr "Kaamera viga"
+
+#: src/Photo.vala:56
 #, c-format
-msgid "Bad import result (%d)"
-msgstr "Vigane importimise tulem (%d)"
+msgid "Imported failed (%d)"
+msgstr "Importimine nurjus (%d)"
+
+#: src/PicasaConnector.vala:11
+msgid ""
+"You are not currently logged in to Picasa Web Albums.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to login to the Picasa Web Albums site at least once."
+msgstr ""
+"Sa ei ole praegu Picasa veebialbumitesse sisse logitud.\n"
+"\n"
+"Sul peab juba olema Google konto ja see olema seadistatud Picasaga kasutamiseks. Enamasti saab konto üles seada veebibrauseri abil Picasa veebialbumisse sisse logides."
+
+#: src/PicasaConnector.vala:298
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgstr "Sisesta meiliaadress ja parool, mis on sinu Picasa veebialbumitega seotud."
+
+#: src/PicasaConnector.vala:299
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr "Picasa veebialbumid ei tundnud ära sinu sisestadu meiliaadressit ja parooli. Proovi uuesti, sisesta veelkord oma meiliaadress ja parool."
+
+#: src/PicasaConnector.vala:300
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to login to the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr "Meiliaadress ja parool, milles sisestasid, kuuluvad Google kontole, mis ei ole Picasa veebialbumite kasutamiseks seadistatud. Enamikku kontosid saab seadistada logides vähemalt üks kord brauseris Picasa veebialbumisse sisse. Et uuesti proovida, sisesta oma meiliaadress ja parool uuesti."
+
+#: src/PicasaConnector.vala:335
+#, c-format
+msgid "Unrecognized User"
+msgstr "Tundmatu kasutaja"
+
+#: src/PicasaConnector.vala:339
+#, c-format
+msgid "Account Not Ready"
+msgstr "Konto pole valmis"
+
+#: src/PicasaConnector.vala:350
+msgid "_Email address:"
+msgstr "_Meiliaadress:"
+
+#: src/PicasaConnector.vala:352
+msgid "_Password:"
+msgstr "_Parool:"
+
+#: src/PicasaConnector.vala:370
+msgid "Go _Back"
+msgstr "Mine _tagasi"
+
+#: src/PicasaConnector.vala:375
+#: src/WebConnectors.vala:493
+msgid "_Login"
+msgstr "_Logi sisse"
+
+#: src/PicasaConnector.vala:415
+msgid "Logging in..."
+msgstr "Sisselogimine..."
+
+#: src/PicasaConnector.vala:458
+msgid "Creating album..."
+msgstr "Albumi loomine..."
+
+#: src/PicasaConnector.vala:533
+#, c-format
+msgid "You are logged in to Picasa Web Albums as %s"
+msgstr "Sa oled Picasa veebialbumisse sisse logitud kasutajana %s"
+
+#: src/PicasaConnector.vala:545
+msgid "Photos will appear in:"
+msgstr "Fotod ilmuvad kuhu:"
+
+#: src/PicasaConnector.vala:558
+msgid "An _existing album:"
+msgstr "_Olemasolev album:"
+
+#: src/PicasaConnector.vala:572
+msgid "A _new album named:"
+msgstr "_Uus album nimega:"
+
+#: src/PicasaConnector.vala:584
+msgid "L_ist album in public gallery"
+msgstr "Album on avaliku galerii _loetelus"
+
+#: src/PicasaConnector.vala:596
+msgid "Photo _size preset:"
+msgstr "Foto _mõõtmete mall:"
+
+#: src/PicasaConnector.vala:666
+msgid "Fetching account information..."
+msgstr "Konto andmete hankimine..."
+
+#: src/PicasaConnector.vala:760
+msgid "Small (640 x 480 pixels)"
+msgstr "Väike (640 x 480 pikslit)"
+
+#: src/PicasaConnector.vala:761
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Keskmine (1024 x 768 pikslit)"
+
+#: src/PicasaConnector.vala:762
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr "Soovitatud (1600 x 1200 pikslit)"
+
+#: src/Printing.vala:212
+msgid "Printed Image Size"
+msgstr "Prinditud pildi suurus"
+
+#: src/Printing.vala:224
+msgid "Use a _standard size:"
+msgstr "Kasuta _standardsuurust:"
+
+#: src/Printing.vala:228
+msgid "Use a c_ustom size:"
+msgstr "Kasuta _muud suurust:"
+
+#: src/Printing.vala:232
+msgid "_Fill the entire page"
+msgstr "_Täidab kogu lehe"
+
+#: src/Printing.vala:279
+msgid "in."
+msgstr "tolli"
+
+#: src/Printing.vala:280
+msgid "cm"
+msgstr "cm"
+
+#: src/Printing.vala:299
+msgid "_Match photo aspect ratio"
+msgstr "_Kattub foto külgede suhtega"
+
+#: src/Printing.vala:313
+msgid "Pixel Resolution"
+msgstr "Pikslilahutus"
+
+#: src/Printing.vala:320
+msgid "_Output photo at:"
+msgstr "Kuhu foto _väljastatakse:"
+
+#: src/Printing.vala:332
+msgid "pixels per inch"
+msgstr "pikslit tollile"
+
+#: src/Printing.vala:825
+msgid "Image Settings"
+msgstr "Pildi sätted"
+
+#: src/Printing.vala:839
+#: src/Printing.vala:940
+#: src/Printing.vala:979
+#, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr ""
+"Foto printimine pole võimalik:\n"
+"\n"
+"%s"
 
 # Locale-specific time format string, conforming to POSIX time-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the time formatting conventions of their language, country, and region.
-#: src/Properties.vala:35
+#: src/Properties.vala:40
 msgid "%I:%M %p"
 msgstr "%H:%M"
 
-#: src/Properties.vala:47
+#: src/Properties.vala:52
 msgid "Today"
 msgstr "Täna"
 
-#: src/Properties.vala:49
+#: src/Properties.vala:54
 msgid "Yesterday"
 msgstr "Eile"
 
-#: src/Properties.vala:221
+#: src/Properties.vala:290
 msgid "Title:"
 msgstr "Pealkiri:"
 
-#: src/Properties.vala:224
+#: src/Properties.vala:293
 msgid "Items:"
 msgstr "Kirjed:"
 
-#: src/Properties.vala:227
+#: src/Properties.vala:296
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
 msgstr[0] "%d sündmus"
 msgstr[1] "%d sündmust"
 
-#: src/Properties.vala:234
-#, c-format
-msgid "%d Photo"
-msgid_plural "%d Photos"
-msgstr[0] "%d foto"
-msgstr[1] "%d fotot"
-
-#: src/Properties.vala:248
+#: src/Properties.vala:317
 msgid "Date:"
 msgstr "Kuupäev:"
 
-#: src/Properties.vala:252
+#: src/Properties.vala:321
 msgid "Time:"
 msgstr "Kellaaeg:"
 
-#: src/Properties.vala:255
-#: src/Properties.vala:260
+#: src/Properties.vala:324
+#: src/Properties.vala:329
 msgid "From:"
 msgstr "Kellelt:"
 
-#: src/Properties.vala:256
-#: src/Properties.vala:261
+#: src/Properties.vala:325
+#: src/Properties.vala:330
 msgid "To:"
 msgstr "Kellele:"
 
-#: src/Properties.vala:356
+#: src/Properties.vala:457
 msgid "Location:"
 msgstr "Asukoht:"
 
-#: src/Properties.vala:358
+#: src/Properties.vala:459
 msgid "File size:"
 msgstr "Faili suurus:"
 
-#: src/Properties.vala:361
-msgid "Original Dimensions"
-msgstr "Originaalmõõtmed"
+#: src/Properties.vala:462
+msgid "Original dimensions:"
+msgstr "Originaalmõõtmed:"
 
-#: src/Properties.vala:364
-msgid "Camera Make:"
+#: src/Properties.vala:465
+msgid "Camera make:"
 msgstr "Kaamera tootja:"
 
-#: src/Properties.vala:367
-msgid "Camera Model:"
+#: src/Properties.vala:468
+msgid "Camera model:"
 msgstr "Kaamera mudel:"
 
-#: src/Properties.vala:370
+#: src/Properties.vala:471
 msgid "Flash:"
 msgstr "Välk:"
 
-#: src/Properties.vala:372
-msgid "Focal Length:"
+#: src/Properties.vala:473
+msgid "Focal length:"
 msgstr "Fookuskaugus:"
 
-#: src/Properties.vala:375
-msgid "GPS Latitude:"
-msgstr "GPS-i laiuskraadid:"
+#: src/Properties.vala:476
+msgid "GPS latitude:"
+msgstr "GPS laiuskraadid:"
 
-#: src/Properties.vala:378
-msgid "GPS Longitude:"
-msgstr "GPS-i pikkuskraadid:"
+#: src/Properties.vala:479
+msgid "GPS longitude:"
+msgstr "GPS pikkuskraadid:"
 
-#: src/Properties.vala:381
+#: src/Properties.vala:482
 msgid "Artist:"
 msgstr "Autor:"
 
-#: src/Properties.vala:383
+#: src/Properties.vala:484
 msgid "Copyright:"
 msgstr "Autoriõigus:"
 
-#: src/Properties.vala:385
+#: src/Properties.vala:486
 msgid "Software:"
 msgstr "Tarkvara:"
 
-#: src/Properties.vala:397
+#: src/Properties.vala:497
 msgid "Extended Information"
 msgstr "Laiendatud teave"
 
 #: src/Resources.vala:14
-msgid "Photo Organizer"
+msgid "Photo Manager"
 msgstr "Fotode korrastaja"
 
 #: src/Resources.vala:15
@@ -1320,349 +1733,519 @@ msgid "Photo Viewer"
 msgstr "Fotovaatur"
 
 #: src/Resources.vala:17
-msgid "Copyright 2009 Yorba Foundation"
-msgstr "Copyright 2009 Yorba Foundation"
+msgid "Copyright 2009-2010 Yorba Foundation"
+msgstr "Copyright 2009-2010 Yorba Foundation"
 
-#: src/Resources.vala:80
+#: src/Resources.vala:81
 msgid "Rotate _Right"
 msgstr "Pööra _paremale"
 
-#: src/Resources.vala:81
-#: src/Resources.vala:86
+#: src/Resources.vala:82
+#: src/Resources.vala:87
 msgid "Rotate"
 msgstr "Pööra"
 
-#: src/Resources.vala:82
+#: src/Resources.vala:83
 msgid "Rotate Right"
 msgstr "Paremale pööramine"
 
-#: src/Resources.vala:83
+#: src/Resources.vala:84
 msgid "Rotate the photos right"
 msgstr "Fotode pööramine paremale"
 
-#: src/Resources.vala:85
+#: src/Resources.vala:86
 msgid "Rotate _Left"
 msgstr "Pööra _vasakule"
 
-#: src/Resources.vala:87
+#: src/Resources.vala:88
 msgid "Rotate Left"
 msgstr "Vasakule pööramine"
 
-#: src/Resources.vala:88
+#: src/Resources.vala:89
 msgid "Rotate the photos left"
 msgstr "Fotode pööramine vasakule"
 
-#: src/Resources.vala:90
+#: src/Resources.vala:91
 msgid "_Mirror"
 msgstr "_Peegelda"
 
-#: src/Resources.vala:91
+#: src/Resources.vala:92
 msgid "Mirror"
 msgstr "Peegeldus"
 
-#: src/Resources.vala:92
+#: src/Resources.vala:93
 msgid "Make mirror images of the photos"
 msgstr "Valitud fotode peeglisse pööramine"
 
-#: src/Resources.vala:94
+#: src/Resources.vala:95
 msgid "_Enhance"
 msgstr "_Parenda"
 
-#: src/Resources.vala:95
+#: src/Resources.vala:96
 msgid "Enhance"
 msgstr "Parenda"
 
-#: src/Resources.vala:96
+#: src/Resources.vala:97
 msgid "Automatically improve the photo's appearance"
 msgstr "Foto väljanägemise automaatne parendamine"
 
-#: src/Resources.vala:98
+#: src/Resources.vala:99
 msgid "Re_vert to Original"
 msgstr "_Taasta originaal"
 
-#: src/Resources.vala:99
+#: src/Resources.vala:100
 msgid "Revert to Original"
 msgstr "Originaali taastamine"
 
-#: src/Resources.vala:100
+#: src/Resources.vala:101
 msgid "Revert to the original photo"
 msgstr "Originaalfoto taastamine"
 
-#: src/Resources.vala:102
+#: src/Resources.vala:103
+msgid "Set as Desktop _Background"
+msgstr "Määra töölaua _taustaks"
+
+#: src/Resources.vala:104
+msgid "Set selected image to be the new desktop background"
+msgstr "Valitud pildi määramine uueks töölaua taustaks"
+
+#: src/Resources.vala:106
 msgid "_Undo"
 msgstr "_Võta tagasi"
 
-#: src/Resources.vala:103
+#: src/Resources.vala:107
 msgid "Undo"
 msgstr "Võta tagasi"
 
-#: src/Resources.vala:104
+#: src/Resources.vala:108
 msgid "Undo the last action"
 msgstr "Viimase tegevuse tagasivõtmine"
 
-#: src/Resources.vala:106
+#: src/Resources.vala:110
 msgid "_Redo"
 msgstr "_Võta tagasi"
 
-#: src/Resources.vala:107
+#: src/Resources.vala:111
 msgid "Redo"
 msgstr "Võta tagasi"
 
-#: src/Resources.vala:108
+#: src/Resources.vala:112
 msgid "Redo the last undone action"
 msgstr "Viimase tühistatud tegevuse uuesti tegemine"
 
-#: src/Resources.vala:110
+#: src/Resources.vala:114
 msgid "Re_name Event..."
 msgstr "Muuda sündmuse _nime..."
 
-#: src/Resources.vala:112
+#: src/Resources.vala:116
 msgid "Rename the selected event"
 msgstr "Valitud sündmuse ümbernimetamine"
 
-#: src/Resources.vala:114
+#: src/Resources.vala:118
 msgid "Make _Key Photo for Event"
 msgstr "Tee sündmuse _võtmefotoks"
 
-#: src/Resources.vala:115
+#: src/Resources.vala:119
 msgid "Make Key Photo for Event"
 msgstr "Sündmuse võtmefoto valimine"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:120
 msgid "Make the selected photo the thumbnail for the event"
 msgstr "Valitud foto määramine selle sündmuse pisipildiks"
 
-#: src/Resources.vala:118
+#: src/Resources.vala:122
 msgid "_New Event"
 msgstr "_Uus sündmus"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:123
 msgid "New Event"
 msgstr "Uus sündmus"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:124
 msgid "Create new event from the selected photos"
 msgstr "Uue sündmuse loomine valitud fotodest"
 
-#: src/Resources.vala:122
+#: src/Resources.vala:126
 msgid "Move Photos"
 msgstr "Fotode liigutamine"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:127
 msgid "Move photos to an event"
 msgstr "Foto tõstmine sündmusesse"
 
-#: src/Resources.vala:125
+#: src/Resources.vala:129
 msgid "_Merge Events"
 msgstr "_Sündmuste ühendamine"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:130
 msgid "Merge"
 msgstr "Ühenda"
 
-#: src/Resources.vala:127
+#: src/Resources.vala:131
 msgid "Merge into a single event"
 msgstr "Ühenda ühte sündmusesse"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:133
 msgid "Mark as _Favorite"
 msgstr "Märgi _lemmikuks"
 
-#: src/Resources.vala:130
+#: src/Resources.vala:134
 msgid "Mark as Favorite"
 msgstr "Lemmikuks märkimine"
 
-#: src/Resources.vala:131
+#: src/Resources.vala:135
 msgid "Mark the photo as one of your favorites"
 msgstr "Ühe foto märkimine lemmikuks"
 
-#: src/Resources.vala:133
+#: src/Resources.vala:137
 msgid "Unmark as _Favorite"
 msgstr "Eemalda _lemmiku märge"
 
-#: src/Resources.vala:134
+#: src/Resources.vala:138
 msgid "Unmark as Favorite"
 msgstr "Lemmikutest eemaldamine"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:139
 msgid "Unmark the photo as one of your favorites"
 msgstr "Foto eemaldamine lemmikute seast"
 
-#: src/Resources.vala:137
+#: src/Resources.vala:141
 msgid "_Hide"
 msgstr "_Peida"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:142
 msgid "Hide"
 msgstr "Peida"
 
-#: src/Resources.vala:139
+#: src/Resources.vala:143
 msgid "Hide the selected photos"
 msgstr "Valitud fotode varjamine"
 
-#: src/Resources.vala:141
+#: src/Resources.vala:145
 msgid "Un_hide"
 msgstr "_Peidust väljavõtmine"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:146
 msgid "Unhide"
 msgstr "Peidust väljavõtmine"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:147
 msgid "Unhide the selected photos"
 msgstr "Valitud fotode nähtavale toomine"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:149
 msgid "_Duplicate"
 msgstr "_Loo duplikaat"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:150
 msgid "Duplicate"
 msgstr "Loo duplikaat"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:151
 msgid "Make a duplicate of the photo"
 msgstr "Fotost duplikaadi tegemine"
 
-#: src/Resources.vala:149
-msgid "_Publish Photos..."
-msgstr "_Fotode avaldamine..."
+#: src/Resources.vala:154
+msgid "_Publish Photo..."
+msgid_plural "_Publish Photos..."
+msgstr[0] "_Foto avaldamine..."
+msgstr[1] "_Fotode avaldamine..."
 
-#: src/Resources.vala:150
+#: src/Resources.vala:157
 msgid "Publish"
 msgstr "Avalda"
 
-#: src/Resources.vala:151
-msgid "Publish the selected photos to various websites"
-msgstr "Avalda valitud fotod erinevatel veebilehtedel"
+#: src/Resources.vala:160
+msgid "Publish the photo to various websites"
+msgid_plural "Publish the selected photos to various websites"
+msgstr[0] "Valitud foto avaldamine erinevatel veebilehtedel"
+msgstr[1] "Valitud fotode avaldamine erinevatel veebilehtedel"
 
-#: src/SlideshowPage.vala:55
-#: src/SlideshowPage.vala:120
+#: src/Resources.vala:164
+msgid "_Adjust Date and Time..."
+msgstr "_Kuupäeva ja kella kohendamine..."
+
+#: src/Resources.vala:165
+msgid "Adjust Date and Time"
+msgstr "Kuupäeva ja kella kohendamine"
+
+#: src/Resources.vala:166
+msgid "Adjust date and time of selected photos"
+msgstr "Valitud fotode kuupäeva või kellaaja kohendamine"
+
+#: src/Resources.vala:168
+msgid "Add _Tags..."
+msgstr "Lisa _märksõnu..."
+
+#: src/Resources.vala:169
+#: src/Resources.vala:178
+msgid "Add Tags"
+msgstr "Märksõnade lisamine"
+
+#: src/Resources.vala:170
+msgid "Add one or more tags to the selected photos"
+msgstr "Valitud fotodele märksõnade lisamine"
+
+#: src/Resources.vala:174
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr "Lisa märksõna \"%s\""
+
+#: src/Resources.vala:176
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr "Lisa märksõnad \"%s\" ja \"%s\""
+
+#: src/Resources.vala:182
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr "_Kustuta märksõna \"%s\""
+
+#: src/Resources.vala:186
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr "Märksõna \"%s\" kustutamine"
+
+#: src/Resources.vala:190
+#, c-format
+msgid "Remove the tag \"%s\" from one photo"
+msgid_plural "Remove the tag \"%s\" from %d photos"
+msgstr[0] "Märksõna \"%s\" eemaldamine ühelt fotolt"
+msgstr[1] "Märksõna \"%s\" eemaldamine %d-lt fotolt"
+
+#: src/Resources.vala:194
+msgid "Delete Tag"
+msgstr "Märksõna kustutamine"
+
+#: src/Resources.vala:197
+#, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "_Nimeta ümber märksõna \"%s\"..."
+
+#: src/Resources.vala:201
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr "Märksõna \"%s\" ümbernimetamine \"%s\"-ks"
+
+#: src/Resources.vala:205
+#, c-format
+msgid "Rename the tag \"%s\""
+msgstr "Märksõna \"%s\" ümbernimetamine"
+
+#: src/Resources.vala:208
+msgid "Rename Tag"
+msgstr "Märksõna ümbernimetamine"
+
+#: src/Resources.vala:210
+msgid "_Modify Tags..."
+msgstr "_Märksõnade muutmine..."
+
+#: src/Resources.vala:211
+msgid "Modify Tags"
+msgstr "Märksõnade muutmine"
+
+#: src/Resources.vala:212
+msgid "Modify the tags for this photo"
+msgstr "Selle foto märksõnade muutmine"
+
+#: src/Resources.vala:215
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgid_plural "Tag Photos as \"%s\""
+msgstr[0] "Sildista foto kui \"%s\""
+msgstr[1] "Sildista fotod kui \"%s\""
+
+#: src/Resources.vala:219
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgid_plural "Tag the selected photos as \"%s\""
+msgstr[0] "Valitud foto sildistamine kui \"%s\""
+msgstr[1] "Valitud fotode sildistamine kui \"%s\""
+
+#: src/Resources.vala:223
+#, c-format
+msgid "_Remove Tag \"%s\" From Photo"
+msgid_plural "_Remove Tag \"%s\" From Photos"
+msgstr[0] "_Eemalda märksõna \"%s\" fotolt"
+msgstr[1] "_Eemalda märksõna \"%s\" fotodelt"
+
+#: src/Resources.vala:227
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgid_plural "Remove Tag \"%s\" From Photos"
+msgstr[0] "Eemalda märksõna \"%s\" fotolt"
+msgstr[1] "Eemalda märksõna \"%s\" fotodelt"
+
+#: src/Resources.vala:232
+#, c-format
+msgid "Remove tag \"%s\" from the selected photo"
+msgid_plural "Remove tag \"%s\" from the selected photos"
+msgstr[0] "Märksõna \"%s\" eemaldamine valitud fotolt"
+msgstr[1] "Märksõna \"%s\" eemaldamine valitud fotodelt"
+
+#: src/Resources.vala:237
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr "Märksõna nimeks pole võimalik anda \"%s\", kuna selline märksõna on juba olemas."
+
+#: src/SlideshowPage.vala:64
+#: src/SlideshowPage.vala:130
 msgid "Settings"
 msgstr "Sätted"
 
-#: src/SlideshowPage.vala:57
+#: src/SlideshowPage.vala:66
 msgid "Delay:"
 msgstr "Viivitus:"
 
-#: src/SlideshowPage.vala:58
+#: src/SlideshowPage.vala:67
 msgid "seconds"
 msgstr "sekundit"
 
-#: src/SlideshowPage.vala:99
+#: src/SlideshowPage.vala:109
 msgid "Back"
 msgstr "Tagasi"
 
-#: src/SlideshowPage.vala:100
+#: src/SlideshowPage.vala:110
 msgid "Go to the previous photo"
 msgstr "Liikumine eelmisele fotole"
 
-#: src/SlideshowPage.vala:106
-#: src/SlideshowPage.vala:210
+#: src/SlideshowPage.vala:116
+#: src/SlideshowPage.vala:229
 msgid "Pause"
 msgstr "Paus"
 
-#: src/SlideshowPage.vala:107
-#: src/SlideshowPage.vala:211
+#: src/SlideshowPage.vala:117
+#: src/SlideshowPage.vala:230
 msgid "Pause the slideshow"
 msgstr "Slaidiesitluse peatamine"
 
-#: src/SlideshowPage.vala:113
+#: src/SlideshowPage.vala:123
 msgid "Next"
 msgstr "Järgmine"
 
-#: src/SlideshowPage.vala:114
+#: src/SlideshowPage.vala:124
 msgid "Go to the next photo"
 msgstr "Liikumine järgmisele fotole"
 
-#: src/SlideshowPage.vala:121
+#: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
 msgstr "Slaidiesitluse sätete muutmine"
 
-#: src/SlideshowPage.vala:173
+#: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
 msgstr "Kõik lähtefailid puuduvad."
 
-#: src/SlideshowPage.vala:206
+#: src/SlideshowPage.vala:225
 msgid "Play"
 msgstr "Esita"
 
-#: src/SlideshowPage.vala:207
+#: src/SlideshowPage.vala:226
 msgid "Continue the slideshow"
 msgstr "Slaidiesitluse jätkamine"
+
+#: src/TagPage.vala:131
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] "See eemaldab märksõna \"%s\" ühelt fotolt. Kas jätkata?"
+msgstr[1] "See eemaldab märksõna \"%s\" %d-lt fotolt. Kas jätkata?"
 
 # Locale-specific date format string, conforming to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the date formatting conventions of their language, country, and region.
 #: src/util.vala:365
 msgid "%a %b %d, %Y"
 msgstr "%a, %e. %b %Y"
 
-#: src/WebConnectors.vala:319
-msgid "_Login"
-msgstr "_Logi sisse"
-
-#: src/WebConnectors.vala:411
+#: src/WebConnectors.vala:583
 msgid "Preparing photos for upload"
 msgstr "Fotode ettevalmistamine üleslaadimiseks"
 
-#: src/WebConnectors.vala:482
+#: src/WebConnectors.vala:646
 #, c-format
 msgid "Uploading photo %d of %d"
 msgstr "%d. foto %d-st üleslaadimine"
 
-#: src/WebConnectors.vala:523
+#: src/WebConnectors.vala:687
 msgid "The selected photos were successfully published."
 msgstr "Valitud fotode avaldamine oli edukas."
 
-#: src/WebConnectors.vala:551
+#: src/WebConnectors.vala:715
 msgid "Publish Photos"
 msgstr "Fotode avaldamine"
 
-#: src/WebConnectors.vala:560
+#: src/WebConnectors.vala:724
 msgid "Publish photos _to:"
 msgstr "Fotod _avaldatakse:"
 
-#: src/WebConnectors.vala:626
+#: src/WebConnectors.vala:791
 msgid "_Close"
 msgstr "_Sulge"
 
-#: src/WebConnectors.vala:630
+#: src/WebConnectors.vala:795
 msgid "_Cancel"
 msgstr "_Loobu"
 
-#: src/WebConnectors.vala:663
+#: src/WebConnectors.vala:828
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
 msgstr "Avaldamist keskkonnas %s pole võimalik jätkata, kuna teenusega ei saadud ühendust."
 
-#: src/WebConnectors.vala:666
+#: src/WebConnectors.vala:831
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
 msgstr "Avaldamist keskkonnas %s pole võimalik jätkata, kuna side teenusega nurjus."
 
-#: src/WebConnectors.vala:669
+#: src/WebConnectors.vala:834
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
 msgstr "Avaldamist keskkonnas %s pole võimalik jätkata protokollivea tõttu"
 
-#: src/WebConnectors.vala:671
+#: src/WebConnectors.vala:836
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
 msgstr "Avaldamist keskkonnas %s pole võimalik jätkata, kuna teenus tagastas vea."
 
-#: src/WebConnectors.vala:673
+#: src/WebConnectors.vala:838
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
 msgstr "Avaldamist keskkonnas %s pole võimalik jätkata, kuna saadi vigane vastus."
 
-#: src/WebConnectors.vala:676
+#: src/WebConnectors.vala:841
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
 msgstr "Avaldamist keskkonnas %s pole võimalik jätkata, kuna esines viga."
 
-#: src/WebConnectors.vala:680
+#: src/WebConnectors.vala:845
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "Et proovida avaldamist mõnda teise keskkonda, vali see ülalasuvast menüüst."
 
+#~ msgid ""
+#~ "Shotwell could not initialize a connection to the HAL daemon (hald).  "
+#~ "This usually means it is not running or not ready.  Rebooting may solve "
+#~ "this problem.\n"
+#~ "\n"
+#~ "Shotwell cannot detect cameras without the HAL daemon."
+#~ msgstr ""
+#~ "Shotwell ei suuda alustada ühendust HAL-deemoniga (hald). See tähendab "
+#~ "tavaliselt, et hald ei tööta või pole veel valmis. Arvuti taaskäivitus "
+#~ "võib selle probleemi lahendada.\n"
+#~ "\n"
+#~ "Shotwell ei suuda ilma HAL-deemonita kaameraid tuvastada."
+#~ msgid "_Slideshow"
+#~ msgstr "_Slaidiesitlus"
+#~ msgid ""
+#~ "This will remove the selected photos from your Shotwell library.  Would "
+#~ "you also like to delete the files from disk?\n"
+#~ "\n"
+#~ "This action cannot be undone."
+#~ msgstr ""
+#~ "See eemaldab valitud fotod Shotwelli kogust. Kas need tuleks kustutada ka "
+#~ "kettalt?\n"
+#~ "\n"
+#~ "Kustutamist pole võimalik tagasi võtta."
+#~ msgid "Your free Flickr account limits how much data you can "
+#~ msgstr "Sinu tasuta Flickri konto maht on piiratud, kui palju sa saad"
+#~ msgid "Bad import result (%d)"
+#~ msgstr "Vigane importimise tulem (%d)"
 #~ msgid "Rotate the selected photos counterclockwise"
 #~ msgstr "Valitud fotode pööramine vastupäeva"
 #~ msgid "Revert to original photo"
