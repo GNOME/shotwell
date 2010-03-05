@@ -21,7 +21,7 @@ private struct Album {
     }
 }
 
-private class PublishingParameters {
+private class PublishingParameters : Object {
     private string album_name;
     private string album_url;
     private bool album_public;

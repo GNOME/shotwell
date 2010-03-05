@@ -25,7 +25,7 @@ public abstract class BatchImportJob {
 //
 // Note that job may be null (in the case of a pre-failed job that must be reported) and file may
 // be null (for similar reasons).
-public class BatchImportResult {
+public class BatchImportResult : Object {
     public BatchImportJob job;
     public File file;
     public string identifier;
@@ -49,7 +49,7 @@ public class BatchImportResult {
     }
 }
 
-public class ImportManifest {
+public class ImportManifest : Object {
     public ImportID import_id = ImportID();
     public uint64 total_imported_bytes = 0;
     public Gee.List<LibraryPhoto> imported = new Gee.ArrayList<LibraryPhoto>();
