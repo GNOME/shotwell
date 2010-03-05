@@ -46,15 +46,6 @@ public abstract class DataObject : Object {
     public virtual signal void metadata_altered() {
     }
     
-    // This signal is fired when a collection property the DataObject is a member of is set (or
-    // changed).
-    public virtual signal void collection_property_set(string name, Value? old, Value val) {
-    }
-    
-    // This signal is fired when a collection property the DataObject is a member of is cleared.
-    public virtual signal void collection_property_cleared(string name) {
-    }
-    
     // NOTE: Supplying an object ID should *only* be used when reconstituting the object (generally
     // only done by DataSources).
     public DataObject(int64 object_id = INVALID_OBJECT_ID) {
@@ -94,14 +85,14 @@ public abstract class DataObject : Object {
     public virtual void notify_membership_changed(DataCollection? collection) {
     }
     
-    // Generally, this is only called by DataCollection.
+    // Generally, this is only called by DataCollection.  No signal is bound to this because
+    // it's not needed currently and affects performance.
     public virtual void notify_collection_property_set(string name, Value? old, Value val) {
-        collection_property_set(name, old, val);
     }
     
-    // Generally, this is only called by DataCollection.
+    // Generally, this is only called by DataCollection.  No signal is bound to this because
+    // it's not needed currently and affects performance.
     public virtual void notify_collection_property_cleared(string name) {
-        collection_property_cleared(name);
     }
     
     public abstract string get_name();
@@ -158,9 +149,9 @@ public abstract class DataObject : Object {
         return (result != null) ? result : def;
     }
     
-    public void set_collection_property(string name, Value val) {
+    public void set_collection_property(string name, Value val, ValueEqualFunc? value_equals = null) {
         if (member_of != null)
-            member_of.set_property(name, val);
+            member_of.set_property(name, val, value_equals);
     }
     
     public void clear_collection_property(string name) {

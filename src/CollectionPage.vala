@@ -91,7 +91,15 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().contents_altered += on_contents_altered;
         get_view().items_state_changed += on_selection_changed;
         get_view().items_visibility_changed += on_contents_altered;
-
+        
+        get_view().freeze_notifications();
+        get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
+            Config.get_instance().get_display_photo_titles());
+        get_view().set_property(Thumbnail.PROP_SHOW_TAGS, 
+            Config.get_instance().get_display_photo_tags());
+        get_view().set_property(Thumbnail.PROP_SIZE, scale);
+        get_view().thaw_notifications();
+        
         // adjustment which is shared by all sliders in the application
         if (slider_adjustment == null)
             slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0, 
@@ -431,8 +439,10 @@ public abstract class CollectionPage : CheckerboardPage {
     
     public override void switched_to() {
         // set display options to match Configuration toggles (which can change while switched away)
+        get_view().freeze_notifications();
         set_display_titles(Config.get_instance().get_display_photo_titles());
         set_display_tags(Config.get_instance().get_display_photo_tags());
+        get_view().thaw_notifications();
 
         sync_sort();
 
@@ -1204,10 +1214,12 @@ public class LibraryPage : CollectionPage {
     public LibraryPage(ProgressMonitor? monitor = null) {
         base(_("Photos"));
         
+        get_view().freeze_notifications();
         get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this),
             (Gee.Iterable<DataSource>) LibraryPhoto.global.get_all(), monitor);
+        get_view().thaw_notifications();
     }
-
+    
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
         Config.get_instance().get_library_photos_sort(out sort_order, out sort_by);
     }

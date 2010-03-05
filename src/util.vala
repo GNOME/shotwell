@@ -35,6 +35,16 @@ public bool file_equal(void *a, void *b) {
     return afile->get_path() == bfile->get_path();
 }
 
+public delegate bool ValueEqualFunc(Value a, Value b);
+
+public bool bool_value_equals(Value a, Value b) {
+    return (bool) a == (bool) b;
+}
+
+public bool int_value_equals(Value a, Value b) {
+    return (int) a == (int) b;
+}
+
 public ulong timeval_to_ms(TimeVal time_val) {
     return (((ulong) time_val.tv_sec) * 1000) + (((ulong) time_val.tv_usec) / 1000);
 }

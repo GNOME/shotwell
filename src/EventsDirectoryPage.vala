@@ -15,9 +15,8 @@ class EventDirectoryItem : CheckerboardItem {
     private Gdk.Rectangle paul_lynde = Gdk.Rectangle();
     
     public EventDirectoryItem(Event event) {
-        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE));
-        
-        set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
+        base(event, Dimensions(CROPPED_SCALE, CROPPED_SCALE), get_formatted_title(event), true,
+            Pango.Alignment.CENTER);
         
         this.event = event;
         

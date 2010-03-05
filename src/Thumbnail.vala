@@ -29,12 +29,11 @@ public class Thumbnail : CheckerboardItem {
     private bool needs_improvement = false;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
-        base(photo, photo.get_dimensions().get_scaled(scale, true));
+        base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
         
         this.photo = photo;
         this.scale = scale;
         
-        set_title(photo.get_name());
         update_tags();
         
         original_dim = photo.get_dimensions();
@@ -42,7 +41,6 @@ public class Thumbnail : CheckerboardItem {
         
         // if the photo's tags changes, update it here
         Tag.global.item_contents_altered += on_tag_contents_altered;
-        Tag.global.items_added += on_tags_added;
         Tag.global.item_altered += on_tag_altered;
     }
 
@@ -51,7 +49,7 @@ public class Thumbnail : CheckerboardItem {
             cancellable.cancel();
         
         Tag.global.item_contents_altered -= on_tag_contents_altered;
-        Tag.global.item_altered += on_tag_altered;
+        Tag.global.item_altered -= on_tag_altered;
     }
     
     private void update_tags() {
@@ -70,19 +68,6 @@ public class Thumbnail : CheckerboardItem {
         // if photo we're monitoring is added or removed to any tag, update tag list
         if (tag_added || tag_removed)
             update_tags();
-    }
-    
-    private void on_tags_added(Gee.Iterable<DataObject> added) {
-        foreach (DataObject object in added) {
-            Tag tag = (Tag) object;
-            
-            if (tag.get_photos().contains(photo)) {
-                update_tags();
-                
-                // only need to update once
-                break;
-            }
-        }
     }
     
     private void on_tag_altered(DataObject source) {

@@ -121,12 +121,16 @@ public abstract class CheckerboardItem : ThumbnailView {
     private int col = -1;
     private int row = -1;
     
-    public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim) {
+    public CheckerboardItem(ThumbnailSource source, Dimensions initial_pixbuf_dim, string title,
+        bool marked_up = false, Pango.Alignment alignment = Pango.Alignment.LEFT) {
         base(source);
         
         pixbuf_dim = initial_pixbuf_dim;
+        this.title = new CheckerboardItemText(title, alignment, marked_up);
         
-        recalc_size("ctor", true);
+        // Don't calculate size here, wait for the item to be assigned to a ViewCollection
+        // (notify_membership_changed) and calculate when the collection's property settings
+        // are known
     }
     
     public override string get_name() {
@@ -200,8 +204,24 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     protected override void notify_membership_changed(DataCollection? collection) {
-        title_visible = (bool) get_collection_property(PROP_SHOW_TITLES, true);
-        subtitle_visible = (bool) get_collection_property(PROP_SHOW_SUBTITLES, false);
+        bool title_visible = (bool) get_collection_property(PROP_SHOW_TITLES, true);
+        bool subtitle_visible = (bool) get_collection_property(PROP_SHOW_SUBTITLES, false);
+        
+        bool altered = false;
+        if (this.title_visible != title_visible) {
+            this.title_visible = title_visible;
+            altered = true;
+        }
+        
+        if (this.subtitle_visible != subtitle_visible) {
+            this.subtitle_visible = subtitle_visible;
+            altered = true;
+        }
+        
+        if (altered) {
+            recalc_size("notify_membership_changed");
+            notify_view_altered();
+        }
         
         base.notify_membership_changed(collection);
     }
@@ -705,6 +725,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // and the new
         Gee.HashSet<CheckerboardItem> new_exposed_items = new Gee.HashSet<CheckerboardItem>();
         
+        view.freeze_notifications();
+        
         Gee.List<CheckerboardItem> items = intersection(visible_page);
         foreach (CheckerboardItem item in items) {
             new_exposed_items.add(item);
@@ -720,6 +742,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // swap out lists
         exposed_items = new_exposed_items;
+        
+        view.thaw_notifications();
     }
     
     public void set_in_view(bool in_view) {
@@ -742,10 +766,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         visible_page = Gdk.Rectangle();
 
         // unexpose everything currently exposed
+        view.freeze_notifications();
         foreach (CheckerboardItem item in exposed_items)
             item.unexposed();
         
         exposed_items.clear();
+        view.thaw_notifications();
     }
     
     public CheckerboardItem? get_item_at_pixel(double xd, double yd) {
@@ -1332,8 +1358,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // update visible page rect but don't call expose events, as reflow will do that
             update_visible_page(false);
             
-            if (reflow("size_allocate (%d)".printf(last_width)))
-                queue_draw();
+            schedule_background_reflow("size_allocate (%d)".printf(last_width));
         } else {
             // update visible page rect, re-exposing as necessary
             update_visible_page();

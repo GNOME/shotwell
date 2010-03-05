@@ -115,9 +115,7 @@ class ImportPreview : CheckerboardItem {
     public const int MAX_SCALE = 128;
     
     public ImportPreview(ImportSource source) {
-        base(source, Dimensions());
-        
-        set_title(source.get_filename());
+        base(source, Dimensions(), source.get_filename());
         
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;

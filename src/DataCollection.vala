@@ -705,8 +705,22 @@ public class DataCollection {
         return properties.get(name);
     }
     
-    public void set_property(string name, Value val) {
+    public void set_property(string name, Value val, ValueEqualFunc? value_equals = null) {
+        if (value_equals == null) {
+            if (val.holds(typeof(bool)))
+                value_equals = bool_value_equals;
+            else if (val.holds(typeof(int)))
+                value_equals = int_value_equals;
+            else
+                error("value_equals must be specified for this type");
+        }
+        
         Value? old = properties.get(name);
+        if (old != null) {
+            if (value_equals(old, val))
+                return;
+        }
+        
         properties.set(name, val);
         
         notify_property_set(name, old, val);
