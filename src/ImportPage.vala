@@ -1025,7 +1025,11 @@ public class ImportQueuePage : SinglePhotoPage {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private uint64 progress_bytes = 0;
     private uint64 total_bytes = 0;
- 
+    
+    public signal void batch_added(BatchImport batch_import);
+    
+    public signal void batch_removed(BatchImport batch_import);
+    
     public ImportQueuePage() {
         base(_("Importing..."), false);
 
@@ -1080,10 +1084,6 @@ public class ImportQueuePage : SinglePhotoPage {
 
         return actions;
     }
-    
-    public signal void batch_added(BatchImport batch_import);
-    
-    public signal void batch_removed(BatchImport batch_import);
     
     public void enqueue_and_schedule(BatchImport batch_import) {
         assert(!queue.contains(batch_import));

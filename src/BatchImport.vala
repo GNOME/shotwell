@@ -127,7 +127,7 @@ public class ImportManifest : Object {
 // machine) that exists in states and responds to various events thrown off by the background
 // jobs.  However, getting this code to a point that it works with threads is task enough, so it
 // will have to wait (especially since we'll want to write a generic FSM engine).
-public class BatchImport {
+public class BatchImport : Object {
     private static Workers workers = new Workers(2, false);
     
     private Gee.Iterable<BatchImportJob> jobs;
