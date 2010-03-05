@@ -196,6 +196,13 @@ ifndef BUILD_DIR
 BUILD_DIR=src
 endif
 
+DESKTOP_APPLICATION_NAME="Shotwell Photo Manager"
+DESKTOP_APPLICATION_COMMENT="Organize your photos"
+DESKTOP_APPLICATION_CLASS="Photo Manager"
+DIRECT_EDIT_DESKTOP_APPLICATION_NAME="Shotwell Photo Viewer"
+DIRECT_EDIT_DESKTOP_APPLICATION_CLASS="Photo Viewer"
+TEMPORARY_DESKTOP_FILES = misc/shotwell.desktop misc/shotwell-viewer.desktop
+
 EXPANDED_PO_FILES = $(foreach po,$(SUPPORTED_LANGUAGES),po/$(po).po)
 EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
 EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
@@ -269,6 +276,7 @@ clean:
 	rm -f $(PROGRAM)
 	rm -rf $(LOCAL_LANG_DIR)
 	rm -f $(LANG_STAMP)
+	rm -f $(TEMPORARY_DESKTOP_FILES)
 
 cleantemps:
 	rm -f $(EXPANDED_C_FILES)
@@ -294,6 +302,20 @@ distclean: clean
 	rm -f configure.mk
 
 install:
+	cp misc/shotwell.desktop.head misc/shotwell.desktop
+	cp misc/shotwell-viewer.desktop.head misc/shotwell-viewer.desktop
+	$(foreach lang,$(SUPPORTED_LANGUAGES), echo Name[$(lang)]=`TEXTDOMAINDIR=locale-langpack \
+        LANGUAGE=$(lang) gettext --domain=shotwell $(DESKTOP_APPLICATION_NAME)` \
+        >> misc/shotwell.desktop ; \
+        echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) \
+        gettext --domain=shotwell $(DESKTOP_APPLICATION_CLASS)` >> misc/shotwell.desktop ; \
+        echo Comment[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+        --domain=shotwell $(DESKTOP_APPLICATION_COMMENT)` >> misc/shotwell.desktop ; \
+        echo Name[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+        --domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_NAME)` >> misc/shotwell-viewer.desktop ; \
+        echo GenericName[$(lang)]=`TEXTDOMAINDIR=locale-langpack LANGUAGE=$(lang) gettext \
+        --domain=shotwell $(DIRECT_EDIT_DESKTOP_APPLICATION_CLASS)` >> misc/shotwell-viewer.desktop ;)
+	touch $(LANG_STAMP)
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL_PROGRAM) $(PROGRAM) $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(DESTDIR)$(PREFIX)/share/shotwell/icons

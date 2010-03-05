@@ -3,7 +3,6 @@ Version=1.0
 Name=Shotwell Photo Manager
 GenericName=Photo Manager
 Comment=Organize your photos
-Comment[fr]=Organisez vos photos
 Exec=shotwell %U
 Icon=shotwell
 Terminal=false
@@ -11,4 +10,3 @@ Type=Application
 MimeType=x-content/image-dcf;
 Categories=Graphics;Photography;GNOME;GTK;
 X-GIO-NoFuse=true
-
