@@ -936,7 +936,7 @@ public class ImportPage : CheckerboardPage {
                 failed, already_imported);
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.import_complete += close_import;
-            print("about to enqueue...at importpage\n");
+            
             LibraryWindow.get_app().enqueue_batch_import(batch_import);
             LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
