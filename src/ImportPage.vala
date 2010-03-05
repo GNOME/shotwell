@@ -21,8 +21,8 @@ class ImportSource : PhotoSource {
     private Exif.Data exif = null;
     private string exif_md5 = null;
     
-    public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, string filename, 
-        ulong file_size, ulong preview_size) {
+    public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
+        string filename, ulong file_size, ulong preview_size) {
         this.camera_name = camera_name;
         this.camera = camera;
         this.fsid = fsid;
@@ -936,6 +936,7 @@ public class ImportPage : CheckerboardPage {
                 failed, already_imported);
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.import_complete += close_import;
+            print("about to enqueue...at importpage\n");
             LibraryWindow.get_app().enqueue_batch_import(batch_import);
             LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes

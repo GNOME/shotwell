@@ -1448,7 +1448,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_file_menu() {
 #if !NO_PRINTING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/PrintPlaceholder/Print", has_photo());
+        set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", has_photo());
 #endif
 
         set_item_sensitive("/PhotoMenuBar/FileMenu/Export", has_photo());

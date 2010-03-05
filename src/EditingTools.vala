@@ -469,7 +469,7 @@ public class CropTool : EditingTool {
     private class CropToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
         
-        public Gtk.Button apply_button = new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
+        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.STOCK_OK);
         public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
         public Gtk.ComboBox constraint_combo;
         public Gtk.Button pivot_reticle_button = new Gtk.Button();
@@ -487,8 +487,8 @@ public class CropTool : EditingTool {
             cancel_button.set_tooltip_text(_("Return to current photo dimensions"));
             cancel_button.set_image_position(Gtk.PositionType.LEFT);
             
-            apply_button.set_tooltip_text(_("Set the crop for this photo"));
-            apply_button.set_image_position(Gtk.PositionType.LEFT);
+            ok_button.set_tooltip_text(_("Set the crop for this photo"));
+            ok_button.set_image_position(Gtk.PositionType.LEFT);
             
             constraint_combo = new Gtk.ComboBox();
             Gtk.CellRendererText combo_text_renderer = new Gtk.CellRendererText();
@@ -498,19 +498,22 @@ public class CropTool : EditingTool {
             constraint_combo.set_active(0);
             
             pivot_reticle_button.set_image(new Gtk.Image.from_stock(Resources.CROP_PIVOT_RETICLE,
-                Gtk.IconSize.LARGE_TOOLBAR));
+                Gtk.IconSize.SMALL_TOOLBAR));
             pivot_reticle_button.set_tooltip_text(_("Pivot the crop rectangle between portrait and landscape orientations"));
 
             custom_width_entry.set_width_chars(4);
             custom_width_entry.editable = true;
             custom_height_entry.set_width_chars(4);
             custom_height_entry.editable = true;
+            
+            Gtk.HBox response_layout = new Gtk.HBox(true, CONTROL_SPACING);
+            response_layout.add(cancel_button);
+            response_layout.add(ok_button);
 
             layout = new Gtk.HBox(false, CONTROL_SPACING);
             layout.add(constraint_combo);
             layout.add(pivot_reticle_button);
-            layout.add(cancel_button);
-            layout.add(apply_button);
+            layout.add(response_layout);
             
             add(layout);
         }
@@ -776,7 +779,7 @@ public class CropTool : EditingTool {
         crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
         crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.remove(crop_tool_window.cancel_button);
-        crop_tool_window.layout.remove(crop_tool_window.apply_button);
+        crop_tool_window.layout.remove(crop_tool_window.ok_button);
 
         crop_tool_window.layout.add(crop_tool_window.constraint_combo);
         crop_tool_window.layout.add(crop_tool_window.custom_height_entry);
@@ -784,7 +787,7 @@ public class CropTool : EditingTool {
         crop_tool_window.layout.add(crop_tool_window.custom_width_entry);
         crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.add(crop_tool_window.cancel_button);
-        crop_tool_window.layout.add(crop_tool_window.apply_button);
+        crop_tool_window.layout.add(crop_tool_window.ok_button);
         
         if (reticle_orientation == ReticleOrientation.LANDSCAPE) {
             crop_tool_window.custom_width_entry.set_text("%d".printf(custom_init_width));
@@ -817,12 +820,12 @@ public class CropTool : EditingTool {
         crop_tool_window.layout.remove(crop_tool_window.custom_height_entry);
         crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.remove(crop_tool_window.cancel_button);
-        crop_tool_window.layout.remove(crop_tool_window.apply_button);
+        crop_tool_window.layout.remove(crop_tool_window.ok_button);
 
         crop_tool_window.layout.add(crop_tool_window.constraint_combo);
         crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
         crop_tool_window.layout.add(crop_tool_window.cancel_button);
-        crop_tool_window.layout.add(crop_tool_window.apply_button);
+        crop_tool_window.layout.add(crop_tool_window.ok_button);
 
         crop_tool_window.resize(crop_tool_window.normal_width,
             crop_tool_window.normal_height);
@@ -973,7 +976,7 @@ public class CropTool : EditingTool {
     }
     
     private void bind_window_handlers() {
-        crop_tool_window.apply_button.clicked += on_crop_apply;
+        crop_tool_window.ok_button.clicked += on_crop_ok;
         crop_tool_window.cancel_button.clicked += notify_cancel;
         crop_tool_window.constraint_combo.changed += constraint_changed;
         crop_tool_window.pivot_reticle_button.clicked += on_pivot_button_clicked;
@@ -986,7 +989,7 @@ public class CropTool : EditingTool {
     }
     
     private void unbind_window_handlers() {
-        crop_tool_window.apply_button.clicked -= on_crop_apply;
+        crop_tool_window.ok_button.clicked -= on_crop_ok;
         crop_tool_window.cancel_button.clicked -= notify_cancel;
         crop_tool_window.constraint_combo.changed -= constraint_changed;
         crop_tool_window.pivot_reticle_button.clicked -= on_pivot_button_clicked;
@@ -1148,7 +1151,7 @@ public class CropTool : EditingTool {
         paint_crop_tool(scaled_crop);
     }
     
-    private void on_crop_apply() {
+    private void on_crop_ok() {
         // scale screen-coordinate crop to photo's coordinate system
         Box crop = scaled_crop.get_scaled_similar(
             Dimensions.for_rectangle(canvas.get_scaled_pixbuf_position()), 
@@ -2007,14 +2010,10 @@ public class AdjustTool : EditingTool {
         public Gtk.HScale shadows_slider = new Gtk.HScale.with_range(
             ShadowDetailTransformation.MIN_PARAMETER, ShadowDetailTransformation.MAX_PARAMETER,
             1.0);
-        public Gtk.Button apply_button =
-            new Gtk.Button.from_stock(Gtk.STOCK_APPLY);
-        public Gtk.Button reset_button =
-            new Gtk.Button.with_mnemonic(_("_Reset"));
-        public Gtk.Button cancel_button =
-            new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
-        public RGBHistogramManipulator histogram_manipulator =
-            new RGBHistogramManipulator();
+        public Gtk.Button ok_button = new Gtk.Button.from_stock(Gtk.STOCK_OK);
+        public Gtk.Button reset_button = new Gtk.Button.with_mnemonic(_("_Reset"));
+        public Gtk.Button cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
+        public RGBHistogramManipulator histogram_manipulator = new RGBHistogramManipulator();
 
         public AdjustToolWindow(Gtk.Window container) {
             base(container);
@@ -2068,7 +2067,7 @@ public class AdjustTool : EditingTool {
             button_layouter.set_homogeneous(true);
             button_layouter.pack_start(cancel_button, true, true, 1);
             button_layouter.pack_start(reset_button, true, true, 1);
-            button_layouter.pack_start(apply_button, true, true, 1);
+            button_layouter.pack_start(ok_button, true, true, 1);
 
             Gtk.Alignment histogram_aligner = new Gtk.Alignment(0.5f, 0.0f, 0.0f, 0.0f);
             histogram_aligner.add(histogram_manipulator);
@@ -2378,7 +2377,7 @@ public class AdjustTool : EditingTool {
         AppWindow.get_command_manager().execute(command);
     }
 
-    private void on_apply() {
+    private void on_ok() {
         suppress_effect_redraw = true;
 
         get_tool_window().hide();
@@ -2465,7 +2464,7 @@ public class AdjustTool : EditingTool {
     }
     
     private void bind_window_handlers() {
-        adjust_tool_window.apply_button.clicked += on_apply;
+        adjust_tool_window.ok_button.clicked += on_ok;
         adjust_tool_window.reset_button.clicked += on_reset;
         adjust_tool_window.cancel_button.clicked += notify_cancel;
         adjust_tool_window.exposure_slider.value_changed += on_exposure_adjustment;
@@ -2481,7 +2480,7 @@ public class AdjustTool : EditingTool {
     }
 
     private void unbind_window_handlers() {
-        adjust_tool_window.apply_button.clicked -= on_apply;
+        adjust_tool_window.ok_button.clicked -= on_ok;
         adjust_tool_window.reset_button.clicked -= on_reset;
         adjust_tool_window.cancel_button.clicked -= notify_cancel;
         adjust_tool_window.exposure_slider.value_changed -= on_exposure_adjustment;
