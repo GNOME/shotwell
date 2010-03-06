@@ -1637,6 +1637,7 @@ public class PhotoDragAndDropHandler {
         this.page = page;
         this.event_source = page.get_event_source();
         assert(event_source != null);
+        assert((event_source.flags & Gtk.WidgetFlags.NO_WINDOW) == 0);
         
         // Need to do this because static member variables are not properly handled
         if (XDS_ATOM == null)
@@ -1673,10 +1674,10 @@ public class PhotoDragAndDropHandler {
     }
     
     private void on_drag_begin(Gdk.DragContext context) {
+        debug("on_drag_begin (%s)", page.get_page_name());
+        
         if (page == null || page.get_view().get_selected_count() == 0)
             return;
-        
-        debug("on_drag_begin (%s)", page.get_page_name());
         
         drag_destination = null;
         
@@ -1698,6 +1699,8 @@ public class PhotoDragAndDropHandler {
     
     private void on_drag_data_get(Gdk.DragContext context, Gtk.SelectionData selection_data,
         uint target_type, uint time) {
+        debug("on_drag_data_get (%s)", page.get_page_name());
+        
         if (page == null || page.get_view().get_selected_count() == 0)
             return;
         
@@ -1741,12 +1744,9 @@ public class PhotoDragAndDropHandler {
     }
     
     private void on_drag_end() {
-        if (page == null || page.get_view().get_selected_count() == 0)
-            return;
-        
         debug("on_drag_end (%s)", page.get_page_name());
         
-        if (drag_destination == null)
+        if (page == null || page.get_view().get_selected_count() == 0 || drag_destination == null)
             return;
         
         debug("Exporting to %s", drag_destination.get_path());
@@ -1758,10 +1758,10 @@ public class PhotoDragAndDropHandler {
     }
     
     private bool on_drag_failed(Gdk.DragContext context, Gtk.DragResult drag_result) {
+        debug("on_drag_failed (%s): %d", page.get_page_name(), (int) drag_result);
+        
         if (page == null)
             return false;
-        
-        debug("on_drag_failed (%s): %d", page.get_page_name(), (int) drag_result);
         
         drag_destination = null;
         

@@ -154,6 +154,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // clear out the collection and use this as its sole member
         get_view().clear();
         get_view().add(new PhotoView(photo));
+        get_view().select_all();
     }
     
     public override void switched_to() {
