@@ -82,6 +82,10 @@ public abstract class DataObject : Object {
     
     // There is no membership_changed signal as it's expensive (esp. at startup) and not needed
     // at this time.  The notify_membership_changed mechanism is still in place for subclasses.
+    // This is called after the change has occurred (i.e., after the DataObject has been added
+    // to the DataCollection, or after it has been remove from the same).
+    //
+    // This is only called by DataCollection.
     public virtual void notify_membership_changed(DataCollection? collection) {
     }
     
@@ -107,26 +111,24 @@ public abstract class DataObject : Object {
         return member_of != null;
     }
     
-    // This method is only called by DataCollection.
+    // This method is only called by DataCollection.  It's called after the DataObject has been
+    // assigned to a DataCollection.
     public void internal_set_membership(DataCollection collection, int64 ordinal) {
         assert(member_of == null);
         
         member_of = collection;
         this.ordinal = ordinal;
-
-        notify_membership_changed(member_of);
         
 #if TRACE_DTORS
         dbg_to_string = to_string();
 #endif
     }
     
-    // This method is only called by DataCollection
+    // This method is only called by DataCollection.  It's called after the DataObject has been
+    // assigned to a DataCollection.
     public void internal_clear_membership() {
         member_of = null;
         ordinal = DataCollection.INVALID_OBJECT_ORDINAL;
-
-        notify_membership_changed(null);
     }
     
     // This method is only called by DataCollection and DataSet

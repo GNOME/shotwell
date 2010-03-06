@@ -218,7 +218,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             altered = true;
         }
         
-        if (altered) {
+        if (altered || !requisition.has_area()) {
             recalc_size("notify_membership_changed");
             notify_view_altered();
         }
@@ -303,7 +303,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         return null;
     }
     
-    private void recalc_size(string reason, bool in_ctor = false) {
+    private void recalc_size(string reason) {
         Dimensions old_requisition = requisition;
         
         // only add in the text heights if they're displayed
@@ -315,12 +315,10 @@ public abstract class CheckerboardItem : ThumbnailView {
         // calculate width of all trinkets ... this is important because the trinkets could be
         // wider than the image, in which case need to expand for them
         int trinkets_width = 0;
-        if (!in_ctor) {
-            Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
-            if (trinkets != null) {
-                foreach (Gdk.Pixbuf trinket in trinkets)
-                    trinkets_width += trinket.get_width() + TRINKET_PADDING;
-            }
+        Gee.List<Gdk.Pixbuf>? trinkets = get_trinkets(TRINKET_SCALE);
+        if (trinkets != null) {
+            foreach (Gdk.Pixbuf trinket in trinkets)
+                trinkets_width += trinket.get_width() + TRINKET_PADDING;
         }
         
         int image_width = int.max(trinkets_width, pixbuf_dim.width);
@@ -339,7 +337,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             get_source().get_name(), reason, title_height, subtitle_height, requisition.to_string());
 #endif
         
-        if (!in_ctor && !requisition.approx_equals(old_requisition)) {
+        if (!requisition.approx_equals(old_requisition)) {
 #if TRACE_REFLOW_ITEMS
             debug("recalc_size %s: %s notifying geometry altered", get_source().get_name(), reason);
 #endif
@@ -1302,9 +1300,15 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private void repaint_item(CheckerboardItem item) {
         if (!item.is_visible())
             return;
-
+        
         assert(view.contains(item));
-        assert(item.allocation.width > 0 && item.allocation.height > 0);
+        
+        // if not allocated, need to reflow the entire layout
+        if (item.allocation.width <= 0 || item.allocation.height <= 0) {
+            schedule_background_reflow("repaint_item");
+            
+            return;
+        }
         
         // only repaint if visible in viewport
         Gdk.Rectangle bitbucket = Gdk.Rectangle();

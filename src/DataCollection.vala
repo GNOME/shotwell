@@ -478,6 +478,8 @@ public class DataCollection {
         
         bool added = dataset.add(object);
         assert(added);
+        
+        object.notify_membership_changed(this);
     }
     
     private void internal_add_many(Gee.List<DataObject> objects, ProgressMonitor? monitor) {
@@ -494,13 +496,17 @@ public class DataCollection {
         
         bool added = dataset.add_many(objects);
         assert(added);
+        
+        for (int ctr = 0; ctr < count; ctr++)
+            objects.get(ctr).notify_membership_changed(this);
     }
     
     private void internal_remove(DataObject object) {
-        object.internal_clear_membership();
-        
         bool removed = dataset.remove(object);
         assert(removed);
+        
+        object.internal_clear_membership();
+        object.notify_membership_changed(null);
     }
     
     // Returns false if item is already part of the collection.
