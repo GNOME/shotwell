@@ -113,6 +113,8 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
     return pixbuf.scale_simple(resized.width, resized.height, interp);
 }
 
+private const double DEGREE = Math.PI / 180.0;
+
 void draw_rounded_corners_pixbuf(Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin, 
     double radius_proportion) {
     // establish a reasonable range
@@ -128,17 +130,13 @@ void draw_rounded_corners_pixbuf(Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.P
     // the radius of the corners is proportional to the distance of the minor axis
     double radius = ((double) dim.minor_axis()) / radius_proportion;
     
-    // create context and clipping region, starting from the top left curve and working around
+    // create context and clipping region, starting from the top right arc and working around
     // clockwise
     Cairo.Context cx = Gdk.cairo_create(drawable);
-    cx.move_to(left, top + radius);
-    cx.curve_to(left, top, left, top, left + radius, top);
-    cx.line_to(right - radius, top);
-    cx.curve_to(right, top, right, top, right, top + radius);
-    cx.line_to(right, bottom - radius);
-    cx.curve_to(right, bottom, right, bottom, right - radius, bottom);
-    cx.line_to(left + radius, bottom);
-    cx.curve_to(left, bottom, left, bottom, left, bottom - radius);
+    cx.arc(right - radius, top + radius, radius, -90 * DEGREE, 0 * DEGREE);
+    cx.arc(right - radius, bottom - radius, radius, 0 * DEGREE, 90 * DEGREE);
+    cx.arc(left + radius, bottom - radius, radius, 90 * DEGREE, 180 * DEGREE);
+    cx.arc(left + radius, top + radius, radius, 180 * DEGREE, 270 * DEGREE);
     cx.clip();
     
     // load pixbuf into the clipped context
