@@ -209,19 +209,19 @@ public class CustomPrintTab : Gtk.Fixed {
 
         Gtk.VBox inner_wrapper = new Gtk.VBox(true, 8);
 
-        Gtk.Table image_size_layouter = new Gtk.Table(7, 3, false);
+        Gtk.Table master_layouter = new Gtk.Table(8, 3, false);
 
         Gtk.Label image_size_header = new Gtk.Label("");
         image_size_header.set_markup("<b>" + _("Printed Image Size") + "</b>");
-        image_size_layouter.attach(image_size_header, 0, 2, 0, 1,
+        master_layouter.attach(image_size_header, 0, 3, 0, 1,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
         image_size_header.set_alignment(0.0f, 0.5f);
 
         Gtk.Label indenter = new Gtk.Label(" ");
-        image_size_layouter.attach(indenter, 0, 1, 1, 2,
+        master_layouter.attach(indenter, 0, 1, 1, 2,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
         standard_size_radio = new Gtk.RadioButton.with_mnemonic(null,
             _("Use a _standard size:"));
@@ -235,15 +235,15 @@ public class CustomPrintTab : Gtk.Fixed {
             standard_size_radio.get_group(), _("_Fill the entire page"));
         fill_page_radio.set_alignment(0.0f, 0.5f);
         fill_page_radio.clicked += on_radio_group_click;
-        image_size_layouter.attach(standard_size_radio, 1, 2, 1, 2,
+        master_layouter.attach(standard_size_radio, 1, 2, 1, 2,
              Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
-        image_size_layouter.attach(custom_size_radio, 1, 2, 2, 3,
+             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 8);
+        master_layouter.attach(custom_size_radio, 1, 2, 2, 3,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
-        image_size_layouter.attach(fill_page_radio, 1, 2, 3, 4,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
+        master_layouter.attach(fill_page_radio, 1, 2, 4, 5,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
 
         StandardPrintSize[] standard_sizes = PrintManager.get_instance().get_standard_sizes();
         standard_sizes_combo = new Gtk.ComboBox();
@@ -264,9 +264,9 @@ public class CustomPrintTab : Gtk.Fixed {
         Gtk.Alignment standard_sizes_combo_aligner =
             new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         standard_sizes_combo_aligner.add(standard_sizes_combo);
-        image_size_layouter.attach(standard_sizes_combo_aligner, 2, 3, 1, 2,
+        master_layouter.attach(standard_sizes_combo_aligner, 2, 3, 1, 2,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
 
         Gtk.HBox custom_entries_layouter = new Gtk.HBox(false, 0);
         custom_width_entry = new Gtk.Entry();
@@ -294,29 +294,28 @@ public class CustomPrintTab : Gtk.Fixed {
             new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         units_combo_aligner.add(units_combo);
         custom_entries_layouter.add(units_combo_aligner);
-        Gtk.SeparatorToolItem combo_check_spacer = new Gtk.SeparatorToolItem();
-        combo_check_spacer.set_draw(false);
-        combo_check_spacer.set_size_request(10, -1);
-        custom_entries_layouter.add(combo_check_spacer);
+        master_layouter.attach(custom_entries_layouter, 2, 3, 2, 3,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
+
         aspect_ratio_check =
             new Gtk.CheckButton.with_mnemonic(_("_Match photo aspect ratio"));
-        custom_entries_layouter.add(aspect_ratio_check);
-        image_size_layouter.attach(custom_entries_layouter, 2, 3, 2, 3,
+        master_layouter.attach(aspect_ratio_check, 2, 3, 3, 4,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 2);
 
         Gtk.SeparatorToolItem size_ppi_spacer = new Gtk.SeparatorToolItem();
         size_ppi_spacer.set_size_request(-1, 20);
         size_ppi_spacer.set_draw(false);
-        image_size_layouter.attach(size_ppi_spacer, 0, 2, 4, 5,
+        master_layouter.attach(size_ppi_spacer, 0, 2, 5, 6,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 8);
 
         Gtk.Label ppi_header = new Gtk.Label("");
         ppi_header.set_markup("<b>" + _("Pixel Resolution") + "</b>");
-        image_size_layouter.attach(ppi_header, 0, 2, 5, 6,
+        master_layouter.attach(ppi_header, 0, 3, 6, 7,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 4);
         ppi_header.set_alignment(0.0f, 0.5f);
 
         Gtk.HBox ppi_entry_layouter = new Gtk.HBox(false, 0);
@@ -336,15 +335,15 @@ public class CustomPrintTab : Gtk.Fixed {
         ppi_entry_layouter.add(ppi_units_label);
         ppi_units_label.set_alignment(0.0f, 0.5f);
         Gtk.SeparatorToolItem ppi_entry_right_padding = new Gtk.SeparatorToolItem();
-        ppi_entry_right_padding.set_size_request(220, -1);
+        ppi_entry_right_padding.set_size_request(-1, -1);
         ppi_entry_right_padding.set_draw(false);
         ppi_entry_layouter.add(ppi_entry_right_padding);
-        image_size_layouter.attach(ppi_entry_layouter, 1, 3, 6, 7,
+        master_layouter.attach(ppi_entry_layouter, 1, 3, 7, 8,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
-            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 0);
+            Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 9, 4);
 
         Gtk.HBox horiz_packer = new Gtk.HBox(false, 8);
-        horiz_packer.add(image_size_layouter);
+        horiz_packer.add(master_layouter);
         Gtk.SeparatorToolItem right_padding = new Gtk.SeparatorToolItem();
         right_padding.set_size_request(50, -1);
         right_padding.set_draw(false);
@@ -356,7 +355,7 @@ public class CustomPrintTab : Gtk.Fixed {
         inner_wrapper.add(bottom_padding);
 
         put(inner_wrapper, 8, 8);
-        inner_wrapper.set_size_request(550, 340);
+        inner_wrapper.set_size_request(400, 340);
 
         sync_state_from_job(source_job);
 
