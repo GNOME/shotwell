@@ -893,6 +893,8 @@ public class LibraryWindow : AppWindow {
                     sidebar.insert_child_sorted(get_parent_page(stub.event).get_marker(), stub,
                         get_event_branch_comparator(get_events_sort()));
 
+                    sidebar.expand_tree(stub.get_marker());
+
                     if (get_current_page() is EventPage &&
                         ((EventPage) get_current_page()).page_event.equals(event))
                         sidebar.place_cursor(stub);
