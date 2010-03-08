@@ -717,7 +717,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
     TimeSystem previous_time_system;
 
-    public AdjustDateTimeDialog(PhotoSource source, int photo_count, bool display_modify_original = true) {
+    public AdjustDateTimeDialog(PhotoSource source, int photo_count, bool display_options = true) {
         assert(source != null);
 
         set_modal(true);
@@ -770,31 +770,35 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         relativity_radio_button = new Gtk.RadioButton.with_mnemonic(null, 
             _("_Shift photos by the same amount"));
         relativity_radio_button.set_active(Config.get_instance().get_keep_relativity());
-        relativity_radio_button.sensitive = photo_count > 1;
+        relativity_radio_button.sensitive = display_options && photo_count > 1;
 
         batch_radio_button = new Gtk.RadioButton.with_mnemonic(relativity_radio_button.get_group(),
             _("Set _all photos to this time"));
         batch_radio_button.set_active(!Config.get_instance().get_keep_relativity());
-        batch_radio_button.sensitive = photo_count > 1;
+        batch_radio_button.sensitive = display_options && photo_count > 1;
         batch_radio_button.toggled += on_time_changed;
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
             "_Modify original file", "_Modify original files", photo_count));
         modify_originals_check_button.set_active(Config.get_instance().get_modify_originals() &&
-            display_modify_original);
-        modify_originals_check_button.sensitive = display_modify_original;
+            display_options);
+        modify_originals_check_button.sensitive = display_options;
 
         Gtk.VBox time_content = new Gtk.VBox(false, 0);
 
         time_content.pack_start(calendar, true, false, 3);
         time_content.pack_start(clock, true, false, 3);
-        time_content.pack_start(relativity_radio_button, true, false, 3);
-        time_content.pack_start(batch_radio_button, true, false, 3);
-        time_content.pack_start(modify_originals_check_button, true, false, 3);
-        
+
+        if (display_options) {
+            time_content.pack_start(relativity_radio_button, true, false, 3);
+            time_content.pack_start(batch_radio_button, true, false, 3);
+            time_content.pack_start(modify_originals_check_button, true, false, 3);
+        }
+
         Gdk.Pixbuf preview = null;
         try {
-            preview = source.get_pixbuf(Scaling.for_viewport(Dimensions(500, 280), false));
+            preview = source.get_pixbuf(Scaling.for_viewport(Dimensions(500, 
+                display_options ? 280 : 200), false));
         } catch (Error err) {
             warning("Unable to fetch preview for %s", source.to_string());
         }
