@@ -1070,7 +1070,7 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
         
         // Add any tag that's in the new list but not the original
         foreach (Tag tag in new_tag_list) {
-            if (!original_tags.contains(tag)) {
+            if (original_tags == null || !original_tags.contains(tag)) {
                 SourceProxy proxy = tag.get_proxy();
                 
                 to_add.add(proxy);
