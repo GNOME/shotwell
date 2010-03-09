@@ -84,7 +84,7 @@ public class ThumbnailCache : Object {
         
         public AsyncFetchJob(ThumbnailCache cache, PhotoID photo_id, Gdk.Pixbuf? prefetched, 
             Dimensions dim, Gdk.InterpType interp,  AsyncFetchCallback callback, Cancellable? cancellable) {
-            base(async_fetch_completion_callback, cancellable);
+            base(cache, async_fetch_completion_callback, cancellable);
             
             this.cache = cache;
             this.photo_id = photo_id;
@@ -162,35 +162,23 @@ public class ThumbnailCache : Object {
     public static void import_from_source(PhotoID photo_id, PhotoSource source, bool force = false)
         throws Error {
         big._import_from_source(photo_id, source, force);
-        spin_event_loop();
-        
         medium._import_from_source(photo_id, source, force);
-        spin_event_loop();
     }
     
     public static void import_thumbnails(PhotoID photo_id, Thumbnails thumbnails, bool force = false)
         throws Error {
         big._import_thumbnail(photo_id, thumbnails.get(Size.BIG), force);
-        spin_event_loop();
-        
         medium._import_thumbnail(photo_id, thumbnails.get(Size.MEDIUM), force);
-        spin_event_loop();
     }
     
     public static void duplicate(PhotoID src_id, PhotoID dest_id) {
         big._duplicate(src_id, dest_id);
-        spin_event_loop();
-        
         medium._duplicate(src_id, dest_id);
-        spin_event_loop();
     }
     
     public static void remove(PhotoID photo_id) {
         big._remove(photo_id);
-        spin_event_loop();
-        
         medium._remove(photo_id);
-        spin_event_loop();
     }
     
     private static ThumbnailCache get_best_cache(int scale) {

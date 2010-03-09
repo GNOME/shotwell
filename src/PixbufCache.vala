@@ -4,14 +4,13 @@
  * See the COPYING file in this distribution. 
  */
 
-public class PixbufCache {
+public class PixbufCache : Object {
     public enum PhotoType {
         REGULAR,
         ORIGINAL
     }
     
     private abstract class FetchJob : BackgroundJob {
-        public PixbufCache owner;
         public BackgroundJob.JobPriority priority;
         public TransformablePhoto photo;
         public Scaling scaling;
@@ -20,11 +19,8 @@ public class PixbufCache {
         
         public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
             Scaling scaling, CompletionCallback callback, Cancellable cancellable) {
-            base(callback, cancellable);
+            base(owner, callback, cancellable);
             
-            // maintain the owner ref because Workers do not, and if the PixbufCache is derefed
-            // before a job completes, an assertion fires
-            this.owner = owner;
             this.priority = priority;
             this.photo = photo;
             this.scaling = scaling;

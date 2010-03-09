@@ -19,7 +19,7 @@ public delegate void CancellationCallback(BackgroundJob job);
 //
 // Note that there does not seem to be any guarantees of order in the Idle queue documentation,
 // and this it's possible (and, depending on assigned priorities, likely) that notifications could
-// arrive in different orders, and even after the CompletionCallback.  Thus, no guarantees of
+// arrive in different orders, and even after the CompletionCallback.  Thus, no guarantee of
 // ordering is made here.
 //
 // NOTE: Would like Value to be nullable, but can't due to this bug:
@@ -39,7 +39,15 @@ public delegate void NotificationCallback(BackgroundJob job, NotificationObject 
 // This abstract class represents a unit of work that can be executed within a background thread's
 // context.  If specified, the job may be cancellable (which can be checked by execute() and the
 // worker thread prior to calling execute()).  The BackgroundJob may also specify a
-// CompletionCallback to be executed within Gtk's event loop.
+// CompletionCallback and/or a CancellationCallback to be executed within Gtk's event loop.
+// A BackgroundJob may also emit NotificationCallbacks, all of which are also executed within
+// Gtk's event loop.
+//
+// The BackgroundJob may be constructed with a reference to its "owner".  This is not used directly
+// by BackgroundJob or Worker, but merely exists to hold a reference to the Object that is receiving
+// the various callbacks from BackgroundJob.  Without this, it's possible for the object creating
+// BackgroundJobs to be freed before all the callbacks have been received, or even during a callback,
+// which is an unstable situation.
 public abstract class BackgroundJob {
     public enum JobPriority {
         HIGHEST = 100,
@@ -69,6 +77,7 @@ public abstract class BackgroundJob {
     
     private static Gee.ArrayList<NotificationJob> notify_queue = new Gee.ArrayList<NotificationJob>();
     
+    private Object owner;
     private CompletionCallback callback;
     private Cancellable cancellable;
     private CancellationCallback cancellation;
@@ -82,8 +91,9 @@ public abstract class BackgroundJob {
     private int completion_priority = Priority.HIGH;
     private int notification_priority = Priority.DEFAULT_IDLE;
     
-    public BackgroundJob(CompletionCallback? callback = null, Cancellable? cancellable = null,
-        CancellationCallback? cancellation = null) {
+    public BackgroundJob(Object? owner = null, CompletionCallback? callback = null,
+        Cancellable? cancellable = null, CancellationCallback? cancellation = null) {
+        this.owner = owner;
         this.callback = callback;
         this.cancellable = cancellable;
         this.cancellation = cancellation;

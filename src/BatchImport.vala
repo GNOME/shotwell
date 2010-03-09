@@ -83,14 +83,17 @@ public class ImportManifest : Object {
     }
     
     public void add_result(BatchImportResult batch_result) {
+        bool reported = true;
         switch (batch_result.result) {
             case ImportResult.SUCCESS:
                 success.add(batch_result);
             break;
 
             case ImportResult.USER_ABORT:
-                if (!query_is_directory(batch_result.file))
+                if (batch_result.file != null && !query_is_directory(batch_result.file))
                     aborted.add(batch_result);
+                else
+                    reported = false;
             break;
 
             case ImportResult.UNSUPPORTED_FORMAT:
@@ -115,7 +118,8 @@ public class ImportManifest : Object {
             break;
         }
         
-        all.add(batch_result);
+        if (reported)
+            all.add(batch_result);
     }
 }
 
@@ -177,6 +181,9 @@ public class BatchImport : Object {
     }
     
     ~BatchImport() {
+#if TRACE_DTORS
+        debug("DTOR: BatchImport (%s)", name);
+#endif
         AppWindow.get_instance().user_quit -= user_halt;
     }
     
@@ -190,6 +197,12 @@ public class BatchImport : Object {
     
     public void user_halt() {
         cancellable.cancel();
+    }
+    
+    private void log_status(string where) {
+#if TRACE_IMPORT
+        debug("%s: to_perform=%d completed=%d", where, file_imports_to_perform, file_imports_completed);
+#endif
     }
     
     private bool report_failures(BackgroundImportJob background_job) {
@@ -233,10 +246,13 @@ public class BatchImport : Object {
         starting();
         
         // fire off a background job to generate all FileToPrepare work
-        workers.enqueue(new WorkSniffer(jobs, on_work_sniffed_out, cancellable, on_sniffer_cancelled));
+        workers.enqueue(new WorkSniffer(this, jobs, on_work_sniffed_out, cancellable,
+            on_sniffer_cancelled));
     }
     
     private void on_work_sniffed_out(BackgroundJob j) {
+        assert(!completed);
+        
         WorkSniffer sniffer = (WorkSniffer) j;
         
         if (!report_failures(sniffer) || sniffer.files_to_prepare.size == 0) {
@@ -250,13 +266,15 @@ public class BatchImport : Object {
         // to a camera without fat locking, and it's just not worth it.  Serializing the imports
         // also means the user sees the photos coming in in (roughly) the order they selected them
         // on the screen
-        PrepareFilesJob prepare_files_job = new PrepareFilesJob(sniffer.files_to_prepare, 
+        PrepareFilesJob prepare_files_job = new PrepareFilesJob(this, sniffer.files_to_prepare, 
             on_file_prepared, on_files_prepared, cancellable, on_file_prepare_cancelled);
         
         workers.enqueue(prepare_files_job);
     }
     
     private void on_sniffer_cancelled(BackgroundJob j) {
+        assert(!completed);
+        
         WorkSniffer sniffer = (WorkSniffer) j;
         
         report_failures(sniffer);
@@ -264,6 +282,8 @@ public class BatchImport : Object {
     }
     
     private void on_file_prepared(BackgroundJob j, NotificationObject user) {
+        assert(!completed);
+        
         PreparedFile prepared_file = (PreparedFile) user;
         
         if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.exif_md5,
@@ -282,19 +302,24 @@ public class BatchImport : Object {
             return;
         }
         
-        FileImportJob file_import_job = new FileImportJob(prepared_file, manifest.import_id, 
+        FileImportJob file_import_job = new FileImportJob(this, prepared_file, manifest.import_id, 
             on_import_file_completed, cancellable, on_import_file_cancelled);
         
         workers.enqueue(file_import_job);
     }
     
     private void on_files_prepared(BackgroundJob j) {
+        assert(!completed);
+        
         PrepareFilesJob prepare_files_job = (PrepareFilesJob) j;
         
         report_failures(prepare_files_job);
         
         // mark this job as completed and record how many file imports must finish to be complete
         file_imports_to_perform = prepare_files_job.prepared_files;
+        assert(file_imports_to_perform >= file_imports_completed);
+        
+        log_status("on_files_prepared");
         
         // if none prepared, then none outstanding (or will become outstanding, depending on how
         // the notifications are queued)
@@ -305,11 +330,16 @@ public class BatchImport : Object {
     }
     
     private void on_file_prepare_cancelled(BackgroundJob j) {
+        assert(!completed);
+        
         PrepareFilesJob prepare_files_job = (PrepareFilesJob) j;
         
         report_failures(prepare_files_job);
         
         file_imports_to_perform = prepare_files_job.prepared_files;
+        assert(file_imports_to_perform >= file_imports_completed);
+        
+        log_status("on_file_prepare_cancelled");
         
         // If FileImportJobs are outstanding, need to wait for them to cancel as well ... see
         // on_files_prepared for the logic of all this
@@ -320,9 +350,15 @@ public class BatchImport : Object {
     }
     
     private void on_import_file_completed(BackgroundJob j) {
+        assert(!completed);
+        
         FileImportJob job = (FileImportJob) j;
         
         file_imports_completed++;
+        if (file_imports_to_perform != -1)
+            assert(file_imports_completed <= file_imports_to_perform);
+        
+        log_status("on_import_file_completed  (%s)".printf(job.get_filename()));
         
         // if success, import photo into database and in-memory data structures
         LibraryPhoto photo = null;
@@ -348,9 +384,15 @@ public class BatchImport : Object {
     }
     
     private void on_import_file_cancelled(BackgroundJob j) {
+        assert(!completed);
+        
         FileImportJob job = (FileImportJob) j;
         
         file_imports_completed++;
+        if (file_imports_to_perform != -1)
+            assert(file_imports_completed <= file_imports_to_perform);
+        
+        log_status("on_import_file_cancelled");
         
         job.abort();
         
@@ -385,9 +427,9 @@ private abstract class BackgroundImportJob : BackgroundJob {
     public ImportResult abort_flag = ImportResult.SUCCESS;
     public Gee.List<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
     
-    protected BackgroundImportJob(CompletionCallback callback, Cancellable cancellable,
-        CancellationCallback? cancellation) {
-        base (callback, cancellable, cancellation);
+    protected BackgroundImportJob(BatchImport owner, CompletionCallback callback,
+        Cancellable cancellable, CancellationCallback? cancellation) {
+        base (owner, callback, cancellable, cancellation);
     }
     
     // Subclasses should call this every iteration, and if the result is not SUCCESS, consider the
@@ -409,11 +451,11 @@ private abstract class BackgroundImportJob : BackgroundJob {
         ImportResult result) {
         assert(result != ImportResult.SUCCESS);
         
-        debug("Import failure %s: %s", identifier, result.to_string());
-        
         // if fatal but the flag is not set, set it now
         if (result.is_abort())
             abort(result);
+        else
+            debug("Import failure %s: %s", identifier, result.to_string());
         
         failed.add(new BatchImportResult(job, file, identifier, result));
     }
@@ -448,9 +490,9 @@ private class WorkSniffer : BackgroundImportJob {
     
     private Gee.Iterable<BatchImportJob> jobs;
     
-    public WorkSniffer(Gee.Iterable<BatchImportJob> jobs, CompletionCallback callback, 
+    public WorkSniffer(BatchImport owner, Gee.Iterable<BatchImportJob> jobs, CompletionCallback callback, 
         Cancellable cancellable, CancellationCallback cancellation) {
-        base (callback, cancellable, cancellation);
+        base (owner, callback, cancellable, cancellation);
         
         this.jobs = jobs;
     }
@@ -562,9 +604,10 @@ private class PrepareFilesJob : BackgroundImportJob {
     private int fail_every = 0;
     private int skip_every = 0;
     
-    public PrepareFilesJob(Gee.List<FileToPrepare> files_to_prepare, NotificationCallback notification,
-        CompletionCallback callback, Cancellable cancellable, CancellationCallback cancellation) {
-        base (callback, cancellable, cancellation);
+    public PrepareFilesJob(BatchImport owner, Gee.List<FileToPrepare> files_to_prepare,
+        NotificationCallback notification, CompletionCallback callback, Cancellable cancellable,
+        CancellationCallback cancellation) {
+        base (owner, callback, cancellable, cancellation);
         
         this.files_to_prepare = files_to_prepare;
         this.notification = notification;
@@ -693,9 +736,9 @@ private class FileImportJob : BackgroundJob {
     private ImportID import_id;
     private File final_file = null;
     
-    public FileImportJob(PreparedFile prepared_file, ImportID import_id, CompletionCallback callback,
-        Cancellable cancellable, CancellationCallback cancellation) {
-        base (callback, cancellable, cancellation);
+    public FileImportJob(BatchImport owner, PreparedFile prepared_file, ImportID import_id,
+        CompletionCallback callback, Cancellable cancellable, CancellationCallback cancellation) {
+        base (owner, callback, cancellable, cancellation);
         
         this.import_id = import_id;
         this.prepared_file = prepared_file;
