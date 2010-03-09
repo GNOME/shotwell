@@ -346,17 +346,17 @@ public class RESTTransaction {
 
             // concatenate the REST arguments array into an HTTP formdata string
             string formdata_string = "";
-            foreach (RESTArgument arg in arguments)
-                formdata_string = formdata_string + ("%s=%s&".printf(arg.key, arg.value));
+            foreach (RESTArgument arg in arguments) {
+                formdata_string = formdata_string + ("%s=%s&".printf(Soup.URI.encode(arg.key, "&"),
+                    Soup.URI.encode(arg.value, "&")));
+            }
 
             // if the signature key isn't null, append the signature key-value pair to the
             // formdata string
             if (signature_key != "") {
-                formdata_string = formdata_string + ("%s=%s".printf(signature_key, signature_value));
+                formdata_string = formdata_string + ("%s=%s".printf(
+                    Soup.URI.encode(signature_key, null), Soup.URI.encode(signature_value, null)));
             }
-
-            // percent-encode the formdata string
-            formdata_string = Soup.URI.encode(formdata_string, null);
 
             // for GET requests with arguments, append the formdata string to the endpoint url after a
             // query divider ('?') -- but make sure to save the old (caller-specified) endpoint URL
