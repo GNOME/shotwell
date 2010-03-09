@@ -592,7 +592,7 @@ public class ProgressDialog : Gtk.Window {
         if (owner != null)
             set_transient_for(owner);
         set_modal(true);
-        set_position(Gtk.WindowPosition.CENTER_ON_PARENT);
+        set_type_hint(Gdk.WindowTypeHint.DIALOG);
         
         progress_bar.set_size_request(300, -1);
         
@@ -623,7 +623,7 @@ public class ProgressDialog : Gtk.Window {
         alignment.add(vbox);
         
         add(alignment);
-        
+
         show_all();
     }
     
