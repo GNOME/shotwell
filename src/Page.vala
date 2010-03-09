@@ -1751,8 +1751,12 @@ public class PhotoDragAndDropHandler {
         
         debug("Exporting to %s", drag_destination.get_path());
         
-        ExportUI.export_photos(drag_destination,
-            (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources());
+        if (drag_destination.get_path() != null) {
+            ExportUI.export_photos(drag_destination,
+                (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources());
+        } else {
+            AppWindow.error_message(_("Photos cannot be exported to this directory."));
+        }
         
         drag_destination = null;
     }

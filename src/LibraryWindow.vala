@@ -699,11 +699,22 @@ public class LibraryWindow : AppWindow {
             }
         }
         
-        if (jobs.size > 0) {
+        if (jobs.size > 0 && valid_for_import(jobs)) {
             BatchImport batch_import = new BatchImport(jobs, job_name, import_reporter, total_bytes);
             enqueue_batch_import(batch_import);
             switch_to_import_queue_page();
         }
+    }
+
+    private bool valid_for_import(Gee.ArrayList<FileImportJob> jobs) {
+        foreach (FileImportJob job in jobs) {           
+            if (job.get_identifier() == null) {
+                AppWindow.error_message(_("Photos cannot be imported from this directory."));
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     private override void drag_data_received(Gdk.DragContext context, int x, int y,

@@ -248,8 +248,8 @@ public class BatchImport : Object {
         // submit single background job to go out and prepare all the files, reporting back when/if
         // they're ready for import; this is important because gPhoto can't handle multiple accesses
         // to a camera without fat locking, and it's just not worth it.  Serializing the imports
-        // also means the user sees the photos coming in in (roughly) the order they selected them on the
-        // screen
+        // also means the user sees the photos coming in in (roughly) the order they selected them
+        // on the screen
         PrepareFilesJob prepare_files_job = new PrepareFilesJob(sniffer.files_to_prepare, 
             on_file_prepared, on_files_prepared, cancellable, on_file_prepare_cancelled);
         
@@ -583,7 +583,8 @@ private class PrepareFilesJob : BackgroundImportJob {
         foreach (FileToPrepare file_to_prepare in files_to_prepare) {
             ImportResult result = abort_check();
             if (result != ImportResult.SUCCESS) {
-                report_failure(file_to_prepare.job, null, file_to_prepare.job.get_identifier(), result);
+                report_failure(file_to_prepare.job, null, file_to_prepare.job.get_identifier(),
+                    result);
                 
                 continue;
             }
@@ -719,8 +720,8 @@ private class FileImportJob : BackgroundJob {
                     return;
                 }
             } catch (Error err) {
-                batch_result = new BatchImportResult.from_error(job, prepared_file.file, prepared_file.id,
-                    err, ImportResult.FILE_ERROR);
+                batch_result = new BatchImportResult.from_error(job, prepared_file.file,
+                    prepared_file.id, err, ImportResult.FILE_ERROR);
                 
                 return;
             }

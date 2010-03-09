@@ -932,8 +932,8 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (jobs.size > 0) {
-            BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter, total_bytes, 
-                failed, already_imported);
+            BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter,
+                total_bytes, failed, already_imported);
             batch_import.import_job_failed += on_import_job_failed;
             batch_import.import_complete += close_import;
             
