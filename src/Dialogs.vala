@@ -1106,7 +1106,6 @@ public class WelcomeDialog : Gtk.Dialog {
         set_resizable(false);
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
         set_transient_for(owner);
-        set_position(Gtk.WindowPosition.CENTER);
 
         Gtk.Label primary_text = new Gtk.Label("");
         primary_text.set_markup(
