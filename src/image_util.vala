@@ -531,6 +531,9 @@ public class PhotoFileInterrogator {
 public void set_desktop_background(TransformablePhoto photo) {
     File save_as = AppDirs.get_data_subdir("wallpaper").get_child("wallpaper.jpg");
 
+    if (Config.get_instance().get_background() == save_as.get_path())
+        save_as = AppDirs.get_data_subdir("wallpaper").get_child("wallpaper_alt.jpg");
+
     if (save_as == null)
         return;
     
@@ -542,5 +545,7 @@ public void set_desktop_background(TransformablePhoto photo) {
     }
 
     Config.get_instance().set_background(save_as.get_path());
+
+    GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
 #endif

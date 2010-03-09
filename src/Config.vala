@@ -473,7 +473,8 @@ public class Config {
     }
 
     public bool set_background(string filename) {
-        set_string("/desktop/gnome/background/picture_options", "zoom");
+        if (!set_string("/desktop/gnome/background/picture_options", "zoom"))
+            return false;
         return set_string("/desktop/gnome/background/picture_filename", filename);
     }
 #endif
