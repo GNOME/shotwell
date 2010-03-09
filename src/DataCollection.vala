@@ -478,8 +478,6 @@ public class DataCollection {
         
         bool added = dataset.add(object);
         assert(added);
-        
-        object.notify_membership_changed(this);
     }
     
     private void internal_add_many(Gee.List<DataObject> objects, ProgressMonitor? monitor) {
@@ -496,9 +494,6 @@ public class DataCollection {
         
         bool added = dataset.add_many(objects);
         assert(added);
-        
-        for (int ctr = 0; ctr < count; ctr++)
-            objects.get(ctr).notify_membership_changed(this);
     }
     
     private void internal_remove(DataObject object) {
@@ -506,7 +501,6 @@ public class DataCollection {
         assert(removed);
         
         object.internal_clear_membership();
-        object.notify_membership_changed(null);
     }
     
     // Returns false if item is already part of the collection.
@@ -524,6 +518,9 @@ public class DataCollection {
         notify_items_added(added);
         notify_contents_altered(added, null);
         
+        // This must be called *after* the DataCollection has signalled.
+        object.notify_membership_changed(this);
+        
         return true;
     }
     
@@ -540,18 +537,21 @@ public class DataCollection {
             added.add(object);
         }
         
-        if (added.size == 0)
+        int count = added.size;
+        if (count == 0)
             return 0;
         
         internal_add_many(added, monitor);
         
         // signal once all have been added
-        if (added.size > 0) {
-            notify_items_added(added);
-            notify_contents_altered(added, null);
-        }
+        notify_items_added(added);
+        notify_contents_altered(added, null);
         
-        return added.size;
+        // This must be called *after* the DataCollection signals have fired.
+        for (int ctr = 0; ctr < count; ctr++)
+            added.get(ctr).notify_membership_changed(this);
+        
+        return count;
     }
     
     // Obtain a marker to build a list of objects to perform an action upon.
@@ -629,6 +629,10 @@ public class DataCollection {
         if (marker.marked.size > 0) {
             notify_items_removed(marker.marked);
             notify_contents_altered(null, marker.marked);
+            
+            // this must be called after the DataCollection has signalled.
+            foreach (DataObject object in marker.marked)
+                object.notify_membership_changed(null);
         }
         
         // invalidate the marker
@@ -653,6 +657,10 @@ public class DataCollection {
         // report after removal
         notify_items_removed(removed);
         notify_contents_altered(null, removed);
+        
+        // This must be called after the DataCollection has signalled.
+        foreach (DataObject object in removed)
+            object.notify_membership_changed(null);
     }
     
     // close() must be called before disposing of the DataCollection, so all signals may be

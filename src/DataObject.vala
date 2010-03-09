@@ -82,8 +82,11 @@ public abstract class DataObject : Object {
     
     // There is no membership_changed signal as it's expensive (esp. at startup) and not needed
     // at this time.  The notify_membership_changed mechanism is still in place for subclasses.
+    //
     // This is called after the change has occurred (i.e., after the DataObject has been added
-    // to the DataCollection, or after it has been remove from the same).
+    // to the DataCollection, or after it has been remove from the same).  It is also called after
+    // the DataCollection has reported the change on its own signals, so it and its children can
+    // properly integrate the DataObject into its pools.
     //
     // This is only called by DataCollection.
     public virtual void notify_membership_changed(DataCollection? collection) {
