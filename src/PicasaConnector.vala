@@ -848,7 +848,8 @@ private class PublishingOptionsPane : PublishingDialogPane {
     }
 
     private void update_publish_button_sensitivity() {
-        publish_button.set_sensitive(!(new_album_entry.get_text() == "" &&
+        string album_name = new_album_entry.get_text();
+        publish_button.set_sensitive(!(album_name.strip() == "" &&
             create_new_radio.get_active()));
     }
 
@@ -1028,7 +1029,8 @@ private class AlbumCreationTransaction : AuthenticatedTransaction {
     public AlbumCreationTransaction(Session session, PublishingParameters parameters) {
         base(session, ENDPOINT_URL, HttpMethod.POST);
 
-        string post_body = ALBUM_ENTRY_TEMPLATE.printf(parameters.get_album_name(),
+        string post_body =
+            ALBUM_ENTRY_TEMPLATE.printf(html_entity_encode(parameters.get_album_name()),
             parameters.is_album_public() ? "public" : "private");
         set_custom_payload(post_body, "application/atom+xml");
     }

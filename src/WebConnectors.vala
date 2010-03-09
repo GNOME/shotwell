@@ -52,6 +52,30 @@ public enum HttpMethod {
 
 public const int ORIGINAL_SIZE = -1;
 
+public string html_entity_encode(string source) {
+    StringBuilder result_builder = new StringBuilder();
+    for (int i = 0; i < source.length; i++) {
+        switch (source[i]) {
+            case '<':
+                result_builder.append("&lt;");
+            break;
+
+            case '>':
+                result_builder.append("&gt;");
+            break;
+
+            case '&':
+                result_builder.append("&amp;");
+            break;
+
+            default:
+                result_builder.append_unichar(source[i]);
+            break;
+        }
+    }
+    return result_builder.str;
+}
+
 public class RESTSession {
     private string endpoint_url = null;
     private Soup.Session soup_session = null;
@@ -325,12 +349,14 @@ public class RESTTransaction {
             foreach (RESTArgument arg in arguments)
                 formdata_string = formdata_string + ("%s=%s&".printf(arg.key, arg.value));
 
-            // append the signature key-value pair to the formdata string and percent-encode the
-            // whole string, but only if the key isn't the null string
+            // if the signature key isn't null, append the signature key-value pair to the
+            // formdata string
             if (signature_key != "") {
                 formdata_string = formdata_string + ("%s=%s".printf(signature_key, signature_value));
-                formdata_string = Soup.URI.encode(formdata_string, null);
             }
+
+            // percent-encode the formdata string
+            formdata_string = Soup.URI.encode(formdata_string, null);
 
             // for GET requests with arguments, append the formdata string to the endpoint url after a
             // query divider ('?') -- but make sure to save the old (caller-specified) endpoint URL
