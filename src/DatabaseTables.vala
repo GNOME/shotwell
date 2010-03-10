@@ -274,11 +274,16 @@ public enum DatabaseVerifyResult {
 public DatabaseVerifyResult verify_database(out string app_version) {
     VersionTable version_table = VersionTable.get_instance();
     int version = version_table.get_version(out app_version);
-    debug("Database version %d create by app version %s", version, app_version);
+    
+    if (version >= 0)
+        debug("Database schema version %d created by app version %s", version, app_version);
     
     if (version == -1) {
         // no version set, do it now (tables will be created on demand)
+        debug("Creating database schema version %d for app version %s", DatabaseTable.SCHEMA_VERSION,
+            Resources.APP_VERSION);
         version_table.set_version(DatabaseTable.SCHEMA_VERSION, Resources.APP_VERSION);
+        app_version = Resources.APP_VERSION;
     } else if (version > DatabaseTable.SCHEMA_VERSION) {
         // Back to the future
         return DatabaseVerifyResult.FUTURE_VERSION;
