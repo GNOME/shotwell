@@ -373,21 +373,10 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (thumbnails != null) {
-            foreach (ThumbnailCache.Size size in ThumbnailCache.ALL_SIZES) {
-                Dimensions dim = size.get_scaling().get_scaled_dimensions(photo_row.dim);
-                
-                // even if pixbuf is available, don't want to rescale it for the thumbnails;
-                // a single scale is preferable, esp. for long-term storage
-                Gdk.Pixbuf thumbnail = null;
-                try {
-                    thumbnail = new Gdk.Pixbuf.from_file_at_size(file.get_path(), dim.width,
-                        dim.height);
-                    thumbnail = orientation.rotate_pixbuf(thumbnail);
-                } catch (Error err) {
-                    return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
-                }
-                
-                thumbnails.set(size, thumbnail);
+            try {
+                ThumbnailCache.generate(thumbnails, file, orientation, photo_row.dim);
+            } catch (Error err) {
+                return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
             }
         }
         
@@ -2014,17 +2003,13 @@ public class LibraryPhoto : TransformablePhoto {
         // performed on multiple images simultaneously, and (d) can't cache a lot of full-sized
         // pixbufs for rotate-and-scale ops, perform the rotation directly on the already-modified 
         // thumbnails.
-        foreach (ThumbnailCache.Size size in ThumbnailCache.ALL_SIZES) {
-            try {
-                Gdk.Pixbuf thumbnail = ThumbnailCache.fetch(get_photo_id(), size);
-                thumbnail = rotation.perform(thumbnail);
-                ThumbnailCache.replace(get_photo_id(), size, thumbnail);
-            } catch (Error err) {
-                // TODO: Mark thumbnails as dirty in database
-                warning("Unable to update thumbnails for %s: %s", to_string(), err.message);
-            }
+        try {
+            ThumbnailCache.rotate(get_photo_id(), rotation);
+        } catch (Error err) {
+            // TODO: Mark thumbnails as dirty in database
+            warning("Unable to update thumbnails for %s: %s", to_string(), err.message);
         }
-
+        
         notify_thumbnail_altered();
     }
     

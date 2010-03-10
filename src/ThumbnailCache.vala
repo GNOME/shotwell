@@ -48,7 +48,9 @@ public class ThumbnailCache : Object {
         }
     }
     
-    public const Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
+    // Changed from public const to private static due to this bug:
+    // https://bugzilla.gnome.org/show_bug.cgi?id=612315
+    private static Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
     
     public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
         Error? err);
@@ -228,6 +230,31 @@ public class ThumbnailCache : Object {
     
     public static bool exists(PhotoID photo_id) {
         return big._exists(photo_id) && medium._exists(photo_id);
+    }
+    
+    public static void rotate(PhotoID photo_id, Rotation rotation) throws Error {
+        foreach (Size size in ALL_SIZES) {
+            Gdk.Pixbuf thumbnail = fetch(photo_id, size);
+            thumbnail = rotation.perform(thumbnail);
+            replace(photo_id, size, thumbnail);
+        }
+    }
+    
+    // This does not add the thumbnails to the ThumbnailCache, merely generates them for the
+    // supplied image file.
+    public static void generate(Thumbnails thumbnails, File file, Orientation orientation, 
+        Dimensions original_dim) throws Error {
+        foreach (Size size in ALL_SIZES) {
+            Dimensions dim = size.get_scaling().get_scaled_dimensions(original_dim);
+            
+            // even if pixbuf is available, don't want to rescale it for the thumbnails;
+            // a single scale is preferable, esp. for long-term storage
+            Gdk.Pixbuf thumbnail = new Gdk.Pixbuf.from_file_at_size(file.get_path(), dim.width,
+                    dim.height);
+            thumbnail = orientation.rotate_pixbuf(thumbnail);
+            
+            thumbnails.set(size, thumbnail);
+        }
     }
     
     // Displaying a debug message for each thumbnail loaded and dropped can cause a ton of messages

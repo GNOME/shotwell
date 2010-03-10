@@ -24,7 +24,10 @@ public class LibraryWindow : AppWindow {
         PHOTO_LIST
     }
     
-    public const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
+    // Changed from public to private and added the get_drop_target_entries() accessor
+    // due to this bug:
+    // https://bugzilla.gnome.org/show_bug.cgi?id=612315
+    private const Gtk.TargetEntry[] DEST_TARGET_ENTRIES = {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
         { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
     };
@@ -361,6 +364,10 @@ public class LibraryWindow : AppWindow {
 
         extended_properties.hide -= hide_extended_properties;
         extended_properties.show -= show_extended_properties;
+    }
+    
+    public static Gtk.TargetEntry[] get_drop_target_entries() {
+        return DEST_TARGET_ENTRIES;
     }
     
     private Gtk.ActionEntry[] create_actions() {
