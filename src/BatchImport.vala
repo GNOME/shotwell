@@ -705,8 +705,12 @@ private class PrepareFilesJob : BackgroundImportJob {
             // get EXIF and thumbnail fingerprints
             exif_md5 = photo_exif.get_md5();
             thumbnail_md5 = photo_exif.get_thumbnail_md5();
-        } else {
-            // if no EXIF data, then do full MD5 match
+        }
+        
+        // If no EXIF or thumbnail MD5, then do full MD5 match ... it's possible for
+        // photos to have identical EXIF, hence the thumbnail should be the giveaway, but only
+        // if present (which can only be true if EXIF is present)
+        if (exif_md5 == null || thumbnail_md5 == null) {
             try {
                 full_md5 = md5_file(file);
             } catch (Error err) {

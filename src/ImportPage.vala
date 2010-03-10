@@ -17,9 +17,9 @@ class ImportSource : PhotoSource {
     private ulong file_size;
     private ulong preview_size;
     private Gdk.Pixbuf preview = null;
-    private string preview_md5 = null;
+    private string? preview_md5 = null;
     private Exif.Data exif = null;
-    private string exif_md5 = null;
+    private string? exif_md5 = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
         string filename, ulong file_size, ulong preview_size) {
@@ -41,7 +41,7 @@ class ImportSource : PhotoSource {
     }
     
     // Needed because previews and exif are loaded after other information has been gathered.
-    public void update(Gdk.Pixbuf preview, string preview_md5, Exif.Data exif, string exif_md5) {
+    public void update(Gdk.Pixbuf preview, string? preview_md5, Exif.Data exif, string? exif_md5) {
         this.preview = preview;
         this.preview_md5 = preview_md5;
         this.exif = exif;
@@ -84,7 +84,7 @@ class ImportSource : PhotoSource {
         return exif;
     }
     
-    public string get_exif_md5() {
+    public string? get_exif_md5() {
         return exif_md5;
     }
     
@@ -95,7 +95,7 @@ class ImportSource : PhotoSource {
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
     }
-    public string get_preview_md5() {
+    public string? get_preview_md5() {
         return preview_md5;
     }
     
@@ -136,6 +136,10 @@ class ImportPreview : CheckerboardItem {
     
     public bool is_already_imported() {
         ImportSource source = (ImportSource) get_source();
+        
+        // must have both EXIF and thumbnail (preview) MD5s to properly determine
+        if (source.get_exif_md5() == null || source.get_preview_md5() == null)
+            return false;
         
         return TransformablePhoto.is_duplicate(null, source.get_exif_md5(), source.get_preview_md5(),
             null);
@@ -802,7 +806,7 @@ public class ImportPage : CheckerboardPage {
                     out exif_raw, out exif_raw_length);
                 
                 // calculate EXIF's fingerprint
-                string exif_md5 = null;
+                string? exif_md5 = null;
                 if (exif != null && exif_raw != null && exif_raw_length > 0)
                     exif_md5 = md5_binary(exif_raw, exif_raw_length);
                 
@@ -818,7 +822,7 @@ public class ImportPage : CheckerboardPage {
                     filename, out preview_raw, out preview_raw_length);
                 
                 // calculate thumbnail fingerprint
-                string preview_md5 = null;
+                string? preview_md5 = null;
                 if (preview != null && preview_raw != null && preview_raw_length > 0)
                     preview_md5 = md5_binary(preview_raw, preview_raw_length);
                 

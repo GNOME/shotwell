@@ -1363,24 +1363,20 @@ public class PhotoTable : DatabaseTable {
         if (file != null)
             sql += " filename=?";
         
-        if (exif_md5 != null || thumbnail_md5 != null || md5 != null) {
+        if ((exif_md5 != null && thumbnail_md5 != null) || md5 != null) {
             if (file != null)
                 sql += " OR ";
             
             sql += " (";
             bool first = true;
             
-            if (exif_md5 != null) {
-                sql += "exif_md5=?";
+            if (exif_md5 != null && thumbnail_md5 != null) {
+                sql += "(exif_md5=? AND thumbnail_md5=?)";
                 first = false;
-            }
-            
-            if (thumbnail_md5 != null) {
-                if (first)
-                    sql += "thumbnail_md5=?";
-                else
-                    sql += " OR thumbnail_md5=?";
-                first = false;
+            } else if (exif_md5 != null || thumbnail_md5 != null) {
+                GLib.warning("Warning: Not searching for duplicate for %s because both EXIF MD5s not provided",
+                    file != null ? file.get_path() : "(no file provided)");
+                GLib.warning("(exif_md5=%s thumbnail_md5=%s)", exif_md5, thumbnail_md5);
             }
             
             if (md5 != null) {
@@ -1404,12 +1400,9 @@ public class PhotoTable : DatabaseTable {
             assert(res == Sqlite.OK);
         }
         
-        if (exif_md5 != null) {
+        if (exif_md5 != null && thumbnail_md5 != null) {
             res = stmt.bind_text(col++, exif_md5);
             assert(res == Sqlite.OK);
-        }
-        
-        if (thumbnail_md5 != null) {
             res = stmt.bind_text(col++, thumbnail_md5);
             assert(res == Sqlite.OK);
         }
