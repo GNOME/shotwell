@@ -542,7 +542,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.items_state_changed += on_items_state_changed;
         view.items_visibility_changed += on_items_visibility_changed;
         view.ordering_changed += on_ordering_changed;
-        view.item_view_altered += on_item_view_altered;
         view.views_altered += on_views_altered;
         view.geometries_altered += on_geometries_altered;
         
@@ -563,7 +562,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.items_state_changed -= on_items_state_changed;
         view.items_visibility_changed -= on_items_visibility_changed;
         view.ordering_changed -= on_ordering_changed;
-        view.item_view_altered -= on_item_view_altered;
         view.views_altered -= on_views_altered;
         view.geometries_altered -= on_geometries_altered;
         
@@ -653,11 +651,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {
-        if (!in_view)
-            return;
-            
-        foreach (DataView view in changed)
-            repaint_item((CheckerboardItem) view);
+        if (in_view)
+            repaint_items("on_items_state_changed", changed);
     }
     
     private void on_items_visibility_changed(Gee.Iterable<DataView> changed) {
@@ -668,14 +663,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         schedule_background_reflow("on_ordering_changed");
     }
     
-    private void on_item_view_altered(DataView view) {
+    private void on_views_altered(Gee.Collection<DataView> altered) {
         if (in_view)
-            repaint_item((CheckerboardItem) view);
-    }
-    
-    private void on_views_altered() {
-        if (in_view)
-            queue_draw();
+            repaint_items("on_views_altered", altered);
     }
     
     private void on_geometries_altered() {
@@ -688,14 +678,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 #endif
         
         if (in_view)
-            reflow_scheduler.at_idle();
+            reflow_scheduler.at_priority_idle(Priority.HIGH);
         else
             flow_dirty = true;
     }
     
     private void background_reflow() {
-        if (reflow("background_reflow"))
-            queue_draw();
+        reflow("background_reflow");
     }
     
     public void set_message(string text) {
@@ -752,10 +741,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             update_visible_page(!flow_dirty);
             
             // if the flow dirtied at some point, now reflow the layout
-            if (flow_dirty) {
-                if (reflow("set_in_view"))
-                    queue_draw();
-            }
+            if (flow_dirty)
+                reflow("set_in_view");
 
             return;
         }
@@ -985,21 +972,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
-    // Returns true if a redraw is required
-    private bool reflow(string caller) {
+    private void reflow(string caller) {
         // if set in message mode, nothing to do here
         if (message != null)
-            return false;
+            return;
         
         // don't bother until layout is of some appreciable size (even this is too low)
         if (allocation.width <= 1)
-            return false;
+            return;
         
         // don't reflow if not in view of the user
         if (!in_view) {
             flow_dirty = true;
             
-            return false;
+            return;
         }
         
         int total_items = view.get_count();
@@ -1013,7 +999,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             item_rows = new LayoutRow[0];
             flow_dirty = false;
 
-            return true;
+            return;
         }
         
 #if TRACE_REFLOW
@@ -1168,7 +1154,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 debug("reflow %s: readjusting columns: alloc.width=%d total_width=%d widest=%d gutter=%d max_cols now=%d", 
                     page_name, allocation.width, total_width, widest, gutter, max_cols);
 #endif
-
+                
                 col = 0;
                 row = 0;
                 tallest = 0;
@@ -1229,7 +1215,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         row = 0;
         LayoutRow current_row = null;
         bool report_exposure = (visible_page.width > 1 && visible_page.height > 1);
-        Gdk.Rectangle bitbucket = Gdk.Rectangle();
+        Gdk.Rectangle intersection = Gdk.Rectangle();
+        Gdk.Point tl_dirty = { int.MAX, int.MAX };
+        Gdk.Point br_dirty = { int.MIN, int.MIN };
+        bool dirty_area = false;
         
         for (int ctr = 0; ctr < total_items; ctr++) {
             CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
@@ -1244,12 +1233,35 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             assert(ypadding >= 0);
             
             // save pixel and grid coordinates
-            item.allocation = { x + xpadding, y + ypadding, req.width, req.height };
+            Gdk.Rectangle allocation = { x + xpadding, y + ypadding, req.width, req.height };
+            if (!rectangles_equal(allocation, item.allocation)) {
+                // if the item has already been allocated, find the maximum area of the change
+                // between the current changed rectangle, the old allocation, and the new allocation
+                if (item.allocation.width > 0 && item.allocation.height > 0) {
+                    tl_dirty.x = int.min(tl_dirty.x, int.min(allocation.x, item.allocation.x));
+                    tl_dirty.y = int.min(tl_dirty.y, int.min(allocation.y, item.allocation.y));
+                    br_dirty.x = int.max(br_dirty.x,
+                        int.max(allocation.x + allocation.width, item.allocation.x + item.allocation.width));
+                    br_dirty.y = int.max(br_dirty.y,
+                        int.max(allocation.y + allocation.height, item.allocation.y + item.allocation.height));
+                } else {
+                    // since the item has not been allocated, only need to find the maximum area
+                    // of the old dirty area and the new allocation
+                    tl_dirty.x = int.min(tl_dirty.x, allocation.x);
+                    tl_dirty.y = int.min(tl_dirty.y, allocation.y);
+                    br_dirty.x = int.max(br_dirty.x, allocation.x + allocation.width);
+                    br_dirty.y = int.max(br_dirty.y, allocation.y + allocation.height);
+                }
+                
+                dirty_area = true;
+                
+                item.allocation = allocation;
+            }
             item.set_grid_coordinates(col, row);
             
             // report exposed or unexposed
             if (report_exposure) {
-                if (item.allocation.intersect(visible_page, bitbucket)) {
+                if (item.allocation.intersect(visible_page, intersection)) {
                     exposed_items.add(item);
                     item.exposed();
                 } else {
@@ -1290,33 +1302,71 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // Step 6: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
-        set_size_request(allocation.width, y + row_heights[row] + BOTTOM_PADDING);
+        int total_height = y + row_heights[row] + BOTTOM_PADDING;
+        if (total_height != allocation.height) {
+#if TRACE_REFLOW
+            debug("reflow %s: Changing layout dimensions from %dx%d to %dx%d", page_name, 
+                allocation.width, allocation.height, allocation.width, total_height);
+#endif
+            set_size_request(allocation.width, total_height);
+        }
         
         flow_dirty = false;
         
-        return true;
+        // Step 7: Queue redraw of dirty area, if any
+        if (dirty_area) {
+            Gdk.Rectangle dirty = { tl_dirty.x, tl_dirty.y, br_dirty.x - tl_dirty.x,
+                br_dirty.y - tl_dirty.y };
+            
+            // Verify the rectangle has area and find the intersection between it and the visible
+            // page; if there's an intersection, queue it for redraw
+            if (dirty.width > 0 && dirty.height > 0 && dirty.intersect(visible_page, intersection)) {
+#if TRACE_REFLOW
+                debug("reflow %s: Queueing redraw on %s of visible page %s", page_name, 
+                    rectangle_to_string(intersection), rectangle_to_string(visible_page));
+#endif
+                queue_draw_area(intersection.x, intersection.y, intersection.width, intersection.height);
+            }
+        }
     }
     
-    private void repaint_item(CheckerboardItem item) {
-        if (!item.is_visible())
-            return;
-        
-        assert(view.contains(item));
-        
-        // if not allocated, need to reflow the entire layout
-        if (item.allocation.width <= 0 || item.allocation.height <= 0) {
-            schedule_background_reflow("repaint_item");
+    private void repaint_items(string reason, Gee.Iterable<DataView> items) {
+        Gdk.Rectangle dirty = Gdk.Rectangle();
+        foreach (DataView data_view in items) {
+            CheckerboardItem item = (CheckerboardItem) data_view;
             
-            return;
+            if (!item.is_visible())
+                continue;
+            
+            assert(view.contains(item));
+            
+            // if not allocated, need to reflow the entire layout; don't bother queueing a draw
+            // for any of these, reflow will handle that
+            if (item.allocation.width <= 0 || item.allocation.height <= 0) {
+                schedule_background_reflow("repaint_item: %s".printf(reason));
+                
+                return;
+            }
+            
+            // only mark area as dirty if visible in viewport
+            Gdk.Rectangle intersection = Gdk.Rectangle();
+            if (!visible_page.intersect(item.allocation, intersection))
+                continue;
+            
+            // grow the dirty area
+            if (dirty.width == 0 || dirty.height == 0)
+                dirty = intersection;
+            else
+                dirty.union(intersection, out dirty);
         }
         
-        // only repaint if visible in viewport
-        Gdk.Rectangle bitbucket = Gdk.Rectangle();
-        if (!visible_page.intersect(item.allocation, bitbucket))
-            return;
-        
-        queue_draw_area(item.allocation.x, item.allocation.y, item.allocation.width,
-            item.allocation.height);
+        if (dirty.width > 0 && dirty.height > 0) {
+#if TRACE_REFLOW
+            debug("repaint_items %s (%s): Queuing draw of dirty area %s on visible_page %s",
+                page_name, reason, rectangle_to_string(dirty), rectangle_to_string(visible_page));
+#endif
+            queue_draw_area(dirty.x, dirty.y, dirty.width, dirty.height);
+        }
     }
     
     private override void map() {
@@ -1379,6 +1429,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // watch for message mode
         if (message == null) {
+#if TRACE_REFLOW
+            debug("expose_event %s: %s", page_name, rectangle_to_string(event.area));
+#endif
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(event.area))
                 item.paint(item.is_selected() ? selected_gc : unselected_gc, window);

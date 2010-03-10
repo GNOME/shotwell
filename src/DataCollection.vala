@@ -298,8 +298,8 @@ public class DataCollection {
     private Gee.HashMap<string, Value?> properties = new Gee.HashMap<string, Value?>();
     private int64 object_ordinal_generator = 0;
     private int notifies_frozen = 0;
-    private bool fire_items_altered = false;
-    private bool fire_items_metadata_altered = false;
+    private Gee.HashSet<DataObject> frozen_items_altered = null;
+    private Gee.HashSet<DataObject> frozen_items_metadata_altered = null;
     private bool fire_ordering_changed = false;
 
     // When this signal has been fired, the added items are part of the collection
@@ -324,7 +324,7 @@ public class DataCollection {
     // This signal fires whenever any (or multiple) items in the collection signal they've been
     // altered.  This is more useful than item_altered() because it isn't blocked when notifications
     // are frozen and is called when they are thawed.
-    public virtual signal void items_altered() {
+    public virtual signal void items_altered(Gee.Collection<DataObject> items) {
     }
 
     // This signal fires whenever any item in the collection signals its metadata has been altered ...
@@ -336,7 +336,7 @@ public class DataCollection {
     // This signal fires whenever any (or multiple) items in the collection signal their
     // metadata has been altered.  Like items_altered(), it isn't blocked when notifications are
     // frozen and is called when they're thawed.
-    public virtual signal void items_metadata_altered() {
+    public virtual signal void items_metadata_altered(Gee.Collection<DataObject> items) {
     }
     
     // Fired when a new sort comparator is registered or an item has moved in the ordering due to
@@ -385,16 +385,16 @@ public class DataCollection {
         item_altered(item);
     }
     
-    protected virtual void notify_items_altered() {
-        items_altered();
+    protected virtual void notify_items_altered(Gee.Collection<DataObject> items) {
+        items_altered(items);
     }
     
     protected virtual void notify_item_metadata_altered(DataObject item) {
         item_metadata_altered(item);
     }
     
-    protected virtual void notify_items_metadata_altered() {
-        items_metadata_altered();
+    protected virtual void notify_items_metadata_altered(Gee.Collection<DataObject> items) {
+        items_metadata_altered(items);
     }
     
     protected virtual void notify_ordering_changed() {
@@ -681,7 +681,10 @@ public class DataCollection {
         bool resort_occurred = dataset.resort_object(object);
         
         if (are_notifications_frozen()) {
-            fire_items_altered = true;
+            if (frozen_items_altered == null)
+                frozen_items_altered = new Gee.HashSet<DataObject>();
+            frozen_items_altered.add(object);
+            
             fire_ordering_changed = fire_ordering_changed || resort_occurred;
             
             return;
@@ -691,7 +694,7 @@ public class DataCollection {
             notify_ordering_changed();
         
         notify_item_altered(object);
-        notify_items_altered();
+        notify_items_altered(get_singleton(object));
     }
     
     // This method is only called by DataObject to report when its metadata has been altered, so
@@ -702,7 +705,10 @@ public class DataCollection {
         bool resort_occurred = dataset.resort_object(object);
         
         if (are_notifications_frozen()) {
-            fire_items_metadata_altered = true;
+            if (frozen_items_metadata_altered == null)
+                frozen_items_metadata_altered = new Gee.HashSet<DataObject>();
+            frozen_items_metadata_altered = new Gee.HashSet<DataObject>();
+            
             fire_ordering_changed = fire_ordering_changed || resort_occurred;
             
             return;
@@ -712,7 +718,7 @@ public class DataCollection {
             notify_ordering_changed();
         
         notify_item_metadata_altered(object);
-        notify_items_metadata_altered();
+        notify_items_metadata_altered(get_singleton(object));
     }
     
     public Value? get_property(string name) {
@@ -797,14 +803,18 @@ public class DataCollection {
     // This is called when enough thaw_notifications() calls have been made.  Child collections
     // should issue caught notifications.
     protected virtual void thawed() {
-        if (fire_items_altered) {
-            fire_items_altered = false;
-            notify_items_altered();
+        if (frozen_items_altered != null) {
+            foreach (DataObject object in frozen_items_altered)
+                notify_item_altered(object);
+            notify_items_altered(frozen_items_altered);
+            frozen_items_altered = null;
         }
         
-        if (fire_items_metadata_altered) {
-            fire_items_metadata_altered = false;
-            notify_items_metadata_altered();
+        if (frozen_items_metadata_altered != null) {
+            foreach (DataObject object in frozen_items_metadata_altered)
+                notify_item_metadata_altered(object);
+            notify_items_metadata_altered(frozen_items_metadata_altered);
+            frozen_items_metadata_altered = null;
         }
         
         if (fire_ordering_changed) {
@@ -986,8 +996,8 @@ public class ViewCollection : DataCollection {
     private ViewFilter filter = null;
     private DataSet selected = new DataSet();
     private DataSet visible = null;
-    private bool fire_views_altered = false;
-    private bool fire_geometries_altered = false;
+    private Gee.HashSet<DataView> frozen_views_altered = null;
+    private Gee.HashSet<DataView> frozen_geometries_altered = null;
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
@@ -1026,10 +1036,10 @@ public class ViewCollection : DataCollection {
     public virtual signal void item_geometry_altered(DataView view) {
     }
     
-    public virtual signal void views_altered() {
+    public virtual signal void views_altered(Gee.Collection<DataView> views) {
     }
     
-    public virtual signal void geometries_altered() {
+    public virtual signal void geometries_altered(Gee.Collection<DataView> views) {
     }
     
     public ViewCollection(string name) {
@@ -1040,16 +1050,16 @@ public class ViewCollection : DataCollection {
         item_view_altered(view);
     }
     
-    protected virtual void notify_views_altered() {
-        views_altered();
+    protected virtual void notify_views_altered(Gee.Collection<DataView> views) {
+        views_altered(views);
     }
     
     protected virtual void notify_item_geometry_altered(DataView view) {
         item_geometry_altered(view);
     }
     
-    public virtual void notify_geometries_altered() {
-        geometries_altered();
+    public virtual void notify_geometries_altered(Gee.Collection<DataView> views) {
+        geometries_altered(views);
     }
     
     public override void close() {
@@ -1746,9 +1756,11 @@ public class ViewCollection : DataCollection {
     public void internal_notify_view_altered(DataView view) {
         if (!are_notifications_frozen()) {
             notify_item_view_altered(view);
-            notify_views_altered();
+            notify_views_altered(get_singleton(view));
         } else {
-            fire_views_altered = true;
+            if (frozen_views_altered == null)
+                frozen_views_altered = new Gee.HashSet<DataView>();
+            frozen_views_altered.add(view);
         }
     }
     
@@ -1756,21 +1768,27 @@ public class ViewCollection : DataCollection {
     public void internal_notify_geometry_altered(DataView view) {
         if (!are_notifications_frozen()) {
             notify_item_geometry_altered(view);
-            notify_geometries_altered();
+            notify_geometries_altered(get_singleton(view));
         } else {
-            fire_geometries_altered = true;
+            if (frozen_geometries_altered == null)
+                frozen_geometries_altered = new Gee.HashSet<DataView>();
+            frozen_geometries_altered.add(view);
         }
     }
     
     protected override void thawed() {
-        if (fire_views_altered) {
-            fire_views_altered = false;
-            notify_views_altered();
+        if (frozen_views_altered != null) {
+            foreach (DataView view in frozen_views_altered)
+                notify_item_view_altered(view);
+            notify_views_altered(frozen_views_altered);
+            frozen_views_altered = null;
         }
         
-        if (fire_geometries_altered) {
-            fire_geometries_altered = false;
-            notify_geometries_altered();
+        if (frozen_geometries_altered != null) {
+            foreach (DataView view in frozen_geometries_altered)
+                notify_item_geometry_altered(view);
+            notify_geometries_altered(frozen_geometries_altered);
+            frozen_geometries_altered = null;
         }
         
         base.thawed();

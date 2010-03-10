@@ -213,7 +213,7 @@ public bool rectangles_equal(Gdk.Rectangle a, Gdk.Rectangle b) {
 }
 
 public string rectangle_to_string(Gdk.Rectangle rect) {
-    return "%dx%d %d,%d".printf(rect.x, rect.y, rect.width, rect.height);
+    return "%d,%d %dx%d".printf(rect.x, rect.y, rect.width, rect.height);
 }
 
 public Gdk.Rectangle clamp_rectangle(Gdk.Rectangle original, Dimensions max) {
