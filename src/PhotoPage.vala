@@ -151,10 +151,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void set_photo(TransformablePhoto photo) {
-        // clear out the collection and use this as its sole member
+        // clear out the collection and use this as its sole member, selecting it so it's seen
+        // as the item to be operated upon by various observers (including drag-and-drop)
         get_view().clear();
         get_view().add(new PhotoView(photo));
         get_view().select_all();
+        
+        // also select it in the controller's collection, so when the user returns to that view
+        // it's apparent which one was being viewed here
+        if (controller != null) {
+            controller.unselect_all();
+            Marker marker = controller.mark(controller.get_view_for_source(photo));
+            controller.select_marked(marker);
+        }
     }
     
     public override void switched_to() {
@@ -165,27 +174,31 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // check if the photo altered while away
         if (has_photo() && pixbuf_dirty)
             replace_photo(controller, get_photo());
-        
-        if (controller != null)
-            controller.items_selected += selection_changed;
     }
     
     public override void switching_from() {
         base.switching_from();
         
         deactivate_tool();
-        
-        if (controller != null)
-            controller.items_selected -= selection_changed;
     }
     
     public override void switching_to_fullscreen() {
         base.switching_to_fullscreen();
-
+        
         deactivate_tool();
+        
+        if (controller != null)
+            controller.items_selected += on_selection_changed;
     }
-
-    private void selection_changed(Gee.Iterable<DataView> selected) {
+    
+    public override void returning_from_fullscreen() {
+        base.returning_from_fullscreen();
+        
+        if (controller != null)
+            controller.items_selected -= on_selection_changed;
+    }
+    
+    private void on_selection_changed(Gee.Iterable<DataView> selected) {
         foreach (DataView view in selected) {
             replace_photo(controller, (TransformablePhoto) view.get_source());
             break;
@@ -362,13 +375,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected void replace_photo(ViewCollection new_controller, TransformablePhoto new_photo) {
         ViewCollection old_controller = this.controller;
         controller = new_controller;
-        
-        // hook
-        if (old_controller != null)
-            old_controller.items_selected -= selection_changed;
-        
-        if (controller != null)
-            controller.items_selected += selection_changed;
         
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
@@ -637,12 +643,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     // This virtual method is called only when the user double-clicks on the page and no tool
     // is active
-    private virtual bool on_double_click(Gdk.EventButton event) {
+    protected virtual bool on_double_click(Gdk.EventButton event) {
         return false;
     }
     
     // Return true to block the DnD handler from activating a drag
-    private override bool on_left_click(Gdk.EventButton event) {
+    protected override bool on_left_click(Gdk.EventButton event) {
         // report double-click if no tool is active, otherwise all double-clicks are eaten
         if (event.type == Gdk.EventType.2BUTTON_PRESS)
             return (current_tool == null) ? on_double_click(event) : false;
@@ -665,7 +671,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return true;
     }
     
-    private override bool on_left_released(Gdk.EventButton event) {
+    protected override bool on_left_released(Gdk.EventButton event) {
         // report all releases, as it's possible the user click and dragged from inside the
         // pixbuf to the gutters
         if (current_tool != null)
@@ -1042,10 +1048,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         TransformablePhoto next_photo = next.get_source() as TransformablePhoto;
         if (next_photo != null)
             replace_photo(controller, next_photo);
-        
-        controller.unselect_all();
-        Marker marker = controller.mark(controller.get_view_for_source(next_photo));
-        controller.select_marked(marker);
     }
     
     public void on_previous_photo() {
@@ -1064,10 +1066,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         TransformablePhoto previous_photo = previous.get_source() as TransformablePhoto;
         if (previous_photo != null)
             replace_photo(controller, previous_photo);
-        
-        controller.unselect_all();
-        Marker marker = controller.mark(controller.get_view_for_source(previous_photo));
-        controller.select_marked(marker);
     }
 
     public bool has_current_tool() {
@@ -1086,6 +1084,8 @@ public class LibraryPhotoPage : EditingHostPage {
     public const int TRINKET_SCALE = 20;
     public const int TRINKET_PADDING = 1;
 
+    private bool return_to_collection_on_release = false;
+    
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
 
@@ -1338,16 +1338,27 @@ public class LibraryPhotoPage : EditingHostPage {
         return handled;
     }
     
-    private override bool on_double_click(Gdk.EventButton event) {
+    protected override bool on_double_click(Gdk.EventButton event) {
         if (!(get_container() is FullscreenWindow)) {
+            return_to_collection_on_release = true;
+            
+            return true;
+        }
+        
+        return base.on_double_click(event);
+    }
+    
+    protected override bool on_left_released(Gdk.EventButton event) {
+        if (return_to_collection_on_release) {
+            return_to_collection_on_release = false;
             return_to_collection();
             
             return true;
         }
         
-        return false;
+        return base.on_left_released(event);
     }
-
+    
     private override bool on_context_invoked() {
         if (!has_photo())
             return false;
@@ -1377,6 +1388,13 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void return_to_collection() {
+        ViewCollection controller = get_controller();
+        if (controller != null && has_photo()) {
+            controller.unselect_all();
+            Marker marker = controller.mark(controller.get_view_for_source(get_photo()));
+            controller.select_marked(marker);
+        }
+        
         LibraryWindow.get_app().switch_to_page(return_page);
     }
 

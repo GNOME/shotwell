@@ -757,6 +757,7 @@ public abstract class CheckerboardPage : Page {
     protected CheckerboardItem cursor = null;
     private CheckerboardItem highlighted = null;
     private bool autoscroll_scheduled = false;
+    private CheckerboardItem activated_item = null;
 
     public CheckerboardPage(string page_name) {
         base(page_name);
@@ -972,7 +973,7 @@ public abstract class CheckerboardPage : Page {
                 
                 default:
                     if (event.type == Gdk.EventType.2BUTTON_PRESS) {
-                        on_item_activated(item);
+                        activated_item = item;
                     } else {
                         // if the user has selected one or more items and is preparing for a drag,
                         // don't want to blindly unselect: if they've clicked on an unselected item
@@ -1017,7 +1018,15 @@ public abstract class CheckerboardPage : Page {
         // only interested in non-modified button releases
         if ((event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK)) != 0)
             return false;
+        
+        // if the item was activated in the double-click, report it now
+        if (activated_item != null) {
+            on_item_activated(activated_item);
+            activated_item = null;
             
+            return true;
+        }
+        
         CheckerboardItem item = get_item_at_pixel(event.x, event.y);
         if (item == null) {
             // released button on "dead" area
