@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Virtaal 0.3.1\n"
+"X-Poedit-Language: Slovak\n"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
