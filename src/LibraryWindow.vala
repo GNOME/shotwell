@@ -1342,6 +1342,7 @@ public class LibraryWindow : AppWindow {
         add(layout);
 
         switch_to_page(start_page);
+        start_page.grab_focus();
     }
     
     public override void set_current_page(Page page) {
