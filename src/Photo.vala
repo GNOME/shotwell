@@ -1575,7 +1575,7 @@ public abstract class TransformablePhoto: PhotoSource {
         if (scaling.is_unscaled() && (!has_alterations() || only_exif_changed())) {
             debug("Exporting copy of %s", to_string());
             
-            get_file().copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.ALL_METADATA,
+            get_file().copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS,
                 null, null);
             
             // If asking for an original-sized file and there are no alterations (transformations or
