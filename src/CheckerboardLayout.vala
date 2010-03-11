@@ -526,7 +526,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private OneShotScheduler reflow_scheduler = null;
     private int scale = 0;
     private bool flow_dirty = true;
-
+    private bool exposure_dirty = true;
+    
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
         
@@ -619,10 +620,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // possible for this widget's size_allocate not to be called, so need to update the page
         // rect here
         update_visible_page();
+        if (!in_view)
+            exposure_dirty = true;
     }
     
     private void on_viewport_shifted() {
         update_visible_page();
+        if (!in_view)
+            exposure_dirty = true;
     }
     
     private void on_contents_altered(Gee.Iterable<DataObject>? added, 
@@ -705,7 +710,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         visible_page = current_visible;
         
-        if (!reexpose || !in_view || !changed)
+        if (!reexpose || !in_view || (!changed && !exposure_dirty))
             return;
         
         // create a new hash set of exposed items that represents an intersection of the old set
@@ -729,6 +734,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // swap out lists
         exposed_items = new_exposed_items;
+        exposure_dirty = false;
         
         view.thaw_notifications();
     }
@@ -737,8 +743,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         this.in_view = in_view;
         if (in_view) {
             // update the visible page rectangle, but only re-expose items if not going to reflow
-            // the layout (which exposes already)
-            update_visible_page(!flow_dirty);
+            // the layout (which exposes already) or the exposure is flat-out dirty
+            update_visible_page(!flow_dirty || exposure_dirty);
             
             // if the flow dirtied at some point, now reflow the layout
             if (flow_dirty)
@@ -752,10 +758,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         // unexpose everything currently exposed
         view.freeze_notifications();
+        
         foreach (CheckerboardItem item in exposed_items)
             item.unexposed();
         
         exposed_items.clear();
+        exposure_dirty = false;
+        
         view.thaw_notifications();
     }
     
@@ -1300,6 +1309,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         rows = row + 1;
         assert(rows == max_rows);
         
+        // all exposures have been made (in prior loop)
+        exposure_dirty = false;
+        
         // Step 6: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
         int total_height = y + row_heights[row] + BOTTOM_PADDING;
@@ -1413,9 +1425,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             update_visible_page(false);
             
             schedule_background_reflow("size_allocate (%d)".printf(last_width));
-        } else {
+        } else if (in_view) {
             // update visible page rect, re-exposing as necessary
             update_visible_page();
+        } else {
+            // don't need to reflow but not in view to re-expose, so need to do that when back
+            // in view
+            exposure_dirty = true;
         }
     }
     
