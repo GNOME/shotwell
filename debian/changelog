@@ -1,3 +1,20 @@
+shotwell (0.5.0-1~karmic2) karmic; urgency=low
+
+  * Photos can be tagged and organized by tag, creating a new
+    tool for managing your photo collection
+  * Printing
+  * Photos can now be published to Google's Picasa Web Albums
+    service
+  * Photo exposure date and time can be set and shifted
+  * Photos can be set as your desktop background directly
+    from Shotwell
+  * Photo import runs in the background, making imports smoother
+    and more fluid
+  * Publishing photos to web services is more responsive
+
+ -- Lucas Beeler <lucas@yorba.org>  Thu, 11 Mar 2010 13:36:24 -0800
+
+
 shotwell (0.4.3-1~karmic1) karmic; urgency=low
 
   * Updated Italian and French translations.
