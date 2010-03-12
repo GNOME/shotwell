@@ -40,7 +40,6 @@ binary-arch: install
 	dh_installman
 	dh_icons
 	dh_link
-	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb
