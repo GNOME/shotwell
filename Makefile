@@ -187,7 +187,8 @@ EXT_PKG_VERSIONS += \
 	unique-1.0 >= 1.0.0 \
 	webkit-1.0 >= 1.1.5 \
 	libusb >= 0.1.12 \
-	gudev-1.0 >= 145
+	gudev-1.0 >= 145 \
+    dbus-glib-1 >= 0.80
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
