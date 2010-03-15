@@ -2,8 +2,16 @@
 
 cd /mingw
 
-# We use the GTK 2.18.1 binary because it was built without the GDI+ pixbuf loader.  Versions 2.18.3 and later
-# (including the GTK included by Vala) are built with GDI+ and are too slow.
+# For now, we use the GTK 2.16.6 binary (which is also used e.g. in the Windows binary
+# for gedit 2.28.3).
+#
+# Some problems with GTK 2.18 on Windows:
+# - GTK 2.18.1 has problems rendering the Windows theme: an ugly rectangle appears when a user
+#   clicks on a menu.  (Presumably this is why the Windows theme isn't included in this binary.)
+# - GTK 2.18.3 and later (including the GTK included by Vala) are built with GDI+ and are too slow,
+#   so we'll need to build GTK ourselves if we want to use one of these versions.
+# - GTK 2.18.7 doesn't seem to render the Windows theme, even when the theme file is present and
+#   even though libwimp.dll is loaded as revealed by Process Explorer.
 
 list="\
 http://downloads.sourceforge.net/project/mingw/GNU%20Binutils/binutils-2.20/binutils-2.20-1-mingw32-bin.tar.gz \
@@ -11,8 +19,8 @@ http://downloads.sourceforge.net/project/mingw/MinGW%20API%20for%20MS-Windows/w3
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3_3.6.0_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3-dev_3.6.0_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2_2.7.4-1_win32.zip \
-http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.18/gtk+_2.18.1-1_win32.zip \
-http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.18/gtk+-dev_2.18.1-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.18/gtk+_2.16.6-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.18/gtk+-dev_2.16.6-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/libcroco/0.6/libcroco_0.6.2-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf_1.14.15-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/librsvg/2.26/librsvg_2.26.0-1_win32.zip \
