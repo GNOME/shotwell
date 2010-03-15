@@ -2,8 +2,17 @@
 
 cd /mingw
 
-# We use the GTK 2.18.1 binary because it was built without the GDI+ pixbuf loader.  Versions 2.18.3 and later
-# (including the GTK included by Vala) are built with GDI+ and are too slow.
+# For now, we use the GTK 2.18.1 binary.  We can't use GTK 2.16, because some Shotwell code now uses
+# functions only found in 2.18.
+#
+# Some problems with GTK 2.18 on Windows:
+# - GTK 2.18.1 has problems rendering the Windows theme: an ugly rectangle appears when a user
+#   clicks on a menu.  Presumably this is why the Windows theme isn't included in this binary.
+#   And so we have no Windows theme in the current Shotwell install.
+# - GTK 2.18.3 and later (including the GTK included by Vala) are built with GDI+ and are too slow,
+#   so we'll need to build GTK ourselves if we want to use one of these versions.
+# - GTK 2.18.7 doesn't seem to render the Windows theme, even when the theme file is present and
+#   even though libwimp.dll is loaded as revealed by Process Explorer.
 
 list="\
 http://downloads.sourceforge.net/project/mingw/GNU%20Binutils/binutils-2.20/binutils-2.20-1-mingw32-bin.tar.gz \
@@ -41,5 +50,4 @@ done
 
 mkdir -p etc/gtk-2.0
 gdk-pixbuf-query-loaders > etc/gtk-2.0/gdk-pixbuf.loaders
-echo 'gtk-theme-name = "MS-Windows"' > etc/gtk-2.0/gtkrc
 
