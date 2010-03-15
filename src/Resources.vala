@@ -152,8 +152,14 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string EXPORT_MENU = _("_Export...");
     public const string EXPORT_TOOLTIP = _("Export to disk");
-
-    public const string PUBLISH_MENU = _("Publish...");    
+    
+    public const string PAGE_SETUP_MENU = _("Page _Setup...");    
+    public const string PAGE_SETUP_TOOLTIP = _("View and change page setup printing");
+    
+    public const string PRINT_MENU = _("Prin_t...");    
+    public const string PRINT_TOOLTIP = _("Print the photo to a printer connected to your computer");
+    
+    public const string PUBLISH_MENU = _("Pu_blish...");    
     public const string PUBLISH_LABEL = _("Publish");
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 
@@ -203,7 +209,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string RENAME_TAG_TITLE = _("Rename Tag");
     
-    public const string MODIFY_TAGS_MENU = _("_Modify Tags...");
+    public const string MODIFY_TAGS_MENU = _("M_odify Tags...");
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
     public const string MODIFY_TAGS_TOOLTIP = _("Modify the tags for this photo");
     

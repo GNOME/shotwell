@@ -1138,13 +1138,14 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_PRINTING
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
             TRANSLATABLE, on_page_setup };
-        page_setup.label = _("Page _Setup...");
+        page_setup.label = Resources.PAGE_SETUP_MENU;
+        page_setup.tooltip = Resources.PAGE_SETUP_TOOLTIP;
         actions += page_setup;
 
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
-        print.label = _("Prin_t...");
-        print.tooltip = _("Print the photo to a printer connected to your computer");
+        print.label = Resources.PRINT_MENU;
+        print.tooltip = Resources.PRINT_TOOLTIP;
         actions += print;
 #endif
         

@@ -200,16 +200,17 @@ public abstract class CollectionPage : CheckerboardPage {
         actions += export;
 
 #if !NO_PRINTING
-        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
-            TRANSLATABLE, on_print };
-        print.label = _("Prin_t...");
-        print.tooltip = _("Print the photo to a printer connected to your computer");
-        actions += print;
-
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
             TRANSLATABLE, on_page_setup };
-        page_setup.label = _("Page _Setup...");
+        page_setup.label = Resources.PAGE_SETUP_MENU;
+        page_setup.tooltip = Resources.PAGE_SETUP_TOOLTIP;
         actions += page_setup;
+
+        Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
+            TRANSLATABLE, on_print };
+        print.label = Resources.PRINT_MENU;
+        print.tooltip = Resources.PRINT_TOOLTIP;
+        actions += print;
 #endif        
         
 #if !NO_PUBLISHING
@@ -367,7 +368,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         Gtk.ToggleActionEntry favorites = { "ViewFavorites", null, TRANSLATABLE, "<Ctrl><Shift>F",
             TRANSLATABLE, on_display_only_favorites, Config.get_instance().get_display_favorite_photos() };
-        favorites.label = _("Only _Favorites");
+        favorites.label = _("Only Fa_vorites");
         favorites.tooltip = _("Show only your favorite photos");
         toggle_actions += favorites;
 
