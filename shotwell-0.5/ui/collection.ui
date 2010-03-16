@@ -1,0 +1,108 @@
+<ui>
+
+    <menubar name="CollectionMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Import" action="CommonFileImport" />
+            <menuitem name="Export" action="Export" />
+            <separator />
+            <placeholder name="PrintPlaceholder"/>
+            <separator />
+            <placeholder name="PublishPlaceholder"/>
+            <separator />
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="CommonUndo" />
+            <menuitem name="Redo" action="CommonRedo" />
+            <separator />
+            <menuitem name="Duplicate" action="Duplicate" />
+            <menuitem name="Remove" action="Remove" />
+            <separator />
+            <menuitem name="SelectAll" action="SelectAll" />
+        </menu>
+
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
+            <separator />
+            <menuitem name="ViewTitle" action="ViewTitle" />
+            <menuitem name="ViewTags" action="ViewTags" />
+            <separator />
+            <menuitem name="ViewFavorites" action="ViewFavorites" />
+            <menuitem name="ViewHidden" action="ViewHidden" />
+            <separator />
+            <menu name="SortPhotos" action="SortPhotos">
+                <menuitem name="SortByTitle" action="SortByTitle" />
+                <menuitem name="SortByExposureDate" action="SortByExposureDate" />
+                <separator />
+                <menuitem name="SortAscending" action="SortAscending" />
+                <menuitem name="SortDescending" action="SortDescending" />
+            </menu>
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
+            <separator />
+            <menuitem name="Fullscreen" action="CommonFullscreen" />
+        </menu>
+                
+        <menu name="PhotosMenu" action="PhotosMenu">
+            <menuitem name="RotateClockwise" action="RotateClockwise" />
+            <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
+            <menuitem name="Mirror" action="Mirror" />
+            <separator />
+            <menuitem name="Enhance" action="Enhance" />
+            <menuitem name="Revert" action="Revert" />
+            <separator />
+            <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
+            <menuitem name="HideUnhide" action="HideUnhide" />
+            <separator />
+            <menuitem name="AdjustDateTime" action="AdjustDateTime" />
+            <separator />
+            <placeholder name="SetBackgroundPlaceholder"/>
+            <separator />
+            <menuitem name="Slideshow" action="Slideshow" />
+        </menu>
+        
+        <menu name="EventsMenu" action="EventsMenu">
+            <menuitem name="NewEvent" action="NewEvent" />
+        </menu>
+        
+        <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="AddTags" action="AddTags" />
+            <menuitem name="ModifyTags" action="ModifyTags" />
+        </menu>
+        
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="Contents" action="CommonHelpContents" />
+            <separator />
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+    
+    <popup name="CollectionContextMenu">
+        <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
+        <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
+        <separator />
+        <menuitem name="ContextEnhance" action="Enhance" />
+        <menuitem name="ContextRevert" action="Revert" />
+        <separator />
+        <menuitem name="ContextAddTags" action="AddTags" />
+        <menuitem name="ContextModifyTags" action="ModifyTags" />
+        <placeholder name="ContextTagsPlaceholder" />
+        <separator />
+        <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
+        <menuitem name="ContextHideUnhide" action="HideUnhide" />
+        <separator />
+        <menuitem name="ContextDuplicate" action="Duplicate" />
+        <menuitem name="ContextRemove" action="Remove" />
+        <separator />
+        <placeholder name="ContextSetBackgroundPlaceholder"/>
+    </popup>
+
+</ui>
+

@@ -1,0 +1,17 @@
+<ui>
+
+    <menubar name="CollectionMenuBar">
+        <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="RemoveTagFromPhotos" action="RemoveTagFromPhotos" />
+            <separator />
+            <menuitem name="RenameTag" action="RenameTag" />
+            <menuitem name="DeleteTag" action="DeleteTag" />
+        </menu>
+    </menubar>
+    
+    <popup name="TagsContextMenu">
+        <menuitem name="ContextRenameTag" action="RenameTag" />
+        <menuitem name="ContextDeleteTag" action="DeleteTag" />
+    </popup>
+
+</ui>

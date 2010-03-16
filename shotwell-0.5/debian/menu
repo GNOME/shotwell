@@ -1,0 +1,2 @@
+?package(shotwell):needs="X11" section="Applications/Viewers"\
+  title="Shotwell" command="/usr/bin/shotwell"
