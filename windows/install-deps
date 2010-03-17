@@ -50,5 +50,4 @@ done
 
 mkdir -p etc/gtk-2.0
 gdk-pixbuf-query-loaders > etc/gtk-2.0/gdk-pixbuf.loaders
-echo 'gtk-theme-name = "MS-Windows"' > etc/gtk-2.0/gtkrc
 
