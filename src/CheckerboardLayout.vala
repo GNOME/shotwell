@@ -268,16 +268,12 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     public void set_image(Gdk.Pixbuf pixbuf) {
-        bool image_changed = pixbuf != this.pixbuf;
-        
         this.pixbuf = pixbuf;
         display_pixbuf = pixbuf;
         pixbuf_dim = Dimensions.for_pixbuf(pixbuf);
-
-        recalc_size("set_image");
         
-        if (image_changed)
-            notify_view_altered();
+        recalc_size("set_image");
+        notify_view_altered();
     }
     
     public void clear_image(Dimensions dim) {
@@ -514,7 +510,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.GC selected_gc = null;
     private Gdk.GC unselected_gc = null;
     private Gdk.GC selection_band_gc = null;
-    private bool in_view = false;
     private Gdk.Rectangle visible_page = Gdk.Rectangle();
     private int last_width = 0;
     private int columns = 0;
@@ -523,7 +518,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.Point drag_endpoint = Gdk.Point();
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
     private uint32 selection_transparency_color = 0;
-    private OneShotScheduler reflow_scheduler = null;
     private int scale = 0;
     private bool flow_dirty = true;
     private bool exposure_dirty = true;
@@ -532,9 +526,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         this.view = view;
         
         clear_drag_select();
-        
-        reflow_scheduler = new OneShotScheduler("CheckerboardLayout for %s".printf(view.to_string()),
-            background_reflow);
         
         // subscribe to the new collection
         view.contents_altered += on_contents_altered;
@@ -574,8 +565,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         if (parent != null)
             parent.size_allocate -= on_viewport_resized;
-        
-        reflow_scheduler.cancel();
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -619,15 +608,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         // possible for this widget's size_allocate not to be called, so need to update the page
         // rect here
-        update_visible_page();
-        if (!in_view)
-            exposure_dirty = true;
+        viewport_resized();
     }
     
     private void on_viewport_shifted() {
         update_visible_page();
-        if (!in_view)
-            exposure_dirty = true;
+        need_exposure("on_viewport_shift");
     }
     
     private void on_contents_altered(Gee.Iterable<DataObject>? added, 
@@ -644,52 +630,51 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // items may be removed, this ensures we're not holding the ref on a removed view
         item_rows = null;
         
-        schedule_background_reflow("on_contents_altered");
+        need_reflow("on_contents_altered");
     }
     
     private void on_items_altered() {
-        schedule_background_reflow("on_items_altered");
+        need_reflow("on_items_altered");
     }
     
     private void on_items_metadata_altered() {
-        schedule_background_reflow("on_items_metadata_altered");
+        need_reflow("on_items_metadata_altered");
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {
-        if (in_view)
-            repaint_items("on_items_state_changed", changed);
+        items_dirty("on_items_state_changed", changed);
     }
     
     private void on_items_visibility_changed(Gee.Iterable<DataView> changed) {
-        schedule_background_reflow("on_items_visibility_changed");
+        need_reflow("on_items_visibility_changed");
     }
     
     private void on_ordering_changed() {
-        schedule_background_reflow("on_ordering_changed");
+        need_reflow("on_ordering_changed");
     }
     
     private void on_views_altered(Gee.Collection<DataView> altered) {
-        if (in_view)
-            repaint_items("on_views_altered", altered);
+        items_dirty("on_views_altered", altered);
     }
     
     private void on_geometries_altered() {
-        schedule_background_reflow("on_geometries_altered");
+        need_reflow("on_geometries_altered");
     }
     
-    private void schedule_background_reflow(string caller) {
+    private void need_reflow(string caller) {
 #if TRACE_REFLOW
-        debug("schedule_background_reflow %s: %s (in_view=%d)", page_name, caller, (int) in_view);
+        debug("need_reflow %s: %s", page_name, caller);
 #endif
-        
-        if (in_view)
-            reflow_scheduler.at_priority_idle(Priority.HIGH);
-        else
-            flow_dirty = true;
+        flow_dirty = true;
+        queue_draw();
     }
     
-    private void background_reflow() {
-        reflow("background_reflow");
+    private void need_exposure(string caller) {
+#if TRACE_REFLOW
+        debug("need_exposure %s: %s", page_name, caller);
+#endif
+        exposure_dirty = true;
+        queue_draw();
     }
     
     public void set_message(string text) {
@@ -700,72 +685,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             set_size_request(parent.allocation.width, parent.allocation.height);
     }
     
-    private void update_visible_page(bool reexpose = true) {
-        if (hadjustment == null || vadjustment == null)
-            return;
-            
-        Gdk.Rectangle current_visible = get_adjustment_page(hadjustment, vadjustment);
-        
-        bool changed = !rectangles_equal(visible_page, current_visible);
-        
-        visible_page = current_visible;
-        
-        if (!reexpose || !in_view || (!changed && !exposure_dirty))
-            return;
-        
-        // create a new hash set of exposed items that represents an intersection of the old set
-        // and the new
-        Gee.HashSet<CheckerboardItem> new_exposed_items = new Gee.HashSet<CheckerboardItem>();
-        
-        view.freeze_notifications();
-        
-        Gee.List<CheckerboardItem> items = intersection(visible_page);
-        foreach (CheckerboardItem item in items) {
-            new_exposed_items.add(item);
-
-            // if not in the old list, then need to expose
-            if (!exposed_items.remove(item))
-                item.exposed();
-        }
-        
-        // everything remaining in the old exposed list is now unexposed
-        foreach (CheckerboardItem item in exposed_items)
-            item.unexposed();
-        
-        // swap out lists
-        exposed_items = new_exposed_items;
-        exposure_dirty = false;
-        
-        view.thaw_notifications();
+    private void update_visible_page() {
+        if (hadjustment != null && vadjustment != null)
+            visible_page = get_adjustment_page(hadjustment, vadjustment);
     }
     
     public void set_in_view(bool in_view) {
-        this.in_view = in_view;
-        if (in_view) {
-            // update the visible page rectangle, but only re-expose items if not going to reflow
-            // the layout (which exposes already) or the exposure is flat-out dirty
-            update_visible_page(!flow_dirty || exposure_dirty);
-            
-            // if the flow dirtied at some point, now reflow the layout
-            if (flow_dirty)
-                reflow("set_in_view");
-
-            return;
-        }
-        
-        // clear this to force a re-expose when back in view
-        visible_page = Gdk.Rectangle();
-
-        // unexpose everything currently exposed
-        view.freeze_notifications();
-        
-        foreach (CheckerboardItem item in exposed_items)
-            item.unexposed();
-        
-        exposed_items.clear();
-        exposure_dirty = false;
-        
-        view.thaw_notifications();
+        if (in_view)
+            need_exposure("set_in_view (true)");
+        else
+            unexpose_items("set_in_view (false)");
     }
     
     public CheckerboardItem? get_item_at_pixel(double xd, double yd) {
@@ -981,6 +910,73 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         queue_draw();
     }
     
+    private void viewport_resized() {
+        // only reflow() if the width has changed
+        if (allocation.width != last_width) {
+            int old_width = last_width;
+            last_width = allocation.width;
+            
+            // update visible page rect but don't call expose events, as reflow will do that
+            update_visible_page();
+            
+            need_reflow("size_allocate (%d -> %d)".printf(old_width, allocation.width));
+        } else {
+            // don't need to reflow but exposure may have changed
+            need_exposure("size_allocate");
+        }
+    }
+    
+    private void expose_items(string caller) {
+        // create a new hash set of exposed items that represents an intersection of the old set
+        // and the new
+        Gee.HashSet<CheckerboardItem> new_exposed_items = new Gee.HashSet<CheckerboardItem>();
+        
+        view.freeze_notifications();
+        
+        Gee.List<CheckerboardItem> items = get_visible_items();
+        foreach (CheckerboardItem item in items) {
+            new_exposed_items.add(item);
+
+            // if not in the old list, then need to expose
+            if (!exposed_items.remove(item))
+                item.exposed();
+        }
+        
+        // everything remaining in the old exposed list is now unexposed
+        foreach (CheckerboardItem item in exposed_items)
+            item.unexposed();
+        
+        // swap out lists
+        exposed_items = new_exposed_items;
+        exposure_dirty = false;
+        
+#if TRACE_REFLOW
+        debug("expose_items %s: exposed %d items, thawing", page_name, exposed_items.size);
+#endif
+        view.thaw_notifications();
+#if TRACE_REFLOW
+        debug("expose_items %s: thaw finished", page_name);
+#endif
+    }
+    
+    private void unexpose_items(string caller) {
+        view.freeze_notifications();
+        
+        foreach (CheckerboardItem item in exposed_items)
+            item.unexposed();
+        
+        exposed_items.clear();
+        exposure_dirty = false;
+        
+#if TRACE_REFLOW
+        debug("unexpose_items %s: thawing", page_name);
+#endif
+        view.thaw_notifications();
+#if TRACE_REFLOW
+        debug("unexpose_items %s: thawed", page_name);
+#endif
+    }
+    
     private void reflow(string caller) {
         // if set in message mode, nothing to do here
         if (message != null)
@@ -989,13 +985,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // don't bother until layout is of some appreciable size (even this is too low)
         if (allocation.width <= 1)
             return;
-        
-        // don't reflow if not in view of the user
-        if (!in_view) {
-            flow_dirty = true;
-            
-            return;
-        }
         
         int total_items = view.get_count();
         
@@ -1223,11 +1212,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         col = 0;
         row = 0;
         LayoutRow current_row = null;
-        bool report_exposure = (visible_page.width > 1 && visible_page.height > 1);
-        Gdk.Rectangle intersection = Gdk.Rectangle();
-        Gdk.Point tl_dirty = { int.MAX, int.MAX };
-        Gdk.Point br_dirty = { int.MIN, int.MIN };
-        bool dirty_area = false;
         
         for (int ctr = 0; ctr < total_items; ctr++) {
             CheckerboardItem item = (CheckerboardItem) view.get_at(ctr);
@@ -1242,42 +1226,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             assert(ypadding >= 0);
             
             // save pixel and grid coordinates
-            Gdk.Rectangle allocation = { x + xpadding, y + ypadding, req.width, req.height };
-            if (!rectangles_equal(allocation, item.allocation)) {
-                // if the item has already been allocated, find the maximum area of the change
-                // between the current changed rectangle, the old allocation, and the new allocation
-                if (item.allocation.width > 0 && item.allocation.height > 0) {
-                    tl_dirty.x = int.min(tl_dirty.x, int.min(allocation.x, item.allocation.x));
-                    tl_dirty.y = int.min(tl_dirty.y, int.min(allocation.y, item.allocation.y));
-                    br_dirty.x = int.max(br_dirty.x,
-                        int.max(allocation.x + allocation.width, item.allocation.x + item.allocation.width));
-                    br_dirty.y = int.max(br_dirty.y,
-                        int.max(allocation.y + allocation.height, item.allocation.y + item.allocation.height));
-                } else {
-                    // since the item has not been allocated, only need to find the maximum area
-                    // of the old dirty area and the new allocation
-                    tl_dirty.x = int.min(tl_dirty.x, allocation.x);
-                    tl_dirty.y = int.min(tl_dirty.y, allocation.y);
-                    br_dirty.x = int.max(br_dirty.x, allocation.x + allocation.width);
-                    br_dirty.y = int.max(br_dirty.y, allocation.y + allocation.height);
-                }
-                
-                dirty_area = true;
-                
-                item.allocation = allocation;
-            }
+            item.allocation = { x + xpadding, y + ypadding, req.width, req.height };
             item.set_grid_coordinates(col, row);
-            
-            // report exposed or unexposed
-            if (report_exposure) {
-                if (item.allocation.intersect(visible_page, intersection)) {
-                    exposed_items.add(item);
-                    item.exposed();
-                } else {
-                    exposed_items.remove(item);
-                    item.unexposed();
-                }
-            }
             
             // add to current row in spatial data structure
             if (current_row == null)
@@ -1309,9 +1259,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         rows = row + 1;
         assert(rows == max_rows);
         
-        // all exposures have been made (in prior loop)
-        exposure_dirty = false;
-        
         // Step 6: Define the total size of the page as the size of the allocated width and
         // the height of all the items plus padding
         int total_height = y + row_heights[row] + BOTTOM_PADDING;
@@ -1324,25 +1271,9 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
         
         flow_dirty = false;
-        
-        // Step 7: Queue redraw of dirty area, if any
-        if (dirty_area) {
-            Gdk.Rectangle dirty = { tl_dirty.x, tl_dirty.y, br_dirty.x - tl_dirty.x,
-                br_dirty.y - tl_dirty.y };
-            
-            // Verify the rectangle has area and find the intersection between it and the visible
-            // page; if there's an intersection, queue it for redraw
-            if (dirty.width > 0 && dirty.height > 0 && dirty.intersect(visible_page, intersection)) {
-#if TRACE_REFLOW
-                debug("reflow %s: Queueing redraw on %s of visible page %s", page_name, 
-                    rectangle_to_string(intersection), rectangle_to_string(visible_page));
-#endif
-                queue_draw_area(intersection.x, intersection.y, intersection.width, intersection.height);
-            }
-        }
     }
     
-    private void repaint_items(string reason, Gee.Iterable<DataView> items) {
+    private void items_dirty(string reason, Gee.Iterable<DataView> items) {
         Gdk.Rectangle dirty = Gdk.Rectangle();
         foreach (DataView data_view in items) {
             CheckerboardItem item = (CheckerboardItem) data_view;
@@ -1355,7 +1286,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // if not allocated, need to reflow the entire layout; don't bother queueing a draw
             // for any of these, reflow will handle that
             if (item.allocation.width <= 0 || item.allocation.height <= 0) {
-                schedule_background_reflow("repaint_item: %s".printf(reason));
+                need_reflow("items_dirty: %s".printf(reason));
                 
                 return;
             }
@@ -1374,7 +1305,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         if (dirty.width > 0 && dirty.height > 0) {
 #if TRACE_REFLOW
-            debug("repaint_items %s (%s): Queuing draw of dirty area %s on visible_page %s",
+            debug("items_dirty %s (%s): Queuing draw of dirty area %s on visible_page %s",
                 page_name, reason, rectangle_to_string(dirty), rectangle_to_string(visible_page));
 #endif
             queue_draw_area(dirty.x, dirty.y, dirty.width, dirty.height);
@@ -1417,22 +1348,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private override void size_allocate(Gdk.Rectangle allocation) {
         base.size_allocate(allocation);
         
-        // only reflow() if the width has changed
-        if (allocation.width != last_width) {
-            last_width = allocation.width;
-            
-            // update visible page rect but don't call expose events, as reflow will do that
-            update_visible_page(false);
-            
-            schedule_background_reflow("size_allocate (%d)".printf(last_width));
-        } else if (in_view) {
-            // update visible page rect, re-exposing as necessary
-            update_visible_page();
-        } else {
-            // don't need to reflow but not in view to re-expose, so need to do that when back
-            // in view
-            exposure_dirty = true;
-        }
+        viewport_resized();
     }
     
     private override bool expose_event(Gdk.EventExpose event) {
@@ -1448,6 +1364,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 #if TRACE_REFLOW
             debug("expose_event %s: %s", page_name, rectangle_to_string(event.area));
 #endif
+            if (flow_dirty)
+                reflow("expose_event");
+            
+            if (exposure_dirty)
+                expose_items("expose_event");
+            
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(event.area))
                 item.paint(item.is_selected() ? selected_gc : unselected_gc, window);

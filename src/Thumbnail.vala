@@ -18,7 +18,7 @@ public class Thumbnail : CheckerboardItem {
     public const Gdk.InterpType LOW_QUALITY_INTERP = Gdk.InterpType.NEAREST;
     public const Gdk.InterpType HIGH_QUALITY_INTERP = Gdk.InterpType.BILINEAR;
     
-    private const int HQ_IMPROVEMENT_MSEC = 250;
+    private const int HQ_IMPROVEMENT_MSEC = 100;
     
     private LibraryPhoto photo;
     private int scale;
@@ -26,7 +26,6 @@ public class Thumbnail : CheckerboardItem {
     private Dimensions dim;
     private Cancellable cancellable = null;
     private bool hq_scheduled = false;
-    private bool needs_improvement = false;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
@@ -141,7 +140,7 @@ public class Thumbnail : CheckerboardItem {
         else
             clear_image(dim);
         
-        needs_improvement = true;
+        schedule_high_quality_fetch();
     }
     
     private void paint_empty() {
@@ -161,7 +160,7 @@ public class Thumbnail : CheckerboardItem {
         if (hq_scheduled)
             return;
         
-        Timeout.add(HQ_IMPROVEMENT_MSEC, on_schedule_high_quality);
+        Timeout.add_full(Priority.DEFAULT, HQ_IMPROVEMENT_MSEC, on_schedule_high_quality);
         hq_scheduled = true;
     }
     
@@ -193,7 +192,7 @@ public class Thumbnail : CheckerboardItem {
         
         if (pixbuf != null)
             set_image(pixbuf);
-
+        
         schedule_high_quality_fetch();
     }
     
@@ -208,10 +207,8 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public override void exposed() {
-        if (!is_exposed() || !has_image() || needs_improvement) {
+        if (!is_exposed() || !has_image())
             schedule_low_quality_fetch();
-            needs_improvement = false;
-        }
         
         base.exposed();
     }
@@ -221,8 +218,6 @@ public class Thumbnail : CheckerboardItem {
         
         if (is_exposed() || has_image())
             paint_empty();
-        
-        needs_improvement = false;
         
         base.unexposed();
     }

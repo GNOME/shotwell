@@ -114,11 +114,8 @@ public class ThumbnailCache : Object {
         
     private static Workers fetch_workers = null;
     
-    public const ulong KBYTE = 1024;
-    public const ulong MBYTE = 1024 * KBYTE;
-    
-    public const ulong MAX_BIG_CACHED_BYTES = 40 * MBYTE;
-    public const ulong MAX_MEDIUM_CACHED_BYTES = 30 * MBYTE;
+    public const ulong MAX_BIG_CACHED_BYTES = 40 * 1024 * 1024;
+    public const ulong MAX_MEDIUM_CACHED_BYTES = 30 * 1024 * 1024;
 
     private static ThumbnailCache big = null;
     private static ThumbnailCache medium = null;
@@ -287,8 +284,9 @@ public class ThumbnailCache : Object {
         
         foreach (Size size in ALL_SIZES) {
             ThumbnailCache cache = get_cache_for(size);
-            debug("thumbnail cache %d: %lu/%lu bytes", cache.size.get_scale(), cache.cached_bytes, 
-                cache.max_cached_bytes);
+            debug("thumbnail cache %d: %d thumbnails, %lu/%lu bytes, %lu bytes/thumbnail", 
+                cache.cache_lru.size, cache.size.get_scale(), cache.cached_bytes,
+                cache.max_cached_bytes, cache.cached_bytes / cache.cache_lru.size);
         }
     }
     
