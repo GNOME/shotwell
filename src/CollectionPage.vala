@@ -101,9 +101,11 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().thaw_notifications();
         
         // adjustment which is shared by all sliders in the application
-        if (slider_adjustment == null)
-            slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0, 
+        scale = Config.get_instance().get_photo_thumbnail_scale();
+        if (slider_adjustment == null) {
+            slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0,
                 scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
+        }
         
         // set up page's toolbar (used by AppWindow for layout)
         Gtk.Toolbar toolbar = get_toolbar();
@@ -487,7 +489,6 @@ public abstract class CollectionPage : CheckerboardPage {
         publish_button.set_sensitive(get_view().get_selected_count() > 0);
 #endif
         enhance_button.sensitive = get_view().get_selected_count() > 0;
-        
     }
     
     protected override void on_item_activated(CheckerboardItem item) {
@@ -1208,6 +1209,10 @@ public abstract class CollectionPage : CheckerboardPage {
             get_command_manager().execute(new AddTagsCommand(names, 
                 (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
         }
+    }
+
+    public static int get_photo_thumbnail_scale() {
+        return slider_to_scale(slider_adjustment.get_value());
     }
 }
 

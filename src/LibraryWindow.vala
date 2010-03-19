@@ -281,7 +281,7 @@ public class LibraryWindow : AppWindow {
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed += import_queue_batch_finished;
         photo_page = new LibraryPhotoPage();
-
+        
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
         extended_properties.hide += hide_extended_properties;
@@ -511,6 +511,8 @@ public class LibraryWindow : AppWindow {
         Config.get_instance().set_library_window_state(maximized, dimensions);
 
         Config.get_instance().set_sidebar_position(client_paned.position);
+
+        Config.get_instance().set_photo_thumbnail_scale(CollectionPage.get_photo_thumbnail_scale());
         
         base.on_quit();
     }

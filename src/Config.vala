@@ -486,5 +486,15 @@ public class Config {
     public bool set_show_welcome_dialog(bool show) {
         return set_bool("/apps/shotwell/preferences/ui/show_welcome_dialog", show);
     }
+
+    public bool set_photo_thumbnail_scale(int scale) {
+        return set_int("/apps/shotwell/preferences/ui/photo_thumbnail_scale", scale);
+    }
+
+    public int get_photo_thumbnail_scale() {
+        return get_int("/apps/shotwell/preferences/ui/photo_thumbnail_scale",
+            Thumbnail.DEFAULT_SCALE).clamp(
+            Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
+    }
 }
 

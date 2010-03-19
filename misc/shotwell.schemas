@@ -550,5 +550,18 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/photo_thumbnail_scale</key>
+            <applyto>/apps/shotwell/preferences/ui/photo_thumbnail_scale</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>128</default>
+
+            <locale name="en">
+                <short>photo thumbnail scale</short>
+                <long>The scale of photo thumbnails, currently ranging from 72 to 360.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>
