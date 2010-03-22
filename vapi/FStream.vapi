@@ -26,7 +26,7 @@ public class FStream {
 	[CCode (cname = "fgetc")]
 	public int getc ();
 	[CCode (cname = "fgets", instance_pos = -1)]
-	public weak string gets (char[] s);
+	public unowned string gets (char[] s);
 	[CCode (cname = "feof")]
 	public bool eof ();
 	[CCode (cname = "fscanf")]

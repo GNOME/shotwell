@@ -265,8 +265,8 @@ namespace GPhoto {
         public Result reset();
         public Result sort();
         public Result find_by_name(out int? index, string name);
-        public Result get_name(int index, out weak string name);
-        public Result get_value(int index, out weak string value);
+        public Result get_name(int index, out unowned string name);
+        public Result get_value(int index, out unowned string value);
         public Result set_name(int index, string name);
         public Result set_value(int index, string value);
         public Result populate(string format, int count);
@@ -453,7 +453,7 @@ namespace GPhoto {
         OS_FAILURE;
         
         [CCode (cname="gp_port_result_as_string")]
-        public weak string as_string();
+        public unowned string as_string();
     }
     
     [CCode (
@@ -465,6 +465,6 @@ namespace GPhoto {
         VERBOSE
     }
     
-    public weak string library_version(VersionVerbosity verbosity);
+    public unowned string library_version(VersionVerbosity verbosity);
 }
 
