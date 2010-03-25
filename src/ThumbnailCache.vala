@@ -286,7 +286,7 @@ public class ThumbnailCache : Object {
             ThumbnailCache cache = get_cache_for(size);
             ulong avg = (cache.cache_lru.size != 0) ? cache.cached_bytes / cache.cache_lru.size : 0;
             debug("thumbnail cache %d: %d thumbnails, %lu/%lu bytes, %lu bytes/thumbnail", 
-                cache.cache_lru.size, cache.size.get_scale(), cache.cached_bytes,
+                cache.size.get_scale(), cache.cache_lru.size, cache.cached_bytes,
                 cache.max_cached_bytes, avg);
         }
     }

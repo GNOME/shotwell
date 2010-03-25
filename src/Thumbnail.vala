@@ -135,12 +135,12 @@ public class Thumbnail : CheckerboardItem {
         
         cancel_async_fetch();
         
-        if (is_exposed() && has_image())
+        if (is_exposed() && has_image()) {
             set_image(resize_pixbuf(get_image(), dim, LOW_QUALITY_INTERP));
-        else
+            schedule_high_quality_fetch();
+        } else {
             clear_image(dim);
-        
-        schedule_high_quality_fetch();
+        }
     }
     
     private void paint_empty() {
@@ -214,10 +214,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public override void unexposed() {
-        cancel_async_fetch();
-        
-        if (is_exposed() || has_image())
-            paint_empty();
+        paint_empty();
         
         base.unexposed();
     }
