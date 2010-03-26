@@ -911,13 +911,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void viewport_resized() {
+        // update visible page rect
+        update_visible_page();
+        
         // only reflow() if the width has changed
         if (allocation.width != last_width) {
             int old_width = last_width;
             last_width = allocation.width;
-            
-            // update visible page rect but don't call expose events, as reflow will do that
-            update_visible_page();
             
             need_reflow("size_allocate (%d -> %d)".printf(old_width, allocation.width));
         } else {

@@ -96,6 +96,21 @@ public class ThumbnailCache : Object {
             this.callback = callback;
         }
         
+        public override BackgroundJob.JobPriority get_priority() {
+            // lower-quality interps are scheduled first; this is interpreted as a "quick" thumbnail
+            // fetch, versus higher-quality, which are to clean up the display
+            switch (interp) {
+                case Gdk.InterpType.NEAREST:
+                case Gdk.InterpType.TILES:
+                    return JobPriority.HIGH;
+                
+                case Gdk.InterpType.BILINEAR:
+                case Gdk.InterpType.HYPER:
+                default:
+                    return JobPriority.NORMAL;
+            }
+        }
+        
         private override void execute() {
             try {
                 // load-and-decode if not already prefetched

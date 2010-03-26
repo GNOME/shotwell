@@ -26,6 +26,7 @@ public class Thumbnail : CheckerboardItem {
     private Dimensions dim;
     private Cancellable cancellable = null;
     private bool hq_scheduled = false;
+    private bool hq_reschedule = false;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
@@ -135,9 +136,10 @@ public class Thumbnail : CheckerboardItem {
         
         cancel_async_fetch();
         
-        if (is_exposed() && has_image()) {
-            set_image(resize_pixbuf(get_image(), dim, LOW_QUALITY_INTERP));
-            schedule_high_quality_fetch();
+        if (is_exposed()) {
+            if (has_image())
+                set_image(resize_pixbuf(get_image(), dim, LOW_QUALITY_INTERP));
+            delayed_high_quality_fetch();
         } else {
             clear_image(dim);
         }
@@ -156,22 +158,31 @@ public class Thumbnail : CheckerboardItem {
             dim, LOW_QUALITY_INTERP, on_low_quality_fetched, cancellable);
     }
     
-    private void schedule_high_quality_fetch() {
-        if (hq_scheduled)
+    private void delayed_high_quality_fetch() {
+        if (hq_scheduled) {
+            hq_reschedule = true;
+            
             return;
+        }
         
         Timeout.add_full(Priority.DEFAULT, HQ_IMPROVEMENT_MSEC, on_schedule_high_quality);
         hq_scheduled = true;
     }
     
     private bool on_schedule_high_quality() {
-        // cancel outstanding I/O
-        if (cancellable != null)
-            cancellable.cancel();
+        if (hq_reschedule) {
+            hq_reschedule = false;
+            
+            return true;
+        }
+        
+        cancel_async_fetch();
         cancellable = new Cancellable();
         
-        ThumbnailCache.fetch_async_scaled(get_photo().get_photo_id(), scale, dim, HIGH_QUALITY_INTERP,
-            on_high_quality_fetched, cancellable);
+        if (is_exposed()) {
+            ThumbnailCache.fetch_async_scaled(get_photo().get_photo_id(), scale, dim, HIGH_QUALITY_INTERP,
+                on_high_quality_fetched, cancellable);
+        }
         
         hq_scheduled = false;
         
@@ -193,7 +204,7 @@ public class Thumbnail : CheckerboardItem {
         if (pixbuf != null)
             set_image(pixbuf);
         
-        schedule_high_quality_fetch();
+        delayed_high_quality_fetch();
     }
     
     private void on_high_quality_fetched(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
@@ -207,7 +218,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public override void exposed() {
-        if (!is_exposed() || !has_image())
+        if (!has_image())
             schedule_low_quality_fetch();
         
         base.exposed();
