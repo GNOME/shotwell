@@ -433,7 +433,8 @@ public class MasterEventsDirectoryPage : EventsDirectoryPage {
 public class SubEventsDirectoryPage : EventsDirectoryPage {
     public enum DirectoryType {
         YEAR,
-        MONTH;
+        MONTH,
+        UNDATED;
     }
 
     private class SubEventDirectoryManager : EventsDirectoryPage.EventDirectoryManager {
@@ -476,8 +477,14 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
     }
 
     public SubEventsDirectoryPage(DirectoryType type, Time time) {
-        base(time.format((type == DirectoryType.YEAR) ? _("%Y") : _("%B")), new SubEventDirectoryManager(type, time),
-            null); 
+        string page_name;        
+        if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
+            page_name = _("Undated");
+        } else {
+            page_name = time.format((type == DirectoryType.YEAR) ? _("%Y") : _("%B"));
+        }
+
+        base(page_name, new SubEventDirectoryManager(type, time), null); 
     }
 
     public int get_month() {

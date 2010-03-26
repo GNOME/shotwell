@@ -185,8 +185,13 @@ public class LibraryWindow : AppWindow {
         private string page_name;
 
         public SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType type, Time time) {
-            this.page_name = time.format((type == SubEventsDirectoryPage.DirectoryType.YEAR) ? 
-                _("%Y") : _("%B"));
+            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
+                this.page_name = _("Undated");
+            } else {
+                this.page_name = time.format((type == SubEventsDirectoryPage.DirectoryType.YEAR) ?
+                    _("%Y") : _("%B"));
+            }
+
             this.type = type;
             this.time = time;
         }
@@ -206,6 +211,20 @@ public class LibraryWindow : AppWindow {
 
         public override string get_name() {
             return page_name;
+        }
+
+        public bool matches(SubEventsDirectoryPage.DirectoryType type, Time time) {
+            if (type != this.type)
+                return false;
+
+            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
+                return true;
+            } else if (type == SubEventsDirectoryPage.DirectoryType.MONTH) {
+                return time.year == this.time.year && time.month == this.time.month;
+            } else {
+                assert(type == SubEventsDirectoryPage.DirectoryType.YEAR);
+                return time.year == this.time.year;
+            }
         }
     }
 
@@ -910,7 +929,7 @@ public class LibraryWindow : AppWindow {
                     remove_event_tree(stub, false);
 
                     // add to sidebar again
-                    sidebar.insert_child_sorted(get_parent_page(stub.event).get_marker(), stub,
+                    sidebar.insert_child_sorted(find_parent_marker(stub), stub,
                         get_event_branch_comparator(get_events_sort()));
 
                     sidebar.expand_tree(stub.get_marker());
@@ -957,54 +976,61 @@ public class LibraryWindow : AppWindow {
             sidebar.expand_branch(tags_marker);
     }
     
-    private SubEventsDirectoryPageStub? get_dir_parent(SubEventsDirectoryPageStub dir) {
-        if (dir.type == SubEventsDirectoryPage.DirectoryType.YEAR)
-            return null;
+    private SidebarMarker? find_parent_marker(PageStub page) {
+        // EventPageStub
+        if (page is EventPageStub) {
+            time_t event_time = ((EventPageStub) page).event.get_start_time();
 
-        foreach (SubEventsDirectoryPageStub stub in events_dir_list) {
-            if (stub.type == SubEventsDirectoryPage.DirectoryType.YEAR &&
-                stub.get_year() == dir.get_year()) {
-                return stub;
+            SubEventsDirectoryPage.DirectoryType type = (event_time != 0 ?
+                SubEventsDirectoryPage.DirectoryType.MONTH :
+                SubEventsDirectoryPage.DirectoryType.UNDATED);
+
+            SubEventsDirectoryPageStub month = find_event_dir_page(type, Time.local(event_time));
+
+            // if a month directory already exists, return it, otherwise, create a new one
+            return (month != null ? month : create_event_dir_page(type,
+                Time.local(event_time))).get_marker();
+        } else if (page is SubEventsDirectoryPageStub) {
+            SubEventsDirectoryPageStub event_dir_page = (SubEventsDirectoryPageStub) page;
+            // SubEventsDirectoryPageStub Month
+            if (event_dir_page.type == SubEventsDirectoryPage.DirectoryType.MONTH) {
+                SubEventsDirectoryPageStub year = find_event_dir_page(
+                    SubEventsDirectoryPage.DirectoryType.YEAR, event_dir_page.time);
+
+                // if a month directory already exists, return it, otherwise, create a new one
+                return (year != null ? year : create_event_dir_page(
+                    SubEventsDirectoryPage.DirectoryType.YEAR, event_dir_page.time)).get_marker();
             }
+            
+            // SubEventsDirectoryPageStub Year && Undated
+            return events_directory_page.get_marker();
+        } else if (page is TagPageStub) {
+            return tags_marker;
+        }
+
+        return null;
+    }
+    
+    private SubEventsDirectoryPageStub? find_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
+        foreach (SubEventsDirectoryPageStub dir in events_dir_list) {
+            if (dir.matches(type,  time))
+                return dir;
         }
 
         return null;
     }
 
-    private SubEventsDirectoryPageStub get_parent_page(Event event) {
-        Time event_time = Time.local(event.get_start_time());
-
-        foreach (SubEventsDirectoryPageStub dir in events_dir_list) {
-            // if a month directory already exists, return it
-            if (dir.type == SubEventsDirectoryPage.DirectoryType.MONTH &&
-                dir.get_month() == event_time.month &&
-                dir.get_year() == event_time.year) {
-                    return dir;
-            }
-        }
-
+    private SubEventsDirectoryPageStub create_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
         Comparator comparator = get_event_branch_comparator(get_events_sort());
+        
+        SubEventsDirectoryPageStub new_dir = new SubEventsDirectoryPageStub(type, time);
 
-        // make a new month directory page
-        SubEventsDirectoryPageStub month = 
-            new SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType.MONTH, event_time);
+        sidebar.insert_child_sorted(find_parent_marker(new_dir), new_dir,
+            comparator);
 
-        SubEventsDirectoryPageStub year = (SubEventsDirectoryPageStub) get_dir_parent(month);
-        // if a year directory page is not found, make one
-        if (year == null) {
-            year = new SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType.YEAR,  
-               event_time);
+        events_dir_list.add(new_dir);
 
-            sidebar.insert_child_sorted(events_directory_page.get_marker(), year, comparator);
-
-            events_dir_list.add(year);
-        }
-
-        sidebar.insert_child_sorted(year.get_marker(), month, comparator);
-
-        events_dir_list.add(month);
-
-        return month;
+        return new_dir;
     }
     
     private int64 tag_page_comparator(void *a, void *b) {
@@ -1038,11 +1064,9 @@ public class LibraryWindow : AppWindow {
     }
 
     private void add_event_page(Event event) {
-        SubEventsDirectoryPageStub parent_page = get_parent_page(event);
-
         EventPageStub event_stub = new EventPageStub(event);
         
-        sidebar.insert_child_sorted(parent_page.get_marker(), event_stub,
+        sidebar.insert_child_sorted(find_parent_marker(event_stub), event_stub,
             get_event_branch_comparator(get_events_sort()));
         
         event_list.add(event_stub);

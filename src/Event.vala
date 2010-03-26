@@ -388,17 +388,19 @@ public class Event : EventSource, Proxyable {
     
     public override time_t get_start_time() {
         // Because the ViewCollection is sorted by a DateComparator, the start time is the
-        // first item
-        if (view.get_count() == 0)
-            return 0;
-        
-        PhotoView photo = (PhotoView) view.get_at(0);
-        
-        return photo.get_photo_source().get_exposure_time();
+        // first item.  However, we keep looking if it has no start time.
+        for (int i = 0; i < view.get_count(); i++) {
+            time_t time = ((PhotoView) view.get_at(i)).get_photo_source().get_exposure_time();
+            if (time != 0)
+                return time;
+        }
+
+        return 0;
     }
     
     public override time_t get_end_time() {
-        // See note in get_start_time() for why this works
+        // Because the ViewCollection is sorted by a DateComparator, the end time is the
+        // last item--no matter what.
         if (view.get_count() == 0)
             return 0;
         
