@@ -114,7 +114,6 @@ VAPI_FILES = \
 	libgphoto2.vapi \
 	FixedKeyFile.vapi \
 	ExtendedPosix.vapi \
-	gudev-1.0.vapi \
 	LConv.vapi \
 	libraw.vapi
 
@@ -152,7 +151,6 @@ LOCAL_PKGS = \
 	FixedKeyFile \
 	ExtendedPosix \
 	posix \
-	gudev-1.0 \
 	LConv
 
 EXT_PKGS = \
