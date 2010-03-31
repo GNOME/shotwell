@@ -87,9 +87,10 @@ public class RawSniffer : PhotoFileSniffer {
         
         GRaw.Processor processor = new GRaw.Processor();
         
-        processor.open_file(file.get_path());
         try {
+            processor.open_file(file.get_path());
             processor.unpack();
+            processor.adjust_sizes_info_only();
         } catch (GRaw.Exception exception) {
             if (exception is GRaw.Exception.UNSUPPORTED_FILE)
                 return null;
@@ -97,7 +98,7 @@ public class RawSniffer : PhotoFileSniffer {
             throw exception;
         }
         
-        detected.image_dim = Dimensions(processor.get_sizes().width, processor.get_sizes().height);
+        detected.image_dim = Dimensions(processor.get_sizes().iwidth, processor.get_sizes().iheight);
         detected.colorspace = Gdk.Colorspace.RGB;
         detected.channels = 3;
         detected.bits_per_channel = 8;
@@ -140,9 +141,6 @@ public class RawReader : PhotoFileReader {
     }
     
     public override Gdk.Pixbuf scaled_read(Dimensions full, Dimensions scaled) throws Error {
-        assert(full.width >= scaled.width);
-        assert(full.height >= scaled.height);
-        
         double width_proportion = (double) scaled.width / (double) full.width;
         double height_proportion = (double) scaled.height / (double) full.height;
         bool half_size = width_proportion < 0.5 && height_proportion < 0.5;

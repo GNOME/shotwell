@@ -113,13 +113,13 @@ public class ProcessedImage {
     public ProcessedImage(LibRaw.Processor proc) throws Exception {
         LibRaw.Result result;
         image = proc.make_mem_image(out result);
-        throw_exception(result);
+        throw_exception("ProcessedImage", result);
     }
     
     public ProcessedImage.from_thumb(LibRaw.Processor proc) throws Exception {
         LibRaw.Result result;
         image = proc.make_mem_thumb(out result);
-        throw_exception(result);
+        throw_exception("ProcessedImage.from_thumb", result);
     }
     
     // TODO: It would be, by far, more efficient to return a shared copy of the pixbuf that the
@@ -163,11 +163,11 @@ public class Processor {
     }
     
     public void adjust_sizes_info_only() throws Exception {
-        throw_exception(proc.adjust_sizes_info_only());
+        throw_exception("adjust_sizes_info_only", proc.adjust_sizes_info_only());
     }
     
     public void document_mode_processing() throws Exception {
-        throw_exception(proc.document_mode_processing());
+        throw_exception("document_mode_processing", proc.document_mode_processing());
     }
     
     public LibRaw.ImageParams get_image_params() {
@@ -191,27 +191,27 @@ public class Processor {
     }
     
     public void open_buffer(uint8[] buffer) throws Exception {
-        throw_exception(proc.open_buffer(buffer));
+        throw_exception("open_buffer", proc.open_buffer(buffer));
     }
     
     public void open_file(string filename) throws Exception {
-        throw_exception(proc.open_file(filename));
+        throw_exception("open_file", proc.open_file(filename));
     }
     
     public void process() throws Exception {
-        throw_exception(proc.process());
+        throw_exception("process", proc.process());
     }
     
     public void ppm_tiff_writer(string filename) throws Exception {
-        throw_exception(proc.ppm_tiff_writer(filename));
+        throw_exception("ppm_tiff_writer", proc.ppm_tiff_writer(filename));
     }
     
     public void rotate_fuji_raw() throws Exception {
-        throw_exception(proc.rotate_fuji_raw());
+        throw_exception("rotate_fuji_raw", proc.rotate_fuji_raw());
     }
     
     public void thumb_writer(string filename) throws Exception {
-        throw_exception(proc.thumb_writer(filename));
+        throw_exception("thumb_writer", proc.thumb_writer(filename));
     }
     
     public void recycle() {
@@ -219,50 +219,54 @@ public class Processor {
     }
     
     public void unpack() throws Exception {
-        throw_exception(proc.unpack());
+        throw_exception("unpack", proc.unpack());
     }
     
     public void unpack_thumb() throws Exception {
-        throw_exception(proc.unpack_thumb());
+        throw_exception("unpack_thumb", proc.unpack_thumb());
     }
 }
 
-private void throw_exception(LibRaw.Result result) throws Exception {
+private void throw_exception(string caller, LibRaw.Result result) throws Exception {
+    if (result == LibRaw.Result.SUCCESS)
+        return;
+    
+    string msg = "%s: %s".printf(caller, result.to_string());
+    
     switch (result) {
         case LibRaw.Result.UNSPECIFIED_ERROR:
-            throw new Exception.UNSPECIFIED(result.to_string());
+            throw new Exception.UNSPECIFIED(msg);
         
         case LibRaw.Result.FILE_UNSUPPORTED:
-            throw new Exception.UNSUPPORTED_FILE(result.to_string());
+            throw new Exception.UNSUPPORTED_FILE(msg);
         
         case LibRaw.Result.REQUEST_FOR_NONEXISTENT_IMAGE:
-            throw new Exception.NONEXISTANT_IMAGE(result.to_string());
+            throw new Exception.NONEXISTANT_IMAGE(msg);
         
         case LibRaw.Result.OUT_OF_ORDER_CALL:
-            throw new Exception.OUT_OF_ORDER_CALL(result.to_string());
+            throw new Exception.OUT_OF_ORDER_CALL(msg);
         
         case LibRaw.Result.NO_THUMBNAIL:
-            throw new Exception.NO_THUMBNAIL(result.to_string());
+            throw new Exception.NO_THUMBNAIL(msg);
         
         case LibRaw.Result.UNSUPPORTED_THUMBNAIL:
-            throw new Exception.UNSUPPORTED_THUMBNAIL(result.to_string());
+            throw new Exception.UNSUPPORTED_THUMBNAIL(msg);
         
         case LibRaw.Result.CANNOT_ADDMASK:
-            throw new Exception.CANNOT_ADDMASK(result.to_string());
+            throw new Exception.CANNOT_ADDMASK(msg);
         
         case LibRaw.Result.UNSUFFICIENT_MEMORY:
-            throw new Exception.OUT_OF_MEMORY(result.to_string());
+            throw new Exception.OUT_OF_MEMORY(msg);
         
         case LibRaw.Result.DATA_ERROR:
-            throw new Exception.DATA_ERROR(result.to_string());
+            throw new Exception.DATA_ERROR(msg);
         
         case LibRaw.Result.IO_ERROR:
-            throw new Exception.IO_ERROR(result.to_string());
+            throw new Exception.IO_ERROR(msg);
         
         case LibRaw.Result.CANCELLED_BY_CALLBACK:
-            throw new Exception.CANCELLED_BY_CALLBACK(result.to_string());
+            throw new Exception.CANCELLED_BY_CALLBACK(msg);
         
-        case LibRaw.Result.SUCCESS:
         default:
             return;
     }
