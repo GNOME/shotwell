@@ -254,15 +254,12 @@ public class ThumbnailCache : Object {
     
     // This does not add the thumbnails to the ThumbnailCache, merely generates them for the
     // supplied image file.
-    public static void generate(Thumbnails thumbnails, File file, Orientation orientation, 
+    public static void generate(Thumbnails thumbnails, PhotoFileReader reader, Orientation orientation,
         Dimensions original_dim) throws Error {
         foreach (Size size in ALL_SIZES) {
             Dimensions dim = size.get_scaling().get_scaled_dimensions(original_dim);
             
-            // even if pixbuf is available, don't want to rescale it for the thumbnails;
-            // a single scale is preferable, esp. for long-term storage
-            Gdk.Pixbuf thumbnail = new Gdk.Pixbuf.from_file_at_size(file.get_path(), dim.width,
-                    dim.height);
+            Gdk.Pixbuf thumbnail = reader.scaled_read(original_dim, dim);
             thumbnail = orientation.rotate_pixbuf(thumbnail);
             
             thumbnails.set(size, thumbnail);

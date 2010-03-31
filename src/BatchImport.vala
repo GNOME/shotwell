@@ -367,7 +367,7 @@ public class BatchImport : Object {
         
         if (job.batch_result.result == ImportResult.SUCCESS) {
             manifest.imported.add(photo);
-            imported(photo, job.pixbuf);
+            imported(photo, job.thumbnails.get(ThumbnailCache.Size.LARGEST));
         } else {
             // the utter shame of it all
             debug("Failed to import %s: %s (%s)", job.get_filename(),
@@ -662,17 +662,11 @@ private class PrepareFilesJob : BackgroundImportJob {
     }
     
     private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library) throws Error {
-        if (!TransformablePhoto.is_file_image(file)) {
-            message("Not importing %s: Not an image file", file.get_path());
-            
+        if (!TransformablePhoto.is_file_image(file))
             return ImportResult.NOT_AN_IMAGE;
-        }
 
-        if (!TransformablePhoto.is_file_supported(file)) {
-            message("Not importing %s: Unsupported extension", file.get_path());
-            
+        if (!TransformablePhoto.is_file_supported(file))
             return ImportResult.UNSUPPORTED_FORMAT;
-        }
         
         import_file_count++;
         
@@ -733,7 +727,6 @@ private class PrepareFilesJob : BackgroundImportJob {
 private class FileImportJob : BackgroundJob {
     public BatchImportResult batch_result = null;
     public PhotoRow photo_row = PhotoRow();
-    public Gdk.Pixbuf pixbuf = null;
     public Thumbnails thumbnails = null;
     
     private PreparedFile prepared_file;
@@ -774,12 +767,10 @@ private class FileImportJob : BackgroundJob {
             }
         }
         
-        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(final_file,
-            PhotoFileInterrogator.Options.GET_ALL, Scaling.for_screen(AppWindow.get_instance(), false));
         thumbnails = new Thumbnails();
         
         ImportResult result = TransformablePhoto.prepare_for_import(final_file, import_id,
-            interrogator, out photo_row, out pixbuf, thumbnails);
+            PhotoFileSniffer.Options.GET_ALL, out photo_row, thumbnails);
         if (result != ImportResult.SUCCESS && final_file != prepared_file.file) {
             debug("Deleting failed imported copy %s", final_file.get_path());
             try {

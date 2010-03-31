@@ -123,21 +123,6 @@ public interface PhotoTransformationState : Object {
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
 public abstract class TransformablePhoto: PhotoSource {
-    public const Gdk.InterpType DEFAULT_INTERP = Gdk.InterpType.BILINEAR;
-    
-    public const Jpeg.Quality EXPORT_JPEG_QUALITY = Jpeg.Quality.HIGH;
-    public const Gdk.InterpType EXPORT_INTERP = Gdk.InterpType.HYPER;
-    
-    private const string[] SUPPORTED_EXTENSIONS = {
-        "jpg",
-        "jpeg",
-        "jpe"
-    };
-    
-    private const string[] SUPPORTED_TYPE_NAMES = {
-        "jpeg"
-    };
-
     private const string[] IMAGE_EXTENSIONS = {
         // raster formats
         "jpg", "jpeg", "jpe",
@@ -146,20 +131,24 @@ public abstract class TransformablePhoto: PhotoSource {
         "gif",
         "bmp",
         "ppm", "pgm", "pbm", "pnm",
-
-        // less common...do we want to include these?
+        
+        // THM are JPEG thumbnails produced by some RAW cameras ... want to support the RAW
+        // image but not import their thumbnails
+        "thm",
+        
+        // less common
         "tga", "ilbm", "pcx", "ecw", "img", "sid", "cd5", "fits", "pgf",
-
+        
         // vector
         "cgm", "svg", "odg", "eps", "pdf", "swf", "wmf", "emf", "xps",
-
+        
         // 3D
         "pns", "jps", "mpo",
-
+        
         // RAW extensions
         "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
-        "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f"        
+        "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f"
     };
     
     // There are assertions in the photo pipeline to verify that the generated (or loaded) pixbuf
@@ -231,7 +220,8 @@ public abstract class TransformablePhoto: PhotoSource {
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
     private PhotoRow row;
-    
+    private PhotoFileReader reader;
+    private PhotoFileReader mimic_reader = null;
     private PixelTransformer transformer = null;
     private PixelTransformationBundle adjustments = null;
     private string title = null;
@@ -240,6 +230,7 @@ public abstract class TransformablePhoto: PhotoSource {
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
     protected TransformablePhoto(PhotoRow row) {
         this.row = row;
+        this.reader = row.file_format.create_reader(row.filepath);
         
         // get the title of the Photo without using a File object, skipping the separator itself
         char *basename = row.filepath.rchr(-1, Path.DIR_SEPARATOR);
@@ -248,6 +239,27 @@ public abstract class TransformablePhoto: PhotoSource {
         
         if (title == null || title[0] == '\0')
             title = row.filepath;
+    }
+    
+    // For the MimicManager
+    public bool would_use_mimic() {
+        bool result;
+        lock (row) {
+            PhotoFileFormatFlags flags = reader.get_file_format().get_properties().get_flags();
+            result = (flags & PhotoFileFormatFlags.MIMIC_RECOMMENDED) != 0;
+        }
+        
+        return result;
+    }
+    
+    // For an MimicManager
+    public void set_mimic(PhotoFileReader mimic_reader) {
+        if (no_mimicked_images)
+            return;
+        
+        lock (row) {
+            this.mimic_reader = mimic_reader;
+        }
     }
     
     // This method interrogates the specified file and returns a PhotoRow with all relevant
@@ -263,8 +275,7 @@ public abstract class TransformablePhoto: PhotoSource {
     //
     // NOTE: This method is thread-safe.
     public static ImportResult prepare_for_import(File file, ImportID import_id,
-        PhotoFileInterrogator interrogator, out PhotoRow photo_row, out Gdk.Pixbuf pixbuf,
-        Thumbnails? thumbnails) {
+        PhotoFileSniffer.Options options, out PhotoRow photo_row, Thumbnails? thumbnails) {
 #if MEASURE_IMPORT
         Timer total_time = new Timer();
 #endif
@@ -293,7 +304,8 @@ public abstract class TransformablePhoto: PhotoSource {
         TimeVal timestamp;
         info.get_modification_time(out timestamp);
         
-        // interrogate file for photo information ... no need for md5 if in direct-edit mode
+        // interrogate file for photo information
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file, options);
         try {
             interrogator.interrogate();
         } catch (Error err) {
@@ -302,47 +314,26 @@ public abstract class TransformablePhoto: PhotoSource {
             return ImportResult.DECODE_ERROR;
         }
         
+        // if not detected photo information, unsupported
+        DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
+        if (detected == null)
+            return ImportResult.UNSUPPORTED_FORMAT;
+        
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
-        string thumbnail_md5 = null;
-        string exif_md5 = null;
         
-        if (interrogator.has_exif()) {
-            PhotoExif exif = interrogator.get_exif();
-            if (!exif.get_timestamp(out exposure_time))
+        if (detected.exif != null) {
+            if (!Exif.get_timestamp(detected.exif, out exposure_time))
                 warning("Unable to read EXIF timestamp for %s", file.get_path());
             
-            orientation = exif.get_orientation();
-            
-            // only calculate MD5s if asked for
-            if ((interrogator.get_options() & PhotoFileInterrogator.Options.NO_MD5) == 0) {
-                exif_md5 = exif.get_md5();
-                thumbnail_md5 = exif.get_thumbnail_md5();
-            }
+            orientation = Exif.get_orientation(detected.exif);
         }
         
         // verify basic mechanics of photo: RGB 8-bit encoding
-        if (interrogator.get_colorspace() != Gdk.Colorspace.RGB 
-            || interrogator.get_channels() < 3 
-            || interrogator.get_bits_per_sample() != 8) {
+        if (detected.colorspace != Gdk.Colorspace.RGB 
+            || detected.channels < 3 
+            || detected.bits_per_channel != 8) {
             message("Not importing %s: Unsupported color format", file.get_path());
-            
-            return ImportResult.UNSUPPORTED_FORMAT;
-        }
-        
-        // Only support JPEG at this time
-        bool supported = false;
-        foreach (string name in SUPPORTED_TYPE_NAMES) {
-            if (interrogator.get_format_name() == name) {
-                supported = true;
-                
-                break;
-            }
-        }
-        
-        if (!supported) {
-            message("Not importing %s: Unsupported image type %s", file.get_path(), 
-                interrogator.get_format_name());
             
             return ImportResult.UNSUPPORTED_FORMAT;
         }
@@ -352,7 +343,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // dimensions, they can lie or not be present
         photo_row.photo_id = PhotoID();
         photo_row.filepath = file.get_path();
-        photo_row.dim = interrogator.get_dimensions();
+        photo_row.dim = detected.image_dim;
         photo_row.filesize = info.get_size();
         photo_row.timestamp = timestamp.tv_sec;
         photo_row.exposure_time = exposure_time;
@@ -361,20 +352,19 @@ public abstract class TransformablePhoto: PhotoSource {
         photo_row.import_id = import_id;
         photo_row.event_id = EventID();
         photo_row.transformations = null;
-        photo_row.md5 = interrogator.get_md5();
-        photo_row.thumbnail_md5 = thumbnail_md5;
-        photo_row.exif_md5 = exif_md5;
+        photo_row.md5 = detected.md5;
+        photo_row.thumbnail_md5 = detected.thumbnail_md5;
+        photo_row.exif_md5 = detected.exif_md5;
         photo_row.time_created = 0;
         photo_row.flags = 0;
-        
-        if (interrogator.has_pixbuf()) {
-            pixbuf = interrogator.get_pixbuf();
-            pixbuf = orientation.rotate_pixbuf(pixbuf);
-        }
+        photo_row.file_format = detected.file_format;
         
         if (thumbnails != null) {
+            // can't use the pixbuf, if it was fetched, because it might not be (and most likely
+            // isn't) full-sized, in which case, the thumbnails would be doubly scaled
+            PhotoFileReader reader = photo_row.file_format.create_reader(photo_row.filepath);
             try {
-                ThumbnailCache.generate(thumbnails, file, orientation, photo_row.dim);
+                ThumbnailCache.generate(thumbnails, reader, photo_row.orientation, photo_row.dim);
             } catch (Error err) {
                 return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
             }
@@ -391,7 +381,21 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     public static bool is_basename_supported(string basename) {
-        return is_extension_found(basename, SUPPORTED_EXTENSIONS);
+        string name, ext;
+        disassemble_filename(basename, out name, out ext);
+        if (ext == null)
+            return false;
+        
+        // treat extensions as case-insensitive
+        ext = ext.down();
+        
+        // search support file formats
+        foreach (PhotoFileFormat file_format in PhotoFileFormat.get_supported()) {
+            if (file_format.get_properties().is_recognized_extension(ext))
+                return true;
+        }
+        
+        return false;
     }
     
     public static bool is_file_image(File file) {
@@ -445,12 +449,33 @@ public abstract class TransformablePhoto: PhotoSource {
     // and setters inside this class.
     
     public File get_file() {
-        string filepath = null;
+        File file;
         lock (row) {
-            filepath = row.filepath;
+            file = reader.get_file();
         }
         
-        return File.new_for_path(filepath);
+        return file;
+    }
+    
+    // Returns the file generating pixbufs, that is, the mimic if present, the backing
+    // file if not.
+    public File get_actual_file() {
+        File file;
+        lock (row) {
+            PhotoFileReader actual = mimic_reader ?? reader;
+            file = actual.get_file();
+        }
+        
+        return file;
+    }
+    
+    public bool is_mimicked() {
+        bool result;
+        lock (row) {
+            result = mimic_reader != null;
+        }
+        
+        return result;
     }
     
     public time_t get_timestamp() {
@@ -619,10 +644,8 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     public override string to_string() {
-        PhotoID photo_id = get_photo_id();
-        File file = get_file();
-        
-        return "[%lld] %s".printf(photo_id.id, file.get_path());
+        return "[%lld] %s%s".printf(get_photo_id().id, get_actual_file().get_path(),
+            is_mimicked() ? " (" + get_file().get_path() + ")" : "");
     }
 
     public override bool equals(DataSource? source) {
@@ -640,6 +663,8 @@ public abstract class TransformablePhoto: PhotoSource {
         return base.equals(source);
     }
     
+    // TODO: This method is currently only called by DirectPhoto, and as such currently doesn't
+    // take into account properly updating a LibraryPhoto.  More work needs to be done here.
     public void update() throws Error {
         File file = get_file();
 
@@ -648,48 +673,50 @@ public abstract class TransformablePhoto: PhotoSource {
         try {
             info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         } catch (Error err) {
-            error("Unable to read file information for %s: %s", to_string(), err.message);
+            error("Unable to read file information for %s: %s", file.get_path(), err.message);
         }
         
         TimeVal timestamp = TimeVal();
         info.get_modification_time(out timestamp);
 
         // interrogate file for photo information
-        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file,
-            PhotoFileInterrogator.Options.NO_PIXBUF, null);
-
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
         interrogator.interrogate();
-
-        string md5 = interrogator.get_md5();
-        Dimensions dim = interrogator.get_dimensions();
+        DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
+        if (detected == null) {
+            critical("Photo update: %s no longer an image", to_string());
+            
+            return;
+        }
 
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
-        string? exif_md5 = null, thumbnail_md5 = null;
 
-        PhotoExif exif = interrogator.get_exif();
-
-        if (exif != null) {
-            exif_md5 = exif.get_md5();
-            thumbnail_md5 = exif.get_thumbnail_md5();
-            orientation = exif.get_orientation();
-            exif.get_timestamp(out exposure_time);
+        if (detected.exif != null) {
+            orientation = Exif.get_orientation(detected.exif);
+            Exif.get_timestamp(detected.exif, out exposure_time);
         }
         
         PhotoID photo_id = get_photo_id();
-        if (PhotoTable.get_instance().update(photo_id, dim, info.get_size(), timestamp.tv_sec, 
-            exposure_time, orientation, md5, exif_md5, thumbnail_md5)) {
+        if (PhotoTable.get_instance().update(photo_id, detected.image_dim, info.get_size(), timestamp.tv_sec, 
+            exposure_time, orientation, detected.file_format, detected.md5, detected.exif_md5, 
+            detected.thumbnail_md5)) {
             // cache coherency
             lock (row) {
-                row.dim = dim;
+                row.dim = detected.image_dim;
                 row.filesize = info.get_size();
                 row.timestamp = timestamp.tv_sec;
                 row.exposure_time = exposure_time;
                 row.orientation = orientation;
                 row.original_orientation = orientation;
-                row.md5 = md5;
-                row.exif_md5 = exif_md5;
-                row.thumbnail_md5 = thumbnail_md5;
+                row.md5 = detected.md5;
+                row.exif_md5 = detected.exif_md5;
+                row.thumbnail_md5 = detected.thumbnail_md5;
+                row.file_format = detected.file_format;
+                
+                // build new reader and clear mimic
+                reader = row.file_format.create_reader(row.filepath);
+                mimic_reader = null;
                 
                 // because image has changed, all transformations are suspect
                 remove_all_transformations();
@@ -700,9 +727,9 @@ public abstract class TransformablePhoto: PhotoSource {
             notify_metadata_altered();
         }
     }
-
+    
     // used to update the database after an internal metadata exif write
-    public void file_exif_updated() {
+    private void file_exif_updated() {
         File file = get_file();
     
         FileInfo info = null;
@@ -716,39 +743,29 @@ public abstract class TransformablePhoto: PhotoSource {
         info.get_modification_time(out timestamp);
         
         // interrogate file for photo information
-        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file,
-            PhotoFileInterrogator.Options.NO_PIXBUF, null);
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
         try {
             interrogator.interrogate();
         } catch (Error err) {
             warning("Unable to interrogate photo file %s: %s", file.get_path(), err.message);
         }
-
-        PhotoID photo_id = get_photo_id();
-        string md5 = interrogator.get_md5();
-        string? exif_md5 = null, thumbnail_md5 = null;
         
-        PhotoExif exif = new PhotoExif(file);
-        try {
-            exif.load();
-            exif_md5 = exif.get_md5();
-            thumbnail_md5 = exif.get_thumbnail_md5();
-        } catch (Error err) {
-            warning("Unable to load EXIF from %s: %s", file.get_path(), err.message);
+        DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
+        if (detected == null) {
+            critical("file_exif_updated: %s no longer an image", to_string());
+            
+            return;
         }
         
-        if (PhotoTable.get_instance().file_exif_updated(photo_id, info.get_size(),
-            timestamp.tv_sec, md5, exif_md5, thumbnail_md5)) {
+        if (PhotoTable.get_instance().file_exif_updated(get_photo_id(), info.get_size(),
+            timestamp.tv_sec, detected.md5, detected.exif_md5, detected.thumbnail_md5)) {
             // cache coherency
             lock (row) {
                 row.filesize = info.get_size();
                 row.timestamp = timestamp.tv_sec;
-                row.md5 = md5;
-
-                if (exif != null) {
-                    row.exif_md5 = exif_md5;
-                    row.thumbnail_md5 = thumbnail_md5;
-                }
+                row.md5 = detected.md5;
+                row.exif_md5 = detected.exif_md5;
+                row.thumbnail_md5 = detected.thumbnail_md5;
             }
             
             // metadata currently only means Event
@@ -793,10 +810,20 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 
     public void set_exposure_time_persistent(time_t time) throws Error {
-        PhotoExif exif = new PhotoExif(get_file());
-        exif.load();
-        exif.set_timestamp(time);
-        exif.commit();
+        // Try to write to backing file
+        if (!reader.get_file_format().can_write()) {
+            warning("No photo file writer available for %s", reader.get_filepath());
+            
+            set_exposure_time(time);
+            
+            return;
+        }
+        
+        Exif.Data exif = reader.read_exif();
+        Exif.set_timestamp(exif, time);
+        
+        PhotoFileWriter writer = reader.create_writer();
+        writer.write_exif(exif);
         
         set_exposure_time(time);
         
@@ -904,14 +931,11 @@ public abstract class TransformablePhoto: PhotoSource {
     
     public override Exif.Data? get_exif() {
         Exif.Data? exif = null;
-        
-        PhotoExif photo_exif = new PhotoExif(get_file());
         try {
-            photo_exif.load();
-            exif = photo_exif.get_exif();
+            exif = reader.read_exif();
         } catch (Error err) {
             // return null
-            warning("Unable to load EXIF from %s: %s", get_file().get_path(), err.message);
+            warning("Unable to load EXIF from %s: %s", reader.get_filepath(), err.message);
         }
         
         return exif;
@@ -1339,7 +1363,10 @@ public abstract class TransformablePhoto: PhotoSource {
     // asked for a scaled-down image, which has certain performance benefits if the resized
     // JPEG is scaled down by a factor of a power of two (one-half, one-fourth, etc.).
     private Gdk.Pixbuf load_raw_pixbuf(Scaling scaling, Exception exceptions) throws Error {
-        string path = get_file().get_path();
+        PhotoFileReader loader;
+        lock (row) {
+            loader = mimic_reader ?? reader;
+        }
         
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
@@ -1347,7 +1374,7 @@ public abstract class TransformablePhoto: PhotoSource {
             debug("LOAD_RAW_PIXBUF UNSCALED %s: requested", path);
 #endif
             
-            return new Gdk.Pixbuf.from_file(path);
+            return loader.unscaled_read();
         }
         
         // Need the dimensions of the image to load
@@ -1359,12 +1386,11 @@ public abstract class TransformablePhoto: PhotoSource {
             debug("LOAD_RAW_PIXBUF UNSCALED %s: scaling unavailable", path);
 #endif
             
-            return new Gdk.Pixbuf.from_file(path);
+            return loader.unscaled_read();
         }
         
-        Gdk.Pixbuf pixbuf = new Gdk.Pixbuf.from_file_at_scale(path, scaled_image.width, 
-            scaled_image.height, false);
-
+        Gdk.Pixbuf pixbuf = loader.scaled_read(get_raw_dimensions(), scaled_image);
+        
 #if MEASURE_PIPELINE
         debug("LOAD_RAW_PIXBUF %s %s: %s -> %s (actual: %s)", scaling.to_string(), path,
             get_raw_dimensions().to_string(), scaled_image.to_string(), 
@@ -1397,7 +1423,6 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         // load-and-decode and scale
-        // no copy made because the pixbuf goes unmodified in this pipeline
         Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, Exception.NONE);
             
         // orientation
@@ -1567,68 +1592,108 @@ public abstract class TransformablePhoto: PhotoSource {
     // File export
     //
     
+    // Returns the basename of the file if it was exported in the supplied writeable file format.
+    public string get_export_basename(PhotoFileFormat file_format) {
+        return file_format.get_properties().convert_file_extension(get_file()).get_basename();
+    }
+    
+    private bool export_fullsized_backing(File file) throws Error {
+        // See if the native reader or the mimic supports writing ... if no matches, need to fall back
+        // on a "regular" export, which requires decoding then encoding
+        PhotoFileReader export_reader = null;
+        lock (row) {
+            if (reader.get_file_format().can_write())
+                export_reader = reader;
+            else if (mimic_reader != null && mimic_reader.get_file_format().can_write())
+                export_reader = mimic_reader;
+        }
+        
+        if (export_reader == null)
+            return false;
+        
+        PhotoFileFormatProperties format_properties = export_reader.get_file_format().get_properties();
+        
+        // Build a destination file with the caller's name but the appropriate extension
+        File dest_file = format_properties.convert_file_extension(file);
+        
+        // Create a PhotoFileWriter that matches the PhotoFileReader's file format
+        PhotoFileWriter writer = export_reader.create_writer();
+        
+        debug("Exporting full-sized copy of %s to %s", to_string(), writer.get_filepath());
+        
+        export_reader.get_file().copy(dest_file, 
+            FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS, null, null);
+        
+        // If asking for an full-sized file and there are no alterations (transformations or
+        // EXIF) *and* this is a copy of the original backing, then done
+        if (!has_alterations() && export_reader == reader)
+            return true;
+        
+        // copy over relevant EXIF
+        Exif.Data? exif = export_reader.read_exif();
+        if (exif == null) {
+            // No EXIF, if copying from original backing, done, otherwise, keep going
+            if (reader == export_reader)
+                return true;
+            
+            exif = writer.new_exif();
+        }
+        
+        debug("Updating EXIF of %s", writer.get_filepath());
+        
+        if (get_exposure_time() != 0)
+            Exif.set_timestamp(exif, get_exposure_time());
+        else
+            Exif.remove_timestamp(exif);
+        
+        Exif.set_orientation(exif, get_orientation());
+        
+        if (get_orientation() != get_original_orientation())
+            Exif.remove_thumbnail(exif);
+        
+        writer.write_exif(exif);
+        
+        return true;
+    }
+    
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     public void export(File dest_file, Scaling scaling, Jpeg.Quality quality) throws Error {
         // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that
-        // degrades image quality.  If alterations, but only EXIF has changed, then can copy
+        // degrades image quality.  If alterations exist, but only EXIF has changed, then can copy
         // original file and update relevant EXIF.
         if (scaling.is_unscaled() && (!has_alterations() || only_exif_changed())) {
-            debug("Exporting copy of %s", to_string());
-            
-            get_file().copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS,
-                null, null);
-            
-            // If asking for an original-sized file and there are no alterations (transformations or
-            // EXIF), then done
-            if (!has_alterations())
+            if (export_fullsized_backing(dest_file))
                 return;
-            
-            debug("Updating EXIF of %s", dest_file.get_path());
-            
-            // copy over relevant EXIF and done
-            PhotoExif dest_exif = new PhotoExif(dest_file);
-            try {
-                dest_exif.load();
-            } catch (Error err) {
-                // probably indicates no EXIF in original, in which case, we're done
-                return;
-            }
-            
-            dest_exif.set_orientation(get_orientation());
-            dest_exif.set_timestamp(get_exposure_time());
-            if (get_orientation() != get_original_orientation())
-                dest_exif.remove_thumbnail();
-            
-            dest_exif.commit();
-            
-            return;
         }
         
-        debug("Saving transformed version of %s", to_string());
+        // For now, only JPEG export is supported
+        PhotoFileWriter writer = new JfifWriter(dest_file.get_path());
+        
+        debug("Saving transformed version of %s to %s", to_string(), writer.get_filepath());
         
         Gdk.Pixbuf pixbuf = get_pixbuf(scaling);
         Dimensions dim = Dimensions.for_pixbuf(pixbuf);
         
-        pixbuf.save(dest_file.get_path(), "jpeg", "quality", quality.get_pct_text());
+        writer.write(pixbuf, quality);
         
-        debug("Setting EXIF for %s", dest_file.get_path());
-        
-        // Gdk.Pixbuf.save() adds no EXIF to file, so must gather what EXIF we support and commit
-        // it to the new file.
-        PhotoExif dest_exif = new PhotoExif(dest_file);
+        debug("Setting EXIF for %s", writer.get_filepath());
         
         // copy over existing EXIF from source if available
         Exif.Data exif = get_exif();
-        if (exif != null)
-            dest_exif.set_exif(exif);
+        if (exif == null)
+            return;
         
-        dest_exif.set_dimensions(dim);
-        dest_exif.set_orientation(Orientation.TOP_LEFT);
-        dest_exif.set_timestamp(get_exposure_time());
-        dest_exif.remove_all_tags(Exif.Tag.RELATED_IMAGE_WIDTH);
-        dest_exif.remove_all_tags(Exif.Tag.RELATED_IMAGE_LENGTH);
-        dest_exif.remove_thumbnail();
-        dest_exif.commit();
+        Exif.set_dimensions(exif, dim);
+        Exif.set_orientation(exif, Orientation.TOP_LEFT);
+        if (get_exposure_time() != 0)
+            Exif.set_timestamp(exif, get_exposure_time());
+        else
+            Exif.remove_timestamp(exif);
+        Exif.remove_all_tags(exif, Exif.Tag.RELATED_IMAGE_WIDTH);
+        Exif.remove_all_tags(exif, Exif.Tag.RELATED_IMAGE_LENGTH);
+        Exif.remove_thumbnail(exif);
+        
+        writer.write_exif(exif);
     }
     
     //
@@ -1878,6 +1943,16 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 }
 
+//
+// Photo
+//
+
+public abstract class Photo : TransformablePhoto {
+    public Photo(PhotoRow row) {
+        base (row);
+    }
+}
+
 public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     public LibraryPhotoSourceCollection() {
         base("LibraryPhotoSourceCollection", get_photo_key);
@@ -1899,30 +1974,27 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
 // LibraryPhoto
 //
 
-public class LibraryPhoto : TransformablePhoto {
-    public enum Currency {
-        CURRENT,
-        DIRTY,
-        GONE
-    }
-    
+public class LibraryPhoto : Photo {
     // Top 16 bits are reserved for TransformablePhoto
     private const uint64 FLAG_HIDDEN =      0x0000000000000001;
     private const uint64 FLAG_FAVORITE =    0x0000000000000002;
     
     public static LibraryPhotoSourceCollection global = null;
     
+    private static MimicManager mimic_manager = null;
+    
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
 
     private LibraryPhoto(PhotoRow row) {
-        base(row);
+        base (row);
         
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
     }
     
     public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
+        mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
@@ -1961,7 +2033,6 @@ public class LibraryPhoto : TransformablePhoto {
             return ImportResult.convert_error(err, ImportResult.DECODE_ERROR);
         }
         
-        // add to global *after* generating thumbnails
         global.add(photo);
         
         return ImportResult.SUCCESS;
@@ -2124,29 +2195,6 @@ public class LibraryPhoto : TransformablePhoto {
             }
         }
     }
-
-    public Currency check_currency() {
-        FileInfo info = null;
-        try {
-            info = get_file().query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            // treat this as the file has been deleted from the filesystem
-            return Currency.GONE;
-        }
-        
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(out timestamp);
-        
-        // trust modification time and file size
-        if ((timestamp.tv_sec != get_timestamp()) || (info.get_size() != get_filesize()))
-            return Currency.DIRTY;
-        
-        // verify thumbnail cache is all set
-        if (!ThumbnailCache.exists(get_photo_id()))
-            return Currency.DIRTY;
-        
-        return Currency.CURRENT;
-    }
 }
 
 //
@@ -2216,7 +2264,7 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
     }
 }
 
-public class DirectPhoto : TransformablePhoto {
+public class DirectPhoto : Photo {
     private const int PREVIEW_BEST_FIT = 360;
     
     public static DirectPhotoSourceCollection global = null;
@@ -2224,7 +2272,7 @@ public class DirectPhoto : TransformablePhoto {
     private Gdk.Pixbuf preview = null;
     
     private DirectPhoto(PhotoRow row) {
-        base(row);
+        base (row);
     }
     
     public static void init() {
@@ -2237,13 +2285,10 @@ public class DirectPhoto : TransformablePhoto {
     // This method should only be called by DirectPhotoSourceCollection.  Use
     // DirectPhoto.global.fetch to import files into the system.
     public static DirectPhoto? internal_import(File file) {
-        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file,
-            PhotoFileInterrogator.Options.NO_MD5 | PhotoFileInterrogator.Options.NO_PIXBUF,
-            Scaling.for_screen(AppWindow.get_instance(), true));
-        
         PhotoRow photo_row;
         ImportResult result = TransformablePhoto.prepare_for_import(file, 
-            PhotoTable.get_instance().generate_import_id(), interrogator, out photo_row, null, null);
+            PhotoTable.get_instance().generate_import_id(), PhotoFileSniffer.Options.NO_MD5, 
+            out photo_row, null);
         if (result != ImportResult.SUCCESS) {
             // this should never happen; DirectPhotoSourceCollection guarantees it.
             assert(result != ImportResult.PHOTO_EXISTS);

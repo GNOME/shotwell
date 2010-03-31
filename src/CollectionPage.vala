@@ -651,7 +651,7 @@ public abstract class CollectionPage : CheckerboardPage {
                 break;
             }
             
-            File save_as = ExportUI.choose_file(photo.get_file());
+            File save_as = ExportUI.choose_file(photo.get_export_basename(PhotoFileFormat.JFIF));
             if (save_as == null)
                 return;
                 

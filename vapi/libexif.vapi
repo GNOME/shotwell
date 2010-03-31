@@ -78,8 +78,8 @@ namespace Exif {
     public class Data {
         [CCode (cname="exif_data_new")]
         public Data();
-        public static Data new_from_file(string path);
-        public static Data new_from_data(uint8 *data, size_t count);
+        public static Data? new_from_file(string path);
+        public static Data? new_from_data(uint8 *data, size_t count);
         public void dump();
         public void fix();
         public void foreach_content(ForeachContentFunc cb, void *user = null);

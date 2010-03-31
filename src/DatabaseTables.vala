@@ -21,7 +21,7 @@ public class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 3;
+    public const int SCHEMA_VERSION = 4;
     
     protected static Sqlite.Database db;
     
@@ -330,7 +330,7 @@ private DatabaseVerifyResult upgrade_database(int version) {
     if (version == 1)
         return DatabaseVerifyResult.NO_UPGRADE_AVAILABLE;
     
-    debug("Upgrading database from schema version %d to %d", version, DatabaseTable.SCHEMA_VERSION);
+    message("Upgrading database from schema version %d to %d", version, DatabaseTable.SCHEMA_VERSION);
     
     //
     // Version 2: For all intents and purposes, the baseline schema version.
@@ -343,7 +343,7 @@ private DatabaseVerifyResult upgrade_database(int version) {
     //
     
     if (!DatabaseTable.has_column("PhotoTable", "flags")) {
-        debug("upgrade_database: adding flags column to PhotoTable");
+        message("upgrade_database: adding flags column to PhotoTable");
         if (!DatabaseTable.add_column("PhotoTable", "flags", "INTEGER DEFAULT 0"))
             return DatabaseVerifyResult.UPGRADE_ERROR;
     }
@@ -354,9 +354,22 @@ private DatabaseVerifyResult upgrade_database(int version) {
     // ThumbnailTable(s) removed.
     //
     
+    //
+    // Version 4:
+    // * Added file_format column to PhotoTable
+    //
+    
+    if (!DatabaseTable.has_column("PhotoTable", "file_format")) {
+        message("upgrade_database: adding file_format column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "file_format", "INTEGER DEFAULT 0"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 4;
+    
     VersionTable.get_instance().update_version(version);
     
-    debug("Database upgrade to schema version %d successful", version);
+    message("Database upgrade to schema version %d successful", version);
     
     return DatabaseVerifyResult.OK;
 }
@@ -514,6 +527,7 @@ public struct PhotoRow {
     public string exif_md5;
     public time_t time_created;
     public uint64 flags;
+    public PhotoFileFormat file_format;
     
     public PhotoRow() {
     }
@@ -541,7 +555,8 @@ public class PhotoTable : DatabaseTable {
             + "thumbnail_md5 TEXT, "
             + "exif_md5 TEXT, "
             + "time_created INTEGER, "
-            + "flags INTEGER DEFAULT 0 "
+            + "flags INTEGER DEFAULT 0, "
+            + "file_format INTEGER DEFAULT 0 "
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -586,7 +601,8 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
             + "orientation, original_orientation, import_id, event_id, md5, thumbnail_md5, exif_md5, "
-            + "time_created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "time_created, file_format) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -620,6 +636,8 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(14, time_created);
         assert(res == Sqlite.OK);
+        res = stmt.bind_int(15, photo_row.file_format.serialize());
+        assert(res == Sqlite.OK);
         
         res = stmt.step();
         if (res != Sqlite.DONE) {
@@ -640,20 +658,18 @@ public class PhotoTable : DatabaseTable {
     }
     
     public bool update(PhotoID photoID, Dimensions dim, int64 filesize, long timestamp, 
-        time_t exposure_time, Orientation orientation, string md5, string? exif_md5, 
-        string? thumbnail_md5) {
+        time_t exposure_time, Orientation orientation, PhotoFileFormat file_format, string md5,
+        string? exif_md5, string? thumbnail_md5) {
         
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET width = ?, height = ?, filesize = ?, timestamp = ?, "
             + "exposure_time = ?, orientation = ?, original_orientation = ?, md5 = ?, " 
-            + "exif_md5 = ?, thumbnail_md5 =? WHERE id = ?", -1, out stmt);
+            + "exif_md5 = ?, thumbnail_md5 = ?, file_format = ? "
+            + "WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
-        debug("Update [%lld] %dx%d size=%lld mod=%ld exp=%ld or=%d", photoID.id, dim.width, 
-            dim.height, filesize, timestamp, exposure_time, (int) orientation);
-
         res = stmt.bind_int(1, dim.width);
         assert(res == Sqlite.OK);
         res = stmt.bind_int(2, dim.height);
@@ -675,6 +691,8 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_text(10, thumbnail_md5);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(11, photoID.id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(12, file_format.serialize());
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -727,7 +745,8 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
-            + "exif_md5, time_created, flags FROM PhotoTable WHERE id=?", 
+            + "exif_md5, time_created, flags, file_format "
+            + "FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -754,6 +773,7 @@ public class PhotoTable : DatabaseTable {
         row.exif_md5 = stmt.column_text(13);
         row.time_created = (time_t) stmt.column_int64(14);
         row.flags = stmt.column_int64(15);
+        row.file_format = PhotoFileFormat.unserialize(stmt.column_int(16));
         
         return row;
     }
@@ -763,7 +783,8 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT id, filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
-            + "exif_md5, time_created, flags FROM PhotoTable", 
+            + "exif_md5, time_created, flags, file_format "
+            + "FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -787,6 +808,7 @@ public class PhotoTable : DatabaseTable {
             row.exif_md5 = stmt.column_text(14);
             row.time_created = (time_t) stmt.column_int64(15);
             row.flags = stmt.column_int64(16);
+            row.file_format = PhotoFileFormat.unserialize(stmt.column_int(17));
             
             all.add(row);
         }
@@ -803,7 +825,8 @@ public class PhotoTable : DatabaseTable {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, "
             + "exposure_time, orientation, original_orientation, import_id, event_id, transformations, "
-            + "md5, thumbnail_md5, exif_md5, time_created, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "md5, thumbnail_md5, exif_md5, time_created, flags, file_format) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -838,6 +861,9 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_int64(15, now_sec());
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(15, (int64) original.flags);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int(16, original.file_format.serialize());
+        assert(res == Sqlite.OK);
         
         res = stmt.step();
         if (res != Sqlite.DONE) {
@@ -1010,7 +1036,7 @@ public class PhotoTable : DatabaseTable {
     public bool set_flags(PhotoID photo_id, uint64 flags) {
         return update_int64_by_id(photo_id.id, "flags", (int64) flags);
     }
-
+    
     public EventID get_event(PhotoID photo_id) {
         Sqlite.Statement stmt;
         if (!select_by_id(photo_id.id, "event_id", out stmt))
@@ -1088,7 +1114,7 @@ public class PhotoTable : DatabaseTable {
         
         return true;
     }
-
+    
     public bool drop_event(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE PhotoTable SET event_id = ? WHERE event_id = ?", -1, out stmt);

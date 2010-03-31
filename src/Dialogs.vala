@@ -7,7 +7,7 @@
 namespace ExportUI {
 private static File current_export_dir = null;
 
-public File? choose_file(File current_file) {
+public File? choose_file(string current_file_basename) {
     if (current_export_dir == null)
         current_export_dir = File.new_for_path(Environment.get_home_dir());
         
@@ -16,7 +16,7 @@ public File? choose_file(File current_file) {
         Gtk.ResponseType.CANCEL, Gtk.STOCK_SAVE, Gtk.ResponseType.ACCEPT, null);
     chooser.set_do_overwrite_confirmation(true);
     chooser.set_current_folder(current_export_dir.get_path());
-    chooser.set_current_name(current_file.get_basename());
+    chooser.set_current_name(current_file_basename);
 
     File file = null;
     if (chooser.run() == Gtk.ResponseType.ACCEPT) {
@@ -63,7 +63,7 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
     int failed = 0;
     bool replace_all = false;
     foreach (TransformablePhoto photo in photos) {
-        string basename = photo.get_file().get_basename();
+        string basename = photo.get_export_basename(PhotoFileFormat.JFIF);
         File dest = folder.get_child(basename);
         
         if (!replace_all && dest.query_exists(null)) {
@@ -426,8 +426,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        string skipped_files_message = (ngettext("1 non-image file skipped.",
-            "%d non-image files skipped.", manifest.skipped_files.size)).printf(
+        string skipped_files_message = (ngettext("1 non-image file skipped.\n",
+            "%d non-image files skipped.\n", manifest.skipped_files.size)).printf(
             manifest.skipped_files.size);
 
         message += skipped_files_message;

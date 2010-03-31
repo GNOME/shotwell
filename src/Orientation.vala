@@ -428,3 +428,50 @@ public enum Orientation {
     }
 }
 
+public enum Rotation {
+    CLOCKWISE,
+    COUNTERCLOCKWISE,
+    MIRROR,
+    UPSIDE_DOWN;
+    
+    public Gdk.Pixbuf perform(Gdk.Pixbuf pixbuf) {
+        switch (this) {
+            case CLOCKWISE:
+                return pixbuf.rotate_simple(Gdk.PixbufRotation.CLOCKWISE);
+            
+            case COUNTERCLOCKWISE:
+                return pixbuf.rotate_simple(Gdk.PixbufRotation.COUNTERCLOCKWISE);
+            
+            case MIRROR:
+                return pixbuf.flip(true);
+            
+            case UPSIDE_DOWN:
+                return pixbuf.flip(false);
+            
+            default:
+                error("Unknown rotation: %d", (int) this);
+                
+                return pixbuf;
+        }
+    }
+    
+    public Rotation opposite() {
+        switch (this) {
+            case CLOCKWISE:
+                return COUNTERCLOCKWISE;
+            
+            case COUNTERCLOCKWISE:
+                return CLOCKWISE;
+            
+            case MIRROR:
+            case UPSIDE_DOWN:
+                return this;
+            
+            default:
+                error("Unknown rotation: %d", (int) this);
+                
+                return this;
+        }
+    }
+}
+

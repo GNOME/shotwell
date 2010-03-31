@@ -198,11 +198,14 @@ void editing_exec(string filename) {
 }
 
 bool no_startup_progress = false;
+bool no_mimicked_images = false;
 
 const OptionEntry[] options = {
-     { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-       N_("Don't display startup progress meter"), null },
-     { null }
+    { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
+        N_("Don't display startup progress meter"), null },
+    { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
+        N_("Don't used JPEGs to display RAW images"), null },
+    { null }
 };
 
 void main(string[] args) {

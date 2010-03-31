@@ -1126,7 +1126,7 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_imported(LibraryPhoto photo, Gdk.Pixbuf pixbuf) {
-        set_pixbuf(pixbuf, Dimensions());
+        set_pixbuf(pixbuf, Dimensions.for_pixbuf(pixbuf));
         
         // set the singleton collection to this item
         get_view().clear();

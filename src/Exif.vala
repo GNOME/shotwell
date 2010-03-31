@@ -204,6 +204,10 @@ namespace Exif {
         set_datetime(exif, convert_timestamp(timestamp));
     }
     
+    public void remove_timestamp(Exif.Data exif) {
+        remove_all_tags(exif, Exif.Tag.DATE_TIME_ORIGINAL);
+    }
+    
     public string? get_datetime(Exif.Data exif) {
         Exif.Entry? datetime = find_first_entry(exif, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
         
@@ -234,7 +238,7 @@ namespace Exif {
         return (Orientation) o;
     }
     
-    public void set_orientation(ref Exif.Data exif, Orientation orientation) {
+    public void set_orientation(Exif.Data exif, Orientation orientation) {
         Exif.Entry entry = find_first_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
         if (entry == null)
             entry = alloc_entry(exif, Exif.Tag.ORIENTATION, Exif.Format.SHORT);
@@ -271,7 +275,7 @@ namespace Exif {
     
     // TODO: If dimensions are being overwritten and they're SHORTs, and the new dimensions are
     // greater than uint16.MAX, need to remove the old ones and add new LONGs.
-    public void set_dimensions(ref Exif.Data exif, Dimensions dim) {
+    public void set_dimensions(Exif.Data exif, Dimensions dim) {
         Exif.Entry width = find_first_entry_multiformat(exif, Exif.Tag.PIXEL_X_DIMENSION,
             Exif.Format.SHORT, Exif.Format.LONG);
         if (width == null)
@@ -296,7 +300,18 @@ namespace Exif {
         else
             realloc_long(exif, height, dim.height);
     }
-
+    
+    public bool remove_thumbnail(Exif.Data exif) {
+        if (exif.data == null)
+            return false;
+        
+        Exif.Mem.new_default().free(exif.data);
+        exif.data = null;
+        exif.size = 0;
+        
+        return true;
+    }
+    
     public string get_exposure(Exif.Data exif) {
         Exif.Entry entry = find_first_entry(exif, Tag.EXPOSURE_TIME, Format.RATIONAL);
         
@@ -413,6 +428,58 @@ namespace Exif {
 
         return entry != null ? entry.get_string() : "";
     }
+    
+    // Returned pointer must be freed with Exif.Mem.free()
+    private uchar *flatten(Exif.Data exif, out int size) {
+        uchar *flattened = null;
+        int flattened_size = 0;
+        exif.save_data(&flattened, &flattened_size);
+        
+        size = flattened_size;
+        
+        return flattened;
+    }
+    
+    // Returned pointer must be freed with Exif.Mem.free()
+    public uchar *flatten_sans_thumbnail(Exif.Data exif, out int size) {
+        // save thumbnail pointer and size during operation
+        uchar *thumbnail = exif.data;
+        uint thumbnail_size = exif.size;
+        
+        exif.data = null;
+        exif.size = 0;
+        
+        uchar *flattened = null;
+        int flattened_size = 0;
+        exif.save_data(&flattened, &flattened_size);
+        
+        size = flattened_size;
+        
+        // restore thumbnail
+        exif.data = thumbnail;
+        exif.size = thumbnail_size;
+        
+        return flattened;
+    }
+    
+    // Returns the MD5 hash for the EXIF (excluding thumbnail)
+    public string? md5(Exif.Data exif) {
+        int flattened_size;
+        uchar *flattened = flatten_sans_thumbnail(exif, out flattened_size);
+        if (flattened == null)
+            return null;
+        
+        string md5 = md5_binary(flattened, flattened_size);
+        
+        Exif.Mem.new_default().free(flattened);
+        
+        return md5;
+    }
+    
+    // Returns the MD5 hash for the EXIF thumbnail only
+    public string? thumbnail_md5(Exif.Data exif) {
+        return (exif.data != null && exif.size > 0) ? md5_binary(exif.data, exif.size) : null;
+    }
 }
 
 public errordomain ExifError {
@@ -469,11 +536,8 @@ public class PhotoExif  {
 
         // first marker should be SOI
         segment_length = Jpeg.read_marker(fins, out marker);
-        if ((marker != Jpeg.Marker.SOI) || (segment_length != 0)) {
-            warning("No SOI marker found in %s", file.get_path());
-            
+        if ((marker != Jpeg.Marker.SOI) || (segment_length != 0))
             return null;
-        }
         
         // find first APP1 marker that is EXIF and use that
         uint8[] raw = null;
@@ -543,21 +607,12 @@ public class PhotoExif  {
     
     // Returns the MD5 hash for the EXIF (excluding thumbnail)
     public string? get_md5() {
-        int flattened_size;
-        uchar *flattened = flatten_sans_thumbnail(out flattened_size);
-        if (flattened == null)
-            return null;
-        
-        string md5 = md5_binary(flattened, flattened_size);
-        
-        Exif.Mem.new_default().free(flattened);
-        
-        return md5;
+        return Exif.md5(exif);
     }
     
     // Returns the MD5 hash of the thumbnail
     public string? get_thumbnail_md5() {
-        return (exif.data != null && exif.size > 0) ? md5_binary(exif.data, exif.size) : null;
+        return Exif.thumbnail_md5(exif);
     }
     
     public Exif.Data get_exif() {
@@ -573,7 +628,7 @@ public class PhotoExif  {
     }
     
     public void set_orientation(Orientation orientation) {
-        Exif.set_orientation(ref exif, orientation);
+        Exif.set_orientation(exif, orientation);
     }
     
     public bool get_dimensions(out Dimensions dim) {
@@ -581,7 +636,7 @@ public class PhotoExif  {
     }
     
     public void set_dimensions(Dimensions dim) {
-        Exif.set_dimensions(ref exif, dim);
+        Exif.set_dimensions(exif, dim);
     }
     
     public string? get_datetime() {
@@ -600,52 +655,21 @@ public class PhotoExif  {
         Exif.set_timestamp(exif, timestamp);
     }
     
+    public void remove_timestamp() {
+        Exif.remove_all_tags(exif, Exif.Tag.DATE_TIME_ORIGINAL);
+    }
+    
     public int remove_all_tags(Exif.Tag tag) {
         return Exif.remove_all_tags(exif, tag);
     }
     
     public bool remove_thumbnail() {
-        if (exif.data == null)
-            return false;
-        
-        Exif.Mem.new_default().free(exif.data);
-        exif.data = null;
-        exif.size = 0;
-        
-        return true;
+        return Exif.remove_thumbnail(exif);
     }
     
     // Returned pointer must be freed with Exif.Mem.free()
     private uchar *flatten(out int size) {
-        uchar *flattened = null;
-        int flattened_size = 0;
-        exif.save_data(&flattened, &flattened_size);
-        
-        size = flattened_size;
-        
-        return flattened;
-    }
-    
-    // Returned pointer must be freed with Exif.Mem.free()
-    private uchar *flatten_sans_thumbnail(out int size) {
-        // save thumbnail pointer and size during operation
-        uchar *thumbnail = exif.data;
-        uint thumbnail_size = exif.size;
-        
-        exif.data = null;
-        exif.size = 0;
-        
-        uchar *flattened = null;
-        int flattened_size = 0;
-        exif.save_data(&flattened, &flattened_size);
-        
-        size = flattened_size;
-        
-        // restore thumbnail
-        exif.data = thumbnail;
-        exif.size = thumbnail_size;
-        
-        return flattened;
+        return Exif.flatten(exif, out size);
     }
     
     public void commit() throws Error {

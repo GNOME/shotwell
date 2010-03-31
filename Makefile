@@ -93,11 +93,19 @@ SRC_FILES = \
 	Tag.vala \
 	TagPage.vala \
 	PicasaConnector.vala \
-    Screensaver.vala
+	Screensaver.vala \
+	PhotoFileAdapter.vala \
+	PhotoFileFormat.vala \
+	PhotoFileSniffer.vala \
+	GRaw.vala \
+	GdkSupport.vala \
+	JfifSupport.vala \
+	RawSupport.vala \
+	MimicManager.vala
 
 ifndef LINUX
 SRC_FILES += \
-    GConf.vala
+	GConf.vala
 endif
 
 VAPI_FILES = \
@@ -107,7 +115,8 @@ VAPI_FILES = \
 	FixedKeyFile.vapi \
 	ExtendedPosix.vapi \
 	gudev-1.0.vapi \
-    LConv.vapi
+	LConv.vapi \
+	libraw.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -144,7 +153,7 @@ LOCAL_PKGS = \
 	ExtendedPosix \
 	posix \
 	gudev-1.0 \
-    LConv
+	LConv
 
 EXT_PKGS = \
 	atk \
@@ -153,8 +162,11 @@ EXT_PKGS = \
 	gtk+-2.0 \
 	libexif \
 	sqlite3
-	
+
 ifdef LINUX
+LOCAL_PKGS += \
+	libraw
+
 EXT_PKGS += \
 	gconf-2.0 \
 	libgphoto2 \
@@ -164,12 +176,15 @@ EXT_PKGS += \
 	webkit-1.0 \
 	libusb \
 	gudev-1.0 \
-    dbus-glib-1
+	dbus-glib-1
+
+# This is for libraw, which does not have a .pc file yet
+CFLAGS += -lraw_r -lstdc++
 endif
 
 ifdef MAC
 EXT_PKGS += \
-    ige-mac-integration
+	ige-mac-integration
 endif
 
 EXT_PKG_VERSIONS = \
@@ -177,7 +192,7 @@ EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.14.4 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9
-	
+
 ifdef LINUX
 EXT_PKG_VERSIONS += \
 	gconf-2.0 >= 2.22.0 \
@@ -188,7 +203,7 @@ EXT_PKG_VERSIONS += \
 	webkit-1.0 >= 1.1.5 \
 	libusb >= 0.1.12 \
 	gudev-1.0 >= 145 \
-    dbus-glib-1 >= 0.80
+	dbus-glib-1 >= 0.80
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
@@ -231,7 +246,7 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) gthread-2.0` $(foreach hdir,$(HEA
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) gthread-2.0`
 
 ifdef WINDOWS
-  VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D NO_SET_BACKGROUND
+  VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D NO_SET_BACKGROUND -D NO_RAW
   EXPANDED_OBJ_FILES += src/windows.o
   RESOURCES = shotwell.res
 
@@ -247,7 +262,7 @@ shotwell.res: windows/shotwell.rc
 endif
 
 ifdef MAC
-  VALA_DEFINES = -D MAC -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_SVG
+  VALA_DEFINES = -D MAC -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_SVG -D NO_RAW
   EXPANDED_OBJ_FILES += src/mac.o
 endif
 
