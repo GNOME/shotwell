@@ -69,7 +69,7 @@ public class Sidebar : Gtk.TreeView {
 
         Gtk.TreeSelection selection = get_selection();
         selection.set_mode(Gtk.SelectionMode.BROWSE);
-        selection.set_select_function(on_selection, null);
+        selection.set_select_function(on_selection);
 
         enable_model_drag_dest(LibraryWindow.get_drop_target_entries(), Gdk.DragAction.ASK);
         
