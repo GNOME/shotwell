@@ -429,19 +429,22 @@ namespace Exif {
         return entry != null ? entry.get_string() : "";
     }
     
-    // Returned pointer must be freed with Exif.Mem.free()
-    private uchar *flatten(Exif.Data exif, out int size) {
+    public uint8[]? flatten(Exif.Data exif) {
         uchar *flattened = null;
-        int flattened_size = 0;
+        uint flattened_size = 0;
         exif.save_data(&flattened, &flattened_size);
+        if (flattened_size <= 0)
+            return null;
         
-        size = flattened_size;
+        uint8[] buffer = new uint8[flattened_size];
+        Memory.copy(buffer, flattened, flattened_size);
         
-        return flattened;
+        Mem.new_default().free(flattened);
+        
+        return buffer;
     }
     
-    // Returned pointer must be freed with Exif.Mem.free()
-    public uchar *flatten_sans_thumbnail(Exif.Data exif, out int size) {
+    public uint8[]? flatten_sans_thumbnail(Exif.Data exif) {
         // save thumbnail pointer and size during operation
         uchar *thumbnail = exif.data;
         uint thumbnail_size = exif.size;
@@ -449,31 +452,20 @@ namespace Exif {
         exif.data = null;
         exif.size = 0;
         
-        uchar *flattened = null;
-        int flattened_size = 0;
-        exif.save_data(&flattened, &flattened_size);
-        
-        size = flattened_size;
+        uint8[]? buffer = flatten(exif);
         
         // restore thumbnail
         exif.data = thumbnail;
         exif.size = thumbnail_size;
         
-        return flattened;
+        return buffer;
     }
     
     // Returns the MD5 hash for the EXIF (excluding thumbnail)
     public string? md5(Exif.Data exif) {
-        int flattened_size;
-        uchar *flattened = flatten_sans_thumbnail(exif, out flattened_size);
-        if (flattened == null)
-            return null;
+        uint8[]? flattened = flatten_sans_thumbnail(exif);
         
-        string md5 = md5_binary(flattened, flattened_size);
-        
-        Exif.Mem.new_default().free(flattened);
-        
-        return md5;
+        return flattened != null ? md5_binary(flattened, flattened.length) : null;
     }
     
     // Returns the MD5 hash for the EXIF thumbnail only
@@ -667,11 +659,6 @@ public class PhotoExif  {
         return Exif.remove_thumbnail(exif);
     }
     
-    // Returned pointer must be freed with Exif.Mem.free()
-    private uchar *flatten(out int size) {
-        return Exif.flatten(exif, out size);
-    }
-    
     public void commit() throws Error {
         FileInputStream fins = file.read(null);
         
@@ -696,82 +683,76 @@ public class PhotoExif  {
             original_has_exif = true;
             
         // flatten exif to buffer
-        int flattened_size = 0;
-        uchar *flattened = flatten(out flattened_size);
+        uint8[]? flattened = Exif.flatten(exif);
         assert(flattened != null);
-        assert(flattened_size > 0);
+        assert(flattened.length > 0);
         
-        try {
-            if ((flattened_size == segment_length) && original_has_exif) {
-                // the new EXIF data is exactly the same size as the data in the file, so simply
-                // overwrite
-
-                debug("Writing EXIF in-place of %d bytes to %s", flattened_size, file.get_path());
+        if ((flattened.length == segment_length) && original_has_exif) {
+            // the new EXIF data is exactly the same size as the data in the file, so simply
+            // overwrite
+            debug("Writing EXIF in-place of %d bytes to %s", flattened.length, file.get_path());
+            
+            // close for reading
+            fins.close(null);
+            fins = null;
+            
+            // open for writing ... don't use FileOutputStream, as it will overwrite everything
+            // it seeks over
+            FileStream fs = FileStream.open(file.get_path(), "r+");
+            if (fs == null)
+                throw new IOError.FAILED("%s: fopen() error".printf(file.get_path()));
+            
+            // seek over Marker:SOI, Marker:APP1, and length (none change)
+            if (fs.seek(2 + 2 + 2, FileSeek.SET) < 0)
+                throw new IOError.FAILED("%s: fseek() error %d", file.get_path(), fs.error());
+            
+            // write data in over current EXIF
+            size_t count_written = fs.write(flattened, 1);
+            if (count_written != 1)
+                throw new IOError.FAILED("%s: fwrite() error %d", file.get_path(), errno);
+        } else {
+            // create a new photo file with the updated EXIF and move it on top of the old one
+            File temp = null;
+            FileOutputStream fouts = create_temp(file, out temp);
+            size_t bytes_written = 0;
+            
+            debug("Building new file at %s with %d bytes EXIF, overwriting %s", 
+                temp.get_path(), flattened.length, file.get_path());
+            
+            // write SOI
+            Jpeg.write_marker(fouts, Jpeg.Marker.SOI, 0);
+            
+            // skip past APP1
+            if (original_has_exif)
+                fins.skip(segment_length, null);
+            
+            // write APP1 with EXIF data
+            Jpeg.write_marker(fouts, Jpeg.Marker.APP1, flattened.length);
+            fouts.write_all(flattened, flattened.length, out bytes_written, null);
+            assert(bytes_written == flattened.length);
+            
+            // if original has no EXIF, need to write the marker read in earlier
+            if (!original_has_exif)
+                Jpeg.write_marker(fouts, marker, segment_length);
+            
+            // copy remainder of file into new file
+            uint8[] copy_buffer = new uint8[64 * 1024];
+            for(;;) {
+                ssize_t bytes_read = fins.read(copy_buffer, copy_buffer.length, null);
+                if (bytes_read == 0)
+                    break;
                 
-                // close for reading
-                fins.close(null);
-                fins = null;
+                assert(bytes_read > 0);
                 
-                // open for writing ... don't use FileOutputStream, as it will overwrite everything
-                // it seeks over
-                FStream fs = FStream.open(file.get_path(), "r+");
-                if (fs == null)
-                    throw new IOError.FAILED("%s: fopen() error".printf(file.get_path()));
-                
-                // seek over Marker:SOI, Marker:APP1, and length (none change)
-                if (fs.seek(2 + 2 + 2, FileSeek.SET) < 0)
-                    throw new IOError.FAILED("%s: fseek() error %d", file.get_path(), fs.error());
-
-                // write data in over current EXIF
-                size_t count_written = fs.write(flattened, flattened_size, 1);
-                if (count_written != 1)
-                    throw new IOError.FAILED("%s: fwrite() error %d", file.get_path(), errno);
-            } else {
-                // create a new photo file with the updated EXIF and move it on top of the old one
-                File temp = null;
-                FileOutputStream fouts = create_temp(file, out temp);
-                size_t bytes_written = 0;
-                
-                debug("Building new file at %s with %d bytes EXIF, overwriting %s", 
-                    temp.get_path(), flattened_size, file.get_path());
-
-                // write SOI
-                Jpeg.write_marker(fouts, Jpeg.Marker.SOI, 0);
-
-                // skip past APP1
-                if (original_has_exif)
-                    fins.skip(segment_length, null);
-
-                // write APP1 with EXIF data
-                Jpeg.write_marker(fouts, Jpeg.Marker.APP1, flattened_size);
-                fouts.write_all(flattened, flattened_size, out bytes_written, null);
-                assert(bytes_written == flattened_size);
-                
-                // if original has no EXIF, need to write the marker read in earlier
-                if (!original_has_exif)
-                    Jpeg.write_marker(fouts, marker, segment_length);
-                
-                // copy remainder of file into new file
-                uint8[] copy_buffer = new uint8[64 * 1024];
-                for(;;) {
-                    ssize_t bytes_read = fins.read(copy_buffer, copy_buffer.length, null);
-                    if (bytes_read == 0)
-                        break;
-                    
-                    assert(bytes_read > 0);
-                    
-                    fouts.write_all(copy_buffer, bytes_read, out bytes_written, null);
-                    assert(bytes_written == bytes_read);
-                }
-                
-                // close both for move
-                fouts.close(null);
-                fins.close(null);
-                
-                temp.move(file, FileCopyFlags.OVERWRITE, null, null);
+                fouts.write_all(copy_buffer, bytes_read, out bytes_written, null);
+                assert(bytes_written == bytes_read);
             }
-        } finally {
-            Exif.Mem.new_default().free(flattened);
+            
+            // close both for move
+            fouts.close(null);
+            fins.close(null);
+            
+            temp.move(file, FileCopyFlags.OVERWRITE, null, null);
         }
     }
     

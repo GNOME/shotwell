@@ -110,7 +110,6 @@ endif
 
 VAPI_FILES = \
 	libexif.vapi \
-	FStream.vapi \
 	libgphoto2.vapi \
 	FixedKeyFile.vapi \
 	ExtendedPosix.vapi \
@@ -147,7 +146,6 @@ HEADER_DIRS = \
 	./vapi
 
 LOCAL_PKGS = \
-	FStream \
 	FixedKeyFile \
 	ExtendedPosix \
 	posix \
