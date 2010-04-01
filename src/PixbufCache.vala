@@ -17,24 +17,32 @@ public class PixbufCache : Object {
         public Gdk.Pixbuf pixbuf = null;
         public Error err = null;
         
+        private Semaphore completion_semaphore = new Semaphore();
+        
         public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
-            Scaling scaling, CompletionCallback callback, Cancellable cancellable) {
-            base(owner, callback, cancellable);
+            Scaling scaling, CompletionCallback callback) {
+            base(owner, callback, new Cancellable());
             
             this.priority = priority;
             this.photo = photo;
             this.scaling = scaling;
+            
+            set_completion_semaphore(completion_semaphore);
         }
         
         public override BackgroundJob.JobPriority get_priority() {
             return priority;
         }
+        
+        public void wait_for_completion() {
+            completion_semaphore.wait();
+        }
     }
     
     private class RegularFetchJob : FetchJob {
         public RegularFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
-            Scaling scaling, CompletionCallback callback, Cancellable cancellable) {
-            base(owner, priority, photo, scaling, callback, cancellable);
+            Scaling scaling, CompletionCallback callback) {
+            base(owner, priority, photo, scaling, callback);
         }
         
         public override void execute() {
@@ -48,8 +56,8 @@ public class PixbufCache : Object {
     
     private class OriginalFetchJob : FetchJob {
         public OriginalFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
-            Scaling scaling, CompletionCallback callback, Cancellable cancellable) {
-            base(owner, priority, photo, scaling, callback, cancellable);
+            Scaling scaling, CompletionCallback callback) {
+            base(owner, priority, photo, scaling, callback);
         }
         
         public override void execute() {
@@ -70,8 +78,8 @@ public class PixbufCache : Object {
     private Gee.HashMap<TransformablePhoto, Gdk.Pixbuf> cache = new Gee.HashMap<TransformablePhoto,
         Gdk.Pixbuf>();
     private Gee.ArrayList<TransformablePhoto> lru = new Gee.ArrayList<TransformablePhoto>();
-    private Gee.HashMap<TransformablePhoto, Cancellable> in_progress = new Gee.HashMap<TransformablePhoto,
-        Cancellable>();
+    private Gee.HashMap<TransformablePhoto, FetchJob> in_progress = new Gee.HashMap<TransformablePhoto,
+        FetchJob>();
     
     public signal void fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err);
     
@@ -99,8 +107,8 @@ public class PixbufCache : Object {
         sources.item_altered -= on_source_altered;
         sources.items_removed -= on_sources_removed;
         
-        foreach (Cancellable cancellable in in_progress.values)
-            cancellable.cancel();
+        foreach (FetchJob job in in_progress.values)
+            job.cancel();
     }
     
     public Scaling get_scaling() {
@@ -122,6 +130,15 @@ public class PixbufCache : Object {
 #endif
             
             return pixbuf;
+        }
+        
+        FetchJob? job = in_progress.get(photo);
+        if (job != null) {
+            job.wait_for_completion();
+            if (job.err != null)
+                throw job.err;
+            
+            return job.pixbuf;
         }
         
 #if TRACE_PIXBUF_CACHE
@@ -153,23 +170,22 @@ public class PixbufCache : Object {
         if (in_progress.contains(photo))
             return;
         
-        Cancellable cancellable = new Cancellable();
-        in_progress.set(photo, cancellable);
-        
         FetchJob job = null;
         switch (type) {
             case PhotoType.REGULAR:
-                job = new RegularFetchJob(this, priority, photo, scaling, on_fetched, cancellable);
+                job = new RegularFetchJob(this, priority, photo, scaling, on_fetched);
             break;
             
             case PhotoType.ORIGINAL:
-                job = new OriginalFetchJob(this, priority, photo, scaling, on_fetched, cancellable);
+                job = new OriginalFetchJob(this, priority, photo, scaling, on_fetched);
             break;
             
             default:
                 error("Unknown photo type: %d", (int) type);
             break;
         }
+        
+        in_progress.set(photo, job);
         
         background_workers.enqueue(job);
     }
@@ -183,15 +199,15 @@ public class PixbufCache : Object {
     }
     
     public bool cancel_prefetch(TransformablePhoto photo) {
-        Cancellable cancellable = in_progress.get(photo);
-        if (cancellable == null)
+        FetchJob job = in_progress.get(photo);
+        if (job == null)
             return false;
         
         // remove here because if fully cancelled the callback is never called
         bool removed = in_progress.unset(photo);
         assert(removed);
         
-        cancellable.cancel();
+        job.cancel();
         
 #if TRACE_PIXBUF_CACHE
         debug("Cancelled prefetch of %s @ %s", photo.to_string(), scaling.to_string());
@@ -204,8 +220,8 @@ public class PixbufCache : Object {
 #if TRACE_PIXBUF_CACHE
         debug("Cancelling prefetch of %d photos at %s", in_progress.values.size, scaling.to_string());
 #endif
-        foreach (Cancellable cancellable in in_progress.values)
-            cancellable.cancel();
+        foreach (FetchJob job in in_progress.values)
+            job.cancel();
         
         in_progress.clear();
     }

@@ -4,6 +4,130 @@
  * See the COPYING file in this distribution. 
  */
 
+//
+// Semaphores
+//
+
+// Semaphores may be used to be notified when a job is completed.  This provides an alternate
+// mechanism (essentially, a blocking mechanism) to the system of callbacks that BackgroundJob
+// offers.  They can also be used for other job-dependent notification mechanisms.
+public abstract class AbstractSemaphore {
+    public enum Type {
+        SERIAL,
+        BROADCAST
+    }
+    
+    protected enum NotifyAction {
+        NONE,
+        SIGNAL
+    }
+    
+    protected enum WaitAction {
+        SLEEP,
+        READY
+    }
+    
+    private Type type;
+    private Mutex mutex = new Mutex();
+    private Cond monitor = new Cond();
+    
+    public AbstractSemaphore(Type type) {
+        assert(type == Type.SERIAL || type == Type.BROADCAST);
+        
+        this.type = type;
+    }
+    
+    private void trigger() {
+        if (type == Type.SERIAL)
+            monitor.signal();
+        else
+            monitor.broadcast();
+    }
+    
+    public void notify() {
+        mutex.lock();
+        
+        NotifyAction action = do_notify();
+        switch (action) {
+            case NotifyAction.NONE:
+                // do nothing
+            break;
+            
+            case NotifyAction.SIGNAL:
+                trigger();
+            break;
+            
+            default:
+                error("Unknown semaphore action: %s", action.to_string());
+            break;
+        }
+        
+        mutex.unlock();
+    }
+    
+    // This method is called by notify() with the semaphore's mutex locked.
+    protected abstract NotifyAction do_notify();
+    
+    public void wait() {
+        mutex.lock();
+        
+        while (do_wait() == WaitAction.SLEEP)
+            monitor.wait(mutex);
+        
+        mutex.unlock();
+    }
+    
+    // This method is called by wait() with the semaphore's mutex locked.
+    protected abstract WaitAction do_wait();
+}
+
+public class Semaphore : AbstractSemaphore {
+    bool passed = false;
+    
+    public Semaphore() {
+        base (AbstractSemaphore.Type.BROADCAST);
+    }
+    
+    protected override AbstractSemaphore.NotifyAction do_notify() {
+        if (passed)
+            return NotifyAction.NONE;
+        
+        passed = true;
+        
+        return NotifyAction.SIGNAL;
+    }
+    
+    protected override AbstractSemaphore.WaitAction do_wait() {
+        return passed ? WaitAction.READY : WaitAction.SLEEP;
+    }
+}
+
+public class CountdownSemaphore : AbstractSemaphore {
+    private int total;
+    private int passed = 0;
+    
+    public CountdownSemaphore(int total) {
+        base (AbstractSemaphore.Type.BROADCAST);
+        
+        this.total = total;
+    }
+    
+    protected override AbstractSemaphore.NotifyAction do_notify() {
+        if (passed >= total)
+            critical("CountdownSemaphore overrun: %d/%d", passed + 1, total);
+        
+        return (++passed >= total) ? NotifyAction.SIGNAL : NotifyAction.NONE;
+    }
+    
+    protected override AbstractSemaphore.WaitAction do_wait() {
+        return (passed < total) ? WaitAction.SLEEP : WaitAction.READY;
+    }
+}
+
+//
+// BackgroundJob
+//
+
 // This callback is executed when an associated BackgroundJob completes.  It is called from within
 // the Gtk event loop, *not* the background thread's context.
 public delegate void CompletionCallback(BackgroundJob job);
@@ -82,6 +206,7 @@ public abstract class BackgroundJob {
     private Cancellable cancellable;
     private CancellationCallback cancellation;
     private BackgroundJob self = null;
+    private AbstractSemaphore semaphore = null;
     
     // The thinking here is that there is exactly one CompletionCallback per job, and the caller
     // probably wants to know that to set off UI and other events in response.  There are several
@@ -105,6 +230,19 @@ public abstract class BackgroundJob {
         return JobPriority.NORMAL;
     }
     
+    // For the CompareFunc delegate, according to JobPriority.
+    public static int priority_compare_func(void *a, void *b) {
+        JobPriority a_priority = ((BackgroundJob *) a)->get_priority();
+        JobPriority b_priority = ((BackgroundJob *) b)->get_priority();
+        
+        return a_priority.compare(b_priority);
+    }
+    
+    // For the Comparator delegate, according to JobPriority.
+    public static int64 priority_comparator(void *a, void *b) {
+        return priority_compare_func(a, b);
+    }
+    
     // This method is not thread-safe.  Best to set priority before the job is enqueued.
     public void set_completion_priority(int priority) {
         completion_priority = priority;
@@ -113,6 +251,12 @@ public abstract class BackgroundJob {
     // This method is not thread-safe.  Best to set priority before the job is enqueued.
     public void set_notification_priority(int priority) {
         notification_priority = priority;
+    }
+    
+    // This method is not thread-safe.  Best to set a completion Semaphore before the job is
+    // enqueued.
+    public void set_completion_semaphore(AbstractSemaphore semaphore) {
+        this.semaphore = semaphore;
     }
     
     public bool is_cancelled() {
@@ -126,6 +270,10 @@ public abstract class BackgroundJob {
     
     // This should only be called by Workers.  Beware to all who fail to heed.
     public void internal_notify_completion() {
+        // notify anyone waiting
+        if (semaphore != null)
+            semaphore.notify();
+        
         if (callback == null && cancellation == null)
             return;
         
@@ -181,13 +329,23 @@ public abstract class BackgroundJob {
     }
 }
 
-// Workers wraps some of ThreadPool's oddities up into an interface that emphasizes BackgroundJob's
+//
+// Workers
+//
+
+public class BackgroundJobBatch : SortedList<BackgroundJob> {
+    public BackgroundJobBatch() {
+        base (BackgroundJob.priority_comparator);
+    }
+}
+
+// Workers wraps some of ThreadPool's oddities up into an interface that emphasizes BackgroundJobs
 // and offers features for the user to be called in particular contexts.
 //
 // TODO: ThreadPool's bindings are currently broken (in particular, g_thread_pool_free in the
 // finalizer) and so we're using a more naive implementation, where each Workers object maintains
 // a pool of max_threads threads.  Thus, exclusive is ignored (always true) and UNLIMITED_THREADS
-// defaults to THREAD_PER_CPU.
+// defaults to THREAD_PER_CPU.  See https://bugzilla.gnome.org/show_bug.cgi?id=542725
 public class Workers {
     public const int UNLIMITED_THREADS = -1;
     public const int THREAD_PER_CPU = 0;
@@ -224,18 +382,22 @@ public class Workers {
             }
         }
     }
-
+    
+    // Returns the number of worker threads allocated when the object was created, but if the
+    // threads are exiting, does not reflect the actual number of threads tied to this object.
+    public int get_worker_count() {
+        return thread_count;
+    }
+    
     // Enqueues a BackgroundJob for work in a thread context.  BackgroundJob.execute() is called
     // within the thread's context, while its CompletionCallback is called within the Gtk event loop.
     public void enqueue(BackgroundJob background_job) {
-        queue.push_sorted(background_job, compare_jobs);
+        queue.push_sorted(background_job, BackgroundJob.priority_compare_func);
     }
     
-    private static int compare_jobs(void *a, void *b) {
-        BackgroundJob.JobPriority a_priority = ((BackgroundJob *) a)->get_priority();
-        BackgroundJob.JobPriority b_priority = ((BackgroundJob *) b)->get_priority();
-        
-        return a_priority.compare(b_priority);
+    public void enqueue_many(BackgroundJobBatch batch) {
+        foreach (BackgroundJob job in batch)
+            enqueue(job);
     }
     
     public void die() {

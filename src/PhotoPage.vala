@@ -456,15 +456,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
         try {
             if (current_tool != null)
                 pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), get_photo(), out max_dim);
-            
-            if (pixbuf == null)
-                pixbuf = cache.fetch(get_photo());
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
         }
         
         if (!photo_missing) {
+            // if no pixbuf, see if it's waiting in the cache
+            if (pixbuf == null)
+                pixbuf = cache.get_ready_pixbuf(get_photo());
+            
+            // if still no pixbuf, background fetch and let the signal handler update the display
+            if (pixbuf == null)
+                cache.prefetch(get_photo());
+        }
+        
+        if (!photo_missing && pixbuf != null) {
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
         }
