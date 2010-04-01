@@ -105,6 +105,12 @@ public class JfifReader : GdkReader {
         
         return photo_exif.get_exif();
     }
+    
+    public override Gdk.Pixbuf? read_thumbnail() throws Error {
+        Exif.Data? exif = read_exif();
+        
+        return (exif != null) ? Exif.get_thumbnail_pixbuf(exif) : null;
+    }
 }
 
 public class JfifWriter : PhotoFileWriter {

@@ -128,10 +128,29 @@ public class RawReader : PhotoFileReader {
         return Exif.Data.new_from_file(get_filepath());
     }
     
-    public override Gdk.Pixbuf unscaled_read() throws Error {
+    public override Gdk.Pixbuf? read_thumbnail() throws Error {
         GRaw.Processor processor = new GRaw.Processor();
         
-        processor.output_params->filtering_mode = LibRaw.Filtering.AUTOMATIC;
+        processor.open_file(get_filepath());
+        processor.unpack_thumb();
+        
+        // try obtaining it through GRaw first
+        try {
+            return processor.make_thumb_image().get_pixbuf_copy();
+        } catch (GRaw.Exception err) {
+            if (!(err is GRaw.Exception.NO_THUMBNAIL) && !(err is GRaw.Exception.UNSUPPORTED_THUMBNAIL))
+                throw err;
+        }
+        
+        // try EXIF thumbnail next
+        Exif.Data? exif = read_exif();
+        
+        return (exif != null) ? Exif.get_thumbnail_pixbuf(exif) : null;
+    }
+    
+    public override Gdk.Pixbuf unscaled_read() throws Error {
+        GRaw.Processor processor = new GRaw.Processor();
+        processor.configure_for_rgb_display(false);
         
         processor.open_file(get_filepath());
         processor.unpack();
@@ -146,9 +165,7 @@ public class RawReader : PhotoFileReader {
         bool half_size = width_proportion < 0.5 && height_proportion < 0.5;
         
         GRaw.Processor processor = new GRaw.Processor();
-        
-        processor.output_params->half_size = half_size;
-        processor.output_params->filtering_mode = LibRaw.Filtering.AUTOMATIC;
+        processor.configure_for_rgb_display(half_size);
         
         processor.open_file(get_filepath());
         processor.unpack();

@@ -15,7 +15,7 @@ public class MimicManager : Object {
         public Error? err = null;
         
         public VerifyJob(MimicManager manager, Photo photo, PhotoFileWriter writer) {
-            base (manager, manager.on_verify_completed);
+            base (manager, manager.on_verify_completed, new Cancellable());
             
             this.photo = photo;
             this.writer = writer;
@@ -26,9 +26,7 @@ public class MimicManager : Object {
                 return;
             
             try {
-                Gdk.Pixbuf pixbuf = photo.get_pixbuf_with_exceptions(Scaling.for_original(), 
-                    TransformablePhoto.Exception.ALL);
-                writer.write(pixbuf, Jpeg.Quality.HIGH);
+                writer.write(photo.get_original_pixbuf(Scaling.for_original()), Jpeg.Quality.HIGH);
             } catch (Error err) {
                 this.err = err;
             }
@@ -56,6 +54,7 @@ public class MimicManager : Object {
     private SourceCollection sources;
     private File impersonators_dir;
     private Workers workers = new Workers(1, false);
+    private Gee.HashMap<Photo, VerifyJob> verify_jobs = new Gee.HashMap<Photo, VerifyJob>();
     
     public MimicManager(SourceCollection sources, File impersonators_dir) {
         this.sources = sources;
@@ -87,16 +86,29 @@ public class MimicManager : Object {
                 continue;
             }
             
-            workers.enqueue(new VerifyJob(this, photo, writer));
+            VerifyJob job = new VerifyJob(this, photo, writer);
+            verify_jobs.set(photo, job);
+            
+            workers.enqueue(job);
         }
     }
     
     private void on_photo_destroyed(DataSource source) {
+        // remove any outstanding VerifyJob
+        VerifyJob? outstanding = verify_jobs.get((Photo) source);
+        if (outstanding != null) {
+            verify_jobs.unset((Photo) source);
+            outstanding.cancel();
+        }
+        
         workers.enqueue(new DeleteJob(this, generate_impersonator_file((Photo) source)));
     }
     
     private void on_verify_completed(BackgroundJob background_job) {
         VerifyJob job = (VerifyJob) background_job;
+        
+        bool removed = verify_jobs.unset(job.photo);
+        assert(removed);
         
         if (job.err != null) {
             critical("Unable to generate impersonator for %s: %s", job.photo.to_string(),

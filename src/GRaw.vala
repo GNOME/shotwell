@@ -40,7 +40,8 @@ public errordomain Exception {
     OUT_OF_MEMORY,
     DATA_ERROR,
     IO_ERROR,
-    CANCELLED_BY_CALLBACK
+    CANCELLED_BY_CALLBACK,
+    SYSTEM_ERROR
 }
 
 public enum Flip {
@@ -63,7 +64,7 @@ public enum HighlightMode {
     REBUILD = 3
 }
 
-public enum Quality {
+public enum InterpolationQuality {
     LINEAR = 0,
     VNG = 1,
     PPG = 2,
@@ -98,12 +99,6 @@ public class ProcessedImage {
         }
     }
     
-    public unowned uint8[] data {
-        get {
-            return image.data;
-        }
-    }
-    
     public uint data_size {
         get {
             return image.data_size;
@@ -114,12 +109,35 @@ public class ProcessedImage {
         LibRaw.Result result;
         image = proc.make_mem_image(out result);
         throw_exception("ProcessedImage", result);
+        assert(image != null);
+        
+        // A regular mem image comes back with raw RGB data ready for pixbuf (data buffer is shared
+        // between the ProcessedImage and the Gdk.Pixbuf)
+        pixbuf = new Gdk.Pixbuf.from_data(image.data, Gdk.Colorspace.RGB, false, image.bits,
+            image.width, image.height, image.width * image.colors, null);
     }
     
     public ProcessedImage.from_thumb(LibRaw.Processor proc) throws Exception {
         LibRaw.Result result;
         image = proc.make_mem_thumb(out result);
         throw_exception("ProcessedImage.from_thumb", result);
+        assert(image != null);
+        
+        // A mem thumb comes back as the raw bytes from the data segment in the file -- this needs
+        // to be decoded before being useful.  This will throw an error if the format is not
+        // supported
+        try {
+            pixbuf = new Gdk.Pixbuf.from_stream(
+                new MemoryInputStream.from_data(image.data, image.data_size, null), null);
+        } catch (Error err) {
+            throw new Exception.UNSUPPORTED_THUMBNAIL(err.message);
+        }
+        
+        // fix up the ProcessedImage fields (which are unset when decoding the thumb)
+        image.width = (ushort) pixbuf.width;
+        image.height = (ushort) pixbuf.height;
+        image.colors = (ushort) pixbuf.n_channels;
+        image.bits = (ushort) pixbuf.bits_per_sample;
     }
     
     // TODO: It would be, by far, more efficient to return a shared copy of the pixbuf that the
@@ -136,11 +154,6 @@ public class ProcessedImage {
     
     // This method returns a copy of a pixbuf representing the ProcessedImage.
     public Gdk.Pixbuf get_pixbuf_copy() {
-        if (pixbuf == null) {
-            pixbuf = new Gdk.Pixbuf.from_data(image.data, Gdk.Colorspace.RGB, false, image.bits,
-                image.width, image.height, image.width * image.colors, null);
-        }
-        
         return pixbuf.copy();
     }
 }
@@ -225,11 +238,53 @@ public class Processor {
     public void unpack_thumb() throws Exception {
         throw_exception("unpack_thumb", proc.unpack_thumb());
     }
+    
+    // This configures output_params for reasonable settings for turning a RAW image into an 
+    // RGB ProcessedImage suitable for display.  Tweaks can occur after this call and before
+    // process().
+    public void configure_for_rgb_display(bool half_size) {
+        // Fields in comments are left to their defaults and/or should be modified by the caller.
+        // These fields are set to reasonable defaults by libraw.
+        
+        // greybox
+        output_params->set_chromatic_aberrations(1.0, 1.0);
+        output_params->set_gamma_curve(GRaw.SRGB_POWER, GRaw.SRGB_SLOPE);
+        // user_mul
+        // shot_select
+        // multi_out
+        output_params->bright = 1.0f;
+        // threshold
+        output_params->half_size = half_size;
+        // four_color_rgb
+        output_params->document_mode = GRaw.DocMode.STANDARD;
+        output_params->highlight = GRaw.HighlightMode.CLIP;
+        output_params->use_auto_wb = true;
+        output_params->use_camera_wb = true;
+        output_params->use_camera_matrix = true;
+        output_params->output_color = GRaw.Colorspace.SRGB;
+        // output_profile
+        // camera_profile
+        // bad_pixels
+        // dark_frame
+        output_params->filtering_mode = LibRaw.Filtering.AUTOMATIC;
+        output_params->output_bps = 8;
+        // output_tiff
+        output_params->user_flip = GRaw.Flip.FROM_SOURCE;
+        output_params->user_qual = GRaw.InterpolationQuality.PPG;
+        // user_black
+        // user_sat
+        // med_passes
+        output_params->no_auto_bright = true;
+        output_params->auto_bright_thr = 0.01f;
+        output_params->use_fuji_rotate = GRaw.FujiRotate.USE;
+    }
 }
 
 private void throw_exception(string caller, LibRaw.Result result) throws Exception {
     if (result == LibRaw.Result.SUCCESS)
         return;
+    else if (result > 0)
+        throw new Exception.SYSTEM_ERROR("System error %d: %s", (int) result, strerror(result));
     
     string msg = "%s: %s".printf(caller, result.to_string());
     

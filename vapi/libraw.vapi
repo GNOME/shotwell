@@ -109,7 +109,6 @@ public struct OutputParams {
     public int output_color;
     public Filtering filtering_mode;
     public int output_bps;
-    public bool gamma_16bit;
     public bool output_tiff;
     public int user_flip;
     public int user_qual;

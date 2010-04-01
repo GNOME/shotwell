@@ -67,6 +67,8 @@ public abstract class PhotoFileReader : PhotoFileAdapter {
     
     public abstract Exif.Data? read_exif() throws Error;
     
+    public abstract Gdk.Pixbuf? read_thumbnail() throws Error;
+    
     public abstract Gdk.Pixbuf unscaled_read() throws Error;
     
     public virtual Gdk.Pixbuf scaled_read(Dimensions full, Dimensions scaled) throws Error {

@@ -472,6 +472,19 @@ namespace Exif {
     public string? thumbnail_md5(Exif.Data exif) {
         return (exif.data != null && exif.size > 0) ? md5_binary(exif.data, exif.size) : null;
     }
+    
+    // Returns a pixbuf representing the thumbnail, if present
+    public Gdk.Pixbuf? get_thumbnail_pixbuf(Exif.Data exif) {
+        if (exif.data == null || exif.size == 0)
+            return null;
+        
+        try {
+            return new Gdk.Pixbuf.from_stream(new MemoryInputStream.from_data(exif.data, exif.size, null),
+                null);
+        } catch (Error err) {
+            return null;
+        }
+    }
 }
 
 public errordomain ExifError {

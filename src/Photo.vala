@@ -655,7 +655,7 @@ public abstract class TransformablePhoto: PhotoSource {
             PhotoID photo_id = get_photo_id();
             PhotoID other_photo_id = photo.get_photo_id();
             
-            if (this != photo) {
+            if (this != photo && photo_id.id != PhotoID.INVALID) {
                 assert(photo_id.id != other_photo_id.id);
             }
         }
