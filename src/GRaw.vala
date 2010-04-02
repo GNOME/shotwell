@@ -274,7 +274,7 @@ public class Processor {
         // user_black
         // user_sat
         // med_passes
-        output_params->no_auto_bright = true;
+        output_params->no_auto_bright = false;
         output_params->auto_bright_thr = 0.01f;
         output_params->use_fuji_rotate = GRaw.FujiRotate.USE;
     }
