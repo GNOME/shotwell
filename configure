@@ -28,6 +28,8 @@ configure_help() {
     printf "\t\t\t\tDisable desktop database update.\n"
     printf "\t--disable-icon-update\n"
     printf "\t\t\t\tDisable icon cache update.\n"
+    printf "\t--enable-build-for-glade\n"
+    printf "\t\t\t\tEnable build for Glade-related development.\n"
     printf "\n"
 }
 
@@ -93,6 +95,9 @@ do
                                           ;;
 
         --disable-icon-update)            variables="${variables}DISABLE_ICON_UPDATE=1\n"
+                                          ;;
+
+        --enable-build-for-glade)        variables="${variables}ENABLE_BUILD_FOR_GLADE=1\n"
                                           ;;
 
         *)                  if [ ! $value ]

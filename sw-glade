@@ -1,0 +1,2 @@
+#!/bin/bash
+GLADE_CATALOG_PATH=ui/ GLADE_MODULE_PATH=. glade ui/shotwell.glade

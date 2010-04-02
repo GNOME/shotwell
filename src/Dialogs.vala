@@ -480,77 +480,79 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
 }
 }
 
-public abstract class TextEntryDialog : Gtk.Dialog {
-    private Gtk.Entry entry;
+public abstract class TextEntryDialogMediator {
+    private TextEntryDialog dialog;
 
-    public TextEntryDialog(string title, string label, string? initial_text = null) {
-        set_modal(true);
-
-        add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
-                    Gtk.STOCK_OK, Gtk.ResponseType.OK);
-        set_title(title);
-
-        Gtk.Label name_label = new Gtk.Label(label);
-        entry = new Gtk.Entry();
-
-        if (initial_text != null)
-            entry.set_text(initial_text);
-
-        entry.set_activates_default(true);
-        entry.changed += on_entry_changed;
-
-        Gtk.HBox query = new Gtk.HBox(false, 0);
-        query.pack_start(name_label, false, false, 3);
-        query.pack_start(entry, false, false, 3);
-
-        set_default_response(Gtk.ResponseType.OK);
-
-        vbox.pack_start(query, true, false, 6);
+    public TextEntryDialogMediator(string title, string label, string? initial_text = null) {
+        Gtk.Builder builder = AppWindow.create_builder();
+        dialog = builder.get_object("text_entry_dialog1") as TextEntryDialog;
+        dialog.set_builder(builder);
+        dialog.setup(on_modify_validate, title, label, initial_text);
+    }
+    
+    protected virtual bool on_modify_validate(string text) {
+        return true;
     }
 
     protected string? _execute() {
+        return dialog.execute();
+    }
+}
+
+public class TextEntryDialog : Gtk.Dialog {
+    public delegate bool OnModifyValidateType(string text);
+
+    private OnModifyValidateType on_modify_validate;
+    private Gtk.Entry entry;
+    private Gtk.Builder builder;
+    
+    public void set_builder(Gtk.Builder builder) {
+        this.builder = builder;
+    }
+
+    public void setup(OnModifyValidateType? modify_validate, string title, string label, 
+        string? initial_text) {
+        set_title(title);
+        set_parent_window(AppWindow.get_instance().get_parent_window());
+        on_modify_validate = modify_validate;
+
+        Gtk.Label name_label = builder.get_object("label") as Gtk.Label;
+        name_label.set_text(label);
+
+        entry = builder.get_object("entry") as Gtk.Entry;
+        entry.set_text(initial_text != null ? initial_text : "");
+        entry.grab_focus();
+
+        set_default_response(Gtk.ResponseType.OK);
+    }
+
+    public string? execute() {
         string? text = null;
         
         // validate entry to start with
         set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
-
+        
         show_all();
         
-        for (;;) {
-            if (run() != Gtk.ResponseType.OK)
-                break;
-            
+        if (run() == Gtk.ResponseType.OK)
             text = entry.get_text();
-            if (on_ok_validate(text))
-                break;
-            
-            text = null;
-        }
         
         destroy();
         
         return text;
     }
     
-    private void on_entry_changed() {
+    public void on_entry_changed() {
         set_response_sensitive(Gtk.ResponseType.OK, on_modify_validate(entry.get_text()));
-    }
-    
-    protected virtual bool on_modify_validate(string text) {
-        return true;
-    }
-    
-    protected virtual bool on_ok_validate(string text) {
-        return true;
     }
 }
 
-public class EventRenameDialog : TextEntryDialog {
+public class EventRenameDialog : TextEntryDialogMediator {
     public EventRenameDialog(string? event_name) {
         base (_("Rename Event"), _("Name:"), event_name);
     }
-    
-    public string? execute() {
+
+    public virtual string? execute() {
         return _execute();
     }
 }
@@ -1011,11 +1013,13 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
     dialog.destroy();
 }
 
-public class AddTagsDialog : TextEntryDialog {
+
+
+public class AddTagsDialog : TextEntryDialogMediator {
     public AddTagsDialog() {
         base (Resources.ADD_TAGS_TITLE, _("Tags (separated by commas):"));
     }
-    
+
     public string[]? execute() {
         string? text = _execute();
         if (text == null)
@@ -1025,7 +1029,7 @@ public class AddTagsDialog : TextEntryDialog {
         // that Tag.prep_tag_names won't return a zero-length array (and it never returns null)
         return Tag.prep_tag_names(text.split(","));
     }
-    
+
     protected override bool on_modify_validate(string text) {
         // Can't simply call Tag.prep_tag_names().length because of this bug:
         // https://bugzilla.gnome.org/show_bug.cgi?id=609440
@@ -1035,7 +1039,7 @@ public class AddTagsDialog : TextEntryDialog {
     }
 }
 
-public class RenameTagDialog : TextEntryDialog {
+public class RenameTagDialog : TextEntryDialogMediator {
     private string current_name;
     
     public RenameTagDialog(string current_name) {
@@ -1061,9 +1065,10 @@ public class RenameTagDialog : TextEntryDialog {
     }
 }
 
-public class ModifyTagsDialog : TextEntryDialog {
+public class ModifyTagsDialog : TextEntryDialogMediator {
     public ModifyTagsDialog(string[]? current_tags) {
-        base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), get_initial_text(current_tags));
+        base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), 
+            get_initial_text(current_tags));
     }
     
     private static string? get_initial_text(string[]? tags) {

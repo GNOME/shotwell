@@ -1,5 +1,4 @@
 PROGRAM = shotwell
-all: $(PROGRAM)
 
 VERSION = 0.5.1+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
@@ -31,6 +30,12 @@ ifeq "$(SYSTEM)" "Darwin"
 endif
 
 -include configure.mk
+
+ifdef ENABLE_BUILD_FOR_GLADE
+all: lib$(PROGRAM).so $(PROGRAM)
+else
+all: $(PROGRAM)
+endif
 
 VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
@@ -173,9 +178,6 @@ EXT_PKGS += \
 	libusb \
 	gudev-1.0 \
 	dbus-glib-1
-
-# This is for libraw, which does not have a .pc file yet
-CFLAGS += -lraw_r -lstdc++
 endif
 
 ifdef MAC
@@ -265,9 +267,14 @@ endif
 # setting CFLAGS in configure.mk overrides build type
 ifndef CFLAGS
 ifdef BUILD_DEBUG
-CFLAGS = -O0 -g -pipe
+CFLAGS = -O0 -g -pipe -fPIC
 else
-CFLAGS = -O2 -g -pipe
+CFLAGS = -O2 -g -pipe -fPIC
+endif
+
+# This is for libraw, which does not have a .pc file yet
+ifdef LINUX
+CFLAGS += -lraw_r -lstdc++
 endif
 endif
 
@@ -289,6 +296,7 @@ clean:
 	rm -rf $(LOCAL_LANG_DIR)
 	rm -f $(LANG_STAMP)
 	rm -f $(TEMPORARY_DESKTOP_FILES)
+	rm -f lib$(PROGRAM).so
 
 cleantemps:
 	rm -f $(EXPANDED_C_FILES)
@@ -404,7 +412,12 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
-	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -o $@
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -export-dynamic -o $@
+
+glade: lib$(PROGRAM).so
+
+lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -export-dynamic -shared -o $@
 
 shotwell-setup-$(VERSION).exe: $(PROGRAM) windows/winstall.iss
 	iscc windows\winstall.iss
