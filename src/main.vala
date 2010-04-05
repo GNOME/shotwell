@@ -217,7 +217,12 @@ void main(string[] args) {
     // init GTK (valac has already called g_threads_init())
     try {
         Gtk.init_with_args(ref args, _("[FILE]"), (OptionEntry []) options, Resources.APP_GETTEXT_PACKAGE);
-    } catch (Error e) { error(e.message); }
+    } catch (Error e) {
+        print(e.message + "\n");
+        print(_("Run '%s --help' to see a full list of available command line options.\n"), args[0]);
+        AppDirs.terminate();
+        return;
+    }
     
     // init internationalization with the default system locale
     InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE, args);
