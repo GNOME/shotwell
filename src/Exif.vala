@@ -312,6 +312,20 @@ namespace Exif {
         return true;
     }
     
+    public string get_title(Exif.Data exif) {
+        Exif.Entry entry = find_first_entry(exif, Exif.Tag.IMAGE_DESCRIPTION, Exif.Format.ASCII);
+        
+        return (entry != null) ? entry.get_string() : "";
+    }
+
+    public void set_title(Exif.Data exif, string title) {
+        Entry entry = find_first_entry(exif, Exif.Tag.IMAGE_DESCRIPTION, Exif.Format.ASCII);
+        if (entry == null)
+            entry = alloc_entry(exif, Exif.Tag.IMAGE_DESCRIPTION, Exif.Format.ASCII);
+        
+        realloc_ascii(entry, title);
+    }
+    
     public string get_exposure(Exif.Data exif) {
         Exif.Entry entry = find_first_entry(exif, Tag.EXPOSURE_TIME, Format.RATIONAL);
         

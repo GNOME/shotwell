@@ -557,6 +557,16 @@ public class EventRenameDialog : TextEntryDialogMediator {
     }
 }
 
+public class PhotoRenameDialog : TextEntryDialogMediator {
+    public PhotoRenameDialog(string? photo_name) {
+        base (_("Rename Photo"), _("Name:"), photo_name);
+    }
+
+    public virtual string? execute() {
+        return _execute();
+    }
+}
+
 // Returns: Gtk.ResponseType.YES (trash photos), Gtk.ResponseType.NO (only remove photos) and
 // Gtk.ResponseType.CANCEL.
 public Gtk.ResponseType remove_photos_dialog(Gtk.Window owner, int count) {

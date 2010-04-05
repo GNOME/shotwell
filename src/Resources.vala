@@ -163,6 +163,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PUBLISH_LABEL = _("Publish");
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 
+    public const string RENAME_PHOTO_MENU = _("Re_name Photo...");
+    public const string RENAME_PHOTO_LABEL = _("Rename Photo");
+    public const string RENAME_PHOTO_TOOLTIP = _("Rename the selected photo");
+
     public const string ADJUST_DATE_TIME_MENU = _("_Adjust Date and Time...");
     public const string ADJUST_DATE_TIME_LABEL = _("Adjust Date and Time");
     public const string ADJUST_DATE_TIME_TOOLTIP = _("Adjust date and time of selected photos");

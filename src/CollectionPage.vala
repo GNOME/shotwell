@@ -316,6 +316,12 @@ public abstract class CollectionPage : CheckerboardPage {
         duplicate.tooltip = Resources.DUPLICATE_PHOTO_TOOLTIP;
         actions += duplicate;
 
+        Gtk.ActionEntry rename = { "PhotoRename", null, TRANSLATABLE, "F2", TRANSLATABLE,
+            on_rename };
+        rename.label = Resources.RENAME_PHOTO_MENU;
+        rename.tooltip = Resources.RENAME_PHOTO_TOOLTIP;
+        actions += rename;
+
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
@@ -548,6 +554,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
+        set_item_sensitive("/CollectionContextMenu/ContextPhotoRename", one_selected);
 
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/CollectionContextMenu/ContextSetBackgroundPlaceholder/SetBackground",
@@ -727,6 +734,7 @@ public abstract class CollectionPage : CheckerboardPage {
 
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
+        bool one_selected = get_view().get_selected_count() == 1;
         bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
@@ -738,10 +746,11 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotoRename", one_selected);
 
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder/SetBackground",
-            get_view().get_selected_count() == 1);
+            one_selected);
 #endif 
     }
     
@@ -903,6 +912,22 @@ public abstract class CollectionPage : CheckerboardPage {
         
         DuplicateMultiplePhotosCommand command = new DuplicateMultiplePhotosCommand(
             get_view().get_selected());
+        get_command_manager().execute(command);
+    }
+
+    private void on_rename() {
+        // only rename one at a time
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        LibraryPhoto item = (LibraryPhoto) get_view().get_selected_at(0).get_source();
+        
+        PhotoRenameDialog rename_dialog = new PhotoRenameDialog(item.get_title());
+        string? new_name = rename_dialog.execute();
+        if (new_name == null)
+            return;
+        
+        RenamePhotoCommand command = new RenamePhotoCommand(item, new_name);
         get_command_manager().execute(command);
     }
 

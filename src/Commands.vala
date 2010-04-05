@@ -343,6 +343,26 @@ public class RotateMultipleCommand : MultipleDataSourceCommand {
     }
 }
 
+public class RenamePhotoCommand : SingleDataSourceCommand {
+    private string new_name;
+    private string? old_name;
+    
+    public RenamePhotoCommand(LibraryPhoto photo, string new_name) {
+        base(photo, Resources.RENAME_PHOTO_LABEL, Resources.RENAME_PHOTO_TOOLTIP);
+        
+        this.new_name = new_name;
+        old_name = photo.get_title();
+    }
+    
+    public override void execute() {
+        ((LibraryPhoto) source).set_title(new_name);
+    }
+    
+    public override void undo() {
+        ((LibraryPhoto) source).set_title(old_name);
+    }
+}
+
 public class RenameEventCommand : SingleDataSourceCommand {
     private string new_name;
     private string? old_name;

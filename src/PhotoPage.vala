@@ -849,6 +849,22 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
 
+    public void on_rename() {
+        LibraryPhoto item;
+        if (get_photo() is LibraryPhoto)
+            item = get_photo() as LibraryPhoto;
+        else
+            return;
+        
+        PhotoRenameDialog rename_dialog = new PhotoRenameDialog(item.get_title());
+        string? new_name = rename_dialog.execute();
+        if (new_name == null)
+            return;
+        
+        RenamePhotoCommand command = new RenamePhotoCommand(item, new_name);
+        get_command_manager().execute(command);
+    }
+
     public void on_adjust_date_time() {
         if (!has_photo())
             return;
@@ -1224,6 +1240,12 @@ public class LibraryPhotoPage : EditingHostPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
 
+        Gtk.ActionEntry rename = { "PhotoRename", null, TRANSLATABLE, "F2", TRANSLATABLE,
+            on_rename };
+        rename.label = Resources.RENAME_PHOTO_MENU;
+        rename.tooltip = Resources.RENAME_PHOTO_TOOLTIP;
+        actions += rename;
+
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
@@ -1302,11 +1324,13 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
 
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/PhotoRename", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/AdjustDateTime", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder/SetBackground",

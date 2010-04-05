@@ -329,7 +329,8 @@ namespace Exif {
         GPS_LONGITUDE_REF,
         ARTIST,
         COPYRIGHT,
-        SOFTWARE;
+        SOFTWARE,
+        IMAGE_DESCRIPTION;
 
         public unowned string get_name_in_ifd(Ifd ifd);
         public unowned string get_title_in_ifd(Ifd ifd);

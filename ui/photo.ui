@@ -45,6 +45,7 @@
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
             <separator />
+            <menuitem name="PhotoRename" action="PhotoRename" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
             <placeholder name="SetBackgroundPlaceholder"/>
@@ -68,6 +69,9 @@
         <separator />
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
+        <separator />
+        <menuitem name="ContextPhotoRename" action="PhotoRename" />
+        <menuitem name="ContextAdjustDateTime" action="AdjustDateTime" />
         <separator />
         <placeholder name="ContextSetBackgroundPlaceholder"/>
     </popup>

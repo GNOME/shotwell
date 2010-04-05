@@ -224,7 +224,7 @@ public abstract class TransformablePhoto: PhotoSource {
     private PhotoFileReader mimic_reader = null;
     private PixelTransformer transformer = null;
     private PixelTransformationBundle adjustments = null;
-    private string title = null;
+    private string file_title = null;
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
@@ -232,13 +232,13 @@ public abstract class TransformablePhoto: PhotoSource {
         this.row = row;
         this.reader = row.file_format.create_reader(row.filepath);
         
-        // get the title of the Photo without using a File object, skipping the separator itself
+        // get the file title of the Photo without using a File object, skipping the separator itself
         char *basename = row.filepath.rchr(-1, Path.DIR_SEPARATOR);
         if (basename != null)
-            title = (string) (basename + 1);
+            file_title = (string) (basename + 1);
         
-        if (title == null || title[0] == '\0')
-            title = row.filepath;
+        if (file_title == null || file_title[0] == '\0')
+            file_title = row.filepath;
     }
     
     // For the MimicManager
@@ -321,12 +321,14 @@ public abstract class TransformablePhoto: PhotoSource {
         
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
+        string title = "";
         
         if (detected.exif != null) {
             if (!Exif.get_timestamp(detected.exif, out exposure_time))
                 warning("Unable to read EXIF timestamp for %s", file.get_path());
             
             orientation = Exif.get_orientation(detected.exif);
+            title = Exif.get_title(detected.exif);
         }
         
         // verify basic mechanics of photo: RGB 8-bit encoding
@@ -358,6 +360,7 @@ public abstract class TransformablePhoto: PhotoSource {
         photo_row.time_created = 0;
         photo_row.flags = 0;
         photo_row.file_format = detected.file_format;
+        photo_row.title = title;
         
         if (thumbnails != null) {
             // can't use the pixbuf, if it was fetched, because it might not be (and most likely
@@ -691,16 +694,18 @@ public abstract class TransformablePhoto: PhotoSource {
 
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
+        string title = "";
 
         if (detected.exif != null) {
             orientation = Exif.get_orientation(detected.exif);
             Exif.get_timestamp(detected.exif, out exposure_time);
+            title = Exif.get_title(detected.exif);
         }
         
         PhotoID photo_id = get_photo_id();
-        if (PhotoTable.get_instance().update(photo_id, detected.image_dim, info.get_size(), timestamp.tv_sec, 
-            exposure_time, orientation, detected.file_format, detected.md5, detected.exif_md5, 
-            detected.thumbnail_md5)) {
+        if (PhotoTable.get_instance().update(photo_id, detected.image_dim, info.get_size(),
+            timestamp.tv_sec, exposure_time, orientation, detected.file_format, detected.md5,
+            detected.exif_md5, detected.thumbnail_md5, title)) {
             // cache coherency
             lock (row) {
                 row.dim = detected.image_dim;
@@ -713,6 +718,7 @@ public abstract class TransformablePhoto: PhotoSource {
                 row.exif_md5 = detected.exif_md5;
                 row.thumbnail_md5 = detected.thumbnail_md5;
                 row.file_format = detected.file_format;
+                row.title = title;
                 
                 // build new reader and clear mimic
                 reader = row.file_format.create_reader(row.filepath);
@@ -776,7 +782,9 @@ public abstract class TransformablePhoto: PhotoSource {
     // PhotoSource
     
     public override string get_name() {
-        return title;
+        string? name = get_title();
+
+        return (name != null && name != "") ? name : file_title;
     }
     
     public override uint64 get_filesize() {
@@ -795,6 +803,48 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         return exposure_time;
+    }
+
+    public string? get_title() {
+        string? title;
+        lock (row) {
+            title = row.title;
+        }
+        
+        return title;
+    }
+
+    public void set_title(string? title) {
+        bool committed;
+        lock (row) {
+            committed = PhotoTable.get_instance().set_title(row.photo_id, title);
+            if (committed)
+                row.title = title;
+        }
+        
+        if (committed)
+            notify_metadata_altered();
+    }
+
+    public void set_title_persistent(string? title) throws Error {
+        // Try to write to backing file
+        if (!reader.get_file_format().can_write()) {
+            warning("No photo file writer available for %s", reader.get_filepath());
+            
+            set_title(title);
+            
+            return;
+        }
+        
+        Exif.Data exif = reader.read_exif();
+        Exif.set_title(exif, title != null ? title : "");
+        
+        PhotoFileWriter writer = reader.create_writer();
+        writer.write_exif(exif);
+        
+        set_title(title);
+        
+        file_exif_updated();
     }
 
     public void set_exposure_time(time_t time) {

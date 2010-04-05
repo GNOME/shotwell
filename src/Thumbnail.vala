@@ -42,6 +42,7 @@ public class Thumbnail : CheckerboardItem {
         // if the photo's tags changes, update it here
         Tag.global.item_contents_altered += on_tag_contents_altered;
         Tag.global.item_altered += on_tag_altered;
+        photo.metadata_altered += on_photo_metadata_altered;
     }
 
     ~Thumbnail() {
@@ -75,6 +76,18 @@ public class Thumbnail : CheckerboardItem {
         
         if (tag.get_photos().contains(photo))
             update_tags();
+    }
+    
+    private void update_title() {
+        string title = photo.get_name();
+        if (is_string_empty(title))
+            clear_title();
+        else
+            set_title(title);
+    }
+    
+    private void on_photo_metadata_altered() {
+        update_title();
     }
     
     public LibraryPhoto get_photo() {
