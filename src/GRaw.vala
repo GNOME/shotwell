@@ -99,6 +99,12 @@ public class ProcessedImage {
         }
     }
     
+    public uint8* data {
+        get {
+            return image.data;
+        }
+    }
+    
     public uint data_size {
         get {
             return image.data_size;

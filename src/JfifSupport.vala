@@ -89,7 +89,7 @@ public class JfifSniffer : GdkSniffer {
 
 public class JfifReader : GdkReader {
     public JfifReader(string filepath) {
-        base (filepath, PhotoFileFormat.JFIF);
+        base (filepath, PhotoFileFormat.JFIF, Exif.DataType.COMPRESSED);
     }
     
     public override Exif.Data? read_exif() throws Error {

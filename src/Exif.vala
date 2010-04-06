@@ -186,9 +186,7 @@ namespace Exif {
 
     public bool get_timestamp(Exif.Data exif, out time_t timestamp) {
         Exif.Entry entry = Exif.find_first_entry(exif, Exif.Tag.DATE_TIME_ORIGINAL, Exif.Format.ASCII);
-
-        timestamp = 0;
-
+        
         if (entry != null) {
             string datetime = entry.get_string();
             if (datetime != null) {

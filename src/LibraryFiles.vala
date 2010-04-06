@@ -32,14 +32,13 @@ private bool claim_file(File file) throws Error {
 // This function is thread safe.
 public File? generate_unique_file(string basename, Exif.Data? exif, time_t ts, out bool collision)
     throws Error {
-    File dir = AppDirs.get_photos_dir();
-    time_t timestamp = ts;
-    
     // use EXIF exposure timestamp over the supplied one (which probably comes from the file's
-    // modified time, or is simply now())
+    // modified time, or is simply time())
+    time_t timestamp = ts;
     if (exif != null && !Exif.get_timestamp(exif, out timestamp)) {
-        // if no exposure time supplied, use now()
-        if (ts == 0)
+        // if no exposure time supplied, use supplied one, unless zero, in which case use time()
+        timestamp = ts;
+        if (timestamp == 0)
             timestamp = time_t();
     }
     
@@ -47,6 +46,7 @@ public File? generate_unique_file(string basename, Exif.Data? exif, time_t ts, o
     
     // build a directory tree inside the library, as deep as DIRECTORY_DEPTH:
     // yyyy/mm/dd
+    File dir = AppDirs.get_photos_dir();
     dir = dir.get_child("%04u".printf(tm.year + 1900));
     dir = dir.get_child("%02u".printf(tm.month + 1));
     dir = dir.get_child("%02u".printf(tm.day));

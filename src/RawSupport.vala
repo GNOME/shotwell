@@ -103,7 +103,8 @@ public class RawSniffer : PhotoFileSniffer {
         detected.channels = 3;
         detected.bits_per_channel = 8;
         
-        detected.exif = Exif.Data.new_from_file(file.get_path());
+        RawReader reader = new RawReader(file.get_path());
+        detected.exif = reader.read_exif();
         if (detected.exif != null) {
             detected.exif_md5 = Exif.md5(detected.exif);
             detected.thumbnail_md5 = Exif.thumbnail_md5(detected.exif);
@@ -125,7 +126,26 @@ public class RawReader : PhotoFileReader {
     }
     
     public override Exif.Data? read_exif() throws Error {
-        return Exif.Data.new_from_file(get_filepath());
+        // If RAW file has embedded JPEG sidebar, attempt to read its EXIF first
+        GRaw.Processor processor = new GRaw.Processor();
+        
+        processor.open_file(get_filepath());
+        processor.unpack_thumb();
+        
+        GRaw.ProcessedImage thumbnail = processor.make_thumb_image();
+        Exif.Data? exif = Exif.Data.new_from_data(thumbnail.data, thumbnail.data_size);
+        if (exif != null) {
+            exif.set_data_type(Exif.DataType.COMPRESSED);
+            
+            return exif;
+        }
+        
+        // Next try reading file as a whole (it may be TIFF-esque)
+        exif = Exif.Data.new_from_file(get_filepath());
+        if (exif != null)
+            exif.set_data_type(Exif.DataType.COMPRESSED);
+        
+        return exif;
     }
     
     public override Gdk.Pixbuf? read_thumbnail() throws Error {

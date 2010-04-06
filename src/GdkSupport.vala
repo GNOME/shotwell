@@ -5,12 +5,20 @@
  */
 
 public abstract class GdkReader : PhotoFileReader {
-    public GdkReader(string filepath, PhotoFileFormat file_format = PhotoFileFormat.UNKNOWN) {
+    private Exif.DataType exif_datatype;
+    
+    public GdkReader(string filepath, PhotoFileFormat file_format, Exif.DataType exif_datatype) {
         base (filepath, file_format);
+        
+        this.exif_datatype = exif_datatype;
     }
     
     public override Exif.Data? read_exif() throws Error {
-        return Exif.Data.new_from_file(get_filepath());
+        Exif.Data? exif = Exif.Data.new_from_file(get_filepath());
+        if (exif != null)
+            exif.set_data_type(exif_datatype);
+        
+        return exif;
     }
     
     public override Gdk.Pixbuf unscaled_read() throws Error {

@@ -16,13 +16,14 @@ class ImportSource : PhotoSource {
     private string filename;
     private ulong file_size;
     private ulong preview_size;
+    private time_t modification_time;
     private Gdk.Pixbuf preview = null;
     private string? preview_md5 = null;
     private Exif.Data exif = null;
     private string? exif_md5 = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
-        string filename, ulong file_size, ulong preview_size) {
+        string filename, ulong file_size, ulong preview_size, time_t modification_time) {
         this.camera_name = camera_name;
         this.camera = camera;
         this.fsid = fsid;
@@ -30,10 +31,13 @@ class ImportSource : PhotoSource {
         this.filename = filename;
         this.file_size = file_size;
         this.preview_size = preview_size;
+        this.modification_time = modification_time;
     }
     
     public override string get_name() {
-        return filename;
+        string? title = get_title();
+        
+        return !is_string_empty(title) ? title : filename;
     }
     
     public override string to_string() {
@@ -63,7 +67,7 @@ class ImportSource : PhotoSource {
     public override time_t get_exposure_time() {
         time_t timestamp;
         if (!Exif.get_timestamp(exif, out timestamp))
-            return 0;
+            return modification_time;
             
         return timestamp;
     }
@@ -75,7 +79,11 @@ class ImportSource : PhotoSource {
         
         return Exif.get_orientation(exif).rotate_dimensions(dim);
     }
-
+    
+    public string? get_title() {
+        return exif != null ? Exif.get_title(exif).strip() : null;
+    }
+    
     public override uint64 get_filesize() {
         return file_size;
     }
@@ -115,7 +123,7 @@ class ImportPreview : CheckerboardItem {
     public const int MAX_SCALE = 128;
     
     public ImportPreview(ImportSource source) {
-        base(source, Dimensions(), source.get_filename());
+        base(source, Dimensions(), source.get_name());
         
         // scale down pixbuf if necessary
         Gdk.Pixbuf pixbuf = null;
@@ -724,8 +732,6 @@ public class ImportPage : CheckerboardPage {
                 GPhoto.CameraFileInfo info;
                 GPhoto.get_info(spin_idle_context.context, camera, fulldir, filename, out info);
                 
-                // at this point, only interested in JPEG files
-                // TODO: Increase file format support, for TIFF and RAW at least
                 if ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0) {
                     message("Skipping %s/%s: No file (file=%02Xh)", fulldir, filename,
                         info.file.fields);
@@ -733,10 +739,22 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                if (info.file.type != GPhoto.MIME.JPEG) {
-                    message("Skipping %s/%s: Not a JPEG (%s)", fulldir, filename, info.file.type);
-                        
-                    continue;
+                switch (info.file.type) {
+                    case GPhoto.MIME.JPEG:
+                    case GPhoto.MIME.RAW:
+                    case GPhoto.MIME.CRW:
+                        // supported
+                    break;
+                    
+                    default:
+                        // check file extension against those we support
+                        if (!TransformablePhoto.is_basename_supported(filename)) {
+                            message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
+                                filename, info.file.type);
+                            
+                            continue;
+                        }
+                    break;
                 }
                 
                 ulong preview_size = info.preview.size;
@@ -754,7 +772,7 @@ public class ImportPage : CheckerboardPage {
                 }
                 
                 import_list.add(new ImportSource(camera_name, camera, fsid, dir, filename, 
-                    info.file.size, preview_size));
+                    info.file.size, preview_size, info.file.mtime));
                 
                 progress_bar.pulse();
                 
@@ -800,15 +818,12 @@ public class ImportPage : CheckerboardPage {
                 progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
                 
                 // load EXIF for photo, which will include the preview thumbnail
-                uint8[] exif_raw;
-                size_t exif_raw_length;
-                Exif.Data exif = GPhoto.load_exif(spin_idle_context.context, camera, fulldir, filename,
-                    out exif_raw, out exif_raw_length);
+                Exif.Data exif = GPhoto.load_exif(spin_idle_context.context, camera, fulldir, filename);
                 
                 // calculate EXIF's fingerprint
-                string? exif_md5 = null;
-                if (exif != null && exif_raw != null && exif_raw_length > 0)
-                    exif_md5 = md5_binary(exif_raw, exif_raw_length);
+                string? exif_only_md5 = null;
+                if (exif != null)
+                    exif_only_md5 = Exif.md5(exif);
                 
                 // XXX: Cannot use the exif.data field for the thumbnail preview because libgphoto2
                 // 2.4.6 has a bug where the returned EXIF data object is complete garbage.  This
@@ -834,7 +849,7 @@ public class ImportPage : CheckerboardPage {
                 }
                 
                 // update the ImportSource with the fetched information
-                import_source.update(preview, preview_md5, exif, exif_md5);
+                import_source.update(preview, preview_md5, exif, exif_only_md5);
                 
                 // *now* add to the SourceCollection, now that it is completed
                 import_sources.add(import_source);
@@ -918,7 +933,7 @@ public class ImportPage : CheckerboardPage {
             try {
                 bool collision;
                 dest_file = LibraryFiles.generate_unique_file(import_file.get_filename(), 
-                    import_file.get_exif(), time_t(), out collision);
+                    import_file.get_exif(), import_file.get_exposure_time(), out collision);
             } catch (Error err) {
                 warning("Unable to generate local file for %s: %s", import_file.get_filename(),
                     err.message);

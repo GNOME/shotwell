@@ -141,32 +141,19 @@ namespace GPhoto {
                 folder, filename, dest_file.get_path(), res.as_string());
     }
     
-    public Exif.Data? load_exif(Context context, Camera camera, string folder, string filename,
-        out uint8[] raw, out size_t raw_length) throws Error {
-        uint8[] camera_raw = load_file_into_buffer(context, camera, folder, filename, GPhoto.CameraFileType.EXIF);
+    public Exif.Data? load_exif(Context context, Camera camera, string folder, string filename) 
+        throws Error {
+        uint8[] camera_raw = load_file_into_buffer(context, camera, folder, filename,
+            GPhoto.CameraFileType.EXIF);
         if (camera_raw == null)
             return null;
         
-        // when reporting raw bytes, strip off any leading JPEG markers
-        int offset = 0;
-        if (camera_raw[0] == Jpeg.MARKER_PREFIX && camera_raw[1] == Jpeg.Marker.APP1.get_byte()) {
-            // skip prefix, segment marker, and length
-            offset += 4;
-        }
-        
-        // XXX: can't merely assign the buffer, must allocate and copy or there's double-free issues
-        raw_length = (offset != 0 && camera_raw.length > offset) ? camera_raw.length - offset
-            : camera_raw.length;
-        raw = new uint8[raw_length];
-        Memory.copy(raw, &(camera_raw[offset]), raw.length);
-        
         // hand over camera raw to libexif anyway, which is able to handle it
-        Exif.Data data = Exif.Data.new_from_data(camera_raw, camera_raw.length);
-        data.fix();
-        
-        // strip off thumbnail
-        if (data.size > 0 && raw_length > data.size)
-            raw_length -= data.size;
+        Exif.Data? data = Exif.Data.new_from_data(camera_raw, camera_raw.length);
+        if (data != null) {
+            data.set_data_type(Exif.DataType.COMPRESSED);
+            data.fix();
+        }
         
         return data;
     }

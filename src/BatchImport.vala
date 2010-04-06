@@ -682,29 +682,32 @@ private class PrepareFilesJob : BackgroundImportJob {
                 return ImportResult.NOT_A_FILE;
         }
         
-        string exif_md5 = null;
+        // attempt to detect the file format by its extension
+        PhotoFileFormat file_format = PhotoFileFormat.get_by_file_extension(file);
+        if (file_format == PhotoFileFormat.UNKNOWN) {
+            warning("Skipping %s: unrecognized file extension", file.get_path());
+            
+            return ImportResult.UNSUPPORTED_FORMAT;
+        }
+        
+        string exif_only_md5 = null;
         string thumbnail_md5 = null;
         string full_md5 = null;
         
         // duplicate detection: If EXIF data present, look for a match with either EXIF itself
         // or the thumbnail.  If not, do a full MD5.
-        PhotoExif photo_exif = new PhotoExif(file);
-        try {
-            photo_exif.load();
-        } catch (Error err) {
-            photo_exif = null;
-        }
-        
-        if (photo_exif != null) {
+        PhotoFileReader reader = file_format.create_reader(file.get_path());
+        Exif.Data? exif = reader.read_exif();
+        if (exif != null) {
             // get EXIF and thumbnail fingerprints
-            exif_md5 = photo_exif.get_md5();
-            thumbnail_md5 = photo_exif.get_thumbnail_md5();
+            exif_only_md5 = Exif.md5(exif);
+            thumbnail_md5 = Exif.thumbnail_md5(exif);
         }
         
         // If no EXIF or thumbnail MD5, then do full MD5 match ... it's possible for
         // photos to have identical EXIF, hence the thumbnail should be the giveaway, but only
         // if present (which can only be true if EXIF is present)
-        if (exif_md5 == null || thumbnail_md5 == null) {
+        if (exif_only_md5 == null || thumbnail_md5 == null) {
             try {
                 full_md5 = md5_file(file);
             } catch (Error err) {
@@ -718,7 +721,7 @@ private class PrepareFilesJob : BackgroundImportJob {
         // notify the BatchImport this is ready to go
         prepared_files++;
         notify(notification, new PreparedFile(job, file, file.get_path(), 
-            copy_to_library && !is_in_library_dir, exif_md5, thumbnail_md5, full_md5));
+            copy_to_library && !is_in_library_dir, exif_only_md5, thumbnail_md5, full_md5));
         
         return ImportResult.SUCCESS;
     }

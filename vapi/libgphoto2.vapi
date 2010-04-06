@@ -362,12 +362,25 @@ namespace GPhoto {
         cprefix="GP_MIME_"
     )]
     namespace MIME {
+        public const string WAV;
         public const string RAW;
         public const string PNG;
+        public const string PGM;
+        public const string PPM;
+        public const string PNM;
         public const string JPEG;
         public const string TIFF;
         public const string BMP;
+        public const string QUICKTIME;
+        public const string AVI;
+        public const string CRW;
+        public const string UNKNOWN;
         public const string EXIF;
+        public const string MP3;
+        public const string OGG;
+        public const string WMA;
+        public const string ASF;
+        public const string MPEG;
     }
     
     [SimpleType]

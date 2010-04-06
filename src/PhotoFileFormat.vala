@@ -29,6 +29,25 @@ public enum PhotoFileFormat {
 #endif
     }
     
+    public static PhotoFileFormat get_by_basename_extension(string basename) {
+        string name, ext;
+        disassemble_filename(basename, out name, out ext);
+        
+        if (is_string_empty(ext))
+            return UNKNOWN;
+        
+        foreach (PhotoFileFormat file_format in get_supported()) {
+            if (file_format.get_driver().get_properties().is_recognized_extension(ext))
+                return file_format;
+        }
+        
+        return UNKNOWN;
+    }
+    
+    public static PhotoFileFormat get_by_file_extension(File file) {
+        return get_by_basename_extension(file.get_basename());
+    }
+    
     // These values are persisted in the database.  DO NOT CHANGE THE INTEGER EQUIVALENTS.
     public int serialize() {
         switch (this) {
