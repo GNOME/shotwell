@@ -6,7 +6,7 @@
 
 #if !NO_CAMERA
 
-public class DiscoveredCamera : Object {
+public class DiscoveredCamera {
     public GPhoto.Camera gcamera;
     public string uri;
     

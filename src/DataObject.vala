@@ -16,10 +16,7 @@
 // elsewhere to resolve ordering questions (including stabilizing a sort).
 //
 
-// TODO: When this bug is fixed, we should remove the inheritance from Object, as it's more
-// heavyweight than we require and impedes load-time at startup.
-// https://bugzilla.gnome.org/show_bug.cgi?id=611845
-public abstract class DataObject : Object {
+public abstract class DataObject {
     public const int64 INVALID_OBJECT_ID = -1;
     
     private static int64 object_id_generator = 0;
