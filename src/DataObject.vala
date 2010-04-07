@@ -215,7 +215,7 @@ public abstract class SourceSnapshot {
 public abstract class DataSource : DataObject {
     protected delegate void ContactSubscriber(DataView view);
     
-    private DataView[] subscribers = null;
+    private DataView[] subscribers = new DataView[4];
     private bool in_contact = false;
     private bool marked_for_destroy = false;
     private bool is_destroyed = false;
@@ -227,10 +227,6 @@ public abstract class DataSource : DataObject {
     
     public DataSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
-        
-        // allocating this here rather than at declaration time due to this bug:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=607714
-        subscribers = new DataView[4];
     }
     
     ~DataSource() {

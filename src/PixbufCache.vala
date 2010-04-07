@@ -92,7 +92,7 @@ public class PixbufCache : Object {
         assert(max_count > 0);
         
         if (background_workers == null)
-            background_workers = new Workers(Workers.THREAD_PER_CPU, false);
+            background_workers = new Workers(Workers.threads_per_cpu(1), false);
         
         // monitor changes in the photos to discard from cache
         sources.item_altered += on_source_altered;

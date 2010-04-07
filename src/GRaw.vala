@@ -146,18 +146,6 @@ public class ProcessedImage {
         image.bits = (ushort) pixbuf.bits_per_sample;
     }
     
-    // TODO: It would be, by far, more efficient to return a shared copy of the pixbuf that the
-    // caller can copy if needed (or simply use get_pixbuf_copy).  That would prevent any memory
-    // copying at all, as Gdk.Pixbuf.from_data will simply use the supplied pointer and call
-    // Gdk.PixbufDestroyNotify when it's completed.  Through some reference counting tricks, the
-    // ProcessedImage (and its image.data) would remain in memory even if all external refs are
-    // dropped, thus allowing pixbufs to float around long after the ProcessedImage is discarded,
-    // all without a memcpy.
-    //
-    // Unfortunately, the Gdk.PixbufDestroyNotify binding is severely broken in 0.7.10, and this 
-    // won't work until it's been corrected:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=613855
-    
     // This method returns a copy of a pixbuf representing the ProcessedImage.
     public Gdk.Pixbuf get_pixbuf_copy() {
         return pixbuf.copy();

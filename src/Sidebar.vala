@@ -71,7 +71,7 @@ public class Sidebar : Gtk.TreeView {
         selection.set_mode(Gtk.SelectionMode.BROWSE);
         selection.set_select_function(on_selection);
 
-        enable_model_drag_dest(LibraryWindow.get_drop_target_entries(), Gdk.DragAction.ASK);
+        enable_model_drag_dest(LibraryWindow.DEST_TARGET_ENTRIES, Gdk.DragAction.ASK);
         
         popup_menu += on_context_menu_keypress;
     }

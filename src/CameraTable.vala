@@ -20,9 +20,7 @@ public class CameraTable {
     private const int UPDATE_DELAY_MSEC = 500;
     
     // list of subsystems being monitored for events
-    // Changed from const to static due to this bug:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=612315
-    private static string[] SUBSYSTEMS = { "usb", "block", null };
+    private const string[] SUBSYSTEMS = { "usb", "block", null };
     
     private static CameraTable instance = null;
     

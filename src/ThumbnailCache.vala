@@ -48,8 +48,6 @@ public class ThumbnailCache : Object {
         }
     }
     
-    // Changed from public const to private static due to this bug:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=612315
     private static Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
     
     public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
@@ -163,14 +161,13 @@ public class ThumbnailCache : Object {
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
         debug_scheduler = new OneShotScheduler("ThumbnailCache cycle reporter", report_cycle);
-        fetch_workers = new Workers(Workers.THREAD_PER_CPU, false);
+        fetch_workers = new Workers(Workers.threads_per_cpu(1), false);
         
         big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
         medium = new ThumbnailCache(Size.MEDIUM, MAX_MEDIUM_CACHED_BYTES);
     }
     
     public static void terminate() {
-        fetch_workers.die();
     }
     
     public static void import_from_source(PhotoID photo_id, PhotoSource source, bool force = false)

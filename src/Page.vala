@@ -1609,13 +1609,6 @@ public abstract class SinglePhotoPage : Page {
     }
 }
 
-// This can be removed and the call changed to Gdk.property_get when this bug is fixed:
-// https://bugzilla.gnome.org/show_bug.cgi?id=611250
-extern bool gdk_property_get(Gdk.Window window, Gdk.Atom property, Gdk.Atom type, ulong offset,
-    ulong data_length, int pdelete, out Gdk.Atom actual_type, out int actual_format, 
-    out int actual_length,
-    [CCode (array_length=false)] out uchar[] data);
-
 //
 // DragPhotoHandler attaches signals to a Page so properly handle drag-and-drop requests for the
 // Page as a DnD Source.  (DnD Destination handling is handled by the appropriate AppWindow, i.e.
@@ -1720,8 +1713,8 @@ public class PhotoDragAndDropHandler {
                 Gdk.Atom actual_type;
                 int actual_format = 0;
                 int actual_length = 0;
-                bool fetched = gdk_property_get(context.source_window, XDS_ATOM, TEXT_ATOM,
-                    0, data.length, 0, out actual_type, out actual_format, out actual_length, out data);
+                bool fetched = Gdk.property_get(context.source_window, XDS_ATOM, TEXT_ATOM,
+                    0, data.length, 0, out actual_type, out actual_format, out data);
                 
                 // the destination path is actually for our XDS_FAKE_TARGET, use its parent
                 // to determine where the file(s) should go

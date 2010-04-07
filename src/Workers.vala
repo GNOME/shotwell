@@ -339,60 +339,38 @@ public class BackgroundJobBatch : SortedList<BackgroundJob> {
     }
 }
 
-// Workers wraps some of ThreadPool's oddities up into an interface that emphasizes BackgroundJobs
-// and offers features for the user to be called in particular contexts.
-//
-// TODO: ThreadPool's bindings are currently broken (in particular, g_thread_pool_free in the
-// finalizer) and so we're using a more naive implementation, where each Workers object maintains
-// a pool of max_threads threads.  Thus, exclusive is ignored (always true) and UNLIMITED_THREADS
-// defaults to THREAD_PER_CPU.  See https://bugzilla.gnome.org/show_bug.cgi?id=542725
+// Workers wraps some of ThreadPool's oddities up into an interface that emphasizes BackgroundJobs.
 public class Workers {
     public const int UNLIMITED_THREADS = -1;
-    public const int THREAD_PER_CPU = 0;
     
-    private class DieJob : BackgroundJob {
-        public override void execute() {
+    private ThreadPool thread_pool;
+    private AsyncQueue<BackgroundJob> queue = new AsyncQueue<BackgroundJob>();
+    
+    public Workers(int max_threads, bool exclusive)
+        requires (max_threads == UNLIMITED_THREADS || max_threads > 0) {
+        try {
+            thread_pool = new ThreadPool(thread_start, max_threads, exclusive);
+        } catch (ThreadError err) {
+            error("Unable to create thread pool: %s", err.message);
         }
     }
     
-    private static DieJob die_job = null;
-    
-    private AsyncQueue<BackgroundJob> queue;
-    private int thread_count;
-    
-    public Workers(int max_threads, bool exclusive) {
-        if (die_job == null)
-            die_job = new DieJob();
-        
-        if (max_threads == UNLIMITED_THREADS)
-            max_threads = THREAD_PER_CPU;
-        
-        if (max_threads == THREAD_PER_CPU)
-            max_threads = number_of_processors();
-        
-        queue = new AsyncQueue<BackgroundJob>();
-        thread_count = max_threads;
-        
-        assert(thread_count > 0);
-        for (int ctr = 0; ctr < thread_count; ctr++) {
-            try {
-                Thread.create(thread_start, false);
-            } catch (Error err) {
-                error("Unable to create worker thread: %s", err.message);
-            }
-        }
-    }
-    
-    // Returns the number of worker threads allocated when the object was created, but if the
-    // threads are exiting, does not reflect the actual number of threads tied to this object.
-    public int get_worker_count() {
-        return thread_count;
+    public static int threads_per_cpu(int per = 1) requires (per > 0) ensures (result > 0) {
+        return number_of_processors() * per;
     }
     
     // Enqueues a BackgroundJob for work in a thread context.  BackgroundJob.execute() is called
     // within the thread's context, while its CompletionCallback is called within the Gtk event loop.
-    public void enqueue(BackgroundJob background_job) {
-        queue.push_sorted(background_job, BackgroundJob.priority_compare_func);
+    public void enqueue(BackgroundJob job) {
+        queue.push_sorted(job, BackgroundJob.priority_compare_func);
+        
+        try {
+            thread_pool.push(job);
+        } catch (ThreadError err) {
+            // error should only occur when a thread could not be created, in which case, the
+            // BackgroundJob is queued up
+            warning("Unable to create worker thread: %s", err.message);
+        }
     }
     
     public void enqueue_many(BackgroundJobBatch batch) {
@@ -400,24 +378,14 @@ public class Workers {
             enqueue(job);
     }
     
-    public void die() {
-        for (int ctr = 0; ctr < thread_count; ctr++)
-            enqueue(die_job);
-    }
-    
-    private void *thread_start() {
-        for (;;) {
-            BackgroundJob job = queue.pop();
-            if (job == null || job == die_job)
-                break;
-            
-            if (!job.is_cancelled())
-                job.execute();
-            
-            job.internal_notify_completion();
-        }
+    private void thread_start(void *ignored) {
+        BackgroundJob? job = queue.try_pop();
+        assert(job != null);
         
-        return null;
+        if (!job.is_cancelled())
+            job.execute();
+            
+        job.internal_notify_completion();
     }
 }
 

@@ -8,7 +8,7 @@
  * This is a patch for GLib.KeyFile, which has a bad binding for get_keys() (which returns the array
  * length as a gsize, whose size is platform-dependent, while the binding generates code for an int
  * every time.)  This vapi will be necessary until the binding is fixed.  See also
- * http://bugzilla.gnome.org/show_bug.cgi?id=588104
+ * https://bugzilla.gnome.org/show_bug.cgi?id=529866
  */
 
 [Compact]

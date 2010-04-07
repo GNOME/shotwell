@@ -1042,7 +1042,7 @@ public class AddTagsDialog : TextEntryDialogMediator {
 
     protected override bool on_modify_validate(string text) {
         // Can't simply call Tag.prep_tag_names().length because of this bug:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=609440
+        // https://bugzilla.gnome.org/show_bug.cgi?id=602208
         string[] names = Tag.prep_tag_names(text.split(","));
         
         return names.length > 0;
