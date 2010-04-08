@@ -519,8 +519,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.Rectangle selection_band = Gdk.Rectangle();
     private uint32 selection_transparency_color = 0;
     private int scale = 0;
-    private bool flow_dirty = true;
+    private bool flow_scheduled = false;
     private bool exposure_dirty = true;
+    private CheckerboardItem? anchor = null;
+    private bool in_center_on_anchor = false;
+    private bool size_allocate_due_to_reflow = false;
     
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
@@ -536,6 +539,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.ordering_changed += on_ordering_changed;
         view.views_altered += on_views_altered;
         view.geometries_altered += on_geometries_altered;
+        view.items_selected += on_items_selection_changed;
+        view.items_unselected += on_items_selection_changed;
         
         modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
         
@@ -556,6 +561,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.ordering_changed -= on_ordering_changed;
         view.views_altered -= on_views_altered;
         view.geometries_altered -= on_geometries_altered;
+        view.items_selected -= on_items_selection_changed;
+        view.items_unselected -= on_items_selection_changed;
         
         if (hadjustment != null)
             hadjustment.value_changed -= on_viewport_shifted;
@@ -609,11 +616,74 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // possible for this widget's size_allocate not to be called, so need to update the page
         // rect here
         viewport_resized();
+
+        if (!size_allocate_due_to_reflow)
+            clear_anchor();
+        else
+            size_allocate_due_to_reflow = false;
     }
     
     private void on_viewport_shifted() {
         update_visible_page();
         need_exposure("on_viewport_shift");
+
+        clear_anchor();
+    }
+
+    private void on_items_selection_changed() {
+        clear_anchor();
+    }
+
+    private void clear_anchor() {
+        if (in_center_on_anchor)
+            return;
+
+        anchor = null;
+    }
+    
+    private void update_anchor() {
+        assert(!in_center_on_anchor);
+
+        Gee.List<CheckerboardItem> items_on_page = intersection(visible_page);
+        if (items_on_page.size == 0) {
+            anchor = null;
+            return;
+        }
+
+        foreach (CheckerboardItem item in items_on_page) {
+            if (item.is_selected()) {
+                anchor = item;
+                return;
+            }
+        }
+
+        if (vadjustment.get_value() == 0) {
+            anchor = null;
+            return;
+        }
+        
+        // this could be improved to always find the visual center...in the case where only
+        // a few photos are in the last visible row, this can choose a photo near the right
+        anchor = items_on_page.get((int) items_on_page.size / 2);
+    }
+
+    private void center_on_anchor(double upper) {
+        if (anchor == null)
+            return;
+
+        in_center_on_anchor = true;
+
+        // update the vadjustment's upper manually rather than waiting for GTK to do so
+        // because subsequent calculations and settings rely on it ... updating upper 
+        // will only happen later, when this event finishes
+        vadjustment.set_upper(upper);
+  
+        double anchor_pos = anchor.allocation.y + (anchor.allocation.height / 2) - 
+            (vadjustment.get_page_size() / 2);
+        vadjustment.set_value(anchor_pos.clamp(vadjustment.get_lower(), 
+            vadjustment.get_upper() - vadjustment.get_page_size()));
+
+        in_center_on_anchor = false;
     }
     
     private void on_contents_altered(Gee.Iterable<DataObject>? added, 
@@ -662,13 +732,24 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void need_reflow(string caller) {
+        if (flow_scheduled)
+            return;
+        
 #if TRACE_REFLOW
         debug("need_reflow %s: %s", page_name, caller);
 #endif
-        flow_dirty = true;
-        queue_draw();
+        flow_scheduled = true;
+        Idle.add_full(Priority.HIGH, do_reflow);
     }
     
+    private bool do_reflow() {
+        reflow("do_reflow");
+
+        flow_scheduled = false;
+        
+        return false;
+    }
+
     private void need_exposure(string caller) {
 #if TRACE_REFLOW
         debug("need_exposure %s: %s", page_name, caller);
@@ -919,10 +1000,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             int old_width = last_width;
             last_width = allocation.width;
             
-            need_reflow("size_allocate (%d -> %d)".printf(old_width, allocation.width));
+            need_reflow("viewport_resized (%d -> %d)".printf(old_width, allocation.width));
         } else {
             // don't need to reflow but exposure may have changed
-            need_exposure("size_allocate");
+            need_exposure("viewport_resized");
         }
     }
     
@@ -988,14 +1069,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         int total_items = view.get_count();
         
-        // clear the rows data structure, as the reflow will completely rearrange it
-        item_rows = null;
-        
         // need to set_size in case all items were removed and the viewport size has changed
         if (total_items == 0) {
             set_size_request(allocation.width, 0);
             item_rows = new LayoutRow[0];
-            flow_dirty = false;
 
             return;
         }
@@ -1003,6 +1080,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 #if TRACE_REFLOW
         debug("reflow %s: %s (%d items)", page_name, caller, total_items);
 #endif
+        
+        // look for anchor if there is none currently
+        if (anchor == null)
+            update_anchor();
+        
+        // clear the rows data structure, as the reflow will completely rearrange it
+        item_rows = null;
         
         // Step 1: Determine the widest row in the layout, and from it the number of columns.
         // If owner supplies an image scaling for all items in the layout, then this can be
@@ -1268,9 +1352,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 allocation.width, allocation.height, allocation.width, total_height);
 #endif
             set_size_request(allocation.width, total_height);
+            size_allocate_due_to_reflow = true;
+            
+            // when height changes, center on the anchor to minimize amount of visual change
+            center_on_anchor(total_height);
         }
-        
-        flow_dirty = false;
+
     }
     
     private void items_dirty(string reason, Gee.Iterable<DataView> items) {
@@ -1364,8 +1451,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 #if TRACE_REFLOW
             debug("expose_event %s: %s", page_name, rectangle_to_string(event.area));
 #endif
-            if (flow_dirty)
-                reflow("expose_event");
             
             if (exposure_dirty)
                 expose_items("expose_event");
