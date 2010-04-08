@@ -177,6 +177,10 @@ public class Processor {
         throw_exception("document_mode_processing", proc.document_mode_processing());
     }
     
+    public LibRaw.ImageOther get_image_other() {
+        return proc.get_image_other();
+    }
+    
     public LibRaw.ImageParams get_image_params() {
         return proc.get_image_params();
     }

@@ -26,6 +26,20 @@ public enum Filtering {
 }
 
 [SimpleType]
+[CCode (cname="libraw_imgother_t")]
+public struct ImageOther {
+    public float iso_speed;
+    public float shutter;
+    public float aperture;
+    public float focal_len;
+    public time_t timestamp;
+    public uint shot_order;
+    public uint gpsdata[32];
+    public char desc[512];
+    public char artist[64];
+}
+
+[SimpleType]
 [CCode (cname="libraw_iparams_t")]
 public struct ImageParams {
     public uint raw_count;
@@ -151,6 +165,7 @@ public class Processor {
     private Warnings process_warnings;
     private ImageParams idata;
     private ImageSizes sizes;
+    private ImageOther other;
     private Thumbnail thumbnail;
     
     [CCode (cname="libraw_init")]
@@ -160,6 +175,7 @@ public class Processor {
     public Result adjust_sizes_info_only();
     [CCode (cname="libraw_dcraw_document_mode_processing")]
     public Result document_mode_processing();
+    public ImageOther get_image_other() { return other; }
     public ImageParams get_image_params() { return idata; }
     public Progress get_progress_flags() { return progress_flags; }
     public Warnings get_process_warnings() { return process_warnings; }
