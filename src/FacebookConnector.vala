@@ -234,6 +234,9 @@ public class Interactor : ServiceInteractor {
     }
 
     private void do_authenticate_session(string success_url) {
+        debug("Facebook.Interactor: do_authenticate_session( ): ACTION: preparing to extract " +
+            ("session key information encoded in url = '%s'").printf(success_url));
+
         get_host().set_cancel_button_mode();
         get_host().lock_service();
         get_host().install_pane(new AccountFetchWaitPane());
@@ -284,6 +287,9 @@ public class Interactor : ServiceInteractor {
     }
 
     private void do_extract_albums_from_xml(string xml) {
+        debug("Facebook.Interactor: do_extract_albums_from_xml( ): ACTION: extracting album info " +
+            ("from xml response '%s'").printf(xml));
+
         Album[] extracted = new Album[0];
 
         try {
@@ -518,8 +524,9 @@ private class Session : RESTSession {
 
         // remove any trailing parameters from the session description string
         string trailing_params = session_desc.chr(-1, '&');
-        session_desc = session_desc.replace(trailing_params, "");
-        
+        if (trailing_params != null)
+            session_desc = session_desc.replace(trailing_params, "");
+
         // remove the key from the session description string
         session_desc = session_desc.replace("session=", "");
         
