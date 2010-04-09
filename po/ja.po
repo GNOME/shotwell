@@ -2,13 +2,13 @@
 # Japanese translation for Shotwell
 # Copyright (C) 2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.5.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-03-04 18:37-0800\n"
-"PO-Revision-Date: 2010-02-21 01:09+0200\n"
+"PO-Revision-Date: 2010-04-08 01:09+0200\n"
 "Last-Translator: slackhideo <burajirugaijin@yahoo.co.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,19 +51,20 @@ msgstr ""
 
 #: src/AppWindow.vala:393
 msgid "_Quit"
-msgstr ""
+msgstr "終了 (_Q)"
 
 #: src/AppWindow.vala:394
 msgid "Quit Shotwell"
-msgstr ""
+msgstr "ショットウェルを終了"
 
 #: src/AppWindow.vala:399
 msgid "_About"
 msgstr ""
 
 #: src/AppWindow.vala:400
+#, fuzzy
 msgid "About Shotwell"
-msgstr ""
+msgstr "ショットウェルについて"
 
 #: src/AppWindow.vala:405
 msgid "_Fullscreen"
@@ -89,8 +90,7 @@ msgstr ""
 #: src/AppWindow.vala:494
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
-"continue.\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
 "\n"
 "%s"
 msgstr ""
@@ -397,8 +397,7 @@ msgstr ""
 
 #: src/Commands.vala:904
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
+msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -520,13 +519,11 @@ msgstr ""
 
 #: src/Dialogs.vala:562
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove the selected photos from your Shotwell library.  Would you "
-"also like to move the files to your desktop trash?\n"
+"This will remove the selected photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -925,16 +922,13 @@ msgstr ""
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
-"login process."
+"If you don't yet have a Facebook account, you can create one during the login process."
 msgstr ""
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
+"You have already logged in and out of Facebook during this Shotwell session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
 
 #: src/FacebookConnector.vala:255
@@ -975,16 +969,13 @@ msgstr ""
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login "
-"process. During login you will have to specifically authorize Shotwell "
-"Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
 
 #: src/FlickrConnector.vala:258
@@ -1063,8 +1054,7 @@ msgid "Unable to export background to %s: %s"
 msgstr ""
 
 #: src/ImportPage.vala:152
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 
 #: src/ImportPage.vala:240 src/ImportPage.vala:241
@@ -1092,9 +1082,7 @@ msgid "Select all the photos for importing"
 msgstr ""
 
 #: src/ImportPage.vala:500
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
 msgstr ""
 
 #: src/ImportPage.vala:506
@@ -1106,10 +1094,7 @@ msgid "Please unmount the camera."
 msgstr ""
 
 #: src/ImportPage.vala:516
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
 msgstr ""
 
 #: src/ImportPage.vala:526
@@ -1220,9 +1205,7 @@ msgstr ""
 
 #: src/LibraryWindow.vala:786
 #, c-format
-msgid ""
-"Shotwell can copy or move the photos into your %s directory, or it can link "
-"to the photos without duplicating them."
+msgid "Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them."
 msgstr ""
 
 #: src/LibraryWindow.vala:792
@@ -1247,25 +1230,17 @@ msgstr ""
 
 #: src/main.vala:79
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please use the "
-"latest version of Shotwell."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
 msgstr ""
 
 #: src/main.vala:84
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s to %s.  "
-"For more information please check the Shotwell Wiki at %s"
+msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
 msgstr ""
 
 #: src/main.vala:89
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please clear "
-"your library by deleting %s and re-import your photos."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
 msgstr ""
 
 #: src/main.vala:94
@@ -1435,37 +1410,23 @@ msgstr ""
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with Picasa to continue. You can set up most accounts by using your browser "
-"to log into the Picasa Web Albums site at least once."
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
 
 #: src/PicasaConnector.vala:507
-msgid ""
-"Enter the email address and password associated with your Picasa Web Albums "
-"account."
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
 msgstr ""
 
 #: src/PicasaConnector.vala:508
-msgid ""
-"Picasa Web Albums didn't recognize the email address and password you "
-"entered. To try again, re-enter your email address and password below."
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
 msgstr ""
 
 #: src/PicasaConnector.vala:509
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that isn't set up for use with Picasa Web Albums. You can set up most "
-"accounts by using your browser to log into the Picasa Web Albums site at "
-"least once. To try again, re-enter your email address and password below."
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
 msgstr ""
 
 #: src/PicasaConnector.vala:510
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that has been tagged as requiring additional security. You can clear this "
-"tag by using your browser to log into Picasa Web Albums. To try again, re-"
-"enter your email address and password below."
+msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
 msgstr ""
 
 #: src/PicasaConnector.vala:545
@@ -2134,15 +2095,12 @@ msgstr ""
 
 #: src/WebConnectors.vala:783
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
+msgid "Publishing to %s can't continue because the service could not be contacted."
 msgstr ""
 
 #: src/WebConnectors.vala:786
 #, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
+msgid "Publishing to %s can't continue because communication with the service failed."
 msgstr ""
 
 #: src/WebConnectors.vala:789
@@ -2157,8 +2115,7 @@ msgstr ""
 
 #: src/WebConnectors.vala:793
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
+msgid "Publishing to %s can't continue because the service returned a bad response."
 msgstr ""
 
 #: src/WebConnectors.vala:796
