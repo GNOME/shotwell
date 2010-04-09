@@ -428,3 +428,212 @@ public struct Scaling {
     }
 }
 
+public struct ZoomState {
+    private Dimensions content_dimensions;
+    private Dimensions viewport_dimensions;
+    private double zoom_factor;
+    private double interpolation_factor;
+    private double min_factor;
+    private double max_factor;
+    private Gdk.Point viewport_center;
+    
+    public ZoomState(Dimensions content_dimensions, Dimensions viewport_dimensions,
+        double slider_val = 0.0, Gdk.Point? viewport_center = null) {
+        this.content_dimensions = content_dimensions;
+        this.viewport_dimensions = viewport_dimensions;
+        this.interpolation_factor = slider_val;
+
+        compute_zoom_factors();
+
+        if ((viewport_center == null) || ((viewport_center.x == 0) && (viewport_center.y == 0)) ||
+            (slider_val == 0.0)) {
+            center_viewport();
+        } else {
+            this.viewport_center = viewport_center;
+            clamp_viewport_center();
+        }
+    }
+
+    public ZoomState.rescale(ZoomState existing, double new_slider_val) {
+        this.content_dimensions = existing.content_dimensions;
+        this.viewport_dimensions = existing.viewport_dimensions;
+        this.interpolation_factor = new_slider_val;
+
+        compute_zoom_factors();
+
+        if (new_slider_val == 0.0) {
+            center_viewport();
+        } else {
+            viewport_center.x = (int) (zoom_factor * (existing.viewport_center.x /
+                existing.zoom_factor));
+            viewport_center.y = (int) (zoom_factor * (existing.viewport_center.y /
+                existing.zoom_factor));
+            clamp_viewport_center();
+        }
+    }
+    
+    public ZoomState.pan(ZoomState existing, Gdk.Point new_viewport_center) {
+        this.content_dimensions = existing.content_dimensions;
+        this.viewport_dimensions = existing.viewport_dimensions;
+        this.interpolation_factor = existing.interpolation_factor;
+
+        compute_zoom_factors();
+
+        this.viewport_center = new_viewport_center;
+        
+        clamp_viewport_center();
+    }
+    
+    private void clamp_viewport_center() {
+        int zoomed_width = get_zoomed_width();
+        int zoomed_height = get_zoomed_height();
+
+        viewport_center.x = viewport_center.x.clamp(viewport_dimensions.width / 2,
+            zoomed_width - (viewport_dimensions.width / 2) - 1);
+        viewport_center.y = viewport_center.y.clamp(viewport_dimensions.height / 2,
+            zoomed_height - (viewport_dimensions.height / 2) - 1);
+    }
+    
+    private void center_viewport() {
+        viewport_center.x = get_zoomed_width() / 2;
+        viewport_center.y = get_zoomed_height() / 2;
+    }
+
+    private void compute_zoom_factors() {
+        max_factor = 2.0;
+        
+        double viewport_to_content_x;
+        double viewport_to_content_y;
+        content_dimensions.get_scale_ratios(viewport_dimensions, out viewport_to_content_x,
+            out viewport_to_content_y);
+        min_factor = double.min(viewport_to_content_x, viewport_to_content_y);
+        if (min_factor > 1.0)
+            min_factor = 1.0;
+
+        zoom_factor = min_factor + (max_factor - min_factor) * interpolation_factor;
+    }
+
+    public double get_interpolation_factor() {
+        return interpolation_factor;
+    }
+
+    public Gdk.Rectangle get_viewing_rectangle() {
+        int zoomed_width = get_zoomed_width();
+        int zoomed_height = get_zoomed_height();
+
+        Gdk.Rectangle result = {0};
+
+        if (viewport_dimensions.width < zoomed_width) {
+            result.x = viewport_center.x - (viewport_dimensions.width / 2);
+        } else {
+            result.x = (zoomed_width - viewport_dimensions.width) / 2;
+        }
+        if (result.x < 0)
+            result.x = 0;
+
+        if (viewport_dimensions.height < zoomed_height) {
+            result.y = viewport_center.y - (viewport_dimensions.height / 2);
+        } else {
+            result.y = (zoomed_height - viewport_dimensions.height) / 2;
+        }
+        if (result.y < 0)
+            result.y = 0;
+
+        int right = result.x + viewport_dimensions.width;
+        if (right > zoomed_width)
+            right = zoomed_width;
+        result.width = right - result.x;
+
+        int bottom = result.y + viewport_dimensions.height;
+        if (bottom > zoomed_height)
+            bottom = zoomed_height;
+        result.height = bottom - result.y;
+        
+        return result;
+    }
+
+    public Gdk.Rectangle get_viewing_rectangle_projection(Gdk.Pixbuf for_pixbuf) {
+        double zoomed_width = get_zoomed_width();
+        double zoomed_height = get_zoomed_height();
+        
+        double horiz_scale = for_pixbuf.width / zoomed_width;
+        double vert_scale = for_pixbuf.height / zoomed_height;
+        double scale = (horiz_scale + vert_scale) / 2.0;
+        
+        Gdk.Rectangle viewing_rectangle = get_viewing_rectangle();
+
+        Gdk.Rectangle result = {0};
+        result.x = (int) (viewing_rectangle.x * scale);
+        result.x = result.x.clamp(0, for_pixbuf.width);
+        result.y = (int) (viewing_rectangle.y * scale);
+        result.y = result.y.clamp(0, for_pixbuf.height);
+        int right = (int) ((viewing_rectangle.x + viewing_rectangle.width) * scale);
+        right = right.clamp(0, for_pixbuf.width);
+        int bottom = (int) ((viewing_rectangle.y + viewing_rectangle.height) * scale);
+        bottom = bottom.clamp(0, for_pixbuf.height);
+        result.width = right - result.x;
+        result.height = bottom - result.y;
+        
+        return result;
+    }
+
+
+    public double get_zoom_factor() {
+        return zoom_factor;
+    }
+
+    public int get_zoomed_width() {
+        return (int) (content_dimensions.width * zoom_factor);
+    }
+    
+    public int get_zoomed_height() {
+        return (int) (content_dimensions.height * zoom_factor);
+    }
+
+    public Gdk.Point get_viewport_center() {
+        return viewport_center;
+    }
+
+    public string to_string() {
+        string named_modes = "";
+        if (is_min())
+            named_modes = named_modes + ((named_modes == "") ? "MIN" : ", MIN");
+        if (is_default())
+            named_modes = named_modes + ((named_modes == "") ? "DEFAULT" : ", DEFAULT");
+        if (is_isomorphic())
+            named_modes = named_modes + ((named_modes =="") ? "ISOMORPHIC" : ", ISOMORPHIC");
+        if (is_max())
+            named_modes = named_modes + ((named_modes =="") ? "MAX" : ", MAX");
+        if (named_modes == "")
+            named_modes = "(none)";
+
+        Gdk.Rectangle viewing_rect = get_viewing_rectangle();
+
+        return (("ZoomState {\n    content dimensions = %d x %d;\n    viewport dimensions = " +
+            "%d x %d;\n    min factor = %f;\n    max factor = %f;\n    current factor = %f;" +
+            "\n    zoomed width = %d;\n    zoomed height = %d;\n    named modes = %s;" +
+            "\n    viewing rectangle = { x: %d, y: %d, width: %d, height: %d };" +
+            "\n    viewport center = (%d, %d);\n}\n").printf(
+            content_dimensions.width, content_dimensions.height, viewport_dimensions.width,
+            viewport_dimensions.height, min_factor, max_factor, zoom_factor, get_zoomed_width(),
+            get_zoomed_height(), named_modes, viewing_rect.x, viewing_rect.y, viewing_rect.width,
+            viewing_rect.height, viewport_center.x, viewport_center.y));
+    }
+
+    public bool is_min() {
+        return (zoom_factor == min_factor);
+    }
+
+    public bool is_default() {
+        return is_min();
+    }
+
+    public bool is_max() {
+        return (zoom_factor == max_factor);
+    }
+
+    public bool is_isomorphic() {
+        return (zoom_factor == 1.0);
+    }
+}
+

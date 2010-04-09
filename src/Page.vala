@@ -1343,7 +1343,10 @@ public abstract class SinglePhotoPage : Page {
     private Dimensions max_dim = Dimensions();
     private Gdk.Pixbuf scaled = null;
     private Gdk.Rectangle scaled_pos = Gdk.Rectangle();
-    
+    private ZoomState static_zoom_state;
+    private bool zoom_high_quality = true;
+    private ZoomState saved_zoom_state;
+
     public SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
         
@@ -1370,10 +1373,95 @@ public abstract class SinglePhotoPage : Page {
         
         viewport.size_allocate += on_viewport_resize;
         canvas.expose_event += on_canvas_exposed;
-        
+
         set_event_source(canvas);
     }
+
+    private void render_zoomed_to_pixmap(ZoomState zoom_state) {
+        Gdk.Pixbuf basis_pixbuf = (zoom_high_quality) ? get_zoom_optimized_pixbuf(zoom_state) :
+            unscaled;
+        if (basis_pixbuf == null)
+            basis_pixbuf = unscaled;
+
+        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
+        Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(basis_pixbuf);
+
+        Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(basis_pixbuf, view_rect_proj.x,
+            view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
+
+        Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
+            Gdk.InterpType.BILINEAR);
+
+        int draw_x = (pixmap_dim.width - view_rect.width) / 2;
+        if (draw_x < 0)
+            draw_x = 0;
+        int draw_y = (pixmap_dim.height - view_rect.height) / 2;
+        if (draw_y < 0)
+            draw_y = 0;
+
+        pixmap.draw_pixbuf(canvas_gc, zoomed, 0, 0, draw_x, draw_y, -1, -1, Gdk.RgbDither.NORMAL,
+            0, 0);
+    }
+
+    protected void on_interactive_zoom(ZoomState interactive_zoom_state) {
+        assert(is_zoom_supported());
+
+        pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+        bool old_quality_setting = zoom_high_quality;
+        zoom_high_quality = false;
+        render_zoomed_to_pixmap(interactive_zoom_state);
+        zoom_high_quality = old_quality_setting;
+        canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
+    }
+
+    protected void on_interactive_pan(ZoomState interactive_zoom_state) {
+        assert(is_zoom_supported());
+
+        pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+        bool old_quality_setting = zoom_high_quality;
+        zoom_high_quality = true;
+        render_zoomed_to_pixmap(interactive_zoom_state);
+        zoom_high_quality = old_quality_setting;
+        canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
+    }
+
+    protected virtual bool is_zoom_supported() {
+        return false;
+    }
+
+    protected virtual Gdk.Pixbuf? get_zoom_optimized_pixbuf(ZoomState zoom_state) {
+        return null;
+    }
+
+    protected virtual void cancel_zoom() {
+        if (pixmap != null)
+            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+    }
+
+    protected virtual void save_zoom_state() {
+        saved_zoom_state = static_zoom_state;
+    }
     
+    protected virtual void restore_zoom_state() {
+        static_zoom_state = saved_zoom_state;
+    }
+    
+    protected ZoomState get_saved_zoom_state() {
+        return saved_zoom_state;
+    }
+
+    protected void set_zoom_state(ZoomState zoom_state) {
+        assert(is_zoom_supported());
+
+        static_zoom_state = zoom_state;
+    }
+
+    protected ZoomState get_zoom_state() {
+        assert(is_zoom_supported());
+
+        return static_zoom_state;
+    }
+
     public override void switched_to() {
         base.switched_to();
         
@@ -1394,7 +1482,11 @@ public abstract class SinglePhotoPage : Page {
     // the caller capable of producing larger ones depending on the viewport size).  max_dim
     // is used when scale_up_to_viewport is set to true.  Pass a Dimensions with no area if
     // max_dim should be ignored (i.e. scale_up_to_viewport is false).
-    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim) {
+    public void set_pixbuf(Gdk.Pixbuf unscaled, Dimensions max_dim) {       
+        static_zoom_state = ZoomState(max_dim, pixmap_dim,
+            static_zoom_state.get_interpolation_factor(),
+            static_zoom_state.get_viewport_center());
+
         this.unscaled = unscaled;
         this.max_dim = max_dim;
         scaled = null;
@@ -1465,7 +1557,7 @@ public abstract class SinglePhotoPage : Page {
     
     private override void on_resize_finished(Gdk.Rectangle rect) {
         base.on_resize_finished(rect);
-        
+       
         // when the resize is completed, do a high-quality repaint
         repaint();
     }
@@ -1495,8 +1587,14 @@ public abstract class SinglePhotoPage : Page {
     }
     
     protected virtual void paint(Gdk.GC gc, Gdk.Drawable drawable) {
-        drawable.draw_pixbuf(gc, scaled, 0, 0, scaled_pos.x, scaled_pos.y, -1, -1, 
-            Gdk.RgbDither.NORMAL, 0, 0);
+        if (is_zoom_supported() && (!static_zoom_state.is_default())) {
+            pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
+            render_zoomed_to_pixmap(static_zoom_state);
+            canvas.window.draw_drawable(canvas_gc, pixmap, 0, 0, 0, 0, -1, -1);
+        } else {
+            drawable.draw_pixbuf(gc, scaled, 0, 0, scaled_pos.x, scaled_pos.y, -1, -1, 
+                Gdk.RgbDither.NORMAL, 0, 0);
+        }
     }
     
     public void repaint() {
@@ -1573,10 +1671,15 @@ public abstract class SinglePhotoPage : Page {
                 reason = UpdateReason.NEW_PIXBUF;
             else if (!new_pixmap && interp == QUALITY_INTERP)
                 reason = UpdateReason.QUALITY_IMPROVEMENT;
-            
+
+            static_zoom_state = ZoomState(max_dim, pixmap_dim,
+                static_zoom_state.get_interpolation_factor(),
+                static_zoom_state.get_viewport_center());
+
             updated_pixbuf(scaled, reason, old_scaled_dim);
         }
-        
+
+        zoom_high_quality = !fast;
         paint(canvas_gc, pixmap);
 
         // invalidate everything

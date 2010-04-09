@@ -17,6 +17,9 @@
         
         <menu name="ViewMenu" action="ViewMenu">
             <menuitem name="Fullscreen" action="CommonFullscreen" />
+            <separator />
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
         </menu>
 
         <menu name="PhotoMenu" action="PhotoMenu">

@@ -28,6 +28,9 @@
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
             </menu>
             <separator />
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
+            <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         
