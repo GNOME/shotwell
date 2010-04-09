@@ -271,15 +271,15 @@ CFLAGS = -O0 -g -pipe -fPIC
 else
 CFLAGS = -O2 -g -pipe -fPIC
 endif
+endif
 
-# This is for libraw, which does not have a .pc file yet
 ifdef LINUX
-CFLAGS += -lraw_r -lstdc++
-endif
-endif
+# This is for libraw, which does not have a .pc file yet
+VALA_LDFLAGS += -lraw_r -lstdc++
 
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
+endif
 
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
 	$(foreach po,$(SUPPORTED_LANGUAGES),`mkdir -p $(LOCAL_LANG_DIR)/$(po)/LC_MESSAGES ; \
