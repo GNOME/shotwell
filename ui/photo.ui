@@ -17,6 +17,8 @@
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
             <menuitem name="Remove" action="Remove" />
+            <separator />
+            <menuitem name="Preferences" action="CommonPreferences" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">

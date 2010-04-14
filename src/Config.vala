@@ -12,10 +12,22 @@ public class Config {
     public const int HEIGHT_DEFAULT = 768;
     public const int SIDEBAR_MIN_POSITION = 180;
     public const int SIDEBAR_MAX_POSITION = 1000;
+    private const string DEFAULT_BG_COLOR = "#444";
+    private const uint BLACK_THRESHOLD = 40000;
+    private const string DARK_UNSELECTED_COLOR = "#079";
+    private const string LIGHT_UNSELECTED_COLOR = "#2DF";
+    private const string DARK_SELECTED_COLOR = "#000";
+    private const string LIGHT_SELECTED_COLOR = "#FFF";
+
+    private string bg_color = null;
+    private string selected_color = null;
+    private string unselected_color = null;
     
     private static Config instance = null;
     
     private GConf.Client client;
+    
+    public signal void bg_color_changed(Gdk.Color color);
     
     private Config() {
         // only one may exist per-process
@@ -495,6 +507,58 @@ public class Config {
         return get_int("/apps/shotwell/preferences/ui/photo_thumbnail_scale",
             Thumbnail.DEFAULT_SCALE).clamp(
             Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
+    }
+
+    private void get_colors() {
+        bg_color = get_string("/apps/shotwell/preferences/ui/background_color", DEFAULT_BG_COLOR);
+        
+        if (!is_color_parsable(bg_color))
+            bg_color = DEFAULT_BG_COLOR;
+
+        set_text_colors(parse_color(bg_color));
+    }
+
+    public Gdk.Color get_bg_color() {
+        if (is_string_empty(bg_color))
+            get_colors();
+
+        return parse_color(bg_color);
+    }
+
+    public Gdk.Color get_selected_color() {
+        if (is_string_empty(selected_color))
+            get_colors();
+
+        return parse_color(selected_color);
+    }
+    
+    public Gdk.Color get_unselected_color() {
+        if (is_string_empty(unselected_color))
+            get_colors();
+
+        return parse_color(unselected_color);
+    }
+
+    private void set_text_colors(Gdk.Color bg_color) {
+        // since bg color is greyscale, we only need to compare the red value to the threshold,
+        // which determines whether the background is dark enough to need light text and selection
+        // colors or vice versa
+        selected_color = bg_color.red > BLACK_THRESHOLD ? DARK_UNSELECTED_COLOR :
+            LIGHT_UNSELECTED_COLOR;
+        unselected_color = bg_color.red > BLACK_THRESHOLD ? DARK_SELECTED_COLOR :
+            LIGHT_SELECTED_COLOR;
+    }
+    
+    public void set_bg_color(Gdk.Color color) {
+        bg_color = color.to_string();
+
+        set_text_colors(color);
+
+        bg_color_changed(color);
+    }
+
+    public bool commit_bg_color() {
+        return set_string("/apps/shotwell/preferences/ui/background_color", bg_color);
     }
 }
 

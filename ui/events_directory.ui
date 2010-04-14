@@ -12,6 +12,8 @@
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
             <menuitem name="SelectAll" action="SelectAll" />
+            <separator />
+            <menuitem name="Preferences" action="CommonPreferences" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">

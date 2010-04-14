@@ -100,9 +100,6 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public const int TRINKET_SCALE = 12;
     public const int TRINKET_PADDING = 1;
-
-    public const string SELECTED_COLOR = "#2DF";
-    public const string UNSELECTED_COLOR = "#FFF";
     
     public const int BRIGHTEN_SHIFT = 0x18;
     
@@ -542,8 +539,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         view.items_selected += on_items_selection_changed;
         view.items_unselected += on_items_selection_changed;
         
-        modify_bg(Gtk.StateType.NORMAL, AppWindow.BG_COLOR);
-        
+        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
+
+        Config.get_instance().bg_color_changed += on_bg_color_changed;
+
         // CheckerboardItems offer tooltips
         has_tooltip = true;
     }
@@ -572,6 +571,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         if (parent != null)
             parent.size_allocate -= on_viewport_resized;
+
+        Config.get_instance().bg_color_changed -= on_bg_color_changed;
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -1401,10 +1402,23 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private override void map() {
         base.map();
+
+        selected_gc = new Gdk.GC(window);        
+        unselected_gc = new Gdk.GC(window);       
+        selection_band_gc = new Gdk.GC(window);
+
+        set_colors();
+    }
+
+    private void set_colors() {
+        if (selected_gc == null || unselected_gc == null || selection_band_gc == null)
+            return;
         
         // set up selected/unselected colors
-        Gdk.Color selected_color = fetch_color(CheckerboardItem.SELECTED_COLOR, window);
-        Gdk.Color unselected_color = fetch_color(CheckerboardItem.UNSELECTED_COLOR, window);
+        Gdk.Color selected_color = fetch_color(
+            Config.get_instance().get_selected_color().to_string(), window);
+        Gdk.Color unselected_color = fetch_color(
+            Config.get_instance().get_unselected_color().to_string(), window);
         selection_transparency_color = convert_rgba(selected_color, 0x40);
 
         // set up GC's for painting layout items
@@ -1420,16 +1434,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             | Gdk.GCValuesMask.FILL
             | Gdk.GCValuesMask.LINE_WIDTH;
 
-        selected_gc = new Gdk.GC.with_values(window, gc_values, mask);
+        selected_gc.set_values(gc_values, mask);
         
         gc_values.foreground = unselected_color;
         
-        unselected_gc = new Gdk.GC.with_values(window, gc_values, mask);
+        unselected_gc.set_values(gc_values, mask);
 
         gc_values.line_width = 1;
         gc_values.foreground = selected_color;
         
-        selection_band_gc = new Gdk.GC.with_values(window, gc_values, mask);
+        selection_band_gc.set_values(gc_values, mask);
     }
     
     private override void size_allocate(Gdk.Rectangle allocation) {
@@ -1520,5 +1534,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         CheckerboardItem? item = get_item_at_pixel(x, y);
         
         return (item != null) ? item.query_tooltip(x, y, tooltip) : false;
+    }
+    
+    private void on_bg_color_changed(Gdk.Color color) {
+        modify_bg(Gtk.StateType.NORMAL, color);
+        set_colors();
     }
 }

@@ -229,7 +229,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         select_all.label = _("Select _All");
         select_all.tooltip = _("Select all the events in the directory");
         actions += select_all;
-
+        
         return actions;
     }
     
@@ -293,7 +293,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     private void on_select_all() {
         get_view().select_all();
     }
-
+    
     private void on_rename() {
         // only rename one at a time
         if (get_view().get_selected_count() != 1)

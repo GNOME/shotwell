@@ -395,6 +395,12 @@ public class LibraryWindow : AppWindow {
             on_sort_events };
         sort.label = _("Sort _Events");
         actions += sort;
+
+        Gtk.ActionEntry preferences = { "CommonPreferences", Gtk.STOCK_PREFERENCES, TRANSLATABLE,
+            null, TRANSLATABLE, on_preferences };
+        preferences.label = Resources.PREFERENCES_MENU;
+        preferences.tooltip = Resources.PREFERENCES_TOOLTIP;
+        actions += preferences;
         
         return actions;
     }
@@ -634,7 +640,12 @@ public class LibraryWindow : AppWindow {
         // the events directory page needs to know about this
         events_directory_page.notify_sort_changed();
     }
-
+    
+    private void on_preferences() {
+        PreferencesDialog preferences_dialog = new PreferencesDialog();
+        preferences_dialog.execute();
+    }
+    
     private void on_display_basic_properties(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
 

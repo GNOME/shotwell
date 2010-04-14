@@ -348,8 +348,6 @@ public abstract class PageWindow : Gtk.Window {
 public abstract class AppWindow : PageWindow {
     public const int DND_ICON_SCALE = 128;
     
-    public static Gdk.Color BG_COLOR = parse_color("#444");
-
     protected static AppWindow instance = null;
     
     private static FullscreenWindow fullscreen_window = null;

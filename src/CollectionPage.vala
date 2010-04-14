@@ -230,24 +230,24 @@ public abstract class CollectionPage : CheckerboardPage {
         Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, on_events_menu };
         event.label = _("Even_ts");
         actions += event;
-
+        
         Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
             "<Ctrl>A", TRANSLATABLE, on_select_all };
         select_all.label = _("Select _All");
         select_all.tooltip = _("Select all the photos in the library");
         actions += select_all;
-
+        
         Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_remove };
         remove.label = _("Re_move");
         remove.tooltip = _("Remove the selected photos from the library");
         actions += remove;
-
+        
         Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null,
             on_photos_menu };
         photos.label = _("_Photos");
         actions += photos;
-
+        
         Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
             "<Ctrl>plus", TRANSLATABLE, on_increase_size };
         increase_size.label = _("Zoom _In");
@@ -731,7 +731,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         return false;
     }
-
+    
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool one_selected = get_view().get_selected_count() == 1;

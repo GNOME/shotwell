@@ -1177,3 +1177,58 @@ public class WelcomeDialog : Gtk.Dialog {
     }
 }
 
+public class PreferencesDialog {
+    private Gtk.Dialog dialog;
+    private Gtk.Builder builder;
+    private double initial_color_value;
+    private Gtk.Adjustment bg_color_adjustment;
+    
+    public PreferencesDialog() {
+        builder = AppWindow.create_builder();
+
+        dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
+        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
+        
+        initial_color_value = Config.get_instance().get_bg_color().red;
+
+        bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
+        bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - initial_color_value);
+
+        bg_color_adjustment.value_changed += on_value_changed;
+    }
+
+    public void execute() {
+        dialog.show_all();
+
+        if (dialog.run() == Gtk.ResponseType.OK)
+            Config.get_instance().commit_bg_color();
+        else
+            revert_settings();
+
+        dialog.destroy();
+    }
+
+    public void on_value_changed() {
+        set_background_color(bg_color_adjustment.get_upper() - bg_color_adjustment.get_value());
+    }
+
+    public void revert_settings() {
+        set_background_color(initial_color_value);
+    }
+
+    private void set_background_color(double bg_color_value) {
+        Config.get_instance().set_bg_color(to_grayscale((uint16) bg_color_value));
+    }
+
+    private Gdk.Color to_grayscale(uint16 color_value) {
+        Gdk.Color color = Gdk.Color();
+        
+        color.red = color_value;
+        color.green = color_value;
+        color.blue = color_value;
+        
+        return color;
+    }
+}
+
+

@@ -4,6 +4,11 @@
  * See the COPYING file in this distribution. 
  */
 
+bool is_color_parsable(string spec) {
+    Gdk.Color color;
+    return Gdk.Color.parse(spec, out color);
+}
+
 Gdk.Color parse_color(string spec) {
     return fetch_color(spec);
 }

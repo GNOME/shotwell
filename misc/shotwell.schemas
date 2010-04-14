@@ -563,5 +563,18 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/background_color</key>
+            <applyto>/apps/shotwell/preferences/ui/background_color</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>#444</default>
+
+            <locale name="en">
+                <short>background color</short>
+                <long>A grayscale color for use as the background color.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>

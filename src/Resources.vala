@@ -174,6 +174,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ADD_TAGS_MENU = _("Add _Tags...");
     public const string ADD_TAGS_TITLE = _("Add Tags");
     public const string ADD_TAGS_TOOLTIP = _("Add one or more tags to the selected photos");
+
+    public const string PREFERENCES_MENU = _("_Preferences");
+    public const string PREFERENCES_TOOLTIP = _("Edit preferences");
     
     public string add_tags_label(string[] names) {
         if (names.length == 1)

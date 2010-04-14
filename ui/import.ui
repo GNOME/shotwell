@@ -11,6 +11,8 @@
         
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="SelectAll" action="SelectAll" />
+            <separator />
+            <menuitem name="Preferences" action="CommonPreferences" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
