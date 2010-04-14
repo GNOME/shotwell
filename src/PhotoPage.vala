@@ -948,10 +948,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         bool nav_ok = (event.time - last_nav_key) > KEY_REPEAT_INTERVAL_MSEC;
         
         bool handled = true;
-       
+        
         switch (Gdk.keyval_name(event.keyval)) {
             case "Left":
             case "KP_Left":
+            case "BackSpace":
                 if (nav_ok) {
                     on_previous_photo();
                     last_nav_key = event.time;
@@ -960,6 +961,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             case "Right":
             case "KP_Right":
+            case "space":
                 if (nav_ok) {
                     on_next_photo();
                     last_nav_key = event.time;
