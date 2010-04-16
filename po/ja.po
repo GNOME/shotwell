@@ -43,11 +43,11 @@ msgstr ""
 
 #: src/AppWindow.vala:118
 msgid "Leave _Fullscreen"
-msgstr ""
+msgstr "全画面化解除(_F)"
 
 #: src/AppWindow.vala:119
 msgid "Leave fullscreen"
-msgstr ""
+msgstr "全画面化解除"
 
 #: src/AppWindow.vala:393
 msgid "_Quit"
@@ -68,7 +68,7 @@ msgstr "ショットウェルについて"
 
 #: src/AppWindow.vala:405
 msgid "_Fullscreen"
-msgstr ""
+msgstr "全画面化(_F)"
 
 #: src/AppWindow.vala:406
 msgid "Use Shotwell at fullscreen"
@@ -85,7 +85,7 @@ msgstr ""
 #: src/AppWindow.vala:468 src/AppWindow.vala:484 src/TagPage.vala:135
 #: src/WebConnectors.vala:765
 msgid "_Cancel"
-msgstr ""
+msgstr "取り消し(_C)"
 
 #: src/AppWindow.vala:494
 #, c-format

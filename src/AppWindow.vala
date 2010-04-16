@@ -9,7 +9,7 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_DISMISSAL_SEC = 2;
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
-    private Gdk.ModifierType ANY_BUTTON_MASK = 
+    private Gdk.ModifierType ANY_BUTTON_MASK =
         Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
 
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
