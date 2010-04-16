@@ -246,6 +246,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
     }
     
+    public const string RESTORE_PHOTOS_MENU = _("_Restore");
+    public const string RESTORE_PHOTOS_LABEL = _("Restore");
+    public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
+    
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
     

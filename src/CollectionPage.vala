@@ -20,8 +20,6 @@ public abstract class CollectionPage : CheckerboardPage {
     public const int SORT_ORDER_ASCENDING = 0;
     public const int SORT_ORDER_DESCENDING = 1;
 
-    public const int MIN_OPS_FOR_PROGRESS_WINDOW = 5;
-
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public const int MANUAL_STEPPING = 16;
     public const int SLIDER_STEPPING = 4;
@@ -177,9 +175,6 @@ public abstract class CollectionPage : CheckerboardPage {
         
         // initialize scale from slider (since the scale adjustment may be modified from default)
         scale = slider_to_scale(slider.get_value());
-
-        // scrollbar policy
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
         
         show_all();
         
@@ -222,7 +217,7 @@ public abstract class CollectionPage : CheckerboardPage {
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
 #endif
-
+        
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
@@ -237,11 +232,11 @@ public abstract class CollectionPage : CheckerboardPage {
         select_all.tooltip = _("Select all the photos in the library");
         actions += select_all;
         
-        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_remove };
-        remove.label = _("Re_move");
-        remove.tooltip = _("Remove the selected photos from the library");
-        actions += remove;
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_move_to_trash };
+        move_to_trash.label = _("_Move to Trash");
+        move_to_trash.tooltip = _("Move the selected photos to the trash");
+        actions += move_to_trash;
         
         Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null,
             on_photos_menu };
@@ -546,7 +541,7 @@ public abstract class CollectionPage : CheckerboardPage {
         bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionContextMenu/ContextDuplicate", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextRemove", selected);
+        set_item_sensitive("/CollectionContextMenu/ContextMoveToTrash", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
@@ -621,7 +616,7 @@ public abstract class CollectionPage : CheckerboardPage {
     
     private void on_file_menu() {
         int count = get_view().get_selected_count();
-
+        
 #if !NO_PRINTING
         set_item_sensitive("/CollectionMenuBar/FileMenu/PrintPlaceholder/Print", count == 1);
 #endif    
@@ -688,7 +683,6 @@ public abstract class CollectionPage : CheckerboardPage {
         decorate_undo_item("/CollectionMenuBar/EditMenu/Undo");
         decorate_redo_item("/CollectionMenuBar/EditMenu/Redo");
         set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_view().get_count() > 0);
-        set_item_sensitive("/CollectionMenuBar/EditMenu/Remove", selected);
         set_item_sensitive("/CollectionMenuBar/EditMenu/Duplicate", selected);
     }
 
@@ -763,45 +757,12 @@ public abstract class CollectionPage : CheckerboardPage {
         decrease_thumb_size();
         slider.set_value(scale_to_slider(scale));
     }
-
-    private void on_remove() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        Gtk.ResponseType result = remove_photos_dialog(get_page_window(), 
-            get_view().get_selected_count());
-        if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
-            return;
-        
-        bool delete_backing = (result == Gtk.ResponseType.YES);
-        
-        // mark all the sources for the selected view items and destroy them ... note that simply
-        // removing the view items does not work here; the source items (i.e. the Photo objects)
-        // must be destroyed, which will remove the view items from this view (and all others)
-        Marker marker = LibraryPhoto.global.start_marking();
-        foreach (DataView view in get_view().get_selected())
-            marker.mark(((Thumbnail) view).get_photo());
-        
-        AppWindow.get_instance().set_busy_cursor();
-        
-        Cancellable cancellable = null;
-        ProgressDialog progress = null;
-        if (marker.get_count() >= MIN_OPS_FOR_PROGRESS_WINDOW) {
-            cancellable = new Cancellable();
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Removing"), cancellable);
+    
+    private void on_move_to_trash() {
+        if (get_view().get_selected_count() > 0) {
+            get_command_manager().execute(new TrashUntrashPhotosCommand(
+                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), true));
         }
-        
-        // valac complains about passing an argument for a delegate using ternary operator:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=599349
-        if (progress != null)
-            LibraryPhoto.global.destroy_marked(marker, delete_backing, progress.monitor);
-        else
-            LibraryPhoto.global.destroy_marked(marker, delete_backing);
-        
-        if (progress != null)
-            progress.close();
-        
-        AppWindow.get_instance().set_normal_cursor();
     }
     
     private void on_rotate_clockwise() {

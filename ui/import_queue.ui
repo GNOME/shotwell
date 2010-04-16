@@ -6,6 +6,8 @@
             <separator />
             <menuitem name="Import" action="CommonFileImport" />
             <separator />
+            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

@@ -106,7 +106,8 @@ SRC_FILES = \
 	GdkSupport.vala \
 	JfifSupport.vala \
 	RawSupport.vala \
-	MimicManager.vala
+	MimicManager.vala \
+	TrashPage.vala \
 
 ifndef LINUX
 SRC_FILES += \
@@ -130,7 +131,8 @@ RESOURCE_FILES = \
 	events_directory.ui \
 	event.ui \
 	direct.ui \
-	tags.ui
+	tags.ui \
+	trash.ui
 
 SRC_HEADER_FILES = \
 	gphoto.h

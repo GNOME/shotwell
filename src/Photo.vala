@@ -496,10 +496,10 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
-    public uint64 set_flags(uint64 flags) {
+    public uint64 replace_flags(uint64 flags) {
         bool committed;
         lock (row) {
-            committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+            committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
             if (committed)
                 row.flags = flags;
         }
@@ -523,7 +523,7 @@ public abstract class TransformablePhoto: PhotoSource {
         lock (row) {
             flags = row.flags | mask;
             if (row.flags != flags) {
-                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
                 if (committed)
                     row.flags = flags;
             }
@@ -542,7 +542,7 @@ public abstract class TransformablePhoto: PhotoSource {
         lock (row) {
             flags = row.flags & ~mask;
             if (row.flags != flags) {
-                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
                 if (committed)
                     row.flags = flags;
             }
@@ -561,7 +561,7 @@ public abstract class TransformablePhoto: PhotoSource {
         lock (row) {
             flags = (row.flags | add) & ~remove;
             if (row.flags != flags) {
-                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
                 if (committed)
                     row.flags = flags;
             }
@@ -580,7 +580,7 @@ public abstract class TransformablePhoto: PhotoSource {
         lock (row) {
             flags = row.flags ^ mask;
             if (row.flags != flags) {
-                committed = PhotoTable.get_instance().set_flags(get_photo_id(), flags);
+                committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
                 if (committed)
                     row.flags = flags;
             }
@@ -590,6 +590,24 @@ public abstract class TransformablePhoto: PhotoSource {
             notify_metadata_altered();
         
         return flags;
+    }
+    
+    protected override void commit_backlinks(SourceCollection? sources, string? backlinks) {
+        // For now, only one link state may be stored in the database ... if this turns into a
+        // problem, will use SourceCollection to determine where to store it.
+        
+        try {
+            PhotoTable.get_instance().update_backlinks(get_photo_id(), backlinks);
+            lock (row) {
+                row.backlinks = backlinks;
+            }
+        } catch (DatabaseError err) {
+            warning("Unable to update link state for %s: %s", to_string(), err.message);
+        }
+        
+        // Note: *Not* firing altered or metadata_altered signal because link_state is not a
+        // property that's available to users of Photo.  Persisting it as a mechanism for deaing 
+        // with unlink/relink properly.
     }
     
     public Event? get_event() {
@@ -1928,8 +1946,63 @@ public abstract class Photo : TransformablePhoto {
 }
 
 public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
+    private Gee.HashSet<LibraryPhoto> trashcan = new Gee.HashSet<LibraryPhoto>();
+    
+    public virtual signal void trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
+        Gee.Collection<LibraryPhoto>? removed) {
+    }
+    
     public LibraryPhotoSourceCollection() {
         base("LibraryPhotoSourceCollection", get_photo_key);
+    }
+    
+    protected override void notify_items_metadata_altered(Gee.Collection<DataObject> altered) {
+        Marker to_unlink = start_marking();
+        foreach (DataObject object in altered) {
+            LibraryPhoto photo = (LibraryPhoto) object;
+            
+            if (photo.is_trashed() && !trashcan.contains(photo)) {
+                to_unlink.mark(photo);
+                bool added = trashcan.add(photo);
+                assert(added);
+            }
+        }
+        
+        Gee.Collection<LibraryPhoto>? unlinked = (Gee.Collection<LibraryPhoto>?) unlink_marked(
+            to_unlink);
+        
+        notify_trashcan_contents_altered(unlinked, null);
+        
+        base.items_metadata_altered(altered);
+    }
+    
+    protected override void notify_item_destroyed(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        
+        if (trashcan.contains(photo)) {
+            bool removed = trashcan.remove(photo);
+            assert(removed);
+            
+            notify_trashcan_contents_altered(null, get_singleton(photo));
+        }
+        
+        base.notify_item_destroyed(source);
+    }
+    
+    protected virtual void notify_trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
+        Gee.Collection<LibraryPhoto>? removed) {
+        // attach/detach signals here, to monitor when/if the photo is no longer trashed
+        if (added != null) {
+            foreach (LibraryPhoto photo in added)
+                photo.metadata_altered += on_trashcan_photo_metadata_altered;
+        }
+        
+        if (removed != null) {
+            foreach (LibraryPhoto photo in removed)
+                photo.metadata_altered -= on_trashcan_photo_metadata_altered;
+        }
+        
+        trashcan_contents_altered(added, removed);
     }
     
     private static int64 get_photo_key(DataSource source) {
@@ -1942,6 +2015,96 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     public LibraryPhoto fetch(PhotoID photo_id) {
         return (LibraryPhoto) fetch_by_key(photo_id.id);
     }
+    
+    public int get_trashcan_count() {
+        return trashcan.size;
+    }
+    
+    public Gee.Collection<LibraryPhoto> get_trashcan() {
+        return trashcan.read_only_view;
+    }
+    
+    // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
+    public void empty_trash(bool delete_backing, ProgressMonitor? monitor = null) {
+        int count = trashcan.size;
+        if (count == 0)
+            return;
+        
+        // first, remove all items from the trashcan and report them as removed
+        Gee.ArrayList<LibraryPhoto> removed = new Gee.ArrayList<LibraryPhoto>();
+        removed.add_all(trashcan);
+        trashcan.clear();
+        notify_trashcan_contents_altered(null, removed.read_only_view);
+        
+        // now destroy all of them, reporting this phase to the monitor
+        int ctr = 0;
+        foreach (LibraryPhoto photo in removed) {
+            debug("Destroying trashed photo %s", photo.to_string());
+            photo.destroy_orphan(delete_backing);
+            notify_item_destroyed(photo);
+            
+            if (monitor != null)
+                monitor(++ctr, count);
+        }
+    }
+    
+    public void add_to_trash(LibraryPhoto photo) {
+        assert(photo.is_trashed());
+        assert(!contains(photo));
+        
+        bool added = trashcan.add(photo);
+        assert(added);
+        
+        notify_trashcan_contents_altered(get_singleton(photo), null);
+    }
+    
+    public void add_many_to_trash(Gee.Collection<LibraryPhoto> photos) {
+        if (photos.size == 0)
+            return;
+        
+        foreach (LibraryPhoto photo in photos) {
+            assert(photo.is_trashed());
+            assert(!contains(photo));
+        }
+        
+        bool added = trashcan.add_all(photos);
+        assert(added);
+        
+        notify_trashcan_contents_altered(photos, null);
+    }
+    
+    private void on_trashcan_photo_metadata_altered(LibraryPhoto photo) {
+        assert(trashcan.contains(photo));
+        
+        if (photo.is_trashed())
+            return;
+        
+        bool removed = trashcan.remove(photo);
+        assert(removed);
+        
+        notify_trashcan_contents_altered(null, get_singleton(photo));
+        
+        relink(photo);
+    }
+    
+    public override bool has_backlink(SourceBacklink backlink) {
+        if (base.has_backlink(backlink))
+            return true;
+        
+        foreach (LibraryPhoto photo in trashcan) {
+            if (photo.has_backlink(backlink))
+                return true;
+        }
+        
+        return false;
+    }
+    
+    public override void remove_backlink(SourceBacklink backlink) {
+        foreach (LibraryPhoto photo in trashcan)
+            photo.remove_backlink(backlink);
+        
+        base.remove_backlink(backlink);
+    }
 }
 
 //
@@ -1952,6 +2115,7 @@ public class LibraryPhoto : Photo {
     // Top 16 bits are reserved for TransformablePhoto
     private const uint64 FLAG_HIDDEN =      0x0000000000000001;
     private const uint64 FLAG_FAVORITE =    0x0000000000000002;
+    private const uint64 FLAG_TRASH =       0x0000000000000004;
     
     public static LibraryPhotoSourceCollection global = null;
     
@@ -1959,11 +2123,14 @@ public class LibraryPhoto : Photo {
     
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
-
+    
     private LibraryPhoto(PhotoRow row) {
         base (row);
         
         thumbnail_scheduler = new OneShotScheduler("LibraryPhoto", generate_thumbnails);
+        
+        if (is_trashed())
+            rehydrate_backlinks(global, row.backlinks);
     }
     
     public static void init(ProgressMonitor? monitor = null) {
@@ -1974,11 +2141,18 @@ public class LibraryPhoto : Photo {
         // do in batches to take advantage of add_many()
         Gee.ArrayList<PhotoRow?> all = PhotoTable.get_instance().get_all();
         Gee.ArrayList<LibraryPhoto> all_photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<LibraryPhoto> trashed_photos = new Gee.ArrayList<LibraryPhoto>();
         int count = all.size;
-        for (int ctr = 0; ctr < count; ctr++)
-            all_photos.add(new LibraryPhoto(all.get(ctr)));
+        for (int ctr = 0; ctr < count; ctr++) {
+            LibraryPhoto photo = new LibraryPhoto(all.get(ctr));
+            if (!photo.is_trashed())
+                all_photos.add(photo);
+            else
+                trashed_photos.add(photo);
+        }
         
         global.add_many(all_photos, monitor);
+        global.add_many_to_trash(trashed_photos);
     }
     
     public static void terminate() {
@@ -2109,6 +2283,19 @@ public class LibraryPhoto : Photo {
             remove_flags(FLAG_HIDDEN);
     }
     
+    // Blotto even!
+    public bool is_trashed() {
+        return is_flag_set(FLAG_TRASH);
+    }
+    
+    public void trash() {
+        add_flags(FLAG_TRASH);
+    }
+    
+    public void untrash() {
+        remove_flags(FLAG_TRASH);
+    }
+    
     public override bool internal_delete_backing() throws Error {
         delete_original_file();
         
@@ -2137,7 +2324,7 @@ public class LibraryPhoto : Photo {
         } catch (Error err) {
             // log error but don't abend, as this is not fatal to operation (also, could be
             // the photo is removed because it could not be found during a verify)
-            message("Unable to delete original photo %s: %s", file.get_path(), err.message);
+            message("Unable to move original photo %s to trash: %s", file.get_path(), err.message);
         }
         
         // remove empty directories corresponding to imported path, but only if file is located

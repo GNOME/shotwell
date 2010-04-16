@@ -21,7 +21,7 @@ public class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 5;
+    public const int SCHEMA_VERSION = 6;
     
     protected static Sqlite.Database db;
     
@@ -294,32 +294,6 @@ public DatabaseVerifyResult verify_database(out string app_version) {
             return result;
     }
     
-    PhotoTable photo_table = PhotoTable.get_instance();
-    EventTable event_table = EventTable.get_instance();
-    TagTable tag_table = TagTable.get_instance();
-    
-    // verify all events have at least one photo
-    Gee.ArrayList<EventID?> event_ids = event_table.get_events();
-    foreach (EventID event_id in event_ids) {
-        if (!photo_table.event_has_photos(event_id)) {
-            message("Removing event [%lld] %s: No photos associated with event", event_id.id,
-                event_table.get_name(event_id));
-            event_table.remove(event_id);
-        }
-    }
-    
-    // verify all tags have at least one photo associated with them
-    try {
-        Gee.List<TagID?> tag_ids = tag_table.get_abandoned();
-        foreach (TagID tag_id in tag_ids) {
-            message("Removing tag [%lld] %s: No photos associated with tag", tag_id.id,
-                tag_table.get_name(tag_id));
-            tag_table.remove(tag_id);
-        }
-    } catch (DatabaseError err) {
-        critical("Unable to verify TagTable: %s", err.message);
-    }
-    
     return DatabaseVerifyResult.OK;
 }
 
@@ -379,6 +353,19 @@ private DatabaseVerifyResult upgrade_database(int version) {
     }
     
     version = 5;
+    
+    //
+    // Version 6:
+    // * Added backlinks column to PhotoTable
+    //
+    
+    if (!DatabaseTable.has_column("PhotoTable", "backlinks")) {
+        message("upgrade_database: adding backlinks column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "backlinks", "TEXT"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 6;
     
     VersionTable.get_instance().update_version(version);
     
@@ -542,6 +529,7 @@ public struct PhotoRow {
     public uint64 flags;
     public PhotoFileFormat file_format;
     public string title;
+    public string? backlinks;
     
     public PhotoRow() {
     }
@@ -571,7 +559,8 @@ public class PhotoTable : DatabaseTable {
             + "time_created INTEGER, "
             + "flags INTEGER DEFAULT 0, "
             + "file_format INTEGER DEFAULT 0, "
-            + "title TEXT "
+            + "title TEXT, "
+            + "backlinks TEXT"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -764,7 +753,7 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
-            + "exif_md5, time_created, flags, file_format, title "
+            + "exif_md5, time_created, flags, file_format, title, backlinks "
             + "FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -794,6 +783,7 @@ public class PhotoTable : DatabaseTable {
         row.flags = stmt.column_int64(15);
         row.file_format = PhotoFileFormat.unserialize(stmt.column_int(16));
         row.title = stmt.column_text(17);
+        row.backlinks = stmt.column_text(18);
         
         return row;
     }
@@ -803,7 +793,7 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT id, filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
-            + "exif_md5, time_created, flags, file_format, title "
+            + "exif_md5, time_created, flags, file_format, title, backlinks "
             + "FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -830,6 +820,7 @@ public class PhotoTable : DatabaseTable {
             row.flags = stmt.column_int64(16);
             row.file_format = PhotoFileFormat.unserialize(stmt.column_int(17));
             row.title = stmt.column_text(18);
+            row.backlinks = stmt.column_text(19);
             
             all.add(row);
         }
@@ -1075,7 +1066,7 @@ public class PhotoTable : DatabaseTable {
         return stmt.column_int64(0);
     }
     
-    public bool set_flags(PhotoID photo_id, uint64 flags) {
+    public bool replace_flags(PhotoID photo_id, uint64 flags) {
         return update_int64_by_id(photo_id.id, "flags", (int64) flags);
     }
     
@@ -1498,6 +1489,10 @@ public class PhotoTable : DatabaseTable {
             return false;
         }
     }
+    
+    public void update_backlinks(PhotoID photo_id, string? backlinks) throws DatabaseError {
+        update_text_by_id_2(photo_id.id, "backlinks", backlinks != null ? backlinks : "");
+    }
 }
 
 //
@@ -1899,28 +1894,6 @@ public class TagTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             throw_error("TagTable.set_tagged_photos", res);
-    }
-    
-    public Gee.List<TagID?> get_abandoned() throws DatabaseError {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id FROM TagTable WHERE length(photo_id_list) IS NULL OR length(photo_id_list)=0",
-            -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        Gee.ArrayList<TagID?> abandoned = new Gee.ArrayList<TagID?>();
-        
-        for (;;) {
-            res = stmt.step();
-            if (res == Sqlite.DONE)
-                break;
-            else if (res != Sqlite.ROW)
-                throw_error("TagTable.get_abandoned", res);
-            
-            // res == Sqlite.ROW
-            abandoned.add(TagID(stmt.column_int64(0)));
-        }
-        
-        return abandoned;
     }
     
     private string? serialize_photo_ids(Gee.Collection<PhotoID?>? photo_ids) {

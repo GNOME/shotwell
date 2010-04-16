@@ -229,6 +229,17 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = sensitive;
     }
     
+    public void set_action_sensitive(string name, bool sensitive) {
+        Gtk.Action action = action_group.get_action(name);
+        if (action == null) {
+            warning("Page %s: Unable to locate action %s", get_page_name(), name);
+            
+            return;
+        }
+        
+        action.sensitive = sensitive;
+    }
+    
     private void get_modifiers(out bool ctrl, out bool alt, out bool shift) {
             int x, y;
         Gdk.ModifierType mask;
@@ -327,6 +338,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
             action_group.add_toggle_actions(toggle_entries, this);
     }
     
+    protected virtual void init_actions(int selected_count, int count) {
+    }
+    
     protected void init_ui_bind(string? menubar_path) {
         this.menubar_path = menubar_path;
         
@@ -337,6 +351,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         ui.insert_action_group(common_action_group, 0);
         
         ui.ensure_update();
+        
+        init_actions(get_view().get_selected_count(), get_view().get_count());
     }
     
     // This method enables drag-and-drop on the event source and routes its events through this
@@ -783,6 +799,9 @@ public abstract class CheckerboardPage : Page {
         
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
         get_view().items_hidden += on_items_hidden;
+        
+        // scrollbar policy
+        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
     
     public void init_item_context_menu(string path) {

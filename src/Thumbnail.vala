@@ -40,7 +40,7 @@ public class Thumbnail : CheckerboardItem {
         dim = original_dim.get_scaled(scale, true);
         
         // if the photo's tags changes, update it here
-        Tag.global.item_contents_altered += on_tag_contents_altered;
+        Tag.global.container_contents_altered += on_tag_contents_altered;
         Tag.global.item_altered += on_tag_altered;
         photo.metadata_altered += on_photo_metadata_altered;
     }
@@ -49,7 +49,7 @@ public class Thumbnail : CheckerboardItem {
         if (cancellable != null)
             cancellable.cancel();
         
-        Tag.global.item_contents_altered -= on_tag_contents_altered;
+        Tag.global.container_contents_altered -= on_tag_contents_altered;
         Tag.global.item_altered -= on_tag_altered;
     }
     
@@ -61,8 +61,8 @@ public class Thumbnail : CheckerboardItem {
             set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>"), true);
     }
     
-    private void on_tag_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
+    private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
         bool tag_added = (added != null) ? added.contains(photo) : false;
         bool tag_removed = (removed != null) ? removed.contains(photo) : false;
         
@@ -74,7 +74,7 @@ public class Thumbnail : CheckerboardItem {
     private void on_tag_altered(DataObject source) {
         Tag tag = (Tag) source;
         
-        if (tag.get_photos().contains(photo))
+        if (tag.contains(photo))
             update_tags();
     }
     

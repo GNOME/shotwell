@@ -4,25 +4,15 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-public class TagSourceCollection : DatabaseSourceCollection {
+public class TagSourceCollection : ContainerSourceCollection {
     private Gee.HashMap<string, Tag> name_map = new Gee.HashMap<string, Tag>();
     private Gee.HashMap<LibraryPhoto, Gee.List<Tag>> photo_map =
         new Gee.HashMap<LibraryPhoto, Gee.List<Tag>>();
     private Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>> sorted_photo_map =
         new Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>>();
     
-    public virtual signal void item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
-    }
-    
-    public virtual signal void item_contents_removed(Tag tag, Gee.Collection<LibraryPhoto> photos) {
-    }
-    
-    public virtual signal void item_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
-    }
-    
     public TagSourceCollection() {
-        base ("TagSourceCollection", get_tag_key);
+        base (LibraryPhoto.global, Tag.BACKLINK_NAME, "TagSourceCollection", get_tag_key);
     }
     
     private static int64 get_tag_key(DataSource source) {
@@ -32,7 +22,27 @@ public class TagSourceCollection : DatabaseSourceCollection {
         return tag_id.id;
     }
     
-    public Tag fetch(TagID tag_id) {
+    protected override Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source) {
+        return fetch_for_photo((LibraryPhoto) source);
+    }
+    
+    protected override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
+        TagID tag_id = Tag.id_from_backlink(backlink);
+        
+        Tag? tag = fetch(tag_id);
+        if (tag != null)
+            return tag;
+        
+        foreach (ContainerSource container in get_holding_tank()) {
+            tag = (Tag) container;
+            if (tag.get_tag_id().id == tag_id.id)
+                return tag;
+        }
+        
+        return null;
+    }
+    
+    public Tag? fetch(TagID tag_id) {
         return (Tag) fetch_by_key(tag_id.id);
     }
     
@@ -42,17 +52,50 @@ public class TagSourceCollection : DatabaseSourceCollection {
     
     // Returns a list of all Tags associated with the Photo in no particular order.
     public Gee.List<Tag>? fetch_for_photo(LibraryPhoto photo) {
-        return photo_map.get(photo);
+        Gee.List<Tag>? tags = photo_map.get(photo);
+        if (tags == null)
+            return null;
+        
+        Gee.List<Tag> copy = new Gee.ArrayList<Tag>();
+        copy.add_all(tags);
+        
+        return copy;
     }
     
     // Returns a sorted set of all Tags associated with the Photo (ascending by name).
     public Gee.SortedSet<Tag>? fetch_sorted_for_photo(LibraryPhoto photo) {
-        return sorted_photo_map.get(photo);
+        Gee.SortedSet<Tag>? tags = sorted_photo_map.get(photo);
+        if (tags == null)
+            return null;
+        
+        Gee.SortedSet<Tag> copy = new Gee.TreeSet<Tag>(compare_tag_name);
+        copy.add_all(tags);
+        
+        return copy;
     }
     
     // Returns null if not Tag with name exists.
     public Tag? fetch_by_name(string name) {
         return name_map.get(name);
+    }
+    
+    public Tag? restore_tag_from_holding_tank(string name) {
+        Tag? found = null;
+        foreach (ContainerSource container in get_holding_tank()) {
+            Tag tag = (Tag) container;
+            if (tag.get_name() == name) {
+                found = tag;
+                
+                break;
+            }
+        }
+        
+        if (found != null) {
+            bool relinked = relink_from_holding_tank(found);
+            assert(relinked);
+        }
+        
+        return found;
     }
     
     private override void notify_items_added(Gee.Iterable<DataObject> added) {
@@ -107,7 +150,11 @@ public class TagSourceCollection : DatabaseSourceCollection {
         return ((Tag *) a)->get_name().collate(((Tag *) b)->get_name());
     }
     
-    public virtual void notify_item_contents_added(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+    public override void notify_container_contents_added(ContainerSource container, 
+        Gee.Collection<DataSource> added) {
+        Tag tag = (Tag) container;
+        Gee.Collection<LibraryPhoto> photos = (Gee.Collection<LibraryPhoto>) added;
+        
         foreach (LibraryPhoto photo in photos) {
             Gee.List<Tag>? tags = photo_map.get(photo);
             if (tags == null) {
@@ -115,8 +162,8 @@ public class TagSourceCollection : DatabaseSourceCollection {
                 photo_map.set(photo, tags);
             }
             
-            bool added = tags.add(tag);
-            assert(added);
+            bool is_added = tags.add(tag);
+            assert(is_added);
             
             Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
             if (sorted_tags == null) {
@@ -124,20 +171,24 @@ public class TagSourceCollection : DatabaseSourceCollection {
                 sorted_photo_map.set(photo, sorted_tags);
             }
             
-            added = sorted_tags.add(tag);
-            assert(added);
+            is_added = sorted_tags.add(tag);
+            assert(is_added);
         }
         
-        item_contents_added(tag, photos);
+        base.notify_container_contents_added(container, added);
     }
     
-    public virtual void notify_item_contents_removed(Tag tag, Gee.Collection<LibraryPhoto> photos) {
+    public override void notify_container_contents_removed(ContainerSource container, 
+        Gee.Collection<DataSource> removed) {
+        Tag tag = (Tag) container;
+        Gee.Collection<LibraryPhoto> photos = (Gee.Collection<LibraryPhoto>) removed;
+        
         foreach (LibraryPhoto photo in photos) {
             Gee.List<Tag>? tags = photo_map.get(photo);
             assert(tags != null);
             
-            bool removed = tags.remove(tag);
-            assert(removed);
+            bool is_removed = tags.remove(tag);
+            assert(is_removed);
             
             if (tags.size == 0)
                 photo_map.remove(photo);
@@ -145,23 +196,20 @@ public class TagSourceCollection : DatabaseSourceCollection {
             Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
             assert(sorted_tags != null);
             
-            removed = sorted_tags.remove(tag);
-            assert(removed);
+            is_removed = sorted_tags.remove(tag);
+            assert(is_removed);
             
             if (sorted_tags.size == 0)
                 sorted_photo_map.remove(photo);
         }
         
-        item_contents_removed(tag, photos);
-    }
-    
-    public virtual void notify_item_contents_altered(Tag tag, Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
-        item_contents_altered(tag, added, removed);
+        base.notify_container_contents_removed(container, removed);
     }
 }
 
-public class Tag : DataSource, Proxyable {
+public class Tag : DataSource, ContainerSource, Proxyable {
+    public const string BACKLINK_NAME = "tag";
+    
     private class TagSnapshot : SourceSnapshot {
         private TagRow row;
         private Gee.HashSet<LibraryPhoto> photos = new Gee.HashSet<LibraryPhoto>();
@@ -242,8 +290,10 @@ public class Tag : DataSource, Proxyable {
         
         // need to do this manually here because only want to monitor photo_contents_altered
         // after add_many() here; but need to keep the TagSourceCollection apprised
-        global.notify_item_contents_added(this, photo_list);
-        global.notify_item_contents_altered(this, photo_list, null);
+        if (photo_list.size > 0) {
+            global.notify_container_contents_added(this, photo_list);
+            global.notify_container_contents_altered(this, photo_list, null);
+        }
         
         // monitor ViewCollection to (a) keep the in-memory list of photo IDs up-to-date, and
         // (b) update the database whenever there's a change;
@@ -272,12 +322,31 @@ public class Tag : DataSource, Proxyable {
         
         // turn them into Tag objects
         Gee.ArrayList<Tag> tags = new Gee.ArrayList<Tag>();
+        Gee.ArrayList<Tag> unlinked = new Gee.ArrayList<Tag>();
         int count = rows.size;
-        for (int ctr = 0; ctr < count; ctr++)
-            tags.add(new Tag(rows.get(ctr)));
-        
+        for (int ctr = 0; ctr < count; ctr++) {
+            Tag tag = new Tag(rows.get(ctr));
+            
+            if (tag.get_photos_count() != 0) {
+                tags.add(tag);
+                
+                continue;
+            }
+            
+            if (tag.has_links()) {
+                tag.rehydrate_backlinks(global, null);
+                unlinked.add(tag);
+                
+                continue;
+            }
+            
+            warning("Empty tag %s found with no backlinks, destroying", tag.to_string());
+            tag.destroy_orphan(true);
+        }
+
         // add them all at once to the SourceCollection
         global.add_many(tags);
+        global.init_add_many_unlinked(unlinked);
     }
     
     public static void terminate() {
@@ -286,6 +355,9 @@ public class Tag : DataSource, Proxyable {
     // Returns a Tag for the name, creating a new empty one if it does not already exist
     public static Tag for_name(string name) {
         Tag? tag = global.fetch_by_name(name);
+        if (tag == null)
+            tag = global.restore_tag_from_holding_tank(name);
+        
         if (tag != null)
             return tag;
         
@@ -388,6 +460,26 @@ public class Tag : DataSource, Proxyable {
         debug("Reconstituted %s", tag.to_string());
         
         return tag;
+    }
+    
+    public static TagID id_from_backlink(SourceBacklink backlink) {
+        return TagID(backlink.value.to_int64());
+    }
+    
+    public bool has_links() {
+        return LibraryPhoto.global.has_backlink(get_backlink());
+    }
+    
+    public SourceBacklink get_backlink() {
+        return new SourceBacklink(BACKLINK_NAME, row.tag_id.id.to_string());
+    }
+    
+    public void break_link(DataSource source) {
+        detach((LibraryPhoto) source);
+    }
+    
+    public void establish_link(DataSource source) {
+        attach((LibraryPhoto) source);
     }
     
     public void attach(LibraryPhoto photo) {
@@ -498,33 +590,27 @@ public class Tag : DataSource, Proxyable {
             }
         }
         
-        // notify of changes to this tag
-        if (added_photos != null)
-            global.notify_item_contents_added(this, added_photos);
-        
-        if (removed_photos != null)
-            global.notify_item_contents_removed(this, removed_photos);
-        
-        if (added_photos != null || removed_photos != null)
-            global.notify_item_contents_altered(this, added_photos, removed_photos);
-        
-        // if no more photos, tag evaporates
-        if (photos.get_count() == 0) {
-            debug("Destroying %s", to_string());
-            
-            global.destroy_marked(global.mark(this), false);
-            
-            // exit now, do not touch this or any external representation of Tag from here on
-            return;
-        }
-        
         try {
             TagTable.get_instance().set_tagged_photos(row.tag_id, row.photo_id_list);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
         
+        // notify of changes to this tag
+        if (added_photos != null)
+            global.notify_container_contents_added(this, added_photos);
+        
+        if (removed_photos != null)
+            global.notify_container_contents_removed(this, removed_photos);
+        
+        if (added_photos != null || removed_photos != null)
+            global.notify_container_contents_altered(this, added_photos, removed_photos);
+        
         notify_altered();
+        
+        // if no more photos, tag evaporates; do not touch "this" afterwards
+        if (photos.get_count() == 0)
+            global.evaporate(this);
     }
     
     private void on_photo_destroyed(DataSource source) {
@@ -543,8 +629,8 @@ public class Tag : DataSource, Proxyable {
             
             photos.clear();
             
-            global.notify_item_contents_removed(this, removed);
-            global.notify_item_contents_altered(this, null, removed);
+            global.notify_container_contents_removed(this, removed);
+            global.notify_container_contents_altered(this, null, removed);
             
             photos.contents_altered += on_photos_contents_altered;
         }

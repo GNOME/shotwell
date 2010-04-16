@@ -4,9 +4,9 @@
  * See the COPYING file in this distribution. 
  */
 
-public class EventSourceCollection : DatabaseSourceCollection {
+public class EventSourceCollection : ContainerSourceCollection {
     public EventSourceCollection() {
-        base("EventSourceCollection", get_event_key);
+        base(LibraryPhoto.global, Event.BACKLINK_NAME, "EventSourceCollection", get_event_key);
     }
     
     private static int64 get_event_key(DataSource source) {
@@ -16,12 +16,40 @@ public class EventSourceCollection : DatabaseSourceCollection {
         return event_id.id;
     }
     
-    public Event fetch(EventID event_id) {
+    public Event? fetch(EventID event_id) {
         return (Event) fetch_by_key(event_id.id);
+    }
+    
+    protected override Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source) {
+        Event? event = ((LibraryPhoto) source).get_event();
+        if (event == null)
+            return null;
+        
+        Gee.ArrayList<ContainerSource> list = new Gee.ArrayList<ContainerSource>();
+        list.add(event);
+        
+        return list;
+    }
+    
+    protected override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
+        EventID event_id = Event.id_from_backlink(backlink);
+        
+        Event? event = fetch(event_id);
+        if (event != null)
+            return event;
+        
+        foreach (ContainerSource container in get_holding_tank()) {
+            if (((Event) container).get_event_id().id == event_id.id)
+                return container;
+        }
+        
+        return null;
     }
 }
 
-public class Event : EventSource, Proxyable {
+public class Event : EventSource, ContainerSource, Proxyable {
+    public const string BACKLINK_NAME = "event";
+    
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
     
@@ -127,12 +155,17 @@ public class Event : EventSource, Proxyable {
         view.set_comparator(view_comparator);
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id), event_photos); 
         
+        // need to do this manually here because only want to monitor ViewCollection contents after
+        // initial batch has been added, but need to keep EventSourceCollection apprised
+        if (event_photos.size > 0) {
+            global.notify_container_contents_added(this, event_photos);
+            global.notify_container_contents_altered(this, event_photos, null);
+        }
+        
         // get the primary photo for monitoring; if not available, use the first photo in the
         // event
         primary_photo = LibraryPhoto.global.fetch(event_table.get_primary_photo(event_id));
-        if (primary_photo == null) {
-            assert(view.get_count() > 0);
-        
+        if (primary_photo == null && view.get_count() > 0) {
             primary_photo = (LibraryPhoto) ((DataView) view.get_at(0)).get_source();
             event_table.set_primary_photo(event_id, primary_photo.get_photo_id());
         }
@@ -161,12 +194,33 @@ public class Event : EventSource, Proxyable {
         global = new EventSourceCollection();
         
         // add all events to the global collection
-        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
         Gee.ArrayList<Event> events = new Gee.ArrayList<Event>();
-        foreach (EventID event_id in event_ids)
-            events.add(new Event(event_id));
+        Gee.ArrayList<Event> unlinked = new Gee.ArrayList<Event>();
+
+        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
+        int count = event_ids.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            Event event = new Event(event_ids[ctr]);
+            
+            if (event.get_photo_count() != 0) {
+                events.add(event);
+                
+                continue;
+            }
+            
+            if (event.has_links()) {
+                event.rehydrate_backlinks(global, null);
+                unlinked.add(event);
+                
+                continue;
+            }
+            
+            message("Empty event %s with no backlinks found, destroying", event.to_string());
+            event.destroy_orphan(true);
+        }
         
         global.add_many(events, monitor);
+        global.init_add_many_unlinked(unlinked);
     }
     
     public static void terminate() {
@@ -181,40 +235,65 @@ public class Event : EventSource, Proxyable {
             - ((PhotoView *) b)->get_photo_source().get_exposure_time();
     }
     
-    private void on_photos_added() {
+    private Gee.ArrayList<LibraryPhoto> views_to_photos(Gee.Iterable<DataObject> views) {
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        foreach (DataObject object in views)
+            photos.add((LibraryPhoto) ((DataView) object).get_source());
+        
+        return photos;
+    }
+    
+    private void on_photos_added(Gee.Iterable<DataObject> added) {
+        Gee.Collection<LibraryPhoto> photos = views_to_photos(added);
+        global.notify_container_contents_added(this, photos);
+        global.notify_container_contents_altered(this, photos, null);
+        
         notify_altered();
     }
-  
+    
     // Event needs to know whenever a photo is removed from the system to update the event
     private void on_photos_removed(Gee.Iterable<DataObject> removed) {
-        // remove event if no more photos in it
+        Gee.ArrayList<LibraryPhoto> photos = views_to_photos(removed);
+        
+        global.notify_container_contents_removed(this, photos);
+        global.notify_container_contents_altered(this, null, photos);
+        
+        // update primary photo if it's been removed (and there's one to take its place)
+        foreach (LibraryPhoto photo in photos) {
+            if (photo == primary_photo) {
+                if (get_photo_count() > 0)
+                    set_primary_photo((LibraryPhoto) view.get_first().get_source());
+                else
+                    release_primary_photo();
+                
+                break;
+            }
+        }
+        
+        // evaporate event if no more photos in it; do not touch thereafter
         if (get_photo_count() == 0) {
-            debug("Destroying event %s", to_string());
-            
-            Marker marker = Event.global.mark(this);
-            Event.global.destroy_marked(marker, true);
+            global.evaporate(this);
             
             // as it's possible (highly likely, in fact) that all refs to the Event object have
             // gone out of scope now, do NOT touch this, but exit immediately
             return;
         }
         
-        foreach (DataObject object in removed)
-            on_photo_removed((LibraryPhoto) ((PhotoView) object).get_source());
-        
-        notify_altered();
-    } 
-
-    private void on_photos_metadata_altered() {
         notify_altered();
     }
     
-    private void on_photo_removed(LibraryPhoto photo) {
-        // update primary photo if this is the one
-        if (event_table.get_primary_photo(event_id).id == photo.get_photo_id().id) {
-            PhotoView first = (PhotoView) view.get_at(0);
-            set_primary_photo((LibraryPhoto) first.get_photo_source());
-        }
+    public override void notify_relinking(SourceCollection sources) {
+        assert(get_photo_count() > 0);
+        
+        // If the primary photo was lost in the unlink, reestablish it now.
+        if (primary_photo == null)
+            set_primary_photo((LibraryPhoto) view.get_first().get_source());
+        
+        base.notify_relinking(sources);
+    }
+    
+    private void on_photos_metadata_altered() {
+        notify_altered();
     }
     
     // This creates an empty event with the key photo.  NOTE: This does not add the key photo to
@@ -239,6 +318,26 @@ public class Event : EventSource, Proxyable {
         debug("Reconstituted event %s", event.to_string());
         
         return event;
+    }
+    
+    public static EventID id_from_backlink(SourceBacklink backlink) {
+        return EventID(backlink.value.to_int64());
+    }
+    
+    public bool has_links() {
+        return LibraryPhoto.global.has_backlink(get_backlink());
+    }
+    
+    public SourceBacklink get_backlink() {
+        return new SourceBacklink(BACKLINK_NAME, event_id.id.to_string());
+    }
+    
+    public void break_link(DataSource source) {
+        ((LibraryPhoto) source).set_event(null);
+    }
+    
+    public void establish_link(DataSource source) {
+        ((LibraryPhoto) source).set_event(this);
     }
     
     public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos, ProgressMonitor? monitor) {
@@ -435,6 +534,8 @@ public class Event : EventSource, Proxyable {
     }
     
     public bool set_primary_photo(LibraryPhoto photo) {
+        assert(view.has_view_for_source(photo));
+        
         bool committed = event_table.set_primary_photo(event_id, photo.get_photo_id());
         if (committed) {
             // switch to the new photo
@@ -448,6 +549,14 @@ public class Event : EventSource, Proxyable {
         }
         
         return committed;
+    }
+    
+    private void release_primary_photo() {
+        if (primary_photo == null)
+            return;
+        
+        primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+        primary_photo = null;
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {

@@ -329,9 +329,6 @@ public class ImportPage : CheckerboardPage {
         
         toolbar.insert(import_all_button, -1);
         
-        // scrollbar policy
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-        
         GPhoto.CameraAbilities abilities;
         GPhoto.Result res = camera.get_abilities(out abilities);
         if (res != GPhoto.Result.OK) {

@@ -263,6 +263,7 @@ public class LibraryWindow : AppWindow {
     private LibraryPage library_page = null;
     private MasterEventsDirectoryPage events_directory_page = null;
     private LibraryPhotoPage photo_page = null;
+    private TrashPage trash_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     
@@ -297,6 +298,7 @@ public class LibraryWindow : AppWindow {
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed += import_queue_batch_finished;
         photo_page = new LibraryPhotoPage();
+        trash_page = new TrashPage();
         
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
@@ -306,6 +308,7 @@ public class LibraryWindow : AppWindow {
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
         add_parent_page(events_directory_page);
+        add_parent_page(trash_page);
         add_orphan_page(photo_page);
 
         // watch for new & removed events
@@ -361,6 +364,9 @@ public class LibraryWindow : AppWindow {
         
         // connect to sidebar signal used ommited on drag-and-drop orerations
         sidebar.drop_received += drop_received;
+        
+        // monitor trash to keep common actions up-to-date
+        LibraryPhoto.global.trashcan_contents_altered += on_trashcan_contents_altered;
     }
     
     ~LibraryWindow() {
@@ -380,6 +386,8 @@ public class LibraryWindow : AppWindow {
 
         extended_properties.hide -= hide_extended_properties;
         extended_properties.show -= show_extended_properties;
+        
+        LibraryPhoto.global.trashcan_contents_altered -= on_trashcan_contents_altered;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -401,6 +409,11 @@ public class LibraryWindow : AppWindow {
         preferences.label = Resources.PREFERENCES_MENU;
         preferences.tooltip = Resources.PREFERENCES_TOOLTIP;
         actions += preferences;
+        
+        Gtk.ActionEntry empty = { "CommonEmptyTrash", null, TRANSLATABLE, null, null, on_empty_trash };
+        empty.label = _("Empty _Trash");
+        empty.tooltip = _("Delete all photos in the trash");
+        actions += empty;
         
         return actions;
     }
@@ -595,7 +608,66 @@ public class LibraryWindow : AppWindow {
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
     }
-
+    
+    private bool set_common_action_sensitive(string name, bool sensitive) {
+        Page? page = get_current_page();
+        if (page == null) {
+            warning("No page to set action %s", name);
+            
+            return false;
+        }
+        
+        Gtk.Action? action = page.common_action_group.get_action(name);
+        if (action == null) {
+            warning("Page %s: No action %s", page.get_page_name(), name);
+            
+            return false;
+        }
+        
+        action.sensitive = sensitive;
+        
+        return true;
+    }
+    
+    protected override void switched_pages(Page? old_page, Page? new_page) {
+        set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
+        
+        base.switched_pages(old_page, new_page);
+    }
+    
+    private void on_trashcan_contents_altered() {
+        set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
+    }
+    
+    private void on_empty_trash() {
+        if (LibraryPhoto.global.get_trashcan_count() == 0)
+            return;
+        
+        Gtk.ResponseType result = empty_trash_dialog(this, LibraryPhoto.global.get_trashcan_count());
+        if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
+            return;
+        
+        bool delete_backing = (result == Gtk.ResponseType.YES);
+        
+        set_busy_cursor();
+        
+        ProgressDialog progress = null;
+        if (LibraryPhoto.global.get_trashcan_count() >= 20)
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Emptying Trash..."));
+        
+        // valac complains about passing an argument for a delegate using ternary operator:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=599349
+        if (progress != null)
+            LibraryPhoto.global.empty_trash(delete_backing, progress.monitor);
+        else
+            LibraryPhoto.global.empty_trash(delete_backing);
+        
+        if (progress != null)
+            progress.close();
+        
+        set_normal_cursor();
+    }
+    
     public int get_events_sort() {
         return Config.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
             SORT_EVENTS_ORDER_DESCENDING;
@@ -799,6 +871,9 @@ public class LibraryWindow : AppWindow {
         } else if (page is TagPageStub) {
             get_command_manager().execute(new TagUntagPhotosCommand(((TagPageStub) page).tag, photos, 
                 photos.size, true));
+            success = true;
+        } else if (page is TrashPage) {
+            get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
             success = true;
         } else if (path != null && path.compare(tags_marker.get_path()) == 0) {
             AddTagsDialog dialog = new AddTagsDialog();
@@ -1532,6 +1607,8 @@ public class LibraryWindow : AppWindow {
             // event page selected and updated
         } else if (is_tag_selected(path)) {
             // tag page selected and updated
+        } else if (is_page_selected(trash_page, path)) {
+            switch_to_page(trash_page);
         } else {
             // nothing recognized selected
         }
@@ -1565,7 +1642,7 @@ public class LibraryWindow : AppWindow {
             extended_properties.update_properties(get_current_page());
     }
     
-#if !NO_CAMERA    
+#if !NO_CAMERA
     public void mounted_camera_shell_notification(string uri) {
         debug("mount point reported: %s", uri);
 

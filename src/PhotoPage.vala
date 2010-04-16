@@ -1286,7 +1286,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         DataView current = controller.get_view_for_source(get_photo());
-        assert(current != null);
+        if (current == null)
+            return;
         
         DataView? next = controller.get_next(current);
         if (next == null)
@@ -1304,7 +1305,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return;
         
         DataView current = controller.get_view_for_source(get_photo());
-        assert(current != null);
+        if (current == null)
+            return;
         
         DataView? previous = controller.get_previous(current);
         if (previous == null)
@@ -1359,13 +1361,15 @@ public class LibraryPhotoPage : EditingHostPage {
         
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
-        // watch for photos being destroyed, either here or in other pages
-        LibraryPhoto.global.item_destroyed += on_photo_removed;
+        // watch for photos being destroyed or removed or altered, either here or in other pages
+        LibraryPhoto.global.items_removed += on_photos_removed;
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
         LibraryPhoto.global.item_metadata_altered += on_metadata_altered;
     }
     
     ~LibraryPhotoPage() {
-        LibraryPhoto.global.item_destroyed -= on_photo_removed;
+        LibraryPhoto.global.items_removed -= on_photos_removed;
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
         LibraryPhoto.global.item_metadata_altered -= on_metadata_altered;
     }
     
@@ -1702,16 +1706,30 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_photo())
             return;
         
-        LibraryPhoto? photo = (LibraryPhoto?) get_photo();
-        if (photo == null)
-            return;
+        LibraryPhoto photo = (LibraryPhoto) get_photo();
         
-        Gtk.ResponseType response = remove_photos_dialog(get_page_window(), 1);
-        if (response != Gtk.ResponseType.YES && response != Gtk.ResponseType.NO)
-            return;
+        Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        photos.add(photo);
         
-        Marker marker = LibraryPhoto.global.mark(photo);
-        LibraryPhoto.global.destroy_marked(marker, (response == Gtk.ResponseType.YES));
+        // move on to next photo before executing
+        on_next_photo();
+        bool no_more = photo.equals(get_photo());
+        
+        get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
+        
+        // this indicates there is only one photo in the controller, or now zero, so switch 
+        // to the Photos page, which is guaranteed to be there
+        if (no_more)
+            LibraryWindow.get_app().switch_to_library_page();
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        on_photo_removed(source);
+    }
+    
+    private void on_photos_removed(Gee.Iterable<DataSource> removed) {
+        foreach (DataSource source in removed)
+            on_photo_removed((LibraryPhoto) source);
     }
     
     private void on_photo_removed(DataSource source) {
@@ -1725,8 +1743,8 @@ public class LibraryPhotoPage : EditingHostPage {
         on_next_photo();
         if (photo.equals(get_photo())) {
             // this indicates there is only one photo in the controller, or now zero, so switch 
-            // back to the previous page
-            return_to_collection();
+            // to the Photos page, which is guaranteed to be there
+            LibraryWindow.get_app().switch_to_library_page();
         }
     }
 

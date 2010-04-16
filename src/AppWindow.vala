@@ -266,6 +266,9 @@ public class FullscreenWindow : PageWindow {
 public abstract class PageWindow : Gtk.Window {
     private Page current_page = null;
     
+    protected virtual void switched_pages(Page? old_page, Page? new_page) {
+    }
+    
     public PageWindow() {
         // the current page needs to know when modifier keys are pressed
         add_events(Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK
@@ -280,15 +283,21 @@ public abstract class PageWindow : Gtk.Window {
         if (current_page != null)
             current_page.clear_container();
         
+        Page? old_page = current_page;
         current_page = page;
         current_page.set_container(this);
+        
+        switched_pages(old_page, page);
     }
     
     public virtual void clear_current_page() {
         if (current_page != null)
             current_page.clear_container();
         
+        Page? old_page = current_page;
         current_page = null;
+        
+        switched_pages(old_page, null);
     }
     
     private override bool key_press_event(Gdk.EventKey event) {

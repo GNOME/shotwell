@@ -167,12 +167,14 @@ public interface Marker : Object {
     
     public abstract void mark_all();
     
+    // Returns the number of marked items, or the number of items when the marker was frozen
+    // and used.
     public abstract int get_count();
 }
 
 // MarkedAction is a callback to perform an action on the marked DataObject.  Return false to
 // end iterating.
-public delegate bool MarkedAction(DataObject object, Object user);
+public delegate bool MarkedAction(DataObject object, Object? user);
 
 // A ProgressMonitor allows for notifications of progress on operations on multiple items (via
 // the marked interfaces).  Return false if the operation is cancelled and should end immediately.
@@ -236,6 +238,7 @@ public class DataCollection {
     private class MarkerImpl : Object, Marker {
         public DataCollection owner;
         public Gee.HashSet<DataObject> marked = new Gee.HashSet<DataObject>();
+        public int freeze_count = 0;
         
         public MarkerImpl(DataCollection owner) {
             this.owner = owner;
@@ -269,7 +272,7 @@ public class DataCollection {
         }
         
         public int get_count() {
-            return marked.size;
+            return (marked != null) ? marked.size : freeze_count;
         }
         
         private void on_items_removed(Gee.Iterable<DataObject> removed) {
@@ -285,6 +288,9 @@ public class DataCollection {
         }
         
         public void finished() {
+            if (marked != null)
+                freeze_count = marked.size;
+            
             marked = null;
         }
         
@@ -567,6 +573,14 @@ public class DataCollection {
         return marker;
     }
     
+    // Obtain a marker for all items in a collection.  More can be added.
+    public Marker mark_many(Gee.Collection<DataObject> objects) {
+        Marker marker = new MarkerImpl(this);
+        marker.mark_many(objects);
+        
+        return marker;
+    }
+    
     // Iterate over all the marked objects performing a user-supplied action on each one.  The
     // marker is invalid after calling this method.
     public void act_on_marked(Marker m, MarkedAction action, ProgressMonitor? monitor = null, 
@@ -838,6 +852,16 @@ public class SourceCollection : DataCollection {
         }
     }
     
+    // When this signal is fired, the items are about to be unlinked from the collection.  The
+    // appropriate remove signals will follow.
+    public virtual signal void items_unlinking(Gee.Collection<DataSource> unlinking) {
+    }
+    
+    // When this signal is fired, the items are being relinked to the collection.  The appropriate
+    // add signals have already been fired.
+    public virtual signal void items_relinked(Gee.Collection<DataSource> relinked) {
+    }
+    
     // When this signal is fired, the item is still part of the collection but its own destroy()
     // has already been called.
     public virtual signal void item_destroyed(DataSource source) {
@@ -845,6 +869,14 @@ public class SourceCollection : DataCollection {
     
     public SourceCollection(string name) {
         base (name);
+    }
+    
+    protected virtual void notify_items_unlinking(Gee.Collection<DataSource> unlinking) {
+        items_unlinking(unlinking);
+    }
+    
+    protected virtual void notify_items_relinked(Gee.Collection<DataSource> relinked) {
+        items_relinked(relinked);
     }
     
     protected virtual void notify_item_destroyed(DataSource source) {
@@ -871,7 +903,7 @@ public class SourceCollection : DataCollection {
         return counter.delete_failed;
     }
     
-    private bool destroy_and_delete_source(DataObject object, Object user) {
+    private bool destroy_and_delete_source(DataObject object, Object? user) {
         bool success = false;
         try {
             success = ((DataSource) object).internal_delete_backing();
@@ -885,7 +917,7 @@ public class SourceCollection : DataCollection {
         return destroy_source(object, user);
     }
     
-    private bool destroy_source(DataObject object, Object user) {
+    private bool destroy_source(DataObject object, Object? user) {
         DataSource source = (DataSource) object;
         
         source.internal_mark_for_destroy();
@@ -896,14 +928,81 @@ public class SourceCollection : DataCollection {
         
         return true;
     }
+    
+    public virtual bool has_backlink(SourceBacklink backlink) {
+        foreach (DataObject object in get_all()) {
+            if (((DataSource) object).has_backlink(backlink))
+                return true;
+        }
+        
+        return false;
+    }
+    
+    public Gee.Collection<DataSource>? unlink_marked(Marker marker) {
+        Gee.ArrayList<DataSource> list = new Gee.ArrayList<DataSource>();
+        act_on_marked(marker, prepare_for_unlink, null, list);
+        
+        if (list.size == 0)
+            return null;
+        
+        notify_items_unlinking(list);
+        
+        remove_marked(mark_many(list));
+        
+        return list;
+    }
+    
+    private bool prepare_for_unlink(DataObject object, Object? user) {
+        DataSource source = (DataSource) object;
+        
+        source.notify_unlinking(this);
+        ((Gee.List<DataSource>) user).add(source);
+        
+        return true;
+    }
+    
+    public void relink(DataSource source) {
+        source.notify_relinking(this);
+        
+        add(source);
+        notify_items_relinked(get_singleton(source));
+        
+        source.notify_relinked();
+    }
+    
+    public void relink_many(Gee.Collection<DataSource> relink) {
+        if (relink.size == 0)
+            return;
+        
+        foreach (DataSource source in relink)
+            source.notify_relinking(this);
+        
+        add_many(relink);
+        notify_items_relinked(relink);
+        
+        foreach (DataSource source in relink)
+            source.notify_relinked();
+    }
+    
+    public virtual void remove_backlink(SourceBacklink backlink) {
+        foreach (DataObject object in get_all())
+            ((DataSource) object).remove_backlink(backlink);
+    }
 }
+
+//
+// DatabaseSourceCollection
+//
 
 public delegate int64 GetSourceDatabaseKey(DataSource source);
 
 // A DatabaseSourceCollection is a SourceCollection that understands database keys (IDs) and the
 // nature that a row in a database can only be instantiated once in the system, and so it tracks
 // their existance in a map so they can be fetched by their key.
-public class DatabaseSourceCollection : SourceCollection {
+//
+// TODO: This would be better implemented as an observer class, possibly with an interface to
+// force subclasses to provide a fetch_by_key() method.
+public abstract class DatabaseSourceCollection : SourceCollection {
     private GetSourceDatabaseKey source_key_func;
     private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash, 
         int64_equal, direct_equal);
@@ -940,6 +1039,174 @@ public class DatabaseSourceCollection : SourceCollection {
     
     protected DataSource fetch_by_key(int64 key) {
         return map.get(key);
+    }
+}
+
+//
+// ContainerSourceCollection
+//
+
+// A ContainerSourceCollection is for DataSources which maintain links to one or more other
+// DataSources, assumed to be of a different type.  ContainerSourceCollection automates the task
+// of handling unlinking and relinking and maintaining backlinks.  Unlinked DataSources are
+// held in a holding tank, until they are either relinked or destroyed.
+//
+// If the ContainerSourceCollection's DataSources are types that "evaporate" (i.e. they disappear
+// when they hold no items), they should use the evaporate() method, which will either destroy
+// the DataSource or hold it in the tank (if backlinks are outstanding).
+public abstract class ContainerSourceCollection : DatabaseSourceCollection {
+    private SourceCollection contained_sources;
+    private string backlink_name;
+    private Gee.HashSet<ContainerSource> holding_tank = new Gee.HashSet<ContainerSource>();
+    
+    public virtual signal void container_contents_added(ContainerSource container,
+        Gee.Collection<DataSource> added) {
+    }
+    
+    public virtual signal void container_contents_removed(ContainerSource container, 
+        Gee.Collection<DataSource> removed) {
+    }
+    
+    public virtual signal void container_contents_altered(ContainerSource container, 
+        Gee.Collection<DataSource>? added, Gee.Collection<DataSource>? removed) {
+    }
+    
+    public ContainerSourceCollection(SourceCollection contained_sources, string backlink_name,
+        string name, GetSourceDatabaseKey source_key_func) {
+        base (name, source_key_func);
+        
+        this.contained_sources = contained_sources;
+        this.backlink_name = backlink_name;
+        
+        contained_sources.items_unlinking += on_contained_sources_unlinking;
+        contained_sources.items_relinked += on_contained_sources_relinked;
+        contained_sources.item_destroyed += on_contained_source_destroyed;
+    }
+    
+    ~ContainerSourceCollection() {
+        contained_sources.items_unlinking -= on_contained_sources_unlinking;
+        contained_sources.items_relinked -= on_contained_sources_relinked;
+        contained_sources.item_destroyed -= on_contained_source_destroyed;
+    }
+    
+    public virtual void notify_container_contents_added(ContainerSource container, 
+        Gee.Collection<DataSource> added) {
+        // if source is in holding tank, remove it now and relink to collection
+        if (holding_tank.contains(container)) {
+            debug("Adding %s from holding tank in %s", container.to_string(), to_string());
+            
+            bool removed = holding_tank.remove(container);
+            assert(removed);
+            
+            relink(container);
+        }
+        
+        container_contents_added(container, added);
+    }
+    
+    public virtual void notify_container_contents_removed(ContainerSource container, 
+        Gee.Collection<DataSource> removed) {
+        container_contents_removed(container, removed);
+    }
+    
+    public virtual void notify_container_contents_altered(ContainerSource container,
+        Gee.Collection<DataSource>? added, Gee.Collection<DataSource>? removed) {
+        container_contents_altered(container, added, removed);
+    }
+    
+    protected abstract Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source);
+    
+    // Looks in holding_tank as well.
+    protected abstract ContainerSource? convert_backlink_to_container(SourceBacklink backlink);
+    
+    public Gee.Collection<ContainerSource> get_holding_tank() {
+        return holding_tank.read_only_view;
+    }
+    
+    public void init_add_unlinked(ContainerSource unlinked) {
+        holding_tank.add(unlinked);
+    }
+    
+    public void init_add_many_unlinked(Gee.Collection<ContainerSource> unlinked) {
+        holding_tank.add_all(unlinked);
+    }
+    
+    public bool relink_from_holding_tank(ContainerSource source) {
+        if (!holding_tank.remove(source))
+            return false;
+        
+        relink(source);
+        
+        return true;
+    }
+    
+    private void on_contained_sources_unlinking(Gee.Collection<DataSource> unlinking) {
+        foreach (DataSource source in unlinking) {
+            Gee.Collection<ContainerSource>? containers = get_containers_holding_source(source);
+            if (containers == null || containers.size == 0)
+                continue;
+            
+            foreach (ContainerSource container in containers)
+                source.set_backlink(container.get_backlink());
+            
+            foreach (ContainerSource container in containers)
+                container.break_link(source);
+        }
+    }
+    
+    private void on_contained_sources_relinked(Gee.Collection<DataSource> relinked) {
+        foreach (DataSource source in relinked) {
+            Gee.List<SourceBacklink>? backlinks = source.get_backlinks(backlink_name);
+            if (backlinks == null || backlinks.size == 0)
+                continue;
+            
+            foreach (SourceBacklink backlink in backlinks) {
+                ContainerSource? container = convert_backlink_to_container(backlink);
+                if (container != null)
+                    container.establish_link(source);
+                else
+                    warning("Unable to relink %s to container backlink %s", source.to_string(),
+                        backlink.to_string());
+            }
+        }
+    }
+    
+    private void on_contained_source_destroyed(DataSource source) {
+        Gee.Iterator<ContainerSource> iter = holding_tank.iterator();
+        while (iter.next()) {
+            ContainerSource container = iter.get();
+            if (!container.has_links()) {
+                debug("Destroying %s in %s holding tank: no more backlinks", container.to_string(),
+                    to_string());
+                
+                iter.remove();
+                container.destroy_orphan(true);
+            }
+        }
+    }
+    
+    protected override void notify_item_destroyed(DataSource source) {
+        contained_sources.remove_backlink(((ContainerSource) source).get_backlink());
+        
+        base.notify_item_destroyed(source);
+    }
+    
+    // This method should be called by a ContainerSource when it needs to "evaporate" -- it no 
+    // longer holds any source objects and should not be available to the user any longer.  If link
+    // state persists for this ContainerSource, it will be held in the holding tank.  Otherwise, it's
+    // destroyed.
+    public void evaporate(ContainerSource container) {
+        if (contained_sources.has_backlink(container.get_backlink())) {
+            debug("Unlinking %s to %s holding tank", container.to_string(), to_string());
+            
+            unlink_marked(mark(container));
+            bool added = holding_tank.add(container);
+            assert(added);
+        } else {
+            debug("Destroying %s in %s", container.to_string(), to_string());
+            
+            destroy_marked(mark(container), true);
+        }
     }
 }
 
@@ -1016,6 +1283,13 @@ public class ViewCollection : DataCollection {
     public virtual signal void items_state_changed(Gee.Iterable<DataView> changed) {
     }
     
+    // This signal is fired when the selection in the view has changed in any capacity.  Items
+    // are not reported individually because they may have been removed (and are not reported as
+    // unselected).  In other words, although individual DataViews' selection status may not have
+    // changed, what characterizes the total selection of the ViewCollection has changed.
+    public virtual signal void selection_group_altered() {
+    }
+    
     // Signal aggregator.
     public virtual signal void items_shown(Gee.Iterable<DataView> visible) {
     }
@@ -1044,6 +1318,24 @@ public class ViewCollection : DataCollection {
     
     public ViewCollection(string name) {
         base (name);
+    }
+    
+    protected virtual void notify_items_selected(Gee.Iterable<DataView> views) {
+        items_selected(views);
+        items_state_changed(views);
+        
+        notify_selection_group_altered();
+    }
+    
+    protected virtual void notify_items_unselected(Gee.Iterable<DataView> views) {
+        items_unselected(views);
+        items_state_changed(views);
+        
+        notify_selection_group_altered();
+    }
+    
+    protected virtual void notify_selection_group_altered() {
+        selection_group_altered();
     }
     
     protected virtual void notify_item_view_altered(DataView view) {
@@ -1305,25 +1597,37 @@ public class ViewCollection : DataCollection {
         is_added = selected.add_many(added_selected);
         assert(is_added);
         
+        if (added_selected.size > 0)
+            notify_items_selected(added_selected);
+        
         base.notify_items_added(added);
     }
     
     // Keep the source map and state tables synchronized
     public override void notify_items_removed(Gee.Iterable<DataObject> removed) {
+        bool selected_removed = false;
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
 
             bool is_removed = source_map.unset(view.get_source());
             assert(is_removed);
             
-            if (view.is_selected())
+            if (view.is_selected()) {
                 remove_selected(view);
+                selected_removed = true;
+            }
             
             if (view.is_visible() && visible != null) {
                 is_removed = visible.remove(view);
                 assert(is_removed);
             }
         }
+        
+        // If a selected item was removed, only fire the selected_removed signal, as the total
+        // selection character of the ViewCollection has changed, but not the individual items'
+        // state.
+        if (selected_removed)
+            notify_selection_group_altered();
         
         base.notify_items_removed(removed);
     }
@@ -1510,10 +1814,8 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
         act_on_marked(marker, select_item, null, selected);
         
-        if (selected.size > 0) {
-            items_selected(selected);
-            items_state_changed(selected);
-        }
+        if (selected.size > 0)
+            notify_items_selected(selected);
     }
     
     private void add_selected(DataView view) {
@@ -1533,7 +1835,7 @@ public class ViewCollection : DataCollection {
         select_marked(marker);
     }
     
-    private bool select_item(DataObject object, Object user) {
+    private bool select_item(DataObject object, Object? user) {
         DataView view = (DataView) object;
         if (view.is_selected()) {
             assert(selected.contains(view));
@@ -1554,10 +1856,8 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
         act_on_marked(marker, unselect_item, null, unselected);
         
-        if (unselected.size > 0) {
-            items_unselected(unselected);
-            items_state_changed(unselected);
-        }
+        if (unselected.size > 0)
+            notify_items_unselected(unselected);
     }
     
     // Unselects all items.
@@ -1582,7 +1882,7 @@ public class ViewCollection : DataCollection {
         unselect_marked(marker);
     }
     
-    private bool unselect_item(DataObject object, Object user) {
+    private bool unselect_item(DataObject object, Object? user) {
         DataView view = (DataView) object;
         if (!view.is_selected()) {
             assert(!selected.contains(view));
@@ -1604,18 +1904,14 @@ public class ViewCollection : DataCollection {
         ToggleLists lists = new ToggleLists();
         act_on_marked(marker, toggle_item, null, lists);
         
-        if (lists.selected.size > 0) {
-            items_selected(lists.selected);
-            items_state_changed(lists.selected);
-        }
+        if (lists.selected.size > 0)
+            notify_items_selected(lists.selected);
         
-        if (lists.unselected.size > 0) {
-            items_unselected(lists.unselected);
-            items_state_changed(lists.unselected);
-        }
+        if (lists.unselected.size > 0)
+            notify_items_unselected(lists.unselected);
     }
     
-    private bool toggle_item(DataObject object, Object user) {
+    private bool toggle_item(DataObject object, Object? user) {
         DataView view = (DataView) object;
         ToggleLists lists = (ToggleLists) user;
         
@@ -1690,10 +1986,8 @@ public class ViewCollection : DataCollection {
         bool removed = visible.remove_many(to_hide);
         assert(removed);
         
-        if (unselected.size > 0) {
-            items_state_changed(unselected);
-            items_unselected(unselected);
-        }
+        if (unselected.size > 0)
+            notify_items_unselected(unselected);
         
         if (to_hide.size > 0) {
             items_hidden(to_hide);

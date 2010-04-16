@@ -16,7 +16,9 @@
 // elsewhere to resolve ordering questions (including stabilizing a sort).
 //
 
-public abstract class DataObject {
+// Have to inherit from Object due to ContainerSource and this bug:
+// https://bugzilla.gnome.org/show_bug.cgi?id=615904
+public abstract class DataObject : Object {
     public const int64 INVALID_OBJECT_ID = -1;
     
     private static int64 object_id_generator = 0;
@@ -212,13 +214,56 @@ public abstract class SourceSnapshot {
     }
 }
 
+// Link state name may not contain the equal sign ("=").  Link names and values may not contain the 
+// pipe-character ("|").  Both will be stripped of leading and trailing whitespace.  This may
+// affect retrieval.
+public class SourceBacklink {
+    private string _name;
+    private string _value;
+    
+    public string name {
+        get {
+            return _name;
+        }
+    }
+    
+    public string value {
+        get {
+            return _value;
+        }
+    }
+    
+    public SourceBacklink(string name, string value) {
+        assert(!name.contains("="));
+        assert(!name.contains("|"));
+        assert(!value.contains("|"));
+        
+        _name = name.strip();
+        _value = value.strip();
+    }
+    
+    public string to_string() {
+        return "Backlink %s=%s".printf(name, value);
+    }
+}
+
 public abstract class DataSource : DataObject {
     protected delegate void ContactSubscriber(DataView view);
     
     private DataView[] subscribers = new DataView[4];
+    private weak SourceCollection unlinked_from_collection = null;
+    private Gee.HashMap<string, Gee.List<string>> backlinks = null;
     private bool in_contact = false;
     private bool marked_for_destroy = false;
     private bool is_destroyed = false;
+    
+    // This signal is fired after the DataSource has been unlinked from its SourceCollection.
+    public virtual signal void unlinked(SourceCollection sources) {
+    }
+    
+    // This signal is fired after the DataSource has been relinked to a SourceCollection.
+    public virtual signal void relinked(SourceCollection sources) {
+    }
     
     // This signal is fired at the end of the destroy() chain.  The object's state is either fragile
     // or unusable.  It is up to all observers to drop their references to the DataObject.
@@ -258,15 +303,187 @@ public abstract class DataSource : DataObject {
     }
     
     public override void notify_membership_changed(DataCollection? collection) {
-        // DataSources can only be removed once they've been destroyed, and may not be re-added
-        // likewise
+        // DataSources can only be removed once they've been destroyed or unlinked.
         if (collection == null) {
-            assert(is_destroyed);
+            assert(is_destroyed || backlinks != null);
         } else {
             assert(!is_destroyed);
         }
         
+        // If removed from a collection but have backlinks, then that's an unlink.
+        if (collection == null && backlinks != null)
+            notify_unlinked();
+        
         base.notify_membership_changed(collection);
+    }
+    
+    // This method is called by SourceCollection.  It should not be called otherwise.
+    public virtual void notify_unlinking(SourceCollection collection) {
+        assert(backlinks == null && unlinked_from_collection == null);
+        
+        unlinked_from_collection = collection;
+        backlinks = new Gee.HashMap<string, Gee.List<string>>();
+    }
+    
+    // This method is called by DataSource.  It should not be called otherwise.
+    protected virtual void notify_unlinked() {
+        assert(unlinked_from_collection != null && backlinks != null);
+        
+        unlinked(unlinked_from_collection);
+        
+        // give the DataSource a chance to persist the link state, if any
+        if (backlinks.size > 0)
+            commit_backlinks(unlinked_from_collection, dehydrate_backlinks());
+    }
+    
+    // This method is called by SourceCollection.  It should not be called otherwise.
+    public virtual void notify_relinking(SourceCollection collection) {
+        assert(backlinks != null && unlinked_from_collection == collection);
+    }
+    
+    // This method is called by SourceCollection.  It should not be called otherwise.
+    public virtual void notify_relinked() {
+        assert(backlinks != null && unlinked_from_collection != null);
+        
+        SourceCollection relinked_to = unlinked_from_collection;
+        backlinks = null;
+        unlinked_from_collection = null;
+        relinked(relinked_to);
+        
+        // have the DataSource delete any persisted link state
+        commit_backlinks(null, null);
+    }
+    
+    public bool has_backlink(SourceBacklink backlink) {
+        if (backlinks == null)
+            return false;
+        
+        Gee.List<string>? values = backlinks.get(backlink.name);
+        
+        return values != null ? values.contains(backlink.value) : false;
+    }
+    
+    public Gee.List<SourceBacklink>? get_backlinks(string name) {
+        if (backlinks == null)
+            return null;
+        
+        Gee.List<string>? values = backlinks.get(name);
+        if (values == null || values.size == 0)
+            return null;
+        
+        Gee.List<SourceBacklink> backlinks = new Gee.ArrayList<SourceBacklink>();
+        foreach (string value in values)
+            backlinks.add(new SourceBacklink(name, value));
+        
+        return backlinks;
+    }
+    
+    public void set_backlink(SourceBacklink backlink) {
+        // can only be called during an unlink operation
+        assert(backlinks != null);
+        
+        Gee.List<string> values = backlinks.get(backlink.name);
+        if (values == null) {
+            values = new Gee.ArrayList<string>();
+            backlinks.set(backlink.name, values);
+        }
+        
+        values.add(backlink.value);
+    }
+    
+    public bool remove_backlink(SourceBacklink backlink) {
+        if (backlinks == null)
+            return false;
+        
+        Gee.List<string> values = backlinks.get(backlink.name);
+        if (values == null)
+            return false;
+        
+        int original_size = values.size;
+        assert(original_size > 0);
+        
+        Gee.Iterator<string> iter = values.iterator();
+        while (iter.next()) {
+            if (iter.get() == backlink.value)
+                iter.remove();
+        }
+        
+        if (values.size == 0)
+            backlinks.unset(backlink.name);
+        
+        // Commit here because this can come at any time; setting the backlinks should only 
+        // happen during an unlink, which commits at the end of the cycle.
+        commit_backlinks(unlinked_from_collection, dehydrate_backlinks());
+        
+        return values.size != original_size;
+    }
+    
+    // Base implementation is to do nothing; if DataSource wishes to persist link state across
+    // application sessions, it should do so when this is called.  Do not call this base method
+    // when overriding; it will only issue a warning.
+    //
+    // If dehydrated is null, the persisted link state should be deleted.  sources will be null
+    // as well.
+    protected virtual void commit_backlinks(SourceCollection? sources, string? dehydrated) {
+        if (sources != null || dehydrated != null)
+            warning("No implementation to commit link state for %s", to_string());
+    }
+    
+    private string? dehydrate_backlinks() {
+        if (backlinks == null || backlinks.size == 0)
+            return null;
+        
+        StringBuilder builder = new StringBuilder();
+        foreach (string name in backlinks.keys) {
+            Gee.List<string> values = backlinks.get(name);
+            if (values == null || values.size == 0)
+                continue;
+            
+            string value_field = "";
+            foreach (string value in values) {
+                if (value != null && value.length > 0)
+                    value_field += value + "|";
+            }
+            
+            if (value_field.length > 0)
+                builder.append("%s=%s\n".printf(name, value_field));
+        }
+        
+        return builder.str.length > 0 ? builder.str : null;
+    }
+    
+    // If dehydrated is null, this method will still put the DataSource into an unlinked state,
+    // simply without any backlinks to reestablish.
+    public void rehydrate_backlinks(SourceCollection unlinked_from, string? dehydrated) {
+        unlinked_from_collection = unlinked_from;
+        backlinks = new Gee.HashMap<string, Gee.List<string>>();
+        
+        if (dehydrated == null)
+            return;
+        
+        string[] lines = dehydrated.split("\n");
+        foreach (string line in lines) {
+            if (line.length == 0)
+                continue;
+            
+            string[] tokens = line.split("=", 2);
+            if (tokens.length < 2) {
+                warning("Unable to rehydrate \"%s\" for %s: name and value not present", line,
+                    to_string());
+                
+                continue;
+            }
+            
+            string[] decoded_values = tokens[1].split("|");
+            Gee.List<string> values = new Gee.ArrayList<string>();
+            foreach (string value in decoded_values) {
+                if (value != null && value.length > 0)
+                    values.add(value);
+            }
+            
+            if (values.size > 0)
+                backlinks.set(tokens[0], values);
+        }
     }
     
     // If a DataSource cannot produce snapshots, return null.
@@ -307,6 +524,25 @@ public abstract class DataSource : DataObject {
         
         // propagate the signal
         destroyed();
+    }
+    
+    // This method can be used to destroy a DataSource before it's added to a SourceCollection
+    // or has been unlinked from one. It should not be used otherwise.  (In particular, don't
+    // automate destroys by removing and then calling this method -- that will happen automatically.)
+    // To destroy a DataSource already integrated into a SourceCollection, call
+    // SourceCollection.destroy_marked().
+    public void destroy_orphan(bool delete_backing) {
+        if (delete_backing) {
+            try {
+                if (!internal_delete_backing())
+                    warning("Unable to delete backing for %s", to_string());
+            } catch (Error err) {
+                warning("Unable to delete backing for %s: %s", to_string(), err.message);
+            }
+        }
+        
+        internal_mark_for_destroy();
+        destroy();
     }
 
     // DataViews subscribe to the DataSource to inform it of their existance.  Not only does this
@@ -362,11 +598,11 @@ public abstract class DataSource : DataObject {
 }
 
 public abstract class ThumbnailSource : DataSource {
-    public ThumbnailSource(int64 object_id = INVALID_OBJECT_ID) {
-        base (object_id);
+    public virtual signal void thumbnail_altered() {
     }
     
-    public virtual signal void thumbnail_altered() {
+    public ThumbnailSource(int64 object_id = INVALID_OBJECT_ID) {
+        base (object_id);
     }
     
     public virtual void notify_thumbnail_altered() {
@@ -414,6 +650,20 @@ public abstract class EventSource : ThumbnailSource {
     public abstract int get_photo_count();
     
     public abstract Gee.Iterable<PhotoSource> get_photos();
+}
+
+//
+// ContainerSource
+//
+
+public interface ContainerSource : DataSource {
+    public abstract bool has_links();
+    
+    public abstract SourceBacklink get_backlink();
+    
+    public abstract void break_link(DataSource source);
+    
+    public abstract void establish_link(DataSource source);
 }
 
 //

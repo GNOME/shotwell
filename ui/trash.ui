@@ -1,6 +1,6 @@
 <ui>
 
-    <menubar name="EventsDirectoryMenuBar">
+    <menubar name="TrashMenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
             <separator />
@@ -8,14 +8,14 @@
             <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
-
+        
         <menu name="EditMenu" action="EditMenu">
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
-            <menuitem name="SelectAll" action="SelectAll" />
+            <menuitem name="Restore" action="Restore" />
             <separator />
-            <menuitem name="Preferences" action="CommonPreferences" />
+            <menuitem name="SelectAll" action="SelectAll" />
         </menu>
         
         <menu name="ViewMenu" action="ViewMenu">
@@ -26,13 +26,6 @@
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
             </menu>
-            <separator />
-            <menuitem name="Fullscreen" action="CommonFullscreen" />
-        </menu>
-
-        <menu name="EventsMenu" action="EventsMenu">
-            <menuitem name="EventMerge" action="Merge" />
-            <menuitem name="EventRename" action="Rename" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -41,11 +34,15 @@
             <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
-
-    <popup name="EventsDirectoryContextMenu">
-        <menuitem name="ContextMerge" action="Merge" />
-        <menuitem name="ContextRename" action="Rename" />
+    
+    <popup name="TrashContextMenu">
+        <menuitem name="ContextRestore" action="Restore" />
+        <separator />
+        <menuitem name="ContextEmptyTrash" action="CommonEmptyTrash" />
     </popup>
-
+    
+    <popup name="TrashPageMenu">
+        <menuitem name="ContextEmptyTrash" action="CommonEmptyTrash" />
+    </popup>
+    
 </ui>
-

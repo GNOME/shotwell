@@ -6,6 +6,8 @@
             <menuitem name="ImportSelected" action="ImportSelected" />
             <menuitem name="ImportAll" action="ImportAll" />
             <separator />
+            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

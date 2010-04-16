@@ -33,6 +33,10 @@ private class CheckerboardItemText {
         return marked_up;
     }
     
+    public bool is_set_to(string text, bool marked_up, Pango.Alignment alignment) {
+        return (this.marked_up == marked_up && this.alignment == alignment && this.text == text);
+    }
+    
     public string get_text() {
         return text;
     }
@@ -140,6 +144,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public void set_title(string text, bool marked_up = false,
         Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        if (title != null && title.is_set_to(text, marked_up, alignment))
+            return;
+        
         title = new CheckerboardItemText(text, alignment, marked_up);
         
         if (title_visible) {
@@ -149,6 +156,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     public void clear_title() {
+        if (title == null)
+            return;
+        
         title = null;
         
         if (title_visible) {
@@ -173,6 +183,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     
     public void set_subtitle(string text, bool marked_up = false, 
         Pango.Alignment alignment = Pango.Alignment.LEFT) {
+        if (subtitle != null && subtitle.is_set_to(text, marked_up, alignment))
+            return;
+        
         subtitle = new CheckerboardItemText(text, alignment, marked_up);
         
         if (subtitle_visible) {
@@ -182,6 +195,9 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     public void clear_subtitle() {
+        if (subtitle == null)
+            return;
+        
         subtitle = null;
         
         if (subtitle_visible) {

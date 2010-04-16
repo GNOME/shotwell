@@ -9,6 +9,8 @@
             <separator />
             <placeholder name="PublishPlaceholder"/>
             <separator />
+            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
+            <separator />
             <menuitem name="Quit" action="CommonQuit" />
         </menu>
         

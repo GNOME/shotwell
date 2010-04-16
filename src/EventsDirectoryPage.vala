@@ -142,9 +142,6 @@ public class EventsDirectoryPage : CheckerboardPage {
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
         
-        // scrollbar policy
-        set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-        
         init_item_context_menu("/EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
@@ -333,7 +330,10 @@ public class EventPage : CollectionPage {
             LibraryPhoto photo = (LibraryPhoto) source;
             EventID photo_event_id = photo.get_event_id();
             
-            return photo_event_id.id == event_id.id;
+            if (photo_event_id.id != event_id.id)
+                return false;
+            
+            return base.include_in_view(source);
         }
     }
     
@@ -452,6 +452,9 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         }
 
         public override bool include_in_view(DataSource source) {
+            if (!base.include_in_view(source))
+                return false;
+            
             EventSource event = (EventSource) source;
             Time event_time = Time.local(event.get_start_time());
             if (event_time.year == year) {

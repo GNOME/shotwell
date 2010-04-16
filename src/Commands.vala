@@ -1169,3 +1169,97 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
     }
 }
 
+public class TrashUntrashPhotosCommand : PageCommand {
+    private Gee.Collection<LibraryPhoto> photos;
+    private bool to_trash;
+    
+    public TrashUntrashPhotosCommand(Gee.Collection<LibraryPhoto> photos, bool to_trash) {
+        base (
+            to_trash ? _("Move Photos to Trash") : _("Restore Photos from Trash"),
+            to_trash ? _("Move the photos to the Shotwell trash") : _("Restore the photos back to the Shotwell library"));
+        
+        this.photos = photos;
+        this.to_trash = to_trash;
+        
+        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+    }
+    
+    ~TrashUntrashPhotosCommand() {
+        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+    }
+    
+    private ProgressDialog? get_progress_dialog(bool to_trash) {
+        if (photos.size <= 5)
+            return null;
+        
+        ProgressDialog dialog = new ProgressDialog(AppWindow.get_instance(),
+            to_trash ? _("Moving Photos to Trash") : _("Restoring Photos From Trash"));
+        dialog.update_display_every((photos.size / 5).clamp(2, 10));
+        
+        return dialog;
+    }
+    
+    public override void execute() {
+        ProgressDialog? dialog = get_progress_dialog(to_trash);
+        
+        ProgressMonitor monitor = null;
+        if (dialog != null)
+            monitor = dialog.monitor;
+        
+        if (to_trash)
+            trash(monitor);
+        else
+            untrash(monitor);
+        
+        if (dialog != null)
+            dialog.close();
+    }
+    
+    public override void undo() {
+        ProgressDialog? dialog = get_progress_dialog(!to_trash);
+        
+        ProgressMonitor monitor = null;
+        if (dialog != null)
+            monitor = dialog.monitor;
+        
+        if (to_trash)
+            untrash(monitor);
+        else
+            trash(monitor);
+        
+        if (dialog != null)
+            dialog.close();
+    }
+    
+    private void trash(ProgressMonitor? monitor) {
+        int ctr = 0;
+        int count = photos.size;
+        foreach (LibraryPhoto photo in photos) {
+            photo.trash();
+            if (monitor != null)
+                monitor(++ctr, count);
+        }
+    }
+    
+    private void untrash(ProgressMonitor? monitor) {
+        int ctr = 0;
+        int count = photos.size;
+        foreach (LibraryPhoto photo in photos) {
+            photo.untrash();
+            if (monitor != null)
+                monitor(++ctr, count);
+        }
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        // in this case, don't need to reset the command manager, simply remove the photo from the
+        // internal list and allow the others to be moved to and from the trash
+        photos.remove((LibraryPhoto) source);
+        
+        // however, if all photos missing, then remove this from the command stack, and there's
+        // only one way to do that
+        if (photos.size == 0)
+            get_command_manager().reset();
+    }
+}
+
