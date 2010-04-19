@@ -761,6 +761,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private bool do_reflow() {
         reflow("do_reflow");
+        need_exposure("do_reflow");
 
         flow_scheduled = false;
         
@@ -1099,7 +1100,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 #endif
         
         // look for anchor if there is none currently
-        if (anchor == null)
+        if (anchor == null || !anchor.is_visible())
             update_anchor();
         
         // clear the rows data structure, as the reflow will completely rearrange it
