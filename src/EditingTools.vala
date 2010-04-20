@@ -477,6 +477,7 @@ public class CropTool : EditingTool {
         public Gtk.Entry custom_height_entry = new Gtk.Entry();
         public Gtk.Label custom_mulsign_label = new Gtk.Label.with_mnemonic("x");
         public Gtk.Entry most_recently_edited = null;
+        public Gtk.HBox response_layout = null;
         public Gtk.HBox layout = null;
         public int normal_width = -1;
         public int normal_height = -1;
@@ -506,7 +507,7 @@ public class CropTool : EditingTool {
             custom_height_entry.set_width_chars(4);
             custom_height_entry.editable = true;
             
-            Gtk.HBox response_layout = new Gtk.HBox(true, CONTROL_SPACING);
+            response_layout = new Gtk.HBox(true, CONTROL_SPACING);
             response_layout.add(cancel_button);
             response_layout.add(ok_button);
 
@@ -778,16 +779,14 @@ public class CropTool : EditingTool {
 
         crop_tool_window.layout.remove(crop_tool_window.constraint_combo);
         crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
-        crop_tool_window.layout.remove(crop_tool_window.cancel_button);
-        crop_tool_window.layout.remove(crop_tool_window.ok_button);
+        crop_tool_window.layout.remove(crop_tool_window.response_layout);
 
         crop_tool_window.layout.add(crop_tool_window.constraint_combo);
         crop_tool_window.layout.add(crop_tool_window.custom_height_entry);
         crop_tool_window.layout.add(crop_tool_window.custom_mulsign_label);
         crop_tool_window.layout.add(crop_tool_window.custom_width_entry);
         crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
-        crop_tool_window.layout.add(crop_tool_window.cancel_button);
-        crop_tool_window.layout.add(crop_tool_window.ok_button);
+        crop_tool_window.layout.add(crop_tool_window.response_layout);
         
         if (reticle_orientation == ReticleOrientation.LANDSCAPE) {
             crop_tool_window.custom_width_entry.set_text("%d".printf(custom_init_width));
@@ -819,13 +818,11 @@ public class CropTool : EditingTool {
         crop_tool_window.layout.remove(crop_tool_window.custom_mulsign_label);
         crop_tool_window.layout.remove(crop_tool_window.custom_height_entry);
         crop_tool_window.layout.remove(crop_tool_window.pivot_reticle_button);
-        crop_tool_window.layout.remove(crop_tool_window.cancel_button);
-        crop_tool_window.layout.remove(crop_tool_window.ok_button);
+        crop_tool_window.layout.remove(crop_tool_window.response_layout);
 
         crop_tool_window.layout.add(crop_tool_window.constraint_combo);
         crop_tool_window.layout.add(crop_tool_window.pivot_reticle_button);
-        crop_tool_window.layout.add(crop_tool_window.cancel_button);
-        crop_tool_window.layout.add(crop_tool_window.ok_button);
+        crop_tool_window.layout.add(crop_tool_window.response_layout);
 
         crop_tool_window.resize(crop_tool_window.normal_width,
             crop_tool_window.normal_height);
