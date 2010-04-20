@@ -313,7 +313,7 @@ namespace Exif {
     public string get_title(Exif.Data exif) {
         Exif.Entry entry = find_first_entry(exif, Exif.Tag.IMAGE_DESCRIPTION, Exif.Format.ASCII);
         
-        return (entry != null) ? entry.get_string() : "";
+        return (entry != null) ? entry.get_string().strip() : "";
     }
 
     public void set_title(Exif.Data exif, string title) {

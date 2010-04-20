@@ -563,7 +563,7 @@ public class PhotoRenameDialog : TextEntryDialogMediator {
     }
 
     public virtual string? execute() {
-        return _execute();
+        return _execute().strip();
     }
 }
 

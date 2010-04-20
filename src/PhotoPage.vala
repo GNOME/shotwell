@@ -326,6 +326,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     public override void returning_from_fullscreen() {
         base.returning_from_fullscreen();
+                
+        repaint();
         
         if (controller != null)
             controller.items_selected -= on_selection_changed;

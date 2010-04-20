@@ -133,7 +133,6 @@ public class FullscreenWindow : PageWindow {
        // ...then let the base class take over
        return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
-
     
     private void on_close() {
         hide_toolbar();
