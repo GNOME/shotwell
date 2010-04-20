@@ -299,7 +299,6 @@ public class ImportPage : CheckerboardPage {
         
         // separator to force buttons to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_expand(true);
         separator.set_draw(false);
         
         toolbar.insert(separator, -1);
@@ -307,6 +306,7 @@ public class ImportPage : CheckerboardPage {
         progress_bar.set_orientation(Gtk.ProgressBarOrientation.LEFT_TO_RIGHT);
         progress_bar.visible = false;
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
+        progress_item.set_expand(true);
         progress_item.add(progress_bar);
         
         toolbar.insert(progress_item, -1);
@@ -553,6 +553,7 @@ public class ImportPage : CheckerboardPage {
         refreshed = false;
         progress_bar.visible = true;
         progress_bar.set_fraction(0.0);
+        progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text(_("Unmounting..."));
         
         // unmount_with_operation() can/will complete with the volume still mounted (probably meaning
@@ -580,6 +581,7 @@ public class ImportPage : CheckerboardPage {
             mount.unmounted -= on_unmounted;
             
             busy = false;
+            progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
             progress_bar.set_text("");
             progress_bar.visible = false;
         }
@@ -589,6 +591,7 @@ public class ImportPage : CheckerboardPage {
         debug("on_unmounted");
         
         busy = false;
+        progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text("");
         progress_bar.visible = false;
         
@@ -613,6 +616,7 @@ public class ImportPage : CheckerboardPage {
         
         on_view_changed();
         
+        progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text(_("Fetching photo information"));
         progress_bar.set_fraction(0.0);
         progress_bar.set_pulse_step(0.01);
@@ -636,6 +640,7 @@ public class ImportPage : CheckerboardPage {
         load_previews(import_list);
         
         progress_bar.visible = false;
+        progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text("");
         progress_bar.set_fraction(0.0);
         
@@ -657,7 +662,7 @@ public class ImportPage : CheckerboardPage {
         }
         
         on_view_changed();
-        
+
         switch (refresh_result) {
             case GPhoto.Result.OK:
                 return RefreshResult.OK;
@@ -812,6 +817,7 @@ public class ImportPage : CheckerboardPage {
                 string filename = import_source.get_filename();
                 string fulldir = import_source.get_fulldir();
                 
+                progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
                 progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
                 
                 // load EXIF for photo, which will include the preview thumbnail
@@ -1064,13 +1070,13 @@ public class ImportQueuePage : SinglePhotoPage {
 
         // separator to force progress bar to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
-        separator.set_expand(true);
         separator.set_draw(false);
         
         toolbar.insert(separator, -1);
         
         // Progress bar
         Gtk.ToolItem progress_item = new Gtk.ToolItem();
+        progress_item.set_expand(true);
         progress_item.add(progress_bar);
         
         toolbar.insert(progress_item, -1);
@@ -1148,6 +1154,7 @@ public class ImportQueuePage : SinglePhotoPage {
         double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
             : 0.0;
         
+        progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
         progress_bar.set_text(_("Imported %s").printf(photo.get_name()));
         progress_bar.set_fraction(pct);
     }
@@ -1180,6 +1187,7 @@ public class ImportQueuePage : SinglePhotoPage {
 
             // reset UI
             stop_button.sensitive = false;
+            progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
             progress_bar.set_text("");
             progress_bar.set_fraction(0.0);
 
