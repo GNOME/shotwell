@@ -162,8 +162,14 @@ public class DataSet {
 // an iterator.
 public interface Marker : Object {
     public abstract void mark(DataObject object);
+
+    public abstract void unmark(DataObject object);
+
+    public abstract bool toggle(DataObject object);
     
     public abstract void mark_many(Gee.Iterable<DataObject> list);
+    
+    public abstract void unmark_many(Gee.Iterable<DataObject> list);
     
     public abstract void mark_all();
     
@@ -257,12 +263,38 @@ public class DataCollection {
             
             marked.add(object);
         }
+
+        public void unmark(DataObject object) {
+            assert(owner.internal_contains(object));
+            
+            marked.remove(object);
+        }
+
+        public bool toggle(DataObject object) {
+            assert(owner.internal_contains(object));
+
+            if (marked.contains(object)) {
+                marked.remove(object);
+            } else {
+                marked.add(object);
+            }
+
+            return marked.contains(object);
+        }
         
         public void mark_many(Gee.Iterable<DataObject> list) {
             foreach (DataObject object in list) {
                 assert(owner.internal_contains(object));
                 
                 marked.add(object);
+            }
+        }
+        
+        public void unmark_many(Gee.Iterable<DataObject> list) {
+            foreach (DataObject object in list) {
+                assert(owner.internal_contains(object));
+                
+                marked.remove(object);
             }
         }
         
@@ -1866,7 +1898,8 @@ public class ViewCollection : DataCollection {
             return;
         
         Marker marker = start_marking();
-        marker.mark_all();
+        marker.mark_many(get_selected());
+
         unselect_marked(marker);
     }
     

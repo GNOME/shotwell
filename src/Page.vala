@@ -774,6 +774,7 @@ public abstract class CheckerboardPage : Page {
     private CheckerboardItem highlighted = null;
     private bool autoscroll_scheduled = false;
     private CheckerboardItem activated_item = null;
+    private Gee.ArrayList<CheckerboardItem> previously_selected = null;
 
     public CheckerboardPage(string page_name) {
         base(page_name);
@@ -1009,23 +1010,30 @@ public abstract class CheckerboardPage : Page {
                 break;
             }
         } else {
-            // user clicked on "dead" area
-            get_view().unselect_all();
-        }
+            // user clicked on "dead" area; only unselect if control is not pressed
+            // do we want similar behavior for shift as well?
+            if (state != Gdk.ModifierType.CONTROL_MASK)
+                get_view().unselect_all();
 
-        // need to determine if the signal should be passed to the DnD handlers
-        // Return true to block the DnD handler, false otherwise
+            // grab previously marked items
+            previously_selected = new Gee.ArrayList<CheckerboardItem>();
+            foreach (DataView view in get_view().get_selected())
+                previously_selected.add((CheckerboardItem) view);
 
-        if (item == null) {
             layout.set_drag_select_origin((int) event.x, (int) event.y);
 
             return true;
         }
 
+        // need to determine if the signal should be passed to the DnD handlers
+        // Return true to block the DnD handler, false otherwise
+
         return get_view().get_selected_count() == 0;
     }
     
     protected override bool on_left_released(Gdk.EventButton event) {
+        previously_selected = null;
+
         // if drag-selecting, stop here and do nothing else
         if (layout.is_drag_select_active()) {
             layout.clear_drag_select();
@@ -1174,28 +1182,33 @@ public abstract class CheckerboardPage : Page {
         Gee.List<CheckerboardItem>? intersection = layout.items_in_selection_band();
         if (intersection == null)
             return;
+        
+        Marker to_unselect = get_view().start_marking();
+        Marker to_select = get_view().start_marking();
 
-        // unselect everything not in the intersection
-        Marker marker = get_view().start_marking();
-        foreach (DataView view in get_view().get_selected()) {
-            CheckerboardItem item = (CheckerboardItem) view;
-            
-            if (!intersection.contains(item))
-                marker.mark(item);
-        }
+        // mark all selected items to be unselected
+        to_unselect.mark_many(get_view().get_selected());
+
+        // except for the items that were selected before the drag began
+        assert(previously_selected != null);
+        to_unselect.unmark_many(previously_selected);        
+        to_select.mark_many(previously_selected);   
         
-        get_view().unselect_marked(marker);
-        
-        // select everything in the intersection and update the cursor
-        marker = get_view().start_marking();
+        // toggle selection on everything in the intersection and update the cursor
         cursor = null;
+        
         foreach (CheckerboardItem item in intersection) {
-            marker.mark(item);
+            if (to_select.toggle(item))
+                to_unselect.unmark(item);
+            else
+                to_unselect.mark(item);
+
             if (cursor == null)
                 cursor = item;
         }
         
-        get_view().select_marked(marker);
+        get_view().select_marked(to_select);
+        get_view().unselect_marked(to_unselect);
     }
     
     private bool selection_autoscroll() {
