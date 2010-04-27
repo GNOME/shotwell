@@ -17,15 +17,16 @@ public enum PhotoFileFormat {
 #if !NO_RAW
     RAW,
 #endif
+    PNG,
     UNKNOWN;
     
     // This is currently listed in the order of detection, that is, the file is examined from
     // left to right.  (See PhotoFileInterrogator.)
     public static PhotoFileFormat[] get_supported() {
 #if !NO_RAW
-        return { JFIF, RAW };
+        return { JFIF, RAW, PNG };
 #else
-        return { JFIF };
+        return { JFIF, PNG };
 #endif
     }
     
@@ -43,7 +44,11 @@ public enum PhotoFileFormat {
         
         return UNKNOWN;
     }
-    
+
+    public static PhotoFileFormat get_system_default_format() {
+        return JFIF;
+    }
+
     public static PhotoFileFormat get_by_file_extension(File file) {
         return get_by_basename_extension(file.get_basename());
     }
@@ -58,6 +63,9 @@ public enum PhotoFileFormat {
             case RAW:
                 return 1;
 #endif
+
+            case PNG:
+                return 2;
             
             case UNKNOWN:
             default:
@@ -75,6 +83,9 @@ public enum PhotoFileFormat {
             case 1:
                 return RAW;
 #endif
+
+            case 2:
+                return PNG;
             
             default:
                 return UNKNOWN;
@@ -90,7 +101,10 @@ public enum PhotoFileFormat {
             case RAW:
                 return RawFileFormatDriver.get_instance();
 #endif
-            
+
+            case PNG:
+                return PngFileFormatDriver.get_instance();
+
             default:
                 error("Unsupported file format %s", this.to_string());
                 

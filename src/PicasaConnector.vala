@@ -484,7 +484,8 @@ private class Uploader : BatchUploader {
             false);
         
         try {
-            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM);
+            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
+                PhotoFileFormat.JFIF);
         } catch (Error e) {
             error("UploadPane: can't create temporary files");
         }

@@ -463,6 +463,12 @@ public abstract class TransformablePhoto: PhotoSource {
             return actual.get_file();
         }
     }
+
+    public PhotoFileFormat get_file_format() {
+        lock (row) {
+            return row.file_format;
+        }
+    }
     
     public bool is_mimicked() {
         lock (row) {
@@ -1584,9 +1590,23 @@ public abstract class TransformablePhoto: PhotoSource {
     // File export
     //
     
-    // Returns the basename of the file if it was exported in the supplied writeable file format.
-    public string get_export_basename(PhotoFileFormat file_format) {
-        return file_format.get_properties().convert_file_extension(get_file()).get_basename();
+    // Returns the basename of the file if it were to be exported in format 'file_format'; if
+    // 'file_format' is null, then return the basename of the file if it were to be exported in the
+    // native backing format of the photo (i.e. no conversion is performed). If 'file_format' is
+    // null and the native backing format is not writeable (i.e. RAW), then use the system
+    // default file format, as defined in PhotoFileFormat
+    public string get_export_basename(PhotoFileFormat? file_format = null) {
+        if (file_format != null) {
+            return file_format.get_properties().convert_file_extension(get_file()).get_basename();
+        } else {
+            if (get_file_format().can_write()) {
+                return get_file_format().get_properties().convert_file_extension(
+                    get_file()).get_basename();
+            } else {
+                return PhotoFileFormat.get_system_default_format().get_properties().convert_file_extension(
+                    get_file()).get_basename();
+            }
+        }
     }
     
     private bool export_fullsized_backing(File file) throws Error {
@@ -1649,19 +1669,26 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
-    public void export(File dest_file, Scaling scaling, Jpeg.Quality quality) throws Error {
+    public void export(File dest_file, Scaling scaling, Jpeg.Quality quality,
+        PhotoFileFormat? export_format = null) throws Error {
         // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that
-        // degrades image quality.  If alterations exist, but only EXIF has changed, then can copy
-        // original file and update relevant EXIF.
-        if (scaling.is_unscaled() && (!has_alterations() || only_exif_changed())) {
+        // degrades image quality with JFIF format files. If alterations exist, but only EXIF has
+        // changed and the user hasn't requested conversion between image formats, then just copy
+        // the original file and update relevant EXIF.
+        if (scaling.is_unscaled() && (!has_alterations() || only_exif_changed()) &&
+            (export_format == get_file_format())) {
             if (export_fullsized_backing(dest_file))
                 return;
         }
-        
-        // For now, only JPEG export is supported
-        PhotoFileWriter writer = new JfifWriter(dest_file.get_path());
-        
-        debug("Saving transformed version of %s to %s", to_string(), writer.get_filepath());
+
+        if (export_format == null)
+            export_format = get_file_format();
+        assert(export_format.can_write());
+
+        PhotoFileWriter writer = export_format.create_writer(dest_file.get_path());
+
+        debug("Saving transformed version of %s to %s in file format %s", to_string(),
+            writer.get_filepath(), export_format.to_string());
         
         Gdk.Pixbuf pixbuf = get_pixbuf(scaling);
         Dimensions dim = Dimensions.for_pixbuf(pixbuf);

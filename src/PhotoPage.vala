@@ -1772,7 +1772,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!export_dialog.execute(out scale, out constraint, out quality))
             return;
         
-        File save_as = ExportUI.choose_file(get_photo().get_export_basename(PhotoFileFormat.JFIF));
+        File save_as = ExportUI.choose_file(get_photo().get_export_basename());
         if (save_as == null)
             return;
         

@@ -162,8 +162,7 @@ public class ExportDialog : Gtk.Dialog {
         current_scale = default_scale;
         current_constraint = default_constraint;
         current_quality = default_quality;
-        
-        // prepare controls
+
         quality_combo = new Gtk.ComboBox.text();
         int ctr = 0;
         foreach (Jpeg.Quality quality in QUALITY_ARRAY) {

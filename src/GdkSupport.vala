@@ -5,15 +5,18 @@
  */
 
 public abstract class GdkReader : PhotoFileReader {
-    private Exif.DataType exif_datatype;
+    private Exif.DataType? exif_datatype;
     
-    public GdkReader(string filepath, PhotoFileFormat file_format, Exif.DataType exif_datatype) {
+    public GdkReader(string filepath, PhotoFileFormat file_format, Exif.DataType? exif_datatype) {
         base (filepath, file_format);
         
         this.exif_datatype = exif_datatype;
     }
     
     public override Exif.Data? read_exif() throws Error {
+        if (exif_datatype == null)
+            return null;
+
         Exif.Data? exif = Exif.Data.new_from_file(get_filepath());
         if (exif != null)
             exif.set_data_type(exif_datatype);
@@ -127,6 +130,10 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         switch (detected.format_name) {
             case "jpeg":
                 detected.file_format = PhotoFileFormat.JFIF;
+            break;
+
+            case "png":
+                detected.file_format = PhotoFileFormat.PNG;
             break;
             
             default:
