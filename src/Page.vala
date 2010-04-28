@@ -626,7 +626,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         return on_app_key_released(event);
     }
-
+    
     public bool notify_app_focus_in(Gdk.EventFocus event) {
         update_modifiers();
         

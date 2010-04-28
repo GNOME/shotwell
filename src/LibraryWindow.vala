@@ -12,7 +12,7 @@ public class LibraryWindow : AppWindow {
     
     public const int SORT_EVENTS_ORDER_ASCENDING = 0;
     public const int SORT_EVENTS_ORDER_DESCENDING = 1;
-
+    
     private const string[] SUPPORTED_MOUNT_SCHEMES = {
         "gphoto2:",
         "disk:",
@@ -1531,7 +1531,7 @@ public class LibraryWindow : AppWindow {
 
         page.switched_to();
     }
-
+    
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
         SidebarMarker? marker = page.get_marker();
         if (marker == null)
@@ -1564,7 +1564,7 @@ public class LibraryWindow : AppWindow {
         
         return false;
     }
-
+    
     private bool is_event_selected(Gtk.TreePath path) {
         foreach (EventPageStub event_stub in event_list) {
             if (is_page_selected(event_stub, path)) {

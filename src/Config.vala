@@ -20,10 +20,13 @@ public class Config {
     private const string LIGHT_UNSELECTED_COLOR = "#FFF";
     private const string DARK_BORDER_COLOR = "#666";
     private const string LIGHT_BORDER_COLOR = "#AAA";
+    private const string DARK_UNFOCUSED_SELECTED_COLOR = "#7a9299";
+    private const string LIGHT_UNFOCUSED_SELECTED_COLOR = "#ccf7ff";
 
     private string bg_color = null;
     private string selected_color = null;
     private string unselected_color = null;
+    private string unfocused_selected_color = null;
     private string border_color = null;
     
     private static Config instance = null;
@@ -529,11 +532,18 @@ public class Config {
         return parse_color(bg_color);
     }
 
-    public Gdk.Color get_selected_color() {
-        if (is_string_empty(selected_color))
-            get_colors();
+    public Gdk.Color get_selected_color(bool in_focus = true) {
+        if (in_focus) {
+            if (is_string_empty(selected_color))
+                get_colors();
 
-        return parse_color(selected_color);
+            return parse_color(selected_color);
+        } else {
+            if (is_string_empty(unfocused_selected_color))
+                get_colors();
+
+            return parse_color(unfocused_selected_color);
+        }
     }
     
     public Gdk.Color get_unselected_color() {
@@ -557,10 +567,12 @@ public class Config {
         if (bg_color.red > BLACK_THRESHOLD) {
             selected_color = DARK_SELECTED_COLOR;
             unselected_color = DARK_UNSELECTED_COLOR;
+            unfocused_selected_color = DARK_UNFOCUSED_SELECTED_COLOR;
             border_color = DARK_BORDER_COLOR;
         } else {
             selected_color = LIGHT_SELECTED_COLOR;
             unselected_color = LIGHT_UNSELECTED_COLOR;
+            unfocused_selected_color = LIGHT_UNFOCUSED_SELECTED_COLOR;
             border_color = LIGHT_BORDER_COLOR;
         }
     }
@@ -572,7 +584,7 @@ public class Config {
 
         colors_changed();
     }
-
+    
     public bool commit_bg_color() {
         return set_string("/apps/shotwell/preferences/ui/background_color", bg_color);
     }

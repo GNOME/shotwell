@@ -1454,14 +1454,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         set_colors();
     }
 
-    private void set_colors() {
+    private void set_colors(bool in_focus = true) {
         if (selected_gc == null || unselected_gc == null || border_gc == null ||
             selection_band_gc == null)
             return;
         
         // set up selected/unselected colors
         Gdk.Color selected_color = fetch_color(
-            Config.get_instance().get_selected_color().to_string(), window);
+            Config.get_instance().get_selected_color(in_focus).to_string(), window);
         Gdk.Color unselected_color = fetch_color(
             Config.get_instance().get_unselected_color().to_string(), window);
         Gdk.Color border_color = fetch_color(
@@ -1592,9 +1592,23 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
         set_colors();
     }
-
+    
     private void on_display_borders_changed(bool display_borders) {
         this.display_borders = display_borders;
         need_exposure("on_display_borders_changed");
+    }
+
+    private override bool focus_in_event(Gdk.EventFocus event) {
+        set_colors(true);
+        items_dirty("focus_in_event", view.get_selected());
+        
+        return base.focus_in_event(event);
+    }
+
+    private override bool focus_out_event(Gdk.EventFocus event) {
+        set_colors(false);
+        items_dirty("focus_out_event", view.get_selected());
+        
+        return base.focus_out_event(event);
     }
 }

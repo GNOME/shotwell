@@ -301,7 +301,7 @@ public abstract class PageWindow : Gtk.Window {
     
     private override bool key_press_event(Gdk.EventKey event) {
         if (current_page != null && current_page.notify_app_key_pressed(event))
-                return true;
+            return true;
         
         return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
