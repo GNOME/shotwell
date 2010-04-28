@@ -4,6 +4,10 @@
  * See the COPYING file in this distribution. 
  */
 
+// This is only needed until the following ticket is closed (see EventDirectoryItem's paint_border)
+// https://bugzilla.gnome.org/show_bug.cgi?id=617000
+extern void gdk_gc_get_values(Gdk.GC *gc, Gdk.GCValues *values);
+
 class EventDirectoryItem : CheckerboardItem {
     public const int CROPPED_SCALE = ThumbnailCache.Size.MEDIUM.get_scale() 
         + ((ThumbnailCache.Size.BIG.get_scale() - ThumbnailCache.Size.MEDIUM.get_scale()) / 2);
@@ -112,10 +116,30 @@ class EventDirectoryItem : CheckerboardItem {
         base.thumbnail_altered();
     }
     
+    protected override void paint_border(Gdk.GC gc, Gdk.Drawable drawable, Dimensions dimensions,
+        Gdk.Point origin) {
+        // use rounded corners on events
+        Cairo.Context cx = get_rounded_corners_context(drawable, dimensions, origin, 6.0);
+        
+        // gc.get_values(out values) cannot be used due to a vapi binding bug
+        // https://bugzilla.gnome.org/show_bug.cgi?id=617000
+        Gdk.GCValues values = Gdk.GCValues();
+        gdk_gc_get_values(gc, &values);
+
+        Gdk.Color color;
+        gc.colormap.query_color(values.foreground.pixel, out color);
+
+        Gdk.cairo_set_source_color(cx, color);
+        cx.paint();
+    }
+
     protected override void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf,
         Gdk.Point origin) {
         // use rounded corners on events
-        draw_rounded_corners_pixbuf(drawable, pixbuf, origin, 6.0);
+        Cairo.Context cx = get_rounded_corners_context(drawable, Dimensions.for_pixbuf(pixbuf),
+            origin, 6.0);
+        Gdk.cairo_set_source_pixbuf(cx, pixbuf, origin.x, origin.y);
+        cx.paint();
     }
 }
 

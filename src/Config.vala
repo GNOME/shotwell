@@ -14,20 +14,24 @@ public class Config {
     public const int SIDEBAR_MAX_POSITION = 1000;
     private const string DEFAULT_BG_COLOR = "#444";
     private const uint BLACK_THRESHOLD = 40000;
-    private const string DARK_UNSELECTED_COLOR = "#079";
-    private const string LIGHT_UNSELECTED_COLOR = "#2DF";
-    private const string DARK_SELECTED_COLOR = "#000";
-    private const string LIGHT_SELECTED_COLOR = "#FFF";
+    private const string DARK_SELECTED_COLOR = "#079";
+    private const string LIGHT_SELECTED_COLOR = "#2DF";
+    private const string DARK_UNSELECTED_COLOR = "#000";
+    private const string LIGHT_UNSELECTED_COLOR = "#FFF";
+    private const string DARK_BORDER_COLOR = "#666";
+    private const string LIGHT_BORDER_COLOR = "#AAA";
 
     private string bg_color = null;
     private string selected_color = null;
     private string unselected_color = null;
+    private string border_color = null;
     
     private static Config instance = null;
     
     private GConf.Client client;
     
-    public signal void bg_color_changed(Gdk.Color color);
+    public signal void colors_changed();
+    public signal void display_borders_changed(bool display_borders);
     
     private Config() {
         // only one may exist per-process
@@ -539,14 +543,26 @@ public class Config {
         return parse_color(unselected_color);
     }
 
+    public Gdk.Color get_border_color() {
+        if (is_string_empty(border_color))
+            get_colors();
+
+        return parse_color(border_color);
+    }
+
     private void set_text_colors(Gdk.Color bg_color) {
         // since bg color is greyscale, we only need to compare the red value to the threshold,
         // which determines whether the background is dark enough to need light text and selection
         // colors or vice versa
-        selected_color = bg_color.red > BLACK_THRESHOLD ? DARK_UNSELECTED_COLOR :
-            LIGHT_UNSELECTED_COLOR;
-        unselected_color = bg_color.red > BLACK_THRESHOLD ? DARK_SELECTED_COLOR :
-            LIGHT_SELECTED_COLOR;
+        if (bg_color.red > BLACK_THRESHOLD) {
+            selected_color = DARK_SELECTED_COLOR;
+            unselected_color = DARK_UNSELECTED_COLOR;
+            border_color = DARK_BORDER_COLOR;
+        } else {
+            selected_color = LIGHT_SELECTED_COLOR;
+            unselected_color = LIGHT_UNSELECTED_COLOR;
+            border_color = LIGHT_BORDER_COLOR;
+        }
     }
     
     public void set_bg_color(Gdk.Color color) {
@@ -554,11 +570,20 @@ public class Config {
 
         set_text_colors(color);
 
-        bg_color_changed(color);
+        colors_changed();
     }
 
     public bool commit_bg_color() {
         return set_string("/apps/shotwell/preferences/ui/background_color", bg_color);
+    }
+    
+    public bool get_display_borders() {
+        return get_bool("/apps/shotwell/preferences/ui/display_borders", true);
+    }
+    
+    public void set_display_borders(bool display_borders) {
+        set_bool("/apps/shotwell/preferences/ui/display_borders", display_borders);
+        display_borders_changed(display_borders);
     }
 }
 

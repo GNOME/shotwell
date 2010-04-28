@@ -576,5 +576,18 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/display_borders</key>
+            <applyto>/apps/shotwell/preferences/ui/display_borders</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>true</default>
+            
+            <locale name="en">
+                <short>display borders</short>
+                <long>True if Shotwell should display borders around photos and event key photos.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>

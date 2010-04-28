@@ -73,12 +73,10 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
 
 private const double DEGREE = Math.PI / 180.0;
 
-void draw_rounded_corners_pixbuf(Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin, 
+Cairo.Context get_rounded_corners_context(Gdk.Drawable drawable, Dimensions dim, Gdk.Point origin, 
     double radius_proportion) {
     // establish a reasonable range
     radius_proportion = radius_proportion.clamp(2.0, 20.0);
-    
-    Dimensions dim = Dimensions.for_pixbuf(pixbuf);
     
     double left = origin.x;
     double top = origin.y;
@@ -96,11 +94,8 @@ void draw_rounded_corners_pixbuf(Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.P
     cx.arc(left + radius, bottom - radius, radius, 90 * DEGREE, 180 * DEGREE);
     cx.arc(left + radius, top + radius, radius, 180 * DEGREE, 270 * DEGREE);
     cx.clip();
-    
-    // load pixbuf into the clipped context
-    Gdk.cairo_set_source_pixbuf(cx, pixbuf, origin.x, origin.y);
-    
-    cx.paint();
+
+    return cx;
 }
 
 inline uchar shift_color_byte(int b, int shift) {

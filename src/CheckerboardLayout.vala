@@ -101,6 +101,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     public const int FRAME_WIDTH = 1;
     public const int LABEL_PADDING = 4;
     public const int FRAME_PADDING = 4;
+    public const int BORDER_WIDTH = 1;
     
     public const int TRINKET_SCALE = 12;
     public const int TRINKET_PADDING = 1;
@@ -334,12 +335,13 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         // width is frame width (two sides) + frame padding (two sides) + width of pixbuf/trinkets
         // (text never wider)
-        requisition.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + image_width;
+        requisition.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + (BORDER_WIDTH * 2)
+            + image_width;
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
-        requisition.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + pixbuf_dim.height + title_height
-            + subtitle_height;
+        requisition.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + (BORDER_WIDTH * 2)
+            + pixbuf_dim.height + title_height + subtitle_height;
         
 #if TRACE_REFLOW_ITEMS
         debug("recalc_size %s: %s title_height=%d subtitle_height=%d requisition=%s", 
@@ -354,22 +356,42 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
     }
     
+    protected virtual void paint_border(Gdk.GC gc, Gdk.Drawable drawable, Dimensions dimensions, 
+        Gdk.Point origin) {
+        // border should be one pixel wide...if we want to change this later, we should pass it in
+        drawable.draw_rectangle(gc, true, origin.x, origin.y, dimensions.width, dimensions.height);
+    }
+    
     protected virtual void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
         drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, origin.x, origin.y, -1, -1, 
             Gdk.RgbDither.NORMAL, 0, 0);
     }
     
-    public void paint(Gdk.GC gc, Gdk.Drawable drawable) {
+    public void paint(Gdk.GC gc, Gdk.Drawable drawable, Gdk.GC? border_gc) {
         // frame of FRAME_WIDTH size (determined by GC) only if selected ... however, this is
         // accounted for in allocation so the frame can appear without resizing the item
-        if (is_selected())
+        if (is_selected()){
             drawable.draw_rectangle(gc, false, allocation.x, allocation.y, allocation.width - 1,
-                pixbuf_dim.height + (FRAME_PADDING * 2) + FRAME_WIDTH);
+                pixbuf_dim.height + (FRAME_PADDING * 2) + (BORDER_WIDTH * 2) + FRAME_WIDTH);
+        }
         
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
-        pixbuf_origin.x = allocation.x + FRAME_WIDTH + FRAME_PADDING;
-        pixbuf_origin.y = allocation.y + FRAME_WIDTH + FRAME_PADDING;
+        pixbuf_origin.x = allocation.x + FRAME_WIDTH + FRAME_PADDING + BORDER_WIDTH;
+        pixbuf_origin.y = allocation.y + FRAME_WIDTH + FRAME_PADDING + BORDER_WIDTH;
+        
+        // draw border
+        if (display_pixbuf != null && border_gc != null) {
+            Dimensions border_dimensions = Dimensions.for_pixbuf(display_pixbuf);
+            border_dimensions.width += BORDER_WIDTH * 2;
+            border_dimensions.height += BORDER_WIDTH * 2;
+
+            Gdk.Point border_origin = Gdk.Point();
+            border_origin.x = pixbuf_origin.x - BORDER_WIDTH;
+            border_origin.y = pixbuf_origin.y - BORDER_WIDTH;
+
+            paint_border(border_gc, drawable, border_dimensions, border_origin);
+        }
         
         if (display_pixbuf != null)
             paint_image(gc, drawable, display_pixbuf, pixbuf_origin);
@@ -522,6 +544,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private string message = null;
     private Gdk.GC selected_gc = null;
     private Gdk.GC unselected_gc = null;
+    private Gdk.GC border_gc = null;
     private Gdk.GC selection_band_gc = null;
     private Gdk.Rectangle visible_page = Gdk.Rectangle();
     private int last_width = 0;
@@ -537,6 +560,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private CheckerboardItem? anchor = null;
     private bool in_center_on_anchor = false;
     private bool size_allocate_due_to_reflow = false;
+    private bool display_borders = true;
     
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
@@ -557,7 +581,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
 
-        Config.get_instance().bg_color_changed += on_bg_color_changed;
+        Config.get_instance().colors_changed += on_colors_changed;
+        Config.get_instance().display_borders_changed += on_display_borders_changed;
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
@@ -588,7 +613,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (parent != null)
             parent.size_allocate -= on_viewport_resized;
 
-        Config.get_instance().bg_color_changed -= on_bg_color_changed;
+        Config.get_instance().colors_changed -= on_colors_changed;
+        Config.get_instance().display_borders_changed -= on_display_borders_changed;
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -1421,14 +1447,16 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         base.map();
 
         selected_gc = new Gdk.GC(window);        
-        unselected_gc = new Gdk.GC(window);       
+        unselected_gc = new Gdk.GC(window);
+        border_gc = new Gdk.GC(window); 
         selection_band_gc = new Gdk.GC(window);
 
         set_colors();
     }
 
     private void set_colors() {
-        if (selected_gc == null || unselected_gc == null || selection_band_gc == null)
+        if (selected_gc == null || unselected_gc == null || border_gc == null ||
+            selection_band_gc == null)
             return;
         
         // set up selected/unselected colors
@@ -1436,6 +1464,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             Config.get_instance().get_selected_color().to_string(), window);
         Gdk.Color unselected_color = fetch_color(
             Config.get_instance().get_unselected_color().to_string(), window);
+        Gdk.Color border_color = fetch_color(
+            Config.get_instance().get_border_color().to_string(), window);
         selection_transparency_color = convert_rgba(selected_color, 0x40);
 
         // set up GC's for painting layout items
@@ -1456,6 +1486,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         gc_values.foreground = unselected_color;
         
         unselected_gc.set_values(gc_values, mask);
+
+        gc_values.foreground = border_color;
+        
+        border_gc.set_values(gc_values, mask);
 
         gc_values.line_width = 1;
         gc_values.foreground = selected_color;
@@ -1488,7 +1522,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(event.area))
-                item.paint(item.is_selected() ? selected_gc : unselected_gc, window);
+                item.paint(item.is_selected() ? selected_gc : unselected_gc, window,
+                    display_borders ? border_gc : null);
         } else {
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);
@@ -1553,8 +1588,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         return (item != null) ? item.query_tooltip(x, y, tooltip) : false;
     }
     
-    private void on_bg_color_changed(Gdk.Color color) {
-        modify_bg(Gtk.StateType.NORMAL, color);
+    private void on_colors_changed() {
+        modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
         set_colors();
+    }
+
+    private void on_display_borders_changed(bool display_borders) {
+        this.display_borders = display_borders;
+        need_exposure("on_display_borders_changed");
     }
 }
