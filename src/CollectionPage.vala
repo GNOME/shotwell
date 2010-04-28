@@ -683,6 +683,7 @@ public abstract class CollectionPage : CheckerboardPage {
         decorate_undo_item("/CollectionMenuBar/EditMenu/Undo");
         decorate_redo_item("/CollectionMenuBar/EditMenu/Redo");
         set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_view().get_count() > 0);
+        set_item_sensitive("/CollectionMenuBar/EditMenu/MoveToTrash", selected);
         set_item_sensitive("/CollectionMenuBar/EditMenu/Duplicate", selected);
     }
 
