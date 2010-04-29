@@ -190,7 +190,7 @@ endif
 
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
-	gtk+-2.0 >= 2.14.4 \
+	gtk+-2.0 >= 2.18.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9
 

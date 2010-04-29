@@ -98,7 +98,7 @@
     </action-widgets>
   </object>
   <object class="GtkDialog" id="preferences_dialog">
-    <property name="title" translatable="yes">Preferences</property>
+    <property name="title" translatable="yes">Shotwell Preferences</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
@@ -125,7 +125,9 @@
                     <child>
                       <object class="GtkLabel" id="bg_color_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Background:</property>
+                        <property name="label" translatable="yes">_Background:</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">hscale1</property>
                       </object>
                     </child>
                   </object>
@@ -182,10 +184,11 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="display_borders">
-                <property name="label" translatable="yes">Display borders</property>
+                <property name="label" translatable="yes">_Display borders</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -204,7 +207,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button3">
-                <property name="label">gtk-ok</property>
+                <property name="label">gtk-close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

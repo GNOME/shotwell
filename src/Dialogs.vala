@@ -330,11 +330,8 @@ private string? generate_import_failure_list(Gee.List<BatchImportResult> failed)
         list += "%s\n".printf(failed.get(ctr).identifier);
     
     int remaining = failed.size - REPORT_FAILURE_COUNT;
-    if (remaining > 0) {
-        string appendage = (ngettext("%d more photo not imported.\n",
-            "%d more photos not imported.\n", remaining)).printf(remaining);
-        list += appendage;
-    }
+    if (remaining > 0)
+        list += _("And %d more.\n").printf(remaining);
     
     return list;
 }
@@ -1179,8 +1176,6 @@ public class WelcomeDialog : Gtk.Dialog {
 public class PreferencesDialog {
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
-    private double initial_color_value;
-    private bool initial_border_setting;
     private Gtk.Adjustment bg_color_adjustment;
     private bool display_borders;
     
@@ -1190,10 +1185,9 @@ public class PreferencesDialog {
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         
-        initial_color_value = Config.get_instance().get_bg_color().red;
-
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
-        bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - initial_color_value);
+        bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
+            Config.get_instance().get_bg_color().red);
         bg_color_adjustment.value_changed += on_value_changed;
 
         Gtk.CheckButton display_borders_button = 
@@ -1202,25 +1196,18 @@ public class PreferencesDialog {
         display_borders_button.set_active(display_borders);
         display_borders_button.toggled += on_display_borders_toggled;
     }
-
+    
     public void execute() {
         dialog.show_all();
 
-        if (dialog.run() == Gtk.ResponseType.OK)
+        if (dialog.run() == Gtk.ResponseType.CLOSE)
             Config.get_instance().commit_bg_color();
-        else
-            revert_settings();
 
         dialog.destroy();
     }
-
-    public void on_value_changed() {
+    
+    private void on_value_changed() {
         set_background_color(bg_color_adjustment.get_upper() - bg_color_adjustment.get_value());
-    }
-
-    public void revert_settings() {
-        Config.get_instance().set_display_borders(initial_border_setting);
-        set_background_color(initial_color_value);
     }
 
     private void set_background_color(double bg_color_value) {
