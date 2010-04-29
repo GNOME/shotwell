@@ -1769,17 +1769,18 @@ public class LibraryPhotoPage : EditingHostPage {
         int scale;
         ScaleConstraint constraint;
         Jpeg.Quality quality;
-        if (!export_dialog.execute(out scale, out constraint, out quality))
+        PhotoFileFormat format = get_photo().get_file_format();
+        if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
             return;
         
-        File save_as = ExportUI.choose_file(get_photo().get_export_basename());
+        File save_as = ExportUI.choose_file(get_photo().get_export_basename(format));
         if (save_as == null)
             return;
         
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
         
         try {
-            get_photo().export(save_as, scaling, quality);
+            get_photo().export(save_as, scaling, quality, format);
         } catch (Error err) {
             AppWindow.error_message(_("Unable to export %s: %s").printf(save_as.get_path(), err.message));
         }
@@ -2366,7 +2367,8 @@ public class DirectPhotoPage : EditingHostPage {
         if (response == Gtk.ResponseType.YES)
             photo.remove_all_transformations();
         else if (response == Gtk.ResponseType.NO)
-            save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH);
+            save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
+                get_photo().get_file_format());
         else if (response == Gtk.ResponseType.CANCEL)
             return false;
 
@@ -2385,11 +2387,12 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations());
     }
     
-    private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality) {
+    private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
+        PhotoFileFormat format) {
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
         
         try {
-            get_photo().export(dest, scaling, quality);
+            get_photo().export(dest, scaling, quality, format);
         } catch (Error err) {
             AppWindow.error_message(_("Error while saving to %s: %s").printf(dest.get_path(),
                 err.message));
@@ -2420,7 +2423,8 @@ public class DirectPhotoPage : EditingHostPage {
             return;
 
         // save full-sized version right on top of the current file
-        save(get_photo().get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH);
+        save(get_photo().get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
+            get_photo().get_file_format());
     }
     
     private void on_save_as() {
@@ -2430,7 +2434,8 @@ public class DirectPhotoPage : EditingHostPage {
         int scale;
         ScaleConstraint constraint;
         Jpeg.Quality quality;
-        if (!export_dialog.execute(out scale, out constraint, out quality))
+        PhotoFileFormat format = get_photo().get_file_format();
+        if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
             return;
 
         Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog(_("Save As"), 
@@ -2446,7 +2451,7 @@ public class DirectPhotoPage : EditingHostPage {
             // flag to prevent asking user about losing changes to the old file (since they'll be
             // loaded right into the new one)
             drop_if_dirty = true;
-            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, quality);
+            save(File.new_for_uri(save_as_dialog.get_uri()), scale, constraint, quality, format);
             drop_if_dirty = false;
 
             current_save_dir = File.new_for_path(save_as_dialog.get_current_folder());

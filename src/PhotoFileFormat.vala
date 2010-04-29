@@ -30,6 +30,10 @@ public enum PhotoFileFormat {
 #endif
     }
     
+    public static PhotoFileFormat[] get_writable() {
+        return { JFIF, PNG };
+    }
+    
     public static PhotoFileFormat get_by_basename_extension(string basename) {
         string name, ext;
         disassemble_filename(basename, out name, out ext);
@@ -186,6 +190,13 @@ public abstract class PhotoFileFormatProperties {
     public abstract string get_default_extension();
     
     public abstract string[] get_known_extensions();
+
+    // returns the user-visible name of the file format -- this name is used in user interface
+    // strings whenever the file format needs to named. This name is not the same as the format
+    // enum value converted to a string. The format enum value is meaningful to developers and is
+    // constant across languages (e.g. "JFIF", "TGA") whereas the user-visible name is translatable
+    // and is meaningful to users (e.g. "JPEG", "Truevision TARGA")
+    public abstract string get_user_visible_name();
     
     // Takes a given file and returns one with the file format's default extension, unless it
     // already has one of the format's known extensions

@@ -60,7 +60,11 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     public override PhotoFileFormat get_file_format() {
         return PhotoFileFormat.RAW;
     }
-    
+
+    public override string get_user_visible_name() {
+        return _("RAW");
+    }
+
     public override PhotoFileFormatFlags get_flags() {
         return PhotoFileFormatFlags.MIMIC_RECOMMENDED;
     }

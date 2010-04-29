@@ -64,7 +64,11 @@ public class JfifFileFormatProperties : PhotoFileFormatProperties {
     public override string get_default_extension() {
         return "jpg";
     }
-    
+
+    public override string get_user_visible_name() {
+        return _("JPEG");
+    }
+
     public override string[] get_known_extensions() {
         return KNOWN_EXTENSIONS;
     }

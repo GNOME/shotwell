@@ -633,14 +633,16 @@ public abstract class CollectionPage : CheckerboardPage {
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources();
         if (export_list.size == 0)
             return;
-        
+
         string title = ngettext("Export Photo", "Export Photos", export_list.size);
         ExportDialog export_dialog = new ExportDialog(title);
-        
+
         int scale;
         ScaleConstraint constraint;
         Jpeg.Quality quality;
-        if (!export_dialog.execute(out scale, out constraint, out quality))
+        PhotoFileFormat format =
+            ((Gee.ArrayList<TransformablePhoto>) export_list).get(0).get_file_format();
+        if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
             return;
         
         Scaling scaling = Scaling.for_constraint(constraint, scale, false);
@@ -653,14 +655,14 @@ public abstract class CollectionPage : CheckerboardPage {
                 break;
             }
             
-            File save_as = ExportUI.choose_file(photo.get_export_basename());
+            File save_as = ExportUI.choose_file(photo.get_export_basename(format));
             if (save_as == null)
                 return;
                 
             spin_event_loop();
             
             try {
-                photo.export(save_as, scaling, quality);
+                photo.export(save_as, scaling, quality, format);
             } catch (Error err) {
                 AppWindow.error_message(_("Unable to export photo %s: %s").printf(
                     photo.get_file().get_path(), err.message));
@@ -674,7 +676,7 @@ public abstract class CollectionPage : CheckerboardPage {
         if (export_dir == null)
             return;
         
-        ExportUI.export_photos(export_dir, export_list);
+        ExportUI.export_photos(export_dir, export_list, scaling, quality, format);
     }
 
     private void on_edit_menu() {

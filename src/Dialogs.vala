@@ -49,7 +49,8 @@ public File? choose_dir() {
     return dir;
 }
 
-public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos) {
+public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos,
+    Scaling scaling, Jpeg.Quality quality, PhotoFileFormat format) {
     ProgressDialog dialog = null;
     Cancellable cancellable = null;
     if (photos.size > 2) {
@@ -63,7 +64,7 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
     int failed = 0;
     bool replace_all = false;
     foreach (TransformablePhoto photo in photos) {
-        string basename = photo.get_export_basename(PhotoFileFormat.JFIF);
+        string basename = photo.get_export_basename(format);
         File dest = folder.get_child(basename);
         
         if (!replace_all && dest.query_exists(null)) {
@@ -104,7 +105,7 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
             break;
         
         try {
-            photo.export(dest, Scaling.for_original(), Jpeg.Quality.HIGH);
+            photo.export(dest, scaling, quality, format);
         } catch (Error err) {
             failed++;
         }
@@ -133,6 +134,7 @@ public class ExportDialog : Gtk.Dialog {
     public const int DEFAULT_SCALE = 1200;
     public const ScaleConstraint DEFAULT_CONSTRAINT = ScaleConstraint.DIMENSIONS;
     public const Jpeg.Quality DEFAULT_QUALITY = Jpeg.Quality.HIGH;
+    public const PhotoFileFormat DEFAULT_FORMAT = PhotoFileFormat.JFIF;
     
     public const ScaleConstraint[] CONSTRAINT_ARRAY = { ScaleConstraint.ORIGINAL,
         ScaleConstraint.DIMENSIONS, ScaleConstraint.WIDTH, ScaleConstraint.HEIGHT };
@@ -147,17 +149,19 @@ public class ExportDialog : Gtk.Dialog {
     private Gtk.Table table = new Gtk.Table(0, 0, false);
     private Gtk.ComboBox quality_combo;
     private Gtk.ComboBox constraint_combo;
+    private Gtk.ComboBox format_combo;
     private Gtk.Entry pixels_entry;
     private Gtk.Widget ok_button;
     private bool in_insert = false;
     
     public ExportDialog(string title, int default_scale = DEFAULT_SCALE, 
         ScaleConstraint default_constraint = DEFAULT_CONSTRAINT, 
-        Jpeg.Quality default_quality = DEFAULT_QUALITY) {
+        Jpeg.Quality default_quality = DEFAULT_QUALITY,
+        PhotoFileFormat default_format = DEFAULT_FORMAT) {
         this.title = title;
         has_separator = false;
         allow_grow = false;
-        
+       
         // use defaults for controls
         current_scale = default_scale;
         current_constraint = default_constraint;
@@ -181,6 +185,11 @@ public class ExportDialog : Gtk.Dialog {
             ctr++;
         }
 
+        format_combo = new Gtk.ComboBox.text();
+        foreach (PhotoFileFormat format in PhotoFileFormat.get_writable()) {
+            format_combo.append_text(format.get_properties().get_user_visible_name());
+        }
+
         pixels_entry = new Gtk.Entry();
         pixels_entry.set_max_length(6);
         pixels_entry.set_size_request(60, -1);
@@ -188,16 +197,20 @@ public class ExportDialog : Gtk.Dialog {
         
         // register after preparation to avoid signals during init
         constraint_combo.changed += on_constraint_changed;
+        format_combo.changed += on_format_changed;
         pixels_entry.changed += on_pixels_changed;
         pixels_entry.insert_text += on_pixels_insert_text;
         pixels_entry.activate += on_activate;
 
-        // layout controls 
-        add_label(_("_Quality:"), 0, 0, quality_combo);
-        add_control(quality_combo, 1, 0);
+        // layout controls
+        add_label(_("_Format:"), 0, 0, format_combo);
+        add_control(format_combo, 1, 0);
+
+        add_label(_("_Quality:"), 0, 1, quality_combo);
+        add_control(quality_combo, 1, 1);
         
-        add_label(_("_Scaling constraint:"), 0, 1, constraint_combo);
-        add_control(constraint_combo, 1, 1);
+        add_label(_("_Scaling constraint:"), 0, 2, constraint_combo);
+        add_control(constraint_combo, 1, 2);
 
         Gtk.Label pixels_label = new Gtk.Label.with_mnemonic(_(" _pixels"));
         pixels_label.set_mnemonic_widget(pixels_entry);
@@ -205,7 +218,7 @@ public class ExportDialog : Gtk.Dialog {
         Gtk.HBox pixels_box = new Gtk.HBox(false, 0);
         pixels_box.pack_start(pixels_entry, false, false, 0);
         pixels_box.pack_end(pixels_label, false, false, 0);
-        add_control(pixels_box, 1, 2);
+        add_control(pixels_box, 1, 3);
         
         ((Gtk.VBox) get_content_area()).add(table);
         
@@ -224,8 +237,20 @@ public class ExportDialog : Gtk.Dialog {
         ok_button.grab_focus();
     }
     
-    public bool execute(out int scale, out ScaleConstraint constraint, out Jpeg.Quality quality) {
+    public bool execute(out int scale, out ScaleConstraint constraint, out Jpeg.Quality quality,
+        ref PhotoFileFormat user_format) {
         show_all();
+
+        // unlike other parameters, which should be persisted across dialog executions, format
+        // must be set each time the dialog is executed, so that the format displayed in the
+        // format combo box matches the format of the backing photo
+        int ctr = 0;
+        foreach (PhotoFileFormat format in PhotoFileFormat.get_writable()) {
+            if (format == user_format)
+                format_combo.set_active(ctr);           
+            ctr++;
+        }
+        on_format_changed();
 
         bool ok = (run() == Gtk.ResponseType.OK);
         if (ok) {
@@ -243,6 +268,10 @@ public class ExportDialog : Gtk.Dialog {
             assert(index >= 0);
             quality = QUALITY_ARRAY[index];
             current_quality = quality;
+
+            index = format_combo.get_active();
+            assert(index >= 0);
+            user_format = PhotoFileFormat.get_writable()[index];
         }
         
         destroy();
@@ -274,13 +303,22 @@ public class ExportDialog : Gtk.Dialog {
     }
     
     private void on_constraint_changed() {
-        bool original = (CONSTRAINT_ARRAY[constraint_combo.get_active()] == ScaleConstraint.ORIGINAL);
+        bool original = CONSTRAINT_ARRAY[constraint_combo.get_active()] == ScaleConstraint.ORIGINAL;
+        bool jpeg = format_combo.get_active_text() ==
+            PhotoFileFormat.JFIF.get_properties().get_user_visible_name();
         pixels_entry.sensitive = !original;
-        quality_combo.sensitive = !original;
+        quality_combo.sensitive = !original && jpeg;
         if (original)
             ok_button.sensitive = true;
         else
             on_pixels_changed();
+    }
+
+    private void on_format_changed() {
+        bool original = CONSTRAINT_ARRAY[constraint_combo.get_active()] == ScaleConstraint.ORIGINAL;
+        bool jpeg = format_combo.get_active_text() ==
+            PhotoFileFormat.JFIF.get_properties().get_user_visible_name();
+        quality_combo.sensitive = !original && jpeg;
     }
     
     private void on_activate() {

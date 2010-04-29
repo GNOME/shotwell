@@ -1882,15 +1882,18 @@ public class PhotoDragAndDropHandler {
     
     private void on_drag_end() {
         debug("on_drag_end (%s)", page.get_page_name());
-        
+
         if (page == null || page.get_view().get_selected_count() == 0 || drag_destination == null)
             return;
-        
+
         debug("Exporting to %s", drag_destination.get_path());
         
+        // drag-and-drop export doesn't pop up an export dialog, so use what are likely the
+        // most common export settings (JPEG file format, high quality, at full size)
         if (drag_destination.get_path() != null) {
             ExportUI.export_photos(drag_destination,
-                (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources());
+                (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources(),
+                 Scaling.for_original(), Jpeg.Quality.HIGH, PhotoFileFormat.JFIF);
         } else {
             AppWindow.error_message(_("Photos cannot be exported to this directory."));
         }

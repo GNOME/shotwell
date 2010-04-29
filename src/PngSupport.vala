@@ -25,7 +25,11 @@ class PngFileFormatProperties : PhotoFileFormatProperties {
     public override PhotoFileFormatFlags get_flags() {
         return PhotoFileFormatFlags.NONE;
     }
-    
+
+    public override string get_user_visible_name() {
+        return _("PNG");
+    }
+
     public override string get_default_extension() {
         return KNOWN_EXTENSIONS[0];
     }
@@ -93,8 +97,7 @@ public class PngWriter : PhotoFileWriter {
     }
 
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
-        int compression = (int) (9.0 * (1.0 - ((quality - 50.0) / 50.0)));
-        pixbuf.save(get_filepath(), "png", "compression", "%d".printf(compression), null);
+        pixbuf.save(get_filepath(), "png", "compression", "9", null);
     }
 }
 
