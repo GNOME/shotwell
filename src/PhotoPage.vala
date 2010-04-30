@@ -1161,11 +1161,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_tool_activated() {
         assert(current_editing_toggle != null);
+        zoom_slider.set_sensitive(false);
         current_editing_toggle.active = true;
     }
     
     private void on_tool_deactivated() {
         assert(current_editing_toggle != null);
+        zoom_slider.set_sensitive(true);
         current_editing_toggle.active = false;
     }
     
