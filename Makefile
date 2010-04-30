@@ -234,7 +234,8 @@ LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
 DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/* \
-	$(EXPANDED_PO_FILES) po/shotwell.pot vapi/*
+	$(EXPANDED_PO_FILES) po/shotwell.pot vapi/* windows/install-deps  windows/shotwell.rc \
+	windows/winstall.iss src/windows.c src/GConf.vala
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
