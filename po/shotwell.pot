@@ -16,6 +16,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+# GNOME Application Name
+msgid "Shotwell Photo Manager"
+msgstr ""
+
+# GNOME Application Class ("Generic Name")
+#: src/Resources.vala:14
+msgid "Photo Manager"
+msgstr ""
+
+# GNOME Application Comment
+msgid "Organize your photos"
+msgstr ""
+
+# GNOME Application Name for Direct Edit Mode
+msgid "Shotwell Photo Viewer"
+msgstr ""
+
+# GNOME Application Class for Direct Edit Mode
+#: src/Resources.vala:15
+msgid "Photo Viewer"
+msgstr ""
+
 #: src/AppDirs.vala:44
 msgid "Pictures"
 msgstr ""
@@ -579,10 +601,12 @@ msgstr[1] ""
 msgid "Original: "
 msgstr ""
 
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:911
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr ""
 
+# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:912
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr ""
@@ -1643,6 +1667,7 @@ msgid ""
 "%s"
 msgstr ""
 
+# The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:40
 msgid "%I:%M %p"
 msgstr ""
@@ -1740,14 +1765,6 @@ msgstr ""
 
 #: src/RawSupport.vala:65
 msgid "RAW"
-msgstr ""
-
-#: src/Resources.vala:14
-msgid "Photo Manager"
-msgstr ""
-
-#: src/Resources.vala:15
-msgid "Photo Viewer"
 msgstr ""
 
 #: src/Resources.vala:17
@@ -2207,6 +2224,7 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
+# The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:398
 msgid "%a %b %d, %Y"
 msgstr ""
