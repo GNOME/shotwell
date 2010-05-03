@@ -24,6 +24,10 @@ public class JfifFileFormatDriver : PhotoFileFormatDriver {
         return new JfifReader(filepath);
     }
     
+    public override PhotoMetadata create_metadata() {
+        return new PhotoMetadata();
+    }
+    
     public override bool can_write() {
         return true;
     }
@@ -93,27 +97,7 @@ public class JfifSniffer : GdkSniffer {
 
 public class JfifReader : GdkReader {
     public JfifReader(string filepath) {
-        base (filepath, PhotoFileFormat.JFIF, Exif.DataType.COMPRESSED);
-    }
-    
-    public override Exif.Data? read_exif() throws Error {
-        PhotoExif photo_exif = new PhotoExif(get_file());
-        try {
-            photo_exif.load();
-        } catch (Error err) {
-            if (err is ExifError.FILE_FORMAT)
-                return null;
-            
-            throw err;
-        }
-        
-        return photo_exif.get_exif();
-    }
-    
-    public override Gdk.Pixbuf? read_thumbnail() throws Error {
-        Exif.Data? exif = read_exif();
-        
-        return (exif != null) ? Exif.get_thumbnail_pixbuf(exif) : null;
+        base (filepath, PhotoFileFormat.JFIF);
     }
 }
 
@@ -122,14 +106,8 @@ public class JfifWriter : PhotoFileWriter {
         base (filepath, PhotoFileFormat.JFIF);
     }
     
-    public override Exif.Data new_exif() {
-        return (new PhotoExif(get_file())).get_exif();
-    }
-    
-    public override void write_exif(Exif.Data exif) throws Error {
-        PhotoExif photo_exif = new PhotoExif(get_file());
-        photo_exif.set_exif(exif);
-        photo_exif.commit();
+    public override void write_metadata(PhotoMetadata metadata) throws Error {
+        metadata.write_to_file(get_file());
     }
     
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
@@ -227,28 +205,6 @@ namespace Jpeg {
         
         // account for two length bytes already read
         return length - 2;
-    }
-    
-    // this writes the marker and a length (if positive)
-    private void write_marker(FileOutputStream fouts, Jpeg.Marker marker, int length) throws Error {
-        // this is required to compile
-        uint8 prefix = Jpeg.MARKER_PREFIX;
-        uint8 byte = marker.get_byte();
-        
-        size_t written;
-        fouts.write_all(&prefix, 1, out written, null);
-        fouts.write_all(&byte, 1, out written, null);
-
-        if (length <= 0)
-            return;
-
-        // +2 to account for length bytes
-        length += 2;
-        
-        uint16 host = (uint16) length.clamp(0, uint16.MAX);
-        uint16 motorola = (uint16) host.to_big_endian().clamp(0, uint16.MAX);
-
-        fouts.write_all(&motorola, 2, out written, null);
     }
 }
 

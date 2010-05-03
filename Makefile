@@ -55,7 +55,6 @@ SRC_FILES = \
 	image_util.vala \
 	CheckerboardLayout.vala \
 	PhotoPage.vala \
-	Exif.vala \
 	Page.vala \
 	ImportPage.vala \
 	GPhoto.vala \
@@ -102,6 +101,7 @@ SRC_FILES = \
 	PhotoFileAdapter.vala \
 	PhotoFileFormat.vala \
 	PhotoFileSniffer.vala \
+	PhotoMetadata.vala \
 	GRaw.vala \
 	GdkSupport.vala \
 	JfifSupport.vala \
@@ -165,7 +165,8 @@ EXT_PKGS = \
 	gee-1.0 \
 	gtk+-2.0 \
 	libexif \
-	sqlite3
+	sqlite3 \
+	gexiv2
 
 ifdef LINUX
 LOCAL_PKGS += \
@@ -192,7 +193,8 @@ EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
 	gtk+-2.0 >= 2.18.0 \
 	libexif >= 0.6.16 \
-	sqlite3 >= 3.5.9
+	sqlite3 >= 3.5.9 \
+	gexiv2 >= 0.0.2
 
 ifdef LINUX
 EXT_PKG_VERSIONS += \

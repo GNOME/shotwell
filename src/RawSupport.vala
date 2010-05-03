@@ -26,6 +26,10 @@ public class RawFileFormatDriver : PhotoFileFormatDriver {
         return new RawReader(filepath);
     }
     
+    public override PhotoMetadata create_metadata() {
+        return new PhotoMetadata();
+    }
+    
     public override bool can_write() {
         return false;
     }
@@ -108,10 +112,20 @@ public class RawSniffer : PhotoFileSniffer {
         detected.bits_per_channel = 8;
         
         RawReader reader = new RawReader(file.get_path());
-        detected.exif = reader.read_exif();
-        if (detected.exif != null) {
-            detected.exif_md5 = Exif.md5(detected.exif);
-            detected.thumbnail_md5 = Exif.thumbnail_md5(detected.exif);
+        try {
+            detected.metadata = reader.read_metadata();
+        } catch (Error err) {
+            // ignored
+        }
+        
+        if (detected.metadata != null) {
+            uint8[]? flattened_sans_thumbnail = detected.metadata.flatten_exif(false);
+            if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
+                detected.exif_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
+            
+            uint8[]? flattened_thumbnail = detected.metadata.flatten_exif_preview();
+            if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
+                detected.thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
         }
         
         if (calc_md5)
@@ -129,47 +143,11 @@ public class RawReader : PhotoFileReader {
         base (filepath, PhotoFileFormat.RAW);
     }
     
-    public override Exif.Data? read_exif() throws Error {
-        // If RAW file has embedded JPEG sidebar, attempt to read its EXIF first
-        GRaw.Processor processor = new GRaw.Processor();
+    public override PhotoMetadata read_metadata() throws Error {
+        PhotoMetadata metadata = new PhotoMetadata();
+        metadata.read_from_file(get_file());
         
-        processor.open_file(get_filepath());
-        processor.unpack_thumb();
-        
-        GRaw.ProcessedImage thumbnail = processor.make_thumb_image();
-        Exif.Data? exif = Exif.Data.new_from_data(thumbnail.data, thumbnail.data_size);
-        if (exif != null) {
-            exif.set_data_type(Exif.DataType.COMPRESSED);
-            
-            return exif;
-        }
-        
-        // Next try reading file as a whole (it may be TIFF-esque)
-        exif = Exif.Data.new_from_file(get_filepath());
-        if (exif != null)
-            exif.set_data_type(Exif.DataType.COMPRESSED);
-        
-        return exif;
-    }
-    
-    public override Gdk.Pixbuf? read_thumbnail() throws Error {
-        GRaw.Processor processor = new GRaw.Processor();
-        
-        processor.open_file(get_filepath());
-        processor.unpack_thumb();
-        
-        // try obtaining it through GRaw first
-        try {
-            return processor.make_thumb_image().get_pixbuf_copy();
-        } catch (GRaw.Exception err) {
-            if (!(err is GRaw.Exception.NO_THUMBNAIL) && !(err is GRaw.Exception.UNSUPPORTED_THUMBNAIL))
-                throw err;
-        }
-        
-        // try EXIF thumbnail next
-        Exif.Data? exif = read_exif();
-        
-        return (exif != null) ? Exif.get_thumbnail_pixbuf(exif) : null;
+        return metadata;
     }
     
     public override Gdk.Pixbuf unscaled_read() throws Error {

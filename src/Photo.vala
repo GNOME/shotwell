@@ -323,12 +323,13 @@ public abstract class TransformablePhoto: PhotoSource {
         time_t exposure_time = 0;
         string title = "";
         
-        if (detected.exif != null) {
-            if (!Exif.get_timestamp(detected.exif, out exposure_time))
-                warning("Unable to read EXIF timestamp for %s", file.get_path());
+        if (detected.metadata != null) {
+            MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
+            if (date_time != null)
+                exposure_time = date_time.get_timestamp();
             
-            orientation = Exif.get_orientation(detected.exif);
-            title = Exif.get_title(detected.exif);
+            orientation = detected.metadata.get_orientation();
+            title = detected.metadata.get_title();
         }
         
         // verify basic mechanics of photo: RGB 8-bit encoding
@@ -668,7 +669,7 @@ public abstract class TransformablePhoto: PhotoSource {
     // take into account properly updating a LibraryPhoto.  More work needs to be done here.
     public void update() throws Error {
         File file = get_file();
-
+        
         // TODO: Try to read JFIF metadata too
         FileInfo info = null;
         try {
@@ -679,7 +680,7 @@ public abstract class TransformablePhoto: PhotoSource {
         
         TimeVal timestamp = TimeVal();
         info.get_modification_time(out timestamp);
-
+        
         // interrogate file for photo information
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
         interrogator.interrogate();
@@ -689,15 +690,18 @@ public abstract class TransformablePhoto: PhotoSource {
             
             return;
         }
-
+        
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         string title = "";
-
-        if (detected.exif != null) {
-            orientation = Exif.get_orientation(detected.exif);
-            Exif.get_timestamp(detected.exif, out exposure_time);
-            title = Exif.get_title(detected.exif);
+        
+        if (detected.metadata != null) {
+            MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
+            if (date_time != null)
+                exposure_time = date_time.get_timestamp();
+            
+            orientation = detected.metadata.get_orientation();
+            title = detected.metadata.get_title();
         }
         
         PhotoID photo_id = get_photo_id();
@@ -825,11 +829,11 @@ public abstract class TransformablePhoto: PhotoSource {
             return;
         }
         
-        Exif.Data exif = reader.read_exif();
-        Exif.set_title(exif, title != null ? title : "");
+        PhotoMetadata metadata = reader.read_metadata();
+        metadata.set_title(title, true);
         
         PhotoFileWriter writer = reader.create_writer();
-        writer.write_exif(exif);
+        writer.write_metadata(metadata);
         
         set_title(title);
         
@@ -858,11 +862,11 @@ public abstract class TransformablePhoto: PhotoSource {
             return;
         }
         
-        Exif.Data exif = reader.read_exif();
-        Exif.set_timestamp(exif, time);
+        PhotoMetadata metadata = reader.read_metadata();
+        metadata.set_exposure_date_time(new MetadataDateTime(time));
         
         PhotoFileWriter writer = reader.create_writer();
-        writer.write_exif(exif);
+        writer.write_metadata(metadata);
         
         set_exposure_time(time);
         
@@ -962,16 +966,14 @@ public abstract class TransformablePhoto: PhotoSource {
             notify_altered();
     }
     
-    public override Exif.Data? get_exif() {
-        Exif.Data? exif = null;
+    public override PhotoMetadata? get_metadata() {
         try {
-            exif = reader.read_exif();
+            return reader.read_metadata();
         } catch (Error err) {
-            // return null
-            warning("Unable to load EXIF from %s: %s", reader.get_filepath(), err.message);
+            warning("Unable to load metadata from %s: %s", reader.get_filepath(), err.message);
+            
+            return null;
         }
-        
-        return exif;
     }
     
     // Transformation storage and exporting
@@ -988,32 +990,30 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
-    public bool only_exif_changed() {
-        time_t exposure_time = 0;
-        bool compare_time = false;
+    public bool only_metadata_changed() {
+        MetadataDateTime? date_time = null;
         
-        Exif.Data? exif = get_exif();
-        if (exif != null)
-            compare_time = Exif.get_timestamp(exif, out exposure_time);
+        PhotoMetadata? metadata = get_metadata();
+        if (metadata != null)
+            date_time = metadata.get_exposure_date_time();
         
         lock (row) {
             return row.transformations == null && 
                 (row.orientation != row.original_orientation ||
-                (compare_time && row.exposure_time != exposure_time));
+                (date_time != null && row.exposure_time != date_time.get_timestamp()));
         }
     }
     
     public bool has_alterations() {
-        time_t exposure_time = 0;
-        bool compare_time = false;
+        MetadataDateTime? date_time = null;
         
-        Exif.Data? exif = get_exif();
-        if (exif != null)
-            compare_time = Exif.get_timestamp(exif, out exposure_time);
+        PhotoMetadata? metadata = get_metadata();
+        if (metadata != null)
+            date_time = metadata.get_exposure_date_time();
         
         lock (row) {
             return row.transformations != null || row.orientation != row.original_orientation ||
-                (compare_time && row.exposure_time != exposure_time);
+                (date_time != null && row.exposure_time != date_time.get_timestamp());
         }
     }
     
@@ -1641,29 +1641,29 @@ public abstract class TransformablePhoto: PhotoSource {
         if (!has_alterations() && export_reader == reader)
             return true;
         
-        // copy over relevant EXIF
-        Exif.Data? exif = export_reader.read_exif();
-        if (exif == null) {
-            // No EXIF, if copying from original backing, done, otherwise, keep going
+        // copy over relevant metadata
+        PhotoMetadata? metadata = export_reader.read_metadata();
+        if (metadata == null) {
+            // No metadata, if copying from original backing, done, otherwise, keep going
             if (reader == export_reader)
                 return true;
             
-            exif = writer.new_exif();
+            metadata = export_reader.get_file_format().create_metadata();
         }
         
-        debug("Updating EXIF of %s", writer.get_filepath());
+        debug("Updating metadata of %s", writer.get_filepath());
         
         if (get_exposure_time() != 0)
-            Exif.set_timestamp(exif, get_exposure_time());
+            metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
         else
-            Exif.remove_timestamp(exif);
+            metadata.set_exposure_date_time(null);
         
-        Exif.set_orientation(exif, get_orientation());
+        metadata.set_orientation(get_orientation());
         
         if (get_orientation() != get_original_orientation())
-            Exif.remove_thumbnail(exif);
+            metadata.remove_exif_thumbnail();
         
-        writer.write_exif(exif);
+        writer.write_metadata(metadata);
         
         return true;
     }
@@ -1675,7 +1675,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // degrades image quality with JFIF format files. If alterations exist, but only EXIF has
         // changed and the user hasn't requested conversion between image formats, then just copy
         // the original file and update relevant EXIF.
-        if (scaling.is_unscaled() && (!has_alterations() || only_exif_changed()) &&
+        if (scaling.is_unscaled() && (!has_alterations() || only_metadata_changed()) &&
             (export_format == get_file_format())) {
             if (export_fullsized_backing(dest_file))
                 return;
@@ -1697,22 +1697,22 @@ public abstract class TransformablePhoto: PhotoSource {
         
         debug("Setting EXIF for %s", writer.get_filepath());
         
-        // copy over existing EXIF from source if available
-        Exif.Data exif = get_exif();
-        if (exif == null)
+        // copy over existing metadata from source if available
+        PhotoMetadata? metadata = get_metadata();
+        if (metadata == null)
             return;
         
-        Exif.set_dimensions(exif, dim);
-        Exif.set_orientation(exif, Orientation.TOP_LEFT);
+        metadata.set_pixel_dimensions(dim);
+        metadata.set_orientation(Orientation.TOP_LEFT);
         if (get_exposure_time() != 0)
-            Exif.set_timestamp(exif, get_exposure_time());
+            metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
         else
-            Exif.remove_timestamp(exif);
-        Exif.remove_all_tags(exif, Exif.Tag.RELATED_IMAGE_WIDTH);
-        Exif.remove_all_tags(exif, Exif.Tag.RELATED_IMAGE_LENGTH);
-        Exif.remove_thumbnail(exif);
+            metadata.set_exposure_date_time(null);
+        metadata.remove_tag("Exif.Iop.RelatedImageWidth");
+        metadata.remove_tag("Exif.Iop.RelatedImageHeight");
+        metadata.remove_exif_thumbnail();
         
-        writer.write_exif(exif);
+        writer.write_metadata(metadata);
     }
     
     //

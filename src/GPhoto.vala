@@ -141,21 +141,17 @@ namespace GPhoto {
                 folder, filename, dest_file.get_path(), res.as_string());
     }
     
-    public Exif.Data? load_exif(Context context, Camera camera, string folder, string filename) 
+    public PhotoMetadata? load_metadata(Context context, Camera camera, string folder, string filename)
         throws Error {
         uint8[] camera_raw = load_file_into_buffer(context, camera, folder, filename,
             GPhoto.CameraFileType.EXIF);
         if (camera_raw == null)
             return null;
         
-        // hand over camera raw to libexif anyway, which is able to handle it
-        Exif.Data? data = Exif.Data.new_from_data(camera_raw, camera_raw.length);
-        if (data != null) {
-            data.set_data_type(Exif.DataType.COMPRESSED);
-            data.fix();
-        }
+        PhotoMetadata metadata = new PhotoMetadata();
+        metadata.read_from_buffer(camera_raw);
         
-        return data;
+        return metadata;
     }
     
     // Returns an InputStream for the requested camera file.  The stream should be used

@@ -65,9 +65,7 @@ public abstract class PhotoFileReader : PhotoFileAdapter {
         return get_file_format().create_writer(get_filepath());
     }
     
-    public abstract Exif.Data? read_exif() throws Error;
-    
-    public abstract Gdk.Pixbuf? read_thumbnail() throws Error;
+    public abstract PhotoMetadata read_metadata() throws Error;
     
     public abstract Gdk.Pixbuf unscaled_read() throws Error;
     
@@ -89,9 +87,7 @@ public abstract class PhotoFileWriter : PhotoFileAdapter {
         return get_file_format().create_reader(get_filepath());
     }
     
-    public abstract Exif.Data new_exif();
-    
-    public abstract void write_exif(Exif.Data exif) throws Error;
+    public abstract void write_metadata(PhotoMetadata metadata) throws Error;
     
     public abstract void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error;
 }

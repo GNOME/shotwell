@@ -30,15 +30,16 @@ private bool claim_file(File file) throws Error {
 // method returns success a file may exist already, and should be overwritten.
 //
 // This function is thread safe.
-public File? generate_unique_file(string basename, Exif.Data? exif, time_t ts, out bool collision)
+public File? generate_unique_file(string basename, PhotoMetadata? metadata, time_t ts, out bool collision)
     throws Error {
-    // use EXIF exposure timestamp over the supplied one (which probably comes from the file's
-    // modified time, or is simply time())
+    // use exposure timestamp over the supplied one (which probably comes from the file's
+    // modified time, or is simply time()), unless it's zero, in which case use current time
     time_t timestamp = ts;
-    if (exif != null && !Exif.get_timestamp(exif, out timestamp)) {
-        // if no exposure time supplied, use supplied one, unless zero, in which case use time()
-        timestamp = ts;
-        if (timestamp == 0)
+    if (metadata != null) {
+        MetadataDateTime? date_time = metadata.get_exposure_date_time();
+        if (date_time != null)
+            timestamp = date_time.get_timestamp();
+        else if (timestamp == 0)
             timestamp = time_t();
     }
     
@@ -97,17 +98,16 @@ private File duplicate(File src, FileProgressCallback? progress_callback) throws
         critical("Unable to access file modification for %s: %s", src.get_path(), err.message);
     }
     
-    PhotoExif exif = new PhotoExif(src);
-    Exif.Data data;
+    PhotoFileReader reader = PhotoFileFormat.get_by_file_extension(src).create_reader(src.get_path());
+    PhotoMetadata? metadata = null;
     try {
-        exif.load();
-        data = exif.get_exif();
-    } catch (ExifError exif_err) {
-        data = null;
+        metadata = reader.read_metadata();
+    } catch (Error err) {
+        // ignored, leave metadata as null
     }
     
     bool collision;
-    File? dest = generate_unique_file(src.get_basename(), data, timestamp, out collision);
+    File? dest = generate_unique_file(src.get_basename(), metadata, timestamp, out collision);
     if (dest == null)
         throw new FileError.FAILED("Unable to generate unique pathname for destination");
     

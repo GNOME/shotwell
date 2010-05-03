@@ -1440,7 +1440,6 @@ public class PhotoTable : DatabaseTable {
             } else if (exif_md5 != null || thumbnail_md5 != null) {
                 GLib.warning("Warning: Not searching for duplicate for %s because both EXIF MD5s not provided",
                     file != null ? file.get_path() : "(no file provided)");
-                GLib.warning("(exif_md5=%s thumbnail_md5=%s)", exif_md5, thumbnail_md5);
             }
             
             if (md5 != null) {

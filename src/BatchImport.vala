@@ -697,11 +697,15 @@ private class PrepareFilesJob : BackgroundImportJob {
         // duplicate detection: If EXIF data present, look for a match with either EXIF itself
         // or the thumbnail.  If not, do a full MD5.
         PhotoFileReader reader = file_format.create_reader(file.get_path());
-        Exif.Data? exif = reader.read_exif();
-        if (exif != null) {
-            // get EXIF and thumbnail fingerprints
-            exif_only_md5 = Exif.md5(exif);
-            thumbnail_md5 = Exif.thumbnail_md5(exif);
+        PhotoMetadata? metadata = reader.read_metadata();
+        if (metadata != null) {
+            uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
+            if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
+                exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
+            
+            uint8[]? flattened_thumbnail = metadata.flatten_exif_preview();
+            if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
+                thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
         }
         
         // If no EXIF or thumbnail MD5, then do full MD5 match ... it's possible for

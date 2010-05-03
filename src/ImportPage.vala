@@ -19,7 +19,7 @@ class ImportSource : PhotoSource {
     private time_t modification_time;
     private Gdk.Pixbuf preview = null;
     private string? preview_md5 = null;
-    private Exif.Data exif = null;
+    private PhotoMetadata? metadata = null;
     private string? exif_md5 = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
@@ -45,10 +45,10 @@ class ImportSource : PhotoSource {
     }
     
     // Needed because previews and exif are loaded after other information has been gathered.
-    public void update(Gdk.Pixbuf preview, string? preview_md5, Exif.Data exif, string? exif_md5) {
+    public void update(Gdk.Pixbuf preview, string? preview_md5, PhotoMetadata? metadata, string? exif_md5) {
         this.preview = preview;
         this.preview_md5 = preview_md5;
-        this.exif = exif;
+        this.metadata = metadata;
         this.exif_md5 = exif_md5;
     }
     
@@ -65,31 +65,35 @@ class ImportSource : PhotoSource {
     }
     
     public override time_t get_exposure_time() {
-        time_t timestamp;
-        if (!Exif.get_timestamp(exif, out timestamp))
+        if (metadata == null)
             return modification_time;
-            
-        return timestamp;
+        
+        MetadataDateTime? date_time = metadata.get_exposure_date_time();
+        
+        return (date_time != null) ? date_time.get_timestamp() : modification_time;
     }
 
     public override Dimensions get_dimensions() {
-        Dimensions dim;
-        if (!Exif.get_dimensions(exif, out dim))
+        if (metadata == null)
             return Dimensions(0, 0);
         
-        return Exif.get_orientation(exif).rotate_dimensions(dim);
+        Dimensions? dim = metadata.get_pixel_dimensions();
+        if (dim == null)
+            return Dimensions(0, 0);
+        
+        return metadata.get_orientation().rotate_dimensions(dim);
     }
     
     public string? get_title() {
-        return exif != null ? Exif.get_title(exif).strip() : null;
+        return (metadata != null) ? metadata.get_title() : null;
     }
     
     public override uint64 get_filesize() {
         return file_size;
     }
-
-    public override Exif.Data? get_exif() {
-        return exif;
+    
+    public override PhotoMetadata? get_metadata() {
+        return metadata;
     }
     
     public string? get_exif_md5() {
@@ -138,8 +142,10 @@ class ImportPreview : CheckerboardItem {
             pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP, false);
 
         // honor rotation
-        Orientation orientation = Exif.get_orientation(source.get_exif());
-        set_image(orientation.rotate_pixbuf(pixbuf));
+        if (source.get_metadata() != null) {
+            Orientation orientation = source.get_metadata().get_orientation();
+            set_image(orientation.rotate_pixbuf(pixbuf));
+        }
     }
     
     public bool is_already_imported() {
@@ -820,15 +826,18 @@ public class ImportPage : CheckerboardPage {
                 progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
                 progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
                 
-                // load EXIF for photo, which will include the preview thumbnail
-                Exif.Data exif = GPhoto.load_exif(spin_idle_context.context, camera, fulldir, filename);
+                PhotoMetadata? metadata = GPhoto.load_metadata(spin_idle_context.context, camera,
+                    fulldir, filename);
                 
                 // calculate EXIF's fingerprint
                 string? exif_only_md5 = null;
-                if (exif != null)
-                    exif_only_md5 = Exif.md5(exif);
+                if (metadata != null) {
+                    uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
+                    if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
+                        exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
+                }
                 
-                // XXX: Cannot use the exif.data field for the thumbnail preview because libgphoto2
+                // XXX: Cannot use the metadata for the thumbnail preview because libgphoto2
                 // 2.4.6 has a bug where the returned EXIF data object is complete garbage.  This
                 // is fixed in 2.4.7, but need to work around this as best we can.  In particular,
                 // this means the preview orientation will be wrong and the MD5 is not generated
@@ -852,7 +861,7 @@ public class ImportPage : CheckerboardPage {
                 }
                 
                 // update the ImportSource with the fetched information
-                import_source.update(preview, preview_md5, exif, exif_only_md5);
+                import_source.update(preview, preview_md5, metadata, exif_only_md5);
                 
                 // *now* add to the SourceCollection, now that it is completed
                 import_sources.add(import_source);
@@ -936,7 +945,7 @@ public class ImportPage : CheckerboardPage {
             try {
                 bool collision;
                 dest_file = LibraryFiles.generate_unique_file(import_file.get_filename(), 
-                    import_file.get_exif(), import_file.get_exposure_time(), out collision);
+                    import_file.get_metadata(), import_file.get_exposure_time(), out collision);
             } catch (Error err) {
                 warning("Unable to generate local file for %s: %s", import_file.get_filename(),
                     err.message);

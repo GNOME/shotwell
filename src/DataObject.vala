@@ -631,7 +631,7 @@ public abstract class PhotoSource : ThumbnailSource {
 
     public abstract uint64 get_filesize();
 
-    public abstract Exif.Data? get_exif();
+    public abstract PhotoMetadata? get_metadata();
     
     public abstract Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error;
 }

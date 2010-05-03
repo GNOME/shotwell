@@ -6,7 +6,7 @@
 
 public class DetectedPhotoInformation {
     public PhotoFileFormat file_format = PhotoFileFormat.UNKNOWN;
-    public Exif.Data? exif = null;
+    public PhotoMetadata? metadata = null;
     public string? md5 = null;
     public string? exif_md5 = null;
     public string? thumbnail_md5 = null;

@@ -5,23 +5,15 @@
  */
 
 public abstract class GdkReader : PhotoFileReader {
-    private Exif.DataType? exif_datatype;
-    
-    public GdkReader(string filepath, PhotoFileFormat file_format, Exif.DataType? exif_datatype) {
+    public GdkReader(string filepath, PhotoFileFormat file_format) {
         base (filepath, file_format);
-        
-        this.exif_datatype = exif_datatype;
     }
     
-    public override Exif.Data? read_exif() throws Error {
-        if (exif_datatype == null)
-            return null;
-
-        Exif.Data? exif = Exif.Data.new_from_file(get_filepath());
-        if (exif != null)
-            exif.set_data_type(exif_datatype);
+    public override PhotoMetadata read_metadata() throws Error {
+        PhotoMetadata metadata = new PhotoMetadata();
+        metadata.read_from_file(get_file());
         
-        return exif;
+        return metadata;
     }
     
     public override Gdk.Pixbuf unscaled_read() throws Error {
@@ -54,22 +46,25 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         if (calc_md5)
             md5_checksum = new Checksum(ChecksumType.MD5);
         
-        // load EXIF
-        PhotoExif photo_exif = new PhotoExif(file);
+        detected.metadata = new PhotoMetadata();
         try {
-            photo_exif.load();
-            detected.exif = photo_exif.get_exif();
-            
-            if (calc_md5) {
-                detected.exif_md5 = photo_exif.get_md5();
-                detected.thumbnail_md5 = photo_exif.get_thumbnail_md5();
-            }
-        } catch (ExifError exif_err) {
-            // no EXIF to speak of
+            detected.metadata.read_from_file(file);
+        } catch (Error err) {
+            // no metadata detected
+            detected.metadata = null;
         }
-        photo_exif = null;
+
+        if (calc_md5 && detected.metadata != null) {
+            uint8[]? flattened_sans_thumbnail = detected.metadata.flatten_exif(false);
+            if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
+                detected.exif_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
+            
+            uint8[]? flattened_thumbnail = detected.metadata.flatten_exif_preview();
+            if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
+                detected.thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_sans_thumbnail.length);
+        }
         
-        // if no MD5, don't read as much, as the info will probably be gleaned
+        // if no MD5, don't read as much, as the needed info will probably be gleaned
         // in the first 8K to 16K
         uint8[] buffer = calc_md5 ? new uint8[64 * 1024] : new uint8[8 * 1024];
         size_t count = 0;

@@ -139,6 +139,10 @@ public enum PhotoFileFormat {
     public PhotoFileSniffer create_sniffer(File file, PhotoFileSniffer.Options options) {
         return get_driver().create_sniffer(file, options);
     }
+    
+    public PhotoMetadata create_metadata() {
+        return get_driver().create_metadata();
+    }
 }
 
 //
@@ -156,6 +160,8 @@ public abstract class PhotoFileFormatDriver {
     public abstract PhotoFileFormatProperties get_properties();
     
     public abstract PhotoFileReader create_reader(string filepath);
+    
+    public abstract PhotoMetadata create_metadata();
     
     public abstract bool can_write();
     

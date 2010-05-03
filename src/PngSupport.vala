@@ -75,11 +75,7 @@ public class PngSniffer : GdkSniffer {
 
 public class PngReader : GdkReader {
     public PngReader(string filepath) {
-        base (filepath, PhotoFileFormat.PNG, null);
-    }
-   
-    public override Gdk.Pixbuf? read_thumbnail() throws Error {
-        return null;
+        base (filepath, PhotoFileFormat.PNG);
     }
 }
 
@@ -87,15 +83,11 @@ public class PngWriter : PhotoFileWriter {
     public PngWriter(string filepath) {
         base (filepath, PhotoFileFormat.PNG);
     }
-
-    public override Exif.Data new_exif() {
-        return (new PhotoExif(get_file())).get_exif();
+    
+    public override void write_metadata(PhotoMetadata metadata) throws Error {
+        metadata.write_to_file(get_file());
     }
-
-    // TODO: add PNG EXIF support once we migrate to libexiv2 from libexif
-    public override void write_exif(Exif.Data exif) throws Error {
-    }
-
+    
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
         pixbuf.save(get_filepath(), "png", "compression", "9", null);
     }
@@ -131,6 +123,10 @@ public class PngFileFormatDriver : PhotoFileFormatDriver {
     
     public override PhotoFileSniffer create_sniffer(File file, PhotoFileSniffer.Options options) {
         return new PngSniffer(file, options);
+    }
+    
+    public override PhotoMetadata create_metadata() {
+        return new PhotoMetadata();
     }
 }
 

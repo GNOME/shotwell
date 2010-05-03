@@ -209,12 +209,20 @@ private class BasicProperties : Properties {
             end_time = start_time;
             
             dimensions = photo_source.get_dimensions();
-
-            Exif.Data exif = photo_source.get_exif();
-            if (exif != null) {
-                exposure = Exif.get_exposure(exif);
-                aperture = Exif.get_aperture(exif);
-                iso = Exif.get_iso(exif);
+            
+            PhotoMetadata? metadata = photo_source.get_metadata();
+            if (metadata != null) {
+                exposure = metadata.get_exposure_string();
+                if (exposure == null)
+                    exposure = "";
+                
+                aperture = metadata.get_aperture_string();
+                if (aperture == null)
+                    aperture = "";
+                
+                iso = metadata.get_iso_string();
+                if (iso == null)
+                    iso = "";
             }
         } else if (source is EventSource) {
             EventSource event_source = (EventSource) source;
@@ -389,7 +397,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         private const string NO_VALUE = "";
         private string file_path;
         private uint64 filesize;
-        private Dimensions original_dim;
+        private Dimensions? original_dim;
         private string camera_make;
         private string camera_model;
         private string flash;
@@ -398,6 +406,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         private string gps_lat_ref;
         private double gps_long;
         private string gps_long_ref;
+        private double gps_alt;
         private string artist;
         private string copyright;
         private string software;
@@ -407,7 +416,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
 
             file_path = "";
             filesize = 0;
-            original_dim = Dimensions(0,0);
+            original_dim = Dimensions(0, 0);
             camera_make = "";
             camera_model = "";
             flash = "";
@@ -423,34 +432,31 @@ private class ExtendedPropertiesWindow : Gtk.Window {
 
         protected override void get_single_properties(DataView view) {
             base.get_single_properties(view);
-
-            DataSource source = view.get_source();
-
-            if (source is PhotoSource) {
-                if (source is TransformablePhoto)
-                    file_path = ((TransformablePhoto) source).get_file().get_path();
-
-                filesize = ((PhotoSource) source).get_filesize();
-
-                Exif.Data exif = ((PhotoSource) source).get_exif();
-
-                if (exif != null) {
-                    Exif.get_dimensions(exif, out original_dim);
-                    camera_make = Exif.get_camera_make(exif);
-                    camera_model = Exif.get_camera_model(exif);
-                    flash = Exif.get_flash(exif);
-                    focal_length = Exif.get_focal_length(exif);
-                    gps_lat = Exif.get_gps_lat(exif);
-                    gps_lat_ref = Exif.get_gps_lat_ref(exif);
-                    gps_long = Exif.get_gps_long(exif);
-                    gps_long_ref = Exif.get_gps_long_ref(exif);
-                    artist = Exif.get_artist(exif);
-                    copyright = Exif.get_copyright(exif);
-                    software = Exif.get_software(exif);
-                }
-            }
+            
+            PhotoSource photo = view.get_source() as PhotoSource;
+            if (photo == null)
+                return;
+            
+            if (photo is TransformablePhoto)
+                file_path = ((TransformablePhoto) photo).get_file().get_path();
+            
+            filesize = photo.get_filesize();
+            
+            PhotoMetadata? metadata = photo.get_metadata();
+            if (metadata == null)
+                return;
+            
+            original_dim = metadata.get_pixel_dimensions();
+            camera_make = metadata.get_camera_make();
+            camera_model = metadata.get_camera_model();
+            flash = metadata.get_flash_string();
+            focal_length = metadata.get_focal_length_string();
+            metadata.get_gps(out gps_long, out gps_long_ref, out gps_lat, out gps_lat_ref, out gps_alt);
+            artist = metadata.get_artist();
+            copyright = metadata.get_copyright();
+            software = metadata.get_software();
         }
-
+        
         public override void update_properties(Page page) {
             base.update_properties(page);
 
@@ -459,7 +465,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             add_line(_("File size:"), (filesize > 0) ? 
                 format_size_for_display((int64) filesize) : NO_VALUE);
 
-            add_line(_("Original dimensions:"), (original_dim.has_area()) ?
+            add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
                 "%d x %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
 
             add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
