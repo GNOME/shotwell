@@ -890,7 +890,7 @@ public abstract class CheckerboardPage : Page {
 
         // mask out the modifiers we're interested in
         uint state = event.state & Gdk.ModifierType.SHIFT_MASK;
-
+        
         switch (Gdk.keyval_name(event.keyval)) {
             case "Up":
             case "KP_Up":

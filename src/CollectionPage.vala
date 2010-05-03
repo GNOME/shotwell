@@ -664,8 +664,7 @@ public abstract class CollectionPage : CheckerboardPage {
             try {
                 photo.export(save_as, scaling, quality, format);
             } catch (Error err) {
-                AppWindow.error_message(_("Unable to export photo %s: %s").printf(
-                    photo.get_file().get_path(), err.message));
+                run_export_error_dialog(save_as);
             }
             
             return;

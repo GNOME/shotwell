@@ -108,6 +108,11 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
             photo.export(dest, scaling, quality, format);
         } catch (Error err) {
             failed++;
+
+            Gtk.ResponseType response = run_export_error_dialog(dest, true);
+            
+            if (response == Gtk.ResponseType.CANCEL)
+                break;
         }
         
         if (dialog != null) {
@@ -120,13 +125,23 @@ public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos
         dialog.close();
     
     AppWindow.get_instance().set_normal_cursor();
-    
-    if (failed > 0) {
-        string msg = ngettext("Unable to export the photo due to a file error.",
-            "Unable to export %d photos due to file errors.", failed).printf(failed);
-        AppWindow.error_message(msg);
-    }
 }
+}
+
+public Gtk.ResponseType run_export_error_dialog(File dest, bool photos_remaining = false) {
+    string message = _("Unable to export the following photo due to a file error.\n\n") +
+        dest.get_path();
+
+    Gtk.ResponseType response = Gtk.ResponseType.NONE;
+
+    if (photos_remaining) {
+        message += _("\n\nWould you like to continue exporting?");
+        response = AppWindow.affirm_cancel_question(message, _("Con_tinue"));
+    } else {
+        AppWindow.error_message(message);
+    }
+
+    return response;
 }
 
 
