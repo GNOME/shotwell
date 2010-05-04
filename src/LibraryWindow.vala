@@ -174,6 +174,12 @@ public class LibraryWindow : AppWindow {
                 get_page();
             return page.get_page_context_menu();
         }
+
+        public bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null) {
+            if (page == null)
+                get_page();
+            return page.popup_context_menu(context_menu, event);
+        }
     }
 
     private class SubEventsDirectoryPageStub : PageStub {

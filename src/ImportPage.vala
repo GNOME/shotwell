@@ -287,6 +287,8 @@ public class ImportPage : CheckerboardPage {
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions(),
             create_toggle_actions());
+        init_item_context_menu("/ImportContextMenu");
+        init_page_context_menu("/ImportContextMenu");
         
         // Set up toolbar
         Gtk.Toolbar toolbar = get_toolbar();
@@ -1043,6 +1045,15 @@ public class ImportPage : CheckerboardPage {
         Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
         if (action != null)
             action.set_active(display);
+    }
+
+    public override bool on_context_invoked() {
+        set_item_sensitive("/ImportContextMenu/ContextImportSelected", !busy &&
+            get_view().get_selected_count() > 0);
+        set_item_sensitive("/ImportContextMenu/ContextImportAll", !busy && 
+            get_view().get_count() > 0);
+
+        return base.on_context_invoked();
     }
 }
 

@@ -34,6 +34,8 @@ public interface SidebarPage : Object {
     public abstract string get_page_name();
 
     public abstract Gtk.Menu? get_page_context_menu();
+
+    public abstract bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null);
 }
     
 public class Sidebar : Gtk.TreeView {
@@ -314,42 +316,32 @@ public class Sidebar : Gtk.TreeView {
         return path;
     }
     
-    private bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null) {
-        // TODO: share this code with Page, possibly through a contextable interface
-
-        if (context_menu == null)
-            return false;
-
-        if (event == null)
-            context_menu.popup(null, null, null, 0, Gtk.get_current_event_time());
-        else
-            context_menu.popup(null, null, null, event.button, event.time);
-
-        return true;
-    }
-
     private bool on_context_menu_keypress() {
         Gtk.TreePath path = get_selection().get_selected_rows(null).data;
-        Gtk.Menu context_menu = get_context_menu(path);
 
         scroll_to_cell(path, null, false, 0, 0);
 
-        popup_context_menu(context_menu);
+        popup_context_menu(path);
 
         return true;
     }
     
-    protected Gtk.Menu? get_context_menu(Gtk.TreePath path) {
+    protected bool popup_context_menu(Gtk.TreePath path, Gdk.EventButton? event = null) {
         SidebarPage page = locate_page(path);
 
-        return (page != null) ? page.get_page_context_menu() : null;
+        if (page == null)
+            return false;
+
+        Gtk.Menu context_menu = page.get_page_context_menu();
+
+        return (context_menu != null) ? page.popup_context_menu(context_menu, event) : false;
     }
 
     private override bool button_press_event(Gdk.EventButton event) {
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
 
-            popup_context_menu(get_context_menu(get_path_from_event(event)), event);
+            popup_context_menu(get_path_from_event(event), event);
         } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
             // double left click
 

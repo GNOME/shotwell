@@ -34,5 +34,10 @@
             <menuitem name="About" action="CommonAbout" />
         </menu>
     </menubar>
+
+    <popup name="ImportContextMenu">
+            <menuitem name="ContextImportSelected" action="ImportSelected" />
+            <menuitem name="ContextImportAll" action="ImportAll" />
+    </popup>
     
 </ui>

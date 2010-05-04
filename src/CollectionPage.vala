@@ -573,6 +573,14 @@ public abstract class CollectionPage : CheckerboardPage {
         bool handled = true;
         
         switch (Gdk.keyval_name(event.keyval)) {
+            case "Page_Up":
+                on_page_up();
+            break;
+
+            case "Page_Down":
+                on_page_down();
+            break;
+
             case "equal":
             case "plus":
             case "KP_Add":
@@ -591,6 +599,17 @@ public abstract class CollectionPage : CheckerboardPage {
         }
         
         return handled ? true : base.on_app_key_pressed(event);
+    }
+
+    protected void on_page_up() {
+        Gtk.Adjustment vadjustment = get_vadjustment();
+        vadjustment.set_value(vadjustment.get_value() - vadjustment.get_page_increment());
+    }
+    
+    protected void on_page_down() {
+        Gtk.Adjustment vadjustment = get_vadjustment();
+        vadjustment.set_value((vadjustment.get_value() + vadjustment.get_page_increment()).clamp(
+            vadjustment.get_lower(), vadjustment.get_upper() - vadjustment.get_page_size()));
     }
     
     public void increase_thumb_size() {

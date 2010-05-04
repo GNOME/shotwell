@@ -747,9 +747,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
 
     protected bool popup_context_menu(Gtk.Menu? context_menu,
         Gdk.EventButton? event = null) {
-        on_context_invoked();
 
-        if (context_menu == null)
+        if (context_menu == null || !on_context_invoked())
             return false;
 
         if (event == null)
@@ -815,7 +814,8 @@ public abstract class CheckerboardPage : Page {
    
     public Gtk.Menu? get_context_menu() {
         // show page context menu if nothing is selected
-        return (get_view().get_selected_count() != 0) ? get_item_context_menu() : get_page_context_menu();
+        return (get_view().get_selected_count() != 0) ? get_item_context_menu() :
+            get_page_context_menu();
     }
     
     public virtual Gtk.Menu? get_item_context_menu() {
@@ -1117,15 +1117,7 @@ public abstract class CheckerboardPage : Page {
         }
        
         Gtk.Menu context_menu = get_context_menu();
-        if (context_menu == null)
-            return false;
-
-        if (!on_context_invoked())
-            return false;
-
-        context_menu.popup(null, null, null, event.button, event.time);
-
-        return true;
+        return popup_context_menu(context_menu, event);
     }
     
     protected virtual bool on_mouse_over(CheckerboardItem? item, int x, int y, Gdk.ModifierType mask) {
