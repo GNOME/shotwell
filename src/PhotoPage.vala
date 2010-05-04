@@ -1699,8 +1699,8 @@ public class LibraryPhotoPage : EditingHostPage {
         ViewCollection controller = get_controller();
         if (controller != null && has_photo()) {
             controller.unselect_all();
-            Marker marker = controller.mark(controller.get_view_for_source(get_photo()));
-            controller.select_marked(marker);
+            
+            return_page.set_cursor((CheckerboardItem) controller.get_view_for_source(get_photo()));
         }
         
         LibraryWindow.get_app().switch_to_page(return_page);

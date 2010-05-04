@@ -1309,6 +1309,14 @@ public abstract class CheckerboardPage : Page {
             cursor_to_item(item);
    }
 
+    public void set_cursor(CheckerboardItem item) {
+        Marker marker = get_view().mark(item);
+        get_view().select_marked(marker);
+            
+        cursor = item;
+        anchor = item;
+   }
+
     public void select_between_items(CheckerboardItem item_start, CheckerboardItem item_end) {
         Marker marker = get_view().start_marking();
 
