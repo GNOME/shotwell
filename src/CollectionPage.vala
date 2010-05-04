@@ -256,13 +256,13 @@ public abstract class CollectionPage : CheckerboardPage {
         actions += decrease_size;
 
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
-            TRANSLATABLE, "<Ctrl>R", TRANSLATABLE, on_rotate_clockwise };
+            TRANSLATABLE, "bracketright", TRANSLATABLE, on_rotate_clockwise };
         rotate_right.label = Resources.ROTATE_CW_MENU;
         rotate_right.tooltip = Resources.ROTATE_CW_TOOLTIP;
         actions += rotate_right;
 
         Gtk.ActionEntry rotate_left = { "RotateCounterclockwise", Resources.COUNTERCLOCKWISE,
-            TRANSLATABLE, "<Ctrl><Shift>R", TRANSLATABLE, on_rotate_counterclockwise };
+            TRANSLATABLE, "bracketleft", TRANSLATABLE, on_rotate_counterclockwise };
         rotate_left.label = Resources.ROTATE_CCW_MENU;
         rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_left;

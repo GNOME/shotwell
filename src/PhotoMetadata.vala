@@ -729,7 +729,9 @@ public class PhotoMetadata {
         if (title != null)
             title = title.strip();
         
-        return !is_string_empty(title) ? title : null;
+        // check for \n and \r to prevent multiline titles, which have been spotted in the wild
+        return (!is_string_empty(title) && !title.contains("\n") && !title.contains("\r")) ?
+            title : null;
     }
     
     public void set_title(string? title, bool only_if_domain_present) {
