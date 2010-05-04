@@ -145,11 +145,11 @@ namespace GPhoto {
         throws Error {
         uint8[] camera_raw = load_file_into_buffer(context, camera, folder, filename,
             GPhoto.CameraFileType.EXIF);
-        if (camera_raw == null)
+        if (camera_raw == null || camera_raw.length == 0)
             return null;
         
         PhotoMetadata metadata = new PhotoMetadata();
-        metadata.read_from_buffer(camera_raw);
+        metadata.read_from_app1_segment(camera_raw);
         
         return metadata;
     }

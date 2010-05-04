@@ -193,6 +193,7 @@ public class PhotoMetadata {
     }
     
     public void read_from_file(File file) throws Error {
+        exiv2 = new GExiv2.Metadata();
         exiv2.open_path(file.get_path());
         exif = Exif.Data.new_from_file(file.get_path());
         source_name = file.get_basename();
@@ -203,11 +204,26 @@ public class PhotoMetadata {
     }
     
     public void read_from_buffer(uint8[] buffer, int length = 0) throws Error {
+        if (length <= 0)
+            length = buffer.length;
+        
         assert(buffer.length >= length);
         
+        exiv2 = new GExiv2.Metadata();
         exiv2.open_buf(buffer, length);
         exif = Exif.Data.new_from_data(buffer, length);
         source_name = "<memory buffer %d bytes>".printf(length);
+    }
+    
+    public void read_from_app1_segment(uint8[] buffer, int length = 0) throws Error {
+        if (length <= 0)
+            length = buffer.length;
+        
+        assert(buffer.length >= length);
+        
+        exiv2 = new GExiv2.Metadata();
+        exiv2.from_app1_segment(buffer, length);
+        source_name = "<app1 segment %d bytes>".printf(length);
     }
     
     public static MetadataDomain get_tag_domain(string tag) {
