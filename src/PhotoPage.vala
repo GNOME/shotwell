@@ -2430,8 +2430,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_save_as() {
-        ExportDialog export_dialog = new ExportDialog(_("Save As"), ExportDialog.DEFAULT_SCALE,
-            ScaleConstraint.ORIGINAL, ExportDialog.DEFAULT_QUALITY);
+        ExportDialog export_dialog = new ExportDialog(_("Save As"));
         
         int scale;
         ScaleConstraint constraint;

@@ -169,18 +169,10 @@ public class ExportDialog : Gtk.Dialog {
     private Gtk.Widget ok_button;
     private bool in_insert = false;
     
-    public ExportDialog(string title, int default_scale = DEFAULT_SCALE, 
-        ScaleConstraint default_constraint = DEFAULT_CONSTRAINT, 
-        Jpeg.Quality default_quality = DEFAULT_QUALITY,
-        PhotoFileFormat default_format = DEFAULT_FORMAT) {
+    public ExportDialog(string title) {
         this.title = title;
         has_separator = false;
         allow_grow = false;
-       
-        // use defaults for controls
-        current_scale = default_scale;
-        current_constraint = default_constraint;
-        current_quality = default_quality;
 
         quality_combo = new Gtk.ComboBox.text();
         int ctr = 0;
@@ -384,7 +376,7 @@ private string? generate_import_failure_list(Gee.List<BatchImportResult> failed)
     
     int remaining = failed.size - REPORT_FAILURE_COUNT;
     if (remaining > 0)
-        list += _("And %d more.\n").printf(remaining);
+        list += _("(and %d more)\n").printf(remaining);
     
     return list;
 }
