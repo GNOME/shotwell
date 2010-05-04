@@ -720,8 +720,6 @@ public class PhotoMetadata {
     
     private static string[] TITLE_TAGS = {
         "Exif.Image.ImageDescription",
-        "Exif.Photo.UserComment",
-        "Exif.Image.XPComment",
         "Xmp.dc.Title",
         "Iptc.Application2.Caption"
     };
