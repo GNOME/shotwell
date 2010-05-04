@@ -4,6 +4,10 @@
  * See the COPYING file in this distribution. 
  */
 
+// This is only needed until the following ticket is closed (see EventDirectoryItem's paint_border)
+// https://bugzilla.gnome.org/show_bug.cgi?id=617000
+extern void gdk_gc_get_values(Gdk.GC *gc, Gdk.GCValues *values);
+
 bool is_color_parsable(string spec) {
     Gdk.Color color;
     return Gdk.Color.parse(spec, out color);
@@ -73,10 +77,27 @@ Gdk.Pixbuf resize_pixbuf(Gdk.Pixbuf pixbuf, Dimensions resized, Gdk.InterpType i
 
 private const double DEGREE = Math.PI / 180.0;
 
+void draw_rounded_corners_filled(Gdk.GC gc, Gdk.Drawable drawable, Dimensions dim, Gdk.Point origin,
+    double radius_proportion) {
+    Cairo.Context cx = get_rounded_corners_context(drawable, dim, origin, 
+        radius_proportion);
+    
+    // gc.get_values(out values) cannot be used due to a vapi binding bug
+    // https://bugzilla.gnome.org/show_bug.cgi?id=617000
+    Gdk.GCValues values = Gdk.GCValues();
+    gdk_gc_get_values(gc, &values);
+
+    Gdk.Color color;
+    gc.colormap.query_color(values.foreground.pixel, out color);
+
+    Gdk.cairo_set_source_color(cx, color);
+    cx.paint();
+}
+
 Cairo.Context get_rounded_corners_context(Gdk.Drawable drawable, Dimensions dim, Gdk.Point origin, 
     double radius_proportion) {
     // establish a reasonable range
-    radius_proportion = radius_proportion.clamp(2.0, 20.0);
+    radius_proportion = radius_proportion.clamp(2.0, 100.0);
     
     double left = origin.x;
     double top = origin.y;

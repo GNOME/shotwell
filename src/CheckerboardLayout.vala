@@ -98,9 +98,8 @@ public abstract class CheckerboardItem : ThumbnailView {
     // SHOW_SUBTITLES (bool)
     public const string PROP_SHOW_SUBTITLES = "show-subtitles";
     
-    public const int FRAME_WIDTH = 1;
+    public const int FRAME_WIDTH = 3;
     public const int LABEL_PADDING = 4;
-    public const int FRAME_PADDING = 4;
     public const int BORDER_WIDTH = 1;
     
     public const int TRINKET_SCALE = 12;
@@ -258,7 +257,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     // CheckerboardItem) which this item should be aligned to.  This allows for
     // bottom-alignment along the bottom edge of the thumbnail.
     public int get_alignment_point() {
-        return FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height;
+        return FRAME_WIDTH + pixbuf_dim.height;
     }
     
     public virtual void exposed() {
@@ -306,7 +305,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     public static int get_max_width(int scale) {
         // width is frame width (two sides) + frame padding (two sides) + width of pixbuf (text
         // never wider)
-        return (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + scale;
+        return (FRAME_WIDTH * 2) + scale;
     }
     
     public virtual Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
@@ -335,12 +334,12 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         // width is frame width (two sides) + frame padding (two sides) + width of pixbuf/trinkets
         // (text never wider)
-        requisition.width = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + (BORDER_WIDTH * 2)
+        requisition.width = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2)
             + image_width;
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
-        requisition.height = (FRAME_WIDTH * 2) + (FRAME_PADDING * 2) + (BORDER_WIDTH * 2)
+        requisition.height = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2)
             + pixbuf_dim.height + title_height + subtitle_height;
         
 #if TRACE_REFLOW_ITEMS
@@ -356,42 +355,66 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
     }
     
-    protected virtual void paint_border(Gdk.GC gc, Gdk.Drawable drawable, Dimensions dimensions, 
-        Gdk.Point origin) {
-        // border should be one pixel wide...if we want to change this later, we should pass it in
-        drawable.draw_rectangle(gc, true, origin.x, origin.y, dimensions.width, dimensions.height);
+    protected static Dimensions get_border_dimensions(Dimensions object_dim, int border_width) {
+        Dimensions dimensions = Dimensions();    
+        dimensions.width = object_dim.width + (border_width * 2);
+        dimensions.height = object_dim.height + (border_width * 2);
+        return dimensions;
+    }
+    
+    protected static Gdk.Point get_border_origin(Gdk.Point object_origin, int border_width) {
+        Gdk.Point origin = Gdk.Point();
+        origin.x = object_origin.x - border_width;
+        origin.y = object_origin.y - border_width;
+        return origin;
+    }
+    
+    protected virtual void paint_border(Gdk.GC gc, Gdk.Drawable drawable, 
+        Dimensions object_dimensions, Gdk.Point object_origin, int border_width) {
+        if (border_width == 1) {
+            drawable.draw_rectangle(gc, true, object_origin.x - border_width, 
+                object_origin.y - border_width, object_dimensions.width + (border_width * 2),
+                object_dimensions.height + (border_width * 2));
+        } else {
+            Dimensions dimensions = get_border_dimensions(object_dimensions, border_width);
+            Gdk.Point origin = get_border_origin(object_origin, border_width);
+            
+            // amount of rounding needed on corners varies by size of object
+            double scale = int.max(object_dimensions.width, object_dimensions.height);
+            draw_rounded_corners_filled(gc, drawable, dimensions, origin, 0.25 * scale);
+        }
     }
     
     protected virtual void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
         drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, origin.x, origin.y, -1, -1, 
             Gdk.RgbDither.NORMAL, 0, 0);
     }
+
+    private int get_selection_border_width(int scale, bool has_border) {
+        return ((scale <= ((Thumbnail.MIN_SCALE + Thumbnail.MAX_SCALE) / 3)) ? 2 : 3) 
+            + (has_border ? BORDER_WIDTH : 0);
+    }
     
     public void paint(Gdk.GC gc, Gdk.Drawable drawable, Gdk.GC? border_gc) {
-        // frame of FRAME_WIDTH size (determined by GC) only if selected ... however, this is
-        // accounted for in allocation so the frame can appear without resizing the item
-        if (is_selected()){
-            drawable.draw_rectangle(gc, false, allocation.x, allocation.y, allocation.width - 1,
-                pixbuf_dim.height + (FRAME_PADDING * 2) + (BORDER_WIDTH * 2) + FRAME_WIDTH);
-        }
-        
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
-        pixbuf_origin.x = allocation.x + FRAME_WIDTH + FRAME_PADDING + BORDER_WIDTH;
-        pixbuf_origin.y = allocation.y + FRAME_WIDTH + FRAME_PADDING + BORDER_WIDTH;
+        pixbuf_origin.x = allocation.x + FRAME_WIDTH + BORDER_WIDTH;
+        pixbuf_origin.y = allocation.y + FRAME_WIDTH + BORDER_WIDTH;
+        
+        bool has_border = (display_pixbuf != null && border_gc != null);
+        
+        // draw selection border
+        if (is_selected()) {
+            // border thickness depends on the size of the thumbnail
+            int scale = int.max(pixbuf_dim.width, pixbuf_dim.height);
+            
+            paint_border(gc, drawable, pixbuf_dim, pixbuf_origin,
+                get_selection_border_width(scale, has_border));
+        }
         
         // draw border
-        if (display_pixbuf != null && border_gc != null) {
-            Dimensions border_dimensions = Dimensions.for_pixbuf(display_pixbuf);
-            border_dimensions.width += BORDER_WIDTH * 2;
-            border_dimensions.height += BORDER_WIDTH * 2;
-
-            Gdk.Point border_origin = Gdk.Point();
-            border_origin.x = pixbuf_origin.x - BORDER_WIDTH;
-            border_origin.y = pixbuf_origin.y - BORDER_WIDTH;
-
-            paint_border(border_gc, drawable, border_dimensions, border_origin);
-        }
+        if (has_border)
+            paint_border(border_gc, drawable, pixbuf_dim, pixbuf_origin, BORDER_WIDTH);
         
         if (display_pixbuf != null)
             paint_image(gc, drawable, display_pixbuf, pixbuf_origin);
@@ -407,12 +430,11 @@ public abstract class CheckerboardItem : ThumbnailView {
         int image_width = int.max(trinkets_width, pixbuf_dim.width);
         
         // title and subtitles are LABEL_PADDING below bottom of pixbuf
-        int text_y = allocation.y + FRAME_WIDTH + FRAME_PADDING + pixbuf_dim.height + FRAME_PADDING
-            + FRAME_WIDTH + LABEL_PADDING;
+        int text_y = allocation.y + FRAME_WIDTH + pixbuf_dim.height + FRAME_WIDTH + LABEL_PADDING;
         if (title != null && title_visible) {
             // get the layout sized so its with is no more than the pixbuf's
             // resize the text width to be no more than the pixbuf's
-            title.allocation = { allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
+            title.allocation = { allocation.x + FRAME_WIDTH, text_y,
                 image_width, title.get_height() };
             
             Gdk.draw_layout(drawable, gc, title.allocation.x, title.allocation.y,
@@ -422,8 +444,8 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
         
         if (subtitle != null && subtitle_visible) {
-            subtitle.allocation = { allocation.x + FRAME_WIDTH + FRAME_PADDING, text_y,
-                image_width, subtitle.get_height() };
+            subtitle.allocation = { allocation.x + FRAME_WIDTH, text_y, image_width,
+                subtitle.get_height() };
             
             Gdk.draw_layout(drawable, gc, subtitle.allocation.x, subtitle.allocation.y,
                 subtitle.get_pango_layout(image_width));
@@ -435,7 +457,8 @@ public abstract class CheckerboardItem : ThumbnailView {
         if (trinkets != null) {
             int current_trinkets_width = 0;
             foreach (Gdk.Pixbuf trinket in trinkets) {
-                current_trinkets_width = current_trinkets_width + trinket.get_width() + TRINKET_PADDING;
+                current_trinkets_width = current_trinkets_width + trinket.get_width() +
+                    TRINKET_PADDING;
                 drawable.draw_pixbuf(gc, trinket, 0, 0, 
                     pixbuf_origin.x + pixbuf_dim.width - current_trinkets_width,
                     pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() - TRINKET_PADDING, 
