@@ -68,7 +68,7 @@ public class DataSet {
         list.resort(comparator_wrapper);
     }
     
-    public Gee.Iterable<DataObject> get_all() {
+    public Gee.Collection<DataObject> get_all() {
         // TODO: Returning a copy because of code elsewhere that removes items during an iteration.
         // This needs to be fixed.
         return list.copy();
@@ -109,12 +109,12 @@ public class DataSet {
         if (count == 0)
             return true;
         
-        if (!list.add_many(objects))
+        if (!list.add_all(objects))
             return false;
         
         if (!hash_set.add_all(objects)) {
             // back out previous operation
-            list.remove_many(objects);
+            list.remove_all(objects);
             
             return false;
         }
@@ -137,7 +137,7 @@ public class DataSet {
     public bool remove_many(Gee.List<DataObject> objects) {
         bool success = true;
         
-        if (!list.remove_many(objects))
+        if (!list.remove_all(objects))
             success = false;
         
         if (!hash_set.remove_all(objects))
@@ -167,9 +167,9 @@ public interface Marker : Object {
 
     public abstract bool toggle(DataObject object);
     
-    public abstract void mark_many(Gee.Iterable<DataObject> list);
+    public abstract void mark_many(Gee.Collection<DataObject> list);
     
-    public abstract void unmark_many(Gee.Iterable<DataObject> list);
+    public abstract void unmark_many(Gee.Collection<DataObject> list);
     
     public abstract void mark_all();
     
@@ -282,7 +282,7 @@ public class DataCollection {
             return marked.contains(object);
         }
         
-        public void mark_many(Gee.Iterable<DataObject> list) {
+        public void mark_many(Gee.Collection<DataObject> list) {
             foreach (DataObject object in list) {
                 assert(owner.internal_contains(object));
                 
@@ -290,7 +290,7 @@ public class DataCollection {
             }
         }
         
-        public void unmark_many(Gee.Iterable<DataObject> list) {
+        public void unmark_many(Gee.Collection<DataObject> list) {
             foreach (DataObject object in list) {
                 assert(owner.internal_contains(object));
                 
@@ -474,7 +474,7 @@ public class DataCollection {
         notify_ordering_changed();
     }
     
-    public virtual Gee.Iterable<DataObject> get_all() {
+    public virtual Gee.Collection<DataObject> get_all() {
         return dataset.get_all();
     }
     
@@ -563,7 +563,7 @@ public class DataCollection {
     }
     
     // Returns number of items added to collection.
-    public int add_many(Gee.Iterable<DataObject> objects, ProgressMonitor? monitor = null) {
+    public int add_many(Gee.Collection<DataObject> objects, ProgressMonitor? monitor = null) {
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
             if (internal_contains(object)) {
@@ -1715,11 +1715,11 @@ public class ViewCollection : DataCollection {
         base.reset_comparator();
     }
     
-    public override Gee.Iterable<DataObject> get_all() {
+    public override Gee.Collection<DataObject> get_all() {
         return (visible != null) ? visible.get_all() : base.get_all();
     }
     
-    public Gee.Iterable<DataObject> get_all_unfiltered() {
+    public Gee.Collection<DataObject> get_all_unfiltered() {
         return base.get_all();
     }    
 
@@ -1967,8 +1967,8 @@ public class ViewCollection : DataCollection {
         return selected.get_count();
     }
     
-    public Gee.Iterable<DataView> get_selected() {
-        return (Gee.Iterable<DataView>) selected.get_all();
+    public Gee.Collection<DataView> get_selected() {
+        return (Gee.Collection<DataView>) selected.get_all();
     }
     
     public DataView? get_selected_at(int index) {

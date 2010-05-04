@@ -346,7 +346,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         // sort photos by date
         SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(source_comparator);
-        imported_photos.add_many(unsorted_photos);
+        imported_photos.add_all(unsorted_photos);
 
         // walk through photos, splitting into new events when the boundary hour is crossed
         Event current_event = null;

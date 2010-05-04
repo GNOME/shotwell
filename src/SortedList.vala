@@ -10,7 +10,7 @@ public int64 file_comparator(void *a, void *b) {
     return strcmp(((File *) a)->get_path(), ((File *) b)->get_path());
 }
 
-public class SortedList<G> : Object, Gee.Iterable<G> {
+public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
     private Gee.ArrayList<G> list;
     private Comparator? cmp;
     
@@ -40,7 +40,39 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         return true;
     }
     
-    public bool add_many(Gee.List<G> items) {
+    public bool add_all(Gee.Collection<G> collection) {
+        if (collection.size == 0)
+            return false;
+        
+        Gee.List<G> as_list = collection as Gee.List<G>;
+        if (as_list != null)
+            return add_list(as_list);
+        
+        if (cmp == null)
+            return list.add_all(collection);
+        
+        bool changed = false;
+        if (collection.size == 1) {
+            Gee.Iterator<G> iter = collection.iterator();
+            iter.next();
+            G item = iter.get();
+            
+            list.insert(get_sorted_insert_pos(item), item);
+            changed = true;
+        } else {
+            Gee.List<G> items = new Gee.ArrayList<G>();
+            items.add_all(collection);
+            
+            changed = merge_sort(items);
+        }
+        
+#if VERIFY_SORTED_LIST
+        assert(is_sorted());
+#endif
+        return changed;
+    }
+    
+    public bool add_list(Gee.List<G> items) {
         bool added = false;
         if (items.size == 0) {
             // do nothing, return false
@@ -72,12 +104,26 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         return list.contains(item);
     }
     
+    public bool contains_all(Gee.Collection<G> collection) {
+        return list.contains_all(collection);
+    }
+    
+    public bool is_empty {
+        get {
+            return list.is_empty;
+        }
+    }
+    
     public bool remove(G? item) {
         return list.remove(item);
     }
     
-    public bool remove_many(Gee.Collection<G> items) {
-        return list.remove_all(items);
+    public bool remove_all(Gee.Collection<G> collection) {
+        return list.remove_all(collection);
+    }
+    
+    public bool retain_all(Gee.Collection<G> collection) {
+        return list.retain_all(collection);
     }
     
     public int size {
@@ -120,8 +166,18 @@ public class SortedList<G> : Object, Gee.Iterable<G> {
         return -1;
     }
     
+    public Gee.Collection<G> read_only_view {
+        owned get {
+            return list.read_only_view;
+        }
+    }
+    
     public void remove_at(int index) {
         list.remove_at(index);
+    }
+    
+    public G[] to_array() {
+        return list.to_array();
     }
     
     public void resort(Comparator new_cmp) {

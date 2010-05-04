@@ -12,7 +12,7 @@ extern bool already_running();
 extern int number_of_processors();
 #else
 int number_of_processors() {
-    int n = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN) - 1;
+    int n = (int) ExtendedPosix.sysconf(ExtendedPosix.ConfName._SC_NPROCESSORS_ONLN);
     return n <= 0 ? 1 : n;
 }
 #endif
