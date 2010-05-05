@@ -223,6 +223,7 @@ public class PhotoMetadata {
         
         exiv2 = new GExiv2.Metadata();
         exiv2.from_app1_segment(buffer, length);
+        exif = Exif.Data.new_from_data(buffer, length);
         source_name = "<app1 segment %d bytes>".printf(length);
     }
     

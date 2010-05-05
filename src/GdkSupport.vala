@@ -61,7 +61,7 @@ public abstract class GdkSniffer : PhotoFileSniffer {
             
             uint8[]? flattened_thumbnail = detected.metadata.flatten_exif_preview();
             if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
-                detected.thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_sans_thumbnail.length);
+                detected.thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
         }
         
         // if no MD5, don't read as much, as the needed info will probably be gleaned
