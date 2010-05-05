@@ -199,16 +199,21 @@ void editing_exec(string filename) {
 
 bool no_startup_progress = false;
 bool no_mimicked_images = false;
+string data_dir = null;
 
 const OptionEntry[] options = {
     { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
         N_("Don't display startup progress meter"), null },
     { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
         N_("Don't used JPEGs to display RAW images"), null },
+    { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
+        N_("Path to Shotwell's private data"), N_("DIRECTORY") },
     { null }
 };
 
 void main(string[] args) {
+    // Call AppDirs init *before* calling Gtk.init_with_args, as it will strip the
+    // exec file from the array
     AppDirs.init(args[0]);
 #if WINDOWS
     win_init(AppDirs.get_exec_dir());
@@ -223,6 +228,13 @@ void main(string[] args) {
         AppDirs.terminate();
         return;
     }
+    
+    // set custom data directory if it's been supplied
+    if (data_dir != null)
+        AppDirs.set_data_dir(File.parse_name(data_dir));
+    
+    // Verify the private data directory before continuing
+    AppDirs.verify_data_dir();
     
     // init internationalization with the default system locale
     InternationalSupport.init(Resources.APP_GETTEXT_PACKAGE, args);

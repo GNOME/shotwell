@@ -5,14 +5,27 @@
  */
 
 class AppDirs {
-    static File exec_dir;
+    private const string DEFAULT_DATA_DIR = ".shotwell";
     
-    private const string DATA_DIR = ".shotwell";
-
+    private static File exec_dir;
+    private static File data_dir = null;
+    
     public static void init(string arg0) {
         File exec_file = File.new_for_path(Environment.find_program_in_path(arg0));
         exec_dir = exec_file.get_parent();
-
+    }
+    
+    public static void terminate() {
+    }
+    
+    // This can only be called once, and it better be called at startup
+    public static void set_data_dir(File user_data_dir) {
+        assert(data_dir == null);
+        message("Setting private data directory to %s", user_data_dir.get_path());
+        data_dir = user_data_dir;
+    }
+    
+    public static void verify_data_dir() {
         File data_dir = get_data_dir();
         try {
             if (data_dir.query_exists(null) == false) {
@@ -24,16 +37,15 @@ class AppDirs {
         }
     }
     
-    public static void terminate() {
-    }
-    
     // Return the directory in which Shotwell is installed, or null if uninstalled.
     public static File? get_install_dir() {
         return get_sys_install_dir(exec_dir);
     }
     
     public static File get_data_dir() {
-        return File.new_for_path(Environment.get_home_dir()).get_child(DATA_DIR);
+        return (data_dir == null)
+            ? File.new_for_path(Environment.get_home_dir()).get_child(DEFAULT_DATA_DIR)
+            : data_dir;
     }
     
     public static File get_photos_dir() {
