@@ -395,7 +395,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             + (has_border ? BORDER_WIDTH : 0);
     }
     
-    public void paint(Gdk.GC gc, Gdk.Drawable drawable, Gdk.GC? border_gc) {
+    public void paint(Gdk.Drawable drawable, Gdk.GC gc, Gdk.GC text_gc, Gdk.GC? border_gc) {
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
         pixbuf_origin.x = allocation.x + FRAME_WIDTH + BORDER_WIDTH;
@@ -437,7 +437,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             title.allocation = { allocation.x + FRAME_WIDTH, text_y,
                 image_width, title.get_height() };
             
-            Gdk.draw_layout(drawable, gc, title.allocation.x, title.allocation.y,
+            Gdk.draw_layout(drawable, text_gc, title.allocation.x, title.allocation.y,
                 title.get_pango_layout(image_width));
             
             text_y += title.get_height() + LABEL_PADDING;
@@ -447,7 +447,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             subtitle.allocation = { allocation.x + FRAME_WIDTH, text_y, image_width,
                 subtitle.get_height() };
             
-            Gdk.draw_layout(drawable, gc, subtitle.allocation.x, subtitle.allocation.y,
+            Gdk.draw_layout(drawable, text_gc, subtitle.allocation.x, subtitle.allocation.y,
                 subtitle.get_pango_layout(image_width));
             
             // increment text_y if more text lines follow
@@ -1545,7 +1545,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(event.area))
-                item.paint(item.is_selected() ? selected_gc : unselected_gc, window,
+                item.paint(window, item.is_selected() ? selected_gc : unselected_gc, unselected_gc,
                     display_borders ? border_gc : null);
         } else {
             // draw the message in the center of the window

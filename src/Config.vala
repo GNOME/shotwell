@@ -14,14 +14,14 @@ public class Config {
     public const int SIDEBAR_MAX_POSITION = 1000;
     private const string DEFAULT_BG_COLOR = "#444";
     private const uint BLACK_THRESHOLD = 40000;
-    private const string DARK_SELECTED_COLOR = "#079";
+    private const string DARK_SELECTED_COLOR = "#0AD";
     private const string LIGHT_SELECTED_COLOR = "#2DF";
     private const string DARK_UNSELECTED_COLOR = "#000";
     private const string LIGHT_UNSELECTED_COLOR = "#FFF";
     private const string DARK_BORDER_COLOR = "#666";
     private const string LIGHT_BORDER_COLOR = "#AAA";
-    private const string DARK_UNFOCUSED_SELECTED_COLOR = "#7a9299";
-    private const string LIGHT_UNFOCUSED_SELECTED_COLOR = "#ccf7ff";
+    private const string DARK_UNFOCUSED_SELECTED_COLOR = "#6fc4dd";
+    private const string LIGHT_UNFOCUSED_SELECTED_COLOR = "#99efff";
 
     private string bg_color = null;
     private string selected_color = null;
