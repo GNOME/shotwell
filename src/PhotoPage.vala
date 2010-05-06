@@ -1653,6 +1653,8 @@ public class LibraryPhotoPage : EditingHostPage {
             return true;
         }
         
+        AppWindow.get_instance().end_fullscreen();
+        
         return base.on_double_click(event);
     }
     
