@@ -1400,9 +1400,9 @@ public abstract class TransformablePhoto: PhotoSource {
         return pixbuf;
     }
 
-    // Returns a raw, untransformed, scaled pixbuf from the source that has been rotated
-    // according to its original EXIF settings
-    public Gdk.Pixbuf get_original_pixbuf(Scaling scaling) throws Error {
+    // Returns a raw, untransformed, scaled pixbuf from the source that has been optionally rotated
+    // according to its original EXIF settings.
+    public Gdk.Pixbuf get_original_pixbuf(Scaling scaling, bool rotate = true) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -1427,7 +1427,8 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
         timer.start();
 #endif
-        pixbuf = original_orientation.rotate_pixbuf(pixbuf);
+        if (rotate)
+            pixbuf = original_orientation.rotate_pixbuf(pixbuf);
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
         

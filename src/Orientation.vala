@@ -203,7 +203,42 @@ public enum Orientation {
                 return this;
         }
     }
-
+    
+    public Rotation[] to_rotations() {
+        switch (this) {
+            case TOP_LEFT:
+                // identity orientation
+                return { };
+            
+            case TOP_RIGHT:
+                return { Rotation.MIRROR };
+            
+            case BOTTOM_RIGHT:
+                return { Rotation.UPSIDE_DOWN };
+            
+            case BOTTOM_LEFT:
+                // flip top-to-bottom
+                return { Rotation.MIRROR, Rotation.UPSIDE_DOWN };
+            
+            case LEFT_TOP:
+                return { Rotation.COUNTERCLOCKWISE, Rotation.UPSIDE_DOWN };
+            
+            case RIGHT_TOP:
+                return { Rotation.CLOCKWISE };
+            
+            case RIGHT_BOTTOM:
+                return { Rotation.CLOCKWISE, Rotation.UPSIDE_DOWN };
+            
+            case LEFT_BOTTOM:
+                return { Rotation.COUNTERCLOCKWISE };
+            
+            default:
+                error("to_rotations: %d", this);
+                
+                return { };
+        }
+    }
+    
     public Dimensions rotate_dimensions(Dimensions dim) {
         switch (this) {
             case Orientation.TOP_LEFT:

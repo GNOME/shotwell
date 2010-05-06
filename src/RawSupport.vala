@@ -94,6 +94,7 @@ public class RawSniffer : PhotoFileSniffer {
         DetectedPhotoInformation detected = new DetectedPhotoInformation();
         
         GRaw.Processor processor = new GRaw.Processor();
+        processor.output_params->user_flip = GRaw.Flip.NONE;
         
         try {
             processor.open_file(file.get_path());
@@ -153,6 +154,7 @@ public class RawReader : PhotoFileReader {
     public override Gdk.Pixbuf unscaled_read() throws Error {
         GRaw.Processor processor = new GRaw.Processor();
         processor.configure_for_rgb_display(false);
+        processor.output_params->user_flip = GRaw.Flip.NONE;
         
         processor.open_file(get_filepath());
         processor.unpack();
@@ -168,6 +170,7 @@ public class RawReader : PhotoFileReader {
         
         GRaw.Processor processor = new GRaw.Processor();
         processor.configure_for_rgb_display(half_size);
+        processor.output_params->user_flip = GRaw.Flip.NONE;
         
         processor.open_file(get_filepath());
         processor.unpack();
