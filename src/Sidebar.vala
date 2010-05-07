@@ -37,7 +37,7 @@ public interface SidebarPage : Object {
 
     public abstract bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null);
 }
-    
+
 public class Sidebar : Gtk.TreeView {
     private Gtk.TreeStore store = new Gtk.TreeStore(2, typeof(string), typeof(SidebarPage));
     private Gtk.TreePath current_path = null;
@@ -306,48 +306,53 @@ public class Sidebar : Gtk.TreeView {
         return false;
     }
 
-    private Gtk.TreePath get_path_from_event(Gdk.EventButton event) {
+    private Gtk.TreePath? get_path_from_event(Gdk.EventButton event) {
         int x, y, cell_x, cell_y;
         Gdk.ModifierType mask;
         event.window.get_pointer(out x, out y, out mask);
+        
         Gtk.TreePath path;
-        get_path_at_pos(x, y, out path, null, out cell_x, out cell_y);
-
-        return path;
+        return get_path_at_pos(x, y, out path, null, out cell_x, out cell_y) ? path : null;
     }
     
     private bool on_context_menu_keypress() {
-        Gtk.TreePath path = get_selection().get_selected_rows(null).data;
-
+        GLib.List<Gtk.TreePath> rows = get_selection().get_selected_rows(null);
+        if (rows == null)
+            return false;
+        
+        Gtk.TreePath? path = rows.data;
+        if (path == null)
+            return false;
+        
         scroll_to_cell(path, null, false, 0, 0);
-
         popup_context_menu(path);
-
+        
         return true;
     }
     
     protected bool popup_context_menu(Gtk.TreePath path, Gdk.EventButton? event = null) {
         SidebarPage page = locate_page(path);
-
         if (page == null)
             return false;
-
+        
         Gtk.Menu context_menu = page.get_page_context_menu();
-
+        
         return (context_menu != null) ? page.popup_context_menu(context_menu, event) : false;
     }
 
     private override bool button_press_event(Gdk.EventButton event) {
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
-
-            popup_context_menu(get_path_from_event(event), event);
+            Gtk.TreePath? path = get_path_from_event(event);
+            if (path != null)
+                popup_context_menu(path, event);
         } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
             // double left click
-
-            toggle_branch_expansion(get_path_from_event(event));
+            Gtk.TreePath? path = get_path_from_event(event);
+            if (path != null)
+                toggle_branch_expansion(path);
         }
-
+        
         return base.button_press_event(event);
     }
 
@@ -356,7 +361,7 @@ public class Sidebar : Gtk.TreeView {
             toggle_branch_expansion(current_path);
             return false;
         }
-
+        
         return base.key_press_event(event);
     }
 
