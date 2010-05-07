@@ -608,6 +608,7 @@ public class PhotoMetadata {
         exiv2.erase_exif_thumbnail();
         if (exif != null) {
             Exif.Mem.new_default().free(exif.data);
+            exif.data = null;
             exif.size = 0;
         }
     }
