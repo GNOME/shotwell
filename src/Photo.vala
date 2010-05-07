@@ -115,6 +115,28 @@ public enum ImportResult {
     }
 }
 
+public class PhotoImportParams {
+    // IN:
+    public File file;
+    public ImportID import_id;
+    public PhotoFileSniffer.Options sniffer_options;
+    
+    // IN/OUT:
+    public Thumbnails? thumbnails;
+    
+    // OUT:
+    public PhotoRow row = PhotoRow();
+    public Gee.Collection<string>? keywords = null;
+    
+    public PhotoImportParams(File file, ImportID import_id, PhotoFileSniffer.Options sniffer_options,
+        Thumbnails? thumbnails = null) {
+        this.file = file;
+        this.import_id = import_id;
+        this.sniffer_options = sniffer_options;
+        this.thumbnails = thumbnails;
+    }
+}
+
 public interface PhotoTransformationState : Object {
 }
 
@@ -274,11 +296,12 @@ public abstract class TransformablePhoto: PhotoSource {
     // photo itself is bogus and should be discarded.
     //
     // NOTE: This method is thread-safe.
-    public static ImportResult prepare_for_import(File file, ImportID import_id,
-        PhotoFileSniffer.Options options, out PhotoRow photo_row, Thumbnails? thumbnails) {
+    public static ImportResult prepare_for_import(PhotoImportParams params) {
 #if MEASURE_IMPORT
         Timer total_time = new Timer();
 #endif
+        File file = params.file;
+        
         FileInfo info = null;
         try {
             info = file.query_info("standard::*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
@@ -305,7 +328,7 @@ public abstract class TransformablePhoto: PhotoSource {
         info.get_modification_time(out timestamp);
         
         // interrogate file for photo information
-        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file, options);
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file, params.sniffer_options);
         try {
             interrogator.interrogate();
         } catch (Error err) {
@@ -335,6 +358,7 @@ public abstract class TransformablePhoto: PhotoSource {
             
             orientation = detected.metadata.get_orientation();
             title = detected.metadata.get_title();
+            params.keywords = detected.metadata.get_keywords();
         }
         
         // verify basic mechanics of photo: RGB 8-bit encoding
@@ -349,31 +373,29 @@ public abstract class TransformablePhoto: PhotoSource {
         // photo information is initially stored in database in raw, non-modified format ... this is
         // especially important dealing with dimensions and orientation ... Don't trust EXIF
         // dimensions, they can lie or not be present
-        photo_row.photo_id = PhotoID();
-        photo_row.filepath = file.get_path();
-        photo_row.dim = detected.image_dim;
-        photo_row.filesize = info.get_size();
-        photo_row.timestamp = timestamp.tv_sec;
-        photo_row.exposure_time = exposure_time;
-        photo_row.orientation = orientation;
-        photo_row.original_orientation = orientation;
-        photo_row.import_id = import_id;
-        photo_row.event_id = EventID();
-        photo_row.transformations = null;
-        photo_row.md5 = detected.md5;
-        photo_row.thumbnail_md5 = detected.thumbnail_md5;
-        photo_row.exif_md5 = detected.exif_md5;
-        photo_row.time_created = 0;
-        photo_row.flags = 0;
-        photo_row.file_format = detected.file_format;
-        photo_row.title = title;
+        params.row.photo_id = PhotoID();
+        params.row.filepath = file.get_path();
+        params.row.dim = detected.image_dim;
+        params.row.filesize = info.get_size();
+        params.row.timestamp = timestamp.tv_sec;
+        params.row.exposure_time = exposure_time;
+        params.row.orientation = orientation;
+        params.row.original_orientation = orientation;
+        params.row.import_id = params.import_id;
+        params.row.event_id = EventID();
+        params.row.transformations = null;
+        params.row.md5 = detected.md5;
+        params.row.thumbnail_md5 = detected.thumbnail_md5;
+        params.row.exif_md5 = detected.exif_md5;
+        params.row.time_created = 0;
+        params.row.flags = 0;
+        params.row.file_format = detected.file_format;
+        params.row.title = title;
         
-        if (thumbnails != null) {
-            // can't use the pixbuf, if it was fetched, because it might not be (and most likely
-            // isn't) full-sized, in which case, the thumbnails would be doubly scaled
-            PhotoFileReader reader = photo_row.file_format.create_reader(photo_row.filepath);
+        if (params.thumbnails != null) {
+            PhotoFileReader reader = params.row.file_format.create_reader(params.row.filepath);
             try {
-                ThumbnailCache.generate(thumbnails, reader, photo_row.orientation, photo_row.dim);
+                ThumbnailCache.generate(params.thumbnails, reader, params.row.orientation, params.row.dim);
             } catch (Error err) {
                 return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
             }
@@ -2195,19 +2217,20 @@ public class LibraryPhoto : Photo {
     // has not already been inserted in the database.  See PhotoTable.add() for which fields are
     // used and which are ignored.  The PhotoRow itself will be modified with the remaining values
     // as they are stored in the database.
-    public static ImportResult import(ref PhotoRow photo_row, Thumbnails thumbnails, out LibraryPhoto photo) {
+    public static ImportResult import(PhotoImportParams params, out LibraryPhoto photo) {
         // add to the database
-        PhotoID photo_id = PhotoTable.get_instance().add(ref photo_row);
+        PhotoID photo_id = PhotoTable.get_instance().add(ref params.row);
         if (photo_id.is_invalid())
             return ImportResult.DATABASE_ERROR;
         
         // create local object but don't add to global until thumbnails generated
-        photo = new LibraryPhoto(photo_row);
+        photo = new LibraryPhoto(params.row);
         
         try {
-            ThumbnailCache.import_thumbnails(photo_id, thumbnails, true);
+            assert(params.thumbnails != null);
+            ThumbnailCache.import_thumbnails(photo_id, params.thumbnails, true);
         } catch (Error err) {
-            warning("Unable to create thumbnails for %s: %s", photo_row.filepath, err.message);
+            warning("Unable to create thumbnails for %s: %s", params.row.filepath, err.message);
             
             PhotoTable.get_instance().remove(photo_id);
             
@@ -2215,6 +2238,12 @@ public class LibraryPhoto : Photo {
         }
         
         global.add(photo);
+        
+        // if photo has tags/keywords, add them now
+        if (params.keywords != null) {
+            foreach (string keyword in params.keywords)
+                Tag.for_name(keyword).attach(photo);
+        }
         
         return ImportResult.SUCCESS;
     }
@@ -2479,10 +2508,9 @@ public class DirectPhoto : Photo {
     // This method should only be called by DirectPhotoSourceCollection.  Use
     // DirectPhoto.global.fetch to import files into the system.
     public static DirectPhoto? internal_import(File file) {
-        PhotoRow photo_row;
-        ImportResult result = TransformablePhoto.prepare_for_import(file, 
-            PhotoTable.get_instance().generate_import_id(), PhotoFileSniffer.Options.NO_MD5, 
-            out photo_row, null);
+        PhotoImportParams params = new PhotoImportParams(file, PhotoTable.get_instance().generate_import_id(),
+            PhotoFileSniffer.Options.NO_MD5);
+        ImportResult result = TransformablePhoto.prepare_for_import(params);
         if (result != ImportResult.SUCCESS) {
             // this should never happen; DirectPhotoSourceCollection guarantees it.
             assert(result != ImportResult.PHOTO_EXISTS);
@@ -2490,10 +2518,10 @@ public class DirectPhoto : Photo {
             return null;
         }
         
-        PhotoTable.get_instance().add(ref photo_row);
+        PhotoTable.get_instance().add(ref params.row);
         
         // create DataSource and add to SourceCollection
-        DirectPhoto photo = new DirectPhoto(photo_row);
+        DirectPhoto photo = new DirectPhoto(params.row);
         global.add(photo);
         
         return photo;

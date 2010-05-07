@@ -763,13 +763,17 @@ public class PhotoMetadata {
         "Iptc.Application2.Keywords"
     };
     
-    public Gee.Collection<string>? get_keywords() {
+    public Gee.Collection<string>? get_keywords(CompareFunc? compare_func = null) {
         Gee.Collection<string> keywords = null;
         foreach (string tag in KEYWORD_TAGS) {
             Gee.Collection<string>? values = get_string_multiple(tag);
             if (values != null && values.size > 0) {
-                if (keywords == null)
-                    keywords = new Gee.HashSet<string>();
+                if (keywords == null) {
+                    if (compare_func == null)
+                        keywords = new Gee.HashSet<string>();
+                    else
+                        keywords = new Gee.TreeSet<string>(compare_func);
+                }
                 
                 keywords.add_all(values);
             }

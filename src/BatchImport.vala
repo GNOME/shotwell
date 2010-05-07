@@ -363,11 +363,11 @@ public class BatchImport : Object {
         // if success, import photo into database and in-memory data structures
         LibraryPhoto photo = null;
         if (job.batch_result.result == ImportResult.SUCCESS)
-            job.batch_result.result = LibraryPhoto.import(ref job.photo_row, job.thumbnails, out photo);
+            job.batch_result.result = LibraryPhoto.import(job.get_photo_import_params(), out photo);
         
         if (job.batch_result.result == ImportResult.SUCCESS) {
             manifest.imported.add(photo);
-            imported(photo, job.thumbnails.get(ThumbnailCache.Size.LARGEST));
+            imported(photo, job.get_photo_import_params().thumbnails.get(ThumbnailCache.Size.LARGEST));
         } else {
             // the utter shame of it all
             debug("Failed to import %s: %s (%s)", job.get_filename(),
@@ -738,12 +738,11 @@ private class PrepareFilesJob : BackgroundImportJob {
 
 private class FileImportJob : BackgroundJob {
     public BatchImportResult batch_result = null;
-    public PhotoRow photo_row = PhotoRow();
-    public Thumbnails thumbnails = null;
     
     private PreparedFile prepared_file;
     private ImportID import_id;
     private File final_file = null;
+    private PhotoImportParams photo_import_params = null;
     
     public FileImportJob(BatchImport owner, PreparedFile prepared_file, ImportID import_id,
         CompletionCallback callback, Cancellable cancellable, CancellationCallback cancellation) {
@@ -756,6 +755,11 @@ private class FileImportJob : BackgroundJob {
     // Not thread-safe.  Only call after CompletionCallback executed.
     public string get_filename() {
         return (final_file != null) ? final_file.get_path() : prepared_file.file.get_path();
+    }
+    
+    // Not thread safe.  Only call after CompletionCallback executed.
+    public PhotoImportParams get_photo_import_params() {
+        return photo_import_params;
     }
     
     private override void execute() {
@@ -779,10 +783,10 @@ private class FileImportJob : BackgroundJob {
             }
         }
         
-        thumbnails = new Thumbnails();
+        photo_import_params = new PhotoImportParams(final_file, import_id, PhotoFileSniffer.Options.GET_ALL,
+            new Thumbnails());
         
-        ImportResult result = TransformablePhoto.prepare_for_import(final_file, import_id,
-            PhotoFileSniffer.Options.GET_ALL, out photo_row, thumbnails);
+        ImportResult result = TransformablePhoto.prepare_for_import(photo_import_params);
         if (result != ImportResult.SUCCESS && final_file != prepared_file.file) {
             debug("Deleting failed imported copy %s", final_file.get_path());
             try {
