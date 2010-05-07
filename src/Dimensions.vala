@@ -471,6 +471,25 @@ public struct ZoomState {
             clamp_viewport_center();
         }
     }
+
+    public ZoomState.rescale_to_isomorphic(ZoomState existing) {
+        this.content_dimensions = existing.content_dimensions;
+        this.viewport_dimensions = existing.viewport_dimensions;
+        this.interpolation_factor = (1.0 - existing.min_factor) / (existing.max_factor -
+            existing.min_factor);
+
+        compute_zoom_factors();
+
+        if (this.interpolation_factor == 0.0) {
+            center_viewport();
+        } else {
+            viewport_center.x = (int) (zoom_factor * (existing.viewport_center.x /
+                existing.zoom_factor));
+            viewport_center.y = (int) (zoom_factor * (existing.viewport_center.y /
+                existing.zoom_factor));
+            clamp_viewport_center();
+        }
+    }
     
     public ZoomState.pan(ZoomState existing, Gdk.Point new_viewport_center) {
         this.content_dimensions = existing.content_dimensions;

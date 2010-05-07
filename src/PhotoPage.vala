@@ -196,7 +196,34 @@ public abstract class EditingHostPage : SinglePhotoPage {
         repaint();
     }
 
-    private virtual bool on_zoom_slider_key_press(Gdk.EventKey event) {
+    protected void snap_zoom_to_min() {
+        zoom_slider.set_value(0.0);       
+    }
+
+    protected void snap_zoom_to_max() {
+        zoom_slider.set_value(1.0);
+    }
+
+    protected void snap_zoom_to_isomorphic() {
+        ZoomState iso_state = ZoomState.rescale_to_isomorphic(get_zoom_state());
+        zoom_slider.set_value(iso_state.get_interpolation_factor());
+    }
+
+    protected virtual bool on_zoom_slider_key_press(Gdk.EventKey event) {
+        switch (Gdk.keyval_name(event.keyval)) {
+            case "0":
+                snap_zoom_to_min();
+                return true;
+            
+            case "1":
+                snap_zoom_to_isomorphic();
+                return true;
+
+            case "2":
+                snap_zoom_to_max();
+                return true;
+        }
+
         return false;
     }
 
@@ -943,6 +970,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (current_tool.on_keypress(event))
                 return true;
         }
+
+        // if the user pressed the "0", "1" or "2" keys then handle the event as if were
+        // directed at the zoom slider ("0", "1" and "2" are hotkeys that jump to preset
+        // zoom levels
+        if (on_zoom_slider_key_press(event))
+            return true;
         
         // if the user holds the arrow keys down, we will receive a steady stream of key press
         // events for an operation that isn't designed for a rapid succession of output ... 
@@ -1586,6 +1619,9 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     protected override bool on_zoom_slider_key_press(Gdk.EventKey event) {
+        if (base.on_zoom_slider_key_press(event))
+            return true;
+
         if (Gdk.keyval_name(event.keyval) == "Escape") {
             return_to_collection();
             return true;
