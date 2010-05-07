@@ -286,8 +286,8 @@ public class BatchImport : Object {
         
         PreparedFile prepared_file = (PreparedFile) user;
         
-        if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.exif_md5,
-            prepared_file.thumbnail_md5, prepared_file.full_md5)) {
+        if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
+            prepared_file.full_md5)) {
             manifest.add_result(new BatchImportResult(prepared_file.job, prepared_file.file, 
                 prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS));
             
@@ -718,6 +718,11 @@ private class PrepareFilesJob : BackgroundImportJob {
                 warning("Unable to perform MD5 checksum on %s: %s", file.get_path(), err.message);
             }
         }
+        
+#if TRACE_MD5
+        debug("import MD5 %s: exif=%s preview=%s full=%s", file.get_basename(), exif_only_md5,
+            thumbnail_md5, full_md5);
+#endif
         
         // never copy file if already in library directory
         bool is_in_library_dir = file.has_prefix(library_dir);

@@ -323,6 +323,11 @@ public abstract class TransformablePhoto: PhotoSource {
         time_t exposure_time = 0;
         string title = "";
         
+#if TRACE_MD5
+        debug("importing MD5 %s: exif=%s preview=%s full=%s", file.get_basename(), detected.exif_md5,
+            detected.thumbnail_md5, detected.md5);
+#endif
+        
         if (detected.metadata != null) {
             MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
             if (date_time != null)
@@ -424,11 +429,11 @@ public abstract class TransformablePhoto: PhotoSource {
         return false;
     }
     
-    // This is not thread-safe.
-    public static bool is_duplicate(File? file, string? exif_md5, string? thumbnail_md5,
-        string? full_md5) {
+    // This is not thread-safe.  Obviously, at least one field must be non-null for this to be
+    // effective, although there is no guarantee that any one will be sufficient.
+    public static bool is_duplicate(File? file, string? thumbnail_md5, string? full_md5) {
 #if !NO_DUPE_DETECTION
-        return PhotoTable.get_instance().has_duplicate(file, exif_md5, thumbnail_md5, full_md5);
+        return PhotoTable.get_instance().has_duplicate(file, thumbnail_md5, full_md5);
 #else
         return false;
 #endif

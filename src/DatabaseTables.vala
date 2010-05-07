@@ -367,6 +367,12 @@ private DatabaseVerifyResult upgrade_database(int version) {
     
     version = 6;
     
+    //
+    // * Ignore the exif_md5 column from PhotoTable.  Because removing columns with SQLite is
+    //   painful, simply ignoring the column for now.  Keeping it up-to-date when possible in
+    //   case a future requirement is discovered.
+    //
+    
     VersionTable.get_instance().update_version(version);
     
     message("Database upgrade to schema version %d successful", version);
@@ -1415,41 +1421,31 @@ public class PhotoTable : DatabaseTable {
         return has_hash("thumbnail_md5", thumbnail_md5);
     }
     
-    public bool has_exif_md5(string exif_md5) {
-        return has_hash("exif_md5", exif_md5);
-    }
-    
-    public bool has_duplicate(File? file, string? exif_md5, string? thumbnail_md5, string? md5) {
-        assert(file != null || exif_md5 != null || thumbnail_md5 != null || md5 != null);
+    public bool has_duplicate(File? file, string? thumbnail_md5, string? md5) {
+        assert(file != null || thumbnail_md5 != null || md5 != null);
         
         string sql = "SELECT id FROM PhotoTable WHERE";
+        bool first = true;
         
-        if (file != null)
+        if (file != null) {
             sql += " filename=?";
+            first = false;
+        }
         
-        if ((exif_md5 != null && thumbnail_md5 != null) || md5 != null) {
-            if (file != null)
-                sql += " OR ";
-            
-            sql += " (";
-            bool first = true;
-            
-            if (exif_md5 != null && thumbnail_md5 != null) {
-                sql += "(exif_md5=? AND thumbnail_md5=?)";
-                first = false;
-            } else if (exif_md5 != null || thumbnail_md5 != null) {
-                GLib.warning("Warning: Not searching for duplicate for %s because both EXIF MD5s not provided",
-                    file != null ? file.get_path() : "(no file provided)");
-            }
-            
-            if (md5 != null) {
-                if (first)
-                    sql += "md5=?";
-                else
-                    sql += " OR md5=?";
-            }
-            
-            sql += ")";
+        if (thumbnail_md5 != null) {
+            if (first)
+                sql += " thumbnail_md5=?";
+            else
+                sql += " OR thumbnail_md5=?";
+            first = false;
+        }
+        
+        if (md5 != null) {
+            if (first)
+                sql += " md5=?";
+            else
+                sql += " OR md5=?";
+            first = false;
         }
         
         Sqlite.Statement stmt;
@@ -1463,9 +1459,7 @@ public class PhotoTable : DatabaseTable {
             assert(res == Sqlite.OK);
         }
         
-        if (exif_md5 != null && thumbnail_md5 != null) {
-            res = stmt.bind_text(col++, exif_md5);
-            assert(res == Sqlite.OK);
+        if (thumbnail_md5 != null) {
             res = stmt.bind_text(col++, thumbnail_md5);
             assert(res == Sqlite.OK);
         }

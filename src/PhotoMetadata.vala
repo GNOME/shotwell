@@ -194,6 +194,8 @@ public class PhotoMetadata {
     
     public void read_from_file(File file) throws Error {
         exiv2 = new GExiv2.Metadata();
+        exif = null;
+        
         exiv2.open_path(file.get_path());
         exif = Exif.Data.new_from_file(file.get_path());
         source_name = file.get_basename();
@@ -210,6 +212,8 @@ public class PhotoMetadata {
         assert(buffer.length >= length);
         
         exiv2 = new GExiv2.Metadata();
+        exif = null;
+        
         exiv2.open_buf(buffer, length);
         exif = Exif.Data.new_from_data(buffer, length);
         source_name = "<memory buffer %d bytes>".printf(length);
@@ -222,6 +226,8 @@ public class PhotoMetadata {
         assert(buffer.length >= length);
         
         exiv2 = new GExiv2.Metadata();
+        exif = null;
+        
         exiv2.from_app1_segment(buffer, length);
         exif = Exif.Data.new_from_data(buffer, length);
         source_name = "<app1 segment %d bytes>".printf(length);
@@ -579,14 +585,8 @@ public class PhotoMetadata {
     
     // Returns raw bytes of EXIF preview, if present
     public uint8[]? flatten_exif_preview() {
-        if (exif == null || exif.data == null || exif.size == 0)
-            return null;
-        
-        // copy into a Vala-friendly buffer
-        uint8[] flattened = new uint8[exif.size];
-        Memory.copy(flattened, exif.data, exif.size);
-        
-        return flattened;
+        uchar[] buffer;
+        return exiv2.get_exif_thumbnail(out buffer) ? buffer : null;
     }
     
     public uint get_preview_count() {

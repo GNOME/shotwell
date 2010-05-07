@@ -96,10 +96,6 @@ class ImportSource : PhotoSource {
         return metadata;
     }
     
-    public string? get_exif_md5() {
-        return exif_md5;
-    }
-    
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return scaling.perform_on_pixbuf(preview, INTERP, false);
     }
@@ -107,6 +103,7 @@ class ImportSource : PhotoSource {
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
     }
+    
     public string? get_preview_md5() {
         return preview_md5;
     }
@@ -149,14 +146,9 @@ class ImportPreview : CheckerboardItem {
     }
     
     public bool is_already_imported() {
-        ImportSource source = (ImportSource) get_source();
+        string? preview_md5 = get_import_source().get_preview_md5();
         
-        // must have both EXIF and thumbnail (preview) MD5s to properly determine
-        if (source.get_exif_md5() == null || source.get_preview_md5() == null)
-            return false;
-        
-        return TransformablePhoto.is_duplicate(null, source.get_exif_md5(), source.get_preview_md5(),
-            null);
+        return (preview_md5 != null) ? TransformablePhoto.is_duplicate(null, preview_md5, null) : false;
     }
     
     public ImportSource get_import_source() {
@@ -861,6 +853,10 @@ public class ImportPage : CheckerboardPage {
                     preview = scale_pixbuf(preview, ImportPreview.MAX_SCALE, Gdk.InterpType.BILINEAR,
                         true);
                 }
+                
+#if TRACE_MD5
+                debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);
+#endif
                 
                 // update the ImportSource with the fetched information
                 import_source.update(preview, preview_md5, metadata, exif_only_md5);
