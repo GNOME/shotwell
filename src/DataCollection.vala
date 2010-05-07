@@ -685,7 +685,7 @@ public class DataCollection {
         marker.finished();
     }
     
-    public void clear() {
+    public virtual void clear() {
         if (dataset.get_count() == 0)
             return;
         
@@ -1384,6 +1384,18 @@ public class ViewCollection : DataCollection {
     
     public virtual void notify_geometries_altered(Gee.Collection<DataView> views) {
         geometries_altered(views);
+    }
+    
+    public override void clear() {
+        // cannot clear a ViewCollection if it is monitoring a SourceCollection or mirroring a
+        // ViewCollection
+        if (sources != null || mirroring != null) {
+            warning("Cannot clear %s: monitoring or mirroring in effect", to_string());
+            
+            return;
+        }
+        
+        base.clear();
     }
     
     public override void close() {

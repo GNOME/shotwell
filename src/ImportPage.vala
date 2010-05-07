@@ -628,8 +628,6 @@ public class ImportPage : CheckerboardPage {
         int count = 0;
         refresh_result = camera.get_storageinfo(&sifs, out count, spin_idle_context.context);
         if (refresh_result == GPhoto.Result.OK) {
-            get_view().clear();
-            
             for (int fsid = 0; fsid < count; fsid++) {
                 if (!enumerate_files(fsid, "/", import_list))
                     break;
