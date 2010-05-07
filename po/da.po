@@ -24,6 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Danish\n"
 
+# GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell - billedhåndtering"
 
@@ -472,9 +473,6 @@ msgstr " _billedpunkter"
 #, c-format
 msgid "And %d more.\n"
 msgstr "Og %d flere.\n"
-"\n"
-"\n"
-"Og 1 anden."
 
 #: src/Dialogs.vala:394
 #, c-format
@@ -517,8 +515,8 @@ msgstr[1] "%d billeder der ikke er understøttet blev udeladt.\n"
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "1 fil der ikke var et billede sprunget over."
-msgstr[1] "%d filer der ikke var billeder sprunget over."
+msgstr[0] "1 fil der ikke var et billede sprunget over.\n"
+msgstr[1] "%d filer der ikke var billeder sprunget over.\n"
 
 #: src/Dialogs.vala:474
 #, c-format
@@ -1403,7 +1401,7 @@ msgstr "[FIL]"
 #: src/main.vala:222
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "Kør '%s --help' for at se en fuldstændig liste af tilgængelige kommandolinie kommandoer."
+msgstr "Kør '%s --help' for at se en fuldstændig liste af tilgængelige kommandolinie kommandoer.\n"
 
 #: src/Page.vala:1898
 msgid "Photos cannot be exported to this directory."
