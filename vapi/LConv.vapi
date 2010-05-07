@@ -39,7 +39,7 @@ namespace GLib {
 	
     namespace Intl {
         [CCode (cname = "localeconv", cheader_filename = "locale.h")]
-        public static weak LConv localeconv();
+        public static unowned LConv localeconv();
     }
 }
 

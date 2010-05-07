@@ -857,7 +857,7 @@ public class PrintManager {
         dc.paint();
     }
 
-    private weak Object on_create_custom_widget(Gtk.PrintOperation emitting_object) {
+    private unowned Object on_create_custom_widget(Gtk.PrintOperation emitting_object) {
         custom_tab = new CustomPrintTab((PrintJob) emitting_object);
         ((PrintJob) emitting_object).custom_widget_apply += on_custom_widget_apply;
         return custom_tab;

@@ -65,7 +65,7 @@ public abstract class Command : Object, CommandDescription {
         return explanation;
     }
     
-    public weak CommandManager? get_command_manager() {
+    public unowned CommandManager? get_command_manager() {
         return manager;
     }
     
