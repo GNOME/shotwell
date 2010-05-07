@@ -48,7 +48,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     private void destroy_ui_manager_widgets(Gtk.UIManagerItemType item_type) {
-        unowned SList<Gtk.Widget> toplevels = ui.get_toplevels(item_type);
+        SList<weak Gtk.Widget> toplevels = ui.get_toplevels(item_type);
         for (int ctr = 0; ctr < toplevels.length(); ctr++)
             toplevels.nth(ctr).data.destroy();
     }
