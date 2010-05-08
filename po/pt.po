@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: shotwell-0.5.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
-"PO-Revision-Date: 2010-05-06 15:53-0800\n"
+"PO-Revision-Date: 2010-05-07 18:12-0800\n"
 "Last-Translator: Seth Schoen <schoen@loyalty.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +18,6 @@ msgstr ""
 "X-Generator: Virtaal 0.5.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Portuguese\n"
-"Language-Team: \n"
 
 msgid "Shotwell Photo Manager"
 msgstr "Organizador de Fotos Shotwell"
@@ -442,7 +442,7 @@ msgstr "Mover as fotos para a lixeira do Shotwell"
 
 #: src/Commands.vala:1179
 msgid "Restore the photos back to the Shotwell library"
-msgstr "Remover as fotos selecionadas para a galeria"
+msgstr "Restaurar as fotos selecionadas para a galeria"
 
 #: src/Commands.vala:1196
 msgid "Moving Photos to Trash"
@@ -466,9 +466,10 @@ msgstr "Exportando..."
 msgid "File %s already exists.  Replace?"
 msgstr "%s já existe.  Sobrescrever?"
 
+# Pular?
 #: src/Dialogs.vala:73
 msgid "_Skip"
-msgstr "_Saltar"
+msgstr "_Ignorar"
 
 #: src/Dialogs.vala:73
 msgid "_Replace"
@@ -505,7 +506,7 @@ msgstr " _pixels"
 #: src/Dialogs.vala:372
 #, c-format
 msgid "And %d more.\n"
-msgstr "e %d outros.\n"
+msgstr "e %d outras.\n"
 
 #: src/Dialogs.vala:394
 #, c-format
@@ -595,7 +596,7 @@ msgstr[0] ""
 "\n"
 "Esta ação não poderá ser desfeita."
 msgstr[1] ""
-"Isto irá remover as fotos selecionadas da sua galeria do Shotwell.  Você gostaria também mover os arquivos para a lixeira?\n"
+"Isto irá remover %d fotos da sua galeria do Shotwell.  Você gostaria também mover os arquivos para a lixeira?\n"
 "\n"
 "Esta ação não poderá ser desfeita."
 
@@ -607,7 +608,7 @@ msgstr[1] "_Apagar arquivos"
 
 #: src/Dialogs.vala:615
 msgid "Only _Remove"
-msgstr "_Remover somente"
+msgstr "_Remover Somente"
 
 #: src/Dialogs.vala:617
 msgid "Empty Trash"
@@ -726,11 +727,11 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "\n"
-"e %d outro."
+"e %d outra."
 msgstr[1] ""
 "\n"
 "\n"
-"e %d outros."
+"e %d outras."
 
 #: src/Dialogs.vala:1064
 #: src/Dialogs.vala:1114
@@ -974,7 +975,7 @@ msgstr "Reiniciar cores"
 
 #: src/EditingTools.vala:2107
 msgid "Reset all color adjustments to original"
-msgstr "Reinicia todos os ajustes de cores para o original"
+msgstr "Reiniciar todos os ajustes de cores para o original"
 
 #: src/EditingTools.vala:2413
 msgid "Temperature"
@@ -1319,7 +1320,7 @@ msgstr "Máximo (%d%%)"
 
 #: src/LibraryWindow.vala:398
 msgid "_Import From Folder..."
-msgstr "_Importar da pasta..."
+msgstr "_Importar da Pasta..."
 
 #: src/LibraryWindow.vala:399
 msgid "Import photos from disk to library"
@@ -1659,7 +1660,7 @@ msgstr "Conta Não Pronta"
 #: src/PicasaConnector.vala:559
 #, c-format
 msgid "Additional Security Required"
-msgstr "Requer Segurança Adicional"
+msgstr "Segurança Adicional Exigida"
 
 #: src/PicasaConnector.vala:570
 msgid "_Email address:"
@@ -2340,7 +2341,7 @@ msgstr[1] "Isto irá remover a etiqueta \"%s\" de %d fotos.  Continuar?"
 
 #: src/TagPage.vala:135
 msgid "_Delete"
-msgstr "Remover"
+msgstr "_Apagar"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
