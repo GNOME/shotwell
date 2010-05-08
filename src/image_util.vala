@@ -216,23 +216,31 @@ int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
 
 #if !NO_SET_BACKGROUND
 public void set_desktop_background(TransformablePhoto photo) {
-    File save_as = AppDirs.get_data_subdir("wallpaper").get_child("wallpaper.jpg");
-
-    if (Config.get_instance().get_background() == save_as.get_path())
-        save_as = AppDirs.get_data_subdir("wallpaper").get_child("wallpaper_alt.jpg");
-
-    if (save_as == null)
-        return;
+    // attempt to set the wallpaper to the photo's native format, but if not writeable, go to the
+    // system default
+    PhotoFileFormat file_format = photo.get_file_format();
+    if (!file_format.can_write())
+        file_format = PhotoFileFormat.get_system_default_format();
+    
+    File save_as = AppDirs.get_data_subdir("wallpaper").get_child(
+        file_format.get_default_basename("wallpaper"));
+    
+    if (Config.get_instance().get_background() == save_as.get_path()) {
+        save_as = AppDirs.get_data_subdir("wallpaper").get_child(
+            file_format.get_default_basename("wallpaper_alt"));
+    }
     
     try {
-        photo.export(save_as, Scaling.for_original(), Jpeg.Quality.MAXIMUM);
+        photo.export(save_as, Scaling.for_original(), Jpeg.Quality.MAXIMUM, file_format);
     } catch (Error err) {
-        AppWindow.error_message(_("Unable to export background to %s: %s").printf(save_as.get_path(), err.message));
+        AppWindow.error_message(_("Unable to export background to %s: %s").printf(save_as.get_path(), 
+            err.message));
+        
         return;
     }
-
+    
     Config.get_instance().set_background(save_as.get_path());
-
+    
     GLib.FileUtils.chmod(save_as.get_parse_name(), 0644);
 }
 #endif

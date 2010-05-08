@@ -1657,7 +1657,7 @@ public abstract class TransformablePhoto: PhotoSource {
         File dest_file = format_properties.convert_file_extension(file);
         
         // Create a PhotoFileWriter that matches the PhotoFileReader's file format
-        PhotoFileWriter writer = export_reader.create_writer();
+        PhotoFileWriter writer = export_reader.get_file_format().create_writer(dest_file.get_path());
         
         debug("Exporting full-sized copy of %s to %s", to_string(), writer.get_filepath());
         
@@ -1698,7 +1698,7 @@ public abstract class TransformablePhoto: PhotoSource {
     
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     public void export(File dest_file, Scaling scaling, Jpeg.Quality quality,
-        PhotoFileFormat? export_format = null) throws Error {
+        PhotoFileFormat export_format) throws Error {
         // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that
         // degrades image quality with JFIF format files. If alterations exist, but only EXIF has
         // changed and the user hasn't requested conversion between image formats, then just copy
@@ -1709,9 +1709,8 @@ public abstract class TransformablePhoto: PhotoSource {
                 return;
         }
 
-        if (export_format == null)
-            export_format = get_file_format();
-        assert(export_format.can_write());
+        if (!export_format.can_write())
+            export_format = PhotoFileFormat.get_system_default_format();
 
         PhotoFileWriter writer = export_format.create_writer(dest_file.get_path());
 

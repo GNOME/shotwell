@@ -264,6 +264,7 @@ public class FullscreenWindow : PageWindow {
 // switched to and from, and other aspects of the Page interface.
 public abstract class PageWindow : Gtk.Window {
     private Page current_page = null;
+    private int busy_counter = 0;
     
     protected virtual void switched_pages(Page? old_page, Page? new_page) {
     }
@@ -337,11 +338,21 @@ public abstract class PageWindow : Gtk.Window {
     }
 
     public void set_busy_cursor() {
+        if (busy_counter++ > 0)
+            return;
+        
         window.set_cursor(new Gdk.Cursor(Gdk.CursorType.WATCH));
         spin_event_loop();
     }
     
     public void set_normal_cursor() {
+        if (busy_counter <= 0) {
+            busy_counter = 0;
+            return;
+        } else if (--busy_counter > 0) {
+            return;
+        }
+        
         window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
         spin_event_loop();
     }

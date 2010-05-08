@@ -48,7 +48,8 @@ public enum PhotoFileFormat {
         
         return UNKNOWN;
     }
-
+    
+    // Guaranteed to be writeable.
     public static PhotoFileFormat get_system_default_format() {
         return JFIF;
     }
@@ -118,6 +119,11 @@ public enum PhotoFileFormat {
     
     public PhotoFileFormatProperties get_properties() {
         return get_driver().get_properties();
+    }
+    
+    // Supplied with a name, returns the name with the file format's default extension.
+    public string get_default_basename(string name) {
+        return "%s.%s".printf(name, get_properties().get_default_extension());
     }
     
     public PhotoFileReader create_reader(string filepath) {

@@ -940,7 +940,9 @@ public abstract class CollectionPage : CheckerboardPage {
         if (photo == null)
             return;
         
+        AppWindow.get_instance().set_busy_cursor();
         set_desktop_background(photo);
+        AppWindow.get_instance().set_normal_cursor();
     }
 #endif
 
