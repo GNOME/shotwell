@@ -2399,17 +2399,23 @@ public class DirectPhotoPage : EditingHostPage {
             
             return true;
         }
-        
+
+        bool is_writeable = get_photo().get_file_format().can_write();
+        string save_option = is_writeable ? _("_Save") : _("_Save a Copy");
+
         Gtk.ResponseType response = AppWindow.negate_affirm_cancel_question(
-            _("Lose changes to %s?").printf(photo.get_name()), _("_Save"),
+            _("Lose changes to %s?").printf(photo.get_name()), save_option,
             _("Close _without Saving"));
 
         if (response == Gtk.ResponseType.YES)
             photo.remove_all_transformations();
-        else if (response == Gtk.ResponseType.NO)
-            save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
-                get_photo().get_file_format());
-        else if (response == Gtk.ResponseType.CANCEL)
+        else if (response == Gtk.ResponseType.NO) {
+            if (is_writeable)
+                save(photo.get_file(), 0, ScaleConstraint.ORIGINAL, Jpeg.Quality.HIGH,
+                    get_photo().get_file_format());
+            else
+                on_save_as();
+        } else if (response == Gtk.ResponseType.CANCEL)
             return false;
 
         return true;
@@ -2424,7 +2430,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_file_menu() {
-        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations());
+        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations() && get_photo().get_file_format().can_write());
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
@@ -2459,7 +2465,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     private void on_save() {
-        if (!get_photo().has_alterations())
+        if (!get_photo().has_alterations() && !get_photo().get_file_format().can_write())
             return;
 
         // save full-sized version right on top of the current file

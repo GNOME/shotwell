@@ -170,7 +170,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // RAW extensions
         "3fr", "arw", "srf", "sr2", "bay", "crw", "cr2", "cap", "iiq", "eip", "dcs", "dcr", "drf",
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
-        "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f"
+        "pxn", "r3d", "raf", "raw", "rw2", "rwl", "rwz", "x3f"
     };
     
     // There are assertions in the photo pipeline to verify that the generated (or loaded) pixbuf
