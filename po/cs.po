@@ -1,5 +1,5 @@
-# po/fi.po
-# Finnish translation for Shotwell
+# po/cs.po
+# Czech translation for Shotwell
 # Copyright (C) 2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 #
@@ -8,87 +8,86 @@ msgstr ""
 "Project-Id-Version: shotwell-0.5.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
-"PO-Revision-Date: 2010-05-10 23:11+0300\n"
-"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
-"Language-Team: gnome-fi-laatu@lists.sourceforge.net\n"
-"Language: fi\n"
+"PO-Revision-Date: 2010-05-10 15:21+0200\n"
+"Last-Translator: David Štancl <dstancl@dstancl.cz>\n"
+"Language-Team: Czech < >\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Content-Transfer-Encoding: UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Virtaal 0.5.2\n"
-"X-Poedit-Language: Finnish\n"
+"X-Poedit-Language: Czech\n"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr "Shotwell - valokuvien hallinta"
+msgstr "Správce fotografií Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
-msgstr "Valokuvien hallinta"
+msgstr "Správce fotografií"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr "Järjestele digikuviasi"
+msgstr "Správce fotografií"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr "Shotwell - valokuvien hallinta"
+msgstr "Prohlížeč fotografií Shotwell"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
-msgstr "Valokuvien katselin"
+msgstr "Prohlížeč fotografií"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
-msgstr "Kuvat"
+msgstr "Obrázky"
 
 #: src/AppWindow.vala:118
 msgid "Leave _Fullscreen"
-msgstr "Poistu _kokoruututilasta"
+msgstr "Opustit _celou obrazovku"
 
 #: src/AppWindow.vala:119
 msgid "Leave fullscreen"
-msgstr "Poistu kokoruututilasta"
+msgstr "Ukončí prohlížení přes celou obrazovku"
 
 #: src/AppWindow.vala:399
 msgid "_Quit"
-msgstr "_Lopeta"
+msgstr "_Konec"
 
 #: src/AppWindow.vala:400
 msgid "Quit Shotwell"
-msgstr "Lopeta Shotwell"
+msgstr "Ukončí program"
 
 #: src/AppWindow.vala:405
 msgid "_About"
-msgstr "_Tietoja"
+msgstr "_O programu"
 
 #: src/AppWindow.vala:406
 msgid "About Shotwell"
-msgstr "Tietoja Shotwellistä"
+msgstr "Zobrazí informace o programu"
 
 #: src/AppWindow.vala:411
 msgid "_Fullscreen"
-msgstr "_Kokoruutu"
+msgstr "_Celá obrazovka"
 
 #: src/AppWindow.vala:412
 msgid "Use Shotwell at fullscreen"
-msgstr "Käytä Shotwelliä kokoruututilassa"
+msgstr "Pro zobrazení použije celou plochu obrazovky"
 
 #: src/AppWindow.vala:417
 msgid "_Contents"
-msgstr "_Sisältö"
+msgstr "_Obsah"
 
 #: src/AppWindow.vala:418
 msgid "More information on Shotwell"
-msgstr "Lisätietoja Shotwellistä"
+msgstr "Více informací o programu Shotwell"
 
 #: src/AppWindow.vala:488 src/AppWindow.vala:504 src/TagPage.vala:135
 #: src/WebConnectors.vala:791
 msgid "_Cancel"
-msgstr "_Peru"
+msgstr "_Storno"
 
 #: src/AppWindow.vala:514
 #, c-format
@@ -98,447 +97,462 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Tapahtui vakava virhe yritettäessä käyttää Shotwellin kirjastoa. Shotwell ei "
-"voi jatkaa.\n"
+"Při přístupu ke knihovně programu došlo k fatální chybě. Program nemůže "
+"pokračovat.\n"
 "\n"
 "%s"
 
 #: src/AppWindow.vala:531
 msgid "Visit the Yorba web site"
-msgstr "Vieraile Yorban verkkosivuilla"
+msgstr "Navštivte internetovou stránku Yorba"
 
 #: src/CollectionPage.vala:136 src/SlideshowPage.vala:98
 msgid "Slideshow"
-msgstr "Diaesitys"
+msgstr "Prezentace"
 
 #: src/CollectionPage.vala:137
 msgid "Start a slideshow of these photos"
-msgstr "Näytä nämä kuvat diaesityksenä"
+msgstr "Spustí prezentaci těchto fotografií"
 
 #: src/CollectionPage.vala:172
 msgid "Adjust the size of the thumbnails"
-msgstr "Säädä pienoiskuvien kokoa"
+msgstr "Nastavit velikost náhledů"
 
 #: src/CollectionPage.vala:189 src/EventsDirectoryPage.vala:218
 #: src/ImportPage.vala:379 src/ImportPage.vala:1089 src/PhotoPage.vala:1384
 #: src/PhotoPage.vala:2141 src/TrashPage.vala:47
 msgid "_File"
-msgstr "_Tiedosto"
+msgstr "_Soubor"
 
 #: src/CollectionPage.vala:196
 msgid "Export selected photos to disk"
-msgstr "Vie valitut kuvat levylle"
+msgstr "Exportuje vybrané fotografie na disk"
 
 #: src/CollectionPage.vala:222 src/EventsDirectoryPage.vala:230
 #: src/ImportPage.vala:393 src/PhotoPage.vala:1416 src/TrashPage.vala:51
 msgid "_Edit"
-msgstr "_Muokkaa"
+msgstr "Ú_pravy"
 
 #: src/CollectionPage.vala:226 src/EventsDirectoryPage.vala:234
 msgid "Even_ts"
-msgstr "_Tapahtumat"
+msgstr "Událos_ti"
 
 #: src/CollectionPage.vala:231 src/EventsDirectoryPage.vala:250
 #: src/ImportPage.vala:398 src/TrashPage.vala:62
 msgid "Select _All"
-msgstr "Valitse _kaikki"
+msgstr "Vybrat _vše"
 
 #: src/CollectionPage.vala:232
 msgid "Select all the photos in the library"
-msgstr "Valitse kaikki kirjaston kuvat"
+msgstr "Vybere všechny fotografie v knihovně"
 
 #: src/CollectionPage.vala:237
 msgid "_Move to Trash"
-msgstr "_Siirrä roskakoriin"
+msgstr "_Přesunout do koše"
 
 #: src/CollectionPage.vala:238
 msgid "Move the selected photos to the trash"
-msgstr "Siirrä valitut kuvat roskakoriin"
+msgstr "Vybrané fotografie přemístí do koše"
 
 #: src/CollectionPage.vala:243
 msgid "_Photos"
-msgstr "_Kuvat"
+msgstr "_Fotografie"
 
 #: src/CollectionPage.vala:248 src/PhotoPage.vala:1513 src/PhotoPage.vala:2244
 msgid "Zoom _In"
-msgstr "_Lähennä"
+msgstr "Z_většit"
 
 #: src/CollectionPage.vala:249
 msgid "Increase the magnification of the thumbnails"
-msgstr "Kasvata pienoiskuvien suurennusta"
+msgstr "Přiblíží náhledy"
 
 #: src/CollectionPage.vala:254 src/PhotoPage.vala:1519 src/PhotoPage.vala:2250
 msgid "Zoom _Out"
-msgstr "_Loitonna"
+msgstr "Z_menšit"
 
 #: src/CollectionPage.vala:255
 msgid "Decrease the magnification of the thumbnails"
-msgstr "Vähennä pienoiskuvien suurennusta"
+msgstr "Oddálí náhledy"
 
 #: src/CollectionPage.vala:328
 msgid "_Slideshow"
-msgstr "_Diaesitys"
+msgstr "_Prezentace"
 
 #: src/CollectionPage.vala:329
 msgid "Play a slideshow"
-msgstr "Aloita diaesitys"
+msgstr "Spustí prezentaci"
 
 #: src/CollectionPage.vala:333 src/EventsDirectoryPage.vala:222
 #: src/ImportPage.vala:403 src/ImportPage.vala:1099 src/PhotoPage.vala:1426
 #: src/PhotoPage.vala:2235 src/TrashPage.vala:66
 msgid "_View"
-msgstr "_Näytä"
+msgstr "_Zobrazit"
 
 #: src/CollectionPage.vala:337
 msgid "Sort _Photos"
-msgstr "Järjestä _kuvia"
+msgstr "Seřadit _fotografie"
 
 #: src/CollectionPage.vala:347 src/CollectionPage.vala:386
 msgid "Ta_gs"
-msgstr "_Tunnisteet"
+msgstr "_Nálepky"
 
 #: src/CollectionPage.vala:363 src/EventsDirectoryPage.vala:226
 #: src/ImportPage.vala:407 src/ImportPage.vala:1103 src/PhotoPage.vala:1508
 #: src/PhotoPage.vala:2239 src/TrashPage.vala:70
 msgid "_Help"
-msgstr "_Ohje"
+msgstr "_Nápověda"
 
 #: src/CollectionPage.vala:374
 msgid "Only Fa_vorites"
-msgstr "Vain _suosikit"
+msgstr "Jen _oblíbené"
 
 #: src/CollectionPage.vala:375
 msgid "Show only your favorite photos"
-msgstr "Näytä vain suosikkikuvat"
+msgstr "Zobrazí jen oblíbené fotografie"
 
 #: src/CollectionPage.vala:380 src/ImportPage.vala:368
 msgid "_Titles"
-msgstr "_Nimet"
+msgstr "_Názvy"
 
 #: src/CollectionPage.vala:381 src/ImportPage.vala:369
 msgid "Display the title of each photo"
-msgstr "Näytä kuvien nimet"
+msgstr "Zobrazí název fotografie"
 
 #: src/CollectionPage.vala:387
 msgid "Display each photo's tags"
-msgstr "Näytä kuvien tunnisteet"
+msgstr "Zobrazí u fotografie nálepky"
 
 #: src/CollectionPage.vala:392
 msgid "_Hidden Photos"
-msgstr "_Piilotetut kuvat"
+msgstr "_Skryté fotografie"
 
 #: src/CollectionPage.vala:393
 msgid "Show hidden photos"
-msgstr "Näytä piilotetut kuvat"
+msgstr "Zobrazit skryté fotografie"
 
 #: src/CollectionPage.vala:404
 msgid "By _Title"
-msgstr "_Nimen mukaan"
+msgstr "Podle _názvu"
 
 #: src/CollectionPage.vala:405
 msgid "Sort photos by title"
-msgstr "Järjestä kuvat nimen mukaan"
+msgstr "Seřadí fotografie podle názvu"
 
 #: src/CollectionPage.vala:410
 msgid "By Exposure _Date"
-msgstr "_Ottopäivän mukaan"
+msgstr "Podle data _vyfocení"
 
 #: src/CollectionPage.vala:411
 msgid "Sort photos by exposure date"
-msgstr "Järjestä kuvat ottopäivän mukaan"
+msgstr "Seřadí fotografie podle data vyfocení"
 
 #: src/CollectionPage.vala:422 src/LibraryWindow.vala:445
 msgid "_Ascending"
-msgstr "_Kasvava"
+msgstr "_Vzestupně"
 
 #: src/CollectionPage.vala:423 src/LibraryWindow.vala:446
 msgid "Sort photos in an ascending order"
-msgstr "Järjestä kuvat nousevaan järjestykseen"
+msgstr "Seřadí fotografie vzestupně"
 
 #: src/CollectionPage.vala:428 src/LibraryWindow.vala:452
 msgid "D_escending"
-msgstr "_Laskeva"
+msgstr "_Sestupně"
 
 #: src/CollectionPage.vala:429 src/LibraryWindow.vala:453
 msgid "Sort photos in a descending order"
-msgstr "Järjestä kuvat laskevaan järjestykseen"
+msgstr "Seřadí fotografie sestupně"
 
 #: src/CollectionPage.vala:637 src/Dialogs.vala:14 src/PhotoPage.vala:1769
 msgid "Export Photo"
 msgid_plural "Export Photos"
-msgstr[0] "Vie kuva"
-msgstr[1] "Vie kuvat"
+msgstr[0] "Exportování fotografie"
+msgstr[1] "Exportování fotografií"
+msgstr[2] "Exportování fotografií"
 
 #: src/CollectionPage.vala:667
 #, c-format
 msgid "Unable to export photo %s: %s"
-msgstr "Kuvaa %s ei voi viedä: %s"
+msgstr "Export fotografie %s se nepovedl: %s"
 
 #: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Rotating"
-msgstr "Kierretään"
+msgstr "Rotace"
 
 #: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Undoing Rotate"
-msgstr "Kumotaan kierto"
+msgstr "Zpět rotace"
 
 #: src/CollectionPage.vala:806
 msgid "Mirroring"
-msgstr "Peilataan"
+msgstr "Zrcadlení"
 
 #: src/CollectionPage.vala:807
 msgid "Undoing Mirror"
-msgstr "Kumotaan peilaus"
+msgstr "Zpět zrcadlení"
 
 #: src/CollectionPage.vala:1210
 msgid "Photos"
-msgstr "Kuvat"
+msgstr "Fotografie"
 
 #: src/Commands.vala:431
 msgid "Reverting"
-msgstr "Palautetaan"
+msgstr "Zpět"
 
 #: src/Commands.vala:431
 msgid "Undoing Revert"
-msgstr "Kumotaan palautus"
+msgstr "Vrácení akce zpět"
 
 #: src/Commands.vala:475
 msgid "Enhancing"
-msgstr "Parannetaan"
+msgstr "Vylepšení"
 
 #: src/Commands.vala:475
 msgid "Undoing Enhance"
-msgstr "Kumotaan parannus"
+msgstr "Vrácení vylepšení"
 
 #: src/Commands.vala:641
 msgid "Creating New Event"
-msgstr "Luodaan uusi tapahtuma"
+msgstr "Vytvořit novou událost"
 
 #: src/Commands.vala:642
 msgid "Removing Event"
-msgstr "Poistetaan tapahtuma"
+msgstr "Odstranit událost"
 
 #: src/Commands.vala:651
 msgid "Moving Photos to New Event"
-msgstr "Siirretään kuvia uuteen tapahtumaan"
+msgstr "Přesunout fotografie do nové události"
 
 #: src/Commands.vala:652
 msgid "Setting Photos to Previous Event"
-msgstr "Asetetaan kuvia edelliseen tapahtumaan"
+msgstr ""
 
 #: src/Commands.vala:682
 msgid "Merging"
-msgstr "Yhdistetään"
+msgstr "Spojování"
 
 #: src/Commands.vala:683
 msgid "Unmerging"
-msgstr "Kumotaan yhdistäminen"
+msgstr "Rozdělování"
 
 #: src/Commands.vala:692
 msgid "Duplicating photos"
-msgstr "Tehdään kuvista kopioita"
+msgstr "Zdvojení fotografií"
 
 #: src/Commands.vala:692
 msgid "Removing duplicated photos"
-msgstr "Poistetaan kuvien kopiot"
+msgstr "Odstranění duplicitních fotografií"
 
 #: src/Commands.vala:715
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "Yhdestä kuvasta ei voitu tehdä kopiota tiedostovirheen vuoksi"
-msgstr[1] "%d kuvasta ei voitu tehdä kopiota tiedostovirheen vuoksi"
+msgstr[0] "Nemohu zkopírovat %d fotografii kvůli chybám v souboru"
+msgstr[1] "Nemohu zkopírovat %d fotografie kvůli chybám v souboru"
+msgstr[2] "Nemohu zkopírovat %d fotografií kvůli chybám v souboru"
 
 #: src/Commands.vala:780 src/Commands.vala:781
 msgid "Marking as Favorite"
-msgstr "Merkitään suosikiksi"
+msgstr "Označit jako oblíbené"
 
 #: src/Commands.vala:780 src/Commands.vala:781
 msgid "Unmarking as Favorite"
-msgstr "Poistetaan suosikkimerkintä"
+msgstr "Zrušit označení oblíbené"
 
 #: src/Commands.vala:822 src/Commands.vala:823
 msgid "Hiding"
-msgstr "Piilotetaan"
+msgstr "Skrytí"
 
 #: src/Commands.vala:822 src/Commands.vala:823
 msgid "Unhiding"
-msgstr "Poistetaan piilotus"
+msgstr "Zobrazení"
 
 #: src/Commands.vala:865
 msgid "Original photo could not be adjusted."
-msgstr "Alkuperäistä kuvaa ei voitu säätää."
+msgstr "Originální fotografie nemůže být upravována."
 
 #: src/Commands.vala:885
 msgid "Adjusting Date and Time"
-msgstr "Muutetaan päiväys ja kellonaika"
+msgstr "Nastavení času a data"
 
 #: src/Commands.vala:885
 msgid "Undoing Date and Time Adjustment"
-msgstr "Kumotaan päiväyksen ja kellonajan muutokset"
+msgstr "Vrátit zpět nastavení data a času"
 
 #: src/Commands.vala:912
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] "Yhtä alkuperäistä kuvaa ei voitu säätää."
-msgstr[1] "Seuraavia alkuperäisiä kuvia ei voitu säätää."
+msgstr[0] "Jedna původní fotografie nemůže být upravena."
+msgstr[1] "Následující původní fotografie nemohou být upraveny."
+msgstr[2] "Následující původní fotografie nemohou být upraveny."
 
 #: src/Commands.vala:914 src/Commands.vala:926
 msgid "Time Adjustment Error"
-msgstr "Virhe muutettaessa aikaa"
+msgstr "Chyba při nastavování času"
 
 #: src/Commands.vala:924
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] "Seuraavan tiedoston aikamuutoksia ei voitu kumota."
-msgstr[1] "Seuraavien tiedostojen aikamuutoksia ei voitu kumota."
+msgstr[0] "Nastavení data a času nemůže být u této fotografie provedeno."
+msgstr[1] "Nastavení data a času nemůže být u těchto fotografií provedeno."
+msgstr[2] "Nastavení data a času nemůže být u těchto fotografií provedeno."
 
 #: src/Commands.vala:1178
 msgid "Move Photos to Trash"
-msgstr "Siirrä kuvat roskakoriin"
+msgstr "Vyhodit fotografie do koše"
 
 #: src/Commands.vala:1178
 msgid "Restore Photos from Trash"
-msgstr "Palauta kuvat roskakorista"
+msgstr "Vyjmout fotografie z koše"
 
 #: src/Commands.vala:1179
 msgid "Move the photos to the Shotwell trash"
-msgstr "Siirrä kuvat Shotwelin roskakoriin"
+msgstr "Přesune fotografie do koše programu Shotwell"
 
 #: src/Commands.vala:1179
 msgid "Restore the photos back to the Shotwell library"
-msgstr "Palauta kuvat takaisin Shotwellin kirjastoon"
+msgstr "Vrátí fotografie zpět do knihovny programu Shotwell"
 
 #: src/Commands.vala:1196
 msgid "Moving Photos to Trash"
-msgstr "Siirretään kuvia roskakoriin"
+msgstr "Probíhá vyhazování fotografií do koše"
 
 #: src/Commands.vala:1196
 msgid "Restoring Photos From Trash"
-msgstr "Palautetaan kuvia roskakorista"
+msgstr "Probíhá vyjímání fotografií z koše"
 
 #: src/Dialogs.vala:36 src/Dialogs.vala:73
 msgid "Export Photos"
-msgstr "Vie kuvia"
+msgstr "Exportovat fotografie"
 
 #: src/Dialogs.vala:58
 msgid "Exporting"
-msgstr "Viedään"
+msgstr "Probíhá export"
 
 #: src/Dialogs.vala:71
 #, c-format
 msgid "File %s already exists.  Replace?"
-msgstr "Tiedosto %s on jo olemassa. Korvataanko?"
+msgstr "Soubor %s již existuje. Přepsat?"
 
 #: src/Dialogs.vala:73
 msgid "_Skip"
-msgstr "_Ohita"
+msgstr "Pře_skočit"
 
 #: src/Dialogs.vala:73
 msgid "_Replace"
-msgstr "_Korvaa"
+msgstr "_Přepsat"
 
 #: src/Dialogs.vala:73
 msgid "Replace _All"
-msgstr "Korvaa k_aikki"
+msgstr "Přepsat _vše"
 
 #: src/Dialogs.vala:125
 #, c-format
 msgid "Unable to export the photo due to a file error."
 msgid_plural "Unable to export %d photos due to file errors."
-msgstr[0] "Kuvaa ei voitu viedä tiedostovirheen vuoksi."
-msgstr[1] "%d kuvaa ei voitu viedä tiedostovirheen vuoksi."
+msgstr[0] "Nelze exportovat %d fotografii kvůli chybám v souborech."
+msgstr[1] "Nelze exportovat %d fotografie kvůli chybám v souborech."
+msgstr[2] "Nelze exportovat %d fotografií kvůli chybám v souborech."
 
 #: src/Dialogs.vala:206
 msgid "_Format:"
-msgstr "_Muoto:"
+msgstr "_Formát:"
 
 #: src/Dialogs.vala:209
 msgid "_Quality:"
-msgstr "_Laatu:"
+msgstr "_Kvalita:"
 
 #: src/Dialogs.vala:212
 msgid "_Scaling constraint:"
-msgstr "_Skaalausrajoite:"
+msgstr "Omezení _zvětšování:"
 
 #: src/Dialogs.vala:215
 msgid " _pixels"
-msgstr " _pikseliä"
+msgstr "_body"
 
 #: src/Dialogs.vala:372
 #, c-format
 msgid "And %d more.\n"
-msgstr "ja %d muuta.\n"
+msgstr "a %d dalších.\n"
 
 #: src/Dialogs.vala:394
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "Yhden kuvan tuonti onnistui.\n"
-msgstr[1] "%d kuvan tuonti onnistui.\n"
+msgstr[0] "1 fotografie byla úspěšně naimportována.\n"
+msgstr[1] "%d fotografie byly úspěšně naimportovány.\n"
+msgstr[2] "%d fotografií bylo úspěšně naimportováno.\n"
 
 #: src/Dialogs.vala:405
 #, c-format
 msgid "1 photo already in library was not imported.\n"
 msgid_plural "%d photos already in library were not imported.\n"
-msgstr[0] "Yhtä kirjastossa jo olevaa kuvaa ei tuotu.\n"
-msgstr[1] "%d kirjastossa jo olevaa kuvaa ei tuotu.\n"
+msgstr[0] "1 fotografie již obsažená v knihovně nebyla naimportována.\n"
+msgstr[1] "%d fotografie již obsažené v knihovně nebyly naimportovány.\n"
+msgstr[2] "%d fotografií již obsažených v knihovně nebylo naimportováno.\n"
 
 #: src/Dialogs.vala:420
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error.\n"
 msgid_plural "%d photos failed to import due to a file or hardware error.\n"
-msgstr[0] "Yhden kuvan tuonti epäonnistui tiedosto- tai laitevirheen vuoksi.\n"
-msgstr[1] "%d kuvan tuonti epäonnistui tiedosto- tai laitevirheen vuoksi.\n"
+msgstr[0] ""
+"import 1 fotografie se nepodařil kvůli chybě souboru, nebo hardware.\n"
+msgstr[1] ""
+"import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware.\n"
+msgstr[2] ""
+"import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware.\n"
 
 #: src/Dialogs.vala:435
 #, c-format
 msgid "1 photo failed to import due to a camera error.\n"
 msgid_plural "%d photos failed to import due to a camera error.\n"
-msgstr[0] "Yhden kuvan tuonti epäonnistui kameravirheen vuoksi.\n"
-msgstr[1] "%d kuvan tuonti epäonnistui kameravirheen vuoksi.\n"
+msgstr[0] "import 1 fotografie se nezdařil kvůli chybě fotoaparátu.\n"
+msgstr[1] "import %d fotografií se nezdařil kvůli chybě fotoaparátu.\n"
+msgstr[2] "import %d fotografií se nezdařil kvůli chybě fotoaparátu.\n"
 
 #: src/Dialogs.vala:449
 #, c-format
 msgid "1 unsupported photo skipped.\n"
 msgid_plural "%d unsupported photos skipped.\n"
-msgstr[0] "Ohitettiin kuva, jota ei tueta.\n"
-msgstr[1] "Ohitettiin %d kuvaa, joita ei tueta.\n"
+msgstr[0] "1 nepodporovaná fotografie přeskočena.\n"
+msgstr[1] "%d nepodporované fotografie přeskočeny.\n"
+msgstr[2] "%d nepodporovaných fotografií přeskočeno.\n"
 
 #: src/Dialogs.vala:463
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "Ohitettiin yksi tiedosto, joka ei ollut kuva.\n"
-msgstr[1] "Ohitettiin %d tiedostoa, jotka eivät olleet kuvia.\n"
+msgstr[0] "1 neobrázkový soubor přeskočen.\n"
+msgstr[1] "%d neobrázkové soubory přeskočeny.\n"
+msgstr[2] "%d neobrázkových souborů přeskočeno.\n"
 
 #: src/Dialogs.vala:474
 #, c-format
 msgid "1 photo skipped due to user cancel.\n"
 msgid_plural "%d photos skipped due to user cancel.\n"
-msgstr[0] "Ohitettiin yksi kuva, koska käyttäjä perui.\n"
-msgstr[1] "Ohitettiin %d kuvaa, koska käyttäjä perui.\n"
+msgstr[0] "1 soubor přeskočen kvůli stornu.\n"
+msgstr[1] "%d soubory přeskočeny kvůli stornu.\n"
+msgstr[2] "%d souborů přeskočeno kvůli stornu.\n"
 
 #: src/Dialogs.vala:492
 msgid "No photos imported.\n"
-msgstr "Yhtään kuvaa ei tuotu.\n"
+msgstr "Žádné fotografie nebyly importovány.\n"
 
 #: src/Dialogs.vala:507
 msgid "Import Complete"
-msgstr "Tuonti on valmis"
+msgstr "Import dokončen"
 
 #: src/Dialogs.vala:586 src/Resources.vala:115
 msgid "Rename Event"
-msgstr "Nimeä tapahtuma uudelleen"
+msgstr "Přejmenovat událost"
 
 #: src/Dialogs.vala:586 src/Dialogs.vala:596 src/Dialogs.vala:1090
 msgid "Name:"
-msgstr "Nimi:"
+msgstr "Název:"
 
 #: src/Dialogs.vala:596 src/Resources.vala:167
 msgid "Rename Photo"
-msgstr "Nimeä kuva uudelleen"
+msgstr "Přejmenovat fotografii"
 
 #: src/Dialogs.vala:608
 #, c-format
@@ -553,29 +567,35 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Tämä poistaa kuvan Shotwellin kirjastosta. Haluatko myös siirtää kuvan "
-"työpöydän roskakoriin?\n"
+"Tímto odstraníte fotografii z knihovny programu Shotwell. Chcete také "
+"vyhodit fotografii do koše?\n"
 "\n"
-"Tätä toimintoa ei voi perua."
+"Tato akce nemůže být vrácena zpět."
 msgstr[1] ""
-"Tämä poistaa %d kuvaa Shotwellin kirjastosta. Haluatko myös siirtää kuvan "
-"työpöydän roskakoriin?\n"
+"Tímto odstraníte %d fotografie z knihovny programu Shotwell. Chcete také "
+"vyhodit fotografie do koše?\n"
 "\n"
-"Tätä toimintoa ei voi perua."
+"Tato akce nemůže být vrácena zpět."
+msgstr[2] ""
+"Tímto odstraníte %d fotografií z knihovny programu Shotwell. Chcete také "
+"vyhodit fotografie do koše?\n"
+"\n"
+"Tato akce nemůže být vrácena zpět."
 
 #: src/Dialogs.vala:611
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] "_Siirrä tiedosto roskakoriin"
-msgstr[1] "_Siirtä tiedostot roskakoriin"
+msgstr[0] "_Vyhodit soubor"
+msgstr[1] "_Vyhodit soubory"
+msgstr[2] "_Vyhodit soubory"
 
 #: src/Dialogs.vala:615
 msgid "Only _Remove"
-msgstr "_Poista pelkästään kirjastosta"
+msgstr "Jen _odstranit"
 
 #: src/Dialogs.vala:617
 msgid "Empty Trash"
-msgstr "Tyhjennä roskakori"
+msgstr "Vyprázdnit koš"
 
 #: src/Dialogs.vala:690
 #, c-format
@@ -584,47 +604,48 @@ msgstr "%d%%"
 
 #: src/Dialogs.vala:728
 msgid "Generating Events"
-msgstr "Luodaan tapahtumia"
+msgstr "Vytváření událostí"
 
 #: src/Dialogs.vala:800
 msgid "AM"
-msgstr "AM"
+msgstr "dop."
 
 #: src/Dialogs.vala:801
 msgid "PM"
-msgstr "PM"
+msgstr "odp."
 
 #: src/Dialogs.vala:802
 msgid "24 Hr"
-msgstr "24 h"
+msgstr "24 hod."
 
 #: src/Dialogs.vala:817
 msgid "_Shift photos by the same amount"
-msgstr "_Siirrä kuvia saman verran"
+msgstr "_Posunout o stejné množství"
 
 #: src/Dialogs.vala:822
 msgid "Set _all photos to this time"
-msgstr "_Aseta kaikki kuvat tähän aikaan"
+msgstr "Nastavit _všem fotografií tento čas"
 
 #: src/Dialogs.vala:828
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] "_Muokkaa alkuperäistä tiedostoa"
-msgstr[1] "_Muokkaa alkuperäisiä tiedostoja"
+msgstr[0] "Z_měnit původní soubor"
+msgstr[1] "Z_měnit původní soubory"
+msgstr[2] "Z_měnit původní soubory"
 
 #: src/Dialogs.vala:910
 msgid "Original: "
-msgstr "Alkuperäinen: "
+msgstr "Originál:"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:911
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%d.%m.%Y, %H.%M.%S"
+msgstr "%d. %m. %Y, %H:%M:%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:912
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d.%m.%Y, %I.%M.%S"
+msgstr "%d. %d. %Y, %I:%M%:S %p"
 
 #: src/Dialogs.vala:997
 #, c-format
@@ -632,8 +653,8 @@ msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"Ottoaikaa siirretään eteenpäin\n"
-"%d %s, %d %s, %d %s, ja %d %s."
+"Čas expozice bude posunut dopředu\n"
+"o %d %s, %d %s, %d %s a %d %s."
 
 #: src/Dialogs.vala:998
 #, c-format
@@ -641,32 +662,36 @@ msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
-"Ottoaikaa siirretään taaksepäin\n"
-"%d %s, %d %s, %d %s, ja %d %s."
+"Exposure time will be shifted backward by\n"
+"o %d %s, %d %s, %d %s a %d %s."
 
 #: src/Dialogs.vala:1000
 msgid "day"
 msgid_plural "days"
-msgstr[0] "päivä"
-msgstr[1] "päivää"
+msgstr[0] "den"
+msgstr[1] "dny"
+msgstr[2] "dní"
 
 #: src/Dialogs.vala:1001
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] "tunti"
-msgstr[1] "tuntia"
+msgstr[0] "hodina"
+msgstr[1] "hodiny"
+msgstr[2] "hodin"
 
 #: src/Dialogs.vala:1002
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] "minuutti"
-msgstr[1] "minuuttia"
+msgstr[0] "minuta"
+msgstr[1] "minuty"
+msgstr[2] "minut"
 
 #: src/Dialogs.vala:1003
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] "sekunti"
-msgstr[1] "sekuntia"
+msgstr[0] "vteřina"
+msgstr[1] "vteřiny"
+msgstr[2] "vteřin"
 
 #: src/Dialogs.vala:1047
 #, c-format
@@ -681,98 +706,103 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "\n"
-"ja %d muu."
+"A %d další."
 msgstr[1] ""
 "\n"
 "\n"
-"ja %d muuta."
+"A %d další."
+msgstr[2] ""
+"\n"
+"\n"
+"A %d dalších."
 
 #: src/Dialogs.vala:1064 src/Dialogs.vala:1114
 msgid "Tags (separated by commas):"
-msgstr "Tunnisteet (pilkulla erotettuna):"
+msgstr "Nálepky (oddělené čárkou):"
 
 #: src/Dialogs.vala:1154
 msgid "Welcome!"
-msgstr "Tervetuloa!"
+msgstr "Vítejte!"
 
 #: src/Dialogs.vala:1161
 #, c-format
 msgid "Welcome to Shotwell!"
-msgstr "Tervetuloa Shotwelliin!"
+msgstr "Vítejte v programu Shotwell!"
 
 #: src/Dialogs.vala:1165
 #, c-format
 msgid "To get started, import photos in any of these ways:"
-msgstr "Kuvia voi tuoda millä tahansa näistä tavoista:"
+msgstr "Pro začátek můžete importovat fotografie:"
 
 #: src/Dialogs.vala:1179
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Valitse <span weight=\"bold\">Tiedosto %s Tuo kansiosta</span>"
+msgstr ""
+"výběrem z menu <span weight=\"bold\">Soubor %s Importovat ze složky</span>"
 
 #: src/Dialogs.vala:1180
 msgid "Drag and drop photos onto the Shotwell window"
-msgstr "Vedä ja pudota kuvia Shotwellin ikkunaan"
+msgstr "přetažením a puštěním souborů nad oknem programu"
 
 #: src/Dialogs.vala:1181
 msgid "Connect a camera to your computer and import"
-msgstr "Tuo kuvia tietokoneeseen liitetystä kamerasta"
+msgstr "připojením fotoaparátu k počítači a importem z něj"
 
 #: src/Dialogs.vala:1188
 msgid "_Don't show this message again"
-msgstr "_Älä näytä tätä viestiä uudestaan"
+msgstr "Příště _nezobrazovat"
 
 #: src/Dimensions.vala:17 src/FlickrConnector.vala:949
 msgid "Original size"
-msgstr "Alkuperäinen koko"
+msgstr "Původní velikost"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
-msgstr "Leveys tai korkeus"
+msgstr "Šířka nebo výška"
 
 #: src/Dimensions.vala:23
 msgid "Width"
-msgstr "Leveys"
+msgstr "Šířka"
 
 #: src/Dimensions.vala:26
 msgid "Height"
-msgstr "Korkeus"
+msgstr "Výška"
 
 #: src/EditingTools.vala:411
 msgid "Crop"
-msgstr "Rajaus"
+msgstr "Ořez"
 
 #: src/EditingTools.vala:412
 msgid "Crop the photo's size"
-msgstr "Rajaa kuvan kokoa"
+msgstr "Ořízne fotografii"
 
 #: src/EditingTools.vala:488
 msgid "Return to current photo dimensions"
-msgstr "Palaa kuvan nykyisiin mittoihin"
+msgstr "Vrátit k původním hodnotám"
 
 #: src/EditingTools.vala:491
 msgid "Set the crop for this photo"
-msgstr "Aseta kuvan rajaus"
+msgstr "Nastaví oříznutí fotografie"
 
 #: src/EditingTools.vala:503
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr "Käännä rajauskulmiota pysty- ja vaakasuunnan välillä"
+msgstr "Přetáčet ořezový rám mezi orientací na šířku a na délku"
 
 #: src/EditingTools.vala:571
 msgid "Unconstrained"
-msgstr "Rajoittamaton"
+msgstr "Neomezeně"
 
 #: src/EditingTools.vala:572
 msgid "Square"
-msgstr "Neliö"
+msgstr "Čtverec"
 
 #: src/EditingTools.vala:573
 msgid "Screen"
-msgstr "Näyttö"
+msgstr "Obrazovka"
 
 #: src/EditingTools.vala:574 src/PicasaConnector.vala:867
 msgid "Original Size"
-msgstr "Alkuperäinen koko"
+msgstr "Původní velikost"
 
 #: src/EditingTools.vala:575 src/EditingTools.vala:578
 #: src/EditingTools.vala:586 src/EditingTools.vala:594
@@ -781,178 +811,176 @@ msgstr "-"
 
 #: src/EditingTools.vala:576
 msgid "SD Video (4 : 3)"
-msgstr "Standardipiirto (4 : 3)"
+msgstr "SD video (4:3)"
 
 #: src/EditingTools.vala:577
 msgid "HD Video (16 : 9)"
-msgstr "Teräväpiirto (16 : 9)"
+msgstr "HD video (16:9)"
 
 #: src/EditingTools.vala:579 src/Printing.vala:769
-#, fuzzy
 msgid "Wallet (2 x 3 in.)"
-msgstr "Tuumat (in)"
+msgstr ""
 
 #: src/EditingTools.vala:580 src/Printing.vala:772
-#, fuzzy
 msgid "Notecard (3 x 5 in.)"
-msgstr "Tuumat (in)"
+msgstr "Poznámková karta (3x5 palců)"
 
 #: src/EditingTools.vala:581 src/Printing.vala:775
 msgid "4 x 6 in."
-msgstr "4 x 6 tuumaa"
+msgstr "4x6 palců"
 
 #: src/EditingTools.vala:582 src/Printing.vala:778
 msgid "5 x 7 in."
-msgstr "5 x 7 tuumaa"
+msgstr "5x7 palců"
 
 #: src/EditingTools.vala:583 src/Printing.vala:781
 msgid "8 x 10 in."
-msgstr "8 x 10 tuumaa"
+msgstr "8x10 palců"
 
 #: src/EditingTools.vala:584 src/Printing.vala:784
 msgid "11 x 14 in."
-msgstr "11 x 14 tuumaa"
+msgstr "11x14 palců"
 
 #: src/EditingTools.vala:585 src/Printing.vala:787
 msgid "16 x 20 in."
-msgstr "16 x 20 tuumaa"
+msgstr "16x20 palců"
 
 #: src/EditingTools.vala:587 src/Printing.vala:793
-#, fuzzy
 msgid "Metric Wallet (9 x 13 cm)"
-msgstr "Metrinen (Celsiusta, cm jne.)"
+msgstr ""
 
 #: src/EditingTools.vala:588 src/Printing.vala:796
 msgid "Postcard (10 x 15 cm)"
-msgstr "Postikortti (10 x 15 cm)"
+msgstr "Pohlednice (10x15 cm)"
 
 #: src/EditingTools.vala:589 src/Printing.vala:799
 msgid "13 x 18 cm"
-msgstr "13 x 18 cm"
+msgstr "13x18 cm"
 
 #: src/EditingTools.vala:590 src/Printing.vala:802
 msgid "18 x 24 cm"
-msgstr "18 x 24 cm"
+msgstr "18x24 cm"
 
 #: src/EditingTools.vala:591 src/Printing.vala:805
 msgid "20 x 30 cm"
-msgstr "20 x 30 cm"
+msgstr "20x30 cm"
 
 #: src/EditingTools.vala:592 src/Printing.vala:808
 msgid "24 x 40 cm"
-msgstr "24 x 40 cm"
+msgstr "24x40 cm"
 
 #: src/EditingTools.vala:593 src/Printing.vala:811
 msgid "30 x 40 cm"
-msgstr "30 x 40 cm"
+msgstr "30x40 cm"
 
 #: src/EditingTools.vala:595
 msgid "Custom"
-msgstr "Oma koko"
+msgstr "Vlastní"
 
 #: src/EditingTools.vala:1673
 msgid "Red-eye"
-msgstr "Punasilmäisyys"
+msgstr "Červené oči"
 
 #: src/EditingTools.vala:1674
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr "Vähennä tai poista punasilmäisyyttä kuvasta"
+msgstr "Odstraní, nebo potlačí červené oči ve fotografií"
 
 #: src/EditingTools.vala:1679 src/Properties.vala:335
 msgid "Size:"
-msgstr "Koko:"
+msgstr "Velikost:"
 
 #: src/EditingTools.vala:1694
 msgid "Close the red-eye tool"
-msgstr "Sulje punasilmäisyyden korjaustyökalu"
+msgstr "Zavřít nástroj pro odstranění červených očí"
 
 #: src/EditingTools.vala:1697
 msgid "Remove any red-eye effects in the selected region"
-msgstr "Poista punasilmäisyyttä valitulta alueelta"
+msgstr "Odstranit červené oči ve vybrané oblasti"
 
 #: src/EditingTools.vala:1990
 msgid "Adjust"
-msgstr "Säätö"
+msgstr "Nastavení"
 
 #: src/EditingTools.vala:1991
 msgid "Adjust the photo's color and tone"
-msgstr "Säädä kuvan värejä ja kirkkautta"
+msgstr "Nastavení barvy a tónu fotografie"
 
 #: src/EditingTools.vala:2011
 msgid "_Reset"
-msgstr "_Palauta alkuperäiset arvot"
+msgstr "_Obnovit"
 
 #: src/EditingTools.vala:2022 src/Properties.vala:364 src/Properties.vala:368
 #: src/Properties.vala:375
 msgid "Exposure:"
-msgstr "Valotus:"
+msgstr "Expozice:"
 
 #: src/EditingTools.vala:2030
 msgid "Saturation:"
-msgstr "Värikylläisyys:"
+msgstr "Sytost:"
 
 #: src/EditingTools.vala:2038
 msgid "Tint:"
-msgstr "Värisävy:"
+msgstr "Odstín:"
 
 #: src/EditingTools.vala:2047
 msgid "Temperature:"
-msgstr "Lämpötila:"
+msgstr "Teplota:"
 
 #: src/EditingTools.vala:2055
 msgid "Shadows:"
-msgstr "Varjot:"
+msgstr "Stín:"
 
 #: src/EditingTools.vala:2107
 msgid "Reset Colors"
-msgstr "Palauta alkuperäiset värit "
+msgstr "Obnovit barvy"
 
 #: src/EditingTools.vala:2107
 msgid "Reset all color adjustments to original"
-msgstr "Palauta kaikkien värisäätöjen alkuperäiset arvot"
+msgstr "Obnoví nastavení barev podle originálu"
 
 #: src/EditingTools.vala:2413
 msgid "Temperature"
-msgstr "Lämpötila"
+msgstr "Teplota"
 
 #: src/EditingTools.vala:2419
 msgid "Tint"
-msgstr "Värisävy"
+msgstr "Odstín"
 
 #: src/EditingTools.vala:2425
 msgid "Saturation"
-msgstr "Värikylläisyys"
+msgstr "Sytost"
 
 #: src/EditingTools.vala:2431
 msgid "Exposure"
-msgstr "Valotus"
+msgstr "Expozice"
 
 #: src/EditingTools.vala:2437
 msgid "Shadows"
-msgstr "Varjot"
+msgstr "Stín"
 
 #: src/EditingTools.vala:2447
 msgid "Contrast Expansion"
-msgstr "Kontrastin laajennus"
+msgstr "Zvýšení kontrastu"
 
 #: src/EventsDirectoryPage.vala:68 src/Properties.vala:303
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
-msgstr[0] "%d valokuva"
-msgstr[1] "%d valokuvaa"
+msgstr[0] "%d fotografie"
+msgstr[1] "%d fotografie"
+msgstr[2] "%d fotografií"
 
 #: src/EventsDirectoryPage.vala:251
 msgid "Select all the events in the directory"
-msgstr "Valitse kaikki hakemiston tapahtumat"
+msgstr "Vybrat všechny události ze složky"
 
 #: src/EventsDirectoryPage.vala:453
 msgid "Events"
-msgstr "Tapahtumat"
+msgstr "Události"
 
 #: src/EventsDirectoryPage.vala:509 src/LibraryWindow.vala:186
 msgid "Undated"
-msgstr "Ei päiväystä"
+msgstr "Bez data"
 
 #: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%Y"
@@ -965,11 +993,11 @@ msgstr "%B"
 #: src/Event.vala:467
 #, c-format
 msgid "Event %lld"
-msgstr "Tapahtuma %lld"
+msgstr "Událost %lld"
 
 #: src/FacebookConnector.vala:13 src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
-msgstr "Shotwell-yhdistäjä"
+msgstr "Shotwell Connect"
 
 #: src/FacebookConnector.vala:16
 msgid ""
@@ -978,9 +1006,10 @@ msgid ""
 "If you don't yet have a Facebook account, you can create one during the "
 "login process."
 msgstr ""
-"Et ole kirjautuneena Facebookiin.\n"
+"Nejste přihlášeni na Facebooku.\n"
 "\n"
-"Jos sinulla ei ole Facebook-tiliä, voit luoda sellaisen ennen kirjautumista."
+"Jestliže ještě nemáte vytvořen na Facebooku účet, můžete si jej vytvořit "
+"během přihlašování."
 
 #: src/FacebookConnector.vala:18
 msgid ""
@@ -989,17 +1018,17 @@ msgid ""
 "To continue publishing to Facebook, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
-"Olet jo kirjautunut Facebookiin ja sieltä ulos tämän Shotwell-käyttökerran "
-"aikana.\n"
-"Käynnistä Shotwell uudelleen ja yritä sitten kuvien lähettämistä uudelleen."
+"Již jste se přihlásili a odhlásili během spuštění programu Shotwell\n"
+"Před publikováním na Facebook ukončete a znovu spusťte program Shotwell a "
+"pak znovu zvolte Publikovat."
 
 #: src/FacebookConnector.vala:258
 msgid "Testing connection to Facebook..."
-msgstr "Kokeillaan Facebook-yhteyttä..."
+msgstr "Testuji spojení k Facebooku..."
 
 #: src/FacebookConnector.vala:340 src/PicasaConnector.vala:378
 msgid "Creating album..."
-msgstr "Luodaan albumia..."
+msgstr "Vytvářím album..."
 
 #: src/FacebookConnector.vala:711
 #, c-format
@@ -1008,27 +1037,27 @@ msgid ""
 "\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
-"Olet kirjautuneena Facebookiin nimellä %s.\n"
+"Jste přihlášeni k Facebooku pod jménem %s.\n"
 "\n"
-"Missä haluat julkaista valitut kuvat?"
+"Chcete publikovat vybrané fotografie?"
 
 #: src/FacebookConnector.vala:747
 msgid "Publish to an e_xisting album:"
-msgstr "Julkaise olemassa olevassa albumissa:"
+msgstr "Publikovat do s_távajícího alba:"
 
 #: src/FacebookConnector.vala:750
 msgid "Create a _new album named:"
-msgstr "Luo uusi albumi nimeltä:"
+msgstr "Vytvořit _nové album s názvem:"
 
 #: src/FacebookConnector.vala:766 src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
 msgid "_Publish"
-msgstr "_Julkaise"
+msgstr "_Publikovat"
 
 #: src/FacebookConnector.vala:768 src/FlickrConnector.vala:880
 #: src/PicasaConnector.vala:779
 msgid "_Logout"
-msgstr "_Kirjaudu ulos"
+msgstr "_Odhlásit"
 
 #: src/FlickrConnector.vala:11
 msgid ""
@@ -1038,11 +1067,10 @@ msgid ""
 "process. During login you will have to specifically authorize Shotwell "
 "Connect to link to your Flickr account."
 msgstr ""
-"Et ole kirjautuneena Flickriin.\n"
+"Nejste přihlášeni ke službě Flickr.\n"
 "\n"
-"Sinulla täytyy olla Flickr-tili valmiina, jotta kirjautuminen onnistuu. "
-"Kirjautumisen aikana sinun on annettava Shotwell-yhdistäjälle oikeus käyttää "
-"Flickr-tiliä."
+"Pro přihlášení musíte mít vytvořen účet. Během přihlašování musíte dovolit "
+"programu Shotwell, aby se mohl připojit k vašemu Flickr účtu."
 
 #: src/FlickrConnector.vala:13
 msgid ""
@@ -1050,22 +1078,20 @@ msgid ""
 "To continue publishing to Flickr, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
-"Olet jo kirjautunut Flickriin ja sieltä ulos tämän Shotwell-käyttökerran "
-"aikana.\n"
-"Käynnistä Shotwell uudelleen ja yritä sitten kuvien lähettämistä uudelleen."
+"Již jste se přihlásili a odhlásili během spuštění programu Shotwell.\n"
+"Před publikováním na Flickr ukončete a znovu spusťte program Shotwell a pak "
+"znovu zvolte Publikovat."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
-msgstr "Valmistellaan kirjautumista..."
+msgstr "Příprava přihlášení..."
 
 #: src/FlickrConnector.vala:820
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
-msgstr ""
-"Olet kirjautunut Flickriin käyttäjänä %s.\n"
-"\n"
+msgstr "Jste přihlášeni k Flickr jako %s.\n"
 
 #: src/FlickrConnector.vala:822
 #, c-format
@@ -1073,92 +1099,93 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
-"Ilmaisessa Flickr-tilissä on kuukausittainen rajoitus datan lähetykselle.\n"
-"Tässä kuussa voit vielä lähettää %d megatavua."
+"Váš bezplatný Flickr účet má omezení na množství přenesených dat během "
+"měsíce.\n"
+"Tento měsíc vám zbývá %d megabajtů."
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr "Flickr Pro -tili sallii kuvien lähettämisen ilman rajoituksia."
+msgstr "Účet Flickr Pro umožňuje nahrávat neomezeně."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
-msgstr "Kuvat _näkyvät:"
+msgstr "Fotografie _viditelné:"
 
 #: src/FlickrConnector.vala:850
 msgid "Photo _size:"
-msgstr "Kuvien _koko:"
+msgstr "Veliko_st fotografie:"
 
 #: src/FlickrConnector.vala:922
 msgid "Everyone"
-msgstr "Kaikille"
+msgstr "všem"
 
 #: src/FlickrConnector.vala:923
 msgid "Friends & family only"
-msgstr "Vain kavereille ja perheelle"
+msgstr "jen přátelům a rodině"
 
 #: src/FlickrConnector.vala:924
 msgid "Just me"
-msgstr "Vain minulle"
+msgstr "jen mně"
 
 #: src/FlickrConnector.vala:947
 msgid "Medium (500 x 375 pixels)"
-msgstr "Keskikoko (500 x 375 pikseliä)"
+msgstr "střední (500x375 bodů)"
 
 #: src/FlickrConnector.vala:948
 msgid "Large (1024 x 768 pixels)"
-msgstr "Suuri (1024 x 768 pikseliä)"
+msgstr "velká (1024x768 bodů)"
 
 #: src/image_util.vala:209
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr "Taustakuvaa ei voitu viedä kohteeseen %s: %s"
+msgstr "Nepodařilo se exportovat pozadí na %s: %s"
 
 #: src/ImportPage.vala:162
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
-"Kameran irrottaminen ei onnistu. Yritä irrottaa kamera "
-"tiedostonhallintaohjelman kautta."
+"Nepodařilo se odpojit fotoaparát. Pokuste se odpojit fotoaparát pomocí "
+"správce souborů."
 
 #: src/ImportPage.vala:250 src/ImportPage.vala:251
 msgid "Camera"
-msgstr "Kamera"
+msgstr "Fotoaparát"
 
 #: src/ImportPage.vala:289
 msgid "Hide photos already imported"
-msgstr "Piilota jo tuodut kuvat"
+msgstr "Schovat již importované fotografie"
 
 #: src/ImportPage.vala:290
 msgid "Only display photos that have not been imported"
-msgstr "Näytä vai kuvat joita ei ole tuotu"
+msgstr "Zobrazit jen fotografie, které ještě nebyly importovány"
 
 #: src/ImportPage.vala:384
 msgid "Import _Selected"
-msgstr "Tuo _valitut"
+msgstr "Importovat _vybrané"
 
 #: src/ImportPage.vala:389
 msgid "Import _All"
-msgstr "Tuo _kaikki"
+msgstr "Importovat _všechny"
 
 #: src/ImportPage.vala:399
 msgid "Select all the photos for importing"
-msgstr "Valitse kaikki kuvat tuotaviksi"
+msgstr "Pro import vybere všechny fotografie"
 
 #: src/ImportPage.vala:507
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
 msgstr ""
-"Shotwellin on irrotettava kamera tiedostojärjestelmästä, jotta sitä voidaan "
-"käyttää. Jatketaanko?"
+"Shotwell kvůli přístupu potřebuje odpojit fotoaparát ze souborového systému. "
+"Pokračovat?"
 
 #: src/ImportPage.vala:513
 msgid "_Unmount"
-msgstr "_Irrota"
+msgstr "_Odpojit"
 
 #: src/ImportPage.vala:518
 msgid "Please unmount the camera."
-msgstr "Irrota kamera."
+msgstr "Odpojte fotoaparát."
 
 #: src/ImportPage.vala:523
 msgid ""
@@ -1166,13 +1193,12 @@ msgid ""
 "camera when it's unlocked.  Please close any other application using the "
 "camera and try again."
 msgstr ""
-"Toinen ohjelma on lukinnut kameran. Shotwell voi käyttää kameraa vain, jos "
-"sitä ei ole lukittu. Sulje muut kameraa käyttävät ohjelmat ja yritä "
-"uudelleen."
+"Fotoaparát je používán jinou aplikací. Ukončete všechny aplikace, které ho "
+"používají, a zkuste to znovu."
 
 #: src/ImportPage.vala:533
 msgid "Please close any other application using the camera."
-msgstr "Sulje muut kameraa käyttävät ohjelmat"
+msgstr "Ukončete ostatní aplikace používající fotoaparát."
 
 #: src/ImportPage.vala:538
 #, c-format
@@ -1180,66 +1206,68 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
-"Esikatselukuvien noutaminen kamerasta ei onnistu:\n"
+"Nepodařilo se načít náhledy z fotoaparátu:\n"
 "%s"
 
 #: src/ImportPage.vala:557
 msgid "Unmounting..."
-msgstr "Irrotetaan..."
+msgstr "Odpojuje se..."
 
 #: src/ImportPage.vala:620
 msgid "Fetching photo information"
-msgstr "Noudetaan kuvan tietoja"
+msgstr "Získávání informací o fotografii"
 
 #: src/ImportPage.vala:821
 #, c-format
 msgid "Fetching preview for %s"
-msgstr "Noudetaan esikatseluversiota kuvasta %s"
+msgstr "Získává se náhled %s"
 
 #: src/ImportPage.vala:867
 #, c-format
 msgid "Error while fetching previews from %s: %s"
-msgstr "Virhe noudettaessa esikatselukuvia kamerasta %s: %s"
+msgstr "Chyba při získávání náhledů %s: %s"
 
 #: src/ImportPage.vala:908
 #, c-format
 msgid "Unable to lock camera: %s"
-msgstr "Kameraa ei voitu lukita: %s"
+msgstr "Nepodařilo se zamknout fotoaparát: %s"
 
 #: src/ImportPage.vala:991
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] "Poistetaanko tämä kuva kamerasta?"
-msgstr[1] "Poistetaanko nämä %d kuvaa kamerasta?"
+msgstr[0] "Smazat tuto %d fotografii z fotoaparátu?"
+msgstr[1] "Smazat tyto %d fotografie z fotoaparátu?"
+msgstr[2] "Smazat těchto %d fotografií z fotoaparátu?"
 
 #: src/ImportPage.vala:995
 msgid "_Keep"
-msgstr "_Säilytä"
+msgstr "_Zachovat"
 
 #: src/ImportPage.vala:1012
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
-msgstr[0] "%d kuvaa ei voida poistaa kamerasta virheiden vuoksi."
-msgstr[1] "%d kuvaa ei voida poistaa kamerasta virheiden vuoksi."
+msgstr[0] "Nepodařilo se smazat %d fotografii z fotoaparátu kvůli chybám."
+msgstr[1] "Nepodařilo se smazat %d fotografie z fotoaparátu kvůli chybám."
+msgstr[2] "Nepodařilo se smazat %d fotografií z fotoaparátu kvůli chybám."
 
 #: src/ImportPage.vala:1055
 msgid "Importing..."
-msgstr "Tuodaan..."
+msgstr "Importuje se..."
 
 #: src/ImportPage.vala:1065 src/ImportPage.vala:1095
 msgid "Stop importing photos"
-msgstr "Keskeytä kuvien tuonti"
+msgstr "Zastavit import fotografií"
 
 #: src/ImportPage.vala:1094
 msgid "_Stop Import"
-msgstr "_Keskeytä tuonti"
+msgstr "Za_stavit import"
 
 #: src/ImportPage.vala:1158
 #, c-format
 msgid "Imported %s"
-msgstr "Tuotiin %s"
+msgstr "Importováno %s"
 
 #: src/JfifSupport.vala:69
 msgid "JPEG"
@@ -1248,75 +1276,75 @@ msgstr "JPEG"
 #: src/JfifSupport.vala:176
 #, c-format
 msgid "Low (%d%%)"
-msgstr "Matala (%d%%)"
+msgstr "nízká (%d%%)"
 
 #: src/JfifSupport.vala:179
 #, c-format
 msgid "Medium (%d%%)"
-msgstr "Keskitasoinen (%d%%)"
+msgstr "střední (%d%%)"
 
 #: src/JfifSupport.vala:182
 #, c-format
 msgid "High (%d%%)"
-msgstr "Korkea (%d%%)"
+msgstr "vysoká (%d%%)"
 
 #: src/JfifSupport.vala:185
 #, c-format
 msgid "Maximum (%d%%)"
-msgstr "Suurin (%d%%)"
+msgstr "maximální (%d%%)"
 
 #: src/LibraryWindow.vala:398
 msgid "_Import From Folder..."
-msgstr "_Tuo kansiosta..."
+msgstr "_Importovat ze složky..."
 
 #: src/LibraryWindow.vala:399
 msgid "Import photos from disk to library"
-msgstr "Tuo kuvia levyltä kirjastoon"
+msgstr "Importuje fotografie z disku do knihovny"
 
 #: src/LibraryWindow.vala:404
 msgid "Sort _Events"
-msgstr "Järjestä _tapahtumat"
+msgstr "Seřadit u_dálosti"
 
 #: src/LibraryWindow.vala:414
 msgid "Empty _Trash"
-msgstr "Tyhjennä _roskakori"
+msgstr "Vysypat _koš"
 
 #: src/LibraryWindow.vala:415
 msgid "Delete all photos in the trash"
-msgstr "Poista kaikki kuvat roskakorista"
+msgstr "Vymaže všechny fotografie z koše"
 
 #: src/LibraryWindow.vala:426
 msgid "_Basic Information"
-msgstr "_Perustiedot"
+msgstr "_Základní informace"
 
 #: src/LibraryWindow.vala:427
 msgid "Display basic information for the selection"
-msgstr "Näytä perustiedot valinnasta"
+msgstr "Zobrazí základní informace o vybrané fotografii"
 
 #: src/LibraryWindow.vala:432
 msgid "E_xtended Information"
-msgstr "_Lisätiedot"
+msgstr "_Rozšířené informace"
 
 #: src/LibraryWindow.vala:433
 msgid "Display extended information for the selection"
-msgstr "Näytä lisätiedot valinnasta"
+msgstr "Zobrazí více informací o vybrané fotografii"
 
 #: src/LibraryWindow.vala:593
 #, c-format
 msgid "_Copy files to %s photo library"
-msgstr "_Kopioi tiedostot kuvakirjastoon %s"
+msgstr "Z_kopírovat soubory do knihovny %s"
 
 #: src/LibraryWindow.vala:596
 msgid "Import From Folder"
-msgstr "Tuo kansiosta"
+msgstr "Import ze složky"
 
 #: src/LibraryWindow.vala:656
 msgid "Emptying Trash..."
-msgstr "Tyhjennetään roskakori..."
+msgstr "Vysypává se koš..."
 
 #: src/LibraryWindow.vala:816
 msgid "Photos cannot be imported from this directory."
-msgstr "Tästä hakemistosta ei voi tuoda kuvia."
+msgstr "Z této složky fotografie nemohou být importovány."
 
 #: src/LibraryWindow.vala:904
 #, c-format
@@ -1324,28 +1352,28 @@ msgid ""
 "Shotwell can copy or move the photos into your %s directory, or it can link "
 "to the photos without duplicating them."
 msgstr ""
-"Shotwell voi kopioida tai siirtää kuvat hakemistoon %s tai tehdä linkit "
-"kuviin ilman niiden kopiointia."
+"Program Shotwell nemůže zkopírovat, nebo přesunout fotografie do složky %s, "
+"nebo vytvořit odkaz na ně bez jejich zkopírování."
 
 #: src/LibraryWindow.vala:910
 msgid "Copy into Library"
-msgstr "Kopioi kirjastoon"
+msgstr "Zkopírovat do knihovny"
 
 #: src/LibraryWindow.vala:911
 msgid "Create Links"
-msgstr "Tee linkit"
+msgstr "Vytvořit odkazy"
 
 #: src/LibraryWindow.vala:912
 msgid "Import to Library"
-msgstr "Tuo kirjastoon"
+msgstr "Import do knihovny"
 
 #: src/LibraryWindow.vala:1125
 msgid "Tags"
-msgstr "Tunnisteet"
+msgstr "Nálepky"
 
 #: src/LibraryWindow.vala:1204
 msgid "Cameras"
-msgstr "Kamerat"
+msgstr "Fotoaparáty"
 
 #: src/main.vala:79
 #, c-format
@@ -1354,9 +1382,9 @@ msgid ""
 "appears it was created by Shotwell %s.  This version is %s.  Please use the "
 "latest version of Shotwell."
 msgstr ""
-"Kuvakirjasto ei ole yhteensopiva tämän Shotwell-version kanssa. Kirjasto "
-"luotiin ilmeisesti Shotwellin versiolla %s. Tämä versio on %s. Käytä "
-"Shotwellin uusinta versiota."
+"Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. "
+"Vypadá, že je vytvořena ve verzi %s. Tato verze je %s. Použijte nejnovější "
+"verzi programu Shotwell."
 
 #: src/main.vala:84
 #, c-format
@@ -1364,8 +1392,8 @@ msgid ""
 "Shotwell was unable to upgrade your photo library from version %s to %s.  "
 "For more information please check the Shotwell Wiki at %s"
 msgstr ""
-"Shotwell ei pystynyt päivittämään kuvakirjastoa versiosta %s versioon %s. "
-"Lisätietoja on Shotwellin wikissä: %s"
+"Program nemůže aktualizovat knihovnu fotografií z verze %s na verzi %s. "
+"Další informace naleznete na wiki na adrese %s"
 
 #: src/main.vala:89
 #, c-format
@@ -1374,205 +1402,205 @@ msgid ""
 "appears it was created by Shotwell %s.  This version is %s.  Please clear "
 "your library by deleting %s and re-import your photos."
 msgstr ""
-"Kuvakirjasto ei ole yhteensopiva tämän Shotwell-version kanssa. Kirjasto "
-"luotiin ilmeisesti Shotwellin versiolla %s. Tämä versio on %s. Tyhjennä "
-"kirjasto poistamalla hakemisto %s ja tuo kuvat uudelleen."
+"Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. "
+"Vypadá, že je vytvořena ve verzi %s. Tato verze je %s. Vymažte knihovnu "
+"smazáním %s a novým importem fotografií."
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
-msgstr "Tuntematon virhe varmistettaessa Shotwellin tietokantaa: %d"
+msgstr "Neznámá chyba při přístupu k databázi programu Shotwell: %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
-msgstr "Ladataan Shotwelliä"
+msgstr "Načítá se"
 
 #: src/main.vala:219
 msgid "[FILE]"
-msgstr "[TIEDOSTO]"
+msgstr "[FILE]"
 
 #: src/main.vala:222
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr "Komento ”%s --help” näyttää luettelon kaikista komentorivivalitsimista.\n"
+msgstr "Spuštěním '%s --help' se zobrazí všechny volby příkazového řádku.\n"
 
 #: src/Page.vala:1898
 msgid "Photos cannot be exported to this directory."
-msgstr "Tähän hakemistoon ei voi viedä kuvia."
+msgstr "Fotografie nemohou být exportovány do této složky."
 
 #: src/PhotoPage.vala:126
 msgid "Previous photo"
-msgstr "Edellinen kuva"
+msgstr "Předchozí fotografie"
 
 #: src/PhotoPage.vala:131
 msgid "Next photo"
-msgstr "Seuraava kuva"
+msgstr "Následující fotografie"
 
 #: src/PhotoPage.vala:1026
 #, c-format
 msgid "Photo source file missing: %s"
-msgstr "Kuvan lähdetiedosto puuttuu: %s"
+msgstr "Chybí zdrojový soubor fotografie: %s"
 
 #: src/PhotoPage.vala:1421
 msgid "Re_move"
-msgstr "_Poista"
+msgstr "O_dstranit"
 
 #: src/PhotoPage.vala:1422
 msgid "Remove the photo from your library"
-msgstr "Poista kuva kirjastosta"
+msgstr "Odstraní fotografii z knihovny"
 
 #: src/PhotoPage.vala:1430 src/PhotoPage.vala:2175
 msgid "_Photo"
-msgstr "_Kuva"
+msgstr "_Fotografie"
 
 #: src/PhotoPage.vala:1435 src/PhotoPage.vala:2180
 msgid "_Previous Photo"
-msgstr "_Edellinen kuva"
+msgstr "_Předchozí fotografie"
 
 #: src/PhotoPage.vala:1436 src/PhotoPage.vala:2181
 msgid "Previous Photo"
-msgstr "Edellinen kuva"
+msgstr "Předchozí fotografie"
 
 #: src/PhotoPage.vala:1441 src/PhotoPage.vala:2186
 msgid "_Next Photo"
-msgstr "_Seuraava kuva"
+msgstr "_Následující fotografie"
 
 #: src/PhotoPage.vala:1442 src/PhotoPage.vala:2187
 msgid "Next Photo"
-msgstr "Seuraava kuva"
+msgstr "Následující fotografie"
 
 #: src/PhotoPage.vala:1514 src/PhotoPage.vala:2245
 msgid "Increase the magnification of the photo"
-msgstr "Kasvata kuvan suurennusta"
+msgstr "Přiblížit fotografii"
 
 #: src/PhotoPage.vala:1520 src/PhotoPage.vala:2251
 msgid "Decrease the magnification of the photo"
-msgstr "Vähennä kuvan suurennusta"
+msgstr "Oddálit fotografii"
 
 #: src/PhotoPage.vala:1787
 #, c-format
 msgid "Unable to export %s: %s"
-msgstr "Tiedostoa %s ei voitu viedä: %s"
+msgstr "Nepodařil se export %s: %s"
 
 #: src/PhotoPage.vala:2146 src/PhotoPage.vala:2366
 msgid "_Save"
-msgstr "_Tallenna"
+msgstr "_Uložit"
 
 #: src/PhotoPage.vala:2147
 msgid "Save photo"
-msgstr "Tallenna kuva"
+msgstr "Uloží fotografii"
 
 #: src/PhotoPage.vala:2152
 msgid "Save _As..."
-msgstr "Tallenna _nimellä..."
+msgstr "Uložit j_ako..."
 
 #: src/PhotoPage.vala:2153
 msgid "Save photo with a different name"
-msgstr "Tallenna kuva toisella nimellä"
+msgstr "Uloží fotografii pod jiným názvem"
 
 #: src/PhotoPage.vala:2159 src/Resources.vala:156
 msgid "Page _Setup..."
-msgstr "Sivun _asetukset..."
+msgstr "Nastavení stránky..."
 
 #: src/PhotoPage.vala:2164 src/Resources.vala:159
 msgid "Prin_t..."
-msgstr "_Tulosta"
+msgstr "_Tisk..."
 
 #: src/PhotoPage.vala:2165 src/Resources.vala:160
 msgid "Print the photo to a printer connected to your computer"
-msgstr "Tulosta kuva tietokoneeseen liitetyllä tulostimella"
+msgstr "Vytištění fotografie na tiskárně připojené k počítači"
 
 #: src/PhotoPage.vala:2170
 msgid "Edit"
-msgstr "Muokkaa"
+msgstr "Úpravy"
 
 #: src/PhotoPage.vala:2259
 #, c-format
 msgid "%s does not exist."
-msgstr "%s ei ole olemassa."
+msgstr "%s neexistuje."
 
 #: src/PhotoPage.vala:2261
 #, c-format
 msgid "%s is not a file."
-msgstr "%s ei ole tiedosto."
+msgstr "%s není soubor."
 
 #: src/PhotoPage.vala:2263
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
 "%s."
-msgstr "%s ei tue tiedoston %s tiedostomuotoa."
+msgstr "%s nepodporuje formát %s"
 
 #: src/PhotoPage.vala:2366
 #, c-format
 msgid "Lose changes to %s?"
-msgstr "Hävitetäänkö tiedostoon %s tehdyt muutokset?"
+msgstr "Zahodit změny v %s?"
 
 #: src/PhotoPage.vala:2367
 msgid "Close _without Saving"
-msgstr "Sulje _tallentamatta"
+msgstr "Zavřít _bez uložení"
 
 #: src/PhotoPage.vala:2399
 #, c-format
 msgid "Error while saving to %s: %s"
-msgstr "Virhe tallennettaessa tiedostoon %s: %s"
+msgstr "Chyba při ukládání %s. %s"
 
 #: src/PhotoPage.vala:2433 src/PhotoPage.vala:2443
 msgid "Save As"
-msgstr "Tallenna nimellä"
+msgstr "Uložit jako"
 
 #: src/Photo.vala:24
 msgid "Success"
-msgstr "Onnistui"
+msgstr "Podařilo se"
 
 #: src/Photo.vala:27
 msgid "File error"
-msgstr "Tiedostovirhe"
+msgstr "Chyba souboru"
 
 #: src/Photo.vala:30
 msgid "Unable to decode file"
-msgstr "Tiedostoa ei voida purkaa"
+msgstr "Nepodařilo se dekódovat soubor"
 
 #: src/Photo.vala:33
 msgid "Database error"
-msgstr "Tietokantavirhe"
+msgstr "Chyba databáze"
 
 #: src/Photo.vala:36
 msgid "User aborted import"
-msgstr "Käyttäjä keskeytti tuonnin"
+msgstr "Import přerušen uživatelem"
 
 #: src/Photo.vala:39
 msgid "Not a file"
-msgstr "Ei ole tiedosto"
+msgstr "Není soubor"
 
 #: src/Photo.vala:42
 msgid "File already exists in database"
-msgstr "Tämä tiedosto on jo tietokannassa"
+msgstr "Soubor je již v databázi"
 
 #: src/Photo.vala:45
 msgid "Unsupported file format"
-msgstr "Tiedostomuotoa ei tueta"
+msgstr "Nepodporovaný formát souboru"
 
 #: src/Photo.vala:48
 msgid "Not an image file"
-msgstr "Tiedosto ei ole kuvatiedosto"
+msgstr "Není soubor s obrázkem"
 
 #: src/Photo.vala:51
 msgid "Disk failure"
-msgstr "Levyongelma"
+msgstr "Chyba disku"
 
 #: src/Photo.vala:54
 msgid "Disk full"
-msgstr "Levy on täynnä"
+msgstr "Disk je plný"
 
 #: src/Photo.vala:57
 msgid "Camera error"
-msgstr "Kameravirhe"
+msgstr "Chyba fotoaparátu"
 
 #: src/Photo.vala:60
 #, c-format
 msgid "Imported failed (%d)"
-msgstr "Tuonti epäonnistui (%d)"
+msgstr "Chyba importu (%d)"
 
 #: src/PicasaConnector.vala:11
 msgid ""
@@ -1582,25 +1610,25 @@ msgid ""
 "with Picasa to continue. You can set up most accounts by using your browser "
 "to log into the Picasa Web Albums site at least once."
 msgstr ""
-"Et ole kirjautuneena Picasa-verkkoalbumeihin.\n"
+"Nejste připojeni k albu Picasa\n"
 "\n"
-"Jotta yhdistämistä voidaan jatkaa, sinulla täytyy olla Google-tili, joka on "
-"asetettu toimimaan Picasan kanssa. Useimpien tilien asetukset voi tehdä "
-"kirjautumalla selaimella Picasa-verkkoalbumeihin."
+"Abyste mohli používat album Picaca, musíte mít Google účet. Nastavení "
+"provedete v prohlížeči internetu při přihlášení k albu Picasa."
 
 #: src/PicasaConnector.vala:508
 msgid ""
 "Enter the email address and password associated with your Picasa Web Albums "
 "account."
-msgstr "Syötä Picasa-verkkoalbumeihin liitetty sähköpostiosoite ja salasana."
+msgstr ""
+"Vložte e-mailovou adresu a heslo, které používáte při přístupu k albu Picasa."
 
 #: src/PicasaConnector.vala:509
 msgid ""
 "Picasa Web Albums didn't recognize the email address and password you "
 "entered. To try again, re-enter your email address and password below."
 msgstr ""
-"Picasa-verkkoalbumit ei tunnistanut syöttämääsi sähköpostiosoitetta ja "
-"salasanaa. Kokeile uudelleen syöttämällä sähköpostiosoite ja salasana alle."
+"E-mailová adresa a heslo, které byly zadány, nebyly přijaty. Pro další pokus "
+"níže vložte e-mailovou adresu a heslo."
 
 #: src/PicasaConnector.vala:510
 msgid ""
@@ -1609,10 +1637,10 @@ msgid ""
 "accounts by using your browser to log into the Picasa Web Albums site at "
 "least once. To try again, re-enter your email address and password below."
 msgstr ""
-"Syöttämäsi sähköpostiosoite ja salasana vastaavat Google-tiliä, jota ei ole "
-"asetettu toimimaan Picasa-verkkoalbumien kanssa. Useimpien tilien asetukset "
-"voi tehdä kirjautumalla selaimella Picasa-verkkoalbumeihin. Kokeile "
-"uudelleen syöttämällä sähköpostiosoite ja salasana alle."
+"E-mailová adresa a heslo, které byly vloženy, odpovídají Google účtu, který "
+"nebyl nastaven pro použití alba Picasa. Nastavení provedete v prohlížeči "
+"internetu při přihlášení k Picasa albu. Pro další pokus níže vložte e-"
+"mailovou adresu a heslo."
 
 #: src/PicasaConnector.vala:511
 msgid ""
@@ -1621,78 +1649,78 @@ msgid ""
 "tag by using your browser to log into Picasa Web Albums. To try again, re-"
 "enter your email address and password below."
 msgstr ""
-"Syöttämäsi sähköpostiosoite ja salasana vastaavat Google-tiliä, jossa on "
-"otettu käyttöön lisäturvallisuusasetukset. Voit poistaa nämä asetukset "
-"kirjautumalla selaimella Picasa-verkkoalbumeihin. Kokeile uudelleen "
-"syöttämällä sähköpostiosoite ja salasana alle."
+"E-mailová adresa a heslo, které byly vloženy, odpovídají Google účtu, který "
+"vyžaduje zvýšené zabezpečení. Pro odstranění tohoto požadavku se přihlašte k "
+"albu Picasa pomocí internetového prohlížeče. Pro další pokus vložte níže e-"
+"mailovou adresu a heslo."
 
 #: src/PicasaConnector.vala:546
 #, c-format
 msgid "Unrecognized User"
-msgstr "Käyttäjää ei tunnistettu"
+msgstr "Neznámý uživatel"
 
 #: src/PicasaConnector.vala:550
 #, c-format
 msgid "Account Not Ready"
-msgstr "Tili ei ole valmis"
+msgstr "Účet není připraven"
 
 #: src/PicasaConnector.vala:559
 #, c-format
 msgid "Additional Security Required"
-msgstr "Tarvitaan lisäturvallisuutta"
+msgstr "Vyžadováno vyšší zabezpečení"
 
 #: src/PicasaConnector.vala:570
 msgid "_Email address:"
-msgstr "_Sähköpostiosoite:"
+msgstr "E-_mailová adresa:"
 
 #: src/PicasaConnector.vala:572
 msgid "_Password:"
-msgstr "_Salasana:"
+msgstr "_Heslo:"
 
 #: src/PicasaConnector.vala:590
 msgid "Go _Back"
-msgstr "_Takaisin"
+msgstr "Jít z_pět"
 
 #: src/PicasaConnector.vala:595 src/WebConnectors.vala:568
 msgid "_Login"
-msgstr "_Kirjaudu"
+msgstr "_Přihlásit se"
 
 #: src/PicasaConnector.vala:675
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr "Olet kirjautuneena Picasa-verkkoalbumeihin nimellä %s."
+msgstr "Jste přihlášeni k albu Picasa jako %s."
 
 #: src/PicasaConnector.vala:698
 msgid "Photos will appear in:"
-msgstr "Kuvat menevät:"
+msgstr "Fotografie se objeví v:"
 
 #: src/PicasaConnector.vala:711
 msgid "An _existing album:"
-msgstr "_Olemassa olevaan albumiin:"
+msgstr "_stávajícím albu:"
 
 #: src/PicasaConnector.vala:725
 msgid "A _new album named:"
-msgstr "_Uuteen albumiin nimeltä:"
+msgstr "_novém albu s názvem:"
 
 #: src/PicasaConnector.vala:737
 msgid "L_ist album in public gallery"
-msgstr "_Näytä albumi julkisessa galleriassa"
+msgstr "Zobrazit _seznam veřejných alb"
 
 #: src/PicasaConnector.vala:749
 msgid "Photo _size preset:"
-msgstr "Kuvan _koon esiasetus:"
+msgstr "Nastavení _velikosti:"
 
 #: src/PicasaConnector.vala:864
 msgid "Small (640 x 480 pixels)"
-msgstr "Pieni (640 x 480 pikseliä)"
+msgstr "malá (640x480 bodů)"
 
 #: src/PicasaConnector.vala:865
 msgid "Medium (1024 x 768 pixels)"
-msgstr "Keskikoko (1024 x 768 pikseliä)"
+msgstr "střední (1024x768 bodů)"
 
 #: src/PicasaConnector.vala:866
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr "Suositeltu (1600 x 1200 pikseliä)"
+msgstr "doporučená (1600x1200 bodů)"
 
 #: src/PngSupport.vala:30
 msgid "PNG"
@@ -1700,23 +1728,23 @@ msgstr "PNG"
 
 #: src/Printing.vala:215
 msgid "Printed Image Size"
-msgstr "Tulostettavan kuvan koko"
+msgstr "Velikost vytištěné fotografie"
 
 #: src/Printing.vala:227
 msgid "Use a _standard size:"
-msgstr "Käytä _standardikokoa:"
+msgstr "použít _standardní velikost:"
 
 #: src/Printing.vala:231
 msgid "Use a c_ustom size:"
-msgstr "Käytä _omaa kokoa:"
+msgstr "použít _vlastní velikost:"
 
 #: src/Printing.vala:235
 msgid "_Fill the entire page"
-msgstr "_Täytä koko sivu"
+msgstr "_vyplnit celou stránku"
 
 #: src/Printing.vala:282
 msgid "in."
-msgstr "tuumaa"
+msgstr "palců"
 
 #: src/Printing.vala:283
 msgid "cm"
@@ -1724,23 +1752,23 @@ msgstr "cm"
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
-msgstr "_Vastaa kuvan kuvasuhdetta"
+msgstr "_Zachovat poměr stran"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
-msgstr "Pikseliresoluutio"
+msgstr "Rozlišení v bodech"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr "_Tulosta kuva muodossa:"
+msgstr "_Vytisknout fotografii:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
-msgstr "pikseliä tuumalla"
+msgstr "bodů na palec"
 
 #: src/Printing.vala:827
 msgid "Image Settings"
-msgstr "Kuvan asetukset"
+msgstr "Nastavení obrázku"
 
 #: src/Printing.vala:841 src/Printing.vala:942 src/Printing.vala:981
 #, c-format
@@ -1749,105 +1777,106 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Kuvaa ei voi tulostaa:\n"
+"Nepodařilo se vytisknout fotografii:\n"
 "\n"
 "%s"
 
 # The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:40
 msgid "%I:%M %p"
-msgstr "%H.%M"
+msgstr "%I:%M %p"
 
 #: src/Properties.vala:52
 msgid "Today"
-msgstr "Tänään"
+msgstr "Dnes"
 
 #: src/Properties.vala:54
 msgid "Yesterday"
-msgstr "Eilen"
+msgstr "Včera"
 
 #: src/Properties.vala:290
 msgid "Title:"
-msgstr "Nimi:"
+msgstr "Název:"
 
 #: src/Properties.vala:293
 msgid "Items:"
-msgstr "Kohteita:"
+msgstr "Položky:"
 
 #: src/Properties.vala:296
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
-msgstr[0] "%d tapahtuma"
-msgstr[1] "%d tapahtumaa"
+msgstr[0] "%d událost"
+msgstr[1] "%d události"
+msgstr[2] "%d událostí"
 
 #: src/Properties.vala:317
 msgid "Date:"
-msgstr "Päiväys:"
+msgstr "Datum:"
 
 #: src/Properties.vala:321
 msgid "Time:"
-msgstr "Aika:"
+msgstr "Čas:"
 
 #: src/Properties.vala:324 src/Properties.vala:329
 msgid "From:"
-msgstr "Alkaa:"
+msgstr "Od:"
 
 #: src/Properties.vala:325 src/Properties.vala:330
 msgid "To:"
-msgstr "Päättyy:"
+msgstr "Pro:"
 
 #: src/Properties.vala:457
 msgid "Location:"
-msgstr "Sijainti:"
+msgstr "Místo:"
 
 #: src/Properties.vala:459
 msgid "File size:"
-msgstr "Tiedoston koko:"
+msgstr "Velikost souboru:"
 
 #: src/Properties.vala:462
 msgid "Original dimensions:"
-msgstr "Alkuperäiset mitat:"
+msgstr "Původní velikost:"
 
 #: src/Properties.vala:465
 msgid "Camera make:"
-msgstr "Kameran merkki:"
+msgstr "Vytvořeno v:"
 
 #: src/Properties.vala:468
 msgid "Camera model:"
-msgstr "Kameran malli:"
+msgstr "Model fotoaparátu:"
 
 #: src/Properties.vala:471
 msgid "Flash:"
-msgstr "Salama:"
+msgstr "Blesk:"
 
 #: src/Properties.vala:473
 msgid "Focal length:"
-msgstr "Polttoväli:"
+msgstr "Ohnisko:"
 
 #: src/Properties.vala:476
 msgid "GPS latitude:"
-msgstr "GPS:n leveysaste:"
+msgstr "GPS šířka:"
 
 #: src/Properties.vala:479
 msgid "GPS longitude:"
-msgstr "GPS:n pituusaste:"
+msgstr "GPS délka:"
 
 #: src/Properties.vala:482
 msgid "Artist:"
-msgstr "Tekijä:"
+msgstr "Umělec:"
 
 #: src/Properties.vala:484
 msgid "Copyright:"
-msgstr "Tekijänoikeus:"
+msgstr "Copyright:"
 
 #: src/Properties.vala:486
 msgid "Software:"
-msgstr "Ohjelmisto:"
+msgstr "Software:"
 
 #: src/Properties.vala:497
 msgid "Extended Information"
-msgstr "Lisätiedot"
+msgstr "Další informace"
 
 #: src/RawSupport.vala:65
 msgid "RAW"
@@ -1855,549 +1884,541 @@ msgstr "RAW"
 
 #: src/Resources.vala:17
 msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr "Tekijänoikeus 2009-2010 Yorba Foundation"
+msgstr "Copyright 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:81
 msgid "Rotate _Right"
-msgstr "Kierrä _oikealle"
+msgstr "Otočit v_pravo"
 
 #: src/Resources.vala:82 src/Resources.vala:87
 msgid "Rotate"
-msgstr "Kierrä"
+msgstr "Otočit"
 
 #: src/Resources.vala:83
 msgid "Rotate Right"
-msgstr "Kierrä oikealle"
+msgstr "Otočit v_levo"
 
 #: src/Resources.vala:84
 msgid "Rotate the photos right"
-msgstr "Kierrä kuvia oikealle"
+msgstr "Otočí fotografii vpravo (po směru hodinových ručiček)"
 
 #: src/Resources.vala:86
 msgid "Rotate _Left"
-msgstr "Kierrä _vasemmalle"
+msgstr "Otočit v_levo"
 
 #: src/Resources.vala:88
 msgid "Rotate Left"
-msgstr "Kierrä vasemmalle"
+msgstr "Otočit vlevo"
 
 #: src/Resources.vala:89
 msgid "Rotate the photos left"
-msgstr "Kierrä kuvia vasemmalle"
+msgstr "Otočí fotografii vlevo (proti směru hodinových ručiček)"
 
 #: src/Resources.vala:91
 msgid "_Mirror"
-msgstr "_Peilaa"
+msgstr "_Zrcadlit"
 
 #: src/Resources.vala:92
 msgid "Mirror"
-msgstr "Peilaa"
+msgstr "Zrcadlit"
 
 #: src/Resources.vala:93
 msgid "Make mirror images of the photos"
-msgstr "Tee kuvista peilikuvia"
+msgstr "Zrcadlit fotografie"
 
 #: src/Resources.vala:95
 msgid "_Enhance"
-msgstr "_Paranna"
+msgstr "_Vylepšení"
 
 #: src/Resources.vala:96
 msgid "Enhance"
-msgstr "Paranna"
+msgstr "Vylepšení"
 
 #: src/Resources.vala:97
 msgid "Automatically improve the photo's appearance"
-msgstr "Paranna kuvaa automaattisesti"
+msgstr "Automaticky vylepšit vzhled fotografií"
 
 #: src/Resources.vala:99
 msgid "Re_vert to Original"
-msgstr "_Palauta alkuperäinen"
+msgstr "Na_vrátit k originálu"
 
 #: src/Resources.vala:100
 msgid "Revert to Original"
-msgstr "Palauta alkuperäinen"
+msgstr "Navrátit k originálu"
 
 #: src/Resources.vala:101
 msgid "Revert to the original photo"
-msgstr "Palauta alkuperäinen kuva"
+msgstr "Vrátit se k původní fotografii"
 
 #: src/Resources.vala:103
 msgid "Set as Desktop _Background"
-msgstr "Aseta _taustakuvaksi"
+msgstr "Nastavit jako _pozadí"
 
 #: src/Resources.vala:104
 msgid "Set selected image to be the new desktop background"
-msgstr "Aseta valittu kuva uudeksi työpöydän taustakuvaksi"
+msgstr "Použije vybranou fotografii jako obrázek pozadí pracovní plochy"
 
 #: src/Resources.vala:106
 msgid "_Undo"
-msgstr "_Kumoa"
+msgstr "_Zpět"
 
 #: src/Resources.vala:107
 msgid "Undo"
-msgstr "Kumoa"
+msgstr "Zpět"
 
 #: src/Resources.vala:108
 msgid "Undo the last action"
-msgstr "Kumoa edellinen toiminto"
+msgstr "Vrátí zpět poslední akci"
 
 #: src/Resources.vala:110
 msgid "_Redo"
-msgstr "_Tee uudelleen"
+msgstr "_Vpřed"
 
 #: src/Resources.vala:111
 msgid "Redo"
-msgstr "Tee uudelleen"
+msgstr "Vpřed"
 
 #: src/Resources.vala:112
 msgid "Redo the last undone action"
-msgstr "Toista viimeksi kumottu toiminto"
+msgstr "Znovu provede vrácenou akci"
 
 #: src/Resources.vala:114
 msgid "Re_name Event..."
-msgstr "_Nimeä tapahtuma uudelleen"
+msgstr "Pře_jmenovat událost..."
 
 #: src/Resources.vala:116
 msgid "Rename the selected event"
-msgstr "Nimeä valittu tapahtuma uudelleen"
+msgstr "Přejmenovat vybranou událost"
 
 #: src/Resources.vala:118
 msgid "Make _Key Photo for Event"
-msgstr "Aseta tapahtuman _pienoiskuvaksi"
+msgstr "Vytvořit _klíčovou fotografii pro událost"
 
 #: src/Resources.vala:119
 msgid "Make Key Photo for Event"
-msgstr "Aseta tapahtuman pienoiskuvaksi"
+msgstr "Vytvořit klíčovou fotografii pro událost"
 
 #: src/Resources.vala:120
 msgid "Make the selected photo the thumbnail for the event"
-msgstr "Aseta valittu kuva tapahtuman pienoiskuvaksi"
+msgstr "Vybraná fotografie se stane náhledovou pro událost"
 
 #: src/Resources.vala:122
 msgid "_New Event"
-msgstr "_Uusi tapahtuma"
+msgstr "_Nová událost"
 
 #: src/Resources.vala:123
 msgid "New Event"
-msgstr "Uusi tapahtuma"
+msgstr "Nová událost"
 
 #: src/Resources.vala:124
 msgid "Create new event from the selected photos"
-msgstr "Luo uusi tapahtuma valituista kuvista"
+msgstr "Vytvoří z vybraných fotografií novou událost"
 
 #: src/Resources.vala:126
 msgid "Move Photos"
-msgstr "Siirrä kuvia"
+msgstr "Přesunout fotografie"
 
 #: src/Resources.vala:127
 msgid "Move photos to an event"
-msgstr "Siirrä kuvia tapahtumaan"
+msgstr "Přiřadit fotografie k události"
 
 #: src/Resources.vala:129
 msgid "_Merge Events"
-msgstr "_Yhdistä tapahtumat"
+msgstr "S_pojit události"
 
 #: src/Resources.vala:130
 msgid "Merge"
-msgstr "Yhdistä"
+msgstr "Spojit"
 
 #: src/Resources.vala:131
 msgid "Merge into a single event"
-msgstr "Yhdistä yhdeksi tapahtumaksi"
+msgstr "Spojí do jedné události"
 
 #: src/Resources.vala:133
 msgid "Mark as _Favorite"
-msgstr "Merkitse _suosikiksi"
+msgstr "Označit jako _oblíbené"
 
 #: src/Resources.vala:134
 msgid "Mark as Favorite"
-msgstr "Merkitse suosikiksi"
+msgstr "Označit jako oblíbené"
 
 #: src/Resources.vala:135
 msgid "Mark the photo as one of your favorites"
-msgstr "Merkitse kuva yhdeksi suosikkikuvista"
+msgstr "Označit fotografii jako oblíbenou"
 
 #: src/Resources.vala:137
 msgid "Unmark as _Favorite"
-msgstr "Poista _suosikkimerkintä"
+msgstr "Odebrat z _oblíbených"
 
 #: src/Resources.vala:138
 msgid "Unmark as Favorite"
-msgstr "Poista suosikkimerkintä"
+msgstr "Odebrat z oblíbených"
 
 #: src/Resources.vala:139
 msgid "Unmark the photo as one of your favorites"
-msgstr "Poista suosikkimerkintä kuvasta"
+msgstr "Zrušit označení oblíbené u fotografie"
 
 #: src/Resources.vala:141
 msgid "_Hide"
-msgstr "_Piilota"
+msgstr "_Skrýt"
 
 #: src/Resources.vala:142
 msgid "Hide"
-msgstr "Piilota"
+msgstr "Skrýt"
 
 #: src/Resources.vala:143
 msgid "Hide the selected photos"
-msgstr "Piilota valitut kuvat"
+msgstr "Skrýt vybrané fotografie"
 
 #: src/Resources.vala:145
 msgid "Un_hide"
-msgstr "_Poista piilotus"
+msgstr "Zo_brazit"
 
 #: src/Resources.vala:146
 msgid "Unhide"
-msgstr "Poista piilotus"
+msgstr "Zobrazit"
 
 #: src/Resources.vala:147
 msgid "Unhide the selected photos"
-msgstr "Poista piilotus valituista kuvista"
+msgstr "Zobrazit vybrané fotografie"
 
 #: src/Resources.vala:149
 msgid "_Duplicate"
-msgstr "_Kopioi"
+msgstr "_Kopírovat"
 
 #: src/Resources.vala:150
 msgid "Duplicate"
-msgstr "Kopioi"
+msgstr "Kopírovat"
 
 #: src/Resources.vala:151
 msgid "Make a duplicate of the photo"
-msgstr "Tee tästä valokuvasta kopio"
+msgstr "Vytvořit kopii fotografie"
 
 #: src/Resources.vala:153
 msgid "_Export..."
-msgstr "_Vie..."
+msgstr "_Export..."
 
 #: src/Resources.vala:154
 msgid "Export to disk"
-msgstr "Vie levylle"
+msgstr "Exportovat na disk"
 
 #: src/Resources.vala:157
 msgid "View and change page setup printing"
-msgstr ""
+msgstr "Zobrazí nastavení pro tisk"
 
 #: src/Resources.vala:162
 msgid "Pu_blish..."
-msgstr "_Julkaise..."
+msgstr "Pu_blikovat..."
 
 #: src/Resources.vala:163
 msgid "Publish"
-msgstr "Julkaise"
+msgstr "Publikovat"
 
 #: src/Resources.vala:164
 msgid "Publish to various websites"
-msgstr "Julkaise eri verkkosivuille"
+msgstr "Publikovat na různých internetových stránkách"
 
 #: src/Resources.vala:166
 msgid "Re_name Photo..."
-msgstr "_Nimeä kuva uudelleen..."
+msgstr "Pře_jmenovat fotografii..."
 
 #: src/Resources.vala:168
 msgid "Rename the selected photo"
-msgstr "Nimeä valittu kuva uudelleen"
+msgstr "Přejmenovat vybranou fotografii"
 
 #: src/Resources.vala:170
 msgid "_Adjust Date and Time..."
-msgstr "_Muuta päiväystä ja kellonaikaa..."
+msgstr "Nastavit _datum a čas..."
 
 #: src/Resources.vala:171
 msgid "Adjust Date and Time"
-msgstr "Muuta päiväystä ja kellonaikaa..."
+msgstr "Nastavit datum a čas"
 
 #: src/Resources.vala:172
 msgid "Adjust date and time of selected photos"
-msgstr "Muuta valittujen kuvien päiväystä ja kellonaikaa"
+msgstr "Nastavit datum a čas vybraných fotografií"
 
 #: src/Resources.vala:174
 msgid "Add _Tags..."
-msgstr "Lisää _tunnisteita..."
+msgstr "Přidat _nálepky..."
 
 #: src/Resources.vala:175 src/Resources.vala:187
 msgid "Add Tags"
-msgstr "Lisää tunnisteita"
+msgstr "Přidat nálepky"
 
 #: src/Resources.vala:176
 msgid "Add one or more tags to the selected photos"
-msgstr "Lisää tunnisteita valittuihin kuviin"
+msgstr "Přidat jednu, nebo více nálepek k vybraným fotografiím"
 
 #: src/Resources.vala:178
 msgid "_Preferences"
-msgstr "_Asetukset"
+msgstr "_Nastavení"
 
 #: src/Resources.vala:179
 msgid "Edit preferences"
-msgstr "Muokkaa asetuksia"
+msgstr "Upravit nastavení"
 
 #: src/Resources.vala:183
 #, c-format
 msgid "Add Tag \"%s\""
-msgstr "Lisää tunniste ”%s”"
+msgstr "Přidat nálepku \"%s\""
 
 #: src/Resources.vala:185
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
-msgstr "Lisää tunnisteet ”%s” ja ”%s”"
+msgstr "Přidat nálepky \"%s\" a \"%s\""
 
 #: src/Resources.vala:191
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr "_Poista tunniste ”%s”"
+msgstr "S_mazat nálepku \"%s\""
 
 #: src/Resources.vala:195
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr "Poista tunniste ”%s”"
+msgstr "Smazat nálepku \"%s\""
 
 #: src/Resources.vala:199
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
-msgstr[0] "Poista tunniste ”%s” yhdestä kuvasta"
-msgstr[1] "Poista tunniste ”%s” %d kuvasta"
+msgstr[0] "Odstranit nálepku \"%s\" z %d fotografie"
+msgstr[1] "Odstranit nálepku \"%s\" z %d fotografií"
+msgstr[2] "Odstranit nálepku \"%s\" z %d fotografií"
 
 #: src/Resources.vala:203
 msgid "Delete Tag"
-msgstr "Poista tunniste"
+msgstr "Smazat nálepku"
 
 #: src/Resources.vala:206
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr "_Nimeä tunniste ”%s” uudelleen..."
+msgstr "Pře_jmenovat nálepku \"%s\"..."
 
 #: src/Resources.vala:210
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
-msgstr "Nimeä tunniste ”%s” uudelleen nimelle ”%s”"
+msgstr "Přejmenovat nálepku \"%s\" na \"%s\""
 
 #: src/Resources.vala:214
 #, c-format
 msgid "Rename the tag \"%s\""
-msgstr "Nimeä tunniste ”%s” uudelleen"
+msgstr "Přejmenovat nálepku \"%s\""
 
 #: src/Resources.vala:217
 msgid "Rename Tag"
-msgstr "Nimeä tunniste uudelleen"
+msgstr "Přejmenovat nálepku"
 
 #: src/Resources.vala:219
 msgid "M_odify Tags..."
-msgstr "_Muokkaa tunnisteita..."
+msgstr "Z_měnit nálepky..."
 
 #: src/Resources.vala:220
 msgid "Modify Tags"
-msgstr "Muokkaa tunnisteita"
+msgstr "Změnit nálepky"
 
 #: src/Resources.vala:221
 msgid "Modify the tags for this photo"
-msgstr "Muokkaa tämän kuvan tunnisteita"
+msgstr "Změnit nálepky u této fotografie"
 
 #: src/Resources.vala:224
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
-msgstr[0] "Aseta kuvalle tunniste ”%s”"
-msgstr[1] "Aseta kuville tunniste ”%s”"
+msgstr[0] "Přidat nálepku \"%s\" k fotografii"
+msgstr[1] "Přidat nálepku \"%s\" k fotografiím"
+msgstr[2] "Přidat nálepku \"%s\" k fotografiím"
 
 #: src/Resources.vala:228
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
-msgstr[0] "Aseta valitulle kuvalle tunniste ”%s”"
-msgstr[1] "Aseta valituille kuville tunniste ”%s”"
+msgstr[0] "Přidat nálepku \"%s\" k vybrané fotografii"
+msgstr[1] "Přidat nálepku \"%s\" k vybraným fotografiím"
+msgstr[2] "Přidat nálepku \"%s\" k vybraným fotografiím"
 
 #: src/Resources.vala:232
 #, c-format
 msgid "_Remove Tag \"%s\" From Photo"
 msgid_plural "_Remove Tag \"%s\" From Photos"
-msgstr[0] "_Poista kuvasta tunniste ”%s”"
-msgstr[1] "_Poista kuvista tunniste ”%s”"
+msgstr[0] "O_dstranit nálepku \"%s\" fotografie"
+msgstr[1] "O_dstranit nálepku \"%s\" fotografií"
+msgstr[2] "O_dstranit nálepku \"%s\" fotografií"
 
 #: src/Resources.vala:236
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgid_plural "Remove Tag \"%s\" From Photos"
-msgstr[0] "Poista kuvasta tunniste ”%s”"
-msgstr[1] "Poista kuvista tunniste ”%s”"
+msgstr[0] "O_dstranit nálepku \"%s\" fotografii"
+msgstr[1] "O_dstranit nálepku \"%s\" fotografiím"
+msgstr[2] "O_dstranit nálepku \"%s\" fotografiím"
 
 #: src/Resources.vala:241
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
-msgstr[0] "Poista valitusta kuvasta tunniste ”%s”"
-msgstr[1] "Poista valituista kuvista tunniste ”%s”"
+msgstr[0] "O_dstranit nálepku \"%s\" vybrané fotografii"
+msgstr[1] "O_dstranit nálepku \"%s\" vybraným fotografiím"
+msgstr[2] "O_dstranit nálepku \"%s\" vybraným fotografiím"
 
 #: src/Resources.vala:246
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr ""
-"Tunnisteelle ei voida antaa nimeä ”%s”, koska sillä nimellä on jo olemassa "
-"tunniste"
+msgstr "Nepodařilo se přejmenovat nálepku na \"%s\", protože taková už je."
 
 #: src/Resources.vala:249
 msgid "_Restore"
-msgstr "_Palauta"
+msgstr "_Obnovit"
 
 #: src/Resources.vala:250
 msgid "Restore"
-msgstr "Palauta"
+msgstr "Obnovit"
 
 #: src/Resources.vala:251
 msgid "Move the selected photos back into the library"
-msgstr "Siirrä valitut kuvat takaisin kirjastoon"
+msgstr "Přesune vybrané fotografie zpět do knihovny"
 
 #: src/SlideshowPage.vala:64 src/SlideshowPage.vala:130
 msgid "Settings"
-msgstr "Asetukset"
+msgstr "Nastavení"
 
 #: src/SlideshowPage.vala:66
 msgid "Delay:"
-msgstr "Viive:"
+msgstr "Zpoždění:"
 
 #: src/SlideshowPage.vala:67
 msgid "seconds"
-msgstr "sekuntia"
+msgstr "vteřin"
 
 #: src/SlideshowPage.vala:109
 msgid "Back"
-msgstr "Takaisin"
+msgstr "Předchozí"
 
 #: src/SlideshowPage.vala:110
 msgid "Go to the previous photo"
-msgstr "Siirry edelliseen kuvaan"
+msgstr "Jít na předchozí fotografii"
 
 #: src/SlideshowPage.vala:116 src/SlideshowPage.vala:229
 msgid "Pause"
-msgstr "Tauko"
+msgstr "Pauza"
 
 #: src/SlideshowPage.vala:117 src/SlideshowPage.vala:230
 msgid "Pause the slideshow"
-msgstr "Laita diaesitys tauolle"
+msgstr "Zastavit prezentaci"
 
 #: src/SlideshowPage.vala:123
 msgid "Next"
-msgstr "Seuraava"
+msgstr "Další"
 
 #: src/SlideshowPage.vala:124
 msgid "Go to the next photo"
-msgstr "Siirry seuraavaan kuvaan"
+msgstr "Jít na další fotografii"
 
 #: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
-msgstr "Muuta diaesityksen asetuksia"
+msgstr "Změnit nastavení prezentace"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
-msgstr "Kaikki kuvien lähdetiedostot puuttuvat"
+msgstr "Chybí všechny zdrojové soubory fotografií."
 
 #: src/SlideshowPage.vala:225
 msgid "Play"
-msgstr "Toista"
+msgstr "Spustit"
 
 #: src/SlideshowPage.vala:226
 msgid "Continue the slideshow"
-msgstr "Jatka diaesitystä"
+msgstr "Pokračovat v prezentaci"
 
 #: src/TagPage.vala:131
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] "Tämä poistaa tunnisteen ”%s” yhdestä kuvasta. Jatketaanko?"
-msgstr[1] "Tämä poistaa tunnisteen ”%s” %d kuvasta. Jatketaanko?"
+msgstr[0] "Tím odstraníte nálepku \"%s\" %d fotografie. Pokračovat?"
+msgstr[1] "Tím odstraníte nálepku \"%s\" %d fotografií. Pokračovat?"
+msgstr[2] "Tím odstraníte nálepku \"%s\" %d fotografií. Pokračovat?"
 
 #: src/TagPage.vala:135
 msgid "_Delete"
-msgstr "_Poista"
+msgstr "S_mazat"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
-msgstr "Roskakori"
+msgstr "Koš"
 
 # The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:398
 msgid "%a %b %d, %Y"
-msgstr "%a %d. %b %Y"
+msgstr "%a %b %d, %Y"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
-msgstr "Valittujen kuvien julkaisu onnistui."
+msgstr "Vybrané fotografie byly publikovány."
 
 #: src/WebConnectors.vala:643
 msgid "Fetching account information..."
-msgstr "Noudetaan tilin tietoja..."
+msgstr "Získávají se informace o účtu..."
 
 #: src/WebConnectors.vala:649
 msgid "Logging in..."
-msgstr "Kirjaudutaan..."
+msgstr "Přihlašuje se..."
 
 #: src/WebConnectors.vala:677
 msgid "Publish Photos"
-msgstr "Julkaise valokuvia"
+msgstr "Publikovat fotografie"
 
 #: src/WebConnectors.vala:688
 msgid "Publish photos _to:"
-msgstr "Julkaise valokuvia _palveluun:"
+msgstr "Publikovat fotografie _na:"
 
 #: src/WebConnectors.vala:786
 msgid "_Close"
-msgstr "_Sulje"
+msgstr "_Zavřít"
 
 #: src/WebConnectors.vala:809
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
-msgstr "Palveluun %s ei saatu yhteyttä eikä julkaisemista voida jatkaa."
+msgstr "Publikování na %s nemůže pokračovat, protože se nepodařilo spojit."
 
 #: src/WebConnectors.vala:812
 #, c-format
 msgid ""
 "Publishing to %s can't continue because communication with the service "
 "failed."
-msgstr "Yhteys palveluun %s epäonnistui, julkaisemista ei voida jatkaa."
+msgstr ""
+"Publikování na %s nemůže pokračovat, protože došlo k chybě při komunikaci."
 
 #: src/WebConnectors.vala:815
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr "Julkaisemista palveluun %s ei voida jatkaa protokollavirheen vuoksi."
+msgstr "Publikování na %s nemůže pokračovat kvůli chybě protokolu."
 
 #: src/WebConnectors.vala:817
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr "Palvelu %s palautti virheen eikä julkaisemista voida jatkaa."
+msgstr "Publikování na %s nemůže pokračovat, protože byla oznámena chyba."
 
 #: src/WebConnectors.vala:819
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
-"Palvelu %s palautti virheellisen vastauksen eikä julkaisemista voida jatkaa."
+msgstr "Publikování na %s nemůže pokračovat, protože přišla špatná odpověď."
 
 #: src/WebConnectors.vala:822
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr "Julkaisemista palveluun %s ei voida jatkaa virheen vuoksi."
+msgstr "Publikování na %s nemůže pokračovat, protože nastala nějaká chyba."
 
 #: src/WebConnectors.vala:826
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
-"Kokeile julkaisemista toiseen palveluun, jonka voi valita yllä olevasta "
-"valikosta."
+msgstr "Pokud chcete zkusit publikovat jinde, zvolte službu z menu."
 
 #: src/WebConnectors.vala:903 src/WebConnectors.vala:1016
 msgid "Preparing photos for upload"
-msgstr "Valmistellaan kuvia lähettämistä varten"
+msgstr "Fotografie jsou připravovány pro nahrání"
 
 #: src/WebConnectors.vala:904 src/WebConnectors.vala:956
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr "Lähetetään kuvaa %d/%d"
-
-#~ msgid "Removing"
-#~ msgstr "Poistetaan"
-
-#~ msgid "%d more photo not imported.\n"
-#~ msgid_plural "%d more photos not imported.\n"
-#~ msgstr[0] "Yhtä muuta kuvaa ei tuotu.\n"
-#~ msgstr[1] "%d muuta kuvaa ei tuotu.\n"
-
-#~ msgid "Remove"
-#~ msgstr "Poista"
+msgstr "Nahrává se fotografie č. %d z %d"
