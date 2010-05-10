@@ -253,7 +253,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         base.save_zoom_state();
         saved_slider_val = zoom_slider.get_value();
     }
+
+    protected override bool on_mousewheel_up(Gdk.EventScroll event) {
+        on_increase_size();
+
+        return false;
+    }
     
+    protected override bool on_mousewheel_down(Gdk.EventScroll event) {
+        on_decrease_size();
+        
+        return false;
+    }
+
     protected override void restore_zoom_state() {
         base.restore_zoom_state();
 

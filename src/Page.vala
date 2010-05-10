@@ -133,6 +133,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.button_press_event += on_button_pressed_internal;
         event_source.button_release_event += on_button_released_internal;
         event_source.motion_notify_event += on_motion_internal;
+        event_source.scroll_event += on_mousewheel_internal;
     }
     
     private void detach_event_source() {
@@ -733,6 +734,41 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return on_motion(event, x, y, mask);
     }
 
+    private bool on_mousewheel_internal(Gdk.EventScroll event) {
+        switch (event.direction) {
+            case Gdk.ScrollDirection.UP:
+                return on_mousewheel_up(event);
+
+            case Gdk.ScrollDirection.DOWN:
+                return on_mousewheel_down(event);
+            
+            case Gdk.ScrollDirection.LEFT:
+                return on_mousewheel_left(event);
+
+            case Gdk.ScrollDirection.RIGHT:
+                return on_mousewheel_right(event);
+           
+            default:
+                return false;
+        }
+    }
+    
+    protected virtual bool on_mousewheel_up(Gdk.EventScroll event) {
+        return false;
+    }
+    
+    protected virtual bool on_mousewheel_down(Gdk.EventScroll event) {
+        return false;
+    }
+    
+    protected virtual bool on_mousewheel_left(Gdk.EventScroll event) {
+        return false;
+    }
+    
+    protected virtual bool on_mousewheel_right(Gdk.EventScroll event) {
+        return false;
+    }
+    
     protected virtual bool on_context_keypress() {
         return false;
     }
