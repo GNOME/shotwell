@@ -243,14 +243,17 @@ public class ExportDialog : Gtk.Dialog {
 
         ok_button.grab_focus();
     }
-    
+    // unlike other parameters, which should be persisted across dialog executions, format
+    // must be set each time the dialog is executed, so that the format displayed in the
+    // format combo box matches the format of the backing photo -- this is why it's passed
+    // qualified as ref and not as out
     public bool execute(out int scale, out ScaleConstraint constraint, out Jpeg.Quality quality,
         ref PhotoFileFormat user_format) {
         show_all();
-
-        // unlike other parameters, which should be persisted across dialog executions, format
-        // must be set each time the dialog is executed, so that the format displayed in the
-        // format combo box matches the format of the backing photo
+		
+        if (!user_format.can_write())
+            user_format = PhotoFileFormat.get_system_default_format();
+		
         int ctr = 0;
         foreach (PhotoFileFormat format in PhotoFileFormat.get_writable()) {
             if (format == user_format)
