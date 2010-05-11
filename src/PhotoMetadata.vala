@@ -736,14 +736,41 @@ public class PhotoMetadata {
          }
     }
     
-    private static string[] TITLE_TAGS = {
-        "Exif.Image.ImageDescription",
-        "Xmp.dc.Title",
-        "Iptc.Application2.Caption"
+    //
+    // A note regarding titles and descriptions:
+    //
+    // iPhoto stores its title in Iptc.Application2.ObjectName and its description in
+    // Iptc.Application2.Caption.  Most others use .Caption for the title and another
+    // (sometimes) appropriate tag for the description.  And there's general confusion about
+    // whether Exif.Image.ImageDescription is a description (which is what the tag name
+    // suggests) or a title (which is what the specification states).
+    // See: http://trac.yorba.org/wiki/PhotoTags
+    //
+    // Hence, the following logic tries to do the right thing in most of these cases.  If
+    // the iPhoto title tag is detected, it and the iPhoto description tag are used.  Otherwise,
+    // the title/description are searched out from a list of standard tags.
+    //
+    // Exif.Image.ImageDescription seems to be abused, both in that iPhoto uses it as a multiline
+    // description and that some cameras insert their make & model information there (IN ALL CAPS,
+    // to really rub it in).  We are ignoring the field until a compelling reason to support it
+    // is found.
+    //
+    
+    private const string IPHOTO_TITLE_TAG = "Iptc.Application2.ObjectName";
+    
+    private static string[] STANDARD_TITLE_TAGS = {
+        "Iptc.Application2.Caption",
+        "Xmp.dc.title",
+        "Iptc.Application2.Headline",
+        "Xmp.photoshop.Headline"
     };
     
     public string? get_title() {
-        string? title = get_first_string_interpreted(TITLE_TAGS);
+        string? title = has_tag(IPHOTO_TITLE_TAG) 
+            ? get_string_interpreted(IPHOTO_TITLE_TAG)
+            : get_first_string_interpreted(STANDARD_TITLE_TAGS);
+        
+        // strip out leading and trailing whitespace
         if (title != null)
             title = title.strip();
         
@@ -752,15 +779,45 @@ public class PhotoMetadata {
             title : null;
     }
     
-    public void set_title(string? title, bool only_if_domain_present) {
-        if (!is_string_empty(title))
-            set_all_string(TITLE_TAGS, title, only_if_domain_present);
+    public void set_title(string? title, bool only_if_domain_present = true) {
+        if (!is_string_empty(title)) {
+            if (has_tag(IPHOTO_TITLE_TAG))
+                set_string(IPHOTO_TITLE_TAG, title);
+            else
+                set_all_string(STANDARD_TITLE_TAGS, title, only_if_domain_present);
+        } else {
+            remove_tags(STANDARD_TITLE_TAGS);
+        }
+    }
+    
+    private const string IPHOTO_DESCRIPTION_TAG = "Iptc.Application2.Caption";
+    
+    private static string[] STANDARD_DESCRIPTION_TAGS = {
+        "Xmp.dc.description"
+    };
+    
+    public string? get_description() {
+        // see note in get_title() for the logic here
+        if (has_tag(IPHOTO_TITLE_TAG))
+            return get_string_interpreted(IPHOTO_DESCRIPTION_TAG);
         else
-            remove_tags(TITLE_TAGS);
+            return get_first_string_interpreted(STANDARD_DESCRIPTION_TAGS);
+    }
+    
+    public void set_description(string? description, bool only_if_domain_present) {
+        if (!is_string_empty(description)) {
+            if (has_tag(IPHOTO_TITLE_TAG) 
+                && (!only_if_domain_present || has_domain(get_tag_domain(IPHOTO_DESCRIPTION_TAG))))
+                set_string(IPHOTO_DESCRIPTION_TAG, description);
+            else
+                set_all_string(STANDARD_DESCRIPTION_TAGS, description, only_if_domain_present);
+        } else {
+            remove_tags(STANDARD_DESCRIPTION_TAGS);
+        }
     }
     
     private static string[] KEYWORD_TAGS = {
-        "Xmp.dc.Subject",
+        "Xmp.dc.subject",
         "Iptc.Application2.Keywords"
     };
     
