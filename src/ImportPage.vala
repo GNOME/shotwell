@@ -15,22 +15,20 @@ class ImportSource : PhotoSource {
     private string folder;
     private string filename;
     private ulong file_size;
-    private ulong preview_size;
     private time_t modification_time;
-    private Gdk.Pixbuf preview = null;
+    private Gdk.Pixbuf? preview = null;
     private string? preview_md5 = null;
     private PhotoMetadata? metadata = null;
     private string? exif_md5 = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
-        string filename, ulong file_size, ulong preview_size, time_t modification_time) {
+        string filename, ulong file_size, time_t modification_time) {
         this.camera_name = camera_name;
         this.camera = camera;
         this.fsid = fsid;
         this.folder = folder;
         this.filename = filename;
         this.file_size = file_size;
-        this.preview_size = preview_size;
         this.modification_time = modification_time;
     }
     
@@ -45,7 +43,7 @@ class ImportSource : PhotoSource {
     }
     
     // Needed because previews and exif are loaded after other information has been gathered.
-    public void update(Gdk.Pixbuf preview, string? preview_md5, PhotoMetadata? metadata, string? exif_md5) {
+    public void update(Gdk.Pixbuf? preview, string? preview_md5, PhotoMetadata? metadata, string? exif_md5) {
         this.preview = preview;
         this.preview_md5 = preview_md5;
         this.metadata = metadata;
@@ -97,10 +95,13 @@ class ImportSource : PhotoSource {
     }
     
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
-        return scaling.perform_on_pixbuf(preview, INTERP, false);
+        return preview != null ? scaling.perform_on_pixbuf(preview, INTERP, false) : null;
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
+        if (preview == null)
+            return null;
+        
         return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
     }
     
@@ -123,6 +124,8 @@ class ImportSource : PhotoSource {
 class ImportPreview : CheckerboardItem {
     public const int MAX_SCALE = 128;
     
+    private static Gdk.Pixbuf placeholder_preview = null;
+    
     public ImportPreview(ImportSource source) {
         base(source, Dimensions(), source.get_name());
         
@@ -131,7 +134,20 @@ class ImportPreview : CheckerboardItem {
         try {
             pixbuf = source.get_thumbnail(0);
         } catch (Error err) {
-            error("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
+            warning("Unable to fetch loaded import preview for %s: %s", to_string(), err.message);
+        }
+        
+        // use placeholder if no preview available
+        bool using_placeholder = (pixbuf == null);
+        if (pixbuf == null) {
+            if (placeholder_preview == null) {
+                placeholder_preview = AppWindow.get_instance().render_icon(Gtk.STOCK_MISSING_IMAGE, 
+                    Gtk.IconSize.DIALOG, null);
+                placeholder_preview = scale_pixbuf(placeholder_preview, MAX_SCALE,
+                    Gdk.InterpType.BILINEAR, true);
+            }
+            
+            pixbuf = placeholder_preview;
         }
         
         // scale down if too large
@@ -139,10 +155,10 @@ class ImportPreview : CheckerboardItem {
             pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP, false);
 
         // honor rotation
-        if (source.get_metadata() != null) {
-            Orientation orientation = source.get_metadata().get_orientation();
-            set_image(orientation.rotate_pixbuf(pixbuf));
-        }
+        if (!using_placeholder && source.get_metadata() != null)
+            pixbuf = source.get_metadata().get_orientation().rotate_pixbuf(pixbuf);
+        
+        set_image(pixbuf);
     }
     
     public bool is_already_imported() {
@@ -673,9 +689,21 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
+    private static string chomp_ch(string str, char ch) {
+        long offset = str.length;
+        while (--offset >= 0) {
+            if (str[offset] != ch)
+                return str.slice(0, offset);
+        }
+        
+        return "";
+    }
+    
     public static string append_path(string basepath, string addition) {
         if (!basepath.has_suffix("/") && !addition.has_prefix("/"))
             return basepath + "/" + addition;
+        else if (basepath.has_suffix("/") && addition.has_prefix("/"))
+            return chomp_ch(basepath, '/') + addition;
         else
             return basepath + addition;
     }
@@ -743,6 +771,7 @@ public class ImportPage : CheckerboardPage {
                     case GPhoto.MIME.JPEG:
                     case GPhoto.MIME.RAW:
                     case GPhoto.MIME.CRW:
+                    case GPhoto.MIME.PNG:
                         // supported
                     break;
                     
@@ -757,22 +786,8 @@ public class ImportPage : CheckerboardPage {
                     break;
                 }
                 
-                ulong preview_size = info.preview.size;
-                
-                // skip preview if it isn't JPEG
-                // TODO: Support all possible EXIF thumbnail file types
-                if (preview_size != 0) {
-                    if ((info.preview.fields & GPhoto.CameraFileInfoFields.TYPE) != 0
-                        && info.preview.type != GPhoto.MIME.JPEG) {
-                        message("Not previewing %s/%s: Not a JPEG preview (%s)", fulldir, filename, 
-                            info.preview.type);
-                    
-                        preview_size = 0;
-                    }
-                }
-                
                 import_list.add(new ImportSource(camera_name, camera, fsid, dir, filename, 
-                    info.file.size, preview_size, info.file.mtime));
+                    info.file.size, info.file.mtime));
                 
                 progress_bar.pulse();
                 
@@ -810,67 +825,66 @@ public class ImportPage : CheckerboardPage {
     
     private void load_previews(Gee.List<ImportSource> import_list) {
         int loaded_photos = 0;
-        try {
-            foreach (ImportSource import_source in import_list) {
-                string filename = import_source.get_filename();
-                string fulldir = import_source.get_fulldir();
-                
-                progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
-                progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
-                
-                PhotoMetadata? metadata = GPhoto.load_metadata(spin_idle_context.context, camera,
-                    fulldir, filename);
-                
-                // calculate EXIF's fingerprint
-                string? exif_only_md5 = null;
-                if (metadata != null) {
-                    uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
-                    if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                        exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
-                }
-                
-                // XXX: Cannot use the metadata for the thumbnail preview because libgphoto2
-                // 2.4.6 has a bug where the returned EXIF data object is complete garbage.  This
-                // is fixed in 2.4.7, but need to work around this as best we can.  In particular,
-                // this means the preview orientation will be wrong and the MD5 is not generated
-                // if the EXIF did not parse properly (see above)
-                
-                uint8[] preview_raw;
-                size_t preview_raw_length;
-                Gdk.Pixbuf preview = GPhoto.load_preview(spin_idle_context.context, camera, fulldir,
-                    filename, out preview_raw, out preview_raw_length);
-                
-                // calculate thumbnail fingerprint
-                string? preview_md5 = null;
-                if (preview != null && preview_raw != null && preview_raw_length > 0)
-                    preview_md5 = md5_binary(preview_raw, preview_raw_length);
-                
-                // use placeholder if no pixbuf available
-                if (preview == null) {
-                    preview = render_icon(Gtk.STOCK_MISSING_IMAGE, Gtk.IconSize.DIALOG, null);
-                    preview = scale_pixbuf(preview, ImportPreview.MAX_SCALE, Gdk.InterpType.BILINEAR,
-                        true);
-                }
-                
-#if TRACE_MD5
-                debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);
-#endif
-                
-                // update the ImportSource with the fetched information
-                import_source.update(preview, preview_md5, metadata, exif_only_md5);
-                
-                // *now* add to the SourceCollection, now that it is completed
-                import_sources.add(import_source);
-                
-                progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.size);
-                
-                // spin the event loop so the UI doesn't freeze
-                if (!spin_event_loop())
-                    break;
+        foreach (ImportSource import_source in import_list) {
+            string filename = import_source.get_filename();
+            string fulldir = import_source.get_fulldir();
+            
+            progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
+            progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
+            
+            PhotoMetadata? metadata = null;
+            try {
+                metadata = GPhoto.load_metadata(spin_idle_context.context, camera, fulldir,
+                    filename);
+            } catch (Error err) {
+                warning("Unable to fetch metadata for %s/%s: %s", fulldir, filename,
+                    err.message);
             }
-        } catch (Error err) {
-            AppWindow.error_message(_("Error while fetching previews from %s: %s").printf(camera_name,
-                err.message));
+            
+            // calculate EXIF's fingerprint
+            string? exif_only_md5 = null;
+            if (metadata != null) {
+                uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
+                if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
+                    exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
+            }
+            
+            // XXX: Cannot use the metadata for the thumbnail preview because libgphoto2
+            // 2.4.6 has a bug where the returned EXIF data object is complete garbage.  This
+            // is fixed in 2.4.7, but need to work around this as best we can.  In particular,
+            // this means the preview orientation will be wrong and the MD5 is not generated
+            // if the EXIF did not parse properly (see above)
+            
+            uint8[] preview_raw = null;
+            size_t preview_raw_length = 0;
+            Gdk.Pixbuf preview = null;
+            try {
+                preview = GPhoto.load_preview(spin_idle_context.context, camera, fulldir,
+                    filename, out preview_raw, out preview_raw_length);
+            } catch (Error err) {
+                warning("Unable to fetch preview for %s/%s: %s", fulldir, filename, err.message);
+            }
+            
+            // calculate thumbnail fingerprint
+            string? preview_md5 = null;
+            if (preview != null && preview_raw != null && preview_raw_length > 0)
+                preview_md5 = md5_binary(preview_raw, preview_raw_length);
+            
+#if TRACE_MD5
+            debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);
+#endif
+            
+            // update the ImportSource with the fetched information
+            import_source.update(preview, preview_md5, metadata, exif_only_md5);
+            
+            // *now* add to the SourceCollection, now that it is completed
+            import_sources.add(import_source);
+            
+            progress_bar.set_fraction((double) (++loaded_photos) / (double) import_list.size);
+            
+            // spin the event loop so the UI doesn't freeze
+            if (!spin_event_loop())
+                break;
         }
     }
     
