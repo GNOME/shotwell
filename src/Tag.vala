@@ -374,12 +374,12 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     }
     
     public static string make_tag_string(Gee.Collection<Tag> tags, string? start = null, 
-        string separator = ", ", string? end = null) {
+        string separator = ", ", string? end = null, bool escape = false) {
         StringBuilder builder = new StringBuilder(start ?? "");
         int ctr = 0;
         int count = tags.size;
         foreach (Tag tag in tags) {
-            builder.append(tag.get_name());
+            builder.append(escape ? Markup.escape_text(tag.get_name()) : tag.get_name());
             if (ctr++ < count - 1)
                 builder.append(separator);
         }

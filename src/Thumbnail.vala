@@ -58,7 +58,7 @@ public class Thumbnail : CheckerboardItem {
         if (tags == null || tags.size == 0)
             clear_subtitle();
         else
-            set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>"), true);
+            set_subtitle(Tag.make_tag_string(tags, "<small>", ", ", "</small>", true), true);
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,

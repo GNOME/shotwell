@@ -856,7 +856,8 @@ public class PhotoMetadata {
         // GExiv2.Orientation is the same value-wise as Orientation, with one exception:
         // GExiv2.Orientation.UNSPECIFIED must be handled
         GExiv2.Orientation orientation = exiv2.get_orientation();
-        if (orientation ==  GExiv2.Orientation.UNSPECIFIED)
+        if (orientation ==  GExiv2.Orientation.UNSPECIFIED || orientation < Orientation.MIN ||
+            orientation > Orientation.MAX)
             return Orientation.TOP_LEFT;
         else
             return (Orientation) orientation;
