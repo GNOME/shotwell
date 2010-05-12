@@ -1,5 +1,13 @@
+Shotwell 0.5.2 - 11 May 2010
+----------------------------
+
+  * Added Czech, Finnish, Greek, and Ukrainian translations.  Updated Russian 
+    translation.
+  * Updated codebase to enable building on Vala 0.8.x. Vala 0.8.0 or later is
+    now required to build Shotwell.
+
 Shotwell 0.5.0 - 11 March 2010
----------------------------------
+------------------------------
 
   * Photos can be tagged and organized by tag, creating a new tool for managing
     your photo collection

@@ -2,7 +2,7 @@
 AppName=Shotwell
 AppPublisher=Yorba Foundation
 AppPublisherURL=http://yorba.org
-AppVerName=Shotwell 0.5.1
+AppVerName=Shotwell 0.5.2
 DefaultDirName={pf}\Shotwell
 DefaultGroupName=Shotwell
 LicenseFile=COPYING

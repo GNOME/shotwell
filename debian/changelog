@@ -1,3 +1,13 @@
+shotwell (0.5.2-1~karmic1) karmic; urgency=low
+
+  * Added Czech, Finnish, Greek, and Ukrainian translations.  
+    Updated Russian translation.
+  * Updated codebase to enable building on Vala 0.8.x. Vala 0.8.0 
+    or later is now required to build Shotwell.
+
+ -- Lucas Beeler <lucas@yorba.org>  Tue, 11 May 2010 15:08:36 -0800
+
+
 shotwell (0.5.0-1~karmic3) karmic; urgency=low
 
   * Photos can be tagged and organized by tag, creating a new
