@@ -1883,14 +1883,13 @@ public class PhotoDragAndDropHandler {
                 uchar[] data = new uchar[4096];
                 Gdk.Atom actual_type;
                 int actual_format = 0;
-                int actual_length = 0;
                 bool fetched = Gdk.property_get(context.source_window, XDS_ATOM, TEXT_ATOM,
                     0, data.length, 0, out actual_type, out actual_format, out data);
                 
                 // the destination path is actually for our XDS_FAKE_TARGET, use its parent
                 // to determine where the file(s) should go
-                if (fetched && actual_length > 0)
-                    drag_destination = File.new_for_uri(uchar_array_to_string(data, actual_length)).get_parent();
+                if (fetched && data != null && data.length > 0)
+                    drag_destination = File.new_for_uri(uchar_array_to_string(data)).get_parent();
                 
                 debug("on_drag_data_get (%s): %s", page.get_page_name(),
                     (drag_destination != null) ? drag_destination.get_path() : "(no path)");
