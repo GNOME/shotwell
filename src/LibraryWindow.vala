@@ -282,6 +282,9 @@ public class LibraryWindow : AppWindow {
 #if !NO_CAMERA
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
+
+    // this is to keep track of cameras which initiate the app
+    private static Gee.HashSet<string> initial_camera_uris = new Gee.HashSet<string>();
 #endif
 
     private Sidebar sidebar = new Sidebar();
@@ -1215,6 +1218,29 @@ public class LibraryWindow : AppWindow {
 
         // automagically expand the Cameras branch so the user sees the attached camera(s)
         sidebar.expand_branch(cameras_marker);
+        
+        // if this page is for a camera which initialized the app, we want to switch to that page
+        if (initial_camera_uris.contains(page.get_uri())) {
+            File uri_file = File.new_for_uri(page.get_uri());//page.get_uri());
+            
+            // find the VFS mount point
+            Mount mount = null;
+            try {
+                mount = uri_file.find_enclosing_mount(null);
+            } catch (Error err) {
+                // error means not mounted
+            }
+            
+            // don't unmount mass storage cameras, as they are then unavailable to gPhoto
+            if (!camera.uri.has_prefix("file://")) {
+                if (page.unmount_camera(mount))
+                    switch_to_page(page);
+                else
+                    error_message("Unable to unmount the camera at this time.");
+            } else {
+                switch_to_page(page);
+            }
+        }
     }
     
     private void remove_camera_page(DiscoveredCamera camera) {
@@ -1649,9 +1675,9 @@ public class LibraryWindow : AppWindow {
     }
     
 #if !NO_CAMERA
-    public void mounted_camera_shell_notification(string uri) {
+    public void mounted_camera_shell_notification(string uri, bool at_startup) {
         debug("mount point reported: %s", uri);
-
+        
         // ignore unsupport mount URIs
         if (!is_mount_uri_supported(uri)) {
             debug("Unsupported mount scheme: %s", uri);
@@ -1676,29 +1702,15 @@ public class LibraryWindow : AppWindow {
         if (uri.has_prefix("file://"))
             alt_uri = CameraTable.get_port_uri(uri.replace("file://", "disk:"));
         
-        // find the ImportPage for this camera ... it should have been detected and added to the
-        // CameraTable (and therefore a page created) before the shell notification comes in ...
-        // if it's not, that's fine, the user can select it and ask for it to be unmounted
-        ImportPage page = camera_pages.get(uri_file.get_uri());
-        if (page == null && alt_uri != null)
-            page = camera_pages.get(alt_uri);
+        // we only add uris when the notification is called on startup
+        if (at_startup) {
+            if (!is_string_empty(uri))
+                initial_camera_uris.add(uri);
 
-        if (page == null) {
-            debug("Unable to find import page for %s", uri_file.get_uri());
-            
-            return;
-        }
-        
-        // don't unmount mass storage cameras, as they are then unavailable to gPhoto
-        if (!uri.has_prefix("file://")) {
-            if (page.unmount_camera(mount))
-                switch_to_page(page);
-            else
-                error_message("Unable to unmount the camera at this time.");
-        } else {
-            switch_to_page(page);
+            if (!is_string_empty(alt_uri))
+                initial_camera_uris.add(alt_uri);
         }
     }
-#endif    
+#endif
 }
 

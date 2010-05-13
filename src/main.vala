@@ -17,7 +17,7 @@ Unique.Response on_shotwell_message(Unique.App shotwell, int command, Unique.Mes
     
     switch (command) {
         case ShotwellCommand.MOUNTED_CAMERA:
-            LibraryWindow.get_app().mounted_camera_shell_notification(data.get_text());
+            LibraryWindow.get_app().mounted_camera_shell_notification(data.get_text(), false);
         break;
         
         case Unique.Command.ACTIVATE:
@@ -51,7 +51,7 @@ void library_exec(string[] mounts) {
         foreach (string mount in mounts) {
             Unique.MessageData data = new Unique.MessageData();
             data.set_text(mount, -1);
-        
+            
             shotwell.send_message((int) ShotwellCommand.MOUNTED_CAMERA, data);
         }
         
@@ -156,7 +156,7 @@ void library_exec(string[] mounts) {
 #if !NO_CAMERA    
     // report mount points
     foreach (string mount in mounts)
-        library_window.mounted_camera_shell_notification(mount);
+        library_window.mounted_camera_shell_notification(mount, true);
 #endif
 
     library_window.show_all();

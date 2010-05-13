@@ -412,8 +412,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
             message += "\n";
         
         string already_imported_message =
-            (ngettext("1 photo already in library was not imported.\n",
-            "%d photos already in library were not imported.\n",
+            (ngettext("1 photo already in library was not imported:\n",
+            "%d photos already in library were not imported:\n",
             manifest.already_imported.size)).printf(manifest.already_imported.size);
 
         message += already_imported_message;
@@ -427,8 +427,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
             message += "\n";
         
         string failed_message =
-            (ngettext("1 photo failed to import due to a file or hardware error.\n",
-                "%d photos failed to import due to a file or hardware error.\n",
+            (ngettext("1 photo failed to import due to a file or hardware error:\n",
+                "%d photos failed to import due to a file or hardware error:\n",
                 manifest.failed.size)).printf(manifest.failed.size);
 
         message += failed_message;
@@ -442,8 +442,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
             message += "\n";
         
         string camera_failed_message =
-            ngettext("1 photo failed to import due to a camera error.\n",
-                "%d photos failed to import due to a camera error.\n",
+            ngettext("1 photo failed to import due to a camera error:\n",
+                "%d photos failed to import due to a camera error:\n",
                 manifest.camera_failed.size).printf(manifest.camera_failed.size);
             
         message += camera_failed_message;
@@ -456,8 +456,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        string skipped_photos_message = (ngettext("1 unsupported photo skipped.\n",
-            "%d unsupported photos skipped.\n", manifest.skipped_photos.size)).printf(
+        string skipped_photos_message = (ngettext("1 unsupported photo skipped:\n",
+            "%d unsupported photos skipped:\n", manifest.skipped_photos.size)).printf(
             manifest.skipped_photos.size);
 
         message += skipped_photos_message;
@@ -481,8 +481,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         if (list && message.length > 0)
             message += "\n";
         
-        string aborted_message = (ngettext("1 photo skipped due to user cancel.\n",
-            "%d photos skipped due to user cancel.\n", manifest.aborted.size)).printf(
+        string aborted_message = (ngettext("1 photo skipped due to user cancel:\n",
+            "%d photos skipped due to user cancel:\n", manifest.aborted.size)).printf(
             manifest.aborted.size);
 
         message += aborted_message;
