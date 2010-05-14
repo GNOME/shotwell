@@ -2495,12 +2495,40 @@ public class DirectPhotoPage : EditingHostPage {
         if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
             return;
 
+        string basename = get_photo().get_file().get_basename();
+        string ext;
+        string filename;
+        disassemble_filename(basename, out filename, out ext);
+
+        // an optimization for a common case -- when the format chosen by the user in the
+        // format combo box is the same as the format of the backing photo (e.g., the user
+        // wants to save a JPEG image as a JPEG) AND the photo's existing filename uses a
+        // known extension for the format, then there's no need to change the file's
+        // extension, so skip doing an extension replacement
+        if ((format == get_photo().get_file_format()) &&
+            (format.get_properties().is_recognized_extension(ext))) {
+            filename = basename;
+        } else {
+            if (filename == null || filename == "")
+                filename = "shotwell";
+            filename = format.get_default_basename(filename);
+        }
+
+        string[] output_format_extensions = format.get_properties().get_known_extensions();
+        Gtk.FileFilter output_format_filter = new Gtk.FileFilter();
+        foreach(string extension in output_format_extensions) {
+            string uppercase_extension = extension.up();
+            output_format_filter.add_pattern("*." + extension);
+            output_format_filter.add_pattern("*." + uppercase_extension);
+        }
+
         Gtk.FileChooserDialog save_as_dialog = new Gtk.FileChooserDialog(_("Save As"), 
             AppWindow.get_instance(), Gtk.FileChooserAction.SAVE, Gtk.STOCK_CANCEL, 
             Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK);
         save_as_dialog.set_select_multiple(false);
-        save_as_dialog.set_filename(get_photo().get_file().get_path());
+        save_as_dialog.set_current_name(filename);
         save_as_dialog.set_current_folder(current_save_dir.get_path());
+        save_as_dialog.add_filter(output_format_filter);
         save_as_dialog.set_do_overwrite_confirmation(true);
         
         int response = save_as_dialog.run();
