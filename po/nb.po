@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: shotwell-0.5.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
-"PO-Revision-Date: 2010-05-13 09:28+0200\n"
+"PO-Revision-Date: 2010-05-14 12:28+0200\n"
 "Last-Translator: Jan Roar Roed <janroed@gmail.com>\n"
-"Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
+"Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: Norwegian-Bokmål\n"
+"X-Generator: Lokalize 1.0\n"
+"X-Poedit-Language: Norwegian Bokmål\n"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -45,7 +46,7 @@ msgstr "Bilder"
 
 #: src/AppWindow.vala:118
 msgid "Leave _Fullscreen"
-msgstr "Forlat _Fullskjerm"
+msgstr "Forlat _fullskjerm"
 
 #: src/AppWindow.vala:119
 msgid "Leave fullscreen"
@@ -240,7 +241,7 @@ msgstr "Sorter bilder etter tittel"
 
 #: src/CollectionPage.vala:410
 msgid "By Exposure _Date"
-msgstr "Eter eksponerings_Dato"
+msgstr "_Etter eksponeringsdato"
 
 #: src/CollectionPage.vala:411
 msgid "Sort photos by exposure date"
@@ -256,288 +257,288 @@ msgstr "Sorter bilder i stigende rekkefølge"
 
 #: src/CollectionPage.vala:428 src/LibraryWindow.vala:452
 msgid "D_escending"
-msgstr ""
+msgstr "S_ynkende"
 
 #: src/CollectionPage.vala:429 src/LibraryWindow.vala:453
 msgid "Sort photos in a descending order"
-msgstr ""
+msgstr "Sorter bilder i synkende rekkefølge"
 
 #: src/CollectionPage.vala:637 src/Dialogs.vala:14 src/PhotoPage.vala:1769
 msgid "Export Photo"
 msgid_plural "Export Photos"
-msgstr[0] ""
+msgstr[0] "Eksporter bilde"
 msgstr[1] ""
 
 #: src/CollectionPage.vala:667
 #, c-format
 msgid "Unable to export photo %s: %s"
-msgstr ""
+msgstr "Kan ikke eksportere bilde %s: %s"
 
 #: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Rotating"
-msgstr ""
+msgstr "Rotering"
 
 #: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Undoing Rotate"
-msgstr ""
+msgstr "angre rotering"
 
 #: src/CollectionPage.vala:806
 msgid "Mirroring"
-msgstr ""
+msgstr "Speiler"
 
 #: src/CollectionPage.vala:807
 msgid "Undoing Mirror"
-msgstr ""
+msgstr "Angre speiling"
 
 #: src/CollectionPage.vala:1210
 msgid "Photos"
-msgstr ""
+msgstr "Bilder"
 
 #: src/Commands.vala:431
 msgid "Reverting"
-msgstr ""
+msgstr "Forkaster"
 
 #: src/Commands.vala:431
 msgid "Undoing Revert"
-msgstr ""
+msgstr "Angre forkastelse"
 
 #: src/Commands.vala:475
 msgid "Enhancing"
-msgstr ""
+msgstr "Gjør skarpere"
 
 #: src/Commands.vala:475
 msgid "Undoing Enhance"
-msgstr ""
+msgstr "Angre oppskarping"
 
 #: src/Commands.vala:641
 msgid "Creating New Event"
-msgstr ""
+msgstr "Oppretter ny hendelse"
 
 #: src/Commands.vala:642
 msgid "Removing Event"
-msgstr ""
+msgstr "Fjerner hendelse"
 
 #: src/Commands.vala:651
 msgid "Moving Photos to New Event"
-msgstr ""
+msgstr "Flytter bilder til den nye hendelsen"
 
 #: src/Commands.vala:652
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "angi bilder til forrige hendelse"
 
 #: src/Commands.vala:682
 msgid "Merging"
-msgstr ""
+msgstr "Fletter"
 
 #: src/Commands.vala:683
 msgid "Unmerging"
-msgstr ""
+msgstr "Fjerner fletting"
 
 #: src/Commands.vala:692
 msgid "Duplicating photos"
-msgstr ""
+msgstr "Duplikerer bilder"
 
 #: src/Commands.vala:692
 msgid "Removing duplicated photos"
-msgstr ""
+msgstr "Fjerner duplikatbilder"
 
 #: src/Commands.vala:715
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kunne ikke duplisere et bilde p.g.a en filfeil"
+msgstr[1] "kunne ikke duplisere %d bilder p.g.a filfeil"
 
 #: src/Commands.vala:780 src/Commands.vala:781
 msgid "Marking as Favorite"
-msgstr ""
+msgstr "Markert som favoritt"
 
 #: src/Commands.vala:780 src/Commands.vala:781
 msgid "Unmarking as Favorite"
-msgstr ""
+msgstr "fjerner markering som favoritt"
 
 #: src/Commands.vala:822 src/Commands.vala:823
 msgid "Hiding"
-msgstr ""
+msgstr "Skjuler"
 
 #: src/Commands.vala:822 src/Commands.vala:823
 msgid "Unhiding"
-msgstr ""
+msgstr "Fjerner skjuling"
 
 #: src/Commands.vala:865
 msgid "Original photo could not be adjusted."
-msgstr ""
+msgstr "Orginalbildet kunne ikke justeres"
 
 #: src/Commands.vala:885
 msgid "Adjusting Date and Time"
-msgstr ""
+msgstr "Justerer tid og dato"
 
 #: src/Commands.vala:885
 msgid "Undoing Date and Time Adjustment"
-msgstr ""
+msgstr "fjerner justering av tid og dato"
 
 #: src/Commands.vala:912
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ett orginalbilde kunne ikke justeres"
+msgstr[1] "Følgende orginalbilder kunne ikke justeres."
 
 #: src/Commands.vala:914 src/Commands.vala:926
 msgid "Time Adjustment Error"
-msgstr ""
+msgstr "Tidsjusteringsfeil"
 
 #: src/Commands.vala:924
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tidsjusteringer kunne ikke omgjøres på den følgende bildefilen."
+msgstr[1] "Tidsjusteringen kunne ikke omgjøres på de følgende bildefiler."
 
 #: src/Commands.vala:1178
 msgid "Move Photos to Trash"
-msgstr ""
+msgstr "Flytt bilder til søppelbøtten"
 
 #: src/Commands.vala:1178
 msgid "Restore Photos from Trash"
-msgstr ""
+msgstr "Gjenopprett bilder fra  søppelkassen"
 
 #: src/Commands.vala:1179
 msgid "Move the photos to the Shotwell trash"
-msgstr ""
+msgstr "Flytt bildene til Shotwells søppelbøtte"
 
 #: src/Commands.vala:1179
 msgid "Restore the photos back to the Shotwell library"
-msgstr ""
+msgstr "Gjenopprett bildene i Shotwells bildebibliotek"
 
 #: src/Commands.vala:1196
 msgid "Moving Photos to Trash"
-msgstr ""
+msgstr "Flytter bilder til søppelbøtten"
 
 #: src/Commands.vala:1196
 msgid "Restoring Photos From Trash"
-msgstr ""
+msgstr "Gjenoppretter bilder fra søppelbøtten"
 
 #: src/Dialogs.vala:36 src/Dialogs.vala:73
 msgid "Export Photos"
-msgstr ""
+msgstr "Eksporter bilder"
 
 #: src/Dialogs.vala:58
 msgid "Exporting"
-msgstr ""
+msgstr "Exporterer"
 
 #: src/Dialogs.vala:71
 #, c-format
 msgid "File %s already exists.  Replace?"
-msgstr ""
+msgstr "filen %s finnes fra før. Overskriv?"
 
 #: src/Dialogs.vala:73
 msgid "_Skip"
-msgstr ""
+msgstr "_Utelat"
 
 #: src/Dialogs.vala:73
 msgid "_Replace"
-msgstr ""
+msgstr "_Overskriv"
 
 #: src/Dialogs.vala:73
 msgid "Replace _All"
-msgstr ""
+msgstr "Overskriv _alle"
 
 #: src/Dialogs.vala:125
 #, c-format
 msgid "Unable to export the photo due to a file error."
 msgid_plural "Unable to export %d photos due to file errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kan ikke eksportere bildet p.g.a en filfeil."
+msgstr[1] "Kan ikke eksportere %d bilder p.g.a filfeil."
 
 #: src/Dialogs.vala:206
 msgid "_Format:"
-msgstr ""
+msgstr "_Format:"
 
 #: src/Dialogs.vala:209
 msgid "_Quality:"
-msgstr ""
+msgstr "_Kvalitet"
 
 #: src/Dialogs.vala:212
 msgid "_Scaling constraint:"
-msgstr ""
+msgstr "_skaleringsbegrensing"
 
 #: src/Dialogs.vala:215
 msgid " _pixels"
-msgstr ""
+msgstr "_bildepunkter"
 
 #: src/Dialogs.vala:372
 #, c-format
 msgid "And %d more.\n"
-msgstr ""
+msgstr "Og %d flere.\n"
 
 #: src/Dialogs.vala:394
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bilde importert.\n"
+msgstr[1] "%d bilder importert.\n"
 
 #: src/Dialogs.vala:405
 #, c-format
 msgid "1 photo already in library was not imported.\n"
 msgid_plural "%d photos already in library were not imported.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bilde ble ikke importert (finnes allerede i biblioteket).\n"
+msgstr[1] "%d bilder ble ikke importert (finnes allerede i biblioteket.\n"
 
 #: src/Dialogs.vala:420
-#, c-format
+#, fuzzy, c-format
 msgid "1 photo failed to import due to a file or hardware error.\n"
 msgid_plural "%d photos failed to import due to a file or hardware error.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bilde ble ikke importert p.g.a en filfeil eller maskinvarefeil.\n"
+msgstr[1] "%d bilder ble ikke importert p.g.a en fil- eller hardwarefeil"
 
 #: src/Dialogs.vala:435
 #, c-format
 msgid "1 photo failed to import due to a camera error.\n"
 msgid_plural "%d photos failed to import due to a camera error.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bilde ble ikke importert p.g.a. en kamerafeil.\n"
+msgstr[1] "%d bilder ble ikke importert p.g.a. en kamerafeil.\n"
 
 #: src/Dialogs.vala:449
 #, c-format
 msgid "1 unsupported photo skipped.\n"
 msgid_plural "%d unsupported photos skipped.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bilde ble utelatt (formatet støttes ikke).\n"
+msgstr[1] "%d bilder ble utelatt (formatet støttes ikke).\n"
 
 #: src/Dialogs.vala:463
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fil, som ikke er et bilde, ble utelatt.\n"
+msgstr[1] "%d filer, som ikke er bilder, ble utelatt.\n"
 
 #: src/Dialogs.vala:474
 #, c-format
 msgid "1 photo skipped due to user cancel.\n"
 msgid_plural "%d photos skipped due to user cancel.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 bilde utelatt p.g.a. brukeren avbrøt operasjonen.\n"
+msgstr[1] "%d bilder utelatt p.g.a. bruker avbrøt operasjonen.\n"
 
 #: src/Dialogs.vala:492
 msgid "No photos imported.\n"
-msgstr ""
+msgstr "Ingen bilder importet.\n"
 
 #: src/Dialogs.vala:507
 msgid "Import Complete"
-msgstr ""
+msgstr "Import ferdig"
 
 #: src/Dialogs.vala:586 src/Resources.vala:115
 msgid "Rename Event"
-msgstr ""
+msgstr "gi nytt navn til en hendelse"
 
 #: src/Dialogs.vala:586 src/Dialogs.vala:596 src/Dialogs.vala:1090
 msgid "Name:"
-msgstr ""
+msgstr "Navn:"
 
 #: src/Dialogs.vala:596 src/Resources.vala:167
 msgid "Rename Photo"
-msgstr ""
+msgstr "gi nytt navn til bilde"
 
 #: src/Dialogs.vala:608
 #, c-format
@@ -552,70 +553,81 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Dette vil fjerne bildet fra ditt Shotwell bildebibliotek. Vil du også flytte "
+"filen "
+"til din søppelkasse? (slette bildefilen)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
 msgstr[1] ""
+"Dette vil fjerne %d bilder fra ditt Shotwell bildebibliotek. Vil du også "
+"flytte filene "
+"til din søppelkasse? (slette bildefilene)\n"
+"\n"
+"Denne operasjonen kan ikke angres / omgjøres"
 
 #: src/Dialogs.vala:611
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Slett fil"
+msgstr[1] "_Slett filer"
 
 #: src/Dialogs.vala:615
 msgid "Only _Remove"
-msgstr ""
+msgstr "_Fjern kun"
 
 #: src/Dialogs.vala:617
 msgid "Empty Trash"
-msgstr ""
+msgstr "Tøm søppelbøtten"
 
 #: src/Dialogs.vala:690
 #, c-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: src/Dialogs.vala:728
 msgid "Generating Events"
-msgstr ""
+msgstr "Oppretter hendelser"
 
 #: src/Dialogs.vala:800
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #: src/Dialogs.vala:801
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: src/Dialogs.vala:802
 msgid "24 Hr"
-msgstr ""
+msgstr "24 t."
 
+# mystisk. dette må sjekkes ut i programmet
 #: src/Dialogs.vala:817
 msgid "_Shift photos by the same amount"
-msgstr ""
+msgstr "_Skift bilder etter samme mengde."
 
 #: src/Dialogs.vala:822
 msgid "Set _all photos to this time"
-msgstr ""
+msgstr "Sett _alle bilder til dette tidspunktet"
 
 #: src/Dialogs.vala:828
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] ""
+msgstr[0] "_Modifiser orginalfilen"
 msgstr[1] ""
 
 #: src/Dialogs.vala:910
 msgid "Original: "
-msgstr ""
+msgstr "Original:"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:911
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr ""
+msgstr "%m/%d/%Y, %H:%M:%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:912
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr ""
+msgstr "%m/%d/%Y, %I:%M:%S %p"
 
 #: src/Dialogs.vala:997
 #, c-format
@@ -623,6 +635,8 @@ msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Eksponeringstiden vil bli flyttet fram med\n"
+"%d %s, %d %s, %d %s, og %d %s."
 
 #: src/Dialogs.vala:998
 #, c-format
@@ -630,30 +644,32 @@ msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Eksponeringstidspunktet vil bli satt tilbake med\n"
+"%d %s, %d %s, %d %s, og %d %s."
 
 #: src/Dialogs.vala:1000
 msgid "day"
 msgid_plural "days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dag"
+msgstr[1] "dager"
 
 #: src/Dialogs.vala:1001
 msgid "hour"
 msgid_plural "hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "time"
+msgstr[1] "timer"
 
 #: src/Dialogs.vala:1002
 msgid "minute"
 msgid_plural "minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "minutt"
+msgstr[1] "minutter"
 
 #: src/Dialogs.vala:1003
 msgid "second"
 msgid_plural "seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "sekund"
+msgstr[1] "sekunder"
 
 #: src/Dialogs.vala:1047
 #, c-format
@@ -666,288 +682,294 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
+"\n"
+"\n"
+"og %d annen."
 msgstr[1] ""
+"\n"
+"\n"
+"Og %d andre."
 
 #: src/Dialogs.vala:1064 src/Dialogs.vala:1114
 msgid "Tags (separated by commas):"
-msgstr ""
+msgstr "Tagger (kommaseparert):"
 
 #: src/Dialogs.vala:1154
 msgid "Welcome!"
-msgstr ""
+msgstr "Velkommen!"
 
 #: src/Dialogs.vala:1161
 #, c-format
 msgid "Welcome to Shotwell!"
-msgstr ""
+msgstr "Velkommen til Shotwell!"
 
 #: src/Dialogs.vala:1165
 #, c-format
 msgid "To get started, import photos in any of these ways:"
-msgstr ""
+msgstr "For å komme igang, kan du importere bilder på en av følgende måter:"
 
 #: src/Dialogs.vala:1179
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
+msgstr "Velg <span weight=\"bold\">Import av fil %s fra en mappe</span>"
 
 #: src/Dialogs.vala:1180
 msgid "Drag and drop photos onto the Shotwell window"
-msgstr ""
+msgstr "Dra og slipp bilder inn i Shotwellvinduet"
 
 #: src/Dialogs.vala:1181
 msgid "Connect a camera to your computer and import"
-msgstr ""
+msgstr "Koble et kamera til din datamaskin og importer bilder"
 
 #: src/Dialogs.vala:1188
 msgid "_Don't show this message again"
-msgstr ""
+msgstr "_Vis ikke denne beskjeden igjen"
 
 #: src/Dimensions.vala:17 src/FlickrConnector.vala:949
 msgid "Original size"
-msgstr ""
+msgstr "Orginalstørrelse"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
-msgstr ""
+msgstr "Bredde eller høyde"
 
 #: src/Dimensions.vala:23
 msgid "Width"
-msgstr ""
+msgstr "Bredde"
 
 #: src/Dimensions.vala:26
 msgid "Height"
-msgstr ""
+msgstr "Høyde"
 
 #: src/EditingTools.vala:411
 msgid "Crop"
-msgstr ""
+msgstr "Beskjær"
 
 #: src/EditingTools.vala:412
 msgid "Crop the photo's size"
-msgstr ""
+msgstr "Beskjær bildets størrelse"
 
 #: src/EditingTools.vala:488
 msgid "Return to current photo dimensions"
-msgstr ""
+msgstr "Gå tilbake til aktuelle bildedimensjoner"
 
 #: src/EditingTools.vala:491
 msgid "Set the crop for this photo"
-msgstr ""
+msgstr "Angi beskjæring av dette bildet"
 
 #: src/EditingTools.vala:503
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr ""
+msgstr "Pivoter beskjæringsrektanglet mellom stående eller liggende"
 
 #: src/EditingTools.vala:571
 msgid "Unconstrained"
-msgstr ""
+msgstr "Ubegrenset"
 
 #: src/EditingTools.vala:572
 msgid "Square"
-msgstr ""
+msgstr "Firkant"
 
 #: src/EditingTools.vala:573
 msgid "Screen"
-msgstr ""
+msgstr "Skjerm"
 
 #: src/EditingTools.vala:574 src/PicasaConnector.vala:867
 msgid "Original Size"
-msgstr ""
+msgstr "Opprinnelig størrelse"
 
 #: src/EditingTools.vala:575 src/EditingTools.vala:578
 #: src/EditingTools.vala:586 src/EditingTools.vala:594
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/EditingTools.vala:576
 msgid "SD Video (4 : 3)"
-msgstr ""
+msgstr "SD Video (4 : 3)"
 
 #: src/EditingTools.vala:577
 msgid "HD Video (16 : 9)"
-msgstr ""
+msgstr "HD Video (16 : 9)"
 
 #: src/EditingTools.vala:579 src/Printing.vala:769
 msgid "Wallet (2 x 3 in.)"
-msgstr ""
+msgstr "Lommebok (2 x 3 tommer)"
 
 #: src/EditingTools.vala:580 src/Printing.vala:772
 msgid "Notecard (3 x 5 in.)"
-msgstr ""
+msgstr "Notekort (3 x 5 tommer)"
 
 #: src/EditingTools.vala:581 src/Printing.vala:775
 msgid "4 x 6 in."
-msgstr ""
+msgstr "4 x 6 tommer"
 
 #: src/EditingTools.vala:582 src/Printing.vala:778
 msgid "5 x 7 in."
-msgstr ""
+msgstr "5 x 7 tommer"
 
 #: src/EditingTools.vala:583 src/Printing.vala:781
 msgid "8 x 10 in."
-msgstr ""
+msgstr "8 x 10 tommer"
 
 #: src/EditingTools.vala:584 src/Printing.vala:784
 msgid "11 x 14 in."
-msgstr ""
+msgstr "11 x 14 tommer"
 
 #: src/EditingTools.vala:585 src/Printing.vala:787
 msgid "16 x 20 in."
-msgstr ""
+msgstr "16 x 20 tommer"
 
 #: src/EditingTools.vala:587 src/Printing.vala:793
 msgid "Metric Wallet (9 x 13 cm)"
-msgstr ""
+msgstr "Metrisk Lommebok (9x 13 cm)"
 
 #: src/EditingTools.vala:588 src/Printing.vala:796
 msgid "Postcard (10 x 15 cm)"
-msgstr ""
+msgstr "Postkort (10 x 15 cm)"
 
 #: src/EditingTools.vala:589 src/Printing.vala:799
 msgid "13 x 18 cm"
-msgstr ""
+msgstr "13 x 18 cm"
 
 #: src/EditingTools.vala:590 src/Printing.vala:802
 msgid "18 x 24 cm"
-msgstr ""
+msgstr "18 x 24 cm"
 
 #: src/EditingTools.vala:591 src/Printing.vala:805
 msgid "20 x 30 cm"
-msgstr ""
+msgstr "20 x 30 cm"
 
 #: src/EditingTools.vala:592 src/Printing.vala:808
 msgid "24 x 40 cm"
-msgstr ""
+msgstr "24 x 40 cm"
 
 #: src/EditingTools.vala:593 src/Printing.vala:811
 msgid "30 x 40 cm"
-msgstr ""
+msgstr "30 x 40 cm"
 
 #: src/EditingTools.vala:595
 msgid "Custom"
-msgstr ""
+msgstr "Tilpasset"
 
 #: src/EditingTools.vala:1673
 msgid "Red-eye"
-msgstr ""
+msgstr "Rødøye"
 
 #: src/EditingTools.vala:1674
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr ""
+msgstr "Reduser eller fjern eventuelle rødeøyer i bildet"
 
 #: src/EditingTools.vala:1679 src/Properties.vala:335
 msgid "Size:"
-msgstr ""
+msgstr "Størrelse:"
 
 #: src/EditingTools.vala:1694
 msgid "Close the red-eye tool"
-msgstr ""
+msgstr "Steng ned rødøye-verktøyet"
 
 #: src/EditingTools.vala:1697
 msgid "Remove any red-eye effects in the selected region"
-msgstr ""
+msgstr "Fjern eventuelle rødeøyer i det valgte området"
 
 #: src/EditingTools.vala:1990
 msgid "Adjust"
-msgstr ""
+msgstr "Juster"
 
 #: src/EditingTools.vala:1991
 msgid "Adjust the photo's color and tone"
-msgstr ""
+msgstr "Juster bildets farge og tonegjengivelse"
 
 #: src/EditingTools.vala:2011
 msgid "_Reset"
-msgstr ""
+msgstr "_Nullstill"
 
 #: src/EditingTools.vala:2022 src/Properties.vala:364 src/Properties.vala:368
 #: src/Properties.vala:375
 msgid "Exposure:"
-msgstr ""
+msgstr "Eksponering:"
 
 #: src/EditingTools.vala:2030
 msgid "Saturation:"
-msgstr ""
+msgstr "Metning:"
 
 #: src/EditingTools.vala:2038
 msgid "Tint:"
-msgstr ""
+msgstr "Nyanse"
 
 #: src/EditingTools.vala:2047
 msgid "Temperature:"
-msgstr ""
+msgstr "Temperatur:"
 
 #: src/EditingTools.vala:2055
 msgid "Shadows:"
-msgstr ""
+msgstr "Skygger:"
 
 #: src/EditingTools.vala:2107
 msgid "Reset Colors"
-msgstr ""
+msgstr "Nullstill farger"
 
 #: src/EditingTools.vala:2107
 msgid "Reset all color adjustments to original"
-msgstr ""
+msgstr "tilbakestill alle fargejusteringer til orginalverdiene"
 
 #: src/EditingTools.vala:2413
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatur"
 
 #: src/EditingTools.vala:2419
 msgid "Tint"
-msgstr ""
+msgstr "Nyanse"
 
 #: src/EditingTools.vala:2425
 msgid "Saturation"
-msgstr ""
+msgstr "Metning"
 
 #: src/EditingTools.vala:2431
 msgid "Exposure"
-msgstr ""
+msgstr "Eksponering"
 
 #: src/EditingTools.vala:2437
 msgid "Shadows"
-msgstr ""
+msgstr "Skygger"
 
 #: src/EditingTools.vala:2447
 msgid "Contrast Expansion"
-msgstr ""
+msgstr "Kontrastutvidelse"
 
 #: src/EventsDirectoryPage.vala:68 src/Properties.vala:303
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d bilde"
+msgstr[1] "%d bilder"
 
 #: src/EventsDirectoryPage.vala:251
 msgid "Select all the events in the directory"
-msgstr ""
+msgstr "Velg alle hendelser i mappen"
 
 #: src/EventsDirectoryPage.vala:453
 msgid "Events"
-msgstr ""
+msgstr "Hendelser"
 
 #: src/EventsDirectoryPage.vala:509 src/LibraryWindow.vala:186
 msgid "Undated"
-msgstr ""
+msgstr "udatert"
 
 #: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%B"
-msgstr ""
+msgstr "%B"
 
 #: src/Event.vala:467
 #, c-format
 msgid "Event %lld"
-msgstr ""
+msgstr "Hendelse %lld"
 
 #: src/FacebookConnector.vala:13 src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
-msgstr ""
+msgstr "Shotwell - tilkopling"
 
 #: src/FacebookConnector.vala:16
 msgid ""
@@ -956,6 +978,10 @@ msgid ""
 "If you don't yet have a Facebook account, you can create one during the "
 "login process."
 msgstr ""
+"Det er nå ikke innlogget på Facebook.\n"
+"\n"
+"Hvis du ikke har en Facebook-konto, kan du opprette en under innloggings "
+"prosessen."
 
 #: src/FacebookConnector.vala:18
 msgid ""
@@ -964,14 +990,18 @@ msgid ""
 "To continue publishing to Facebook, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
+"Du har allerede logget inn og ut av Facebook under denne Shotwell- "
+"økten.\n"
+"For å fortsette å publisere ttil Facebook: Avslutt og restart Shotwell, "
+"deretter forsøk å publiser igjen."
 
 #: src/FacebookConnector.vala:258
 msgid "Testing connection to Facebook..."
-msgstr ""
+msgstr "Tester forbindelsen til Facebook..."
 
 #: src/FacebookConnector.vala:340 src/PicasaConnector.vala:378
 msgid "Creating album..."
-msgstr ""
+msgstr "Oppretter album..."
 
 #: src/FacebookConnector.vala:711
 #, c-format
@@ -980,24 +1010,27 @@ msgid ""
 "\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
+"Du er innlogget på Facebook som %s.\n"
+"\n"
+"Hvor vil du publisere de utvalgte bildene?"
 
 #: src/FacebookConnector.vala:747
 msgid "Publish to an e_xisting album:"
-msgstr ""
+msgstr "Publiser til et eks_isterende album:"
 
 #: src/FacebookConnector.vala:750
 msgid "Create a _new album named:"
-msgstr ""
+msgstr "Lag et _nytt album med navnet:"
 
 #: src/FacebookConnector.vala:766 src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
 msgid "_Publish"
-msgstr ""
+msgstr "_Publiser"
 
 #: src/FacebookConnector.vala:768 src/FlickrConnector.vala:880
 #: src/PicasaConnector.vala:779
 msgid "_Logout"
-msgstr ""
+msgstr "_Logg ut"
 
 #: src/FlickrConnector.vala:11
 msgid ""
@@ -1007,6 +1040,11 @@ msgid ""
 "process. During login you will have to specifically authorize Shotwell "
 "Connect to link to your Flickr account."
 msgstr ""
+"Du er ikke innlogget på Flickr.\n"
+"\n"
+"Du må ha en gyldig konto hos Flickr for å fullføre innloggingsprosessen "
+"Under innloggingen må du gi tillatelse til at Shotwell Connect peker "
+"til din Flickr-konto."
 
 #: src/FlickrConnector.vala:13
 msgid ""
@@ -1014,10 +1052,14 @@ msgid ""
 "To continue publishing to Flickr, quit and restart Shotwell, then try "
 "publishing again."
 msgstr ""
+"Du har alerede logget inn og ut av Flickr under denne Shotwell økten.\n"
+"For å fortsette publiseringen til Flickr: Avslutt og start Shotwell. "
+"Deretter "
+"kan du forsøke å publisere igjen."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
-msgstr ""
+msgstr "Forbereder innlogging..."
 
 #: src/FlickrConnector.vala:820
 #, c-format
@@ -1025,6 +1067,8 @@ msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
 msgstr ""
+"Du er innlogget på Flickr som %s.\n"
+"\n"
 
 #: src/FlickrConnector.vala:822
 #, c-format
@@ -1032,86 +1076,93 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"Din gratiskonto hos Flickr begrenser hvor mye data du kan laste opp pr. mnd."
+"\n"
+"Denne måneden har du %d megabytes igjen av din opplastingskvote."
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
+msgstr "Din Flickr Pro-konto gir deg rett til ubegrenset opplastingsmengde."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
-msgstr ""
+msgstr "Bilder er  _synlige for:"
 
 #: src/FlickrConnector.vala:850
 msgid "Photo _size:"
-msgstr ""
+msgstr "_Bildestørrelse:"
 
 #: src/FlickrConnector.vala:922
 msgid "Everyone"
-msgstr ""
+msgstr "Alle"
 
 #: src/FlickrConnector.vala:923
 msgid "Friends & family only"
-msgstr ""
+msgstr "Kun venner & familie"
 
 #: src/FlickrConnector.vala:924
 msgid "Just me"
-msgstr ""
+msgstr "Bare meg selv"
 
 #: src/FlickrConnector.vala:947
 msgid "Medium (500 x 375 pixels)"
-msgstr ""
+msgstr "Medium (500 x 375pixler)"
 
 #: src/FlickrConnector.vala:948
 msgid "Large (1024 x 768 pixels)"
-msgstr ""
+msgstr "Stor (1024 x 768 pixler)"
 
 #: src/image_util.vala:209
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr ""
+msgstr "Kan ikke eksportere bakgrunn til %s: %s"
 
 #: src/ImportPage.vala:162
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
+"Kan ikke avmontere kameraet. Prøv å avmonter kameraet fra filbehandleren."
 
 #: src/ImportPage.vala:250 src/ImportPage.vala:251
 msgid "Camera"
-msgstr ""
+msgstr "Kamera"
 
 #: src/ImportPage.vala:289
 msgid "Hide photos already imported"
-msgstr ""
+msgstr "Skjul bilder som allerede er importert"
 
 #: src/ImportPage.vala:290
 msgid "Only display photos that have not been imported"
-msgstr ""
+msgstr "Vis kun bilder som ikke har blitt importert"
 
 #: src/ImportPage.vala:384
 msgid "Import _Selected"
-msgstr ""
+msgstr "importer _Valgte"
 
 #: src/ImportPage.vala:389
 msgid "Import _All"
-msgstr ""
+msgstr "Importer _alle"
 
 #: src/ImportPage.vala:399
 msgid "Select all the photos for importing"
-msgstr ""
+msgstr "Velg alle bildene for importering"
 
 #: src/ImportPage.vala:507
 msgid ""
 "Shotwell needs to unmount the camera from the filesystem in order to access "
 "it.  Continue?"
 msgstr ""
+"Shotwell trenger å avmontere kameraet fra filsystemet for å få tilgang til "
+"det. "
+"Fortsett?"
 
 #: src/ImportPage.vala:513
 msgid "_Unmount"
-msgstr ""
+msgstr "_Avmonter"
 
 #: src/ImportPage.vala:518
 msgid "Please unmount the camera."
-msgstr ""
+msgstr "Vennligst avmonter kameraet."
 
 #: src/ImportPage.vala:523
 msgid ""
@@ -1119,6 +1170,9 @@ msgid ""
 "camera when it's unlocked.  Please close any other application using the "
 "camera and try again."
 msgstr ""
+"Kameraet er låst av et annet program. Shotwell kan bare få tilgang til "
+"kameraet når det er ulåst. Vennligst steng andre programmer som bruker "
+"kameraet, og prøv igjen."
 
 #: src/ImportPage.vala:533
 msgid "Please close any other application using the camera."
@@ -2305,4 +2359,5 @@ msgstr ""
 #, c-format
 msgid "Uploading photo %d of %d"
 msgstr ""
+
 
