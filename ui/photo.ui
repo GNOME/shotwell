@@ -45,8 +45,14 @@
             <menuitem name="RotateClockwise" action="RotateClockwise" />
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />
+            <menuitem name="Flip" action="Flip" />
             <separator />
-            <menuitem name="Enhance" action="Enhance" />
+            <menu name="Tools" action="Tools">
+                <menuitem name="Enhance" action="Enhance" />
+                <menuitem name="Crop" action="Crop" />
+                <menuitem name="RedEye" action="RedEye" />
+                <menuitem name="Adjust" action="Adjust" />
+            </menu>
             <menuitem name="Revert" action="Revert" />
             <separator />
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />

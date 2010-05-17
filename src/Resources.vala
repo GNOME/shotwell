@@ -52,6 +52,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string CLOCKWISE = "shotwell-rotate-clockwise";
     public const string COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
     public const string MIRROR = "shotwell-mirror";
+    public const string FLIP = "shotwell-flip";
     public const string CROP = "shotwell-crop";
     public const string REDEYE = "shotwell-redeye";
     public const string ADJUST = "shotwell-adjust";
@@ -92,9 +93,25 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MIRROR_LABEL = _("Mirror");
     public const string MIRROR_TOOLTIP = _("Make mirror images of the photos");
     
+    public const string FLIP_MENU = _("Fl_ip");
+    public const string FLIP_LABEL = _("Flip");
+    public const string FLIP_TOOLTIP = _("Flip the photos upside down");
+    
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
     public const string ENHANCE_TOOLTIP = _("Automatically improve the photo's appearance");
+    
+    public const string CROP_MENU = _("_Crop");
+    public const string CROP_LABEL = _("Crop");
+    public const string CROP_TOOLTIP = _("Crop the photo's size");
+    
+    public const string RED_EYE_MENU = _("_Red-eye");
+    public const string RED_EYE_LABEL = _("Red-eye");
+    public const string RED_EYE_TOOLTIP = _("Reduce or eliminate any red-eye effects in the photo");
+    
+    public const string ADJUST_MENU = _("_Adjust");
+    public const string ADJUST_LABEL = _("Adjust");
+    public const string ADJUST_TOOLTIP = _("Adjust the photo's color and tone");
     
     public const string REVERT_MENU = _("Re_vert to Original");
     public const string REVERT_LABEL = _("Revert to Original");
@@ -261,6 +278,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("object-rotate-right" + SVG_SUFFIX), CLOCKWISE);
         add_stock_icon(icons_dir.get_child("object-rotate-left" + SVG_SUFFIX), COUNTERCLOCKWISE);
         add_stock_icon(icons_dir.get_child("object-flip-horizontal" + SVG_SUFFIX), MIRROR);
+        add_stock_icon(icons_dir.get_child("object-flip-vertical" + SVG_SUFFIX), FLIP);
         add_stock_icon(icons_dir.get_child("crop" + SVG_SUFFIX), CROP);
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
         add_stock_icon(icons_dir.get_child("adjust.png"), ADJUST);

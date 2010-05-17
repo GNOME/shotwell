@@ -58,6 +58,7 @@
             <menuitem name="RotateClockwise" action="RotateClockwise" />
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
             <menuitem name="Mirror" action="Mirror" />
+            <menuitem name="Flip" action="Flip" />
             <separator />
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />

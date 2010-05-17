@@ -272,6 +272,12 @@ public abstract class CollectionPage : CheckerboardPage {
         mirror.label = Resources.MIRROR_MENU;
         mirror.tooltip = Resources.MIRROR_TOOLTIP;
         actions += mirror;
+        
+        Gtk.ActionEntry flip = { "Flip", Resources.FLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip };
+        flip.label = Resources.FLIP_MENU;
+        flip.tooltip = Resources.FLIP_TOOLTIP;
+        actions += flip;
 
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
@@ -755,6 +761,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Flip", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
@@ -823,6 +830,16 @@ public abstract class CollectionPage : CheckerboardPage {
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
             Rotation.MIRROR, Resources.MIRROR_LABEL, Resources.MIRROR_TOOLTIP, _("Mirroring"),
             _("Undoing Mirror"));
+        get_command_manager().execute(command);
+    }
+    
+    private void on_flip() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
+            Rotation.UPSIDE_DOWN, Resources.FLIP_LABEL, Resources.FLIP_TOOLTIP, _("Flipping"),
+            _("Undoing Flip"));
         get_command_manager().execute(command);
     }
     

@@ -407,10 +407,7 @@ public abstract class EditingTool {
     }
 }
 
-public class CropTool : EditingTool {
-    public const string TOOL_LABEL = _("Crop");
-    public const string TOOL_TOOLTIP = _("Crop the photo's size");
-    
+public class CropTool : EditingTool {    
     private const double CROP_INIT_X_PCT = 0.15;
     private const double CROP_INIT_Y_PCT = 0.15;
 
@@ -1160,8 +1157,8 @@ public class CropTool : EditingTool {
         
         // signal host; we have a cropped image, but it will be scaled upward, and so a better one
         // should be fetched
-        applied(new CropCommand(canvas.get_photo(), crop, TOOL_LABEL, TOOL_TOOLTIP), cropped,
-            crop.get_dimensions(), true);
+        applied(new CropCommand(canvas.get_photo(), crop, Resources.CROP_LABEL,
+            Resources.CROP_TOOLTIP), cropped, crop.get_dimensions(), true);
     }
 
     private void update_cursor(int x, int y) {
@@ -1670,9 +1667,6 @@ public struct RedeyeInstance {
 }
 
 public class RedeyeTool : EditingTool {
-    public const string TOOL_LABEL = _("Red-eye");
-    public const string TOOL_TOOLTIP = _("Reduce or eliminate any red-eye effects in the photo");
-    
     private class RedeyeToolWindow : EditingToolWindow {
         private const int CONTROL_SPACING = 8;
 
@@ -1801,8 +1795,8 @@ public class RedeyeTool : EditingTool {
         RedeyeInstance instance_unscaled =
             RedeyeInstance.from_bounds_rect(bounds_rect_unscaled);
         
-        RedeyeCommand command = new RedeyeCommand(canvas.get_photo(), instance_unscaled, TOOL_LABEL,
-            TOOL_TOOLTIP);
+        RedeyeCommand command = new RedeyeCommand(canvas.get_photo(), instance_unscaled,
+            Resources.RED_EYE_LABEL, Resources.RED_EYE_TOOLTIP);
         AppWindow.get_command_manager().execute(command);
     }
     
@@ -1987,9 +1981,6 @@ public class RedeyeTool : EditingTool {
 }
 
 public class AdjustTool : EditingTool {
-    public const string TOOL_LABEL = _("Adjust");
-    public const string TOOL_TOOLTIP = _("Adjust the photo's color and tone");
-    
     const int SLIDER_WIDTH = 160;
 
     private class AdjustToolWindow : EditingToolWindow {
@@ -2379,8 +2370,9 @@ public class AdjustTool : EditingTool {
 
         get_tool_window().hide();
         
-        applied(new AdjustColorsCommand(canvas.get_photo(), transformations, TOOL_LABEL, TOOL_TOOLTIP),
-            draw_to_pixbuf, canvas.get_photo().get_dimensions(), false);
+        applied(new AdjustColorsCommand(canvas.get_photo(), transformations,
+            Resources.ADJUST_LABEL, Resources.ADJUST_TOOLTIP), draw_to_pixbuf, 
+            canvas.get_photo().get_dimensions(), false);
     }
     
     private void update_transformations(PixelTransformationBundle new_transformations) {

@@ -373,7 +373,7 @@ private DatabaseVerifyResult upgrade_database(int version) {
     //   case a future requirement is discovered.
     //
     
-    VersionTable.get_instance().update_version(version);
+    VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
     message("Database upgrade to schema version %d successful", version);
     
@@ -454,12 +454,14 @@ public class VersionTable : DatabaseTable {
             fatal("set_version %d %s %s".printf(version, app_version, user_data), res);
     }
     
-    public void update_version(int version) {
+    public void update_version(int version, string app_version) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("UPDATE VersionTable SET schema_version=?", -1, out stmt);
+        int res = db.prepare_v2("UPDATE VersionTable SET schema_version=?, app_version=?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.bind_int(1, version);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(2, app_version);
         assert(res == Sqlite.OK);
         
         res = stmt.step();

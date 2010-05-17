@@ -74,24 +74,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // crop tool
         crop_button = new Gtk.ToggleToolButton.from_stock(Resources.CROP);
-        crop_button.set_label(CropTool.TOOL_LABEL);
-        crop_button.set_tooltip_text(CropTool.TOOL_TOOLTIP);
+        crop_button.set_label(Resources.CROP_LABEL);
+        crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
         crop_button.toggled += on_crop_toggled;
         crop_button.is_important = true;
         toolbar.insert(crop_button, -1);
 
         // redeye reduction tool
         redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
-        redeye_button.set_label(RedeyeTool.TOOL_LABEL);
-        redeye_button.set_tooltip_text(RedeyeTool.TOOL_TOOLTIP);
+        redeye_button.set_label(Resources.RED_EYE_LABEL);
+        redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
         redeye_button.toggled += on_redeye_toggled;
         redeye_button.is_important = true;
         toolbar.insert(redeye_button, -1);
         
         // adjust tool
         adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
-        adjust_button.set_label(AdjustTool.TOOL_LABEL);
-        adjust_button.set_tooltip_text(AdjustTool.TOOL_TOOLTIP);
+        adjust_button.set_label(Resources.ADJUST_LABEL);
+        adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
         adjust_button.toggled += on_adjust_toggled;
         adjust_button.is_important = true;
         toolbar.insert(adjust_button, -1);
@@ -1100,6 +1100,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate(Rotation.MIRROR, Resources.MIRROR_LABEL, Resources.MIRROR_TOOLTIP);
     }
     
+    public void on_flip() {
+        rotate(Rotation.UPSIDE_DOWN, Resources.FLIP_LABEL, Resources.FLIP_TOOLTIP);
+    }
+    
     public void on_revert() {
         deactivate_tool();
         
@@ -1231,6 +1235,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void on_tool_aborted() {
         deactivate_tool();
         set_photo_missing(true);
+    }
+
+    protected void toggle_crop() {
+        crop_button.set_active(!crop_button.get_active());
+    }
+
+    protected void toggle_redeye() {
+        redeye_button.set_active(!redeye_button.get_active());
+    }
+    
+    protected void toggle_adjust() {
+        adjust_button.set_active(!adjust_button.get_active());
     }
     
     private void on_crop_toggled() {
@@ -1474,7 +1490,11 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, on_photo_menu };
         photo.label = _("_Photo");
         actions += photo;
-
+        
+        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, on_tools };
+        tools.label = _("_Tools");
+        actions += tools;
+        
         Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
             TRANSLATABLE, on_previous_photo };
         prev.label = _("_Previous Photo");
@@ -1504,13 +1524,37 @@ public class LibraryPhotoPage : EditingHostPage {
         mirror.label = Resources.MIRROR_MENU;
         mirror.tooltip = Resources.MIRROR_TOOLTIP;
         actions += mirror;
-
+        
+        Gtk.ActionEntry flip = { "Flip", Resources.FLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip };
+        flip.label = Resources.FLIP_MENU;
+        flip.tooltip = Resources.FLIP_TOOLTIP;
+        actions += flip;
+        
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
         enhance.label = Resources.ENHANCE_MENU;
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
-
+        
+        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>R",
+            TRANSLATABLE, toggle_crop };
+        crop.label = Resources.CROP_MENU;
+        crop.tooltip = Resources.CROP_TOOLTIP;
+        actions += crop;
+        
+        Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
+            TRANSLATABLE, toggle_redeye };
+        red_eye.label = Resources.RED_EYE_MENU;
+        red_eye.tooltip = Resources.RED_EYE_TOOLTIP;
+        actions += red_eye;
+        
+        Gtk.ActionEntry adjust = { "Adjust", Resources.ADJUST, TRANSLATABLE, "<Ctrl>D",
+            TRANSLATABLE, toggle_adjust };
+        adjust.label = Resources.ADJUST_MENU;
+        adjust.tooltip = Resources.ADJUST_TOOLTIP;
+        actions += adjust;
+        
         Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
         revert.label = Resources.REVERT_MENU;
@@ -1646,9 +1690,11 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Flip", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
 
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
@@ -1888,17 +1934,22 @@ public class LibraryPhotoPage : EditingHostPage {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
         
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Enhance", enhance_possible);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Flip", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
         set_hide_item_label("/PhotoMenuBar/PhotoMenu/HideUnhide");
         set_favorite_item_label("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite");
+    }
+    
+    private void on_tools() {
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
+        
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", enhance_possible);
     }
     
     private void on_view_menu() {
@@ -2220,11 +2271,14 @@ public class DirectPhotoPage : EditingHostPage {
         edit.label = _("Edit");
         actions += edit;
 
-        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null,
-            on_photo_menu };
+        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, on_photo_menu };
         photo.label = _("_Photo");
         actions += photo;
-
+        
+        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, on_tools };
+        tools.label = _("_Tools");
+        actions += tools;
+        
         Gtk.ActionEntry prev = { "PrevPhoto", Gtk.STOCK_GO_BACK, TRANSLATABLE, null,
             TRANSLATABLE, on_previous_photo };
         prev.label = _("_Previous Photo");
@@ -2255,11 +2309,35 @@ public class DirectPhotoPage : EditingHostPage {
         mirror.tooltip = Resources.MIRROR_TOOLTIP;
         actions += mirror;
         
+        Gtk.ActionEntry flip = { "Flip", Resources.FLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip };
+        flip.label = Resources.FLIP_MENU;
+        flip.tooltip = Resources.FLIP_TOOLTIP;
+        actions += flip;
+        
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
         enhance.label = Resources.ENHANCE_MENU;
         enhance.tooltip = Resources.ENHANCE_TOOLTIP;
         actions += enhance;
+        
+        Gtk.ActionEntry crop = { "Crop", Resources.CROP, TRANSLATABLE, "<Ctrl>R",
+            TRANSLATABLE, toggle_crop };
+        crop.label = Resources.CROP_MENU;
+        crop.tooltip = Resources.CROP_TOOLTIP;
+        actions += crop;
+        
+        Gtk.ActionEntry red_eye = { "RedEye", Resources.REDEYE, TRANSLATABLE, "<Ctrl>Y",
+            TRANSLATABLE, toggle_redeye };
+        red_eye.label = Resources.RED_EYE_MENU;
+        red_eye.tooltip = Resources.RED_EYE_TOOLTIP;
+        actions += red_eye;
+        
+        Gtk.ActionEntry adjust = { "Adjust", Resources.ADJUST, TRANSLATABLE, "<Ctrl>D",
+            TRANSLATABLE, toggle_adjust };
+        adjust.label = Resources.ADJUST_MENU;
+        adjust.tooltip = Resources.ADJUST_TOOLTIP;
+        actions += adjust;
         
         Gtk.ActionEntry revert = { "Revert", Gtk.STOCK_REVERT_TO_SAVED, TRANSLATABLE,
             null, TRANSLATABLE, on_revert };
@@ -2372,7 +2450,11 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Enhance", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Flip", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", sensitivity);
 
         set_item_sensitive("/DirectContextMenu/ContextRotateClockwise", sensitivity);
@@ -2564,14 +2646,19 @@ public class DirectPhotoPage : EditingHostPage {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
 
         set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Enhance", enhance_possible);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Flip", rotate_possible);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", revert_possible);
+    }
+    
+    private void on_tools() {
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
+        
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Enhance", enhance_possible);
     }
 }

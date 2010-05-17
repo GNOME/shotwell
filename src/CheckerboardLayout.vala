@@ -584,6 +584,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private bool in_center_on_anchor = false;
     private bool size_allocate_due_to_reflow = false;
     private bool display_borders = true;
+    private bool is_in_view = false;
+    private bool reflow_needed = false;
     
     public CheckerboardLayout(ViewCollection view) {
         this.view = view;
@@ -800,6 +802,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private void need_reflow(string caller) {
         if (flow_scheduled)
             return;
+
+        if (!is_in_view) {
+            reflow_needed = true;
+            return;
+        }
         
 #if TRACE_REFLOW
         debug("need_reflow %s: %s", page_name, caller);
@@ -839,9 +846,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     public void set_in_view(bool in_view) {
-        if (in_view)
-            need_exposure("set_in_view (true)");
-        else
+        is_in_view = in_view;
+        
+        if (in_view) {
+            if (reflow_needed)
+                need_reflow("set_in_view (true)");
+            else
+                need_exposure("set_in_view (true)");
+        } else
             unexpose_items("set_in_view (false)");
     }
     
@@ -1126,6 +1138,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     }
     
     private void reflow(string caller) {
+        reflow_needed = false;
+        
         // if set in message mode, nothing to do here
         if (message != null)
             return;
