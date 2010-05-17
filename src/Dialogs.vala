@@ -778,6 +778,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
 
         set_modal(true);
         set_resizable(false);
+        has_separator = false;
         set_transient_for(AppWindow.get_instance());
 
         add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
@@ -1163,6 +1164,7 @@ public class WelcomeDialog : Gtk.Dialog {
         Gtk.Widget ok_button = add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
         set_title(_("Welcome!"));
         set_resizable(false);
+        has_separator = false;
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
         set_transient_for(owner);
 
@@ -1198,10 +1200,12 @@ public class WelcomeDialog : Gtk.Dialog {
         hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));
         hide_button.set_active(true);
         content.pack_start(hide_button, false, false, 6);
+        
+        Gtk.Alignment alignment = new Gtk.Alignment(0, 0, 0, 0);
+        alignment.set_padding(12, 0, 12, 12);
+        alignment.add(content);
 
-        content.set_border_width(12);
-
-        vbox.pack_start(content, false, false, 0);
+        vbox.pack_start(alignment, false, false, 0);
 
         ok_button.grab_focus();
     }
