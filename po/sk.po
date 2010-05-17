@@ -1,340 +1,352 @@
 # po/sk.po
 # Slovak translation for Shotwell
-# Copyright (C) 2009 Yorba Foundation
+# Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.5.1+trunk\n"
-"Report-Msgid-Bugs-To: Lucas Beeler <lucas@yorba.org>\n"
-"POT-Creation-Date: 2009-12-11 18:20-0800\n"
+"Report-Msgid-Bugs-To: vera@yorba.org\n"
+"POT-Creation-Date: 2010-04-30 17:19-0700\n"
 "PO-Revision-Date: 2009-12-29 00:32+0100\n"
 "Last-Translator: Laco Gubík <lacogubik@googlemail.com>\n"
 "Language-Team: Ubuntu Slovak Translators <ubuntu-i18n@lists.linux.sk>\n"
-"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Virtaal 0.3.1\n"
 "X-Poedit-Language: Slovak\n"
+"X-Generator: Virtaal 0.3.1\n"
+
+# GNOME Application Name
+msgid "Shotwell Photo Manager"
+msgstr "Shotwell správca fotografií"
+
+# GNOME Application Class ("Generic Name")
+#: src/Resources.vala:14
+msgid "Photo Manager"
+msgstr "Správca fotografií"
+
+# GNOME Application Comment
+msgid "Organize your photos"
+msgstr "Usporiadajte vaše fotografie"
+
+# GNOME Application Name for Direct Edit Mode
+msgid "Shotwell Photo Viewer"
+msgstr "Shotwell prehliadač fotografií"
+
+# GNOME Application Class for Direct Edit Mode
+#: src/Resources.vala:15
+msgid "Photo Viewer"
+msgstr "Prehliadač fotografií"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
 msgstr "Obrázky"
 
-#: src/AppWindow.vala:103
+#: src/AppWindow.vala:118
 msgid "Leave _Fullscreen"
 msgstr "Opustiť režim _celej obrazovky"
 
-#: src/AppWindow.vala:104
+#: src/AppWindow.vala:119
 msgid "Leave fullscreen"
 msgstr "Opustiť režim celej obrazovky"
 
-#: src/AppWindow.vala:377
+#: src/AppWindow.vala:399
 msgid "_Quit"
 msgstr "_Koniec"
 
-#: src/AppWindow.vala:378
+#: src/AppWindow.vala:400
 msgid "Quit Shotwell"
 msgstr "Ukončiť Shotwell"
 
-#: src/AppWindow.vala:383
+#: src/AppWindow.vala:405
 msgid "_About"
 msgstr "_O programe"
 
-#: src/AppWindow.vala:384
+#: src/AppWindow.vala:406
 msgid "About Shotwell"
 msgstr "O programe Shotwell"
 
-#: src/AppWindow.vala:389
+#: src/AppWindow.vala:411
 msgid "_Fullscreen"
 msgstr "_Celá obrazovka"
 
-#: src/AppWindow.vala:390
+#: src/AppWindow.vala:412
 msgid "Use Shotwell at fullscreen"
 msgstr "Použiť Shotwell v režime celej obrazovky"
 
-#: src/AppWindow.vala:395
+#: src/AppWindow.vala:417
 msgid "_Contents"
 msgstr "O_bsah"
 
-#: src/AppWindow.vala:396
+#: src/AppWindow.vala:418
 msgid "More information on Shotwell"
 msgstr "Viac informácií o Shotwell"
 
-#: src/AppWindow.vala:457
+#: src/AppWindow.vala:488 src/AppWindow.vala:504 src/TagPage.vala:135
+#: src/WebConnectors.vala:791
+msgid "_Cancel"
+msgstr "Zruš_iť"
+
+#: src/AppWindow.vala:514
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Nastala fatálna chyba pri prístupe ku knižnici Shotwell.  Shotwell nemôže pokračovať.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:531
 msgid "Visit the Yorba web site"
 msgstr "Navštívte webovú stránku organizácie Yorba"
 
-#: src/CameraTable.vala:44
-msgid ""
-"Shotwell could not initialize a connection to the HAL daemon (hald).  This "
-"usually means it is not running or not ready.  Rebooting may solve this "
-"problem.\n"
-"\n"
-"Shotwell cannot detect cameras without the HAL daemon."
-msgstr ""
-"Shotwell nemohol vytvoriť spojenie s HAL daemonom (hald). Zvyčajne to "
-"znamená že nie je spustený alebo pripravený. Reštart môže pomôcť vyriešiť "
-"tento problém.\n"
-"\n"
-"Shotwell nemôže detekovať fotoaparáty bez HAL daemona."
-
-#: src/CollectionPage.vala:142 src/SlideshowPage.vala:89
+#: src/CollectionPage.vala:136 src/SlideshowPage.vala:98
 msgid "Slideshow"
 msgstr "Prezentácia"
 
-#: src/CollectionPage.vala:143
+#: src/CollectionPage.vala:137
 msgid "Start a slideshow of these photos"
 msgstr "Spustiť prezentáciu týchto fotografií"
 
-#: src/CollectionPage.vala:178
+#: src/CollectionPage.vala:172
 msgid "Adjust the size of the thumbnails"
 msgstr "Upraviť veľkosť náhľadov"
 
-#: src/CollectionPage.vala:197 src/EventsDirectoryPage.vala:147
-#: src/ImportPage.vala:342 src/ImportPage.vala:1027 src/PhotoPage.vala:1136
-#: src/PhotoPage.vala:1576
+#: src/CollectionPage.vala:189 src/EventsDirectoryPage.vala:218
+#: src/ImportPage.vala:379 src/ImportPage.vala:1089 src/PhotoPage.vala:1384
+#: src/PhotoPage.vala:2141 src/TrashPage.vala:47
 msgid "_File"
 msgstr "_Súbor"
 
-#: src/CollectionPage.vala:202 src/PhotoPage.vala:1141
-msgid "_Export Photos..."
-msgstr "_Exportovať fotografie..."
-
-#: src/CollectionPage.vala:203
+#: src/CollectionPage.vala:196
 msgid "Export selected photos to disk"
 msgstr "Exportovať zvolené fotografie na disk"
 
-#: src/CollectionPage.vala:213 src/EventsDirectoryPage.vala:159
-#: src/ImportPage.vala:356 src/PhotoPage.vala:1146
+#: src/CollectionPage.vala:222 src/EventsDirectoryPage.vala:230
+#: src/ImportPage.vala:393 src/PhotoPage.vala:1416 src/TrashPage.vala:51
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: src/CollectionPage.vala:217 src/EventsDirectoryPage.vala:163
+#: src/CollectionPage.vala:226 src/EventsDirectoryPage.vala:234
 msgid "Even_ts"
 msgstr "U_dalosti"
 
-#: src/CollectionPage.vala:222 src/EventsDirectoryPage.vala:178
-#: src/ImportPage.vala:361
+#: src/CollectionPage.vala:231 src/EventsDirectoryPage.vala:250
+#: src/ImportPage.vala:398 src/TrashPage.vala:62
 msgid "Select _All"
 msgstr "Ozn_ačiť všetko"
 
-#: src/CollectionPage.vala:223
+#: src/CollectionPage.vala:232
 msgid "Select all the photos in the library"
 msgstr "Označiť všetky fotografie v knižnici"
 
-#: src/CollectionPage.vala:228 src/PhotoPage.vala:1151
-msgid "Re_move"
-msgstr "Od_strániť"
+#: src/CollectionPage.vala:237
+msgid "_Move to Trash"
+msgstr "_Presunúť do koša"
 
-#: src/CollectionPage.vala:229
-msgid "Remove the selected photos from the library"
-msgstr "Odstrániť vybrané fotografie z knižnice nástrojov"
+#: src/CollectionPage.vala:238
+msgid "Move the selected photos to the trash"
+msgstr "Presunúť vybrané fotografie do koša"
 
-#: src/CollectionPage.vala:234
+#: src/CollectionPage.vala:243
 msgid "_Photos"
 msgstr "_Fotografie"
 
-#: src/CollectionPage.vala:239
+#: src/CollectionPage.vala:248 src/PhotoPage.vala:1513 src/PhotoPage.vala:2244
 msgid "Zoom _In"
 msgstr "_Priblížiť"
 
-#: src/CollectionPage.vala:240
+#: src/CollectionPage.vala:249
 msgid "Increase the magnification of the thumbnails"
 msgstr "Zvýšiť zväčšenie nadhľadov"
 
-#: src/CollectionPage.vala:245
+#: src/CollectionPage.vala:254 src/PhotoPage.vala:1519 src/PhotoPage.vala:2250
 msgid "Zoom _Out"
 msgstr "_Vzdialiť"
 
-#: src/CollectionPage.vala:246
+#: src/CollectionPage.vala:255
 msgid "Decrease the magnification of the thumbnails"
 msgstr "Zmenšiť zväčšenie nadhľadov"
 
-#: src/CollectionPage.vala:299
+#: src/CollectionPage.vala:328
 msgid "_Slideshow"
 msgstr "_Prezentácia"
 
-#: src/CollectionPage.vala:300
+#: src/CollectionPage.vala:329
 msgid "Play a slideshow"
 msgstr "Prehrať prezentáciu"
 
-#: src/CollectionPage.vala:304 src/EventsDirectoryPage.vala:151
-#: src/ImportPage.vala:366 src/ImportPage.vala:1037 src/PhotoPage.vala:1156
-#: src/PhotoPage.vala:1643
+#: src/CollectionPage.vala:333 src/EventsDirectoryPage.vala:222
+#: src/ImportPage.vala:403 src/ImportPage.vala:1099 src/PhotoPage.vala:1426
+#: src/PhotoPage.vala:2235 src/TrashPage.vala:66
 msgid "_View"
 msgstr "_Zobraziť"
 
-#: src/CollectionPage.vala:308
+#: src/CollectionPage.vala:337
 msgid "Sort _Photos"
 msgstr "Usporiadať _fotografie"
 
-#: src/CollectionPage.vala:318 src/EventsDirectoryPage.vala:155
-#: src/ImportPage.vala:370 src/ImportPage.vala:1041 src/PhotoPage.vala:1206
-#: src/PhotoPage.vala:1647
+#: src/CollectionPage.vala:347 src/CollectionPage.vala:386
+msgid "Ta_gs"
+msgstr "_Značky"
+
+#: src/CollectionPage.vala:363 src/EventsDirectoryPage.vala:226
+#: src/ImportPage.vala:407 src/ImportPage.vala:1103 src/PhotoPage.vala:1508
+#: src/PhotoPage.vala:2239 src/TrashPage.vala:70
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: src/CollectionPage.vala:329
-msgid "Only _Favorites"
+#: src/CollectionPage.vala:374
+msgid "Only Fa_vorites"
 msgstr "Len _Obľúbené"
 
-#: src/CollectionPage.vala:330
+#: src/CollectionPage.vala:375
 msgid "Show only your favorite photos"
 msgstr "Zobraziť len vaše obľúbené fotografie"
 
-#: src/CollectionPage.vala:335 src/ImportPage.vala:331
+#: src/CollectionPage.vala:380 src/ImportPage.vala:368
 msgid "_Titles"
 msgstr "_Názvy"
 
-#: src/CollectionPage.vala:336 src/ImportPage.vala:332
+#: src/CollectionPage.vala:381 src/ImportPage.vala:369
 msgid "Display the title of each photo"
 msgstr "Zobraziť názov každej fotografie"
 
-#: src/CollectionPage.vala:341
+#: src/CollectionPage.vala:387
+msgid "Display each photo's tags"
+msgstr "Zobraziť značky každej fotografie"
+
+#: src/CollectionPage.vala:392
 msgid "_Hidden Photos"
 msgstr "_Skryté fotografie"
 
-#: src/CollectionPage.vala:342
+#: src/CollectionPage.vala:393
 msgid "Show hidden photos"
 msgstr "Ukázať skryté fotografie"
 
-#: src/CollectionPage.vala:353
+#: src/CollectionPage.vala:404
 msgid "By _Title"
 msgstr "Podľa _názvu"
 
-#: src/CollectionPage.vala:354
+#: src/CollectionPage.vala:405
 msgid "Sort photos by title"
 msgstr "Usporiadať fotografie podľa názvu"
 
-#: src/CollectionPage.vala:359
+#: src/CollectionPage.vala:410
 msgid "By Exposure _Date"
 msgstr "Podľa _dátumu vytvorenie"
 
-#: src/CollectionPage.vala:360
+#: src/CollectionPage.vala:411
 msgid "Sort photos by exposure date"
 msgstr "Usporiadať fotografie podľa dátumu vytvorenie"
 
-#: src/CollectionPage.vala:371 src/LibraryWindow.vala:403
+#: src/CollectionPage.vala:422 src/LibraryWindow.vala:445
 msgid "_Ascending"
 msgstr "Vz_ostupne"
 
-#: src/CollectionPage.vala:372 src/LibraryWindow.vala:404
+#: src/CollectionPage.vala:423 src/LibraryWindow.vala:446
 msgid "Sort photos in an ascending order"
 msgstr "Usporiadať fotografie vo vzostupnom poradí"
 
-#: src/CollectionPage.vala:377 src/LibraryWindow.vala:410
+#: src/CollectionPage.vala:428 src/LibraryWindow.vala:452
 msgid "D_escending"
 msgstr "Zo_stupne"
 
-#: src/CollectionPage.vala:378 src/LibraryWindow.vala:411
+#: src/CollectionPage.vala:429 src/LibraryWindow.vala:453
 msgid "Sort photos in a descending order"
 msgstr "Usporiadať fotografie v zostupnom poradí"
 
-#: src/CollectionPage.vala:573
-#, c-format
-msgid "A photo source file is missing."
-msgid_plural "%d photo source files missing."
-msgstr[0] "Chýba zdrojový súbor fotografie."
-msgstr[1] "Chýbajú %d zdrojové súbory fotografií."
-msgstr[2] "Chýba %d zdrojových súborov fotografií."
-
-#: src/CollectionPage.vala:639 src/Dialogs.vala:14 src/PhotoPage.vala:1326
+#: src/CollectionPage.vala:637 src/Dialogs.vala:14 src/PhotoPage.vala:1769
 msgid "Export Photo"
-msgstr "Exportovať fotografiu"
+msgid_plural "Export Photos"
+msgstr[0] "Exportovať fotografiu"
+msgstr[1] "Exportovať fotografie"
+msgstr[2] "Exportovať fotografií"
 
-#: src/CollectionPage.vala:641 src/Dialogs.vala:36 src/Dialogs.vala:54
-msgid "Export Photos"
-msgstr "Exportovať fotografie"
-
-#: src/CollectionPage.vala:662 src/CollectionPage.vala:696
+#: src/CollectionPage.vala:667
 #, c-format
 msgid "Unable to export photo %s: %s"
 msgstr "Nie je možné exportovať fotografiu %s: %s"
 
-#: src/CollectionPage.vala:683
-msgid "Exporting..."
-msgstr "Exportuje sa..."
+#: src/CollectionPage.vala:777 src/CollectionPage.vala:797
+msgid "Rotating"
+msgstr "Otáča sa"
 
-#: src/CollectionPage.vala:812
-msgid "Removing..."
-msgstr "Odstraňuje sa..."
-
-#: src/CollectionPage.vala:834 src/CollectionPage.vala:852
-msgid "Rotating..."
-msgstr "Otáča sa..."
-
-#: src/CollectionPage.vala:834
-msgid "Undoing Rotate..."
-msgstr "Vracia sa spať otáčanie..."
-
-#: src/CollectionPage.vala:852
+#: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Undoing Rotate"
 msgstr "Vracia sa spať otáčanie"
 
-#: src/CollectionPage.vala:861
-msgid "Mirroring..."
-msgstr "Vytvára sa zrkadlový obraz..."
+#: src/CollectionPage.vala:806
+msgid "Mirroring"
+msgstr "Vytvára sa zrkadlový obraz"
 
-#: src/CollectionPage.vala:862
-msgid "Undoing Mirror..."
-msgstr "Vracia sa spať vytvorenie zrkadlového obrazu..."
+#: src/CollectionPage.vala:807
+msgid "Undoing Mirror"
+msgstr "Vracia sa spať vytvorenie zrkadlového obrazu"
 
-#: src/CollectionPage.vala:1154
+#: src/CollectionPage.vala:1210
 msgid "Photos"
 msgstr "Fotografie"
 
-#: src/Commands.vala:380
-msgid "Reverting..."
-msgstr "Vracia sa spať..."
+#: src/Commands.vala:431
+msgid "Reverting"
+msgstr "Vracia sa spať"
 
-#: src/Commands.vala:380
-msgid "Undoing Revert..."
-msgstr "Opakuje sa vrátenie..."
+#: src/Commands.vala:431
+msgid "Undoing Revert"
+msgstr "Opakuje sa vrátenie"
 
-#: src/Commands.vala:424
-msgid "Enhancing..."
-msgstr "Vylepšuje sa..."
+#: src/Commands.vala:475
+msgid "Enhancing"
+msgstr "Vylepšuje sa"
 
-#: src/Commands.vala:424
-msgid "Undoing Enhance..."
-msgstr "Vracia sa spať vylepšenie..."
+#: src/Commands.vala:475
+msgid "Undoing Enhance"
+msgstr "Vracia sa spať vylepšenie"
 
-#: src/Commands.vala:590
-msgid "Creating New Event..."
-msgstr "Vytvára sa nová udalosť..."
+#: src/Commands.vala:641
+msgid "Creating New Event"
+msgstr "Vytvára sa nová udalosť"
 
-#: src/Commands.vala:591
-msgid "Removing Event..."
-msgstr "Odstraňuje sa udalosť..."
+#: src/Commands.vala:642
+msgid "Removing Event"
+msgstr "Odstraňuje sa udalosť"
 
-#: src/Commands.vala:600
-msgid "Moving Photos to New Event..."
+#: src/Commands.vala:651
+#, fuzzy
+msgid "Moving Photos to New Event"
 msgstr "Presúvajú sa fotografie do novej udalosti..."
 
-#: src/Commands.vala:601
-msgid "Setting Photos to Previous Event..."
+#: src/Commands.vala:652
+#, fuzzy
+msgid "Setting Photos to Previous Event"
 msgstr "Fotografie sa nastavujú na predošlú udalosť..."
 
-#: src/Commands.vala:631
-msgid "Merging..."
+#: src/Commands.vala:682
+#, fuzzy
+msgid "Merging"
 msgstr "Zlučovanie..."
 
-#: src/Commands.vala:632
-msgid "Unmerging..."
+#: src/Commands.vala:683
+#, fuzzy
+msgid "Unmerging"
 msgstr "Vracia sa spať zlučovanie..."
 
-#: src/Commands.vala:641
-msgid "Duplicating photos..."
+#: src/Commands.vala:692
+#, fuzzy
+msgid "Duplicating photos"
 msgstr "Duplikujú sa fotografie..."
 
-#: src/Commands.vala:641
-msgid "Removing duplicated photos..."
+#: src/Commands.vala:692
+#, fuzzy
+msgid "Removing duplicated photos"
 msgstr "Odstraňujú sa duplikátne fotografie..."
 
-#: src/Commands.vala:652
+#: src/Commands.vala:715
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
@@ -342,48 +354,142 @@ msgstr[0] "Nie je možné duplikovať jednu fotografiu kvôli súborovej chybe"
 msgstr[1] "Nie je možné duplikovať %d fotografie kvôli súborovej chybe"
 msgstr[2] "Nie je možné duplikovať %d fotografií kvôli súborovej chybe"
 
-#: src/Commands.vala:694 src/Commands.vala:695
-msgid "Marking as Favorite..."
+#: src/Commands.vala:780 src/Commands.vala:781
+#, fuzzy
+msgid "Marking as Favorite"
 msgstr "Označuje sa ako obľúbené..."
 
-#: src/Commands.vala:694 src/Commands.vala:695
-msgid "Unmarking as Favorite..."
+#: src/Commands.vala:780 src/Commands.vala:781
+#, fuzzy
+msgid "Unmarking as Favorite"
 msgstr "Odznačuje sa ako obľúbené..."
 
-#: src/Commands.vala:716 src/Commands.vala:717
-msgid "Hiding..."
+#: src/Commands.vala:822 src/Commands.vala:823
+#, fuzzy
+msgid "Hiding"
 msgstr "Ukrýva sa..."
 
-#: src/Commands.vala:716 src/Commands.vala:717
-msgid "Unhiding..."
+#: src/Commands.vala:822 src/Commands.vala:823
+#, fuzzy
+msgid "Unhiding"
 msgstr "Zobrazujú sa skryté..."
 
-#: src/Dialogs.vala:53
-#, c-format
-msgid "%s already exists.  Overwrite?"
+#: src/Commands.vala:865
+msgid "Original photo could not be adjusted."
+msgstr ""
+
+#: src/Commands.vala:885
+msgid "Adjusting Date and Time"
+msgstr ""
+
+#: src/Commands.vala:885
+msgid "Undoing Date and Time Adjustment"
+msgstr ""
+
+#: src/Commands.vala:912
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Commands.vala:914 src/Commands.vala:926
+msgid "Time Adjustment Error"
+msgstr ""
+
+#: src/Commands.vala:924
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural "Time adjustments could not be undone on the following photo files."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Commands.vala:1178
+#, fuzzy
+msgid "Move Photos to Trash"
+msgstr "Presunúť fotografie"
+
+#: src/Commands.vala:1178
+msgid "Restore Photos from Trash"
+msgstr ""
+
+#: src/Commands.vala:1179
+#, fuzzy
+msgid "Move the photos to the Shotwell trash"
+msgstr "Odstrániť vybrané fotografie z knižnice nástrojov"
+
+#: src/Commands.vala:1179
+#, fuzzy
+msgid "Restore the photos back to the Shotwell library"
+msgstr "Odstrániť vybrané fotografie z knižnice nástrojov"
+
+#: src/Commands.vala:1196
+#, fuzzy
+msgid "Moving Photos to Trash"
+msgstr "Presúvajú sa fotografie do novej udalosti..."
+
+#: src/Commands.vala:1196
+msgid "Restoring Photos From Trash"
+msgstr ""
+
+#: src/Dialogs.vala:36 src/Dialogs.vala:73
+msgid "Export Photos"
+msgstr "Exportovať fotografie"
+
+#: src/Dialogs.vala:58
+#, fuzzy
+msgid "Exporting"
+msgstr "Exportuje sa..."
+
+#: src/Dialogs.vala:71
+#, fuzzy, c-format
+msgid "File %s already exists.  Replace?"
 msgstr "%s už existuje. Chcete ho prepísať?"
 
-#: src/Dialogs.vala:123
+#: src/Dialogs.vala:73
+msgid "_Skip"
+msgstr ""
+
+#: src/Dialogs.vala:73
+msgid "_Replace"
+msgstr ""
+
+#: src/Dialogs.vala:73
+#, fuzzy
+msgid "Replace _All"
+msgstr "Ozn_ačiť všetko"
+
+#: src/Dialogs.vala:125
+#, fuzzy, c-format
+msgid "Unable to export the photo due to a file error."
+msgid_plural "Unable to export %d photos due to file errors."
+msgstr[0] "Nie je možné duplikovať jednu fotografiu kvôli súborovej chybe"
+msgstr[1] "Nie je možné duplikovať %d fotografie kvôli súborovej chybe"
+msgstr[2] "Nie je možné duplikovať %d fotografií kvôli súborovej chybe"
+
+#: src/Dialogs.vala:206
+#, fuzzy
+msgid "_Format:"
+msgstr "Od:"
+
+#: src/Dialogs.vala:209
 msgid "_Quality:"
 msgstr "_Kvalita:"
 
-#: src/Dialogs.vala:126
+#: src/Dialogs.vala:212
 msgid "_Scaling constraint:"
 msgstr "Obmedzenia _zmeny veľkosti:"
 
-#: src/Dialogs.vala:129
+#: src/Dialogs.vala:215
 msgid " _pixels"
 msgstr " _pixelov"
 
-#: src/Dialogs.vala:261
+#: src/Dialogs.vala:372
 #, c-format
-msgid "%d more photo not imported.\n"
-msgid_plural "%d more photos not imported.\n"
-msgstr[0] "Nepodarilo sa importovať ešte %d fotografiu.\n"
-msgstr[1] "Nepodarilo sa importovať ešte %d fotografie.\n"
-msgstr[2] "Nepodarilo sa importovať ešte %d fotografií.\n"
+msgid "And %d more.\n"
+msgstr ""
 
-#: src/Dialogs.vala:286
+#: src/Dialogs.vala:394
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
@@ -391,7 +497,7 @@ msgstr[0] "1 fotografia bola úspešne importovaná.\n"
 msgstr[1] "%d fotografie boli úspešne importované.\n"
 msgstr[2] "%d fotografií bolo úspešne importovaných.\n"
 
-#: src/Dialogs.vala:297
+#: src/Dialogs.vala:405
 #, c-format
 msgid "1 photo already in library was not imported.\n"
 msgid_plural "%d photos already in library were not imported.\n"
@@ -399,18 +505,23 @@ msgstr[0] "1 fotografia ktorá sa už nachádza v knižnici, nebola importovaná
 msgstr[1] "%d fotografie ktoré sa už nachádzajú v knižnici, neboli importované.\n"
 msgstr[2] "%d fotografií ktoré sa už nachádzajú v knižnici, nebolo importovaných.\n"
 
-#: src/Dialogs.vala:312
+#: src/Dialogs.vala:420
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error.\n"
 msgid_plural "%d photos failed to import due to a file or hardware error.\n"
-msgstr[0] "1 fotografiu sa nepodarilo importovať kvôli súborovej alebo hardvérovej "
-"chybe.\n"
-msgstr[1] "%d fotografie sa nepodarilo importovať kvôli súborovej alebo hardvérovej "
-"chybe.\n"
-msgstr[2] "%d fotografií sa nepodarilo importovať kvôli súborovej alebo hardvérovej "
-"chybe.\n"
+msgstr[0] "1 fotografiu sa nepodarilo importovať kvôli súborovej alebo hardvérovej chybe.\n"
+msgstr[1] "%d fotografie sa nepodarilo importovať kvôli súborovej alebo hardvérovej chybe.\n"
+msgstr[2] "%d fotografií sa nepodarilo importovať kvôli súborovej alebo hardvérovej chybe.\n"
 
-#: src/Dialogs.vala:326
+#: src/Dialogs.vala:435
+#, fuzzy, c-format
+msgid "1 photo failed to import due to a camera error.\n"
+msgid_plural "%d photos failed to import due to a camera error.\n"
+msgstr[0] "1 fotografiu sa nepodarilo importovať kvôli súborovej alebo hardvérovej chybe.\n"
+msgstr[1] "%d fotografie sa nepodarilo importovať kvôli súborovej alebo hardvérovej chybe.\n"
+msgstr[2] "%d fotografií sa nepodarilo importovať kvôli súborovej alebo hardvérovej chybe.\n"
+
+#: src/Dialogs.vala:449
 #, c-format
 msgid "1 unsupported photo skipped.\n"
 msgid_plural "%d unsupported photos skipped.\n"
@@ -418,7 +529,15 @@ msgstr[0] "1 nepodporovaná fotografia bola preskočená.\n"
 msgstr[1] "%d nepodporované fotografie boli preskočené.\n"
 msgstr[2] "%d nepodporovaných fotografií bolo preskočených.\n"
 
-#: src/Dialogs.vala:340
+#: src/Dialogs.vala:463
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:474
 #, c-format
 msgid "1 photo skipped due to user cancel.\n"
 msgid_plural "%d photos skipped due to user cancel.\n"
@@ -426,371 +545,553 @@ msgstr[0] "1 fotografia bola preskočená kvôli prerušeniu používateľom.\n"
 msgstr[1] "%d fotografie boli preskočené kvôli prerušeniu používateľom.\n"
 msgstr[2] "%d fotografií bolo preskočených kvôli prerušeniu používateľom.\n"
 
-#: src/Dialogs.vala:357
+#: src/Dialogs.vala:492
 msgid "No photos imported.\n"
 msgstr "Neboli importované žiadne fotografie.\n"
 
-#: src/Dialogs.vala:372
+#: src/Dialogs.vala:507
 msgid "Import Complete"
 msgstr "Import dokončený"
 
-#: src/Dialogs.vala:390 src/Resources.vala:111
+#: src/Dialogs.vala:586 src/Resources.vala:115
 msgid "Rename Event"
 msgstr "Premenovať udalosť"
 
-#: src/Dialogs.vala:392
+#: src/Dialogs.vala:586 src/Dialogs.vala:596 src/Dialogs.vala:1090
 msgid "Name:"
 msgstr "Meno:"
 
-#: src/Dialogs.vala:427
+#: src/Dialogs.vala:596 src/Resources.vala:167
+#, fuzzy
+msgid "Rename Photo"
+msgstr "Premenovať udalosť"
+
+#: src/Dialogs.vala:608
+#, fuzzy, c-format
 msgid ""
-"This will remove the selected photos from your Shotwell library.  Would you "
-"also like to delete the files from disk?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
-msgstr ""
-"Táto operácia odstráni vybrané fotografie z vašej Shotwell knižnice. Chcete "
-"tiež odstrániť súbory z disku?\n"
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+"Táto operácia odstráni fotografiu z vašej Shotwell knižnice. Chcete tiež odstrániť tento súbor z disku?\n"
+"\n"
+"Táto akcie nemôže byť vrátená späť."
+msgstr[1] ""
+"Táto operácia odstráni fotografiu z vašej Shotwell knižnice. Chcete tiež odstrániť tento súbor z disku?\n"
+"\n"
+"Táto akcie nemôže byť vrátená späť."
+msgstr[2] ""
+"Táto operácia odstráni fotografiu z vašej Shotwell knižnice. Chcete tiež odstrániť tento súbor z disku?\n"
 "\n"
 "Táto akcie nemôže byť vrátená späť."
 
-#: src/Dialogs.vala:428
-msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
-"to delete the file from disk?\n"
-"\n"
-"This action cannot be undone."
-msgstr ""
-"Táto operácia odstráni fotografiu z vašej Shotwell knižnice. Chcete tiež "
-"odstrániť tento súbor z disku?\n"
-"\n"
-"Táto akcie nemôže byť vrátená späť."
+#: src/Dialogs.vala:611
+#, fuzzy
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Súbor"
+msgstr[1] "_Súbor"
+msgstr[2] "_Súbor"
 
-#: src/Dialogs.vala:432
+#: src/Dialogs.vala:615
 msgid "Only _Remove"
 msgstr "Len _odstrániť"
 
-#: src/Dialogs.vala:434
-msgid "Remove"
-msgstr "Odstrániť"
+#: src/Dialogs.vala:617
+msgid "Empty Trash"
+msgstr ""
 
-#: src/Dialogs.vala:487
+#: src/Dialogs.vala:690
 #, c-format
 msgid "%d%%"
 msgstr "%d%%"
 
-#: src/Dialogs.vala:518
-msgid "Generating Events..."
+#: src/Dialogs.vala:728
+#, fuzzy
+msgid "Generating Events"
 msgstr "Vytváram udalosti..."
 
-#: src/Dimensions.vala:16 src/FlickrConnector.vala:488
+#: src/Dialogs.vala:800
+msgid "AM"
+msgstr ""
+
+#: src/Dialogs.vala:801
+msgid "PM"
+msgstr ""
+
+#: src/Dialogs.vala:802
+msgid "24 Hr"
+msgstr ""
+
+#: src/Dialogs.vala:817
+#, fuzzy
+msgid "_Shift photos by the same amount"
+msgstr "Usporiadať fotografie podľa dátumu vytvorenie"
+
+#: src/Dialogs.vala:822
+#, fuzzy
+msgid "Set _all photos to this time"
+msgstr "Zvoliť všetky fotografie na import"
+
+#: src/Dialogs.vala:828
+msgid "_Modify original file"
+msgid_plural "_Modify original files"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:910
+#, fuzzy
+msgid "Original: "
+msgstr "Pôvodná veľkosť"
+
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
+#: src/Dialogs.vala:911
+msgid "%m/%d/%Y, %H:%M:%S"
+msgstr ""
+
+# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
+# U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should
+# translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time
+# format used in your language and region. The format string you enter should
+# conform to POSIX date and time formatting conventions. See the strftime
+# manpage for a list of format specifiers and their meanings.
+#: src/Dialogs.vala:912
+msgid "%m/%d/%Y, %I:%M:%S %p"
+msgstr ""
+
+#: src/Dialogs.vala:997
+#, c-format
+msgid ""
+"Exposure time will be shifted forward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+
+#: src/Dialogs.vala:998
+#, c-format
+msgid ""
+"Exposure time will be shifted backward by\n"
+"%d %s, %d %s, %d %s, and %d %s."
+msgstr ""
+
+#: src/Dialogs.vala:1000
+#, fuzzy
+msgid "day"
+msgid_plural "days"
+msgstr[0] "Dnes"
+msgstr[1] "Dnes"
+msgstr[2] "Dnes"
+
+#: src/Dialogs.vala:1001
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:1002
+#, fuzzy
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "Sfarbenie"
+msgstr[1] "Sfarbenie"
+msgstr[2] "Sfarbenie"
+
+#: src/Dialogs.vala:1003
+#, fuzzy
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "sekúnd"
+msgstr[1] "sekúnd"
+msgstr[2] "sekúnd"
+
+#: src/Dialogs.vala:1047
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Dialogs.vala:1064 src/Dialogs.vala:1114
+msgid "Tags (separated by commas):"
+msgstr ""
+
+#: src/Dialogs.vala:1154
+msgid "Welcome!"
+msgstr ""
+
+#: src/Dialogs.vala:1161
+#, fuzzy, c-format
+msgid "Welcome to Shotwell!"
+msgstr "O programe Shotwell"
+
+#: src/Dialogs.vala:1165
+#, c-format
+msgid "To get started, import photos in any of these ways:"
+msgstr ""
+
+#: src/Dialogs.vala:1179
+#, c-format
+msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
+msgstr ""
+
+#: src/Dialogs.vala:1180
+msgid "Drag and drop photos onto the Shotwell window"
+msgstr ""
+
+#: src/Dialogs.vala:1181
+msgid "Connect a camera to your computer and import"
+msgstr ""
+
+#: src/Dialogs.vala:1188
+msgid "_Don't show this message again"
+msgstr ""
+
+#: src/Dimensions.vala:17 src/FlickrConnector.vala:949
 msgid "Original size"
 msgstr "Pôvodná veľkosť"
 
-#: src/Dimensions.vala:19
+#: src/Dimensions.vala:20
 msgid "Width or height"
 msgstr "Šírka alebo výška"
 
-#: src/Dimensions.vala:22
+#: src/Dimensions.vala:23
 msgid "Width"
 msgstr "Šírka"
 
-#: src/Dimensions.vala:25
+#: src/Dimensions.vala:26
 msgid "Height"
 msgstr "Výška"
 
-#: src/EditingTools.vala:410
+#: src/EditingTools.vala:411
 msgid "Crop"
 msgstr "Orezať"
 
-#: src/EditingTools.vala:411
+#: src/EditingTools.vala:412
 msgid "Crop the photo's size"
 msgstr "Orezať veľkosť tejto fotografie"
 
-#: src/EditingTools.vala:486
+#: src/EditingTools.vala:488
 msgid "Return to current photo dimensions"
 msgstr "Vrátiť sa k súčasným rozmerom fotografie"
 
-#: src/EditingTools.vala:489
+#: src/EditingTools.vala:491
 msgid "Set the crop for this photo"
 msgstr "Nastaviť orezanie pre túto fotografiu"
 
-#: src/EditingTools.vala:502
+#: src/EditingTools.vala:503
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
 msgstr "Prepnúť výrezový obdĺžnik medzi vertikálnou a horizontálnou orientáciou"
 
-#: src/EditingTools.vala:564
+#: src/EditingTools.vala:571
 msgid "Unconstrained"
 msgstr "Neobmedzený"
 
-#: src/EditingTools.vala:565
+#: src/EditingTools.vala:572
 msgid "Square"
 msgstr "Štvorec"
 
-#: src/EditingTools.vala:566
+#: src/EditingTools.vala:573
 msgid "Screen"
 msgstr "Širokoúhly"
 
-#: src/EditingTools.vala:567
+#: src/EditingTools.vala:574 src/PicasaConnector.vala:867
 msgid "Original Size"
 msgstr "Pôvodná veľkosť"
 
-#: src/EditingTools.vala:568 src/EditingTools.vala:571
-#: src/EditingTools.vala:579 src/EditingTools.vala:587
+#: src/EditingTools.vala:575 src/EditingTools.vala:578
+#: src/EditingTools.vala:586 src/EditingTools.vala:594
 msgid "-"
 msgstr "-"
 
-#: src/EditingTools.vala:569
+#: src/EditingTools.vala:576
 msgid "SD Video (4 : 3)"
 msgstr "SD Video (4 : 3)"
 
-#: src/EditingTools.vala:570
+#: src/EditingTools.vala:577
 msgid "HD Video (16 : 9)"
 msgstr "HD Video (16 : 9)"
 
-#: src/EditingTools.vala:572
+#: src/EditingTools.vala:579 src/Printing.vala:769
 msgid "Wallet (2 x 3 in.)"
 msgstr "Peňaženka (2 x 3 in.)"
 
-#: src/EditingTools.vala:573
+#: src/EditingTools.vala:580 src/Printing.vala:772
 msgid "Notecard (3 x 5 in.)"
 msgstr "Zápisník (3 x 5 in.)"
 
-#: src/EditingTools.vala:574
+#: src/EditingTools.vala:581 src/Printing.vala:775
 msgid "4 x 6 in."
 msgstr "4 x 6 in."
 
-#: src/EditingTools.vala:575
+#: src/EditingTools.vala:582 src/Printing.vala:778
 msgid "5 x 7 in."
 msgstr "5 x 7 in."
 
-#: src/EditingTools.vala:576
+#: src/EditingTools.vala:583 src/Printing.vala:781
 msgid "8 x 10 in."
 msgstr "8 x 10 in."
 
-#: src/EditingTools.vala:577
+#: src/EditingTools.vala:584 src/Printing.vala:784
 msgid "11 x 14 in."
 msgstr "11 x 14 in."
 
-#: src/EditingTools.vala:578
+#: src/EditingTools.vala:585 src/Printing.vala:787
 msgid "16 x 20 in."
 msgstr "16 x 20 in."
 
-#: src/EditingTools.vala:580
+#: src/EditingTools.vala:587 src/Printing.vala:793
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr "Metrická peňaženka (9 x 13 cm)"
 
-#: src/EditingTools.vala:581
+#: src/EditingTools.vala:588 src/Printing.vala:796
 msgid "Postcard (10 x 15 cm)"
 msgstr "Pohľadnica (10 x 15 cm)"
 
-#: src/EditingTools.vala:582
+#: src/EditingTools.vala:589 src/Printing.vala:799
 msgid "13 x 18 cm"
 msgstr "13 x 18 cm"
 
-#: src/EditingTools.vala:583
+#: src/EditingTools.vala:590 src/Printing.vala:802
 msgid "18 x 24 cm"
 msgstr "18 x 24 cm"
 
-#: src/EditingTools.vala:584
+#: src/EditingTools.vala:591 src/Printing.vala:805
 msgid "20 x 30 cm"
 msgstr "20 x 30 cm"
 
-#: src/EditingTools.vala:585
+#: src/EditingTools.vala:592 src/Printing.vala:808
 msgid "24 x 40 cm"
 msgstr "24 x 40 cm"
 
-#: src/EditingTools.vala:586
+#: src/EditingTools.vala:593 src/Printing.vala:811
 msgid "30 x 40 cm"
 msgstr "30 x 40 cm"
 
-#: src/EditingTools.vala:588
+#: src/EditingTools.vala:595
 msgid "Custom"
 msgstr "Vlastný"
 
-#: src/EditingTools.vala:1670
+#: src/EditingTools.vala:1673
 msgid "Red-eye"
 msgstr "Červené oči"
 
-#: src/EditingTools.vala:1671
+#: src/EditingTools.vala:1674
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr "Zmierni alebo odstráni efekt červených očí vo fotografii"
 
-#: src/EditingTools.vala:1676 src/Properties.vala:266
+#: src/EditingTools.vala:1679 src/Properties.vala:335
 msgid "Size:"
 msgstr "Veľkosť:"
 
-#: src/EditingTools.vala:1691
+#: src/EditingTools.vala:1694
 msgid "Close the red-eye tool"
 msgstr "Zavrieť nástroj na odstraňovanie červených očí"
 
-#: src/EditingTools.vala:1694
+#: src/EditingTools.vala:1697
 msgid "Remove any red-eye effects in the selected region"
 msgstr "Odstrániť efekt červených očí vo vybranej oblasti"
 
-#: src/EditingTools.vala:1980
+#: src/EditingTools.vala:1990
 msgid "Adjust"
 msgstr "Upraviť"
 
-#: src/EditingTools.vala:1981
+#: src/EditingTools.vala:1991
 msgid "Adjust the photo's color and tone"
 msgstr "Upraviť farbu a tón fotografie"
 
-#: src/EditingTools.vala:2003
+#: src/EditingTools.vala:2011
 msgid "_Reset"
 msgstr "_Obnoviť"
 
-#: src/EditingTools.vala:2016 src/Properties.vala:275
+#: src/EditingTools.vala:2022 src/Properties.vala:364 src/Properties.vala:368
+#: src/Properties.vala:375
 msgid "Exposure:"
 msgstr "Expozícia:"
 
-#: src/EditingTools.vala:2024
+#: src/EditingTools.vala:2030
 msgid "Saturation:"
 msgstr "Saturácia:"
 
-#: src/EditingTools.vala:2032
+#: src/EditingTools.vala:2038
 msgid "Tint:"
 msgstr "Sfarbenie:"
 
-#: src/EditingTools.vala:2041
+#: src/EditingTools.vala:2047
 msgid "Temperature:"
 msgstr "Teplota:"
 
-#: src/EditingTools.vala:2049
+#: src/EditingTools.vala:2055
 msgid "Shadows:"
 msgstr "Tiene:"
 
-#: src/EditingTools.vala:2101
+#: src/EditingTools.vala:2107
 msgid "Reset Colors"
 msgstr "Obnoviť farby"
 
-#: src/EditingTools.vala:2101
+#: src/EditingTools.vala:2107
 msgid "Reset all color adjustments to original"
 msgstr "Obnoviť všetky úpravy farby na pôvodné hodnoty"
 
-#: src/EditingTools.vala:2403
+#: src/EditingTools.vala:2413
 msgid "Temperature"
 msgstr "Teplota"
 
-#: src/EditingTools.vala:2409
+#: src/EditingTools.vala:2419
 msgid "Tint"
 msgstr "Sfarbenie"
 
-#: src/EditingTools.vala:2415
+#: src/EditingTools.vala:2425
 msgid "Saturation"
 msgstr "Saturácia"
 
-#: src/EditingTools.vala:2421
+#: src/EditingTools.vala:2431
 msgid "Exposure"
 msgstr "Expozícia"
 
-#: src/EditingTools.vala:2427
+#: src/EditingTools.vala:2437
 msgid "Shadows"
 msgstr "Tiene"
 
-#: src/EditingTools.vala:2437
+#: src/EditingTools.vala:2447
 msgid "Contrast Expansion"
 msgstr "Rozšíriť kontrast"
 
-#: src/EventsDirectoryPage.vala:179
+#: src/EventsDirectoryPage.vala:68 src/Properties.vala:303
+#, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d Fotografia"
+msgstr[1] "%d Fotografie"
+msgstr[2] "%d Fotografií"
+
+#: src/EventsDirectoryPage.vala:251
 msgid "Select all the events in the directory"
 msgstr "Označiť všetky udalosti v adresári"
 
-#: src/EventsDirectoryPage.vala:377
+#: src/EventsDirectoryPage.vala:453
 msgid "Events"
 msgstr "Udalosti"
 
-#: src/EventsDirectoryPage.vala:427 src/LibraryWindow.vala:182
+#: src/EventsDirectoryPage.vala:509 src/LibraryWindow.vala:186
+#, fuzzy
+msgid "Undated"
+msgstr "Zobraziť skryté"
+
+#: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%Y"
 msgstr "%Y"
 
-#: src/EventsDirectoryPage.vala:427 src/LibraryWindow.vala:182
+#: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%B"
 msgstr "%B"
 
-#: src/Event.vala:352
+#: src/Event.vala:467
 #, c-format
 msgid "Event %lld"
 msgstr "Udalosť %lld"
 
-#: src/FacebookConnector.vala:13
+#: src/FacebookConnector.vala:13 src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
 msgstr "Pripojenie Shotwell"
 
 #: src/FacebookConnector.vala:16
+#, fuzzy
 msgid ""
-"You are not currently logged in to Facebook.\n"
+"You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
-"login process."
+"If you don't yet have a Facebook account, you can create one during the login process."
 msgstr ""
 "Momentálne nie ste pripojený do Facebooku.\n"
 "\n"
-"Ak ešte nemáte vytvorený Facebook účet, môžete si jeden vytvoriť počas "
-"prihlasovacieho procesu."
+"Ak ešte nemáte vytvorený Facebook účet, môžete si jeden vytvoriť počas prihlasovacieho procesu."
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
+"You have already logged in and out of Facebook during this Shotwell session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
-"Počas tohoto spustenia Shotwellu ste sa už prihlásili a odhlásili z "
-"Facebooku.\n"
-"Aby ste mohli naďalej publikovať fotografie na Facebook, ukončite a "
-"reštartujte Shotwell a potom skúste znova."
+"Počas tohoto spustenia Shotwellu ste sa už prihlásili a odhlásili z Facebooku.\n"
+"Aby ste mohli naďalej publikovať fotografie na Facebook, ukončite a reštartujte Shotwell a potom skúste znova."
 
-#: src/FacebookConnector.vala:55
-msgid "Publish to an e_xisting album:"
-msgstr "Publikovať do e_xistujúceho albumu:"
+#: src/FacebookConnector.vala:258
+msgid "Testing connection to Facebook..."
+msgstr ""
 
-#: src/FacebookConnector.vala:58
-msgid "Create a _new album named:"
-msgstr "Vytvoriť _nový album s menom:"
+#: src/FacebookConnector.vala:340 src/PicasaConnector.vala:378
+#, fuzzy
+msgid "Creating album..."
+msgstr "Vytvára sa nová udalosť..."
 
-#: src/FacebookConnector.vala:73 src/FlickrConnector.vala:426
-msgid "_Publish"
-msgstr "_Publikovať"
-
-#: src/FacebookConnector.vala:75 src/FlickrConnector.vala:424
-msgid "_Logout"
-msgstr "_Odhlásiť sa"
-
-#: src/FacebookConnector.vala:103
-#, c-format
+#: src/FacebookConnector.vala:711
+#, fuzzy, c-format
 msgid ""
-"You are logged in to Facebook as %s.\n"
+"You are logged into Facebook as %s.\n"
+"\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
 "Ste prihlásený do Facebooku ako %s.\n"
 "Kde by ste chceli publikovať vybrané fotografie?"
 
-#: src/FlickrConnector.vala:13
+#: src/FacebookConnector.vala:747
+msgid "Publish to an e_xisting album:"
+msgstr "Publikovať do e_xistujúceho albumu:"
+
+#: src/FacebookConnector.vala:750
+msgid "Create a _new album named:"
+msgstr "Vytvoriť _nový album s menom:"
+
+#: src/FacebookConnector.vala:766 src/FlickrConnector.vala:884
+#: src/PicasaConnector.vala:789
+msgid "_Publish"
+msgstr "_Publikovať"
+
+#: src/FacebookConnector.vala:768 src/FlickrConnector.vala:880
+#: src/PicasaConnector.vala:779
+msgid "_Logout"
+msgstr "_Odhlásiť sa"
+
+#: src/FlickrConnector.vala:11
+#, fuzzy
 msgid ""
-"You are not currently logged in to Flickr.\n"
+"You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login "
-"process. During login you will have to specifically authorize Shotwell "
-"Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Momentálne nie ste prihlásený do Flickr. \n"
 "\n"
-"Musíte mať existujúci Flickr účet aby ste mohli dokončiť prihlasovací "
-"proces. Počas prihlásenia budete musieť výslovne autorizovať Pripojenie "
-"Shotwell aby ste ho spojili s vašim Flickr účtom."
+"Musíte mať existujúci Flickr účet aby ste mohli dokončiť prihlasovací proces. Počas prihlásenia budete musieť výslovne autorizovať Pripojenie Shotwell aby ste ho spojili s vašim Flickr účtom."
 
-#: src/FlickrConnector.vala:15
+#: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "Počas tohoto spustenia Shotwellu ste sa už prihlásili a odhlásili z Flickr.\n"
-"Aby ste mohli naďalej publikovať fotografie na Flickr, ukončite a "
-"reštartujte Shotwell a potom skúste znova."
+"Aby ste mohli naďalej publikovať fotografie na Flickr, ukončite a reštartujte Shotwell a potom skúste znova."
 
-#: src/FlickrConnector.vala:366
+#: src/FlickrConnector.vala:258
+#, fuzzy
+msgid "Preparing to login..."
+msgstr "Pripravujú sa fotografie na upload"
+
+#: src/FlickrConnector.vala:820
 #, c-format
 msgid ""
 "You are logged into Flickr as %s.\n"
@@ -799,118 +1100,101 @@ msgstr ""
 "Ste prihlásený do Flickr ako %s.\n"
 "\n"
 
-#: src/FlickrConnector.vala:369
-msgid "Your free Flickr account limits how much data you can "
-msgstr "Váš Flickr účet ktorý je zadarmo obmedzuje koľko dát môžete uploadnúť."
+#: src/FlickrConnector.vala:822
+#, c-format
+msgid ""
+"Your free Flickr account limits how much data you can upload per month.\n"
+"This month, you have %d megabytes remaining in your upload quota."
+msgstr ""
 
-#: src/FlickrConnector.vala:373
+#: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr "Váš Flickr Pro účet vám umožňuje neobmedzený upload."
 
-#: src/FlickrConnector.vala:398
+#: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
 msgstr "Fotografie _viditeľné pre:"
 
-#: src/FlickrConnector.vala:399
+#: src/FlickrConnector.vala:850
 msgid "Photo _size:"
 msgstr "_Veľkosť fotografie:"
 
-#: src/FlickrConnector.vala:461
+#: src/FlickrConnector.vala:922
 msgid "Everyone"
 msgstr "Všetkých"
 
-#: src/FlickrConnector.vala:462
+#: src/FlickrConnector.vala:923
 msgid "Friends & family only"
 msgstr "Len pre priateľov a rodinu"
 
-#: src/FlickrConnector.vala:463
+#: src/FlickrConnector.vala:924
 msgid "Just me"
 msgstr "Len pre mňa"
 
-#: src/FlickrConnector.vala:486
+#: src/FlickrConnector.vala:947
 msgid "Medium (500 x 375 pixels)"
 msgstr "Stredná (500 x 375 pixels)"
 
-#: src/FlickrConnector.vala:487
+#: src/FlickrConnector.vala:948
 msgid "Large (1024 x 768 pixels)"
 msgstr "Veľká (1024 x 768 pixels)"
 
-#: src/image_util.vala:214
-#, c-format
-msgid "Low (%d%%)"
-msgstr "Nízka (%d%%)"
+#: src/image_util.vala:209
+#, fuzzy, c-format
+msgid "Unable to export background to %s: %s"
+msgstr "Nie je možné exportovať fotografiu %s: %s"
 
-#: src/image_util.vala:217
-#, c-format
-msgid "Medium (%d%%)"
-msgstr "Stredná (%d%%)"
+#: src/ImportPage.vala:162
+#, fuzzy
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "Nie je možné odpojiť fotoaparát. Skúste odpojiť fotoaparát pomocou správcu súborov."
 
-#: src/image_util.vala:220
-#, c-format
-msgid "High (%d%%)"
-msgstr "Vysoká (%d%%)"
-
-#: src/image_util.vala:223
-#, c-format
-msgid "Maximum (%d%%)"
-msgstr "Maximálna (%d%%)"
-
-#: src/ImportPage.vala:229 src/ImportPage.vala:230
+#: src/ImportPage.vala:250 src/ImportPage.vala:251
 msgid "Camera"
 msgstr "Fotoaparát"
 
-#: src/ImportPage.vala:258
+#: src/ImportPage.vala:289
 msgid "Hide photos already imported"
 msgstr "Skryť fotografie ktoré už sú importované"
 
-#: src/ImportPage.vala:259
+#: src/ImportPage.vala:290
 msgid "Only display photos that have not been imported"
 msgstr "Zobraziť len fotografie ktoré neboli importované"
 
-#: src/ImportPage.vala:347
+#: src/ImportPage.vala:384
 msgid "Import _Selected"
 msgstr "Importovať _zvolené"
 
-#: src/ImportPage.vala:352
+#: src/ImportPage.vala:389
 msgid "Import _All"
 msgstr "Importovať _všetky"
 
-#: src/ImportPage.vala:362
+#: src/ImportPage.vala:399
 msgid "Select all the photos for importing"
 msgstr "Zvoliť všetky fotografie na import"
 
-#: src/ImportPage.vala:464
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
-msgstr ""
-"Shotwell potrebuje odpojiť váš fotoaparát od súborového systému aby k nemu "
-"mohol pristupovať. Želáte si pokračovať?"
+#: src/ImportPage.vala:507
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
+msgstr "Shotwell potrebuje odpojiť váš fotoaparát od súborového systému aby k nemu mohol pristupovať. Želáte si pokračovať?"
 
-#: src/ImportPage.vala:470
-msgid "Unmount"
+#: src/ImportPage.vala:513
+#, fuzzy
+msgid "_Unmount"
 msgstr "Odpojiť"
 
-#: src/ImportPage.vala:475
+#: src/ImportPage.vala:518
 msgid "Please unmount the camera."
 msgstr "Prosím odpojte fotoaparát."
 
-#: src/ImportPage.vala:480
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
-msgstr ""
-"Fotoaparát je uzamknutý inou aplikáciou. Shotwell môže pristupovať ku "
-"fotoaparátu len ak nie je uzamknutý. Zatvorte prosím ostatné aplikácie ktoré "
-"používajú fotoaparát a skúste znova."
+#: src/ImportPage.vala:523
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgstr "Fotoaparát je uzamknutý inou aplikáciou. Shotwell môže pristupovať ku fotoaparátu len ak nie je uzamknutý. Zatvorte prosím ostatné aplikácie ktoré používajú fotoaparát a skúste znova."
 
-#: src/ImportPage.vala:490
+#: src/ImportPage.vala:533
 msgid "Please close any other application using the camera."
-msgstr ""
-"Zatvorte prosím ostatné aplikácie ktoré používajú fotoaparát a skúste znova."
+msgstr "Zatvorte prosím ostatné aplikácie ktoré používajú fotoaparát a skúste znova."
 
-#: src/ImportPage.vala:495
+#: src/ImportPage.vala:538
 #, c-format
 msgid ""
 "Unable to fetch previews from the camera:\n"
@@ -919,37 +1203,30 @@ msgstr ""
 "Nie je možné získať náhľady z fotoaparátu:\n"
 "%s"
 
-#: src/ImportPage.vala:513
+#: src/ImportPage.vala:557
 msgid "Unmounting..."
 msgstr "Odpájanie..."
 
-#: src/ImportPage.vala:532
-msgid ""
-"Unable to unmount camera.  Try dismounting the camera from the file manager."
-msgstr ""
-"Nie je možné odpojiť fotoaparát. Skúste odpojiť fotoaparát pomocou správcu "
-"súborov."
-
-#: src/ImportPage.vala:559
+#: src/ImportPage.vala:620
 msgid "Fetching photo information"
 msgstr "Získavajú sa informácie o fotografii"
 
-#: src/ImportPage.vala:748
+#: src/ImportPage.vala:821
 #, c-format
 msgid "Fetching preview for %s"
 msgstr "Získava sa náhľad pre %s"
 
-#: src/ImportPage.vala:797
+#: src/ImportPage.vala:867
 #, c-format
 msgid "Error while fetching previews from %s: %s"
 msgstr "Nastala chyba pri získavaní náhľadov z %s: %s"
 
-#: src/ImportPage.vala:838
+#: src/ImportPage.vala:908
 #, c-format
 msgid "Unable to lock camera: %s"
 msgstr "Nie je možné uzamknúť fotoaparát: %s"
 
-#: src/ImportPage.vala:913
+#: src/ImportPage.vala:991
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
@@ -957,11 +1234,12 @@ msgstr[0] "Odstrániť túto fotografiu z fotoaparátu?"
 msgstr[1] "Odstrániť tieto %d fotografie z fotoaparátu?"
 msgstr[2] "Odstrániť týchto %d fotografií z fotoaparátu?"
 
-#: src/ImportPage.vala:917
-msgid "Keep"
+#: src/ImportPage.vala:995
+#, fuzzy
+msgid "_Keep"
 msgstr "Ponechať"
 
-#: src/ImportPage.vala:946
+#: src/ImportPage.vala:1012
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
@@ -969,202 +1247,265 @@ msgstr[0] "Nie je možné odstrániť %d fotografiu z fotoaparátu kvôli chybá
 msgstr[1] "Nie je možné odstrániť %d fotografie z fotoaparátu kvôli chybám."
 msgstr[2] "Nie je možné odstrániť %d fotografií z fotoaparátu kvôli chybám."
 
-#: src/ImportPage.vala:993
+#: src/ImportPage.vala:1055
 msgid "Importing..."
 msgstr "Importuje sa..."
 
-#: src/ImportPage.vala:1003 src/ImportPage.vala:1033
+#: src/ImportPage.vala:1065 src/ImportPage.vala:1095
 msgid "Stop importing photos"
 msgstr "Zastaviť importovanie fotografií"
 
-#: src/ImportPage.vala:1032
+#: src/ImportPage.vala:1094
 msgid "_Stop Import"
 msgstr "_Zastaviť import"
 
-#: src/ImportPage.vala:1102
+#: src/ImportPage.vala:1158
 #, c-format
 msgid "Imported %s"
 msgstr "Importovaných %s"
 
-#: src/LibraryWindow.vala:367
+#: src/JfifSupport.vala:69
+msgid "JPEG"
+msgstr ""
+
+#: src/JfifSupport.vala:176
+#, c-format
+msgid "Low (%d%%)"
+msgstr "Nízka (%d%%)"
+
+#: src/JfifSupport.vala:179
+#, c-format
+msgid "Medium (%d%%)"
+msgstr "Stredná (%d%%)"
+
+#: src/JfifSupport.vala:182
+#, c-format
+msgid "High (%d%%)"
+msgstr "Vysoká (%d%%)"
+
+#: src/JfifSupport.vala:185
+#, c-format
+msgid "Maximum (%d%%)"
+msgstr "Maximálna (%d%%)"
+
+#: src/LibraryWindow.vala:398
 msgid "_Import From Folder..."
 msgstr "_Importovať z priečinku..."
 
-#: src/LibraryWindow.vala:368
+#: src/LibraryWindow.vala:399
 msgid "Import photos from disk to library"
 msgstr "Importovať fotografie z disku do knižnice"
 
-#: src/LibraryWindow.vala:373
+#: src/LibraryWindow.vala:404
 msgid "Sort _Events"
 msgstr "Zoradiť _udalosti"
 
-#: src/LibraryWindow.vala:384
+#: src/LibraryWindow.vala:414
+msgid "Empty _Trash"
+msgstr ""
+
+#: src/LibraryWindow.vala:415
+#, fuzzy
+msgid "Delete all photos in the trash"
+msgstr "Označiť všetky fotografie v knižnici"
+
+#: src/LibraryWindow.vala:426
 msgid "_Basic Information"
 msgstr "_Základné informácie"
 
-#: src/LibraryWindow.vala:385
+#: src/LibraryWindow.vala:427
 msgid "Display basic information for the selection"
 msgstr "Zobraziť základné informácie pre výber"
 
-#: src/LibraryWindow.vala:390
+#: src/LibraryWindow.vala:432
 msgid "E_xtended Information"
 msgstr "_Podrobné informácie"
 
-#: src/LibraryWindow.vala:391
+#: src/LibraryWindow.vala:433
 msgid "Display extended information for the selection"
 msgstr "Zobraziť podrobné informácie pre výber"
 
-#: src/LibraryWindow.vala:508
+#: src/LibraryWindow.vala:593
 #, c-format
 msgid "_Copy files to %s photo library"
 msgstr "_Kopírovať súbory do fotografickej knižnice %s "
 
-#: src/LibraryWindow.vala:511
+#: src/LibraryWindow.vala:596
 msgid "Import From Folder"
 msgstr "Importovať z priečinku"
 
-#: src/LibraryWindow.vala:722
-#, c-format
-msgid ""
-"Shotwell can copy or move the photos into your %s directory, or it can link "
-"to the photos without duplicating them."
-msgstr ""
-"Shotwell môže skopírovať alebo presunúť fotografie do vášho %s adresára, "
-"alebo môže vytvoriť odkazy na fotografie bez nutnosti ich duplikovať."
+#: src/LibraryWindow.vala:656
+#, fuzzy
+msgid "Emptying Trash..."
+msgstr "Exportuje sa..."
 
-#: src/LibraryWindow.vala:728
+#: src/LibraryWindow.vala:816
+msgid "Photos cannot be imported from this directory."
+msgstr ""
+
+#: src/LibraryWindow.vala:904
+#, c-format
+msgid "Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them."
+msgstr "Shotwell môže skopírovať alebo presunúť fotografie do vášho %s adresára, alebo môže vytvoriť odkazy na fotografie bez nutnosti ich duplikovať."
+
+#: src/LibraryWindow.vala:910
 msgid "Copy into Library"
 msgstr "Skopírovať do knižnice"
 
-#: src/LibraryWindow.vala:729
+#: src/LibraryWindow.vala:911
 msgid "Create Links"
 msgstr "Vytvoriť odkazy"
 
-#: src/LibraryWindow.vala:730
+#: src/LibraryWindow.vala:912
 msgid "Import to Library"
 msgstr "Importovať do knižnice"
 
-#: src/LibraryWindow.vala:950
+#: src/LibraryWindow.vala:1125
+msgid "Tags"
+msgstr ""
+
+#: src/LibraryWindow.vala:1204
 msgid "Cameras"
 msgstr "Fotoaparáty"
 
 #: src/main.vala:79
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please use the "
-"latest version of Shotwell."
-msgstr ""
-"Vaša fotografická knižnica nie je kompatibilná s touto verziou Shotwellu. "
-"Zdá sa, že bola vytvorená Shotwellom %s. Táto verzia je %s. Prosím "
-"používajte poslednú verziu Shotwellu."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
+msgstr "Vaša fotografická knižnica nie je kompatibilná s touto verziou Shotwellu. Zdá sa, že bola vytvorená Shotwellom %s. Táto verzia je %s. Prosím používajte poslednú verziu Shotwellu."
 
 #: src/main.vala:84
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s to %s.  "
-"For more information please check the Shotwell Wiki at %s"
-msgstr ""
-"Shotwellu sa nepodarilo upgradovať vašu fotografickú knižnicu z verzie  %s "
-"to %s. Pre viac informácií prosím pozrite Shotwell wiki na  %s"
+msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
+msgstr "Shotwellu sa nepodarilo upgradovať vašu fotografickú knižnicu z verzie  %s to %s. Pre viac informácií prosím pozrite Shotwell wiki na  %s"
 
 #: src/main.vala:89
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please clear "
-"your library by deleting %s and re-import your photos."
-msgstr ""
-"Vaša fotografická knižnica nie je kompatibilná s touto verziou Shotwellu. "
-"Zdá sa, že bola vytvorená Shotwellom %s. Táto verzia je %s. Prosím vyčistite "
-"si vašu knižnicu odstránením  %s a znovu importujte vaše fotografie."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr "Vaša fotografická knižnica nie je kompatibilná s touto verziou Shotwellu. Zdá sa, že bola vytvorená Shotwellom %s. Táto verzia je %s. Prosím vyčistite si vašu knižnicu odstránením  %s a znovu importujte vaše fotografie."
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
 msgstr "Neznáma chyba, preveruje sa databáza Shotwellu: %d"
 
-#: src/PhotoPage.vala:109
+#: src/main.vala:121
+#, fuzzy
+msgid "Loading Shotwell"
+msgstr "Ukončiť Shotwell"
+
+#: src/main.vala:219
+msgid "[FILE]"
+msgstr ""
+
+#: src/main.vala:222
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+
+#: src/Page.vala:1898
+msgid "Photos cannot be exported to this directory."
+msgstr ""
+
+#: src/PhotoPage.vala:126
 msgid "Previous photo"
 msgstr "Predchádzajúca fotografia"
 
-#: src/PhotoPage.vala:114
+#: src/PhotoPage.vala:131
 msgid "Next photo"
 msgstr "Ďalšia fotografia"
 
-#: src/PhotoPage.vala:701
-msgid "Photo source file is missing."
-msgstr "Chýba zdrojový súbor fotografie."
-
-#: src/PhotoPage.vala:880
+#: src/PhotoPage.vala:1026
 #, c-format
 msgid "Photo source file missing: %s"
 msgstr "Chýba zdrojový súbor fotografie: %s"
 
-#: src/PhotoPage.vala:1142
-msgid "Export photo to disk"
-msgstr "Exportovať fotografie na disk"
+#: src/PhotoPage.vala:1421
+msgid "Re_move"
+msgstr "Od_strániť"
 
-#: src/PhotoPage.vala:1152
+#: src/PhotoPage.vala:1422
 msgid "Remove the photo from your library"
 msgstr "Odstrániť fotografiu z vašej knižnice"
 
-#: src/PhotoPage.vala:1160 src/PhotoPage.vala:1597
+#: src/PhotoPage.vala:1430 src/PhotoPage.vala:2175
 msgid "_Photo"
 msgstr "_Fotografia"
 
-#: src/PhotoPage.vala:1165 src/PhotoPage.vala:1602
+#: src/PhotoPage.vala:1435 src/PhotoPage.vala:2180
 msgid "_Previous Photo"
 msgstr "_Predchádzajúca fotografia"
 
-#: src/PhotoPage.vala:1166 src/PhotoPage.vala:1603
+#: src/PhotoPage.vala:1436 src/PhotoPage.vala:2181
 msgid "Previous Photo"
 msgstr "Predchádzajúca fotografia"
 
-#: src/PhotoPage.vala:1171 src/PhotoPage.vala:1608
+#: src/PhotoPage.vala:1441 src/PhotoPage.vala:2186
 msgid "_Next Photo"
 msgstr "Ďa_lšia fotografia"
 
-#: src/PhotoPage.vala:1172 src/PhotoPage.vala:1609
+#: src/PhotoPage.vala:1442 src/PhotoPage.vala:2187
 msgid "Next Photo"
 msgstr "Ďalšia fotografia"
 
-#: src/PhotoPage.vala:1341
+#: src/PhotoPage.vala:1514 src/PhotoPage.vala:2245
+#, fuzzy
+msgid "Increase the magnification of the photo"
+msgstr "Zvýšiť zväčšenie nadhľadov"
+
+#: src/PhotoPage.vala:1520 src/PhotoPage.vala:2251
+#, fuzzy
+msgid "Decrease the magnification of the photo"
+msgstr "Zmenšiť zväčšenie nadhľadov"
+
+#: src/PhotoPage.vala:1787
 #, c-format
 msgid "Unable to export %s: %s"
 msgstr "Nie je možné exportovať %s: %s"
 
-#: src/PhotoPage.vala:1581
+#: src/PhotoPage.vala:2146 src/PhotoPage.vala:2366
 msgid "_Save"
 msgstr "_Uložiť"
 
-#: src/PhotoPage.vala:1582
+#: src/PhotoPage.vala:2147
 msgid "Save photo"
 msgstr "Uložiť fotografiu"
 
-#: src/PhotoPage.vala:1587
+#: src/PhotoPage.vala:2152
 msgid "Save _As..."
 msgstr "Uložiť _ako..."
 
-#: src/PhotoPage.vala:1588
+#: src/PhotoPage.vala:2153
 msgid "Save photo with a different name"
 msgstr "Uložiť fotografiu pod novým menom"
 
-#: src/PhotoPage.vala:1592
+#: src/PhotoPage.vala:2159 src/Resources.vala:156
+msgid "Page _Setup..."
+msgstr ""
+
+#: src/PhotoPage.vala:2164 src/Resources.vala:159
+#, fuzzy
+msgid "Prin_t..."
+msgstr "Zlučovanie..."
+
+#: src/PhotoPage.vala:2165 src/Resources.vala:160
+msgid "Print the photo to a printer connected to your computer"
+msgstr ""
+
+#: src/PhotoPage.vala:2170
 msgid "Edit"
 msgstr "Upraviť"
 
-#: src/PhotoPage.vala:1655
+#: src/PhotoPage.vala:2259
 #, c-format
 msgid "%s does not exist."
 msgstr "%s neexistuje."
 
-#: src/PhotoPage.vala:1657
+#: src/PhotoPage.vala:2261
 #, c-format
 msgid "%s is not a file."
 msgstr "%s nie je súbor."
 
-#: src/PhotoPage.vala:1659
+#: src/PhotoPage.vala:2263
 #, c-format
 msgid ""
 "%s does not support the file format of\n"
@@ -1173,78 +1514,256 @@ msgstr ""
 "%s nepodporuje súborový formát\n"
 "%s."
 
-#: src/PhotoPage.vala:1726
+#: src/PhotoPage.vala:2366
 #, c-format
 msgid "Lose changes to %s?"
 msgstr "Zahodiť zmeny vo %s?"
 
-#: src/PhotoPage.vala:1749
+#: src/PhotoPage.vala:2367
+msgid "Close _without Saving"
+msgstr ""
+
+#: src/PhotoPage.vala:2399
 #, c-format
 msgid "Error while saving to %s: %s"
 msgstr "Chyba počas ukladania %s: %s"
 
-#: src/PhotoPage.vala:1776 src/PhotoPage.vala:1785
+#: src/PhotoPage.vala:2433 src/PhotoPage.vala:2443
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: src/Photo.vala:20
+#: src/Photo.vala:24
 msgid "Success"
 msgstr "Úspešne"
 
-#: src/Photo.vala:23
+#: src/Photo.vala:27
 msgid "File error"
 msgstr "Chyba súboru"
 
-#: src/Photo.vala:26
+#: src/Photo.vala:30
 msgid "Unable to decode file"
 msgstr "Nie je možné dekódovať súbor"
 
-#: src/Photo.vala:29
+#: src/Photo.vala:33
 msgid "Database error"
 msgstr "Chyba databázy"
 
-#: src/Photo.vala:32
+#: src/Photo.vala:36
 msgid "User aborted import"
 msgstr "Používateľ prerušil import"
 
-#: src/Photo.vala:35
+#: src/Photo.vala:39
 msgid "Not a file"
 msgstr "Nie je to súbor"
 
-#: src/Photo.vala:38
+#: src/Photo.vala:42
 msgid "File already exists in database"
 msgstr "Súbor už existuje v databáze"
 
-#: src/Photo.vala:41
+#: src/Photo.vala:45
 msgid "Unsupported file format"
 msgstr "Nepodporovaný súborový formát"
 
-#: src/Photo.vala:46
-#, c-format
-msgid "Bad import result (%d)"
-msgstr "Chybný výsledok importu (%d)"
+#: src/Photo.vala:48
+#, fuzzy
+msgid "Not an image file"
+msgstr "Nie je to súbor"
 
-#: src/Properties.vala:35
+#: src/Photo.vala:51
+msgid "Disk failure"
+msgstr ""
+
+#: src/Photo.vala:54
+msgid "Disk full"
+msgstr ""
+
+#: src/Photo.vala:57
+#, fuzzy
+msgid "Camera error"
+msgstr "Fotoaparát"
+
+#: src/Photo.vala:60
+#, fuzzy, c-format
+msgid "Imported failed (%d)"
+msgstr "Importovaných %s"
+
+#: src/PicasaConnector.vala:11
+msgid ""
+"You are not currently logged into Picasa Web Albums.\n"
+"\n"
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
+msgstr ""
+
+#: src/PicasaConnector.vala:508
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgstr ""
+
+#: src/PicasaConnector.vala:509
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr ""
+
+#: src/PicasaConnector.vala:510
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr ""
+
+#: src/PicasaConnector.vala:511
+msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
+msgstr ""
+
+#: src/PicasaConnector.vala:546
+#, c-format
+msgid "Unrecognized User"
+msgstr ""
+
+#: src/PicasaConnector.vala:550
+#, c-format
+msgid "Account Not Ready"
+msgstr ""
+
+#: src/PicasaConnector.vala:559
+#, c-format
+msgid "Additional Security Required"
+msgstr ""
+
+#: src/PicasaConnector.vala:570
+msgid "_Email address:"
+msgstr ""
+
+#: src/PicasaConnector.vala:572
+msgid "_Password:"
+msgstr ""
+
+#: src/PicasaConnector.vala:590
+#, fuzzy
+msgid "Go _Back"
+msgstr "Späť"
+
+#: src/PicasaConnector.vala:595 src/WebConnectors.vala:568
+msgid "_Login"
+msgstr "_Prihlásiť sa"
+
+#: src/PicasaConnector.vala:675
+#, fuzzy, c-format
+msgid "You are logged into Picasa Web Albums as %s."
+msgstr ""
+"Ste prihlásený do Flickr ako %s.\n"
+"\n"
+
+#: src/PicasaConnector.vala:698
+msgid "Photos will appear in:"
+msgstr ""
+
+#: src/PicasaConnector.vala:711
+#, fuzzy
+msgid "An _existing album:"
+msgstr "Publikovať do e_xistujúceho albumu:"
+
+#: src/PicasaConnector.vala:725
+#, fuzzy
+msgid "A _new album named:"
+msgstr "Vytvoriť _nový album s menom:"
+
+#: src/PicasaConnector.vala:737
+msgid "L_ist album in public gallery"
+msgstr ""
+
+#: src/PicasaConnector.vala:749
+#, fuzzy
+msgid "Photo _size preset:"
+msgstr "_Veľkosť fotografie:"
+
+#: src/PicasaConnector.vala:864
+#, fuzzy
+msgid "Small (640 x 480 pixels)"
+msgstr "Veľká (1024 x 768 pixels)"
+
+#: src/PicasaConnector.vala:865
+#, fuzzy
+msgid "Medium (1024 x 768 pixels)"
+msgstr "Stredná (500 x 375 pixels)"
+
+#: src/PicasaConnector.vala:866
+msgid "Recommended (1600 x 1200 pixels)"
+msgstr ""
+
+#: src/PngSupport.vala:30
+msgid "PNG"
+msgstr ""
+
+#: src/Printing.vala:215
+msgid "Printed Image Size"
+msgstr ""
+
+#: src/Printing.vala:227
+msgid "Use a _standard size:"
+msgstr ""
+
+#: src/Printing.vala:231
+msgid "Use a c_ustom size:"
+msgstr ""
+
+#: src/Printing.vala:235
+msgid "_Fill the entire page"
+msgstr ""
+
+#: src/Printing.vala:282
+msgid "in."
+msgstr ""
+
+#: src/Printing.vala:283
+msgid "cm"
+msgstr ""
+
+#: src/Printing.vala:302
+msgid "_Match photo aspect ratio"
+msgstr ""
+
+#: src/Printing.vala:315
+msgid "Pixel Resolution"
+msgstr ""
+
+#: src/Printing.vala:322
+msgid "_Output photo at:"
+msgstr ""
+
+#: src/Printing.vala:334
+msgid "pixels per inch"
+msgstr ""
+
+#: src/Printing.vala:827
+#, fuzzy
+msgid "Image Settings"
+msgstr "Nastavenia"
+
+#: src/Printing.vala:841 src/Printing.vala:942 src/Printing.vala:981
+#, fuzzy, c-format
+msgid ""
+"Unable to print photo:\n"
+"\n"
+"%s"
+msgstr "Nie je možné exportovať fotografiu %s: %s"
+
+#: src/Properties.vala:40
 msgid "%I:%M %p"
 msgstr "%I:%M %p"
 
-#: src/Properties.vala:47
+#: src/Properties.vala:52
 msgid "Today"
 msgstr "Dnes"
 
-#: src/Properties.vala:49
+#: src/Properties.vala:54
 msgid "Yesterday"
 msgstr "Včera"
 
-#: src/Properties.vala:221
+#: src/Properties.vala:290
 msgid "Title:"
 msgstr "Názov:"
 
-#: src/Properties.vala:224
+#: src/Properties.vala:293
 msgid "Items:"
 msgstr "Položky:"
 
-#: src/Properties.vala:227
+#: src/Properties.vala:296
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
@@ -1252,434 +1771,686 @@ msgstr[0] "%d Udalosť"
 msgstr[1] "%d Udalosti"
 msgstr[2] "%d Udalostí"
 
-#: src/Properties.vala:234
-#, c-format
-msgid "%d Photo"
-msgid_plural "%d Photos"
-msgstr[0] "%d Fotografia"
-msgstr[1] "%d Fotografie"
-msgstr[2] "%d Fotografií"
-
-#: src/Properties.vala:248
+#: src/Properties.vala:317
 msgid "Date:"
 msgstr "Dátum:"
 
-#: src/Properties.vala:252
+#: src/Properties.vala:321
 msgid "Time:"
 msgstr "Čas:"
 
-#: src/Properties.vala:255 src/Properties.vala:260
+#: src/Properties.vala:324 src/Properties.vala:329
 msgid "From:"
 msgstr "Od:"
 
-#: src/Properties.vala:256 src/Properties.vala:261
+#: src/Properties.vala:325 src/Properties.vala:330
 msgid "To:"
 msgstr "Do:"
 
-#: src/Properties.vala:356
+#: src/Properties.vala:457
 msgid "Location:"
 msgstr "Umiestnenie:"
 
-#: src/Properties.vala:358
+#: src/Properties.vala:459
 msgid "File size:"
 msgstr "Veľkosť súboru:"
 
-#: src/Properties.vala:361
-msgid "Original Dimensions"
+#: src/Properties.vala:462
+#, fuzzy
+msgid "Original dimensions:"
 msgstr "Pôvodné rozmery"
 
-#: src/Properties.vala:364
-msgid "Camera Make:"
+#: src/Properties.vala:465
+#, fuzzy
+msgid "Camera make:"
 msgstr "Výrobca fotoaparátu:"
 
-#: src/Properties.vala:367
-msgid "Camera Model:"
+#: src/Properties.vala:468
+#, fuzzy
+msgid "Camera model:"
 msgstr "Model fotoaparátu:"
 
-#: src/Properties.vala:370
+#: src/Properties.vala:471
 msgid "Flash:"
 msgstr "Blesk:"
 
-#: src/Properties.vala:372
-msgid "Focal Length:"
+#: src/Properties.vala:473
+#, fuzzy
+msgid "Focal length:"
 msgstr "Ohnisková vzdialenosť:"
 
-#: src/Properties.vala:375
-msgid "GPS Latitude:"
+#: src/Properties.vala:476
+#, fuzzy
+msgid "GPS latitude:"
 msgstr "GPS zemepisná šírka:"
 
-#: src/Properties.vala:378
-msgid "GPS Longitude:"
+#: src/Properties.vala:479
+#, fuzzy
+msgid "GPS longitude:"
 msgstr "GPS zemepisná dĺžka:"
 
-#: src/Properties.vala:381
+#: src/Properties.vala:482
 msgid "Artist:"
 msgstr "Umelec:"
 
-#: src/Properties.vala:383
+#: src/Properties.vala:484
 msgid "Copyright:"
 msgstr "Autorské práva:"
 
-#: src/Properties.vala:385
+#: src/Properties.vala:486
 msgid "Software:"
 msgstr "Softvér:"
 
-#: src/Properties.vala:397
+#: src/Properties.vala:497
 msgid "Extended Information"
 msgstr "Podrobné informácie"
 
-#: src/Resources.vala:14
-msgid "Photo Organizer"
-msgstr "Organizátor fotografií"
-
-#: src/Resources.vala:15
-msgid "Photo Viewer"
-msgstr "Prehliadač fotografií"
+#: src/RawSupport.vala:65
+msgid "RAW"
+msgstr ""
 
 #: src/Resources.vala:17
-msgid "Copyright 2009 Yorba Foundation"
+#, fuzzy
+msgid "Copyright 2009-2010 Yorba Foundation"
 msgstr "Autorské práva 2009 Yorba Foundation"
 
-#: src/Resources.vala:80
+#: src/Resources.vala:81
 msgid "Rotate _Right"
 msgstr "Otočiť vp_ravo"
 
-#: src/Resources.vala:81 src/Resources.vala:86
+#: src/Resources.vala:82 src/Resources.vala:87
 msgid "Rotate"
 msgstr "Otočiť"
 
-#: src/Resources.vala:82
+#: src/Resources.vala:83
 msgid "Rotate Right"
 msgstr "Otočiť vpravo"
 
-#: src/Resources.vala:83
+#: src/Resources.vala:84
 msgid "Rotate the photos right"
 msgstr "Otočiť fotografie vpravo"
 
-#: src/Resources.vala:85
+#: src/Resources.vala:86
 msgid "Rotate _Left"
 msgstr "Otočiť _vľavo"
 
-#: src/Resources.vala:87
+#: src/Resources.vala:88
 msgid "Rotate Left"
 msgstr "Otočiť vľavo"
 
-#: src/Resources.vala:88
+#: src/Resources.vala:89
 msgid "Rotate the photos left"
 msgstr "Otočiť fotografie vľavo"
 
-#: src/Resources.vala:90
+#: src/Resources.vala:91
 msgid "_Mirror"
 msgstr "_Zrkadlový obraz"
 
-#: src/Resources.vala:91
+#: src/Resources.vala:92
 msgid "Mirror"
 msgstr "Zrkadlový obraz"
 
-#: src/Resources.vala:92
+#: src/Resources.vala:93
 msgid "Make mirror images of the photos"
 msgstr "Vytvorí zrkadlový obraz fotografií"
 
-#: src/Resources.vala:94
+#: src/Resources.vala:95
 msgid "_Enhance"
 msgstr "_Vylepšiť"
 
-#: src/Resources.vala:95
+#: src/Resources.vala:96
 msgid "Enhance"
 msgstr "Vylepšiť"
 
-#: src/Resources.vala:96
+#: src/Resources.vala:97
 msgid "Automatically improve the photo's appearance"
 msgstr "Automaticky upraviť vzhľad fotografie"
 
-#: src/Resources.vala:98
+#: src/Resources.vala:99
 msgid "Re_vert to Original"
 msgstr "V_rátiť do pôvodného stavu"
 
-#: src/Resources.vala:99
+#: src/Resources.vala:100
 msgid "Revert to Original"
 msgstr "Vrátiť do pôvodného stavu"
 
-#: src/Resources.vala:100
+#: src/Resources.vala:101
 msgid "Revert to the original photo"
 msgstr "Vrátiť na pôvodnú fotografiu"
 
-#: src/Resources.vala:102
+#: src/Resources.vala:103
+msgid "Set as Desktop _Background"
+msgstr ""
+
+#: src/Resources.vala:104
+msgid "Set selected image to be the new desktop background"
+msgstr ""
+
+#: src/Resources.vala:106
 msgid "_Undo"
 msgstr "Vrátiť _späť"
 
-#: src/Resources.vala:103
+#: src/Resources.vala:107
 msgid "Undo"
 msgstr "Vrátiť _späť"
 
-#: src/Resources.vala:104
+#: src/Resources.vala:108
 msgid "Undo the last action"
 msgstr "Vrátiť späť posledný úkon"
 
-#: src/Resources.vala:106
+#: src/Resources.vala:110
 msgid "_Redo"
 msgstr "_Opakovať vrátené"
 
-#: src/Resources.vala:107
+#: src/Resources.vala:111
 msgid "Redo"
 msgstr "Opakovať vrátené"
 
-#: src/Resources.vala:108
+#: src/Resources.vala:112
 msgid "Redo the last undone action"
 msgstr "Znovu vykonať posledný vrátený úkon"
 
-#: src/Resources.vala:110
+#: src/Resources.vala:114
 msgid "Re_name Event..."
 msgstr "Pre_menovať udalosť..."
 
-#: src/Resources.vala:112
+#: src/Resources.vala:116
 msgid "Rename the selected event"
 msgstr "Premenovať vybranú udalosť"
 
-#: src/Resources.vala:114
+#: src/Resources.vala:118
 msgid "Make _Key Photo for Event"
 msgstr "Označiť ako _hlavnú fotografiu udalosti"
 
-#: src/Resources.vala:115
+#: src/Resources.vala:119
 msgid "Make Key Photo for Event"
 msgstr "Označiť ako hlavnú fotografiu udalosti"
 
-#: src/Resources.vala:116
+#: src/Resources.vala:120
 msgid "Make the selected photo the thumbnail for the event"
 msgstr "Vytvoriť náhľad pre udalosť z vybranej fotografie"
 
-#: src/Resources.vala:118
+#: src/Resources.vala:122
 msgid "_New Event"
 msgstr "_Nová udalosť"
 
-#: src/Resources.vala:119
+#: src/Resources.vala:123
 msgid "New Event"
 msgstr "Nová udalosť"
 
-#: src/Resources.vala:120
+#: src/Resources.vala:124
 msgid "Create new event from the selected photos"
 msgstr "Vytvoriť novú udalosť z vybraných fotografií"
 
-#: src/Resources.vala:122
+#: src/Resources.vala:126
 msgid "Move Photos"
 msgstr "Presunúť fotografie"
 
-#: src/Resources.vala:123
+#: src/Resources.vala:127
 msgid "Move photos to an event"
 msgstr "Presunúť fotografie do udalosti"
 
-#: src/Resources.vala:125
+#: src/Resources.vala:129
 msgid "_Merge Events"
 msgstr "_Zlúčiť udalosti"
 
-#: src/Resources.vala:126
+#: src/Resources.vala:130
 msgid "Merge"
 msgstr "Zlúčiť"
 
-#: src/Resources.vala:127
+#: src/Resources.vala:131
 msgid "Merge into a single event"
 msgstr "Zlúčiť do jednej udalosti"
 
-#: src/Resources.vala:129
+#: src/Resources.vala:133
 msgid "Mark as _Favorite"
 msgstr "Označiť ako _obľúbené"
 
-#: src/Resources.vala:130
+#: src/Resources.vala:134
 msgid "Mark as Favorite"
 msgstr "Označiť ako obľúbené"
 
-#: src/Resources.vala:131
+#: src/Resources.vala:135
 msgid "Mark the photo as one of your favorites"
 msgstr "Označiť fotografiu ako jednu z vašich obľúbených"
 
-#: src/Resources.vala:133
+#: src/Resources.vala:137
 msgid "Unmark as _Favorite"
 msgstr "Odznačiť ako _obľúbené"
 
-#: src/Resources.vala:134
+#: src/Resources.vala:138
 msgid "Unmark as Favorite"
 msgstr "Odznačiť ako obľúbené"
 
-#: src/Resources.vala:135
+#: src/Resources.vala:139
 msgid "Unmark the photo as one of your favorites"
 msgstr "Odznačiť fotografiu ako jednu z vašich obľúbených"
 
-#: src/Resources.vala:137
+#: src/Resources.vala:141
 msgid "_Hide"
 msgstr "S_kryť"
 
-#: src/Resources.vala:138
+#: src/Resources.vala:142
 msgid "Hide"
 msgstr "Skryť"
 
-#: src/Resources.vala:139
+#: src/Resources.vala:143
 msgid "Hide the selected photos"
 msgstr "Skryť vybrané fotografie"
 
-#: src/Resources.vala:141
+#: src/Resources.vala:145
 msgid "Un_hide"
 msgstr "_Zobraziť skryté"
 
-#: src/Resources.vala:142
+#: src/Resources.vala:146
 msgid "Unhide"
 msgstr "Zobraziť skryté"
 
-#: src/Resources.vala:143
+#: src/Resources.vala:147
 msgid "Unhide the selected photos"
 msgstr "Zobraziť vybrané skryté fotografie"
 
-#: src/Resources.vala:145
+#: src/Resources.vala:149
 msgid "_Duplicate"
 msgstr "_Duplikovať"
 
-#: src/Resources.vala:146
+#: src/Resources.vala:150
 msgid "Duplicate"
 msgstr "Duplikovať"
 
-#: src/Resources.vala:147
+#: src/Resources.vala:151
 msgid "Make a duplicate of the photo"
 msgstr "Vytvoriť duplikát fotografie"
 
-#: src/Resources.vala:149
-msgid "_Publish Photos..."
-msgstr "_Publikovať fotografie..."
+#: src/Resources.vala:153
+#, fuzzy
+msgid "_Export..."
+msgstr "Exportuje sa..."
 
-#: src/Resources.vala:150
+#: src/Resources.vala:154
+#, fuzzy
+msgid "Export to disk"
+msgstr "Exportovať fotografie na disk"
+
+#: src/Resources.vala:157
+msgid "View and change page setup printing"
+msgstr ""
+
+#: src/Resources.vala:162
+#, fuzzy
+msgid "Pu_blish..."
+msgstr "Publikovať"
+
+#: src/Resources.vala:163
 msgid "Publish"
 msgstr "Publikovať"
 
-#: src/Resources.vala:151
-msgid "Publish the selected photos to various websites"
+#: src/Resources.vala:164
+#, fuzzy
+msgid "Publish to various websites"
 msgstr "Publikovať vybrané fotografie na rôzne webové stránky"
 
-#: src/SlideshowPage.vala:55 src/SlideshowPage.vala:120
+#: src/Resources.vala:166
+#, fuzzy
+msgid "Re_name Photo..."
+msgstr "Pre_menovať udalosť..."
+
+#: src/Resources.vala:168
+#, fuzzy
+msgid "Rename the selected photo"
+msgstr "Premenovať vybranú udalosť"
+
+#: src/Resources.vala:170
+msgid "_Adjust Date and Time..."
+msgstr ""
+
+#: src/Resources.vala:171
+msgid "Adjust Date and Time"
+msgstr ""
+
+#: src/Resources.vala:172
+#, fuzzy
+msgid "Adjust date and time of selected photos"
+msgstr "Skryť vybrané fotografie"
+
+#: src/Resources.vala:174
+msgid "Add _Tags..."
+msgstr ""
+
+#: src/Resources.vala:175 src/Resources.vala:187
+msgid "Add Tags"
+msgstr ""
+
+#: src/Resources.vala:176
+#, fuzzy
+msgid "Add one or more tags to the selected photos"
+msgstr "Vytvoriť novú udalosť z vybraných fotografií"
+
+#: src/Resources.vala:178
+msgid "_Preferences"
+msgstr ""
+
+#: src/Resources.vala:179
+msgid "Edit preferences"
+msgstr ""
+
+#: src/Resources.vala:183
+#, c-format
+msgid "Add Tag \"%s\""
+msgstr ""
+
+#: src/Resources.vala:185
+#, c-format
+msgid "Add Tags \"%s\" and \"%s\""
+msgstr ""
+
+#: src/Resources.vala:191
+#, c-format
+msgid "_Delete Tag \"%s\""
+msgstr ""
+
+#: src/Resources.vala:195
+#, c-format
+msgid "Delete Tag \"%s\""
+msgstr ""
+
+#: src/Resources.vala:199
+#, c-format
+msgid "Remove the tag \"%s\" from one photo"
+msgid_plural "Remove the tag \"%s\" from %d photos"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Resources.vala:203
+msgid "Delete Tag"
+msgstr ""
+
+#: src/Resources.vala:206
+#, fuzzy, c-format
+msgid "Re_name Tag \"%s\"..."
+msgstr "Pre_menovať udalosť..."
+
+#: src/Resources.vala:210
+#, c-format
+msgid "Rename Tag \"%s\" to \"%s\""
+msgstr ""
+
+#: src/Resources.vala:214
+#, c-format
+msgid "Rename the tag \"%s\""
+msgstr ""
+
+#: src/Resources.vala:217
+#, fuzzy
+msgid "Rename Tag"
+msgstr "Premenovať udalosť"
+
+#: src/Resources.vala:219
+msgid "M_odify Tags..."
+msgstr ""
+
+#: src/Resources.vala:220
+msgid "Modify Tags"
+msgstr ""
+
+#: src/Resources.vala:221
+#, fuzzy
+msgid "Modify the tags for this photo"
+msgstr "Nastaviť orezanie pre túto fotografiu"
+
+#: src/Resources.vala:224
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgid_plural "Tag Photos as \"%s\""
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Resources.vala:228
+#, fuzzy, c-format
+msgid "Tag the selected photo as \"%s\""
+msgid_plural "Tag the selected photos as \"%s\""
+msgstr[0] "Skryť vybrané fotografie"
+msgstr[1] "Skryť vybrané fotografie"
+msgstr[2] "Skryť vybrané fotografie"
+
+#: src/Resources.vala:232
+#, c-format
+msgid "_Remove Tag \"%s\" From Photo"
+msgid_plural "_Remove Tag \"%s\" From Photos"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Resources.vala:236
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgid_plural "Remove Tag \"%s\" From Photos"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Resources.vala:241
+#, fuzzy, c-format
+msgid "Remove tag \"%s\" from the selected photo"
+msgid_plural "Remove tag \"%s\" from the selected photos"
+msgstr[0] "Vytvoriť novú udalosť z vybraných fotografií"
+msgstr[1] "Vytvoriť novú udalosť z vybraných fotografií"
+msgstr[2] "Vytvoriť novú udalosť z vybraných fotografií"
+
+#: src/Resources.vala:246
+#, c-format
+msgid "Unable to rename tag to \"%s\" because the tag already exists."
+msgstr ""
+
+#: src/Resources.vala:249
+#, fuzzy
+msgid "_Restore"
+msgstr "_Obnoviť"
+
+#: src/Resources.vala:250
+#, fuzzy
+msgid "Restore"
+msgstr "Obnoviť farby"
+
+#: src/Resources.vala:251
+#, fuzzy
+msgid "Move the selected photos back into the library"
+msgstr "Odstrániť vybrané fotografie z knižnice nástrojov"
+
+#: src/SlideshowPage.vala:64 src/SlideshowPage.vala:130
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: src/SlideshowPage.vala:57
+#: src/SlideshowPage.vala:66
 msgid "Delay:"
 msgstr "Oneskorenie:"
 
-#: src/SlideshowPage.vala:58
+#: src/SlideshowPage.vala:67
 msgid "seconds"
 msgstr "sekúnd"
 
-#: src/SlideshowPage.vala:99
+#: src/SlideshowPage.vala:109
 msgid "Back"
 msgstr "Späť"
 
-#: src/SlideshowPage.vala:100
+#: src/SlideshowPage.vala:110
 msgid "Go to the previous photo"
 msgstr "Prejsť na predchádzajúcu fotografiu"
 
-#: src/SlideshowPage.vala:106 src/SlideshowPage.vala:210
+#: src/SlideshowPage.vala:116 src/SlideshowPage.vala:229
 msgid "Pause"
 msgstr "Prerušiť"
 
-#: src/SlideshowPage.vala:107 src/SlideshowPage.vala:211
+#: src/SlideshowPage.vala:117 src/SlideshowPage.vala:230
 msgid "Pause the slideshow"
 msgstr "Prerušiť prezentáciu"
 
-#: src/SlideshowPage.vala:113
+#: src/SlideshowPage.vala:123
 msgid "Next"
 msgstr "Ďalšia"
 
-#: src/SlideshowPage.vala:114
+#: src/SlideshowPage.vala:124
 msgid "Go to the next photo"
 msgstr "Prejsť na následujúcu fotografiu"
 
-#: src/SlideshowPage.vala:121
+#: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
 msgstr "Zmeniť nastavenia prezentácie"
 
-#: src/SlideshowPage.vala:173
+#: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
 msgstr "Chýba zdrojový súbor fotografie."
 
-#: src/SlideshowPage.vala:206
+#: src/SlideshowPage.vala:225
 msgid "Play"
 msgstr "Prehrať"
 
-#: src/SlideshowPage.vala:207
+#: src/SlideshowPage.vala:226
 msgid "Continue the slideshow"
 msgstr "Pokračovať v prezentácii"
 
-#: src/util.vala:365
+#: src/TagPage.vala:131
+#, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/TagPage.vala:135
+#, fuzzy
+msgid "_Delete"
+msgstr "_Obnoviť"
+
+#: src/TrashPage.vala:17
+msgid "Trash"
+msgstr ""
+
+#: src/util.vala:398
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
 
-#: src/WebConnectors.vala:319
-msgid "_Login"
-msgstr "_Prihlásiť sa"
-
-#: src/WebConnectors.vala:411
-msgid "Preparing photos for upload"
-msgstr "Pripravujú sa fotografie na upload"
-
-#: src/WebConnectors.vala:482
-#, c-format
-msgid "Uploading photo %d of %d"
-msgstr "Uploaduje sa fotografia %d z %d"
-
-#: src/WebConnectors.vala:523
+#: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
 msgstr "Vybrané fotografie boli úspešne publikované."
 
-#: src/WebConnectors.vala:551
+#: src/WebConnectors.vala:643
+#, fuzzy
+msgid "Fetching account information..."
+msgstr "Získavajú sa informácie o fotografii"
+
+#: src/WebConnectors.vala:649
+#, fuzzy
+msgid "Logging in..."
+msgstr "Zlučovanie..."
+
+#: src/WebConnectors.vala:677
 msgid "Publish Photos"
 msgstr "Publikovať fotografie"
 
-#: src/WebConnectors.vala:560
+#: src/WebConnectors.vala:688
 msgid "Publish photos _to:"
 msgstr "Publikovať fotografie na:"
 
-#: src/WebConnectors.vala:626
+#: src/WebConnectors.vala:786
 msgid "_Close"
 msgstr "Za_vrieť"
 
-#: src/WebConnectors.vala:630
-msgid "_Cancel"
-msgstr "Zruš_iť"
-
-#: src/WebConnectors.vala:663
+#: src/WebConnectors.vala:809
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
-"Publikovanie na %s nemôže pokračovať, pretože nie je možné kontaktovať "
-"službu."
+msgid "Publishing to %s can't continue because the service could not be contacted."
+msgstr "Publikovanie na %s nemôže pokračovať, pretože nie je možné kontaktovať službu."
 
-#: src/WebConnectors.vala:666
+#: src/WebConnectors.vala:812
 #, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
-msgstr ""
-"Publikovanie na %s nemôže pokračovať, pretože komunikácia zo službou "
-"zlyhala."
+msgid "Publishing to %s can't continue because communication with the service failed."
+msgstr "Publikovanie na %s nemôže pokračovať, pretože komunikácia zo službou zlyhala."
 
-#: src/WebConnectors.vala:669
+#: src/WebConnectors.vala:815
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
 msgstr "Publikovanie na %s nemôže pokračovať kvôli chybe v protokole."
 
-#: src/WebConnectors.vala:671
+#: src/WebConnectors.vala:817
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
 msgstr "Publikovanie na %s nemôže pokračovať, pretože služba odpovedala chybou."
 
-#: src/WebConnectors.vala:673
+#: src/WebConnectors.vala:819
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
-"Publikovanie na %s nemôže pokračovať, pretože služba vrátila chybnú odpoveď."
+msgid "Publishing to %s can't continue because the service returned a bad response."
+msgstr "Publikovanie na %s nemôže pokračovať, pretože služba vrátila chybnú odpoveď."
 
-#: src/WebConnectors.vala:676
+#: src/WebConnectors.vala:822
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
 msgstr "Publikovanie na %s nemôže pokračovať, pretože nastala chyba."
 
-#: src/WebConnectors.vala:680
+#: src/WebConnectors.vala:826
 msgid "To try publishing to another service, select one from the above menu."
 msgstr "Aby ste mohli publikovať na inú službu, zvoľte si ju z ponuky hore."
+
+#: src/WebConnectors.vala:903 src/WebConnectors.vala:1016
+msgid "Preparing photos for upload"
+msgstr "Pripravujú sa fotografie na upload"
+
+#: src/WebConnectors.vala:904 src/WebConnectors.vala:956
+#, c-format
+msgid "Uploading photo %d of %d"
+msgstr "Uploaduje sa fotografia %d z %d"
+
+#~ msgid ""
+#~ "Shotwell could not initialize a connection to the HAL daemon (hald).  This usually means it is not running or not ready.  Rebooting may solve this problem.\n"
+#~ "\n"
+#~ "Shotwell cannot detect cameras without the HAL daemon."
+#~ msgstr ""
+#~ "Shotwell nemohol vytvoriť spojenie s HAL daemonom (hald). Zvyčajne to znamená že nie je spustený alebo pripravený. Reštart môže pomôcť vyriešiť tento problém.\n"
+#~ "\n"
+#~ "Shotwell nemôže detekovať fotoaparáty bez HAL daemona."
+
+#~ msgid "_Export Photos..."
+#~ msgstr "_Exportovať fotografie..."
+
+#~ msgid "A photo source file is missing."
+#~ msgid_plural "%d photo source files missing."
+#~ msgstr[0] "Chýba zdrojový súbor fotografie."
+#~ msgstr[1] "Chýbajú %d zdrojové súbory fotografií."
+#~ msgstr[2] "Chýba %d zdrojových súborov fotografií."
+
+#~ msgid "Removing..."
+#~ msgstr "Odstraňuje sa..."
+
+#~ msgid "Undoing Rotate..."
+#~ msgstr "Vracia sa spať otáčanie..."
+
+#~ msgid "%d more photo not imported.\n"
+#~ msgid_plural "%d more photos not imported.\n"
+#~ msgstr[0] "Nepodarilo sa importovať ešte %d fotografiu.\n"
+#~ msgstr[1] "Nepodarilo sa importovať ešte %d fotografie.\n"
+#~ msgstr[2] "Nepodarilo sa importovať ešte %d fotografií.\n"
+
+#~ msgid ""
+#~ "This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n"
+#~ "\n"
+#~ "This action cannot be undone."
+#~ msgstr ""
+#~ "Táto operácia odstráni vybrané fotografie z vašej Shotwell knižnice. Chcete tiež odstrániť súbory z disku?\n"
+#~ "\n"
+#~ "Táto akcie nemôže byť vrátená späť."
+
+#~ msgid "Remove"
+#~ msgstr "Odstrániť"
+
+#~ msgid "Your free Flickr account limits how much data you can "
+#~ msgstr "Váš Flickr účet ktorý je zadarmo obmedzuje koľko dát môžete uploadnúť."
+
+#~ msgid "Photo source file is missing."
+#~ msgstr "Chýba zdrojový súbor fotografie."
+
+#~ msgid "Bad import result (%d)"
+#~ msgstr "Chybný výsledok importu (%d)"
+
+#~ msgid "_Publish Photos..."
+#~ msgstr "_Publikovať fotografie..."
