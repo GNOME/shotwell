@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.5.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
-"PO-Revision-Date: 2010-05-14 12:28+0200\n"
+"PO-Revision-Date: 2010-05-16 13:47+0200\n"
 "Last-Translator: Jan Roar Roed <janroed@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgstr "_Bilder"
 
 #: src/CollectionPage.vala:248 src/PhotoPage.vala:1513 src/PhotoPage.vala:2244
 msgid "Zoom _In"
-msgstr "Zoom  _inn"
+msgstr "Zoom _inn"
 
 #: src/CollectionPage.vala:249
 msgid "Increase the magnification of the thumbnails"
@@ -267,7 +267,7 @@ msgstr "Sorter bilder i synkende rekkefølge"
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Eksporter bilde"
-msgstr[1] ""
+msgstr[1] "Eksporter bilder"
 
 #: src/CollectionPage.vala:667
 #, c-format
@@ -486,11 +486,11 @@ msgstr[0] "1 bilde ble ikke importert (finnes allerede i biblioteket).\n"
 msgstr[1] "%d bilder ble ikke importert (finnes allerede i biblioteket.\n"
 
 #: src/Dialogs.vala:420
-#, fuzzy, c-format
+#, c-format
 msgid "1 photo failed to import due to a file or hardware error.\n"
 msgid_plural "%d photos failed to import due to a file or hardware error.\n"
 msgstr[0] "1 bilde ble ikke importert p.g.a en filfeil eller maskinvarefeil.\n"
-msgstr[1] "%d bilder ble ikke importert p.g.a en fil- eller hardwarefeil"
+msgstr[1] "%d bilder ble ikke importert p.g.a en fil- eller hardwarefeil.\n"
 
 #: src/Dialogs.vala:435
 #, c-format
@@ -613,7 +613,7 @@ msgstr "Sett _alle bilder til dette tidspunktet"
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
 msgstr[0] "_Modifiser orginalfilen"
-msgstr[1] ""
+msgstr[1] "_Modifiser orginalfilene"
 
 #: src/Dialogs.vala:910
 msgid "Original: "
@@ -622,12 +622,12 @@ msgstr "Original:"
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:911
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%m/%d/%Y, %H:%M:%S"
+msgstr "%d/%m/%Y, %H:%M:%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:912
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%m/%d/%Y, %I:%M:%S %p"
+msgstr "%d/%M/%Y, %H:%M:%S"
 
 #: src/Dialogs.vala:997
 #, c-format
@@ -1176,7 +1176,7 @@ msgstr ""
 
 #: src/ImportPage.vala:533
 msgid "Please close any other application using the camera."
-msgstr ""
+msgstr "Vennligst lukk alle andre programmer som bruker kameraet."
 
 #: src/ImportPage.vala:538
 #, c-format
@@ -1184,141 +1184,143 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
+"Kan ikke hente forhåndsvisninger fra kameraet:\n"
+"%s"
 
 #: src/ImportPage.vala:557
 msgid "Unmounting..."
-msgstr ""
+msgstr "Avmonterer..."
 
 #: src/ImportPage.vala:620
 msgid "Fetching photo information"
-msgstr ""
+msgstr "Henter bildeinformasjon"
 
 #: src/ImportPage.vala:821
 #, c-format
 msgid "Fetching preview for %s"
-msgstr ""
+msgstr "innhenter forhåndsvisning for %s"
 
 #: src/ImportPage.vala:867
 #, c-format
 msgid "Error while fetching previews from %s: %s"
-msgstr ""
+msgstr "feil under innhenting av forhåndsvisninger fra %s: %s"
 
 #: src/ImportPage.vala:908
 #, c-format
 msgid "Unable to lock camera: %s"
-msgstr ""
+msgstr "Kan ikke låse kamera: %s"
 
 #: src/ImportPage.vala:991
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vil du slette dette bildet fra kameraet?"
+msgstr[1] "Vil du slette disse %d bildene fra kameraet?"
 
 #: src/ImportPage.vala:995
 msgid "_Keep"
-msgstr ""
+msgstr "_Behold"
 
 #: src/ImportPage.vala:1012
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kan ikke slette %d bildet fra kameraet p.g.a feil."
+msgstr[1] "Kan ikke slette %d bildene fra kameraet p.g.a feil."
 
 #: src/ImportPage.vala:1055
 msgid "Importing..."
-msgstr ""
+msgstr "Importerer..."
 
 #: src/ImportPage.vala:1065 src/ImportPage.vala:1095
 msgid "Stop importing photos"
-msgstr ""
+msgstr "Stopp importering av bilder"
 
 #: src/ImportPage.vala:1094
 msgid "_Stop Import"
-msgstr ""
+msgstr "_Stopp import"
 
 #: src/ImportPage.vala:1158
 #, c-format
 msgid "Imported %s"
-msgstr ""
+msgstr "Importerte %s"
 
 #: src/JfifSupport.vala:69
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/JfifSupport.vala:176
 #, c-format
 msgid "Low (%d%%)"
-msgstr ""
+msgstr "Lav (%d%%)"
 
 #: src/JfifSupport.vala:179
 #, c-format
 msgid "Medium (%d%%)"
-msgstr ""
+msgstr "Medium (%d%%)"
 
 #: src/JfifSupport.vala:182
 #, c-format
 msgid "High (%d%%)"
-msgstr ""
+msgstr "Høy (%d%%)"
 
 #: src/JfifSupport.vala:185
 #, c-format
 msgid "Maximum (%d%%)"
-msgstr ""
+msgstr "Maksimum (%d%%)"
 
 #: src/LibraryWindow.vala:398
 msgid "_Import From Folder..."
-msgstr ""
+msgstr "_Importer fra mappe..."
 
 #: src/LibraryWindow.vala:399
 msgid "Import photos from disk to library"
-msgstr ""
+msgstr "Importer bilder fra harddisken til biblioteket"
 
 #: src/LibraryWindow.vala:404
 msgid "Sort _Events"
-msgstr ""
+msgstr "Sorter _hendelser"
 
 #: src/LibraryWindow.vala:414
 msgid "Empty _Trash"
-msgstr ""
+msgstr "Tøm søppelbøtten"
 
 #: src/LibraryWindow.vala:415
 msgid "Delete all photos in the trash"
-msgstr ""
+msgstr "Slett alle bilder som befinner seg i søppelbøtten"
 
 #: src/LibraryWindow.vala:426
 msgid "_Basic Information"
-msgstr ""
+msgstr "_Grunnleggende informasjon"
 
 #: src/LibraryWindow.vala:427
 msgid "Display basic information for the selection"
-msgstr ""
+msgstr "Vis grunnleggende informasjon for denne markeringen"
 
 #: src/LibraryWindow.vala:432
 msgid "E_xtended Information"
-msgstr ""
+msgstr "_Utvidet informasjon"
 
 #: src/LibraryWindow.vala:433
 msgid "Display extended information for the selection"
-msgstr ""
+msgstr "Vis utvidet informasjon for denne markeringen"
 
 #: src/LibraryWindow.vala:593
 #, c-format
 msgid "_Copy files to %s photo library"
-msgstr ""
+msgstr "_Kopier filer til %s bildebiblioteket"
 
 #: src/LibraryWindow.vala:596
 msgid "Import From Folder"
-msgstr ""
+msgstr "Importer fra mappe"
 
 #: src/LibraryWindow.vala:656
 msgid "Emptying Trash..."
-msgstr ""
+msgstr "tømmer søppelbøtten..."
 
 #: src/LibraryWindow.vala:816
 msgid "Photos cannot be imported from this directory."
-msgstr ""
+msgstr "Ingen bilder kan importeres fra denne mappen."
 
 #: src/LibraryWindow.vala:904
 #, c-format
@@ -1326,26 +1328,29 @@ msgid ""
 "Shotwell can copy or move the photos into your %s directory, or it can link "
 "to the photos without duplicating them."
 msgstr ""
+"Shotwell kan kopiere eller flytte bildene inni i din mappe %s, eller "
+"Shotwell "
+"kan henvise til bildene uten å kopiere dem. "
 
 #: src/LibraryWindow.vala:910
 msgid "Copy into Library"
-msgstr ""
+msgstr "kopierer inn i biblioteket"
 
 #: src/LibraryWindow.vala:911
 msgid "Create Links"
-msgstr ""
+msgstr "Lag henvisninger"
 
 #: src/LibraryWindow.vala:912
 msgid "Import to Library"
-msgstr ""
+msgstr "Importer til biblioteket"
 
 #: src/LibraryWindow.vala:1125
 msgid "Tags"
-msgstr ""
+msgstr "Tagger"
 
 #: src/LibraryWindow.vala:1204
 msgid "Cameras"
-msgstr ""
+msgstr "Kameraer"
 
 #: src/main.vala:79
 #, c-format
@@ -1354,6 +1359,9 @@ msgid ""
 "appears it was created by Shotwell %s.  This version is %s.  Please use the "
 "latest version of Shotwell."
 msgstr ""
+"Ditt bildebibliotek er ikke kompatibel med denne versjonen av Shotwell. "
+"Det ser ut til at det var laget med Shotwell %s. Denne versjonen er %s. "
+"Vennligst bruk den nyeste versjonen av Shotwell."
 
 #: src/main.vala:84
 #, c-format
@@ -1361,6 +1369,9 @@ msgid ""
 "Shotwell was unable to upgrade your photo library from version %s to %s.  "
 "For more information please check the Shotwell Wiki at %s"
 msgstr ""
+"Shotwell var ikke istand til å oppgradere ditt bildebibliotek fra versjon %s "
+"til %s. "
+"For mer informasjon, vennligst sjekk Shotwell Wiki på %s"
 
 #: src/main.vala:89
 #, c-format
@@ -1369,124 +1380,131 @@ msgid ""
 "appears it was created by Shotwell %s.  This version is %s.  Please clear "
 "your library by deleting %s and re-import your photos."
 msgstr ""
+"Ditt bildebibliotek er ikke kompatibel med denne versjonen av Shotwell. "
+"Det ser ut til at det var laget med Shotwell %s. Denne versjonen er %s. "
+"Vennligst rydd opp  i biblioteket ved å slette %s og importer bildene dine "
+"pånytt."
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
-msgstr ""
+msgstr "Ukjent feil under verifisering av Shotwells database: %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
-msgstr ""
+msgstr "Laster Shotwell"
 
 #: src/main.vala:219
 msgid "[FILE]"
-msgstr ""
+msgstr "[FIL]"
 
 #: src/main.vala:222
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"Kjør '%s --help' for å se en fullstendig liste over tilgjengelige "
+"kommandolinje "
+"kommandoer.\n"
 
 #: src/Page.vala:1898
 msgid "Photos cannot be exported to this directory."
-msgstr ""
+msgstr "Bilder kan ikke eksporteres til denne mappen."
 
 #: src/PhotoPage.vala:126
 msgid "Previous photo"
-msgstr ""
+msgstr "Forrige bilde"
 
 #: src/PhotoPage.vala:131
 msgid "Next photo"
-msgstr ""
+msgstr "Neste bilde"
 
 #: src/PhotoPage.vala:1026
 #, c-format
 msgid "Photo source file missing: %s"
-msgstr ""
+msgstr "Kildefil for bilde mangler: %s"
 
 #: src/PhotoPage.vala:1421
 msgid "Re_move"
-msgstr ""
+msgstr "_Fjern"
 
 #: src/PhotoPage.vala:1422
 msgid "Remove the photo from your library"
-msgstr ""
+msgstr "Fjern bildet fra ditt bibliotek"
 
 #: src/PhotoPage.vala:1430 src/PhotoPage.vala:2175
 msgid "_Photo"
-msgstr ""
+msgstr "_Bilde"
 
 #: src/PhotoPage.vala:1435 src/PhotoPage.vala:2180
 msgid "_Previous Photo"
-msgstr ""
+msgstr "_Forrige bilde"
 
 #: src/PhotoPage.vala:1436 src/PhotoPage.vala:2181
 msgid "Previous Photo"
-msgstr ""
+msgstr "Forrige bilde"
 
 #: src/PhotoPage.vala:1441 src/PhotoPage.vala:2186
 msgid "_Next Photo"
-msgstr ""
+msgstr "_Neste bilde"
 
 #: src/PhotoPage.vala:1442 src/PhotoPage.vala:2187
 msgid "Next Photo"
-msgstr ""
+msgstr "Neste bilde"
 
 #: src/PhotoPage.vala:1514 src/PhotoPage.vala:2245
 msgid "Increase the magnification of the photo"
-msgstr ""
+msgstr "Øk bildets forstørrelsesgrad"
 
 #: src/PhotoPage.vala:1520 src/PhotoPage.vala:2251
 msgid "Decrease the magnification of the photo"
-msgstr ""
+msgstr "minsk bildets forstørrelsesgrad"
 
 #: src/PhotoPage.vala:1787
 #, c-format
 msgid "Unable to export %s: %s"
-msgstr ""
+msgstr "Kan ikke eksportere %s: %s"
 
 #: src/PhotoPage.vala:2146 src/PhotoPage.vala:2366
 msgid "_Save"
-msgstr ""
+msgstr "_Lagre"
 
 #: src/PhotoPage.vala:2147
 msgid "Save photo"
-msgstr ""
+msgstr "Lagre bilde"
 
 #: src/PhotoPage.vala:2152
 msgid "Save _As..."
-msgstr ""
+msgstr "Lagre _som..."
 
 #: src/PhotoPage.vala:2153
 msgid "Save photo with a different name"
-msgstr ""
+msgstr "Lagre bilde med et annet navn"
 
 #: src/PhotoPage.vala:2159 src/Resources.vala:156
 msgid "Page _Setup..."
-msgstr ""
+msgstr "_Sideoppsett"
 
 #: src/PhotoPage.vala:2164 src/Resources.vala:159
 msgid "Prin_t..."
-msgstr ""
+msgstr "Skriv _Ut"
 
 #: src/PhotoPage.vala:2165 src/Resources.vala:160
 msgid "Print the photo to a printer connected to your computer"
-msgstr ""
+msgstr "skriv ut bildet med en skriver tilkoplet din datamaskin"
 
 #: src/PhotoPage.vala:2170
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: src/PhotoPage.vala:2259
 #, c-format
 msgid "%s does not exist."
-msgstr ""
+msgstr "%s finnes ikke."
 
 #: src/PhotoPage.vala:2261
 #, c-format
 msgid "%s is not a file."
-msgstr ""
+msgstr "%s er ingen fil."
 
 #: src/PhotoPage.vala:2263
 #, c-format
@@ -1494,77 +1512,79 @@ msgid ""
 "%s does not support the file format of\n"
 "%s."
 msgstr ""
+"%s støtter ikke filformatet til\n"
+"%s."
 
 #: src/PhotoPage.vala:2366
 #, c-format
 msgid "Lose changes to %s?"
-msgstr ""
+msgstr "Fjern endringer til %s?"
 
 #: src/PhotoPage.vala:2367
 msgid "Close _without Saving"
-msgstr ""
+msgstr "Lukk _uten å lagre"
 
 #: src/PhotoPage.vala:2399
 #, c-format
 msgid "Error while saving to %s: %s"
-msgstr ""
+msgstr "Feil under lagring til %s: %s"
 
 #: src/PhotoPage.vala:2433 src/PhotoPage.vala:2443
 msgid "Save As"
-msgstr ""
+msgstr "Lagre som"
 
 #: src/Photo.vala:24
 msgid "Success"
-msgstr ""
+msgstr "Vellykket"
 
 #: src/Photo.vala:27
 msgid "File error"
-msgstr ""
+msgstr "Filfeil"
 
 #: src/Photo.vala:30
 msgid "Unable to decode file"
-msgstr ""
+msgstr "kan ikke dekode filen"
 
 #: src/Photo.vala:33
 msgid "Database error"
-msgstr ""
+msgstr "Databasefeil"
 
 #: src/Photo.vala:36
 msgid "User aborted import"
-msgstr ""
+msgstr "Brukeren avbrøt import"
 
 #: src/Photo.vala:39
 msgid "Not a file"
-msgstr ""
+msgstr "Ikke en fil"
 
 #: src/Photo.vala:42
 msgid "File already exists in database"
-msgstr ""
+msgstr "Filen finnes allerede i databasen"
 
 #: src/Photo.vala:45
 msgid "Unsupported file format"
-msgstr ""
+msgstr "Filformatet er ikke støttet"
 
 #: src/Photo.vala:48
 msgid "Not an image file"
-msgstr ""
+msgstr "Ikke en bildefil"
 
 #: src/Photo.vala:51
 msgid "Disk failure"
-msgstr ""
+msgstr "diskfeil"
 
 #: src/Photo.vala:54
 msgid "Disk full"
-msgstr ""
+msgstr "Disken er full"
 
 #: src/Photo.vala:57
 msgid "Camera error"
-msgstr ""
+msgstr "Kamerafeil"
 
 #: src/Photo.vala:60
 #, c-format
 msgid "Imported failed (%d)"
-msgstr ""
+msgstr "Import feilet (%d)"
 
 #: src/PicasaConnector.vala:11
 msgid ""
@@ -1574,18 +1594,29 @@ msgid ""
 "with Picasa to continue. You can set up most accounts by using your browser "
 "to log into the Picasa Web Albums site at least once."
 msgstr ""
+"Du er ikke innlogget på Picasa Web Album.\n"
+"\n"
+"Du må ha en gyldig konto hos Google, som er satt opp for bruk med Picasa "
+"for å fortsette. Du kan sette opp kontoen. Du kan sette opp de fleste "
+"kontoene "
+"ved å bruke nettleseren og logge på Picasas internettalbum minst en gang."
 
 #: src/PicasaConnector.vala:508
 msgid ""
 "Enter the email address and password associated with your Picasa Web Albums "
 "account."
 msgstr ""
+"tast inn epostadressen og passordet som er assosiert med din Picasa "
+"internettalbum "
+"konto."
 
 #: src/PicasaConnector.vala:509
 msgid ""
 "Picasa Web Albums didn't recognize the email address and password you "
 "entered. To try again, re-enter your email address and password below."
 msgstr ""
+"Picasa internettalbum gjenkjente ikke epostadressen og passordet du "
+"tastet inn. Prøv igjen - tast inn din epostadresse og passord nedenfor."
 
 #: src/PicasaConnector.vala:510
 msgid ""
@@ -1594,6 +1625,11 @@ msgid ""
 "accounts by using your browser to log into the Picasa Web Albums site at "
 "least once. To try again, re-enter your email address and password below."
 msgstr ""
+"Epsostadressen og passordet du tastet inn korresponderer med en Google-konto "
+"som ikke er satt opp for bruk med Picasa internettalbum. Du kan sette opp "
+"de fleste kontoene ved å bruke nettleseren for å logge på Picasa internett "
+"album minst en gang. Prøv igjen ved å taste inn din epostadresse og pass "
+"ord nedenfor. "
 
 #: src/PicasaConnector.vala:511
 msgid ""
@@ -1602,122 +1638,127 @@ msgid ""
 "tag by using your browser to log into Picasa Web Albums. To try again, re-"
 "enter your email address and password below."
 msgstr ""
+"Epostaddressen du skrev inn korresponderer med en Googlekonto som har blitt "
+"tagget for ekstra sikkerhet. Du kan fjerne denne taggen ved å bruke din "
+"nettleser for å logge inn på Picasa internettalbum. Prøv igjen ved å taste "
+"inn "
+"din epostadresse og passord nedenfor."
 
 #: src/PicasaConnector.vala:546
 #, c-format
 msgid "Unrecognized User"
-msgstr ""
+msgstr "kan ikke gjenkjenne brukeren"
 
 #: src/PicasaConnector.vala:550
 #, c-format
 msgid "Account Not Ready"
-msgstr ""
+msgstr "Kontoen er ikke klar"
 
 #: src/PicasaConnector.vala:559
 #, c-format
 msgid "Additional Security Required"
-msgstr ""
+msgstr "Ytterligere sikkerhet er påkrevd"
 
 #: src/PicasaConnector.vala:570
 msgid "_Email address:"
-msgstr ""
+msgstr "_Epostadresse:"
 
 #: src/PicasaConnector.vala:572
 msgid "_Password:"
-msgstr ""
+msgstr "_Passord:"
 
 #: src/PicasaConnector.vala:590
 msgid "Go _Back"
-msgstr ""
+msgstr "Gå _tilbake"
 
 #: src/PicasaConnector.vala:595 src/WebConnectors.vala:568
 msgid "_Login"
-msgstr ""
+msgstr "_Logg inn"
 
 #: src/PicasaConnector.vala:675
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr ""
+msgstr "Du er innlogget hos Picasa Web Albums som %s."
 
 #: src/PicasaConnector.vala:698
 msgid "Photos will appear in:"
-msgstr ""
+msgstr "Bildene vil vises i:"
 
 #: src/PicasaConnector.vala:711
 msgid "An _existing album:"
-msgstr ""
+msgstr "Et _eksisterende album:"
 
 #: src/PicasaConnector.vala:725
 msgid "A _new album named:"
-msgstr ""
+msgstr "Et _nytt album med navnet:"
 
 #: src/PicasaConnector.vala:737
 msgid "L_ist album in public gallery"
-msgstr ""
+msgstr "V_is albumet i offentlig galleri"
 
 #: src/PicasaConnector.vala:749
 msgid "Photo _size preset:"
-msgstr ""
+msgstr "_Standardstørrelse på bildet:"
 
 #: src/PicasaConnector.vala:864
 msgid "Small (640 x 480 pixels)"
-msgstr ""
+msgstr "Liten (640 x 480 piksler)"
 
 #: src/PicasaConnector.vala:865
 msgid "Medium (1024 x 768 pixels)"
-msgstr ""
+msgstr "Medium (1024 x 768 piksler)"
 
 #: src/PicasaConnector.vala:866
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr ""
+msgstr "Anbefalt (1600 x 1200 piksler)"
 
 #: src/PngSupport.vala:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/Printing.vala:215
 msgid "Printed Image Size"
-msgstr ""
+msgstr "Utskrevet bildestørrelse"
 
 #: src/Printing.vala:227
 msgid "Use a _standard size:"
-msgstr ""
+msgstr "Bruk en _standardstørrelse:"
 
 #: src/Printing.vala:231
 msgid "Use a c_ustom size:"
-msgstr ""
+msgstr "Bruk en _tilpasset størrelse:"
 
 #: src/Printing.vala:235
 msgid "_Fill the entire page"
-msgstr ""
+msgstr "_fyll ut hele siden"
 
 #: src/Printing.vala:282
 msgid "in."
-msgstr ""
+msgstr "tomme"
 
 #: src/Printing.vala:283
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
-msgstr ""
+msgstr "oppretthold bildedi_Mensjonene"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
-msgstr ""
+msgstr "Pikseloppløsning"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr ""
+msgstr "_Send bilde til:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
-msgstr ""
+msgstr "piksler per tomme"
 
 #: src/Printing.vala:827
 msgid "Image Settings"
-msgstr ""
+msgstr "Bildeinnstillinger"
 
 #: src/Printing.vala:841 src/Printing.vala:942 src/Printing.vala:981
 #, c-format
@@ -1726,598 +1767,601 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Kan ikke skrive ut bildet:\n"
+"\n"
+"%s"
 
 # The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:40
 msgid "%I:%M %p"
-msgstr ""
+msgstr "%H:%M"
 
 #: src/Properties.vala:52
 msgid "Today"
-msgstr ""
+msgstr "Idag"
 
 #: src/Properties.vala:54
 msgid "Yesterday"
-msgstr ""
+msgstr "Igår"
 
 #: src/Properties.vala:290
 msgid "Title:"
-msgstr ""
+msgstr "Tittel:"
 
 #: src/Properties.vala:293
 msgid "Items:"
-msgstr ""
+msgstr "Punkter:"
 
 #: src/Properties.vala:296
 #, c-format
 msgid "%d Event"
 msgid_plural "%d Events"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d hendelse"
+msgstr[1] "%d hendelser"
 
 #: src/Properties.vala:317
 msgid "Date:"
-msgstr ""
+msgstr "Dato:"
 
 #: src/Properties.vala:321
 msgid "Time:"
-msgstr ""
+msgstr "Tid:"
 
 #: src/Properties.vala:324 src/Properties.vala:329
 msgid "From:"
-msgstr ""
+msgstr "Fra:"
 
 #: src/Properties.vala:325 src/Properties.vala:330
 msgid "To:"
-msgstr ""
+msgstr "Til:"
 
 #: src/Properties.vala:457
 msgid "Location:"
-msgstr ""
+msgstr "Plassering:"
 
 #: src/Properties.vala:459
 msgid "File size:"
-msgstr ""
+msgstr "Filstørrelse:"
 
 #: src/Properties.vala:462
 msgid "Original dimensions:"
-msgstr ""
+msgstr "Orginaldimensjoner:"
 
 #: src/Properties.vala:465
 msgid "Camera make:"
-msgstr ""
+msgstr "Kamera merke:"
 
 #: src/Properties.vala:468
 msgid "Camera model:"
-msgstr ""
+msgstr "Kamera modell:"
 
 #: src/Properties.vala:471
 msgid "Flash:"
-msgstr ""
+msgstr "Blits:"
 
 #: src/Properties.vala:473
 msgid "Focal length:"
-msgstr ""
+msgstr "Brennvidde:"
 
 #: src/Properties.vala:476
 msgid "GPS latitude:"
-msgstr ""
+msgstr "GPS-breddegrad:"
 
 #: src/Properties.vala:479
 msgid "GPS longitude:"
-msgstr ""
+msgstr "GPS-lengdegrad:"
 
 #: src/Properties.vala:482
 msgid "Artist:"
-msgstr ""
+msgstr "Kunstner:"
 
 #: src/Properties.vala:484
 msgid "Copyright:"
-msgstr ""
+msgstr "Opphavsrett:"
 
 #: src/Properties.vala:486
 msgid "Software:"
-msgstr ""
+msgstr "Programvare:"
 
 #: src/Properties.vala:497
 msgid "Extended Information"
-msgstr ""
+msgstr "Utvidet informasjon"
 
 #: src/RawSupport.vala:65
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
 #: src/Resources.vala:17
 msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr ""
+msgstr "Copyright 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:81
 msgid "Rotate _Right"
-msgstr ""
+msgstr "Roter _høyre"
 
 #: src/Resources.vala:82 src/Resources.vala:87
 msgid "Rotate"
-msgstr ""
+msgstr "Roter"
 
 #: src/Resources.vala:83
 msgid "Rotate Right"
-msgstr ""
+msgstr "Roter høyre"
 
 #: src/Resources.vala:84
 msgid "Rotate the photos right"
-msgstr ""
+msgstr "Roter bildet mot høyre"
 
 #: src/Resources.vala:86
 msgid "Rotate _Left"
-msgstr ""
+msgstr "Roter _venstre"
 
 #: src/Resources.vala:88
 msgid "Rotate Left"
-msgstr ""
+msgstr "Roter venstre"
 
 #: src/Resources.vala:89
 msgid "Rotate the photos left"
-msgstr ""
+msgstr "Roter bildet mot venstre"
 
 #: src/Resources.vala:91
 msgid "_Mirror"
-msgstr ""
+msgstr "_speilvend"
 
 #: src/Resources.vala:92
 msgid "Mirror"
-msgstr ""
+msgstr "Speilvend"
 
 #: src/Resources.vala:93
 msgid "Make mirror images of the photos"
-msgstr ""
+msgstr "Lag speilvendte bilder av bildene"
 
 #: src/Resources.vala:95
 msgid "_Enhance"
-msgstr ""
+msgstr "_gjør skarpere"
 
 #: src/Resources.vala:96
 msgid "Enhance"
-msgstr ""
+msgstr "Gjør skarpere"
 
 #: src/Resources.vala:97
 msgid "Automatically improve the photo's appearance"
-msgstr ""
+msgstr "Automatisk forbedring av bildet"
 
 #: src/Resources.vala:99
 msgid "Re_vert to Original"
-msgstr ""
+msgstr "omgj_ør til orginal"
 
 #: src/Resources.vala:100
 msgid "Revert to Original"
-msgstr ""
+msgstr "Omgjør til orginal"
 
 #: src/Resources.vala:101
 msgid "Revert to the original photo"
-msgstr ""
+msgstr "Omgjør til orginalbilde instillingene"
 
 #: src/Resources.vala:103
 msgid "Set as Desktop _Background"
-msgstr ""
+msgstr "Angi som skrivebords_bakgrunn"
 
 #: src/Resources.vala:104
 msgid "Set selected image to be the new desktop background"
-msgstr ""
+msgstr "Angi valgte bilde til å bli din nye skrivebordsbakgrunn"
 
 #: src/Resources.vala:106
 msgid "_Undo"
-msgstr ""
+msgstr "_Gjenskap"
 
 #: src/Resources.vala:107
 msgid "Undo"
-msgstr ""
+msgstr "Gjenskap"
 
 #: src/Resources.vala:108
 msgid "Undo the last action"
-msgstr ""
+msgstr "Gjenskap den siste handlingen"
 
 #: src/Resources.vala:110
 msgid "_Redo"
-msgstr ""
+msgstr "_Omgjør"
 
 #: src/Resources.vala:111
 msgid "Redo"
-msgstr ""
+msgstr "omgjør"
 
 #: src/Resources.vala:112
 msgid "Redo the last undone action"
-msgstr ""
+msgstr "Omgjør den siste gjenskapelseshandlingen"
 
 #: src/Resources.vala:114
 msgid "Re_name Event..."
-msgstr ""
+msgstr "_Omdøp hendelsen..."
 
 #: src/Resources.vala:116
 msgid "Rename the selected event"
-msgstr ""
+msgstr "omdøp den valgte hendelsen"
 
 #: src/Resources.vala:118
 msgid "Make _Key Photo for Event"
-msgstr ""
+msgstr "Lag nøkkelfoto for hendelsen"
 
 #: src/Resources.vala:119
 msgid "Make Key Photo for Event"
-msgstr ""
+msgstr "Lag et nøkkelbilde for hendelsen"
 
 #: src/Resources.vala:120
 msgid "Make the selected photo the thumbnail for the event"
-msgstr ""
+msgstr "Bruk det valgte bildet som miniatyrbilde for hendelsen"
 
 #: src/Resources.vala:122
 msgid "_New Event"
-msgstr ""
+msgstr "_Ny hendelse"
 
 #: src/Resources.vala:123
 msgid "New Event"
-msgstr ""
+msgstr "Ny hendelse"
 
 #: src/Resources.vala:124
 msgid "Create new event from the selected photos"
-msgstr ""
+msgstr "Lag en ny hendelse utifra de vlagte bildene"
 
 #: src/Resources.vala:126
 msgid "Move Photos"
-msgstr ""
+msgstr "Flytt bildene"
 
 #: src/Resources.vala:127
 msgid "Move photos to an event"
-msgstr ""
+msgstr "flytt bildene til en hendelse"
 
 #: src/Resources.vala:129
 msgid "_Merge Events"
-msgstr ""
+msgstr "_Flett hendelser"
 
 #: src/Resources.vala:130
 msgid "Merge"
-msgstr ""
+msgstr "Flett"
 
 #: src/Resources.vala:131
 msgid "Merge into a single event"
-msgstr ""
+msgstr "Flett til en enkelt hendelse"
 
 #: src/Resources.vala:133
 msgid "Mark as _Favorite"
-msgstr ""
+msgstr "Marker som _foretrukket"
 
 #: src/Resources.vala:134
 msgid "Mark as Favorite"
-msgstr ""
+msgstr "Marker som foretrukket"
 
 #: src/Resources.vala:135
 msgid "Mark the photo as one of your favorites"
-msgstr ""
+msgstr "Marker bildet som et av dine foretrukne bilder"
 
 #: src/Resources.vala:137
 msgid "Unmark as _Favorite"
-msgstr ""
+msgstr "Fjern markering som _favoritt"
 
 #: src/Resources.vala:138
 msgid "Unmark as Favorite"
-msgstr ""
+msgstr "fjern som favoritt"
 
 #: src/Resources.vala:139
 msgid "Unmark the photo as one of your favorites"
-msgstr ""
+msgstr "fjern markering av bildet som en av dine favoritter"
 
 #: src/Resources.vala:141
 msgid "_Hide"
-msgstr ""
+msgstr "_Skjul"
 
 #: src/Resources.vala:142
 msgid "Hide"
-msgstr ""
+msgstr "Skjul"
 
 #: src/Resources.vala:143
 msgid "Hide the selected photos"
-msgstr ""
+msgstr "Skjul de valgte bildene"
 
 #: src/Resources.vala:145
 msgid "Un_hide"
-msgstr ""
+msgstr "Fjern skj_uling"
 
 #: src/Resources.vala:146
 msgid "Unhide"
-msgstr ""
+msgstr "fjern skjuling"
 
 #: src/Resources.vala:147
 msgid "Unhide the selected photos"
-msgstr ""
+msgstr "Fjern skjuling av de valgte bildene"
 
 #: src/Resources.vala:149
 msgid "_Duplicate"
-msgstr ""
+msgstr "_Dupliker"
 
 #: src/Resources.vala:150
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliker"
 
 #: src/Resources.vala:151
 msgid "Make a duplicate of the photo"
-msgstr ""
+msgstr "Lag et duplikat av bildet"
 
 #: src/Resources.vala:153
 msgid "_Export..."
-msgstr ""
+msgstr "_Eksporter..."
 
 #: src/Resources.vala:154
 msgid "Export to disk"
-msgstr ""
+msgstr "Eksporter til harddisk"
 
 #: src/Resources.vala:157
 msgid "View and change page setup printing"
-msgstr ""
+msgstr "Se på og endre sidens utskriftsoppsett"
 
 #: src/Resources.vala:162
 msgid "Pu_blish..."
-msgstr ""
+msgstr "Pu_bliser..."
 
 #: src/Resources.vala:163
 msgid "Publish"
-msgstr ""
+msgstr "Publiser"
 
 #: src/Resources.vala:164
 msgid "Publish to various websites"
-msgstr ""
+msgstr "Publiser til diverse nettsteder"
 
 #: src/Resources.vala:166
 msgid "Re_name Photo..."
-msgstr ""
+msgstr "_Omdøp bilde..."
 
 #: src/Resources.vala:168
 msgid "Rename the selected photo"
-msgstr ""
+msgstr "Omdøp det valgte bildet"
 
 #: src/Resources.vala:170
 msgid "_Adjust Date and Time..."
-msgstr ""
+msgstr "_Juster dato og tid..."
 
 #: src/Resources.vala:171
 msgid "Adjust Date and Time"
-msgstr ""
+msgstr "Juster dato og tid"
 
 #: src/Resources.vala:172
 msgid "Adjust date and time of selected photos"
-msgstr ""
+msgstr "Juster dato og tid for de valgte bildene"
 
 #: src/Resources.vala:174
 msgid "Add _Tags..."
-msgstr ""
+msgstr "Legg til _Tagger"
 
 #: src/Resources.vala:175 src/Resources.vala:187
 msgid "Add Tags"
-msgstr ""
+msgstr "Legg til tagger"
 
 #: src/Resources.vala:176
 msgid "Add one or more tags to the selected photos"
-msgstr ""
+msgstr "Legg til en eller flere tagger for de valgte bilder"
 
 #: src/Resources.vala:178
 msgid "_Preferences"
-msgstr ""
+msgstr "_Preferanser"
 
 #: src/Resources.vala:179
 msgid "Edit preferences"
-msgstr ""
+msgstr "Endre preferansene"
 
 #: src/Resources.vala:183
 #, c-format
 msgid "Add Tag \"%s\""
-msgstr ""
+msgstr "Legg til tagg \"%s\""
 
 #: src/Resources.vala:185
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
-msgstr ""
+msgstr "Legg til taggene \"%s\" og \"%s\""
 
 #: src/Resources.vala:191
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr ""
+msgstr "_Slett tagg \"%s\""
 
 #: src/Resources.vala:195
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr ""
+msgstr "Slett tag \"%s\""
 
 #: src/Resources.vala:199
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Slett teggen \"%s\" fra ett bilde"
+msgstr[1] "Slett taggen \"%s\" fra %d bilder"
 
 #: src/Resources.vala:203
 msgid "Delete Tag"
-msgstr ""
+msgstr "Slett tagg"
 
 #: src/Resources.vala:206
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr ""
+msgstr "_Omdøp tagg  \"%s\"..."
 
 #: src/Resources.vala:210
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
-msgstr ""
+msgstr "Omdøp taggen \"%s\" til \"%s\""
 
 #: src/Resources.vala:214
 #, c-format
 msgid "Rename the tag \"%s\""
-msgstr ""
+msgstr "Omdøp taggen \"%s\""
 
 #: src/Resources.vala:217
 msgid "Rename Tag"
-msgstr ""
+msgstr "Omdøp tagg"
 
 #: src/Resources.vala:219
 msgid "M_odify Tags..."
-msgstr ""
+msgstr "M_odifiser tagger..."
 
 #: src/Resources.vala:220
 msgid "Modify Tags"
-msgstr ""
+msgstr "Modifiser tagger"
 
 #: src/Resources.vala:221
 msgid "Modify the tags for this photo"
-msgstr ""
+msgstr "Modifiser taggene for dette bildet"
 
 #: src/Resources.vala:224
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tagg bilde som \"%s\""
+msgstr[1] "Tagg bildene som \"%s\""
 
 #: src/Resources.vala:228
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tagg det valgte bildet som \"%s\""
+msgstr[1] "Tagg de valgte bildene som \"%s\""
 
 #: src/Resources.vala:232
 #, c-format
 msgid "_Remove Tag \"%s\" From Photo"
 msgid_plural "_Remove Tag \"%s\" From Photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Fjern tagg \"%s\" fra bilde"
+msgstr[1] "_Fjern tagg \"%s\" fra bildene"
 
 #: src/Resources.vala:236
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgid_plural "Remove Tag \"%s\" From Photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fjern taggen \"%s\" fra bilde"
+msgstr[1] "Fjern taggen \"%s\" fra bildene"
 
 #: src/Resources.vala:241
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fjern tagg \"%s\" fra det valgte bildet"
+msgstr[1] "Fjern tagg \"%s\" fra de valgte bildene"
 
 #: src/Resources.vala:246
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr ""
+msgstr "Kan ikke omdøpe taggen til \"%s\" fordi den allerede finnes."
 
 #: src/Resources.vala:249
 msgid "_Restore"
-msgstr ""
+msgstr "_Gjenopprett"
 
 #: src/Resources.vala:250
 msgid "Restore"
-msgstr ""
+msgstr "Gjenopprett"
 
 #: src/Resources.vala:251
 msgid "Move the selected photos back into the library"
-msgstr ""
+msgstr "Flytt de valgte bildene tilbake til biblioteket"
 
 #: src/SlideshowPage.vala:64 src/SlideshowPage.vala:130
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: src/SlideshowPage.vala:66
 msgid "Delay:"
-msgstr ""
+msgstr "Forsinkelse:"
 
 #: src/SlideshowPage.vala:67
 msgid "seconds"
-msgstr ""
+msgstr "Sekunder"
 
 #: src/SlideshowPage.vala:109
 msgid "Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: src/SlideshowPage.vala:110
 msgid "Go to the previous photo"
-msgstr ""
+msgstr "Gå tilbake til forrige bilde"
 
 #: src/SlideshowPage.vala:116 src/SlideshowPage.vala:229
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: src/SlideshowPage.vala:117 src/SlideshowPage.vala:230
 msgid "Pause the slideshow"
-msgstr ""
+msgstr "Pause bildefremvisningen"
 
 #: src/SlideshowPage.vala:123
 msgid "Next"
-msgstr ""
+msgstr "Neste"
 
 #: src/SlideshowPage.vala:124
 msgid "Go to the next photo"
-msgstr ""
+msgstr "Gå til det neste bilde"
 
 #: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
-msgstr ""
+msgstr "Endre instillinger for bildefremviser"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
-msgstr ""
+msgstr "Alle bildekildefiler mangler"
 
 #: src/SlideshowPage.vala:225
 msgid "Play"
-msgstr ""
+msgstr "avspill"
 
 #: src/SlideshowPage.vala:226
 msgid "Continue the slideshow"
-msgstr ""
+msgstr "Fortsett bildefremvisningen"
 
 #: src/TagPage.vala:131
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dette vil fjerne taggen \"%s\" fra ett bilde. Fortsett?"
+msgstr[1] "Dette vil fjerne taggen \"%s\" fra %d bilder. Fortsett?"
 
 #: src/TagPage.vala:135
 msgid "_Delete"
-msgstr ""
+msgstr "_Slett"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
-msgstr ""
+msgstr "Søppelbøtte"
 
 # The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:398
 msgid "%a %b %d, %Y"
-msgstr ""
+msgstr "%a %d. %b. %Y"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
-msgstr ""
+msgstr "de valgte bildene ble publisert."
 
 #: src/WebConnectors.vala:643
 msgid "Fetching account information..."
-msgstr ""
+msgstr "Henter kontoinformasjon..."
 
 #: src/WebConnectors.vala:649
 msgid "Logging in..."
-msgstr ""
+msgstr "Logger inn..."
 
 #: src/WebConnectors.vala:677
 msgid "Publish Photos"
-msgstr ""
+msgstr "Publiser bilder"
 
 #: src/WebConnectors.vala:688
 msgid "Publish photos _to:"
-msgstr ""
+msgstr "Publiserer bilder _til:"
 
 #: src/WebConnectors.vala:786
 msgid "_Close"
-msgstr ""
+msgstr "_Lukk"
 
 #: src/WebConnectors.vala:809
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
+msgstr "Publisering til %s kan ikke fortsette, da tjenesten ikke kan nås."
 
 #: src/WebConnectors.vala:812
 #, c-format
@@ -2325,39 +2369,47 @@ msgid ""
 "Publishing to %s can't continue because communication with the service "
 "failed."
 msgstr ""
+"Publisering til %s kan ikke fortsette da kommunikasjonen med tjenesten "
+"feilet."
 
 #: src/WebConnectors.vala:815
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr ""
+msgstr "Publisering til %s kan ikke fortsette p.g.a protokollfeil."
 
 #: src/WebConnectors.vala:817
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
 msgstr ""
+"Publisering til  %s kan ikke fortsette, da tjenesten returnerte en "
+"feilmelding."
 
 #: src/WebConnectors.vala:819
 #, c-format
 msgid ""
 "Publishing to %s can't continue because the service returned a bad response."
 msgstr ""
+"Publisering til %s kan ikke fortsette da tjenesten returnerte et svar med "
+"feil."
 
 #: src/WebConnectors.vala:822
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr ""
+msgstr "Publisering til  %s kan ikke fortsette fordi en feil oppsto."
 
 #: src/WebConnectors.vala:826
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
+"For å forsøke å publisere til en annen tjeneste: velg tjeneste fra "
+"ovenstående meny."
 
 #: src/WebConnectors.vala:903 src/WebConnectors.vala:1016
 msgid "Preparing photos for upload"
-msgstr ""
+msgstr "Forbereder bilder for opplasting"
 
 #: src/WebConnectors.vala:904 src/WebConnectors.vala:956
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr ""
+msgstr "Laste ropp bilde %d av %d"
 
 
