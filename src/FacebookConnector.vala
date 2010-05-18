@@ -9,7 +9,7 @@
 namespace FacebookConnector {
 // this should not be changed by anyone unless they know what they're doing
 private const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
-private const int MAX_PHOTO_DIMENSION = 604;
+private const int MAX_PHOTO_DIMENSION = 720;
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 
 private const string SERVICE_WELCOME_MESSAGE = 
