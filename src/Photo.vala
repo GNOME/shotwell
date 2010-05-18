@@ -2527,9 +2527,13 @@ public class DirectPhoto : Photo {
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
-        if (preview == null)
+        if (preview == null) {
             preview = get_thumbnail(PREVIEW_BEST_FIT);
-        
+
+            if (preview == null)
+                preview = get_pixbuf(scaling);
+        }
+
         return scaling.perform_on_pixbuf(preview, Gdk.InterpType.BILINEAR, true);
     }
     
