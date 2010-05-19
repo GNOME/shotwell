@@ -130,16 +130,16 @@ public enum Orientation {
                 return TOP_LEFT;
                 
             case LEFT_TOP:
-                return RIGHT_TOP;
-                
-            case RIGHT_TOP:
-                return LEFT_TOP;
-                
-            case RIGHT_BOTTOM:
                 return LEFT_BOTTOM;
                 
-            case LEFT_BOTTOM:
+            case RIGHT_TOP:
                 return RIGHT_BOTTOM;
+                
+            case RIGHT_BOTTOM:
+                return RIGHT_TOP;
+                
+            case LEFT_BOTTOM:
+                return LEFT_TOP;
                 
             default: {
                 error("flip_top_to_bottom: %d", this);
