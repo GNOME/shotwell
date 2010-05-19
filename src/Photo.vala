@@ -1396,7 +1396,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
 #if MEASURE_PIPELINE
-            debug("LOAD_RAW_PIXBUF UNSCALED %s: requested", path);
+            debug("LOAD_RAW_PIXBUF UNSCALED %s: requested", loader.get_filepath());
 #endif
             
             return loader.unscaled_read();
@@ -1408,7 +1408,7 @@ public abstract class TransformablePhoto: PhotoSource {
             out scaled_to_viewport);
         if (!is_scaled) {
 #if MEASURE_PIPELINE
-            debug("LOAD_RAW_PIXBUF UNSCALED %s: scaling unavailable", path);
+            debug("LOAD_RAW_PIXBUF UNSCALED %s: scaling unavailable", loader.get_filepath());
 #endif
             
             return loader.unscaled_read();
@@ -1417,7 +1417,7 @@ public abstract class TransformablePhoto: PhotoSource {
         Gdk.Pixbuf pixbuf = loader.scaled_read(get_raw_dimensions(), scaled_image);
         
 #if MEASURE_PIPELINE
-        debug("LOAD_RAW_PIXBUF %s %s: %s -> %s (actual: %s)", scaling.to_string(), path,
+        debug("LOAD_RAW_PIXBUF %s %s: %s -> %s (actual: %s)", scaling.to_string(), loader.get_filepath(),
             get_raw_dimensions().to_string(), scaled_image.to_string(), 
             Dimensions.for_pixbuf(pixbuf).to_string());
 #endif
