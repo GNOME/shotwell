@@ -899,8 +899,16 @@ public class PhotoMetadata {
         return get_rational("Exif.Photo.FNumber", out aperture);
     }
     
-    public string? get_aperture_string() {
-        return get_string_interpreted("Exif.Photo.FNumber");
+    public string? get_aperture_string(bool pango_formatted = false) {
+        MetadataRational aperture;
+        if (!get_aperture(out aperture))
+            return null;
+        
+        double aperture_value = ((double) aperture.numerator) / ((double) aperture.denominator);
+        aperture_value = ((int) (aperture_value * 10.0)) / 10.0;
+
+        return (pango_formatted ? "<i>f</i>/" : "f/") + 
+            ((aperture_value % 1 == 0) ? "%.0f" : "%.1f").printf(aperture_value);
     }
     
     public string? get_camera_make() {

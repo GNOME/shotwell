@@ -61,7 +61,7 @@ private abstract class Properties : Gtk.HBox {
 
     protected void set_text() {
         label.set_markup(GLib.Markup.printf_escaped("<span font_weight=\"bold\">%s</span>", basic_properties_labels));
-        info.set_text(basic_properties_info);
+        info.set_markup(basic_properties_info);
     }
 
     protected virtual void get_single_properties(DataView view) {
@@ -216,7 +216,7 @@ private class BasicProperties : Properties {
                 if (exposure == null)
                     exposure = "";
                 
-                aperture = metadata.get_aperture_string();
+                aperture = metadata.get_aperture_string(true);
                 if (aperture == null)
                     aperture = "";
                 
