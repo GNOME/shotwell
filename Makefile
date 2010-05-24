@@ -133,7 +133,8 @@ RESOURCE_FILES = \
 	event.ui \
 	direct.ui \
 	tags.ui \
-	trash.ui
+	trash.ui \
+        shotwell.glade
 
 SRC_HEADER_FILES = \
 	gphoto.h
