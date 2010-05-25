@@ -264,7 +264,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public const string RESTORE_PHOTOS_MENU = _("_Restore");
-    public const string RESTORE_PHOTOS_LABEL = _("Restore");
     public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
     
     private Gtk.IconFactory factory = null;

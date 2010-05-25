@@ -24,10 +24,6 @@ public class TrashPage : CheckerboardPage {
         
         // restore button
         Gtk.ToolButton restore_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_UNDELETE);
-        restore_button.label = Resources.RESTORE_PHOTOS_LABEL;
-        restore_button.set_tooltip_text(Resources.RESTORE_PHOTOS_TOOLTIP);
-        restore_button.clicked += on_restore;
-        restore_button.is_important = true;
         restore_button.set_related_action(action_group.get_action("Restore"));
         
         toolbar.insert(restore_button, -1);
@@ -76,6 +72,8 @@ public class TrashPage : CheckerboardPage {
     protected override void init_actions(int selected_count, int count) {
         set_action_sensitive("Restore", selected_count > 0);
         set_action_sensitive("SelectAll", count > 0);
+        
+        action_group.get_action("Restore").is_important = true;
         
         base.init_actions(selected_count, count);
     }
