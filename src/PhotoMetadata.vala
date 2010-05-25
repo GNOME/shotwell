@@ -87,9 +87,14 @@ public class MetadataDateTime {
     
     public static bool from_exif_date_time(string date_time, out time_t timestamp) {
         Time tm = Time();
+
         if (date_time.scanf("%d:%d:%d %d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour, &tm.minute,
             &tm.second) != 6) {
-            return false;
+            // for Minolta DiMAGE E223 (colon, instead of space, separates day from hour in exif)
+            if (date_time.scanf("%d:%d:%d:%d:%d:%d", &tm.year, &tm.month, &tm.day, &tm.hour, &tm.minute,
+                &tm.second) != 6) {
+                return false;
+            }
         }
         
         // watch for bogosity
