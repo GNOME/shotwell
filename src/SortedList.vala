@@ -6,8 +6,20 @@
 
 public delegate int64 Comparator(void *a, void *b);
 
+extern string g_utf8_collate_key_for_filename(string str, ssize_t len = -1);
+
 public int64 file_comparator(void *a, void *b) {
-    return strcmp(((File *) a)->get_path(), ((File *) b)->get_path());
+    string? path_a = ((File *) a)->get_path();
+    string? path_b = ((File *) b)->get_path();
+    
+    // if both are null, treat as equal; if one but not the other, prioritize  the non-null
+    if (path_a == null)
+        return (path_b == null) ? 0 : 1;
+    
+    if (path_b == null)
+        return -1;
+    
+    return strcmp(g_utf8_collate_key_for_filename(path_a), g_utf8_collate_key_for_filename(path_b));
 }
 
 public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
