@@ -409,6 +409,33 @@ public string format_local_date(Time date) {
     return date_string_stripped.str;
 }
 
+// Verifies that only the mask bits are set in the modifier field, disregarding mouse and 
+// key modifers that are not normally of concern (i.e. Num Lock, Caps Lock, etc.).  Mask can be
+// one or more bits set, but should only consist of these values:
+// * Gdk.ModifierType.SHIFT_MASK
+// * Gdk.ModifierType.CONTROL_MASK
+// * Gdk.ModifierType.MOD1_MASK (Alt)
+// * Gdk.ModifierType.MOD3_MASK
+// * Gdk.ModifierType.MOD4_MASK
+// * Gdk.ModifierType.MOD5_MASK
+// * Gdk.ModifierType.SUPER_MASK
+// * Gdk.ModifierType.HYPER_MASK
+// * Gdk.ModifierType.META_MASK
+//
+// (Note: MOD2 seems to be Num Lock in GDK.)
+public bool has_only_key_modifier(Gdk.ModifierType field, Gdk.ModifierType mask) {
+    return (field 
+        & (Gdk.ModifierType.SHIFT_MASK 
+        | Gdk.ModifierType.CONTROL_MASK
+        | Gdk.ModifierType.MOD1_MASK
+        | Gdk.ModifierType.MOD3_MASK
+        | Gdk.ModifierType.MOD4_MASK
+        | Gdk.ModifierType.MOD5_MASK
+        | Gdk.ModifierType.SUPER_MASK
+        | Gdk.ModifierType.HYPER_MASK
+        | Gdk.ModifierType.META_MASK)) == mask;
+}
+
 public delegate void OneShotCallback();
 
 public class OneShotScheduler {

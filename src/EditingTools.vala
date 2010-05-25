@@ -2444,6 +2444,16 @@ public class AdjustTool : EditingTool {
         init_fp_pixel_cache(canvas.get_scaled_pixbuf());
     }
     
+    private bool on_hscale_reset(Gtk.HScale source, Gdk.EventButton event) { 
+        if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS 
+            && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) { 
+            // Left Mouse Button and CTRL pressed
+            source.set_value(0); 
+            return true; 
+        } 
+        return false; 
+    }
+    
     private void bind_canvas_handlers(PhotoCanvas canvas) {
         canvas.resized_scaled_pixbuf += on_canvas_resize;
     }
@@ -2466,6 +2476,12 @@ public class AdjustTool : EditingTool {
             on_shadows_adjustment;
         adjust_tool_window.histogram_manipulator.nub_position_changed +=
             on_histogram_constraint;
+    
+        adjust_tool_window.saturation_slider.button_press_event += on_hscale_reset; 
+        adjust_tool_window.exposure_slider.button_press_event += on_hscale_reset; 
+        adjust_tool_window.tint_slider.button_press_event += on_hscale_reset; 
+        adjust_tool_window.temperature_slider.button_press_event += on_hscale_reset;
+        adjust_tool_window.shadows_slider.button_press_event += on_hscale_reset; 
     }
 
     private void unbind_window_handlers() {
@@ -2482,6 +2498,12 @@ public class AdjustTool : EditingTool {
             on_shadows_adjustment;
         adjust_tool_window.histogram_manipulator.nub_position_changed -=
             on_histogram_constraint;
+            
+        adjust_tool_window.saturation_slider.button_press_event -= on_hscale_reset; 
+        adjust_tool_window.exposure_slider.button_press_event -= on_hscale_reset; 
+        adjust_tool_window.tint_slider.button_press_event -= on_hscale_reset; 
+        adjust_tool_window.temperature_slider.button_press_event -= on_hscale_reset;
+        adjust_tool_window.shadows_slider.button_press_event -= on_hscale_reset; 
     }
     
     public bool enhance() {
