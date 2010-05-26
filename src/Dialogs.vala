@@ -607,7 +607,8 @@ public class PhotoRenameDialog : TextEntryDialogMediator {
     }
 
     public virtual string? execute() {
-        return _execute().strip();
+        string? ex = _execute();
+        return ex == null ? null : ex.strip();
     }
 }
 
