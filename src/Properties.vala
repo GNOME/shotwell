@@ -4,36 +4,34 @@
  * See the COPYING file in this distribution. 
  */
 
-private abstract class Properties : Gtk.HBox {
-    private Gtk.Label label = new Gtk.Label("");
-    private Gtk.Label info = new Gtk.Label(""); 
-    private string basic_properties_labels;
-    private string basic_properties_info;
-    private bool first_line;
-    private bool line_selected_complete = true;
+private abstract class Properties : Gtk.Table {
+    uint line_count = 0;
 
     public Properties() {
+        row_spacing = 0;
+        column_spacing = 6;
+        set_homogeneous(false);
+    }
+
+    protected void add_line(string label_text, string info_text) {
+        Gtk.Label label = new Gtk.Label("");
+        Gtk.Label info = new Gtk.Label("");
+        
         label.set_justify(Gtk.Justification.RIGHT);
-        label.set_alignment(0, (float) 5e-1);
+        
+        label.set_markup(GLib.Markup.printf_escaped("<span font_weight=\"bold\">%s</span>", label_text));
+        info.set_markup(is_string_empty(info_text) ? "" : info_text);
+        
+        label.set_alignment(1, (float) 5e-1);
         info.set_alignment(0, (float) 5e-1);
-        pack_start(label, false, false, 3);
-        pack_start(info, true, true, 3);
         
         info.set_ellipsize(Pango.EllipsizeMode.END);
         info.set_selectable(true);
+        
+        attach(label, 0, 1, line_count, line_count + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 0, 0);
+        attach_defaults(info, 1, 2, line_count, line_count + 1);
 
-        info.button_press_event += on_button_pressed;
-        info.button_release_event += on_button_released;
-    }
-
-    protected void add_line(string label, string info) {
-        if (!first_line) {
-            basic_properties_labels += "\n";
-            basic_properties_info += "\n";
-        }
-        basic_properties_labels += label;
-        basic_properties_info += info;
-        first_line = false;
+        line_count++;
     }
     
     protected string get_prettyprint_time(Time time) {
@@ -58,12 +56,7 @@ private abstract class Properties : Gtk.HBox {
 
         return date_string;
     }
-
-    protected void set_text() {
-        label.set_markup(GLib.Markup.printf_escaped("<span font_weight=\"bold\">%s</span>", basic_properties_labels));
-        info.set_markup(basic_properties_info);
-    }
-
+    
     protected virtual void get_single_properties(DataView view) {
     }
 
@@ -99,72 +92,27 @@ private abstract class Properties : Gtk.HBox {
     }
 
     protected virtual void clear_properties() {
-        basic_properties_labels = "";
-        basic_properties_info = "";
-        first_line = true;
+        foreach (Gtk.Widget child in get_children())
+            remove(child);
+        
+        line_count = 0;
     }
 
-    public virtual void update_properties(Page page) {
+    public void update_properties(Page page) {
         clear_properties();
+        internal_update_properties(page);
+        show_all();
+    }
+
+    public virtual void internal_update_properties(Page page) {
         get_properties(page);
     }
-
+    
     public void unselect_text() {
-        info.select_region(0, 0);
-    }
-
-    public void select_line(int cursor_position) {
-        string text = info.get_text();
-        int start, end, cursor;
-
-        if (text[cursor_position] == '\n' && cursor_position > 0)
-            cursor = cursor_position - 1;
-        else
-            cursor = cursor_position;
-
-        // find the locations of the line breaks preceding and following the cursor location
-        for (start = cursor; start > 0 && text[start - 1] != '\n'; start--);
-        for (end = cursor; end < text.size() && text[end] != '\n'; end++);
-
-        info.select_region(start, end);
-    }
-
-    protected virtual bool on_button_pressed(Gdk.EventButton event) {
-        // only deal with left triple-click, everything else happens automagically with labels
-        if (event.button == 1) {
-            switch (event.type) {
-                case Gdk.EventType.2BUTTON_PRESS:
-                    if (info.get_text()[info.cursor_position - 1] == '\n' ||
-                        info.get_text()[info.cursor_position - 2] == '\n') {
-                        return true;
-                    }
-
-                    if (info.get_text()[info.cursor_position] == '\n' && info.cursor_position > 0) {
-                        info.select_region(info.cursor_position - 1, info.cursor_position - 1);
-                    }
-
-                    return false;
-
-                case Gdk.EventType.3BUTTON_PRESS:
-                    line_selected_complete = false;
-                    select_line(info.cursor_position);
-                    return true;
-            }
-        }      
-
-        return false;
-    }
-
-    private bool on_button_released(Gdk.EventButton event) {
-        // only deal with left triple-click, everything else happens automagically with labels
-        if (!line_selected_complete) {
-            select_line(info.cursor_position);
-            line_selected_complete = true;
-
-            return true;
-        }      
-
-        return false;
+        foreach (Gtk.Widget child in get_children()) {
+            if (child is Gtk.Label)
+                ((Gtk.Label) child).select_region(0, 0);
+        }
     }
 }
 
@@ -287,8 +235,8 @@ private class BasicProperties : Properties {
             start_time = end_time;
     }
 
-    public override void update_properties(Page page) {
-        base.update_properties(page);
+    private override void internal_update_properties(Page page) {
+        base.internal_update_properties(page);
 
         // display the title if a Tag page
         if (title == "" && page is TagPage)
@@ -384,8 +332,6 @@ private class BasicProperties : Properties {
                 }
             }
         }
-        
-        set_text();
     }
 }
 
@@ -457,8 +403,8 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             software = metadata.get_software();
         }
         
-        public override void update_properties(Page page) {
-            base.update_properties(page);
+        public override void internal_update_properties(Page page) {
+            base.internal_update_properties(page);
 
             add_line(_("Location:"), (file_path != "" && file_path != null) ? file_path : NO_VALUE);
 
@@ -490,8 +436,6 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             add_line(_("Copyright:"), (copyright != "" && copyright != null) ? copyright : NO_VALUE);
     
             add_line(_("Software:"), (software != "" && software != null) ? software : NO_VALUE);
-
-            set_text();
         }
     }
 
@@ -534,9 +478,10 @@ private class ExtendedPropertiesWindow : Gtk.Window {
     public void update_properties(Page page) {
         properties.update_properties(page);
     }
-
+    
     public override void show_all() {
         base.show_all();
         properties.unselect_text();
+        grab_focus();
     }
 }
