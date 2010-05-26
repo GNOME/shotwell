@@ -34,7 +34,6 @@ public class Config {
     private GConf.Client client;
     
     public signal void colors_changed();
-    public signal void display_borders_changed(bool display_borders);
     
     private Config() {
         // only one may exist per-process
@@ -587,15 +586,6 @@ public class Config {
     
     public bool commit_bg_color() {
         return set_string("/apps/shotwell/preferences/ui/background_color", bg_color);
-    }
-    
-    public bool get_display_borders() {
-        return get_bool("/apps/shotwell/preferences/ui/display_borders", true);
-    }
-    
-    public void set_display_borders(bool display_borders) {
-        set_bool("/apps/shotwell/preferences/ui/display_borders", display_borders);
-        display_borders_changed(display_borders);
     }
 }
 

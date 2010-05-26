@@ -390,9 +390,9 @@ public abstract class CheckerboardItem : ThumbnailView {
             Gdk.RgbDither.NORMAL, 0, 0);
     }
 
-    private int get_selection_border_width(int scale, bool has_border) {
-        return ((scale <= ((Thumbnail.MIN_SCALE + Thumbnail.MAX_SCALE) / 3)) ? 2 : 3) 
-            + (has_border ? BORDER_WIDTH : 0);
+    private int get_selection_border_width(int scale) {
+        return ((scale <= ((Thumbnail.MIN_SCALE + Thumbnail.MAX_SCALE) / 3)) ? 2 : 3)
+            + BORDER_WIDTH;
     }
     
     public void paint(Gdk.Drawable drawable, Gdk.GC gc, Gdk.GC text_gc, Gdk.GC? border_gc) {
@@ -401,19 +401,17 @@ public abstract class CheckerboardItem : ThumbnailView {
         pixbuf_origin.x = allocation.x + FRAME_WIDTH + BORDER_WIDTH;
         pixbuf_origin.y = allocation.y + FRAME_WIDTH + BORDER_WIDTH;
         
-        bool has_border = (display_pixbuf != null && border_gc != null);
-        
         // draw selection border
         if (is_selected()) {
             // border thickness depends on the size of the thumbnail
             int scale = int.max(pixbuf_dim.width, pixbuf_dim.height);
             
             paint_border(gc, drawable, pixbuf_dim, pixbuf_origin,
-                get_selection_border_width(scale, has_border));
+                get_selection_border_width(scale));
         }
         
         // draw border
-        if (has_border)
+        if (border_gc != null)
             paint_border(border_gc, drawable, pixbuf_dim, pixbuf_origin, BORDER_WIDTH);
         
         if (display_pixbuf != null)
@@ -583,7 +581,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private CheckerboardItem? anchor = null;
     private bool in_center_on_anchor = false;
     private bool size_allocate_due_to_reflow = false;
-    private bool display_borders = true;
     private bool is_in_view = false;
     private bool reflow_needed = false;
     
@@ -607,7 +604,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
 
         Config.get_instance().colors_changed += on_colors_changed;
-        Config.get_instance().display_borders_changed += on_display_borders_changed;
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
@@ -639,7 +635,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             parent.size_allocate -= on_viewport_resized;
 
         Config.get_instance().colors_changed -= on_colors_changed;
-        Config.get_instance().display_borders_changed -= on_display_borders_changed;
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -1560,7 +1555,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(event.area))
                 item.paint(window, item.is_selected() ? selected_gc : unselected_gc, unselected_gc,
-                    display_borders ? border_gc : null);
+                           border_gc);
         } else {
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);
@@ -1628,11 +1623,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private void on_colors_changed() {
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
         set_colors();
-    }
-    
-    private void on_display_borders_changed(bool display_borders) {
-        this.display_borders = display_borders;
-        need_exposure("on_display_borders_changed");
     }
 
     private override bool focus_in_event(Gdk.EventFocus event) {

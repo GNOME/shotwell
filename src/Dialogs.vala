@@ -1258,7 +1258,6 @@ public class PreferencesDialog {
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
-    private bool display_borders;
     
     public PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1270,12 +1269,6 @@ public class PreferencesDialog {
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             Config.get_instance().get_bg_color().red);
         bg_color_adjustment.value_changed += on_value_changed;
-
-        Gtk.CheckButton display_borders_button = 
-            builder.get_object("display_borders") as Gtk.CheckButton;
-        display_borders = Config.get_instance().get_display_borders();
-        display_borders_button.set_active(display_borders);
-        display_borders_button.toggled += on_display_borders_toggled;
     }
     
     public void execute() {
@@ -1303,10 +1296,5 @@ public class PreferencesDialog {
         color.blue = color_value;
         
         return color;
-    }
-    
-    private void on_display_borders_toggled() {
-        display_borders = !display_borders;
-        Config.get_instance().set_display_borders(display_borders);
     }
 }
