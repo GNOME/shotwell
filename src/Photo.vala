@@ -137,7 +137,21 @@ public class PhotoImportParams {
     }
 }
 
-public interface PhotoTransformationState : Object {
+public abstract class PhotoTransformationState : Object {
+    private bool is_broke = false;
+    
+    // This signal is fired when the Photo object can no longer accept it and reliably return to
+    // this state.
+    public virtual signal void broken() {
+        is_broke = true;
+    }
+    
+    protected PhotoTransformationState() {
+    }
+    
+    public bool is_broken() {
+        return is_broke;
+    }
 }
 
 // TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
@@ -197,17 +211,27 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // NOTE: This class should only be instantiated when row is locked.
-    private class PhotoTransformationStateImpl : Object, PhotoTransformationState {
+    private class PhotoTransformationStateImpl : PhotoTransformationState {
+        private TransformablePhoto photo;
         private Orientation orientation;
         private Gee.HashMap<string, KeyValueMap>? transformations;
-        private PixelTransformer transformer;
-        private PixelTransformationBundle adjustments;
+        private PixelTransformer? transformer;
+        private PixelTransformationBundle? adjustments;
         
-        public PhotoTransformationStateImpl(TransformablePhoto photo) {
-            orientation = photo.row.orientation;
-            transformations = copy_transformations(photo.row.transformations);
-            transformer = photo.transformer != null ? photo.transformer.copy() : null;
-            adjustments = photo.adjustments != null ? photo.adjustments.copy() : null;
+        public PhotoTransformationStateImpl(TransformablePhoto photo, Orientation orientation,
+            Gee.HashMap<string, KeyValueMap>? transformations, PixelTransformer? transformer,
+            PixelTransformationBundle? adjustments) {
+            this.photo = photo;
+            this.orientation = orientation;
+            this.transformations = copy_transformations(transformations);
+            this.transformer = transformer;
+            this.adjustments = adjustments;
+            
+            photo.baseline_replaced += on_photo_baseline_replaced;
+        }
+        
+        ~PhotoTransformationStateImpl() {
+            photo.baseline_replaced -= on_photo_baseline_replaced;
         }
         
         public Orientation get_orientation() {
@@ -237,50 +261,189 @@ public abstract class TransformablePhoto: PhotoSource {
             
             return clone;
         }
+        
+        private void on_photo_baseline_replaced() {
+            if (!is_broken())
+                broken();
+        }
+    }
+    
+    private struct BackingReaders {
+        public PhotoFileReader master;
+        public PhotoFileReader mimic;
+        public PhotoFileReader editable;
     }
     
     // because fetching individual items from the database is high-overhead, store all of
     // the photo row in memory
     private PhotoRow row;
-    private PhotoFileReader reader;
-    private PhotoFileReader mimic_reader = null;
+    private BackingPhotoState editable = BackingPhotoState();
+    private BackingReaders readers = BackingReaders();
     private PixelTransformer transformer = null;
     private PixelTransformationBundle adjustments = null;
     private string file_title = null;
+    private FileMonitor editable_monitor = null;
+    private OneShotScheduler reimport_editable_scheduler = null;
+    private OneShotScheduler update_editable_attributes_scheduler = null;
+    private OneShotScheduler remove_editable_scheduler = null;
+    
+    // This pointer is used to determine which BackingPhotoState in the PhotoRow to be using at
+    // any time.  It should only be accessed -- read or write -- when row is locked.
+    private BackingPhotoState *backing_photo_state = null;
+    
+    // This is fired when the photo's baseline file (the file that generates images at the head
+    // of the pipeline) is replaced.  Photo will make every sane effort to only fire this signal
+    // if the new baseline is the same image-wise (i.e. the pixbufs it generates are essentially
+    // the same).
+    public virtual signal void baseline_replaced() {
+    }
     
     // The key to this implementation is that multiple instances of TransformablePhoto with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
     protected TransformablePhoto(PhotoRow row) {
         this.row = row;
-        this.reader = row.file_format.create_reader(row.filepath);
+        
+        // don't need to lock the struct in the constructor (and to do so would hurt startup
+        // time)
+        readers.master = row.master.file_format.create_reader(row.master.filepath);
         
         // get the file title of the Photo without using a File object, skipping the separator itself
-        char *basename = row.filepath.rchr(-1, Path.DIR_SEPARATOR);
+        char *basename = row.master.filepath.rchr(-1, Path.DIR_SEPARATOR);
         if (basename != null)
             file_title = (string) (basename + 1);
         
-        if (file_title == null || file_title[0] == '\0')
-            file_title = row.filepath;
+        if (is_string_empty(file_title))
+            file_title = row.master.filepath;
+        
+        if (row.editable_id.id != BackingPhotoID.INVALID) {
+            BackingPhotoRow? editable_row = null;
+            try {
+                editable_row = BackingPhotoTable.get_instance().fetch(row.editable_id);
+            } catch (DatabaseError err) {
+                warning("Unable to fetch editable state for %s: %s", to_string(), err.message);
+            }
+            
+            if (editable_row != null) {
+                editable = editable_row.state;
+                readers.editable = editable.file_format.create_reader(editable.filepath);
+            } else {
+                try {
+                    BackingPhotoTable.get_instance().remove(row.editable_id);
+                } catch (DatabaseError err) {
+                    // ignored
+                }
+                
+                try {
+                    PhotoTable.get_instance().detach_editable(ref this.row);
+                } catch (DatabaseError err) {
+                    // ignored
+                }
+                
+                // need to remove all transformations as they're keyed to the editable's
+                // coordinate system
+                internal_remove_all_transformations(false);
+            }
+        }
+        
+        // set the backing photo state appropriately
+        backing_photo_state = (readers.editable == null) ? &this.row.master : &this.editable;
+    }
+    
+    public virtual void notify_baseline_replaced() {
+        baseline_replaced();
+    }
+    
+    public override bool internal_delete_backing() throws Error {
+        File file = null;
+        lock (readers) {
+            if (readers.editable != null)
+                file = readers.editable.get_file();
+        }
+        
+        detach_editable(true, false);
+        
+        if (file != null) {
+            try {
+                file.trash(null);
+            } catch (Error err) {
+                message("Unable to move editable %s for %s to trash: %s", file.get_path(), to_string(),
+                    err.message);
+            }
+        }
+        
+        return base.internal_delete_backing();
     }
     
     // For the MimicManager
     public bool would_use_mimic() {
-        bool result;
-        lock (row) {
-            PhotoFileFormatFlags flags = reader.get_file_format().get_properties().get_flags();
-            result = (flags & PhotoFileFormatFlags.MIMIC_RECOMMENDED) != 0;
+        PhotoFileFormatFlags flags;
+        lock (readers) {
+            flags = readers.master.get_file_format().get_properties().get_flags();
         }
         
-        return result;
+        return (flags & PhotoFileFormatFlags.MIMIC_RECOMMENDED) != 0;
     }
     
-    // For an MimicManager
-    public void set_mimic(PhotoFileReader mimic_reader) {
+    private PhotoFileReader get_master_reader() {
+        lock (readers) {
+            return readers.master;
+        }
+    }
+    
+    // For the MimicManager
+    public void set_mimic_reader(PhotoFileReader mimic) {
         if (no_mimicked_images)
             return;
         
-        lock (row) {
-            this.mimic_reader = mimic_reader;
+        // Do *not* fire baseline_replaced, because the mimic produces images subjectively the same
+        // as the master.
+        lock (readers) {
+            readers.mimic = mimic;
+        }
+    }
+    
+    protected PhotoFileReader? get_editable_reader() {
+        lock (readers) {
+            return readers.editable;
+        }
+    }
+    
+    // Returns a reader for the head of the pipeline, which can be a mimic.
+    private PhotoFileReader get_baseline_reader() {
+        lock (readers) {
+            if (readers.editable != null)
+                return readers.editable;
+            
+            if (readers.mimic != null)
+                return readers.mimic;
+            
+            return readers.master;
+        }
+    }
+    
+    // Returns a reader for the photo file that is the source of the image (which the mimic
+    // is not).
+    private PhotoFileReader get_source_reader() {
+        lock (readers) {
+            return readers.editable ?? readers.master;
+        }
+    }
+    
+    public bool is_mimicked() {
+        lock (readers) {
+            return readers.mimic != null;
+        }
+    }
+    
+    public bool has_editable() {
+        lock (readers) {
+            return readers.editable != null;
+        }
+    }
+    
+    public bool is_master_baseline() {
+        lock (readers) {
+            return readers.mimic == null && readers.editable == null;
         }
     }
     
@@ -374,13 +537,13 @@ public abstract class TransformablePhoto: PhotoSource {
         // especially important dealing with dimensions and orientation ... Don't trust EXIF
         // dimensions, they can lie or not be present
         params.row.photo_id = PhotoID();
-        params.row.filepath = file.get_path();
-        params.row.dim = detected.image_dim;
-        params.row.filesize = info.get_size();
-        params.row.timestamp = timestamp.tv_sec;
+        params.row.master.filepath = file.get_path();
+        params.row.master.dim = detected.image_dim;
+        params.row.master.filesize = info.get_size();
+        params.row.master.timestamp = timestamp.tv_sec;
         params.row.exposure_time = exposure_time;
-        params.row.orientation = orientation;
-        params.row.original_orientation = orientation;
+        params.row.master.orientation = orientation;
+        params.row.master.original_orientation = orientation;
         params.row.import_id = params.import_id;
         params.row.event_id = EventID();
         params.row.transformations = null;
@@ -389,13 +552,15 @@ public abstract class TransformablePhoto: PhotoSource {
         params.row.exif_md5 = detected.exif_md5;
         params.row.time_created = 0;
         params.row.flags = 0;
-        params.row.file_format = detected.file_format;
+        params.row.master.file_format = detected.file_format;
         params.row.title = title;
         
         if (params.thumbnails != null) {
-            PhotoFileReader reader = params.row.file_format.create_reader(params.row.filepath);
+            PhotoFileReader reader = params.row.master.file_format.create_reader(
+                params.row.master.filepath);
             try {
-                ThumbnailCache.generate(params.thumbnails, reader, params.row.orientation, params.row.dim);
+                ThumbnailCache.generate(params.thumbnails, reader, params.row.master.orientation, 
+                    params.row.master.dim);
             } catch (Error err) {
                 return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
             }
@@ -405,6 +570,67 @@ public abstract class TransformablePhoto: PhotoSource {
         debug("IMPORT: total=%lf", total_time.elapsed());
 #endif
         return ImportResult.SUCCESS;
+    }
+    
+    public void reimport_master() throws Error {
+        File file = get_master_reader().get_file();
+        
+        // get basic file information
+        FileInfo info = null;
+        try {
+            info = file.query_info("standard::*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        } catch (Error err) {
+            error("Unable to read file information for %s: %s", file.get_path(), err.message);
+        }
+        
+        // sniff photo information
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
+        interrogator.interrogate();
+        DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
+        if (detected == null) {
+            critical("Photo update: %s no longer a recognized image", to_string());
+            
+            return;
+        }
+        
+        lock (row) {
+            reimport_master_locked(file, info, detected);
+        }
+        
+        notify_altered();
+        notify_metadata_altered();
+    }
+    
+    private void reimport_master_locked(File file, FileInfo info, DetectedPhotoInformation detected) 
+        throws Error {
+        PhotoRow updated_row = row;
+        
+        TimeVal modification_time = TimeVal();
+        info.get_modification_time(out modification_time);
+        
+        updated_row.master.timestamp = modification_time.tv_sec;
+        updated_row.master.filesize = info.get_size();
+        updated_row.master.file_format = detected.file_format;
+        updated_row.master.dim = detected.image_dim;
+        updated_row.md5 = detected.md5;
+        updated_row.exif_md5 = detected.exif_md5;
+        updated_row.thumbnail_md5 = detected.thumbnail_md5;
+        updated_row.master.orientation = Orientation.TOP_LEFT;
+        updated_row.master.original_orientation = Orientation.TOP_LEFT;
+        updated_row.exposure_time = 0;
+        
+        if (detected.metadata != null) {
+            MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
+            if (date_time != null)
+                updated_row.exposure_time = date_time.get_timestamp();
+            
+            updated_row.master.orientation = detected.metadata.get_orientation();
+            updated_row.master.original_orientation = updated_row.master.orientation;
+        }
+        
+        PhotoTable.get_instance().reimport(ref updated_row);
+        
+        row = updated_row;
     }
     
     public static bool is_file_supported(File file) {
@@ -477,36 +703,34 @@ public abstract class TransformablePhoto: PhotoSource {
     // and setters inside this class.
     
     public File get_file() {
-        lock (row) {
-            return reader.get_file();
-        }
+        return get_source_reader().get_file();
     }
     
-    // Returns the file generating pixbufs, that is, the mimic if present, the backing
+    // Returns the file generating pixbufs, that is, the mimic or baseline if present, the backing
     // file if not.
     public File get_actual_file() {
-        lock (row) {
-            PhotoFileReader actual = mimic_reader ?? reader;
-            
-            return actual.get_file();
-        }
+        return get_baseline_reader().get_file();
     }
-
+    
+    public File get_master_file() {
+        return get_master_reader().get_file();
+    }
+    
     public PhotoFileFormat get_file_format() {
         lock (row) {
-            return row.file_format;
+            return backing_photo_state->file_format;
         }
     }
     
-    public bool is_mimicked() {
+    public PhotoFileFormat get_master_file_format() {
         lock (row) {
-            return mimic_reader != null;
+            return readers.master.get_file_format();
         }
     }
     
     public time_t get_timestamp() {
         lock (row) {
-            return row.timestamp;
+            return backing_photo_state->timestamp;
         }
     }
 
@@ -519,6 +743,12 @@ public abstract class TransformablePhoto: PhotoSource {
     public EventID get_event_id() {
         lock (row) {
             return row.event_id;
+        }
+    }
+    
+    protected BackingPhotoID get_editable_id() {
+        lock (row) {
+            return row.editable_id;
         }
     }
     
@@ -673,8 +903,8 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     public override string to_string() {
-        return "[%lld] %s%s".printf(get_photo_id().id, get_actual_file().get_path(),
-            is_mimicked() ? " (" + get_file().get_path() + ")" : "");
+        return "[%lld] %s%s".printf(get_photo_id().id, get_master_reader().get_filepath(),
+            !is_master_baseline() ? " (" + get_actual_file().get_path() + ")" : "");
     }
 
     public override bool equals(DataSource? source) {
@@ -690,77 +920,6 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         return base.equals(source);
-    }
-    
-    // TODO: This method is currently only called by DirectPhoto, and as such currently doesn't
-    // take into account properly updating a LibraryPhoto.  More work needs to be done here.
-    public void update() throws Error {
-        File file = get_file();
-        
-        // TODO: Try to read JFIF metadata too
-        FileInfo info = null;
-        try {
-            info = file.query_info("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-        } catch (Error err) {
-            error("Unable to read file information for %s: %s", file.get_path(), err.message);
-        }
-        
-        TimeVal timestamp = TimeVal();
-        info.get_modification_time(out timestamp);
-        
-        // interrogate file for photo information
-        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file);
-        interrogator.interrogate();
-        DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
-        if (detected == null) {
-            critical("Photo update: %s no longer an image", to_string());
-            
-            return;
-        }
-        
-        Orientation orientation = Orientation.TOP_LEFT;
-        time_t exposure_time = 0;
-        string title = "";
-        
-        if (detected.metadata != null) {
-            MetadataDateTime? date_time = detected.metadata.get_exposure_date_time();
-            if (date_time != null)
-                exposure_time = date_time.get_timestamp();
-            
-            orientation = detected.metadata.get_orientation();
-            title = detected.metadata.get_title();
-        }
-        
-        PhotoID photo_id = get_photo_id();
-        if (PhotoTable.get_instance().update(photo_id, detected.image_dim, info.get_size(),
-            timestamp.tv_sec, exposure_time, orientation, detected.file_format, detected.md5,
-            detected.exif_md5, detected.thumbnail_md5, title)) {
-            // cache coherency
-            lock (row) {
-                row.dim = detected.image_dim;
-                row.filesize = info.get_size();
-                row.timestamp = timestamp.tv_sec;
-                row.exposure_time = exposure_time;
-                row.orientation = orientation;
-                row.original_orientation = orientation;
-                row.md5 = detected.md5;
-                row.exif_md5 = detected.exif_md5;
-                row.thumbnail_md5 = detected.thumbnail_md5;
-                row.file_format = detected.file_format;
-                row.title = title;
-                
-                // build new reader and clear mimic
-                reader = row.file_format.create_reader(row.filepath);
-                mimic_reader = null;
-                
-                // because image has changed, all transformations are suspect
-                remove_all_transformations();
-            }
-            
-            // metadata currently only means Event
-            notify_altered();
-            notify_metadata_altered();
-        }
     }
     
     // used to update the database after an internal metadata exif write
@@ -792,20 +951,14 @@ public abstract class TransformablePhoto: PhotoSource {
             return;
         }
         
-        if (PhotoTable.get_instance().file_exif_updated(get_photo_id(), info.get_size(),
-            timestamp.tv_sec, detected.md5, detected.exif_md5, detected.thumbnail_md5)) {
-            // cache coherency
-            lock (row) {
-                row.filesize = info.get_size();
-                row.timestamp = timestamp.tv_sec;
-                row.md5 = detected.md5;
-                row.exif_md5 = detected.exif_md5;
-                row.thumbnail_md5 = detected.thumbnail_md5;
-            }
-            
-            // metadata currently only means Event
-            notify_metadata_altered();
+        bool success;
+        lock (row) {
+            success = PhotoTable.get_instance().master_exif_updated(get_photo_id(), info.get_size(),
+                timestamp.tv_sec, detected.md5, detected.exif_md5, detected.thumbnail_md5, ref row);
         }
+        
+        if (success)
+            notify_metadata_altered();
     }
 
     // PhotoSource
@@ -818,7 +971,7 @@ public abstract class TransformablePhoto: PhotoSource {
     
     public override uint64 get_filesize() {
         lock (row) {
-            return row.filesize;
+            return backing_photo_state->filesize;
         }
     }
     
@@ -847,19 +1000,21 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 
     public void set_title_persistent(string? title) throws Error {
+        PhotoFileReader source = get_source_reader();
+        
         // Try to write to backing file
-        if (!reader.get_file_format().can_write()) {
-            warning("No photo file writer available for %s", reader.get_filepath());
+        if (!source.get_file_format().can_write()) {
+            warning("No photo file writer available for %s", source.get_filepath());
             
             set_title(title);
             
             return;
         }
         
-        PhotoMetadata metadata = reader.read_metadata();
+        PhotoMetadata metadata = source.read_metadata();
         metadata.set_title(title, true);
         
-        PhotoFileWriter writer = reader.create_writer();
+        PhotoFileWriter writer = source.create_writer();
         writer.write_metadata(metadata);
         
         set_title(title);
@@ -878,21 +1033,23 @@ public abstract class TransformablePhoto: PhotoSource {
         if (committed)
             notify_metadata_altered();
     }
-
+    
     public void set_exposure_time_persistent(time_t time) throws Error {
+        PhotoFileReader source = get_source_reader();
+        
         // Try to write to backing file
-        if (!reader.get_file_format().can_write()) {
-            warning("No photo file writer available for %s", reader.get_filepath());
+        if (!source.get_file_format().can_write()) {
+            warning("No photo file writer available for %s", source.get_filepath());
             
             set_exposure_time(time);
             
             return;
         }
         
-        PhotoMetadata metadata = reader.read_metadata();
+        PhotoMetadata metadata = source.read_metadata();
         metadata.set_exposure_date_time(new MetadataDateTime(time));
         
-        PhotoFileWriter writer = reader.create_writer();
+        PhotoFileWriter writer = source.create_writer();
         writer.write_metadata(metadata);
         
         set_exposure_time(time);
@@ -995,9 +1152,9 @@ public abstract class TransformablePhoto: PhotoSource {
     
     public override PhotoMetadata? get_metadata() {
         try {
-            return reader.read_metadata();
+            return get_source_reader().read_metadata();
         } catch (Error err) {
-            warning("Unable to load metadata from %s: %s", reader.get_filepath(), err.message);
+            warning("Unable to load metadata: %s", err.message);
             
             return null;
         }
@@ -1007,13 +1164,15 @@ public abstract class TransformablePhoto: PhotoSource {
 
     public Dimensions get_raw_dimensions() {
         lock (row) {
-            return row.dim;
+            return backing_photo_state->dim;
         }
     }
 
     public bool has_transformations() {
         lock (row) {
-            return (row.orientation != row.original_orientation) ? true : (row.transformations != null);
+            return (backing_photo_state->orientation != backing_photo_state->original_orientation) 
+                ? true 
+                : (row.transformations != null);
         }
     }
     
@@ -1025,9 +1184,9 @@ public abstract class TransformablePhoto: PhotoSource {
             date_time = metadata.get_exposure_date_time();
         
         lock (row) {
-            return row.transformations == null && 
-                (row.orientation != row.original_orientation ||
-                (date_time != null && row.exposure_time != date_time.get_timestamp()));
+            return row.transformations == null 
+                && (backing_photo_state->orientation != backing_photo_state->original_orientation 
+                || (date_time != null && row.exposure_time != date_time.get_timestamp()));
         }
     }
     
@@ -1039,14 +1198,18 @@ public abstract class TransformablePhoto: PhotoSource {
             date_time = metadata.get_exposure_date_time();
         
         lock (row) {
-            return row.transformations != null || row.orientation != row.original_orientation ||
-                (date_time != null && row.exposure_time != date_time.get_timestamp());
+            return row.transformations != null 
+                || backing_photo_state->orientation != backing_photo_state->original_orientation
+                || (date_time != null && row.exposure_time != date_time.get_timestamp());
         }
     }
     
     public PhotoTransformationState save_transformation_state() {
         lock (row) {
-            return new PhotoTransformationStateImpl(this);
+            return new PhotoTransformationStateImpl(this, backing_photo_state->orientation,
+                row.transformations,
+                transformer != null ? transformer.copy() : null,
+                adjustments != null ? adjustments.copy() : null);
         }
     }
     
@@ -1058,14 +1221,14 @@ public abstract class TransformablePhoto: PhotoSource {
         Orientation saved_orientation = state_impl.get_orientation();
         Gee.HashMap<string, KeyValueMap>? saved_transformations = state_impl.get_transformations();
         PixelTransformer? saved_transformer = state_impl.get_transformer();
-        PixelTransformationBundle saved_adjustments = state_impl.get_color_adjustments();
+        PixelTransformationBundle? saved_adjustments = state_impl.get_color_adjustments();
         
         bool committed;
         lock (row) {
             committed = PhotoTable.get_instance().set_transformation_state(row.photo_id,
                 saved_orientation, saved_transformations);
             if (committed) {
-                row.orientation = saved_orientation;
+                backing_photo_state->orientation = saved_orientation;
                 row.transformations = saved_transformations;
                 transformer = saved_transformer;
                 adjustments = saved_adjustments;
@@ -1079,6 +1242,10 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     public void remove_all_transformations() {
+        internal_remove_all_transformations(true);
+    }
+    
+    private void internal_remove_all_transformations(bool notify) {
         bool is_altered = false;
         lock (row) {
             is_altered = PhotoTable.get_instance().remove_all_transformations(row.photo_id);
@@ -1087,26 +1254,27 @@ public abstract class TransformablePhoto: PhotoSource {
             transformer = null;
             adjustments = null;
             
-            if (row.orientation != row.original_orientation) {
-                PhotoTable.get_instance().set_orientation(row.photo_id, row.original_orientation);
-                row.orientation = row.original_orientation;
+            if (backing_photo_state->orientation != backing_photo_state->original_orientation) {
+                PhotoTable.get_instance().set_orientation(row.photo_id, 
+                    backing_photo_state->original_orientation);
+                backing_photo_state->orientation = backing_photo_state->original_orientation;
                 is_altered = true;
             }
         }
 
-        if (is_altered)
+        if (is_altered && notify)
             notify_altered();
     }
     
     public Orientation get_original_orientation() {
         lock (row) {
-            return row.original_orientation;
+            return backing_photo_state->original_orientation;
         }
     }
     
     public Orientation get_orientation() {
         lock (row) {
-            return row.orientation;
+            return backing_photo_state->orientation;
         }
     }
     
@@ -1115,7 +1283,7 @@ public abstract class TransformablePhoto: PhotoSource {
         lock (row) {
             committed = PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
             if (committed)
-                row.orientation = orientation;
+                backing_photo_state->orientation = orientation;
         }
         
         if (committed)
@@ -1388,10 +1556,7 @@ public abstract class TransformablePhoto: PhotoSource {
     // asked for a scaled-down image, which has certain performance benefits if the resized
     // JPEG is scaled down by a factor of a power of two (one-half, one-fourth, etc.).
     private Gdk.Pixbuf load_raw_pixbuf(Scaling scaling, Exception exceptions) throws Error {
-        PhotoFileReader loader;
-        lock (row) {
-            loader = mimic_reader ?? reader;
-        }
+        PhotoFileReader loader = get_baseline_reader();
         
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
@@ -1641,11 +1806,17 @@ public abstract class TransformablePhoto: PhotoSource {
         // See if the native reader or the mimic supports writing ... if no matches, need to fall back
         // on a "regular" export, which requires decoding then encoding
         PhotoFileReader export_reader = null;
-        lock (row) {
-            if (reader.get_file_format().can_write())
-                export_reader = reader;
-            else if (mimic_reader != null && mimic_reader.get_file_format().can_write())
-                export_reader = mimic_reader;
+        bool is_master = true;
+        lock (readers) {
+            if (readers.editable != null && readers.editable.get_file_format().can_write()) {
+                export_reader = readers.editable;
+                is_master = false;
+            } else if (readers.master.get_file_format().can_write()) {
+                export_reader = readers.master;
+            } else if (readers.mimic != null && readers.mimic.get_file_format().can_write()) {
+                export_reader = readers.mimic;
+                is_master = false;
+            }
         }
         
         if (export_reader == null)
@@ -1666,14 +1837,14 @@ public abstract class TransformablePhoto: PhotoSource {
         
         // If asking for an full-sized file and there are no alterations (transformations or
         // EXIF) *and* this is a copy of the original backing, then done
-        if (!has_alterations() && export_reader == reader)
+        if (!has_alterations() && is_master)
             return true;
         
         // copy over relevant metadata
         PhotoMetadata? metadata = export_reader.read_metadata();
         if (metadata == null) {
             // No metadata, if copying from original backing, done, otherwise, keep going
-            if (reader == export_reader)
+            if (is_master)
                 return true;
             
             metadata = export_reader.get_file_format().create_metadata();
@@ -1740,6 +1911,369 @@ public abstract class TransformablePhoto: PhotoSource {
         metadata.remove_exif_thumbnail();
         
         writer.write_metadata(metadata);
+    }
+    
+    protected static BackingPhotoState load_backing_photo_state(File file) throws Error {
+        FileInfo info = file.query_filesystem_info("standard:*", null);
+        
+        TimeVal timestamp;
+        info.get_modification_time(out timestamp);
+        
+        PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file,
+            PhotoFileSniffer.Options.NO_MD5);
+        interrogator.interrogate();
+        DetectedPhotoInformation detected = interrogator.get_detected_photo_information();
+        
+        Orientation orientation = detected.metadata != null 
+            ? detected.metadata.get_orientation() 
+            : Orientation.TOP_LEFT;
+        
+        BackingPhotoState state = BackingPhotoState();
+        state.filepath = file.get_path();
+        state.filesize = info.get_size();
+        state.timestamp = timestamp.tv_sec;
+        state.orientation = orientation;
+        state.original_orientation = orientation;
+        state.dim = detected.image_dim;
+        state.file_format = detected.file_format;
+        
+        return state;
+    }
+    
+    private File generate_new_editable_file(out PhotoFileFormat file_format) throws Error {
+        File backing;
+        lock (row) {
+            file_format = get_file_format();
+            backing = get_file();
+        }
+        
+        if (!file_format.can_write())
+            file_format = PhotoFileFormat.get_system_default_format();
+        
+        string name, ext;
+        disassemble_filename(backing.get_basename(), out name, out ext);
+        
+        if (!file_format.get_properties().is_recognized_extension(ext))
+            ext = file_format.get_properties().get_default_extension();
+        
+        string editable_basename = "%s_modified.%s".printf(name, ext);
+        
+        bool collision;
+        return LibraryFiles.generate_unique_file_at(backing.get_parent(), editable_basename,
+            out collision);
+    }
+    
+    private static int launch_editor(File file) throws Error {
+        string[] argv = new string[3];
+        argv[0] = "/usr/bin/gimp";
+        argv[1] = file.get_path();
+        argv[2] = null;
+        
+        int pid;
+        Gdk.spawn_on_screen(AppWindow.get_instance().get_screen(), file.get_parent().get_path(),
+            argv, null, 0, null, out pid);
+        
+        return pid;
+    }
+    
+    // NOTE: This is a dangerous command.  It's HIGHLY recommended that this only be used with
+    // read-only PhotoFileFormats (i.e. RAW).  As of today, if the user edits their master file,
+    // it's not detected by Shotwell and things start to tip wonky.
+    public void open_master_with_external_editor() throws Error {
+        launch_editor(get_master_file());
+    }
+    
+    public void open_with_external_editor() throws Error {
+        File current_editable_file = null;
+        File create_editable_file = null;
+        PhotoFileFormat editable_file_format;
+        lock (readers) {
+            if (readers.editable != null)
+                current_editable_file = readers.editable.get_file();
+            
+            if (current_editable_file == null)
+                create_editable_file = generate_new_editable_file(out editable_file_format);
+            else
+                editable_file_format = readers.editable.get_file_format();
+        }
+        
+        // if this isn't the first time but the file does not exist OR there are transformations
+        // that need to be represented there, create a new one
+        if (create_editable_file == null && current_editable_file != null && 
+            (!current_editable_file.query_exists(null) || has_transformations()))
+            create_editable_file = current_editable_file;
+        
+        // if creating a new edited file and can write to it, stop watching the old one
+        if (create_editable_file != null && editable_file_format.can_write()) {
+            halt_monitoring_editable();
+            
+            try {
+                export(create_editable_file, Scaling.for_original(), Jpeg.Quality.MAXIMUM, 
+                    editable_file_format);
+            } catch (Error err) {
+                // if an error is thrown creating the file, clean it up
+                try {
+                    create_editable_file.delete(null);
+                } catch (Error delete_err) {
+                    // ignored
+                    warning("Unable to delete editable file %s after export error: %s", 
+                        create_editable_file.get_path(), delete_err.message);
+                }
+                
+                throw err;
+            }
+            
+            // attach the editable file to the photo and start monitoring the new file
+            attach_editable(editable_file_format, create_editable_file);
+            start_monitoring_editable(create_editable_file);
+            
+            current_editable_file = create_editable_file;
+        }
+        
+        assert(current_editable_file != null);
+        launch_editor(current_editable_file);
+    }
+    
+    public void revert_to_master() {
+        detach_editable(true, true);
+    }
+    
+    private void start_monitoring_editable(File file) throws Error {
+        halt_monitoring_editable();
+        
+        editable_monitor = file.monitor(FileMonitorFlags.NONE, null);
+        editable_monitor.changed += on_editable_file_changed;
+    }
+    
+    private void halt_monitoring_editable() {
+        if (editable_monitor == null)
+            return;
+        
+        editable_monitor.changed -= on_editable_file_changed;
+        editable_monitor.cancel();
+        editable_monitor = null;
+    }
+    
+    private void attach_editable(PhotoFileFormat file_format, File file) throws Error {
+        // remove the transformations ... this must be done before attaching the editable, as these 
+        // transformations are in the master's coordinate system, not the editable's ... don't 
+        // notify photo is altered *yet* because update_editable will notify, and want to avoid 
+        // stacking them up
+        internal_remove_all_transformations(false);
+        update_editable(false, file_format.create_reader(file.get_path()));
+    }
+    
+    private void update_editable_attributes() throws Error {
+        update_editable(true, null);
+    }
+    
+    private void reimport_editable() throws Error {
+        // remove transformations, for much the same reasons as attach_editable().
+        internal_remove_all_transformations(false);
+        update_editable(false, null);
+    }
+    
+    // In general, because of the fragility of the order of operations and what's required where,
+    // use one of the above wrapper functions to call this rather than call this directly.
+    private void update_editable(bool only_attributes, PhotoFileReader? new_reader = null) throws Error {
+        // only_attributes only available for updating existing editable
+        assert((only_attributes && new_reader == null) || (!only_attributes));
+        
+        PhotoFileReader reader = new_reader ?? get_editable_reader();
+        if (reader == null) {
+            detach_editable(false, true);
+            
+            return;
+        }
+        
+        BackingPhotoID editable_id = get_editable_id();
+        File file = reader.get_file();
+        
+        if (only_attributes) {
+            assert(editable_id.is_valid());
+            
+            FileInfo info;
+            try {
+                info = file.query_filesystem_info("standard:*", null);
+            } catch (Error err) {
+                warning("Unable to read editable filesystem info for %s: %s", to_string(), err.message);
+                detach_editable(false, true);
+                
+                return;
+            }
+            
+            TimeVal timestamp;
+            info.get_modification_time(out timestamp);
+        
+            BackingPhotoTable.get_instance().update_attributes(editable_id, timestamp.tv_sec,
+                info.get_size());
+            lock (row) {
+                editable.timestamp = timestamp.tv_sec;
+                editable.filesize = info.get_size();
+            }
+        } else {
+            BackingPhotoState state = load_backing_photo_state(file);
+            
+            // decide if updating existing editable or attaching a new one
+            if (editable_id.is_valid()) {
+                BackingPhotoTable.get_instance().update(editable_id, state);
+                lock (row) {
+                    editable = state;
+                    assert(backing_photo_state == &editable);
+                }
+            } else {
+                BackingPhotoRow editable_row = BackingPhotoTable.get_instance().add(state);
+                lock (row) {
+                    PhotoTable.get_instance().attach_editable(ref row, editable_row.id);
+                    editable = editable_row.state;
+                    backing_photo_state = &editable;
+                }
+            }
+        }
+        
+        // if a new reader was specified, install that and begin using it
+        if (new_reader != null) {
+            lock (readers) {
+                readers.editable = new_reader;
+            }
+        }
+        
+        if (!only_attributes)
+            notify_baseline_replaced();
+        
+        notify_altered();
+    }
+    
+    private void detach_editable(bool delete_editable, bool remove_transformations) {
+        halt_monitoring_editable();
+        
+        bool has_editable = false;
+        File? editable_file = null;
+        lock (readers) {
+            if (readers.editable != null) {
+                editable_file = readers.editable.get_file();
+                readers.editable = null;
+                has_editable = true;
+            }
+        }
+        
+        if (has_editable) {
+            BackingPhotoID editable_id = BackingPhotoID();
+            try {
+                lock (row) {
+                    editable_id = row.editable_id;
+                    if (editable_id.is_valid())
+                        PhotoTable.get_instance().detach_editable(ref row);
+                    backing_photo_state = &row.master;
+                }
+            } catch (DatabaseError err) {
+                warning("Unable to remove editable from PhotoTable: %s", err.message);
+            }
+            
+            try {
+                if (editable_id.is_valid())
+                    BackingPhotoTable.get_instance().remove(editable_id);
+            } catch (DatabaseError err) {
+                warning("Unable to remove editable from BackingPhotoTable: %s", err.message);
+            }
+        }
+        
+        if (remove_transformations)
+            internal_remove_all_transformations(false);
+        
+        if (has_editable)
+            notify_baseline_replaced();
+        
+        // notify that the editable has been detached
+        notify_altered();
+        
+        if (delete_editable && editable_file != null) {
+            try {
+                editable_file.trash(null);
+            } catch (Error err) {
+                warning("Unable to trash editable %s for %s: %s", editable_file.get_path(), to_string(),
+                    err.message);
+            }
+        }
+    }
+    
+    private void on_editable_file_changed(File file, File? other_file, FileMonitorEvent event) {
+        // This has some expense, but this assertion is important for a lot of sanity reasons.
+        lock (readers) {
+            assert(readers.editable != null && file.equal(readers.editable.get_file()));
+        }
+        
+        debug("EDITABLE %s: %s", event.to_string(), file.get_path());
+        
+        switch (event) {
+            case FileMonitorEvent.CHANGED:
+            case FileMonitorEvent.CREATED:
+                if (reimport_editable_scheduler == null) {
+                    reimport_editable_scheduler = new OneShotScheduler("Photo.reimport_editable", 
+                        on_reimport_editable);
+                }
+                
+                reimport_editable_scheduler.after_timeout(1000, true);
+            break;
+            
+            case FileMonitorEvent.ATTRIBUTE_CHANGED:
+                if (update_editable_attributes_scheduler == null) {
+                    update_editable_attributes_scheduler = new OneShotScheduler(
+                        "Photo.update_editable_attributes", on_update_editable_attributes);
+                }
+                
+                update_editable_attributes_scheduler.after_timeout(1000, true);
+            break;
+            
+            case FileMonitorEvent.DELETED:
+                if (remove_editable_scheduler == null) {
+                    remove_editable_scheduler = new OneShotScheduler("Photo.remove_editable",
+                        on_remove_editable);
+                }
+                
+                remove_editable_scheduler.after_timeout(3000, true);
+            break;
+            
+            case FileMonitorEvent.CHANGES_DONE_HINT:
+            default:
+                // ignored
+            break;
+        }
+    }
+    
+    private void on_reimport_editable() {
+        debug("Reimporting editable for %s", to_string());
+        try {
+            reimport_editable();
+        } catch (Error err) {
+            warning("Unable to reimport photo %s changed by external editor: %s",
+                to_string(), err.message);
+        }
+    }
+    
+    private void on_update_editable_attributes() {
+        debug("Updating editable attributes for %s", to_string());
+        try {
+            update_editable_attributes();
+        } catch (Error err) {
+            warning("Unable to update editable attributes: %s", err.message);
+        }
+    }
+    
+    private void on_remove_editable() {
+        PhotoFileReader? reader = get_editable_reader();
+        if (reader == null)
+            return;
+        
+        File file = reader.get_file();
+        if (file.query_exists(null)) {
+            debug("Not removing editable for %s: file exists", to_string());
+            
+            return;
+        }
+        
+        debug("Removing editable for %s: file no longer exists", to_string());
+        detach_editable(false, true);
     }
     
     //
@@ -2229,7 +2763,7 @@ public class LibraryPhoto : Photo {
             assert(params.thumbnails != null);
             ThumbnailCache.import_thumbnails(photo_id, params.thumbnails, true);
         } catch (Error err) {
-            warning("Unable to create thumbnails for %s: %s", params.row.filepath, err.message);
+            warning("Unable to create thumbnails for %s: %s", params.row.master.filepath, err.message);
             
             PhotoTable.get_instance().remove(photo_id);
             
@@ -2299,11 +2833,23 @@ public class LibraryPhoto : Photo {
     }
     
     public LibraryPhoto duplicate() throws Error {
-        // clone the backing file
-        File dupe_file = LibraryFiles.duplicate(get_file(), on_duplicate_progress);
+        // clone the master file
+        File dupe_file = LibraryFiles.duplicate(get_master_file(), on_duplicate_progress);
         
-        // clone the row in the database so another that relies on this new backing file
-        PhotoID dupe_id = PhotoTable.get_instance().duplicate(get_photo_id(), dupe_file.get_path());
+        // clone the editable (if exists)
+        BackingPhotoID dupe_editable_id = BackingPhotoID();
+        PhotoFileReader editable_reader = get_editable_reader();
+        File? editable_file = (editable_reader != null) ? editable_reader.get_file() : null;
+        if (editable_file != null) {
+            File dupe_editable = LibraryFiles.duplicate(editable_file, on_duplicate_progress);
+            BackingPhotoRow editable_row = BackingPhotoTable.get_instance().add(
+                load_backing_photo_state(dupe_editable));
+            dupe_editable_id = editable_row.id;
+        }
+        
+        // clone the row in the database for these new backing files
+        PhotoID dupe_id = PhotoTable.get_instance().duplicate(get_photo_id(), dupe_file.get_path(),
+            dupe_editable_id);
         PhotoRow dupe_row = PhotoTable.get_instance().get_row(dupe_id);
         
         // clone thumbnails
@@ -2358,6 +2904,11 @@ public class LibraryPhoto : Photo {
     }
     
     public override bool internal_delete_backing() throws Error {
+        // allow the base classes to work first because delete_original_file() will attempt to
+        // remove empty directories as well
+        if (!base.internal_delete_backing())
+            return false;
+        
         delete_original_file();
         
         return true;
@@ -2468,9 +3019,9 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         DirectPhoto? photo = file_map.get(file);
         if (photo != null) {
             // if a reset is necessary, the database (and the object) need to reset to original
-            // easiest way to do this: perform an update, which is a kind of in-place re-import
+            // easiest way to do this: perform an in-place re-import
             if (reset)
-                photo.update();
+                photo.reimport_master();
             
             return photo;
         }

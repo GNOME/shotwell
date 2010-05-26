@@ -633,6 +633,35 @@ public Gtk.ResponseType empty_trash_dialog(Gtk.Window owner, int count) {
     return result;
 }
 
+public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photos) {
+    int count = 0;
+    foreach (Photo photo in photos) {
+        if (photo.has_editable())
+            count++;
+    }
+    
+    if (count == 0)
+        return false;
+        
+    string msg = ngettext(
+        "This will destroy all changes made to the external file.  Continue?",
+        "This will destroy all changes made to %d external files.  Continue?",
+        count).printf(count);
+    string action = ngettext("Re_vert External Edit", "Re_vert External Edits", count);
+    
+    Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
+    dialog.add_button(_("_No"), Gtk.ResponseType.NO);
+    dialog.add_button(action, Gtk.ResponseType.YES);
+    dialog.title = ngettext("Revert External Edit", "Revert External Edits", count);
+    
+    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    
+    dialog.destroy();
+    
+    return result == Gtk.ResponseType.YES;
+}
+
 public class ProgressDialog : Gtk.Window {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private Gtk.Button cancel_button = null;

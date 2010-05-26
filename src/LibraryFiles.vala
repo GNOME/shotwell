@@ -61,6 +61,16 @@ public File? generate_unique_file(string basename, PhotoMetadata? metadata, time
         // silently ignore not creating a directory that already exists
     }
     
+    return generate_unique_file_at(dir, basename, out collision);
+}
+
+// Like generate_unique_file(), this function "claims" a file on the filesystem in the directory
+// specified with a basename the same or similar as what has been requested.  The file may exist
+// when this function returns, and it should be overwritten.  It does *not* attempt to create the
+// parent directory, however.
+//
+// This function is thread-safe.
+public File? generate_unique_file_at(File dir, string basename, out bool collision) throws Error {
     // create the file to atomically "claim" it
     File file = dir.get_child(basename);
     if (claim_file(file)) {
@@ -84,7 +94,7 @@ public File? generate_unique_file(string basename, PhotoMetadata? metadata, time
             return file;
     }
     
-    debug("generate_unique_filename for %s: unable to claim file", basename);
+    debug("generate_unique_filename_at %s for %s: unable to claim file", dir.get_path(), basename);
     
     return null;
 }

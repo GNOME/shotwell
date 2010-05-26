@@ -89,6 +89,7 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().contents_altered += on_contents_altered;
         get_view().items_state_changed += on_selection_changed;
         get_view().items_visibility_changed += on_contents_altered;
+        get_view().items_altered += on_photos_altered;
         
         get_view().freeze_notifications();
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
@@ -290,8 +291,14 @@ public abstract class CollectionPage : CheckerboardPage {
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
-
-#if !NO_SET_BACKGROUND            
+        
+        Gtk.ActionEntry revert_editable = { "RevertEditable", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_revert_editable };
+        revert_editable.label = Resources.REVERT_EDITABLE_MENU;
+        revert_editable.tooltip = Resources.REVERT_EDITABLE_TOOLTIP;
+        actions += revert_editable;
+        
+#if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
         set_background.label = Resources.SET_BACKGROUND_MENU;
@@ -328,7 +335,19 @@ public abstract class CollectionPage : CheckerboardPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
-
+        
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE, null,
+            TRANSLATABLE, on_external_edit };
+        external_edit.label = Resources.EXTERNAL_EDIT_MENU;
+        external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
+        actions += external_edit;
+        
+        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, null, TRANSLATABLE,
+            on_external_edit_raw };
+        edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
+        edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
+        actions += edit_raw;
+        
         Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
             TRANSLATABLE, on_slideshow };
         slideshow.label = _("_Slideshow");
@@ -471,10 +490,24 @@ public abstract class CollectionPage : CheckerboardPage {
             set_thumb_size(current_scale);
     }
     
+    protected override void init_actions(int selected_count, int count) {
+        set_action_sensitive("ExternalEdit", selected_count > 0);
+        set_action_hidden("ExternalEditRAW");
+        set_action_sensitive("RevertEditable", can_revert_editable_selected());
+        
+        base.init_actions(selected_count, count);
+    }
+    
     private void on_contents_altered() {
         slideshow_button.sensitive = get_view().get_count() > 0;
     }
-
+    
+    private void on_photos_altered() {
+        // since the photo can be altered externally to Shotwell now, need to make the revert
+        // command available appropriately, even if the selection doesn't change
+        set_action_sensitive("RevertEditable", can_revert_editable_selected());
+    }
+    
 #if !NO_PRINTING
     private void on_print() {
         if (get_view().get_selected_count() != 1)
@@ -489,13 +522,25 @@ public abstract class CollectionPage : CheckerboardPage {
         PrintManager.get_instance().do_page_setup();
     }
 #endif
-
+    
     private void on_selection_changed(Gee.Iterable<DataView> items) {
-        rotate_button.sensitive = get_view().get_selected_count() > 0;
+        int selected_count = get_view().get_selected_count();
+        bool has_selected = selected_count > 0;
+        bool is_single_raw = selected_count == 1 
+            && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == PhotoFileFormat.RAW;
+        
+        rotate_button.sensitive = has_selected;
 #if !NO_PUBLISHING
-        publish_button.set_sensitive(get_view().get_selected_count() > 0);
+        publish_button.set_sensitive(has_selected);
 #endif
-        enhance_button.sensitive = get_view().get_selected_count() > 0;
+        enhance_button.sensitive = has_selected;
+        
+        set_action_sensitive("ExternalEdit", selected_count == 1);
+        if (is_single_raw)
+            set_action_visible("ExternalEditRAW", true);
+        else
+            set_action_hidden("ExternalEditRAW");
+        set_action_sensitive("RevertEditable", can_revert_editable_selected());
     }
     
     protected override void on_item_activated(CheckerboardItem item) {
@@ -546,7 +591,6 @@ public abstract class CollectionPage : CheckerboardPage {
         bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
         
-        set_item_sensitive("/CollectionContextMenu/ContextDuplicate", selected);
         set_item_sensitive("/CollectionContextMenu/ContextMoveToTrash", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
@@ -735,6 +779,15 @@ public abstract class CollectionPage : CheckerboardPage {
         return false;
     }
     
+    private bool can_revert_editable_selected() {
+        foreach (DataView view in get_view().get_selected()) {
+            if (((Photo) view.get_source()).has_editable())
+                return true;
+        }
+        
+        return false;
+    }
+    
     private bool can_favorite_selected() {
         foreach (DataView view in get_view().get_selected()) {
             if (!((Thumbnail) view).get_photo().is_favorite())
@@ -851,6 +904,19 @@ public abstract class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
+    private void on_revert_editable() {
+        if (get_view().get_selected_count() == 0 || !can_revert_editable_selected())
+            return;
+        
+        if (!revert_editable_dialog(AppWindow.get_instance(),
+            (Gee.Collection<Photo>) get_view().get_selected_sources())) {
+            return;
+        }
+        
+        foreach (DataObject object in get_view().get_selected_sources())
+            ((Photo) object).revert_to_master();
+    }
+    
     private void on_enhance() {
         if (get_view().get_selected_count() == 0)
             return;
@@ -945,6 +1011,39 @@ public abstract class CollectionPage : CheckerboardPage {
             AdjustDateTimePhotosCommand command = new AdjustDateTimePhotosCommand(
                 get_view().get_selected(), time_shift, keep_relativity, modify_originals);
             get_command_manager().execute(command);
+        }
+    }
+    
+    private void on_external_edit() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        Photo photo = (Photo) get_view().get_selected_at(0).get_source();
+        try {
+            AppWindow.get_instance().set_busy_cursor();
+            photo.open_with_external_editor();
+            AppWindow.get_instance().set_normal_cursor();
+        } catch (Error err) {
+            AppWindow.get_instance().set_normal_cursor();
+            AppWindow.error_message(Resources.launch_editor_failed(err));
+        }
+    }
+    
+    private void on_external_edit_raw() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        Photo photo = (Photo) get_view().get_selected_at(0).get_source();
+        if (photo.get_master_file_format() != PhotoFileFormat.RAW)
+            return;
+        
+        try {
+            AppWindow.get_instance().set_busy_cursor();
+            photo.open_master_with_external_editor();
+            AppWindow.get_instance().set_normal_cursor();
+        } catch (Error err) {
+            AppWindow.get_instance().set_normal_cursor();
+            AppWindow.error_message(Resources.launch_editor_failed(err));
         }
     }
     

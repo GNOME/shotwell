@@ -117,7 +117,7 @@ public class MimicManager : Object {
             return;
         }
         
-        job.photo.set_mimic(job.writer.create_reader());
+        job.photo.set_mimic_reader(job.writer.create_reader());
     }
     
     private string generate_impersonator_filepath(Photo photo) {

@@ -109,10 +109,19 @@ public abstract class SinglePhotoTransformationCommand : SingleDataSourceCommand
         base(photo, name, explanation);
         
         state = photo.save_transformation_state();
+        state.broken += on_state_broken;
+    }
+    
+    ~SinglePhotoTransformationCommand() {
+        state.broken -= on_state_broken;
     }
     
     public override void undo() {
         ((TransformablePhoto) source).load_transformation_state(state);
+    }
+    
+    private void on_state_broken() {
+        get_command_manager().reset();
     }
 }
 
@@ -124,14 +133,24 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
         base(photo, name, explanation);
     }
     
+    ~GenericPhotoTransformationState() {
+        if (original_state != null)
+            original_state.broken -= on_state_broken;
+        
+        if (transformed_state != null)
+            transformed_state.broken -= on_state_broken;
+    }
+    
     public override void execute() {
         TransformablePhoto photo = (TransformablePhoto) source;
         
         original_state = photo.save_transformation_state();
+        original_state.broken += on_state_broken;
         
         execute_on_photo(photo);
         
         transformed_state = photo.save_transformation_state();
+        transformed_state.broken += on_state_broken;
     }
     
     public abstract void execute_on_photo(TransformablePhoto photo);
@@ -168,6 +187,10 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
         transformed_state = generic.transformed_state;
         
         return true;
+    }
+    
+    private void on_state_broken() {
+        get_command_manager().reset();
     }
 }
 
@@ -292,8 +315,16 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
         
         foreach (DataSource source in source_list) {
             TransformablePhoto photo = (TransformablePhoto) source;
-            map.set(photo, photo.save_transformation_state());
+            PhotoTransformationState state = photo.save_transformation_state();
+            state.broken += on_state_broken;
+            
+            map.set(photo, state);
         }
+    }
+    
+    ~MultiplePhotoTransformationCommand() {
+        foreach (PhotoTransformationState state in map.values)
+            state.broken -= on_state_broken;
     }
     
     public override void undo_on_source(DataSource source) {
@@ -303,6 +334,10 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
         assert(state != null);
         
         photo.load_transformation_state(state);
+    }
+    
+    private void on_state_broken() {
+        get_command_manager().reset();
     }
 }
 

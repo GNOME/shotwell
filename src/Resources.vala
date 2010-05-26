@@ -116,7 +116,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string REVERT_MENU = _("Re_vert to Original");
     public const string REVERT_LABEL = _("Revert to Original");
     public const string REVERT_TOOLTIP = _("Revert to the original photo");
-
+    
+    public const string REVERT_EDITABLE_MENU = _("Revert External E_dits");
+    public const string REVERT_EDITABLE_TOOLTIP = _("Revert to the master photo");
+    
     public const string SET_BACKGROUND_MENU = _("Set as Desktop _Background");
     public const string SET_BACKGROUND_TOOLTIP = _("Set selected image to be the new desktop background");
     
@@ -194,6 +197,16 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string PREFERENCES_MENU = _("_Preferences");
     public const string PREFERENCES_TOOLTIP = _("Edit preferences");
+    
+    public const string EXTERNAL_EDIT_MENU = _("_Open With External Editor");
+    public const string EXTERNAL_EDIT_TOOLTIP = _("Open the selected photo with an external image editor");
+    
+    public const string EXTERNAL_EDIT_RAW_MENU = _("Open With RA_W Editor");
+    public const string EXTERNAL_EDIT_RAW_TOOLTIP = _("Open the selected photo with a RAW image editor");
+    
+    public string launch_editor_failed(Error err) {
+        return _("Unable to launch editor: %s").printf(err.message);
+    }
     
     public string add_tags_label(string[] names) {
         if (names.length == 1)

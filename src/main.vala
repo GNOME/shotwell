@@ -66,7 +66,7 @@ void library_exec(string[] mounts) {
     DatabaseTable.init(AppDirs.get_data_subdir("data").get_child("photo.db"));
 
     // validate the databases prior to using them
-    message("Verifying databases ...");
+    message("Verifying database ...");
     string errormsg = null;
     string app_version;
     DatabaseVerifyResult result = verify_database(out app_version);

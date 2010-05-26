@@ -62,12 +62,15 @@
             <separator />
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
+            <menuitem name="RevertEditable" action="RevertEditable" />
             <separator />
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
             <separator />
             <menuitem name="PhotoRename" action="PhotoRename" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
+            <menuitem name="ExternalEdit" action="ExternalEdit" />
+            <menuitem name="ExternalEditRAW" action="ExternalEditRAW" />
             <separator />
             <placeholder name="SetBackgroundPlaceholder"/>
             <separator />
@@ -96,6 +99,7 @@
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
+        <menuitem name="ContextRevertEditable" action="RevertEditable" />
         <separator />
         <menuitem name="ContextAddTags" action="AddTags" />
         <menuitem name="ContextModifyTags" action="ModifyTags" />
@@ -105,8 +109,8 @@
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
         <menuitem name="ContextPhotoRename" action="PhotoRename" />
+        <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <separator />
-        <menuitem name="ContextDuplicate" action="Duplicate" />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
         <separator />
         <placeholder name="ContextSetBackgroundPlaceholder"/>

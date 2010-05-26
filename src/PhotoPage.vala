@@ -299,17 +299,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return get_view().get_count() == 1;
     }
     
-    public TransformablePhoto? get_photo() {
+    public Photo? get_photo() {
         // use the photo stored in our ViewCollection ... should either be zero or one in the
         // collection at all times
         assert(get_view().get_count() <= 1);
         
-        if (get_view().get_count() == 0)
-            return null;
-        
-        PhotoView photo_view = (PhotoView) get_view().get_at(0);
-        
-        return (TransformablePhoto) photo_view.get_source();
+        return (get_view().get_count() > 0)
+            ? (Photo?) ((PhotoView) get_view().get_at(0)).get_source()
+            : null;
     }
     
     private void set_photo(TransformablePhoto photo) {
@@ -1117,7 +1114,27 @@ public abstract class EditingHostPage : SinglePhotoPage {
         RevertSingleCommand command = new RevertSingleCommand(get_photo());
         get_command_manager().execute(command);
     }
-
+    
+    public void on_revert_editable() {
+        deactivate_tool();
+        
+        if (!has_photo())
+            return;
+        
+        if (!get_photo().has_editable())
+            return;
+        
+        if (!revert_editable_dialog(AppWindow.get_instance(), 
+            (Gee.Collection<Photo>) get_view().get_sources())) {
+            return;
+        }
+        
+        cancel_zoom();
+        set_photo_missing(false);
+        
+        get_photo().revert_to_master();
+    }
+    
     public void on_rename() {
         LibraryPhoto item;
         if (get_photo() is LibraryPhoto)
@@ -1150,7 +1167,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             get_command_manager().execute(command);
         }
     }
-
+    
 #if !NO_SET_BACKGROUND
     public void on_set_background() {
         if (!has_photo())
@@ -1426,6 +1443,10 @@ public class LibraryPhotoPage : EditingHostPage {
         
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
+        // monitor view to update UI elements
+        get_view().contents_altered += on_contents_altered;
+        get_view().items_altered += on_photos_altered;
+        
         // watch for photos being destroyed or removed or altered, either here or in other pages
         LibraryPhoto.global.items_removed += on_photos_removed;
         LibraryPhoto.global.item_destroyed += on_photo_destroyed;
@@ -1560,7 +1581,13 @@ public class LibraryPhotoPage : EditingHostPage {
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
-
+        
+        Gtk.ActionEntry revert_editable = { "RevertEditable", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_revert_editable };
+        revert_editable.label = Resources.REVERT_EDITABLE_MENU;
+        revert_editable.tooltip = Resources.REVERT_EDITABLE_TOOLTIP;
+        actions += revert_editable;
+        
         Gtk.ActionEntry rename = { "PhotoRename", null, TRANSLATABLE, "F2", TRANSLATABLE,
             on_rename };
         rename.label = Resources.RENAME_PHOTO_MENU;
@@ -1572,7 +1599,19 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
-
+        
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE, null,
+            TRANSLATABLE, on_external_edit };
+        external_edit.label = Resources.EXTERNAL_EDIT_MENU;
+        external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
+        actions += external_edit;
+        
+        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, null, TRANSLATABLE,
+            on_external_edit_raw };
+        edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
+        edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
+        actions += edit_raw;
+        
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
@@ -1610,6 +1649,29 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += decrease_size;
 
         return actions;
+    }
+    
+    protected override void init_actions(int selected_count, int count) {
+        set_action_sensitive("ExternalEdit", count > 0);
+        set_action_hidden("ExternalEditRAW");
+        set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
+        
+        base.init_actions(selected_count, count);
+    }
+    
+    private void on_contents_altered() {
+        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
+        
+        set_action_sensitive("ExternalEdit", has_photo());
+        if (is_raw)
+            set_action_visible("ExternalEditRAW", true);
+        else
+            set_action_hidden("ExternalEditRAW");
+        set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
+    }
+    
+    private void on_photos_altered() {
+        set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
     }
     
     public void display_for_collection(CollectionPage return_page, Thumbnail thumbnail) {
@@ -1857,7 +1919,38 @@ public class LibraryPhotoPage : EditingHostPage {
         PrintManager.get_instance().do_page_setup();
     }
 #endif
-
+    
+    private void on_external_edit() {
+        if (!has_photo())
+            return;
+        
+        try {
+            AppWindow.get_instance().set_busy_cursor();
+            get_photo().open_with_external_editor();
+            AppWindow.get_instance().set_normal_cursor();
+        } catch (Error err) {
+            AppWindow.get_instance().set_normal_cursor();
+            AppWindow.error_message(Resources.launch_editor_failed(err));
+        }
+    }
+    
+    private void on_external_edit_raw() {
+        if (!has_photo())
+            return;
+        
+        if (get_photo().get_master_file_format() != PhotoFileFormat.RAW)
+            return;
+        
+        try {
+            AppWindow.get_instance().set_busy_cursor();
+            get_photo().open_master_with_external_editor();
+            AppWindow.get_instance().set_normal_cursor();
+        } catch (Error err) {
+            AppWindow.get_instance().set_normal_cursor();
+            AppWindow.error_message(Resources.launch_editor_failed(err));
+        }
+    }
+    
     private void on_export() {
         if (!has_photo())
             return;

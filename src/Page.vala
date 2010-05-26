@@ -241,6 +241,30 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = sensitive;
     }
     
+    public void set_action_visible(string name, bool sensitive) {
+        Gtk.Action action = action_group.get_action(name);
+        if (action == null) {
+            warning("Page %s: Unable to locate action %s", get_page_name(), name);
+            
+            return;
+        }
+        
+        action.visible = true;
+        action.sensitive = sensitive;
+    }
+    
+    public void set_action_hidden(string name) {
+        Gtk.Action action = action_group.get_action(name);
+        if (action == null) {
+            warning("Page %s: Unable to locate action %s", get_page_name(), name);
+            
+            return;
+        }
+        
+        action.visible = false;
+        action.sensitive = false;
+    }
+    
     private void get_modifiers(out bool ctrl, out bool alt, out bool shift) {
             int x, y;
         Gdk.ModifierType mask;
