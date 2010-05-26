@@ -143,6 +143,13 @@ public class FullscreenWindow : PageWindow {
         
         AppWindow.get_instance().end_fullscreen();
     }
+
+    private override bool delete_event(Gdk.Event event) {
+        on_close();
+        AppWindow.get_instance().destroy();
+        
+        return true;
+    }
     
     private override bool motion_notify_event(Gdk.EventMotion event) {
         if (!is_toolbar_shown) {
