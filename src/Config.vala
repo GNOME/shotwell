@@ -587,5 +587,13 @@ public class Config {
     public bool commit_bg_color() {
         return set_string("/apps/shotwell/preferences/ui/background_color", bg_color);
     }
+
+    public string get_import_dir() {
+        return get_string("/apps/shotwell/preferences/files/import_dir", null);
+    }
+    
+    public void set_import_dir(string import_dir) {
+        set_string("/apps/shotwell/preferences/files/import_dir", import_dir);
+    }
 }
 

@@ -611,7 +611,7 @@ private class PrepareFilesJob : BackgroundImportJob {
         
         this.files_to_prepare = files_to_prepare;
         this.notification = notification;
-        library_dir = AppDirs.get_photos_dir();
+        library_dir = AppDirs.get_import_dir();
         fail_every = get_test_variable("SHOTWELL_FAIL_EVERY");
         skip_every = get_test_variable("SHOTWELL_SKIP_EVERY");
     }

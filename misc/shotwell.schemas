@@ -576,5 +576,17 @@
             </locale>
         </schema>
 
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/files/import_dir</key>
+            <applyto>/apps/shotwell/preferences/files/import_dir</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>import directory</short>
+                <long>Directory in which imported photo files are placed.</long>
+            </locale>
+        </schema>
     </schemalist>
 </gconfschemafile>

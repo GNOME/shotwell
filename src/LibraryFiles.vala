@@ -47,7 +47,7 @@ public File? generate_unique_file(string basename, PhotoMetadata? metadata, time
     
     // build a directory tree inside the library, as deep as DIRECTORY_DEPTH:
     // yyyy/mm/dd
-    File dir = AppDirs.get_photos_dir();
+    File dir = AppDirs.get_import_dir();
     dir = dir.get_child("%04u".printf(tm.year + 1900));
     dir = dir.get_child("%02u".printf(tm.month + 1));
     dir = dir.get_child("%02u".printf(tm.day));

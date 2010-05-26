@@ -2941,7 +2941,7 @@ public class LibraryPhoto : Photo {
         
         // remove empty directories corresponding to imported path, but only if file is located
         // inside the user's Pictures directory
-        if (file.has_prefix(AppDirs.get_photos_dir())) {
+        if (file.has_prefix(AppDirs.get_import_dir())) {
             File parent = file;
             for (int depth = 0; depth < LibraryFiles.DIRECTORY_DEPTH; depth++) {
                 parent = parent.get_parent();

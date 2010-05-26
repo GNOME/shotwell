@@ -394,6 +394,13 @@ public string get_display_pathname(File file) {
     return path;
 }
 
+public string strip_pretty_path(string path) {
+    if (!path.has_prefix("~"))
+        return path;
+    
+    return Environment.get_home_dir() + path.substring(1);
+}
+
 public string format_local_date(Time date) {
     string date_string = date.format(_("%a %b %d, %Y"));
     StringBuilder date_string_stripped = new StringBuilder("");

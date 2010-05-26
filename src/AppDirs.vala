@@ -48,12 +48,20 @@ class AppDirs {
             : data_dir;
     }
     
-    public static File get_photos_dir() {
-        string path = Environment.get_user_special_dir(UserDirectory.PICTURES);
+    public static File get_import_dir() {
+        string path = Config.get_instance().get_import_dir();
+        if (path != null)
+            return File.new_for_path(path);
+
+        path = Environment.get_user_special_dir(UserDirectory.PICTURES);
         if (path != null)
             return File.new_for_path(path);
         
         return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
+    }
+
+    public static void set_import_dir(File import_dir) {
+        Config.get_instance().set_import_dir(import_dir.get_path());
     }
     
     public static File get_exec_dir() {

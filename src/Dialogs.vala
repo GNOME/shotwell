@@ -1259,10 +1259,11 @@ public class PreferencesDialog {
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
+    private Gtk.Entry library_dir_entry;
     
     public PreferencesDialog() {
         builder = AppWindow.create_builder();
-
+        
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         
@@ -1270,6 +1271,17 @@ public class PreferencesDialog {
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             Config.get_instance().get_bg_color().red);
         bg_color_adjustment.value_changed += on_value_changed;
+        
+    	library_dir_entry = 
+            builder.get_object("library_dir_entry") as Gtk.Entry;
+        
+        library_dir_entry.set_text(AppDirs.get_import_dir().get_path());
+        library_dir_entry.changed += on_import_dir_entry_changed;
+        
+        Gtk.Button library_dir_browser = 
+            builder.get_object("file_browser_button") as Gtk.Button;
+        library_dir_browser.clicked += on_browse_import_dir;
+        
     }
     
     public void execute() {
@@ -1297,5 +1309,33 @@ public class PreferencesDialog {
         color.blue = color_value;
         
         return color;
+    }
+    
+    private void on_browse_import_dir() {
+        Gtk.FileChooserDialog file_chooser = new Gtk.FileChooserDialog(
+            _("Choose Library Directory"), AppWindow.get_instance(),
+            Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL,
+            Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN,
+            Gtk.ResponseType.ACCEPT);
+        
+        try {
+            file_chooser.set_file(AppDirs.get_import_dir());
+        } catch (GLib.Error error) {
+        }
+
+        if (file_chooser.run() == Gtk.ResponseType.ACCEPT) {
+            File library_dir = file_chooser.get_file();
+                
+            library_dir_entry.set_text(library_dir.get_path());
+        }
+
+        file_chooser.destroy();
+    }
+
+    private void on_import_dir_entry_changed() {
+        File library_dir = File.new_for_path(strip_pretty_path(library_dir_entry.get_text()));
+        
+        if (query_is_directory(library_dir))
+            AppDirs.set_import_dir(library_dir);
     }
 }
