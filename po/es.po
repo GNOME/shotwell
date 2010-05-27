@@ -110,7 +110,7 @@ msgstr "Visite el sitio web de Yorba"
 #: src/CollectionPage.vala:136
 #: src/SlideshowPage.vala:98
 msgid "Slideshow"
-msgstr ""
+msgstr "Presentación"
 
 #: src/CollectionPage.vala:137
 #, fuzzy
@@ -166,9 +166,8 @@ msgid "_Move to Trash"
 msgstr "Mover fotos"
 
 #: src/CollectionPage.vala:238
-#, fuzzy
 msgid "Move the selected photos to the trash"
-msgstr "Eliminar fotos seleccionadas de la biblioteca"
+msgstr "Mover fotos seleccionadas a la papelera"
 
 #: src/CollectionPage.vala:243
 msgid "_Photos"
@@ -178,7 +177,7 @@ msgstr "_Fotos"
 #: src/PhotoPage.vala:1513
 #: src/PhotoPage.vala:2244
 msgid "Zoom _In"
-msgstr ""
+msgstr "Acercar"
 
 #: src/CollectionPage.vala:249
 msgid "Increase the magnification of the thumbnails"
@@ -188,7 +187,7 @@ msgstr ""
 #: src/PhotoPage.vala:1519
 #: src/PhotoPage.vala:2250
 msgid "Zoom _Out"
-msgstr ""
+msgstr "Alejar"
 
 #: src/CollectionPage.vala:255
 msgid "Decrease the magnification of the thumbnails"
@@ -196,7 +195,7 @@ msgstr ""
 
 #: src/CollectionPage.vala:328
 msgid "_Slideshow"
-msgstr ""
+msgstr "Pre_sentación"
 
 #: src/CollectionPage.vala:329
 #, fuzzy
@@ -234,9 +233,8 @@ msgid "_Help"
 msgstr "_Ayuda"
 
 #: src/CollectionPage.vala:374
-#, fuzzy
 msgid "Only Fa_vorites"
-msgstr "Solo _Favoritas"
+msgstr "Solo Fa_voritas"
 
 #: src/CollectionPage.vala:375
 msgid "Show only your favorite photos"
@@ -253,25 +251,22 @@ msgid "Display the title of each photo"
 msgstr "Mostrar el título de cada foto"
 
 #: src/CollectionPage.vala:387
-#, fuzzy
 msgid "Display each photo's tags"
-msgstr "Mostrar el título de cada foto"
+msgstr "Mostrar la etiqueta de cada foto"
 
 #: src/CollectionPage.vala:392
 msgid "_Hidden Photos"
 msgstr "_Ocultar Fotos"
 
 #: src/CollectionPage.vala:393
-#, fuzzy
 msgid "Show hidden photos"
-msgstr "Muestra las fotos ocultas"
+msgstr "Muestra fotos ocultas"
 
 #: src/CollectionPage.vala:404
 msgid "By _Title"
 msgstr "Por _Título"
 
 #: src/CollectionPage.vala:405
-#, fuzzy
 msgid "Sort photos by title"
 msgstr "Ordenar fotos por título"
 
@@ -306,11 +301,10 @@ msgstr ""
 #: src/CollectionPage.vala:637
 #: src/Dialogs.vala:14
 #: src/PhotoPage.vala:1769
-#, fuzzy
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "Exportar Foto"
-msgstr[1] "Exportar Foto"
+msgstr[1] "Exportar Fotos"
 
 #: src/CollectionPage.vala:667
 #, c-format
@@ -319,57 +313,50 @@ msgstr ""
 
 #: src/CollectionPage.vala:777
 #: src/CollectionPage.vala:797
-#, fuzzy
 msgid "Rotating"
-msgstr "Rotando"
+msgstr "Rotar"
 
 #: src/CollectionPage.vala:777
 #: src/CollectionPage.vala:797
 msgid "Undoing Rotate"
-msgstr ""
+msgstr "Deshacer Rotación"
 
 #: src/CollectionPage.vala:806
-#, fuzzy
 msgid "Mirroring"
-msgstr "Espejo"
+msgstr "Espejar"
 
 #: src/CollectionPage.vala:807
-#, fuzzy
 msgid "Undoing Mirror"
-msgstr "Espejo"
+msgstr "Deshacer espejado"
 
 #: src/CollectionPage.vala:1210
 msgid "Photos"
 msgstr "Fotos"
 
 #: src/Commands.vala:431
-#, fuzzy
 msgid "Reverting"
-msgstr "Eliminando..."
+msgstr "Revertir"
 
 #: src/Commands.vala:431
+#, fuzzy
 msgid "Undoing Revert"
-msgstr ""
+msgstr "Deshacer Revertir"
 
 #: src/Commands.vala:475
-#, fuzzy
 msgid "Enhancing"
 msgstr "Mejorar"
 
 #: src/Commands.vala:475
-#, fuzzy
 msgid "Undoing Enhance"
-msgstr "Mejorar"
+msgstr "Deshacer mejora"
 
 #: src/Commands.vala:641
-#, fuzzy
 msgid "Creating New Event"
-msgstr "Creando Nuevo Evento"
+msgstr "Crear Nuevo Evento"
 
 #: src/Commands.vala:642
-#, fuzzy
 msgid "Removing Event"
-msgstr "Eliminando Evento"
+msgstr "Eliminar Evento"
 
 #: src/Commands.vala:651
 #, fuzzy
@@ -386,8 +373,9 @@ msgid "Merging"
 msgstr "Combinar"
 
 #: src/Commands.vala:683
+#, fuzzy
 msgid "Unmerging"
-msgstr ""
+msgstr "Deshacer convinación"
 
 #: src/Commands.vala:692
 #, fuzzy
@@ -396,7 +384,7 @@ msgstr "Duplicando fotos..."
 
 #: src/Commands.vala:692
 msgid "Removing duplicated photos"
-msgstr ""
+msgstr "Quitando fotos duplicadas"
 
 #: src/Commands.vala:715
 #, c-format
@@ -429,7 +417,7 @@ msgstr "Mostrar"
 
 #: src/Commands.vala:865
 msgid "Original photo could not be adjusted."
-msgstr ""
+msgstr "La foto original no puede ser ajustada."
 
 #: src/Commands.vala:885
 #, fuzzy
@@ -458,13 +446,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Commands.vala:1178
-#, fuzzy
 msgid "Move Photos to Trash"
-msgstr "Mover fotos"
+msgstr "Mover fotos a la papelera"
 
 #: src/Commands.vala:1178
 msgid "Restore Photos from Trash"
-msgstr ""
+msgstr "Restaurar fotos desde la papelera"
 
 #: src/Commands.vala:1179
 #, fuzzy
@@ -483,7 +470,7 @@ msgstr "Mueva fotos de un evento"
 
 #: src/Commands.vala:1196
 msgid "Restoring Photos From Trash"
-msgstr ""
+msgstr "Restaurando fotos desde la papelera"
 
 #: src/Dialogs.vala:36
 #: src/Dialogs.vala:73
@@ -491,7 +478,6 @@ msgid "Export Photos"
 msgstr "Exportar Fotos"
 
 #: src/Dialogs.vala:58
-#, fuzzy
 msgid "Exporting"
 msgstr "Exportando"
 
@@ -612,9 +598,8 @@ msgstr "Nombre:"
 
 #: src/Dialogs.vala:596
 #: src/Resources.vala:167
-#, fuzzy
 msgid "Rename Photo"
-msgstr "Renombrar Evento"
+msgstr "Renombrar Foto"
 
 #: src/Dialogs.vala:608
 #, fuzzy, c-format
@@ -657,7 +642,6 @@ msgid "%d%%"
 msgstr "%d%%"
 
 #: src/Dialogs.vala:728
-#, fuzzy
 msgid "Generating Events"
 msgstr "Generando eventos..."
 
@@ -833,9 +817,8 @@ msgid "Crop"
 msgstr "Cortar"
 
 #: src/EditingTools.vala:412
-#, fuzzy
 msgid "Crop the photo's size"
-msgstr "Recortar el tamaño de la foto de la"
+msgstr "Recortar el tamaño de la foto"
 
 #: src/EditingTools.vala:488
 #, fuzzy
@@ -874,7 +857,6 @@ msgstr "Tamaño original"
 #: src/EditingTools.vala:578
 #: src/EditingTools.vala:586
 #: src/EditingTools.vala:594
-#, fuzzy
 msgid "-"
 msgstr "-"
 
@@ -1117,9 +1099,8 @@ msgstr ""
 
 #: src/FacebookConnector.vala:340
 #: src/PicasaConnector.vala:378
-#, fuzzy
 msgid "Creating album..."
-msgstr "Creando Nuevo Evento"
+msgstr "Creando album..."
 
 #: src/FacebookConnector.vala:711
 #, fuzzy, c-format
@@ -1308,7 +1289,7 @@ msgid "Error while fetching previews from %s: %s"
 msgstr ""
 
 #: src/ImportPage.vala:908
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to lock camera: %s"
 msgstr "No se puede bloquear la cámara: %s"
 
@@ -1350,7 +1331,7 @@ msgstr "Importada %s"
 
 #: src/JfifSupport.vala:69
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/JfifSupport.vala:176
 #, c-format
@@ -1370,7 +1351,7 @@ msgstr "Alto (%d%%)"
 #: src/JfifSupport.vala:185
 #, c-format
 msgid "Maximum (%d%%)"
-msgstr ""
+msgstr "Máximo (%d%%)"
 
 #: src/LibraryWindow.vala:398
 msgid "_Import From Folder..."
@@ -1386,7 +1367,7 @@ msgstr "Ordenar _Eventos"
 
 #: src/LibraryWindow.vala:414
 msgid "Empty _Trash"
-msgstr ""
+msgstr "Vaciar Papelera"
 
 #: src/LibraryWindow.vala:415
 #, fuzzy
@@ -1419,9 +1400,8 @@ msgid "Import From Folder"
 msgstr "Importar desde carpeta"
 
 #: src/LibraryWindow.vala:656
-#, fuzzy
 msgid "Emptying Trash..."
-msgstr "Exportando"
+msgstr "Vaciando papelera..."
 
 #: src/LibraryWindow.vala:816
 msgid "Photos cannot be imported from this directory."
@@ -1438,7 +1418,7 @@ msgstr "Copiar a la Biblioteca"
 
 #: src/LibraryWindow.vala:911
 msgid "Create Links"
-msgstr ""
+msgstr "Crear enlace"
 
 #: src/LibraryWindow.vala:912
 msgid "Import to Library"
@@ -1473,12 +1453,10 @@ msgid "Unknown error attempting to verify Shotwell's database: %d"
 msgstr "Un error desconocido al intentar verificar la base de datos de Shotwell:% d"
 
 #: src/main.vala:121
-#, fuzzy
 msgid "Loading Shotwell"
-msgstr "Cargando Shotwell ..."
+msgstr "Cargando Shotwell"
 
 #: src/main.vala:219
-#, fuzzy
 msgid "[FILE]"
 msgstr "[FILE]"
 
@@ -1571,8 +1549,9 @@ msgstr "Guardar foto con un nombre diferente"
 
 #: src/PhotoPage.vala:2159
 #: src/Resources.vala:156
+#, fuzzy
 msgid "Page _Setup..."
-msgstr ""
+msgstr "Configuración de Página..."
 
 #: src/PhotoPage.vala:2164
 #: src/Resources.vala:159
@@ -1627,7 +1606,6 @@ msgid "Save As"
 msgstr "Guardar como"
 
 #: src/Photo.vala:24
-#, fuzzy
 msgid "Success"
 msgstr "Éxito"
 
@@ -1708,12 +1686,12 @@ msgstr ""
 #: src/PicasaConnector.vala:546
 #, c-format
 msgid "Unrecognized User"
-msgstr ""
+msgstr "Usuario no reconocido"
 
 #: src/PicasaConnector.vala:550
 #, c-format
 msgid "Account Not Ready"
-msgstr ""
+msgstr "Cuenta no lista"
 
 #: src/PicasaConnector.vala:559
 #, c-format
@@ -1725,8 +1703,9 @@ msgid "_Email address:"
 msgstr ""
 
 #: src/PicasaConnector.vala:572
+#, fuzzy
 msgid "_Password:"
-msgstr ""
+msgstr "Contraseña:"
 
 #: src/PicasaConnector.vala:590
 #, fuzzy
@@ -1735,8 +1714,9 @@ msgstr "Atras"
 
 #: src/PicasaConnector.vala:595
 #: src/WebConnectors.vala:568
+#, fuzzy
 msgid "_Login"
-msgstr ""
+msgstr "Ingreso"
 
 #: src/PicasaConnector.vala:675
 #, fuzzy, c-format
@@ -1767,12 +1747,10 @@ msgid "Photo _size preset:"
 msgstr ""
 
 #: src/PicasaConnector.vala:864
-#, fuzzy
 msgid "Small (640 x 480 pixels)"
 msgstr "Grande (1024 x 768 píxeles)"
 
 #: src/PicasaConnector.vala:865
-#, fuzzy
 msgid "Medium (1024 x 768 pixels)"
 msgstr "Mediano (500 x 375 píxeles)"
 
@@ -1782,7 +1760,7 @@ msgstr ""
 
 #: src/PngSupport.vala:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/Printing.vala:215
 #, fuzzy
@@ -1815,7 +1793,7 @@ msgstr ""
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
-msgstr ""
+msgstr "Resolución en Píxeles"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
@@ -1941,13 +1919,12 @@ msgid "Software:"
 msgstr "Software:"
 
 #: src/Properties.vala:497
-#, fuzzy
 msgid "Extended Information"
 msgstr "Información extendida"
 
 #: src/RawSupport.vala:65
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
 #: src/Resources.vala:17
 msgid "Copyright 2009-2010 Yorba Foundation"
@@ -1984,7 +1961,7 @@ msgstr "Rotar las fotos a la izquierda"
 
 #: src/Resources.vala:91
 msgid "_Mirror"
-msgstr ""
+msgstr "Espejo"
 
 #: src/Resources.vala:92
 msgid "Mirror"
@@ -2011,7 +1988,6 @@ msgid "Re_vert to Original"
 msgstr "Vol_ver al Original"
 
 #: src/Resources.vala:100
-#, fuzzy
 msgid "Revert to Original"
 msgstr "Volver al original"
 
@@ -2197,9 +2173,8 @@ msgid "Re_name Photo..."
 msgstr "Re_nombrar evento ..."
 
 #: src/Resources.vala:168
-#, fuzzy
 msgid "Rename the selected photo"
-msgstr "Renombrar el evento seleccionado"
+msgstr "Renombrar la foto seleccionada"
 
 #: src/Resources.vala:170
 msgid "_Adjust Date and Time..."
@@ -2264,7 +2239,7 @@ msgstr[1] ""
 
 #: src/Resources.vala:203
 msgid "Delete Tag"
-msgstr ""
+msgstr "Eliminar Etiqueta"
 
 #: src/Resources.vala:206
 #, fuzzy, c-format
@@ -2291,7 +2266,7 @@ msgstr ""
 
 #: src/Resources.vala:220
 msgid "Modify Tags"
-msgstr ""
+msgstr "Modificar Etiquetas"
 
 #: src/Resources.vala:221
 #, fuzzy
@@ -2327,11 +2302,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Resources.vala:241
-#, fuzzy, c-format
+#, c-format
 msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
-msgstr[0] "Crear un nuevo evento de las fotografías seleccionadas"
-msgstr[1] "Crear un nuevo evento de las fotografías seleccionadas"
+msgstr[0] "Quitando etiqueta \"%s\" de la foto seleccionada"
+msgstr[1] "Quitando etiqueta \"%s\" de las fotos seleccionadas"
 
 #: src/Resources.vala:246
 #, c-format
@@ -2339,12 +2314,10 @@ msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr ""
 
 #: src/Resources.vala:249
-#, fuzzy
 msgid "_Restore"
-msgstr "_Rehacer"
+msgstr "_Restaurar"
 
 #: src/Resources.vala:250
-#, fuzzy
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -2381,7 +2354,7 @@ msgstr "Pausa"
 #: src/SlideshowPage.vala:117
 #: src/SlideshowPage.vala:230
 msgid "Pause the slideshow"
-msgstr ""
+msgstr "Pausar la presentación"
 
 #: src/SlideshowPage.vala:123
 msgid "Next"
@@ -2393,7 +2366,7 @@ msgstr "Ir a la foto siguiente"
 
 #: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
-msgstr ""
+msgstr "Cambiar la configuración de presentación"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
@@ -2405,7 +2378,7 @@ msgstr "Reproducir"
 
 #: src/SlideshowPage.vala:226
 msgid "Continue the slideshow"
-msgstr ""
+msgstr "Continuar la presentación"
 
 #: src/TagPage.vala:131
 #, c-format
@@ -2415,8 +2388,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/TagPage.vala:135
+#, fuzzy
 msgid "_Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
