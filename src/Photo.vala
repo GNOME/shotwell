@@ -542,7 +542,7 @@ public abstract class TransformablePhoto: PhotoSource {
         params.row.master.filesize = info.get_size();
         params.row.master.timestamp = timestamp.tv_sec;
         params.row.exposure_time = exposure_time;
-        params.row.master.orientation = orientation;
+        params.row.orientation = orientation;
         params.row.master.original_orientation = orientation;
         params.row.import_id = params.import_id;
         params.row.event_id = EventID();
@@ -559,7 +559,7 @@ public abstract class TransformablePhoto: PhotoSource {
             PhotoFileReader reader = params.row.master.file_format.create_reader(
                 params.row.master.filepath);
             try {
-                ThumbnailCache.generate(params.thumbnails, reader, params.row.master.orientation, 
+                ThumbnailCache.generate(params.thumbnails, reader, params.row.orientation, 
                     params.row.master.dim);
             } catch (Error err) {
                 return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
@@ -615,7 +615,7 @@ public abstract class TransformablePhoto: PhotoSource {
         updated_row.md5 = detected.md5;
         updated_row.exif_md5 = detected.exif_md5;
         updated_row.thumbnail_md5 = detected.thumbnail_md5;
-        updated_row.master.orientation = Orientation.TOP_LEFT;
+        updated_row.orientation = Orientation.TOP_LEFT;
         updated_row.master.original_orientation = Orientation.TOP_LEFT;
         updated_row.exposure_time = 0;
         
@@ -624,8 +624,8 @@ public abstract class TransformablePhoto: PhotoSource {
             if (date_time != null)
                 updated_row.exposure_time = date_time.get_timestamp();
             
-            updated_row.master.orientation = detected.metadata.get_orientation();
-            updated_row.master.original_orientation = updated_row.master.orientation;
+            updated_row.orientation = detected.metadata.get_orientation();
+            updated_row.master.original_orientation = updated_row.orientation;
         }
         
         PhotoTable.get_instance().reimport(ref updated_row);
@@ -1170,7 +1170,7 @@ public abstract class TransformablePhoto: PhotoSource {
 
     public bool has_transformations() {
         lock (row) {
-            return (backing_photo_state->orientation != backing_photo_state->original_orientation) 
+            return (row.orientation != backing_photo_state->original_orientation) 
                 ? true 
                 : (row.transformations != null);
         }
@@ -1185,7 +1185,7 @@ public abstract class TransformablePhoto: PhotoSource {
         
         lock (row) {
             return row.transformations == null 
-                && (backing_photo_state->orientation != backing_photo_state->original_orientation 
+                && (row.orientation != backing_photo_state->original_orientation 
                 || (date_time != null && row.exposure_time != date_time.get_timestamp()));
         }
     }
@@ -1199,14 +1199,14 @@ public abstract class TransformablePhoto: PhotoSource {
         
         lock (row) {
             return row.transformations != null 
-                || backing_photo_state->orientation != backing_photo_state->original_orientation
+                || row.orientation != backing_photo_state->original_orientation
                 || (date_time != null && row.exposure_time != date_time.get_timestamp());
         }
     }
     
     public PhotoTransformationState save_transformation_state() {
         lock (row) {
-            return new PhotoTransformationStateImpl(this, backing_photo_state->orientation,
+            return new PhotoTransformationStateImpl(this, row.orientation,
                 row.transformations,
                 transformer != null ? transformer.copy() : null,
                 adjustments != null ? adjustments.copy() : null);
@@ -1228,7 +1228,7 @@ public abstract class TransformablePhoto: PhotoSource {
             committed = PhotoTable.get_instance().set_transformation_state(row.photo_id,
                 saved_orientation, saved_transformations);
             if (committed) {
-                backing_photo_state->orientation = saved_orientation;
+                row.orientation = saved_orientation;
                 row.transformations = saved_transformations;
                 transformer = saved_transformer;
                 adjustments = saved_adjustments;
@@ -1254,10 +1254,10 @@ public abstract class TransformablePhoto: PhotoSource {
             transformer = null;
             adjustments = null;
             
-            if (backing_photo_state->orientation != backing_photo_state->original_orientation) {
+            if (row.orientation != backing_photo_state->original_orientation) {
                 PhotoTable.get_instance().set_orientation(row.photo_id, 
                     backing_photo_state->original_orientation);
-                backing_photo_state->orientation = backing_photo_state->original_orientation;
+                row.orientation = backing_photo_state->original_orientation;
                 is_altered = true;
             }
         }
@@ -1274,7 +1274,7 @@ public abstract class TransformablePhoto: PhotoSource {
     
     public Orientation get_orientation() {
         lock (row) {
-            return backing_photo_state->orientation;
+            return row.orientation;
         }
     }
     
@@ -1283,7 +1283,7 @@ public abstract class TransformablePhoto: PhotoSource {
         lock (row) {
             committed = PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
             if (committed)
-                backing_photo_state->orientation = orientation;
+                row.orientation = orientation;
         }
         
         if (committed)
@@ -1294,11 +1294,7 @@ public abstract class TransformablePhoto: PhotoSource {
 
     public virtual void rotate(Rotation rotation) {
         lock (row) {
-            Orientation orientation = get_orientation();
-            
-            orientation = orientation.perform(rotation);
-            
-            set_orientation(orientation);
+            set_orientation(get_orientation().perform(rotation));
         }
     }
 
@@ -1932,7 +1928,6 @@ public abstract class TransformablePhoto: PhotoSource {
         state.filepath = file.get_path();
         state.filesize = info.get_size();
         state.timestamp = timestamp.tv_sec;
-        state.orientation = orientation;
         state.original_orientation = orientation;
         state.dim = detected.image_dim;
         state.file_format = detected.file_format;
@@ -2120,6 +2115,7 @@ public abstract class TransformablePhoto: PhotoSource {
                 lock (row) {
                     editable = state;
                     assert(backing_photo_state == &editable);
+                    set_orientation(backing_photo_state->original_orientation);
                 }
             } else {
                 BackingPhotoRow editable_row = BackingPhotoTable.get_instance().add(state);
@@ -2127,6 +2123,7 @@ public abstract class TransformablePhoto: PhotoSource {
                     PhotoTable.get_instance().attach_editable(ref row, editable_row.id);
                     editable = editable_row.state;
                     backing_photo_state = &editable;
+                    set_orientation(backing_photo_state->original_orientation);
                 }
             }
         }

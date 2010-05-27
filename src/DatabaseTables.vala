@@ -405,6 +405,11 @@ private DatabaseVerifyResult upgrade_database(int version) {
     
     version = 7;
     
+    //
+    // * Ignore the orientation column in BackingPhotoTable.  (See note above about removing
+    //   columns from tables.)
+    //
+    
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
@@ -557,7 +562,6 @@ public struct BackingPhotoState {
     public time_t timestamp;
     public PhotoFileFormat file_format;
     public Dimensions dim;
-    public Orientation orientation;
     public Orientation original_orientation;
 }
 
@@ -567,6 +571,7 @@ public struct PhotoRow {
     public time_t exposure_time;
     public ImportID import_id;
     public EventID event_id;
+    public Orientation orientation;
     public Gee.HashMap<string, KeyValueMap>? transformations;
     public string md5;
     public string thumbnail_md5;
@@ -707,7 +712,7 @@ public class PhotoTable : DatabaseTable {
         
         // fill in ignored fields with database values
         photo_row.photo_id = PhotoID(db.last_insert_rowid());
-        photo_row.master.orientation = photo_row.master.original_orientation;
+        photo_row.orientation = photo_row.master.original_orientation;
         photo_row.event_id = EventID();
         photo_row.time_created = (time_t) time_created;
         photo_row.flags = 0;
@@ -764,7 +769,7 @@ public class PhotoTable : DatabaseTable {
             throw_error("PhotoTable.reimport_master", res);
         
         row.time_reimported = time_reimported;
-        row.master.orientation = row.master.original_orientation;
+        row.orientation = row.master.original_orientation;
         row.transformations = null;
     }
 
@@ -830,7 +835,7 @@ public class PhotoTable : DatabaseTable {
         row.master.filesize = stmt.column_int64(3);
         row.master.timestamp = (time_t) stmt.column_int64(4);
         row.exposure_time = (time_t) stmt.column_int64(5);
-        row.master.orientation = (Orientation) stmt.column_int(6);
+        row.orientation = (Orientation) stmt.column_int(6);
         row.master.original_orientation = (Orientation) stmt.column_int(7);
         row.import_id.id = stmt.column_int64(8);
         row.event_id.id = stmt.column_int64(9);
@@ -869,7 +874,7 @@ public class PhotoTable : DatabaseTable {
             row.master.filesize = stmt.column_int64(4);
             row.master.timestamp = (time_t) stmt.column_int64(5);
             row.exposure_time = (time_t) stmt.column_int64(6);
-            row.master.orientation = (Orientation) stmt.column_int(7);
+            row.orientation = (Orientation) stmt.column_int(7);
             row.master.original_orientation = (Orientation) stmt.column_int(8);
             row.import_id.id = stmt.column_int64(9);
             row.event_id.id = stmt.column_int64(10);
@@ -918,7 +923,7 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(6, original.exposure_time);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(7, original.master.orientation);
+        res = stmt.bind_int(7, original.orientation);
         assert(res == Sqlite.OK);
         res = stmt.bind_int(8, original.master.original_orientation);
         assert(res == Sqlite.OK);
@@ -1831,8 +1836,7 @@ public class TagTable : DatabaseTable {
 // for a Photo.  In the first implementation it was designed for editable photos (Edit with
 // External Editor), but if other such alternates are needed, this is where to store them.
 //
-// Note that the only transformation that is held here is the orientation (versus the original
-// orientation).
+// Note that no transformations are held here.
 //
 
 public struct BackingPhotoID {
@@ -1875,7 +1879,6 @@ public class BackingPhotoTable : DatabaseTable {
             + "filesize INTEGER, "
             + "width INTEGER, "
             + "height INTEGER, "
-            + "orientation INTEGER, "
             + "original_orientation INTEGER, "
             + "file_format INTEGER, "
             + "time_created INTEGER "
@@ -1897,9 +1900,9 @@ public class BackingPhotoTable : DatabaseTable {
     public BackingPhotoRow add(BackingPhotoState state) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("INSERT INTO BackingPhotoTable "
-            + "(filepath, timestamp, filesize, width, height, orientation, original_orientation, "
+            + "(filepath, timestamp, filesize, width, height, original_orientation, "
             + "file_format, time_created) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -1915,13 +1918,11 @@ public class BackingPhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int(5, state.dim.height);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(6, state.orientation);
+        res = stmt.bind_int(6, state.original_orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(7, state.original_orientation);
+        res = stmt.bind_int(7, state.file_format.serialize());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(8, state.file_format.serialize());
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(9, (int64) time_created);
+        res = stmt.bind_int64(8, (int64) time_created);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -1938,7 +1939,7 @@ public class BackingPhotoTable : DatabaseTable {
     
     public BackingPhotoRow? fetch(BackingPhotoID id) throws DatabaseError {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT filepath, timestamp, filesize, width, height, orientation, "
+        int res = db.prepare_v2("SELECT filepath, timestamp, filesize, width, height, "
             + "original_orientation, file_format, time_created FROM BackingPhotoTable WHERE id=?",
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -1958,10 +1959,9 @@ public class BackingPhotoTable : DatabaseTable {
         row.state.timestamp = (time_t) stmt.column_int64(1);
         row.state.filesize = stmt.column_int64(2);
         row.state.dim = Dimensions(stmt.column_int(3), stmt.column_int(4));
-        row.state.orientation = (Orientation) stmt.column_int(5);
-        row.state.original_orientation = (Orientation) stmt.column_int(6);
-        row.state.file_format = PhotoFileFormat.unserialize(stmt.column_int(7));
-        row.time_created = (time_t) stmt.column_int64(8);
+        row.state.original_orientation = (Orientation) stmt.column_int(5);
+        row.state.file_format = PhotoFileFormat.unserialize(stmt.column_int(6));
+        row.time_created = (time_t) stmt.column_int64(7);
         
         return row;
     }
@@ -1970,7 +1970,7 @@ public class BackingPhotoTable : DatabaseTable {
     public void update(BackingPhotoID id, BackingPhotoState state) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE BackingPhotoTable SET timestamp=?, filesize=?, "
-            + "width=?, height=?, orientation=?, original_orientation=?, file_format=? "
+            + "width=?, height=?, original_orientation=?, file_format=? "
             + "WHERE id=?",
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -1983,13 +1983,11 @@ public class BackingPhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int(4, state.dim.height);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(5, state.orientation);
+        res = stmt.bind_int(5, state.original_orientation);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(6, state.original_orientation);
+        res = stmt.bind_int(6, state.file_format.serialize());
         assert(res == Sqlite.OK);
-        res = stmt.bind_int(7, state.file_format.serialize());
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(8, id.id);
+        res = stmt.bind_int64(7, id.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
