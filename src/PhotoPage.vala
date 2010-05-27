@@ -1665,6 +1665,22 @@ public class LibraryPhotoPage : EditingHostPage {
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
+        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
+        tags.label = _("Ta_gs");
+        actions += tags;
+        
+        Gtk.ActionEntry add_tags = { "AddTags", null, TRANSLATABLE, "<Ctrl>T", TRANSLATABLE, 
+            on_add_tags };
+        add_tags.label = Resources.ADD_TAGS_MENU;
+        add_tags.tooltip = Resources.ADD_TAGS_TOOLTIP;
+        actions += add_tags;
+        
+        Gtk.ActionEntry modify_tags = { "ModifyTags", null, TRANSLATABLE, "<Ctrl>M", TRANSLATABLE, 
+            on_modify_tags };
+        modify_tags.label = Resources.MODIFY_TAGS_MENU;
+        modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
+        actions += modify_tags;
+
         return actions;
     }
     
@@ -2107,6 +2123,27 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_metadata_altered(DataObject item) {
         if (((TransformablePhoto) item).equals(get_photo()))
             repaint();
+    }
+
+    private void on_add_tags() {
+        AddTagsDialog dialog = new AddTagsDialog();
+        string[]? names = dialog.execute();
+        if (names != null) {
+            get_command_manager().execute(new AddTagsCommand(names, 
+                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
+        }
+    }
+
+    private void on_modify_tags() {
+        LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
+        
+        ModifyTagsDialog dialog = new ModifyTagsDialog(photo);
+        Gee.ArrayList<Tag>? new_tags = dialog.execute();
+        
+        if (new_tags == null)
+            return;
+        
+        get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
 }
 

@@ -67,6 +67,11 @@
             <separator />
             <placeholder name="SetBackgroundPlaceholder"/>
         </menu>
+
+        <menu name="TagsMenu" action="TagsMenu">
+            <menuitem name="AddTags" action="AddTags" />
+            <menuitem name="ModifyTags" action="ModifyTags" />
+        </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
             <menuitem name="Contents" action="CommonHelpContents" />

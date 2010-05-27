@@ -939,25 +939,11 @@ public abstract class CollectionPage : CheckerboardPage {
         
         LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
         
-        // get all tags for this photo to display in the dialog
-        Gee.SortedSet<Tag>? tags = Tag.global.fetch_sorted_for_photo(photo);
+        ModifyTagsDialog dialog = new ModifyTagsDialog(photo);
+        Gee.ArrayList<Tag>? new_tags = dialog.execute();
         
-        // make a list of their names for the dialog
-        string[] tag_names = new string[0];
-        if (tags != null) {
-		    foreach (Tag tag in tags)
-		        tag_names += tag.get_name();
-        }
-        
-        ModifyTagsDialog dialog = new ModifyTagsDialog(tag_names);
-        tag_names = dialog.execute();
-        if (tag_names == null)
+        if (new_tags == null)
             return;
-        
-        // turn the resulting names back into Tags, creating empty ones if necessary
-        Gee.ArrayList<Tag> new_tags = new Gee.ArrayList<Tag>();
-        foreach (string name in tag_names)
-            new_tags.add(Tag.for_name(name));
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }

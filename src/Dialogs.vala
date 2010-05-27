@@ -1151,17 +1151,23 @@ public class RenameTagDialog : TextEntryDialogMediator {
 }
 
 public class ModifyTagsDialog : TextEntryDialogMediator {
-    public ModifyTagsDialog(string[]? current_tags) {
+    public ModifyTagsDialog(LibraryPhoto photo) {
         base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), 
-            get_initial_text(current_tags));
+            get_initial_text(photo));
     }
     
-    private static string? get_initial_text(string[]? tags) {
-        if (tags == null)
+    private static string? get_initial_text(LibraryPhoto photo) {
+        Gee.SortedSet<Tag>? sorted_tags = Tag.global.fetch_sorted_for_photo(photo);
+        
+        if (sorted_tags == null)
             return null;
         
-        string text = null;
-        foreach (string tag in tags) {
+        string[] tag_names = new string[0];
+		foreach (Tag tag in sorted_tags)
+            tag_names += tag.get_name();
+        
+        string? text = null;
+        foreach (string tag in tag_names) {
             if (text == null)
                 text = "";
             else
@@ -1173,17 +1179,24 @@ public class ModifyTagsDialog : TextEntryDialogMediator {
         return text;
     }
     
-    public string[]? execute() {
+    public Gee.ArrayList<Tag>? execute() {
         string? text = _execute();
         if (text == null)
             return null;
         
+        Gee.ArrayList<Tag> new_tags = new Gee.ArrayList<Tag>();
+        
         // return empty list if no tags specified
         if (is_string_empty(text))
-            return new string[0];
+            return new_tags;
         
         // break up by comma-delimiter, prep for use, and separate into list
-        return Tag.prep_tag_names(text.split(","));
+        string[] tag_names = Tag.prep_tag_names(text.split(","));
+
+        foreach (string name in tag_names)
+            new_tags.add(Tag.for_name(name));
+        
+        return new_tags;
     }
 }
 
