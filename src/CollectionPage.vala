@@ -235,7 +235,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
-        move_to_trash.label = _("_Move to Trash");
+        move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         move_to_trash.tooltip = _("Move the selected photos to the trash");
         actions += move_to_trash;
         
@@ -347,6 +347,12 @@ public abstract class CollectionPage : CheckerboardPage {
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
+        
+        Gtk.ActionEntry jump_to_file = { "JumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null, 
+            TRANSLATABLE, on_jump_to_file };
+        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
+        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
+        actions += jump_to_file;
         
         Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
             TRANSLATABLE, on_slideshow };
@@ -494,6 +500,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("ExternalEdit", selected_count > 0);
         set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", can_revert_editable_selected());
+        set_action_sensitive("JumpToFile", selected_count == 1);
         
         base.init_actions(selected_count, count);
     }
@@ -541,6 +548,7 @@ public abstract class CollectionPage : CheckerboardPage {
         else
             set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", can_revert_editable_selected());
+        set_action_sensitive("JumpToFile", selected_count == 1);
     }
     
     protected override void on_item_activated(CheckerboardItem item) {
@@ -1044,6 +1052,18 @@ public abstract class CollectionPage : CheckerboardPage {
         } catch (Error err) {
             AppWindow.get_instance().set_normal_cursor();
             AppWindow.error_message(Resources.launch_editor_failed(err));
+        }
+    }
+    
+    private void on_jump_to_file() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
+        try {
+            AppWindow.get_instance().show_file_uri(photo.get_master_file().get_parent());
+        } catch (Error err) {
+            AppWindow.error_message(Resources.jump_to_file_failed(err));
         }
     }
     

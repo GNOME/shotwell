@@ -81,7 +81,7 @@ public class FullscreenWindow : PageWindow {
 
         set_size_request(monitor.width, monitor.height);
 
-	    move(monitor.x, monitor.y);
+        move(monitor.x, monitor.y);
         
         // capture motion events to show the toolbar
         add_events(Gdk.EventMask.POINTER_MOTION_MASK);
@@ -568,7 +568,11 @@ public abstract class AppWindow : PageWindow {
     }
 
     private void on_help_contents() {
-        open_link(Resources.get_help_url());
+        try {
+            show_uri(Resources.get_help_url());
+        } catch (Error err) {
+            error_message(_("Unable to display help: %s").printf(err.message));
+        }
     }
     
     protected virtual void on_quit() {
@@ -579,13 +583,13 @@ public abstract class AppWindow : PageWindow {
     private override void destroy() {
         on_quit();
     }
-
-    public void open_link(string url) {
-        try {
-            sys_show_uri(window.get_screen(), url);
-        } catch (Error err) {
-            critical("Unable to load URL: %s", err.message);
-        }
+    
+    public void show_file_uri(File file) throws Error {
+        show_uri(file.get_uri());
+    }
+    
+    public void show_uri(string url) throws Error {
+        sys_show_uri(window.get_screen(), url);
     }
     
     public virtual void add_common_actions(Gtk.ActionGroup action_group) {

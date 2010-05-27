@@ -9,6 +9,7 @@
             <separator />
             <placeholder name="PublishPlaceholder" />
             <separator />
+            <menuitem name="JumpToFile" action="JumpToFile" />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />
             <menuitem name="Quit" action="CommonQuit" />
@@ -111,6 +112,7 @@
         <menuitem name="ContextPhotoRename" action="PhotoRename" />
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <separator />
+        <menuitem name="ContextJumpToFile" action="JumpToFile" />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
         <separator />
         <placeholder name="ContextSetBackgroundPlaceholder"/>

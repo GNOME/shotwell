@@ -197,7 +197,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     protected void snap_zoom_to_min() {
-        zoom_slider.set_value(0.0);       
+        zoom_slider.set_value(0.0);
     }
 
     protected void snap_zoom_to_max() {
@@ -1402,6 +1402,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public bool has_current_tool() {
         return (current_tool != null);
     }
+    
+    protected void on_jump_to_file() {
+        if (!has_photo())
+            return;
+        
+        try {
+            AppWindow.get_instance().show_file_uri(get_photo().get_master_file().get_parent());
+        } catch (Error err) {
+            AppWindow.error_message(Resources.jump_to_file_failed(err));
+        }
+    }
 }
 
 //
@@ -1498,11 +1509,11 @@ public class LibraryPhotoPage : EditingHostPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry remove = { "Remove", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_remove };
-        remove.label = _("Re_move");
-        remove.tooltip = _("Remove the photo from your library");
-        actions += remove;
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_move_to_trash };
+        move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
+        move_to_trash.tooltip = _("Move the photo to the trash");
+        actions += move_to_trash;
 
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
         view.label = _("_View");
@@ -1611,6 +1622,12 @@ public class LibraryPhotoPage : EditingHostPage {
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
+        
+        Gtk.ActionEntry jump_to_file = { "JumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null, 
+            TRANSLATABLE, on_jump_to_file };
+        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
+        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
+        actions += jump_to_file;
         
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
@@ -1763,6 +1780,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/PhotoRename", sensitivity);
         set_item_sensitive("/PhotoContextMenu/AdjustDateTime", sensitivity);
+        set_action_sensitive("JumpToFile", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder/SetBackground",
@@ -1791,7 +1809,7 @@ public class LibraryPhotoPage : EditingHostPage {
                 // although bound as an accelerator in the menu, accelerators are currently
                 // unavailable in fullscreen mode (a variant of #324), so we do this manually
                 // here
-                on_remove();
+                on_move_to_trash();
             break;
             
             default:
@@ -1839,7 +1857,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_favorite_item_label("/PhotoContextMenu/ContextFavoriteUnfavorite");
 
         return base.on_context_invoked();
-    }    
+    }
 
     private override bool on_context_buttonpress(Gdk.EventButton event) {
         popup_context_menu(context_menu, event);
@@ -1864,7 +1882,7 @@ public class LibraryPhotoPage : EditingHostPage {
         LibraryWindow.get_app().switch_to_page(return_page);
     }
 
-    private void on_remove() {
+    private void on_move_to_trash() {
         if (!has_photo())
             return;
         
@@ -2003,7 +2021,7 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_edit_menu() {
         decorate_undo_item("/PhotoMenuBar/EditMenu/Undo");
         decorate_redo_item("/PhotoMenuBar/EditMenu/Redo");
-        set_item_sensitive("/PhotoMenuBar/EditMenu/Remove", has_photo());
+        set_item_sensitive("/PhotoMenuBar/EditMenu/MoveToTrash", has_photo());
     }
     
     protected void set_favorite_item_label(string path) {
@@ -2443,7 +2461,13 @@ public class DirectPhotoPage : EditingHostPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
-
+        
+        Gtk.ActionEntry jump_to_file = { "JumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null,
+            TRANSLATABLE, on_jump_to_file };
+        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
+        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
+        actions += jump_to_file;
+        
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
             TRANSLATABLE, on_set_background };
