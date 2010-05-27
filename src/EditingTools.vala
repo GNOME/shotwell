@@ -2086,6 +2086,8 @@ public class AdjustTool : EditingTool {
         }
         
         private void on_owner_deactivated() {
+            // This reset call is by design. See notes on ticket #1946 if this is undesirable or if
+            // you are planning to change it. 
             AppWindow.get_command_manager().reset();
         }
     }
