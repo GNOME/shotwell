@@ -419,7 +419,8 @@ public class LibraryWindow : AppWindow {
         preferences.tooltip = Resources.PREFERENCES_TOOLTIP;
         actions += preferences;
         
-        Gtk.ActionEntry empty = { "CommonEmptyTrash", null, TRANSLATABLE, null, null, on_empty_trash };
+        Gtk.ActionEntry empty = { "CommonEmptyTrash", Gtk.STOCK_CLEAR, TRANSLATABLE, null, null,
+            on_empty_trash };
         empty.label = _("Empty _Trash");
         empty.tooltip = _("Delete all photos in the trash");
         actions += empty;
@@ -649,32 +650,10 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_empty_trash() {
-        if (LibraryPhoto.global.get_trashcan_count() == 0)
-            return;
+        Gee.ArrayList<LibraryPhoto> to_remove = new Gee.ArrayList<LibraryPhoto>();
+        to_remove.add_all(LibraryPhoto.global.get_trashcan());
         
-        Gtk.ResponseType result = empty_trash_dialog(this, LibraryPhoto.global.get_trashcan_count());
-        if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
-            return;
-        
-        bool delete_backing = (result == Gtk.ResponseType.YES);
-        
-        set_busy_cursor();
-        
-        ProgressDialog progress = null;
-        if (LibraryPhoto.global.get_trashcan_count() >= 20)
-            progress = new ProgressDialog(AppWindow.get_instance(), _("Emptying Trash..."));
-        
-        // valac complains about passing an argument for a delegate using ternary operator:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=599349
-        if (progress != null)
-            LibraryPhoto.global.empty_trash(delete_backing, progress.monitor);
-        else
-            LibraryPhoto.global.empty_trash(delete_backing);
-        
-        if (progress != null)
-            progress.close();
-        
-        set_normal_cursor();
+        remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash..."));
     }
     
     public int get_events_sort() {

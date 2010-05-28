@@ -276,6 +276,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
     }
     
+    public const string DELETE_PHOTOS_MENU = _("_Delete");
+    public const string DELETE_PHOTOS_TOOLTIP = _("Remove the selected photos from the trash");
+    
     public const string RESTORE_PHOTOS_MENU = _("_Restore");
     public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
     
@@ -286,6 +289,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Unable to open in file manager: %s").printf(err.message);
     }
     
+    public const string REMOVE_FROM_LIBRARY_MENU = _("R_emove From Library");
     public const string MOVE_TO_TRASH_MENU = ("_Move to Trash");
     
     private Gtk.IconFactory factory = null;

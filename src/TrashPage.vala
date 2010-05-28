@@ -22,11 +22,23 @@ public class TrashPage : CheckerboardPage {
         
         Gtk.Toolbar toolbar = get_toolbar();
         
+        // delete button
+        Gtk.ToolButton delete_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_REMOVE);
+        delete_button.set_related_action(action_group.get_action("Delete"));
+        
+        toolbar.insert(delete_button, -1);
+        
         // restore button
         Gtk.ToolButton restore_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_UNDELETE);
         restore_button.set_related_action(action_group.get_action("Restore"));
         
         toolbar.insert(restore_button, -1);
+        
+        // empty trash button
+        Gtk.ToolButton empty_trash_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_CLEAR);
+        empty_trash_button.set_related_action(common_action_group.get_action("CommonEmptyTrash"));
+        
+        toolbar.insert(empty_trash_button, -1);
         
         get_view().selection_group_altered += on_selection_altered;
         get_view().contents_altered += on_contents_altered;
@@ -46,6 +58,12 @@ public class TrashPage : CheckerboardPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
+        
+        Gtk.ActionEntry delete_action = { "Delete", Gtk.STOCK_REMOVE, TRANSLATABLE, null, TRANSLATABLE,
+            on_delete };
+        delete_action.label = Resources.DELETE_PHOTOS_MENU;
+        delete_action.tooltip = Resources.DELETE_PHOTOS_TOOLTIP;
+        actions += delete_action;
         
         Gtk.ActionEntry restore = { "Restore", Gtk.STOCK_UNDELETE, TRANSLATABLE, null, TRANSLATABLE,
             on_restore };
@@ -70,15 +88,19 @@ public class TrashPage : CheckerboardPage {
     }
     
     protected override void init_actions(int selected_count, int count) {
+        set_action_sensitive("Delete", selected_count > 0);
         set_action_sensitive("Restore", selected_count > 0);
         set_action_sensitive("SelectAll", count > 0);
         
+        action_group.get_action("Delete").is_important = true;
         action_group.get_action("Restore").is_important = true;
+        common_action_group.get_action("CommonEmptyTrash").is_important = true;
         
         base.init_actions(selected_count, count);
     }
     
     private void on_selection_altered() {
+        set_action_sensitive("Delete", get_view().get_selected_count() > 0);
         set_action_sensitive("Restore", get_view().get_selected_count() > 0);
     }
     
@@ -120,6 +142,11 @@ public class TrashPage : CheckerboardPage {
     
     public override CheckerboardItem? get_fullscreen_photo() {
         return null;
+    }
+    
+    private void on_delete() {
+        remove_from_app((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), _("Delete"), 
+            ngettext("Deleting a Photo", "Deleting Photos", get_view().get_selected_count()));
     }
 }
 

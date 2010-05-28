@@ -580,3 +580,33 @@ public class OpTimer {
     }
 }
 
+private void remove_from_app(Gee.Collection<LibraryPhoto> photos, string dialog_title, 
+    string progress_dialog_text) {
+    if (photos.size == 0)
+        return;
+    
+	Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title, photos.size);
+	if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
+	    return;
+    
+	bool delete_backing = (result == Gtk.ResponseType.YES);
+    
+	AppWindow.get_instance().set_busy_cursor();
+    
+	ProgressDialog progress = null;
+	if (photos.size >= 20)
+	    progress = new ProgressDialog(AppWindow.get_instance(), progress_dialog_text);
+    
+	// valac complains about passing an argument for a delegate using ternary operator:
+	// https://bugzilla.gnome.org/show_bug.cgi?id=599349
+	if (progress != null)
+	    LibraryPhoto.global.remove_from_app(photos, delete_backing, progress.monitor);
+	else
+	    LibraryPhoto.global.remove_from_app(photos, delete_backing);
+    
+	if (progress != null)
+	    progress.close();
+
+	AppWindow.get_instance().set_normal_cursor();
+}
+

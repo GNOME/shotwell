@@ -614,7 +614,7 @@ public class PhotoRenameDialog : TextEntryDialogMediator {
 
 // Returns: Gtk.ResponseType.YES (trash photos), Gtk.ResponseType.NO (only remove photos) and
 // Gtk.ResponseType.CANCEL.
-public Gtk.ResponseType empty_trash_dialog(Gtk.Window owner, int count) {
+public Gtk.ResponseType remove_from_library_dialog(Gtk.Window owner, string title, int count) {
     string msg = ngettext(
         "This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n\nThis action cannot be undone.",
         "This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n\nThis action cannot be undone.",
@@ -625,7 +625,7 @@ public Gtk.ResponseType empty_trash_dialog(Gtk.Window owner, int count) {
         Gtk.MessageType.WARNING, Gtk.ButtonsType.CANCEL, "%s", msg);
     dialog.add_button(_("Only _Remove"), Gtk.ResponseType.NO);
     dialog.add_button(trash_action, Gtk.ResponseType.YES);
-    dialog.title = _("Empty Trash");
+    dialog.title = title;
     
     Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
     

@@ -13,6 +13,7 @@
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
+            <menuitem name="Delete" action="Delete" />
             <menuitem name="Restore" action="Restore" />
             <separator />
             <menuitem name="SelectAll" action="SelectAll" />
@@ -38,6 +39,7 @@
     </menubar>
     
     <popup name="TrashContextMenu">
+        <menuitem name="ContextDelete" action="Delete" />
         <menuitem name="ContextRestore" action="Restore" />
         <separator />
         <menuitem name="ContextEmptyTrash" action="CommonEmptyTrash" />

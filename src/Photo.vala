@@ -2610,21 +2610,21 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
-    public void empty_trash(bool delete_backing, ProgressMonitor? monitor = null) {
-        int count = trashcan.size;
+    public void remove_from_app(Gee.Collection<LibraryPhoto> selected, bool delete_backing,
+        ProgressMonitor? monitor = null) {
+        int count = selected.size;
         if (count == 0)
             return;
         
-        // first, remove all items from the trashcan and report them as removed
-        Gee.ArrayList<LibraryPhoto> removed = new Gee.ArrayList<LibraryPhoto>();
-        removed.add_all(trashcan);
-        trashcan.clear();
-        notify_trashcan_contents_altered(null, removed.read_only_view);
+        // first, remove all items from the trashcan and report them as removed.  if the trash doesn't own the
+        // photos to be removed, nothing happens
+        trashcan.remove_all(selected);
+        notify_trashcan_contents_altered(null, selected.read_only_view);
         
         // now destroy all of them, reporting this phase to the monitor
         int ctr = 0;
-        foreach (LibraryPhoto photo in removed) {
-            debug("Destroying trashed photo %s", photo.to_string());
+        foreach (LibraryPhoto photo in selected) {
+            debug("Deleting photo %s", photo.to_string());
             photo.destroy_orphan(delete_backing);
             notify_item_destroyed(photo);
             

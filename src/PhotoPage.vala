@@ -1508,8 +1508,13 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
-        
-        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE, null,
+            TRANSLATABLE, on_remove_from_library };
+        remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
+        remove_from_library.tooltip = _("Remove the photo from the library");
+        actions += remove_from_library;        
+
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         move_to_trash.tooltip = _("Move the photo to the trash");
@@ -1897,7 +1902,16 @@ public class LibraryPhotoPage : EditingHostPage {
         
         LibraryWindow.get_app().switch_to_page(return_page);
     }
-
+    
+    private void on_remove_from_library() {
+        LibraryPhoto photo = (LibraryPhoto) get_photo();
+        
+        Gee.Collection<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        photos.add(photo);
+        
+        remove_from_app(photos, _("Remove From Library"), _("Removing Photo From Library"));
+    }
+    
     private void on_move_to_trash() {
         if (!has_photo())
             return;

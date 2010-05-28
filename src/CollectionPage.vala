@@ -87,7 +87,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         get_view().set_comparator(get_sort_comparator());
         get_view().contents_altered += on_contents_altered;
-        get_view().items_state_changed += on_selection_changed;
+        get_view().selection_group_altered += on_selection_changed;
         get_view().items_visibility_changed += on_contents_altered;
         get_view().items_altered += on_photos_altered;
         
@@ -233,7 +233,13 @@ public abstract class CollectionPage : CheckerboardPage {
         select_all.tooltip = _("Select all the photos in the library");
         actions += select_all;
         
-        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_REMOVE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE, null,
+            TRANSLATABLE, on_remove_from_library };
+        remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
+        remove_from_library.tooltip = _("Remove the selected photos from the library");
+        actions += remove_from_library;
+        
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         move_to_trash.tooltip = _("Move the selected photos to the trash");
@@ -497,7 +503,12 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     protected override void init_actions(int selected_count, int count) {
-        set_action_sensitive("ExternalEdit", selected_count > 0);
+        bool selected = selected_count > 0;
+        
+        set_action_sensitive("RemoveFromLibrary", selected);
+        set_action_sensitive("MoveToTrash", selected);
+        set_action_sensitive("Duplicate", selected);
+        set_action_sensitive("ExternalEdit", selected);
         set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", can_revert_editable_selected());
         set_action_sensitive("JumpToFile", selected_count == 1);
@@ -506,7 +517,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_contents_altered() {
-        slideshow_button.sensitive = get_view().get_count() > 0;
+        set_action_sensitive("Slideshow", get_view().get_count() > 0);
     }
     
     private void on_photos_altered() {
@@ -530,7 +541,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 #endif
     
-    private void on_selection_changed(Gee.Iterable<DataView> items) {
+    private void on_selection_changed() {
         int selected_count = get_view().get_selected_count();
         bool has_selected = selected_count > 0;
         bool is_single_raw = selected_count == 1 
@@ -549,6 +560,10 @@ public abstract class CollectionPage : CheckerboardPage {
             set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", can_revert_editable_selected());
         set_action_sensitive("JumpToFile", selected_count == 1);
+        
+        set_action_sensitive("RemoveFromLibrary", has_selected);
+        set_action_sensitive("MoveToTrash", has_selected);
+        set_action_sensitive("Duplicate", has_selected);
     }
     
     protected override void on_item_activated(CheckerboardItem item) {
@@ -756,13 +771,9 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     private void on_edit_menu() {
-        bool selected = get_view().get_selected_count() > 0;
-        
         decorate_undo_item("/CollectionMenuBar/EditMenu/Undo");
         decorate_redo_item("/CollectionMenuBar/EditMenu/Redo");
         set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_view().get_count() > 0);
-        set_item_sensitive("/CollectionMenuBar/EditMenu/MoveToTrash", selected);
-        set_item_sensitive("/CollectionMenuBar/EditMenu/Duplicate", selected);
     }
 
     private void on_events_menu() {
@@ -845,6 +856,12 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_decrease_size() {
         decrease_thumb_size();
         slider.set_value(scale_to_slider(scale));
+    }
+    
+    private void on_remove_from_library() {
+        remove_from_app((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), 
+            _("Remove From Library"), ngettext("Removing Photo From Library", "Removing Photos From Library", 
+            get_view().get_selected_count()));
     }
     
     private void on_move_to_trash() {
