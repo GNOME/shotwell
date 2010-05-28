@@ -108,7 +108,8 @@ SRC_FILES = \
 	RawSupport.vala \
 	MimicManager.vala \
 	TrashPage.vala \
-	PngSupport.vala
+	PngSupport.vala \
+	PhotoExporter.vala
 
 ifndef LINUX
 SRC_FILES += \

@@ -39,8 +39,8 @@ public abstract class CollectionPage : CheckerboardPage {
 #if !NO_PUBLISHING
     private Gtk.ToolButton publish_button = null;
 #endif
-
     private int scale = Thumbnail.DEFAULT_SCALE;
+    private PhotoExporterUI exporter = null;
     
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
@@ -721,6 +721,9 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_export() {
+        if (exporter != null)
+            return;
+        
         Gee.Collection<LibraryPhoto> export_list =
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources();
         if (export_list.size == 0)
@@ -750,13 +753,14 @@ public abstract class CollectionPage : CheckerboardPage {
             File save_as = ExportUI.choose_file(photo.get_export_basename(format));
             if (save_as == null)
                 return;
-                
-            spin_event_loop();
             
             try {
+                AppWindow.get_instance().set_busy_cursor();
                 photo.export(save_as, scaling, quality, format);
+                AppWindow.get_instance().set_normal_cursor();
             } catch (Error err) {
-                run_export_error_dialog(save_as);
+                AppWindow.get_instance().set_normal_cursor();
+                export_error_dialog(save_as, false);
             }
             
             return;
@@ -767,9 +771,15 @@ public abstract class CollectionPage : CheckerboardPage {
         if (export_dir == null)
             return;
         
-        ExportUI.export_photos(export_dir, export_list, scaling, quality, format);
+        exporter = new PhotoExporterUI(new PhotoExporter(export_list, export_dir,
+            scaling, quality, format));
+        exporter.export(on_export_completed);
     }
-
+    
+    private void on_export_completed() {
+        exporter = null;
+    }
+    
     private void on_edit_menu() {
         decorate_undo_item("/CollectionMenuBar/EditMenu/Undo");
         decorate_redo_item("/CollectionMenuBar/EditMenu/Redo");

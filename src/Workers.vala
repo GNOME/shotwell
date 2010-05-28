@@ -346,8 +346,10 @@ public class Workers {
     private ThreadPool thread_pool;
     private AsyncQueue<BackgroundJob> queue = new AsyncQueue<BackgroundJob>();
     
-    public Workers(int max_threads, bool exclusive)
-        requires (max_threads == UNLIMITED_THREADS || max_threads > 0) {
+    public Workers(int max_threads, bool exclusive) {
+        if (max_threads <= 0 && max_threads != UNLIMITED_THREADS)
+            max_threads = 1;
+        
         try {
             thread_pool = new ThreadPool(thread_start, max_threads, exclusive);
         } catch (ThreadError err) {

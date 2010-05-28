@@ -1786,14 +1786,14 @@ public abstract class TransformablePhoto: PhotoSource {
     // default file format, as defined in PhotoFileFormat
     public string get_export_basename(PhotoFileFormat? file_format = null) {
         if (file_format != null) {
-            return file_format.get_properties().convert_file_extension(get_file()).get_basename();
+            return file_format.get_properties().convert_file_extension(get_master_file()).get_basename();
         } else {
             if (get_file_format().can_write()) {
                 return get_file_format().get_properties().convert_file_extension(
-                    get_file()).get_basename();
+                    get_master_file()).get_basename();
             } else {
                 return PhotoFileFormat.get_system_default_format().get_properties().convert_file_extension(
-                    get_file()).get_basename();
+                    get_master_file()).get_basename();
             }
         }
     }
@@ -1864,6 +1864,8 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
+    //
+    // This method is thread-safe.
     public void export(File dest_file, Scaling scaling, Jpeg.Quality quality,
         PhotoFileFormat export_format) throws Error {
         // Attempt to avoid decode/encoding cycle when exporting original-sized photos, as that

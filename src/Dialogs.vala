@@ -48,87 +48,9 @@ public File? choose_dir() {
     
     return dir;
 }
-
-public void export_photos(File folder, Gee.Collection<TransformablePhoto> photos,
-    Scaling scaling, Jpeg.Quality quality, PhotoFileFormat format) {
-    ProgressDialog dialog = null;
-    Cancellable cancellable = null;
-    if (photos.size > 2) {
-        cancellable = new Cancellable();
-        dialog = new ProgressDialog(AppWindow.get_instance(), _("Exporting"), cancellable);
-    }
-    
-    AppWindow.get_instance().set_busy_cursor();
-    
-    int count = 0;
-    int failed = 0;
-    bool replace_all = false;
-    foreach (TransformablePhoto photo in photos) {
-        string basename = photo.get_export_basename(format);
-        File dest = folder.get_child(basename);
-        
-        if (!replace_all && dest.query_exists(null)) {
-            string question = _("File %s already exists.  Replace?").printf(basename);
-            Gtk.ResponseType response = AppWindow.negate_affirm_all_cancel_question(question, 
-                _("_Skip"), _("_Replace"), _("Replace _All"), _("Export Photos"));
-            
-            bool skip = false;
-            switch (response) {
-                case Gtk.ResponseType.APPLY:
-                    replace_all = true;
-                break;
-
-                case Gtk.ResponseType.YES:
-                    // fall through
-                break;
-                
-                case Gtk.ResponseType.CANCEL:
-                    cancellable.cancel();
-                break;
-                
-                case Gtk.ResponseType.NO:
-                default:
-                    if (dialog != null) {
-                        dialog.set_fraction(++count, photos.size);
-                        spin_event_loop();
-                    }
-                    
-                    skip = true;
-                break;
-            }
-            
-            if (skip)
-                continue;
-        }
-        
-        if (cancellable != null && cancellable.is_cancelled())
-            break;
-        
-        try {
-            photo.export(dest, scaling, quality, format);
-        } catch (Error err) {
-            failed++;
-
-            Gtk.ResponseType response = run_export_error_dialog(dest, true);
-            
-            if (response == Gtk.ResponseType.CANCEL)
-                break;
-        }
-        
-        if (dialog != null) {
-            dialog.set_fraction(++count, photos.size);
-            spin_event_loop();
-        }
-    }
-    
-    if (dialog != null)
-        dialog.close();
-    
-    AppWindow.get_instance().set_normal_cursor();
-}
 }
 
-public Gtk.ResponseType run_export_error_dialog(File dest, bool photos_remaining = false) {
+public Gtk.ResponseType export_error_dialog(File dest, bool photos_remaining) {
     string message = _("Unable to export the following photo due to a file error.\n\n") +
         dest.get_path();
 
@@ -250,18 +172,18 @@ public class ExportDialog : Gtk.Dialog {
     public bool execute(out int scale, out ScaleConstraint constraint, out Jpeg.Quality quality,
         ref PhotoFileFormat user_format) {
         show_all();
-		
+        
         if (!user_format.can_write())
             user_format = PhotoFileFormat.get_system_default_format();
-		
+        
         int ctr = 0;
         foreach (PhotoFileFormat format in PhotoFileFormat.get_writable()) {
             if (format == user_format)
-                format_combo.set_active(ctr);           
+                format_combo.set_active(ctr);
             ctr++;
         }
         on_format_changed();
-
+        
         bool ok = (run() == Gtk.ResponseType.OK);
         if (ok) {
             int index = constraint_combo.get_active();
@@ -278,7 +200,7 @@ public class ExportDialog : Gtk.Dialog {
             assert(index >= 0);
             quality = QUALITY_ARRAY[index];
             current_quality = quality;
-
+            
             index = format_combo.get_active();
             assert(index >= 0);
             user_format = PhotoFileFormat.get_writable()[index];
@@ -291,10 +213,10 @@ public class ExportDialog : Gtk.Dialog {
     
     private void add_label(string text, int x, int y, Gtk.Widget? widget = null) {
         Gtk.Alignment left_aligned = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
-
+        
         Gtk.Label new_label = new Gtk.Label.with_mnemonic(text);
         new_label.set_use_underline(true);
-
+        
         if (widget != null)
             new_label.set_mnemonic_widget(widget);
         
@@ -343,12 +265,12 @@ public class ExportDialog : Gtk.Dialog {
         // This is necessary because SignalHandler.block_by_func() is not properly bound
         if (in_insert)
             return;
-            
+        
         in_insert = true;
         
         if (length == -1)
             length = (int) text.length;
-
+        
         // only permit numeric text
         string new_text = "";
         for (int ctr = 0; ctr < length; ctr++) {
@@ -359,7 +281,7 @@ public class ExportDialog : Gtk.Dialog {
         
         if (new_text.length > 0)
             pixels_entry.insert_text(new_text, (int) new_text.length, position);
-
+        
         Signal.stop_emission_by_name(pixels_entry, "insert-text");
         
         in_insert = false;

@@ -1829,6 +1829,7 @@ public class PhotoDragAndDropHandler {
     private weak Page page;
     private Gtk.Widget event_source;
     private File? drag_destination = null;
+    private PhotoExporterUI exporter = null;
     
     public PhotoDragAndDropHandler(Page page) {
         this.page = page;
@@ -1873,7 +1874,7 @@ public class PhotoDragAndDropHandler {
     private void on_drag_begin(Gdk.DragContext context) {
         debug("on_drag_begin (%s)", page.get_page_name());
         
-        if (page == null || page.get_view().get_selected_count() == 0)
+        if (page == null || page.get_view().get_selected_count() == 0 || exporter != null)
             return;
         
         drag_destination = null;
@@ -1942,17 +1943,20 @@ public class PhotoDragAndDropHandler {
     private void on_drag_end() {
         debug("on_drag_end (%s)", page.get_page_name());
 
-        if (page == null || page.get_view().get_selected_count() == 0 || drag_destination == null)
+        if (page == null || page.get_view().get_selected_count() == 0 || drag_destination == null
+            || exporter != null) {
             return;
+        }
 
         debug("Exporting to %s", drag_destination.get_path());
         
         // drag-and-drop export doesn't pop up an export dialog, so use what are likely the
         // most common export settings (JPEG file format, high quality, at full size)
         if (drag_destination.get_path() != null) {
-            ExportUI.export_photos(drag_destination,
-                (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources(),
-                 Scaling.for_original(), Jpeg.Quality.HIGH, PhotoFileFormat.JFIF);
+            exporter = new PhotoExporterUI(new PhotoExporter(
+                (Gee.Collection<Photo>) page.get_view().get_selected_sources(),
+                drag_destination, Scaling.for_original(), Jpeg.Quality.HIGH, PhotoFileFormat.JFIF));
+            exporter.export(on_export_completed);
         } else {
             AppWindow.error_message(_("Photos cannot be exported to this directory."));
         }
@@ -1969,6 +1973,10 @@ public class PhotoDragAndDropHandler {
         drag_destination = null;
         
         return false;
+    }
+    
+    private void on_export_completed() {
+        exporter = null;
     }
 }
 
