@@ -103,6 +103,7 @@
     <property name="modal">True</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
+    <property name="skip_taskbar_hint">True</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
@@ -110,10 +111,7 @@
         <child>
           <object class="GtkAlignment" id="alignment1">
             <property name="visible">True</property>
-            <property name="top_padding">6</property>
-            <property name="bottom_padding">6</property>
-            <property name="left_padding">6</property>
-            <property name="right_padding">6</property>
+            <property name="border_width">6</property>
             <child>
               <object class="GtkVBox" id="vbox1">
                 <property name="visible">True</property>

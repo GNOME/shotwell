@@ -480,6 +480,7 @@ public class TextEntryDialog : Gtk.Dialog {
         string? initial_text) {
         set_title(title);
         set_parent_window(AppWindow.get_instance().get_parent_window());
+        set_transient_for(AppWindow.get_instance());
         on_modify_validate = modify_validate;
 
         Gtk.Label name_label = builder.get_object("label") as Gtk.Label;
@@ -1201,6 +1202,7 @@ public class PreferencesDialog {
         
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
+        dialog.set_transient_for(AppWindow.get_instance());
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
