@@ -346,6 +346,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         is_pan_in_progress = false;
         
         deactivate_tool();
+
+        get_view().clear();
     }
     
     public override void switching_to_fullscreen() {
