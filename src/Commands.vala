@@ -9,18 +9,46 @@
 public abstract class PageCommand : Command {
     private Page? page;
     private bool auto_return = true;
+    private Photo library_photo = null;
+    private CollectionPage collection_page = null;
     
     public PageCommand(string name, string explanation) {
         base (name, explanation);
         
         page = AppWindow.get_instance().get_current_page();
-        if (page != null)
+        
+        if (page != null) {
             page.destroy += on_page_destroyed;
+            
+            // If the command occurred on a LibaryPhotoPage, the PageCommand must record additional
+            // objects to be restore it to its old state: a specific photo to focus on, a page to return 
+            // to, and a view collection to operate over. Note that these objects can be cleared if 
+            // the page goes into the background. The required objects are stored below.
+            LibraryPhotoPage photo_page = page as LibraryPhotoPage;
+            if (photo_page != null) {
+                library_photo = photo_page.get_photo();
+                collection_page = photo_page.get_controller_page();
+                
+                if (library_photo != null && collection_page != null) {
+                    library_photo.destroyed += on_photo_destroyed;
+                    collection_page.destroy += on_controller_destroyed;
+                } else {
+                    library_photo = null;
+                    collection_page = null;
+                }
+            }
+        }
     }
     
     ~PageCommand() {
         if (page != null)
             page.destroy -= on_page_destroyed;
+        
+        if (library_photo != null)
+            library_photo.destroyed -= on_photo_destroyed;
+
+        if (collection_page != null)
+            collection_page.destroy -= on_controller_destroyed;
     }
     
     public void set_auto_return_to_page(bool auto_return) {
@@ -35,7 +63,12 @@ public abstract class PageCommand : Command {
     }
     
     public void return_to_page() {
-        if (page != null)
+        LibraryPhotoPage photo_page = page as LibraryPhotoPage;  
+
+        if (photo_page != null) { 
+            if (library_photo != null && collection_page != null)
+                LibraryWindow.get_app().switch_to_photo_page(collection_page, library_photo);
+        } else if (page != null)
             AppWindow.get_instance().set_current_page(page);
     }
     
@@ -43,6 +76,17 @@ public abstract class PageCommand : Command {
         page.destroy -= on_page_destroyed;
         page = null;
     }
+    
+    private void on_photo_destroyed() {
+        library_photo.destroyed -= on_photo_destroyed;
+        library_photo = null;
+    }
+
+    private void on_controller_destroyed() {
+        collection_page.destroy -= on_controller_destroyed;
+        collection_page = null;
+    }
+
 }
 
 public abstract class SingleDataSourceCommand : PageCommand {

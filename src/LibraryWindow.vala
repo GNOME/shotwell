@@ -45,7 +45,7 @@ public class LibraryWindow : AppWindow {
         public override void switched_to() {
             base.switched_to();
             
-            display_for_collection(collection, start);
+            display_for_collection(collection, start.get_photo());
         }
     }
     
@@ -951,7 +951,7 @@ public class LibraryWindow : AppWindow {
         switch_to_page(stub.get_page());
     }
     
-    public void switch_to_photo_page(CollectionPage controller, Thumbnail current) {
+    public void switch_to_photo_page(CollectionPage controller, Photo current) {
         photo_page.display_for_collection(controller, current);
         switch_to_page(photo_page);
     }

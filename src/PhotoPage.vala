@@ -337,6 +337,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // check if the photo altered while away
         if (has_photo() && pixbuf_dirty)
             replace_photo(controller, get_photo());
+        
+        assert(get_photo() != null);
     }
     
     public override void switching_from() {
@@ -1714,10 +1716,10 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
     }
     
-    public void display_for_collection(CollectionPage return_page, Thumbnail thumbnail) {
+    public void display_for_collection(CollectionPage return_page, Photo photo) {
         this.return_page = return_page;
         
-        display(return_page.get_view(), thumbnail.get_photo());
+        display(return_page.get_view(), photo);
     }
     
     public CollectionPage get_controller_page() {

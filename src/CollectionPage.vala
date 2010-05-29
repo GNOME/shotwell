@@ -572,7 +572,7 @@ public abstract class CollectionPage : CheckerboardPage {
         // switch to full-page view
         debug("switching to %s", thumbnail.get_photo().to_string());
 
-        LibraryWindow.get_app().switch_to_photo_page(this, thumbnail);
+        LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
     }
     
     private void set_favorite_item_sensitive(string path, bool selected) {
