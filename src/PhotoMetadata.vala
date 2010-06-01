@@ -942,8 +942,13 @@ public class PhotoMetadata {
         return get_string_interpreted("Exif.Photo.FocalLength");
     }
     
+    private static string[] ARTIST_TAGS = {
+        "Exif.Image.Artist",
+        "Exif.Canon.OwnerName" // Custom tag used by Canon DSLR cameras
+    };
+    
     public string? get_artist() {
-        return get_string_interpreted("Exif.Image.Artist");
+        return get_first_string_interpreted(ARTIST_TAGS);
     }
     
     public string? get_copyright() {
