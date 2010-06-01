@@ -953,5 +953,9 @@ public class PhotoMetadata {
     public string? get_software() {
         return get_string_interpreted("Exif.Image.Software");
     }
+    
+    public string? get_exposure_bias() {
+        return get_string_interpreted("Exif.Photo.ExposureBiasValue");
+    }
 }
 

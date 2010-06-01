@@ -356,6 +356,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         private string artist;
         private string copyright;
         private string software;
+        private string exposure_bias;
             
         protected override void clear_properties() {
             base.clear_properties();
@@ -374,6 +375,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             artist = "";
             copyright = "";
             software = "";
+            exposure_bias = "";
         }
 
         protected override void get_single_properties(DataView view) {
@@ -401,6 +403,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             artist = metadata.get_artist();
             copyright = metadata.get_copyright();
             software = metadata.get_software();
+            exposure_bias = metadata.get_exposure_bias();
         }
         
         public override void internal_update_properties(Page page) {
@@ -425,6 +428,8 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             add_line(_("Focal length:"), (focal_length != "" && focal_length != null) ?
                 focal_length : NO_VALUE);
 
+            add_line(_("Exposure bias:"), (exposure_bias != "" && exposure_bias != null) ? exposure_bias : NO_VALUE);
+            
             add_line(_("GPS latitude:"), (gps_lat != -1 && gps_lat_ref != "" && 
                 gps_lat_ref != null) ? "%f °%s".printf(gps_lat, gps_lat_ref) : NO_VALUE);
             
