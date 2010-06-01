@@ -294,6 +294,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
             on_shift_released(null);
         else if (!shift_pressed && shift_currently_pressed)
             on_shift_pressed(null);
+        
+        ctrl_pressed = ctrl_currently_pressed;
+        alt_pressed = alt_currently_pressed;
+        shift_pressed = shift_currently_pressed;
     }
     
     public PageWindow? get_page_window() {
