@@ -2,7 +2,7 @@
 # Thai translation for Shotwell
 # Copyright (C) 2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.5.90+trunk\n"
@@ -14,9 +14,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: THAILAND\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Thai\n"
-"X-Poedit-Country: THAILAND\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 # GNOME Application Name
@@ -85,9 +85,7 @@ msgstr "เนื้อหา(_C)"
 msgid "More information on Shotwell"
 msgstr "ข้อมูลอื่นๆของ Shotwell"
 
-#: src/AppWindow.vala:488
-#: src/AppWindow.vala:504
-#: src/TagPage.vala:135
+#: src/AppWindow.vala:488 src/AppWindow.vala:504 src/TagPage.vala:135
 #: src/WebConnectors.vala:791
 msgid "_Cancel"
 msgstr "ยกเลิก(_C)"
@@ -107,8 +105,7 @@ msgstr ""
 msgid "Visit the Yorba web site"
 msgstr "เยี่ยมชมเว็บไซต์ Yorba"
 
-#: src/CollectionPage.vala:136
-#: src/SlideshowPage.vala:98
+#: src/CollectionPage.vala:136 src/SlideshowPage.vala:98
 msgid "Slideshow"
 msgstr "การนำเสนอภาพนิ่ง"
 
@@ -120,13 +117,9 @@ msgstr "เริ่มการนำเสนอภาพนิ่งของ
 msgid "Adjust the size of the thumbnails"
 msgstr "เปลี่ยนขนาดของรูปย่อ"
 
-#: src/CollectionPage.vala:189
-#: src/EventsDirectoryPage.vala:218
-#: src/ImportPage.vala:379
-#: src/ImportPage.vala:1089
-#: src/PhotoPage.vala:1384
-#: src/PhotoPage.vala:2141
-#: src/TrashPage.vala:47
+#: src/CollectionPage.vala:189 src/EventsDirectoryPage.vala:218
+#: src/ImportPage.vala:379 src/ImportPage.vala:1089 src/PhotoPage.vala:1384
+#: src/PhotoPage.vala:2141 src/TrashPage.vala:47
 msgid "_File"
 msgstr "แฟ้ม(_F)"
 
@@ -134,23 +127,17 @@ msgstr "แฟ้ม(_F)"
 msgid "Export selected photos to disk"
 msgstr "ส่งออกรูปภาพลงดิสก์"
 
-#: src/CollectionPage.vala:222
-#: src/EventsDirectoryPage.vala:230
-#: src/ImportPage.vala:393
-#: src/PhotoPage.vala:1416
-#: src/TrashPage.vala:51
+#: src/CollectionPage.vala:222 src/EventsDirectoryPage.vala:230
+#: src/ImportPage.vala:393 src/PhotoPage.vala:1416 src/TrashPage.vala:51
 msgid "_Edit"
 msgstr "แก้ไข(_E)"
 
-#: src/CollectionPage.vala:226
-#: src/EventsDirectoryPage.vala:234
+#: src/CollectionPage.vala:226 src/EventsDirectoryPage.vala:234
 msgid "Even_ts"
 msgstr "เหตุการณ์(_t)"
 
-#: src/CollectionPage.vala:231
-#: src/EventsDirectoryPage.vala:250
-#: src/ImportPage.vala:398
-#: src/TrashPage.vala:62
+#: src/CollectionPage.vala:231 src/EventsDirectoryPage.vala:250
+#: src/ImportPage.vala:398 src/TrashPage.vala:62
 msgid "Select _All"
 msgstr "เลือกทั้งหมด(_A)"
 
@@ -170,9 +157,7 @@ msgstr "ลบรูปภาพที่เลือกไปที่ถัง
 msgid "_Photos"
 msgstr "รูปถ่าย(_P)"
 
-#: src/CollectionPage.vala:248
-#: src/PhotoPage.vala:1513
-#: src/PhotoPage.vala:2244
+#: src/CollectionPage.vala:248 src/PhotoPage.vala:1513 src/PhotoPage.vala:2244
 msgid "Zoom _In"
 msgstr "ขยาย(_I)"
 
@@ -180,9 +165,7 @@ msgstr "ขยาย(_I)"
 msgid "Increase the magnification of the thumbnails"
 msgstr "เพิ่มขนาดของรูปย่อ"
 
-#: src/CollectionPage.vala:254
-#: src/PhotoPage.vala:1519
-#: src/PhotoPage.vala:2250
+#: src/CollectionPage.vala:254 src/PhotoPage.vala:1519 src/PhotoPage.vala:2250
 msgid "Zoom _Out"
 msgstr "ขยาย"
 
@@ -198,13 +181,9 @@ msgstr "นำเสนอภาพนิ่ง(_S)"
 msgid "Play a slideshow"
 msgstr "cแสดงการนำเสนอภาพนิ่ง"
 
-#: src/CollectionPage.vala:333
-#: src/EventsDirectoryPage.vala:222
-#: src/ImportPage.vala:403
-#: src/ImportPage.vala:1099
-#: src/PhotoPage.vala:1426
-#: src/PhotoPage.vala:2235
-#: src/TrashPage.vala:66
+#: src/CollectionPage.vala:333 src/EventsDirectoryPage.vala:222
+#: src/ImportPage.vala:403 src/ImportPage.vala:1099 src/PhotoPage.vala:1426
+#: src/PhotoPage.vala:2235 src/TrashPage.vala:66
 msgid "_View"
 msgstr "ดู(_V)"
 
@@ -212,18 +191,13 @@ msgstr "ดู(_V)"
 msgid "Sort _Photos"
 msgstr "เรียงภาพ(_P)"
 
-#: src/CollectionPage.vala:347
-#: src/CollectionPage.vala:386
+#: src/CollectionPage.vala:347 src/CollectionPage.vala:386
 msgid "Ta_gs"
 msgstr "แท็ก(_g)"
 
-#: src/CollectionPage.vala:363
-#: src/EventsDirectoryPage.vala:226
-#: src/ImportPage.vala:407
-#: src/ImportPage.vala:1103
-#: src/PhotoPage.vala:1508
-#: src/PhotoPage.vala:2239
-#: src/TrashPage.vala:70
+#: src/CollectionPage.vala:363 src/EventsDirectoryPage.vala:226
+#: src/ImportPage.vala:407 src/ImportPage.vala:1103 src/PhotoPage.vala:1508
+#: src/PhotoPage.vala:2239 src/TrashPage.vala:70
 msgid "_Help"
 msgstr "ช่วยเหลือ(_H)"
 
@@ -235,13 +209,11 @@ msgstr "เฉพาะภาพโปรด(_v)"
 msgid "Show only your favorite photos"
 msgstr "แสเงเฉพาะภาพโปรดของคุณ"
 
-#: src/CollectionPage.vala:380
-#: src/ImportPage.vala:368
+#: src/CollectionPage.vala:380 src/ImportPage.vala:368
 msgid "_Titles"
 msgstr "ชื่อ(_T)"
 
-#: src/CollectionPage.vala:381
-#: src/ImportPage.vala:369
+#: src/CollectionPage.vala:381 src/ImportPage.vala:369
 msgid "Display the title of each photo"
 msgstr ""
 
@@ -273,29 +245,23 @@ msgstr ""
 msgid "Sort photos by exposure date"
 msgstr ""
 
-#: src/CollectionPage.vala:422
-#: src/LibraryWindow.vala:445
+#: src/CollectionPage.vala:422 src/LibraryWindow.vala:445
 msgid "_Ascending"
 msgstr "มากไปน้อย(_A)"
 
-#: src/CollectionPage.vala:423
-#: src/LibraryWindow.vala:446
+#: src/CollectionPage.vala:423 src/LibraryWindow.vala:446
 msgid "Sort photos in an ascending order"
 msgstr "เรียงรูปภาพแบบน้อยไปมาก"
 
-#: src/CollectionPage.vala:428
-#: src/LibraryWindow.vala:452
+#: src/CollectionPage.vala:428 src/LibraryWindow.vala:452
 msgid "D_escending"
 msgstr "น้อยไปมาก(_e)"
 
-#: src/CollectionPage.vala:429
-#: src/LibraryWindow.vala:453
+#: src/CollectionPage.vala:429 src/LibraryWindow.vala:453
 msgid "Sort photos in a descending order"
 msgstr "เรียงรูปภาพแบบมากไปน้อย"
 
-#: src/CollectionPage.vala:637
-#: src/Dialogs.vala:14
-#: src/PhotoPage.vala:1769
+#: src/CollectionPage.vala:637 src/Dialogs.vala:14 src/PhotoPage.vala:1769
 msgid "Export Photo"
 msgid_plural "Export Photos"
 msgstr[0] "ส่งออกรูปภาพ"
@@ -305,13 +271,11 @@ msgstr[0] "ส่งออกรูปภาพ"
 msgid "Unable to export photo %s: %s"
 msgstr ""
 
-#: src/CollectionPage.vala:777
-#: src/CollectionPage.vala:797
+#: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Rotating"
 msgstr "หมุนภาพ"
 
-#: src/CollectionPage.vala:777
-#: src/CollectionPage.vala:797
+#: src/CollectionPage.vala:777 src/CollectionPage.vala:797
 msgid "Undoing Rotate"
 msgstr "เลิกหมุนภาพ"
 
@@ -373,7 +337,7 @@ msgstr "ทำสำเนารูปภาพ"
 
 #: src/Commands.vala:692
 msgid "Removing duplicated photos"
-msgstr ""
+msgstr "ลบรูปภาพที่ซ้ำ"
 
 #: src/Commands.vala:715
 #, c-format
@@ -382,23 +346,19 @@ msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Commands.vala:780
-#: src/Commands.vala:781
+#: src/Commands.vala:780 src/Commands.vala:781
 msgid "Marking as Favorite"
-msgstr ""
+msgstr "ตั้งเป็นรูปโปรด"
 
-#: src/Commands.vala:780
-#: src/Commands.vala:781
+#: src/Commands.vala:780 src/Commands.vala:781
 msgid "Unmarking as Favorite"
 msgstr ""
 
-#: src/Commands.vala:822
-#: src/Commands.vala:823
+#: src/Commands.vala:822 src/Commands.vala:823
 msgid "Hiding"
 msgstr "ซ่อน"
 
-#: src/Commands.vala:822
-#: src/Commands.vala:823
+#: src/Commands.vala:822 src/Commands.vala:823
 msgid "Unhiding"
 msgstr "เลิกซ่อน"
 
@@ -420,8 +380,7 @@ msgid_plural "The following original photos could not be adjusted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Commands.vala:914
-#: src/Commands.vala:926
+#: src/Commands.vala:914 src/Commands.vala:926
 msgid "Time Adjustment Error"
 msgstr ""
 
@@ -433,19 +392,19 @@ msgstr[1] ""
 
 #: src/Commands.vala:1178
 msgid "Move Photos to Trash"
-msgstr ""
+msgstr "ลบรูปภาพลงถังขยะ"
 
 #: src/Commands.vala:1178
 msgid "Restore Photos from Trash"
-msgstr ""
+msgstr "กู้คืนรูปภาพจากถังขยะ"
 
 #: src/Commands.vala:1179
 msgid "Move the photos to the Shotwell trash"
-msgstr ""
+msgstr "ลบรูปภาพลงถังขยะของ Shotwell"
 
 #: src/Commands.vala:1179
 msgid "Restore the photos back to the Shotwell library"
-msgstr ""
+msgstr "กู้คืนรูปภาพไปที่ไลบราลีของ Shotwell"
 
 #: src/Commands.vala:1196
 msgid "Moving Photos to Trash"
@@ -455,8 +414,7 @@ msgstr "ย้ายรูปภาพลงถังขยะ"
 msgid "Restoring Photos From Trash"
 msgstr "กู้คืนรูปภาพจากถังขยะ"
 
-#: src/Dialogs.vala:36
-#: src/Dialogs.vala:73
+#: src/Dialogs.vala:36 src/Dialogs.vala:73
 msgid "Export Photos"
 msgstr "ส่งออกรูปภาพ"
 
@@ -479,7 +437,7 @@ msgstr "แทนที่(_R)"
 
 #: src/Dialogs.vala:73
 msgid "Replace _All"
-msgstr ""
+msgstr "แทนที่ทั้งหมด(_A)"
 
 #: src/Dialogs.vala:125
 #, c-format
@@ -566,19 +524,15 @@ msgstr ""
 msgid "Import Complete"
 msgstr ""
 
-#: src/Dialogs.vala:586
-#: src/Resources.vala:115
+#: src/Dialogs.vala:586 src/Resources.vala:115
 msgid "Rename Event"
 msgstr ""
 
-#: src/Dialogs.vala:586
-#: src/Dialogs.vala:596
-#: src/Dialogs.vala:1090
+#: src/Dialogs.vala:586 src/Dialogs.vala:596 src/Dialogs.vala:1090
 msgid "Name:"
 msgstr "ชื่อ:"
 
-#: src/Dialogs.vala:596
-#: src/Resources.vala:167
+#: src/Dialogs.vala:596 src/Resources.vala:167
 msgid "Rename Photo"
 msgstr "เปลี่ยนชื่อรูปภาพ"
 
@@ -706,8 +660,7 @@ msgstr[0] ""
 "\n"
 "และ %d อื่นๆ"
 
-#: src/Dialogs.vala:1064
-#: src/Dialogs.vala:1114
+#: src/Dialogs.vala:1064 src/Dialogs.vala:1114
 msgid "Tags (separated by commas):"
 msgstr "แท็ก (แบ่งโดยใช้เครื่องหมายจุลภาค):"
 
@@ -742,8 +695,7 @@ msgstr ""
 msgid "_Don't show this message again"
 msgstr ""
 
-#: src/Dimensions.vala:17
-#: src/FlickrConnector.vala:949
+#: src/Dimensions.vala:17 src/FlickrConnector.vala:949
 msgid "Original size"
 msgstr ""
 
@@ -791,15 +743,12 @@ msgstr ""
 msgid "Screen"
 msgstr ""
 
-#: src/EditingTools.vala:574
-#: src/PicasaConnector.vala:867
+#: src/EditingTools.vala:574 src/PicasaConnector.vala:867
 msgid "Original Size"
 msgstr ""
 
-#: src/EditingTools.vala:575
-#: src/EditingTools.vala:578
-#: src/EditingTools.vala:586
-#: src/EditingTools.vala:594
+#: src/EditingTools.vala:575 src/EditingTools.vala:578
+#: src/EditingTools.vala:586 src/EditingTools.vala:594
 msgid "-"
 msgstr ""
 
@@ -811,73 +760,59 @@ msgstr "วีดีโอทั่วไป(4 : 3)"
 msgid "HD Video (16 : 9)"
 msgstr "วีดีโอความละเอียดสูง (16 : 9)"
 
-#: src/EditingTools.vala:579
-#: src/Printing.vala:769
+#: src/EditingTools.vala:579 src/Printing.vala:769
 msgid "Wallet (2 x 3 in.)"
 msgstr ""
 
-#: src/EditingTools.vala:580
-#: src/Printing.vala:772
+#: src/EditingTools.vala:580 src/Printing.vala:772
 msgid "Notecard (3 x 5 in.)"
 msgstr ""
 
-#: src/EditingTools.vala:581
-#: src/Printing.vala:775
+#: src/EditingTools.vala:581 src/Printing.vala:775
 msgid "4 x 6 in."
 msgstr "4 x 6 นิ้ว"
 
-#: src/EditingTools.vala:582
-#: src/Printing.vala:778
+#: src/EditingTools.vala:582 src/Printing.vala:778
 msgid "5 x 7 in."
 msgstr "5 x 7 นิ้ว"
 
-#: src/EditingTools.vala:583
-#: src/Printing.vala:781
+#: src/EditingTools.vala:583 src/Printing.vala:781
 msgid "8 x 10 in."
 msgstr "8 x 10 นิ้ว"
 
-#: src/EditingTools.vala:584
-#: src/Printing.vala:784
+#: src/EditingTools.vala:584 src/Printing.vala:784
 msgid "11 x 14 in."
 msgstr "11 x 14 นิ้ว"
 
-#: src/EditingTools.vala:585
-#: src/Printing.vala:787
+#: src/EditingTools.vala:585 src/Printing.vala:787
 msgid "16 x 20 in."
 msgstr "16 x 20 นิ้ว"
 
-#: src/EditingTools.vala:587
-#: src/Printing.vala:793
+#: src/EditingTools.vala:587 src/Printing.vala:793
 msgid "Metric Wallet (9 x 13 cm)"
 msgstr ""
 
-#: src/EditingTools.vala:588
-#: src/Printing.vala:796
+#: src/EditingTools.vala:588 src/Printing.vala:796
 msgid "Postcard (10 x 15 cm)"
 msgstr ""
 
-#: src/EditingTools.vala:589
-#: src/Printing.vala:799
+#: src/EditingTools.vala:589 src/Printing.vala:799
 msgid "13 x 18 cm"
 msgstr "13 x 18 ซม."
 
-#: src/EditingTools.vala:590
-#: src/Printing.vala:802
+#: src/EditingTools.vala:590 src/Printing.vala:802
 msgid "18 x 24 cm"
 msgstr "18 x 24 ซม."
 
-#: src/EditingTools.vala:591
-#: src/Printing.vala:805
+#: src/EditingTools.vala:591 src/Printing.vala:805
 msgid "20 x 30 cm"
 msgstr "20 x 30 ซม."
 
-#: src/EditingTools.vala:592
-#: src/Printing.vala:808
+#: src/EditingTools.vala:592 src/Printing.vala:808
 msgid "24 x 40 cm"
 msgstr "24 x 40 ซม."
 
-#: src/EditingTools.vala:593
-#: src/Printing.vala:811
+#: src/EditingTools.vala:593 src/Printing.vala:811
 msgid "30 x 40 cm"
 msgstr "30 x 40 ซม."
 
@@ -893,8 +828,7 @@ msgstr "ตาแดง"
 msgid "Reduce or eliminate any red-eye effects in the photo"
 msgstr ""
 
-#: src/EditingTools.vala:1679
-#: src/Properties.vala:335
+#: src/EditingTools.vala:1679 src/Properties.vala:335
 msgid "Size:"
 msgstr "ขนาด:"
 
@@ -918,9 +852,7 @@ msgstr ""
 msgid "_Reset"
 msgstr ""
 
-#: src/EditingTools.vala:2022
-#: src/Properties.vala:364
-#: src/Properties.vala:368
+#: src/EditingTools.vala:2022 src/Properties.vala:364 src/Properties.vala:368
 #: src/Properties.vala:375
 msgid "Exposure:"
 msgstr ""
@@ -973,8 +905,7 @@ msgstr "เงา"
 msgid "Contrast Expansion"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:68
-#: src/Properties.vala:303
+#: src/EventsDirectoryPage.vala:68 src/Properties.vala:303
 #, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
@@ -989,18 +920,15 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:509
-#: src/LibraryWindow.vala:186
+#: src/EventsDirectoryPage.vala:509 src/LibraryWindow.vala:186
 msgid "Undated"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:511
-#: src/LibraryWindow.vala:189
+#: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%Y"
 msgstr ""
 
-#: src/EventsDirectoryPage.vala:511
-#: src/LibraryWindow.vala:189
+#: src/EventsDirectoryPage.vala:511 src/LibraryWindow.vala:189
 msgid "%B"
 msgstr ""
 
@@ -1009,8 +937,7 @@ msgstr ""
 msgid "Event %lld"
 msgstr ""
 
-#: src/FacebookConnector.vala:13
-#: src/PicasaConnector.vala:12
+#: src/FacebookConnector.vala:13 src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
 msgstr ""
 
@@ -1031,8 +958,7 @@ msgstr ""
 msgid "Testing connection to Facebook..."
 msgstr ""
 
-#: src/FacebookConnector.vala:340
-#: src/PicasaConnector.vala:378
+#: src/FacebookConnector.vala:340 src/PicasaConnector.vala:378
 msgid "Creating album..."
 msgstr ""
 
@@ -1052,14 +978,12 @@ msgstr ""
 msgid "Create a _new album named:"
 msgstr ""
 
-#: src/FacebookConnector.vala:766
-#: src/FlickrConnector.vala:884
+#: src/FacebookConnector.vala:766 src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
 msgid "_Publish"
 msgstr ""
 
-#: src/FacebookConnector.vala:768
-#: src/FlickrConnector.vala:880
+#: src/FacebookConnector.vala:768 src/FlickrConnector.vala:880
 #: src/PicasaConnector.vala:779
 msgid "_Logout"
 msgstr ""
@@ -1136,8 +1060,7 @@ msgstr ""
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 
-#: src/ImportPage.vala:250
-#: src/ImportPage.vala:251
+#: src/ImportPage.vala:250 src/ImportPage.vala:251
 msgid "Camera"
 msgstr ""
 
@@ -1233,8 +1156,7 @@ msgstr[1] ""
 msgid "Importing..."
 msgstr ""
 
-#: src/ImportPage.vala:1065
-#: src/ImportPage.vala:1095
+#: src/ImportPage.vala:1065 src/ImportPage.vala:1095
 msgid "Stop importing photos"
 msgstr ""
 
@@ -1407,38 +1329,31 @@ msgstr ""
 msgid "Remove the photo from your library"
 msgstr ""
 
-#: src/PhotoPage.vala:1430
-#: src/PhotoPage.vala:2175
+#: src/PhotoPage.vala:1430 src/PhotoPage.vala:2175
 msgid "_Photo"
 msgstr "รูปภาพ(_P)"
 
-#: src/PhotoPage.vala:1435
-#: src/PhotoPage.vala:2180
+#: src/PhotoPage.vala:1435 src/PhotoPage.vala:2180
 msgid "_Previous Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1436
-#: src/PhotoPage.vala:2181
+#: src/PhotoPage.vala:1436 src/PhotoPage.vala:2181
 msgid "Previous Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1441
-#: src/PhotoPage.vala:2186
+#: src/PhotoPage.vala:1441 src/PhotoPage.vala:2186
 msgid "_Next Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1442
-#: src/PhotoPage.vala:2187
+#: src/PhotoPage.vala:1442 src/PhotoPage.vala:2187
 msgid "Next Photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1514
-#: src/PhotoPage.vala:2245
+#: src/PhotoPage.vala:1514 src/PhotoPage.vala:2245
 msgid "Increase the magnification of the photo"
 msgstr ""
 
-#: src/PhotoPage.vala:1520
-#: src/PhotoPage.vala:2251
+#: src/PhotoPage.vala:1520 src/PhotoPage.vala:2251
 msgid "Decrease the magnification of the photo"
 msgstr ""
 
@@ -1447,8 +1362,7 @@ msgstr ""
 msgid "Unable to export %s: %s"
 msgstr ""
 
-#: src/PhotoPage.vala:2146
-#: src/PhotoPage.vala:2366
+#: src/PhotoPage.vala:2146 src/PhotoPage.vala:2366
 msgid "_Save"
 msgstr "บันทึก(_S)"
 
@@ -1464,18 +1378,15 @@ msgstr "บันทึกเป็น(_A)"
 msgid "Save photo with a different name"
 msgstr ""
 
-#: src/PhotoPage.vala:2159
-#: src/Resources.vala:156
+#: src/PhotoPage.vala:2159 src/Resources.vala:156
 msgid "Page _Setup..."
 msgstr ""
 
-#: src/PhotoPage.vala:2164
-#: src/Resources.vala:159
+#: src/PhotoPage.vala:2164 src/Resources.vala:159
 msgid "Prin_t..."
 msgstr "พิมพ์(_t)"
 
-#: src/PhotoPage.vala:2165
-#: src/Resources.vala:160
+#: src/PhotoPage.vala:2165 src/Resources.vala:160
 msgid "Print the photo to a printer connected to your computer"
 msgstr ""
 
@@ -1514,8 +1425,7 @@ msgstr ""
 msgid "Error while saving to %s: %s"
 msgstr ""
 
-#: src/PhotoPage.vala:2433
-#: src/PhotoPage.vala:2443
+#: src/PhotoPage.vala:2433 src/PhotoPage.vala:2443
 msgid "Save As"
 msgstr "บันทึกเป็น"
 
@@ -1622,8 +1532,7 @@ msgstr ""
 msgid "Go _Back"
 msgstr ""
 
-#: src/PicasaConnector.vala:595
-#: src/WebConnectors.vala:568
+#: src/PicasaConnector.vala:595 src/WebConnectors.vala:568
 msgid "_Login"
 msgstr ""
 
@@ -1712,9 +1621,7 @@ msgstr ""
 msgid "Image Settings"
 msgstr ""
 
-#: src/Printing.vala:841
-#: src/Printing.vala:942
-#: src/Printing.vala:981
+#: src/Printing.vala:841 src/Printing.vala:942 src/Printing.vala:981
 #, c-format
 msgid ""
 "Unable to print photo:\n"
@@ -1757,13 +1664,11 @@ msgstr "วันที่:"
 msgid "Time:"
 msgstr "เวลา:"
 
-#: src/Properties.vala:324
-#: src/Properties.vala:329
+#: src/Properties.vala:324 src/Properties.vala:329
 msgid "From:"
 msgstr "จาก:"
 
-#: src/Properties.vala:325
-#: src/Properties.vala:330
+#: src/Properties.vala:325 src/Properties.vala:330
 msgid "To:"
 msgstr "ถึงซ"
 
@@ -1831,8 +1736,7 @@ msgstr ""
 msgid "Rotate _Right"
 msgstr "หมุนไปทางขวา (_R)"
 
-#: src/Resources.vala:82
-#: src/Resources.vala:87
+#: src/Resources.vala:82 src/Resources.vala:87
 msgid "Rotate"
 msgstr "หมุน"
 
@@ -2084,8 +1988,7 @@ msgstr "ตั่งค่าวัน-เวลาของรูปภาพ�
 msgid "Add _Tags..."
 msgstr "ใส่ _Tags..."
 
-#: src/Resources.vala:175
-#: src/Resources.vala:187
+#: src/Resources.vala:175 src/Resources.vala:187
 msgid "Add Tags"
 msgstr "ใส่ Tags"
 
@@ -2215,8 +2118,7 @@ msgstr ""
 msgid "Move the selected photos back into the library"
 msgstr ""
 
-#: src/SlideshowPage.vala:64
-#: src/SlideshowPage.vala:130
+#: src/SlideshowPage.vala:64 src/SlideshowPage.vala:130
 msgid "Settings"
 msgstr "ตั้งค่า"
 
@@ -2236,13 +2138,11 @@ msgstr "กลับ"
 msgid "Go to the previous photo"
 msgstr "ไปที่รูปภาพที่แล้ว"
 
-#: src/SlideshowPage.vala:116
-#: src/SlideshowPage.vala:229
+#: src/SlideshowPage.vala:116 src/SlideshowPage.vala:229
 msgid "Pause"
 msgstr "หยุด"
 
-#: src/SlideshowPage.vala:117
-#: src/SlideshowPage.vala:230
+#: src/SlideshowPage.vala:117 src/SlideshowPage.vala:230
 msgid "Pause the slideshow"
 msgstr "หยุดการนำเสนอภาพนิ่ง"
 
@@ -2347,14 +2247,11 @@ msgstr ""
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
 
-#: src/WebConnectors.vala:903
-#: src/WebConnectors.vala:1016
+#: src/WebConnectors.vala:903 src/WebConnectors.vala:1016
 msgid "Preparing photos for upload"
 msgstr "เตรียมรูปภาพที่จะอัปโหลด"
 
-#: src/WebConnectors.vala:904
-#: src/WebConnectors.vala:956
+#: src/WebConnectors.vala:904 src/WebConnectors.vala:956
 #, c-format
 msgid "Uploading photo %d of %d"
 msgstr "อัปโหลดรูปภาพ %d จาก %d"
-
