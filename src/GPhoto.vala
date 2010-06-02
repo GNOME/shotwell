@@ -93,12 +93,24 @@ namespace GPhoto {
         }
     }
     
-    public void get_info(Context context, Camera camera, string folder, string filename,
+    // For CameraFileInfoFile, CameraFileInfoPreview, and CameraStorageInformation.  See:
+    // http://trac.yorba.org/ticket/1851
+    // https://bugzilla.redhat.com/show_bug.cgi?id=585676
+    // https://sourceforge.net/tracker/?func=detail&aid=3000198&group_id=8874&atid=108874
+    public const int MAX_FILENAME_LENGTH = 63;
+    public const int MAX_BASEDIR_LENGTH = 255;
+    
+    public bool get_info(Context context, Camera camera, string folder, string filename,
         out CameraFileInfo info) throws Error {
+        if (folder.length > MAX_BASEDIR_LENGTH || filename.length > MAX_FILENAME_LENGTH)
+            return false;
+        
         Result res = camera.get_file_info(folder, filename, out info, context);
         if (res != Result.OK)
             throw new GPhotoError.LIBRARY("[%d] Error retrieving file information for %s/%s: %s",
                 (int) res, folder, filename, res.as_string());
+        
+        return true;
     }
     
     public Gdk.Pixbuf? load_preview(Context context, Camera camera, string folder, string filename,

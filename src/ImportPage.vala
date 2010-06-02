@@ -58,7 +58,7 @@ class ImportSource : PhotoSource {
         return filename;
     }
     
-    public string get_fulldir() {
+    public string? get_fulldir() {
         return ImportPage.get_fulldir(camera, camera_name, fsid, folder);
     }
     
@@ -112,7 +112,14 @@ class ImportSource : PhotoSource {
     public override bool internal_delete_backing() throws Error {
         debug("Deleting %s", to_string());
         
-        GPhoto.Result result = camera.delete_file(get_fulldir(), get_filename(),
+        string? fulldir = get_fulldir();
+        if (fulldir == null) {
+            warning("Skipping deleting %s: invalid folder name", to_string());
+            
+            return true;
+        }
+        
+        GPhoto.Result result = camera.delete_file(fulldir, get_filename(),
             ImportPage.spin_idle_context.context);
         if (result != GPhoto.Result.OK)
             warning("Error deleting %s: %s", to_string(), result.as_string());
@@ -203,6 +210,8 @@ public class ImportPage : CheckerboardPage {
             // stash everything called in prepare(), as it may/will be called from a separate thread
             camera = import_file.get_camera();
             fulldir = import_file.get_fulldir();
+            // this should've been caught long ago when the files were first enumerated
+            assert(fulldir != null);
             filename = import_file.get_filename();
         }
         
@@ -672,7 +681,7 @@ public class ImportPage : CheckerboardPage {
             refreshed = false;
             
             // show 'em all or show none
-            get_view().clear();
+            import_sources.clear();
         }
         
         on_view_changed();
@@ -725,8 +734,11 @@ public class ImportPage : CheckerboardPage {
         return (ifs->fields & GPhoto.CameraStorageInfoFields.BASE) != 0 ? ifs->basedir : "/";
     }
     
-    public static string get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {
-        string basedir = ImportPage.get_fs_basedir(camera, fsid);
+    public static string? get_fulldir(GPhoto.Camera camera, string camera_name, int fsid, string folder) {
+        if (folder.length > GPhoto.MAX_BASEDIR_LENGTH)
+            return null;
+        
+        string basedir = get_fs_basedir(camera, fsid);
         if (basedir == null) {
             debug("Unable to find base directory for %s fsid %d", camera_name, fsid);
             
@@ -737,9 +749,12 @@ public class ImportPage : CheckerboardPage {
     }
 
     private bool enumerate_files(int fsid, string dir, Gee.List<ImportSource> import_list) {
-        string fulldir = get_fulldir(camera, camera_name, fsid, dir);
-        if (fulldir == null)
-            return false;
+        string? fulldir = get_fulldir(camera, camera_name, fsid, dir);
+        if (fulldir == null) {
+            warning("Skipping enumerating %s: invalid folder name", dir);
+            
+            return true;
+        }
         
         GPhoto.CameraList files;
         refresh_result = GPhoto.CameraList.create(out files);
@@ -758,7 +773,11 @@ public class ImportPage : CheckerboardPage {
             
             try {
                 GPhoto.CameraFileInfo info;
-                GPhoto.get_info(spin_idle_context.context, camera, fulldir, filename, out info);
+                if (!GPhoto.get_info(spin_idle_context.context, camera, fulldir, filename, out info)) {
+                    warning("Skipping import of %s/%s: name too long", fulldir, filename);
+                    
+                    continue;
+                }
                 
                 if ((info.file.fields & GPhoto.CameraFileInfoFields.TYPE) == 0) {
                     message("Skipping %s/%s: No file (file=%02Xh)", fulldir, filename,
@@ -827,7 +846,12 @@ public class ImportPage : CheckerboardPage {
         int loaded_photos = 0;
         foreach (ImportSource import_source in import_list) {
             string filename = import_source.get_filename();
-            string fulldir = import_source.get_fulldir();
+            string? fulldir = import_source.get_fulldir();
+            if (fulldir == null) {
+                warning("Skipping loading preview of %s: invalid folder name", import_source.to_string());
+                
+                continue;
+            }
             
             progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
             progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
