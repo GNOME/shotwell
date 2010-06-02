@@ -43,9 +43,8 @@ public class LibraryWindow : AppWindow {
         }
         
         public override void switched_to() {
-            base.switched_to();
-            
             display_for_collection(collection, start.get_photo());
+            base.switched_to();
         }
     }
     
