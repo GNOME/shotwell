@@ -212,27 +212,22 @@ public struct Box {
         out Box vertical, out bool vertical_enlarged) {
         assert(get_width() != resized.get_width() || get_height() != resized.get_height());
         
-        int min_left = int.min(left, resized.left);
-        int min_top = int.min(top, resized.top);
-        int max_right = int.max(right, resized.right);
-        int max_bottom = int.max(bottom, resized.bottom);
-        
         bool horizontal_complement = true;
         if (resized.top < top) {
             // enlarged from top
-            horizontal = Box(min_left, resized.top, max_right, top);
+            horizontal = Box(resized.left, resized.top, resized.right, top);
             horizontal_enlarged = true;
         } else if (resized.top > top) {
             // shrunk from top
-            horizontal = Box(min_left, top, max_right, resized.top);
+            horizontal = Box(left, top, right, resized.top);
             horizontal_enlarged = false;
         } else if (resized.bottom < bottom) {
             // shrunk from bottom
-            horizontal = Box(min_left, resized.bottom, max_right, bottom);
+            horizontal = Box(left, resized.bottom, right, bottom);
             horizontal_enlarged = false;
         } else if (resized.bottom > bottom) {
             // enlarged from bottom
-            horizontal = Box(min_left, bottom, max_right, resized.bottom);
+            horizontal = Box(resized.left, bottom, resized.right, resized.bottom);
             horizontal_enlarged = true;
         } else {
             horizontal_complement = false;
@@ -241,19 +236,19 @@ public struct Box {
         bool vertical_complement = true;
         if (resized.left < left) {
             // enlarged left
-            vertical = Box(resized.left, min_top, left, max_bottom);
+            vertical = Box(resized.left, resized.top, left, resized.bottom);
             vertical_enlarged = true;
         } else if (resized.left > left) {
             // shrunk left
-            vertical = Box(left, min_top, resized.left, max_bottom);
+            vertical = Box(left, top, resized.left, bottom);
             vertical_enlarged = false;
         } else if (resized.right < right) {
             // shrunk right
-            vertical = Box(resized.right, min_top, right, max_bottom);
+            vertical = Box(resized.right, top, right, bottom);
             vertical_enlarged = false;
         } else if (resized.right > right) {
             // enlarged right
-            vertical = Box(right, min_top, resized.right, max_bottom);
+            vertical = Box(right, resized.top, resized.right, resized.bottom);
             vertical_enlarged = true;
         } else {
             vertical_complement = false;
