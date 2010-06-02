@@ -701,8 +701,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_preferences() {
-        PreferencesDialog preferences_dialog = new PreferencesDialog();
-        preferences_dialog.execute();
+        PreferencesDialog.show();        
     }
     
     private void on_display_basic_properties(Gtk.Action action) {

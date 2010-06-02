@@ -1192,17 +1192,20 @@ public class WelcomeDialog : Gtk.Dialog {
 }
 
 public class PreferencesDialog {
+    private static PreferencesDialog preferences_dialog;
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
     private Gtk.Entry library_dir_entry;
     
-    public PreferencesDialog() {
+    private PreferencesDialog() {
         builder = AppWindow.create_builder();
         
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         dialog.set_transient_for(AppWindow.get_instance());
+        dialog.delete_event += on_delete;
+        dialog.response += on_close;
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
@@ -1221,13 +1224,21 @@ public class PreferencesDialog {
         
     }
     
-    public void execute() {
-        dialog.show_all();
+    public static void show() {
+        if (preferences_dialog == null) 
+            preferences_dialog = new PreferencesDialog();
 
-        if (dialog.run() == Gtk.ResponseType.CLOSE)
-            Config.get_instance().commit_bg_color();
-
-        dialog.destroy();
+        preferences_dialog.dialog.show_all();	
+	}
+    
+    private bool on_delete() {
+        Config.get_instance().commit_bg_color();        
+        return dialog.hide_on_delete(); //prevent widgets from getting destroyed
+    }
+    
+    private void on_close() {
+        dialog.hide();
+        Config.get_instance().commit_bg_color();
     }
     
     private void on_value_changed() {
