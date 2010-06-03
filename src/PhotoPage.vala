@@ -4,6 +4,348 @@
  * See the COPYING file in this distribution. 
  */
 
+public class ZoomBuffer : Object {
+    private enum ObjectState {
+        SOURCE_NOT_LOADED,
+        SOURCE_LOAD_IN_PROGRESS,
+        SOURCE_NOT_TRANSFORMED,
+        TRANSFORMED_READY
+    }
+
+    private class IsoSourceFetchJob : BackgroundJob {
+        private TransformablePhoto to_fetch;
+        
+        public Gdk.Pixbuf? fetched = null;
+
+        public IsoSourceFetchJob(ZoomBuffer owner, TransformablePhoto to_fetch,
+            CompletionCallback completion_callback) {
+            base(owner, completion_callback);
+            
+            this.to_fetch = to_fetch;
+        }
+        
+        public override void execute() {
+            try {
+                fetched = to_fetch.get_pixbuf_with_exceptions(Scaling.for_original(),
+                    TransformablePhoto.Exception.ADJUST);
+            } catch (Error fetch_error) {
+                critical("IsoSourceFetchJob: execute( ): can't get pixbuf from backing photo");
+            }
+        }
+    }
+
+    // it's worth noting that there are two different kinds of transformation jobs (though this
+    // single class supports them both). There are "isomorphic" (or "iso") transformation jobs that
+    // operate over full-size pixbufs and are relatively long-running and then there are
+    // "demand" transformation jobs that occur over much smaller pixbufs as needed; these are
+    // relatively quick to run.
+    private class TransformationJob : BackgroundJob {
+        private Gdk.Pixbuf to_transform;
+        private PixelTransformer? transformer;
+        private Cancellable cancellable;
+        
+        public Gdk.Pixbuf transformed = null;
+
+        public TransformationJob(ZoomBuffer owner, Gdk.Pixbuf to_transform, PixelTransformer?
+            transformer, CompletionCallback completion_callback, Cancellable cancellable) {
+            base(owner, completion_callback, cancellable);
+
+            this.cancellable = cancellable;
+            this.to_transform = to_transform;
+            this.transformer = transformer;
+            this.transformed = to_transform.copy();
+        }
+        
+        public override void execute() {
+            if (transformer != null) {
+                transformer.transform_to_other_pixbuf(to_transform, transformed, cancellable);
+            }
+        }
+    }
+    
+    private const int MEGAPIXEL = 1048576;
+    private const int USE_REDUCED_THRESHOLD = (int) 2.0 * MEGAPIXEL;
+
+    private Gdk.Pixbuf iso_source_image = null;
+    private Gdk.Pixbuf? reduced_source_image = null;
+    private Gdk.Pixbuf iso_transformed_image = null;
+    private Gdk.Pixbuf? reduced_transformed_image = null;
+    private Gdk.Pixbuf preview_image = null;
+    private TransformablePhoto backing_photo = null;
+    private ObjectState object_state = ObjectState.SOURCE_NOT_LOADED;
+    private Gdk.Pixbuf? demand_transform_cached_pixbuf = null;
+    private ZoomState demand_transform_zoom_state;
+    private TransformationJob? demand_transform_job = null; // only 1 demand transform job can be
+                                                            // active at a time
+    private Workers workers = null;
+    private SinglePhotoPage parent_page;
+    private bool is_interactive_redraw_in_progress = false;
+
+    public ZoomBuffer(SinglePhotoPage parent_page, TransformablePhoto backing_photo,
+        Gdk.Pixbuf preview_image) {
+        this.parent_page = parent_page;
+        this.preview_image = preview_image;
+        this.backing_photo = backing_photo;
+        this.workers = new Workers(2, false);
+    }
+
+    private void on_iso_source_fetch_complete(BackgroundJob job) {
+        IsoSourceFetchJob fetch_job = (IsoSourceFetchJob) job;
+        if (fetch_job.fetched == null) {
+            critical("ZoomBuffer: iso_source_fetch_complete( ): fetch job has null image member");
+            return;
+        }
+
+        iso_source_image = fetch_job.fetched;
+        if ((iso_source_image.width * iso_source_image.height) > USE_REDUCED_THRESHOLD) {
+            reduced_source_image = iso_source_image.scale_simple(iso_source_image.width / 2,
+                iso_source_image.height / 2, Gdk.InterpType.BILINEAR);
+        }
+        object_state = ObjectState.SOURCE_NOT_TRANSFORMED;
+
+        if (!is_interactive_redraw_in_progress)
+            parent_page.repaint();
+
+        BackgroundJob transformation_job = new TransformationJob(this, iso_source_image,
+            backing_photo.get_pixel_transformer(), on_iso_transformation_complete,
+            new Cancellable());
+        workers.enqueue(transformation_job);
+    }
+    
+    private void on_iso_transformation_complete(BackgroundJob job) {
+        TransformationJob transform_job = (TransformationJob) job;
+        if (transform_job.transformed == null) {
+            critical("ZoomBuffer: on_iso_transformation_complete( ): completed job has null " +
+                "image");
+            return;
+        }
+
+        iso_transformed_image = transform_job.transformed;
+        if ((iso_transformed_image.width * iso_transformed_image.height) > USE_REDUCED_THRESHOLD) {
+            reduced_transformed_image = iso_transformed_image.scale_simple(
+                iso_transformed_image.width / 2, iso_transformed_image.height / 2,
+                Gdk.InterpType.BILINEAR);
+        }
+        object_state = ObjectState.TRANSFORMED_READY;            
+    }
+    
+    private void on_demand_transform_complete(BackgroundJob job) {
+        TransformationJob transform_job = (TransformationJob) job;
+        if (transform_job.transformed == null) {
+            critical("ZoomBuffer: on_demand_transform_complete( ): completed job has null " +
+                "image");
+            return;
+        }
+
+        demand_transform_cached_pixbuf = transform_job.transformed;
+        demand_transform_job = null;
+
+        parent_page.repaint();
+    }
+
+    // passing a 'reduced_pixbuf' that has one-quarter the number of pixels as the 'iso_pixbuf' is
+    // optional, but including one can dramatically increase performance obtaining projection
+    // pixbufs at for ZoomStates with zoom factors less than 0.5
+    private Gdk.Pixbuf get_view_projection_pixbuf(ZoomState zoom_state, Gdk.Pixbuf iso_pixbuf,
+        Gdk.Pixbuf? reduced_pixbuf = null) {
+        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
+        Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
+            iso_pixbuf);
+        Gdk.Pixbuf sample_source_pixbuf = iso_pixbuf;
+
+        if ((reduced_pixbuf != null) && (zoom_state.get_zoom_factor() < 0.5)) {
+            sample_source_pixbuf = reduced_pixbuf;
+            view_rect_proj.x /= 2;
+            view_rect_proj.y /= 2;
+            view_rect_proj.width /= 2;
+            view_rect_proj.height /= 2;
+        }
+
+        Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(sample_source_pixbuf, view_rect_proj.x,
+            view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
+
+        Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
+            Gdk.InterpType.BILINEAR);
+
+        return zoomed;
+    }
+    
+    private Gdk.Pixbuf get_zoomed_image_source_not_transformed(ZoomState zoom_state) {
+        if (demand_transform_cached_pixbuf != null) {
+            if (zoom_state.equals(demand_transform_zoom_state)) {
+                // if a cached pixbuf from a previous on-demand transform operation exists and
+                // its zoom state is the same as the currently requested zoom state, then we
+                // don't need to do any work -- just return the cached copy
+                return demand_transform_cached_pixbuf;
+            } else if (zoom_state.get_zoom_factor() ==
+                       demand_transform_zoom_state.get_zoom_factor()) {
+                // if a cached pixbuf from a previous on-demand transform operation exists and
+                // its zoom state is different from the currently requested zoom state, then we
+                // can't just use the cached pixbuf as-is. However, we might be able to use *some*
+                // of the information in the previously cached pixbuf. Specifically, if the zoom
+                // state of the previously cached pixbuf is merely a translation of the currently
+                // requested zoom state (the zoom states are not equal but the zoom factors are the
+                // same), then all that has happened is that the user has panned the viewing
+                // window. So keep all the pixels from the cached pixbuf that are still on-screen
+                // in the current view.
+                Gdk.Rectangle curr_rect = zoom_state.get_viewing_rectangle();
+                Gdk.Rectangle pre_rect = demand_transform_zoom_state.get_viewing_rectangle();
+                Gdk.Rectangle transfer_src_rect = {0};
+                Gdk.Rectangle transfer_dest_rect = {0};
+                                 
+                transfer_src_rect.x = (curr_rect.x - pre_rect.x).clamp(0, pre_rect.width);
+                transfer_src_rect.y = (curr_rect.y - pre_rect.y).clamp(0, pre_rect.height);
+                int transfer_src_right = ((curr_rect.x + curr_rect.width) - pre_rect.width).clamp(0,
+                    pre_rect.width);
+                transfer_src_rect.width = transfer_src_right - transfer_src_rect.x;
+                int transfer_src_bottom = ((curr_rect.y + curr_rect.height) - pre_rect.width).clamp(
+                    0, pre_rect.height);
+                transfer_src_rect.height = transfer_src_bottom - transfer_src_rect.y;
+                
+                transfer_dest_rect.x = (pre_rect.x - curr_rect.x).clamp(0, curr_rect.width);
+                transfer_dest_rect.y = (pre_rect.y - curr_rect.y).clamp(0, curr_rect.height);
+                int transfer_dest_right = (transfer_dest_rect.x + transfer_src_rect.width).clamp(0,
+                    curr_rect.width);
+                transfer_dest_rect.width = transfer_dest_right - transfer_dest_rect.x;
+                int transfer_dest_bottom = (transfer_dest_rect.y + transfer_src_rect.height).clamp(0,
+                    curr_rect.height);
+                transfer_dest_rect.height = transfer_dest_bottom - transfer_dest_rect.y;
+
+                Gdk.Pixbuf composited_result = get_zoom_preview_image_internal(zoom_state);
+                demand_transform_cached_pixbuf.copy_area (transfer_src_rect.x,
+                    transfer_src_rect.y, transfer_dest_rect.width, transfer_dest_rect.height,
+                    composited_result, transfer_dest_rect.x, transfer_dest_rect.y);
+
+                return composited_result;
+            }
+        }
+
+        // ok -- the cached pixbuf didn't help us -- so check if there is a demand
+        // transformation background job currently in progress. if such a job is in progress,
+        // then check if it's for the same zoom state as the one requested here. If the
+        // zoom states are the same, then just return the preview image for now -- we won't
+        // get a crisper one until the background job completes. If the zoom states are not the
+        // same however, then cancel the existing background job and initiate a new one for the
+        // currently requested zoom state.
+        if (demand_transform_job != null) {
+            if (zoom_state.equals(demand_transform_zoom_state)) {
+                return get_zoom_preview_image_internal(zoom_state);
+            } else {
+                demand_transform_job.cancel();
+                demand_transform_job = null;
+
+                Gdk.Pixbuf zoomed = get_view_projection_pixbuf(zoom_state, iso_source_image,
+                    reduced_source_image);
+                
+                demand_transform_job = new TransformationJob(this, zoomed,
+                    backing_photo.get_pixel_transformer(), on_demand_transform_complete,
+                    new Cancellable());
+                demand_transform_zoom_state = zoom_state;
+                workers.enqueue(demand_transform_job);
+                
+                return get_zoom_preview_image_internal(zoom_state);
+            }
+        }
+        
+        // if no on-demand background transform job is in progress at all, then start one
+        if (demand_transform_job == null) {
+            Gdk.Pixbuf zoomed = get_view_projection_pixbuf(zoom_state, iso_source_image,
+                reduced_source_image);
+            
+            demand_transform_job = new TransformationJob(this, zoomed,
+                backing_photo.get_pixel_transformer(), on_demand_transform_complete,
+                new Cancellable());
+
+            demand_transform_zoom_state = zoom_state;
+            
+            workers.enqueue(demand_transform_job);
+            
+            return get_zoom_preview_image_internal(zoom_state);
+        }
+        
+        // execution should never reach this point -- the various nested conditionals above should
+        // account for every possible case that can occur when the ZoomBuffer is in the
+        // SOURCE-NOT-TRANSFORMED state. So if execution does reach this point, print a critical
+        // warning to the console and just zoom using the preview image (the preview image, since
+        // it's managed by the SinglePhotoPage that created us, is assumed to be good).
+        critical("ZoomBuffer: get_zoomed_image( ): in SOURCE-NOT-TRANSFORMED but can't transform " +
+            "on-screen projection on-demand; using preview image");
+        return get_zoom_preview_image_internal(zoom_state);
+    }
+
+    public Gdk.Pixbuf get_zoom_preview_image_internal(ZoomState zoom_state) {
+        if (object_state == ObjectState.SOURCE_NOT_LOADED) {
+            BackgroundJob iso_source_fetch_job = new IsoSourceFetchJob(this, backing_photo,
+                on_iso_source_fetch_complete);
+            workers.enqueue(iso_source_fetch_job);
+
+            object_state = ObjectState.SOURCE_LOAD_IN_PROGRESS;
+        }
+        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
+        Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
+            preview_image);
+
+        Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(preview_image,
+            view_rect_proj.x, view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
+
+        Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
+            Gdk.InterpType.BILINEAR);
+       
+        return zoomed;
+    }
+
+    public TransformablePhoto get_backing_photo() {
+        return backing_photo;
+    }
+    
+    public void update_preview_image(Gdk.Pixbuf preview_image) {
+        this.preview_image = preview_image;
+    }
+    
+    // invoke with no arguments or with null to merely flush the cache or alternatively pass in a
+    // single zoom state argument to re-seed the cache for that zoom state after it's been flushed
+    public void flush_demand_cache(ZoomState? initial_zoom_state = null) {
+        demand_transform_cached_pixbuf = null;
+        if (initial_zoom_state != null)
+            get_zoomed_image(initial_zoom_state);
+    }
+
+    public Gdk.Pixbuf get_zoomed_image(ZoomState zoom_state) {
+        is_interactive_redraw_in_progress = false;
+        // if request is for a zoomed image with an interpolation factor of zero (i.e., no zooming
+        // needs to be performed since the zoom slider is all the way to the left), then just
+        // return the zoom preview image
+        if (zoom_state.get_interpolation_factor() == 0.0) {
+            return get_zoom_preview_image_internal(zoom_state);
+        }
+        
+        switch (object_state) {
+            case ObjectState.SOURCE_NOT_LOADED:
+            case ObjectState.SOURCE_LOAD_IN_PROGRESS:
+                return get_zoom_preview_image_internal(zoom_state);
+            
+            case ObjectState.SOURCE_NOT_TRANSFORMED:
+                return get_zoomed_image_source_not_transformed(zoom_state);
+            
+            case ObjectState.TRANSFORMED_READY:
+                // if an isomorphic, transformed pixbuf is ready, then just sample the projection of
+                // current viewing window from it and return that.
+                return get_view_projection_pixbuf(zoom_state, iso_transformed_image,
+                    reduced_transformed_image);
+            
+            default:
+                critical("ZoomBuffer: get_zoomed_image( ): object is an inconsistent state");
+                return get_zoom_preview_image_internal(zoom_state);
+        }
+    }
+
+    public Gdk.Pixbuf get_zoom_preview_image(ZoomState zoom_state) {
+        is_interactive_redraw_in_progress = true;
+
+        return get_zoom_preview_image_internal(zoom_state);
+    }
+}
+
 public abstract class EditingHostPage : SinglePhotoPage {
     public const int TOOL_WINDOW_SEPARATOR = 8;
     public const int PIXBUF_CACHE_COUNT = 5;
@@ -45,13 +387,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool photo_missing = false;
     private PixbufCache cache = null;
     private PixbufCache original_cache = null;
-    private PixbufCache zoom_cache = null;
     private PhotoDragAndDropHandler dnd_handler = null;
-    private Gdk.Pixbuf? zoom_optimized_pixbuf = null;
     private bool enable_interactive_zoom_refresh = false;
     private Gdk.Point zoom_pan_start_point;
     private bool is_pan_in_progress = false;
     private double saved_slider_val = 0.0;
+    private ZoomBuffer? zoom_buffer = null;
 
     public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
@@ -150,7 +491,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 cancel_zoom();
             } else {
                 set_zoom_state(new_zoom_state);
-                fetch_zoom_optimized_pixbuf(new_zoom_state);
             }
             repaint();
         }
@@ -166,34 +506,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enable_interactive_zoom_refresh = false;
 
         ZoomState zoom_state = ZoomState.rescale(get_zoom_state(), zoom_slider.get_value());
-        fetch_zoom_optimized_pixbuf(zoom_state);
         set_zoom_state(zoom_state);
+        
+        repaint();
 
         return false;
-    }
-    
-    private void fetch_zoom_optimized_pixbuf(ZoomState zoom_state) {
-        if (zoom_cache != null)
-            zoom_cache.fetched -= on_zoomed_photo_fetched;
-
-        int fetch_width = zoom_state.get_zoomed_width().clamp(0,
-            get_photo().get_dimensions().width);
-        int fetch_height = zoom_state.get_zoomed_height().clamp(0,
-            get_photo().get_dimensions().height);
-        int fetch_major_axis = (fetch_width > fetch_height) ? fetch_width : fetch_height;
-        Scaling fetch_scaling = Scaling.for_best_fit(fetch_major_axis, false);
-
-        zoom_cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, fetch_scaling,
-            PIXBUF_CACHE_COUNT);
-        zoom_cache.prefetch(get_photo());
-        zoom_cache.fetched += on_zoomed_photo_fetched;
-    }
-
-    private void on_zoomed_photo_fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err) {
-        zoom_cache.fetched -= on_zoomed_photo_fetched;
-        zoom_optimized_pixbuf = pixbuf;
-
-        repaint();
     }
 
     protected void snap_zoom_to_min() {
@@ -245,15 +562,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.set_value(interp);
     }
 
-    protected override Gdk.Pixbuf? get_zoom_optimized_pixbuf(ZoomState zoom_state) {
-        return zoom_optimized_pixbuf;
-    }
-
     protected override void save_zoom_state() {
         base.save_zoom_state();
         saved_slider_val = zoom_slider.get_value();
     }
 
+    protected override ZoomBuffer? get_zoom_buffer() {
+        return zoom_buffer;
+    }
+    
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
         on_increase_size();
 
@@ -272,8 +589,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.value_changed -= on_zoom_slider_value_changed;
         zoom_slider.set_value(saved_slider_val);
         zoom_slider.value_changed += on_zoom_slider_value_changed;
-        
-        fetch_zoom_optimized_pixbuf(get_zoom_state());
     }
 
     public override bool is_zoom_supported() {
@@ -384,8 +699,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void rebuild_caches(string caller) {
-        Scaling scaling = get_canvas_scaling();
-        
+        Scaling scaling = get_canvas_scaling();     
+
         // only rebuild if not the same scaling
         if (cache != null && cache.get_scaling().equals(scaling))
             return;
@@ -413,10 +728,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // if not of the current photo, nothing more to do
         if (!photo.equals(get_photo()))
             return;
-        
+
         if (pixbuf != null) {
+            // update the preview image in the zoom buffer
+            if ((zoom_buffer != null) && (zoom_buffer.get_backing_photo() == photo))
+                zoom_buffer.update_preview_image(pixbuf);
+
             // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
-            // displayed
+            // displayed           
             Dimensions max_dim = photo.get_dimensions();
             if (current_tool != null) {
                 try {
@@ -556,9 +875,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // if it's the same Photo object, the scaling hasn't changed, and the photo's file
         // has not gone missing or re-appeared, there's nothing to do otherwise,
-        // just need to reload the image for the proper scaling
-        if (new_photo.equals(get_photo()) && !pixbuf_dirty && !photo_missing)
+        // just need to reload the image for the proper scaling. Of course, the photo's pixels
+        // might've changed, so rebuild the zoom buffer.
+        if (new_photo.equals(get_photo()) && !pixbuf_dirty && !photo_missing) {
+            zoom_buffer = new ZoomBuffer(this, new_photo, cache.get_ready_pixbuf(new_photo));
             return;
+        }
 
         // only check if okay to replace if there's something to replace and someone's concerned
         if (has_photo() && !new_photo.equals(get_photo()) && confirm_replace_photo != null) {
@@ -591,6 +913,16 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         cancel_zoom();
 
+        Gdk.Pixbuf? zoom_preview_pixbuf = cache.get_ready_pixbuf(new_photo);
+        if (zoom_preview_pixbuf == null) {
+            try {
+                zoom_preview_pixbuf = new_photo.get_preview_pixbuf(get_canvas_scaling());
+            } catch (Error err) {
+                warning("%s", err.message);
+            }
+        }
+        zoom_buffer = new ZoomBuffer(this, new_photo, zoom_preview_pixbuf);
+
         quick_update_pixbuf();
         
         prefetch_neighbors(new_controller, new_photo);
@@ -604,7 +936,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.value_changed += on_zoom_slider_value_changed;
 
         set_zoom_state(ZoomState(get_photo().get_dimensions(), get_drawable_dim(), 0.0));
-        zoom_optimized_pixbuf = null;
     }
     
     private void quick_update_pixbuf() {
@@ -638,7 +969,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool update_pixbuf() {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
-#endif
+#endif      
 
         Gdk.Pixbuf pixbuf = null;
         Dimensions max_dim = get_photo().get_dimensions();
@@ -740,7 +1071,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (original != null) {
             // store what's currently displayed only for the duration of the shift pressing
             swapped = get_unscaled_pixbuf();
-            
+
+            // save the zoom state and cancel zoom so that the user can see all of the original
+            // photo
+            if (zoom_slider.get_value() != 0.0) {
+                save_zoom_state();
+                cancel_zoom();
+            }
+
             set_pixbuf(original, get_photo().get_original_dimensions());
         }
     }
@@ -748,6 +1086,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void swap_out_original() {
         if (swapped != null) {
             set_pixbuf(swapped, get_photo().get_dimensions());
+            
+            restore_zoom_state();
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
@@ -893,10 +1233,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             viewport_center.y -= delta_y;
 
             ZoomState zoom_state = ZoomState.pan(get_zoom_state(), viewport_center);
-
             set_zoom_state(zoom_state);
-
-            repaint();
+            get_zoom_buffer().flush_demand_cache(zoom_state);
 
             is_pan_in_progress = false;
         }

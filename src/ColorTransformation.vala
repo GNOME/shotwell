@@ -808,8 +808,8 @@ public class PixelTransformer {
             "transformation collection");
     }
 
-    public void transform_pixbuf(Gdk.Pixbuf pixbuf) {
-        transform_to_other_pixbuf(pixbuf, pixbuf);
+    public void transform_pixbuf(Gdk.Pixbuf pixbuf, Cancellable? cancellable = null) {
+        transform_to_other_pixbuf(pixbuf, pixbuf, cancellable);
     }
 
     public void transform_from_fp(ref float[] fp_pixel_cache, Gdk.Pixbuf dest) {
@@ -844,7 +844,8 @@ public class PixelTransformer {
         }
     }
 
-    public void transform_to_other_pixbuf(Gdk.Pixbuf source, Gdk.Pixbuf dest) {
+    public void transform_to_other_pixbuf(Gdk.Pixbuf source, Gdk.Pixbuf dest,
+        Cancellable? cancellable = null) {
         if (source.width != dest.width)
             error("PixelTransformer: source and destination pixbufs must have the same width");
 
@@ -877,6 +878,10 @@ public class PixelTransformer {
                 dest_pixels[i] = current_pixel.quantized_red();
                 dest_pixels[i + 1] = current_pixel.quantized_green();
                 dest_pixels[i + 2] = current_pixel.quantized_blue();
+            }
+
+            if ((cancellable != null) && (cancellable.is_cancelled())) {
+                return;
             }
         }
     }

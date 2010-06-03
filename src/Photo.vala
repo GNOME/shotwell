@@ -1089,7 +1089,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
-    private PixelTransformer get_pixel_transformer() {
+    public PixelTransformer get_pixel_transformer() {
         lock (row) {
             if (transformer == null)
                 locked_create_adjustments_from_data();

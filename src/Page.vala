@@ -1443,6 +1443,7 @@ public abstract class SinglePhotoPage : Page {
     private ZoomState static_zoom_state;
     private bool zoom_high_quality = true;
     private ZoomState saved_zoom_state;
+    private bool has_saved_zoom_state = false;
 
     public SinglePhotoPage(string page_name, bool scale_up_to_viewport) {
         base(page_name);
@@ -1475,20 +1476,24 @@ public abstract class SinglePhotoPage : Page {
     }
 
     private void render_zoomed_to_pixmap(ZoomState zoom_state) {
-        Gdk.Pixbuf basis_pixbuf = (zoom_high_quality) ? get_zoom_optimized_pixbuf(zoom_state) :
-            unscaled;
-        if (basis_pixbuf == null)
-            basis_pixbuf = unscaled;
-
+        assert(is_zoom_supported());
+        
         Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
-        Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(basis_pixbuf);
-
-        Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(basis_pixbuf, view_rect_proj.x,
-            view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
-
-        Gdk.Pixbuf zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
-            Gdk.InterpType.BILINEAR);
-
+        
+        Gdk.Pixbuf zoomed;
+        if (get_zoom_buffer() != null) {
+            zoomed = (zoom_high_quality) ? get_zoom_buffer().get_zoomed_image(zoom_state) :
+                get_zoom_buffer().get_zoom_preview_image(zoom_state);
+        } else {
+            Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(unscaled);
+            
+            Gdk.Pixbuf proj_subpixbuf = new Gdk.Pixbuf.subpixbuf(unscaled, view_rect_proj.x,
+                view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
+            
+            zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
+                Gdk.InterpType.BILINEAR);            
+        }
+        
         int draw_x = (pixmap_dim.width - view_rect.width) / 2;
         if (draw_x < 0)
             draw_x = 0;
@@ -1526,10 +1531,6 @@ public abstract class SinglePhotoPage : Page {
         return false;
     }
 
-    protected virtual Gdk.Pixbuf? get_zoom_optimized_pixbuf(ZoomState zoom_state) {
-        return null;
-    }
-
     protected virtual void cancel_zoom() {
         if (pixmap != null)
             pixmap.draw_rectangle(canvas.style.black_gc, true, 0, 0, -1, -1);
@@ -1537,10 +1538,20 @@ public abstract class SinglePhotoPage : Page {
 
     protected virtual void save_zoom_state() {
         saved_zoom_state = static_zoom_state;
+        has_saved_zoom_state = true;
     }
     
     protected virtual void restore_zoom_state() {
+        if (!has_saved_zoom_state)
+            return;
+
         static_zoom_state = saved_zoom_state;
+        repaint();
+        has_saved_zoom_state = false;
+    }
+    
+    protected virtual ZoomBuffer? get_zoom_buffer() {
+        return null;
     }
     
     protected ZoomState get_saved_zoom_state() {

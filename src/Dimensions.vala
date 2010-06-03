@@ -654,5 +654,24 @@ public struct ZoomState {
     public bool is_isomorphic() {
         return (zoom_factor == 1.0);
     }
+    
+    public bool equals(ZoomState other) {
+        if (!content_dimensions.equals(other.content_dimensions))
+            return false;
+        if (!viewport_dimensions.equals(other.viewport_dimensions))
+            return false;
+        if (zoom_factor != other.zoom_factor)
+            return false;
+        if (min_factor != other.min_factor)
+            return false;
+        if (max_factor != other.max_factor)
+            return false;
+        if (viewport_center.x != other.viewport_center.x)
+            return false;
+        if (viewport_center.y != other.viewport_center.y)
+            return false;
+
+        return true;
+    }
 }
 
