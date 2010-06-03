@@ -45,7 +45,11 @@ public class JfifFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = {
         "jpg", "jpeg", "jpe"
     };
-    
+
+    private static string[] KNOWN_MIME_TYPES = {
+        "image/jpeg"
+    };
+        
     private static JfifFileFormatProperties instance = null;
     
     public static JfifFileFormatProperties get_instance() {
@@ -75,6 +79,14 @@ public class JfifFileFormatProperties : PhotoFileFormatProperties {
 
     public override string[] get_known_extensions() {
         return KNOWN_EXTENSIONS;
+    }
+    
+    public override string get_default_mime_type() {
+        return KNOWN_MIME_TYPES[0];
+    }
+    
+    public override string[] get_mime_types() {
+        return KNOWN_MIME_TYPES;
     }
 }
 

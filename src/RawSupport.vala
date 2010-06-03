@@ -49,6 +49,10 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
         "k25", "kdc", "dng", "erf", "fff", "mef", "mos", "mrw", "nef", "nrw", "orf", "ptx", "pef",
         "pxn", "r3d", "raf", "raw", "rw2", "raw", "rwl", "rwz", "x3f"
     };
+
+    private static string[] KNOWN_MIME_TYPES = {
+        "image/x-canon-cr2"
+    };
     
     private static RawFileFormatProperties instance = null;
     
@@ -82,6 +86,14 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     
     public override string[] get_known_extensions() {
         return KNOWN_EXTENSIONS;
+    }
+    
+    public override string get_default_mime_type() {
+        return KNOWN_MIME_TYPES[0];
+    }
+    
+    public override string[] get_mime_types() {
+        return KNOWN_MIME_TYPES;
     }
 }
 

@@ -6,6 +6,7 @@
 
 class PngFileFormatProperties : PhotoFileFormatProperties {
     private static string[] KNOWN_EXTENSIONS = { "png" };
+    private static string[] KNOWN_MIME_TYPES = { "image/png" };
 
     private static PngFileFormatProperties singleton_instance = null;
 
@@ -36,6 +37,14 @@ class PngFileFormatProperties : PhotoFileFormatProperties {
     
     public override string[] get_known_extensions() {
         return KNOWN_EXTENSIONS;
+    }
+    
+    public override string get_default_mime_type() {
+        return KNOWN_MIME_TYPES[0];
+    }
+    
+    public override string[] get_mime_types() {
+        return KNOWN_MIME_TYPES;
     }
 }
 

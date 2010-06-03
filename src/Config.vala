@@ -595,5 +595,42 @@ public class Config {
     public void set_import_dir(string import_dir) {
         set_string("/apps/shotwell/preferences/files/import_dir", import_dir);
     }
+    
+    public string get_external_photo_app() {
+        string external_app = get_string("/apps/shotwell/preferences/editing/external_photo_editor", "");
+        
+        if (!is_string_empty(external_app))
+            return external_app;
+        
+        Gee.ArrayList<string> preferred_apps = new Gee.ArrayList<string>();
+        preferred_apps.add("GIMP");
+        preferred_apps.add("gThumbn");
+        preferred_apps.add("EoG");
+        
+        AppInfo? app = get_default_app_for_mime_types(PhotoFileFormat.get_editable_mime_types(), preferred_apps);
+        return (app != null) ? app.get_commandline() : "";            
+    }
+    
+    public void set_external_photo_app(string external_photo_app) {
+        set_string("/apps/shotwell/preferences/editing/external_photo_editor",
+            external_photo_app);
+    }
+
+    public string get_external_raw_app() {
+        string external_app = get_string("/apps/shotwell/preferences/editing/external_raw_editor", "");
+        
+        if (!is_string_empty(external_app))
+            return external_app;
+        
+        Gee.ArrayList<string> preferred_apps = new Gee.ArrayList<string>();
+        preferred_apps.add("UFRaw");
+        
+        AppInfo? app = get_default_app_for_mime_types(PhotoFileFormat.RAW.get_mime_types(), preferred_apps);
+        return (app != null) ? app.get_commandline() : "";  
+    }
+    
+    public void set_external_raw_app(string external_raw_app) {
+        set_string("/apps/shotwell/preferences/editing/external_raw_editor", external_raw_app);
+    }
 }
 

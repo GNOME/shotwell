@@ -1960,24 +1960,27 @@ public abstract class TransformablePhoto: PhotoSource {
             out collision);
     }
     
-    private static int launch_editor(File file) throws Error {
-        string[] argv = new string[3];
-        argv[0] = "/usr/bin/gimp";
-        argv[1] = file.get_path();
-        argv[2] = null;
+    private static bool launch_editor(File file, PhotoFileFormat file_format) throws Error {
+        string commandline = file_format == PhotoFileFormat.RAW ? Config.get_instance().get_external_raw_app() : 
+            Config.get_instance().get_external_photo_app();
+
+        if (is_string_empty(commandline))
+            return false;
         
-        int pid;
-        Gdk.spawn_on_screen(AppWindow.get_instance().get_screen(), file.get_parent().get_path(),
-            argv, null, 0, null, out pid);
+        AppInfo app = 
+            AppInfo.create_from_commandline(commandline, "", AppInfoCreateFlags.NONE);
         
-        return pid;
+        List<File> files = new List<File>();
+        files.insert(file, -1);
+        
+        return app.launch(files, null);
     }
     
     // NOTE: This is a dangerous command.  It's HIGHLY recommended that this only be used with
     // read-only PhotoFileFormats (i.e. RAW).  As of today, if the user edits their master file,
     // it's not detected by Shotwell and things start to tip wonky.
     public void open_master_with_external_editor() throws Error {
-        launch_editor(get_master_file());
+        launch_editor(get_master_file(), get_master_file_format());
     }
     
     public void open_with_external_editor() throws Error {
@@ -2028,7 +2031,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         assert(current_editable_file != null);
-        launch_editor(current_editable_file);
+        launch_editor(current_editable_file, get_file_format());
     }
     
     public void revert_to_master() {

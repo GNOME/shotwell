@@ -508,7 +508,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("RemoveFromLibrary", selected);
         set_action_sensitive("MoveToTrash", selected);
         set_action_sensitive("Duplicate", selected);
-        set_action_sensitive("ExternalEdit", selected);
+        set_action_sensitive("ExternalEdit", selected && Config.get_instance().get_external_photo_app() != "");
         set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", can_revert_editable_selected());
         set_action_sensitive("JumpToFile", selected_count == 1);
@@ -553,9 +553,9 @@ public abstract class CollectionPage : CheckerboardPage {
 #endif
         enhance_button.sensitive = has_selected;
         
-        set_action_sensitive("ExternalEdit", selected_count == 1);
+        set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
         if (is_single_raw)
-            set_action_visible("ExternalEditRAW", true);
+            set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
         else
             set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", can_revert_editable_selected());

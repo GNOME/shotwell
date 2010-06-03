@@ -1197,6 +1197,10 @@ public class PreferencesDialog {
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
     private Gtk.Entry library_dir_entry;
+    private Gtk.ComboBox photo_editor_combo;
+    private Gtk.ComboBox raw_editor_combo;
+    private SortedList<AppInfo> external_photo_apps;
+    private SortedList<AppInfo> external_raw_apps;
     
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1222,6 +1226,73 @@ public class PreferencesDialog {
             builder.get_object("file_browser_button") as Gtk.Button;
         library_dir_browser.clicked += on_browse_import_dir;
         
+        photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
+        raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
+        
+        populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(), 
+            Config.get_instance().get_external_photo_app(), out external_photo_apps);
+        
+        populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
+            Config.get_instance().get_external_raw_app(), out external_raw_apps);
+        
+        photo_editor_combo.changed += on_photo_editor_changed;
+        raw_editor_combo.changed += on_raw_editor_changed;
+    }
+    
+    private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,
+        string current_app_executable, out SortedList<AppInfo> external_apps) {
+        // get list of all applications for the given mime types
+        assert(mime_types.length != 0);
+        external_apps =  get_apps_for_mime_types(mime_types);
+        
+        if (external_apps.size == 0)
+            return;
+        
+        // populate application ComboBox with app names and icons
+        Gtk.CellRendererPixbuf pixbuf_renderer = new Gtk.CellRendererPixbuf();
+        Gtk.CellRendererText text_renderer = new Gtk.CellRendererText();
+        combo_box.pack_start(pixbuf_renderer, false);
+        combo_box.pack_start(text_renderer, false);
+        combo_box.add_attribute(pixbuf_renderer, "pixbuf", 0);
+        combo_box.add_attribute(text_renderer, "text", 1);
+        
+        // TODO: need more space between icons and text
+        Gtk.ListStore combo_store = new Gtk.ListStore(2, typeof(Gdk.Pixbuf), typeof(string));
+        Gtk.TreeIter iter;
+        
+        int current_app = -1;
+        
+        foreach (AppInfo app in external_apps) {
+            combo_store.append(out iter);
+
+            Icon app_icon = app.get_icon();
+            try {
+                if (app_icon is FileIcon) {
+                    combo_store.set_value(iter, 0, 
+                        new Gdk.Pixbuf.from_file(((FileIcon) app_icon).get_file().get_path()));
+                } else if (app_icon is ThemedIcon) {
+                    unowned Gdk.Pixbuf icon_pixbuf = 
+                        Gtk.IconTheme.get_default().load_icon(((ThemedIcon) app_icon).get_names()[0],
+                        Resources.DEFAULT_ICON_SCALE, Gtk.IconLookupFlags.FORCE_SIZE);
+                    
+                    combo_store.set_value(iter, 0, icon_pixbuf);
+                }
+            } catch (GLib.Error error) {
+                warning("Error loading icon pixbuf: " + error.message);
+            }
+
+            combo_store.set_value(iter, 1, app.get_name());
+            
+            if (app.get_commandline() == current_app_executable)
+                current_app = external_apps.index_of(app);
+        }
+        
+        // TODO: allow users to choose unlisted applications like Nautilus's "Open with -> Other Application..."
+
+        combo_box.set_model(combo_store);
+
+        if (current_app != -1)
+            combo_box.set_active(current_app);
     }
     
     public static void show() {
@@ -1270,20 +1341,36 @@ public class PreferencesDialog {
             file_chooser.set_file(AppDirs.get_import_dir());
         } catch (GLib.Error error) {
         }
-
+        
         if (file_chooser.run() == Gtk.ResponseType.ACCEPT) {
             File library_dir = file_chooser.get_file();
-                
+            
             library_dir_entry.set_text(library_dir.get_path());
         }
-
+        
         file_chooser.destroy();
     }
-
+    
     private void on_import_dir_entry_changed() {
         File library_dir = File.new_for_path(strip_pretty_path(library_dir_entry.get_text()));
         
         if (query_is_directory(library_dir))
             AppDirs.set_import_dir(library_dir);
+    }
+    
+    private void on_photo_editor_changed() {
+        AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
+        
+        Config.get_instance().set_external_photo_app(app.get_commandline());
+        
+        debug("setting external photo editor to: %s", app.get_commandline());
+    }
+    
+    private void on_raw_editor_changed() {
+        AppInfo app = external_raw_apps.get_at(raw_editor_combo.get_active());
+        
+        Config.get_instance().set_external_raw_app(app.get_commandline());
+        
+        debug("setting external raw editor to: %s", app.get_commandline());
     }
 }

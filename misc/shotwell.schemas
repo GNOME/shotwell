@@ -588,5 +588,31 @@
                 <long>Directory in which imported photo files are placed.</long>
             </locale>
         </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/editing/external_photo_editor</key>
+            <applyto>/apps/shotwell/preferences/editing/external_photo_editor</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>external photo editor</short>
+                <long>External application used to edit photos.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/editing/external_raw_editor</key>
+            <applyto>/apps/shotwell/preferences/editing/external_raw_editor</applyto>
+            <type>string</type>
+            <owner>shotwell</owner>
+            <default>NULL</default>
+
+            <locale name="en">
+                <short>external raw editor</short>
+                <long>External application used to edit RAW photos.</long>
+            </locale>
+        </schema>
     </schemalist>
 </gconfschemafile>

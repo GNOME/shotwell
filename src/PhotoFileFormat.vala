@@ -149,6 +149,25 @@ public enum PhotoFileFormat {
     public PhotoMetadata create_metadata() {
         return get_driver().create_metadata();
     }
+    
+    public string get_default_mime_type() {
+        return get_driver().get_properties().get_default_mime_type();
+    }
+    
+    public string[] get_mime_types() {
+        return get_driver().get_properties().get_mime_types();
+    }
+    
+    public static string[] get_editable_mime_types() {
+        string[] mime_types = {};
+        
+        foreach (PhotoFileFormat file_format in PhotoFileFormat.get_writable()) {
+            foreach (string mime_type in file_format.get_mime_types())
+                mime_types += mime_type;
+        }
+        
+        return mime_types;
+    }
 }
 
 //
@@ -202,6 +221,10 @@ public abstract class PhotoFileFormatProperties {
     public abstract string get_default_extension();
     
     public abstract string[] get_known_extensions();
+    
+    public abstract string get_default_mime_type();
+    
+    public abstract string[] get_mime_types();
 
     // returns the user-visible name of the file format -- this name is used in user interface
     // strings whenever the file format needs to named. This name is not the same as the format

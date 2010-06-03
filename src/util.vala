@@ -610,3 +610,54 @@ private void remove_from_app(Gee.Collection<LibraryPhoto> photos, string dialog_
 	AppWindow.get_instance().set_normal_cursor();
 }
 
+// compare the app names, case insensitive
+public static int64 app_info_comparator(void *a, void *b) {
+    return ((AppInfo) a).get_name().down().collate(((AppInfo) b).get_name().down());
+}
+
+public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {        
+        SortedList<AppInfo> external_apps = new SortedList<AppInfo>(app_info_comparator);
+        
+        if (mime_types.length == 0)
+            return external_apps;
+        
+        // make sure the app is avaiable to all mime types
+        // 3 loops because List.index() wasn't paying nicely with AppInfo (special equality func?)
+        foreach (AppInfo external_app in AppInfo.get_all_for_type(g_content_type_from_mime_type(mime_types[0]))) {
+            foreach (string mime_type in mime_types) {
+                bool mime_uses_app = false;
+                
+                List<AppInfo> mime_apps =
+                    AppInfo.get_all_for_type(g_content_type_from_mime_type(mime_type));
+                
+                foreach (AppInfo app in mime_apps) {
+                    if (app.equal(external_app))
+                        mime_uses_app = true;
+                }
+                
+                // dont add Shotwell to app list
+                if (mime_uses_app && !external_apps.contains(external_app) && 
+                    !external_app.get_name().contains(Resources.APP_TITLE))
+                    external_apps.add(external_app);
+            }
+        }
+
+        return external_apps;
+}
+
+public AppInfo? get_default_app_for_mime_types(string[] mime_types, 
+    Gee.ArrayList<string> preferred_apps) {
+    SortedList<AppInfo> external_apps = get_apps_for_mime_types(mime_types);
+    
+    foreach (string preferred_app in preferred_apps) {
+        foreach (AppInfo external_app in external_apps) {
+            if (external_app.get_name().contains(preferred_app))
+                return external_app;
+        }
+    }
+    
+    if (external_apps.size > 0)
+        return external_apps.get_at(0);
+    
+    return null;
+}

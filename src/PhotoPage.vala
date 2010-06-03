@@ -1697,7 +1697,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     protected override void init_actions(int selected_count, int count) {
-        set_action_sensitive("ExternalEdit", count > 0);
+        set_action_sensitive("ExternalEdit", count > 0 && Config.get_instance().get_external_photo_app() != "");
         set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
         
@@ -1707,9 +1707,9 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_contents_altered() {
         bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
         
-        set_action_sensitive("ExternalEdit", has_photo());
+        set_action_sensitive("ExternalEdit", has_photo() && Config.get_instance().get_external_photo_app() != "");
         if (is_raw)
-            set_action_visible("ExternalEditRAW", true);
+            set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
         else
             set_action_hidden("ExternalEditRAW");
         set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
