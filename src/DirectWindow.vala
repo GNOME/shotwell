@@ -74,5 +74,17 @@ public class DirectWindow : AppWindow {
         
         return (base.delete_event != null) ? base.delete_event(event) : false;
     }
+
+    private override bool key_press_event(Gdk.EventKey event) {
+        // check for an escape
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            on_quit();
+            
+            return true;
+        }
+
+       // ...then let the base class take over
+       return (base.key_press_event != null) ? base.key_press_event(event) : false;
+    }
 }
 
