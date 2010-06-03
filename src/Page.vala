@@ -143,6 +143,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.button_press_event -= on_button_pressed_internal;
         event_source.button_release_event -= on_button_released_internal;
         event_source.motion_notify_event -= on_motion_internal;
+        event_source.scroll_event -= on_mousewheel_internal;
         
         disable_drag_source();
         

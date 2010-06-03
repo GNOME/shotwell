@@ -135,7 +135,7 @@ RESOURCE_FILES = \
 	direct.ui \
 	tags.ui \
 	trash.ui \
-        shotwell.glade
+	shotwell.glade
 
 SRC_HEADER_FILES = \
 	gphoto.h
