@@ -338,6 +338,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (has_photo() && pixbuf_dirty)
             replace_photo(controller, get_photo());
         
+        // since EditingHostPages often rest in the background, their stored photo can be deleted by 
+        // another page. this checks to make sure a display photo has been established before the
+        // switched_to call.
         assert(get_photo() != null);
     }
     
