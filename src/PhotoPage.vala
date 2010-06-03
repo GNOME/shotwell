@@ -937,10 +937,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
+    // Return true to block the DnD handler from activating a drag
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         if (current_tool != null) {
             current_tool.on_motion(x, y, mask);
-            return false;
+            return true;
         }
         
         if (get_zoom_state().is_default()) {
@@ -960,6 +961,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             ZoomState zoom_state = ZoomState.pan(get_zoom_state(), viewport_center);
 
             on_interactive_pan(zoom_state);
+            return true;
         }
             
         return false;
