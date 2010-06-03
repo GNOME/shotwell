@@ -291,7 +291,7 @@ private class BasicProperties : Properties {
             string label = _("Size:");
 
             if (dimensions.has_area()) {
-                add_line(label, "%d x %d".printf(dimensions.width, dimensions.height));
+                add_line(label, "%d &#215; %d".printf(dimensions.width, dimensions.height));
                 label = "";
             }
         }
@@ -415,7 +415,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
                 format_size_for_display((int64) filesize) : NO_VALUE);
 
             add_line(_("Original dimensions:"), (original_dim != null && original_dim.has_area()) ?
-                "%d x %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
+                "%d &#215; %d".printf(original_dim.width, original_dim.height) : NO_VALUE);
 
             add_line(_("Camera make:"), (camera_make != "" && camera_make != null) ?
                 camera_make : NO_VALUE);
