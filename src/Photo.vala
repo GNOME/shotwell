@@ -2763,7 +2763,7 @@ public class LibraryPhoto : Photo {
         
         try {
             assert(params.thumbnails != null);
-            ThumbnailCache.import_thumbnails(photo_id, params.thumbnails, true);
+            ThumbnailCache.import_thumbnails(photo, params.thumbnails, true);
         } catch (Error err) {
             warning("Unable to create thumbnails for %s: %s", params.row.master.filepath, err.message);
             
@@ -2785,7 +2785,7 @@ public class LibraryPhoto : Photo {
     
     private void generate_thumbnails() {
         try {
-            ThumbnailCache.import_from_source(get_photo_id(), this, true);
+            ThumbnailCache.import_from_source(this, true);
         } catch (Error err) {
             warning("Unable to generate thumbnails for %s: %s", to_string(), err.message);
         }
@@ -2820,7 +2820,7 @@ public class LibraryPhoto : Photo {
         // pixbufs for rotate-and-scale ops, perform the rotation directly on the already-modified 
         // thumbnails.
         try {
-            ThumbnailCache.rotate(get_photo_id(), rotation);
+            ThumbnailCache.rotate(this, rotation);
         } catch (Error err) {
             // TODO: Mark thumbnails as dirty in database
             warning("Unable to update thumbnails for %s: %s", to_string(), err.message);
@@ -2831,7 +2831,7 @@ public class LibraryPhoto : Photo {
     
     // Returns unscaled thumbnail with all modifications applied applicable to the scale
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return ThumbnailCache.fetch(get_photo_id(), scale);
+        return ThumbnailCache.fetch(this, scale);
     }
     
     public LibraryPhoto duplicate() throws Error {
@@ -2854,11 +2854,11 @@ public class LibraryPhoto : Photo {
             dupe_editable_id);
         PhotoRow dupe_row = PhotoTable.get_instance().get_row(dupe_id);
         
-        // clone thumbnails
-        ThumbnailCache.duplicate(get_photo_id(), dupe_id);
-        
         // build the DataSource for the duplicate
         LibraryPhoto dupe = new LibraryPhoto(dupe_row);
+
+        // clone thumbnails
+        ThumbnailCache.duplicate(this, dupe);
         
         // add it to the SourceCollection; this notifies everyone interested of its presence
         global.add(dupe);
@@ -2920,7 +2920,7 @@ public class LibraryPhoto : Photo {
         PhotoID photo_id = get_photo_id();
 
         // remove all cached thumbnails
-        ThumbnailCache.remove(photo_id);
+        ThumbnailCache.remove(this);
         
         // remove from photo table -- should be wiped from storage now (other classes may have added
         // photo_id to other parts of the database ... it's their responsibility to remove them

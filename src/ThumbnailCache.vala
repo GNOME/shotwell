@@ -74,6 +74,7 @@ public class ThumbnailCache : Object {
     private class AsyncFetchJob : BackgroundJob {
         public ThumbnailCache cache;
         public PhotoID photo_id;
+        public PhotoFileFormat source_format;
         public Dimensions dim;
         public Gdk.InterpType interp;
         public AsyncFetchCallback callback;
@@ -82,12 +83,14 @@ public class ThumbnailCache : Object {
         public Error err = null;
         public bool fetched = false;
         
-        public AsyncFetchJob(ThumbnailCache cache, PhotoID photo_id, Gdk.Pixbuf? prefetched, 
-            Dimensions dim, Gdk.InterpType interp,  AsyncFetchCallback callback, Cancellable? cancellable) {
+        public AsyncFetchJob(ThumbnailCache cache, PhotoID photo_id, PhotoFileFormat source_format,
+            Gdk.Pixbuf? prefetched, Dimensions dim, Gdk.InterpType interp, 
+            AsyncFetchCallback callback, Cancellable? cancellable) {
             base(cache, async_fetch_completion_callback, cancellable);
             
             this.cache = cache;
             this.photo_id = photo_id;
+            this.source_format = source_format;
             this.pixbuf = prefetched;
             this.dim = dim;
             this.interp = interp;
@@ -113,7 +116,7 @@ public class ThumbnailCache : Object {
             try {
                 // load-and-decode if not already prefetched
                 if (pixbuf == null) {
-                    pixbuf = new Gdk.Pixbuf.from_file(cache.get_cached_file(photo_id).get_path());
+                    pixbuf = cache.read_pixbuf(photo_id, source_format);
                     fetched = true;
                 }
                 
@@ -170,26 +173,26 @@ public class ThumbnailCache : Object {
     public static void terminate() {
     }
     
-    public static void import_from_source(PhotoID photo_id, PhotoSource source, bool force = false)
+    public static void import_from_source(LibraryPhoto source, bool force = false)
         throws Error {
-        big._import_from_source(photo_id, source, force);
-        medium._import_from_source(photo_id, source, force);
+        big._import_from_source(source, force);
+        medium._import_from_source(source, force);
     }
     
-    public static void import_thumbnails(PhotoID photo_id, Thumbnails thumbnails, bool force = false)
+    public static void import_thumbnails(LibraryPhoto source, Thumbnails thumbnails, bool force = false)
         throws Error {
-        big._import_thumbnail(photo_id, thumbnails.get(Size.BIG), force);
-        medium._import_thumbnail(photo_id, thumbnails.get(Size.MEDIUM), force);
+        big._import_thumbnail(source, thumbnails.get(Size.BIG), force);
+        medium._import_thumbnail(source, thumbnails.get(Size.MEDIUM), force);
     }
     
-    public static void duplicate(PhotoID src_id, PhotoID dest_id) {
-        big._duplicate(src_id, dest_id);
-        medium._duplicate(src_id, dest_id);
+    public static void duplicate(LibraryPhoto src_source, LibraryPhoto dest_source) {
+        big._duplicate(src_source, dest_source);
+        medium._duplicate(src_source, dest_source);
     }
     
-    public static void remove(PhotoID photo_id) {
-        big._remove(photo_id);
-        medium._remove(photo_id);
+    public static void remove(LibraryPhoto source) {
+        big._remove(source);
+        medium._remove(source);
     }
     
     private static ThumbnailCache get_best_cache(int scale) {
@@ -218,34 +221,35 @@ public class ThumbnailCache : Object {
         }
     }
     
-    public static Gdk.Pixbuf fetch(PhotoID photo_id, int scale) throws Error {
-        return get_best_cache(scale)._fetch(photo_id);
+    public static Gdk.Pixbuf fetch(LibraryPhoto source, int scale) throws Error {
+        return get_best_cache(scale)._fetch(source);
     }
     
-    public static void fetch_async(PhotoID photo_id, int scale, AsyncFetchCallback callback,
+    public static void fetch_async(LibraryPhoto source, int scale, AsyncFetchCallback callback,
         Cancellable? cancellable = null) {
-        get_best_cache(scale)._fetch_async(photo_id, Dimensions(), DEFAULT_INTERP, callback, 
-            cancellable);
+        get_best_cache(scale)._fetch_async(source.get_photo_id(), source.get_master_file_format(),
+            Dimensions(), DEFAULT_INTERP, callback, cancellable);
     }
     
-    public static void fetch_async_scaled(PhotoID photo_id, int scale, Dimensions dim, Gdk.InterpType interp,
-        AsyncFetchCallback callback, Cancellable? cancellable = null) {
-        get_best_cache(scale)._fetch_async(photo_id, dim, interp, callback, cancellable);
-    }
-
-    public static void replace(PhotoID photo_id, Size size, Gdk.Pixbuf replacement) throws Error {
-        get_cache_for(size)._replace(photo_id, replacement);
+    public static void fetch_async_scaled(LibraryPhoto source, int scale, Dimensions dim, 
+        Gdk.InterpType interp, AsyncFetchCallback callback, Cancellable? cancellable = null) {
+        get_best_cache(scale)._fetch_async(source.get_photo_id(), source.get_master_file_format(), 
+            dim, interp, callback, cancellable);
     }
     
-    public static bool exists(PhotoID photo_id) {
-        return big._exists(photo_id) && medium._exists(photo_id);
+    public static void replace(LibraryPhoto source, Size size, Gdk.Pixbuf replacement) throws Error {
+        get_cache_for(size)._replace(source, replacement);
     }
     
-    public static void rotate(PhotoID photo_id, Rotation rotation) throws Error {
+    public static bool exists(LibraryPhoto source) {
+        return big._exists(source) && medium._exists(source);
+    }
+    
+    public static void rotate(LibraryPhoto source, Rotation rotation) throws Error {
         foreach (Size size in ALL_SIZES) {
-            Gdk.Pixbuf thumbnail = fetch(photo_id, size);
+            Gdk.Pixbuf thumbnail = fetch(source, size);
             thumbnail = rotation.perform(thumbnail);
-            replace(photo_id, size, thumbnail);
+            replace(source, size, thumbnail);
         }
     }
     
@@ -300,25 +304,25 @@ public class ThumbnailCache : Object {
         }
     }
     
-    private Gdk.Pixbuf _fetch(PhotoID photo_id) throws Error {
+    private Gdk.Pixbuf _fetch(LibraryPhoto source) throws Error {
         // use JPEG in memory cache if available
-        Gdk.Pixbuf pixbuf = fetch_from_memory(photo_id);
+        Gdk.Pixbuf pixbuf = fetch_from_memory(source.get_photo_id());
         if (pixbuf != null)
             return pixbuf;
-
-        pixbuf = new Gdk.Pixbuf.from_file(get_cached_file(photo_id).get_path());
+        
+        pixbuf = read_pixbuf(source.get_photo_id(), source.get_master_file_format());
         
         cycle_fetched_thumbnails++;
         schedule_debug();
         
         // stash in memory for next time
-        store_in_memory(photo_id, pixbuf);
+        store_in_memory(source.get_photo_id(), pixbuf);
 
         return pixbuf;
     }
     
-    private void _fetch_async(PhotoID photo_id, Dimensions dim, Gdk.InterpType interp, 
-        AsyncFetchCallback callback, Cancellable? cancellable) {
+    private void _fetch_async(PhotoID photo_id, PhotoFileFormat format, Dimensions dim, 
+        Gdk.InterpType interp, AsyncFetchCallback callback, Cancellable? cancellable) {
         // check if the pixbuf is already in memory
         Gdk.Pixbuf pixbuf = fetch_from_memory(photo_id);
         if (pixbuf != null && (!dim.has_area() || Dimensions.for_pixbuf(pixbuf).equals(dim))) {
@@ -339,8 +343,8 @@ public class ThumbnailCache : Object {
         // situation.  This may change in the future, and the caching situation will need to be 
         // handled.
         
-        fetch_workers.enqueue(new AsyncFetchJob(this, photo_id, pixbuf, dim, interp, callback, 
-            cancellable));
+        fetch_workers.enqueue(new AsyncFetchJob(this, photo_id, format, pixbuf, dim, interp, 
+            callback, cancellable));
     }
     
     // Called within Gtk.main's thread context
@@ -362,53 +366,56 @@ public class ThumbnailCache : Object {
         job.callback(job.scaled, job.dim, job.interp, job.err);
     }
     
-    private void _import_from_source(PhotoID photo_id, PhotoSource source, bool force = false)
+    private void _import_from_source(LibraryPhoto source, bool force = false)
         throws Error {
-        File file = get_cached_file(photo_id);
+        File file = get_cached_file(source.get_photo_id(), source.get_master_file_format());
         
         // if not forcing the cache operation, check if file exists and is represented in the
         // database before continuing
         if (!force) {
-            if (_exists(photo_id))
+            if (_exists(source))
                 return;
         } else {
             // wipe from system and continue
-            _remove(photo_id);
+            _remove(source);
         }
-        
-        save_thumbnail(file, source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true)));
+
+        save_thumbnail(file, source.get_pixbuf(Scaling.for_best_fit(size.get_scale(), true)), 
+            source);
         
         // See note in _import_with_pixbuf for reason why this is not maintained in in-memory
         // cache
     }
     
-    private void _import_thumbnail(PhotoID photo_id, Gdk.Pixbuf? scaled, bool force = false) 
+    private void _import_thumbnail(LibraryPhoto source, Gdk.Pixbuf? scaled, bool force = false) 
         throws Error {
         assert(scaled != null);
         assert(Dimensions.for_pixbuf(scaled).approx_scaled(size.get_scale()));
         
-        File file = get_cached_file(photo_id);
+        File file = get_cached_file(source.get_photo_id(), source.get_master_file_format());
         
         // if not forcing the cache operation, check if file exists and is represented in the
         // database before continuing
         if (!force) {
-            if (_exists(photo_id))
+            if (_exists(source))
                 return;
         } else {
             // wipe previous from system and continue
-            _remove(photo_id);
+            _remove(source);
         }
-        
-        save_thumbnail(file, scaled);
+
+        save_thumbnail(file, scaled, source);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
         // once, this will blow cache locality, especially when the user is viewing one portion
         // of the collection while new photos are added far off the viewport
     }
     
-    private void _duplicate(PhotoID src_id, PhotoID dest_id) {
-        File src_file = get_cached_file(src_id);
-        File dest_file = get_cached_file(dest_id);
+    private void _duplicate(LibraryPhoto src_source, LibraryPhoto dest_source) {
+        File src_file = get_cached_file(src_source.get_photo_id(), 
+            src_source.get_master_file_format());
+        File dest_file = get_cached_file(dest_source.get_photo_id(), 
+            dest_source.get_master_file_format());
         
         try {
             src_file.copy(dest_file, FileCopyFlags.ALL_METADATA, null, null);
@@ -419,30 +426,30 @@ public class ThumbnailCache : Object {
         // Do NOT store in memory cache, for similar reasons as stated in _import().
     }
     
-    private void _replace(PhotoID photo_id, Gdk.Pixbuf original) throws Error {
-        File file = get_cached_file(photo_id);
+    private void _replace(LibraryPhoto source, Gdk.Pixbuf original) throws Error {
+        File file = get_cached_file(source.get_photo_id(), source.get_master_file_format());
         
         // Remove from in-memory cache, if present
-        remove_from_memory(photo_id);
+        remove_from_memory(source.get_photo_id());
         
         // scale to cache's parameters
         Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
         
         // save scaled image as JPEG
-        save_thumbnail(file, scaled);
+        save_thumbnail(file, scaled, source);
         
         // Store in in-memory cache; a _replace() probably represents a user-initiated
         // action (<cough>rotate</cough>) and the thumbnail will probably be fetched immediately.
         // This means the thumbnail will be cached in scales that aren't immediately needed, but the
         // benefit seems to outweigh the side-effects
-        store_in_memory(photo_id, scaled);
+        store_in_memory(source.get_photo_id(), scaled);
     }
     
-    private void _remove(PhotoID photo_id) {
-        File file = get_cached_file(photo_id);
+    private void _remove(LibraryPhoto source) {
+        File file = get_cached_file(source.get_photo_id(), source.get_master_file_format());
         
         // remove from in-memory cache
-        remove_from_memory(photo_id);
+        remove_from_memory(source.get_photo_id());
         
         // remove from disk
         try {
@@ -452,14 +459,25 @@ public class ThumbnailCache : Object {
         }
     }
     
-    private bool _exists(PhotoID photo_id) {
-        File file = get_cached_file(photo_id);
+    private bool _exists(LibraryPhoto source) {
+        File file = get_cached_file(source.get_photo_id(), source.get_master_file_format());
 
         return file.query_exists(null);
     }
+
+    private Gdk.Pixbuf read_pixbuf(PhotoID photo_id, PhotoFileFormat format) throws Error {
+        return get_thumbnail_format(format).create_reader(get_cached_file(photo_id, 
+            format).get_path()).unscaled_read();
+    }
     
-    private File get_cached_file(PhotoID photo_id) {
-        return cache_dir.get_child("thumb%016llx.jpg".printf(photo_id.id));
+    private File get_cached_file(PhotoID photo_id, PhotoFileFormat master_format) {
+        string file_name = "thumb%016llx".printf(photo_id.id);
+        if(master_format.can_write())
+            file_name = master_format.get_default_basename(file_name);
+        else
+            file_name = PhotoFileFormat.get_system_default_format().get_default_basename(file_name);
+
+        return cache_dir.get_child(file_name);
     }
     
     private Gdk.Pixbuf? fetch_from_memory(PhotoID photo_id) {
@@ -528,8 +546,13 @@ public class ThumbnailCache : Object {
         return true;
     }
     
-    private void save_thumbnail(File file, Gdk.Pixbuf pixbuf) throws Error {
-        pixbuf.save(file.get_path(), "jpeg", "quality", quality.get_pct_text());
+    private void save_thumbnail(File file, Gdk.Pixbuf pixbuf, LibraryPhoto source) throws Error {
+        get_thumbnail_format(source.get_master_file_format()).create_writer(file.get_path()).write(
+            pixbuf, DEFAULT_QUALITY);
+    }
+
+    private PhotoFileFormat get_thumbnail_format(PhotoFileFormat master_format) {
+        return master_format.can_write() ? master_format : PhotoFileFormat.get_system_default_format();
     }
 }
 

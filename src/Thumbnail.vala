@@ -167,7 +167,7 @@ public class Thumbnail : CheckerboardItem {
         cancel_async_fetch();
         cancellable = new Cancellable();
         
-        ThumbnailCache.fetch_async_scaled(get_photo().get_photo_id(), ThumbnailCache.Size.SMALLEST, 
+        ThumbnailCache.fetch_async_scaled(get_photo(), ThumbnailCache.Size.SMALLEST, 
             dim, LOW_QUALITY_INTERP, on_low_quality_fetched, cancellable);
     }
     
@@ -193,7 +193,7 @@ public class Thumbnail : CheckerboardItem {
         cancellable = new Cancellable();
         
         if (is_exposed()) {
-            ThumbnailCache.fetch_async_scaled(get_photo().get_photo_id(), scale, dim, HIGH_QUALITY_INTERP,
+            ThumbnailCache.fetch_async_scaled(get_photo(), scale, dim, HIGH_QUALITY_INTERP,
                 on_high_quality_fetched, cancellable);
         }
         
