@@ -1953,7 +1953,7 @@ public abstract class TransformablePhoto: PhotoSource {
         if (!file_format.get_properties().is_recognized_extension(ext))
             ext = file_format.get_properties().get_default_extension();
         
-        string editable_basename = "%s_modified.%s".printf(name, ext);
+        string editable_basename = "%s_%s.%s".printf(name, _("modified"), ext);
         
         bool collision;
         return LibraryFiles.generate_unique_file_at(backing.get_parent(), editable_basename,
