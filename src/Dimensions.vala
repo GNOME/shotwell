@@ -105,7 +105,7 @@ public struct Dimensions {
         assert(scale > 0);
         
         // check for existing best-fit
-        if (width == scale || height == scale)
+        if ((width == scale && height < scale) || (height == scale && width < scale))
             return Dimensions(width, height);
         
         // watch for scaling up
