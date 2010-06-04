@@ -246,7 +246,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     
     public const string RENAME_TAG_TITLE = _("Rename Tag");
     
-    public const string MODIFY_TAGS_MENU = _("M_odify Tags...");
+    public const string MODIFY_TAGS_MENU = _("Modif_y Tags...");
     public const string MODIFY_TAGS_LABEL = _("Modify Tags");
     public const string MODIFY_TAGS_TOOLTIP = _("Modify the tags for this photo");
     
@@ -259,7 +259,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public string untag_photos_menu(string name, int count) {
-        return ngettext("_Remove Tag \"%s\" From Photo", "_Remove Tag \"%s\" From Photos", count).printf(name);
+        return ngettext("Remove Tag \"%s\" From _Photo", "Remove Tag \"%s\" From _Photos", count).printf(name);
     }
     
     public string untag_photos_label(string name, int count) {

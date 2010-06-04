@@ -420,7 +420,7 @@ public class LibraryWindow : AppWindow {
         
         Gtk.ActionEntry empty = { "CommonEmptyTrash", Gtk.STOCK_CLEAR, TRANSLATABLE, null, null,
             on_empty_trash };
-        empty.label = _("Empty _Trash");
+        empty.label = _("Empty T_rash");
         empty.tooltip = _("Delete all photos in the trash");
         actions += empty;
         
