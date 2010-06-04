@@ -17,6 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Indonesian\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Mohammad Anwari <mdamt@di.blankon.in>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Album Foto Shotwell"

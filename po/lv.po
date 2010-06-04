@@ -18,6 +18,12 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "X-Poedit-Language: Latvian\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Peteris Krisjanis <pecisk@gmail.com>"
+
 #: src/AppDirs.vala:44
 msgid "Pictures"
 msgstr "Attēli"

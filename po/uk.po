@@ -20,6 +20,12 @@ msgstr ""
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Yuri Chornoivan <yurchor@ukr.net>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Впорядник фотографій Shotwell"

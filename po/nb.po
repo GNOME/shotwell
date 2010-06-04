@@ -18,6 +18,12 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "X-Poedit-Language: Norwegian Bokmål\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Jan Roar Roed <janroed@gmail.com>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell fotobehandler"

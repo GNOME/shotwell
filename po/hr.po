@@ -18,6 +18,12 @@ msgstr ""
 "X-Poedit-Country: CROATIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Krešo Kunjas <deresh@gmail.com>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell upravitelj fotografija"

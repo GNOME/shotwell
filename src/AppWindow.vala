@@ -563,7 +563,9 @@ public abstract class AppWindow : PageWindow {
             "license", Resources.LICENSE,
             "website-label", _("Visit the Yorba web site"),
             "authors", Resources.AUTHORS,
-            "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1)
+            "logo", Resources.get_icon(Resources.ICON_ABOUT_LOGO, -1),
+            "translator-credits", _("translator-credits"),
+            null
         );
     }
 

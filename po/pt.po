@@ -1,5 +1,5 @@
 # po/pt.po
-# Portuguese (Brazilian dialect) translation for Shotwell
+# Portuguese (Brazilian) translation for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 #
@@ -18,6 +18,14 @@ msgstr ""
 "X-Generator: Virtaal 0.5.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Portuguese\n"
+
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Djavan Fagundes <djavan@comum.org>\n"
+"Helder Ribeiro <helder@gmail.com>\n"
+"Seth Schoen <schoen@loyalty.org>"
 
 msgid "Shotwell Photo Manager"
 msgstr "Organizador de Fotos Shotwell"

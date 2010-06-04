@@ -17,6 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Language: French\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Gabriel Bousquet <gbousque@clipper.ens.fr>\n"
+"Alexandre Franke <alexandre.franke@gmail.com>\n"
+"Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Gestionnaire de photos Shotwell"

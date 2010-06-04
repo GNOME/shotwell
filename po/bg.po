@@ -19,6 +19,12 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Svetoslav Stefanov <lfu.project@gmail.com>"
+
 msgid "Shotwell Photo Manager"
 msgstr "Организатор на снимки (Shotwell)"
 

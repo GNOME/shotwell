@@ -19,6 +19,12 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Generator: Virtaal 0.3.1\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Laco Gubík <lacogubik@googlemail.com>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell správca fotografií"

@@ -18,6 +18,13 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Jose Luis Navarro <jlnavarro111@gmail.com>\n"
+"Claudio Rodrigo Pereyra Diaz <claudio@pereyradiaz.com.ar>"
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Gestor de Fotos Shotwell"

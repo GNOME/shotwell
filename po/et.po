@@ -18,6 +18,12 @@ msgstr ""
 "X-Poedit-Language: Estonian\n"
 "X-Poedit-Country: Estonia\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Mattias Põldaru <mahfiaz@gmail.com>"
+
 #: src/AppDirs.vala:44
 msgid "Pictures"
 msgstr "Pildid"

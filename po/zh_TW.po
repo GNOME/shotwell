@@ -1,5 +1,5 @@
 # po/zh_TW.po
-# Traditional Chinese translation for Shotwell
+# Traditional Chinese (Taiwan) translation for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 #
@@ -18,6 +18,12 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
+
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+msgid "translator-credits"
+msgstr ""
+"Cheng-Chia Tseng <pswo10680@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
