@@ -272,6 +272,8 @@ public class LibraryWindow : AppWindow {
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     
+    private bool notify_library_is_home_dir = true;
+    
     // Dynamically added/removed pages
     private Gee.HashMap<Page, PageLayout> page_layouts = new Gee.HashMap<Page, PageLayout>();
     private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
@@ -776,6 +778,19 @@ public class LibraryWindow : AppWindow {
     }
 
     private void dispatch_import_jobs(GLib.SList<string> uris, string job_name, bool copy_to_library) {
+        if (AppDirs.get_import_dir().get_path() == Environment.get_home_dir() && notify_library_is_home_dir) {
+            Gtk.ResponseType response = AppWindow.affirm_cancel_question(
+                _("Shotwell is configured to import photos to your home directory.\n" + 
+                "We recommend changing this in <span weight=\"bold\">Edit %s Preferences</span>.\n" + 
+                "Do you want to continue importing photos?").printf("▸"),
+                _("_Import"), _("Library Location"), AppWindow.get_instance());
+            
+            if (response == Gtk.ResponseType.CANCEL)
+                return;
+            
+            notify_library_is_home_dir = false;
+        }
+        
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
         uint64 total_bytes = 0;
 
