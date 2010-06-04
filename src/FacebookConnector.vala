@@ -13,7 +13,7 @@ private const int MAX_PHOTO_DIMENSION = 720;
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 
 private const string SERVICE_WELCOME_MESSAGE = 
-    _("You are not currently logged into Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process.");
+    _("You are not currently logged into Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
 private const string RESTART_ERROR_MESSAGE = 
     _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 
