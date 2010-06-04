@@ -19,12 +19,6 @@ msgstr ""
 "X-Poedit-Country: SLOVENIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-# Translator credits string for the about box -- translators, add your name
-# below if it's not already present
-msgid "translator-credits"
-msgstr ""
-"Andrej Žnidaršič <andrej.znidarsic@gmail.com>"
-
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell upravljalnik fotografij"
@@ -36,7 +30,7 @@ msgstr "Upravljalnik fotografij"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr "Organizirajte vaše fotografije"
+msgstr "Organizirajte svoje fotografije"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
@@ -105,6 +99,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Med dostopanjem do knjižnice Shotwell je prišlo do napake. Shotwell ne more nadaljevati.\n"
+"\n"
+"%s"
 
 #: src/AppWindow.vala:531
 msgid "Visit the Yorba web site"
@@ -117,7 +114,7 @@ msgstr "Diapredstavitev"
 
 #: src/CollectionPage.vala:137
 msgid "Start a slideshow of these photos"
-msgstr "Začetek ogleda diapredstavitve teh fotografij "
+msgstr "Začne diapredstavitev teh fotografij "
 
 #: src/CollectionPage.vala:172
 msgid "Adjust the size of the thumbnails"
@@ -167,7 +164,7 @@ msgstr "_Premakni v smeti"
 
 #: src/CollectionPage.vala:238
 msgid "Move the selected photos to the trash"
-msgstr "Premakne izbrane slike v smeti"
+msgstr "Premakne izbrane fotografije v smeti"
 
 #: src/CollectionPage.vala:243
 msgid "_Photos"
@@ -187,7 +184,7 @@ msgstr "Poveča povečavo sličic"
 #: src/PhotoPage.vala:1519
 #: src/PhotoPage.vala:2250
 msgid "Zoom _Out"
-msgstr "_Oddalji"
+msgstr "O_ddalji"
 
 #: src/CollectionPage.vala:255
 msgid "Decrease the magnification of the thumbnails"
@@ -218,7 +215,7 @@ msgstr "Razvrsti _fotografije"
 #: src/CollectionPage.vala:347
 #: src/CollectionPage.vala:386
 msgid "Ta_gs"
-msgstr "Oz_nake"
+msgstr "Ozna_ke"
 
 #: src/CollectionPage.vala:363
 #: src/EventsDirectoryPage.vala:226
@@ -250,7 +247,7 @@ msgstr "Prikaže naslov vsake fotografije"
 
 #: src/CollectionPage.vala:387
 msgid "Display each photo's tags"
-msgstr ""
+msgstr "Prikaže oznake vsake fotografije"
 
 #: src/CollectionPage.vala:392
 msgid "_Hidden Photos"
@@ -258,11 +255,11 @@ msgstr "_Skrite fotografije"
 
 #: src/CollectionPage.vala:393
 msgid "Show hidden photos"
-msgstr "Pokaži skrite fotografije"
+msgstr "Pokaže skrite fotografije"
 
 #: src/CollectionPage.vala:404
 msgid "By _Title"
-msgstr "Po _naslov"
+msgstr "Po _naslovu"
 
 #: src/CollectionPage.vala:405
 msgid "Sort photos by title"
@@ -270,11 +267,11 @@ msgstr "Razvrsti fotografije po naslovu"
 
 #: src/CollectionPage.vala:410
 msgid "By Exposure _Date"
-msgstr "Po _datumu osvetlitve"
+msgstr "Po _datumu zajema"
 
 #: src/CollectionPage.vala:411
 msgid "Sort photos by exposure date"
-msgstr "Razvrsti fotografije po datumu osvetlitve"
+msgstr "Razvrsti fotografije po datumu zajema"
 
 #: src/CollectionPage.vala:422
 #: src/LibraryWindow.vala:445
@@ -323,7 +320,7 @@ msgstr "Razveljavljanje vrtenja"
 
 #: src/CollectionPage.vala:806
 msgid "Mirroring"
-msgstr ""
+msgstr "Zrcaljenje"
 
 #: src/CollectionPage.vala:807
 msgid "Undoing Mirror"
@@ -343,7 +340,7 @@ msgstr "Razveljavljanje povrnitve"
 
 #: src/Commands.vala:475
 msgid "Enhancing"
-msgstr ""
+msgstr "Izboljševanje"
 
 #: src/Commands.vala:475
 msgid "Undoing Enhance"
@@ -359,19 +356,20 @@ msgstr "Odstranjevanje dogodka"
 
 #: src/Commands.vala:651
 msgid "Moving Photos to New Event"
-msgstr ""
+msgstr "Premikanje fotografij na nov dogodek"
 
 #: src/Commands.vala:652
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "Nastavljanje fotografij na predhodni dogodek"
 
 #: src/Commands.vala:682
 msgid "Merging"
 msgstr "Združevanje"
 
+# Kaj je pivot ??
 #: src/Commands.vala:683
 msgid "Unmerging"
-msgstr ""
+msgstr "Odstrani združitev"
 
 #: src/Commands.vala:692
 msgid "Duplicating photos"
@@ -385,8 +383,10 @@ msgstr "Odstranjevanje podvojenih fotografij"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fotografij ni mogoče podvojiti zaradi napak datotek"
+msgstr[1] "%d fotografije ni mogoče podvojiti zaradi napake datoteke"
+msgstr[2] "%d fotografij ni mogoče podvojiti zaradi napak datotek"
+msgstr[3] "%d fotografij ni mogoče podvojiti zaradi napak datotek"
 
 #: src/Commands.vala:780
 #: src/Commands.vala:781
@@ -401,16 +401,16 @@ msgstr "Odstranjevanje oznake kot priljubljena"
 #: src/Commands.vala:822
 #: src/Commands.vala:823
 msgid "Hiding"
-msgstr ""
+msgstr "Skrivanje"
 
 #: src/Commands.vala:822
 #: src/Commands.vala:823
 msgid "Unhiding"
-msgstr ""
+msgstr "Razkrivanje"
 
 #: src/Commands.vala:865
 msgid "Original photo could not be adjusted."
-msgstr ""
+msgstr "Izvirne fotografije ni mogoče prilagoditi."
 
 #: src/Commands.vala:885
 msgid "Adjusting Date and Time"
@@ -423,8 +423,10 @@ msgstr "Razveljavljanje prilagoditve datuma in časa"
 #: src/Commands.vala:912
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Naslednjih izvirnih fotografij ni mogoče prilagoditi."
+msgstr[1] "Ene izvirne fotografije ni mogoče prilagoditi."
+msgstr[2] "Dveh izvirnih fotografij ni mogoče prilagoditi."
+msgstr[3] "Treh izvirnih fotografij ni mogoče prilagoditi."
 
 #: src/Commands.vala:914
 #: src/Commands.vala:926
@@ -434,12 +436,14 @@ msgstr "Napaka prilagoditve časa"
 #: src/Commands.vala:924
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Prilagoditev časa ni mogoče uveljaviti na naslednjih slikovnih datotekah."
+msgstr[1] "Prilagoditev časa ni mogoče uveljaviti na naslednji slikovni datoteki."
+msgstr[2] "Prilagoditev časa ni mogoče uveljaviti na naslednjih slikovnih datotekah."
+msgstr[3] "Prilagoditev časa ni mogoče uveljaviti na naslednjih slikovnih datotekah."
 
 #: src/Commands.vala:1178
 msgid "Move Photos to Trash"
-msgstr "Premakni fotografije iz smeti"
+msgstr "Premakni fotografije v smeti"
 
 #: src/Commands.vala:1178
 msgid "Restore Photos from Trash"
@@ -451,7 +455,7 @@ msgstr "Premakni fotografije v smeti Shotwell"
 
 #: src/Commands.vala:1179
 msgid "Restore the photos back to the Shotwell library"
-msgstr ""
+msgstr "Obnovi fotografije nazaj v knjižnico Shotwell"
 
 #: src/Commands.vala:1196
 msgid "Moving Photos to Trash"
@@ -473,7 +477,7 @@ msgstr "Izvažanje"
 #: src/Dialogs.vala:71
 #, c-format
 msgid "File %s already exists.  Replace?"
-msgstr "Datoteka %s že obstaja. Naj bo zamenjana?"
+msgstr "Datoteka %s že obstaja. Ali naj se zamenja?"
 
 #: src/Dialogs.vala:73
 msgid "_Skip"
@@ -491,8 +495,10 @@ msgstr "Zamenjaj _vse"
 #, c-format
 msgid "Unable to export the photo due to a file error."
 msgid_plural "Unable to export %d photos due to file errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fotografij ni mogoče izvoziti zaradi napak datotek."
+msgstr[1] "%d fotografije ni mogoče izvoziti zaradi napake datoteke."
+msgstr[2] "%d fotografij ni mogoče izvoziti zaradi napak datotek."
+msgstr[3] "%d fotografij ni mogoče izvoziti zaradi napak datotek."
 
 #: src/Dialogs.vala:206
 msgid "_Format:"
@@ -528,51 +534,59 @@ msgstr[3] "%d fotografije so uspešno uvožene.\n"
 #, c-format
 msgid "1 photo already in library was not imported.\n"
 msgid_plural "%d photos already in library were not imported.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fotografij, ki so že v knjižnici, ni bilo uvoženih.\n"
+msgstr[1] "%d fotografija, ki je že v knjižnici, ni bila uvožena.\n"
+msgstr[2] "%d fotografiji, ki sta že v knjižnici, nista bili uvoženi.\n"
+msgstr[3] "%d fotografije, ki so že v knjižnici, niso bile uvožene.\n"
 
 #: src/Dialogs.vala:420
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error.\n"
 msgid_plural "%d photos failed to import due to a file or hardware error.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme.\n"
+msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake datoteke ali strojne opreme.\n"
+msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme.\n"
+msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake datoteke ali strojne opreme.\n"
 
 #: src/Dialogs.vala:435
 #, c-format
 msgid "1 photo failed to import due to a camera error.\n"
 msgid_plural "%d photos failed to import due to a camera error.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata.\n"
+msgstr[1] "Uvoz %d fotografije je spodletel zaradi napake fotoaparata.\n"
+msgstr[2] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata.\n"
+msgstr[3] "Uvoz %d fotografij je spodletel zaradi napake fotoaparata.\n"
 
 #: src/Dialogs.vala:449
 #, c-format
 msgid "1 unsupported photo skipped.\n"
 msgid_plural "%d unsupported photos skipped.\n"
-msgstr[0] "%d nepodprtih fotografij preskočenih.\n"
-msgstr[1] "%d nepodprta fotografija preskočena.\n"
-msgstr[2] "%d nepodprti fotografiji preskočeni.\n"
-msgstr[3] "%d nepodprte fotografije preskočene.\n"
+msgstr[0] "%d nepodprtih fotografij je izpuščenih.\n"
+msgstr[1] "%d nepodprta fotografija je izpuščena.\n"
+msgstr[2] "%d nepodprti fotografiji sta izpuščeni.\n"
+msgstr[3] "%d nepodprte fotografije so izpuščene.\n"
 
 #: src/Dialogs.vala:463
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "%d ne slikovnih datotek preskočenih.\n"
-msgstr[1] "%d ne slikovna datoteka preskočena.\n"
-msgstr[2] "%d ne slikovni datoteki preskočeni.\n"
-msgstr[3] "%d ne slikovne datoteke preskočene.\n"
+msgstr[0] "%d ne slikovnih datotek je izpuščenih.\n"
+msgstr[1] "%d ne slikovna datoteka je izpuščena.\n"
+msgstr[2] "%d ne slikovni datoteki sta izpuščeni.\n"
+msgstr[3] "%d ne slikovne datoteke so izpuščene.\n"
 
 #: src/Dialogs.vala:474
 #, c-format
 msgid "1 photo skipped due to user cancel.\n"
 msgid_plural "%d photos skipped due to user cancel.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d fotografij je izpuščenih zaradi preklica uporabnika.\n"
+msgstr[1] "%d fotografija je izpuščena zaradi preklica uporabnika.\n"
+msgstr[2] "%d fotografiji sta izpuščeni zaradi preklica uporabnika.\n"
+msgstr[3] "%d fotografije so izpuščene zaradi preklica uporabnika.\n"
 
 #: src/Dialogs.vala:492
 msgid "No photos imported.\n"
-msgstr "Ni uvoženih fotografij.\n"
+msgstr "Fotografije niso bile uvožene.\n"
 
 #: src/Dialogs.vala:507
 msgid "Import Complete"
@@ -605,15 +619,29 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Odstranjenih bo %d fotografij iz vaše knjižnice Shotwell. Ali želite datoteke tudi premakniti v smeti svojega namizja?\n"
+"\n"
+"Tega dejanja ni mogoče razveljaviti."
 msgstr[1] ""
+"Odstranjena bo %d fotografijo iz vaše knjižnice Shotwell. Ali želite datoteke tudi premakniti v smeti svojega namizja?\n"
+"\n"
+"Tega dejanja ni mogoče razveljaviti."
+msgstr[2] ""
+"Odstranjeni bosta %d fotografiji iz vaše knjižnice Shotwell. Ali želite datoteke tudi premakniti v smeti svojega namizja?\n"
+"\n"
+"Tega dejanja ni mogoče razveljaviti."
+msgstr[3] ""
+"Odstranjenie bodo %d fotografije iz vaše knjižnice Shotwell. Ali želite datoteke tudi premakniti v smeti svojega namizja?\n"
+"\n"
+"Tega dejanja ni mogoče razveljaviti."
 
 #: src/Dialogs.vala:611
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "_Premakni več datotek v smeti"
+msgstr[1] "_Premakni datoteko v smeti"
+msgstr[2] "_Premakni datoteki v smeti"
+msgstr[3] "_Premakni datoteke v smeti"
 
 #: src/Dialogs.vala:615
 msgid "Only _Remove"
@@ -646,7 +674,7 @@ msgstr "24 urna"
 
 #: src/Dialogs.vala:817
 msgid "_Shift photos by the same amount"
-msgstr ""
+msgstr "_Premakni fotografije za enako količino"
 
 #: src/Dialogs.vala:822
 msgid "Set _all photos to this time"
@@ -655,24 +683,24 @@ msgstr "Nastavi _vse fotografije na ta čas"
 #: src/Dialogs.vala:828
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] "_Spremeni izvorne datoteke"
-msgstr[1] "_Spremeni izvorno datoteko"
-msgstr[2] "_Spremeni izvorni datoteki"
-msgstr[3] "_Spremeni izvorne datoteke"
+msgstr[0] "_Spremeni izvirne datoteke"
+msgstr[1] "_Spremeni izvirno datoteko"
+msgstr[2] "_Spremeni izvirni datoteki"
+msgstr[3] "_Spremeni izvirne datoteke"
 
 #: src/Dialogs.vala:910
 msgid "Original: "
-msgstr "Izvorna:"
+msgstr "Izvirno:"
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:911
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr ""
+msgstr "%d.%m.%Y, %H.%M.%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:912
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr ""
+msgstr "%d.%m.%Y, %H.%M.%S"
 
 #: src/Dialogs.vala:997
 #, c-format
@@ -680,6 +708,8 @@ msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Čas osvetlitve bo premaknjen naprej za\n"
+"%d %s, %d %s, %d %s in %d %s."
 
 #: src/Dialogs.vala:998
 #, c-format
@@ -687,6 +717,8 @@ msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Čas osvetlitve bo premaknjen nazaj za\n"
+"%d %s, %d %s, %d %s in %d %s."
 
 #: src/Dialogs.vala:1000
 msgid "day"
@@ -764,20 +796,20 @@ msgstr "Dobrodošli v Shotwell!"
 #: src/Dialogs.vala:1165
 #, c-format
 msgid "To get started, import photos in any of these ways:"
-msgstr ""
+msgstr "Za začetek uvozite fotografije na enega od naslednjih načinov:"
 
 #: src/Dialogs.vala:1179
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
+msgstr "Izberite <span weight=\"bold\">Datoteka %s Uvozi iz mape</span>"
 
 #: src/Dialogs.vala:1180
 msgid "Drag and drop photos onto the Shotwell window"
-msgstr ""
+msgstr "Povlecite in spustite fotografije na okno Shotwell"
 
 #: src/Dialogs.vala:1181
 msgid "Connect a camera to your computer and import"
-msgstr ""
+msgstr "Povežite fotoaparat s svojim računalnikom in uvozite fotografije"
 
 #: src/Dialogs.vala:1188
 msgid "_Don't show this message again"
@@ -786,7 +818,7 @@ msgstr "_Sporočila ne pokaži več"
 #: src/Dimensions.vala:17
 #: src/FlickrConnector.vala:949
 msgid "Original size"
-msgstr "Izvorna velikost"
+msgstr "Izvirna velikost"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
@@ -810,7 +842,7 @@ msgstr "Obreži velikost fotografije"
 
 #: src/EditingTools.vala:488
 msgid "Return to current photo dimensions"
-msgstr ""
+msgstr "Vrni se na trenutne mere fotografije"
 
 #: src/EditingTools.vala:491
 msgid "Set the crop for this photo"
@@ -818,11 +850,11 @@ msgstr "Nastavi obrez za to fotografijo"
 
 #: src/EditingTools.vala:503
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr ""
+msgstr "Pripni okvir za obrezovanje na sliko med pokončno in ležečo postavitvijo strani"
 
 #: src/EditingTools.vala:571
 msgid "Unconstrained"
-msgstr ""
+msgstr "Brez omejitev"
 
 #: src/EditingTools.vala:572
 msgid "Square"
@@ -835,7 +867,7 @@ msgstr "Zaslon"
 #: src/EditingTools.vala:574
 #: src/PicasaConnector.vala:867
 msgid "Original Size"
-msgstr "Izvorna velikost"
+msgstr "Izvirna velikost"
 
 #: src/EditingTools.vala:575
 #: src/EditingTools.vala:578
@@ -895,7 +927,7 @@ msgstr "Metrična denarnica (9 x 13 cm)"
 #: src/EditingTools.vala:588
 #: src/Printing.vala:796
 msgid "Postcard (10 x 15 cm)"
-msgstr ""
+msgstr "Razglednica (10 x 15 cm)"
 
 #: src/EditingTools.vala:589
 #: src/Printing.vala:799
@@ -932,7 +964,7 @@ msgstr "Popravek rdečih oči"
 
 #: src/EditingTools.vala:1674
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr ""
+msgstr "Zmanjša ali odstrani učinek rdečih oči na fotografiji"
 
 #: src/EditingTools.vala:1679
 #: src/Properties.vala:335
@@ -941,11 +973,11 @@ msgstr "Velikost:"
 
 #: src/EditingTools.vala:1694
 msgid "Close the red-eye tool"
-msgstr ""
+msgstr "Zapri orodje rdečih oči"
 
 #: src/EditingTools.vala:1697
 msgid "Remove any red-eye effects in the selected region"
-msgstr ""
+msgstr "Odstrani morebitne učinke rdečih oči v izbranemu področju"
 
 #: src/EditingTools.vala:1990
 msgid "Adjust"
@@ -953,7 +985,7 @@ msgstr "Prilagodi"
 
 #: src/EditingTools.vala:1991
 msgid "Adjust the photo's color and tone"
-msgstr ""
+msgstr "Prilagodi barvo in ton fotografije"
 
 #: src/EditingTools.vala:2011
 msgid "_Reset"
@@ -980,7 +1012,7 @@ msgstr "Temperatura:"
 
 #: src/EditingTools.vala:2055
 msgid "Shadows:"
-msgstr ""
+msgstr "Sence:"
 
 #: src/EditingTools.vala:2107
 msgid "Reset Colors"
@@ -988,7 +1020,7 @@ msgstr "Ponastavi barve"
 
 #: src/EditingTools.vala:2107
 msgid "Reset all color adjustments to original"
-msgstr ""
+msgstr "Ponastavi vse prilagoditve barve na izvirno"
 
 #: src/EditingTools.vala:2413
 msgid "Temperature"
@@ -1008,7 +1040,7 @@ msgstr "Osvetljenost"
 
 #: src/EditingTools.vala:2437
 msgid "Shadows"
-msgstr ""
+msgstr "Sence"
 
 #: src/EditingTools.vala:2447
 msgid "Contrast Expansion"
@@ -1035,7 +1067,7 @@ msgstr "Dogodki"
 #: src/EventsDirectoryPage.vala:509
 #: src/LibraryWindow.vala:186
 msgid "Undated"
-msgstr ""
+msgstr "Brez datuma"
 
 #: src/EventsDirectoryPage.vala:511
 #: src/LibraryWindow.vala:189
@@ -1063,12 +1095,17 @@ msgid ""
 "\n"
 "If you don't yet have a Facebook account, you can create one during the login process."
 msgstr ""
+"Trenutno niste prijavljeni v Facebook.\n"
+"\n"
+"V primeru da nimate računa Facebook ga lahko ustvarite med opravilom prijave."
 
 #: src/FacebookConnector.vala:18
 msgid ""
 "You have already logged in and out of Facebook during this Shotwell session.\n"
 "To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"Med to sejo Shotwell ste se že prijavili in odjavili iz Facebook.\n"
+"Za nadaljevanje objavljanja na Facebook končajte in ponovno zaženite Shotwell in ponovno poskusite z objavo."
 
 #: src/FacebookConnector.vala:258
 msgid "Testing connection to Facebook..."
@@ -1086,6 +1123,9 @@ msgid ""
 "\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
+"V Facebook ste prijavljeni kot %s.\n"
+"\n"
+"Kje želite objaviti izbrane fotografije?"
 
 #: src/FacebookConnector.vala:747
 msgid "Publish to an e_xisting album:"
@@ -1099,7 +1139,7 @@ msgstr "Ustvari _nov album z imenom:"
 #: src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
 msgid "_Publish"
-msgstr "_Objavi"
+msgstr "O_bjavi"
 
 #: src/FacebookConnector.vala:768
 #: src/FlickrConnector.vala:880
@@ -1113,12 +1153,17 @@ msgid ""
 "\n"
 "You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
+"Trenutno niste prijavljeni v Flickr.\n"
+"\n"
+"Za dokončanje opravila prijave morate imeti Flickr račun. Med prijavo boste morali Povezavo Shotwell pooblastiti za povezavo s svojim računom Flickr."
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"Med to sejo Shotwell ste se že prijavili in odjavili iz Flickr.\n"
+"Za nadaljevanje objavljanja na FIickr končajte in ponovno zaženite Shotwell in z objavo poskusite ponovno."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
@@ -1139,10 +1184,12 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"Vaš brezplačni račun Flickr omejuje količino podatkov, ki jo lahko pošljete na mesec.\n"
+"Ta mesec vam do porabe omejitve ostaja še %d megabajtov."
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
+msgstr "Vaš račun Flickr Pro vam dovoljuje neomejeno pošiljanje."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
@@ -1154,7 +1201,7 @@ msgstr "Velikost _fotografij:"
 
 #: src/FlickrConnector.vala:922
 msgid "Everyone"
-msgstr ""
+msgstr "Vsem"
 
 #: src/FlickrConnector.vala:923
 msgid "Friends & family only"
@@ -1166,7 +1213,7 @@ msgstr "Samo meni"
 
 #: src/FlickrConnector.vala:947
 msgid "Medium (500 x 375 pixels)"
-msgstr ""
+msgstr "Srednja (500 x 375 točk)"
 
 #: src/FlickrConnector.vala:948
 msgid "Large (1024 x 768 pixels)"
@@ -1179,7 +1226,7 @@ msgstr "Ozadja ni mogoče izvoziti v %s: %s"
 
 #: src/ImportPage.vala:162
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr ""
+msgstr "Fotoaparata ni mogoče odklopiti. Poskusite odklopiti fotoaparat v upravljalniku datotek."
 
 #: src/ImportPage.vala:250
 #: src/ImportPage.vala:251
@@ -1188,11 +1235,11 @@ msgstr "Fotoaparat"
 
 #: src/ImportPage.vala:289
 msgid "Hide photos already imported"
-msgstr ""
+msgstr "Skrij že uvožene fotografije"
 
 #: src/ImportPage.vala:290
 msgid "Only display photos that have not been imported"
-msgstr ""
+msgstr "Pokaži le fotografije, ki niso bile uvožene"
 
 #: src/ImportPage.vala:384
 msgid "Import _Selected"
@@ -1204,11 +1251,11 @@ msgstr "Uvozi _vse"
 
 #: src/ImportPage.vala:399
 msgid "Select all the photos for importing"
-msgstr ""
+msgstr "Izberite vse fotografije za uvažanje"
 
 #: src/ImportPage.vala:507
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
-msgstr ""
+msgstr "Za dostop do fotoaparata je treba napravo najprej odklopiti iz datotečnega sistema. Ali želite nadaljevati?"
 
 #: src/ImportPage.vala:513
 msgid "_Unmount"
@@ -1220,11 +1267,11 @@ msgstr "Odklopite fotoaparat."
 
 #: src/ImportPage.vala:523
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
-msgstr ""
+msgstr "Fotoaparat je zaklenil drug program. Shotwell lahko do fotoaparata dostopa le, ko je odklenjen. Zaprite druge programe, ki uporabljajo fotoaparat in poskusite ponovno."
 
 #: src/ImportPage.vala:533
 msgid "Please close any other application using the camera."
-msgstr ""
+msgstr "Zaprite druge programe, ki uporabljajo fotoaparat."
 
 #: src/ImportPage.vala:538
 #, c-format
@@ -1232,6 +1279,8 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
+"Iz fotoaparata ni mogoče pridobiti slik za predogled:\n"
+"%s"
 
 #: src/ImportPage.vala:557
 msgid "Unmounting..."
@@ -1260,21 +1309,23 @@ msgstr "Fotoaparata ni mogoče zakleniti: %s"
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] "Izbris teh %d slik iz fotoaparata?"
-msgstr[1] "Izbris %d slike iz fotoaparata?"
-msgstr[2] "Izbris teh %d slik iz fotoaparata?"
-msgstr[3] "Izbris teh %d slik iz fotoaparata?"
+msgstr[0] "Ali naj se izbriše %d slik iz fotoaparata?"
+msgstr[1] "Ali naj se izbriše %d slika iz fotoaparata?"
+msgstr[2] "Ali naj se izbriše %d sliki iz fotoaparata?"
+msgstr[3] "Ali naj se izbriše %d slike iz fotoaparata?"
 
 #: src/ImportPage.vala:995
 msgid "_Keep"
-msgstr "_Ohrani"
+msgstr "_Obdrži"
 
 #: src/ImportPage.vala:1012
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Zaradi napak ni mogoče izbrisati %d fotografij."
+msgstr[1] "Zaradi napak ni mogoče izbrisati %d fotografije."
+msgstr[2] "Zaradi napak ni mogoče izbrisati %d fotografij."
+msgstr[3] "Zaradi napak ni mogoče izbrisati %d fotografij."
 
 #: src/ImportPage.vala:1055
 msgid "Importing..."
@@ -1324,7 +1375,7 @@ msgstr "_Uvozi iz mape ..."
 
 #: src/LibraryWindow.vala:399
 msgid "Import photos from disk to library"
-msgstr ""
+msgstr "Uvozi fotografije iz diska v knjižnico"
 
 #: src/LibraryWindow.vala:404
 msgid "Sort _Events"
@@ -1336,7 +1387,7 @@ msgstr "Izprazni _smeti"
 
 #: src/LibraryWindow.vala:415
 msgid "Delete all photos in the trash"
-msgstr "Izbriši vse fotografije v smeteh"
+msgstr "Izbriše vse fotografije v smeteh"
 
 #: src/LibraryWindow.vala:426
 msgid "_Basic Information"
@@ -1369,16 +1420,16 @@ msgstr "Praznjenje smeti ..."
 
 #: src/LibraryWindow.vala:816
 msgid "Photos cannot be imported from this directory."
-msgstr ""
+msgstr "Iz te mape ni mogoče uvoziti fotografij."
 
 #: src/LibraryWindow.vala:904
 #, c-format
 msgid "Shotwell can copy or move the photos into your %s directory, or it can link to the photos without duplicating them."
-msgstr ""
+msgstr "S programom Shotwell je mogoče kopirati ali premakniti fotografije v mapo %s, ali pa ustvariti povezavo do fotografij brez njihovega podvajanja."
 
 #: src/LibraryWindow.vala:910
 msgid "Copy into Library"
-msgstr "Skopiraj v knjižnico"
+msgstr "Kopiraj v knjižnico"
 
 #: src/LibraryWindow.vala:911
 msgid "Create Links"
@@ -1399,22 +1450,22 @@ msgstr "Fotoaparati"
 #: src/main.vala:79
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
-msgstr ""
+msgstr "Vaša knjižnica fotografij ni združljiva s to različico programa Shotwell.  Videti je, da je bila ustvarjena z različico %s, uporabljate pa različico %s. Uporabite zadnjo različico Shotwell."
 
 #: src/main.vala:84
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
-msgstr ""
+msgstr "S programom Shotwell ni mogoče posodobiti knjižnice fotografij iz različice %s na %s. Za več podrobnosti preverite wiki strani na %s"
 
 #: src/main.vala:89
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
-msgstr ""
+msgstr "Vaša knjižnica fotografij ni združljiva s to različico programa Shotwell. Videti je, da je bila ustvarjena z različico %s, uporabljate pa različico %s. Počistite svojo knjižnico z izbrisom %s in ponovno uvozite svoje fotografije."
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
-msgstr ""
+msgstr "Med poskusom preverjanja podatkovne zbirke Shotwell je prišlo do napake: %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
@@ -1431,7 +1482,7 @@ msgstr "Za popoln seznam možnosti ukazne vrstice zaženite '%s --help'.\n"
 
 #: src/Page.vala:1898
 msgid "Photos cannot be exported to this directory."
-msgstr ""
+msgstr "Fotografij ni mogoče izvoziti v to mapo."
 
 #: src/PhotoPage.vala:126
 msgid "Previous photo"
@@ -1444,7 +1495,7 @@ msgstr "Naslednja fotografija"
 #: src/PhotoPage.vala:1026
 #, c-format
 msgid "Photo source file missing: %s"
-msgstr "Izvorna datoteka fotografije manjka: %s"
+msgstr "Izvirna datoteka fotografije manjka: %s"
 
 #: src/PhotoPage.vala:1421
 msgid "Re_move"
@@ -1452,7 +1503,7 @@ msgstr "_Odstrani"
 
 #: src/PhotoPage.vala:1422
 msgid "Remove the photo from your library"
-msgstr "Odstrani fotografijo iz vaše knjižnice"
+msgstr "Odstrani fotografijo iz knjižnice"
 
 #: src/PhotoPage.vala:1430
 #: src/PhotoPage.vala:2175
@@ -1519,12 +1570,12 @@ msgstr "_Nastavitev strani ..."
 #: src/PhotoPage.vala:2164
 #: src/Resources.vala:159
 msgid "Prin_t..."
-msgstr ""
+msgstr "Na_tisni ..."
 
 #: src/PhotoPage.vala:2165
 #: src/Resources.vala:160
 msgid "Print the photo to a printer connected to your computer"
-msgstr ""
+msgstr "Natisne fotografijo s tiskalnikom povezanim z vašim računalnikom"
 
 #: src/PhotoPage.vala:2170
 msgid "Edit"
@@ -1610,7 +1661,7 @@ msgstr "Okvara diska"
 
 #: src/Photo.vala:54
 msgid "Disk full"
-msgstr "Disk je polen"
+msgstr "Disk je poln"
 
 #: src/Photo.vala:57
 msgid "Camera error"
@@ -1619,7 +1670,7 @@ msgstr "Napaka fotoaparata"
 #: src/Photo.vala:60
 #, c-format
 msgid "Imported failed (%d)"
-msgstr "Uvažanje je spodletelo (%d)"
+msgstr "Uvoz je spodletel (%d)"
 
 #: src/PicasaConnector.vala:11
 msgid ""
@@ -1627,27 +1678,30 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
+"Trenutno niste prijavljeni v spletne albume Picasa.\n"
+"\n"
+"Za nadaljevanje morate imeti račun Google nastavljen za uporabo s Picasa. Večino računov lahko nastavite z vsaj eno prijavo v spletne albume Picasa s spletnim brskalnikom."
 
 #: src/PicasaConnector.vala:508
 msgid "Enter the email address and password associated with your Picasa Web Albums account."
-msgstr ""
+msgstr "Vnesite naslov elektronske pošte in geslo, ki je povezavo z vašim računom spletnih albumov Picasa."
 
 #: src/PicasaConnector.vala:509
 msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Spletni albumi Picasa niso prepoznali vpisanega naslova elektronske pošte in gesla. Za ponoven poskus spodaj ponovno vnesite svoj naslov elektronske pošte in geslo."
 
 #: src/PicasaConnector.vala:510
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Vpisan naslov elektronske pošte in geslo ustrezata Google računu, ki ni bil nastavljen za uporabo spletnih albumov Picasa. Večino računov lahko nastavite s prijavo v spletne albume Picasa s spletnim brskalnikom. Za ponoven poskus spodaj ponovno vnesite naslov svoje elektronske pošte in geslo."
 
 #: src/PicasaConnector.vala:511
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Vpisan naslov elektronske pošte in geslo ustrezata Google računu, ki je bil označen z zahtevo za dodatno varnost. To oznako lahko počistite s prijavo v spletne albume Picasa s spletnim brskalnikom. Za ponoven poskus spodaj ponovno vnesite svoj naslov elektronske pošte in geslo."
 
 #: src/PicasaConnector.vala:546
 #, c-format
 msgid "Unrecognized User"
-msgstr "Neprepoznan uporabnik"
+msgstr "Nepoznan uporabnik"
 
 #: src/PicasaConnector.vala:550
 #, c-format
@@ -1661,7 +1715,7 @@ msgstr "Zahtevana je dodatna varnost"
 
 #: src/PicasaConnector.vala:570
 msgid "_Email address:"
-msgstr "_E-poštni naslov:"
+msgstr "_Elektronski naslov:"
 
 #: src/PicasaConnector.vala:572
 msgid "_Password:"
@@ -1679,7 +1733,7 @@ msgstr "_Prijava"
 #: src/PicasaConnector.vala:675
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr ""
+msgstr "Prijavljeni ste v spletne albume Picasa kot %s."
 
 #: src/PicasaConnector.vala:698
 msgid "Photos will appear in:"
@@ -1687,31 +1741,31 @@ msgstr "Fotografije se bodo pojavile v:"
 
 #: src/PicasaConnector.vala:711
 msgid "An _existing album:"
-msgstr "_Obstoječi album:"
+msgstr "_Obstoječemu albumu:"
 
 #: src/PicasaConnector.vala:725
 msgid "A _new album named:"
-msgstr "_Nov album z imenom:"
+msgstr "_Novemu albumu z imenom:"
 
 #: src/PicasaConnector.vala:737
 msgid "L_ist album in public gallery"
-msgstr ""
+msgstr "_Pokaži album v javni galeriji"
 
 #: src/PicasaConnector.vala:749
 msgid "Photo _size preset:"
-msgstr "Prednastavljena _velikost slike:"
+msgstr "Predložena _velikost slike:"
 
 #: src/PicasaConnector.vala:864
 msgid "Small (640 x 480 pixels)"
-msgstr ""
+msgstr "Majhna (640 x 480 točk)"
 
 #: src/PicasaConnector.vala:865
 msgid "Medium (1024 x 768 pixels)"
-msgstr ""
+msgstr "Srednja (1024 x 768 točk)"
 
 #: src/PicasaConnector.vala:866
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr ""
+msgstr "Priporočena ( 1600 x 1200 točk)"
 
 #: src/PngSupport.vala:30
 msgid "PNG"
@@ -1747,11 +1801,11 @@ msgstr "_Ujemanje razmerja stranic fotografije"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
-msgstr "Ločljivost točk"
+msgstr "Ločljivost v točkah"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr "_Izhod fotografije na:"
+msgstr "_Izvozi fotografijo na:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
@@ -1770,14 +1824,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Ni mogoče natisniti fotografije:\n"
+"Fotografije ni mogoče natisniti:\n"
 "\n"
 "%s"
 
 # The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:40
 msgid "%I:%M %p"
-msgstr "%H:%M"
+msgstr "%H.%M"
 
 #: src/Properties.vala:52
 msgid "Today"
@@ -1832,7 +1886,7 @@ msgstr "Velikost datoteke:"
 
 #: src/Properties.vala:462
 msgid "Original dimensions:"
-msgstr "Izvorne mere:"
+msgstr "Izvirne mere:"
 
 #: src/Properties.vala:465
 msgid "Camera make:"
@@ -1872,7 +1926,7 @@ msgstr "Program:"
 
 #: src/Properties.vala:497
 msgid "Extended Information"
-msgstr "Razširjene podrobnosti"
+msgstr "Razširjeni podatki"
 
 #: src/RawSupport.vala:65
 msgid "RAW"
@@ -1897,7 +1951,7 @@ msgstr "Zavrti desno"
 
 #: src/Resources.vala:84
 msgid "Rotate the photos right"
-msgstr "Vrtenje fotografij desno"
+msgstr "Zavrti fotografije desno"
 
 #: src/Resources.vala:86
 msgid "Rotate _Left"
@@ -1909,7 +1963,7 @@ msgstr "Zavrti levo"
 
 #: src/Resources.vala:89
 msgid "Rotate the photos left"
-msgstr "Vrtenje fotografij levo"
+msgstr "Zavrti fotografije levo"
 
 #: src/Resources.vala:91
 msgid "_Mirror"
@@ -1933,7 +1987,7 @@ msgstr "Izboljšaj"
 
 #: src/Resources.vala:97
 msgid "Automatically improve the photo's appearance"
-msgstr ""
+msgstr "Samodejno izboljša videz fotografije"
 
 #: src/Resources.vala:99
 msgid "Re_vert to Original"
@@ -1945,7 +1999,7 @@ msgstr "Povrni na izvirnik"
 
 #: src/Resources.vala:101
 msgid "Revert to the original photo"
-msgstr "Povrni na izvorno fotografijo"
+msgstr "Povrni na izvirno fotografijo"
 
 #: src/Resources.vala:103
 msgid "Set as Desktop _Background"
@@ -1953,7 +2007,7 @@ msgstr "Nastavi za _ozadje namizja"
 
 #: src/Resources.vala:104
 msgid "Set selected image to be the new desktop background"
-msgstr ""
+msgstr "Nastavi izbrano sliko za novo ozadje namizja"
 
 #: src/Resources.vala:106
 msgid "_Undo"
@@ -1985,19 +2039,19 @@ msgstr "Pr_eimenuj dogodek ..."
 
 #: src/Resources.vala:116
 msgid "Rename the selected event"
-msgstr "Preimenuje izbrano datoteko"
+msgstr "Preimenuje izbrani dogodek"
 
 #: src/Resources.vala:118
 msgid "Make _Key Photo for Event"
-msgstr ""
+msgstr "Uporabi fotografijo za _naslovnico dogodka"
 
 #: src/Resources.vala:119
 msgid "Make Key Photo for Event"
-msgstr ""
+msgstr "Uporabi fotografijo za naslovnico dogodka"
 
 #: src/Resources.vala:120
 msgid "Make the selected photo the thumbnail for the event"
-msgstr ""
+msgstr "Naredi sličico za dogodek iz izbrane fotografije "
 
 #: src/Resources.vala:122
 msgid "_New Event"
@@ -2041,7 +2095,7 @@ msgstr "Označi kot priljubljeno"
 
 #: src/Resources.vala:135
 msgid "Mark the photo as one of your favorites"
-msgstr ""
+msgstr "Označi fotografijo kot eno od priljubljenih"
 
 #: src/Resources.vala:137
 msgid "Unmark as _Favorite"
@@ -2053,7 +2107,7 @@ msgstr "Odstrani oznako kot priljubljene"
 
 #: src/Resources.vala:139
 msgid "Unmark the photo as one of your favorites"
-msgstr ""
+msgstr "Odstrani oznako fotografije kot ene od priljubljenih"
 
 #: src/Resources.vala:141
 msgid "_Hide"
@@ -2073,7 +2127,7 @@ msgstr "Ra_zkrij"
 
 #: src/Resources.vala:146
 msgid "Unhide"
-msgstr ""
+msgstr "Razkrij"
 
 #: src/Resources.vala:147
 msgid "Unhide the selected photos"
@@ -2101,7 +2155,7 @@ msgstr "Izvozi na disk"
 
 #: src/Resources.vala:157
 msgid "View and change page setup printing"
-msgstr ""
+msgstr "Ogled in sprememba nastavitev tiskanja"
 
 #: src/Resources.vala:162
 msgid "Pu_blish..."
@@ -2129,11 +2183,11 @@ msgstr "_Prilagodi datum in čas ..."
 
 #: src/Resources.vala:171
 msgid "Adjust Date and Time"
-msgstr "Prilagajanje datuma in časa"
+msgstr "Prilagodi datum in čas"
 
 #: src/Resources.vala:172
 msgid "Adjust date and time of selected photos"
-msgstr ""
+msgstr "Prilagodi datum in čas izbranih fotografij"
 
 #: src/Resources.vala:174
 msgid "Add _Tags..."
@@ -2146,7 +2200,7 @@ msgstr "Dodajanje oznak"
 
 #: src/Resources.vala:176
 msgid "Add one or more tags to the selected photos"
-msgstr ""
+msgstr "Dodaj eno ali več oznak izbranim fotografijam"
 
 #: src/Resources.vala:178
 msgid "_Preferences"
@@ -2174,7 +2228,7 @@ msgstr "_Izbriši oznako \"%s\""
 #: src/Resources.vala:195
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr "Izbris oznake \"%s\""
+msgstr "Izbriše oznako \"%s\""
 
 #: src/Resources.vala:199
 #, c-format
@@ -2206,7 +2260,7 @@ msgstr "Preimenuj oznako \"%s\""
 
 #: src/Resources.vala:217
 msgid "Rename Tag"
-msgstr "Preimenovanje oznake"
+msgstr "Preimenuje oznake"
 
 #: src/Resources.vala:219
 msgid "M_odify Tags..."
@@ -2214,17 +2268,17 @@ msgstr "S_premeni oznake ..."
 
 #: src/Resources.vala:220
 msgid "Modify Tags"
-msgstr "Sprememba oznak"
+msgstr "Spremeni oznake"
 
 #: src/Resources.vala:221
 msgid "Modify the tags for this photo"
-msgstr ""
+msgstr "Spremeni oznake te fotografije"
 
 #: src/Resources.vala:224
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
-msgstr[0] "Označi fotografij kot \"%s\""
+msgstr[0] "Označi več fotografij kot \"%s\""
 msgstr[1] "Označi fotografijo kot \"%s\""
 msgstr[2] "Označi fotografiji kot \"%s\""
 msgstr[3] "Označi fotografije kot \"%s\""
@@ -2233,7 +2287,7 @@ msgstr[3] "Označi fotografije kot \"%s\""
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
-msgstr[0] "Označi izbranih fotografij kot \"%s\""
+msgstr[0] "Označi več izbranih fotografij kot \"%s\""
 msgstr[1] "Označi izbrano fotografijo kot \"%s\""
 msgstr[2] "Označi izbrani fotografiji kot \"%s\""
 msgstr[3] "Označi izbrane fotografije kot \"%s\""
@@ -2268,7 +2322,7 @@ msgstr[3] "Odstrani oznako \"%s\" iz izbranih fotografij"
 #: src/Resources.vala:246
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr ""
+msgstr "Oznake ni mogoče preimenovati v \"%s\", ker oznaka že obstaja."
 
 #: src/Resources.vala:249
 msgid "_Restore"
@@ -2280,7 +2334,7 @@ msgstr "Obnovi"
 
 #: src/Resources.vala:251
 msgid "Move the selected photos back into the library"
-msgstr ""
+msgstr "Premakne izbrane fotografije nazaj v knjižnico"
 
 #: src/SlideshowPage.vala:64
 #: src/SlideshowPage.vala:130
@@ -2301,7 +2355,7 @@ msgstr "Nazaj"
 
 #: src/SlideshowPage.vala:110
 msgid "Go to the previous photo"
-msgstr "Gre na predhodno sliko"
+msgstr "Skoči na predhodno sliko"
 
 #: src/SlideshowPage.vala:116
 #: src/SlideshowPage.vala:229
@@ -2319,7 +2373,7 @@ msgstr "Naslednja"
 
 #: src/SlideshowPage.vala:124
 msgid "Go to the next photo"
-msgstr "Gre na naslednjo fotografijo"
+msgstr "Skoči na naslednjo fotografijo"
 
 #: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
@@ -2327,7 +2381,7 @@ msgstr "Spremeni nastavitve diapredstavitve"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
-msgstr ""
+msgstr "Manjkajo vse izvorne datoteke fotografije."
 
 #: src/SlideshowPage.vala:225
 msgid "Play"
@@ -2335,14 +2389,16 @@ msgstr "Predvajaj"
 
 #: src/SlideshowPage.vala:226
 msgid "Continue the slideshow"
-msgstr "Nadaljuj z diaprojekcijo"
+msgstr "Nadaljuj z diapredstavitvijo"
 
 #: src/TagPage.vala:131
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+msgstr[1] "Odstranjena bo oznaka \"%s\" iz %d fotografije. Ali želite nadaljevati?"
+msgstr[2] "Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
+msgstr[3] "Odstranjena bo oznaka \"%s\" iz %d fotografij. Ali želite nadaljevati?"
 
 #: src/TagPage.vala:135
 msgid "_Delete"
@@ -2355,7 +2411,7 @@ msgstr "Smeti"
 # The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:398
 msgid "%a %b %d, %Y"
-msgstr ""
+msgstr "%a, %d.%m.%Y"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
@@ -2384,45 +2440,45 @@ msgstr "_Zapri"
 #: src/WebConnectors.vala:809
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
+msgstr "Objavljanja na %s ni mogoče nadaljevati, ker ni mogoče vzpostaviti stika s storitvijo."
 
 #: src/WebConnectors.vala:812
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
-msgstr ""
+msgstr "Objavljanja na %s ni mogoče nadaljevati, ker je sporočanje s storitvijo spodletelo."
 
 #: src/WebConnectors.vala:815
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr ""
+msgstr "Objavljanja na %s ni mogoče nadaljevati zaradi napake protokola."
 
 #: src/WebConnectors.vala:817
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr ""
+msgstr "Objavljanja na %s ni mogoče nadaljevati, ker je storitev vrnila napako."
 
 #: src/WebConnectors.vala:819
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
+msgstr "Objavljanja na %s ni mogoče nadaljevati, ker je storitev vrnila slab odgovor."
 
 #: src/WebConnectors.vala:822
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr ""
+msgstr "Objavljanja na %s ni mogoče nadaljevati, ker je prišlo do napake."
 
 #: src/WebConnectors.vala:826
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
+msgstr "Poskusite objaviti na drugo storitev, ki jo izberete iz zgornjega menija."
 
 #: src/WebConnectors.vala:903
 #: src/WebConnectors.vala:1016
 msgid "Preparing photos for upload"
-msgstr "Pripravljanje fotografij za nalaganje"
+msgstr "Pripravljanje fotografij za pošiljanje"
 
 #: src/WebConnectors.vala:904
 #: src/WebConnectors.vala:956
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr "Nalaganje fotografije %d of %d"
+msgstr "Pošiljanje fotografije %d of %d"
 
