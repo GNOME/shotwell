@@ -601,7 +601,7 @@ public class LibraryWindow : AppWindow {
     
     private void on_file_import() {
         Gtk.CheckButton copy_toggle = new Gtk.CheckButton.with_mnemonic(
-            _("_Copy files to %s photo library").printf(AppDirs.get_import_dir().get_basename()));
+            _("_Copy files into Shotwell photo library %s").printf(get_display_pathname(AppDirs.get_import_dir())));
         copy_toggle.set_active(true);
         
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
@@ -902,8 +902,7 @@ public class LibraryWindow : AppWindow {
         }
         
         if (context.suggested_action == Gdk.DragAction.ASK) {
-            string msg = _("Shotwell can copy the photos into your %s directory, or it can link to the photos without duplicating them.");
-            msg = msg.printf(AppDirs.get_import_dir().get_basename());
+            string msg = _("Shotwell can copy the photos into your library or it can link to the photos without duplicating them.");
 
             Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
                 Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, "%s", msg);
