@@ -1310,7 +1310,9 @@ public class PhotoTable : DatabaseTable {
         return update_text_by_id(photo_id.id, "transformations", "");
     }
     
-    public bool has_duplicate(File? file, string? thumbnail_md5, string? md5) {
+    // Use PhotoFileFormat.UNKNOWN if not to search for matching file format; it's only used if
+    // searching for MD5 duplicates.
+    public bool has_duplicate(File? file, string? thumbnail_md5, string? md5, PhotoFileFormat file_format) {
         assert(file != null || thumbnail_md5 != null || md5 != null);
         
         string sql = "SELECT id FROM PhotoTable WHERE";
@@ -1321,20 +1323,29 @@ public class PhotoTable : DatabaseTable {
             first = false;
         }
         
-        if (thumbnail_md5 != null) {
+        if (thumbnail_md5 != null || md5 != null) {
             if (first)
+                sql += " ((";
+            else
+                sql += " OR ((";
+            first = false;
+            
+            if (thumbnail_md5 != null)
                 sql += " thumbnail_md5=?";
-            else
-                sql += " OR thumbnail_md5=?";
-            first = false;
-        }
-        
-        if (md5 != null) {
-            if (first)
-                sql += " md5=?";
-            else
-                sql += " OR md5=?";
-            first = false;
+            
+            if (md5 != null) {
+                if (thumbnail_md5 == null)
+                    sql += " md5=?";
+                else
+                    sql += " OR md5=?";
+            }
+            
+            sql += ")";
+            
+            if (file_format != PhotoFileFormat.UNKNOWN)
+                sql += " AND file_format=?";
+            
+            sql += ")";
         }
         
         Sqlite.Statement stmt;
@@ -1355,6 +1366,11 @@ public class PhotoTable : DatabaseTable {
         
         if (md5 != null) {
             res = stmt.bind_text(col++, md5);
+            assert(res == Sqlite.OK);
+        }
+        
+        if ((thumbnail_md5 != null || md5 != null) && file_format != PhotoFileFormat.UNKNOWN) {
+            res = stmt.bind_int(col++, file_format.serialize());
             assert(res == Sqlite.OK);
         }
         

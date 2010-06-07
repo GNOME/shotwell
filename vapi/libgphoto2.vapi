@@ -467,6 +467,10 @@ namespace GPhoto {
         
         [CCode (cname="gp_port_result_as_string")]
         public unowned string as_string();
+        
+        public string to_full_string() {
+            return "%s (%d)".printf(as_string(), this);
+        }
     }
     
     [CCode (

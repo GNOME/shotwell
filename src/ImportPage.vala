@@ -16,13 +16,14 @@ class ImportSource : PhotoSource {
     private string filename;
     private ulong file_size;
     private time_t modification_time;
+    private PhotoFileFormat file_format;
     private Gdk.Pixbuf? preview = null;
     private string? preview_md5 = null;
     private PhotoMetadata? metadata = null;
     private string? exif_md5 = null;
     
     public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
-        string filename, ulong file_size, time_t modification_time) {
+        string filename, ulong file_size, time_t modification_time, PhotoFileFormat file_format) {
         this.camera_name = camera_name;
         this.camera = camera;
         this.fsid = fsid;
@@ -30,6 +31,7 @@ class ImportSource : PhotoSource {
         this.filename = filename;
         this.file_size = file_size;
         this.modification_time = modification_time;
+        this.file_format = file_format;
     }
     
     public override string get_name() {
@@ -105,6 +107,10 @@ class ImportSource : PhotoSource {
         return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
     }
     
+    public PhotoFileFormat get_file_format() {
+        return file_format;
+    }
+    
     public string? get_preview_md5() {
         return preview_md5;
     }
@@ -122,7 +128,7 @@ class ImportSource : PhotoSource {
         GPhoto.Result result = camera.delete_file(fulldir, get_filename(),
             ImportPage.spin_idle_context.context);
         if (result != GPhoto.Result.OK)
-            warning("Error deleting %s: %s", to_string(), result.as_string());
+            warning("Error deleting %s: %s", to_string(), result.to_full_string());
         
         return result == GPhoto.Result.OK;
     }
@@ -171,7 +177,9 @@ class ImportPreview : CheckerboardItem {
     public bool is_already_imported() {
         string? preview_md5 = get_import_source().get_preview_md5();
         
-        return (preview_md5 != null) ? TransformablePhoto.is_duplicate(null, preview_md5, null) : false;
+        return (preview_md5 != null) 
+            ? TransformablePhoto.is_duplicate(null, preview_md5, null, get_import_source().get_file_format())
+            : false;
     }
     
     public ImportSource get_import_source() {
@@ -357,7 +365,7 @@ public class ImportPage : CheckerboardPage {
         GPhoto.CameraAbilities abilities;
         GPhoto.Result res = camera.get_abilities(out abilities);
         if (res != GPhoto.Result.OK) {
-            debug("[%d] Unable to get camera abilities: %s", (int) res, res.as_string());
+            debug("Unable to get camera abilities: %s", res.to_full_string());
         } else {
             camera_name = abilities.model;
             camera_label.set_text(abilities.model);
@@ -458,7 +466,7 @@ public class ImportPage : CheckerboardPage {
         } else if (refresh_result == GPhoto.Result.OK) {
             // all went well
         } else {
-            msg = "%s (%d)".printf(refresh_result.as_string(), (int) refresh_result);
+            msg = refresh_result.to_full_string();
         }
         
         return msg;
@@ -623,6 +631,12 @@ public class ImportPage : CheckerboardPage {
         try_refreshing_camera(true);
     }
     
+    private void clear_all_import_sources() {
+        Marker marker = import_sources.start_marking();
+        marker.mark_all();
+        import_sources.destroy_marked(marker, false);
+    }
+    
     private RefreshResult refresh_camera() {
         if (busy)
             return RefreshResult.BUSY;
@@ -632,7 +646,7 @@ public class ImportPage : CheckerboardPage {
         refresh_error = null;
         refresh_result = camera.init(spin_idle_context.context);
         if (refresh_result != GPhoto.Result.OK) {
-            warning("Unable to initialize camera: %s (%d)", refresh_result.as_string(), refresh_result);
+            warning("Unable to initialize camera: %s", refresh_result.to_full_string());
             
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
@@ -659,7 +673,7 @@ public class ImportPage : CheckerboardPage {
             }
         }
         
-        import_sources.clear();
+        clear_all_import_sources();
         load_previews(import_list);
         
         progress_bar.visible = false;
@@ -670,7 +684,7 @@ public class ImportPage : CheckerboardPage {
         GPhoto.Result res = camera.exit(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
-            warning("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+            warning("Unable to unlock camera: %s", res.to_full_string());
         }
         
         busy = false;
@@ -681,7 +695,7 @@ public class ImportPage : CheckerboardPage {
             refreshed = false;
             
             // show 'em all or show none
-            import_sources.clear();
+            clear_all_import_sources();
         }
         
         on_view_changed();
@@ -758,18 +772,31 @@ public class ImportPage : CheckerboardPage {
         
         GPhoto.CameraList files;
         refresh_result = GPhoto.CameraList.create(out files);
-        if (refresh_result != GPhoto.Result.OK)
+        if (refresh_result != GPhoto.Result.OK) {
+            warning("Unable to create file list: %s", refresh_result.to_full_string());
+            
             return false;
+        }
         
         refresh_result = camera.list_files(fulldir, files, spin_idle_context.context);
-        if (refresh_result != GPhoto.Result.OK)
-            return false;
+        if (refresh_result != GPhoto.Result.OK) {
+            warning("Unable to list files in %s: %s", fulldir, refresh_result.to_full_string());
+            
+            // Although an error, don't abort the import because of this
+            refresh_result = GPhoto.Result.OK;
+            
+            return true;
+        }
         
         for (int ctr = 0; ctr < files.count(); ctr++) {
             string filename;
             refresh_result = files.get_name(ctr, out filename);
-            if (refresh_result != GPhoto.Result.OK)
+            if (refresh_result != GPhoto.Result.OK) {
+                warning("Unable to get the name of file %d in %s: %s", ctr, fulldir,
+                    refresh_result.to_full_string());
+                
                 return false;
+            }
             
             try {
                 GPhoto.CameraFileInfo info;
@@ -786,27 +813,20 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                switch (info.file.type) {
-                    case GPhoto.MIME.JPEG:
-                    case GPhoto.MIME.RAW:
-                    case GPhoto.MIME.CRW:
-                    case GPhoto.MIME.PNG:
-                        // supported
-                    break;
-                    
-                    default:
-                        // check file extension against those we support
-                        if (!TransformablePhoto.is_basename_supported(filename)) {
-                            message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
-                                filename, info.file.type);
-                            
-                            continue;
-                        }
-                    break;
+                // determine file format from type, and then from file extension
+                PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(info.file.type);
+                if (file_format == PhotoFileFormat.UNKNOWN) {
+                    file_format = PhotoFileFormat.get_by_basename_extension(filename);
+                    if (file_format == PhotoFileFormat.UNKNOWN) {
+                        message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
+                            filename, info.file.type);
+                        
+                        continue;
+                    }
                 }
                 
                 import_list.add(new ImportSource(camera_name, camera, fsid, dir, filename, 
-                    info.file.size, info.file.mtime));
+                    info.file.size, info.file.mtime, file_format));
                 
                 progress_bar.pulse();
                 
@@ -814,6 +834,8 @@ public class ImportPage : CheckerboardPage {
                 if (!spin_event_loop())
                     return false;
             } catch (Error err) {
+                warning("Error while enumerating files in %s: %s", fulldir, err.message);
+                
                 refresh_error = err.message;
                 
                 return false;
@@ -822,18 +844,30 @@ public class ImportPage : CheckerboardPage {
         
         GPhoto.CameraList folders;
         refresh_result = GPhoto.CameraList.create(out folders);
-        if (refresh_result != GPhoto.Result.OK)
+        if (refresh_result != GPhoto.Result.OK) {
+            warning("Unable to create folder list: %s", refresh_result.to_full_string());
+            
             return false;
-
+        }
+        
         refresh_result = camera.list_folders(fulldir, folders, spin_idle_context.context);
-        if (refresh_result != GPhoto.Result.OK)
-            return false;
+        if (refresh_result != GPhoto.Result.OK) {
+            warning("Unable to list folders in %s: %s", fulldir, refresh_result.to_full_string());
+            
+            // Although an error, don't abort the import because of this
+            refresh_result = GPhoto.Result.OK;
+            
+            return true;
+        }
         
         for (int ctr = 0; ctr < folders.count(); ctr++) {
             string subdir;
             refresh_result = folders.get_name(ctr, out subdir);
-            if (refresh_result != GPhoto.Result.OK)
+            if (refresh_result != GPhoto.Result.OK) {
+                warning("Unable to get name of folder %d: %s", ctr, refresh_result.to_full_string());
+                
                 return false;
+            }
             
             if (!enumerate_files(fsid, append_path(dir, subdir), import_list))
                 return false;
@@ -948,7 +982,7 @@ public class ImportPage : CheckerboardPage {
     private void import(Gee.Iterable<DataObject> items) {
         GPhoto.Result res = camera.init(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
-            AppWindow.error_message(_("Unable to lock camera: %s").printf(res.as_string()));
+            AppWindow.error_message(_("Unable to lock camera: %s").printf(res.to_full_string()));
             
             return;
         }
@@ -1033,7 +1067,7 @@ public class ImportPage : CheckerboardPage {
         
         string question_string = (ngettext("Delete this photo from camera?",
             "Delete these %d photos from camera?", manifest.all.size)).printf(manifest.all.size);
-
+        
         ImportUI.QuestionParams question = new ImportUI.QuestionParams(
             question_string, Gtk.STOCK_DELETE, _("_Keep"));
         
@@ -1063,7 +1097,7 @@ public class ImportPage : CheckerboardPage {
         GPhoto.Result res = camera.exit(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
             // log but don't fail
-            message("Unable to unlock camera: %s (%d)", res.as_string(), (int) res);
+            message("Unable to unlock camera: %s", res.to_full_string());
         }
         
         busy = false;

@@ -678,10 +678,12 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // This is not thread-safe.  Obviously, at least one field must be non-null for this to be
-    // effective, although there is no guarantee that any one will be sufficient.
-    public static bool is_duplicate(File? file, string? thumbnail_md5, string? full_md5) {
+    // effective, although there is no guarantee that any one will be sufficient.  file_format
+    // should be UNKNOWN if not to require matching file formats.
+    public static bool is_duplicate(File? file, string? thumbnail_md5, string? full_md5,
+        PhotoFileFormat file_format) {
 #if !NO_DUPE_DETECTION
-        return PhotoTable.get_instance().has_duplicate(file, thumbnail_md5, full_md5);
+        return PhotoTable.get_instance().has_duplicate(file, thumbnail_md5, full_md5, file_format);
 #else
         return false;
 #endif

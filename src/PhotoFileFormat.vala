@@ -97,6 +97,26 @@ public enum PhotoFileFormat {
         }
     }
     
+    public static PhotoFileFormat from_gphoto_type(string type) {
+        switch (type) {
+            case GPhoto.MIME.JPEG:
+                return PhotoFileFormat.JFIF;
+            
+#if !NO_RAW
+            case GPhoto.MIME.RAW:
+            case GPhoto.MIME.CRW:
+                return PhotoFileFormat.RAW;
+#endif
+            
+            case GPhoto.MIME.PNG:
+                return PhotoFileFormat.PNG;
+            
+            default:
+                // check file extension against those we support
+                return PhotoFileFormat.UNKNOWN;
+        }
+    }
+    
     private PhotoFileFormatDriver get_driver() {
         switch (this) {
             case JFIF:
@@ -106,10 +126,10 @@ public enum PhotoFileFormat {
             case RAW:
                 return RawFileFormatDriver.get_instance();
 #endif
-
+            
             case PNG:
                 return PngFileFormatDriver.get_instance();
-
+            
             default:
                 error("Unsupported file format %s", this.to_string());
                 

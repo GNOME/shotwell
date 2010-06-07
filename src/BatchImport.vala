@@ -287,9 +287,12 @@ public class BatchImport : Object {
         PreparedFile prepared_file = (PreparedFile) user;
         
         if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
-            prepared_file.full_md5)) {
-            manifest.add_result(new BatchImportResult(prepared_file.job, prepared_file.file, 
-                prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS));
+            prepared_file.full_md5, prepared_file.file_format)) {
+            BatchImportResult import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
+                prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+            import_job_failed(import_result);
+            
+            manifest.add_result(import_result);
             
             // mark this job as completed
             file_imports_completed++;
@@ -577,9 +580,10 @@ private class PreparedFile : NotificationObject {
     public string? exif_md5;
     public string? thumbnail_md5;
     public string? full_md5;
+    public PhotoFileFormat file_format;
     
     public PreparedFile(BatchImportJob job, File file, string id, bool copy_to_library, string? exif_md5, 
-        string? thumbnail_md5, string? full_md5) {
+        string? thumbnail_md5, string? full_md5, PhotoFileFormat file_format) {
         this.job = job;
         this.result = ImportResult.SUCCESS;
         this.file = file;
@@ -588,6 +592,7 @@ private class PreparedFile : NotificationObject {
         this.exif_md5 = exif_md5;
         this.thumbnail_md5 = thumbnail_md5;
         this.full_md5 = full_md5;
+        this.file_format = file_format;
     }
 }
 
@@ -730,7 +735,8 @@ private class PrepareFilesJob : BackgroundImportJob {
         // notify the BatchImport this is ready to go
         prepared_files++;
         notify(notification, new PreparedFile(job, file, file.get_path(), 
-            copy_to_library && !is_in_library_dir, exif_only_md5, thumbnail_md5, full_md5));
+            copy_to_library && !is_in_library_dir, exif_only_md5, thumbnail_md5, full_md5,
+            file_format));
         
         return ImportResult.SUCCESS;
     }
