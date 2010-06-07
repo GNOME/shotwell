@@ -99,32 +99,29 @@ public class CameraTable {
     private string[] get_all_usb_cameras() {
         string[] cameras = new string[0];
         
-        USB.find_busses();
-        USB.find_devices();
-        
-        unowned USB.Bus? bus = USB.get_busses();
-        while (bus != null) {
-            unowned USB.Device? device = bus.devices;
-            while (device != null) {
-                for (int ictr = 0; ictr < device.config.bNumInterfaces; ictr++) {
-                    unowned USB.Interface uif = device.config.interface[ictr];
-                    for (int dctr = 0; dctr < uif.altsetting.length; dctr++) {
-                        unowned USB.InterfaceDescriptor uifd = uif.altsetting[dctr];
-                        if (uifd.bInterfaceClass == USB.Class.PTP) {
-                            string camera = "usb:%s,%s".printf(bus.dirname, device.filename);
-                            debug("USB camera detected at %s", camera);
-                            
-                            cameras += camera;
-                            
-                            break;
-                        }
-                    }
+        GLib.List<GUdev.Device> device_list = client.query_by_subsystem(null);
+        foreach (GUdev.Device device in device_list) {
+            string device_file = device.get_device_file();
+            if(
+                // only keep devices that have a non-null device file and that
+                // have both the ID_GPHOTO2 and GPHOTO2_DRIVER properties set
+                (device_file != null) &&
+                (device.has_property("ID_GPHOTO2")) &&
+                (device.has_property("GPHOTO2_DRIVER"))
+            ) {
+                int camera_bus, camera_device;
+                // extract the bus and device IDs from the device file string
+                // TODO: is it safe to parse the absolute path or should we be
+                // smarter and use a regex to only pick up the end of the path?
+                if (device_file.scanf("/dev/bus/usb/%d/%d", out camera_bus, out camera_device) < 2) {
+                    critical("get_all_usb_cameras: Failed to scanf device file %s", device_file);
+                    
+                    continue;
                 }
-                
-                device = device.next;
+                string camera = "usb:%.3d,%.3d".printf(camera_bus, camera_device);
+                debug("USB camera detected at %s", camera);
+                cameras += camera;
             }
-            
-            bus = bus.next;
         }
         
         return cameras;

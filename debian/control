@@ -14,7 +14,6 @@ Build-Depends: debhelper (>= 7),
  libsoup2.4-dev (>= 2.26.0),
  libxml2 (>= 2.6.32),
  libwebkit-dev (>= 1.1.5),
- libusb-dev (>= 2:0.1.12),
  libgudev-1.0-dev (>= 145),
  libdbus-glib-1-dev (>= 0.80)
 Standards-Version: 3.8.3
@@ -33,7 +32,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libsoup2.4-1 (>= 2.26.0),
  libxml2 (>= 2.6.32),
  libwebkit-1.0-2 (>= 1.1.5),
- libusb-0.1-4 (>= 2:0.1.12),
  libgudev-1.0-0 (>= 145),
  libdbus-glib-1-2 (>= 0.80)
 Description: Digital photo manager

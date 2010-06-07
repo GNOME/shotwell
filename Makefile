@@ -181,7 +181,6 @@ EXT_PKGS += \
 	libxml-2.0 \
 	unique-1.0 \
 	webkit-1.0 \
-	libusb \
 	gudev-1.0 \
 	dbus-glib-1
 endif
@@ -206,7 +205,6 @@ EXT_PKG_VERSIONS += \
 	libxml-2.0 >= 2.6.32 \
 	unique-1.0 >= 1.0.0 \
 	webkit-1.0 >= 1.1.5 \
-	libusb >= 0.1.12 \
 	gudev-1.0 >= 145 \
 	dbus-glib-1 >= 0.80
 endif
