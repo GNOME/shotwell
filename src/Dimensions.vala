@@ -475,8 +475,8 @@ public struct ZoomState {
     public ZoomState.rescale_to_isomorphic(ZoomState existing) {
         this.content_dimensions = existing.content_dimensions;
         this.viewport_dimensions = existing.viewport_dimensions;
-        this.interpolation_factor = (1.0 - existing.min_factor) / (existing.max_factor -
-            existing.min_factor);
+        this.interpolation_factor = Math.log(1.0 / existing.min_factor) /
+            (Math.log(existing.max_factor / existing.min_factor));
 
         compute_zoom_factors();
 
@@ -529,7 +529,7 @@ public struct ZoomState {
         if (min_factor > 1.0)
             min_factor = 1.0;
 
-        zoom_factor = min_factor + (max_factor - min_factor) * interpolation_factor;
+        zoom_factor = min_factor * Math.pow(max_factor / min_factor, interpolation_factor);
     }
 
     public double get_interpolation_factor() {
