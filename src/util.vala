@@ -341,10 +341,19 @@ public uint64 query_total_file_size(File file_or_dir) throws Error {
         return 0;
     }
         
-    FileEnumerator enumerator = file_or_dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
-        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-    if (enumerator == null)
-        return 0;
+    FileEnumerator enumerator;
+    try {
+        enumerator = file_or_dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
+            FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+        if (enumerator == null)
+            return 0;
+    } catch (Error err) {
+        // Don't treat a permissions failure as a hard failure, just skip the directory
+        if (err is FileError.PERM || err is IOError.PERMISSION_DENIED)
+            return 0;
+        
+        throw err;
+    }
     
     uint64 total_bytes = 0;
         
