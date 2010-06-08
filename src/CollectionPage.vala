@@ -136,7 +136,7 @@ public abstract class CollectionPage : CheckerboardPage {
         slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
         slideshow_button.set_label(_("Slideshow"));
         slideshow_button.set_tooltip_text(_("Start a slideshow of these photos"));
-        slideshow_button.sensitive = false;
+        slideshow_button.set_related_action(action_group.get_action("Slideshow"));
         slideshow_button.is_important = true;
         slideshow_button.clicked.connect(on_slideshow);
         
@@ -838,7 +838,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Flip", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Slideshow", get_view().get_count() > 0);
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
