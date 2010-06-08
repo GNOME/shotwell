@@ -714,18 +714,18 @@ public abstract class SourceProxy {
         
         snapshot = source.save_snapshot();
         assert(snapshot != null);
-        snapshot.broken += on_snapshot_broken;
+        snapshot.broken.connect(on_snapshot_broken);
         
         set_source(source);
         
         membership = (SourceCollection) source.get_membership();
         assert(membership != null);
-        membership.items_added += on_source_added;
+        membership.items_added.connect(on_source_added);
     }
     
     ~SourceProxy() {
         drop_source();
-        membership.items_added -= on_source_added;
+        membership.items_added.disconnect(on_source_added);
     }
     
     public abstract DataSource reconstitute(int64 object_id, SourceSnapshot snapshot);
@@ -752,14 +752,14 @@ public abstract class SourceProxy {
         drop_source();
         
         this.source = source;
-        source.destroyed += on_destroyed;
+        source.destroyed.connect(on_destroyed);
     }
     
     private void drop_source() {
         if (source == null)
             return;
         
-        source.destroyed -= on_destroyed;
+        source.destroyed.disconnect(on_destroyed);
         source = null;
     }
     

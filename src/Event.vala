@@ -87,11 +87,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
             foreach (PhotoSource photo in event.get_photos())
                 photos.add((LibraryPhoto) photo);
             
-            LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+            LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         }
         
         ~EventSnapshot() {
-            LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+            LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         }
         
         public EventRow get_row() {
@@ -172,21 +172,21 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         // watch the primary photo to reflect thumbnail changes
         if (primary_photo != null)
-            primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
+            primary_photo.thumbnail_altered.connect(on_primary_thumbnail_altered);
 
         // watch for for addition, removal, and alteration of photos
-        view.items_added += on_photos_added;
-        view.items_removed += on_photos_removed;
-        view.items_metadata_altered += on_photos_metadata_altered;
+        view.items_added.connect(on_photos_added);
+        view.items_removed.connect(on_photos_removed);
+        view.items_metadata_altered.connect(on_photos_metadata_altered);
     }
 
     ~Event() {
         if (primary_photo != null)
-            primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+            primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
         
-        view.items_metadata_altered -= on_photos_metadata_altered;
-        view.items_removed -= on_photos_removed;
-        view.items_added -= on_photos_added;
+        view.items_metadata_altered.disconnect(on_photos_metadata_altered);
+        view.items_removed.disconnect(on_photos_removed);
+        view.items_added.disconnect(on_photos_added);
     }
     
     public static void init(ProgressMonitor? monitor = null) {
@@ -540,10 +540,10 @@ public class Event : EventSource, ContainerSource, Proxyable {
         if (committed) {
             // switch to the new photo
             if (primary_photo != null)
-                primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+                primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
 
             primary_photo = photo;
-            primary_photo.thumbnail_altered += on_primary_thumbnail_altered;
+            primary_photo.thumbnail_altered.connect(on_primary_thumbnail_altered);
             
             notify_thumbnail_altered();
         }
@@ -555,7 +555,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         if (primary_photo == null)
             return;
         
-        primary_photo.thumbnail_altered -= on_primary_thumbnail_altered;
+        primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
         primary_photo = null;
     }
     

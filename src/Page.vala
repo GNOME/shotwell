@@ -38,7 +38,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
 
-        popup_menu += on_context_keypress;
+        popup_menu.connect(on_context_keypress);
     }
     
     ~Page() {
@@ -130,20 +130,20 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.add_events(Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK
             | Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.POINTER_MOTION_HINT_MASK
             | Gdk.EventMask.BUTTON_MOTION_MASK);
-        event_source.button_press_event += on_button_pressed_internal;
-        event_source.button_release_event += on_button_released_internal;
-        event_source.motion_notify_event += on_motion_internal;
-        event_source.scroll_event += on_mousewheel_internal;
+        event_source.button_press_event.connect(on_button_pressed_internal);
+        event_source.button_release_event.connect(on_button_released_internal);
+        event_source.motion_notify_event.connect(on_motion_internal);
+        event_source.scroll_event.connect(on_mousewheel_internal);
     }
     
     private void detach_event_source() {
         if (event_source == null)
             return;
         
-        event_source.button_press_event -= on_button_pressed_internal;
-        event_source.button_release_event -= on_button_released_internal;
-        event_source.motion_notify_event -= on_motion_internal;
-        event_source.scroll_event -= on_mousewheel_internal;
+        event_source.button_press_event.disconnect(on_button_pressed_internal);
+        event_source.button_release_event.disconnect(on_button_released_internal);
+        event_source.motion_notify_event.disconnect(on_motion_internal);
+        event_source.scroll_event.disconnect(on_mousewheel_internal);
         
         disable_drag_source();
         
@@ -397,11 +397,11 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         // hook up handlers which route the event_source's DnD signals to the Page's (necessary
         // because Page is a NO_WINDOW widget and cannot support DnD on its own).
-        event_source.drag_begin += on_drag_begin;
-        event_source.drag_data_get += on_drag_data_get;
-        event_source.drag_data_delete += on_drag_data_delete;
-        event_source.drag_end += on_drag_end;
-        event_source.drag_failed += on_drag_failed;
+        event_source.drag_begin.connect(on_drag_begin);
+        event_source.drag_data_get.connect(on_drag_data_get);
+        event_source.drag_data_delete.connect(on_drag_data_delete);
+        event_source.drag_end.connect(on_drag_end);
+        event_source.drag_failed.connect(on_drag_failed);
         
         dnd_enabled = true;
     }
@@ -412,11 +412,11 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
 
         assert(event_source != null);
         
-        event_source.drag_begin -= on_drag_begin;
-        event_source.drag_data_get -= on_drag_data_get;
-        event_source.drag_data_delete -= on_drag_data_delete;
-        event_source.drag_end -= on_drag_end;
-        event_source.drag_failed -= on_drag_failed;
+        event_source.drag_begin.disconnect(on_drag_begin);
+        event_source.drag_data_get.disconnect(on_drag_data_get);
+        event_source.drag_data_delete.disconnect(on_drag_data_delete);
+        event_source.drag_end.disconnect(on_drag_end);
+        event_source.drag_failed.disconnect(on_drag_failed);
         Gtk.drag_source_unset(event_source);
         
         dnd_enabled = false;
@@ -863,7 +863,7 @@ public abstract class CheckerboardPage : Page {
         add(viewport);
         
         // need to monitor items going hidden when dealing with anchor/cursor/highlighted items
-        get_view().items_hidden += on_items_hidden;
+        get_view().items_hidden.connect(on_items_hidden);
         
         // scrollbar policy
         set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
@@ -1469,8 +1469,8 @@ public abstract class SinglePhotoPage : Page {
         canvas.add_events(Gdk.EventMask.EXPOSURE_MASK | Gdk.EventMask.STRUCTURE_MASK 
             | Gdk.EventMask.SUBSTRUCTURE_MASK);
         
-        viewport.size_allocate += on_viewport_resize;
-        canvas.expose_event += on_canvas_exposed;
+        viewport.size_allocate.connect(on_viewport_resize);
+        canvas.expose_event.connect(on_canvas_exposed);
 
         set_event_source(canvas);
     }
@@ -1869,18 +1869,18 @@ public class PhotoDragAndDropHandler {
         
         // attach to the event source's DnD signals, not the Page's, which is a NO_WINDOW widget
         // and does not emit them
-        event_source.drag_begin += on_drag_begin;
-        event_source.drag_data_get += on_drag_data_get;
-        event_source.drag_end += on_drag_end;
-        event_source.drag_failed += on_drag_failed;
+        event_source.drag_begin.connect(on_drag_begin);
+        event_source.drag_data_get.connect(on_drag_data_get);
+        event_source.drag_end.connect(on_drag_end);
+        event_source.drag_failed.connect(on_drag_failed);
     }
     
     ~PhotoDragAndDropHandler() {
         if (event_source != null) {
-            event_source.drag_begin -= on_drag_begin;
-            event_source.drag_data_get -= on_drag_data_get;
-            event_source.drag_end -= on_drag_end;
-            event_source.drag_failed -= on_drag_failed;
+            event_source.drag_begin.disconnect(on_drag_begin);
+            event_source.drag_data_get.disconnect(on_drag_data_get);
+            event_source.drag_end.disconnect(on_drag_end);
+            event_source.drag_failed.disconnect(on_drag_failed);
         }
         
         page = null;

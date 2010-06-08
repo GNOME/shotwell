@@ -306,14 +306,14 @@ public class LibraryWindow : AppWindow {
         library_page = new LibraryPage(monitor);
         events_directory_page = new MasterEventsDirectoryPage();
         import_queue_page = new ImportQueuePage();
-        import_queue_page.batch_removed += import_queue_batch_finished;
+        import_queue_page.batch_removed.connect(import_queue_batch_finished);
         photo_page = new LibraryPhotoPage();
         trash_page = new TrashPage();
         
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
-        extended_properties.hide += hide_extended_properties;
-        extended_properties.show += show_extended_properties;
+        extended_properties.hide.connect(hide_extended_properties);
+        extended_properties.show.connect(show_extended_properties);
 
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
@@ -322,19 +322,19 @@ public class LibraryWindow : AppWindow {
         add_orphan_page(photo_page);
 
         // watch for new & removed events
-        Event.global.items_added += on_added_events;
-        Event.global.items_removed += on_removed_events;
-        Event.global.item_altered += on_event_altered;
+        Event.global.items_added.connect(on_added_events);
+        Event.global.items_removed.connect(on_removed_events);
+        Event.global.item_altered.connect(on_event_altered);
         
         // watch for new & removed tags
-        Tag.global.contents_altered += on_tags_added_removed;
-        Tag.global.item_altered += on_tag_altered;
+        Tag.global.contents_altered.connect(on_tags_added_removed);
+        Tag.global.item_altered.connect(on_tag_altered);
         
         // start in the collection page
         sidebar.place_cursor(library_page);
         
         // monitor cursor changes to select proper page in notebook
-        sidebar.cursor_changed += on_sidebar_cursor_changed;
+        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
         create_layout(library_page);
 
@@ -364,8 +364,8 @@ public class LibraryWindow : AppWindow {
         
 #if !NO_CAMERA
         // monitor the camera table for additions and removals
-        CameraTable.get_instance().camera_added += add_camera_page;
-        CameraTable.get_instance().camera_removed += remove_camera_page;
+        CameraTable.get_instance().camera_added.connect(add_camera_page);
+        CameraTable.get_instance().camera_removed.connect(remove_camera_page);
         
         // need to populate pages with what's known now by the camera table
         foreach (DiscoveredCamera camera in CameraTable.get_instance().get_cameras())
@@ -373,31 +373,31 @@ public class LibraryWindow : AppWindow {
 #endif
         
         // connect to sidebar signal used ommited on drag-and-drop orerations
-        sidebar.drop_received += drop_received;
+        sidebar.drop_received.connect(drop_received);
         
         // monitor trash to keep common actions up-to-date
-        LibraryPhoto.global.trashcan_contents_altered += on_trashcan_contents_altered;
+        LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
     }
     
     ~LibraryWindow() {
-        Event.global.items_added -= on_added_events;
-        Event.global.items_removed -= on_removed_events;
-        Event.global.item_altered -= on_event_altered;
+        Event.global.items_added.disconnect(on_added_events);
+        Event.global.items_removed.disconnect(on_removed_events);
+        Event.global.item_altered.disconnect(on_event_altered);
         
-        Tag.global.contents_altered -= on_tags_added_removed;
-        Tag.global.item_altered -= on_tag_altered;
+        Tag.global.contents_altered.disconnect(on_tags_added_removed);
+        Tag.global.item_altered.disconnect(on_tag_altered);
         
 #if !NO_CAMERA
-        CameraTable.get_instance().camera_added -= add_camera_page;
-        CameraTable.get_instance().camera_removed -= remove_camera_page;
+        CameraTable.get_instance().camera_added.disconnect(add_camera_page);
+        CameraTable.get_instance().camera_removed.disconnect(remove_camera_page);
 #endif
         
         unsubscribe_from_basic_information(get_current_page());
 
-        extended_properties.hide -= hide_extended_properties;
-        extended_properties.show -= show_extended_properties;
+        extended_properties.hide.disconnect(hide_extended_properties);
+        extended_properties.show.disconnect(show_extended_properties);
         
-        LibraryPhoto.global.trashcan_contents_altered -= on_trashcan_contents_altered;
+        LibraryPhoto.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -1541,9 +1541,9 @@ public class LibraryWindow : AppWindow {
         // which will then call this function again
         base.set_current_page(page);
         
-        sidebar.cursor_changed -= on_sidebar_cursor_changed;
+        sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
         sidebar.place_cursor(page);
-        sidebar.cursor_changed += on_sidebar_cursor_changed;
+        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
         on_selection_changed();
 
@@ -1640,21 +1640,21 @@ public class LibraryWindow : AppWindow {
     private void subscribe_for_basic_information(Page page) {
         ViewCollection view = page.get_view();
         
-        view.items_state_changed += on_selection_changed;
-        view.items_altered += on_selection_changed;
-        view.items_metadata_altered += on_selection_changed;
-        view.contents_altered += on_selection_changed;
-        view.items_visibility_changed += on_selection_changed;
+        view.items_state_changed.connect(on_selection_changed);
+        view.items_altered.connect(on_selection_changed);
+        view.items_metadata_altered.connect(on_selection_changed);
+        view.contents_altered.connect(on_selection_changed);
+        view.items_visibility_changed.connect(on_selection_changed);
     }
     
     private void unsubscribe_from_basic_information(Page page) {
         ViewCollection view = page.get_view();
         
-        view.items_state_changed -= on_selection_changed;
-        view.items_altered -= on_selection_changed;
-        view.items_metadata_altered -= on_selection_changed;
-        view.contents_altered -= on_selection_changed;
-        view.items_visibility_changed -= on_selection_changed;
+        view.items_state_changed.disconnect(on_selection_changed);
+        view.items_altered.disconnect(on_selection_changed);
+        view.items_metadata_altered.disconnect(on_selection_changed);
+        view.contents_altered.disconnect(on_selection_changed);
+        view.items_visibility_changed.disconnect(on_selection_changed);
     }
 
     private void on_selection_changed() {

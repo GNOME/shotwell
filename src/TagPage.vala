@@ -12,7 +12,7 @@ public class TagPage : CollectionPage {
         
         this.tag = tag;
         
-        tag.altered += on_tag_altered;
+        tag.altered.connect(on_tag_altered);
         tag.mirror_photos(get_view(), create_thumbnail);
         
         init_page_context_menu("/TagsContextMenu");
@@ -23,6 +23,7 @@ public class TagPage : CollectionPage {
     
     ~TagPage() {
         get_view().halt_mirroring();
+        tag.altered.disconnect(on_tag_altered);
     }
     
     public Tag get_tag() {

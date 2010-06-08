@@ -95,8 +95,8 @@ public class PixbufCache : Object {
             background_workers = new Workers(Workers.threads_per_cpu(1), false);
         
         // monitor changes in the photos to discard from cache
-        sources.item_altered += on_source_altered;
-        sources.items_removed += on_sources_removed;
+        sources.item_altered.connect(on_source_altered);
+        sources.items_removed.connect(on_sources_removed);
     }
     
     ~PixbufCache() {
@@ -104,8 +104,8 @@ public class PixbufCache : Object {
         debug("Freeing %d pixbufs and cancelling %d jobs", cache.size, in_progress.size);
 #endif
         
-        sources.item_altered -= on_source_altered;
-        sources.items_removed -= on_sources_removed;
+        sources.item_altered.disconnect(on_source_altered);
+        sources.items_removed.disconnect(on_sources_removed);
         
         foreach (FetchJob job in in_progress.values)
             job.cancel();

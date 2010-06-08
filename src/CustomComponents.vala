@@ -216,7 +216,7 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
     private int track_nub_start_position = 0;
 
     public RGBHistogramManipulator( ) {
-        expose_event += on_expose;
+        expose_event.connect(on_expose);
         set_size_request(CONTROL_WIDTH, CONTROL_HEIGHT);
         if (dummy_slider == null)
             dummy_slider = new Gtk.HScale(null);
@@ -225,9 +225,9 @@ public class RGBHistogramManipulator : Gtk.DrawingArea {
         add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
         add_events(Gdk.EventMask.BUTTON_RELEASE_MASK);
         add_events(Gdk.EventMask.BUTTON_MOTION_MASK);
-        button_press_event += on_button_press;
-        button_release_event += on_button_release;
-        motion_notify_event += on_button_motion;
+        button_press_event.connect(on_button_press);
+        button_release_event.connect(on_button_release);
+        motion_notify_event.connect(on_button_motion);
     }
     
     private LocationCode hit_test_point(int x, int y) {

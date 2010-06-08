@@ -125,11 +125,11 @@ public class ExportDialog : Gtk.Dialog {
         pixels_entry.set_text("%d".printf(current_scale));
         
         // register after preparation to avoid signals during init
-        constraint_combo.changed += on_constraint_changed;
-        format_combo.changed += on_format_changed;
-        pixels_entry.changed += on_pixels_changed;
-        pixels_entry.insert_text += on_pixels_insert_text;
-        pixels_entry.activate += on_activate;
+        constraint_combo.changed.connect(on_constraint_changed);
+        format_combo.changed.connect(on_format_changed);
+        pixels_entry.changed.connect(on_pixels_changed);
+        pixels_entry.insert_text.connect(on_pixels_insert_text);
+        pixels_entry.activate.connect(on_activate);
 
         // layout controls
         add_label(_("_Format:"), 0, 0, format_combo);
@@ -610,7 +610,7 @@ public class ProgressDialog : Gtk.Window {
         
         if (cancellable != null) {
             cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
-            cancel_button.clicked += on_cancel;
+            cancel_button.clicked.connect(on_cancel);
         }
         
         Gtk.HBox hbox = new Gtk.HBox(false, 8);
@@ -739,32 +739,32 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
         set_title(Resources.ADJUST_DATE_TIME_LABEL);
 
         calendar = new Gtk.Calendar();
-        calendar.day_selected += on_time_changed;
-        calendar.month_changed += on_time_changed;
-        calendar.next_year += on_time_changed;
-        calendar.prev_year += on_time_changed;
+        calendar.day_selected.connect(on_time_changed);
+        calendar.month_changed.connect(on_time_changed);
+        calendar.next_year.connect(on_time_changed);
+        calendar.prev_year.connect(on_time_changed);
 
         if (Config.get_instance().get_24_hr_time())
             hour = new Gtk.SpinButton.with_range(0, 23, 1);
         else
             hour = new Gtk.SpinButton.with_range(1, 12, 1);
 
-        hour.output += on_spin_button_output;
+        hour.output.connect(on_spin_button_output);
         hour.set_width_chars(2);  
 
         minute = new Gtk.SpinButton.with_range(0, 59, 1);
         minute.set_width_chars(2);
-        minute.output += on_spin_button_output;
+        minute.output.connect(on_spin_button_output);
 
         second = new Gtk.SpinButton.with_range(0, 59, 1);
         second.set_width_chars(2);
-        second.output += on_spin_button_output;
+        second.output.connect(on_spin_button_output);
 
         system = new Gtk.ComboBox.text();
         system.append_text(_("AM"));
         system.append_text(_("PM"));
         system.append_text(_("24 Hr"));
-        system.changed += on_time_system_changed;
+        system.changed.connect(on_time_system_changed);
 
         Gtk.HBox clock = new Gtk.HBox(false, 0);
 
@@ -786,7 +786,7 @@ public class AdjustDateTimeDialog : Gtk.Dialog {
             _("Set _all photos to this time"));
         batch_radio_button.set_active(!Config.get_instance().get_keep_relativity());
         batch_radio_button.sensitive = display_options && photo_count > 1;
-        batch_radio_button.toggled += on_time_changed;
+        batch_radio_button.toggled.connect(on_time_changed);
 
         modify_originals_check_button = new Gtk.CheckButton.with_mnemonic(ngettext(
             "_Modify original file", "_Modify original files", photo_count));
@@ -1208,23 +1208,23 @@ public class PreferencesDialog {
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         dialog.set_transient_for(AppWindow.get_instance());
-        dialog.delete_event += on_delete;
-        dialog.response += on_close;
+        dialog.delete_event.connect(on_delete);
+        dialog.response.connect(on_close);
         
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             Config.get_instance().get_bg_color().red);
-        bg_color_adjustment.value_changed += on_value_changed;
+        bg_color_adjustment.value_changed.connect(on_value_changed);
         
     	library_dir_entry = 
             builder.get_object("library_dir_entry") as Gtk.Entry;
         
         library_dir_entry.set_text(AppDirs.get_import_dir().get_path());
-        library_dir_entry.changed += on_import_dir_entry_changed;
+        library_dir_entry.changed.connect(on_import_dir_entry_changed);
         
         Gtk.Button library_dir_browser = 
             builder.get_object("file_browser_button") as Gtk.Button;
-        library_dir_browser.clicked += on_browse_import_dir;
+        library_dir_browser.clicked.connect(on_browse_import_dir);
         
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
@@ -1235,8 +1235,8 @@ public class PreferencesDialog {
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
             Config.get_instance().get_external_raw_app(), out external_raw_apps);
         
-        photo_editor_combo.changed += on_photo_editor_changed;
-        raw_editor_combo.changed += on_raw_editor_changed;
+        photo_editor_combo.changed.connect(on_photo_editor_changed);
+        raw_editor_combo.changed.connect(on_raw_editor_changed);
     }
     
     private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,

@@ -225,16 +225,16 @@ public class CustomPrintTab : Gtk.Fixed {
 
         standard_size_radio = new Gtk.RadioButton.with_mnemonic(null,
             _("Use a _standard size:"));
-        standard_size_radio.clicked += on_radio_group_click;
+        standard_size_radio.clicked.connect(on_radio_group_click);
         standard_size_radio.set_alignment(0.0f, 0.5f);
         custom_size_radio = new Gtk.RadioButton.with_mnemonic(
             standard_size_radio.get_group(), _("Use a c_ustom size:"));
         custom_size_radio.set_alignment(0.0f, 0.5f);
-        custom_size_radio.clicked += on_radio_group_click;
+        custom_size_radio.clicked.connect(on_radio_group_click);
         fill_page_radio = new Gtk.RadioButton.with_mnemonic(
             standard_size_radio.get_group(), _("_Fill the entire page"));
         fill_page_radio.set_alignment(0.0f, 0.5f);
-        fill_page_radio.clicked += on_radio_group_click;
+        fill_page_radio.clicked.connect(on_radio_group_click);
         master_layouter.attach(standard_size_radio, 1, 2, 1, 2,
              Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
              Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 8);
@@ -271,18 +271,18 @@ public class CustomPrintTab : Gtk.Fixed {
         Gtk.HBox custom_entries_layouter = new Gtk.HBox(false, 0);
         custom_width_entry = new Gtk.Entry();
         custom_width_entry.set_size_request(48, -1);
-        custom_width_entry.insert_text += on_entry_insert_text;
-        custom_width_entry.focus_out_event += on_width_entry_focus_out;
+        custom_width_entry.insert_text.connect(on_entry_insert_text);
+        custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
         custom_height_entry = new Gtk.Entry();
         custom_height_entry.set_size_request(48, -1);
-        custom_height_entry.insert_text += on_entry_insert_text;
-        custom_height_entry.focus_out_event += on_height_entry_focus_out;
+        custom_height_entry.insert_text.connect(on_entry_insert_text);
+        custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
         Gtk.Label custom_mulsign_label = new Gtk.Label(" x ");
         units_combo = new Gtk.ComboBox.text();
         units_combo.append_text(_("in."));
         units_combo.append_text(_("cm"));
         units_combo.set_active(0);
-        units_combo.changed += on_units_combo_changed;
+        units_combo.changed.connect(on_units_combo_changed);
         custom_entries_layouter.add(custom_height_entry);
         custom_entries_layouter.add(custom_mulsign_label);
         custom_entries_layouter.add(custom_width_entry);
@@ -323,8 +323,8 @@ public class CustomPrintTab : Gtk.Fixed {
         ppi_entry_title.set_alignment(0.0f, 0.5f);
         ppi_entry_layouter.add(ppi_entry_title);
         ppi_entry = new Gtk.Entry();
-        ppi_entry.focus_out_event += on_ppi_entry_focus_out;
-        ppi_entry.insert_text += on_ppi_entry_insert_text;
+        ppi_entry.focus_out_event.connect(on_ppi_entry_focus_out);
+        ppi_entry.insert_text.connect(on_ppi_entry_insert_text);
         ppi_entry_title.set_mnemonic_widget(ppi_entry);
         ppi_entry.set_size_request(60, -1);
         Gtk.Alignment ppi_entry_aligner =
@@ -362,7 +362,7 @@ public class CustomPrintTab : Gtk.Fixed {
         show_all();
 
         /* connect this signal after state is sync'd */
-        aspect_ratio_check.clicked += on_aspect_ratio_check_clicked;
+        aspect_ratio_check.clicked.connect(on_aspect_ratio_check_clicked);
     }
 
     private void on_aspect_ratio_check_clicked() {
@@ -416,8 +416,10 @@ public class CustomPrintTab : Gtk.Fixed {
         return false;
     }
 
-    private void on_ppi_entry_insert_text(Gtk.Entry sender, string text, int length,
+    private void on_ppi_entry_insert_text(Gtk.Editable editable, string text, int length,
         void *position) {
+        Gtk.Entry sender = (Gtk.Entry) editable;
+        
         if (is_text_insertion_in_progress)
             return;
 
@@ -498,8 +500,9 @@ public class CustomPrintTab : Gtk.Fixed {
             get_user_unit_choice());
     }
 
-    private void on_entry_insert_text(Gtk.Entry sender, string text, int length,
-        void *position) {
+    private void on_entry_insert_text(Gtk.Editable editable, string text, int length, void *position) {
+        Gtk.Entry sender = (Gtk.Entry) editable;
+        
         if (is_text_insertion_in_progress)
             return;
 
@@ -544,7 +547,9 @@ public class CustomPrintTab : Gtk.Fixed {
         set_match_aspect_ratio_enabled(job.get_local_settings().is_match_aspect_ratio_enabled());
     }
 
-    private void on_radio_group_click(Gtk.RadioButton sender) {
+    private void on_radio_group_click(Gtk.Button b) {
+        Gtk.RadioButton sender = (Gtk.RadioButton) b;
+        
         if (sender == standard_size_radio) {
             set_content_layout_control_state(ContentLayout.STANDARD_SIZE);
             standard_sizes_combo.grab_focus();
@@ -829,8 +834,8 @@ public class PrintManager {
         job.set_n_pages(1);
         job.set_job_name(source_photo.get_name());
         job.set_default_page_setup(user_page_setup);
-        job.draw_page += on_draw_page;
-        job.create_custom_widget += on_create_custom_widget;
+        job.draw_page.connect(on_draw_page);
+        job.create_custom_widget.connect(on_create_custom_widget);
 
         Gtk.PrintOperationResult job_result;
 
@@ -859,7 +864,7 @@ public class PrintManager {
 
     private unowned Object on_create_custom_widget(Gtk.PrintOperation emitting_object) {
         custom_tab = new CustomPrintTab((PrintJob) emitting_object);
-        ((PrintJob) emitting_object).custom_widget_apply += on_custom_widget_apply;
+        ((PrintJob) emitting_object).custom_widget_apply.connect(on_custom_widget_apply);
         return custom_tab;
     }
 

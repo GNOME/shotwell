@@ -303,12 +303,12 @@ public class ImportPage : CheckerboardPage {
         get_view().set_comparator(preview_comparator);
         
         // monitor selection for UI
-        get_view().items_state_changed += on_view_changed;
-        get_view().contents_altered += on_view_changed;
-        get_view().items_visibility_changed += on_view_changed;
+        get_view().items_state_changed.connect(on_view_changed);
+        get_view().contents_altered.connect(on_view_changed);
+        get_view().items_visibility_changed.connect(on_view_changed);
         
         // monitor Photos for removals, at that will change the result of the ViewFilter
-        LibraryPhoto.global.contents_altered += on_photos_added_removed;
+        LibraryPhoto.global.contents_altered.connect(on_photos_added_removed);
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions(),
             create_toggle_actions());
@@ -321,7 +321,7 @@ public class ImportPage : CheckerboardPage {
         // hide duplicates checkbox
         hide_imported = new Gtk.CheckButton.with_label(_("Hide photos already imported"));
         hide_imported.set_tooltip_text(_("Only display photos that have not been imported"));
-        hide_imported.clicked += on_hide_imported;
+        hide_imported.clicked.connect(on_hide_imported);
         hide_imported.sensitive = false;
         hide_imported.active = false;
         Gtk.ToolItem hide_item = new Gtk.ToolItem();
@@ -347,7 +347,7 @@ public class ImportPage : CheckerboardPage {
         import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
         import_selected_button.set_label("Import Selected");
         import_selected_button.set_tooltip_text("Import the selected photos into your library");
-        import_selected_button.clicked += on_import_selected;
+        import_selected_button.clicked.connect(on_import_selected);
         import_selected_button.is_important = true;
         import_selected_button.sensitive = false;
         
@@ -356,7 +356,7 @@ public class ImportPage : CheckerboardPage {
         import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
         import_all_button.set_label("Import All");
         import_all_button.set_tooltip_text("Import all the photos on this camera into your library");
-        import_all_button.clicked += on_import_all;
+        import_all_button.clicked.connect(on_import_all);
         import_all_button.sensitive = false;
         import_all_button.is_important = true;
         
@@ -381,7 +381,7 @@ public class ImportPage : CheckerboardPage {
     }
     
     ~ImportPage() {
-        LibraryPhoto.global.contents_altered -= on_photos_added_removed;
+        LibraryPhoto.global.contents_altered.disconnect(on_photos_added_removed);
     }
     
     private int64 preview_comparator(void *a, void *b) {
@@ -592,7 +592,7 @@ public class ImportPage : CheckerboardPage {
         // unmount_with_operation() can/will complete with the volume still mounted (probably meaning
         // it's been *scheduled* for unmounting).  However, this signal is fired when the mount
         // really is unmounted -- *if* a VolumeMonitor has been instantiated.
-        mount.unmounted += on_unmounted;
+        mount.unmounted.connect(on_unmounted);
         
         debug("Unmounting camera ...");
         mount.unmount_with_operation(MountUnmountFlags.NONE, new Gtk.MountOperation(AppWindow.get_instance()),
@@ -611,7 +611,7 @@ public class ImportPage : CheckerboardPage {
             AppWindow.error_message(UNMOUNT_FAILED_MSG);
             
             // don't trap this signal, even if it does come in, we've backed off
-            mount.unmounted -= on_unmounted;
+            mount.unmounted.disconnect(on_unmounted);
             
             busy = false;
             progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
@@ -1033,8 +1033,8 @@ public class ImportPage : CheckerboardPage {
         if (jobs.size > 0) {
             BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter,
                 total_bytes, failed, already_imported);
-            batch_import.import_job_failed += on_import_job_failed;
-            batch_import.import_complete += close_import;
+            batch_import.import_job_failed.connect(on_import_job_failed);
+            batch_import.import_complete.connect(close_import);
             
             LibraryWindow.get_app().enqueue_batch_import(batch_import);
             LibraryWindow.get_app().switch_to_import_queue_page();
@@ -1149,7 +1149,7 @@ public class ImportQueuePage : SinglePhotoPage {
         // Stop button
         stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
         stop_button.set_tooltip_text(_("Stop importing photos"));
-        stop_button.clicked += on_stop;
+        stop_button.clicked.connect(on_stop);
         stop_button.sensitive = false;
         
         toolbar.insert(stop_button, -1);
@@ -1197,10 +1197,10 @@ public class ImportQueuePage : SinglePhotoPage {
         
         total_bytes += batch_import.get_total_bytes();
         
-        batch_import.starting += on_starting;
-        batch_import.imported += on_imported;
-        batch_import.import_complete += on_import_complete;
-        batch_import.fatal_error += on_fatal_error;
+        batch_import.starting.connect(on_starting);
+        batch_import.imported.connect(on_imported);
+        batch_import.import_complete.connect(on_import_complete);
+        batch_import.fatal_error.connect(on_fatal_error);
         
         queue.add(batch_import);
         batch_added(batch_import);
@@ -1257,10 +1257,10 @@ public class ImportQueuePage : SinglePhotoPage {
         assert(!queue.contains(batch_import));
         
         // strip signal handlers
-        batch_import.starting -= on_starting;
-        batch_import.imported -= on_imported;
-        batch_import.import_complete -= on_import_complete;
-        batch_import.fatal_error -= on_fatal_error;
+        batch_import.starting.disconnect(on_starting);
+        batch_import.imported.disconnect(on_imported);
+        batch_import.import_complete.disconnect(on_import_complete);
+        batch_import.fatal_error.disconnect(on_fatal_error);
         
         // schedule next if available
         if (queue.size > 0) {

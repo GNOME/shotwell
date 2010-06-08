@@ -223,11 +223,11 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             foreach (LibraryPhoto photo in tag.get_photos())
                 photos.add(photo);
             
-            LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+            LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         }
         
         ~TagSnapshot() {
-            LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+            LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         }
         
         public TagRow get_row() {
@@ -297,16 +297,16 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         
         // monitor ViewCollection to (a) keep the in-memory list of photo IDs up-to-date, and
         // (b) update the database whenever there's a change;
-        photos.contents_altered += on_photos_contents_altered;
+        photos.contents_altered.connect(on_photos_contents_altered);
         
         // monitor LibraryPhoto to trap when photos are destroyed and automatically remove from
         // the tag
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~Tag() {
-        photos.contents_altered -= on_photos_contents_altered;
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        photos.contents_altered.disconnect(on_photos_contents_altered);
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     public static void init() {
@@ -622,7 +622,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         // the contents_altered handler because it will destroy this object when photos is empty,
         // which is bad reentrancy mojo (but hook it back up for the dtor's sake)
         if (photos.get_count() > 0) {
-            photos.contents_altered -= on_photos_contents_altered;
+            photos.contents_altered.disconnect(on_photos_contents_altered);
             
             Gee.ArrayList<LibraryPhoto> removed = new Gee.ArrayList<LibraryPhoto>();
             removed.add_all((Gee.Collection<LibraryPhoto>) photos.get_sources());
@@ -632,7 +632,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             global.notify_container_contents_removed(this, removed);
             global.notify_container_contents_altered(this, null, removed);
             
-            photos.contents_altered += on_photos_contents_altered;
+            photos.contents_altered.connect(on_photos_contents_altered);
         }
         
         try {

@@ -49,14 +49,14 @@ public class FullscreenWindow : PageWindow {
         
         // TODO: Don't stock items supply their own tooltips?
         close_button.set_tooltip_text("Leave fullscreen");
-        close_button.clicked += on_close;
+        close_button.clicked.connect(on_close);
         
         Gtk.Toolbar toolbar = page.get_toolbar();
         toolbar.set_show_arrow(false);
 
         if (page is SlideshowPage) {
             // slideshow page doesn't own toolbar to hide it, subscribe to signal instead
-            ((SlideshowPage) page).hide_toolbar += hide_toolbar;
+            ((SlideshowPage) page).hide_toolbar.connect(hide_toolbar);
         } else {
             // only non-slideshow pages should have pin button
             toolbar.insert(pin_button, -1); 
@@ -69,7 +69,7 @@ public class FullscreenWindow : PageWindow {
         toolbar_window.set_border_width(0);
         toolbar_window.add(toolbar);
         
-        toolbar_window.realize += on_toolbar_realized;
+        toolbar_window.realize.connect(on_toolbar_realized);
         
         add(page);
         

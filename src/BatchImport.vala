@@ -177,14 +177,14 @@ public class BatchImport : Object {
         this.cancellable = (cancellable != null) ? cancellable : new Cancellable();
         
         // watch for user exit in the application
-        AppWindow.get_instance().user_quit += user_halt;
+        AppWindow.get_instance().user_quit.connect(user_halt);
     }
     
     ~BatchImport() {
 #if TRACE_DTORS
         debug("DTOR: BatchImport (%s)", name);
 #endif
-        AppWindow.get_instance().user_quit -= user_halt;
+        AppWindow.get_instance().user_quit.disconnect(user_halt);
     }
     
     public string get_name() {

@@ -38,8 +38,8 @@ public abstract class GdkSniffer : PhotoFileSniffer {
         detected = new DetectedPhotoInformation();
         
         Gdk.PixbufLoader pixbuf_loader = new Gdk.PixbufLoader();
-        pixbuf_loader.size_prepared += on_size_prepared;
-        pixbuf_loader.area_prepared += on_area_prepared;
+        pixbuf_loader.size_prepared.connect(on_size_prepared);
+        pixbuf_loader.area_prepared.connect(on_area_prepared);
         
         // valac chokes on the ternary operator here
         Checksum? md5_checksum = null;

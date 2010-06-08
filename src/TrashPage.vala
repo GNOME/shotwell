@@ -40,11 +40,11 @@ public class TrashPage : CheckerboardPage {
         
         toolbar.insert(empty_trash_button, -1);
         
-        get_view().selection_group_altered += on_selection_altered;
-        get_view().contents_altered += on_contents_altered;
+        get_view().selection_group_altered.connect(on_selection_altered);
+        get_view().contents_altered.connect(on_contents_altered);
         
         // monitor trashcan and initialize view with all items in it
-        LibraryPhoto.global.trashcan_contents_altered += on_trashcan_contents_altered;
+        LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
         on_trashcan_contents_altered(LibraryPhoto.global.get_trashcan(), null);
     }
     

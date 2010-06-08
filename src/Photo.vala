@@ -227,11 +227,11 @@ public abstract class TransformablePhoto: PhotoSource {
             this.transformer = transformer;
             this.adjustments = adjustments;
             
-            photo.baseline_replaced += on_photo_baseline_replaced;
+            photo.baseline_replaced.connect(on_photo_baseline_replaced);
         }
         
         ~PhotoTransformationStateImpl() {
-            photo.baseline_replaced -= on_photo_baseline_replaced;
+            photo.baseline_replaced.disconnect(on_photo_baseline_replaced);
         }
         
         public Orientation get_orientation() {
@@ -2044,14 +2044,14 @@ public abstract class TransformablePhoto: PhotoSource {
         halt_monitoring_editable();
         
         editable_monitor = file.monitor(FileMonitorFlags.NONE, null);
-        editable_monitor.changed += on_editable_file_changed;
+        editable_monitor.changed.connect(on_editable_file_changed);
     }
     
     private void halt_monitoring_editable() {
         if (editable_monitor == null)
             return;
         
-        editable_monitor.changed -= on_editable_file_changed;
+        editable_monitor.changed.disconnect(on_editable_file_changed);
         editable_monitor.cancel();
         editable_monitor = null;
     }
@@ -2586,12 +2586,12 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         // attach/detach signals here, to monitor when/if the photo is no longer trashed
         if (added != null) {
             foreach (LibraryPhoto photo in added)
-                photo.metadata_altered += on_trashcan_photo_metadata_altered;
+                photo.metadata_altered.connect(on_trashcan_photo_metadata_altered);
         }
         
         if (removed != null) {
             foreach (LibraryPhoto photo in removed)
-                photo.metadata_altered -= on_trashcan_photo_metadata_altered;
+                photo.metadata_altered.disconnect(on_trashcan_photo_metadata_altered);
         }
         
         trashcan_contents_altered(added, removed);
@@ -2665,7 +2665,9 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         notify_trashcan_contents_altered(photos, null);
     }
     
-    private void on_trashcan_photo_metadata_altered(LibraryPhoto photo) {
+    private void on_trashcan_photo_metadata_altered(DataObject o) {
+        LibraryPhoto photo = (LibraryPhoto) o;
+        
         assert(trashcan.contains(photo));
         
         if (photo.is_trashed())

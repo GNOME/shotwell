@@ -456,7 +456,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         set_transient_for(owner);
         set_type_hint(Gdk.WindowTypeHint.DIALOG);
 
-        delete_event += hide_on_delete;
+        delete_event.connect(hide_on_delete);
 
         properties = new ExtendedProperties();
         Gtk.Alignment alignment = new Gtk.Alignment(0.5f,0.5f,1,1);

@@ -106,8 +106,8 @@ public class Interactor : ServiceInteractor {
     // EVENT: triggered when the network transaction that fetches the authentication token for
     //        the login account is completed successfully
     private void on_token_fetch_complete(RESTTransaction txn) {
-        txn.completed -= on_token_fetch_complete;
-        txn.network_error -= on_token_fetch_error;
+        txn.completed.disconnect(on_token_fetch_complete);
+        txn.network_error.disconnect(on_token_fetch_error);
 
         if (has_error() || cancelled)
             return;
@@ -127,8 +127,8 @@ public class Interactor : ServiceInteractor {
     // EVENT: triggered when the network transaction that fetches the authentication token for
     //        the login account fails
     private void on_token_fetch_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_token_fetch_complete;
-        bad_txn.network_error -= on_token_fetch_error;
+        bad_txn.completed.disconnect(on_token_fetch_complete);
+        bad_txn.network_error.disconnect(on_token_fetch_error);
 
         if (has_error() || cancelled)
             return;
@@ -192,8 +192,8 @@ public class Interactor : ServiceInteractor {
     // EVENT: triggered when the network transaction that fetches the user's account information
     //        is completed successfully
     private void on_initial_album_fetch_complete(RESTTransaction txn) {
-        txn.completed -= on_initial_album_fetch_complete;
-        txn.network_error -= on_initial_album_fetch_error;
+        txn.completed.disconnect(on_initial_album_fetch_complete);
+        txn.network_error.disconnect(on_initial_album_fetch_error);
 
         if (has_error() || cancelled)
             return;
@@ -205,8 +205,8 @@ public class Interactor : ServiceInteractor {
     //        successfully. This event should occur only when the user is publishing to a
     //        new album.
     private void on_album_creation_complete(RESTTransaction txn) {
-        txn.completed -= on_album_creation_complete;
-        txn.network_error -= on_album_creation_error;
+        txn.completed.disconnect(on_album_creation_complete);
+        txn.network_error.disconnect(on_album_creation_error);
 
         if (has_error() || cancelled)
             return;
@@ -241,8 +241,8 @@ public class Interactor : ServiceInteractor {
 
     // EVENT: triggered when the network transaction that creates a new album fails
     private void on_album_creation_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_album_creation_complete;
-        bad_txn.network_error -= on_album_creation_error;
+        bad_txn.completed.disconnect(on_album_creation_complete);
+        bad_txn.network_error.disconnect(on_album_creation_error);
 
         if (has_error() || cancelled)
             return;
@@ -253,8 +253,8 @@ public class Interactor : ServiceInteractor {
     // EVENT: triggered when the network transaction that fetches the user's account information
     //        fails
     private void on_initial_album_fetch_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_initial_album_fetch_complete;
-        bad_txn.network_error -= on_initial_album_fetch_error;
+        bad_txn.completed.disconnect(on_initial_album_fetch_complete);
+        bad_txn.network_error.disconnect(on_initial_album_fetch_error);
 
         if (has_error() || cancelled)
             return;
@@ -277,9 +277,9 @@ public class Interactor : ServiceInteractor {
     // EVENT: triggered when the batch uploader reports that all of the network transactions
     //        encapsulating uploads have completed successfully
     private void on_upload_complete(BatchUploader uploader) {
-        uploader.upload_complete -= on_upload_complete;
-        uploader.upload_error -= on_upload_error;
-        uploader.status_updated -= progress_pane.set_status;
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
+        uploader.status_updated.disconnect(progress_pane.set_status);
 
         if (has_error() || cancelled)
             return;
@@ -290,9 +290,9 @@ public class Interactor : ServiceInteractor {
     // EVENT: triggered when the batch uploader reports that at least one of the network
     //        transactions encapsulating uploads has caused a network error
     private void on_upload_error(BatchUploader uploader, PublishingError err) {
-        uploader.upload_complete -= on_upload_complete;
-        uploader.upload_error -= on_upload_error;
-        uploader.status_updated -= progress_pane.set_status;
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
+        uploader.status_updated.disconnect(progress_pane.set_status);
 
         if (has_error() || cancelled)
             return;
@@ -303,7 +303,7 @@ public class Interactor : ServiceInteractor {
     // ACTION: display the service welcome pane in the publishing dialog
     private void do_show_service_welcome_pane() {
         LoginWelcomePane service_welcome_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
-        service_welcome_pane.login_requested += on_service_welcome_login;
+        service_welcome_pane.login_requested.connect(on_service_welcome_login);
 
         get_host().unlock_service();
         get_host().set_cancel_button_mode();
@@ -316,8 +316,8 @@ public class Interactor : ServiceInteractor {
     //         messages to the user
     private void do_show_credentials_capture_pane(CredentialsCapturePane.Mode mode) {
         CredentialsCapturePane creds_pane = new CredentialsCapturePane(this, mode);
-        creds_pane.go_back += on_credentials_go_back;
-        creds_pane.login += on_credentials_login;
+        creds_pane.go_back.connect(on_credentials_go_back);
+        creds_pane.login.connect(on_credentials_login);
 
         get_host().unlock_service();
         get_host().set_cancel_button_mode();
@@ -334,8 +334,8 @@ public class Interactor : ServiceInteractor {
         get_host().set_cancel_button_mode();
 
         TokenFetchTransaction fetch_trans = new TokenFetchTransaction(session, username, password);
-        fetch_trans.network_error += on_token_fetch_error;
-        fetch_trans.completed += on_token_fetch_complete;
+        fetch_trans.network_error.connect(on_token_fetch_error);
+        fetch_trans.completed.connect(on_token_fetch_complete);
 
         fetch_trans.execute();
     }
@@ -352,16 +352,16 @@ public class Interactor : ServiceInteractor {
 
         AlbumDirectoryTransaction directory_trans =
             new AlbumDirectoryTransaction(session);
-        directory_trans.network_error += on_initial_album_fetch_error;
-        directory_trans.completed += on_initial_album_fetch_complete;
+        directory_trans.network_error.connect(on_initial_album_fetch_error);
+        directory_trans.completed.connect(on_initial_album_fetch_complete);
         directory_trans.execute();
     }
 
     // ACTION: display the publishing options pane in the publishing dialog
     private void do_show_publishing_options_pane() {
         PublishingOptionsPane opts_pane = new PublishingOptionsPane(this, albums);
-        opts_pane.publish += on_publishing_options_publish;
-        opts_pane.logout += on_publishing_options_logout;
+        opts_pane.publish.connect(on_publishing_options_publish);
+        opts_pane.logout.connect(on_publishing_options_logout);
         get_host().install_pane(opts_pane);
 
         get_host().unlock_service();
@@ -382,8 +382,8 @@ public class Interactor : ServiceInteractor {
 
         AlbumCreationTransaction creation_trans = new AlbumCreationTransaction(session,
             parameters);
-        creation_trans.network_error += on_album_creation_error;
-        creation_trans.completed += on_album_creation_complete;
+        creation_trans.network_error.connect(on_album_creation_error);
+        creation_trans.completed.connect(on_album_creation_complete);
         creation_trans.execute();
     }
 
@@ -399,9 +399,9 @@ public class Interactor : ServiceInteractor {
         TransformablePhoto[] photos = get_host().get_photos();
         uploader = new Uploader(session, parameters, photos);
 
-        uploader.upload_complete += on_upload_complete;
-        uploader.upload_error += on_upload_error;
-        uploader.status_updated += progress_pane.set_status;
+        uploader.upload_complete.connect(on_upload_complete);
+        uploader.upload_error.connect(on_upload_error);
+        uploader.status_updated.connect(progress_pane.set_status);
 
         uploader.upload();
     }
@@ -572,7 +572,7 @@ private class CredentialsCapturePane : PublishingDialogPane {
         Gtk.Label password_entry_label = new Gtk.Label.with_mnemonic(_("_Password:"));
         password_entry_label.set_alignment(0.0f, 0.5f);
         email_entry = new Gtk.Entry();
-        email_entry.changed += on_email_changed;
+        email_entry.changed.connect(on_email_changed);
         password_entry = new Gtk.Entry();
         password_entry.set_visibility(false);
         entry_widgets_table.attach(email_entry_label, 0, 1, 0, 1,
@@ -588,12 +588,12 @@ private class CredentialsCapturePane : PublishingDialogPane {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 6);
         go_back_button = new Gtk.Button.with_mnemonic(_("Go _Back"));
-        go_back_button.clicked += on_go_back_button_clicked;
+        go_back_button.clicked.connect(on_go_back_button_clicked);
         Gtk.Alignment go_back_button_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         go_back_button_aligner.add(go_back_button);
         go_back_button.set_size_request(UNIFORM_ACTION_BUTTON_WIDTH, -1);
         login_button = new Gtk.Button.with_mnemonic(_("_Login"));
-        login_button.clicked += on_login_button_clicked;
+        login_button.clicked.connect(on_login_button_clicked);
         login_button.set_sensitive(false);
         Gtk.Alignment login_button_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
         login_button_aligner.add(login_button);
@@ -709,7 +709,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
         use_existing_radio = new Gtk.RadioButton.with_mnemonic(null, _("An _existing album:"));
-        use_existing_radio.clicked += on_use_existing_radio_clicked;
+        use_existing_radio.clicked.connect(on_use_existing_radio_clicked);
         main_table.attach(use_existing_radio, 1, 2, 1, 2,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
@@ -723,13 +723,13 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
         create_new_radio = new Gtk.RadioButton.with_mnemonic(use_existing_radio.get_group(),
             _("A _new album named:"));
-        create_new_radio.clicked += on_create_new_radio_clicked;
+        create_new_radio.clicked.connect(on_create_new_radio_clicked);
         main_table.attach(create_new_radio, 1, 2, 2, 3,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
 
         new_album_entry = new Gtk.Entry();
-        new_album_entry.changed += on_new_album_entry_changed;
+        new_album_entry.changed.connect(on_new_album_entry_changed);
         main_table.attach(new_album_entry, 2, 3, 2, 3,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 4, 4);
@@ -777,7 +777,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         buttons_left_padding.set_size_request(ACTION_BUTTON_SPACING, -1);
         action_button_layouter.add(buttons_left_padding);
         Gtk.Button logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
-        logout_button.clicked += on_logout_clicked;
+        logout_button.clicked.connect(on_logout_clicked);
         logout_button.set_size_request(100, -1);
         Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         logout_button_aligner.add(logout_button);
@@ -787,7 +787,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         button_spacer.set_size_request(ACTION_BUTTON_SPACING, -1);
         action_button_layouter.add(button_spacer);
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
-        publish_button.clicked += on_publish_clicked;
+        publish_button.clicked.connect(on_publish_clicked);
         publish_button.set_size_request(100, -1);
         Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         publish_button_aligner.add(publish_button);

@@ -590,20 +590,20 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         clear_drag_select();
         
         // subscribe to the new collection
-        view.contents_altered += on_contents_altered;
-        view.items_altered += on_items_altered;
-        view.items_metadata_altered += on_items_metadata_altered;
-        view.items_state_changed += on_items_state_changed;
-        view.items_visibility_changed += on_items_visibility_changed;
-        view.ordering_changed += on_ordering_changed;
-        view.views_altered += on_views_altered;
-        view.geometries_altered += on_geometries_altered;
-        view.items_selected += on_items_selection_changed;
-        view.items_unselected += on_items_selection_changed;
+        view.contents_altered.connect(on_contents_altered);
+        view.items_altered.connect(on_items_altered);
+        view.items_metadata_altered.connect(on_items_metadata_altered);
+        view.items_state_changed.connect(on_items_state_changed);
+        view.items_visibility_changed.connect(on_items_visibility_changed);
+        view.ordering_changed.connect(on_ordering_changed);
+        view.views_altered.connect(on_views_altered);
+        view.geometries_altered.connect(on_geometries_altered);
+        view.items_selected.connect(on_items_selection_changed);
+        view.items_unselected.connect(on_items_selection_changed);
         
         modify_bg(Gtk.StateType.NORMAL, Config.get_instance().get_bg_color());
 
-        Config.get_instance().colors_changed += on_colors_changed;
+        Config.get_instance().colors_changed.connect(on_colors_changed);
 
         // CheckerboardItems offer tooltips
         has_tooltip = true;
@@ -614,27 +614,27 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         debug("DTOR: CheckerboardLayout for %s", view.to_string());
 #endif
 
-        view.contents_altered -= on_contents_altered;
-        view.items_altered -= on_items_altered;
-        view.items_metadata_altered -= on_items_metadata_altered;
-        view.items_state_changed -= on_items_state_changed;
-        view.items_visibility_changed -= on_items_visibility_changed;
-        view.ordering_changed -= on_ordering_changed;
-        view.views_altered -= on_views_altered;
-        view.geometries_altered -= on_geometries_altered;
-        view.items_selected -= on_items_selection_changed;
-        view.items_unselected -= on_items_selection_changed;
+        view.contents_altered.disconnect(on_contents_altered);
+        view.items_altered.disconnect(on_items_altered);
+        view.items_metadata_altered.disconnect(on_items_metadata_altered);
+        view.items_state_changed.disconnect(on_items_state_changed);
+        view.items_visibility_changed.disconnect(on_items_visibility_changed);
+        view.ordering_changed.disconnect(on_ordering_changed);
+        view.views_altered.disconnect(on_views_altered);
+        view.geometries_altered.disconnect(on_geometries_altered);
+        view.items_selected.disconnect(on_items_selection_changed);
+        view.items_unselected.disconnect(on_items_selection_changed);
         
         if (hadjustment != null)
-            hadjustment.value_changed -= on_viewport_shifted;
+            hadjustment.value_changed.disconnect(on_viewport_shifted);
         
         if (vadjustment != null)
-            vadjustment.value_changed -= on_viewport_shifted;
+            vadjustment.value_changed.disconnect(on_viewport_shifted);
         
         if (parent != null)
-            parent.size_allocate -= on_viewport_resized;
+            parent.size_allocate.disconnect(on_viewport_resized);
 
-        Config.get_instance().colors_changed -= on_colors_changed;
+        Config.get_instance().colors_changed.disconnect(on_colors_changed);
     }
     
     public void set_adjustments(Gtk.Adjustment hadjustment, Gtk.Adjustment vadjustment) {
@@ -642,11 +642,11 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         this.vadjustment = vadjustment;
         
         // monitor adjustment changes to report when the visible page shifts
-        hadjustment.value_changed += on_viewport_shifted;
-        vadjustment.value_changed += on_viewport_shifted;
+        hadjustment.value_changed.connect(on_viewport_shifted);
+        vadjustment.value_changed.connect(on_viewport_shifted);
         
         // monitor parent's size changes for a similar reason
-        parent.size_allocate += on_viewport_resized;
+        parent.size_allocate.connect(on_viewport_resized);
     }
     
     // This method allows for some optimizations to occur in reflow() by using the known max.

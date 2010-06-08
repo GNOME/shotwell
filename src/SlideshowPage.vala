@@ -70,13 +70,13 @@ class SlideshowPage : SinglePhotoPage {
             delay_entry.set_text("%.1f".printf(delay));
             delay_entry.set_width_chars(4);
             delay_entry.set_activates_default(true);
-            delay_entry.changed += check_text;
+            delay_entry.changed.connect(check_text);
 
             Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX + 1, 0.1, 1, 1);
             hscale = new Gtk.HScale(adjustment);
             hscale.set_draw_value(false);
             hscale.set_size_request(150,-1);
-            hscale.change_value += update_entry;
+            hscale.change_value.connect(update_entry);
 
             Gtk.HBox query = new Gtk.HBox(false, 0);
             query.pack_start(delay_label, false, false, 3);
@@ -108,28 +108,28 @@ class SlideshowPage : SinglePhotoPage {
         Gtk.ToolButton previous_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_BACK);
         previous_button.set_label(_("Back"));
         previous_button.set_tooltip_text(_("Go to the previous photo"));
-        previous_button.clicked += on_previous;
+        previous_button.clicked.connect(on_previous);
         
         toolbar.insert(previous_button, -1);
         
         play_pause_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PAUSE);
         play_pause_button.set_label(_("Pause"));
         play_pause_button.set_tooltip_text(_("Pause the slideshow"));
-        play_pause_button.clicked += on_play_pause;
+        play_pause_button.clicked.connect(on_play_pause);
         
         toolbar.insert(play_pause_button, -1);
         
         Gtk.ToolButton next_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_GO_FORWARD);
         next_button.set_label(_("Next"));
         next_button.set_tooltip_text(_("Go to the next photo"));
-        next_button.clicked += on_next;
+        next_button.clicked.connect(on_next);
         
         toolbar.insert(next_button, -1);
 
         settings_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_PREFERENCES);
         settings_button.set_label(_("Settings"));
         settings_button.set_tooltip_text(_("Change slideshow settings"));
-        settings_button.clicked += on_change_settings;
+        settings_button.clicked.connect(on_change_settings);
         settings_button.is_important = true;
         
         toolbar.insert(settings_button, -1);

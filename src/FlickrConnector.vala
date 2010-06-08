@@ -72,8 +72,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_frob_fetch_txn_completed(RESTTransaction txn) {
-        txn.completed -= on_frob_fetch_txn_completed;
-        txn.network_error -= on_frob_fetch_txn_error;
+        txn.completed.disconnect(on_frob_fetch_txn_completed);
+        txn.network_error.disconnect(on_frob_fetch_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -83,8 +83,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_frob_fetch_txn_error(RESTTransaction txn, PublishingError err) {
-        txn.completed -= on_frob_fetch_txn_completed;
-        txn.network_error -= on_frob_fetch_txn_error;
+        txn.completed.disconnect(on_frob_fetch_txn_completed);
+        txn.network_error.disconnect(on_frob_fetch_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -117,8 +117,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_token_check_txn_completed(RESTTransaction txn) {
-        txn.completed -= on_token_check_txn_completed;
-        txn.network_error -= on_token_check_txn_error;
+        txn.completed.disconnect(on_token_check_txn_completed);
+        txn.network_error.disconnect(on_token_check_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -133,8 +133,8 @@ public class Interactor : ServiceInteractor {
     // to the server but the response didn't contain an authentication token
 
     private void on_token_check_txn_error(RESTTransaction txn, PublishingError err) {
-        txn.completed -= on_token_check_txn_completed;
-        txn.network_error -= on_token_check_txn_error;
+        txn.completed.disconnect(on_token_check_txn_completed);
+        txn.network_error.disconnect(on_token_check_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -170,8 +170,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_account_fetch_txn_completed(RESTTransaction txn) {
-        txn.completed -= on_account_fetch_txn_completed;
-        txn.network_error -= on_account_fetch_txn_error;
+        txn.completed.disconnect(on_account_fetch_txn_completed);
+        txn.network_error.disconnect(on_account_fetch_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -181,8 +181,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_account_fetch_txn_error(RESTTransaction txn, PublishingError err) {
-        txn.completed -= on_account_fetch_txn_completed;
-        txn.network_error -= on_account_fetch_txn_error;
+        txn.completed.disconnect(on_account_fetch_txn_completed);
+        txn.network_error.disconnect(on_account_fetch_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -217,9 +217,9 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_upload_complete(BatchUploader uploader) {
-        uploader.status_updated -= progress_pane.set_status;
-        uploader.upload_complete -= on_upload_complete;
-        uploader.upload_error -= on_upload_error;
+        uploader.status_updated.disconnect(progress_pane.set_status);
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
 
         if (has_error() || cancelled)
             return;
@@ -229,9 +229,9 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_upload_error(BatchUploader uploader, PublishingError err) {
-        uploader.status_updated -= progress_pane.set_status;
-        uploader.upload_complete -= on_upload_complete;
-        uploader.upload_error -= on_upload_error;
+        uploader.status_updated.disconnect(progress_pane.set_status);
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
 
         if (has_error() || cancelled)
             return;
@@ -246,7 +246,7 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
         get_host().set_cancel_button_mode();
         LoginWelcomePane login_welcome_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
-        login_welcome_pane.login_requested += on_login_welcome_pane_login;
+        login_welcome_pane.login_requested.connect(on_login_welcome_pane_login);
         get_host().install_pane(login_welcome_pane);
     }
 
@@ -258,8 +258,8 @@ public class Interactor : ServiceInteractor {
         get_host().install_pane(new StaticMessagePane(_("Preparing to login...")));
 
         FrobFetchTransaction frob_fetch_txn = new FrobFetchTransaction(session);
-        frob_fetch_txn.completed += on_frob_fetch_txn_completed;
-        frob_fetch_txn.network_error += on_frob_fetch_txn_error;
+        frob_fetch_txn.completed.connect(on_frob_fetch_txn_completed);
+        frob_fetch_txn.network_error.connect(on_frob_fetch_txn_error);
 
         frob_fetch_txn.execute();
     }
@@ -312,7 +312,7 @@ public class Interactor : ServiceInteractor {
         get_host().set_large_window_mode();
        
         web_auth_pane = new WebAuthenticationPane(login_url);
-        web_auth_pane.token_check_required += on_web_auth_pane_token_check_required;
+        web_auth_pane.token_check_required.connect(on_web_auth_pane_token_check_required);
         get_host().install_pane(web_auth_pane);
     }
 
@@ -323,8 +323,8 @@ public class Interactor : ServiceInteractor {
         debug("Flickr.Interactor: do_token_check( ): ACTION: building and executing network transaction to check if authentication token is available");
         
         TokenCheckTransaction token_check_txn = new TokenCheckTransaction(session, frob);
-        token_check_txn.completed += on_token_check_txn_completed;
-        token_check_txn.network_error += on_token_check_txn_error;
+        token_check_txn.completed.connect(on_token_check_txn_completed);
+        token_check_txn.network_error.connect(on_token_check_txn_error);
         
         token_check_txn.execute();
     }
@@ -404,8 +404,8 @@ public class Interactor : ServiceInteractor {
         get_host().install_pane(new AccountFetchWaitPane());
 
         AccountInfoFetchTransaction txn = new AccountInfoFetchTransaction(session);
-        txn.completed += on_account_fetch_txn_completed;
-        txn.network_error += on_account_fetch_txn_error;
+        txn.completed.connect(on_account_fetch_txn_completed);
+        txn.network_error.connect(on_account_fetch_txn_error);
 
         txn.execute();
     }
@@ -451,8 +451,8 @@ public class Interactor : ServiceInteractor {
         get_host().set_cancel_button_mode();
 
         PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(parameters);
-        publishing_options_pane.publish += on_publishing_options_pane_publish;
-        publishing_options_pane.logout += on_publishing_options_pane_logout;
+        publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
+        publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         get_host().install_pane(publishing_options_pane);
     }
 
@@ -467,9 +467,9 @@ public class Interactor : ServiceInteractor {
 
         TransformablePhoto[] photos = get_host().get_photos();
         Uploader uploader = new Uploader(session, parameters, photos);
-        uploader.status_updated += progress_pane.set_status;
-        uploader.upload_complete += on_upload_complete;
-        uploader.upload_error += on_upload_error;
+        uploader.status_updated.connect(progress_pane.set_status);
+        uploader.upload_complete.connect(on_upload_complete);
+        uploader.upload_error.connect(on_upload_error);
 
         uploader.upload();
     }
@@ -738,8 +738,8 @@ private class WebAuthenticationPane : PublishingDialogPane {
         webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         webview = new WebKit.WebView();
-        webview.load_finished += on_load_finished;
-        webview.load_started += on_load_started;
+        webview.load_finished.connect(on_load_finished);
+        webview.load_started.connect(on_load_started);
 
         webview_frame.add(webview);
         white_pane.add(webview_frame);
@@ -850,13 +850,13 @@ private class PublishingOptionsPane : PublishingDialogPane {
         Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size:"));
         Gtk.Alignment visibility_combo_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         visibility_combo = create_visibility_combo();
-        visibility_combo.changed += on_visibility_changed;
+        visibility_combo.changed.connect(on_visibility_changed);
         visibility_label.set_mnemonic_widget(visibility_combo);
         visibility_combo_aligner.add(visibility_combo);
         Gtk.Alignment size_combo_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         size_combo = create_size_combo();
         size_label.set_mnemonic_widget(size_combo);
-        size_combo.changed += on_size_changed;
+        size_combo.changed.connect(on_size_changed);
         size_combo_aligner.add(size_combo);
         Gtk.Alignment vis_label_aligner = new Gtk.Alignment(0.0f, 0.5f, 0, 0);
         vis_label_aligner.add(visibility_label);
@@ -878,12 +878,12 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
         Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
-        logout_button.clicked += on_logout_clicked;
+        logout_button.clicked.connect(on_logout_clicked);
         logout_button_aligner.add(logout_button);
         Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button_aligner.add(publish_button);
-        publish_button.clicked += on_publish_clicked;
+        publish_button.clicked.connect(on_publish_clicked);
         Gtk.HBox button_layouter = new Gtk.HBox(false, 8);
         Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
         buttons_left_padding.set_draw(false);

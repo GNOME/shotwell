@@ -18,7 +18,7 @@ public abstract class PageCommand : Command {
         page = AppWindow.get_instance().get_current_page();
         
         if (page != null) {
-            page.destroy += on_page_destroyed;
+            page.destroy.connect(on_page_destroyed);
             
             // If the command occurred on a LibaryPhotoPage, the PageCommand must record additional
             // objects to be restore it to its old state: a specific photo to focus on, a page to return 
@@ -30,8 +30,8 @@ public abstract class PageCommand : Command {
                 collection_page = photo_page.get_controller_page();
                 
                 if (library_photo != null && collection_page != null) {
-                    library_photo.destroyed += on_photo_destroyed;
-                    collection_page.destroy += on_controller_destroyed;
+                    library_photo.destroyed.connect(on_photo_destroyed);
+                    collection_page.destroy.connect(on_controller_destroyed);
                 } else {
                     library_photo = null;
                     collection_page = null;
@@ -42,13 +42,13 @@ public abstract class PageCommand : Command {
     
     ~PageCommand() {
         if (page != null)
-            page.destroy -= on_page_destroyed;
+            page.destroy.disconnect(on_page_destroyed);
         
         if (library_photo != null)
-            library_photo.destroyed -= on_photo_destroyed;
+            library_photo.destroyed.disconnect(on_photo_destroyed);
 
         if (collection_page != null)
-            collection_page.destroy -= on_controller_destroyed;
+            collection_page.destroy.disconnect(on_controller_destroyed);
     }
     
     public void set_auto_return_to_page(bool auto_return) {
@@ -73,17 +73,17 @@ public abstract class PageCommand : Command {
     }
     
     private void on_page_destroyed() {
-        page.destroy -= on_page_destroyed;
+        page.destroy.disconnect(on_page_destroyed);
         page = null;
     }
     
     private void on_photo_destroyed() {
-        library_photo.destroyed -= on_photo_destroyed;
+        library_photo.destroyed.disconnect(on_photo_destroyed);
         library_photo = null;
     }
 
     private void on_controller_destroyed() {
-        collection_page.destroy -= on_controller_destroyed;
+        collection_page.destroy.disconnect(on_controller_destroyed);
         collection_page = null;
     }
 
@@ -97,11 +97,11 @@ public abstract class SingleDataSourceCommand : PageCommand {
         
         this.source = source;
         
-        source.destroyed += on_source_destroyed;
+        source.destroyed.connect(on_source_destroyed);
     }
     
     ~SingleDataSourceCommand() {
-        source.destroyed -= on_source_destroyed;
+        source.destroyed.disconnect(on_source_destroyed);
     }
     
     public DataSource get_source() {
@@ -122,11 +122,11 @@ public abstract class SimpleProxyableCommand : PageCommand {
         base (name, explanation);
         
         proxy = proxyable.get_proxy();
-        proxy.broken += on_proxy_broken;
+        proxy.broken.connect(on_proxy_broken);
     }
     
     ~SimpleProxyableCommand() {
-        proxy.broken -= on_proxy_broken;
+        proxy.broken.disconnect(on_proxy_broken);
     }
     
     public override void execute() {
@@ -153,11 +153,11 @@ public abstract class SinglePhotoTransformationCommand : SingleDataSourceCommand
         base(photo, name, explanation);
         
         state = photo.save_transformation_state();
-        state.broken += on_state_broken;
+        state.broken.connect(on_state_broken);
     }
     
     ~SinglePhotoTransformationCommand() {
-        state.broken -= on_state_broken;
+        state.broken.disconnect(on_state_broken);
     }
     
     public override void undo() {
@@ -179,22 +179,22 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
     
     ~GenericPhotoTransformationState() {
         if (original_state != null)
-            original_state.broken -= on_state_broken;
+            original_state.broken.disconnect(on_state_broken);
         
         if (transformed_state != null)
-            transformed_state.broken -= on_state_broken;
+            transformed_state.broken.disconnect(on_state_broken);
     }
     
     public override void execute() {
         TransformablePhoto photo = (TransformablePhoto) source;
         
         original_state = photo.save_transformation_state();
-        original_state.broken += on_state_broken;
+        original_state.broken.connect(on_state_broken);
         
         execute_on_photo(photo);
         
         transformed_state = photo.save_transformation_state();
-        transformed_state.broken += on_state_broken;
+        transformed_state.broken.connect(on_state_broken);
     }
     
     public abstract void execute_on_photo(TransformablePhoto photo);
@@ -269,12 +269,12 @@ public abstract class MultipleDataSourceCommand : PageCommand {
         }
         
         if (collection != null)
-            collection.item_destroyed += on_source_destroyed;
+            collection.item_destroyed.connect(on_source_destroyed);
     }
     
     ~MultipleDataSourceCommand() {
         if (collection != null)
-            collection.item_destroyed -= on_source_destroyed;
+            collection.item_destroyed.disconnect(on_source_destroyed);
     }
     
     public Gee.Iterable<DataSource> get_sources() {
@@ -360,7 +360,7 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
         foreach (DataSource source in source_list) {
             TransformablePhoto photo = (TransformablePhoto) source;
             PhotoTransformationState state = photo.save_transformation_state();
-            state.broken += on_state_broken;
+            state.broken.connect(on_state_broken);
             
             map.set(photo, state);
         }
@@ -368,7 +368,7 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
     
     ~MultiplePhotoTransformationCommand() {
         foreach (PhotoTransformationState state in map.values)
-            state.broken -= on_state_broken;
+            state.broken.disconnect(on_state_broken);
     }
     
     public override void undo_on_source(DataSource source) {
@@ -632,22 +632,22 @@ public abstract class MovePhotosCommand : Command {
                 
                 // if any of the proxies break, the show's off
                 if (old_event_proxy != null)
-                    old_event_proxy.broken += on_proxy_broken;
+                    old_event_proxy.broken.connect(on_proxy_broken);
                 
                 old_photo_events.set(photo, old_event_proxy);
             }
             
             // stash the proxy of the new event
             new_event_proxy = new_event.get_proxy();
-            new_event_proxy.broken += on_proxy_broken;
+            new_event_proxy.broken.connect(on_proxy_broken);
         }
         
         ~RealMovePhotosCommand() {
-            new_event_proxy.broken -= on_proxy_broken;
+            new_event_proxy.broken.disconnect(on_proxy_broken);
             
             foreach (SourceProxy? proxy in old_photo_events.values) {
                 if (proxy != null)
-                    proxy.broken -= on_proxy_broken;
+                    proxy.broken.disconnect(on_proxy_broken);
             }
         }
         
@@ -771,11 +771,11 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
         base (iter, _("Duplicating photos"), _("Removing duplicated photos"), 
             Resources.DUPLICATE_PHOTO_LABEL, Resources.DUPLICATE_PHOTO_TOOLTIP);
         
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~DuplicateMultiplePhotosCommand() {
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     private void on_photo_destroyed(DataSource source) {
@@ -811,7 +811,7 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
     
     public override void undo() {
         // disconnect from monitoring the duplicates' destruction, as undo() does exactly that
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         
         base.undo();
         
@@ -820,7 +820,7 @@ public class DuplicateMultiplePhotosCommand : MultipleDataSourceCommand {
         failed = 0;
         
         // re-monitor for duplicates' destruction
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     public override void undo_on_source(DataSource source) {
@@ -1064,19 +1064,19 @@ public class AddTagsCommand : PageCommand {
             }
             
             if (add_photos.size > 0) {
-                tag_proxy.broken += on_proxy_broken;
+                tag_proxy.broken.connect(on_proxy_broken);
                 map.set(tag_proxy, add_photos);
             }
         }
         
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~AddTagsCommand() {
         foreach (SourceProxy tag_proxy in map.keys)
-            tag_proxy.broken -= on_proxy_broken;
+            tag_proxy.broken.disconnect(on_proxy_broken);
         
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     public override void execute() {
@@ -1162,7 +1162,7 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
 		            SourceProxy proxy = tag.get_proxy();
 		            
 		            to_remove.add(proxy);
-		            proxy.broken += on_proxy_broken;
+		            proxy.broken.connect(on_proxy_broken);
 		        }
 		    }
         }
@@ -1173,17 +1173,17 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
                 SourceProxy proxy = tag.get_proxy();
                 
                 to_add.add(proxy);
-                proxy.broken += on_proxy_broken;
+                proxy.broken.connect(on_proxy_broken);
             }
         }
     }
     
     ~ModifyTagsCommand() {
         foreach (SourceProxy proxy in to_add)
-            proxy.broken -= on_proxy_broken;
+            proxy.broken.disconnect(on_proxy_broken);
         
         foreach (SourceProxy proxy in to_remove)
-            proxy.broken -= on_proxy_broken;
+            proxy.broken.disconnect(on_proxy_broken);
     }
     
     public override void execute() {
@@ -1221,11 +1221,11 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
         this.photos = photos;
         this.attach = attach;
         
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~TagPhotosCommand() {
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     public override void execute_on_source(DataSource source) {
@@ -1260,11 +1260,11 @@ public class TrashUntrashPhotosCommand : PageCommand {
         this.photos = photos;
         this.to_trash = to_trash;
         
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~TrashUntrashPhotosCommand() {
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     private ProgressDialog? get_progress_dialog(bool to_trash) {

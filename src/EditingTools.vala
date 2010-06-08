@@ -333,7 +333,7 @@ public abstract class EditingTool {
         
         tool_window = get_tool_window();
         if (tool_window != null)
-            tool_window.key_press_event += on_keypress;
+            tool_window.key_press_event.connect(on_keypress);
 
         activated();
     }
@@ -347,7 +347,7 @@ public abstract class EditingTool {
         canvas = null;
         
         if (tool_window != null) {
-            tool_window.key_press_event -= on_keypress;
+            tool_window.key_press_event.disconnect(on_keypress);
             tool_window = null;
         }
         
@@ -960,38 +960,38 @@ public class CropTool : EditingTool {
     }
     
     private void bind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable += prepare_gc;
-        canvas.resized_scaled_pixbuf += on_resized_pixbuf;
+        canvas.new_drawable.connect(prepare_gc);
+        canvas.resized_scaled_pixbuf.connect(on_resized_pixbuf);
     }
     
     private void unbind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable -= prepare_gc;
-        canvas.resized_scaled_pixbuf -= on_resized_pixbuf;
+        canvas.new_drawable.disconnect(prepare_gc);
+        canvas.resized_scaled_pixbuf.disconnect(on_resized_pixbuf);
     }
     
     private void bind_window_handlers() {
-        crop_tool_window.ok_button.clicked += on_crop_ok;
-        crop_tool_window.cancel_button.clicked += notify_cancel;
-        crop_tool_window.constraint_combo.changed += constraint_changed;
-        crop_tool_window.pivot_reticle_button.clicked += on_pivot_button_clicked;
+        crop_tool_window.ok_button.clicked.connect(on_crop_ok);
+        crop_tool_window.cancel_button.clicked.connect(notify_cancel);
+        crop_tool_window.constraint_combo.changed.connect(constraint_changed);
+        crop_tool_window.pivot_reticle_button.clicked.connect(on_pivot_button_clicked);
         
         // set up the custom width and height entry boxes
-        crop_tool_window.custom_width_entry.focus_out_event += on_width_entry_focus_out;
-        crop_tool_window.custom_height_entry.focus_out_event += on_height_entry_focus_out;
-        crop_tool_window.custom_width_entry.insert_text += on_width_insert_text;
-        crop_tool_window.custom_height_entry.insert_text += on_height_insert_text;
+        crop_tool_window.custom_width_entry.focus_out_event.connect(on_width_entry_focus_out);
+        crop_tool_window.custom_height_entry.focus_out_event.connect(on_height_entry_focus_out);
+        crop_tool_window.custom_width_entry.insert_text.connect(on_width_insert_text);
+        crop_tool_window.custom_height_entry.insert_text.connect(on_height_insert_text);
     }
     
     private void unbind_window_handlers() {
-        crop_tool_window.ok_button.clicked -= on_crop_ok;
-        crop_tool_window.cancel_button.clicked -= notify_cancel;
-        crop_tool_window.constraint_combo.changed -= constraint_changed;
-        crop_tool_window.pivot_reticle_button.clicked -= on_pivot_button_clicked;
+        crop_tool_window.ok_button.clicked.disconnect(on_crop_ok);
+        crop_tool_window.cancel_button.clicked.disconnect(notify_cancel);
+        crop_tool_window.constraint_combo.changed.disconnect(constraint_changed);
+        crop_tool_window.pivot_reticle_button.clicked.disconnect(on_pivot_button_clicked);
         
         // set up the custom width and height entry boxes
-        crop_tool_window.custom_width_entry.focus_out_event -= on_width_entry_focus_out;
-        crop_tool_window.custom_height_entry.focus_out_event -= on_height_entry_focus_out;
-        crop_tool_window.custom_width_entry.insert_text -= on_width_insert_text;
+        crop_tool_window.custom_width_entry.focus_out_event.disconnect(on_width_entry_focus_out);
+        crop_tool_window.custom_height_entry.focus_out_event.disconnect(on_height_entry_focus_out);
+        crop_tool_window.custom_width_entry.insert_text.disconnect(on_width_insert_text);
     }
     
     private void on_pivot_button_clicked() {
@@ -1860,14 +1860,14 @@ public class RedeyeTool : EditingTool {
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.LEFT_PTR);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
         
-        canvas.get_photo().altered += on_photo_altered;
+        canvas.get_photo().altered.connect(on_photo_altered);
         
         base.activate(canvas);
     }
     
     public override void deactivate() {
         if (canvas != null) {
-            canvas.get_photo().altered -= on_photo_altered;
+            canvas.get_photo().altered.disconnect(on_photo_altered);
             unbind_canvas_handlers(canvas);
         }
         
@@ -1882,25 +1882,25 @@ public class RedeyeTool : EditingTool {
     }
     
     private void bind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable += prepare_gc;
-        canvas.resized_scaled_pixbuf += on_canvas_resize;
+        canvas.new_drawable.connect(prepare_gc);
+        canvas.resized_scaled_pixbuf.connect(on_canvas_resize);
     }
     
     private void unbind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.new_drawable -= prepare_gc;
-        canvas.resized_scaled_pixbuf -= on_canvas_resize;
+        canvas.new_drawable.disconnect(prepare_gc);
+        canvas.resized_scaled_pixbuf.disconnect(on_canvas_resize);
     }
     
     private void bind_window_handlers() {
-        redeye_tool_window.apply_button.clicked += on_apply;
-        redeye_tool_window.close_button.clicked += on_close;
-        redeye_tool_window.slider.change_value += on_size_slider_adjust;
+        redeye_tool_window.apply_button.clicked.connect(on_apply);
+        redeye_tool_window.close_button.clicked.connect(on_close);
+        redeye_tool_window.slider.change_value.connect(on_size_slider_adjust);
     }
     
     private void unbind_window_handlers() {
-        redeye_tool_window.apply_button.clicked -= on_apply;
-        redeye_tool_window.close_button.clicked -= on_close;
-        redeye_tool_window.slider.change_value -= on_size_slider_adjust;
+        redeye_tool_window.apply_button.clicked.disconnect(on_apply);
+        redeye_tool_window.close_button.clicked.disconnect(on_close);
+        redeye_tool_window.slider.change_value.disconnect(on_size_slider_adjust);
     }
 
     public override EditingToolWindow? get_tool_window() {
@@ -2077,12 +2077,12 @@ public class AdjustTool : EditingTool {
             base (name, explanation);
             
             this.owner = owner;
-            owner.deactivated += on_owner_deactivated;
+            owner.deactivated.connect(on_owner_deactivated);
         }
         
         ~AdjustToolCommand() {
             if (owner != null)
-                owner.deactivated -= on_owner_deactivated;
+                owner.deactivated.disconnect(on_owner_deactivated);
         }
         
         private void on_owner_deactivated() {
@@ -2313,7 +2313,7 @@ public class AdjustTool : EditingTool {
             draw_to_pixbuf.height / 2, Gdk.InterpType.HYPER);
         virgin_histogram_pixbuf = histogram_pixbuf.copy();
         
-        canvas.get_photo().altered += on_photo_altered;
+        canvas.get_photo().altered.connect(on_photo_altered);
 
         base.activate(canvas);
     }
@@ -2324,7 +2324,7 @@ public class AdjustTool : EditingTool {
 
     public override void deactivate() {
         if (canvas != null) {
-            canvas.get_photo().altered -= on_photo_altered;
+            canvas.get_photo().altered.disconnect(on_photo_altered);
             unbind_canvas_handlers(canvas);
         }
         
@@ -2446,66 +2446,62 @@ public class AdjustTool : EditingTool {
         init_fp_pixel_cache(canvas.get_scaled_pixbuf());
     }
     
-    private bool on_hscale_reset(Gtk.HScale source, Gdk.EventButton event) { 
-        if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS 
-            && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) { 
+    private bool on_hscale_reset(Gtk.Widget widget, Gdk.EventButton event) {
+        Gtk.HScale source = (Gtk.HScale) widget;
+        
+        if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS
+            && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) {
             // Left Mouse Button and CTRL pressed
-            source.set_value(0); 
-            return true; 
-        } 
-        return false; 
+            source.set_value(0);
+            
+            return true;
+        }
+        
+        return false;
     }
     
     private void bind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.resized_scaled_pixbuf += on_canvas_resize;
+        canvas.resized_scaled_pixbuf.connect(on_canvas_resize);
     }
     
     private void unbind_canvas_handlers(PhotoCanvas canvas) {
-        canvas.resized_scaled_pixbuf -= on_canvas_resize;
+        canvas.resized_scaled_pixbuf.disconnect(on_canvas_resize);
     }
     
     private void bind_window_handlers() {
-        adjust_tool_window.ok_button.clicked += on_ok;
-        adjust_tool_window.reset_button.clicked += on_reset;
-        adjust_tool_window.cancel_button.clicked += notify_cancel;
-        adjust_tool_window.exposure_slider.value_changed += on_exposure_adjustment;
-        adjust_tool_window.saturation_slider.value_changed +=
-            on_saturation_adjustment;
-        adjust_tool_window.tint_slider.value_changed += on_tint_adjustment;
-        adjust_tool_window.temperature_slider.value_changed +=
-            on_temperature_adjustment;
-        adjust_tool_window.shadows_slider.value_changed +=
-            on_shadows_adjustment;
-        adjust_tool_window.histogram_manipulator.nub_position_changed +=
-            on_histogram_constraint;
+        adjust_tool_window.ok_button.clicked.connect(on_ok);
+        adjust_tool_window.reset_button.clicked.connect(on_reset);
+        adjust_tool_window.cancel_button.clicked.connect(notify_cancel);
+        adjust_tool_window.exposure_slider.value_changed.connect(on_exposure_adjustment);
+        adjust_tool_window.saturation_slider.value_changed.connect(on_saturation_adjustment);
+        adjust_tool_window.tint_slider.value_changed.connect(on_tint_adjustment);
+        adjust_tool_window.temperature_slider.value_changed.connect(on_temperature_adjustment);
+        adjust_tool_window.shadows_slider.value_changed.connect(on_shadows_adjustment);
+        adjust_tool_window.histogram_manipulator.nub_position_changed.connect(on_histogram_constraint);
     
-        adjust_tool_window.saturation_slider.button_press_event += on_hscale_reset; 
-        adjust_tool_window.exposure_slider.button_press_event += on_hscale_reset; 
-        adjust_tool_window.tint_slider.button_press_event += on_hscale_reset; 
-        adjust_tool_window.temperature_slider.button_press_event += on_hscale_reset;
-        adjust_tool_window.shadows_slider.button_press_event += on_hscale_reset; 
+        adjust_tool_window.saturation_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.exposure_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.tint_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.temperature_slider.button_press_event.connect(on_hscale_reset);
+        adjust_tool_window.shadows_slider.button_press_event.connect(on_hscale_reset);
     }
 
     private void unbind_window_handlers() {
-        adjust_tool_window.ok_button.clicked -= on_ok;
-        adjust_tool_window.reset_button.clicked -= on_reset;
-        adjust_tool_window.cancel_button.clicked -= notify_cancel;
-        adjust_tool_window.exposure_slider.value_changed -= on_exposure_adjustment;
-        adjust_tool_window.saturation_slider.value_changed -=
-            on_saturation_adjustment;
-        adjust_tool_window.tint_slider.value_changed -= on_tint_adjustment;
-        adjust_tool_window.temperature_slider.value_changed -=
-            on_temperature_adjustment;
-        adjust_tool_window.shadows_slider.value_changed -=
-            on_shadows_adjustment;
-        adjust_tool_window.histogram_manipulator.nub_position_changed -=
-            on_histogram_constraint;
+        adjust_tool_window.ok_button.clicked.disconnect(on_ok);
+        adjust_tool_window.reset_button.clicked.disconnect(on_reset);
+        adjust_tool_window.cancel_button.clicked.disconnect(notify_cancel);
+        adjust_tool_window.exposure_slider.value_changed.disconnect(on_exposure_adjustment);
+        adjust_tool_window.saturation_slider.value_changed.disconnect(on_saturation_adjustment);
+        adjust_tool_window.tint_slider.value_changed.disconnect(on_tint_adjustment);
+        adjust_tool_window.temperature_slider.value_changed.disconnect(on_temperature_adjustment);
+        adjust_tool_window.shadows_slider.value_changed.disconnect(on_shadows_adjustment);
+        adjust_tool_window.histogram_manipulator.nub_position_changed.disconnect(on_histogram_constraint);
             
-        adjust_tool_window.saturation_slider.button_press_event -= on_hscale_reset; 
-        adjust_tool_window.exposure_slider.button_press_event -= on_hscale_reset; 
-        adjust_tool_window.tint_slider.button_press_event -= on_hscale_reset; 
-        adjust_tool_window.temperature_slider.button_press_event -= on_hscale_reset;
-        adjust_tool_window.shadows_slider.button_press_event -= on_hscale_reset; 
+        adjust_tool_window.saturation_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.exposure_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.tint_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.temperature_slider.button_press_event.disconnect(on_hscale_reset);
+        adjust_tool_window.shadows_slider.button_press_event.disconnect(on_hscale_reset);
     }
     
     public bool enhance() {

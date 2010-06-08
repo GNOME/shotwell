@@ -400,7 +400,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         this.sources = sources;
         
         // when photo is altered need to update it here
-        sources.item_altered += on_photo_altered;
+        sources.item_altered.connect(on_photo_altered);
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         Gtk.Toolbar toolbar = get_toolbar();
@@ -409,7 +409,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.clicked += on_rotate_clockwise;
+        rotate_button.clicked.connect(on_rotate_clockwise);
         rotate_button.is_important = true;
         toolbar.insert(rotate_button, -1);
         
@@ -417,7 +417,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         crop_button = new Gtk.ToggleToolButton.from_stock(Resources.CROP);
         crop_button.set_label(Resources.CROP_LABEL);
         crop_button.set_tooltip_text(Resources.CROP_TOOLTIP);
-        crop_button.toggled += on_crop_toggled;
+        crop_button.toggled.connect(on_crop_toggled);
         crop_button.is_important = true;
         toolbar.insert(crop_button, -1);
 
@@ -425,7 +425,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         redeye_button = new Gtk.ToggleToolButton.from_stock(Resources.REDEYE);
         redeye_button.set_label(Resources.RED_EYE_LABEL);
         redeye_button.set_tooltip_text(Resources.RED_EYE_TOOLTIP);
-        redeye_button.toggled += on_redeye_toggled;
+        redeye_button.toggled.connect(on_redeye_toggled);
         redeye_button.is_important = true;
         toolbar.insert(redeye_button, -1);
         
@@ -433,7 +433,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         adjust_button = new Gtk.ToggleToolButton.from_stock(Resources.ADJUST);
         adjust_button.set_label(Resources.ADJUST_LABEL);
         adjust_button.set_tooltip_text(Resources.ADJUST_TOOLTIP);
-        adjust_button.toggled += on_adjust_toggled;
+        adjust_button.toggled.connect(on_adjust_toggled);
         adjust_button.is_important = true;
         toolbar.insert(adjust_button, -1);
 
@@ -441,7 +441,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
         enhance_button.set_label(Resources.ENHANCE_LABEL);
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
-        enhance_button.clicked += on_enhance;
+        enhance_button.clicked.connect(on_enhance);
         enhance_button.is_important = true;
         toolbar.insert(enhance_button, -1);
 
@@ -458,24 +458,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider_wrapper.add(zoom_slider);
         toolbar.insert(zoom_slider_wrapper, -1);
         zoom_slider.set_size_request(120, -1);
-        zoom_slider.value_changed += on_zoom_slider_value_changed;
-        zoom_slider.button_press_event += on_zoom_slider_drag_begin;
-        zoom_slider.button_release_event += on_zoom_slider_drag_end;
-        zoom_slider.key_press_event += on_zoom_slider_key_press;
+        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+        zoom_slider.button_press_event.connect(on_zoom_slider_drag_begin);
+        zoom_slider.button_release_event.connect(on_zoom_slider_drag_end);
+        zoom_slider.key_press_event.connect(on_zoom_slider_key_press);
         
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
-        prev_button.clicked += on_previous_photo;
+        prev_button.clicked.connect(on_previous_photo);
         toolbar.insert(prev_button, -1);
         
         // next button
         next_button.set_tooltip_text(_("Next photo"));
-        next_button.clicked += on_next_photo;
+        next_button.clicked.connect(on_next_photo);
         toolbar.insert(next_button, -1);
     }
     
     ~EditingHostPage() {
-        sources.item_altered -= on_photo_altered;
+        sources.item_altered.disconnect(on_photo_altered);
     }
 
     private void on_zoom_slider_value_changed() {
@@ -586,9 +586,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override void restore_zoom_state() {
         base.restore_zoom_state();
 
-        zoom_slider.value_changed -= on_zoom_slider_value_changed;
+        zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(saved_slider_val);
-        zoom_slider.value_changed += on_zoom_slider_value_changed;
+        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
     }
 
     public override bool is_zoom_supported() {
@@ -625,9 +625,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void set_photo(TransformablePhoto photo) {
-        zoom_slider.value_changed -= on_zoom_slider_value_changed;
+        zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(0.0);
-        zoom_slider.value_changed += on_zoom_slider_value_changed;
+        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
 
         // clear out the collection and use this as its sole member, selecting it so it's seen
         // as the item to be operated upon by various observers (including drag-and-drop)
@@ -674,7 +674,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         is_pan_in_progress = false;
         
         if (controller != null)
-            controller.items_selected += on_selection_changed;
+            controller.items_selected.connect(on_selection_changed);
     }
     
     public override void returning_from_fullscreen() {
@@ -683,7 +683,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         repaint();
         
         if (controller != null)
-            controller.items_selected -= on_selection_changed;
+            controller.items_selected.disconnect(on_selection_changed);
     }
     
     private void on_selection_changed(Gee.Iterable<DataView> selected) {
@@ -705,12 +705,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // if dropping an old cache, clear the signal handler so currently executing requests
         // don't complete and cancel anything queued up
         if (cache != null) {
-            cache.fetched -= on_pixbuf_fetched;
+            cache.fetched.disconnect(on_pixbuf_fetched);
             cache.cancel_all();
         }
         
         cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, PIXBUF_CACHE_COUNT);
-        cache.fetched += on_pixbuf_fetched;
+        cache.fetched.connect(on_pixbuf_fetched);
         
         original_cache = new PixbufCache(sources, PixbufCache.PhotoType.ORIGINAL, scaling, 
             ORIGINAL_PIXBUF_CACHE_COUNT);
@@ -926,9 +926,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     protected override void cancel_zoom() {
         base.cancel_zoom();
 
-        zoom_slider.value_changed -= on_zoom_slider_value_changed;
+        zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(0.0);
-        zoom_slider.value_changed += on_zoom_slider_value_changed;
+        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
 
         set_zoom_state(ZoomState(get_photo().get_dimensions(), get_drawable_dim(), 0.0));
     }
@@ -1523,8 +1523,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
-        rotate_button.clicked -= on_rotate_clockwise;
-        rotate_button.clicked += on_rotate_counterclockwise;
+        rotate_button.clicked.disconnect(on_rotate_clockwise);
+        rotate_button.clicked.connect(on_rotate_counterclockwise);
         
         if (current_tool == null)
             swap_out_original();
@@ -1536,8 +1536,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.set_stock_id(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.clicked -= on_rotate_counterclockwise;
-        rotate_button.clicked += on_rotate_clockwise;
+        rotate_button.clicked.disconnect(on_rotate_counterclockwise);
+        rotate_button.clicked.connect(on_rotate_clockwise);
 
         if (current_tool == null && shift_pressed && !alt_pressed)
             swap_in_original();
@@ -1558,11 +1558,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // create the tool, hook its signals, and activate
         EditingTool tool = factory();
-        tool.activated += on_tool_activated;
-        tool.deactivated += on_tool_deactivated;
-        tool.applied += on_tool_applied;
-        tool.cancelled += on_tool_cancelled;
-        tool.aborted += on_tool_aborted;
+        tool.activated.connect(on_tool_activated);
+        tool.deactivated.connect(on_tool_deactivated);
+        tool.applied.connect(on_tool_applied);
+        tool.cancelled.connect(on_tool_cancelled);
+        tool.aborted.connect(on_tool_aborted);
         
         activate_tool(tool);
     }
@@ -1797,19 +1797,19 @@ public class LibraryPhotoPage : EditingHostPage {
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
         // monitor view to update UI elements
-        get_view().contents_altered += on_contents_altered;
-        get_view().items_altered += on_photos_altered;
+        get_view().contents_altered.connect(on_contents_altered);
+        get_view().items_altered.connect(on_photos_altered);
         
         // watch for photos being destroyed or removed or altered, either here or in other pages
-        LibraryPhoto.global.items_removed += on_photos_removed;
-        LibraryPhoto.global.item_destroyed += on_photo_destroyed;
-        LibraryPhoto.global.item_metadata_altered += on_metadata_altered;
+        LibraryPhoto.global.items_removed.connect(on_photos_removed);
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        LibraryPhoto.global.item_metadata_altered.connect(on_metadata_altered);
     }
     
     ~LibraryPhotoPage() {
-        LibraryPhoto.global.items_removed -= on_photos_removed;
-        LibraryPhoto.global.item_destroyed -= on_photo_destroyed;
-        LibraryPhoto.global.item_metadata_altered -= on_metadata_altered;
+        LibraryPhoto.global.items_removed.disconnect(on_photos_removed);
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        LibraryPhoto.global.item_metadata_altered.disconnect(on_metadata_altered);
     }
     
     private Gtk.ActionEntry[] create_actions() {

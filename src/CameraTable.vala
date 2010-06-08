@@ -41,7 +41,7 @@ public class CameraTable {
             on_update_cameras);
         
         // listen for interesting events on the specified subsystems
-        client.uevent += on_udev_event;
+        client.uevent.connect(on_udev_event);
         
         // because loading the camera abilities list takes a bit of time and slows down app
         // startup, delay loading it (and notifying any observers) for a small period of time,

@@ -86,10 +86,10 @@ public abstract class CollectionPage : CheckerboardPage {
         init_item_context_menu("/CollectionContextMenu");
         
         get_view().set_comparator(get_sort_comparator());
-        get_view().contents_altered += on_contents_altered;
-        get_view().selection_group_altered += on_selection_changed;
-        get_view().items_visibility_changed += on_contents_altered;
-        get_view().items_altered += on_photos_altered;
+        get_view().contents_altered.connect(on_contents_altered);
+        get_view().selection_group_altered.connect(on_selection_changed);
+        get_view().items_visibility_changed.connect(on_contents_altered);
+        get_view().items_altered.connect(on_photos_altered);
         
         get_view().freeze_notifications();
         get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
@@ -115,7 +115,7 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.sensitive = false;
         rotate_button.is_important = true;
-        rotate_button.clicked += on_rotate_clockwise;
+        rotate_button.clicked.connect(on_rotate_clockwise);
         
         toolbar.insert(rotate_button, -1);
 
@@ -125,7 +125,7 @@ public abstract class CollectionPage : CheckerboardPage {
         enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
         enhance_button.sensitive = false;
         enhance_button.is_important = true;
-        enhance_button.clicked += on_enhance;
+        enhance_button.clicked.connect(on_enhance);
 
         toolbar.insert(enhance_button, -1);
 
@@ -138,7 +138,7 @@ public abstract class CollectionPage : CheckerboardPage {
         slideshow_button.set_tooltip_text(_("Start a slideshow of these photos"));
         slideshow_button.sensitive = false;
         slideshow_button.is_important = true;
-        slideshow_button.clicked += on_slideshow;
+        slideshow_button.clicked.connect(on_slideshow);
         
         toolbar.insert(slideshow_button, -1);
 
@@ -149,7 +149,7 @@ public abstract class CollectionPage : CheckerboardPage {
         publish_button.set_tooltip_text(Resources.PUBLISH_TOOLTIP);
         publish_button.set_sensitive(false);
         publish_button.is_important = true;
-        publish_button.clicked += on_publish;
+        publish_button.clicked.connect(on_publish);
         
         toolbar.insert(publish_button, -1);
 #endif
@@ -163,7 +163,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         // thumbnail size slider
         slider = new Gtk.HScale(slider_adjustment);
-        slider.value_changed += on_slider_changed;
+        slider.value_changed.connect(on_slider_changed);
         slider.set_draw_value(false);
 
         Gtk.ToolItem toolitem = new Gtk.ToolItem();
@@ -1207,8 +1207,8 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
-        rotate_button.clicked -= on_rotate_clockwise;
-        rotate_button.clicked += on_rotate_counterclockwise;
+        rotate_button.clicked.disconnect(on_rotate_clockwise);
+        rotate_button.clicked.connect(on_rotate_counterclockwise);
         
         return base.on_ctrl_pressed(event);
     }
@@ -1217,8 +1217,8 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.set_stock_id(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.clicked -= on_rotate_counterclockwise;
-        rotate_button.clicked += on_rotate_clockwise;
+        rotate_button.clicked.disconnect(on_rotate_counterclockwise);
+        rotate_button.clicked.connect(on_rotate_clockwise);
         
         return base.on_ctrl_released(event);
     }

@@ -177,19 +177,19 @@ public class Processor {
         throw_exception("document_mode_processing", proc.document_mode_processing());
     }
     
-    public LibRaw.ImageOther get_image_other() {
+    public unowned LibRaw.ImageOther get_image_other() {
         return proc.get_image_other();
     }
     
-    public LibRaw.ImageParams get_image_params() {
+    public unowned LibRaw.ImageParams get_image_params() {
         return proc.get_image_params();
     }
     
-    public LibRaw.ImageSizes get_sizes() {
+    public unowned LibRaw.ImageSizes get_sizes() {
         return proc.get_sizes();
     }
     
-    public LibRaw.Thumbnail get_thumbnail() {
+    public unowned LibRaw.Thumbnail get_thumbnail() {
         return proc.get_thumbnail();
     }
     

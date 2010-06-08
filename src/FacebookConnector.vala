@@ -125,8 +125,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_fetch_album_descriptions_completed(RESTTransaction txn) {
-        txn.completed -= on_fetch_album_descriptions_completed;
-        txn.network_error -= on_fetch_album_descriptions_error;
+        txn.completed.disconnect(on_fetch_album_descriptions_completed);
+        txn.network_error.disconnect(on_fetch_album_descriptions_error);
 
         if (has_error() || cancelled)
             return;
@@ -135,8 +135,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_fetch_album_descriptions_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_fetch_album_descriptions_completed;
-        bad_txn.network_error -= on_fetch_album_descriptions_error;
+        bad_txn.completed.disconnect(on_fetch_album_descriptions_completed);
+        bad_txn.network_error.disconnect(on_fetch_album_descriptions_error);
 
         if (has_error() || cancelled)
             return;
@@ -145,8 +145,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_create_album_txn_completed(RESTTransaction txn) {
-        txn.completed -= on_create_album_txn_completed;
-        txn.network_error -= on_create_album_txn_error;
+        txn.completed.disconnect(on_create_album_txn_completed);
+        txn.network_error.disconnect(on_create_album_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -155,8 +155,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_create_album_txn_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_create_album_txn_completed;
-        bad_txn.network_error -= on_create_album_txn_error;
+        bad_txn.completed.disconnect(on_create_album_txn_completed);
+        bad_txn.network_error.disconnect(on_create_album_txn_error);
 
         if (has_error() || cancelled)
             return;
@@ -172,9 +172,9 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_upload_complete(BatchUploader uploader) {
-        uploader.status_updated -= progress_pane.set_status;
-        uploader.upload_complete -= on_upload_complete;
-        uploader.upload_error -= on_upload_error;
+        uploader.status_updated.disconnect(progress_pane.set_status);
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
 
         if (has_error() || cancelled)
             return;
@@ -183,9 +183,9 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_upload_error(BatchUploader uploader, PublishingError err) {
-        uploader.status_updated -= progress_pane.set_status;
-        uploader.upload_complete -= on_upload_complete;
-        uploader.upload_error -= on_upload_error;
+        uploader.status_updated.disconnect(progress_pane.set_status);
+        uploader.upload_complete.disconnect(on_upload_complete);
+        uploader.upload_error.disconnect(on_upload_error);
 
         if (has_error() || cancelled)
             return;
@@ -194,8 +194,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_endpoint_test_completed(RESTTransaction txn) {
-        txn.completed -= on_endpoint_test_completed;
-        txn.network_error -= on_endpoint_test_error;
+        txn.completed.disconnect(on_endpoint_test_completed);
+        txn.network_error.disconnect(on_endpoint_test_error);
 
         if (has_error() || cancelled)
             return;
@@ -204,8 +204,8 @@ public class Interactor : ServiceInteractor {
     }
 
     private void on_endpoint_test_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_endpoint_test_completed;
-        bad_txn.network_error -= on_endpoint_test_error;
+        bad_txn.completed.disconnect(on_endpoint_test_completed);
+        bad_txn.network_error.disconnect(on_endpoint_test_error);
 
         if (has_error() || cancelled)
             return;
@@ -219,8 +219,8 @@ public class Interactor : ServiceInteractor {
 
         PublishingOptionsPane publishing_options_pane =
             new PublishingOptionsPane(session.get_user_name(), albums);
-        publishing_options_pane.logout += on_publishing_options_pane_logout;
-        publishing_options_pane.publish += on_publishing_options_pane_publish;
+        publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
+        publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         get_host().install_pane(publishing_options_pane);
     }
 
@@ -229,7 +229,7 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
 
         LoginWelcomePane service_welcome_pane = new LoginWelcomePane(SERVICE_WELCOME_MESSAGE);
-        service_welcome_pane.login_requested += on_service_welcome_login;
+        service_welcome_pane.login_requested.connect(on_service_welcome_login);
         get_host().install_pane(service_welcome_pane);
     }
 
@@ -241,8 +241,8 @@ public class Interactor : ServiceInteractor {
         get_host().lock_service();
         get_host().install_pane(new AccountFetchWaitPane());
 
-        session.authenticated += on_session_authenticated;
-        session.authentication_failed += on_session_authentication_failed;
+        session.authenticated.connect(on_session_authenticated);
+        session.authentication_failed.connect(on_session_authentication_failed);
 
         try {
             session.authenticate(success_url);
@@ -258,8 +258,8 @@ public class Interactor : ServiceInteractor {
         get_host().install_pane(new StaticMessagePane(_("Testing connection to Facebook...")));
 
         EndpointTestTransaction txn = new EndpointTestTransaction(session);
-        txn.completed += on_endpoint_test_completed;
-        txn.network_error += on_endpoint_test_error;
+        txn.completed.connect(on_endpoint_test_completed);
+        txn.network_error.connect(on_endpoint_test_error);
 
         txn.execute();
     }
@@ -269,8 +269,8 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
 
         web_auth_pane = new WebAuthenticationPane();
-        web_auth_pane.login_succeeded += on_web_auth_pane_login_succeeded;
-        web_auth_pane.login_failed += on_web_auth_pane_login_failed;
+        web_auth_pane.login_succeeded.connect(on_web_auth_pane_login_succeeded);
+        web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
 
         get_host().install_pane(web_auth_pane);
     }
@@ -280,8 +280,8 @@ public class Interactor : ServiceInteractor {
         get_host().lock_service();
 
         Transaction albums_transaction = new AlbumsFetchTransaction(session);
-        albums_transaction.completed += on_fetch_album_descriptions_completed;
-        albums_transaction.network_error += on_fetch_album_descriptions_error;
+        albums_transaction.completed.connect(on_fetch_album_descriptions_completed);
+        albums_transaction.network_error.connect(on_fetch_album_descriptions_error);
 
         albums_transaction.execute();
     }
@@ -340,8 +340,8 @@ public class Interactor : ServiceInteractor {
         get_host().install_pane(new StaticMessagePane(_("Creating album...")));
 
         Transaction create_txn = new AlbumCreationTransaction(session, album_name);
-        create_txn.completed += on_create_album_txn_completed;
-        create_txn.network_error += on_create_album_txn_error;
+        create_txn.completed.connect(on_create_album_txn_completed);
+        create_txn.network_error.connect(on_create_album_txn_error);
 
         create_txn.execute();
     }
@@ -377,9 +377,9 @@ public class Interactor : ServiceInteractor {
 
         TransformablePhoto[] photos = get_host().get_photos();
         Uploader uploader = new Uploader(session, albums[publish_to_album].id, photos);
-        uploader.status_updated += progress_pane.set_status;
-        uploader.upload_complete += on_upload_complete;
-        uploader.upload_error += on_upload_error;
+        uploader.status_updated.connect(progress_pane.set_status);
+        uploader.upload_complete.connect(on_upload_complete);
+        uploader.upload_error.connect(on_upload_error);
 
         uploader.upload();
     }
@@ -479,8 +479,8 @@ private class Session : RESTSession {
     }
 
     private void on_user_info_txn_completed(RESTTransaction txn) {
-        txn.completed -= on_user_info_txn_completed;
-        txn.network_error -= on_user_info_txn_error;
+        txn.completed.disconnect(on_user_info_txn_completed);
+        txn.network_error.disconnect(on_user_info_txn_error);
 
         try {
             RESTXmlDocument response_doc = RESTXmlDocument.parse_string(txn.get_response(),
@@ -507,8 +507,8 @@ private class Session : RESTSession {
     }
 
     private void on_user_info_txn_error(RESTTransaction txn, PublishingError err) {
-        txn.completed -= on_user_info_txn_completed;
-        txn.network_error -= on_user_info_txn_error;
+        txn.completed.disconnect(on_user_info_txn_completed);
+        txn.network_error.disconnect(on_user_info_txn_error);
 
         authentication_failed(err);
     }
@@ -558,8 +558,8 @@ private class Session : RESTSession {
             throw new PublishingError.MALFORMED_RESPONSE("Session description object has no session secret");
 
         UserInfoTransaction user_info_txn = new UserInfoTransaction(this, get_user_id());
-        user_info_txn.completed += on_user_info_txn_completed;
-        user_info_txn.network_error += on_user_info_txn_error;
+        user_info_txn.completed.connect(on_user_info_txn_completed);
+        user_info_txn.network_error.connect(on_user_info_txn_error);
         user_info_txn.execute();
     }
 
@@ -658,8 +658,8 @@ private class WebAuthenticationPane : PublishingDialogPane {
         webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 
         webview = new WebKit.WebView();
-        webview.load_finished += on_page_load;
-        webview.load_started += on_load_started;
+        webview.load_finished.connect(on_page_load);
+        webview.load_started.connect(on_load_started);
 
         webview_frame.add(webview);
         add(webview_frame);
@@ -745,10 +745,10 @@ private class PublishingOptionsPane : PublishingDialogPane {
         album_mode_layouter.set_border_width(44);
         use_existing_radio = new Gtk.RadioButton.with_mnemonic(null,
             _("Publish to an e_xisting album:"));
-        use_existing_radio.clicked += on_use_existing_toggled;
+        use_existing_radio.clicked.connect(on_use_existing_toggled);
         create_new_radio = new Gtk.RadioButton.with_mnemonic(use_existing_radio.get_group(),
             _("Create a _new album named:"));
-        create_new_radio.clicked += on_create_new_toggled;
+        create_new_radio.clicked.connect(on_create_new_toggled);
 
         Gtk.HBox use_existing_layouter = new Gtk.HBox(false, 8);
         use_existing_layouter.add(use_existing_radio);
@@ -764,9 +764,9 @@ private class PublishingOptionsPane : PublishingDialogPane {
         new_album_entry.set_size_request(142, -1);
 
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
-        publish_button.clicked += on_publish_button_clicked;
+        publish_button.clicked.connect(on_publish_button_clicked);
         logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
-        logout_button.clicked += on_logout_button_clicked;
+        logout_button.clicked.connect(on_logout_button_clicked);
         Gtk.HBox buttons_layouter = new Gtk.HBox(false, 8);
         Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
         buttons_left_padding.set_draw(false);

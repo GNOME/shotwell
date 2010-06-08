@@ -251,11 +251,11 @@ public class DataCollection {
             
             // if items are removed from main collection, they're removed from the marked list
             // as well
-            owner.items_removed += on_items_removed;
+            owner.items_removed.connect(on_items_removed);
         }
         
         ~MarkerImpl() {
-            owner.items_removed -= on_items_removed;
+            owner.items_removed.disconnect(on_items_removed);
         }
         
         public void mark(DataObject object) {
@@ -316,7 +316,7 @@ public class DataCollection {
         // the marker at this point stops monitoring the collection, preventing a possible
         // removal during an iteration, which is bad.
         public void freeze() {
-            owner.items_removed -= on_items_removed;
+            owner.items_removed.disconnect(on_items_removed);
         }
         
         public void finished() {
@@ -1110,15 +1110,15 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         this.contained_sources = contained_sources;
         this.backlink_name = backlink_name;
         
-        contained_sources.items_unlinking += on_contained_sources_unlinking;
-        contained_sources.items_relinked += on_contained_sources_relinked;
-        contained_sources.item_destroyed += on_contained_source_destroyed;
+        contained_sources.items_unlinking.connect(on_contained_sources_unlinking);
+        contained_sources.items_relinked.connect(on_contained_sources_relinked);
+        contained_sources.item_destroyed.connect(on_contained_source_destroyed);
     }
     
     ~ContainerSourceCollection() {
-        contained_sources.items_unlinking -= on_contained_sources_unlinking;
-        contained_sources.items_relinked -= on_contained_sources_relinked;
-        contained_sources.item_destroyed -= on_contained_source_destroyed;
+        contained_sources.items_unlinking.disconnect(on_contained_sources_unlinking);
+        contained_sources.items_relinked.disconnect(on_contained_sources_relinked);
+        contained_sources.item_destroyed.disconnect(on_contained_source_destroyed);
     }
     
     public virtual void notify_container_contents_added(ContainerSource container, 
@@ -1429,18 +1429,18 @@ public class ViewCollection : DataCollection {
         
         // subscribe to the SourceCollection to monitor it for additions and removals, reflecting
         // those changes in this collection
-        sources.items_added += on_sources_added;
-        sources.items_removed += on_sources_removed;
-        sources.item_altered += on_source_altered;
-        sources.item_metadata_altered += on_source_altered;
+        sources.items_added.connect(on_sources_added);
+        sources.items_removed.connect(on_sources_removed);
+        sources.item_altered.connect(on_source_altered);
+        sources.item_metadata_altered.connect(on_source_altered);
     }
     
     public void halt_monitoring() {
         if (sources != null) {
-            sources.items_added -= on_sources_added;
-            sources.items_removed -= on_sources_removed;
-            sources.item_altered -= on_source_altered;
-            sources.item_metadata_altered -= on_source_altered;
+            sources.items_added.disconnect(on_sources_added);
+            sources.items_removed.disconnect(on_sources_removed);
+            sources.item_altered.disconnect(on_source_altered);
+            sources.item_metadata_altered.disconnect(on_source_altered);
         }
         
         sources = null;
@@ -1458,14 +1458,14 @@ public class ViewCollection : DataCollection {
         // load up with current items
         on_mirror_contents_added(mirroring.get_all());
         
-        mirroring.items_added += on_mirror_contents_added;
-        mirroring.items_removed += on_mirror_contents_removed;
+        mirroring.items_added.connect(on_mirror_contents_added);
+        mirroring.items_removed.connect(on_mirror_contents_removed);
     }
     
     public void halt_mirroring() {
         if (mirroring != null) {
-            mirroring.items_added -= on_mirror_contents_added;
-            mirroring.items_removed -= on_mirror_contents_removed;
+            mirroring.items_added.disconnect(on_mirror_contents_added);
+            mirroring.items_removed.disconnect(on_mirror_contents_removed);
         }
         
         mirroring = null;

@@ -62,13 +62,13 @@ public class MimicManager : Object {
         
         on_photos_added(sources.get_all());
         
-        sources.items_added += on_photos_added;
-        sources.item_destroyed += on_photo_destroyed;
+        sources.items_added.connect(on_photos_added);
+        sources.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~ImpersonatorManager() {
-        sources.items_added -= on_photos_added;
-        sources.item_destroyed -= on_photo_destroyed;
+        sources.items_added.disconnect(on_photos_added);
+        sources.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     private void on_photos_added(Gee.Iterable<DataObject> added) {

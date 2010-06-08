@@ -175,12 +175,12 @@ public class Processor {
     public Result adjust_sizes_info_only();
     [CCode (cname="libraw_dcraw_document_mode_processing")]
     public Result document_mode_processing();
-    public ImageOther get_image_other() { return other; }
-    public ImageParams get_image_params() { return idata; }
+    public unowned ImageOther get_image_other() { return other; }
+    public unowned ImageParams get_image_params() { return idata; }
     public Progress get_progress_flags() { return progress_flags; }
     public Warnings get_process_warnings() { return process_warnings; }
-    public ImageSizes get_sizes() { return sizes; }
-    public Thumbnail get_thumbnail() { return thumbnail; }
+    public unowned ImageSizes get_sizes() { return sizes; }
+    public unowned Thumbnail get_thumbnail() { return thumbnail; }
     [CCode (cname="libraw_dcraw_make_mem_image")]
     public ProcessedImage make_mem_image(out Result result);
     [CCode (cname="libraw_dcraw_make_mem_thumb")]

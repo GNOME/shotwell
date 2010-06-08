@@ -44,7 +44,7 @@ void library_exec(string[] mounts) {
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
-    shotwell.message_received += on_shotwell_message;
+    shotwell.message_received.connect(on_shotwell_message);
 
     if (shotwell.is_running) {
         // send attached cameras & activate the window

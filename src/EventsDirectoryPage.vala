@@ -27,11 +27,11 @@ class EventDirectoryItem : CheckerboardItem {
         clear_image(Dimensions.for_rectangle(paul_lynde));
         
         // monitor the event for changes
-        event.altered += on_event_altered;
+        event.altered.connect(on_event_altered);
     }
     
     ~EventDirectoryItem() {
-        event.altered -= on_event_altered;
+        event.altered.disconnect(on_event_altered);
     }
     
     // square the photo's dimensions and locate the pixbuf's center square
@@ -164,16 +164,16 @@ public class EventsDirectoryPage : CheckerboardPage {
         merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
         merge_button.set_label(Resources.MERGE_LABEL);
         merge_button.set_tooltip_text(Resources.MERGE_TOOLTIP);
-        merge_button.clicked += on_merge;
+        merge_button.clicked.connect(on_merge);
         merge_button.sensitive = (get_view().get_selected_count() > 1);
         merge_button.is_important = true;
         toolbar.insert(merge_button, -1);
 
-        get_view().items_state_changed += on_selection_changed;
+        get_view().items_state_changed.connect(on_selection_changed);
     }
 
     ~EventsDirectoryPage() {
-        get_view().items_state_changed -= on_selection_changed;
+        get_view().items_state_changed.disconnect(on_selection_changed);
     }
     
     private int64 event_ascending_comparator(void *a, void *b) {
@@ -360,11 +360,11 @@ public class EventPage : CollectionPage {
         
         init_page_context_menu("/EventContextMenu");
         
-        page_event.altered += on_event_altered;
+        page_event.altered.connect(on_event_altered);
     }
     
     ~EventPage() {
-        page_event.altered -= on_event_altered;
+        page_event.altered.disconnect(on_event_altered);
     }
     
     private static Gtk.ActionEntry[] create_actions() {

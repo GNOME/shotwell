@@ -40,17 +40,17 @@ public class Thumbnail : CheckerboardItem {
         dim = original_dim.get_scaled(scale, true);
         
         // if the photo's tags changes, update it here
-        Tag.global.container_contents_altered += on_tag_contents_altered;
-        Tag.global.item_altered += on_tag_altered;
-        photo.metadata_altered += on_photo_metadata_altered;
+        Tag.global.container_contents_altered.connect(on_tag_contents_altered);
+        Tag.global.item_altered.connect(on_tag_altered);
+        photo.metadata_altered.connect(on_photo_metadata_altered);
     }
 
     ~Thumbnail() {
         if (cancellable != null)
             cancellable.cancel();
         
-        Tag.global.container_contents_altered -= on_tag_contents_altered;
-        Tag.global.item_altered -= on_tag_altered;
+        Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
+        Tag.global.item_altered.disconnect(on_tag_altered);
     }
     
     private void update_tags() {

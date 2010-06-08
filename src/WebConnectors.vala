@@ -185,7 +185,7 @@ public class RESTTransaction {
     public RESTTransaction(RESTSession session, HttpMethod method = HttpMethod.POST) {
         parent_session = session;
         message = new Soup.Message(method.to_string(), parent_session.get_endpoint_url());
-        message.wrote_body_data += on_wrote_body_data;
+        message.wrote_body_data.connect(on_wrote_body_data);
     }
 
     public RESTTransaction.with_endpoint_url(RESTSession session, string endpoint_url,
@@ -203,8 +203,8 @@ public class RESTTransaction {
         if (this.message != message)
             return;
             
-        parent_session.get_soup_session().request_unqueued -= on_request_unqueued;
-        message.wrote_body_data -= on_wrote_body_data;
+        parent_session.get_soup_session().request_unqueued.disconnect(on_request_unqueued);
+        message.wrote_body_data.disconnect(on_wrote_body_data);
 
         try {
             check_response(message);
@@ -292,8 +292,8 @@ public class RESTTransaction {
         if (parent_session.are_transactions_stopped())
             return;
 
-        parent_session.get_soup_session().request_unqueued += on_request_unqueued;
-        get_message().wrote_body_data += on_wrote_body_data;
+        parent_session.get_soup_session().request_unqueued.connect(on_request_unqueued);
+        get_message().wrote_body_data.connect(on_wrote_body_data);
         parent_session.get_soup_session().send_message(get_message());
      }
 
@@ -570,7 +570,7 @@ public class LoginWelcomePane : PublishingDialogPane {
             new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);      
         login_button_aligner.add(login_button);
         login_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
-        login_button.clicked += on_login_clicked;
+        login_button.clicked.connect(on_login_clicked);
 
         content_layouter.attach(login_button_aligner, 0, 1, 1, 2,
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL,
@@ -676,7 +676,7 @@ public class PublishingDialog : Gtk.Dialog {
 
         set_title(_("Publish Photos"));
         resizable = false;
-        delete_event += on_window_close;
+        delete_event.connect(on_window_close);
 
         photos = new TransformablePhoto[0];
         foreach (DataView view in to_publish) {
@@ -691,7 +691,7 @@ public class PublishingDialog : Gtk.Dialog {
         
         foreach (string service_name in ServiceFactory.get_instance().get_manifest())
             service_selector_box.append_text(service_name);
-        service_selector_box.changed += on_service_changed;
+        service_selector_box.changed.connect(on_service_changed);
 
         Gtk.HBox service_selector_layouter = new Gtk.HBox(false, 8);
         service_selector_layouter.set_border_width(12);
@@ -711,7 +711,7 @@ public class PublishingDialog : Gtk.Dialog {
         
         close_cancel_button = new Gtk.Button.with_mnemonic("_Cancel");
         close_cancel_button.set_can_default(true);
-        close_cancel_button.clicked += on_close_cancel_clicked;
+        close_cancel_button.clicked.connect(on_close_cancel_clicked);
         action_area.add(close_cancel_button);
         close_cancel_button.show_all();
 
@@ -957,9 +957,9 @@ public abstract class BatchUploader {
             fraction_complete);
 
         RESTTransaction txn = create_transaction_for_file(file);
-        txn.completed += on_file_uploaded;
-        txn.chunk_transmitted += on_chunk_transmitted;
-        txn.network_error += on_upload_error;
+        txn.completed.connect(on_file_uploaded);
+        txn.chunk_transmitted.connect(on_chunk_transmitted);
+        txn.network_error.connect(on_upload_error);
 
         txn.execute();
     }
@@ -977,9 +977,9 @@ public abstract class BatchUploader {
     }
 
     private void on_file_uploaded(RESTTransaction txn) {
-        txn.completed -= on_file_uploaded;
-        txn.chunk_transmitted -= on_chunk_transmitted;
-        txn.network_error -= on_upload_error;
+        txn.completed.disconnect(on_file_uploaded);
+        txn.chunk_transmitted.disconnect(on_chunk_transmitted);
+        txn.network_error.disconnect(on_upload_error);
 
         if (has_error)
             return;
@@ -1003,9 +1003,9 @@ public abstract class BatchUploader {
     }
 
     private void on_upload_error(RESTTransaction bad_txn, PublishingError err) {
-        bad_txn.completed -= on_file_uploaded;
-        bad_txn.chunk_transmitted -= on_chunk_transmitted;
-        bad_txn.network_error -= on_upload_error;
+        bad_txn.completed.disconnect(on_file_uploaded);
+        bad_txn.chunk_transmitted.disconnect(on_chunk_transmitted);
+        bad_txn.network_error.disconnect(on_upload_error);
 
         has_error = true;
 
