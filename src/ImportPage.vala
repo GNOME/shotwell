@@ -177,9 +177,10 @@ class ImportPreview : CheckerboardItem {
     public bool is_already_imported() {
         string? preview_md5 = get_import_source().get_preview_md5();
         
+		// ignore trashed duplicates
         return (preview_md5 != null) 
-            ? TransformablePhoto.is_duplicate(null, preview_md5, null, get_import_source().get_file_format())
-            : false;
+            ? LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, 
+            get_import_source().get_file_format()) : false;
     }
     
     public ImportSource get_import_source() {

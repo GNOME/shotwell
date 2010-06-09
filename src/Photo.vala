@@ -689,6 +689,19 @@ public abstract class TransformablePhoto: PhotoSource {
 #endif
     }
     
+    protected static PhotoID[]? get_duplicate_ids(File? file, string? thumbnail_md5, string? full_md5,
+        PhotoFileFormat file_format) {
+#if !NO_DUPE_DETECTION
+        return PhotoTable.get_instance().get_duplicate_ids(file, thumbnail_md5, full_md5, file_format);
+#else
+        return null;
+#endif
+    }
+    
+    public static PhotoID? get_photo_id_from_file(File file) {
+        return PhotoTable.get_instance().get_id(file);
+    }
+    
     // Data element accessors ... by making these thread-safe, and by the remainder of this class
     // (and subclasses) accessing row *only* through these, helps ensure this object is suitable
     // for threads.  This implementation is specifically for PixbufCache to work properly.
@@ -2608,6 +2621,17 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         return (LibraryPhoto) fetch_by_key(photo_id.id);
     }
     
+    public LibraryPhoto? get_trashed_by_file(File file) {
+        PhotoID photo_id = TransformablePhoto.get_photo_id_from_file(file);
+        
+        foreach (LibraryPhoto photo in get_trashcan()) {
+            if (photo_id.id == photo.get_photo_id().id)
+                return photo;
+        }
+        
+        return null;
+    }
+    
     public int get_trashcan_count() {
         return trashcan.size;
     }
@@ -2973,6 +2997,22 @@ public class LibraryPhoto : Photo {
                 }
             }
         }
+    }
+    
+    public static bool has_nontrash_duplicate(File? file, string? thumbnail_md5, string? full_md5,
+        PhotoFileFormat file_format) {
+        PhotoID[]? ids = get_duplicate_ids(file, thumbnail_md5, full_md5, file_format);
+        
+        if (ids == null || ids.length == 0)
+            return false;
+        
+        foreach (PhotoID id in ids) {
+            LibraryPhoto photo = LibraryPhoto.global.fetch(id);
+            if (photo != null && !photo.is_trashed())
+                return true;
+        }
+        
+        return false;
     }
 }
 

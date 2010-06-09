@@ -288,21 +288,54 @@ public class BatchImport : Object {
         
         if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
             prepared_file.full_md5, prepared_file.file_format)) {
-            BatchImportResult import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
-                prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
-            import_job_failed(import_result);
+
+            BatchImportResult import_result = null;
             
-            manifest.add_result(import_result);
+            // If a file is being linked and has a dupe in the trash, we take it out of the trash
+            // and revert its edits.
+            if (!prepared_file.copy_to_library) {
+                LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
+                
+                if (photo != null) {
+                    debug("duplicate linked photo found in trash, untrashing and removing" + 
+                        " transforms for %s", prepared_file.file.get_path());
+                    
+                    photo.untrash();
+                    photo.remove_all_transformations();
+                    
+                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                        prepared_file.file.get_path(), ImportResult.SUCCESS);
+                }
+            }
             
-            // mark this job as completed
-            file_imports_completed++;
+            // Photos with duplicates that exist outside of the trash are marked as already existing
+            if (import_result == null && LibraryPhoto.has_nontrash_duplicate(prepared_file.file,
+                prepared_file.thumbnail_md5, prepared_file.full_md5, prepared_file.file_format)) {
+                debug("duplicate photo detected outside of trash, not importing %s",
+                    prepared_file.file.get_path());
+                
+                import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
+                    prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+                import_job_failed(import_result);
+                
+            }
+
+            if (import_result != null) {
+                manifest.add_result(import_result);
+                
+                // mark this job as completed
+                file_imports_completed++;
+                
+                // because notifications can come in after completion, have to watch if this is the
+                // last file
+                if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
+                    report_completed("completed preparing files, all outstanding imports completed");
+                
+                return;
+            }
             
-            // because notifications can come in after completion, have to watch if this is the
-            // last file
-            if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
-                report_completed("completed preparing files, all outstanding imports completed");
-            
-            return;
+            debug("duplicate photos found in trash only, importing as usual for %s",
+                prepared_file.file.get_path());
         }
         
         FileImportJob file_import_job = new FileImportJob(this, prepared_file, manifest.import_id, 

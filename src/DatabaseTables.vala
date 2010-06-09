@@ -1006,7 +1006,7 @@ public class PhotoTable : DatabaseTable {
     }
     
     public bool is_photo_stored(File file) {
-        return (get_id(file).is_invalid() == false);
+        return get_id(file).is_valid();
     }
     
     public PhotoID get_id(File file) {
@@ -1312,7 +1312,8 @@ public class PhotoTable : DatabaseTable {
     
     // Use PhotoFileFormat.UNKNOWN if not to search for matching file format; it's only used if
     // searching for MD5 duplicates.
-    public bool has_duplicate(File? file, string? thumbnail_md5, string? md5, PhotoFileFormat file_format) {
+    private Sqlite.Statement get_duplicate_stmt(File? file, string? thumbnail_md5, string? md5,
+        PhotoFileFormat file_format) {
         assert(file != null || thumbnail_md5 != null || md5 != null);
         
         string sql = "SELECT id FROM PhotoTable WHERE";
@@ -1373,8 +1374,14 @@ public class PhotoTable : DatabaseTable {
             res = stmt.bind_int(col++, file_format.serialize());
             assert(res == Sqlite.OK);
         }
+
+        return stmt;
+    }
+
+    public bool has_duplicate(File? file, string? thumbnail_md5, string? md5, PhotoFileFormat file_format) {
+        Sqlite.Statement stmt = get_duplicate_stmt(file, thumbnail_md5, md5, file_format);
+        int res = stmt.step();
         
-        res = stmt.step();
         if (res == Sqlite.DONE) {
             // not found
             return false;
@@ -1386,6 +1393,21 @@ public class PhotoTable : DatabaseTable {
             
             return false;
         }
+    }
+    
+    public PhotoID[] get_duplicate_ids(File? file, string? thumbnail_md5, string? md5,
+        PhotoFileFormat file_format) {
+        Sqlite.Statement stmt = get_duplicate_stmt(file, thumbnail_md5, md5, file_format);
+        
+        PhotoID[] ids = new PhotoID[0];
+
+        int res = stmt.step();
+        while (res == Sqlite.ROW) {
+            ids += PhotoID(stmt.column_int64(0));
+            res = stmt.step();
+        }
+
+        return ids;
     }
     
     public void update_backlinks(PhotoID photo_id, string? backlinks) throws DatabaseError {
