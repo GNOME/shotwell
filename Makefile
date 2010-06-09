@@ -366,6 +366,10 @@ else
 	mkdir -p $(DESTDIR)$(SCHEMA_FILE_DIR)
 	$(INSTALL_DATA) misc/shotwell.schemas $(DESTDIR)$(SCHEMA_FILE_DIR)
 endif
+ifdef ENABLE_APPORT_HOOK_INSTALL
+	mkdir -p $(DESTDIR)$(PREFIX)/share/apport/package-hooks
+	$(INSTALL_DATA) apport/shotwell.py $(DESTDIR)$(PREFIX)/share/apport/package-hooks
+endif
 endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
@@ -385,6 +389,9 @@ ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
 else
 	rm -f $(DESTDIR)$(SCHEMA_FILE_DIR)/shotwell.schemas
+endif
+ifdef ENABLE_APPORT_HOOK_INSTALL
+	rm -f $(DESTDIR)$(PREFIX)/share/apport/package-hooks/shotwell.py
 endif
 endif
 	$(foreach lang,$(SUPPORTED_LANGUAGES),`rm -f $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo`)
