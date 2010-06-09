@@ -5,28 +5,77 @@
  */
 
 namespace Debug {
-    private bool info_enabled = false;
-    private bool debug_enabled = false;
-    private bool message_enabled = false;
-    private bool warning_enabled = false;
-    private bool critical_enabled = false;
-    private Mutex log_mutex = null;
+    private const LogLevelFlags DEFAULT_LOG_MASK =
+        LogLevelFlags.LEVEL_CRITICAL |
+        LogLevelFlags.LEVEL_WARNING |
+        LogLevelFlags.LEVEL_MESSAGE;
+    public const string VIEWER_PREFIX = "V";
+    public const string LIBRARY_PREFIX = "L";
+    public const string INIT_PREFIX = "I";
+    
+    // Ideally, there would be a LogLevelFlags.NONE constant to use as
+    // empty value but failing that, 0 works as well
+    private LogLevelFlags log_mask = 0;
+    private string log_app_version_prefix;
+    // log_file_stream is the canonical reference to the file stream (and owns
+    // it), while log_out and log_err are indirections that can point to
+    // log_file_stream or stdout and stderr respectively
+    private unowned FileStream log_out = null;
+    private unowned FileStream log_err = null;
+    private FileStream log_file_stream = null;
     
     public static void init() {
-        log_mutex = new Mutex();
+        // Temporary prefix during initialisation, before we know whether
+        // the application is in Library or Viewer mode
+        log_app_version_prefix = INIT_PREFIX;
+
+        string log_file_error_msg = null;
+        
+        File log_file = AppDirs.get_log_file();        
+        if(log_file != null) {
+            File log_dir = log_file.get_parent();
+            try {
+                if (log_dir.query_exists(null) == false) {
+                    if (!log_dir.make_directory_with_parents(null)) {
+                        log_file_error_msg = "Unable to create data directory %s".printf(log_dir.get_path());
+                    }
+                } 
+            } catch (Error err) {
+                log_file_error_msg = err.message;
+            }
+            // overwrite the log file every time the application is started
+            // to ensure it doesn't grow too large; if there is a need for
+            // keeping the log, the 'w' should be replaced by 'a' and some sort
+            // of log rotation implemented
+            log_file_stream = FileStream.open(log_file.get_path(), "w");
+            if(log_file_stream != null) {
+                log_out = log_file_stream;
+                log_err = log_file_stream;
+            } else {
+                log_out = stdout;
+                log_err = stderr;
+                log_file_error_msg = "Unable to open or create log file %s".printf(log_file.get_path());
+            }
+        }
         
         if (Environment.get_variable("SHOTWELL_LOG") != null) {
-            info_enabled = true;
-            debug_enabled = true;
-            message_enabled = true;
-            warning_enabled = true;
-            critical_enabled = true;
+            log_mask = LogLevelFlags.LEVEL_MASK;
         } else {
-            info_enabled = (Environment.get_variable("SHOTWELL_INFO") != null);
-            debug_enabled = (Environment.get_variable("SHOTWELL_DEBUG") != null);
-            message_enabled = (Environment.get_variable("SHOTWELL_MESSAGE") != null);
-            warning_enabled = (Environment.get_variable("SHOTWELL_WARNING") != null);
-            critical_enabled = (Environment.get_variable("SHOTWELL_CRITICAL") != null);
+            log_mask = ((Environment.get_variable("SHOTWELL_INFO") != null) ?
+                log_mask | LogLevelFlags.LEVEL_INFO :
+                log_mask);
+            log_mask = ((Environment.get_variable("SHOTWELL_DEBUG") != null) ?
+                log_mask | LogLevelFlags.LEVEL_DEBUG :
+                log_mask);
+            log_mask = ((Environment.get_variable("SHOTWELL_MESSAGE") != null) ?
+                log_mask | LogLevelFlags.LEVEL_MESSAGE :
+                log_mask);
+            log_mask = ((Environment.get_variable("SHOTWELL_WARNING") != null) ?
+                log_mask | LogLevelFlags.LEVEL_WARNING :
+                log_mask);
+            log_mask = ((Environment.get_variable("SHOTWELL_CRITICAL") != null) ?
+                log_mask | LogLevelFlags.LEVEL_CRITICAL :
+                log_mask);
         }
 
         Log.set_handler(null, LogLevelFlags.LEVEL_INFO, info_handler);
@@ -34,43 +83,64 @@ namespace Debug {
         Log.set_handler(null, LogLevelFlags.LEVEL_MESSAGE, message_handler);
         Log.set_handler(null, LogLevelFlags.LEVEL_WARNING, warning_handler);
         Log.set_handler(null, LogLevelFlags.LEVEL_CRITICAL, critical_handler);
+        
+        if(log_mask == 0 && log_file != null) {
+            // if the log mask is still 0 and we have a log file, set the
+            // mask to the default
+            log_mask = DEFAULT_LOG_MASK;
+        }
+        
+        if(log_file_error_msg != null) {
+            warning("%s", log_file_error_msg);
+        }
     }
     
     public static void terminate() {
     }
     
+    public static void set_app_version_prefix(string app_version_prefix) {
+        log_app_version_prefix = app_version_prefix;
+    }
+    
+    private bool is_enabled(LogLevelFlags flag) {
+        return ((log_mask & flag) > 0);
+    }
+    
     private void log(FileStream stream, string prefix, string message) {
-        log_mutex.lock();
-        stream.puts(prefix);
-        stream.puts(message);
-        stream.putc('\n');
+        time_t now = time_t();
+        stream.printf("%s %d %s [%s] %s\n",
+            log_app_version_prefix,
+            Posix.getpid(),
+            Time.local(now).to_string(),
+            prefix,
+            message
+        );
         stream.flush();
-        log_mutex.unlock();
     }
     
     private void info_handler(string? domain, LogLevelFlags flags, string message) {
-        if (info_enabled)
-            log(stdout, "[INF] ", message);
+        if (is_enabled(LogLevelFlags.LEVEL_INFO))
+            log(log_out, "INF", message);
     }
     
     private void debug_handler(string? domain, LogLevelFlags flags, string message) {
-        if (debug_enabled)
-            log(stdout, "[DBG] ", message);
+        if (is_enabled(LogLevelFlags.LEVEL_DEBUG))
+            log(log_out, "DBG", message);
     }
     
     private void message_handler(string? domain, LogLevelFlags flags, string message) {
-        if (message_enabled)
-            log(stderr, "[MSG] ", message);
+        if (is_enabled(LogLevelFlags.LEVEL_MESSAGE))
+            log(log_err, "MSG", message);
     }
 
     private void warning_handler(string? domain, LogLevelFlags flags, string message) {
-        if (warning_enabled)
-            log(stderr, "[WRN] ", message);
+        if (is_enabled(LogLevelFlags.LEVEL_WARNING))
+            log(log_err, "WRN", message);
     }
 
     private void critical_handler(string? domain, LogLevelFlags flags, string message) {
-        if (critical_enabled)
-            log(stderr, "[CRT] ", message);
+        if (is_enabled(LogLevelFlags.LEVEL_CRITICAL))
+            log(log_err, "CRT", message);
     }
 }
 

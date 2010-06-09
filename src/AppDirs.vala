@@ -122,5 +122,18 @@ class AppDirs {
             return exec_dir;
     }
     
+    public static File? get_log_file() {
+        if (Environment.get_variable("SHOTWELL_LOG_FILE") != null) {
+            if (Environment.get_variable("SHOTWELL_LOG_FILE") == ":console:") {
+                return null;
+            } else {
+                return File.new_for_path(Environment.get_variable("SHOTWELL_LOG_FILE"));
+            }
+        } else {
+            return File.new_for_path(Environment.get_user_cache_dir()).
+                get_child("shotwell").get_child("shotwell.log");
+        }
+    }
+    
 }
 

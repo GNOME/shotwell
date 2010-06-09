@@ -41,6 +41,8 @@ void library_exec(string[] mounts) {
     if (already_running())
         return;
 #else
+    // update Debug prefix
+    Debug.set_app_version_prefix(Debug.LIBRARY_PREFIX);
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
@@ -182,6 +184,8 @@ void library_exec(string[] mounts) {
 }
 
 void editing_exec(string filename) {
+    // update Debug prefix
+    Debug.set_app_version_prefix(Debug.VIEWER_PREFIX);
     // init modules direct-editing relies on
     DatabaseTable.init(null);
     DirectPhoto.init();
