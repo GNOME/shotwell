@@ -28,10 +28,14 @@ namespace Debug {
         // Temporary prefix during initialisation, before we know whether
         // the application is in Library or Viewer mode
         log_app_version_prefix = INIT_PREFIX;
-
+        
+        // default to stdout/stderr if file cannot be opened or console is specified
+        log_out = stdout;
+        log_err = stderr;
+        
         string log_file_error_msg = null;
         
-        File log_file = AppDirs.get_log_file();        
+        File log_file = AppDirs.get_log_file();
         if(log_file != null) {
             File log_dir = log_file.get_parent();
             try {
@@ -52,8 +56,6 @@ namespace Debug {
                 log_out = log_file_stream;
                 log_err = log_file_stream;
             } else {
-                log_out = stdout;
-                log_err = stderr;
                 log_file_error_msg = "Unable to open or create log file %s".printf(log_file.get_path());
             }
         }
