@@ -213,6 +213,30 @@ int radius_scaled_in_space(int radius, Dimensions original, Dimensions scaled) {
     
     return (int) Math.round(radius * x_scale);
 }
+	
+public Gdk.Point scale_point(Gdk.Point p, double factor) {
+    Gdk.Point result = {0};
+    result.x = (int) (factor * p.x + 0.5);
+    result.y = (int) (factor * p.y + 0.5);
+
+    return result;
+}
+
+public Gdk.Point add_points(Gdk.Point p1, Gdk.Point p2) {
+    Gdk.Point result = {0};
+    result.x = p1.x + p2.x;
+    result.y = p1.y + p2.y;
+
+    return result;
+}
+
+public Gdk.Point subtract_points(Gdk.Point p1, Gdk.Point p2) {
+    Gdk.Point result = {0};
+    result.x = p1.x - p2.x;
+    result.y = p1.y - p2.y;
+
+    return result;
+}
 
 #if !NO_SET_BACKGROUND
 public void set_desktop_background(TransformablePhoto photo) {

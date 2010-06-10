@@ -1478,7 +1478,7 @@ public abstract class SinglePhotoPage : Page {
     private void render_zoomed_to_pixmap(ZoomState zoom_state) {
         assert(is_zoom_supported());
         
-        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
+        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle_wrt_content();
         
         Gdk.Pixbuf zoomed;
         if (get_zoom_buffer() != null) {

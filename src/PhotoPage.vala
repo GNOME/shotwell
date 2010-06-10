@@ -148,7 +148,7 @@ public class ZoomBuffer : Object {
     // pixbufs at for ZoomStates with zoom factors less than 0.5
     private Gdk.Pixbuf get_view_projection_pixbuf(ZoomState zoom_state, Gdk.Pixbuf iso_pixbuf,
         Gdk.Pixbuf? reduced_pixbuf = null) {
-        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
+        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle_wrt_content();
         Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
             iso_pixbuf);
         Gdk.Pixbuf sample_source_pixbuf = iso_pixbuf;
@@ -188,8 +188,9 @@ public class ZoomBuffer : Object {
                 // same), then all that has happened is that the user has panned the viewing
                 // window. So keep all the pixels from the cached pixbuf that are still on-screen
                 // in the current view.
-                Gdk.Rectangle curr_rect = zoom_state.get_viewing_rectangle();
-                Gdk.Rectangle pre_rect = demand_transform_zoom_state.get_viewing_rectangle();
+                Gdk.Rectangle curr_rect = zoom_state.get_viewing_rectangle_wrt_content();
+                Gdk.Rectangle pre_rect =
+                    demand_transform_zoom_state.get_viewing_rectangle_wrt_content();
                 Gdk.Rectangle transfer_src_rect = {0};
                 Gdk.Rectangle transfer_dest_rect = {0};
                                  
@@ -281,7 +282,7 @@ public class ZoomBuffer : Object {
 
             object_state = ObjectState.SOURCE_LOAD_IN_PROGRESS;
         }
-        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle();
+        Gdk.Rectangle view_rect = zoom_state.get_viewing_rectangle_wrt_content();
         Gdk.Rectangle view_rect_proj = zoom_state.get_viewing_rectangle_projection(
             preview_image);
 
@@ -347,6 +348,7 @@ public class ZoomBuffer : Object {
 }
 
 public abstract class EditingHostPage : SinglePhotoPage {
+    public const double ZOOM_INCREMENT_SIZE = 0.1;
     public const int TOOL_WINDOW_SEPARATOR = 8;
     public const int PIXBUF_CACHE_COUNT = 5;
     public const int ORIGINAL_PIXBUF_CACHE_COUNT = 5;
@@ -512,6 +514,83 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         return false;
     }
+	
+    private Gdk.Point get_cursor_wrt_viewport(Gdk.EventScroll event) {
+        Gdk.Point cursor_wrt_canvas = {0};
+        cursor_wrt_canvas.x = (int) event.x;
+        cursor_wrt_canvas.y = (int) event.y;
+
+        Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
+        Gdk.Point result = {0};
+        result.x = cursor_wrt_canvas.x - viewport_wrt_canvas.x;
+        result.x = result.x.clamp(0, viewport_wrt_canvas.width);
+        result.y = cursor_wrt_canvas.y - viewport_wrt_canvas.y;
+        result.y = result.y.clamp(0, viewport_wrt_canvas.height);
+
+        return result;
+    }
+
+    private Gdk.Point get_cursor_wrt_viewport_center(Gdk.EventScroll event) {
+        Gdk.Point cursor_wrt_viewport = get_cursor_wrt_viewport(event);
+        Gdk.Rectangle viewport_wrt_canvas = get_zoom_state().get_viewing_rectangle_wrt_screen();
+        
+        Gdk.Point viewport_center = {0};
+        viewport_center.x = viewport_wrt_canvas.width / 2;
+        viewport_center.y = viewport_wrt_canvas.height / 2;
+
+        return subtract_points(cursor_wrt_viewport, viewport_center);
+    }
+
+    private Gdk.Point get_iso_pixel_under_cursor(Gdk.EventScroll event) {
+        Gdk.Point viewport_center_iso = scale_point(get_zoom_state().get_viewport_center(),
+            1.0 / get_zoom_state().get_zoom_factor());
+
+        Gdk.Point cursor_wrt_center_iso = scale_point(get_cursor_wrt_viewport_center(event),
+            1.0 / get_zoom_state().get_zoom_factor());
+
+        return add_points(viewport_center_iso, cursor_wrt_center_iso);
+    }
+
+    private double snap_interpolation_factor(double interp) {
+        if (interp < 0.03)
+            interp = 0.0;
+        else if (interp > 0.97)
+            interp = 1.0;
+
+        return interp;
+    }
+
+    private double adjust_interpolation_factor(double adjustment) {
+        return snap_interpolation_factor(get_zoom_state().get_interpolation_factor() + adjustment);
+    }
+
+    private void zoom_about_event_cursor_point(Gdk.EventScroll event, double zoom_increment) {
+        Gdk.Point cursor_wrt_viewport_center = get_cursor_wrt_viewport_center(event);
+        Gdk.Point iso_pixel_under_cursor = get_iso_pixel_under_cursor(event);
+    
+        double interp = adjust_interpolation_factor(zoom_increment);
+        zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
+        zoom_slider.set_value(interp);
+        zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
+
+        ZoomState new_zoom_state = ZoomState.rescale(get_zoom_state(), interp);
+
+        if (new_zoom_state.is_min()) {
+            cancel_zoom();
+            repaint();
+            return;
+        }
+
+        Gdk.Point new_zoomed_old_cursor = scale_point(iso_pixel_under_cursor,
+            new_zoom_state.get_zoom_factor());
+        Gdk.Point desired_new_viewport_center = subtract_points(new_zoomed_old_cursor,
+            cursor_wrt_viewport_center);
+
+        new_zoom_state = ZoomState.pan(new_zoom_state, desired_new_viewport_center);
+
+        set_zoom_state(new_zoom_state);
+        repaint();
+    }
 
     protected void snap_zoom_to_min() {
         zoom_slider.set_value(0.0);
@@ -545,21 +624,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     protected virtual void on_increase_size() {
-        double interp = get_zoom_state().get_interpolation_factor() + 0.1;
-        if (interp < 0.03)
-            interp = 0.0;
-        else if (interp > 0.97)
-            interp = 1.0;
-        zoom_slider.set_value(interp);
+        zoom_slider.set_value(adjust_interpolation_factor(ZOOM_INCREMENT_SIZE));
     }
     
     protected virtual void on_decrease_size() {
-        double interp = get_zoom_state().get_interpolation_factor() - 0.1;
-        if (interp < 0.03)
-            interp = 0.0;
-        else if (interp > 0.97)
-            interp = 1.0;
-        zoom_slider.set_value(interp);
+        zoom_slider.set_value(adjust_interpolation_factor(-ZOOM_INCREMENT_SIZE));
     }
 
     protected override void save_zoom_state() {
@@ -572,14 +641,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
-        on_increase_size();
+        if (get_zoom_state().is_max())
+            return false;
 
+        zoom_about_event_cursor_point(event, ZOOM_INCREMENT_SIZE);
         return false;
     }
     
     protected override bool on_mousewheel_down(Gdk.EventScroll event) {
-        on_decrease_size();
-        
+        if (get_zoom_state().is_min()) {          
+            return false;
+        }
+
+        zoom_about_event_cursor_point(event, -ZOOM_INCREMENT_SIZE);
         return false;
     }
 

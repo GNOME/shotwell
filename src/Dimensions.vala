@@ -536,7 +536,8 @@ public struct ZoomState {
         return interpolation_factor;
     }
 
-    public Gdk.Rectangle get_viewing_rectangle() {
+    /* gets the viewing rectangle with respect to the zoomed content */
+    public Gdk.Rectangle get_viewing_rectangle_wrt_content() {
         int zoomed_width = get_zoomed_width();
         int zoomed_height = get_zoomed_height();
 
@@ -571,6 +572,25 @@ public struct ZoomState {
         return result;
     }
 
+    /* gets the viewing rectangle with respect to the on-screen canvas where zoomed content is
+       drawn */
+    public Gdk.Rectangle get_viewing_rectangle_wrt_screen() {
+        Gdk.Rectangle wrt_content = get_viewing_rectangle_wrt_content();
+
+        Gdk.Rectangle result = {0};
+        result.x = (viewport_dimensions.width / 2) - (wrt_content.width / 2);
+        if (result.x < 0)
+            result.x = 0;
+        result.y = (viewport_dimensions.height / 2) - (wrt_content.height / 2);
+        if (result.y < 0)
+            result.y = 0;
+        result.width = wrt_content.width;
+        result.height = wrt_content.height;
+
+        return result;
+    }
+
+    /* gets the projection of the viewing rectangle into the arbitrary pixbuf 'for_pixbuf' */
     public Gdk.Rectangle get_viewing_rectangle_projection(Gdk.Pixbuf for_pixbuf) {
         double zoomed_width = get_zoomed_width();
         double zoomed_height = get_zoomed_height();
@@ -579,7 +599,7 @@ public struct ZoomState {
         double vert_scale = for_pixbuf.height / zoomed_height;
         double scale = (horiz_scale + vert_scale) / 2.0;
         
-        Gdk.Rectangle viewing_rectangle = get_viewing_rectangle();
+        Gdk.Rectangle viewing_rectangle = get_viewing_rectangle_wrt_content();
 
         Gdk.Rectangle result = {0};
         result.x = (int) (viewing_rectangle.x * scale);
@@ -626,7 +646,7 @@ public struct ZoomState {
         if (named_modes == "")
             named_modes = "(none)";
 
-        Gdk.Rectangle viewing_rect = get_viewing_rectangle();
+        Gdk.Rectangle viewing_rect = get_viewing_rectangle_wrt_content();
 
         return (("ZoomState {\n    content dimensions = %d x %d;\n    viewport dimensions = " +
             "%d x %d;\n    min factor = %f;\n    max factor = %f;\n    current factor = %f;" +
