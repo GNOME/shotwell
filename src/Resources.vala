@@ -282,7 +282,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RESTORE_PHOTOS_MENU = _("_Restore");
     public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
     
-    public const string JUMP_TO_FILE_MENU = ("Show in File Mana_ger");
+    public const string JUMP_TO_FILE_MENU = _("Show in File Mana_ger");
     public const string JUMP_TO_FILE_TOOLTIP = _("Open the selected photo's directory in the file manager");
     
     public string jump_to_file_failed(Error err) {
@@ -290,7 +290,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public const string REMOVE_FROM_LIBRARY_MENU = _("R_emove From Library");
-    public const string MOVE_TO_TRASH_MENU = ("_Move to Trash");
+    public const string MOVE_TO_TRASH_MENU = _("_Move to Trash");
     
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;
