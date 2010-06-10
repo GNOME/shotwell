@@ -16,6 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+#: src/AppWindow.vala:567
+msgid "translator-credits"
+msgstr ""
+
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr ""
@@ -100,13 +106,13 @@ msgstr ""
 msgid "Visit the Yorba web site"
 msgstr ""
 
-#: src/AppWindow.vala:567
-msgid "translator-credits"
-msgstr ""
-
 #: src/AppWindow.vala:576
 #, c-format
 msgid "Unable to display help: %s"
+msgstr ""
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
 msgstr ""
 
 #: src/CollectionPage.vala:137 src/SlideshowPage.vala:98
@@ -409,6 +415,10 @@ msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 msgstr[1] ""
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr ""
 
 #: src/Commands.vala:1257
 msgid "Move Photos to Trash"
