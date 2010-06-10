@@ -496,6 +496,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             }
             repaint();
         }
+        
+        update_cursor_for_zoom_context();
     }
 
     private bool on_zoom_slider_drag_begin(Gdk.EventButton event) {
@@ -577,6 +579,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         if (new_zoom_state.is_min()) {
             cancel_zoom();
+            update_cursor_for_zoom_context();
             repaint();
             return;
         }
@@ -590,6 +593,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         set_zoom_state(new_zoom_state);
         repaint();
+
+        update_cursor_for_zoom_context();
     }
 
     protected void snap_zoom_to_min() {
@@ -1005,6 +1010,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
 
         set_zoom_state(ZoomState(get_photo().get_dimensions(), get_drawable_dim(), 0.0));
+
+        // when cancelling zoom, panning becomes impossible, so set the cursor back to
+        // a left pointer in case it had been a hand-grip cursor indicating that panning
+        // was possible; the null guards are required because zoom can be cancelled at
+        // any time
+        if (canvas != null && canvas.window != null)
+            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
     }
     
     private void quick_update_pixbuf() {
@@ -1157,6 +1169,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             set_pixbuf(swapped, get_photo().get_dimensions());
             
             restore_zoom_state();
+            update_cursor_for_zoom_context();
             
             // only store swapped once; it'll be set the next on_shift_pressed
             swapped = null;
@@ -1344,6 +1357,24 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
+    private bool is_panning_possible() {       
+        // panning is impossible if all the content to be drawn completely fits on the drawing
+        // canvas
+        Dimensions content_dim = {0};
+        content_dim.width = get_zoom_state().get_zoomed_width();
+        content_dim.height = get_zoom_state().get_zoomed_height();
+        Dimensions canvas_dim = get_drawable_dim();
+
+        return (!(canvas_dim.width >= content_dim.width && canvas_dim.height >= content_dim.height));
+    }
+    
+    private void update_cursor_for_zoom_context() {
+        if (is_panning_possible())
+            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.FLEUR));
+        else
+            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+    }
+    
     // Return true to block the DnD handler from activating a drag
     private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         if (current_tool != null) {
@@ -1351,11 +1382,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             return true;
         }
         
-        if (get_zoom_state().is_default()) {
-            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
-        } else {
-            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.FLEUR));
-        }
+        update_cursor_for_zoom_context();
         
         if (is_pan_in_progress) {
             int delta_x = ((int) event.x) - zoom_pan_start_point.x;
