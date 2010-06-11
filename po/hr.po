@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-07 20:54+0200\n"
@@ -47,6 +47,14 @@ msgstr "Shotwell preglednik fotografija"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Preglednik fotografija"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Premjesti u Smeće"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Otvori upraviteljem datotekama"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2591,5 +2599,3 @@ msgstr ""
 msgid "External Editors"
 msgstr "Vanjski uređivači"
 
-#~ msgid "_Move to Trash"
-#~ msgstr "Pre_mjesti u Smeće"

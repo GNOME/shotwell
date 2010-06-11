@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
-"Report-Msgid-Bugs-To: lucas@yorba.org\n"
+"Project-Id-Version: shotwell-0.5.91\n"
+"Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-03-04 18:37-0800\n"
 "PO-Revision-Date: 2010-03-18 20:15+0100\n"
 "Last-Translator: Nikolas Slivka <snicore@gmail.com>\n"
@@ -21,6 +21,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Nikolas Slivka <snicore@gmail.com>"
@@ -46,6 +47,14 @@ msgstr "Shotwell Képnézegető"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Képnézegető"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Áthelyezés a Kukába"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Megnyitás a fájlkezelővel"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"

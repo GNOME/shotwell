@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-07 20:54+0100\n"
@@ -30,6 +30,7 @@ msgstr ""
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell Fotoverwalter"
 
+# GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
 msgstr "Fotoverwaltung"
@@ -38,12 +39,22 @@ msgstr "Fotoverwaltung"
 msgid "Organize your photos"
 msgstr "Organisieren Sie ihre Fotos"
 
+# GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
 msgstr "Shotwell Fotobetrachter"
 
+# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Fotobetrachter"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "In den Müll verschieben"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Mit dem Dateimanager öffnen"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2617,8 +2628,6 @@ msgstr "Externer _RAW Editor:"
 msgid "External Editors"
 msgstr "Externe Editoren"
 
-#~ msgid "_Move to Trash"
-#~ msgstr "In den Papierkorb verschieben"
 #~ msgid "Unable to export photo %s: %s"
 #~ msgstr "Das Foto kann nicht exportiert werden %s: %s"
 #~ msgid "Error while fetching previews from %s: %s"

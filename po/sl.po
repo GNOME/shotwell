@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Shotwell master\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: \n"
@@ -47,6 +47,14 @@ msgstr "Shotwell pregledovalnik fotografij"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Pregledovalnik fotografij"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Premakni v smeti"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Odpri z upravljalnikom datotek"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2701,8 +2709,6 @@ msgstr "Zunanji urejevalnik _RAW:"
 msgid "External Editors"
 msgstr "Zunanji urejevalniki"
 
-#~ msgid "_Move to Trash"
-#~ msgstr "_Premakni v smeti"
 #~ msgid "Unable to export photo %s: %s"
 #~ msgstr "Fotografije %s ni mogoče izvoziti: %s"
 #~ msgid "Error while fetching previews from %s: %s"

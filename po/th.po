@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-10 17:12+0700\n"
@@ -46,6 +46,14 @@ msgstr "โปรแกรมแสดงภาพถ่าย Shotwell"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "โปรแกรมแสดงภาพถ่าย"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "ลบไปที่ถังขยะ"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "เปิดด้วยโปรแกรม File Manager"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2556,5 +2564,3 @@ msgstr "ตัวแก้ไขภาพดิบ:"
 msgid "External Editors"
 msgstr "โปรแกรมแก้ไขภาพภายนอก"
 
-#~ msgid "_Move to Trash"
-#~ msgstr "ลบไปที่ถังขยะ(_M)"

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
 "PO-Revision-Date: \n"
@@ -20,6 +20,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Jose Luis Navarro <jlnavarro111@gmail.com>\n"
@@ -44,9 +45,16 @@ msgstr "Visor de Fotos Shotwell"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
-#, fuzzy
 msgid "Photo Viewer"
 msgstr "Visor de fotografías"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Mover a la papelera"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Abrir con el administrador de archivos"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -166,11 +174,6 @@ msgstr "Seleccionar _todo"
 #: src/CollectionPage.vala:232
 msgid "Select all the photos in the library"
 msgstr "Seleccionar todas las fotos de la biblioteca"
-
-#: src/CollectionPage.vala:237
-#, fuzzy
-msgid "_Move to Trash"
-msgstr "Mover fotos"
 
 #: src/CollectionPage.vala:238
 msgid "Move the selected photos to the trash"

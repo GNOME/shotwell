@@ -12,7 +12,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-06 11:25+01:00\n"
@@ -36,6 +36,7 @@ msgstr ""
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell - billedhåndtering"
 
+# GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
 msgstr "Billedhåndtering"
@@ -44,12 +45,22 @@ msgstr "Billedhåndtering"
 msgid "Organize your photos"
 msgstr "Organiser dine billeder"
 
+# GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
 msgstr "Shotwell - billedvisning"
 
+# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Billedvisning"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Flyt til papirkurv"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Åbn med filhåndtereren"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2618,9 +2629,6 @@ msgstr "Ekstern _RAW editor:"
 #: ui/shotwell.glade:362
 msgid "External Editors"
 msgstr "Eksterne Editorer"
-
-#~ msgid "_Move to Trash"
-#~ msgstr "Flyt til papirkurv"
 
 #~ msgid "Unable to export photo %s: %s"
 #~ msgstr "Kunne ikke eksportere billede %s: %s"

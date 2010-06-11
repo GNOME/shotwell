@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-05 08:27+0300\n"
@@ -47,6 +47,14 @@ msgstr "Переглядач фотографій Shotwell"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Переглядач фотографій"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Пересунути до смітника"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Відкрити у менеджері файлів"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2714,9 +2722,6 @@ msgstr "Зовнішній редактор н_егативів:"
 #: ui/shotwell.glade:362
 msgid "External Editors"
 msgstr "Зовнішні редактори"
-
-#~ msgid "_Move to Trash"
-#~ msgstr "П_ересунути до смітника"
 
 #~ msgid "Unable to export photo %s: %s"
 #~ msgstr "Не вдалося експортувати фотографію %s: %s"

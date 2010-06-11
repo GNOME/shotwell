@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
 "PO-Revision-Date: 2010-05-07 18:12-0800\n"
@@ -21,15 +21,18 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Djavan Fagundes <djavan@comum.org>\n"
 "Helder Ribeiro <helder@gmail.com>\n"
 "Seth Schoen <schoen@loyalty.org>"
 
+# GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Organizador de Fotos Shotwell"
 
+# GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
 msgstr "Organizador de Fotos"
@@ -38,12 +41,22 @@ msgstr "Organizador de Fotos"
 msgid "Organize your photos"
 msgstr "Organizar suas fotos"
 
+# GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
 msgstr "Shotwell Visualizador de Fotos"
 
+# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Visualizador de Fotos"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "_Mover Para a Lixeira"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Abrir com o Gestor de Ficheiros"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -161,10 +174,6 @@ msgstr "Selecionar _Todas"
 #: src/CollectionPage.vala:232
 msgid "Select all the photos in the library"
 msgstr "Seleciona todas as fotos da galeria"
-
-#: src/CollectionPage.vala:237
-msgid "_Move to Trash"
-msgstr "_Mover Para a Lixeira"
 
 #: src/CollectionPage.vala:238
 msgid "Move the selected photos to the trash"

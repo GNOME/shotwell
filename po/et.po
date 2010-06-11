@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
-"Report-Msgid-Bugs-To: lucas@yorba.org\n"
+"Project-Id-Version: shotwell-0.5.91\n"
+"Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-02-17 15:22-0800\n"
 "PO-Revision-Date: 2010-02-26 10:58+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
@@ -20,9 +20,40 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Mattias Põldaru <mahfiaz@gmail.com>"
+
+# GNOME Application Name
+msgid "Shotwell Photo Manager"
+msgstr ""
+
+# GNOME Application Class ("Generic Name")
+#: src/Resources.vala:14
+msgid "Photo Manager"
+msgstr ""
+
+# GNOME Application Comment
+msgid "Organize your photos"
+msgstr ""
+
+# GNOME Application Name for Direct Edit Mode
+msgid "Shotwell Photo Viewer"
+msgstr ""
+
+# GNOME Application Class for Direct Edit Mode
+#: src/Resources.vala:15
+msgid "Photo Viewer"
+msgstr ""
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Viska prügikasti"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Ava failihalduris"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -1729,14 +1760,6 @@ msgstr "Tarkvara:"
 #: src/Properties.vala:497
 msgid "Extended Information"
 msgstr "Laiendatud teave"
-
-#: src/Resources.vala:14
-msgid "Photo Manager"
-msgstr "Fotode korrastaja"
-
-#: src/Resources.vala:15
-msgid "Photo Viewer"
-msgstr "Fotovaatur"
 
 #: src/Resources.vala:17
 msgid "Copyright 2009-2010 Yorba Foundation"

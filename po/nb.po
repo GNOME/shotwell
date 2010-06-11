@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-06 10:11+0200\n"
@@ -46,6 +46,14 @@ msgstr "Shotwell fotofremviser"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Fotofremviser"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Flytt til søppelkassen"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Åpne med filhåndtereren"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -2618,9 +2626,6 @@ msgstr "Ekstern _RAW behandler:"
 #: ui/shotwell.glade:362
 msgid "External Editors"
 msgstr "Ekstern bildebehandler"
-
-#~ msgid "_Move to Trash"
-#~ msgstr "Flytt til søppelkassen"
 
 #~ msgid "Unable to export photo %s: %s"
 #~ msgstr "Kan ikke eksportere bilde %s: %s"

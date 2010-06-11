@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
 "PO-Revision-Date: 2010-05-18 01:40+0100\n"
@@ -21,6 +21,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Laco Gubík <lacogubik@googlemail.com>"
@@ -46,6 +47,14 @@ msgstr "Shotwell prehliadač fotografií"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Prehliadač fotografií"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Presunúť do koša"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Otvoriť v Správcovi súborov"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -163,10 +172,6 @@ msgstr "Ozn_ačiť všetko"
 #: src/CollectionPage.vala:232
 msgid "Select all the photos in the library"
 msgstr "Označiť všetky fotografie v knižnici"
-
-#: src/CollectionPage.vala:237
-msgid "_Move to Trash"
-msgstr "Presunúť do koša"
 
 #: src/CollectionPage.vala:238
 msgid "Move the selected photos to the trash"

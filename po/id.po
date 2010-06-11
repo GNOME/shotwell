@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-05-14 08:00+0200\n"
@@ -44,6 +44,14 @@ msgstr "Album Foto Shotwell"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Album Foto"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Pindahkan ke Tempat Pembuangan"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Lihat di Program Pengatur Berkas"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"

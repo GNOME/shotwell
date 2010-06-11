@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-07 13:35+0200\n"
@@ -25,11 +25,11 @@ msgstr ""
 "Dimitris Glezos <dimitris@glezos.com>\n"
 "Thalia Papoutsaki <saliyath@gmail.com>"
 
-
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Διαχειριστής Εικόνων Shotwell"
 
+# GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
 msgstr "Διαχειριστής Εικόνων"
@@ -42,9 +42,18 @@ msgstr "Οργανώστε τις φωτογραφίες σας"
 msgid "Shotwell Photo Viewer"
 msgstr "Προβολή Εικόνων Shotwell"
 
+# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Προβολή Εικόνων"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Μετακίνηση στα Απορρίματα"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Άνοιγμα με το διαχειριστή αρχείων"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"

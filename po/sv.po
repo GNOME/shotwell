@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
 "PO-Revision-Date: 2010-06-08 23:37+0100\n"
@@ -40,9 +40,18 @@ msgstr "Organisera dina foton"
 msgid "Shotwell Photo Viewer"
 msgstr "Fotovisaren Shotwell"
 
+# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Fotovisare"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr ""
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Öppna med filhanteraren"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"

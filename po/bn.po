@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
-"Report-Msgid-Bugs-To: lucas@yorba.org\n"
+"Project-Id-Version: shotwell-0.5.91\n"
+"Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-03-04 18:37-0800\n"
 "PO-Revision-Date: 2010-03-06 18:40+0530\n"
 "Last-Translator: sankarshan mukhopadhyay <sankarshan@fedoraproject.org>\n"
@@ -21,6 +21,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Sankarshan Mukhopadhyay <sankarshan@fedoraproject.org>"
@@ -46,6 +47,14 @@ msgstr "শটওয়েল ফটো ভিউয়ার"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "ছবি প্রদর্শক"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "আবর্জনার বাক্সে স্থানান্তর করো"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr ""
 
 #: src/AppDirs.vala:44
 msgid "Pictures"

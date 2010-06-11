@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
+"Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-04-30 17:19-0700\n"
 "PO-Revision-Date: 2010-03-06 16:05+0100\n"
@@ -19,6 +19,7 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Caccolangrifata <caccolangrifata@gmail.com>\n"
@@ -45,6 +46,14 @@ msgstr "Visualizzatore di foto Shotwell"
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Visualizzatore di foto"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "Sposta nel cestino"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Apre con il file manager"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
@@ -149,11 +158,6 @@ msgstr "Seleziona _tutto"
 #: src/CollectionPage.vala:232
 msgid "Select all the photos in the library"
 msgstr "Seleziona tutte le foto nella raccolta"
-
-#: src/CollectionPage.vala:237
-#, fuzzy
-msgid "_Move to Trash"
-msgstr "Sposta Foto"
 
 #: src/CollectionPage.vala:238
 #, fuzzy

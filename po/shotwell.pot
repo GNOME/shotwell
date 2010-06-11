@@ -44,6 +44,14 @@ msgstr ""
 msgid "Photo Viewer"
 msgstr ""
 
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr ""
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr ""
+
 #: src/AppDirs.vala:60
 msgid "Pictures"
 msgstr ""
@@ -109,10 +117,6 @@ msgstr ""
 #: src/AppWindow.vala:576
 #, c-format
 msgid "Unable to display help: %s"
-msgstr ""
-
-#: src/Resources.vala:285
-msgid "Show in File Mana_ger"
 msgstr ""
 
 #: src/CollectionPage.vala:137 src/SlideshowPage.vala:98
@@ -415,10 +419,6 @@ msgid_plural ""
 "Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 msgstr[1] ""
-
-#: src/Resources.vala:293
-msgid "_Move to Trash"
-msgstr ""
 
 #: src/Commands.vala:1257
 msgid "Move Photos to Trash"

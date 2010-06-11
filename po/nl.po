@@ -5,8 +5,8 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.90+trunk\n"
-"Report-Msgid-Bugs-To: lucas@yorba.org\n"
+"Project-Id-Version: shotwell-0.5.91\n"
+"Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-03-04 18:37-0800\n"
 "PO-Revision-Date: 2010-02-01 21:34+0100\n"
 "Last-Translator: Kaj-Ivar van der Wijst <kaj-ivar@vanderwijst.com>\n"
@@ -19,13 +19,16 @@ msgstr ""
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
+#: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
 "Kaj-Ivar van der Wijst <kaj-ivar@vanderwijst.com>"
 
+# GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Shotwell fotobeheer"
 
+# GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
 msgstr "Fotobeheer"
@@ -34,12 +37,22 @@ msgstr "Fotobeheer"
 msgid "Organize your photos"
 msgstr "Beheer je foto's"
 
+# GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
 msgstr "Shotwell Foto Viewer"
 
+# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Foto Viewer"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "In prullenbak gooien"
+
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Openen met bestandsbeheer"
 
 #: src/AppDirs.vala:44
 msgid "Pictures"
