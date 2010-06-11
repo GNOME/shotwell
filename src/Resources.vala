@@ -76,8 +76,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string ICON_APP = "shotwell" + SVG_SUFFIX;
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
-    public const string ICON_HIDDEN = "hidden.svg";
-    public const string ICON_FAVORITE = "favorite.svg";
+    public const string ICON_HIDDEN = "hidden" + SVG_SUFFIX;
+    public const string ICON_FAVORITE = "favorite" + SVG_SUFFIX;
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -315,9 +315,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         add_stock_icon(icons_dir.get_child("publish.png"), PUBLISH);
-        add_stock_icon(icons_dir.get_child("hidden.svg"), HIDDEN);
-        add_stock_icon(icons_dir.get_child("favorite.svg"), FAVORITE);
-        add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
+        add_stock_icon(icons_dir.get_child("hidden" + SVG_SUFFIX), HIDDEN);
+        add_stock_icon(icons_dir.get_child("favorite" + SVG_SUFFIX), FAVORITE);
+        add_stock_icon(icons_dir.get_child("merge" + SVG_SUFFIX), MERGE);
         
         factory.add_default();
     }

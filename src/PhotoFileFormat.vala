@@ -96,7 +96,8 @@ public enum PhotoFileFormat {
                 return UNKNOWN;
         }
     }
-    
+
+#if !NO_CAMERA
     public static PhotoFileFormat from_gphoto_type(string type) {
         switch (type) {
             case GPhoto.MIME.JPEG:
@@ -116,6 +117,7 @@ public enum PhotoFileFormat {
                 return PhotoFileFormat.UNKNOWN;
         }
     }
+#endif
     
     private PhotoFileFormatDriver get_driver() {
         switch (this) {

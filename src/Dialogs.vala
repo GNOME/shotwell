@@ -1198,9 +1198,11 @@ public class PreferencesDialog {
     private Gtk.Adjustment bg_color_adjustment;
     private Gtk.Entry library_dir_entry;
     private Gtk.ComboBox photo_editor_combo;
+#if !NO_RAW
     private Gtk.ComboBox raw_editor_combo;
-    private SortedList<AppInfo> external_photo_apps;
     private SortedList<AppInfo> external_raw_apps;
+#endif
+    private SortedList<AppInfo> external_photo_apps;
     
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
@@ -1227,16 +1229,22 @@ public class PreferencesDialog {
         library_dir_browser.clicked.connect(on_browse_import_dir);
         
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
+#if !NO_RAW
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
-        
+#endif        
+
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(), 
             Config.get_instance().get_external_photo_app(), out external_photo_apps);
-        
+
+#if !NO_RAW        
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
             Config.get_instance().get_external_raw_app(), out external_raw_apps);
-        
+#endif        
+
         photo_editor_combo.changed.connect(on_photo_editor_changed);
+#if !NO_RAW
         raw_editor_combo.changed.connect(on_raw_editor_changed);
+#endif
     }
     
     private void populate_app_combo_box(Gtk.ComboBox combo_box, string[] mime_types,
@@ -1366,6 +1374,7 @@ public class PreferencesDialog {
         debug("setting external photo editor to: %s", app.get_commandline());
     }
     
+#if !NO_RAW
     private void on_raw_editor_changed() {
         AppInfo app = external_raw_apps.get_at(raw_editor_combo.get_active());
         
@@ -1373,4 +1382,5 @@ public class PreferencesDialog {
         
         debug("setting external raw editor to: %s", app.get_commandline());
     }
+#endif
 }

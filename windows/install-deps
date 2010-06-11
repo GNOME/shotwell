@@ -1,5 +1,8 @@
 # Install all build dependencies for Shotwell on Windows.
 
+# Remove remnants of previous installs and patching
+rm -rf /tmp/install/*
+
 cd /mingw
 
 # For now, we use the GTK 2.18.1 binary.  We can't use GTK 2.16, because some Shotwell code now uses
@@ -15,10 +18,15 @@ cd /mingw
 #   even though libwimp.dll is loaded as revealed by Process Explorer.
 
 list="\
-http://downloads.sourceforge.net/project/mingw/GNU%20Binutils/binutils-2.20/binutils-2.20-1-mingw32-bin.tar.gz \
-http://downloads.sourceforge.net/project/mingw/MinGW%20API%20for%20MS-Windows/w32api-3.14/w32api-3.14-mingw32-dev.tar.gz \
+http://downloads.sourceforge.net/project/mingw/MinGW/BaseSystem/GNU-Binutils/binutils-2.20.1/binutils-2.20.1-2-mingw32-bin.tar.gz \
+http://downloads.sourceforge.net/project/mingw/MinGW/BaseSystem/RuntimeLibrary/Win32-API/w32api-3.14/w32api-3.14-mingw32-dev.tar.gz \
+http://downloads.sourceforge.net/project/mingw/MinGW/BaseSystem/GCC/Version3/Current%20Release_%20gcc-3.4.5-20060117-3/gcc-g++-3.4.5-20060117-3.tar.gz \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3_3.6.0_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/sqlite3-dev_3.6.0_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libtiff_3.9.1-2_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libtiff-dev_3.9.1-2_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libpng_1.2.40-1_win32.zip \
+http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libpng-dev_1.2.40-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/dependencies/libxml2_2.7.4-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.18/gtk+_2.18.1-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/gtk+/2.18/gtk+-dev_2.18.1-1_win32.zip \
@@ -27,13 +35,49 @@ http://ftp.gnome.org/pub/GNOME/binaries/win32/libgsf/1.14/libgsf_1.14.15-1_win32
 http://ftp.gnome.org/pub/GNOME/binaries/win32/librsvg/2.26/librsvg_2.26.0-1_win32.zip \
 http://ftp.gnome.org/pub/GNOME/binaries/win32/librsvg/2.26/svg-gdk-pixbuf-loader_2.26.0-1_win32.zip \
 http://valide.googlecode.com/files/libgee-0.5.0.zip \
+http://downloads.sourceforge.net/project/mingw/MinGW/libtool/libtool-2.2.7a-1/libtool-2.2.7a-1-mingw32-bin.tar.lzma \
+http://downloads.sourceforge.net/project/mingw/MinGW/pthreads-w32/pthreads-w32-2.8.0-3/pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma \
 "
 
+source_list="\
+http://ftp.gnu.org/gnu/libiconv/libiconv-1.13.1.tar.gz \
+http://downloads.sourceforge.net/project/libexif/libexif/0.6.19/libexif-0.6.19.tar.gz \
+http://www.exiv2.org/exiv2-0.19.tar.gz \
+"
+
+# 7zip needed for .lmza support
+wget -P /tmp/install http://downloads.sourceforge.net/sevenzip/7za465.zip
+mkdir /tmp/install/7za
+unzip -o /tmp/install/7za465.zip -d /tmp/install/7za
+mv /tmp/install/7za/7za.exe /mingw/bin/
+
+# Jpeg 7 and 8 do not have standard directory names
+cd /tmp/install
+wget http://www.ijg.org/files/jpegsrc.v7.tar.gz
+tar xzvf jpegsrc.v7.tar.gz
+cd jpeg-7
+./configure --prefix=/mingw
+make
+make install
+
+cd /tmp/install
+wget http://www.ijg.org/files/jpegsrc.v8b.tar.gz
+tar xzvf jpegsrc.v8b.tar.gz
+cd jpeg-8b
+./configure --prefix=/mingw
+make
+make install
+
+cd /mingw
 for url in $list ; do
   package=${url##*/}
   package_file=/tmp/install/$package
   if [ ! -e $package_file ] ; then
     wget -P /tmp/install $url
+  fi
+  if [ ! -e $package_file ] ; then
+    echo unable to dowload $url
+    exit 1
   fi
   case ${package##*.} in
   gz)
@@ -42,12 +86,77 @@ for url in $list ; do
   zip)
     unzip -o $package_file
     ;;
+  lzma)
+    7za e $package_file
+    tar xvf ${package%.*}
+    ;;
   *)
     echo unknown extension
     exit 1
   esac
 done
 
+# patch libintl.la
+if grep usr /mingw/lib/libintl.la
+then
+  cd /tmp/install
+  echo "Patching libintl.la"
+  cd /mingw/lib
+  wget http://trac.yorba.org/raw-attachment/wiki/ShotwellWindowsBuild/libintl.diff
+  patch libintl.la libintl.diff
+  rm libintl.diff
+fi
+
+for source_url in $source_list ; do
+  cd /tmp/install
+  source_package=${source_url##*/}
+  source_file=/tmp/install/$source_package
+  dir_tmp=${source_package%.*}
+  source_directory=${dir_tmp%.*}
+  wget -P /tmp/install $source_url
+
+  if [ ! -e $source_file ] ; then
+    echo unable to download $source_url
+    exit 1
+  fi
+
+  tar xvfv $source_file
+  cd /tmp/install/$source_directory
+  ./configure --prefix=/mingw
+  make
+  make install
+done
+
+cd /tmp/install
+wget http://www.libraw.org/data/LibRaw-0.9.1.tar.gz
+tar -xzvf LibRaw-0.9.1.tar.gz
+cd LibRaw-0.9.1
+wget http://trac.yorba.org/raw-attachment/wiki/ShotwellWindowsBuild/libraw_makefile.diff
+wget http://trac.yorba.org/raw-attachment/wiki/ShotwellWindowsBuild/libraw_samples_half_mt.diff
+patch Makefile libraw_makefile.diff
+patch samples/half_mt.c libraw_samples_half_mt.diff
+make
+make install PREFIX=/mingw
+
+cd /tmp/install
+svn co svn://svn.yorba.org/gexiv2/trunk gexiv2
+cd gexiv2
+./configure --prefix=/mingw
+make
+make install
+
+# NOTE: this command must be run at the end of this script, as other libraries may
+# overwrite it otherwise. 
+cd /mingw
 mkdir -p etc/gtk-2.0
 gdk-pixbuf-query-loaders > etc/gtk-2.0/gdk-pixbuf.loaders
+
+echo ""; echo ""; echo "";
+echo "Dependencies installed successfully!"
+echo "Now run:"
+echo ""
+echo "./configure"
+echo "make"
+echo ""
+echo "To create shotwell.exe"
 

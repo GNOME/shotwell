@@ -185,6 +185,11 @@ EXT_PKGS += \
 	dbus-glib-1
 endif
 
+ifdef WINDOWS
+LOCAL_PKGS += \
+	libraw
+endif
+
 ifdef MAC
 EXT_PKGS += \
 	ige-mac-integration
@@ -250,7 +255,7 @@ VALA_CFLAGS = `pkg-config --cflags $(EXT_PKGS) gthread-2.0` $(foreach hdir,$(HEA
 VALA_LDFLAGS = `pkg-config --libs $(EXT_PKGS) gthread-2.0`
 
 ifdef WINDOWS
-  VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D NO_SET_BACKGROUND -D NO_RAW
+  VALA_DEFINES = -D WINDOWS -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_EXTENDED_POSIX -D NO_SET_BACKGROUND
   EXPANDED_OBJ_FILES += src/windows.o
   RESOURCES = shotwell.res
 
@@ -285,6 +290,12 @@ VALA_LDFLAGS += -lraw_r -lstdc++
 
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
+endif
+
+ifdef WINDOWS
+# This is for libraw, which does not have a .pc file yet
+VALA_LDFLAGS += -lraw_r -lstdc++ -lwsock32
+CFLAGS += -DLIBRAW_NODLL
 endif
 
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
@@ -327,6 +338,7 @@ dist: $(DIST_FILES)
 distclean: clean
 	rm -f configure.mk
 
+.PHONY: install
 install:
 	cp misc/shotwell.desktop.head misc/shotwell.desktop
 	cp misc/shotwell-viewer.desktop.head misc/shotwell-viewer.desktop

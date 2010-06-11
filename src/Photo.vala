@@ -1976,8 +1976,12 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     private static bool launch_editor(File file, PhotoFileFormat file_format) throws Error {
+#if NO_RAW
+        string commandline = Config.get_instance().get_external_photo_app();
+#else
         string commandline = file_format == PhotoFileFormat.RAW ? Config.get_instance().get_external_raw_app() : 
             Config.get_instance().get_external_photo_app();
+#endif
 
         if (is_string_empty(commandline))
             return false;

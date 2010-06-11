@@ -2128,13 +2128,15 @@ public class LibraryPhotoPage : EditingHostPage {
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
         actions += external_edit;
-        
+
+#if !NO_RAW
         Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, null, TRANSLATABLE,
             on_external_edit_raw };
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
-        
+#endif
+
         Gtk.ActionEntry jump_to_file = { "JumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null, 
             TRANSLATABLE, on_jump_to_file };
         jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
@@ -2198,20 +2200,26 @@ public class LibraryPhotoPage : EditingHostPage {
     
     protected override void init_actions(int selected_count, int count) {
         set_action_sensitive("ExternalEdit", count > 0 && Config.get_instance().get_external_photo_app() != "");
+#if !NO_RAW
         set_action_hidden("ExternalEditRAW");
+#endif
         set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
         
         base.init_actions(selected_count, count);
     }
     
     private void on_contents_altered() {
+#if !NO_RAW
         bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
-        
+#endif        
+
         set_action_sensitive("ExternalEdit", has_photo() && Config.get_instance().get_external_photo_app() != "");
+#if !NO_RAW
         if (is_raw)
             set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
         else
             set_action_hidden("ExternalEditRAW");
+#endif
         set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
     }
     
@@ -2493,7 +2501,8 @@ public class LibraryPhotoPage : EditingHostPage {
             AppWindow.error_message(Resources.launch_editor_failed(err));
         }
     }
-    
+
+#if !NO_RAW    
     private void on_external_edit_raw() {
         if (!has_photo())
             return;
@@ -2510,6 +2519,7 @@ public class LibraryPhotoPage : EditingHostPage {
             AppWindow.error_message(Resources.launch_editor_failed(err));
         }
     }
+#endif
     
     private void on_export() {
         if (!has_photo())

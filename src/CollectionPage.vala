@@ -565,8 +565,10 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_selection_changed() {
         int selected_count = get_view().get_selected_count();
         bool has_selected = selected_count > 0;
+#if !NO_RAW
         bool is_single_raw = selected_count == 1 
             && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == PhotoFileFormat.RAW;
+#endif
         
         rotate_button.sensitive = has_selected;
 #if !NO_PUBLISHING
@@ -575,10 +577,12 @@ public abstract class CollectionPage : CheckerboardPage {
         enhance_button.sensitive = has_selected;
         
         set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
+#if !NO_RAW
         if (is_single_raw)
             set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
         else
             set_action_hidden("ExternalEditRAW");
+#endif
         set_action_sensitive("RevertEditable", can_revert_editable_selected());
         set_action_sensitive("JumpToFile", selected_count == 1);
         
@@ -1067,9 +1071,11 @@ public abstract class CollectionPage : CheckerboardPage {
             return;
         
         Photo photo = (Photo) get_view().get_selected_at(0).get_source();
+#if !NO_RAW
         if (photo.get_master_file_format() != PhotoFileFormat.RAW)
             return;
-        
+#endif        
+
         try {
             AppWindow.get_instance().set_busy_cursor();
             photo.open_master_with_external_editor();

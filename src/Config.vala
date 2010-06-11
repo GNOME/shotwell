@@ -616,6 +616,7 @@ public class Config {
             external_photo_app);
     }
 
+#if !NO_RAW
     public string get_external_raw_app() {
         string external_app = get_string("/apps/shotwell/preferences/editing/external_raw_editor", "");
         
@@ -628,7 +629,8 @@ public class Config {
         AppInfo? app = get_default_app_for_mime_types(PhotoFileFormat.RAW.get_mime_types(), preferred_apps);
         return (app != null) ? app.get_commandline() : "";  
     }
-    
+#endif
+
     public void set_external_raw_app(string external_raw_app) {
         set_string("/apps/shotwell/preferences/editing/external_raw_editor", external_raw_app);
     }
