@@ -259,16 +259,22 @@ public class Interactor : ServiceInteractor {
         if (has_error() || cancelled)
             return;
 
-        // if we get a 404 error (resource not found) on the initial album fetch, then the
-        // user's album feed doesn't exist -- this occurs when the user has a valid Google
-        // account but it hasn't yet been set up for use with Picasa. In this case, we
-        // re-display the credentials capture pane with an "account not set up" message.
-        // In addition, we deauthenticate the session. Deauth is neccessary because we
-        // did previously auth the user's account. If we get any other kind of error, we can't
-        // recover, so just post it to the user
         if (bad_txn.get_status_code() == 404) {
+            // if we get a 404 error (resource not found) on the initial album fetch, then the
+            // user's album feed doesn't exist -- this occurs when the user has a valid Google
+            // account but it hasn't yet been set up for use with Picasa. In this case, we
+            // re-display the credentials capture pane with an "account not set up" message.
+            // In addition, we deauthenticate the session. Deauth is neccessary because we
+            // did previously auth the user's account. If we get any other kind of error, we can't
+            // recover, so just post it to the user
             session.deauthenticate();
             do_show_credentials_capture_pane(CredentialsCapturePane.Mode.NOT_SET_UP);
+        } else if (bad_txn.get_status_code() == 403) {
+            // if we get a 403 error (authentication failed) then we need to return to the login
+            // screen because the user's auth token is no longer valid and he or she needs to
+            // login again to obtain a new one
+            session.deauthenticate();
+            do_show_credentials_capture_pane(CredentialsCapturePane.Mode.INTRO);
         } else {
             post_error(err);
         }
