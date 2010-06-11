@@ -623,6 +623,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
             case "2":
                 snap_zoom_to_max();
                 return true;
+            
+            case "equal":
+            case "plus":
+            case "KP_Add":
+                on_increase_size();
+                return true;
+            
+            case "minus":
+            case "underscore":
+            case "KP_Subtract":
+                on_decrease_size();
+                return true;
         }
 
         return false;
