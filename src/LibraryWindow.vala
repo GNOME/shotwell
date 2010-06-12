@@ -92,8 +92,8 @@ public class LibraryWindow : AppWindow {
         private File file_or_dir;
         private bool copy_to_library;
         
-        public FileImportJob(string uri, bool copy_to_library) {
-            file_or_dir = File.new_for_uri(uri);
+        public FileImportJob(File file_or_dir, bool copy_to_library) {
+            this.file_or_dir = file_or_dir;
             this.copy_to_library = copy_to_library;
         }
         
@@ -103,6 +103,12 @@ public class LibraryWindow : AppWindow {
         
         public override bool is_directory() {
             return query_is_directory(file_or_dir);
+        }
+        
+        public override bool determine_file_size(out uint64 filesize, out File file) {
+            file = file_or_dir;
+            
+            return false;
         }
         
         public override bool prepare(out File file_to_import, out bool copy) {
@@ -792,34 +798,23 @@ public class LibraryWindow : AppWindow {
         }
         
         Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
-        uint64 total_bytes = 0;
-
         foreach (string uri in uris) {
-            jobs.add(new FileImportJob(uri, copy_to_library));
-            
-            try {
-                total_bytes += query_total_file_size(File.new_for_uri(uri));
-            } catch (Error err) {
-                debug("Unable to query filesize of %s: %s", uri, err.message);
+            File file_or_dir = File.new_for_uri(uri);
+            if (file_or_dir.get_path() == null) {
+                // TODO: Specify which directory/file.
+                AppWindow.error_message(_("Photos cannot be imported from this directory."));
+                
+                continue;
             }
+
+            jobs.add(new FileImportJob(file_or_dir, copy_to_library));
         }
         
-        if (jobs.size > 0 && valid_for_import(jobs)) {
-            BatchImport batch_import = new BatchImport(jobs, job_name, import_reporter, total_bytes);
+        if (jobs.size > 0) {
+            BatchImport batch_import = new BatchImport(jobs, job_name, import_reporter);
             enqueue_batch_import(batch_import);
             switch_to_import_queue_page();
         }
-    }
-
-    private bool valid_for_import(Gee.ArrayList<FileImportJob> jobs) {
-        foreach (FileImportJob job in jobs) {           
-            if (job.get_identifier() == null) {
-                AppWindow.error_message(_("Photos cannot be imported from this directory."));
-                return false;
-            }
-        }
-        
-        return true;
     }
 
     private override void drag_data_received(Gdk.DragContext context, int x, int y,

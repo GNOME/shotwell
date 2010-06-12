@@ -8,13 +8,20 @@
 // a file to be imported.  If the file is a directory, it is automatically recursed by BatchImport
 // to find all files that need to be imported into the library.
 //
-// NOTE: Both methods may be called from the context of a background thread or the main GTK thread.
+// NOTE: All methods may be called from the context of a background thread or the main GTK thread.
 // Implementations should be able to handle either situation.  The prepare method will always be
 // called by the same thread context.
 public abstract class BatchImportJob {
     public abstract string get_identifier();
     
     public abstract bool is_directory();
+    
+    // Returns the file size of the BatchImportJob or returns a file/directory which can be queried
+    // by BatchImportJob to determine it.  Returns true if the size is return, false if the File is
+    // specified.
+    // 
+    // filesize should only be returned if BatchImportJob represents a single file.
+    public abstract bool determine_file_size(out uint64 filesize, out File file_or_dir);
     
     public abstract bool prepare(out File file_to_import, out bool copy_to_library) throws Error;
 }
@@ -27,7 +34,7 @@ public abstract class BatchImportJob {
 // be null (for similar reasons).
 public class BatchImportResult {
     public BatchImportJob job;
-    public File file;
+    public File? file;
     public string identifier;
     public ImportResult result;
     public string? errmsg = null;
@@ -136,7 +143,8 @@ public class BatchImport : Object {
     
     private Gee.Iterable<BatchImportJob> jobs;
     private string name;
-    private uint64 total_bytes;
+    private uint64 completed_bytes = 0;
+    private uint64 total_bytes = 0;
     private ImportReporter reporter;
     private ImportManifest manifest;
     private bool scheduled = false;
@@ -144,6 +152,7 @@ public class BatchImport : Object {
     private int file_imports_to_perform = -1;
     private int file_imports_completed = 0;
     private Cancellable? cancellable = null;
+    private ulong last_preparing_ms = 0;
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
@@ -151,6 +160,13 @@ public class BatchImport : Object {
     
     // Called once, when the scheduled task begins
     public signal void starting();
+    
+    // Called repeatedly while preparing the launched BatchImport
+    public signal void preparing();
+    
+    // Called repeatedly to report the progress of the BatchImport (but only called after the
+    // last "preparing" signal)
+    public signal void progress(uint64 completed_bytes, uint64 total_bytes);
     
     // Called for each Photo imported to the system.  The pixbuf is screen-sized and rotated.
     public signal void imported(LibraryPhoto photo, Gdk.Pixbuf pixbuf);
@@ -166,13 +182,12 @@ public class BatchImport : Object {
     public signal void import_complete(ImportManifest manifest);
 
     public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, ImportReporter? reporter,
-        uint64 total_bytes = 0, Gee.ArrayList<BatchImportJob>? prefailed = null, 
+        Gee.ArrayList<BatchImportJob>? prefailed = null,
         Gee.ArrayList<BatchImportJob>? pre_already_imported = null,
         Cancellable? cancellable = null) {
         this.jobs = jobs;
         this.name = name;
         this.reporter = reporter;
-        this.total_bytes = total_bytes;
         this.manifest = new ImportManifest(prefailed, pre_already_imported);
         this.cancellable = (cancellable != null) ? cancellable : new Cancellable();
         
@@ -191,10 +206,6 @@ public class BatchImport : Object {
         return name;
     }
     
-    public uint64 get_total_bytes() {
-        return total_bytes;
-    }
-    
     public void user_halt() {
         cancellable.cancel();
     }
@@ -205,20 +216,59 @@ public class BatchImport : Object {
 #endif
     }
     
+    private bool report_failure(BatchImportResult import_result) {
+        bool proceed = true;
+        
+        manifest.add_result(import_result);
+        
+        if (import_result.result != ImportResult.SUCCESS) {
+            import_job_failed(import_result);
+            
+            if (import_result.file != null && !import_result.result.is_abort()) {
+                uint64 filesize = 0;
+                try {
+                    // A BatchImportResult file is guaranteed to be a single file
+                    filesize = query_total_file_size(import_result.file);
+                } catch (Error err) {
+                    debug("Unable to query file size of %s: %s", import_result.file.get_path(),
+                        err.message);
+                }
+                
+                report_progress(filesize);
+            }
+        }
+        
+        // fire this signal only once, and only on non-user aborts
+        if (import_result.result.is_nonuser_abort() && proceed) {
+            fatal_error(import_result.result, import_result.errmsg);
+            proceed = false;
+        }
+        
+        return proceed;
+    }
+    
+    private void report_progress(uint64 increment_of_progress) {
+        completed_bytes += increment_of_progress;
+        
+        // only report "progress" if progress has been made (and enough time has progressed),
+        // otherwise still preparing
+        if (completed_bytes == 0) {
+            ulong now = now_ms();
+            if (now - last_preparing_ms > 250) {
+                last_preparing_ms = now;
+                preparing();
+            }
+        } else if (increment_of_progress > 0) {
+            progress(completed_bytes, total_bytes);
+        }
+    }
+    
     private bool report_failures(BackgroundImportJob background_job) {
         bool proceed = true;
         
         foreach (BatchImportResult import_result in background_job.failed) {
-            manifest.add_result(import_result);
-            
-            if (import_result.result != ImportResult.SUCCESS)
-                import_job_failed(import_result);
-            
-            // fire this signal only once, and only on non-user aborts
-            if (import_result.result.is_nonuser_abort() && proceed) {
-                fatal_error(import_result.result, import_result.errmsg);
+            if (!report_failure(import_result))
                 proceed = false;
-            }
         }
         
         return proceed;
@@ -247,7 +297,11 @@ public class BatchImport : Object {
         
         // fire off a background job to generate all FileToPrepare work
         workers.enqueue(new WorkSniffer(this, jobs, on_work_sniffed_out, cancellable,
-            on_sniffer_cancelled));
+            on_sniffer_cancelled, on_sniffer_working));
+    }
+    
+    private void on_sniffer_working() {
+        report_progress(0);
     }
     
     private void on_work_sniffed_out(BackgroundJob j) {
@@ -260,6 +314,8 @@ public class BatchImport : Object {
             
             return;
         }
+        
+        total_bytes = sniffer.total_bytes;
         
         // submit single background job to go out and prepare all the files, reporting back when/if
         // they're ready for import; this is important because gPhoto can't handle multiple accesses
@@ -281,7 +337,7 @@ public class BatchImport : Object {
         report_completed("work sniffer cancelled");
     }
     
-    private void on_file_prepared(BackgroundJob j, NotificationObject user) {
+    private void on_file_prepared(BackgroundJob j, NotificationObject? user) {
         assert(!completed);
         
         PreparedFile prepared_file = (PreparedFile) user;
@@ -316,12 +372,10 @@ public class BatchImport : Object {
                 
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
                     prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
-                import_job_failed(import_result);
-                
             }
 
             if (import_result != null) {
-                manifest.add_result(import_result);
+                report_failure(import_result);
                 
                 // mark this job as completed
                 file_imports_completed++;
@@ -337,6 +391,8 @@ public class BatchImport : Object {
             debug("duplicate photos found in trash only, importing as usual for %s",
                 prepared_file.file.get_path());
         }
+        
+        report_progress(0);
         
         FileImportJob file_import_job = new FileImportJob(this, prepared_file, manifest.import_id, 
             on_import_file_completed, cancellable, on_import_file_cancelled);
@@ -404,14 +460,14 @@ public class BatchImport : Object {
         if (job.batch_result.result == ImportResult.SUCCESS) {
             manifest.imported.add(photo);
             imported(photo, job.get_photo_import_params().thumbnails.get(ThumbnailCache.Size.LARGEST));
+            report_progress(photo.get_filesize());
+            manifest.add_result(job.batch_result);
         } else {
             // the utter shame of it all
             debug("Failed to import %s: %s (%s)", job.get_filename(),
                 job.batch_result.result.to_string(), job.batch_result.errmsg);
-            import_job_failed(job.batch_result);
+            report_failure(job.batch_result);
         }
-        
-        manifest.add_result(job.batch_result);
         
         // if no more outstanding jobs and the PrepareFilesJob is completed, report the BatchImport
         // as completed
@@ -432,8 +488,7 @@ public class BatchImport : Object {
         
         job.abort();
         
-        import_job_failed(job.batch_result);
-        manifest.add_result(job.batch_result);
+        report_failure(job.batch_result);
         
         // see on_import_file_completed for logic
         if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
@@ -523,14 +578,18 @@ private class FileToPrepare {
 
 private class WorkSniffer : BackgroundImportJob {
     public Gee.List<FileToPrepare> files_to_prepare = new Gee.ArrayList<FileToPrepare>();
+    public uint64 total_bytes = 0;
     
     private Gee.Iterable<BatchImportJob> jobs;
+    private NotificationCallback working_notification;
     
     public WorkSniffer(BatchImport owner, Gee.Iterable<BatchImportJob> jobs, CompletionCallback callback, 
-        Cancellable cancellable, CancellationCallback cancellation) {
+        Cancellable cancellable, CancellationCallback cancellation, 
+        NotificationCallback working_notification) {
         base (owner, callback, cancellable, cancellation);
         
         this.jobs = jobs;
+        this.working_notification = working_notification;
     }
     
     public override void execute() {
@@ -550,10 +609,19 @@ private class WorkSniffer : BackgroundImportJob {
             } catch (Error err) {
                 report_error(job, null, job.get_identifier(), err, ImportResult.FILE_ERROR);
             }
+            
+            if (is_cancelled())
+                break;
         }
     }
     
     private void sniff_job(BatchImportJob job) throws Error {
+        uint64 size;
+        File file_or_dir;
+        bool determined_size = job.determine_file_size(out size, out file_or_dir);
+        if (determined_size)
+            total_bytes += size;
+        
         if (job.is_directory()) {
             // safe to call job.prepare without it invoking extra I/O; this is merely a directory
             // to search
@@ -572,8 +640,13 @@ private class WorkSniffer : BackgroundImportJob {
                 report_error(job, dir, dir.get_path(), err, ImportResult.FILE_ERROR);
             }
         } else {
+            // if did not get the file size, do so now
+            if (!determined_size)
+                total_bytes += query_total_file_size(file_or_dir, get_cancellable());
+            
             // job is a direct file, so no need to search, prepare it directly
             files_to_prepare.add(new FileToPrepare(job));
+            notify(working_notification, null);
         }
     }
     
@@ -582,7 +655,11 @@ private class WorkSniffer : BackgroundImportJob {
             FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
         
         FileInfo info = null;
-        while ((info = enumerator.next_file(null)) != null) {
+        while ((info = enumerator.next_file(get_cancellable())) != null) {
+            // next_file() doesn't always respect the cancellable
+            if (is_cancelled())
+                break;
+            
             File child = dir.get_child(info.get_name());
             FileType file_type = info.get_file_type();
             
@@ -596,7 +673,9 @@ private class WorkSniffer : BackgroundImportJob {
                     report_error(job, child, child.get_path(), err, ImportResult.FILE_ERROR);
                 }
             } else if (file_type == FileType.REGULAR) {
+                total_bytes += info.get_size();
                 files_to_prepare.add(new FileToPrepare(job, child, copy_to_library));
+                notify(working_notification, null);
             } else {
                 warning("Ignoring import of %s file type %d", child.get_path(), (int) file_type);
             }

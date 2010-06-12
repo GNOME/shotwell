@@ -210,6 +210,7 @@ public class ImportPage : CheckerboardPage {
         private GPhoto.Camera camera;
         private string fulldir;
         private string filename;
+        private uint64 filesize;
         
         public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file, File? dest_file) {
             this.context = context;
@@ -222,6 +223,7 @@ public class ImportPage : CheckerboardPage {
             // this should've been caught long ago when the files were first enumerated
             assert(fulldir != null);
             filename = import_file.get_filename();
+            filesize = import_file.get_filesize();
         }
         
         public time_t get_exposure_time() {
@@ -238,6 +240,12 @@ public class ImportPage : CheckerboardPage {
         
         public override bool is_directory() {
             return false;
+        }
+        
+        public override bool determine_file_size(out uint64 filesize, out File file) {
+            filesize = this.filesize;
+            
+            return true;
         }
         
         public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
@@ -993,7 +1001,6 @@ public class ImportPage : CheckerboardPage {
         on_view_changed();
         progress_bar.visible = false;
 
-        uint64 total_bytes = 0;
         SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(import_job_comparator);
         Gee.ArrayList<CameraImportJob> already_imported = new Gee.ArrayList<CameraImportJob>();
         Gee.ArrayList<CameraImportJob> failed = new Gee.ArrayList<CameraImportJob>();
@@ -1028,12 +1035,11 @@ public class ImportPage : CheckerboardPage {
             }
             
             jobs.add(new CameraImportJob(null_context, import_file, dest_file));
-            total_bytes += import_file.get_filesize();
         }
         
         if (jobs.size > 0) {
             BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter,
-                total_bytes, failed, already_imported);
+                failed, already_imported);
             batch_import.import_job_failed.connect(on_import_job_failed);
             batch_import.import_complete.connect(close_import);
             
@@ -1131,8 +1137,6 @@ public class ImportQueuePage : SinglePhotoPage {
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
     private BatchImport current_batch = null;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
-    private uint64 progress_bytes = 0;
-    private uint64 total_bytes = 0;
     
     public signal void batch_added(BatchImport batch_import);
     
@@ -1196,9 +1200,9 @@ public class ImportQueuePage : SinglePhotoPage {
     public void enqueue_and_schedule(BatchImport batch_import) {
         assert(!queue.contains(batch_import));
         
-        total_bytes += batch_import.get_total_bytes();
-        
         batch_import.starting.connect(on_starting);
+        batch_import.preparing.connect(on_preparing);
+        batch_import.progress.connect(on_progress);
         batch_import.imported.connect(on_imported);
         batch_import.import_complete.connect(on_import_complete);
         batch_import.fatal_error.connect(on_fatal_error);
@@ -1230,6 +1234,17 @@ public class ImportQueuePage : SinglePhotoPage {
         current_batch = batch_import;
     }
     
+    private void on_preparing() {
+        progress_bar.set_text(_("Importing..."));
+        progress_bar.pulse();
+    }
+    
+    private void on_progress(uint64 completed_bytes, uint64 total_bytes) {
+        double pct = (completed_bytes <= total_bytes) ? (double) completed_bytes / (double) total_bytes
+            : 0.0;
+        progress_bar.set_fraction(pct);
+    }
+    
     private void on_imported(LibraryPhoto photo, Gdk.Pixbuf pixbuf) {
         set_pixbuf(pixbuf, Dimensions.for_pixbuf(pixbuf));
         
@@ -1237,13 +1252,8 @@ public class ImportQueuePage : SinglePhotoPage {
         get_view().clear();
         get_view().add(new PhotoView(photo));
         
-        progress_bytes += photo.get_filesize();
-        double pct = (progress_bytes <= total_bytes) ? (double) progress_bytes / (double) total_bytes
-            : 0.0;
-        
         progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
         progress_bar.set_text(_("Imported %s").printf(photo.get_name()));
-        progress_bar.set_fraction(pct);
     }
     
     private void on_import_complete(BatchImport batch_import, ImportManifest manifest) {
@@ -1255,7 +1265,6 @@ public class ImportQueuePage : SinglePhotoPage {
         
         bool removed = queue.remove(batch_import);
         assert(removed);
-        assert(!queue.contains(batch_import));
         
         // strip signal handlers
         batch_import.starting.disconnect(on_starting);
@@ -1268,10 +1277,6 @@ public class ImportQueuePage : SinglePhotoPage {
             stop_button.sensitive = true;
             queue.get(0).schedule();
         } else {
-            // reset state
-            progress_bytes = 0;
-            total_bytes = 0;
-
             // reset UI
             stop_button.sensitive = false;
             progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);

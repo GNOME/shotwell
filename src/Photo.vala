@@ -105,6 +105,8 @@ public enum ImportResult {
                 return ImportResult.DISK_FAILURE;
             else if (ioerr is IOError.IS_DIRECTORY)
                 return ImportResult.NOT_A_FILE;
+            else if (ioerr is IOError.CANCELLED)
+                return ImportResult.USER_ABORT;
             else
                 return ImportResult.FILE_ERROR;
         } else if (err is GPhotoError) {

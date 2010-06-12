@@ -321,16 +321,18 @@ public enum CompassPoint {
     WEST
 }
 
-public uint64 query_total_file_size(File file_or_dir) throws Error {
-    spin_event_loop();
-
+// This function is thread-safe.
+public uint64 query_total_file_size(File file_or_dir, Cancellable? cancellable = null) throws Error {
     FileType type = file_or_dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
     if (type == FileType.REGULAR) {
         FileInfo info = null;
         try {
             info = file_or_dir.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
         } catch (Error err) {
+            if (err is IOError.CANCELLED)
+                throw err;
+            
             debug("Unable to query filesize for %s: %s", file_or_dir.get_path(), err.message);
 
             return 0;
@@ -344,7 +346,7 @@ public uint64 query_total_file_size(File file_or_dir) throws Error {
     FileEnumerator enumerator;
     try {
         enumerator = file_or_dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
-            FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+            FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
         if (enumerator == null)
             return 0;
     } catch (Error err) {
@@ -358,8 +360,8 @@ public uint64 query_total_file_size(File file_or_dir) throws Error {
     uint64 total_bytes = 0;
         
     FileInfo info = null;
-    while ((info = enumerator.next_file(null)) != null)
-        total_bytes += query_total_file_size(file_or_dir.get_child(info.get_name()));
+    while ((info = enumerator.next_file(cancellable)) != null)
+        total_bytes += query_total_file_size(file_or_dir.get_child(info.get_name()), cancellable);
     
     return total_bytes;
 }

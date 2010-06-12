@@ -158,7 +158,7 @@ public delegate void CancellationCallback(BackgroundJob job);
 public abstract class NotificationObject {
 }
 
-public delegate void NotificationCallback(BackgroundJob job, NotificationObject user);
+public delegate void NotificationCallback(BackgroundJob job, NotificationObject? user);
 
 // This abstract class represents a unit of work that can be executed within a background thread's
 // context.  If specified, the job may be cancellable (which can be checked by execute() and the
@@ -189,10 +189,10 @@ public abstract class BackgroundJob {
     private class NotificationJob {
         public NotificationCallback callback;
         public BackgroundJob background_job;
-        public NotificationObject user;
+        public NotificationObject? user;
         
         public NotificationJob(NotificationCallback callback, BackgroundJob background_job,
-            NotificationObject user) {
+            NotificationObject? user) {
             this.callback = callback;
             this.background_job = background_job;
             this.user = user;
@@ -259,6 +259,10 @@ public abstract class BackgroundJob {
         this.semaphore = semaphore;
     }
     
+    public Cancellable? get_cancellable() {
+        return cancellable;
+    }
+    
     public bool is_cancelled() {
         return (cancellable != null) ? cancellable.is_cancelled() : false;
     }
@@ -305,7 +309,7 @@ public abstract class BackgroundJob {
     
     // This call may be executed by the child class during execute() to inform of a unit of
     // work being completed
-    protected void notify(NotificationCallback callback, NotificationObject user) {
+    protected void notify(NotificationCallback callback, NotificationObject? user) {
         lock (notify_queue) {
             notify_queue.add(new NotificationJob(callback, this, user));
         }
