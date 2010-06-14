@@ -5,16 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.5.91\n"
+"Project-Id-Version: shotwell-0.5.90+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
-"PO-Revision-Date: 2010-06-05 08:27+0300\n"
+"PO-Revision-Date: 2010-06-12 12:38+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>"
+"=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 1.1\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: Ukraine\n"
@@ -50,11 +51,11 @@ msgstr "Переглядач фотографій"
 
 #: src/Resources.vala:293
 msgid "_Move to Trash"
-msgstr "Пересунути до смітника"
+msgstr "П_ересунути до смітника"
 
 #: src/Resources.vala:285
 msgid "Show in File Mana_ger"
-msgstr "Відкрити у менеджері файлів"
+msgstr "Показати у _менеджері файлів"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -287,9 +288,10 @@ msgstr "Впорядкувати фотографії за спаданням з
 #: src/CollectionPage.vala:724 src/Dialogs.vala:14 src/PhotoPage.vala:2353
 msgid "Export Photo"
 msgid_plural "Export Photos"
-msgstr[0] "Експортувати фотографію"
+msgstr[0] "Експортувати фотографії"
 msgstr[1] "Експортувати фотографії"
 msgstr[2] "Експортувати фотографії"
+msgstr[3] "Експортувати фотографію"
 
 #: src/CollectionPage.vala:865 src/PhotoPage.vala:2259
 msgid "Remove From Library"
@@ -301,6 +303,7 @@ msgid_plural "Removing Photos From Library"
 msgstr[0] "Вилучення фотографій з бібліотеки"
 msgstr[1] "Вилучення фотографій з бібліотеки"
 msgstr[2] "Вилучення фотографій з бібліотеки"
+msgstr[3] "Вилучення фотографії з бібліотеки"
 
 #: src/CollectionPage.vala:882 src/CollectionPage.vala:902
 msgid "Rotating"
@@ -385,6 +388,7 @@ msgid_plural "Unable to duplicate %d photos due to file errors"
 msgstr[0] "Не вдалося створити дублікати %d фотографії через помилки у файлах"
 msgstr[1] "Не вдалося створити дублікати %d фотографій через помилки у файлах"
 msgstr[2] "Не вдалося створити дублікати %d фотографій через помилки у файлах"
+msgstr[3] "Не вдалося створити дублікат фотографії через помилку у файлі"
 
 #: src/Commands.vala:859 src/Commands.vala:860
 msgid "Marking as Favorite"
@@ -420,6 +424,7 @@ msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Фотографії з наведеними нижче назвами не вдалося скоригувати."
 msgstr[1] "Фотографії з наведеними нижче назвами не вдалося скоригувати."
 msgstr[2] "Фотографії з наведеними нижче назвами не вдалося скоригувати."
+msgstr[3] "Не вдалося скоригувати одну фотографію."
 
 #: src/Commands.vala:993 src/Commands.vala:1005
 msgid "Time Adjustment Error"
@@ -437,6 +442,9 @@ msgstr[1] ""
 "коригування часу."
 msgstr[2] ""
 "Для файлів фотографій з наведеного нижче списку не вдалося скасувати "
+"коригування часу."
+msgstr[3] ""
+"Для файла фотографії з наведеною нижче назвою не вдалося скасувати "
 "коригування часу."
 
 #: src/Commands.vala:1257
@@ -518,6 +526,7 @@ msgid_plural "%d photos successfully imported.\n"
 msgstr[0] "Успішно імпортовано %d фотографію.\n"
 msgstr[1] "Успішно імпортовано %d фотографії.\n"
 msgstr[2] "Успішно імпортовано %d фотографій.\n"
+msgstr[3] "Успішно імпортовано одну фотографію.\n"
 
 #: src/Dialogs.vala:337
 #, c-format
@@ -531,6 +540,9 @@ msgstr[1] ""
 "бібліотеці:\n"
 msgstr[2] ""
 "Не імпортовано %d фотографій через те, що такі фотографії вже є у "
+"бібліотеці:\n"
+msgstr[3] ""
+"Не імпортовано одну фотографію через те, що така фотографія вже є у "
 "бібліотеці:\n"
 
 #: src/Dialogs.vala:352
@@ -546,6 +558,9 @@ msgstr[1] ""
 msgstr[2] ""
 "Не вдалося імпортувати %d фотографій через помилки у файлах або апаратні "
 "помилки:\n"
+msgstr[3] ""
+"Не вдалося імпортувати одну фотографію через помилку у файлі або апаратну "
+"помилку:\n"
 
 #: src/Dialogs.vala:367
 #, c-format
@@ -557,6 +572,9 @@ msgstr[1] ""
 "Не вдалося імпортувати %d фотографії через помилки у роботі з фотоапаратом:\n"
 msgstr[2] ""
 "Не вдалося імпортувати %d фотографій через помилки у роботі з фотоапаратом:\n"
+msgstr[3] ""
+"Не вдалося імпортувати одну фотографію через помилки у роботі з "
+"фотоапаратом:\n"
 
 #: src/Dialogs.vala:381
 #, c-format
@@ -565,14 +583,16 @@ msgid_plural "%d unsupported photos skipped:\n"
 msgstr[0] "Пропущено %d фотографію у форматі, який не підтримується:\n"
 msgstr[1] "Пропущено %d фотографії у форматі, який не підтримується:\n"
 msgstr[2] "Пропущено %d фотографій у форматі, який не підтримується:\n"
+msgstr[3] "Пропущено одну фотографію у форматі, який не підтримується:\n"
 
 #: src/Dialogs.vala:395
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "Пропущено %d звичайний файл (не є файлом зображення).\n"
-msgstr[1] "Пропущено %d звичайні файли (не є файлом зображення).\n"
-msgstr[2] "Пропущено %d звичайних файлів (не є файлом зображення).\n"
+msgstr[0] "Пропущено %d звичайний файл (не є файлами зображень).\n"
+msgstr[1] "Пропущено %d звичайних файла (не є файлами зображень).\n"
+msgstr[2] "Пропущено %d звичайних файлів (не є файлами зображень).\n"
+msgstr[3] "Пропущено один звичайний файл.\n"
 
 #: src/Dialogs.vala:406
 #, c-format
@@ -581,6 +601,7 @@ msgid_plural "%d photos skipped due to user cancel:\n"
 msgstr[0] "Обробку %d фотографії скасовано користувачем:\n"
 msgstr[1] "Обробку %d фотографій скасовано користувачем:\n"
 msgstr[2] "Обробку %d фотографій скасовано користувачем:\n"
+msgstr[3] "Обробку одної фотографії скасовано користувачем:\n"
 
 #: src/Dialogs.vala:424
 msgid "No photos imported.\n"
@@ -616,7 +637,7 @@ msgid_plural ""
 "This action cannot be undone."
 msgstr[0] ""
 "Внаслідок виконання цієї дії з вашої бібліотеки Shotwell буде вилучено %d "
-"фотографію. Бажаєте, щоб програма пересунула файл вилученої фотографії до "
+"фотографію. Бажаєте, щоб програма пересунула файл вилучених фотографій до "
 "теки смітника?\n"
 "\n"
 "Результати виконання дії не можна буде скасувати."
@@ -632,6 +653,12 @@ msgstr[2] ""
 "теки смітника?\n"
 "\n"
 "Результати виконання дії не можна буде скасувати."
+msgstr[3] ""
+"Внаслідок виконання цієї дії з вашої бібліотеки Shotwell буде вилучено одну "
+"фотографію. Бажаєте, щоб програма пересунула файл вилученої фотографії до "
+"теки смітника?\n"
+"\n"
+"Результати виконання дії не можна буде скасувати."
 
 #: src/Dialogs.vala:545
 msgid "_Trash File"
@@ -639,6 +666,7 @@ msgid_plural "_Trash Files"
 msgstr[0] "Пересунути до с_мітника"
 msgstr[1] "Пересунути до с_мітника"
 msgstr[2] "Пересунути до с_мітника"
+msgstr[3] "Пересунути до с_мітника"
 
 #: src/Dialogs.vala:549
 msgid "Only _Remove"
@@ -653,11 +681,14 @@ msgstr[0] ""
 "Виконання цієї дії приведе до знищення всіх змін, внесених у %d зовнішній "
 "файл. Виконати дію?"
 msgstr[1] ""
-"Виконання цієї дії приведе до знищення всіх змін, внесених у %d зовнішніх "
+"Виконання цієї дії призведе до знищення всіх змін, внесених у %d зовнішніх "
 "файли. Виконати дію?"
 msgstr[2] ""
 "Виконання цієї дії приведе до знищення всіх змін, внесених у %d зовнішніх "
 "файлів. Виконати дію?"
+msgstr[3] ""
+"Виконання цієї дії призведе до знищення всіх змін, внесених у зовнішній "
+"файл. Виконати дію?"
 
 #: src/Dialogs.vala:574
 msgid "Re_vert External Edit"
@@ -665,6 +696,7 @@ msgid_plural "Re_vert External Edits"
 msgstr[0] "С_касувати зовнішні зміни"
 msgstr[1] "С_касувати зовнішні зміни"
 msgstr[2] "С_касувати зовнішні зміни"
+msgstr[3] "С_касувати зовнішню зміну"
 
 #: src/Dialogs.vala:578
 msgid "_No"
@@ -676,6 +708,7 @@ msgid_plural "Revert External Edits"
 msgstr[0] "Скасувати зовнішні зміни"
 msgstr[1] "Скасувати зовнішні зміни"
 msgstr[2] "Скасувати зовнішні зміни"
+msgstr[3] "Скасувати зовнішню зміну"
 
 #: src/Dialogs.vala:653
 #, c-format
@@ -709,9 +742,10 @@ msgstr "Вст_ановити цей час для всіх фотографій
 #: src/Dialogs.vala:792
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] "З_мінити початкові файли"
+msgstr[0] "З_мінити початковій файли"
 msgstr[1] "З_мінити початкові файли"
 msgstr[2] "З_мінити початкові файли"
+msgstr[3] "З_мінити початковий файл"
 
 #: src/Dialogs.vala:874
 msgid "Original: "
@@ -751,6 +785,7 @@ msgid_plural "days"
 msgstr[0] "день"
 msgstr[1] "дні"
 msgstr[2] "днів"
+msgstr[3] "день"
 
 #: src/Dialogs.vala:965
 msgid "hour"
@@ -758,6 +793,7 @@ msgid_plural "hours"
 msgstr[0] "година"
 msgstr[1] "години"
 msgstr[2] "годин"
+msgstr[3] "година"
 
 #: src/Dialogs.vala:966
 msgid "minute"
@@ -765,6 +801,7 @@ msgid_plural "minutes"
 msgstr[0] "хвилина"
 msgstr[1] "хвилини"
 msgstr[2] "хвилин"
+msgstr[3] "хвилина"
 
 #: src/Dialogs.vala:967
 msgid "second"
@@ -772,6 +809,7 @@ msgid_plural "seconds"
 msgstr[0] "секунда"
 msgstr[1] "секунди"
 msgstr[2] "секунд"
+msgstr[3] "секунда"
 
 #: src/Dialogs.vala:1011
 #, c-format
@@ -792,6 +830,10 @@ msgstr[1] ""
 "\n"
 "І ще %d."
 msgstr[2] ""
+"\n"
+"\n"
+"І ще %d."
+msgstr[3] ""
 "\n"
 "\n"
 "І ще %d."
@@ -1034,6 +1076,7 @@ msgid_plural "%d Photos"
 msgstr[0] "%d фотографія"
 msgstr[1] "%d фотографії"
 msgstr[2] "%d фотографій"
+msgstr[3] "одна фотографія"
 
 #: src/EventsDirectoryPage.vala:238
 msgid "Select all the events in the directory"
@@ -1315,6 +1358,7 @@ msgid_plural "Delete these %d photos from camera?"
 msgstr[0] "Вилучити %d фотографію з фотоапарата?"
 msgstr[1] "Вилучити %d фотографії з фотоапарата?"
 msgstr[2] "Вилучити %d фотографій з фотоапарата?"
+msgstr[3] "Вилучити одну фотографію з фотоапарата?"
 
 #: src/ImportPage.vala:1038
 msgid "_Keep"
@@ -1327,6 +1371,7 @@ msgid_plural "Unable to delete %d photos from the camera due to errors."
 msgstr[0] "Не вдалося вилучити з фотоапарата %d фотографію через помилки."
 msgstr[1] "Не вдалося вилучити з фотоапарата %d фотографії через помилки."
 msgstr[2] "Не вдалося вилучити з фотоапарата %d фотографій через помилки."
+msgstr[3] "Не вдалося вилучити з фотоапарата одну фотографію через помилку."
 
 #: src/ImportPage.vala:1107
 msgid "Importing..."
@@ -1948,6 +1993,7 @@ msgid_plural "%d Events"
 msgstr[0] "%d подія"
 msgstr[1] "%d події"
 msgstr[2] "%d подій"
+msgstr[3] "%d подія"
 
 #: src/Properties.vala:273
 msgid "Date:"
@@ -2408,6 +2454,7 @@ msgid_plural "Remove the tag \"%s\" from %d photos"
 msgstr[0] "Вилучити мітку «%s» з %d фотографії"
 msgstr[1] "Вилучити мітку «%s» з %d фотографій"
 msgstr[2] "Вилучити мітку «%s» з %d фотографій"
+msgstr[3] "Вилучити мітку «%s» з однієї фотографії"
 
 #: src/Resources.vala:233
 msgid "Delete Tag"
@@ -2451,6 +2498,7 @@ msgid_plural "Tag Photos as \"%s\""
 msgstr[0] "Додати до фотографій мітку «%s»"
 msgstr[1] "Додати до фотографій мітку «%s»"
 msgstr[2] "Додати до фотографій мітку «%s»"
+msgstr[3] "Додати до фотографії мітку «%s»"
 
 #: src/Resources.vala:258
 #, c-format
@@ -2459,6 +2507,7 @@ msgid_plural "Tag the selected photos as \"%s\""
 msgstr[0] "Додати до позначених фотографій мітку «%s»"
 msgstr[1] "Додати до позначених фотографій мітку «%s»"
 msgstr[2] "Додати до позначених фотографій мітку «%s»"
+msgstr[3] "Додати до позначеної фотографії мітку «%s»"
 
 #: src/Resources.vala:262
 #, c-format
@@ -2467,6 +2516,7 @@ msgid_plural "Remove Tag \"%s\" From _Photos"
 msgstr[0] "Вилучити мітку «%s» з _фотографій"
 msgstr[1] "Вилучити мітку «%s» з _фотографій"
 msgstr[2] "Вилучити мітку «%s» з _фотографій"
+msgstr[3] "Вилучити мітку «%s» з _фотографії"
 
 #: src/Resources.vala:266
 #, c-format
@@ -2475,6 +2525,7 @@ msgid_plural "Remove Tag \"%s\" From Photos"
 msgstr[0] "Вилучення мітки «%s» з фотографій"
 msgstr[1] "Вилучення мітки «%s» з фотографій"
 msgstr[2] "Вилучення мітки «%s» з фотографій"
+msgstr[3] "Вилучення мітки «%s» з фотографії"
 
 #: src/Resources.vala:271
 #, c-format
@@ -2483,6 +2534,7 @@ msgid_plural "Remove tag \"%s\" from the selected photos"
 msgstr[0] "Вилучити мітку «%s» з позначених фотографій"
 msgstr[1] "Вилучити мітку «%s» з позначених фотографій"
 msgstr[2] "Вилучити мітку «%s» з позначених фотографій"
+msgstr[3] "Вилучити мітку «%s» з позначеної фотографії"
 
 #: src/Resources.vala:276
 #, c-format
@@ -2579,6 +2631,7 @@ msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
 msgstr[0] "Буде вилучено мітку «%s» з %d фотографії. Продовжувати?"
 msgstr[1] "Буде вилучено мітку «%s» з %d фотографій. Продовжувати?"
 msgstr[2] "Буде вилучено мітку «%s» з %d фотографій. Продовжувати?"
+msgstr[3] "Буде вилучено мітку «%s» з однієї фотографії. Продовжувати?"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
@@ -2594,6 +2647,7 @@ msgid_plural "Deleting Photos"
 msgstr[0] "Вилучення фотографій"
 msgstr[1] "Вилучення фотографій"
 msgstr[2] "Вилучення фотографій"
+msgstr[3] "Вилучення фотографії"
 
 # The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:405
@@ -2723,35 +2777,3 @@ msgstr "Зовнішній редактор н_егативів:"
 msgid "External Editors"
 msgstr "Зовнішні редактори"
 
-#~ msgid "Unable to export photo %s: %s"
-#~ msgstr "Не вдалося експортувати фотографію %s: %s"
-
-#~ msgid "Error while fetching previews from %s: %s"
-#~ msgstr "Помилка під час спроби отримання мініатюр з %s: %s"
-
-#~ msgid "Empty _Trash"
-#~ msgstr "Спо_рожнити смітник"
-
-#~ msgid "Re_move"
-#~ msgstr "В_илучити"
-
-#~ msgid "_Remove Tag \"%s\" From Photo"
-#~ msgid_plural "_Remove Tag \"%s\" From Photos"
-#~ msgstr[0] "Ви_лучити мітку «%s» з фотографій"
-#~ msgstr[1] "Ви_лучити мітку «%s» з фотографій"
-#~ msgstr[2] "Ви_лучити мітку «%s» з фотографій"
-
-#~ msgid "Restore"
-#~ msgstr "Відновити"
-
-#~ msgid "Removing"
-#~ msgstr "Вилучення"
-
-#~ msgid "%d more photo not imported.\n"
-#~ msgid_plural "%d more photos not imported.\n"
-#~ msgstr[0] "Не імпортовано %d фотографію.\n"
-#~ msgstr[1] "Не імпортовано %d фотографії.\n"
-#~ msgstr[2] "Не імпортовано %d фотографій.\n"
-
-#~ msgid "Remove"
-#~ msgstr "Вилучити"
