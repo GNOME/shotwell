@@ -226,10 +226,6 @@ public class Event : EventSource, ContainerSource, Proxyable {
     public static void terminate() {
     }
     
-    private static int64 source_comparator(void *a, void *b) {
-        return ((PhotoSource *) a)->get_exposure_time() - ((PhotoSource *) b)->get_exposure_time();
-    }
-    
     private static int64 view_comparator(void *a, void *b) {
         return ((PhotoView *) a)->get_photo_source().get_exposure_time() 
             - ((PhotoView *) b)->get_photo_source().get_exposure_time();
@@ -340,87 +336,60 @@ public class Event : EventSource, ContainerSource, Proxyable {
         ((LibraryPhoto) source).set_event(this);
     }
     
-    public static void generate_events(Gee.List<LibraryPhoto> unsorted_photos, ProgressMonitor? monitor) {
-        int count = 0;
-        int total = unsorted_photos.size;
+    public bool is_in_starting_day(time_t time) {
+        // photos are stored in ViewCollection from earliest to latest
+        assert(view.get_count() > 0);
+        LibraryPhoto earliest_photo = (LibraryPhoto) ((PhotoView) view.get_at(0)).get_source();
+        Time earliest_tm = Time.local(earliest_photo.get_exposure_time());
         
-        // sort photos by date
-        SortedList<LibraryPhoto> imported_photos = new SortedList<LibraryPhoto>(source_comparator);
-        imported_photos.add_all(unsorted_photos);
-
-        // walk through photos, splitting into new events when the boundary hour is crossed
-        Event current_event = null;
-        Time event_tm = Time();
-        foreach (LibraryPhoto photo in imported_photos) {
-            time_t exposure_time = photo.get_exposure_time();
-
-            // report to ProgressMonitor
-            if (monitor != null) {
-                if (!monitor(++count, total))
-                    break;
-            }
+        // use earliest to generate the boundary hour for that day
+        Time start_boundary_tm = Time();
+        start_boundary_tm.second = 0;
+        start_boundary_tm.minute = 0;
+        start_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
+        start_boundary_tm.day = earliest_tm.day;
+        start_boundary_tm.month = earliest_tm.month;
+        start_boundary_tm.year = earliest_tm.year;
+        
+        time_t start_boundary = start_boundary_tm.mktime();
+        
+        // if the earliest's exposure time was on the day but *before* the boundary hour,
+        // step it back a day to the prior day's boundary
+        if (earliest_tm.hour < EVENT_BOUNDARY_HOUR)
+            start_boundary -= TIME_T_DAY;
+        
+        time_t end_boundary = (start_boundary + TIME_T_DAY - 1);
+        
+        return time >= start_boundary && time <= end_boundary;
+    }
+    
+    // This method attempts to add the photo to an event in the supplied list that it would
+    // naturally fit into (i.e. its exposure is within the boundary day of the earliest event
+    // photo).  Otherwise, a new Event is generated and the photo is added to it and the list.
+    public static void generate_import_event(LibraryPhoto photo, ViewCollection events_so_far) {
+        time_t exposure_time = photo.get_exposure_time();
+        if (exposure_time == 0) {
+            debug("Skipping event assignment to %s: no exposure time", photo.to_string());
             
-            if (exposure_time == 0) {
-                // no time recorded; skip
-                debug("Skipping event assignment to %s: No exposure time", photo.to_string());
-                
-                continue;
-            }
-            
-            if (photo.get_event() != null) {
-                // already part of an event; skip
-                debug("Skipping event assignment to %s: Already part of event %s", photo.to_string(),
-                    photo.get_event().to_string());
-                    
-                continue;
-            }
-            
-            // check if time to create a new event
-            if (current_event == null) {
-                current_event = new Event(event_table.create(photo.get_photo_id()));
-                event_tm = Time.local(exposure_time);
-            } else {
-                // see if stepped past the event day boundary by converting to that hour on
-                // the current photo's day and seeing if it and the last one straddle it or the
-                // day after's boundary
-                Time start_boundary_tm = Time();
-                start_boundary_tm.second = 0;
-                start_boundary_tm.minute = 0;
-                start_boundary_tm.hour = EVENT_BOUNDARY_HOUR;
-                start_boundary_tm.day = event_tm.day;
-                start_boundary_tm.month = event_tm.month;
-                start_boundary_tm.year = event_tm.year;
-                
-                time_t start_boundary = start_boundary_tm.mktime();
-                
-                // if the event's exposure time was on the day but *before* the boundary hour,
-                // step it back a day to the prior day's boundary
-                if (event_tm.hour < EVENT_BOUNDARY_HOUR)
-                    start_boundary -= TIME_T_DAY;
-                
-                time_t end_boundary = (start_boundary + TIME_T_DAY - 1);
-                
-                // If photo outside either boundary, new event is starting
-                if (exposure_time < start_boundary || exposure_time > end_boundary) {
-                    global.add(current_event);
-                    
-                    debug("Added event %s to global collection", current_event.to_string());
-                    
-                    current_event = new Event(event_table.create(photo.get_photo_id()));
-                    event_tm = Time.local(exposure_time);
-                }
-            }
-            
-            // add photo to this event
-            photo.set_event(current_event);
+            return;
         }
         
-        // make sure to add the current_event to the global
-        if (current_event != null) {
-            global.add(current_event);
+        foreach (DataObject view in events_so_far.get_all()) {
+            Event event = (Event) ((EventView) view).get_source();
             
-            debug("Added final event %s to global collection", current_event.to_string());
+            if (event.is_in_starting_day(photo.get_exposure_time())) {
+                photo.set_event(event);
+                
+                return;
+            }
         }
+        
+        // no Event so far fits the bill for this photo, so create a new one
+        Event event = new Event(EventTable.get_instance().create(photo.get_photo_id()));
+        photo.set_event(event);
+        global.add(event);
+        
+        events_so_far.add(new EventView(event));
     }
     
     public EventID get_event_id() {

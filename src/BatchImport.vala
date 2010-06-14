@@ -153,6 +153,7 @@ public class BatchImport : Object {
     private int file_imports_completed = 0;
     private Cancellable? cancellable = null;
     private ulong last_preparing_ms = 0;
+    private ViewCollection generated_events = new ViewCollection("BatchImport generated events");
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
@@ -458,6 +459,7 @@ public class BatchImport : Object {
             job.batch_result.result = LibraryPhoto.import(job.get_photo_import_params(), out photo);
         
         if (job.batch_result.result == ImportResult.SUCCESS) {
+            Event.generate_import_event(photo, generated_events);
             manifest.imported.add(photo);
             imported(photo, job.get_photo_import_params().thumbnails.get(ThumbnailCache.Size.LARGEST));
             report_progress(photo.get_filesize());

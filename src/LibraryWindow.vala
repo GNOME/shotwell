@@ -776,10 +776,6 @@ public class LibraryWindow : AppWindow {
     }
     
     private void import_reporter(ImportManifest manifest) {
-        // report to Event to organize into events
-        if (manifest.success.size > 0)
-            generate_events_with_progress_dialog(manifest.imported);
-        
         ImportUI.report_manifest(manifest, true);
     }
 

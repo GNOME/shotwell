@@ -1068,10 +1068,6 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import_reporter(ImportManifest manifest) {
-        // report to Event to organize into events
-        if (manifest.success.size > 0)
-            generate_events_with_progress_dialog(manifest.imported);
-        
         string question_string = (ngettext("Delete this photo from camera?",
             "Delete these %d photos from camera?", manifest.all.size)).printf(manifest.all.size);
         

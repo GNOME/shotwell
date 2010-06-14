@@ -681,24 +681,6 @@ public class ProgressDialog : Gtk.Window {
     }
 }
 
-public void generate_events_with_progress_dialog(Gee.List<LibraryPhoto> photos) {
-    AppWindow.get_instance().set_busy_cursor();
-    
-    Cancellable cancellable = null;
-    ProgressDialog progress = null;
-    if (photos.size > 25) {
-        cancellable = new Cancellable();
-        progress = new ProgressDialog(AppWindow.get_instance(), _("Generating Events"),
-            cancellable);
-        Event.generate_events(photos, progress.monitor);
-        progress.close();
-    } else {
-        Event.generate_events(photos, null);
-    }
-
-    AppWindow.get_instance().set_normal_cursor();
-}
-
 public class AdjustDateTimeDialog : Gtk.Dialog {
     private const int64 SECONDS_IN_DAY = 60 * 60 * 24;
     private const int64 SECONDS_IN_HOUR = 60 * 60;
