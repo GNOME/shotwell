@@ -67,12 +67,15 @@ public class Interactor : ServiceInteractor {
             return;
 
         web_auth_pane.hide();
+        get_host().set_standard_window_mode();
         do_authenticate_session(success_url);
     }
 
     private void on_web_auth_pane_login_failed() {
         if (has_error() || cancelled)
             return;
+
+        get_host().set_standard_window_mode();
 
         // In this case, "failed" doesn't mean that the user didn't enter the right username and
         // password -- Facebook handles that case inside the Facebook Connect web control. Instead,
@@ -273,6 +276,7 @@ public class Interactor : ServiceInteractor {
         web_auth_pane.login_failed.connect(on_web_auth_pane_login_failed);
 
         get_host().install_pane(web_auth_pane);
+        get_host().set_free_sizable_window_mode();
     }
 
     private void do_fetch_album_descriptions() {
@@ -651,8 +655,6 @@ private class WebAuthenticationPane : PublishingDialogPane {
     public signal void login_failed();
 
     public WebAuthenticationPane() {
-        set_size_request(476, 360);
-
         webview_frame = new Gtk.ScrolledWindow(null, null);
         webview_frame.set_shadow_type(Gtk.ShadowType.ETCHED_IN);
         webview_frame.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);

@@ -693,18 +693,33 @@ public class PublishingDialog : Gtk.Dialog {
             service_selector_box.append_text(service_name);
         service_selector_box.changed.connect(on_service_changed);
 
+        /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
+           selection box from growing and shrinking whenever its parent's size changes.
+           When wrapped inside a Gtk.Alignment, the Alignment grows and shrinks instead of
+           the service selection box. */
+        Gtk.Alignment service_selector_box_wrapper = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
+        service_selector_box_wrapper.add(service_selector_box);
+
         Gtk.HBox service_selector_layouter = new Gtk.HBox(false, 8);
         service_selector_layouter.set_border_width(12);
         service_selector_layouter.add(service_selector_box_label);
-        service_selector_layouter.add(service_selector_box);
-        
-        central_area_layouter = new Gtk.VBox(false, 8);
+        service_selector_layouter.add(service_selector_box_wrapper);
 
+
+        /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
+           rest of the dialog */
+        Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);       
+        service_area_layouter.add(service_selector_layouter);
         Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
+        service_area_layouter.add(service_central_separator);
 
-        vbox.add(service_selector_layouter);
-        vbox.add(service_central_separator);
-        vbox.add(central_area_layouter);
+        Gtk.Alignment service_area_wrapper = new Gtk.Alignment(0.0f, 0.0f, 1.0f, 0.0f);
+        service_area_wrapper.add(service_area_layouter);
+        
+        central_area_layouter = new Gtk.VBox(false, 0);
+
+        vbox.pack_start(service_area_wrapper, false, false, 0);
+        vbox.pack_start(central_area_layouter, true, true, 0);
         service_selector_layouter.show_all();
         central_area_layouter.show_all();
         service_central_separator.show_all();
@@ -774,12 +789,18 @@ public class PublishingDialog : Gtk.Dialog {
         set_size_request(LARGE_WINDOW_WIDTH, LARGE_WINDOW_HEIGHT);
         central_area_layouter.set_size_request(LARGE_WINDOW_WIDTH - BORDER_REGION_WIDTH,
             LARGE_WINDOW_HEIGHT - BORDER_REGION_HEIGHT);
+        resizable = false;
     }
 
     public void set_standard_window_mode() {
         set_size_request(STANDARD_WINDOW_WIDTH, STANDARD_WINDOW_HEIGHT);
         central_area_layouter.set_size_request(STANDARD_WINDOW_WIDTH - BORDER_REGION_WIDTH,
             STANDARD_WINDOW_HEIGHT - BORDER_REGION_HEIGHT);
+        resizable = false;
+    }
+    
+    public void set_free_sizable_window_mode() {
+        resizable = true;
     }
 
     public void set_close_button_mode() {
