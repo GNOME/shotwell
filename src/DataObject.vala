@@ -522,6 +522,16 @@ public abstract class DataSource : DataObject {
         // mark as destroyed
         is_destroyed = true;
         
+        // unsubscribe all subscribers
+        for (int ctr = 0; ctr < subscribers.length; ctr++) {
+            if (subscribers[ctr] != null) {
+                DataView view = subscribers[ctr];
+                subscribers[ctr] = null;
+                
+                view.notify_unsubscribed(this);
+            }
+        }
+        
         // propagate the signal
         destroyed();
     }
@@ -554,35 +564,29 @@ public abstract class DataSource : DataObject {
     public void internal_subscribe(DataView view) {
         assert(!in_contact);
         
-        bool added = false;
         for (int ctr = 0; ctr < subscribers.length; ctr++) {
             if (subscribers[ctr] == null) {
                 subscribers[ctr] = view;
-                added = true;
                 
-                break;
+                return;
             }
         }
         
-        if (!added)
-            subscribers += view;
+        subscribers += view;
     }
     
-    // This method is only called by DataView.
+    // This method is only called by DataView.  NOTE: This method does NOT call
+    // DataView.notify_unsubscribed(), as it's assumed the DataView itself will do so if appropriate.
     public void internal_unsubscribe(DataView view) {
         assert(!in_contact);
         
-        bool removed = false;
         for (int ctr = 0; ctr < subscribers.length; ctr++) {
             if (subscribers[ctr] == view) {
                 subscribers[ctr] = null;
-                removed = true;
                 
-                break;
+                return;
             }
         }
-        
-        assert(removed);
     }
     
     protected void contact_subscribers(ContactSubscriber contact_subscriber) {
@@ -840,6 +844,9 @@ public class DataView : DataObject {
     public virtual signal void geometry_altered() {
     }
     
+    public virtual signal void unsubscribed(DataSource source) {
+    }
+    
     public DataView(DataSource source) {
         this.source = source;
         
@@ -852,6 +859,7 @@ public class DataView : DataObject {
 #if TRACE_DTORS
         debug("DTOR: DataView %s", dbg_to_string);
 #endif
+        source.internal_unsubscribe(this);
     }
  
     public override string get_name() {
@@ -932,6 +940,11 @@ public class DataView : DataObject {
         } else {
             geometry_altered();
         }
+    }
+    
+    // This is only called by DataSource
+    public virtual void notify_unsubscribed(DataSource source) {
+        unsubscribed(source);
     }
 }
 

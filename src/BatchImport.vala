@@ -154,6 +154,8 @@ public class BatchImport : Object {
     private Cancellable? cancellable = null;
     private ulong last_preparing_ms = 0;
     private ViewCollection generated_events = new ViewCollection("BatchImport generated events");
+    private Gee.HashSet<string> imported_thumbnail_md5 = new Gee.HashSet<string>();
+    private Gee.HashSet<string> imported_full_md5 = new Gee.HashSet<string>();
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
@@ -338,16 +340,42 @@ public class BatchImport : Object {
         report_completed("work sniffer cancelled");
     }
     
+    private bool is_in_current_import(PreparedFile prepared_file) {
+#if !NO_DUPE_DETECTION
+        if (prepared_file.thumbnail_md5 != null
+            && imported_thumbnail_md5.contains(prepared_file.thumbnail_md5)) {
+            debug("Not importing %s: thumbnail match detected in import set",
+                prepared_file.file.get_path());
+            
+            return true;
+        }
+        
+        if (prepared_file.full_md5 != null
+            && imported_full_md5.contains(prepared_file.full_md5)) {
+            debug("Not importing %s: full match detected in import set",
+                prepared_file.file.get_path());
+            
+            return true;
+        }
+        
+        // add for next one
+        if (prepared_file.thumbnail_md5 != null)
+            imported_thumbnail_md5.add(prepared_file.thumbnail_md5);
+        
+        if (prepared_file.full_md5 != null)
+            imported_full_md5.add(prepared_file.full_md5);
+#endif
+        return false;
+    }
+    
     private void on_file_prepared(BackgroundJob j, NotificationObject? user) {
         assert(!completed);
         
         PreparedFile prepared_file = (PreparedFile) user;
+        BatchImportResult import_result = null;
         
         if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
             prepared_file.full_md5, prepared_file.file_format)) {
-
-            BatchImportResult import_result = null;
-            
             // If a file is being linked and has a dupe in the trash, we take it out of the trash
             // and revert its edits.
             if (!prepared_file.copy_to_library) {
@@ -374,23 +402,30 @@ public class BatchImport : Object {
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
                     prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
             }
-
-            if (import_result != null) {
-                report_failure(import_result);
-                
-                // mark this job as completed
-                file_imports_completed++;
-                
-                // because notifications can come in after completion, have to watch if this is the
-                // last file
-                if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
-                    report_completed("completed preparing files, all outstanding imports completed");
-                
-                return;
-            }
             
-            debug("duplicate photos found in trash only, importing as usual for %s",
-                prepared_file.file.get_path());
+            if (import_result == null) {
+                debug("duplicate photos found in trash only, importing as usual for %s",
+                    prepared_file.file.get_path());
+            }
+        } else if (is_in_current_import(prepared_file)) {
+            // this looks for duplicates within the import set, since TransformablePhoto.is_duplicate
+            // only looks within already-imported photos for dupes
+            import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+        }
+        
+        if (import_result != null) {
+            report_failure(import_result);
+            
+            // mark this job as completed
+            file_imports_completed++;
+            
+            // because notifications can come in after completion, have to watch if this is the
+            // last file
+            if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
+                report_completed("completed preparing files, all outstanding imports completed");
+            
+            return;
         }
         
         report_progress(0);
