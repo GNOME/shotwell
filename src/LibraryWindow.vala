@@ -1516,13 +1516,9 @@ public class LibraryWindow : AppWindow {
         notebook.set_current_page(get_notebook_pos(page));
 
         // switch menus
-#if MAC
-        Ige.MacMenu.set_menu_bar(page.get_menubar());
-#else
         if (get_current_page() != null)
             layout.remove(get_current_page().get_menubar());
         layout.pack_start(page.get_menubar(), false, false, 0);
-#endif
         
         Gtk.AccelGroup accel_group = page.ui.get_accel_group();
         if (accel_group != null)

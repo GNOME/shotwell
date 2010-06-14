@@ -5,7 +5,7 @@
  */
 
 /* This is an alternate implementation of a small subset of GConf.  This implementation simply
- * writes keys/values to a .ini file.  We use it on Windows and Mac OS, where there is no
+ * writes keys/values to a .ini file.  We use it on Windows, where there is no
  * GConf server running.  On those platforms we could conceivably bundle a full-on GConf server
  * and launch it when Shotwell starts up, but this approach is much lighter-weight.
  *

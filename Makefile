@@ -25,10 +25,6 @@ ifeq "$(SYSTEM)" "MinGW"
   WINDOWS = 1
 endif
 
-ifeq "$(SYSTEM)" "Darwin"
-  MAC = 1
-endif
-
 -include configure.mk
 
 ifdef ENABLE_BUILD_FOR_GLADE
@@ -190,11 +186,6 @@ LOCAL_PKGS += \
 	libraw
 endif
 
-ifdef MAC
-EXT_PKGS += \
-	ige-mac-integration
-endif
-
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
 	gtk+-2.0 >= 2.18.0 \
@@ -268,11 +259,6 @@ endif
 shotwell.res: windows/shotwell.rc
 	windres windows/shotwell.rc -O coff -o shotwell.res
 
-endif
-
-ifdef MAC
-  VALA_DEFINES = -D MAC -D NO_CAMERA -D NO_PRINTING -D NO_PUBLISHING -D NO_LIBUNIQUE -D NO_SVG -D NO_RAW
-  EXPANDED_OBJ_FILES += src/mac.o
 endif
 
 # setting CFLAGS in configure.mk overrides build type
