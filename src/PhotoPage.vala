@@ -1436,28 +1436,30 @@ public abstract class EditingHostPage : SinglePhotoPage {
         switch (Gdk.keyval_name(event.keyval)) {
             case "Left":
             case "KP_Left":
+            case "KP_4":
                 viewport_center.x -= PAN_INCREMENT_SIZE;
             break;
             
             case "Right":
             case "KP_Right":
+            case "KP_6":
                 viewport_center.x += PAN_INCREMENT_SIZE;
             break;
 
             case "Down":
             case "KP_Down":
+            case "KP_2":
                 viewport_center.y += PAN_INCREMENT_SIZE;
             break;
             
             case "Up":
             case "KP_Up":
+            case "KP_8":
                 viewport_center.y -= PAN_INCREMENT_SIZE;
             break;
             
             default:
-                critical("EditingHostPage.on_keyboard_pan_event( ): event keyval isn't a known " +
-                    "navigation key");
-                return true;
+                return false;
         }
 
         ZoomState new_zoom_state = ZoomState.pan(current_zoom_state, viewport_center);
@@ -1471,6 +1473,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // editing tool gets first crack at the keypress
         if (current_tool != null) {
             if (current_tool.on_keypress(event))
+                return true;
+        }
+        
+        // if panning is possible, the pan handler (on MUNI?) gets second crack at the keypress
+        if (is_panning_possible()) {
+            if (on_keyboard_pan_event(event))
                 return true;
         }
 
@@ -1491,9 +1499,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             case "Left":
             case "KP_Left":
             case "BackSpace":
-                if (is_panning_possible())
-                    return on_keyboard_pan_event(event);
-
                 if (nav_ok) {
                     on_previous_photo();
                     last_nav_key = event.time;
@@ -1503,9 +1508,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
             case "Right":
             case "KP_Right":
             case "space":
-                if (is_panning_possible())
-                    return on_keyboard_pan_event(event);
-
                 if (nav_ok) {
                     on_next_photo();
                     last_nav_key = event.time;
@@ -1515,16 +1517,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
             // this block is only here to prevent base from moving focus to toolbar
             case "Down":
             case "KP_Down":
-                if (is_panning_possible())
-                    return on_keyboard_pan_event(event);
+                ;
             break;
-            
-            case "Up":
-            case "KP_Up":
-                if (is_panning_possible())
-                    return on_keyboard_pan_event(event);
-            break;
-            
+                       
             case "equal":
             case "plus":
             case "KP_Add":
