@@ -1,6 +1,7 @@
 # Install all build dependencies for Shotwell on Windows.
 
-# Remove remnants of previous installs and patching
+# Prebuilt dependencies download to /tmp/cache, and cached for future use
+# Sources are downloaded to /tmp/install, and should be cleared 
 rm -rf /tmp/install/*
 
 cd /mingw
@@ -71,9 +72,9 @@ make install
 cd /mingw
 for url in $list ; do
   package=${url##*/}
-  package_file=/tmp/install/$package
+  package_file=/tmp/cache/$package
   if [ ! -e $package_file ] ; then
-    wget -P /tmp/install $url
+    wget -P /tmp/cache $url
   fi
   if [ ! -e $package_file ] ; then
     echo unable to dowload $url
