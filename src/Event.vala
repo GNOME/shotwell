@@ -350,6 +350,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         start_boundary_tm.day = earliest_tm.day;
         start_boundary_tm.month = earliest_tm.month;
         start_boundary_tm.year = earliest_tm.year;
+        start_boundary_tm.isdst = -1;
         
         time_t start_boundary = start_boundary_tm.mktime();
         
