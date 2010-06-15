@@ -24,6 +24,7 @@ public class Thumbnail : CheckerboardItem {
     private int scale;
     private Dimensions original_dim;
     private Dimensions dim;
+    private Gdk.Pixbuf unscaled_pixbuf = null;
     private Cancellable cancellable = null;
     private bool hq_scheduled = false;
     private bool hq_reschedule = false;
@@ -51,6 +52,7 @@ public class Thumbnail : CheckerboardItem {
         
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
         Tag.global.item_altered.disconnect(on_tag_altered);
+        photo.metadata_altered.disconnect(on_photo_metadata_altered);
     }
     
     private void update_tags() {
@@ -150,8 +152,19 @@ public class Thumbnail : CheckerboardItem {
         cancel_async_fetch();
         
         if (is_exposed()) {
-            if (has_image())
-                set_image(resize_pixbuf(get_image(), dim, LOW_QUALITY_INTERP));
+            // attempt to use an unscaled pixbuf (which is always larger or equal to the current
+            // size, and will most likely be larger than the new size -- and if not, a new one will
+            // be on its way), then use the current pixbuf if available (which may have to be
+            // scaled up, which is ugly)
+            Gdk.Pixbuf? resizable = null;
+            if (unscaled_pixbuf != null)
+                resizable = unscaled_pixbuf;
+            else if (has_image())
+                resizable = get_image();
+            
+            if (resizable != null)
+                set_image(resize_pixbuf(resizable, dim, LOW_QUALITY_INTERP));
+            
             delayed_high_quality_fetch();
         } else {
             clear_image(dim);
@@ -161,6 +174,7 @@ public class Thumbnail : CheckerboardItem {
     private void paint_empty() {
         cancel_async_fetch();
         clear_image(dim);
+        unscaled_pixbuf = null;
     }
     
     private void schedule_low_quality_fetch() {
@@ -208,8 +222,8 @@ public class Thumbnail : CheckerboardItem {
             cancellable.cancel();
     }
     
-    private void on_low_quality_fetched(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
-        Error? err) {
+    private void on_low_quality_fetched(Gdk.Pixbuf? pixbuf, Gdk.Pixbuf? unscaled, Dimensions dim,
+        Gdk.InterpType interp, Error? err) {
         if (err != null)
             critical("Unable to fetch low-quality thumbnail for %s (scale: %d): %s", to_string(), scale,
                 err.message);
@@ -217,17 +231,23 @@ public class Thumbnail : CheckerboardItem {
         if (pixbuf != null)
             set_image(pixbuf);
         
+        if (unscaled != null)
+            unscaled_pixbuf = unscaled;
+        
         delayed_high_quality_fetch();
     }
     
-    private void on_high_quality_fetched(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
-        Error? err) {
+    private void on_high_quality_fetched(Gdk.Pixbuf? pixbuf, Gdk.Pixbuf? unscaled, Dimensions dim,
+        Gdk.InterpType interp, Error? err) {
         if (err != null)
             critical("Unable to fetch high-quality thumbnail for %s (scale: %d): %s", to_string(), scale, 
                 err.message);
         
         if (pixbuf != null)
             set_image(pixbuf);
+        
+        if (unscaled != null)
+            unscaled_pixbuf = unscaled;
     }
     
     public override void exposed() {

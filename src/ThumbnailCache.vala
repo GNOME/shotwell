@@ -50,8 +50,8 @@ public class ThumbnailCache : Object {
     
     private static Size[] ALL_SIZES = { Size.BIG, Size.MEDIUM };
     
-    public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, Dimensions dim, Gdk.InterpType interp, 
-        Error? err);
+    public delegate void AsyncFetchCallback(Gdk.Pixbuf? pixbuf, Gdk.Pixbuf? unscaled, Dimensions dim,
+        Gdk.InterpType interp, Error? err);
     
     private class ImageData {
         public Gdk.Pixbuf pixbuf;
@@ -78,7 +78,7 @@ public class ThumbnailCache : Object {
         public Dimensions dim;
         public Gdk.InterpType interp;
         public AsyncFetchCallback callback;
-        public Gdk.Pixbuf pixbuf = null;
+        public Gdk.Pixbuf unscaled;
         public Gdk.Pixbuf scaled = null;
         public Error err = null;
         public bool fetched = false;
@@ -91,7 +91,7 @@ public class ThumbnailCache : Object {
             this.cache = cache;
             this.photo_id = photo_id;
             this.source_format = source_format;
-            this.pixbuf = prefetched;
+            this.unscaled = prefetched;
             this.dim = dim;
             this.interp = interp;
             this.callback = callback;
@@ -115,13 +115,16 @@ public class ThumbnailCache : Object {
         private override void execute() {
             try {
                 // load-and-decode if not already prefetched
-                if (pixbuf == null) {
-                    pixbuf = cache.read_pixbuf(photo_id, source_format);
+                if (unscaled == null) {
+                    unscaled = cache.read_pixbuf(photo_id, source_format);
                     fetched = true;
                 }
                 
+                if (is_cancelled())
+                    return;
+                
                 // scale if specified
-                scaled = dim.has_area() ? resize_pixbuf(pixbuf, dim, interp) : pixbuf;
+                scaled = dim.has_area() ? resize_pixbuf(unscaled, dim, interp) : unscaled;
             } catch (Error err) {
                 this.err = err;
             }
@@ -140,7 +143,6 @@ public class ThumbnailCache : Object {
     private static int cycle_fetched_thumbnails = 0;
     private static int cycle_overflow_thumbnails = 0;
     private static ulong cycle_dropped_bytes = 0;
-    private static int cycle_cancelled_async = 0;
     
     private File cache_dir;
     private Size size;
@@ -164,7 +166,7 @@ public class ThumbnailCache : Object {
     // Doing this because static construct {} not working nor new'ing in the above statement
     public static void init() {
         debug_scheduler = new OneShotScheduler("ThumbnailCache cycle reporter", report_cycle);
-        fetch_workers = new Workers(Workers.threads_per_cpu(1), false);
+        fetch_workers = new Workers(Workers.threads_per_cpu(1), true);
         
         big = new ThumbnailCache(Size.BIG, MAX_BIG_CACHED_BYTES);
         medium = new ThumbnailCache(Size.MEDIUM, MAX_MEDIUM_CACHED_BYTES);
@@ -290,11 +292,6 @@ public class ThumbnailCache : Object {
             cycle_dropped_bytes = 0;
         }
         
-        if (cycle_cancelled_async > 0) {
-            debug("%lu async fetches cancelled", cycle_cancelled_async);
-            cycle_cancelled_async = 0;
-        }
-        
         foreach (Size size in ALL_SIZES) {
             ThumbnailCache cache = get_cache_for(size);
             ulong avg = (cache.cache_lru.size != 0) ? cache.cached_bytes / cache.cache_lru.size : 0;
@@ -328,8 +325,8 @@ public class ThumbnailCache : Object {
         if (pixbuf != null && (!dim.has_area() || Dimensions.for_pixbuf(pixbuf).equals(dim))) {
             // if no scaling operation required, callback in this context and done (otherwise,
             // let the background threads perform the scaling operation, to spread out the work)
-            callback(pixbuf, dim, interp, null);
-                
+            callback(pixbuf, pixbuf, dim, interp, null);
+            
             return;
         }
         
@@ -351,19 +348,11 @@ public class ThumbnailCache : Object {
     private static void async_fetch_completion_callback(BackgroundJob background_job) {
         AsyncFetchJob job = (AsyncFetchJob) background_job;
         
-        // don't store in cache if cancelled for locality reasons
-        if (job.is_cancelled()) {
-            cycle_cancelled_async++;
-            schedule_debug();
-            
-            return;
-        }
-        
         // only store in cache if fetched, not pre-fetched
-        if (job.pixbuf != null && job.fetched)
-            job.cache.store_in_memory(job.photo_id, job.pixbuf);
+        if (job.unscaled != null && job.fetched)
+            job.cache.store_in_memory(job.photo_id, job.unscaled);
         
-        job.callback(job.scaled, job.dim, job.interp, job.err);
+        job.callback(job.scaled, job.unscaled, job.dim, job.interp, job.err);
     }
     
     private void _import_from_source(LibraryPhoto source, bool force = false)
@@ -464,7 +453,8 @@ public class ThumbnailCache : Object {
 
         return file.query_exists(null);
     }
-
+    
+    // This method is thread-safe.
     private Gdk.Pixbuf read_pixbuf(PhotoID photo_id, PhotoFileFormat format) throws Error {
         return get_thumbnail_format(format).create_reader(get_cached_file(photo_id, 
             format).get_path()).unscaled_read();
