@@ -3241,7 +3241,7 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     private void on_save() {
-        if (!get_photo().has_alterations() && !get_photo().get_file_format().can_write())
+        if (!get_photo().has_alterations() || !get_photo().get_file_format().can_write())
             return;
 
         // save full-sized version right on top of the current file
