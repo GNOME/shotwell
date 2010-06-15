@@ -667,8 +667,5 @@ public AppInfo? get_default_app_for_mime_types(string[] mime_types,
         }
     }
     
-    if (external_apps.size > 0)
-        return external_apps.get_at(0);
-    
     return null;
 }

@@ -64,7 +64,6 @@
             <separator />
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
-            <menuitem name="RevertEditable" action="RevertEditable" />
             <separator />
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
@@ -101,7 +100,6 @@
         <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
-        <menuitem name="ContextRevertEditable" action="RevertEditable" />
         <separator />
         <menuitem name="ContextAddTags" action="AddTags" />
         <menuitem name="ContextModifyTags" action="ModifyTags" />
@@ -112,6 +110,7 @@
         <separator />
         <menuitem name="ContextPhotoRename" action="PhotoRename" />
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
+        <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />
         <menuitem name="ContextJumpToFile" action="JumpToFile" />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />

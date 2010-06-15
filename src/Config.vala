@@ -34,6 +34,7 @@ public class Config {
     private GConf.Client client;
     
     public signal void colors_changed();
+    public signal void external_app_changed();
     
     private Config() {
         // only one may exist per-process
@@ -604,8 +605,6 @@ public class Config {
         
         Gee.ArrayList<string> preferred_apps = new Gee.ArrayList<string>();
         preferred_apps.add("GIMP");
-        preferred_apps.add("gThumbn");
-        preferred_apps.add("EoG");
         
         AppInfo? app = get_default_app_for_mime_types(PhotoFileFormat.get_editable_mime_types(), preferred_apps);
         return (app != null) ? app.get_commandline() : "";            
@@ -614,6 +613,7 @@ public class Config {
     public void set_external_photo_app(string external_photo_app) {
         set_string("/apps/shotwell/preferences/editing/external_photo_editor",
             external_photo_app);
+        external_app_changed();
     }
 
 #if !NO_RAW
@@ -633,6 +633,7 @@ public class Config {
 
     public void set_external_raw_app(string external_raw_app) {
         set_string("/apps/shotwell/preferences/editing/external_raw_editor", external_raw_app);
+        external_app_changed();
     }
 }
 

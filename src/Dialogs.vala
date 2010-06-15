@@ -575,7 +575,7 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
     
     Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
         Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
-    dialog.add_button(_("_No"), Gtk.ResponseType.NO);
+    dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
     dialog.add_button(action, Gtk.ResponseType.YES);
     dialog.title = ngettext("Revert External Edit", "Revert External Edits", count);
     
@@ -1213,19 +1213,23 @@ public class PreferencesDialog {
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
 #if !NO_RAW
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
-#endif        
-
+#endif
+        
+        populate_preference_options();
+        
+        photo_editor_combo.changed.connect(on_photo_editor_changed);
+#if !NO_RAW
+        raw_editor_combo.changed.connect(on_raw_editor_changed);
+#endif
+    }
+    
+    public void populate_preference_options() {
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(), 
             Config.get_instance().get_external_photo_app(), out external_photo_apps);
 
 #if !NO_RAW        
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
             Config.get_instance().get_external_raw_app(), out external_raw_apps);
-#endif        
-
-        photo_editor_combo.changed.connect(on_photo_editor_changed);
-#if !NO_RAW
-        raw_editor_combo.changed.connect(on_raw_editor_changed);
 #endif
     }
     
@@ -1233,7 +1237,7 @@ public class PreferencesDialog {
         string current_app_executable, out SortedList<AppInfo> external_apps) {
         // get list of all applications for the given mime types
         assert(mime_types.length != 0);
-        external_apps =  get_apps_for_mime_types(mime_types);
+        external_apps = get_apps_for_mime_types(mime_types);
         
         if (external_apps.size == 0)
             return;
@@ -1241,6 +1245,7 @@ public class PreferencesDialog {
         // populate application ComboBox with app names and icons
         Gtk.CellRendererPixbuf pixbuf_renderer = new Gtk.CellRendererPixbuf();
         Gtk.CellRendererText text_renderer = new Gtk.CellRendererText();
+        combo_box.clear();
         combo_box.pack_start(pixbuf_renderer, false);
         combo_box.pack_start(text_renderer, false);
         combo_box.add_attribute(pixbuf_renderer, "pixbuf", 0);
@@ -1288,7 +1293,8 @@ public class PreferencesDialog {
     public static void show() {
         if (preferences_dialog == null) 
             preferences_dialog = new PreferencesDialog();
-
+        
+        preferences_dialog.populate_preference_options();
         preferences_dialog.dialog.show_all();	
 	}
     

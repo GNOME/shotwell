@@ -184,6 +184,9 @@ public abstract class CollectionPage : CheckerboardPage {
         
         // enable photo drag-and-drop on our ViewCollection
         dnd_handler = new PhotoDragAndDropHandler(this);
+
+        // watch for updates to the external app settings
+        Config.get_instance().external_app_changed.connect(on_external_app_changed);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -300,12 +303,6 @@ public abstract class CollectionPage : CheckerboardPage {
         revert.label = Resources.REVERT_MENU;
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
-        
-        Gtk.ActionEntry revert_editable = { "RevertEditable", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_revert_editable };
-        revert_editable.label = Resources.REVERT_EDITABLE_MENU;
-        revert_editable.tooltip = Resources.REVERT_EDITABLE_TOOLTIP;
-        actions += revert_editable;
         
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
@@ -513,7 +510,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("Duplicate", selected);
         set_action_sensitive("ExternalEdit", selected && Config.get_instance().get_external_photo_app() != "");
         set_action_hidden("ExternalEditRAW");
-        set_action_sensitive("RevertEditable", can_revert_editable_selected());
+        set_action_sensitive("Revert", can_revert_selected());
         set_action_sensitive("JumpToFile", selected_count == 1);
         
         base.init_actions(selected_count, count);
@@ -544,7 +541,7 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_photos_altered() {
         // since the photo can be altered externally to Shotwell now, need to make the revert
         // command available appropriately, even if the selection doesn't change
-        set_action_sensitive("RevertEditable", can_revert_editable_selected());
+        set_action_sensitive("Revert", can_revert_selected());
     }
     
 #if !NO_PRINTING
@@ -583,12 +580,28 @@ public abstract class CollectionPage : CheckerboardPage {
         else
             set_action_hidden("ExternalEditRAW");
 #endif
-        set_action_sensitive("RevertEditable", can_revert_editable_selected());
+        set_action_sensitive("Revert", can_revert_selected());
         set_action_sensitive("JumpToFile", selected_count == 1);
         
         set_action_sensitive("RemoveFromLibrary", has_selected);
         set_action_sensitive("MoveToTrash", has_selected);
         set_action_sensitive("Duplicate", has_selected);
+    }
+    
+    private void on_external_app_changed() {
+        int selected_count = get_view().get_selected_count();
+#if !NO_RAW
+        bool is_single_raw = selected_count == 1
+            && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == PhotoFileFormat.RAW;
+#endif
+        
+        set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
+#if !NO_RAW
+        if (is_single_raw)
+            set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
+        else
+            set_action_hidden("ExternalEditRAW");
+#endif
     }
     
     protected override void on_item_activated(CheckerboardItem item) {
@@ -818,7 +831,8 @@ public abstract class CollectionPage : CheckerboardPage {
     
     private bool can_revert_selected() {
         foreach (DataView view in get_view().get_selected()) {
-            if(((Thumbnail) view).get_photo().has_transformations())
+			LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            if (photo.has_transformations() || photo.has_editable())
                 return true;
         }
         
@@ -827,7 +841,8 @@ public abstract class CollectionPage : CheckerboardPage {
     
     private bool can_revert_editable_selected() {
         foreach (DataView view in get_view().get_selected()) {
-            if (((Photo) view.get_source()).has_editable())
+			LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            if (photo.has_editable())
                 return true;
         }
         
@@ -855,14 +870,12 @@ public abstract class CollectionPage : CheckerboardPage {
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool one_selected = get_view().get_selected_count() == 1;
-        bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Flip", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
@@ -951,21 +964,18 @@ public abstract class CollectionPage : CheckerboardPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-        RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
-        get_command_manager().execute(command);
-    }
-    
-    private void on_revert_editable() {
-        if (get_view().get_selected_count() == 0 || !can_revert_editable_selected())
-            return;
-        
-        if (!revert_editable_dialog(AppWindow.get_instance(),
-            (Gee.Collection<Photo>) get_view().get_selected_sources())) {
-            return;
+        if (can_revert_editable_selected()) {
+            if (!revert_editable_dialog(AppWindow.get_instance(),
+                (Gee.Collection<Photo>) get_view().get_selected_sources())) {
+                return;
+            }
+            
+            foreach (DataObject object in get_view().get_selected_sources())
+                ((Photo) object).revert_to_master();
         }
         
-        foreach (DataObject object in get_view().get_selected_sources())
-            ((Photo) object).revert_to_master();
+        RevertMultipleCommand command = new RevertMultipleCommand(get_view().get_selected());
+        get_command_manager().execute(command);
     }
     
     private void on_enhance() {

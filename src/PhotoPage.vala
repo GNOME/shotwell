@@ -1609,32 +1609,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!has_photo())
             return;
 
+        if (get_photo().has_editable()) {
+            if (!revert_editable_dialog(AppWindow.get_instance(), 
+                (Gee.Collection<Photo>) get_view().get_sources())) {
+                return;
+            }
+            
+            get_photo().revert_to_master();
+        }
+        
         cancel_zoom();
 
         set_photo_missing(false);
         
         RevertSingleCommand command = new RevertSingleCommand(get_photo());
         get_command_manager().execute(command);
-    }
-    
-    public void on_revert_editable() {
-        deactivate_tool();
-        
-        if (!has_photo())
-            return;
-        
-        if (!get_photo().has_editable())
-            return;
-        
-        if (!revert_editable_dialog(AppWindow.get_instance(), 
-            (Gee.Collection<Photo>) get_view().get_sources())) {
-            return;
-        }
-        
-        cancel_zoom();
-        set_photo_missing(false);
-        
-        get_photo().revert_to_master();
     }
     
     public void on_rename() {
@@ -1964,6 +1953,9 @@ public class LibraryPhotoPage : EditingHostPage {
         LibraryPhoto.global.items_removed.connect(on_photos_removed);
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         LibraryPhoto.global.item_metadata_altered.connect(on_metadata_altered);
+        
+        // watch for updates to the external app settings
+        Config.get_instance().external_app_changed.connect(on_external_app_changed);
     }
     
     ~LibraryPhotoPage() {
@@ -2100,12 +2092,6 @@ public class LibraryPhotoPage : EditingHostPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
         
-        Gtk.ActionEntry revert_editable = { "RevertEditable", null, TRANSLATABLE, null,
-            TRANSLATABLE, on_revert_editable };
-        revert_editable.label = Resources.REVERT_EDITABLE_MENU;
-        revert_editable.tooltip = Resources.REVERT_EDITABLE_TOOLTIP;
-        actions += revert_editable;
-        
         Gtk.ActionEntry rename = { "PhotoRename", null, TRANSLATABLE, "F2", TRANSLATABLE,
             on_rename };
         rename.label = Resources.RENAME_PHOTO_MENU;
@@ -2198,7 +2184,8 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_RAW
         set_action_hidden("ExternalEditRAW");
 #endif
-        set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
+        set_action_sensitive("Revert", has_photo() ?
+            (get_photo().has_transformations() || get_photo().has_editable()) : false);
         
         base.init_actions(selected_count, count);
     }
@@ -2215,11 +2202,14 @@ public class LibraryPhotoPage : EditingHostPage {
         else
             set_action_hidden("ExternalEditRAW");
 #endif
-        set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
+		
+        set_action_sensitive("Revert", has_photo() ?
+            (get_photo().has_transformations() || get_photo().has_editable()) : false);
     }
     
     private void on_photos_altered() {
-        set_action_sensitive("RevertEditable", has_photo() && get_photo().has_editable());
+        set_action_sensitive("Revert", has_photo() ?
+            (get_photo().has_transformations() || get_photo().has_editable()) : false);
     }
     
     public void display_for_collection(CollectionPage return_page, Photo photo) {
@@ -2310,7 +2300,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
 
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
@@ -2387,7 +2376,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise",
             is_rotate_available(get_photo()));
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
-        set_item_sensitive("/PhotoContextMenu/ContextRevert", get_photo().has_transformations());
 
         set_hide_item_label("/PhotoContextMenu/ContextHideUnhide");
         set_favorite_item_label("/PhotoContextMenu/ContextFavoriteUnfavorite");
@@ -2482,6 +2470,17 @@ public class LibraryPhotoPage : EditingHostPage {
         PrintManager.get_instance().do_page_setup();
     }
 #endif
+
+    private void on_external_app_changed() {
+        set_action_sensitive("ExternalEdit", has_photo() && 
+            Config.get_instance().get_external_photo_app() != "");
+#if !NO_RAW
+        if (has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW)
+            set_action_visible("ExternalEditRAW", has_photo() && Config.get_instance().get_external_raw_app() != "");
+        else
+            set_action_hidden("ExternalEditRAW");
+#endif
+    }
     
     private void on_external_edit() {
         if (!has_photo())
@@ -2590,7 +2589,6 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
         
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
@@ -2599,7 +2597,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Flip", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", revert_possible);
         set_hide_item_label("/PhotoMenuBar/PhotoMenu/HideUnhide");
         set_favorite_item_label("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite");
     }
