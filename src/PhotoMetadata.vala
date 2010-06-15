@@ -65,9 +65,11 @@ public class MetadataDateTime {
     }
     
     public MetadataDateTime.from_xmp(string label) throws MetadataDateTimeError {
-        // TODO: Decode XMP date/time format (of which our converter is a subset)
-        if (!from_exif_date_time(label, out timestamp))
+        TimeVal time_val = TimeVal();
+        if (!time_val.from_iso8601(label))
             throw new MetadataDateTimeError.INVALID_FORMAT("%s is not XMP format date/time", label);
+        
+        timestamp = time_val.tv_sec;
     }
     
     public time_t get_timestamp() {
@@ -81,8 +83,11 @@ public class MetadataDateTime {
     // TODO: get_iptc_date() and get_iptc_time()
     
     public string get_xmp_label() {
-        // TODO: Construct proper XMP date/time format
-        return to_exif_date_time(timestamp);
+        TimeVal time_val = TimeVal();
+        time_val.tv_sec = timestamp;
+        time_val.tv_usec = 0;
+        
+        return time_val.to_iso8601();
     }
     
     public static bool from_exif_date_time(string date_time, out time_t timestamp) {
