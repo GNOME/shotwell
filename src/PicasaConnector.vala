@@ -1031,14 +1031,14 @@ private class AlbumDirectoryTransaction : AuthenticatedTransaction {
 private class AlbumCreationTransaction : AuthenticatedTransaction {
     private const string ENDPOINT_URL = "http://picasaweb.google.com/data/feed/api/user/" +
         "default";
-    private const string ALBUM_ENTRY_TEMPLATE = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gphoto='http://schemas.google.com/photos/2007'><title type='text'>%s</title><gphoto:access>%s</gphoto:access><category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#album'></category></entry>";
+    private const string ALBUM_ENTRY_TEMPLATE = "<?xml version='1.0' encoding='utf-8'?><entry xmlns='http://www.w3.org/2005/Atom' xmlns:gphoto='http://schemas.google.com/photos/2007'><title type='text'>%s</title><gphoto:access>%s</gphoto:access><category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#album'></category></entry>";
     
     public AlbumCreationTransaction(Session session, PublishingParameters parameters) {
         base(session, ENDPOINT_URL, HttpMethod.POST);
 
-        string post_body =
-            ALBUM_ENTRY_TEMPLATE.printf(html_entity_encode(parameters.get_album_name()),
-            parameters.is_album_public() ? "public" : "private");
+        string post_body = ALBUM_ENTRY_TEMPLATE.printf(decimal_entity_encode(
+            parameters.get_album_name()), parameters.is_album_public() ? "public" : "private");
+
         set_custom_payload(post_body, "application/atom+xml");
     }
 
@@ -1111,6 +1111,35 @@ private Album[] extract_albums(Xml.Node* document_root) throws PublishingError {
 
     return result;
 }
+
+/* Encoding strings in XML decimal encoding is a relatively esoteric operation. Most web services
+   prefer to have non-ASCII character entities encoded using "symbolic encoding," where common
+   entities are encoded in short, symbolic names (e.g. "ñ" -> &ntilde;). Picasa Web Albums,
+   however, doesn't like symbolic encoding, and instead wants non-ASCII entities encoded directly
+   as their Unicode code point numbers (e.g. "ñ" -> &241;). This has certain advantages, but is not
+   widely supported by HTTP & XML client libraries, so I've written this encoding function. Since
+   it's not used by any of the other web connectors right now, let's keep it in this source file
+   and the PicasaConnector namespace. In the future, if it's needed elsewhere, we can move it to
+   util.vala and put it in the global namespace. */
+private string decimal_entity_encode(string source) {
+    StringBuilder encoded_str_builder = new StringBuilder();
+    string current_char = source;
+    while (true) {
+        int current_char_value = (int) (current_char.get_char_validated());
+        
+        if (current_char_value < 1)
+            break;
+        else if (current_char_value < 128)
+            encoded_str_builder.append_unichar(current_char.get_char_validated());
+        else
+            encoded_str_builder.append("&#%d;".printf(current_char_value));
+
+        current_char = current_char.next_char();
+    }
+    
+    return encoded_str_builder.str;
+}
+
 
 }
 

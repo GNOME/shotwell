@@ -1135,7 +1135,7 @@ public class RESTXmlDocument {
         
         // Don't want blanks to be included as text nodes, and want the XML parser to tolerate
         // tolerable XML
-        Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.length, null, null,
+        Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.size(), null, null,
             Xml.ParserOption.NOBLANKS | Xml.ParserOption.RECOVER);
         if (doc == null)
             throw new PublishingError.MALFORMED_RESPONSE("Unable to parse XML document");
