@@ -2653,10 +2653,22 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         if (count == 0)
             return;
         
-        // first, remove all items from the trashcan and report them as removed.  if the trash doesn't own the
-        // photos to be removed, nothing happens
-        trashcan.remove_all(selected);
-        notify_trashcan_contents_altered(null, selected.read_only_view);
+        // remove all items from the trashcan and report them as removed.  unlink all photos not
+        // in trash (trashed are already unlinked);
+        Gee.ArrayList<LibraryPhoto> to_remove = new Gee.ArrayList<LibraryPhoto>();
+        Marker to_unlink = start_marking();
+        
+        foreach (LibraryPhoto photo in selected) {
+            if (photo.is_trashed())
+                to_remove.add(photo);
+            else
+                to_unlink.mark(photo);
+        }
+        
+        trashcan.remove_all(to_remove);
+        notify_trashcan_contents_altered(null, to_remove);
+        
+        unlink_marked(to_unlink);
         
         // now destroy all of them, reporting this phase to the monitor
         int ctr = 0;
