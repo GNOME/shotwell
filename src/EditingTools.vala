@@ -1040,7 +1040,7 @@ public class CropTool : EditingTool {
         
         max_dim = photo.get_original_dimensions();
         
-        return photo.get_pixbuf_with_exceptions(scaling, TransformablePhoto.Exception.CROP);
+        return photo.get_pixbuf_with_options(scaling, TransformablePhoto.Exception.CROP);
     }
  
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -2359,7 +2359,7 @@ public class AdjustTool : EditingTool {
         
         max_dim = photo.get_dimensions();
         
-        return photo.get_pixbuf_with_exceptions(scaling, TransformablePhoto.Exception.ADJUST);
+        return photo.get_pixbuf_with_options(scaling, TransformablePhoto.Exception.ADJUST);
     }
 
     private void on_reset() {

@@ -26,7 +26,7 @@ public class ZoomBuffer : Object {
         
         public override void execute() {
             try {
-                fetched = to_fetch.get_pixbuf_with_exceptions(Scaling.for_original(),
+                fetched = to_fetch.get_pixbuf_with_options(Scaling.for_original(),
                     TransformablePhoto.Exception.ADJUST);
             } catch (Error fetch_error) {
                 critical("IsoSourceFetchJob: execute( ): can't get pixbuf from backing photo");

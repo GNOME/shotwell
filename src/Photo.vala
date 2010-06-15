@@ -117,6 +117,19 @@ public enum ImportResult {
     }
 }
 
+// Specifies how pixel data is fetched from the backing file on disk. SOURCE mode means "give me
+// pixel data that tries to be as faithful to the backing source photo as possible, even if it
+// sacrifices a bit of performance," whereas BASELINE means "give me the image most suitable for
+// use as a base image when running the transformation pipeline at interactive speeds, even if it
+// means I give up some fidelity to the source image."
+public enum BackingFetchMode {
+    SOURCE,
+    BASELINE
+    // TODO: in the future, we could add MASTER, MIMIC, etc., but these might be too low-level; the
+    //       nice thing about SOURCE and BASELINE are that operate at the level of the programmer's
+    //       intent, not the underlying implementation
+}
+
 public class PhotoImportParams {
     // IN:
     public File file;
@@ -1568,8 +1581,16 @@ public abstract class TransformablePhoto: PhotoSource {
     // Returns a raw, untransformed, unrotated pixbuf directly from the source.  Scaling provides
     // asked for a scaled-down image, which has certain performance benefits if the resized
     // JPEG is scaled down by a factor of a power of two (one-half, one-fourth, etc.).
-    private Gdk.Pixbuf load_raw_pixbuf(Scaling scaling, Exception exceptions) throws Error {
-        PhotoFileReader loader = get_baseline_reader();
+    private Gdk.Pixbuf load_raw_pixbuf(Scaling scaling, Exception exceptions,
+        BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
+        
+        PhotoFileReader loader = null;
+        if (fetch_mode == BackingFetchMode.SOURCE)
+            loader = get_source_reader();
+        else if (fetch_mode == BackingFetchMode.BASELINE)
+            loader = get_baseline_reader();
+        else
+            error("unsupported BackingFetchMode enumeration value");
         
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
@@ -1653,7 +1674,7 @@ public abstract class TransformablePhoto: PhotoSource {
     public abstract Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error;
     
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
-        return get_pixbuf_with_exceptions(scaling, Exception.NONE);
+        return get_pixbuf_with_options(scaling);
     }
     
     // Returns a fully transformed and scaled pixbuf.  Transformations may be excluded via the mask.
@@ -1662,7 +1683,8 @@ public abstract class TransformablePhoto: PhotoSource {
     //
     // Note that an unscaled fetch can be extremely expensive, and it's far better to specify an 
     // appropriate scale.
-    public Gdk.Pixbuf get_pixbuf_with_exceptions(Scaling scaling, Exception exceptions) throws Error {
+    public Gdk.Pixbuf get_pixbuf_with_options(Scaling scaling, Exception exceptions =
+        Exception.NONE, BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -1703,7 +1725,7 @@ public abstract class TransformablePhoto: PhotoSource {
         // Image load-and-decode
         //
         
-        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, exceptions);
+        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, exceptions, fetch_mode);
         
         if (is_scaled)
             scaled = Dimensions.for_pixbuf(pixbuf);
@@ -1903,7 +1925,8 @@ public abstract class TransformablePhoto: PhotoSource {
         debug("Saving transformed version of %s to %s in file format %s", to_string(),
             writer.get_filepath(), export_format.to_string());
         
-        Gdk.Pixbuf pixbuf = get_pixbuf(scaling);
+        Gdk.Pixbuf pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
+            BackingFetchMode.SOURCE);
         Dimensions dim = Dimensions.for_pixbuf(pixbuf);
         
         writer.write(pixbuf, quality);
@@ -2498,7 +2521,7 @@ public abstract class TransformablePhoto: PhotoSource {
 #endif
 
         try {
-            pixbuf = get_pixbuf_with_exceptions(Scaling.for_best_fit(360, false), 
+            pixbuf = get_pixbuf_with_options(Scaling.for_best_fit(360, false), 
                 TransformablePhoto.Exception.ALL);
 
 #if MEASURE_ENHANCE
