@@ -118,7 +118,8 @@ VAPI_FILES = \
 	FixedKeyFile.vapi \
 	ExtendedPosix.vapi \
 	LConv.vapi \
-	libraw.vapi
+	libraw.vapi \
+	gdk-none.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -155,7 +156,8 @@ LOCAL_PKGS = \
 	FixedKeyFile \
 	ExtendedPosix \
 	posix \
-	LConv
+	LConv \
+	gdk-none
 
 EXT_PKGS = \
 	atk \

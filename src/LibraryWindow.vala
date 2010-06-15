@@ -606,21 +606,21 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_file_import() {
-        Gtk.CheckButton copy_toggle = new Gtk.CheckButton.with_mnemonic(
-            _("_Copy files into Shotwell photo library %s").printf(get_display_pathname(AppDirs.get_import_dir())));
-        copy_toggle.set_active(true);
-        
         Gtk.FileChooserDialog import_dialog = new Gtk.FileChooserDialog(_("Import From Folder"), null,
             Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, 
             Gtk.STOCK_OK, Gtk.ResponseType.OK);
         import_dialog.set_select_multiple(true);
         import_dialog.set_current_folder(import_dir);
-        import_dialog.set_extra_widget(copy_toggle);
         
         int response = import_dialog.run();
 
         if (response == Gtk.ResponseType.OK) {
-            dispatch_import_jobs(import_dialog.get_uris(), "folders", copy_toggle.get_active());
+            Gtk.ResponseType copy_files_response = copy_files_dialog();
+            
+            if (copy_files_response != Gtk.ResponseType.CANCEL) {
+                dispatch_import_jobs(import_dialog.get_uris(), "folders", 
+                    copy_files_response == Gtk.ResponseType.ACCEPT);
+            }
         }
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
@@ -812,9 +812,58 @@ public class LibraryWindow : AppWindow {
             switch_to_import_queue_page();
         }
     }
+    
+    private Gdk.DragAction get_drag_action() {
+        Gdk.ModifierType mask;
+        
+        window.get_pointer(null, null, out mask);
 
+        bool ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
+        bool alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
+        bool shift = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
+        
+        if (ctrl && !alt && !shift)
+            return Gdk.DragAction.COPY;
+        else if (!ctrl && alt && !shift)
+            return Gdk.DragAction.ASK;
+        else if (ctrl && !alt && shift)
+            return Gdk.DragAction.LINK;
+        else
+            return Gdk.DragAction.DEFAULT;
+    }
+    
+    private override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
+        Gdk.Atom target = Gtk.drag_dest_find_target(this, context, 
+			Gtk.drag_dest_get_target_list(this));
+        
+        if (((int) target) == ((int) Gdk.NONE)) {
+            debug("drag target is GDK_NONE");
+            Gdk.drag_status(context, 0, time);
+            return true;
+        }
+        
+        // internal drag
+        if (Gtk.drag_get_source_widget(context) != null) {
+            Gdk.drag_status(context, Gdk.DragAction.PRIVATE, time);
+            return true;
+        }
+        
+        // since we cannot set a default action, we must set it when we spy a drag motion
+        Gdk.DragAction drag_action = get_drag_action();
+        
+        if (drag_action == Gdk.DragAction.DEFAULT)
+            drag_action = Gdk.DragAction.LINK;
+        
+        Gdk.drag_status(context, drag_action, time);
+
+        return true;
+    }
+    
     private override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
+        if (selection_data.length < 0)
+            debug("failed to retrieve SelectionData");
+        
         drop_received(context, x, y, selection_data, info, time, null, null);
     }
 
@@ -822,14 +871,24 @@ public class LibraryWindow : AppWindow {
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, 
         SidebarPage? page) {
         // determine if drag is internal or external
-        if (Gtk.drag_get_source_widget(context) != null)
+        if (Gtk.drag_get_source_widget(context) != null) {
             drop_internal(context, x, y, selection_data, info, time, path, page);
-        else
+        } else {
+            if (get_drag_action() == Gdk.DragAction.DEFAULT) {
+                Filesystem drag_filesystem = get_filesystem_relativity(AppDirs.get_import_dir(), 
+                    Uri.list_extract_uris((string) selection_data.data));
+                
+                if (drag_filesystem != Filesystem.INTERNAL)
+                    context.action = Gdk.DragAction.ASK;
+            }
+            
             drop_external(context, x, y, selection_data, info, time);
+        }
     }
 
     private void drop_internal(Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page = null) {
+        Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path,
+        SidebarPage? page = null) {
         Gee.List<PhotoID?>? photo_ids = unserialize_photo_ids(selection_data.data,
             selection_data.get_length());
         
@@ -892,25 +951,17 @@ public class LibraryWindow : AppWindow {
             uris.append(uri);
         }
         
-        if (context.suggested_action == Gdk.DragAction.ASK) {
-            string msg = _("Shotwell can copy the photos into your library or it can link to the photos without duplicating them.");
-
-            Gtk.MessageDialog dialog = new Gtk.MessageDialog(get_instance(), Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, "%s", msg);
-
-            dialog.add_button(_("Co_py into Library"), Gdk.DragAction.COPY);
-            dialog.add_button(_("Create _Links"), Gdk.DragAction.LINK);
-            dialog.title = _("Import to Library");
-
-            Gdk.DragAction result = (Gdk.DragAction) dialog.run();
-            
-            dialog.destroy();
+        if (context.action == Gdk.DragAction.ASK) {
+            Gtk.ResponseType result = copy_files_dialog();
             
             switch (result) {
-                case Gdk.DragAction.COPY:
-                case Gdk.DragAction.LINK:
-                    context.action = (Gdk.DragAction) result;
-                break;
+                case Gtk.ResponseType.ACCEPT:
+                    context.action = Gdk.DragAction.COPY;
+                    break;
+                
+                case Gtk.ResponseType.REJECT:
+                    context.action = Gdk.DragAction.LINK;
+                    break;
                 
                 default:
                     // cancelled
@@ -918,9 +969,6 @@ public class LibraryWindow : AppWindow {
                     
                     return;
             }
-        } else {
-            // use the suggested action
-            context.action = context.suggested_action;
         }
 
         dispatch_import_jobs(uris, "drag-and-drop", context.action == Gdk.DragAction.COPY);
@@ -1183,7 +1231,7 @@ public class LibraryWindow : AppWindow {
                 remove_event_tree((PageStub) parent);
         }
     }
-
+    
 #if !NO_CAMERA
     private void add_camera_page(DiscoveredCamera camera) {
         ImportPage page = new ImportPage(camera.gcamera, camera.uri);   

@@ -669,3 +669,42 @@ public AppInfo? get_default_app_for_mime_types(string[] mime_types,
     
     return null;
 }
+
+public enum Filesystem {
+    UNKNOWN,
+    INTERNAL,
+    EXTERNAL
+}
+
+// compares a series of uris to a file.  returns Filesystem.INTERNAL if all the uris' associated
+// files are on the same filesystem as the base file.  returns Filesystem.EXTERNAL if at least one
+// file is on a separate filsystem, and returns Filesystem.UNKNOWN if there are any errors thrown.
+public Filesystem get_filesystem_relativity(File base_file, string[] uris_array) {   
+    try {
+        // get a string representing the import directory filesystem
+        string base_filesystem = base_file.query_info(FILE_ATTRIBUTE_ID_FILESYSTEM,
+            FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null).get_attribute_as_string(
+            FILE_ATTRIBUTE_ID_FILESYSTEM);
+
+        foreach (string uri in uris_array) {
+            try {
+                // get a string representing a file's filesystem
+                string drag_filesystem = File.new_for_uri(uri).query_info(FILE_ATTRIBUTE_ID_FILESYSTEM,
+                    FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null).get_attribute_as_string(
+                    FILE_ATTRIBUTE_ID_FILESYSTEM);
+                
+                if (drag_filesystem != base_filesystem) {
+                    return Filesystem.EXTERNAL;
+                }
+            } catch (Error err) {
+                 debug("Error finding drag and drop file attribute filesystem: %s", err.message);
+                return Filesystem.UNKNOWN;
+            }
+        }
+    } catch (Error err) {
+        debug("Error finding import dir attribute filesystem: %s", err.message);
+        return Filesystem.UNKNOWN;
+    }
+    
+    return Filesystem.INTERNAL;
+}

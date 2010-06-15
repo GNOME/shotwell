@@ -1372,3 +1372,22 @@ public class PreferencesDialog {
     }
 #endif
 }
+
+// This function is used to determine whether or not files should be copied or linked when imported.
+// Returns ACCEPT for copy, REJECT for link, and CANCEL for (drum-roll) cancel.
+public Gtk.ResponseType copy_files_dialog() {
+    string msg = _("Shotwell can copy the photos into your library or it can link to the photos without duplicating them.");
+
+    Gtk.MessageDialog dialog = new Gtk.MessageDialog(AppWindow.get_instance(), Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.QUESTION, Gtk.ButtonsType.CANCEL, "%s", msg);
+
+    dialog.add_button(_("Co_py into Library"), Gtk.ResponseType.ACCEPT);
+    dialog.add_button(_("Create _Links"), Gtk.ResponseType.REJECT);
+    dialog.title = _("Import to Library");
+
+    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    
+    dialog.destroy();
+
+    return result;
+}
