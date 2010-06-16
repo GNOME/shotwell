@@ -670,6 +670,10 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         if (message == null) {
             // set the layout's new size to be the same as the parent's width but maintain 
             // it's own height
+#if TRACE_REFLOW
+            debug("on_viewport_resized: due_to_reflow=%s set_size_request %dx%d",
+                size_allocate_due_to_reflow.to_string(), parent.allocation.width, req.height);
+#endif
             set_size_request(parent.allocation.width, req.height);
         } else {
             // set the layout's width and height to always match the parent's
