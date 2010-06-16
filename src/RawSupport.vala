@@ -51,7 +51,61 @@ public class RawFileFormatProperties : PhotoFileFormatProperties {
     };
 
     private static string[] KNOWN_MIME_TYPES = {
-        "image/x-canon-cr2"
+        /* a catch-all MIME type for all formats supported by the dcraw command-line
+           tool (and hence libraw) */
+        "image/x-dcraw",
+    
+        /* manufacturer blessed MIME types */
+        "image/x-canon-cr2",
+        "image/x-canon-crw",
+        "image/x-fuji-raf",
+        "image/x-adobe-dng",
+        "image/x-panasonic-raw",
+        "image/x-raw",
+        "image/x-minolta-mrw",
+        "image/x-nikon-nef",
+        "image/x-olympus-orf",
+        "image/x-pentax-pef",
+        "image/x-sony-arw",
+        "image/x-sony-srf",
+        "image/x-sony-sr2",
+
+        /* generic MIME types for file extensions*/
+        "image/x-3fr",
+        "image/x-arw",
+        "image/x-srf",
+        "image/x-sr2",
+        "image/x-bay",
+        "image/x-crw",
+        "image/x-cr2",
+        "image/x-cap",
+        "image/x-iiq",
+        "image/x-eip",
+        "image/x-dcs",
+        "image/x-dcr",
+        "image/x-drf",
+        "image/x-k25",
+        "image/x-kdc",
+        "image/x-dng",
+        "image/x-erf",
+        "image/x-fff",
+        "image/x-mef",
+        "image/x-mos",
+        "image/x-mrw",
+        "image/x-nef",
+        "image/x-nrw",
+        "image/x-orf",
+        "image/x-ptx",
+        "image/x-pef",
+        "image/x-pxn",
+        "image/x-r3d",
+        "image/x-raf",
+        "image/x-raw",
+        "image/x-rw2",
+        "image/x-raw",
+        "image/x-rwl",
+        "image/x-rwz",
+        "image/x-x3f"
     };
     
     private static RawFileFormatProperties instance = null;
