@@ -1817,6 +1817,9 @@ public abstract class TransformablePhoto: PhotoSource {
     //
     // File export
     //
+    // Sets the metadata values for any user generated metadata
+    protected abstract void set_user_metadata_for_export(PhotoMetadata metadata);
+    protected abstract bool has_user_generated_metadata();
     
     // Returns the basename of the file if it were to be exported in format 'file_format'; if
     // 'file_format' is null, then return the basename of the file if it were to be exported in the
@@ -1869,21 +1872,16 @@ public abstract class TransformablePhoto: PhotoSource {
         
         export_reader.get_file().copy(dest_file, 
             FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS, null, null);
-        
-        // If asking for an full-sized file and there are no alterations (transformations or
-        // EXIF) *and* this is a copy of the original backing, then done
-        if (!has_alterations() && is_master)
+
+        // If asking for an full-sized file and there are no alterations (transformations or EXIF)
+        // *and* this is a copy of the original backing *and* there's no user metadata or title, then done
+        if (!has_alterations() && is_master && !has_user_generated_metadata() && (get_title() == null))
             return true;
         
-        // copy over relevant metadata
+        // copy over relevant metadata if possible, otherwise generate new metadata
         PhotoMetadata? metadata = export_reader.read_metadata();
-        if (metadata == null) {
-            // No metadata, if copying from original backing, done, otherwise, keep going
-            if (is_master)
-                return true;
-            
+        if (metadata == null)
             metadata = export_reader.get_file_format().create_metadata();
-        }
         
         debug("Updating metadata of %s", writer.get_filepath());
         
@@ -1892,11 +1890,15 @@ public abstract class TransformablePhoto: PhotoSource {
         else
             metadata.set_exposure_date_time(null);
         
+        metadata.set_title(get_title(), false);
+        metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
         metadata.set_orientation(get_orientation());
         
         if (get_orientation() != get_original_orientation())
             metadata.remove_exif_thumbnail();
-        
+
+        set_user_metadata_for_export(metadata);
+
         writer.write_metadata(metadata);
         
         return true;
@@ -1927,7 +1929,6 @@ public abstract class TransformablePhoto: PhotoSource {
         
         Gdk.Pixbuf pixbuf = get_pixbuf_with_options(scaling, Exception.NONE,
             BackingFetchMode.SOURCE);
-        Dimensions dim = Dimensions.for_pixbuf(pixbuf);
         
         writer.write(pixbuf, quality);
         
@@ -1936,10 +1937,12 @@ public abstract class TransformablePhoto: PhotoSource {
         // copy over existing metadata from source if available
         PhotoMetadata? metadata = get_metadata();
         if (metadata == null)
-            return;
+            metadata = export_format.create_metadata();
         
-        metadata.set_pixel_dimensions(dim);
+        metadata.set_title(get_title(), false);
+        metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
         metadata.set_orientation(Orientation.TOP_LEFT);
+
         if (get_exposure_time() != 0)
             metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
         else
@@ -1947,7 +1950,10 @@ public abstract class TransformablePhoto: PhotoSource {
         metadata.remove_tag("Exif.Iop.RelatedImageWidth");
         metadata.remove_tag("Exif.Iop.RelatedImageHeight");
         metadata.remove_exif_thumbnail();
-        
+
+        if(has_user_generated_metadata())
+            set_user_metadata_for_export(metadata);
+
         writer.write_metadata(metadata);
     }
     
@@ -3055,6 +3061,21 @@ public class LibraryPhoto : Photo {
         
         return false;
     }
+
+    protected override bool has_user_generated_metadata() {
+        return Tag.global.fetch_for_photo(this) != null;
+    }
+
+    protected override void set_user_metadata_for_export(PhotoMetadata metadata) {
+        Gee.List<Tag>? photo_tags = Tag.global.fetch_for_photo(this);
+        if(photo_tags != null) {
+            Gee.Collection<string> string_tags = new Gee.ArrayList<string>();
+            foreach (Tag tag in photo_tags) {
+                string_tags.add(tag.get_name());
+            }
+            metadata.set_keywords(string_tags, false);
+        }
+    }
 }
 
 //
@@ -3184,6 +3205,15 @@ public class DirectPhoto : Photo {
         preview = null;
         
         base.altered();
+    }
+
+    protected override bool has_user_generated_metadata() {
+        // TODO: implement this method
+        return false;
+    }
+
+    protected override void set_user_metadata_for_export(PhotoMetadata metadata) {
+        // TODO: implement this method, see ticket
     }
 }
 
