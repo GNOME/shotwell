@@ -87,11 +87,14 @@
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
+        <menuitem name="ContextAddTags" action="AddTags" />
+        <menuitem name="ContextModifyTags" action="ModifyTags" />
+        <placeholder name="ContextTagsPlaceholder" />
+        <separator />
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
         <menuitem name="ContextPhotoRename" action="PhotoRename" />
-        <menuitem name="ContextAdjustDateTime" action="AdjustDateTime" />
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />

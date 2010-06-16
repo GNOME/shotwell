@@ -2304,7 +2304,8 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/PhotoRename", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/AdjustDateTime", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
         set_action_sensitive("JumpToFile", sensitivity);
         
 #if !NO_SET_BACKGROUND
