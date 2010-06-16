@@ -604,13 +604,33 @@ public abstract class CollectionPage : CheckerboardPage {
 #endif
     }
     
-    protected override void on_item_activated(CheckerboardItem item) {
+    // doubel clcik = switch to photo page
+    // Super + double click = open in external editor
+    // Enter = switch to PhotoPage
+    // Ctrl + Enter = open in external editor
+    // Shift + Ctrl + Enter = open in external RAW editor
+    protected override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
+        activator, CheckerboardPage.KeyboardModifiers modifiers) {
         Thumbnail thumbnail = (Thumbnail) item;
-        
-        // switch to full-page view
-        debug("switching to %s", thumbnail.get_photo().to_string());
 
-        LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
+        // switch to full-page view or open in external editor
+        debug("activating %s", thumbnail.get_photo().to_string());
+
+        if (activator == CheckerboardPage.Activator.MOUSE) {
+            if (modifiers.super_pressed)
+                on_external_edit();
+            else
+                LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
+        } else if (activator == CheckerboardPage.Activator.KEYBOARD) {
+            if (modifiers.shift_pressed && modifiers.ctrl_pressed) {
+                if (thumbnail.get_photo().get_master_file_format() == PhotoFileFormat.RAW)
+                    on_external_edit_raw();
+            } else if (modifiers.ctrl_pressed) {
+                on_external_edit();
+            } else {
+                LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
+            }
+        }
     }
     
     private void set_favorite_item_sensitive(string path, bool selected) {

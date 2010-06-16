@@ -241,7 +241,8 @@ public class EventsDirectoryPage : CheckerboardPage {
         return actions;
     }
     
-    public override void on_item_activated(CheckerboardItem item) {
+    public override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
+        activator, CheckerboardPage.KeyboardModifiers modifiers) {
         EventDirectoryItem event = (EventDirectoryItem) item;
         LibraryWindow.get_app().switch_to_event(event.event);
     }

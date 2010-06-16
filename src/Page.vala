@@ -26,9 +26,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool report_resize_finished = false;
     private Gdk.Point last_down = Gdk.Point();
     private bool is_destroyed = false;
-    protected bool ctrl_pressed = false;
-    protected bool alt_pressed = false;
-    protected bool shift_pressed = false;
+    private bool ctrl_pressed = false;
+    private bool alt_pressed = false;
+    private bool shift_pressed = false;
+    private bool super_pressed = false;
     
     public Page(string page_name) {
         this.page_name = page_name;
@@ -265,21 +266,39 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.visible = false;
         action.sensitive = false;
     }
+
+    public bool get_ctrl_pressed() {
+        return ctrl_pressed;
+    }
     
-    private void get_modifiers(out bool ctrl, out bool alt, out bool shift) {
-            int x, y;
+    public bool get_alt_pressed() {
+        return alt_pressed;
+    }
+    
+    public bool get_shift_pressed() {
+        return shift_pressed;
+    }
+    
+    public bool get_super_pressed() {
+        return super_pressed;
+    }
+    
+    private void get_modifiers(out bool ctrl, out bool alt, out bool shift, out bool super) {
+        int x, y;
         Gdk.ModifierType mask;
         AppWindow.get_instance().window.get_pointer(out x, out y, out mask);
 
         ctrl = (mask & Gdk.ModifierType.CONTROL_MASK) != 0;
         alt = (mask & Gdk.ModifierType.MOD1_MASK) != 0;
         shift = (mask & Gdk.ModifierType.SHIFT_MASK) != 0;
+        super = (mask & Gdk.ModifierType.MOD4_MASK) != 0; // not SUPER_MASK
     }
 
     private virtual void update_modifiers() {
-        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed;
+        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
+            super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
-            out shift_currently_pressed);
+            out shift_currently_pressed, out super_currently_pressed);
         
         if (ctrl_pressed && !ctrl_currently_pressed)
             on_ctrl_released(null);
@@ -295,10 +314,16 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
             on_shift_released(null);
         else if (!shift_pressed && shift_currently_pressed)
             on_shift_pressed(null);
+
+        if(super_pressed && !super_currently_pressed)
+            on_super_released(null);
+        else if (!super_pressed && super_currently_pressed)
+            on_super_pressed(null);
         
         ctrl_pressed = ctrl_currently_pressed;
         alt_pressed = alt_currently_pressed;
         shift_pressed = shift_currently_pressed;
+        super_pressed = super_currently_pressed;
     }
     
     public PageWindow? get_page_window() {
@@ -570,6 +595,14 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     protected virtual bool on_shift_released(Gdk.EventKey? event) {
         return false;
     }
+
+    protected virtual bool on_super_pressed(Gdk.EventKey? event) {
+        return false;
+    }
+    
+    protected virtual bool on_super_released(Gdk.EventKey? event) {
+        return false;
+    }
     
     protected virtual bool on_app_key_pressed(Gdk.EventKey event) {
         return false;
@@ -580,9 +613,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public bool notify_app_key_pressed(Gdk.EventKey event) {
-        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed;
+        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
+            super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
-            out shift_currently_pressed);
+            out shift_currently_pressed, out super_currently_pressed);    
 
         switch (Gdk.keyval_name(event.keyval)) {
             case "Control_L":
@@ -613,15 +647,25 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
                 shift_pressed = true;
                 
                 return on_shift_pressed(event);
+            
+            case "Super_L":
+            case "Super_R":
+                if (!super_currently_pressed || super_pressed)
+                    return false;
+                
+                super_pressed = true;
+                
+                return on_super_pressed(event);                
         }
         
         return on_app_key_pressed(event);
     }
     
     public bool notify_app_key_released(Gdk.EventKey event) {
-        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed;
+        bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
+            super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
-            out shift_currently_pressed);
+            out shift_currently_pressed, out super_currently_pressed);
 
         switch (Gdk.keyval_name(event.keyval)) {
             case "Control_L":
@@ -652,6 +696,15 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
                 shift_pressed = false;
                 
                 return on_shift_released(event);
+
+            case "Super_L":
+            case "Super_R":
+                if (super_currently_pressed || !super_pressed)
+                    return false;
+
+                super_pressed = false;
+                
+                return on_super_released(event);
         }
         
         return on_app_key_released(event);
@@ -840,6 +893,25 @@ public abstract class CheckerboardPage : Page {
     private CheckerboardItem activated_item = null;
     private Gee.ArrayList<CheckerboardItem> previously_selected = null;
 
+    public enum Activator {
+        KEYBOARD,
+        MOUSE
+    }
+
+    public struct KeyboardModifiers {
+        public KeyboardModifiers(Page page) {
+            ctrl_pressed = page.get_ctrl_pressed();
+            alt_pressed = page.get_alt_pressed();
+            shift_pressed = page.get_shift_pressed();
+            super_pressed = page.get_super_pressed();
+        }
+
+        public bool ctrl_pressed;
+        public bool alt_pressed;
+        public bool shift_pressed;
+        public bool super_pressed;
+    }
+
     public CheckerboardPage(string page_name) {
         base(page_name);
         
@@ -895,7 +967,8 @@ public abstract class CheckerboardPage : Page {
         return popup_context_menu(get_context_menu());
     }
     
-    protected virtual void on_item_activated(CheckerboardItem item) {
+    protected virtual void on_item_activated(CheckerboardItem item, Activator activator, 
+        KeyboardModifiers modifiers) {
     }
     
     public CheckerboardLayout get_checkerboard_layout() {
@@ -1000,7 +1073,8 @@ public abstract class CheckerboardPage : Page {
             case "Return":
             case "KP_Enter":
                 if (get_view().get_selected_count() == 1)
-                    on_item_activated((CheckerboardItem) get_view().get_selected_at(0));
+                    on_item_activated((CheckerboardItem) get_view().get_selected_at(0),
+                        Activator.KEYBOARD, KeyboardModifiers(this));
                 else
                     handled = false;
             break;
@@ -1113,7 +1187,7 @@ public abstract class CheckerboardPage : Page {
         
         // if the item was activated in the double-click, report it now
         if (activated_item != null) {
-            on_item_activated(activated_item);
+            on_item_activated(activated_item, Activator.MOUSE, KeyboardModifiers(this));
             activated_item = null;
             
             return true;

@@ -1132,7 +1132,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
-        if (current_tool == null && !ctrl_pressed && !alt_pressed) {
+        if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed()) {
             swap_in_original();
         }
         
@@ -1154,7 +1154,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private override bool on_alt_released(Gdk.EventKey? event) {
-        if (current_tool == null && shift_pressed && !ctrl_pressed)
+        if (current_tool == null && get_shift_pressed() && !get_ctrl_pressed())
             swap_in_original();
         
         return base.on_alt_released(event);
@@ -1688,7 +1688,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate_button.clicked.disconnect(on_rotate_counterclockwise);
         rotate_button.clicked.connect(on_rotate_clockwise);
 
-        if (current_tool == null && shift_pressed && !alt_pressed)
+        if (current_tool == null && get_shift_pressed() && !get_alt_pressed())
             swap_in_original();
         
         return base.on_ctrl_released(event);
