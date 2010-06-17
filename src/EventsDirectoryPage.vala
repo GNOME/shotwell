@@ -63,8 +63,8 @@ class EventDirectoryItem : CheckerboardItem {
         int count = event.get_photo_count();
         string count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
         
-        return "<b>%s</b>\n%s".printf(Markup.escape_text(event.get_name()),
-            Markup.escape_text(count_text));
+        return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(event.get_name()),
+            guarded_markup_escape_text(count_text));
     }
 
     public override void exposed() {

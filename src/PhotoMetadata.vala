@@ -371,11 +371,15 @@ public class PhotoMetadata {
     }
     
     public string? get_string(string tag) {
-        return exiv2.get_tag_string(tag);
+        string? value = exiv2.get_tag_string(tag);
+        
+        return (value != null && value.validate()) ? value : null;
     }
     
     public string? get_string_interpreted(string tag) {
-        return exiv2.get_tag_interpreted_string(tag);
+        string? value = exiv2.get_tag_interpreted_string(tag);
+        
+        return (value != null && value.validate()) ? value : null;
     }
     
     public string? get_first_string(string[] tags) {
@@ -404,13 +408,21 @@ public class PhotoMetadata {
             return null;
         
         Gee.Collection<string> collection = new Gee.TreeSet<string>(compare_func);
-        foreach (string value in values)
-            collection.add(value);
+        foreach (string value in values) {
+            if (value.validate())
+                collection.add(value);
+        }
         
         return collection;
     }
     
     public void set_string(string tag, string value) {
+        if (!value.validate()) {
+            warning("Not setting tag %s to string %s: invalid UTF-8", tag, value);
+            
+            return;
+        }
+        
         if (!exiv2.set_tag_string(tag, value))
             warning("Unable to set tag %s to string %s from source %s", tag, value, source_name);
     }
@@ -423,10 +435,11 @@ public class PhotoMetadata {
     }
     
     public void set_string_multiple(string tag, Gee.Collection<string> collection) {
-        string[] values = new string[collection.size];
-        int ctr = 0;
-        foreach (string value in collection)
-            values[ctr++] = value;
+        string[] values = new string[0];
+        foreach (string value in collection) {
+            if (value.validate())
+                values += value;
+        }
         
         if (!exiv2.set_tag_multiple(tag, values))
             warning("Unable to set %d strings to tag %s from source %s", values.length, tag, source_name);

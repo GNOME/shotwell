@@ -379,7 +379,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         int ctr = 0;
         int count = tags.size;
         foreach (Tag tag in tags) {
-            builder.append(escape ? Markup.escape_text(tag.get_name()) : tag.get_name());
+            builder.append(escape ? guarded_markup_escape_text(tag.get_name()) : tag.get_name());
             if (ctr++ < count - 1)
                 builder.append(separator);
         }

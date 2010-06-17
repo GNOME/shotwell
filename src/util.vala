@@ -145,6 +145,15 @@ public uchar[] string_to_uchar_array(string str) {
     return data;
 }
 
+// Markup.escape_text() will crash if the UTF-8 text is not valid; it relies on a call to 
+// g_utf8_next_char(), which demands that the string be validated before use, which escape_text()
+// does not do.  This handles this problem by kicking back an empty string if the text is not
+// valid.  Text should be validated upon entry to the system as well to guard against this
+// problem.
+public inline string guarded_markup_escape_text(string plain) {
+    return plain.validate() ? Markup.escape_text(plain) : "";
+}
+
 public class KeyValueMap {
     private string group;
     private Gee.HashMap<string, string> map = new Gee.HashMap<string, string>(str_hash, str_equal,
