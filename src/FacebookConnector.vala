@@ -711,6 +711,7 @@ private class WebAuthenticationPane : PublishingDialogPane {
 
 private class PublishingOptionsPane : PublishingDialogPane {
     private const string HEADER_LABEL_TEXT = _("You are logged into Facebook as %s.\n\nWhere would you like to publish the selected photos?");
+    private const int CONTENT_GROUP_SPACING = 32;
 
     private Gtk.RadioButton use_existing_radio = null;
     private Gtk.RadioButton create_new_radio = null;
@@ -743,8 +744,12 @@ private class PublishingOptionsPane : PublishingDialogPane {
         how_to_pusher.set_size_request(100, -1);
         add(how_to_label_layouter);
 
+        Gtk.SeparatorToolItem how_to_albums_spacing = new Gtk.SeparatorToolItem();
+        how_to_albums_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
+        how_to_albums_spacing.set_draw(false);
+        add(how_to_albums_spacing);
+
         Gtk.VBox album_mode_layouter = new Gtk.VBox(false, 8);
-        album_mode_layouter.set_border_width(44);
         use_existing_radio = new Gtk.RadioButton.with_mnemonic(null,
             _("Publish to an e_xisting album:"));
         use_existing_radio.clicked.connect(on_use_existing_toggled);
@@ -791,7 +796,16 @@ private class PublishingOptionsPane : PublishingDialogPane {
         album_mode_layouter.add(use_existing_layouter);
         album_mode_layouter.add(create_new_layouter);
 
-        add(album_mode_layouter);
+        Gtk.Alignment album_mode_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
+        album_mode_wrapper.add(album_mode_layouter);
+
+        add(album_mode_wrapper);
+        
+        Gtk.SeparatorToolItem albums_buttons_spacing = new Gtk.SeparatorToolItem();
+        albums_buttons_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
+        albums_buttons_spacing.set_draw(false);
+        add(albums_buttons_spacing);
+        
         add(buttons_layouter);
         
         Gtk.SeparatorToolItem bottom_padding = new Gtk.SeparatorToolItem();

@@ -659,7 +659,7 @@ public class PublishingDialog : Gtk.Dialog {
     private const int BORDER_REGION_HEIGHT = 100;
 
     public const int STANDARD_CONTENT_LABEL_WIDTH = 500;
-    public const int STANDARD_ACTION_BUTTON_WIDTH = 84;
+    public const int STANDARD_ACTION_BUTTON_WIDTH = 128;
 
     private static PublishingDialog active_instance = null;
     

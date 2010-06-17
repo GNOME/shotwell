@@ -683,12 +683,6 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
         add(login_identity_label);
 
-        Gtk.HBox horiz_packer = new Gtk.HBox(false, 0);
-        Gtk.SeparatorToolItem packer_left_padding = new Gtk.SeparatorToolItem();
-        packer_left_padding.set_draw(false);
-        packer_left_padding.set_size_request(PACKER_HORIZ_PADDING, -1);
-        horiz_packer.add(packer_left_padding);
-
         Gtk.VBox vert_packer = new Gtk.VBox(false, 0);
         Gtk.SeparatorToolItem packer_top_padding = new Gtk.SeparatorToolItem();
         packer_top_padding.set_draw(false);
@@ -778,13 +772,10 @@ private class PublishingOptionsPane : PublishingDialogPane {
         vert_packer.add(table_button_spacer);
 
         Gtk.HBox action_button_layouter = new Gtk.HBox(true, 0);
-        Gtk.SeparatorToolItem buttons_left_padding = new Gtk.SeparatorToolItem();
-        buttons_left_padding.set_draw(false);
-        buttons_left_padding.set_size_request(ACTION_BUTTON_SPACING, -1);
-        action_button_layouter.add(buttons_left_padding);
+
         Gtk.Button logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
         logout_button.clicked.connect(on_logout_clicked);
-        logout_button.set_size_request(100, -1);
+        logout_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
         Gtk.Alignment logout_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         logout_button_aligner.add(logout_button);
         action_button_layouter.add(logout_button_aligner);
@@ -794,30 +785,25 @@ private class PublishingOptionsPane : PublishingDialogPane {
         action_button_layouter.add(button_spacer);
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked.connect(on_publish_clicked);
-        publish_button.set_size_request(100, -1);
+        publish_button.set_size_request(PublishingDialog.STANDARD_ACTION_BUTTON_WIDTH, -1);
         Gtk.Alignment publish_button_aligner = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         publish_button_aligner.add(publish_button);
         action_button_layouter.add(publish_button_aligner);
-        Gtk.SeparatorToolItem buttons_right_padding = new Gtk.SeparatorToolItem();
-        buttons_right_padding.set_draw(false);
-        buttons_right_padding.set_size_request(ACTION_BUTTON_SPACING, -1);
-        action_button_layouter.add(buttons_right_padding);
 
-        vert_packer.add(action_button_layouter);
+        Gtk.Alignment action_button_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
+        action_button_wrapper.add(action_button_layouter);
+
+        vert_packer.add(action_button_wrapper);
 
         Gtk.SeparatorToolItem packer_bottom_padding = new Gtk.SeparatorToolItem();
         packer_bottom_padding.set_draw(false);
         packer_bottom_padding.set_size_request(-1, 2 * PACKER_VERTICAL_PADDING);
         vert_packer.add(packer_bottom_padding);
 
-        horiz_packer.add(vert_packer);
+        Gtk.Alignment vert_packer_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
+        vert_packer_wrapper.add(vert_packer);
 
-        Gtk.SeparatorToolItem packer_right_padding = new Gtk.SeparatorToolItem();
-        packer_right_padding.set_draw(false);
-        packer_right_padding.set_size_request(PACKER_HORIZ_PADDING, -1);
-        horiz_packer.add(packer_right_padding);
-
-        add(horiz_packer);
+        add(vert_packer_wrapper);
     }
 
     private void on_publish_clicked() {
