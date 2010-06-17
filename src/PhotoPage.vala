@@ -2093,15 +2093,15 @@ public class LibraryPhotoPage : EditingHostPage {
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE, null,
-            TRANSLATABLE, on_external_edit };
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE,
+            "<Ctrl>Return", TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
         actions += external_edit;
 
 #if !NO_RAW
-        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, null, TRANSLATABLE,
-            on_external_edit_raw };
+        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
+            TRANSLATABLE, on_external_edit_raw };
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;

@@ -342,14 +342,14 @@ public abstract class CollectionPage : CheckerboardPage {
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
         
-        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE, null,
+        Gtk.ActionEntry external_edit = { "ExternalEdit", Gtk.STOCK_EDIT, TRANSLATABLE, "<Ctrl>Return",
             TRANSLATABLE, on_external_edit };
         external_edit.label = Resources.EXTERNAL_EDIT_MENU;
         external_edit.tooltip = Resources.EXTERNAL_EDIT_TOOLTIP;
         actions += external_edit;
         
-        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, null, TRANSLATABLE,
-            on_external_edit_raw };
+        Gtk.ActionEntry edit_raw = { "ExternalEditRAW", null, TRANSLATABLE, "<Ctrl><Shift>Return", 
+            TRANSLATABLE, on_external_edit_raw };
         edit_raw.label = Resources.EXTERNAL_EDIT_RAW_MENU;
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
@@ -595,11 +595,12 @@ public abstract class CollectionPage : CheckerboardPage {
 #endif
     }
     
+    // see #2020
     // doubel clcik = switch to photo page
     // Super + double click = open in external editor
     // Enter = switch to PhotoPage
-    // Ctrl + Enter = open in external editor
-    // Shift + Ctrl + Enter = open in external RAW editor
+    // Ctrl + Enter = open in external editor (handled with accelerators)
+    // Shift + Ctrl + Enter = open in external RAW editor (handled with accelerators)
     protected override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
         activator, CheckerboardPage.KeyboardModifiers modifiers) {
         Thumbnail thumbnail = (Thumbnail) item;
@@ -613,14 +614,8 @@ public abstract class CollectionPage : CheckerboardPage {
             else
                 LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
         } else if (activator == CheckerboardPage.Activator.KEYBOARD) {
-            if (modifiers.shift_pressed && modifiers.ctrl_pressed) {
-                if (thumbnail.get_photo().get_master_file_format() == PhotoFileFormat.RAW)
-                    on_external_edit_raw();
-            } else if (modifiers.ctrl_pressed) {
-                on_external_edit();
-            } else {
+            if (!modifiers.shift_pressed && !modifiers.ctrl_pressed)
                 LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
-            }
         }
     }
     
