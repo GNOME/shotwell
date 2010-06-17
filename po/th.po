@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.5.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
-"PO-Revision-Date: 2010-06-10 17:12+0700\n"
+"PO-Revision-Date: 2010-06-17 14:23+0700\n"
 "Last-Translator: Piyachat Chinsaeng <neo.bojang@gmail.com>\n"
 "Language-Team: thai-l10n <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -372,11 +372,11 @@ msgstr "เลิกการคืนค่าเดิม"
 
 #: src/Commands.vala:554
 msgid "Enhancing"
-msgstr ""
+msgstr "การปรับปรุง"
 
 #: src/Commands.vala:554
 msgid "Undoing Enhance"
-msgstr ""
+msgstr "ยกเลิกการปรับปรุง"
 
 #: src/Commands.vala:720
 msgid "Creating New Event"
@@ -392,7 +392,7 @@ msgstr "ย้ายภาพถ่ายเป็นเหตุการณ์
 
 #: src/Commands.vala:731
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "ตั้งให้ภาพถ่ายลงในเหตุการณ์ที่แล้ว"
 
 #: src/Commands.vala:761
 msgid "Merging"
@@ -414,8 +414,7 @@ msgstr "ลบภาพถ่ายที่ซ้ำ"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ไม่สามารถสำเนา %d ภาพ เนื่องจากไฟล์เกิดความผิดพลาด"
 
 #: src/Commands.vala:859
 #: src/Commands.vala:860
@@ -462,8 +461,7 @@ msgstr "การปรับแก้เวลาผิดพลาด"
 #: src/Commands.vala:1003
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ไม่สามารถบันทึกการตั้งค่าเวลากับภาพนี้"
 
 #: src/Commands.vala:1257
 msgid "Move Photos to Trash"
@@ -499,6 +497,8 @@ msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
 msgstr ""
+"ไม่สามารถส่งออกภาพที่เลือกเนื่องไฟล์เกิดความผิดภาพ\n"
+"\n"
 
 #: src/Dialogs.vala:60
 msgid ""
@@ -506,6 +506,9 @@ msgid ""
 "\n"
 "Would you like to continue exporting?"
 msgstr ""
+"\n"
+"\n"
+"ต้องการส่งออกต่อหรือไม่?"
 
 #: src/Dialogs.vala:61
 msgid "Con_tinue"
@@ -521,7 +524,7 @@ msgstr "คุภาพ(_Q)"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
-msgstr ""
+msgstr "ข้อจำกัดมาตรส่วน(_S):"
 
 #: src/Dialogs.vala:144
 msgid " _pixels"
@@ -626,12 +629,12 @@ msgstr "ลบออกเท่านั้น(_R)"
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural "This will destroy all changes made to %d external files.  Continue?"
-msgstr[0] ""
+msgstr[0] "การกระทำนี้จะยกเลิกการเปลี่ยนแปลงทั้งหมดของ %d ไฟล์ภายนอก  จะทำต่อหรือ?"
 
 #: src/Dialogs.vala:574
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
-msgstr[0] ""
+msgstr[0] "กลับไปใช้โปรแกรมแก้ไขภายนอก(_v)"
 
 #: src/Dialogs.vala:578
 msgid "_No"
@@ -640,7 +643,7 @@ msgstr "ไม่(_N)"
 #: src/Dialogs.vala:580
 msgid "Revert External Edit"
 msgid_plural "Revert External Edits"
-msgstr[0] ""
+msgstr[0] "กลับไปใช้โปรแกรมแก้ไขภายนอก"
 
 #: src/Dialogs.vala:653
 #, c-format
@@ -665,7 +668,7 @@ msgstr "24 ชั่วโมง"
 
 #: src/Dialogs.vala:781
 msgid "_Shift photos by the same amount"
-msgstr ""
+msgstr "เลื่อนภาพตามจำนวนนี้(_S)"
 
 #: src/Dialogs.vala:786
 msgid "Set _all photos to this time"
@@ -758,12 +761,12 @@ msgstr "ยินดีต้อนรับสู่ Shotwell!"
 #: src/Dialogs.vala:1143
 #, c-format
 msgid "To get started, import photos in any of these ways:"
-msgstr ""
+msgstr "เริ่มต้น, คุณสามารถนำเข้าภาพถ่ายได้ดังนี้:"
 
 #: src/Dialogs.vala:1157
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
+msgstr "เลือก <span weight=\"bold\">ไฟล์ %s นำเข้าจากโฟล์เดอร์r</span>"
 
 #: src/Dialogs.vala:1158
 msgid "Drag and drop photos onto the Shotwell window"
@@ -779,7 +782,7 @@ msgstr "ไม่แสดงข้อความนี้อีก(_D)"
 
 #: src/Dialogs.vala:1335
 msgid "Choose Library Directory"
-msgstr ""
+msgstr "เลือกไดเรกทอรีของไลบรารี"
 
 #: src/Dimensions.vala:17
 #: src/FlickrConnector.vala:949
@@ -800,7 +803,7 @@ msgstr "ความยาว"
 
 #: src/EditingTools.vala:485
 msgid "Return to current photo dimensions"
-msgstr ""
+msgstr "กลับไปใช้ขนาดภาพดั้งเดิม"
 
 #: src/EditingTools.vala:488
 msgid "Set the crop for this photo"
@@ -808,11 +811,11 @@ msgstr "ตั้งการครอบตัดภาพนี้"
 
 #: src/EditingTools.vala:500
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr ""
+msgstr "หมุนภาพที่ครอบตัดไปแนวตั้งหรือแนวนอน"
 
 #: src/EditingTools.vala:568
 msgid "Unconstrained"
-msgstr ""
+msgstr "โดยไม่มีข้อจำกัด"
 
 #: src/EditingTools.vala:569
 msgid "Square"
@@ -927,7 +930,7 @@ msgstr "ปิดเครื่องมือแก้ไขตาแดง"
 
 #: src/EditingTools.vala:1691
 msgid "Remove any red-eye effects in the selected region"
-msgstr ""
+msgstr "ลบลักษณะตาแดงในส่วนที่เลือก"
 
 #: src/EditingTools.vala:2002
 msgid "_Reset"
@@ -938,7 +941,7 @@ msgstr "ตั้งค่าใหม่(_R)"
 #: src/Properties.vala:324
 #: src/Properties.vala:331
 msgid "Exposure:"
-msgstr ""
+msgstr "เปิดรับแสง:"
 
 #: src/EditingTools.vala:2021
 msgid "Saturation:"
@@ -974,11 +977,11 @@ msgstr "การย้อมสี"
 
 #: src/EditingTools.vala:2419
 msgid "Saturation"
-msgstr ""
+msgstr "ความอิ่มตัว"
 
 #: src/EditingTools.vala:2425
 msgid "Exposure"
-msgstr ""
+msgstr "การเปิดรับแสง"
 
 #: src/EditingTools.vala:2431
 msgid "Shadows"
@@ -986,7 +989,7 @@ msgstr "เงา"
 
 #: src/EditingTools.vala:2441
 msgid "Contrast Expansion"
-msgstr ""
+msgstr "การขยายความเข้มภาพ"
 
 #: src/EventsDirectoryPage.vala:64
 #: src/Properties.vala:259
@@ -1006,7 +1009,7 @@ msgstr "เหตการณ์"
 #: src/EventsDirectoryPage.vala:496
 #: src/LibraryWindow.vala:191
 msgid "Undated"
-msgstr ""
+msgstr "เลิกตั้งวันที่"
 
 #: src/EventsDirectoryPage.vala:498
 #: src/LibraryWindow.vala:194
@@ -1043,6 +1046,8 @@ msgid ""
 "You have already logged in and out of Facebook during this Shotwell session.\n"
 "To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"คุณเคยเข้าและออกระบบของ Facebook  โดยใช้วาระของ Shotwell \n"
+"เพื่อเผยแพร่ภาพถ่ายลง Facebook  ออกแล้วเข้า Shotwel ใหม่แล้วลองเผยแพร่ภาพถ่ายอีกครั้ง"
 
 #: src/FacebookConnector.vala:258
 msgid "Testing connection to Facebook..."
@@ -1060,6 +1065,9 @@ msgid ""
 "\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
+"คุณเข้าระบบของ Facebook เป็น %s.\n"
+"\n"
+"คุณต้องการเผยแพร่ภาพถ่ายที่เลือกหรือไม่?"
 
 #: src/FacebookConnector.vala:747
 msgid "Publish to an e_xisting album:"
@@ -1067,7 +1075,7 @@ msgstr "เผยแพร่ไปที่อัลบั้มที่มี
 
 #: src/FacebookConnector.vala:750
 msgid "Create a _new album named:"
-msgstr ""
+msgstr "สร้างชื่อของอัลบั้มใหม่ (_n):"
 
 #: src/FacebookConnector.vala:766
 #: src/FlickrConnector.vala:884
@@ -1087,12 +1095,17 @@ msgid ""
 "\n"
 "You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
+"คุณยังไม่ได้เข้าสู่ระบบของ  Flickr \n"
+"\n"
+"คุณต้องลงชื่อเข้าใช้ บัญชี Flickr เพื่อเสร็จสิ้นขั้นตอนการเข้าสู่ระบบ  แล้วอนุญาตให้ Shotwell Connect เข้าใช้งาน Flickr ได้"
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"คุณเคยเข้าใช้  Flickr โดยผ่าน Shotwell session.\n"
+"ออกแล้วเปิดใช้ Shotwell ใหม่ แล้วลองเผยแพร่ลง Flickr อีกครั้ง "
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
@@ -1113,14 +1126,16 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"บัญชีผู้ใช้ Flickr แบบฟรีของคุณจำกัดการอัปโหลดข้อมูลต่อเดือน\n"
+"ในเดือนนี้ คุณเหลือโควต้าในการอัปโหลด %d megabytes"
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
+msgstr "บัญชีผู้ใช้ Flikr แบบ Pro สามารถอัปโหลดได้ไม่จำกัด"
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
-msgstr ""
+msgstr "แสดงภาพ (_v) เป็น:"
 
 #: src/FlickrConnector.vala:850
 msgid "Photo _size:"
@@ -1182,7 +1197,7 @@ msgstr "เลือกภาพถ่ายทั้งหมดที่จะ
 
 #: src/ImportPage.vala:532
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
-msgstr ""
+msgstr "Shotwell ต้องการถอนการติดตั้งกล้องออกจากระบบก่อนเพื่อใช้กล้อง  ทำต่อหรือไม่?"
 
 #: src/ImportPage.vala:538
 msgid "_Unmount"
@@ -1319,7 +1334,7 @@ msgstr "ข้อมูลเพิ่มเติม(_x)"
 
 #: src/LibraryWindow.vala:444
 msgid "Display extended information for the selection"
-msgstr ""
+msgstr "cแสดงข้อมูลเพิ่มเติมของไฟล์ที่เลือก"
 
 #: src/LibraryWindow.vala:604
 #, c-format
@@ -1340,7 +1355,7 @@ msgstr "กำลังล้างถังขยะ..."
 
 #: src/LibraryWindow.vala:783
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
+msgstr "Shotwell ถูกต้องค่าให้นำเข้าถาพถ่ายลงในไดเรกทอรีส่วนตัวของคุณ.\n"
 
 #: src/LibraryWindow.vala:786
 msgid "_Import"
@@ -1356,7 +1371,7 @@ msgstr "ไม่สามารถนำเข้าภาพจากไดเ
 
 #: src/LibraryWindow.vala:905
 msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
-msgstr ""
+msgstr "Shotwell สารมารถคัดลอกภาพลงไลบรารีของคุณหรือเพียงสร้างการเชื่อมโยงโดยไม่ต้องทำสำเนาภาพก็ได้"
 
 #: src/LibraryWindow.vala:910
 msgid "Co_py into Library"
@@ -1381,7 +1396,7 @@ msgstr "กล้อง"
 #: src/main.vala:79
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
-msgstr ""
+msgstr "ไลบรารีภาพของคุณเข้ากันไม่ได้กับ Shotwell รุ่นนี้โดยมันถูกสร้างด้วย Shotwell รุ่น %s  รุ่นนี้คือ %s   ดังนั้นโปรดใช้ Shotwell รุ่นล่าสุด"
 
 #: src/main.vala:84
 #, c-format
@@ -1391,12 +1406,12 @@ msgstr "Shotwell ไม่สามารถเลื่อนระบบขอ
 #: src/main.vala:89
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
-msgstr ""
+msgstr "ไลบรารีภาพของคุณเข้ากันไม่ได้กับ Shotwell รุ่นนี้โดยมันถูกสร้างด้วย Shotwell รุ่น %s  รุ่นนี้คือ %s   ดังนั้นโปรดล้างไลบรารีโดยลบ %s แล้วนำเข้าภาพของคุณอีกครัง"
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
-msgstr ""
+msgstr "เกิดความผิดพลาดที่ไม่สามารถระบุได้ในการตรวจสอบฐานข้อมูลของ Shotwell: %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
@@ -1447,7 +1462,7 @@ msgstr "รูปต่อไป"
 #: src/PhotoPage.vala:1410
 #, c-format
 msgid "Photo source file missing: %s"
-msgstr ""
+msgstr "ไม่พบตำแหน่งของภาพถ่าย: %s"
 
 #: src/PhotoPage.vala:1856
 msgid "Remove the photo from the library"
@@ -1554,6 +1569,8 @@ msgid ""
 "%s does not support the file format of\n"
 "%s."
 msgstr ""
+"%s ไม่สนับสนุนรูปแบบไฟล์ของ\n"
+"%s."
 
 #: src/PhotoPage.vala:3013
 msgid "_Save a Copy"
@@ -1588,7 +1605,7 @@ msgstr "เกิดข้อผิดพลาดที่ไฟล์"
 
 #: src/Photo.vala:30
 msgid "Unable to decode file"
-msgstr ""
+msgstr "ไม่สามารถถอดรหัสไฟล์ได้"
 
 #: src/Photo.vala:33
 msgid "Database error"
@@ -1651,20 +1668,20 @@ msgstr "ใส่ที่อยู่อีเมลล์และรหัส
 
 #: src/PicasaConnector.vala:509
 msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Picasa Web Albums มี่รู้จักที่อยู่อีเมลล์และรหัสผ่านที่คุณใส่  ลองใส่ที่อยู่อีเมลล์และรหัสผ่านอีกครั้ง"
 
 #: src/PicasaConnector.vala:510
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "ที่อยู่อีเมลล์และรหัสผ่านของบัญชีผู้ใช้ Google ที่คุณใส่ยังไม่ได้ถูกตั้งให้ใช้กับ Picasa Web Albums  คุณสามารถตั้งค่าได้โดยเข้าใช้ Picasa Web Albums ผ่านบราวเซอร์ก่อนหนึ่งครั้ง  แล้วลองกรอกที่อยู่อีเมลล์และรหัสผ่านอีกครั้ง"
 
 #: src/PicasaConnector.vala:511
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "ที่อยู่อีเมลล์และรหัสผ่านของบัญชีผู้ใช้ Google ที่เคยถูกแท็กต้องการการตั้งค่าความปลอดภัยเพิ่มเติม  คุณสามารถลบแท็กนี้ได้โดยเข้าใช้ Picasa Web Albums ผ่านบราวเซอร์  แล้วลองกรอกที่อยู่อีเมลล์และรหัสผ่านอีกครั้ง"
 
 #: src/PicasaConnector.vala:546
 #, c-format
 msgid "Unrecognized User"
-msgstr ""
+msgstr "ผู้ใช้ที่ไม่สามารถตรวจสอบได้"
 
 #: src/PicasaConnector.vala:550
 #, c-format
@@ -1674,7 +1691,7 @@ msgstr "บัญชีผู้ใช้นี้ไม่พร้อมใช
 #: src/PicasaConnector.vala:559
 #, c-format
 msgid "Additional Security Required"
-msgstr ""
+msgstr "การตั้งค่าความปลอดภัยเพิ่มเติม"
 
 #: src/PicasaConnector.vala:570
 msgid "_Email address:"
@@ -1696,7 +1713,7 @@ msgstr "เข้าระบบ(_L)"
 #: src/PicasaConnector.vala:675
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr ""
+msgstr "คุณเข้าใช้ Picasa Web Albums เป็น %s."
 
 #: src/PicasaConnector.vala:698
 msgid "Photos will appear in:"
@@ -1708,7 +1725,7 @@ msgstr "อัลอั้มที่มีแล้ว:"
 
 #: src/PicasaConnector.vala:725
 msgid "A _new album named:"
-msgstr ""
+msgstr "ชื่อใหม่ของอัลบั้ม (_n):"
 
 #: src/PicasaConnector.vala:737
 msgid "L_ist album in public gallery"
@@ -1716,7 +1733,7 @@ msgstr "lแสดงรายการอัลบั้มในแกลเ�
 
 #: src/PicasaConnector.vala:749
 msgid "Photo _size preset:"
-msgstr ""
+msgstr "ขนาดภาพที่ไตั้งไว้:"
 
 #: src/PicasaConnector.vala:864
 msgid "Small (640 x 480 pixels)"
@@ -1760,7 +1777,7 @@ msgstr "ซม."
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
-msgstr ""
+msgstr "สัดส่วนภาพที่ตรงกัน(_M)"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
@@ -1768,7 +1785,7 @@ msgstr "ความละเอียดของพิกเซล"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr ""
+msgstr "ส่งผลลัพท์ไว้ที่:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
@@ -1809,7 +1826,7 @@ msgstr "ชื่อ:"
 
 #: src/Properties.vala:249
 msgid "Items:"
-msgstr ""
+msgstr "รายการ:"
 
 #: src/Properties.vala:252
 #, c-format
@@ -1845,11 +1862,11 @@ msgstr "ขนาดไฟล์:"
 
 #: src/Properties.vala:417
 msgid "Original dimensions:"
-msgstr ""
+msgstr "ขนาดดั้งเดิม:"
 
 #: src/Properties.vala:420
 msgid "Camera make:"
-msgstr ""
+msgstr "ผู้ผลิตกล้อง:"
 
 #: src/Properties.vala:423
 msgid "Camera model:"
@@ -1865,7 +1882,7 @@ msgstr "ความยาวโฟกัส:"
 
 #: src/Properties.vala:431
 msgid "Exposure bias:"
-msgstr ""
+msgstr "การชดเชยแสง:"
 
 #: src/Properties.vala:433
 msgid "GPS latitude:"
@@ -1885,7 +1902,7 @@ msgstr "ลิขสิทธิ์:"
 
 #: src/Properties.vala:443
 msgid "Software:"
-msgstr ""
+msgstr "โปรแกรม:"
 
 #: src/Properties.vala:452
 msgid "Extended Information"
@@ -1938,7 +1955,7 @@ msgstr "ภาพสะท้อน"
 
 #: src/Resources.vala:94
 msgid "Make mirror images of the photos"
-msgstr ""
+msgstr "ทำภาพสะท้อนของภาพถ่าย"
 
 #: src/Resources.vala:96
 msgid "Fl_ip"
@@ -1954,15 +1971,15 @@ msgstr "หมุนภาพกลับหัว"
 
 #: src/Resources.vala:100
 msgid "_Enhance"
-msgstr ""
+msgstr "ปรับปรุง(_E)"
 
 #: src/Resources.vala:101
 msgid "Enhance"
-msgstr ""
+msgstr "ปรับปรุง"
 
 #: src/Resources.vala:102
 msgid "Automatically improve the photo's appearance"
-msgstr ""
+msgstr "ตกแต่งภาพอัตโนมัติ"
 
 #: src/Resources.vala:104
 msgid "_Crop"
@@ -1986,7 +2003,7 @@ msgstr "ตาแดง"
 
 #: src/Resources.vala:110
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr ""
+msgstr "ลดหรือลบลักษณะตาแดงในภาพ"
 
 #: src/Resources.vala:112
 msgid "_Adjust"
@@ -2014,11 +2031,11 @@ msgstr "คืนกลับเป็นภาพเดิม"
 
 #: src/Resources.vala:120
 msgid "Revert External E_dits"
-msgstr ""
+msgstr "กลับไปใช้โปรแกรมแก้ไขภายนอก(_d)"
 
 #: src/Resources.vala:121
 msgid "Revert to the master photo"
-msgstr ""
+msgstr "คืนกลับเป็นภาพต้นแบบ"
 
 #: src/Resources.vala:123
 msgid "Set as Desktop _Background"
@@ -2070,7 +2087,7 @@ msgstr "สร้างกุญแจภาพของเหตุการณ
 
 #: src/Resources.vala:140
 msgid "Make the selected photo the thumbnail for the event"
-msgstr ""
+msgstr "ทำภาพตัวอย่างของภาพที่เลือกสำหรับเหตุการณ์"
 
 #: src/Resources.vala:142
 msgid "_New Event"
@@ -2082,7 +2099,7 @@ msgstr "เหตุการณ์ใหม่"
 
 #: src/Resources.vala:144
 msgid "Create new event from the selected photos"
-msgstr ""
+msgstr "สร้างเหตุการณ์จากภาพที่เลือก"
 
 #: src/Resources.vala:146
 msgid "Move Photos"
@@ -2174,7 +2191,7 @@ msgstr "ส่งออกไปที่ดิสก์"
 
 #: src/Resources.vala:177
 msgid "View and change page setup printing"
-msgstr ""
+msgstr "ดูและเปลี่ยนการตั้งค่าหน้าสำหรับพิมพ์"
 
 #: src/Resources.vala:182
 msgid "Pu_blish..."
@@ -2421,7 +2438,7 @@ msgstr "ตั้งค่าการนำเสนอภาพนิ่ง"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
-msgstr ""
+msgstr "ไม่พบตำแหน่งของทุกภาพ"
 
 #: src/SlideshowPage.vala:225
 msgid "Play"
