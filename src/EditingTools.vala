@@ -2244,6 +2244,7 @@ public class AdjustTool : EditingTool {
     private PixelTransformer histogram_transformer = null;
     private PixelTransformationBundle transformations = null;
     private float[] fp_pixel_cache = null;
+    private bool disable_histogram_refresh = false;
     
     private AdjustTool() {
     }
@@ -2309,8 +2310,23 @@ public class AdjustTool : EditingTool {
         draw_to_pixbuf = canvas.get_scaled_pixbuf().copy();
         init_fp_pixel_cache(canvas.get_scaled_pixbuf());
 
-        histogram_pixbuf = draw_to_pixbuf.scale_simple(draw_to_pixbuf.width / 2,
-            draw_to_pixbuf.height / 2, Gdk.InterpType.HYPER);
+        /* if we have an 1x1 pixel image, then there's no need to deal with recomputing the
+           histogram, because a histogram for a 1x1 image is meaningless. The histogram shows the
+           distribution of color over all the many pixels in an image, but if an image only has
+           one pixel, the notion of a "distribution over pixels" makes no sense. */
+        if (draw_to_pixbuf.width == 1 && draw_to_pixbuf.height == 1)
+            disable_histogram_refresh = true;
+
+        /* don't sample the original image to create the histogram if the original image is
+           sufficiently large -- if it's over 8k pixels, then we'll get pretty much the same
+           histogram if we sample from a half-size image */
+        if (((draw_to_pixbuf.width * draw_to_pixbuf.height) > 8192) && (draw_to_pixbuf.width > 1) &&
+            (draw_to_pixbuf.height > 1)) {
+            histogram_pixbuf = draw_to_pixbuf.scale_simple(draw_to_pixbuf.width / 2,
+                draw_to_pixbuf.height / 2, Gdk.InterpType.HYPER);
+        } else {
+            histogram_pixbuf = draw_to_pixbuf.copy();
+        }
         virgin_histogram_pixbuf = histogram_pixbuf.copy();
         
         canvas.get_photo().altered.connect(on_photo_altered);
@@ -2346,7 +2362,8 @@ public class AdjustTool : EditingTool {
             transformer.transform_from_fp(ref fp_pixel_cache, draw_to_pixbuf);
             histogram_transformer.transform_to_other_pixbuf(virgin_histogram_pixbuf,
                 histogram_pixbuf);
-            adjust_tool_window.histogram_manipulator.update_histogram(histogram_pixbuf);
+            if (!disable_histogram_refresh)
+                adjust_tool_window.histogram_manipulator.update_histogram(histogram_pixbuf);
         }
 
         canvas.paint_pixbuf(draw_to_pixbuf);
@@ -2535,8 +2552,12 @@ public class AdjustTool : EditingTool {
             case PixelTransformationType.TONE_EXPANSION:
                 ExpansionTransformation expansion = (ExpansionTransformation) transformation;
                 
-                adjust_tool_window.histogram_manipulator.set_left_nub_position(expansion.get_black_point());
-                adjust_tool_window.histogram_manipulator.set_right_nub_position(expansion.get_white_point());
+                if (!disable_histogram_refresh) {
+                    adjust_tool_window.histogram_manipulator.set_left_nub_position(
+                        expansion.get_black_point());
+                    adjust_tool_window.histogram_manipulator.set_right_nub_position(
+                        expansion.get_white_point());
+                }
             break;
             
             case PixelTransformationType.SHADOWS:
