@@ -350,7 +350,6 @@
                         <child>
                           <object class="GtkComboBox" id="external_photo_editor_combo">
                             <property name="visible">True</property>
-                            <property name="column_span_column">7</property>
                           </object>
                         </child>
                       </object>
