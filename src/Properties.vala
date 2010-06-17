@@ -243,7 +243,7 @@ private class BasicProperties : Properties {
             title = ((TagPage) page).get_tag().get_name();
             
         if (title != "")
-            add_line(_("Title:"), title);
+            add_line(_("Title:"), Markup.escape_text(title));
 
         if (photo_count >= 0) {
             string label = _("Items:");
