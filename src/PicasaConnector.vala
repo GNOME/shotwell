@@ -516,7 +516,7 @@ private class CredentialsCapturePane : PublishingDialogPane {
     private const string NOT_SET_UP_MESSAGE = _("The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below.");
     private const string ADDITIONAL_SECURITY_MESSAGE = _("The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below.");
     
-    private const int UNIFORM_ACTION_BUTTON_WIDTH = 92;
+    private const int UNIFORM_ACTION_BUTTON_WIDTH = 102;
 
     private Gtk.Entry email_entry;
     private Gtk.Entry password_entry;
@@ -612,6 +612,9 @@ private class CredentialsCapturePane : PublishingDialogPane {
             Gtk.AttachOptions.EXPAND | Gtk.AttachOptions.FILL, 6, 40);
         entry_widgets_table_aligner.add(entry_widgets_table);
         add(entry_widgets_table_aligner);
+
+        email_entry_label.set_mnemonic_widget(email_entry);
+        password_entry_label.set_mnemonic_widget(password_entry);
 
         add(bottom_space);
         bottom_space.set_size_request(-1, 40);
