@@ -875,7 +875,16 @@ public class LibraryWindow : AppWindow {
             drop_internal(context, x, y, selection_data, info, time, path, page);
         } else {
             if (get_drag_action() == Gdk.DragAction.DEFAULT) {
-                Filesystem drag_filesystem = get_filesystem_relativity(AppDirs.get_import_dir(), 
+                // the library dir must be created in order for the filesystem check to work...
+                // here we attempt to create it just in case it's been renamed or deleted
+                File library = AppDirs.get_import_dir();
+                try {
+                    library.make_directory_with_parents(null);
+                } catch (Error err) {                    
+                    // silently ignore, not creating a directory that already exists
+                }
+                
+                Filesystem drag_filesystem = get_filesystem_relativity(library, 
                     Uri.list_extract_uris((string) selection_data.data));
                 
                 if (drag_filesystem != Filesystem.INTERNAL)
