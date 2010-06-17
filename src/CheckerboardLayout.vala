@@ -257,7 +257,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     // CheckerboardItem) which this item should be aligned to.  This allows for
     // bottom-alignment along the bottom edge of the thumbnail.
     public int get_alignment_point() {
-        return FRAME_WIDTH + pixbuf_dim.height;
+        return FRAME_WIDTH + BORDER_WIDTH + pixbuf_dim.height;
     }
     
     public virtual void exposed() {
@@ -334,8 +334,7 @@ public abstract class CheckerboardItem : ThumbnailView {
         
         // width is frame width (two sides) + frame padding (two sides) + width of pixbuf/trinkets
         // (text never wider)
-        requisition.width = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2)
-            + image_width;
+        requisition.width = (FRAME_WIDTH * 2) + (BORDER_WIDTH * 2) + image_width;
         
         // height is frame width (two sides) + frame padding (two sides) + height of pixbuf
         // + height of text + label padding (between pixbuf and text)
@@ -356,7 +355,7 @@ public abstract class CheckerboardItem : ThumbnailView {
     }
     
     protected static Dimensions get_border_dimensions(Dimensions object_dim, int border_width) {
-        Dimensions dimensions = Dimensions();    
+        Dimensions dimensions = Dimensions();
         dimensions.width = object_dim.width + (border_width * 2);
         dimensions.height = object_dim.height + (border_width * 2);
         return dimensions;
@@ -1322,6 +1321,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
                 tallest = 0;
                 widest = 0;
                 total_width = 0;
+                row_alignment_point = 0;
                 column_widths = new int[max_cols];
                 row_heights = new int[max_rows];
                 alignment_points = new int[max_rows];
@@ -1481,12 +1481,12 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private override void map() {
         base.map();
-
-        selected_gc = new Gdk.GC(window);        
+        
+        selected_gc = new Gdk.GC(window);
         unselected_gc = new Gdk.GC(window);
         border_gc = new Gdk.GC(window); 
         selection_band_gc = new Gdk.GC(window);
-
+        
         set_colors();
     }
 
