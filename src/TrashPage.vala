@@ -23,7 +23,7 @@ public class TrashPage : CheckerboardPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // delete button
-        Gtk.ToolButton delete_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_REMOVE);
+        Gtk.ToolButton delete_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_DELETE);
         delete_button.set_related_action(action_group.get_action("Delete"));
         
         toolbar.insert(delete_button, -1);
@@ -59,8 +59,8 @@ public class TrashPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry delete_action = { "Delete", Gtk.STOCK_REMOVE, TRANSLATABLE, null, TRANSLATABLE,
-            on_delete };
+        Gtk.ActionEntry delete_action = { "Delete", Gtk.STOCK_DELETE, TRANSLATABLE, null,
+            TRANSLATABLE, on_delete };
         delete_action.label = Resources.DELETE_PHOTOS_MENU;
         delete_action.tooltip = Resources.DELETE_PHOTOS_TOOLTIP;
         actions += delete_action;

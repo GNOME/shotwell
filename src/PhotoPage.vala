@@ -2008,7 +2008,7 @@ public class LibraryPhotoPage : EditingHostPage {
         remove_from_library.tooltip = _("Remove the photo from the library");
         actions += remove_from_library;        
 
-        Gtk.ActionEntry move_to_trash = { "MoveToTrash", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         move_to_trash.tooltip = _("Move the photo to the trash");
