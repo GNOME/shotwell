@@ -4,6 +4,7 @@
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
             <separator />
+            <menuitem name="JumpToFile" action="CommonJumpToFile" />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />
             <menuitem name="Quit" action="CommonQuit" />
@@ -41,6 +42,8 @@
     <popup name="TrashContextMenu">
         <menuitem name="ContextDelete" action="Delete" />
         <menuitem name="ContextRestore" action="Restore" />
+        <separator />
+        <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
         <separator />
         <menuitem name="ContextEmptyTrash" action="CommonEmptyTrash" />
     </popup>

@@ -1893,17 +1893,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     public bool has_current_tool() {
         return (current_tool != null);
     }
-    
-    protected void on_jump_to_file() {
-        if (!has_photo())
-            return;
-        
-        try {
-            AppWindow.get_instance().show_file_uri(get_photo().get_master_file().get_parent());
-        } catch (Error err) {
-            AppWindow.error_message(Resources.jump_to_file_failed(err));
-        }
-    }
 }
 
 //
@@ -2117,12 +2106,6 @@ public class LibraryPhotoPage : EditingHostPage {
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
 #endif
-
-        Gtk.ActionEntry jump_to_file = { "JumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null, 
-            TRANSLATABLE, on_jump_to_file };
-        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
-        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
-        actions += jump_to_file;
         
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
@@ -2306,7 +2289,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/PhotoRename", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
-        set_action_sensitive("JumpToFile", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder/SetBackground",
@@ -3027,12 +3009,6 @@ public class DirectPhotoPage : EditingHostPage {
         adjust_date_time.label = Resources.ADJUST_DATE_TIME_MENU;
         adjust_date_time.tooltip = Resources.ADJUST_DATE_TIME_TOOLTIP;
         actions += adjust_date_time;
-        
-        Gtk.ActionEntry jump_to_file = { "JumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null,
-            TRANSLATABLE, on_jump_to_file };
-        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
-        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
-        actions += jump_to_file;
         
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",

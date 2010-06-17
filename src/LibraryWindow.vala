@@ -625,27 +625,7 @@ public class LibraryWindow : AppWindow {
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
     }
-    
-    private bool set_common_action_sensitive(string name, bool sensitive) {
-        Page? page = get_current_page();
-        if (page == null) {
-            warning("No page to set action %s", name);
-            
-            return false;
-        }
         
-        Gtk.Action? action = page.common_action_group.get_action(name);
-        if (action == null) {
-            warning("Page %s: No action %s", page.get_page_name(), name);
-            
-            return false;
-        }
-        
-        action.sensitive = sensitive;
-        
-        return true;
-    }
-    
     protected override void switched_pages(Page? old_page, Page? new_page) {
         set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
         

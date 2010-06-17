@@ -447,6 +447,12 @@ public abstract class AppWindow : PageWindow {
         redo.label = Resources.REDO_MENU;
         redo.tooltip = Resources.REDO_TOOLTIP;
         actions += redo;
+
+        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null, 
+            TRANSLATABLE, on_jump_to_file };
+        jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
+        jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
+        actions += jump_to_file;
         
         return actions;
     }
@@ -581,6 +587,18 @@ public abstract class AppWindow : PageWindow {
         user_quit();
         Gtk.main_quit();
     }
+
+    protected void on_jump_to_file() {
+        if (get_current_page().get_view().get_selected_count() != 1)
+            return;
+
+        Photo photo = (Photo) get_current_page().get_view().get_selected_at(0).get_source();
+        try {
+            AppWindow.get_instance().show_file_uri(photo.get_master_file().get_parent());
+        } catch (Error err) {
+            AppWindow.error_message(Resources.jump_to_file_failed(err));
+        }
+    }
     
     private override void destroy() {
         on_quit();
@@ -631,7 +649,45 @@ public abstract class AppWindow : PageWindow {
         
         present();
     }
-    
+
+    protected bool set_common_action_sensitive(string name, bool sensitive) {
+        Page? page = get_current_page();
+        if (page == null) {
+            warning("No page to set action %s", name);
+            
+            return false;
+        }
+        
+        Gtk.Action? action = page.common_action_group.get_action(name);
+        if (action == null) {
+            warning("Page %s: No action %s", page.get_page_name(), name);
+            
+            return false;
+        }
+        
+        action.sensitive = sensitive;
+        
+        return true;
+    }
+
+    protected override void switched_pages(Page? old_page, Page? new_page) {
+        set_common_action_sensitive("CommonJumpToFile", 
+            get_current_page().get_view().get_selected_count() == 1);
+
+        if (old_page != null)
+            old_page.get_view().items_state_changed.disconnect(on_items_altered);
+
+        if (new_page != null)
+            new_page.get_view().items_state_changed.connect(on_items_altered);
+
+        base.switched_pages(old_page, new_page);
+    }
+
+    private void on_items_altered() {
+        set_common_action_sensitive("CommonJumpToFile", 
+            get_current_page().get_view().get_selected_count() == 1);
+    }
+
     public static CommandManager get_command_manager() {
         return command_manager;
     }
