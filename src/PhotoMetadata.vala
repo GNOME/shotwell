@@ -37,8 +37,17 @@ public struct MetadataRational {
         this.denominator = denominator;
     }
     
+    private bool is_component_valid(int component) {
+        return (!((component < 0) || (component > 1000000)));
+
+    }
+    
+    public bool is_valid() {
+        return (is_component_valid(numerator) && is_component_valid(denominator));
+    }
+    
     public string to_string() {
-        return "%d/%d".printf(numerator, denominator);
+        return (is_valid()) ? ("%d/%d".printf(numerator, denominator)) : "";
     }
 }
 
@@ -907,14 +916,35 @@ public class PhotoMetadata {
     }
     
     public string? get_exposure_string() {
+        MetadataRational exposure_time;
+        if (!get_rational("Exif.Photo.ExposureTime", out exposure_time))
+            return null;
+        
+        if (!exposure_time.is_valid())
+            return null;
+
         return get_string_interpreted("Exif.Photo.ExposureTime");
     }
     
     public bool get_iso(out long iso) {
-        return get_long("Exif.Photo.ISOSpeedRatings", out iso);
+        bool fetched_ok = get_long("Exif.Photo.ISOSpeedRatings", out iso);
+
+        if (fetched_ok == false)
+            return false;
+        
+        // lower boundary is original (ca. 1935) Kodachrome speed, the lowest ISO rated film ever
+        // manufactured; upper boundary is 4 x fastest high-speed digital camera speeds
+        if ((iso < 6) || (iso > 409600))
+            return false;
+        
+        return true;
     }
     
     public string? get_iso_string() {
+        long iso;
+        if (!get_iso(out iso))
+            return null;
+
         return get_string_interpreted("Exif.Photo.ISOSpeedRatings");
     }
     
