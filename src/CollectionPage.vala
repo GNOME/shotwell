@@ -67,8 +67,6 @@ public abstract class CollectionPage : CheckerboardPage {
 #if !NO_SET_BACKGROUND
         ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder", "SetBackground",
             "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
-        ui.add_ui(ui.new_merge_id(), "/CollectionContextMenu/ContextSetBackgroundPlaceholder", "SetBackground",
-            "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
 #endif 
             
         bool sort_order;
@@ -659,19 +657,12 @@ public abstract class CollectionPage : CheckerboardPage {
         bool revert_possible = can_revert_selected();
         
         set_item_sensitive("/CollectionContextMenu/ContextMoveToTrash", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextRotateClockwise", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextRotateCounterclockwise", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
         set_item_sensitive("/CollectionContextMenu/ContextPhotoRename", one_selected);
-
-#if !NO_SET_BACKGROUND
-        set_item_sensitive("/CollectionContextMenu/ContextSetBackgroundPlaceholder/SetBackground",
-            get_view().get_selected_count() == 1);
-#endif 
 
         return base.on_context_invoked();
     }

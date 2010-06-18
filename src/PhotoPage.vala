@@ -1928,8 +1928,6 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_SET_BACKGROUND
         ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder",
             "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
-        ui.add_ui(ui.new_merge_id(), "/PhotoContextMenu/ContextSetBackgroundPlaceholder",
-            "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
 #endif
         
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
@@ -2284,16 +2282,12 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
 
-        set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoContextMenu/PhotoRename", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder/SetBackground",
-            sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextSetBackgroundPlaceholder/SetBackground",
             sensitivity);
 #endif
 
@@ -2355,9 +2349,6 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_photo())
             return false;
 
-        set_item_sensitive("/PhotoContextMenu/ContextRotateClockwise", is_rotate_available(get_photo()));
-        set_item_sensitive("/PhotoContextMenu/ContextRotateCounterclockwise",
-            is_rotate_available(get_photo()));
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
 
         set_hide_item_label("/PhotoContextMenu/ContextHideUnhide");
@@ -3116,15 +3107,9 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", sensitivity);
 
-        set_item_sensitive("/DirectContextMenu/ContextRotateClockwise", sensitivity);
-        set_item_sensitive("/DirectContextMenu/ContextRotateCounterclockwise", sensitivity);
         set_item_sensitive("/DirectContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/DirectContextMenu/ContextRevert", sensitivity);
         
-#if !NO_SET_BACKGROUND
-        set_item_sensitive("/DirectContextMenu/ContextSetBackgroundPlaceholder/ContextSetBackground", sensitivity);
-#endif
-    
         base.set_missing_photo_sensitivities(sensitivity);
     }
     
@@ -3132,9 +3117,6 @@ public class DirectPhotoPage : EditingHostPage {
         if (get_photo() == null)
             return false;
         
-        set_item_sensitive("/DirectContextMenu/ContextRotateClockwise", is_rotate_available(get_photo()));
-        set_item_sensitive("/DirectContextMenu/ContextRotateCounterclockwise",
-            is_rotate_available(get_photo()));
         set_item_sensitive("/DirectContextMenu/ContextEnhance", is_enhance_available(get_photo()));
         set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations());
         

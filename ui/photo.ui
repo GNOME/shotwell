@@ -81,9 +81,6 @@
     </menubar>
     
     <popup name="PhotoContextMenu">
-        <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
-        <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
-        <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
@@ -100,8 +97,6 @@
         <separator />
         <menuitem name="JumpToFile" action="CommonJumpToFile" />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
-        <separator />
-        <placeholder name="ContextSetBackgroundPlaceholder"/>
     </popup>
     
 </ui>

@@ -54,15 +54,10 @@
     </menubar>
     
     <popup name="DirectContextMenu">
-        <menuitem name="ContextRotateClockwise" action="RotateClockwise" />
-        <menuitem name="ContextRotateCounterclockwise" action="RotateCounterclockwise" />
-        <separator />
         <menuitem name="ContextEnhance" action="Enhance" />
         <menuitem name="ContextRevert" action="Revert" />
         <separator />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
-        <separator />
-        <menuitem name="ContextSetBackground" action="SetBackground" />
     </popup>
 
 </ui>
