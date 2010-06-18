@@ -463,7 +463,8 @@ public class Config {
     }
 
     public bool get_24_hr_time() {
-        return get_bool("/apps/shotwell/preferences/ui/twentyfour_hr_time", false);
+        return get_bool("/apps/shotwell/preferences/ui/twentyfour_hr_time",
+            is_twentyfour_hr_time_system());
     }
     
     public bool set_24_hr_time(bool twentyfour_hr_time) {

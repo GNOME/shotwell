@@ -717,3 +717,10 @@ public Filesystem get_filesystem_relativity(File base_file, string[] uris_array)
     
     return Filesystem.INTERNAL;
 }
+
+public bool is_twentyfour_hr_time_system() {
+    // if no AM/PM designation is found, the location is set to use a 24 hr time system
+    string timestring = Time.local(0).format("%p");
+    
+    return is_string_empty(timestring);
+}
