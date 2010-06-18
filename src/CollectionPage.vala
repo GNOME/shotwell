@@ -501,7 +501,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("MoveToTrash", selected);
         set_action_sensitive("Duplicate", selected);
         set_action_sensitive("ExternalEdit", selected && Config.get_instance().get_external_photo_app() != "");
-        set_action_hidden("ExternalEditRAW");
         set_action_sensitive("Revert", can_revert_selected());
         
         base.init_actions(selected_count, count);
@@ -553,10 +552,6 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_selection_changed() {
         int selected_count = get_view().get_selected_count();
         bool has_selected = selected_count > 0;
-#if !NO_RAW
-        bool is_single_raw = selected_count == 1 
-            && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == PhotoFileFormat.RAW;
-#endif
         
         rotate_button.sensitive = has_selected;
 #if !NO_PUBLISHING
@@ -565,12 +560,6 @@ public abstract class CollectionPage : CheckerboardPage {
         enhance_button.sensitive = has_selected;
         
         set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
-#if !NO_RAW
-        if (is_single_raw)
-            set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
-        else
-            set_action_hidden("ExternalEditRAW");
-#endif
         set_action_sensitive("Revert", can_revert_selected());
         set_action_sensitive("RemoveFromLibrary", has_selected);
         set_action_sensitive("MoveToTrash", has_selected);
@@ -579,18 +568,8 @@ public abstract class CollectionPage : CheckerboardPage {
     
     private void on_external_app_changed() {
         int selected_count = get_view().get_selected_count();
-#if !NO_RAW
-        bool is_single_raw = selected_count == 1
-            && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == PhotoFileFormat.RAW;
-#endif
         
         set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
-#if !NO_RAW
-        if (is_single_raw)
-            set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
-        else
-            set_action_hidden("ExternalEditRAW");
-#endif
     }
     
     // see #2020
@@ -655,6 +634,11 @@ public abstract class CollectionPage : CheckerboardPage {
         bool one_selected = get_view().get_selected_count() == 1;
         bool selected = get_view().get_selected_count() > 0;
         bool revert_possible = can_revert_selected();
+#if !NO_RAW
+        bool is_single_raw = one_selected && 
+            ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
+            PhotoFileFormat.RAW;
+#endif
         
         set_item_sensitive("/CollectionContextMenu/ContextMoveToTrash", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
@@ -663,7 +647,19 @@ public abstract class CollectionPage : CheckerboardPage {
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
         set_item_sensitive("/CollectionContextMenu/ContextPhotoRename", one_selected);
-
+        
+#if !NO_SET_BACKGROUND
+        set_item_sensitive("/CollectionContextMenu/ContextSetBackgroundPlaceholder/SetBackground",
+            get_view().get_selected_count() == 1);
+#endif
+        
+#if !NO_RAW
+        if (is_single_raw)
+            set_item_visible("/CollectionContextMenu/ContextExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
+        else
+            set_item_hidden("/CollectionContextMenu/ContextExternalEditRAW");
+#endif
+        
         return base.on_context_invoked();
     }
     
@@ -867,6 +863,11 @@ public abstract class CollectionPage : CheckerboardPage {
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool one_selected = get_view().get_selected_count() == 1;
+#if !NO_RAW
+        bool is_single_raw = one_selected &&
+            ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
+            PhotoFileFormat.RAW;
+#endif
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
@@ -881,7 +882,14 @@ public abstract class CollectionPage : CheckerboardPage {
 #if !NO_SET_BACKGROUND
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder/SetBackground",
             one_selected);
-#endif 
+#endif
+        
+#if !NO_RAW
+        if (is_single_raw)
+            set_item_visible("/CollectionMenuBar/PhotosMenu/ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
+        else
+            set_item_hidden("/CollectionMenuBar/PhotosMenu/ExternalEditRAW");
+#endif
     }
     
     private void on_increase_size() {

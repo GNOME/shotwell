@@ -215,6 +215,30 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         widget.sensitive = sensitive;
     }
     
+    public void set_item_visible(string path, bool sensitive) {
+        Gtk.Widget widget = ui.get_widget(path);
+        if (widget == null) {
+            critical("No widget for UI element %s", path);
+            
+            return;
+        }
+        
+        widget.visible = true;
+        widget.sensitive = sensitive;
+    }
+    
+    public void set_item_hidden(string path) {
+        Gtk.Widget widget = ui.get_widget(path);
+        if (widget == null) {
+            critical("No widget for UI element %s", path);
+            
+            return;
+        }
+        
+        widget.sensitive = false;
+        widget.visible = false;
+    }
+    
     public void set_item_display(string path, string? label, string? tooltip, bool sensitive) {
         Gtk.Action? action = ui.get_action(path);
         if (action == null) {
@@ -243,30 +267,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = sensitive;
     }
     
-    public void set_action_visible(string name, bool sensitive) {
-        Gtk.Action action = action_group.get_action(name);
-        if (action == null) {
-            warning("Page %s: Unable to locate action %s", get_page_name(), name);
-            
-            return;
-        }
-        
-        action.visible = true;
-        action.sensitive = sensitive;
-    }
-    
-    public void set_action_hidden(string name) {
-        Gtk.Action action = action_group.get_action(name);
-        if (action == null) {
-            warning("Page %s: Unable to locate action %s", get_page_name(), name);
-            
-            return;
-        }
-        
-        action.visible = false;
-        action.sensitive = false;
-    }
-
     public bool get_ctrl_pressed() {
         return ctrl_pressed;
     }

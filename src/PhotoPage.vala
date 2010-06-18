@@ -2162,9 +2162,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     protected override void init_actions(int selected_count, int count) {
         set_action_sensitive("ExternalEdit", count > 0 && Config.get_instance().get_external_photo_app() != "");
-#if !NO_RAW
-        set_action_hidden("ExternalEditRAW");
-#endif
+        
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
         
@@ -2172,17 +2170,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_contents_altered() {
-#if !NO_RAW
-        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
-#endif        
-
         set_action_sensitive("ExternalEdit", has_photo() && Config.get_instance().get_external_photo_app() != "");
-#if !NO_RAW
-        if (is_raw)
-            set_action_visible("ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
-        else
-            set_action_hidden("ExternalEditRAW");
-#endif
 		
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
@@ -2348,12 +2336,24 @@ public class LibraryPhotoPage : EditingHostPage {
     private override bool on_context_invoked() {
         if (!has_photo())
             return false;
+        
+#if !NO_RAW
+        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
+#endif  
 
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
 
         set_hide_item_label("/PhotoContextMenu/ContextHideUnhide");
         set_favorite_item_label("/PhotoContextMenu/ContextFavoriteUnfavorite");
-
+        
+#if !NO_RAW
+        if (is_raw)
+            set_item_visible("/PhotoContextMenu/ContextExternalEditRAW", 
+                Config.get_instance().get_external_raw_app() != "");
+        else
+            set_item_hidden("/PhotoContextMenu/ContextExternalEditRAW");
+#endif
+        
         return base.on_context_invoked();
     }
 
@@ -2448,12 +2448,6 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_external_app_changed() {
         set_action_sensitive("ExternalEdit", has_photo() && 
             Config.get_instance().get_external_photo_app() != "");
-#if !NO_RAW
-        if (has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW)
-            set_action_visible("ExternalEditRAW", has_photo() && Config.get_instance().get_external_raw_app() != "");
-        else
-            set_action_hidden("ExternalEditRAW");
-#endif
     }
     
     private void on_external_edit() {
@@ -2564,6 +2558,9 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
+#if !NO_RAW
+        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
+#endif
         
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
@@ -2573,6 +2570,14 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Flip", rotate_possible);
         set_hide_item_label("/PhotoMenuBar/PhotoMenu/HideUnhide");
         set_favorite_item_label("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite");
+                
+#if !NO_RAW
+        if (is_raw)
+            set_item_visible("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", 
+                Config.get_instance().get_external_raw_app() != "");
+        else
+            set_item_hidden("/PhotoMenuBar/PhotoMenu/ExternalEditRAW");
+#endif
     }
     
     private void on_tools() {
