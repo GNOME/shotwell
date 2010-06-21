@@ -7,6 +7,8 @@
             <separator />
             <placeholder name="PrintPlaceholder"/>
             <separator />
+            <placeholder name="SetBackgroundPlaceholder" />
+            <separator />
             <menuitem name="JumpToFile" action="CommonJumpToFile" />
             <separator />
             <menuitem name="Quit" action="CommonQuit" />
@@ -42,8 +44,6 @@
             <menuitem name="Revert" action="Revert" />
             <separator />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
-            <separator />
-            <menuitem name="SetBackground" action="SetBackground" />
         </menu>
         
         <menu name="HelpMenu" action="HelpMenu">
@@ -61,4 +61,3 @@
     </popup>
 
 </ui>
-

@@ -65,8 +65,8 @@ public abstract class CollectionPage : CheckerboardPage {
 #endif
 
 #if !NO_SET_BACKGROUND
-        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder", "SetBackground",
-            "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
+        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/SetBackgroundPlaceholder",
+            "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
 #endif 
             
         bool sort_order;
@@ -503,6 +503,9 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("ExternalEdit", selected && Config.get_instance().get_external_photo_app() != "");
         set_action_sensitive("Revert", can_revert_selected());
         
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", selected_count == 1);
+#endif
         base.init_actions(selected_count, count);
     }
 
@@ -564,6 +567,10 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("RemoveFromLibrary", has_selected);
         set_action_sensitive("MoveToTrash", has_selected);
         set_action_sensitive("Duplicate", has_selected);
+        
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", selected_count == 1);
+#endif
     }
     
     private void on_external_app_changed() {
@@ -647,11 +654,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
         set_item_sensitive("/CollectionContextMenu/ContextPhotoRename", one_selected);
-        
-#if !NO_SET_BACKGROUND
-        set_item_sensitive("/CollectionContextMenu/ContextSetBackgroundPlaceholder/SetBackground",
-            get_view().get_selected_count() == 1);
-#endif
         
 #if !NO_RAW
         if (is_single_raw)
@@ -878,11 +880,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotoRename", one_selected);
-
-#if !NO_SET_BACKGROUND
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/SetBackgroundPlaceholder/SetBackground",
-            one_selected);
-#endif
         
 #if !NO_RAW
         if (is_single_raw)

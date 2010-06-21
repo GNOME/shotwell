@@ -1926,7 +1926,7 @@ public class LibraryPhotoPage : EditingHostPage {
 #endif
 
 #if !NO_SET_BACKGROUND
-        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder",
+        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/SetBackgroundPlaceholder",
             "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
 #endif
         
@@ -2166,6 +2166,10 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
         
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", has_photo());
+#endif
+        
         base.init_actions(selected_count, count);
     }
     
@@ -2174,6 +2178,10 @@ public class LibraryPhotoPage : EditingHostPage {
 		
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
+        
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", has_photo());
+#endif
     }
     
     private void on_photos_altered() {
@@ -2275,8 +2283,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
         
 #if !NO_SET_BACKGROUND
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/SetBackgroundPlaceholder/SetBackground",
-            sensitivity);
+        set_action_sensitive("SetBackground", sensitivity);
 #endif
 
         set_item_sensitive("/PhotoContextMenu/ContextHideUnhide", sensitivity);
@@ -2886,8 +2893,15 @@ public class DirectPhotoPage : EditingHostPage {
         ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/PrintPlaceholder", "Print",
             "Print", Gtk.UIManagerItemType.MENUITEM, false);
 #endif
+        
+#if !NO_SET_BACKGROUND
+        ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/SetBackgroundPlaceholder",
+            "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
+#endif
 
         context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
+
+        get_view().contents_altered.connect(on_contents_altered);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -3115,7 +3129,25 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/DirectContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/DirectContextMenu/ContextRevert", sensitivity);
         
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", has_photo());
+#endif
+        
         base.set_missing_photo_sensitivities(sensitivity);
+    }
+    
+    protected override void init_actions(int selected_count, int count) {
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", has_photo());
+#endif
+        
+        base.init_actions(selected_count, count);
+    }
+    
+    private void on_contents_altered() {
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", has_photo());
+#endif
     }
     
     private override bool on_context_invoked() {

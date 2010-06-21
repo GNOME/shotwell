@@ -5,11 +5,13 @@
             <menuitem name="Import" action="CommonFileImport" />
             <menuitem name="Export" action="Export" />
             <separator />
-            <placeholder name="PrintPlaceholder"/>
+            <placeholder name="PrintPlaceholder" />
             <separator />
-            <placeholder name="PublishPlaceholder"/>
+            <placeholder name="PublishPlaceholder" />
+            <placeholder name="SetBackgroundPlaceholder" />
             <separator />
             <menuitem name="JumpToFile" action="CommonJumpToFile" />
+            <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />
             <menuitem name="Quit" action="CommonQuit" />
@@ -62,10 +64,9 @@
             <separator />
             <menuitem name="PhotoRename" action="PhotoRename" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
+            <separator />
             <menuitem name="ExternalEdit" action="ExternalEdit" />
             <menuitem name="ExternalEditRAW" action="ExternalEditRAW" />
-            <separator />
-            <placeholder name="SetBackgroundPlaceholder"/>
         </menu>
 
         <menu name="TagsMenu" action="TagsMenu">
