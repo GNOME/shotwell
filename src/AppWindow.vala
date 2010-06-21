@@ -9,9 +9,6 @@ public class FullscreenWindow : PageWindow {
     public const int TOOLBAR_DISMISSAL_SEC = 2;
     public const int TOOLBAR_CHECK_DISMISSAL_MSEC = 500;
     
-    private Gdk.ModifierType ANY_BUTTON_MASK =
-        Gdk.ModifierType.BUTTON1_MASK | Gdk.ModifierType.BUTTON2_MASK | Gdk.ModifierType.BUTTON3_MASK;
-
     private Gtk.Window toolbar_window = new Gtk.Window(Gtk.WindowType.POPUP);
     private Gtk.UIManager ui = new Gtk.UIManager();
     private Gtk.ToolButton close_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_LEAVE_FULLSCREEN);
@@ -170,13 +167,12 @@ public class FullscreenWindow : PageWindow {
         window.get_geometry(null, out y, null, out height, null);
 
         int py;
-        Gdk.ModifierType mask;
-        get_display().get_pointer(null, null, out py, out mask);
+        get_display().get_pointer(null, null, out py, null);
         
         Gtk.Requisition req;
         toolbar_window.size_request(out req);
 
-        return ((mask & ANY_BUTTON_MASK) == 0) && (py >= (y + height - req.height));
+        return (py >= (y + height - req.height));
     }
     
     private bool on_check_toolbar_invocation() {
