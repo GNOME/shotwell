@@ -32,7 +32,10 @@ public struct RGBAnalyticPixel {
     }
 
     public RGBAnalyticPixel.from_hsv(HSVAnalyticPixel hsv_pixel) {
-        this = hsv_pixel.to_rgb();
+        RGBAnalyticPixel from_hsv = hsv_pixel.to_rgb();
+        red = from_hsv.red;
+        green = from_hsv.green;
+        blue = from_hsv.blue;
     }
 
     public uchar quantized_red() {
