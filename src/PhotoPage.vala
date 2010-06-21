@@ -2715,7 +2715,7 @@ private class DirectViewCollection : ViewCollection {
         
         DirectPhoto? photo = null;
         try {
-            photo = DirectPhoto.global.fetch(file);
+            DirectPhoto.global.fetch(file, out photo);
         } catch (Error error) {
             warning("Fetching photo failed: %s", error.message);
         }
@@ -2743,7 +2743,7 @@ private class DirectViewCollection : ViewCollection {
         
         DirectPhoto? photo = null;
         try {
-            photo = DirectPhoto.global.fetch(file);
+            DirectPhoto.global.fetch(file, out photo);
         } catch (Error error) {
             warning("Fetching photo failed: %s", error.message);
         }
@@ -2780,7 +2780,7 @@ private class DirectViewCollection : ViewCollection {
         
         DirectPhoto? photo = null;
         try {
-            photo = DirectPhoto.global.fetch(file);
+            DirectPhoto.global.fetch(file, out photo);
         } catch (Error error) {
             warning("Fetching photo failed: %s", error.message);
         }
@@ -2817,7 +2817,7 @@ private class DirectViewCollection : ViewCollection {
         
         DirectPhoto? photo = null;
         try {
-            photo = DirectPhoto.global.fetch(file);
+            DirectPhoto.global.fetch(file, out photo);
         } catch (Error error) {
             warning("Fetching photo failed: %s", error.message);
         }
@@ -3070,14 +3070,15 @@ public class DirectPhotoPage : EditingHostPage {
             base.realize();
         
         DirectPhoto photo = null;
+        ImportResult import_result = ImportResult.SUCCESS;
         try {
-            photo = DirectPhoto.global.fetch(initial_file);
+            import_result = DirectPhoto.global.fetch(initial_file, out photo);
         } catch (Error error) {
             warning("Fetching photo failed: %s", error.message);
         }
         
         if (photo == null) {
-            // dead in the water
+            AppWindow.error_message(import_result.to_string());
             Posix.exit(1);
         }
 
@@ -3219,8 +3220,9 @@ public class DirectPhotoPage : EditingHostPage {
         }
         
         DirectPhoto photo = null;
+        ImportResult fetch_result = ImportResult.SUCCESS;
         try {
-            photo = DirectPhoto.global.fetch(dest, true);
+            fetch_result = DirectPhoto.global.fetch(dest, out photo, true);
         } catch (Error error) {
             warning("Fetching photo failed: %s", error.message);
         }

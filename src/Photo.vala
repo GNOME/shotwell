@@ -3122,22 +3122,22 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
         base.notify_items_removed(removed);
     }
     
-    public DirectPhoto? fetch(File file, bool reset = false) throws Error {
+    public ImportResult fetch(File file, out DirectPhoto? photo, bool reset = false) throws Error {
         // fetch from the map first, which ensures that only one DirectPhoto exists for each file
-        DirectPhoto? photo = file_map.get(file);
+        photo = file_map.get(file);
         if (photo != null) {
             // if a reset is necessary, the database (and the object) need to reset to original
             // easiest way to do this: perform an in-place re-import
             if (reset)
                 photo.reimport_master();
             
-            return photo;
+            return ImportResult.SUCCESS;
         }
             
         // for DirectPhoto, a fetch on an unknown file is an implicit import into the in-memory
         // database (which automatically adds the new DirectPhoto object to DirectPhoto.global,
         // which be us)
-        return DirectPhoto.internal_import(file);
+        return DirectPhoto.internal_import(file, out photo);
     }
     
     public DirectPhoto? get_file_source(File file) {
@@ -3165,7 +3165,7 @@ public class DirectPhoto : Photo {
     
     // This method should only be called by DirectPhotoSourceCollection.  Use
     // DirectPhoto.global.fetch to import files into the system.
-    public static DirectPhoto? internal_import(File file) {
+    public static ImportResult internal_import(File file, out DirectPhoto? photo) {
         PhotoImportParams params = new PhotoImportParams(file, PhotoTable.get_instance().generate_import_id(),
             PhotoFileSniffer.Options.NO_MD5);
         ImportResult result = TransformablePhoto.prepare_for_import(params);
@@ -3173,16 +3173,17 @@ public class DirectPhoto : Photo {
             // this should never happen; DirectPhotoSourceCollection guarantees it.
             assert(result != ImportResult.PHOTO_EXISTS);
             
-            return null;
+            photo = null;
+            return result;
         }
         
         PhotoTable.get_instance().add(ref params.row);
         
         // create DataSource and add to SourceCollection
-        DirectPhoto photo = new DirectPhoto(params.row);
+        photo = new DirectPhoto(params.row);
         global.add(photo);
         
-        return photo;
+        return result;
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
