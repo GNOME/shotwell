@@ -611,6 +611,7 @@ public class ProgressDialog : Gtk.Window {
         if (cancellable != null) {
             cancel_button = new Gtk.Button.from_stock(Gtk.STOCK_CANCEL);
             cancel_button.clicked.connect(on_cancel);
+            delete_event.connect(on_window_closed);
         }
         
         Gtk.HBox hbox = new Gtk.HBox(false, 8);
@@ -671,6 +672,12 @@ public class ProgressDialog : Gtk.Window {
     public void close() {
         hide();
         destroy();
+    }
+    
+    private bool on_window_closed() {
+        on_cancel();
+        return false; // return false so that the system handler will remove the window from
+                      // the screen
     }
     
     private void on_cancel() {
