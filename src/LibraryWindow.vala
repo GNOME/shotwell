@@ -832,7 +832,7 @@ public class LibraryWindow : AppWindow {
         Gdk.DragAction drag_action = get_drag_action();
         
         if (drag_action == Gdk.DragAction.DEFAULT)
-            drag_action = Gdk.DragAction.LINK;
+            drag_action = Gdk.DragAction.ASK;
         
         Gdk.drag_status(context, drag_action, time);
 
@@ -851,28 +851,10 @@ public class LibraryWindow : AppWindow {
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, 
         SidebarPage? page) {
         // determine if drag is internal or external
-        if (Gtk.drag_get_source_widget(context) != null) {
+        if (Gtk.drag_get_source_widget(context) != null)
             drop_internal(context, x, y, selection_data, info, time, path, page);
-        } else {
-            if (get_drag_action() == Gdk.DragAction.DEFAULT) {
-                // the library dir must be created in order for the filesystem check to work...
-                // here we attempt to create it just in case it's been renamed or deleted
-                File library = AppDirs.get_import_dir();
-                try {
-                    library.make_directory_with_parents(null);
-                } catch (Error err) {                    
-                    // silently ignore, not creating a directory that already exists
-                }
-                
-                Filesystem drag_filesystem = get_filesystem_relativity(library, 
-                    Uri.list_extract_uris((string) selection_data.data));
-                
-                if (drag_filesystem != Filesystem.INTERNAL)
-                    context.action = Gdk.DragAction.ASK;
-            }
-            
+        else
             drop_external(context, x, y, selection_data, info, time);
-        }
     }
 
     private void drop_internal(Gdk.DragContext context, int x, int y,
