@@ -1030,6 +1030,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // any time
         if (canvas != null && canvas.window != null)
             canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+        
+        repaint();
     }
     
     private void quick_update_pixbuf() {
