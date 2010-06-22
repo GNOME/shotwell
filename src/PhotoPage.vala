@@ -568,6 +568,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void zoom_about_event_cursor_point(Gdk.EventScroll event, double zoom_increment) {
+        if (photo_missing)
+            return;
+
         Gdk.Point cursor_wrt_viewport_center = get_cursor_wrt_viewport_center(event);
         Gdk.Point iso_pixel_under_cursor = get_iso_pixel_under_cursor(event);
     
@@ -910,6 +913,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         redeye_button.sensitive = sensitivity;
         adjust_button.sensitive = sensitivity;
         enhance_button.sensitive = sensitivity;
+        zoom_slider.sensitive = sensitivity;
 
         deactivate_tool();
     }
@@ -950,6 +954,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 warning("%s", err.message);
             }
         }
+    }
+
+    public bool get_photo_missing() {
+        return photo_missing;
     }
 
     protected virtual bool confirm_replace_photo(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
@@ -1035,7 +1043,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void quick_update_pixbuf() {
-        Gdk.Pixbuf pixbuf = cache.get_ready_pixbuf(get_photo());
+        Gdk.Pixbuf? pixbuf = cache.get_ready_pixbuf(get_photo());
         if (pixbuf != null) {
             set_pixbuf(pixbuf, get_photo().get_dimensions());
             pixbuf_dirty = false;
@@ -1573,7 +1581,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public bool is_rotate_available(TransformablePhoto photo) {
-        return true;
+        return !photo_missing;
     }
 
     private void rotate(Rotation rotation, string name, string description) {
@@ -1606,6 +1614,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public void on_revert() {
+        if (photo_missing)
+            return;
+
         deactivate_tool();
         
         if (!has_photo())
@@ -1772,7 +1783,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     public bool is_enhance_available(TransformablePhoto photo) {
-        return true;
+        return !photo_missing;
     }
     
     public void on_enhance() {
@@ -2242,8 +2253,10 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void update_zoom_menu_item_sensitivity() {
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max());
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", !get_zoom_state().is_default());
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max()
+            && !get_photo_missing());
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", !get_zoom_state().is_default()
+            && !get_photo_missing());
     }
 
     protected override void on_increase_size() {
@@ -2271,6 +2284,13 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     protected override void set_missing_photo_sensitivities(bool sensitivity) {
+        set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/FileMenu/JumpToFile", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", sensitive);
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
@@ -2279,10 +2299,28 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/HideUnhide", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PhotoRename", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEdit", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", sensitivity);
+		set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/TagsMenu/AddTags", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/TagsMenu/ModifyTags", sensitivity);
+        //AppWindow.get_instance().set_common_action_sensitive("CommonFullscreen", sensitivity);
 
-        set_item_sensitive("/PhotoContextMenu/PhotoRename", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextFavoriteUnfavorite", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextHideUnhide", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextPhotoRename", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextExternalEdit", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextExternalEditRAW", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/JumpToFile", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextMoveToTrash", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", sensitivity);
@@ -2520,13 +2558,15 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_file_menu() {
 #if !NO_PRINTING
-        set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", has_photo());
+        set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", has_photo() && 
+            !get_photo_missing());
 #endif
 
-        set_item_sensitive("/PhotoMenuBar/FileMenu/Export", has_photo());
+        set_item_sensitive("/PhotoMenuBar/FileMenu/Export", has_photo() && !get_photo_missing());
 
 #if !NO_PUBLISHING
-        set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", has_photo());
+        set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", has_photo() && 
+            !get_photo_missing());
 #endif
     }
     
@@ -2544,7 +2584,10 @@ public class LibraryPhotoPage : EditingHostPage {
     private void on_edit_menu() {
         decorate_undo_item("/PhotoMenuBar/EditMenu/Undo");
         decorate_redo_item("/PhotoMenuBar/EditMenu/Redo");
-        set_item_sensitive("/PhotoMenuBar/EditMenu/MoveToTrash", has_photo());
+        // Override the decorate calls of the photo is missing
+        set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", !get_photo_missing());
+        set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", !get_photo_missing());
+        set_item_sensitive("/PhotoMenuBar/EditMenu/MoveToTrash", has_photo() && !get_photo_missing());
     }
     
     protected void set_favorite_item_label(string path) {
@@ -3099,8 +3142,10 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     private void update_zoom_menu_item_sensitivity() {
-        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max());
-        set_item_sensitive("/DirectMenuBar/ViewMenu/DecreaseSize", !get_zoom_state().is_default());
+        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max()
+            && !get_photo_missing());
+        set_item_sensitive("/DirectMenuBar/ViewMenu/DecreaseSize", !get_zoom_state().is_default()
+            && !get_photo_missing());
     }
 
     protected override void on_increase_size() {
@@ -3118,22 +3163,32 @@ public class DirectPhotoPage : EditingHostPage {
     protected override void set_missing_photo_sensitivities(bool sensitivity) {
         set_item_sensitive("/DirectMenuBar/FileMenu/Save", sensitivity);
         set_item_sensitive("/DirectMenuBar/FileMenu/SaveAs", sensitivity);
-        
+        set_item_sensitive("/DirectMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
+        set_item_sensitive("/DirectMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
+        set_item_sensitive("/DirectMenuBar/FileMenu/JumpToFile", sensitivity);
+
+        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", sensitivity);
+        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", sensitivity);
+        set_item_sensitive("/DirectMenuBar/ViewMenu/DecreaseSize", sensitivity);
+
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Flip", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Crop", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/Fullscreen", sensitivity);
 
         set_item_sensitive("/DirectContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/DirectContextMenu/ContextRevert", sensitivity);
+        set_item_sensitive("/DirectContextMenu/JumpToFile", sensitivity);
         
 #if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", has_photo());
+        set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
 #endif
         
         base.set_missing_photo_sensitivities(sensitivity);
@@ -3158,7 +3213,9 @@ public class DirectPhotoPage : EditingHostPage {
             return false;
         
         set_item_sensitive("/DirectContextMenu/ContextEnhance", is_enhance_available(get_photo()));
-        set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations());
+        set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations() &&
+            !get_photo_missing());
+        //set_item_sensitive("/DirectContextMenu/JumpToFile", !get_photo_missing());
         
         return base.on_context_invoked();
     }
@@ -3205,7 +3262,8 @@ public class DirectPhotoPage : EditingHostPage {
     }
     
     private void on_file_menu() {
-        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations() && get_photo().get_file_format().can_write());
+        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations() && 
+            get_photo().get_file_format().can_write() && !get_photo_missing());
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
@@ -3241,7 +3299,8 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     private void on_save() {
-        if (!get_photo().has_alterations() || !get_photo().get_file_format().can_write())
+        if (!get_photo().has_alterations() || !get_photo().get_file_format().can_write() || 
+            get_photo_missing())
             return;
 
         // save full-sized version right on top of the current file
@@ -3322,11 +3381,15 @@ public class DirectPhotoPage : EditingHostPage {
     private void on_edit_menu() {
         decorate_undo_item("/DirectMenuBar/EditMenu/Undo");
         decorate_redo_item("/DirectMenuBar/EditMenu/Redo");
+        // Override the decorate calls of the photo is missing
+        set_item_sensitive("/DirectMenuBar/EditMenu/Undo", !get_photo_missing());
+        set_item_sensitive("/DirectMenuBar/EditMenu/Redo", !get_photo_missing());
     }
     
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool revert_possible = has_photo() ? get_photo().has_transformations() : false;
+        bool revert_possible = has_photo() ? get_photo().has_transformations() 
+            && !get_photo_missing() : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
 
         set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
