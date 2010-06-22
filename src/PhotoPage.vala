@@ -503,12 +503,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     private bool on_zoom_slider_drag_begin(Gdk.EventButton event) {
         enable_interactive_zoom_refresh = true;
+        
+        if (get_container() is FullscreenWindow)
+            ((FullscreenWindow) get_container()).disable_toolbar_dismissal();
 
         return false;
     }
 
     private bool on_zoom_slider_drag_end(Gdk.EventButton event) {
         enable_interactive_zoom_refresh = false;
+
+        if (get_container() is FullscreenWindow)
+            ((FullscreenWindow) get_container()).enable_toolbar_dismissal();
 
         ZoomState zoom_state = ZoomState.rescale(get_zoom_state(), zoom_slider.get_value());
         set_zoom_state(zoom_state);

@@ -17,6 +17,7 @@ public class FullscreenWindow : PageWindow {
     private bool waiting_for_invoke = false;
     private time_t left_toolbar_time = 0;
     private bool switched_to = false;
+    private bool is_toolbar_dismissal_enabled = true;
 
     public FullscreenWindow(Page page) {
         set_current_page(page);
@@ -43,6 +44,7 @@ public class FullscreenWindow : PageWindow {
         
         pin_button.set_label("Pin Toolbar");
         pin_button.set_tooltip_text("Pin the toolbar open");
+        pin_button.clicked.connect(on_pin_button_state_change);
         
         // TODO: Don't stock items supply their own tooltips?
         close_button.set_tooltip_text("Leave fullscreen");
@@ -85,6 +87,18 @@ public class FullscreenWindow : PageWindow {
         
         // start off with toolbar invoked, as a clue for the user
         invoke_toolbar();
+    }
+
+    public void enable_toolbar_dismissal() {
+        is_toolbar_dismissal_enabled = true;
+    }
+    
+    public void disable_toolbar_dismissal() {
+        is_toolbar_dismissal_enabled = false;
+    }
+    
+    private void on_pin_button_state_change() {
+        is_toolbar_dismissal_enabled = !pin_button.get_active();
     }
 
     private Gdk.Rectangle get_monitor_geometry() {
@@ -222,8 +236,8 @@ public class FullscreenWindow : PageWindow {
         if (toolbar_window == null)
             return false;
         
-        // if pinned, keep open but keep checking
-        if (pin_button.get_active())
+        // if dismissal is disabled, keep open but keep checking
+        if ((!is_toolbar_dismissal_enabled))
             return true;
         
         // if the pointer is in toolbar range, keep it alive, but keep checking
