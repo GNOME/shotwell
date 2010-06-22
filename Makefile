@@ -142,6 +142,11 @@ RESOURCE_FILES = \
 	trash.ui \
 	shotwell.glade
 
+SYS_INTEGRATION_FILES = \
+	shotwell.desktop.head \
+	shotwell-viewer.desktop.head \
+	shotwell.schemas
+
 SRC_HEADER_FILES = \
 	gphoto.h
 
@@ -153,6 +158,30 @@ TEXT_FILES = \
 	NEWS \
 	README \
 	THANKS
+
+ICON_FILES = \
+	shotwell-street.jpg \
+	shotwell.svg \
+	shotwell.ico \
+	return-to-page.svg \
+	redeye.png \
+	publish.png \
+	pin-toolbar.svg \
+	object-rotate-right.svg \
+	object-rotate-left.svg \
+	object-flip-vertical.svg \
+	object-flip-horizontal.svg \
+	merge.svg \
+	make-primary.svg \
+	import-all.png \
+	import.svg \
+	hidden.svg \
+	favorite.svg \
+	enhance.png \
+	drag_nub.png \
+	crop-pivot-reticle.png \
+	crop.svg \
+	adjust.png \
 
 VAPI_DIRS = \
 	./vapi
@@ -233,7 +262,8 @@ EXPANDED_SRC_FILES = $(foreach src,$(SRC_FILES),src/$(src))
 EXPANDED_C_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.c))
 EXPANDED_SAVE_TEMPS_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.vala.c))
 EXPANDED_OBJ_FILES = $(foreach src,$(SRC_FILES),$(BUILD_DIR)/$(src:.vala=.o))
-
+EXPANDED_SYS_INTEGRATION_FILES = $(foreach file,$(SYS_INTEGRATION_FILES),misc/$(file))
+EXPANDED_ICON_FILES = $(foreach file,$(ICON_FILES),icons/$(file))
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
@@ -241,9 +271,9 @@ VALA_STAMP = $(BUILD_DIR)/.stamp
 LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
 DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
-	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) icons/* misc/* \
-	$(EXPANDED_PO_FILES) po/shotwell.pot vapi/* windows/install-deps  windows/shotwell.rc \
-	windows/winstall.iss src/windows.c src/GConf.vala
+	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
+	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot windows/install-deps \
+	windows/shotwell.rc windows/winstall.iss src/windows.c src/GConf.vala
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
