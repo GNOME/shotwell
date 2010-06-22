@@ -37,6 +37,14 @@ VALAFLAGS = -g --enable-checking --thread $(USER_VALAFLAGS)
 DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEXT_PACKAGE)"' \
      _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
 
+ifdef LINUX
+    EXPORT_FLAGS = -export-dynamic
+endif
+
+ifdef WINDOWS
+    EXPORT_FLAGS = -export-all-symbols
+endif
+
 SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
@@ -425,12 +433,12 @@ $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
 	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
-	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -export-dynamic -o $@
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
 
 glade: lib$(PROGRAM).so
 
 lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
-	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) -export-dynamic -shared -o $@
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -shared -o $@
 
 shotwell-setup-$(VERSION).exe: $(PROGRAM) windows/winstall.iss
 	iscc windows\winstall.iss
