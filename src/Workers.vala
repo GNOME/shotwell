@@ -281,6 +281,9 @@ public abstract class BackgroundJob {
         if (callback == null && cancellation == null)
             return;
         
+        if (is_cancelled() && cancellation == null)
+            return;
+        
         // Because Idle doesn't maintain a ref count of the job, and it's going to be dropped by
         // the worker thread soon, need to maintain a ref until the completion callback is made
         self = this;

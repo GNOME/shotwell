@@ -375,10 +375,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
             return;
         }
         
-        foreach (DataObject view in events_so_far.get_all()) {
-            Event event = (Event) ((EventView) view).get_source();
+        int count = events_so_far.get_count();
+        for (int ctr = 0; ctr < count; ctr++) {
+            Event event = (Event) ((EventView) events_so_far.get_at(ctr)).get_source();
             
-            if (event.is_in_starting_day(photo.get_exposure_time())) {
+            if (event.is_in_starting_day(exposure_time)) {
                 photo.set_event(event);
                 
                 return;

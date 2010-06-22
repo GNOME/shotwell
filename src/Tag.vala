@@ -606,8 +606,6 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         if (added_photos != null || removed_photos != null)
             global.notify_container_contents_altered(this, added_photos, removed_photos);
         
-        notify_altered();
-        
         // if no more photos, tag evaporates; do not touch "this" afterwards
         if (photos.get_count() == 0)
             global.evaporate(this);

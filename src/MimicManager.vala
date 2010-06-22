@@ -55,6 +55,8 @@ public class MimicManager : Object {
     private File impersonators_dir;
     private Workers workers = new Workers(1, false);
     private Gee.HashMap<Photo, VerifyJob> verify_jobs = new Gee.HashMap<Photo, VerifyJob>();
+    private int pause_count = 0;
+    private Gee.ArrayList<VerifyJob> paused_list = new Gee.ArrayList<VerifyJob>();
     
     public MimicManager(SourceCollection sources, File impersonators_dir) {
         this.sources = sources;
@@ -66,9 +68,30 @@ public class MimicManager : Object {
         sources.item_destroyed.connect(on_photo_destroyed);
     }
     
-    ~ImpersonatorManager() {
+    ~MimicManager() {
         sources.items_added.disconnect(on_photos_added);
         sources.item_destroyed.disconnect(on_photo_destroyed);
+    }
+    
+    public void pause() {
+        pause_count++;
+    }
+    
+    public void resume() {
+        if (--pause_count > 0)
+            return;
+            
+        pause_count = 0;
+        
+        foreach (VerifyJob job in paused_list)
+            enqueue_verify_job(job);
+        
+        paused_list.clear();
+    }
+    
+    private void enqueue_verify_job(VerifyJob job) {
+        verify_jobs.set(job.photo, job);
+        workers.enqueue(job);
     }
     
     private void on_photos_added(Gee.Iterable<DataObject> added) {
@@ -87,9 +110,14 @@ public class MimicManager : Object {
             }
             
             VerifyJob job = new VerifyJob(this, photo, writer);
-            verify_jobs.set(photo, job);
             
-            workers.enqueue(job);
+            if (pause_count > 0) {
+                paused_list.add(job);
+                
+                continue;
+            }
+            
+            enqueue_verify_job(job);
         }
     }
     

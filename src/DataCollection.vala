@@ -152,6 +152,98 @@ public class DataSet {
     }
 }
 
+// SingletonCollection is a read-only collection designed to hold exactly one item in it.  This
+// is far more efficient than creating a dummy collection (such as ArrayList) merely to pass around
+// a single item, particularly for signals which require Iterables and Collections.
+//
+// This collection cannot be used to store null.
+
+public class SingletonCollection<G> : Gee.AbstractCollection<G> {
+    private class SingletonIterator<G> : Gee.Iterator<G>, Object {
+        private SingletonCollection<G> c;
+        private bool done = false;
+        private G? current = null;
+        
+        public SingletonIterator(SingletonCollection<G> c) {
+            this.c = c;
+        }
+        
+        public bool first() {
+            done = false;
+            current = c.object;
+            
+            return current != null;
+        }
+        
+        public new G? get() {
+            return current;
+        }
+        
+        public bool has_next() {
+            return false;
+        }
+        
+        public bool next() {
+            if (done)
+                return false;
+            
+            done = true;
+            current = c.object;
+            
+            return true;
+        }
+        
+        public void remove() {
+            if (!done) {
+                c.object = null;
+                current = null;
+            }
+            
+            done = true;
+        }
+    }
+    
+    private G? object;
+    
+    public SingletonCollection(G object) {
+        this.object = object;
+    }
+    
+    public override bool add(G object) {
+        warning("Cannot add to SingletonCollection");
+        
+        return false;
+    }
+    
+    public override void clear() {
+        object = null;
+    }
+    
+    public override bool contains(G object) {
+        return this.object == object;
+    }
+    
+    public override Gee.Iterator<G> iterator() {
+        return new SingletonIterator<G>(this);
+    }
+    
+    public override bool remove(G item) {
+        if (item == object) {
+            object = null;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public override int size {
+        get {
+            return (object != null) ? 1 : 0;
+        }
+    }
+}
+
 //
 // DataCollection
 //
@@ -452,11 +544,8 @@ public class DataCollection {
     // seems wasteful, can't reuse a single singleton list because it's possible for a method
     // that needs it to be called from within a signal handler for another method, corrupting the
     // shared list's contents mid-signal
-    protected static Gee.ArrayList<DataObject> get_singleton(DataObject object) {
-        Gee.ArrayList<DataObject> singleton = new Gee.ArrayList<DataObject>();
-        singleton.add(object);
-        
-        return singleton;
+    protected static Gee.Collection<DataObject> get_singleton(DataObject object) {
+        return new SingletonCollection<DataObject>(object);
     }
     
     public virtual bool valid_type(DataObject object) {
@@ -552,7 +641,7 @@ public class DataCollection {
         internal_add(object);
         
         // fire signal after added using singleton list
-        Gee.List<DataObject> added = get_singleton(object);
+        Gee.Collection<DataObject> added = get_singleton(object);
         notify_items_added(added);
         notify_contents_altered(added, null);
         
@@ -970,9 +1059,9 @@ public class SourceCollection : DataCollection {
         return false;
     }
     
-    public Gee.Collection<DataSource>? unlink_marked(Marker marker) {
+    public Gee.Collection<DataSource>? unlink_marked(Marker marker, ProgressMonitor? monitor = null) {
         Gee.ArrayList<DataSource> list = new Gee.ArrayList<DataSource>();
-        act_on_marked(marker, prepare_for_unlink, null, list);
+        act_on_marked(marker, prepare_for_unlink, monitor, list);
         
         if (list.size == 0)
             return null;
@@ -997,7 +1086,7 @@ public class SourceCollection : DataCollection {
         source.notify_relinking(this);
         
         add(source);
-        notify_items_relinked(get_singleton(source));
+        notify_items_relinked((Gee.Collection<DataSource>) get_singleton(source));
         
         source.notify_relinked();
     }
@@ -1545,13 +1634,30 @@ public class ViewCollection : DataCollection {
     private void add_sources(Gee.Iterable<DataSource> added, ProgressMonitor? monitor = null) {
         // add only source items which are to be included by the manager ... do this in batches
         // to take advantage of add_many()
-        Gee.ArrayList<DataView> created_views = new Gee.ArrayList<DataView>();
+        DataView created_view = null;
+        Gee.ArrayList<DataView> created_views = null;
         foreach (DataSource source in added) {
-            if (manager.include_in_view(source))
-                created_views.add(manager.create_view(source));
+            if (manager.include_in_view(source)) {
+                DataView new_view = manager.create_view(source);
+                
+                // this bit of code is designed to avoid creating the ArrayList if only one item
+                // is being added to the ViewCollection
+                if (created_views != null) {
+                    created_views.add(new_view);
+                } else if (created_view == null) {
+                    created_view = new_view;
+                } else {
+                    created_views = new Gee.ArrayList<DataView>();
+                    created_views.add(created_view);
+                    created_view = null;
+                    created_views.add(new_view);
+                }
+            }
         }
         
-        if (created_views.size > 0)
+        if (created_view != null)
+            add(created_view);
+        else if (created_views != null && created_views.size > 0)
             add_many(created_views, monitor);
     }
     
@@ -2095,7 +2201,7 @@ public class ViewCollection : DataCollection {
     public void internal_notify_view_altered(DataView view) {
         if (!are_notifications_frozen()) {
             notify_item_view_altered(view);
-            notify_views_altered(get_singleton(view));
+            notify_views_altered((Gee.Collection<DataView>) get_singleton(view));
         } else {
             if (frozen_views_altered == null)
                 frozen_views_altered = new Gee.HashSet<DataView>();
@@ -2107,7 +2213,7 @@ public class ViewCollection : DataCollection {
     public void internal_notify_geometry_altered(DataView view) {
         if (!are_notifications_frozen()) {
             notify_item_geometry_altered(view);
-            notify_geometries_altered(get_singleton(view));
+            notify_geometries_altered((Gee.Collection<DataView>) get_singleton(view));
         } else {
             if (frozen_geometries_altered == null)
                 frozen_geometries_altered = new Gee.HashSet<DataView>();

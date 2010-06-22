@@ -1133,6 +1133,7 @@ public class ImportQueuePage : SinglePhotoPage {
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
     private BatchImport current_batch = null;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
+    private bool stopped = false;
     
     public signal void batch_added(BatchImport batch_import);
     
@@ -1221,6 +1222,12 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_stop() {
+        if (queue.size == 0)
+            return;
+        
+        AppWindow.get_instance().set_busy_cursor();
+        stopped = true;
+        
         // mark all as halted and let each signal failure
         foreach (BatchImport batch_import in queue)
             batch_import.user_halt();
@@ -1281,6 +1288,12 @@ public class ImportQueuePage : SinglePhotoPage {
 
             // blank the display
             blank_display();
+            
+            // reset cursor if cancelled
+            if (stopped)
+                AppWindow.get_instance().set_normal_cursor();
+            
+            stopped = false;
         }
         
         // report the batch has been removed from the queue after everything else is set

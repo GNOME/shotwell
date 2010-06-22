@@ -139,7 +139,10 @@ public class ImportManifest {
 // jobs.  However, getting this code to a point that it works with threads is task enough, so it
 // will have to wait (especially since we'll want to write a generic FSM engine).
 public class BatchImport : Object {
-    private static Workers workers = new Workers(2, false);
+    private static Workers sniff_worker = new Workers(1, false);
+    private static Workers prep_worker = new Workers(1, false);
+    private static Workers import_worker = new Workers(2, false);
+    private static Workers thumbnail_worker = new Workers(1, false);
     
     private Gee.Iterable<BatchImportJob> jobs;
     private string name;
@@ -154,8 +157,20 @@ public class BatchImport : Object {
     private Cancellable? cancellable = null;
     private ulong last_preparing_ms = 0;
     private ViewCollection generated_events = new ViewCollection("BatchImport generated events");
+#if !NO_DUPE_DETECTION
     private Gee.HashSet<string> imported_thumbnail_md5 = new Gee.HashSet<string>();
     private Gee.HashSet<string> imported_full_md5 = new Gee.HashSet<string>();
+#endif
+    
+    // These queues are staging queues, holding batches of work that must happen in the import
+    // process, working on them all at once to minimize overhead.
+    private uint64 ready_files_bytes = 0;
+    private Gee.ArrayList<PreparedFile> ready_files = new Gee.ArrayList<PreparedFile>();
+    private Gee.ArrayList<CompletedImportPhoto> ready_thumbnails =
+        new Gee.ArrayList<CompletedImportPhoto>();
+    private Gee.ArrayList<CompletedImportPhoto> display_imported_queue =
+        new Gee.ArrayList<CompletedImportPhoto>();
+    private Gee.ArrayList<LibraryPhoto> ready_photos = new Gee.ArrayList<LibraryPhoto>();
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
@@ -196,6 +211,9 @@ public class BatchImport : Object {
         
         // watch for user exit in the application
         AppWindow.get_instance().user_quit.connect(user_halt);
+        
+        // Use a timer to report imported photos to observers
+        Timeout.add(200, display_imported_timer);
     }
     
     ~BatchImport() {
@@ -215,7 +233,9 @@ public class BatchImport : Object {
     
     private void log_status(string where) {
 #if TRACE_IMPORT
-        debug("%s: to_perform=%d completed=%d", where, file_imports_to_perform, file_imports_completed);
+        debug("%s: to_perform=%d completed=%d ready_files=%d ready_thumbnails=%d display_queue=%d ready_photos=%d",
+            where, file_imports_to_perform, file_imports_completed, ready_files.size,
+            ready_thumbnails.size, display_imported_queue.size, ready_photos.size);
 #endif
     }
     
@@ -262,7 +282,11 @@ public class BatchImport : Object {
                 preparing();
             }
         } else if (increment_of_progress > 0) {
-            progress(completed_bytes, total_bytes);
+            ulong now = now_ms();
+            if (now - last_preparing_ms > 250) {
+                last_preparing_ms = now;
+                progress(completed_bytes, total_bytes);
+            }
         }
     }
     
@@ -283,25 +307,50 @@ public class BatchImport : Object {
         
         completed = true;
         
-        debug("Import completed: %s", where);
+        flush_ready_photos();
+        
+        log_status("Import completed: %s".printf(where));
         
         // report completed to the reporter (called prior to the "import_complete" signal)
         if (reporter != null)
             reporter(manifest);
         
         import_complete(manifest);
+        
+        // resume the MimicManager
+        LibraryPhoto.mimic_manager.resume();
+    }
+    
+    // This should be called whenever a file's import process is complete, successful or otherwise
+    private void file_import_complete() {
+        // mark this job as completed
+        file_imports_completed++;
+        if (file_imports_to_perform != -1)
+            assert(file_imports_completed <= file_imports_to_perform);
+        
+        // because notifications can come in after completions, have to watch if this is the
+        // last file
+        if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
+            report_completed("completed preparing files, all outstanding imports completed");
     }
     
     public void schedule() {
         assert(scheduled == false);
         scheduled = true;
         
+        // halt the MimicManager will performing import, as it will drag the system down
+        LibraryPhoto.mimic_manager.pause();
+        
         starting();
         
         // fire off a background job to generate all FileToPrepare work
-        workers.enqueue(new WorkSniffer(this, jobs, on_work_sniffed_out, cancellable,
+        sniff_worker.enqueue(new WorkSniffer(this, jobs, on_work_sniffed_out, cancellable,
             on_sniffer_cancelled, on_sniffer_working));
     }
+    
+    //
+    // WorkSniffer stage
+    //
     
     private void on_sniffer_working() {
         report_progress(0);
@@ -328,7 +377,7 @@ public class BatchImport : Object {
         PrepareFilesJob prepare_files_job = new PrepareFilesJob(this, sniffer.files_to_prepare, 
             on_file_prepared, on_files_prepared, cancellable, on_file_prepare_cancelled);
         
-        workers.enqueue(prepare_files_job);
+        prep_worker.enqueue(prepare_files_job);
     }
     
     private void on_sniffer_cancelled(BackgroundJob j) {
@@ -340,6 +389,48 @@ public class BatchImport : Object {
         report_completed("work sniffer cancelled");
     }
     
+    //
+    // PrepareFiles stage
+    //
+    
+    private void flush_ready_files() {
+        if (ready_files.size == 0)
+            return;
+        
+        if (cancellable.is_cancelled()) {
+            foreach (PreparedFile prepared_file in ready_files) {
+                report_failure(new BatchImportResult(prepared_file.job, prepared_file.file,
+                    prepared_file.file.get_path(), ImportResult.USER_ABORT));
+                file_import_complete();
+            }
+            
+            ready_files.clear();
+            
+            return;
+        }
+        
+        PreparedFilesImportJob job = new PreparedFilesImportJob(this, ready_files, manifest.import_id,
+            on_import_files_completed, cancellable, on_import_files_cancelled);
+        
+        ready_files = new Gee.ArrayList<PreparedFile>();
+        ready_files_bytes = 0;
+        
+        import_worker.enqueue(job);
+    }
+    
+    private void enqueue_prepared_file(PreparedFile prepared_file) {
+        ready_files.add(prepared_file);
+        ready_files_bytes += prepared_file.filesize;
+        
+        // We want to cluster the work to give the background thread plenty to do, but not
+        // cluster so many the UI is starved of completion notices ... these comparisons
+        // strive for the happy medium
+        if (ready_files.size > 25 || ready_files_bytes > (50 * (1024 * 1024)) || cancellable.is_cancelled())
+            flush_ready_files();
+    }
+    
+    // This checks for duplicates in the current import batch, which may not already be in the
+    // library and therefore not detected there.
     private bool is_in_current_import(PreparedFile prepared_file) {
 #if !NO_DUPE_DETECTION
         if (prepared_file.thumbnail_md5 != null
@@ -368,75 +459,79 @@ public class BatchImport : Object {
         return false;
     }
     
+    // Called when a cluster of files are located and deemed proper for import by PrepareFiledJob
     private void on_file_prepared(BackgroundJob j, NotificationObject? user) {
         assert(!completed);
         
-        PreparedFile prepared_file = (PreparedFile) user;
-        BatchImportResult import_result = null;
+        PreparedFileCluster cluster = (PreparedFileCluster) user;
         
-        if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
-            prepared_file.full_md5, prepared_file.file_format)) {
-            // If a file is being linked and has a dupe in the trash, we take it out of the trash
-            // and revert its edits.
-            if (!prepared_file.copy_to_library) {
-                LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
-                
-                if (photo != null) {
-                    debug("duplicate linked photo found in trash, untrashing and removing" + 
-                        " transforms for %s", prepared_file.file.get_path());
-                    
-                    photo.untrash();
-                    photo.remove_all_transformations();
-                    
-                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                        prepared_file.file.get_path(), ImportResult.SUCCESS);
-                }
-            }
+        foreach (PreparedFile prepared_file in cluster.list) {
+            BatchImportResult import_result = null;
             
-            // Photos with duplicates that exist outside of the trash are marked as already existing
-            if (import_result == null && LibraryPhoto.has_nontrash_duplicate(prepared_file.file,
-                prepared_file.thumbnail_md5, prepared_file.full_md5, prepared_file.file_format)) {
-                debug("duplicate photo detected outside of trash, not importing %s",
-                    prepared_file.file.get_path());
+            if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
+                prepared_file.full_md5, prepared_file.file_format)) {
+                // If a file is being linked and has a dupe in the trash, we take it out of the trash
+                // and revert its edits.
+                if (!prepared_file.copy_to_library) {
+                    LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
+                    
+                    if (photo != null) {
+                        debug("duplicate linked photo found in trash, untrashing and removing" + 
+                            " transforms for %s", prepared_file.file.get_path());
+                        
+                        photo.untrash();
+                        photo.remove_all_transformations();
+                        
+                        import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                            prepared_file.file.get_path(), ImportResult.SUCCESS);
+                        
+                        report_progress(photo.get_filesize());
+                        file_import_complete();
+                        
+                        continue;
+                    }
+                }
                 
-                import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
+                // Photos with duplicates that exist outside of the trash are marked as already existing
+                if (LibraryPhoto.has_nontrash_duplicate(prepared_file.file,
+                    prepared_file.thumbnail_md5, prepared_file.full_md5, prepared_file.file_format)) {
+                    debug("duplicate photo detected outside of trash, not importing %s",
+                        prepared_file.file.get_path());
+                    
+                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
+                        prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+                }
+                
+                if (import_result == null) {
+                    debug("duplicate photos found in trash only, importing as usual for %s",
+                        prepared_file.file.get_path());
+                }
+            } else if (is_in_current_import(prepared_file)) {
+                // this looks for duplicates within the import set, since TransformablePhoto.is_duplicate
+                // only looks within already-imported photos for dupes
+                import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
                     prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
             }
             
-            if (import_result == null) {
-                debug("duplicate photos found in trash only, importing as usual for %s",
-                    prepared_file.file.get_path());
+            if (import_result != null) {
+                report_failure(import_result);
+                file_import_complete();
+                
+                continue;
             }
-        } else if (is_in_current_import(prepared_file)) {
-            // this looks for duplicates within the import set, since TransformablePhoto.is_duplicate
-            // only looks within already-imported photos for dupes
-            import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+            
+            report_progress(0);
+            
+            enqueue_prepared_file(prepared_file);
         }
         
-        if (import_result != null) {
-            report_failure(import_result);
-            
-            // mark this job as completed
-            file_imports_completed++;
-            
-            // because notifications can come in after completion, have to watch if this is the
-            // last file
-            if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
-                report_completed("completed preparing files, all outstanding imports completed");
-            
-            return;
-        }
-        
-        report_progress(0);
-        
-        FileImportJob file_import_job = new FileImportJob(this, prepared_file, manifest.import_id, 
-            on_import_file_completed, cancellable, on_import_file_cancelled);
-        
-        workers.enqueue(file_import_job);
+        // if the number of file imports is known, this notification has come in after the completion
+        // callback, so flush the queue
+        if (file_imports_to_perform != -1)
+            flush_ready_files();
     }
     
-    private void on_files_prepared(BackgroundJob j) {
+    private void done_preparing_files(BackgroundJob j, string caller) {
         assert(!completed);
         
         PrepareFilesJob prepare_files_job = (PrepareFilesJob) j;
@@ -447,7 +542,9 @@ public class BatchImport : Object {
         file_imports_to_perform = prepare_files_job.prepared_files;
         assert(file_imports_to_perform >= file_imports_completed);
         
-        log_status("on_files_prepared");
+        log_status(caller);
+        
+        flush_ready_files();
         
         // if none prepared, then none outstanding (or will become outstanding, depending on how
         // the notifications are queued)
@@ -457,79 +554,192 @@ public class BatchImport : Object {
             report_completed("completed preparing files, all outstanding imports completed");
     }
     
-    private void on_file_prepare_cancelled(BackgroundJob j) {
-        assert(!completed);
-        
-        PrepareFilesJob prepare_files_job = (PrepareFilesJob) j;
-        
-        report_failures(prepare_files_job);
-        
-        file_imports_to_perform = prepare_files_job.prepared_files;
-        assert(file_imports_to_perform >= file_imports_completed);
-        
-        log_status("on_file_prepare_cancelled");
-        
-        // If FileImportJobs are outstanding, need to wait for them to cancel as well ... see
-        // on_files_prepared for the logic of all this
-        if (file_imports_to_perform == 0)
-            report_completed("cancelled, no files prepared");
-        else if (file_imports_completed == file_imports_to_perform)
-            report_completed("cancelled, all outstanding imports completed");
+    private void on_files_prepared(BackgroundJob j) {
+        done_preparing_files(j, "on_files_prepared");
     }
     
-    private void on_import_file_completed(BackgroundJob j) {
+    private void on_file_prepare_cancelled(BackgroundJob j) {
+        done_preparing_files(j, "on_file_prepare_cancelled");
+    }
+    
+    //
+    // Files ready for import stage
+    //
+    
+    private void flush_ready_thumbnails() {
+        if (ready_thumbnails.size == 0)
+            return;
+        
+        ThumbnailWriterJob job = new ThumbnailWriterJob(this, ready_thumbnails,
+            on_thumbnail_writer_completed, cancellable, on_thumbnail_writer_cancelled);
+        
+        ready_thumbnails = new Gee.ArrayList<CompletedImportPhoto>();
+        
+        thumbnail_worker.enqueue(job);
+    }
+    
+    private void enqueue_ready_thumbnail(LibraryPhoto photo, Thumbnails thumbnails,
+        BatchImportResult import_result) {
+        ready_thumbnails.add(new CompletedImportPhoto(photo, thumbnails, import_result));
+    }
+    
+    private void on_import_files_completed(BackgroundJob j) {
         assert(!completed);
         
-        FileImportJob job = (FileImportJob) j;
+        PreparedFilesImportJob job = (PreparedFilesImportJob) j;
         
-        file_imports_completed++;
-        if (file_imports_to_perform != -1)
-            assert(file_imports_completed <= file_imports_to_perform);
+        log_status("on_import_files_completed (%d files)".printf(job.failed.size + job.ready.size));
         
-        log_status("on_import_file_completed  (%s)".printf(job.get_filename()));
+        // all should be ready in some form
+        assert(job.not_ready.size == 0);
         
-        // if success, import photo into database and in-memory data structures
-        LibraryPhoto photo = null;
-        if (job.batch_result.result == ImportResult.SUCCESS)
-            job.batch_result.result = LibraryPhoto.import(job.get_photo_import_params(), out photo);
-        
-        if (job.batch_result.result == ImportResult.SUCCESS) {
-            Event.generate_import_event(photo, generated_events);
-            manifest.imported.add(photo);
-            imported(photo, job.get_photo_import_params().thumbnails.get(ThumbnailCache.Size.LARGEST));
-            report_progress(photo.get_filesize());
-            manifest.add_result(job.batch_result);
-        } else {
-            // the utter shame of it all
-            debug("Failed to import %s: %s (%s)", job.get_filename(),
-                job.batch_result.result.to_string(), job.batch_result.errmsg);
-            report_failure(job.batch_result);
+        // mark failed photos
+        foreach (BatchImportResult result in job.failed) {
+            assert(result.result != ImportResult.SUCCESS);
+            
+            report_failure(result);
+            file_import_complete();
         }
         
-        // if no more outstanding jobs and the PrepareFilesJob is completed, report the BatchImport
-        // as completed
-        if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
-            report_completed("all files prepared, all import jobs completed");
+        // import ready photos into database
+        foreach (ReadyForImport ready in job.ready) {
+            assert(ready.batch_result.result == ImportResult.SUCCESS);
+            
+            LibraryPhoto photo = null;
+            ready.batch_result.result = LibraryPhoto.import_create(ready.import_params, out photo);
+            
+            if (ready.batch_result.result != ImportResult.SUCCESS) {
+                debug("on_import_file_completed: %s", ready.batch_result.result.to_string());
+                
+                report_failure(ready.batch_result);
+                file_import_complete();
+            } else {
+                enqueue_ready_thumbnail(photo, ready.import_params.thumbnails, ready.batch_result);
+            }
+        }
+        
+        if (ready_thumbnails.size > 10 || ready_files.size == 0)
+            flush_ready_thumbnails();
     }
     
-    private void on_import_file_cancelled(BackgroundJob j) {
+    private void on_import_files_cancelled(BackgroundJob j) {
         assert(!completed);
         
-        FileImportJob job = (FileImportJob) j;
+        PreparedFilesImportJob job = (PreparedFilesImportJob) j;
         
-        file_imports_completed++;
-        if (file_imports_to_perform != -1)
-            assert(file_imports_completed <= file_imports_to_perform);
+        log_status("on_import_files_cancelled");
         
-        log_status("on_import_file_cancelled");
+        foreach (PreparedFile prepared_file in job.not_ready) {
+            report_failure(new BatchImportResult(prepared_file.job, prepared_file.file,
+                prepared_file.file.get_path(), ImportResult.USER_ABORT));
+            file_import_complete();
+        }
         
-        job.abort();
+        foreach (BatchImportResult result in job.failed) {
+            report_failure(result);
+            file_import_complete();
+        }
         
-        report_failure(job.batch_result);
+        foreach (ReadyForImport ready in job.ready) {
+            BatchImportResult result = ready.abort();
+            report_failure(result);
+            file_import_complete();
+        }
         
-        // see on_import_file_completed for logic
-        if (file_imports_to_perform != -1 && file_imports_completed == file_imports_to_perform)
-            report_completed("cancelled, all import jobs completed");
+        flush_ready_thumbnails();
+    }
+    
+    //
+    // ThumbnailWriter stage
+    //
+    
+    private void on_thumbnail_writer_completed(BackgroundJob j) {
+        assert(!completed);
+        
+        ThumbnailWriterJob job = (ThumbnailWriterJob) j;
+        
+        log_status("on_thumbnail_writer_completed");
+        
+        foreach (CompletedImportPhoto completed in job.completed_import_photos) {
+            if (completed.batch_result.result != ImportResult.SUCCESS) {
+                warning("Failed to import %s: unable to write thumbnails (%s)",
+                    completed.photo.to_string(), completed.batch_result.result.to_string());
+                
+                LibraryPhoto.import_failed(completed.photo);
+                
+                report_failure(completed.batch_result);
+                file_import_complete();
+            } else {
+                manifest.imported.add(completed.photo);
+                manifest.add_result(completed.batch_result);
+                
+                display_imported_queue.add(completed);
+            }
+        }
+    }
+    
+    private void on_thumbnail_writer_cancelled(BackgroundJob j) {
+        assert(!completed);
+        
+        ThumbnailWriterJob job = (ThumbnailWriterJob) j;
+        
+        log_status("on_thumbnail_writer_cancelled");
+        
+        foreach (CompletedImportPhoto completed in job.completed_import_photos) {
+            report_failure(completed.batch_result);
+            file_import_complete();
+        }
+    }
+    
+    //
+    // Display imported photos and integrate into system
+    //
+    
+    private void flush_ready_photos() {
+        if (ready_photos.size == 0)
+            return;
+        
+        log_status("flush_ready_photos");
+        
+        LibraryPhoto.global.add_many(ready_photos);
+        
+        foreach (LibraryPhoto photo in ready_photos)
+            Event.generate_import_event(photo, generated_events);
+        
+        ready_photos.clear();
+    }
+    
+    // This is called throughout the import process to notify watchers of imported photos in such
+    // a way that the GTK event queue gets a chance to operate.
+    private bool display_imported_timer() {
+        if (display_imported_queue.size == 0) {
+            if (completed)
+                debug("display_imported_timer exiting");
+            return !completed;
+        }
+        
+        if (cancellable.is_cancelled())
+            debug("Importing %d photos at once", display_imported_queue.size);
+        
+        log_status("display_imported_timer");
+        
+        // if cancelled, do them all at once, to speed up reporting completion
+        do {
+            CompletedImportPhoto completed = display_imported_queue.remove_at(0);
+            
+            imported(completed.photo, completed.thumbnails.get(ThumbnailCache.Size.LARGEST));
+            report_progress(completed.photo.get_filesize());
+            file_import_complete();
+            
+            // Stage the number of ready photos to incorporate into the system rather than doing them
+            // one at a time, to keep the UI thread responsive.
+            ready_photos.add(completed.photo);
+        } while (cancellable.is_cancelled() && display_imported_queue.size > 0);
+        
+        if (ready_photos.size > 25 || cancellable.is_cancelled())
+            flush_ready_photos();
+        
+        return true;
     }
 }
 
@@ -720,7 +930,7 @@ private class WorkSniffer : BackgroundImportJob {
     }
 }
 
-private class PreparedFile : NotificationObject {
+private class PreparedFile {
     public BatchImportJob job;
     public ImportResult result;
     public File file;
@@ -730,9 +940,10 @@ private class PreparedFile : NotificationObject {
     public string? thumbnail_md5;
     public string? full_md5;
     public PhotoFileFormat file_format;
+    public uint64 filesize;
     
     public PreparedFile(BatchImportJob job, File file, string id, bool copy_to_library, string? exif_md5, 
-        string? thumbnail_md5, string? full_md5, PhotoFileFormat file_format) {
+        string? thumbnail_md5, string? full_md5, PhotoFileFormat file_format, uint64 filesize) {
         this.job = job;
         this.result = ImportResult.SUCCESS;
         this.file = file;
@@ -742,6 +953,15 @@ private class PreparedFile : NotificationObject {
         this.thumbnail_md5 = thumbnail_md5;
         this.full_md5 = full_md5;
         this.file_format = file_format;
+        this.filesize = filesize;
+    }
+}
+
+private class PreparedFileCluster : NotificationObject {
+    public Gee.ArrayList<PreparedFile> list;
+    
+    public PreparedFileCluster(Gee.ArrayList<PreparedFile> list) {
+        this.list = list;
     }
 }
 
@@ -777,6 +997,7 @@ private class PrepareFilesJob : BackgroundImportJob {
     }
     
     private override void execute() {
+        Gee.ArrayList<PreparedFile> list = new Gee.ArrayList<PreparedFile>();
         foreach (FileToPrepare file_to_prepare in files_to_prepare) {
             ImportResult result = abort_check();
             if (result != ImportResult.SUCCESS) {
@@ -806,16 +1027,45 @@ private class PrepareFilesJob : BackgroundImportJob {
             }
             
             try {
-                result = prepare_file(job, file, copy_to_library);
-                if (result != ImportResult.SUCCESS)
+                PreparedFile prepared_file;
+                result = prepare_file(job, file, copy_to_library, out prepared_file);
+                if (result == ImportResult.SUCCESS) {
+                    prepared_files++;
+                    list.add(prepared_file);
+                } else {
                     report_failure(job, file, file.get_path(), result);
+                }
             } catch (Error err) {
                 report_error(job, file, file.get_path(), err, ImportResult.FILE_ERROR);
+            }
+            
+            if (list.size > 100) {
+                debug("Dumping %d prepared files", list.size);
+                PreparedFileCluster cluster = new PreparedFileCluster(list);
+                list = new Gee.ArrayList<PreparedFile>();
+                notify(notification, cluster);
+            }
+        }
+        
+        if (list.size > 0) {
+            ImportResult result = abort_check();
+            if (result == ImportResult.SUCCESS) {
+                notify(notification, new PreparedFileCluster(list));
+            } else {
+                // subtract these, as they are not being submitted
+                assert(prepared_files >= list.size);
+                prepared_files -= list.size;
+                
+                foreach (PreparedFile prepared_file in list) {
+                    report_failure(prepared_file.job, prepared_file.file, prepared_file.file.get_path(),
+                        result);
+                }
             }
         }
     }
     
-    private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library) throws Error {
+    private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library,
+        out PreparedFile prepared_file) throws Error {
         if (!TransformablePhoto.is_file_image(file))
             return ImportResult.NOT_AN_IMAGE;
 
@@ -878,85 +1128,34 @@ private class PrepareFilesJob : BackgroundImportJob {
             thumbnail_md5, full_md5);
 #endif
         
+        uint64 filesize = query_total_file_size(file, get_cancellable());
+        
         // never copy file if already in library directory
         bool is_in_library_dir = file.has_prefix(library_dir);
         
         // notify the BatchImport this is ready to go
-        prepared_files++;
-        notify(notification, new PreparedFile(job, file, file.get_path(), 
+        prepared_file = new PreparedFile(job, file, file.get_path(), 
             copy_to_library && !is_in_library_dir, exif_only_md5, thumbnail_md5, full_md5,
-            file_format));
+            file_format, filesize);
         
         return ImportResult.SUCCESS;
     }
 }
 
-private class FileImportJob : BackgroundJob {
-    public BatchImportResult batch_result = null;
+private class ReadyForImport {
+    public File final_file;
+    public PreparedFile prepared_file;
+    public PhotoImportParams import_params;
+    public BatchImportResult batch_result;
     
-    private PreparedFile prepared_file;
-    private ImportID import_id;
-    private File final_file = null;
-    private PhotoImportParams photo_import_params = null;
-    
-    public FileImportJob(BatchImport owner, PreparedFile prepared_file, ImportID import_id,
-        CompletionCallback callback, Cancellable cancellable, CancellationCallback cancellation) {
-        base (owner, callback, cancellable, cancellation);
-        
-        this.import_id = import_id;
+    public ReadyForImport(File final_file, PreparedFile prepared_file, PhotoImportParams import_params,
+        BatchImportResult batch_result) {
+        this.final_file = final_file;
         this.prepared_file = prepared_file;
+        this.import_params = import_params;
+        this.batch_result = batch_result;
     }
     
-    // Not thread-safe.  Only call after CompletionCallback executed.
-    public string get_filename() {
-        return (final_file != null) ? final_file.get_path() : prepared_file.file.get_path();
-    }
-    
-    // Not thread safe.  Only call after CompletionCallback executed.
-    public PhotoImportParams get_photo_import_params() {
-        return photo_import_params;
-    }
-    
-    private override void execute() {
-        BatchImportJob job = prepared_file.job;
-        final_file = prepared_file.file;
-        
-        if (prepared_file.copy_to_library) {
-            try {
-                final_file = LibraryFiles.duplicate(prepared_file.file, null);
-                if (final_file == null) {
-                    batch_result = new BatchImportResult(job, prepared_file.file, prepared_file.id,
-                        ImportResult.FILE_ERROR);
-                    
-                    return;
-                }
-            } catch (Error err) {
-                batch_result = new BatchImportResult.from_error(job, prepared_file.file,
-                    prepared_file.id, err, ImportResult.FILE_ERROR);
-                
-                return;
-            }
-        }
-        
-        photo_import_params = new PhotoImportParams(final_file, import_id, PhotoFileSniffer.Options.GET_ALL,
-            new Thumbnails());
-        
-        ImportResult result = TransformablePhoto.prepare_for_import(photo_import_params);
-        if (result != ImportResult.SUCCESS && final_file != prepared_file.file) {
-            debug("Deleting failed imported copy %s", final_file.get_path());
-            try {
-                final_file.delete(null);
-            } catch (Error err) {
-                // don't let this file error cause a failure
-                warning("Unable to delete copy of imported file %s: %s", final_file.get_path(),
-                    err.message);
-            }
-        }
-        
-        batch_result = new BatchImportResult(job, final_file, prepared_file.id, result);
-    }
-    
-    // Not thread-safe.  Call only after CompletionCallback invoked.
     public BatchImportResult abort() {
         // if file copied, delete it
         if (final_file != null && final_file != prepared_file.file) {
@@ -973,6 +1172,112 @@ private class FileImportJob : BackgroundJob {
             ImportResult.USER_ABORT);
         
         return batch_result;
+    }
+}
+
+private class PreparedFilesImportJob : BackgroundJob {
+    public Gee.ArrayList<PreparedFile> not_ready = new Gee.ArrayList<PreparedFile>();
+    public Gee.ArrayList<ReadyForImport> ready = new Gee.ArrayList<ReadyForImport>();
+    public Gee.ArrayList<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
+    
+    private ImportID import_id;
+    private PhotoImportParams photo_import_params = null;
+    
+    public PreparedFilesImportJob(BatchImport owner, Gee.Collection<PreparedFile> prepared_files,
+        ImportID import_id, CompletionCallback callback, Cancellable cancellable,
+        CancellationCallback cancellation) {
+        base (owner, callback, cancellable, cancellation);
+        
+        this.import_id = import_id;
+        not_ready.add_all(prepared_files);
+    }
+    
+    private override void execute() {
+        while (not_ready.size > 0) {
+            PreparedFile prepared_file = not_ready.remove_at(0);
+            process_prepared_file(prepared_file);
+        }
+    }
+    
+    private void process_prepared_file(PreparedFile prepared_file) {
+        BatchImportResult batch_result = null;
+        
+        File final_file = prepared_file.file;
+        if (prepared_file.copy_to_library) {
+            try {
+                final_file = LibraryFiles.duplicate(prepared_file.file, null);
+                if (final_file == null) {
+                    batch_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                        prepared_file.id, ImportResult.FILE_ERROR);
+                    
+                    failed.add(batch_result);
+                    
+                    return;
+                }
+            } catch (Error err) {
+                batch_result = new BatchImportResult.from_error(prepared_file.job, prepared_file.file,
+                    prepared_file.id, err, ImportResult.FILE_ERROR);
+                
+                failed.add(batch_result);
+                
+                return;
+            }
+        }
+        
+        photo_import_params = new PhotoImportParams(final_file, import_id, PhotoFileSniffer.Options.GET_ALL,
+            prepared_file.exif_md5, prepared_file.thumbnail_md5, prepared_file.full_md5, new Thumbnails());
+        
+        ImportResult result = TransformablePhoto.prepare_for_import(photo_import_params);
+        if (result != ImportResult.SUCCESS && final_file != prepared_file.file) {
+            debug("Deleting failed imported copy %s", final_file.get_path());
+            try {
+                final_file.delete(null);
+            } catch (Error err) {
+                // don't let this file error cause a failure
+                warning("Unable to delete copy of imported file %s: %s", final_file.get_path(),
+                    err.message);
+            }
+        }
+        
+        batch_result = new BatchImportResult(prepared_file.job, final_file, prepared_file.id, result);
+        if (batch_result.result != ImportResult.SUCCESS)
+            failed.add(batch_result);
+        else
+            ready.add(new ReadyForImport(final_file, prepared_file, photo_import_params, batch_result));
+    }
+}
+
+private class CompletedImportPhoto {
+    public LibraryPhoto photo;
+    public Thumbnails thumbnails;
+    public BatchImportResult batch_result;
+    
+    public CompletedImportPhoto(LibraryPhoto photo, Thumbnails thumbnails, BatchImportResult batch_result) {
+        this.photo = photo;
+        this.thumbnails = thumbnails;
+        this.batch_result = batch_result;
+    }
+}
+
+private class ThumbnailWriterJob : BackgroundImportJob {
+    public Gee.Collection<CompletedImportPhoto> completed_import_photos;
+    
+    public ThumbnailWriterJob(BatchImport owner, Gee.Collection<CompletedImportPhoto> completed_import_photos,
+        CompletionCallback callback, Cancellable cancellable, CancellationCallback cancel_callback) {
+        base (owner, callback, cancellable, cancel_callback);
+        
+        this.completed_import_photos = completed_import_photos;
+    }
+    
+    public override void execute() {
+        foreach (CompletedImportPhoto completed in completed_import_photos) {
+            try {
+                ThumbnailCache.import_thumbnails(completed.photo, completed.thumbnails, true);
+                completed.batch_result.result = ImportResult.SUCCESS;
+            } catch (Error err) {
+                completed.batch_result.result = ImportResult.convert_error(err, ImportResult.FILE_ERROR);
+            }
+        }
     }
 }
 

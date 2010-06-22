@@ -135,6 +135,9 @@ public class PhotoImportParams {
     public File file;
     public ImportID import_id;
     public PhotoFileSniffer.Options sniffer_options;
+    public string? exif_md5;
+    public string? thumbnail_md5;
+    public string? full_md5;
     
     // IN/OUT:
     public Thumbnails? thumbnails;
@@ -144,10 +147,13 @@ public class PhotoImportParams {
     public Gee.Collection<string>? keywords = null;
     
     public PhotoImportParams(File file, ImportID import_id, PhotoFileSniffer.Options sniffer_options,
-        Thumbnails? thumbnails = null) {
+        string? exif_md5, string? thumbnail_md5, string? full_md5, Thumbnails? thumbnails = null) {
         this.file = file;
         this.import_id = import_id;
         this.sniffer_options = sniffer_options;
+        this.exif_md5 = exif_md5;
+        this.thumbnail_md5 = thumbnail_md5;
+        this.full_md5 = full_md5;
         this.thumbnails = thumbnails;
     }
 }
@@ -505,6 +511,10 @@ public abstract class TransformablePhoto: PhotoSource {
         TimeVal timestamp;
         info.get_modification_time(out timestamp);
         
+        // if all MD5s supplied, don't sniff for them
+        if (params.exif_md5 != null && params.thumbnail_md5 != null && params.full_md5 != null)
+            params.sniffer_options |= PhotoFileSniffer.Options.NO_MD5;
+        
         // interrogate file for photo information
         PhotoFileInterrogator interrogator = new PhotoFileInterrogator(file, params.sniffer_options);
         try {
@@ -519,6 +529,13 @@ public abstract class TransformablePhoto: PhotoSource {
         DetectedPhotoInformation? detected = interrogator.get_detected_photo_information();
         if (detected == null)
             return ImportResult.UNSUPPORTED_FORMAT;
+        
+        // copy over supplied MD5s if provided
+        if ((params.sniffer_options & PhotoFileSniffer.Options.NO_MD5) != 0) {
+            detected.exif_md5 = params.exif_md5;
+            detected.thumbnail_md5 = params.thumbnail_md5;
+            detected.md5 = params.full_md5;
+        }
         
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
@@ -2623,7 +2640,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             bool removed = trashcan.remove(photo);
             assert(removed);
             
-            notify_trashcan_contents_altered(null, get_singleton(photo));
+            notify_trashcan_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
         }
         
         base.notify_item_destroyed(source);
@@ -2697,17 +2714,26 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         trashcan.remove_all(to_remove);
         notify_trashcan_contents_altered(null, to_remove);
         
-        unlink_marked(to_unlink);
+        // total operations: n * 2
+        uint64 total_count = count * 2;
+        
+        AggregateProgressMonitor agg_monitor = null;
+        if (monitor != null) {
+            agg_monitor = new AggregateProgressMonitor(total_count, monitor);
+            monitor = agg_monitor.monitor;
+        }
+        
+        unlink_marked(to_unlink, monitor);
         
         // now destroy all of them, reporting this phase to the monitor
-        int ctr = 0;
+        int ctr = count;
         foreach (LibraryPhoto photo in selected) {
             debug("Deleting photo %s", photo.to_string());
             photo.destroy_orphan(delete_backing);
             notify_item_destroyed(photo);
             
             if (monitor != null)
-                monitor(++ctr, count);
+                monitor(++ctr, total_count);
         }
     }
     
@@ -2718,7 +2744,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         bool added = trashcan.add(photo);
         assert(added);
         
-        notify_trashcan_contents_altered(get_singleton(photo), null);
+        notify_trashcan_contents_altered((Gee.Collection<LibraryPhoto>) get_singleton(photo), null);
     }
     
     public void add_many_to_trash(Gee.Collection<LibraryPhoto> photos) {
@@ -2747,7 +2773,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         bool removed = trashcan.remove(photo);
         assert(removed);
         
-        notify_trashcan_contents_altered(null, get_singleton(photo));
+        notify_trashcan_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
         
         relink(photo);
     }
@@ -2783,8 +2809,7 @@ public class LibraryPhoto : Photo {
     private const uint64 FLAG_TRASH =       0x0000000000000004;
     
     public static LibraryPhotoSourceCollection global = null;
-    
-    private static MimicManager mimic_manager = null;
+    public static MimicManager mimic_manager = null;
     
     private bool block_thumbnail_generation = false;
     private OneShotScheduler thumbnail_scheduler = null;
@@ -2827,7 +2852,7 @@ public class LibraryPhoto : Photo {
     // has not already been inserted in the database.  See PhotoTable.add() for which fields are
     // used and which are ignored.  The PhotoRow itself will be modified with the remaining values
     // as they are stored in the database.
-    public static ImportResult import(PhotoImportParams params, out LibraryPhoto photo) {
+    public static ImportResult import_create(PhotoImportParams params, out LibraryPhoto photo) {
         // add to the database
         PhotoID photo_id = PhotoTable.get_instance().add(ref params.row);
         if (photo_id.is_invalid())
@@ -2836,19 +2861,6 @@ public class LibraryPhoto : Photo {
         // create local object but don't add to global until thumbnails generated
         photo = new LibraryPhoto(params.row);
         
-        try {
-            assert(params.thumbnails != null);
-            ThumbnailCache.import_thumbnails(photo, params.thumbnails, true);
-        } catch (Error err) {
-            warning("Unable to create thumbnails for %s: %s", params.row.master.filepath, err.message);
-            
-            PhotoTable.get_instance().remove(photo_id);
-            
-            return ImportResult.convert_error(err, ImportResult.DECODE_ERROR);
-        }
-        
-        global.add(photo);
-        
         // if photo has tags/keywords, add them now
         if (params.keywords != null) {
             foreach (string keyword in params.keywords)
@@ -2856,6 +2868,10 @@ public class LibraryPhoto : Photo {
         }
         
         return ImportResult.SUCCESS;
+    }
+    
+    public static void import_failed(LibraryPhoto photo) {
+        PhotoTable.get_instance().remove(photo.get_photo_id());
     }
     
     private void generate_thumbnails() {
@@ -3167,7 +3183,7 @@ public class DirectPhoto : Photo {
     // DirectPhoto.global.fetch to import files into the system.
     public static ImportResult internal_import(File file, out DirectPhoto? photo) {
         PhotoImportParams params = new PhotoImportParams(file, PhotoTable.get_instance().generate_import_id(),
-            PhotoFileSniffer.Options.NO_MD5);
+            PhotoFileSniffer.Options.NO_MD5, null, null, null);
         ImportResult result = TransformablePhoto.prepare_for_import(params);
         if (result != ImportResult.SUCCESS) {
             // this should never happen; DirectPhotoSourceCollection guarantees it.
