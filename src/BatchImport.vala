@@ -727,13 +727,13 @@ public class BatchImport : Object {
         do {
             CompletedImportPhoto completed = display_imported_queue.remove_at(0);
             
-            imported(completed.photo, completed.thumbnails.get(ThumbnailCache.Size.LARGEST));
-            report_progress(completed.photo.get_filesize());
-            file_import_complete();
-            
             // Stage the number of ready photos to incorporate into the system rather than doing them
             // one at a time, to keep the UI thread responsive.
             ready_photos.add(completed.photo);
+            
+            imported(completed.photo, completed.thumbnails.get(ThumbnailCache.Size.LARGEST));
+            report_progress(completed.photo.get_filesize());
+            file_import_complete();
         } while (cancellable.is_cancelled() && display_imported_queue.size > 0);
         
         if (ready_photos.size > 25 || cancellable.is_cancelled())
