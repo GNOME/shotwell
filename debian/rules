@@ -10,7 +10,7 @@ build: build-stamp
 
 build-stamp: configure
 	dh_testdir
-	./configure --prefix=/usr
+	./configure --prefix=/usr --disable-schemas-install --disable-desktop-update --disable-icon-update
 	$(MAKE)
 	touch $@
 
