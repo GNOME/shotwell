@@ -1,3 +1,18 @@
+Shotwell 0.6.0 - 24 June 2010
+-----------------------------
+
+  * Basic support for RAW images, including import support for all common
+    formats like CR2 and DNG
+  * Full support for working with PNG images
+  * Users can now zoom into photos to reveal latent detail
+  * A new preferences dialog gives users exceptional control over Shotwell's
+    functionality and appearance
+  * Users can now open photos in an external editor, such as the GIMP, from
+    within Shotwell
+  * Photo tags and titles are imported automatically from XMP and IPTC metadata
+  * A new photo trash can
+
+
 Shotwell 0.5.2 - 11 May 2010
 ----------------------------
 
@@ -5,6 +20,7 @@ Shotwell 0.5.2 - 11 May 2010
     translation.
   * Updated codebase to enable building on Vala 0.8.x. Vala 0.8.0 or later is
     now required to build Shotwell.
+
 
 Shotwell 0.5.0 - 11 March 2010
 ------------------------------
@@ -20,7 +36,7 @@ Shotwell 0.5.0 - 11 March 2010
   * Numerous bug fixes
 
 
-Shotwell 0.4.3 - 18 January 2009
+Shotwell 0.4.3 - 18 January 2010
 --------------------------------
 
   * Updated Italian and French translations.
@@ -28,7 +44,7 @@ Shotwell 0.4.3 - 18 January 2009
   * Problems unmounting camera fixed.
 
 
-Shotwell 0.4.2 - 4 January 2009
+Shotwell 0.4.2 - 4 January 2010
 -------------------------------
 
   * Added Bulgarian, Portuguese, and Slovak translations.  Updated 

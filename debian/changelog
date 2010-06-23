@@ -1,3 +1,20 @@
+shotwell (0.6.0-1~karmic1) karmic; urgency=low
+
+  * Basic support for RAW images, including import support for
+    all common formats like CR2 and DNG
+  * Full support for working with PNG images
+  * Users can now zoom into photos to reveal latent detail
+  * A new preferences dialog gives users exceptional control
+    over Shotwell's functionality and appearance
+  * Users can now open photos in an external editor, such as the
+    GIMP, from within Shotwell
+  * Photo tags and titles are imported automatically from XMP and
+    IPTC metadata
+  * A new photo trash can
+
+ -- Lucas Beeler <lucas@yorba.org>  Thu, 24 Jun 2010 09:21:13 -0700
+
+
 shotwell (0.5.0-1~karmic3) karmic; urgency=low
 
   * Photos can be tagged and organized by tag, creating a new
