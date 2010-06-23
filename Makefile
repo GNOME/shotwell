@@ -196,6 +196,8 @@ LOCAL_PKGS = \
 	LConv \
 	gdk-none
 
+# libraw is not listed (see note below); when libraw-config is no longer needed, it should be
+# added to this list
 EXT_PKGS = \
 	atk \
 	gdk-2.0 \
@@ -205,10 +207,10 @@ EXT_PKGS = \
 	sqlite3 \
 	gexiv2
 
-ifdef LINUX
-LOCAL_PKGS += \
+LIBRAW_PKG = \
 	libraw
 
+ifdef LINUX
 EXT_PKGS += \
 	gconf-2.0 \
 	libgphoto2 \
@@ -220,17 +222,17 @@ EXT_PKGS += \
 	dbus-glib-1
 endif
 
-ifdef WINDOWS
-LOCAL_PKGS += \
-	libraw
-endif
-
+# libraw is handled separately (see note below); when libraw-config is no longer needed, the version
+# should be added to this list
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
 	gtk+-2.0 >= 2.18.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9 \
 	gexiv2 >= 0.0.2
+
+LIBRAW_VERSION = \
+	0.9.0
 
 ifdef LINUX
 EXT_PKG_VERSIONS += \
@@ -244,7 +246,7 @@ EXT_PKG_VERSIONS += \
 	dbus-glib-1 >= 0.80
 endif
 
-PKGS = $(EXT_PKGS) $(LOCAL_PKGS)
+PKGS = $(EXT_PKGS) $(LOCAL_PKGS) $(LIBRAW_PKG)
 
 ifndef BUILD_DIR
 BUILD_DIR=src
@@ -311,17 +313,18 @@ endif
 endif
 
 ifdef LINUX
-# This is for libraw, which does not have a .pc file yet
-VALA_LDFLAGS += -lraw_r -lstdc++
-
 # Required for gudev-1.0
 CFLAGS += -DG_UDEV_API_IS_SUBJECT_TO_CHANGE
 endif
 
+# Packaged libraw is not widely available, so we must fake what would be in its .pc file
+# if not available.
+ifdef LINUX
+LIBRAW_CONFIG=./libraw-config
+endif
+
 ifdef WINDOWS
-# This is for libraw, which does not have a .pc file yet
-VALA_LDFLAGS += -lraw_r -lstdc++ -lwsock32
-CFLAGS += -DLIBRAW_NODLL
+LIBRAW_CONFIG=./libraw-config --windows
 endif
 
 $(LANG_STAMP): $(EXPANDED_PO_FILES)
@@ -439,9 +442,13 @@ $(VALA_STAMP): $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) $(EXPANDED_SRC_HEADE
 	@ ./minver `valac --version | awk '{print $$2}'` $(MIN_VALAC_VERSION) || ( echo 'Shotwell requires Vala compiler $(MIN_VALAC_VERSION) or greater.  You are running' `valac --version` '\b.'; exit 1 )
 ifndef ASSUME_PKGS
 ifdef EXT_PKG_VERSIONS
-	pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS)'
+	@pkg-config --print-errors --exists '$(EXT_PKG_VERSIONS)'
 else ifdef EXT_PKGS
-	pkg-config --print-errors --exists $(EXT_PKGS)
+	@pkg-config --print-errors --exists $(EXT_PKGS)
+endif
+# Check for libraw manually, but not on Windows, where install-deps is used
+ifndef WINDOWS
+	@$(LIBRAW_CONFIG) --exists=$(LIBRAW_VERSION)
 endif
 endif
 	@ type msgfmt > /dev/null || ( echo 'msgfmt (usually found in the gettext package) is missing and is required to build Shotwell. ' ; exit 1 )
@@ -460,15 +467,15 @@ $(EXPANDED_C_FILES): $(VALA_STAMP)
 	@
 
 $(EXPANDED_OBJ_FILES): %.o: %.c $(CONFIG_IN) Makefile
-	$(CC) -c $(VALA_CFLAGS) $(CFLAGS) -o $@ $<
+	$(CC) -c $(VALA_CFLAGS) `$(LIBRAW_CONFIG) --cflags` $(CFLAGS) -o $@ $<
 
 $(PROGRAM): $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
-	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -o $@
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -o $@
 
 glade: lib$(PROGRAM).so
 
 lib$(PROGRAM).so: $(EXPANDED_OBJ_FILES) $(RESOURCES) $(LANG_STAMP)
-	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) $(EXPORT_FLAGS) -shared -o $@
+	$(CC) $(EXPANDED_OBJ_FILES) $(CFLAGS) $(RESOURCES) $(VALA_LDFLAGS) `$(LIBRAW_CONFIG) --libs` $(EXPORT_FLAGS) -shared -o $@
 
 shotwell-setup-$(VERSION).exe: $(PROGRAM) windows/winstall.iss
 	iscc windows\winstall.iss
