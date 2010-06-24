@@ -100,21 +100,41 @@ public class Thumbnail : CheckerboardItem {
     //
     // Comparators
     //
+
+    public static int64 photo_id_ascending_comparator(void *a, void *b) {
+        return ((Thumbnail *) a)->photo.get_photo_id().id - ((Thumbnail *) b)->photo.get_photo_id().id;
+    }
+
+    public static int64 photo_id_descending_comparator(void *a, void *b) {
+        return photo_id_ascending_comparator(b, a);
+    }
     
     public static int64 title_ascending_comparator(void *a, void *b) {
-        return strcmp(((Thumbnail *) a)->get_title(), ((Thumbnail *) b)->get_title());
+        int64 result = strcmp(((Thumbnail *) a)->get_title(), ((Thumbnail *) b)->get_title());
+        if (result == 0)
+            result = photo_id_ascending_comparator(a, b);
+        return result;
     }
     
     public static int64 title_descending_comparator(void *a, void *b) {
-        return title_ascending_comparator(b, a);
+        int64 result = title_ascending_comparator(b, a);
+        if (result == 0)
+            result = photo_id_descending_comparator(a, b);
+        return result;
     }
     
     public static int64 exposure_time_ascending_comparator(void *a, void *b) {
-        return ((Thumbnail *) a)->photo.get_exposure_time() - ((Thumbnail *) b)->photo.get_exposure_time();
+        int64 result = ((Thumbnail *) a)->photo.get_exposure_time() - ((Thumbnail *) b)->photo.get_exposure_time();
+        if (result == 0)
+            result = photo_id_ascending_comparator(a, b);
+        return result;
     }
     
     public static int64 exposure_time_desending_comparator(void *a, void *b) {
-        return exposure_time_ascending_comparator(b, a);
+        int64 result = exposure_time_ascending_comparator(b, a);
+        if (result == 0)
+            result = photo_id_descending_comparator(a, b);
+        return result;
     }
     
     private override void thumbnail_altered() {
