@@ -1211,7 +1211,7 @@ public class PreferencesDialog {
             builder.get_object("library_dir_entry") as Gtk.Entry;
         
         library_dir_entry.set_text(AppDirs.get_import_dir().get_path());
-        library_dir_entry.changed.connect(on_import_dir_entry_changed);
+        library_dir_entry.focus_out_event.connect(on_import_dir_entry_changed);
         
         Gtk.Button library_dir_browser = 
             builder.get_object("file_browser_button") as Gtk.Button;
@@ -1349,16 +1349,18 @@ public class PreferencesDialog {
             File library_dir = file_chooser.get_file();
             
             library_dir_entry.set_text(library_dir.get_path());
+            on_import_dir_entry_changed(Gdk.EventFocus());
         }
         
         file_chooser.destroy();
     }
     
-    private void on_import_dir_entry_changed() {
+    private bool on_import_dir_entry_changed(Gdk.EventFocus event) {
         File library_dir = File.new_for_path(strip_pretty_path(library_dir_entry.get_text()));
-        
-        if (query_is_directory(library_dir))
-            AppDirs.set_import_dir(library_dir);
+
+        AppDirs.set_import_dir(library_dir);
+
+        return false;
     }
     
     private void on_photo_editor_changed() {
