@@ -467,8 +467,8 @@ public abstract class AppWindow : PageWindow {
         redo.tooltip = Resources.REDO_TOOLTIP;
         actions += redo;
 
-        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, null, 
-            TRANSLATABLE, on_jump_to_file };
+        Gtk.ActionEntry jump_to_file = { "CommonJumpToFile", Gtk.STOCK_JUMP_TO, TRANSLATABLE, 
+            "<Ctrl><Shift>M", TRANSLATABLE, on_jump_to_file };
         jump_to_file.label = Resources.JUMP_TO_FILE_MENU;
         jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
         actions += jump_to_file;
