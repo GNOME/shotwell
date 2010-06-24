@@ -1363,10 +1363,11 @@ public class PreferencesDialog {
     
     private void on_photo_editor_changed() {
         AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
-        
-        Config.get_instance().set_external_photo_app(app.get_commandline());
-        
-        debug("setting external photo editor to: %s", app.get_commandline());
+
+        Config.get_instance().set_external_photo_app(get_app_open_command(app));
+
+        debug("setting external photo editor to: %s", get_app_open_command(app));
+
     }
     
 #if !NO_RAW

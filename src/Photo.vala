@@ -2034,13 +2034,33 @@ public abstract class TransformablePhoto: PhotoSource {
         if (is_string_empty(commandline))
             return false;
         
-        AppInfo app = 
-            AppInfo.create_from_commandline(commandline, "", AppInfoCreateFlags.NONE);
-        
+        AppInfo? app;
+        try {
+            app = AppInfo.create_from_commandline(commandline, "", 
+                AppInfoCreateFlags.NONE);
+        } catch (Error er) {
+            app = null;
+        }
+
         List<File> files = new List<File>();
         files.insert(file, -1);
+
+        if (app != null)
+            return app.launch(files, null);
         
-        return app.launch(files, null);
+        string[] argv = new string[2];
+        argv[0] = commandline;
+        argv[1] = file.get_path();
+
+        Pid child_pid;
+
+        return Process.spawn_async(
+            get_root_directory(),
+            argv,
+            null, // environment
+            SpawnFlags.SEARCH_PATH,
+            null, // child setup
+            out child_pid);
     }
     
     // NOTE: This is a dangerous command.  It's HIGHLY recommended that this only be used with

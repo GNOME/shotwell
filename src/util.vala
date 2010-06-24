@@ -641,6 +641,9 @@ public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {
         if (mime_types.length == 0)
             return external_apps;
         
+        if (g_content_type_from_mime_type(mime_types[0]) == null)
+            return external_apps;
+        
         // make sure the app is avaiable to all mime types
         // 3 loops because List.index() wasn't paying nicely with AppInfo (special equality func?)
         foreach (AppInfo external_app in AppInfo.get_all_for_type(g_content_type_from_mime_type(mime_types[0]))) {
@@ -685,3 +688,18 @@ public bool is_twentyfour_hr_time_system() {
     
     return is_string_empty(timestring);
 }
+
+public string? get_app_open_command(AppInfo app_info) {
+    string? str = app_info.get_commandline();
+
+    return str != null ? str : app_info.get_executable();
+}
+
+public string get_root_directory() {
+#if WINDOWS
+    return "C:\\";
+#else
+    return "/";
+#endif
+}
+

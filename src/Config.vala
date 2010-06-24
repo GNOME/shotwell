@@ -608,7 +608,7 @@ public class Config {
         preferred_apps.add("GIMP");
         
         AppInfo? app = get_default_app_for_mime_types(PhotoFileFormat.get_editable_mime_types(), preferred_apps);
-        return (app != null) ? app.get_commandline() : "";            
+        return (app != null) ? get_app_open_command(app) : "";            
     }
     
     public void set_external_photo_app(string external_photo_app) {
@@ -628,7 +628,7 @@ public class Config {
         preferred_apps.add("UFRaw");
         
         AppInfo? app = get_default_app_for_mime_types(PhotoFileFormat.RAW.get_mime_types(), preferred_apps);
-        return (app != null) ? app.get_commandline() : "";  
+        return (app != null) ? get_app_open_command(app) : "";  
     }
 #endif
 
