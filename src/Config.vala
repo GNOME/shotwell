@@ -637,4 +637,3 @@ public class Config {
         external_app_changed();
     }
 }
-

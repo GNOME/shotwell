@@ -219,7 +219,8 @@ EXT_PKGS += \
 	unique-1.0 \
 	webkit-1.0 \
 	gudev-1.0 \
-	dbus-glib-1
+	dbus-glib-1 \
+	gdk-x11-2.0
 endif
 
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version

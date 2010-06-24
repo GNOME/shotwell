@@ -689,6 +689,14 @@ public bool is_twentyfour_hr_time_system() {
     return is_string_empty(timestring);
 }
 
+public string get_window_manager() {
+#if WINDOWS
+    return "";
+#else
+    return Gdk.x11_screen_get_window_manager_name(AppWindow.get_instance().get_screen());
+#endif
+}
+
 public string? get_app_open_command(AppInfo app_info) {
     string? str = app_info.get_commandline();
 
