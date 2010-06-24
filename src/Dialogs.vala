@@ -661,6 +661,9 @@ public class ProgressDialog : Gtk.Window {
         
         if ((count - last_count) > update_every) {
             set_percentage((double) count / (double) total);
+            
+            // TODO: get rid of this.  non-trivial, as some progress-monitor operations are blocking
+            // and need to allow the event loop to spin
             spin_event_loop();
             
             last_count = count;

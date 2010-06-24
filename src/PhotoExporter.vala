@@ -60,6 +60,7 @@ public class PhotoExporter : Object {
     private ProgressMonitor? monitor = null;
     private Cancellable? cancellable = null;
     private bool replace_all = false;
+    private bool aborted = false;
     
     public PhotoExporter(Gee.Collection<Photo> photos, File dir, Scaling scaling, Jpeg.Quality quality, 
         PhotoFileFormat file_format) {
@@ -88,23 +89,29 @@ public class PhotoExporter : Object {
         
         completed_count++;
         
-        if (job.err != null) {
+        // because the monitor spins the event loop, and so it's possible this function will be
+        // re-entered, decide now if this is the last job
+        bool completed = completed_count == photos.size;
+        
+        if (!aborted && job.err != null) {
             if (!error_callback(this, job.dest, photos.size - completed_count, job.err)) {
-                export_completed();
+                aborted = true;
                 
-                return;
+                if (!completed)
+                    return;
             }
         }
         
-        if (monitor != null) {
+        if (!aborted && monitor != null) {
             if (!monitor(completed_count, photos.size)) {
-                export_completed();
+                aborted = true;
                 
-                return;
+                if (!completed)
+                    return;
             }
         }
         
-        if (completed_count == photos.size)
+        if (completed)
             export_completed();
     }
     
