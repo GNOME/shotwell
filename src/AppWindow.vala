@@ -391,6 +391,8 @@ public abstract class AppWindow : PageWindow {
 
     protected bool maximized = false;
     protected Dimensions dimensions;
+    protected int pos_x = 0;
+    protected int pos_y = 0;
 
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
@@ -633,6 +635,8 @@ public abstract class AppWindow : PageWindow {
             
             return;
         }
+
+        get_position(out pos_x, out pos_y);
         
         FullscreenWindow fsw = new FullscreenWindow(page);
         
@@ -648,6 +652,8 @@ public abstract class AppWindow : PageWindow {
         if (fullscreen_window == null)
             return;
         
+        move(pos_x, pos_y);
+
         show_all();
         
         fullscreen_window.hide();
