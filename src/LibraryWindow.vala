@@ -898,7 +898,8 @@ public class LibraryWindow : AppWindow {
         } else if (page is TrashPage) {
             get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
             success = true;
-        } else if (path != null && path.compare(tags_marker.get_path()) == 0) {
+        } else if ((path != null) && (tags_marker != null) && (tags_marker.get_path() != null) && 
+                   (path.compare(tags_marker.get_path()) == 0)) {
             AddTagsDialog dialog = new AddTagsDialog();
             string[]? names = dialog.execute();
             if (names != null) {
