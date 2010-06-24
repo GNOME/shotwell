@@ -1270,8 +1270,9 @@ public class PreferencesDialog {
             Icon app_icon = app.get_icon();
             try {
                 if (app_icon is FileIcon) {
-                    combo_store.set_value(iter, 0, 
-                        new Gdk.Pixbuf.from_file(((FileIcon) app_icon).get_file().get_path()));
+                    combo_store.set_value(iter, 0, scale_pixbuf(new Gdk.Pixbuf.from_file(
+                        ((FileIcon) app_icon).get_file().get_path()), Resources.DEFAULT_ICON_SCALE,
+                        Gdk.InterpType.BILINEAR, false));
                 } else if (app_icon is ThemedIcon) {
                     unowned Gdk.Pixbuf icon_pixbuf = 
                         Gtk.IconTheme.get_default().load_icon(((ThemedIcon) app_icon).get_names()[0],

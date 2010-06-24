@@ -641,26 +641,26 @@ public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {
         if (mime_types.length == 0)
             return external_apps;
         
-        if (g_content_type_from_mime_type(mime_types[0]) == null)
-            return external_apps;
-        
-        // make sure the app is avaiable to all mime types
-        // 3 loops because List.index() wasn't paying nicely with AppInfo (special equality func?)
-        foreach (AppInfo external_app in AppInfo.get_all_for_type(g_content_type_from_mime_type(mime_types[0]))) {
-            foreach (string mime_type in mime_types) {
-                bool mime_uses_app = false;
+        // 3 loops because SortedList.contains() wasn't paying nicely with AppInfo,
+        // probably because it has a special equality function
+        foreach (string mime_type in mime_types) {
+            unowned string content_type = g_content_type_from_mime_type(mime_type);
+			if (content_type == null)
+				break;
+			
+            foreach (AppInfo external_app in 
+                AppInfo.get_all_for_type(content_type)) {
+                bool already_contains = false;
                 
-                List<AppInfo> mime_apps =
-                    AppInfo.get_all_for_type(g_content_type_from_mime_type(mime_type));
-                
-                foreach (AppInfo app in mime_apps) {
-                    if (app.equal(external_app))
-                        mime_uses_app = true;
+                foreach (AppInfo app in external_apps) {
+                    if (app.get_name() == external_app.get_name()) {
+                        already_contains = true;
+                        break;
+                    }
                 }
                 
                 // dont add Shotwell to app list
-                if (mime_uses_app && !external_apps.contains(external_app) && 
-                    !external_app.get_name().contains(Resources.APP_TITLE))
+                if (!already_contains && !external_app.get_name().contains(Resources.APP_TITLE))
                     external_apps.add(external_app);
             }
         }
@@ -702,4 +702,3 @@ public string get_root_directory() {
     return "/";
 #endif
 }
-
