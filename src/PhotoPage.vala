@@ -766,25 +766,27 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_view().clear();
     }
     
-    public override void switching_to_fullscreen() {
-        base.switching_to_fullscreen();
+    public override void switching_to_fullscreen(FullscreenWindow fsw) {
+        base.switching_to_fullscreen(fsw);
         
         deactivate_tool();
         
         cancel_zoom();
         is_pan_in_progress = false;
         
-        if (controller != null)
-            controller.items_selected.connect(on_selection_changed);
+        Page page = fsw.get_current_page();
+        if (page != null)
+            page.get_view().items_selected.connect(on_selection_changed);
     }
     
-    public override void returning_from_fullscreen() {
-        base.returning_from_fullscreen();
-                
+    public override void returning_from_fullscreen(FullscreenWindow fsw) {
+        base.returning_from_fullscreen(fsw);
+        
         repaint();
         
-        if (controller != null)
-            controller.items_selected.disconnect(on_selection_changed);
+        Page page = fsw.get_current_page();
+        if (page != null)
+            page.get_view().items_selected.disconnect(on_selection_changed);
     }
     
     private void on_selection_changed(Gee.Iterable<DataView> selected) {

@@ -149,12 +149,19 @@ public class FullscreenWindow : PageWindow {
         hide_toolbar();
         toolbar_window = null;
         
-        get_current_page().switching_from();
-        clear_current_page();
-        
         AppWindow.get_instance().end_fullscreen();
     }
-
+    
+    private override void destroy() {
+        Page? page = get_current_page();
+        if (page != null)
+            page.switching_from();
+        
+        clear_current_page();
+        
+        base.destroy();
+    }
+    
     private override bool delete_event(Gdk.Event event) {
         on_close();
         AppWindow.get_instance().destroy();
@@ -376,7 +383,7 @@ public abstract class PageWindow : Gtk.Window {
 }
 
 // AppWindow is the parent window for most windows in Shotwell (FullscreenWindow is the exception).
-// There are multiple types of AppWindows (LibraryWindow, EditWindow) for different tasks, but only 
+// There are multiple types of AppWindows (LibraryWindow, DirectWindow) for different tasks, but only 
 // one AppWindow may exist per process.  Thus, if the user closes an AppWindow, the program exits.
 //
 // AppWindow also offers support for going into fullscreen mode.  It handles the interface
@@ -641,7 +648,7 @@ public abstract class AppWindow : PageWindow {
         FullscreenWindow fsw = new FullscreenWindow(page);
         
         if (get_current_page() != null)
-            get_current_page().switching_to_fullscreen();
+            get_current_page().switching_to_fullscreen(fsw);
         
         fullscreen_window = fsw;
         fullscreen_window.present();
@@ -656,12 +663,12 @@ public abstract class AppWindow : PageWindow {
 
         show_all();
         
+        if (get_current_page() != null)
+            get_current_page().returning_from_fullscreen(fullscreen_window);
+        
         fullscreen_window.hide();
         fullscreen_window.destroy();
         fullscreen_window = null;
-        
-        if (get_current_page() != null)
-            get_current_page().returning_from_fullscreen();
         
         present();
     }

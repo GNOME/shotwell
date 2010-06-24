@@ -198,10 +198,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return in_view;
     }
     
-    public virtual void switching_to_fullscreen() {
+    public virtual void switching_to_fullscreen(FullscreenWindow fsw) {
     }
     
-    public virtual void returning_from_fullscreen() {
+    public virtual void returning_from_fullscreen(FullscreenWindow fsw) {
     }
     
     public void set_item_sensitive(string path, bool sensitive) {
