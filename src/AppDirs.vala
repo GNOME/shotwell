@@ -10,11 +10,14 @@ class AppDirs {
     private static File exec_dir;
     private static File data_dir = null;
     
+    // Because this is called prior to Debug.init(), this function cannot do any logging calls
     public static void init(string arg0) {
         File exec_file = File.new_for_path(Environment.find_program_in_path(arg0));
         exec_dir = exec_file.get_parent();
     }
     
+    // Because this *may* be called prior to Debug.init(), this function cannot do any logging
+    // calls
     public static void terminate() {
     }
     

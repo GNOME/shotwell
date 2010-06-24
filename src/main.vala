@@ -41,8 +41,6 @@ void library_exec(string[] mounts) {
     if (already_running())
         return;
 #else
-    // update Debug prefix
-    Debug.set_app_version_prefix(Debug.LIBRARY_PREFIX);
     // the library is single-instance; editing windows are one-process-per
     Unique.App shotwell = new Unique.App("org.yorba.shotwell", null);
     shotwell.add_command("MOUNTED_CAMERA", (int) ShotwellCommand.MOUNTED_CAMERA);
@@ -184,8 +182,6 @@ void library_exec(string[] mounts) {
 }
 
 void editing_exec(string filename) {
-    // update Debug prefix
-    Debug.set_app_version_prefix(Debug.VIEWER_PREFIX);
     // init modules direct-editing relies on
     DatabaseTable.init(null);
     DirectPhoto.init();
@@ -233,6 +229,28 @@ void main(string[] args) {
         return;
     }
     
+    // init debug prior to anything else (except Gtk, which it relies on, and AppDirs, which needs
+    // to be set ASAP) ... since we need to know what mode we're in, examine the command-line
+    // first
+    
+    // walk command-line arguments for camera mounts or filename for direct editing ... only one
+    // filename supported for now, so take the first one and drop the rest ... note that URIs for
+    // filenames are currently not permitted, to differentiate between mount points
+    string[] mounts = new string[0];
+    string filename = null;
+
+    for (int ctr = 1; ctr < args.length; ctr++) {
+        string arg = args[ctr];
+        
+        if (LibraryWindow.is_mount_uri_supported(arg)) {
+            mounts += arg;
+        } else if (is_string_empty(filename) && !arg.contains("://")) {
+            filename = arg;
+        }
+    }
+    
+    Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
+    
     // set custom data directory if it's been supplied
     if (data_dir != null)
         AppDirs.set_data_dir(File.parse_name(data_dir));
@@ -246,27 +264,8 @@ void main(string[] args) {
     startup_timer = new Timer();
     startup_timer.start();
     
-    // init debug prior to anything else (except Gtk, which it relies on)
-    Debug.init();
-    
     // set up GLib environment
     GLib.Environment.set_application_name(Resources.APP_TITLE);
-    
-    // walk command-line arguments for camera mounts or filename for direct editing ... only one
-    // filename supported for now, so take the first one and drop the rest ... note that URIs for
-    // filenames are currently not permitted, to differentiate between mount points
-    string[] mounts = new string[0];
-    string filename = null;
-
-    for (int ctr = 1; ctr < args.length; ctr++) {
-        string arg = args[ctr];
-        
-        if (LibraryWindow.is_mount_uri_supported(arg)) {
-            mounts += arg;
-        } else if (filename == null && !arg.contains("://")) {
-            filename = arg;
-        }
-    }
     
     // in both the case of running as the library or an editor, Resources is always
     // initialized
@@ -275,7 +274,7 @@ void main(string[] args) {
     // since it's possible for a mount name to be passed that's not supported (and hence an empty
     // mount list), or for nothing to be on the command-line at all, only go to direct editing if a
     // filename is spec'd
-    if (filename == null)
+    if (is_string_empty(filename))
         library_exec(mounts);
     else
         editing_exec(filename);

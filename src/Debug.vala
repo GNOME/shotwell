@@ -9,9 +9,9 @@ namespace Debug {
         LogLevelFlags.LEVEL_CRITICAL |
         LogLevelFlags.LEVEL_WARNING |
         LogLevelFlags.LEVEL_MESSAGE;
+    
     public const string VIEWER_PREFIX = "V";
     public const string LIBRARY_PREFIX = "L";
-    public const string INIT_PREFIX = "I";
     
     // Ideally, there would be a LogLevelFlags.NONE constant to use as
     // empty value but failing that, 0 works as well
@@ -24,10 +24,8 @@ namespace Debug {
     private unowned FileStream log_err = null;
     private FileStream log_file_stream = null;
     
-    public static void init() {
-        // Temporary prefix during initialisation, before we know whether
-        // the application is in Library or Viewer mode
-        log_app_version_prefix = INIT_PREFIX;
+    public static void init(string app_version_prefix) {
+        log_app_version_prefix = app_version_prefix;
         
         // default to stdout/stderr if file cannot be opened or console is specified
         log_out = stdout;
@@ -35,7 +33,8 @@ namespace Debug {
         
         string log_file_error_msg = null;
         
-        File log_file = AppDirs.get_log_file();
+        // logging to disk is currently off for viewer more; see http://trac.yorba.org/ticket/2078
+        File? log_file = (log_app_version_prefix == LIBRARY_PREFIX) ? AppDirs.get_log_file() : null;
         if(log_file != null) {
             File log_dir = log_file.get_parent();
             try {
@@ -98,10 +97,6 @@ namespace Debug {
     }
     
     public static void terminate() {
-    }
-    
-    public static void set_app_version_prefix(string app_version_prefix) {
-        log_app_version_prefix = app_version_prefix;
     }
     
     private bool is_enabled(LogLevelFlags flag) {

@@ -18,15 +18,16 @@ int number_of_processors() {
 #endif
 
 #if WINDOWS
+// Because this function is called prior to Debug.init(), it cannot make any logging calls
 void win_init(File exec_dir) {
     // On Windows we prepend the directory containing the Shotwell executable to the PATH.
     // This is necessary so that the gconf-d executable (which lives in ../libexec) will
     // be able to find the DLLs it needs, which are in the Shotwell executable directory.
     string path = Environment.get_variable("PATH");
     if (path == null)
-        error("can't get path");
+        print("can't get path\n");
     if (!Environment.set_variable("PATH", exec_dir.get_path() + ";" + path, true))
-        error("can't set path");
+        print("can't set path\n");
 }
 
 // Return the directory in which Shotwell is installed, or null if uninstalled.

@@ -533,6 +533,7 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    // This may be called before Debug.init(), so no error logging may be made
     public static bool is_mount_uri_supported(string uri) {
         foreach (string scheme in SUPPORTED_MOUNT_SCHEMES) {
             if (uri.has_prefix(scheme))
