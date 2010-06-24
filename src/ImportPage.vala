@@ -206,16 +206,16 @@ public class ImportPage : CheckerboardPage {
     private class CameraImportJob : BatchImportJob {
         private GPhoto.ContextWrapper context;
         private ImportSource import_file;
-        private File? dest_file;
         private GPhoto.Camera camera;
         private string fulldir;
         private string filename;
         private uint64 filesize;
+        private PhotoMetadata metadata;
+        private time_t exposure_time;
         
-        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file, File? dest_file) {
+        public CameraImportJob(GPhoto.ContextWrapper context, ImportSource import_file) {
             this.context = context;
             this.import_file = import_file;
-            this.dest_file = dest_file;
             
             // stash everything called in prepare(), as it may/will be called from a separate thread
             camera = import_file.get_camera();
@@ -224,10 +224,12 @@ public class ImportPage : CheckerboardPage {
             assert(fulldir != null);
             filename = import_file.get_filename();
             filesize = import_file.get_filesize();
+            metadata = import_file.get_metadata();
+            exposure_time = import_file.get_exposure_time();
         }
         
         public time_t get_exposure_time() {
-            return import_file.get_exposure_time();
+            return exposure_time;
         }
         
         public override string get_identifier() {
@@ -249,8 +251,21 @@ public class ImportPage : CheckerboardPage {
         }
         
         public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
-            if (dest_file == null)
+            File dest_file = null;
+            try {
+                bool collision;
+                dest_file = LibraryFiles.generate_unique_file(filename, metadata, exposure_time,
+                    out collision);
+            } catch (Error err) {
+                warning("Unable to generate local file for %s: %s", import_file.get_filename(),
+                    err.message);
+            }
+            
+            if (dest_file == null) {
+                message("Unable to generate local file for %s", import_file.get_filename());
+                
                 return false;
+            }
             
             GPhoto.save_image(context.context, camera, fulldir, filename, dest_file);
             
@@ -1003,7 +1018,6 @@ public class ImportPage : CheckerboardPage {
 
         SortedList<CameraImportJob> jobs = new SortedList<CameraImportJob>(import_job_comparator);
         Gee.ArrayList<CameraImportJob> already_imported = new Gee.ArrayList<CameraImportJob>();
-        Gee.ArrayList<CameraImportJob> failed = new Gee.ArrayList<CameraImportJob>();
         
         foreach (DataObject object in items) {
             ImportPreview preview = (ImportPreview) object;
@@ -1012,34 +1026,17 @@ public class ImportPage : CheckerboardPage {
             if (preview.is_already_imported()) {
                 message("Skipping import of %s: checksum detected in library", 
                     import_file.get_filename());
-                already_imported.add(new CameraImportJob(null_context, import_file, null));
+                already_imported.add(new CameraImportJob(null_context, import_file));
                 
                 continue;
             }
             
-            File dest_file = null;
-            try {
-                bool collision;
-                dest_file = LibraryFiles.generate_unique_file(import_file.get_filename(), 
-                    import_file.get_metadata(), import_file.get_exposure_time(), out collision);
-            } catch (Error err) {
-                warning("Unable to generate local file for %s: %s", import_file.get_filename(),
-                    err.message);
-            }
-            
-            if (dest_file == null) {
-                message("Unable to generate local file for %s", import_file.get_filename());
-                failed.add(new CameraImportJob(null_context, import_file, null));
-                
-                continue;
-            }
-            
-            jobs.add(new CameraImportJob(null_context, import_file, dest_file));
+            jobs.add(new CameraImportJob(null_context, import_file));
         }
         
         if (jobs.size > 0) {
             BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter,
-                failed, already_imported);
+                null, already_imported);
             batch_import.import_job_failed.connect(on_import_job_failed);
             batch_import.import_complete.connect(close_import);
             
@@ -1048,8 +1045,8 @@ public class ImportPage : CheckerboardPage {
             // camera.exit() and busy flag will be handled when the batch import completes
         } else {
             // since failed up-front, build a fake (faux?) ImportManifest and report it here
-            if (failed.size > 0 || already_imported.size > 0)
-                import_reporter(new ImportManifest(failed, already_imported));
+            if (already_imported.size > 0)
+                import_reporter(new ImportManifest(null, already_imported));
             
             close_import();
         }

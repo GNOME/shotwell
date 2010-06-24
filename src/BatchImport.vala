@@ -393,6 +393,8 @@ public class BatchImport : Object {
     // PrepareFiles stage
     //
     
+    // Note that this call can wind up completing the import if the user has cancelled the
+    // operation.
     private void flush_ready_files() {
         if (ready_files.size == 0)
             return;
@@ -544,13 +546,14 @@ public class BatchImport : Object {
         
         log_status(caller);
         
+        // this call can result in report_completed() being called, so don't call twice
         flush_ready_files();
         
         // if none prepared, then none outstanding (or will become outstanding, depending on how
         // the notifications are queued)
-        if (file_imports_to_perform == 0)
+        if (file_imports_to_perform == 0 && !completed)
             report_completed("no files prepared for import");
-        else if (file_imports_completed == file_imports_to_perform)
+        else if (file_imports_completed == file_imports_to_perform && !completed)
             report_completed("completed preparing files, all outstanding imports completed");
     }
     
@@ -997,6 +1000,8 @@ private class PrepareFilesJob : BackgroundImportJob {
     }
     
     private override void execute() {
+        Timer timer = new Timer();
+        
         Gee.ArrayList<PreparedFile> list = new Gee.ArrayList<PreparedFile>();
         foreach (FileToPrepare file_to_prepare in files_to_prepare) {
             ImportResult result = abort_check();
@@ -1039,11 +1044,12 @@ private class PrepareFilesJob : BackgroundImportJob {
                 report_error(job, file, file.get_path(), err, ImportResult.FILE_ERROR);
             }
             
-            if (list.size > 100) {
+            if (list.size > 100 || (timer.elapsed() > 0.5 && list.size > 0)) {
                 debug("Dumping %d prepared files", list.size);
                 PreparedFileCluster cluster = new PreparedFileCluster(list);
                 list = new Gee.ArrayList<PreparedFile>();
                 notify(notification, cluster);
+                timer.start();
             }
         }
         
