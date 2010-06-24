@@ -923,9 +923,12 @@ private class WorkSniffer : BackgroundImportJob {
                     report_error(job, child, child.get_path(), err, ImportResult.FILE_ERROR);
                 }
             } else if (file_type == FileType.REGULAR) {
-                total_bytes += info.get_size();
-                files_to_prepare.add(new FileToPrepare(job, child, copy_to_library));
-                notify(working_notification, null);
+                if (TransformablePhoto.is_file_image(child)
+                    && TransformablePhoto.is_file_supported(child)) {
+                    total_bytes += info.get_size();
+                    files_to_prepare.add(new FileToPrepare(job, child, copy_to_library));
+                    notify(working_notification, null);
+                }
             } else {
                 warning("Ignoring import of %s file type %d", child.get_path(), (int) file_type);
             }
