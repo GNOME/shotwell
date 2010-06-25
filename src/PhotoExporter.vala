@@ -29,7 +29,7 @@ public class PhotoExporter : Object {
         
         public ExportJob(PhotoExporter owner, Photo photo, File dest, Scaling scaling, 
             Jpeg.Quality quality, PhotoFileFormat format, Cancellable? cancellable) {
-            base (owner, owner.on_exported, cancellable);
+            base (owner, owner.on_exported, cancellable, owner.on_export_cancelled);
             
             this.photo = photo;
             this.dest = dest;
@@ -112,6 +112,11 @@ public class PhotoExporter : Object {
         }
         
         if (completed)
+            export_completed();
+    }
+    
+    private void on_export_cancelled(BackgroundJob j) {
+        if (++completed_count == photos.size)
             export_completed();
     }
     

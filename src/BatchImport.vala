@@ -1047,8 +1047,10 @@ private class PrepareFilesJob : BackgroundImportJob {
                 report_error(job, file, file.get_path(), err, ImportResult.FILE_ERROR);
             }
             
-            if (list.size > 100 || (timer.elapsed() > 0.5 && list.size > 0)) {
+            if (list.size > 100 || (timer.elapsed() > 5.0 && list.size > 0)) {
+#if TRACE_IMPORT
                 debug("Dumping %d prepared files", list.size);
+#endif
                 PreparedFileCluster cluster = new PreparedFileCluster(list);
                 list = new Gee.ArrayList<PreparedFile>();
                 notify(notification, cluster);

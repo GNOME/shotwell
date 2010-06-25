@@ -337,8 +337,14 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public bool is_in_starting_day(time_t time) {
+        // it's possible the Event ref is held although it's been emptied
+        // (such as the user removing items during an import, when events
+        // are being generate on-the-fly) ... return false here and let
+        // the caller make a new one
+        if (view.get_count() == 0)
+            return false;
+        
         // photos are stored in ViewCollection from earliest to latest
-        assert(view.get_count() > 0);
         LibraryPhoto earliest_photo = (LibraryPhoto) ((PhotoView) view.get_at(0)).get_source();
         Time earliest_tm = Time.local(earliest_photo.get_exposure_time());
         
@@ -459,7 +465,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
     public override time_t get_start_time() {
         // Because the ViewCollection is sorted by a DateComparator, the start time is the
         // first item.  However, we keep looking if it has no start time.
-        for (int i = 0; i < view.get_count(); i++) {
+        int count = view.get_count();
+        for (int i = 0; i < count; i++) {
             time_t time = ((PhotoView) view.get_at(i)).get_photo_source().get_exposure_time();
             if (time != 0)
                 return time;
@@ -469,12 +476,14 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public override time_t get_end_time() {
+        int count = view.get_count();
+        
         // Because the ViewCollection is sorted by a DateComparator, the end time is the
         // last item--no matter what.
-        if (view.get_count() == 0)
+        if (count == 0)
             return 0;
         
-        PhotoView photo = (PhotoView) view.get_at(view.get_count() - 1);
+        PhotoView photo = (PhotoView) view.get_at(count - 1);
         
         return photo.get_photo_source().get_exposure_time();
     }
