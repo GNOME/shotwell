@@ -301,12 +301,12 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         
         // monitor LibraryPhoto to trap when photos are destroyed and automatically remove from
         // the tag
-        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        LibraryPhoto.global.items_destroyed.connect(on_photos_destroyed);
     }
     
     ~Tag() {
         photos.contents_altered.disconnect(on_photos_contents_altered);
-        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        LibraryPhoto.global.items_destroyed.disconnect(on_photos_destroyed);
     }
     
     public static void init() {
@@ -611,8 +611,8 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             global.evaporate(this);
     }
     
-    private void on_photo_destroyed(DataSource source) {
-        detach((LibraryPhoto) source);
+    private void on_photos_destroyed(Gee.Collection<DataSource> sources) {
+        detach_many((Gee.Collection<LibraryPhoto>) sources);
     }
     
     public override void destroy() {

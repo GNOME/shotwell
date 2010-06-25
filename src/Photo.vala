@@ -2713,48 +2713,28 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
-    public void remove_from_app(Gee.Collection<LibraryPhoto> selected, bool delete_backing,
+    public void remove_from_app(Gee.Collection<LibraryPhoto> photos, bool delete_backing,
         ProgressMonitor? monitor = null) {
-        int count = selected.size;
-        if (count == 0)
-            return;
+        // make a copy of the list because we remove from it along the way
+        Gee.ArrayList<LibraryPhoto> local = new Gee.ArrayList<LibraryPhoto>();
+        local.add_all(photos);
         
-        // remove all items from the trashcan and report them as removed.  unlink all photos not
-        // in trash (trashed are already unlinked);
+        // remove all items from the trashcan and report them as removed
         Gee.ArrayList<LibraryPhoto> to_remove = new Gee.ArrayList<LibraryPhoto>();
-        Marker to_unlink = start_marking();
-        
-        foreach (LibraryPhoto photo in selected) {
-            if (photo.is_trashed())
+        Gee.Iterator<LibraryPhoto> iter = local.iterator();
+        while (iter.next()) {
+            LibraryPhoto photo = iter.get();
+            if (photo.is_trashed()) {
                 to_remove.add(photo);
-            else
-                to_unlink.mark(photo);
+                iter.remove();
+            }
         }
         
         trashcan.remove_all(to_remove);
         notify_trashcan_contents_altered(null, to_remove);
         
-        // total operations: n * 2
-        uint64 total_count = count * 2;
-        
-        AggregateProgressMonitor agg_monitor = null;
-        if (monitor != null) {
-            agg_monitor = new AggregateProgressMonitor(total_count, monitor);
-            monitor = agg_monitor.monitor;
-        }
-        
-        unlink_marked(to_unlink, monitor);
-        
-        // now destroy all of them, reporting this phase to the monitor
-        int ctr = count;
-        foreach (LibraryPhoto photo in selected) {
-            debug("Deleting photo %s", photo.to_string());
-            photo.destroy_orphan(delete_backing);
-            notify_item_destroyed(photo);
-            
-            if (monitor != null)
-                monitor(++ctr, total_count);
-        }
+        // everything remaining in local are photos that need to be destroyed outright
+        destroy_marked(mark_many(local), delete_backing, monitor);
     }
     
     public void add_to_trash(LibraryPhoto photo) {

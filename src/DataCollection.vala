@@ -966,6 +966,7 @@ public class DataCollection {
 public class SourceCollection : DataCollection {
     private class DestroyCounter : Object {
         public Marker remove_marker;
+        public Gee.ArrayList<DataSource> notify_list = new Gee.ArrayList<DataSource>();
         public int delete_failed = 0;
         
         public DestroyCounter(Marker remove_marker) {
@@ -988,6 +989,11 @@ public class SourceCollection : DataCollection {
     public virtual signal void item_destroyed(DataSource source) {
     }
     
+    // When this signal is fired, the item is still part of the collection but its own destroy()
+    // has already been called.
+    public virtual signal void items_destroyed(Gee.Collection<DataSource> destroyed) {
+    }
+    
     public SourceCollection(string name) {
         base (name);
     }
@@ -1004,6 +1010,10 @@ public class SourceCollection : DataCollection {
         item_destroyed(source);
     }
     
+    protected virtual void notify_items_destroyed(Gee.Collection<DataSource> destroyed) {
+        items_destroyed(destroyed);
+    }
+    
     protected override bool valid_type(DataObject object) {
         return object is DataSource;
     }
@@ -1017,6 +1027,11 @@ public class SourceCollection : DataCollection {
             act_on_marked(marker, destroy_and_delete_source, monitor, counter);
         else
             act_on_marked(marker, destroy_source, monitor, counter);
+        
+        // notify of destruction
+        foreach (DataSource source in counter.notify_list)
+            notify_item_destroyed(source);
+        notify_items_destroyed(counter.notify_list);
         
         // remove once all destroyed
         remove_marked(counter.remove_marker);
@@ -1043,9 +1058,9 @@ public class SourceCollection : DataCollection {
         
         source.internal_mark_for_destroy();
         source.destroy();
-        notify_item_destroyed(source);
         
         ((DestroyCounter) user).remove_marker.mark(source);
+        ((DestroyCounter) user).notify_list.add(source);
         
         return true;
     }
@@ -1663,16 +1678,21 @@ public class ViewCollection : DataCollection {
     
     private void on_sources_removed(Gee.Iterable<DataSource> removed) {
         // mark all view items associated with the source to be removed
-        Marker marker = start_marking();
+        Marker marker = null;
         foreach (DataSource source in removed) {
             DataView view = source_map.get(source);
             
             // ignore if not represented in this view
-            if (view != null)
+            if (view != null) {
+                if (marker == null)
+                    marker = start_marking();
+                
                 marker.mark(view);
+            }
         }
         
-        remove_marked(marker);
+        if (marker != null && marker.get_count() != 0)
+            remove_marked(marker);
     }
     
     private void on_source_altered(DataObject object) {
