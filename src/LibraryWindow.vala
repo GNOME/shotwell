@@ -741,7 +741,7 @@ public class LibraryWindow : AppWindow {
 
     public void enqueue_batch_import(BatchImport batch_import) {
         if (!displaying_import_queue_page) {
-            insert_page_after(events_directory_page.get_marker(), import_queue_page);
+            insert_page_before(events_directory_page.get_marker(), import_queue_page);
             displaying_import_queue_page = true;
         }
         
@@ -1210,11 +1210,8 @@ public class LibraryWindow : AppWindow {
         ImportPage page = new ImportPage(camera.gcamera, camera.uri);   
 
         // create the Cameras row if this is the first one
-        if (cameras_marker == null) {
-            cameras_marker = sidebar.insert_grouping_after(
-                (tags_marker != null) ? tags_marker : events_directory_page.get_marker(),
-                _("Cameras"));
-        }
+        if (cameras_marker == null)
+            cameras_marker = sidebar.insert_grouping_after(library_page.get_marker(), _("Cameras"));
         
         camera_pages.set(camera.uri, page);
         add_child_page(cameras_marker, page);
@@ -1333,10 +1330,10 @@ public class LibraryWindow : AppWindow {
     }
 #endif
     
-    private void insert_page_after(SidebarMarker after_marker, Page page) {
+    private void insert_page_before(SidebarMarker before_marker, Page page) {
         add_to_notebook(page);
         
-        sidebar.insert_sibling_after(after_marker, page);
+        sidebar.insert_sibling_before(before_marker, page);
     }
     
     // an orphan page is a Page that exists in the notebook (and can therefore be switched to) but
