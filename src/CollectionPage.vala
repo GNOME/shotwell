@@ -41,10 +41,7 @@ public abstract class CollectionPage : CheckerboardPage {
 #endif
     private int scale = Thumbnail.DEFAULT_SCALE;
     private PhotoExporterUI exporter = null;
-    private bool mousewheel_zoom_override = false; // if true, rolling the mousewheel zooms the
-                                                   // displayed thumbnails in & out; if false,
-                                                   // mousewheel scrolls as usual
-
+    
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
         base(page_name);
@@ -510,7 +507,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
-        if (mousewheel_zoom_override) {
+        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
             on_increase_size();
             return true;
         } else {
@@ -519,7 +516,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     protected override bool on_mousewheel_down(Gdk.EventScroll event) {
-        if (mousewheel_zoom_override) {
+        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
             on_decrease_size();
             return true;
         } else {
@@ -1236,8 +1233,6 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.clicked.disconnect(on_rotate_clockwise);
         rotate_button.clicked.connect(on_rotate_counterclockwise);
         
-        mousewheel_zoom_override = true;
-        
         return base.on_ctrl_pressed(event);
     }
     
@@ -1247,8 +1242,6 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked.disconnect(on_rotate_counterclockwise);
         rotate_button.clicked.connect(on_rotate_clockwise);
-        
-        mousewheel_zoom_override = false;
         
         return base.on_ctrl_released(event);
     }
