@@ -342,8 +342,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return AppWindow.get_command_manager();
     }
     
-    private void decorate_command_manager_item(string path, string prefix, string default_explanation,
-        CommandDescription? desc) {
+    private void decorate_command_manager_item(string path, string prefix,
+        string default_explanation, CommandDescription? desc) {
         set_item_sensitive(path, desc != null);
         
         Gtk.Action action = ui.get_action(path);

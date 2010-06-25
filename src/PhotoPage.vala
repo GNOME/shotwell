@@ -2299,7 +2299,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
         set_item_sensitive("/PhotoMenuBar/FileMenu/JumpToFile", sensitivity);
         set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", sensitive);
+        set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", sensitivity);
         set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", sensitivity);
         set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
@@ -2596,8 +2596,10 @@ public class LibraryPhotoPage : EditingHostPage {
         decorate_undo_item("/PhotoMenuBar/EditMenu/Undo");
         decorate_redo_item("/PhotoMenuBar/EditMenu/Redo");
         // Override the decorate calls of the photo is missing
-        set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", !get_photo_missing());
-        set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", !get_photo_missing());
+        if (get_photo_missing()) {
+            set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", false);
+            set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", false);
+        }
         set_item_sensitive("/PhotoMenuBar/EditMenu/MoveToTrash", has_photo() && !get_photo_missing());
     }
     
@@ -3393,8 +3395,10 @@ public class DirectPhotoPage : EditingHostPage {
         decorate_undo_item("/DirectMenuBar/EditMenu/Undo");
         decorate_redo_item("/DirectMenuBar/EditMenu/Redo");
         // Override the decorate calls of the photo is missing
-        set_item_sensitive("/DirectMenuBar/EditMenu/Undo", !get_photo_missing());
-        set_item_sensitive("/DirectMenuBar/EditMenu/Redo", !get_photo_missing());
+        if (get_photo_missing()) {
+            set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", false);
+            set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", false);
+        }
     }
     
     private void on_photo_menu() {
