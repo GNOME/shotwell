@@ -655,6 +655,9 @@ public class BatchImport : Object {
     //
     // ThumbnailWriter stage
     //
+    // Because the LibraryPhoto has been created at this stage, any cancelled work must also
+    // destroy the LibraryPhoto.
+    //
     
     private void on_thumbnail_writer_completed(BackgroundJob j) {
         assert(!completed);
@@ -669,7 +672,6 @@ public class BatchImport : Object {
                     completed.photo.to_string(), completed.batch_result.result.to_string());
                 
                 LibraryPhoto.import_failed(completed.photo);
-                
                 report_failure(completed.batch_result);
                 file_import_complete();
             } else {
@@ -687,8 +689,11 @@ public class BatchImport : Object {
         ThumbnailWriterJob job = (ThumbnailWriterJob) j;
         
         log_status("on_thumbnail_writer_cancelled");
+        warning("Destroying %d imported photos (operation cancelled, thumbnails not written out)",
+            job.completed_import_photos.size);
         
         foreach (CompletedImportPhoto completed in job.completed_import_photos) {
+            LibraryPhoto.import_failed(completed.photo);
             report_failure(completed.batch_result);
             file_import_complete();
         }
