@@ -633,8 +633,11 @@ public class ProgressDialog : Gtk.Window {
         alignment.add(vbox);
         
         add(alignment);
-
+        
         show_all();
+        
+        if (cancellable == null)
+            window.set_functions(Gdk.WMFunction.MOVE);
     }
     
     public void update_display_every(int update_every) {
