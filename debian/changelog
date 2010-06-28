@@ -1,4 +1,4 @@
-shotwell (0.6.0-1~karmic1) karmic; urgency=low
+shotwell (0.6.0-1~lucid1) lucid; urgency=low
 
   * Basic support for RAW images, including import support for
     all common formats like CR2 and DNG
@@ -12,7 +12,7 @@ shotwell (0.6.0-1~karmic1) karmic; urgency=low
     IPTC metadata
   * A new photo trash can
 
- -- Lucas Beeler <lucas@yorba.org>  Thu, 24 Jun 2010 09:21:13 -0700
+ -- Lucas Beeler <lucas@yorba.org>  Mon, 28 Jun 2010 12:48:30 -0700 
 
 
 shotwell (0.5.0-1~karmic3) karmic; urgency=low
