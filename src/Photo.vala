@@ -2715,26 +2715,43 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
     public void remove_from_app(Gee.Collection<LibraryPhoto> photos, bool delete_backing,
         ProgressMonitor? monitor = null) {
-        // make a copy of the list because we remove from it along the way
-        Gee.ArrayList<LibraryPhoto> local = new Gee.ArrayList<LibraryPhoto>();
-        local.add_all(photos);
+        // separate photos into two piles: those in the trash and those not
+        Gee.ArrayList<LibraryPhoto> trashed = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<LibraryPhoto> not_trashed = new Gee.ArrayList<LibraryPhoto>();
+        foreach (LibraryPhoto photo in photos) {
+            if (photo.is_trashed())
+                trashed.add(photo);
+            else
+                not_trashed.add(photo);
+        }
         
-        // remove all items from the trashcan and report them as removed
-        Gee.ArrayList<LibraryPhoto> to_remove = new Gee.ArrayList<LibraryPhoto>();
-        Gee.Iterator<LibraryPhoto> iter = local.iterator();
-        while (iter.next()) {
-            LibraryPhoto photo = iter.get();
-            if (photo.is_trashed()) {
-                to_remove.add(photo);
-                iter.remove();
+        int total_count = photos.size;
+        assert(total_count == (trashed.size + not_trashed.size));
+        
+        // use an aggregate progress monitor, as it's possible there are two steps here
+        AggregateProgressMonitor agg_monitor = null;
+        if (monitor != null) {
+            agg_monitor = new AggregateProgressMonitor(total_count, monitor);
+            monitor = agg_monitor.monitor;
+        }
+        
+        if (trashed.size > 0) {
+            // remove all items from the trashcan and report them as removed
+            trashcan.remove_all(trashed);
+            notify_trashcan_contents_altered(null, trashed);
+        
+            // manually destroy trashed (orphaned) photos
+            int ctr = 0;
+            foreach (LibraryPhoto photo in trashed) {
+                photo.destroy_orphan(delete_backing);
+                if (monitor != null)
+                    monitor(++ctr, total_count);
             }
         }
         
-        trashcan.remove_all(to_remove);
-        notify_trashcan_contents_altered(null, to_remove);
-        
-        // everything remaining in local are photos that need to be destroyed outright
-        destroy_marked(mark_many(local), delete_backing, monitor);
+        // untrashed photos may be destroyed outright
+        if (not_trashed.size > 0)
+            destroy_marked(mark_many(not_trashed), delete_backing, monitor);
     }
     
     public void add_to_trash(LibraryPhoto photo) {
