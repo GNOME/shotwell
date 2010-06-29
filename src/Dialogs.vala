@@ -322,17 +322,7 @@ public class QuestionParams {
 public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? question = null) {
     string message = "";
     
-    if (manifest.success.size > 0) {
-        string success_message = (ngettext("1 photo successfully imported.\n",
-            "%d photos successfully imported.\n", manifest.success.size)).printf(
-            manifest.success.size);
-        message += success_message;
-    }
-    
     if (manifest.already_imported.size > 0) {
-        if (list && message.length > 0)
-            message += "\n";
-        
         string already_imported_message =
             (ngettext("1 photo already in library was not imported:\n",
             "%d photos already in library were not imported:\n",
@@ -411,6 +401,16 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
         
         if (list)
             message += generate_import_failure_list(manifest.aborted);
+    }
+    
+    if (manifest.success.size > 0) {
+        if (list && message.length > 0)
+            message += "\n";
+        
+        string success_message = (ngettext("1 photo successfully imported.\n",
+            "%d photos successfully imported.\n", manifest.success.size)).printf(
+            manifest.success.size);
+        message += success_message;
     }
     
     int total = manifest.success.size + manifest.failed.size + manifest.camera_failed.size
