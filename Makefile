@@ -230,7 +230,7 @@ EXT_PKG_VERSIONS = \
 	gtk+-2.0 >= 2.18.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9 \
-	gexiv2 >= 0.0.2
+	gexiv2 >= 0.1.0
 
 LIBRAW_VERSION = \
 	0.9.0
