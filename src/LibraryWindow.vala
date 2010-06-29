@@ -690,7 +690,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_preferences() {
-        PreferencesDialog.show();        
+        PreferencesDialog.show();
     }
     
     private void on_display_basic_properties(Gtk.Action action) {

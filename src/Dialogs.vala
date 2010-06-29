@@ -1363,10 +1363,8 @@ public class PreferencesDialog {
     }
     
     private bool on_import_dir_entry_changed(Gdk.EventFocus event) {
-        File library_dir = File.new_for_path(strip_pretty_path(library_dir_entry.get_text()));
-
-        AppDirs.set_import_dir(library_dir);
-
+        AppDirs.set_import_dir(library_dir_entry.get_text());
+        
         return false;
     }
     
