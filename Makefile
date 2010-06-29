@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.6.0+branch
+VERSION = 0.6.0+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -45,7 +45,7 @@ ifdef WINDOWS
     EXPORT_FLAGS = -export-all-symbols
 endif
 
-SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro
+SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
 
