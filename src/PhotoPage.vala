@@ -645,6 +645,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
             case "KP_Subtract":
                 on_decrease_size();
                 return true;
+            
+            case "KP_Divide":
+                snap_zoom_to_isomorphic();
+                return true;
+
+            case "KP_Multiply":
+                snap_zoom_to_min();
+                return true;
         }
 
         return false;

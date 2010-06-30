@@ -1,3 +1,17 @@
+shotwell (0.6.1-1~lucid1) lucid; urgency=low
+
+  * Added Lithuanian and Serbian translations, updated Italian
+    and Spanish translations
+  * Fixed a problem with reverting to the default library
+    directory
+  * Added more zooming shorcuts
+  * Shotwell no longer offers to delete photos that failed to
+    import from a camera
+  * Photos emptied from trash no longer reappear
+
+ -- Allison Barlow <allison@yorba.org>  Wed, 30 Jun 2010 09:31:31 -0700 
+
+
 shotwell (0.6.0-1~lucid1) lucid; urgency=low
 
   * Basic support for RAW images, including import support for

@@ -16,7 +16,7 @@ Build-Depends: debhelper (>= 7),
  libwebkit-dev (>= 1.1.5),
  libgudev-1.0-dev (>= 145),
  libdbus-glib-1-dev (>= 0.80),
- libgexiv2-dev (>= 0.0.2),
+ libgexiv2-dev (>= 0.1.0),
  libraw-dev (>= 0.9.0)
 Standards-Version: 3.8.3
 Homepage: http://www.yorba.org/shotwell
@@ -38,7 +38,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libdbus-glib-1-2 (>= 0.80),
  librsvg2-common (>= 2.14.0),
  dbus-x11 (>= 1.2.4),
- libgexiv2-0 (>= 0.0.2),
+ libgexiv2-0 (>= 0.1.0),
  libraw-dev (>= 0.9.0)
 Description: Digital photo manager
  Shotwell is a digital photo manager designed for the GNOME desktop 

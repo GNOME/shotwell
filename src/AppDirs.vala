@@ -53,18 +53,29 @@ class AppDirs {
     
     public static File get_import_dir() {
         string path = Config.get_instance().get_import_dir();
-        if (path != null)
+        if (!is_string_empty(path)) {
+            // tilde -> home directory
+            path = strip_pretty_path(path);
+            
+            // if non-empty and relative, make it relative to the user's home directory
+            if (!Path.is_absolute(path)) 
+                return File.new_for_path(Environment.get_home_dir()).get_child(path);
+            
+            // non-empty and absolute, it's golden
             return File.new_for_path(path);
-
+        }
+        
+        // Empty path, use XDG Pictures directory
         path = Environment.get_user_special_dir(UserDirectory.PICTURES);
-        if (path != null)
+        if (!is_string_empty(path))
             return File.new_for_path(path);
         
+        // If XDG yarfed, use ~/Pictures
         return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
     }
 
-    public static void set_import_dir(File import_dir) {
-        Config.get_instance().set_import_dir(import_dir.get_path());
+    public static void set_import_dir(string path) {
+        Config.get_instance().set_import_dir(path);
     }
     
     public static File get_exec_dir() {

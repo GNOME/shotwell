@@ -293,6 +293,7 @@ public class ImportPage : CheckerboardPage {
     private string refresh_error = null;
     private string camera_name;
     private VolumeMonitor volume_monitor = null;
+    private ImportPage? local_ref = null;
     
     public enum RefreshResult {
         OK,
@@ -1035,6 +1036,10 @@ public class ImportPage : CheckerboardPage {
         }
         
         if (jobs.size > 0) {
+            // see import_reporter() to see why this is held during the duration of the import
+            assert(local_ref == null);
+            local_ref = this;
+            
             BatchImport batch_import = new BatchImport(jobs, camera_name, import_reporter,
                 null, already_imported);
             batch_import.import_job_failed.connect(on_import_job_failed);
@@ -1065,19 +1070,33 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void import_reporter(ImportManifest manifest) {
-        string question_string = (ngettext("Delete this photo from camera?",
-            "Delete these %d photos from camera?", manifest.all.size)).printf(manifest.all.size);
+        // TODO: Need to keep the ImportPage around until the BatchImport is completed, but the
+        // page controller (i.e. LibraryWindow) needs to know (a) if ImportPage is busy before
+        // removing and (b) if it is, to be notified when it ain't.  Until that's in place, need
+        // to hold the ref so the page isn't destroyed ... this switcheroo keeps the ref alive
+        // until this function returns (at any time)
+        ImportPage? local_ref = this.local_ref;
+        this.local_ref = null;
         
-        ImportUI.QuestionParams question = new ImportUI.QuestionParams(
-            question_string, Gtk.STOCK_DELETE, _("_Keep"));
+        if (manifest.success.size > 0) {
+            string question_string = (ngettext("Delete this photo from camera?",
+                "Delete these %d photos from camera?", 
+                manifest.success.size)).printf(manifest.success.size);
         
-        if (!ImportUI.report_manifest(manifest, false, question))
+            ImportUI.QuestionParams question = new ImportUI.QuestionParams(
+                question_string, Gtk.STOCK_DELETE, _("_Keep"));
+        
+            if (!ImportUI.report_manifest(manifest, false, question))
+                return;
+        } else {
+            ImportUI.report_manifest(manifest, false, null);
             return;
+        }
         
         // delete the photos from the camera and the SourceCollection... for now, this is an 
         // all-or-nothing deal
         Marker marker = import_sources.start_marking();
-        foreach (BatchImportResult batch_result in manifest.all) {
+        foreach (BatchImportResult batch_result in manifest.success) {
             CameraImportJob job = batch_result.job as CameraImportJob;
             
             marker.mark(job.get_source());
@@ -1091,6 +1110,9 @@ public class ImportPage : CheckerboardPage {
                 error_count);
             AppWindow.error_message(error_string);
         }
+        
+        // to stop build warnings
+        local_ref = null;
     }
 
     private void close_import() {
