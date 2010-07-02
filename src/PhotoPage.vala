@@ -622,18 +622,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
     protected virtual bool on_zoom_slider_key_press(Gdk.EventKey event) {
         switch (Gdk.keyval_name(event.keyval)) {
-            case "0":
-                snap_zoom_to_min();
-                return true;
-            
-            case "1":
-                snap_zoom_to_isomorphic();
-                return true;
-
-            case "2":
-                snap_zoom_to_max();
-                return true;
-            
             case "equal":
             case "plus":
             case "KP_Add":
@@ -2173,6 +2161,24 @@ public class LibraryPhotoPage : EditingHostPage {
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
+        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.STOCK_ZOOM_FIT, TRANSLATABLE,
+            "<Ctrl>0", TRANSLATABLE, snap_zoom_to_min };
+        best_fit.label = _("Fit to _Page");
+        best_fit.tooltip = _("Zoom the photo to fit on the screen");
+        actions += best_fit;
+
+        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.STOCK_ZOOM_100, TRANSLATABLE,
+            "<Ctrl>1", TRANSLATABLE, snap_zoom_to_isomorphic };
+        actual_size.label = _("Zoom _100%");
+        actual_size.tooltip = _("Zoom the photo to 100% magnification");
+        actions += actual_size;
+        
+        Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
+            "<Ctrl>2", TRANSLATABLE, snap_zoom_to_max };
+        max_size.label = _("Zoom _200%");
+        max_size.tooltip = _("Zoom the photo to 200% magnification");
+        actions += max_size;
+
         Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
         tags.label = _("Ta_gs");
         actions += tags;
@@ -2306,10 +2312,16 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
         set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
         set_item_sensitive("/PhotoMenuBar/FileMenu/JumpToFile", sensitivity);
+
         set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", sensitivity);
         set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", sensitivity);
+
         set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", sensitivity);
         set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/ZoomFit", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/Zoom100", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/Zoom200", sensitivity);
+
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
@@ -2325,6 +2337,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEdit", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", sensitivity);
 		set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+
         set_item_sensitive("/PhotoMenuBar/TagsMenu/AddTags", sensitivity);
         set_item_sensitive("/PhotoMenuBar/TagsMenu/ModifyTags", sensitivity);
         //AppWindow.get_instance().set_common_action_sensitive("CommonFullscreen", sensitivity);
@@ -3114,6 +3127,24 @@ public class DirectPhotoPage : EditingHostPage {
         decrease_size.tooltip = _("Decrease the magnification of the photo");
         actions += decrease_size;
 
+        Gtk.ActionEntry best_fit = { "ZoomFit", Gtk.STOCK_ZOOM_FIT, TRANSLATABLE,
+            "0", TRANSLATABLE, snap_zoom_to_min };
+        best_fit.label = _("Fit to _Page");
+        best_fit.tooltip = _("Zoom the photo to fit on the screen");
+        actions += best_fit;
+
+        Gtk.ActionEntry actual_size = { "Zoom100", Gtk.STOCK_ZOOM_100, TRANSLATABLE,
+            "1", TRANSLATABLE, snap_zoom_to_isomorphic };
+        actual_size.label = _("Zoom _100%");
+        actual_size.tooltip = _("Zoom the photo to 100% magnification");
+        actions += actual_size;
+        
+        Gtk.ActionEntry max_size = { "Zoom200", null, TRANSLATABLE,
+            "2", TRANSLATABLE, snap_zoom_to_max };
+        max_size.label = _("Zoom _200%");
+        max_size.tooltip = _("Zoom the photo to 200% magnification");
+        actions += max_size;
+
         return actions;
     }
     
@@ -3189,8 +3220,10 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/DirectMenuBar/FileMenu/JumpToFile", sensitivity);
 
         set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", sensitivity);
-        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", sensitivity);
         set_item_sensitive("/DirectMenuBar/ViewMenu/DecreaseSize", sensitivity);
+        set_item_sensitive("/DirectMenuBar/ViewMenu/ZoomFit", sensitivity);
+        set_item_sensitive("/DirectMenuBar/ViewMenu/Zoom100", sensitivity);
+        set_item_sensitive("/DirectMenuBar/ViewMenu/Zoom200", sensitivity);
 
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);

@@ -39,6 +39,10 @@
             <menuitem name="IncreaseSize" action="IncreaseSize" />
             <menuitem name="DecreaseSize" action="DecreaseSize" />
             <separator />
+            <menuitem name="ZoomFit" action="ZoomFit" />
+            <menuitem name="Zoom100" action="Zoom100" />
+            <menuitem name="Zoom200" action="Zoom200" />
+            <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
         </menu>
         
