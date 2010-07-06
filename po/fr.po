@@ -772,7 +772,7 @@ msgstr "Pour commencer, importez des photos d'une des manières suivantes :"
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr ""
-"Choisissez <span weight=\"bold\">Fichier %s importé depuis un dossier</span>"
+"Choisissez <span weight=\"bold\">Fichier %s importer depuis un dossier</span>"
 
 #: src/Dialogs.vala:1158
 msgid "Drag and drop photos onto the Shotwell window"
