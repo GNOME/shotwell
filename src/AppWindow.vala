@@ -42,12 +42,12 @@ public class FullscreenWindow : PageWindow {
         set_screen(AppWindow.get_instance().get_screen());
         set_border_width(0);
         
-        pin_button.set_label("Pin Toolbar");
-        pin_button.set_tooltip_text("Pin the toolbar open");
+        pin_button.set_label(_("Pin Toolbar"));
+        pin_button.set_tooltip_text(_("Pin the toolbar open"));
         pin_button.clicked.connect(on_pin_button_state_change);
         
         // TODO: Don't stock items supply their own tooltips?
-        close_button.set_tooltip_text("Leave fullscreen");
+        close_button.set_tooltip_text(_("Leave fullscreen"));
         close_button.clicked.connect(on_close);
         
         Gtk.Toolbar toolbar = page.get_toolbar();
