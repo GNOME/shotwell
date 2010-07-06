@@ -61,6 +61,9 @@ public class FullscreenWindow : PageWindow {
             toolbar.insert(pin_button, -1); 
         }
 
+        page.set_cursor_hide_time(TOOLBAR_DISMISSAL_SEC * 1000);
+        page.start_cursor_hiding();
+
         toolbar.insert(close_button, -1);
         
         // set up toolbar along bottom of screen
@@ -154,8 +157,10 @@ public class FullscreenWindow : PageWindow {
     
     private override void destroy() {
         Page? page = get_current_page();
-        if (page != null)
+        if (page != null) {
+            page.stop_cursor_hiding();
             page.switching_from();
+        }
         
         clear_current_page();
         

@@ -1041,7 +1041,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         // was possible; the null guards are required because zoom can be cancelled at
         // any time
         if (canvas != null && canvas.window != null)
-            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+            set_page_cursor(Gdk.CursorType.LEFT_PTR);
         
         repaint();
     }
@@ -1313,6 +1313,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             zoom_pan_start_point.x = (int) event.x;
             zoom_pan_start_point.y = (int) event.y;
             is_pan_in_progress = true;
+            suspend_cursor_hiding();
 
             return true;
         }
@@ -1346,6 +1347,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             get_zoom_buffer().flush_demand_cache(zoom_state);
 
             is_pan_in_progress = false;
+            restore_cursor_hiding();
         }
 
         // report all releases, as it's possible the user click and dragged from inside the
@@ -1397,9 +1399,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void update_cursor_for_zoom_context() {
         if (is_panning_possible())
-            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.FLEUR));
+            set_page_cursor(Gdk.CursorType.FLEUR);
         else
-            canvas.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.LEFT_PTR));
+            set_page_cursor(Gdk.CursorType.LEFT_PTR);
     }
     
     // Return true to block the DnD handler from activating a drag
@@ -1424,8 +1426,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             on_interactive_pan(zoom_state);
             return true;
         }
-            
-        return false;
+        
+        return base.on_motion(event, x, y, mask);
     }
     
     private void track_tool_window() {
@@ -1717,9 +1719,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         bool deactivating_only = (!toggle.active && current_editing_toggle == toggle);
         deactivate_tool();
         
-        if (deactivating_only)
+        if (deactivating_only) {
+            restore_cursor_hiding();
             return;
+        }
         
+        suspend_cursor_hiding();
+
         current_editing_toggle = toggle;
         
         // create the tool, hook its signals, and activate

@@ -30,6 +30,11 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool alt_pressed = false;
     private bool shift_pressed = false;
     private bool super_pressed = false;
+    private Gdk.CursorType last_cursor = Gdk.CursorType.ARROW;
+    private bool cursor_hidden = false;
+    private int cursor_hide_msec = 0;
+    private uint last_timeout_id = 0;
+    private int cursor_hide_time_cached = 0;
     
     public Page(string page_name) {
         this.page_name = page_name;
@@ -135,6 +140,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         event_source.button_release_event.connect(on_button_released_internal);
         event_source.motion_notify_event.connect(on_motion_internal);
         event_source.scroll_event.connect(on_mousewheel_internal);
+        event_source.realize.connect(on_event_source_realize);
     }
     
     private void detach_event_source() {
@@ -799,6 +805,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     protected virtual bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+        check_cursor_hiding();
+
         return false;
     }
     
@@ -875,6 +883,83 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
             context_menu.popup(null, null, null, event.button, event.time);
 
         return true;
+    }
+
+    protected void on_event_source_realize() {
+        assert(event_source.window != null); // the realize event means the Widget has a window
+
+        if (event_source.window.get_cursor() != null) {
+            last_cursor = event_source.window.get_cursor().type;
+            return;
+        }
+
+        // no custom cursor defined, check parents
+        Gdk.Window? parent_window = event_source.window;
+        do {
+            parent_window = parent_window.get_parent();
+        } while (parent_window != null && parent_window.get_cursor() == null);
+        
+        if (parent_window != null)
+            last_cursor = parent_window.get_cursor().type;
+        else
+            warning("No custom cursor set, defaulting to %s", last_cursor.to_string());
+    }
+
+    public void set_cursor_hide_time(int hide_time) {
+        cursor_hide_msec = hide_time;
+    }
+
+    public void start_cursor_hiding() {
+        check_cursor_hiding();
+    }
+
+    public void stop_cursor_hiding() {
+        if (last_timeout_id != 0)
+            Source.remove(last_timeout_id);
+    }
+
+    public void suspend_cursor_hiding() {
+        cursor_hide_time_cached = cursor_hide_msec;
+
+        if (last_timeout_id != 0)
+            Source.remove(last_timeout_id);
+
+        cursor_hide_msec = 0;
+    }
+
+    public void restore_cursor_hiding() {
+        cursor_hide_msec = cursor_hide_time_cached;
+        check_cursor_hiding();
+    }
+
+    // Use this method to set the cursor for a page, NOT window.set_cursor(...)
+    protected virtual void set_page_cursor(Gdk.CursorType cursor_type) {
+        last_cursor = cursor_type;
+
+        if (!cursor_hidden && event_source != null)
+            event_source.window.set_cursor(new Gdk.Cursor(cursor_type));
+    }
+
+    private void check_cursor_hiding() {
+        if (cursor_hidden) {
+            cursor_hidden = false;
+            set_page_cursor(last_cursor);
+        }
+
+        if (cursor_hide_msec != 0) {
+            if (last_timeout_id != 0)
+                Source.remove(last_timeout_id);
+            last_timeout_id = Timeout.add(cursor_hide_msec, on_hide_cursor);
+        }
+    }
+
+    private bool on_hide_cursor() {
+        cursor_hidden = true;
+
+        if (event_source != null)
+            event_source.window.set_cursor(new Gdk.Cursor(Gdk.CursorType.BLANK_CURSOR));
+
+        return false;
     }
 }
 
@@ -1303,7 +1388,7 @@ public abstract class CheckerboardPage : Page {
             autoscroll_scheduled = true;
         }
 
-        return true;
+        return base.on_motion(event, x, y, mask);
     }
     
     private void updated_selection_band() {
