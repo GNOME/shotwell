@@ -1,3 +1,16 @@
+Shotwell 0.6.1 - 30 June 2010
+-----------------------------
+
+  * Added Lithuanian and Serbian translations, updated Italian
+    and Spanish translations
+  * Fixed a problem with reverting to the default library
+    directory
+  * Added more zooming shorcuts
+  * Shotwell no longer offers to delete photos that failed to
+    import from a camera
+  * Photos emptied from trash no longer reappear
+
+
 Shotwell 0.6.0 - 28 June 2010
 -----------------------------
 
@@ -20,6 +33,13 @@ Shotwell 0.5.2 - 11 May 2010
     translation.
   * Updated codebase to enable building on Vala 0.8.x. Vala 0.8.0 or later is
     now required to build Shotwell.
+
+
+Shotwell 0.5.1 - 16 March 2010
+------------------------------
+
+  * Minor Windows-specific release fixing an installer bug.  No changes to Linux
+    version.
 
 
 Shotwell 0.5.0 - 11 March 2010
