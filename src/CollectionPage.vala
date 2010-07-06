@@ -275,17 +275,17 @@ public abstract class CollectionPage : CheckerboardPage {
         rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_left;
 
-        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, null,
-            TRANSLATABLE, on_mirror };
-        mirror.label = Resources.MIRROR_MENU;
-        mirror.tooltip = Resources.MIRROR_TOOLTIP;
-        actions += mirror;
+        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip_horizontally };
+        hflip.label = Resources.HFLIP_MENU;
+        hflip.tooltip = Resources.HFLIP_TOOLTIP;
+        actions += hflip;
         
-        Gtk.ActionEntry flip = { "Flip", Resources.FLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip };
-        flip.label = Resources.FLIP_MENU;
-        flip.tooltip = Resources.FLIP_TOOLTIP;
-        actions += flip;
+        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip_vertically };
+        vflip.label = Resources.VFLIP_MENU;
+        vflip.tooltip = Resources.VFLIP_TOOLTIP;
+        actions += vflip;
 
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
@@ -870,8 +870,8 @@ public abstract class CollectionPage : CheckerboardPage {
         
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Mirror", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Flip", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipHorizontally", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipVertically", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
@@ -939,23 +939,23 @@ public abstract class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
     
-    private void on_mirror() {
+    private void on_flip_horizontally() {
         if (get_view().get_selected_count() == 0)
             return;
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
-            Rotation.MIRROR, Resources.MIRROR_LABEL, Resources.MIRROR_TOOLTIP, _("Mirroring"),
-            _("Undoing Mirror"));
+            Rotation.MIRROR, Resources.HFLIP_LABEL, Resources.HFLIP_TOOLTIP, _("Flipping Horizontally"),
+            _("Undoing Flip Horizontally"));
         get_command_manager().execute(command);
     }
     
-    private void on_flip() {
+    private void on_flip_vertically() {
         if (get_view().get_selected_count() == 0)
             return;
         
         RotateMultipleCommand command = new RotateMultipleCommand(get_view().get_selected(),
-            Rotation.UPSIDE_DOWN, Resources.FLIP_LABEL, Resources.FLIP_TOOLTIP, _("Flipping"),
-            _("Undoing Flip"));
+            Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, Resources.VFLIP_TOOLTIP, _("Flipping Vertically"),
+            _("Undoing Flip Vertically"));
         get_command_manager().execute(command);
     }
     

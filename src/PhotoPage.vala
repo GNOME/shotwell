@@ -1611,12 +1611,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         rotate(Rotation.COUNTERCLOCKWISE, Resources.ROTATE_CCW_FULL_LABEL, Resources.ROTATE_CCW_TOOLTIP);
     }
     
-    public void on_mirror() {
-        rotate(Rotation.MIRROR, Resources.MIRROR_LABEL, Resources.MIRROR_TOOLTIP);
+    public void on_flip_horizontally() {
+        rotate(Rotation.MIRROR, Resources.HFLIP_LABEL, Resources.HFLIP_TOOLTIP);
     }
     
-    public void on_flip() {
-        rotate(Rotation.UPSIDE_DOWN, Resources.FLIP_LABEL, Resources.FLIP_TOOLTIP);
+    public void on_flip_vertically() {
+        rotate(Rotation.UPSIDE_DOWN, Resources.VFLIP_LABEL, Resources.VFLIP_TOOLTIP);
     }
     
     public void on_revert() {
@@ -2063,17 +2063,17 @@ public class LibraryPhotoPage : EditingHostPage {
         rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_left;
 
-        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, null,
-            TRANSLATABLE, on_mirror };
-        mirror.label = Resources.MIRROR_MENU;
-        mirror.tooltip = Resources.MIRROR_TOOLTIP;
-        actions += mirror;
+        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip_horizontally };
+        hflip.label = Resources.HFLIP_MENU;
+        hflip.tooltip = Resources.HFLIP_TOOLTIP;
+        actions += hflip;
         
-        Gtk.ActionEntry flip = { "Flip", Resources.FLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip };
-        flip.label = Resources.FLIP_MENU;
-        flip.tooltip = Resources.FLIP_TOOLTIP;
-        actions += flip;
+        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip_vertically };
+        vflip.label = Resources.VFLIP_MENU;
+        vflip.tooltip = Resources.VFLIP_TOOLTIP;
+        actions += vflip;
         
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
@@ -2330,8 +2330,8 @@ public class LibraryPhotoPage : EditingHostPage {
 
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Flip", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipHorizontally", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipVertically", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
@@ -2658,8 +2658,8 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Mirror", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Flip", rotate_possible);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipHorizontally", rotate_possible);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipVertically", rotate_possible);
         set_hide_item_label("/PhotoMenuBar/PhotoMenu/HideUnhide");
         set_favorite_item_label("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite");
                 
@@ -3057,17 +3057,17 @@ public class DirectPhotoPage : EditingHostPage {
         rotate_left.tooltip = Resources.ROTATE_CCW_TOOLTIP;
         actions += rotate_left;
 
-        Gtk.ActionEntry mirror = { "Mirror", Resources.MIRROR, TRANSLATABLE, null,
-            TRANSLATABLE, on_mirror };
-        mirror.label = Resources.MIRROR_MENU;
-        mirror.tooltip = Resources.MIRROR_TOOLTIP;
-        actions += mirror;
+        Gtk.ActionEntry hflip = { "FlipHorizontally", Resources.HFLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip_horizontally };
+        hflip.label = Resources.HFLIP_MENU;
+        hflip.tooltip = Resources.HFLIP_TOOLTIP;
+        actions += hflip;
         
-        Gtk.ActionEntry flip = { "Flip", Resources.FLIP, TRANSLATABLE, null,
-            TRANSLATABLE, on_flip };
-        flip.label = Resources.FLIP_MENU;
-        flip.tooltip = Resources.FLIP_TOOLTIP;
-        actions += flip;
+        Gtk.ActionEntry vflip = { "FlipVertically", Resources.VFLIP, TRANSLATABLE, null,
+            TRANSLATABLE, on_flip_vertically };
+        vflip.label = Resources.VFLIP_MENU;
+        vflip.tooltip = Resources.VFLIP_TOOLTIP;
+        actions += vflip;
         
         Gtk.ActionEntry enhance = { "Enhance", Resources.ENHANCE, TRANSLATABLE, "<Ctrl>E",
             TRANSLATABLE, on_enhance };
@@ -3233,8 +3233,8 @@ public class DirectPhotoPage : EditingHostPage {
 
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Flip", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipHorizontally", sensitivity);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipVertically", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Crop", sensitivity);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
@@ -3458,8 +3458,8 @@ public class DirectPhotoPage : EditingHostPage {
         set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Mirror", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Flip", rotate_possible);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipHorizontally", rotate_possible);
+        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipVertically", rotate_possible);
         set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", revert_possible);
     }
     

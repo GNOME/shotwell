@@ -64,8 +64,8 @@
         <menu name="PhotosMenu" action="PhotosMenu">
             <menuitem name="RotateClockwise" action="RotateClockwise" />
             <menuitem name="RotateCounterclockwise" action="RotateCounterclockwise" />
-            <menuitem name="Mirror" action="Mirror" />
-            <menuitem name="Flip" action="Flip" />
+            <menuitem name="FlipHorizontally" action="FlipHorizontally" />
+            <menuitem name="FlipVertically" action="FlipVertically" />
             <separator />
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />

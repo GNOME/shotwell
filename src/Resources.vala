@@ -51,8 +51,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     public const string CLOCKWISE = "shotwell-rotate-clockwise";
     public const string COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
-    public const string MIRROR = "shotwell-mirror";
-    public const string FLIP = "shotwell-flip";
+    public const string HFLIP = "shotwell-mirror";
+    public const string VFLIP = "shotwell-flip";
     public const string CROP = "shotwell-crop";
     public const string REDEYE = "shotwell-redeye";
     public const string ADJUST = "shotwell-adjust";
@@ -83,13 +83,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ROTATE_CCW_FULL_LABEL = _("Rotate Left");
     public const string ROTATE_CCW_TOOLTIP = _("Rotate the photos left");
     
-    public const string MIRROR_MENU = _("_Mirror");
-    public const string MIRROR_LABEL = _("Mirror");
-    public const string MIRROR_TOOLTIP = _("Make mirror images of the photos");
+    public const string HFLIP_MENU = _("Flip Hori_zontally");
+    public const string HFLIP_LABEL = _("Flip Horizontally");
+    public const string HFLIP_TOOLTIP = _("Flip the photos horizontally");
     
-    public const string FLIP_MENU = _("Fl_ip");
-    public const string FLIP_LABEL = _("Flip");
-    public const string FLIP_TOOLTIP = _("Flip the photos upside down");
+    public const string VFLIP_MENU = _("Flip Verti_cally");
+    public const string VFLIP_LABEL = _("Flip Vertically");
+    public const string VFLIP_TOOLTIP = _("Flip the photos vertically");
     
     public const string ENHANCE_MENU = _("_Enhance");
     public const string ENHANCE_LABEL = _("Enhance");
@@ -296,8 +296,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         File icons_dir = AppDirs.get_resources_dir().get_child("icons");
         add_stock_icon(icons_dir.get_child("object-rotate-right.svg"), CLOCKWISE);
         add_stock_icon(icons_dir.get_child("object-rotate-left.svg"), COUNTERCLOCKWISE);
-        add_stock_icon(icons_dir.get_child("object-flip-horizontal.svg"), MIRROR);
-        add_stock_icon(icons_dir.get_child("object-flip-vertical.svg"), FLIP);
+        add_stock_icon(icons_dir.get_child("object-flip-horizontal.svg"), HFLIP);
+        add_stock_icon(icons_dir.get_child("object-flip-vertical.svg"), VFLIP);
         add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
         add_stock_icon(icons_dir.get_child("adjust.png"), ADJUST);
