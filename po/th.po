@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: shotwell-0.6.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
-"PO-Revision-Date: 2010-06-17 14:23+0700\n"
-"Last-Translator: Piyachat Chinsaeng <neo.bojang@gmail.com>\n"
+"PO-Revision-Date: 2010-07-07 17:22+0700\n"
+"Last-Translator: Sira Nokyoongtong <gumaraa@gmail.com>\n"
 "Language-Team: thai-l10n <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -23,7 +23,9 @@ msgstr ""
 # below if it's not already present
 #: src/AppWindow.vala:567
 msgid "translator-credits"
-msgstr "Piyachat Chinsaeng <neo.bojang@gmail.com>"
+msgstr ""
+"Piyachat Chinsaeng <neo.bojang@gmail.com>\n"
+"Sira Nokyoongtong <gumaraa@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -36,7 +38,7 @@ msgstr "ตัวจัดการภาพถ่าย"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr "จัดระเบียบภาพของคุณ"
+msgstr "จัดระเบียบภาพถ่ายของคุณ"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
@@ -49,11 +51,11 @@ msgstr "โปรแกรมแสดงภาพถ่าย"
 
 #: src/Resources.vala:293
 msgid "_Move to Trash"
-msgstr "ลบไปที่ถังขยะ"
+msgstr "ทิ้งลงถังขยะ"
 
 #: src/Resources.vala:285
 msgid "Show in File Mana_ger"
-msgstr "เปิดด้วยโปรแกรม File Manager"
+msgstr "แสดงในโปรแกรม_จัดการแฟ้ม"
 
 #: src/AppDirs.vala:60
 msgid "Pictures"
@@ -61,7 +63,7 @@ msgstr "ภาพถ่าย"
 
 #: src/AppWindow.vala:118
 msgid "Leave _Fullscreen"
-msgstr "เลิกแสดงแบบเต็มหน้าจอ(_F)"
+msgstr "เลิกแสดงแบบเ_ต็มหน้าจอ"
 
 #: src/AppWindow.vala:119
 msgid "Leave fullscreen"
@@ -69,15 +71,15 @@ msgstr "เลิกแสดงแบบเต็มหน้าจอ"
 
 #: src/AppWindow.vala:417
 msgid "_Quit"
-msgstr "ออก (_Q)"
+msgstr "_ออก"
 
 #: src/AppWindow.vala:418
 msgid "Quit Shotwell"
-msgstr "ออกจากโปรแกรม"
+msgstr "ออกจาก Shotwell"
 
 #: src/AppWindow.vala:423
 msgid "_About"
-msgstr "เกี่ยวกับ(_A)"
+msgstr "เ_กี่ยวกับ"
 
 #: src/AppWindow.vala:424
 msgid "About Shotwell"
@@ -85,19 +87,19 @@ msgstr "เกี่ยวกับ Shotwell"
 
 #: src/AppWindow.vala:429
 msgid "_Fullscreen"
-msgstr "แสดงแบบเต็มหน้าจอ(_F)"
+msgstr "เ_ต็มหน้าจอ"
 
 #: src/AppWindow.vala:430
 msgid "Use Shotwell at fullscreen"
-msgstr "ใช้ Shotwell แบบเต็มจอ"
+msgstr "ใช้ Shotwell แบบเต็มหน้าจอ"
 
 #: src/AppWindow.vala:435
 msgid "_Contents"
-msgstr "เนื้อหา(_C)"
+msgstr "เ_นื้อหา"
 
 #: src/AppWindow.vala:436
 msgid "More information on Shotwell"
-msgstr "ข้อมูลอื่นๆของ Shotwell"
+msgstr "ข้อมูลเพิ่มเติมของ Shotwell"
 
 #: src/AppWindow.vala:506
 #: src/AppWindow.vala:520
@@ -105,7 +107,7 @@ msgstr "ข้อมูลอื่นๆของ Shotwell"
 #: src/TagPage.vala:135
 #: src/WebConnectors.vala:791
 msgid "_Cancel"
-msgstr "ยกเลิก(_C)"
+msgstr "_ยกเลิก"
 
 #: src/AppWindow.vala:547
 #, c-format
@@ -114,7 +116,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"เกิดข้อผิดพลาดอย่างร้ายแรงเมื่อเข้าใช้ Shotwell's library  ทำให้ Shotwell ไม่สามารถใช้งานได้\n"
+"เกิดข้อผิดพลาดอย่างร้ายแรงเมื่อเข้าใช้ไลบรารีของ Shotwell ทำให้ Shotwell ไม่สามารถดำเนินการต่อได้\n"
 "\n"
 "%s"
 
@@ -125,7 +127,7 @@ msgstr "เยี่ยมชมเว็บไซต์ Yorba"
 #: src/AppWindow.vala:576
 #, c-format
 msgid "Unable to display help: %s"
-msgstr "ไม่สามารถแสดงตัวช่วยเหลือ : %s"
+msgstr "ไม่สามารถแสดงวิธีใช้: %s"
 
 #: src/CollectionPage.vala:137
 #: src/SlideshowPage.vala:98
@@ -134,7 +136,7 @@ msgstr "การนำเสนอภาพนิ่ง"
 
 #: src/CollectionPage.vala:138
 msgid "Start a slideshow of these photos"
-msgstr "เริ่มการนำเสนอภาพนิ่งของภาพ"
+msgstr "เริ่มการนำเสนอภาพนิ่งของภาพถ่ายเหล่านั้น"
 
 #: src/CollectionPage.vala:173
 msgid "Adjust the size of the thumbnails"
@@ -148,11 +150,11 @@ msgstr "เปลี่ยนขนาดของรูปย่อ"
 #: src/PhotoPage.vala:2751
 #: src/TrashPage.vala:55
 msgid "_File"
-msgstr "ไฟล์(_F)"
+msgstr "แ_ฟ้ม"
 
 #: src/CollectionPage.vala:197
 msgid "Export selected photos to disk"
-msgstr "ส่งออกรูปภาพลงดิสก์"
+msgstr "ส่งออกภาพถ่ายที่เลือกไปยังดิสก์"
 
 #: src/CollectionPage.vala:223
 #: src/EventsDirectoryPage.vala:217
@@ -160,23 +162,23 @@ msgstr "ส่งออกรูปภาพลงดิสก์"
 #: src/PhotoPage.vala:1851
 #: src/TrashPage.vala:59
 msgid "_Edit"
-msgstr "แก้ไข(_E)"
+msgstr "แ_ก้ไข"
 
 #: src/CollectionPage.vala:227
 #: src/EventsDirectoryPage.vala:221
 msgid "Even_ts"
-msgstr "เหตุการณ์(_t)"
+msgstr "เ_หตุการณ์"
 
 #: src/CollectionPage.vala:232
 #: src/EventsDirectoryPage.vala:237
 #: src/ImportPage.vala:423
 #: src/TrashPage.vala:76
 msgid "Select _All"
-msgstr "เลือกทั้งหมด(_A)"
+msgstr "เ_ลือกทั้งหมด"
 
 #: src/CollectionPage.vala:233
 msgid "Select all the photos in the library"
-msgstr "เลือกรูปภาพทั้งหมดในไลบรารี"
+msgstr "เลือกภาพถ่ายทั้งหมดในไลบรารี"
 
 #: src/CollectionPage.vala:239
 msgid "Remove the selected photos from the library"
@@ -184,17 +186,17 @@ msgstr "ลบภาพถ่ายที่เลือกออกจากไ
 
 #: src/CollectionPage.vala:245
 msgid "Move the selected photos to the trash"
-msgstr "ลบรูปภาพที่เลือกไปที่ถังขยะ"
+msgstr "ทิ้งภาพถ่ายที่เลือกลงถังขยะ"
 
 #: src/CollectionPage.vala:250
 msgid "_Photos"
-msgstr "ภาพถ่าย(_P)"
+msgstr "_ภาพถ่าย"
 
 #: src/CollectionPage.vala:255
 #: src/PhotoPage.vala:2005
 #: src/PhotoPage.vala:2887
 msgid "Zoom _In"
-msgstr "ขยาย(_I)"
+msgstr "แสดง_ขยาย"
 
 #: src/CollectionPage.vala:256
 msgid "Increase the magnification of the thumbnails"
@@ -204,7 +206,7 @@ msgstr "เพิ่มขนาดของรูปย่อ"
 #: src/PhotoPage.vala:2011
 #: src/PhotoPage.vala:2893
 msgid "Zoom _Out"
-msgstr "ขยาย"
+msgstr "แสดง_ย่อ"
 
 #: src/CollectionPage.vala:262
 msgid "Decrease the magnification of the thumbnails"
@@ -212,11 +214,11 @@ msgstr "ลดขนาดของรูปย่อ"
 
 #: src/CollectionPage.vala:365
 msgid "_Slideshow"
-msgstr "นำเสนอภาพนิ่ง(_S)"
+msgstr "_นำเสนอภาพนิ่ง"
 
 #: src/CollectionPage.vala:366
 msgid "Play a slideshow"
-msgstr "cแสดงการนำเสนอภาพนิ่ง"
+msgstr "แสดงการนำเสนอภาพนิ่ง"
 
 #: src/CollectionPage.vala:370
 #: src/EventsDirectoryPage.vala:209
@@ -226,17 +228,17 @@ msgstr "cแสดงการนำเสนอภาพนิ่ง"
 #: src/PhotoPage.vala:2878
 #: src/TrashPage.vala:80
 msgid "_View"
-msgstr "ดู(_V)"
+msgstr "มุ_มมอง"
 
 #: src/CollectionPage.vala:374
 msgid "Sort _Photos"
-msgstr "เรียงภาพ(_P)"
+msgstr "เ_รียงภาพถ่าย"
 
 #: src/CollectionPage.vala:384
 #: src/CollectionPage.vala:423
 #: src/PhotoPage.vala:2016
 msgid "Ta_gs"
-msgstr "แท็ก(_g)"
+msgstr "แ_ท็ก"
 
 #: src/CollectionPage.vala:400
 #: src/EventsDirectoryPage.vala:213
@@ -246,20 +248,20 @@ msgstr "แท็ก(_g)"
 #: src/PhotoPage.vala:2882
 #: src/TrashPage.vala:84
 msgid "_Help"
-msgstr "ช่วยเหลือ(_H)"
+msgstr "_วิธีใช้"
 
 #: src/CollectionPage.vala:411
 msgid "Only Fa_vorites"
-msgstr "เฉพาะภาพโปรด(_v)"
+msgstr "เ_ฉพาะภาพโปรด"
 
 #: src/CollectionPage.vala:412
 msgid "Show only your favorite photos"
-msgstr "แสเงเฉพาะภาพโปรดของคุณ"
+msgstr "แสดงเฉพาะภาพโปรดของคุณ"
 
 #: src/CollectionPage.vala:417
 #: src/ImportPage.vala:393
 msgid "_Titles"
-msgstr "ชื่อ(_T)"
+msgstr "_ชื่อ"
 
 #: src/CollectionPage.vala:418
 #: src/ImportPage.vala:394
@@ -272,7 +274,7 @@ msgstr "แสดงแต่ละแท็กของภาพ"
 
 #: src/CollectionPage.vala:429
 msgid "_Hidden Photos"
-msgstr "รูปภาพที่ซ่อน(_H)"
+msgstr "รูปภาพที่_ซ่อน"
 
 #: src/CollectionPage.vala:430
 msgid "Show hidden photos"
@@ -280,7 +282,7 @@ msgstr "แสดงรูปภาพที่ถูกซ่อน"
 
 #: src/CollectionPage.vala:441
 msgid "By _Title"
-msgstr "ตามชื่อ(_T)"
+msgstr "_ตามชื่อ"
 
 #: src/CollectionPage.vala:442
 msgid "Sort photos by title"
@@ -297,22 +299,22 @@ msgstr "เรียงตามวันที่ถ่าย"
 #: src/CollectionPage.vala:459
 #: src/LibraryWindow.vala:456
 msgid "_Ascending"
-msgstr "มากไปน้อย(_A)"
+msgstr "จาก_น้อยไปหามาก"
 
 #: src/CollectionPage.vala:460
 #: src/LibraryWindow.vala:457
 msgid "Sort photos in an ascending order"
-msgstr "เรียงภาพถ่ายแบบน้อยไปมาก"
+msgstr "เรียงภาพถ่ายจากน้อยไปหามาก"
 
 #: src/CollectionPage.vala:465
 #: src/LibraryWindow.vala:463
 msgid "D_escending"
-msgstr "น้อยไปมาก(_e)"
+msgstr "จาก_มากไปหาน้อย  "
 
 #: src/CollectionPage.vala:466
 #: src/LibraryWindow.vala:464
 msgid "Sort photos in a descending order"
-msgstr "เรียงภาพถ่ายแบบมากไปน้อย"
+msgstr "เรียงภาพถ่ายจากมากไปหาน้อย"
 
 #: src/CollectionPage.vala:724
 #: src/Dialogs.vala:14
@@ -340,7 +342,7 @@ msgstr "หมุนภาพ"
 #: src/CollectionPage.vala:882
 #: src/CollectionPage.vala:902
 msgid "Undoing Rotate"
-msgstr "เลิกหมุนภาพ"
+msgstr "เรียกคืนการหมุนภาพ"
 
 #: src/CollectionPage.vala:911
 msgid "Mirroring"
@@ -348,19 +350,19 @@ msgstr "ทำภาพสะท้อน"
 
 #: src/CollectionPage.vala:912
 msgid "Undoing Mirror"
-msgstr "เลิกทำภาพสะท้อน"
+msgstr "เรียกคืนการทำภาพสะท้อน"
 
 #: src/CollectionPage.vala:921
 msgid "Flipping"
-msgstr "การหมุนภาพ"
+msgstr "พลิกกลับภาพ"
 
 #: src/CollectionPage.vala:922
 msgid "Undoing Flip"
-msgstr "เลิกหมุนภาพ"
+msgstr "เรียกคืนการพลิกกลับภาพ"
 
 #: src/CollectionPage.vala:1371
 msgid "Photos"
-msgstr "รูปภาพ"
+msgstr "ภาพถ่าย"
 
 #: src/Commands.vala:510
 msgid "Reverting"
@@ -368,7 +370,7 @@ msgstr "คืนค่าเดิม"
 
 #: src/Commands.vala:510
 msgid "Undoing Revert"
-msgstr "เลิกการคืนค่าเดิม"
+msgstr "เรียกคืนการคืนค่าเดิม"
 
 #: src/Commands.vala:554
 msgid "Enhancing"
@@ -376,7 +378,7 @@ msgstr "การปรับปรุง"
 
 #: src/Commands.vala:554
 msgid "Undoing Enhance"
-msgstr "ยกเลิกการปรับปรุง"
+msgstr "เรียกคืนการปรับปรุง"
 
 #: src/Commands.vala:720
 msgid "Creating New Event"
@@ -388,19 +390,19 @@ msgstr "ลบเหตุการณ์"
 
 #: src/Commands.vala:730
 msgid "Moving Photos to New Event"
-msgstr "ย้ายภาพถ่ายเป็นเหตุการณ์ใหม่"
+msgstr "ย้ายภาพถ่ายไปยังเหตุการณ์ใหม่"
 
 #: src/Commands.vala:731
 msgid "Setting Photos to Previous Event"
-msgstr "ตั้งให้ภาพถ่ายลงในเหตุการณ์ที่แล้ว"
+msgstr "ตั้งค่าภาพถ่ายลงในเหตุการณ์ก่อนหน้า"
 
 #: src/Commands.vala:761
 msgid "Merging"
-msgstr "การรวมภาพ"
+msgstr "รวมภาพ"
 
 #: src/Commands.vala:762
 msgid "Unmerging"
-msgstr "เลิกการรวมภาพ"
+msgstr "เรียกคืนการรวมภาพ"
 
 #: src/Commands.vala:771
 msgid "Duplicating photos"
@@ -414,17 +416,17 @@ msgstr "ลบภาพถ่ายที่ซ้ำ"
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] "ไม่สามารถสำเนา %d ภาพ เนื่องจากไฟล์เกิดความผิดพลาด"
+msgstr[0] "ไม่สามารถสำเนาภาพถ่าย %d เนื่องจากแฟ้มเกิดความผิดพลาด"
 
 #: src/Commands.vala:859
 #: src/Commands.vala:860
 msgid "Marking as Favorite"
-msgstr "ตั้งเป็นภาพโปรด"
+msgstr "ตั้งให้เป็นภาพโปรด"
 
 #: src/Commands.vala:859
 #: src/Commands.vala:860
 msgid "Unmarking as Favorite"
-msgstr "เลิกทำเครื่องหมายเป็นภาพโปรด"
+msgstr "เลิกทำเป็นภาพโปรด"
 
 #: src/Commands.vala:901
 #: src/Commands.vala:902
@@ -465,7 +467,7 @@ msgstr[0] "ไม่สามารถบันทึกการตั้งค
 
 #: src/Commands.vala:1257
 msgid "Move Photos to Trash"
-msgstr "ลบภาพถ่ายลงถังขยะ"
+msgstr "ทิ้งภาพถ่ายลงถังขยะ"
 
 #: src/Commands.vala:1257
 msgid "Restore Photos from Trash"
@@ -473,19 +475,19 @@ msgstr "กู้คืนภาพถ่ายจากถังขยะ"
 
 #: src/Commands.vala:1258
 msgid "Move the photos to the Shotwell trash"
-msgstr "ลบภาพถ่ายลงถังขยะของ Shotwell"
+msgstr "ทิ้งภาพถ่ายลงถังขยะของ Shotwell"
 
 #: src/Commands.vala:1258
 msgid "Restore the photos back to the Shotwell library"
-msgstr "กู้คืนภาพถ่ายไปที่ไลบราลีของ Shotwell"
+msgstr "กู้คืนภาพถ่ายกลับไปยังไลบราลีของ Shotwell"
 
 #: src/Commands.vala:1275
 msgid "Moving Photos to Trash"
-msgstr "ย้ายภาพถ่ายลงถังขยะ"
+msgstr "กำลังทิ้งภาพถ่ายลงถังขยะ"
 
 #: src/Commands.vala:1275
 msgid "Restoring Photos From Trash"
-msgstr "กู้คืนภาพถ่ายจากถังขยะ"
+msgstr "กำลังกู้คืนภาพถ่ายจากถังขยะ"
 
 #: src/Dialogs.vala:36
 #: src/PhotoExporter.vala:192
@@ -497,7 +499,7 @@ msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
 msgstr ""
-"ไม่สามารถส่งออกภาพที่เลือกเนื่องไฟล์เกิดความผิดภาพ\n"
+"ไม่สามารถส่งออกภาพที่เลือกเนื่องจากแฟ้มเกิดความผิดภาพ\n"
 "\n"
 
 #: src/Dialogs.vala:60
@@ -512,78 +514,78 @@ msgstr ""
 
 #: src/Dialogs.vala:61
 msgid "Con_tinue"
-msgstr "ต่อไป(_t)"
+msgstr "_ต่อไป"
 
 #: src/Dialogs.vala:135
 msgid "_Format:"
-msgstr "รูปแบบ(_F)"
+msgstr "รู_ปแบบ:"
 
 #: src/Dialogs.vala:138
 msgid "_Quality:"
-msgstr "คุภาพ(_Q)"
+msgstr "คุ_ณภาพ:"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
-msgstr "ข้อจำกัดมาตรส่วน(_S):"
+msgstr "ข้อจำกัดมาตร_ส่วน:"
 
 #: src/Dialogs.vala:144
 msgid " _pixels"
-msgstr " _pixels"
+msgstr " _พิกเซล"
 
 #: src/Dialogs.vala:304
 #, c-format
 msgid "(and %d more)\n"
-msgstr "(และ %d อีก)\n"
+msgstr "(และอีก %d)\n"
 
 #: src/Dialogs.vala:326
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "%d ภาพถูกนำเข้าเรียบร้อย \n"
+msgstr[0] "%d ภาพถ่ายถูกนำเข้าเรียบร้อย\n"
 
 #: src/Dialogs.vala:337
 #, c-format
 msgid "1 photo already in library was not imported:\n"
 msgid_plural "%d photos already in library were not imported:\n"
-msgstr[0] "มีภาพ %d ในไลบรารีแล้วไม่นำเข้าอีก :\n"
+msgstr[0] "มี %d ภาพถ่ายในไลบรารีที่ไม่ได้นำเข้า:\n"
 
 #: src/Dialogs.vala:352
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] "ภาพ %d ไม่สามารถนำเข้าได้เนื่องจากแฟ้มหรืออุปกรณ์ผิดพลาด:\n"
+msgstr[0] "%d ภาพถ่ายที่ไม่สามารถนำเข้าได้เนื่องจากแฟ้มหรือฮาร์ดแวร์ผิดพลาด:\n"
 
 #: src/Dialogs.vala:367
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] "ภาพ %d ไม่สามารถนำเข้าเนื่องจากการผิดพลาดที่กล้องr:\n"
+msgstr[0] "%d ภาพถ่ายที่ไม่สามารถนำเข้าได้เนื่องจากการกล้องผิดพลาด:\n"
 
 #: src/Dialogs.vala:381
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "%d ภาพที่ม่รองรับถูกข้าม:\n"
+msgstr[0] "%d ภาพที่ไม่รองรับ ข้ามแล้ว:\n"
 
 #: src/Dialogs.vala:395
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "%d ไฟล์ที่ไม่ใช่ภาพถูกข้าม \n"
+msgstr[0] "%d แฟ้มที่ไม่ใช่ภาพ ข้ามแล้ว\n"
 
 #: src/Dialogs.vala:406
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] "ข้ามภาพ %d  เนื่องจากผู้ใช้ยกเลิกเองl:\n"
+msgstr[0] "ข้ามภาพถ่ายแล้ว %d ภาพ เนื่องจากผู้ใช้ยกเลิก:\n"
 
 #: src/Dialogs.vala:424
 msgid "No photos imported.\n"
-msgstr "ไม่มีภาพถ่ายที่ถูกนำเข้า\n"
+msgstr "ไม่มีภาพถ่ายที่จะนำเข้า\n"
 
 #: src/Dialogs.vala:439
 msgid "Import Complete"
-msgstr "นำเข้าเสร็จเรียบร้อย"
+msgstr "นำเข้าสมบูรณ์"
 
 #: src/Dialogs.vala:519
 #: src/Resources.vala:135
