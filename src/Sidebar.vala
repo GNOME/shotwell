@@ -32,6 +32,10 @@ public interface SidebarPage : Object {
     public abstract void clear_marker();
 
     public abstract string get_page_name();
+    
+    public abstract bool is_renameable();
+    
+    public abstract void rename(string new_name);
 
     public abstract Gtk.Menu? get_page_context_menu();
 
@@ -44,11 +48,16 @@ public class Sidebar : Gtk.TreeView {
 
     public signal void drop_received(Gdk.DragContext context, int x, int y, 
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page);
-
+    
+    private Gtk.CellRendererText text;
+    private Gtk.Entry? text_entry = null;
+    
     public Sidebar() {
         set_model(store);
-
-        Gtk.CellRendererText text = new Gtk.CellRendererText();
+        
+        text = new Gtk.CellRendererText();
+        text.editing_canceled.connect(on_editing_canceled);
+		text.editing_started.connect(on_editing_started);
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.pack_start(text, true);
         text_column.add_attribute(text, "markup", 0);
@@ -76,15 +85,33 @@ public class Sidebar : Gtk.TreeView {
         enable_model_drag_dest(LibraryWindow.DEST_TARGET_ENTRIES, Gdk.DragAction.ASK);
         
         popup_menu.connect(on_context_menu_keypress);
+        
+        cursor_changed.connect(on_cursor_changed);
+    }
+    
+    ~Sidebar() {
+        cursor_changed.disconnect(on_cursor_changed);
+        text.editing_canceled.disconnect(on_editing_canceled);
+        text.editing_started.disconnect(on_editing_started);
     }
     
     public void place_cursor(SidebarPage page) {
         if (page.get_marker() != null) {
             get_selection().select_path(page.get_marker().get_path());
-        
+            set_cursor(page.get_marker().get_path(), null, false);
+            
             // scroll to page in sidebar, if needed
             scroll_to_page(page.get_marker());
         }
+    }
+    
+    public bool is_page_selected(SidebarPage page) {
+        return (page.get_marker() != null) ? get_selection().path_is_selected(page.get_marker().get_path()) : false;
+    }
+    
+    public void on_cursor_changed() {
+        SidebarPage page = locate_page(current_path);
+        text.editable = (page != null && page.is_renameable());
     }
     
     public void expand_branch(SidebarMarker marker) {
@@ -349,8 +376,13 @@ public class Sidebar : Gtk.TreeView {
         } else if (event.button == 1 && event.type == Gdk.EventType.2BUTTON_PRESS) {
             // double left click
             Gtk.TreePath? path = get_path_from_event(event);
-            if (path != null)
+            
+            if (path != null) {
                 toggle_branch_expansion(path);
+                
+                if (rename_path(path))
+                    return false;
+            }
         }
         
         return base.button_press_event(event);
@@ -360,9 +392,25 @@ public class Sidebar : Gtk.TreeView {
         if (Gdk.keyval_name(event.keyval) == "Return" || Gdk.keyval_name(event.keyval) == "KP_Enter") {
             toggle_branch_expansion(current_path);
             return false;
+        } else if (Gdk.keyval_name(event.keyval) == "F2") {
+            return rename_in_place();
         }
         
-        return base.key_press_event(event);
+        bool return_val = base.key_press_event(event);
+        
+        if (has_grab() && !return_val) {
+            AppWindow.get_instance().key_press_event(event);
+        }
+        
+        return return_val;
+    }
+    
+    public bool rename_in_place() {
+        Gtk.TreePath? cursor_path;
+        Gtk.TreeViewColumn? cursor_column;
+        get_cursor(out cursor_path, out cursor_column);
+        set_cursor(cursor_path, cursor_column, true);
+        return !rename_path(current_path);
     }
 
     public void rename(SidebarMarker marker, string name) {
@@ -490,5 +538,42 @@ public class Sidebar : Gtk.TreeView {
         Gdk.drag_status(context, context.suggested_action, time);
 
         return has_dest;
+    }
+    
+    // should return true if path is renameable by user
+    private bool rename_path(Gtk.TreePath path) {
+        SidebarPage? page = locate_page(path);
+        if (page == null || !page.is_renameable())
+            return false;
+        
+        get_selection().select_path(path);
+        
+        return true;
+    }
+        
+    private void on_editing_started(Gtk.CellEditable editable, string path) {
+        if (editable is Gtk.Entry) {
+            text_entry = (Gtk.Entry) editable;
+            text_entry.editing_done.connect(on_editing_done);
+        }
+        
+        AppWindow.get_instance().pause_keyboard_trapping();
+    }
+    
+    private void on_editing_canceled() {
+        AppWindow.get_instance().resume_keyboard_trapping();
+        
+        text_entry.editing_done.disconnect(on_editing_done);
+    }
+    
+    private void on_editing_done() {
+        AppWindow.get_instance().resume_keyboard_trapping();
+        
+        SidebarPage? page = locate_page(current_path);
+        
+        if (page != null && page.is_renameable())
+            page.rename(text_entry.get_text());
+        
+        text_entry.editing_done.disconnect(on_editing_done);
     }
 }

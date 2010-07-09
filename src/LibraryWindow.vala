@@ -87,7 +87,9 @@ public class LibraryWindow : AppWindow {
     private Gtk.VPaned sidebar_paned = new Gtk.VPaned();
     private Gtk.HPaned client_paned = new Gtk.HPaned();
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
-
+    
+    private Gtk.AccelGroup? accel_group = null;
+    
     private class FileImportJob : BatchImportJob {
         private File file_or_dir;
         private bool copy_to_library;
@@ -129,6 +131,12 @@ public class LibraryWindow : AppWindow {
         protected abstract Page construct_page();
 
         public abstract string get_name();
+        
+        public abstract bool is_renameable();
+        
+        public virtual void rename(string new_name) {
+            get_page().rename(new_name);
+        }
 
         public bool has_page() {
             return page != null;
@@ -220,7 +228,11 @@ public class LibraryWindow : AppWindow {
         public override string get_name() {
             return page_name;
         }
-
+        
+        public override bool is_renameable() {
+            return false;
+        }
+        
         public bool matches(SubEventsDirectoryPage.DirectoryType type, Time time) {
             if (type != this.type)
                 return false;
@@ -246,6 +258,10 @@ public class LibraryWindow : AppWindow {
         public override string get_name() {
             return event.get_name();
         }
+        
+        public override bool is_renameable() {
+            return (event != null);
+        }
 
         protected override Page construct_page() {
             debug("Creating new event page for %s", event.get_name());
@@ -262,6 +278,10 @@ public class LibraryWindow : AppWindow {
         
         public override string get_name() {
             return tag.get_name();
+        }
+        
+        public override bool is_renameable() {
+            return (tag != null);
         }
         
         protected override Page construct_page() {
@@ -1011,11 +1031,15 @@ public class LibraryWindow : AppWindow {
             if (event.equals(stub.event)) {
                 SubEventsDirectoryPageStub old_parent = 
                     (SubEventsDirectoryPageStub) sidebar.get_parent_page(stub);
-
-                // only re-add to sidebar if the event has changed directories or shares its dir
+				
+				// only re-add to sidebar if the event has changed directories or shares its dir
                 if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
                     !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
                      old_parent.get_year() == Time.local(event.get_start_time()).year)) {
+                    // this prevents the cursor from jumping back to the library photos page
+                    // should it be on this page as we re-sort by removing and reinserting it
+                    sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
+                    
                     // remove from sidebar
                     remove_event_tree(stub, false);
 
@@ -1028,8 +1052,10 @@ public class LibraryWindow : AppWindow {
                     if (get_current_page() is EventPage &&
                         ((EventPage) get_current_page()).page_event.equals(event))
                         sidebar.place_cursor(stub);
+                    				
+                    sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
                 }
-
+                
                 // refresh name
                 SidebarMarker marker = stub.get_marker();
                 sidebar.rename(marker, event.get_name());
@@ -1060,11 +1086,22 @@ public class LibraryWindow : AppWindow {
         TagPageStub page_stub = tag_map.get((Tag) object);
         assert(page_stub != null);
         
+        // this prevents the cursor from jumping back to the library photos page
+        // should it be on this page as we re-sort by removing and reinserting it
+        sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
+        
         bool expanded = sidebar.is_branch_expanded(tags_marker);
+        bool selected = sidebar.is_page_selected(page_stub);
         sidebar.remove_page(page_stub);
         sidebar.insert_child_sorted(tags_marker, page_stub, tag_page_comparator);
+        
         if (expanded)
             sidebar.expand_branch(tags_marker);
+        
+        if (selected)
+            sidebar.place_cursor(page_stub);
+        
+        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
     }
     
     private SidebarMarker? find_parent_marker(PageStub page) {
@@ -1708,5 +1745,39 @@ public class LibraryWindow : AppWindow {
         }
     }
 #endif
+    
+    private override bool key_press_event(Gdk.EventKey event) {        
+        return (sidebar.has_focus && Gdk.keyval_name(event.keyval) == "F2") ?
+            sidebar.key_press_event(event) : base.key_press_event(event);
+    }
+
+    public void sidebar_rename_in_place(Page page) {
+        sidebar.expand_tree(page.get_marker());
+        sidebar.place_cursor(page);
+        sidebar.rename_in_place();
+    }
+    
+    public override bool pause_keyboard_trapping() {
+        if (base.pause_keyboard_trapping()) {
+            accel_group = AppWindow.get_instance().get_current_page().ui.get_accel_group();
+            if (accel_group != null)
+                AppWindow.get_instance().remove_accel_group(accel_group);
+                        
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public override bool resume_keyboard_trapping() {
+        if (base.resume_keyboard_trapping()) {
+            if (accel_group != null)
+                AppWindow.get_instance().add_accel_group(accel_group);
+            
+            return true;
+        }
+        
+        return false;
+    }
 }
 

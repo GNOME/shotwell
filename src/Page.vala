@@ -95,6 +95,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return page_name;
     }
     
+    public virtual bool is_renameable() {
+        return false;
+    }
+    
+    public virtual void rename(string new_name) {
+    }
+    
     public virtual void set_page_name(string page_name) {
         this.page_name = page_name;
     }

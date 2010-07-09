@@ -1042,32 +1042,6 @@ public class AddTagsDialog : TextEntryDialogMediator {
     }
 }
 
-public class RenameTagDialog : TextEntryDialogMediator {
-    private string current_name;
-    
-    public RenameTagDialog(string current_name) {
-        base (Resources.RENAME_TAG_TITLE, _("Name:"), current_name);
-        
-        this.current_name = current_name;
-    }
-    
-    public string? execute() {
-        string? name = _execute();
-        if (name == null)
-            return null;
-        
-        // don't want to return null unless the user chose cancel, however, on_modify_validate
-        // ensures that prep_tag_name won't return null
-        return Tag.prep_tag_name(name);
-    }
-    
-    protected override bool on_modify_validate(string text) {
-        string? prepped = Tag.prep_tag_name(text);
-        
-        return !is_string_empty(prepped) && prepped != current_name;
-    }
-}
-
 public class ModifyTagsDialog : TextEntryDialogMediator {
     public ModifyTagsDialog(LibraryPhoto photo) {
         base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), 

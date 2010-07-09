@@ -420,19 +420,12 @@ public class EventPage : CollectionPage {
         page_event.set_primary_photo(((Thumbnail) view).get_photo());
     }
 
-    public void rename(string name) {
-        page_event.rename(name);
-        set_page_name(page_event.get_name());
-    }
-
     private void on_rename() {
-        EventRenameDialog rename_dialog = new EventRenameDialog(page_event.get_raw_name());
-        string? new_name = rename_dialog.execute();
-        if (new_name == null)
-            return;
-        
-        RenameEventCommand command = new RenameEventCommand(page_event, new_name);
-        get_command_manager().execute(command);
+        LibraryWindow.get_app().sidebar_rename_in_place(this);
+    }
+    
+    public override void rename(string new_name) {
+        get_command_manager().execute(new RenameEventCommand(page_event, new_name));
     }
 }
 
