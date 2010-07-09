@@ -40,6 +40,11 @@ public class FullscreenWindow : PageWindow {
             add_accel_group(accel_group);
         
         set_screen(AppWindow.get_instance().get_screen());
+       	
+        // Needed so fullscreen will occur on correct monitor in multi-monitor setups
+        Gdk.Rectangle monitor = get_monitor_geometry();
+        move(monitor.x, monitor.y);
+        
         set_border_width(0);
         
         pin_button.set_label(_("Pin Toolbar"));
@@ -79,12 +84,6 @@ public class FullscreenWindow : PageWindow {
         fullscreen();
         show_all();
 
-        Gdk.Rectangle monitor = get_monitor_geometry();
-
-        set_size_request(monitor.width, monitor.height);
-
-        move(monitor.x, monitor.y);
-        
         // capture motion events to show the toolbar
         add_events(Gdk.EventMask.POINTER_MOTION_MASK);
         
@@ -667,6 +666,7 @@ public abstract class AppWindow : PageWindow {
         }
 
         get_position(out pos_x, out pos_y);
+        hide();
         
         FullscreenWindow fsw = new FullscreenWindow(page);
         
@@ -675,7 +675,6 @@ public abstract class AppWindow : PageWindow {
         
         fullscreen_window = fsw;
         fullscreen_window.present();
-        hide();
     }
     
     public void end_fullscreen() {
