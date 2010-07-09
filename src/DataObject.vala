@@ -553,6 +553,9 @@ public abstract class DataSource : DataObject {
         
         internal_mark_for_destroy();
         destroy();
+        
+        if (unlinked_from_collection != null)
+            unlinked_from_collection.notify_unlinked_destroyed(this);
     }
 
     // DataViews subscribe to the DataSource to inform it of their existance.  Not only does this

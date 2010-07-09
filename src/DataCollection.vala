@@ -994,6 +994,11 @@ public class SourceCollection : DataCollection {
     public virtual signal void items_destroyed(Gee.Collection<DataSource> destroyed) {
     }
     
+    // When this signal is fired, the unlinked item has been unlinked from the collection previously
+    // and its destroy() has been called.
+    public virtual signal void unlinked_destroyed(DataSource source) {
+    }
+    
     public SourceCollection(string name) {
         base (name);
     }
@@ -1012,6 +1017,11 @@ public class SourceCollection : DataCollection {
     
     protected virtual void notify_items_destroyed(Gee.Collection<DataSource> destroyed) {
         items_destroyed(destroyed);
+    }
+    
+    // This is only called by DataSource.
+    public virtual void notify_unlinked_destroyed(DataSource unlinked) {
+        unlinked_destroyed(unlinked);
     }
     
     protected override bool valid_type(DataObject object) {
@@ -1217,12 +1227,14 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         contained_sources.items_unlinking.connect(on_contained_sources_unlinking);
         contained_sources.items_relinked.connect(on_contained_sources_relinked);
         contained_sources.item_destroyed.connect(on_contained_source_destroyed);
+        contained_sources.unlinked_destroyed.connect(on_contained_source_destroyed);
     }
     
     ~ContainerSourceCollection() {
         contained_sources.items_unlinking.disconnect(on_contained_sources_unlinking);
         contained_sources.items_relinked.disconnect(on_contained_sources_relinked);
         contained_sources.item_destroyed.disconnect(on_contained_source_destroyed);
+        contained_sources.unlinked_destroyed.disconnect(on_contained_source_destroyed);
     }
     
     public virtual void notify_container_contents_added(ContainerSource container, 
