@@ -59,6 +59,7 @@ public class Sidebar : Gtk.TreeView {
         text.editing_canceled.connect(on_editing_canceled);
 		text.editing_started.connect(on_editing_started);
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
+        text_column.set_sizing(Gtk.TreeViewColumnSizing.FIXED);
         text_column.pack_start(text, true);
         text_column.add_attribute(text, "markup", 0);
         append_column(text_column);
