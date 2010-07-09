@@ -57,7 +57,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string REDEYE = "shotwell-redeye";
     public const string ADJUST = "shotwell-adjust";
     public const string PIN_TOOLBAR = "shotwell-pin-toolbar";
-    public const string RETURN_TO_PAGE = "shotwell-return-to-page";
     public const string MAKE_PRIMARY = "shotwell-make-primary";
     public const string IMPORT = "shotwell-import";
     public const string IMPORT_ALL = "shotwell-import-all";
@@ -302,7 +301,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
         add_stock_icon(icons_dir.get_child("adjust.png"), ADJUST);
         add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);
-        add_stock_icon(icons_dir.get_child("return-to-page.svg"), RETURN_TO_PAGE);
         add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
         add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
         add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
