@@ -591,7 +591,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         // subscribe to the new collection
         view.contents_altered.connect(on_contents_altered);
         view.items_altered.connect(on_items_altered);
-        view.items_metadata_altered.connect(on_items_metadata_altered);
         view.items_state_changed.connect(on_items_state_changed);
         view.items_visibility_changed.connect(on_items_visibility_changed);
         view.ordering_changed.connect(on_ordering_changed);
@@ -615,7 +614,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
 
         view.contents_altered.disconnect(on_contents_altered);
         view.items_altered.disconnect(on_items_altered);
-        view.items_metadata_altered.disconnect(on_items_metadata_altered);
         view.items_state_changed.disconnect(on_items_state_changed);
         view.items_visibility_changed.disconnect(on_items_visibility_changed);
         view.ordering_changed.disconnect(on_ordering_changed);
@@ -771,10 +769,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     
     private void on_items_altered() {
         need_reflow("on_items_altered");
-    }
-    
-    private void on_items_metadata_altered() {
-        need_reflow("on_items_metadata_altered");
     }
     
     private void on_items_state_changed(Gee.Iterable<DataView> changed) {

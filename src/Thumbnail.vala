@@ -43,7 +43,7 @@ public class Thumbnail : CheckerboardItem {
         // if the photo's tags changes, update it here
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
         Tag.global.item_altered.connect(on_tag_altered);
-        photo.metadata_altered.connect(on_photo_metadata_altered);
+        photo.altered.connect(on_photo_altered);
     }
 
     ~Thumbnail() {
@@ -52,7 +52,7 @@ public class Thumbnail : CheckerboardItem {
         
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
         Tag.global.item_altered.disconnect(on_tag_altered);
-        photo.metadata_altered.disconnect(on_photo_metadata_altered);
+        photo.altered.disconnect(on_photo_altered);
     }
     
     private void update_tags() {
@@ -88,8 +88,9 @@ public class Thumbnail : CheckerboardItem {
             set_title(title);
     }
     
-    private void on_photo_metadata_altered() {
-        update_title();
+    private void on_photo_altered(Alteration alteration) {
+        if (alteration.has_detail("metadata", "name"))
+            update_title();
     }
     
     public LibraryPhoto get_photo() {
@@ -110,7 +111,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public static int64 title_ascending_comparator(void *a, void *b) {
-        int64 result = strcmp(((Thumbnail *) a)->get_title(), ((Thumbnail *) b)->get_title());
+        int64 result = strcmp(((Thumbnail *) a)->photo.get_name(), ((Thumbnail *) b)->photo.get_name());
         if (result == 0)
             result = photo_id_ascending_comparator(a, b);
         return result;

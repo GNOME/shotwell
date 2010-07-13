@@ -177,14 +177,14 @@ public class Event : EventSource, ContainerSource, Proxyable {
         // watch for for addition, removal, and alteration of photos
         view.items_added.connect(on_photos_added);
         view.items_removed.connect(on_photos_removed);
-        view.items_metadata_altered.connect(on_photos_metadata_altered);
+        view.items_altered.connect(on_photos_altered);
     }
 
     ~Event() {
         if (primary_photo != null)
             primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
         
-        view.items_metadata_altered.disconnect(on_photos_metadata_altered);
+        view.items_altered.disconnect(on_photos_altered);
         view.items_removed.disconnect(on_photos_removed);
         view.items_added.disconnect(on_photos_added);
     }
@@ -244,7 +244,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         global.notify_container_contents_added(this, photos);
         global.notify_container_contents_altered(this, photos, null);
         
-        notify_altered();
+        notify_altered(new Alteration("contents", "added"));
     }
     
     // Event needs to know whenever a photo is removed from the system to update the event
@@ -275,7 +275,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
             return;
         }
         
-        notify_altered();
+        notify_altered(new Alteration("contents", "removed"));
     }
     
     public override void notify_relinking(SourceCollection sources) {
@@ -288,8 +288,14 @@ public class Event : EventSource, ContainerSource, Proxyable {
         base.notify_relinking(sources);
     }
     
-    private void on_photos_metadata_altered() {
-        notify_altered();
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> items) {
+        foreach (Alteration alteration in items.values) {
+            if (alteration.has_subject("metadata")) {
+                notify_altered(new Alteration("metadata", "time"));
+                
+                break;
+            }
+        }
     }
     
     // This creates an empty event with the key photo.  NOTE: This does not add the key photo to
@@ -452,7 +458,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         bool renamed = event_table.rename(event_id, name);
         if (renamed) {
             raw_name = is_string_empty(name) ? null : name;
-            notify_altered();
+            notify_altered(new Alteration("metadata", "name"));
         }
         
         return renamed;

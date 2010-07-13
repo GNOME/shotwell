@@ -629,8 +629,7 @@ public abstract class TransformablePhoto: PhotoSource {
             reimport_master_locked(file, info, detected);
         }
         
-        notify_altered();
-        notify_metadata_altered();
+        notify_altered(new Alteration("image", "master"));
     }
     
     private void reimport_master_locked(File file, FileInfo info, DetectedPhotoInformation detected) 
@@ -816,7 +815,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "flags"));
         
         return flags;
     }
@@ -841,7 +840,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "flags"));
         
         return flags;
     }
@@ -860,7 +859,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "flags"));
         
         return flags;
     }
@@ -879,7 +878,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "flags"));
         
         return flags;
     }
@@ -898,7 +897,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "flags"));
         
         return flags;
     }
@@ -944,7 +943,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "event"));
         
         return success;
     }
@@ -1005,7 +1004,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (success)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "exif"));
     }
 
     // PhotoSource
@@ -1043,7 +1042,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "name"));
     }
 
     public void set_title_persistent(string? title) throws Error {
@@ -1078,7 +1077,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_metadata_altered();
+            notify_altered(new Alteration("metadata", "exposure-time"));
     }
     
     public void set_exposure_time_persistent(time_t time) throws Error {
@@ -1165,7 +1164,7 @@ public abstract class TransformablePhoto: PhotoSource {
             }
             
             if (result)
-                notify_altered();
+                notify_altered(new Alteration("image", "color-adjustments"));
 
             return;
         }
@@ -1194,7 +1193,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_altered();
+            notify_altered(new Alteration("image", "color-adjustments"));
     }
     
     public override PhotoMetadata? get_metadata() {
@@ -1283,7 +1282,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_altered();
+            notify_altered(new Alteration("image", "transformation-state"));
         
         return committed;
     }
@@ -1310,7 +1309,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
 
         if (is_altered && notify)
-            notify_altered();
+            notify_altered(new Alteration("image", "revert"));
     }
     
     public Orientation get_original_orientation() {
@@ -1334,7 +1333,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (committed)
-            notify_altered();
+            notify_altered(new Alteration("image", "orientation"));
         
         return committed;
     }
@@ -1428,7 +1427,7 @@ public abstract class TransformablePhoto: PhotoSource {
         map.set_int("bottom", crop.bottom);
         
         if (set_transformation(map))
-            notify_altered();
+            notify_altered(new Alteration("image", "crop"));
     }
     
     // All instances are against the coordinate system of the unscaled, unrotated photo.
@@ -1487,7 +1486,7 @@ public abstract class TransformablePhoto: PhotoSource {
         map.set_int("num_points", num_points);
 
         if (set_transformation(map))
-            notify_altered();
+            notify_altered(new Alteration("image", "redeye"));
     }
 
     // Pixbuf generation
@@ -2230,7 +2229,7 @@ public abstract class TransformablePhoto: PhotoSource {
         if (!only_attributes)
             notify_baseline_replaced();
         
-        notify_altered();
+        notify_altered(new Alteration("image", "baseline"));
     }
     
     private void detach_editable(bool delete_editable, bool remove_transformations) {
@@ -2274,7 +2273,7 @@ public abstract class TransformablePhoto: PhotoSource {
             notify_baseline_replaced();
         
         // notify that the editable has been detached
-        notify_altered();
+        notify_altered(new Alteration("image", "baseline"));
         
         if (delete_editable && editable_file != null) {
             try {
@@ -2633,9 +2632,13 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         base("LibraryPhotoSourceCollection", get_photo_key);
     }
     
-    protected override void notify_items_metadata_altered(Gee.Collection<DataObject> altered) {
+    protected override void notify_items_altered(Gee.Map<DataObject, Alteration> items) {
         Marker to_unlink = start_marking();
-        foreach (DataObject object in altered) {
+        foreach (DataObject object in items.keys) {
+            Alteration alteration = items.get(object);
+            if (!alteration.has_subject("metadata"))
+                continue;
+            
             LibraryPhoto photo = (LibraryPhoto) object;
             
             if (photo.is_trashed() && !trashcan.contains(photo)) {
@@ -2645,12 +2648,14 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             }
         }
         
-        Gee.Collection<LibraryPhoto>? unlinked = (Gee.Collection<LibraryPhoto>?) unlink_marked(
-            to_unlink);
+        if (to_unlink.get_count() > 0) {
+            Gee.Collection<LibraryPhoto>? unlinked = (Gee.Collection<LibraryPhoto>?) unlink_marked(
+                to_unlink);
+            
+            notify_trashcan_contents_altered(unlinked, null);
+        }
         
-        notify_trashcan_contents_altered(unlinked, null);
-        
-        base.items_metadata_altered(altered);
+        base.items_altered(items);
     }
     
     protected override void notify_item_destroyed(DataSource source) {
@@ -2671,12 +2676,12 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         // attach/detach signals here, to monitor when/if the photo is no longer trashed
         if (added != null) {
             foreach (LibraryPhoto photo in added)
-                photo.metadata_altered.connect(on_trashcan_photo_metadata_altered);
+                photo.altered.connect(on_trashcan_photo_altered);
         }
         
         if (removed != null) {
             foreach (LibraryPhoto photo in removed)
-                photo.metadata_altered.disconnect(on_trashcan_photo_metadata_altered);
+                photo.altered.disconnect(on_trashcan_photo_altered);
         }
         
         trashcan_contents_altered(added, removed);
@@ -2779,7 +2784,10 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         notify_trashcan_contents_altered(photos, null);
     }
     
-    private void on_trashcan_photo_metadata_altered(DataObject o) {
+    private void on_trashcan_photo_altered(DataObject o, Alteration alteration) {
+        if (!alteration.has_subject("metadata"))
+            return;
+        
         LibraryPhoto photo = (LibraryPhoto) o;
         
         assert(trashcan.contains(photo));
@@ -2902,12 +2910,12 @@ public class LibraryPhoto : Photo {
         notify_thumbnail_altered();
     }
     
-    private override void altered () {
+    private override void altered(Alteration alteration) {
         // generate new thumbnails in the background
-        if (!block_thumbnail_generation)
+        if (!block_thumbnail_generation && alteration.has_subject("image"))
             thumbnail_scheduler.at_priority_idle(Priority.LOW);
         
-        base.altered();
+        base.altered(alteration);
     }
 
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
@@ -3235,10 +3243,10 @@ public class DirectPhoto : Photo {
             get_orientation().rotate_pixbuf(get_metadata().get_preview(0).get_pixbuf());
     }
     
-    private override void altered() {
+    private override void altered(Alteration alteration) {
         preview = null;
         
-        base.altered();
+        base.altered(alteration);
     }
 
     protected override bool has_user_generated_metadata() {

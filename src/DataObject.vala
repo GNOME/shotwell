@@ -16,6 +16,214 @@
 // elsewhere to resolve ordering questions (including stabilizing a sort).
 //
 
+//
+// Alteration represents a description of what has changed in the DataObject (reported via the
+// "altered" signal).  Since the descriptions can vary wildly depending on the semantics of each
+// DataObject, no assumptions or requirements are placed on Alteration other than it must have
+// one or more "subjects", each with a "detail".  Subscribers to the "altered" signal can query
+// the Alteration object to determine if the change is important to them.
+//
+// Alteration is an immutable type.  This means it's possible to store const Alterations of oft-used
+// values for reuse.
+//
+// Alterations may be compressed, merging their subjects and details into a new aggregated
+// Alteration.  Generally this is handled automatically by DataObject and DataCollection, when
+// necessary.
+//
+// NOTE: subjects and details should be ASCII labels.
+//
+// Recommended subjects include: image, thumbnail, metadata.
+//
+
+public class Alteration {
+    private string subject = null;
+    private string detail = null;
+    private Gee.MultiMap<string, string> map = null;
+    
+    public Alteration(string subject, string detail) {
+        add_detail(subject, detail);
+    }
+    
+    // Create an Alteration that has more than one subject/detail.  list is a comma-delimited
+    // string of colon-separated subject:detail pairs.
+    public Alteration.from_list(string list) requires (list.length > 0) {
+        string[] pairs = list.split(",");
+        assert(pairs.length >= 1);
+        
+        foreach (string pair in pairs) {
+            string[] subject_detail = pair.split(":", 1);
+            assert(subject_detail.length == 2);
+            
+            add_detail(subject_detail[0], subject_detail[1]);
+        }
+    }
+    
+    // Used for compression.
+    private Alteration.from_map(Gee.MultiMap<string, string> map) {
+        this.map = map;
+    }
+    
+    private void add_detail(string sub, string det) {
+        // strip leading and trailing whitespace
+        string subject = sub.strip();
+        assert(subject.length > 0);
+        
+        string detail = det.strip();
+        assert(detail.length > 0);
+        
+        // if a simple Alteration, store in singleton refs
+        if (this.subject == null && map == null) {
+            assert(this.detail == null);
+            
+            this.subject = subject;
+            this.detail = detail;
+            
+            return;
+        }
+        
+        // Now a complex Alteration, requiring a Map.
+        if (map == null)
+            map = new Gee.HashMultiMap<string, string>();
+        
+        // Move singletons into Map
+        if (this.subject != null) {
+            assert(this.detail != null);
+            
+            map.set(this.subject, this.detail);
+            this.subject = null;
+            this.detail = null;
+        }
+        
+        // Store new subject:detail in Map as well
+        map.set(subject, detail);
+    }
+    
+    private inline bool equal_values(string str1, string str2) {
+        long str2_length = str2.length;
+        
+        return (str1.length == str2_length) ? str1.ascii_ncasecmp(str2, str2_length) == 0 : false;
+    }
+    
+    public bool has_subject(string subject) {
+        if (this.subject != null)
+            return equal_values(this.subject, subject);
+        
+        assert(map != null);
+        Gee.Set<string>? keys = map.get_keys();
+            if (keys != null) {
+                foreach (string key in keys) {
+                    if (equal_values(key, subject))
+                        return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public bool has_detail(string subject, string detail) {
+        if (this.subject != null && this.detail != null)
+            return equal_values(this.subject, subject) && equal_values(this.detail, detail);
+        
+        assert(map != null);
+        Gee.Collection<string>? values = map.get(subject);
+        if (values != null) {
+            foreach (string value in values) {
+                if (equal_values(value, detail))
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public bool equals(Alteration other) {
+        // identity
+        if (this == other)
+            return true;
+        
+        // if both singletons, check for singleton match
+        if ((subject != null && other.subject != null && equal_values(subject, other.subject))
+            && (detail != null && other.detail != null && equal_values(detail, other.detail))) {
+            return true;
+        }
+        
+        // if both multiples, check for across-the-board matches
+        if (map != null && other.map != null) {
+            // see if both maps contain the same set of keys
+            Gee.Set<string>? keys = map.get_keys();
+            assert(keys != null);
+            Gee.Set<string>? other_keys = other.map.get_keys();
+            assert(other_keys != null);
+            
+            if (keys.size != other_keys.size)
+                return false;
+            
+            if (!keys.contains_all(other_keys))
+                return false;
+            
+            if (!other_keys.contains_all(keys))
+                return false;
+            
+            foreach (string key in keys) {
+                Gee.Collection<string> values = map.get(key);
+                Gee.Collection<string> other_values = other.map.get(key);
+                
+                if (values.size != other_values.size)
+                    return false;
+                
+                if (!values.contains_all(other_values))
+                    return false;
+                
+                if (!other_values.contains_all(values))
+                    return false;
+            }
+            
+            // maps are identical
+            return true;
+        }
+        
+        // one singleton and one multiple, not equal
+        return false;
+    }
+    
+    private static void multimap_add_all(Gee.MultiMap<string, string> dest,
+        Gee.MultiMap<string, string> src) {
+        Gee.Set<string> keys = src.get_keys();
+        foreach (string key in keys) {
+            Gee.Collection<string> values = src.get(key);
+            foreach (string value in values)
+                dest.set(key, value);
+        }
+    }
+    
+    // This merges the Alterations, returning a new Alteration with both represented.  If both
+    // Alterations are equal, this will return this object rather than create a new one.
+    public Alteration compress(Alteration other) {
+        if (equals(other))
+            return this;
+        
+        // Build a new Alteration with both represented ... if they're unequal, then the new one
+        // is guaranteed not to be a singleton
+        Gee.MultiMap<string, string> compressed = new Gee.HashMultiMap<string, string>();
+        
+        if (subject != null && detail != null) {
+            compressed.set(subject, detail);
+        } else {
+            assert(map != null);
+            multimap_add_all(compressed, map);
+        }
+        
+        if (other.subject != null && other.detail != null) {
+            compressed.set(other.subject, other.detail);
+        } else {
+            assert(other.map != null);
+            multimap_add_all(compressed, other.map);
+        }
+        
+        return new Alteration.from_map(compressed);
+    }
+}
+
 // Have to inherit from Object due to ContainerSource and this bug:
 // https://bugzilla.gnome.org/show_bug.cgi?id=615904
 public abstract class DataObject : Object {
@@ -36,13 +244,7 @@ public abstract class DataObject : Object {
     // This signal is fired when the source of the data is altered in a way that's significant
     // to how it's represented in the application.  This base signal must be called by child
     // classes if the collection it is a member of is to be notified.
-    public virtual signal void altered() {
-    }
-    
-    // This signal is fired when some attribute or property of the data is altered, but not its
-    // primary representation.  This base signal must be called by child classes if the collection
-    // this source is a member of is to be notifed.
-    public virtual signal void metadata_altered() {
+    public virtual signal void altered(Alteration alteration) {
     }
     
     // NOTE: Supplying an object ID should *only* be used when reconstituting the object (generally
@@ -51,32 +253,18 @@ public abstract class DataObject : Object {
         this.object_id = (object_id == INVALID_OBJECT_ID) ? object_id_generator++ : object_id;
     }
     
-    public virtual void notify_altered() {
+    public virtual void notify_altered(Alteration alteration) {
         // fire signal on self, if notifications aren't frozen
         if (member_of != null) {
             if (!member_of.are_notifications_frozen())
-                altered();
+                altered(alteration);
         } else {
-            altered();
+            altered(alteration);
         }
         
         // notify DataCollection in any event
         if (member_of != null)
-            member_of.internal_notify_altered(this);
-    }
-    
-    public virtual void notify_metadata_altered() {
-        // fire signal on self, if notifications aren't frozen
-        if (member_of != null) {
-            if (!member_of.are_notifications_frozen())
-                metadata_altered();
-        } else {
-            metadata_altered();
-        }
-        
-        // notify DataCollection in any event
-        if (member_of != null)
-            member_of.internal_notify_metadata_altered(this);
+            member_of.internal_notify_altered(this, alteration);
     }
     
     // There is no membership_changed signal as it's expensive (esp. at startup) and not needed
@@ -249,6 +437,7 @@ public class SourceBacklink {
 
 public abstract class DataSource : DataObject {
     protected delegate void ContactSubscriber(DataView view);
+    protected delegate void ContactSubscriberAlteration(DataView view, Alteration alteration);
     
     private DataView[] subscribers = new DataView[4];
     private weak SourceCollection unlinked_from_collection = null;
@@ -280,26 +469,15 @@ public abstract class DataSource : DataObject {
 #endif
     }
     
-    public override void notify_altered() {
+    public override void notify_altered(Alteration alteration) {
         // signal reflection
-        contact_subscribers(subscriber_altered);
+        contact_subscribers_alteration(subscriber_altered, alteration);
         
-        base.notify_altered();
+        base.notify_altered(alteration);
     }
     
-    private void subscriber_altered(DataView view) {
-        view.notify_altered();
-    }
-    
-    public override void notify_metadata_altered() {
-        // signal reflection
-        contact_subscribers(subscriber_metadata_altered);
-        
-        base.notify_metadata_altered();
-    }
-
-    private void subscriber_metadata_altered(DataView view) {
-        view.notify_metadata_altered();
+    private void subscriber_altered(DataView view, Alteration alteration) {
+        view.notify_altered(alteration);
     }
     
     public override void notify_membership_changed(DataCollection? collection) {
@@ -599,6 +777,18 @@ public abstract class DataSource : DataObject {
         for (int ctr = 0; ctr < subscribers.length; ctr++) {
             if (subscribers[ctr] != null)
                 contact_subscriber(subscribers[ctr]);
+        }
+        in_contact = false;
+    }
+    
+    protected void contact_subscribers_alteration(ContactSubscriberAlteration contact_subscriber,
+        Alteration alteration) {
+        assert(!in_contact);
+        
+        in_contact = true;
+        for (int ctr = 0; ctr < subscribers.length; ctr++) {
+            if (subscribers[ctr] != null)
+                contact_subscriber(subscribers[ctr], alteration);
         }
         in_contact = false;
     }

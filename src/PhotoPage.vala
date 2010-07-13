@@ -1965,7 +1965,7 @@ public class LibraryPhotoPage : EditingHostPage {
         // watch for photos being destroyed or removed or altered, either here or in other pages
         LibraryPhoto.global.items_removed.connect(on_photos_removed);
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
-        LibraryPhoto.global.item_metadata_altered.connect(on_metadata_altered);
+        LibraryPhoto.global.item_altered.connect(on_metadata_altered);
         
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
@@ -1974,7 +1974,7 @@ public class LibraryPhotoPage : EditingHostPage {
     ~LibraryPhotoPage() {
         LibraryPhoto.global.items_removed.disconnect(on_photos_removed);
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
-        LibraryPhoto.global.item_metadata_altered.disconnect(on_metadata_altered);
+        LibraryPhoto.global.item_altered.disconnect(on_metadata_altered);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -2719,8 +2719,8 @@ public class LibraryPhotoPage : EditingHostPage {
         return !((LibraryPhoto) get_photo()).is_hidden();
     }
 
-    private void on_metadata_altered(DataObject item) {
-        if (((TransformablePhoto) item).equals(get_photo()))
+    private void on_metadata_altered(DataObject item, Alteration alteration) {
+        if (((TransformablePhoto) item).equals(get_photo()) && alteration.has_subject("metadata"))
             repaint();
     }
 

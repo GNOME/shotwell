@@ -428,8 +428,7 @@ public class DataCollection {
     private Gee.HashMap<string, Value?> properties = new Gee.HashMap<string, Value?>();
     private int64 object_ordinal_generator = 0;
     private int notifies_frozen = 0;
-    private Gee.HashSet<DataObject> frozen_items_altered = null;
-    private Gee.HashSet<DataObject> frozen_items_metadata_altered = null;
+    private Gee.HashMap<DataObject, Alteration> frozen_items_altered = null;
     private bool fire_ordering_changed = false;
 
     // When this signal has been fired, the added items are part of the collection
@@ -448,27 +447,15 @@ public class DataCollection {
     // This signal fires whenever any item in the collection signals it has been altered ...
     // this allows monitoring of all objects in the collection without having to register a
     // signal handler for each one
-    public virtual signal void item_altered(DataObject item) {
+    public virtual signal void item_altered(DataObject item, Alteration alteration) {
     }
     
     // This signal fires whenever any (or multiple) items in the collection signal they've been
     // altered.  This is more useful than item_altered() because it isn't blocked when notifications
     // are frozen and is called when they are thawed.
-    public virtual signal void items_altered(Gee.Collection<DataObject> items) {
+    public virtual signal void items_altered(Gee.Map<DataObject, Alteration> items) {
     }
 
-    // This signal fires whenever any item in the collection signals its metadata has been altered ...
-    // this allows monitoring of all objects in the collection without having to register a
-    // signal handler for each one
-    public virtual signal void item_metadata_altered(DataObject object) {
-    }
-    
-    // This signal fires whenever any (or multiple) items in the collection signal their
-    // metadata has been altered.  Like items_altered(), it isn't blocked when notifications are
-    // frozen and is called when they're thawed.
-    public virtual signal void items_metadata_altered(Gee.Collection<DataObject> items) {
-    }
-    
     // Fired when a new sort comparator is registered or an item has moved in the ordering due to
     // an alteration.
     public virtual signal void ordering_changed() {
@@ -511,20 +498,12 @@ public class DataCollection {
         contents_altered(added, removed);
     }
     
-    protected virtual void notify_item_altered(DataObject item) {
-        item_altered(item);
+    protected virtual void notify_item_altered(DataObject item, Alteration alteration) {
+        item_altered(item, alteration);
     }
     
-    protected virtual void notify_items_altered(Gee.Collection<DataObject> items) {
+    protected virtual void notify_items_altered(Gee.Map<DataObject, Alteration> items) {
         items_altered(items);
-    }
-    
-    protected virtual void notify_item_metadata_altered(DataObject item) {
-        item_metadata_altered(item);
-    }
-    
-    protected virtual void notify_items_metadata_altered(Gee.Collection<DataObject> items) {
-        items_metadata_altered(items);
     }
     
     protected virtual void notify_ordering_changed() {
@@ -546,6 +525,14 @@ public class DataCollection {
     // shared list's contents mid-signal
     protected static Gee.Collection<DataObject> get_singleton(DataObject object) {
         return new SingletonCollection<DataObject>(object);
+    }
+    
+    protected static Gee.Map<DataObject, Alteration> get_alteration_singleton(DataObject object,
+        Alteration alteration) {
+        Gee.Map<DataObject, Alteration> map = new Gee.HashMap<DataObject, Alteration>();
+        map.set(object, alteration);
+        
+        return map;
     }
     
     public virtual bool valid_type(DataObject object) {
@@ -810,15 +797,24 @@ public class DataCollection {
     
     // This method is only called by DataObject to report when it has been altered, so observers of
     // this collection may be notified as well.
-    public void internal_notify_altered(DataObject object) {
+    public void internal_notify_altered(DataObject object, Alteration alteration) {
         assert(internal_contains(object));
         
         bool resort_occurred = dataset.resort_object(object);
         
         if (are_notifications_frozen()) {
             if (frozen_items_altered == null)
-                frozen_items_altered = new Gee.HashSet<DataObject>();
-            frozen_items_altered.add(object);
+                frozen_items_altered = new Gee.HashMap<DataObject, Alteration>();
+            
+            // if an alteration for the object is already in place, compress the two and add the
+            // new one, otherwise set the supplied one
+            Alteration? current = frozen_items_altered.get(object);
+            if (current != null)
+                current = current.compress(alteration);
+            else
+                current = alteration;
+            
+            frozen_items_altered.set(object, current);
             
             fire_ordering_changed = fire_ordering_changed || resort_occurred;
             
@@ -828,32 +824,8 @@ public class DataCollection {
         if (resort_occurred)
             notify_ordering_changed();
         
-        notify_item_altered(object);
-        notify_items_altered(get_singleton(object));
-    }
-    
-    // This method is only called by DataObject to report when its metadata has been altered, so
-    // observers of this collection may be notified as well.
-    public void internal_notify_metadata_altered(DataObject object) {
-        assert(internal_contains(object));
-        
-        bool resort_occurred = dataset.resort_object(object);
-        
-        if (are_notifications_frozen()) {
-            if (frozen_items_metadata_altered == null)
-                frozen_items_metadata_altered = new Gee.HashSet<DataObject>();
-            frozen_items_metadata_altered = new Gee.HashSet<DataObject>();
-            
-            fire_ordering_changed = fire_ordering_changed || resort_occurred;
-            
-            return;
-        }
-        
-        if (resort_occurred)
-            notify_ordering_changed();
-        
-        notify_item_metadata_altered(object);
-        notify_items_metadata_altered(get_singleton(object));
+        notify_item_altered(object, alteration);
+        notify_items_altered(get_alteration_singleton(object, alteration));
     }
     
     public Value? get_property(string name) {
@@ -939,17 +911,10 @@ public class DataCollection {
     // should issue caught notifications.
     protected virtual void thawed() {
         if (frozen_items_altered != null) {
-            foreach (DataObject object in frozen_items_altered)
-                notify_item_altered(object);
+            foreach (DataObject object in frozen_items_altered.keys)
+                notify_item_altered(object, frozen_items_altered.get(object));
             notify_items_altered(frozen_items_altered);
             frozen_items_altered = null;
-        }
-        
-        if (frozen_items_metadata_altered != null) {
-            foreach (DataObject object in frozen_items_metadata_altered)
-                notify_item_metadata_altered(object);
-            notify_items_metadata_altered(frozen_items_metadata_altered);
-            frozen_items_metadata_altered = null;
         }
         
         if (fire_ordering_changed) {
@@ -1548,7 +1513,6 @@ public class ViewCollection : DataCollection {
         sources.items_added.connect(on_sources_added);
         sources.items_removed.connect(on_sources_removed);
         sources.item_altered.connect(on_source_altered);
-        sources.item_metadata_altered.connect(on_source_altered);
     }
     
     public void halt_monitoring() {
@@ -1556,7 +1520,6 @@ public class ViewCollection : DataCollection {
             sources.items_added.disconnect(on_sources_added);
             sources.items_removed.disconnect(on_sources_removed);
             sources.item_altered.disconnect(on_source_altered);
-            sources.item_metadata_altered.disconnect(on_source_altered);
         }
         
         sources = null;
@@ -1707,7 +1670,7 @@ public class ViewCollection : DataCollection {
             remove_marked(marker);
     }
     
-    private void on_source_altered(DataObject object) {
+    private void on_source_altered(DataObject object, Alteration alteration) {
         DataSource source = (DataSource) object;
         
         // let ViewManager decide whether or not to keep, but only add if not already present
@@ -1837,16 +1800,10 @@ public class ViewCollection : DataCollection {
         }
     }
     
-    public override void item_altered(DataObject object) {
+    public override void item_altered(DataObject object, Alteration alteration) {
         filter_altered_item(object);
 
-        base.item_altered(object);
-    }
-    
-    public override void item_metadata_altered(DataObject object) {
-        filter_altered_item(object);
-        
-        base.item_metadata_altered(object);
+        base.item_altered(object, alteration);
     }
     
     public override void set_comparator(Comparator comparator) {

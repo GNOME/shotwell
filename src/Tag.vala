@@ -120,7 +120,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         base.notify_items_removed(removed);
     }
     
-    public override void notify_item_altered(DataObject item) {
+    public override void notify_item_altered(DataObject item, Alteration alteration) {
         Tag tag = (Tag) item;
         
         string? old_name = null;
@@ -143,7 +143,7 @@ public class TagSourceCollection : ContainerSourceCollection {
             name_map.set(tag.get_name(), tag);
         }
         
-        base.notify_item_altered(item);
+        base.notify_item_altered(item, alteration);
     }
     
     private static int compare_tag_name(void *a, void *b) {
@@ -539,7 +539,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         
         row.name = new_name;
         
-        notify_altered();
+        notify_altered(new Alteration("metadata", "name"));
         
         return true;
     }

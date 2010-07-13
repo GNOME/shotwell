@@ -1031,8 +1031,8 @@ public class LibraryWindow : AppWindow {
             if (event.equals(stub.event)) {
                 SubEventsDirectoryPageStub old_parent = 
                     (SubEventsDirectoryPageStub) sidebar.get_parent_page(stub);
-				
-				// only re-add to sidebar if the event has changed directories or shares its dir
+                
+                // only re-add to sidebar if the event has changed directories or shares its dir
                 if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
                     !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
                      old_parent.get_year() == Time.local(event.get_start_time()).year)) {
@@ -1052,7 +1052,7 @@ public class LibraryWindow : AppWindow {
                     if (get_current_page() is EventPage &&
                         ((EventPage) get_current_page()).page_event.equals(event))
                         sidebar.place_cursor(stub);
-                    				
+                    
                     sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
                 }
                 
@@ -1684,7 +1684,6 @@ public class LibraryWindow : AppWindow {
         
         view.items_state_changed.connect(on_selection_changed);
         view.items_altered.connect(on_selection_changed);
-        view.items_metadata_altered.connect(on_selection_changed);
         view.contents_altered.connect(on_selection_changed);
         view.items_visibility_changed.connect(on_selection_changed);
     }
@@ -1694,7 +1693,6 @@ public class LibraryWindow : AppWindow {
         
         view.items_state_changed.disconnect(on_selection_changed);
         view.items_altered.disconnect(on_selection_changed);
-        view.items_metadata_altered.disconnect(on_selection_changed);
         view.contents_altered.disconnect(on_selection_changed);
         view.items_visibility_changed.disconnect(on_selection_changed);
     }
