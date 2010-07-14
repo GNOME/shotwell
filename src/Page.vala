@@ -30,7 +30,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private bool alt_pressed = false;
     private bool shift_pressed = false;
     private bool super_pressed = false;
-    private Gdk.CursorType last_cursor = Gdk.CursorType.ARROW;
+    private Gdk.CursorType last_cursor = Gdk.CursorType.LEFT_PTR;
     private bool cursor_hidden = false;
     private int cursor_hide_msec = 0;
     private uint last_timeout_id = 0;
@@ -908,8 +908,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         
         if (parent_window != null)
             last_cursor = parent_window.get_cursor().type;
-        else
-            warning("No custom cursor set, defaulting to %s", last_cursor.to_string());
     }
 
     public void set_cursor_hide_time(int hide_time) {
