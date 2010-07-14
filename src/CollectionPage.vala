@@ -26,7 +26,8 @@ public abstract class CollectionPage : CheckerboardPage {
 
     public enum SortBy {
         TITLE = 1,
-        EXPOSURE_DATE = 2;
+        EXPOSURE_DATE = 2,
+        RATING = 3;
     }
 
     private static Gtk.Adjustment slider_adjustment = null;
@@ -319,6 +320,65 @@ public abstract class CollectionPage : CheckerboardPage {
         hide_unhide.tooltip = Resources.HIDE_TOOLTIP;
         actions += hide_unhide;
         
+        Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
+        set_rating.label = Resources.RATING_MENU;
+        actions += set_rating;
+
+        // TODO: change these keyboard shortcuts, discussion needed?
+        Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
+            "8", TRANSLATABLE, on_increase_rating };
+        increase_rating.label = Resources.INCREASE_RATING_MENU;
+        increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
+        actions += increase_rating;
+
+        Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
+            "7", TRANSLATABLE, on_decrease_rating };
+        decrease_rating.label = Resources.DECREASE_RATING_MENU;
+        decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
+        actions += decrease_rating;
+
+        Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
+            "9", TRANSLATABLE, on_rate_rejected };
+        rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
+        rate_rejected.tooltip = Resources.rating_tooltip(Rating.REJECTED);
+        actions += rate_rejected;
+
+        Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
+            "0", TRANSLATABLE, on_rate_unrated };
+        rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
+        rate_unrated.tooltip = Resources.rating_tooltip(Rating.UNRATED);
+        actions += rate_unrated;
+
+        Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
+            "1", TRANSLATABLE, on_rate_one };
+        rate_one.label = Resources.rating_menu(Rating.ONE);
+        rate_one.tooltip = Resources.rating_tooltip(Rating.ONE);
+        actions += rate_one;
+
+        Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
+            "2", TRANSLATABLE, on_rate_two };
+        rate_two.label = Resources.rating_menu(Rating.TWO);
+        rate_two.tooltip = Resources.rating_tooltip(Rating.TWO);
+        actions += rate_two;
+
+        Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
+            "3", TRANSLATABLE, on_rate_three };
+        rate_three.label = Resources.rating_menu(Rating.THREE);
+        rate_three.tooltip = Resources.rating_tooltip(Rating.THREE);
+        actions += rate_three;
+
+        Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
+            "4", TRANSLATABLE, on_rate_four };
+        rate_four.label = Resources.rating_menu(Rating.FOUR);
+        rate_four.tooltip = Resources.rating_tooltip(Rating.FOUR);
+        actions += rate_four;
+
+        Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
+            "5", TRANSLATABLE, on_rate_five };
+        rate_five.label = Resources.rating_menu(Rating.FIVE);
+        rate_five.tooltip = Resources.rating_tooltip(Rating.FIVE);
+        actions += rate_five;
+
         Gtk.ActionEntry duplicate = { "Duplicate", null, TRANSLATABLE, "<Ctrl>D", TRANSLATABLE,
             on_duplicate_photo };
         duplicate.label = Resources.DUPLICATE_PHOTO_MENU;
@@ -436,6 +496,12 @@ public abstract class CollectionPage : CheckerboardPage {
         by_date.label = _("By Exposure _Date");
         by_date.tooltip = _("Sort photos by exposure date");
         sort_crit_actions += by_date;
+
+        Gtk.RadioActionEntry by_rating = { "SortByRating", null, TRANSLATABLE, null,
+            TRANSLATABLE, SortBy.RATING };
+        by_rating.label = _("By _Rating");
+        by_rating.tooltip = _("Sort photos by rating");
+        sort_crit_actions += by_rating;
 
         return sort_crit_actions;
     }
@@ -564,12 +630,25 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("RemoveFromLibrary", has_selected);
         set_action_sensitive("MoveToTrash", has_selected);
         set_action_sensitive("Duplicate", has_selected);
+        update_rating_sensitivities();
         
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", selected_count == 1);
 #endif
     }
     
+    private void update_rating_sensitivities() {
+        set_action_sensitive("RateRejected", can_rate_selected(Rating.REJECTED));
+        set_action_sensitive("RateUnrated", can_rate_selected(Rating.UNRATED));
+        set_action_sensitive("RateOne", can_rate_selected(Rating.ONE));
+        set_action_sensitive("RateTwo", can_rate_selected(Rating.TWO));
+        set_action_sensitive("RateThree", can_rate_selected(Rating.THREE));
+        set_action_sensitive("RateFour", can_rate_selected(Rating.FOUR));
+        set_action_sensitive("RateFive", can_rate_selected(Rating.FIVE));
+        set_action_sensitive("IncreaseRating", can_increase_selected_rating());
+        set_action_sensitive("DecreaseRating", can_decrease_selected_rating());
+    }
+
     private void on_external_app_changed() {
         int selected_count = get_view().get_selected_count();
         
@@ -858,6 +937,34 @@ public abstract class CollectionPage : CheckerboardPage {
         
         return false;
     }
+
+    private bool can_rate_selected(Rating rating) {
+        foreach (DataView view in get_view().get_selected()) {
+            if(((Thumbnail) view).get_photo().get_rating() != rating)
+                return true;
+        }
+        
+        return false;        
+    }
+
+    private bool can_increase_selected_rating() {
+        foreach (DataView view in get_view().get_selected()) {
+            if(((Thumbnail) view).get_photo().get_rating().can_increase())
+                return true;
+        }
+        
+        return false;
+    }
+
+    private bool can_decrease_selected_rating() {
+        foreach (DataView view in get_view().get_selected()) {
+            if(((Thumbnail) view).get_photo().get_rating().can_decrease())
+                return true;
+        }
+        
+        return false;        
+    }
+
     
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
@@ -877,6 +984,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotoRename", one_selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Rate", selected);
         
 #if !NO_RAW
         if (is_single_raw)
@@ -1007,6 +1115,64 @@ public abstract class CollectionPage : CheckerboardPage {
         FavoriteUnfavoriteCommand command = new FavoriteUnfavoriteCommand(get_view().get_selected(),
             can_favorite_selected());
         get_command_manager().execute(command);
+    }
+
+    private void on_increase_rating() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        SetRatingCommand command = new SetRatingCommand.inc_dec(get_view().get_selected(), true);
+        get_command_manager().execute(command);
+
+        update_rating_sensitivities();
+    }
+
+    private void on_decrease_rating() {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        SetRatingCommand command = new SetRatingCommand.inc_dec(get_view().get_selected(), false);
+        get_command_manager().execute(command);
+
+        update_rating_sensitivities();
+    }
+
+    private void on_set_rating(Rating rating) {
+        if (get_view().get_selected_count() == 0)
+            return;
+        
+        SetRatingCommand command = new SetRatingCommand(get_view().get_selected(), rating);
+        get_command_manager().execute(command);
+
+        update_rating_sensitivities();
+    }
+
+    private void on_rate_rejected() {
+        on_set_rating(Rating.REJECTED);
+    }
+    
+    private void on_rate_unrated() {
+        on_set_rating(Rating.UNRATED);
+    }
+
+    private void on_rate_one() {
+        on_set_rating(Rating.ONE);
+    }
+
+    private void on_rate_two() {
+        on_set_rating(Rating.TWO);
+    }
+
+    private void on_rate_three() {
+        on_set_rating(Rating.THREE);
+    }
+
+    private void on_rate_four() {
+        on_set_rating(Rating.FOUR);
+    }
+
+    private void on_rate_five() {
+        on_set_rating(Rating.FIVE);
     }
     
     private void on_hide_unhide() {
@@ -1292,6 +1458,12 @@ public abstract class CollectionPage : CheckerboardPage {
                 else
                     return Thumbnail.exposure_time_desending_comparator;
             
+            case SortBy.RATING:
+                if (is_sort_ascending())
+                    return Thumbnail.rating_ascending_comparator;
+                else
+                    return Thumbnail.rating_descending_comparator;                    
+
             default:
                 error("Unknown sort criteria: %d", get_sort_criteria());
                 
@@ -1330,6 +1502,9 @@ public abstract class CollectionPage : CheckerboardPage {
                 break;
             case SortBy.EXPOSURE_DATE:
                 path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByExposureDate";
+                break;
+            case SortBy.RATING:
+                path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByRating";
                 break;
             default:
                 error("Unknown sort criteria: %d", sort_by);

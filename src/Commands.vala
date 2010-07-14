@@ -915,6 +915,98 @@ public class HideUnhideCommand : MultipleDataSourceCommand {
     }
 }
 
+public class SetRatingSingleCommand : SingleDataSourceCommand {
+    private Rating last_rating;
+    private Rating new_rating;
+    private bool set_direct;
+    private bool incrementing;
+
+    public SetRatingSingleCommand(DataSource source, Rating rating) {
+        base (source, Resources.rating_label(rating), Resources.rating_tooltip(rating));
+        set_direct = true;
+        new_rating = rating;
+
+        last_rating = ((LibraryPhoto)source).get_rating();
+    }
+
+    public SetRatingSingleCommand.inc_dec(DataSource source, bool is_incrementing) {
+        base (source, is_incrementing ? Resources.INCREASE_RATING_LABEL : 
+            Resources.DECREASE_RATING_LABEL, is_incrementing ? Resources.INCREASE_RATING_TOOLTIP :
+            Resources.DECREASE_RATING_TOOLTIP);
+        set_direct = false;
+        incrementing = is_incrementing;
+
+        last_rating = ((LibraryPhoto)source).get_rating();
+    }
+
+    public override void execute() {
+        if (set_direct)
+            ((LibraryPhoto) source).set_rating(new_rating);
+        else {
+            if (incrementing) 
+                ((LibraryPhoto) source).increase_rating();
+            else
+                ((LibraryPhoto) source).decrease_rating();
+        }
+    }
+    
+    public override void undo() {
+        ((LibraryPhoto) source).set_rating(last_rating);
+    }
+}
+
+public class SetRatingCommand : MultipleDataSourceCommand {
+    private Gee.HashMap<DataSource, Rating> last_rating_map;
+    private Rating new_rating;
+    private bool set_direct;
+    private bool incrementing;
+
+    public SetRatingCommand(Gee.Iterable<DataView> iter, Rating rating) {
+        base (iter, Resources.rating_progress(rating), _("Restoring previous rating"),
+            Resources.rating_label(rating), Resources.rating_tooltip(rating));
+        set_direct = true;
+        new_rating = rating;
+
+        save_source_states(iter);
+    } 
+    
+    public SetRatingCommand.inc_dec(Gee.Iterable<DataView> iter, bool is_incrementing) {
+        base (iter, 
+            is_incrementing ? _("Increasing ratings") : _("Decreasing ratings"),
+            is_incrementing ? _("Decreasing ratings") : _("Increasing ratings"), 
+            is_incrementing ? Resources.INCREASE_RATING_LABEL : Resources.DECREASE_RATING_LABEL, 
+            is_incrementing ? Resources.INCREASE_RATING_TOOLTIP : Resources.DECREASE_RATING_TOOLTIP);
+        set_direct = false;
+        incrementing = is_incrementing;
+        
+        save_source_states(iter);
+    }
+    
+    private void save_source_states(Gee.Iterable<DataView> iter) {
+        last_rating_map = new Gee.HashMap<DataSource, Rating>();
+
+        foreach (DataView view in iter) {
+            DataSource source = view.get_source();
+            last_rating_map[source] = ((LibraryPhoto)source).get_rating();
+        }
+    }
+    
+    public override void execute_on_source(DataSource source) {
+        if (set_direct)
+            ((LibraryPhoto) source).set_rating(new_rating);
+        else {
+            if (incrementing)
+                ((LibraryPhoto) source).increase_rating();
+            else
+                ((LibraryPhoto) source).decrease_rating();
+        }
+    }
+    
+    public override void undo_on_source(DataSource source) {
+        ((LibraryPhoto) source).set_rating(last_rating_map[source]);
+    }
+}
+
 public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
     private TransformablePhoto photo;
     private int64 time_shift;

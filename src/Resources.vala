@@ -71,6 +71,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
     public const string ICON_HIDDEN = "hidden.svg";
     public const string ICON_FAVORITE = "favorite.svg";
+    public const string ICON_RATING_ONE = "one-star.svg";
+    public const string ICON_RATING_TWO = "two-stars.svg";
+    public const string ICON_RATING_THREE = "three-stars.svg";
+    public const string ICON_RATING_FOUR = "four-stars.svg";
+    public const string ICON_RATING_FIVE = "five-stars.svg";
 
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
@@ -150,6 +155,28 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string UNFAVORITE_MENU = _("Unmark as _Favorite");
     public const string UNFAVORITE_LABEL = _("Unmark as Favorite");
     public const string UNFAVORITE_TOOLTIP = _("Unmark the photo as one of your favorites");
+
+    public const string RATING_MENU = _("_Set Rating");
+    public const string RATING_LABEL = _("Set Rating");
+    public const string RATING_TOOLTIP = _("Change the rating of your photo");
+
+    public const string INCREASE_RATING_MENU = _("_Increase");
+    public const string INCREASE_RATING_LABEL = _("Increase Rating");
+    public const string INCREASE_RATING_TOOLTIP = _("Increase the rating of your photo");
+    
+    public const string DECREASE_RATING_MENU = _("_Decrease");
+    public const string DECREASE_RATING_LABEL = _("Decrease Rating");
+    public const string DECREASE_RATING_TOOLTIP = _("Decrease the rating of your photo");
+
+    public const string RATE_UNRATED_MENU = _("_Unrated");
+    public const string RATE_UNRATED_LABEL = _("Rate Unrated");
+    public const string RATE_UNRATED_PROGRESS = _("Setting as unrated");
+    public const string RATE_UNRATED_TOOLTIP = _("Remove any ratings");
+    
+    public const string RATE_REJECTED_MENU = _("_Rejected");
+    public const string RATE_REJECTED_LABEL = _("Rate Rejected");
+    public const string RATE_REJECTED_PROGRESS = _("Setting as rejected");
+    public const string RATE_REJECTED_TOOLTIP = _("Set rating to rejected");
     
     public const string HIDE_MENU = _("_Hide");
     public const string HIDE_LABEL = _("Hide");
@@ -269,6 +296,184 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         return _("Unable to rename tag to \"%s\" because the tag already exists.").printf(name);
     }
     
+    private unowned string rating_menu(Rating rating) {
+        switch (rating) {
+            case Rating.REJECTED:
+                return RATE_REJECTED_MENU;
+            case Rating.UNRATED:
+                return RATE_UNRATED_MENU;
+            case Rating.ONE:
+                return RATE_ONE_MENU;
+            case Rating.TWO:
+                return RATE_TWO_MENU;
+            case Rating.THREE:
+                return RATE_THREE_MENU;
+            case Rating.FOUR:
+                return RATE_FOUR_MENU;
+            case Rating.FIVE:
+                return RATE_FIVE_MENU;
+            default:
+                return RATE_UNRATED_MENU;
+        }
+    }
+
+    private unowned string rating_label(Rating rating) {
+        switch (rating) {
+            case Rating.REJECTED:
+                return RATE_REJECTED_LABEL;
+            case Rating.UNRATED:
+                return RATE_UNRATED_LABEL;
+            case Rating.ONE:
+                return RATE_ONE_LABEL;
+            case Rating.TWO:
+                return RATE_TWO_LABEL;
+            case Rating.THREE:
+                return RATE_THREE_LABEL;
+            case Rating.FOUR:
+                return RATE_FOUR_LABEL;
+            case Rating.FIVE:
+                return RATE_FIVE_LABEL;
+            default:
+                return RATE_UNRATED_LABEL;
+        }
+    }
+    
+    private unowned string rating_tooltip(Rating rating) {
+        switch (rating) {
+            case Rating.REJECTED:
+                return RATE_REJECTED_TOOLTIP;
+            case Rating.UNRATED:
+                return RATE_UNRATED_TOOLTIP;
+            case Rating.ONE:
+                return RATE_ONE_TOOLTIP;
+            case Rating.TWO:
+                return RATE_TWO_TOOLTIP;
+            case Rating.THREE:
+                return RATE_THREE_TOOLTIP;
+            case Rating.FOUR:
+                return RATE_FOUR_TOOLTIP;
+            case Rating.FIVE:
+                return RATE_FIVE_TOOLTIP;
+            default:
+                return RATE_UNRATED_TOOLTIP;
+        }
+    }
+
+    private string rating_progress(Rating rating) {
+        switch (rating) {
+            case Rating.REJECTED:
+                return RATE_REJECTED_PROGRESS;
+            case Rating.UNRATED:
+                return RATE_UNRATED_PROGRESS;
+            case Rating.ONE:
+                return RATE_ONE_PROGRESS;
+            case Rating.TWO:
+                return RATE_TWO_PROGRESS;
+            case Rating.THREE:
+                return RATE_THREE_PROGRESS;
+            case Rating.FOUR:
+                return RATE_FOUR_PROGRESS;
+            case Rating.FIVE:
+                return RATE_FIVE_PROGRESS;
+            default:
+                return RATE_UNRATED_PROGRESS;
+        }
+    }
+
+    // TODO: remove unicode stars from the code, replace with HTML escape
+    private string get_stars(Rating rating) {
+        switch (rating) {
+            case Rating.ONE:
+                return "★";
+            case Rating.TWO:
+                return "★★";
+            case Rating.THREE:
+                return "★★★";
+            case Rating.FOUR:
+                return "★★★★";
+            case Rating.FIVE:
+                return "★★★★★";
+            default:
+                return "";
+        }
+    }
+
+    private Gdk.Pixbuf? get_rating_trinket(Rating rating, int scale) {
+        switch (rating) {
+            case Rating.REJECTED:
+                return Resources.get_icon(Resources.ICON_HIDDEN, scale);
+            // case Rating.UNRATED needs no icon
+            case Rating.ONE:
+                return Resources.get_icon(Resources.ICON_RATING_ONE, scale);
+            case Rating.TWO:
+                return Resources.get_icon(Resources.ICON_RATING_TWO, scale*2);
+            case Rating.THREE:
+                return Resources.get_icon(Resources.ICON_RATING_THREE, scale*3);
+            case Rating.FOUR:
+                return Resources.get_icon(Resources.ICON_RATING_FOUR, scale*4);
+            case Rating.FIVE:
+                return Resources.get_icon(Resources.ICON_RATING_FIVE, scale*5);
+            default:
+                return null;
+        }
+    }
+    
+    private void generate_rating_strings() {
+        string menu_base = "%s";
+        string label_base = _("Rate %s");
+        string tooltip_base = _("Set rating to %s");
+        string progress_base = _("Setting rating to %s");
+
+        RATE_ONE_MENU = menu_base.printf(get_stars(Rating.ONE));
+        RATE_TWO_MENU = menu_base.printf(get_stars(Rating.TWO));
+        RATE_THREE_MENU = menu_base.printf(get_stars(Rating.THREE));
+        RATE_FOUR_MENU = menu_base.printf(get_stars(Rating.FOUR));
+        RATE_FIVE_MENU = menu_base.printf(get_stars(Rating.FIVE));
+
+        RATE_ONE_LABEL = label_base.printf(get_stars(Rating.ONE));
+        RATE_TWO_LABEL = label_base.printf(get_stars(Rating.TWO));
+        RATE_THREE_LABEL = label_base.printf(get_stars(Rating.THREE));
+        RATE_FOUR_LABEL = label_base.printf(get_stars(Rating.FOUR));
+        RATE_FIVE_LABEL = label_base.printf(get_stars(Rating.FIVE));
+
+        RATE_ONE_TOOLTIP = tooltip_base.printf(get_stars(Rating.ONE));
+        RATE_TWO_TOOLTIP = tooltip_base.printf(get_stars(Rating.TWO));
+        RATE_THREE_TOOLTIP = tooltip_base.printf(get_stars(Rating.THREE));
+        RATE_FOUR_TOOLTIP = tooltip_base.printf(get_stars(Rating.FOUR));
+        RATE_FIVE_TOOLTIP = tooltip_base.printf(get_stars(Rating.FIVE));
+
+        RATE_ONE_PROGRESS = progress_base.printf(get_stars(Rating.ONE));
+        RATE_TWO_PROGRESS = progress_base.printf(get_stars(Rating.TWO));
+        RATE_THREE_PROGRESS = progress_base.printf(get_stars(Rating.THREE));
+        RATE_FOUR_PROGRESS = progress_base.printf(get_stars(Rating.FOUR));
+        RATE_FIVE_PROGRESS = progress_base.printf(get_stars(Rating.FIVE));
+    }
+
+    private string RATE_ONE_MENU;
+    private string RATE_ONE_LABEL;
+    private string RATE_ONE_TOOLTIP;
+    private string RATE_ONE_PROGRESS;
+    
+    private string RATE_TWO_MENU;
+    private string RATE_TWO_LABEL;
+    private string RATE_TWO_TOOLTIP;
+    private string RATE_TWO_PROGRESS;
+
+    private string RATE_THREE_MENU;
+    private string RATE_THREE_LABEL;
+    private string RATE_THREE_TOOLTIP;
+    private string RATE_THREE_PROGRESS;
+
+    private string RATE_FOUR_MENU;
+    private string RATE_FOUR_LABEL;
+    private string RATE_FOUR_TOOLTIP;
+    private string RATE_FOUR_PROGRESS;
+
+    private string RATE_FIVE_MENU;
+    private string RATE_FIVE_LABEL;
+    private string RATE_FIVE_TOOLTIP;
+    private string RATE_FIVE_PROGRESS;
+
     public const string DELETE_PHOTOS_MENU = _("_Delete");
     public const string DELETE_PHOTOS_TOOLTIP = _("Remove the selected photos from the trash");
     
@@ -312,6 +517,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
         
         factory.add_default();
+
+        generate_rating_strings();
     }
     
     public void terminate() {

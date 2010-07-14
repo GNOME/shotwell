@@ -457,7 +457,7 @@ public abstract class CheckerboardItem : ThumbnailView {
                 current_trinkets_width = current_trinkets_width + trinket.get_width() +
                     TRINKET_PADDING;
                 drawable.draw_pixbuf(gc, trinket, 0, 0, 
-                    pixbuf_origin.x + pixbuf_dim.width - current_trinkets_width,
+                    pixbuf_origin.x + TRINKET_PADDING,
                     pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() - TRINKET_PADDING, 
                     trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
             }

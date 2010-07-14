@@ -66,6 +66,19 @@
             <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
             <menuitem name="HideUnhide" action="HideUnhide" />
             <separator />
+            <menu name="Rate" action="Rate">
+                <menuitem name="IncreaseRating" action="IncreaseRating" />
+                <menuitem name="DecreaseRating" action="DecreaseRating" />
+                <separator />
+                <menuitem name="RateRejected" action="RateRejected" />
+                <menuitem name="RateUnrated" action="RateUnrated" />
+                <menuitem name="RateOne" action="RateOne" />
+                <menuitem name="RateTwo" action="RateTwo" />
+                <menuitem name="RateThree" action="RateThree" />
+                <menuitem name="RateFour" action="RateFour" />
+                <menuitem name="RateFive" action="RateFive" />
+            </menu>
+            <separator />
             <menuitem name="PhotoRename" action="PhotoRename" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
@@ -95,6 +108,19 @@
         <separator />
         <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
         <menuitem name="ContextHideUnhide" action="HideUnhide" />
+        <separator />
+        <menu name="Rate" action="Rate">
+            <menuitem name="IncreaseRating" action="IncreaseRating" />
+            <menuitem name="DecreaseRating" action="DecreaseRating" />
+            <separator />
+            <menuitem name="RateRejected" action="RateRejected" />
+            <menuitem name="RateUnrated" action="RateUnrated" />
+            <menuitem name="RateOne" action="RateOne" />
+            <menuitem name="RateTwo" action="RateTwo" />
+            <menuitem name="RateThree" action="RateThree" />
+            <menuitem name="RateFour" action="RateFour" />
+            <menuitem name="RateFive" action="RateFive" />
+        </menu>
         <separator />
         <menuitem name="ContextPhotoRename" action="PhotoRename" />
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />

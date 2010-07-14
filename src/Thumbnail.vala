@@ -137,6 +137,20 @@ public class Thumbnail : CheckerboardItem {
             result = photo_id_descending_comparator(a, b);
         return result;
     }
+
+    public static int64 rating_ascending_comparator(void *a, void *b) {
+        int64 result = ((Thumbnail *) a)->photo.get_rating() - ((Thumbnail *) b)->photo.get_rating();
+        if (result == 0)
+            result = photo_id_ascending_comparator(a, b);
+        return result;
+    }
+
+    public static int64 rating_descending_comparator(void *a, void *b) {
+        int64 result = rating_ascending_comparator(b, a);
+        if (result == 0)
+            result = photo_id_descending_comparator(a, b);
+        return result;
+    }
     
     private override void thumbnail_altered() {
         original_dim = get_photo().get_dimensions();
@@ -286,9 +300,10 @@ public class Thumbnail : CheckerboardItem {
     
     public override Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
         LibraryPhoto photo = get_photo();
+        Rating rating = photo.get_rating();
         
         // don't let the hose run
-        if (!photo.is_hidden() && !photo.is_favorite())
+        if (!photo.is_hidden() && !photo.is_favorite() && rating == Rating.UNRATED)
             return null;
         
         Gee.List<Gdk.Pixbuf> trinkets = new Gee.ArrayList<Gdk.Pixbuf>();
@@ -298,6 +313,10 @@ public class Thumbnail : CheckerboardItem {
         
         if (photo.is_favorite())
             trinkets.add(Resources.get_icon(Resources.ICON_FAVORITE, scale));
+
+        Gdk.Pixbuf? rating_buf = Resources.get_rating_trinket(rating, scale);
+        if (rating_buf != null)
+            trinkets.add(rating_buf);
         
         return trinkets;
     }

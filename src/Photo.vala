@@ -175,6 +175,78 @@ public abstract class PhotoTransformationState : Object {
     }
 }
 
+public enum Rating {
+    REJECTED = -1,
+    UNRATED = 0,
+    ONE = 1,
+    TWO = 2,
+    THREE = 3,
+    FOUR = 4,
+    FIVE = 5;
+
+    public bool can_increase() {
+        return this < FIVE;
+    }
+
+    public bool can_decrease() {
+	    return this > REJECTED;
+    }
+
+    public bool is_valid() {
+        return this >= REJECTED && this <= FIVE;
+    }
+
+    public Rating increase() {
+        return can_increase() ? this + 1 : this;
+    }
+
+    public Rating decrease() {
+        return can_decrease() ? this - 1 : this;
+    }
+    
+    public int serialize() {
+        switch (this) {
+            case REJECTED:
+                return -1;
+            case UNRATED:
+                return 0;
+            case ONE:
+                return 1;
+            case TWO:
+                return 2;
+            case THREE:
+                return 3;
+            case FOUR:
+                return 4;
+            case FIVE:
+                return 5;
+            default:
+                return 0;
+        }
+    }
+
+    public static Rating unserialize(int value) {
+        switch (value) {
+            case -1:
+                return REJECTED;
+            case 0:
+                return UNRATED;
+            case 1:
+                return ONE;
+            case 2:
+                return TWO;
+            case 3:
+                return THREE;
+            case 4:
+                return FOUR;
+            case 5:
+                return FIVE;
+            default:
+                return UNRATED;
+        }
+    }
+}
+
 // TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
@@ -900,6 +972,40 @@ public abstract class TransformablePhoto: PhotoSource {
             notify_altered(new Alteration("metadata", "flags"));
         
         return flags;
+    }
+
+    public Rating get_rating() {
+        lock (row) {
+            return row.rating;
+        }
+    }
+
+    public void set_rating(Rating rating) {
+        bool committed = false;
+    
+        lock (row) {
+            if (rating != row.rating && rating.is_valid()) {  
+    
+                committed = PhotoTable.get_instance().set_rating(get_photo_id(), rating);
+                if (committed)
+                    row.rating = rating;
+            }
+        }
+        
+        if (committed)
+            notify_altered(new Alteration("metadata", "rating"));
+    }
+
+    public void increase_rating() {
+        lock (row) {
+            set_rating(row.rating.increase());
+        }
+    }
+
+    public void decrease_rating() {
+        lock (row) {
+            set_rating(row.rating.decrease());
+        }
     }
     
     protected override void commit_backlinks(SourceCollection? sources, string? backlinks) {

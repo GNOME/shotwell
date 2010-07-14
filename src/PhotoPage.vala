@@ -2151,6 +2151,65 @@ public class LibraryPhotoPage : EditingHostPage {
         hide_unhide.tooltip = Resources.HIDE_TOOLTIP;
         actions += hide_unhide;
 
+        Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
+        set_rating.label = Resources.RATING_MENU;
+        actions += set_rating;
+
+        // TODO: change these keyboard shortcuts, discussion needed?
+        Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
+            "8", TRANSLATABLE, on_increase_rating };
+        increase_rating.label = Resources.INCREASE_RATING_MENU;
+        increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
+        actions += increase_rating;
+
+        Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
+            "7", TRANSLATABLE, on_decrease_rating };
+        decrease_rating.label = Resources.DECREASE_RATING_MENU;
+        decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
+        actions += decrease_rating;
+
+        Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
+            "9", TRANSLATABLE, on_rate_rejected };
+        rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
+        rate_rejected.tooltip = Resources.rating_tooltip(Rating.REJECTED);
+        actions += rate_rejected;
+
+        Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
+            "0", TRANSLATABLE, on_rate_unrated };
+        rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
+        rate_unrated.tooltip = Resources.rating_tooltip(Rating.UNRATED);
+        actions += rate_unrated;
+
+        Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
+            "1", TRANSLATABLE, on_rate_one };
+        rate_one.label = Resources.rating_menu(Rating.ONE);
+        rate_one.tooltip = Resources.rating_tooltip(Rating.ONE);
+        actions += rate_one;
+
+        Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
+            "2", TRANSLATABLE, on_rate_two };
+        rate_two.label = Resources.rating_menu(Rating.TWO);
+        rate_two.tooltip = Resources.rating_tooltip(Rating.TWO);
+        actions += rate_two;
+
+        Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
+            "3", TRANSLATABLE, on_rate_three };
+        rate_three.label = Resources.rating_menu(Rating.THREE);
+        rate_three.tooltip = Resources.rating_tooltip(Rating.THREE);
+        actions += rate_three;
+
+        Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
+            "4", TRANSLATABLE, on_rate_four };
+        rate_four.label = Resources.rating_menu(Rating.FOUR);
+        rate_four.tooltip = Resources.rating_tooltip(Rating.FOUR);
+        actions += rate_four;
+
+        Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
+            "5", TRANSLATABLE, on_rate_five };
+        rate_five.label = Resources.rating_menu(Rating.FIVE);
+        rate_five.tooltip = Resources.rating_tooltip(Rating.FIVE);
+        actions += rate_five;
+
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
         actions += help;
@@ -2252,18 +2311,21 @@ public class LibraryPhotoPage : EditingHostPage {
         base.switched_to();
         
         update_zoom_menu_item_sensitivity();
+        update_rating_menu_item_sensitivity();
     }
 
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         base.paint(gc, drawable);
 
-        if (!has_current_tool()) {
+        if (!has_current_tool() && get_zoom_state().is_default()) {
             Gdk.Pixbuf? trinket = null;
             
             if (((LibraryPhoto) get_photo()).is_hidden())
                 trinket = Resources.get_icon(Resources.ICON_HIDDEN, TRINKET_SCALE);
             else if (((LibraryPhoto) get_photo()).is_favorite())
                 trinket = Resources.get_icon(Resources.ICON_FAVORITE, TRINKET_SCALE);
+			else
+            	trinket = Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), TRINKET_SCALE);
             
             if (trinket == null)
                 return;
@@ -2277,7 +2339,7 @@ public class LibraryPhotoPage : EditingHostPage {
             drawable.get_size(out x, out y);
 
             drawable.draw_pixbuf(gc, trinket, 0, 0, 
-                (x / 2) + (pixbuf.get_width() / 2) - trinket.get_width() - TRINKET_PADDING, 
+                (x / 2) - (pixbuf.get_width() / 2) + TRINKET_PADDING,
                 (y / 2) + (pixbuf.get_height() / 2) - trinket.get_height() - TRINKET_PADDING, 
                 trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
         }
@@ -2710,6 +2772,76 @@ public class LibraryPhotoPage : EditingHostPage {
             return false;
  
         return !((LibraryPhoto) get_photo()).is_favorite();
+    }
+
+    private void on_increase_rating() {
+        if (!has_photo())
+            return;
+        
+        SetRatingSingleCommand command = new SetRatingSingleCommand.inc_dec(get_photo(), true);
+        get_command_manager().execute(command);
+    
+        update_rating_menu_item_sensitivity();
+    }
+
+    private void on_decrease_rating() {
+        if (!has_photo())
+            return;
+        
+        SetRatingSingleCommand command = new SetRatingSingleCommand.inc_dec(get_photo(), false);
+        get_command_manager().execute(command);
+
+        update_rating_menu_item_sensitivity();
+    }
+
+    private void on_set_rating(Rating rating) {
+        if (!has_photo())
+            return;
+        
+        SetRatingSingleCommand command = new SetRatingSingleCommand(get_photo(), rating);
+        get_command_manager().execute(command);
+        
+        update_rating_menu_item_sensitivity();
+    }
+
+    private void on_rate_rejected() {
+        on_set_rating(Rating.REJECTED);
+    }
+    
+    private void on_rate_unrated() {
+        on_set_rating(Rating.UNRATED);
+    }
+
+    private void on_rate_one() {
+        on_set_rating(Rating.ONE);
+    }
+
+    private void on_rate_two() {
+        on_set_rating(Rating.TWO);
+    }
+
+    private void on_rate_three() {
+        on_set_rating(Rating.THREE);
+    }
+
+    private void on_rate_four() {
+        on_set_rating(Rating.FOUR);
+    }
+
+    private void on_rate_five() {
+        on_set_rating(Rating.FIVE);
+    }
+
+    private void update_rating_menu_item_sensitivity() {
+        set_action_sensitive("RateRejected", get_photo().get_rating() != Rating.REJECTED);
+        set_action_sensitive("RateUnrated", get_photo().get_rating() != Rating.UNRATED);
+        set_action_sensitive("RateOne", get_photo().get_rating() != Rating.ONE);
+        set_action_sensitive("RateTwo", get_photo().get_rating() != Rating.TWO);
+        set_action_sensitive("RateThree", get_photo().get_rating() != Rating.THREE);
+        set_action_sensitive("RateFour", get_photo().get_rating() != Rating.FOUR);
+        set_action_sensitive("RateFive", get_photo().get_rating() != Rating.FIVE);
+        set_action_sensitive("IncreaseRating", get_photo().get_rating().can_increase());
+        set_action_sensitive("DecreaseRating", get_photo().get_rating().can_decrease());
     }
     
     protected bool can_hide() {
