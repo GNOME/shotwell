@@ -620,8 +620,8 @@ public class ImportPage : CheckerboardPage {
         mount.unmounted.connect(on_unmounted);
         
         debug("Unmounting camera ...");
-        mount.unmount_with_operation(MountUnmountFlags.NONE, new Gtk.MountOperation(AppWindow.get_instance()),
-            null, on_unmount_finished);
+        mount.unmount_with_operation.begin(MountUnmountFlags.NONE, 
+            new Gtk.MountOperation(AppWindow.get_instance()), null, on_unmount_finished);
         
         return true;
     }
@@ -631,7 +631,7 @@ public class ImportPage : CheckerboardPage {
         
         Mount mount = (Mount) source;
         try {
-            mount.unmount_with_operation_finish(aresult);
+            mount.unmount_with_operation.end(aresult);
         } catch (Error err) {
             AppWindow.error_message(UNMOUNT_FAILED_MSG);
             
