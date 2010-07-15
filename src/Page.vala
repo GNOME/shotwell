@@ -1393,7 +1393,8 @@ public abstract class CheckerboardPage : Page {
             autoscroll_scheduled = true;
         }
 
-        return base.on_motion(event, x, y, mask);
+        // return true to stop a potential drag-and-drop operation
+        return true;
     }
     
     private void updated_selection_band() {
