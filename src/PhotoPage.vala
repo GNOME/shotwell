@@ -1644,19 +1644,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         get_command_manager().execute(command);
     }
     
-    public void on_rename() {
+    public void on_edit_title() {
         LibraryPhoto item;
         if (get_photo() is LibraryPhoto)
             item = get_photo() as LibraryPhoto;
         else
             return;
         
-        PhotoRenameDialog rename_dialog = new PhotoRenameDialog(item.get_title());
-        string? new_name = rename_dialog.execute();
-        if (new_name == null)
+        EditTitleDialog edit_title_dialog = new EditTitleDialog(item.get_title());
+        string? new_title = edit_title_dialog.execute();
+        if (new_title == null)
             return;
         
-        RenamePhotoCommand command = new RenamePhotoCommand(item, new_name);
+        EditTitleCommand command = new EditTitleCommand(item, new_title);
         get_command_manager().execute(command);
     }
 
@@ -2104,11 +2104,11 @@ public class LibraryPhotoPage : EditingHostPage {
         revert.tooltip = Resources.REVERT_TOOLTIP;
         actions += revert;
         
-        Gtk.ActionEntry rename = { "PhotoRename", null, TRANSLATABLE, "F2", TRANSLATABLE,
-            on_rename };
-        rename.label = Resources.RENAME_PHOTO_MENU;
-        rename.tooltip = Resources.RENAME_PHOTO_TOOLTIP;
-        actions += rename;
+        Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
+            on_edit_title };
+        edit_title.label = Resources.EDIT_TITLE_MENU;
+        edit_title.tooltip = Resources.EDIT_TITLE_TOOLTIP;
+        actions += edit_title;
 
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
@@ -2399,7 +2399,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/HideUnhide", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PhotoRename", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/EditTitle", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEdit", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", sensitivity);
@@ -2415,7 +2415,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextFavoriteUnfavorite", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextHideUnhide", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextPhotoRename", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/ContextEditTitle", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextExternalEdit", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextExternalEditRAW", sensitivity);
         set_item_sensitive("/PhotoContextMenu/JumpToFile", sensitivity);

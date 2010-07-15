@@ -422,23 +422,23 @@ public class RotateMultipleCommand : MultipleDataSourceCommand {
     }
 }
 
-public class RenamePhotoCommand : SingleDataSourceCommand {
-    private string new_name;
-    private string? old_name;
+public class EditTitleCommand : SingleDataSourceCommand {
+    private string new_title;
+    private string? old_title;
     
-    public RenamePhotoCommand(LibraryPhoto photo, string new_name) {
-        base(photo, Resources.RENAME_PHOTO_LABEL, Resources.RENAME_PHOTO_TOOLTIP);
+    public EditTitleCommand(LibraryPhoto photo, string new_title) {
+        base(photo, Resources.EDIT_TITLE_LABEL, Resources.EDIT_TITLE_TOOLTIP);
         
-        this.new_name = new_name;
-        old_name = photo.get_title();
+        this.new_title = new_title;
+        old_title = photo.get_title();
     }
     
     public override void execute() {
-        ((LibraryPhoto) source).set_title(new_name);
+        ((LibraryPhoto) source).set_title(new_title);
     }
     
     public override void undo() {
-        ((LibraryPhoto) source).set_title(old_name);
+        ((LibraryPhoto) source).set_title(old_title);
     }
 }
 

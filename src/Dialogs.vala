@@ -524,9 +524,9 @@ public class EventRenameDialog : TextEntryDialogMediator {
     }
 }
 
-public class PhotoRenameDialog : TextEntryDialogMediator {
-    public PhotoRenameDialog(string? photo_name) {
-        base (_("Rename Photo"), _("Name:"), photo_name);
+public class EditTitleDialog : TextEntryDialogMediator {
+    public EditTitleDialog(string? photo_title) {
+        base (_("Edit Title"), _("Title:"), photo_title);
     }
 
     public virtual string? execute() {

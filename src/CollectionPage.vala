@@ -385,11 +385,11 @@ public abstract class CollectionPage : CheckerboardPage {
         duplicate.tooltip = Resources.DUPLICATE_PHOTO_TOOLTIP;
         actions += duplicate;
 
-        Gtk.ActionEntry rename = { "PhotoRename", null, TRANSLATABLE, "F2", TRANSLATABLE,
-            on_rename };
-        rename.label = Resources.RENAME_PHOTO_MENU;
-        rename.tooltip = Resources.RENAME_PHOTO_TOOLTIP;
-        actions += rename;
+        Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
+            on_edit_title };
+        edit_title.label = Resources.EDIT_TITLE_MENU;
+        edit_title.tooltip = Resources.EDIT_TITLE_TOOLTIP;
+        actions += edit_title;
 
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
@@ -729,7 +729,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
         set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
-        set_item_sensitive("/CollectionContextMenu/ContextPhotoRename", one_selected);
+        set_item_sensitive("/CollectionContextMenu/ContextEditTitle", one_selected);
         
 #if !NO_RAW
         if (is_single_raw)
@@ -902,7 +902,7 @@ public abstract class CollectionPage : CheckerboardPage {
     
     private bool can_revert_selected() {
         foreach (DataView view in get_view().get_selected()) {
-			LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             if (photo.has_transformations() || photo.has_editable())
                 return true;
         }
@@ -912,7 +912,7 @@ public abstract class CollectionPage : CheckerboardPage {
     
     private bool can_revert_editable_selected() {
         foreach (DataView view in get_view().get_selected()) {
-			LibraryPhoto photo = ((Thumbnail) view).get_photo();
+            LibraryPhoto photo = ((Thumbnail) view).get_photo();
             if (photo.has_editable())
                 return true;
         }
@@ -944,7 +944,7 @@ public abstract class CollectionPage : CheckerboardPage {
                 return true;
         }
         
-        return false;        
+        return false;
     }
 
     private bool can_increase_selected_rating() {
@@ -962,7 +962,7 @@ public abstract class CollectionPage : CheckerboardPage {
                 return true;
         }
         
-        return false;        
+        return false;
     }
 
     
@@ -983,7 +983,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
         set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/PhotoRename", one_selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/EditTitle", one_selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Rate", selected);
         
 #if !NO_RAW
@@ -1192,19 +1192,19 @@ public abstract class CollectionPage : CheckerboardPage {
         get_command_manager().execute(command);
     }
 
-    private void on_rename() {
-        // only rename one at a time
+    private void on_edit_title() {
+        // only edit one title at a time
         if (get_view().get_selected_count() != 1)
             return;
         
         LibraryPhoto item = (LibraryPhoto) get_view().get_selected_at(0).get_source();
         
-        PhotoRenameDialog rename_dialog = new PhotoRenameDialog(item.get_title());
-        string? new_name = rename_dialog.execute();
-        if (new_name == null)
+        EditTitleDialog edit_title_dialog = new EditTitleDialog(item.get_title());
+        string? new_title = edit_title_dialog.execute();
+        if (new_title == null)
             return;
         
-        RenamePhotoCommand command = new RenamePhotoCommand(item, new_name);
+        EditTitleCommand command = new EditTitleCommand(item, new_title);
         get_command_manager().execute(command);
     }
 

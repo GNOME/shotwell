@@ -87,7 +87,7 @@
                 <menuitem name="RateFive" action="RateFive" />
             </menu>
             <separator />
-            <menuitem name="PhotoRename" action="PhotoRename" />
+            <menuitem name="EditTitle" action="EditTitle" />
             <menuitem name="AdjustDateTime" action="AdjustDateTime" />
             <separator />
             <menuitem name="ExternalEdit" action="ExternalEdit" />
@@ -134,7 +134,7 @@
             <menuitem name="RateFive" action="RateFive" />
         </menu>
         <separator />
-        <menuitem name="ContextPhotoRename" action="PhotoRename" />
+        <menuitem name="ContextEditTitle" action="EditTitle" />
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />
