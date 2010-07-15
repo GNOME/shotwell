@@ -664,7 +664,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override bool on_mousewheel_up(Gdk.EventScroll event) {
-        if (get_zoom_state().is_max())
+        if (get_zoom_state().is_max() || !zoom_slider.get_sensitive())
             return false;
 
         zoom_about_event_cursor_point(event, ZOOM_INCREMENT_SIZE);
@@ -672,10 +672,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     protected override bool on_mousewheel_down(Gdk.EventScroll event) {
-        if (get_zoom_state().is_min()) {          
+        if (get_zoom_state().is_min() || !zoom_slider.get_sensitive())
             return false;
-        }
-
+        
         zoom_about_event_cursor_point(event, -ZOOM_INCREMENT_SIZE);
         return false;
     }
