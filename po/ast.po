@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.6.1+trunk\n"
+"Project-Id-Version: shotwell-0.5.2+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-06-04 16:30-0700\n"
-"PO-Revision-Date: 2010-06-25 16:26+0100\n"
-"Last-Translator: astur <malditoastur@gmail.com>\n"
+"PO-Revision-Date: 2010-07-14 22:31+0100\n"
+"Last-Translator: marquinos <marcos@softastur.org>\n"
 "Language-Team: asturian <alministradores@softastur.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: src/AppWindow.vala:567
 msgid "translator-credits"
 msgstr ""
-"Iñigo Varela <ivarela@softastur.org>"
+"Iñigo Varela < ivarela@softastur.org>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -113,6 +113,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hebo un fallu fatal al acceder a la biblioteca de Shotwell. Shotwell nun pue continuar.\n"
+"\n"
+"%s"
 
 #: src/AppWindow.vala:564
 msgid "Visit the Yorba web site"
@@ -321,7 +324,7 @@ msgstr[1] "Esportar Semeyes"
 #: src/CollectionPage.vala:865
 #: src/PhotoPage.vala:2259
 msgid "Remove From Library"
-msgstr ""
+msgstr "Desaniciar de la biblioteca"
 
 #: src/CollectionPage.vala:865
 #: src/PhotoPage.vala:2259
@@ -461,8 +464,8 @@ msgstr "Fallu al axustar hora"
 #: src/Commands.vala:1003
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "L'axuste de la hora nun puede desfacese nel ficheru de la semeya siguiente."
+msgstr[1] "L'axuste de la hora nun puede desfacese nos ficheros de les semeyes siguiente."
 
 #: src/Commands.vala:1257
 msgid "Move Photos to Trash"
@@ -523,7 +526,7 @@ msgstr "_Calidá:"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
-msgstr ""
+msgstr "Re_stricción d'escala:"
 
 #: src/Dialogs.vala:144
 msgid " _pixels"
@@ -629,8 +632,8 @@ msgstr[1] ""
 #: src/Dialogs.vala:545
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Esborrar ficheru"
+msgstr[1] "_Esborrar ficheros"
 
 #: src/Dialogs.vala:549
 msgid "Only _Remove"
@@ -682,7 +685,7 @@ msgstr "24 Hr"
 
 #: src/Dialogs.vala:781
 msgid "_Shift photos by the same amount"
-msgstr ""
+msgstr "Camudar semeyes pola mesma cantidá"
 
 #: src/Dialogs.vala:786
 msgid "Set _all photos to this time"
@@ -1014,7 +1017,7 @@ msgstr "Solombres"
 
 #: src/EditingTools.vala:2441
 msgid "Contrast Expansion"
-msgstr ""
+msgstr "Espansión de contraste"
 
 #: src/EventsDirectoryPage.vala:64
 #: src/Properties.vala:259
@@ -1063,12 +1066,17 @@ msgid ""
 "\n"
 "If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
+"Anguaño nun tas rexistráu en Facebook.\n"
+"\n"
+"Si entá nun tienes una de Facebook, puedes creala durante'l procesu d'aniciu de sesión. Durante l'aniciu de la sesión, Shotwell Connect puede pedite permisu pa xubir semeyes ya espublizales nel to feed. Estos permisos son necesarios pa que Shotwell Connect funcione."
 
 #: src/FacebookConnector.vala:18
 msgid ""
 "You have already logged in and out of Facebook during this Shotwell session.\n"
 "To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"Yá aniciaste y zarraste sesión de Facebook durante esta sesión de Shotwell.\n"
+"Para siguir espublizando en Facebook, zarra ya reanicia Shotwell, ya intenta espublizar de nueves."
 
 #: src/FacebookConnector.vala:258
 msgid "Testing connection to Facebook..."
@@ -1086,6 +1094,9 @@ msgid ""
 "\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
+"Tas coneutáu a Facebook como %s.\n"
+"\n"
+"¿Quies espublizar les semeyes esbillaes?"
 
 #: src/FacebookConnector.vala:747
 msgid "Publish to an e_xisting album:"
@@ -1113,12 +1124,17 @@ msgid ""
 "\n"
 "You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
+"Anguaño nun tas coneutáu a Flickr.\n"
+"\n"
+"Tienes de crear enantes una cuenta de Flickr, pa completar el proceso d'aniciu de sesión. Durante la sesión tendrás qu'autorizar específicamente a Shotwell Connect pa enllazar a la to cuenta de Flickr."
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"Yá aniciaste y zarraste sesión de Flickr durante esta sesión de Shotwell.\n"
+"Para siguir espublizando en Flickr, zarra ya reanicia Shotwell, ya intenta espublizar de nueves."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
@@ -1130,6 +1146,8 @@ msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
 msgstr ""
+"Tas coneutáu en Flickr como %s.\n"
+"\n"
 
 #: src/FlickrConnector.vala:822
 #, c-format
@@ -1137,6 +1155,8 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"La to cuenta de baldre de Flickr llenda la cantidá de datos que puedes xubir al mes.\n"
+"Esti mes, tienes %d megabytes restantes de la to cuota de carga."
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
@@ -1173,11 +1193,11 @@ msgstr "Grande (1024 x 768 pixels)"
 #: src/image_util.vala:236
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr ""
+msgstr "Nun puede esportase'l fondu de pantalla a %s: %s"
 
 #: src/ImportPage.vala:183
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr ""
+msgstr "Nun puede desmontase la cámara. Tenta de desmontala dende'l xestor de ficheros."
 
 #: src/ImportPage.vala:273
 #: src/ImportPage.vala:274
@@ -1206,7 +1226,7 @@ msgstr "Esbillar toles semeyes pa importar"
 
 #: src/ImportPage.vala:532
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
-msgstr ""
+msgstr "Shotwell necesita desmontar la cámara del sistema de ficheros col envís d'acceder a ella. ¿Siguir?"
 
 #: src/ImportPage.vala:538
 msgid "_Unmount"
@@ -1218,11 +1238,11 @@ msgstr "Por favor, desmonta la cámara"
 
 #: src/ImportPage.vala:548
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
-msgstr ""
+msgstr "La cámara ta bloquiada por otra aplicación. Shotwell namái puede acceder a la cámara cuando ta desbloquiada. Zarra cualesquier otra aplicación que tea usando la cámara y vuelvi a tentalo."
 
 #: src/ImportPage.vala:558
 msgid "Please close any other application using the camera."
-msgstr ""
+msgstr "Por favor zarra cualesquier otra aplicación que tea usando la cámara."
 
 #: src/ImportPage.vala:563
 #, c-format
@@ -1230,6 +1250,8 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
+"Nun pueden recoyese vistes previes de la cámara:\n"
+"%s"
 
 #: src/ImportPage.vala:582
 msgid "Unmounting..."
@@ -1364,7 +1386,7 @@ msgstr "Vaciando papelera..."
 
 #: src/LibraryWindow.vala:783
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
+msgstr "Shotwell ta configuráu pa importar semeyes dende'l to direutoriu home.\n"
 
 #: src/LibraryWindow.vala:786
 msgid "_Import"
@@ -1380,7 +1402,7 @@ msgstr "Les semeyes nun pueden importase dende esti direutoriu."
 
 #: src/LibraryWindow.vala:905
 msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
-msgstr ""
+msgstr "Shotwell puede copiar les semeyes na to biblioteca o puede enllazar a les semeyes ensin duplicales."
 
 #: src/LibraryWindow.vala:910
 msgid "Co_py into Library"
@@ -1405,12 +1427,12 @@ msgstr "Cámares"
 #: src/main.vala:79
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
-msgstr ""
+msgstr "La biblioteca de semeyes, nun ye compatible con esta versión de Shotwell. Paez que foi creada por Shotwell %s.  Esta versión ye %s.  Por favor, usa la versión más reciente de Shotwell."
 
 #: src/main.vala:84
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
-msgstr ""
+msgstr "Shotwell nun pudo anovar la biblioteca de semeyes dende la versión %s a la %s. Pa tener más información, por favor consulta la Wiki de Shotwell en %s"
 
 #: src/main.vala:89
 #, c-format
@@ -1667,22 +1689,25 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
+"Nun tas coneutáu a Álbumes web de Picasa.\n"
+"\n"
+"Tienes de rexistrar enantes una cuenta de Google y configurala pa usala con Picasa y poder siguir. Puedes configurar la mayoría de cuentes per aciu del usu del to restolador pa rexistrate nel sitiu d'Álbumes web de Picasa al menos una vegada."
 
 #: src/PicasaConnector.vala:508
 msgid "Enter the email address and password associated with your Picasa Web Albums account."
-msgstr ""
+msgstr "Introduz la direición de corréu electrónicu y la contraseña asociada cola to cuenta de Álbumes web de Picasa."
 
 #: src/PicasaConnector.vala:509
 msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Álbumes web de Picasa nun reconoz la direición de corréu-e y la contraseña qu'introduxisti. Pa intentalo de nueves, introduz la to direición de corréu-e y contraseña."
 
 #: src/PicasaConnector.vala:510
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "La direición de corréu-e y la contraseña inxestaes correspuenden a una cuenta de Google que nun ta configurada pa l'usu con Álbumes web de Picasa. Puedes configurar la mayoría de cuentes per aciu del usu del restolador pa rexistrate nel sitiu d'Álbumes web de Picasa al menos una vegada. Pa intentalo de nueves, introduciz la to direición de corréu-e y contraseña."
 
 #: src/PicasaConnector.vala:511
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "La direición de corréu-e y la contraseña inxertaes correspuenden a una cuenta de Google que s'etiquetó como desixencia de seguridá adicionales. Puedes llimpiar esta etiqueta per aciu del usu del restolador p'acceder a Álbumes web de Picasa. Pa intentalo de nueves, introduciz la to direición de corréu-e y contraseña."
 
 #: src/PicasaConnector.vala:546
 #, c-format
@@ -1783,7 +1808,7 @@ msgstr "cm"
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
-msgstr ""
+msgstr "Concasar rellación d'aspeutu de la semeya"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
@@ -1791,7 +1816,7 @@ msgstr "Resolución en píxeles"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr ""
+msgstr "Salida de semeya en:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
@@ -1874,7 +1899,7 @@ msgstr "Dimensiones orixinales:"
 
 #: src/Properties.vala:420
 msgid "Camera make:"
-msgstr ""
+msgstr "Cámara:"
 
 #: src/Properties.vala:423
 msgid "Camera model:"
@@ -1890,7 +1915,7 @@ msgstr "Llonxitú focal:"
 
 #: src/Properties.vala:431
 msgid "Exposure bias:"
-msgstr ""
+msgstr "Esposición:"
 
 #: src/Properties.vala:433
 msgid "GPS latitude:"
@@ -1975,7 +2000,7 @@ msgstr "Voltiar"
 
 #: src/Resources.vala:98
 msgid "Flip the photos upside down"
-msgstr ""
+msgstr "Voltiar la semeya del revés"
 
 #: src/Resources.vala:100
 msgid "_Enhance"
@@ -2431,7 +2456,7 @@ msgstr "Dir a la semeya anterior"
 #: src/SlideshowPage.vala:116
 #: src/SlideshowPage.vala:229
 msgid "Pause"
-msgstr ""
+msgstr "Posar"
 
 #: src/SlideshowPage.vala:117
 #: src/SlideshowPage.vala:230
@@ -2544,7 +2569,7 @@ msgstr "La espublización en %s nun puede continuar porque hebo un fallu."
 
 #: src/WebConnectors.vala:826
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
+msgstr "Pa intentar espublizar n'otru serviciu, esbilla ún nel menú d'arriba."
 
 #: src/WebConnectors.vala:903
 #: src/WebConnectors.vala:1016
