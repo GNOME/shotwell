@@ -324,15 +324,14 @@ public abstract class CollectionPage : CheckerboardPage {
         set_rating.label = Resources.RATING_MENU;
         actions += set_rating;
 
-        // TODO: change these keyboard shortcuts, discussion needed?
         Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
-            "8", TRANSLATABLE, on_increase_rating };
+            "greater", TRANSLATABLE, on_increase_rating };
         increase_rating.label = Resources.INCREASE_RATING_MENU;
         increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
         actions += increase_rating;
 
         Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
-            "7", TRANSLATABLE, on_decrease_rating };
+            "less", TRANSLATABLE, on_decrease_rating };
         decrease_rating.label = Resources.DECREASE_RATING_MENU;
         decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
         actions += decrease_rating;
@@ -776,6 +775,14 @@ public abstract class CollectionPage : CheckerboardPage {
             case "underscore":
             case "KP_Subtract":
                 on_decrease_size();
+            break;
+
+            case "period":
+                on_increase_rating();
+            break;
+            
+            case "comma":
+                on_decrease_rating();
             break;
 
             case "KP_1":

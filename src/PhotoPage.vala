@@ -2154,15 +2154,14 @@ public class LibraryPhotoPage : EditingHostPage {
         set_rating.label = Resources.RATING_MENU;
         actions += set_rating;
 
-        // TODO: change these keyboard shortcuts, discussion needed?
         Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
-            "8", TRANSLATABLE, on_increase_rating };
+            "greater", TRANSLATABLE, on_increase_rating };
         increase_rating.label = Resources.INCREASE_RATING_MENU;
         increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
         actions += increase_rating;
 
         Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
-            "7", TRANSLATABLE, on_decrease_rating };
+            "less", TRANSLATABLE, on_decrease_rating };
         decrease_rating.label = Resources.DECREASE_RATING_MENU;
         decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
         actions += decrease_rating;
@@ -2446,6 +2445,16 @@ public class LibraryPhotoPage : EditingHostPage {
                 // unavailable in fullscreen mode (a variant of #324), so we do this manually
                 // here
                 on_move_to_trash();
+            break;
+
+            case "period":
+			case "greater":
+                on_increase_rating();
+            break;
+            
+            case "comma":
+			case "less":
+                on_decrease_rating();
             break;
 
             case "KP_1":
