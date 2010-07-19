@@ -777,6 +777,34 @@ public abstract class CollectionPage : CheckerboardPage {
             case "KP_Subtract":
                 on_decrease_size();
             break;
+
+            case "KP_1":
+                on_rate_one();
+            break;
+            
+            case "KP_2":
+                on_rate_two();
+            break;
+
+            case "KP_3":
+                on_rate_three();
+            break;
+        
+            case "KP_4":
+                on_rate_four();
+            break;
+
+            case "KP_5":
+                on_rate_five();
+            break;
+
+            case "KP_0":
+                on_rate_unrated();
+            break;
+
+            case "KP_9":
+                on_rate_rejected();
+            break;
             
             default:
                 handled = false;
