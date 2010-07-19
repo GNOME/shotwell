@@ -122,9 +122,13 @@ class EventDirectoryItem : CheckerboardItem {
 
     protected override void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf,
         Gdk.Point origin) {
+        Dimensions dimensions = Dimensions.for_pixbuf(pixbuf);
+
+        if (pixbuf.get_has_alpha())
+            draw_rounded_corners_filled(gc, drawable, dimensions, origin, 6.0);
+
         // use rounded corners on events
-        Cairo.Context cx = get_rounded_corners_context(drawable, Dimensions.for_pixbuf(pixbuf),
-            origin, 6.0);
+        Cairo.Context cx = get_rounded_corners_context(drawable, dimensions, origin, 6.0);
         Gdk.cairo_set_source_pixbuf(cx, pixbuf, origin.x, origin.y);
         cx.paint();
     }

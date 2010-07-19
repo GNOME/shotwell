@@ -212,6 +212,11 @@ public abstract class PhotoCanvas {
     // get_scaled_pixbuf_position().x and get_scaled_pixbuf_position().y
     
     public void paint_pixbuf(Gdk.Pixbuf pixbuf) {
+        if (pixbuf.get_has_alpha()) {
+            drawable.draw_rectangle(container.style.black_gc, true,
+                scaled_position.x, scaled_position.y,
+                pixbuf.get_width(), pixbuf.get_height());
+        }
         drawable.draw_pixbuf(default_gc, pixbuf,
             0, 0,
             scaled_position.x, scaled_position.y,
@@ -220,6 +225,11 @@ public abstract class PhotoCanvas {
     }
     
     public void paint_pixbuf_area(Gdk.Pixbuf pixbuf, Box source_area) {
+        if (pixbuf.get_has_alpha()) {
+            drawable.draw_rectangle(container.style.black_gc, true,
+                scaled_position.x + source_area.left, scaled_position.y + source_area.top,
+                source_area.get_width(), source_area.get_height());
+        }
         drawable.draw_pixbuf(default_gc, pixbuf,
             source_area.left, source_area.top,
             scaled_position.x + source_area.left, scaled_position.y + source_area.top,
@@ -251,6 +261,9 @@ public abstract class PhotoCanvas {
     }
     
     public void erase_horizontal_line(int x, int y, int width) {
+        if (scaled.get_has_alpha())
+            draw_horizontal_line(container.style.black_gc, x, y, width);
+
         drawable.draw_pixbuf(default_gc, scaled,
             x, y,
             scaled_position.x + x, scaled_position.y + y,
@@ -274,6 +287,9 @@ public abstract class PhotoCanvas {
     }
     
     public void erase_vertical_line(int x, int y, int height) {
+        if (scaled.get_has_alpha())
+            draw_vertical_line(container.style.black_gc, x, y, height);
+
         drawable.draw_pixbuf(default_gc, scaled,
             x, y,
             scaled_position.x + x, scaled_position.y + y,

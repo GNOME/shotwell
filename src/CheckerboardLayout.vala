@@ -384,8 +384,12 @@ public abstract class CheckerboardItem : ThumbnailView {
         }
     }
     
-    protected virtual void paint_image(Gdk.GC gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
-        drawable.draw_pixbuf(gc, display_pixbuf, 0, 0, origin.x, origin.y, -1, -1, 
+    protected virtual void paint_image(Gdk.GC bg_gc, Gdk.Drawable drawable, Gdk.Pixbuf pixbuf, Gdk.Point origin) {
+        if (pixbuf.get_has_alpha()) {
+            drawable.draw_rectangle(bg_gc, true, origin.x, origin.y,
+                pixbuf.get_width(), pixbuf.get_height());
+        }
+        drawable.draw_pixbuf(bg_gc, display_pixbuf, 0, 0, origin.x, origin.y, -1, -1, 
             Gdk.RgbDither.NORMAL, 0, 0);
     }
 
@@ -394,7 +398,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             + BORDER_WIDTH;
     }
     
-    public void paint(Gdk.Drawable drawable, Gdk.GC gc, Gdk.GC text_gc, Gdk.GC? border_gc) {
+    public void paint(Gdk.Drawable drawable, Gdk.GC bg_gc, Gdk.GC select_gc, Gdk.GC text_gc, Gdk.GC? border_gc) {
         // calc the top-left point of the pixbuf
         Gdk.Point pixbuf_origin = Gdk.Point();
         pixbuf_origin.x = allocation.x + FRAME_WIDTH + BORDER_WIDTH;
@@ -405,7 +409,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             // border thickness depends on the size of the thumbnail
             int scale = int.max(pixbuf_dim.width, pixbuf_dim.height);
             
-            paint_border(gc, drawable, pixbuf_dim, pixbuf_origin,
+            paint_border(select_gc, drawable, pixbuf_dim, pixbuf_origin,
                 get_selection_border_width(scale));
         }
         
@@ -414,7 +418,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             paint_border(border_gc, drawable, pixbuf_dim, pixbuf_origin, BORDER_WIDTH);
         
         if (display_pixbuf != null)
-            paint_image(gc, drawable, display_pixbuf, pixbuf_origin);
+            paint_image(bg_gc, drawable, display_pixbuf, pixbuf_origin);
         
         // get trinkets to determine the max width (pixbuf vs. trinkets)
         int trinkets_width = 0;
@@ -456,7 +460,7 @@ public abstract class CheckerboardItem : ThumbnailView {
             foreach (Gdk.Pixbuf trinket in trinkets) {
                 current_trinkets_width = current_trinkets_width + trinket.get_width() +
                     TRINKET_PADDING;
-                drawable.draw_pixbuf(gc, trinket, 0, 0, 
+                drawable.draw_pixbuf(select_gc, trinket, 0, 0, 
                     pixbuf_origin.x + TRINKET_PADDING,
                     pixbuf_origin.y + pixbuf_dim.height - trinket.get_height() - TRINKET_PADDING, 
                     trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
@@ -566,6 +570,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
     private Gdk.GC unselected_gc = null;
     private Gdk.GC border_gc = null;
     private Gdk.GC selection_band_gc = null;
+    private Gdk.GC background_gc = null;
     private Gdk.Rectangle visible_page = Gdk.Rectangle();
     private int last_width = 0;
     private int columns = 0;
@@ -1480,6 +1485,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         unselected_gc = new Gdk.GC(window);
         border_gc = new Gdk.GC(window); 
         selection_band_gc = new Gdk.GC(window);
+        background_gc = new Gdk.GC(window);
         
         set_colors();
     }
@@ -1525,6 +1531,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         gc_values.foreground = selected_color;
         
         selection_band_gc.set_values(gc_values, mask);
+
+        background_gc.set_foreground(this.get_style().bg[Gtk.StateType.NORMAL]);
     }
     
     private override void size_allocate(Gdk.Rectangle allocation) {
@@ -1552,8 +1560,8 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             // have all items in the exposed area paint themselves
             foreach (CheckerboardItem item in intersection(event.area))
-                item.paint(window, item.is_selected() ? selected_gc : unselected_gc, unselected_gc,
-                           border_gc);
+                item.paint(window, background_gc, item.is_selected() ? selected_gc : unselected_gc,
+                    unselected_gc, border_gc);
         } else {
             // draw the message in the center of the window
             Pango.Layout pango_layout = create_pango_layout(message);
