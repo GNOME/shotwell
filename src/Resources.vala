@@ -435,6 +435,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         string label_base = _("Rate %s");
         string tooltip_base = _("Set rating to %s");
         string progress_base = _("Setting rating to %s");
+        string display_rating_menu_base = "%s";
+        string display_rating_label_base = _("Display %s");
+        string display_rating_tooltip_base = _("Only show photos with a rating of %s");
         string display_rating_or_higher_menu_base = _("%s or Better");
         string display_rating_or_higher_label_base = _("Display %s or Better");
         string display_rating_or_higher_tooltip_base = _("Only show photos with a rating of %s or better");
@@ -467,19 +470,19 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         DISPLAY_TWO_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.TWO));
         DISPLAY_THREE_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.THREE));
         DISPLAY_FOUR_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.FOUR));
-        DISPLAY_FIVE_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.FIVE));
+        DISPLAY_FIVE_OR_HIGHER_MENU = display_rating_menu_base.printf(get_stars(Rating.FIVE));
 
         DISPLAY_ONE_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.ONE));
         DISPLAY_TWO_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.TWO));
         DISPLAY_THREE_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.THREE));
         DISPLAY_FOUR_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.FOUR));
-        DISPLAY_FIVE_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.FIVE));
+        DISPLAY_FIVE_OR_HIGHER_LABEL = display_rating_label_base.printf(get_stars(Rating.FIVE));
 
         DISPLAY_ONE_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.ONE));
         DISPLAY_TWO_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.TWO));
         DISPLAY_THREE_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.THREE));
         DISPLAY_FOUR_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.FOUR));
-        DISPLAY_FIVE_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.FIVE));
+        DISPLAY_FIVE_OR_HIGHER_TOOLTIP = display_rating_tooltip_base.printf(get_stars(Rating.FIVE));
     }
 
     private string RATE_ONE_MENU;
