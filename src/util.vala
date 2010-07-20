@@ -22,19 +22,6 @@ public bool int64_equal(void *a, void *b) {
     return (*bia) == (*bib);
 }
 
-public uint file_hash(void *key) {
-    File *file = (File *) key;
-    
-    return str_hash(file->get_path());
-}
-
-public bool file_equal(void *a, void *b) {
-    File *afile = (File *) a;
-    File *bfile = (File *) b;
-    
-    return afile->get_path() == bfile->get_path();
-}
-
 public delegate bool ValueEqualFunc(Value a, Value b);
 
 public bool bool_value_equals(Value a, Value b) {
@@ -393,7 +380,8 @@ public bool query_is_directory_empty(File dir) throws Error {
     if (dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) != FileType.DIRECTORY)
         return false;
     
-    FileEnumerator enumerator = dir.enumerate_children("*", FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
+    FileEnumerator enumerator = dir.enumerate_children("standard::name",
+        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
     if (enumerator == null)
         return false;
     
@@ -419,6 +407,10 @@ public string strip_pretty_path(string path) {
         return path;
     
     return Environment.get_home_dir() + path.substring(1);
+}
+
+public string? get_file_info_id(FileInfo info) {
+    return info.get_attribute_string(FILE_ATTRIBUTE_ID_FILE);
 }
 
 public string format_local_date(Time date) {

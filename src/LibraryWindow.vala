@@ -295,6 +295,7 @@ public class LibraryWindow : AppWindow {
     private MasterEventsDirectoryPage events_directory_page = null;
     private LibraryPhotoPage photo_page = null;
     private TrashPage trash_page = null;
+    private OfflinePage offline_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     
@@ -355,6 +356,10 @@ public class LibraryWindow : AppWindow {
         // watch for new & removed tags
         Tag.global.contents_altered.connect(on_tags_added_removed);
         Tag.global.item_altered.connect(on_tag_altered);
+        
+        // watch for photos placed offline
+        LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
+        enable_disable_offline_page(LibraryPhoto.global.get_offline().size > 0);
         
         // start in the collection page
         sidebar.place_cursor(library_page);
@@ -1104,6 +1109,10 @@ public class LibraryWindow : AppWindow {
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
     }
     
+    private void on_offline_contents_altered() {
+        enable_disable_offline_page(LibraryPhoto.global.get_offline().size > 0);
+    }
+    
     private SidebarMarker? find_parent_marker(PageStub page) {
         // EventPageStub
         if (page is EventPageStub) {
@@ -1190,7 +1199,17 @@ public class LibraryWindow : AppWindow {
             tags_marker = null;
         }
     }
-
+    
+    private void enable_disable_offline_page(bool enable) {
+        if (enable && offline_page == null) {
+            offline_page = new OfflinePage();
+            add_parent_page(offline_page);
+        } else if (!enable && offline_page != null) {
+            remove_page(offline_page, library_page);
+            offline_page = null;
+        }
+    }
+    
     private void add_event_page(Event event) {
         EventPageStub event_stub = new EventPageStub(event);
         
@@ -1399,6 +1418,7 @@ public class LibraryWindow : AppWindow {
         assert(page != events_directory_page);
         assert(page != photo_page);
         assert(page != import_queue_page);
+        assert(page != trash_page);
         
         // switch away if necessary to ensure Page is fully detached from system
         if (get_current_page() == page)
@@ -1674,6 +1694,8 @@ public class LibraryWindow : AppWindow {
             // tag page selected and updated
         } else if (is_page_selected(trash_page, path)) {
             switch_to_page(trash_page);
+        } else if (offline_page != null && is_page_selected(offline_page, path)) {
+            switch_to_page(offline_page);
         } else {
             // nothing recognized selected
         }

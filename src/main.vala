@@ -200,14 +200,17 @@ void editing_exec(string filename) {
 bool no_startup_progress = false;
 bool no_mimicked_images = false;
 string data_dir = null;
+bool enable_monitoring = false;
 
 const OptionEntry[] options = {
-    { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
-        N_("Don't display startup progress meter"), null },
-    { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
-        N_("Don't used JPEGs to display RAW images"), null },
     { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
         N_("Path to Shotwell's private data"), N_("DIRECTORY") },
+    { "enable-monitoring", 0, 0, OptionArg.NONE, &enable_monitoring,
+        N_("Enable file and directory monitoring (EXPERIMENTAL, UNDER DEVELOPMENT)"), null },
+    { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
+        N_("Don't used JPEGs to display RAW images"), null },
+    { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
+        N_("Don't display startup progress meter"), null },
     { null }
 };
 

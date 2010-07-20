@@ -576,6 +576,16 @@ public struct BackingPhotoState {
     public PhotoFileFormat file_format;
     public Dimensions dim;
     public Orientation original_orientation;
+    
+    public bool matches_file_info(FileInfo info) {
+        if (filesize != info.get_size())
+            return false;
+        
+        TimeVal modification;
+        info.get_modification_time(out modification);
+        
+        return timestamp == modification.tv_sec;
+    }
 }
 
 public struct PhotoRow {
@@ -982,6 +992,14 @@ public class PhotoTable : DatabaseTable {
     
     public bool set_title(PhotoID photo_id, string? new_title) {
        return update_text_by_id(photo_id.id, "title", new_title != null ? new_title : "");
+    }
+    
+    public void set_filepath(PhotoID photo_id, string filepath) throws DatabaseError {
+        update_text_by_id_2(photo_id.id, "filename", filepath);
+    }
+    
+    public void update_timestamp(PhotoID photo_id, time_t timestamp) throws DatabaseError {
+        update_int64_by_id_2(photo_id.id, "timestamp", timestamp);
     }
     
     public bool set_exposure_time(PhotoID photo_id, time_t time) {
@@ -2085,6 +2103,14 @@ public class BackingPhotoTable : DatabaseTable {
         res = stmt.step();
         if (res != Sqlite.DONE)
             throw_error("BackingPhotoTable.remove", res);
+    }
+    
+    public void set_filepath(BackingPhotoID id, string filepath) throws DatabaseError {
+        update_text_by_id_2(id.id, "filepath", filepath);
+    }
+    
+    public void update_timestamp(BackingPhotoID id, time_t timestamp) throws DatabaseError {
+        update_int64_by_id_2(id.id, "timestamp", timestamp);
     }
 }
 

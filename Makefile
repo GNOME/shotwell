@@ -113,7 +113,10 @@ SRC_FILES = \
 	MimicManager.vala \
 	TrashPage.vala \
 	PngSupport.vala \
-	PhotoExporter.vala
+	PhotoExporter.vala \
+	DirectoryMonitor.vala \
+	LibraryMonitor.vala \
+	OfflinePage.vala
 
 ifndef LINUX
 SRC_FILES += \
@@ -140,6 +143,7 @@ RESOURCE_FILES = \
 	direct.ui \
 	tags.ui \
 	trash.ui \
+	offline.ui \
 	shotwell.glade
 
 SYS_INTEGRATION_FILES = \
