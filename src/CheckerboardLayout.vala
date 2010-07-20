@@ -1001,8 +1001,15 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             break;
         }
         
-        CheckerboardItem new_item = get_item_at_coordinate(col, row);
+        CheckerboardItem? new_item = get_item_at_coordinate(col, row);
         
+        if (new_item == null && point == CompassPoint.SOUTH) {
+            // nothing directly below, get last item on next row
+            new_item = (CheckerboardItem?) view.get_last();
+            if (new_item.get_row() <= item.get_row())
+                new_item = null;
+        }
+
         return (new_item != null) ? new_item : item;
     }
     
