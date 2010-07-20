@@ -568,10 +568,14 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             foreach (DataView view in added) {
                 LibraryPhoto photo = (LibraryPhoto) view.get_source();
                 
-                bool is_added = row.photo_id_list.add(photo.get_photo_id());
-                assert(is_added);
+                // possible a photo is added twice if the same tag is in photo ... add()
+                // returns true only if the set has altered
+                if (!row.photo_id_list.contains(photo.get_photo_id())) {
+                    bool is_added = row.photo_id_list.add(photo.get_photo_id());
+                    assert(is_added);
+                }
                 
-                is_added = added_photos.add(photo);
+                bool is_added = added_photos.add(photo);
                 assert(is_added);
             }
         }
