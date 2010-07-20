@@ -1121,7 +1121,9 @@ public class ImportPage : CheckerboardPage {
             marker.mark(job.get_source());
         }
         
-        int error_count = import_sources.destroy_marked(marker, true);
+        ProgressDialog progress = new ProgressDialog(AppWindow.get_instance(), 
+            _("Removing photos from camera"), new Cancellable());
+        int error_count = import_sources.destroy_marked(marker, true, progress.monitor);
         if (error_count > 0) {
             string error_string =
                 (ngettext("Unable to delete %d photo from the camera due to errors.",
@@ -1129,6 +1131,8 @@ public class ImportPage : CheckerboardPage {
                 error_count);
             AppWindow.error_message(error_string);
         }
+        
+        progress.close();
         
         // to stop build warnings
         local_ref = null;
