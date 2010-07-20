@@ -815,6 +815,14 @@ public abstract class ThumbnailSource : DataSource {
     }
 
     public abstract Gdk.Pixbuf? get_thumbnail(int scale) throws Error;
+    
+    // get_thumbnail( ) may return a cached pixbuf; create_thumbnail( ) is guaranteed to create
+    // a new pixbuf (e.g., by the source loading, decoding, and scaling image data)
+    public abstract Gdk.Pixbuf? create_thumbnail(int scale) throws Error;
+    
+    public abstract string? get_unique_thumbnail_name();
+    
+    public abstract PhotoFileFormat get_preferred_thumbnail_format();
 }
 
 public abstract class PhotoSource : ThumbnailSource {

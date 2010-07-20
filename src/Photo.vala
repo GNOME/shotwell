@@ -735,7 +735,20 @@ public abstract class TransformablePhoto: PhotoSource {
         
         row = updated_row;
     }
+
+    public override string? get_unique_thumbnail_name() {
+        return ("thumb%016" + int64.FORMAT_MODIFIER + "x").printf(get_photo_id().id);
+    }
     
+    public override PhotoFileFormat get_preferred_thumbnail_format() {
+        return (get_file_format().can_write()) ? get_file_format() :
+            PhotoFileFormat.get_system_default_format();
+    }
+
+    public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
+        return get_pixbuf(Scaling.for_best_fit(scale, true));
+    }
+
     public static bool is_file_supported(File file) {
         return is_basename_supported(file.get_basename());
     }
@@ -3332,7 +3345,7 @@ public class DirectPhoto : Photo {
         
         return result;
     }
-    
+
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
         if (preview == null) {
             preview = get_thumbnail(PREVIEW_BEST_FIT);
@@ -3348,7 +3361,7 @@ public class DirectPhoto : Photo {
         return (get_metadata().get_preview_count() == 0) ? null :
             get_orientation().rotate_pixbuf(get_metadata().get_preview(0).get_pixbuf());
     }
-    
+
     private override void altered(Alteration alteration) {
         preview = null;
         

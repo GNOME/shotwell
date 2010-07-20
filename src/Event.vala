@@ -189,6 +189,19 @@ public class Event : EventSource, ContainerSource, Proxyable {
         view.items_added.disconnect(on_photos_added);
     }
     
+    public override string? get_unique_thumbnail_name() {
+        return (primary_photo != null) ? primary_photo.get_unique_thumbnail_name() : null;
+    }
+    
+    public override PhotoFileFormat get_preferred_thumbnail_format() {
+        return (primary_photo != null) ? primary_photo.get_preferred_thumbnail_format() :
+            PhotoFileFormat.get_system_default_format();
+    }
+
+    public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
+        return (primary_photo != null) ? primary_photo.create_thumbnail(scale) : null;
+    }
+
     public static void init(ProgressMonitor? monitor = null) {
         event_table = EventTable.get_instance();
         global = new EventSourceCollection();

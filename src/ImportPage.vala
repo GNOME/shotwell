@@ -7,6 +7,7 @@
 #if !NO_CAMERA
 
 class ImportSource : PhotoSource {
+    protected new const string THUMBNAIL_NAME_PREFIX = "import";
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
 
     private string camera_name;
@@ -43,7 +44,25 @@ class ImportSource : PhotoSource {
     public override string to_string() {
         return "%s %s/%s".printf(camera_name, folder, filename);
     }
-    
+
+    public override string? get_unique_thumbnail_name() {
+        return (THUMBNAIL_NAME_PREFIX + "-%" + int64.FORMAT).printf(get_object_id());
+    }
+
+    public override PhotoFileFormat get_preferred_thumbnail_format() {
+        return (file_format.can_write()) ? file_format :
+            PhotoFileFormat.get_system_default_format();
+    }
+
+    public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
+        if (preview == null)
+            return null;
+        
+        // this satifies the return-a-new-instance requirement of create_thumbnail( ) because
+        // scale_pixbuf( ) allocates a new pixbuf
+        return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
+    }
+
     // Needed because previews and exif are loaded after other information has been gathered.
     public void update(Gdk.Pixbuf? preview, string? preview_md5, PhotoMetadata? metadata, string? exif_md5) {
         this.preview = preview;
