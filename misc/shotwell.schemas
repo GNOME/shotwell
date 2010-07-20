@@ -343,6 +343,19 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/photo_rating_filter</key>
+            <applyto>/apps/shotwell/preferences/ui/photo_rating_filter</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>1</default>
+            
+            <locale name="en">
+                <short>rating filter level</short>
+                <long>Determines how to filter photos based on their ratings. 1: Rejected or better, 2: Unrated or better, 3: One or better, 4: Two or better, 5: Three or better, 6: Four or better, 7: Five or better.</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/preferences/window/library_maximize</key>
             <applyto>/apps/shotwell/preferences/window/library_maximize</applyto>
             <type>bool</type>

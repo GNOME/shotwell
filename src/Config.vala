@@ -400,6 +400,15 @@ public class Config {
         return set_bool("/apps/shotwell/preferences/ui/display_hidden_photos", display);
     }
 
+    public RatingFilter get_photo_rating_filter() {
+        return (RatingFilter)(get_int("/apps/shotwell/preferences/ui/photo_rating_filter", 
+            RatingFilter.REJECTED_OR_HIGHER));
+    }
+
+    public bool set_photo_rating_filter(RatingFilter filter) {
+        return set_int("/apps/shotwell/preferences/ui/photo_rating_filter", filter);
+    }
+
     public void get_library_window_state(out bool maximize, out Dimensions dimensions) {
         maximize = get_bool("/apps/shotwell/preferences/window/library_maximize", false);
         dimensions = Dimensions(get_int("/apps/shotwell/preferences/window/library_width", WIDTH_DEFAULT),

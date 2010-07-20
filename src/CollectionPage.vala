@@ -16,6 +16,24 @@ public class CollectionViewManager : ViewManager {
     }
 }
 
+public enum RatingFilter {
+    NO_FILTER = 0,
+    REJECTED_OR_HIGHER = 1,
+    UNRATED_OR_HIGHER = 2,
+    ONE_OR_HIGHER = 3,
+    TWO_OR_HIGHER = 4,
+    THREE_OR_HIGHER = 5,
+    FOUR_OR_HIGHER = 6,
+    FIVE_OR_HIGHER = 7,
+    REJECTED_ONLY = 8,
+    UNRATED_ONLY = 9,
+    ONE_ONLY = 10,
+    TWO_ONLY = 11,
+    THREE_ONLY = 12,
+    FOUR_ONLY = 13,
+    FIVE_ONLY = 14
+}
+
 public abstract class CollectionPage : CheckerboardPage {
     public const int SORT_ORDER_ASCENDING = 0;
     public const int SORT_ORDER_DESCENDING = 1;
@@ -74,6 +92,8 @@ public abstract class CollectionPage : CheckerboardPage {
         action_group.add_radio_actions(create_sort_crit_actions(), sort_by, on_sort_changed);
         action_group.add_radio_actions(create_sort_order_actions(), sort_order ?
             SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING, on_sort_changed);
+        action_group.add_radio_actions(create_view_filter_actions(), get_config_rating_filter(), 
+            on_view_filter_changed);
 
         if (ui_filename != null)
             init_load_ui(ui_filename);
@@ -422,6 +442,10 @@ public abstract class CollectionPage : CheckerboardPage {
         sort_photos.label = _("Sort _Photos");
         actions += sort_photos;
 
+        Gtk.ActionEntry filter_photos = { "FilterPhotos", null, TRANSLATABLE, null, null, null };
+        filter_photos.label = Resources.FILTER_PHOTOS_MENU;
+        actions += filter_photos;
+
         Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
         new_event.label = Resources.NEW_EVENT_MENU;
@@ -523,6 +547,54 @@ public abstract class CollectionPage : CheckerboardPage {
         return sort_order_actions;
     }
     
+    private Gtk.RadioActionEntry[] create_view_filter_actions() {
+        Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
+
+        Gtk.RadioActionEntry rejected_or_higher = { "DisplayRejectedOrHigher", null, TRANSLATABLE,
+            "<Ctrl><Shift>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
+        rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
+        rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
+        view_filter_actions += rejected_or_higher;
+
+        Gtk.RadioActionEntry unrated_or_higher = { "DisplayUnratedOrHigher", null, TRANSLATABLE, 
+            "<Ctrl><Shift>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
+        unrated_or_higher.label = Resources.DISPLAY_UNRATED_OR_HIGHER_MENU;
+        unrated_or_higher.tooltip = Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
+        view_filter_actions += unrated_or_higher;
+
+        Gtk.RadioActionEntry one_or_higher = { "DisplayOneOrHigher", null, TRANSLATABLE,
+            "<Ctrl><Shift>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
+        one_or_higher.label = Resources.DISPLAY_ONE_OR_HIGHER_MENU;
+        one_or_higher.tooltip = Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
+        view_filter_actions += one_or_higher;
+
+        Gtk.RadioActionEntry two_or_higher = { "DisplayTwoOrHigher", null, TRANSLATABLE,
+            "<Ctrl><Shift>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
+        two_or_higher.label = Resources.DISPLAY_TWO_OR_HIGHER_MENU;
+        two_or_higher.tooltip = Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
+        view_filter_actions += two_or_higher;
+
+        Gtk.RadioActionEntry three_or_higher = { "DisplayThreeOrHigher", null, TRANSLATABLE,
+            "<Ctrl><Shift>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
+        three_or_higher.label = Resources.DISPLAY_THREE_OR_HIGHER_MENU;
+        three_or_higher.tooltip = Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
+        view_filter_actions += three_or_higher;
+
+        Gtk.RadioActionEntry four_or_higher = { "DisplayFourOrHigher", null, TRANSLATABLE,
+            "<Ctrl><Shift>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
+        four_or_higher.label = Resources.DISPLAY_FOUR_OR_HIGHER_MENU;
+        four_or_higher.tooltip = Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
+        view_filter_actions += four_or_higher;
+
+        Gtk.RadioActionEntry five_or_higher = { "DisplayFiveOrHigher", null, TRANSLATABLE,
+            "<Ctrl><Shift>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
+        five_or_higher.label = Resources.DISPLAY_FIVE_OR_HIGHER_MENU;
+        five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
+        view_filter_actions += five_or_higher;
+
+        return view_filter_actions;
+    }
+
     // This method is called by CollectionViewManager to create thumbnails for the DataSource 
     // (Photo) objects.
     public virtual DataView create_thumbnail(DataSource source) {
@@ -545,6 +617,8 @@ public abstract class CollectionPage : CheckerboardPage {
             use_favorite_photo_filter(true);
         else
             use_hidden_photo_filter(Config.get_instance().get_display_hidden_photos());
+
+        restore_saved_rating_view_filter();  // Set filter to current level and set menu selection
         
         // perform these operations before calling base method to prevent flicker
         base.switched_to();
@@ -813,6 +887,41 @@ public abstract class CollectionPage : CheckerboardPage {
                 on_rate_rejected();
             break;
             
+            case "exclam":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.ONE_OR_HIGHER);
+            break;
+
+            case "at":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.TWO_OR_HIGHER);
+            break;
+
+            case "numbersign":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.THREE_OR_HIGHER);
+            break;
+
+            case "dollar":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.FOUR_OR_HIGHER);
+            break;
+
+            case "percent":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.FIVE_OR_HIGHER);
+            break;
+
+            case "parenright":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.UNRATED_OR_HIGHER);
+            break;
+
+            case "parenleft":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.REJECTED_OR_HIGHER);
+            break;
+
             default:
                 handled = false;
             break;
@@ -1335,6 +1444,154 @@ public abstract class CollectionPage : CheckerboardPage {
         use_favorite_photo_filter(display);
         
         Config.get_instance().set_display_favorite_photos(display);
+    }
+
+    private void set_rating_view_filter_menu(RatingFilter filter) {
+        Gtk.ToggleAction action;
+        
+        switch (filter) {
+            case RatingFilter.UNRATED_OR_HIGHER:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayUnratedOrHigher");
+            break;
+            case RatingFilter.ONE_OR_HIGHER:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayOneOrHigher");
+            break;
+            case RatingFilter.TWO_OR_HIGHER:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayTwoOrHigher");
+            break;
+            case RatingFilter.THREE_OR_HIGHER:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayThreeOrHigher");
+                break;
+            case RatingFilter.FOUR_OR_HIGHER:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayFourOrHigher");
+                break;
+            case RatingFilter.FIVE_OR_HIGHER:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayFiveOrHigher");
+            break;
+            case RatingFilter.REJECTED_OR_HIGHER:
+            default:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOrHigher");
+            break;
+        }
+        
+        action.set_active(true);
+    }
+
+    private void on_view_filter_changed() {
+        RatingFilter filter = get_filter_criteria();
+        install_rating_filter(filter);
+        set_config_rating_filter(filter);
+    }
+
+    private void set_rating_view_filter(RatingFilter filter) {
+        set_rating_view_filter_menu(filter);
+        install_rating_filter(filter);
+        set_config_rating_filter(filter);
+    }
+
+    private void restore_saved_rating_view_filter() {
+        RatingFilter filter = get_config_rating_filter();
+        set_rating_view_filter_menu(filter);
+        install_rating_filter(filter);
+    }
+
+    private void install_rating_filter(RatingFilter filter) {
+        switch (filter) {
+            case RatingFilter.REJECTED_OR_HIGHER:
+                use_rating_or_higher_filter(Rating.REJECTED);
+            break;
+            case RatingFilter.ONE_OR_HIGHER:
+                use_rating_or_higher_filter(Rating.ONE);
+            break;
+            case RatingFilter.TWO_OR_HIGHER:
+                use_rating_or_higher_filter(Rating.TWO);
+            break;
+            case RatingFilter.THREE_OR_HIGHER:
+                use_rating_or_higher_filter(Rating.THREE);
+            break;
+            case RatingFilter.FOUR_OR_HIGHER:
+                use_rating_or_higher_filter(Rating.FOUR);
+            break;
+            case RatingFilter.FIVE_OR_HIGHER:
+                use_rating_or_higher_filter(Rating.FIVE);
+            break;
+            case RatingFilter.UNRATED_OR_HIGHER:
+            default:
+                use_rating_or_higher_filter(Rating.UNRATED);
+            break;
+        }
+    }
+
+    private void use_rating_or_higher_filter(Rating rating) {        
+        get_view().install_view_filter(get_rating_or_higher_view_filter(rating));
+    }
+
+    private ViewFilter get_rating_or_higher_view_filter(Rating rating) {
+        switch (rating) {
+            case Rating.UNRATED:
+                return unrated_or_higher_filter;
+            case Rating.ONE:
+                return one_or_higher_filter;
+            case Rating.TWO:
+                return two_or_higher_filter;
+            case Rating.THREE:
+                return three_or_higher_filter;
+            case Rating.FOUR:
+                return four_or_higher_filter;
+            case Rating.FIVE:
+                return five_or_higher_filter;
+            case Rating.REJECTED:
+            default:
+                return rejected_or_higher_filter;
+        }
+    }
+
+    private bool rejected_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.REJECTED;
+    }
+
+    private bool unrated_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.UNRATED;
+    }
+
+    private bool one_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.ONE;
+    }
+
+    private bool two_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.TWO;
+    }
+
+    private bool three_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.THREE;
+    }
+
+    private bool four_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.FOUR;
+    }
+
+    private bool five_or_higher_filter(DataView view) {
+        return ((Thumbnail) view).get_photo().get_rating() >= Rating.FIVE;
+    }
+
+    private RatingFilter get_filter_criteria() {
+        // any member of the group knows the current value
+        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
+            "/CollectionMenuBar/ViewMenu/FilterPhotos/DisplayRejectedOrHigher");
+        assert(action != null);
+        
+        RatingFilter filter = (RatingFilter) action.get_current_value();
+
+        return filter;
+    }
+
+    private void set_config_rating_filter(RatingFilter filter) {
+        if (Config.get_instance().set_photo_rating_filter(filter) == false)
+            warning("Unable to write rating filter settings to config");
+    }
+
+    private RatingFilter get_config_rating_filter() {
+        return Config.get_instance().get_photo_rating_filter();
     }
     
     private void on_display_titles(Gtk.Action action) {

@@ -41,6 +41,16 @@
             <menuitem name="ViewFavorites" action="ViewFavorites" />
             <menuitem name="ViewHidden" action="ViewHidden" />
             <separator />
+            <menu name="FilterPhotos" action="FilterPhotos">
+                <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
+                <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
+                <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
+                <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
+                <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
+                <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
+                <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
+            </menu>
+            <separator />
             <menu name="SortPhotos" action="SortPhotos">
                 <menuitem name="SortByTitle" action="SortByTitle" />
                 <menuitem name="SortByExposureDate" action="SortByExposureDate" />

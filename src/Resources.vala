@@ -177,6 +177,18 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RATE_REJECTED_LABEL = _("Rate Rejected");
     public const string RATE_REJECTED_PROGRESS = _("Setting as rejected");
     public const string RATE_REJECTED_TOOLTIP = _("Set rating to rejected");
+
+    private const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("_All Photos");
+	private const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Display All Photos");
+    private const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show photos with a rating of rejected or better");
+
+    private const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_Unrated or Better");
+    private const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Display Unrated or Better");
+    private const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Only show photos with a rating of unrated or better");
+
+    public const string FILTER_PHOTOS_MENU = _("_Filter Photos");
+    public const string FILTER_PHOTOS_LABEL = _("Filter Photos");
+    public const string FILTER_PHOTOS_TOOLTIP = _("Limit the number of photos displayed based on a filter");
     
     public const string HIDE_MENU = _("_Hide");
     public const string HIDE_LABEL = _("Hide");
@@ -423,6 +435,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         string label_base = _("Rate %s");
         string tooltip_base = _("Set rating to %s");
         string progress_base = _("Setting rating to %s");
+        string display_rating_or_higher_menu_base = _("%s or Better");
+        string display_rating_or_higher_label_base = _("Display %s or Better");
+        string display_rating_or_higher_tooltip_base = _("Only show photos with a rating of %s or better");
 
         RATE_ONE_MENU = menu_base.printf(get_stars(Rating.ONE));
         RATE_TWO_MENU = menu_base.printf(get_stars(Rating.TWO));
@@ -447,6 +462,24 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         RATE_THREE_PROGRESS = progress_base.printf(get_stars(Rating.THREE));
         RATE_FOUR_PROGRESS = progress_base.printf(get_stars(Rating.FOUR));
         RATE_FIVE_PROGRESS = progress_base.printf(get_stars(Rating.FIVE));
+
+        DISPLAY_ONE_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.ONE));
+        DISPLAY_TWO_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.TWO));
+        DISPLAY_THREE_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.THREE));
+        DISPLAY_FOUR_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.FOUR));
+        DISPLAY_FIVE_OR_HIGHER_MENU = display_rating_or_higher_menu_base.printf(get_stars(Rating.FIVE));
+
+        DISPLAY_ONE_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.ONE));
+        DISPLAY_TWO_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.TWO));
+        DISPLAY_THREE_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.THREE));
+        DISPLAY_FOUR_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.FOUR));
+        DISPLAY_FIVE_OR_HIGHER_LABEL = display_rating_or_higher_label_base.printf(get_stars(Rating.FIVE));
+
+        DISPLAY_ONE_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.ONE));
+        DISPLAY_TWO_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.TWO));
+        DISPLAY_THREE_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.THREE));
+        DISPLAY_FOUR_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.FOUR));
+        DISPLAY_FIVE_OR_HIGHER_TOOLTIP = display_rating_or_higher_tooltip_base.printf(get_stars(Rating.FIVE));
     }
 
     private string RATE_ONE_MENU;
@@ -473,6 +506,26 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string RATE_FIVE_LABEL;
     private string RATE_FIVE_TOOLTIP;
     private string RATE_FIVE_PROGRESS;
+
+    private string DISPLAY_ONE_OR_HIGHER_MENU;
+    private string DISPLAY_ONE_OR_HIGHER_LABEL;
+    private string DISPLAY_ONE_OR_HIGHER_TOOLTIP;
+
+    private string DISPLAY_TWO_OR_HIGHER_MENU;
+    private string DISPLAY_TWO_OR_HIGHER_LABEL;
+    private string DISPLAY_TWO_OR_HIGHER_TOOLTIP;
+
+    private string DISPLAY_THREE_OR_HIGHER_MENU;
+    private string DISPLAY_THREE_OR_HIGHER_LABEL;
+    private string DISPLAY_THREE_OR_HIGHER_TOOLTIP;
+
+    private string DISPLAY_FOUR_OR_HIGHER_MENU;
+    private string DISPLAY_FOUR_OR_HIGHER_LABEL;
+    private string DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
+
+    private string DISPLAY_FIVE_OR_HIGHER_MENU;
+    private string DISPLAY_FIVE_OR_HIGHER_LABEL;
+    private string DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
 
     public const string DELETE_PHOTOS_MENU = _("_Delete");
     public const string DELETE_PHOTOS_TOOLTIP = _("Remove the selected photos from the trash");
