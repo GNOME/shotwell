@@ -800,20 +800,19 @@ public class DirectoryMonitor : Object {
                     break;
                 
                 foreach (FileInfo info in infos) {
-                    File child = dir.get_child(info.get_name());
                     switch (info.get_file_type()) {
                         case FileType.REGULAR:
                             if (file_map == null)
                                 file_map = new Gee.HashMap<File, FileInfo>(file_hash, file_equal);
                             
-                            file_map.set(child, info);
+                            file_map.set(dir.get_child(info.get_name()), info);
                         break;
                         
                         case FileType.DIRECTORY:
                             if (dir_map == null)
                                 dir_map = new Gee.HashMap<File, FileInfo>(file_hash, file_equal);
                             
-                            dir_map.set(child, info);
+                            dir_map.set(dir.get_child(info.get_name()), info);
                         break;
                         
                         default:

@@ -208,6 +208,7 @@ EXT_PKGS = \
 	gdk-2.0 \
 	gee-1.0 \
 	gtk+-2.0 \
+	glib-2.0 \
 	libexif \
 	sqlite3 \
 	gexiv2
@@ -233,6 +234,7 @@ endif
 EXT_PKG_VERSIONS = \
 	gee-1.0 >= 0.5.0 \
 	gtk+-2.0 >= 2.18.0 \
+	glib-2.0 >= 2.24.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9 \
 	gexiv2 >= 0.1.0
