@@ -552,7 +552,7 @@ public struct PhotoID {
 }
 
 public struct ImportID {
-    public const int64 INVALID = -1;
+    public const int64 INVALID = 0;
 
     public int64 id;
     
@@ -566,6 +566,20 @@ public struct ImportID {
     
     public bool is_valid() {
         return (id != INVALID);
+    }
+    
+    public static int compare_func(void *a, void *b) {
+        int64 cmp = comparator(a, b);
+        if (cmp < 0)
+            return -1;
+        else if (cmp > 0)
+            return 1;
+        else
+            return 0;
+    }
+    
+    public static int64 comparator(void *a, void *b) {
+        return ((ImportID *) a)->id - ((ImportID *) b)->id;
     }
 }
 

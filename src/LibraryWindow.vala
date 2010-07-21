@@ -296,6 +296,7 @@ public class LibraryWindow : AppWindow {
     private LibraryPhotoPage photo_page = null;
     private TrashPage trash_page = null;
     private OfflinePage offline_page = null;
+    private LastImportPage last_import_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     
@@ -331,6 +332,7 @@ public class LibraryWindow : AppWindow {
         // prepare the default parent and orphan pages
         // (these are never removed from the system)
         library_page = new LibraryPage(monitor);
+        last_import_page = new LastImportPage();
         events_directory_page = new MasterEventsDirectoryPage();
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed.connect(import_queue_batch_finished);
@@ -344,6 +346,7 @@ public class LibraryWindow : AppWindow {
 
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
+        add_parent_page(last_import_page);
         add_parent_page(events_directory_page);
         add_parent_page(trash_page);
         add_orphan_page(photo_page);
@@ -766,7 +769,7 @@ public class LibraryWindow : AppWindow {
 
     public void enqueue_batch_import(BatchImport batch_import) {
         if (!displaying_import_queue_page) {
-            insert_page_before(events_directory_page.get_marker(), import_queue_page);
+            insert_page_before(last_import_page.get_marker(), import_queue_page);
             displaying_import_queue_page = true;
         }
         
@@ -1418,6 +1421,7 @@ public class LibraryWindow : AppWindow {
         assert(page != events_directory_page);
         assert(page != photo_page);
         assert(page != import_queue_page);
+        assert(page != last_import_page);
         assert(page != trash_page);
         
         // switch away if necessary to ensure Page is fully detached from system
@@ -1696,6 +1700,8 @@ public class LibraryWindow : AppWindow {
             switch_to_page(trash_page);
         } else if (offline_page != null && is_page_selected(offline_page, path)) {
             switch_to_page(offline_page);
+        } else if (is_page_selected(last_import_page, path)) {
+            switch_to_page(last_import_page);
         } else {
             // nothing recognized selected
         }

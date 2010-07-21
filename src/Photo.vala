@@ -1062,6 +1062,12 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
+    public ImportID get_import_id() {
+        lock (row) {
+            return row.import_id;
+        }
+    }
+    
     protected BackingPhotoID get_editable_id() {
         lock (row) {
             return row.editable_id;
@@ -2951,6 +2957,9 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         file_hash, file_equal);
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
+    private Gee.MultiMap<ImportID?, LibraryPhoto> import_rolls =
+        new Gee.TreeMultiMap<ImportID?, LibraryPhoto>(ImportID.compare_func);
+    private SortedList<ImportID?> sorted_import_ids = new SortedList<ImportID?>(ImportID.comparator);
     
     public virtual signal void trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
         Gee.Collection<LibraryPhoto>? removed) {
@@ -2960,12 +2969,16 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         Gee.Collection<LibraryPhoto>? removed) {
     }
     
+    public virtual signal void import_roll_altered() {
+    }
+    
     public LibraryPhotoSourceCollection() {
         base("LibraryPhotoSourceCollection", get_photo_key);
     }
     
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
+        bool import_roll_changed = false;
         if (added != null) {
             foreach (DataObject object in added) {
                 LibraryPhoto photo = (LibraryPhoto) object;
@@ -2975,6 +2988,15 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 File? editable = photo.get_editable_file();
                 if (editable != null)
                     by_editable_file.set(editable, photo);
+                
+                ImportID import_id = photo.get_import_id();
+                if (import_id.is_valid()) {
+                    if (!sorted_import_ids.contains(import_id))
+                        sorted_import_ids.add(import_id);
+                    import_rolls.set(photo.get_import_id(), photo);
+                    
+                    import_roll_changed = true;
+                }
             }
         }
         
@@ -2990,8 +3012,23 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                     is_removed = by_editable_file.unset(photo.get_editable_file());
                     assert(is_removed);
                 }
+                
+                ImportID import_id = photo.get_import_id();
+                if (import_id.is_valid()) {
+                    is_removed = import_rolls.remove(import_id, photo);
+                    assert(is_removed);
+                    if (!import_rolls.contains(import_id)) {
+                        is_removed = sorted_import_ids.remove(import_id);
+                        assert(is_removed);
+                    }
+                    
+                    import_roll_changed = true;
+                }
             }
         }
+        
+        if (import_roll_changed)
+            notify_import_roll_altered();
     }
     
     // This is only called by LibraryPhoto.  No signal is generated, although this can be added if
@@ -3111,6 +3148,10 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         offline_contents_altered(added, removed);
     }
     
+    protected virtual void notify_import_roll_altered() {
+        import_roll_altered();
+    }
+    
     private static int64 get_photo_key(DataSource source) {
         LibraryPhoto photo = (LibraryPhoto) source;
         PhotoID photo_id = photo.get_photo_id();
@@ -3145,6 +3186,21 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             if (editable != null && editable.matches_file_info(info))
                 matches_editable.add(photo);
         }
+    }
+    
+    // The returned set of ImportID's is sorted from oldest to newest.
+    public SortedList<ImportID?> get_import_roll_ids() {
+        return sorted_import_ids;
+    }
+    
+    public ImportID? get_last_import_id() {
+        int count = sorted_import_ids.size;
+        
+        return count > 0 ? sorted_import_ids.get_at(count - 1) : null;
+    }
+    
+    public Gee.Collection<LibraryPhoto?>? get_import_roll(ImportID import_id) {
+        return import_rolls.get(import_id);
     }
     
     private LibraryPhoto? get_trashed_by_id(PhotoID photo_id) {

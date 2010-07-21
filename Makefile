@@ -116,7 +116,8 @@ SRC_FILES = \
 	PhotoExporter.vala \
 	DirectoryMonitor.vala \
 	LibraryMonitor.vala \
-	OfflinePage.vala
+	OfflinePage.vala \
+	LastImportPage.vala
 
 ifndef LINUX
 SRC_FILES += \
