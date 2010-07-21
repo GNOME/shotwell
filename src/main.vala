@@ -255,8 +255,12 @@ void main(string[] args) {
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
     
     // set custom data directory if it's been supplied
-    if (data_dir != null)
+    if (data_dir != null) {
+        if (!Path.is_absolute(data_dir))
+            data_dir = Path.build_filename(Environment.get_current_dir(), data_dir);
+
         AppDirs.set_data_dir(File.parse_name(data_dir));
+    }
     
     // Verify the private data directory before continuing
     AppDirs.verify_data_dir();
