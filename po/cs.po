@@ -24,7 +24,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "David Štancl <dstancl@dstancl.cz>\n"
-"Blonďák <blondak@neser.cz>"
+"Blonďák <blondak@neser.cz>\n"
+"Lukáš Zapletal <lzap@seznam.cz>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -2058,11 +2059,11 @@ msgstr "Přejmenovat vybranou událost"
 
 #: src/Resources.vala:138
 msgid "Make _Key Photo for Event"
-msgstr "Vytvořit _klíčovou fotografii pro událost"
+msgstr "Nastavit jako _klíčovou fotografii událost"
 
 #: src/Resources.vala:139
 msgid "Make Key Photo for Event"
-msgstr "Vytvořit klíčovou fotografii pro událost"
+msgstr "Nastavit jako klíčovou fotografii událost"
 
 #: src/Resources.vala:140
 msgid "Make the selected photo the thumbnail for the event"
