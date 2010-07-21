@@ -26,6 +26,18 @@ public abstract class BatchImportJob {
     public abstract bool prepare(out File file_to_import, out bool copy_to_library) throws Error;
 }
 
+// A BatchImportRoll represents important state for a group of imported media.  If this is shared
+// among multiple BatchImport objects, the imported media will appear to have been imported all at
+// once.
+public class BatchImportRoll {
+    public ImportID import_id;
+    public ViewCollection generated_events = new ViewCollection("BatchImportRoll generated events");
+    
+    public BatchImportRoll() {
+        this.import_id = PhotoTable.get_instance().generate_import_id();
+    }
+}
+
 // A BatchImportResult associates a particular job with a File that an import was performed on
 // and the import result.  A BatchImportJob can specify multiple files, so there is not necessarily
 // a one-to-one relationship beteen it and this object.
@@ -57,8 +69,6 @@ public class BatchImportResult {
 }
 
 public class ImportManifest {
-    public ImportID import_id = ImportID();
-    public uint64 total_imported_bytes = 0;
     public Gee.List<LibraryPhoto> imported = new Gee.ArrayList<LibraryPhoto>();
     public Gee.List<BatchImportResult> success = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> camera_failed = new Gee.ArrayList<BatchImportResult>();
@@ -69,9 +79,8 @@ public class ImportManifest {
     public Gee.List<BatchImportResult> already_imported = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> all = new Gee.ArrayList<BatchImportResult>();
     
-    public ImportManifest(Gee.List<BatchImportJob>? prefailed = null, Gee.List<BatchImportJob>? pre_already_imported = null) {
-        this.import_id = PhotoTable.get_instance().generate_import_id();
-        
+    public ImportManifest(Gee.List<BatchImportJob>? prefailed = null,
+        Gee.List<BatchImportJob>? pre_already_imported = null) {
         if (prefailed != null) {
             foreach (BatchImportJob job in prefailed) {
                 BatchImportResult batch_result = new BatchImportResult(job, null, job.get_identifier(), 
@@ -145,6 +154,7 @@ public class BatchImport : Object {
     private static Workers thumbnail_worker = new Workers(1, false);
     
     private Gee.Iterable<BatchImportJob> jobs;
+    private BatchImportRoll import_roll;
     private string name;
     private uint64 completed_bytes = 0;
     private uint64 total_bytes = 0;
@@ -156,7 +166,6 @@ public class BatchImport : Object {
     private int file_imports_completed = 0;
     private Cancellable? cancellable = null;
     private ulong last_preparing_ms = 0;
-    private ViewCollection generated_events = new ViewCollection("BatchImport generated events");
 #if !NO_DUPE_DETECTION
     private Gee.HashSet<string> imported_thumbnail_md5 = new Gee.HashSet<string>();
     private Gee.HashSet<string> imported_full_md5 = new Gee.HashSet<string>();
@@ -174,7 +183,7 @@ public class BatchImport : Object {
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
-    public delegate void ImportReporter(ImportManifest manifest);
+    public delegate void ImportReporter(ImportManifest manifest, BatchImportRoll import_roll);
     
     // Called once, when the scheduled task begins
     public signal void starting();
@@ -197,17 +206,18 @@ public class BatchImport : Object {
     public signal void import_job_failed(BatchImportResult result);
     
     // Called at the end of the batched jobs; this will be signalled exactly once for the batch
-    public signal void import_complete(ImportManifest manifest);
+    public signal void import_complete(ImportManifest manifest, BatchImportRoll import_roll);
 
     public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, ImportReporter? reporter,
         Gee.ArrayList<BatchImportJob>? prefailed = null,
         Gee.ArrayList<BatchImportJob>? pre_already_imported = null,
-        Cancellable? cancellable = null) {
+        Cancellable? cancellable = null, BatchImportRoll? import_roll = null) {
         this.jobs = jobs;
         this.name = name;
         this.reporter = reporter;
         this.manifest = new ImportManifest(prefailed, pre_already_imported);
         this.cancellable = (cancellable != null) ? cancellable : new Cancellable();
+        this.import_roll = import_roll != null ? import_roll : new BatchImportRoll();
         
         // watch for user exit in the application
         AppWindow.get_instance().user_quit.connect(user_halt);
@@ -313,9 +323,9 @@ public class BatchImport : Object {
         
         // report completed to the reporter (called prior to the "import_complete" signal)
         if (reporter != null)
-            reporter(manifest);
+            reporter(manifest, import_roll);
         
-        import_complete(manifest);
+        import_complete(manifest, import_roll);
         
         // resume the MimicManager
         LibraryPhoto.mimic_manager.resume();
@@ -411,7 +421,7 @@ public class BatchImport : Object {
             return;
         }
         
-        PreparedFilesImportJob job = new PreparedFilesImportJob(this, ready_files, manifest.import_id,
+        PreparedFilesImportJob job = new PreparedFilesImportJob(this, ready_files, import_roll.import_id,
             on_import_files_completed, cancellable, on_import_files_cancelled);
         
         ready_files = new Gee.ArrayList<PreparedFile>();
@@ -427,7 +437,7 @@ public class BatchImport : Object {
         // We want to cluster the work to give the background thread plenty to do, but not
         // cluster so many the UI is starved of completion notices ... these comparisons
         // strive for the happy medium
-        if (ready_files.size > 25 || ready_files_bytes > (50 * (1024 * 1024)) || cancellable.is_cancelled())
+        if (ready_files.size >= 25 || ready_files_bytes > (50 * (1024 * 1024)) || cancellable.is_cancelled())
             flush_ready_files();
     }
     
@@ -712,7 +722,7 @@ public class BatchImport : Object {
         LibraryPhoto.global.add_many(ready_photos);
         
         foreach (LibraryPhoto photo in ready_photos)
-            Event.generate_import_event(photo, generated_events);
+            Event.generate_import_event(photo, import_roll.generated_events);
         
         ready_photos.clear();
     }
@@ -720,11 +730,8 @@ public class BatchImport : Object {
     // This is called throughout the import process to notify watchers of imported photos in such
     // a way that the GTK event queue gets a chance to operate.
     private bool display_imported_timer() {
-        if (display_imported_queue.size == 0) {
-            if (completed)
-                debug("display_imported_timer exiting");
+        if (display_imported_queue.size == 0)
             return !completed;
-        }
         
         if (cancellable.is_cancelled())
             debug("Importing %d photos at once", display_imported_queue.size);
@@ -744,7 +751,7 @@ public class BatchImport : Object {
             file_import_complete();
         } while (cancellable.is_cancelled() && display_imported_queue.size > 0);
         
-        if (ready_photos.size > 25 || cancellable.is_cancelled())
+        if (ready_photos.size >= 25 || cancellable.is_cancelled())
             flush_ready_photos();
         
         return true;
@@ -1052,7 +1059,7 @@ private class PrepareFilesJob : BackgroundImportJob {
                 report_error(job, file, file.get_path(), err, ImportResult.FILE_ERROR);
             }
             
-            if (list.size > 100 || (timer.elapsed() > 5.0 && list.size > 0)) {
+            if (list.size > 100 || (timer.elapsed() > 1.0 && list.size > 0)) {
 #if TRACE_IMPORT
                 debug("Dumping %d prepared files", list.size);
 #endif

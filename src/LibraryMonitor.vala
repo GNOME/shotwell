@@ -26,6 +26,9 @@
 //
 
 public class LibraryMonitor : DirectoryMonitor {
+    private const uint REST_MSEC_BETWEEN_IMPORT_ROLLS = 3 * 60 * 1000;
+    private const uint CHECK_FOR_BATCHED_WORK_MSEC = 3 * 1000;
+    
     private class ChecksumJob : BackgroundJob {
         public File file;
         public Gee.Collection<LibraryPhoto> candidates;
@@ -52,6 +55,10 @@ public class LibraryMonitor : DirectoryMonitor {
             
             foreach (LibraryPhoto candidate in candidates) {
                 if (candidate.get_master_md5() != md5)
+                    continue;
+                
+                // if candidate's backing master exists, let it be
+                if (candidate.does_master_exist())
                     continue;
                 
                 if (match != null) {
@@ -92,6 +99,37 @@ public class LibraryMonitor : DirectoryMonitor {
         }
     }
     
+    private class MonitorImportJob : BatchImportJob {
+        private File file;
+        private FileInfo info;
+        
+        public MonitorImportJob(File file, FileInfo info) {
+            this.file = file;
+            this.info = info;
+        }
+        
+        public override string get_identifier() {
+            return file.get_path();
+        }
+        
+        public override bool is_directory() {
+            return info.get_type() == FileType.DIRECTORY;
+        }
+        
+        public override bool determine_file_size(out uint64 filesize, out File file_or_dir) {
+            filesize = info.get_size();
+            
+            return true;
+        }
+        
+        public override bool prepare(out File file_to_import, out bool copy_to_library) throws Error {
+            file_to_import = file;
+            copy_to_library = false;
+            
+            return true;
+        }
+    }
+    
     private Workers workers = new Workers(Workers.threads_per_cpu(1), false);
     private Cancellable cancellable = new Cancellable();
     private Gee.HashSet<LibraryPhoto> discovered = new Gee.HashSet<LibraryPhoto>();
@@ -99,8 +137,17 @@ public class LibraryMonitor : DirectoryMonitor {
     private Gee.HashSet<LibraryPhoto> master_reimport_pending = new Gee.HashSet<LibraryPhoto>();
     private int checksums_outstanding = 0;
     
+    // Because the notifications can come in fast and furious, work is batched up and issued in
+    // bundles in the background
+    private Gee.HashMap<File, MonitorImportJob> pending_import_jobs = new Gee.HashMap<File,
+        MonitorImportJob>(file_hash, file_equal);
+    private BatchImportRoll current_import_roll = null;
+    private time_t time_of_last_import = 0;
+    
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
+        
+        Timeout.add(CHECK_FOR_BATCHED_WORK_MSEC, perform_batched_work);
     }
     
     // If modification time or filesize has changed, treat that as a full-blown modification
@@ -169,6 +216,63 @@ public class LibraryMonitor : DirectoryMonitor {
         }
     }
     
+    private BatchImportRoll get_import_roll() {
+        ulong now = now_ms();
+        ulong diff = now - time_of_last_import;
+        if (current_import_roll == null || diff > REST_MSEC_BETWEEN_IMPORT_ROLLS)
+            current_import_roll = new BatchImportRoll();
+        
+        time_of_last_import = (time_t) now;
+        
+        return current_import_roll;
+    }
+    
+    private void import_added_file(File file, FileInfo info) {
+        // use some simple tests to avoid a whole mess of work for files that are obviously
+        // uninteresting ... replacing an existing job is okay, since the FileInfo may be updated
+        if (TransformablePhoto.is_file_supported(file))
+            pending_import_jobs.set(file, new MonitorImportJob(file, info));
+    }
+    
+    private void import_added_files(Gee.Collection<File> files) {
+        if (files.size == 0)
+            return;
+        
+        foreach (File file in files) {
+            FileInfo? info = get_file_info(file);
+            assert(info != null);
+            
+            import_added_file(file, info);
+        }
+    }
+    
+    private bool perform_batched_work() {
+        if (cancellable.is_cancelled())
+            return false;
+        
+        if (pending_import_jobs.size > 0) {
+            // copy all the jobs over to a separate list (BatchImport will hold on to it) and
+            // clear the pending list
+            Gee.ArrayList<MonitorImportJob> jobs = new Gee.ArrayList<MonitorImportJob>();
+            jobs.add_all(pending_import_jobs.values);
+            pending_import_jobs.clear();
+            
+            debug("Auto-importing %d files".printf(jobs.size));
+            
+            BatchImport batch_import = new BatchImport(jobs, "LibraryMonitor", on_batch_import_complete,
+                null, null, cancellable, get_import_roll());
+            
+            LibraryWindow.get_app().enqueue_batch_import(batch_import, false);
+        }
+        
+        return true;
+    }
+    
+    private void on_batch_import_complete(ImportManifest manifest) {
+        debug("Auto-imported %d files, %d skipped or failed", manifest.success.size,
+            manifest.all.size - manifest.success.size);
+    }
+    
     public override void close() {
         cancellable.cancel();
         
@@ -233,7 +337,7 @@ public class LibraryMonitor : DirectoryMonitor {
             LibraryPhoto.global.fetch_by_matching_backing(info, matching_masters, matching_editable);
             
             // for master files, we can double-verify the match by performing an MD5 checksum match
-            // (need to copy the list, since it's reused)
+            // (need to copy the list, since it's reused) UNLESS the photo's master file is valid
             if (matching_masters.size > 0) {
                 Gee.ArrayList<LibraryPhoto> candidates = new Gee.ArrayList<LibraryPhoto>();
                 candidates.add_all(matching_masters);
@@ -285,12 +389,15 @@ public class LibraryMonitor : DirectoryMonitor {
         
         // if losers found with no backing master, they are marked as offline
         if (job.losers != null) {
+            Marker to_offline = LibraryPhoto.global.start_marking();
             foreach (LibraryPhoto loser in job.losers) {
                 if (!loser.does_master_exist()) {
                     warning("Marking offline abandoned photo %s", loser.to_string());
-                    loser.mark_offline();
+                    to_offline.mark(loser);
                 }
             }
+            
+            LibraryPhoto.global.mark_offline(to_offline);
         }
         
         assert(checksums_outstanding > 0);
@@ -325,6 +432,7 @@ public class LibraryMonitor : DirectoryMonitor {
         }
         
         // go through all photos and mark as online/offline depending on discovery
+        Marker to_offline = LibraryPhoto.global.start_marking();
         foreach (DataObject object in LibraryPhoto.global.get_all()) {
             LibraryPhoto photo = (LibraryPhoto) object;
             
@@ -335,9 +443,14 @@ public class LibraryMonitor : DirectoryMonitor {
             // Don't mark online if in discovered, the prior loop works through those issues
             if (!discovered.contains(photo)) {
                 mdbg("Marking %s as offline (master backing is missing)".printf(photo.to_string()));
-                photo.mark_offline();
+                to_offline.mark(photo);
             }
         }
+        
+        LibraryPhoto.global.mark_offline(to_offline);
+        
+        // import remaining unknowns
+        import_added_files(unknown);
         
         // clear both buckets to drop all refs
         discovered.clear();
@@ -352,17 +465,20 @@ public class LibraryMonitor : DirectoryMonitor {
     
     public override void file_created(File file, FileInfo info) {
         // see if this an offline file returned for business
+        bool already_known = false;
         foreach (LibraryPhoto photo in LibraryPhoto.global.get_offline()) {
-            if (photo.get_file().equal(file)) {
+            if (photo.get_master_file().equal(file)) {
                 mdbg("Photo backing for %s recreated".printf(photo.to_string()));
                 
                 check_master_modified(photo, info);
+                already_known = true;
                 
                 break;
             }
         }
         
-        // TODO: Cluster created files not already in library for import
+        if (!already_known)
+            import_added_file(file, info);
         
         base.file_created(file, info);
     }

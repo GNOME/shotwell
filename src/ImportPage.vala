@@ -1064,7 +1064,7 @@ public class ImportPage : CheckerboardPage {
             batch_import.import_job_failed.connect(on_import_job_failed);
             batch_import.import_complete.connect(close_import);
             
-            LibraryWindow.get_app().enqueue_batch_import(batch_import);
+            LibraryWindow.get_app().enqueue_batch_import(batch_import, true);
             LibraryWindow.get_app().switch_to_import_queue_page();
             // camera.exit() and busy flag will be handled when the batch import completes
         } else {
@@ -1173,6 +1173,7 @@ public class ImportPage : CheckerboardPage {
 public class ImportQueuePage : SinglePhotoPage {
     private Gtk.ToolButton stop_button = null;
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
+    private Gee.HashSet<BatchImport> cancel_unallowed = new Gee.HashSet<BatchImport>();
     private BatchImport current_batch = null;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private bool stopped = false;
@@ -1236,7 +1237,7 @@ public class ImportQueuePage : SinglePhotoPage {
         return actions;
     }
     
-    public void enqueue_and_schedule(BatchImport batch_import) {
+    public void enqueue_and_schedule(BatchImport batch_import, bool allow_user_cancel) {
         assert(!queue.contains(batch_import));
         
         batch_import.starting.connect(on_starting);
@@ -1246,9 +1247,12 @@ public class ImportQueuePage : SinglePhotoPage {
         batch_import.import_complete.connect(on_import_complete);
         batch_import.fatal_error.connect(on_fatal_error);
         
+        if (!allow_user_cancel)
+            cancel_unallowed.add(batch_import);
+        
         queue.add(batch_import);
         batch_added(batch_import);
-
+        
         if (queue.size == 1)
             batch_import.schedule();
         
@@ -1277,6 +1281,7 @@ public class ImportQueuePage : SinglePhotoPage {
     
     private void on_starting(BatchImport batch_import) {
         current_batch = batch_import;
+        stop_button.sensitive = !cancel_unallowed.contains(batch_import);
     }
     
     private void on_preparing() {
@@ -1301,7 +1306,8 @@ public class ImportQueuePage : SinglePhotoPage {
         progress_bar.set_text(_("Imported %s").printf(photo.get_name()));
     }
     
-    private void on_import_complete(BatchImport batch_import, ImportManifest manifest) {
+    private void on_import_complete(BatchImport batch_import, ImportManifest manifest,
+        BatchImportRoll import_roll) {
         assert(batch_import == current_batch);
         current_batch = null;
         
@@ -1311,8 +1317,13 @@ public class ImportQueuePage : SinglePhotoPage {
         bool removed = queue.remove(batch_import);
         assert(removed);
         
+        // fail quietly if cancel was allowed
+        cancel_unallowed.remove(batch_import);
+        
         // strip signal handlers
         batch_import.starting.disconnect(on_starting);
+        batch_import.preparing.disconnect(on_preparing);
+        batch_import.progress.disconnect(on_progress);
         batch_import.imported.disconnect(on_imported);
         batch_import.import_complete.disconnect(on_import_complete);
         batch_import.fatal_error.disconnect(on_fatal_error);

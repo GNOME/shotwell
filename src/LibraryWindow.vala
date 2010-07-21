@@ -767,13 +767,13 @@ public class LibraryWindow : AppWindow {
         Config.get_instance().set_display_extended_properties(show);
     }
 
-    public void enqueue_batch_import(BatchImport batch_import) {
+    public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
         if (!displaying_import_queue_page) {
             insert_page_before(last_import_page.get_marker(), import_queue_page);
             displaying_import_queue_page = true;
         }
         
-        import_queue_page.enqueue_and_schedule(batch_import);
+        import_queue_page.enqueue_and_schedule(batch_import, allow_user_cancel);
     }
     
     private void import_queue_batch_finished() {
@@ -817,7 +817,7 @@ public class LibraryWindow : AppWindow {
         
         if (jobs.size > 0) {
             BatchImport batch_import = new BatchImport(jobs, job_name, import_reporter);
-            enqueue_batch_import(batch_import);
+            enqueue_batch_import(batch_import, true);
             switch_to_import_queue_page();
         }
     }

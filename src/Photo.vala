@@ -3339,6 +3339,18 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             destroy_marked(mark_many(not_trashed), delete_backing, monitor);
     }
     
+    public void mark_offline(Marker marker, ProgressMonitor? monitor = null) {
+        freeze_notifications();
+        act_on_marked(marker, mark_as_offline, monitor);
+        thaw_notifications();
+    }
+    
+    private bool mark_as_offline(DataObject object, Object? user) {
+        ((LibraryPhoto) object).mark_offline();
+        
+        return true;
+    }
+    
     // Do NOT use this function to trash a photo.  This is only used at system initialization.
     // Call LibraryPhoto.trash() instead.
     public void add_many_to_trash(Gee.Collection<LibraryPhoto> photos) {
