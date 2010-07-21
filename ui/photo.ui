@@ -63,9 +63,6 @@
             </menu>
             <menuitem name="Revert" action="Revert" />
             <separator />
-            <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
-            <menuitem name="HideUnhide" action="HideUnhide" />
-            <separator />
             <menu name="Rate" action="Rate">
                 <menuitem name="RateFive" action="RateFive" />
                 <menuitem name="RateFour" action="RateFour" />
@@ -105,9 +102,6 @@
         <menuitem name="ContextAddTags" action="AddTags" />
         <menuitem name="ContextModifyTags" action="ModifyTags" />
         <placeholder name="ContextTagsPlaceholder" />
-        <separator />
-        <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
-        <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
         <menu name="Rate" action="Rate">
             <menuitem name="RateFive" action="RateFive" />

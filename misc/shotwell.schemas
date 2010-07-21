@@ -330,19 +330,6 @@
         </schema>
 
         <schema>
-            <key>/schemas/apps/shotwell/preferences/ui/display_hidden_photos</key>
-            <applyto>/apps/shotwell/preferences/ui/display_hidden_photos</applyto>
-            <type>bool</type>
-            <owner>shotwell</owner>
-            <default>false</default>
-            
-            <locale name="en">
-                <short>display hidden photos</short>
-                <long>True if hidden photos are displayed, false otherwise.</long>
-            </locale>
-        </schema>
-
-        <schema>
             <key>/schemas/apps/shotwell/preferences/ui/photo_rating_filter</key>
             <applyto>/apps/shotwell/preferences/ui/photo_rating_filter</applyto>
             <type>int</type>

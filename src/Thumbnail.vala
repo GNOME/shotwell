@@ -303,17 +303,11 @@ public class Thumbnail : CheckerboardItem {
         Rating rating = photo.get_rating();
         
         // don't let the hose run
-        if (!photo.is_hidden() && !photo.is_favorite() && rating == Rating.UNRATED)
+        if (rating == Rating.UNRATED)
             return null;
         
         Gee.List<Gdk.Pixbuf> trinkets = new Gee.ArrayList<Gdk.Pixbuf>();
         
-        if (photo.is_hidden())
-            trinkets.add(Resources.get_icon(Resources.ICON_HIDDEN, scale));
-        
-        if (photo.is_favorite())
-            trinkets.add(Resources.get_icon(Resources.ICON_FAVORITE, scale));
-
         Gdk.Pixbuf? rating_buf = Resources.get_rating_trinket(rating, scale);
         if (rating_buf != null)
             trinkets.add(rating_buf);

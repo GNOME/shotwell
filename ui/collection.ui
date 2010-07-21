@@ -38,9 +38,6 @@
             <menuitem name="ViewTitle" action="ViewTitle" />
             <menuitem name="ViewTags" action="ViewTags" />
             <separator />
-            <menuitem name="ViewFavorites" action="ViewFavorites" />
-            <menuitem name="ViewHidden" action="ViewHidden" />
-            <separator />
             <menu name="FilterPhotos" action="FilterPhotos">
                 <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
                 <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
@@ -80,9 +77,6 @@
             <separator />
             <menuitem name="Enhance" action="Enhance" />
             <menuitem name="Revert" action="Revert" />
-            <separator />
-            <menuitem name="FavoriteUnfavorite" action="FavoriteUnfavorite" />
-            <menuitem name="HideUnhide" action="HideUnhide" />
             <separator />
             <menu name="Rate" action="Rate">
                 <menuitem name="RateFive" action="RateFive" />
@@ -127,9 +121,6 @@
         <menuitem name="ContextAddTags" action="AddTags" />
         <menuitem name="ContextModifyTags" action="ModifyTags" />
         <placeholder name="ContextTagsPlaceholder" />
-        <separator />
-        <menuitem name="ContextFavoriteUnfavorite" action="FavoriteUnfavorite" />
-        <menuitem name="ContextHideUnhide" action="HideUnhide" />
         <separator />
         <menu name="Rate" action="Rate">
             <menuitem name="RateFive" action="RateFive" />

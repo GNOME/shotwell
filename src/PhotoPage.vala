@@ -2138,18 +2138,6 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += set_background;
 #endif
 
-        Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
-            "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
-        favorite.label = Resources.FAVORITE_MENU;
-        favorite.tooltip = Resources.FAVORITE_TOOLTIP;
-        actions += favorite;
-        
-        Gtk.ActionEntry hide_unhide = { "HideUnhide", Resources.HIDDEN, TRANSLATABLE, "<Ctrl>H",
-            TRANSLATABLE, on_hide_unhide };
-        hide_unhide.label = Resources.HIDE_MENU;
-        hide_unhide.tooltip = Resources.HIDE_TOOLTIP;
-        actions += hide_unhide;
-
         Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
         set_rating.label = Resources.RATING_MENU;
         actions += set_rating;
@@ -2318,12 +2306,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_current_tool() && get_zoom_state().is_default()) {
             Gdk.Pixbuf? trinket = null;
             
-            if (((LibraryPhoto) get_photo()).is_hidden())
-                trinket = Resources.get_icon(Resources.ICON_HIDDEN, TRINKET_SCALE);
-            else if (((LibraryPhoto) get_photo()).is_favorite())
-                trinket = Resources.get_icon(Resources.ICON_FAVORITE, TRINKET_SCALE);
-			else
-            	trinket = Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), TRINKET_SCALE);
+            trinket = Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), TRINKET_SCALE);
             
             if (trinket == null)
                 return;
@@ -2396,8 +2379,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/HideUnhide", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/EditTitle", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEdit", sensitivity);
@@ -2412,8 +2393,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextFavoriteUnfavorite", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextHideUnhide", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextEditTitle", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextExternalEdit", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextExternalEditRAW", sensitivity);
@@ -2423,9 +2402,6 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", sensitivity);
 #endif
-
-        set_item_sensitive("/PhotoContextMenu/ContextHideUnhide", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextFavoriteUnfavorite", sensitivity);
         
         base.set_missing_photo_sensitivities(sensitivity);
     }
@@ -2525,9 +2501,6 @@ public class LibraryPhotoPage : EditingHostPage {
 #endif  
 
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
-
-        set_hide_item_label("/PhotoContextMenu/ContextHideUnhide");
-        set_favorite_item_label("/PhotoContextMenu/ContextFavoriteUnfavorite");
         
 #if !NO_RAW
         if (is_raw)
@@ -2728,23 +2701,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/EditMenu/MoveToTrash", has_photo() && !get_photo_missing());
     }
     
-    protected void set_favorite_item_label(string path) {
-        // Favorite/Unfavorite menu item depends on several conditions
-        Gtk.MenuItem favorite_menu_item = (Gtk.MenuItem) ui.get_widget(path);
-        assert(favorite_menu_item != null);
-        
-        favorite_menu_item.set_label(can_favorite() ? Resources.FAVORITE_MENU :
-            Resources.UNFAVORITE_MENU);
-    }
-
-    protected void set_hide_item_label(string path) {
-        // Hide/Unhide menu item depends on several conditions
-        Gtk.MenuItem hide_menu_item = (Gtk.MenuItem) ui.get_widget(path);
-        assert(hide_menu_item != null);
-
-        hide_menu_item.set_label(can_hide() ? Resources.HIDE_MENU : Resources.UNHIDE_MENU);
-    }
-    
     private void on_photo_menu() {
         bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
         bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
@@ -2758,8 +2714,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipHorizontally", rotate_possible);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipVertically", rotate_possible);
-        set_hide_item_label("/PhotoMenuBar/PhotoMenu/HideUnhide");
-        set_favorite_item_label("/PhotoMenuBar/PhotoMenu/FavoriteUnfavorite");
                 
 #if !NO_RAW
         if (is_raw)
@@ -2778,36 +2732,6 @@ public class LibraryPhotoPage : EditingHostPage {
     
     private void on_view_menu() {
         update_zoom_menu_item_sensitivity();
-    }
-    
-    private void on_favorite_unfavorite() {
-        if (!has_photo())
-            return;
-
-        FavoriteUnfavoriteSingleCommand command = new FavoriteUnfavoriteSingleCommand(get_photo(),
-            can_favorite());
-
-        get_command_manager().execute(command);
-    }
-    
-    private void on_hide_unhide() {
-        if (!has_photo())
-            return;
-
-        HideUnhideSingleCommand command = new HideUnhideSingleCommand(get_photo(),
-            can_hide());
-
-        if (!Config.get_instance().get_display_hidden_photos())
-            on_photo_removed(get_photo());
-
-        get_command_manager().execute(command);
-    }
-
-    protected bool can_favorite() {
-        if (!has_photo())
-            return false;
- 
-        return !((LibraryPhoto) get_photo()).is_favorite();
     }
 
     private void on_increase_rating() {
@@ -2878,13 +2802,6 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("RateFive", get_photo().get_rating() != Rating.FIVE);
         set_action_sensitive("IncreaseRating", get_photo().get_rating().can_increase());
         set_action_sensitive("DecreaseRating", get_photo().get_rating().can_decrease());
-    }
-    
-    protected bool can_hide() {
-        if (!has_photo())
-            return false;
-
-        return !((LibraryPhoto) get_photo()).is_hidden();
     }
 
     private void on_metadata_altered(DataObject item, Alteration alteration) {

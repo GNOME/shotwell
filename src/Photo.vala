@@ -3435,6 +3435,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
 
 public class LibraryPhoto : Photo {
     // Top 16 bits are reserved for TransformablePhoto
+    // Warning: FLAG_HIDDEN and FLAG_FAVORITE have been deprecated for ratings and rating filters.
     private const uint64 FLAG_HIDDEN =      0x0000000000000001;
     private const uint64 FLAG_FAVORITE =    0x0000000000000002;
     private const uint64 FLAG_TRASH =       0x0000000000000004;
@@ -3455,6 +3456,9 @@ public class LibraryPhoto : Photo {
         // if marked in a state where they're held in an orphanage, rehydrate their backlinks
         if ((row.flags & (FLAG_TRASH | FLAG_OFFLINE)) != 0)
             rehydrate_backlinks(global, row.backlinks);
+        
+        if ((row.flags & (FLAG_HIDDEN | FLAG_FAVORITE)) != 0)
+            upgrade_rating_flags(row.flags);
     }
     
     public static void init(ProgressMonitor? monitor = null) {
@@ -3626,26 +3630,16 @@ public class LibraryPhoto : Photo {
         spin_event_loop();
     }
     
-    public bool is_favorite() {
-        return is_flag_set(FLAG_FAVORITE);
-    }
-    
-    public void set_favorite(bool favorite) {
-        if (favorite)
-            add_remove_flags(FLAG_FAVORITE, FLAG_HIDDEN);
-        else
-            remove_flags(FLAG_FAVORITE);
-    }
-    
-    public bool is_hidden() {
-        return is_flag_set(FLAG_HIDDEN);
-    }
-    
-    public void set_hidden(bool hidden) {
-        if (hidden)
-            add_remove_flags(FLAG_HIDDEN, FLAG_FAVORITE);
-        else
+    private void upgrade_rating_flags(uint64 flags) {
+        if ((flags & FLAG_HIDDEN) != 0) {
+            set_rating(Rating.REJECTED);
             remove_flags(FLAG_HIDDEN);
+        }
+        
+        if ((flags & FLAG_FAVORITE) != 0) {
+            set_rating(Rating.FIVE);
+            remove_flags(FLAG_FAVORITE);
+        }
     }
     
     // Blotto even!

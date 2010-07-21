@@ -383,22 +383,6 @@ public class Config {
         return get_double("/apps/shotwell/preferences/slideshow/delay", SLIDESHOW_DELAY_DEFAULT).clamp(
             SLIDESHOW_DELAY_MIN, SLIDESHOW_DELAY_MAX);
     }
-    
-    public bool get_display_favorite_photos() {
-        return get_bool("/apps/shotwell/preferences/ui/display_favorite_photos", false);
-    }
-    
-    public bool set_display_favorite_photos(bool display) {
-        return set_bool("/apps/shotwell/preferences/ui/display_favorite_photos", display);
-    }
-    
-    public bool get_display_hidden_photos() {
-        return get_bool("/apps/shotwell/preferences/ui/display_hidden_photos", false);
-    }
-    
-    public bool set_display_hidden_photos(bool display) {
-        return set_bool("/apps/shotwell/preferences/ui/display_hidden_photos", display);
-    }
 
     public RatingFilter get_photo_rating_filter() {
         return (RatingFilter)(get_int("/apps/shotwell/preferences/ui/photo_rating_filter", 

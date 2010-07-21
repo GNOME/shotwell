@@ -327,18 +327,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
 #endif
-
-        Gtk.ActionEntry favorite = { "FavoriteUnfavorite", Resources.FAVORITE, TRANSLATABLE, 
-            "<Ctrl>F", TRANSLATABLE, on_favorite_unfavorite };
-        favorite.label = Resources.FAVORITE_MENU;
-        favorite.tooltip = Resources.FAVORITE_TOOLTIP;
-        actions += favorite;
-        
-        Gtk.ActionEntry hide_unhide = { "HideUnhide", Resources.HIDDEN, TRANSLATABLE, "<Ctrl>H",
-            TRANSLATABLE, on_hide_unhide };
-        hide_unhide.label = Resources.HIDE_MENU;
-        hide_unhide.tooltip = Resources.HIDE_TOOLTIP;
-        actions += hide_unhide;
         
         Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
         set_rating.label = Resources.RATING_MENU;
@@ -478,12 +466,6 @@ public abstract class CollectionPage : CheckerboardPage {
     private Gtk.ToggleActionEntry[] create_toggle_actions() {
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
         
-        Gtk.ToggleActionEntry favorites = { "ViewFavorites", null, TRANSLATABLE, "<Ctrl><Shift>F",
-            TRANSLATABLE, on_display_only_favorites, Config.get_instance().get_display_favorite_photos() };
-        favorites.label = _("Only Fa_vorites");
-        favorites.tooltip = _("Show only your favorite photos");
-        toggle_actions += favorites;
-
         Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
             TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
         titles.label = _("_Titles");
@@ -496,12 +478,6 @@ public abstract class CollectionPage : CheckerboardPage {
         tags.tooltip = _("Display each photo's tags");
         toggle_actions += tags;
         
-        Gtk.ToggleActionEntry hidden = { "ViewHidden", null, TRANSLATABLE, "<Ctrl><Shift>H",
-            TRANSLATABLE, on_display_hidden_photos, Config.get_instance().get_display_hidden_photos() };
-        hidden.label = _("_Hidden Photos");
-        hidden.tooltip = _("Show hidden photos");
-        toggle_actions += hidden;
-
         return toggle_actions;
     }
     
@@ -612,11 +588,6 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().thaw_notifications();
 
         sync_sort();
-
-        if (Config.get_instance().get_display_favorite_photos())
-            use_favorite_photo_filter(true);
-        else
-            use_hidden_photo_filter(Config.get_instance().get_display_hidden_photos());
 
         restore_saved_rating_view_filter();  // Set filter to current level and set menu selection
         
@@ -751,40 +722,6 @@ public abstract class CollectionPage : CheckerboardPage {
                 LibraryWindow.get_app().switch_to_photo_page(this, thumbnail.get_photo());
         }
     }
-    
-    private void set_favorite_item_sensitive(string path, bool selected) {
-        // Favorite/Unfavorite menu item depends on several conditions
-        Gtk.MenuItem favorite_menu_item = (Gtk.MenuItem) ui.get_widget(path);
-        assert(favorite_menu_item != null);
-        
-        if (!selected) {
-            favorite_menu_item.set_label(Resources.FAVORITE_MENU);
-            favorite_menu_item.sensitive = false;
-        } else if (can_favorite_selected()) {
-            favorite_menu_item.set_label(Resources.FAVORITE_MENU);
-            favorite_menu_item.sensitive = true;
-        } else {
-            favorite_menu_item.set_label(Resources.UNFAVORITE_MENU);
-            favorite_menu_item.sensitive = true;
-        }
-    }
-
-    private void set_hide_item_sensitive(string path, bool selected) {
-        // Hide/Unhide menu item depends on several conditions
-        Gtk.MenuItem hide_menu_item = (Gtk.MenuItem) ui.get_widget(path);
-        assert(hide_menu_item != null);
-        
-        if (!selected) {
-            hide_menu_item.set_label(Resources.HIDE_MENU);
-            hide_menu_item.sensitive = false;
-        } else if (can_hide_selected()) {
-            hide_menu_item.set_label(Resources.HIDE_MENU);
-            hide_menu_item.sensitive = true;
-        } else {
-            hide_menu_item.set_label(Resources.UNHIDE_MENU);
-            hide_menu_item.sensitive = true;
-        }
-    }
 
     protected override bool on_context_invoked() {
         bool one_selected = get_view().get_selected_count() == 1;
@@ -799,8 +736,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionContextMenu/ContextMoveToTrash", selected);
         set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
         set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
-        set_hide_item_sensitive("/CollectionContextMenu/ContextHideUnhide", selected);
-        set_favorite_item_sensitive("/CollectionContextMenu/ContextFavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
         set_item_sensitive("/CollectionContextMenu/ContextEditTitle", one_selected);
         
@@ -1063,24 +998,6 @@ public abstract class CollectionPage : CheckerboardPage {
         
         return false;
     }
-    
-    private bool can_favorite_selected() {
-        foreach (DataView view in get_view().get_selected()) {
-            if (!((Thumbnail) view).get_photo().is_favorite())
-                return true;
-        }
-        
-        return false;
-    }
-    
-    private bool can_hide_selected() {
-        foreach (DataView view in get_view().get_selected()) {
-            if(!((Thumbnail) view).get_photo().is_hidden())
-                return true;
-        }
-        
-        return false;
-    }
 
     private bool can_rate_selected(Rating rating) {
         foreach (DataView view in get_view().get_selected()) {
@@ -1124,8 +1041,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipHorizontally", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipVertically", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
-        set_hide_item_sensitive("/CollectionMenuBar/PhotosMenu/HideUnhide", selected);
-        set_favorite_item_sensitive("/CollectionMenuBar/PhotosMenu/FavoriteUnfavorite", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/EditTitle", one_selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Rate", selected);
@@ -1251,15 +1166,6 @@ public abstract class CollectionPage : CheckerboardPage {
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
-    
-    private void on_favorite_unfavorite() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        FavoriteUnfavoriteCommand command = new FavoriteUnfavoriteCommand(get_view().get_selected(),
-            can_favorite_selected());
-        get_command_manager().execute(command);
-    }
 
     private void on_increase_rating() {
         if (get_view().get_selected_count() == 0)
@@ -1317,14 +1223,6 @@ public abstract class CollectionPage : CheckerboardPage {
 
     private void on_rate_five() {
         on_set_rating(Rating.FIVE);
-    }
-    
-    private void on_hide_unhide() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        HideUnhideCommand command = new HideUnhideCommand(get_view().get_selected(), can_hide_selected());
-        get_command_manager().execute(command);
     }
     
     private void on_duplicate_photo() {
@@ -1436,14 +1334,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/ViewMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
         set_item_sensitive("/CollectionMenuBar/ViewMenu/DecreaseSize", scale > Thumbnail.MIN_SCALE);
         set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
-    }
-    
-    private void on_display_only_favorites(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        use_favorite_photo_filter(display);
-        
-        Config.get_instance().set_display_favorite_photos(display);
     }
 
     private void set_rating_view_filter_menu(RatingFilter filter) {
@@ -1608,60 +1498,6 @@ public abstract class CollectionPage : CheckerboardPage {
         set_display_tags(display);
         
         Config.get_instance().set_display_photo_tags(display);
-    }
-    
-    private void on_display_hidden_photos(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        use_hidden_photo_filter(display);
-        
-        Config.get_instance().set_display_hidden_photos(display);
-    }
-    
-    private void use_favorite_photo_filter(bool display) {
-        Gtk.ToggleAction hidden_action = (Gtk.ToggleAction) action_group.get_action("ViewHidden");
-        
-        // Clear View Hidden if enabled
-        if (display && hidden_action != null)
-            hidden_action.set_active(false);
-        
-        // install appropriate ViewFilter for current options
-        if (display)
-            get_view().install_view_filter(favorite_photo_filter);
-        else if (hidden_action != null && !hidden_action.active)
-            get_view().install_view_filter(hidden_photo_filter);
-        else
-            get_view().reset_view_filter();
-        
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewFavorite");
-        if (action != null)
-            action.set_active(display);
-    }
-    
-    private bool favorite_photo_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().is_favorite();
-    }
-    
-    private void use_hidden_photo_filter(bool display) {
-        // Clear View Favorites if enabled
-        if (display) {
-            Gtk.ToggleAction favorites_action = (Gtk.ToggleAction) action_group.get_action("ViewFavorites");
-            if (favorites_action != null)
-                favorites_action.set_active(false);
-        }
-        
-        if (display)
-            get_view().reset_view_filter();
-        else
-            get_view().install_view_filter(hidden_photo_filter);
-        
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewHidden");
-        if (action != null)
-            action.set_active(display);
-    }
-    
-    private bool hidden_photo_filter(DataView view) {
-        return !((Thumbnail) view).get_photo().is_hidden();
     }
     
     private static double scale_to_slider(int value) {

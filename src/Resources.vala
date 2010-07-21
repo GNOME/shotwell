@@ -63,14 +63,11 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
     public const string PUBLISH = "shotwell-publish";
-    public const string HIDDEN = "shotwell-hidden";
-    public const string FAVORITE = "shotwell-favorite";
     public const string MERGE = "shotwell-merge-events";   
 
     public const string ICON_APP = "shotwell.svg";
     public const string ICON_ABOUT_LOGO = "shotwell-street.jpg";
-    public const string ICON_HIDDEN = "hidden.svg";
-    public const string ICON_FAVORITE = "favorite.svg";
+    public const string ICON_RATING_REJECTED = "rejected.svg";
     public const string ICON_RATING_ONE = "one-star.svg";
     public const string ICON_RATING_TWO = "two-stars.svg";
     public const string ICON_RATING_THREE = "three-stars.svg";
@@ -147,14 +144,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string MERGE_MENU = _("_Merge Events");
     public const string MERGE_LABEL = _("Merge");
     public const string MERGE_TOOLTIP = _("Merge into a single event");
-    
-    public const string FAVORITE_MENU = _("Mark as _Favorite");
-    public const string FAVORITE_LABEL = _("Mark as Favorite");
-    public const string FAVORITE_TOOLTIP = _("Mark the photo as one of your favorites");
-    
-    public const string UNFAVORITE_MENU = _("Unmark as _Favorite");
-    public const string UNFAVORITE_LABEL = _("Unmark as Favorite");
-    public const string UNFAVORITE_TOOLTIP = _("Unmark the photo as one of your favorites");
 
     public const string RATING_MENU = _("_Set Rating");
     public const string RATING_LABEL = _("Set Rating");
@@ -189,14 +178,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string FILTER_PHOTOS_MENU = _("_Filter Photos");
     public const string FILTER_PHOTOS_LABEL = _("Filter Photos");
     public const string FILTER_PHOTOS_TOOLTIP = _("Limit the number of photos displayed based on a filter");
-    
-    public const string HIDE_MENU = _("_Hide");
-    public const string HIDE_LABEL = _("Hide");
-    public const string HIDE_TOOLTIP = _("Hide the selected photos");
-    
-    public const string UNHIDE_MENU = _("Un_hide");
-    public const string UNHIDE_LABEL = _("Unhide");
-    public const string UNHIDE_TOOLTIP = _("Unhide the selected photos");
     
     public const string DUPLICATE_PHOTO_MENU = _("_Duplicate");
     public const string DUPLICATE_PHOTO_LABEL = _("Duplicate");
@@ -413,7 +394,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private Gdk.Pixbuf? get_rating_trinket(Rating rating, int scale) {
         switch (rating) {
             case Rating.REJECTED:
-                return Resources.get_icon(Resources.ICON_HIDDEN, scale);
+                return Resources.get_icon(Resources.ICON_RATING_REJECTED, scale);
             // case Rating.UNRATED needs no icon
             case Rating.ONE:
                 return Resources.get_icon(Resources.ICON_RATING_ONE, scale);
@@ -568,8 +549,6 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
         add_stock_icon(icons_dir.get_child("publish.png"), PUBLISH);
-        add_stock_icon(icons_dir.get_child("hidden.svg"), HIDDEN);
-        add_stock_icon(icons_dir.get_child("favorite.svg"), FAVORITE);
         add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
         
         factory.add_default();
