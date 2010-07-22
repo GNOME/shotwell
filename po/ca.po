@@ -1,0 +1,470 @@
+# po/ca.po
+# Catalan translation for Shotwell
+# Copyright (C) 2009-2010 Yorba Foundation
+# This file is distributed under the GNU LGPL, version 2.1.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shotwell-0.6.0+trunk\n"
+"Report-Msgid-Bugs-To: vera@yorba.org\n"
+"POT-Creation-Date: 2010-06-04 16:30-0700\n"
+"PO-Revision-Date: 2010-07-01 10:22-0300\n"
+"Last-Translator: Glards <glards@gmail.com>\n"
+"Language-Team: Català < >\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Catalan\n"
+
+# Translator credits string for the about box -- translators, add your name
+# below if it's not already present
+#: src/AppWindow.vala:567
+msgid "translator-credits"
+msgstr ""
+"Glards <glards@gmail.com>"
+
+# GNOME Application Name
+msgid "Shotwell Photo Manager"
+msgstr "Gestor de fotos Shotwell"
+
+# GNOME Application Class ("Generic Name")
+#: src/Resources.vala:14
+msgid "Photo Manager"
+msgstr "Gestor de fotos"
+
+# GNOME Application Comment
+msgid "Organize your photos"
+msgstr "Organitza les seves fotos"
+
+# GNOME Application Name for Direct Edit Mode
+msgid "Shotwell Photo Viewer"
+msgstr "Visor de fotos Shotwell"
+
+# GNOME Application Class for Direct Edit Mode
+#: src/Resources.vala:15
+msgid "Photo Viewer"
+msgstr "Visor de fotos"
+
+#: src/Resources.vala:293
+msgid "_Move to Trash"
+msgstr "_Moure a la papelera"
+
+# GNOME Application Name
+#: src/Resources.vala:285
+msgid "Show in File Mana_ger"
+msgstr "Mostrar al nave_gador de fitxers"
+
+#: src/AppDirs.vala:60
+msgid "Pictures"
+msgstr "Imatges"
+
+#: src/AppWindow.vala:118
+msgid "Leave _Fullscreen"
+msgstr "Sortir de _pantalla completa"
+
+#: src/AppWindow.vala:119
+msgid "Leave fullscreen"
+msgstr "Sortir de pantalla completa"
+
+#: src/AppWindow.vala:417
+msgid "_Quit"
+msgstr "_Sortir"
+
+#: src/AppWindow.vala:418
+msgid "Quit Shotwell"
+msgstr "Sortir de Shotwell"
+
+#: src/AppWindow.vala:423
+msgid "_About"
+msgstr "_Sobre"
+
+#: src/AppWindow.vala:424
+msgid "About Shotwell"
+msgstr "Sobre de Shotwell"
+
+#: src/AppWindow.vala:429
+msgid "_Fullscreen"
+msgstr "_Pantalla completa"
+
+#: src/AppWindow.vala:430
+msgid "Use Shotwell at fullscreen"
+msgstr "Usar Shotwell en pantalla completa"
+
+#: src/AppWindow.vala:435
+msgid "_Contents"
+msgstr "_Continguts"
+
+#: src/AppWindow.vala:436
+msgid "More information on Shotwell"
+msgstr "Més informació sobre Shotwell"
+
+#: src/AppWindow.vala:506 src/AppWindow.vala:520 src/AppWindow.vala:537
+#: src/TagPage.vala:135 src/WebConnectors.vala:791
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: src/AppWindow.vala:547
+#, c-format
+msgid ""
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
+"\n"
+"%s"
+msgstr ""
+"Error fatal al accedir a la biblioteca de Shotwell. Shotwell no "
+"pot continuar.\n"
+"\n"
+"%s"
+
+#: src/AppWindow.vala:564
+msgid "Visit the Yorba web site"
+msgstr "Visita el lloc web de Yorba"
+
+#: src/AppWindow.vala:576
+#, c-format
+msgid "Unable to display help: %s"
+msgstr "No es pot mostrar l'ajuda: %s"
+
+#: src/CollectionPage.vala:137 src/SlideshowPage.vala:98
+msgid "Slideshow"
+msgstr "Presentació"
+
+#: src/CollectionPage.vala:138
+msgid "Start a slideshow of these photos"
+msgstr "Iniciar una presentació de aquestes fotos"
+
+#: src/CollectionPage.vala:173
+msgid "Adjust the size of the thumbnails"
+msgstr "Ajustar el tamany de les miniaturas"
+
+#: src/CollectionPage.vala:190 src/EventsDirectoryPage.vala:205
+#: src/ImportPage.vala:404 src/ImportPage.vala:1141 src/PhotoPage.vala:1819
+#: src/PhotoPage.vala:2751 src/TrashPage.vala:55
+msgid "_File"
+msgstr "_Fitxer"
+
+#: src/CollectionPage.vala:197
+msgid "Export selected photos to disk"
+msgstr "Exportar les fotos seleccionades al disc"
+
+#: src/CollectionPage.vala:223 src/EventsDirectoryPage.vala:217
+#: src/ImportPage.vala:418 src/PhotoPage.vala:1851 src/TrashPage.vala:59
+msgid "_Edit"
+msgstr "_Editar"
+
+#: src/CollectionPage.vala:227 src/EventsDirectoryPage.vala:221
+msgid "Even_ts"
+msgstr "Even_tos"
+
+#: src/CollectionPage.vala:232 src/EventsDirectoryPage.vala:237
+#: src/ImportPage.vala:423 src/TrashPage.vala:76
+msgid "Select _All"
+msgstr "Sel·leccionar _tot"
+
+#: src/CollectionPage.vala:233
+msgid "Select all the photos in the library"
+msgstr "Sel·leccionar totes les fotos de la biblioteca"
+
+#: src/CollectionPage.vala:239
+msgid "Remove the selected photos from the library"
+msgstr "Eliminar les fotos seleccionades de la biblioteca"
+
+#: src/CollectionPage.vala:245
+msgid "Move the selected photos to the trash"
+msgstr "Moure les fotos seleccionades a la papelera"
+
+#: src/CollectionPage.vala:250
+msgid "_Photos"
+msgstr "_Fotos"
+
+#: src/CollectionPage.vala:255 src/PhotoPage.vala:2005 src/PhotoPage.vala:2887
+msgid "Zoom _In"
+msgstr "Apropar"
+
+#: src/CollectionPage.vala:256
+msgid "Increase the magnification of the thumbnails"
+msgstr "Augmentar el tamany de les miniatures"
+
+#: src/CollectionPage.vala:261 src/PhotoPage.vala:2011 src/PhotoPage.vala:2893
+msgid "Zoom _Out"
+msgstr "Allunyar"
+
+#: src/CollectionPage.vala:262
+msgid "Decrease the magnification of the thumbnails"
+msgstr "Disminuir el tamany de les miniatures"
+
+#: src/CollectionPage.vala:365
+msgid "_Slideshow"
+msgstr "Pre_sentació"
+
+#: src/CollectionPage.vala:366
+msgid "Play a slideshow"
+msgstr "Iniciar una presentació"
+
+#: src/CollectionPage.vala:370 src/EventsDirectoryPage.vala:209
+#: src/ImportPage.vala:428 src/ImportPage.vala:1151 src/PhotoPage.vala:1866
+#: src/PhotoPage.vala:2878 src/TrashPage.vala:80
+msgid "_View"
+msgstr "_Veure"
+
+#: src/CollectionPage.vala:374
+msgid "Sort _Photos"
+msgstr "Ordenar _Fotos"
+
+#: src/CollectionPage.vala:384 src/CollectionPage.vala:423
+#: src/PhotoPage.vala:2016
+msgid "Ta_gs"
+msgstr "Etiquetes"
+
+#: src/CollectionPage.vala:400 src/EventsDirectoryPage.vala:213
+#: src/ImportPage.vala:432 src/ImportPage.vala:1155 src/PhotoPage.vala:2000
+#: src/PhotoPage.vala:2882 src/TrashPage.vala:84
+msgid "_Help"
+msgstr "_Ajuda"
+
+#: src/CollectionPage.vala:411
+msgid "Only Fa_vorites"
+msgstr "Sols Fa_vorides"
+
+#: src/CollectionPage.vala:412
+msgid "Show only your favorite photos"
+msgstr "Mostrar sols les fotos favorides"
+
+#: src/CollectionPage.vala:417 src/ImportPage.vala:393
+msgid "_Titles"
+msgstr "_Títols"
+
+#: src/CollectionPage.vala:418 src/ImportPage.vala:394
+msgid "Display the title of each photo"
+msgstr "Mostrar el títol de cada foto"
+
+#: src/CollectionPage.vala:424
+msgid "Display each photo's tags"
+msgstr "Mostrar l'etiqueta de cada foto"
+
+#: src/CollectionPage.vala:429
+msgid "_Hidden Photos"
+msgstr "_Ocultar Fotos"
+
+#: src/CollectionPage.vala:430
+msgid "Show hidden photos"
+msgstr "Mostrar fotos ocultes"
+
+#: src/CollectionPage.vala:441
+msgid "By _Title"
+msgstr "Por _Título"
+
+#: src/CollectionPage.vala:442
+msgid "Sort photos by title"
+msgstr "Ordenar fotos per títol"
+
+#: src/CollectionPage.vala:447
+msgid "By Exposure _Date"
+msgstr "Por data d'exposició"
+
+#: src/CollectionPage.vala:448
+msgid "Sort photos by exposure date"
+msgstr "Ordenar fotos por data d'exposició"
+
+#: src/CollectionPage.vala:459 src/LibraryWindow.vala:456
+msgid "_Ascending"
+msgstr "_Ascendent"
+
+#: src/CollectionPage.vala:460 src/LibraryWindow.vala:457
+msgid "Sort photos in an ascending order"
+msgstr "Ordenar fotos en ordre ascendent"
+
+#: src/CollectionPage.vala:465 src/LibraryWindow.vala:463
+msgid "D_escending"
+msgstr "D_escendient"
+
+#: src/CollectionPage.vala:466 src/LibraryWindow.vala:464
+msgid "Sort photos in a descending order"
+msgstr "Ordenar fotos en ordre descendent"
+
+#: src/CollectionPage.vala:724 src/Dialogs.vala:14 src/PhotoPage.vala:2353
+msgid "Export Photo"
+msgid_plural "Export Photos"
+msgstr[0] "Exportar foto"
+msgstr[1] "Exportar fotos"
+
+#: src/CollectionPage.vala:865 src/PhotoPage.vala:2259
+msgid "Remove From Library"
+msgstr "Eliminar de la biblioteca"
+
+#: src/CollectionPage.vala:865 src/PhotoPage.vala:2259
+msgid "Removing Photo From Library"
+msgid_plural "Removing Photos From Library"
+msgstr[0] "Eliminando foto de la biblioteca"
+msgstr[1] "Eliminant fotos de la biblioteca"
+
+#: src/CollectionPage.vala:882 src/CollectionPage.vala:902
+msgid "Rotating"
+msgstr "Rotant"
+
+#: src/CollectionPage.vala:882 src/CollectionPage.vala:902
+msgid "Undoing Rotate"
+msgstr "Desfent rotació"
+
+#: src/CollectionPage.vala:911
+msgid "Mirroring"
+msgstr "Mirall"
+
+#: src/CollectionPage.vala:912
+msgid "Undoing Mirror"
+msgstr "Desfer mirall"
+
+#: src/CollectionPage.vala:921
+msgid "Flipping"
+msgstr "Girar"
+
+#: src/CollectionPage.vala:922
+msgid "Undoing Flip"
+msgstr "Desfer girar"
+
+#: src/CollectionPage.vala:1371
+msgid "Photos"
+msgstr "Fotos"
+
+#: src/Commands.vala:510
+msgid "Reverting"
+msgstr "Revertir"
+
+#: src/Commands.vala:510
+msgid "Undoing Revert"
+msgstr "Desfer revertir"
+
+#: src/Commands.vala:554
+msgid "Enhancing"
+msgstr "Millorar"
+
+#: src/Commands.vala:554
+msgid "Undoing Enhance"
+msgstr "Desfer millorar"
+
+#: src/Commands.vala:720
+msgid "Creating New Event"
+msgstr "Creant un nou event"
+
+#: src/Commands.vala:721
+msgid "Removing Event"
+msgstr "Eliminar event"
+
+#: src/Commands.vala:730
+msgid "Moving Photos to New Event"
+msgstr "Moure fotos a un nou event"
+
+#: src/Commands.vala:731
+msgid "Setting Photos to Previous Event"
+msgstr "Establir fotos al event anterior"
+
+#: src/Commands.vala:761
+msgid "Merging"
+msgstr "Combinar"
+
+#: src/Commands.vala:762
+msgid "Unmerging"
+msgstr "Desfer combinació"
+
+#: src/Commands.vala:771
+msgid "Duplicating photos"
+msgstr "Duplicar fotos"
+
+#: src/Commands.vala:771
+msgid "Removing duplicated photos"
+msgstr "Eliminant fotos duplicades"
+
+#: src/Commands.vala:794
+#, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "No es pot duplicar una foto degut a un error en el fitxer"
+msgstr[1] "No es poden duplicar %d fotos degut a errors en el fitxers"
+
+#: src/Commands.vala:859 src/Commands.vala:860
+msgid "Marking as Favorite"
+msgstr "Marcar com favorita"
+
+#: src/Commands.vala:859 src/Commands.vala:860
+msgid "Unmarking as Favorite"
+msgstr "Desmarcar com favorita"
+
+#: src/Commands.vala:901 src/Commands.vala:902
+msgid "Hiding"
+msgstr "Amagar"
+
+#: src/Commands.vala:901 src/Commands.vala:902
+msgid "Unhiding"
+msgstr "Mostrar"
+
+#: src/Commands.vala:944
+msgid "Original photo could not be adjusted."
+msgstr "La foto original no pot ser ajustada."
+
+#: src/Commands.vala:964
+msgid "Adjusting Date and Time"
+msgstr "Ajustar data i hora"
+
+#: src/Commands.vala:964
+msgid "Undoing Date and Time Adjustment"
+msgstr "Desfer ajust de data i hora"
+
+#: src/Commands.vala:991
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "La foto original no es pot modificar."
+msgstr[1] "Les fotos originals no es poden modificar."
+
+#: src/Commands.vala:993 src/Commands.vala:1005
+msgid "Time Adjustment Error"
+msgstr "Error al ajustar l'hora"
+
+#: src/WebConnectors.vala:903 src/WebConnectors.vala:1016
+msgid "Preparing photos for upload"
+msgstr "Preparant fotos a pujar"
+
+#: src/WebConnectors.vala:904 src/WebConnectors.vala:956
+#, c-format
+msgid "Uploading photo %d of %d"
+msgstr "Pujant foto %d de %d"
+
+#: ui/shotwell.glade:101
+msgid "Shotwell Preferences"
+msgstr "Preferencies de Shotwell"
+
+#: ui/shotwell.glade:126
+msgid "_Background:"
+msgstr "_Fons de pantalla"
+
+#: ui/shotwell.glade:141
+msgid "_Import photos to:"
+msgstr "_Importar fotos de:"
+
+#: ui/shotwell.glade:156
+msgid "_External photo editor:"
+msgstr "Editor de fotos extern"
+
+#: ui/shotwell.glade:202
+msgid "B_rowse..."
+msgstr "Explorar"
+
+#: ui/shotwell.glade:231
+msgid "white"
+msgstr "blanc"
+
+#: ui/shotwell.glade:254
+msgid "black"
+msgstr "negre"
+
+#: ui/shotwell.glade:273
+msgid "Display"
+msgstr "Mostrar"
+
+#: ui/shotwell.glade:287
+msgid "External _RAW editor:"
+msgstr "Editor _RAW extern:"
+
+#: ui/shotwell.glade:362
+msgid "External Editors"
+msgstr "Editores externs"
