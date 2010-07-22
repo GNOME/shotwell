@@ -2014,16 +2014,17 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
+        
         Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE, null,
             TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove_from_library.tooltip = _("Remove the photo from the library");
-        actions += remove_from_library;        
+        remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_SINGULAR_TOOLTIP;
+        actions += remove_from_library;
 
         Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        move_to_trash.tooltip = _("Move the photo to the trash");
+        move_to_trash.tooltip = Resources.MOVE_TO_TRASH_SINGULAR_TOOLTIP;
         actions += move_to_trash;
 
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };

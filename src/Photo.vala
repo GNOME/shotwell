@@ -2993,7 +2993,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 if (import_id.is_valid()) {
                     if (!sorted_import_ids.contains(import_id))
                         sorted_import_ids.add(import_id);
-                    import_rolls.set(photo.get_import_id(), photo);
+                    import_rolls.set(import_id, photo);
                     
                     import_roll_changed = true;
                 }
@@ -3017,10 +3017,8 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 if (import_id.is_valid()) {
                     is_removed = import_rolls.remove(import_id, photo);
                     assert(is_removed);
-                    if (!import_rolls.contains(import_id)) {
-                        is_removed = sorted_import_ids.remove(import_id);
-                        assert(is_removed);
-                    }
+                    if (!import_rolls.contains(import_id))
+                        sorted_import_ids.remove(import_id);
                     
                     import_roll_changed = true;
                 }

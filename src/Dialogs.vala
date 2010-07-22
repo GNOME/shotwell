@@ -586,6 +586,28 @@ public bool revert_editable_dialog(Gtk.Window owner, Gee.Collection<Photo> photo
     return result == Gtk.ResponseType.YES;
 }
 
+public bool remove_offline_dialog(Gtk.Window owner, int count) {
+    if (count == 0)
+        return false;
+    
+    string msg = ngettext(
+        "This will remove the photo from the library.  Continue?",
+        "This will remove %d photos from the library.  Continue?",
+        count).printf(count);
+    
+    Gtk.MessageDialog dialog = new Gtk.MessageDialog(owner, Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "%s", msg);
+    dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL);
+    dialog.add_button(_("_Remove"), Gtk.ResponseType.OK);
+    dialog.title = ngettext("Remove Photo From Library", "Remove Photos From Library", count);
+    
+    Gtk.ResponseType result = (Gtk.ResponseType) dialog.run();
+    
+    dialog.destroy();
+    
+    return result == Gtk.ResponseType.OK;
+}
+
 public class ProgressDialog : Gtk.Window {
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private Gtk.Button cancel_button = null;

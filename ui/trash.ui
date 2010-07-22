@@ -17,7 +17,7 @@
             <menuitem name="Delete" action="Delete" />
             <menuitem name="Restore" action="Restore" />
             <separator />
-            <menuitem name="SelectAll" action="SelectAll" />
+            <menuitem name="SelectAll" action="CommonSelectAll" />
             <separator />
             <menuitem name="Preferences" action="CommonPreferences" />
         </menu>

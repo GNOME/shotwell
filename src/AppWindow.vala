@@ -495,6 +495,12 @@ public abstract class AppWindow : PageWindow {
         jump_to_file.tooltip = Resources.JUMP_TO_FILE_TOOLTIP;
         actions += jump_to_file;
         
+        Gtk.ActionEntry select_all = { "CommonSelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
+            "<Ctrl>A", TRANSLATABLE, on_select_all };
+        select_all.label = Resources.SELECT_ALL_MENU;
+        select_all.tooltip = Resources.SELECT_ALL_TOOLTIP;
+        actions += select_all;
+        
         return actions;
     }
     
@@ -694,8 +700,8 @@ public abstract class AppWindow : PageWindow {
         
         present();
     }
-
-    protected bool set_common_action_sensitive(string name, bool sensitive) {
+    
+    public bool set_common_action_sensitive(string name, bool sensitive) {
         Page? page = get_current_page();
         if (page == null) {
             warning("No page to set action %s", name);
@@ -714,20 +720,29 @@ public abstract class AppWindow : PageWindow {
         
         return true;
     }
-
+    
     protected override void switched_pages(Page? old_page, Page? new_page) {
-        set_common_action_sensitive("CommonJumpToFile", 
-            get_current_page().get_view().get_selected_count() == 1);
-
-        if (old_page != null)
+        if (old_page != null) {
+            old_page.get_view().selection_group_altered.disconnect(on_selection_group_altered);
             old_page.get_view().items_state_changed.disconnect(on_items_altered);
-
-        if (new_page != null)
+        }
+        
+        if (new_page != null) {
+            new_page.get_view().selection_group_altered.connect(on_selection_group_altered);
             new_page.get_view().items_state_changed.connect(on_items_altered);
-
+            
+            set_common_action_sensitive("CommonSelectAll", new_page.get_view().get_count() > 0);
+            set_common_action_sensitive("CommonJumpToFile", 
+                new_page.get_view().get_selected_count() == 1);
+        }
+        
         base.switched_pages(old_page, new_page);
     }
-
+    
+    private void on_selection_group_altered() {
+        set_common_action_sensitive("CommonSelectAll", get_current_page().get_view().get_count() > 0);
+    }
+    
     private void on_items_altered() {
         set_common_action_sensitive("CommonJumpToFile", 
             get_current_page().get_view().get_selected_count() == 1);
@@ -744,7 +759,13 @@ public abstract class AppWindow : PageWindow {
     private void on_redo() {
         command_manager.redo();
     }
-
+    
+    private void on_select_all() {
+        Page? page = get_current_page();
+        if (page != null)
+            page.get_view().select_all();
+    }
+    
     private override bool configure_event(Gdk.EventConfigure event) {
         if (window.get_state() == Gdk.WindowState.MAXIMIZED)
             maximized = !maximized;

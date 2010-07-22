@@ -236,12 +236,6 @@ public class EventsDirectoryPage : CheckerboardPage {
         merge.tooltip = Resources.MERGE_TOOLTIP;
         actions += merge;
 
-        Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
-            "<Ctrl>A", TRANSLATABLE, on_select_all };
-        select_all.label = _("Select _All");
-        select_all.tooltip = _("Select all the events in the directory");
-        actions += select_all;
-        
         return actions;
     }
     
@@ -301,10 +295,6 @@ public class EventsDirectoryPage : CheckerboardPage {
             get_view().get_selected_count() > 1);
         set_item_sensitive("/EventsDirectoryMenuBar/EventsMenu/EventRename", 
             get_view().get_selected_count() == 1);
-    }
-    
-    private void on_select_all() {
-        get_view().select_all();
     }
     
     private void on_rename() {

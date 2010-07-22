@@ -512,7 +512,8 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private string DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
 
     public const string DELETE_PHOTOS_MENU = _("_Delete");
-    public const string DELETE_PHOTOS_TOOLTIP = _("Remove the selected photos from the trash");
+    public const string DELETE_FROM_TRASH_TOOLTIP = _("Remove the selected photos from the trash");
+    public const string DELETE_FROM_LIBRARY_TOOLTIP = _("Remove the selected photos from the library");
     
     public const string RESTORE_PHOTOS_MENU = _("_Restore");
     public const string RESTORE_PHOTOS_TOOLTIP = _("Move the selected photos back into the library");
@@ -525,7 +526,15 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     }
     
     public const string REMOVE_FROM_LIBRARY_MENU = _("R_emove From Library");
+    public const string REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP = _("Remove the selected photos from the library");
+    public const string REMOVE_FROM_LIBRARY_SINGULAR_TOOLTIP = _("Remove the photo from the library");
+    
     public const string MOVE_TO_TRASH_MENU = _("_Move to Trash");
+    public const string MOVE_TO_TRASH_PLURAL_TOOLTIP = _("Move the selected photos to the trash");
+    public const string MOVE_TO_TRASH_SINGULAR_TOOLTIP = _("Move the photo to the trash");
+    
+    public const string SELECT_ALL_MENU = _("Select _All");
+    public const string SELECT_ALL_TOOLTIP = _("Select all items");
     
     private Gtk.IconFactory factory = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = null;

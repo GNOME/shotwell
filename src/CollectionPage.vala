@@ -249,22 +249,16 @@ public abstract class CollectionPage : CheckerboardPage {
         event.label = _("Even_ts");
         actions += event;
         
-        Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
-            "<Ctrl>A", TRANSLATABLE, on_select_all };
-        select_all.label = _("Select _All");
-        select_all.tooltip = _("Select all the photos in the library");
-        actions += select_all;
-        
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE, null,
-            TRANSLATABLE, on_remove_from_library };
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
+            null, TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
-        remove_from_library.tooltip = _("Remove the selected photos from the library");
+        remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP;
         actions += remove_from_library;
         
         Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
             TRANSLATABLE, on_move_to_trash };
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        move_to_trash.tooltip = _("Move the selected photos to the trash");
+        move_to_trash.tooltip = Resources.MOVE_TO_TRASH_PLURAL_TOOLTIP;
         actions += move_to_trash;
         
         Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null,
@@ -963,7 +957,6 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_edit_menu() {
         decorate_undo_item("/CollectionMenuBar/EditMenu/Undo");
         decorate_redo_item("/CollectionMenuBar/EditMenu/Redo");
-        set_item_sensitive("/CollectionMenuBar/EditMenu/SelectAll", get_view().get_count() > 0);
     }
 
     private void on_events_menu() {
@@ -973,10 +966,6 @@ public abstract class CollectionPage : CheckerboardPage {
     protected virtual void on_tags_menu() {
         set_item_sensitive("/CollectionMenuBar/TagsMenu/AddTags", get_view().get_selected_count() > 0);
         set_item_sensitive("/CollectionMenuBar/TagsMenu/ModifyTags", get_view().get_selected_count() == 1);
-    }
-    
-    private void on_select_all() {
-        get_view().select_all();
     }
     
     private bool can_revert_selected() {
@@ -1064,9 +1053,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_remove_from_library() {
-        remove_from_app((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), 
-            _("Remove From Library"), ngettext("Removing Photo From Library", "Removing Photos From Library", 
-            get_view().get_selected_count()));
+        remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
     }
     
     private void on_move_to_trash() {

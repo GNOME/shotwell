@@ -41,7 +41,6 @@ public class TrashPage : CheckerboardPage {
         toolbar.insert(empty_trash_button, -1);
         
         get_view().selection_group_altered.connect(on_selection_altered);
-        get_view().contents_altered.connect(on_contents_altered);
         
         // monitor trashcan and initialize view with all items in it
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
@@ -62,7 +61,7 @@ public class TrashPage : CheckerboardPage {
         Gtk.ActionEntry delete_action = { "Delete", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_delete };
         delete_action.label = Resources.DELETE_PHOTOS_MENU;
-        delete_action.tooltip = Resources.DELETE_PHOTOS_TOOLTIP;
+        delete_action.tooltip = Resources.DELETE_FROM_TRASH_TOOLTIP;
         actions += delete_action;
         
         Gtk.ActionEntry restore = { "Restore", Gtk.STOCK_UNDELETE, TRANSLATABLE, null, TRANSLATABLE,
@@ -70,11 +69,6 @@ public class TrashPage : CheckerboardPage {
         restore.label = Resources.RESTORE_PHOTOS_MENU;
         restore.tooltip = Resources.RESTORE_PHOTOS_TOOLTIP;
         actions += restore;
-        
-        Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE, "<Ctrl>A",
-            TRANSLATABLE, on_select_all };
-        select_all.label = _("Select _All");
-        actions += select_all;
         
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
         view.label = _("_View");
@@ -90,7 +84,6 @@ public class TrashPage : CheckerboardPage {
     protected override void init_actions(int selected_count, int count) {
         set_action_sensitive("Delete", selected_count > 0);
         set_action_sensitive("Restore", selected_count > 0);
-        set_action_sensitive("SelectAll", count > 0);
         
         action_group.get_action("Delete").is_important = true;
         action_group.get_action("Restore").is_important = true;
@@ -102,10 +95,6 @@ public class TrashPage : CheckerboardPage {
     private void on_selection_altered() {
         set_action_sensitive("Delete", get_view().get_selected_count() > 0);
         set_action_sensitive("Restore", get_view().get_selected_count() > 0);
-    }
-    
-    private void on_contents_altered() {
-        set_action_sensitive("SelectAll", get_view().get_count() > 0);
     }
     
     private void on_trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
@@ -134,10 +123,6 @@ public class TrashPage : CheckerboardPage {
         
         get_command_manager().execute(new TrashUntrashPhotosCommand(
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), false));
-    }
-    
-    private void on_select_all() {
-        get_view().select_all();
     }
     
     public override CheckerboardItem? get_fullscreen_photo() {

@@ -13,6 +13,10 @@
             <menuitem name="Undo" action="CommonUndo" />
             <menuitem name="Redo" action="CommonRedo" />
             <separator />
+            <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
+            <separator />
+            <menuitem name="SelectAll" action="CommonSelectAll" />
+            <separator />
             <menuitem name="Preferences" action="CommonPreferences" />
         </menu>
         

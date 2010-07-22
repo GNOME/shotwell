@@ -18,6 +18,16 @@ public class OfflinePage : CheckerboardPage {
         
         init_ui("offline.ui", "/OfflineMenuBar", "OfflineActionGroup", create_actions());
         
+        get_view().selection_group_altered.connect(on_selection_group_altered);
+        
+        Gtk.Toolbar toolbar = get_toolbar();
+        
+        // delete button
+        Gtk.ToolButton delete_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_DELETE);
+        delete_button.set_related_action(action_group.get_action("RemoveFromLibrary"));
+        
+        toolbar.insert(delete_button, -1);
+        
         // monitor offline and initialize view with all items in it
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
         on_offline_contents_altered(LibraryPhoto.global.get_offline(), null);
@@ -34,6 +44,12 @@ public class OfflinePage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
         
+        Gtk.ActionEntry remove = { "RemoveFromLibrary", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_remove_from_library };
+        remove.label = Resources.DELETE_PHOTOS_MENU;
+        remove.tooltip = Resources.DELETE_FROM_LIBRARY_TOOLTIP;
+        actions += remove;
+        
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
         view.label = _("_View");
         actions += view;
@@ -43,6 +59,22 @@ public class OfflinePage : CheckerboardPage {
         actions += help;
         
         return actions;
+    }
+    
+    protected override void init_actions(int selected_count, int count) {
+        update_actions(selected_count, count);
+        
+        action_group.get_action("RemoveFromLibrary").is_important = true;
+        
+        base.init_actions(selected_count, count);
+    }
+    
+    private void on_selection_group_altered() {
+        update_actions(get_view().get_selected_count(), get_view().get_count());
+    }
+    
+    private void update_actions(int selected_count, int count) {
+        set_action_sensitive("RemoveFromLibrary", selected_count > 0);
     }
     
     private void on_offline_contents_altered(Gee.Collection<LibraryPhoto>? added,
@@ -63,6 +95,34 @@ public class OfflinePage : CheckerboardPage {
     private void on_edit_menu() {
         decorate_undo_item("/OfflineMenuBar/EditMenu/Undo");
         decorate_redo_item("/OfflineMenuBar/EditMenu/Redo");
+    }
+    
+    private void on_remove_from_library() {
+        Gee.Collection<LibraryPhoto> photos =
+            (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources();
+        if (photos.size == 0)
+            return;
+        
+        if (!remove_offline_dialog(AppWindow.get_instance(), photos.size))
+            return;
+        
+        AppWindow.get_instance().set_busy_cursor();
+        
+        ProgressDialog progress = null;
+        if (photos.size >= 20)
+            progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting..."));
+        
+        // valac complains about passing an argument for a delegate using ternary operator:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=599349
+        if (progress != null)
+            LibraryPhoto.global.remove_from_app(photos, false, progress.monitor);
+        else
+            LibraryPhoto.global.remove_from_app(photos, false);
+        
+        if (progress != null)
+            progress.close();
+        
+        AppWindow.get_instance().set_normal_cursor();
     }
     
     public override CheckerboardItem? get_fullscreen_photo() {

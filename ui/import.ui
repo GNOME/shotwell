@@ -12,7 +12,7 @@
         </menu>
         
         <menu name="EditMenu" action="EditMenu">
-            <menuitem name="SelectAll" action="SelectAll" />
+            <menuitem name="SelectAll" action="CommonSelectAll" />
             <separator />
             <menuitem name="Preferences" action="CommonPreferences" />
         </menu>

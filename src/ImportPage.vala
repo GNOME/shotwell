@@ -470,12 +470,6 @@ public class ImportPage : CheckerboardPage {
         edit.label = _("_Edit");
         actions += edit;
 
-        Gtk.ActionEntry select_all = { "SelectAll", Gtk.STOCK_SELECT_ALL, TRANSLATABLE,
-            "<Ctrl>A", TRANSLATABLE, on_select_all };
-        select_all.label = _("Select _All");
-        select_all.tooltip = _("Select all the photos for importing");
-        actions += select_all;
-
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
         view.label = _("_View");
         actions += view;
@@ -1016,11 +1010,8 @@ public class ImportPage : CheckerboardPage {
     }
     
     private void on_edit_menu() {
-        set_item_sensitive("/ImportMenuBar/EditMenu/SelectAll", !busy && (get_view().get_count() > 0));
-    }
-    
-    private void on_select_all() {
-        get_view().select_all();
+        AppWindow.get_instance().set_common_action_sensitive("CommonSelectAll",
+            !busy && (get_view().get_count() > 0));
     }
     
     private void import(Gee.Iterable<DataObject> items) {
