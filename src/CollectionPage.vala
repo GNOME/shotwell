@@ -743,6 +743,10 @@ public abstract class CollectionPage : CheckerboardPage {
         return base.on_context_invoked();
     }
     
+    public override string? get_icon_name() {
+        return Resources.ICON_PHOTOS;
+    }
+
     public override CheckerboardItem? get_fullscreen_photo() {
         // use first selected item; if no selection, use first item
         if (get_view().get_selected_count() > 0)

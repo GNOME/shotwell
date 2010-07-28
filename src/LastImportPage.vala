@@ -29,6 +29,10 @@ public class LastImportPage : CollectionPage {
         on_import_rolls_altered();
     }
     
+    public override string? get_icon_name() {
+        return Resources.ICON_LAST_IMPORT;
+    }
+
     private void on_import_rolls_altered() {
         get_view().halt_monitoring();
         

@@ -427,6 +427,10 @@ public class MasterEventsDirectoryPage : EventsDirectoryPage {
     public MasterEventsDirectoryPage() {
         base(_("Events"), new EventDirectoryManager(), (Gee.Iterable<Event>) Event.global.get_all());
     }
+
+    public override string? get_icon_name() {
+        return Resources.ICON_EVENTS;
+    }
 }
 
 public class SubEventsDirectoryPage : EventsDirectoryPage {

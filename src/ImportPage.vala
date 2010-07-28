@@ -428,6 +428,10 @@ public class ImportPage : CheckerboardPage {
         LibraryPhoto.global.contents_altered.disconnect(on_photos_added_removed);
     }
     
+    public override string? get_icon_name() {
+        return Resources.ICON_SINGLE_PHOTO;
+    }
+
     private int64 preview_comparator(void *a, void *b) {
         return ((ImportPreview *) a)->get_import_source().get_exposure_time()
             - ((ImportPreview *) b)->get_import_source().get_exposure_time();

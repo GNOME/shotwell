@@ -130,6 +130,10 @@ public class LibraryWindow : AppWindow {
         
         protected abstract Page construct_page();
 
+        public virtual string? get_icon_name() {
+            return null;
+        }
+
         public abstract string get_name();
         
         public abstract bool is_renameable();
@@ -225,6 +229,10 @@ public class LibraryWindow : AppWindow {
             return time.year;
         }
 
+        public override string? get_icon_name() {
+            return Resources.ICON_FOLDER_CLOSED;
+        }
+
         public override string get_name() {
             return page_name;
         }
@@ -255,6 +263,10 @@ public class LibraryWindow : AppWindow {
             this.event = event;
         }
 
+        public override string? get_icon_name() {
+            return Resources.ICON_SINGLE_PHOTO;
+        }
+
         public override string get_name() {
             return event.get_name();
         }
@@ -276,6 +288,10 @@ public class LibraryWindow : AppWindow {
             this.tag = tag;
         }
         
+        public override string? get_icon_name() {
+            return Resources.ICON_SINGLE_PHOTO;
+        }
+
         public override string get_name() {
             return tag.get_name();
         }
@@ -663,6 +679,7 @@ public class LibraryWindow : AppWindow {
     
     private void on_trashcan_contents_altered() {
         set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
+        sidebar.update_page_icon(trash_page);
     }
     
     private void on_empty_trash() {
@@ -1183,7 +1200,7 @@ public class LibraryWindow : AppWindow {
     private void add_tag_page(Tag tag) {
         if (tags_marker == null) {
             tags_marker = sidebar.insert_grouping_after(events_directory_page.get_marker(),
-                _("Tags"));
+                _("Tags"), Resources.ICON_TAGS);
         }
         
         TagPageStub stub = new TagPageStub(tag);
@@ -1270,7 +1287,8 @@ public class LibraryWindow : AppWindow {
 
         // create the Cameras row if this is the first one
         if (cameras_marker == null)
-            cameras_marker = sidebar.insert_grouping_after(library_page.get_marker(), _("Cameras"));
+            cameras_marker = sidebar.insert_grouping_after(library_page.get_marker(),
+                _("Cameras"), Resources.ICON_CAMERAS);
         
         camera_pages.set(camera.uri, page);
         add_child_page(cameras_marker, page);

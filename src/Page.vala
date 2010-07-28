@@ -91,6 +91,10 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         base.destroy();
     }
     
+    public virtual string? get_icon_name() {
+        return null;
+    }
+
     public string get_page_name() {
         return page_name;
     }

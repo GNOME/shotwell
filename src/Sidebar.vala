@@ -31,6 +31,8 @@ public interface SidebarPage : Object {
     
     public abstract void clear_marker();
 
+    public abstract string? get_icon_name();
+
     public abstract string get_page_name();
     
     public abstract bool is_renameable();
@@ -43,23 +45,32 @@ public interface SidebarPage : Object {
 }
 
 public class Sidebar : Gtk.TreeView {
-    private Gtk.TreeStore store = new Gtk.TreeStore(2, typeof(string), typeof(SidebarPage));
+    // store = (page name, page, icon name, icon, expander-closed icon, expander-open icon)
+    private Gtk.TreeStore store = new Gtk.TreeStore(6, typeof(string), typeof(SidebarPage),
+        typeof(string?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?), typeof(Gdk.Pixbuf?));
     private Gtk.TreePath current_path = null;
 
     public signal void drop_received(Gdk.DragContext context, int x, int y, 
         Gtk.SelectionData selection_data, uint info, uint time, Gtk.TreePath? path, SidebarPage? page);
     
+    private Gtk.IconTheme icon_theme;
+    private Gtk.CellRendererPixbuf icon;
     private Gtk.CellRendererText text;
     private Gtk.Entry? text_entry = null;
     
     public Sidebar() {
         set_model(store);
         
-        text = new Gtk.CellRendererText();
-        text.editing_canceled.connect(on_editing_canceled);
-		text.editing_started.connect(on_editing_started);
         Gtk.TreeViewColumn text_column = new Gtk.TreeViewColumn();
         text_column.set_sizing(Gtk.TreeViewColumnSizing.FIXED);
+        icon = new Gtk.CellRendererPixbuf();
+        text_column.pack_start(icon, false);
+        text_column.add_attribute(icon, "pixbuf", 3);
+        text_column.add_attribute(icon, "pixbuf_expander_closed", 4);
+        text_column.add_attribute(icon, "pixbuf_expander_open", 5);
+        text = new Gtk.CellRendererText();
+        text.editing_canceled.connect(on_editing_canceled);
+        text.editing_started.connect(on_editing_started);
         text_column.pack_start(text, true);
         text_column.add_attribute(text, "markup", 0);
         append_column(text_column);
@@ -88,6 +99,10 @@ public class Sidebar : Gtk.TreeView {
         popup_menu.connect(on_context_menu_keypress);
         
         cursor_changed.connect(on_cursor_changed);
+
+        icon_theme = Gtk.IconTheme.get_default();
+        icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
+        icon_theme.changed.connect(on_theme_change);
     }
     
     ~Sidebar() {
@@ -149,10 +164,78 @@ public class Sidebar : Gtk.TreeView {
         expand_to_path(path);
     }
     
+    private void set_iter_icon(Gtk.TreeIter iter, string? icon_name) {
+        // keep icon name for theme change, some items have no page to request name from
+        store.set(iter, 2, icon_name);
+
+        Gtk.IconInfo? info_closed = null;
+        Gtk.IconInfo? info_open = null;
+
+        if (icon_name != null)
+            info_closed = icon_theme.lookup_icon(icon_name, 16, 0);
+
+        if (info_closed == null) {
+            // icon_name is null OR icon not found, dont show an icon
+            store.set(iter, 3, null);
+            store.set(iter, 4, null);
+            store.set(iter, 5, null);
+        } else {
+            if (icon_name == Resources.ICON_FOLDER_CLOSED)
+                // icon is a folder, so both open and closed are needed
+                info_open = icon_theme.lookup_icon(Resources.ICON_FOLDER_OPEN, 16, 0);
+
+            try {
+                if (info_open == null) {
+                    // no expander-open icon, only load one icon
+                    store.set(iter, 3, info_closed.load_icon());
+                    store.set(iter, 4, null);
+                    store.set(iter, 5, null);
+                } else {
+                    // load expander-open and expander-closed icons
+                    store.set(iter, 3, null);
+                    store.set(iter, 4, info_closed.load_icon());
+                    store.set(iter, 5, info_open.load_icon());
+                }
+            } catch (Error err) {
+                warning("Unable to load icon %s: %s", icon_name, err.message);
+                set_iter_icon(iter, null);
+            }
+        }
+    }
+
+    public void update_page_icon(SidebarPage page) {
+        Gtk.TreeIter iter;
+        store.get_iter(out iter, page.get_marker().get_path());
+        set_iter_icon(iter, page.get_icon_name());
+    }
+
+    public void reload_iter_and_child_icons(Gtk.TreeIter iter) {
+        string? icon_name;
+        store.get(iter, 2, out icon_name);
+        set_iter_icon(iter, icon_name);
+
+        Gtk.TreeIter child;
+        if (store.iter_children(out child, iter)) {
+            do {
+                reload_iter_and_child_icons(child);
+            } while (store.iter_next(ref child));
+        }
+    }
+
+    private void on_theme_change() {
+        Gtk.TreeIter iter;
+        if (store.get_iter_first(out iter)) {
+            do {
+                reload_iter_and_child_icons(iter);
+            } while (store.iter_next(ref iter));
+        }
+    }
+
     private SidebarMarker attach_page(SidebarPage page, Gtk.TreeIter iter) {
         // set up the columns
         store.set(iter, 0, guarded_markup_escape_text(page.get_sidebar_text()));
         store.set(iter, 1, page);
+        set_iter_icon(iter, page.get_icon_name());
         
         // create a marker for this page
         SidebarMarker marker = new SidebarMarker(store, store.get_path(iter));
@@ -212,20 +295,21 @@ public class Sidebar : Gtk.TreeView {
         return new SidebarMarker(store, store.get_path(grouping_iter));
     }
     
-    public SidebarMarker insert_grouping_after(SidebarMarker after, string name) {
-         // find sibling
-         Gtk.TreeIter after_iter;
-         store.get_iter(out after_iter, after.get_path());
-         
-         // insert before sibling
-         Gtk.TreeIter grouping_iter;
-         store.insert_after(out grouping_iter, null, after_iter);
-         
-         // set the columns
-         store.set(grouping_iter, 0, guarded_markup_escape_text(name));
-         
-         // return row reference, which is only way to refer to grouping
-         return new SidebarMarker(store, store.get_path(grouping_iter));
+    public SidebarMarker insert_grouping_after(SidebarMarker after, string name, string? icon) {
+        // find sibling
+        Gtk.TreeIter after_iter;
+        store.get_iter(out after_iter, after.get_path());
+        
+        // insert before sibling
+        Gtk.TreeIter grouping_iter;
+        store.insert_after(out grouping_iter, null, after_iter);
+        
+        // set the columns
+        store.set(grouping_iter, 0, guarded_markup_escape_text(name));
+        set_iter_icon(grouping_iter, icon);
+        
+        // return row reference, which is only way to refer to grouping
+        return new SidebarMarker(store, store.get_path(grouping_iter));
      }
     
     public SidebarMarker insert_sibling_before(SidebarMarker before, SidebarPage page) {

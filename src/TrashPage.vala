@@ -125,6 +125,10 @@ public class TrashPage : CheckerboardPage {
             (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), false));
     }
     
+    public override string? get_icon_name() {
+        return get_view().get_count() == 0 ? Resources.ICON_TRASH_EMPTY : Resources.ICON_TRASH_FULL;
+    }
+
     public override CheckerboardItem? get_fullscreen_photo() {
         return null;
     }

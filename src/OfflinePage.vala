@@ -125,6 +125,10 @@ public class OfflinePage : CheckerboardPage {
         AppWindow.get_instance().set_normal_cursor();
     }
     
+    public override string? get_icon_name() {
+        return Resources.ICON_MISSING_FILES;
+    }
+
     public override CheckerboardItem? get_fullscreen_photo() {
         return null;
     }
