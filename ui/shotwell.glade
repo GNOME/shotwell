@@ -123,7 +123,7 @@
                     <property name="xpad">6</property>
                     <property name="label" translatable="yes">_Background:</property>
                     <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">hscale1</property>
+                    <property name="mnemonic_widget">bg_color_slider</property>
                   </object>
                   <packing>
                     <property name="top_attach">1</property>
@@ -224,7 +224,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHScale" id="hscale1">
+                      <object class="GtkHScale" id="bg_color_slider">
                         <property name="width_request">150</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>

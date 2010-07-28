@@ -1187,6 +1187,7 @@ public class PreferencesDialog {
     private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
+    private Gtk.HScale bg_color_slider;
     private Gtk.Entry library_dir_entry;
     private Gtk.ComboBox photo_editor_combo;
 #if !NO_RAW
@@ -1209,6 +1210,9 @@ public class PreferencesDialog {
             Config.get_instance().get_bg_color().red);
         bg_color_adjustment.value_changed.connect(on_value_changed);
         
+        bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
+        bg_color_slider.button_press_event.connect(on_bg_color_reset);
+
     	library_dir_entry = 
             builder.get_object("library_dir_entry") as Gtk.Entry;
         
@@ -1320,6 +1324,18 @@ public class PreferencesDialog {
     
     private void on_value_changed() {
         set_background_color(bg_color_adjustment.get_upper() - bg_color_adjustment.get_value());
+    }
+
+    private bool on_bg_color_reset(Gdk.EventButton event) {
+        if (event.button == 1 && event.type == Gdk.EventType.BUTTON_PRESS
+            && has_only_key_modifier(event.state, Gdk.ModifierType.CONTROL_MASK)) {
+            // Left Mouse Button and CTRL pressed
+            bg_color_slider.set_value(bg_color_adjustment.get_upper() - parse_color(Config.DEFAULT_BG_COLOR).red);
+
+            return true;
+        }
+
+        return false;
     }
 
     private void set_background_color(double bg_color_value) {
