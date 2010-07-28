@@ -188,6 +188,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     private const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Display Unrated or Better");
     private const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Only show photos with a rating of unrated or better");
 
+    public const string VIEW_RATINGS_MENU = _("_Ratings");
+    public const string VIEW_RATINGS_TOOLTIP = _("Display each photo's rating");
+
     public const string FILTER_PHOTOS_MENU = _("_Filter Photos");
     public const string FILTER_PHOTOS_LABEL = _("Filter Photos");
     public const string FILTER_PHOTOS_TOOLTIP = _("Limit the number of photos displayed based on a filter");

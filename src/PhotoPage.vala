@@ -1936,7 +1936,8 @@ public class LibraryPhotoPage : EditingHostPage {
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
 
-        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions());
+        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions(),
+            create_toggle_actions());
         
 #if !NO_PRINTING
         ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
@@ -2250,6 +2251,33 @@ public class LibraryPhotoPage : EditingHostPage {
         return actions;
     }
     
+    private Gtk.ToggleActionEntry[] create_toggle_actions() {
+        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+
+        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>R",
+            TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
+        ratings.label = Resources.VIEW_RATINGS_MENU;
+        ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
+        toggle_actions += ratings;
+        
+        return toggle_actions;
+    }
+
+    private void on_display_ratings(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        set_display_ratings(display);
+        
+        Config.get_instance().set_display_photo_ratings(display);
+        repaint();
+    }
+
+    private void set_display_ratings(bool display) {
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewRatings");
+        if (action != null)
+            action.set_active(display);
+    }
+    
     protected override void init_actions(int selected_count, int count) {
         set_action_sensitive("ExternalEdit", count > 0 && Config.get_instance().get_external_photo_app() != "");
         
@@ -2299,6 +2327,8 @@ public class LibraryPhotoPage : EditingHostPage {
         
         update_zoom_menu_item_sensitivity();
         update_rating_menu_item_sensitivity();
+
+        set_display_ratings(Config.get_instance().get_display_photo_ratings());
     }
 
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
@@ -2307,7 +2337,9 @@ public class LibraryPhotoPage : EditingHostPage {
         if (!has_current_tool() && get_zoom_state().is_default()) {
             Gdk.Pixbuf? trinket = null;
             
-            trinket = Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), TRINKET_SCALE);
+            if (Config.get_instance().get_display_photo_ratings())
+                trinket = Resources.get_rating_trinket(((LibraryPhoto) get_photo()).get_rating(), 
+                    TRINKET_SCALE);
             
             if (trinket == null)
                 return;

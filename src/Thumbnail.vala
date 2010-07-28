@@ -10,6 +10,8 @@ public class Thumbnail : CheckerboardItem {
     public const string PROP_SHOW_TAGS = CheckerboardItem.PROP_SHOW_SUBTITLES;
     // SIZE (int, scale)
     public const string PROP_SIZE = "thumbnail-size";
+    // SHOW_RATINGS (bool)
+    public const string PROP_SHOW_RATINGS = "show-ratings";
     
     public const int MIN_SCALE = 72;
     public const int MAX_SCALE = ThumbnailCache.Size.LARGEST.get_scale();
@@ -169,6 +171,9 @@ public class Thumbnail : CheckerboardItem {
             case PROP_SIZE:
                 resize((int) val);
             break;
+            case PROP_SHOW_RATINGS:
+                notify_view_altered();
+            break;
         }
         
         base.notify_collection_property_set(name, old, val);
@@ -302,8 +307,13 @@ public class Thumbnail : CheckerboardItem {
         LibraryPhoto photo = get_photo();
         Rating rating = photo.get_rating();
         
+        bool show_ratings = false;
+        Value? val = get_collection_property(PROP_SHOW_RATINGS);
+        if (val != null)
+            show_ratings = (bool)val;
+        
         // don't let the hose run
-        if (rating == Rating.UNRATED)
+        if (rating == Rating.UNRATED || show_ratings == false)
             return null;
         
         Gee.List<Gdk.Pixbuf> trinkets = new Gee.ArrayList<Gdk.Pixbuf>();

@@ -116,6 +116,8 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, 
             Config.get_instance().get_display_photo_tags());
         get_view().set_property(Thumbnail.PROP_SIZE, scale);
+        get_view().set_property(Thumbnail.PROP_SHOW_RATINGS,
+            Config.get_instance().get_display_photo_ratings());
         get_view().thaw_notifications();
         
         // adjustment which is shared by all sliders in the application
@@ -472,6 +474,12 @@ public abstract class CollectionPage : CheckerboardPage {
         tags.tooltip = _("Display each photo's tags");
         toggle_actions += tags;
         
+        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>R",
+            TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
+        ratings.label = Resources.VIEW_RATINGS_MENU;
+        ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
+        toggle_actions += ratings;
+        
         return toggle_actions;
     }
     
@@ -579,6 +587,7 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().freeze_notifications();
         set_display_titles(Config.get_instance().get_display_photo_titles());
         set_display_tags(Config.get_instance().get_display_photo_tags());
+        set_display_ratings(Config.get_instance().get_display_photo_ratings());
         get_view().thaw_notifications();
 
         sync_sort();
@@ -1491,6 +1500,14 @@ public abstract class CollectionPage : CheckerboardPage {
         Config.get_instance().set_display_photo_tags(display);
     }
     
+    private void on_display_ratings(Gtk.Action action) {
+        bool display = ((Gtk.ToggleAction) action).get_active();
+        
+        set_display_ratings(display);
+        
+        Config.get_instance().set_display_photo_ratings(display);
+    }
+    
     private static double scale_to_slider(int value) {
         assert(value >= Thumbnail.MIN_SCALE);
         assert(value <= Thumbnail.MAX_SCALE);
@@ -1604,6 +1621,16 @@ public abstract class CollectionPage : CheckerboardPage {
         get_view().thaw_notifications();
         
         Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTags");
+        if (action != null)
+            action.set_active(display);
+    }
+    
+    private void set_display_ratings(bool display) {
+        get_view().freeze_notifications();
+        get_view().set_property(Thumbnail.PROP_SHOW_RATINGS, display);
+        get_view().thaw_notifications();
+        
+        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewRatings");
         if (action != null)
             action.set_active(display);
     }

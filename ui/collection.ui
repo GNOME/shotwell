@@ -37,6 +37,7 @@
             <separator />
             <menuitem name="ViewTitle" action="ViewTitle" />
             <menuitem name="ViewTags" action="ViewTags" />
+            <menuitem name="ViewRatings" action="ViewRatings" />
             <separator />
             <menu name="FilterPhotos" action="FilterPhotos">
                 <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />

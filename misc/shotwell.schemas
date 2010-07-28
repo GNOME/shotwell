@@ -57,6 +57,19 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/preferences/ui/display_photo_ratings</key>
+            <applyto>/apps/shotwell/preferences/ui/display_photo_ratings</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>true</default>
+            
+            <locale name="en">
+                <short>photo ratings display bool</short>
+                <long>Photo ratings display bool. True if photo ratings are displayed, false otherwise.</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/preferences/slideshow/delay</key>
             <applyto>/apps/shotwell/preferences/slideshow/delay</applyto>
             <type>float</type>

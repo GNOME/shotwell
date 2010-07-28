@@ -31,6 +31,8 @@
             <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
             <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
             <separator />
+            <menuitem name="ViewRatings" action="ViewRatings" />
+            <separator />
             <menu name="SortEvents" action="CommonSortEvents">
                 <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
                 <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
