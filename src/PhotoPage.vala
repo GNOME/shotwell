@@ -389,7 +389,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private uint32 last_nav_key = 0;
     private bool photo_missing = false;
     private PixbufCache cache = null;
-    private PixbufCache original_cache = null;
+    private PixbufCache master_cache = null;
     private PhotoDragAndDropHandler dnd_handler = null;
     private bool enable_interactive_zoom_refresh = false;
     private Gdk.Point zoom_pan_start_point;
@@ -786,13 +786,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private void on_selection_changed(Gee.Iterable<DataView> selected) {
         foreach (DataView view in selected) {
-            replace_photo(controller, (TransformablePhoto) view.get_source());
+            replace_photo(controller, (Photo) view.get_source());
             break;
         }
     }
     
     private void rebuild_caches(string caller) {
-        Scaling scaling = get_canvas_scaling();     
+        Scaling scaling = get_canvas_scaling();
 
         // only rebuild if not the same scaling
         if (cache != null && cache.get_scaling().equals(scaling))
@@ -807,14 +807,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cache.cancel_all();
         }
         
-        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, scaling, PIXBUF_CACHE_COUNT);
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.NORMAL, scaling, PIXBUF_CACHE_COUNT);
         cache.fetched.connect(on_pixbuf_fetched);
         
-        original_cache = new PixbufCache(sources, PixbufCache.PhotoType.ORIGINAL, scaling, 
-            ORIGINAL_PIXBUF_CACHE_COUNT);
+        master_cache = new PixbufCache(sources, PixbufCache.PhotoType.MASTER, scaling, 
+            ORIGINAL_PIXBUF_CACHE_COUNT, master_cache_filter);
         
         if (has_photo())
             prefetch_neighbors(controller, get_photo());
+    }
+    
+    private bool master_cache_filter(Photo photo) {
+        return photo.has_transformations() || photo.has_editable();
     }
     
     private void on_pixbuf_fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err) {
@@ -828,7 +832,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
                 zoom_buffer.update_preview_image(pixbuf);
 
             // if no tool, use the pixbuf directly, otherwise, let the tool decide what should be
-            // displayed           
+            // displayed
             Dimensions max_dim = photo.get_dimensions();
             if (current_tool != null) {
                 try {
@@ -851,11 +855,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-    private void prefetch_neighbors(ViewCollection controller, TransformablePhoto photo) {
+    private void prefetch_neighbors(ViewCollection controller, Photo photo) {
         cache.prefetch(photo, BackgroundJob.JobPriority.HIGHEST);
-
-        if (photo.has_transformations())
-            original_cache.prefetch(photo, BackgroundJob.JobPriority.LOW);
+        master_cache.prefetch(photo, BackgroundJob.JobPriority.LOW);
 
         DataSource next_source, prev_source;
         if (!controller.get_immediate_neighbors(photo, out next_source, out prev_source))
@@ -866,45 +868,43 @@ public abstract class EditingHostPage : SinglePhotoPage {
         
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
         foreach (DataSource neighbor_source in controller.get_extended_neighbors(photo)) {
-            TransformablePhoto neighbor = (TransformablePhoto) neighbor_source;
+            Photo neighbor = (Photo) neighbor_source;
             
             BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL;
             if (neighbor.equals(next) || neighbor.equals(prev))
                 priority = BackgroundJob.JobPriority.HIGH;
             
             cache.prefetch(neighbor, priority);
-            
-            if (neighbor.has_transformations())
-                original_cache.prefetch(neighbor, BackgroundJob.JobPriority.LOWEST);
+            master_cache.prefetch(neighbor, BackgroundJob.JobPriority.LOWEST);
         }
     }
     
     // Cancels prefetches of old neighbors, but does not cancel them if they are the new
     // neighbors
-    private void cancel_prefetch_neighbors(ViewCollection old_controller, TransformablePhoto old_photo,
-        ViewCollection new_controller, TransformablePhoto new_photo) {
-        Gee.Set<TransformablePhoto> old_neighbors = (Gee.Set<TransformablePhoto>)
+    private void cancel_prefetch_neighbors(ViewCollection old_controller, Photo old_photo,
+        ViewCollection new_controller, Photo new_photo) {
+        Gee.Set<Photo> old_neighbors = (Gee.Set<Photo>)
             old_controller.get_extended_neighbors(old_photo);
-        Gee.Set<TransformablePhoto> new_neighbors = (Gee.Set<TransformablePhoto>)
+        Gee.Set<Photo> new_neighbors = (Gee.Set<Photo>)
             new_controller.get_extended_neighbors(new_photo);
         
-        foreach (TransformablePhoto old_neighbor in old_neighbors) {
+        foreach (Photo old_neighbor in old_neighbors) {
             // cancel prefetch and drop from cache if old neighbor is not part of the new
             // neighborhood
             if (!new_neighbors.contains(old_neighbor) && !new_photo.equals(old_neighbor)) {
                 cache.drop(old_neighbor);
-                original_cache.drop(old_neighbor);
+                master_cache.drop(old_neighbor);
             }
         }
         
         // do same for old photo
         if (!new_neighbors.contains(old_photo) && !new_photo.equals(old_photo)) {
             cache.drop(old_photo);
-            original_cache.drop(old_photo);
+            master_cache.drop(old_photo);
         }
     }
     
-    protected void display(ViewCollection controller, TransformablePhoto photo) {
+    protected void display(ViewCollection controller, Photo photo) {
         assert(controller.get_view_for_source(photo) != null);
         
         replace_photo(controller, photo);
@@ -967,7 +967,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return true;
     }
 
-    protected void replace_photo(ViewCollection new_controller, TransformablePhoto new_photo) {
+    protected void replace_photo(ViewCollection new_controller, Photo new_photo) {
         ViewCollection old_controller = this.controller;
         controller = new_controller;
         
@@ -989,7 +989,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         deactivate_tool();
         
         // swap out new photo and old photo and process change
-        TransformablePhoto old_photo = get_photo();
+        Photo old_photo = get_photo();
         set_photo(new_photo);
         set_page_name(new_photo.get_name());
 
@@ -1145,9 +1145,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
-        if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed()) {
+        if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed())
             swap_in_original();
-        }
         
         return base.on_shift_pressed(event);
     }
@@ -1174,20 +1173,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     private void swap_in_original() {
-        Gdk.Pixbuf original = original_cache.get_ready_pixbuf(get_photo());
-        if (original != null) {
-            // store what's currently displayed only for the duration of the shift pressing
-            swapped = get_unscaled_pixbuf();
+        Gdk.Pixbuf? original = master_cache.get_ready_pixbuf(get_photo());
+        if (original == null)
+            return;
+        
+        // store what's currently displayed only for the duration of the shift pressing
+        swapped = get_unscaled_pixbuf();
 
-            // save the zoom state and cancel zoom so that the user can see all of the original
-            // photo
-            if (zoom_slider.get_value() != 0.0) {
-                save_zoom_state();
-                cancel_zoom();
-            }
-
-            set_pixbuf(original, get_photo().get_original_dimensions());
+        // save the zoom state and cancel zoom so that the user can see all of the original
+        // photo
+        if (zoom_slider.get_value() != 0.0) {
+            save_zoom_state();
+            cancel_zoom();
         }
+
+        set_pixbuf(original, get_photo().get_original_dimensions());
     }
 
     private void swap_out_original() {
@@ -1380,12 +1380,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
     private bool on_fetch_original() {
         if (has_photo())
-            original_cache.prefetch(get_photo(), BackgroundJob.JobPriority.LOW);
+            master_cache.prefetch(get_photo(), BackgroundJob.JobPriority.LOW);
         
         return false;
     }
     
-    private bool is_panning_possible() {       
+    private bool is_panning_possible() {
         // panning is impossible if all the content to be drawn completely fits on the drawing
         // canvas
         Dimensions content_dim = {0};
@@ -1891,7 +1891,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (next == null)
             return;
 
-        TransformablePhoto next_photo = next.get_source() as TransformablePhoto;
+        Photo next_photo = next.get_source() as Photo;
         if (next_photo != null)
             replace_photo(controller, next_photo);
     }
@@ -1910,7 +1910,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (previous == null)
             return;
         
-        TransformablePhoto previous_photo = previous.get_source() as TransformablePhoto;
+        Photo previous_photo = previous.get_source() as Photo;
         if (previous_photo != null)
             replace_photo(controller, previous_photo);
     }

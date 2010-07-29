@@ -5,21 +5,23 @@
  */
 
 public class PixbufCache : Object {
+    public delegate bool CacheFilter(Photo photo);
+    
     public enum PhotoType {
-        REGULAR,
-        ORIGINAL
+        NORMAL,
+        MASTER
     }
     
     private abstract class FetchJob : BackgroundJob {
         public BackgroundJob.JobPriority priority;
-        public TransformablePhoto photo;
+        public Photo photo;
         public Scaling scaling;
         public Gdk.Pixbuf pixbuf = null;
         public Error err = null;
         
         private Semaphore completion_semaphore = new Semaphore();
         
-        public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
+        public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
             base(owner, callback, new Cancellable());
             
@@ -39,8 +41,8 @@ public class PixbufCache : Object {
         }
     }
     
-    private class RegularFetchJob : FetchJob {
-        public RegularFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
+    private class NormalFetchJob : FetchJob {
+        public NormalFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
             base(owner, priority, photo, scaling, callback);
         }
@@ -54,15 +56,15 @@ public class PixbufCache : Object {
         }
     }
     
-    private class OriginalFetchJob : FetchJob {
-        public OriginalFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, TransformablePhoto photo, 
+    private class MasterFetchJob : FetchJob {
+        public MasterFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
             base(owner, priority, photo, scaling, callback);
         }
         
         public override void execute() {
             try {
-                pixbuf = photo.get_original_pixbuf(scaling);
+                pixbuf = photo.get_master_pixbuf(scaling);
             } catch (Error err) {
                 this.err = err;
             }
@@ -75,19 +77,20 @@ public class PixbufCache : Object {
     private PhotoType type;
     private int max_count;
     private Scaling scaling;
-    private Gee.HashMap<TransformablePhoto, Gdk.Pixbuf> cache = new Gee.HashMap<TransformablePhoto,
-        Gdk.Pixbuf>();
-    private Gee.ArrayList<TransformablePhoto> lru = new Gee.ArrayList<TransformablePhoto>();
-    private Gee.HashMap<TransformablePhoto, FetchJob> in_progress = new Gee.HashMap<TransformablePhoto,
-        FetchJob>();
+    private CacheFilter? filter;
+    private Gee.HashMap<Photo, Gdk.Pixbuf> cache = new Gee.HashMap<Photo, Gdk.Pixbuf>();
+    private Gee.ArrayList<Photo> lru = new Gee.ArrayList<Photo>();
+    private Gee.HashMap<Photo, FetchJob> in_progress = new Gee.HashMap<Photo, FetchJob>();
     
-    public signal void fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err);
+    public signal void fetched(Photo photo, Gdk.Pixbuf? pixbuf, Error? err);
     
-    public PixbufCache(SourceCollection sources, PhotoType type, Scaling scaling, int max_count) {
+    public PixbufCache(SourceCollection sources, PhotoType type, Scaling scaling, int max_count,
+        CacheFilter? filter = null) {
         this.sources = sources;
         this.type = type;
         this.scaling = scaling;
         this.max_count = max_count;
+        this.filter = filter;
         
         assert(max_count > 0);
         
@@ -116,13 +119,13 @@ public class PixbufCache : Object {
     }
     
     // This call never blocks.  Returns null if the pixbuf is not present.
-    public Gdk.Pixbuf? get_ready_pixbuf(TransformablePhoto photo) {
+    public Gdk.Pixbuf? get_ready_pixbuf(Photo photo) {
         return get_cached(photo);
     }
     
     // This call can potentially block if the pixbuf is not in the cache.  Once loaded, it will
     // be cached.  No signal is fired.
-    public Gdk.Pixbuf? fetch(TransformablePhoto photo) throws Error {
+    public Gdk.Pixbuf? fetch(Photo photo) throws Error {
         Gdk.Pixbuf pixbuf = get_cached(photo);
         if (pixbuf != null) {
 #if TRACE_PIXBUF_CACHE
@@ -155,14 +158,14 @@ public class PixbufCache : Object {
     // This can be used to clear specific pixbufs from the cache, allowing finer control over what
     // pixbufs remain and avoid being dropped when other fetches follow.  It implicitly cancels
     // any outstanding prefetches for the photo.
-    public void drop(TransformablePhoto photo) {
+    public void drop(Photo photo) {
         cancel_prefetch(photo);
         decache(photo);
     }
     
     // This call signals the cache to pre-load the pixbuf for the photo.  When loaded the fetched
     // signal is fired.
-    public void prefetch(TransformablePhoto photo, 
+    public void prefetch(Photo photo, 
         BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
         if (!force && cache.contains(photo))
             return;
@@ -170,14 +173,17 @@ public class PixbufCache : Object {
         if (in_progress.contains(photo))
             return;
         
+        if (filter != null && !filter(photo))
+            return;
+        
         FetchJob job = null;
         switch (type) {
-            case PhotoType.REGULAR:
-                job = new RegularFetchJob(this, priority, photo, scaling, on_fetched);
+            case PhotoType.NORMAL:
+                job = new NormalFetchJob(this, priority, photo, scaling, on_fetched);
             break;
             
-            case PhotoType.ORIGINAL:
-                job = new OriginalFetchJob(this, priority, photo, scaling, on_fetched);
+            case PhotoType.MASTER:
+                job = new MasterFetchJob(this, priority, photo, scaling, on_fetched);
             break;
             
             default:
@@ -192,13 +198,13 @@ public class PixbufCache : Object {
     
     // This call signals the cache to pre-load the pixbufs for all supplied photos.  Each fires
     // the fetch signal as they arrive.
-    public void prefetch_many(Gee.Collection<TransformablePhoto> photos,
+    public void prefetch_many(Gee.Collection<Photo> photos,
         BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
-        foreach (TransformablePhoto photo in photos)
+        foreach (Photo photo in photos)
             prefetch(photo, priority, force);
     }
     
-    public bool cancel_prefetch(TransformablePhoto photo) {
+    public bool cancel_prefetch(Photo photo) {
         FetchJob job = in_progress.get(photo);
         if (job == null)
             return false;
@@ -249,11 +255,11 @@ public class PixbufCache : Object {
     }
     
     private void on_source_altered(DataObject object) {
-        TransformablePhoto photo = object as TransformablePhoto;
+        Photo photo = object as Photo;
         assert(photo != null);
         
         // only interested if in this cache and not an originals cache, as they never alter
-        if (!cache.contains(photo) && type != PhotoType.ORIGINAL)
+        if (!cache.contains(photo) && type != PhotoType.MASTER)
             return;
         
         decache(photo);
@@ -267,14 +273,14 @@ public class PixbufCache : Object {
     
     private void on_sources_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
-            TransformablePhoto photo = object as TransformablePhoto;
+            Photo photo = object as Photo;
             assert(photo != null);
             
             decache(photo);
         }
     }
     
-    private Gdk.Pixbuf? get_cached(TransformablePhoto photo) {
+    private Gdk.Pixbuf? get_cached(Photo photo) {
         Gdk.Pixbuf pixbuf = cache.get(photo);
         if (pixbuf == null)
             return null;
@@ -291,7 +297,7 @@ public class PixbufCache : Object {
         return pixbuf;
     }
     
-    private void encache(TransformablePhoto photo, Gdk.Pixbuf pixbuf) {
+    private void encache(Photo photo, Gdk.Pixbuf pixbuf) {
         // if already in cache, remove (means it was re-fetched, probably due to modification)
         decache(photo);
         
@@ -299,7 +305,7 @@ public class PixbufCache : Object {
         lru.insert(0, photo);
         
         while (lru.size > max_count) {
-            TransformablePhoto cached_photo = lru.remove_at(lru.size - 1);
+            Photo cached_photo = lru.remove_at(lru.size - 1);
             assert(cached_photo != null);
             
             bool removed = cache.unset(cached_photo);
@@ -309,7 +315,7 @@ public class PixbufCache : Object {
         assert(lru.size == cache.size);
     }
     
-    private void decache(TransformablePhoto photo) {
+    private void decache(Photo photo) {
         if (!cache.remove(photo)) {
             assert(!lru.contains(photo));
             

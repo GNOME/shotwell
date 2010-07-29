@@ -633,7 +633,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
             super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
-            out shift_currently_pressed, out super_currently_pressed);    
+            out shift_currently_pressed, out super_currently_pressed);
 
         switch (Gdk.keyval_name(event.keyval)) {
             case "Control_L":
@@ -672,7 +672,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
                 
                 super_pressed = true;
                 
-                return on_super_pressed(event);                
+                return on_super_pressed(event);
         }
         
         return on_app_key_pressed(event);

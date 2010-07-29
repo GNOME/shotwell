@@ -26,7 +26,7 @@ public class MimicManager : Object {
                 return;
             
             try {
-                writer.write(photo.get_original_pixbuf(Scaling.for_original(), false), Jpeg.Quality.HIGH);
+                writer.write(photo.get_master_pixbuf(Scaling.for_original(), false), Jpeg.Quality.HIGH);
             } catch (Error err) {
                 this.err = err;
             }

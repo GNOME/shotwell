@@ -117,17 +117,16 @@ public enum ImportResult {
     }
 }
 
-// Specifies how pixel data is fetched from the backing file on disk. SOURCE mode means "give me
-// pixel data that tries to be as faithful to the backing source photo as possible, even if it
-// sacrifices a bit of performance," whereas BASELINE means "give me the image most suitable for
-// use as a base image when running the transformation pipeline at interactive speeds, even if it
-// means I give up some fidelity to the source image."
+// Specifies how pixel data is fetched from the backing file on disk.  MASTER is the original
+// backing photo of any supported photo file format; SOURCE is either the master or the editable
+// file, that is, the appropriate reference file for user display; BASELINE is an appropriate source
+// file with the proviso that it may be a suitable substitute for the master and/or the editable.
+//
+// In general, callers want to use the BASELINE unless requirements are specific.
 public enum BackingFetchMode {
     SOURCE,
-    BASELINE
-    // TODO: in the future, we could add MASTER, MIMIC, etc., but these might be too low-level; the
-    //       nice thing about SOURCE and BASELINE are that operate at the level of the programmer's
-    //       intent, not the underlying implementation
+    BASELINE,
+    MASTER
 }
 
 public class PhotoImportParams {
@@ -495,6 +494,24 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         return (flags & PhotoFileFormatFlags.MIMIC_RECOMMENDED) != 0;
+    }
+    
+    private PhotoFileReader get_backing_reader(BackingFetchMode mode) {
+        switch (mode) {
+            case BackingFetchMode.MASTER:
+                return get_master_reader();
+            
+            case BackingFetchMode.BASELINE:
+                return get_baseline_reader();
+            
+            case BackingFetchMode.SOURCE:
+                return get_source_reader();
+            
+            default:
+                error("Unknown backing fetch mode %s", mode.to_string());
+                
+                return get_baseline_reader();
+        }
     }
     
     private PhotoFileReader get_master_reader() {
@@ -1934,13 +1951,7 @@ public abstract class TransformablePhoto: PhotoSource {
     private Gdk.Pixbuf load_raw_pixbuf(Scaling scaling, Exception exceptions,
         BackingFetchMode fetch_mode = BackingFetchMode.BASELINE) throws Error {
         
-        PhotoFileReader loader = null;
-        if (fetch_mode == BackingFetchMode.SOURCE)
-            loader = get_source_reader();
-        else if (fetch_mode == BackingFetchMode.BASELINE)
-            loader = get_baseline_reader();
-        else
-            error("unsupported BackingFetchMode enumeration value");
+        PhotoFileReader loader = get_backing_reader(fetch_mode);
         
         // no scaling, load and get out
         if (scaling.is_unscaled()) {
@@ -1976,9 +1987,9 @@ public abstract class TransformablePhoto: PhotoSource {
         return pixbuf;
     }
 
-    // Returns a raw, untransformed, scaled pixbuf from the source that has been optionally rotated
+    // Returns a raw, untransformed, scaled pixbuf from the master that has been optionally rotated
     // according to its original EXIF settings.
-    public Gdk.Pixbuf get_original_pixbuf(Scaling scaling, bool rotate = true) throws Error {
+    public Gdk.Pixbuf get_master_pixbuf(Scaling scaling, bool rotate = true) throws Error {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
         Timer total_timer = new Timer();
@@ -1997,7 +2008,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         // load-and-decode and scale
-        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, Exception.NONE);
+        Gdk.Pixbuf pixbuf = load_raw_pixbuf(scaling, Exception.NONE, BackingFetchMode.MASTER);
             
         // orientation
 #if MEASURE_PIPELINE
@@ -2008,7 +2019,7 @@ public abstract class TransformablePhoto: PhotoSource {
 #if MEASURE_PIPELINE
         orientation_time = timer.elapsed();
         
-        debug("ORIGINAL PIPELINE %s (%s): orientation=%lf total=%lf", to_string(), scaling.to_string(),
+        debug("MASTER PIPELINE %s (%s): orientation=%lf total=%lf", to_string(), scaling.to_string(),
             orientation_time, total_timer.elapsed());
 #endif
         

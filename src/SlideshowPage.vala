@@ -15,7 +15,7 @@ class SlideshowPage : SinglePhotoPage {
     
     private SourceCollection sources;
     private ViewCollection controller;
-    private TransformablePhoto current;
+    private Photo current;
     private Gtk.ToolButton play_pause_button;
     private Gtk.ToolButton settings_button;
     private PixbufCache cache = null;
@@ -94,7 +94,7 @@ class SlideshowPage : SinglePhotoPage {
         }
     }
 
-    public SlideshowPage(SourceCollection sources, ViewCollection controller, TransformablePhoto start) {
+    public SlideshowPage(SourceCollection sources, ViewCollection controller, Photo start) {
         base(_("Slideshow"), true);
         
         this.sources = sources;
@@ -143,7 +143,7 @@ class SlideshowPage : SinglePhotoPage {
         base.switched_to();
         
         // create a cache for the size of this display
-        cache = new PixbufCache(sources, PixbufCache.PhotoType.REGULAR, get_canvas_scaling(),
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.NORMAL, get_canvas_scaling(),
             READAHEAD_COUNT);
         
         Gdk.Pixbuf pixbuf;
@@ -169,7 +169,7 @@ class SlideshowPage : SinglePhotoPage {
         exiting = true;
     }
     
-    private bool get_next_photo(TransformablePhoto start, Direction direction, out TransformablePhoto next, 
+    private bool get_next_photo(Photo start, Direction direction, out Photo next, 
         out Gdk.Pixbuf next_pixbuf) {
         next = start;
         
@@ -185,7 +185,7 @@ class SlideshowPage : SinglePhotoPage {
                 view = (direction == Direction.FORWARD) 
                     ? controller.get_next(view) 
                     : controller.get_previous(view);
-                next = (TransformablePhoto) view.get_source();
+                next = (Photo) view.get_source();
                 
                 // An entire slideshow set might be missing, so check for a loop.
                 if ((next == start && next != current) || next == current) {
@@ -205,15 +205,14 @@ class SlideshowPage : SinglePhotoPage {
             // one normal, and the extended neighbors lowest, to recognize immediate needs
             DataSource forward, back;
             controller.get_immediate_neighbors(next, out forward, out back);
-            cache.prefetch((TransformablePhoto) forward, BackgroundJob.JobPriority.HIGHEST);
-            cache.prefetch((TransformablePhoto) back, BackgroundJob.JobPriority.NORMAL);
+            cache.prefetch((Photo) forward, BackgroundJob.JobPriority.HIGHEST);
+            cache.prefetch((Photo) back, BackgroundJob.JobPriority.NORMAL);
             
             Gee.Set<DataSource> neighbors = controller.get_extended_neighbors(next);
             neighbors.remove(forward);
             neighbors.remove(back);
             
-            cache.prefetch_many((Gee.Collection<TransformablePhoto>) neighbors,
-                BackgroundJob.JobPriority.LOWEST);
+            cache.prefetch_many((Gee.Collection<Photo>) neighbors, BackgroundJob.JobPriority.LOWEST);
             
             return true;
         }
@@ -238,15 +237,15 @@ class SlideshowPage : SinglePhotoPage {
     
     private void on_previous() {
         DataView view = controller.get_view_for_source(current);
-        advance((TransformablePhoto) controller.get_previous(view).get_source(), Direction.BACKWARD);
+        advance((Photo) controller.get_previous(view).get_source(), Direction.BACKWARD);
     }
     
     private void on_next() {
         DataView view = controller.get_view_for_source(current);
-        advance((TransformablePhoto) controller.get_next(view).get_source(), Direction.FORWARD);
+        advance((Photo) controller.get_next(view).get_source(), Direction.FORWARD);
     }
     
-    private void advance(TransformablePhoto photo, Direction direction) {
+    private void advance(Photo photo, Direction direction) {
         current = photo;
         
         // set pixbuf
