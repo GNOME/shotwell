@@ -15,16 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_GB\n"
-"X-Generator: Virtaal 0.5.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: English (British)\n"
+"X-Generator: Virtaal 0.5.2\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
 #: src/AppWindow.vala:567
 msgid "translator-credits"
-msgstr ""
-"Bruce Cowan <bcowan@fastmail.co.uk>"
+msgstr "Bruce Cowan <bcowan@fastmail.co.uk>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -504,7 +503,7 @@ msgstr[0] "1 photo successfully imported.\n"
 msgstr[1] "%d photos successfully imported.\n"
 
 #: src/Dialogs.vala:337
-#, fuzzy, c-format
+#, c-format
 msgid "1 photo already in library was not imported:\n"
 msgid_plural "%d photos already in library were not imported:\n"
 msgstr[0] "1 photo already in library was not imported:\n"
@@ -773,7 +772,6 @@ msgid "_Don't show this message again"
 msgstr "_Don't show this message again"
 
 #: src/Dialogs.vala:1335
-#, fuzzy
 msgid "Choose Library Directory"
 msgstr "Choose Library Directory"
 
