@@ -39,6 +39,11 @@ public class FullscreenWindow : PageWindow {
         if (accel_group != null)
             add_accel_group(accel_group);
         
+        // add the accelerators for the hosted page as well
+        Gtk.AccelGroup hosted_accel_group = page.ui.get_accel_group();
+        if (hosted_accel_group != null)
+            add_accel_group(hosted_accel_group);
+        
         set_screen(AppWindow.get_instance().get_screen());
        	
         // Needed so fullscreen will occur on correct monitor in multi-monitor setups
