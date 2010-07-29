@@ -1116,8 +1116,12 @@ public class ModifyTagsDialog : TextEntryDialogMediator {
 
 public class WelcomeDialog : Gtk.Dialog {
     Gtk.CheckButton hide_button;
+    Gtk.CheckButton? fspot_import_check = null;
+    Gtk.CheckButton? system_pictures_import_check = null;
 
     public WelcomeDialog(Gtk.Window owner) {
+        bool show_fspot_import = is_fspot_import_possible();
+        bool show_system_pictures_import = is_system_pictures_import_possible();
         Gtk.Widget ok_button = add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK);
         set_title(_("Welcome!"));
         set_resizable(false);
@@ -1130,11 +1134,16 @@ public class WelcomeDialog : Gtk.Dialog {
             "<span size=\"large\" weight=\"bold\">%s</span>".printf(_("Welcome to Shotwell!")));
         primary_text.set_alignment(0, 0.5f);
         Gtk.Label secondary_text = new Gtk.Label("");
-        secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
-            _("To get started, import photos in any of these ways:")));
+        if (show_fspot_import || show_system_pictures_import) {
+            secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
+                _("To get started, would you like to:")));
+        } else {
+            secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
+                _("To get started, import photos in any of these ways:")));
+        }
         secondary_text.set_alignment(0, 0.5f);
         Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.get_icon(Resources.ICON_APP, 50));
-
+        
         Gtk.VBox header_text = new Gtk.VBox(false, 0);
         header_text.pack_start(primary_text, false, false, 5);
         header_text.pack_start(secondary_text, false, false, 0);
@@ -1150,8 +1159,37 @@ public class WelcomeDialog : Gtk.Dialog {
             _("Connect a camera to your computer and import")));
         instructions.set_alignment(0, 0.5f);
         
-        Gtk.VBox content = new Gtk.VBox(false, 12);
+        Gtk.VBox? import_action_checkbox_packer = null;
+        if (show_fspot_import || show_system_pictures_import) {
+            import_action_checkbox_packer = new Gtk.VBox(false, 2);
+            
+            if (show_fspot_import) {
+                fspot_import_check = new Gtk.CheckButton.with_mnemonic(
+                    _("Import photos from your _F-spot library"));
+                import_action_checkbox_packer.add(fspot_import_check);
+            }
+            
+            if (show_system_pictures_import) {
+                system_pictures_import_check = new Gtk.CheckButton.with_mnemonic(
+                    _("Import photos from your system _pictures directory (%s)").printf(
+                    get_display_pathname(AppDirs.get_import_dir())));
+                import_action_checkbox_packer.add(system_pictures_import_check);
+            }
+        }
+        
+        Gtk.Label? instruction_header = null;
+        if (show_fspot_import || show_system_pictures_import) {
+            instruction_header = new Gtk.Label(
+                _("You can also import photos in any one of these ways:"));
+            instruction_header.set_alignment(0.0f, 0.5f);
+        }
+        
+        Gtk.VBox content = new Gtk.VBox(false, 16);
         content.pack_start(header_content, true, true, 0);
+        if (show_fspot_import || show_system_pictures_import) {
+            content.add(import_action_checkbox_packer);
+            content.add(instruction_header);
+        }
         content.pack_start(instructions, false, false, 0);
 
         hide_button = new Gtk.CheckButton.with_mnemonic(_("_Don't show this message again"));
@@ -1167,7 +1205,7 @@ public class WelcomeDialog : Gtk.Dialog {
         ok_button.grab_focus();
     }
 
-    public bool execute() {
+    public bool execute(out bool do_fspot_import = false, out bool do_system_pictures_import = false) {
         show_all();
 
         bool ok = (run() == Gtk.ResponseType.OK);
@@ -1175,10 +1213,36 @@ public class WelcomeDialog : Gtk.Dialog {
 
         if (ok)
             show_dialog = !hide_button.get_active();
+        
+        if (fspot_import_check != null)
+            do_fspot_import = fspot_import_check.get_active();
+        if (system_pictures_import_check != null)
+            do_system_pictures_import = system_pictures_import_check.get_active();
 
         destroy();
 
         return show_dialog;
+    }
+    
+    private static bool is_system_pictures_import_possible() {
+        File system_pictures = AppDirs.get_import_dir();
+        if (!system_pictures.query_exists(null))
+            return false;
+        
+        if (!(system_pictures.query_file_type(FileQueryInfoFlags.NONE, null) == FileType.DIRECTORY))
+            return false;
+
+        try {
+            FileEnumerator syspics_child_enum = system_pictures.enumerate_children("standard::*",
+                FileQueryInfoFlags.NONE, null);
+            return (syspics_child_enum.next_file(null) != null);
+        } catch (Error e) {
+            return false;
+        }
+    }
+    
+    private static bool is_fspot_import_possible() {
+        return false;
     }
 }
 

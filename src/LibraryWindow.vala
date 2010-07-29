@@ -90,7 +90,7 @@ public class LibraryWindow : AppWindow {
     
     private Gtk.AccelGroup? accel_group = null;
     
-    private class FileImportJob : BatchImportJob {
+    public class FileImportJob : BatchImportJob {
         private File file_or_dir;
         private bool copy_to_library;
         

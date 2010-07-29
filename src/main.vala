@@ -162,12 +162,29 @@ void library_exec(string[] mounts) {
 
     library_window.show_all();
     
+    bool do_fspot_import = false;
+    bool do_system_pictures_import = false;
     if (Config.get_instance().get_show_welcome_dialog() &&
         LibraryPhoto.global.get_count() == 0) {
         WelcomeDialog welcome = new WelcomeDialog(library_window);
-        Config.get_instance().set_show_welcome_dialog(welcome.execute());
+        Config.get_instance().set_show_welcome_dialog(welcome.execute(out do_fspot_import,
+            out do_system_pictures_import));
     } else {
         Config.get_instance().set_show_welcome_dialog(false);
+    }
+    
+    if (do_fspot_import) {
+        // TODO: insert f-spot library migration code here
+    }
+    
+    if (do_system_pictures_import) {
+        Gee.ArrayList<LibraryWindow.FileImportJob> jobs = new Gee.ArrayList<LibraryWindow.FileImportJob>();
+        jobs.add(new LibraryWindow.FileImportJob(AppDirs.get_import_dir(), false));
+
+        BatchImport batch_import = new BatchImport(jobs, "startup_import", report_startup_import);
+        library_window.enqueue_batch_import(batch_import, true);
+
+        library_window.switch_to_import_queue_page();
     }
 
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
@@ -181,6 +198,10 @@ void library_exec(string[] mounts) {
     ThumbnailCache.terminate();
 
     DatabaseTable.terminate();
+}
+
+private void report_startup_import(ImportManifest manifest) {
+    ImportUI.report_manifest(manifest, true);
 }
 
 void editing_exec(string filename) {
