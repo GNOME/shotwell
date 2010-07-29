@@ -180,13 +180,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RATE_REJECTED_PROGRESS = _("Setting as rejected");
     public const string RATE_REJECTED_TOOLTIP = _("Set rating to rejected");
 
-    private const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("_All Photos");
-	private const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Display All Photos");
-    private const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show photos with a rating of rejected or better");
+    private const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("_All + Rejected");
+	private const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Show all photos, including rejected");
+    private const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
 
-    private const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_Unrated or Better");
-    private const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Display Unrated or Better");
-    private const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Only show photos with a rating of unrated or better");
+    private const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
+    private const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
+    private const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
     public const string VIEW_RATINGS_MENU = _("_Ratings");
     public const string VIEW_RATINGS_TOOLTIP = _("Display each photo's rating");
