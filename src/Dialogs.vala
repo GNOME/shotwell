@@ -324,8 +324,8 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
     
     if (manifest.already_imported.size > 0) {
         string already_imported_message =
-            (ngettext("1 photo already in library was not imported:\n",
-            "%d photos already in library were not imported:\n",
+            (ngettext("1 duplicate photo was not imported:\n",
+            "%d duplicate photos were not imported:\n",
             manifest.already_imported.size)).printf(manifest.already_imported.size);
 
         message += already_imported_message;
