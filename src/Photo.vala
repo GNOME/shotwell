@@ -1361,6 +1361,23 @@ public abstract class TransformablePhoto: PhotoSource {
         if (committed)
             notify_altered(new Alteration("metadata", "name"));
     }
+    
+    public void set_import_id(ImportID import_id) {
+        DatabaseError dberr = null;
+        lock (row) {
+            try {
+                PhotoTable.get_instance().set_import_id(row.photo_id, import_id);
+                row.import_id = import_id;
+            } catch (DatabaseError err) {
+                dberr = err;
+            }
+        }
+        
+        if (dberr == null)
+            notify_altered(new Alteration("metadata", "import-id"));
+        else
+            warning("Unable to write import ID for %s: %s", to_string(), dberr.message);
+    }
 
     public void set_title_persistent(string? title) throws Error {
         PhotoFileReader source = get_source_reader();

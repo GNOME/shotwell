@@ -135,6 +135,7 @@ void library_exec(string[] mounts) {
         aggregate_monitor.next_step("Event.init");
     Event.init(monitor);
     Tag.init();
+    AlienDatabaseHandler.init();
     
     // create main library application window
     if (aggregate_monitor != null)
@@ -173,6 +174,7 @@ void library_exec(string[] mounts) {
     
     Gtk.main();
     
+    AlienDatabaseHandler.terminate();
     Tag.terminate();
     Event.terminate();
     LibraryPhoto.terminate();

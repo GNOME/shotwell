@@ -68,6 +68,14 @@ public abstract class CollectionPage : CheckerboardPage {
         init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
             create_toggle_actions());
 
+        // Adds one menu entry per alien database driver
+        foreach (AlienDatabaseDriver driver in AlienDatabaseHandler.get_instance().get_drivers()) {
+            ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/ImportFromAlienDbPlaceholder",
+                driver.get_menu_name(),
+                driver.get_action_entry().name,
+                Gtk.UIManagerItemType.MENUITEM, false);
+        }
+        
 #if !NO_PRINTING
         ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
             "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
@@ -220,6 +228,12 @@ public abstract class CollectionPage : CheckerboardPage {
         export.tooltip = Resources.EXPORT_TOOLTIP;
         export.tooltip = _("Export selected photos to disk");
         actions += export;
+        
+        // Add one action per alien database driver
+        foreach (AlienDatabaseDriver driver in AlienDatabaseHandler.get_instance().get_drivers()) {
+            Gtk.ActionEntry import_from_alien_db = driver.get_action_entry();
+            actions += import_from_alien_db;
+        }
 
 #if !NO_PRINTING
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,

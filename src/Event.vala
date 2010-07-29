@@ -392,10 +392,12 @@ public class Event : EventSource, ContainerSource, Proxyable {
     // This method attempts to add the photo to an event in the supplied list that it would
     // naturally fit into (i.e. its exposure is within the boundary day of the earliest event
     // photo).  Otherwise, a new Event is generated and the photo is added to it and the list.
-    public static void generate_import_event(LibraryPhoto photo, ViewCollection events_so_far) {
+    public static void generate_import_event(
+        LibraryPhoto photo, ViewCollection events_so_far, string? event_name = null
+    ) {
         time_t exposure_time = photo.get_exposure_time();
-        if (exposure_time == 0) {
-            debug("Skipping event assignment to %s: no exposure time", photo.to_string());
+        if (exposure_time == 0 && event_name == null) {
+            debug("Skipping event assignment to %s: no exposure time and no event name", photo.to_string());
             
             return;
         }
@@ -404,7 +406,13 @@ public class Event : EventSource, ContainerSource, Proxyable {
         for (int ctr = 0; ctr < count; ctr++) {
             Event event = (Event) ((EventView) events_so_far.get_at(ctr)).get_source();
             
-            if (event.is_in_starting_day(exposure_time)) {
+            if (event_name != null) {
+                if (event.has_name() && event_name == event.get_name()) {
+                    photo.set_event(event);
+                    
+                    return;
+                }
+            } else if (event.is_in_starting_day(exposure_time)) {
                 photo.set_event(event);
                 
                 return;
@@ -413,6 +421,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         // no Event so far fits the bill for this photo, so create a new one
         Event event = new Event(EventTable.get_instance().create(photo.get_photo_id()));
+        if (event_name != null)
+            event.rename(event_name);
         photo.set_event(event);
         global.add(event);
         

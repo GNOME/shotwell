@@ -24,6 +24,16 @@ public abstract class BatchImportJob {
     public abstract bool determine_file_size(out uint64 filesize, out File file_or_dir);
     
     public abstract bool prepare(out File file_to_import, out bool copy_to_library) throws Error;
+    
+    // Completes the import for the new library photo once it's been imported.
+    // If the job is directory based, this method will be called for each photo
+    // discovered in the directory. This method is only called for photographs
+    // that have been successfully imported.
+    //
+    // Returns true if any action was taken, false otherwise.
+    public virtual bool complete(LibraryPhoto photo, ViewCollection generated_events) throws Error {
+        return false;
+    }
 }
 
 // A BatchImportRoll represents important state for a group of imported media.  If this is shared
@@ -627,6 +637,18 @@ public class BatchImport : Object {
                 report_failure(ready.batch_result);
                 file_import_complete();
             } else {
+                // complete the import job
+                PreparedFile src_prepared_file = ready.prepared_file;
+                BatchImportJob src_job = src_prepared_file.job;
+                try {
+                    src_job.complete(photo, import_roll.generated_events);
+                } catch(Error e) {
+                    // TODO: improve failure handling to report it properly
+                    warning("Could not complete import job: %s", e.message);
+                }
+                // end complete
+                // TODO: should this be inside the try/catch statement to only
+                // be called if the completion is successful?
                 enqueue_ready_thumbnail(photo, ready.import_params.thumbnails, ready.batch_result);
             }
         }
@@ -722,7 +744,9 @@ public class BatchImport : Object {
         LibraryPhoto.global.add_many(ready_photos);
         
         foreach (LibraryPhoto photo in ready_photos)
-            Event.generate_import_event(photo, import_roll.generated_events);
+            // only generate events on event-less photos
+            if (photo.get_event() == null)
+                Event.generate_import_event(photo, import_roll.generated_events);
         
         ready_photos.clear();
     }

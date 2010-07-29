@@ -1020,6 +1020,10 @@ public class PhotoTable : DatabaseTable {
         return update_int64_by_id(photo_id.id, "exposure_time", (int64) time);
     }
     
+    public void set_import_id(PhotoID photo_id, ImportID import_id) throws DatabaseError {
+        update_int64_by_id_2(photo_id.id, "import_id", import_id.id);
+    }
+    
     public bool remove_by_file(File file) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("DELETE FROM PhotoTable WHERE filename=?", -1, out stmt);

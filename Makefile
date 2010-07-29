@@ -117,7 +117,12 @@ SRC_FILES = \
 	DirectoryMonitor.vala \
 	LibraryMonitor.vala \
 	OfflinePage.vala \
-	LastImportPage.vala
+	LastImportPage.vala \
+	AlienDatabase.vala \
+	AlienDatabaseImportJob.vala \
+	AlienDatabaseImportDialog.vala \
+	FSpotDatabaseDriver.vala \
+	FSpotDatabaseTables.vala
 
 ifndef LINUX
 SRC_FILES += \
