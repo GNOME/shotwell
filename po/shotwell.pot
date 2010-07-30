@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.6.0+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
-"POT-Creation-Date: 2010-07-29 14:13-0700\n"
+"POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,7 +109,7 @@ msgid "About Shotwell"
 msgstr ""
 
 #: src/AppWindow.vala:475
-msgid "_Fullscreen"
+msgid "Fulls_creen"
 msgstr ""
 
 #: src/AppWindow.vala:476
@@ -723,63 +723,58 @@ msgstr ""
 
 #: src/Dialogs.vala:1139
 #, c-format
-msgid "To get started, would you like to:"
-msgstr ""
-
-#: src/Dialogs.vala:1142
-#, c-format
 msgid "To get started, import photos in any of these ways:"
 msgstr ""
 
-#: src/Dialogs.vala:1157
+#: src/Dialogs.vala:1162
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
 msgstr ""
 
-#: src/Dialogs.vala:1158
+#: src/Dialogs.vala:1163
 msgid "Drag and drop photos onto the Shotwell window"
 msgstr ""
 
-#: src/Dialogs.vala:1159
+#: src/Dialogs.vala:1164
 msgid "Connect a camera to your computer and import"
 msgstr ""
 
-#: src/Dialogs.vala:1168
-msgid "Import photos from your _F-spot library"
+#: src/Dialogs.vala:1173
+msgid "Import photos from your _F-Spot library"
 msgstr ""
 
-#: src/Dialogs.vala:1174
+#: src/Dialogs.vala:1180
 #, c-format
-msgid "Import photos from your system _pictures directory (%s)"
+msgid "_Import photos from your %s folder"
 msgstr ""
 
-#: src/Dialogs.vala:1183
-msgid "You can also import photos in any one of these ways:"
+#: src/Dialogs.vala:1190
+msgid "You can also import photos in any of these ways:"
 msgstr ""
 
-#: src/Dialogs.vala:1195
+#: src/Dialogs.vala:1202
 msgid "_Don't show this message again"
 msgstr ""
 
-#: src/Dialogs.vala:1421
+#: src/Dialogs.vala:1428
 msgid "Choose Library Directory"
 msgstr ""
 
-#: src/Dialogs.vala:1470
+#: src/Dialogs.vala:1477
 msgid ""
 "Shotwell can copy the photos into your library or it can link to the photos "
 "without duplicating them."
 msgstr ""
 
-#: src/Dialogs.vala:1475
+#: src/Dialogs.vala:1482
 msgid "Co_py into Library"
 msgstr ""
 
-#: src/Dialogs.vala:1476
+#: src/Dialogs.vala:1483
 msgid "Create _Links"
 msgstr ""
 
-#: src/Dialogs.vala:1477
+#: src/Dialogs.vala:1484
 msgid "Import to Library"
 msgstr ""
 
@@ -1539,10 +1534,6 @@ msgstr ""
 msgid "Page _Setup..."
 msgstr ""
 
-#: src/PhotoPage.vala:3137 src/Resources.vala:208
-msgid "Prin_t..."
-msgstr ""
-
 #: src/PhotoPage.vala:3138 src/Resources.vala:209
 msgid "Print the photo to a printer connected to your computer"
 msgstr ""
@@ -1643,7 +1634,7 @@ msgstr ""
 msgid "Imported failed (%d)"
 msgstr ""
 
-#: src/Photo.vala:2352
+#: src/Photo.vala:2363
 msgid "modified"
 msgstr ""
 
@@ -2033,7 +2024,7 @@ msgid "Revert to the master photo"
 msgstr ""
 
 #: src/Resources.vala:131
-msgid "Set as Desktop _Background"
+msgid "Set as _Desktop Background"
 msgstr ""
 
 #: src/Resources.vala:132
@@ -2185,7 +2176,7 @@ msgid "Set rating to rejected"
 msgstr ""
 
 #: src/Resources.vala:183
-msgid "_All + Rejected"
+msgid "All + _Rejected"
 msgstr ""
 
 #: src/Resources.vala:184 src/Resources.vala:185
@@ -2242,6 +2233,10 @@ msgstr ""
 
 #: src/Resources.vala:206
 msgid "View and change page setup printing"
+msgstr ""
+
+#: src/Resources.vala:208
+msgid "_Print..."
 msgstr ""
 
 #: src/Resources.vala:211
@@ -2540,11 +2535,11 @@ msgstr ""
 msgid "Go to the previous photo"
 msgstr ""
 
-#: src/SlideshowPage.vala:116 src/SlideshowPage.vala:229
+#: src/SlideshowPage.vala:116 src/SlideshowPage.vala:228
 msgid "Pause"
 msgstr ""
 
-#: src/SlideshowPage.vala:117 src/SlideshowPage.vala:230
+#: src/SlideshowPage.vala:117 src/SlideshowPage.vala:229
 msgid "Pause the slideshow"
 msgstr ""
 
@@ -2564,11 +2559,11 @@ msgstr ""
 msgid "All photo source files are missing."
 msgstr ""
 
-#: src/SlideshowPage.vala:225
+#: src/SlideshowPage.vala:224
 msgid "Play"
 msgstr ""
 
-#: src/SlideshowPage.vala:226
+#: src/SlideshowPage.vala:225
 msgid "Continue the slideshow"
 msgstr ""
 
