@@ -347,7 +347,7 @@
             <applyto>/apps/shotwell/preferences/ui/photo_rating_filter</applyto>
             <type>int</type>
             <owner>shotwell</owner>
-            <default>1</default>
+            <default>0</default>
             
             <locale name="en">
                 <short>rating filter level</short>

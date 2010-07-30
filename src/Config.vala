@@ -394,7 +394,7 @@ public class Config {
 
     public RatingFilter get_photo_rating_filter() {
         return (RatingFilter)(get_int("/apps/shotwell/preferences/ui/photo_rating_filter", 
-            RatingFilter.REJECTED_OR_HIGHER));
+            RatingFilter.UNRATED_OR_HIGHER));
     }
 
     public bool set_photo_rating_filter(RatingFilter filter) {
