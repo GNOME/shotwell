@@ -1134,26 +1134,31 @@ public class WelcomeDialog : Gtk.Dialog {
             "<span size=\"large\" weight=\"bold\">%s</span>".printf(_("Welcome to Shotwell!")));
         primary_text.set_alignment(0, 0.5f);
         Gtk.Label secondary_text = new Gtk.Label("");
-        if (show_fspot_import || show_system_pictures_import) {
-            secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
-                _("To get started, would you like to:")));
-        } else {
+        if (!(show_fspot_import || show_system_pictures_import)) {
             secondary_text.set_markup("<span weight=\"normal\">%s</span>".printf(
                 _("To get started, import photos in any of these ways:")));
         }
         secondary_text.set_alignment(0, 0.5f);
         Gtk.Image image = new Gtk.Image.from_pixbuf(Resources.get_icon(Resources.ICON_APP, 50));
         
-        Gtk.VBox header_text = new Gtk.VBox(false, 0);
-        header_text.pack_start(primary_text, false, false, 5);
-        header_text.pack_start(secondary_text, false, false, 0);
+        Gtk.Widget? header_text = null;
+        if (show_fspot_import || show_system_pictures_import) {
+            header_text = primary_text;
+        } else {
+            header_text = new Gtk.VBox(false, 0);
+            
+            ((Gtk.VBox) header_text).pack_start(primary_text, false, false, 5);
+            ((Gtk.VBox) header_text).pack_start(secondary_text, false, false, 0);
+        }
 
         Gtk.HBox header_content = new Gtk.HBox(false, 12);
         header_content.pack_start(image, false, false, 0);
         header_content.pack_start(header_text, false, false, 0);
 
         Gtk.Label instructions = new Gtk.Label("");
-        instructions.set_markup("&#8226; %s\n&#8226; %s\n&#8226; %s".printf(
+        string indent_prefix = (show_fspot_import || show_system_pictures_import) ? "   " : "";
+        instructions.set_markup(((indent_prefix + "&#8226; %s\n") + (indent_prefix + "&#8226; %s\n")
+            + (indent_prefix + "&#8226; %s")).printf(
             _("Choose <span weight=\"bold\">File %s Import From Folder</span>").printf("▸"),
             _("Drag and drop photos onto the Shotwell window"),
             _("Connect a camera to your computer and import")));
@@ -1165,22 +1170,24 @@ public class WelcomeDialog : Gtk.Dialog {
             
             if (show_fspot_import) {
                 fspot_import_check = new Gtk.CheckButton.with_mnemonic(
-                    _("Import photos from your _F-spot library"));
+                    _("Import photos from your F-Spot library"));
                 import_action_checkbox_packer.add(fspot_import_check);
+                fspot_import_check.set_active(true);
             }
             
             if (show_system_pictures_import) {
                 system_pictures_import_check = new Gtk.CheckButton.with_mnemonic(
-                    _("Import photos from your system _pictures directory (%s)").printf(
+                    _("Import photos from your %s folder").printf(
                     get_display_pathname(AppDirs.get_import_dir())));
                 import_action_checkbox_packer.add(system_pictures_import_check);
+                system_pictures_import_check.set_active(true);
             }
         }
         
         Gtk.Label? instruction_header = null;
         if (show_fspot_import || show_system_pictures_import) {
             instruction_header = new Gtk.Label(
-                _("You can also import photos in any one of these ways:"));
+                _("You can also import photos in any of these ways:"));
             instruction_header.set_alignment(0.0f, 0.5f);
         }
         
