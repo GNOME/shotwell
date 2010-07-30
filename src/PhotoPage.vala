@@ -3134,7 +3134,7 @@ public class DirectPhotoPage : EditingHostPage {
 
         Gtk.ActionEntry print = { "Print", Gtk.STOCK_PRINT, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_print };
-        print.label = _("Prin_t...");
+        print.label = Resources.PRINT_MENU;
         print.tooltip = _("Print the photo to a printer connected to your computer");
         actions += print;
 #endif

@@ -128,7 +128,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string REVERT_EDITABLE_MENU = _("Revert External E_dits");
     public const string REVERT_EDITABLE_TOOLTIP = _("Revert to the master photo");
     
-    public const string SET_BACKGROUND_MENU = _("Set as Desktop _Background");
+    public const string SET_BACKGROUND_MENU = _("Set as _Desktop Background");
     public const string SET_BACKGROUND_TOOLTIP = _("Set selected image to be the new desktop background");
     
     public const string UNDO_MENU = _("_Undo");
@@ -205,7 +205,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string PAGE_SETUP_MENU = _("Page _Setup...");    
     public const string PAGE_SETUP_TOOLTIP = _("View and change page setup printing");
     
-    public const string PRINT_MENU = _("Prin_t...");    
+    public const string PRINT_MENU = _("_Print...");    
     public const string PRINT_TOOLTIP = _("Print the photo to a printer connected to your computer");
     
     public const string PUBLISH_MENU = _("Pu_blish...");    

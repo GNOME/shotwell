@@ -472,7 +472,7 @@ public abstract class AppWindow : PageWindow {
 
         Gtk.ActionEntry fullscreen = { "CommonFullscreen", Gtk.STOCK_FULLSCREEN,
             TRANSLATABLE, "F11", TRANSLATABLE, on_fullscreen };
-        fullscreen.label = _("_Fullscreen");
+        fullscreen.label = _("Fulls_creen");
         fullscreen.tooltip = _("Use Shotwell at fullscreen");
         actions += fullscreen;
 
