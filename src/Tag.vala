@@ -191,7 +191,7 @@ public class TagSourceCollection : ContainerSourceCollection {
             assert(is_removed);
             
             if (tags.size == 0)
-                photo_map.remove(photo);
+                photo_map.unset(photo);
             
             Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
             assert(sorted_tags != null);
@@ -200,7 +200,7 @@ public class TagSourceCollection : ContainerSourceCollection {
             assert(is_removed);
             
             if (sorted_tags.size == 0)
-                sorted_photo_map.remove(photo);
+                sorted_photo_map.unset(photo);
         }
         
         base.notify_container_contents_removed(container, removed);

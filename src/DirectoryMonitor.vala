@@ -176,7 +176,7 @@ public class DirectoryMonitor : Object {
             if (!normalize_file(file, info, out normalized, out id))
                 return false;
             
-            return id_map.contains(id);
+            return id_map.has_key(id);
         }
         
         public string? get_id(File file, FileInfo? info) {
@@ -876,7 +876,7 @@ public class DirectoryMonitor : Object {
             return false;
         
         // if one already exists, nop
-        if (monitors.contains(id))
+        if (monitors.has_key(id))
             return false;
         
         FileMonitor monitor = null;

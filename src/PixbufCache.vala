@@ -167,10 +167,10 @@ public class PixbufCache : Object {
     // signal is fired.
     public void prefetch(Photo photo, 
         BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
-        if (!force && cache.contains(photo))
+        if (!force && cache.has_key(photo))
             return;
         
-        if (in_progress.contains(photo))
+        if (in_progress.has_key(photo))
             return;
         
         if (filter != null && !filter(photo))
@@ -259,7 +259,7 @@ public class PixbufCache : Object {
         assert(photo != null);
         
         // only interested if in this cache and not an originals cache, as they never alter
-        if (!cache.contains(photo) && type != PhotoType.MASTER)
+        if (!cache.has_key(photo) && type != PhotoType.MASTER)
             return;
         
         decache(photo);
@@ -316,7 +316,7 @@ public class PixbufCache : Object {
     }
     
     private void decache(Photo photo) {
-        if (!cache.remove(photo)) {
+        if (!cache.unset(photo)) {
             assert(!lru.contains(photo));
             
             return;
