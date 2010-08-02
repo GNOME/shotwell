@@ -8,41 +8,33 @@
  * Photo source implementation for alien databases. This class is responsible
  * for extracting meta-data out of a source photo to support the import
  * process.
+ *
+ * This class does not extend PhotoSource in order to minimise the API to the
+ * absolute minimum required to run the import job.
  */
-public class AlienDatabaseImportSource : PhotoSource {
-    protected new const string THUMBNAIL_NAME_PREFIX = "import";
-    public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
-
+public class AlienDatabaseImportSource {
     private AlienDatabasePhoto db_photo;
-    private PhotoMetadata? metadata = null;
-    private PhotoPreview? preview = null;
-    private Gdk.Pixbuf? preview_pixbuf = null;
+    private string? title = null;
     private string? preview_md5 = null;
-    private string? exif_md5 = null;
     private uint64 file_size;
     private time_t modification_time;
+    private MetadataDateTime? exposure_time;
     
     public AlienDatabaseImportSource(AlienDatabasePhoto db_photo) {
         this.db_photo = db_photo;
         File photo = File.new_for_path(db_photo.get_folder_path()).
             get_child(db_photo.get_filename());
         
-        metadata = new PhotoMetadata();
+        PhotoMetadata? metadata = new PhotoMetadata();
         try {
             metadata.read_from_file(photo);
         } catch(Error e) {
             warning("Could not get file metadata for %s: %s", get_filename(), e.message);
         }
-        uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
-        if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-            exif_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
         
-        preview = metadata != null ? metadata.get_preview(0) : null;
-        try {
-            preview_pixbuf = preview != null ? preview.get_pixbuf() : null;
-        } catch(Error e) {
-            warning("Could not get preview pixbuf for %s: %s", get_filename(), e.message);
-        }
+        title = (metadata != null) ? metadata.get_title() : null;
+        exposure_time = (metadata != null) ? metadata.get_exposure_date_time() : null;
+        PhotoPreview? preview = metadata != null ? metadata.get_preview(0) : null;
         if (preview != null) {
             try {
                 uint8[] preview_raw = preview.flatten();
@@ -79,86 +71,32 @@ public class AlienDatabaseImportSource : PhotoSource {
         return File.new_for_path(get_fulldir()).get_child(get_filename());
     }
     
-    public override string get_name() {
-        string? title = get_title();
-        
+    public string get_name() {
         return !is_string_empty(title) ? title : get_filename();
     }
     
     public string? get_title() {
-        return (metadata != null) ? metadata.get_title() : null;
-    }
-    
-    public string? get_preview_md5() {
-        return preview_md5;
+        return title;
     }
     
     public PhotoFileFormat get_file_format() {
         return PhotoFileFormat.get_by_basename_extension(get_filename());
     }
     
-    public override string to_string() {
+    public string to_string() {
         return get_name();
     }
     
-    public override time_t get_exposure_time() {
-        if (metadata == null)
-            return modification_time;
-        
-        MetadataDateTime? date_time = metadata.get_exposure_date_time();
-        
-        return (date_time != null) ? date_time.get_timestamp() : modification_time;
+    public time_t get_exposure_time() {
+        return (exposure_time != null) ? exposure_time.get_timestamp() : modification_time;
     }
     
-    public override Dimensions get_dimensions() {
-        if (metadata == null)
-            return Dimensions(0, 0);
-        
-        Dimensions? dim = metadata.get_pixel_dimensions();
-        if (dim == null)
-            return Dimensions(0, 0);
-        
-        return metadata.get_orientation().rotate_dimensions(dim);
-    }
-    
-    public override uint64 get_filesize() {
+    public uint64 get_filesize() {
         return file_size;
-    }
-    
-    public override PhotoMetadata? get_metadata() {
-        return metadata;
-    }
-
-    public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
-        return preview_pixbuf != null ? scaling.perform_on_pixbuf(preview_pixbuf, INTERP, false) : null;
-    }
-    
-    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        if (preview_pixbuf == null)
-            return null;
-        
-        return (scale > 0) ? scale_pixbuf(preview_pixbuf, scale, INTERP, true) : preview_pixbuf;
     }
     
     public AlienDatabasePhoto get_photo() {
         return db_photo;
-    }
-
-    public override string? get_unique_thumbnail_name() {
-        return (THUMBNAIL_NAME_PREFIX + "-%" + int64.FORMAT).printf(get_object_id());
-    }
-
-    public override PhotoFileFormat get_preferred_thumbnail_format() {
-        return PhotoFileFormat.get_system_default_format();
-    }
-
-    public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
-        if (preview_pixbuf == null)
-            return null;
-        
-        // this satifies the return-a-new-instance requirement of create_thumbnail( ) because
-        // scale_pixbuf( ) allocates a new pixbuf
-        return (scale > 0) ? scale_pixbuf(preview_pixbuf, scale, INTERP, true) : preview_pixbuf;
     }
     
     public bool is_already_imported() {
