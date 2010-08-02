@@ -178,11 +178,11 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
         return behavior;
     }
 
-    public AlienDatabase open_database(AlienDatabaseID db_id) throws AlienDatabaseError {
+    public AlienDatabase open_database(AlienDatabaseID db_id) throws DatabaseError, AlienDatabaseError {
         return new FSpotDatabase(this, db_id);
     }
     
-    public AlienDatabase open_database_from_file(File db_file) throws AlienDatabaseError {
+    public AlienDatabase open_database_from_file(File db_file) throws DatabaseError, AlienDatabaseError {
         return new FSpotDatabase.from_file(this, db_file);
     }
     
@@ -220,21 +220,21 @@ public class FSpotDatabase : Object, AlienDatabase {
     private FSpotRollsTable rolls_table;
     private int64 hidden_tag_id;
     
-    public FSpotDatabase(FSpotDatabaseDriver driver, AlienDatabaseID id) throws AlienDatabaseError {
+    public FSpotDatabase(FSpotDatabaseDriver driver, AlienDatabaseID id) throws DatabaseError, AlienDatabaseError {
         this.id = id;
         initialize(driver, id.driver_specific_uri);
     }
     
-    public FSpotDatabase.from_file(FSpotDatabaseDriver driver, File db_file) throws AlienDatabaseError {
+    public FSpotDatabase.from_file(FSpotDatabaseDriver driver, File db_file) throws DatabaseError, AlienDatabaseError {
         this.id = AlienDatabaseID(driver.get_id(), db_file.get_path());
         initialize(driver, db_file.get_path());
     }
     
-    private void initialize(FSpotDatabaseDriver driver, string filename) throws AlienDatabaseError {
+    private void initialize(FSpotDatabaseDriver driver, string filename) throws DatabaseError, AlienDatabaseError {
         int res = Sqlite.Database.open_v2(filename, out fspot_db,
             Sqlite.OPEN_READONLY, null);
         if (res != Sqlite.OK)
-            throw new AlienDatabaseError.DATABASE_ERROR("Unable to open F-Spot database %s: %d", filename, res);
+            throw new DatabaseError.ERROR("Unable to open F-Spot database %s: %d", filename, res);
         meta_table = new FSpotMetaTable(fspot_db);
         hidden_tag_id = meta_table.get_hidden_tag_id();
         
@@ -257,11 +257,11 @@ public class FSpotDatabase : Object, AlienDatabase {
         return _("F-Spot");
     }
     
-    private AlienDatabaseVersion get_version() throws AlienDatabaseError {
+    private AlienDatabaseVersion get_version() throws DatabaseError {
         return new AlienDatabaseVersion.from_string(meta_table.get_db_version());
     }
     
-    public Gee.Collection<AlienDatabasePhoto> get_photos() throws AlienDatabaseError {
+    public Gee.Collection<AlienDatabasePhoto> get_photos() throws DatabaseError {
         Gee.List<AlienDatabasePhoto> photos = new Gee.ArrayList<AlienDatabasePhoto>();
 
         foreach (FSpotPhotoRow photo_row in photos_table.get_all()) {
@@ -269,31 +269,51 @@ public class FSpotDatabase : Object, AlienDatabase {
             bool favorite = false;
             Gee.ArrayList<AlienDatabaseTag> tags = new Gee.ArrayList<AlienDatabaseTag>();
             AlienDatabaseEvent? event = null;
+            FSpotRollRow? roll_row = null;
             
             // TODO: We do not convert F-Spot events to Shotwell events because F-Spot's events
             // are essentially tags.  We would need to detect if the tag is an event (use
             // is_tag_event) and then assign the event to the photo ... since a photo can be
             // in multiple F-Spot events, we would need to pick one, and since their tags
             // are heirarchical, we would need to pick a name (probably the leaf)
-            foreach (FSpotTagRow tag_row in tags_table.get_by_photo_id(photo_row.photo_id)) {
-                FSpotDatabaseTag tag = new FSpotDatabaseTag(tag_row);
-                if (is_tag_hidden(tag))
-                    hidden = true;
-                else if (is_tag_favorite(tag))
-                    favorite = true;
-                else
-                    while (tag != null) {
-                        if(!tag.is_stock())
-                            tags.add(tag);
-                        tag = get_tag_parent(tag);
-                    }
+            try {
+                foreach (FSpotTagRow tag_row in tags_table.get_by_photo_id(photo_row.photo_id)) {
+                    FSpotDatabaseTag tag = new FSpotDatabaseTag(tag_row);
+                    if (is_tag_hidden(tag))
+                        hidden = true;
+                    else if (is_tag_favorite(tag))
+                        favorite = true;
+                    else
+                        while (tag != null) {
+                            if(!tag.is_stock())
+                                tags.add(tag);
+                            tag = get_tag_parent(tag);
+                        }
+                }
+            } catch(DatabaseError e) {
+                // log the error and leave the tag list empty
+                message("Failed to retrieve tags for photo ID %l: %s", (long)photo_row.photo_id.id, e.message);
             }
             
-            FSpotRollRow? roll_row = rolls_table.get_by_id(photo_row.roll_id);
+            try {
+                roll_row = rolls_table.get_by_id(photo_row.roll_id);
+            } catch (DatabaseError e) {
+                // log the error and leave the roll row null
+                message("Failed to retrieve roll for photo ID %l: %s", (long)photo_row.photo_id.id, e.message);
+            }
             
-            foreach (FSpotPhotoVersionRow photo_version_row in photo_versions_table.get_by_photo_id(photo_row.photo_id)) {
+            try {
+                foreach (FSpotPhotoVersionRow photo_version_row in photo_versions_table.get_by_photo_id(photo_row.photo_id)) {
+                    photos.add(new FSpotDatabasePhoto(
+                        photo_row, photo_version_row, roll_row, tags, event, hidden, favorite
+                    ));
+                }
+            } catch (DatabaseError e) {
+                // if we can't load the different versions, do the best we can
+                // and create one photo from the photo row that was found earlier
+                message("Failed to retrieve versions for photo ID %l: %s", (long)photo_row.photo_id.id, e.message);
                 photos.add(new FSpotDatabasePhoto(
-                    photo_row, photo_version_row, roll_row, tags, event, hidden, favorite
+                    photo_row, null, roll_row, tags, event, hidden, favorite
                 ));
             }
         }
@@ -301,18 +321,22 @@ public class FSpotDatabase : Object, AlienDatabase {
         return photos;
     }
     
-    public FSpotDatabaseTag? get_tag_parent(FSpotDatabaseTag tag) throws AlienDatabaseError {
+    public FSpotDatabaseTag? get_tag_parent(FSpotDatabaseTag tag) {
         FSpotDatabaseTag? parent_tag = null;
         FSpotTagID parent_id = tag.get_row().category_id;
         if (parent_id.is_valid() && !parent_id.is_null()) {
-            FSpotTagRow? parent_row = tags_table.get_by_id(parent_id);
-            if (parent_row != null)
-                parent_tag = new FSpotDatabaseTag(parent_row);
+            try {
+                FSpotTagRow? parent_row = tags_table.get_by_id(parent_id);
+                if (parent_row != null)
+                    parent_tag = new FSpotDatabaseTag(parent_row);
+            } catch (DatabaseError e) {
+                // ignore this error, just return null
+            }
         }
         return parent_tag;
     }
     
-    public bool is_tag_event(FSpotDatabaseTag tag) throws AlienDatabaseError {
+    public bool is_tag_event(FSpotDatabaseTag tag) {
         bool result = (FSpotTagsTable.STOCK_ICON_EVENTS == tag.get_row().stock_icon);
         if (!result) {
             FSpotDatabaseTag? parent = get_tag_parent(tag);
@@ -324,7 +348,7 @@ public class FSpotDatabase : Object, AlienDatabase {
         return result;
     }
     
-    public bool is_tag_hidden(FSpotDatabaseTag tag) throws AlienDatabaseError {
+    public bool is_tag_hidden(FSpotDatabaseTag tag) {
         bool result = (hidden_tag_id == tag.get_row().tag_id.id);
         if (!result) {
             FSpotDatabaseTag? parent = get_tag_parent(tag);
@@ -336,7 +360,7 @@ public class FSpotDatabase : Object, AlienDatabase {
         return result;
     }
     
-    public bool is_tag_favorite(FSpotDatabaseTag tag) throws AlienDatabaseError {
+    public bool is_tag_favorite(FSpotDatabaseTag tag) {
         bool result = (FSpotTagsTable.STOCK_ICON_FAV == tag.get_row().stock_icon);
         if (!result) {
             FSpotDatabaseTag? parent = get_tag_parent(tag);
@@ -424,7 +448,7 @@ public class FSpotDatabaseBehavior : Object {
  */
 public class FSpotDatabasePhoto : Object, AlienDatabasePhoto {
     private FSpotPhotoRow photo_row;
-    private FSpotPhotoVersionRow photo_version_row;
+    private FSpotPhotoVersionRow? photo_version_row;
     private FSpotRollRow? roll_row;
     private Gee.Collection<AlienDatabaseTag> tags;
     private AlienDatabaseEvent? event;
@@ -432,7 +456,7 @@ public class FSpotDatabasePhoto : Object, AlienDatabasePhoto {
     
     public FSpotDatabasePhoto(
         FSpotPhotoRow photo_row,
-        FSpotPhotoVersionRow photo_version_row,
+        FSpotPhotoVersionRow? photo_version_row,
         FSpotRollRow? roll_row,
         Gee.Collection<AlienDatabaseTag> tags,
         AlienDatabaseEvent? event,
@@ -455,11 +479,15 @@ public class FSpotDatabasePhoto : Object, AlienDatabasePhoto {
     }
     
     public string get_folder_path() {
-        return photo_version_row.base_path.get_path();
+        return (photo_version_row != null) ?
+            photo_version_row.base_path.get_path() :
+            photo_row.base_path.get_path();
     }
     
     public string get_filename() {
-        return photo_version_row.filename;
+        return (photo_version_row != null) ?
+            photo_version_row.filename :
+            photo_row.filename;
     }
     
     public Gee.Collection<AlienDatabaseTag> get_tags() {

@@ -32,24 +32,19 @@ public abstract class FSpotDatabaseTable<T> : DatabaseTable {
         return string.joinv(", ", columns);
     }
     
-    protected int select_all(out Sqlite.Statement stmt) throws AlienDatabaseError {
+    protected int select_all(out Sqlite.Statement stmt) throws DatabaseError {
         string column_list = get_joined_column_list();
         string sql = "SELECT %s FROM %s".printf(column_list, table_name);
 
         int res = fspot_db.prepare_v2(sql, -1, out stmt);
         if (res != Sqlite.OK)
-            throw_data_error("Statement failed: %s".printf(sql), res);
+            throw_error("Statement failed: %s".printf(sql), res);
         
         res = stmt.step();
         if (res != Sqlite.ROW && res != Sqlite.DONE)
-            throw_data_error("select_all %s %s".printf(table_name, column_list), res);
+            throw_error("select_all %s %s".printf(table_name, column_list), res);
         
         return res;
-    }
-    
-    protected void throw_data_error(string msg, int res) throws AlienDatabaseError {
-        critical("Database error: %s [%d]", msg, res);
-        throw new AlienDatabaseError.DATABASE_ERROR(msg);
     }
 }
 
@@ -68,8 +63,7 @@ public interface FSpotTableBehavior<T> : Object {
     
     public abstract string[] list_columns();
     
-    public abstract void build_row(Sqlite.Statement stmt, out T row, int offset = 0)
-        throws AlienDatabaseError;
+    public abstract void build_row(Sqlite.Statement stmt, out T row, int offset = 0);
 }
 
 /**
@@ -85,6 +79,15 @@ public class FSpotMetaRow : Object {
  * This class represents the F-Spot meta table, which stores some essential
  * meta-data for the whole database. It is implemented as a simple dictionary
  * where each row in the table is a key/value pair.
+ *
+ * The meta table implementation is the only one that throws a database error
+ * if something goes wrong because:
+ *  * it is essential to read the content of that table in order to identify
+ *    the version of the database and select the correct behavior,
+ *  * this table is read at the very beginning of the process so any failure
+ *    will occur immediately,
+ *  * failing to read this table means that there is no point in reading the
+ *    attempting to read the rest of the database so we might as well abort.
  */
 public class FSpotMetaTable : FSpotDatabaseTable<FSpotMetaRow> {
     
@@ -93,22 +96,23 @@ public class FSpotMetaTable : FSpotDatabaseTable<FSpotMetaRow> {
         set_behavior(FSpotMetaBehavior.get_instance());
     }
     
-    public string? get_data(string name) throws AlienDatabaseError {
+    public string? get_data(string name) throws DatabaseError {
         string[] columns = behavior.list_columns();
         string column_list = string.joinv(", ", columns);
         string sql = "SELECT %s FROM %s WHERE name=?".printf(column_list, table_name);
         Sqlite.Statement stmt;
         int res = fspot_db.prepare_v2(sql, -1, out stmt);
         if (res != Sqlite.OK)
-            throw_data_error("Statement failed: %s".printf(sql), res);
+            throw_error("Statement failed: %s".printf(sql), res);
         
         res = stmt.bind_text(1, name);
-        assert(res == Sqlite.OK);
+        if (res != Sqlite.OK)
+            throw_error("Bind failed for name %s".printf(name), res);
         
         res = stmt.step();
         if (res != Sqlite.ROW) {
             if (res != Sqlite.DONE)
-                throw_data_error("FSpotMetaTable.get_data", res);
+                throw_error("FSpotMetaTable.get_data", res);
             
             return null;
         }
@@ -118,15 +122,15 @@ public class FSpotMetaTable : FSpotDatabaseTable<FSpotMetaRow> {
         return row.data;
     }
     
-    public string? get_app_version() throws AlienDatabaseError {
+    public string? get_app_version() throws DatabaseError {
         return get_data("F-Spot Version");
     }
     
-    public string? get_db_version() throws AlienDatabaseError {
+    public string? get_db_version() throws DatabaseError {
         return get_data("F-Spot Database Version");
     }
     
-    public int64 get_hidden_tag_id() throws AlienDatabaseError {
+    public int64 get_hidden_tag_id() throws DatabaseError {
         string id_str = get_data("Hidden Tag Id");
         if(id_str != null) {
             return id_str.to_int64();
@@ -158,7 +162,7 @@ public class FSpotMetaBehavior : FSpotTableBehavior<FSpotMetaRow>, Object {
         return { "name", "data" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotMetaRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotMetaRow row, int offset = 0) {
         row = new FSpotMetaRow();
         row.name = stmt.column_text(offset + 0);
         row.data = stmt.column_text(offset + 1);
@@ -247,7 +251,7 @@ public class FSpotPhotosTable : FSpotDatabaseTable<FSpotPhotoRow> {
         set_behavior(db_behavior.get_photos_behavior());
     }
     
-    public Gee.ArrayList<FSpotPhotoRow> get_all() throws AlienDatabaseError {
+    public Gee.ArrayList<FSpotPhotoRow> get_all() throws DatabaseError {
         Gee.ArrayList<FSpotPhotoRow> all = new Gee.ArrayList<FSpotPhotoRow?>();
         
         Sqlite.Statement stmt;
@@ -257,9 +261,6 @@ public class FSpotPhotosTable : FSpotDatabaseTable<FSpotPhotoRow> {
             behavior.build_row(stmt, out row);
             all.add(row);
             res = stmt.step();
-        }
-        if(res != Sqlite.DONE) {
-            throw_data_error("Unexpected result while iterating on photos rows: %d", res);
         }
         
         return all;
@@ -289,7 +290,7 @@ public class FSpotPhotosV0Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object {
             "default_version_id" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
@@ -327,7 +328,7 @@ public class FSpotPhotosV5Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object {
             "default_version_id" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
@@ -366,15 +367,15 @@ public class FSpotPhotosV7Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object {
             "default_version_id" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        //
+
         File uri = File.new_for_uri(stmt.column_text(offset + 2));
         row.base_path = uri.get_parent();
         row.filename = uri.get_basename();
-        //
+
         row.description = stmt.column_text(offset + 3);
         row.roll_id.id = stmt.column_int64(offset + 4);
         row.default_version_id.id = stmt.column_int64(offset + 5);
@@ -406,15 +407,15 @@ public class FSpotPhotosV11Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
             "default_version_id", "rating" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        //
+
         File uri = File.new_for_uri(stmt.column_text(offset + 2));
         row.base_path = uri.get_parent();
         row.filename = uri.get_basename();
-        //
+
         row.description = stmt.column_text(offset + 3);
         row.roll_id.id = stmt.column_int64(offset + 4);
         row.default_version_id.id = stmt.column_int64(offset + 5);
@@ -446,15 +447,15 @@ public class FSpotPhotosV16Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
             "default_version_id", "rating", "md5_sum" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
-        //
+
         File uri = File.new_for_uri(stmt.column_text(offset + 2));
         row.base_path = uri.get_parent();
         row.filename = uri.get_basename();
-        //
+
         row.description = stmt.column_text(offset + 3);
         row.roll_id.id = stmt.column_int64(offset + 4);
         row.default_version_id.id = stmt.column_int64(offset + 5);
@@ -487,7 +488,7 @@ public class FSpotPhotosV17Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
             "default_version_id", "rating", "md5_sum" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
@@ -523,7 +524,7 @@ public class FSpotPhotosV18Behavior : FSpotTableBehavior<FSpotPhotoRow>, Object 
             "default_version_id", "rating" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoRow row, int offset = 0) {
         row = new FSpotPhotoRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
@@ -591,7 +592,7 @@ public class FSpotPhotoVersionsTable : FSpotDatabaseTable<FSpotPhotoVersionRow> 
         set_behavior(db_behavior.get_photo_versions_behavior());
     }
     
-    public Gee.ArrayList<FSpotPhotoVersionRow> get_by_photo_id(FSpotPhotoID photo_id) throws AlienDatabaseError {
+    public Gee.ArrayList<FSpotPhotoVersionRow> get_by_photo_id(FSpotPhotoID photo_id) throws DatabaseError {
         Gee.ArrayList<FSpotPhotoVersionRow> rows = new Gee.ArrayList<FSpotPhotoVersionRow?>();
         
         Sqlite.Statement stmt;
@@ -603,11 +604,11 @@ public class FSpotPhotoVersionsTable : FSpotDatabaseTable<FSpotPhotoVersionRow> 
 
         int res = fspot_db.prepare_v2(sql, -1, out stmt);
         if (res != Sqlite.OK)
-            throw_data_error("Statement failed: %s".printf(sql), res);
+            throw_error("Statement failed: %s".printf(sql), res);
         
         res = stmt.bind_int64(1, photo_id.id);
         if (res != Sqlite.OK)
-            throw_data_error("Bind failed for ID", res);
+            throw_error("Bind failed for photo_id", res);
         
         res = stmt.step();
         while (res == Sqlite.ROW) {
@@ -615,9 +616,6 @@ public class FSpotPhotoVersionsTable : FSpotDatabaseTable<FSpotPhotoVersionRow> 
             behavior.build_row(stmt, out row);
             rows.add(row);
             res = stmt.step();
-        }
-        if(res != Sqlite.DONE) {
-            throw_data_error("Unexpected result while iterating on tags rows", res);
         }
         
         return rows;
@@ -648,16 +646,16 @@ public class FSpotPhotoVersionsV0Behavior : FSpotTableBehavior<FSpotPhotoVersion
         return { "photo_id", "version_id", "name", "uri" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) {
         row = new FSpotPhotoVersionRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.version_id.id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
-        //
+
         File uri = File.new_for_uri(stmt.column_text(offset + 3));
         row.base_path = uri.get_parent();
         row.filename = uri.get_basename();
-        //
+
         row.md5_sum = "";
         row.is_protected = false;
     }
@@ -686,16 +684,16 @@ public class FSpotPhotoVersionsV9Behavior : FSpotTableBehavior<FSpotPhotoVersion
             "protected" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) {
         row = new FSpotPhotoVersionRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.version_id.id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
-        //
+
         File uri = File.new_for_uri(stmt.column_text(offset + 3));
         row.base_path = uri.get_parent();
         row.filename = uri.get_basename();
-        //
+
         row.md5_sum = "";
         row.is_protected = (stmt.column_int(offset + 4) > 0);
     }
@@ -724,16 +722,16 @@ public class FSpotPhotoVersionsV16Behavior : FSpotTableBehavior<FSpotPhotoVersio
             "md5_sum", "protected" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) {
         row = new FSpotPhotoVersionRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.version_id.id = stmt.column_int64(offset + 1);
         row.name = stmt.column_text(offset + 2);
-        //
+
         File uri = File.new_for_uri(stmt.column_text(offset + 3));
         row.base_path = uri.get_parent();
         row.filename = uri.get_basename();
-        //
+
         row.md5_sum = stmt.column_text(offset + 4);
         row.is_protected = (stmt.column_int(offset + 5) > 0);
     }
@@ -763,7 +761,7 @@ public class FSpotPhotoVersionsV17Behavior : FSpotTableBehavior<FSpotPhotoVersio
             "md5_sum", "protected" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) {
         row = new FSpotPhotoVersionRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.version_id.id = stmt.column_int64(offset + 1);
@@ -798,7 +796,7 @@ public class FSpotPhotoVersionsV18Behavior : FSpotTableBehavior<FSpotPhotoVersio
             "import_md5", "protected" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoVersionRow row, int offset = 0) {
         row = new FSpotPhotoVersionRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.version_id.id = stmt.column_int64(offset + 1);
@@ -877,7 +875,7 @@ public class FSpotTagsTable : FSpotDatabaseTable<FSpotTagRow> {
         photo_tags_behavior = db_behavior.get_photo_tags_behavior();
     }
     
-    public FSpotTagRow? get_by_id(FSpotTagID tag_id) throws AlienDatabaseError {
+    public FSpotTagRow? get_by_id(FSpotTagID tag_id) throws DatabaseError {
         Sqlite.Statement stmt;
         FSpotTagRow? row = null;
         string column_list = get_joined_column_list();
@@ -885,7 +883,7 @@ public class FSpotTagsTable : FSpotDatabaseTable<FSpotTagRow> {
 
         int res = fspot_db.prepare_v2(sql, -1, out stmt);
         if (res != Sqlite.OK)
-            throw_data_error("Statement failed: %s".printf(sql), res);
+            throw_error("Statement failed: %s".printf(sql), res);
         
         res = stmt.bind_int64(1, tag_id.id);
         assert(res == Sqlite.OK);
@@ -895,13 +893,11 @@ public class FSpotTagsTable : FSpotDatabaseTable<FSpotTagRow> {
             behavior.build_row(stmt, out row);
         else if (res == Sqlite.DONE)
             message("Could not find tag row with ID %d", (int)tag_id.id);
-        else
-            throw_data_error("select_all %s %s".printf(table_name, column_list), res);
         
         return row;
     }
     
-    public Gee.ArrayList<FSpotTagRow> get_by_photo_id(FSpotPhotoID photo_id) throws AlienDatabaseError {
+    public Gee.ArrayList<FSpotTagRow> get_by_photo_id(FSpotPhotoID photo_id) throws DatabaseError {
         Gee.ArrayList<FSpotTagRow> rows = new Gee.ArrayList<FSpotTagRow?>();
         
         Sqlite.Statement stmt;
@@ -913,10 +909,11 @@ public class FSpotTagsTable : FSpotDatabaseTable<FSpotTagRow> {
 
         int res = fspot_db.prepare_v2(sql, -1, out stmt);
         if (res != Sqlite.OK)
-            throw_data_error("Statement failed: %s".printf(sql), res);
+            throw_error("Statement failed: %s".printf(sql), res);
         
         res = stmt.bind_int64(1, photo_id.id);
-        assert(res == Sqlite.OK);
+        if (res != Sqlite.OK)
+            throw_error("Bind failed for photo_id", res);
         
         res = stmt.step();
         while (res == Sqlite.ROW) {
@@ -924,9 +921,6 @@ public class FSpotTagsTable : FSpotDatabaseTable<FSpotTagRow> {
             behavior.build_row(stmt, out row);
             rows.add(row);
             res = stmt.step();
-        }
-        if(res != Sqlite.DONE) {
-            throw_data_error("Unexpected result while iterating on tags rows", res);
         }
         
         return rows;
@@ -953,7 +947,7 @@ public class FSpotTagsV0Behavior : FSpotTableBehavior<FSpotTagRow>, Object {
         return { "id", "name", "category_id", "is_category", "sort_priority", "icon" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotTagRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotTagRow row, int offset = 0) {
         row = new FSpotTagRow();
         row.tag_id.id = stmt.column_int64(offset + 0);
         row.name = stmt.column_text(offset + 1);
@@ -1012,7 +1006,7 @@ public class FSpotPhotoTagsV0Behavior : FSpotTableBehavior<FSpotPhotoTagRow>, Ob
         return { "photo_id", "tag_id" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotPhotoTagRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotPhotoTagRow row, int offset = 0) {
         row = new FSpotPhotoTagRow();
         row.photo_id.id = stmt.column_int64(offset + 0);
         row.tag_id.id = stmt.column_int64(offset + 1);
@@ -1043,7 +1037,7 @@ public class FSpotRollsTable : FSpotDatabaseTable<FSpotRollRow> {
         set_behavior(db_behavior.get_rolls_behavior());
     }
     
-    public FSpotRollRow? get_by_id(FSpotRollID roll_id) throws AlienDatabaseError {
+    public FSpotRollRow? get_by_id(FSpotRollID roll_id) throws DatabaseError {
         Sqlite.Statement stmt;
         FSpotRollRow? row = null;
         string column_list = get_joined_column_list();
@@ -1051,19 +1045,17 @@ public class FSpotRollsTable : FSpotDatabaseTable<FSpotRollRow> {
 
         int res = fspot_db.prepare_v2(sql, -1, out stmt);
         if (res != Sqlite.OK)
-            throw_data_error("Statement failed: %s".printf(sql), res);
+            throw_error("Statement failed: %s".printf(sql), res);
         
         res = stmt.bind_int64(1, roll_id.id);
         if (res != Sqlite.OK)
-            throw_data_error("Bind failed for ID", res);
+            throw_error("Bind failed for roll_id", res);
         
         res = stmt.step();
         if (res == Sqlite.ROW)
             behavior.build_row(stmt, out row);
         else if (res == Sqlite.DONE)
             message("Could not find roll row with ID %d", (int)roll_id.id);
-        else
-            throw_data_error("select_all %s %s".printf(table_name, column_list), res);
         
         return row;
     }
@@ -1090,7 +1082,7 @@ public class FSpotRollsV0Behavior : FSpotTableBehavior<FSpotRollRow>, Object {
         return { "id", "time" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotRollRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotRollRow row, int offset = 0) {
         row = new FSpotRollRow();
         row.id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);
@@ -1119,7 +1111,7 @@ public class FSpotRollsV5Behavior : FSpotTableBehavior<FSpotRollRow>, Object {
         return { "id", "time" };
     }
     
-    public void build_row(Sqlite.Statement stmt, out FSpotRollRow row, int offset = 0) throws AlienDatabaseError {
+    public void build_row(Sqlite.Statement stmt, out FSpotRollRow row, int offset = 0) {
         row = new FSpotRollRow();
         row.id.id = stmt.column_int64(offset + 0);
         row.time = (time_t) stmt.column_int64(offset + 1);

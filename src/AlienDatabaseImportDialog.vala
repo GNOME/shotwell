@@ -141,7 +141,7 @@ public class AlienDatabaseImportDialog {
                 
                 dialog.destroy();
             }
-        } catch (AlienDatabaseError e) {
+        } catch (Error e) {
             message_notebook.set_current_page(MSG_NOTEBOOK_PAGE_ERROR);
             error_message_label.set_label(_("Shotwell failed to load the database file"));
             // most failures should happen before the two buttons have been set

@@ -8,17 +8,10 @@
  * The error domain for alien databases
  */
 public errordomain AlienDatabaseError {
-    // Generic database error
-    DATABASE_ERROR,
     // Unsupported version: this can be due to an old legacy database,
     // a new database version that this version of Shotwell doesn't support
     // or a database version that could not be identified properly.
-    UNSUPPORTED_VERSION,
-    // Unsupported data: although the database version is supported, the
-    // driver has been unable to read a specific piece of the data from the
-    // database. This can be due to invalid data or a data format that is not
-    // supported by the mapping behavior objects.
-    UNSUPPORTED_DATA
+    UNSUPPORTED_VERSION
 }
 
 /**
@@ -131,13 +124,13 @@ public interface AlienDatabaseDriver : Object {
      * This method opens a database given a database ID and returns an object
      * that is able to interrogate the data contained in the database.
      */
-    public abstract AlienDatabase open_database(AlienDatabaseID db_id) throws AlienDatabaseError;
+    public abstract AlienDatabase open_database(AlienDatabaseID db_id) throws DatabaseError, AlienDatabaseError;
     
     /**
      * This method opens a database given a file and returns an object
      * that is able to interrogate the data contained in the database.
      */
-    public abstract AlienDatabase open_database_from_file(File db_file) throws AlienDatabaseError;
+    public abstract AlienDatabase open_database_from_file(File db_file) throws DatabaseError, AlienDatabaseError;
     
     public abstract string get_menu_name();
     
@@ -213,7 +206,7 @@ public class DiscoveredAlienDatabase : Object {
      * It is called when the application is ready to present the database
      * to the user as a page in the main library window.
      */
-    public AlienDatabase get_database() throws AlienDatabaseError {
+    public AlienDatabase get_database() throws DatabaseError, AlienDatabaseError {
         if (database == null) {
             database = driver.open_database(id);
         }
@@ -242,9 +235,9 @@ public interface AlienDatabase : Object {
     
     public abstract string get_display_name();
 
-    public abstract AlienDatabaseVersion get_version() throws AlienDatabaseError;
+    public abstract AlienDatabaseVersion get_version() throws DatabaseError;
     
-    public abstract Gee.Collection<AlienDatabasePhoto> get_photos() throws AlienDatabaseError;
+    public abstract Gee.Collection<AlienDatabasePhoto> get_photos() throws DatabaseError;
 }
 
 /**
