@@ -41,6 +41,14 @@ public abstract class CollectionPage : CheckerboardPage {
     // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
     public const int MANUAL_STEPPING = 16;
     public const int SLIDER_STEPPING = 4;
+    
+    private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
+    private const float FILTER_ICON_SCALE = 0.65f; // changes the size of the filter icon
+    
+    // filter_icon_base_width is the width (in px) of a single filter icon such as one star or an "X"
+    private const int FILTER_ICON_BASE_WIDTH = 30;
+    // filter_icon_plus_width is the width (in px) of the plus icon
+    private const int FILTER_ICON_PLUS_WIDTH = 20;
 
     public enum SortBy {
         TITLE = 1,
@@ -54,6 +62,8 @@ public abstract class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
+    private Gtk.ToolButton filter_button = null;
+    private Gtk.Menu filter_menu = null;
     private PhotoDragAndDropHandler dnd_handler = null;
 #if !NO_PUBLISHING
     private Gtk.ToolButton publish_button = null;
@@ -189,6 +199,19 @@ public abstract class CollectionPage : CheckerboardPage {
         separator.set_draw(false);
         
         toolbar.insert(separator, -1);
+
+        filter_menu = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
+        filter_button = new Gtk.ToolButton(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER), null);
+        filter_button.clicked.connect(on_filter_button_pressed);
+        filter_button.set_expand(false);
+
+        toolbar.insert(filter_button, -1);
+
+        Gtk.SeparatorToolItem separator2 = new Gtk.SeparatorToolItem();
+        separator2.set_expand(true);
+        separator2.set_draw(false);
+        
+        toolbar.insert(separator2, -1);
         
         // thumbnail size slider
         slider = new Gtk.HScale(slider_adjustment);
@@ -714,6 +737,21 @@ public abstract class CollectionPage : CheckerboardPage {
         int selected_count = get_view().get_selected_count();
         
         set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
+    }
+    
+    private void on_filter_button_pressed() {
+        filter_menu.popup(null, null, position_popup, 0, Gtk.get_current_event_time());
+    }
+    
+    private void position_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
+        menu.realize();
+        int rx, ry;
+        get_container().get_child().window.get_root_origin(out rx, out ry);
+        
+        x = rx + filter_button.allocation.x;
+        y = ry + get_menubar().allocation.height + get_toolbar().allocation.y 
+            - menu.allocation.height;
+        push_in = false;
     }
     
     // see #2020
@@ -1384,18 +1422,21 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_view_filter_changed() {
         RatingFilter filter = get_filter_criteria();
         install_rating_filter(filter);
+        set_filter_icon(filter);
         set_config_rating_filter(filter);
     }
 
     private void set_rating_view_filter(RatingFilter filter) {
         set_rating_view_filter_menu(filter);
         install_rating_filter(filter);
+        set_filter_icon(filter);
         set_config_rating_filter(filter);
     }
 
     private void restore_saved_rating_view_filter() {
         RatingFilter filter = get_config_rating_filter();
         set_rating_view_filter_menu(filter);
+        set_filter_icon(filter);
         install_rating_filter(filter);
     }
 
@@ -1424,6 +1465,77 @@ public abstract class CollectionPage : CheckerboardPage {
                 use_rating_or_higher_filter(Rating.UNRATED);
             break;
         }
+    }
+
+    private int get_filter_button_size(RatingFilter filter) {
+        return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
+    }
+
+    private int get_filter_icon_size(RatingFilter filter) {
+        int icon_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
+        int icon_plus = (int)(FILTER_ICON_PLUS_WIDTH * FILTER_ICON_SCALE);
+        
+        switch (filter) {
+            case RatingFilter.ONE_OR_HIGHER:
+                return icon_base + icon_plus;
+            case RatingFilter.TWO_OR_HIGHER:
+                return icon_base * 2 + icon_plus;
+            case RatingFilter.THREE_OR_HIGHER:
+                return icon_base * 3 + icon_plus;
+            case RatingFilter.FOUR_OR_HIGHER:
+                return icon_base * 4 + icon_plus;
+            case RatingFilter.FIVE_OR_HIGHER:
+            case RatingFilter.FIVE_ONLY:
+                return icon_base * 5;
+            case RatingFilter.REJECTED_OR_HIGHER:
+                return icon_base * 2;
+            case RatingFilter.UNRATED_OR_HIGHER:
+            default:
+                return icon_base;
+        }
+    }
+    
+    private Gtk.Widget get_filter_icon(RatingFilter filter) {
+        string filename = null;
+
+        switch (filter) {
+            case RatingFilter.ONE_OR_HIGHER:
+                filename = Resources.ICON_FILTER_ONE_OR_BETTER;
+            break;
+            
+            case RatingFilter.TWO_OR_HIGHER:
+                filename = Resources.ICON_FILTER_TWO_OR_BETTER;
+            break;
+            
+            case RatingFilter.THREE_OR_HIGHER:
+                filename = Resources.ICON_FILTER_THREE_OR_BETTER;
+            break;
+            
+            case RatingFilter.FOUR_OR_HIGHER:
+                filename = Resources.ICON_FILTER_FOUR_OR_BETTER;
+            break;
+            
+            case RatingFilter.FIVE_OR_HIGHER:
+                filename = Resources.ICON_FILTER_FIVE;
+            break;
+            
+            case RatingFilter.REJECTED_OR_HIGHER:
+                filename = Resources.ICON_FILTER_REJECTED_OR_BETTER;
+            break;
+
+            case RatingFilter.UNRATED_OR_HIGHER:
+            default:
+                filename = Resources.ICON_FILTER_UNRATED_OR_BETTER;
+            break;
+        }
+        
+        return new Gtk.Image.from_pixbuf(Resources.load_icon(filename, get_filter_icon_size(filter)));
+    }
+    
+    private void set_filter_icon(RatingFilter filter) {
+        filter_button.set_icon_widget(get_filter_icon(filter));
+        filter_button.set_size_request(get_filter_button_size(filter), -1);
+        filter_button.show_all();
     }
 
     private void use_rating_or_higher_filter(Rating rating) {        

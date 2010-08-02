@@ -144,6 +144,16 @@
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
     </popup>
+    
+    <popup name="FilterPopupMenu">
+        <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
+        <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
+        <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
+        <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
+        <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
+        <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
+        <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
+    </popup>
 
 </ui>
 

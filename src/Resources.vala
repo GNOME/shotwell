@@ -73,6 +73,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_RATING_THREE = "three-stars.svg";
     public const string ICON_RATING_FOUR = "four-stars.svg";
     public const string ICON_RATING_FIVE = "five-stars.svg";
+    public const string ICON_FILTER_REJECTED_OR_BETTER = "all-rejected.svg";
+    public const string ICON_FILTER_UNRATED_OR_BETTER = "all-photos.svg";
+    public const string ICON_FILTER_ONE_OR_BETTER = "one-star-filter-plus.svg";
+    public const string ICON_FILTER_TWO_OR_BETTER = "two-star-filter-plus.svg";
+    public const string ICON_FILTER_THREE_OR_BETTER = "three-star-filter-plus.svg";
+    public const string ICON_FILTER_FOUR_OR_BETTER = "four-star-filter-plus.svg";
+    public const string ICON_FILTER_FIVE = "five-star-filter.svg";
 
     public const string ICON_CAMERAS = "camera-photo";
     public const string ICON_EVENTS = "x-office-calendar";
