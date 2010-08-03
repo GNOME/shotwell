@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.6.1+trunk
+VERSION = 0.6.90
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -170,28 +170,38 @@ TEXT_FILES = \
 	THANKS
 
 ICON_FILES = \
-	shotwell-street.jpg \
-	shotwell.svg \
-	shotwell.ico \
-	return-to-page.svg \
-	redeye.png \
-	publish.png \
-	pin-toolbar.svg \
-	object-rotate-right.svg \
-	object-rotate-left.svg \
-	object-flip-vertical.svg \
-	object-flip-horizontal.svg \
-	merge.svg \
-	make-primary.svg \
-	import-all.png \
-	import.svg \
-	hidden.svg \
-	favorite.svg \
-	enhance.png \
-	drag_nub.png \
+	adjust.png \
+	all-photos.svg \
+	all-rejected.svg \
 	crop-pivot-reticle.png \
 	crop.svg \
-	adjust.png \
+	drag_nub.png \
+	enhance.png \
+	five-star-filter.svg \
+	five-stars.svg \
+	four-star-filter-plus.svg \
+	four-stars.svg \
+	import-all.png \
+	import.svg \
+	make-primary.svg \
+	merge.svg \
+	object-flip-horizontal.svg \
+	object-flip-vertical.svg \
+	object-rotate-left.svg \
+	object-rotate-right.svg \
+	one-star-filter-plus.svg \
+	one-star.svg \
+	pin-toolbar.svg \
+	publish.png \
+	redeye.png \
+	rejected.svg \
+	shotwell.ico \
+	shotwell-street.jpg \
+	shotwell.svg \
+	three-star-filter-plus.svg \
+	three-stars.svg \
+	two-star-filter-plus.svg \
+	two-stars.svg
 
 VAPI_DIRS = \
 	./vapi

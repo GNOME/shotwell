@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.6.1+trunk\n"
+"Project-Id-Version: shotwell-0.6.90\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-06-06 01:24+0200\n"
@@ -54,29 +54,27 @@ msgid "Import from default %1$s library (%2$s)"
 msgstr "Importer des photos de l'album %1$s par défaut (%2$s)"
 
 #: src/AlienDatabaseImportDialog.vala:61
-#, c-format, fuzzy
+#, c-format
 msgid "Import from another %s database file:"
-msgstr "Importer depuis un autre album %s:"
+msgstr "Importer depuis un autre fichier de base de donnée %s :"
 
 #: src/AlienDatabaseImportDialog.vala:65
-#, c-format, fuzzy
+#, c-format
 msgid "Import from a %s database file:"
-msgstr "Importer depuis un album %s:"
+msgstr "Importer depuis un fichier de base de donnée %s :"
 
 #: src/AlienDatabaseImportDialog.vala:93
-#, fuzzy
 msgid "No database selected"
-msgstr "Pas d'album sélectionné"
+msgstr "Pas de base de donnée sélectionnée"
 
 #: src/AlienDatabaseImportDialog.vala:129
-#, fuzzy, c-format
+#, c-format
 msgid "%s Database"
-msgstr "Album %s"
+msgstr "Base de donnée %s"
 
 #: src/AlienDatabaseImportDialog.vala:146
-#, fuzzy
 msgid "Shotwell failed to load the database file"
-msgstr "Shotwell n'a pas pu charger l'album"
+msgstr "Shotwell n'a pas pu charger le fichier de base de données"
 
 #: src/AppDirs.vala:74
 msgid "Pictures"
@@ -1136,7 +1134,6 @@ msgstr "Votre compte Fickr Pro vous donne droit d'envoyer autant de photos que v
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
 msgstr "Photos visibles pour :"
-
 
 #: src/FlickrConnector.vala:850
 msgid "Photo _size:"
