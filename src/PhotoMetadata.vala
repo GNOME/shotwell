@@ -1010,5 +1010,25 @@ public class PhotoMetadata {
     public string? get_exposure_bias() {
         return get_string_interpreted("Exif.Photo.ExposureBiasValue");
     }
+    
+    private static string[] RATING_TAGS = {
+        "Xmp.xmp.Rating",
+        "Iptc.Application2.Urgency",
+        "Xmp.photoshop.Urgency"
+    };
+    
+    public Rating get_rating() {
+        string? rating_string = get_first_string(RATING_TAGS);
+        return rating_string == null ? Rating.UNRATED : Rating.unserialize(rating_string.to_int());
+    }
+    
+    // Among photo managers, Xmp.xmp.Rating tends to be the standard way to represent ratings.
+    // Other photo managers, notably F-Spot, take hints from Urgency fields about what the rating
+    // of an imported photo should be, and we have decided to do as well. Xmp.xmp.Rating is the only 
+    // field we've seen photo manages export ratings to, while Urgency fields seem to have a fundamentally
+    // different meaning. See http://trac.yorba.org/wiki/PhotoTags#Rating for more information.
+    public void set_rating(Rating rating) {
+        set_string("Xmp.xmp.Rating", rating.serialize().to_string());
+    }
 }
 

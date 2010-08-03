@@ -225,6 +225,11 @@ public enum Rating {
     }
 
     public static Rating unserialize(int value) {
+        if (value > FIVE)
+            return FIVE;
+        else if (value < REJECTED)
+            return REJECTED;
+        
         switch (value) {
             case -1:
                 return REJECTED;
@@ -685,6 +690,7 @@ public abstract class TransformablePhoto: PhotoSource {
         Orientation orientation = Orientation.TOP_LEFT;
         time_t exposure_time = 0;
         string title = "";
+        Rating rating = Rating.UNRATED;
         
 #if TRACE_MD5
         debug("importing MD5 %s: exif=%s preview=%s full=%s", file.get_basename(), detected.exif_md5,
@@ -699,6 +705,7 @@ public abstract class TransformablePhoto: PhotoSource {
             orientation = detected.metadata.get_orientation();
             title = detected.metadata.get_title();
             params.keywords = detected.metadata.get_keywords();
+            rating = detected.metadata.get_rating();
         }
         
         // verify basic mechanics of photo: RGB 8-bit encoding
@@ -731,6 +738,7 @@ public abstract class TransformablePhoto: PhotoSource {
         params.row.flags = 0;
         params.row.master.file_format = detected.file_format;
         params.row.title = title;
+        params.row.rating = rating;
         
         if (params.thumbnails != null) {
             PhotoFileReader reader = params.row.master.file_format.create_reader(
@@ -3788,7 +3796,7 @@ public class LibraryPhoto : Photo {
     }
 
     protected override bool has_user_generated_metadata() {
-        return Tag.global.fetch_for_photo(this) != null;
+        return true; // true because photos always have a rating
     }
 
     protected override void set_user_metadata_for_export(PhotoMetadata metadata) {
@@ -3800,6 +3808,8 @@ public class LibraryPhoto : Photo {
             }
             metadata.set_keywords(string_tags, false);
         }
+        
+        metadata.set_rating(get_rating());
     }
 }
 
