@@ -699,8 +699,8 @@ public class PhotoTable : DatabaseTable {
         int res = db.prepare_v2(
             "INSERT INTO PhotoTable (filename, width, height, filesize, timestamp, exposure_time, "
             + "orientation, original_orientation, import_id, event_id, md5, thumbnail_md5, "
-            + "exif_md5, time_created, file_format, title, editable_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            + "exif_md5, time_created, file_format, title, rating, editable_id) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -738,7 +738,9 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_text(16, photo_row.title);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(17, BackingPhotoID.INVALID);
+        res = stmt.bind_int64(17, photo_row.rating.serialize());
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(18, BackingPhotoID.INVALID);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
