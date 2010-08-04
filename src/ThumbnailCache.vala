@@ -275,10 +275,13 @@ public class ThumbnailCache : Object {
     // and slow down scrolling operations ... this delays reporting them, and only then reporting
     // them in one aggregate sum
     private static void schedule_debug() {
+#if MONITOR_THUMBNAIL_CACHE
         debug_scheduler.priority_after_timeout(Priority.LOW, 500, true);
+#endif
     }
 
     private static void report_cycle() {
+#if MONITOR_THUMBNAIL_CACHE
         if (cycle_fetched_thumbnails > 0) {
             debug("%d thumbnails fetched into memory", cycle_fetched_thumbnails);
             cycle_fetched_thumbnails = 0;
@@ -301,6 +304,7 @@ public class ThumbnailCache : Object {
                 cache.size.get_scale(), cache.cache_lru.size, cache.cached_bytes,
                 cache.max_cached_bytes, avg);
         }
+#endif
     }
     
     private Gdk.Pixbuf _fetch(ThumbnailSource source) throws Error {

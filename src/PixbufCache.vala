@@ -12,6 +12,12 @@ public class PixbufCache : Object {
         MASTER
     }
     
+    public class PixbufCacheBatch : Gee.TreeMultiMap<BackgroundJob.JobPriority, Photo> {
+        public PixbufCacheBatch() {
+            base (BackgroundJob.JobPriority.compare_func);
+        }
+    }
+    
     private abstract class FetchJob : BackgroundJob {
         public BackgroundJob.JobPriority priority;
         public Photo photo;
@@ -95,7 +101,7 @@ public class PixbufCache : Object {
         assert(max_count > 0);
         
         if (background_workers == null)
-            background_workers = new Workers(Workers.threads_per_cpu(1), false);
+            background_workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
         
         // monitor changes in the photos to discard from cache
         sources.item_altered.connect(on_source_altered);
@@ -202,6 +208,14 @@ public class PixbufCache : Object {
         BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
         foreach (Photo photo in photos)
             prefetch(photo, priority, force);
+    }
+    
+    // Like prefetch_many, but allows for priorities to be set for each photo
+    public void prefetch_batch(PixbufCacheBatch batch, bool force = false) {
+        foreach (BackgroundJob.JobPriority priority in batch.get_keys()) {
+            foreach (Photo photo in batch.get(priority))
+                prefetch(photo, priority, force);
+        }
     }
     
     public bool cancel_prefetch(Photo photo) {

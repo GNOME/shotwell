@@ -184,6 +184,10 @@ public abstract class BackgroundJob {
         public int compare(JobPriority other) {
             return (int) other - (int) this;
         }
+        
+        public static int compare_func(void *a, void *b) {
+            return (int) b - (int) a;
+        }
     }
     
     private class NotificationJob {
@@ -366,6 +370,12 @@ public class Workers {
     
     public static int threads_per_cpu(int per = 1) requires (per > 0) ensures (result > 0) {
         return number_of_processors() * per;
+    }
+    
+    // This is useful when the intent is for the worker threads to use all the CPUs minus one for
+    // the main/UI thread.  (No guarantees, of course.)
+    public static int thread_per_cpu_minus_one() ensures (result > 0) {
+        return (number_of_processors() - 1).clamp(1, int.MAX);
     }
     
     // Enqueues a BackgroundJob for work in a thread context.  BackgroundJob.execute() is called

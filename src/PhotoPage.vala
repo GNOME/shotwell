@@ -856,9 +856,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void prefetch_neighbors(ViewCollection controller, Photo photo) {
-        cache.prefetch(photo, BackgroundJob.JobPriority.HIGHEST);
-        master_cache.prefetch(photo, BackgroundJob.JobPriority.LOW);
-
+        PixbufCache.PixbufCacheBatch normal_batch = new PixbufCache.PixbufCacheBatch();
+        PixbufCache.PixbufCacheBatch master_batch = new PixbufCache.PixbufCacheBatch();
+        
+        normal_batch.set(BackgroundJob.JobPriority.HIGHEST, photo);
+        master_batch.set(BackgroundJob.JobPriority.LOW, photo);
+        
         DataSource next_source, prev_source;
         if (!controller.get_immediate_neighbors(photo, out next_source, out prev_source))
             return;
@@ -874,9 +877,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
             if (neighbor.equals(next) || neighbor.equals(prev))
                 priority = BackgroundJob.JobPriority.HIGH;
             
-            cache.prefetch(neighbor, priority);
-            master_cache.prefetch(neighbor, BackgroundJob.JobPriority.LOWEST);
+            normal_batch.set(priority, neighbor);
+            master_batch.set(BackgroundJob.JobPriority.LOWEST, neighbor);
         }
+        
+        cache.prefetch_batch(normal_batch);
+        master_cache.prefetch_batch(master_batch);
     }
     
     // Cancels prefetches of old neighbors, but does not cancel them if they are the new
