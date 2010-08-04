@@ -104,7 +104,7 @@ public class DataSet {
         return true;
     }
     
-    public bool add_many(Gee.List<DataObject> objects) {
+    public bool add_many(Gee.Collection<DataObject> objects) {
         int count = objects.size;
         if (count == 0)
             return true;
@@ -618,7 +618,7 @@ public class DataCollection {
     }
     
     // Returns false if item is already part of the collection.
-    public bool add(DataObject object) {
+    public virtual bool add(DataObject object) {
         if (internal_contains(object)) {
             debug("%s cannot add %s: already present", to_string(), object.to_string());
             
@@ -638,8 +638,9 @@ public class DataCollection {
         return true;
     }
     
-    // Returns number of items added to collection.
-    public int add_many(Gee.Collection<DataObject> objects, ProgressMonitor? monitor = null) {
+    // Returns the items added to the collection.
+    public virtual Gee.Collection<DataObject> add_many(Gee.Collection<DataObject> objects, 
+        ProgressMonitor? monitor = null) {
         Gee.ArrayList<DataObject> added = new Gee.ArrayList<DataObject>();
         foreach (DataObject object in objects) {
             if (internal_contains(object)) {
@@ -653,7 +654,7 @@ public class DataCollection {
         
         int count = added.size;
         if (count == 0)
-            return 0;
+            return added;
         
         internal_add_many(added, monitor);
         
@@ -665,7 +666,7 @@ public class DataCollection {
         for (int ctr = 0; ctr < count; ctr++)
             added.get(ctr).notify_membership_changed(this);
         
-        return count;
+        return added;
     }
     
     // Obtain a marker to build a list of objects to perform an action upon.
@@ -1650,6 +1651,34 @@ public class ViewCollection : DataCollection {
         else if (created_views != null && created_views.size > 0)
             add_many(created_views, monitor);
     }
+
+    public override bool add(DataObject object) {
+        if (!base.add(object))
+            return false;
+        
+        ((DataView) object).internal_set_visible(true);
+        add_many_visible((Gee.Collection<DataView>) get_singleton(object));
+        filter_altered_item(object);
+        
+        return true;
+    }
+
+    public override Gee.Collection<DataObject> add_many(Gee.Collection<DataObject> objects, 
+        ProgressMonitor? monitor = null) {
+        Gee.Collection<DataObject> return_list = base.add_many(objects, monitor);
+        
+        foreach (DataObject object in return_list) {
+            ((DataView) object).internal_set_visible(true);
+        }
+        
+        add_many_visible((Gee.Collection<DataView>) return_list);
+        
+        foreach (DataObject object in return_list) {
+            filter_altered_item(object);
+        }
+        
+        return return_list;
+    }
     
     private void on_sources_removed(Gee.Iterable<DataSource> removed) {
         // mark all view items associated with the source to be removed
@@ -2085,8 +2114,8 @@ public class ViewCollection : DataCollection {
     private bool is_visible(DataView view) {
         return (visible != null) ? visible.contains(view) : true;
     }
-    
-    private bool add_many_visible(Gee.List<DataView> many) {
+
+    private bool add_many_visible(Gee.Collection<DataView> many) {
         if (visible == null)
             return true;
         
