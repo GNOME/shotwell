@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.6.90\n"
+"Project-Id-Version: shotwell-0.6.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-02 08:58+0300\n"
+"PO-Revision-Date: 2010-08-04 16:07+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -1683,16 +1683,18 @@ msgid "Zoom _100%"
 msgstr "Масштаб _100%"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
+#, c-format
 msgid "Zoom the photo to 100% magnification"
-msgstr "Змінити масштаб фотографії до 100% розмірів"
+msgstr "Змінити масштаб фотографії до початкового"
 
 #: src/PhotoPage.vala:2231 src/PhotoPage.vala:3268
 msgid "Zoom _200%"
 msgstr "Масштаб _200%"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
+#, c-format
 msgid "Zoom the photo to 200% magnification"
-msgstr "Змінити масштаб фотографії до 200% розмірів"
+msgstr "Змінити масштаб фотографії до подвійного"
 
 #: src/PhotoPage.vala:2578 src/util.vala:596
 msgid "Remove From Library"
