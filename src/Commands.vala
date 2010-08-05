@@ -1321,21 +1321,25 @@ public class TrashUntrashPhotosCommand : PageCommand {
     private void trash(ProgressMonitor? monitor) {
         int ctr = 0;
         int count = photos.size;
+        LibraryPhoto.global.freeze_notifications();
         foreach (LibraryPhoto photo in photos) {
             photo.trash();
             if (monitor != null)
                 monitor(++ctr, count);
         }
+        LibraryPhoto.global.thaw_notifications();
     }
     
     private void untrash(ProgressMonitor? monitor) {
         int ctr = 0;
         int count = photos.size;
+        LibraryPhoto.global.freeze_notifications();
         foreach (LibraryPhoto photo in photos) {
             photo.untrash();
             if (monitor != null)
                 monitor(++ctr, count);
         }
+        LibraryPhoto.global.thaw_notifications();
     }
     
     private void on_photo_destroyed(DataSource source) {

@@ -344,7 +344,7 @@ public class ImportPage : CheckerboardPage {
         get_view().monitor_source_collection(import_sources, new ImportViewManager(this));
         
         // sort by exposure time
-        get_view().set_comparator(preview_comparator);
+        get_view().set_comparator(preview_comparator, preview_comparator_predicate);
         
         // monitor selection for UI
         get_view().items_state_changed.connect(on_view_changed);
@@ -432,9 +432,13 @@ public class ImportPage : CheckerboardPage {
         return Resources.ICON_SINGLE_PHOTO;
     }
 
-    private int64 preview_comparator(void *a, void *b) {
+    private static int64 preview_comparator(void *a, void *b) {
         return ((ImportPreview *) a)->get_import_source().get_exposure_time()
             - ((ImportPreview *) b)->get_import_source().get_exposure_time();
+    }
+    
+    private static bool preview_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "exposure-time");
     }
     
     private int64 import_job_comparator(void *a, void *b) {

@@ -24,6 +24,10 @@
 // animals like photo files.  We could be more liberal and treat this case as a metadata-changed
 // situation (since that's a likely case).
 //
+// NOTE: Current implementation is only to check all photos at initialization, with no auto-import
+// and no realtime monitoring (http://trac.yorba.org/ticket/2302).  Auto-import and realtime
+// monitoring will be added later.
+//
 
 public class LibraryMonitor : DirectoryMonitor {
     private const uint REST_MSEC_BETWEEN_IMPORT_ROLLS = 3 * 60 * 1000;
@@ -135,19 +139,13 @@ public class LibraryMonitor : DirectoryMonitor {
     private Gee.HashSet<LibraryPhoto> discovered = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<File> unknown = new Gee.HashSet<File>(file_hash, file_equal);
     private Gee.HashSet<LibraryPhoto> master_reimport_pending = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashSet<LibraryPhoto> mark_external_offline = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashSet<LibraryPhoto> mark_external_online = new Gee.HashSet<LibraryPhoto>();
     private int checksums_outstanding = 0;
-    
-    // Because the notifications can come in fast and furious, work is batched up and issued in
-    // bundles in the background
-    private Gee.HashMap<File, MonitorImportJob> pending_import_jobs = new Gee.HashMap<File,
-        MonitorImportJob>(file_hash, file_equal);
-    private BatchImportRoll current_import_roll = null;
-    private time_t time_of_last_import = 0;
+    private int verify_external_outstanding = 0;
     
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
-        
-        Timeout.add(CHECK_FOR_BATCHED_WORK_MSEC, perform_batched_work);
     }
     
     // If modification time or filesize has changed, treat that as a full-blown modification
@@ -156,44 +154,39 @@ public class LibraryMonitor : DirectoryMonitor {
     // that case).  See note at top as to why a matching filesize and timestamp of zero yields only
     // an update of the timestamp.
     //
+    // Returns true if the photo should be marked online, false if the caller should do nothing
+    // (the result will be taken care of by reimport).
+    //
     // TODO: We could do an MD5 check for more accuracy.
-    private void check_master_modified(LibraryPhoto photo, FileInfo info) {
+    private bool check_master_online(LibraryPhoto photo, FileInfo info) {
         BackingPhotoState state = photo.get_master_photo_state();
         if (state.matches_file_info(info)) {
-            photo.mark_online();
+            return true;
         } else if (info.get_size() == state.filesize && state.timestamp == 0) {
             mdbg("Updating %s master file timestamp".printf(photo.to_string()));
             try {
                 photo.update_master_modification_time(info);
-                photo.mark_online();
             } catch (DatabaseError err) {
                 AppWindow.database_error(err);
             }
+            
+            return true;
         } else if (!master_reimport_pending.contains(photo)) {
             mdbg("Reimporting %s master file".printf(photo.to_string()));
             master_reimport_pending.add(photo);
             workers.enqueue(new ReimportMasterJob(this, photo));
+            
+            return false;
         }
+        
+        return false;
     }
     
-    private void check_editable_modified(LibraryPhoto photo) {
+    private void check_editable_modified(LibraryPhoto photo, FileInfo info) {
         // If photo has editable, check if it's changed as well
-        File? editable = photo.get_editable_file();
-        BackingPhotoState? state = photo.get_editable_photo_state();
-        if (editable == null || state == null)
-            return;
-        
-        FileInfo? info = get_file_info(editable);
-        if (info == null) {
-            // this indicates the file had an editable but it's now deleted; simply
-            // remove from photo
-            photo.revert_to_master();
-            
-            return;
-        }
-        
         // If state matches, done -- editables have no bearing on a photo's offline status.
-        if (state.matches_file_info(info))
+        BackingPhotoState? state = photo.get_editable_photo_state();
+        if (state == null || state.matches_file_info(info))
             return;
         
         // see note at top for why this is done
@@ -214,63 +207,6 @@ public class LibraryMonitor : DirectoryMonitor {
                     err.message);
             }
         }
-    }
-    
-    private BatchImportRoll get_import_roll() {
-        ulong now = now_ms();
-        ulong diff = now - time_of_last_import;
-        if (current_import_roll == null || diff > REST_MSEC_BETWEEN_IMPORT_ROLLS)
-            current_import_roll = new BatchImportRoll();
-        
-        time_of_last_import = (time_t) now;
-        
-        return current_import_roll;
-    }
-    
-    private void import_added_file(File file, FileInfo info) {
-        // use some simple tests to avoid a whole mess of work for files that are obviously
-        // uninteresting ... replacing an existing job is okay, since the FileInfo may be updated
-        if (TransformablePhoto.is_file_supported(file))
-            pending_import_jobs.set(file, new MonitorImportJob(file, info));
-    }
-    
-    private void import_added_files(Gee.Collection<File> files) {
-        if (files.size == 0)
-            return;
-        
-        foreach (File file in files) {
-            FileInfo? info = get_file_info(file);
-            assert(info != null);
-            
-            import_added_file(file, info);
-        }
-    }
-    
-    private bool perform_batched_work() {
-        if (cancellable.is_cancelled())
-            return false;
-        
-        if (pending_import_jobs.size > 0) {
-            // copy all the jobs over to a separate list (BatchImport will hold on to it) and
-            // clear the pending list
-            Gee.ArrayList<MonitorImportJob> jobs = new Gee.ArrayList<MonitorImportJob>();
-            jobs.add_all(pending_import_jobs.values);
-            pending_import_jobs.clear();
-            
-            debug("Auto-importing %d files".printf(jobs.size));
-            
-            BatchImport batch_import = new BatchImport(jobs, "LibraryMonitor", on_batch_import_complete,
-                null, null, cancellable, get_import_roll());
-            
-            LibraryWindow.get_app().enqueue_batch_import(batch_import, false);
-        }
-        
-        return true;
-    }
-    
-    private void on_batch_import_complete(ImportManifest manifest) {
-        debug("Auto-imported %d files, %d skipped or failed", manifest.success.size,
-            manifest.all.size - manifest.success.size);
     }
     
     public override void close() {
@@ -306,7 +242,7 @@ public class LibraryMonitor : DirectoryMonitor {
             break;
             
             case LibraryPhotoSourceCollection.State.EDITABLE:
-                // don't store editables, by don't add them to unknown either
+                // don't store editables, but don't add them to unknown either
             break;
             
             default:
@@ -413,6 +349,7 @@ public class LibraryMonitor : DirectoryMonitor {
     
     private void on_all_checksums_completed() {
         // go through all discovered online photos and see if they've changed since last imported
+        LibraryPhoto.global.freeze_notifications();
         foreach (LibraryPhoto photo in discovered) {
             FileInfo? master_info = get_file_info(photo.get_master_file());
             if (master_info == null) {
@@ -425,20 +362,45 @@ public class LibraryMonitor : DirectoryMonitor {
                 continue;
             }
             
-            check_master_modified(photo, master_info);
+            if (check_master_online(photo, master_info))
+                photo.mark_online();
             
-            if (photo.has_editable())
-                check_editable_modified(photo);
+            if (photo.has_editable()) {
+                File? editable = photo.get_editable_file();
+                assert(editable != null);
+                
+                FileInfo? info = get_file_info(editable);
+                if (info == null) {
+                    // this indicates the file had an editable but it's now deleted; simply
+                    // remove from photo
+                    photo.revert_to_master();
+                    
+                    continue;
+                }
+                
+                check_editable_modified(photo, info);
+            }
         }
+        LibraryPhoto.global.thaw_notifications();
+        
+        // because verifying all the external photos can take some time, don't freeze notifications
+        // while waiting, but collect the online/offline photos and then mark them all while
+        // notifications are frozen
+        mark_external_online.clear();
+        mark_external_offline.clear();
         
         // go through all photos and mark as online/offline depending on discovery
         Marker to_offline = LibraryPhoto.global.start_marking();
         foreach (DataObject object in LibraryPhoto.global.get_all()) {
             LibraryPhoto photo = (LibraryPhoto) object;
             
-            // only deal with photos under this monitor
-            if (!is_in_root(photo.get_master_file()))
+            // only deal with photos under this monitor; external photos get a simpler verification
+            if (!is_in_root(photo.get_master_file())) {
+                verify_external_outstanding++;
+                verify_external_photo.begin(photo, verify_external_complete);
+                
                 continue;
+            }
             
             // Don't mark online if in discovered, the prior loop works through those issues
             if (!discovered.contains(photo)) {
@@ -449,8 +411,11 @@ public class LibraryMonitor : DirectoryMonitor {
         
         LibraryPhoto.global.mark_offline(to_offline);
         
-        // import remaining unknowns
-        import_added_files(unknown);
+        // go through all the offline photos and see if they're online now
+        foreach (LibraryPhoto photo in LibraryPhoto.global.get_offline()) {
+            verify_external_outstanding++;
+            verify_external_photo.begin(photo, verify_external_complete);
+        }
         
         // clear both buckets to drop all refs
         discovered.clear();
@@ -463,78 +428,53 @@ public class LibraryMonitor : DirectoryMonitor {
         base.discovery_completed();
     }
     
-    public override void file_created(File file, FileInfo info) {
-        // see if this an offline file returned for business
-        bool already_known = false;
-        foreach (LibraryPhoto photo in LibraryPhoto.global.get_offline()) {
-            if (photo.get_master_file().equal(file)) {
-                mdbg("Photo backing for %s recreated".printf(photo.to_string()));
-                
-                check_master_modified(photo, info);
-                already_known = true;
-                
-                break;
-            }
-        }
-        
-        if (!already_known)
-            import_added_file(file, info);
-        
-        base.file_created(file, info);
-    }
-    
-    public override void file_moved(File old_file, File new_file, FileInfo new_file_info) {
-        LibraryPhoto? photo = null;
-        if ((photo = LibraryPhoto.global.fetch_by_master_file(old_file)) != null) {
-            mdbg("Photo backing %s moved to %s".printf(old_file.get_path(), new_file.get_path()));
-            photo.set_master_file(new_file);
-        } else if ((photo = LibraryPhoto.global.fetch_by_editable_file(old_file)) != null) {
-            mdbg("Photo editable backing %s moved to %s".printf(old_file.get_path(),
-                new_file.get_path()));
-            photo.set_editable_file(new_file);
-        }
-        
-        base.file_moved(old_file, new_file, new_file_info);
-    }
-    
-    public override void file_alteration_completed(File file, FileInfo info) {
-        LibraryPhoto? photo = null;
-        if ((photo = LibraryPhoto.global.fetch_by_master_file(file)) != null)
-            check_master_modified(photo, info);
-        else if ((photo = LibraryPhoto.global.fetch_by_editable_file(file)) != null)
-            check_editable_modified(photo);
-        
-        base.file_alteration_completed(file, info);
-    }
-    
-    public override void file_attributes_altered(File file, FileInfo info) {
+    private async void verify_external_photo(LibraryPhoto photo) {
+        File master = photo.get_master_file();
+        FileInfo? master_info = null;
         try {
-            LibraryPhoto? photo = null;
-            if ((photo = LibraryPhoto.global.fetch_by_master_file(file)) != null) {
-                mdbg("Photo backing %s attributes altered".printf(file.get_path()));
-                photo.update_master_modification_time(info);
-            } else if ((photo = LibraryPhoto.global.fetch_by_editable_file(file)) != null) {
-                mdbg("Photo editable backing %s attributes altered".printf(file.get_path()));
-                photo.update_editable_modification_time(info);
-            }
-        } catch (DatabaseError err) {
-            AppWindow.database_error(err);
+            master_info = yield master.query_info_async(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.DEFAULT, cancellable);
+        } catch (Error err) {
+            mark_external_offline.add(photo);
+            
+            return;
         }
         
-        base.file_attributes_altered(file, info);
+        if (check_master_online(photo, master_info))
+            mark_external_online.add(photo);
+        
+        File? editable = photo.get_editable_file();
+        if (editable == null)
+            return;
+        
+        FileInfo? editable_info = null;
+        try {
+            editable_info = yield editable.query_info_async(DirectoryMonitor.SUPPLIED_ATTRIBUTES,
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.DEFAULT, cancellable);
+        } catch (Error err2) {
+            return;
+        }
+        
+        check_editable_modified(photo, editable_info);
     }
     
-    public override void file_deleted(File file) {
-        LibraryPhoto? photo = null;
-        if ((photo = LibraryPhoto.global.fetch_by_master_file(file)) != null) {
-            mdbg("Marking %s offline: master backing deleted".printf(photo.to_string()));
-            photo.mark_offline();
-        } else if ((photo = LibraryPhoto.global.fetch_by_editable_file(file)) != null) {
-            mdbg("Removing editable from %s: backing deleted".printf(photo.to_string()));
-            photo.revert_to_master();
-        }
+    private void verify_external_complete() {
+        assert(verify_external_outstanding > 0);
+        if (--verify_external_outstanding > 0)
+            return;
         
-        base.file_deleted(file);
+        // deal with all the photos that need to change state, with notifications frozen
+        LibraryPhoto.global.freeze_notifications();
+        foreach (LibraryPhoto photo in mark_external_offline)
+            photo.mark_offline();
+        
+        foreach (LibraryPhoto photo in mark_external_online)
+            photo.mark_online();
+        LibraryPhoto.global.thaw_notifications();
+        
+        // clear to drop refs
+        mark_external_offline.clear();
+        mark_external_online.clear();
     }
     
     private void on_master_reimported(BackgroundJob j) {

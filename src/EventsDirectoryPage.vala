@@ -151,7 +151,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         base(page_name);
         
         // set comparator before monitoring source collection, to prevent a re-sort
-        get_view().set_comparator(get_event_comparator());
+        get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
         get_view().monitor_source_collection(Event.global, view_manager, initial_events);
         
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
@@ -180,11 +180,15 @@ public class EventsDirectoryPage : CheckerboardPage {
         get_view().items_state_changed.disconnect(on_selection_changed);
     }
     
-    private int64 event_ascending_comparator(void *a, void *b) {
+    private static int64 event_ascending_comparator(void *a, void *b) {
         time_t start_a = ((EventDirectoryItem *) a)->event.get_start_time();
         time_t start_b = ((EventDirectoryItem *) b)->event.get_start_time();
         
         return start_a - start_b;
+    }
+    
+    protected static bool event_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "time");
     }
     
     private int64 event_descending_comparator(void *a, void *b) {
@@ -278,7 +282,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
 
     public void notify_sort_changed() {
-        get_view().set_comparator(get_event_comparator());
+        get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
     }
     
     private void on_view_menu() {

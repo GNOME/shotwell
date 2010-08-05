@@ -2988,7 +2988,9 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     private Gee.HashSet<LibraryPhoto> trashcan = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashSet<LibraryPhoto> trashcan_relinks = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<LibraryPhoto> offline = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashSet<LibraryPhoto> offline_relinks = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashMap<File, LibraryPhoto> by_master_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
@@ -3086,7 +3088,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             by_editable_file.set(new_file, photo);
     }
     
-    protected override void notify_items_altered(Gee.Map<DataObject, Alteration> items) {
+    protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
         Marker to_trashcan = start_marking();
         Marker to_offline = start_marking();
         foreach (DataObject object in items.keys) {
@@ -3423,6 +3425,12 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         bool removed = trashcan.remove(photo);
         assert(removed);
         
+        if (are_notifications_frozen()) {
+            trashcan_relinks.add(photo);
+            
+            return;
+        }
+        
         notify_trashcan_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
         
         relink(photo);
@@ -3442,9 +3450,36 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         bool removed = offline.remove(photo);
         assert(removed);
         
+        if (are_notifications_frozen()) {
+            offline_relinks.add(photo);
+            
+            return;
+        }
+        
         notify_offline_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
         
         relink(photo);
+    }
+    
+    protected override void thawed() {
+        // refs are swapped around due to reentrancy
+        if (trashcan_relinks.size > 0) {
+            Gee.HashSet<LibraryPhoto> copy = trashcan_relinks;
+            trashcan_relinks = new Gee.HashSet<LibraryPhoto>();
+            
+            notify_trashcan_contents_altered(null, copy);
+            relink_many(copy);
+        }
+        
+        if (offline_relinks.size > 0) {
+            Gee.HashSet<LibraryPhoto> copy = offline_relinks;
+            offline_relinks = new Gee.HashSet<LibraryPhoto>();
+            
+            notify_offline_contents_altered(null, copy);
+            relink_many(copy);
+        }
+        
+        base.thawed();
     }
     
     public override bool has_backlink(SourceBacklink backlink) {
@@ -3510,7 +3545,7 @@ public class LibraryPhoto : Photo {
     public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
         mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
-        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true, true);
+        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true, false);
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
@@ -3537,18 +3572,24 @@ public class LibraryPhoto : Photo {
         global.add_many_to_offline(offline_photos);
         
         // only start discovery after global has been initialized and loaded
-        if (enable_monitoring) {
-            try {
-                library_monitor.start_discovery();
-            } catch (Error err) {
-                debug("unable to monitor library: %s", err.message);
-            }
-        }
+        Timeout.add(500, start_discovery);
     }
     
     public static void terminate() {
         if (library_monitor != null)
             library_monitor.close();
+    }
+    
+    private static bool start_discovery() {
+        try {
+            if (library_monitor != null)
+                library_monitor.start_discovery();
+        } catch (Error err) {
+            warning("Unable to monitor library %s: %s", AppDirs.get_import_dir().get_path(),
+                err.message);
+        }
+        
+        return false;
     }
     
     // This accepts a PhotoRow that was prepared with TransformablePhoto.prepare_for_import and

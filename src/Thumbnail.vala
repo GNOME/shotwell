@@ -114,44 +114,50 @@ public class Thumbnail : CheckerboardItem {
     
     public static int64 title_ascending_comparator(void *a, void *b) {
         int64 result = strcmp(((Thumbnail *) a)->photo.get_name(), ((Thumbnail *) b)->photo.get_name());
-        if (result == 0)
-            result = photo_id_ascending_comparator(a, b);
-        return result;
+        
+        return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
     
     public static int64 title_descending_comparator(void *a, void *b) {
         int64 result = title_ascending_comparator(b, a);
-        if (result == 0)
-            result = photo_id_descending_comparator(a, b);
-        return result;
+        
+        return (result != 0) ? result : photo_id_descending_comparator(a, b);
+    }
+    
+    public static bool title_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "title");
     }
     
     public static int64 exposure_time_ascending_comparator(void *a, void *b) {
         int64 result = ((Thumbnail *) a)->photo.get_exposure_time() - ((Thumbnail *) b)->photo.get_exposure_time();
-        if (result == 0)
-            result = photo_id_ascending_comparator(a, b);
-        return result;
+        
+        return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
     
     public static int64 exposure_time_desending_comparator(void *a, void *b) {
         int64 result = exposure_time_ascending_comparator(b, a);
-        if (result == 0)
-            result = photo_id_descending_comparator(a, b);
-        return result;
+        
+        return (result != 0) ? result : photo_id_descending_comparator(a, b);
     }
-
+    
+    public static bool exposure_time_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "exposure-time");
+    }
+    
     public static int64 rating_ascending_comparator(void *a, void *b) {
         int64 result = ((Thumbnail *) a)->photo.get_rating() - ((Thumbnail *) b)->photo.get_rating();
-        if (result == 0)
-            result = photo_id_ascending_comparator(a, b);
-        return result;
+        
+        return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
 
     public static int64 rating_descending_comparator(void *a, void *b) {
         int64 result = rating_ascending_comparator(b, a);
-        if (result == 0)
-            result = photo_id_descending_comparator(a, b);
-        return result;
+        
+        return (result != 0) ? result : photo_id_descending_comparator(a, b);
+    }
+    
+    public static bool rating_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "rating");
     }
     
     private override void thumbnail_altered() {

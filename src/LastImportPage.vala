@@ -19,6 +19,8 @@ public class LastImportPage : CollectionPage {
         }
     }
     
+    private ImportID last_import_id = ImportID();
+    
     public LastImportPage() {
         base (_("Last Import"));
         
@@ -34,13 +36,22 @@ public class LastImportPage : CollectionPage {
     }
 
     private void on_import_rolls_altered() {
-        get_view().halt_monitoring();
-        
-        ImportID? last_import_id = LibraryPhoto.global.get_last_import_id();
-        if (last_import_id != null) {
-            get_view().monitor_source_collection(LibraryPhoto.global,
-                new LastImportViewManager(this, last_import_id));
+        // see if there's a new last ImportID, or no last import at all
+        ImportID? current_last_import_id = LibraryPhoto.global.get_last_import_id();
+        if (current_last_import_id == null) {
+            get_view().halt_monitoring();
+            get_view().clear();
+            
+            return;
         }
+        
+        if (current_last_import_id.id == last_import_id.id)
+            return;
+        
+        last_import_id = current_last_import_id;
+        
+        get_view().monitor_source_collection(LibraryPhoto.global,
+            new LastImportViewManager(this, last_import_id));
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {

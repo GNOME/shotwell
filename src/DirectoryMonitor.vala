@@ -391,7 +391,8 @@ public class DirectoryMonitor : Object {
     public virtual signal void directory_discovered(File file, FileInfo info) {
     }
     
-    // reason is a user-visible string
+    // reason is a user-visible string.  May be called more than once during discovery.
+    // Discovery always completes with discovery-completed.
     public virtual signal void discovery_failed(string reason) {
     }
     
@@ -772,6 +773,8 @@ public class DirectoryMonitor : Object {
             } catch (Error err) {
                 warning("Unable to retrieve info on %s: %s", dir.get_path(), err.message);
                 
+                explore_directory_completed(in_discovery);
+                
                 return;
             }
         }
@@ -779,6 +782,8 @@ public class DirectoryMonitor : Object {
         // verify this is a directory
         if (local_dir_info.get_file_type() != FileType.DIRECTORY) {
             notify_discovery_failed(_("Unable to monitor %s: Not a directory").printf(dir.get_path()));
+            
+            explore_directory_completed(in_discovery);
             
             return;
         }
@@ -824,6 +829,8 @@ public class DirectoryMonitor : Object {
         } catch (Error err2) {
             warning("Aborted directory traversal of %s: %s", dir.get_path(), err2.message);
             
+            explore_directory_completed(in_discovery);
+            
             return;
         }
         
@@ -856,7 +863,12 @@ public class DirectoryMonitor : Object {
             }
         }
         
-        // if last directory, report that discovery is complete
+        explore_directory_completed(in_discovery);
+    }
+    
+    // called whenever exploration of a directory is completed, to know when to signal that
+    // discovery has ended
+    private void explore_directory_completed(bool in_discovery) {
         if (in_discovery) {
             assert(outstanding_exploration_dirs > 0);
             if (--outstanding_exploration_dirs == 0)

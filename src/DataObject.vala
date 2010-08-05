@@ -51,7 +51,7 @@ public class Alteration {
         assert(pairs.length >= 1);
         
         foreach (string pair in pairs) {
-            string[] subject_detail = pair.split(":", 1);
+            string[] subject_detail = pair.split(":", 2);
             assert(subject_detail.length == 2);
             
             add_detail(subject_detail[0], subject_detail[1]);
@@ -134,6 +134,28 @@ public class Alteration {
         }
         
         return false;
+    }
+    
+    public string to_string() {
+        if (subject != null) {
+            assert(detail != null);
+            
+            return "%s:%s".printf(subject, detail);
+        }
+        
+        assert(map != null);
+        
+        string str = "";
+        foreach (string key in map.get_keys()) {
+            foreach (string value in map.get(key)) {
+                if (str.length != 0)
+                    str += ", ";
+                
+                str += "%s:%s".printf(key, value);
+            }
+        }
+        
+        return str;
     }
     
     public bool equals(Alteration other) {
@@ -240,6 +262,7 @@ public abstract class DataObject : Object {
     private int64 object_id = INVALID_OBJECT_ID;
     private DataCollection member_of = null;
     private int64 ordinal = DataCollection.INVALID_OBJECT_ORDINAL;
+    private Alteration frozen_alteration = null;
     
     // This signal is fired when the source of the data is altered in a way that's significant
     // to how it's represented in the application.  This base signal must be called by child
@@ -258,6 +281,9 @@ public abstract class DataObject : Object {
         if (member_of != null) {
             if (!member_of.are_notifications_frozen())
                 altered(alteration);
+            else
+                frozen_alteration = (frozen_alteration == null) ? alteration
+                    : frozen_alteration.compress(alteration);
         } else {
             altered(alteration);
         }
@@ -326,6 +352,21 @@ public abstract class DataObject : Object {
         assert(member_of != null);
 
         return ordinal;
+    }
+    
+    // This method is only called by DataCollection
+    public virtual void internal_collection_thawed() {
+        // if captured one or more alterations while frozen, fire them now
+        if (frozen_alteration == null)
+            return;
+        
+        // swap due to possible reentrancy
+        Alteration copy = frozen_alteration;
+        frozen_alteration = null;
+        
+        // don't call notify_altered(), as that will redirect the Alteration to the DataCollection,
+        // which is already handling this for its observers
+        altered(copy);
     }
 
     public inline int64 get_object_id() {
@@ -445,6 +486,7 @@ public abstract class DataSource : DataObject {
     private bool in_contact = false;
     private bool marked_for_destroy = false;
     private bool is_destroyed = false;
+    private Alteration frozen_alteration = null;
     
     // This signal is fired after the DataSource has been unlinked from its SourceCollection.
     public virtual signal void unlinked(SourceCollection sources) {
@@ -470,10 +512,29 @@ public abstract class DataSource : DataObject {
     }
     
     public override void notify_altered(Alteration alteration) {
-        // signal reflection
-        contact_subscribers_alteration(subscriber_altered, alteration);
+        // if SourceCollection is frozen, freeze notifications to subscribers as well
+        if (get_membership() != null && get_membership().are_notifications_frozen()) {
+            frozen_alteration = (frozen_alteration == null) ? alteration
+                : frozen_alteration.compress(alteration);
+        } else {
+            // signal reflection
+            contact_subscribers_alteration(subscriber_altered, alteration);
+        }
         
+        // call base class in all cases
         base.notify_altered(alteration);
+    }
+    
+    public override void internal_collection_thawed() {
+        if (frozen_alteration != null) {
+            // swap out due to possible reentrancy
+            Alteration alteration = frozen_alteration;
+            frozen_alteration = null;
+            
+            contact_subscribers_alteration(subscriber_altered, alteration);
+        }
+        
+        base.internal_collection_thawed();
     }
     
     private void subscriber_altered(DataView view, Alteration alteration) {

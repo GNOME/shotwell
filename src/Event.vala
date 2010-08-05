@@ -63,7 +63,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         }
 
         public override bool include_in_view(DataSource source) {
-            return ((TransformablePhoto) source).get_event_id().id == event_id.id;
+            return ((Photo) source).get_event_id().id == event_id.id;
         }
 
         public override DataView create_view(DataSource source) {
@@ -152,7 +152,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
             event_photos.add(LibraryPhoto.global.fetch(photo_id));
         
         view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
-        view.set_comparator(view_comparator);
+        view.set_comparator(view_comparator, view_comparator_predicate);
         view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id), event_photos); 
         
         // need to do this manually here because only want to monitor ViewCollection contents after
@@ -244,6 +244,10 @@ public class Event : EventSource, ContainerSource, Proxyable {
             - ((PhotoView *) b)->get_photo_source().get_exposure_time();
     }
     
+    private static bool view_comparator_predicate(DataObject object, Alteration alteration) {
+        return alteration.has_detail("metadata", "exposure-time");
+    }
+    
     private Gee.ArrayList<LibraryPhoto> views_to_photos(Gee.Iterable<DataObject> views) {
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         foreach (DataObject object in views)
@@ -257,7 +261,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         global.notify_container_contents_added(this, photos);
         global.notify_container_contents_altered(this, photos, null);
         
-        notify_altered(new Alteration("contents", "added"));
+        notify_altered(new Alteration.from_list("contents:added, metadata:time"));
     }
     
     // Event needs to know whenever a photo is removed from the system to update the event
@@ -288,7 +292,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
             return;
         }
         
-        notify_altered(new Alteration("contents", "removed"));
+        notify_altered(new Alteration.from_list("contents:removed, metadata:time"));
     }
     
     public override void notify_relinking(SourceCollection sources) {

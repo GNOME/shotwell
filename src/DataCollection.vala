@@ -22,10 +22,15 @@
 // operation is probably best done by a Gee.ArrayList.
 //
 
+// ComparatorPredicate is used to determine if a re-sort operation is necessary; it has no
+// effect on adding a DataObject to a DataSet in sorted order.
+public delegate bool ComparatorPredicate(DataObject object, Alteration alteration);
+
 public class DataSet {
     private SortedList<DataObject> list = new SortedList<DataObject>();
     private Gee.HashSet<DataObject> hash_set = new Gee.HashSet<DataObject>();
     private Comparator user_comparator = null;
+    private ComparatorPredicate? comparator_predicate = null;
     
     public DataSet() {
         reset_comparator();
@@ -60,11 +65,13 @@ public class DataSet {
     
     public void reset_comparator() {
         user_comparator = null;
+        comparator_predicate = null;
         list.resort(order_added_comparator);
     }
     
-    public void set_comparator(Comparator user_comparator) {
+    public void set_comparator(Comparator user_comparator, ComparatorPredicate? comparator_predicate) {
         this.user_comparator = user_comparator;
+        this.comparator_predicate = comparator_predicate;
         list.resort(comparator_wrapper);
     }
     
@@ -147,7 +154,12 @@ public class DataSet {
     }
     
     // Returns true if the item has moved.
-    public bool resort_object(DataObject object) {
+    public bool resort_object(DataObject object, Alteration? alteration) {
+        if (comparator_predicate != null && alteration != null
+            && !comparator_predicate(object, alteration)) {
+            return false;
+        }
+        
         return list.resort_item(object);
     }
 }
@@ -451,8 +463,7 @@ public class DataCollection {
     }
     
     // This signal fires whenever any (or multiple) items in the collection signal they've been
-    // altered.  This is more useful than item_altered() because it isn't blocked when notifications
-    // are frozen and is called when they are thawed.
+    // altered.  This is more efficient than being called for each altered item.
     public virtual signal void items_altered(Gee.Map<DataObject, Alteration> items) {
     }
 
@@ -539,8 +550,8 @@ public class DataCollection {
         return true;
     }
     
-    public virtual void set_comparator(Comparator comparator) {
-        dataset.set_comparator(comparator);
+    public virtual void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
+        dataset.set_comparator(comparator, predicate);
         notify_ordering_changed();
     }
     
@@ -801,7 +812,7 @@ public class DataCollection {
     public void internal_notify_altered(DataObject object, Alteration alteration) {
         assert(internal_contains(object));
         
-        bool resort_occurred = dataset.resort_object(object);
+        bool resort_occurred = dataset.resort_object(object, alteration);
         
         if (are_notifications_frozen()) {
             if (frozen_items_altered == null)
@@ -878,14 +889,11 @@ public class DataCollection {
     // fired at once.
     //
     // DataObject/DataSource/DataView should also "eat" their signals as well, to prevent observers
-    // from being notified while their collection is frozen.
+    // from being notified while their collection is frozen, and only fire them when
+    // internal_collection_thawed is called.
     //
     // For DataCollection, the signals affected are item_altered, item_metadata_altered, and
     // ordering_changed (and their corresponding signals in DataObject).
-    //
-    // WARNING: In current implementation, this drops incoming signals from the DataObjects, relying
-    // on aggregate signals (items_altered rather than item_altered, etc.) to notify observers.
-    // This should be used selectively, and with caution.
     public void freeze_notifications() {
         if (notifies_frozen++ == 0)
             frozen();
@@ -912,16 +920,24 @@ public class DataCollection {
     // should issue caught notifications.
     protected virtual void thawed() {
         if (frozen_items_altered != null) {
-            foreach (DataObject object in frozen_items_altered.keys)
-                notify_item_altered(object, frozen_items_altered.get(object));
-            notify_items_altered(frozen_items_altered);
+            // refs are swapped around due to reentrancy
+            Gee.Map<DataObject, Alteration> copy = frozen_items_altered;
             frozen_items_altered = null;
+            
+            foreach (DataObject object in copy.keys)
+                notify_item_altered(object, copy.get(object));
+            notify_items_altered(copy);
         }
         
         if (fire_ordering_changed) {
             fire_ordering_changed = false;
             notify_ordering_changed();
         }
+        
+        // notify all members as well
+        int count = get_count();
+        for (int ctr = 0; ctr < count; ctr++)
+            get_at(ctr).internal_collection_thawed();
     }
 }
 
@@ -1207,8 +1223,6 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         Gee.Collection<DataSource> added) {
         // if source is in holding tank, remove it now and relink to collection
         if (holding_tank.contains(container)) {
-            debug("Adding %s from holding tank in %s", container.to_string(), to_string());
-            
             bool removed = holding_tank.remove(container);
             assert(removed);
             
@@ -1255,6 +1269,8 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     private void on_contained_sources_unlinking(Gee.Collection<DataSource> unlinking) {
+        contained_sources.freeze_notifications();
+        
         foreach (DataSource source in unlinking) {
             Gee.Collection<ContainerSource>? containers = get_containers_holding_source(source);
             if (containers == null || containers.size == 0)
@@ -1266,9 +1282,13 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
             foreach (ContainerSource container in containers)
                 container.break_link(source);
         }
+        
+        contained_sources.thaw_notifications();
     }
     
     private void on_contained_sources_relinked(Gee.Collection<DataSource> relinked) {
+        contained_sources.freeze_notifications();
+        
         foreach (DataSource source in relinked) {
             Gee.List<SourceBacklink>? backlinks = source.get_backlinks(backlink_name);
             if (backlinks == null || backlinks.size == 0)
@@ -1283,6 +1303,8 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
                         backlink.to_string());
             }
         }
+        
+        contained_sources.thaw_notifications();
     }
     
     private void on_contained_source_destroyed(DataSource source) {
@@ -1290,9 +1312,6 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         while (iter.next()) {
             ContainerSource container = iter.get();
             if (!container.has_links()) {
-                debug("Destroying %s in %s holding tank: no more backlinks", container.to_string(),
-                    to_string());
-                
                 iter.remove();
                 container.destroy_orphan(true);
             }
@@ -1311,14 +1330,10 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     // destroyed.
     public void evaporate(ContainerSource container) {
         if (contained_sources.has_backlink(container.get_backlink())) {
-            debug("Unlinking %s to %s holding tank", container.to_string(), to_string());
-            
             unlink_marked(mark(container));
             bool added = holding_tank.add(container);
             assert(added);
         } else {
-            debug("Destroying %s in %s", container.to_string(), to_string());
-            
             destroy_marked(mark(container), true);
         }
     }
@@ -1513,14 +1528,14 @@ public class ViewCollection : DataCollection {
         // those changes in this collection
         sources.items_added.connect(on_sources_added);
         sources.items_removed.connect(on_sources_removed);
-        sources.item_altered.connect(on_source_altered);
+        sources.items_altered.connect(on_sources_altered);
     }
     
     public void halt_monitoring() {
         if (sources != null) {
             sources.items_added.disconnect(on_sources_added);
             sources.items_removed.disconnect(on_sources_removed);
-            sources.item_altered.disconnect(on_source_altered);
+            sources.items_altered.disconnect(on_sources_altered);
         }
         
         sources = null;
@@ -1656,9 +1671,12 @@ public class ViewCollection : DataCollection {
         if (!base.add(object))
             return false;
         
-        ((DataView) object).internal_set_visible(true);
-        add_many_visible((Gee.Collection<DataView>) get_singleton(object));
-        filter_altered_item(object);
+        DataView view = (DataView) object;
+        Gee.Collection<DataView> views = (Gee.Collection<DataView>) get_singleton(view);
+        
+        view.internal_set_visible(true);
+        add_many_visible(views);
+        filter_altered_items(views);
         
         return true;
     }
@@ -1667,15 +1685,11 @@ public class ViewCollection : DataCollection {
         ProgressMonitor? monitor = null) {
         Gee.Collection<DataObject> return_list = base.add_many(objects, monitor);
         
-        foreach (DataObject object in return_list) {
+        foreach (DataObject object in return_list)
             ((DataView) object).internal_set_visible(true);
-        }
         
         add_many_visible((Gee.Collection<DataView>) return_list);
-        
-        foreach (DataObject object in return_list) {
-            filter_altered_item(object);
-        }
+        filter_altered_items((Gee.Collection<DataView>) return_list);
         
         return return_list;
     }
@@ -1699,28 +1713,48 @@ public class ViewCollection : DataCollection {
             remove_marked(marker);
     }
     
-    private void on_source_altered(DataObject object, Alteration alteration) {
-        DataSource source = (DataSource) object;
-        
+    private void on_sources_altered(Gee.Map<DataObject, Alteration> items) {
         // let ViewManager decide whether or not to keep, but only add if not already present
         // and only remove if already present
-        bool include = manager.include_in_view(source);
-        if (include && !has_view_for_source(source)) {
-            add(manager.create_view(source));
-        } else if (!include && has_view_for_source(source)) {
-            Marker marker = mark(get_view_for_source(source));
-            remove_marked(marker);
-        } else if (include && has_view_for_source(source)) {
-            DataView view = get_view_for_source(source);
+        Gee.ArrayList<DataView> to_add = null;
+        Gee.ArrayList<DataView> to_remove = null;
+        bool ordering_changed = false;
+        foreach (DataObject object in items.keys) {
+            DataSource source = (DataSource) object;
+            Alteration alteration = items.get(object);
             
-            if (selected.contains(view))
-                selected.resort_object(view);
-            
-            if (visible != null && is_visible(view)) {
-                if (visible.resort_object(view))
-                    notify_ordering_changed();
+            bool include = manager.include_in_view(source);
+            if (include && !has_view_for_source(source)) {
+                if (to_add == null)
+                    to_add = new Gee.ArrayList<DataView>();
+                
+                to_add.add(manager.create_view(source));
+            } else if (!include && has_view_for_source(source)) {
+                if (to_remove == null)
+                    to_remove = new Gee.ArrayList<DataView>();
+                
+                to_remove.add(get_view_for_source(source));
+            } else if (include && has_view_for_source(source)) {
+                DataView view = get_view_for_source(source);
+                
+                if (selected.contains(view))
+                    selected.resort_object(view, alteration);
+                
+                if (visible != null && is_visible(view)) {
+                    if (visible.resort_object(view, alteration))
+                        ordering_changed = true;
+                }
             }
         }
+        
+        if (to_add != null)
+            add_many(to_add);
+        
+        if (to_remove != null)
+            remove_marked(mark_many(to_remove));
+        
+        if (ordering_changed)
+            notify_ordering_changed();
     }
     
     private void on_mirror_contents_added(Gee.Iterable<DataObject> added) {
@@ -1806,41 +1840,52 @@ public class ViewCollection : DataCollection {
         base.notify_items_removed(removed);
     }
     
-    private void filter_altered_item(DataObject object) {
+    private void filter_altered_items(Gee.Collection<DataView> views) {
         if (filter == null)
             return;
         
-        DataView view = (DataView) object;
-        
         // Can't use the marker system because ViewCollection completely overrides DataCollection
         // and hidden items cannot be marked.
-        if (filter(view)) {
-            if (!view.is_visible()) {
-                Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
-                to_show.add(view);
-                show_items(to_show);
-            }
-        } else {
-            if (view.is_visible()) {
-                Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
-                to_hide.add(view);
-                hide_items(to_hide);
+        Gee.ArrayList<DataView> to_show = null;
+        Gee.ArrayList<DataView> to_hide = null;
+        
+        foreach (DataView view in views) {
+            if (filter(view)) {
+                if (!view.is_visible()) {
+                    if (to_show == null)
+                        to_show = new Gee.ArrayList<DataView>();
+                    
+                    to_show.add(view);
+                }
+            } else {
+                if (view.is_visible()) {
+                    if (to_hide == null)
+                        to_hide = new Gee.ArrayList<DataView>();
+                    
+                    to_hide.add(view);
+                }
             }
         }
-    }
-    
-    public override void item_altered(DataObject object, Alteration alteration) {
-        filter_altered_item(object);
-
-        base.item_altered(object, alteration);
-    }
-    
-    public override void set_comparator(Comparator comparator) {
-        selected.set_comparator(comparator);
-        if (visible != null)
-            visible.set_comparator(comparator);
         
-        base.set_comparator(comparator);
+        if (to_show != null)
+            show_items(to_show);
+        
+        if (to_hide != null)
+            hide_items(to_hide);
+    }
+    
+    public override void items_altered(Gee.Map<DataObject, Alteration> map) {
+        filter_altered_items(map.keys);
+
+        base.items_altered(map);
+    }
+    
+    public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
+        selected.set_comparator(comparator, predicate);
+        if (visible != null)
+            visible.set_comparator(comparator, predicate);
+        
+        base.set_comparator(comparator, predicate);
     }
     
     public override void reset_comparator() {

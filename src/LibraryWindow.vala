@@ -315,7 +315,7 @@ public class LibraryWindow : AppWindow {
     private LastImportPage last_import_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
-    
+    private OneShotScheduler properties_scheduler = null;
     private bool notify_library_is_home_dir = true;
     
     // Dynamically added/removed pages
@@ -366,7 +366,10 @@ public class LibraryWindow : AppWindow {
         add_parent_page(events_directory_page);
         add_parent_page(trash_page);
         add_orphan_page(photo_page);
-
+        
+        properties_scheduler = new OneShotScheduler("LibraryWindow properties",
+            on_update_properties_now);
+        
         // watch for new & removed events
         Event.global.items_added.connect(on_added_events);
         Event.global.items_removed.connect(on_removed_events);
@@ -1088,7 +1091,7 @@ public class LibraryWindow : AppWindow {
             }
         }
 
-        on_selection_changed();
+        on_update_properties();
     }
     
     private void on_tags_added_removed(Gee.Iterable<DataObject>? added, Gee.Iterable<DataObject>? removed) {
@@ -1629,7 +1632,7 @@ public class LibraryWindow : AppWindow {
         sidebar.place_cursor(page);
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
-        on_selection_changed();
+        on_update_properties();
 
         page.show_all();
         
@@ -1728,22 +1731,26 @@ public class LibraryWindow : AppWindow {
     private void subscribe_for_basic_information(Page page) {
         ViewCollection view = page.get_view();
         
-        view.items_state_changed.connect(on_selection_changed);
-        view.items_altered.connect(on_selection_changed);
-        view.contents_altered.connect(on_selection_changed);
-        view.items_visibility_changed.connect(on_selection_changed);
+        view.items_state_changed.connect(on_update_properties);
+        view.items_altered.connect(on_update_properties);
+        view.contents_altered.connect(on_update_properties);
+        view.items_visibility_changed.connect(on_update_properties);
     }
     
     private void unsubscribe_from_basic_information(Page page) {
         ViewCollection view = page.get_view();
         
-        view.items_state_changed.disconnect(on_selection_changed);
-        view.items_altered.disconnect(on_selection_changed);
-        view.contents_altered.disconnect(on_selection_changed);
-        view.items_visibility_changed.disconnect(on_selection_changed);
+        view.items_state_changed.disconnect(on_update_properties);
+        view.items_altered.disconnect(on_update_properties);
+        view.contents_altered.disconnect(on_update_properties);
+        view.items_visibility_changed.disconnect(on_update_properties);
     }
-
-    private void on_selection_changed() {
+    
+    private void on_update_properties() {
+        properties_scheduler.at_idle();
+    }
+    
+    private void on_update_properties_now() {
         if (bottom_frame.visible)
             basic_properties.update_properties(get_current_page());
 

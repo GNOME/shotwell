@@ -122,7 +122,7 @@ public abstract class CollectionPage : CheckerboardPage {
         init_ui_bind("/CollectionMenuBar");
         init_item_context_menu("/CollectionContextMenu");
         
-        get_view().set_comparator(get_sort_comparator());
+        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
         get_view().contents_altered.connect(on_contents_altered);
         get_view().selection_group_altered.connect(on_selection_changed);
         get_view().items_visibility_changed.connect(on_contents_altered);
@@ -1701,7 +1701,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void on_sort_changed() {
-        get_view().set_comparator(get_sort_comparator());
+        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
 
         set_config_photos_sort(get_sort_order() == SORT_ORDER_ASCENDING, get_sort_criteria());
     }
@@ -1724,15 +1724,33 @@ public abstract class CollectionPage : CheckerboardPage {
                 if (is_sort_ascending())
                     return Thumbnail.rating_ascending_comparator;
                 else
-                    return Thumbnail.rating_descending_comparator;                    
-
+                    return Thumbnail.rating_descending_comparator;
+            
             default:
-                error("Unknown sort criteria: %d", get_sort_criteria());
+                error("Unknown sort criteria: %s", get_sort_criteria().to_string());
                 
                 return Thumbnail.title_ascending_comparator;
         }
     }
-
+    
+    private ComparatorPredicate get_sort_comparator_predicate() {
+        switch (get_sort_criteria()) {
+            case SortBy.TITLE:
+                return Thumbnail.title_comparator_predicate;
+            
+            case SortBy.EXPOSURE_DATE:
+                return Thumbnail.exposure_time_comparator_predicate;
+            
+            case SortBy.RATING:
+                return Thumbnail.rating_comparator_predicate;
+            
+            default:
+                error("Unknown sort criteria: %s", get_sort_criteria().to_string());
+                
+                return Thumbnail.title_comparator_predicate;
+        }
+    }
+    
     private override void set_display_titles(bool display) {
         base.set_display_titles(display);
     
@@ -1811,7 +1829,7 @@ public abstract class CollectionPage : CheckerboardPage {
         }
 
         if (resort_needed)
-            get_view().set_comparator(get_sort_comparator());
+            get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
     }
     
     private void on_new_event() {
