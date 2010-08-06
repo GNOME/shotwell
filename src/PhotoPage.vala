@@ -2303,6 +2303,9 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
         
+        if (has_photo() && !get_photo_missing())
+            update_rating_menu_item_sensitivity();
+        
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo());
 #endif
