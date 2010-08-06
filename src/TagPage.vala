@@ -5,9 +5,33 @@
  */
 
 public class TagPage : CollectionPage {
+    public class Stub : PageStub {
+        public Tag tag;
+        
+        public Stub(Tag tag) {
+            this.tag = tag;
+        }
+        
+        public override string? get_icon_name() {
+            return Resources.ICON_SINGLE_PHOTO;
+        }
+
+        public override string get_name() {
+            return tag.get_name();
+        }
+        
+        public override bool is_renameable() {
+            return (tag != null);
+        }
+        
+        protected override Page construct_page() {
+            return new TagPage(tag);
+        }
+    }
+    
     private Tag tag;
     
-    public TagPage(Tag tag) {
+    private TagPage(Tag tag) {
         base (tag.get_name(), "tags.ui", create_actions());
         
         this.tag = tag;
@@ -24,6 +48,10 @@ public class TagPage : CollectionPage {
     ~TagPage() {
         get_view().halt_mirroring();
         tag.altered.disconnect(on_tag_altered);
+    }
+    
+    public static TagPage.Stub create_stub(Tag tag) {
+        return new Stub(tag);
     }
     
     public Tag get_tag() {

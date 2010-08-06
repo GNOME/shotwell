@@ -121,198 +121,13 @@ public class LibraryWindow : AppWindow {
         }
     }
 
-    // In order to prevent creating a slew of Pages at app startup, lazily create them as the
-    // user needs them ... this may be supplemented in the future to discard unused Pages (in
-    // a lifo)
-    private abstract class PageStub : Object, SidebarPage {
-        private Page page = null;
-        private SidebarMarker marker = null;
-        
-        protected abstract Page construct_page();
-
-        public virtual string? get_icon_name() {
-            return null;
-        }
-
-        public abstract string get_name();
-        
-        public abstract bool is_renameable();
-        
-        public virtual void rename(string new_name) {
-            get_page().rename(new_name);
-        }
-
-        public bool has_page() {
-            return page != null;
-        }
-        
-        public Page get_page() {
-            if (page == null) {
-                // create the page and set its marker, if one has been supplied
-                page = construct_page();
-                if (marker != null)
-                    page.set_marker(marker);
-                
-                // add this to the notebook and tell the notebook to show it (as per DevHelp)
-                LibraryWindow.get_app().add_to_notebook(page);
-            }
-
-            return page;
-        }
-        
-        public string get_sidebar_text() {
-            return (page != null) ? page.get_sidebar_text() : get_name();
-        }
-        
-        public SidebarMarker? get_marker() {
-            return (page != null) ? page.get_marker() : marker;
-        }
-        
-        public void set_marker(SidebarMarker marker) {
-            this.marker = marker;
-            if (page != null)
-                page.set_marker(marker);
-        }
-        
-        public void clear_marker() {
-            this.marker = null;
-            if (page != null)
-                page.clear_marker();
-        }
-
-        public virtual string get_page_name() {
-            if (page == null)
-                return get_name();
-            return page.get_page_name();
-        }
-
-        public Gtk.Menu? get_page_context_menu() {
-            if (page == null)
-                get_page();
-            return page.get_page_context_menu();
-        }
-
-        public bool popup_context_menu(Gtk.Menu? context_menu, Gdk.EventButton? event = null) {
-            if (page == null)
-                get_page();
-            return page.popup_context_menu(context_menu, event);
-        }
-    }
-
-    private class SubEventsDirectoryPageStub : PageStub {
-        public SubEventsDirectoryPage.DirectoryType type;
-        public Time time;
-        private string page_name;
-
-        public SubEventsDirectoryPageStub(SubEventsDirectoryPage.DirectoryType type, Time time) {
-            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
-                this.page_name = _("Undated");
-            } else {
-                this.page_name = time.format((type == SubEventsDirectoryPage.DirectoryType.YEAR) ?
-                    _("%Y") : _("%B"));
-            }
-
-            this.type = type;
-            this.time = time;
-        }
-
-        protected override Page construct_page() {
-            debug("Creating new event directory page for %s", page_name);
-            return new SubEventsDirectoryPage(type, time);
-        }
-
-        public int get_month() {
-            return (type == SubEventsDirectoryPage.DirectoryType.MONTH) ? time.month : 0;
-        }
-
-        public int get_year() {
-            return time.year;
-        }
-
-        public override string? get_icon_name() {
-            return Resources.ICON_FOLDER_CLOSED;
-        }
-
-        public override string get_name() {
-            return page_name;
-        }
-        
-        public override bool is_renameable() {
-            return false;
-        }
-        
-        public bool matches(SubEventsDirectoryPage.DirectoryType type, Time time) {
-            if (type != this.type)
-                return false;
-
-            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
-                return true;
-            } else if (type == SubEventsDirectoryPage.DirectoryType.MONTH) {
-                return time.year == this.time.year && time.month == this.time.month;
-            } else {
-                assert(type == SubEventsDirectoryPage.DirectoryType.YEAR);
-                return time.year == this.time.year;
-            }
-        }
-    }
-
-    private class EventPageStub : PageStub {
-        public Event event;
-
-        public EventPageStub(Event event) {
-            this.event = event;
-        }
-
-        public override string? get_icon_name() {
-            return Resources.ICON_SINGLE_PHOTO;
-        }
-
-        public override string get_name() {
-            return event.get_name();
-        }
-        
-        public override bool is_renameable() {
-            return (event != null);
-        }
-
-        protected override Page construct_page() {
-            debug("Creating new event page for %s", event.get_name());
-            return ((Page) new EventPage(event));
-        }
-    }
-    
-    private class TagPageStub : PageStub {
-        public Tag tag;
-        
-        public TagPageStub(Tag tag) {
-            this.tag = tag;
-        }
-        
-        public override string? get_icon_name() {
-            return Resources.ICON_SINGLE_PHOTO;
-        }
-
-        public override string get_name() {
-            return tag.get_name();
-        }
-        
-        public override bool is_renameable() {
-            return (tag != null);
-        }
-        
-        protected override Page construct_page() {
-            debug("Creating new tag page for %s", tag.get_name());
-            return new TagPage(tag);
-        }
-    }
-    
     // Static (default) pages
     private LibraryPage library_page = null;
-    private MasterEventsDirectoryPage events_directory_page = null;
+    private MasterEventsDirectoryPage.Stub events_directory_page = null;
     private LibraryPhotoPage photo_page = null;
-    private TrashPage trash_page = null;
-    private OfflinePage offline_page = null;
-    private LastImportPage last_import_page = null;
+    private TrashPage.Stub trash_page = null;
+    private OfflinePage.Stub offline_page = null;
+    private LastImportPage.Stub last_import_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     private OneShotScheduler properties_scheduler = null;
@@ -320,10 +135,10 @@ public class LibraryWindow : AppWindow {
     
     // Dynamically added/removed pages
     private Gee.HashMap<Page, PageLayout> page_layouts = new Gee.HashMap<Page, PageLayout>();
-    private Gee.ArrayList<EventPageStub> event_list = new Gee.ArrayList<EventPageStub>();
-    private Gee.ArrayList<SubEventsDirectoryPageStub> events_dir_list = 
-        new Gee.ArrayList<SubEventsDirectoryPageStub>();
-    private Gee.HashMap<Tag, TagPageStub> tag_map = new Gee.HashMap<Tag, TagPageStub>();
+    private Gee.ArrayList<EventPage.Stub> event_list = new Gee.ArrayList<EventPage.Stub>();
+    private Gee.ArrayList<SubEventsDirectoryPage.Stub> events_dir_list =
+        new Gee.ArrayList<SubEventsDirectoryPage.Stub>();
+    private Gee.HashMap<Tag, TagPage.Stub> tag_map = new Gee.HashMap<Tag, TagPage.Stub>();
 #if !NO_CAMERA
     private Gee.HashMap<string, ImportPage> camera_pages = new Gee.HashMap<string, ImportPage>(
         str_hash, str_equal, direct_equal);
@@ -344,16 +159,18 @@ public class LibraryWindow : AppWindow {
     private Gtk.Notebook notebook = new Gtk.Notebook();
     private Gtk.Box layout = new Gtk.VBox(false, 0);
     
+    private bool events_sort_ascending = false;
+    
     public LibraryWindow(ProgressMonitor monitor) {
         // prepare the default parent and orphan pages
         // (these are never removed from the system)
         library_page = new LibraryPage(monitor);
-        last_import_page = new LastImportPage();
-        events_directory_page = new MasterEventsDirectoryPage();
+        last_import_page = LastImportPage.create_stub();
+        events_directory_page = MasterEventsDirectoryPage.create_stub();
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed.connect(import_queue_batch_finished);
         photo_page = new LibraryPhotoPage();
-        trash_page = new TrashPage();
+        trash_page = TrashPage.create_stub();
         
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
@@ -362,9 +179,9 @@ public class LibraryWindow : AppWindow {
 
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
-        add_parent_page(last_import_page);
-        add_parent_page(events_directory_page);
-        add_parent_page(trash_page);
+        sidebar.add_parent(last_import_page);
+        sidebar.add_parent(events_directory_page);
+        sidebar.add_parent(trash_page);
         add_orphan_page(photo_page);
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
@@ -539,7 +356,7 @@ public class LibraryWindow : AppWindow {
         return (LibraryWindow) instance;
     }
     
-    private int64 get_event_directory_page_time(SubEventsDirectoryPageStub *stub) {
+    private int64 get_event_directory_page_time(SubEventsDirectoryPage.Stub *stub) {
         return (stub->get_year() * 100) + stub->get_month();
     }
     
@@ -548,15 +365,15 @@ public class LibraryWindow : AppWindow {
         SidebarPage *b = (SidebarPage *) bptr;
         
         int64 start_a, start_b;
-        if (a is SubEventsDirectoryPageStub && b is SubEventsDirectoryPageStub) {
-            start_a = get_event_directory_page_time((SubEventsDirectoryPageStub *) a);
-            start_b = get_event_directory_page_time((SubEventsDirectoryPageStub *) b);
+        if (a is SubEventsDirectoryPage.Stub && b is SubEventsDirectoryPage.Stub) {
+            start_a = get_event_directory_page_time((SubEventsDirectoryPage.Stub *) a);
+            start_b = get_event_directory_page_time((SubEventsDirectoryPage.Stub *) b);
         } else {
-            assert(a is EventPageStub);
-            assert(b is EventPageStub);
+            assert(a is EventPage.Stub);
+            assert(b is EventPage.Stub);
             
-            start_a = ((EventPageStub *) a)->event.get_start_time();
-            start_b = ((EventPageStub *) b)->event.get_start_time();
+            start_a = ((EventPage.Stub *) a)->event.get_start_time();
+            start_b = ((EventPage.Stub *) b)->event.get_start_time();
         }
         
         return start_a - start_b;
@@ -693,8 +510,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public int get_events_sort() {
-        return Config.get_instance().get_events_sort_ascending() ? SORT_EVENTS_ORDER_ASCENDING :
-            SORT_EVENTS_ORDER_DESCENDING;
+        return events_sort_ascending ? SORT_EVENTS_ORDER_ASCENDING : SORT_EVENTS_ORDER_DESCENDING;
     }    
 
     private void on_sort_events() {
@@ -717,14 +533,15 @@ public class LibraryWindow : AppWindow {
         // don't resort if the order hasn't changed
         if (new_events_sort == get_events_sort())
             return;
-
-        Config.get_instance().set_events_sort_ascending(new_events_sort == SORT_EVENTS_ORDER_ASCENDING);
+        
+        events_sort_ascending = new_events_sort == SORT_EVENTS_ORDER_ASCENDING;
+        Config.get_instance().set_events_sort_ascending(events_sort_ascending);
        
         sidebar.sort_branch(events_directory_page.get_marker(), 
             get_event_branch_comparator(new_events_sort));
 
         // the events directory pages need to know about resort
-        foreach (SubEventsDirectoryPageStub events_dir in events_dir_list) {
+        foreach (SubEventsDirectoryPage.Stub events_dir in events_dir_list) {
             if (events_dir.has_page())
                 ((SubEventsDirectoryPage) events_dir.get_page()).notify_sort_changed();
         }
@@ -734,7 +551,8 @@ public class LibraryWindow : AppWindow {
         sidebar.place_cursor(get_current_page());
 
         // the events directory page needs to know about this
-        events_directory_page.notify_sort_changed();
+        if (events_directory_page.has_page())
+            ((MasterEventsDirectoryPage) events_directory_page.get_page()).notify_sort_changed();
     }
     
     private void on_preferences() {
@@ -925,8 +743,8 @@ public class LibraryWindow : AppWindow {
         }
         
         bool success = false;
-        if (page is EventPageStub) {
-            Event event = ((EventPageStub) page).event;
+        if (page is EventPage.Stub) {
+            Event event = ((EventPage.Stub) page).event;
 
             Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
             foreach (LibraryPhoto photo in photos) {
@@ -939,11 +757,11 @@ public class LibraryWindow : AppWindow {
                 get_command_manager().execute(new SetEventCommand(views, event));
                 success = true;
             }
-        } else if (page is TagPageStub) {
-            get_command_manager().execute(new TagUntagPhotosCommand(((TagPageStub) page).tag, photos, 
+        } else if (page is TagPage.Stub) {
+            get_command_manager().execute(new TagUntagPhotosCommand(((TagPage.Stub) page).tag, photos, 
                 photos.size, true));
             success = true;
-        } else if (page is TrashPage) {
+        } else if (page is TrashPage.Stub) {
             get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
             success = true;
         } else if ((path != null) && (tags_marker != null) && (tags_marker.get_path() != null) && 
@@ -1002,7 +820,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_events_directory_page() {
-        switch_to_page(events_directory_page);
+        switch_to_page(events_directory_page.get_page());
     }
     
     public void switch_to_event(Event event) {
@@ -1017,7 +835,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_tag(Tag tag) {
-        TagPageStub? stub = tag_map.get(tag);
+        TagPage.Stub? stub = tag_map.get(tag);
         assert(stub != null);
         
         switch_to_page(stub.get_page());
@@ -1033,7 +851,7 @@ public class LibraryWindow : AppWindow {
     }
     
     public EventPage? load_event_page(Event event) {
-        foreach (EventPageStub stub in event_list) {
+        foreach (EventPage.Stub stub in event_list) {
             if (stub.event.equals(event)) {
                 // this will create the EventPage if not already created
                 return (EventPage) stub.get_page();
@@ -1055,10 +873,10 @@ public class LibraryWindow : AppWindow {
 
     private void on_event_altered(DataObject object) {
         Event event = (Event) object;
-        foreach (EventPageStub stub in event_list) {
+        foreach (EventPage.Stub stub in event_list) {
             if (event.equals(stub.event)) {
-                SubEventsDirectoryPageStub old_parent = 
-                    (SubEventsDirectoryPageStub) sidebar.get_parent_page(stub);
+                SubEventsDirectoryPage.Stub old_parent = 
+                    (SubEventsDirectoryPage.Stub) sidebar.get_parent_page(stub);
                 
                 // only re-add to sidebar if the event has changed directories or shares its dir
                 if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
@@ -1111,7 +929,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private void on_tag_altered(DataObject object) {
-        TagPageStub page_stub = tag_map.get((Tag) object);
+        TagPage.Stub page_stub = tag_map.get((Tag) object);
         assert(page_stub != null);
         
         // this prevents the cursor from jumping back to the library photos page
@@ -1138,23 +956,23 @@ public class LibraryWindow : AppWindow {
     
     private SidebarMarker? find_parent_marker(PageStub page) {
         // EventPageStub
-        if (page is EventPageStub) {
-            time_t event_time = ((EventPageStub) page).event.get_start_time();
+        if (page is EventPage.Stub) {
+            time_t event_time = ((EventPage.Stub) page).event.get_start_time();
 
             SubEventsDirectoryPage.DirectoryType type = (event_time != 0 ?
                 SubEventsDirectoryPage.DirectoryType.MONTH :
                 SubEventsDirectoryPage.DirectoryType.UNDATED);
 
-            SubEventsDirectoryPageStub month = find_event_dir_page(type, Time.local(event_time));
+            SubEventsDirectoryPage.Stub month = find_event_dir_page(type, Time.local(event_time));
 
             // if a month directory already exists, return it, otherwise, create a new one
             return (month != null ? month : create_event_dir_page(type,
                 Time.local(event_time))).get_marker();
-        } else if (page is SubEventsDirectoryPageStub) {
-            SubEventsDirectoryPageStub event_dir_page = (SubEventsDirectoryPageStub) page;
+        } else if (page is SubEventsDirectoryPage.Stub) {
+            SubEventsDirectoryPage.Stub event_dir_page = (SubEventsDirectoryPage.Stub) page;
             // SubEventsDirectoryPageStub Month
             if (event_dir_page.type == SubEventsDirectoryPage.DirectoryType.MONTH) {
-                SubEventsDirectoryPageStub year = find_event_dir_page(
+                SubEventsDirectoryPage.Stub year = find_event_dir_page(
                     SubEventsDirectoryPage.DirectoryType.YEAR, event_dir_page.time);
 
                 // if a month directory already exists, return it, otherwise, create a new one
@@ -1164,15 +982,15 @@ public class LibraryWindow : AppWindow {
             
             // SubEventsDirectoryPageStub Year && Undated
             return events_directory_page.get_marker();
-        } else if (page is TagPageStub) {
+        } else if (page is TagPage.Stub) {
             return tags_marker;
         }
 
         return null;
     }
     
-    private SubEventsDirectoryPageStub? find_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
-        foreach (SubEventsDirectoryPageStub dir in events_dir_list) {
+    private SubEventsDirectoryPage.Stub? find_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
+        foreach (SubEventsDirectoryPage.Stub dir in events_dir_list) {
             if (dir.matches(type,  time))
                 return dir;
         }
@@ -1180,10 +998,10 @@ public class LibraryWindow : AppWindow {
         return null;
     }
 
-    private SubEventsDirectoryPageStub create_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
+    private SubEventsDirectoryPage.Stub create_event_dir_page(SubEventsDirectoryPage.DirectoryType type, Time time) {
         Comparator comparator = get_event_branch_comparator(get_events_sort());
         
-        SubEventsDirectoryPageStub new_dir = new SubEventsDirectoryPageStub(type, time);
+        SubEventsDirectoryPage.Stub new_dir = SubEventsDirectoryPage.create_stub(type, time);
 
         sidebar.insert_child_sorted(find_parent_marker(new_dir), new_dir,
             comparator);
@@ -1194,8 +1012,8 @@ public class LibraryWindow : AppWindow {
     }
     
     private int64 tag_page_comparator(void *a, void *b) {
-        Tag atag = ((TagPageStub *) a)->tag;
-        Tag btag = ((TagPageStub *) b)->tag;
+        Tag atag = ((TagPage.Stub *) a)->tag;
+        Tag btag = ((TagPage.Stub *) b)->tag;
         
         return atag.get_name().collate(btag.get_name());
     }
@@ -1206,13 +1024,13 @@ public class LibraryWindow : AppWindow {
                 _("Tags"), Resources.ICON_TAGS);
         }
         
-        TagPageStub stub = new TagPageStub(tag);
+        TagPage.Stub stub = TagPage.create_stub(tag);
         sidebar.insert_child_sorted(tags_marker, stub, tag_page_comparator);
         tag_map.set(tag, stub);
     }
     
     private void remove_tag_page(Tag tag) {
-        TagPageStub stub = tag_map.get(tag);
+        TagPage.Stub stub = tag_map.get(tag);
         assert(stub != null);
         
         remove_stub(stub, library_page);
@@ -1225,16 +1043,16 @@ public class LibraryWindow : AppWindow {
     
     private void enable_disable_offline_page(bool enable) {
         if (enable && offline_page == null) {
-            offline_page = new OfflinePage();
-            add_parent_page(offline_page);
+            offline_page = OfflinePage.create_stub();
+            add_parent_page(offline_page.get_page());
         } else if (!enable && offline_page != null) {
-            remove_page(offline_page, library_page);
+            remove_page(offline_page.get_page(), library_page);
             offline_page = null;
         }
     }
     
     private void add_event_page(Event event) {
-        EventPageStub event_stub = new EventPageStub(event);
+        EventPage.Stub event_stub = EventPage.create_stub(event);
         
         sidebar.insert_child_sorted(find_parent_marker(event_stub), event_stub,
             get_event_branch_comparator(get_events_sort()));
@@ -1245,8 +1063,8 @@ public class LibraryWindow : AppWindow {
     private void remove_event_page(Event event) {
         // don't use load_event_page, because that will create an EventPage (which we're simply
         // going to remove)
-        EventPageStub event_stub = null;
-        foreach (EventPageStub stub in event_list) {
+        EventPage.Stub event_stub = null;
+        foreach (EventPage.Stub stub in event_list) {
             if (stub.event.equals(event)) {
                 event_stub = stub;
                 
@@ -1271,12 +1089,12 @@ public class LibraryWindow : AppWindow {
         
         // remove from notebook and sidebar
         if (delete_stub)
-            remove_stub(stub, events_directory_page);
+            remove_stub(stub, events_directory_page.get_page());
         else
             sidebar.remove_page(stub);
         
         // remove parent if empty
-        if (parent != null && !(parent is MasterEventsDirectoryPage)) {
+        if (parent != null && !(parent is MasterEventsDirectoryPage.Stub)) {
             assert(parent is PageStub);
             
             if (!sidebar.has_children(parent.get_marker()))
@@ -1362,7 +1180,8 @@ public class LibraryWindow : AppWindow {
         return true;
     }
     
-    private void add_to_notebook(Page page) {
+    // This should only be called by LibraryWindow and PageStub.
+    public void add_to_notebook(Page page) {
         // get/create layout for this page (if the page is hidden the layout has already been
         // created)
         PageLayout? layout = get_page_layout(page);
@@ -1439,11 +1258,8 @@ public class LibraryWindow : AppWindow {
     private void remove_page(Page page, Page fallback_page) {
         // a handful of pages just don't go away
         assert(page != library_page);
-        assert(page != events_directory_page);
         assert(page != photo_page);
         assert(page != import_queue_page);
-        assert(page != last_import_page);
-        assert(page != trash_page);
         
         // switch away if necessary to ensure Page is fully detached from system
         if (get_current_page() == page)
@@ -1464,16 +1280,16 @@ public class LibraryWindow : AppWindow {
     
     private void remove_stub(PageStub stub, Page fallback_page) {
         // remove from appropriate list
-        if (stub is SubEventsDirectoryPageStub) {
+        if (stub is SubEventsDirectoryPage.Stub) {
             // remove from events directory list 
-            bool removed = events_dir_list.remove((SubEventsDirectoryPageStub) stub);
+            bool removed = events_dir_list.remove((SubEventsDirectoryPage.Stub) stub);
             assert(removed);
-        } else if (stub is EventPageStub) {
+        } else if (stub is EventPage.Stub) {
             // remove from the events list
-            bool removed = event_list.remove((EventPageStub) stub);
+            bool removed = event_list.remove((EventPage.Stub) stub);
             assert(removed);
-        } else if (stub is TagPageStub) {
-            bool removed = tag_map.unset(((TagPageStub) stub).tag);
+        } else if (stub is TagPage.Stub) {
+            bool removed = tag_map.unset(((TagPage.Stub) stub).tag);
             assert(removed);
         }
         
@@ -1510,7 +1326,8 @@ public class LibraryWindow : AppWindow {
 
         Gtk.RadioAction sort_events_action = (Gtk.RadioAction) get_current_page().common_action_group.get_action("CommonSortEventsAscending");
         assert(sort_events_action != null);
-        sort_events_action.set_active(Config.get_instance().get_events_sort_ascending());
+        events_sort_ascending = Config.get_instance().get_events_sort_ascending();
+        sort_events_action.set_active(events_sort_ascending);
     }
 
     private void create_layout(Page start_page) {
@@ -1664,7 +1481,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_events_directory_selected(Gtk.TreePath path) {
-        foreach (SubEventsDirectoryPageStub events_dir in events_dir_list) {
+        foreach (SubEventsDirectoryPage.Stub events_dir in events_dir_list) {
             if (is_page_selected(events_dir, path)) {
                 switch_to_page(events_dir.get_page());
                 
@@ -1676,7 +1493,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_event_selected(Gtk.TreePath path) {
-        foreach (EventPageStub event_stub in event_list) {
+        foreach (EventPage.Stub event_stub in event_list) {
             if (is_page_selected(event_stub, path)) {
                 switch_to_page(event_stub.get_page());
                 
@@ -1688,7 +1505,7 @@ public class LibraryWindow : AppWindow {
     }
     
     private bool is_tag_selected(Gtk.TreePath path) {
-        foreach (TagPageStub stub in tag_map.values) {
+        foreach (TagPage.Stub stub in tag_map.values) {
             if (is_page_selected(stub, path)) {
                 switch_to_page(stub.get_page());
                 
@@ -1718,11 +1535,11 @@ public class LibraryWindow : AppWindow {
         } else if (is_tag_selected(path)) {
             // tag page selected and updated
         } else if (is_page_selected(trash_page, path)) {
-            switch_to_page(trash_page);
+            switch_to_page(trash_page.get_page());
         } else if (offline_page != null && is_page_selected(offline_page, path)) {
-            switch_to_page(offline_page);
+            switch_to_page(offline_page.get_page());
         } else if (is_page_selected(last_import_page, path)) {
-            switch_to_page(last_import_page);
+            switch_to_page(last_import_page.get_page());
         } else {
             // nothing recognized selected
         }

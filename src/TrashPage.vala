@@ -5,6 +5,24 @@
  */
 
 public class TrashPage : CheckerboardPage {
+    public class Stub : PageStub {
+        public Stub() {
+        }
+        
+        protected override Page construct_page() {
+            return new TrashPage(get_name());
+        }
+        
+        public override string get_name() {
+            return _("Trash");
+        }
+        
+        public override string? get_icon_name() {
+            return LibraryPhoto.global.get_trashcan_count() == 0 ? Resources.ICON_TRASH_EMPTY
+                : Resources.ICON_TRASH_FULL;
+        }
+    }
+    
     private class TrashView : Thumbnail {
         public TrashView(LibraryPhoto photo) {
             base (photo);
@@ -13,8 +31,8 @@ public class TrashPage : CheckerboardPage {
         }
     }
     
-    public TrashPage() {
-        base (_("Trash"));
+    private TrashPage(string name) {
+        base (name);
         
         init_ui("trash.ui", "/TrashMenuBar", "TrashActionGroup", create_actions());
         init_item_context_menu("/TrashContextMenu");
@@ -79,6 +97,10 @@ public class TrashPage : CheckerboardPage {
         actions += help;
         
         return actions;
+    }
+    
+    public static Stub create_stub() {
+        return new Stub();
     }
     
     protected override void init_actions(int selected_count, int count) {

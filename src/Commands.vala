@@ -1326,6 +1326,11 @@ public class TrashUntrashPhotosCommand : PageCommand {
             photo.trash();
             if (monitor != null)
                 monitor(++ctr, count);
+            
+            if (ctr % 100 == 0) {
+                LibraryPhoto.global.thaw_notifications();
+                LibraryPhoto.global.freeze_notifications();
+            }
         }
         LibraryPhoto.global.thaw_notifications();
     }
@@ -1338,6 +1343,11 @@ public class TrashUntrashPhotosCommand : PageCommand {
             photo.untrash();
             if (monitor != null)
                 monitor(++ctr, count);
+            
+            if (ctr % 100 == 0) {
+                LibraryPhoto.global.thaw_notifications();
+                LibraryPhoto.global.freeze_notifications();
+            }
         }
         LibraryPhoto.global.thaw_notifications();
     }

@@ -327,6 +327,30 @@ public class EventsDirectoryPage : CheckerboardPage {
 }
 
 public class EventPage : CollectionPage {
+    public class Stub : PageStub {
+        public Event event;
+
+        public Stub(Event event) {
+            this.event = event;
+        }
+
+        public override string? get_icon_name() {
+            return Resources.ICON_SINGLE_PHOTO;
+        }
+
+        public override string get_name() {
+            return event.get_name();
+        }
+        
+        public override bool is_renameable() {
+            return (event != null);
+        }
+
+        protected override Page construct_page() {
+            return ((Page) new EventPage(event));
+        }
+    }
+    
     private class EventViewManager : CollectionViewManager {
         private EventID event_id;
         
@@ -349,7 +373,7 @@ public class EventPage : CollectionPage {
     
     public Event page_event;
 
-    public EventPage(Event page_event) {
+    private EventPage(Event page_event) {
         base(page_event.get_name(), "event.ui", create_actions());
         
         this.page_event = page_event;
@@ -381,6 +405,10 @@ public class EventPage : CollectionPage {
         new_actions += rename;
 
         return new_actions;
+    }
+    
+    public static Stub create_stub(Event event) {
+        return new Stub(event);
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
@@ -428,12 +456,33 @@ public class EventPage : CollectionPage {
 }
 
 public class MasterEventsDirectoryPage : EventsDirectoryPage {
-    public MasterEventsDirectoryPage() {
-        base(_("Events"), new EventDirectoryManager(), (Gee.Iterable<Event>) Event.global.get_all());
+    public class Stub : PageStub {
+        public Stub() {
+        }
+        
+        protected override Page construct_page() {
+            return new MasterEventsDirectoryPage(get_name());
+        }
+        
+        public override string get_name() {
+            return _("Events");
+        }
+        
+        public override string? get_icon_name() {
+            return Resources.ICON_EVENTS;
+        }
+        
+        public override bool is_renameable() {
+            return false;
+        }
     }
-
-    public override string? get_icon_name() {
-        return Resources.ICON_EVENTS;
+    
+    private MasterEventsDirectoryPage(string name) {
+        base(name, new EventDirectoryManager(), (Gee.Iterable<Event>) Event.global.get_all());
+    }
+    
+    public static Stub create_stub() {
+        return new Stub();
     }
 }
 
@@ -443,7 +492,63 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         MONTH,
         UNDATED;
     }
+    
+    public class Stub : PageStub {
+        public SubEventsDirectoryPage.DirectoryType type;
+        public Time time;
+        private string page_name;
 
+        public Stub(SubEventsDirectoryPage.DirectoryType type, Time time) {
+            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
+                this.page_name = _("Undated");
+            } else {
+                this.page_name = time.format((type == SubEventsDirectoryPage.DirectoryType.YEAR) ?
+                    _("%Y") : _("%B"));
+            }
+
+            this.type = type;
+            this.time = time;
+        }
+
+        protected override Page construct_page() {
+            return new SubEventsDirectoryPage(type, time);
+        }
+
+        public int get_month() {
+            return (type == SubEventsDirectoryPage.DirectoryType.MONTH) ? time.month : 0;
+        }
+
+        public int get_year() {
+            return time.year;
+        }
+
+        public override string? get_icon_name() {
+            return Resources.ICON_FOLDER_CLOSED;
+        }
+
+        public override string get_name() {
+            return page_name;
+        }
+        
+        public override bool is_renameable() {
+            return false;
+        }
+        
+        public bool matches(SubEventsDirectoryPage.DirectoryType type, Time time) {
+            if (type != this.type)
+                return false;
+
+            if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
+                return true;
+            } else if (type == SubEventsDirectoryPage.DirectoryType.MONTH) {
+                return time.year == this.time.year && time.month == this.time.month;
+            } else {
+                assert(type == SubEventsDirectoryPage.DirectoryType.YEAR);
+                return time.year == this.time.year;
+            }
+        }
+    }
+    
     private class SubEventDirectoryManager : EventsDirectoryPage.EventDirectoryManager {
         private int month = 0;
         private int year = 0;
@@ -486,8 +591,8 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         }
     }
 
-    public SubEventsDirectoryPage(DirectoryType type, Time time) {
-        string page_name;        
+    private SubEventsDirectoryPage(DirectoryType type, Time time) {
+        string page_name;
         if (type == SubEventsDirectoryPage.DirectoryType.UNDATED) {
             page_name = _("Undated");
         } else {
@@ -495,6 +600,10 @@ public class SubEventsDirectoryPage : EventsDirectoryPage {
         }
 
         base(page_name, new SubEventDirectoryManager(type, time), null); 
+    }
+    
+    public static Stub create_stub(DirectoryType type, Time time) {
+        return new Stub(type, time);
     }
 
     public int get_month() {

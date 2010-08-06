@@ -5,6 +5,27 @@
  */
 
 public class LastImportPage : CollectionPage {
+    public class Stub : PageStub {
+        public Stub() {
+        }
+        
+        protected override Page construct_page() {
+            return new LastImportPage(get_name());
+        }
+        
+        public override string get_name() {
+            return _("Last Import");
+        }
+        
+        public override string? get_icon_name() {
+            return Resources.ICON_LAST_IMPORT;
+        }
+        
+        public override bool is_renameable() {
+            return false;
+        }
+    }
+    
     private class LastImportViewManager : CollectionViewManager {
         private ImportID import_id;
         
@@ -21,8 +42,8 @@ public class LastImportPage : CollectionPage {
     
     private ImportID last_import_id = ImportID();
     
-    public LastImportPage() {
-        base (_("Last Import"));
+    private LastImportPage(string name) {
+        base (name);
         
         // be notified when the import rolls change
         LibraryPhoto.global.import_roll_altered.connect(on_import_rolls_altered);
@@ -31,10 +52,10 @@ public class LastImportPage : CollectionPage {
         on_import_rolls_altered();
     }
     
-    public override string? get_icon_name() {
-        return Resources.ICON_LAST_IMPORT;
+    public static Stub create_stub() {
+        return new Stub();
     }
-
+    
     private void on_import_rolls_altered() {
         // see if there's a new last ImportID, or no last import at all
         ImportID? current_last_import_id = LibraryPhoto.global.get_last_import_id();

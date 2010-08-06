@@ -5,6 +5,23 @@
  */
 
 public class OfflinePage : CheckerboardPage {
+    public class Stub : PageStub {
+        public Stub() {
+        }
+        
+        protected override Page construct_page() {
+            return new OfflinePage(get_name());
+        }
+        
+        public override string get_name() {
+            return _("Missing Files");
+        }
+        
+        public override string? get_icon_name() {
+            return Resources.ICON_MISSING_FILES;
+        }
+    }
+    
     private class OfflineView : Thumbnail {
         public OfflineView(LibraryPhoto photo) {
             base (photo);
@@ -13,8 +30,8 @@ public class OfflinePage : CheckerboardPage {
         }
     }
     
-    public OfflinePage() {
-        base (_("Missing Files"));
+    private OfflinePage(string name) {
+        base (name);
         
         init_ui("offline.ui", "/OfflineMenuBar", "OfflineActionGroup", create_actions());
         
@@ -59,6 +76,10 @@ public class OfflinePage : CheckerboardPage {
         actions += help;
         
         return actions;
+    }
+    
+    public static Stub create_stub() {
+        return new Stub();
     }
     
     protected override void init_actions(int selected_count, int count) {
