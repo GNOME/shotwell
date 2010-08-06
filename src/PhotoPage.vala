@@ -2424,6 +2424,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", sensitivity);
 		set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
 
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Rate", sensitivity);
         set_item_sensitive("/PhotoMenuBar/TagsMenu/AddTags", sensitivity);
         set_item_sensitive("/PhotoMenuBar/TagsMenu/ModifyTags", sensitivity);
         //AppWindow.get_instance().set_common_action_sensitive("CommonFullscreen", sensitivity);
@@ -2432,6 +2433,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
+        set_item_sensitive("/PhotoContextMenu/Rate", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextEditTitle", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextExternalEdit", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextExternalEditRAW", sensitivity);
@@ -2774,7 +2776,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void on_increase_rating() {
-        if (!has_photo())
+        if (!has_photo() || get_photo_missing())
             return;
         
         SetRatingSingleCommand command = new SetRatingSingleCommand.inc_dec(get_photo(), true);
@@ -2784,7 +2786,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void on_decrease_rating() {
-        if (!has_photo())
+        if (!has_photo() || get_photo_missing())
             return;
         
         SetRatingSingleCommand command = new SetRatingSingleCommand.inc_dec(get_photo(), false);
@@ -2794,7 +2796,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void on_set_rating(Rating rating) {
-        if (!has_photo())
+        if (!has_photo() || get_photo_missing())
             return;
         
         SetRatingSingleCommand command = new SetRatingSingleCommand(get_photo(), rating);
