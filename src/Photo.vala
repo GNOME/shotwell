@@ -2987,10 +2987,8 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         EDITABLE
     }
     
-    private Gee.HashSet<LibraryPhoto> trashcan = new Gee.HashSet<LibraryPhoto>();
-    private Gee.HashSet<LibraryPhoto> trashcan_relinks = new Gee.HashSet<LibraryPhoto>();
-    private Gee.HashSet<LibraryPhoto> offline = new Gee.HashSet<LibraryPhoto>();
-    private Gee.HashSet<LibraryPhoto> offline_relinks = new Gee.HashSet<LibraryPhoto>();
+    private SourceHoldingTank trashcan = null;
+    private SourceHoldingTank offline = null;
     private Gee.HashMap<File, LibraryPhoto> by_master_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
@@ -3012,6 +3010,12 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     
     public LibraryPhotoSourceCollection() {
         base("LibraryPhotoSourceCollection", get_photo_key);
+        
+        trashcan = new SourceHoldingTank(this, check_if_trashed_photo);
+        trashcan.contents_altered.connect(on_trashcan_contents_altered);
+        
+        offline = new SourceHoldingTank(this, check_if_offline_photo);
+        offline.contents_altered.connect(on_offline_contents_altered);
     }
     
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
@@ -3089,99 +3093,60 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
-        Marker to_trashcan = start_marking();
-        Marker to_offline = start_marking();
+        Gee.ArrayList<LibraryPhoto> to_trashcan = null;
+        Gee.ArrayList<LibraryPhoto> to_offline = null;
         foreach (DataObject object in items.keys) {
             Alteration alteration = items.get(object);
-            
             if (!alteration.has_subject("metadata"))
                 continue;
             
             LibraryPhoto photo = (LibraryPhoto) object;
             
             if (photo.is_trashed() && !trashcan.contains(photo)) {
-                to_trashcan.mark(photo);
-                bool added = trashcan.add(photo);
-                assert(added);
+                if (to_trashcan == null)
+                    to_trashcan = new Gee.ArrayList<LibraryPhoto>();
+                
+                to_trashcan.add(photo);
                 
                 // photo can only be in trashcan or offline -- not both
                 continue;
             }
             
             if (photo.is_offline() && !offline.contains(photo)) {
-                to_offline.mark(photo);
-                bool added = offline.add(photo);
-                assert(added);
+                if (to_offline == null)
+                    to_offline = new Gee.ArrayList<LibraryPhoto>();
+                
+                to_offline.add(photo);
             }
         }
         
-        if (to_trashcan.get_count() > 0) {
-            Gee.Collection<LibraryPhoto>? unlinked = (Gee.Collection<LibraryPhoto>?) unlink_marked(
-                to_trashcan);
-            
-            notify_trashcan_contents_altered(unlinked, null);
-        }
+        if (to_trashcan != null)
+            trashcan.unlink_and_hold(to_trashcan);
         
-        if (to_offline.get_count() > 0) {
-            Gee.Collection<LibraryPhoto>? unlinked = (Gee.Collection<LibraryPhoto>?) unlink_marked(
-                to_offline);
-            
-            notify_offline_contents_altered(unlinked, null);
-        }
+        if (to_offline != null)
+            offline.unlink_and_hold(to_offline);
         
         base.items_altered(items);
     }
     
-    protected override void notify_item_destroyed(DataSource source) {
-        LibraryPhoto photo = (LibraryPhoto) source;
-        
-        if (trashcan.contains(photo)) {
-            bool removed = trashcan.remove(photo);
-            assert(removed);
-            
-            notify_trashcan_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
-        }
-        
-        if (offline.contains(photo)) {
-            bool removed = offline.remove(photo);
-            assert(removed);
-            
-            notify_offline_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
-        }
-        
-        base.notify_item_destroyed(source);
+    private void on_trashcan_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        trashcan_contents_altered((Gee.Collection<LibraryPhoto>?) added,
+            (Gee.Collection<LibraryPhoto>?) removed);
     }
     
-    protected virtual void notify_trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
-        // attach/detach signals here, to monitor when/if the photo is no longer trashed
-        if (added != null) {
-            foreach (LibraryPhoto photo in added)
-                photo.altered.connect(on_trashcan_photo_altered);
-        }
-        
-        if (removed != null) {
-            foreach (LibraryPhoto photo in removed)
-                photo.altered.disconnect(on_trashcan_photo_altered);
-        }
-        
-        trashcan_contents_altered(added, removed);
+    private bool check_if_trashed_photo(DataSource source, Alteration alteration) {
+        return ((LibraryPhoto) source).is_trashed();
     }
     
-    protected virtual void notify_offline_contents_altered(Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
-        // monitor when/if the photo is no longer offline
-        if (added != null) {
-            foreach (LibraryPhoto photo in added)
-                photo.altered.connect(on_offline_photo_altered);
-        }
-        
-        if (removed != null) {
-            foreach (LibraryPhoto photo in removed)
-                photo.altered.disconnect(on_offline_photo_altered);
-        }
-        
-        offline_contents_altered(added, removed);
+    private void on_offline_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        offline_contents_altered((Gee.Collection<LibraryPhoto>?) added,
+            (Gee.Collection<LibraryPhoto>?) removed);
+    }
+    
+    private bool check_if_offline_photo(DataSource source, Alteration alteration) {
+        return ((LibraryPhoto) source).is_offline();
     }
     
     protected virtual void notify_import_roll_altered() {
@@ -3240,7 +3205,9 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     private LibraryPhoto? get_trashed_by_id(PhotoID photo_id) {
-        foreach (LibraryPhoto photo in trashcan) {
+        foreach (DataObject object in trashcan.get_all()) {
+            LibraryPhoto photo = (LibraryPhoto) object;
+            
             if (photo_id.id == photo.get_photo_id().id)
                 return photo;
         }
@@ -3253,15 +3220,17 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     public int get_trashcan_count() {
-        return trashcan.size;
+        return trashcan.get_count();
     }
     
     public Gee.Collection<LibraryPhoto> get_trashcan() {
-        return trashcan.read_only_view;
+        return (Gee.Collection<LibraryPhoto>) trashcan.get_all();
     }
     
     private LibraryPhoto? get_offline_by_id(PhotoID photo_id) {
-        foreach (LibraryPhoto photo in offline) {
+        foreach (DataObject object in offline.get_all()) {
+            LibraryPhoto photo = (LibraryPhoto) object;
+            
             if (photo_id.id == photo.get_photo_id().id)
                 return photo;
         }
@@ -3274,11 +3243,11 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     public int get_offline_count() {
-        return offline.size;
+        return offline.get_count();
     }
     
     public Gee.Collection<LibraryPhoto> get_offline() {
-        return offline.read_only_view;
+        return (Gee.Collection<LibraryPhoto>) offline.get_all();
     }
     
     public LibraryPhoto? get_state_by_file(File file, out State state) {
@@ -3333,7 +3302,6 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 not_trashed.add(photo);
         }
         
-        int ctr = 0;
         int total_count = photos.size;
         assert(total_count == (trashed.size + offlined.size + not_trashed.size));
         
@@ -3344,31 +3312,11 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             monitor = agg_monitor.monitor;
         }
         
-        if (trashed.size > 0) {
-            // remove all items from the trashcan and report them as removed
-            trashcan.remove_all(trashed);
-            notify_trashcan_contents_altered(null, trashed);
-            
-            // manually destroy trashed (orphaned) photos
-            foreach (LibraryPhoto photo in trashed) {
-                photo.destroy_orphan(delete_backing);
-                if (monitor != null)
-                    monitor(++ctr, total_count);
-            }
-        }
+        if (trashed.size > 0)
+            trashcan.destroy_orphans(trashed, delete_backing, monitor);
         
-        if (offlined.size > 0) {
-            // remove all items from the offline holding tank and report them as removed
-            offline.remove_all(offlined);
-            notify_offline_contents_altered(null, offlined);
-            
-            // manually destroy the now-orphaned photos
-            foreach (LibraryPhoto photo in offlined) {
-                photo.destroy_orphan(delete_backing);
-                if (monitor != null)
-                    monitor(++ctr, total_count);
-            }
-        }
+        if (offlined.size > 0)
+            offline.destroy_orphans(offlined, delete_backing, monitor);
         
         // untrashed photos may be destroyed outright
         if (not_trashed.size > 0)
@@ -3390,121 +3338,31 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     // Do NOT use this function to trash a photo.  This is only used at system initialization.
     // Call LibraryPhoto.trash() instead.
     public void add_many_to_trash(Gee.Collection<LibraryPhoto> photos) {
-        if (photos.size == 0)
-            return;
-        
-        bool added = trashcan.add_all(photos);
-        assert(added);
-        
-        notify_trashcan_contents_altered(photos, null);
+        trashcan.add_many(photos);
     }
     
     // Do NOT use this function to mark a photo offline.  This is only used at system initialization.
     // Call LibraryPhoto.mark_offline() instead.
     public void add_many_to_offline(Gee.Collection<LibraryPhoto> photos) {
-        if (photos.size == 0)
-            return;
-        
-        bool added = offline.add_all(photos);
-        assert(added);
-        
-        notify_offline_contents_altered(photos, null);
-    }
-    
-    private void on_trashcan_photo_altered(DataObject o, Alteration alteration) {
-        if (!alteration.has_subject("metadata"))
-            return;
-        
-        LibraryPhoto photo = (LibraryPhoto) o;
-        
-        assert(trashcan.contains(photo));
-        
-        if (photo.is_trashed())
-            return;
-        
-        bool removed = trashcan.remove(photo);
-        assert(removed);
-        
-        if (are_notifications_frozen()) {
-            trashcan_relinks.add(photo);
-            
-            return;
-        }
-        
-        notify_trashcan_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
-        
-        relink(photo);
-    }
-    
-    private void on_offline_photo_altered(DataObject o, Alteration alteration) {
-        if (!alteration.has_subject("metadata"))
-            return;
-        
-        LibraryPhoto photo = (LibraryPhoto) o;
-        
-        assert(offline.contains(photo));
-        
-        if (photo.is_offline())
-            return;
-        
-        bool removed = offline.remove(photo);
-        assert(removed);
-        
-        if (are_notifications_frozen()) {
-            offline_relinks.add(photo);
-            
-            return;
-        }
-        
-        notify_offline_contents_altered(null, (Gee.Collection<LibraryPhoto>) get_singleton(photo));
-        
-        relink(photo);
-    }
-    
-    protected override void thawed() {
-        // refs are swapped around due to reentrancy
-        if (trashcan_relinks.size > 0) {
-            Gee.HashSet<LibraryPhoto> copy = trashcan_relinks;
-            trashcan_relinks = new Gee.HashSet<LibraryPhoto>();
-            
-            notify_trashcan_contents_altered(null, copy);
-            relink_many(copy);
-        }
-        
-        if (offline_relinks.size > 0) {
-            Gee.HashSet<LibraryPhoto> copy = offline_relinks;
-            offline_relinks = new Gee.HashSet<LibraryPhoto>();
-            
-            notify_offline_contents_altered(null, copy);
-            relink_many(copy);
-        }
-        
-        base.thawed();
+        offline.add_many(photos);
     }
     
     public override bool has_backlink(SourceBacklink backlink) {
         if (base.has_backlink(backlink))
             return true;
         
-        foreach (LibraryPhoto photo in trashcan) {
-            if (photo.has_backlink(backlink))
-                return true;
-        }
+        if (trashcan.has_backlink(backlink))
+            return true;
         
-        foreach (LibraryPhoto photo in offline) {
-            if (photo.has_backlink(backlink))
-                return true;
-        }
+        if (offline.has_backlink(backlink))
+            return true;
         
         return false;
     }
     
     public override void remove_backlink(SourceBacklink backlink) {
-        foreach (LibraryPhoto photo in trashcan)
-            photo.remove_backlink(backlink);
-        
-        foreach (LibraryPhoto photo in offline)
-            photo.remove_backlink(backlink);
+        trashcan.remove_backlink(backlink);
+        offline.remove_backlink(backlink);
         
         base.remove_backlink(backlink);
     }

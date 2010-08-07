@@ -169,7 +169,6 @@ public class LibraryWindow : AppWindow {
         events_directory_page = MasterEventsDirectoryPage.create_stub();
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed.connect(import_queue_batch_finished);
-        photo_page = new LibraryPhotoPage();
         trash_page = TrashPage.create_stub();
         
         // create and connect extended properties window
@@ -182,7 +181,6 @@ public class LibraryWindow : AppWindow {
         sidebar.add_parent(last_import_page);
         sidebar.add_parent(events_directory_page);
         sidebar.add_parent(trash_page);
-        add_orphan_page(photo_page);
         
         properties_scheduler = new OneShotScheduler("LibraryWindow properties",
             on_update_properties_now);
@@ -842,6 +840,15 @@ public class LibraryWindow : AppWindow {
     }
     
     public void switch_to_photo_page(CollectionPage controller, Photo current) {
+        if (photo_page == null) {
+            photo_page = new LibraryPhotoPage();
+            add_orphan_page(photo_page);
+            
+            // need to do this to allow the event loop a chance to map and realize the page
+            // before switching to it
+            spin_event_loop();
+        }
+        
         photo_page.display_for_collection(controller, current);
         switch_to_page(photo_page);
     }
@@ -1044,9 +1051,9 @@ public class LibraryWindow : AppWindow {
     private void enable_disable_offline_page(bool enable) {
         if (enable && offline_page == null) {
             offline_page = OfflinePage.create_stub();
-            add_parent_page(offline_page.get_page());
+            sidebar.add_parent(offline_page);
         } else if (!enable && offline_page != null) {
-            remove_page(offline_page.get_page(), library_page);
+            remove_stub(offline_page, library_page);
             offline_page = null;
         }
     }

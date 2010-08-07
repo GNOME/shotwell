@@ -140,11 +140,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
     private LibraryPhoto primary_photo;
     private ViewCollection view;
     
-    private Event(EventID event_id, int64 object_id = INVALID_OBJECT_ID) {
+    private Event(EventRow event_row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
         
-        this.event_id = event_id;
-        this.raw_name = event_table.get_name(event_id);
+        this.event_id = event_row.event_id;
+        this.raw_name = event_row.name;
         
         Gee.ArrayList<PhotoID?> event_photo_ids = PhotoTable.get_instance().get_event_photos(event_id);
         Gee.ArrayList<LibraryPhoto> event_photos = new Gee.ArrayList<LibraryPhoto>();
@@ -164,7 +164,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         // get the primary photo for monitoring; if not available, use the first photo in the
         // event
-        primary_photo = LibraryPhoto.global.fetch(event_table.get_primary_photo(event_id));
+        primary_photo = LibraryPhoto.global.fetch(event_row.primary_photo_id);
         if (primary_photo == null && view.get_count() > 0) {
             primary_photo = (LibraryPhoto) ((DataView) view.get_at(0)).get_source();
             event_table.set_primary_photo(event_id, primary_photo.get_photo_id());
@@ -210,10 +210,10 @@ public class Event : EventSource, ContainerSource, Proxyable {
         Gee.ArrayList<Event> events = new Gee.ArrayList<Event>();
         Gee.ArrayList<Event> unlinked = new Gee.ArrayList<Event>();
 
-        Gee.ArrayList<EventID?> event_ids = event_table.get_events();
-        int count = event_ids.size;
+        Gee.ArrayList<EventRow?> event_rows = event_table.get_events();
+        int count = event_rows.size;
         for (int ctr = 0; ctr < count; ctr++) {
-            Event event = new Event(event_ids[ctr]);
+            Event event = new Event(event_rows[ctr]);
             
             if (event.get_photo_count() != 0) {
                 events.add(event);
@@ -317,20 +317,25 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     // This creates an empty event with the key photo.  NOTE: This does not add the key photo to
     // the event.  That must be done manually.
-    public static Event create_empty_event(LibraryPhoto key_photo) {
-        EventID event_id = EventTable.get_instance().create(key_photo.get_photo_id());
-        Event event = new Event(event_id);
-        global.add(event);
-        
-        debug("Created empty event %s", event.to_string());
-        
-        return event;
+    public static Event? create_empty_event(LibraryPhoto key_photo) {
+        try {
+            Event event = new Event(EventTable.get_instance().create(key_photo.get_photo_id()));
+            global.add(event);
+            
+            debug("Created empty event %s", event.to_string());
+            
+            return event;
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+            
+            return null;
+        }
     }
     
     // This will create an event using the fields supplied in EventRow.  The event_id is ignored.
     private static Event reconstitute(int64 object_id, EventRow row) {
-        EventID event_id = EventTable.get_instance().create_from_row(row);
-        Event event = new Event(event_id, object_id);
+        row.event_id = EventTable.get_instance().create_from_row(row);
+        Event event = new Event(row, object_id);
         global.add(event);
         assert(global.contains(event));
         
@@ -424,13 +429,17 @@ public class Event : EventSource, ContainerSource, Proxyable {
         }
         
         // no Event so far fits the bill for this photo, so create a new one
-        Event event = new Event(EventTable.get_instance().create(photo.get_photo_id()));
-        if (event_name != null)
-            event.rename(event_name);
-        photo.set_event(event);
-        global.add(event);
-        
-        events_so_far.add(new EventView(event));
+        try {
+            Event event = new Event(EventTable.get_instance().create(photo.get_photo_id()));
+            if (event_name != null)
+                event.rename(event_name);
+            photo.set_event(event);
+            global.add(event);
+            
+            events_so_far.add(new EventView(event));
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
     }
     
     public EventID get_event_id() {

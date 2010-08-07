@@ -57,6 +57,7 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.CellRendererPixbuf icon;
     private Gtk.CellRendererText text;
     private Gtk.Entry? text_entry = null;
+    private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
     
     public Sidebar() {
         set_model(store);
@@ -164,41 +165,63 @@ public class Sidebar : Gtk.TreeView {
         expand_to_path(path);
     }
     
+    private Gdk.Pixbuf? lookup_icon(string icon_name) throws Error {
+        Gdk.Pixbuf? icon = icon_cache.get(icon_name);
+        if (icon != null)
+            return icon;
+        
+        Gtk.IconInfo? info = icon_theme.lookup_icon(icon_name, 16, 0);
+        if (info == null)
+            return null;
+        
+        icon = info.load_icon();
+        if (icon == null)
+            return null;
+        
+        icon_cache.set(icon_name, icon);
+        
+        return icon;
+    }
+    
     private void set_iter_icon(Gtk.TreeIter iter, string? icon_name) {
         // keep icon name for theme change, some items have no page to request name from
         store.set(iter, 2, icon_name);
 
-        Gtk.IconInfo? info_closed = null;
-        Gtk.IconInfo? info_open = null;
+        Gdk.Pixbuf? closed = null;
+        Gdk.Pixbuf? open = null;
 
-        if (icon_name != null)
-            info_closed = icon_theme.lookup_icon(icon_name, 16, 0);
-
-        if (info_closed == null) {
+        if (icon_name != null) {
+            try {
+                closed = lookup_icon(icon_name);
+            } catch (Error err) {
+                warning("Unable to load ico %s: %s", icon_name, err.message);
+            }
+        }
+        
+        if (closed == null) {
             // icon_name is null OR icon not found, dont show an icon
             store.set(iter, 3, null);
             store.set(iter, 4, null);
             store.set(iter, 5, null);
         } else {
-            if (icon_name == Resources.ICON_FOLDER_CLOSED)
-                // icon is a folder, so both open and closed are needed
-                info_open = icon_theme.lookup_icon(Resources.ICON_FOLDER_OPEN, 16, 0);
-
             try {
-                if (info_open == null) {
-                    // no expander-open icon, only load one icon
-                    store.set(iter, 3, info_closed.load_icon());
-                    store.set(iter, 4, null);
-                    store.set(iter, 5, null);
-                } else {
-                    // load expander-open and expander-closed icons
-                    store.set(iter, 3, null);
-                    store.set(iter, 4, info_closed.load_icon());
-                    store.set(iter, 5, info_open.load_icon());
-                }
+                if (icon_name == Resources.ICON_FOLDER_CLOSED)
+                    // icon is a folder, so both open and closed are needed
+                    open = lookup_icon(Resources.ICON_FOLDER_OPEN);
             } catch (Error err) {
                 warning("Unable to load icon %s: %s", icon_name, err.message);
-                set_iter_icon(iter, null);
+            }
+            
+            if (open == null) {
+                // no expander-open icon, only load one icon
+                store.set(iter, 3, closed);
+                store.set(iter, 4, null);
+                store.set(iter, 5, null);
+            } else {
+                // load expander-open and expander-closed icons
+                store.set(iter, 3, null);
+                store.set(iter, 4, closed);
+                store.set(iter, 5, open);
             }
         }
     }

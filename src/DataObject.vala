@@ -340,6 +340,14 @@ public abstract class DataObject : Object {
 #endif
     }
     
+    // This method is only called by SourceHoldingTank (to give ordinality to its unassociated
+    // members).  DataCollections should call internal_set_membership.
+    public void internal_set_ordinal(int64 ordinal) {
+        assert(member_of == null);
+        
+        this.ordinal = ordinal;
+    }
+    
     // This method is only called by DataCollection.  It's called after the DataObject has been
     // assigned to a DataCollection.
     public void internal_clear_membership() {
@@ -347,10 +355,8 @@ public abstract class DataObject : Object {
         ordinal = DataCollection.INVALID_OBJECT_ORDINAL;
     }
     
-    // This method is only called by DataCollection and DataSet
+    // This method is only called by DataCollection, DataSet, and SourceHoldingTank.
     public inline int64 internal_get_ordinal() {
-        assert(member_of != null);
-
         return ordinal;
     }
     

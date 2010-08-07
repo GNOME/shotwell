@@ -141,7 +141,11 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
     public int size {
         get { return list.size; }
     }
-
+    
+    public inline int get_count() {
+        return list.size;
+    }
+    
     public G? get_at(int index) {
         return list.get(index);
     }

@@ -1544,7 +1544,7 @@ public class EventTable : DatabaseTable {
         return instance;
     }
     
-    public EventID create(PhotoID primary_photo_id) {
+    public EventRow create(PhotoID primary_photo_id) throws DatabaseError {
         assert(primary_photo_id.is_valid());
         
         Sqlite.Statement stmt;
@@ -1553,19 +1553,24 @@ public class EventTable : DatabaseTable {
             -1, out stmt);
         assert(res == Sqlite.OK);
         
+        time_t time_created = (time_t) now_sec();
+        
         res = stmt.bind_int64(1, primary_photo_id.id);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, now_sec());
+        res = stmt.bind_int64(2, time_created);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
-        if (res != Sqlite.DONE) {
-            fatal("create_event", res);
-            
-            return EventID();
-        }
-
-        return EventID(db.last_insert_rowid());
+        if (res != Sqlite.DONE)
+            throw_error("EventTable.create", res);
+        
+        EventRow row = EventRow();
+        row.event_id = EventID(db.last_insert_rowid());
+        row.name = null;
+        row.primary_photo_id = primary_photo_id;
+        row.time_created = time_created;
+        
+        return row;
     }
     
     // NOTE: The event_id in EventRow is ignored here.  No checking is done to prevent
@@ -1635,12 +1640,13 @@ public class EventTable : DatabaseTable {
         return true;
     }
     
-    public Gee.ArrayList<EventID?> get_events() {
+    public Gee.ArrayList<EventRow?> get_events() {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id FROM EventTable", -1, out stmt);
+        int res = db.prepare_v2("SELECT id, name, primary_photo_id, time_created FROM EventTable",
+            -1, out stmt);
         assert(res == Sqlite.OK);
 
-        Gee.ArrayList<EventID?> event_ids = new Gee.ArrayList<EventID?>();
+        Gee.ArrayList<EventRow?> event_rows = new Gee.ArrayList<EventRow?>();
         for (;;) {
             res = stmt.step();
             if (res == Sqlite.DONE) {
@@ -1651,10 +1657,16 @@ public class EventTable : DatabaseTable {
                 break;
             }
             
-            event_ids.add(EventID(stmt.column_int64(0)));
+            EventRow row = EventRow();
+            row.event_id = EventID(stmt.column_int64(0));
+            row.name = stmt.column_text(1);
+            row.primary_photo_id = PhotoID(stmt.column_int64(2));
+            row.time_created = (time_t) stmt.column_int64(3);
+            
+            event_rows.add(row);
         }
         
-        return event_ids;
+        return event_rows;
     }
     
     public bool rename(EventID event_id, string? name) {

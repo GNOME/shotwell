@@ -59,8 +59,8 @@ public class DataSet {
         return hash_set.contains(object);
     }
     
-    public int get_count() {
-        return list.size;
+    public inline int get_count() {
+        return list.get_count();
     }
     
     public void reset_comparator() {
@@ -97,6 +97,7 @@ public class DataSet {
         return list.locate(object);
     }
     
+    // DataObject's ordinal should be set before adding.
     public bool add(DataObject object) {
         if (!list.add(object))
             return false;
@@ -111,6 +112,7 @@ public class DataSet {
         return true;
     }
     
+    // DataObjects' ordinals should be set before adding.
     public bool add_many(Gee.Collection<DataObject> objects) {
         int count = objects.size;
         if (count == 0)
@@ -479,6 +481,16 @@ public class DataCollection {
     
     // Fired when a collection property is cleared.
     public virtual signal void property_cleared(string name) {
+    }
+    
+    // Fired when "altered" signal (and possibly other related signals, depending on the subclass)
+    // is frozen.
+    public virtual signal void frozen() {
+    }
+    
+    // Fired when "altered" signal (and other related signals, depending on the subclass) is
+    // restored (thawed).
+    public virtual signal void thawed() {
     }
     
     public DataCollection(string name) {
@@ -896,7 +908,7 @@ public class DataCollection {
     // ordering_changed (and their corresponding signals in DataObject).
     public void freeze_notifications() {
         if (notifies_frozen++ == 0)
-            frozen();
+            notify_frozen();
     }
     
     public void thaw_notifications() {
@@ -904,7 +916,7 @@ public class DataCollection {
             return;
         
         if (--notifies_frozen == 0)
-            thawed();
+            notify_thawed();
     }
     
     public bool are_notifications_frozen() {
@@ -913,12 +925,13 @@ public class DataCollection {
     
     // This is called when notifications have frozen.  Child collections should halt notifications
     // until thawed() is called.
-    protected virtual void frozen() {
+    protected virtual void notify_frozen() {
+        frozen();
     }
     
     // This is called when enough thaw_notifications() calls have been made.  Child collections
     // should issue caught notifications.
-    protected virtual void thawed() {
+    protected virtual void notify_thawed() {
         if (frozen_items_altered != null) {
             // refs are swapped around due to reentrancy
             Gee.Map<DataObject, Alteration> copy = frozen_items_altered;
@@ -938,6 +951,8 @@ public class DataCollection {
         int count = get_count();
         for (int ctr = 0; ctr < count; ctr++)
             get_at(ctr).internal_collection_thawed();
+        
+        thawed();
     }
 }
 
@@ -1336,6 +1351,199 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         } else {
             destroy_marked(mark(container), true);
         }
+    }
+}
+
+// A SourceHoldingTank is similar to the holding tank used by ContainerSourceCollection, but for
+// non-ContainerSources to be held offline from their natural SourceCollection (i.e. PhotoSources
+// being held in a trashcan, for example).  It is *not* a DataCollection (important!), but rather
+// a signalled collection that moves DataSources to and from their SourceCollection.
+//
+// DataSources can be shuttled from their SourceCollection to the SourceHoldingTank manually
+// (via unlink_and_hold) or can be automatically moved by installing a HoldingPredicate.
+// Only one HoldingConditional may be installed.  Because of assertions in the methods, it's unwise
+// to use more than one method.  add() and add_many() should ONLY be used for DataSources not
+// first installed in their SourceCollection (i.e. they're born in the SourceHoldingTank).
+//
+// NOTE: DataSources should never be in more than one SourceHoldingTank.  No tests are performed
+// here to verify this.  This is why a filter/predicate method (which could automatically move
+// them in as they're altered) is not offered; there's no easy way to keep DataSources from being
+// moved into more than one holding tank, or which should have preference.  The CheckToRemove
+// predicate is offered only to know when to release them.
+
+public class SourceHoldingTank {
+    // Return true if the DataSource should remain in the SourceHoldingTank, false otherwise.
+    public delegate bool CheckToKeep(DataSource source, Alteration alteration);
+    
+    private SourceCollection sources;
+    private CheckToKeep check_to_keep;
+    private DataSet tank = new DataSet();
+    private Gee.HashSet<DataSource> relinks = new Gee.HashSet<DataSource>();
+    private Gee.HashSet<DataSource> unlinking = new Gee.HashSet<DataSource>();
+    private int64 ordinal = 0;
+    
+    public virtual signal void contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+    }
+    
+    public SourceHoldingTank(SourceCollection sources, CheckToKeep check_to_keep) {
+        this.sources = sources;
+        this.check_to_keep = check_to_keep;
+        
+        this.sources.item_destroyed.connect(on_source_destroyed);
+        this.sources.thawed.connect(on_source_collection_thawed);
+    }
+    
+    ~SourceHoldingTank() {
+        sources.item_destroyed.disconnect(on_source_destroyed);
+        sources.thawed.disconnect(on_source_collection_thawed);
+        
+        foreach (DataObject object in tank.get_all())
+            ((DataSource) object).altered.disconnect(on_held_source_altered);
+    }
+    
+    protected virtual void notify_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        if (added != null) {
+            foreach (DataSource source in added)
+                source.altered.connect(on_held_source_altered);
+        }
+        
+        if (removed != null) {
+            foreach (DataSource source in removed)
+                source.altered.disconnect(on_held_source_altered);
+        }
+        
+        contents_altered(added, removed);
+    }
+    
+    public int get_count() {
+        return tank.get_count();
+    }
+    
+    public Gee.Collection<DataSource> get_all() {
+        return (Gee.Collection<DataSource>) tank.get_all();
+    }
+    
+    public bool contains(DataSource source) {
+        return tank.contains(source) || unlinking.contains(source);
+    }
+    
+    // Only use for DataSources that have not been installed in their SourceCollection.
+    public void add_many(Gee.Collection<DataSource> many) {
+        if (many.size == 0)
+            return;
+        
+        foreach (DataSource source in many)
+            source.internal_set_ordinal(ordinal++);
+        
+        bool added = tank.add_many(many);
+        assert(added);
+        
+        notify_contents_altered(many, null);
+    }
+    
+    // Do not pass in DataSources which have already been unlinked, including into this holding
+    // tank.
+    public void unlink_and_hold(Gee.Collection<DataSource> unlink) {
+        if (unlink.size == 0)
+            return;
+        
+        // store in the unlinking collection to guard against reentrancy
+        unlinking.add_all(unlink);
+        
+        sources.unlink_marked(sources.mark_many(unlink));
+        
+        foreach (DataSource source in unlink)
+            source.internal_set_ordinal(ordinal++);
+        
+        bool added = tank.add_many(unlink);
+        assert(added);
+        
+        // remove from the unlinking pool, as they're now unlinked
+        unlinking.remove_all(unlink);
+        
+        notify_contents_altered(unlink, null);
+    }
+    
+    public bool has_backlink(SourceBacklink backlink) {
+        int count = tank.get_count();
+        for (int ctr = 0; ctr < count; ctr++) {
+            if (((DataSource) tank.get_at(ctr)).has_backlink(backlink))
+                return true;
+        }
+        
+        return false;
+    }
+    
+    public void remove_backlink(SourceBacklink backlink) {
+        int count = tank.get_count();
+        for (int ctr = 0; ctr < count; ctr++)
+            ((DataSource) tank.get_at(ctr)).remove_backlink(backlink);
+    }
+    
+    public void destroy_orphans(Gee.List<DataSource> destroy, bool delete_backing,
+        ProgressMonitor? monitor = null) {
+        if (destroy.size == 0)
+            return;
+        
+        bool removed = tank.remove_many(destroy);
+        assert(removed);
+        
+        notify_contents_altered(null, destroy);
+        
+        int count = destroy.size;
+        for (int ctr = 0; ctr < count; ctr++) {
+            destroy.get(ctr).destroy_orphan(delete_backing);
+            if (monitor != null)
+                monitor(ctr + 1, count);
+        }
+    }
+    
+    private void on_source_destroyed(DataSource source) {
+        if (!tank.contains(source))
+            return;
+        
+        bool removed = tank.remove(source);
+        assert(removed);
+        
+        notify_contents_altered(null, new SingletonCollection<DataSource>(source));
+    }
+    
+    private void on_held_source_altered(DataObject object, Alteration alteration) {
+        DataSource source = (DataSource) object;
+        
+        assert(tank.contains(source));
+        
+        // see if it should stay put
+        if (check_to_keep(source, alteration))
+            return;
+        
+        bool removed = tank.remove(source);
+        assert(removed);
+        
+        if (sources.are_notifications_frozen()) {
+            relinks.add(source);
+            
+            return;
+        }
+        
+        notify_contents_altered(null, new SingletonCollection<DataSource>(source));
+        
+        sources.relink(source);
+    }
+    
+    private void on_source_collection_thawed() {
+        if (relinks.size == 0)
+            return;
+        
+        // swap out to protect against reentrancy
+        Gee.HashSet<DataSource> copy = relinks;
+        relinks = new Gee.HashSet<DataSource>();
+        
+        notify_contents_altered(null, copy);
+        
+        sources.relink_many(copy);
     }
 }
 
@@ -1783,30 +1991,42 @@ public class ViewCollection : DataCollection {
     
     // Keep the source map and state tables synchronized
     public override void notify_items_added(Gee.Iterable<DataObject> added) {
-        Gee.ArrayList<DataView> added_visible = new Gee.ArrayList<DataView>();
-        Gee.ArrayList<DataView> added_selected = new Gee.ArrayList<DataView>();
+        Gee.ArrayList<DataView> added_visible = null;
+        Gee.ArrayList<DataView> added_selected = null;
         
         foreach (DataObject object in added) {
             DataView view = (DataView) object;
             source_map.set(view.get_source(), view);
             
-            if (view.is_selected())
+            if (view.is_selected()) {
+                if (added_selected == null)
+                    added_selected = new Gee.ArrayList<DataView>();
+                
                 added_selected.add(view);
+            }
             
             if (filter != null)
                 view.internal_set_visible(filter(view));
             
-            if (view.is_visible())
+            if (view.is_visible()) {
+                if (added_visible == null)
+                    added_visible = new Gee.ArrayList<DataView>();
+                
                 added_visible.add(view);
+            }
         }
         
-        bool is_added = add_many_visible(added_visible);
-        assert(is_added);
-        is_added = selected.add_many(added_selected);
-        assert(is_added);
+        if (added_visible != null) {
+            bool is_added = add_many_visible(added_visible);
+            assert(is_added);
+        }
         
-        if (added_selected.size > 0)
+        if (added_selected != null) {
+            bool is_added = selected.add_many(added_selected);
+            assert(is_added);
+            
             notify_items_selected(added_selected);
+        }
         
         base.notify_items_added(added);
     }
@@ -2284,7 +2504,7 @@ public class ViewCollection : DataCollection {
         }
     }
     
-    protected override void thawed() {
+    protected override void notify_thawed() {
         if (frozen_views_altered != null) {
             foreach (DataView view in frozen_views_altered)
                 notify_item_view_altered(view);
@@ -2299,7 +2519,7 @@ public class ViewCollection : DataCollection {
             frozen_geometries_altered = null;
         }
         
-        base.thawed();
+        base.notify_thawed();
     }
 }
 

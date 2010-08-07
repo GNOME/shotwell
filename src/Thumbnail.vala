@@ -37,8 +37,6 @@ public class Thumbnail : CheckerboardItem {
         this.photo = photo;
         this.scale = scale;
         
-        update_tags();
-        
         original_dim = photo.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
@@ -76,6 +74,9 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void on_tag_altered(DataObject source) {
+        if (!is_exposed())
+            return;
+        
         Tag tag = (Tag) source;
         
         if (tag.contains(photo))
@@ -299,6 +300,8 @@ public class Thumbnail : CheckerboardItem {
     public override void exposed() {
         if (!has_image())
             schedule_low_quality_fetch();
+        
+        update_tags();
         
         base.exposed();
     }
