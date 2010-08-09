@@ -25,7 +25,7 @@ msgstr "Slackhideo <burajirugaijin@yahoo.co.jp>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "ショットウェル写真管理"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
@@ -38,12 +38,12 @@ msgstr ""
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "ショットウェル写真表示"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
-msgstr ""
+msgstr "写真表示"
 
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
@@ -53,12 +53,12 @@ msgstr ""
 #: src/AlienDatabaseImportDialog.vala:61
 #, c-format
 msgid "Import from another %s database file:"
-msgstr ""
+msgstr "他の%sのデータベースからインポート："
 
 #: src/AlienDatabaseImportDialog.vala:65
 #, c-format
 msgid "Import from a %s database file:"
-msgstr ""
+msgstr "%sのデータベースからインポート："
 
 #: src/AlienDatabaseImportDialog.vala:93
 msgid "No database selected"
@@ -67,11 +67,11 @@ msgstr ""
 #: src/AlienDatabaseImportDialog.vala:129
 #, c-format
 msgid "%s Database"
-msgstr ""
+msgstr "%sのデータベース"
 
 #: src/AlienDatabaseImportDialog.vala:146
 msgid "Shotwell failed to load the database file"
-msgstr ""
+msgstr "データベースのファイルを読み込む時にエラーが発生しました"
 
 #: src/AppDirs.vala:74
 msgid "Pictures"

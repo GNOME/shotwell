@@ -49,7 +49,7 @@ msgstr "Fotovaatur"
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"
-msgstr "Importimine vaikimisi %s kogust (%s)"
+msgstr "Importimine vaikimisi %si kogust (%s)"
 
 #: src/AlienDatabaseImportDialog.vala:61
 #, c-format
@@ -2589,7 +2589,7 @@ msgstr "Valitud fotode eemaldamine pildikogust"
 
 #: src/Resources.vala:534
 msgid "_Restore"
-msgstr "_Lähtesta"
+msgstr "_Taasta"
 
 #: src/Resources.vala:535
 msgid "Move the selected photos back into the library"
@@ -2793,11 +2793,11 @@ msgstr "Shotwelli eelistused"
 
 #: ui/shotwell.glade:124
 msgid "_Background:"
-msgstr "_Taust:"
+msgstr "_Taustavärvus:"
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
-msgstr "_Fotode importimise asukoht:"
+msgstr "_Fotod imporditakse kataloogi:"
 
 #: ui/shotwell.glade:188
 msgid "Bro_wse..."
@@ -2825,7 +2825,7 @@ msgstr "_Väline fotoredaktor:"
 
 #: ui/shotwell.glade:334
 msgid "External _RAW editor:"
-msgstr "Väline _RAW redaktor:"
+msgstr "Väline _RAW-redaktor:"
 
 #: ui/shotwell.glade:511
 msgid "Preparing pictures for import..."
