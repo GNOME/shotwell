@@ -686,12 +686,8 @@ public abstract class CollectionPage : CheckerboardPage {
     
 #if !NO_PRINTING
     private void on_print() {
-        if (get_view().get_selected_count() != 1)
-            return;
-
-        TransformablePhoto target_photo = (TransformablePhoto)
-            ((SortedList<DataView>) get_view().get_selected()).get_at(0).get_source();
-        PrintManager.get_instance().spool_photo(target_photo);
+        if (get_view().get_selected_count() == 1)
+            PrintManager.get_instance().spool_photo((Photo) get_view().get_selected_at(0).get_source());
     }
 
     private void on_page_setup() {

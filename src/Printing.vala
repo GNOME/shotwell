@@ -928,15 +928,14 @@ public class PrintManager {
         dc.scale(inv_dpi, inv_dpi);
 
         Scaling pixbuf_scaling = Scaling.for_best_fit(major_axis_num_pixels, true);
-        Gdk.Pixbuf photo_pixbuf = null;
         try {
-            photo_pixbuf = job.get_source_photo().get_pixbuf(Scaling.for_original());
+            Gdk.Pixbuf photo_pixbuf = job.get_source_photo().get_pixbuf(Scaling.for_original());
             photo_pixbuf = pixbuf_scaling.perform_on_pixbuf(photo_pixbuf, Gdk.InterpType.HYPER,
                 true);
+            Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
         } catch (Error e) {
-            error(_("Unable to print photo:\n\n%s").printf(e.message));
+            AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
         }
-        Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
     }
 
     private void configure_fixed_size_transformation(PrintJob job, Gtk.PrintContext job_context) {
@@ -971,7 +970,9 @@ public class PrintManager {
         try {
             photo_pixbuf = job.get_source_photo().get_pixbuf(Scaling.for_original());
         } catch (Error e) {
-            error(_("Unable to print photo:\n\n%s").printf(e.message));
+            AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
+            
+            return;
         }
 
         /* if the original photo's aspect ratio differs significantly from the aspect ratio
