@@ -46,6 +46,8 @@
             <menuitem name="Zoom200" action="Zoom200" />
             <separator />
             <menuitem name="Fullscreen" action="CommonFullscreen" />
+            <separator />
+            <menuitem name="Slideshow" action="Slideshow" />
         </menu>
         
         <menu name="PhotoMenu" action="PhotoMenu">

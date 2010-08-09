@@ -2257,7 +2257,13 @@ public class LibraryPhotoPage : EditingHostPage {
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
         modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
-
+        
+        Gtk.ActionEntry slideshow = { "Slideshow", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "F5",
+            TRANSLATABLE, on_slideshow };
+        slideshow.label = _("_Slideshow");
+        slideshow.tooltip = _("Play a slideshow");
+        actions += slideshow;
+        
         return actions;
     }
     
@@ -2371,7 +2377,16 @@ public class LibraryPhotoPage : EditingHostPage {
                 trinket.get_width(), trinket.get_height(), Gdk.RgbDither.NORMAL, 0, 0);
         }
     }
-
+    
+    private void on_slideshow() {
+        LibraryPhoto? photo = (LibraryPhoto?) get_photo();
+        if (photo == null)
+            return;
+        
+        AppWindow.get_instance().go_fullscreen(new SlideshowPage(LibraryPhoto.global, get_controller(),
+            photo));
+    }
+    
     private void update_zoom_menu_item_sensitivity() {
         set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max()
             && !get_photo_missing());
@@ -2416,6 +2431,7 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/ViewMenu/ZoomFit", sensitivity);
         set_item_sensitive("/PhotoMenuBar/ViewMenu/Zoom100", sensitivity);
         set_item_sensitive("/PhotoMenuBar/ViewMenu/Zoom200", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/ViewMenu/Slideshow", sensitivity);
 
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
