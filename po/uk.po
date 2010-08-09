@@ -1683,7 +1683,6 @@ msgid "Zoom _100%"
 msgstr "Масштаб _100%"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
-#, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Змінити масштаб фотографії до початкового"
 
@@ -1692,7 +1691,6 @@ msgid "Zoom _200%"
 msgstr "Масштаб _200%"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
-#, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Змінити масштаб фотографії до подвійного"
 

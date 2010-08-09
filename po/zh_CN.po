@@ -1512,7 +1512,6 @@ msgid "Zoom _100%"
 msgstr "缩放 100% (_1)"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
-#, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "缩放照片至 100% m比例"
 
@@ -1521,7 +1520,6 @@ msgid "Zoom _200%"
 msgstr "缩放 200%(_2)"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
-#, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "缩放照片至 200% m比例"
 

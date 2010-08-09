@@ -1593,7 +1593,6 @@ msgstr "Μεγέθυνση _100%"
 
 #: src/PhotoPage.vala:2226
 #: src/PhotoPage.vala:3263
-#, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Mεγέθυνση της φωτογραφίας κατά 100 τοις εκατό"
 
@@ -1604,7 +1603,6 @@ msgstr "Μεγέθυνση _200%"
 
 #: src/PhotoPage.vala:2232
 #: src/PhotoPage.vala:3269
-#, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Μεγέθυνση της φωτογραφίας κατά 200 τοις εκατό"
 

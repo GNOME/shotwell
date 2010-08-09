@@ -1601,7 +1601,6 @@ msgid "Zoom _100%"
 msgstr "_Tikrasis mastelis"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
-#, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Rodyti tikrąjį nuotraukos dydį"
 
@@ -1610,7 +1609,6 @@ msgid "Zoom _200%"
 msgstr "_Dvigubas dydis"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
-#, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Rodyti dvigubai didesnę nuotrauką"
 

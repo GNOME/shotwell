@@ -1544,7 +1544,6 @@ msgid "Zoom _100%"
 msgstr "Увећај на _100%"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
-#, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Приказује слику у пуној резолуцији"
 
@@ -1553,7 +1552,6 @@ msgid "Zoom _200%"
 msgstr "Увећај на _200%"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
-#, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Приказује слику увећану за дупло"
 
