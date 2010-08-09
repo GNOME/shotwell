@@ -514,8 +514,6 @@ public abstract class TransformablePhoto: PhotoSource {
             
             default:
                 error("Unknown backing fetch mode %s", mode.to_string());
-                
-                return get_baseline_reader();
         }
     }
     

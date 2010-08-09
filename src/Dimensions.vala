@@ -231,11 +231,10 @@ public struct Dimensions {
             
             case ScaleConstraint.HEIGHT:
                 return get_scaled_by_height(scale);
+            
+            default:
+                error("Bad constraint: %d", (int) constraint);
         }
-
-        error("Bad constraint: %d", (int) constraint);
-        
-        return Dimensions();
     }
 }
 

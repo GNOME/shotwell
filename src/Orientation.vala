@@ -73,11 +73,8 @@ public enum Orientation {
             case LEFT_BOTTOM:
                 return TOP_LEFT;
                 
-            default: {
+            default:
                 error("rotate_clockwise: %d", this);
-                
-                return this;
-            }
         }
     }
     
@@ -107,11 +104,8 @@ public enum Orientation {
             case LEFT_BOTTOM:
                 return BOTTOM_RIGHT;
                 
-            default: {
+            default:
                 error("rotate_counterclockwise: %d", this);
-                
-                return this;
-            }
         }
     }
     
@@ -141,11 +135,8 @@ public enum Orientation {
             case LEFT_BOTTOM:
                 return LEFT_TOP;
                 
-            default: {
+            default:
                 error("flip_top_to_bottom: %d", this);
-                
-                return this;
-            }
         }
     }
     
@@ -175,11 +166,8 @@ public enum Orientation {
             case LEFT_BOTTOM:
                 return RIGHT_BOTTOM;
                 
-            default: {
+            default:
                 error("flip_left_to_right: %d", this);
-                
-                return this;
-            }
         }
     }
     
@@ -199,8 +187,6 @@ public enum Orientation {
             
             default:
                 error("perform: %d", (int) rotation);
-                
-                return this;
         }
     }
     
@@ -234,8 +220,6 @@ public enum Orientation {
             
             default:
                 error("to_rotations: %d", this);
-                
-                return { };
         }
     }
     
@@ -257,8 +241,6 @@ public enum Orientation {
 
             default:
                 error("rotate_dimensions: %d", this);
-                
-                return dim;
         }
     }
     
@@ -306,7 +288,6 @@ public enum Orientation {
             
             default:
                 error("rotate_pixbuf: %d", this);
-            break;
         }
         
         return pixbuf;
@@ -372,7 +353,6 @@ public enum Orientation {
                 
             default:
                 error("rotate_point: %d", this);
-            break;
         }
         
         return rotated;
@@ -434,7 +414,6 @@ public enum Orientation {
                 
             default:
                 error("rotate_point: %d", this);
-            break;
         }
         
         return derotated;
@@ -485,8 +464,6 @@ public enum Rotation {
             
             default:
                 error("Unknown rotation: %d", (int) this);
-                
-                return pixbuf;
         }
     }
     
@@ -504,8 +481,6 @@ public enum Rotation {
             
             default:
                 error("Unknown rotation: %d", (int) this);
-                
-                return this;
         }
     }
 }

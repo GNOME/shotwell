@@ -2603,7 +2603,6 @@ public class AdjustTool : EditingTool {
             
             default:
                 error("Unknown adjustment: %d", (int) transformation.get_transformation_type());
-            break;
         }
     }
     

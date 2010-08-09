@@ -105,8 +105,6 @@ public class MimicManager : Object {
                 writer = MIMIC_FILE_FORMAT.create_writer(generate_impersonator_filepath(photo));
             } catch (PhotoFormatError err) {
                 error("Unable to create PhotoFileWriter for impersonator: %s", err.message);
-                
-                continue;
             }
             
             VerifyJob job = new VerifyJob(this, photo, writer);

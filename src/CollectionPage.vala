@@ -1728,8 +1728,6 @@ public abstract class CollectionPage : CheckerboardPage {
             
             default:
                 error("Unknown sort criteria: %s", get_sort_criteria().to_string());
-                
-                return Thumbnail.title_ascending_comparator;
         }
     }
     
@@ -1746,8 +1744,6 @@ public abstract class CollectionPage : CheckerboardPage {
             
             default:
                 error("Unknown sort criteria: %s", get_sort_criteria().to_string());
-                
-                return Thumbnail.title_comparator_predicate;
         }
     }
     
@@ -1798,7 +1794,6 @@ public abstract class CollectionPage : CheckerboardPage {
                 break;
             default:
                 error("Unknown sort criteria: %d", sort_by);
-                break;
         }
 
         return path;

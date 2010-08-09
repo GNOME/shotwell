@@ -32,7 +32,6 @@ public enum HttpMethod {
 
             default:
                 error("unrecognized HTTP method enumeration value");
-                return "";
         }
     }
 
@@ -45,7 +44,6 @@ public enum HttpMethod {
             return HttpMethod.POST;
         } else {
             error("unrecognized HTTP method name: %s", str);
-            return HttpMethod.GET;
         }
     }
 }
@@ -1083,7 +1081,6 @@ public class ServiceFactory {
             return new PicasaConnector.Interactor(host);
         } else {
             error("ServiceInteractor: unsupported service '%s'", service_name);
-            return null;
         }
     }
 }

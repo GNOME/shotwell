@@ -59,7 +59,6 @@ public abstract class AbstractSemaphore {
             
             default:
                 error("Unknown semaphore action: %s", action.to_string());
-            break;
         }
         
         mutex.unlock();

@@ -537,8 +537,6 @@ public class ImportPage : CheckerboardPage {
     
     public override CheckerboardItem? get_fullscreen_photo() {
         error("No fullscreen support for import pages");
-        
-        return null;
     }
     
     public override void switched_to() {
@@ -620,7 +618,6 @@ public class ImportPage : CheckerboardPage {
             
             default:
                 error("Unknown result type %d", (int) res);
-            break;
         }
     }
     

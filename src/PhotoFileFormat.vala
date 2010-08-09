@@ -134,8 +134,6 @@ public enum PhotoFileFormat {
             
             default:
                 error("Unsupported file format %s", this.to_string());
-                
-                return JfifFileFormatDriver.get_instance();
         }
     }
     

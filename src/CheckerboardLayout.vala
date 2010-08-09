@@ -998,7 +998,6 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             
             default:
                 error("Bad compass point %d", (int) point);
-            break;
         }
         
         CheckerboardItem? new_item = get_item_at_coordinate(col, row);

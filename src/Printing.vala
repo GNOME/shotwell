@@ -64,9 +64,7 @@ public struct PrintSettings {
 
             default:
                 error("unknown ContentLayout enumeration value");
-            break;
         }
-        return Measurement(0, MeasurementUnit.INCHES);
     }
 
     public Measurement get_content_height() {
@@ -81,9 +79,7 @@ public struct PrintSettings {
 
             default:
                 error("unknown ContentLayout enumeration value");
-            break;
         }
-        return Measurement(0, MeasurementUnit.INCHES);
     }
 
     public Measurement get_minimum_content_dimension() {
@@ -170,7 +166,6 @@ public struct Measurement {
             return Measurement(value * CENTIMETERS_PER_INCH, MeasurementUnit.CENTIMETERS);
         } else {
             error("unrecognized unit");
-            return Measurement(0, MeasurementUnit.INCHES);
         }
     }
 
@@ -476,7 +471,6 @@ public class CustomPrintTab : Gtk.Fixed {
             return MeasurementUnit.CENTIMETERS;
         } else {
             error("unknown unit combo box choice");
-            return MeasurementUnit.INCHES;
         }
     }
 
@@ -596,7 +590,6 @@ public class CustomPrintTab : Gtk.Fixed {
 
             default:
                 error("unknown ContentLayout enumeration value");
-            break;
         }
     }
 
@@ -625,7 +618,6 @@ public class CustomPrintTab : Gtk.Fixed {
 
             default:
                 error("unknown ContentLayout enumeration value");
-            break;
         }
     }
 
@@ -638,7 +630,6 @@ public class CustomPrintTab : Gtk.Fixed {
             return ContentLayout.FILL_PAGE;
 
         error("inconsistent content layout radio button group state");
-        return ContentLayout.FILL_PAGE;
     }
 
     private void set_content_width(Measurement content_width) {
@@ -887,7 +878,6 @@ public class PrintManager {
 
             default:
                 error("unknown or unsupported layout mode");
-            break;
         }
     }
 
@@ -945,8 +935,6 @@ public class PrintManager {
                 true);
         } catch (Error e) {
             error(_("Unable to print photo:\n\n%s").printf(e.message));
-            job.cancel();
-            return;
         }
         Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
     }
@@ -984,8 +972,6 @@ public class PrintManager {
             photo_pixbuf = job.get_source_photo().get_pixbuf(Scaling.for_original());
         } catch (Error e) {
             error(_("Unable to print photo:\n\n%s").printf(e.message));
-            job.cancel();
-            return;
         }
 
         /* if the original photo's aspect ratio differs significantly from the aspect ratio

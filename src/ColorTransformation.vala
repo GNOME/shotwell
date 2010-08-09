@@ -193,7 +193,6 @@ public struct HSVAnalyticPixel {
 
                 default:
                     error("bad color hexant in HSV-to-RGB conversion");
-                break;
             }
         }
 

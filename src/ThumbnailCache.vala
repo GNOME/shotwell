@@ -218,8 +218,6 @@ public class ThumbnailCache : Object {
             
             default:
                 error("Unknown thumbnail size %d", size.get_scale());
-                
-                return medium;
         }
     }
     

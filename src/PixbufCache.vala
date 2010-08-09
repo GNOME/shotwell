@@ -194,7 +194,6 @@ public class PixbufCache : Object {
             
             default:
                 error("Unknown photo type: %d", (int) type);
-            break;
         }
         
         in_progress.set(photo, job);

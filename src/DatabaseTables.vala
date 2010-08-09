@@ -1276,8 +1276,6 @@ public class PhotoTable : DatabaseTable {
             return map;
         } catch (Error err) {
             error("%s", err.message);
-            
-            return null;
         }
     }
     
@@ -1330,8 +1328,6 @@ public class PhotoTable : DatabaseTable {
             assert(trans.length > 0);
         } catch (Error err) {
             error("%s", err.message);
-            
-            return false;
         }
         
         return set_raw_transformations(photo_id, trans);
@@ -1357,8 +1353,6 @@ public class PhotoTable : DatabaseTable {
             assert(trans != null);
         } catch (Error err) {
             error("%s", err.message);
-            
-            return false;
         }
         
         return set_raw_transformations(photo_id, trans);
