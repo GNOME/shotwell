@@ -1079,10 +1079,9 @@ public abstract class TransformablePhoto: PhotoSource {
         }
     }
     
-    public EventID get_event_id() {
-        lock (row) {
-            return row.event_id;
-        }
+    // This is NOT thread-safe.
+    public inline EventID get_event_id() {
+        return row.event_id;
     }
     
     public ImportID get_import_id() {
@@ -1259,32 +1258,26 @@ public abstract class TransformablePhoto: PhotoSource {
         // with unlink/relink properly.
     }
     
+    // This is NOT thread-safe.
     public Event? get_event() {
         EventID event_id = get_event_id();
         
         return event_id.is_valid() ? Event.global.fetch(event_id) : null;
     }
     
+    // This is NOT thread-safe.
     public bool set_event(Event? event) {
-        bool committed = false;
-        bool success = false;
-        lock (row) {
-            EventID event_id = (event != null) ? event.get_event_id() : EventID();
-            if (row.event_id.id == event_id.id) {
-                success = true;
-            } else {
-                committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
-                if (committed) {
-                    row.event_id = event_id;
-                    success = true;
-                }
-            }
+        EventID event_id = (event != null) ? event.get_event_id() : EventID();
+        if (row.event_id.id == event_id.id)
+            return true;
+        
+        bool committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
+        if (committed) {
+            row.event_id = event_id;
+            notify_altered(new Alteration("metadata", "event"));
         }
         
-        if (committed)
-            notify_altered(new Alteration("metadata", "event"));
-        
-        return success;
+        return committed;
     }
     
     public override string to_string() {

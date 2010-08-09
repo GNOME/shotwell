@@ -76,9 +76,7 @@ public class DataSet {
     }
     
     public Gee.Collection<DataObject> get_all() {
-        // TODO: Returning a copy because of code elsewhere that removes items during an iteration.
-        // This needs to be fixed.
-        return list.copy();
+        return list.read_only_view;
     }
     
     public DataSet copy() {

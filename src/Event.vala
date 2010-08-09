@@ -221,15 +221,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
                 continue;
             }
             
-            if (event.has_links()) {
-                event.rehydrate_backlinks(global, null);
-                unlinked.add(event);
-                
-                continue;
-            }
-            
-            message("Empty event %s with no backlinks found, destroying", event.to_string());
-            event.destroy_orphan(true);
+            // TODO: If event has no backlinks, destroy (empty Event stored in database) ... this
+            // is expensive to check at startup time, however, should happen in background or
+            // during a "clean" operation
+            event.rehydrate_backlinks(global, null);
+            unlinked.add(event);
         }
         
         global.add_many(events, monitor);
