@@ -1082,14 +1082,18 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool update_pixbuf() {
 #if MEASURE_PIPELINE
         Timer timer = new Timer();
-#endif      
-
+#endif
+        
+        Photo? photo = get_photo();
+        if (photo == null)
+            return false;
+        
         Gdk.Pixbuf pixbuf = null;
-        Dimensions max_dim = get_photo().get_dimensions();
+        Dimensions max_dim = photo.get_dimensions();
         
         try {
             if (current_tool != null)
-                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), get_photo(), out max_dim);
+                pixbuf = current_tool.get_display_pixbuf(get_canvas_scaling(), photo, out max_dim);
         } catch (Error err) {
             warning("%s", err.message);
             set_photo_missing(true);
@@ -1098,13 +1102,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!photo_missing) {
             // if no pixbuf, see if it's waiting in the cache
             if (pixbuf == null)
-                pixbuf = cache.get_ready_pixbuf(get_photo());
+                pixbuf = cache.get_ready_pixbuf(photo);
             
             // if still no pixbuf, background fetch and let the signal handler update the display
             if (pixbuf == null)
-                cache.prefetch(get_photo());
+                cache.prefetch(photo);
         }
-        
+    
         if (!photo_missing && pixbuf != null) {
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
