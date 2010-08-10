@@ -820,7 +820,10 @@ public abstract class TransformablePhoto: PhotoSource {
             row = updated_row;
         }
         
-        notify_altered(new Alteration("image", "master"));
+        if (is_master_baseline())
+            notify_altered(new Alteration.from_list("image:master,image:baseline"));
+        else
+            notify_altered(new Alteration("image", "master"));
     }
 
     public override string? get_unique_thumbnail_name() {
@@ -841,8 +844,12 @@ public abstract class TransformablePhoto: PhotoSource {
             }
         }
         
-        if (altered)
-            notify_altered(new Alteration("metadata", "master-timestamp"));
+        if (altered) {
+            if (is_master_baseline())
+                notify_altered(new Alteration.from_list("metadata:master-timestamp,metadata:baseline-timestamp"));
+            else
+                notify_altered(new Alteration("metadata", "master-timestamp"));
+        }
     }
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
@@ -861,7 +868,7 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         if (altered)
-            notify_altered(new Alteration("metadata", "editable-timestamp"));
+            notify_altered(new Alteration.from_list("metadat:editable-timestamp,metadata:baseline-timestamp"));
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
@@ -2521,6 +2528,8 @@ public abstract class TransformablePhoto: PhotoSource {
         BackingPhotoID editable_id = get_editable_id();
         File file = reader.get_file();
         
+        bool timestamp_changed = false;
+        bool filesize_changed = false;
         if (only_attributes) {
             assert(editable_id.is_valid());
             
@@ -2540,6 +2549,9 @@ public abstract class TransformablePhoto: PhotoSource {
             BackingPhotoTable.get_instance().update_attributes(editable_id, timestamp.tv_sec,
                 info.get_size());
             lock (row) {
+                timestamp_changed = editable.timestamp != timestamp.tv_sec;
+                filesize_changed = editable.filesize != info.get_size();
+                
                 editable.timestamp = timestamp.tv_sec;
                 editable.filesize = info.get_size();
             }
@@ -2578,7 +2590,17 @@ public abstract class TransformablePhoto: PhotoSource {
                 new_reader != null ? new_reader.get_file() : null);
         }
         
-        notify_altered(new Alteration("image", "baseline"));
+        Alteration alteration = null;
+        if (timestamp_changed)
+            alteration = new Alteration.from_list("metadata:editable-timestamp,metadata:baseline-timestamp");
+        
+        if (filesize_changed) {
+            Alteration changed_alteration = new Alteration.from_list("image:editable,image:baseline");
+            alteration = (alteration == null) ? changed_alteration : alteration.compress(changed_alteration);
+        }
+        
+        if (alteration != null)
+            notify_altered(alteration);
     }
     
     private void detach_editable(bool delete_editable, bool remove_transformations) {
@@ -2621,7 +2643,6 @@ public abstract class TransformablePhoto: PhotoSource {
         if (has_editable) {
             notify_baseline_replaced();
             notify_editable_replaced(editable_file, null);
-            notify_altered(new Alteration("image", "baseline"));
         }
         
         if (delete_editable && editable_file != null) {
@@ -2978,12 +2999,18 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         EDITABLE
     }
     
-    private SourceHoldingTank trashcan = null;
-    private SourceHoldingTank offline = null;
+    private DatabaseSourceHoldingTank trashcan = null;
+    private DatabaseSourceHoldingTank offline = null;
     private Gee.HashMap<File, LibraryPhoto> by_master_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
+    private Gee.MultiMap<int64?, LibraryPhoto> filesize_to_photo =
+        new Gee.TreeMultiMap<int64?, LibraryPhoto>(int64_compare);
+    private Gee.HashMap<LibraryPhoto, int64?> photo_to_master_filesize =
+        new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
+    private Gee.HashMap<LibraryPhoto, int64?> photo_to_editable_filesize =
+        new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
     private Gee.MultiMap<ImportID?, LibraryPhoto> import_rolls =
         new Gee.TreeMultiMap<ImportID?, LibraryPhoto>(ImportID.compare_func);
     private SortedList<ImportID?> sorted_import_ids = new SortedList<ImportID?>(ImportID.comparator);
@@ -3002,10 +3029,10 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     public LibraryPhotoSourceCollection() {
         base("LibraryPhotoSourceCollection", get_photo_key);
         
-        trashcan = new SourceHoldingTank(this, check_if_trashed_photo);
+        trashcan = new DatabaseSourceHoldingTank(this, check_if_trashed_photo, get_photo_key);
         trashcan.contents_altered.connect(on_trashcan_contents_altered);
         
-        offline = new SourceHoldingTank(this, check_if_offline_photo);
+        offline = new DatabaseSourceHoldingTank(this, check_if_offline_photo, get_photo_key);
         offline.contents_altered.connect(on_offline_contents_altered);
     }
     
@@ -3021,6 +3048,17 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 File? editable = photo.get_editable_file();
                 if (editable != null)
                     by_editable_file.set(editable, photo);
+                
+                int64 master_filesize = photo.get_master_photo_state().filesize;
+                int64 editable_filesize = photo.get_editable_photo_state() != null
+                    ? photo.get_editable_photo_state().filesize
+                    : -1;
+                filesize_to_photo.set(master_filesize, photo);
+                photo_to_master_filesize.set(photo, master_filesize);
+                if (editable_filesize >= 0) {
+                    filesize_to_photo.set(editable_filesize, photo);
+                    photo_to_editable_filesize.set(photo, editable_filesize);
+                }
                 
                 ImportID import_id = photo.get_import_id();
                 if (import_id.is_valid()) {
@@ -3044,6 +3082,17 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 if (editable != null) {
                     is_removed = by_editable_file.unset(photo.get_editable_file());
                     assert(is_removed);
+                }
+                
+                int64 master_filesize = photo.get_master_photo_state().filesize;
+                int64 editable_filesize = photo.get_editable_photo_state() != null
+                    ? photo.get_editable_photo_state().filesize
+                    : -1;
+                filesize_to_photo.remove(master_filesize, photo);
+                photo_to_master_filesize.unset(photo);
+                if (editable_filesize >= 0) {
+                    filesize_to_photo.remove(editable_filesize, photo);
+                    photo_to_editable_filesize.unset(photo);
                 }
                 
                 ImportID import_id = photo.get_import_id();
@@ -3088,10 +3137,36 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         Gee.ArrayList<LibraryPhoto> to_offline = null;
         foreach (DataObject object in items.keys) {
             Alteration alteration = items.get(object);
-            if (!alteration.has_subject("metadata"))
-                continue;
             
             LibraryPhoto photo = (LibraryPhoto) object;
+            
+            if (alteration.has_detail("image", "master") || alteration.has_detail("image", "editable")) {
+                int64 old_master_filesize = photo_to_master_filesize.get(photo);
+                int64 old_editable_filesize = photo_to_editable_filesize.has_key(photo)
+                    ? photo_to_editable_filesize.get(photo)
+                    : -1;
+                
+                photo_to_master_filesize.unset(photo);
+                filesize_to_photo.remove(old_master_filesize, photo);
+                if (old_editable_filesize >= 0) {
+                    photo_to_editable_filesize.unset(photo);
+                    filesize_to_photo.remove(old_editable_filesize, photo);
+                }
+                
+                int64 master_filesize = photo.get_master_photo_state().filesize;
+                int64 editable_filesize = photo.get_editable_photo_state() != null
+                    ? photo.get_editable_photo_state().filesize
+                    : -1;
+                photo_to_master_filesize.set(photo, master_filesize);
+                filesize_to_photo.set(master_filesize, photo);
+                if (editable_filesize >= 0) {
+                    photo_to_editable_filesize.set(photo, editable_filesize);
+                    filesize_to_photo.set(editable_filesize, photo);
+                }
+            }
+            
+            if (!alteration.has_subject("metadata"))
+                continue;
             
             if (photo.is_trashed() && !trashcan.contains(photo)) {
                 if (to_trashcan == null)
@@ -3145,10 +3220,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     private static int64 get_photo_key(DataSource source) {
-        LibraryPhoto photo = (LibraryPhoto) source;
-        PhotoID photo_id = photo.get_photo_id();
-        
-        return photo_id.id;
+        return ((LibraryPhoto) source).get_photo_id().id;
     }
     
     public LibraryPhoto fetch(PhotoID photo_id) {
@@ -3167,10 +3239,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     // for a single photo to be added to both collections.
     public void fetch_by_matching_backing(FileInfo info, Gee.Collection<LibraryPhoto> matches_master,
         Gee.Collection<LibraryPhoto> matches_editable) {
-        int count = get_count();
-        for (int ctr = 0; ctr < count; ctr++) {
-            LibraryPhoto photo = (LibraryPhoto) get_at(ctr);
-            
+        foreach (LibraryPhoto photo in filesize_to_photo.get(info.get_size())) {
             if (photo.get_master_photo_state().matches_file_info(info))
                 matches_master.add(photo);
             
@@ -3196,14 +3265,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     private LibraryPhoto? get_trashed_by_id(PhotoID photo_id) {
-        foreach (DataObject object in trashcan.get_all()) {
-            LibraryPhoto photo = (LibraryPhoto) object;
-            
-            if (photo_id.id == photo.get_photo_id().id)
-                return photo;
-        }
-        
-        return null;
+        return (LibraryPhoto?) trashcan.get_by_id(photo_id.id);
     }
     
     public LibraryPhoto? get_trashed_by_file(File file) {
@@ -3219,14 +3281,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     private LibraryPhoto? get_offline_by_id(PhotoID photo_id) {
-        foreach (DataObject object in offline.get_all()) {
-            LibraryPhoto photo = (LibraryPhoto) object;
-            
-            if (photo_id.id == photo.get_photo_id().id)
-                return photo;
-        }
-        
-        return null;
+        return (LibraryPhoto?) offline.get_by_id(photo_id.id);
     }
     
     public LibraryPhoto? get_offline_by_file(File file) {
@@ -3257,18 +3312,17 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             return photo;
         }
         
-        // coarser searching for trashed and offline
-        PhotoID photo_id = TransformablePhoto.get_photo_id_from_file(file);
+        photo = (LibraryPhoto?) fetch_by_key(TransformablePhoto.get_photo_id_from_file(file).id);
+        if (photo == null)
+            return null;
         
-        photo = get_trashed_by_id(photo_id);
-        if (photo != null) {
+        if (trashcan.contains(photo)) {
             state = State.TRASH;
             
             return photo;
         }
         
-        photo = get_offline_by_id(photo_id);
-        if (photo != null) {
+        if (offline.contains(photo)) {
             state = State.OFFLINE;
             
             return photo;

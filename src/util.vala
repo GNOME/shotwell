@@ -22,6 +22,16 @@ public bool int64_equal(void *a, void *b) {
     return (*bia) == (*bib);
 }
 
+public int int64_compare(void *a, void *b) {
+    int64 diff = *((int64 *) a) - *((int64 *) b);
+    if (diff < 0)
+        return -1;
+    else if (diff > 0)
+        return 1;
+    else
+        return 0;
+}
+
 public delegate bool ValueEqualFunc(Value a, Value b);
 
 public bool bool_value_equals(Value a, Value b) {

@@ -1066,17 +1066,23 @@ public class PhotoTable : DatabaseTable {
         return get_id(file).is_valid();
     }
     
+    private Sqlite.Statement get_id_stmt = null;
+    
     public PhotoID get_id(File file) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT ID FROM PhotoTable WHERE filename=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_text(1, file.get_path());
+        if (get_id_stmt == null) {
+            int res = db.prepare_v2("SELECT ID FROM PhotoTable WHERE filename=?", -1, out get_id_stmt);
+            assert(res == Sqlite.OK);
+        }
+        
+        int res = get_id_stmt.reset();
         assert(res == Sqlite.OK);
         
-        res = stmt.step();
+        res = get_id_stmt.bind_text(1, file.get_path());
+        assert(res == Sqlite.OK);
         
-        return (res == Sqlite.ROW) ? PhotoID(stmt.column_int64(0)) : PhotoID();
+        res = get_id_stmt.step();
+        
+        return (res == Sqlite.ROW) ? PhotoID(get_id_stmt.column_int64(0)) : PhotoID();
     }
 
     public Gee.ArrayList<PhotoID?> get_photos() {

@@ -1545,6 +1545,38 @@ public class SourceHoldingTank {
     }
 }
 
+public class DatabaseSourceHoldingTank : SourceHoldingTank {
+    private GetSourceDatabaseKey get_key;
+    private Gee.HashMap<int64?, DataSource> map = new Gee.HashMap<int64?, DataSource>(int64_hash,
+        int64_equal);
+    
+    public DatabaseSourceHoldingTank(SourceCollection sources,
+        SourceHoldingTank.CheckToKeep check_to_keep, GetSourceDatabaseKey get_key) {
+        base (sources, check_to_keep);
+        
+        this.get_key = get_key;
+    }
+    
+    public DataSource? get_by_id(int64 id) {
+        return map.get(id);
+    }
+    
+    protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        if (added != null) {
+            foreach (DataSource source in added)
+                map.set(get_key(source), source);
+        }
+        
+        if (removed != null) {
+            foreach (DataSource source in removed)
+                map.unset(get_key(source));
+        }
+        
+        base.notify_contents_altered(added, removed);
+    }
+}
+
 //
 // ViewCollection
 //
@@ -2051,14 +2083,14 @@ public class ViewCollection : DataCollection {
         
         foreach (DataView view in views) {
             if (filter(view)) {
-                if (locked_filter_items.contains(view) || !view.is_visible()) {
+                if (locked_filter_items.has_key(view) || !view.is_visible()) {
                     if (to_show == null)
                         to_show = new Gee.ArrayList<DataView>();
                     
                     to_show.add(view);
                 }
             } else {
-                if (locked_filter_items.contains(view) || view.is_visible()) {
+                if (locked_filter_items.has_key(view) || view.is_visible()) {
                     if (to_hide == null)
                         to_hide = new Gee.ArrayList<DataView>();
                     
