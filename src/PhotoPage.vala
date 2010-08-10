@@ -2348,6 +2348,14 @@ public class LibraryPhotoPage : EditingHostPage {
         update_rating_menu_item_sensitivity();
 
         set_display_ratings(Config.get_instance().get_display_photo_ratings());
+
+        get_controller().lock_view_filter();
+    }
+
+    public override void switching_from() {
+        base.switching_from();
+        
+        get_controller().unlock_view_filter();
     }
 
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {

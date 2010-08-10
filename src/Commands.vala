@@ -66,8 +66,19 @@ public abstract class PageCommand : Command {
         LibraryPhotoPage photo_page = page as LibraryPhotoPage;  
 
         if (photo_page != null) { 
-            if (library_photo != null && collection_page != null)
-                LibraryWindow.get_app().switch_to_photo_page(collection_page, library_photo);
+            if (library_photo != null && collection_page != null) {
+                bool photo_in_collection = false;
+                int count = collection_page.get_view().get_count();
+                for (int i = 0; i < count; i++) {
+                    if ( ((Thumbnail) collection_page.get_view().get_at(i)).get_photo() == library_photo) {
+                        photo_in_collection = true;
+                        break;
+                    }
+                }
+                
+                if (photo_in_collection)
+                    LibraryWindow.get_app().switch_to_photo_page(collection_page, library_photo);
+            }
         } else if (page != null)
             AppWindow.get_instance().set_current_page(page);
     }

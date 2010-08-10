@@ -1600,6 +1600,9 @@ public class ViewCollection : DataCollection {
     private DataSet visible = null;
     private Gee.HashSet<DataView> frozen_views_altered = null;
     private Gee.HashSet<DataView> frozen_geometries_altered = null;
+    private int view_filter_lock_count = 0;
+    // if true the items needs to be shown, if false, it needs to be hidden
+    private Gee.HashMap<DataView, bool> locked_filter_items = null;
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
@@ -1653,6 +1656,8 @@ public class ViewCollection : DataCollection {
     
     public ViewCollection(string name) {
         base (name);
+        
+        locked_filter_items = new Gee.HashMap<DataView, bool>();
     }
     
     protected virtual void notify_items_selected(Gee.Iterable<DataView> views) {
@@ -1699,6 +1704,9 @@ public class ViewCollection : DataCollection {
         }
         
         base.clear();
+        
+        locked_filter_items.clear();
+        view_filter_lock_count = 0;
     }
     
     public override void close() {
@@ -1786,33 +1794,7 @@ public class ViewCollection : DataCollection {
     // This is used when conditions outside of the collection have changed and the entire collection
     // should be re-filtered.
     public void reapply_view_filter() {
-        if (filter == null)
-            return;
-        
-        // Can't use the marking system because ViewCollection completely overrides DataCollection,
-        // hence hidden items can't be marked.  Okay to do this manually because we know what we're
-        // doing here in regards to adding and removing objects from lists.
-        Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
-        Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
-        
-        // iterate through base.all(), otherwise merely iterating the visible items
-        foreach (DataObject object in base.get_all()) {
-            DataView view = (DataView) object;
-            
-            if (filter(view)) {
-                if (!view.is_visible())
-                    to_show.add((DataView) object);
-            } else {
-                if (view.is_visible())
-                    to_hide.add((DataView) object);
-            }
-        }
-        
-        if (to_show.size > 0)
-            show_items(to_show);
-        
-        if (to_hide.size > 0)
-            hide_items(to_hide);
+        filter_altered_items((Gee.Collection<DataView>) base.get_all());
     }
     
     public void reset_view_filter() {
@@ -2069,20 +2051,35 @@ public class ViewCollection : DataCollection {
         
         foreach (DataView view in views) {
             if (filter(view)) {
-                if (!view.is_visible()) {
+                if (locked_filter_items.contains(view) || !view.is_visible()) {
                     if (to_show == null)
                         to_show = new Gee.ArrayList<DataView>();
                     
                     to_show.add(view);
                 }
             } else {
-                if (view.is_visible()) {
+                if (locked_filter_items.contains(view) || view.is_visible()) {
                     if (to_hide == null)
                         to_hide = new Gee.ArrayList<DataView>();
                     
                     to_hide.add(view);
                 }
             }
+        }
+
+        if (view_filter_lock_count > 0) {
+            if (to_show != null) {
+                foreach (DataView view in to_show) {
+                    locked_filter_items.set(view, true);
+                }
+            }
+            
+            if (to_hide != null) {
+                foreach (DataView view in to_hide) {
+                    locked_filter_items.set(view, false);
+                }
+            }
+            return;
         }
         
         if (to_show != null)
@@ -2096,6 +2093,40 @@ public class ViewCollection : DataCollection {
         filter_altered_items(map.keys);
 
         base.items_altered(map);
+    }
+    
+    public bool is_view_filter_locked() {
+        return view_filter_lock_count > 0;
+    }
+    
+    public void lock_view_filter() {
+        view_filter_lock_count++;
+    }
+    
+    public void unlock_view_filter() {
+        view_filter_lock_count--;
+        
+        if (view_filter_lock_count > 0)
+            return;
+        
+        assert(view_filter_lock_count == 0); // watch out for negative numbers
+        
+        Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
+        Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
+        
+        foreach (DataView key in locked_filter_items.keys) {
+            if (locked_filter_items[key] && !key.is_visible())
+                to_show.add(key);
+            else if (!locked_filter_items[key] && key.is_visible())
+                to_hide.add(key);
+        }
+        
+        if (to_show.size > 0)
+            show_items(to_show);
+        if (to_hide.size > 0)
+            hide_items(to_hide);
+        
+        locked_filter_items.clear();
     }
     
     public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
