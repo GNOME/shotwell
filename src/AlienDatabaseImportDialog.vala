@@ -163,8 +163,9 @@ public class AlienDatabaseImportDialog {
         set_ok_sensitivity();
     }
     
-    public void show() {
+    public void run() {
         dialog.show_all();
+        dialog.run();
     }
     
     public Gtk.RadioButton create_radio_button(

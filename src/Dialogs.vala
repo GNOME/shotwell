@@ -1249,7 +1249,7 @@ public class WelcomeDialog : Gtk.Dialog {
     }
     
     private static bool is_fspot_import_possible() {
-        return false;
+        return FSpotDatabaseDriver.is_available();
     }
 }
 

@@ -173,9 +173,8 @@ void library_exec(string[] mounts) {
         Config.get_instance().set_show_welcome_dialog(false);
     }
     
-    if (do_fspot_import) {
-        // TODO: insert f-spot library migration code here
-    }
+    if (do_fspot_import)
+        FSpotDatabaseDriver.do_import();
     
     if (do_system_pictures_import) {
         Gee.ArrayList<LibraryWindow.FileImportJob> jobs = new Gee.ArrayList<LibraryWindow.FileImportJob>();

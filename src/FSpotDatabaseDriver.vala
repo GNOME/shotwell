@@ -199,14 +199,26 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
         return result;
     }
     
-    public static void on_import_from_fspot() {
-        AlienDatabaseDriver driver = AlienDatabaseHandler.get_instance().get_driver(
-            AlienDatabaseDriverID(FSPOT_DRIVER_ID)
-        );
-        AlienDatabaseImportDialog dialog = new AlienDatabaseImportDialog(
-            _("Import From F-Spot"), driver
-        );
-        dialog.show();
+    public static bool is_available() {
+        AlienDatabaseDriver? driver = AlienDatabaseHandler.get_instance().get_driver(
+            AlienDatabaseDriverID(FSPOT_DRIVER_ID));
+        
+        return (driver != null) ? driver.get_discovered_databases().size > 0 : false;
+    }
+    
+    public static void do_import() {
+        AlienDatabaseDriver? driver = AlienDatabaseHandler.get_instance().get_driver(
+            AlienDatabaseDriverID(FSPOT_DRIVER_ID));
+        if (driver == null)
+            return;
+        
+        AlienDatabaseImportDialog dialog = new AlienDatabaseImportDialog(_("Import From F-Spot"),
+            driver);
+        dialog.run();
+    }
+    
+    private static void on_import_from_fspot() {
+        do_import();
     }
 }
 
