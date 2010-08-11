@@ -280,12 +280,16 @@ public class Interactor : ServiceInteractor {
         }
     }
 
-    // EVENT: triggered when the batch uploader reports that all of the network transactions
-    //        encapsulating uploads have completed successfully
-    private void on_upload_complete(BatchUploader uploader) {
+    // EVENT: triggered when the batch uploader reports that at least one of the network
+    //        transactions encapsulating uploads has completed successfully
+    private void on_upload_complete(BatchUploader uploader, int num_published) {
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
         uploader.status_updated.disconnect(progress_pane.set_status);
+        
+        // TODO: add a descriptive, translatable error message string here
+        if (num_published == 0)
+            post_error(new PublishingError.LOCAL_FILE_ERROR(""));
 
         if (has_error() || cancelled)
             return;
@@ -484,7 +488,7 @@ private class Uploader : BatchUploader {
         this.session = session;
     }
 
-    protected override void prepare_file(BatchUploader.TemporaryFileDescriptor file) {
+    protected override bool prepare_file(BatchUploader.TemporaryFileDescriptor file) {
         Scaling scaling = (parameters.get_photo_major_axis_size() == ORIGINAL_SIZE)
             ? Scaling.for_original() : Scaling.for_best_fit(parameters.get_photo_major_axis_size(),
             false);
@@ -493,8 +497,10 @@ private class Uploader : BatchUploader {
             file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
                 PhotoFileFormat.JFIF);
         } catch (Error e) {
-            error("UploadPane: can't create temporary files");
+            return false;
         }
+        
+        return true;
     }
 
     protected override RESTTransaction create_transaction_for_file(

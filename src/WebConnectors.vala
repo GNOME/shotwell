@@ -11,7 +11,8 @@ public errordomain PublishingError {
     COMMUNICATION_FAILED,
     PROTOCOL_ERROR,
     SERVICE_ERROR,
-    MALFORMED_RESPONSE
+    MALFORMED_RESPONSE,
+    LOCAL_FILE_ERROR
 }
 
 public enum HttpMethod {
@@ -931,19 +932,19 @@ public abstract class BatchUploader {
     private int current_file = 0;
 
     public signal void status_updated(string description, double fraction_complete);
-    public signal void upload_complete();
+    public signal void upload_complete(int num_photos_published);
     public signal void upload_error(PublishingError err);
 
     public BatchUploader(TransformablePhoto[] photos) {
         this.photos = photos;
     }
 
-    protected abstract void prepare_file(TemporaryFileDescriptor file);
+    protected abstract bool prepare_file(TemporaryFileDescriptor file);
     protected abstract RESTTransaction create_transaction_for_file(TemporaryFileDescriptor file);
 
     private TemporaryFileDescriptor[] prepare_files() {
         File temp_dir = AppDirs.get_temp_dir();
-        TemporaryFileDescriptor[] temp_files = new TemporaryFileDescriptor[photos.length];
+        TemporaryFileDescriptor[] temp_files = new TemporaryFileDescriptor[0];
 
         for (int i = 0; i < photos.length; i++) {
             if (has_error)
@@ -955,13 +956,22 @@ public abstract class BatchUploader {
                 ("%d".printf(i)) + ".jpg");
             TemporaryFileDescriptor current_descriptor =
                 TemporaryFileDescriptor.with_members(photos[i], current_temp_file);
-            prepare_file(current_descriptor);
-            temp_files[i] = current_descriptor;
+            bool prepared_ok = prepare_file(current_descriptor);
+            if (prepared_ok)
+                temp_files += current_descriptor;
 
             double phase_fraction_complete = ((double) (i + 1)) / ((double) photos.length);
             double fraction_complete = phase_fraction_complete * PREPARATION_PHASE_FRACTION;
             status_updated(PREPARE_STATUS_DESCRIPTION, fraction_complete);
         }
+        
+        // insofar as the BatchUploader is concerned, publishing zero files is not an error (it's
+        // just a trivially successful publishing operation). other publishing objects that operate
+        // at higher levels of abstraction and that know more about the publishing operation in
+        // progress (such as the interactors) may however consider publishing zero files to be
+        // an error.
+        if (temp_files.length == 0)
+            upload_complete(0);
         
         return temp_files;
     }
@@ -971,7 +981,7 @@ public abstract class BatchUploader {
             return;
 
         double fraction_complete = PREPARATION_PHASE_FRACTION +
-            (current_file * (UPLOAD_PHASE_FRACTION / photos.length));
+            (current_file * (UPLOAD_PHASE_FRACTION / temp_files.length));
         status_updated(_("Uploading photo %d of %d").printf(current_file + 1, temp_files.length),
             fraction_complete);
 
@@ -1008,16 +1018,16 @@ public abstract class BatchUploader {
         if (current_file < temp_files.length)
            send_file(temp_files[current_file]);
         else
-            upload_complete();
+           upload_complete(current_file);
     }
 
     private void on_chunk_transmitted(int bytes_written_so_far, int total_bytes) {
-        double file_span = UPLOAD_PHASE_FRACTION / photos.length;
+        double file_span = UPLOAD_PHASE_FRACTION / temp_files.length;
         double this_file_fraction_complete = ((double) bytes_written_so_far) / total_bytes;
         double fraction_complete = PREPARATION_PHASE_FRACTION + (current_file * file_span) +
             (this_file_fraction_complete * file_span);
 
-        string status_desc = UPLOAD_STATUS_DESCRIPTION.printf(current_file + 1, photos.length);
+        string status_desc = UPLOAD_STATUS_DESCRIPTION.printf(current_file + 1, temp_files.length);
         status_updated(status_desc, fraction_complete);
     }
 

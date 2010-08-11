@@ -216,10 +216,14 @@ public class Interactor : ServiceInteractor {
         start_interaction(); // restart the interaction
     }
 
-    private void on_upload_complete(BatchUploader uploader) {
+    private void on_upload_complete(BatchUploader uploader, int num_published) {
         uploader.status_updated.disconnect(progress_pane.set_status);
         uploader.upload_complete.disconnect(on_upload_complete);
         uploader.upload_error.disconnect(on_upload_error);
+
+        // TODO: add a descriptive, translatable error message string here
+        if (num_published == 0)
+            post_error(new PublishingError.LOCAL_FILE_ERROR(""));
 
         if (has_error() || cancelled)
             return;
@@ -590,7 +594,7 @@ private class Uploader : BatchUploader {
         this.parameters = params;
     }
 
-    protected override void prepare_file(BatchUploader.TemporaryFileDescriptor file) {
+    protected override bool prepare_file(BatchUploader.TemporaryFileDescriptor file) {
         Scaling scaling = (parameters.photo_major_axis_size == ORIGINAL_SIZE)
             ? Scaling.for_original() : Scaling.for_best_fit(parameters.photo_major_axis_size,
             false);
@@ -599,8 +603,10 @@ private class Uploader : BatchUploader {
             file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
                 PhotoFileFormat.JFIF);
         } catch (Error e) {
-            error("FlickrConnector.Uploader: can't create temporary files");
+            return false;
         }
+        
+        return true;
     }
 
     protected override RESTTransaction create_transaction_for_file(
