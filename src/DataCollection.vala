@@ -1661,15 +1661,15 @@ public class ViewCollection : DataCollection {
     }
     
     // Signal aggregator.
-    public virtual signal void items_shown(Gee.Iterable<DataView> visible) {
+    public virtual signal void items_shown(Gee.Collection<DataView> visible) {
     }
     
     // Signal aggregator.
-    public virtual signal void items_hidden(Gee.Iterable<DataView> hidden) {
+    public virtual signal void items_hidden(Gee.Collection<DataView> hidden) {
     }
     
     // Signal aggregator.
-    public virtual signal void items_visibility_changed(Gee.Iterable<DataView> changed) {
+    public virtual signal void items_visibility_changed(Gee.Collection<DataView> changed) {
     }
     
     // Signal aggregator.
@@ -1724,6 +1724,18 @@ public class ViewCollection : DataCollection {
     
     public virtual void notify_geometries_altered(Gee.Collection<DataView> views) {
         geometries_altered(views);
+    }
+    
+    public virtual void notify_items_shown(Gee.Collection<DataView> shown) {
+        items_shown(shown);
+    }
+    
+    public virtual void notify_items_hidden(Gee.Collection<DataView> hidden) {
+        items_hidden(hidden);
+    }
+    
+    public virtual void notify_items_visibility_changed(Gee.Collection<DataView> changed) {
+        items_visibility_changed(changed);
     }
     
     public override void clear() {
@@ -2002,7 +2014,7 @@ public class ViewCollection : DataCollection {
     }
     
     // Keep the source map and state tables synchronized
-    public override void notify_items_added(Gee.Iterable<DataObject> added) {
+    protected override void notify_items_added(Gee.Iterable<DataObject> added) {
         Gee.ArrayList<DataView> added_visible = null;
         Gee.ArrayList<DataView> added_selected = null;
         
@@ -2044,7 +2056,7 @@ public class ViewCollection : DataCollection {
     }
     
     // Keep the source map and state tables synchronized
-    public override void notify_items_removed(Gee.Iterable<DataObject> removed) {
+    protected override void notify_items_removed(Gee.Iterable<DataObject> removed) {
         bool selected_removed = false;
         foreach (DataObject object in removed) {
             DataView view = (DataView) object;
@@ -2485,8 +2497,8 @@ public class ViewCollection : DataCollection {
             notify_items_unselected(unselected);
         
         if (to_hide.size > 0) {
-            items_hidden(to_hide);
-            items_visibility_changed(to_hide);
+            notify_items_hidden(to_hide);
+            notify_items_visibility_changed(to_hide);
         }
     }
     
@@ -2514,8 +2526,8 @@ public class ViewCollection : DataCollection {
         assert(added);
         
         if (to_show.size > 0) {
-            items_shown(to_show);
-            items_visibility_changed(to_show);
+            notify_items_shown(to_show);
+            notify_items_visibility_changed(to_show);
         }
     }
     
