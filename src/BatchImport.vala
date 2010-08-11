@@ -177,8 +177,10 @@ public class BatchImport : Object {
     private Cancellable? cancellable = null;
     private ulong last_preparing_ms = 0;
 #if !NO_DUPE_DETECTION
-    private Gee.HashSet<string> imported_thumbnail_md5 = new Gee.HashSet<string>();
-    private Gee.HashSet<string> imported_full_md5 = new Gee.HashSet<string>();
+    private Gee.MultiMap<string, PhotoFileFormat> imported_thumbnail_md5 =
+        new Gee.TreeMultiMap<string, PhotoFileFormat>();
+    private Gee.MultiMap<string, PhotoFileFormat> imported_full_md5 =
+        new Gee.TreeMultiMap<string, PhotoFileFormat>();
 #endif
     
     // These queues are staging queues, holding batches of work that must happen in the import
@@ -457,26 +459,34 @@ public class BatchImport : Object {
 #if !NO_DUPE_DETECTION
         if (prepared_file.thumbnail_md5 != null
             && imported_thumbnail_md5.contains(prepared_file.thumbnail_md5)) {
-            debug("Not importing %s: thumbnail match detected in import set",
-                prepared_file.file.get_path());
-            
-            return true;
+            foreach (PhotoFileFormat file_format in imported_thumbnail_md5.get(prepared_file.thumbnail_md5)) {
+                if (file_format == prepared_file.file_format) {
+                    debug("Not importing %s: thumbnail match detected in import set",
+                        prepared_file.file.get_path());
+                    
+                    return true;
+                }
+            }
         }
         
         if (prepared_file.full_md5 != null
             && imported_full_md5.contains(prepared_file.full_md5)) {
-            debug("Not importing %s: full match detected in import set",
-                prepared_file.file.get_path());
-            
-            return true;
+            foreach (PhotoFileFormat file_format in imported_full_md5.get(prepared_file.full_md5)) {
+                if (file_format == prepared_file.file_format) {
+                    debug("Not importing %s: full match detected in import set",
+                        prepared_file.file.get_path());
+                    
+                    return true;
+                }
+            }
         }
         
         // add for next one
         if (prepared_file.thumbnail_md5 != null)
-            imported_thumbnail_md5.add(prepared_file.thumbnail_md5);
+            imported_thumbnail_md5.set(prepared_file.thumbnail_md5, prepared_file.file_format);
         
         if (prepared_file.full_md5 != null)
-            imported_full_md5.add(prepared_file.full_md5);
+            imported_full_md5.set(prepared_file.full_md5, prepared_file.file_format);
 #endif
         return false;
     }

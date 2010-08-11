@@ -195,11 +195,29 @@ class ImportPreview : CheckerboardItem {
     
     public bool is_already_imported() {
         string? preview_md5 = get_import_source().get_preview_md5();
+        PhotoFileFormat file_format = get_import_source().get_file_format();
         
-		// ignore trashed duplicates
-        return (preview_md5 != null) 
-            ? LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, 
-            get_import_source().get_file_format()) : false;
+        // ignore trashed duplicates
+        if (!is_string_empty(preview_md5)
+            && LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, file_format)) {
+            return true;
+        }
+        
+        // Because gPhoto doesn't reliably return thumbnails for RAW files, and because we want
+        // to avoid downloading huge RAW files during an "import all" only to determine they're
+        // duplicates, use the image's basename and filesize to do duplicate detection
+        if (file_format == PhotoFileFormat.RAW) {
+            uint64 filesize = get_import_source().get_filesize();
+            // unlikely to be a problem, but what the hay
+            if (filesize <= int64.MAX) {
+                if (LibraryPhoto.global.has_basename_filesize_duplicate(
+                    get_import_source().get_filename(), (int64) filesize)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
     
     public ImportSource get_import_source() {
@@ -1049,6 +1067,8 @@ public class ImportPage : CheckerboardPage {
             
             jobs.add(new CameraImportJob(null_context, import_file));
         }
+        
+        debug("Importing %d files from %s", jobs.size, camera_name);
         
         if (jobs.size > 0) {
             // see import_reporter() to see why this is held during the duration of the import

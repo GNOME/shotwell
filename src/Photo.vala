@@ -3109,6 +3109,8 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         
         if (import_roll_changed)
             notify_import_roll_altered();
+        
+        base.notify_contents_altered(added, removed);
     }
     
     // This is only called by LibraryPhoto.  No signal is generated, although this can be added if
@@ -3247,6 +3249,15 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             if (editable != null && editable.matches_file_info(info))
                 matches_editable.add(photo);
         }
+    }
+    
+    public bool has_basename_filesize_duplicate(string basename, int64 filesize) {
+        foreach (LibraryPhoto photo in filesize_to_photo.get(filesize)) {
+            if (photo.get_master_file().get_basename() == basename)
+                return true;
+        }
+        
+        return false;
     }
     
     // The returned set of ImportID's is sorted from oldest to newest.
