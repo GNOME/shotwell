@@ -1531,6 +1531,7 @@ public abstract class CollectionPage : CheckerboardPage {
     private void set_filter_icon(RatingFilter filter) {
         filter_button.set_icon_widget(get_filter_icon(filter));
         filter_button.set_size_request(get_filter_button_size(filter), -1);
+        filter_button.set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
         filter_button.show_all();
     }
 

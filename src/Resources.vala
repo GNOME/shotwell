@@ -375,6 +375,27 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         }
     }
 
+    private string get_rating_filter_tooltip(RatingFilter filter) {
+        switch (filter) {
+            case RatingFilter.REJECTED_OR_HIGHER:
+                return Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
+            case RatingFilter.ONE_OR_HIGHER:
+                return Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
+            case RatingFilter.TWO_OR_HIGHER:
+                return Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
+            case RatingFilter.THREE_OR_HIGHER:
+                return Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
+            case RatingFilter.FOUR_OR_HIGHER:
+                return Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
+            case RatingFilter.FIVE_ONLY:
+            case RatingFilter.FIVE_OR_HIGHER:
+                return Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
+            case RatingFilter.UNRATED_OR_HIGHER:
+            default:
+                return Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
+        }
+    }
+
     private string rating_progress(Rating rating) {
         switch (rating) {
             case Rating.REJECTED:
