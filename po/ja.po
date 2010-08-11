@@ -203,11 +203,11 @@ msgstr ""
 
 #: src/CollectionPage.vala:431
 msgid "_Slideshow"
-msgstr ""
+msgstr "スライドショー(_S)"
 
 #: src/CollectionPage.vala:432
 msgid "Play a slideshow"
-msgstr ""
+msgstr "スライドショー開始"
 
 #: src/CollectionPage.vala:436 src/EventsDirectoryPage.vala:213
 #: src/ImportPage.vala:478 src/ImportPage.vala:1225 src/OfflinePage.vala:54
@@ -228,11 +228,11 @@ msgstr "タグ(_g)"
 #: src/ImportPage.vala:482 src/ImportPage.vala:1229 src/OfflinePage.vala:58
 #: src/PhotoPage.vala:2202 src/PhotoPage.vala:3239 src/TrashPage.vala:78
 msgid "_Help"
-msgstr ""
+msgstr "ヘルプ(_H)"
 
 #: src/CollectionPage.vala:481 src/ImportPage.vala:449
 msgid "_Titles"
-msgstr ""
+msgstr "タイトル(_T)"
 
 #: src/CollectionPage.vala:482 src/ImportPage.vala:450
 msgid "Display the title of each photo"
@@ -285,8 +285,8 @@ msgstr ""
 #: src/CollectionPage.vala:933 src/Dialogs.vala:14 src/PhotoPage.vala:2679
 msgid "Export Photo"
 msgid_plural "Export Photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "写真のエクスポート"
+msgstr[1] "写真のエクスポート"
 
 #: src/CollectionPage.vala:1099 src/CollectionPage.vala:1119
 msgid "Rotating"
