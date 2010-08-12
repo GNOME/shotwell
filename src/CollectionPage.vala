@@ -213,6 +213,13 @@ public abstract class CollectionPage : CheckerboardPage {
         separator2.set_draw(false);
         
         toolbar.insert(separator2, -1);
+
+        Gtk.ToolItem zoom_out_wrapper = new Gtk.ToolItem();
+        Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
+            Resources.ICON_ZOOM_SCALE));
+        zoom_out_wrapper.add(zoom_out);
+
+        toolbar.insert(zoom_out_wrapper, -1);
         
         // thumbnail size slider
         slider = new Gtk.HScale(slider_adjustment);
@@ -226,6 +233,13 @@ public abstract class CollectionPage : CheckerboardPage {
         toolitem.set_tooltip_text(_("Adjust the size of the thumbnails"));
         
         toolbar.insert(toolitem, -1);
+
+        Gtk.ToolItem zoom_in_wrapper = new Gtk.ToolItem();
+        Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_IN,
+            Resources.ICON_ZOOM_SCALE));
+        zoom_in_wrapper.add(zoom_in);
+
+        toolbar.insert(zoom_in_wrapper, -1);
         
         // initialize scale from slider (since the scale adjustment may be modified from default)
         scale = slider_to_scale(slider.get_value());

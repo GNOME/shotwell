@@ -454,6 +454,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         separator.set_draw(false);
         toolbar.insert(separator, -1);
         
+        Gtk.ToolItem zoom_out_wrapper = new Gtk.ToolItem();
+        Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
+            Resources.ICON_ZOOM_SCALE));
+        zoom_out_wrapper.add(zoom_out);
+        toolbar.insert(zoom_out_wrapper, -1);
+
         // zoom slider
         zoom_slider = new Gtk.HScale(new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
         zoom_slider.set_draw_value(false);
@@ -466,6 +472,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.button_release_event.connect(on_zoom_slider_drag_end);
         zoom_slider.key_press_event.connect(on_zoom_slider_key_press);
         
+        Gtk.ToolItem zoom_in_wrapper = new Gtk.ToolItem();
+        Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_IN,
+            Resources.ICON_ZOOM_SCALE));
+        zoom_in_wrapper.add(zoom_in);
+        toolbar.insert(zoom_in_wrapper, -1);
+
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
         prev_button.clicked.connect(on_previous_photo);

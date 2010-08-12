@@ -80,6 +80,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_FILTER_THREE_OR_BETTER = "three-star-filter-plus.svg";
     public const string ICON_FILTER_FOUR_OR_BETTER = "four-star-filter-plus.svg";
     public const string ICON_FILTER_FIVE = "five-star-filter.svg";
+    public const string ICON_ZOOM_IN = "zoom-in.png";
+    public const string ICON_ZOOM_OUT = "zoom-out.png";
+    public const int ICON_ZOOM_SCALE = 16;
 
     public const string ICON_CAMERAS = "camera-photo";
     public const string ICON_EVENTS = "x-office-calendar";
