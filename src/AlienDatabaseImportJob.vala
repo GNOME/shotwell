@@ -30,6 +30,7 @@ public class AlienDatabaseImportSource {
             metadata.read_from_file(photo);
         } catch(Error e) {
             warning("Could not get file metadata for %s: %s", get_filename(), e.message);
+            metadata = null;
         }
         
         title = (metadata != null) ? metadata.get_title() : null;

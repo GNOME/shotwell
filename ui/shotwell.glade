@@ -156,7 +156,6 @@
                       <object class="GtkEntry" id="library_dir_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="editable">True</property>
                         <property name="invisible_char">&#x25CF;</property>
                         <property name="activates_default">True</property>
                       </object>
@@ -440,11 +439,12 @@
     <property name="page_increment">1000</property>
     <property name="page_size">1000</property>
   </object>
-  <object class="GtkDialog" id="alien-db-import_dialog">
-    <property name="title" translatable="yes">Shotwell Preferences</property>
+  <object class="AlienDatabaseImportDialog" id="alien-db-import_dialog">
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
     <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox5">
@@ -475,6 +475,7 @@
                     <child>
                       <object class="GtkFileChooserButton" id="db_filechooserbutton">
                         <property name="visible">True</property>
+                        <signal name="file_set" handler="alien_database_import_dialog_on_file_chooser_file_set" object="alien-db-import_dialog"/>
                       </object>
                     </child>
                   </object>
@@ -617,8 +618,8 @@
       </object>
     </child>
     <action-widgets>
-      <action-widget response="0">cancel_button</action-widget>
-      <action-widget response="0">ok_button</action-widget>
+      <action-widget response="-6">cancel_button</action-widget>
+      <action-widget response="-5">ok_button</action-widget>
     </action-widgets>
   </object>
 </interface>

@@ -4,12 +4,26 @@
  * See the COPYING file in this distribution. 
  */
 
-public class AlienDatabaseImportDialog {
+public class AlienDatabaseImportDialogController {
+    private AlienDatabaseImportDialog dialog;
+    
+    public AlienDatabaseImportDialogController(string title, AlienDatabaseDriver driver) {
+        Gtk.Builder builder = AppWindow.create_builder();
+        dialog = builder.get_object("alien-db-import_dialog") as AlienDatabaseImportDialog;
+        dialog.set_builder(builder);
+        dialog.setup(title, driver);
+    }
+    
+    public void execute() {
+        dialog.execute();
+    }
+}
+
+public class AlienDatabaseImportDialog : Gtk.Dialog {
     private static const int MSG_NOTEBOOK_PAGE_EMPTY = 0;
     private static const int MSG_NOTEBOOK_PAGE_PROGRESS = 1;
     private static const int MSG_NOTEBOOK_PAGE_ERROR = 2;
     
-    private Gtk.Dialog dialog;
     private Gtk.Builder builder;
     
     private AlienDatabaseDriver driver;
@@ -20,24 +34,18 @@ public class AlienDatabaseImportDialog {
     private Gtk.Notebook message_notebook;
     private Gtk.ProgressBar prepare_progress_bar;
     private Gtk.Label error_message_label;
-    private Gtk.Button ok_button;
-    private Gtk.Button cancel_button;
     
-    public AlienDatabaseImportDialog(string title, AlienDatabaseDriver driver) {
+    public void set_builder(Gtk.Builder builder) {
+        this.builder = builder;
+    }
+    
+    public void setup(string title, AlienDatabaseDriver driver) {
+        set_title(title);
+        set_parent_window(AppWindow.get_instance().get_parent_window());
+        set_transient_for(AppWindow.get_instance());
         this.driver = driver;
-        builder = AppWindow.create_builder();
         
-        dialog = builder.get_object("alien-db-import_dialog") as Gtk.Dialog;
-        dialog.title = title;
-        dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
-        dialog.set_transient_for(AppWindow.get_instance());
-        
-        ok_button = builder.get_object("ok_button") as Gtk.Button;
-        ok_button.clicked.connect(on_ok_button_clicked);
-        cancel_button = builder.get_object("cancel_button") as Gtk.Button;
-        cancel_button.clicked.connect(on_cancel_button_clicked);
         file_chooser = builder.get_object("db_filechooserbutton") as Gtk.FileChooserButton;
-        file_chooser.file_set.connect(on_file_chooser_file_set);
         message_notebook = builder.get_object("message_notebook") as Gtk.Notebook;
         message_notebook.set_current_page(MSG_NOTEBOOK_PAGE_EMPTY);
         prepare_progress_bar = builder.get_object("prepare_progress_bar") as Gtk.ProgressBar;
@@ -68,20 +76,26 @@ public class AlienDatabaseImportDialog {
         }
         set_ok_sensitivity();
     }
-    
-    public string collapse_user_path(string path) {
-        string result = path;
-        string home_dir = Environment.get_home_dir();
-        if (path.has_prefix(home_dir)) {
-            long cidx = home_dir.length;
-            if (home_dir[home_dir.length - 1] == '/')
-                cidx--;
-            result = "~%s".printf(path.substring(cidx));
+
+    public void execute() {
+        show_all();
+        
+        bool is_finished = false;
+        while (!is_finished) {
+            if (run() == Gtk.ResponseType.OK)
+                is_finished = execute_import();
+            else
+                is_finished = true;
         }
-        return result;
+        
+        destroy();
     }
     
-    public void on_ok_button_clicked() {
+    //
+    // The bit that does all the work once the OK button has been clicked.
+    //
+    private bool execute_import() {
+        bool result = false;
         AlienDatabase? alien_db = null;
         try {
             if (selected_database != null)
@@ -94,8 +108,8 @@ public class AlienDatabaseImportDialog {
             } else {
                 message_notebook.set_current_page(MSG_NOTEBOOK_PAGE_PROGRESS);
                 prepare_progress_bar.set_fraction(0.0);
-                ok_button.set_sensitive(false);
-                cancel_button.set_sensitive(false);
+                set_response_sensitive(Gtk.ResponseType.OK, false);
+                set_response_sensitive(Gtk.ResponseType.CANCEL, false);
                 spin_event_loop();
                 
                 SortedList<AlienDatabaseImportJob> jobs =
@@ -139,7 +153,7 @@ public class AlienDatabaseImportDialog {
                     selected_database = null;
                 }
                 
-                dialog.destroy();
+                result = true;
             }
         } catch (Error e) {
             message_notebook.set_current_page(MSG_NOTEBOOK_PAGE_ERROR);
@@ -147,15 +161,15 @@ public class AlienDatabaseImportDialog {
             // most failures should happen before the two buttons have been set
             // to the insensitive state but you never know so set them back to the
             // normal state so that the user can interact with them
-            ok_button.set_sensitive(true);
-            cancel_button.set_sensitive(true);
+            set_response_sensitive(Gtk.ResponseType.OK, true);
+            set_response_sensitive(Gtk.ResponseType.CANCEL, true);
         }
+        return result;
     }
     
-    public void on_cancel_button_clicked() {
-        dialog.destroy();
-    }
-    
+    //
+    // Signals
+    //
     public void on_file_chooser_file_set() {
         selected_file = file_chooser.get_file();
         if (file_chooser_radio != null)
@@ -163,12 +177,14 @@ public class AlienDatabaseImportDialog {
         set_ok_sensitivity();
     }
     
-    public void run() {
-        dialog.show_all();
-        dialog.run();
+    //
+    // Private methods
+    //
+    private void set_ok_sensitivity() {
+        set_response_sensitive(Gtk.ResponseType.OK, (selected_database != null || selected_file != null));
     }
     
-    public Gtk.RadioButton create_radio_button(
+    private Gtk.RadioButton create_radio_button(
         Gtk.Box box, Gtk.RadioButton? group, DiscoveredAlienDatabase? alien_db, string label
     ) {
         var button = new Gtk.RadioButton.with_label_from_widget (group, label);
@@ -186,8 +202,16 @@ public class AlienDatabaseImportDialog {
         return button;
     }
     
-    private void set_ok_sensitivity() {
-        ok_button.set_sensitive((selected_database != null || selected_file != null));
+    private string collapse_user_path(string path) {
+        string result = path;
+        string home_dir = Environment.get_home_dir();
+        if (path.has_prefix(home_dir)) {
+            long cidx = home_dir.length;
+            if (home_dir[home_dir.length - 1] == '/')
+                cidx--;
+            result = "~%s".printf(path.substring(cidx));
+        }
+        return result;
     }
     
     private int64 import_job_comparator(void *a, void *b) {

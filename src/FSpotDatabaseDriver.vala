@@ -212,9 +212,10 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
         if (driver == null)
             return;
         
-        AlienDatabaseImportDialog dialog = new AlienDatabaseImportDialog(_("Import From F-Spot"),
+        AlienDatabaseImportDialogController dialog = new AlienDatabaseImportDialogController(
+            _("Import From F-Spot"),
             driver);
-        dialog.run();
+        dialog.execute();
     }
     
     private static void on_import_from_fspot() {
