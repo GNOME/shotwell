@@ -1372,5 +1372,9 @@ public class ImportQueuePage : SinglePhotoPage {
     private void on_fatal_error(ImportResult result, string message) {
         AppWindow.error_message(message);
     }
+    
+    public override string? get_icon_name() {
+        return Resources.ICON_IMPORTING;
+    }
 }
 

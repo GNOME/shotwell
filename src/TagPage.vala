@@ -13,7 +13,7 @@ public class TagPage : CollectionPage {
         }
         
         public override string? get_icon_name() {
-            return Resources.ICON_SINGLE_PHOTO;
+            return Resources.ICON_ONE_TAG;
         }
 
         public override string get_name() {
