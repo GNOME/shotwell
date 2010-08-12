@@ -183,14 +183,19 @@ ICON_FILES = \
 	four-stars.svg \
 	import-all.png \
 	import.svg \
+	last-import-roll.png \
 	make-primary.svg \
 	merge.svg \
+	multiple-events.png \
+	multiple-tags.png \
 	object-flip-horizontal.svg \
 	object-flip-vertical.svg \
 	object-rotate-left.svg \
 	object-rotate-right.svg \
+	one-event \
 	one-star-filter-plus.svg \
 	one-star.svg \
+	one-tag \
 	pin-toolbar.svg \
 	publish.png \
 	redeye.png \
@@ -201,7 +206,9 @@ ICON_FILES = \
 	three-star-filter-plus.svg \
 	three-stars.svg \
 	two-star-filter-plus.svg \
-	two-stars.svg
+	two-stars.svg \
+	zoom-in.png \
+	zoom-out.png
 
 VAPI_DIRS = \
 	./vapi
