@@ -40,6 +40,11 @@ public class DataSet {
         return ((DataObject *) a)->internal_get_ordinal() - ((DataObject *) b)->internal_get_ordinal();
     }
     
+    private bool order_added_predicate(DataObject object, Alteration alteration) {
+        // ordinals don't change (shouldn't change!) while a part of the DataSet
+        return false;
+    }
+    
     private int64 comparator_wrapper(void *a, void *b) {
         if (a == b)
             return 0;
@@ -65,7 +70,7 @@ public class DataSet {
     
     public void reset_comparator() {
         user_comparator = null;
-        comparator_predicate = null;
+        comparator_predicate = order_added_predicate;
         list.resort(order_added_comparator);
     }
     
@@ -1282,25 +1287,27 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     private void on_contained_sources_unlinking(Gee.Collection<DataSource> unlinking) {
-        contained_sources.freeze_notifications();
+        Gee.HashMultiMap<ContainerSource, DataSource> map =
+            new Gee.HashMultiMap<ContainerSource, DataSource>();
         
         foreach (DataSource source in unlinking) {
             Gee.Collection<ContainerSource>? containers = get_containers_holding_source(source);
             if (containers == null || containers.size == 0)
                 continue;
             
-            foreach (ContainerSource container in containers)
+            foreach (ContainerSource container in containers) {
+                map.set(container, source);
                 source.set_backlink(container.get_backlink());
-            
-            foreach (ContainerSource container in containers)
-                container.break_link(source);
+            }
         }
         
-        contained_sources.thaw_notifications();
+        foreach (ContainerSource container in map.get_keys())
+            container.break_link_many(map.get(container));
     }
     
     private void on_contained_sources_relinked(Gee.Collection<DataSource> relinked) {
-        contained_sources.freeze_notifications();
+        Gee.HashMultiMap<ContainerSource, DataSource> map =
+            new Gee.HashMultiMap<ContainerSource, DataSource>();
         
         foreach (DataSource source in relinked) {
             Gee.List<SourceBacklink>? backlinks = source.get_backlinks(backlink_name);
@@ -1309,15 +1316,17 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
             
             foreach (SourceBacklink backlink in backlinks) {
                 ContainerSource? container = convert_backlink_to_container(backlink);
-                if (container != null)
-                    container.establish_link(source);
-                else
+                if (container != null) {
+                    map.set(container, source);
+                } else {
                     warning("Unable to relink %s to container backlink %s", source.to_string(),
                         backlink.to_string());
+                }
             }
         }
         
-        contained_sources.thaw_notifications();
+        foreach (ContainerSource container in map.get_keys())
+            container.establish_link_many(map.get(container));
     }
     
     private void on_contained_source_destroyed(DataSource source) {

@@ -945,8 +945,9 @@ public abstract class TransformablePhoto: PhotoSource {
 #endif
     }
     
-    public static PhotoID? get_photo_id_from_file(File file) {
-        return PhotoTable.get_instance().get_id(file);
+    // Conforms to GetDatabaseSourceKey
+    public static int64 get_photo_key(DataSource source) {
+        return ((LibraryPhoto) source).get_photo_id().id;
     }
     
     // Data element accessors ... by making these thread-safe, and by the remainder of this class
@@ -1285,6 +1286,28 @@ public abstract class TransformablePhoto: PhotoSource {
         }
         
         return committed;
+    }
+    
+    // Best to freeze the appropriate SourceCollection as well.
+    public static void set_many_to_event(Gee.Collection<TransformablePhoto> photos, Event? event) {
+        EventID event_id = (event != null) ? event.get_event_id() : EventID();
+        
+        PhotoID[] photo_ids = new PhotoID[photos.size];
+        int ctr = 0;
+        foreach (TransformablePhoto photo in photos) {
+            photo_ids[ctr++] = photo.row.photo_id;
+            photo.row.event_id = event_id;
+        }
+        
+        try {
+            PhotoTable.get_instance().set_many_to_event(photo_ids, event_id);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
+        
+        Alteration alteration = new Alteration("metadata", "event");
+        foreach (TransformablePhoto photo in photos)
+            photo.notify_altered(alteration);
     }
     
     public override string to_string() {
@@ -2991,6 +3014,55 @@ public abstract class Photo : TransformablePhoto {
     }
 }
 
+public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
+    private LibraryPhotoSourceCollection sources;
+    private Gee.HashMap<File, LibraryPhoto> master_file_map = new Gee.HashMap<File, LibraryPhoto>(
+        file_hash, file_equal);
+    
+    public LibraryPhotoHoldingTank(LibraryPhotoSourceCollection sources,
+        SourceHoldingTank.CheckToKeep check_to_keep) {
+        base (sources, check_to_keep, TransformablePhoto.get_photo_key);
+        
+        this.sources = sources;
+        sources.master_file_replaced.connect(on_master_file_replaced);
+    }
+    
+    ~LibraryPhotoHoldingTank() {
+        sources.master_file_replaced.disconnect(on_master_file_replaced);
+    }
+    
+    public LibraryPhoto? fetch_by_master_file(File file) {
+        return master_file_map.get(file);
+    }
+    
+    protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        if (added != null) {
+            foreach (DataSource source in added) {
+                LibraryPhoto photo = (LibraryPhoto) source;
+                master_file_map.set(photo.get_master_file(), photo);
+            }
+        }
+        
+        if (removed != null) {
+            foreach (DataSource source in removed) {
+                LibraryPhoto photo = (LibraryPhoto) source;
+                bool is_removed = master_file_map.unset(photo.get_master_file());
+                assert(is_removed);
+            }
+        }
+        
+        base.notify_contents_altered(added, removed);
+    }
+    
+    private void on_master_file_replaced(LibraryPhoto photo, File old_file, File new_file) {
+        bool removed = master_file_map.unset(old_file);
+        assert(removed);
+        
+        master_file_map.set(new_file, photo);
+    }
+}
+
 public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     public enum State {
         ONLINE,
@@ -2999,8 +3071,8 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         EDITABLE
     }
     
-    private DatabaseSourceHoldingTank trashcan = null;
-    private DatabaseSourceHoldingTank offline = null;
+    private LibraryPhotoHoldingTank trashcan = null;
+    private LibraryPhotoHoldingTank offline = null;
     private Gee.HashMap<File, LibraryPhoto> by_master_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
@@ -3023,16 +3095,19 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         Gee.Collection<LibraryPhoto>? removed) {
     }
     
+    public virtual signal void master_file_replaced(LibraryPhoto photo, File old_file, File new_file) {
+    }
+    
     public virtual signal void import_roll_altered() {
     }
     
     public LibraryPhotoSourceCollection() {
-        base("LibraryPhotoSourceCollection", get_photo_key);
+        base("LibraryPhotoSourceCollection", TransformablePhoto.get_photo_key);
         
-        trashcan = new DatabaseSourceHoldingTank(this, check_if_trashed_photo, get_photo_key);
+        trashcan = new LibraryPhotoHoldingTank(this, check_if_trashed_photo);
         trashcan.contents_altered.connect(on_trashcan_contents_altered);
         
-        offline = new DatabaseSourceHoldingTank(this, check_if_offline_photo, get_photo_key);
+        offline = new LibraryPhotoHoldingTank(this, check_if_offline_photo);
         offline.contents_altered.connect(on_offline_contents_altered);
     }
     
@@ -3113,13 +3188,14 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         base.notify_contents_altered(added, removed);
     }
     
-    // This is only called by LibraryPhoto.  No signal is generated, although this can be added if
-    // needed.
+    // This is only called by LibraryPhoto.
     public virtual void notify_master_replaced(LibraryPhoto photo, File old_file, File new_file) {
         bool is_removed = by_master_file.unset(old_file);
         assert(is_removed);
         
         by_master_file.set(new_file, photo);
+        
+        master_file_replaced(photo, old_file, new_file);
     }
     
     // This is only called by LibraryPhoto.  No signal is generated, although this can be added
@@ -3221,10 +3297,6 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         import_roll_altered();
     }
     
-    private static int64 get_photo_key(DataSource source) {
-        return ((LibraryPhoto) source).get_photo_id().id;
-    }
-    
     public LibraryPhoto fetch(PhotoID photo_id) {
         return (LibraryPhoto) fetch_by_key(photo_id.id);
     }
@@ -3275,12 +3347,8 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         return import_rolls.get(import_id);
     }
     
-    private LibraryPhoto? get_trashed_by_id(PhotoID photo_id) {
-        return (LibraryPhoto?) trashcan.get_by_id(photo_id.id);
-    }
-    
     public LibraryPhoto? get_trashed_by_file(File file) {
-        return get_trashed_by_id(TransformablePhoto.get_photo_id_from_file(file));
+        return trashcan.fetch_by_master_file(file);
     }
     
     public int get_trashcan_count() {
@@ -3291,12 +3359,8 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         return (Gee.Collection<LibraryPhoto>) trashcan.get_all();
     }
     
-    private LibraryPhoto? get_offline_by_id(PhotoID photo_id) {
-        return (LibraryPhoto?) offline.get_by_id(photo_id.id);
-    }
-    
     public LibraryPhoto? get_offline_by_file(File file) {
-        return get_offline_by_id(TransformablePhoto.get_photo_id_from_file(file));
+        return offline.fetch_by_master_file(file);
     }
     
     public int get_offline_count() {
@@ -3323,17 +3387,13 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             return photo;
         }
         
-        photo = (LibraryPhoto?) fetch_by_key(TransformablePhoto.get_photo_id_from_file(file).id);
-        if (photo == null)
-            return null;
-        
-        if (trashcan.contains(photo)) {
+        if (trashcan.fetch_by_master_file(file) != null) {
             state = State.TRASH;
             
             return photo;
         }
         
-        if (offline.contains(photo)) {
+        if (offline.fetch_by_master_file(file) != null) {
             state = State.OFFLINE;
             
             return photo;
@@ -3379,14 +3439,21 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             destroy_marked(mark_many(not_trashed), delete_backing, monitor);
     }
     
-    public void mark_offline(Marker marker, ProgressMonitor? monitor = null) {
+    public void mark_online_offline(Marker online, Marker offline) {
         freeze_notifications();
-        act_on_marked(marker, mark_as_offline, monitor);
+        act_on_marked(offline, mark_as_offline);
+        act_on_marked(online, mark_as_online);
         thaw_notifications();
     }
     
     private bool mark_as_offline(DataObject object, Object? user) {
         ((LibraryPhoto) object).mark_offline();
+        
+        return true;
+    }
+    
+    private bool mark_as_online(DataObject object, Object? user) {
+        ((LibraryPhoto) object).mark_online();
         
         return true;
     }

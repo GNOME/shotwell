@@ -1062,29 +1062,6 @@ public class PhotoTable : DatabaseTable {
         return true;
     }
     
-    public bool is_photo_stored(File file) {
-        return get_id(file).is_valid();
-    }
-    
-    private Sqlite.Statement get_id_stmt = null;
-    
-    public PhotoID get_id(File file) {
-        if (get_id_stmt == null) {
-            int res = db.prepare_v2("SELECT ID FROM PhotoTable WHERE filename=?", -1, out get_id_stmt);
-            assert(res == Sqlite.OK);
-        }
-        
-        int res = get_id_stmt.reset();
-        assert(res == Sqlite.OK);
-        
-        res = get_id_stmt.bind_text(1, file.get_path());
-        assert(res == Sqlite.OK);
-        
-        res = get_id_stmt.step();
-        
-        return (res == Sqlite.ROW) ? PhotoID(get_id_stmt.column_int64(0)) : PhotoID();
-    }
-
     public Gee.ArrayList<PhotoID?> get_photos() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM PhotoTable", -1, out stmt);
@@ -1211,6 +1188,39 @@ public class PhotoTable : DatabaseTable {
 
     public bool set_event(PhotoID photo_id, EventID event_id) {
         return update_int64_by_id(photo_id.id, "event_id", event_id.id);
+    }
+    
+    public void set_many_to_event(PhotoID[] photo_ids, EventID event_id) throws DatabaseError {
+        int count = photo_ids.length;
+        if (count == 0)
+            return;
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE PhotoTable SET event_id=? WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = db.exec("BEGIN TRANSACTION");
+        assert(res == Sqlite.OK);
+        
+        for (int ctr = 0; ctr < count; ctr++) {
+            res = stmt.bind_int64(1, event_id.id);
+            assert(res == Sqlite.OK);
+            res = stmt.bind_int64(2, photo_ids[ctr].id);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.step();
+            if (res != Sqlite.DONE)
+                break;
+            
+            stmt.reset();
+        }
+        
+        if (res != Sqlite.DONE)
+            throw_error("PhotoTable.set_many_to_event", res);
+        
+        res = db.exec("COMMIT TRANSACTION");
+        if (res != Sqlite.DONE)
+            throw_error("PhotoTable.set_many_to_event", res);
     }
     
     private string? get_raw_transformations(PhotoID photo_id) {

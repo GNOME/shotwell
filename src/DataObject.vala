@@ -935,7 +935,11 @@ public interface ContainerSource : DataSource {
     
     public abstract void break_link(DataSource source);
     
+    public abstract void break_link_many(Gee.Collection<DataSource> sources);
+    
     public abstract void establish_link(DataSource source);
+    
+    public abstract void establish_link_many(Gee.Collection<DataSource> sources);
 }
 
 //

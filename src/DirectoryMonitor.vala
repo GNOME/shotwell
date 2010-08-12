@@ -49,6 +49,7 @@
 
 public class DirectoryMonitor : Object {
     public const string SUPPLIED_ATTRIBUTES = "standard::*,time::*,id::file,id::filesystem,etag::value";
+    public const int DEFAULT_PRIORITY = Priority.LOW;
     
     private const FileMonitorFlags FILE_MONITOR_FLAGS = FileMonitorFlags.SEND_MOVED;
     private const uint DELETED_EXPIRATION_MSEC = 500;
@@ -769,7 +770,7 @@ public class DirectoryMonitor : Object {
         if (local_dir_info == null) {
             try {
                 local_dir_info = yield dir.query_info_async(SUPPLIED_ATTRIBUTES,
-                    FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.DEFAULT, cancellable);
+                    FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
             } catch (Error err) {
                 warning("Unable to retrieve info on %s: %s", dir.get_path(), err.message);
                 
@@ -797,9 +798,9 @@ public class DirectoryMonitor : Object {
         
         try {
             FileEnumerator enumerator = yield dir.enumerate_children_async(SUPPLIED_ATTRIBUTES,
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, Priority.DEFAULT, cancellable);
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
             for (;;) {
-                List<FileInfo>? infos = yield enumerator.next_files_async(10, Priority.DEFAULT,
+                List<FileInfo>? infos = yield enumerator.next_files_async(10, DEFAULT_PRIORITY,
                     cancellable);
                 if (infos == null)
                     break;
@@ -955,7 +956,7 @@ public class DirectoryMonitor : Object {
             case FileMonitorEvent.CHANGES_DONE_HINT:
             case FileMonitorEvent.ATTRIBUTE_CHANGED:
                 file.query_info_async.begin(SUPPLIED_ATTRIBUTES, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-                    Priority.DEFAULT, cancellable, query_event.on_completed);
+                    DEFAULT_PRIORITY, cancellable, query_event.on_completed);
             break;
             
             case FileMonitorEvent.MOVED:
@@ -963,7 +964,7 @@ public class DirectoryMonitor : Object {
                 // one we need to get info on
                 if (other_file != null) {
                     other_file.query_info_async.begin(SUPPLIED_ATTRIBUTES, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-                        Priority.DEFAULT, cancellable, query_event.on_completed);
+                        DEFAULT_PRIORITY, cancellable, query_event.on_completed);
                 } else {
                     warning("Unable to process MOVED event: no other_file");
                     query_info_queue.remove(query_event);

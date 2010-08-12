@@ -148,8 +148,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         Gee.ArrayList<PhotoID?> event_photo_ids = PhotoTable.get_instance().get_event_photos(event_id);
         Gee.ArrayList<LibraryPhoto> event_photos = new Gee.ArrayList<LibraryPhoto>();
-        foreach (PhotoID photo_id in event_photo_ids)
-            event_photos.add(LibraryPhoto.global.fetch(photo_id));
+        foreach (PhotoID photo_id in event_photo_ids) {
+            LibraryPhoto? photo = LibraryPhoto.global.fetch(photo_id);
+            if (photo != null)
+                event_photos.add(photo);
+        }
         
         view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
         view.set_comparator(view_comparator, view_comparator_predicate);
@@ -356,8 +359,20 @@ public class Event : EventSource, ContainerSource, Proxyable {
         ((LibraryPhoto) source).set_event(null);
     }
     
+    public void break_link_many(Gee.Collection<DataSource> sources) {
+        LibraryPhoto.global.freeze_notifications();
+        TransformablePhoto.set_many_to_event((Gee.Collection<TransformablePhoto>) sources, null);
+        LibraryPhoto.global.thaw_notifications();
+    }
+    
     public void establish_link(DataSource source) {
         ((LibraryPhoto) source).set_event(this);
+    }
+    
+    public void establish_link_many(Gee.Collection<DataSource> sources) {
+        LibraryPhoto.global.freeze_notifications();
+        TransformablePhoto.set_many_to_event((Gee.Collection<TransformablePhoto>) sources, this);
+        LibraryPhoto.global.thaw_notifications();
     }
     
     public bool is_in_starting_day(time_t time) {

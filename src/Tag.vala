@@ -478,8 +478,16 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         detach((LibraryPhoto) source);
     }
     
+    public void break_link_many(Gee.Collection<DataSource> sources) {
+        detach_many((Gee.Collection<LibraryPhoto>) sources);
+    }
+    
     public void establish_link(DataSource source) {
         attach((LibraryPhoto) source);
+    }
+    
+    public void establish_link_many(Gee.Collection<DataSource> sources) {
+        attach_many((Gee.Collection<LibraryPhoto>) sources);
     }
     
     public void attach(LibraryPhoto photo) {

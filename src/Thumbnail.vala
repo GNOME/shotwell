@@ -30,6 +30,7 @@ public class Thumbnail : CheckerboardItem {
     private Cancellable cancellable = null;
     private bool hq_scheduled = false;
     private bool hq_reschedule = false;
+    private bool exposure = true;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
@@ -42,7 +43,7 @@ public class Thumbnail : CheckerboardItem {
         
         // if the photo's tags changes, update it here
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
-        Tag.global.item_altered.connect(on_tag_altered);
+        Tag.global.items_altered.connect(on_tags_altered);
         photo.altered.connect(on_photo_altered);
     }
 
@@ -51,7 +52,7 @@ public class Thumbnail : CheckerboardItem {
             cancellable.cancel();
         
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
-        Tag.global.item_altered.disconnect(on_tag_altered);
+        Tag.global.items_altered.disconnect(on_tags_altered);
         photo.altered.disconnect(on_photo_altered);
     }
     
@@ -65,6 +66,9 @@ public class Thumbnail : CheckerboardItem {
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
+        if (!exposure)
+            return;
+        
         bool tag_added = (added != null) ? added.contains(photo) : false;
         bool tag_removed = (removed != null) ? removed.contains(photo) : false;
         
@@ -73,14 +77,19 @@ public class Thumbnail : CheckerboardItem {
             update_tags();
     }
     
-    private void on_tag_altered(DataObject source) {
-        if (!is_exposed())
+    private void on_tags_altered(Gee.Map<DataObject, Alteration> altered) {
+        if (!exposure)
             return;
         
-        Tag tag = (Tag) source;
-        
-        if (tag.contains(photo))
-            update_tags();
+        foreach (DataObject object in altered.keys) {
+            Tag tag = (Tag) object;
+            
+            if (tag.contains(photo)) {
+                update_tags();
+                
+                break;
+            }
+        }
     }
     
     private void update_title() {
@@ -92,6 +101,9 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void on_photo_altered(Alteration alteration) {
+        if (!exposure)
+            return;
+        
         if (alteration.has_detail("metadata", "name"))
             update_title();
     }
@@ -165,7 +177,7 @@ public class Thumbnail : CheckerboardItem {
         original_dim = get_photo().get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
-        if (is_exposed())
+        if (exposure)
             schedule_low_quality_fetch();
         else
             paint_empty();
@@ -198,7 +210,7 @@ public class Thumbnail : CheckerboardItem {
         
         cancel_async_fetch();
         
-        if (is_exposed()) {
+        if (exposure) {
             // attempt to use an unscaled pixbuf (which is always larger or equal to the current
             // size, and will most likely be larger than the new size -- and if not, a new one will
             // be on its way), then use the current pixbuf if available (which may have to be
@@ -253,7 +265,7 @@ public class Thumbnail : CheckerboardItem {
         cancel_async_fetch();
         cancellable = new Cancellable();
         
-        if (is_exposed()) {
+        if (exposure) {
             ThumbnailCache.fetch_async_scaled(get_photo(), scale, dim, HIGH_QUALITY_INTERP,
                 on_high_quality_fetched, cancellable);
         }
@@ -298,15 +310,20 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public override void exposed() {
+        exposure = true;
+        
         if (!has_image())
             schedule_low_quality_fetch();
         
+        update_title();
         update_tags();
         
         base.exposed();
     }
     
     public override void unexposed() {
+        exposure = false;
+        
         paint_empty();
         
         base.unexposed();
