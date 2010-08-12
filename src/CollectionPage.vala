@@ -62,7 +62,7 @@ public abstract class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
-    private Gtk.ToolButton filter_button = null;
+    private Gtk.Button filter_button = null;
     private Gtk.Menu filter_menu = null;
     private PhotoDragAndDropHandler dnd_handler = null;
 #if !NO_PUBLISHING
@@ -201,11 +201,18 @@ public abstract class CollectionPage : CheckerboardPage {
         toolbar.insert(separator, -1);
 
         filter_menu = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
-        filter_button = new Gtk.ToolButton(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER), null);
-        filter_button.clicked.connect(on_filter_button_pressed);
-        filter_button.set_expand(false);
 
-        toolbar.insert(filter_button, -1);
+        Gtk.Image filter_image = get_filter_icon(RatingFilter.UNRATED_OR_HIGHER);
+        //filter_image.set_alignment(0.5f, 0.5f);
+        //filter_image.set_padding(0, -20);
+        filter_button = new Gtk.Button();
+        filter_button.set_image(filter_image);
+        filter_button.clicked.connect(on_filter_button_pressed);
+        //filter_button.set_expand(false);
+        Gtk.ToolItem temp_item = new Gtk.ToolItem();
+        temp_item.add(filter_button);
+
+        toolbar.insert(temp_item, -1);
 
         Gtk.SeparatorToolItem separator2 = new Gtk.SeparatorToolItem();
         separator2.set_expand(true);
@@ -1491,7 +1498,7 @@ public abstract class CollectionPage : CheckerboardPage {
         }
     }
     
-    private Gtk.Widget get_filter_icon(RatingFilter filter) {
+    private Gtk.Image get_filter_icon(RatingFilter filter) {
         string filename = null;
 
         switch (filter) {
@@ -1529,8 +1536,9 @@ public abstract class CollectionPage : CheckerboardPage {
     }
     
     private void set_filter_icon(RatingFilter filter) {
-        filter_button.set_icon_widget(get_filter_icon(filter));
+        filter_button.set_image(get_filter_icon(filter));
         filter_button.set_size_request(get_filter_button_size(filter), -1);
+        //filter_button.set_alignment(0.5f, 0.5f);
         filter_button.set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
         filter_button.show_all();
     }
