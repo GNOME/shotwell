@@ -192,10 +192,10 @@ ICON_FILES = \
 	object-flip-vertical.svg \
 	object-rotate-left.svg \
 	object-rotate-right.svg \
-	one-event \
+	one-event.png \
 	one-star-filter-plus.svg \
 	one-star.svg \
-	one-tag \
+	one-tag.png \
 	pin-toolbar.svg \
 	publish.png \
 	redeye.png \
