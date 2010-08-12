@@ -43,7 +43,8 @@ public abstract class CollectionPage : CheckerboardPage {
     public const int SLIDER_STEPPING = 4;
     
     private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
-    private const float FILTER_ICON_SCALE = 0.65f; // changes the size of the filter icon
+    private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
+    private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
     
     // filter_icon_base_width is the width (in px) of a single filter icon such as one star or an "X"
     private const int FILTER_ICON_BASE_WIDTH = 30;
@@ -1469,20 +1470,21 @@ public abstract class CollectionPage : CheckerboardPage {
 
     private int get_filter_icon_size(RatingFilter filter) {
         int icon_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
-        int icon_plus = (int)(FILTER_ICON_PLUS_WIDTH * FILTER_ICON_SCALE);
+        int icon_star_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_STAR_SCALE);
+        int icon_plus = (int)(FILTER_ICON_PLUS_WIDTH * FILTER_ICON_STAR_SCALE);
         
         switch (filter) {
             case RatingFilter.ONE_OR_HIGHER:
-                return icon_base + icon_plus;
+                return icon_star_base + icon_plus;
             case RatingFilter.TWO_OR_HIGHER:
-                return icon_base * 2 + icon_plus;
+                return icon_star_base * 2 + icon_plus;
             case RatingFilter.THREE_OR_HIGHER:
-                return icon_base * 3 + icon_plus;
+                return icon_star_base * 3 + icon_plus;
             case RatingFilter.FOUR_OR_HIGHER:
-                return icon_base * 4 + icon_plus;
+                return icon_star_base * 4 + icon_plus;
             case RatingFilter.FIVE_OR_HIGHER:
             case RatingFilter.FIVE_ONLY:
-                return icon_base * 5;
+                return icon_star_base * 5;
             case RatingFilter.REJECTED_OR_HIGHER:
                 return icon_base * 2;
             case RatingFilter.UNRATED_OR_HIGHER:
