@@ -74,7 +74,7 @@
             <applyto>/apps/shotwell/preferences/slideshow/delay</applyto>
             <type>float</type>
             <owner>shotwell</owner>
-            <default>5.0</default>
+            <default>3.0</default>
 
             <locale name="en">
                 <short>delay</short>

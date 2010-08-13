@@ -7,7 +7,7 @@
 public class Config {
     public const double SLIDESHOW_DELAY_MAX = 30.0;
     public const double SLIDESHOW_DELAY_MIN = 1.0;
-    public const double SLIDESHOW_DELAY_DEFAULT = 5.0;
+    public const double SLIDESHOW_DELAY_DEFAULT = 3.0;
     public const int WIDTH_DEFAULT = 1024;
     public const int HEIGHT_DEFAULT = 768;
     public const int SIDEBAR_MIN_POSITION = 180;
