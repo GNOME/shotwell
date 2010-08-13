@@ -581,43 +581,43 @@ public abstract class CollectionPage : CheckerboardPage {
         Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
 
         Gtk.RadioActionEntry rejected_or_higher = { "DisplayRejectedOrHigher", null, TRANSLATABLE,
-            "<Ctrl><Shift>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
+            "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
         rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
         rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
         view_filter_actions += rejected_or_higher;
 
         Gtk.RadioActionEntry unrated_or_higher = { "DisplayUnratedOrHigher", null, TRANSLATABLE, 
-            "<Ctrl><Shift>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
+            "<Ctrl>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
         unrated_or_higher.label = Resources.DISPLAY_UNRATED_OR_HIGHER_MENU;
         unrated_or_higher.tooltip = Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
         view_filter_actions += unrated_or_higher;
 
         Gtk.RadioActionEntry one_or_higher = { "DisplayOneOrHigher", null, TRANSLATABLE,
-            "<Ctrl><Shift>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
+            "<Ctrl>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
         one_or_higher.label = Resources.DISPLAY_ONE_OR_HIGHER_MENU;
         one_or_higher.tooltip = Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
         view_filter_actions += one_or_higher;
 
         Gtk.RadioActionEntry two_or_higher = { "DisplayTwoOrHigher", null, TRANSLATABLE,
-            "<Ctrl><Shift>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
+            "<Ctrl>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
         two_or_higher.label = Resources.DISPLAY_TWO_OR_HIGHER_MENU;
         two_or_higher.tooltip = Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
         view_filter_actions += two_or_higher;
 
         Gtk.RadioActionEntry three_or_higher = { "DisplayThreeOrHigher", null, TRANSLATABLE,
-            "<Ctrl><Shift>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
+            "<Ctrl>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
         three_or_higher.label = Resources.DISPLAY_THREE_OR_HIGHER_MENU;
         three_or_higher.tooltip = Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
         view_filter_actions += three_or_higher;
 
         Gtk.RadioActionEntry four_or_higher = { "DisplayFourOrHigher", null, TRANSLATABLE,
-            "<Ctrl><Shift>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
+            "<Ctrl>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
         four_or_higher.label = Resources.DISPLAY_FOUR_OR_HIGHER_MENU;
         four_or_higher.tooltip = Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
         view_filter_actions += four_or_higher;
 
         Gtk.RadioActionEntry five_or_higher = { "DisplayFiveOrHigher", null, TRANSLATABLE,
-            "<Ctrl><Shift>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
+            "<Ctrl>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
         five_or_higher.label = Resources.DISPLAY_FIVE_OR_HIGHER_MENU;
         five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
         view_filter_actions += five_or_higher;
