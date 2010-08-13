@@ -2607,7 +2607,7 @@ public abstract class TransformablePhoto: PhotoSource {
             }
         }
         
-        if (!only_attributes) {
+        if (!only_attributes && reader != old_reader) {
             notify_baseline_replaced();
             notify_editable_replaced(old_reader != null ? old_reader.get_file() : null,
                 new_reader != null ? new_reader.get_file() : null);
