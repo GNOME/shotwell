@@ -5,7 +5,7 @@
  */
 
 #if !NO_PRINTING
- 
+
 public enum ContentLayout {
     FILL_PAGE,
     STANDARD_SIZE,
@@ -834,6 +834,7 @@ public class PrintManager {
             job_result = job.run(Gtk.PrintOperationAction.PRINT_DIALOG,
                 AppWindow.get_instance());
         } catch (Error e) {
+            job.cancel();
             AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
         }
     }
@@ -934,6 +935,7 @@ public class PrintManager {
                 true);
             Gdk.cairo_set_source_pixbuf(dc, photo_pixbuf, 0.0, 0.0);
         } catch (Error e) {
+            job.cancel();
             AppWindow.error_message(_("Unable to print photo:\n\n%s").printf(e.message));
         }
     }
