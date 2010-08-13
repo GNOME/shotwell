@@ -94,7 +94,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_IMPORTING = "go-down";
     public const string ICON_LAST_IMPORT = "last-import-roll";
     public const string ICON_MISSING_FILES = "process-stop";
-    public const string ICON_PHOTOS = "shotwell";
+    public const string ICON_PHOTOS = "shotwell-16";
     public const string ICON_SINGLE_PHOTO = "image-x-generic";
     public const string ICON_TRASH_EMPTY = "user-trash";
     public const string ICON_TRASH_FULL = "user-trash-full";

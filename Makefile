@@ -208,7 +208,8 @@ ICON_FILES = \
 	two-star-filter-plus.svg \
 	two-stars.svg \
 	zoom-in.png \
-	zoom-out.png
+	zoom-out.png \
+    shotwell-16.png
 
 VAPI_DIRS = \
 	./vapi
