@@ -486,8 +486,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public override string get_name() {
-        if (raw_name != null)
-            return raw_name;
+        if (has_name())
+            return get_raw_name();
         
         // if no name, pretty up the start time
         time_t start_time = get_start_time();
