@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.6.91\n"
+"Project-Id-Version: shotwell-0.6.90\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-06-07 20:54+0100\n"
@@ -22,6 +22,7 @@ msgstr ""
 #: src/AppWindow.vala:625
 msgid "translator-credits"
 msgstr ""
+"Juergen Kofler <juergen.kofler@gobbz.net>\n"
 "Ingo Luetkebohle <iluetkeb@techfak.uni-bielefeld.de>\n"
 "Hendrik Richter <hendrikr@gnome.org>\n"
 "Martin Weißhaupt <mweisshaupt1988@googlemail.com>\n"
@@ -52,30 +53,30 @@ msgstr "Fotobetrachter"
 #: src/AlienDatabaseImportDialog.vala:53
 #, fuzzy, c-format
 msgid "Import from default %1$s library (%2$s)"
-msgstr "Importiere Fotos von der Festplatte in die Bibliothek"
+msgstr "Importiere Fotos der standard %1$s Bibliothek (%2$s)"
 
 #: src/AlienDatabaseImportDialog.vala:61
 #, c-format
 msgid "Import from another %s database file:"
-msgstr ""
+msgstr "Inportiere Fotos aus anderer %s Datenbank:"
 
 #: src/AlienDatabaseImportDialog.vala:65
 #, c-format
 msgid "Import from a %s database file:"
-msgstr ""
+msgstr "Importiere aus %s Datenbank:"
 
 #: src/AlienDatabaseImportDialog.vala:93
 msgid "No database selected"
-msgstr ""
+msgstr "keine Datenbank ausgewählt"
 
 #: src/AlienDatabaseImportDialog.vala:129
-#, fuzzy, c-format
+#, c-format
 msgid "%s Database"
-msgstr "Datenbankfehler"
+msgstr "%s Datenbank"
 
 #: src/AlienDatabaseImportDialog.vala:146
 msgid "Shotwell failed to load the database file"
-msgstr ""
+msgstr "Shotwell konnte die Datenbank nicht öffnen"
 
 #: src/AppDirs.vala:74
 msgid "Pictures"
@@ -266,9 +267,8 @@ msgid "Sort photos by exposure date"
 msgstr "Fotos nach Aufnahmedatum sortieren"
 
 #: src/CollectionPage.vala:517
-#, fuzzy
 msgid "By _Rating"
-msgstr "Drehe"
+msgstr "nach Bewertung"
 
 #: src/CollectionPage.vala:518
 #, fuzzy
@@ -307,21 +307,19 @@ msgstr "Drehen rückgängig machen"
 
 #: src/CollectionPage.vala:1128
 msgid "Flipping Horizontally"
-msgstr ""
+msgstr "horizontal Spiegeln"
 
 #: src/CollectionPage.vala:1129
-#, fuzzy
 msgid "Undoing Flip Horizontally"
-msgstr "Spiegeln rückgängig machen"
+msgstr "horizontal Spiegeln rückgängig machen"
 
 #: src/CollectionPage.vala:1138
 msgid "Flipping Vertically"
-msgstr ""
+msgstr "vertikal Spiegeln"
 
 #: src/CollectionPage.vala:1139
-#, fuzzy
 msgid "Undoing Flip Vertically"
-msgstr "Spiegeln rückgängig machen"
+msgstr "vertikal Spiegeln rückgängig machen"
 
 #: src/CollectionPage.vala:1729
 msgid "Photos"
@@ -384,15 +382,15 @@ msgstr[1] "Kann %d Fotos wegen Dateifehlern nicht duplizieren"
 
 #: src/Commands.vala:881
 msgid "Restoring previous rating"
-msgstr ""
+msgstr "vorhergehende Bewertung wiederherstellen"
 
 #: src/Commands.vala:891 src/Commands.vala:892
 msgid "Increasing ratings"
-msgstr ""
+msgstr "Bewertung erhöhen"
 
 #: src/Commands.vala:891 src/Commands.vala:892
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "Bewertung vermindern"
 
 #: src/Commands.vala:952
 msgid "Original photo could not be adjusted."
@@ -494,11 +492,15 @@ msgid "(and %d more)\n"
 msgstr "(und %d andere)\n"
 
 #: src/Dialogs.vala:327
-#, fuzzy, c-format
+#, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "Ein weiteres Foto nicht importiert.\r\n"
-msgstr[1] "%d weitere Fotos nicht importiert.\r\n"
+msgstr[0] ""
+"Duplikat des Fotos nicht importiert:\n"
+"\r\n"
+msgstr[1] ""
+"%d Duplikate der Fotos nicht importiert:\n"
+"\r\n"
 
 #: src/Dialogs.vala:342
 #, c-format
