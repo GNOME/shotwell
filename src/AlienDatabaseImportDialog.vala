@@ -139,14 +139,19 @@ public class AlienDatabaseImportDialog : Gtk.Dialog {
                     spin_event_loop();
                 }
                 
-                if (jobs.size > 0) {
-                    string db_name = _("%s Database").printf(alien_db.get_display_name());
-                    BatchImport batch_import = new BatchImport(jobs, db_name, alien_import_reporter,
-                        failed, already_imported);
-                    
-                    LibraryWindow.get_app().enqueue_batch_import(batch_import, true);
+                // Go through the motions of importing even if the job size is
+                // zero so that the reported function can display a message dialog
+                // notifying the user that nothing was imported
+                string db_name = _("%s Database").printf(alien_db.get_display_name());
+                BatchImport batch_import = new BatchImport(jobs, db_name, alien_import_reporter,
+                    failed, already_imported);
+                
+                LibraryWindow.get_app().enqueue_batch_import(batch_import, true);
+                // However, if there is really nothing to import, don't switch
+                // to the import queue page so that the user is not faced with
+                // an empty page
+                if (jobs.size > 0)
                     LibraryWindow.get_app().switch_to_import_queue_page();
-                }
                 // clean up
                 if (selected_database != null) {
                     selected_database.release_database();
