@@ -3582,6 +3582,7 @@ public class DirectPhotoPage : EditingHostPage {
         save_as_dialog.set_current_folder(current_save_dir.get_path());
         save_as_dialog.add_filter(output_format_filter);
         save_as_dialog.set_do_overwrite_confirmation(true);
+        save_as_dialog.set_local_only(false);
         
         int response = save_as_dialog.run();
         if (response == Gtk.ResponseType.OK) {

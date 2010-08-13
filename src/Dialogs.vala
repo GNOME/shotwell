@@ -17,6 +17,7 @@ public File? choose_file(string current_file_basename) {
     chooser.set_do_overwrite_confirmation(true);
     chooser.set_current_folder(current_export_dir.get_path());
     chooser.set_current_name(current_file_basename);
+    chooser.set_local_only(false);
 
     File file = null;
     if (chooser.run() == Gtk.ResponseType.ACCEPT) {
@@ -37,6 +38,7 @@ public File? choose_dir() {
         AppWindow.get_instance(), Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL, 
         Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.ACCEPT, null);
     chooser.set_current_folder(current_export_dir.get_path());
+    chooser.set_local_only(false);
     
     File dir = null;
     if (chooser.run() == Gtk.ResponseType.ACCEPT) {
@@ -1429,6 +1431,7 @@ public class PreferencesDialog {
             Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL,
             Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN,
             Gtk.ResponseType.ACCEPT);
+        file_chooser.set_local_only(false);
         
         try {
             file_chooser.set_file(AppDirs.get_import_dir());
