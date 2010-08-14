@@ -396,7 +396,10 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private bool is_pan_in_progress = false;
     private double saved_slider_val = 0.0;
     private ZoomBuffer? zoom_buffer = null;
-
+    
+    public virtual signal void photo_backing_missing(Photo photo, bool missing) {
+    }
+    
     public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
         
@@ -928,15 +931,19 @@ public abstract class EditingHostPage : SinglePhotoPage {
         replace_photo(controller, photo);
     }
 
-    protected virtual void set_missing_photo_sensitivities(bool sensitivity) {
+    protected virtual void notify_photo_backing_missing(Photo photo, bool missing) {
+        bool sensitivity = !missing;
+        
         rotate_button.sensitive = sensitivity;
         crop_button.sensitive = sensitivity;
         redeye_button.sensitive = sensitivity;
         adjust_button.sensitive = sensitivity;
         enhance_button.sensitive = sensitivity;
         zoom_slider.sensitive = sensitivity;
-
+        
         deactivate_tool();
+        
+        photo_backing_missing(photo, missing);
     }
 
     private void draw_message(string message) {
@@ -955,22 +962,25 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 
     protected void set_photo_missing(bool missing) {
-        if (photo_missing == missing) {
+        if (photo_missing == missing)
             return;
-        }
-
+        
         photo_missing = missing;
-
-        set_missing_photo_sensitivities(!photo_missing);
-
+        
+        Photo? photo = get_photo();
+        if (photo == null)
+            return;
+        
+        notify_photo_backing_missing(photo, missing);
+        
         if (photo_missing) {
             try {
-                Gdk.Pixbuf pixbuf = get_photo().get_preview_pixbuf(get_canvas_scaling());
-
+                Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(get_canvas_scaling());
+                
                 pixbuf = pixbuf.composite_color_simple(pixbuf.get_width(), pixbuf.get_height(),
                     Gdk.InterpType.NEAREST, 100, 2, 0, 0);
-
-                set_pixbuf(pixbuf, get_photo().get_dimensions());
+                
+                set_pixbuf(pixbuf, photo.get_dimensions());
             } catch (GLib.Error err) {
                 warning("%s", err.message);
             }
@@ -1893,7 +1903,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         // we need both show & present so we get keyboard focus in metacity, but due to a bug in
         // compiz, we only want to show the window. 
-		// ticket #2141 prompted this: http://trac.yorba.org/ticket/2141
+        // ticket #2141 prompted this: http://trac.yorba.org/ticket/2141
         tool_window.show();
         if (!get_window_manager().contains("compiz"))
             tool_window.present();
@@ -1984,8 +1994,7 @@ public class LibraryPhotoPage : EditingHostPage {
         get_view().contents_altered.connect(on_contents_altered);
         get_view().items_altered.connect(on_photos_altered);
         
-        // watch for photos being destroyed or removed or altered, either here or in other pages
-        LibraryPhoto.global.items_removed.connect(on_photos_removed);
+        // watch for photos being destroyed or altered, either here or in other pages
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         LibraryPhoto.global.item_altered.connect(on_metadata_altered);
         
@@ -2358,16 +2367,16 @@ public class LibraryPhotoPage : EditingHostPage {
         
         update_zoom_menu_item_sensitivity();
         update_rating_menu_item_sensitivity();
-
+        
         set_display_ratings(Config.get_instance().get_display_photo_ratings());
-
-        get_controller().lock_view_filter();
+        
+        get_controller().lock_view();
     }
 
     public override void switching_from() {
         base.switching_from();
         
-        get_controller().unlock_view_filter();
+        get_controller().unlock_view();
     }
 
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
@@ -2438,7 +2447,9 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-    protected override void set_missing_photo_sensitivities(bool sensitivity) {
+    protected override void notify_photo_backing_missing(Photo photo, bool missing) {
+        bool sensitivity = !missing;
+        
         set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
         set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
         set_item_sensitive("/PhotoMenuBar/FileMenu/JumpToFile", sensitivity);
@@ -2465,12 +2476,11 @@ public class LibraryPhotoPage : EditingHostPage {
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEdit", sensitivity);
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", sensitivity);
-		set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
+        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
 
         set_item_sensitive("/PhotoMenuBar/PhotoMenu/Rate", sensitivity);
         set_item_sensitive("/PhotoMenuBar/TagsMenu/AddTags", sensitivity);
         set_item_sensitive("/PhotoMenuBar/TagsMenu/ModifyTags", sensitivity);
-        //AppWindow.get_instance().set_common_action_sensitive("CommonFullscreen", sensitivity);
 
         set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
         set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
@@ -2487,7 +2497,12 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("SetBackground", sensitivity);
 #endif
         
-        base.set_missing_photo_sensitivities(sensitivity);
+        if (missing)
+            ((LibraryPhoto) photo).mark_offline();
+        else
+            ((LibraryPhoto) photo).mark_online();
+        
+        base.notify_photo_backing_missing(photo, missing);
     }
     
     private override bool key_press_event(Gdk.EventKey event) {
@@ -2508,12 +2523,12 @@ public class LibraryPhotoPage : EditingHostPage {
             break;
 
             case "period":
-			case "greater":
+            case "greater":
                 on_increase_rating();
             break;
             
             case "comma":
-			case "less":
+            case "less":
                 on_decrease_rating();
             break;
 
@@ -3387,7 +3402,9 @@ public class DirectPhotoPage : EditingHostPage {
         update_zoom_menu_item_sensitivity();
     }
 
-    protected override void set_missing_photo_sensitivities(bool sensitivity) {
+    protected override void notify_photo_backing_missing(Photo photo, bool missing) {
+        bool sensitivity = !missing;
+        
         set_item_sensitive("/DirectMenuBar/FileMenu/Save", sensitivity);
         set_item_sensitive("/DirectMenuBar/FileMenu/SaveAs", sensitivity);
         set_item_sensitive("/DirectMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
@@ -3420,7 +3437,7 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
 #endif
         
-        base.set_missing_photo_sensitivities(sensitivity);
+        base.notify_photo_backing_missing(photo, missing);
     }
     
     protected override void init_actions(int selected_count, int count) {

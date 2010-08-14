@@ -285,6 +285,9 @@ public interface Marker : Object {
     // Returns the number of marked items, or the number of items when the marker was frozen
     // and used.
     public abstract int get_count();
+    
+    // Returns a copy of the collection of marked items.
+    public abstract Gee.Collection<DataObject> get_all();
 }
 
 // MarkedAction is a callback to perform an action on the marked DataObject.  Return false to
@@ -414,6 +417,13 @@ public class DataCollection {
         
         public int get_count() {
             return (marked != null) ? marked.size : freeze_count;
+        }
+        
+        public Gee.Collection<DataObject> get_all() {
+            Gee.ArrayList<DataObject> copy = new Gee.ArrayList<DataObject>();
+            copy.add_all(marked);
+            
+            return copy;
         }
         
         private void on_items_removed(Gee.Iterable<DataObject> removed) {
@@ -754,7 +764,7 @@ public class DataCollection {
 
     // Remove marked items from collection.  This two-step process allows for iterating in a foreach
     // loop and removing without creating a separate list.  The marker is invalid after this call.
-    public void remove_marked(Marker m) {
+    public virtual void remove_marked(Marker m) {
         MarkerImpl marker = (MarkerImpl) m;
         
         assert(marker.is_valid(this));
@@ -763,16 +773,25 @@ public class DataCollection {
         marker.freeze();
         
         // remove everything in the marked list
+        Gee.ArrayList<DataObject> skipped = null;
         foreach (DataObject object in marker.marked) {
             // although marker should track items already removed, catch it here as well
             if (!internal_contains(object)) {
                 warning("remove_marked: marker holding ref to unknown %s", object.to_string());
+                
+                if (skipped == null)
+                    skipped = new Gee.ArrayList<DataObject>();
+                
+                skipped.add(object);
                 
                 continue;
             }
             
             internal_remove(object);
         }
+        
+        if (skipped != null)
+            marker.marked.remove_all(skipped);
         
         // signal after removing
         if (marker.marked.size > 0) {
@@ -1624,6 +1643,11 @@ public delegate bool ViewFilter(DataView view);
 // objects, which are withheld entirely from the collection until they're made visible.  Currently
 // the only way to hide objects is with a ViewFilter.
 //
+// A ViewCollection may also be locked.  When locked, it will not (a) remove hidden items from the
+// collection and (b) remove DataViews representing unlinked DataSources.  This allows for the
+// ViewCollection to be "frozen" while manipulating items within it.  When the collection is
+// unlocked, all changes are applied at once.
+//
 // The default implementation provides a browser which orders the view in the order they're
 // stored in DataCollection, which is not specified.
 public class ViewCollection : DataCollection {
@@ -1641,9 +1665,10 @@ public class ViewCollection : DataCollection {
     private DataSet visible = null;
     private Gee.HashSet<DataView> frozen_views_altered = null;
     private Gee.HashSet<DataView> frozen_geometries_altered = null;
-    private int view_filter_lock_count = 0;
+    private int view_lock_count = 0;
     // if true the items needs to be shown, if false, it needs to be hidden
-    private Gee.HashMap<DataView, bool> locked_filter_items = null;
+    private Gee.HashMap<DataView, bool> locked_filter_items = new Gee.HashMap<DataView, bool>();
+    private Gee.HashSet<DataView> locked_unlinked_items = new Gee.HashSet<DataView>();
     
     // TODO: source-to-view mapping ... for now, only one view is allowed for each source.
     // This may need to change in the future.
@@ -1697,8 +1722,6 @@ public class ViewCollection : DataCollection {
     
     public ViewCollection(string name) {
         base (name);
-        
-        locked_filter_items = new Gee.HashMap<DataView, bool>();
     }
     
     protected virtual void notify_items_selected(Gee.Iterable<DataView> views) {
@@ -1759,7 +1782,8 @@ public class ViewCollection : DataCollection {
         base.clear();
         
         locked_filter_items.clear();
-        view_filter_lock_count = 0;
+        locked_unlinked_items.clear();
+        view_lock_count = 0;
     }
     
     public override void close() {
@@ -2120,7 +2144,7 @@ public class ViewCollection : DataCollection {
             }
         }
 
-        if (view_filter_lock_count > 0) {
+        if (view_lock_count > 0) {
             if (to_show != null) {
                 foreach (DataView view in to_show) {
                     locked_filter_items.set(view, true);
@@ -2148,22 +2172,31 @@ public class ViewCollection : DataCollection {
         base.items_altered(map);
     }
     
-    public bool is_view_filter_locked() {
-        return view_filter_lock_count > 0;
+    public bool is_view_locked() {
+        return view_lock_count > 0;
     }
     
-    public void lock_view_filter() {
-        view_filter_lock_count++;
+    public void lock_view() {
+        view_lock_count++;
     }
     
-    public void unlock_view_filter() {
-        view_filter_lock_count--;
-        
-        if (view_filter_lock_count > 0)
+    public void unlock_view() {
+        assert(view_lock_count > 0);
+        if (--view_lock_count != 0)
             return;
         
-        assert(view_filter_lock_count == 0); // watch out for negative numbers
+        // remove everything unlinked while locked, being sure to remove them from the locked
+        // visible lists as well
+        foreach (DataView view in locked_unlinked_items)
+            locked_filter_items.unset(view);
         
+        // Because verify_remove will be called inside remove_marked, want to have the
+        // locked_unlinked_items collection cleared at that point
+        Marker marker = mark_many(locked_unlinked_items);
+        locked_unlinked_items.clear();
+        remove_marked(marker);
+        
+        // everything remaining on the visible list update as well
         Gee.ArrayList<DataView> to_show = new Gee.ArrayList<DataView>();
         Gee.ArrayList<DataView> to_hide = new Gee.ArrayList<DataView>();
         
@@ -2176,10 +2209,23 @@ public class ViewCollection : DataCollection {
         
         if (to_show.size > 0)
             show_items(to_show);
+        
         if (to_hide.size > 0)
             hide_items(to_hide);
         
         locked_filter_items.clear();
+    }
+    
+    public override void remove_marked(Marker marker) {
+        // if locked, block removal of unlinked DataViews
+        if (locked_unlinked_items.size > 0) {
+            foreach (DataObject object in marker.get_all()) {
+                if (locked_unlinked_items.contains((DataView) object))
+                    marker.unmark(object);
+            }
+        }
+        
+        base.remove_marked(marker);
     }
     
     public override void set_comparator(Comparator comparator, ComparatorPredicate? predicate) {
@@ -2583,6 +2629,22 @@ public class ViewCollection : DataCollection {
             if (frozen_geometries_altered == null)
                 frozen_geometries_altered = new Gee.HashSet<DataView>();
             frozen_geometries_altered.add(view);
+        }
+    }
+    
+    // This is only called by DataView.
+    public void internal_notify_unlinking(DataView view, SourceCollection sources) {
+        if (view_lock_count > 0) {
+            bool added = locked_unlinked_items.add(view);
+            assert(added);
+        }
+    }
+    
+    // This is only called by DataView.
+    public void internal_notify_relinked(DataView view, SourceCollection sources) {
+        if (view_lock_count > 0) {
+            bool removed = locked_unlinked_items.remove(view);
+            assert(removed);
         }
     }
     

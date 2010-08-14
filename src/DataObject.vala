@@ -568,6 +568,8 @@ public abstract class DataSource : DataObject {
         
         unlinked_from_collection = collection;
         backlinks = new Gee.HashMap<string, Gee.List<string>>();
+        
+        contact_subscribers(subscriber_unlinking);
     }
     
     // This method is called by DataSource.  It should not be called otherwise.
@@ -579,6 +581,10 @@ public abstract class DataSource : DataObject {
         // give the DataSource a chance to persist the link state, if any
         if (backlinks.size > 0)
             commit_backlinks(unlinked_from_collection, dehydrate_backlinks());
+    }
+    
+    private void subscriber_unlinking(DataView view) {
+        view.notify_source_unlinking(unlinked_from_collection);
     }
     
     // This method is called by SourceCollection.  It should not be called otherwise.
@@ -594,9 +600,14 @@ public abstract class DataSource : DataObject {
         backlinks = null;
         unlinked_from_collection = null;
         relinked(relinked_to);
+        contact_subscribers(subscriber_relinked);
         
         // have the DataSource delete any persisted link state
         commit_backlinks(null, null);
+    }
+    
+    private void subscriber_relinked(DataView view) {
+        view.notify_source_relinked((SourceCollection) get_membership());
     }
     
     public bool has_backlink(SourceBacklink backlink) {
@@ -1217,6 +1228,20 @@ public class DataView : DataObject {
     // This is only called by DataSource
     public virtual void notify_unsubscribed(DataSource source) {
         unsubscribed(source);
+    }
+    
+    // This is only called by DataSource
+    public virtual void notify_source_unlinking(SourceCollection sources) {
+        ViewCollection? membership = (ViewCollection?) get_membership();
+        if (membership != null)
+            membership.internal_notify_unlinking(this, sources);
+    }
+    
+    // This is only called by DataSource
+    public virtual void notify_source_relinked(SourceCollection sources) {
+        ViewCollection? membership = (ViewCollection?) get_membership();
+        if (membership != null)
+            membership.internal_notify_relinked(this, sources);
     }
 }
 
