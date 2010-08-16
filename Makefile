@@ -172,7 +172,7 @@ TEXT_FILES = \
 ICON_FILES = \
 	adjust.png \
 	all-photos.svg \
-	all-rejected.svg \
+	all-rejected.png \
 	crop-pivot-reticle.png \
 	crop.svg \
 	drag_nub.png \
@@ -209,7 +209,8 @@ ICON_FILES = \
 	two-stars.svg \
 	zoom-in.png \
 	zoom-out.png \
-    shotwell-16.png
+    shotwell-16.png \
+    shotwell-24.png
 
 VAPI_DIRS = \
 	./vapi

@@ -1500,8 +1500,9 @@ public abstract class CollectionPage : CheckerboardPage {
             case RatingFilter.FIVE_ONLY:
                 return icon_star_base * 5;
             case RatingFilter.REJECTED_OR_HIGHER:
-                return icon_base * 2;
+                return Resources.ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE;
             case RatingFilter.UNRATED_OR_HIGHER:
+                return Resources.ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE;
             default:
                 return icon_base;
         }
