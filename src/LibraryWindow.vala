@@ -276,6 +276,12 @@ public class LibraryWindow : AppWindow {
         import.label = _("_Import From Folder...");
         import.tooltip = _("Import photos from disk to library");
         actions += import;
+        
+        // Add one action per alien database driver
+        foreach (AlienDatabaseDriver driver in AlienDatabaseHandler.get_instance().get_drivers()) {
+            Gtk.ActionEntry import_from_alien_db = driver.get_action_entry();
+            actions += import_from_alien_db;
+        }
 
         Gtk.ActionEntry sort = { "CommonSortEvents", null, TRANSLATABLE, null, null,
             on_sort_events };

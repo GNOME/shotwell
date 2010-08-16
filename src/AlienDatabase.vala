@@ -77,6 +77,15 @@ public class AlienDatabaseHandler {
         }
         return discovered_databases;
     }
+    
+    public void add_menu_entries(Gtk.UIManager ui, string placeholder) {
+        foreach (AlienDatabaseDriver driver in get_drivers()) {
+            ui.add_ui(ui.new_merge_id(), placeholder,
+                driver.get_menu_name(),
+                driver.get_action_entry().name,
+                Gtk.UIManagerItemType.MENUITEM, false);
+        }
+    }
 }
 
 /**

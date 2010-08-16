@@ -5,6 +5,7 @@
             <menuitem name="Stop" action="Stop" />
             <separator />
             <menuitem name="Import" action="CommonFileImport" />
+            <placeholder name="ImportFromAlienDbPlaceholder" />
             <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />

@@ -3,6 +3,7 @@
     <menubar name="OfflineMenuBar">
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Import" action="CommonFileImport" />
+            <placeholder name="ImportFromAlienDbPlaceholder" />
             <separator />
             <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
             <separator />

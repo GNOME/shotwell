@@ -1970,6 +1970,11 @@ public class LibraryPhotoPage : EditingHostPage {
 
         init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions(),
             create_toggle_actions());
+
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/PhotoMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
         
 #if !NO_PRINTING
         ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
@@ -2014,7 +2019,7 @@ public class LibraryPhotoPage : EditingHostPage {
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
         file.label = _("_File");
         actions += file;
-
+        
         Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
             TRANSLATABLE, on_export };
         export.label = Resources.EXPORT_MENU;

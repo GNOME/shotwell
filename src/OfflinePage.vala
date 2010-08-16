@@ -34,6 +34,11 @@ public class OfflinePage : CheckerboardPage {
         base (name);
         
         init_ui("offline.ui", "/OfflineMenuBar", "OfflineActionGroup", create_actions());
+
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/OfflineMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
         
         get_view().selection_group_altered.connect(on_selection_group_altered);
         

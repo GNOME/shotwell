@@ -374,6 +374,10 @@ public class ImportPage : CheckerboardPage {
         
         init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions(),
             create_toggle_actions());
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/ImportMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
         init_item_context_menu("/ImportContextMenu");
         init_page_context_menu("/ImportContextMenu");
         
@@ -491,7 +495,7 @@ public class ImportPage : CheckerboardPage {
             null, null, on_import_all };
         import_all.label = _("Import _All");
         actions += import_all;
-
+        
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
         edit.label = _("_Edit");
         actions += edit;
@@ -1203,6 +1207,11 @@ public class ImportQueuePage : SinglePhotoPage {
 
         init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
             create_actions());
+
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/ImportQueueMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
         
         // Set up toolbar
         Gtk.Toolbar toolbar = get_toolbar();
@@ -1235,7 +1244,7 @@ public class ImportQueuePage : SinglePhotoPage {
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
         file.label = _("_File");
         actions += file;
-
+        
         Gtk.ActionEntry stop = { "Stop", Gtk.STOCK_STOP, TRANSLATABLE, null, TRANSLATABLE,
             on_stop };
         stop.label = _("_Stop Import");

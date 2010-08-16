@@ -37,6 +37,11 @@ public class TrashPage : CheckerboardPage {
         init_ui("trash.ui", "/TrashMenuBar", "TrashActionGroup", create_actions());
         init_item_context_menu("/TrashContextMenu");
         init_page_context_menu("/TrashPageMenu");
+
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/TrashMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
         
         Gtk.Toolbar toolbar = get_toolbar();
         

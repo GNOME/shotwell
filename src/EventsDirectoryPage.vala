@@ -157,6 +157,11 @@ public class EventsDirectoryPage : CheckerboardPage {
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
         
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
+        
         init_item_context_menu("/EventsDirectoryContextMenu");
 
         this.view_manager = view_manager;
@@ -212,7 +217,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
         actions += file;
-
+        
         Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
         view.label = _("_View");
         actions += view;
@@ -239,7 +244,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         merge.label = Resources.MERGE_MENU;
         merge.tooltip = Resources.MERGE_TOOLTIP;
         actions += merge;
-
+        
         return actions;
     }
     
@@ -375,6 +380,11 @@ public class EventPage : CollectionPage {
 
     private EventPage(Event page_event) {
         base(page_event.get_name(), "event.ui", create_actions());
+        
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
         
         this.page_event = page_event;
         
