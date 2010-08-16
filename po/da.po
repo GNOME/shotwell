@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-08 11:25+01:00\n"
+"PO-Revision-Date: 2010-08-14 11:25+01:00\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -90,11 +90,11 @@ msgstr "Billeder"
 
 #: src/AppWindow.vala:55
 msgid "Pin Toolbar"
-msgstr ""
+msgstr "Opsæt værktøjsbjælke"
 
 #: src/AppWindow.vala:56
 msgid "Pin the toolbar open"
-msgstr ""
+msgstr "Opsæt værktøjsbjælken åben"
 
 #: src/AppWindow.vala:60 src/AppWindow.vala:137
 msgid "Leave fullscreen"
@@ -1592,7 +1592,7 @@ msgstr "Zoom _100 %"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
 msgid "Zoom the photo to 100% magnification"
-msgstr "Zoom billedet med 100% m forstørrelse"
+msgstr "Zoom billedet til 100 %"
 
 #: src/PhotoPage.vala:2231 src/PhotoPage.vala:3268
 msgid "Zoom _200%"
@@ -1600,7 +1600,7 @@ msgstr "Zoom _200 %"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
 msgid "Zoom the photo to 200% magnification"
-msgstr "Zoom billedet med 200% m forstørrelse"
+msgstr "Zoom billedet til 200 %"
 
 #: src/PhotoPage.vala:2578 src/util.vala:596
 msgid "Remove From Library"
@@ -2195,13 +2195,15 @@ msgstr "_Omdøb hændelse..."
 msgid "Rename the selected event"
 msgstr "Omdøb den valgte hændelse"
 
+# Funktionen er at man vælger hvilket billede der skal bruges til 
+# forsiden for en gruppe af billeder.
 #: src/Resources.vala:146
 msgid "Make _Key Photo for Event"
-msgstr "Lav _nøglebillede for hændelse"
+msgstr "Gør til _nøglebillede for hændelse"
 
 #: src/Resources.vala:147
 msgid "Make Key Photo for Event"
-msgstr "Lav nøglebillede for hændelse"
+msgstr "Gør til nøglebillede for hændelse"
 
 #: src/Resources.vala:148
 msgid "Make the selected photo the thumbnail for the event"
@@ -2849,6 +2851,3 @@ msgstr "Forbereder billeder for import..."
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "fejl"
-
-
-
