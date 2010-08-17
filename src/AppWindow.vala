@@ -728,11 +728,13 @@ public abstract class AppWindow : PageWindow {
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
         if (old_page != null) {
+            old_page.get_view().contents_altered.disconnect(on_contents_altered);
             old_page.get_view().selection_group_altered.disconnect(on_selection_group_altered);
             old_page.get_view().items_state_changed.disconnect(on_items_altered);
         }
         
         if (new_page != null) {
+            new_page.get_view().contents_altered.connect(on_contents_altered);
             new_page.get_view().selection_group_altered.connect(on_selection_group_altered);
             new_page.get_view().items_state_changed.connect(on_items_altered);
             
@@ -742,6 +744,10 @@ public abstract class AppWindow : PageWindow {
         }
         
         base.switched_pages(old_page, new_page);
+    }
+    
+    private void on_contents_altered() {
+        set_common_action_sensitive("CommonSelectAll", get_current_page().get_view().get_count() > 0);
     }
     
     private void on_selection_group_altered() {
