@@ -50,6 +50,10 @@ public class TagSourceCollection : ContainerSourceCollection {
         return name_map.has_key(name);
     }
     
+    public Gee.Collection<string> get_all_names() {
+        return name_map.keys;
+    }
+    
     // Returns a list of all Tags associated with the Photo in no particular order.
     public Gee.List<Tag>? fetch_for_photo(LibraryPhoto photo) {
         Gee.List<Tag>? tags = photo_map.get(photo);

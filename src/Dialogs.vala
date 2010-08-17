@@ -450,12 +450,13 @@ public bool report_manifest(ImportManifest manifest, bool list, QuestionParams? 
 
 public abstract class TextEntryDialogMediator {
     private TextEntryDialog dialog;
-
-    public TextEntryDialogMediator(string title, string label, string? initial_text = null) {
+    
+    public TextEntryDialogMediator(string title, string label, string? initial_text = null,
+        Gee.Collection<string>? completion_list = null, string? completion_delimiter = null) {
         Gtk.Builder builder = AppWindow.create_builder();
         dialog = builder.get_object("text_entry_dialog1") as TextEntryDialog;
         dialog.set_builder(builder);
-        dialog.setup(on_modify_validate, title, label, initial_text);
+        dialog.setup(on_modify_validate, title, label, initial_text, completion_list, completion_delimiter);
     }
     
     protected virtual bool on_modify_validate(string text) {
@@ -467,9 +468,94 @@ public abstract class TextEntryDialogMediator {
     }
 }
 
+// Entry completion for values separated by separators (e.g. comma in the case of tags)
+// Partly inspired by the class of the same name in gtkmm-utils by Marko Anastasov
+public class EntryMultiCompletion : Gtk.EntryCompletion {
+    private string delimiter;
+    
+    public EntryMultiCompletion(Gee.Collection<string> completion_list, string? delimiter) {
+        assert(delimiter == null || delimiter.len() == 1);
+        this.delimiter = delimiter;
+        
+        set_model(create_completion_store(completion_list));
+        set_text_column(0);
+        set_match_func(match_func);
+    }
+    
+    private static Gtk.ListStore create_completion_store(Gee.Collection<string> completion_list) {
+        Gtk.ListStore completion_store = new Gtk.ListStore(1, typeof(string));
+        Gtk.TreeIter store_iter;
+        Gee.Iterator<string> completion_iter = completion_list.iterator();
+        while (completion_iter.next()) {
+            completion_store.append(out store_iter);
+            completion_store.set(store_iter, 0, completion_iter.get(), -1);
+        }
+        
+        return completion_store;
+    }
+    
+    private bool match_func(Gtk.EntryCompletion completion, string key, Gtk.TreeIter iter) {
+        Gtk.TreeModel model = completion.get_model();
+        string possible_match;
+        model.get(iter, 0, out possible_match);
+        possible_match = possible_match.casefold();
+        
+        if (delimiter == null) {
+            return possible_match.has_prefix(key.strip());
+        } else {
+            if (key.contains(delimiter)) {
+                // check whether cursor is before last delimiter
+                long offset = key.pointer_to_offset(key.rchr(-1, delimiter[0]));
+                int position = ((Gtk.Entry) get_entry()).get_position();
+                if (position <= offset)
+                    return false; // TODO: Autocompletion for tags not last in list
+            }
+            
+            string last_part = get_last_part(key.strip(), delimiter);
+            
+            if (last_part.len() == 0) 
+                return false; // need at least one character to show matches
+                
+            return possible_match.has_prefix(last_part.strip());
+        }
+    }
+
+    public override bool match_selected(Gtk.TreeModel model, Gtk.TreeIter iter) {
+        string match;
+        model.get(iter, 0, out match);
+        
+        Gtk.Entry entry = (Gtk.Entry)get_entry();
+        
+        string old_text = entry.get_text();
+        if (old_text.len() > 0) {
+            if (old_text.contains(delimiter)) {
+                long start = old_text.pointer_to_offset(old_text.rchr(-1, delimiter[0]));
+                old_text = old_text.substring(0, start + 1) + (delimiter != " " ? " " : "");
+            } else
+                old_text = "";
+        }
+        
+        string new_text = old_text + match + delimiter + (delimiter != " " ? " " : "");
+        entry.set_text(new_text);
+        entry.set_position((int) new_text.len());
+        
+        return true;
+    }
+    
+    // Find last string after any delimiter
+    private static string get_last_part(string s, string delimiter) {
+        string[] split = s.split(delimiter);
+        int i = 0;
+        while (split[i+1] != null)
+            i++;
+        
+        return split[i];
+    }
+}
+
 public class TextEntryDialog : Gtk.Dialog {
     public delegate bool OnModifyValidateType(string text);
-
+    
     private OnModifyValidateType on_modify_validate;
     private Gtk.Entry entry;
     private Gtk.Builder builder;
@@ -477,9 +563,9 @@ public class TextEntryDialog : Gtk.Dialog {
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
-
+    
     public void setup(OnModifyValidateType? modify_validate, string title, string label, 
-        string? initial_text) {
+        string? initial_text, Gee.Collection<string>? completion_list, string? completion_delimiter) {
         set_title(title);
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
@@ -492,6 +578,12 @@ public class TextEntryDialog : Gtk.Dialog {
         entry.set_text(initial_text != null ? initial_text : "");
         entry.grab_focus();
 
+        if (completion_list != null) { // Textfield with autocompletion
+            EntryMultiCompletion completion = new EntryMultiCompletion(completion_list,
+                completion_delimiter);
+            entry.set_completion(completion);
+        }
+        
         set_default_response(Gtk.ResponseType.OK);
     }
 
@@ -1040,9 +1132,13 @@ public void multiple_object_error_dialog(Gee.ArrayList<DataObject> objects, stri
     dialog.destroy();
 }
 
+public abstract class TagsDialog : TextEntryDialogMediator {
+    public TagsDialog(string title, string label, string? initial_text = null) {
+        base (title, label, initial_text, Tag.global.get_all_names(), ",");
+    }
+}
 
-
-public class AddTagsDialog : TextEntryDialogMediator {
+public class AddTagsDialog : TagsDialog {
     public AddTagsDialog() {
         base (Resources.ADD_TAGS_TITLE, _("Tags (separated by commas):"));
     }
@@ -1066,7 +1162,7 @@ public class AddTagsDialog : TextEntryDialogMediator {
     }
 }
 
-public class ModifyTagsDialog : TextEntryDialogMediator {
+public class ModifyTagsDialog : TagsDialog {
     public ModifyTagsDialog(LibraryPhoto photo) {
         base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), 
             get_initial_text(photo));
