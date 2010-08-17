@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-04 16:57+0400\n"
+"PO-Revision-Date: 2010-08-17 23:36+0400\n"
 "Last-Translator: boobaloo <koptev.oleg@gmail.com>\n"
 "Language-Team: Oleg Koptev\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.5.2\n"
+"X-Generator: Virtaal 0.6.1\n"
 "X-Poedit-Language: Russian\n"
 
 # Translator credits string for the about box -- translators, add your name
@@ -238,7 +238,7 @@ msgstr "_Метки"
 #: src/ImportPage.vala:482 src/ImportPage.vala:1229 src/OfflinePage.vala:58
 #: src/PhotoPage.vala:2202 src/PhotoPage.vala:3239 src/TrashPage.vala:78
 msgid "_Help"
-msgstr "_Помощь"
+msgstr "_Справка"
 
 #: src/CollectionPage.vala:481 src/ImportPage.vala:449
 msgid "_Titles"
@@ -250,7 +250,7 @@ msgstr "Показать название каждого фото"
 
 #: src/CollectionPage.vala:488
 msgid "Display each photo's tags"
-msgstr "Показывать метки фотографий"
+msgstr "Показывать все метки фотографии"
 
 #: src/CollectionPage.vala:505
 msgid "By _Title"
@@ -405,7 +405,7 @@ msgstr "Изменить время и дату"
 
 #: src/Commands.vala:972
 msgid "Undoing Date and Time Adjustment"
-msgstr "Отменить изменение времени и даты"
+msgstr "Отменить изменение даты и времени"
 
 #: src/Commands.vala:999
 msgid "One original photo could not be adjusted."
@@ -470,7 +470,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Хотите продолжить экспорт?"
+"Хотите продолжить экспортирование?"
 
 #: src/Dialogs.vala:61
 msgid "Con_tinue"
@@ -509,15 +509,9 @@ msgstr[2] "Не были импортированы дубликаты %d фот
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"%d фото не удалось импортировать из-за ошибок в файле или аппаратных "
-"ошибок:\n"
-msgstr[1] ""
-"%d фото не удалось импортировать из-за ошибок в файле или аппаратных "
-"ошибок:\n"
-msgstr[2] ""
-"%d фото не удалось импортировать из-за ошибок в файле или аппаратных "
-"ошибок:\n"
+msgstr[0] "%d фото не удалось импортировать из-за ошибок в файле или аппаратных ошибок:\n"
+msgstr[1] "%d фото не удалось импортировать из-за ошибок в файле или аппаратных ошибок:\n"
+msgstr[2] "%d фото не удалось импортировать из-за ошибок в файле или аппаратных ошибок:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
@@ -565,7 +559,7 @@ msgstr "Снимки не импортированы.\n"
 
 #: src/Dialogs.vala:439
 msgid "Import Complete"
-msgstr "Импорт завершён"
+msgstr "Импортирование завершено"
 
 #: src/Dialogs.vala:519 src/Resources.vala:143
 msgid "Rename Event"
@@ -798,12 +792,12 @@ msgstr "Добро пожаловать в Shotwell!"
 #: src/Dialogs.vala:1139
 #, c-format
 msgid "To get started, import photos in any of these ways:"
-msgstr "Для начала работы, импортируйте фото одним из мледующих способов:"
+msgstr "Для начала работы, импортируйте фото одним из следующих способов:"
 
 #: src/Dialogs.vala:1162
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Выберите <span weight=\"bold\">Файл %s Импорт из папки</span>"
+msgstr "Выберите <span weight=\"bold\">Файл %s Импортировать из папки</span>"
 
 #: src/Dialogs.vala:1163
 msgid "Drag and drop photos onto the Shotwell window"
@@ -1223,7 +1217,7 @@ msgstr "Большой (1024 x 768 пикселей)"
 
 #: src/FSpotDatabaseDriver.vala:197
 msgid "Import From _F-Spot..."
-msgstr "Импорт из _F-Spot"
+msgstr "Импортировать из _F-Spot..."
 
 #: src/FSpotDatabaseDriver.vala:198
 msgid "Import the content of an external F-Spot database"
@@ -1231,7 +1225,7 @@ msgstr "Импортировать содержимое базы данных F-
 
 #: src/FSpotDatabaseDriver.vala:207
 msgid "Import From F-Spot"
-msgstr "Импорт из F-Spot"
+msgstr "Импортировать из F-Spot"
 
 #: src/FSpotDatabaseDriver.vala:257
 msgid "F-Spot"
@@ -1356,11 +1350,11 @@ msgstr "Импортирование..."
 
 #: src/ImportPage.vala:1191 src/ImportPage.vala:1221
 msgid "Stop importing photos"
-msgstr "Остановить импорт снимков"
+msgstr "Остановить импортирование снимков"
 
 #: src/ImportPage.vala:1220
 msgid "_Stop Import"
-msgstr "_Остановить импорт"
+msgstr "_Остановить импортирование"
 
 #: src/ImportPage.vala:1301
 #, c-format
@@ -1397,11 +1391,11 @@ msgstr "Последнее импортирование"
 
 #: src/LibraryWindow.vala:458
 msgid "_Import From Folder..."
-msgstr "_Импорт из папки"
+msgstr "_Импортировать из папки..."
 
 #: src/LibraryWindow.vala:459
 msgid "Import photos from disk to library"
-msgstr "Импортирование фотографий в библиотеку с диска "
+msgstr "Импортировать фотографии в библиотеку с диска "
 
 #: src/LibraryWindow.vala:464
 msgid "Sort _Events"
@@ -1445,11 +1439,11 @@ msgstr "Очистка корзины ..."
 
 #: src/LibraryWindow.vala:811
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr "Shotwell настроен на импорт фотографий в ваш домашний каталог.\n"
+msgstr "Shotwell настроен на импортирование фотографий в ваш домашний каталог.\n"
 
 #: src/LibraryWindow.vala:814
 msgid "_Import"
-msgstr "_Импорт"
+msgstr "_Импортирование"
 
 #: src/LibraryWindow.vala:814
 msgid "Library Location"
@@ -1515,8 +1509,7 @@ msgstr "[FILE]"
 #: src/main.vala:253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Выполнените '%s --help' для просмотра полного списка параметров командной "
+msgstr "Выполните '%s --help' для просмотра полного списка параметров командной "
 "строки.\n"
 
 #: src/OfflinePage.vala:17
@@ -1663,7 +1656,7 @@ msgstr "Распечатать фото на принтере"
 
 #: src/PhotoPage.vala:3143
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Правка"
 
 #: src/PhotoPage.vala:3277
 #, c-format
@@ -1724,7 +1717,7 @@ msgstr "Ошибка базы данных"
 
 #: src/Photo.vala:36
 msgid "User aborted import"
-msgstr "Импорт прерван пользователем"
+msgstr "Импортирование прервано пользователем"
 
 #: src/Photo.vala:39
 msgid "Not a file"
@@ -1757,7 +1750,7 @@ msgstr "Ошибка камеры"
 #: src/Photo.vala:60
 #, c-format
 msgid "Imported failed (%d)"
-msgstr "Ошибка импорта (%d)"
+msgstr "Ошибка импортирования (%d)"
 
 #: src/Photo.vala:2363
 msgid "modified"
@@ -2369,11 +2362,11 @@ msgstr "Сделать дубликат снимка"
 
 #: src/Resources.vala:202
 msgid "_Export..."
-msgstr "_Экспорт..."
+msgstr "_Экспортирование..."
 
 #: src/Resources.vala:203
 msgid "Export to disk"
-msgstr "Экспорт на диск"
+msgstr "Экспортировать на диск"
 
 #: src/Resources.vala:206
 msgid "View and change page setup printing"
@@ -2397,7 +2390,7 @@ msgstr "Опубликовать на разных сайтах"
 
 #: src/Resources.vala:215
 msgid "E_dit Title..."
-msgstr "_Редактировать название"
+msgstr "_Редактировать название..."
 
 #: src/Resources.vala:217
 msgid "Edit title of the selected photo"
@@ -2405,19 +2398,19 @@ msgstr "Редактировать название выбранных фото�
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr "_Настройка даты и времени"
+msgstr "_Изменить дату и время..."
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
-msgstr "Настройка даты и времени"
+msgstr "Изменить дату и время"
 
 #: src/Resources.vala:221
 msgid "Adjust date and time of selected photos"
-msgstr "Настройка даты и времени для выбранных фото"
+msgstr "Изменить дату и время для выбранных фото"
 
 #: src/Resources.vala:223
 msgid "Add _Tags..."
-msgstr "Добавить _метки"
+msgstr "Добавить _метки..."
 
 #: src/Resources.vala:224 src/Resources.vala:246
 msgid "Add Tags"
@@ -2429,11 +2422,11 @@ msgstr "Добавить одну или больше меток для выбр
 
 #: src/Resources.vala:227
 msgid "_Preferences"
-msgstr "_Настройки"
+msgstr "_Параметры"
 
 #: src/Resources.vala:228
 msgid "Edit preferences"
-msgstr "Изменить настройки"
+msgstr "Редактировать параметры"
 
 #: src/Resources.vala:230
 msgid "_Open With External Editor"
@@ -2776,7 +2769,8 @@ msgstr "_Закрыть"
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
 msgstr ""
-"Публикация на %s не может быть продолжена. Невозможно соединиться с сервисом."
+"Публикация на %s не может быть продолжена. Невозможно соединиться с "
+"сервисом."
 
 #: src/WebConnectors.vala:833
 #, c-format
@@ -2848,7 +2842,7 @@ msgstr "чёрный"
 
 #: ui/shotwell.glade:261
 msgid "Display"
-msgstr "Дисплей"
+msgstr "Экран"
 
 #: ui/shotwell.glade:299
 msgid "External Editors"
