@@ -3829,7 +3829,8 @@ public class LibraryPhoto : Photo {
                 string_tags.add(tag.get_name());
             }
             metadata.set_keywords(string_tags, false);
-        }
+        } else
+            metadata.set_keywords(null, false);
         
         metadata.set_rating(get_rating());
     }
