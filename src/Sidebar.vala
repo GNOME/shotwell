@@ -58,6 +58,7 @@ public class Sidebar : Gtk.TreeView {
     private Gtk.CellRendererText text;
     private Gtk.Entry? text_entry = null;
     private Gee.HashMap<string, Gdk.Pixbuf> icon_cache = new Gee.HashMap<string, Gdk.Pixbuf>();
+    private int editing_disabled = 0;
     
     public Sidebar() {
         set_model(store);
@@ -99,15 +100,12 @@ public class Sidebar : Gtk.TreeView {
         
         popup_menu.connect(on_context_menu_keypress);
         
-        cursor_changed.connect(on_cursor_changed);
-
         icon_theme = Gtk.IconTheme.get_default();
         icon_theme.append_search_path(AppDirs.get_resources_dir().get_child("icons").get_path());
         icon_theme.changed.connect(on_theme_change);
     }
     
     ~Sidebar() {
-        cursor_changed.disconnect(on_cursor_changed);
         text.editing_canceled.disconnect(on_editing_canceled);
         text.editing_started.disconnect(on_editing_started);
     }
@@ -126,9 +124,29 @@ public class Sidebar : Gtk.TreeView {
         return (page.get_marker() != null) ? get_selection().path_is_selected(page.get_marker().get_path()) : false;
     }
     
-    public void on_cursor_changed() {
-        SidebarPage page = locate_page(current_path);
-        text.editable = (page != null && page.is_renameable());
+    public override void cursor_changed() {
+        if (editing_disabled == 0) {
+            SidebarPage? page = locate_page(current_path);
+            text.editable = page != null && page.is_renameable();
+        }
+        
+        if (base.cursor_changed != null)
+            base.cursor_changed();
+    }
+    
+    public void disable_editing() {
+        if (editing_disabled++ == 0)
+            text.editable = false;
+    }
+    
+    public void enable_editing() {
+        if (editing_disabled == 0)
+            return;
+        
+        if (--editing_disabled == 0) {
+            SidebarPage? page = locate_page(current_path);
+            text.editable = page != null && page.is_renameable();
+        }
     }
     
     public void expand_branch(SidebarMarker marker) {
@@ -650,6 +668,9 @@ public class Sidebar : Gtk.TreeView {
     
     // should return true if path is renameable by user
     private bool rename_path(Gtk.TreePath path) {
+        if (editing_disabled > 0)
+            return false;
+        
         SidebarPage? page = locate_page(path);
         if (page == null || !page.is_renameable())
             return false;

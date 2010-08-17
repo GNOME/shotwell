@@ -308,10 +308,9 @@ public class ThumbnailCache : Object {
     private Gdk.Pixbuf _fetch(ThumbnailSource source) throws Error {
         // use JPEG in memory cache if available
         Gdk.Pixbuf pixbuf = fetch_from_memory(source.get_unique_thumbnail_name());
-        if (pixbuf != null) {
+        if (pixbuf != null)
             return pixbuf;
-        }
-                
+        
         pixbuf = read_pixbuf(source.get_unique_thumbnail_name(),
             source.get_preferred_thumbnail_format());
         
@@ -320,7 +319,7 @@ public class ThumbnailCache : Object {
         
         // stash in memory for next time
         store_in_memory(source.get_unique_thumbnail_name(), pixbuf);
-
+        
         return pixbuf;
     }
     

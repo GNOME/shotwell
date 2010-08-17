@@ -88,7 +88,7 @@ public class LibraryWindow : AppWindow {
     private Gtk.HPaned client_paned = new Gtk.HPaned();
     private Gtk.Frame bottom_frame = new Gtk.Frame(null);
     
-    private Gtk.AccelGroup? accel_group = null;
+    private Gtk.AccelGroup? paused_accel_group = null;
     
     public class FileImportJob : BatchImportJob {
         private File file_or_dir;
@@ -1403,57 +1403,70 @@ public class LibraryWindow : AppWindow {
     public void switch_to_page(Page page) {
         if (page == get_current_page())
             return;
-
+        
         // open sidebar directory containing page, if any
         if (page.get_marker() != null && page is EventPage)
             sidebar.expand_tree(page.get_marker());
-
-        if (get_current_page() != null) {
-            get_current_page().switching_from();
+        
+        Page current_page = get_current_page();
+        if (current_page != null) {
+            current_page.switching_from();
             
-            Gtk.AccelGroup accel_group = get_current_page().ui.get_accel_group();
+            // see note below about why the sidebar is uneditable while the LibraryPhotoPage is
+            // visible
+            if (current_page is LibraryPhotoPage)
+                sidebar.enable_editing();
+            
+            Gtk.AccelGroup accel_group = current_page.ui.get_accel_group();
             if (accel_group != null)
                 remove_accel_group(accel_group);
-
+            
             // carry over menubar toggle activity between pages
             Gtk.ToggleAction old_basic_display_action = 
-                (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
+                (Gtk.ToggleAction) current_page.common_action_group.get_action(
                 "CommonDisplayBasicProperties");
             assert(old_basic_display_action != null);
-
+            
             Gtk.ToggleAction new_basic_display_action = 
                 (Gtk.ToggleAction) page.common_action_group.get_action(
                 "CommonDisplayBasicProperties");
             assert(new_basic_display_action != null);
             
             new_basic_display_action.set_active(old_basic_display_action.get_active());
-
+            
             Gtk.ToggleAction old_extended_display_action = 
-                (Gtk.ToggleAction) get_current_page().common_action_group.get_action(
+                (Gtk.ToggleAction) current_page.common_action_group.get_action(
                 "CommonDisplayExtendedProperties");
             assert(old_basic_display_action != null);
-
+            
             Gtk.ToggleAction new_extended_display_action = 
                 (Gtk.ToggleAction) page.common_action_group.get_action(
                 "CommonDisplayExtendedProperties");
             assert(new_basic_display_action != null);
             
             new_extended_display_action.set_active(old_extended_display_action.get_active());
-
+            
             // old page unsubscribes to these signals (new page subscribes below)
-            unsubscribe_from_basic_information(get_current_page());
+            unsubscribe_from_basic_information(current_page);
         }
-
+        
         notebook.set_current_page(get_notebook_pos(page));
-
+        
         // switch menus
-        if (get_current_page() != null)
-            layout.remove(get_current_page().get_menubar());
+        if (current_page != null)
+            layout.remove(current_page.get_menubar());
         layout.pack_start(page.get_menubar(), false, false, 0);
         
         Gtk.AccelGroup accel_group = page.ui.get_accel_group();
         if (accel_group != null)
             add_accel_group(accel_group);
+        
+        // if the visible page is the LibraryPhotoPage, we need to prevent single-click inline
+        // renaming in the sidebar because a single click while in the LibraryPhotoPage indicates
+        // the user wants to return to the controlling page ... that is, in this special case, the
+        // sidebar cursor is set not to the 'current' page, but the page the user came from
+        if (page is LibraryPhotoPage)
+            sidebar.disable_editing();
         
         // do this prior to changing selection, as the change will fire a cursor-changed event,
         // which will then call this function again
@@ -1464,62 +1477,23 @@ public class LibraryWindow : AppWindow {
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
         
         on_update_properties();
-
+        
         page.show_all();
         
         // subscribe to these signals for each event page so basic properties display will update
         subscribe_for_basic_information(get_current_page());
-
+        
         page.switched_to();
     }
     
     private bool is_page_selected(SidebarPage page, Gtk.TreePath path) {
         SidebarMarker? marker = page.get_marker();
-        if (marker == null)
-            return false;
         
-        return (path.compare(marker.get_row().get_path()) == 0);
+        return marker != null ? path.compare(marker.get_row().get_path()) == 0 : false;
     }
     
-    private bool is_camera_selected(Gtk.TreePath path) {
-#if !NO_CAMERA    
-        foreach (ImportPage page in camera_pages.values) {
-            if (is_page_selected(page, path)) {
-                switch_to_page(page);
-                
-                return true;
-            }
-        }
-#endif        
-        return false;
-    }
-    
-    private bool is_events_directory_selected(Gtk.TreePath path) {
-        foreach (SubEventsDirectoryPage.Stub events_dir in events_dir_list) {
-            if (is_page_selected(events_dir, path)) {
-                switch_to_page(events_dir.get_page());
-                
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    private bool is_event_selected(Gtk.TreePath path) {
-        foreach (EventPage.Stub event_stub in event_list) {
-            if (is_page_selected(event_stub, path)) {
-                switch_to_page(event_stub.get_page());
-                
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    private bool is_tag_selected(Gtk.TreePath path) {
-        foreach (TagPage.Stub stub in tag_map.values) {
+    private bool select_from_collection(Gtk.TreePath path, Gee.Collection<PageStub> stubs) {
+        foreach (PageStub stub in stubs) {
             if (is_page_selected(stub, path)) {
                 switch_to_page(stub.get_page());
                 
@@ -1528,6 +1502,31 @@ public class LibraryWindow : AppWindow {
         }
         
         return false;
+    }
+    
+    private bool is_camera_selected(Gtk.TreePath path) {
+#if !NO_CAMERA
+        foreach (ImportPage page in camera_pages.values) {
+            if (is_page_selected(page, path)) {
+                switch_to_page(page);
+                
+                return true;
+            }
+        }
+#endif
+        return false;
+    }
+    
+    private bool is_events_directory_selected(Gtk.TreePath path) {
+        return select_from_collection(path, events_dir_list);
+    }
+    
+    private bool is_event_selected(Gtk.TreePath path) {
+        return select_from_collection(path, event_list);
+    }
+    
+    private bool is_tag_selected(Gtk.TreePath path) {
+        return select_from_collection(path, tag_map.values);
     }
     
     private void on_sidebar_cursor_changed() {
@@ -1641,10 +1640,10 @@ public class LibraryWindow : AppWindow {
     
     public override bool pause_keyboard_trapping() {
         if (base.pause_keyboard_trapping()) {
-            accel_group = AppWindow.get_instance().get_current_page().ui.get_accel_group();
-            if (accel_group != null)
-                AppWindow.get_instance().remove_accel_group(accel_group);
-                        
+            paused_accel_group = get_current_page().ui.get_accel_group();
+            if (paused_accel_group != null)
+                AppWindow.get_instance().remove_accel_group(paused_accel_group);
+            
             return true;
         }
         
@@ -1653,8 +1652,10 @@ public class LibraryWindow : AppWindow {
     
     public override bool resume_keyboard_trapping() {
         if (base.resume_keyboard_trapping()) {
-            if (accel_group != null)
-                AppWindow.get_instance().add_accel_group(accel_group);
+            if (paused_accel_group != null) {
+                AppWindow.get_instance().add_accel_group(paused_accel_group);
+                paused_accel_group = null;
+            }
             
             return true;
         }

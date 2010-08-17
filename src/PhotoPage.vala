@@ -2000,6 +2000,7 @@ public class LibraryPhotoPage : EditingHostPage {
         get_view().items_altered.connect(on_photos_altered);
         
         // watch for photos being destroyed or altered, either here or in other pages
+        LibraryPhoto.global.items_unlinking.connect(on_photos_unlinking);
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         LibraryPhoto.global.item_altered.connect(on_metadata_altered);
         
@@ -2008,9 +2009,10 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     ~LibraryPhotoPage() {
-        LibraryPhoto.global.items_removed.disconnect(on_photos_removed);
+        LibraryPhoto.global.items_unlinking.disconnect(on_photos_unlinking);
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         LibraryPhoto.global.item_altered.disconnect(on_metadata_altered);
+        Config.get_instance().external_app_changed.disconnect(on_external_app_changed);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -2671,17 +2673,15 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void on_photo_destroyed(DataSource source) {
-        on_photo_removed(source);
+        on_photo_removed((LibraryPhoto) source);
     }
     
-    private void on_photos_removed(Gee.Iterable<DataSource> removed) {
-        foreach (DataSource source in removed)
+    private void on_photos_unlinking(Gee.Iterable<DataSource> unlinking) {
+        foreach (DataSource source in unlinking)
             on_photo_removed((LibraryPhoto) source);
     }
     
-    private void on_photo_removed(DataSource source) {
-        LibraryPhoto photo = source as LibraryPhoto;
-        
+    private void on_photo_removed(LibraryPhoto photo) {
         // only interested in current photo
         if (photo == null || !photo.equals(get_photo()))
             return;
