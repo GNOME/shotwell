@@ -1,0 +1,16 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="redeye">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+    </info>
+
+	<title>Removing Red-Eye</title>
+
+    <p>Red-eye occurs when the camera's flash reflects off the pupil.
+    To eliminate this in a photo, use the Red-eye tool.
+    Drag the circle over the affected pupil, adjust its size with the slider control, and press <gui>Apply</gui>.
+    Repeat this process for all red pupils in your photo.
+    Press <gui>Close</gui> when finished.</p>
+</page>

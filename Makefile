@@ -18,11 +18,11 @@ UNAME := $(shell uname)
 SYSTEM := $(UNAME:MINGW32_%=MinGW)
 
 ifeq "$(SYSTEM)" "Linux"
-  LINUX = 1
+	LINUX = 1
 endif
 
 ifeq "$(SYSTEM)" "MinGW"
-  WINDOWS = 1
+	WINDOWS = 1
 endif
 
 -include configure.mk
@@ -38,11 +38,11 @@ DEFINES=_PREFIX='"$(PREFIX)"' _VERSION='"$(VERSION)"' GETTEXT_PACKAGE='"$(GETTEX
      _LANG_SUPPORT_DIR='"$(SYSTEM_LANG_DIR)"'
 
 ifdef LINUX
-    EXPORT_FLAGS = -export-dynamic
+	EXPORT_FLAGS = -export-dynamic
 endif
 
 ifdef WINDOWS
-    EXPORT_FLAGS = -export-all-symbols
+	EXPORT_FLAGS = -export-all-symbols
 endif
 
 SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko
@@ -209,8 +209,58 @@ ICON_FILES = \
 	two-stars.svg \
 	zoom-in.png \
 	zoom-out.png \
-    shotwell-16.png \
-    shotwell-24.png
+	shotwell-16.png \
+	shotwell-24.png
+
+HELP_FILES = \
+	advanced-startup.page \
+	advanced-where.page \
+	background.page \
+	browse-navigate.page \
+	browse-view.page \
+	edit-crop.page \
+	edit-enhance.page \
+	edit-external.page \
+	edit-multiple.page \
+	edit-redeye.page \
+	edit-rotate.page \
+	edit-undo.page \
+	features-browsing.page \
+	features-editing.page \
+	features-importing.page \
+	features-introduction.page \
+	features-organising.page \
+	features-sharing.page \
+	import-camera.page \
+	import-file.page \
+	import-f-spot.page \
+	index.page \
+	organise-delete.page \
+	organise-event.page \
+	organise-rating.page \
+	organise-tag.page \
+	organise-title.page \
+	share-print.page \
+	share-slideshow.page \
+	share-upload.page
+
+HELP_IMAGES = \
+	adjust.png \
+	autoenhance.png \
+	crop.png \
+	direct.png \
+	editing_overview.png \
+	fullwindow.png \
+	grandma_favorites.png \
+	grandma.png \
+	key_photo.png \
+	photos_collection.png \
+	preferences.png \
+	publish.png \
+	select_rating.png \
+	shotwell_logo.png \
+	tags.png \
+	time.png
 
 VAPI_DIRS = \
 	./vapi
@@ -301,13 +351,16 @@ EXPANDED_ICON_FILES = $(foreach file,$(ICON_FILES),icons/$(file))
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
+EXPANDED_HELP_FILES = $(foreach file,$(HELP_FILES),help/$(file))
+EXPANDED_HELP_IMAGES = $(foreach file,$(HELP_IMAGES),help/figures/$(file))
 VALA_STAMP = $(BUILD_DIR)/.stamp
 LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
 DIST_FILES = Makefile configure minver $(EXPANDED_SRC_FILES) $(EXPANDED_VAPI_FILES) \
 	$(EXPANDED_SRC_HEADER_FILES) $(EXPANDED_RESOURCE_FILES) $(TEXT_FILES) $(EXPANDED_ICON_FILES) \
 	$(EXPANDED_SYS_INTEGRATION_FILES) $(EXPANDED_PO_FILES) po/shotwell.pot windows/install-deps \
-	windows/shotwell.rc windows/winstall.iss src/windows.c src/GConf.vala libraw-config
+	windows/shotwell.rc windows/winstall.iss src/windows.c src/GConf.vala libraw-config \
+	$(EXPANDED_HELP_FILES) $(EXPANDED_HELP_IMAGES)
 
 DIST_TAR = $(PROGRAM)-$(VERSION).tar
 DIST_TAR_BZ2 = $(DIST_TAR).bz2
@@ -443,6 +496,12 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 	mkdir -p $(DESTDIR)$(PREFIX)/share/apport/package-hooks
 	$(INSTALL_DATA) apport/shotwell.py $(DESTDIR)$(PREFIX)/share/apport/package-hooks
 endif
+ifndef DISABLE_HELP_INSTALL
+	mkdir -p $(DESTDIR)/usr/share/gnome/help/shotwell/C
+	$(INSTALL_DATA) $(EXPANDED_HELP_FILES) $(DESTDIR)/usr/share/gnome/help/shotwell/C
+	mkdir -p $(DESTDIR)/usr/share/gnome/help/shotwell/C/figures
+	$(INSTALL_DATA) $(EXPANDED_HELP_IMAGES) $(DESTDIR)/usr/share/gnome/help/shotwell/C/figures
+endif
 endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
         $(INSTALL_DATA) $(LOCAL_LANG_DIR)/$(lang)/LC_MESSAGES/shotwell.mo \
@@ -458,6 +517,9 @@ ifndef DISABLE_DESKTOP_UPDATE
 	-update-desktop-database || :
 endif
 ifdef LINUX
+ifndef DISABLE_HELP_INSTALL
+	rm -rf $(DESTDIR)/usr/share/gnome/help/shotwell
+endif
 ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
 else

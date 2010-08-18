@@ -1,0 +1,20 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="features-sharing">
+
+    <info>
+        <link type="guide" xref="index#features"/>
+    </info>
+
+	<title>6. Sharing your photos</title>
+
+    <p>You may export or share selected photos in the following ways</p>
+    <list>
+    <item><p>File export - export a copy of your photos to another location</p></item>
+    <item><p>Publish to Facebook - publish to your account in Facebook</p></item>
+    <item><p>Publish to Flickr - publish to your account in Flickr</p></item>
+    <item><p>Publish to Picasa - publish to your account in Picasa Web</p></item>
+    </list>
+
+    <p>When photos are exported or published, edits are first applied and the photos are exported/published with the edits. </p>
+</page>

@@ -1,0 +1,13 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="enhance">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+    </info>
+
+	<title>Enhancing</title>
+
+    <p>Clicking on the <gui>Enhance</gui> button is a quick way to automatically adjust the brightness of your photo. It will often give you a photo that is correctly exposed. You can also use it as a starting point and then improve the adjustments by clicking on the <gui>Adjust</gui> button</p>
+    <p>It will adjust the brightness range, setting the white point and black point so that the brightness varies from a small amount of pure black in your photo to a small amount of pure white in your photos.</p>
+</page>

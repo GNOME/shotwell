@@ -1,0 +1,21 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="external-edit">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+    </info>
+
+	<title>Edit with External Application</title>
+
+    <p>You might want to use an external editor to do additional work on a photo.
+    If installed, GIMP and UFRaw are the default external editors for photo and RAW editing, respectively.
+    If these programs are not installed, you must select your preferred editors by choosing <guiseq><gui>Edit</gui><gui>Preferences</gui></guiseq> and selecting editors from drop-down menus of installed applications.</p>
+
+    <p>Once your editors have been set, select a photo and choose <guiseq><gui>Photos</gui><gui>Open With External Editor</gui></guiseq> to open the photo with the external editor.
+    Likewise, the original photo is a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></guiseq> to edit the RAW file directly with the set RAW editor.</p>
+
+    <p>When you complete your edits and save the file, Shotwell will detect the changes and update the photo.
+    When external edits have been made, the <gui>Shift</gui> key in full-window view will show the externally edited photo rather than the original.
+    Reverting to original, however, will erase any external edits.</p>
+</page>

@@ -18,7 +18,7 @@ namespace Resources {
     public const string APP_GETTEXT_PACKAGE = GETTEXT_PACKAGE;
     
     public const string YORBA_URL = "http://www.yorba.org";
-    private const string HELP_URL_BASE = "http://trac.yorba.org/wiki/UsingShotwell";
+    private const string USERS_GUIDE_URL_BASE = "http://trac.yorba.org/wiki/UsingShotwell";
     
     public const string PREFIX = _PREFIX;
 
@@ -674,8 +674,37 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 
     // we can't have a plain ol' HELP_URL const due to a vala bug:
     // https://bugzilla.gnome.org/show_bug.cgi?id=611716
-    public string get_help_url() {
-        return HELP_URL_BASE + APP_VERSION.substring(0, 3);
+    public string get_users_guide_url() {
+        return USERS_GUIDE_URL_BASE + APP_VERSION.substring(0, 3);
+    }
+    
+    public static void launch_help(Gdk.Screen screen) throws Error {
+        // if running from the build directory, launch the help from there ... don't just search for
+        // the directory (because /usr/bin/help is a perfectly reasonable file to see), but look
+        // for the index.page, which gives a good clue that this is what we want
+        File help_dir = AppDirs.get_exec_dir().get_child("help");
+        File help_index = help_dir.get_child("index.page");
+        if (help_index.query_exists(null)) {
+            // yelp (i.e. gnome-help) requires the trailing slash when executing help this way
+            string help_path = help_dir.get_path();
+            if (!help_path.has_suffix("/"))
+                help_path += "/";
+            
+            string[] argv = new string[2];
+            argv[0] = "gnome-help";
+            argv[1] = help_path;
+            
+            Pid pid;
+            if (Gdk.spawn_on_screen(screen, AppDirs.get_exec_dir().get_path(), argv, null,
+                SpawnFlags.SEARCH_PATH | SpawnFlags.STDERR_TO_DEV_NULL, null, out pid)) {
+                return;
+            }
+            
+            warning("Unable to launch %s", argv[0]);
+        }
+        
+        // launch from system-installed help
+        sys_show_uri(screen, "ghelp:shotwell");
     }
 }
 

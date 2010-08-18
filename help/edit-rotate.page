@@ -1,0 +1,21 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="rotate">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+    </info>
+
+	<title>Rotation</title>
+
+    <p>You can rotate your photos left and right (clockwise and counterclockwise) with the <gui>Rotate</gui> button on the toolbar of most views.
+    If you select more than one image, you can rotate all of them at the same time.
+    You may also make a mirror image of any photo.</p>
+    
+    <p>To rotate right, click on the button.
+    To rotate left, press and hold the <gui>Ctrl</gui> key and then click the button.
+    Both commands are available in the <gui>Photos</gui> menu.</p>
+
+    <p>If you wish to create a mirror image of the photo, use the <gui>Mirror</gui> command in the <gui>Photos</gui> menu.
+    To flip an image vertically, use the <gui>Flip</gui> command in the same menu.</p>
+</page>

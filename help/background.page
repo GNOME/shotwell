@@ -1,0 +1,12 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="background">
+
+    <info>
+        <link type="guide" xref="index#share"/>
+    </info>
+
+	<title>Set Desktop Background</title>
+
+    <p>You can set a photo to be your desktop background by simply selecting that photo and choosing <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>.</p>
+</page>

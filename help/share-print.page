@@ -1,0 +1,14 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="print">
+
+    <info>
+        <link type="guide" xref="index#share"/>
+    </info>
+
+	<title>Printing Copies</title>
+
+    <p>To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq></p>
+
+    <p>If you would like to set formatting, paper size, and orientation options, choose <guiseq><gui>File</gui><gui>Page Setup...</gui></guiseq> prior to printing.</p>
+</page>

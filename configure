@@ -30,6 +30,8 @@ configure_help() {
     printf "\t\t\t\tDisable icon cache update.\n"
     printf "\t--enable-build-for-glade\n"
     printf "\t\t\t\tEnable build for Glade-related development.\n"
+    printf "\t--disable-help-install\n"
+    printf "\t\t\t\tDisable installation of online help.\n"
     printf "\n"
 }
 
@@ -97,7 +99,10 @@ do
         --disable-icon-update)            variables="${variables}DISABLE_ICON_UPDATE=1\n"
                                           ;;
 
-        --enable-build-for-glade)        variables="${variables}ENABLE_BUILD_FOR_GLADE=1\n"
+        --enable-build-for-glade)         variables="${variables}ENABLE_BUILD_FOR_GLADE=1\n"
+                                          ;;
+        
+        --disable-help-install)           variables="${variables}DISABLE_HELP_INSTALL=1\n"
                                           ;;
 
         *)                  if [ ! $value ]

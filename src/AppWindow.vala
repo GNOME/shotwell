@@ -629,7 +629,7 @@ public abstract class AppWindow : PageWindow {
 
     private void on_help_contents() {
         try {
-            show_uri(Resources.get_help_url());
+            Resources.launch_help(get_screen());
         } catch (Error err) {
             error_message(_("Unable to display help: %s").printf(err.message));
         }

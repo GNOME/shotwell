@@ -1,0 +1,34 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="tag">
+
+    <info>
+        <link type="guide" xref="index#organize"/>
+    </info>
+
+	<title>Tags</title>
+
+    <p>You can assign one or more tags to selected photos.
+    A tag can be one or more words that you want to associate with those photos</p>
+    <p>Tagging is probably the most important thing you can do to organise your photos so that you can easliy browse them or find them</p>
+    
+    <p>To add new tags to photos, select the photos you would like to tag, then</p>
+    <list>
+    <item><p>choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> or</p></item>
+    <item><p>type Ctrl-T or</p></item>
+    <item><p>drag the selected photos and drop them on the desired tag</p></item>
+    </list>
+     <p>When you use Ctrl-T or <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the names of one or more tags, separated by commas.
+    Once you have created a tag, you can rename it by selecting that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "[name]"...</gui></guiseq></p>
+    
+    <p>To change which tags are associated with a particular photo, select that photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> and edit the comma separated list.
+    To remove a tag from one or more photos, first select that tag in the sidebar, then select the photos you would like to remove, and choose <guiseq><gui>Tags</gui><gui>Remove Tag "[name]" from Photos...</gui></guiseq></p>
+    
+    <p>To delete a tag entirely, select that tag in the sidebar and choose <guiseq><gui>Tags</gui><gui>Delete Tag "[name]"</gui></guiseq>.</p>
+
+    <p>
+    When you create a tag, it will appear in the sidebar under the Tags item, which is hidden if there are no tags.
+    Photos can have multiple tags attached to them, and when you click on the name of a given tag in the sidebar, you will see all the photos associated with that tag.</p>
+
+    <!-- FIXME: See also events -->
+</page>

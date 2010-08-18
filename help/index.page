@@ -1,0 +1,53 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="index">
+
+	<info>
+		<credit type="author">
+			<name>Robert Ancell</name>
+			<email>robert.ancell@canonical.com</email>
+			<name>Peter Smith</name>
+			<email>pdo.smith@gmail.com</email>
+		</credit>
+		<include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
+	</info>
+
+
+	<title><media type="image" src="figures/shotwell_logo.png">Shotwell logo</media>Shotwell Help</title>
+    
+    <section id="features" style="2column">
+        <title>Shotwell features</title>
+    </section>
+
+    <section id="import" style="2column">
+        <title>Importing Your Photos</title>
+    </section>
+
+    <section id="organize" style="2column">
+        <title>Organising Your Photos</title>
+    </section>
+
+    <section id="browse" style="2column">
+        <title>Browsing Your Photos</title>
+    </section>
+
+    <section id="edit" style="2column">
+        <title>Editing Your Photos</title>
+    </section>
+
+    <section id="share" style="2column">
+        <title>Sharing Your Photos</title>
+    </section>
+
+    <section id="shortcuts" style="2column">
+        <title>Keyboard shortcuts</title>
+    </section>
+
+    <section id="community" style="2column">
+        <title>The Shotwell community</title>
+    </section>
+
+    <section id="advanced" style="2column">
+        <title>Advanced features</title>
+    </section>
+</page>

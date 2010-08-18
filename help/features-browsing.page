@@ -1,0 +1,19 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="features-browsing">
+
+    <info>
+        <link type="guide" xref="index#features"/>
+    </info>
+
+	<title>4. Browsing your photos</title>
+
+    <p>You may select your photos for browsing by</p>
+    <list>
+    <item><p>Events - view all photos within a given event (date)</p></item>
+    <item><p>Rating - view all photos with a selected rating</p></item>
+    <item><p>Tags - view all photos wih a selected tag</p></item>
+    </list>
+
+    <p>The Rating selection works together with the Events or Tags selections, modifying them. </p>
+</page>

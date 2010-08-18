@@ -1,0 +1,24 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="import-file">
+
+    <info>
+        <link type="guide" xref="index#import"/>
+    </info>
+
+	<title>Importing from Files</title>
+
+    <p>Simply drag photos from your file manager and drop them onto the Shotwell window.
+    You may drag files or directories.
+    The photos will be imported into your library.
+    By default, you'll be asked if you want to copy the photo files to your library directory (usually this is the Pictures directory in your home directory).
+    To avoid this prompt, if you hold down Ctrl while dragging photos in, Shotwell will import the photos and copy the files.
+    Similarly, if you hold down Ctrl+Shift while dragging photos in, Shotwell will import the photos without copying them.</p>
+
+    <p>You can also import using <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq> and select a directory from the chooser dialog box.
+    Shotwell will scan the directory and all subdirectories for photo files and automatically import them.
+    Once you select a directory, you will be asked whether you want to copy the photo files to your library directory or not.</p>
+    <p>Your photos will be imported and you will be shown previews of the photos as they are imported. Shotwell will import jpeg photos, RAW photos and DNG photos. It supports the vast majority of RAW formats. During the import operation Shotwell will check for duplicates. Shotwell won't import duplicates and will notify notify you accordingly. </p>
+    <p>Select 'Last Import' in the sidebar and you will see all photos successfully imported. The Events list will also show a new entry/entries for the dates corresponding to the imported photos.</p>
+    <p>Now you may wish to tag your photos, rate them, change the event/date name or move them to another event.</p>
+</page>

@@ -1,0 +1,37 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="delete">
+
+    <info>
+        <link type="guide" xref="index#organize"/>
+    </info>
+
+	<title>Removing or deleting Photos</title>
+
+    <p>You may remove photos from your library and you may additionally delete them entirely from your hard disk.</p>
+
+    <p><em>Removing your photos from the library</em></p>
+    <p>Select them and choose <guiseq><gui>Edit</gui><gui>Move to Trash</gui></guiseq>.
+    (You can also press the Delete key.)
+    The photos will be moved from your library to Shotwell's Trash.</p>
+    <p>If you want to remove photos from Shotwell without having them pass through the trash, simply select the photos to be removed and choose <guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>.</p>
+
+
+    <p><em>Emptying or restoring the trash folder</em></p>
+    <p>Select the Trash entry in the Sidebar (the bottom item) and Shotwell will display all photos that you have marked for removal or deletion.</p>
+    <list>
+    <item><p>Delete - delete selected from the trash folder</p></item>
+    <item><p>Restore - restore selected photos into Shotwell</p></item>
+    <item><p>Empty trash - remove all the photos from the trash folder</p></item>
+    </list>
+    
+    
+    <p><em>Deleting or emptying Trash</em></p> 
+    <p>When you choose to delete files from the Trash folder or empty the Trash folder you will be given the following choices:</p>
+    <list>
+    <item><p>Cancel - do nothing</p></item>
+    <item><p>Only remove - remove from the library but leave the photos in their location on the storage medium</p></item>
+    <item><p>Trash file - remove the photos from the library and additionallt delete them from the storage medium</p></item>
+    </list>    
+    
+</page>

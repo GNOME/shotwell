@@ -1,0 +1,26 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="features-editing">
+
+    <info>
+        <link type="guide" xref="index#features"/>
+    </info>
+
+	<title>5. Editing your photos</title>
+    <media type="image" src="figures/editing_overview.png">Editing</media>
+    <p>You may use the internal editor to adjust</p>
+    <list>
+    <item><p>White and black point - this is the brightness range of the photo</p></item>
+    <item><p>Exposure - the overall brightness of the photo</p></item>
+    <item><p>Saturation - the intensity of the colours</p></item>
+    <item><p>Colour balance - the tint and colour temperature</p></item>
+    <item><p>Shadow fill - lighten the shadows</p></item>
+    <item><p>Red eye - remove red-eye artifacts</p></item>
+    <item><p>Crop - crop the photo to another size</p></item>
+    <item><p>Rotate - the photo can be rotated or flipped.</p></item>
+    </list>
+
+    <p>Note that editing is non destructive, meaning that your original is unchanged.</p>
+    <p>There is also a quick adjust function which tries to find the best combination of the above settings. </p>
+    <p>Where advanced editing features are needed you can configure Shotwell to call editors such as Gimp</p>
+</page>

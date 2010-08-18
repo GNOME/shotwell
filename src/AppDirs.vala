@@ -148,6 +148,5 @@ class AppDirs {
                 get_child("shotwell").get_child("shotwell.log");
         }
     }
-    
 }
 

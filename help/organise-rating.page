@@ -1,0 +1,19 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="rating">
+
+    <info>
+        <link type="guide" xref="index#organize"/>
+    </info>
+
+	<title>Ratings</title>
+
+    <p>Each photo can be unrated or be assigned a rating from one to five stars.
+    To set a rating select a photo and set the rating from the <guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu.</p>
+    <p>You can use the number keys (0,1,2,3,4,5) as shortcuts to set ratings where 0 means unrated.
+    You can also use the <key>&lt;</key> and <key>&gt;</key> keys to decrease and increase ratings.</p>
+    <p>A corresponding number of stars are shown on the thumbnail, preview and full screen images.</p>
+    <p>Photos can be marked as rejected by pressing the 9 key. A red cross is shown on the images</p>
+    <p>As shown in the image below, you can use the rating to filter the images shown</p>
+    <media type="image" src="figures/select_rating.png">Select rating</media>
+</page>

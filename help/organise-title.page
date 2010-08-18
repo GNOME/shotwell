@@ -1,0 +1,19 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="title">
+
+    <info>
+        <link type="guide" xref="index#organize"/>
+    </info>
+
+	<title>Titles</title>
+
+    <p>Every photo can be given a title which will display below the thumbnail</p>
+    <p>Right-Click on the thumbnail, choose <guiseq><gui>Edit title...</gui></guiseq> and a dialog will be displayed allowing you to enter or modify the title.</p>
+    
+    <p>choose <guiseq><gui>View</gui><gui>Titles...</gui></guiseq> </p>
+    <p>to make titles visible or to hide them</p>
+    <p>While not yet available, you will in future be able to search on words in the title.</p>
+
+
+</page>

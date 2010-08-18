@@ -1,0 +1,53 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="browse-navigate">
+
+    <info>
+        <link type="guide" xref="index#browse"/>
+    </info>
+
+	<title>Navigating through your Photos</title>
+
+    <p>To navigate through your photos you select a sub-set of the photos and then browse through them in the chosen sort order. You can select a subset of photos first by rating and then either by tags or events. You cannot select a combination of tags and events</p>
+    <p>You may browse by viewing the thumbnails, by viewing the intermediate photos (double click on a thumbnail) or by viewing them in full screen mode (F11). In the intermediate and full screen mode you can move backward and forward through your photos by using the left and right arrow keys.</p>
+
+
+
+    <section id="sorting">
+    <title>Sorting</title>
+    <p>You can control the order in which photos are displayed as follows (in the view menu)</p>
+    <list>
+    <item><p>Title </p></item>
+    <item><p>Exposure date</p></item>
+    <item><p>Rating</p></item>
+    <item><p>Ascending or descending</p></item>
+    </list>
+    </section>
+
+    <section id="rating">
+    <title>Select by rating</title>
+    <p>You can filter the photos which will be displayed by choosing a rating of one to five stars, all photos or all photos plus rejected photos. (View | Filter photos)</p>
+    </section>
+
+    <section id="browse-all">
+    <title>Browse through your all photos</title>
+    <p>Click on Photos at the top of the sidebar and all photos will be shown. You can now quickly scroll down through your photo library</p>
+    </section>     
+    
+    
+    <section id="browse-tags">
+    <title>Browse photos with a given tag</title> 
+    <p>In the sidebar find the tag of interest and click on it. All photos with this tag will be displayed.</p>
+    </section>  
+
+    <section id="browse-events">
+    <title>Browse photos for a given event</title> 
+    <p>In the sidebar find the event of interest and then click on it. All photos in this event will be displayed.</p>
+    </section> 
+
+    <section id="browse-sidebar">
+    <title>Browse photos through the sidebar</title> 
+    <p>Click on the top event in the sidebar. Using the arrow keys, scroll downwards. At the Year and Month event levels the large thumbnails for the key photos are displayed. If you have chosen your key photos properly they will give you a good idea of the contents of that event. Where you want to see the details of the event, press Enter and the event will open showing the individual thumbnails. In this way you can scroll down through the sidebar and quickly scan through your photo collection.</p>
+    </section>
+    
+</page>

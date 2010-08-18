@@ -1,0 +1,31 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="upload">
+
+    <info>
+        <link type="guide" xref="index#share"/>
+    </info>
+
+	<title>Sharing Online</title>
+
+    <p>Shotwell is able to share photos over the Internet services Facebook, Flickr, and Picasa Web Albums, all of which require an account, which is free.</p>
+    
+    <p>To publish selected photos in a collection, press the Publish toolbar button.
+    This command is also available in the File menu.
+    When you publish photos, you will see a dialog that allows you to choose whether to publish to Facebook, Flickr, or Picasa Web Albums.
+    Once you selected your preferred publishing service, you will need to log in or create an account.</p>
+    
+    <p>Publishing to Facebook requires you to grant certain permissions to the Shotwell Connect Facebook application.
+    These permissions are required for Facebook publishing to function properly.
+    You only need to grant these permissions once, when you first associate Shotwell Connect with your Facebook account.
+    If you choose to stop using Shotwell Connect, you can revoke the permissions you granted it by de-associating it from your Facebook account.
+    To do this, login in Facebook and choose Account > Application Settings from the search bar at the top of your feed page.
+    A list of your associated Facebook applications will appear.
+    Click the x to the right of Shotwell Connect in the applications list to de-associate Shotwell Connect from your Facebook profile.</p>
+    
+    <p>Similarly, publishing to Flickr requires you to log in and permit Shotwell Connect to access your account.</p>
+    
+    <p>If you have a Google account, but have not yet used Picasa Web Albums, you will need to log in to Picasa using a browser once before you can publish to this service.
+    Additionally, you cannot use Google hosted accounts for Picasa Web Albums.
+    Google hosted accounts generally end in something other than @gmail.com.</p>
+</page>
