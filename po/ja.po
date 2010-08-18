@@ -2,20 +2,21 @@
 # Japanese translation for Shotwell
 # Copyright (C) 2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-04-08 01:09+0200\n"
-"Last-Translator: slackhideo <burajirugaijin@yahoo.co.jp>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2010-08-18 20:04-0300\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Japanese\n"
+"X-Generator: Lokalize 1.0\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -30,7 +31,7 @@ msgstr "Shotwell 写真管理"
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
-msgstr ""
+msgstr "写真管理"
 
 # GNOME Application Comment
 msgid "Organize your photos"
@@ -62,7 +63,7 @@ msgstr "%sのデータベースからインポート："
 
 #: src/AlienDatabaseImportDialog.vala:93
 msgid "No database selected"
-msgstr ""
+msgstr "データベースは選択していません。"
 
 #: src/AlienDatabaseImportDialog.vala:129
 #, c-format
@@ -103,12 +104,11 @@ msgstr "Shotwell を終了"
 
 #: src/AppWindow.vala:469
 msgid "_About"
-msgstr ""
+msgstr "プログラムについて(_A)"
 
 #: src/AppWindow.vala:470
-#, fuzzy
 msgid "About Shotwell"
-msgstr "ショットウェルについて"
+msgstr "Shotwell について"
 
 #: src/AppWindow.vala:475
 msgid "Fulls_creen"
@@ -135,7 +135,8 @@ msgstr "取り消し(_C)"
 #: src/AppWindow.vala:605
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
+"continue.\n"
 "\n"
 "%s"
 msgstr ""
@@ -151,7 +152,7 @@ msgstr ""
 
 #: src/CollectionPage.vala:166 src/SlideshowPage.vala:98
 msgid "Slideshow"
-msgstr ""
+msgstr "スライドショー"
 
 #: src/CollectionPage.vala:167
 msgid "Start a slideshow of these photos"
@@ -314,7 +315,7 @@ msgstr ""
 
 #: src/CollectionPage.vala:1729
 msgid "Photos"
-msgstr ""
+msgstr "写真"
 
 #: src/Commands.vala:510
 msgid "Reverting"
@@ -407,14 +408,14 @@ msgstr ""
 
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural "Time adjustments could not be undone on the following photo files."
+msgid_plural ""
+"Time adjustments could not be undone on the following photo files."
 msgstr[0] ""
 msgstr[1] ""
 
 #: src/Commands.vala:1265
-#, fuzzy
 msgid "Move Photos to Trash"
-msgstr "ゴミ箱へ移動する"
+msgstr "ゴミ箱へ移動します"
 
 #: src/Commands.vala:1265
 msgid "Restore Photos from Trash"
@@ -429,9 +430,8 @@ msgid "Restore the photos back to the Shotwell library"
 msgstr ""
 
 #: src/Commands.vala:1283
-#, fuzzy
 msgid "Moving Photos to Trash"
-msgstr "ゴミ箱へ移動する"
+msgstr "ゴミ箱へ移動中"
 
 #: src/Commands.vala:1283
 msgid "Restoring Photos From Trash"
@@ -456,11 +456,11 @@ msgstr ""
 
 #: src/Dialogs.vala:61
 msgid "Con_tinue"
-msgstr ""
+msgstr "続きます(_t)"
 
 #: src/Dialogs.vala:135
 msgid "_Format:"
-msgstr ""
+msgstr "フォーマット：(_F)"
 
 #: src/Dialogs.vala:138
 msgid "_Quality:"
@@ -555,11 +555,13 @@ msgstr ""
 #: src/Dialogs.vala:542
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library.  Would you also like "
+"to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
+"This will remove %d photos from your Shotwell library.  Would you also like "
+"to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -578,7 +580,8 @@ msgstr ""
 #: src/Dialogs.vala:571
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural "This will destroy all changes made to %d external files.  Continue?"
+msgid_plural ""
+"This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -758,7 +761,9 @@ msgid "Choose Library Directory"
 msgstr ""
 
 #: src/Dialogs.vala:1477
-msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
+msgid ""
+"Shotwell can copy the photos into your library or it can link to the photos "
+"without duplicating them."
 msgstr ""
 
 #: src/Dialogs.vala:1482
@@ -1000,13 +1005,18 @@ msgstr ""
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
+"If you don't yet have a Facebook account, you can create one during the "
+"login process. During login, Shotwell Connect may ask you for permission to "
+"upload photos and publish to your feed. These permissions are required for "
+"Shotwell Connect to function."
 msgstr ""
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
+"You have already logged in and out of Facebook during this Shotwell "
+"session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try "
+"publishing again."
 msgstr ""
 
 #: src/FacebookConnector.vala:261
@@ -1047,13 +1057,16 @@ msgstr ""
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login "
+"process. During login you will have to specifically authorize Shotwell "
+"Connect to link to your Flickr account."
 msgstr ""
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try "
+"publishing again."
 msgstr ""
 
 #: src/FlickrConnector.vala:258
@@ -1128,7 +1141,8 @@ msgid "Unable to export background to %s: %s"
 msgstr ""
 
 #: src/ImportPage.vala:211
-msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgid ""
+"Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
 
 #: src/ImportPage.vala:325 src/ImportPage.vala:326
@@ -1152,7 +1166,9 @@ msgid "Import _All"
 msgstr ""
 
 #: src/ImportPage.vala:582
-msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
+msgid ""
+"Shotwell needs to unmount the camera from the filesystem in order to access "
+"it.  Continue?"
 msgstr ""
 
 #: src/ImportPage.vala:588
@@ -1164,7 +1180,10 @@ msgid "Please unmount the camera."
 msgstr ""
 
 #: src/ImportPage.vala:598
-msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgid ""
+"The camera is locked by another application.  Shotwell can only access the "
+"camera when it's unlocked.  Please close any other application using the "
+"camera and try again."
 msgstr ""
 
 #: src/ImportPage.vala:608
@@ -1337,17 +1356,25 @@ msgstr ""
 
 #: src/main.vala:79
 #, c-format
-msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s.  This version is %s.  Please use the "
+"latest version of Shotwell."
 msgstr ""
 
 #: src/main.vala:84
 #, c-format
-msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
+msgid ""
+"Shotwell was unable to upgrade your photo library from version %s to %s.  "
+"For more information please check the Shotwell Wiki at %s"
 msgstr ""
 
 #: src/main.vala:89
 #, c-format
-msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgid ""
+"Your photo library is not compatible with this version of Shotwell.  It "
+"appears it was created by Shotwell %s.  This version is %s.  Please clear "
+"your library by deleting %s and re-import your photos."
 msgstr ""
 
 #: src/main.vala:94
@@ -1613,23 +1640,37 @@ msgstr ""
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
+"You must have already signed up for a Google account and set it up for use "
+"with Picasa to continue. You can set up most accounts by using your browser "
+"to log into the Picasa Web Albums site at least once."
 msgstr ""
 
 #: src/PicasaConnector.vala:514
-msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgid ""
+"Enter the email address and password associated with your Picasa Web Albums "
+"account."
 msgstr ""
 
 #: src/PicasaConnector.vala:515
-msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgid ""
+"Picasa Web Albums didn't recognize the email address and password you "
+"entered. To try again, re-enter your email address and password below."
 msgstr ""
 
 #: src/PicasaConnector.vala:516
-msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgid ""
+"The email address and password you entered correspond to a Google account "
+"that isn't set up for use with Picasa Web Albums. You can set up most "
+"accounts by using your browser to log into the Picasa Web Albums site at "
+"least once. To try again, re-enter your email address and password below."
 msgstr ""
 
 #: src/PicasaConnector.vala:517
-msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
+msgid ""
+"The email address and password you entered correspond to a Google account "
+"that has been tagged as requiring additional security. You can clear this "
+"tag by using your browser to log into Picasa Web Albums. To try again, re-"
+"enter your email address and password below."
 msgstr ""
 
 #: src/PicasaConnector.vala:552
@@ -1762,11 +1803,11 @@ msgstr ""
 
 #: src/Properties.vala:50
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 #: src/Properties.vala:52
 msgid "Yesterday"
-msgstr ""
+msgstr "昨日"
 
 #: src/Properties.vala:249
 msgid "Items:"
@@ -1989,11 +2030,11 @@ msgstr ""
 
 #: src/Resources.vala:134
 msgid "_Undo"
-msgstr ""
+msgstr "元に戻す(_U)"
 
 #: src/Resources.vala:135
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #: src/Resources.vala:136
 msgid "Undo the last action"
@@ -2001,11 +2042,11 @@ msgstr ""
 
 #: src/Resources.vala:138
 msgid "_Redo"
-msgstr ""
+msgstr "やり直し(_R)"
 
 #: src/Resources.vala:139
 msgid "Redo"
-msgstr ""
+msgstr "やり直し"
 
 #: src/Resources.vala:140
 msgid "Redo the last undone action"
@@ -2453,7 +2494,7 @@ msgstr ""
 
 #: src/Resources.vala:548
 msgid "_Move to Trash"
-msgstr "ゴミ箱へ移動する"
+msgstr "ゴミ箱へ移動します(_M)"
 
 #: src/Resources.vala:549
 msgid "Move the selected photos to the trash"
@@ -2465,11 +2506,11 @@ msgstr ""
 
 #: src/Resources.vala:552
 msgid "Select _All"
-msgstr ""
+msgstr "すべて選択(_A)"
 
 #: src/Resources.vala:553
 msgid "Select all items"
-msgstr ""
+msgstr "すべての項目を選択します"
 
 #: src/SlideshowPage.vala:64 src/SlideshowPage.vala:130
 msgid "Settings"
@@ -2517,7 +2558,7 @@ msgstr ""
 
 #: src/SlideshowPage.vala:224
 msgid "Play"
-msgstr ""
+msgstr "再生"
 
 #: src/SlideshowPage.vala:225
 msgid "Continue the slideshow"
@@ -2532,11 +2573,11 @@ msgstr[1] ""
 
 #: src/TrashPage.vala:17
 msgid "Trash"
-msgstr ""
+msgstr "ゴミ箱"
 
 #: src/TrashPage.vala:137
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: src/TrashPage.vala:138
 msgid "Deleting a Photo"
@@ -2570,16 +2611,19 @@ msgstr ""
 
 #: src/WebConnectors.vala:807
 msgid "_Close"
-msgstr ""
+msgstr "閉じる(_C)"
 
 #: src/WebConnectors.vala:830
 #, c-format
-msgid "Publishing to %s can't continue because the service could not be contacted."
+msgid ""
+"Publishing to %s can't continue because the service could not be contacted."
 msgstr ""
 
 #: src/WebConnectors.vala:833
 #, c-format
-msgid "Publishing to %s can't continue because communication with the service failed."
+msgid ""
+"Publishing to %s can't continue because communication with the service "
+"failed."
 msgstr ""
 
 #: src/WebConnectors.vala:836
@@ -2594,7 +2638,8 @@ msgstr ""
 
 #: src/WebConnectors.vala:840
 #, c-format
-msgid "Publishing to %s can't continue because the service returned a bad response."
+msgid ""
+"Publishing to %s can't continue because the service returned a bad response."
 msgstr ""
 
 #: src/WebConnectors.vala:843
@@ -2617,11 +2662,11 @@ msgstr ""
 
 #: ui/shotwell.glade:101 ui/shotwell.glade:444
 msgid "Shotwell Preferences"
-msgstr ""
+msgstr "Shotwell の設定"
 
 #: ui/shotwell.glade:124
 msgid "_Background:"
-msgstr ""
+msgstr "背景(_B)："
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
@@ -2629,15 +2674,15 @@ msgstr ""
 
 #: ui/shotwell.glade:188
 msgid "Bro_wse..."
-msgstr ""
+msgstr "参照(_w)..."
 
 #: ui/shotwell.glade:219
 msgid "white"
-msgstr ""
+msgstr "白"
 
 #: ui/shotwell.glade:242
 msgid "black"
-msgstr ""
+msgstr "黒"
 
 #: ui/shotwell.glade:261
 msgid "Display"
@@ -2661,4 +2706,5 @@ msgstr ""
 
 #: ui/shotwell.glade:542
 msgid "error"
-msgstr ""
+msgstr "エラー"
+
