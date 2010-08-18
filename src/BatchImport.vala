@@ -504,24 +504,25 @@ public class BatchImport : Object {
                 prepared_file.full_md5, prepared_file.file_format)) {
                 // If a file is being linked and has a dupe in the trash, we take it out of the trash
                 // and revert its edits.
-                if (!prepared_file.copy_to_library) {
-                    LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
-                    
-                    if (photo != null) {
-                        debug("duplicate linked photo found in trash, untrashing and removing" + 
+                LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
+                
+                if (photo == null)
+                    photo = LibraryPhoto.global.get_trashed_by_md5(prepared_file.full_md5);
+                
+                if (photo != null) {
+                    debug("duplicate linked photo found in trash, untrashing and removing" + 
                             " transforms for %s", prepared_file.file.get_path());
-                        
-                        photo.untrash();
-                        photo.remove_all_transformations();
-                        
-                        import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
-                            prepared_file.file.get_path(), ImportResult.SUCCESS);
-                        
-                        report_progress(photo.get_filesize());
-                        file_import_complete();
-                        
-                        continue;
-                    }
+                    
+                    photo.untrash();
+                    photo.remove_all_transformations();
+                    
+                    import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
+                        prepared_file.file.get_path(), ImportResult.SUCCESS);
+                    
+                    report_progress(photo.get_filesize());
+                    file_import_complete();
+                    
+                    continue;
                 }
                 
                 // Photos with duplicates that exist outside of the trash are marked as already existing
@@ -532,11 +533,6 @@ public class BatchImport : Object {
                     
                     import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
                         prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
-                }
-                
-                if (import_result == null) {
-                    debug("duplicate photos found in trash only, importing as usual for %s",
-                        prepared_file.file.get_path());
                 }
             } else if (is_in_current_import(prepared_file)) {
                 // this looks for duplicates within the import set, since TransformablePhoto.is_duplicate

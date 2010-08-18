@@ -3035,6 +3035,16 @@ public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
         return master_file_map.get(file);
     }
     
+    public LibraryPhoto? fetch_by_md5(string md5) {
+        foreach (LibraryPhoto photo in master_file_map.values) {
+            if (photo.get_master_md5() == md5) {
+                return photo;
+            }
+        }
+        
+        return null;
+    }
+    
     protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
         if (added != null) {
@@ -3349,6 +3359,10 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     
     public LibraryPhoto? get_trashed_by_file(File file) {
         return trashcan.fetch_by_master_file(file);
+    }
+    
+    public LibraryPhoto? get_trashed_by_md5(string md5) {
+        return trashcan.fetch_by_md5(md5);
     }
     
     public int get_trashcan_count() {
