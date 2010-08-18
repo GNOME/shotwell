@@ -36,6 +36,41 @@ public abstract class BatchImportJob {
     }
 }
 
+public class FileImportJob : BatchImportJob {
+    private File file_or_dir;
+    private bool copy_to_library;
+    
+    public FileImportJob(File file_or_dir, bool copy_to_library) {
+        this.file_or_dir = file_or_dir;
+        this.copy_to_library = copy_to_library;
+    }
+    
+    public override string get_identifier() {
+        return file_or_dir.get_path();
+    }
+    
+    public override bool is_directory() {
+        return query_is_directory(file_or_dir);
+    }
+    
+    public override bool determine_file_size(out uint64 filesize, out File file) {
+        file = file_or_dir;
+        
+        return false;
+    }
+    
+    public override bool prepare(out File file_to_import, out bool copy) {
+        file_to_import = file_or_dir;
+        copy = copy_to_library;
+        
+        return true;
+    }
+    
+    public File get_file() {
+        return file_or_dir;
+    }
+}
+
 // A BatchImportRoll represents important state for a group of imported media.  If this is shared
 // among multiple BatchImport objects, the imported media will appear to have been imported all at
 // once.
@@ -176,6 +211,7 @@ public class BatchImport : Object {
     private int file_imports_completed = 0;
     private Cancellable? cancellable = null;
     private ulong last_preparing_ms = 0;
+    private Gee.HashSet<File> skipset;
 #if !NO_DUPE_DETECTION
     private Gee.MultiMap<string, PhotoFileFormat> imported_thumbnail_md5 =
         new Gee.TreeMultiMap<string, PhotoFileFormat>();
@@ -223,13 +259,21 @@ public class BatchImport : Object {
     public BatchImport(Gee.Iterable<BatchImportJob> jobs, string name, ImportReporter? reporter,
         Gee.ArrayList<BatchImportJob>? prefailed = null,
         Gee.ArrayList<BatchImportJob>? pre_already_imported = null,
-        Cancellable? cancellable = null, BatchImportRoll? import_roll = null) {
+        Cancellable? cancellable = null, BatchImportRoll? import_roll = null,
+        ImportManifest? skip_manifest = null) {
         this.jobs = jobs;
         this.name = name;
         this.reporter = reporter;
         this.manifest = new ImportManifest(prefailed, pre_already_imported);
         this.cancellable = (cancellable != null) ? cancellable : new Cancellable();
         this.import_roll = import_roll != null ? import_roll : new BatchImportRoll();
+        
+        if (skip_manifest != null) {
+            skipset = new Gee.HashSet<File>(file_hash, file_equal);
+            foreach (LibraryPhoto photo in skip_manifest.imported) {
+                skipset.add(photo.get_file());
+            }
+        }
         
         // watch for user exit in the application
         AppWindow.get_instance().user_quit.connect(user_halt);
@@ -367,7 +411,7 @@ public class BatchImport : Object {
         
         // fire off a background job to generate all FileToPrepare work
         sniff_worker.enqueue(new WorkSniffer(this, jobs, on_work_sniffed_out, cancellable,
-            on_sniffer_cancelled, on_sniffer_working));
+            on_sniffer_cancelled, on_sniffer_working, skipset));
     }
     
     //
@@ -874,14 +918,16 @@ private class WorkSniffer : BackgroundImportJob {
     
     private Gee.Iterable<BatchImportJob> jobs;
     private NotificationCallback working_notification;
+    private Gee.HashSet<File>? skipset;
     
     public WorkSniffer(BatchImport owner, Gee.Iterable<BatchImportJob> jobs, CompletionCallback callback, 
         Cancellable cancellable, CancellationCallback cancellation, 
-        NotificationCallback working_notification) {
+        NotificationCallback working_notification, Gee.HashSet<File>? skipset = null) {
         base (owner, callback, cancellable, cancellation);
         
         this.jobs = jobs;
         this.working_notification = working_notification;
+        this.skipset = skipset;
     }
     
     public override void execute() {
@@ -937,6 +983,10 @@ private class WorkSniffer : BackgroundImportJob {
                 total_bytes += query_total_file_size(file_or_dir, get_cancellable());
             
             // job is a direct file, so no need to search, prepare it directly
+            if ((file_or_dir != null) && skipset.contains(file_or_dir))
+                return;  /* do a short-circuit return and don't enqueue if this file is to be
+                            skipped */
+
             files_to_prepare.add(new FileToPrepare(job));
             notify(working_notification, null);
         }
@@ -965,6 +1015,9 @@ private class WorkSniffer : BackgroundImportJob {
                     report_error(job, child, child.get_path(), err, ImportResult.FILE_ERROR);
                 }
             } else if (file_type == FileType.REGULAR) {
+                if ((skipset != null) && skipset.contains(child))
+                    continue; /* don't enqueue if this file is to be skipped */
+
                 if (TransformablePhoto.is_file_image(child)
                     && TransformablePhoto.is_file_supported(child)) {
                     total_bytes += info.get_size();

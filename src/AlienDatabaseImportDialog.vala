@@ -5,13 +5,18 @@
  */
 
 public class AlienDatabaseImportDialogController {
+    /* treat this as a constant even though we can't declare it const -- valac doesn't
+       support const delegate types */
+    public static BatchImport.ImportReporter DEFAULT_IMPORT_REPORTER = alien_import_reporter;
+
     private AlienDatabaseImportDialog dialog;
     
-    public AlienDatabaseImportDialogController(string title, AlienDatabaseDriver driver) {
+    public AlienDatabaseImportDialogController(string title, AlienDatabaseDriver driver,
+        BatchImport.ImportReporter reporter = DEFAULT_IMPORT_REPORTER) {
         Gtk.Builder builder = AppWindow.create_builder();
         dialog = builder.get_object("alien-db-import_dialog") as AlienDatabaseImportDialog;
         dialog.set_builder(builder);
-        dialog.setup(title, driver);
+        dialog.setup(title, driver, reporter);
     }
     
     public void execute() {
@@ -34,16 +39,19 @@ public class AlienDatabaseImportDialog : Gtk.Dialog {
     private Gtk.Notebook message_notebook;
     private Gtk.ProgressBar prepare_progress_bar;
     private Gtk.Label error_message_label;
+    private BatchImport.ImportReporter reporter;
     
     public void set_builder(Gtk.Builder builder) {
         this.builder = builder;
     }
     
-    public void setup(string title, AlienDatabaseDriver driver) {
+    public void setup(string title, AlienDatabaseDriver driver,
+        BatchImport.ImportReporter reporter) {
         set_title(title);
         set_parent_window(AppWindow.get_instance().get_parent_window());
         set_transient_for(AppWindow.get_instance());
         this.driver = driver;
+        this.reporter = reporter;
         
         file_chooser = builder.get_object("db_filechooserbutton") as Gtk.FileChooserButton;
         message_notebook = builder.get_object("message_notebook") as Gtk.Notebook;
@@ -143,8 +151,8 @@ public class AlienDatabaseImportDialog : Gtk.Dialog {
                 // zero so that the reported function can display a message dialog
                 // notifying the user that nothing was imported
                 string db_name = _("%s Database").printf(alien_db.get_display_name());
-                BatchImport batch_import = new BatchImport(jobs, db_name, alien_import_reporter,
-                    failed, already_imported);
+                BatchImport batch_import = new BatchImport(jobs, db_name, reporter, failed,
+                    already_imported);
                 
                 LibraryWindow.get_app().enqueue_batch_import(batch_import, true);
                 // However, if there is really nothing to import, don't switch

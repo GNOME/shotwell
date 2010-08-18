@@ -161,9 +161,7 @@ void library_exec(string[] mounts) {
 #endif
 
     library_window.show_all();
-    
-    bool do_fspot_import = false;
-    bool do_system_pictures_import = false;
+
     if (Config.get_instance().get_show_welcome_dialog() &&
         LibraryPhoto.global.get_count() == 0) {
         WelcomeDialog welcome = new WelcomeDialog(library_window);
@@ -173,17 +171,11 @@ void library_exec(string[] mounts) {
         Config.get_instance().set_show_welcome_dialog(false);
     }
     
-    if (do_fspot_import)
-        FSpotDatabaseDriver.do_import();
-    
-    if (do_system_pictures_import) {
-        Gee.ArrayList<LibraryWindow.FileImportJob> jobs = new Gee.ArrayList<LibraryWindow.FileImportJob>();
-        jobs.add(new LibraryWindow.FileImportJob(AppDirs.get_import_dir(), false));
-
-        BatchImport batch_import = new BatchImport(jobs, "startup_import", report_startup_import);
-        library_window.enqueue_batch_import(batch_import, true);
-
-        library_window.switch_to_import_queue_page();
+    if (do_fspot_import) {
+        FSpotDatabaseDriver.do_import(report_fspot_import);
+    } else if (do_system_pictures_import) { /* else-if because f-spot import will run the system
+                                               pictures import automatically if it's requested */
+        run_system_pictures_import();
     }
 
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
@@ -199,7 +191,42 @@ void library_exec(string[] mounts) {
     DatabaseTable.terminate();
 }
 
-private void report_startup_import(ImportManifest manifest) {
+private bool do_system_pictures_import = false;
+private bool do_fspot_import = false;
+
+public void run_system_pictures_import(ImportManifest? fspot_exclusion_manifest = null) {
+    if (!do_system_pictures_import)
+        return;
+
+    Gee.ArrayList<FileImportJob> jobs = new Gee.ArrayList<FileImportJob>();
+    jobs.add(new FileImportJob(AppDirs.get_import_dir(), false));
+    
+    LibraryWindow library_window = (LibraryWindow) AppWindow.get_instance();
+    
+    BatchImport batch_import = new BatchImport(jobs, "startup_import",
+        report_system_pictures_import, null, null, null, null, fspot_exclusion_manifest);
+    library_window.enqueue_batch_import(batch_import, true);
+
+    library_window.switch_to_import_queue_page();
+}
+
+private void report_fspot_import(ImportManifest manifest, BatchImportRoll import_roll) {
+    ImportUI.report_manifest(manifest, true);
+    
+    if (do_system_pictures_import)
+       run_system_pictures_import(manifest);
+}
+
+private void report_system_pictures_import(ImportManifest manifest, BatchImportRoll import_roll) {
+    /* Don't report the manifest to the user if F-Spot import was done and the entire manifest
+       is empty. An empty manifest in this case results from files that were already imported
+       in the F-Spot import phase being skipped. Note that we are testing against manifest.all,
+       not manifest.success; manifest.all is zero when no files were enqueued for import in the
+       first place and the only way this happens is if all files were skipped -- even failed
+       files are counted in manifest.all */
+    if (do_fspot_import && (manifest.all.size == 0))
+        return;
+
     ImportUI.report_manifest(manifest, true);
 }
 

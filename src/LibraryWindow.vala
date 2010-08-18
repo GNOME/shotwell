@@ -90,37 +90,6 @@ public class LibraryWindow : AppWindow {
     
     private Gtk.AccelGroup? paused_accel_group = null;
     
-    public class FileImportJob : BatchImportJob {
-        private File file_or_dir;
-        private bool copy_to_library;
-        
-        public FileImportJob(File file_or_dir, bool copy_to_library) {
-            this.file_or_dir = file_or_dir;
-            this.copy_to_library = copy_to_library;
-        }
-        
-        public override string get_identifier() {
-            return file_or_dir.get_path();
-        }
-        
-        public override bool is_directory() {
-            return query_is_directory(file_or_dir);
-        }
-        
-        public override bool determine_file_size(out uint64 filesize, out File file) {
-            file = file_or_dir;
-            
-            return false;
-        }
-        
-        public override bool prepare(out File file_to_import, out bool copy) {
-            file_to_import = file_or_dir;
-            copy = copy_to_library;
-            
-            return true;
-        }
-    }
-
     // Static (default) pages
     private LibraryPage library_page = null;
     private MasterEventsDirectoryPage.Stub events_directory_page = null;
