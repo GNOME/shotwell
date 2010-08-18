@@ -983,7 +983,7 @@ private class WorkSniffer : BackgroundImportJob {
                 total_bytes += query_total_file_size(file_or_dir, get_cancellable());
             
             // job is a direct file, so no need to search, prepare it directly
-            if ((file_or_dir != null) && skipset.contains(file_or_dir))
+            if ((file_or_dir != null) && skipset != null && skipset.contains(file_or_dir))
                 return;  /* do a short-circuit return and don't enqueue if this file is to be
                             skipped */
 
