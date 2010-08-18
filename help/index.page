@@ -13,7 +13,7 @@
 	</info>
 
 
-	<title><media type="image" src="figures/shotwell_logo.png">Shotwell logo</media>Shotwell Help</title>
+	<title><media type="image" src="figures/shotwell_logo.png"></media>Shotwell Help</title>
     
     <section id="features" style="2column">
         <title>Shotwell features</title>
@@ -24,7 +24,7 @@
     </section>
 
     <section id="organize" style="2column">
-        <title>Organising Your Photos</title>
+        <title>Organizing Your Photos</title>
     </section>
 
     <section id="browse" style="2column">
@@ -41,10 +41,6 @@
 
     <section id="shortcuts" style="2column">
         <title>Keyboard shortcuts</title>
-    </section>
-
-    <section id="community" style="2column">
-        <title>The Shotwell community</title>
     </section>
 
     <section id="advanced" style="2column">

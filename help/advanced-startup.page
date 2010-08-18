@@ -8,14 +8,5 @@
 
 	<title>2. Shotwell startup</title>
 
-    <p>Simply drag photos from your file manager and drop them onto the Shotwell window.
-    You may drag files or directories.
-    The photos will be imported into your library.
-    By default, you'll be asked if you want to copy the photo files to your library directory (usually this is the Pictures directory in your home directory; see below).
-    To avoid this prompt, if you hold down Ctrl while dragging photos in, Shotwell will import the photos and copy the files.
-    Similarly, if you hold down Ctrl+Shift while dragging photos in, Shotwell will import the photos without copying them.</p>
-
-    <p>You can also import using <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq> and select a directory from the chooser dialog box.
-    Shotwell will scan the directory and all subdirectories for photo files and automatically import them.
-    Once you select a directory, you will be asked whether you want to copy the photo files to your library directory or not.</p>
+    <p>This section will display your options for starting Shotwell</p>
 </page>

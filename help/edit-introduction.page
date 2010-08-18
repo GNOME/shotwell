@@ -1,0 +1,25 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="edit-intro">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+    </info>
+
+	<title>1. Introduction to editing</title>
+
+    <p>The editing features that Shotwell provide are intended to allow you to perform common editing operations quickly and require a minimum of knowledge and skill. They will in most cases give good to adequate results. Where you need something better you can call an external editor from within Shotwell.</p>
+    
+    <p>Editing can be done on the intermediate size image and on the full screen image. In both views and editing toolbar is shown at the bottom of the image.</p>
+
+<media type="image" src="figures/edit_toolbar.png">Delete process</media>
+
+<section id="edit-non-destructive">
+	<title>Non-destructive editing</title>
+    <p>Editing in Shotwell is non-destructive. This means your original is left unchanged. The edits are stored as a set of commands which are applied just before the image is displayed. One consequence of this is that you can easily undo the edits.</p>
+    <p>If you wish to use the edited image for other purposes you must first export the image (File | Export)</p>
+</section>
+
+
+    
+</page>
