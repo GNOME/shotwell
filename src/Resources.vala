@@ -49,10 +49,10 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 """;
 
-    public const string CLOCKWISE = "shotwell-rotate-clockwise";
-    public const string COUNTERCLOCKWISE = "shotwell-rotate-counterclockwise";
-    public const string HFLIP = "shotwell-mirror";
-    public const string VFLIP = "shotwell-flip";
+    public const string CLOCKWISE = "object-rotate-right";
+    public const string COUNTERCLOCKWISE = "object-rotate-left";
+    public const string HFLIP = "object-flip-horizontal";
+    public const string VFLIP = "object-flip-vertical";
     public const string CROP = "shotwell-crop";
     public const string REDEYE = "shotwell-redeye";
     public const string ADJUST = "shotwell-adjust";
@@ -62,7 +62,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string IMPORT_ALL = "shotwell-import-all";
     public const string ENHANCE = "shotwell-auto-enhance";
     public const string CROP_PIVOT_RETICLE = "shotwell-crop-pivot-reticle";
-    public const string PUBLISH = "shotwell-publish";
+    public const string PUBLISH = "applications-internet";
     public const string MERGE = "shotwell-merge-events";   
 
     public const string ICON_APP = "shotwell.svg";
@@ -75,7 +75,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ICON_RATING_FIVE = "five-stars.svg";
     public const string ICON_FILTER_REJECTED_OR_BETTER = "all-rejected.png";
     public const int ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE = 44;
-    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-24.png";
+    public const string ICON_FILTER_UNRATED_OR_BETTER = "shotwell-24.svg";
     public const int ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE = 24;
     public const string ICON_FILTER_ONE_OR_BETTER = "one-star-filter-plus.svg";
     public const string ICON_FILTER_TWO_OR_BETTER = "two-star-filter-plus.svg";
@@ -595,20 +595,15 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         factory = new Gtk.IconFactory();
 
         File icons_dir = AppDirs.get_resources_dir().get_child("icons");
-        add_stock_icon(icons_dir.get_child("object-rotate-right.svg"), CLOCKWISE);
-        add_stock_icon(icons_dir.get_child("object-rotate-left.svg"), COUNTERCLOCKWISE);
-        add_stock_icon(icons_dir.get_child("object-flip-horizontal.svg"), HFLIP);
-        add_stock_icon(icons_dir.get_child("object-flip-vertical.svg"), VFLIP);
         add_stock_icon(icons_dir.get_child("crop.svg"), CROP);
         add_stock_icon(icons_dir.get_child("redeye.png"), REDEYE);
-        add_stock_icon(icons_dir.get_child("adjust.png"), ADJUST);
+        add_stock_icon(icons_dir.get_child("image-adjust.svg"), ADJUST);
         add_stock_icon(icons_dir.get_child("pin-toolbar.svg"), PIN_TOOLBAR);
         add_stock_icon(icons_dir.get_child("make-primary.svg"), MAKE_PRIMARY);
         add_stock_icon(icons_dir.get_child("import.svg"), IMPORT);
         add_stock_icon(icons_dir.get_child("import-all.png"), IMPORT_ALL);
         add_stock_icon(icons_dir.get_child("enhance.png"), ENHANCE);
         add_stock_icon(icons_dir.get_child("crop-pivot-reticle.png"), CROP_PIVOT_RETICLE);
-        add_stock_icon(icons_dir.get_child("publish.png"), PUBLISH);
         add_stock_icon(icons_dir.get_child("merge.svg"), MERGE);
         
         factory.add_default();

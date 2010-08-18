@@ -170,8 +170,6 @@ TEXT_FILES = \
 	THANKS
 
 ICON_FILES = \
-	adjust.png \
-	all-photos.svg \
 	all-rejected.png \
 	crop-pivot-reticle.png \
 	crop.svg \
@@ -181,6 +179,7 @@ ICON_FILES = \
 	five-stars.svg \
 	four-star-filter-plus.svg \
 	four-stars.svg \
+	image-adjust.svg \
 	import-all.png \
 	import.svg \
 	last-import-roll.png \
@@ -188,10 +187,6 @@ ICON_FILES = \
 	merge.svg \
 	multiple-events.png \
 	multiple-tags.png \
-	object-flip-horizontal.svg \
-	object-flip-vertical.svg \
-	object-rotate-left.svg \
-	object-rotate-right.svg \
 	one-event.png \
 	one-star-filter-plus.svg \
 	one-star.svg \
@@ -209,8 +204,8 @@ ICON_FILES = \
 	two-stars.svg \
 	zoom-in.png \
 	zoom-out.png \
-	shotwell-16.png \
-	shotwell-24.png
+	shotwell-16.svg \
+	shotwell-24.svg
 
 HELP_FILES = \
 	advanced-startup.page \

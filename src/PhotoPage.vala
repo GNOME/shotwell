@@ -412,7 +412,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // rotate tool
-        rotate_button = new Gtk.ToolButton.from_stock(Resources.CLOCKWISE);
+        rotate_button = new Gtk.ToolButton.from_stock("");
+        rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked.connect(on_rotate_clockwise);
@@ -1719,7 +1720,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
 #endif
 
     private override bool on_ctrl_pressed(Gdk.EventKey? event) {
-        rotate_button.set_stock_id(Resources.COUNTERCLOCKWISE);
+        rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
         rotate_button.clicked.disconnect(on_rotate_clockwise);
@@ -1732,7 +1733,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private override bool on_ctrl_released(Gdk.EventKey? event) {
-        rotate_button.set_stock_id(Resources.CLOCKWISE);
+        rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
         rotate_button.clicked.disconnect(on_rotate_counterclockwise);
