@@ -211,32 +211,31 @@ public abstract class CollectionPage : CheckerboardPage {
         
         toolbar.insert(separator2, -1);
 
-        Gtk.ToolItem zoom_out_wrapper = new Gtk.ToolItem();
+        Gtk.HBox zoom_group = new Gtk.HBox(false, 0);
+
         Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
             Resources.ICON_ZOOM_SCALE));
-        zoom_out_wrapper.add(zoom_out);
 
-        toolbar.insert(zoom_out_wrapper, -1);
+        zoom_group.pack_start(zoom_out, false, false, 0);
         
         // thumbnail size slider
         slider = new Gtk.HScale(slider_adjustment);
         slider.value_changed.connect(on_slider_changed);
         slider.set_draw_value(false);
+        slider.set_size_request(200, -1);
+        slider.set_tooltip_text(_("Adjust the size of the thumbnails"));
 
-        Gtk.ToolItem toolitem = new Gtk.ToolItem();
-        toolitem.add(slider);
-        toolitem.set_expand(false);
-        toolitem.set_size_request(200, -1);
-        toolitem.set_tooltip_text(_("Adjust the size of the thumbnails"));
+        zoom_group.pack_start(slider, false, false, 0);
         
-        toolbar.insert(toolitem, -1);
-
-        Gtk.ToolItem zoom_in_wrapper = new Gtk.ToolItem();
         Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_IN,
             Resources.ICON_ZOOM_SCALE));
-        zoom_in_wrapper.add(zoom_in);
 
-        toolbar.insert(zoom_in_wrapper, -1);
+        zoom_group.pack_start(zoom_in, false, false, 0);
+
+        Gtk.ToolItem group_wrapper = new Gtk.ToolItem();
+        group_wrapper.add(zoom_group);
+
+        toolbar.insert(group_wrapper, -1);
         
         // initialize scale from slider (since the scale adjustment may be modified from default)
         scale = slider_to_scale(slider.get_value());
