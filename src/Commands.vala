@@ -918,6 +918,18 @@ public class SetRatingCommand : MultipleDataSourceCommand {
         }
     }
     
+    public override void execute() {
+        LibraryPhoto.global.freeze_notifications();
+        base.execute();
+        LibraryPhoto.global.thaw_notifications();
+    }
+    
+    public override void undo() {
+        LibraryPhoto.global.freeze_notifications();
+        base.undo();
+        LibraryPhoto.global.thaw_notifications();
+    }
+    
     public override void execute_on_source(DataSource source) {
         if (set_direct)
             ((LibraryPhoto) source).set_rating(new_rating);
