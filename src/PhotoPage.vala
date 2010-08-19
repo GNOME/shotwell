@@ -2001,7 +2001,6 @@ public class LibraryPhotoPage : EditingHostPage {
         get_view().items_altered.connect(on_photos_altered);
         
         // watch for photos being destroyed or altered, either here or in other pages
-        LibraryPhoto.global.items_unlinking.connect(on_photos_unlinking);
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         LibraryPhoto.global.item_altered.connect(on_metadata_altered);
         
@@ -2010,7 +2009,6 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     ~LibraryPhotoPage() {
-        LibraryPhoto.global.items_unlinking.disconnect(on_photos_unlinking);
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
         LibraryPhoto.global.item_altered.disconnect(on_metadata_altered);
         Config.get_instance().external_app_changed.disconnect(on_external_app_changed);
@@ -2371,20 +2369,22 @@ public class LibraryPhotoPage : EditingHostPage {
         // switched_to call.
         assert(get_photo() != null);
         
+        get_controller().lock_view();
+        get_controller().items_removed.connect(on_photos_removed);
+        
         base.switched_to();
         
         update_zoom_menu_item_sensitivity();
         update_rating_menu_item_sensitivity();
         
         set_display_ratings(Config.get_instance().get_display_photo_ratings());
-        
-        get_controller().lock_view();
     }
 
     public override void switching_from() {
         base.switching_from();
         
         get_controller().unlock_view();
+        get_controller().items_removed.disconnect(on_photos_removed);
     }
 
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
@@ -2677,9 +2677,9 @@ public class LibraryPhotoPage : EditingHostPage {
         on_photo_removed((LibraryPhoto) source);
     }
     
-    private void on_photos_unlinking(Gee.Iterable<DataSource> unlinking) {
-        foreach (DataSource source in unlinking)
-            on_photo_removed((LibraryPhoto) source);
+    private void on_photos_removed(Gee.Iterable<DataObject> removed) {
+        foreach (DataObject object in removed)
+            on_photo_removed((LibraryPhoto) ((DataView) object).get_source());
     }
     
     private void on_photo_removed(LibraryPhoto photo) {

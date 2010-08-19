@@ -132,6 +132,9 @@ public class PixbufCache : Object {
     // This call can potentially block if the pixbuf is not in the cache.  Once loaded, it will
     // be cached.  No signal is fired.
     public Gdk.Pixbuf? fetch(Photo photo) throws Error {
+        if (!photo.get_actual_file().query_exists(null))
+            decache(photo);
+        
         Gdk.Pixbuf pixbuf = get_cached(photo);
         if (pixbuf != null) {
 #if TRACE_PIXBUF_CACHE
@@ -173,6 +176,9 @@ public class PixbufCache : Object {
     // signal is fired.
     public void prefetch(Photo photo, 
         BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL, bool force = false) {
+        if (!photo.get_actual_file().query_exists(null))
+            decache(photo);
+        
         if (!force && cache.has_key(photo))
             return;
         
