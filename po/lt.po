@@ -48,6 +48,10 @@ msgstr "Shotwell nuotraukų peržiūros programa"
 msgid "Photo Viewer"
 msgstr "Nuotraukų peržiūros programa"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Naudotojo žinynas"
+
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"

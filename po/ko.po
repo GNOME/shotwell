@@ -47,6 +47,10 @@ msgstr "샷웰 사진 보기"
 msgid "Photo Viewer"
 msgstr "사진 보기"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "사용자 설명서"
+
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"

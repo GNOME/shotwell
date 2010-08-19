@@ -48,6 +48,10 @@ msgstr "শটওয়েল ফটো ভিউয়ার"
 msgid "Photo Viewer"
 msgstr "ছবি প্রদর্শক"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr ""
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "আবর্জনার বাক্সে স্থানান্তর করো"

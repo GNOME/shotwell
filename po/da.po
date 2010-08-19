@@ -56,6 +56,10 @@ msgstr "Shotwell - billedvisning"
 msgid "Photo Viewer"
 msgstr "Billedvisning"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Brugermanual"
+
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"

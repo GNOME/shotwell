@@ -47,6 +47,10 @@ msgstr ""
 msgid "Photo Viewer"
 msgstr ""
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Lietotāja rokasgrāmata"
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "Pārvietot uz miskasti"

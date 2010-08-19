@@ -48,6 +48,10 @@ msgstr "Shotwell 照片查看器"
 msgid "Photo Viewer"
 msgstr "照片查看器"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "用户指南"
+
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"

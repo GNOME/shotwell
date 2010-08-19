@@ -48,6 +48,10 @@ msgstr "Shotwell preglednik fotografija"
 msgid "Photo Viewer"
 msgstr "Preglednik fotografija"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr ""
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "Premjesti u Smeće"

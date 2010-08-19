@@ -46,6 +46,10 @@ msgstr "Shotwell Foto Viewer"
 msgid "Photo Viewer"
 msgstr "Foto Viewer"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Gebruikershandleiding"
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "In prullenbak gooien"

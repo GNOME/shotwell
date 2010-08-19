@@ -44,6 +44,10 @@ msgstr "Shotwell - valokuvien hallinta"
 msgid "Photo Viewer"
 msgstr "Valokuvien katselin"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Käyttöohje"
+
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"

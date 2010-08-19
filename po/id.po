@@ -45,6 +45,10 @@ msgstr "Album Foto Shotwell"
 msgid "Photo Viewer"
 msgstr "Album Foto"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr ""
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "Pindahkan ke Tempat Pembuangan"

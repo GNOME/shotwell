@@ -49,6 +49,10 @@ msgstr "Prohlížeč fotografií Shotwell"
 msgid "Photo Viewer"
 msgstr "Prohlížeč fotografií"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Uživatelská přiručka"
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "Přesunout do koše"

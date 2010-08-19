@@ -47,6 +47,10 @@ msgstr "عارض الصور شُتْ‌وِل"
 msgid "Photo Viewer"
 msgstr "عارض الصور"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "دليل المستخدم"
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "ا_نقل إلى المهملات"

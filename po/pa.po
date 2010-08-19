@@ -47,6 +47,10 @@ msgstr "ਸ਼ੂਟਵੈੱਲ ਫੋਟੋ ਦਰਸ਼ਕ"
 msgid "Photo Viewer"
 msgstr "ਫੋਟੋ ਦਰਸ਼ਕ"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "ਯੂਜ਼ਰ ਕਿਤਾਬਚਾ"
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "ਰੱਦੀ ਵਿੱਚ ਭੇਜੋ"

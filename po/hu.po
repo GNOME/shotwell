@@ -49,6 +49,10 @@ msgstr "Shotwell fotónézegető"
 msgid "Photo Viewer"
 msgstr "Képnézegető"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Felhasználói kézikönyv"
+
 #: src/AppDirs.vala:44
 msgid "Pictures"
 msgstr "Képek"

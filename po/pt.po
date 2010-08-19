@@ -50,6 +50,10 @@ msgstr "Visualizador de fotos Shotwell"
 msgid "Photo Viewer"
 msgstr "Visualizador de fotos"
 
+#: src/AppWindow.vala:487
+msgid "_User Manual"
+msgstr "Manual do usuário"
+
 #: src/Resources.vala:293
 msgid "_Move to Trash"
 msgstr "_Mover Para a lixeira"
