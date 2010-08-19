@@ -492,10 +492,10 @@ ifdef ENABLE_APPORT_HOOK_INSTALL
 	$(INSTALL_DATA) apport/shotwell.py $(DESTDIR)$(PREFIX)/share/apport/package-hooks
 endif
 ifndef DISABLE_HELP_INSTALL
-	mkdir -p $(DESTDIR)/usr/share/gnome/help/shotwell/C
-	$(INSTALL_DATA) $(EXPANDED_HELP_FILES) $(DESTDIR)/usr/share/gnome/help/shotwell/C
-	mkdir -p $(DESTDIR)/usr/share/gnome/help/shotwell/C/figures
-	$(INSTALL_DATA) $(EXPANDED_HELP_IMAGES) $(DESTDIR)/usr/share/gnome/help/shotwell/C/figures
+	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
+	$(INSTALL_DATA) $(EXPANDED_HELP_FILES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C
+	mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
+	$(INSTALL_DATA) $(EXPANDED_HELP_IMAGES) $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell/C/figures
 endif
 endif
 	-$(foreach lang,$(SUPPORTED_LANGUAGES),`mkdir -p $(SYSTEM_LANG_DIR)/$(lang)/LC_MESSAGES ; \
@@ -513,7 +513,7 @@ ifndef DISABLE_DESKTOP_UPDATE
 endif
 ifdef LINUX
 ifndef DISABLE_HELP_INSTALL
-	rm -rf $(DESTDIR)/usr/share/gnome/help/shotwell
+	rm -rf $(DESTDIR)$(PREFIX)/share/gnome/help/shotwell
 endif
 ifndef DISABLE_SCHEMAS_INSTALL
 	GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` gconftool-2 --makefile-uninstall-rule misc/shotwell.schemas
