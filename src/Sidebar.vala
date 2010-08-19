@@ -535,8 +535,14 @@ public class Sidebar : Gtk.TreeView {
         Gtk.TreePath? cursor_path;
         Gtk.TreeViewColumn? cursor_column;
         get_cursor(out cursor_path, out cursor_column);
-        set_cursor(cursor_path, cursor_column, true);
-        return !rename_path(current_path);
+        cursor_path = current_path;
+
+        if (rename_path(cursor_path)) {
+            set_cursor(cursor_path, cursor_column, true);
+            return false;
+        }
+
+        return true;
     }
 
     public void rename(SidebarMarker marker, string name) {
