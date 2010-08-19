@@ -116,6 +116,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
     private File? src_file;
     private uint64 filesize;
     private time_t exposure_time;
+    private ImportID import_id;
     
     public AlienDatabaseImportJob(AlienDatabaseImportSource import_source) {
         this.import_source = import_source;
@@ -124,6 +125,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         src_file = import_source.get_file();
         filesize = import_source.get_filesize();
         exposure_time = import_source.get_exposure_time();
+        import_id = PhotoTable.get_instance().generate_import_id();
     }
     
     public time_t get_exposure_time() {
@@ -171,9 +173,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         if (title != null)
             photo.set_title(title);
         // import ID
-        ImportID? import_id = src_photo.get_import_id();
-        if (import_id != null)
-            photo.set_import_id(import_id);
+        photo.set_import_id(import_id);
         
         return true;
     }
