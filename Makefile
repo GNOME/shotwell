@@ -224,17 +224,17 @@ HELP_FILES = \
 	features-editing.page \
 	features-importing.page \
 	features-introduction.page \
-	features-organising.page \
+	features-organizing.page \
 	features-sharing.page \
 	import-camera.page \
 	import-file.page \
 	import-f-spot.page \
 	index.page \
-	organise-delete.page \
-	organise-event.page \
-	organise-rating.page \
-	organise-tag.page \
-	organise-title.page \
+	organize-delete.page \
+	organize-event.page \
+	organize-rating.page \
+	organize-tag.page \
+	organize-title.page \
 	share-print.page \
 	share-slideshow.page \
 	share-upload.page
