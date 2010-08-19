@@ -457,7 +457,7 @@ public class DataCollection {
     private int notifies_frozen = 0;
     private Gee.HashMap<DataObject, Alteration> frozen_items_altered = null;
     private bool fire_ordering_changed = false;
-
+    
     // When this signal has been fired, the added items are part of the collection
     public virtual signal void items_added(Gee.Iterable<DataObject> added) {
     }
@@ -1018,6 +1018,8 @@ public class SourceCollection : DataCollection {
     public virtual signal void unlinked_destroyed(DataSource source) {
     }
     
+    private Gee.MultiMap<SourceBacklink, DataSource>? backlinks = null;
+    
     public SourceCollection(string name) {
         base (name);
     }
@@ -1094,13 +1096,26 @@ public class SourceCollection : DataCollection {
         return true;
     }
     
-    public virtual bool has_backlink(SourceBacklink backlink) {
-        foreach (DataObject object in get_all()) {
-            if (((DataSource) object).has_backlink(backlink))
-                return true;
+    // This is only called by DataSource.
+    public void internal_backlink_set(DataSource source, SourceBacklink backlink) {
+        if (backlinks == null) {
+            backlinks = new Gee.HashMultiMap<SourceBacklink, DataSource>(SourceBacklink.hash_func,
+                SourceBacklink.equal_func);
         }
         
-        return false;
+        backlinks.set(backlink, source);
+    }
+    
+    // This is only called by DataSource.
+    public void internal_backlink_removed(DataSource source, SourceBacklink backlink) {
+        assert(backlinks != null);
+        
+        bool removed = backlinks.remove(backlink, source);
+        assert(removed);
+    }
+    
+    public virtual bool has_backlink(SourceBacklink backlink) {
+        return backlinks != null ? backlinks.contains(backlink) : false;
     }
     
     public Gee.Collection<DataSource>? unlink_marked(Marker marker, ProgressMonitor? monitor = null) {
@@ -1150,8 +1165,15 @@ public class SourceCollection : DataCollection {
     }
     
     public virtual void remove_backlink(SourceBacklink backlink) {
-        foreach (DataObject object in get_all())
-            ((DataSource) object).remove_backlink(backlink);
+        if (backlinks == null)
+            return;
+        
+        // create copy because the DataSources will be removing the backlinks
+        Gee.ArrayList<DataSource> sources = new Gee.ArrayList<DataSource>();
+        sources.add_all(backlinks.get(backlink));
+        
+        foreach (DataSource source in sources)
+            source.remove_backlink(backlink);
     }
 }
 
@@ -1306,6 +1328,8 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     private void on_contained_sources_unlinking(Gee.Collection<DataSource> unlinking) {
+        contained_sources.freeze_notifications();
+        
         Gee.HashMultiMap<ContainerSource, DataSource> map =
             new Gee.HashMultiMap<ContainerSource, DataSource>();
         
@@ -1322,9 +1346,13 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         
         foreach (ContainerSource container in map.get_keys())
             container.break_link_many(map.get(container));
+        
+        contained_sources.thaw_notifications();
     }
     
     private void on_contained_sources_relinked(Gee.Collection<DataSource> relinked) {
+        contained_sources.freeze_notifications();
+        
         Gee.HashMultiMap<ContainerSource, DataSource> map =
             new Gee.HashMultiMap<ContainerSource, DataSource>();
         
@@ -1346,6 +1374,8 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         
         foreach (ContainerSource container in map.get_keys())
             container.establish_link_many(map.get(container));
+        
+        contained_sources.thaw_notifications();
     }
     
     private void on_contained_source_destroyed(DataSource source) {
@@ -1658,6 +1688,7 @@ public class ViewCollection : DataCollection {
     
     private SourceCollection sources = null;
     private ViewManager manager = null;
+    private Alteration? sources_alteration = null;
     private ViewCollection mirroring = null;
     private CreateView mirroring_ctor = null;
     private ViewFilter filter = null;
@@ -1795,13 +1826,14 @@ public class ViewCollection : DataCollection {
     }
     
     public void monitor_source_collection(SourceCollection sources, ViewManager manager,
-        Gee.Iterable<DataSource>? initial = null, ProgressMonitor? monitor = null) {
+        Alteration? alteration, Gee.Iterable<DataSource>? initial = null, ProgressMonitor? monitor = null) {
         halt_monitoring();
         halt_mirroring();
         clear();
         
         this.sources = sources;
         this.manager = manager;
+        sources_alteration = alteration;
         
         if (initial != null) {
             // add from the initial list handed to us, using the ViewManager to add/remove later
@@ -1831,6 +1863,7 @@ public class ViewCollection : DataCollection {
         
         sources = null;
         manager = null;
+        sources_alteration = null;
     }
     
     public void mirror(ViewCollection to_mirror, CreateView mirroring_ctor) {
@@ -1985,8 +2018,11 @@ public class ViewCollection : DataCollection {
         Gee.ArrayList<DataView> to_remove = null;
         bool ordering_changed = false;
         foreach (DataObject object in items.keys) {
-            DataSource source = (DataSource) object;
             Alteration alteration = items.get(object);
+            if (sources_alteration != null && !alteration.contains_any(sources_alteration))
+                continue;
+            
+            DataSource source = (DataSource) object;
             
             bool include = manager.include_in_view(source);
             if (include && !has_view_for_source(source)) {
@@ -2642,10 +2678,10 @@ public class ViewCollection : DataCollection {
     
     // This is only called by DataView.
     public void internal_notify_relinked(DataView view, SourceCollection sources) {
-        if (view_lock_count > 0) {
-            bool removed = locked_unlinked_items.remove(view);
-            assert(removed);
-        }
+        // don't assert if removed because it's possible the relink is happening in a session
+        // after the unlink
+        if (view_lock_count > 0)
+            locked_unlinked_items.remove(view);
     }
     
     protected override void notify_thawed() {

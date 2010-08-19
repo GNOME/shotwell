@@ -30,7 +30,8 @@
 // Alteration.  Generally this is handled automatically by DataObject and DataCollection, when
 // necessary.
 //
-// NOTE: subjects and details should be ASCII labels.
+// NOTE: subjects and details should be ASCII labels (as in, plain-old ASCII, no code pages).
+// They are treated as case-sensitive strings.
 //
 // Recommended subjects include: image, thumbnail, metadata.
 //
@@ -83,7 +84,7 @@ public class Alteration {
         
         // Now a complex Alteration, requiring a Map.
         if (map == null)
-            map = new Gee.HashMultiMap<string, string>();
+            map = create_map();
         
         // Move singletons into Map
         if (this.subject != null) {
@@ -98,10 +99,24 @@ public class Alteration {
         map.set(subject, detail);
     }
     
-    private inline bool equal_values(string str1, string str2) {
-        long str2_length = str2.length;
-        
-        return (str1.length == str2_length) ? str1.ascii_ncasecmp(str2, str2_length) == 0 : false;
+    private Gee.MultiMap<string, string> create_map() {
+        return new Gee.HashMultiMap<string, string>(case_hash, case_equal, case_hash, case_equal);
+    }
+    
+    private static bool case_equal(void *a, void *b) {
+        return equal_values((string) a, (string) b);
+    }
+    
+    private static uint case_hash(void *a) {
+        return hash_value((string) a);
+    }
+    
+    private static inline bool equal_values(string str1, string str2) {
+        return str1.ascii_casecmp(str2) == 0;
+    }
+    
+    private static inline uint hash_value(string str) {
+        return str_hash(str);
     }
     
     public bool has_subject(string subject) {
@@ -158,16 +173,50 @@ public class Alteration {
         return str;
     }
     
+    // Returns true if this object has any subject:detail matches with the supplied Alteration.
+    public bool contains_any(Alteration other) {
+        // identity
+        if (this == other)
+            return true;
+        
+        // if both singletons, check for singleton match
+        if (subject != null && other.subject != null && detail != null && other.detail != null)
+            return equal_values(subject, other.subject) && equal_values(detail, other.detail);
+        
+        // if both multiples, check for any match at all
+        if (map != null && other.map != null) {
+            Gee.Set<string>? keys = map.get_keys();
+            assert(keys != null);
+            Gee.Set<string>? other_keys = other.map.get_keys();
+            assert(other_keys != null);
+            
+            foreach (string subject in other_keys) {
+                if (!keys.contains(subject))
+                    continue;
+                
+                Gee.Collection<string>? details = map.get(subject);
+                Gee.Collection<string>? other_details = other.map.get(subject);
+                
+                if (details != null && other_details != null) {
+                    foreach (string detail in other_details) {
+                        if (details.contains(detail))
+                            return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     public bool equals(Alteration other) {
         // identity
         if (this == other)
             return true;
         
         // if both singletons, check for singleton match
-        if ((subject != null && other.subject != null && equal_values(subject, other.subject))
-            && (detail != null && other.detail != null && equal_values(detail, other.detail))) {
-            return true;
-        }
+        if (subject != null && other.subject != null && detail != null && other.detail != null)
+            return equal_values(subject, other.subject) && equal_values(detail, other.detail);
         
         // if both multiples, check for across-the-board matches
         if (map != null && other.map != null) {
@@ -226,7 +275,7 @@ public class Alteration {
         
         // Build a new Alteration with both represented ... if they're unequal, then the new one
         // is guaranteed not to be a singleton
-        Gee.MultiMap<string, string> compressed = new Gee.HashMultiMap<string, string>();
+        Gee.MultiMap<string, string> compressed = create_map();
         
         if (subject != null && detail != null) {
             compressed.set(subject, detail);
@@ -480,6 +529,19 @@ public class SourceBacklink {
     public string to_string() {
         return "Backlink %s=%s".printf(name, value);
     }
+    
+    public static uint hash_func(void *key) {
+        SourceBacklink *backlink = (SourceBacklink *) key;
+        
+        return str_hash(backlink->_name) ^ str_hash(backlink->_value);
+    }
+    
+    public static bool equal_func(void *a, void *b) {
+        SourceBacklink *alink = (SourceBacklink *) a;
+        SourceBacklink *blink = (SourceBacklink *) b;
+        
+        return str_equal(alink->_name, blink->_name) && str_equal(alink->_value, blink->_value);
+    }
 }
 
 public abstract class DataSource : DataObject {
@@ -645,6 +707,10 @@ public abstract class DataSource : DataObject {
         }
         
         values.add(backlink.value);
+        
+        SourceCollection? sources = (SourceCollection?) get_membership();
+        if (sources != null)
+            sources.internal_backlink_set(this, backlink);
     }
     
     public bool remove_backlink(SourceBacklink backlink) {
@@ -670,6 +736,10 @@ public abstract class DataSource : DataObject {
         // Commit here because this can come at any time; setting the backlinks should only 
         // happen during an unlink, which commits at the end of the cycle.
         commit_backlinks(unlinked_from_collection, dehydrate_backlinks());
+        
+        SourceCollection? sources = (SourceCollection?) get_membership();
+        if (sources != null)
+            sources.internal_backlink_removed(this, backlink);
         
         return values.size != original_size;
     }

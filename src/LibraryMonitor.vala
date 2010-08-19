@@ -157,15 +157,31 @@ public class LibraryMonitor : DirectoryMonitor {
         if (--verify_external_outstanding > 0)
             return;
         
+        int total = 0;
+        
         LibraryPhoto.global.freeze_notifications();
         
         int count = external_mark_online.size;
-        for (int ctr = 0; ctr < count; ctr++)
+        for (int ctr = 0; ctr < count; ctr++) {
             external_mark_online[ctr].mark_online();
+            
+            if (++total % 50 == 0) {
+                LibraryPhoto.global.thaw_notifications();
+                spin_event_loop();
+                LibraryPhoto.global.freeze_notifications();
+            }
+        }
         
         count = external_mark_offline.size;
-        for (int ctr = 0; ctr < count; ctr++)
+        for (int ctr = 0; ctr < count; ctr++) {
             external_mark_offline[ctr].mark_offline();
+            
+            if (++total % 50 == 0) {
+                LibraryPhoto.global.thaw_notifications();
+                spin_event_loop();
+                LibraryPhoto.global.freeze_notifications();
+            }
+        }
         
         LibraryPhoto.global.thaw_notifications();
         

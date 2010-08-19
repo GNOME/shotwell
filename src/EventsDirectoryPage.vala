@@ -152,7 +152,7 @@ public class EventsDirectoryPage : CheckerboardPage {
         
         // set comparator before monitoring source collection, to prevent a re-sort
         get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
-        get_view().monitor_source_collection(Event.global, view_manager, initial_events);
+        get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
         
         init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
         init_ui_bind("/EventsDirectoryMenuBar");
@@ -376,6 +376,8 @@ public class EventPage : CollectionPage {
         }
     }
     
+    private static Alteration event_page_alteration = new Alteration("metadata", "event");
+    
     public Event page_event;
 
     private EventPage(Event page_event) {
@@ -389,7 +391,7 @@ public class EventPage : CollectionPage {
         this.page_event = page_event;
         
         get_view().monitor_source_collection(LibraryPhoto.global, new EventViewManager(this),
-            page_event.get_photos());
+            event_page_alteration, page_event.get_photos());
         
         init_page_context_menu("/EventContextMenu");
         

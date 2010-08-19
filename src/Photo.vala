@@ -1092,6 +1092,11 @@ public abstract class TransformablePhoto: PhotoSource {
         return row.event_id;
     }
     
+    // This is NOT thread-safe.
+    public inline int64 get_raw_event_id() {
+        return row.event_id.id;
+    }
+    
     public ImportID get_import_id() {
         lock (row) {
             return row.import_id;
@@ -1279,9 +1284,18 @@ public abstract class TransformablePhoto: PhotoSource {
         if (row.event_id.id == event_id.id)
             return true;
         
+        Event? old_event = get_event();
+        
         bool committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
         if (committed) {
+            if (old_event != null)
+                old_event.detach(this);
+            
             row.event_id = event_id;
+            
+            if (event != null)
+                event.attach(this);
+            
             notify_altered(new Alteration("metadata", "event"));
         }
         
@@ -1295,6 +1309,10 @@ public abstract class TransformablePhoto: PhotoSource {
         PhotoID[] photo_ids = new PhotoID[photos.size];
         int ctr = 0;
         foreach (TransformablePhoto photo in photos) {
+            Event? old_event = photo.get_event();
+            if (old_event != null)
+                old_event.detach(photo);
+            
             photo_ids[ctr++] = photo.row.photo_id;
             photo.row.event_id = event_id;
         }
@@ -1304,6 +1322,9 @@ public abstract class TransformablePhoto: PhotoSource {
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
+        
+        if (event != null)
+            event.attach_many(photos);
         
         Alteration alteration = new Alteration("metadata", "event");
         foreach (TransformablePhoto photo in photos)
@@ -3564,7 +3585,7 @@ public class LibraryPhoto : Photo {
         global.add_many_to_offline(offline_photos);
         
         // only start discovery after global has been initialized and loaded
-        Timeout.add(500, start_discovery);
+        Timeout.add(125, start_discovery);
     }
     
     public static void terminate() {

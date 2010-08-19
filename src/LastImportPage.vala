@@ -41,6 +41,7 @@ public class LastImportPage : CollectionPage {
     }
     
     private ImportID last_import_id = ImportID();
+    private Alteration last_import_alteration = new Alteration("metadata", "import-id");
     
     private LastImportPage(string name) {
         base (name);
@@ -72,7 +73,7 @@ public class LastImportPage : CollectionPage {
         last_import_id = current_last_import_id;
         
         get_view().monitor_source_collection(LibraryPhoto.global,
-            new LastImportViewManager(this, last_import_id));
+            new LastImportViewManager(this, last_import_id), last_import_alteration);
     }
     
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {

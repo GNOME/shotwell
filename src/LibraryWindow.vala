@@ -1025,7 +1025,7 @@ public class LibraryWindow : AppWindow {
         TagPage.Stub stub = tag_map.get(tag);
         assert(stub != null);
         
-        remove_stub(stub, library_page);
+        remove_stub(stub, library_page, null);
         
         if (tag_map.size == 0 && tags_marker != null) {
             sidebar.prune_branch(tags_marker);
@@ -1038,7 +1038,7 @@ public class LibraryWindow : AppWindow {
             offline_page = OfflinePage.create_stub();
             sidebar.add_parent(offline_page);
         } else if (!enable && offline_page != null) {
-            remove_stub(offline_page, library_page);
+            remove_stub(offline_page, library_page, null);
             offline_page = null;
         }
     }
@@ -1048,7 +1048,7 @@ public class LibraryWindow : AppWindow {
             last_import_page = LastImportPage.create_stub();
             sidebar.insert_sibling_after(library_page.get_marker(), last_import_page);
         } else if (!enable && last_import_page != null) {
-            remove_stub(last_import_page, library_page);
+            remove_stub(last_import_page, library_page, null);
             last_import_page = null;
         }
     }
@@ -1091,7 +1091,7 @@ public class LibraryWindow : AppWindow {
         
         // remove from notebook and sidebar
         if (delete_stub)
-            remove_stub(stub, events_directory_page.get_page());
+            remove_stub(stub, null, events_directory_page);
         else
             sidebar.remove_page(stub);
         
@@ -1280,7 +1280,7 @@ public class LibraryWindow : AppWindow {
         debug("Removed page %s", page.get_page_name());
     }
     
-    private void remove_stub(PageStub stub, Page fallback_page) {
+    private void remove_stub(PageStub stub, Page? fallback_page, PageStub? fallback_stub) {
         // remove from appropriate list
         if (stub is SubEventsDirectoryPage.Stub) {
             // remove from events directory list 
@@ -1300,8 +1300,12 @@ public class LibraryWindow : AppWindow {
         
         if (stub.has_page()) {
             // ensure the page is fully detached
-            if (get_current_page() == stub.get_page())
-                switch_to_page(fallback_page);
+            if (get_current_page() == stub.get_page()) {
+                if (fallback_page != null)
+                    switch_to_page(fallback_page);
+                else if (fallback_stub != null)
+                    switch_to_page(fallback_stub.get_page());
+            }
             
             // detach from notebook
             remove_from_notebook(stub.get_page());

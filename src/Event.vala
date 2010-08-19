@@ -55,22 +55,6 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     private const time_t TIME_T_DAY = 24 * 60 * 60;
     
-    private class EventManager : ViewManager {
-        private EventID event_id;
-
-        public EventManager(EventID event_id) {
-            this.event_id = event_id;
-        }
-
-        public override bool include_in_view(DataSource source) {
-            return ((Photo) source).get_event_id().id == event_id.id;
-        }
-
-        public override DataView create_view(DataSource source) {
-            return new PhotoView((PhotoSource) source);
-        }
-    }
-    
     private class EventSnapshot : SourceSnapshot {
         private EventRow row;
         private LibraryPhoto key_photo;
@@ -147,16 +131,16 @@ public class Event : EventSource, ContainerSource, Proxyable {
         this.raw_name = event_row.name;
         
         Gee.ArrayList<PhotoID?> event_photo_ids = PhotoTable.get_instance().get_event_photos(event_id);
-        Gee.ArrayList<LibraryPhoto> event_photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<PhotoView> event_photos = new Gee.ArrayList<PhotoView>();
         foreach (PhotoID photo_id in event_photo_ids) {
             LibraryPhoto? photo = LibraryPhoto.global.fetch(photo_id);
             if (photo != null)
-                event_photos.add(photo);
+                event_photos.add(new PhotoView(photo));
         }
         
         view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
         view.set_comparator(view_comparator, view_comparator_predicate);
-        view.monitor_source_collection(LibraryPhoto.global, new EventManager(event_id), event_photos); 
+        view.add_many(event_photos);
         
         // need to do this manually here because only want to monitor ViewCollection contents after
         // initial batch has been added, but need to keep EventSourceCollection apprised
@@ -181,6 +165,10 @@ public class Event : EventSource, ContainerSource, Proxyable {
         view.items_added.connect(on_photos_added);
         view.items_removed.connect(on_photos_removed);
         view.items_altered.connect(on_photos_altered);
+        
+        // because we're no longer using source monitoring (for performance reasons), need to watch
+        // for photo destruction (but not removal, which is handled automatically in any case)
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
     }
 
     ~Event() {
@@ -190,6 +178,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         view.items_altered.disconnect(on_photos_altered);
         view.items_removed.disconnect(on_photos_removed);
         view.items_added.disconnect(on_photos_added);
+        
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     public override string? get_unique_thumbnail_name() {
@@ -247,6 +237,37 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return alteration.has_detail("metadata", "exposure-time");
     }
     
+    // This is used by Photo to notify Event when it's joined.  Don't use this to manually attach a
+    // Photo to an Event, use Photo.set_event().
+    public void attach(TransformablePhoto photo) {
+        view.add(new PhotoView(photo));
+    }
+    
+    public void attach_many(Gee.Collection<TransformablePhoto> photos) {
+        Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
+        foreach (TransformablePhoto photo in photos)
+            views.add(new PhotoView(photo));
+        
+        view.add_many(views);
+    }
+    
+    // This is used by Photo to notify Event when it's leaving.  Don't use this manually to detach
+    // a Photo, use Photo.set_event().
+    public void detach(TransformablePhoto photo) {
+        view.remove_marked(view.mark(view.get_view_for_source(photo)));
+    }
+    
+    public void detach_many(Gee.Collection<TransformablePhoto> photos) {
+        Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
+        foreach (TransformablePhoto photo in photos) {
+            PhotoView? view = (PhotoView?) view.get_view_for_source(photo);
+            if (view != null)
+                views.add(view);
+        }
+        
+        view.remove_marked(view.mark_many(views));
+    }
+    
     private Gee.ArrayList<LibraryPhoto> views_to_photos(Gee.Iterable<DataObject> views) {
         Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
         foreach (DataObject object in views)
@@ -292,6 +313,12 @@ public class Event : EventSource, ContainerSource, Proxyable {
         }
         
         notify_altered(new Alteration.from_list("contents:removed, metadata:time"));
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        DataView? photo_view = view.get_view_for_source(source);
+        if (photo_view != null)
+            view.remove_marked(view.mark(photo_view));
     }
     
     public override void notify_relinking(SourceCollection sources) {

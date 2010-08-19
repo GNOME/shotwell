@@ -397,9 +397,6 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private double saved_slider_val = 0.0;
     private ZoomBuffer? zoom_buffer = null;
     
-    public virtual signal void photo_backing_missing(Photo photo, bool missing) {
-    }
-    
     public EditingHostPage(SourceCollection sources, string name) {
         base(name, false);
         
@@ -866,8 +863,15 @@ public abstract class EditingHostPage : SinglePhotoPage {
             
             set_pixbuf(pixbuf, max_dim);
             pixbuf_dirty = false;
+            
+            notify_photo_backing_missing((Photo) photo, false);
         } else if (err != null) {
+            // this call merely updates the UI, and can be called indiscriminantly, whether or not
+            // the photo is actually missing
             set_photo_missing(true);
+            
+            // this call should only be used when we're sure the photo is missing
+            notify_photo_backing_missing((Photo) photo, true);
         }
     }
     
@@ -932,7 +936,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         replace_photo(controller, photo);
     }
 
-    protected virtual void notify_photo_backing_missing(Photo photo, bool missing) {
+    protected virtual void update_ui(Photo photo, bool missing) {
         bool sensitivity = !missing;
         
         rotate_button.sensitive = sensitivity;
@@ -943,10 +947,12 @@ public abstract class EditingHostPage : SinglePhotoPage {
         zoom_slider.sensitive = sensitivity;
         
         deactivate_tool();
-        
-        photo_backing_missing(photo, missing);
     }
-
+    
+    // This should only be called when it's known that the photo is actually missing.
+    protected virtual void notify_photo_backing_missing(Photo photo, bool missing) {
+    }
+    
     private void draw_message(string message) {
         // draw the message in the center of the window
         Pango.Layout pango_layout = create_pango_layout(message);
@@ -962,6 +968,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         Gdk.draw_layout(get_drawable(), text_gc, x, y, pango_layout);
     }
 
+    // This method can be called indiscriminantly, whether or not the backing is actually present.
     protected void set_photo_missing(bool missing) {
         if (photo_missing == missing)
             return;
@@ -972,7 +979,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (photo == null)
             return;
         
-        notify_photo_backing_missing(photo, missing);
+        update_ui(photo, missing);
         
         if (photo_missing) {
             try {
@@ -1029,7 +1036,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         set_photo_missing(false);
         pixbuf_dirty = true;
 
-        update_ui();
+        update_toolbar();
 
         // it's possible for this to be called prior to the page being realized, however, the
         // underlying canvas has a scaling, so use that
@@ -1160,7 +1167,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         update_pixbuf();
     }
     
-    private void update_ui() {
+    private void update_toolbar() {
         bool multiple = controller.get_count() > 1;
 
         prev_button.sensitive = multiple;
@@ -1408,7 +1415,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (get_photo().has_transformations())
             Idle.add(on_fetch_original);
         
-        update_ui();
+        update_toolbar();
     }
     
     private bool on_fetch_original() {
@@ -2455,7 +2462,7 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 
-    protected override void notify_photo_backing_missing(Photo photo, bool missing) {
+    protected override void update_ui(Photo photo, bool missing) {
         bool sensitivity = !missing;
         
         set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
@@ -2505,6 +2512,10 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("SetBackground", sensitivity);
 #endif
         
+        base.update_ui(photo, missing);
+    }
+    
+    protected override void notify_photo_backing_missing(Photo photo, bool missing) {
         if (missing)
             ((LibraryPhoto) photo).mark_offline();
         else
@@ -2961,7 +2972,7 @@ private class DirectViewCollection : ViewCollection {
         
         this.dir = dir;
         
-        monitor_source_collection(DirectPhoto.global, new DirectViewManager());
+        monitor_source_collection(DirectPhoto.global, new DirectViewManager(), null);
     }
     
     public override int get_count() {
@@ -3408,7 +3419,7 @@ public class DirectPhotoPage : EditingHostPage {
         update_zoom_menu_item_sensitivity();
     }
 
-    protected override void notify_photo_backing_missing(Photo photo, bool missing) {
+    protected override void update_ui(Photo photo, bool missing) {
         bool sensitivity = !missing;
         
         set_item_sensitive("/DirectMenuBar/FileMenu/Save", sensitivity);
@@ -3443,7 +3454,7 @@ public class DirectPhotoPage : EditingHostPage {
         set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
 #endif
         
-        base.notify_photo_backing_missing(photo, missing);
+        base.update_ui(photo, missing);
     }
     
     protected override void init_actions(int selected_count, int count) {

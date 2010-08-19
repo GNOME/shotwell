@@ -359,7 +359,7 @@ public class ImportPage : CheckerboardPage {
             spin_idle_context = new GPhoto.SpinIdleWrapper();
         
         // monitor source collection to add/remove views
-        get_view().monitor_source_collection(import_sources, new ImportViewManager(this));
+        get_view().monitor_source_collection(import_sources, new ImportViewManager(this), null);
         
         // sort by exposure time
         get_view().set_comparator(preview_comparator, preview_comparator_predicate);
