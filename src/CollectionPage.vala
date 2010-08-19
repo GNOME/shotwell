@@ -207,12 +207,12 @@ public abstract class CollectionPage : CheckerboardPage {
 
         toolbar.insert(filter_button, -1);
 
-        Gtk.SeparatorToolItem separator2 = new Gtk.SeparatorToolItem();
-        separator2.set_expand(true);
-        separator2.set_draw(false);
+        Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
+        drawn_separator.set_expand(false);
+        drawn_separator.set_draw(true);
         
-        toolbar.insert(separator2, -1);
-
+        toolbar.insert(drawn_separator, -1);
+        
         Gtk.HBox zoom_group = new Gtk.HBox(false, 0);
 
         Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
