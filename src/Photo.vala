@@ -3095,7 +3095,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
     private Gee.MultiMap<ImportID?, LibraryPhoto> import_rolls =
         new Gee.TreeMultiMap<ImportID?, LibraryPhoto>(ImportID.compare_func);
-    private SortedList<ImportID?> sorted_import_ids = new SortedList<ImportID?>(ImportID.comparator);
+    private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
     
     public virtual signal void trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
         Gee.Collection<LibraryPhoto>? removed) {
@@ -3147,8 +3147,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 
                 ImportID import_id = photo.get_import_id();
                 if (import_id.is_valid()) {
-                    if (!sorted_import_ids.contains(import_id))
-                        sorted_import_ids.add(import_id);
+                    sorted_import_ids.add(import_id);
                     import_rolls.set(import_id, photo);
                     
                     import_roll_changed = true;
@@ -3343,14 +3342,12 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     // The returned set of ImportID's is sorted from oldest to newest.
-    public SortedList<ImportID?> get_import_roll_ids() {
+    public Gee.SortedSet<ImportID?> get_import_roll_ids() {
         return sorted_import_ids;
     }
     
     public ImportID? get_last_import_id() {
-        int count = sorted_import_ids.size;
-        
-        return count > 0 ? sorted_import_ids.get_at(count - 1) : null;
+        return sorted_import_ids.size != 0 ? sorted_import_ids.last() : null;
     }
     
     public Gee.Collection<LibraryPhoto?>? get_import_roll(ImportID import_id) {
