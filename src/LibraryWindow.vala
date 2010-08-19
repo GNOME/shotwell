@@ -214,6 +214,11 @@ public class LibraryWindow : AppWindow {
         
         // monitor trash to keep common actions up-to-date
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
+        
+        // show or hide the last import page depending on whether or not a last import roll
+        // exists
+        LibraryPhoto.global.import_roll_altered.connect(sync_last_import_visibility);
+        sync_last_import_visibility();
     }
     
     ~LibraryWindow() {
@@ -581,11 +586,15 @@ public class LibraryWindow : AppWindow {
 
     public void enqueue_batch_import(BatchImport batch_import, bool allow_user_cancel) {
         if (!displaying_import_queue_page) {
-            insert_page_before(last_import_page.get_marker(), import_queue_page);
+            insert_page_before(events_directory_page.get_marker(), import_queue_page);
             displaying_import_queue_page = true;
         }
         
         import_queue_page.enqueue_and_schedule(batch_import, allow_user_cancel);
+    }
+    
+    public void sync_last_import_visibility() {
+        enable_disable_last_import_page((LibraryPhoto.global.get_last_import_id() != null));
     }
     
     private void import_queue_batch_finished() {
@@ -1031,6 +1040,16 @@ public class LibraryWindow : AppWindow {
         } else if (!enable && offline_page != null) {
             remove_stub(offline_page, library_page);
             offline_page = null;
+        }
+    }
+
+    private void enable_disable_last_import_page(bool enable) {
+        if (enable && last_import_page == null) {
+            last_import_page = LastImportPage.create_stub();
+            sidebar.insert_sibling_after(library_page.get_marker(), last_import_page);
+        } else if (!enable && last_import_page != null) {
+            remove_stub(last_import_page, library_page);
+            last_import_page = null;
         }
     }
     
