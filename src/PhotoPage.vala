@@ -1226,8 +1226,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
             save_zoom_state();
             cancel_zoom();
         }
-
-        set_pixbuf(original, get_photo().get_original_dimensions());
+        
+        set_pixbuf(original, get_photo().get_master_dimensions());
     }
 
     private void swap_out_original() {

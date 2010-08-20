@@ -2790,6 +2790,11 @@ public abstract class TransformablePhoto: PhotoSource {
         return orientation.rotate_dimensions(dim);
     }
     
+    // Returns uncropped dimensions rotated only to reflect the original orientation
+    public Dimensions get_master_dimensions() {
+        return get_original_orientation().rotate_dimensions(get_raw_dimensions());
+    }
+    
     // Returns the crop against the coordinate system of the rotated photo
     public bool get_crop(out Box crop) {
         Box raw;
