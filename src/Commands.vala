@@ -887,6 +887,7 @@ public class SetRatingCommand : MultipleDataSourceCommand {
     private Rating new_rating;
     private bool set_direct;
     private bool incrementing;
+    private int action_count = 0;
 
     public SetRatingCommand(Gee.Iterable<DataView> iter, Rating rating) {
         base (iter, Resources.rating_progress(rating), _("Restoring previous rating"),
@@ -919,12 +920,14 @@ public class SetRatingCommand : MultipleDataSourceCommand {
     }
     
     public override void execute() {
+        action_count = 0;
         LibraryPhoto.global.freeze_notifications();
         base.execute();
         LibraryPhoto.global.thaw_notifications();
     }
     
     public override void undo() {
+        action_count = 0;
         LibraryPhoto.global.freeze_notifications();
         base.undo();
         LibraryPhoto.global.thaw_notifications();
@@ -939,10 +942,21 @@ public class SetRatingCommand : MultipleDataSourceCommand {
             else
                 ((LibraryPhoto) source).decrease_rating();
         }
+        
+        // TODO: Replace this system with a mass set rating function (like Photo.set_event_many)
+        if (++action_count % 50 == 0) {
+            LibraryPhoto.global.thaw_notifications();
+            LibraryPhoto.global.freeze_notifications();
+        }
     }
     
     public override void undo_on_source(DataSource source) {
         ((LibraryPhoto) source).set_rating(last_rating_map[source]);
+        
+        if (++action_count % 50 == 0) {
+            LibraryPhoto.global.thaw_notifications();
+            LibraryPhoto.global.freeze_notifications();
+        }
     }
 }
 
