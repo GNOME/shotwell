@@ -206,7 +206,7 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
         return (driver != null) ? driver.get_discovered_databases().size > 0 : false;
     }
     
-    public static void do_import(BatchImport.ImportReporter report_to_when_done) {
+    public static void do_import(BatchImport.ImportReporter? report_to_when_done = null) {
         AlienDatabaseDriver? driver = AlienDatabaseHandler.get_instance().get_driver(
             AlienDatabaseDriverID(FSPOT_DRIVER_ID));
         if (driver == null)
@@ -219,7 +219,7 @@ public class FSpotDatabaseDriver : Object, AlienDatabaseDriver {
     }
     
     private static void on_import_from_fspot() {
-        do_import(AlienDatabaseImportDialogController.DEFAULT_IMPORT_REPORTER);
+        do_import();
     }
 }
 

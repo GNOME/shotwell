@@ -5,14 +5,13 @@
  */
 
 public class AlienDatabaseImportDialogController {
-    /* treat this as a constant even though we can't declare it const -- valac doesn't
-       support const delegate types */
-    public static BatchImport.ImportReporter DEFAULT_IMPORT_REPORTER = alien_import_reporter;
-
     private AlienDatabaseImportDialog dialog;
     
     public AlienDatabaseImportDialogController(string title, AlienDatabaseDriver driver,
-        BatchImport.ImportReporter reporter = DEFAULT_IMPORT_REPORTER) {
+        BatchImport.ImportReporter? reporter = null) {
+        if (reporter == null)
+            reporter = alien_import_reporter;
+            
         Gtk.Builder builder = AppWindow.create_builder();
         dialog = builder.get_object("alien-db-import_dialog") as AlienDatabaseImportDialog;
         dialog.set_builder(builder);
