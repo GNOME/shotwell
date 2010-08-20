@@ -329,8 +329,8 @@ EXPANDED_ICON_FILES = $(foreach file,$(ICON_FILES),icons/$(file))
 EXPANDED_VAPI_FILES = $(foreach vapi,$(VAPI_FILES),vapi/$(vapi))
 EXPANDED_SRC_HEADER_FILES = $(foreach header,$(SRC_HEADER_FILES),vapi/$(header))
 EXPANDED_RESOURCE_FILES = $(foreach res,$(RESOURCE_FILES),ui/$(res))
-EXPANDED_HELP_FILES = $(foreach file,$(HELP_FILES),help/$(file))
-EXPANDED_HELP_IMAGES = $(foreach file,$(HELP_IMAGES),help/figures/$(file))
+EXPANDED_HELP_FILES = $(foreach file,$(HELP_FILES),help/C/$(file))
+EXPANDED_HELP_IMAGES = $(foreach file,$(HELP_IMAGES),help/C/figures/$(file))
 VALA_STAMP = $(BUILD_DIR)/.stamp
 LANG_STAMP = $(LOCAL_LANG_DIR)/.langstamp
 
