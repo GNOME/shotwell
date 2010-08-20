@@ -8,9 +8,9 @@
 
 	<title>Publishing to the Web</title>
 
-    <p>Shotwell can publish photos to Facebook, Flickr, and Picasa Web Albums, all of which require an account, which is free.</p>
+    <p>Shotwell can publish photos to Facebook, Flickr, and Picasa Web Albums, each of which requires an account.</p>
     
-    <p>To publish selected photos in a collection, choose <guiseq><gui>File</gui><gui>Publish</gui></guiseq>or press the <gui>Publish</gui> toolbar button.
+    <p>To publish selected photos in a collection, choose <guiseq><gui>File</gui><gui>Publish</gui></guiseq> or press the <gui>Publish</gui> toolbar button.
     You will see a dialog that lets you select a publishing service.  You will then need to log in or create an account.</p>
     
     <p>Publishing to Facebook requires you to grant certain permissions to the Shotwell Connect Facebook application.
