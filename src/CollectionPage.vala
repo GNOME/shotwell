@@ -1087,6 +1087,7 @@ public abstract class CollectionPage : CheckerboardPage {
     protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool one_selected = get_view().get_selected_count() == 1;
+        bool revert_possible = can_revert_selected();
 #if !NO_RAW
         bool is_single_raw = one_selected &&
             ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
@@ -1098,6 +1099,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipHorizontally", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipVertically", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
+        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/EditTitle", one_selected);
         set_item_sensitive("/CollectionMenuBar/PhotosMenu/Rate", selected);

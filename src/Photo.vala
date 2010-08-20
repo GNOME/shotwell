@@ -2638,7 +2638,7 @@ public abstract class TransformablePhoto: PhotoSource {
         if (timestamp_changed)
             alteration = new Alteration.from_list("metadata:editable-timestamp,metadata:baseline-timestamp");
         
-        if (filesize_changed) {
+        if (filesize_changed || new_reader != null) {
             Alteration changed_alteration = new Alteration.from_list("image:editable,image:baseline");
             alteration = (alteration == null) ? changed_alteration : alteration.compress(changed_alteration);
         }
