@@ -16,6 +16,6 @@
     Likewise, the original photo is a RAW file, select <guiseq><gui>Photos</gui><gui>Open With RAW Editor</gui></guiseq> to edit the RAW file directly with the set RAW editor.</p>
 
     <p>When you complete your edits and save the file, Shotwell will detect the changes and update the photo.
-    When external edits have been made, the <gui>Shift</gui> key in full-window view will show the externally edited photo rather than the original.
+    When external edits have been made, the <key>Shift</key> key in full-window view will show the externally edited photo rather than the original.
     Reverting to original, however, will erase any external edits.</p>
 </page>

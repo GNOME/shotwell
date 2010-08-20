@@ -10,33 +10,33 @@
 
     <p>You may remove photos from your library and you may additionally delete them entirely from your hard disk.</p>
 <media type="image" src="figures/trash_process.png">Delete process</media>
-<p>This diagram shows how the photo, when deleted, first is put into Shotwell trash, and then, if deleted from Shotwell trash, is put into your computer's trash. If you delete it from your computer's trash the photo is finally and irretrievably deleted from your storage medium.</p>
+<p>This diagram shows how a photo, when deleted, is first put into Shotwell's trash. If you delete it from Shotwell's trash, it is put into your computer's trash. If you delete it from your computer's trash the photo is finally and irretrievably deleted from your storage medium.</p>
 <section id="delete-remove">
 	<title>Removing your photos from the library</title>
     <p>Select them and choose <guiseq><gui>Edit</gui><gui>Move to Trash</gui></guiseq>.
-    (You can also press the Delete key.)
+    (You can also press the <key>Delete</key> key.)
     The photos will be moved from your library to Shotwell's Trash.</p>
-    <p>If you want to remove photos from Shotwell without having them pass through the trash, simply select the photos to be removed and choose <guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>.</p>
+    <p>If you want to remove photos from Shotwell without having them pass through the trash, simply select the photos to be removed and choose <guiseq><gui>Edit</gui><gui>Remove From Library</gui></guiseq>.  The photo files will be left in place on disk.</p>
 </section>
 
 <section id="delete-empty">
 	<title>Emptying or restoring the trash folder</title>
-    <p>Select the Trash entry in the Sidebar (the bottom item) and Shotwell will display all photos that you have marked for removal or deletion.</p>
-    <list>
-    <item><p>Delete - delete selected from the trash folder</p></item>
-    <item><p>Restore - restore selected photos into Shotwell</p></item>
-    <item><p>Empty trash - remove all the photos from the trash folder</p></item>
-    </list>
+    <p>Select the Trash entry in the Sidebar and Shotwell will display all photos that you have marked for removal or deletion.  In the Trash view, the following commands are available:</p>
+    <terms>
+    <item><title>Delete</title><p>Delete the selected photos from the trash folder.</p></item>
+    <item><title>Restore</title><p>Restore the selected photos into Shotwell.</p></item>
+    <item><title>Empty trash</title><p>Delete all photos from the trash folder.</p></item>
+    </terms>
 </section>    
     
 <section id="delete-trash">
 	<title>Deleting or emptying Trash</title>
-    <p>When you choose to delete files from the Trash folder or empty the Trash folder you will be given the following choices:</p>
-    <list>
-    <item><p>Cancel - do nothing</p></item>
-    <item><p>Only remove - remove from the library but leave the photos in their location on the storage medium</p></item>
-    <item><p>Trash file - remove the photos from the library and additionally delete them from the storage medium</p></item>
-    </list>    
+    <p>When you delete files from the Trash folder or empty the Trash folder, you will be given the following choices:</p>
+    <terms>
+    <item><title>Only Remove</title><p>Remove photos from the library but leave the photos in their location on the storage medium.</p></item>
+    <item><title>Trash file</title><p>Remove photos from the library and delete them from the storage medium.</p></item>
+    <item><title>Cancel</title><p>Do nothing.</p></item>
+    </terms>    
 </section>
     
 </page>

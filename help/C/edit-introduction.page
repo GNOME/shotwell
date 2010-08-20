@@ -12,7 +12,7 @@
 
 <p>If you want to see what a photo looked like before your modifications, press and hold the <key>Shift</key> key. The original photo will display as long as you hold the key down.</p>
 
-<p>Note that Shotwell's RAW support is limited. When you view a RAW photo, you are actually viewing a JPEG derived from the RAW photo, not the RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit--you will only be able to export edited photos as 8-bit JPEG or PNG files. We hope to improve this soon.</p>
+<p>Note that Shotwell's RAW support is currently limited. When you view a RAW photo, you are actually viewing a JPEG derived from the RAW photo, not the RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit&#x2014;you can only export edited photos as 8-bit JPEG or PNG files.</p>
     
 </page>
 
