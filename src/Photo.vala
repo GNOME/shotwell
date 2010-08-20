@@ -2697,6 +2697,9 @@ public abstract class TransformablePhoto: PhotoSource {
                     err.message);
             }
         }
+        
+        if (has_editable || remove_transformations)
+            notify_altered(new Alteration("image", "revert"));
     }
     
     private void on_editable_file_changed(File file, File? other_file, FileMonitorEvent event) {
