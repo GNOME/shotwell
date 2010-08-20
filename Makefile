@@ -229,7 +229,6 @@ HELP_FILES = \
 	organize-title.page \
 	other-missing.page \
 	other-multiple.page \
-	other-standalone.page \
 	running.page \
 	share-background.page \
 	share-export.page \
