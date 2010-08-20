@@ -677,7 +677,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         // if running from the build directory, launch the help from there ... don't just search for
         // the directory (because /usr/bin/help is a perfectly reasonable file to see), but look
         // for the index.page, which gives a good clue that this is what we want
-        File help_dir = AppDirs.get_exec_dir().get_child("help");
+        //
+        // TODO: Need to look for internationalized help before falling back on help/C
+        File help_dir = AppDirs.get_exec_dir().get_child("help").get_child("C");
         File help_index = help_dir.get_child("index.page");
         if (help_index.query_exists(null)) {
             // yelp (i.e. gnome-help) requires the trailing slash when executing help this way
