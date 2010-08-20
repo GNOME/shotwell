@@ -670,9 +670,7 @@ public class PublishingDialog : Gtk.Dialog {
     private PublishingDialogPane active_pane;
     private ServiceInteractor interactor;
 
-    public PublishingDialog(Gee.Iterable<DataView> to_publish) {
-        active_instance = this;
-
+    private PublishingDialog(Gee.Iterable<DataView> to_publish) {
         set_title(_("Publish Photos"));
         resizable = false;
         delete_event.connect(on_window_close);
@@ -730,14 +728,28 @@ public class PublishingDialog : Gtk.Dialog {
         close_cancel_button.show_all();
 
         set_standard_window_mode();
-
+    }
+    
+    private void setup_service_interactor() {
         Config config = Config.get_instance();
         service_selector_box.set_active(config.get_default_service());
 
         interactor = ServiceFactory.get_instance().create_interactor(this,
             service_selector_box.get_active_text());
-
-        interactor.start_interaction();
+        
+        get_interactor().start_interaction();
+    }
+    
+    // PublishingDialog is set up with a singleton structure because the code in setup_service_interactor() 
+    // spins the Gtk event loop. This opens the possibility for multiple publish button presses being 
+    // registered, and therefore multiple windows being created. See http://trac.yorba.org/ticket/2428
+    public static void go(Gee.Iterable<DataView> to_publish) {
+        if (active_instance != null)
+            return;
+        
+        active_instance = new PublishingDialog(to_publish);
+        active_instance.setup_service_interactor();
+        active_instance.run();
     }
 
     private void on_close_cancel_clicked() {
@@ -746,11 +758,15 @@ public class PublishingDialog : Gtk.Dialog {
 
         hide();
         destroy();
+        
+        active_instance = null;
     }
 
     private bool on_window_close(Gdk.Event evt) {
         hide();
         destroy();
+        
+        active_instance = null;
 
         return true;
     }

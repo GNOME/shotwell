@@ -2800,9 +2800,7 @@ public class LibraryPhotoPage : EditingHostPage {
         if (get_view().get_count() == 0)
             return;
         
-        PublishingDialog publishing_dialog = new PublishingDialog(
-            (Gee.Iterable<DataView>) get_view().get_all());
-        publishing_dialog.run();
+        PublishingDialog.go((Gee.Iterable<DataView>) get_view().get_all());
     }
 #endif
     
