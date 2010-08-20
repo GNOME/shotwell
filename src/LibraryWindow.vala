@@ -486,6 +486,8 @@ public class LibraryWindow : AppWindow {
         to_remove.add_all(LibraryPhoto.global.get_trashcan());
         
         remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash..."));
+        
+        AppWindow.get_command_manager().reset();
     }
     
     public int get_events_sort() {
