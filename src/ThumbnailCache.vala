@@ -141,6 +141,8 @@ public class ThumbnailCache : Object {
     
     private static OneShotScheduler debug_scheduler = null;
     private static int cycle_fetched_thumbnails = 0;
+    private static int cycle_async_fetched_thumbnails = 0;
+    private static int cycle_async_resized_thumbnails = 0;
     private static int cycle_overflow_thumbnails = 0;
     private static ulong cycle_dropped_bytes = 0;
     
@@ -285,6 +287,16 @@ public class ThumbnailCache : Object {
             cycle_fetched_thumbnails = 0;
         }
         
+        if (cycle_async_fetched_thumbnails > 0) {
+            debug("%d thumbnails fetched async into memory", cycle_async_fetched_thumbnails);
+            cycle_async_fetched_thumbnails = 0;
+        }
+        
+        if (cycle_async_resized_thumbnails > 0) {
+            debug("%d thumbnails resized async into memory", cycle_async_resized_thumbnails);
+            cycle_async_resized_thumbnails = 0;
+        }
+        
         if (cycle_overflow_thumbnails > 0) {
             debug("%d thumbnails overflowed from memory cache", cycle_overflow_thumbnails);
             cycle_overflow_thumbnails = 0;
@@ -353,9 +365,18 @@ public class ThumbnailCache : Object {
     private static void async_fetch_completion_callback(BackgroundJob background_job) {
         AsyncFetchJob job = (AsyncFetchJob) background_job;
         
-        // only store in cache if fetched, not pre-fetched
-        if (job.unscaled != null && job.fetched)
-            job.cache.store_in_memory(job.thumbnail_name, job.unscaled);
+        if (job.unscaled != null) {
+            if (job.fetched) {
+                // only store in cache if fetched, not pre-fetched
+                job.cache.store_in_memory(job.thumbnail_name, job.unscaled);
+                
+                cycle_async_fetched_thumbnails++;
+                schedule_debug();
+            } else {
+                cycle_async_resized_thumbnails++;
+                schedule_debug();
+            }
+        }
         
         job.callback(job.scaled, job.unscaled, job.dim, job.interp, job.err);
     }

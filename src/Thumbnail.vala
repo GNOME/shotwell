@@ -30,7 +30,9 @@ public class Thumbnail : CheckerboardItem {
     private Cancellable cancellable = null;
     private bool hq_scheduled = false;
     private bool hq_reschedule = false;
-    private bool exposure = true;
+    // this is cached locally because there are situations where the constant calls to is_exposed()
+    // was showing up in sysprof
+    private bool exposure = false;
     
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
