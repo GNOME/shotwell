@@ -1,0 +1,15 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="other-missing">
+
+    <info>
+        <link type="guide" xref="index#other"/>
+    </info>
+
+	<title>Missing Photos</title>
+
+<p>Each time Shotwell starts up, it will scan your photo library to verify that all photo files still exist on your hard drive. If Shotwell finds that any photo files are missing, it will not display them in the normal Photos, Events and Tags views, but will instead show them in a separate Missing Files view which will appear in the sidebar. If you no longer want the missing files to be part of your Shotwell collection, go to the Missing Files view, select the photos and then press the Remove From Library button.</p>
+
+<p>If any missing photo files become available again, Shotwell will notice this the next time it starts. The photos will once again appear in the Photos, Events and Tags views.</p>
+</page>
+

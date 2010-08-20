@@ -4,6 +4,10 @@
 
 	<info>
 		<credit type="author">
+		    <name>Jim Nelson</name>
+		    <email>jim@yorba.org</email>
+		    <name>Allison Barlow</name>
+		    <email>allison@yorba.org</email>
 			<name>Robert Ancell</name>
 			<email>robert.ancell@canonical.com</email>
 			<name>Peter Smith</name>
@@ -33,5 +37,9 @@
 
     <section id="share" style="2column">
         <title>Sharing Photos</title>
+    </section>
+
+    <section id="other" style="2column">
+        <title>Other Features</title>
     </section>
 </page>

@@ -12,14 +12,16 @@
 <p>You can rate a photo in any of these ways:</p>
 
 <list>
-<item><p>Select the photo, then choose a rating from the top-level Photos ▸ Set Rating menu.</p></item>
-<item><p>Right click the photo, then choose a rating from the Set Rating context menu</p></item>
-<item><p>Select the photo, then press any of the shortcut keys 1, 2, 3, 4 or 5 to assign a rating. Or press 9 to mark the photo as rejected or 0 to clear its rating.</p></item>
+<item><p>Select the photo, then choose a rating from the top-level <guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu.</p></item>
+<item><p>Right click the photo, then choose a rating from the Set Rating context menu.</p></item>
+<item><p>Select the photo, then press any of the shortcut keys <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. Or press <key>9</key> to mark the photo as rejected or <key>0</key> to clear its rating.</p></item>
 </list>
 
-Normally Shotwell displays all photos except rejected photos. You can set a different rating filter using the View ▸ Filter Photos menu - for example, you can display only photos rated with 3 stars or higher, or you can display all photos including those marked rejected. The Shotwell icon on the toolbar displays the current rating filter and can also be used to set the filter.
+<p>
+Normally Shotwell displays all photos except rejected photos. You can set a different rating filter using the <guiseq><gui>View</gui><gui>Filter Photos</gui></guiseq> menu - for example, you can display only photos rated with 3 stars or higher, or you can display all photos including those marked rejected. The Shotwell icon on the toolbar displays the current rating filter and can also be used to set the filter.</p>
 
-Shotwell normally displays each photo's rating in its lower left-hand corner. You can turn off the display of ratings using the View ▸ Ratings menu item.
+<p>Shotwell normally displays each photo's rating in its lower left-hand corner. You can turn off the display of ratings using the <guiseq><gui>View</gui><gui>Ratings</gui></guiseq> menu item.</p>
 
-You can increase or decrease a photo's rating using the Set Rating ▸ Increase and Set Rating ▸ Decrease commands, or the keyboard shortcuts '<' and '>'. 
+<p>You can increase or decrease a photo's rating using the <guiseq><gui>Set Rating</gui><gui>Increase</gui></guiseq> and <guiseq><gui>Set Rating</gui><gui>Decrease</gui></guiseq> commands, or the keyboard shortcuts <key>&lt;</key> and <key>&gt;</key>. </p>
 </page>
+

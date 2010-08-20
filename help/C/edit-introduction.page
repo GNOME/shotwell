@@ -6,20 +6,13 @@
         <link type="guide" xref="index#edit"/>
     </info>
 
-	<title>1. Introduction to editing</title>
+	<title>About Editing</title>
 
-    <p>The editing features that Shotwell provide are intended to allow you to perform common editing operations quickly and require a minimum of knowledge and skill. They will in most cases give good to adequate results. Where you need something better you can call an external editor from within Shotwell.</p>
-    
-    <p>Editing can be done on the intermediate size image and on the full screen image. In both views and editing toolbar is shown at the bottom of the image.</p>
+<p>Shotwell is a non-destructive photo editor. It does not modify your original photographs. That is to say, if you rotate or crop a photo, the copy in your library remains untouched. Shotwell stores your edits in a database and applies them on the fly as necessary. This means you can always undo any alterations you make to a photograph.</p>
 
-<media type="image" src="figures/edit_toolbar.png">Delete process</media>
+<p>If you want to see what a photo looked like before your modifications, press and hold the <key>Shift</key> key. The original photo will display as long as you hold the key down.</p>
 
-<section id="edit-non-destructive">
-	<title>Non-destructive editing</title>
-    <p>Editing in Shotwell is non-destructive. This means your original is left unchanged. The edits are stored as a set of commands which are applied just before the image is displayed. One consequence of this is that you can easily undo the edits.</p>
-    <p>If you wish to use the edited image for other purposes you must first export the image (File | Export)</p>
-</section>
-
-
+<p>Note that Shotwell's RAW support is limited. When you view a RAW photo, you are actually viewing a JPEG derived from the RAW photo, not the RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit--you will only be able to export edited photos as 8-bit JPEG or PNG files. We hope to improve this soon.</p>
     
 </page>
+

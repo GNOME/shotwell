@@ -208,13 +208,14 @@ ICON_FILES = \
 	shotwell-24.svg
 
 HELP_FILES = \
+    edit-adjustments.page \
 	edit-crop.page \
 	edit-enhance.page \
 	edit-external.page \
 	edit-introduction.page \
-	edit-multiple.page \
 	edit-redeye.page \
 	edit-rotate.page \
+	edit-time-date.page \
 	edit-undo.page \
 	import-camera.page \
 	import-file.page \
@@ -226,7 +227,12 @@ HELP_FILES = \
 	organize-remove.page \
 	organize-tag.page \
 	organize-title.page \
+	other-missing.page \
+	other-multiple.page \
+	other-standalone.page \
+	running.page \
 	share-background.page \
+	share-export.page \
 	share-print.page \
 	share-slideshow.page \
 	share-upload.page \

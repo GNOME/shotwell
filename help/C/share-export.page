@@ -1,0 +1,22 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="share-export">
+
+    <info>
+        <link type="guide" xref="index#share"/>
+    </info>
+
+	<title>Exporting</title>
+
+<p>You can export your photos from Shotwell in one of two ways:</p>
+
+<list>
+<item><p>Drag-and-drop: You can export photos by dragging them from a collection and onto a file manager window or your desktop. The new files will be full-sized copies of the photos in your library.</p></item>
+
+<item><p><guiseq><gui>File</gui><gui>Export</gui></guiseq>: This command exports photos while letting you fine-tune the size and dimensions of your photo files. Select the photo(s) you wish to export and choose <guiseq><gui>File</gui><gui>Export</gui></guiseq>. A dialog box will appear allowing you to choose the image quality (Low, Medium, High, and Maximum), the Scaling constraint (which means how Shotwell will decide to scale the photos down), and the desired pixel size. All of these criteria go into determining the final size of the photo file.</p></item>
+</list>
+
+<p>On export, Shotwell will write tags, titles, and other metadata to the new files.</p>
+
+</page>
+
