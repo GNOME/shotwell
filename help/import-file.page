@@ -6,19 +6,18 @@
         <link type="guide" xref="index#import"/>
     </info>
 
-	<title>Importing from Files</title>
+	<title>Importing From Files</title>
 
-    <p>Simply drag photos from your file manager and drop them onto the Shotwell window.
-    You may drag files or directories.
-    The photos will be imported into your library.
-    By default, you'll be asked if you want to copy the photo files to your library directory (usually this is the Pictures directory in your home directory).
-    To avoid this prompt, if you hold down Ctrl while dragging photos in, Shotwell will import the photos and copy the files.
-    Similarly, if you hold down Ctrl+Shift while dragging photos in, Shotwell will import the photos without copying them.</p>
+    <p>To import photo files from your hard drive into Shotwell:</p>
 
-    <p>You can also import using <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq> and select a directory from the chooser dialog box.
-    Shotwell will scan the directory and all subdirectories for photo files and automatically import them.
-    Once you select a directory, you will be asked whether you want to copy the photo files to your library directory or not.</p>
-    <p>Your photos will be imported and you will be shown previews of the photos as they are imported. Shotwell will import jpeg photos, RAW photos and DNG photos. It supports the vast majority of RAW formats. During the import operation Shotwell will check for duplicates. Shotwell won't import duplicates and will notify notify you accordingly. </p>
-    <p>Select 'Last Import' in the sidebar and you will see all photos successfully imported. The Events list will also show a new entry/entries for the dates corresponding to the imported photos.</p>
-    <p>Now you may wish to tag your photos, rate them, change the event/date name or move them to another event.</p>
+    <steps>
+    <item><p>Choose <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq> and select a directory from the chooser dialog box.  Alternatively, drag files or directories from your file manager and drop them onto the Shotwell window.</p></item>
+    <item><p>
+    Shotwell will ask whether you want to copy the photo files to your library directory (usually this is the Pictures directory in your home directory) or to link them into your library without copying the files.
+    </p></item>
+    </steps>
+    
+    <p>If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will always copy photo files without prompting.  Similarly, if you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while dragging photos in, Shotwell will link the photos without copying them.</p>
+
+    <p>Once the import is complete, you can select Last Import in the sidebar to see all photos successfully imported. The Events list will also show new entries for the dates corresponding to the imported photos.</p>
 </page>

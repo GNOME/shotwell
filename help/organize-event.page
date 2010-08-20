@@ -8,12 +8,13 @@
 
 	<title>Events</title>
 
-    <p>An event is simply a group of photos that were taken at approximately the same time.
+    <p>An event is a group of photos that were taken at approximately the same time.
     When you import photos, Shotwell looks for the exposure date within the photos left by your camera.
     Shotwell then clusters the photos into events.
-    With events you can see all the photos you took the morning of Groundhog Day or last New Year's Eve.</p>
+    </p>
 
-    <p><em>Key Photos</em></p>
+    <section>
+    <title>Key Photos</title>
 
     <p>If you select the Events item in the sidebar, you'll see a single photo which represents each event.
     This is called the key photo.
@@ -21,27 +22,38 @@
 
     <p>By default, Shotwell uses the first photo in each event as its key photo.
     To use a different key photo, select it and choose <guiseq><gui>Photos</gui><gui>Make Key Photo for Event</gui></guiseq>.</p>
-    <p><em>Renaming events</em></p>
+    
+    </section>
+    
+    <section>
+    <title>Renaming events</title>
 
     <p>To give an event a name rather than refer to it by its date, choose <guiseq><gui>Edit</gui><gui>Rename Event...</gui></guiseq> and enter a new name.</p>
 
-    <p><em>Moving Photos</em></p>
+    </section>
+
+    <section>
+    <title>Moving Photos</title>
 
     <p>Even though events are always stored by their date, you can move photos between events, which can affect their sort order.
     To move photos between events, drag any imported photos to the sidebar and drop them on an event name.</p>
 
-    <p><em>Creating new events and merging events</em></p>
-    <p>There are two more ways to manipulate events: creating new events and merging events.
+    </section>
+
+    <section>
+    <title>Creating new events and merging events</title>
+    <p>
     To create a new event, select the photos you would like in the new event and choose <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>.
     To merge events, navigate to the Events item in the sidebar, or any of the other pages in the hierarchy that store events.
     Select the events you wish to merge and choose <guiseq><gui>Events</gui><gui>Merge Events</gui></guiseq>.</p>
+    
+    </section>
 
-    <p><em>The sidebar events</em></p>
+    <section>
+    <title>The sidebar events</title>
 
     <p>In the sidebar, the events are stored in a tree by year and month of the earliest photo in the event.
-    You can't move events around in the hierarchy directly ‒ they're always stored sorted by their date.
-    You can, however, choose to sort events in ascending or descending order;
-    to change the sort order, choose <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select either ascending or descending.</p>
+    To change the event sort order, choose <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select either ascending or descending.</p>
     
-    <!-- FIXME: See also tags -->
+    </section>
 </page>

@@ -7,13 +7,19 @@
     </info>
 
 	<title>Ratings</title>
+<p>You can assign each photo a rating from 1-5 stars, or may alternatively rate it as Rejected, in which case Shotwell will hide the photo by default.</p>
 
-    <p>Each photo can be unrated or be assigned a rating from one to five stars.
-    To set a rating select a photo and set the rating from the <guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu.</p>
-    <p>You can use the number keys (0,1,2,3,4,5) as shortcuts to set ratings where 0 means unrated.
-    You can also use the <key>&lt;</key> and <key>&gt;</key> keys to decrease and increase ratings.</p>
-    <p>A corresponding number of stars are shown on the thumbnail, preview and full screen images.</p>
-    <p>Photos can be marked as rejected by pressing the 9 key. A red cross is shown on the images</p>
-    <p>As shown in the image below, you can use the rating to filter the images shown</p>
-    <media type="image" src="figures/select_rating.png">Select rating</media>
+<p>You can rate a photo in any of these ways:</p>
+
+<list>
+<item><p>Select the photo, then choose a rating from the top-level Photos ▸ Set Rating menu.</p></item>
+<item><p>Right click the photo, then choose a rating from the Set Rating context menu</p></item>
+<item><p>Select the photo, then press any of the shortcut keys 1, 2, 3, 4 or 5 to assign a rating. Or press 9 to mark the photo as rejected or 0 to clear its rating.</p></item>
+</list>
+
+Normally Shotwell displays all photos except rejected photos. You can set a different rating filter using the View ▸ Filter Photos menu - for example, you can display only photos rated with 3 stars or higher, or you can display all photos including those marked rejected. The Shotwell icon on the toolbar displays the current rating filter and can also be used to set the filter.
+
+Shotwell normally displays each photo's rating in its lower left-hand corner. You can turn off the display of ratings using the View ▸ Ratings menu item.
+
+You can increase or decrease a photo's rating using the Set Rating ▸ Increase and Set Rating ▸ Decrease commands, or the keyboard shortcuts '<' and '>'. 
 </page>

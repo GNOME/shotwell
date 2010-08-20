@@ -208,54 +208,37 @@ ICON_FILES = \
 	shotwell-24.svg
 
 HELP_FILES = \
-	advanced-startup.page \
-	advanced-where.page \
-	background.page \
-	browse-navigate.page \
-	browse-view.page \
 	edit-crop.page \
 	edit-enhance.page \
 	edit-external.page \
+	edit-introduction.page \
 	edit-multiple.page \
 	edit-redeye.page \
 	edit-rotate.page \
 	edit-undo.page \
-	features-browsing.page \
-	features-editing.page \
-	features-importing.page \
-	features-introduction.page \
-	features-organizing.page \
-	features-sharing.page \
 	import-camera.page \
 	import-file.page \
 	import-f-spot.page \
 	index.page \
-	organize-delete.page \
+	introduction.page \
 	organize-event.page \
 	organize-rating.page \
+	organize-remove.page \
 	organize-tag.page \
 	organize-title.page \
+	share-background.page \
 	share-print.page \
 	share-slideshow.page \
-	share-upload.page
+	share-upload.page \
+	view-displaying.page \
+	view-information.page \
+	view-sidebar.page
 
 HELP_IMAGES = \
-	adjust.png \
-	autoenhance.png \
-	crop.png \
-	direct.png \
 	editing_overview.png \
-	fullwindow.png \
-	grandma_favorites.png \
-	grandma.png \
-	key_photo.png \
-	photos_collection.png \
-	preferences.png \
-	publish.png \
-	select_rating.png \
+	edit_toolbar.png \
 	shotwell_logo.png \
-	tags.png \
-	time.png
+	trash_process.png
 
 VAPI_DIRS = \
 	./vapi

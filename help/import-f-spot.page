@@ -6,13 +6,14 @@
         <link type="guide" xref="index#import"/>
     </info>
 
-	<title>Importing from F-Spot</title>
+	<title>Importing From F-Spot</title>
 
-    <p>You may import an existing photo collection from F-Spot.</p>
-    <p>Select <guiseq><gui>File</gui><gui>Import From F-Spot...</gui></guiseq> </p>
-    <p>Now choose whether to use the default F-Spot library or another F-Spot database.
-    If another F-Spot database select a directory and file from the chooser dialog box.</p>
-    <p>Your photos will be imported, together with their tags and metadata. During the import operation Shotwell will check for duplicates. Shotwell won't import duplicates and will notify notify you accordingly. </p>
-    <p>Select 'Last Import' in the sidebar and you will see all photos successfully imported. The Events list will also show a new entry/entries for the dates corresponding to the imported photos.</p>
-    <p>Now you may wish to tag your photos, rate them, change the event/date name or move them to another event.</p>
+    <p>To import an existing photo collection from F-Spot:</p>
+    <steps>
+    <item><p>Select <guiseq><gui>File</gui><gui>Import From F-Spot...</gui></guiseq> </p></item>
+    <item><p>Now choose whether to use the default F-Spot library or another F-Spot database.
+    If importing from another F-Spot database, select a directory and file from the chooser dialog box.</p></item>
+    </steps>
+    <p>Shotwell will import your photos, together with their tags and metadata.
+    Once the import is complete, you can select Last Import in the sidebar to see all photos successfully imported. The Events list will also show new entries for the dates corresponding to the imported photos.</p>
 </page>

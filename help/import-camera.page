@@ -6,13 +6,16 @@
         <link type="guide" xref="index#import"/>
     </info>
 
-	<title>Importing from a Camera</title>
+	<title>Importing From a Camera</title>
 
-    <p>Connect your digital camera to your computer.
-    Shotwell will detect it and list it in the sidebar under a new entry 'Cameras'.
-    When you select the camera, Shotwell will load previews of each photo.
-    You may choose specific photos to import or to import them all. Ctrl-Click to select individual photos and Shift-Click to select a range of photos</p>
-    <p>Your photos will be imported and you will be shown previews of the photos as they are imported. Shotwell will import jpeg photos, RAW photos and DNG photos. It supports the vast majority of RAW formats. During the import operation Shotwell will check for duplicates. Shotwell won't import duplicates and will notify notify you accordingly. </p>
-    <p>Select 'Last Import' in the sidebar and you will see all photos successfully imported. The Events list will also show a new entry/entries for the dates corresponding to the imported photos.</p>
-    <p>Now you may wish to tag your photos, rate them, change the event/date name or move them to another event.</p>
+    <p>To import photos from a digital camera:</p>
+
+    <steps>
+    <item><p>Connect your camera to your computer.
+    Shotwell will detect it and list it in the sidebar.</p></item>
+    <item><p>Select the camera in the sidebar.  Shotwell will display previews of each photo on the camera.</p></item>
+    <item><p>Optionally, choose a set of specific photos to import. To do this, use <keyseq><key>Ctrl</key>Click</keyseq> to select individual photos and <keyseq><key>Shift</key>Click</keyseq> to select a range of photos.</p></item>
+    <item><p>Press either <gui>Imported Selected</gui> or <gui>Import All</gui>.</p></item>
+    </steps>
+    <p>Once the import is complete, you can open the Last Import view to see all photos successfully imported. The Events tree will also show new entries for the dates corresponding to the imported photos.</p>
 </page>

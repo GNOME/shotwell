@@ -1,0 +1,16 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="view-information">
+
+    <info>
+        <link type="guide" xref="index#view"/>
+    </info>
+
+	<title>Basic and Extended Information</title>
+
+<p>The Basic Information pane appears at the bottom of the sidebar, and displays a brief summary of the photos you've selected. If no photos are selected, it displays a summary of the entire collection. You can toggle the display of this pane using the <guiseq><gui>View</gui><gui>Basic Information</gui></guiseq> command.</p>
+
+<p>The floating Extended Information window displays more information about the selected photo.  The <guiseq><gui>View</gui><gui>Extended Information</gui></guiseq> command toggles the display of this window.</p>
+
+</page>
+

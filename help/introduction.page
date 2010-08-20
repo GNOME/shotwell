@@ -1,0 +1,18 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="introduction">
+
+    <info>
+        <link type="guide" xref="index"/>
+    </info>
+
+	<title>Introduction</title>
+
+    <p>Shotwell is a capable photo manager that is simple, fast and easy to use.
+    It lets you import photos from disk or camera, organize and view them in various ways, and export them to share with others. 
+    </p>
+    
+    <p>This quick reference guide describes how to use Shotwell's most important features.  For in-depth documentation on Shotwell, read the Shotwell user's guide, which you can access through the <guiseq><gui>Help</gui><gui>User Manual</gui></guiseq> command.
+    </p>
+</page>
+

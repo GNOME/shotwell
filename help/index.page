@@ -13,37 +13,25 @@
 	</info>
 
 
-	<title><media type="image" src="figures/shotwell_logo.png"></media>Shotwell Help</title>
+	<title><media type="image" src="figures/shotwell_logo.png"></media>Shotwell</title>
     
-    <section id="features" style="2column">
-        <title>Shotwell features</title>
+    <section id="import" style="2column">
+        <title>Importing Photos</title>
     </section>
 
-    <section id="import" style="2column">
-        <title>Importing Your Photos</title>
+    <section id="view" style="2column">
+        <title>Viewing Photos</title>
     </section>
 
     <section id="organize" style="2column">
-        <title>Organizing Your Photos</title>
-    </section>
-
-    <section id="browse" style="2column">
-        <title>Browsing Your Photos</title>
+        <title>Organizing Photos</title>
     </section>
 
     <section id="edit" style="2column">
-        <title>Editing Your Photos</title>
+        <title>Editing Photos</title>
     </section>
 
     <section id="share" style="2column">
-        <title>Sharing Your Photos</title>
-    </section>
-
-    <section id="shortcuts" style="2column">
-        <title>Keyboard shortcuts</title>
-    </section>
-
-    <section id="advanced" style="2column">
-        <title>Advanced features</title>
+        <title>Sharing Photos</title>
     </section>
 </page>
