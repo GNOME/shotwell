@@ -13,9 +13,9 @@
     You may also make a mirror image of any photo.</p>
     
     <p>To rotate right, click on the button.
-    To rotate left, press and hold the <gui>Ctrl</gui> key and then click the button.
+    To rotate left, press and hold the <key>Ctrl</key> key and then click the button.
     Both commands are available in the <gui>Photos</gui> menu.</p>
 
-    <p>If you wish to create a mirror image of the photo, use the <gui>Mirror</gui> command in the <gui>Photos</gui> menu.
-    To flip an image vertically, use the <gui>Flip</gui> command in the same menu.</p>
+    <p>If you wish to create a mirror image of the photo, use the <gui>Flip Horizontally</gui> command in the <gui>Photos</gui> menu.
+    To flip an image vertically, use the <gui>Flip Vertically</gui> command in the same menu.</p>
 </page>

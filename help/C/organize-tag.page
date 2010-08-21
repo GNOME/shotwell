@@ -10,15 +10,14 @@
 
     <p>You can assign one or more tags to selected photos.
     A tag can be one or more words that you want to associate with those photos.</p>
-    <p>Tagging is probably the most important thing you can do to organize your photos so that you can easliy browse them or find them.</p>
     
-    <p>To add new tags to photos, select the photos you would like to tag, then</p>
+    <p>To add new tags to photos, select the photos you would like to tag, then do any of the following:</p>
     <list>
-    <item><p>choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> or</p></item>
-    <item><p>type Ctrl-T, or</p></item>
-    <item><p>drag the selected photos and drop them on the desired tag</p></item>
+    <item><p>Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>.</p></item>
+    <item><p>Type <keyseq><key>Ctrl</key><key>T</key></keyseq>.</p></item>
+    <item><p>Drag the selected photos and drop them on the desired tag.</p></item>
     </list>
-     <p>When you use Ctrl-T or <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the names of one or more tags, separated by commas.
+     <p>When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the names of one or more tags, separated by commas.
     Once you have created a tag, you can rename it by selecting that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "[name]"...</gui></guiseq></p>
     
     <p>To change which tags are associated with a particular photo, select that photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> and edit the comma separated list.

@@ -13,10 +13,10 @@
     That is to say, if you rotate or crop a photo, the copy in your library remains untouched.
     Shotwell stores your edits in a database and applies them on the fly as necessary.</p>
 
-    <p>This means you can always undo any alterations you make to a photograph.
+    <p>This means you can undo any alterations you make to a photograph.
     To completely undo all the changes you've made to a photograph, use <guiseq><gui>Photos</gui><gui>Revert to Original</gui></guiseq>.
     The only exception is that time and date adjustments will not be reverted with this command.</p>
 
-    <p>If you want to see what a photo looked like before your modifications, press and hold the Shift key.
+    <p>If you want to see what a photo looked like before your modifications, press the <key>Shift</key> key.
     The original photo will display as long as you hold the key down.</p>
 </page>

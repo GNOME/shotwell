@@ -9,12 +9,12 @@
 	<title>Ratings</title>
 <p>You can assign each photo a rating from 1-5 stars, or may alternatively rate it as Rejected, in which case Shotwell will hide the photo by default.</p>
 
-<p>You can rate a photo in any of these ways:</p>
+<p>You can rate a photo or a set of photos in any of these ways:</p>
 
 <list>
-<item><p>Select the photo, then choose a rating from the top-level <guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu.</p></item>
-<item><p>Right click the photo, then choose a rating from the Set Rating context menu.</p></item>
-<item><p>Select the photo, then press any of the shortcut keys <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. Or press <key>9</key> to mark the photo as rejected or <key>0</key> to clear its rating.</p></item>
+<item><p>Select the photo(s), then choose a rating from the top-level <guiseq><gui>Photos</gui><gui>Set Rating</gui></guiseq> menu.</p></item>
+<item><p>Right click on the photo(s), then choose a rating from the Set Rating context menu.</p></item>
+<item><p>Select the photo(s), then press any of the shortcut keys <key>1</key>, <key>2</key>, <key>3</key>, <key>4</key> or <key>5</key> to assign a rating. Or press <key>9</key> to mark the photo(s) as rejected or <key>0</key> to clear the rating(s).</p></item>
 </list>
 
 <p>

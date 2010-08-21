@@ -8,11 +8,9 @@
 
 	<title>Running Shotwell</title>
 
-<p>Shotwell may be executed directly from its build directory, although this is only recommended for testing out Shotwell or developers.</p>
-
 <p>Once installed, Shotwell is available in your <gui>Applications</gui> menu under <gui>Graphics</gui> or <gui>Photography</gui>. Shotwell may also be executed automatically when a camera is plugged in to your computer. Check your <gui>Preferred Applications</gui> settings to enable Shotwell to run when a camera is detected.</p>
 
-<p>When you first run Shotwell, you'll be presented with an empty window and three views: Photos, Events and Trash. Your first task will be to begin populating your photo library.</p>
+<p>Shotwell may also be executed directly from its build directory, although this is only recommended for testing out Shotwell or for developers.</p>
    
 </page>
 

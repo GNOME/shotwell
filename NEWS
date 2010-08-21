@@ -1,3 +1,19 @@
+Shotwell 0.7.0 - 20 August 2010
+-----------------------------
+
+  * Migration support for F-Spot users: Shotwell can import photos directly
+    from your F-Spot library, preserving tags and ratings.
+  * Photos can be rated on a 1-5 star scale or marked as rejected. A filter
+    button supports viewing only photos of a specified rating or better.
+  * A new Last Import page in the sidebar gives you instant access to your
+    most recently imported photo roll.
+  * Sidebar functionality and appearance have been improved with new icons
+    and inline renaming.
+  * Shotwell scans your library files at startup, looking for changes.
+    Maintains library consistency when working with photos in other
+    applications.
+
+
 Shotwell 0.6.1 - 30 June 2010
 -----------------------------
 

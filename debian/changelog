@@ -1,3 +1,22 @@
+shotwell (0.7.0-1~lucid1) lucid; urgency=low
+
+  * Migration support for F-Spot users: Shotwell can import
+    photos directly from your F-Spot library, preserving tags
+    and ratings
+  * Photos can be rated on a 1-5 star scale or marked as rejected.
+    A filter button supports viewing only photos of a specified
+    rating or better
+  * A new Last Import page in the sidebar gives you instant access
+    to your most recently imported photo roll
+  * Sidebar functionality and appearance have been improved with
+    new icons and inline renaming
+  * Shotwell scans your library files at startup, looking for
+    changes. Maintains library consistency when working with
+    photos in other applications
+
+ -- Lucas Beeler <lucas@yorba.org>  Fri, 20 Aug 2010 13:40:54 -0700 
+
+
 shotwell (0.6.1-1~lucid1) lucid; urgency=low
 
   * Added Lithuanian and Serbian translations, updated Italian

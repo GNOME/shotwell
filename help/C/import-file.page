@@ -17,7 +17,7 @@
     </p></item>
     </steps>
     
-    <p>If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will always copy photo files without prompting.  Similarly, if you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while dragging photos in, Shotwell will link the photos without copying them.</p>
+    <p>If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will copy photo files without prompting.  Similarly, if you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while dragging photos in, Shotwell will link the photos without copying them.</p>
 
     <p>Once the import is complete, you can select Last Import in the sidebar to see all photos successfully imported. The Events list will also show new entries for the dates corresponding to the imported photos.</p>
 </page>

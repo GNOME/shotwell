@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.6.91+trunk
+VERSION = 0.7.0+trunk
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
@@ -294,7 +294,7 @@ EXT_PKG_VERSIONS = \
 	glib-2.0 >= 2.24.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9 \
-	gexiv2 >= 0.1.0
+	gexiv2 >= 0.2.0
 
 LIBRAW_VERSION = \
 	0.9.0
