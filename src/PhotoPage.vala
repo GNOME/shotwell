@@ -455,29 +455,45 @@ public abstract class EditingHostPage : SinglePhotoPage {
         separator.set_draw(false);
         toolbar.insert(separator, -1);
         
-        Gtk.ToolItem zoom_out_wrapper = new Gtk.ToolItem();
+        Gtk.HBox zoom_group = new Gtk.HBox(false, 0);
+        
         Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
             Resources.ICON_ZOOM_SCALE));
-        zoom_out_wrapper.add(zoom_out);
-        toolbar.insert(zoom_out_wrapper, -1);
+        Gtk.EventBox zoom_out_box = new Gtk.EventBox();
+        zoom_out_box.set_above_child(true);
+        zoom_out_box.set_visible_window(false);
+        zoom_out_box.add(zoom_out);
+
+        zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
+
+        zoom_group.pack_start(zoom_out_box, false, false, 0);
 
         // zoom slider
         zoom_slider = new Gtk.HScale(new Gtk.Adjustment(0.0, 0.0, 1.1, 0.1, 0.1, 0.1));
         zoom_slider.set_draw_value(false);
-        Gtk.ToolItem zoom_slider_wrapper = new Gtk.ToolItem();
-        zoom_slider_wrapper.add(zoom_slider);
-        toolbar.insert(zoom_slider_wrapper, -1);
         zoom_slider.set_size_request(120, -1);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
         zoom_slider.button_press_event.connect(on_zoom_slider_drag_begin);
         zoom_slider.button_release_event.connect(on_zoom_slider_drag_end);
         zoom_slider.key_press_event.connect(on_zoom_slider_key_press);
+
+        zoom_group.pack_start(zoom_slider, false, false, 0);
         
-        Gtk.ToolItem zoom_in_wrapper = new Gtk.ToolItem();
         Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_IN,
             Resources.ICON_ZOOM_SCALE));
-        zoom_in_wrapper.add(zoom_in);
-        toolbar.insert(zoom_in_wrapper, -1);
+        Gtk.EventBox zoom_in_box = new Gtk.EventBox();
+        zoom_in_box.set_above_child(true);
+        zoom_in_box.set_visible_window(false);
+        zoom_in_box.add(zoom_in);
+        
+        zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
+
+        zoom_group.pack_start(zoom_in_box, false, false, 0);
+
+        Gtk.ToolItem group_wrapper = new Gtk.ToolItem();
+        group_wrapper.add(zoom_group);
+
+        toolbar.insert(group_wrapper, -1);
 
         // previous button
         prev_button.set_tooltip_text(_("Previous photo"));
@@ -536,7 +552,17 @@ public abstract class EditingHostPage : SinglePhotoPage {
 
         return false;
     }
-	
+
+    private bool on_zoom_out_pressed(Gdk.EventButton event) {
+        snap_zoom_to_min();
+        return true;
+    }
+    
+    private bool on_zoom_in_pressed(Gdk.EventButton event) {
+        snap_zoom_to_max();
+        return true;
+    }
+
     private Gdk.Point get_cursor_wrt_viewport(Gdk.EventScroll event) {
         Gdk.Point cursor_wrt_canvas = {0};
         cursor_wrt_canvas.x = (int) event.x;
