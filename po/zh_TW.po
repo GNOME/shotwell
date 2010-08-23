@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.0\n"
+"Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-01 15:48+0800\n"
+"PO-Revision-Date: 2010-08-23 11:22+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -712,29 +712,31 @@ msgstr "原始："
 
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:892
-#, fuzzy
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr "%Y/%m/%d, %H:%M:%S"
+msgstr "%Y/%m/%d %H:%M:%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:893
-#, fuzzy
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%Y/%m/%d, %p %i:%M:%S"
+msgstr "%Y/%m/%d %p %I:%M:%S"
 
 #: src/Dialogs.vala:978
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
-msgstr "曝光時間將往前挪動\n"
+msgstr ""
+"曝光時間將往前挪動\n"
+"%d %s、%d %s、%d %s、%d %s。"
 
 #: src/Dialogs.vala:979
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
-msgstr "曝光時間將往前挪動\n"
+msgstr ""
+"曝光時間將往後挪動\n"
+"%d %s、%d %s、%d %s、%d %s。"
 
 #: src/Dialogs.vala:981
 msgid "day"
@@ -1098,7 +1100,6 @@ msgid "Shotwell Connect"
 msgstr "Shotwell 連線"
 
 #: src/FacebookConnector.vala:16
-#, fuzzy
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
@@ -1106,7 +1107,7 @@ msgid ""
 msgstr ""
 "您目前尚未登入 Facebook。\n"
 "\n"
-"您尚未擁有 Facebook 帳號，您可以在登入程序內建立一份帳號。在登入期間，Shotwell Connect 可能會詢問您上傳相片並且發布至您饋流的許可。Shotwell Connect 需要取得這些許可權限才能運作。"
+"若您尚未擁有 Facebook 帳號，您可以在登入程序內建立一份帳號。在登入期間，Shotwell Connect 可能會詢問您上傳相片並且發布至您饋流的許可。Shotwell Connect 需要取得這些許可權限才能運作。"
 
 #: src/FacebookConnector.vala:18
 msgid ""
@@ -1916,9 +1917,8 @@ msgstr ""
 
 # The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:38
-#, fuzzy
 msgid "%I:%M %p"
-msgstr "%p %i:%M"
+msgstr "%p %I:%M"
 
 #: src/Properties.vala:50
 msgid "Today"
@@ -2717,9 +2717,8 @@ msgstr[1] "正在刪除相片"
 
 # The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:417
-#, fuzzy
 msgid "%a %b %d, %Y"
-msgstr "%Y年%B%d日%A"
+msgstr "%Y年%b%d日(%a)"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
