@@ -35,14 +35,16 @@ public class FullscreenWindow : PageWindow {
         ui.insert_action_group(action_group, 0);
         ui.ensure_update();
 
-        Gtk.AccelGroup accel_group = ui.get_accel_group();
-        if (accel_group != null)
-            add_accel_group(accel_group);
-        
         // add the accelerators for the hosted page as well
         Gtk.AccelGroup hosted_accel_group = page.ui.get_accel_group();
         if (hosted_accel_group != null)
             add_accel_group(hosted_accel_group);
+        
+        // the local accelerator group must come after host accelerator group so that they cover the
+        // old accelerator group bindings
+        Gtk.AccelGroup accel_group = ui.get_accel_group();
+        if (accel_group != null)
+            add_accel_group(accel_group);
         
         set_screen(AppWindow.get_instance().get_screen());
        	
