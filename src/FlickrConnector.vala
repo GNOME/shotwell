@@ -469,7 +469,7 @@ public class Interactor : ServiceInteractor {
         progress_pane = new ProgressPane();
         get_host().install_pane(progress_pane);
 
-        TransformablePhoto[] photos = get_host().get_photos();
+        Photo[] photos = get_host().get_photos();
         Uploader uploader = new Uploader(session, parameters, photos);
         uploader.status_updated.connect(progress_pane.set_status);
         uploader.upload_complete.connect(on_upload_complete);
@@ -587,7 +587,7 @@ private class Uploader : BatchUploader {
     private Session session;
     private PublishingParameters parameters;
 
-    public Uploader(Session session, PublishingParameters params, TransformablePhoto[] photos) {
+    public Uploader(Session session, PublishingParameters params, Photo[] photos) {
         base(photos);
 
         this.session = session;
@@ -691,7 +691,7 @@ private class AccountInfoFetchTransaction : Transaction {
 
 private class UploadTransaction : PhotoUploadTransaction {
     public UploadTransaction(Session session, PublishingParameters params, string source_file_path,
-        TransformablePhoto source_photo) {
+        Photo source_photo) {
         base.with_endpoint_url(session, "http://api.flickr.com/services/upload", source_file_path,
             source_photo);
 

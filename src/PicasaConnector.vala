@@ -406,7 +406,7 @@ public class Interactor : ServiceInteractor {
         get_host().lock_service();
         get_host().set_cancel_button_mode();
 
-        TransformablePhoto[] photos = get_host().get_photos();
+        Photo[] photos = get_host().get_photos();
         uploader = new Uploader(session, parameters, photos);
 
         uploader.upload_complete.connect(on_upload_complete);
@@ -481,7 +481,7 @@ private class Uploader : BatchUploader {
     private PublishingParameters parameters;
     private Session session;
 
-    public Uploader(Session session, PublishingParameters parameters, TransformablePhoto[] photos) {
+    public Uploader(Session session, PublishingParameters parameters, Photo[] photos) {
         base(photos);
 
         this.parameters = parameters;

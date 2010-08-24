@@ -1008,7 +1008,7 @@ public abstract class CollectionPage : CheckerboardPage {
         ScaleConstraint constraint;
         Jpeg.Quality quality;
         PhotoFileFormat format =
-            ((Gee.ArrayList<TransformablePhoto>) export_list).get(0).get_file_format();
+            ((Gee.ArrayList<Photo>) export_list).get(0).get_file_format();
         if (!export_dialog.execute(out scale, out constraint, out quality, ref format))
             return;
         
@@ -1394,7 +1394,7 @@ public abstract class CollectionPage : CheckerboardPage {
         if (get_view().get_selected_count() != 1)
             return;
         
-        TransformablePhoto photo = (TransformablePhoto) get_view().get_selected_at(0).get_source();
+        Photo photo = (Photo) get_view().get_selected_at(0).get_source();
         if (photo == null)
             return;
         

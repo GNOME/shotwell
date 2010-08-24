@@ -239,13 +239,13 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     // This is used by Photo to notify Event when it's joined.  Don't use this to manually attach a
     // Photo to an Event, use Photo.set_event().
-    public void attach(TransformablePhoto photo) {
+    public void attach(Photo photo) {
         view.add(new PhotoView(photo));
     }
     
-    public void attach_many(Gee.Collection<TransformablePhoto> photos) {
+    public void attach_many(Gee.Collection<Photo> photos) {
         Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
-        foreach (TransformablePhoto photo in photos)
+        foreach (Photo photo in photos)
             views.add(new PhotoView(photo));
         
         view.add_many(views);
@@ -253,13 +253,13 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     // This is used by Photo to notify Event when it's leaving.  Don't use this manually to detach
     // a Photo, use Photo.set_event().
-    public void detach(TransformablePhoto photo) {
+    public void detach(Photo photo) {
         view.remove_marked(view.mark(view.get_view_for_source(photo)));
     }
     
-    public void detach_many(Gee.Collection<TransformablePhoto> photos) {
+    public void detach_many(Gee.Collection<Photo> photos) {
         Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
-        foreach (TransformablePhoto photo in photos) {
+        foreach (Photo photo in photos) {
             PhotoView? view = (PhotoView?) view.get_view_for_source(photo);
             if (view != null)
                 views.add(view);
@@ -388,7 +388,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     public void break_link_many(Gee.Collection<DataSource> sources) {
         LibraryPhoto.global.freeze_notifications();
-        TransformablePhoto.set_many_to_event((Gee.Collection<TransformablePhoto>) sources, null);
+        Photo.set_many_to_event((Gee.Collection<Photo>) sources, null);
         LibraryPhoto.global.thaw_notifications();
     }
     
@@ -398,7 +398,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     public void establish_link_many(Gee.Collection<DataSource> sources) {
         LibraryPhoto.global.freeze_notifications();
-        TransformablePhoto.set_many_to_event((Gee.Collection<TransformablePhoto>) sources, this);
+        Photo.set_many_to_event((Gee.Collection<Photo>) sources, this);
         LibraryPhoto.global.thaw_notifications();
     }
     

@@ -251,11 +251,11 @@ public enum Rating {
     }
 }
 
-// TransformablePhoto is an abstract class that allows for applying transformations on-the-fly to a
+// Photo is an abstract class that allows for applying transformations on-the-fly to a
 // particular photo without modifying the backing image file.  The interface allows for
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
-public abstract class TransformablePhoto: PhotoSource {
+public abstract class Photo : PhotoSource {
     private const string[] IMAGE_EXTENSIONS = {
         // raster formats
         "jpg", "jpeg", "jpe",
@@ -309,13 +309,13 @@ public abstract class TransformablePhoto: PhotoSource {
     
     // NOTE: This class should only be instantiated when row is locked.
     private class PhotoTransformationStateImpl : PhotoTransformationState {
-        private TransformablePhoto photo;
+        private Photo photo;
         private Orientation orientation;
         private Gee.HashMap<string, KeyValueMap>? transformations;
         private PixelTransformer? transformer;
         private PixelTransformationBundle? adjustments;
         
-        public PhotoTransformationStateImpl(TransformablePhoto photo, Orientation orientation,
+        public PhotoTransformationStateImpl(Photo photo, Orientation orientation,
             Gee.HashMap<string, KeyValueMap>? transformations, PixelTransformer? transformer,
             PixelTransformationBundle? adjustments) {
             this.photo = photo;
@@ -407,9 +407,9 @@ public abstract class TransformablePhoto: PhotoSource {
     public virtual signal void baseline_replaced() {
     }
     
-    // The key to this implementation is that multiple instances of TransformablePhoto with the
+    // The key to this implementation is that multiple instances of Photo with the
     // same PhotoID cannot exist; it is up to the subclasses to ensure this.
-    protected TransformablePhoto(PhotoRow row) {
+    protected Photo(PhotoRow row) {
         this.row = row;
         
         // don't need to lock the struct in the constructor (and to do so would hurt startup
@@ -1116,7 +1116,7 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // Flags' meanings are determined by subclasses.  Top 16 flags (0xFFFF000000000000) reserved
-    // for TransformablePhoto.
+    // for Photo.
     public uint64 get_flags() {
         lock (row) {
             return row.flags;
@@ -1303,12 +1303,12 @@ public abstract class TransformablePhoto: PhotoSource {
     }
     
     // Best to freeze the appropriate SourceCollection as well.
-    public static void set_many_to_event(Gee.Collection<TransformablePhoto> photos, Event? event) {
+    public static void set_many_to_event(Gee.Collection<Photo> photos, Event? event) {
         EventID event_id = (event != null) ? event.get_event_id() : EventID();
         
         PhotoID[] photo_ids = new PhotoID[photos.size];
         int ctr = 0;
-        foreach (TransformablePhoto photo in photos) {
+        foreach (Photo photo in photos) {
             Event? old_event = photo.get_event();
             if (old_event != null)
                 old_event.detach(photo);
@@ -1327,7 +1327,7 @@ public abstract class TransformablePhoto: PhotoSource {
             event.attach_many(photos);
         
         Alteration alteration = new Alteration("metadata", "event");
-        foreach (TransformablePhoto photo in photos)
+        foreach (Photo photo in photos)
             photo.notify_altered(alteration);
     }
     
@@ -1338,7 +1338,7 @@ public abstract class TransformablePhoto: PhotoSource {
 
     public override bool equals(DataSource? source) {
         // Primary key is where the rubber hits the road
-        TransformablePhoto? photo = source as TransformablePhoto;
+        Photo? photo = source as Photo;
         if (photo != null) {
             PhotoID photo_id = get_photo_id();
             PhotoID other_photo_id = photo.get_photo_id();
@@ -2986,7 +2986,7 @@ public abstract class TransformablePhoto: PhotoSource {
 
         try {
             pixbuf = get_pixbuf_with_options(Scaling.for_best_fit(360, false), 
-                TransformablePhoto.Exception.ALL);
+                Photo.Exception.ALL);
 
 #if MEASURE_ENHANCE
             fetch_timer.stop();
@@ -3033,16 +3033,6 @@ public abstract class TransformablePhoto: PhotoSource {
     }
 }
 
-//
-// Photo
-//
-
-public abstract class Photo : TransformablePhoto {
-    public Photo(PhotoRow row) {
-        base (row);
-    }
-}
-
 public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
     private LibraryPhotoSourceCollection sources;
     private Gee.HashMap<File, LibraryPhoto> master_file_map = new Gee.HashMap<File, LibraryPhoto>(
@@ -3050,7 +3040,7 @@ public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
     
     public LibraryPhotoHoldingTank(LibraryPhotoSourceCollection sources,
         SourceHoldingTank.CheckToKeep check_to_keep) {
-        base (sources, check_to_keep, TransformablePhoto.get_photo_key);
+        base (sources, check_to_keep, Photo.get_photo_key);
         
         this.sources = sources;
         sources.master_file_replaced.connect(on_master_file_replaced);
@@ -3141,7 +3131,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     public LibraryPhotoSourceCollection() {
-        base("LibraryPhotoSourceCollection", TransformablePhoto.get_photo_key);
+        base("LibraryPhotoSourceCollection", Photo.get_photo_key);
         
         trashcan = new LibraryPhotoHoldingTank(this, check_if_trashed_photo);
         trashcan.contents_altered.connect(on_trashcan_contents_altered);
@@ -3536,7 +3526,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
 //
 
 public class LibraryPhoto : Photo {
-    // Top 16 bits are reserved for TransformablePhoto
+    // Top 16 bits are reserved for Photo
     // Warning: FLAG_HIDDEN and FLAG_FAVORITE have been deprecated for ratings and rating filters.
     private const uint64 FLAG_HIDDEN =      0x0000000000000001;
     private const uint64 FLAG_FAVORITE =    0x0000000000000002;
@@ -3613,7 +3603,7 @@ public class LibraryPhoto : Photo {
         return false;
     }
     
-    // This accepts a PhotoRow that was prepared with TransformablePhoto.prepare_for_import and
+    // This accepts a PhotoRow that was prepared with Photo.prepare_for_import and
     // has not already been inserted in the database.  See PhotoTable.add() for which fields are
     // used and which are ignored.  The PhotoRow itself will be modified with the remaining values
     // as they are stored in the database.
@@ -3971,7 +3961,7 @@ public class DirectPhoto : Photo {
     public static ImportResult internal_import(File file, out DirectPhoto? photo) {
         PhotoImportParams params = new PhotoImportParams(file, PhotoTable.get_instance().generate_import_id(),
             PhotoFileSniffer.Options.NO_MD5, null, null, null);
-        ImportResult result = TransformablePhoto.prepare_for_import(params);
+        ImportResult result = Photo.prepare_for_import(params);
         if (result != ImportResult.SUCCESS) {
             // this should never happen; DirectPhotoSourceCollection guarantees it.
             assert(result != ImportResult.PHOTO_EXISTS);

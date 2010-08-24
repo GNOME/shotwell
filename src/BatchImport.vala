@@ -544,7 +544,7 @@ public class BatchImport : Object {
         foreach (PreparedFile prepared_file in cluster.list) {
             BatchImportResult import_result = null;
             
-            if (TransformablePhoto.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
+            if (Photo.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
                 prepared_file.full_md5, prepared_file.file_format)) {
                 // If a file is being linked and has a dupe in the trash, we take it out of the trash
                 // and revert its edits.
@@ -1018,8 +1018,7 @@ private class WorkSniffer : BackgroundImportJob {
                 if ((skipset != null) && skipset.contains(child))
                     continue; /* don't enqueue if this file is to be skipped */
 
-                if (TransformablePhoto.is_file_image(child)
-                    && TransformablePhoto.is_file_supported(child)) {
+                if (Photo.is_file_image(child) && Photo.is_file_supported(child)) {
                     total_bytes += info.get_size();
                     files_to_prepare.add(new FileToPrepare(job, child, copy_to_library));
                     notify(working_notification, null);
@@ -1172,10 +1171,10 @@ private class PrepareFilesJob : BackgroundImportJob {
     
     private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library,
         out PreparedFile prepared_file) throws Error {
-        if (!TransformablePhoto.is_file_image(file))
+        if (!Photo.is_file_image(file))
             return ImportResult.NOT_AN_IMAGE;
 
-        if (!TransformablePhoto.is_file_supported(file))
+        if (!Photo.is_file_supported(file))
             return ImportResult.UNSUPPORTED_FORMAT;
         
         import_file_count++;
@@ -1333,7 +1332,7 @@ private class PreparedFilesImportJob : BackgroundJob {
         photo_import_params = new PhotoImportParams(final_file, import_id, PhotoFileSniffer.Options.GET_ALL,
             prepared_file.exif_md5, prepared_file.thumbnail_md5, prepared_file.full_md5, new Thumbnails());
         
-        ImportResult result = TransformablePhoto.prepare_for_import(photo_import_params);
+        ImportResult result = Photo.prepare_for_import(photo_import_params);
         if (result != ImportResult.SUCCESS && final_file != prepared_file.file) {
             debug("Deleting failed imported copy %s", final_file.get_path());
             try {

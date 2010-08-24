@@ -53,7 +53,7 @@ public class DirectWindow : AppWindow {
     }
     
     private void on_photo_changed() {
-        TransformablePhoto? photo = direct_photo_page.get_photo();
+        Photo? photo = direct_photo_page.get_photo();
         if (photo != null)
             update_title(photo.get_file(), photo.has_alterations());
     }

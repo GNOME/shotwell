@@ -13,11 +13,11 @@ public class ZoomBuffer : Object {
     }
 
     private class IsoSourceFetchJob : BackgroundJob {
-        private TransformablePhoto to_fetch;
+        private Photo to_fetch;
         
         public Gdk.Pixbuf? fetched = null;
 
-        public IsoSourceFetchJob(ZoomBuffer owner, TransformablePhoto to_fetch,
+        public IsoSourceFetchJob(ZoomBuffer owner, Photo to_fetch,
             CompletionCallback completion_callback) {
             base(owner, completion_callback);
             
@@ -27,7 +27,7 @@ public class ZoomBuffer : Object {
         public override void execute() {
             try {
                 fetched = to_fetch.get_pixbuf_with_options(Scaling.for_original(),
-                    TransformablePhoto.Exception.ADJUST);
+                    Photo.Exception.ADJUST);
             } catch (Error fetch_error) {
                 critical("IsoSourceFetchJob: execute( ): can't get pixbuf from backing photo");
             }
@@ -71,7 +71,7 @@ public class ZoomBuffer : Object {
     private Gdk.Pixbuf iso_transformed_image = null;
     private Gdk.Pixbuf? reduced_transformed_image = null;
     private Gdk.Pixbuf preview_image = null;
-    private TransformablePhoto backing_photo = null;
+    private Photo backing_photo = null;
     private ObjectState object_state = ObjectState.SOURCE_NOT_LOADED;
     private Gdk.Pixbuf? demand_transform_cached_pixbuf = null;
     private ZoomState demand_transform_zoom_state;
@@ -81,7 +81,7 @@ public class ZoomBuffer : Object {
     private SinglePhotoPage parent_page;
     private bool is_interactive_redraw_in_progress = false;
 
-    public ZoomBuffer(SinglePhotoPage parent_page, TransformablePhoto backing_photo,
+    public ZoomBuffer(SinglePhotoPage parent_page, Photo backing_photo,
         Gdk.Pixbuf preview_image) {
         this.parent_page = parent_page;
         this.preview_image = preview_image;
@@ -295,7 +295,7 @@ public class ZoomBuffer : Object {
         return zoomed;
     }
 
-    public TransformablePhoto get_backing_photo() {
+    public Photo get_backing_photo() {
         return backing_photo;
     }
     
@@ -759,7 +759,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             : null;
     }
     
-    private void set_photo(TransformablePhoto photo) {
+    private void set_photo(Photo photo) {
         zoom_slider.value_changed.disconnect(on_zoom_slider_value_changed);
         zoom_slider.set_value(0.0);
         zoom_slider.value_changed.connect(on_zoom_slider_value_changed);
@@ -860,7 +860,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo.has_transformations() || photo.has_editable();
     }
     
-    private void on_pixbuf_fetched(TransformablePhoto photo, Gdk.Pixbuf? pixbuf, Error? err) {
+    private void on_pixbuf_fetched(Photo photo, Gdk.Pixbuf? pixbuf, Error? err) {
         // if not of the current photo, nothing more to do
         if (!photo.equals(get_photo()))
             return;
@@ -912,8 +912,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         if (!controller.get_immediate_neighbors(photo, out next_source, out prev_source))
             return;
         
-        TransformablePhoto next = (TransformablePhoto) next_source;
-        TransformablePhoto prev = (TransformablePhoto) prev_source;
+        Photo next = (Photo) next_source;
+        Photo prev = (Photo) prev_source;
         
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
         foreach (DataSource neighbor_source in controller.get_extended_neighbors(photo)) {
@@ -1025,7 +1025,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return photo_missing;
     }
 
-    protected virtual bool confirm_replace_photo(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
+    protected virtual bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return true;
     }
 
@@ -1199,7 +1199,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         prev_button.sensitive = multiple;
         next_button.sensitive = multiple;
         
-        TransformablePhoto photo = get_photo();
+        Photo photo = get_photo();
         Scaling scaling = get_canvas_scaling();
         
         rotate_button.sensitive = photo != null ? is_rotate_available(photo) : false;
@@ -1428,7 +1428,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void on_photo_altered(DataObject object) {
-        TransformablePhoto p = object as TransformablePhoto;
+        Photo p = object as Photo;
 
         // only interested in current photo
         if (p == null || !p.equals(get_photo()))
@@ -1651,7 +1651,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             draw_message(_("Photo source file missing: %s").printf(get_photo().get_file().get_path()));
     }
     
-    public bool is_rotate_available(TransformablePhoto photo) {
+    public bool is_rotate_available(Photo photo) {
         return !photo_missing;
     }
 
@@ -1857,7 +1857,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         on_tool_button_toggled(adjust_button, AdjustTool.factory);
     }
     
-    public bool is_enhance_available(TransformablePhoto photo) {
+    public bool is_enhance_available(Photo photo) {
         return !photo_missing;
     }
     
@@ -2944,7 +2944,7 @@ public class LibraryPhotoPage : EditingHostPage {
     }
 
     private void on_metadata_altered(DataObject item, Alteration alteration) {
-        if (((TransformablePhoto) item).equals(get_photo()) && alteration.has_subject("metadata"))
+        if (((Photo) item).equals(get_photo()) && alteration.has_subject("metadata"))
             repaint();
     }
 
@@ -3148,7 +3148,7 @@ private class DirectViewCollection : ViewCollection {
             while ((file_info = enumerator.next_file(null)) != null) {
                 string basename = file_info.get_name();
                 
-                if (TransformablePhoto.is_basename_supported(basename))
+                if (Photo.is_basename_supported(basename))
                     cached.add(dir.get_child(basename));
             }
         } catch (Error err) {
@@ -3383,7 +3383,7 @@ public class DirectPhotoPage : EditingHostPage {
             AppWindow.error_message(_("%s does not exist.").printf(file.get_path()));
         else if (!FileUtils.test(file.get_path(), FileTest.IS_REGULAR))
             AppWindow.error_message(_("%s is not a file.").printf(file.get_path()));
-        else if (!TransformablePhoto.is_file_supported(file))
+        else if (!Photo.is_file_supported(file))
             AppWindow.error_message(_("%s does not support the file format of\n%s.").printf(
                 Resources.APP_TITLE, file.get_path()));
         else
@@ -3506,7 +3506,7 @@ public class DirectPhotoPage : EditingHostPage {
         return base.on_context_invoked();
     }
     
-    private bool check_ok_to_close_photo(TransformablePhoto photo) {
+    private bool check_ok_to_close_photo(Photo photo) {
         if (!photo.has_alterations())
             return true;
         
@@ -3543,7 +3543,7 @@ public class DirectPhotoPage : EditingHostPage {
         return check_ok_to_close_photo(get_photo());
     }
     
-    private override bool confirm_replace_photo(TransformablePhoto? old_photo, TransformablePhoto new_photo) {
+    private override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
     }
     

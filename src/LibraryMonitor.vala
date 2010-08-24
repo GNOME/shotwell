@@ -8,7 +8,7 @@
 // LibraryMonitor uses DirectoryMonitor to track assets in the user's library directory and make
 // sure they're reflected in the application.
 //
-// NOTE: There appears to be a bug where prior versions of Shotwell (>= 0.6.x) were not
+// NOTE: There appears to be a bug where prior versions of Shotwell (<= 0.6.x) were not
 // properly loading the file modification timestamp during import.  This was no issue
 // before but becomes imperative now with file monitoring.  A "proper" algorithm is
 // to reimport an entire photo if the modification time in the database is different

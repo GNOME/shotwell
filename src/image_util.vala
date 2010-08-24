@@ -239,7 +239,7 @@ public Gdk.Point subtract_points(Gdk.Point p1, Gdk.Point p2) {
 }
 
 #if !NO_SET_BACKGROUND
-public void set_desktop_background(TransformablePhoto photo) {
+public void set_desktop_background(Photo photo) {
     // attempt to set the wallpaper to the photo's native format, but if not writeable, go to the
     // system default
     PhotoFileFormat file_format = photo.get_file_format();

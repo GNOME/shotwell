@@ -706,10 +706,10 @@ public class CustomPrintTab : Gtk.Fixed {
 }
 
 public class PrintJob : Gtk.PrintOperation {
-    private TransformablePhoto source_photo;
+    private Photo source_photo;
     private PrintSettings settings;
 
-    public PrintJob(TransformablePhoto source_photo) {
+    public PrintJob(Photo source_photo) {
         this.settings = PrintManager.get_instance().get_global_settings();
         this.source_photo = source_photo;
         double photo_aspect_ratio =  source_photo.get_dimensions().get_aspect_ratio();
@@ -717,7 +717,7 @@ public class PrintJob : Gtk.PrintOperation {
             photo_aspect_ratio = 1.0 / photo_aspect_ratio;
     }
 
-    public TransformablePhoto get_source_photo() {
+    public Photo get_source_photo() {
         return source_photo;
     }
 
@@ -818,7 +818,7 @@ public class PrintManager {
         return instance;
     }
 
-    public void spool_photo(TransformablePhoto source_photo) {
+    public void spool_photo(Photo source_photo) {
         PrintJob job = new PrintJob(source_photo);
         job.set_custom_tab_label(_("Image Settings"));
         job.set_unit(Gtk.Unit.INCH);

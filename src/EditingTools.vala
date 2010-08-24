@@ -65,13 +65,13 @@ public abstract class EditingToolWindow : Gtk.Window {
 public abstract class PhotoCanvas {
     private Gtk.Window container;
     private Gdk.Window drawing_window;
-    private TransformablePhoto photo;
+    private Photo photo;
     private Gdk.GC default_gc;
     private Gdk.Drawable drawable;
     private Gdk.Pixbuf scaled;
     private Gdk.Rectangle scaled_position;
     
-    public PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, TransformablePhoto photo, 
+    public PhotoCanvas(Gtk.Window container, Gdk.Window drawing_window, Photo photo, 
         Gdk.GC default_gc, Gdk.Drawable drawable, Gdk.Pixbuf scaled, Gdk.Rectangle scaled_position) {
         this.container = container;
         this.drawing_window = drawing_window;
@@ -153,7 +153,7 @@ public abstract class PhotoCanvas {
         return active_rect;
     }
 
-    public TransformablePhoto get_photo() {
+    public Photo get_photo() {
         return photo;
     }
     
@@ -389,7 +389,7 @@ public abstract class EditingTool {
     //
     // Note this this method doesn't need to be returning the "proper" pixbuf on-the-fly (i.e.
     // a pixbuf with unsaved tool edits in it).  That can be handled in the paint() virtual method.
-    public virtual Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo,
+    public virtual Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo,
         out Dimensions max_dim) throws Error {
         return null;
     }
@@ -572,7 +572,7 @@ public class CropTool : EditingTool {
         return new CropTool();
     }
     
-    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+    public static bool is_available(Photo photo, Scaling scaling) {
         Dimensions dim = scaling.get_scaled_dimensions(photo.get_original_dimensions());
         
         return dim.width > CROP_MIN_SIZE && dim.height > CROP_MIN_SIZE;
@@ -1047,7 +1047,7 @@ public class CropTool : EditingTool {
         return crop_tool_window;
     }
     
-    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo, 
+    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo, 
         out Dimensions max_dim) throws Error {
         // show the uncropped photo for editing, but return null if no crop so the current pixbuf
         // is used
@@ -1056,7 +1056,7 @@ public class CropTool : EditingTool {
         
         max_dim = photo.get_original_dimensions();
         
-        return photo.get_pixbuf_with_options(scaling, TransformablePhoto.Exception.CROP);
+        return photo.get_pixbuf_with_options(scaling, Photo.Exception.CROP);
     }
  
     private void prepare_gc(Gdk.GC default_gc, Gdk.Drawable drawable) {
@@ -1736,7 +1736,7 @@ public class RedeyeTool : EditingTool {
         return new RedeyeTool();
     }
     
-    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+    public static bool is_available(Photo photo, Scaling scaling) {
         Dimensions dim = scaling.get_scaled_dimensions(photo.get_dimensions());
         
         return dim.width >= (RedeyeInstance.MAX_RADIUS * 2) 
@@ -2206,11 +2206,11 @@ public class AdjustTool : EditingTool {
     }
     
     private class AdjustEnhanceCommand : AdjustToolCommand {
-        private TransformablePhoto photo;
+        private Photo photo;
         private PixelTransformationBundle original;
         private PixelTransformationBundle enhanced = null;
         
-        public AdjustEnhanceCommand(AdjustTool owner, TransformablePhoto photo) {
+        public AdjustEnhanceCommand(AdjustTool owner, Photo photo) {
             base(owner, Resources.ENHANCE_LABEL, Resources.ENHANCE_TOOLTIP);
             
             this.photo = photo;
@@ -2232,7 +2232,7 @@ public class AdjustTool : EditingTool {
             // can compress both normal enhance and one with the adjust tool running
             EnhanceSingleCommand enhance_single = command as EnhanceSingleCommand;
             if (enhance_single != null) {
-                TransformablePhoto photo = (TransformablePhoto) enhance_single.get_source();
+                Photo photo = (Photo) enhance_single.get_source();
                 
                 // multiple successive enhances are as good as a single, as long as it's on the
                 // same photo
@@ -2269,14 +2269,14 @@ public class AdjustTool : EditingTool {
         return new AdjustTool();
     }
     
-    public static bool is_available(TransformablePhoto photo, Scaling scaling) {
+    public static bool is_available(Photo photo, Scaling scaling) {
         return true;
     }
 
     public override void activate(PhotoCanvas canvas) {
         adjust_tool_window = new AdjustToolWindow(canvas.get_container());
         
-        TransformablePhoto photo = canvas.get_photo();
+        Photo photo = canvas.get_photo();
         transformations = photo.get_color_adjustments();
         transformer = transformations.generate_transformer();
         
@@ -2385,14 +2385,14 @@ public class AdjustTool : EditingTool {
         canvas.paint_pixbuf(draw_to_pixbuf);
     }
 
-    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, TransformablePhoto photo, 
+    public override Gdk.Pixbuf? get_display_pixbuf(Scaling scaling, Photo photo, 
         out Dimensions max_dim) throws Error {
         if (!photo.has_color_adjustments())
             return null;
         
         max_dim = photo.get_dimensions();
         
-        return photo.get_pixbuf_with_options(scaling, TransformablePhoto.Exception.ADJUST);
+        return photo.get_pixbuf_with_options(scaling, Photo.Exception.ADJUST);
     }
 
     private void on_reset() {

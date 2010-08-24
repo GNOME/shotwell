@@ -383,7 +383,7 @@ public class Interactor : ServiceInteractor {
         progress_pane = new ProgressPane();
         get_host().install_pane(progress_pane);
 
-        TransformablePhoto[] photos = get_host().get_photos();
+        Photo[] photos = get_host().get_photos();
         Uploader uploader = new Uploader(session, albums[publish_to_album].id, photos);
         uploader.status_updated.connect(progress_pane.set_status);
         uploader.upload_complete.connect(on_upload_complete);
@@ -625,7 +625,7 @@ private class Uploader : BatchUploader {
     private Session session;
     private string aid;
 
-    public Uploader(Session session, string aid, TransformablePhoto[] photos) {
+    public Uploader(Session session, string aid, Photo[] photos) {
         base(photos);
 
         this.session = session;
@@ -974,7 +974,7 @@ private class AlbumCreationTransaction : Transaction {
 
 private class UploadTransaction : PhotoUploadTransaction {
     public UploadTransaction(Session session, string aid, string source_file_path,
-        TransformablePhoto source_photo) {
+        Photo source_photo) {
         base(session, source_file_path, source_photo);
 
         add_argument("api_key", session.get_api_key());

@@ -421,10 +421,10 @@ public class EndpointTestTransaction : RESTTransaction {
 public abstract class PhotoUploadTransaction : RESTTransaction {
     private string source_file;
     private GLib.HashTable<string, string> binary_disposition_table = null;
-    private TransformablePhoto source_photo = null;
+    private Photo source_photo = null;
 
     public PhotoUploadTransaction(RESTSession session, string source_file,
-        TransformablePhoto source_photo) {
+        Photo source_photo) {
         base(session);
 
         this.source_file = source_file;
@@ -433,7 +433,7 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
     }
 
     public PhotoUploadTransaction.with_endpoint_url(RESTSession session, string endpoint_url,
-        string source_file, TransformablePhoto source_photo) {
+        string source_file, Photo source_photo) {
         base.with_endpoint_url(session, endpoint_url);
 
         this.source_file = source_file;
@@ -666,7 +666,7 @@ public class PublishingDialog : Gtk.Dialog {
     private Gtk.Label service_selector_box_label;
     private Gtk.VBox central_area_layouter;
     private Gtk.Button close_cancel_button;
-    private TransformablePhoto[] photos;
+    private Photo[] photos;
     private PublishingDialogPane active_pane;
     private ServiceInteractor interactor;
 
@@ -675,9 +675,9 @@ public class PublishingDialog : Gtk.Dialog {
         resizable = false;
         delete_event.connect(on_window_close);
 
-        photos = new TransformablePhoto[0];
+        photos = new Photo[0];
         foreach (DataView view in to_publish) {
-            photos += (TransformablePhoto) view.get_source();
+            photos += (Photo) view.get_source();
         }
 
         service_selector_box = new Gtk.ComboBox.text();
@@ -876,7 +876,7 @@ public class PublishingDialog : Gtk.Dialog {
         unlock_service();
     }
   
-    public TransformablePhoto[] get_photos() {
+    public Photo[] get_photos() {
         return photos;
     }
 
@@ -922,14 +922,14 @@ public abstract class ServiceInteractor {
 public abstract class BatchUploader {
     public struct TemporaryFileDescriptor {
         public File temp_file;
-        public TransformablePhoto source_photo;
+        public Photo source_photo;
 
         public TemporaryFileDescriptor() {
             temp_file = null;
             source_photo = null;
         }
 
-        public TemporaryFileDescriptor.with_members(TransformablePhoto source_photo,
+        public TemporaryFileDescriptor.with_members(Photo source_photo,
             File temp_file) {
             this.source_photo = source_photo;
             this.temp_file = temp_file;
@@ -942,7 +942,7 @@ public abstract class BatchUploader {
     private const double PREPARATION_PHASE_FRACTION = 0.3;
     private const double UPLOAD_PHASE_FRACTION = 0.7;
 
-    private TransformablePhoto[] photos;
+    private Photo[] photos;
     private TemporaryFileDescriptor[] temp_files;
     private bool has_error = false;
     private int current_file = 0;
@@ -951,7 +951,7 @@ public abstract class BatchUploader {
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(PublishingError err);
 
-    public BatchUploader(TransformablePhoto[] photos) {
+    public BatchUploader(Photo[] photos) {
         this.photos = photos;
     }
 

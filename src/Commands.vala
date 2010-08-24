@@ -160,7 +160,7 @@ public abstract class SimpleProxyableCommand : PageCommand {
 public abstract class SinglePhotoTransformationCommand : SingleDataSourceCommand {
     private PhotoTransformationState state;
     
-    public SinglePhotoTransformationCommand(TransformablePhoto photo, string name, string explanation) {
+    public SinglePhotoTransformationCommand(Photo photo, string name, string explanation) {
         base(photo, name, explanation);
         
         state = photo.save_transformation_state();
@@ -172,7 +172,7 @@ public abstract class SinglePhotoTransformationCommand : SingleDataSourceCommand
     }
     
     public override void undo() {
-        ((TransformablePhoto) source).load_transformation_state(state);
+        ((Photo) source).load_transformation_state(state);
     }
     
     private void on_state_broken() {
@@ -184,7 +184,7 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
     private PhotoTransformationState original_state = null;
     private PhotoTransformationState transformed_state = null;
     
-    public GenericPhotoTransformationCommand(TransformablePhoto photo, string name, string explanation) {
+    public GenericPhotoTransformationCommand(Photo photo, string name, string explanation) {
         base(photo, name, explanation);
     }
     
@@ -197,7 +197,7 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
     }
     
     public override void execute() {
-        TransformablePhoto photo = (TransformablePhoto) source;
+        Photo photo = (Photo) source;
         
         original_state = photo.save_transformation_state();
         original_state.broken.connect(on_state_broken);
@@ -208,16 +208,16 @@ public abstract class GenericPhotoTransformationCommand : SingleDataSourceComman
         transformed_state.broken.connect(on_state_broken);
     }
     
-    public abstract void execute_on_photo(TransformablePhoto photo);
+    public abstract void execute_on_photo(Photo photo);
     
     public override void undo() {
         // use the original state of the photo
-        ((TransformablePhoto) source).load_transformation_state(original_state);
+        ((Photo) source).load_transformation_state(original_state);
     }
     
     public override void redo() {
         // use the state of the photo after transformation
-        ((TransformablePhoto) source).load_transformation_state(transformed_state);
+        ((Photo) source).load_transformation_state(transformed_state);
     }
     
     protected virtual bool can_compress(Command command) {
@@ -361,15 +361,15 @@ public abstract class MultipleDataSourceCommand : PageCommand {
 }
 
 public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCommand {
-    private Gee.HashMap<TransformablePhoto, PhotoTransformationState> map = new Gee.HashMap<
-        TransformablePhoto, PhotoTransformationState>();
+    private Gee.HashMap<Photo, PhotoTransformationState> map = new Gee.HashMap<
+        Photo, PhotoTransformationState>();
     
     public MultiplePhotoTransformationCommand(Gee.Iterable<DataView> iter, string progress_text,
         string undo_progress_text, string name, string explanation) {
         base(iter, progress_text, undo_progress_text, name, explanation);
         
         foreach (DataSource source in source_list) {
-            TransformablePhoto photo = (TransformablePhoto) source;
+            Photo photo = (Photo) source;
             PhotoTransformationState state = photo.save_transformation_state();
             state.broken.connect(on_state_broken);
             
@@ -383,7 +383,7 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
     }
     
     public override void undo_on_source(DataSource source) {
-        TransformablePhoto photo = (TransformablePhoto) source;
+        Photo photo = (Photo) source;
         
         PhotoTransformationState state = map.get(photo);
         assert(state != null);
@@ -399,18 +399,18 @@ public abstract class MultiplePhotoTransformationCommand : MultipleDataSourceCom
 public class RotateSingleCommand : SingleDataSourceCommand {
     private Rotation rotation;
     
-    public RotateSingleCommand(TransformablePhoto photo, Rotation rotation, string name, string explanation) {
+    public RotateSingleCommand(Photo photo, Rotation rotation, string name, string explanation) {
         base(photo, name, explanation);
         
         this.rotation = rotation;
     }
     
     public override void execute() {
-        ((TransformablePhoto) source).rotate(rotation);
+        ((Photo) source).rotate(rotation);
     }
     
     public override void undo() {
-        ((TransformablePhoto) source).rotate(rotation.opposite());
+        ((Photo) source).rotate(rotation.opposite());
     }
 }
 
@@ -425,11 +425,11 @@ public class RotateMultipleCommand : MultipleDataSourceCommand {
     }
     
     public override void execute_on_source(DataSource source) {
-        ((TransformablePhoto) source).rotate(rotation);
+        ((Photo) source).rotate(rotation);
     }
     
     public override void undo_on_source(DataSource source) {
-        ((TransformablePhoto) source).rotate(rotation.opposite());
+        ((Photo) source).rotate(rotation.opposite());
     }
 }
 
@@ -494,11 +494,11 @@ public class SetKeyPhotoCommand : SingleDataSourceCommand {
 }
 
 public class RevertSingleCommand : GenericPhotoTransformationCommand {
-    public RevertSingleCommand(TransformablePhoto photo) {
+    public RevertSingleCommand(Photo photo) {
         base(photo, Resources.REVERT_LABEL, Resources.REVERT_TOOLTIP);
     }
     
-    public override void execute_on_photo(TransformablePhoto photo) {
+    public override void execute_on_photo(Photo photo) {
         photo.remove_all_transformations();
     }
     
@@ -523,16 +523,16 @@ public class RevertMultipleCommand : MultiplePhotoTransformationCommand {
     }
     
     public override void execute_on_source(DataSource source) {
-        ((TransformablePhoto) source).remove_all_transformations();
+        ((Photo) source).remove_all_transformations();
     }
 }
 
 public class EnhanceSingleCommand : GenericPhotoTransformationCommand {
-    public EnhanceSingleCommand(TransformablePhoto photo) {
+    public EnhanceSingleCommand(Photo photo) {
         base(photo, Resources.ENHANCE_LABEL, Resources.ENHANCE_TOOLTIP);
     }
     
-    public override void execute_on_photo(TransformablePhoto photo) {
+    public override void execute_on_photo(Photo photo) {
         AppWindow.get_instance().set_busy_cursor();
 #if MEASURE_ENHANCE
         Timer overall_timer = new Timer();
@@ -567,20 +567,20 @@ public class EnhanceMultipleCommand : MultiplePhotoTransformationCommand {
     }
     
     public override void execute_on_source(DataSource source) {
-        ((TransformablePhoto) source).enhance();
+        ((Photo) source).enhance();
     }
 }
 
 public class CropCommand : GenericPhotoTransformationCommand {
     private Box crop;
     
-    public CropCommand(TransformablePhoto photo, Box crop, string name, string explanation) {
+    public CropCommand(Photo photo, Box crop, string name, string explanation) {
         base(photo, name, explanation);
         
         this.crop = crop;
     }
     
-    public override void execute_on_photo(TransformablePhoto photo) {
+    public override void execute_on_photo(Photo photo) {
         photo.set_crop(crop);
     }
 }
@@ -588,14 +588,14 @@ public class CropCommand : GenericPhotoTransformationCommand {
 public class AdjustColorsCommand : GenericPhotoTransformationCommand {
     private PixelTransformationBundle transformations;
     
-    public AdjustColorsCommand(TransformablePhoto photo, PixelTransformationBundle transformations,
+    public AdjustColorsCommand(Photo photo, PixelTransformationBundle transformations,
         string name, string explanation) {
         base(photo, name, explanation);
         
         this.transformations = transformations;
     }
     
-    public override void execute_on_photo(TransformablePhoto photo) {
+    public override void execute_on_photo(Photo photo) {
         AppWindow.get_instance().set_busy_cursor();
         
         photo.set_color_adjustments(transformations);
@@ -611,14 +611,14 @@ public class AdjustColorsCommand : GenericPhotoTransformationCommand {
 public class RedeyeCommand : GenericPhotoTransformationCommand {
     private RedeyeInstance redeye_instance;
     
-    public RedeyeCommand(TransformablePhoto photo, RedeyeInstance redeye_instance, string name,
+    public RedeyeCommand(Photo photo, RedeyeInstance redeye_instance, string name,
         string explanation) {
         base(photo, name, explanation);
         
         this.redeye_instance = redeye_instance;
     }
     
-    public override void execute_on_photo(TransformablePhoto photo) {
+    public override void execute_on_photo(Photo photo) {
         photo.add_redeye_instance(redeye_instance);
     }
 }
@@ -961,11 +961,11 @@ public class SetRatingCommand : MultipleDataSourceCommand {
 }
 
 public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
-    private TransformablePhoto photo;
+    private Photo photo;
     private int64 time_shift;
     private bool modify_original;
 
-    public AdjustDateTimePhotoCommand(TransformablePhoto photo, int64 time_shift, bool modify_original) {
+    public AdjustDateTimePhotoCommand(Photo photo, int64 time_shift, bool modify_original) {
         base(photo, Resources.ADJUST_DATE_TIME_LABEL, Resources.ADJUST_DATE_TIME_TOOLTIP);
 
         this.photo = photo;
@@ -981,7 +981,7 @@ public class AdjustDateTimePhotoCommand : SingleDataSourceCommand {
         set_time(photo, photo.get_exposure_time() - (time_t) time_shift);
     }
 
-    private void set_time(TransformablePhoto photo, time_t exposure_time) {
+    private void set_time(Photo photo, time_t exposure_time) {
         if (modify_original) {
             try {
                 photo.set_exposure_time_persistent(exposure_time);
@@ -1001,8 +1001,8 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
 
     // used when photos are batch changed instead of shifted uniformly
     private time_t? new_time = null;
-    private Gee.HashMap<TransformablePhoto, time_t?> old_times;
-    private Gee.ArrayList<TransformablePhoto> error_list;
+    private Gee.HashMap<Photo, time_t?> old_times;
+    private Gee.ArrayList<Photo> error_list;
 
     public AdjustDateTimePhotosCommand(Gee.Iterable<DataView> iter, int64 time_shift,
         bool keep_relativity, bool modify_originals) {
@@ -1024,11 +1024,11 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
             }            
         }
 
-        old_times = new Gee.HashMap<TransformablePhoto, time_t?>();
+        old_times = new Gee.HashMap<Photo, time_t?>();
     }
 
     public override void execute() {
-        error_list = new Gee.ArrayList<TransformablePhoto>();
+        error_list = new Gee.ArrayList<Photo>();
         base.execute();
 
         if (error_list.size > 0) {
@@ -1040,7 +1040,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     }
 
     public override void undo() {
-        error_list = new Gee.ArrayList<TransformablePhoto>();
+        error_list = new Gee.ArrayList<Photo>();
         base.undo();
 
         if (error_list.size > 0) {
@@ -1051,7 +1051,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
         }
     }
 
-    private void set_time(TransformablePhoto photo, time_t exposure_time) {
+    private void set_time(Photo photo, time_t exposure_time) {
         if (modify_originals) {
             try {
                 photo.set_exposure_time_persistent(exposure_time);
@@ -1064,7 +1064,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     }
 
     public override void execute_on_source(DataSource source) {
-        TransformablePhoto photo = ((TransformablePhoto) source);
+        Photo photo = ((Photo) source);
 
         if (keep_relativity && photo.get_exposure_time() != 0) {
             set_time(photo, photo.get_exposure_time() + (time_t) time_shift);
@@ -1075,7 +1075,7 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
     }
 
     public override void undo_on_source(DataSource source) {
-        TransformablePhoto photo = ((TransformablePhoto) source);
+        Photo photo = ((Photo) source);
 
         if (old_times.has_key(photo)) {
             set_time(photo, old_times.get(photo));

@@ -385,8 +385,8 @@ private class ExtendedPropertiesWindow : Gtk.Window {
             if (photo == null)
                 return;
             
-            if (photo is TransformablePhoto)
-                file_path = ((TransformablePhoto) photo).get_file().get_path();
+            if (photo is Photo)
+                file_path = ((Photo) photo).get_file().get_path();
             
             filesize = photo.get_filesize();
             

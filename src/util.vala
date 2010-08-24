@@ -87,10 +87,10 @@ public string md5_file(File file) throws Error {
     return md5.get_string();
 }
 
-public uchar[] serialize_photo_ids(Gee.Collection<TransformablePhoto> photos) {
+public uchar[] serialize_photo_ids(Gee.Collection<Photo> photos) {
     int64[] ids = new int64[photos.size];
     int ctr = 0;
-    foreach (TransformablePhoto photo in photos)
+    foreach (Photo photo in photos)
         ids[ctr++] = photo.get_photo_id().id;
     
     size_t bytes = photos.size * sizeof(int64);

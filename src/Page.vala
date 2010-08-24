@@ -2142,7 +2142,7 @@ public class PhotoDragAndDropHandler {
         drag_destination = null;
         
         // use the first photo as the icon
-        TransformablePhoto photo = (TransformablePhoto) page.get_view().get_selected_at(0).get_source();
+        Photo photo = (Photo) page.get_view().get_selected_at(0).get_source();
         
         try {
             Gdk.Pixbuf icon = photo.get_thumbnail(AppWindow.DND_ICON_SCALE);
@@ -2187,8 +2187,8 @@ public class PhotoDragAndDropHandler {
             break;
             
             case TargetType.PHOTO_LIST:
-                Gee.Collection<TransformablePhoto> sources =
-                    (Gee.Collection<TransformablePhoto>) page.get_view().get_selected_sources();
+                Gee.Collection<Photo> sources =
+                    (Gee.Collection<Photo>) page.get_view().get_selected_sources();
                 
                 // convert the selected sources to serialized PhotoIDs for internal drag-and-drop
                 selection_data.set(Gdk.Atom.intern_static_string("PhotoID"), (int) sizeof(int64),
