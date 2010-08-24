@@ -316,11 +316,20 @@ public class FSpotDatabase : Object, AlienDatabase {
             }
             
             try {
+                bool photo_versions_added = false;
                 foreach (FSpotPhotoVersionRow photo_version_row in photo_versions_table.get_by_photo_id(photo_row.photo_id)) {
                     photos.add(new FSpotDatabasePhoto(
                         photo_row, photo_version_row, roll_row, tags, event, hidden, favorite
                     ));
+                    photo_versions_added = true;
                 }
+                
+                // older versions of F-Spot (0.4.3.1 at least, perhaps later) did not maintain photo_versions,
+                // this handles that case
+                if (!photo_versions_added)
+                    photos.add(new FSpotDatabasePhoto(
+                        photo_row, null, roll_row, tags, event, hidden, favorite
+                    ));
             } catch (DatabaseError e) {
                 // if we can't load the different versions, do the best we can
                 // and create one photo from the photo row that was found earlier

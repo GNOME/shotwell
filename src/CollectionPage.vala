@@ -217,8 +217,14 @@ public abstract class CollectionPage : CheckerboardPage {
 
         Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
             Resources.ICON_ZOOM_SCALE));
+        Gtk.EventBox zoom_out_box = new Gtk.EventBox();
+        zoom_out_box.set_above_child(true);
+        zoom_out_box.set_visible_window(false);
+        zoom_out_box.add(zoom_out);
 
-        zoom_group.pack_start(zoom_out, false, false, 0);
+        zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
+
+        zoom_group.pack_start(zoom_out_box, false, false, 0);
         
         // thumbnail size slider
         slider = new Gtk.HScale(slider_adjustment);
@@ -231,8 +237,14 @@ public abstract class CollectionPage : CheckerboardPage {
         
         Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_IN,
             Resources.ICON_ZOOM_SCALE));
+        Gtk.EventBox zoom_in_box = new Gtk.EventBox();
+        zoom_in_box.set_above_child(true);
+        zoom_in_box.set_visible_window(false);
+        zoom_in_box.add(zoom_in);
+        
+        zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
 
-        zoom_group.pack_start(zoom_in, false, false, 0);
+        zoom_group.pack_start(zoom_in_box, false, false, 0);
 
         Gtk.ToolItem group_wrapper = new Gtk.ToolItem();
         group_wrapper.add(zoom_group);
@@ -933,6 +945,24 @@ public abstract class CollectionPage : CheckerboardPage {
     
     public void decrease_thumb_size() {
         set_thumb_size(scale - MANUAL_STEPPING);
+    }
+
+    private bool on_zoom_out_pressed(Gdk.EventButton event) {
+        snap_zoom_to_min();
+        return true;
+    }
+    
+    private bool on_zoom_in_pressed(Gdk.EventButton event) {
+        snap_zoom_to_max();
+        return true;
+    }
+
+    protected void snap_zoom_to_min() {
+        slider.set_value(scale_to_slider(Thumbnail.MIN_SCALE));
+    }
+
+    protected void snap_zoom_to_max() {
+        slider.set_value(scale_to_slider(Thumbnail.MAX_SCALE));
     }
     
     public void set_thumb_size(int new_scale) {

@@ -39,4 +39,8 @@
         </menu>
     </menubar>
     
+    <popup name="OfflineContextMenu">
+        <menuitem name="RemoveFromLibrary" action="RemoveFromLibrary" />
+    </popup>
+    
 </ui>
