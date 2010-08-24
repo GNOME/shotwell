@@ -2700,14 +2700,13 @@ public class LibraryPhotoPage : EditingHostPage {
         
         // move on to next photo before executing
         on_next_photo();
-        bool no_more = photo.equals(get_photo());
+        
+        // this indicates there is only one photo in the controller, or about to be zero, so switch 
+        // to the Photos page, which is guaranteed to be there when this disappears
+        if (photo.equals(get_photo()))
+            LibraryWindow.get_app().switch_to_library_page();
         
         get_command_manager().execute(new TrashUntrashPhotosCommand(photos, true));
-        
-        // this indicates there is only one photo in the controller, or now zero, so switch 
-        // to the Photos page, which is guaranteed to be there
-        if (no_more)
-            LibraryWindow.get_app().switch_to_library_page();
     }
     
     private void on_photo_destroyed(DataSource source) {
