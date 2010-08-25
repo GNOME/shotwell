@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.0+trunk\n"
+"Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-22 15:28+0100\n"
+"PO-Revision-Date: 2010-08-25 13:56+0100\n"
 "Last-Translator: csola48 <csola48@gmail.com>\n"
 "Language-Team: Hungarian <csola48@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "Plural-Forms: nplurals=2;plural=(n !=1);\n"
 
-# "Plural-Forms: nplurals=2; plural=n != 1;\n
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
 #: src/AppWindow.vala:625
@@ -53,7 +52,7 @@ msgstr "Fénykép nézegető"
 
 #: src/AppWindow.vala:487
 msgid "_User Manual"
-msgstr "Felhasználói kézikönyv"
+msgstr "_Felhasználói kézikönyv"
 
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
@@ -89,11 +88,11 @@ msgstr "Képek"
 
 #: src/AppWindow.vala:55
 msgid "Pin Toolbar"
-msgstr ""
+msgstr "Eszköztár tűzése"
 
 #: src/AppWindow.vala:56
 msgid "Pin the toolbar open"
-msgstr ""
+msgstr "Nyitott eszköztár tűzése"
 
 #: src/AppWindow.vala:60
 #: src/AppWindow.vala:137
@@ -201,7 +200,7 @@ msgstr "A kijelölt képek lemezre mentése"
 #: src/PhotoPage.vala:2016
 #: src/TrashPage.vala:58
 msgid "_Edit"
-msgstr "Sz_erkesztés"
+msgstr "S_zerkesztés"
 
 #: src/CollectionPage.vala:265
 #: src/EventsDirectoryPage.vala:225
@@ -210,13 +209,13 @@ msgstr "Eseménye_k"
 
 #: src/CollectionPage.vala:282
 msgid "_Photos"
-msgstr "Fényképek"
+msgstr "_Fényképek"
 
 #: src/CollectionPage.vala:287
 #: src/PhotoPage.vala:2207
 #: src/PhotoPage.vala:3244
 msgid "Zoom _In"
-msgstr "Nagy_ítás"
+msgstr "_Nagyítás"
 
 #: src/CollectionPage.vala:288
 msgid "Increase the magnification of the thumbnails"
@@ -226,7 +225,7 @@ msgstr "Bélyegképek nagyítása"
 #: src/PhotoPage.vala:2213
 #: src/PhotoPage.vala:3250
 msgid "Zoom _Out"
-msgstr "Kicsinyít_és"
+msgstr "_Kicsinyítés"
 
 #: src/CollectionPage.vala:294
 msgid "Decrease the magnification of the thumbnails"
@@ -249,11 +248,11 @@ msgstr "Diavetítés indítása"
 #: src/PhotoPage.vala:3235
 #: src/TrashPage.vala:74
 msgid "_View"
-msgstr "Né_zet"
+msgstr "_Nézet"
 
 #: src/CollectionPage.vala:440
 msgid "Sort _Photos"
-msgstr "Fényképek rendezése"
+msgstr "Fényképek _rendezése"
 
 #: src/CollectionPage.vala:454
 #: src/CollectionPage.vala:487
@@ -304,7 +303,7 @@ msgstr "Fényképek rendezése készítésük dátuma szerint"
 
 #: src/CollectionPage.vala:517
 msgid "By _Rating"
-msgstr "Kategória szerint"
+msgstr "_Kategória szerint"
 
 #: src/CollectionPage.vala:518
 msgid "Sort photos by rating"
@@ -350,19 +349,19 @@ msgstr "Forgatás visszavonása"
 
 #: src/CollectionPage.vala:1128
 msgid "Flipping Horizontally"
-msgstr "Forgatás vízszintesen"
+msgstr "Tükrözés vízszintesen"
 
 #: src/CollectionPage.vala:1129
 msgid "Undoing Flip Horizontally"
-msgstr "Vízszintes forgatás visszavonása"
+msgstr "Vízszintes tükrözés visszavonása"
 
 #: src/CollectionPage.vala:1138
 msgid "Flipping Vertically"
-msgstr "Forgatás függőlegesen"
+msgstr "Tükrözés függőlegesen"
 
 #: src/CollectionPage.vala:1139
 msgid "Undoing Flip Vertically"
-msgstr "Függőleges forgatás visszavonása"
+msgstr "Függőleges tükrözés visszavonása"
 
 #: src/CollectionPage.vala:1729
 msgid "Photos"
@@ -425,12 +424,12 @@ msgstr "Korábbi arány visszaállítása"
 #: src/Commands.vala:891
 #: src/Commands.vala:892
 msgid "Increasing ratings"
-msgstr ""
+msgstr "Osztályzat csökkentése"
 
 #: src/Commands.vala:891
 #: src/Commands.vala:892
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "Osztályzat növelése"
 
 #: src/Commands.vala:952
 msgid "Original photo could not be adjusted."
@@ -485,6 +484,8 @@ msgid ""
 "Unable to export the following photo due to a file error.\n"
 "\n"
 msgstr ""
+"Következő fényképek exportja fájl hiba miatt nem lehetséges.\n"
+"\n"
 
 #: src/Dialogs.vala:60
 msgid ""
@@ -498,11 +499,11 @@ msgstr ""
 
 #: src/Dialogs.vala:61
 msgid "Con_tinue"
-msgstr "Folytatás"
+msgstr "Foly_tatás"
 
 #: src/Dialogs.vala:135
 msgid "_Format:"
-msgstr "_Formázás:"
+msgstr "_Formátum:"
 
 #: src/Dialogs.vala:138
 msgid "_Quality:"
@@ -510,16 +511,16 @@ msgstr "Mi_nőség:"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
-msgstr "Feltétel arányosítása"
+msgstr "_Feltétel arányosítása"
 
 #: src/Dialogs.vala:144
 msgid " _pixels"
 msgstr "_pixel"
 
 #: src/Dialogs.vala:304
-#, fuzzy, c-format
+#, c-format
 msgid "(and %d more)\n"
-msgstr ""
+msgstr "(és %d több)\n"
 
 #: src/Dialogs.vala:327
 #: src/Dialogs.vala:342
@@ -592,11 +593,11 @@ msgstr "24 óra"
 
 #: src/Dialogs.vala:798
 msgid "_Shift photos by the same amount"
-msgstr "Minden fénykép eltolása ugyanannyival"
+msgstr "Minden fénykép _eltolása ugyanannyival"
 
 #: src/Dialogs.vala:803
 msgid "Set _all photos to this time"
-msgstr "Minden fénykép beállítása erre az időre"
+msgstr "Minden fénykép _beállítása erre az időre"
 
 #: src/Dialogs.vala:809
 #: src/Dialogs.vala:891
@@ -671,12 +672,12 @@ msgstr "Csatlakoztassa a fényképezőgépet a számítógéphez és importálja
 
 #: src/Dialogs.vala:1173
 msgid "Import photos from your _F-Spot library"
-msgstr "Fényképek importálása az ön F-Spot könyvtárából"
+msgstr "Fényképek importálása az ön _F-Spot könyvtárából"
 
 #: src/Dialogs.vala:1180
 #, c-format
 msgid "_Import photos from your %s folder"
-msgstr "Fényképek importálása az ön %s könyvtárából"
+msgstr "Fényképek _importálása az ön %s könyvtárából"
 
 #: src/Dialogs.vala:1190
 msgid "You can also import photos in any of these ways:"
@@ -684,7 +685,7 @@ msgstr "Importálhat fényképeket ezeken a módokon is:"
 
 #: src/Dialogs.vala:1202
 msgid "_Don't show this message again"
-msgstr "Ne mutassa ezt az üzenetet újra"
+msgstr "_Ne mutassa ezt az üzenetet újra"
 
 #: src/Dialogs.vala:1428
 msgid "Choose Library Directory"
@@ -692,7 +693,7 @@ msgstr "Válasszon egy könyvtárat"
 
 #: src/Dialogs.vala:1477
 msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
-msgstr ""
+msgstr "Shotwellel lehet a fényképet másolni az Ön könyvtárába vagy megadhatja a kapcsolatot anélkül, hogy megkétszerezné őket."
 
 #: src/Dialogs.vala:1482
 msgid "Co_py into Library"
@@ -730,7 +731,7 @@ msgstr "Nem ellenőrizhető %s: nem egy könyvtár"
 
 #: src/EditingTools.vala:501
 msgid "Return to current photo dimensions"
-msgstr ""
+msgstr "Aktuális fénykép méreteinek visszaállítása"
 
 #: src/EditingTools.vala:504
 msgid "Set the crop for this photo"
@@ -742,7 +743,7 @@ msgstr ""
 
 #: src/EditingTools.vala:584
 msgid "Unconstrained"
-msgstr ""
+msgstr "Mesterkéletlen"
 
 #: src/EditingTools.vala:585
 msgid "Square"
@@ -990,7 +991,7 @@ msgstr ""
 
 #: src/FacebookConnector.vala:754
 msgid "Publish to an e_xisting album:"
-msgstr "Közzététel létező albumban:"
+msgstr "Közzététel _létező albumban:"
 
 #: src/FacebookConnector.vala:757
 msgid "Create a _new album named:"
@@ -1045,6 +1046,8 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"Az Ön Flickr fiókjának korlátja mennyi adatot képes havonta fogadni?\n"
+"Ebben a hónapban Önnek %d MB feltöltési lehetősége maradt."
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
@@ -1052,11 +1055,11 @@ msgstr "Az Ön Flickr Pro fiókja korlátlan feltöltést engedélyez."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
-msgstr "Fényképeket láthatja:"
+msgstr "Fényképek láthatóak:"
 
 #: src/FlickrConnector.vala:850
 msgid "Photo _size:"
-msgstr "Fénykép mérete:"
+msgstr "Fénykép _mérete:"
 
 #: src/FlickrConnector.vala:922
 msgid "Everyone"
@@ -1080,11 +1083,11 @@ msgstr "Nagy (1024 x 768 képpont)"
 
 #: src/FSpotDatabaseDriver.vala:197
 msgid "Import From _F-Spot..."
-msgstr "_Importálás az F-Spotból..."
+msgstr "Importálás az _F-Spotból..."
 
 #: src/FSpotDatabaseDriver.vala:198
 msgid "Import the content of an external F-Spot database"
-msgstr ""
+msgstr "Külső F-Spot adatbázis tartalmának importálása"
 
 #: src/FSpotDatabaseDriver.vala:207
 msgid "Import From F-Spot"
@@ -1118,7 +1121,7 @@ msgstr "Csak a nem importált fényképek mutatása"
 
 #: src/ImportPage.vala:465
 msgid "Import _Selected"
-msgstr "Kijelöltek importálása"
+msgstr "_Kijelöltek importálása"
 
 #: src/ImportPage.vala:470
 msgid "Import _All"
@@ -1142,7 +1145,7 @@ msgstr "A fényképezőgépet egy másik alkalmazás használja, így a Shotwell
 
 #: src/ImportPage.vala:608
 msgid "Please close any other application using the camera."
-msgstr ""
+msgstr "Fényképezőgép használatánál minden más alkalmazást zárjon be."
 
 #: src/ImportPage.vala:613
 #, c-format
@@ -1195,7 +1198,7 @@ msgstr "Fényképek importálásának megállítása"
 
 #: src/ImportPage.vala:1220
 msgid "_Stop Import"
-msgstr "Importálás me"
+msgstr "Importálás _megállítása"
 
 #: src/ImportPage.vala:1301
 #, c-format
@@ -1244,7 +1247,7 @@ msgstr "_Események rendezése"
 
 #: src/LibraryWindow.vala:475
 msgid "Empty T_rash"
-msgstr "Kuka ürítése"
+msgstr "_Kuka ürítése"
 
 #: src/LibraryWindow.vala:476
 msgid "Delete all photos in the trash"
@@ -1260,7 +1263,7 @@ msgstr "Kijelölés alapinformációinak megjelenítése"
 
 #: src/LibraryWindow.vala:493
 msgid "E_xtended Information"
-msgstr "További információk"
+msgstr "_További információk"
 
 #: src/LibraryWindow.vala:494
 msgid "Display extended information for the selection"
@@ -1280,11 +1283,11 @@ msgstr "Kuka ürítése..."
 
 #: src/LibraryWindow.vala:811
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
+msgstr "Shotwell a konfiguráció szerint az import fényképeket a /home könyvtárba helyezi el.\n"
 
 #: src/LibraryWindow.vala:814
 msgid "_Import"
-msgstr "Importálás"
+msgstr "_Importálás"
 
 #: src/LibraryWindow.vala:814
 msgid "Library Location"
@@ -1292,7 +1295,7 @@ msgstr "Könyvtár helye"
 
 #: src/LibraryWindow.vala:827
 msgid "Photos cannot be imported from this directory."
-msgstr ""
+msgstr "Ebbe a könyvtárba fényképek nem importálhatóak"
 
 #: src/LibraryWindow.vala:1203
 msgid "Tags"
@@ -1333,7 +1336,7 @@ msgstr "[FÁJL]"
 #: src/main.vala:253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
+msgstr "Futtassa a '%s --help' parancsot a használható parancsok teljes listájának használatához.\n"
 
 #: src/OfflinePage.vala:17
 msgid "Missing Files"
@@ -1389,12 +1392,12 @@ msgstr "_Fénykép"
 #: src/PhotoPage.vala:2040
 #: src/PhotoPage.vala:3151
 msgid "_Tools"
-msgstr "Eszközök"
+msgstr "_Eszközök"
 
 #: src/PhotoPage.vala:2045
 #: src/PhotoPage.vala:3156
 msgid "_Previous Photo"
-msgstr "Előző fénykép"
+msgstr "_Előző fénykép"
 
 #: src/PhotoPage.vala:2046
 #: src/PhotoPage.vala:3157
@@ -1404,7 +1407,7 @@ msgstr "Előző fénykép"
 #: src/PhotoPage.vala:2051
 #: src/PhotoPage.vala:3162
 msgid "_Next Photo"
-msgstr "Következő fénykép"
+msgstr "_Következő fénykép"
 
 #: src/PhotoPage.vala:2052
 #: src/PhotoPage.vala:3163
@@ -1424,7 +1427,7 @@ msgstr "Fényképek nagyításának csökkentése"
 #: src/PhotoPage.vala:2219
 #: src/PhotoPage.vala:3256
 msgid "Fit to _Page"
-msgstr "Oldal kitöltése"
+msgstr "Oldal _kitöltése"
 
 #: src/PhotoPage.vala:2220
 #: src/PhotoPage.vala:3257
@@ -1434,7 +1437,7 @@ msgstr "Képernyő kitöltése  a fényképpel"
 #: src/PhotoPage.vala:2225
 #: src/PhotoPage.vala:3262
 msgid "Zoom _100%"
-msgstr "Nagyítás_100%"
+msgstr "Nagyítás _100%"
 
 #: src/PhotoPage.vala:2226
 #: src/PhotoPage.vala:3263
@@ -1444,7 +1447,7 @@ msgstr "Fénykép 100%-os nagyítása"
 #: src/PhotoPage.vala:2231
 #: src/PhotoPage.vala:3268
 msgid "Zoom _200%"
-msgstr "Nagyítás_200%"
+msgstr "Nagyítás _200%"
 
 #: src/PhotoPage.vala:2232
 #: src/PhotoPage.vala:3269
@@ -1488,7 +1491,7 @@ msgstr "_Oldalbeállítás"
 #: src/PhotoPage.vala:3138
 #: src/Resources.vala:209
 msgid "Print the photo to a printer connected to your computer"
-msgstr ""
+msgstr "Fénykép nyomtatásához a nyomtatónak kapcsolódva kell lennie a számítógéppel"
 
 #: src/PhotoPage.vala:3143
 msgid "Edit"
@@ -1515,7 +1518,7 @@ msgstr ""
 
 #: src/PhotoPage.vala:3414
 msgid "_Save a Copy"
-msgstr "Másolat mentése"
+msgstr "_Másolat mentése"
 
 #: src/PhotoPage.vala:3417
 #, c-format
@@ -1662,15 +1665,15 @@ msgstr "A fényképek itt fognak megjelenni:"
 
 #: src/PicasaConnector.vala:714
 msgid "An _existing album:"
-msgstr "Egy létező album:"
+msgstr "_Egy létező album:"
 
 #: src/PicasaConnector.vala:728
 msgid "A _new album named:"
-msgstr "Egy új album neve:"
+msgstr "Egy új _album neve:"
 
 #: src/PicasaConnector.vala:740
 msgid "L_ist album in public gallery"
-msgstr "Album listázása a publikus galériában"
+msgstr "Album l_istázása a publikus galériában"
 
 #: src/PicasaConnector.vala:752
 msgid "Photo _size preset:"
@@ -1698,20 +1701,19 @@ msgstr "Nyomtatott képméret"
 
 #: src/Printing.vala:227
 msgid "Use a _standard size:"
-msgstr "Szabványos méret használata:"
+msgstr "_Szabványos méret használata:"
 
 #: src/Printing.vala:231
 msgid "Use a c_ustom size:"
-msgstr "Felhasználó által megadott méret használata:"
+msgstr "_Felhasználó által megadott méret használata:"
 
 #: src/Printing.vala:235
 msgid "_Fill the entire page"
-msgstr "Teljes oldal kitöltése"
+msgstr "Teljes oldal _kitöltése"
 
 #: src/Printing.vala:282
-#, fuzzy
 msgid "in."
-msgstr "B_e"
+msgstr "hüvelyk"
 
 #: src/Printing.vala:283
 msgid "cm"
@@ -1719,7 +1721,7 @@ msgstr "cm"
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
-msgstr "Fénykép méretarány összehasonlítása"
+msgstr "Fénykép _méretarány összehasonlítása"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
@@ -1727,7 +1729,7 @@ msgstr "Képpont felbontás"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr "Kimenő fénykép:"
+msgstr "_Kimenő fénykép:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
@@ -1853,7 +1855,7 @@ msgstr "Copyright 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:90
 msgid "Rotate _Right"
-msgstr "Forgatás jobbr_a"
+msgstr "Forgatás jobb_ra"
 
 #: src/Resources.vala:91
 #: src/Resources.vala:96
@@ -1870,7 +1872,7 @@ msgstr "Fényképek forgatása jobbra"
 
 #: src/Resources.vala:95
 msgid "Rotate _Left"
-msgstr "Forgatás Ba_lra"
+msgstr "Forgatás ba_lra"
 
 #: src/Resources.vala:97
 msgid "Rotate Left"
@@ -1882,27 +1884,27 @@ msgstr "Fényképek forgatása balra"
 
 #: src/Resources.vala:100
 msgid "Flip Hori_zontally"
-msgstr "Forgatás vízszintesen"
+msgstr "Tükrözés ví_zszintesen"
 
 #: src/Resources.vala:101
 msgid "Flip Horizontally"
-msgstr "Forgatás vízszintesen"
+msgstr "Tükrözés vízszintesen"
 
 #: src/Resources.vala:102
 msgid "Flip the photos horizontally"
-msgstr "Fénykép forgatása vízszintesen"
+msgstr "Fénykép tükrözése vízszintesen"
 
 #: src/Resources.vala:104
 msgid "Flip Verti_cally"
-msgstr "Forgatás függőlegesen"
+msgstr "Tükrözés függőlegesen"
 
 #: src/Resources.vala:105
 msgid "Flip Vertically"
-msgstr "Forgatás függőlegesen"
+msgstr "Tükrözés függőlegesen"
 
 #: src/Resources.vala:106
 msgid "Flip the photos vertically"
-msgstr "Fényképek forgatása függőlegesen"
+msgstr "Fényképek tükrözése függőlegesen"
 
 #: src/Resources.vala:108
 msgid "_Enhance"
@@ -1918,7 +1920,7 @@ msgstr "Fényképek megjelenésének automatikus javítása "
 
 #: src/Resources.vala:112
 msgid "_Crop"
-msgstr "Kivágás"
+msgstr "_Kivágás"
 
 #: src/Resources.vala:113
 msgid "Crop"
@@ -1930,7 +1932,7 @@ msgstr "Fénykép egy részének kivágása"
 
 #: src/Resources.vala:116
 msgid "_Red-eye"
-msgstr "Vörösszem-hatás"
+msgstr "Vö_rösszem-hatás"
 
 #: src/Resources.vala:117
 msgid "Red-eye"
@@ -1942,7 +1944,7 @@ msgstr "Vörösszem-effektus csökkentése vagy eltávolítása a fényképről"
 
 #: src/Resources.vala:120
 msgid "_Adjust"
-msgstr "Beállítás"
+msgstr "_Beállítás"
 
 #: src/Resources.vala:121
 msgid "Adjust"
@@ -2035,9 +2037,8 @@ msgid "New Event"
 msgstr "Új esemény"
 
 #: src/Resources.vala:152
-#, fuzzy
 msgid "Create new event from the selected photos"
-msgstr "Új esemény létrehozása a kijelölt üzenetből"
+msgstr "Új esemény létrehozása a kijelölt fényképből"
 
 #: src/Resources.vala:154
 msgid "Move Photos"
@@ -2070,19 +2071,19 @@ msgstr "Osztályozás"
 
 #: src/Resources.vala:163
 msgid "Change the rating of your photo"
-msgstr ""
+msgstr "Fényképe besorolásának cseréje"
 
 #: src/Resources.vala:165
 msgid "_Increase"
-msgstr ""
+msgstr "_Csökkentés"
 
 #: src/Resources.vala:166
 msgid "Increase Rating"
-msgstr ""
+msgstr "Osztályzat csökkentése"
 
 #: src/Resources.vala:167
 msgid "Increase the rating of your photo"
-msgstr ""
+msgstr "Fényképe besorolásának növelése"
 
 #: src/Resources.vala:169
 msgid "_Decrease"
@@ -2090,11 +2091,11 @@ msgstr "Csökkentés"
 
 #: src/Resources.vala:170
 msgid "Decrease Rating"
-msgstr ""
+msgstr "Osztályzat növelése"
 
 #: src/Resources.vala:171
 msgid "Decrease the rating of your photo"
-msgstr ""
+msgstr "Fényképe besorolásának csökkentése"
 
 #: src/Resources.vala:173
 msgid "_Unrated"
@@ -2102,7 +2103,7 @@ msgstr "Osztályozatlan"
 
 #: src/Resources.vala:174
 msgid "Rate Unrated"
-msgstr ""
+msgstr "Besorolás osztályozatlanra"
 
 #: src/Resources.vala:175
 msgid "Setting as unrated"
@@ -2118,7 +2119,7 @@ msgstr "_Visszautasított"
 
 #: src/Resources.vala:179
 msgid "Rate Rejected"
-msgstr ""
+msgstr "Besorolás visszautasítottra"
 
 #: src/Resources.vala:180
 msgid "Setting as rejected"
@@ -2126,7 +2127,7 @@ msgstr "Beállítás, mint visszautasított"
 
 #: src/Resources.vala:181
 msgid "Set rating to rejected"
-msgstr ""
+msgstr "Beállítás visszautasított besorolásra"
 
 #: src/Resources.vala:183
 msgid "All + _Rejected"
@@ -2135,7 +2136,7 @@ msgstr "Összes  + Visszautasított"
 #: src/Resources.vala:184
 #: src/Resources.vala:185
 msgid "Show all photos, including rejected"
-msgstr ""
+msgstr "Összes fénykép mutatása, beleértve a visszautasítottat"
 
 #: src/Resources.vala:187
 msgid "_All Photos"
@@ -2156,7 +2157,7 @@ msgstr "Minden fénykép osztályozásának megjelenítése"
 
 #: src/Resources.vala:194
 msgid "_Filter Photos"
-msgstr "Fénykép szűrő"
+msgstr "_Fénykép szűrő"
 
 #: src/Resources.vala:195
 msgid "Filter Photos"
@@ -2180,7 +2181,7 @@ msgstr "Másolat készítése a fényképről"
 
 #: src/Resources.vala:202
 msgid "_Export..."
-msgstr "Exportálás..."
+msgstr "_Exportálás..."
 
 #: src/Resources.vala:203
 msgid "Export to disk"
@@ -2188,7 +2189,7 @@ msgstr "Exportálás lemezre"
 
 #: src/Resources.vala:206
 msgid "View and change page setup printing"
-msgstr ""
+msgstr "Nyomtatás oldalbeállítás nézete és cseréje"
 
 #: src/Resources.vala:208
 msgid "_Print..."
@@ -2208,7 +2209,7 @@ msgstr "Közzététel különböző weboldalakon"
 
 #: src/Resources.vala:215
 msgid "E_dit Title..."
-msgstr "Cím szerkesztése"
+msgstr "Cím sz_erkesztése"
 
 #: src/Resources.vala:217
 msgid "Edit title of the selected photo"
@@ -2216,7 +2217,7 @@ msgstr "Kiválasztott fénykép címének szerkesztése"
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr "Dátum és idő beállítása..."
+msgstr "Dátum és idő beállítás_a..."
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
@@ -2241,7 +2242,7 @@ msgstr "Címke hozzáadása a kiválasztott fényképekhez"
 
 #: src/Resources.vala:227
 msgid "_Preferences"
-msgstr "Beállítások"
+msgstr "_Beállítások"
 
 #: src/Resources.vala:228
 msgid "Edit preferences"
@@ -2281,7 +2282,7 @@ msgstr "Címke hozzáadása \"%s\" és \"%s\""
 #: src/Resources.vala:250
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr "Címke törlése \"%s\""
+msgstr "Címke _törlése \"%s\""
 
 #: src/Resources.vala:254
 #, c-format
@@ -2297,7 +2298,7 @@ msgstr "Címke törlése"
 #: src/Resources.vala:265
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr "Címke átnevezése \"%s\"..."
+msgstr "Címke át_nevezése \"%s\"..."
 
 #: src/Resources.vala:269
 #, c-format
@@ -2413,7 +2414,7 @@ msgstr "Nem nyitható meg a fájl kezelőben: %s"
 
 #: src/Resources.vala:544
 msgid "R_emove From Library"
-msgstr "Eltávolítás a könyvtárból"
+msgstr "_Eltávolítás a könyvtárból"
 
 #: src/Resources.vala:546
 msgid "Remove the photo from the library"
@@ -2421,7 +2422,7 @@ msgstr "Fénykép eltávolítása a könyvtárból"
 
 #: src/Resources.vala:548
 msgid "_Move to Trash"
-msgstr "Áthelyezés a kukába"
+msgstr "Áthelyezés a _kukába"
 
 #: src/Resources.vala:549
 msgid "Move the selected photos to the trash"
@@ -2537,32 +2538,32 @@ msgstr "_Bezárás"
 #: src/WebConnectors.vala:830
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
+msgstr "%s fényképek közzététele nem folytatódhat, mert nincs kapcsolat a szolgáltatással."
 
 #: src/WebConnectors.vala:833
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
-msgstr ""
+msgstr "%s fényképek közzététele nem folytatódhat, mert nincs kapcsolat hibás a szolgáltatással."
 
 #: src/WebConnectors.vala:836
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr ""
+msgstr "%s fényképek közzététele nem folytatódhat, mert a protokoll hibás."
 
 #: src/WebConnectors.vala:838
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr ""
+msgstr "%s fényképek közzététele nem folytatódhat, mert a szolgáltatás hibát jelzett."
 
 #: src/WebConnectors.vala:840
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
+msgstr "%s fényképek közzététele nem folytatódhat, mert a szolgáltatás rossz választ adott."
 
 #: src/WebConnectors.vala:843
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr ""
+msgstr "%s fényképek közzététele nem folytatódhat, mert belső hiba lépett fel."
 
 #: src/WebConnectors.vala:847
 msgid "To try publishing to another service, select one from the above menu."
@@ -2615,11 +2616,11 @@ msgstr "Külső szerkesztő"
 
 #: ui/shotwell.glade:321
 msgid "_External photo editor:"
-msgstr "Külső fénykép szerkesztő:"
+msgstr "_Külső fénykép szerkesztő:"
 
 #: ui/shotwell.glade:334
 msgid "External _RAW editor:"
-msgstr "Külső RAW szerkesztő:"
+msgstr "Külső _RAW szerkesztő:"
 
 #: ui/shotwell.glade:511
 msgid "Preparing pictures for import..."
