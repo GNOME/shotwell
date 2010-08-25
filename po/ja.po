@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.0+trunk\n"
+"Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-08-18 20:04-0300\n"
@@ -122,7 +122,7 @@ msgstr "全画面化(_F)"
 
 #: src/AppWindow.vala:476
 msgid "Use Shotwell at fullscreen"
-msgstr ""
+msgstr "Shotwellを全画面化して使う"
 
 #: src/AppWindow.vala:481
 msgid "_Contents"
@@ -175,7 +175,7 @@ msgstr "ファイル(_F)"
 
 #: src/CollectionPage.vala:229
 msgid "Export selected photos to disk"
-msgstr ""
+msgstr "選択された写真をディスクへエクスポート"
 
 #: src/CollectionPage.vala:261 src/EventsDirectoryPage.vala:221
 #: src/ImportPage.vala:474 src/OfflinePage.vala:44 src/PhotoPage.vala:2016
@@ -250,7 +250,7 @@ msgstr ""
 
 #: src/CollectionPage.vala:505
 msgid "By _Title"
-msgstr ""
+msgstr "タイトルで並べかえ(_T)"
 
 #: src/CollectionPage.vala:506
 msgid "Sort photos by title"
@@ -340,19 +340,19 @@ msgstr ""
 
 #: src/Commands.vala:720
 msgid "Creating New Event"
-msgstr ""
+msgstr "新規イベントの作成"
 
 #: src/Commands.vala:721
 msgid "Removing Event"
-msgstr ""
+msgstr "イベントの削除中"
 
 #: src/Commands.vala:730
 msgid "Moving Photos to New Event"
-msgstr ""
+msgstr "新規イベント(_N)"
 
 #: src/Commands.vala:731
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "新規イベント"
 
 #: src/Commands.vala:761
 msgid "Merging"
@@ -553,7 +553,7 @@ msgstr "名前："
 
 #: src/Dialogs.vala:529 src/Resources.vala:216
 msgid "Edit Title"
-msgstr ""
+msgstr "タイトルを編集"
 
 #: src/Dialogs.vala:529 src/Properties.vala:246
 #, fuzzy
@@ -616,8 +616,8 @@ msgstr "削除(_R)"
 #: src/Dialogs.vala:602
 msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ライブラリから写真を削除"
+msgstr[1] "ライブラリから写真を削除"
 
 #: src/Dialogs.vala:679
 #, c-format
@@ -1183,7 +1183,7 @@ msgstr ""
 
 #: src/ImportPage.vala:593
 msgid "Please unmount the camera."
-msgstr ""
+msgstr "カメラをアンマウントしてください。"
 
 #: src/ImportPage.vala:598
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
@@ -1288,7 +1288,7 @@ msgstr ""
 
 #: src/LibraryWindow.vala:458
 msgid "_Import From Folder..."
-msgstr ""
+msgstr "フォルダからインポート(_I)"
 
 #: src/LibraryWindow.vala:459
 msgid "Import photos from disk to library"
@@ -1324,7 +1324,7 @@ msgstr ""
 
 #: src/LibraryWindow.vala:654
 msgid "Import From Folder"
-msgstr ""
+msgstr "フォルダからインポート"
 
 #: src/LibraryWindow.vala:689
 msgid "Empty Trash"
@@ -1344,7 +1344,7 @@ msgstr "インポート(_I)"
 
 #: src/LibraryWindow.vala:814
 msgid "Library Location"
-msgstr ""
+msgstr "ライブラリの位置"
 
 #: src/LibraryWindow.vala:827
 msgid "Photos cannot be imported from this directory."
@@ -1495,7 +1495,7 @@ msgstr ""
 
 #: src/PhotoPage.vala:2578 src/util.vala:596
 msgid "Remove From Library"
-msgstr ""
+msgstr "ライブラリから削除"
 
 #: src/PhotoPage.vala:2578 src/util.vala:597
 msgid "Removing Photo From Library"
@@ -1537,12 +1537,12 @@ msgid "Edit"
 msgstr "編集"
 
 #: src/PhotoPage.vala:3277
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "%s does not exist."
 msgstr "％sは存在しません。"
 
 #: src/PhotoPage.vala:3279
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "%s is not a file."
 msgstr "％sはファイルではありません。"
 
@@ -1825,11 +1825,11 @@ msgstr ""
 
 #: src/Properties.vala:412
 msgid "Location:"
-msgstr ""
+msgstr "場所："
 
 #: src/Properties.vala:414
 msgid "File size:"
-msgstr ""
+msgstr "ファイルサイズ："
 
 #: src/Properties.vala:417
 msgid "Original dimensions:"
@@ -2013,7 +2013,7 @@ msgstr ""
 
 #: src/Resources.vala:132
 msgid "Set selected image to be the new desktop background"
-msgstr ""
+msgstr "選択した画像をデスクトップの壁紙として設定する"
 
 #: src/Resources.vala:134
 msgid "_Undo"
@@ -2041,7 +2041,7 @@ msgstr ""
 
 #: src/Resources.vala:142
 msgid "Re_name Event..."
-msgstr ""
+msgstr "イベントの名前変更(_n)"
 
 #: src/Resources.vala:144
 msgid "Rename the selected event"
@@ -2081,7 +2081,7 @@ msgstr ""
 
 #: src/Resources.vala:157
 msgid "_Merge Events"
-msgstr ""
+msgstr "イベントのマージ(M)"
 
 #: src/Resources.vala:158
 msgid "Merge"
@@ -2197,11 +2197,11 @@ msgstr ""
 
 #: src/Resources.vala:198
 msgid "_Duplicate"
-msgstr ""
+msgstr "複製を作成(_D)"
 
 #: src/Resources.vala:199
 msgid "Duplicate"
-msgstr ""
+msgstr "複製"
 
 #: src/Resources.vala:200
 msgid "Make a duplicate of the photo"
@@ -2209,11 +2209,11 @@ msgstr ""
 
 #: src/Resources.vala:202
 msgid "_Export..."
-msgstr ""
+msgstr "エクスポート...(_E)"
 
 #: src/Resources.vala:203
 msgid "Export to disk"
-msgstr ""
+msgstr "ディスクへエクスポート"
 
 #: src/Resources.vala:206
 msgid "View and change page setup printing"
@@ -2237,7 +2237,7 @@ msgstr ""
 
 #: src/Resources.vala:215
 msgid "E_dit Title..."
-msgstr ""
+msgstr "タイトルを編集...(_d)"
 
 #: src/Resources.vala:217
 msgid "Edit title of the selected photo"
@@ -2269,7 +2269,7 @@ msgstr ""
 
 #: src/Resources.vala:227
 msgid "_Preferences"
-msgstr ""
+msgstr "設定(_P)"
 
 #: src/Resources.vala:228
 msgid "Edit preferences"
@@ -2277,7 +2277,7 @@ msgstr ""
 
 #: src/Resources.vala:230
 msgid "_Open With External Editor"
-msgstr ""
+msgstr "外部エディタで開く(_O)"
 
 #: src/Resources.vala:231
 msgid "Open the selected photo with an external image editor"
@@ -2348,11 +2348,11 @@ msgstr "タグ名変更"
 
 #: src/Resources.vala:278
 msgid "Modif_y Tags..."
-msgstr ""
+msgstr "タグの編集(_y)"
 
 #: src/Resources.vala:279
 msgid "Modify Tags"
-msgstr ""
+msgstr "タグの編集"
 
 #: src/Resources.vala:280
 msgid "Modify the tags for this photo"
@@ -2444,11 +2444,11 @@ msgstr "削除(_D)"
 
 #: src/Resources.vala:531
 msgid "Remove the selected photos from the trash"
-msgstr ""
+msgstr "選択されたファイルをゴミ箱から削除"
 
 #: src/Resources.vala:532 src/Resources.vala:545
 msgid "Remove the selected photos from the library"
-msgstr ""
+msgstr "選択されたファイルをライブラリから削除"
 
 #: src/Resources.vala:534
 msgid "_Restore"
@@ -2673,15 +2673,15 @@ msgstr "ディスプレイ"
 
 #: ui/shotwell.glade:299
 msgid "External Editors"
-msgstr ""
+msgstr "外部エディタ"
 
 #: ui/shotwell.glade:321
 msgid "_External photo editor:"
-msgstr ""
+msgstr "外部の写真エディタ"
 
 #: ui/shotwell.glade:334
 msgid "External _RAW editor:"
-msgstr ""
+msgstr "外部のRAWエディタ"
 
 #: ui/shotwell.glade:511
 msgid "Preparing pictures for import..."
