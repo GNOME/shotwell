@@ -4,9 +4,10 @@
 
     <info>
         <link type="guide" xref="index#share"/>
+        <desc>Click <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq> to set a photo as your wallpaper.</desc>
     </info>
 
-	<title>Set as Desktop Background</title>
+	<title>Set a photo as your desktop background</title>
 
     <p>To set a photo as your desktop background, select the photo and choose <guiseq><gui>File</gui><gui>Set as Desktop Background</gui></guiseq>.</p>
 </page>

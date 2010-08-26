@@ -4,9 +4,10 @@
 
     <info>
         <link type="guide" xref="index#view"/>
+        <desc>The sidebar on the left of the window lists various views of your library.</desc>
     </info>
 
-	<title>The Sidebar</title>
+	<title>What are the items in the sidebar?</title>
 
 <p>The sidebar on the left side of the Shotwell window lists various views of your library. Each view is known as a collection. Although you may see the same photo in multiple collections, it's only stored once on your hard drive.</p>
 

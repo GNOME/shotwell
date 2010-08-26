@@ -4,11 +4,12 @@
 
     <info>
         <link type="guide" xref="index#share"/>
+        <desc>Click <guiseq><gui>File</gui><gui>Print</gui></guiseq>. For more printing options, click <guiseq><gui>File</gui><gui>Page Setup</gui></guiseq>.</desc>
     </info>
 
 	<title>Printing</title>
 
-    <p>To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print...</gui></guiseq></p>
+    <p>To print a photo, select it and choose <guiseq><gui>File</gui><gui>Print</gui></guiseq>.</p>
 
-    <p>If you would like to set formatting, paper size, and orientation options, choose <guiseq><gui>File</gui><gui>Page Setup...</gui></guiseq> prior to printing.</p>
+    <p>If you would like to set formatting, paper size, and orientation options, choose <guiseq><gui>File</gui><gui>Page Setup</gui></guiseq> prior to printing.</p>
 </page>

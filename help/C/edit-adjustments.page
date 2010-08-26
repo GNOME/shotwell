@@ -4,6 +4,7 @@
 
     <info>
         <link type="guide" xref="index#edit"/>
+        <desc>Change the exposure, saturation, tint, and shadows of a photo.</desc>
     </info>
 
 	<title>Color Adjustments</title>
@@ -12,7 +13,37 @@
 
 <p>The <gui>Enhance</gui> button adjusts the histogram and shadows sliders to improve the quality of a photo.</p>
 
-<p>When the photo's colors and contrast are to your liking, press <gui>Apply</gui> to save the changes. <gui>Reset</gui> will zero all the sliders, returning the image to its original state. <gui>Cancel</gui> discards all changes you've made.</p>
+<p>When the photo's colors and contrast are to your liking, press <gui>Apply</gui> to save the changes. <gui>Reset</gui> will return the image to its original state. <gui>Cancel</gui> discards all changes you've made.</p>
+
+<section>
+ <title>What do the color adjustments do?</title>
+ <terms>
+  <item>
+   <title>Exposure</title>
+   <p>Changes the brightness to make it look like the photo was exposed for a longer or shorter time. Use this to correct under- or over-exposed photos.</p>
+  </item>
+  <item>
+   <title>Saturation</title>
+   <p>Changes how vivid colors look. If your photo looks gray and washed out, try increasing the saturation. If colors look too bold, try decreasing it.</p>
+  </item>
+  <item>
+   <title>Tint</title>
+   <p>This tints the photo with a color. It's useful for correcting photos taken with the wrong white balance setting, which typically have an unnatural color cast. For example, photos taken outdoors with the white balance set to "Tungsten" may have a blue cast.</p>
+  </item>
+  <item>
+   <title>Temperature</title>
+   <p>Changes how "warm" or "cool" the picture looks. Use this to make cold, depressing scenes look more lively, for example.</p>
+  </item>
+  <item>
+   <title>Shadows</title>
+   <p>This makes shadowy areas appear lighter. Use this to make detail more visible if it's obscured by the darkness of a shadow.</p>
+  </item>
+  <item>
+   <title>Intensity Threshold (sliders on the histogram)</title>
+   <p>These sliders change how light the brightest white is and how dark the darkest black is. Use them to change the contrast of the photo. Photos which look washed out should particularly benefit from changing these settings.</p>
+  </item>
+ </terms>
+</section>
     
 </page>
 

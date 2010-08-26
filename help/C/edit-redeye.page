@@ -4,13 +4,21 @@
 
     <info>
         <link type="guide" xref="index#edit"/>
+        <desc>Correct photos where people have red eyes because of the camera's flash.</desc>
     </info>
 
 	<title>Removing Red-Eye</title>
 
-    <p>Red-eye occurs when the camera's flash reflects off the pupil.
-    To eliminate this in a photo, use the Red-eye tool.
-    Drag the circle over the affected pupil, adjust its size with the slider control, and press <gui>Apply</gui>.
-    Repeat this process for all red pupils in your photo.
-    Press <gui>Close</gui> when finished.</p>
+    <p>Red-eye occurs when the camera's flash reflects off the pupil of someone's eye. To eliminate this in a photo, use the Red-eye tool.</p>
+    <steps>
+     <item>
+      <p>Click <gui>Red-eye</gui>. A circle will appear on the photo.</p>
+     </item>
+     <item>
+      <p>Drag the circle over the affected pupil, adjust its size with the slider control, and press <gui>Apply</gui>. The redness will be removed.</p>
+     </item>
+     <item>
+      <p>Repeat this process for all red pupils in your photo. Press <gui>Close</gui> when finished.</p>
+     </item>
+    </steps>
 </page>

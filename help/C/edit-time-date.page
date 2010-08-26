@@ -4,11 +4,16 @@
 
     <info>
         <link type="guide" xref="index#edit"/>
+        <desc>Change the time and date of photos if those details are incorrect.</desc>
     </info>
 
-	<title>Time and Date Adjust</title>
+	<title>Adjust the time and date of photos</title>
 
-<p>To adjust the time and date of photos, select the photos you would like to adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Time and Date...</gui></guiseq> and select a new time and date. If you are changing the date and time of multiple photos at once, you can choose to shift all the photos by the same amount of time or to set all the photos to the same time. You also can choose to modify the original file, but this cannot be undone once you exit Shotwell.</p>
+<p>To adjust the time and date of photos, select the photos you would like to adjust, choose <guiseq><gui>Photos</gui><gui>Adjust Time and Date</gui></guiseq> and select a new time and date.</p>
+
+<p>If you are changing the date and time of multiple photos at once, you can choose to shift all the photos by the same amount of time or to set all the photos to the same time.</p>
+
+<p>By default, the time and date are only changed inside Shotwell. You can also choose to modify the time and date in the original file, but this cannot be undone once you exit Shotwell.</p>
 
 </page>
 

@@ -4,24 +4,25 @@
 
     <info>
         <link type="guide" xref="index#organize"/>
+        <desc>Organize photos by labelling them.</desc>
     </info>
 
-	<title>Tags</title>
+	<title>Tagging photos</title>
 
     <p>You can assign one or more tags to selected photos.
     A tag can be one or more words that you want to associate with those photos.</p>
     
     <p>To add new tags to photos, select the photos you would like to tag, then do any of the following:</p>
     <list>
-    <item><p>Choose <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq>.</p></item>
+    <item><p>Choose <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq>.</p></item>
     <item><p>Type <keyseq><key>Ctrl</key><key>T</key></keyseq>.</p></item>
     <item><p>Drag the selected photos and drop them on the desired tag.</p></item>
     </list>
-     <p>When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or <guiseq><gui>Tags</gui><gui>Add Tags...</gui></guiseq> you can type in the names of one or more tags, separated by commas.
-    Once you have created a tag, you can rename it by selecting that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "[name]"...</gui></guiseq></p>
+     <p>When you use <keyseq><key>Ctrl</key><key>T</key></keyseq> or <guiseq><gui>Tags</gui><gui>Add Tags</gui></guiseq> you can type in the names of one or more tags, separated by commas.
+    Once you have created a tag, you can rename it by selecting that tag in the sidebar and choosing <guiseq><gui>Tags</gui><gui>Rename Tag "[name]"</gui></guiseq></p>
     
-    <p>To change which tags are associated with a particular photo, select that photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags...</gui></guiseq> and edit the comma separated list.
-    To remove a tag from one or more photos, first select that tag in the sidebar, then select the photos you would like to remove, and choose <guiseq><gui>Tags</gui><gui>Remove Tag "[name]" from Photos...</gui></guiseq></p>
+    <p>To change which tags are associated with a particular photo, select that photo, choose <guiseq><gui>Tags</gui><gui>Modify Tags</gui></guiseq> and edit the comma separated list.
+    To remove a tag from one or more photos, first select that tag in the sidebar, then select the photos you would like to remove, and choose <guiseq><gui>Tags</gui><gui>Remove Tag "[name]" from Photos</gui></guiseq></p>
     
     <p>To delete a tag entirely, select that tag in the sidebar and choose <guiseq><gui>Tags</gui><gui>Delete Tag "[name]"</gui></guiseq>.</p>
 

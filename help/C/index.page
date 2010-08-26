@@ -3,6 +3,8 @@
       id="index">
 
 	<info>
+		<title type="link">Shotwell</title>
+     	<title type="text">Shotwell</title>
 		<credit type="author">
 		    <name>Jim Nelson</name>
 		    <email>jim@yorba.org</email>
@@ -12,13 +14,15 @@
 			<email>robert.ancell@canonical.com</email>
 			<name>Peter Smith</name>
 			<email>pdo.smith@gmail.com</email>
+			<name>Phil Bull</name>
+			<email>philbull@gmail.com</email>
 		</credit>
 		<include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude" />
 	</info>
 
 
-	<title><media type="image" src="figures/shotwell_logo.png"></media>Shotwell</title>
-    
+	<title><media type="image" src="figures/shotwell_logo.png"></media>Shotwell photo manager</title>
+
     <section id="import" style="2column">
         <title>Importing Photos</title>
     </section>

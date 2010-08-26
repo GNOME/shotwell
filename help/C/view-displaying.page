@@ -4,13 +4,14 @@
 
     <info>
         <link type="guide" xref="index#view"/>
+        <desc>Learn about different ways of viewing your photos: in a grid, filling the main window, or filling the whole screen.</desc>
     </info>
 
 	<title>Photo Views</title>
 
 <p>When you select any collection in the sidebar, Shotwell displays all photos in the collection in the main window area.  At the bottom right is a slider which adjusts the viewing size of the thumbnails. You may also adjust the thumbnail size using the plus and minus keys (<key>+</key> and <key>-</key>) or by pressing <key>Ctrl</key> while moving your mouse scroll wheel.</p>
 
-<p>You may view a photo full-window by double-clicking on it. From there you may move to other photos in the collection with the Back and Forward buttons. To return to the collection, double-click on the photo or press Esc.</p>
+<p>You can view a photo full-window by double-clicking on it. From there you may move to other photos in the collection with the Back and Forward buttons. To return to the collection, double-click on the photo or press <key>Esc</key>.</p>
 
 <p>When viewing a photo in full-window mode, the slider on the toolbar controls zoom. You can pan around by grabbing and dragging anywhere on the photo. You can also zoom using your scroll wheel or by pressing the following keyboard shortcuts: <keyseq><key>Ctrl</key>0</keyseq> for the full image, <keyseq><key>Ctrl</key>1</keyseq> for 100% (1 photo pixel = 1 screen pixel), and <keyseq><key>Ctrl</key>2</keyseq> for 200% (1 photo pixel = 2x2 screen pixels).</p>
 
