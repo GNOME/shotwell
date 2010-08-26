@@ -212,16 +212,17 @@ HELP_FILES = \
 	edit-crop.page \
 	edit-enhance.page \
 	edit-external.page \
-	edit-introduction.page \
+	edit-nondestructive.page \
 	edit-redeye.page \
 	edit-rotate.page \
 	edit-time-date.page \
 	edit-undo.page \
+	formats.page \
 	import-camera.page \
 	import-file.page \
 	import-f-spot.page \
+	import-memorycard.page \
 	index.page \
-	introduction.page \
 	organize-event.page \
 	organize-rating.page \
 	organize-remove.page \
@@ -240,6 +241,7 @@ HELP_FILES = \
 	view-sidebar.page
 
 HELP_IMAGES = \
+	crop_thirds.jpg \
 	editing_overview.png \
 	edit_toolbar.png \
 	shotwell_logo.png \
