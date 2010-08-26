@@ -163,12 +163,12 @@ public class FullscreenWindow : PageWindow {
     
     private override void destroy() {
         Page? page = get_current_page();
+        clear_current_page();
+        
         if (page != null) {
             page.stop_cursor_hiding();
             page.switching_from();
         }
-        
-        clear_current_page();
         
         base.destroy();
     }

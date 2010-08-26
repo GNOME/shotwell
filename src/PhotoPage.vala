@@ -2402,8 +2402,7 @@ public class LibraryPhotoPage : EditingHostPage {
         // switched_to call.
         assert(get_photo() != null);
         
-        get_controller().lock_view();
-        get_controller().items_removed.connect(on_photos_removed);
+        lock_controller();
         
         base.switched_to();
         
@@ -2416,10 +2415,27 @@ public class LibraryPhotoPage : EditingHostPage {
     public override void switching_from() {
         base.switching_from();
         
-        get_controller().unlock_view();
-        get_controller().items_removed.disconnect(on_photos_removed);
+        unlock_controller();
     }
-
+    
+    private void on_controller_page_destroyed() {
+        unlock_controller();
+    }
+    
+    private void lock_controller() {
+        get_controller().lock_view();
+        get_controller_page().destroy.connect(on_controller_page_destroyed);
+        get_controller().items_removed.connect(on_photos_removed);
+    }
+    
+    private void unlock_controller() {
+        if (get_controller().is_view_locked()) {
+            get_controller().unlock_view();
+            get_controller_page().destroy.disconnect(on_controller_page_destroyed);
+            get_controller().items_removed.disconnect(on_photos_removed);
+        }
+    }
+    
     protected override void paint(Gdk.GC gc, Gdk.Drawable drawable) {
         base.paint(gc, drawable);
 
