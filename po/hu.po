@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.6.91\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-25 13:56+0100\n"
+"PO-Revision-Date: 2010-08-26 14:05+0100\n"
 "Last-Translator: csola48 <csola48@gmail.com>\n"
 "Language-Team: Hungarian <csola48@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -416,8 +416,13 @@ msgid "Removing duplicated photos"
 msgstr "Többszörösen jelenlévő fényképek eltávolítása"
 
 #: src/Commands.vala:794
-#: src/Commands.vala:881
 #, c-format
+msgid "Unable to duplicate one photo due to a file error"
+msgid_plural "Unable to duplicate %d photos due to file errors"
+msgstr[0] "Fájl hiba miatt a fénykép nem duplikálható"
+msgstr[1] "Fájl hiba miatt %d fénykép nem duplikálható"
+
+#: src/Commands.vala:881
 msgid "Restoring previous rating"
 msgstr "Korábbi arány visszaállítása"
 
@@ -444,12 +449,22 @@ msgid "Undoing Date and Time Adjustment"
 msgstr "A dátum és idő módosításának visszavonása"
 
 #: src/Commands.vala:999
+msgid "One original photo could not be adjusted."
+msgid_plural "The following original photos could not be adjusted."
+msgstr[0] "Az eredeti fénykép nem módosítható."
+msgstr[1] "Az eredeti fénykép nem módosítható."
+
 #: src/Commands.vala:1001
 #: src/Commands.vala:1013
 msgid "Time Adjustment Error"
 msgstr "Hiba az idő megváltoztatásakor"
 
 #: src/Commands.vala:1011
+msgid "Time adjustments could not be undone on the following photo file."
+msgid_plural "Time adjustments could not be undone on the following photo files."
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/Commands.vala:1265
 msgid "Move Photos to Trash"
 msgstr "Fényképek áthelyezése a kukába"
@@ -523,14 +538,55 @@ msgid "(and %d more)\n"
 msgstr "(és %d több)\n"
 
 #: src/Dialogs.vala:327
-#: src/Dialogs.vala:342
-#: src/Dialogs.vala:357
-#: src/Dialogs.vala:371
-#: src/Dialogs.vala:385
-#: src/Dialogs.vala:396
-#: src/Dialogs.vala:410
-#: src/Dialogs.vala:424
 #, c-format
+msgid "1 duplicate photo was not imported:\n"
+msgid_plural "%d duplicate photos were not imported:\n"
+msgstr[0] "1 duplikált fénykép nem lett importálva:\n"
+msgstr[1] "%d duplikált fénykép nem lett importálva:\n"
+
+#: src/Dialogs.vala:342
+#, c-format
+msgid "1 photo failed to import due to a file or hardware error:\n"
+msgid_plural "%d photos failed to import due to a file or hardware error:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:357
+#, c-format
+msgid "1 photo failed to import due to a camera error:\n"
+msgid_plural "%d photos failed to import due to a camera error:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:371
+#, c-format
+msgid "1 unsupported photo skipped:\n"
+msgid_plural "%d unsupported photos skipped:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:385
+#, c-format
+msgid "1 non-image file skipped.\n"
+msgid_plural "%d non-image files skipped.\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:396
+#, c-format
+msgid "1 photo skipped due to user cancel:\n"
+msgid_plural "%d photos skipped due to user cancel:\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:410
+#, c-format
+msgid "1 photo successfully imported.\n"
+msgid_plural "%d photos successfully imported.\n"
+msgstr[0] "1 fénykép sikeresen importálva.\n"
+msgstr[1] "%d fénykép sikeresen importálva.\n"
+
+#: src/Dialogs.vala:424
 msgid "No photos imported.\n"
 msgstr "Nincs fénykép importálva.\n"
 
@@ -558,22 +614,64 @@ msgid "Title:"
 msgstr "Cím:"
 
 #: src/Dialogs.vala:542
-#: src/Dialogs.vala:545
-#: src/Dialogs.vala:549
 #, c-format
+msgid ""
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgid_plural ""
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
+"\n"
+"This action cannot be undone."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:545
+msgid "_Trash File"
+msgid_plural "_Trash Files"
+msgstr[0] "_Fájl kukába"
+msgstr[1] "_Fájl"
+
+#: src/Dialogs.vala:549
 msgid "Only _Remove"
 msgstr "Csak eltávolítás"
 
 #: src/Dialogs.vala:571
-#: src/Dialogs.vala:574
-#: src/Dialogs.vala:580
-#: src/Dialogs.vala:594
-#: src/Dialogs.vala:601
 #, c-format
+msgid "This will destroy all changes made to the external file.  Continue?"
+msgid_plural "This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs.vala:574
+msgid "Re_vert External Edit"
+msgid_plural "Re_vert External Edits"
+msgstr[0] "Visszatérés a külső szerkesztőhöz"
+msgstr[1] "Visszatérés a külső szerkesztőhöz"
+
+#: src/Dialogs.vala:580
+msgid "Revert External Edit"
+msgid_plural "Revert External Edits"
+msgstr[0] "Visszatérés a külső szerkesztőhöz"
+msgstr[1] "Visszatérés a külső szerkesztőhöz"
+
+#: src/Dialogs.vala:594
+#, c-format
+msgid "This will remove the photo from the library.  Continue?"
+msgid_plural "This will remove %d photos from the library.  Continue?"
+msgstr[0] "Ez a művelet eltávolítja a fényképet a könyvtárból. Folytatja?"
+msgstr[1] "Ez a művelet eltávolít %d fényképet a könyvtárból. Folytatja?"
+
+#: src/Dialogs.vala:601
 msgid "_Remove"
 msgstr "_Eltávolítás"
 
 #: src/Dialogs.vala:602
+msgid "Remove Photo From Library"
+msgid_plural "Remove Photos From Library"
+msgstr[0] "Fénykép eltávolítása a könyvtárból"
+msgstr[1] "Fénykép eltávolítása a könyvtárból"
+
 #: src/Dialogs.vala:679
 #, c-format
 msgid "%d%%"
@@ -600,6 +698,11 @@ msgid "Set _all photos to this time"
 msgstr "Minden fénykép _beállítása erre az időre"
 
 #: src/Dialogs.vala:809
+msgid "_Modify original file"
+msgid_plural "_Modify original files"
+msgstr[0] "Eredeti fájl _módosítása"
+msgstr[1] "Eredeti fájl _módosítása"
+
 #: src/Dialogs.vala:891
 msgid "Original: "
 msgstr "Eredeti: "
@@ -633,13 +736,44 @@ msgstr ""
 "%d %s, %d %s, %d %s, és %d %s."
 
 #: src/Dialogs.vala:981
+msgid "day"
+msgid_plural "days"
+msgstr[0] "nap"
+msgstr[1] "nap"
+
 #: src/Dialogs.vala:982
+msgid "hour"
+msgid_plural "hours"
+msgstr[0] "óra"
+msgstr[1] "óra"
+
 #: src/Dialogs.vala:983
+msgid "minute"
+msgid_plural "minutes"
+msgstr[0] "perc"
+msgstr[1] "perc"
+
 #: src/Dialogs.vala:984
+msgid "second"
+msgid_plural "seconds"
+msgstr[0] "másodperc"
+msgstr[1] "másodperc"
+
 #: src/Dialogs.vala:1028
+#, c-format
+msgid ""
+"\n"
+"\n"
+"And %d other."
+msgid_plural ""
+"\n"
+"\n"
+"And %d others."
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/Dialogs.vala:1045
 #: src/Dialogs.vala:1069
-#, c-format
 msgid "Tags (separated by commas):"
 msgstr "Támogatott operációs rendszerek (vesszővel elválasztott nevek):"
 
@@ -921,8 +1055,13 @@ msgstr "Kontraszt növelése"
 
 #: src/EventsDirectoryPage.vala:64
 #: src/Properties.vala:259
-#: src/EventsDirectoryPage.vala:428
 #, c-format
+msgid "%d Photo"
+msgid_plural "%d Photos"
+msgstr[0] "%d Fényképek"
+msgstr[1] "%d Fényképek"
+
+#: src/EventsDirectoryPage.vala:428
 msgid "Events"
 msgstr "Események"
 
@@ -1175,8 +1314,13 @@ msgid "Unable to lock camera: %s"
 msgstr "Fényképezőgép nem zárolható: %s"
 
 #: src/ImportPage.vala:1096
-#: src/ImportPage.vala:1101
 #, c-format
+msgid "Delete this photo from camera?"
+msgid_plural "Delete these %d photos from camera?"
+msgstr[0] "Eltávolítja a fényképet a fényképezőgépről?"
+msgstr[1] "Eltávolítja a %d fényképeket a fényképezőgépről?"
+
+#: src/ImportPage.vala:1101
 msgid "_Keep"
 msgstr "_Megtart"
 
@@ -1185,9 +1329,14 @@ msgid "Removing photos from camera"
 msgstr "Eltávolítja a fényképet a fényképezőgépről"
 
 #: src/ImportPage.vala:1124
+#, c-format
+msgid "Unable to delete %d photo from the camera due to errors."
+msgid_plural "Unable to delete %d photos from the camera due to errors."
+msgstr[0] "Nem törölhető %d fénykép a fényképezőgépről hiba miatt."
+msgstr[1] "Nem törölhető %d fénykép a fényképezőgépről hiba miatt."
+
 #: src/ImportPage.vala:1181
 #: src/ImportPage.vala:1283
-#, c-format
 msgid "Importing..."
 msgstr "Importálás..."
 
@@ -1461,6 +1610,11 @@ msgstr "Eltávolítás a könyvtárból"
 
 #: src/PhotoPage.vala:2578
 #: src/util.vala:597
+msgid "Removing Photo From Library"
+msgid_plural "Removing Photos From Library"
+msgstr[0] "Fénykép eltávolítás a könyvtárból"
+msgstr[1] "Fénykép eltávolítás a könyvtárból"
+
 #: src/PhotoPage.vala:2697
 #, c-format
 msgid "Unable to export %s: %s"
@@ -1770,8 +1924,13 @@ msgid "Items:"
 msgstr "Elemek:"
 
 #: src/Properties.vala:252
-#: src/Properties.vala:273
 #, c-format
+msgid "%d Event"
+msgid_plural "%d Events"
+msgstr[0] "%d Események"
+msgstr[1] "%d Események"
+
+#: src/Properties.vala:273
 msgid "Date:"
 msgstr "Dátum:"
 
@@ -2290,8 +2449,13 @@ msgid "Delete Tag \"%s\""
 msgstr "Címke törlése \"%s\""
 
 #: src/Resources.vala:258
-#: src/Resources.vala:262
 #, c-format
+msgid "Remove the tag \"%s\" from one photo"
+msgid_plural "Remove the tag \"%s\" from %d photos"
+msgstr[0] "Címke eltávolítása \"%s\" egy fényképről"
+msgstr[1] "Címke eltávolítása \"%s\" %d fényképről"
+
+#: src/Resources.vala:262
 msgid "Delete Tag"
 msgstr "Címke törlése"
 
@@ -2327,10 +2491,40 @@ msgid "Modify the tags for this photo"
 msgstr "Címke módosítása ehhez a képhez"
 
 #: src/Resources.vala:283
+#, c-format
+msgid "Tag Photo as \"%s\""
+msgid_plural "Tag Photos as \"%s\""
+msgstr[0] ""
+msgstr[1] ""
+
 #: src/Resources.vala:287
+#, c-format
+msgid "Tag the selected photo as \"%s\""
+msgid_plural "Tag the selected photos as \"%s\""
+msgstr[0] "Címke a kiválasztott fényképen: \"%s\""
+msgstr[1] "Címke a kiválasztott fényképen: \"%s\""
+
 #: src/Resources.vala:291
+#, c-format
+msgid "Remove Tag \"%s\" From _Photo"
+msgid_plural "Remove Tag \"%s\" From _Photos"
+msgstr[0] "Címke eltávolítása \"%s\" erről a _fényképről"
+msgstr[1] "Címke eltávolítása \"%s\" erről a _fényképről"
+
 #: src/Resources.vala:295
+#, c-format
+msgid "Remove Tag \"%s\" From Photo"
+msgid_plural "Remove Tag \"%s\" From Photos"
+msgstr[0] "Címke eltávolítása \"%s\" erről a fényképről"
+msgstr[1] "Címke eltávolítása \"%s\" erről a fényképről"
+
 #: src/Resources.vala:300
+#, c-format
+msgid "Remove tag \"%s\" from the selected photo"
+msgid_plural "Remove tag \"%s\" from the selected photos"
+msgstr[0] "Címke eltávolítása \"%s\" a kiválasztott fényképről"
+msgstr[1] "Címke eltávolítása \"%s\" a kiválasztott fényképről"
+
 #: src/Resources.vala:305
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
@@ -2496,8 +2690,13 @@ msgid "Continue the slideshow"
 msgstr "Diavetítés folytatása"
 
 #: src/TagPage.vala:127
-#: src/TrashPage.vala:17
 #, c-format
+msgid "This will remove the tag \"%s\" from one photo.  Continue?"
+msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/TrashPage.vala:17
 msgid "Trash"
 msgstr "Kuka"
 
@@ -2505,8 +2704,13 @@ msgstr "Kuka"
 msgid "Delete"
 msgstr "Törlés"
 
-# The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/TrashPage.vala:138
+msgid "Deleting a Photo"
+msgid_plural "Deleting Photos"
+msgstr[0] "Fényképek törlése"
+msgstr[1] "Fényképek törlése"
+
+# The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/util.vala:417
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -2706,8 +2910,4 @@ msgstr "hiba"
 #, fuzzy
 #~ msgid "Un_hide"
 #~ msgstr "Rejtettség visszavonása"
-
-#, fuzzy
-#~ msgid "Unhide the selected photos"
-#~ msgstr "A kijelölt képek lemezre mentése"
 

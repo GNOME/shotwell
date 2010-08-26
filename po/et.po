@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.0+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-04 22:55+0300\n"
+"PO-Revision-Date: 2010-08-26 16:31+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Gnome Estonian Translation Team <gnome-et linux ee>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Shotwellist lähemalt"
 
 #: src/AppWindow.vala:475
 msgid "Fulls_creen"
-msgstr "Täis_ekraan"
+msgstr "Täisekr_aan"
 
 #: src/AppWindow.vala:476
 msgid "Use Shotwell at fullscreen"
@@ -205,7 +205,7 @@ msgstr "_Sündmused"
 
 #: src/CollectionPage.vala:282
 msgid "_Photos"
-msgstr "_Fotod"
+msgstr "F_otod"
 
 #: src/CollectionPage.vala:287
 #: src/PhotoPage.vala:2207
@@ -254,7 +254,7 @@ msgstr "Fotode _järjestus"
 #: src/CollectionPage.vala:487
 #: src/PhotoPage.vala:2236
 msgid "Ta_gs"
-msgstr "_Sildid"
+msgstr "Sil_did"
 
 #: src/CollectionPage.vala:470
 #: src/EventsDirectoryPage.vala:217
@@ -1392,7 +1392,7 @@ msgstr "Viimati imporditud"
 
 #: src/LibraryWindow.vala:458
 msgid "_Import From Folder..."
-msgstr "_Impordi kaustast..."
+msgstr "Impordi _kaustast..."
 
 #: src/LibraryWindow.vala:459
 msgid "Import photos from disk to library"
@@ -1400,11 +1400,11 @@ msgstr "Failide importimine kettalt"
 
 #: src/LibraryWindow.vala:464
 msgid "Sort _Events"
-msgstr "_Sündmuste järjestus"
+msgstr "Sü_ndmuste järjestus"
 
 #: src/LibraryWindow.vala:475
 msgid "Empty T_rash"
-msgstr "Tühjenda _prügikast"
+msgstr "Tühjenda prü_gikast"
 
 #: src/LibraryWindow.vala:476
 msgid "Delete all photos in the trash"
@@ -1412,7 +1412,7 @@ msgstr "Kõigi prügikastis olevate fotode kustutamine"
 
 #: src/LibraryWindow.vala:487
 msgid "_Basic Information"
-msgstr "Peamine _teave"
+msgstr "Pea_mine teave"
 
 #: src/LibraryWindow.vala:488
 msgid "Display basic information for the selection"
@@ -1544,7 +1544,7 @@ msgstr "Foto lähtefail on puudu: %s"
 #: src/PhotoPage.vala:2036
 #: src/PhotoPage.vala:3147
 msgid "_Photo"
-msgstr "_Foto"
+msgstr "F_oto"
 
 #: src/PhotoPage.vala:2040
 #: src/PhotoPage.vala:3151
@@ -1657,7 +1657,7 @@ msgstr "Foto printimine sinu arvutiga ühendatud printeriga"
 
 #: src/PhotoPage.vala:3143
 msgid "Edit"
-msgstr "Muuda"
+msgstr "Redigeerimine"
 
 #: src/PhotoPage.vala:3277
 #, c-format
@@ -2406,7 +2406,7 @@ msgstr "Valitud fotodele uute siltide lisamine"
 
 #: src/Resources.vala:227
 msgid "_Preferences"
-msgstr "_Eelistused"
+msgstr "Eeli_stused"
 
 #: src/Resources.vala:228
 msgid "Edit preferences"
@@ -2599,7 +2599,7 @@ msgstr "Valitud fotode tõstmine tagasi pildikogusse"
 
 #: src/Resources.vala:537
 msgid "Show in File Mana_ger"
-msgstr "Näita _failihalduris"
+msgstr "Näita faili_halduris"
 
 #: src/Resources.vala:538
 msgid "Open the selected photo's directory in the file manager"
