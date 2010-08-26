@@ -1,3 +1,14 @@
+Shotwell 0.7.1 - 26 August 2010
+-----------------------------
+
+  * Fixed a critical bug that caused Shotwell to crash when deleting the
+    only photo in an event
+  * F-Spot import now correctly interprets older databases
+  * Fixed an issue where pressing F11 would not exit full-screen mode
+  * Translation updates for several languages
+  * Updated documentation
+
+
 Shotwell 0.7.0 - 20 August 2010
 -----------------------------
 
