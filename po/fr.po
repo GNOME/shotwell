@@ -2289,7 +2289,7 @@ msgstr "Modifier le titre de la photo sélectionnée"
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr "L'ajustement de l'heure n'a pas pu être annuler sur le fichier photo suivante."
+msgstr "Ajuster la date et l'heure"
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
