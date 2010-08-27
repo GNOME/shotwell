@@ -27,11 +27,11 @@ class EventDirectoryItem : CheckerboardItem {
         clear_image(Dimensions.for_rectangle(paul_lynde));
         
         // monitor the event for changes
-        event.altered.connect(on_event_altered);
+        Event.global.items_altered.connect(on_events_altered);
     }
     
     ~EventDirectoryItem() {
-        event.altered.disconnect(on_event_altered);
+        Event.global.items_altered.disconnect(on_events_altered);
     }
     
     // square the photo's dimensions and locate the pixbuf's center square
@@ -89,8 +89,9 @@ class EventDirectoryItem : CheckerboardItem {
         base.unexposed();
     }
     
-    private void on_event_altered() {
-        set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
+    private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
+        if (map.has_key(event))
+            set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
     }
     
     private override void thumbnail_altered() {
@@ -356,30 +357,8 @@ public class EventPage : CollectionPage {
         }
     }
     
-    private class EventViewManager : CollectionViewManager {
-        private EventID event_id;
-        
-        public EventViewManager(EventPage page) {
-            base(page);
-            
-            event_id = page.page_event.get_event_id();
-        }
-        
-        public override bool include_in_view(DataSource source) {
-            LibraryPhoto photo = (LibraryPhoto) source;
-            EventID photo_event_id = photo.get_event_id();
-            
-            if (photo_event_id.id != event_id.id)
-                return false;
-            
-            return base.include_in_view(source);
-        }
-    }
-    
-    private static Alteration event_page_alteration = new Alteration("metadata", "event");
-    
     public Event page_event;
-
+    
     private EventPage(Event page_event) {
         base(page_event.get_name(), "event.ui", create_actions());
         
@@ -389,17 +368,16 @@ public class EventPage : CollectionPage {
         );
         
         this.page_event = page_event;
-        
-        get_view().monitor_source_collection(LibraryPhoto.global, new EventViewManager(this),
-            event_page_alteration, page_event.get_photos());
+        page_event.mirror_photos(get_view(), create_thumbnail);
         
         init_page_context_menu("/EventContextMenu");
         
-        page_event.altered.connect(on_event_altered);
+        Event.global.items_altered.connect(on_events_altered);
     }
     
     ~EventPage() {
-        page_event.altered.disconnect(on_event_altered);
+        Event.global.items_altered.disconnect(on_events_altered);
+        get_view().halt_mirroring();
     }
     
     private static Gtk.ActionEntry[] create_actions() {
@@ -431,8 +409,9 @@ public class EventPage : CollectionPage {
         Config.get_instance().set_event_photos_sort(sort_order, sort_by);
     }
 
-    private void on_event_altered() {
-        set_page_name(page_event.get_name());
+    private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
+        if (map.has_key(page_event))
+            set_page_name(page_event.get_name());
     }
     
     protected override void on_photos_menu() {

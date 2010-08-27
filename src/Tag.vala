@@ -124,30 +124,32 @@ public class TagSourceCollection : ContainerSourceCollection {
         base.notify_items_removed(removed);
     }
     
-    public override void notify_item_altered(DataObject item, Alteration alteration) {
-        Tag tag = (Tag) item;
-        
-        string? old_name = null;
-        
-        // look for this tag being renamed
-        Gee.MapIterator<string, Tag> iter = name_map.map_iterator();
-        while (iter.next()) {
-            if (!iter.get_value().equals(tag))
-                continue;
+    public override void notify_items_altered(Gee.Map<DataObject, Alteration> map) {
+        foreach (DataObject object in map.keys) {
+            Tag tag = (Tag) object;
             
-            old_name = iter.get_key();
+            string? old_name = null;
             
-            break;
+            // look for this tag being renamed
+            Gee.MapIterator<string, Tag> iter = name_map.map_iterator();
+            while (iter.next()) {
+                if (!iter.get_value().equals(tag))
+                    continue;
+                
+                old_name = iter.get_key();
+                
+                break;
+            }
+            
+            assert(old_name != null);
+            
+            if (tag.get_name() != old_name) {
+                name_map.unset(old_name);
+                name_map.set(tag.get_name(), tag);
+            }
         }
         
-        assert(old_name != null);
-        
-        if (tag.get_name() != old_name) {
-            name_map.unset(old_name);
-            name_map.set(tag.get_name(), tag);
-        }
-        
-        base.notify_item_altered(item, alteration);
+        base.notify_items_altered(map);
     }
     
     private static int compare_tag_name(void *a, void *b) {

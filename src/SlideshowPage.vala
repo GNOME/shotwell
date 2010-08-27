@@ -143,7 +143,7 @@ class SlideshowPage : SinglePhotoPage {
         base.switched_to();
         
         // create a cache for the size of this display
-        cache = new PixbufCache(sources, PixbufCache.PhotoType.NORMAL, get_canvas_scaling(),
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.BASELINE, get_canvas_scaling(),
             READAHEAD_COUNT);
         
         Gdk.Pixbuf pixbuf;

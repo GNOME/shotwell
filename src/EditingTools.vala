@@ -1816,7 +1816,10 @@ public class RedeyeTool : EditingTool {
         AppWindow.get_command_manager().execute(command);
     }
     
-    private void on_photo_altered() {
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
+        if (!map.has_key(canvas.get_photo()))
+            return;
+        
         try {
             current_pixbuf = canvas.get_photo().get_pixbuf(canvas.get_scaling());
         } catch (Error err) {
@@ -1876,14 +1879,14 @@ public class RedeyeTool : EditingTool {
         cached_arrow_cursor = new Gdk.Cursor(Gdk.CursorType.LEFT_PTR);
         cached_grab_cursor = new Gdk.Cursor(Gdk.CursorType.FLEUR);
         
-        canvas.get_photo().altered.connect(on_photo_altered);
+        LibraryPhoto.global.items_altered.connect(on_photos_altered);
         
         base.activate(canvas);
     }
     
     public override void deactivate() {
         if (canvas != null) {
-            canvas.get_photo().altered.disconnect(on_photo_altered);
+            LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
             unbind_canvas_handlers(canvas);
         }
         
@@ -2345,7 +2348,7 @@ public class AdjustTool : EditingTool {
         }
         virgin_histogram_pixbuf = histogram_pixbuf.copy();
         
-        canvas.get_photo().altered.connect(on_photo_altered);
+        LibraryPhoto.global.items_altered.connect(on_photos_altered);
 
         base.activate(canvas);
     }
@@ -2356,7 +2359,7 @@ public class AdjustTool : EditingTool {
 
     public override void deactivate() {
         if (canvas != null) {
-            canvas.get_photo().altered.disconnect(on_photo_altered);
+            LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
             unbind_canvas_handlers(canvas);
         }
         
@@ -2544,7 +2547,10 @@ public class AdjustTool : EditingTool {
         return true;
     }
     
-    private void on_photo_altered() {
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
+        if (!map.has_key(canvas.get_photo()))
+            return;
+        
         PixelTransformationBundle adjustments = canvas.get_photo().get_color_adjustments();
         set_adjustments(adjustments);
     }

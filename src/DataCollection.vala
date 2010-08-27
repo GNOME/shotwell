@@ -471,14 +471,8 @@ public class DataCollection {
         Gee.Iterable<DataObject>? removed) {
     }
     
-    // This signal fires whenever any item in the collection signals it has been altered ...
-    // this allows monitoring of all objects in the collection without having to register a
-    // signal handler for each one
-    public virtual signal void item_altered(DataObject item, Alteration alteration) {
-    }
-    
     // This signal fires whenever any (or multiple) items in the collection signal they've been
-    // altered.  This is more efficient than being called for each altered item.
+    // altered.
     public virtual signal void items_altered(Gee.Map<DataObject, Alteration> items) {
     }
 
@@ -532,10 +526,6 @@ public class DataCollection {
     protected virtual void notify_contents_altered(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
         contents_altered(added, removed);
-    }
-    
-    protected virtual void notify_item_altered(DataObject item, Alteration alteration) {
-        item_altered(item, alteration);
     }
     
     protected virtual void notify_items_altered(Gee.Map<DataObject, Alteration> items) {
@@ -870,7 +860,6 @@ public class DataCollection {
         if (resort_occurred)
             notify_ordering_changed();
         
-        notify_item_altered(object, alteration);
         notify_items_altered(get_alteration_singleton(object, alteration));
     }
     
@@ -926,8 +915,7 @@ public class DataCollection {
     // from being notified while their collection is frozen, and only fire them when
     // internal_collection_thawed is called.
     //
-    // For DataCollection, the signals affected are item_altered, item_metadata_altered, and
-    // ordering_changed (and their corresponding signals in DataObject).
+    // For DataCollection, the signals affected are items_altered and ordering_changed.
     public void freeze_notifications() {
         if (notifies_frozen++ == 0)
             notify_frozen();
@@ -959,8 +947,6 @@ public class DataCollection {
             Gee.Map<DataObject, Alteration> copy = frozen_items_altered;
             frozen_items_altered = null;
             
-            foreach (DataObject object in copy.keys)
-                notify_item_altered(object, copy.get(object));
             notify_items_altered(copy);
         }
         
@@ -968,11 +954,6 @@ public class DataCollection {
             fire_ordering_changed = false;
             notify_ordering_changed();
         }
-        
-        // notify all members as well
-        int count = get_count();
-        for (int ctr = 0; ctr < count; ctr++)
-            get_at(ctr).internal_collection_thawed();
         
         thawed();
     }
@@ -1453,21 +1434,18 @@ public class SourceHoldingTank {
     ~SourceHoldingTank() {
         sources.item_destroyed.disconnect(on_source_destroyed);
         sources.thawed.disconnect(on_source_collection_thawed);
-        
-        foreach (DataObject object in tank.get_all())
-            ((DataSource) object).altered.disconnect(on_held_source_altered);
     }
     
     protected virtual void notify_contents_altered(Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
         if (added != null) {
             foreach (DataSource source in added)
-                source.altered.connect(on_held_source_altered);
+                source.notify_held_in_tank(this);
         }
         
         if (removed != null) {
             foreach (DataSource source in removed)
-                source.altered.disconnect(on_held_source_altered);
+                source.notify_held_in_tank(null);
         }
         
         contents_altered(added, removed);
@@ -1566,9 +1544,8 @@ public class SourceHoldingTank {
         notify_contents_altered(null, new SingletonCollection<DataSource>(source));
     }
     
-    private void on_held_source_altered(DataObject object, Alteration alteration) {
-        DataSource source = (DataSource) object;
-        
+    // This is only called by DataSource
+    public void internal_notify_altered(DataSource source, Alteration alteration) {
         assert(tank.contains(source));
         
         // see if it should stay put

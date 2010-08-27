@@ -632,10 +632,7 @@ public abstract class CollectionPage : CheckerboardPage {
     // This method is called by CollectionViewManager to create thumbnails for the DataSource 
     // (Photo) objects.
     public virtual DataView create_thumbnail(DataSource source) {
-        LibraryPhoto photo = (LibraryPhoto) source;
-        Thumbnail thumbnail = new Thumbnail(photo, scale);
-        
-        return thumbnail;
+        return new Thumbnail((LibraryPhoto) source, scale);
     }
     
     public override void switched_to() {

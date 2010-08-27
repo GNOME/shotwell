@@ -403,7 +403,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         this.sources = sources;
         
         // when photo is altered need to update it here
-        sources.item_altered.connect(on_photo_altered);
+        sources.items_altered.connect(on_photos_altered);
         
         // set up page's toolbar (used by AppWindow for layout and FullscreenWindow as a popup)
         Gtk.Toolbar toolbar = get_toolbar();
@@ -507,7 +507,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     ~EditingHostPage() {
-        sources.item_altered.disconnect(on_photo_altered);
+        sources.items_altered.disconnect(on_photos_altered);
     }
 
     private void on_zoom_slider_value_changed() {
@@ -846,7 +846,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
             cache.cancel_all();
         }
         
-        cache = new PixbufCache(sources, PixbufCache.PhotoType.NORMAL, scaling, PIXBUF_CACHE_COUNT);
+        cache = new PixbufCache(sources, PixbufCache.PhotoType.BASELINE, scaling, PIXBUF_CACHE_COUNT);
         cache.fetched.connect(on_pixbuf_fetched);
         
         master_cache = new PixbufCache(sources, PixbufCache.PhotoType.MASTER, scaling, 
@@ -1427,11 +1427,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return on_context_buttonpress(event);
     }
     
-    private void on_photo_altered(DataObject object) {
-        Photo p = object as Photo;
-
-        // only interested in current photo
-        if (p == null || !p.equals(get_photo()))
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
+        if (!map.has_key(get_photo()))
             return;
         
         pixbuf_dirty = true;
@@ -2035,7 +2032,7 @@ public class LibraryPhotoPage : EditingHostPage {
         
         // watch for photos being destroyed or altered, either here or in other pages
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
-        LibraryPhoto.global.item_altered.connect(on_metadata_altered);
+        LibraryPhoto.global.items_altered.connect(on_metadata_altered);
         
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
@@ -2043,7 +2040,7 @@ public class LibraryPhotoPage : EditingHostPage {
     
     ~LibraryPhotoPage() {
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
-        LibraryPhoto.global.item_altered.disconnect(on_metadata_altered);
+        LibraryPhoto.global.items_altered.disconnect(on_metadata_altered);
         Config.get_instance().external_app_changed.disconnect(on_external_app_changed);
     }
     
@@ -2959,8 +2956,8 @@ public class LibraryPhotoPage : EditingHostPage {
         set_action_sensitive("DecreaseRating", get_photo().get_rating().can_decrease());
     }
 
-    private void on_metadata_altered(DataObject item, Alteration alteration) {
-        if (((Photo) item).equals(get_photo()) && alteration.has_subject("metadata"))
+    private void on_metadata_altered(Gee.Map<DataObject, Alteration> map) {
+        if (map.has_key(get_photo()) && map.get(get_photo()).has_subject("metadata"))
             repaint();
     }
 

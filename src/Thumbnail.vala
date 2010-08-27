@@ -46,7 +46,7 @@ public class Thumbnail : CheckerboardItem {
         // if the photo's tags changes, update it here
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
         Tag.global.items_altered.connect(on_tags_altered);
-        photo.altered.connect(on_photo_altered);
+        LibraryPhoto.global.items_altered.connect(on_photos_altered);
     }
 
     ~Thumbnail() {
@@ -55,7 +55,7 @@ public class Thumbnail : CheckerboardItem {
         
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
         Tag.global.items_altered.disconnect(on_tags_altered);
-        photo.altered.disconnect(on_photo_altered);
+        LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
     }
     
     private void update_tags() {
@@ -102,11 +102,11 @@ public class Thumbnail : CheckerboardItem {
             set_title(title);
     }
     
-    private void on_photo_altered(Alteration alteration) {
-        if (!exposure)
+    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
+        if (!exposure || !map.has_key(photo))
             return;
         
-        if (alteration.has_detail("metadata", "name"))
+        if (map.get(photo).has_detail("metadata", "name"))
             update_title();
     }
     

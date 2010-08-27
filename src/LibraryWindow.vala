@@ -157,11 +157,11 @@ public class LibraryWindow : AppWindow {
         // watch for new & removed events
         Event.global.items_added.connect(on_added_events);
         Event.global.items_removed.connect(on_removed_events);
-        Event.global.item_altered.connect(on_event_altered);
+        Event.global.items_altered.connect(on_events_altered);
         
         // watch for new & removed tags
         Tag.global.contents_altered.connect(on_tags_added_removed);
-        Tag.global.item_altered.connect(on_tag_altered);
+        Tag.global.items_altered.connect(on_tags_altered);
         
         // watch for photos placed offline
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
@@ -224,10 +224,10 @@ public class LibraryWindow : AppWindow {
     ~LibraryWindow() {
         Event.global.items_added.disconnect(on_added_events);
         Event.global.items_removed.disconnect(on_removed_events);
-        Event.global.item_altered.disconnect(on_event_altered);
+        Event.global.items_altered.disconnect(on_events_altered);
         
         Tag.global.contents_altered.disconnect(on_tags_added_removed);
-        Tag.global.item_altered.disconnect(on_tag_altered);
+        Tag.global.items_altered.disconnect(on_tags_altered);
         
 #if !NO_CAMERA
         CameraTable.get_instance().camera_added.disconnect(add_camera_page);
@@ -865,44 +865,47 @@ public class LibraryWindow : AppWindow {
             remove_event_page((Event) object);
     }
 
-    private void on_event_altered(DataObject object) {
-        Event event = (Event) object;
-        foreach (EventPage.Stub stub in event_list) {
-            if (event.equals(stub.event)) {
-                SubEventsDirectoryPage.Stub old_parent = 
-                    (SubEventsDirectoryPage.Stub) sidebar.get_parent_page(stub);
-                
-                // only re-add to sidebar if the event has changed directories or shares its dir
-                if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
-                    !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
-                     old_parent.get_year() == Time.local(event.get_start_time()).year)) {
-                    // this prevents the cursor from jumping back to the library photos page
-                    // should it be on this page as we re-sort by removing and reinserting it
-                    sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
+    private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
+        foreach (DataObject object in map.keys) {
+            Event event = (Event) object;
+            
+            foreach (EventPage.Stub stub in event_list) {
+                if (event.equals(stub.event)) {
+                    SubEventsDirectoryPage.Stub old_parent = 
+                        (SubEventsDirectoryPage.Stub) sidebar.get_parent_page(stub);
                     
-                    // remove from sidebar
-                    remove_event_tree(stub, false);
+                    // only re-add to sidebar if the event has changed directories or shares its dir
+                    if (sidebar.get_children_count(old_parent.get_marker()) > 1 || 
+                        !(old_parent.get_month() == Time.local(event.get_start_time()).month &&
+                         old_parent.get_year() == Time.local(event.get_start_time()).year)) {
+                        // this prevents the cursor from jumping back to the library photos page
+                        // should it be on this page as we re-sort by removing and reinserting it
+                        sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
+                        
+                        // remove from sidebar
+                        remove_event_tree(stub, false);
 
-                    // add to sidebar again
-                    sidebar.insert_child_sorted(find_parent_marker(stub), stub,
-                        get_event_branch_comparator(get_events_sort()));
+                        // add to sidebar again
+                        sidebar.insert_child_sorted(find_parent_marker(stub), stub,
+                            get_event_branch_comparator(get_events_sort()));
 
-                    sidebar.expand_tree(stub.get_marker());
+                        sidebar.expand_tree(stub.get_marker());
 
-                    if (get_current_page() is EventPage &&
-                        ((EventPage) get_current_page()).page_event.equals(event))
-                        sidebar.place_cursor(stub);
+                        if (get_current_page() is EventPage &&
+                            ((EventPage) get_current_page()).page_event.equals(event))
+                            sidebar.place_cursor(stub);
+                        
+                        sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
+                    }
                     
-                    sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
+                    // refresh name
+                    SidebarMarker marker = stub.get_marker();
+                    sidebar.rename(marker, event.get_name());
+                    break;
                 }
-                
-                // refresh name
-                SidebarMarker marker = stub.get_marker();
-                sidebar.rename(marker, event.get_name());
-                break;
             }
         }
-
+        
         on_update_properties();
     }
     
@@ -922,24 +925,26 @@ public class LibraryWindow : AppWindow {
             sidebar.expand_branch(tags_marker);
     }
     
-    private void on_tag_altered(DataObject object) {
-        TagPage.Stub page_stub = tag_map.get((Tag) object);
-        assert(page_stub != null);
-        
+    private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {
         // this prevents the cursor from jumping back to the library photos page
         // should it be on this page as we re-sort by removing and reinserting it
         sidebar.cursor_changed.disconnect(on_sidebar_cursor_changed);
-        
-        bool expanded = sidebar.is_branch_expanded(tags_marker);
-        bool selected = sidebar.is_page_selected(page_stub);
-        sidebar.remove_page(page_stub);
-        sidebar.insert_child_sorted(tags_marker, page_stub, tag_page_comparator);
-        
-        if (expanded)
-            sidebar.expand_branch(tags_marker);
-        
-        if (selected)
-            sidebar.place_cursor(page_stub);
+            
+        foreach (DataObject object in map.keys) {
+            TagPage.Stub page_stub = tag_map.get((Tag) object);
+            assert(page_stub != null);
+            
+            bool expanded = sidebar.is_branch_expanded(tags_marker);
+            bool selected = sidebar.is_page_selected(page_stub);
+            sidebar.remove_page(page_stub);
+            sidebar.insert_child_sorted(tags_marker, page_stub, tag_page_comparator);
+            
+            if (expanded)
+                sidebar.expand_branch(tags_marker);
+            
+            if (selected)
+                sidebar.place_cursor(page_stub);
+        }
         
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
     }

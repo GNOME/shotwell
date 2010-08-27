@@ -8,7 +8,7 @@ public class PixbufCache : Object {
     public delegate bool CacheFilter(Photo photo);
     
     public enum PhotoType {
-        NORMAL,
+        BASELINE,
         MASTER
     }
     
@@ -47,8 +47,8 @@ public class PixbufCache : Object {
         }
     }
     
-    private class NormalFetchJob : FetchJob {
-        public NormalFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
+    private class BaselineFetchJob : FetchJob {
+        public BaselineFetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
             base(owner, priority, photo, scaling, callback);
         }
@@ -103,8 +103,10 @@ public class PixbufCache : Object {
         if (background_workers == null)
             background_workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
         
-        // monitor changes in the photos to discard from cache
-        sources.item_altered.connect(on_source_altered);
+        // monitor changes in the photos to discard from cache ... only interested in changes if
+        // not master files
+        if (type != PhotoType.MASTER)
+            sources.items_altered.connect(on_sources_altered);
         sources.items_removed.connect(on_sources_removed);
     }
     
@@ -113,7 +115,8 @@ public class PixbufCache : Object {
         debug("Freeing %d pixbufs and cancelling %d jobs", cache.size, in_progress.size);
 #endif
         
-        sources.item_altered.disconnect(on_source_altered);
+        if (type != PhotoType.MASTER)
+            sources.items_altered.disconnect(on_sources_altered);
         sources.items_removed.disconnect(on_sources_removed);
         
         foreach (FetchJob job in in_progress.values)
@@ -190,8 +193,8 @@ public class PixbufCache : Object {
         
         FetchJob job = null;
         switch (type) {
-            case PhotoType.NORMAL:
-                job = new NormalFetchJob(this, priority, photo, scaling, on_fetched);
+            case PhotoType.BASELINE:
+                job = new BaselineFetchJob(this, priority, photo, scaling, on_fetched);
             break;
             
             case PhotoType.MASTER:
@@ -273,21 +276,26 @@ public class PixbufCache : Object {
         fetched(job.photo, job.pixbuf, null);
     }
     
-    private void on_source_altered(DataObject object) {
-        Photo photo = object as Photo;
-        assert(photo != null);
-        
-        // only interested if in this cache and not an originals cache, as they never alter
-        if (!cache.has_key(photo) && type != PhotoType.MASTER)
-            return;
-        
-        decache(photo);
-        
+    private void on_sources_altered(Gee.Map<DataObject, Alteration> map) {
+        foreach (DataObject object in map.keys) {
+            if (!map.get(object).has_subject("image"))
+                continue;
+            
+            LibraryPhoto photo = (LibraryPhoto) object;
+            
+            // only interested if in this cache and not a master cache, as they never alter
+            if (!cache.has_key(photo))
+                continue;
+            
+            decache(photo);
+            
 #if TRACE_PIXBUF_CACHE
-        debug("Re-fetching altered pixbuf from cache: %s @ %s", photo.to_string(), scaling.to_string());
+            debug("Re-fetching altered pixbuf from cache: %s @ %s", photo.to_string(),
+                scaling.to_string());
 #endif
-        
-        prefetch(photo, BackgroundJob.JobPriority.HIGH);
+            
+            prefetch(photo, BackgroundJob.JobPriority.HIGH);
+        }
     }
     
     private void on_sources_removed(Gee.Iterable<DataObject> removed) {

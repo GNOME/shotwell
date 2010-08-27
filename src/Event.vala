@@ -585,6 +585,10 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return (Gee.Iterable<PhotoSource>) view.get_sources();
     }
     
+    public void mirror_photos(ViewCollection view, CreateView mirroring_ctor) {
+        view.mirror(this.view, mirroring_ctor);
+    }
+    
     private void on_primary_thumbnail_altered() {
         notify_thumbnail_altered();
     }

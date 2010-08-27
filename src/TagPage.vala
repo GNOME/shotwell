@@ -36,7 +36,7 @@ public class TagPage : CollectionPage {
         
         this.tag = tag;
         
-        tag.altered.connect(on_tag_altered);
+        Tag.global.items_altered.connect(on_tags_altered);
         tag.mirror_photos(get_view(), create_thumbnail);
         
         init_page_context_menu("/TagsContextMenu");
@@ -47,7 +47,7 @@ public class TagPage : CollectionPage {
     
     ~TagPage() {
         get_view().halt_mirroring();
-        tag.altered.disconnect(on_tag_altered);
+        Tag.global.items_altered.disconnect(on_tags_altered);
     }
     
     public static TagPage.Stub create_stub(Tag tag) {
@@ -85,8 +85,9 @@ public class TagPage : CollectionPage {
         return actions;
     }
     
-    private void on_tag_altered() {
-        set_page_name(tag.get_name());
+    private void on_tags_altered(Gee.Map<DataObject, Alteration> map) {
+        if (map.has_key(tag))
+            set_page_name(tag.get_name());
     }
     
     protected override void on_tags_menu() {

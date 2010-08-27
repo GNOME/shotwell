@@ -311,13 +311,6 @@ public abstract class DataObject : Object {
     private int64 object_id = INVALID_OBJECT_ID;
     private DataCollection member_of = null;
     private int64 ordinal = DataCollection.INVALID_OBJECT_ORDINAL;
-    private Alteration frozen_alteration = null;
-    
-    // This signal is fired when the source of the data is altered in a way that's significant
-    // to how it's represented in the application.  This base signal must be called by child
-    // classes if the collection it is a member of is to be notified.
-    public virtual signal void altered(Alteration alteration) {
-    }
     
     // NOTE: Supplying an object ID should *only* be used when reconstituting the object (generally
     // only done by DataSources).
@@ -326,18 +319,6 @@ public abstract class DataObject : Object {
     }
     
     public virtual void notify_altered(Alteration alteration) {
-        // fire signal on self, if notifications aren't frozen
-        if (member_of != null) {
-            if (!member_of.are_notifications_frozen())
-                altered(alteration);
-            else
-                frozen_alteration = (frozen_alteration == null) ? alteration
-                    : frozen_alteration.compress(alteration);
-        } else {
-            altered(alteration);
-        }
-        
-        // notify DataCollection in any event
         if (member_of != null)
             member_of.internal_notify_altered(this, alteration);
     }
@@ -409,21 +390,6 @@ public abstract class DataObject : Object {
         return ordinal;
     }
     
-    // This method is only called by DataCollection
-    public virtual void internal_collection_thawed() {
-        // if captured one or more alterations while frozen, fire them now
-        if (frozen_alteration == null)
-            return;
-        
-        // swap due to possible reentrancy
-        Alteration copy = frozen_alteration;
-        frozen_alteration = null;
-        
-        // don't call notify_altered(), as that will redirect the Alteration to the DataCollection,
-        // which is already handling this for its observers
-        altered(copy);
-    }
-
     public inline int64 get_object_id() {
         return object_id;
     }
@@ -549,12 +515,12 @@ public abstract class DataSource : DataObject {
     protected delegate void ContactSubscriberAlteration(DataView view, Alteration alteration);
     
     private DataView[] subscribers = new DataView[4];
+    private SourceHoldingTank holding_tank = null;
     private weak SourceCollection unlinked_from_collection = null;
     private Gee.HashMap<string, Gee.List<string>> backlinks = null;
     private bool in_contact = false;
     private bool marked_for_destroy = false;
     private bool is_destroyed = false;
-    private Alteration frozen_alteration = null;
     
     // This signal is fired after the DataSource has been unlinked from its SourceCollection.
     public virtual signal void unlinked(SourceCollection sources) {
@@ -579,36 +545,6 @@ public abstract class DataSource : DataObject {
 #endif
     }
     
-    public override void notify_altered(Alteration alteration) {
-        // if SourceCollection is frozen, freeze notifications to subscribers as well
-        if (get_membership() != null && get_membership().are_notifications_frozen()) {
-            frozen_alteration = (frozen_alteration == null) ? alteration
-                : frozen_alteration.compress(alteration);
-        } else {
-            // signal reflection
-            contact_subscribers_alteration(subscriber_altered, alteration);
-        }
-        
-        // call base class in all cases
-        base.notify_altered(alteration);
-    }
-    
-    public override void internal_collection_thawed() {
-        if (frozen_alteration != null) {
-            // swap out due to possible reentrancy
-            Alteration alteration = frozen_alteration;
-            frozen_alteration = null;
-            
-            contact_subscribers_alteration(subscriber_altered, alteration);
-        }
-        
-        base.internal_collection_thawed();
-    }
-    
-    private void subscriber_altered(DataView view, Alteration alteration) {
-        view.notify_altered(alteration);
-    }
-    
     public override void notify_membership_changed(DataCollection? collection) {
         // DataSources can only be removed once they've been destroyed or unlinked.
         if (collection == null) {
@@ -622,6 +558,29 @@ public abstract class DataSource : DataObject {
             notify_unlinked();
         
         base.notify_membership_changed(collection);
+    }
+    
+    public virtual void notify_held_in_tank(SourceHoldingTank? holding_tank) {
+        // this should never be called if part of a collection
+        assert(get_membership() == null);
+        
+        // DataSources can only be held in a tank if not already in one, and must be removed from
+        // one before being put in another
+        if (holding_tank != null) {
+            assert(this.holding_tank == null);
+        } else {
+            assert(this.holding_tank != null);
+        }
+        
+        this.holding_tank = holding_tank;
+    }
+    
+    public override void notify_altered(Alteration alteration) {
+        // re-route this to the SourceHoldingTank if held in one
+        if (holding_tank != null)
+            holding_tank.internal_notify_altered(this, alteration);
+        else
+            base.notify_altered(alteration);
     }
     
     // This method is called by SourceCollection.  It should not be called otherwise.
@@ -925,18 +884,6 @@ public abstract class DataSource : DataObject {
         for (int ctr = 0; ctr < subscribers.length; ctr++) {
             if (subscribers[ctr] != null)
                 contact_subscriber(subscribers[ctr]);
-        }
-        in_contact = false;
-    }
-    
-    protected void contact_subscribers_alteration(ContactSubscriberAlteration contact_subscriber,
-        Alteration alteration) {
-        assert(!in_contact);
-        
-        in_contact = true;
-        for (int ctr = 0; ctr < subscribers.length; ctr++) {
-            if (subscribers[ctr] != null)
-                contact_subscriber(subscribers[ctr], alteration);
         }
         in_contact = false;
     }
