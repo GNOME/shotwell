@@ -102,6 +102,7 @@
         
         <menu name="EventsMenu" action="EventsMenu">
             <menuitem name="NewEvent" action="NewEvent" />
+            <menuitem name="JumpToEvent" action="JumpToEvent" />
         </menu>
         
         <menu name="TagsMenu" action="TagsMenu">
@@ -142,6 +143,7 @@
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />
+        <menuitem name="ContextJumpToEvent" action="JumpToEvent" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
     </popup>

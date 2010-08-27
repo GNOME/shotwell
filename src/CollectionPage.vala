@@ -492,6 +492,12 @@ public abstract class CollectionPage : CheckerboardPage {
         new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
         actions += new_event;
         
+        Gtk.ActionEntry jump_to_event = { "JumpToEvent", null, TRANSLATABLE, null, TRANSLATABLE,
+            on_jump_to_event };
+        jump_to_event.label = _("View Eve_nt for Photo");
+        jump_to_event.tooltip = _("Go to this photo's event");
+        actions += jump_to_event;
+        
         Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, on_tags_menu };
         tags.label = _("Ta_gs");
         actions += tags;
@@ -665,6 +671,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("Duplicate", selected);
         set_action_sensitive("ExternalEdit", selected && Config.get_instance().get_external_photo_app() != "");
         set_action_sensitive("Revert", can_revert_selected());
+        set_action_sensitive("JumpToEvent", can_jump_to_event());
         
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", selected_count == 1);
@@ -698,6 +705,7 @@ public abstract class CollectionPage : CheckerboardPage {
         // since the photo can be altered externally to Shotwell now, need to make the revert
         // command available appropriately, even if the selection doesn't change
         set_action_sensitive("Revert", can_revert_selected());
+        set_action_sensitive("JumpToEvent", can_jump_to_event());
     }
     
 #if !NO_PRINTING
@@ -726,6 +734,7 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("RemoveFromLibrary", has_selected);
         set_action_sensitive("MoveToTrash", has_selected);
         set_action_sensitive("Duplicate", has_selected);
+        set_action_sensitive("JumpToEvent", can_jump_to_event());
         update_rating_sensitivities();
         
 #if !NO_SET_BACKGROUND
@@ -1864,6 +1873,22 @@ public abstract class CollectionPage : CheckerboardPage {
     private void on_new_event() {
         if (get_view().get_selected_count() > 0)
             get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
+    }
+    
+    private bool can_jump_to_event() {
+        if (get_view().get_selected_count() != 1)
+            return false;
+        
+        return ((Photo) get_view().get_selected_at(0).get_source()).get_event() != null;
+    }
+    
+    private void on_jump_to_event() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        Event? event = ((Photo) get_view().get_selected_at(0).get_source()).get_event();
+        if (event != null)
+            LibraryWindow.get_app().switch_to_event(event);
     }
     
     private void on_add_tags() {

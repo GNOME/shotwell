@@ -372,6 +372,10 @@ public class EventPage : CollectionPage {
         
         init_page_context_menu("/EventContextMenu");
         
+        // hide this command in CollectionPage, as it does not apply here
+        set_item_hidden("/CollectionMenuBar/EventsMenu/JumpToEvent");
+        set_item_hidden("/CollectionContextMenu/ContextJumpToEvent");
+        
         Event.global.items_altered.connect(on_events_altered);
     }
     
@@ -408,7 +412,7 @@ public class EventPage : CollectionPage {
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
         Config.get_instance().set_event_photos_sort(sort_order, sort_by);
     }
-
+    
     private void on_events_altered(Gee.Map<DataObject, Alteration> map) {
         if (map.has_key(page_event))
             set_page_name(page_event.get_name());
