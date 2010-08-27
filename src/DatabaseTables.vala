@@ -25,6 +25,8 @@ public class DatabaseTable {
     
     protected static Sqlite.Database db;
     
+    private static bool in_transaction = false;
+    
     public string table_name = null;
 
     // Doing this because static construct {} not working ... passing null will make all databases
@@ -65,7 +67,7 @@ public class DatabaseTable {
     
     // This method will throw an error on an SQLite return code unless it's OK, DONE, or ROW, which
     // are considered normal results.
-    protected void throw_error(string method, int res) throws DatabaseError {
+    protected static void throw_error(string method, int res) throws DatabaseError {
         string msg = "(%s) [%d] - %s".printf(method, res, db.errmsg());
         
         switch (res) {
@@ -273,6 +275,28 @@ public class DatabaseTable {
         }
         
         return stmt.column_int(0);
+    }
+    
+    // NOTE: Transactions do NOT nest.
+    public static void begin_transaction() {
+        assert(!in_transaction);
+        
+        int res = db.exec("BEGIN TRANSACTION");
+        assert(res == Sqlite.OK);
+        
+        in_transaction = true;
+    }
+    
+    // NOTE: Transactions do NOT nest.
+    public static void commit_transaction() throws DatabaseError {
+        assert(in_transaction);
+        
+        int res = db.exec("COMMIT TRANSACTION");
+        
+        in_transaction = false;
+        
+        if (res != Sqlite.DONE)
+            throw_error("commit_transaction", res);
     }
 }
 
