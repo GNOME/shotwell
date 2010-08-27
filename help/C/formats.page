@@ -1,0 +1,17 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="formats">
+
+    <info>
+        <link type="guide" xref="index"/>
+        <desc>Shotwell supports JPEG, PNG and RAW photo files.</desc>
+    </info>
+
+	<title>Supported Photo Formats</title>
+
+   <p>Shotwell supports JPEG, PNG, and RAW photo files. Shotwell does not yet support other graphics format such as BMP, GIF and TIFF.</p>
+
+<p>Shotwell's RAW format support is currently limited. When you view a RAW photo, you are actually viewing a JPEG derived from the RAW photo, not the RAW image itself. Additionally, the RAW editing pipeline is not fully 16-bit - you can only export edited photos as 8-bit JPEG or PNG files.</p>
+
+</page>
+

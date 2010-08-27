@@ -1,3 +1,16 @@
+shotwell (0.7.1-1~lucid1) lucid; urgency=low
+
+  * Fixed a critical bug that caused Shotwell to crash when
+    deleting the only photo in an event
+  * F-Spot import now correctly interprets older databases
+  * Fixed an issue where pressing F11 would not exit full-screen
+    mode
+  * Translation updates for several languages
+  * Updated documentation
+
+ -- Lucas Beeler <lucas@yorba.org>  Thu, 26 Aug 2010 12:32:09 -0700 
+
+
 shotwell (0.7.0-1~lucid1) lucid; urgency=low
 
   * Migration support for F-Spot users: Shotwell can import

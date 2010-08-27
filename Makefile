@@ -45,7 +45,7 @@ ifdef WINDOWS
 	EXPORT_FLAGS = -export-all-symbols
 endif
 
-SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko
+SUPPORTED_LANGUAGES=fr de it es pl et sv sk lv pt bg bn nl da zh_CN el ru pa hu en_GB uk ja fi zh_TW cs nb id th sl hr ar ast ro sr lt gl tr ca ko kk
 LOCAL_LANG_DIR=locale-langpack
 SYSTEM_LANG_DIR=$(DESTDIR)$(PREFIX)/share/locale
 
@@ -212,16 +212,17 @@ HELP_FILES = \
 	edit-crop.page \
 	edit-enhance.page \
 	edit-external.page \
-	edit-introduction.page \
+	edit-nondestructive.page \
 	edit-redeye.page \
 	edit-rotate.page \
 	edit-time-date.page \
 	edit-undo.page \
+	formats.page \
 	import-camera.page \
 	import-file.page \
 	import-f-spot.page \
+	import-memorycard.page \
 	index.page \
-	introduction.page \
 	organize-event.page \
 	organize-rating.page \
 	organize-remove.page \
@@ -240,6 +241,7 @@ HELP_FILES = \
 	view-sidebar.page
 
 HELP_IMAGES = \
+	crop_thirds.jpg \
 	editing_overview.png \
 	edit_toolbar.png \
 	shotwell_logo.png \

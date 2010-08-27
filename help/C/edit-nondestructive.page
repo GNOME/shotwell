@@ -1,0 +1,17 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="edit-nondestructive">
+
+    <info>
+        <link type="guide" xref="index#edit"/>
+        <desc>Shotwell is a non-destructive photo editor - it does not modify your original photos.</desc>
+    </info>
+
+	<title>What happens to the original when I edit a photo?</title>
+
+<p>Shotwell is a non-destructive photo editor. It does not modify your original photographs. That is to say, if you rotate or crop a photo, the copy in your library remains untouched. Shotwell stores your edits in a database and applies them on the fly as necessary. This means you can undo any alterations you make to a photograph.</p>
+
+<p>If you want to see what a photo looked like before your modifications, press the <key>Shift</key> key. The original photo will be displayed as long as you hold the key down.</p>
+    
+</page>
+

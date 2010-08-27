@@ -4,20 +4,18 @@
 
     <info>
         <link type="guide" xref="index#import"/>
+        <desc>Import photos that are already saved on your computer.</desc>
     </info>
 
-	<title>Importing From Files</title>
+	<title>Importing from your hard disk</title>
 
-    <p>To import photo files from your hard drive into Shotwell:</p>
-
-    <steps>
-    <item><p>Choose <guiseq><gui>File</gui><gui>Import From Folder...</gui></guiseq> and select a directory from the chooser dialog box.  Alternatively, drag files or directories from your file manager and drop them onto the Shotwell window.</p></item>
-    <item><p>
-    Shotwell will ask whether you want to copy the photo files to your library directory (usually this is the Pictures directory in your home directory) or to link them into your library without copying the files.
-    </p></item>
-    </steps>
+    <p>To import photo files from your hard disk into Shotwell, just drag them from your file browser into the Shotwell window.</p>
     
-    <p>If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will copy photo files without prompting.  Similarly, if you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while dragging photos in, Shotwell will link the photos without copying them.</p>
+    <p>Alternatively, click <guiseq><gui>File</gui><gui>Import From Folder</gui></guiseq> and select the folder containing the photos you want to import.</p>
+    
+    <p>Shotwell will ask whether you want to copy the photo files to your library folder (usually this is the <file>Pictures</file> folder in your home directory) or to link them into your library without copying the files.</p>
+    
+    <p>If you hold down <key>Ctrl</key> while dragging photos in, Shotwell will copy the photos into your library folder without prompting.  Similarly, if you hold down <keyseq><key>Ctrl</key><key>Shift</key></keyseq> while dragging photos in, Shotwell will link the photos without copying them.</p>
 
-    <p>Once the import is complete, you can select Last Import in the sidebar to see all photos successfully imported. The Events list will also show new entries for the dates corresponding to the imported photos.</p>
+    <p>Once the import is complete, you can select <gui>Last Import</gui> in the sidebar to see all photos successfully imported. The Events list will also show new entries for the dates corresponding to the imported photos.</p>
 </page>

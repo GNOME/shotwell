@@ -4,30 +4,41 @@
 
     <info>
         <link type="guide" xref="index#edit"/>
+        <desc>Improve the composition of a photo by cutting out parts of it.</desc>
     </info>
 
 	<title>Cropping</title>
 
     <p>To reduce the area of a photo and concentrate the viewer's attention on a smaller portion of it, use the Crop tool.
-    The crop tool is only available in full-window or fullscreen mode.
-    Double-click on a photo to enter full-window mode, then press the <gui>Crop</gui> button on the toolbar.</p>
-    
-    <p>A white box will appear over the photo.
-    If you place your cursor in the middle of the box, you may move the crop border.
-    If you click on the edges of the box, you can adjust its size.
-    The lighter portion of the photo within the crop rectangle represents what the photo will look like when you crop it.</p>
-    
-    <p>As you move and adjust the crop box, you'll see four lines appear inside it, like a tic-tac-toe grid.
-    These represent Rule of Thirds lines.
-    In general, you want your photos' subject matter to fall within these lines.</p>
-    
-    <p>You may also constrain the crop box to one of many common sizes.
-    Select a size from the list control that suits your needs.
-    If you press the flip button next to it, the orientation of the constraint will switch (from landscape to portrait).</p>
-    
-    <p>When you're happy with your crop outline, press the <gui>Apply</gui> button.
-    Shotwell will display the cropped photo.
-    If you change your mind, press the <gui>Crop</gui> button again and fine-tune the crop.</p>
+    The crop tool is only available in full-window or fullscreen mode.</p>
 
-    <p>If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will return to the photo's previous crop dimensions.</p>
+<steps>
+ <item>
+  <p>Double-click on a photo to enter full-window mode, then press the <gui>Crop</gui> button on the toolbar.</p>
+ </item>
+ <item>
+  <p>A white box, the crop rectangle, will appear over the photo. The lighter portion of the photo within the crop rectangle represents what the photo will look like when you crop it.</p>
+ </item>
+ <item>
+  <p>If you place your cursor in the middle of the box, you can move the box around. If you drag the edges of the box, you can adjust its size. As you move and adjust the crop box, you'll see four lines appear inside it, like a tic-tac-toe grid. These are <em>rule of thirds</em> lines.</p>
+  <p>You can also constrain the crop box to one of many common sizes. Choose a size from the drop-down list that suits your needs. If you press the flip button next to it, the orientation of the constraint will switch (from landscape to portrait).</p>
+ </item>
+ <item>
+  <p>When you're happy with your crop outline, press the <gui>Apply</gui> button. Shotwell will display the cropped photo.</p>
+ </item>
+ <item>
+  <p>If you change your mind, press the <gui>Crop</gui> button again and fine-tune the crop.</p>
+  <p>If you press <gui>Cancel</gui> rather than <gui>Apply</gui>, Shotwell will return to the photo's previous crop dimensions.</p>
+ </item>
+</steps>
+
+<section>
+ <title>What is the rule of thirds?</title>
+ <p>The <em>rule of thirds</em> helps you to choose a pleasing composition for a photo.</p>
+ <p>Imagine that the scene is divided up into a 3x3 grid by two equally-spaced vertical lines and two equally-spaced horizontal lines. According to the rule, you're more likely to get a pleasing composition if you align major features (like the horizon, or a person's body) with one of the lines. Paying attention to the way features flow from one part of the grid to another can also help.</p>
+ <p>Cropping a photo so that it conforms to the rule of thirds often results in a more visually appealing image.</p>
+ <media type="image" src="figures/crop_thirds.jpg">
+  <p>Cropping a photo, using the "rule of thirds" lines to improve the composition.</p>
+ </media>
+</section>
 </page>

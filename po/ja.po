@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.6.91\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-08-18 20:04-0300\n"
@@ -14,9 +14,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: UTF-8\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Japanese\n"
-"X-Generator: Lokalize 1.0\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -274,7 +274,7 @@ msgstr "写真をレーティングで並び替える"
 
 #: src/CollectionPage.vala:529 src/LibraryWindow.vala:506
 msgid "_Ascending"
-msgstr ""
+msgstr "昇順"
 
 #: src/CollectionPage.vala:530 src/LibraryWindow.vala:507
 msgid "Sort photos in an ascending order"
@@ -282,7 +282,7 @@ msgstr "写真を昇順で並び替える"
 
 #: src/CollectionPage.vala:535 src/LibraryWindow.vala:513
 msgid "D_escending"
-msgstr ""
+msgstr "降順"
 
 #: src/CollectionPage.vala:536 src/LibraryWindow.vala:514
 msgid "Sort photos in a descending order"
@@ -537,17 +537,14 @@ msgid "No photos imported.\n"
 msgstr ""
 
 #: src/Dialogs.vala:439
-#, fuzzy
 msgid "Import Complete"
 msgstr "インポート完了"
 
 #: src/Dialogs.vala:519 src/Resources.vala:143
-#, fuzzy
 msgid "Rename Event"
-msgstr "名前の変更イベント"
+msgstr "イベント名の変更"
 
 #: src/Dialogs.vala:519
-#, fuzzy
 msgid "Name:"
 msgstr "名前："
 
@@ -556,7 +553,6 @@ msgid "Edit Title"
 msgstr "タイトルを編集"
 
 #: src/Dialogs.vala:529 src/Properties.vala:246
-#, fuzzy
 msgid "Title:"
 msgstr "タイトル："
 
@@ -629,7 +625,6 @@ msgid "AM"
 msgstr "午前"
 
 #: src/Dialogs.vala:782
-#, fuzzy
 msgid "PM"
 msgstr "午後"
 
@@ -652,17 +647,16 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Dialogs.vala:891
-#, fuzzy
 msgid "Original: "
 msgstr "オリジナル："
 
 #: src/Dialogs.vala:892
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr ""
+msgstr "%Y/%m/%d, %H:%M:%S"
 
 #: src/Dialogs.vala:893
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr ""
+msgstr "%Y/%m/%d, %I:%M:%S %p"
 
 #: src/Dialogs.vala:978
 #, c-format
@@ -720,7 +714,6 @@ msgid "Tags (separated by commas):"
 msgstr ""
 
 #: src/Dialogs.vala:1126
-#, fuzzy
 msgid "Welcome!"
 msgstr "ようこそ！"
 
@@ -749,7 +742,7 @@ msgstr ""
 
 #: src/Dialogs.vala:1173
 msgid "Import photos from your _F-Spot library"
-msgstr ""
+msgstr "F-Spotのライブラリから写真をインポート(_F)"
 
 #: src/Dialogs.vala:1180
 #, c-format
@@ -766,7 +759,7 @@ msgstr ""
 
 #: src/Dialogs.vala:1428
 msgid "Choose Library Directory"
-msgstr ""
+msgstr "ライブラリのディレクトリを選択"
 
 #: src/Dialogs.vala:1477
 msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
@@ -781,27 +774,22 @@ msgid "Create _Links"
 msgstr "リンクの作成(_L)"
 
 #: src/Dialogs.vala:1484
-#, fuzzy
 msgid "Import to Library"
 msgstr "ライブラリにインポート"
 
 #: src/Dimensions.vala:17 src/FlickrConnector.vala:949
-#, fuzzy
 msgid "Original size"
 msgstr "オリジナルサイズ"
 
 #: src/Dimensions.vala:20
-#, fuzzy
 msgid "Width or height"
 msgstr "幅または高さ"
 
 #: src/Dimensions.vala:23
-#, fuzzy
 msgid "Width"
 msgstr "幅"
 
 #: src/Dimensions.vala:26
-#, fuzzy
 msgid "Height"
 msgstr "高さ"
 
@@ -831,12 +819,10 @@ msgid "Square"
 msgstr ""
 
 #: src/EditingTools.vala:586
-#, fuzzy
 msgid "Screen"
 msgstr "画面"
 
 #: src/EditingTools.vala:587 src/PicasaConnector.vala:862
-#, fuzzy
 msgid "Original Size"
 msgstr "元のサイズ"
 
@@ -910,12 +896,10 @@ msgid "30 x 40 cm"
 msgstr ""
 
 #: src/EditingTools.vala:608
-#, fuzzy
 msgid "Custom"
 msgstr "カスタム"
 
 #: src/EditingTools.vala:1689 src/Properties.vala:291
-#, fuzzy
 msgid "Size:"
 msgstr "サイズ："
 
@@ -1031,11 +1015,11 @@ msgstr ""
 
 #: src/FacebookConnector.vala:261
 msgid "Testing connection to Facebook..."
-msgstr ""
+msgstr "Facebookへの接続テスト中..."
 
 #: src/FacebookConnector.vala:344 src/PicasaConnector.vala:384
 msgid "Creating album..."
-msgstr ""
+msgstr "アルバムの作成中..."
 
 #: src/FacebookConnector.vala:713
 #, c-format
@@ -1061,7 +1045,7 @@ msgstr ""
 #: src/FacebookConnector.vala:775 src/FlickrConnector.vala:880
 #: src/PicasaConnector.vala:779
 msgid "_Logout"
-msgstr ""
+msgstr "ログアウト(_L)"
 
 #: src/FlickrConnector.vala:11
 msgid ""
@@ -1139,7 +1123,6 @@ msgid "Import From F-Spot"
 msgstr "F-Spotからインポート"
 
 #: src/FSpotDatabaseDriver.vala:257
-#, fuzzy
 msgid "F-Spot"
 msgstr "F-Spot"
 
@@ -1153,7 +1136,6 @@ msgid "Unable to unmount camera.  Try unmounting the camera from the file manage
 msgstr ""
 
 #: src/ImportPage.vala:325 src/ImportPage.vala:326
-#, fuzzy
 msgid "Camera"
 msgstr "カメラ"
 
@@ -1179,7 +1161,7 @@ msgstr ""
 
 #: src/ImportPage.vala:588
 msgid "_Unmount"
-msgstr ""
+msgstr "アンマウント(_U)"
 
 #: src/ImportPage.vala:593
 msgid "Please unmount the camera."
@@ -1202,16 +1184,16 @@ msgstr ""
 
 #: src/ImportPage.vala:632
 msgid "Unmounting..."
-msgstr ""
+msgstr "アンマウント中"
 
 #: src/ImportPage.vala:701
 msgid "Fetching photo information"
-msgstr ""
+msgstr "写真情報を取得中"
 
 #: src/ImportPage.vala:933
 #, c-format
 msgid "Fetching preview for %s"
-msgstr ""
+msgstr "%sのプレビューを取得中"
 
 #: src/ImportPage.vala:1024
 #, c-format
@@ -1231,7 +1213,7 @@ msgstr ""
 
 #: src/ImportPage.vala:1120
 msgid "Removing photos from camera"
-msgstr ""
+msgstr "カメラから写真を削除中"
 
 #: src/ImportPage.vala:1124
 #, c-format
@@ -1242,23 +1224,22 @@ msgstr[1] ""
 
 #: src/ImportPage.vala:1181 src/ImportPage.vala:1283
 msgid "Importing..."
-msgstr ""
+msgstr "インポート中..."
 
 #: src/ImportPage.vala:1191 src/ImportPage.vala:1221
 msgid "Stop importing photos"
-msgstr ""
+msgstr "画像のインポートを停止"
 
 #: src/ImportPage.vala:1220
 msgid "_Stop Import"
-msgstr ""
+msgstr "インポートを停止"
 
 #: src/ImportPage.vala:1301
 #, c-format
 msgid "Imported %s"
-msgstr ""
+msgstr "%sをインポートしました"
 
 #: src/JfifSupport.vala:77
-#, fuzzy
 msgid "JPEG"
 msgstr "JPEG"
 
@@ -1348,11 +1329,11 @@ msgstr "ライブラリの位置"
 
 #: src/LibraryWindow.vala:827
 msgid "Photos cannot be imported from this directory."
-msgstr ""
+msgstr "このディレクトリから写真のインポートができませんでした."
 
 #: src/LibraryWindow.vala:1203
 msgid "Tags"
-msgstr ""
+msgstr "タグ"
 
 #: src/LibraryWindow.vala:1291
 msgid "Cameras"
@@ -1380,7 +1361,7 @@ msgstr ""
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
-msgstr ""
+msgstr "Shotwellを読み込み中"
 
 #: src/main.vala:250
 msgid "[FILE]"
@@ -1397,7 +1378,7 @@ msgstr ""
 
 #: src/OfflinePage.vala:113
 msgid "Deleting..."
-msgstr ""
+msgstr "削除中..."
 
 #: src/Page.vala:2146
 msgid "Photos cannot be exported to this directory."
@@ -1414,7 +1395,7 @@ msgstr ""
 
 #: src/PhotoExporter.vala:204
 msgid "_Skip"
-msgstr ""
+msgstr "スキップ(_S)"
 
 #: src/PhotoExporter.vala:204
 msgid "_Replace"
@@ -1439,11 +1420,11 @@ msgstr ""
 
 #: src/PhotoPage.vala:2036 src/PhotoPage.vala:3147
 msgid "_Photo"
-msgstr ""
+msgstr "写真(_P)"
 
 #: src/PhotoPage.vala:2040 src/PhotoPage.vala:3151
 msgid "_Tools"
-msgstr ""
+msgstr "ツール(_T)"
 
 #: src/PhotoPage.vala:2045 src/PhotoPage.vala:3156
 msgid "_Previous Photo"
@@ -1537,12 +1518,12 @@ msgid "Edit"
 msgstr "編集"
 
 #: src/PhotoPage.vala:3277
-#, fuzzy, c-format
+#, c-format
 msgid "%s does not exist."
 msgstr "％sは存在しません。"
 
 #: src/PhotoPage.vala:3279
-#, fuzzy, c-format
+#, c-format
 msgid "%s is not a file."
 msgstr "％sはファイルではありません。"
 
@@ -1572,17 +1553,14 @@ msgid "Error while saving to %s: %s"
 msgstr ""
 
 #: src/PhotoPage.vala:3490 src/PhotoPage.vala:3526
-#, fuzzy
 msgid "Save As"
 msgstr "別名で保存"
 
 #: src/Photo.vala:24
-#, fuzzy
 msgid "Success"
-msgstr "サクセス"
+msgstr "成功"
 
 #: src/Photo.vala:27
-#, fuzzy
 msgid "File error"
 msgstr "ファイルエラー"
 
@@ -1591,7 +1569,6 @@ msgid "Unable to decode file"
 msgstr ""
 
 #: src/Photo.vala:33
-#, fuzzy
 msgid "Database error"
 msgstr "データベースエラー"
 
@@ -1620,7 +1597,6 @@ msgid "Disk failure"
 msgstr "ディスク障害です"
 
 #: src/Photo.vala:54
-#, fuzzy
 msgid "Disk full"
 msgstr "ディスクがいっぱいです"
 
@@ -1729,8 +1705,9 @@ msgid "Recommended (1600 x 1200 pixels)"
 msgstr ""
 
 #: src/PngSupport.vala:31
+#, fuzzy
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/Printing.vala:215
 msgid "Printed Image Size"
@@ -1750,11 +1727,11 @@ msgstr ""
 
 #: src/Printing.vala:282
 msgid "in."
-msgstr ""
+msgstr "インチ"
 
 #: src/Printing.vala:283
 msgid "cm"
-msgstr ""
+msgstr "センチメートル"
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
@@ -1762,7 +1739,7 @@ msgstr ""
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
-msgstr ""
+msgstr "ピクセル解像度"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
@@ -1856,36 +1833,42 @@ msgid "Exposure bias:"
 msgstr ""
 
 #: src/Properties.vala:433
+#, fuzzy
 msgid "GPS latitude:"
-msgstr ""
+msgstr "GPSの緯度："
 
 #: src/Properties.vala:436
+#, fuzzy
 msgid "GPS longitude:"
-msgstr ""
+msgstr "GPSの経度："
 
 #: src/Properties.vala:439
 msgid "Artist:"
-msgstr ""
+msgstr "撮影者："
 
 #: src/Properties.vala:441
+#, fuzzy
 msgid "Copyright:"
-msgstr ""
+msgstr "著作権："
 
 #: src/Properties.vala:443
+#, fuzzy
 msgid "Software:"
-msgstr ""
+msgstr "ソフトウェア："
 
 #: src/Properties.vala:452
+#, fuzzy
 msgid "Extended Information"
-msgstr ""
+msgstr "拡張情報"
 
 #: src/RawSupport.vala:127
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
 #: src/Resources.vala:17
+#, fuzzy
 msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr ""
+msgstr "Copyright 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:90
 msgid "Rotate _Right"
@@ -1965,11 +1948,11 @@ msgstr ""
 
 #: src/Resources.vala:116
 msgid "_Red-eye"
-msgstr ""
+msgstr "赤目(_R)"
 
 #: src/Resources.vala:117
 msgid "Red-eye"
-msgstr ""
+msgstr "赤目"
 
 #: src/Resources.vala:118
 msgid "Reduce or eliminate any red-eye effects in the photo"
@@ -2093,15 +2076,15 @@ msgstr ""
 
 #: src/Resources.vala:161
 msgid "_Set Rating"
-msgstr ""
+msgstr "評価の設定"
 
 #: src/Resources.vala:162
 msgid "Set Rating"
-msgstr ""
+msgstr "評価の設定"
 
 #: src/Resources.vala:163
 msgid "Change the rating of your photo"
-msgstr ""
+msgstr "写真の評価を変更"
 
 #: src/Resources.vala:165
 msgid "_Increase"
@@ -2221,7 +2204,7 @@ msgstr ""
 
 #: src/Resources.vala:208
 msgid "_Print..."
-msgstr ""
+msgstr "印刷(_P)"
 
 #: src/Resources.vala:211
 msgid "Pu_blish..."
@@ -2273,7 +2256,7 @@ msgstr "設定(_P)"
 
 #: src/Resources.vala:228
 msgid "Edit preferences"
-msgstr ""
+msgstr "設定変更"
 
 #: src/Resources.vala:230
 msgid "_Open With External Editor"
@@ -2285,16 +2268,16 @@ msgstr ""
 
 #: src/Resources.vala:233
 msgid "Open With RA_W Editor"
-msgstr ""
+msgstr "RAWエディタで開く(_W)"
 
 #: src/Resources.vala:234
 msgid "Open the selected photo with a RAW image editor"
-msgstr ""
+msgstr "選択された写真をRAWエディタで開く"
 
 #: src/Resources.vala:237
 #, c-format
 msgid "Unable to launch editor: %s"
-msgstr ""
+msgstr "%sが起動できません"
 
 #: src/Resources.vala:242
 #, c-format
@@ -2513,31 +2496,31 @@ msgstr ""
 
 #: src/SlideshowPage.vala:109
 msgid "Back"
-msgstr ""
+msgstr "戻る"
 
 #: src/SlideshowPage.vala:110
 msgid "Go to the previous photo"
-msgstr ""
+msgstr "前の写真に戻る"
 
 #: src/SlideshowPage.vala:116 src/SlideshowPage.vala:228
 msgid "Pause"
-msgstr ""
+msgstr "一時停止"
 
 #: src/SlideshowPage.vala:117 src/SlideshowPage.vala:229
 msgid "Pause the slideshow"
-msgstr ""
+msgstr "スライドショーの一時停止"
 
 #: src/SlideshowPage.vala:123
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 #: src/SlideshowPage.vala:124
 msgid "Go to the next photo"
-msgstr ""
+msgstr "次の写真に進む"
 
 #: src/SlideshowPage.vala:131
 msgid "Change slideshow settings"
-msgstr ""
+msgstr "スライドショー設定の変更"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
@@ -2549,7 +2532,7 @@ msgstr "再生"
 
 #: src/SlideshowPage.vala:225
 msgid "Continue the slideshow"
-msgstr ""
+msgstr "スライドショーの続行"
 
 #: src/TagPage.vala:127
 #, c-format
@@ -2586,7 +2569,7 @@ msgstr ""
 
 #: src/WebConnectors.vala:649
 msgid "Logging in..."
-msgstr ""
+msgstr "ログイン中..."
 
 #: src/WebConnectors.vala:677
 msgid "Publish Photos"

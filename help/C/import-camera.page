@@ -4,18 +4,28 @@
 
     <info>
         <link type="guide" xref="index#import"/>
+        <desc>Copy photos off a digital camera.</desc>
     </info>
 
-	<title>Importing From a Camera</title>
+	<title>Importing from a camera</title>
 
     <p>To import photos from a digital camera:</p>
 
-    <steps>
-    <item><p>Connect your camera to your computer.
-    Shotwell will detect it and list it in the sidebar.</p></item>
-    <item><p>Select the camera in the sidebar.  Shotwell will display previews of each photo on the camera.</p></item>
-    <item><p>Optionally, choose a set of specific photos to import. To do this, use <keyseq><key>Ctrl</key>Click</keyseq> to select individual photos and <keyseq><key>Shift</key>Click</keyseq> to select a range of photos.</p></item>
-    <item><p>Press either <gui>Imported Selected</gui> or <gui>Import All</gui>.</p></item>
-    </steps>
-    <p>Once the import is complete, you can open the Last Import view to see all photos successfully imported. The Events tree will also show new entries for the dates corresponding to the imported photos.</p>
+   <steps>
+    <item>
+     <p>Connect the camera to your computer and switch it on.
+    Shotwell will detect it and list it in the sidebar.</p>
+    </item>
+    <item>
+     <p>Select the camera in the sidebar. Previews of each photo on the camera will be displayed.</p>
+    </item>
+    <item>
+     <p>If you like, you can choose a set of specific photos to import. To do this, hold down the <key>Ctrl</key> key and click to select individual photos. You can hold down <key>Shift</key> and click to select a range of photos too.</p>
+    </item>
+    <item>
+     <p>Click either <gui>Import Selected</gui> or <gui>Import All</gui>. The photos will be copied from the camera and saved on your computer.</p>
+    </item>
+   </steps>
+   
+    <p>Once the import is complete, you can open the <gui>Last Import</gui> view (in the sidebar) to see all photos that were imported. The Events list (also in the sidebar) will also show the new photos, organized by date.</p>
 </page>

@@ -1810,11 +1810,10 @@ public class ViewCollection : DataCollection {
             return;
         }
         
-        base.clear();
+        // Cannot clear a locked ViewCollection
+        assert(view_lock_count == 0);
         
-        locked_filter_items.clear();
-        locked_unlinked_items.clear();
-        view_lock_count = 0;
+        base.clear();
     }
     
     public override void close() {

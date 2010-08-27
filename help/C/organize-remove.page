@@ -4,13 +4,14 @@
 
     <info>
         <link type="guide" xref="index#organize"/>
+        <desc>Remove photos from the library, or delete them from your computer entirely.</desc>
     </info>
 
-	<title>Removing Photos</title>
+	<title>Removing and Deleting Photos</title>
 
     <p>You may remove photos from your library and you may additionally delete them entirely from your hard disk.</p>
 <media type="image" src="figures/trash_process.png">Delete process</media>
-<p>This diagram shows how a photo, when deleted, is first put into Shotwell's trash. If you delete it from Shotwell's trash, it is put into your computer's trash. If you delete it from your computer's trash the photo is finally and irretrievably deleted from your storage medium.</p>
+<p>This diagram shows how a photo, when deleted, is first put into Shotwell's trash. If you delete it from Shotwell's trash, it is put into your computer's trash. If you delete it from your computer's trash the photo is finally and irretrievably deleted from your computer.</p>
 <section id="delete-remove">
 	<title>Removing photos from the library</title>
     <p>Select the photos to remove and choose <guiseq><gui>Edit</gui><gui>Move to Trash</gui></guiseq>.
@@ -33,8 +34,8 @@
 	<title>Deleting or emptying Trash</title>
     <p>When you delete files from the Trash folder or empty the Trash folder, you will be given the following choices:</p>
     <terms>
-    <item><title>Only Remove</title><p>Remove photos from the library but leave the photos in their location on the storage medium.</p></item>
-    <item><title>Trash file</title><p>Remove photos from the library and delete them from the storage medium.</p></item>
+    <item><title>Only Remove</title><p>Remove photos from the library but leave the photos in their location on the computer.</p></item>
+    <item><title>Trash file</title><p>Remove photos from the library and delete them from the computer.</p></item>
     <item><title>Cancel</title><p>Do nothing.</p></item>
     </terms>    
 </section>

@@ -4,56 +4,49 @@
 
     <info>
         <link type="guide" xref="index#organize"/>
+        <desc>Group photos together that were taken at the same time. Learn how to rename, merge, and sort events.</desc>
     </info>
 
 	<title>Events</title>
 
-    <p>An event is a group of photos that were taken at approximately the same time.
-    When you import photos, Shotwell looks for the exposure date within the photos left by your camera.
-    Shotwell then clusters the photos into events.
-    </p>
-
-    <section>
-    <title>Key Photos</title>
-
-    <p>If you select the Events item in the sidebar, you'll see a single photo which represents each event.
-    This is called the key photo.
-    Double-clicking on the key photo will take you to the collection of photos in that event.</p>
-
-    <p>By default, Shotwell uses the first photo in each event as its key photo.
-    To use a different key photo, select it and choose <guiseq><gui>Photos</gui><gui>Make Key Photo for Event</gui></guiseq>.</p>
+    <p>An event is a group of photos that were taken at approximately the same time. When you import photos, Shotwell checks when each photo was taken. It then groups the photos into events.</p>
     
-    </section>
+    <p>Choose <gui>Events</gui> from the sidebar to see your photos organized by date. If you select a month or year from the sidebar, a list of events will be displayed in the main window. Double-click an event to see all the photos that were taken around that time.</p>
     
     <section>
     <title>Renaming events</title>
 
-    <p>To give an event a name rather than refer to it by its date, choose <guiseq><gui>Edit</gui><gui>Rename Event...</gui></guiseq> and enter a new name.</p>
-
+    <p>To give an event a name rather than referring to it by its date, select the event, click <guiseq><gui>Edit</gui><gui>Rename Event</gui></guiseq> and enter a new name. Another way of renaming an event is to double-click its name in the sidebar; type a new name and then press <key>Enter</key>.</p>
     </section>
 
     <section>
-    <title>Moving Photos</title>
+    <title>Moving photos between events</title>
 
-    <p>Even though events are always stored by their date, you can move photos between events, which can affect their sort order.
-    To move photos between events, drag any imported photos to the sidebar and drop them on an event name.</p>
-
+    <p>Even though photos are initially grouped into events by their date, you can move photos between events. To do this, drag any photo to the sidebar and drop it on an event.</p>
     </section>
 
     <section>
-    <title>Creating new events and merging events</title>
-    <p>
-    To create a new event, select the photos you would like in the new event and choose <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>.
-    To merge events, navigate to the Events item in the sidebar, or any of the other pages in the hierarchy that store events.
-    Select the events you wish to merge and choose <guiseq><gui>Events</gui><gui>Merge Events</gui></guiseq>.</p>
+    <title>Creating and merging events</title>
+    <p>To create a new event, select the photos you would like in the new event and click <guiseq><gui>Events</gui><gui>New Event</gui></guiseq>.</p>
+    <p>To merge events, select both of the events you want to merge. You can do this by selecting one event from the sidebar, then holding down <key>Ctrl</key> and clicking the other. Then, click <guiseq><gui>Events</gui><gui>Merge Events</gui></guiseq>.</p>
+    </section>
+
+    <section>
+    <title>Sorting events</title>
+
+    <p>Events are displayed in a tree in the sidebar, organized by the year and month of the earliest photo in the event.
+    To change the event sort order, click <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select either ascending or descending.</p>
     
     </section>
-
+    
     <section>
-    <title>The sidebar events</title>
+    <title>Change the photo used to represent each event</title>
 
-    <p>In the sidebar, the events are stored in a tree by year and month of the earliest photo in the event.
-    To change the event sort order, choose <guiseq><gui>View</gui><gui>Sort Events</gui></guiseq> and select either ascending or descending.</p>
+    <p>If you select the Events item in the sidebar, you'll see a single photo which represents each event. This is called the key photo.</p>
+
+    <p>By default, Shotwell uses the first photo in each event as its key photo.
+    To use a different key photo, select the photo and choose <guiseq><gui>Photos</gui><gui>Make Key Photo for Event</gui></guiseq>.</p>
     
     </section>
+    
 </page>

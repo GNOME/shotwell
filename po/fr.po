@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.0+trunk\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-06-06 01:24+0200\n"
@@ -2289,7 +2289,7 @@ msgstr "Modifier le titre de la photo sélectionnée"
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr "L'ajustement de l'heure n'a pas pu être annuler sur le fichier photo suivante."
+msgstr "Ajuster la date et l'heure"
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
