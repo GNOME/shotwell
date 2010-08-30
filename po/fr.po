@@ -1200,13 +1200,21 @@ msgstr "Cacher les photos déjà importées"
 msgid "Only display photos that have not been imported"
 msgstr "Seulement montrer les photos qui n'ont pas été importées"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Importer la _sélection"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Importer la sélection"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "_Tout importer"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Importer les photos sélectionnées dans la photothèque"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Tout importer"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Importer toutes les photos de cet appareil dans la photothèque"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -2739,9 +2747,6 @@ msgstr "Préparation des photos à importer..."
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "Erreur"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Sélectionne toutes les photos de la photothèque"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Seulement les _favoris"
