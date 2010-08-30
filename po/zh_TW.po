@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-23 11:22+0800\n"
+"PO-Revision-Date: 2010-08-29 01:35+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -1149,7 +1149,7 @@ msgstr "建立新相簿並命名為："
 #: src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
 msgid "_Publish"
-msgstr "發佈(_P)"
+msgstr "發布(_P)"
 
 #: src/FacebookConnector.vala:775
 #: src/FlickrConnector.vala:880
@@ -2120,7 +2120,7 @@ msgstr "調整"
 
 #: src/Resources.vala:122
 msgid "Adjust the photo's color and tone"
-msgstr "調整腺配的色彩與色調"
+msgstr "調整相片的色彩與色調"
 
 #: src/Resources.vala:124
 msgid "Re_vert to Original"
@@ -2264,44 +2264,44 @@ msgstr "降低您相片的評等"
 
 #: src/Resources.vala:173
 msgid "_Unrated"
-msgstr "未評等(_U)"
+msgstr "無評等(_U)"
 
 #: src/Resources.vala:174
 msgid "Rate Unrated"
-msgstr "未評等"
+msgstr "無評等"
 
 #: src/Resources.vala:175
 msgid "Setting as unrated"
-msgstr "設定為未評等"
+msgstr "設定為無評等"
 
 #: src/Resources.vala:176
 msgid "Remove any ratings"
-msgstr "移除所有評等"
+msgstr "移除任何評等"
 
 #: src/Resources.vala:178
 msgid "_Rejected"
-msgstr "受拒(_R)"
+msgstr "退絕(_R)"
 
 #: src/Resources.vala:179
 msgid "Rate Rejected"
-msgstr "評等受拒"
+msgstr "評等退絕"
 
 #: src/Resources.vala:180
 msgid "Setting as rejected"
-msgstr "設定為受拒"
+msgstr "設定為退絕"
 
 #: src/Resources.vala:181
 msgid "Set rating to rejected"
-msgstr "將評等設為受拒"
+msgstr "將評等設為退絕"
 
 #: src/Resources.vala:183
 msgid "All + _Rejected"
-msgstr "全部 + 受拒(_R)"
+msgstr "全部 + 退絕(_R)"
 
 #: src/Resources.vala:184
 #: src/Resources.vala:185
 msgid "Show all photos, including rejected"
-msgstr "顯示全部相片，包括受拒項目"
+msgstr "顯示全部相片，包括退絕項目"
 
 #: src/Resources.vala:187
 msgid "_All Photos"
@@ -2600,7 +2600,7 @@ msgstr "將所選的相片移回相片庫"
 
 #: src/Resources.vala:537
 msgid "Show in File Mana_ger"
-msgstr "以檔案總管開啟"
+msgstr "以檔案管理員開啟(_G)"
 
 #: src/Resources.vala:538
 msgid "Open the selected photo's directory in the file manager"
@@ -2841,102 +2841,70 @@ msgstr "錯誤"
 
 #~ msgid "Select all the photos in the library"
 #~ msgstr "選取相片庫內的所有相片"
-
 #~ msgid "Only Fa_vorites"
 #~ msgstr "只有喜愛(_V)"
-
 #~ msgid "Show only your favorite photos"
 #~ msgstr "只顯示您喜愛的相片"
-
 #~ msgid "Mirroring"
 #~ msgstr "正在鏡射"
-
 #~ msgid "Undoing Mirror"
 #~ msgstr "正在復原鏡射"
-
 #~ msgid "Flipping"
 #~ msgstr "正在翻轉"
-
 #~ msgid "Marking as Favorite"
 #~ msgstr "正在標記為喜愛"
-
 #~ msgid "Unmarking as Favorite"
 #~ msgstr "正在取消喜愛標記"
-
 #~ msgid "Hiding"
 #~ msgstr "正在隱藏"
-
 #~ msgid "Unhiding"
 #~ msgstr "正在取消隱藏"
-
 #~ msgid "Rename Photo"
 #~ msgstr "重新命名相片"
-
 #~ msgid "_No"
 #~ msgstr "否(_N)"
-
 #~ msgid "Generating Events"
 #~ msgstr "正在產生事件"
-
 #~ msgid "Select all the events in the directory"
 #~ msgstr "選取目錄內的所有事件"
-
 #~ msgid "Select all the photos for importing"
 #~ msgstr "選取所有要匯入的相片"
-
 #~ msgid "_Copy files into Shotwell photo library %s"
 #~ msgstr "將檔案複製至 Shotwell %s 相片庫內(_C)"
-
 #~ msgid "_Mirror"
 #~ msgstr "鏡像(_M)"
-
 #~ msgid "Make mirror images of the photos"
 #~ msgstr "產生相片的鏡像影像"
-
 #~ msgid "Fl_ip"
 #~ msgstr "翻轉(_I)"
-
 #~ msgid "Flip"
 #~ msgstr "翻轉"
-
 #~ msgid "Mark as _Favorite"
 #~ msgstr "標記為喜愛(_F)"
-
 #~ msgid "Mark as Favorite"
 #~ msgstr "標記為喜愛"
-
 #~ msgid "Mark the photo as one of your favorites"
 #~ msgstr "將相片標記為您的喜愛之一"
-
 #~ msgid "Unmark as _Favorite"
 #~ msgstr "取消喜愛標記(_F)"
-
 #~ msgid "Unmark as Favorite"
 #~ msgstr "取消喜愛標記"
-
 #~ msgid "Unmark the photo as one of your favorites"
 #~ msgstr "將相片從您的喜愛之一取消"
-
 #~ msgid "_Hide"
 #~ msgstr "隱藏(_H)"
-
 #~ msgid "Hide"
 #~ msgstr "隱藏"
-
 #~ msgid "Un_hide"
 #~ msgstr "取消隱藏(_H)"
-
 #~ msgid "Unhide"
 #~ msgstr "取消隱藏"
-
 #~ msgid "Unhide the selected photos"
 #~ msgstr "取消隱藏所選的相片"
-
 #~ msgid "Re_name Photo..."
 #~ msgstr "重新命名相片(_N)..."
-
 #~ msgid "Rename the selected photo"
 #~ msgstr "重新命名所選的相片"
-
 #~ msgid "Restore"
 #~ msgstr "復原"
+
