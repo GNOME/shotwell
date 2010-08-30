@@ -411,8 +411,8 @@ public class ImportPage : CheckerboardPage {
         toolbar.insert(progress_item, -1);
 
         import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
-        import_selected_button.set_label("Import Selected");
-        import_selected_button.set_tooltip_text("Import the selected photos into your library");
+        import_selected_button.set_label(_("Import Selected"));
+        import_selected_button.set_tooltip_text(_("Import the selected photos into your library"));
         import_selected_button.clicked.connect(on_import_selected);
         import_selected_button.is_important = true;
         import_selected_button.sensitive = false;
@@ -420,8 +420,8 @@ public class ImportPage : CheckerboardPage {
         toolbar.insert(import_selected_button, -1);
         
         import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
-        import_all_button.set_label("Import All");
-        import_all_button.set_tooltip_text("Import all the photos on this camera into your library");
+        import_all_button.set_label(_("Import All"));
+        import_all_button.set_tooltip_text(_("Import all the photos on this camera into your library"));
         import_all_button.clicked.connect(on_import_all);
         import_all_button.sensitive = false;
         import_all_button.is_important = true;
