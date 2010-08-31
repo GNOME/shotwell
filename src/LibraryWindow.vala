@@ -95,6 +95,7 @@ public class LibraryWindow : AppWindow {
     private MasterEventsDirectoryPage.Stub events_directory_page = null;
     private LibraryPhotoPage photo_page = null;
     private TrashPage.Stub trash_page = null;
+    private NoEventPage.Stub no_event_page = null;
     private OfflinePage.Stub offline_page = null;
     private LastImportPage.Stub last_import_page = null;
     private ImportQueuePage import_queue_page = null;
@@ -166,6 +167,10 @@ public class LibraryWindow : AppWindow {
         // watch for photos placed offline
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
         enable_disable_offline_page(LibraryPhoto.global.get_offline().size > 0);
+
+        // watch for photos with no events
+        Event.global.no_event_collection_altered.connect(on_no_event_collection_altered);
+        enable_disable_no_event_page(Event.global.get_no_event_objects().size > 0);
         
         // start in the collection page
         sidebar.place_cursor(library_page);
@@ -346,6 +351,12 @@ public class LibraryWindow : AppWindow {
         if (a is SubEventsDirectoryPage.Stub && b is SubEventsDirectoryPage.Stub) {
             start_a = get_event_directory_page_time((SubEventsDirectoryPage.Stub *) a);
             start_b = get_event_directory_page_time((SubEventsDirectoryPage.Stub *) b);
+        } else if (a is NoEventPage.Stub) {
+            assert(b is SubEventsDirectoryPage.Stub || b is EventPage.Stub);
+            return events_sort_ascending ? 1 : -1;
+        } else if (b is NoEventPage.Stub) {
+            assert(a is SubEventsDirectoryPage.Stub || a is EventPage.Stub);
+            return events_sort_ascending ? -1 : 1;
         } else {
             assert(a is EventPage.Stub);
             assert(b is EventPage.Stub);
@@ -1040,6 +1051,20 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    private void on_no_event_collection_altered() {
+        enable_disable_no_event_page(Event.global.get_no_event_objects().size > 0);
+    }
+    
+    private void enable_disable_no_event_page(bool enable) {
+        if (enable && no_event_page == null) {
+            no_event_page = NoEventPage.create_stub();
+            sidebar.add_child(events_directory_page.get_marker(), no_event_page);
+        } else if (!enable && no_event_page != null) {
+            remove_stub(no_event_page, null, events_directory_page);
+            no_event_page = null;
+        }
+    }
+    
     private void enable_disable_offline_page(bool enable) {
         if (enable && offline_page == null) {
             offline_page = OfflinePage.create_stub();
@@ -1523,6 +1548,15 @@ public class LibraryWindow : AppWindow {
     private bool is_event_selected(Gtk.TreePath path) {
         return select_from_collection(path, event_list);
     }
+
+    private bool is_no_event_selected(Gtk.TreePath path) {
+        if (is_page_selected(no_event_page, path)) {
+            switch_to_page(no_event_page.get_page());
+            return true;
+        }
+        
+        return false;
+    }
     
     private bool is_tag_selected(Gtk.TreePath path) {
         return select_from_collection(path, tag_map.values);
@@ -1544,6 +1578,8 @@ public class LibraryWindow : AppWindow {
             // events directory page selected and updated
         } else if (is_event_selected(path)) {
             // event page selected and updated
+        } else if (is_no_event_selected(path)) {
+            // no event page selected and updated
         } else if (is_tag_selected(path)) {
             // tag page selected and updated
         } else if (is_page_selected(trash_page, path)) {

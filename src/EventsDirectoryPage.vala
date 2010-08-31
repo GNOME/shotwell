@@ -332,6 +332,68 @@ public class EventsDirectoryPage : CheckerboardPage {
     }
 }
 
+public class NoEventPage : CollectionPage {
+    static const string NO_EVENT_PAGE_NAME = "No Events";
+    
+    public class Stub : PageStub {
+        public override string? get_icon_name() {
+            return Resources.ICON_MISSING_FILES;
+        }
+        
+        public override string get_name() {
+            return NO_EVENT_PAGE_NAME;
+        }
+        
+        public override bool is_renameable() {
+            return false;
+        }
+        
+        protected override Page construct_page() {
+            return ((Page) new NoEventPage());
+        }
+    }
+    
+    // This seems very similar to EventSourceCollection -> ViewManager
+    private class NoEventViewManager : CollectionViewManager {
+        public NoEventViewManager(NoEventPage page) {
+            base(page);
+        }
+        
+        // this is not threadsafe
+        public override bool include_in_view(DataSource source) {
+            return (((LibraryPhoto) source).get_event_id().id != EventID.INVALID) ? false :
+                base.include_in_view(source);
+        }
+    }
+    
+    private static Alteration no_event_page_alteration = new Alteration("metadata", "event");
+    
+    private NoEventPage() {
+        base(NO_EVENT_PAGE_NAME);
+        
+        // Adds one menu entry per alien database driver
+        AlienDatabaseHandler.get_instance().add_menu_entries(
+            ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
+        );
+        
+        get_view().monitor_source_collection(LibraryPhoto.global, new NoEventViewManager(this),
+            no_event_page_alteration);
+    }
+    
+    public static Stub create_stub() {
+        return new Stub();
+    }
+    
+    protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
+        Config.get_instance().get_event_photos_sort(out sort_order, out sort_by);
+    }
+
+    protected override void set_config_photos_sort(bool sort_order, int sort_by) {
+        Config.get_instance().set_event_photos_sort(sort_order, sort_by);
+    }
+}
+
+
 public class EventPage : CollectionPage {
     public class Stub : PageStub {
         public Event event;

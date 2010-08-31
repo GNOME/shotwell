@@ -5,8 +5,33 @@
  */
 
 public class EventSourceCollection : ContainerSourceCollection {
+    public signal void no_event_collection_altered();
+    
+    private ViewCollection no_event;
+    
+    private class NoEventViewManager : ViewManager {
+        public override bool include_in_view(DataSource source) {
+            // Note: this is not threadsafe
+            return (((LibraryPhoto) source).get_event_id().id != EventID.INVALID) ? false :
+                base.include_in_view(source);
+        }
+    
+        public override DataView create_view(DataSource source) {
+            return new PhotoView((PhotoSource) source);
+        }
+    }
+    
     public EventSourceCollection() {
         base(LibraryPhoto.global, Event.BACKLINK_NAME, "EventSourceCollection", get_event_key);
+    }
+
+    public void init() {
+        no_event = new ViewCollection("No Event View Collection");
+        
+        no_event.monitor_source_collection(LibraryPhoto.global, new NoEventViewManager(),
+            new Alteration("metadata", "event"));
+        
+        no_event.contents_altered.connect(on_no_event_collection_altered);
     }
     
     private static int64 get_event_key(DataSource source) {
@@ -44,6 +69,15 @@ public class EventSourceCollection : ContainerSourceCollection {
         }
         
         return null;
+    }
+    
+    public Gee.Collection<DataObject> get_no_event_objects() {
+        return no_event.get_sources();
+    }
+    
+    private void on_no_event_collection_altered(Gee.Iterable<DataObject>? added,
+        Gee.Iterable<DataObject>? removed) {
+        no_event_collection_altered();
     }
 }
 
@@ -198,6 +232,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     public static void init(ProgressMonitor? monitor = null) {
         event_table = EventTable.get_instance();
         global = new EventSourceCollection();
+        global.init();
         
         // add all events to the global collection
         Gee.ArrayList<Event> events = new Gee.ArrayList<Event>();
