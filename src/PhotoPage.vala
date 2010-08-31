@@ -3259,7 +3259,7 @@ public class DirectPhotoPage : EditingHostPage {
 #endif
         
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
-        edit.label = _("Edit");
+        edit.label = _("_Edit");
         actions += edit;
 
         Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, on_photo_menu };
