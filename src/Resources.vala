@@ -104,7 +104,7 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string ROTATE_CW_MENU = _("Rotate _Right");
     public const string ROTATE_CW_LABEL = _("Rotate");
     public const string ROTATE_CW_FULL_LABEL = _("Rotate Right");
-    public const string ROTATE_CW_TOOLTIP = _("Rotate the photos right");
+    public const string ROTATE_CW_TOOLTIP = _("Rotate the photos right (press Ctrl to rotate left)");
     
     public const string ROTATE_CCW_MENU = _("Rotate _Left");
     public const string ROTATE_CCW_LABEL = _("Rotate");
