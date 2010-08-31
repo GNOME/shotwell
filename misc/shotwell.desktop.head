@@ -10,3 +10,4 @@ Type=Application
 MimeType=x-content/image-dcf;
 Categories=Graphics;Photography;GNOME;GTK;
 X-GIO-NoFuse=true
+X-GNOME-Gettext-Domain=shotwell
