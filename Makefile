@@ -122,7 +122,8 @@ SRC_FILES = \
 	AlienDatabaseImportJob.vala \
 	AlienDatabaseImportDialog.vala \
 	FSpotDatabaseDriver.vala \
-	FSpotDatabaseTables.vala
+	FSpotDatabaseTables.vala \
+	Tombstone.vala
 
 ifndef LINUX
 SRC_FILES += \

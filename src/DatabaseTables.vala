@@ -222,6 +222,19 @@ public class DatabaseTable {
             throw_error("DatabaseTable.update_int64_by_id_2 %s.%s".printf(table_name, column), res);
     }
     
+    protected void delete_by_id(int64 id) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("DELETE FROM %s WHERE id=?".printf(table_name), -1, out stmt);
+        assert(res == Sqlite.OK);
+
+        res = stmt.bind_int64(1, id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("%s.remove".printf(table_name), res);
+    }
+    
     public static bool has_column(string table_name, string column_name) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("PRAGMA table_info(%s)".printf(table_name), -1, out stmt);
@@ -262,7 +275,7 @@ public class DatabaseTable {
         return true;
     }
     
-    public int get_count() {
+    public int get_row_count() {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT COUNT(id) AS RowCount FROM %s".printf(table_name), -1, out stmt);
         assert(res == Sqlite.OK);
@@ -1068,22 +1081,8 @@ public class PhotoTable : DatabaseTable {
         return true;
     }
     
-    public bool remove(PhotoID photoID) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("DELETE FROM PhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, photoID.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            warning("remove", res);
-            
-            return false;
-        }
-        
-        return true;
+    public void remove(PhotoID photo_id) throws DatabaseError {
+        delete_by_id(photo_id.id);
     }
     
     public Gee.ArrayList<PhotoID?> get_photos() {
@@ -1656,22 +1655,8 @@ public class EventTable : DatabaseTable {
         return row;
     }
     
-    public bool remove(EventID event_id) {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("DELETE FROM EventTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, event_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE) {
-            warning("event remove", res);
-            
-            return false;
-        }
-        
-        return true;
+    public void remove(EventID event_id) throws DatabaseError {
+        delete_by_id(event_id.id);
     }
     
     public Gee.ArrayList<EventRow?> get_events() {
@@ -1844,16 +1829,7 @@ public class TagTable : DatabaseTable {
     }
     
     public void remove(TagID tag_id) throws DatabaseError {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("DELETE FROM TagTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.bind_int64(1, tag_id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE)
-            throw_error("TagTable.remove", res);
+        delete_by_id(tag_id.id);
     }
     
     public string? get_name(TagID tag_id) throws DatabaseError {
@@ -2158,17 +2134,8 @@ public class BackingPhotoTable : DatabaseTable {
             throw_error("BackingPhotoTable.update_attributes", res);
     }
     
-    public void remove(BackingPhotoID id) throws DatabaseError {
-        Sqlite.Statement stmt;
-        int res = db.prepare_v2("DELETE FROM BackingPhotoTable WHERE id=?", -1, out stmt);
-        assert(res == Sqlite.OK);
-
-        res = stmt.bind_int64(1, id.id);
-        assert(res == Sqlite.OK);
-        
-        res = stmt.step();
-        if (res != Sqlite.DONE)
-            throw_error("BackingPhotoTable.remove", res);
+    public void remove(BackingPhotoID backing_id) throws DatabaseError {
+        delete_by_id(backing_id.id);
     }
     
     public void set_filepath(BackingPhotoID id, string filepath) throws DatabaseError {
@@ -2177,6 +2144,143 @@ public class BackingPhotoTable : DatabaseTable {
     
     public void update_timestamp(BackingPhotoID id, time_t timestamp) throws DatabaseError {
         update_int64_by_id_2(id.id, "timestamp", timestamp);
+    }
+}
+
+//
+// TombstoneTable
+//
+
+public struct TombstoneID {
+    public const int64 INVALID = -1;
+
+    public int64 id;
+    
+    public TombstoneID(int64 id = INVALID) {
+        this.id = id;
+    }
+    
+    public bool is_invalid() {
+        return (id == INVALID);
+    }
+    
+    public bool is_valid() {
+        return (id != INVALID);
+    }
+}
+
+public struct TombstoneRow {
+    public TombstoneID id;
+    public string filepath;
+    public int64 filesize;
+    public string? md5;
+    public time_t time_created;
+}
+
+public class TombstoneTable : DatabaseTable {
+    private static TombstoneTable instance = null;
+    
+    private TombstoneTable() {
+        set_table_name("TombstoneTable");
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("CREATE TABLE IF NOT EXISTS "
+            + "TombstoneTable "
+            + "("
+            + "id INTEGER PRIMARY KEY, "
+            + "filepath TEXT NOT NULL, "
+            + "filesize INTEGER, "
+            + "md5 TEXT, "
+            + "time_created INTEGER "
+            + ")", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            fatal("create TombstoneTable", res);
+    }
+    
+    public static TombstoneTable get_instance() {
+        if (instance == null)
+            instance = new TombstoneTable();
+        
+        return instance;
+    }
+    
+    public TombstoneRow add(File file, int64 filesize, string? md5) throws DatabaseError {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("INSERT INTO TombstoneTable "
+            + "(filepath, filesize, md5, time_created) "
+            + "VALUES (?, ?, ?, ?)",
+            -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        time_t time_created = (time_t) now_sec();
+        
+        res = stmt.bind_text(1, file.get_path());
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, filesize);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_text(3, md5);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(4, (int64) time_created);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE)
+            throw_error("TombstoneTable.add", res);
+        
+        TombstoneRow row = TombstoneRow();
+        row.id = TombstoneID(db.last_insert_rowid());
+        row.filepath = file.get_path();
+        row.filesize = filesize;
+        row.md5 = md5;
+        row.time_created = time_created;
+        
+        return row;
+    }
+    
+    public TombstoneRow[]? fetch_all() throws DatabaseError {
+        int row_count = get_row_count();
+        if (row_count == 0)
+            return null;
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id, filepath, filesize, md5, time_created "
+            + "FROM TombstoneTable", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        TombstoneRow[] rows = new TombstoneRow[row_count];
+        
+        int index = 0;
+        for (;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE)
+                break;
+            else if (res != Sqlite.ROW)
+                throw_error("TombstoneTable.fetch_all", res);
+            
+            TombstoneRow row = TombstoneRow();
+            row.id = TombstoneID(stmt.column_int64(0));
+            row.filepath = stmt.column_text(1);
+            row.filesize = stmt.column_int64(2);
+            row.md5 = stmt.column_text(3);
+            row.time_created = (time_t) stmt.column_int64(4);
+            
+            rows[index++] = row;
+        }
+        
+        assert(index == row_count);
+        
+        return rows;
+    }
+    
+    public void update_file(TombstoneID tombstone_id, string filepath) throws DatabaseError {
+        update_text_by_id_2(tombstone_id.id, "filepath", filepath);
+    }
+    
+    public void remove(TombstoneID tombstone_id) throws DatabaseError {
+        delete_by_id(tombstone_id.id);
     }
 }
 

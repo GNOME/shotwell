@@ -122,7 +122,12 @@ public class LibraryWindow : AppWindow {
     private SidebarMarker cameras_marker = null;
 #endif
     private SidebarMarker tags_marker = null;
-
+    
+    private Gtk.VBox top_section = new Gtk.VBox(false, 0);
+    private Gtk.Frame background_progress_frame = new Gtk.Frame(null);
+    private Gtk.ProgressBar background_progress_bar = new Gtk.ProgressBar();
+    private bool background_progress_displayed = false;
+    
     private BasicProperties basic_properties = new BasicProperties();
     private ExtendedPropertiesWindow extended_properties;
     
@@ -1367,7 +1372,41 @@ public class LibraryWindow : AppWindow {
         events_sort_ascending = Config.get_instance().get_events_sort_ascending();
         sort_events_action.set_active(events_sort_ascending);
     }
-
+    
+    public void update_background_progress_bar(string label, double count, double total) {
+        if (total <= 0.0) {
+            clear_background_progress_bar();
+            
+            return;
+        }
+        
+        double fraction = count / total;
+        background_progress_bar.set_fraction(fraction);
+        background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
+        show_background_progress_bar();
+    }
+    
+    public void clear_background_progress_bar() {
+        background_progress_bar.set_fraction(0.0);
+        background_progress_bar.set_text("");
+        hide_background_progress_bar();
+    }
+    
+    private void show_background_progress_bar() {
+        if (!background_progress_displayed) {
+            top_section.pack_end(background_progress_frame, false, false, 0);
+            background_progress_frame.show_all();
+            background_progress_displayed = true;
+        }
+    }
+    
+    private void hide_background_progress_bar() {
+        if (background_progress_displayed) {
+            top_section.remove(background_progress_frame);
+            background_progress_displayed = false;
+        }
+    }
+    
     private void create_layout(Page start_page) {
         // use a Notebook to hold all the pages, which are switched when a sidebar child is selected
         notebook.set_show_tabs(false);
@@ -1380,10 +1419,13 @@ public class LibraryWindow : AppWindow {
         scrolled_sidebar.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
         scrolled_sidebar.add(sidebar);
 
-        // divy the sidebar up into selection tree list and properties
+        // divy the sidebar up into selection tree list, background progress bar, and properties
         Gtk.Frame top_frame = new Gtk.Frame(null);
         top_frame.add(scrolled_sidebar);
         top_frame.set_shadow_type(Gtk.ShadowType.IN);
+        
+        background_progress_frame.add(background_progress_bar);
+        background_progress_frame.set_shadow_type(Gtk.ShadowType.IN);
 
         // pad the bottom frame (properties)
         Gtk.Alignment bottom_alignment = new Gtk.Alignment(0, 0.5f, 1, 0);
@@ -1391,14 +1433,18 @@ public class LibraryWindow : AppWindow {
         bottom_alignment.add(basic_properties);
 
         bottom_frame.add(bottom_alignment);
-        bottom_frame.set_shadow_type(Gtk.ShadowType.IN);       
+        bottom_frame.set_shadow_type(Gtk.ShadowType.IN);
+        
+        // "attach" the progress bar to the sidebar tree, so the movable ridge is to resize the
+        // top two and the basic information pane
+        top_section.pack_start(top_frame, true, true, 0);
 
-        sidebar_paned.pack1(top_frame, true, false);
+        sidebar_paned.pack1(top_section, true, false);
         sidebar_paned.pack2(bottom_frame, false, false);
         sidebar_paned.set_position(1000);
 
         // layout the selection tree to the left of the collection/toolbar box with an adjustable
-        // gutter between them, framed for presentation       
+        // gutter between them, framed for presentation
         Gtk.Frame right_frame = new Gtk.Frame(null);
         right_frame.add(notebook);
         right_frame.set_shadow_type(Gtk.ShadowType.IN);

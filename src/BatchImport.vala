@@ -550,7 +550,7 @@ public class BatchImport : Object {
                 // and revert its edits.
                 LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
                 
-                if (photo == null)
+                if (photo == null && prepared_file.full_md5 != null)
                     photo = LibraryPhoto.global.get_trashed_by_md5(prepared_file.full_md5);
                 
                 if (photo != null) {
@@ -579,7 +579,7 @@ public class BatchImport : Object {
                         prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
                 }
             } else if (is_in_current_import(prepared_file)) {
-                // this looks for duplicates within the import set, since TransformablePhoto.is_duplicate
+                // this looks for duplicates within the import set, since Photo.is_duplicate
                 // only looks within already-imported photos for dupes
                 import_result = new BatchImportResult(prepared_file.job, prepared_file.file,
                     prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
@@ -673,6 +673,18 @@ public class BatchImport : Object {
             report_failure(result);
             file_import_complete();
         }
+        
+        // resurrect ready photos before adding to database and rest of system ... this is more
+        // efficient than doing them one at a time
+        Gee.ArrayList<Tombstone> resurrect = new Gee.ArrayList<Tombstone>();
+        foreach (ReadyForImport ready in job.ready) {
+            Tombstone? tombstone = Tombstone.global.locate(ready.final_file,
+                ready.prepared_file.full_md5);
+            if (tombstone != null)
+                resurrect.add(tombstone);
+        }
+        
+        Tombstone.global.resurrect_many(resurrect);
         
         // import ready photos into database
         foreach (ReadyForImport ready in job.ready) {
@@ -1217,15 +1229,12 @@ private class PrepareFilesJob : BackgroundImportJob {
                 thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
         }
         
-        // If no EXIF or thumbnail MD5, then do full MD5 match ... it's possible for
-        // photos to have identical EXIF, hence the thumbnail should be the giveaway, but only
-        // if present (which can only be true if EXIF is present)
-        if (exif_only_md5 == null || thumbnail_md5 == null) {
-            try {
-                full_md5 = md5_file(file);
-            } catch (Error err) {
-                warning("Unable to perform MD5 checksum on %s: %s", file.get_path(), err.message);
-            }
+        // Because of the increased use of MD5 to find duplicates, especially with tombstones,
+        // now generating an MD5 for each file.
+        try {
+            full_md5 = md5_file(file);
+        } catch (Error err) {
+            warning("Unable to perform MD5 checksum on %s: %s", file.get_path(), err.message);
         }
         
 #if TRACE_MD5

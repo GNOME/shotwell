@@ -861,10 +861,10 @@ public abstract class Photo : PhotoSource {
         string list = null;
         if (is_master_baseline())
             list = "image:master,image:baseline,metadata:title,metadata:orientation,"
-                + "metadata:rating,metadata:exposure-time";
+                + "metadata:rating,metadata:exposure-time,metadata:md5";
         else
             list = "image:master,metadata:title,metadata:orientation,metadata:rating,"
-                + "metadata:exposure-time";
+                + "metadata:exposure-time,metadata:md5";
         
         notify_altered(new Alteration.from_list(list));
     }
@@ -1519,7 +1519,7 @@ public abstract class Photo : PhotoSource {
         }
         
         if (success)
-            notify_altered(new Alteration("metadata", "exif"));
+            notify_altered(new Alteration.from_list("metadata:exif,metadata:md5"));
     }
 
     // PhotoSource
@@ -3145,20 +3145,12 @@ public abstract class Photo : PhotoSource {
 }
 
 public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
-    private LibraryPhotoSourceCollection sources;
     private Gee.HashMap<File, LibraryPhoto> master_file_map = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     
     public LibraryPhotoHoldingTank(LibraryPhotoSourceCollection sources,
         SourceHoldingTank.CheckToKeep check_to_keep) {
         base (sources, check_to_keep, Photo.get_photo_key);
-        
-        this.sources = sources;
-        sources.master_file_replaced.connect(on_master_file_replaced);
-    }
-    
-    ~LibraryPhotoHoldingTank() {
-        sources.master_file_replaced.disconnect(on_master_file_replaced);
     }
     
     public LibraryPhoto? fetch_by_master_file(File file) {
@@ -3181,6 +3173,7 @@ public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
             foreach (DataSource source in added) {
                 LibraryPhoto photo = (LibraryPhoto) source;
                 master_file_map.set(photo.get_master_file(), photo);
+                photo.master_replaced.connect(on_photo_master_replaced);
             }
         }
         
@@ -3189,17 +3182,18 @@ public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
                 LibraryPhoto photo = (LibraryPhoto) source;
                 bool is_removed = master_file_map.unset(photo.get_master_file());
                 assert(is_removed);
+                photo.master_replaced.disconnect(on_photo_master_replaced);
             }
         }
         
         base.notify_contents_altered(added, removed);
     }
     
-    private void on_master_file_replaced(LibraryPhoto photo, File old_file, File new_file) {
+    private void on_photo_master_replaced(Photo photo, File old_file, File new_file) {
         bool removed = master_file_map.unset(old_file);
         assert(removed);
-        
-        master_file_map.set(new_file, photo);
+            
+        master_file_map.set(new_file, (LibraryPhoto) photo);
     }
 }
 
@@ -3259,10 +3253,12 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 LibraryPhoto photo = (LibraryPhoto) object;
                 
                 by_master_file.set(photo.get_master_file(), photo);
+                photo.master_replaced.connect(on_master_replaced);
                 
                 File? editable = photo.get_editable_file();
                 if (editable != null)
                     by_editable_file.set(editable, photo);
+                photo.editable_replaced.connect(on_editable_replaced);
                 
                 int64 master_filesize = photo.get_master_photo_state().filesize;
                 int64 editable_filesize = photo.get_editable_photo_state() != null
@@ -3291,12 +3287,14 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 
                 bool is_removed = by_master_file.unset(photo.get_master_file());
                 assert(is_removed);
+                photo.master_replaced.disconnect(on_master_replaced);
                 
                 File? editable = photo.get_editable_file();
                 if (editable != null) {
                     is_removed = by_editable_file.unset(photo.get_editable_file());
                     assert(is_removed);
                 }
+                photo.editable_replaced.disconnect(on_editable_replaced);
                 
                 int64 master_filesize = photo.get_master_photo_state().filesize;
                 int64 editable_filesize = photo.get_editable_photo_state() != null
@@ -3327,26 +3325,23 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         base.notify_contents_altered(added, removed);
     }
     
-    // This is only called by LibraryPhoto.
-    public virtual void notify_master_replaced(LibraryPhoto photo, File old_file, File new_file) {
+    private void on_master_replaced(Photo photo, File old_file, File new_file) {
         bool is_removed = by_master_file.unset(old_file);
         assert(is_removed);
         
-        by_master_file.set(new_file, photo);
+        by_master_file.set(new_file, (LibraryPhoto) photo);
         
-        master_file_replaced(photo, old_file, new_file);
+        master_file_replaced((LibraryPhoto) photo, old_file, new_file);
     }
     
-    // This is only called by LibraryPhoto.  No signal is generated, although this can be added
-    // if needed.
-    public virtual void notify_editable_replaced(LibraryPhoto photo, File? old_file, File? new_file) {
+    private void on_editable_replaced(Photo photo, File? old_file, File? new_file) {
         if (old_file != null) {
             bool is_removed = by_editable_file.unset(old_file);
             assert(is_removed);
         }
         
         if (new_file != null)
-            by_editable_file.set(new_file, photo);
+            by_editable_file.set(new_file, (LibraryPhoto) photo);
     }
     
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
@@ -3544,8 +3539,14 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
+    // Note that delete_backing dictates whether or not the photos are tombstoned (if deleted,
+    // tombstones are not created).
     public void remove_from_app(Gee.Collection<LibraryPhoto> photos, bool delete_backing,
         ProgressMonitor? monitor = null) {
+        // only tombstone if the backing is not being deleted
+        Gee.HashSet<LibraryPhoto> to_tombstone = !delete_backing ? new Gee.HashSet<LibraryPhoto>()
+            : null;
+        
         // separate photos into two piles: those in the trash and those not
         Gee.ArrayList<LibraryPhoto> trashed = new Gee.ArrayList<LibraryPhoto>();
         Gee.ArrayList<LibraryPhoto> offlined = new Gee.ArrayList<LibraryPhoto>();
@@ -3557,6 +3558,9 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                 offlined.add(photo);
             else
                 not_trashed.add(photo);
+            
+            if (to_tombstone != null)
+                to_tombstone.add(photo);
         }
         
         int total_count = photos.size;
@@ -3578,6 +3582,14 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         // untrashed photos may be destroyed outright
         if (not_trashed.size > 0)
             destroy_marked(mark_many(not_trashed), delete_backing, monitor);
+        
+        if (to_tombstone != null && to_tombstone.size > 0) {
+            try {
+                Tombstone.entomb_many_photos(to_tombstone);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
     }
     
     // Do NOT use this function to trash a photo.  This is only used at system initialization.
@@ -3718,7 +3730,11 @@ public class LibraryPhoto : Photo {
     }
     
     public static void import_failed(LibraryPhoto photo) {
-        PhotoTable.get_instance().remove(photo.get_photo_id());
+        try {
+            PhotoTable.get_instance().remove(photo.get_photo_id());
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
     }
     
     private void generate_thumbnails() {
@@ -3738,18 +3754,6 @@ public class LibraryPhoto : Photo {
             thumbnail_scheduler.at_priority_idle(Priority.LOW);
         
         base.notify_altered(alteration);
-    }
-    
-    protected override void notify_master_replaced(File old_file, File new_file) {
-        global.notify_master_replaced(this, old_file, new_file);
-        
-        base.notify_master_replaced(old_file, new_file);
-    }
-    
-    protected override void notify_editable_replaced(File? old_file, File? new_file) {
-        global.notify_editable_replaced(this, old_file, new_file);
-        
-        base.notify_editable_replaced(old_file, new_file);
     }
     
     public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
@@ -3887,7 +3891,11 @@ public class LibraryPhoto : Photo {
         // remove from photo table -- should be wiped from storage now (other classes may have added
         // photo_id to other parts of the database ... it's their responsibility to remove them
         // when removed() is called)
-        PhotoTable.get_instance().remove(photo_id);
+        try {
+            PhotoTable.get_instance().remove(photo_id);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
         
         base.destroy();
     }

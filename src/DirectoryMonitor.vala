@@ -399,6 +399,7 @@ public class DirectoryMonitor : Object {
     
     public virtual signal void discovery_completed() {
         has_discovery_started = false;
+        mdbg("discovery completed");
     }
     
     public virtual signal void file_created(File file, FileInfo info) {
@@ -522,7 +523,6 @@ public class DirectoryMonitor : Object {
     }
     
     protected virtual void notify_discovery_completed() {
-        mdbg("discovery completed");
         discovery_completed();
     }
     

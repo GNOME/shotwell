@@ -151,6 +151,17 @@ public class Alteration {
         return false;
     }
     
+    public Gee.Collection<string>? get_details(string subject) {
+        if (this.subject != null && detail != null && equal_values(this.subject, subject)) {
+            Gee.ArrayList<string> details = new Gee.ArrayList<string>();
+            details.add(detail);
+            
+            return details;
+        }
+        
+        return (map != null) ? map.get(subject) : null;
+    }
+    
     public string to_string() {
         if (subject != null) {
             assert(detail != null);

@@ -116,7 +116,8 @@ void library_exec(string[] mounts) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
         // objects and then populating the initial page with them.
-        uint64 grand_total = (PhotoTable.get_instance().get_count() * 2) + EventTable.get_instance().get_count();
+        uint64 grand_total = (PhotoTable.get_instance().get_row_count() * 2) 
+            + EventTable.get_instance().get_row_count();
         if (grand_total > 20000) {
             progress_dialog = new ProgressDialog(null, _("Loading Shotwell"));
             progress_dialog.update_display_every(300);
@@ -136,6 +137,7 @@ void library_exec(string[] mounts) {
     Event.init(monitor);
     Tag.init();
     AlienDatabaseHandler.init();
+    Tombstone.init();
     
     // create main library application window
     if (aggregate_monitor != null)
@@ -182,6 +184,7 @@ void library_exec(string[] mounts) {
     
     Gtk.main();
     
+    Tombstone.terminate();
     AlienDatabaseHandler.terminate();
     Tag.terminate();
     Event.terminate();
@@ -249,8 +252,11 @@ void editing_exec(string filename) {
 bool no_startup_progress = false;
 bool no_mimicked_images = false;
 string data_dir = null;
+bool startup_auto_import = false;
 
 const OptionEntry[] options = {
+    { "auto-import", 0, 0, OptionArg.NONE, &startup_auto_import,
+        N_("Auto-import files discovered in library directory at startup"), null },
     { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
         N_("Path to Shotwell's private data"), N_("DIRECTORY") },
     { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,

@@ -675,7 +675,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
         view.halt_monitoring();
         
         // remove from the database
-        event_table.remove(event_id);
+        try {
+            event_table.remove(event_id);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
         
         // mark all photos for this event as now event-less
         PhotoTable.get_instance().drop_event(event_id);

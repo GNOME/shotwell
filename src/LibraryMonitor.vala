@@ -30,6 +30,8 @@
 //
 
 public class LibraryMonitor : DirectoryMonitor {
+    private const int IMPORT_ROLL_QUIET_SEC = 5 * 60;
+    
     private class ReimportMasterJob : BackgroundJob {
         public LibraryPhoto photo;
         public PhotoRow updated_row = PhotoRow();
@@ -76,9 +78,83 @@ public class LibraryMonitor : DirectoryMonitor {
         }
     }
     
+    private class FindMoveJob : BackgroundJob {
+        public File file;
+        public Gee.Collection<LibraryPhoto> candidates;
+        public LibraryPhoto? match = null;
+        public Gee.ArrayList<LibraryPhoto>? losers = null;
+        public Error? err = null;
+        
+        public FindMoveJob(LibraryMonitor owner, File file, Gee.Collection<LibraryPhoto> candidates) {
+            base (owner, owner.on_find_move_completed, owner.cancellable, owner.on_find_move_cancelled);
+            
+            this.file = file;
+            this.candidates = candidates;
+            
+            set_completion_priority(Priority.LOW);
+        }
+        
+        public override void execute() {
+            string? md5 = null;
+            try {
+                md5 = md5_file(file);
+            } catch (Error err) {
+                this.err = err;
+                
+                return;
+            }
+            
+            foreach (LibraryPhoto candidate in candidates) {
+                if (candidate.get_master_md5() != md5)
+                    continue;
+                
+                // if candidate's backing master exists, let it be
+                if (candidate.does_master_exist())
+                    continue;
+                
+                if (match != null) {
+                    warning("Found more than one photo match for %s: %s and %s", file.get_path(),
+                        match.to_string(), candidate.to_string());
+                    
+                    if (losers == null)
+                        losers = new Gee.ArrayList<LibraryPhoto>();
+                    
+                    losers.add(candidate);
+                    
+                    continue;
+                }
+                
+                match = candidate;
+            }
+        }
+    }
+    
+    private class ChecksumJob : BackgroundJob {
+        public File file;
+        public string? md5 = null;
+        public Error? err = null;
+        
+        public ChecksumJob(LibraryMonitor owner, File file) {
+            base (owner, owner.on_checksum_completed, owner.cancellable, owner.on_checksum_cancelled);
+            
+            this.file = file;
+            
+            set_completion_priority(Priority.LOW);
+        }
+        
+        public override void execute() {
+            try {
+                md5 = md5_file(file);
+            } catch (Error err) {
+                this.err = err;
+            }
+        }
+    }
+    
     private Workers workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
     private Cancellable cancellable = new Cancellable();
     private Gee.HashSet<LibraryPhoto> discovered = null;
+    private Gee.HashSet<File> unknown_photo_files = null;
     private Gee.HashSet<LibraryPhoto> master_reimport_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashMap<LibraryPhoto, ReimportMasterJob> master_reimport_pending = new Gee.HashMap<
         LibraryPhoto, ReimportMasterJob>();
@@ -92,9 +168,20 @@ public class LibraryMonitor : DirectoryMonitor {
     private Gee.HashSet<LibraryPhoto> revert_to_master_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<LibraryPhoto> offline_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<LibraryPhoto> online_queue = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashSet<File> import_queue = new Gee.HashSet<File>(file_hash, file_equal);
+    private BatchImportRoll current_import_roll = null;
+    private time_t last_import_roll_use = 0;
+    private Gee.HashSet<File> pending_imports = new Gee.HashSet<File>(file_hash, file_equal);
+    private BatchImport current_batch_import = null;
+    private Gee.ArrayList<BatchImport> batch_import_queue = new Gee.ArrayList<BatchImport>();
+    private int checksums_completed = 0;
+    private int checksums_total = 0;
     
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
+        
+        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        LibraryPhoto.global.unlinked_destroyed.connect(on_photo_destroyed);
         
         Timeout.add_seconds(1, on_flush_pending_queues);
     }
@@ -113,6 +200,7 @@ public class LibraryMonitor : DirectoryMonitor {
     
     public override void discovery_started() {
         discovered = new Gee.HashSet<LibraryPhoto>();
+        unknown_photo_files = new Gee.HashSet<File>(file_hash, file_equal);
         
         base.discovery_started();
     }
@@ -135,12 +223,164 @@ public class LibraryMonitor : DirectoryMonitor {
                     // simply attached to online/offline photos
                 break;
             }
+        } else if (Photo.is_file_supported(file) && !Tombstone.global.matches(file, null)) {
+            // only auto-import if it looks like a photo file and it's not been tombstoned
+            // (not doing MD5 check at this point, they will be checked later)
+            unknown_photo_files.add(file);
         }
         
         base.file_discovered(file, info);
     }
     
     public override void discovery_completed() {
+        // before marking anything online/offline, reimporting changed files, or auto-importing new
+        // files, want to see if the unknown files are actually renamed files.  Do this by examining
+        // their FileInfo and calculating their MD5 in the background ... when all this is sorted
+        // out, then go on and finish the other tasks
+        if (unknown_photo_files.size == 0) {
+            discovery_stage_completed();
+            
+            return;
+        }
+        
+        Gee.ArrayList<LibraryPhoto> matching_masters = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<LibraryPhoto> matching_editables = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<File> adopted = new Gee.ArrayList<File>(file_equal);
+        foreach (File file in unknown_photo_files) {
+            FileInfo? info = get_file_info(file);
+            if (info == null)
+                continue;
+            
+            // clear these before using (they're reused as accumulators)
+            matching_masters.clear();
+            matching_editables.clear();
+            
+            // get photo(s) that match the characteristics of this file
+            LibraryPhoto.global.fetch_by_matching_backing(info, matching_masters, matching_editables);
+            
+            // verify the match with an MD5 comparison
+            if (matching_masters.size > 0) {
+                // copy for background thread
+                Gee.ArrayList<LibraryPhoto> candidates = matching_masters;
+                matching_masters = new Gee.ArrayList<LibraryPhoto>();
+                
+                checksums_total++;
+                workers.enqueue(new FindMoveJob(this, file, candidates));
+                
+                continue;
+            }
+            
+            // for editable files, trust file characteristics alone
+            LibraryPhoto match = null;
+            if (matching_editables.size > 0) {
+                match = matching_editables[0];
+                if (matching_editables.size > 1) {
+                    warning("Unknown file %s could be matched with %d photos; giving to %s, dropping others",
+                        file.get_path(), matching_editables.size, match.to_string());
+                    for (int ctr = 1; ctr < matching_editables.size; ctr++) {
+                        if (!matching_editables[ctr].does_editable_exist())
+                            matching_editables[ctr].revert_to_master();
+                    }
+                }
+            }
+            
+            if (match != null) {
+                match.set_editable_file(file);
+                adopted.add(file);
+            }
+        }
+        
+        // remove all adopted files from the unknown list
+        unknown_photo_files.remove_all(adopted);
+        
+        // After the checksumming is complete, the only use of the unknown photo files is for
+        // auto-import, so don't bother checksumming the remainder for duplicates/tombstones unless
+        // going to do that work
+        if (startup_auto_import) {
+            foreach (File file in unknown_photo_files) {
+                checksums_total++;
+                workers.enqueue(new ChecksumJob(this, file));
+            }
+        }
+        
+        checksums_completed = 0;
+        
+        if (checksums_total == 0) {
+            discovery_stage_completed();
+        } else {
+            mdbg("%d checksum jobs initiated to verify unknown photo files".printf(checksums_total));
+            LibraryWindow.get_app().update_background_progress_bar(_("Updating library..."),
+                checksums_completed, checksums_total);
+        }
+    }
+    
+    private void report_checksum_job_completed() {
+        assert(checksums_completed < checksums_total);
+        checksums_completed++;
+        
+        LibraryWindow.get_app().update_background_progress_bar(_("Updating library..."),
+            checksums_completed, checksums_total);
+        
+        if (checksums_completed == checksums_total) {
+            LibraryWindow.get_app().clear_background_progress_bar();
+            discovery_stage_completed();
+        }
+    }
+    
+    private void on_find_move_completed(BackgroundJob j) {
+        FindMoveJob job = (FindMoveJob) j;
+        
+        // if match was found, give file to the photo and removed from both the unknown list and
+        // add to the discovered list ... do NOT mark losers as offline as other jobs may discover
+        // files that belong to them; discovery_stage_completed() will work this out in the end
+        if (job.match != null) {
+            mdbg("Found moved master file: %s matches %s".printf(job.file.get_path(),
+                job.match.to_string()));
+            job.match.set_master_file(job.file);
+            unknown_photo_files.remove(job.file);
+            discovered.add(job.match);
+        }
+        
+        if (job.err != null)
+            warning("Unable to checksum unknown photo file %s: %s", job.file.get_path(), job.err.message);
+        
+        report_checksum_job_completed();
+    }
+    
+    private void on_find_move_cancelled(BackgroundJob j) {
+        report_checksum_job_completed();
+    }
+    
+    private void on_checksum_completed(BackgroundJob j) {
+        ChecksumJob job = (ChecksumJob) j;
+        
+        if (job.err != null) {
+            warning("Unable to checksum %s to verify tombstone; treating as new file: %s",
+                job.file.get_path(), job.err.message);
+        }
+        
+        if (job.md5 != null) {
+            Tombstone? tombstone = Tombstone.global.locate(job.file, job.md5);
+            
+            // if tombstoned or a duplicate of what's already in the library, drop it
+            if (tombstone != null || Photo.is_duplicate(null, null, job.md5, PhotoFileFormat.UNKNOWN)) {
+                mdbg("Skipping auto-import of duplicate file %s".printf(job.file.get_path()));
+                unknown_photo_files.remove(job.file);
+            }
+            
+            // if tombstoned, update tombstone if its backing file has moved
+            if (tombstone != null && get_file_info(tombstone.get_file()) == null)
+                tombstone.move(job.file);
+        }
+        
+        report_checksum_job_completed();
+    }
+    
+    private void on_checksum_cancelled(BackgroundJob j) {
+        report_checksum_job_completed();
+    }
+    
+    private void discovery_stage_completed() {
         // go through all discovered online photos and see if they're online
         foreach (LibraryPhoto photo in discovered) {
             FileInfo? master_info = get_file_info(photo.get_master_file());
@@ -199,9 +439,19 @@ public class LibraryMonitor : DirectoryMonitor {
         foreach (LibraryPhoto photo in LibraryPhoto.global.get_offline())
             verify_external_photo.begin(photo);
         
+        // enqueue all remaining unknown photo files for import
+        if (startup_auto_import)
+            enqueue_import_many(unknown_photo_files);
+        
         // release refs
         discovered = null;
+        unknown_photo_files = null;
         
+        // Now that the discovery is completed, launch a scan of the tombstoned files and see if
+        // they can be resurrected
+        Tombstone.global.launch_scan(this, cancellable);
+        
+        // Only report discovery completed here, after all the other background work is done
         base.discovery_completed();
     }
     
@@ -251,6 +501,24 @@ public class LibraryMonitor : DirectoryMonitor {
                 }
             }
         }
+    }
+    
+    private void on_photo_destroyed(DataSource source) {
+        LibraryPhoto photo = (LibraryPhoto) source;
+        
+        // remove from all queues and cancel any pending operations
+        master_reimport_queue.remove(photo);
+        if (master_reimport_pending.has_key(photo))
+            master_reimport_pending.get(photo).cancel();
+        editable_reimport_queue.remove(photo);
+        if (editable_reimport_pending.has_key(photo))
+            editable_reimport_pending.get(photo).cancel();
+        master_update_timestamp_queue.unset(photo);
+        editable_update_timestamp_queue.unset(photo);
+        revert_to_master_queue.remove(photo);
+        offline_queue.remove(photo);
+        online_queue.remove(photo);
+        import_queue.remove(photo.get_master_file());
     }
     
     private void enqueue_reimport_master(LibraryPhoto photo) {
@@ -328,6 +596,13 @@ public class LibraryMonitor : DirectoryMonitor {
     
     private bool is_offline_pending(LibraryPhoto photo) {
         return offline_queue.contains(photo);
+    }
+    
+    private void enqueue_import_many(Gee.Collection<File> files) {
+        foreach (File file in files) {
+            if (!pending_imports.contains(file))
+                import_queue.add(file);
+        }
     }
     
     // If modification time or filesize has changed, treat that as a full-blown modification
@@ -446,11 +721,59 @@ public class LibraryMonitor : DirectoryMonitor {
         
         LibraryPhoto.global.thaw_notifications();
         
+        if (import_queue.size > 0) {
+            mdbg("Auto-importing %d files".printf(import_queue.size));
+            
+            // If no import roll, or it's been over IMPORT_ROLL_QUIET_SEC since using the last one,
+            // create a new one.  This allows for multiple files to come in back-to-back and be
+            // imported on the same roll.
+            time_t now = (time_t) now_sec();
+            if (current_import_roll == null || (now - last_import_roll_use) >= IMPORT_ROLL_QUIET_SEC)
+                current_import_roll = new BatchImportRoll();
+            last_import_roll_use = now;
+            
+            Gee.ArrayList<BatchImportJob> jobs = new Gee.ArrayList<BatchImportJob>();
+            foreach (File file in import_queue) {
+                jobs.add(new FileImportJob(file, false));
+                pending_imports.add(file);
+            }
+            
+            import_queue.clear();
+            
+            BatchImport importer = new BatchImport(jobs, "LibraryMonitor autoimport",
+                null, null, null, cancellable, current_import_roll);
+            batch_import_queue.add(importer);
+            
+            schedule_next_batch_import();
+        }
+        
         double elapsed = timer.elapsed();
         if (elapsed > 0.001)
             mdbg("Total pending queue time: %lf".printf(elapsed));
         
         return true;
+    }
+    
+    private void schedule_next_batch_import() {
+        assert(current_batch_import == null);
+        
+        if (batch_import_queue.size == 0)
+            return;
+        
+        current_batch_import = batch_import_queue[0];
+        current_batch_import.progress.connect(on_import_progress);
+        current_batch_import.import_complete.connect(on_import_complete);
+        current_batch_import.schedule();
+    }
+    
+    private void discard_current_batch_import() {
+        assert(current_batch_import != null);
+        
+        bool removed = batch_import_queue.remove(current_batch_import);
+        assert(removed);
+        current_batch_import.progress.disconnect(on_import_progress);
+        current_batch_import.import_complete.disconnect(on_import_complete);
+        current_batch_import = null;
     }
     
     private void on_master_reimported(BackgroundJob j) {
@@ -519,6 +842,30 @@ public class LibraryMonitor : DirectoryMonitor {
     private void on_editable_reimport_cancelled(BackgroundJob j) {
         bool removed = editable_reimport_pending.unset(((ReimportEditableJob) j).photo);
         assert(removed);
+    }
+    
+    private void on_import_progress(uint64 completed_bytes, uint64 total_bytes) {
+        LibraryWindow.get_app().update_background_progress_bar(_("Auto-importing..."),
+            completed_bytes, total_bytes);
+    }
+    
+    private void on_import_complete(BatchImport batch_import, ImportManifest manifest,
+        BatchImportRoll import_roll) {
+        assert(batch_import == current_batch_import);
+        
+        mdbg("auto-import batch completed %d".printf(manifest.all.size));
+        
+        LibraryWindow.get_app().clear_background_progress_bar();
+        
+        foreach (BatchImportResult result in manifest.all) {
+            if (result.file != null)
+                pending_imports.remove(result.file);
+        }
+        
+        mdbg("%d files remain pending for auto-import".printf(pending_imports.size));
+        
+        discard_current_batch_import();
+        schedule_next_batch_import();
     }
 }
 
