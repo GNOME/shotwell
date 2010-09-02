@@ -53,6 +53,7 @@ public class DirectoryMonitor : Object {
     
     private const FileMonitorFlags FILE_MONITOR_FLAGS = FileMonitorFlags.SEND_MOVED;
     private const uint DELETED_EXPIRATION_MSEC = 500;
+    private const int MAX_EXPLORATION_DIRS = 5;
     
     private enum FType {
         FILE,
@@ -858,9 +859,10 @@ public class DirectoryMonitor : Object {
         // post all the subdirectory traversals, allowing them to report themselves as discovered
         if (recurse && dir_map != null) {
             foreach (File subdir in dir_map.keys) {
-                if (in_discovery)
-                    outstanding_exploration_dirs++;
-                explore_async.begin(subdir, dir_map.get(subdir), in_discovery);
+                if (++outstanding_exploration_dirs > MAX_EXPLORATION_DIRS)
+                    yield explore_async(subdir, dir_map.get(subdir), in_discovery);
+                else
+                    explore_async.begin(subdir, dir_map.get(subdir), in_discovery);
             }
         }
         
@@ -870,11 +872,11 @@ public class DirectoryMonitor : Object {
     // called whenever exploration of a directory is completed, to know when to signal that
     // discovery has ended
     private void explore_directory_completed(bool in_discovery) {
-        if (in_discovery) {
-            assert(outstanding_exploration_dirs > 0);
-            if (--outstanding_exploration_dirs == 0)
-                notify_discovery_completed();
-        }
+        assert(outstanding_exploration_dirs > 0);
+        outstanding_exploration_dirs--;
+        
+        if (in_discovery && outstanding_exploration_dirs == 0)
+            notify_discovery_completed();
     }
     
     // Only submit directories ... file monitoring is wasteful when a single directory monitor can
