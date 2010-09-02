@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-29 01:35+0800\n"
+"PO-Revision-Date: 2010-09-01 11:22+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -929,27 +929,27 @@ msgstr "短柬 (3 x 5 英吋)"
 #: src/EditingTools.vala:594
 #: src/Printing.vala:780
 msgid "4 x 6 in."
-msgstr "4 x 6 吋"
+msgstr "4 x 6 英吋"
 
 #: src/EditingTools.vala:595
 #: src/Printing.vala:783
 msgid "5 x 7 in."
-msgstr "5 x 7 吋"
+msgstr "5 x 7 英吋"
 
 #: src/EditingTools.vala:596
 #: src/Printing.vala:786
 msgid "8 x 10 in."
-msgstr "8 x 10 吋"
+msgstr "8 x 10 英吋"
 
 #: src/EditingTools.vala:597
 #: src/Printing.vala:789
 msgid "11 x 14 in."
-msgstr "11 x 14 吋"
+msgstr "11 x 14 英吋"
 
 #: src/EditingTools.vala:598
 #: src/Printing.vala:792
 msgid "16 x 20 in."
-msgstr "16 x 20 吋"
+msgstr "16 x 20 英吋"
 
 #: src/EditingTools.vala:600
 #: src/Printing.vala:798
@@ -1267,13 +1267,21 @@ msgstr "隱藏已經匯入的相片"
 msgid "Only display photos that have not been imported"
 msgstr "只顯示尚未匯入的相片"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "匯入所選(_S)"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "匯入所選"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "匯入全部(_A)"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "將所選的相片匯入您的相片庫"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "匯入全部"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "將此相機上的全部相片匯入您的相片庫"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -2839,8 +2847,6 @@ msgstr "正在準備匯入用的圖片..."
 msgid "error"
 msgstr "錯誤"
 
-#~ msgid "Select all the photos in the library"
-#~ msgstr "選取相片庫內的所有相片"
 #~ msgid "Only Fa_vorites"
 #~ msgstr "只有喜愛(_V)"
 #~ msgid "Show only your favorite photos"
