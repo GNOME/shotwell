@@ -518,7 +518,7 @@ public class DirectoryMonitor : Object {
     }
     
     protected virtual void notify_discovery_failed(string reason) {
-        mdbg("discovery failed: %s".printf(reason));
+        warning("discovery failed: %s", reason);
         discovery_failed(reason);
     }
     
@@ -766,12 +766,20 @@ public class DirectoryMonitor : Object {
     }
     
     private async void explore_async(File dir, FileInfo? dir_info, bool in_discovery) {
+        if (files.contains(dir, dir_info)) {
+            warning("Directory loop detected at %s, not exploring", dir.get_path());
+            
+            explore_directory_completed(in_discovery);
+            
+            return;
+        }
+        
         // if FileInfo wasn't supplied by caller, fetch it now
         FileInfo? local_dir_info = dir_info;
         if (local_dir_info == null) {
             try {
                 local_dir_info = yield dir.query_info_async(SUPPLIED_ATTRIBUTES,
-                    FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
+                    FileQueryInfoFlags.NONE, DEFAULT_PRIORITY, cancellable);
             } catch (Error err) {
                 warning("Unable to retrieve info on %s: %s", dir.get_path(), err.message);
                 
@@ -783,7 +791,8 @@ public class DirectoryMonitor : Object {
         
         // verify this is a directory
         if (local_dir_info.get_file_type() != FileType.DIRECTORY) {
-            notify_discovery_failed(_("Unable to monitor %s: Not a directory").printf(dir.get_path()));
+            notify_discovery_failed(_("Unable to monitor %s: Not a directory (%s)").printf(
+                dir.get_path(), local_dir_info.get_file_type().to_string()));
             
             explore_directory_completed(in_discovery);
             
@@ -799,7 +808,7 @@ public class DirectoryMonitor : Object {
         
         try {
             FileEnumerator enumerator = yield dir.enumerate_children_async(SUPPLIED_ATTRIBUTES,
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
+                FileQueryInfoFlags.NONE, DEFAULT_PRIORITY, cancellable);
             for (;;) {
                 List<FileInfo>? infos = yield enumerator.next_files_async(10, DEFAULT_PRIORITY,
                     cancellable);

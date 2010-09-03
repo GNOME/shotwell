@@ -110,6 +110,9 @@ public class LibraryMonitor : DirectoryMonitor {
                 to_offline.mark(photo);
         }
         
+        mdbg("Marking internal, %d offline, %d online".printf(to_offline.get_count(),
+            to_online.get_count()));
+        
         LibraryPhoto.global.mark_online_offline(to_online, to_offline);
         
         // go through all the offline photos and see if they're online now
@@ -158,6 +161,9 @@ public class LibraryMonitor : DirectoryMonitor {
             return;
         
         int total = 0;
+        
+        mdbg("Marking external, %d offline, %d online".printf(external_mark_offline.size,
+            external_mark_online.size));
         
         LibraryPhoto.global.freeze_notifications();
         
