@@ -550,7 +550,7 @@ public class BatchImport : Object {
                 // and revert its edits.
                 LibraryPhoto photo = LibraryPhoto.global.get_trashed_by_file(prepared_file.file);
                 
-                if (photo == null)
+                if (photo == null && prepared_file.full_md5 != null)
                     photo = LibraryPhoto.global.get_trashed_by_md5(prepared_file.full_md5);
                 
                 if (photo != null) {
