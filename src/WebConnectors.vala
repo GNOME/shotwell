@@ -730,16 +730,6 @@ public class PublishingDialog : Gtk.Dialog {
         set_standard_window_mode();
     }
     
-    private void setup_service_interactor() {
-        Config config = Config.get_instance();
-        service_selector_box.set_active(config.get_default_service());
-
-        interactor = ServiceFactory.get_instance().create_interactor(this,
-            service_selector_box.get_active_text());
-        
-        get_interactor().start_interaction();
-    }
-    
     // PublishingDialog is set up with a singleton structure because the code in setup_service_interactor() 
     // spins the Gtk event loop. This opens the possibility for multiple publish button presses being 
     // registered, and therefore multiple windows being created. See http://trac.yorba.org/ticket/2428
@@ -748,10 +738,33 @@ public class PublishingDialog : Gtk.Dialog {
             return;
         
         active_instance = new PublishingDialog(to_publish);
-        active_instance.setup_service_interactor();
+        active_instance.service_selector_box.set_active(Config.get_instance().get_default_service());
+
+        // because we connect to the "delete" signal of the active instance in the PublishingDialog
+        // constructor, we need to see if active_instance has become null before using it further
+        if (active_instance == null)
+            return;
+
+        ServiceInteractor created_interactor = ServiceFactory.get_instance().create_interactor(
+            active_instance, active_instance.service_selector_box.get_active_text());
+
+        // libsoup spins the event loop in create_interactor( ). this can cause active_instance to
+        // become null (if the user very quickly closes the publishing dialog). so do another null
+        // check.
+        if (active_instance == null)
+            return;
+
+        active_instance.interactor = created_interactor;       
+        active_instance.get_interactor().start_interaction();
+
+        // libsoup spins the event loop in start_interaction( ) which can null out active_instance
+        // (for the same reasons as described in the previous comment). so do another null check.
+        if (active_instance == null)
+            return;
+        
         active_instance.run();
     }
-
+    
     private void on_close_cancel_clicked() {
         if (interactor != null)
             interactor.cancel_interaction();
@@ -763,6 +776,9 @@ public class PublishingDialog : Gtk.Dialog {
     }
 
     private bool on_window_close(Gdk.Event evt) {
+        if (interactor != null)
+            interactor.cancel_interaction();
+        
         hide();
         destroy();
         
