@@ -474,7 +474,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
     private string delimiter;
     
     public EntryMultiCompletion(Gee.Collection<string> completion_list, string? delimiter) {
-        assert(delimiter == null || delimiter.len() == 1);
+        assert(delimiter == null || delimiter.length == 1);
         this.delimiter = delimiter;
         
         set_model(create_completion_store(completion_list));
@@ -513,7 +513,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
             
             string last_part = get_last_part(key.strip(), delimiter);
             
-            if (last_part.len() == 0) 
+            if (last_part.length == 0) 
                 return false; // need at least one character to show matches
                 
             return possible_match.has_prefix(last_part.strip());
@@ -527,7 +527,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         Gtk.Entry entry = (Gtk.Entry)get_entry();
         
         string old_text = entry.get_text();
-        if (old_text.len() > 0) {
+        if (old_text.length > 0) {
             if (old_text.contains(delimiter)) {
                 long start = old_text.pointer_to_offset(old_text.rchr(-1, delimiter[0]));
                 old_text = old_text.substring(0, start + 1) + (delimiter != " " ? " " : "");
@@ -537,7 +537,7 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         
         string new_text = old_text + match + delimiter + (delimiter != " " ? " " : "");
         entry.set_text(new_text);
-        entry.set_position((int) new_text.len());
+        entry.set_position((int) new_text.length);
         
         return true;
     }

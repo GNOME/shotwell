@@ -2612,14 +2612,18 @@ public abstract class Photo : PhotoSource {
                 throw err;
             }
             
-            // attach the editable file to the photo and start monitoring the new file
+            // attach the editable file to the photo
             attach_editable(editable_file_format, create_editable_file);
-            start_monitoring_editable(create_editable_file);
             
             current_editable_file = create_editable_file;
         }
         
         assert(current_editable_file != null);
+        
+        // if not already monitoring, monitor now
+        if (editable_monitor == null)
+            start_monitoring_editable(current_editable_file);
+        
         launch_editor(current_editable_file, get_file_format());
     }
     
@@ -2687,7 +2691,7 @@ public abstract class Photo : PhotoSource {
             
             FileInfo info;
             try {
-                info = file.query_filesystem_info("standard:*", null);
+                info = file.query_filesystem_info(DirectoryMonitor.SUPPLIED_ATTRIBUTES, null);
             } catch (Error err) {
                 warning("Unable to read editable filesystem info for %s: %s", to_string(), err.message);
                 detach_editable(false, true);
