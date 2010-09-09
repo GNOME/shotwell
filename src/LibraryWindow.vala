@@ -457,19 +457,23 @@ public class LibraryWindow : AppWindow {
         import_dialog.set_current_folder(import_dir);
         
         int response = import_dialog.run();
-
+        
         if (response == Gtk.ResponseType.OK) {
-            Gtk.ResponseType copy_files_response = copy_files_dialog();
+            // force file linking if directory is inside current library directory
+            Gtk.ResponseType copy_files_response =
+                AppDirs.is_in_import_dir(File.new_for_uri(import_dialog.get_uri()))
+                    ? Gtk.ResponseType.REJECT : copy_files_dialog();
             
             if (copy_files_response != Gtk.ResponseType.CANCEL) {
                 dispatch_import_jobs(import_dialog.get_uris(), "folders", 
                     copy_files_response == Gtk.ResponseType.ACCEPT);
             }
         }
+        
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
     }
-        
+    
     protected override void switched_pages(Page? old_page, Page? new_page) {
         set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
         
@@ -665,18 +669,18 @@ public class LibraryWindow : AppWindow {
     }
     
     private override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
-        Gdk.Atom target = Gtk.drag_dest_find_target(this, context, 
-			Gtk.drag_dest_get_target_list(this));
-        
+        Gdk.Atom target = Gtk.drag_dest_find_target(this, context, Gtk.drag_dest_get_target_list(this));
         if (((int) target) == ((int) Gdk.NONE)) {
             debug("drag target is GDK_NONE");
             Gdk.drag_status(context, 0, time);
+            
             return true;
         }
         
         // internal drag
         if (Gtk.drag_get_source_widget(context) != null) {
             Gdk.drag_status(context, Gdk.DragAction.PRIVATE, time);
+            
             return true;
         }
         
@@ -769,23 +773,30 @@ public class LibraryWindow : AppWindow {
         // https://bugzilla.gnome.org/show_bug.cgi?id=599321
         string uri_string = (string) selection_data.data;
         string[] uris_array = Uri.list_extract_uris(uri_string);
-
+        
         GLib.SList<string> uris = new GLib.SList<string>();
-        foreach (string uri in uris_array) {
+        foreach (string uri in uris_array)
             uris.append(uri);
-        }
         
         if (context.action == Gdk.DragAction.ASK) {
-            Gtk.ResponseType result = copy_files_dialog();
+            // Default action is to link, unless one or more URIs are external to the library
+            Gtk.ResponseType result = Gtk.ResponseType.REJECT;
+            foreach (string uri in uris) {
+                if (!AppDirs.is_in_import_dir(File.new_for_uri(uri))) {
+                    result = copy_files_dialog();
+                    
+                    break;
+                }
+            }
             
             switch (result) {
                 case Gtk.ResponseType.ACCEPT:
                     context.action = Gdk.DragAction.COPY;
-                    break;
+                break;
                 
                 case Gtk.ResponseType.REJECT:
                     context.action = Gdk.DragAction.LINK;
-                    break;
+                break;
                 
                 default:
                     // cancelled
@@ -794,9 +805,9 @@ public class LibraryWindow : AppWindow {
                     return;
             }
         }
-
+        
         dispatch_import_jobs(uris, "drag-and-drop", context.action == Gdk.DragAction.COPY);
-
+        
         Gtk.drag_finish(context, true, false, time);
     }
     

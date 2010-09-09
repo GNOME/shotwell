@@ -51,6 +51,8 @@ class AppDirs {
             : data_dir;
     }
     
+    // The "import directory" is the same as the library directory, and are often used
+    // interchangeably throughout the code.
     public static File get_import_dir() {
         string path = Config.get_instance().get_import_dir();
         if (!is_string_empty(path)) {
@@ -72,6 +74,13 @@ class AppDirs {
         
         // If XDG yarfed, use ~/Pictures
         return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
+    }
+    
+    // Returns true if the File is in or is equal to the library/import directory.
+    public static bool is_in_import_dir(File file) {
+        File import_dir = get_import_dir();
+        
+        return file.has_prefix(import_dir) || file.equal(import_dir);
     }
 
     public static void set_import_dir(string path) {
