@@ -80,7 +80,10 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
+    // special Yorba-selected sidebar background color for standard themes (humanity,
+    // clearlooks, etc.); dark themes use the theme's native background color
+    public static Gdk.Color SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
+    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xf00;
 
     private string import_dir = Environment.get_home_dir();
 
@@ -1354,7 +1357,17 @@ public class LibraryWindow : AppWindow {
         notebook.set_show_tabs(false);
         notebook.set_show_border(false);
         
-        sidebar.modify_base(Gtk.StateType.NORMAL, SIDEBAR_BG_COLOR);
+        Gtk.Settings settings = Gtk.Settings.get_default();
+        HashTable<string, Gdk.Color?> color_table = settings.color_hash;
+        Gdk.Color? base_color = color_table.lookup("bg_color");
+        if (base_color != null && (base_color.red > STANDARD_COMPONENT_MINIMUM ||
+            base_color.green > STANDARD_COMPONENT_MINIMUM ||
+            base_color.blue > STANDARD_COMPONENT_MINIMUM)) {
+            // if the current theme is a standard theme (as opposed to a dark theme), then
+            // use the specially-selected Yorba muted background color for the sidebar.
+            // otherwise, use the theme's native background color.
+            sidebar.modify_base(Gtk.StateType.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
+        }
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);
