@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-14 11:25+01:00\n"
+"PO-Revision-Date: 2010-09-07 11:25+01:00\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,8 @@ msgstr ""
 # below if it's not already present
 #: src/AppWindow.vala:625
 msgid "translator-credits"
-msgstr "Joe Hansen <joedalton2@yahoo.dk>"
+msgstr "Joe Hansen <joedalton2@yahoo.dk>\n"
+"Johannes Wilm < mail@johanneswilm.org>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -1248,13 +1249,21 @@ msgid "Only display photos that have not been imported"
 msgstr "Vis kun billeder som endnu ikke er blevet importeret"
 
 # valgt eller valgte?
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Importer _valgte"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Importer valgte"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Importer _alle"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Importer de valgte billeder til dit bibliotek"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Importer alle"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Importer billederne på dette kamera til dit bibliotek"
 
 #: src/ImportPage.vala:582
 msgid ""
@@ -2041,7 +2050,7 @@ msgstr "Ophavsret 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:90
 msgid "Rotate _Right"
-msgstr "Roter _højre"
+msgstr "Roter mod _højre"
 
 #: src/Resources.vala:91 src/Resources.vala:96
 msgid "Rotate"
@@ -2049,7 +2058,7 @@ msgstr "Roter"
 
 #: src/Resources.vala:92
 msgid "Rotate Right"
-msgstr "Roter højre"
+msgstr "Roter mod højre"
 
 #: src/Resources.vala:93
 msgid "Rotate the photos right"
@@ -2057,11 +2066,11 @@ msgstr "Roter billederne mod højre"
 
 #: src/Resources.vala:95
 msgid "Rotate _Left"
-msgstr "Roter _venstre"
+msgstr "Roter mod _venstre"
 
 #: src/Resources.vala:97
 msgid "Rotate Left"
-msgstr "Roter venstre"
+msgstr "Roter mod venstre"
 
 #: src/Resources.vala:98
 msgid "Rotate the photos left"
