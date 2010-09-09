@@ -691,7 +691,7 @@ public abstract class TransformablePhoto: PhotoSource {
         Rating rating = Rating.UNRATED;
         
 #if TRACE_MD5
-        debug("importing MD5 %s: exif=%s preview=%s full=%s", file.get_basename(), detected.exif_md5,
+        debug("importing MD5 %s: exif=%s preview=%s full=%s", file.get_path(), detected.exif_md5,
             detected.thumbnail_md5, detected.md5);
 #endif
         
