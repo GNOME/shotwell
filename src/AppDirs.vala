@@ -31,12 +31,11 @@ class AppDirs {
     public static void verify_data_dir() {
         File data_dir = get_data_dir();
         try {
-            if (data_dir.query_exists(null) == false) {
-                if (!data_dir.make_directory_with_parents(null))
-                    error("Unable to create data directory %s", data_dir.get_path());
-            } 
+            if (!data_dir.query_exists(null))
+                data_dir.make_directory_with_parents(null);
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.panic(_("Unable to create data directory %s: %s").printf(data_dir.get_path(),
+                err.message));
         }
     }
     
@@ -103,16 +102,12 @@ class AppDirs {
         // Because multiple instances of the app can run at the same time, place temp files in
         // subdir named after process ID
         File tmp_dir = get_data_subdir("tmp").get_child("%d".printf((int) Posix.getpid()));
-        if (!tmp_dir.query_exists(null)) {
-            bool created = false;
-            try {
-                created = tmp_dir.make_directory_with_parents(null);
-            } catch (Error err) {
-                created = false;
-            }
-            
-            if (!created)
-                error("Unable to create temporary directory %s", tmp_dir.get_path());
+        try {
+            if (!tmp_dir.query_exists(null))
+                tmp_dir.make_directory_with_parents(null);
+        } catch (Error err) {
+            AppWindow.panic(_("Unable to create temporary directory %s: %s").printf(
+                tmp_dir.get_path(), err.message));
         }
         
         return tmp_dir;
@@ -124,12 +119,11 @@ class AppDirs {
             subdir = subdir.get_child(subname);
 
         try {
-            if (subdir.query_exists(null) == false) {
-                if (!subdir.make_directory_with_parents(null))
-                    error("Unable to create data subdirectory %s", subdir.get_path());
-            }
+            if (!subdir.query_exists(null))
+                subdir.make_directory_with_parents(null);
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.panic(_("Unable to create data subdirectory %s: %s").printf(subdir.get_path(),
+                err.message));
         }
         
         return subdir;

@@ -35,7 +35,8 @@ public class DatabaseTable {
         int res = Sqlite.Database.open_v2(filename, out db, Sqlite.OPEN_READWRITE | Sqlite.OPEN_CREATE, 
             null);
         if (res != Sqlite.OK)
-            error("Unable to open/create photo database %s: %d", filename, res);
+            AppWindow.panic(_("Unable to open/create photo database %s: error code %d").printf(filename,
+                res));
         
         // disable synchronized commits for performance reasons ... this is not vital, hence we
         // don't error out if this fails
