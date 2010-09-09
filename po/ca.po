@@ -5,7 +5,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.1\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-07-01 10:22-0300\n"
@@ -851,11 +851,11 @@ msgstr ""
 
 #: src/EditingTools.vala:585
 msgid "Square"
-msgstr ""
+msgstr "Quadrat"
 
 #: src/EditingTools.vala:586
 msgid "Screen"
-msgstr ""
+msgstr "Pantalla"
 
 #: src/EditingTools.vala:587 src/PicasaConnector.vala:862
 msgid "Original Size"
@@ -1197,13 +1197,25 @@ msgstr ""
 msgid "Only display photos that have not been imported"
 msgstr ""
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr ""
+#: src/ImportPage.vala:414
+#, fuzzy
+msgid "Import Selected"
+msgstr "Importació Completada"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr ""
+#: src/ImportPage.vala:415
+#, fuzzy
+msgid "Import the selected photos into your library"
+msgstr "Eliminar les fotos seleccionades de la biblioteca"
+
+#: src/ImportPage.vala:423
+#, fuzzy
+msgid "Import All"
+msgstr "Importació Completada"
+
+#: src/ImportPage.vala:424
+#, fuzzy
+msgid "Import all the photos on this camera into your library"
+msgstr "Sel·leccionar totes les fotos de la biblioteca"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -2808,9 +2820,6 @@ msgstr "Preparant fotos a pujar"
 #, fuzzy
 msgid "error"
 msgstr "Mirall"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Sel·leccionar totes les fotos de la biblioteca"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Sols Fa_vorides"

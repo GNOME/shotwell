@@ -144,7 +144,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"샷웰 라이브러리에 접근하던 중 치명적인 오류가 발생했습니다.  샷웰을 계속 실행할 수 없습니다.\n"
+"샷웰 라이브러리에 접근하는 중 치명적인 오류가 발생했습니다.  샷웰을 계속 실행할 수 없습니다.\n"
 "\n"
 "%s"
 
@@ -2588,7 +2588,7 @@ msgstr[0] "사진 삭제하는 중"
 # specifiers and their meanings.
 #: src/util.vala:417
 msgid "%a %b %d, %Y"
-msgstr "%a %b %d, %Y"
+msgstr "%b %d일 (%a), %Y"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."

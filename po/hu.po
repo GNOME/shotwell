@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.1\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-26 14:05+0100\n"
+"PO-Revision-Date: 2010-08-27 14:22+0100\n"
 "Last-Translator: csola48 <csola48@gmail.com>\n"
 "Language-Team: Hungarian <csola48@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -121,7 +121,7 @@ msgstr "Shotwell névjegye"
 
 #: src/AppWindow.vala:475
 msgid "Fulls_creen"
-msgstr "_Teljes képernyő"
+msgstr "Teljes ké_pernyő"
 
 #: src/AppWindow.vala:476
 msgid "Use Shotwell at fullscreen"
@@ -205,7 +205,7 @@ msgstr "S_zerkesztés"
 #: src/CollectionPage.vala:265
 #: src/EventsDirectoryPage.vala:225
 msgid "Even_ts"
-msgstr "Eseménye_k"
+msgstr "_Események"
 
 #: src/CollectionPage.vala:282
 msgid "_Photos"
@@ -258,7 +258,7 @@ msgstr "Fényképek _rendezése"
 #: src/CollectionPage.vala:487
 #: src/PhotoPage.vala:2236
 msgid "Ta_gs"
-msgstr "_Címkék"
+msgstr "Cí_mkék"
 
 #: src/CollectionPage.vala:470
 #: src/EventsDirectoryPage.vala:217
@@ -2014,7 +2014,7 @@ msgstr "Copyright 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:90
 msgid "Rotate _Right"
-msgstr "Forgatás jobb_ra"
+msgstr "Forgatás _jobbra"
 
 #: src/Resources.vala:91
 #: src/Resources.vala:96
@@ -2031,7 +2031,7 @@ msgstr "Fényképek forgatása jobbra"
 
 #: src/Resources.vala:95
 msgid "Rotate _Left"
-msgstr "Forgatás ba_lra"
+msgstr "Forgatás _balra"
 
 #: src/Resources.vala:97
 msgid "Rotate Left"
@@ -2043,7 +2043,7 @@ msgstr "Fényképek forgatása balra"
 
 #: src/Resources.vala:100
 msgid "Flip Hori_zontally"
-msgstr "Tükrözés ví_zszintesen"
+msgstr "Tükrözés _vízszintesen"
 
 #: src/Resources.vala:101
 msgid "Flip Horizontally"
@@ -2055,7 +2055,7 @@ msgstr "Fénykép tükrözése vízszintesen"
 
 #: src/Resources.vala:104
 msgid "Flip Verti_cally"
-msgstr "Tükrözés függőlegesen"
+msgstr "Tükrözés _függőlegesen"
 
 #: src/Resources.vala:105
 msgid "Flip Vertically"
@@ -2067,7 +2067,7 @@ msgstr "Fényképek tükrözése függőlegesen"
 
 #: src/Resources.vala:108
 msgid "_Enhance"
-msgstr "Ki_emelés"
+msgstr "_Kiemelés"
 
 #: src/Resources.vala:109
 msgid "Enhance"
@@ -2115,7 +2115,7 @@ msgstr "Fénykép színének és tónusának beállítása"
 
 #: src/Resources.vala:124
 msgid "Re_vert to Original"
-msgstr "Visszatérés az eredetire"
+msgstr "_Visszatérés az eredetire"
 
 #: src/Resources.vala:125
 msgid "Revert to Original"
@@ -2135,7 +2135,7 @@ msgstr "Visszatérés az eredeti fényképhez"
 
 #: src/Resources.vala:131
 msgid "Set as _Desktop Background"
-msgstr "Beállítás _asztalháttérként"
+msgstr "_Beállítás asztalháttérként"
 
 #: src/Resources.vala:132
 msgid "Set selected image to be the new desktop background"
@@ -2222,7 +2222,7 @@ msgstr "Összeolvasztás a mostani naptár adataival"
 
 #: src/Resources.vala:161
 msgid "_Set Rating"
-msgstr "Osztályozás"
+msgstr "_Osztályozás"
 
 #: src/Resources.vala:162
 msgid "Set Rating"
@@ -2234,11 +2234,11 @@ msgstr "Fényképe besorolásának cseréje"
 
 #: src/Resources.vala:165
 msgid "_Increase"
-msgstr "_Csökkentés"
+msgstr "_Növelés"
 
 #: src/Resources.vala:166
 msgid "Increase Rating"
-msgstr "Osztályzat csökkentése"
+msgstr "Osztályzat növelése"
 
 #: src/Resources.vala:167
 msgid "Increase the rating of your photo"
@@ -2246,11 +2246,11 @@ msgstr "Fényképe besorolásának növelése"
 
 #: src/Resources.vala:169
 msgid "_Decrease"
-msgstr "Csökkentés"
+msgstr "_Csökkentés"
 
 #: src/Resources.vala:170
 msgid "Decrease Rating"
-msgstr "Osztályzat növelése"
+msgstr "Osztályzat csökkentése"
 
 #: src/Resources.vala:171
 msgid "Decrease the rating of your photo"
@@ -2308,7 +2308,7 @@ msgstr "Összes fénykép mutatása"
 
 #: src/Resources.vala:191
 msgid "_Ratings"
-msgstr "Osztályozások"
+msgstr "_Osztályozások"
 
 #: src/Resources.vala:192
 msgid "Display each photo's rating"
@@ -2352,11 +2352,11 @@ msgstr "Nyomtatás oldalbeállítás nézete és cseréje"
 
 #: src/Resources.vala:208
 msgid "_Print..."
-msgstr "Nyom_tatás..."
+msgstr "_Nyomtatás..."
 
 #: src/Resources.vala:211
 msgid "Pu_blish..."
-msgstr "Közzé_tétel..."
+msgstr "Kö_zzététel..."
 
 #: src/Resources.vala:212
 msgid "Publish"
@@ -2409,7 +2409,7 @@ msgstr "Beállítások szerkesztése"
 
 #: src/Resources.vala:230
 msgid "_Open With External Editor"
-msgstr "Megnyitás külső szerkesztővel"
+msgstr "_Megnyitás külső szerkesztővel"
 
 #: src/Resources.vala:231
 msgid "Open the selected photo with an external image editor"
@@ -2480,7 +2480,7 @@ msgstr "Címke átnevezése"
 
 #: src/Resources.vala:278
 msgid "Modif_y Tags..."
-msgstr "Címkék módosítása..."
+msgstr "Cí_mkék módosítása..."
 
 #: src/Resources.vala:279
 msgid "Modify Tags"
@@ -2595,7 +2595,7 @@ msgstr "Kiválasztott fényképek visszatöltése a könyvtárba"
 # GNOME Application Name
 #: src/Resources.vala:537
 msgid "Show in File Mana_ger"
-msgstr "Mutatás a _fájlkezelőben"
+msgstr "_Mutatás a fájlkezelőben"
 
 #: src/Resources.vala:538
 msgid "Open the selected photo's directory in the file manager"

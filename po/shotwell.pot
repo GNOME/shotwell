@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.1\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -1161,12 +1161,20 @@ msgstr ""
 msgid "Only display photos that have not been imported"
 msgstr ""
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
 msgstr ""
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr ""
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr ""
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
 msgstr ""
 
 #: src/ImportPage.vala:582

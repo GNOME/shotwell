@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.1\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-04 16:07+0300\n"
+"PO-Revision-Date: 2010-09-04 09:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -1330,13 +1330,21 @@ msgstr "Ховати фотографії, які вже імпортовано"
 msgid "Only display photos that have not been imported"
 msgstr "Показувати лише фотографії, які ще не було імпортовано"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Імпортувати _позначені"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Імпортувати позначені"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Імпортувати _всі"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Пересунути позначені фотографії до вашої бібліотеки"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Імпортувати всі"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Імпортувати всі фотографії з цього фотоапарата до вашої бібліотеки"
 
 #: src/ImportPage.vala:582
 msgid ""
@@ -2974,9 +2982,6 @@ msgstr "Приготування фотографій до імпортуван�
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "помилка"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Позначити всі фотографії у бібліотеці"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Лише _улюблені"

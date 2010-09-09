@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.1\n"
+"Project-Id-Version: shotwell-0.7.1+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-07-30 23:58+0300\n"
+"PO-Revision-Date: 2010-08-29 10:17+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1221,13 +1221,21 @@ msgstr "Piilota jo tuodut kuvat"
 msgid "Only display photos that have not been imported"
 msgstr "Näytä vai kuvat joita ei ole tuotu"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Tuo _valitut"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Tuo valitut"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Tuo _kaikki"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Tuo valitut kuvat kirjastoon"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Tuo kaikki"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Tuo kaikki kuvat tästä kamerasta kirjastoon"
 
 #: src/ImportPage.vala:582
 msgid ""
