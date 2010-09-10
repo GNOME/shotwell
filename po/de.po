@@ -22,6 +22,7 @@ msgstr ""
 #: src/AppWindow.vala:625
 msgid "translator-credits"
 msgstr ""
+"Jan-Christoph Borchardt <JanCBorchardt@gmail.com>\n"
 "Juergen Kofler <juergen.kofler@gobbz.net>\n"
 "Ingo Luetkebohle <iluetkeb@techfak.uni-bielefeld.de>\n"
 "Hendrik Richter <hendrikr@gnome.org>\n"
@@ -1211,13 +1212,25 @@ msgstr "Bereits importierte Fotos nicht anzeigen"
 msgid "Only display photos that have not been imported"
 msgstr "Zeige nur Fotos an die noch nicht importiert wurden"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
+#: src/ImportPage.vala:414
+#, fuzzy
+msgid "Import Selected"
 msgstr "_Importiere die ausgewählten Fotos"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
+#: src/ImportPage.vala:415
+#, fuzzy
+msgid "Import the selected photos into your library"
+msgstr "Verschiebe die ausgewählten Bilder zurück in die Bibliothek"
+
+#: src/ImportPage.vala:423
+#, fuzzy
+msgid "Import All"
 msgstr "_Alle importieren"
+
+#: src/ImportPage.vala:424
+#, fuzzy
+msgid "Import all the photos on this camera into your library"
+msgstr "Alle Fotos der Bibliothek auswählen"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -1523,27 +1536,24 @@ msgid "Fit to _Page"
 msgstr ""
 
 #: src/PhotoPage.vala:2220 src/PhotoPage.vala:3257
-#, fuzzy
 msgid "Zoom the photo to fit on the screen"
-msgstr "Ausgewählte Foto in den Papierkorb verschieben"
+msgstr "Foto auf Bildschirmgröße anpassen"
 
 #: src/PhotoPage.vala:2225 src/PhotoPage.vala:3262
-#, fuzzy
 msgid "Zoom _100%"
-msgstr "Her_einzoomen"
+msgstr "_100 % Vergrößerung"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
 msgid "Zoom the photo to 100% magnification"
-msgstr ""
+msgstr "Bild in voller Größe anzeigen"
 
 #: src/PhotoPage.vala:2231 src/PhotoPage.vala:3268
-#, fuzzy
 msgid "Zoom _200%"
-msgstr "Her_einzoomen"
+msgstr "_200 % Vergrößerung"
 
 #: src/PhotoPage.vala:2232 src/PhotoPage.vala:3269
 msgid "Zoom the photo to 200% magnification"
-msgstr ""
+msgstr "Bild in doppelter Größe anzeigen"
 
 #: src/PhotoPage.vala:2578 src/util.vala:596
 msgid "Remove From Library"
@@ -1977,27 +1987,25 @@ msgstr "Fotos nach links drehen"
 
 #: src/Resources.vala:100
 msgid "Flip Hori_zontally"
-msgstr ""
+msgstr "Hori_zontal Spiegeln"
 
 #: src/Resources.vala:101
 msgid "Flip Horizontally"
-msgstr ""
+msgstr "Horizontal Spiegeln"
 
 #: src/Resources.vala:102
-#, fuzzy
 msgid "Flip the photos horizontally"
-msgstr "Fotos vertikal spiegeln"
+msgstr "Fotos horizontal spiegeln"
 
 #: src/Resources.vala:104
 msgid "Flip Verti_cally"
-msgstr ""
+msgstr "Verti_kal Spiegeln"
 
 #: src/Resources.vala:105
 msgid "Flip Vertically"
-msgstr ""
+msgstr "Vertikal Spiegeln"
 
 #: src/Resources.vala:106
-#, fuzzy
 msgid "Flip the photos vertically"
 msgstr "Fotos vertikal spiegeln"
 
@@ -2155,111 +2163,97 @@ msgid "Merge into a single event"
 msgstr "Zu einem Ereignis zusammenfügen"
 
 #: src/Resources.vala:161
-#, fuzzy
 msgid "_Set Rating"
-msgstr "Einstellungen"
+msgstr "_Bewerten"
 
 #: src/Resources.vala:162
-#, fuzzy
 msgid "Set Rating"
-msgstr "Einstellungen"
+msgstr "Bewerten"
 
 #: src/Resources.vala:163
-#, fuzzy
 msgid "Change the rating of your photo"
-msgstr "Foto mehr vergrößern"
+msgstr "Bewertung des Fotos ändern"
 
 #: src/Resources.vala:165
 msgid "_Increase"
-msgstr ""
+msgstr "Ve_rbessern"
 
 #: src/Resources.vala:166
 msgid "Increase Rating"
-msgstr ""
+msgstr "Bewertung Verbessern"
 
 #: src/Resources.vala:167
-#, fuzzy
 msgid "Increase the rating of your photo"
-msgstr "Foto mehr vergrößern"
+msgstr "Bewertung des Fotos verbessern"
 
 #: src/Resources.vala:169
-#, fuzzy
 msgid "_Decrease"
-msgstr "Entfernen"
+msgstr "Ver_schlechtern"
 
 #: src/Resources.vala:170
 msgid "Decrease Rating"
-msgstr ""
+msgstr "Bewertung Verschlechtern"
 
 #: src/Resources.vala:171
-#, fuzzy
 msgid "Decrease the rating of your photo"
-msgstr "Foto weniger vergrößern"
+msgstr "Bewertung des Fotos verringern"
 
 #: src/Resources.vala:173
-#, fuzzy
 msgid "_Unrated"
-msgstr "Nicht datiert"
+msgstr "_Unbewertet"
 
 #: src/Resources.vala:174
-#, fuzzy
 msgid "Rate Unrated"
-msgstr "Nicht datiert"
+msgstr "Bewertung entfernen"
 
 #: src/Resources.vala:175
-#, fuzzy
 msgid "Setting as unrated"
-msgstr "Einstellungen"
+msgstr "Bewertung wird entfernt"
 
 #: src/Resources.vala:176
-#, fuzzy
 msgid "Remove any ratings"
-msgstr "Setze zurück"
+msgstr "Alle Bewertungen entfernen"
 
 #: src/Resources.vala:178
-#, fuzzy
 msgid "_Rejected"
-msgstr "_Reset"
+msgstr "A_bgelehnt"
 
 #: src/Resources.vala:179
 msgid "Rate Rejected"
-msgstr ""
+msgstr "Ablehnen"
 
 #: src/Resources.vala:180
 msgid "Setting as rejected"
-msgstr ""
+msgstr "Wird als abgelehnt bewertet"
 
 #: src/Resources.vala:181
 msgid "Set rating to rejected"
-msgstr ""
+msgstr "Foto als abgelehnt bewerten"
 
 #: src/Resources.vala:183
+#, fuzzy
 msgid "All + _Rejected"
-msgstr ""
+msgstr "Alle + A_bgelehnt"
 
 #: src/Resources.vala:184 src/Resources.vala:185
 msgid "Show all photos, including rejected"
-msgstr ""
+msgstr "Alle Fotos anzeigen, inklusive abgelehnten"
 
 #: src/Resources.vala:187
-#, fuzzy
 msgid "_All Photos"
-msgstr "_Fotos"
+msgstr "_Alle Fotos"
 
 #: src/Resources.vala:188 src/Resources.vala:189
-#, fuzzy
 msgid "Show all photos"
 msgstr "Versteckte Fotos anzeigen"
 
 #: src/Resources.vala:191
-#, fuzzy
 msgid "_Ratings"
-msgstr "Drehe"
+msgstr "_Bewertungen"
 
 #: src/Resources.vala:192
-#, fuzzy
 msgid "Display each photo's rating"
-msgstr "Tags aller Fotos anzeigen"
+msgstr "Bewertung jedes Fotos anzeigen"
 
 #: src/Resources.vala:194
 #, fuzzy
@@ -2269,11 +2263,11 @@ msgstr "_Versteckte Fotos"
 #: src/Resources.vala:195
 #, fuzzy
 msgid "Filter Photos"
-msgstr "_Versteckte Fotos"
+msgstr "Fotos Verstecken"
 
 #: src/Resources.vala:196
 msgid "Limit the number of photos displayed based on a filter"
-msgstr ""
+msgstr "Angezeigte Fotos filtern"
 
 #: src/Resources.vala:198
 msgid "_Duplicate"
@@ -2300,9 +2294,8 @@ msgid "View and change page setup printing"
 msgstr "Seiteneinstellung anzeigen und ändern"
 
 #: src/Resources.vala:208
-#, fuzzy
 msgid "_Print..."
-msgstr "Drucken..."
+msgstr "_Drucken …"
 
 #: src/Resources.vala:211
 msgid "Pu_blish..."
@@ -2318,12 +2311,11 @@ msgstr "Das ausgewählte Foto auf verschiedenen Websites veröffentlichen"
 
 #: src/Resources.vala:215
 msgid "E_dit Title..."
-msgstr ""
+msgstr "Titel _Bearbeiten …"
 
 #: src/Resources.vala:217
-#, fuzzy
 msgid "Edit title of the selected photo"
-msgstr "Verstecke die ausgewählten Fotos"
+msgstr "Titel des Fotos bearbeiten"
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
@@ -2481,44 +2473,44 @@ msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr "Konnte Tag nicht zu \"%s\" umbenennen, da ein entsprechender Tag bereits existiert."
 
 #: src/Resources.vala:432
-#, fuzzy, c-format
+#, c-format
 msgid "Rate %s"
-msgstr "Drehen"
+msgstr "%s bewerten"
 
 #: src/Resources.vala:433
-#, fuzzy, c-format
+#, c-format
 msgid "Set rating to %s"
-msgstr "Einstellungen"
+msgstr "Mit %s bewerten"
 
 #: src/Resources.vala:434
-#, fuzzy, c-format
+#, c-format
 msgid "Setting rating to %s"
-msgstr "Rufe Vorschaubild für %s ab"
+msgstr "Wird mit %s bewertet"
 
 #: src/Resources.vala:436
-#, fuzzy, c-format
+#, c-format
 msgid "Display %s"
-msgstr "Anzeige"
+msgstr "Anzeige %s"
 
 #: src/Resources.vala:437
 #, c-format
 msgid "Only show photos with a rating of %s"
-msgstr ""
+msgstr "Nur Fotos mit einer Bewertung von %s anzeigen"
 
 #: src/Resources.vala:438
 #, c-format
 msgid "%s or Better"
-msgstr ""
+msgstr "%s oder besser"
 
 #: src/Resources.vala:439
 #, c-format
 msgid "Display %s or Better"
-msgstr ""
+msgstr "%s oder besser anzeigen"
 
 #: src/Resources.vala:440
 #, c-format
 msgid "Only show photos with a rating of %s or better"
-msgstr ""
+msgstr "Nur Fotos mit einer Bewertung von %s oder besser anzeigen"
 
 #: src/Resources.vala:530 src/TagPage.vala:131
 msgid "_Delete"
@@ -2578,9 +2570,8 @@ msgid "Select _All"
 msgstr "_Alle Auswählen"
 
 #: src/Resources.vala:553
-#, fuzzy
 msgid "Select all items"
-msgstr "_Alle Auswählen"
+msgstr "Alle auswählen"
 
 #: src/SlideshowPage.vala:64 src/SlideshowPage.vala:130
 msgid "Settings"
@@ -2744,9 +2735,8 @@ msgid "_Import photos to:"
 msgstr "_Fotos importieren nach:"
 
 #: ui/shotwell.glade:188
-#, fuzzy
 msgid "Bro_wse..."
-msgstr "Du_rchsuchen"
+msgstr "Du_rchsuchen …"
 
 #: ui/shotwell.glade:219
 msgid "white"
@@ -2773,17 +2763,12 @@ msgid "External _RAW editor:"
 msgstr "Externer _RAW Editor:"
 
 #: ui/shotwell.glade:511
-#, fuzzy
 msgid "Preparing pictures for import..."
-msgstr "Bereite Fotos für den Upload vor"
+msgstr "Fotos werden für den Import vorbereitet …"
 
 #: ui/shotwell.glade:542
-#, fuzzy
 msgid "error"
-msgstr "Spiegeln"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Alle Fotos der Bibliothek auswählen"
+msgstr "Fehler"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Nur _Favoriten"
