@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.1\n"
+"Project-Id-Version: shotwell-0.7.0\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-11 00:40+0100\n"
+"PO-Revision-Date: 2010-09-10 02:57+0100\n"
 "Last-Translator: Laco Gubík <lacogubik@gmail.com>\n"
 "Language-Team: Ubuntu Slovak Translators <ubuntu-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Prehliadač fotografií"
 
 #: src/AppWindow.vala:487
 msgid "_User Manual"
-msgstr ""
+msgstr "Po_užívateľská príručka"
 
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
@@ -77,7 +77,7 @@ msgstr "%s databáza"
 
 #: src/AlienDatabaseImportDialog.vala:146
 msgid "Shotwell failed to load the database file"
-msgstr "Shotwellu sa nepodarilo načítať databázový súbor"
+msgstr "Programu Shotwell sa nepodarilo načítať databázový súbor"
 
 #: src/AppDirs.vala:74
 msgid "Pictures"
@@ -126,11 +126,11 @@ msgstr "Použiť Shotwell v režime celej obrazovky"
 
 #: src/AppWindow.vala:481
 msgid "_Contents"
-msgstr "O_bsah"
+msgstr "Ob_sah"
 
 #: src/AppWindow.vala:482
 msgid "More information on Shotwell"
-msgstr "Viac informácií o Shotwell"
+msgstr "Viac informácií o programe Shotwell"
 
 #: src/AppWindow.vala:564
 #: src/AppWindow.vala:578
@@ -149,7 +149,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Fatálna chyba pri prístupe ku knižnici Shotwell. Shotwell nemôže pokračovať.\n"
+"Fatálna chyba pri prístupe ku knižnici programu Shotwell. Shotwell nemôže pokračovať.\n"
 "\n"
 "%s"
 
@@ -441,11 +441,11 @@ msgstr "Pôvodná fotografia nemôže byť upravená."
 
 #: src/Commands.vala:972
 msgid "Adjusting Date and Time"
-msgstr "Nastavuje sa dátum a čas"
+msgstr "Nastavuje sa čas a dátum"
 
 #: src/Commands.vala:972
 msgid "Undoing Date and Time Adjustment"
-msgstr "Vracia sa späť úprava dátumu a času"
+msgstr "Vracia sa späť úprava času a dátumu"
 
 #: src/Commands.vala:999
 msgid "One original photo could not be adjusted."
@@ -462,7 +462,7 @@ msgstr "Chyba úpravy času"
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
-msgstr[0] "Nie je možné vrátiť spať úpravy času v následujúcom súbore fotografie."
+msgstr[0] "Nie je možné vrátiť spať úpravu času v následujúcom súbore fotografie."
 msgstr[1] "Nie je možné vrátiť spať úpravy času v následujúcich súboroch fotografií."
 msgstr[2] "Nie je možné vrátiť spať úpravy času v následujúcich súboroch fotografií."
 
@@ -527,7 +527,7 @@ msgstr "_Kvalita:"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
-msgstr "Obmedzenia _zmeny veľkosti:"
+msgstr "_Zachovať pomer podľa:"
 
 #: src/Dialogs.vala:144
 msgid " _pixels"
@@ -750,7 +750,7 @@ msgstr "%d/%m/%Y, %H:%M:%S"
 # manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:893
 msgid "%m/%d/%Y, %I:%M:%S %p"
-msgstr "%d%m/%Y, %I:%M:%S %p"
+msgstr "%d/%m/%Y, %I:%M:%S %p"
 
 #: src/Dialogs.vala:978
 #, c-format
@@ -860,7 +860,7 @@ msgstr "Importovať fotografie z vašej _F-Spot knižnice"
 #: src/Dialogs.vala:1180
 #, c-format
 msgid "_Import photos from your %s folder"
-msgstr "_Importovať fotografie z vášho priečinku %s"
+msgstr "_Importovať fotografie z vášho priečinka %s"
 
 #: src/Dialogs.vala:1190
 msgid "You can also import photos in any of these ways:"
@@ -893,19 +893,19 @@ msgstr "Importovať do knižnice"
 #: src/Dimensions.vala:17
 #: src/FlickrConnector.vala:949
 msgid "Original size"
-msgstr "Pôvodná veľkosť"
+msgstr "Pôvodnej veľkosti"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
-msgstr "Šírka alebo výška"
+msgstr "Šírky alebo výšky"
 
 #: src/Dimensions.vala:23
 msgid "Width"
-msgstr "Šírka"
+msgstr "Šírky"
 
 #: src/Dimensions.vala:26
 msgid "Height"
-msgstr "Výška"
+msgstr "Výšky"
 
 #: src/DirectoryMonitor.vala:781
 #, c-format
@@ -1148,7 +1148,7 @@ msgid ""
 msgstr ""
 "Momentálne nie ste pripojený do Facebooku.\n"
 "\n"
-"Ak ešte nemáte vytvorený Facebook účet, môžete si jeden vytvoriť počas prihlasovacieho procesu. Počas prihlásenia si Shotwell Connect môže vyžiadať povolenie na natiahnutie fotografií a publikovanie ich do vášho feedu. Tieto povolenia sú potrebné na to aby Shotwell Connect mohol správne fungovať."
+"Ak ešte nemáte vytvorený Facebook účet, môžete si jeden vytvoriť počas prihlasovacieho procesu. Počas prihlásenia si Shotwell Connect môže vyžiadať povolenie na nahratie fotografií a ich zverejnenie vo vašom feede. Toto povolenie je potrebné na to aby Shotwell Connect mohol správne fungovať."
 
 #: src/FacebookConnector.vala:18
 msgid ""
@@ -1156,7 +1156,7 @@ msgid ""
 "To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "Počas tohoto spustenia Shotwellu ste sa už prihlásili a odhlásili z Facebooku.\n"
-"Aby ste mohli naďalej publikovať fotografie na Facebook, ukončite a reštartujte Shotwell a potom skúste znova."
+"Aby ste mohli naďalej zverejnovať fotografie na Facebook, ukončite a reštartujte Shotwell a potom skúste znova."
 
 #: src/FacebookConnector.vala:261
 msgid "Testing connection to Facebook..."
@@ -1176,11 +1176,11 @@ msgid ""
 msgstr ""
 "Ste prihlásený do Facebooku ako %s.\n"
 "\n"
-"Kde by ste chceli publikovať vybrané fotografie?"
+"Kde by ste chceli zverejniť vybrané fotografie?"
 
 #: src/FacebookConnector.vala:754
 msgid "Publish to an e_xisting album:"
-msgstr "Publikovať do _existujúceho albumu:"
+msgstr "Zverejniť v _existujúcom albume:"
 
 #: src/FacebookConnector.vala:757
 msgid "Create a _new album named:"
@@ -1190,7 +1190,7 @@ msgstr "Vytvoriť _nový album s názvom:"
 #: src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
 msgid "_Publish"
-msgstr "_Publikovať"
+msgstr "_Zverejniť"
 
 #: src/FacebookConnector.vala:775
 #: src/FlickrConnector.vala:880
@@ -1206,7 +1206,7 @@ msgid ""
 msgstr ""
 "Momentálne nie ste prihlásený do Flickr.\n"
 "\n"
-"Musíte mať existujúci Flickr účet aby ste mohli dokončiť prihlasovací proces. Počas prihlásenia budete musieť výslovne autorizovať Shotwell Connect aby ste ho spojili s vašim Flickr účtom."
+"Musíte mať existujúci Flickr účet aby ste mohli dokončiť prihlasovací proces. Počas prihlásenia budete musieť autorizovať Shotwell Connect na spojenie s vašim Flickr účtom."
 
 #: src/FlickrConnector.vala:13
 msgid ""
@@ -1214,7 +1214,7 @@ msgid ""
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "Počas tohoto spustenia Shotwellu ste sa už prihlásili a odhlásili z Flickr.\n"
-"Aby ste mohli naďalej publikovať fotografie na Flickr, ukončite a reštartujte Shotwell a potom skúste znova."
+"Aby ste mohli naďalej zverejnovať fotografie na Flickr, ukončite a reštartujte Shotwell a potom skúste znova."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
@@ -1240,7 +1240,7 @@ msgstr ""
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr "Váš Flickr Pro účet vám umožňuje neobmedzený upload."
+msgstr "Váš Flickr Pro účet vám umožňuje neobmedzené nahrávanie vašich fotografií."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
@@ -1308,13 +1308,21 @@ msgstr "Skryť fotografie ktoré už sú importované"
 msgid "Only display photos that have not been imported"
 msgstr "Zobraziť len fotografie, ktoré neboli importované"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Importovať _zvolené"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Importovať zvolené"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Importovať _všetky"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Importovať vybrané fotografie do vašej knižnice"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Importovať všetky"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Importovať všetky fotografie z tohoto fotoaparátu do vašej knižnice"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -1351,7 +1359,7 @@ msgstr "Odpájanie..."
 
 #: src/ImportPage.vala:701
 msgid "Fetching photo information"
-msgstr "Získavajú sa informácie o fotografii"
+msgstr "Získavajú sa informácie o fotografiách"
 
 #: src/ImportPage.vala:933
 #, c-format
@@ -1404,7 +1412,7 @@ msgstr "_Zastaviť import"
 #: src/ImportPage.vala:1301
 #, c-format
 msgid "Imported %s"
-msgstr "Importovaných %s"
+msgstr "Importovaná %s"
 
 #: src/JfifSupport.vala:77
 msgid "JPEG"
@@ -1436,7 +1444,7 @@ msgstr "Posledný import"
 
 #: src/LibraryWindow.vala:458
 msgid "_Import From Folder..."
-msgstr "_Importovať z priečinku..."
+msgstr "_Importovať z priečinka..."
 
 #: src/LibraryWindow.vala:459
 msgid "Import photos from disk to library"
@@ -1472,7 +1480,7 @@ msgstr "Zobraziť podrobné informácie pre výber"
 
 #: src/LibraryWindow.vala:654
 msgid "Import From Folder"
-msgstr "Importovať z priečinku"
+msgstr "Importovať z priečinka"
 
 #: src/LibraryWindow.vala:689
 msgid "Empty Trash"
@@ -1549,7 +1557,7 @@ msgstr "Odstraňuje sa..."
 
 #: src/Page.vala:2146
 msgid "Photos cannot be exported to this directory."
-msgstr "Fotografie nemôžu byť exportované do tohoto priečinku."
+msgstr "Fotografie nemôžu byť exportované do tohoto priečinka."
 
 #: src/PhotoExporter.vala:185
 msgid "Exporting"
@@ -1693,7 +1701,7 @@ msgstr "Uložiť fotografiu pod novým menom"
 #: src/PhotoPage.vala:3132
 #: src/Resources.vala:205
 msgid "Page _Setup..."
-msgstr "_Nastavenie strany"
+msgstr "_Nastavenie stránky"
 
 #: src/PhotoPage.vala:3138
 #: src/Resources.vala:209
@@ -2402,19 +2410,19 @@ msgstr "Zobraziť a zmeniť nastavenie tlače pre stránku"
 
 #: src/Resources.vala:208
 msgid "_Print..."
-msgstr "_Tlač..."
+msgstr "_Tlačiť..."
 
 #: src/Resources.vala:211
 msgid "Pu_blish..."
-msgstr "_Publikovať"
+msgstr "_Zverejniť"
 
 #: src/Resources.vala:212
 msgid "Publish"
-msgstr "Publikovať"
+msgstr "Zverejniť"
 
 #: src/Resources.vala:213
 msgid "Publish to various websites"
-msgstr "Publikovať na rôzne webové stránky"
+msgstr "Zverejniť na rôzne webové stránky"
 
 #: src/Resources.vala:215
 msgid "E_dit Title..."
@@ -2426,15 +2434,15 @@ msgstr "Upraviť názov vybranej fotografie"
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr "_Upraviť čas a dátum..."
+msgstr "_Upraviť dátum a čas..."
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
-msgstr "Upraviť čas a dátum"
+msgstr "Upraviť dátum a čas"
 
 #: src/Resources.vala:221
 msgid "Adjust date and time of selected photos"
-msgstr "Upraviť čas a dátum vybraných fotografií"
+msgstr "Upraviť dátum a čas vybraných fotografií"
 
 #: src/Resources.vala:223
 msgid "Add _Tags..."
@@ -2770,11 +2778,11 @@ msgstr[2] "Odstraňuje sa fotografií"
 
 #: src/util.vala:417
 msgid "%a %b %d, %Y"
-msgstr "%a %b %d, %Y"
+msgstr "%a %d. %b, %Y"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
-msgstr "Zvolené fotografie boli úspešne publikované."
+msgstr "Zvolené fotografie boli úspešne zverejnené."
 
 #: src/WebConnectors.vala:643
 msgid "Fetching account information..."
@@ -2786,11 +2794,11 @@ msgstr "Prihlasovanie..."
 
 #: src/WebConnectors.vala:677
 msgid "Publish Photos"
-msgstr "Publikovať fotografie"
+msgstr "Zverejniť fotografie"
 
 #: src/WebConnectors.vala:688
 msgid "Publish photos _to:"
-msgstr "Publikovať fotografie na:"
+msgstr "Zverejniť fotografie na:"
 
 #: src/WebConnectors.vala:807
 msgid "_Close"
@@ -2799,47 +2807,47 @@ msgstr "Za_vrieť"
 #: src/WebConnectors.vala:830
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
-msgstr "Publikovanie na %s nemôže pokračovať, pretože nie je možné kontaktovať službu."
+msgstr "Zverejnenie na %s nemôže pokračovať, pretože nie je možné kontaktovať službu."
 
 #: src/WebConnectors.vala:833
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
-msgstr "Publikovanie na %s nemôže pokračovať, pretože komunikácia zo službou zlyhala."
+msgstr "Zverejnenie na %s nemôže pokračovať, pretože komunikácia zo službou zlyhala."
 
 #: src/WebConnectors.vala:836
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr "Publikovanie na %s nemôže pokračovať kvôli chybe v protokole."
+msgstr "Zverejnenie na %s nemôže pokračovať kvôli chybe v protokole."
 
 #: src/WebConnectors.vala:838
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr "Publikovanie na %s nemôže pokračovať, pretože služba odpovedala chybou."
+msgstr "Zverejnenie na %s nemôže pokračovať, pretože služba odpovedala chybou."
 
 #: src/WebConnectors.vala:840
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
-msgstr "Publikovanie na %s nemôže pokračovať, pretože služba vrátila chybnú odpoveď."
+msgstr "Zverejnenie na %s nemôže pokračovať, pretože služba vrátila chybnú odpoveď."
 
 #: src/WebConnectors.vala:843
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr "Publikovanie na %s nemôže pokračovať, pretože nastala chyba."
+msgstr "Zverejnenie na %s nemôže pokračovať, pretože nastala chyba."
 
 #: src/WebConnectors.vala:847
 msgid "To try publishing to another service, select one from the above menu."
-msgstr "Aby ste mohli publikovať na inú službu, zvoľte si ju z ponuky hore."
+msgstr "Aby ste mohli zverejniť vaše fotografie na inej službe, zvoľte si ju z ponuky hore."
 
 #: src/WebConnectors.vala:924
 #: src/WebConnectors.vala:1037
 msgid "Preparing photos for upload"
-msgstr "Pripravujú sa fotografie na upload"
+msgstr "Pripravujú sa fotografie na nahratie"
 
 #: src/WebConnectors.vala:925
 #: src/WebConnectors.vala:977
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr "Uploaduje sa fotografia %d z %d"
+msgstr "Nahráva sa fotografia %d z %d"
 
 #: ui/shotwell.glade:101
 #: ui/shotwell.glade:444
@@ -2890,8 +2898,6 @@ msgstr "Pripravujú sa fotografie na import..."
 msgid "error"
 msgstr "chyba"
 
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Označiť všetky fotografie v knižnici"
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Len _Obľúbené"
 #~ msgid "Show only your favorite photos"
