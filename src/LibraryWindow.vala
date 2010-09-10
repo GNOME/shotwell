@@ -1148,7 +1148,7 @@ public class LibraryWindow : AppWindow {
             }
             
             // don't unmount mass storage cameras, as they are then unavailable to gPhoto
-            if (!camera.uri.has_prefix("file://")) {
+            if (mount != null && !camera.uri.has_prefix("file://")) {
                 if (page.unmount_camera(mount))
                     switch_to_page(page);
                 else
