@@ -30,7 +30,9 @@ searchpath() {
 }
 
 cflags() {
-    if pkg-config --silence-errors --cflags libraw; then
+    if pkg-config --silence-errors --cflags libraw_r; then
+        :
+    elif pkg-config --silence-errors --cflags libraw; then
         :
     elif [ $1 ]; then
         printf "%cDLIBRAW_NODLL " "-"
@@ -42,7 +44,9 @@ cflags() {
 }
 
 libs() {
-    if pkg-config --silence-errors --libs libraw; then
+    if pkg-config --silence-errors --libs libraw_r; then
+        :
+    elif pkg-config --silence-errors --libs libraw; then
         :
     elif [ $1 ]; then
         printf "%clraw_r %clstdc++ %clwsock32 " "-" "-" "-"
@@ -55,7 +59,9 @@ libs() {
 
 # TODO: Cannot check version of library if no .pc file installed.
 exists() {
-    if pkg-config --silence-errors --exists 'libraw >= $3'; then
+    if pkg-config --silence-errors --exists 'libraw_r >= $3'; then
+        :
+    elif pkg-config --silence-errors --exists 'libraw >= $3'; then
         :
     elif ! searchpath $LIB_DIRS "libraw_r.a" || ! searchpath $HEADER_DIRS "libraw/libraw.h"; then
         printf "\nPackage libraw not found\n"

@@ -1,3 +1,20 @@
+Shotwell 0.7.2 - 10 September 2010
+----------------------------------
+
+  * Fixed major startup problem when the user's Pictures directory is actually
+    a symbolic link.
+  * Fixed potential crasher when the user's Pictures directory contains a
+    large number of subdirectories.
+  * No longer asking if copying or linking if importing from Pictures directory
+    (which will always be linked).
+  * Fixed issue when logging in to PicasaWeb with a password with a '+'
+    character.
+  * Fixed update problem when using an external editor on a photo that was
+    edited externally in an earlier session.
+  * Various bug fixes.
+  * Numerous translation updates.
+
+
 Shotwell 0.7.1 - 26 August 2010
 -----------------------------
 

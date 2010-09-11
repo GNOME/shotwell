@@ -80,7 +80,10 @@ public class LibraryWindow : AppWindow {
         }
     }
     
-    public static Gdk.Color SIDEBAR_BG_COLOR = parse_color("#EEE");
+    // special Yorba-selected sidebar background color for standard themes (humanity,
+    // clearlooks, etc.); dark themes use the theme's native background color
+    public static Gdk.Color SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
+    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xf00;
 
     private string import_dir = Environment.get_home_dir();
 
@@ -473,19 +476,23 @@ public class LibraryWindow : AppWindow {
         import_dialog.set_current_folder(import_dir);
         
         int response = import_dialog.run();
-
+        
         if (response == Gtk.ResponseType.OK) {
-            Gtk.ResponseType copy_files_response = copy_files_dialog();
+            // force file linking if directory is inside current library directory
+            Gtk.ResponseType copy_files_response =
+                AppDirs.is_in_import_dir(File.new_for_uri(import_dialog.get_uri()))
+                    ? Gtk.ResponseType.REJECT : copy_files_dialog();
             
             if (copy_files_response != Gtk.ResponseType.CANCEL) {
                 dispatch_import_jobs(import_dialog.get_uris(), "folders", 
                     copy_files_response == Gtk.ResponseType.ACCEPT);
             }
         }
+        
         import_dir = import_dialog.get_current_folder();
         import_dialog.destroy();
     }
-        
+    
     protected override void switched_pages(Page? old_page, Page? new_page) {
         set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
         
@@ -681,18 +688,18 @@ public class LibraryWindow : AppWindow {
     }
     
     private override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
-        Gdk.Atom target = Gtk.drag_dest_find_target(this, context, 
-			Gtk.drag_dest_get_target_list(this));
-        
+        Gdk.Atom target = Gtk.drag_dest_find_target(this, context, Gtk.drag_dest_get_target_list(this));
         if (((int) target) == ((int) Gdk.NONE)) {
             debug("drag target is GDK_NONE");
             Gdk.drag_status(context, 0, time);
+            
             return true;
         }
         
         // internal drag
         if (Gtk.drag_get_source_widget(context) != null) {
             Gdk.drag_status(context, Gdk.DragAction.PRIVATE, time);
+            
             return true;
         }
         
@@ -785,23 +792,30 @@ public class LibraryWindow : AppWindow {
         // https://bugzilla.gnome.org/show_bug.cgi?id=599321
         string uri_string = (string) selection_data.data;
         string[] uris_array = Uri.list_extract_uris(uri_string);
-
+        
         GLib.SList<string> uris = new GLib.SList<string>();
-        foreach (string uri in uris_array) {
+        foreach (string uri in uris_array)
             uris.append(uri);
-        }
         
         if (context.action == Gdk.DragAction.ASK) {
-            Gtk.ResponseType result = copy_files_dialog();
+            // Default action is to link, unless one or more URIs are external to the library
+            Gtk.ResponseType result = Gtk.ResponseType.REJECT;
+            foreach (string uri in uris) {
+                if (!AppDirs.is_in_import_dir(File.new_for_uri(uri))) {
+                    result = copy_files_dialog();
+                    
+                    break;
+                }
+            }
             
             switch (result) {
                 case Gtk.ResponseType.ACCEPT:
                     context.action = Gdk.DragAction.COPY;
-                    break;
+                break;
                 
                 case Gtk.ResponseType.REJECT:
                     context.action = Gdk.DragAction.LINK;
-                    break;
+                break;
                 
                 default:
                     // cancelled
@@ -810,9 +824,9 @@ public class LibraryWindow : AppWindow {
                     return;
             }
         }
-
+        
         dispatch_import_jobs(uris, "drag-and-drop", context.action == Gdk.DragAction.COPY);
-
+        
         Gtk.drag_finish(context, true, false, time);
     }
     
@@ -1169,7 +1183,7 @@ public class LibraryWindow : AppWindow {
             }
             
             // don't unmount mass storage cameras, as they are then unavailable to gPhoto
-            if (!camera.uri.has_prefix("file://")) {
+            if (mount != null && !camera.uri.has_prefix("file://")) {
                 if (page.unmount_camera(mount))
                     switch_to_page(page);
                 else
@@ -1412,7 +1426,17 @@ public class LibraryWindow : AppWindow {
         notebook.set_show_tabs(false);
         notebook.set_show_border(false);
         
-        sidebar.modify_base(Gtk.StateType.NORMAL, SIDEBAR_BG_COLOR);
+        Gtk.Settings settings = Gtk.Settings.get_default();
+        HashTable<string, Gdk.Color?> color_table = settings.color_hash;
+        Gdk.Color? base_color = color_table.lookup("bg_color");
+        if (base_color != null && (base_color.red > STANDARD_COMPONENT_MINIMUM ||
+            base_color.green > STANDARD_COMPONENT_MINIMUM ||
+            base_color.blue > STANDARD_COMPONENT_MINIMUM)) {
+            // if the current theme is a standard theme (as opposed to a dark theme), then
+            // use the specially-selected Yorba muted background color for the sidebar.
+            // otherwise, use the theme's native background color.
+            sidebar.modify_base(Gtk.StateType.NORMAL, SIDEBAR_STANDARD_BG_COLOR);
+        }
         
         // put the sidebar in a scrolling window
         Gtk.ScrolledWindow scrolled_sidebar = new Gtk.ScrolledWindow(null, null);

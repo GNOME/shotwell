@@ -45,7 +45,7 @@ public class AlienDatabaseImportSource {
             }
         }
 #if TRACE_MD5
-        debug("Photo MD5 %s: exif=%s preview=%s", get_filename(), exif_md5, preview_md5);
+        debug("Photo MD5 %s: preview=%s", get_filename(), preview_md5);
 #endif
         
         try {

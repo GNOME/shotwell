@@ -347,7 +347,7 @@ public class RESTTransaction {
             string formdata_string = "";
             foreach (RESTArgument arg in arguments) {
                 formdata_string = formdata_string + ("%s=%s&".printf(Soup.URI.encode(arg.key, "&"),
-                    Soup.URI.encode(arg.value, "&")));
+                    Soup.URI.encode(arg.value, "&+")));
             }
 
             // if the signature key isn't null, append the signature key-value pair to the

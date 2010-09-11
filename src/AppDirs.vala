@@ -31,12 +31,11 @@ class AppDirs {
     public static void verify_data_dir() {
         File data_dir = get_data_dir();
         try {
-            if (data_dir.query_exists(null) == false) {
-                if (!data_dir.make_directory_with_parents(null))
-                    error("Unable to create data directory %s", data_dir.get_path());
-            } 
+            if (!data_dir.query_exists(null))
+                data_dir.make_directory_with_parents(null);
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.panic(_("Unable to create data directory %s: %s").printf(data_dir.get_path(),
+                err.message));
         }
     }
     
@@ -51,6 +50,8 @@ class AppDirs {
             : data_dir;
     }
     
+    // The "import directory" is the same as the library directory, and are often used
+    // interchangeably throughout the code.
     public static File get_import_dir() {
         string path = Config.get_instance().get_import_dir();
         if (!is_string_empty(path)) {
@@ -73,6 +74,13 @@ class AppDirs {
         // If XDG yarfed, use ~/Pictures
         return File.new_for_path(Environment.get_home_dir()).get_child(_("Pictures"));
     }
+    
+    // Returns true if the File is in or is equal to the library/import directory.
+    public static bool is_in_import_dir(File file) {
+        File import_dir = get_import_dir();
+        
+        return file.has_prefix(import_dir) || file.equal(import_dir);
+    }
 
     public static void set_import_dir(string path) {
         Config.get_instance().set_import_dir(path);
@@ -94,16 +102,12 @@ class AppDirs {
         // Because multiple instances of the app can run at the same time, place temp files in
         // subdir named after process ID
         File tmp_dir = get_data_subdir("tmp").get_child("%d".printf((int) Posix.getpid()));
-        if (!tmp_dir.query_exists(null)) {
-            bool created = false;
-            try {
-                created = tmp_dir.make_directory_with_parents(null);
-            } catch (Error err) {
-                created = false;
-            }
-            
-            if (!created)
-                error("Unable to create temporary directory %s", tmp_dir.get_path());
+        try {
+            if (!tmp_dir.query_exists(null))
+                tmp_dir.make_directory_with_parents(null);
+        } catch (Error err) {
+            AppWindow.panic(_("Unable to create temporary directory %s: %s").printf(
+                tmp_dir.get_path(), err.message));
         }
         
         return tmp_dir;
@@ -115,12 +119,11 @@ class AppDirs {
             subdir = subdir.get_child(subname);
 
         try {
-            if (subdir.query_exists(null) == false) {
-                if (!subdir.make_directory_with_parents(null))
-                    error("Unable to create data subdirectory %s", subdir.get_path());
-            }
+            if (!subdir.query_exists(null))
+                subdir.make_directory_with_parents(null);
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.panic(_("Unable to create data subdirectory %s: %s").printf(subdir.get_path(),
+                err.message));
         }
         
         return subdir;
