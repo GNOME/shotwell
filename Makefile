@@ -1,6 +1,6 @@
 PROGRAM = shotwell
 
-VERSION = 0.7.2
+VERSION = 0.7.2+branch
 GETTEXT_PACKAGE = $(PROGRAM)
 BUILD_ROOT = 1
 
