@@ -605,10 +605,8 @@ public class LibraryMonitor : DirectoryMonitor {
         }
     }
     
-    // If modification time or filesize has changed, treat that as a full-blown modification
+    // If filesize has changed, treat that as a full-blown modification
     // and reimport ... this is problematic if only the metadata has changed, but so be it.
-    // See note at top as to why a matching filesize and timestamp of zero yields only
-    // an update of the timestamp.
     //
     // TODO: We could do an MD5 check for more accuracy.
     private void check_for_master_changes(LibraryPhoto photo, FileInfo info) {
@@ -616,7 +614,7 @@ public class LibraryMonitor : DirectoryMonitor {
         if (state.matches_file_info(info))
             return;
         
-        if (info.get_size() == state.filesize && state.timestamp == 0)
+        if (state.is_touched(info))
             enqueue_update_master_timestamp(photo, info);
         else
             enqueue_reimport_master(photo);
@@ -629,8 +627,7 @@ public class LibraryMonitor : DirectoryMonitor {
         if (state == null || state.matches_file_info(info))
             return;
         
-        // see note at top for why this is done
-        if (info.get_size() == state.filesize && state.timestamp == 0)
+        if (state.is_touched(info))
             enqueue_update_editable_timestamp(photo, info);
         else
             enqueue_reimport_editable(photo);

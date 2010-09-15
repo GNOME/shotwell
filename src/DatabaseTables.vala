@@ -638,6 +638,16 @@ public struct BackingPhotoState {
         
         return timestamp == modification.tv_sec;
     }
+    
+    public bool is_touched(FileInfo info) {
+        if (filesize != info.get_size())
+            return false;
+        
+        TimeVal modification;
+        info.get_modification_time(out modification);
+        
+        return timestamp != modification.tv_sec;
+    }
 }
 
 public struct PhotoRow {
