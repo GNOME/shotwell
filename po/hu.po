@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2+trunk\n"
+"Project-Id-Version: shotwell\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-08-27 14:22+0100\n"
+"PO-Revision-Date: 2010-09-11 13:21+0100\n"
 "Last-Translator: csola48 <csola48@gmail.com>\n"
 "Language-Team: Hungarian <csola48@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,9 @@ msgstr ""
 #: src/AppWindow.vala:625
 msgid "translator-credits"
 msgstr ""
+"Laszlo Csordas <csola48@gmail.com>\n"
 "Peter Bojtos <ptr@ulx.hu>\n"
-"Nikolas Slivka <snicore@gmail.com>\n"
-"Laszlo Csordas <csola48@gmail.com>"
+"Nikolas Slivka <snicore@gmail.com>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -105,7 +105,7 @@ msgstr "Teljes képernyő _elhagyása"
 
 #: src/AppWindow.vala:463
 msgid "_Quit"
-msgstr "_Kilépés"
+msgstr "Kilépé_s"
 
 #: src/AppWindow.vala:464
 msgid "Quit Shotwell"
@@ -303,11 +303,11 @@ msgstr "Fényképek rendezése készítésük dátuma szerint"
 
 #: src/CollectionPage.vala:517
 msgid "By _Rating"
-msgstr "_Kategória szerint"
+msgstr "Osztályozás szerint"
 
 #: src/CollectionPage.vala:518
 msgid "Sort photos by rating"
-msgstr "Fényképek rendezése kategória szerint"
+msgstr "Fényképek rendezése osztályozás szerint"
 
 #: src/CollectionPage.vala:529
 #: src/LibraryWindow.vala:506
@@ -424,7 +424,7 @@ msgstr[1] "Fájl hiba miatt %d fénykép nem duplikálható"
 
 #: src/Commands.vala:881
 msgid "Restoring previous rating"
-msgstr "Korábbi arány visszaállítása"
+msgstr "Korábbi osztályozás visszaállítása"
 
 #: src/Commands.vala:891
 #: src/Commands.vala:892
@@ -548,36 +548,36 @@ msgstr[1] "%d duplikált fénykép nem lett importálva:\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fénykép importálása meghiúsult a fájl vagy a hardver hibája miatt:\n"
+msgstr[1] "%d fénykép importálása meghiúsult a fájl vagy a hardver hibája miatt:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fénykép importálása meghiúsult a fényképezőgép hibája miatt:\n"
+msgstr[1] "%d fénykép importálása meghiúsult a fényképezőgép hibája miatt:\n"
 
 #: src/Dialogs.vala:371
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 nem támogatott fénykép átugorva:\n"
+msgstr[1] "%d nem támogatott fénykép átugorva:\n"
 
 #: src/Dialogs.vala:385
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 nem fénykép fájl átugorva:\n"
+msgstr[1] "%d nem fénykép fájl átugorva:\n"
 
 #: src/Dialogs.vala:396
 #, c-format
 msgid "1 photo skipped due to user cancel:\n"
 msgid_plural "%d photos skipped due to user cancel:\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 fénykép fájl felhasználó által átugorva:\n"
+msgstr[1] "%d fénykép fájl felhasználó által átugorva:\n"
 
 #: src/Dialogs.vala:410
 #, c-format
@@ -624,7 +624,13 @@ msgid_plural ""
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
+"Ezzel eltávolítja a fényképet a Shotwell könyvtárból. Szeretné ezt a fájlt a kukába mozgatni?\n"
+"\n"
+"Ez az akció nem vonható vissza!"
 msgstr[1] ""
+"Ezzel eltávolít %d fényképet a Shotwell könyvtárból. Szeretné ezeket a fájlokat a kukába mozgatni?\n"
+"\n"
+"Ez az akció nem vonható vissza!"
 
 #: src/Dialogs.vala:545
 msgid "_Trash File"
@@ -640,8 +646,8 @@ msgstr "Csak eltávolítás"
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural "This will destroy all changes made to %d external files.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ezzel minden cserét megsemmisít a külső fájlban. Folytatja?"
+msgstr[1] "Ezzel minden cserét megsemmisít %d külső fájlban. Folytatja?"
 
 #: src/Dialogs.vala:574
 msgid "Re_vert External Edit"
@@ -770,7 +776,13 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
+"\n"
+"\n"
+"és %d más."
 msgstr[1] ""
+"\n"
+"\n"
+"és %d mások."
 
 #: src/Dialogs.vala:1045
 #: src/Dialogs.vala:1069
@@ -1258,13 +1270,21 @@ msgstr "Már importált fényképek elrejtése"
 msgid "Only display photos that have not been imported"
 msgstr "Csak a nem importált fényképek mutatása"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "_Kijelöltek importálása"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Kijelöltek importálása"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Összes im_portálása"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Kiválasztott fényképek importálása az ön könyvtárába"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Összes importálása"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Összes fénykép importálása erről a fényképezőgépről az ön könyvtárába"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
@@ -1462,12 +1482,12 @@ msgstr "A fényképkönyvtára nem kompatibilis ezzel a Shotwell verzióval. Úg
 #: src/main.vala:84
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
-msgstr ""
+msgstr "Shotwell nem tudja frissíteni az ön fénykép könyvtárát %s verzióról %s verzióra. Több információhoz keresse fel a Shotwell Wiki-t: %s"
 
 #: src/main.vala:89
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
-msgstr ""
+msgstr "Az ön fénykép könyvtára nem kompatibilis a Shotwell ezen verziójával. Úgy tűnik, hogy ez a Shotwell %s verziójával lett készítve. A jelenlegi verzió a %s. Kérjük ürítse ki a %s verzióval készített könyvtárat és importálja újra a fényképeket."
 
 #: src/main.vala:94
 #, c-format
@@ -1497,7 +1517,7 @@ msgstr "Törlés..."
 
 #: src/Page.vala:2146
 msgid "Photos cannot be exported to this directory."
-msgstr ""
+msgstr "Ebbe a könyvtárba nem lehet fényképet exportálni."
 
 #: src/PhotoExporter.vala:185
 msgid "Exporting"
@@ -1774,7 +1794,7 @@ msgstr "A megadott Google fiókhoz nem tartozik Picasa Web Album. Böngészőbő
 
 #: src/PicasaConnector.vala:517
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Az email cím és a jelszó megadása szükséges a Google fiók biztonságához. "
 
 #: src/PicasaConnector.vala:552
 #, c-format
@@ -2167,21 +2187,19 @@ msgstr "Újra az utolsó visszavont műveletet"
 
 #: src/Resources.vala:142
 msgid "Re_name Event..."
-msgstr "Esemé_ny átnevezése..."
+msgstr "Esemény át_nevezése..."
 
 #: src/Resources.vala:144
 msgid "Rename the selected event"
 msgstr "Kiválasztott esemény átnevezése"
 
 #: src/Resources.vala:146
-#, fuzzy
 msgid "Make _Key Photo for Event"
-msgstr "Hangjelzés minden leütésnél"
+msgstr "_Jelmagyarázat egy eseményhez"
 
 #: src/Resources.vala:147
-#, fuzzy
 msgid "Make Key Photo for Event"
-msgstr "Hangjelzés minden leütésnél"
+msgstr "Jelmagyarázat egy eseményhez"
 
 #: src/Resources.vala:148
 msgid "Make the selected photo the thumbnail for the event"
@@ -2209,7 +2227,7 @@ msgstr ""
 
 #: src/Resources.vala:157
 msgid "_Merge Events"
-msgstr "Események összefűzése"
+msgstr "Események össze_fűzése"
 
 #: src/Resources.vala:158
 msgid "Merge"
@@ -2230,7 +2248,7 @@ msgstr "Osztályozás"
 
 #: src/Resources.vala:163
 msgid "Change the rating of your photo"
-msgstr "Fényképe besorolásának cseréje"
+msgstr "Fényképe osztályozásának cseréje"
 
 #: src/Resources.vala:165
 msgid "_Increase"
@@ -2242,7 +2260,7 @@ msgstr "Osztályzat növelése"
 
 #: src/Resources.vala:167
 msgid "Increase the rating of your photo"
-msgstr "Fényképe besorolásának növelése"
+msgstr "Fénykép osztályozásának növelése"
 
 #: src/Resources.vala:169
 msgid "_Decrease"
@@ -2254,11 +2272,11 @@ msgstr "Osztályzat csökkentése"
 
 #: src/Resources.vala:171
 msgid "Decrease the rating of your photo"
-msgstr "Fényképe besorolásának csökkentése"
+msgstr "Fényképe osztályozásának csökkentése"
 
 #: src/Resources.vala:173
 msgid "_Unrated"
-msgstr "Osztályozatlan"
+msgstr "_Osztályozatlan"
 
 #: src/Resources.vala:174
 msgid "Rate Unrated"
@@ -2286,7 +2304,7 @@ msgstr "Beállítás, mint visszautasított"
 
 #: src/Resources.vala:181
 msgid "Set rating to rejected"
-msgstr "Beállítás visszautasított besorolásra"
+msgstr "Beállítás visszautasított osztályzásra"
 
 #: src/Resources.vala:183
 msgid "All + _Rejected"
@@ -2324,11 +2342,11 @@ msgstr "Fénykép szűrő"
 
 #: src/Resources.vala:196
 msgid "Limit the number of photos displayed based on a filter"
-msgstr ""
+msgstr "A mutatott fényképek számának határolása egy szürővel"
 
 #: src/Resources.vala:198
 msgid "_Duplicate"
-msgstr "_Kétszerezés"
+msgstr "Két_szerezés"
 
 #: src/Resources.vala:199
 msgid "Duplicate"
@@ -2494,8 +2512,8 @@ msgstr "Címke módosítása ehhez a képhez"
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fénykép címkéje: \"%s\""
+msgstr[1] "Fényképek címkéje: \"%s\""
 
 #: src/Resources.vala:287
 #, c-format
@@ -2533,17 +2551,17 @@ msgstr "Nem lehet a címkét átnevezni erre \"%s\", mert a címke már létezik
 #: src/Resources.vala:432
 #, c-format
 msgid "Rate %s"
-msgstr "Arány %s"
+msgstr "Osztályzat %s"
 
 #: src/Resources.vala:433
 #, c-format
 msgid "Set rating to %s"
-msgstr "Arány beállítása erre: %s"
+msgstr "Osztályzat beállítása erre: %s"
 
 #: src/Resources.vala:434
 #, c-format
 msgid "Setting rating to %s"
-msgstr "Arány beállítása erre: %s"
+msgstr "Osztályzat beállítása erre: %s"
 
 #: src/Resources.vala:436
 #, c-format
@@ -2693,8 +2711,8 @@ msgstr "Diavetítés folytatása"
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ezzel eltávolítja a címkéjét \"%s\" a fényképről. Folytatja?"
+msgstr[1] "Ezzel eltávolítja a címkéjét \"%s\" %d fényképről. Folytatja?"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
@@ -2792,7 +2810,7 @@ msgstr "Shotwell beállítások"
 
 #: ui/shotwell.glade:124
 msgid "_Background:"
-msgstr "Háttér"
+msgstr "Háttér:"
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
@@ -2800,7 +2818,7 @@ msgstr "Fénykép importálása ide:"
 
 #: ui/shotwell.glade:188
 msgid "Bro_wse..."
-msgstr "Böngészés"
+msgstr "Böngészés..."
 
 #: ui/shotwell.glade:219
 msgid "white"
