@@ -1620,8 +1620,9 @@ public class LibraryWindow : AppWindow {
     }
 
     private bool is_no_event_selected(Gtk.TreePath path) {
-        if (is_page_selected(no_event_page, path)) {
+        if (no_event_page != null && is_page_selected(no_event_page, path)) {
             switch_to_page(no_event_page.get_page());
+            
             return true;
         }
         
@@ -1656,7 +1657,7 @@ public class LibraryWindow : AppWindow {
             switch_to_page(trash_page.get_page());
         } else if (offline_page != null && is_page_selected(offline_page, path)) {
             switch_to_page(offline_page.get_page());
-        } else if (is_page_selected(last_import_page, path)) {
+        } else if (last_import_page != null && is_page_selected(last_import_page, path)) {
             switch_to_page(last_import_page.get_page());
         } else {
             // nothing recognized selected
