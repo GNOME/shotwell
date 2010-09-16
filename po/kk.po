@@ -1,14 +1,14 @@
-# po/kk.po
-# Kazakh translation for Shotwell
+# po/shotwell.pot
+# PO message string template file for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2+trunk\n"
+"Project-Id-Version: shotwell-0.7.0+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-09-08 11:27+0600\n"
+"PO-Revision-Date: 2010-09-15 09:07+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -26,25 +26,25 @@ msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
-msgstr ""
+msgstr "Shotwell фотоларды басқарушысы"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
-msgstr ""
+msgstr "Фотоларды басқарушы"
 
 # GNOME Application Comment
 msgid "Organize your photos"
-msgstr ""
+msgstr "Фотосуреттеріңізді ретке келтіріңіз"
 
 # GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
-msgstr ""
+msgstr "Shotwell фотосуреттерді қараушы"
 
 # GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
-msgstr ""
+msgstr "Фотосуреттерді қараушы"
 
 #: src/AppWindow.vala:487
 msgid "_User Manual"
@@ -53,17 +53,17 @@ msgstr "Па_йдаланушы құжаттамасы"
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
 msgid "Import from default %1$s library (%2$s)"
-msgstr ""
+msgstr "Бастапқы %1$s жинағынан импорттау (%2$s)"
 
 #: src/AlienDatabaseImportDialog.vala:61
 #, c-format
 msgid "Import from another %s database file:"
-msgstr ""
+msgstr "Басқа %s дерекқор файлынан импорттау:"
 
 #: src/AlienDatabaseImportDialog.vala:65
 #, c-format
 msgid "Import from a %s database file:"
-msgstr ""
+msgstr "%s дерекқор файлынан импорттау:"
 
 #: src/AlienDatabaseImportDialog.vala:93
 msgid "No database selected"
@@ -84,11 +84,11 @@ msgstr "Суреттер"
 
 #: src/AppWindow.vala:55
 msgid "Pin Toolbar"
-msgstr ""
+msgstr "Панельді бекіту"
 
 #: src/AppWindow.vala:56
 msgid "Pin the toolbar open"
-msgstr ""
+msgstr "Панельді ашық түрінде бекіту"
 
 #: src/AppWindow.vala:60
 #: src/AppWindow.vala:137
@@ -148,6 +148,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Shotwell жинағына қатынау кезінде қатаң қате орын алған. Shotwell өз жұмысын жалғастыра алмайды.\n"
+"\n"
+"%s"
 
 #: src/AppWindow.vala:622
 msgid "Visit the Yorba web site"
@@ -212,7 +215,7 @@ msgstr "Үлке_йту"
 
 #: src/CollectionPage.vala:288
 msgid "Increase the magnification of the thumbnails"
-msgstr ""
+msgstr "Кіші көріністерді үлкейту"
 
 #: src/CollectionPage.vala:293
 #: src/PhotoPage.vala:2213
@@ -222,7 +225,7 @@ msgstr "Кі_шірейту"
 
 #: src/CollectionPage.vala:294
 msgid "Decrease the magnification of the thumbnails"
-msgstr ""
+msgstr "Кіші көріністерді кішірейту"
 
 #: src/CollectionPage.vala:431
 msgid "_Slideshow"
@@ -315,7 +318,7 @@ msgstr "Фотоларды өсу ретімен сұрыптау"
 #: src/CollectionPage.vala:535
 #: src/LibraryWindow.vala:513
 msgid "D_escending"
-msgstr "К_ему"
+msgstr "К_ему ретімен"
 
 #: src/CollectionPage.vala:536
 #: src/LibraryWindow.vala:514
@@ -337,23 +340,23 @@ msgstr "Айналдыру"
 #: src/CollectionPage.vala:1099
 #: src/CollectionPage.vala:1119
 msgid "Undoing Rotate"
-msgstr ""
+msgstr "Айналдыруды болдырмау"
 
 #: src/CollectionPage.vala:1128
 msgid "Flipping Horizontally"
-msgstr ""
+msgstr "Горизонталды айналдыру"
 
 #: src/CollectionPage.vala:1129
 msgid "Undoing Flip Horizontally"
-msgstr ""
+msgstr "Горизонталды айналдыруды болдырмау"
 
 #: src/CollectionPage.vala:1138
 msgid "Flipping Vertically"
-msgstr ""
+msgstr "Вертикалды айналдыру"
 
 #: src/CollectionPage.vala:1139
 msgid "Undoing Flip Vertically"
-msgstr ""
+msgstr "Вертикалды айналдыруды болдырмау"
 
 #: src/CollectionPage.vala:1729
 msgid "Photos"
@@ -361,35 +364,35 @@ msgstr "Фотолар"
 
 #: src/Commands.vala:510
 msgid "Reverting"
-msgstr ""
+msgstr "Қайтару"
 
 #: src/Commands.vala:510
 msgid "Undoing Revert"
-msgstr ""
+msgstr "Қайтаруды болдырмау"
 
 #: src/Commands.vala:554
 msgid "Enhancing"
-msgstr ""
+msgstr "Жақсарту"
 
 #: src/Commands.vala:554
 msgid "Undoing Enhance"
-msgstr ""
+msgstr "Жақсартуды болдырмау"
 
 #: src/Commands.vala:720
 msgid "Creating New Event"
-msgstr ""
+msgstr "Жаңа оқиғаны жасау"
 
 #: src/Commands.vala:721
 msgid "Removing Event"
-msgstr ""
+msgstr "Оқиға өшірілуде"
 
 #: src/Commands.vala:730
 msgid "Moving Photos to New Event"
-msgstr ""
+msgstr "Фотоларды жаңа оқиғаға жылжыту"
 
 #: src/Commands.vala:731
 msgid "Setting Photos to Previous Event"
-msgstr ""
+msgstr "Фотоларды алдыңғы оқиғаға орнату"
 
 #: src/Commands.vala:761
 msgid "Merging"
@@ -397,65 +400,62 @@ msgstr "Біріктіру"
 
 #: src/Commands.vala:762
 msgid "Unmerging"
-msgstr ""
+msgstr "Біріктіруді болдырмау"
 
 #: src/Commands.vala:771
 msgid "Duplicating photos"
-msgstr ""
+msgstr "Фотолар көшірмелерін жасау"
 
 #: src/Commands.vala:771
 msgid "Removing duplicated photos"
-msgstr ""
+msgstr "Фотолар көшірмелерін өшіру"
 
 #: src/Commands.vala:794
 #, c-format
 msgid "Unable to duplicate one photo due to a file error"
 msgid_plural "Unable to duplicate %d photos due to file errors"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d фотоның файл қатесі салдарынан көшірмесін жасау мүмкін емес"
 
 #: src/Commands.vala:881
 msgid "Restoring previous rating"
-msgstr ""
+msgstr "Алдыңғы рейтингті қайтару"
 
 #: src/Commands.vala:891
 #: src/Commands.vala:892
 msgid "Increasing ratings"
-msgstr ""
+msgstr "Рейтингтерді үлкейту"
 
 #: src/Commands.vala:891
 #: src/Commands.vala:892
 msgid "Decreasing ratings"
-msgstr ""
+msgstr "Рейтингтерді кішірейту"
 
 #: src/Commands.vala:952
 msgid "Original photo could not be adjusted."
-msgstr ""
+msgstr "Бастапқы фотоны түзету мүмкін емес."
 
 #: src/Commands.vala:972
 msgid "Adjusting Date and Time"
-msgstr ""
+msgstr "Күн мен уақытын баптау"
 
 #: src/Commands.vala:972
 msgid "Undoing Date and Time Adjustment"
-msgstr ""
+msgstr "Күн мен уақытын баптауды болдырмау"
 
 #: src/Commands.vala:999
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Келесі бастапқы фотоны баптау мүмкін емес."
 
 #: src/Commands.vala:1001
 #: src/Commands.vala:1013
 msgid "Time Adjustment Error"
-msgstr ""
+msgstr "Уақытты баптау қатесі."
 
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
 msgid_plural "Time adjustments could not be undone on the following photo files."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Уақытты баптауды келесі файл(дар)ға болдырмау мүмкін емес."
 
 #: src/Commands.vala:1265
 msgid "Move Photos to Trash"
@@ -471,7 +471,7 @@ msgstr "Фотоларды Shotwell қоқыс шелегіне тастау"
 
 #: src/Commands.vala:1266
 msgid "Restore the photos back to the Shotwell library"
-msgstr ""
+msgstr "Фотоларды қайта Shotwell жинағына қалпына келтіру."
 
 #: src/Commands.vala:1283
 msgid "Moving Photos to Trash"
@@ -518,7 +518,7 @@ msgstr "_Сапасы:"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
-msgstr ""
+msgstr "_Масштабтау шегі:"
 
 #: src/Dialogs.vala:144
 msgid " _pixels"
@@ -527,7 +527,7 @@ msgstr " _пиксель"
 #: src/Dialogs.vala:304
 #, c-format
 msgid "(and %d more)\n"
-msgstr ""
+msgstr "(және тағы да %d)\n"
 
 #: src/Dialogs.vala:327
 #, c-format
@@ -626,27 +626,23 @@ msgstr "Тек ө_шіру"
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
 msgid_plural "This will destroy all changes made to %d external files.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d сыртқы файлға жасалған өзгерістер жоғалады. Жалғастыру керек пе?"
 
 #: src/Dialogs.vala:574
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Сыр_тқы түзетуді болдырмау"
 
 #: src/Dialogs.vala:580
 msgid "Revert External Edit"
 msgid_plural "Revert External Edits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Сыртқы түзетуді болдырмау"
 
 #: src/Dialogs.vala:594
 #, c-format
 msgid "This will remove the photo from the library.  Continue?"
 msgid_plural "This will remove %d photos from the library.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Жинақтан %d фото өшіріледі. Жалғастыру керек пе?"
 
 #: src/Dialogs.vala:601
 msgid "_Remove"
@@ -655,39 +651,37 @@ msgstr "Өші_ру"
 #: src/Dialogs.vala:602
 msgid "Remove Photo From Library"
 msgid_plural "Remove Photos From Library"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Фотоны жинақтан өшіру"
 
 #: src/Dialogs.vala:679
 #, c-format
 msgid "%d%%"
-msgstr ""
+msgstr "%d%%"
 
 #: src/Dialogs.vala:781
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #: src/Dialogs.vala:782
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: src/Dialogs.vala:783
 msgid "24 Hr"
-msgstr ""
+msgstr "24 сағ"
 
 #: src/Dialogs.vala:798
 msgid "_Shift photos by the same amount"
-msgstr ""
+msgstr "Фотоларды дәл сол өл_шемге ығыстыру"
 
 #: src/Dialogs.vala:803
 msgid "Set _all photos to this time"
-msgstr ""
+msgstr "Бар_лық фотоларды осы уақытқа орнату"
 
 #: src/Dialogs.vala:809
 msgid "_Modify original file"
 msgid_plural "_Modify original files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Бастапқы файлды түзету"
 
 #: src/Dialogs.vala:891
 msgid "Original: "
@@ -696,7 +690,7 @@ msgstr "Бастапқы:"
 # The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:892
 msgid "%m/%d/%Y, %H:%M:%S"
-msgstr ""
+msgstr "%m/%d/%Y, %H:%M:%S"
 
 # The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:893
@@ -709,6 +703,8 @@ msgid ""
 "Exposure time will be shifted forward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Ұсталым уақыты алға келесі мәнге жылжытылады:\n"
+"%d %s, %d %s, %d %s, және %d %s."
 
 #: src/Dialogs.vala:979
 #, c-format
@@ -716,6 +712,8 @@ msgid ""
 "Exposure time will be shifted backward by\n"
 "%d %s, %d %s, %d %s, and %d %s."
 msgstr ""
+"Ұсталым уақыты артқа келесі мәнге жылжытылады:\n"
+"%d %s, %d %s, %d %s, және %d %s."
 
 #: src/Dialogs.vala:981
 msgid "day"
@@ -748,7 +746,9 @@ msgid_plural ""
 "\n"
 "And %d others."
 msgstr[0] ""
-msgstr[1] ""
+"\n"
+"\n"
+"Және %d басқа."
 
 #: src/Dialogs.vala:1045
 #: src/Dialogs.vala:1069
@@ -826,7 +826,7 @@ msgstr "Бастапқы өлшемі"
 
 #: src/Dimensions.vala:20
 msgid "Width or height"
-msgstr ""
+msgstr "Ені не биіктігі"
 
 #: src/Dimensions.vala:23
 msgid "Width"
@@ -839,31 +839,29 @@ msgstr "Биіктігі"
 #: src/DirectoryMonitor.vala:781
 #, c-format
 msgid "Unable to monitor %s: Not a directory"
-msgstr ""
+msgstr "%s бақылау мүмкін емес: Бума емес"
 
 #: src/EditingTools.vala:501
 msgid "Return to current photo dimensions"
-msgstr ""
+msgstr "Фотоның бастапқы өлшемдеріне қайту"
 
 #: src/EditingTools.vala:504
 msgid "Set the crop for this photo"
-msgstr ""
+msgstr "Бұл фотоны қиып жіберу"
 
 #: src/EditingTools.vala:516
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr ""
+msgstr "Қиып жіберу аймағын тік не жатық қояды"
 
 #: src/EditingTools.vala:584
 msgid "Unconstrained"
-msgstr ""
+msgstr "Еркін"
 
 #: src/EditingTools.vala:585
-#, fuzzy
 msgid "Square"
-msgstr "Өз өзіне көбейту"
+msgstr "Шаршы"
 
 #: src/EditingTools.vala:586
-#, fuzzy
 msgid "Screen"
 msgstr "Экран"
 
@@ -876,89 +874,86 @@ msgstr "Бастапқы өлшемі"
 #: src/EditingTools.vala:591
 #: src/EditingTools.vala:599
 #: src/EditingTools.vala:607
-#, fuzzy
 msgid "-"
 msgstr "-"
 
 #: src/EditingTools.vala:589
 msgid "SD Video (4 : 3)"
-msgstr ""
+msgstr "SD видеосы (4 : 3)"
 
 #: src/EditingTools.vala:590
 msgid "HD Video (16 : 9)"
-msgstr ""
+msgstr "HD видеосы (16 : 9)"
 
 #: src/EditingTools.vala:592
 #: src/Printing.vala:774
 msgid "Wallet (2 x 3 in.)"
-msgstr ""
+msgstr "Wallet (2 x 3 дюйм)"
 
 #: src/EditingTools.vala:593
 #: src/Printing.vala:777
 msgid "Notecard (3 x 5 in.)"
-msgstr ""
+msgstr "Notecard (3 x 5 дюйм)"
 
 #: src/EditingTools.vala:594
 #: src/Printing.vala:780
-#, fuzzy
 msgid "4 x 6 in."
-msgstr "\"%s\", %s ішінде"
+msgstr "4 x 6 дюйм"
 
 #: src/EditingTools.vala:595
 #: src/Printing.vala:783
-#, fuzzy
 msgid "5 x 7 in."
-msgstr "\"%s\", %s ішінде"
+msgstr "5 x 7 дюйм"
 
 #: src/EditingTools.vala:596
 #: src/Printing.vala:786
 msgid "8 x 10 in."
-msgstr ""
+msgstr "8 x 10 дюйм"
 
 #: src/EditingTools.vala:597
 #: src/Printing.vala:789
 msgid "11 x 14 in."
-msgstr ""
+msgstr "11 x 14 дюйм"
 
 #: src/EditingTools.vala:598
 #: src/Printing.vala:792
 msgid "16 x 20 in."
-msgstr ""
+msgstr "16 x 20 дюйм"
 
 #: src/EditingTools.vala:600
 #: src/Printing.vala:798
 msgid "Metric Wallet (9 x 13 cm)"
-msgstr ""
+msgstr "Metric Wallet (9 x 13 см)"
 
 #: src/EditingTools.vala:601
 #: src/Printing.vala:801
 msgid "Postcard (10 x 15 cm)"
-msgstr ""
+msgstr "Ашық хат (10 x 15 см)"
 
 #: src/EditingTools.vala:602
 #: src/Printing.vala:804
 msgid "13 x 18 cm"
-msgstr ""
+msgstr "13 x 18 см"
 
 #: src/EditingTools.vala:603
 #: src/Printing.vala:807
 msgid "18 x 24 cm"
-msgstr ""
+msgstr "18 x 24 см"
 
 #: src/EditingTools.vala:604
 #: src/Printing.vala:810
 msgid "20 x 30 cm"
-msgstr ""
+msgstr "20 x 30 см"
 
 #: src/EditingTools.vala:605
 #: src/Printing.vala:813
 msgid "24 x 40 cm"
-msgstr ""
+msgstr "24 x 40 см"
 
 #: src/EditingTools.vala:606
 #: src/Printing.vala:816
 msgid "30 x 40 cm"
-msgstr ""
+msgstr "30 x 40 см"
 
 #: src/EditingTools.vala:608
 msgid "Custom"
@@ -971,11 +966,11 @@ msgstr "Өлшемі:"
 
 #: src/EditingTools.vala:1704
 msgid "Close the red-eye tool"
-msgstr ""
+msgstr "Қызыл көздер сайманын жабу"
 
 #: src/EditingTools.vala:1707
 msgid "Remove any red-eye effects in the selected region"
-msgstr ""
+msgstr "Таңдалған аймақта \"қызыл көздер\" эффектісін өшіру"
 
 #: src/EditingTools.vala:2018
 msgid "_Reset"
@@ -985,9 +980,8 @@ msgstr "_Тастау"
 #: src/Properties.vala:320
 #: src/Properties.vala:324
 #: src/Properties.vala:331
-#, fuzzy
 msgid "Exposure:"
-msgstr "Экспозиция уақыты:"
+msgstr "Экспозиция:"
 
 #: src/EditingTools.vala:2037
 msgid "Saturation:"
@@ -995,7 +989,7 @@ msgstr "Қаңықтылығы:"
 
 #: src/EditingTools.vala:2045
 msgid "Tint:"
-msgstr ""
+msgstr "Реңі:"
 
 #: src/EditingTools.vala:2054
 msgid "Temperature:"
@@ -1019,32 +1013,30 @@ msgstr "Көлеңкелер"
 
 #: src/EditingTools.vala:2446
 msgid "Tint"
-msgstr ""
+msgstr "Реңі"
 
 #: src/EditingTools.vala:2452
 msgid "Saturation"
 msgstr "Қаңықтылығы"
 
 #: src/EditingTools.vala:2458
-#, fuzzy
 msgid "Exposure"
-msgstr "Экспозиция уақыты:"
+msgstr "Экспозиция"
 
 #: src/EditingTools.vala:2464
 msgid "Shadows"
-msgstr ""
+msgstr "Көлеңкелер"
 
 #: src/EditingTools.vala:2474
 msgid "Contrast Expansion"
-msgstr ""
+msgstr "Контраст кеңейтілуі"
 
 #: src/EventsDirectoryPage.vala:64
 #: src/Properties.vala:259
-#, fuzzy, c-format
+#, c-format
 msgid "%d Photo"
 msgid_plural "%d Photos"
-msgstr[0] "Фото"
-msgstr[1] ""
+msgstr[0] "%d фото"
 
 #: src/EventsDirectoryPage.vala:428
 msgid "Events"
@@ -1053,7 +1045,7 @@ msgstr "Оқиғалар"
 #: src/EventsDirectoryPage.vala:488
 #: src/LibraryWindow.vala:209
 msgid "Undated"
-msgstr ""
+msgstr "Күні жоқ"
 
 #: src/EventsDirectoryPage.vala:490
 #: src/LibraryWindow.vala:212
@@ -1063,17 +1055,17 @@ msgstr "%Y"
 #: src/EventsDirectoryPage.vala:490
 #: src/LibraryWindow.vala:212
 msgid "%B"
-msgstr ""
+msgstr "%B"
 
 #: src/Event.vala:473
 #, c-format
 msgid "Event %lld"
-msgstr ""
+msgstr "Оқиға %lld"
 
 #: src/FacebookConnector.vala:13
 #: src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
-msgstr ""
+msgstr "Shotwell Connect"
 
 #: src/FacebookConnector.vala:16
 msgid ""
@@ -1081,21 +1073,26 @@ msgid ""
 "\n"
 "If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
+"Сіз Facebook  ішіне кірген жоқсыз.\n"
+"\n"
+"Егер сізде Facebook тіркелгісі әлі жоқ болса, кіру үрдісі кезінде оны жасай аласыз. Кіру кезінде, Shotwell Connect сізден фотоларды жүктеу мен оларды сіздің таспаңызға жариялау үшін рұқсат сұрауы мүмкін. Ол рұқсаттар Shotwell Connect дұрыс жұмысы үшін керек."
 
 #: src/FacebookConnector.vala:18
 msgid ""
 "You have already logged in and out of Facebook during this Shotwell session.\n"
 "To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"Сіз осы сессия кезінде Facebook ішіне кіріп және шығып үлгердіңіз.\n"
+"Facebook ішіне жариялауды жалғастыру үшін, Shotwell қайта қосыңыз, одан кейін жариялап көріңіз."
 
 #: src/FacebookConnector.vala:261
 msgid "Testing connection to Facebook..."
-msgstr ""
+msgstr "Facebook-пен байланысты сынау..."
 
 #: src/FacebookConnector.vala:344
 #: src/PicasaConnector.vala:384
 msgid "Creating album..."
-msgstr ""
+msgstr "Альбомды жасау..."
 
 #: src/FacebookConnector.vala:713
 #, c-format
@@ -1104,14 +1101,17 @@ msgid ""
 "\n"
 "Where would you like to publish the selected photos?"
 msgstr ""
+"Сіз қазір Facebook ішіне %s ретінде кірдіңіз..\n"
+"\n"
+"Таңдалған фотоларды қайда жариялауды қалайсыз?"
 
 #: src/FacebookConnector.vala:754
 msgid "Publish to an e_xisting album:"
-msgstr ""
+msgstr "_Бар болып тұрған альбомға жариялау"
 
 #: src/FacebookConnector.vala:757
 msgid "Create a _new album named:"
-msgstr ""
+msgstr "Атауы келесіде_й жаңа альбомды жасау:"
 
 #: src/FacebookConnector.vala:773
 #: src/FlickrConnector.vala:884
@@ -1131,16 +1131,21 @@ msgid ""
 "\n"
 "You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
+"Сіз Flickr  ішіне кірген жоқсыз.\n"
+"\n"
+"Кіру үрдісін аяқтау үшін сізде Flickr тіркелгісі бар болуы керек. Кіру кезінде, сізге Shotwell Connect үшін Flickr тіркегіңізбен байланыс жасау үшін рұқсат беруіңіз керек."
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
 "To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
+"Сіз осы сессия кезінде Flickr ішіне кіріп және шығып үлгердіңіз.\n"
+"Flickr ішіне жариялауды жалғастыру үшін, Shotwell қайта қосыңыз, одан кейін жариялап көріңіз."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
-msgstr ""
+msgstr "Кіруге дайындалу..."
 
 #: src/FlickrConnector.vala:820
 #, c-format
@@ -1148,6 +1153,8 @@ msgid ""
 "You are logged into Flickr as %s.\n"
 "\n"
 msgstr ""
+"Сіз Flickr-ге %s ретінде кірдіңіз.\n"
+"\n"
 
 #: src/FlickrConnector.vala:822
 #, c-format
@@ -1155,10 +1162,12 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
+"Сіздің тегін Flickr тіркелгісі бір айда қанша мәліметті жүктеуге болатынын шектеп отыр.\n"
+"Бұл айда, сізде шекке дейін қалған %d мегабайт бар."
 
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
+msgstr "Сіздің Flickr Pro тіркелгіңіз шектелмеген жүктеулерді мүмкін қылады."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
@@ -1207,11 +1216,11 @@ msgstr "F-Spot"
 #: src/image_util.vala:260
 #, c-format
 msgid "Unable to export background to %s: %s"
-msgstr ""
+msgstr "Фон суретін %s ішіне экспорттау мүмкін емес: %s"
 
 #: src/ImportPage.vala:211
 msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr ""
+msgstr "Камераны тіркеуден босату мүмкін емес. Камераны файлдар басқарушысынан тіркеуден босатып көріңіз."
 
 #: src/ImportPage.vala:325
 #: src/ImportPage.vala:326
@@ -1220,23 +1229,23 @@ msgstr "Камера"
 
 #: src/ImportPage.vala:366
 msgid "Hide photos already imported"
-msgstr ""
+msgstr "Алдыңда импортталған фотоларды жасыру"
 
 #: src/ImportPage.vala:367
 msgid "Only display photos that have not been imported"
-msgstr ""
+msgstr "Тек импортталмаған фотоларды көрсету"
 
 #: src/ImportPage.vala:465
 msgid "Import _Selected"
-msgstr ""
+msgstr "Таңдалғанды им_порттау"
 
 #: src/ImportPage.vala:470
 msgid "Import _All"
-msgstr ""
+msgstr "Бар_лығын импорттау"
 
 #: src/ImportPage.vala:582
 msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
-msgstr ""
+msgstr "Shotwell камераға қолын жеткізу үшін оны алдымен тіркеуден босатуы керек. Жалғастыру керек пе?"
 
 #: src/ImportPage.vala:588
 msgid "_Unmount"
@@ -1244,15 +1253,15 @@ msgstr "_Тіркеуден босату"
 
 #: src/ImportPage.vala:593
 msgid "Please unmount the camera."
-msgstr ""
+msgstr "Камераны тіркеуден босатыңыз."
 
 #: src/ImportPage.vala:598
 msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
-msgstr ""
+msgstr "Камераны басқа бір қолданба ұстап тұр. Shotwell камераға тек ол бос кезінде ғана қолын жеткізе алады. Камераны қолданып тұрған барлық қолданбалады жабыңыз да, әрекетті қайталап көріңіз."
 
 #: src/ImportPage.vala:608
 msgid "Please close any other application using the camera."
-msgstr ""
+msgstr "Камераны қолданып тұрған барлық қолданбалады жабыңыз."
 
 #: src/ImportPage.vala:613
 #, c-format
@@ -1260,6 +1269,8 @@ msgid ""
 "Unable to fetch previews from the camera:\n"
 "%s"
 msgstr ""
+"Камерадан алдын-ала қарауды алу мүмкін емес:\n"
+"%s"
 
 #: src/ImportPage.vala:632
 msgid "Unmounting..."
@@ -1267,24 +1278,23 @@ msgstr "Тіркеуден босатылуда..."
 
 #: src/ImportPage.vala:701
 msgid "Fetching photo information"
-msgstr ""
+msgstr "Фото ақпаратын алу"
 
 #: src/ImportPage.vala:933
 #, c-format
 msgid "Fetching preview for %s"
-msgstr ""
+msgstr "%s үшін алдын-ала қарауды алу"
 
 #: src/ImportPage.vala:1024
 #, c-format
 msgid "Unable to lock camera: %s"
-msgstr ""
+msgstr "Камераны блоктау мүмкін емес: %s"
 
 #: src/ImportPage.vala:1096
 #, c-format
 msgid "Delete this photo from camera?"
 msgid_plural "Delete these %d photos from camera?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Камерадан бұл %d фотоны өшіру керек пе?"
 
 #: src/ImportPage.vala:1101
 msgid "_Keep"
@@ -1292,14 +1302,13 @@ msgstr "Ұ_стау"
 
 #: src/ImportPage.vala:1120
 msgid "Removing photos from camera"
-msgstr ""
+msgstr "Камерадан фотоларды өшіру"
 
 #: src/ImportPage.vala:1124
 #, c-format
 msgid "Unable to delete %d photo from the camera due to errors."
 msgid_plural "Unable to delete %d photos from the camera due to errors."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Қателер салдарынан камерадан %d фотоны өшіру мүмкін емес."
 
 #: src/ImportPage.vala:1181
 #: src/ImportPage.vala:1283
@@ -1309,16 +1318,16 @@ msgstr "Импорттау..."
 #: src/ImportPage.vala:1191
 #: src/ImportPage.vala:1221
 msgid "Stop importing photos"
-msgstr ""
+msgstr "Фотолар импортын тоқтату"
 
 #: src/ImportPage.vala:1220
 msgid "_Stop Import"
-msgstr ""
+msgstr "_Импортты тоқтату"
 
 #: src/ImportPage.vala:1301
 #, c-format
 msgid "Imported %s"
-msgstr ""
+msgstr "Импортталды %s"
 
 #: src/JfifSupport.vala:77
 msgid "JPEG"
@@ -1354,7 +1363,7 @@ msgstr "Б_умадан импорттау..."
 
 #: src/LibraryWindow.vala:459
 msgid "Import photos from disk to library"
-msgstr ""
+msgstr "Фотоларды дисктен жинаққа импорттау"
 
 #: src/LibraryWindow.vala:464
 msgid "Sort _Events"
@@ -1370,19 +1379,19 @@ msgstr "Қоқыс шелегінен барлық фотоларды өшіру
 
 #: src/LibraryWindow.vala:487
 msgid "_Basic Information"
-msgstr ""
+msgstr "Не_гізгі ақпарат"
 
 #: src/LibraryWindow.vala:488
 msgid "Display basic information for the selection"
-msgstr ""
+msgstr "Таңдалғаны үшін негізгі ақпаратты көрсету"
 
 #: src/LibraryWindow.vala:493
 msgid "E_xtended Information"
-msgstr ""
+msgstr "Кеңе_йтілген ақпарат"
 
 #: src/LibraryWindow.vala:494
 msgid "Display extended information for the selection"
-msgstr ""
+msgstr "Таңдалғаны үшін кеңейтілген ақпаратты көрсету"
 
 #: src/LibraryWindow.vala:654
 msgid "Import From Folder"
@@ -1398,7 +1407,7 @@ msgstr "Қоқыс шелегі тазартылуда..."
 
 #: src/LibraryWindow.vala:811
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
+msgstr "Shotwell сіздің үй бумаңыздан фотоларды импорттауға баплатған.\n"
 
 #: src/LibraryWindow.vala:814
 msgid "_Import"
@@ -1406,11 +1415,11 @@ msgstr "И_мпорттау"
 
 #: src/LibraryWindow.vala:814
 msgid "Library Location"
-msgstr ""
+msgstr "Жинақтың орналасуы"
 
 #: src/LibraryWindow.vala:827
 msgid "Photos cannot be imported from this directory."
-msgstr ""
+msgstr "Фотоларды бұл бумадан импорттау мүмкін емес."
 
 #: src/LibraryWindow.vala:1203
 msgid "Tags"
@@ -1423,26 +1432,26 @@ msgstr "Камералар"
 #: src/main.vala:79
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
-msgstr ""
+msgstr "Сіздегі Shotwell фото жинағыңыз Shotwell-дың осы нұсқасымен үйлеспейді. Ол жинақ Shotwell %s нұсқасымен жасалған сияқты. Қазіргі нұсқасы - %s. Shotwell-дың соңғы нұсқасын қолданыңыз."
 
 #: src/main.vala:84
 #, c-format
 msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
-msgstr ""
+msgstr "Shotwell сіздің фото жинағыңызды %s нұсқасынан %s нұсқасына дейін жаңарта алмады. Көбірек білу үшін Shotwell Wiki оқыңыз: %s"
 
 #: src/main.vala:89
 #, c-format
 msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
-msgstr ""
+msgstr "Сіздегі Shotwell фото жинағыңыз Shotwell-дың осы нұсқасымен үйлеспейді. Ол жинақ Shotwell %s нұсқасымен жасалған сияқты. Қазіргі нұсқасы - %s. %s өшіру арқылы жинағыңызды өшіріңіз де, фотоларды қайта импорттаңыз"
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
-msgstr ""
+msgstr "Shotwell дерекқорын тексеру талабын жасау кезіндегі белгісіз қате: %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
-msgstr ""
+msgstr "Shotwell жүктелуде"
 
 #: src/main.vala:250
 msgid "[FILE]"
@@ -1451,11 +1460,11 @@ msgstr "[ФАЙЛ]"
 #: src/main.vala:253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
+msgstr "Командалық жолдың барлық опцияларын қарау үшін '%s --help' енгізіңіз.\n"
 
 #: src/OfflinePage.vala:17
 msgid "Missing Files"
-msgstr ""
+msgstr "Файлдар жоқ"
 
 #: src/OfflinePage.vala:113
 msgid "Deleting..."
@@ -1463,16 +1472,16 @@ msgstr "Өшірілуде..."
 
 #: src/Page.vala:2146
 msgid "Photos cannot be exported to this directory."
-msgstr ""
+msgstr "Фотоларды бұл бумаға экспорттау мүмкін емес."
 
 #: src/PhotoExporter.vala:185
 msgid "Exporting"
-msgstr ""
+msgstr "Экспорттау"
 
 #: src/PhotoExporter.vala:202
 #, c-format
 msgid "File %s already exists.  Replace?"
-msgstr ""
+msgstr "%s файлы бар болып тұр. Оны алмастыру керек пе?"
 
 #: src/PhotoExporter.vala:204
 msgid "_Skip"
@@ -1488,16 +1497,16 @@ msgstr "Барл_ығын алмастыру"
 
 #: src/PhotoPage.vala:470
 msgid "Previous photo"
-msgstr ""
+msgstr "Алдыңғы фото"
 
 #: src/PhotoPage.vala:475
 msgid "Next photo"
-msgstr ""
+msgstr "Келесі фото"
 
 #: src/PhotoPage.vala:1585
 #, c-format
 msgid "Photo source file missing: %s"
-msgstr ""
+msgstr "Фотоның бастапқы файлы жоқ: %s"
 
 #: src/PhotoPage.vala:2036
 #: src/PhotoPage.vala:3147
@@ -1512,79 +1521,78 @@ msgstr "Са_ймандар"
 #: src/PhotoPage.vala:2045
 #: src/PhotoPage.vala:3156
 msgid "_Previous Photo"
-msgstr ""
+msgstr "Ал_дыңғы фото"
 
 #: src/PhotoPage.vala:2046
 #: src/PhotoPage.vala:3157
 msgid "Previous Photo"
-msgstr ""
+msgstr "Алдыңғы фото"
 
 #: src/PhotoPage.vala:2051
 #: src/PhotoPage.vala:3162
 msgid "_Next Photo"
-msgstr ""
+msgstr "К_елесі фото"
 
 #: src/PhotoPage.vala:2052
 #: src/PhotoPage.vala:3163
 msgid "Next Photo"
-msgstr ""
+msgstr "Келесі фото"
 
 #: src/PhotoPage.vala:2208
 #: src/PhotoPage.vala:3245
 msgid "Increase the magnification of the photo"
-msgstr ""
+msgstr "Фотоны үлкейту"
 
 #: src/PhotoPage.vala:2214
 #: src/PhotoPage.vala:3251
 msgid "Decrease the magnification of the photo"
-msgstr ""
+msgstr "Фотоны кішірейту"
 
 #: src/PhotoPage.vala:2219
 #: src/PhotoPage.vala:3256
 msgid "Fit to _Page"
-msgstr ""
+msgstr "Параққа сы_йдыру"
 
 #: src/PhotoPage.vala:2220
 #: src/PhotoPage.vala:3257
 msgid "Zoom the photo to fit on the screen"
-msgstr ""
+msgstr "Фотоны экранды толығымен алатындай етіп келтіру"
 
 #: src/PhotoPage.vala:2225
 #: src/PhotoPage.vala:3262
 msgid "Zoom _100%"
-msgstr ""
+msgstr "_100% дейін үлкейту"
 
 #: src/PhotoPage.vala:2226
 #: src/PhotoPage.vala:3263
 msgid "Zoom the photo to 100% magnification"
-msgstr ""
+msgstr "Фотоны өлшемінің 100%-на дейін өзгерту"
 
 #: src/PhotoPage.vala:2231
 #: src/PhotoPage.vala:3268
 msgid "Zoom _200%"
-msgstr ""
+msgstr "_200% дейін үлкейту"
 
 #: src/PhotoPage.vala:2232
 #: src/PhotoPage.vala:3269
 msgid "Zoom the photo to 200% magnification"
-msgstr ""
+msgstr "Фотоны өлшемінің 200%-на дейін өзгерту"
 
 #: src/PhotoPage.vala:2578
 #: src/util.vala:596
 msgid "Remove From Library"
-msgstr ""
+msgstr "Жинақтан өшіру"
 
 #: src/PhotoPage.vala:2578
 #: src/util.vala:597
 msgid "Removing Photo From Library"
 msgid_plural "Removing Photos From Library"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Фото(лар) жинақтан өшіру"
 
 #: src/PhotoPage.vala:2697
 #, c-format
 msgid "Unable to export %s: %s"
-msgstr ""
+msgstr "%s экспорттау мүмкін емес: %s"
 
 #: src/PhotoPage.vala:3119
 #: src/PhotoPage.vala:3414
@@ -1633,6 +1641,8 @@ msgid ""
 "%s does not support the file format of\n"
 "%s."
 msgstr ""
+"%s келесі үшін файл пішімін қолдамайды:\n"
+"%s."
 
 #: src/PhotoPage.vala:3414
 msgid "_Save a Copy"
@@ -1641,7 +1651,7 @@ msgstr "Кө_шірмесін сақтау"
 #: src/PhotoPage.vala:3417
 #, c-format
 msgid "Lose changes to %s?"
-msgstr ""
+msgstr "%s үшін өзгерістерді жоғалту керек пе?"
 
 #: src/PhotoPage.vala:3418
 msgid "Close _without Saving"
@@ -1650,7 +1660,7 @@ msgstr "Сақтамай-ақ _жабу"
 #: src/PhotoPage.vala:3454
 #, c-format
 msgid "Error while saving to %s: %s"
-msgstr ""
+msgstr "%s ішіне сақтау қатесі: %s"
 
 #: src/PhotoPage.vala:3490
 #: src/PhotoPage.vala:3526
@@ -1667,7 +1677,7 @@ msgstr "Файл қатесі"
 
 #: src/Photo.vala:30
 msgid "Unable to decode file"
-msgstr ""
+msgstr "Файлды декодалау мүмкін емес"
 
 #: src/Photo.vala:33
 msgid "Database error"
@@ -1675,7 +1685,7 @@ msgstr "Дерекқор қатесі"
 
 #: src/Photo.vala:36
 msgid "User aborted import"
-msgstr ""
+msgstr "Пайдаланушы импортты тоқтатқан"
 
 #: src/Photo.vala:39
 msgid "Not a file"
@@ -1683,7 +1693,7 @@ msgstr "Файл емес"
 
 #: src/Photo.vala:42
 msgid "File already exists in database"
-msgstr ""
+msgstr "Файл дерекқорда бар"
 
 #: src/Photo.vala:45
 msgid "Unsupported file format"
@@ -1708,7 +1718,7 @@ msgstr "Камера қатесі"
 #: src/Photo.vala:60
 #, c-format
 msgid "Imported failed (%d)"
-msgstr ""
+msgstr "Импорттау қатесі (%d)"
 
 #: src/Photo.vala:2363
 msgid "modified"
@@ -1720,22 +1730,25 @@ msgid ""
 "\n"
 "You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
+"Сіз Picasa Web Albums  ішіне кірген жоқсыз.\n"
+"\n"
+"Сізде Google тіркелгісі болып, және оны Picasa-мен қолдануға баптауыңыз керек. Тіркелгіні осылай баптау үшін браузер көмегімен Picasa Web Albums сайтына кем дегенде бір рет кіруіңіз керек."
 
 #: src/PicasaConnector.vala:514
 msgid "Enter the email address and password associated with your Picasa Web Albums account."
-msgstr ""
+msgstr "Сіздің Picasa Web Albums тіркелгіңізбен байланысқан эл.пошта адресін мен паролін енгізіңіз."
 
 #: src/PicasaConnector.vala:515
 msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Picasa Web Albums сіз енгізген эл.пошта адресін мен паролін танымады. Қайталап көру үшін, эл.пошта адресін мен парольді қайта енгізіңіз."
 
 #: src/PicasaConnector.vala:516
 msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Сіз енгізген Google тіркелгісіне қатысты эл.пошта адресі мен паролі Picasa Web Albums сайтымен бірге қолдануға бапталмаған. Тіркелгіні осылай баптау үшін браузер көмегімен Picasa Web Albums сайтына кем дегенде бір рет кіруіңіз керек. Қайталап көру үшін, эл.пошта адресін мен парольді қайта енгізіңіз."
 
 #: src/PicasaConnector.vala:517
 msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
-msgstr ""
+msgstr "Сіз енгізген Google тіркелгісіне қатысты эл.пошта адресі мен паролі қосымша қауіпсіздікті сұрайтындай етіп белгіленген. Осы белгілеуді өшіру үшін браузер көмегімен Picasa Web Albums сайтына кіріңіз. Қайталап көру үшін, эл.пошта адресін мен парольді қайта енгізіңіз."
 
 #: src/PicasaConnector.vala:552
 #, c-format
@@ -1750,7 +1763,7 @@ msgstr "Тіркелгі дайын емес"
 #: src/PicasaConnector.vala:565
 #, c-format
 msgid "Additional Security Required"
-msgstr ""
+msgstr "Қосымша қауіпсіздік керек"
 
 #: src/PicasaConnector.vala:576
 msgid "_Email address:"
@@ -1772,39 +1785,39 @@ msgstr "_Кіру"
 #: src/PicasaConnector.vala:684
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr ""
+msgstr "Сіз Picasa Web Albums ішіне %s ретінде кірдіңіз."
 
 #: src/PicasaConnector.vala:701
 msgid "Photos will appear in:"
-msgstr ""
+msgstr "Фотолар қайда көрінеді:"
 
 #: src/PicasaConnector.vala:714
 msgid "An _existing album:"
-msgstr ""
+msgstr "Б_ар болып тұрған альбом:"
 
 #: src/PicasaConnector.vala:728
 msgid "A _new album named:"
-msgstr ""
+msgstr "А_тауы келесідей жаңа альбом:"
 
 #: src/PicasaConnector.vala:740
 msgid "L_ist album in public gallery"
-msgstr ""
+msgstr "Ор_тақ галереясындағы альбомдар тізімі"
 
 #: src/PicasaConnector.vala:752
 msgid "Photo _size preset:"
-msgstr ""
+msgstr "Фото өл_шемінің алдын-ала орнатуы:"
 
 #: src/PicasaConnector.vala:859
 msgid "Small (640 x 480 pixels)"
-msgstr ""
+msgstr "Кіші (640 x 480 пиксель)"
 
 #: src/PicasaConnector.vala:860
 msgid "Medium (1024 x 768 pixels)"
-msgstr ""
+msgstr "Орташа (1024 x 768 пиксель)"
 
 #: src/PicasaConnector.vala:861
 msgid "Recommended (1600 x 1200 pixels)"
-msgstr ""
+msgstr "Ұсынылатын (1600 x 1200 пиксель)"
 
 #: src/PngSupport.vala:31
 msgid "PNG"
@@ -1812,47 +1825,47 @@ msgstr "PNG"
 
 #: src/Printing.vala:215
 msgid "Printed Image Size"
-msgstr ""
+msgstr "Басылып шығарылатын сурет өлшемі"
 
 #: src/Printing.vala:227
 msgid "Use a _standard size:"
-msgstr ""
+msgstr "Қалы_пты өлшемді қолдану:"
 
 #: src/Printing.vala:231
 msgid "Use a c_ustom size:"
-msgstr ""
+msgstr "Таңдау_ыңызша өлшемді қолдану:"
 
 #: src/Printing.vala:235
 msgid "_Fill the entire page"
-msgstr ""
+msgstr "Бүкіл _парақты толтыру"
 
 #: src/Printing.vala:282
 msgid "in."
-msgstr ""
+msgstr "дюйм"
 
 #: src/Printing.vala:283
 msgid "cm"
-msgstr ""
+msgstr "см"
 
 #: src/Printing.vala:302
 msgid "_Match photo aspect ratio"
-msgstr ""
+msgstr "_Фото жақтарының қатынасын сақтау"
 
 #: src/Printing.vala:315
 msgid "Pixel Resolution"
-msgstr ""
+msgstr "Кеңейтілу мүмкіндігі"
 
 #: src/Printing.vala:322
 msgid "_Output photo at:"
-msgstr ""
+msgstr "Фото_ны қайда сақтау:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
-msgstr ""
+msgstr "дюймге пиксель"
 
 #: src/Printing.vala:832
 msgid "Image Settings"
-msgstr ""
+msgstr "Сурет баптаулары"
 
 #: src/Printing.vala:846
 #: src/Printing.vala:947
@@ -1863,11 +1876,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Фотоны баспаға шығару мүмкін емес:\n"
+"\n"
+"%s"
 
 # The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:38
 msgid "%I:%M %p"
-msgstr ""
+msgstr "%I:%M %p"
 
 #: src/Properties.vala:50
 msgid "Today"
@@ -1878,9 +1894,8 @@ msgid "Yesterday"
 msgstr "Кеше"
 
 #: src/Properties.vala:249
-#, fuzzy
 msgid "Items:"
-msgstr "Элементтер жоқ"
+msgstr "Элементтер:"
 
 #: src/Properties.vala:252
 #, c-format
@@ -1898,15 +1913,13 @@ msgstr "Уақыты:"
 
 #: src/Properties.vala:280
 #: src/Properties.vala:285
-#, fuzzy
 msgid "From:"
-msgstr "Кімнен:"
+msgstr "Қайдан:"
 
 #: src/Properties.vala:281
 #: src/Properties.vala:286
-#, fuzzy
 msgid "To:"
-msgstr "Кімге:"
+msgstr "Қайда:"
 
 #: src/Properties.vala:412
 msgid "Location:"
@@ -1914,24 +1927,23 @@ msgstr "Орналасуы:"
 
 #: src/Properties.vala:414
 msgid "File size:"
-msgstr ""
+msgstr "Файл өлшемі:"
 
 #: src/Properties.vala:417
 msgid "Original dimensions:"
-msgstr ""
+msgstr "Бастапқы өлшемдері:"
 
 #: src/Properties.vala:420
 msgid "Camera make:"
-msgstr ""
+msgstr "Камера моделі:"
 
 #: src/Properties.vala:423
 msgid "Camera model:"
 msgstr "Камера моделі:"
 
 #: src/Properties.vala:426
-#, fuzzy
 msgid "Flash:"
-msgstr "Жарқылдау(вспышка):"
+msgstr "Жарқылдау:"
 
 #: src/Properties.vala:428
 msgid "Focal length:"
@@ -1939,15 +1951,15 @@ msgstr "Фокустық қашықтығы:"
 
 #: src/Properties.vala:431
 msgid "Exposure bias:"
-msgstr ""
+msgstr "Экспозицияны келтіру:"
 
 #: src/Properties.vala:433
 msgid "GPS latitude:"
-msgstr ""
+msgstr "GPS ендігі:"
 
 #: src/Properties.vala:436
 msgid "GPS longitude:"
-msgstr ""
+msgstr "GPS бойлығы:"
 
 #: src/Properties.vala:439
 msgid "Artist:"
@@ -1963,15 +1975,15 @@ msgstr "Бағд. қамтамасы:"
 
 #: src/Properties.vala:452
 msgid "Extended Information"
-msgstr ""
+msgstr "Кеңейтілген ақпараты"
 
 #: src/RawSupport.vala:127
 msgid "RAW"
-msgstr ""
+msgstr "RAW"
 
 #: src/Resources.vala:17
 msgid "Copyright 2009-2010 Yorba Foundation"
-msgstr ""
+msgstr "Copyright 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:90
 msgid "Rotate _Right"
@@ -1979,9 +1991,8 @@ msgstr "Оңғ_а бұру"
 
 #: src/Resources.vala:91
 #: src/Resources.vala:96
-#, fuzzy
 msgid "Rotate"
-msgstr "С_олға бұру"
+msgstr "Бұру"
 
 #: src/Resources.vala:92
 msgid "Rotate Right"
@@ -1989,7 +2000,7 @@ msgstr "Оңға бұру"
 
 #: src/Resources.vala:93
 msgid "Rotate the photos right"
-msgstr ""
+msgstr "Фотоларды оңға бұру"
 
 #: src/Resources.vala:95
 msgid "Rotate _Left"
@@ -2001,110 +2012,107 @@ msgstr "Солға бұру"
 
 #: src/Resources.vala:98
 msgid "Rotate the photos left"
-msgstr ""
+msgstr "Фотоларды солға бұру"
 
 #: src/Resources.vala:100
 msgid "Flip Hori_zontally"
-msgstr ""
+msgstr "Горизонта_лды айналдыру"
 
 #: src/Resources.vala:101
 msgid "Flip Horizontally"
-msgstr ""
+msgstr "Горизонталды айналдыру"
 
 #: src/Resources.vala:102
 msgid "Flip the photos horizontally"
-msgstr ""
+msgstr "Фотоларды горизонталды айналдыру"
 
 #: src/Resources.vala:104
 msgid "Flip Verti_cally"
-msgstr ""
+msgstr "_Вертикалды айналдыру"
 
 #: src/Resources.vala:105
 msgid "Flip Vertically"
-msgstr ""
+msgstr "Вертикалды айналдыру"
 
 #: src/Resources.vala:106
 msgid "Flip the photos vertically"
-msgstr ""
+msgstr "Фотоларды горизонталды айналдыру"
 
 #: src/Resources.vala:108
 msgid "_Enhance"
-msgstr ""
+msgstr "Жақсар_ту"
 
 #: src/Resources.vala:109
 msgid "Enhance"
-msgstr ""
+msgstr "Жақсарту"
 
 #: src/Resources.vala:110
 msgid "Automatically improve the photo's appearance"
-msgstr ""
+msgstr "Фото түрін автожақсарту"
 
 #: src/Resources.vala:112
-#, fuzzy
 msgid "_Crop"
-msgstr "Одан басқасын өшіру"
+msgstr "Қ_иып жіберу"
 
 #: src/Resources.vala:113
-#, fuzzy
 msgid "Crop"
-msgstr "Одан басқасын өшіру"
+msgstr "Қиып жіберу"
 
 #: src/Resources.vala:114
 msgid "Crop the photo's size"
-msgstr ""
+msgstr "Фотосуретті қиып жіберу"
 
 #: src/Resources.vala:116
 msgid "_Red-eye"
-msgstr ""
+msgstr "Қы_зыл көздер"
 
 #: src/Resources.vala:117
 msgid "Red-eye"
-msgstr ""
+msgstr "Қызыл көздер"
 
 #: src/Resources.vala:118
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr ""
+msgstr "Фотодағы қызыл көздер эффектілерін жою"
 
 #: src/Resources.vala:120
 msgid "_Adjust"
-msgstr ""
+msgstr "К_елтіру"
 
 #: src/Resources.vala:121
 msgid "Adjust"
-msgstr ""
+msgstr "Келтіру"
 
 #: src/Resources.vala:122
 msgid "Adjust the photo's color and tone"
-msgstr ""
+msgstr "Фото түсін мен реңің келтіру"
 
 #: src/Resources.vala:124
 msgid "Re_vert to Original"
-msgstr ""
+msgstr "Бастапқ_ыға тастау"
 
 #: src/Resources.vala:125
-#, fuzzy
 msgid "Revert to Original"
 msgstr "Бастапқы қалпына келтіру"
 
 #: src/Resources.vala:126
 msgid "Revert to the original photo"
-msgstr ""
+msgstr "Бастапқы қалпына келтіру"
 
 #: src/Resources.vala:128
 msgid "Revert External E_dits"
-msgstr ""
+msgstr "Сыртқы тү_зетулерді болдырмау"
 
 #: src/Resources.vala:129
 msgid "Revert to the master photo"
-msgstr ""
+msgstr "Бас фотоға дейін тастау"
 
 #: src/Resources.vala:131
 msgid "Set as _Desktop Background"
-msgstr ""
+msgstr "Жұмыс үс_тел тұсқағазы ретінде орнату"
 
 #: src/Resources.vala:132
 msgid "Set selected image to be the new desktop background"
-msgstr ""
+msgstr "Таңдалған суретті жұмыс үстелінің тұсқағазы ретінде орнату"
 
 #: src/Resources.vala:134
 msgid "_Undo"
@@ -2116,7 +2124,7 @@ msgstr "Болдырмау"
 
 #: src/Resources.vala:136
 msgid "Undo the last action"
-msgstr ""
+msgstr "Соңғы әрекетті болдырмау"
 
 #: src/Resources.vala:138
 msgid "_Redo"
@@ -2128,180 +2136,177 @@ msgstr "Қайталау"
 
 #: src/Resources.vala:140
 msgid "Redo the last undone action"
-msgstr ""
+msgstr "Соңғы әрекетті қайталау"
 
 #: src/Resources.vala:142
 msgid "Re_name Event..."
-msgstr ""
+msgstr "Оқ_иға атауын өзгерту..."
 
 #: src/Resources.vala:144
 msgid "Rename the selected event"
-msgstr ""
+msgstr "Таңдалған оқиғаның атауын өзгерту"
 
 #: src/Resources.vala:146
 msgid "Make _Key Photo for Event"
-msgstr ""
+msgstr "Оқиға үшін _негізгі фото жасау"
 
 #: src/Resources.vala:147
 msgid "Make Key Photo for Event"
-msgstr ""
+msgstr "Оқиға үшін негізгі фото жасау"
 
 #: src/Resources.vala:148
 msgid "Make the selected photo the thumbnail for the event"
-msgstr ""
+msgstr "Таңдалған фотоны оқиғаның кіші көрінісі ретінде орнату"
 
 #: src/Resources.vala:150
 msgid "_New Event"
-msgstr ""
+msgstr "_Жаңа оқиға"
 
 #: src/Resources.vala:151
 msgid "New Event"
-msgstr ""
+msgstr "Жаңа оқиға"
 
 #: src/Resources.vala:152
 msgid "Create new event from the selected photos"
-msgstr ""
+msgstr "Таңдалған фотолардан жаңа оқиғаны жасау"
 
 #: src/Resources.vala:154
 msgid "Move Photos"
-msgstr ""
+msgstr "Фотоларды жылжыту"
 
 #: src/Resources.vala:155
 msgid "Move photos to an event"
-msgstr ""
+msgstr "Фотоларды оқиғаға жылжыту"
 
 #: src/Resources.vala:157
 msgid "_Merge Events"
-msgstr ""
+msgstr "_Оқиғаларды біріктіру"
 
 #: src/Resources.vala:158
 msgid "Merge"
-msgstr ""
+msgstr "Біріктіру"
 
 #: src/Resources.vala:159
 msgid "Merge into a single event"
-msgstr ""
+msgstr "Бір оқиғаға біріктіру"
 
 #: src/Resources.vala:161
 msgid "_Set Rating"
-msgstr ""
+msgstr "_Рейтингті орнату"
 
 #: src/Resources.vala:162
 msgid "Set Rating"
-msgstr ""
+msgstr "Рейтингті орнату"
 
 #: src/Resources.vala:163
 msgid "Change the rating of your photo"
-msgstr ""
+msgstr "Фотоңыздың рейтингін орнату"
 
 #: src/Resources.vala:165
 msgid "_Increase"
-msgstr ""
+msgstr "Ү_лкейту"
 
 #: src/Resources.vala:166
 msgid "Increase Rating"
-msgstr ""
+msgstr "Рейтингі үлкейту"
 
 #: src/Resources.vala:167
 msgid "Increase the rating of your photo"
-msgstr ""
+msgstr "Фотоңыздың рейтингін үлкейту"
 
 #: src/Resources.vala:169
 msgid "_Decrease"
-msgstr ""
+msgstr "Кі_шірейту"
 
 #: src/Resources.vala:170
 msgid "Decrease Rating"
-msgstr ""
+msgstr "Рейтингі кішірейту"
 
 #: src/Resources.vala:171
 msgid "Decrease the rating of your photo"
-msgstr ""
+msgstr "Фотоңыздың рейтингін кішірейту"
 
 #: src/Resources.vala:173
 msgid "_Unrated"
-msgstr ""
+msgstr "Рейт_ингсіз"
 
 #: src/Resources.vala:174
 msgid "Rate Unrated"
-msgstr ""
+msgstr "Рейтингсіз етіп белгілеу"
 
 #: src/Resources.vala:175
 msgid "Setting as unrated"
-msgstr ""
+msgstr "Рейтингсіз етіп белгілеу"
 
 #: src/Resources.vala:176
 msgid "Remove any ratings"
-msgstr ""
+msgstr "Бар рейтингілерді өшіру"
 
 #: src/Resources.vala:178
-#, fuzzy
 msgid "_Rejected"
-msgstr "Сертификат тайдырылған"
+msgstr "Та_йдырылған"
 
 #: src/Resources.vala:179
 msgid "Rate Rejected"
-msgstr ""
+msgstr "Тайдырылған етіп белгілеу"
 
 #: src/Resources.vala:180
 msgid "Setting as rejected"
-msgstr ""
+msgstr "Тайдырылған етіп белгілеу"
 
 #: src/Resources.vala:181
 msgid "Set rating to rejected"
-msgstr ""
+msgstr "Рейтингі тайдырылған етіп орнату"
 
 #: src/Resources.vala:183
 msgid "All + _Rejected"
-msgstr ""
+msgstr "Барл_ығы + тайдырылған"
 
 #: src/Resources.vala:184
 #: src/Resources.vala:185
 msgid "Show all photos, including rejected"
-msgstr ""
+msgstr "Барлық фотоларды көрсету, тайдырылғандармен қоса"
 
 #: src/Resources.vala:187
 msgid "_All Photos"
-msgstr ""
+msgstr "_Барлық фотолар"
 
 #: src/Resources.vala:188
 #: src/Resources.vala:189
 msgid "Show all photos"
-msgstr ""
+msgstr "Барлық фотоларды көрсету"
 
 #: src/Resources.vala:191
 msgid "_Ratings"
-msgstr ""
+msgstr "Р_ейтингтер"
 
 #: src/Resources.vala:192
 msgid "Display each photo's rating"
-msgstr ""
+msgstr "Әр фотоның рейтингі көрсету"
 
 #: src/Resources.vala:194
 msgid "_Filter Photos"
-msgstr ""
+msgstr "Фотоларды сүз_гілеу"
 
 #: src/Resources.vala:195
 msgid "Filter Photos"
-msgstr ""
+msgstr "Фотоларды сүзгілеу"
 
 #: src/Resources.vala:196
 msgid "Limit the number of photos displayed based on a filter"
-msgstr ""
+msgstr "Көрсетілетін фотолардың санын сүзгі негізінде азайту"
 
 #: src/Resources.vala:198
-#, fuzzy
 msgid "_Duplicate"
-msgstr "Хабарлама көшірмесі"
+msgstr "Кө_шірмесін жасау"
 
 #: src/Resources.vala:199
-#, fuzzy
 msgid "Duplicate"
-msgstr "Хабарлама көшірмесі"
+msgstr "Көшірмесін жасау"
 
 #: src/Resources.vala:200
 msgid "Make a duplicate of the photo"
-msgstr ""
+msgstr "Фотоның көшірмесін жасау"
 
 #: src/Resources.vala:202
 msgid "_Export..."
@@ -2309,11 +2314,11 @@ msgstr "_Экспорт..."
 
 #: src/Resources.vala:203
 msgid "Export to disk"
-msgstr ""
+msgstr "Дискіге экспорттау"
 
 #: src/Resources.vala:206
 msgid "View and change page setup printing"
-msgstr ""
+msgstr "Парақтың баспаға шығару баптауларын қарау мен өзгерту"
 
 #: src/Resources.vala:208
 msgid "_Print..."
@@ -2321,7 +2326,7 @@ msgstr "Бас_паға шығару..."
 
 #: src/Resources.vala:211
 msgid "Pu_blish..."
-msgstr ""
+msgstr "Жари_ялау..."
 
 #: src/Resources.vala:212
 msgid "Publish"
@@ -2329,212 +2334,205 @@ msgstr "Жариялау"
 
 #: src/Resources.vala:213
 msgid "Publish to various websites"
-msgstr ""
+msgstr "Әртүрлі веб сайттарға жариялау"
 
 #: src/Resources.vala:215
 msgid "E_dit Title..."
-msgstr ""
+msgstr "Атау_ын түзету..."
 
 #: src/Resources.vala:217
 msgid "Edit title of the selected photo"
-msgstr ""
+msgstr "Таңдалған фотоның атауын түзету"
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr ""
+msgstr "_Күн мен уақытын түзету..."
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
-msgstr ""
+msgstr "Күн мен уақытын түзету"
 
 #: src/Resources.vala:221
 msgid "Adjust date and time of selected photos"
-msgstr ""
+msgstr "Таңдалған фотоның күн мен уақытын түзету"
 
 #: src/Resources.vala:223
 msgid "Add _Tags..."
-msgstr ""
+msgstr "Тегтерді қ_осу..."
 
 #: src/Resources.vala:224
 #: src/Resources.vala:246
 msgid "Add Tags"
-msgstr ""
+msgstr "Тегтерді қосу"
 
 #: src/Resources.vala:225
 msgid "Add one or more tags to the selected photos"
-msgstr ""
+msgstr "Таңдалған фотоға бір не бірнеше тегтер қосыңыз"
 
 #: src/Resources.vala:227
 msgid "_Preferences"
 msgstr "Қа_лаулар"
 
 #: src/Resources.vala:228
-#, fuzzy
 msgid "Edit preferences"
-msgstr "Thunar баптауларын түзету"
+msgstr "Баптауларын түзету"
 
 #: src/Resources.vala:230
 msgid "_Open With External Editor"
-msgstr ""
+msgstr "_Сыртқы түзетушімен ашу"
 
 #: src/Resources.vala:231
 msgid "Open the selected photo with an external image editor"
-msgstr ""
+msgstr "Таңдалған фотоны сыртқы суреттер түзетушісі көмегімен ашу"
 
 #: src/Resources.vala:233
 msgid "Open With RA_W Editor"
-msgstr ""
+msgstr "RAW түзетушісімен ашу"
 
 #: src/Resources.vala:234
 msgid "Open the selected photo with a RAW image editor"
-msgstr ""
+msgstr "Таңдалған фотоны RAW суреттерді түзетушісімен ашу"
 
 #: src/Resources.vala:237
 #, c-format
 msgid "Unable to launch editor: %s"
-msgstr ""
+msgstr "Түзетушіні жөнелту мүмкін емес: %s"
 
 #: src/Resources.vala:242
 #, c-format
 msgid "Add Tag \"%s\""
-msgstr ""
+msgstr "\"%s\" тегін қосу"
 
 #: src/Resources.vala:244
 #, c-format
 msgid "Add Tags \"%s\" and \"%s\""
-msgstr ""
+msgstr "\"%s\" және \"%s\" тегтерін қосу"
 
 #: src/Resources.vala:250
 #, c-format
 msgid "_Delete Tag \"%s\""
-msgstr ""
+msgstr "\"%s\" те_гін өшіру"
 
 #: src/Resources.vala:254
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr ""
+msgstr "\"%s\" тегін өшіру"
 
 #: src/Resources.vala:258
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\"%s\" тегін %d фотодан өшіру"
 
 #: src/Resources.vala:262
 msgid "Delete Tag"
-msgstr ""
+msgstr "Тегті өшіру"
 
 #: src/Resources.vala:265
 #, c-format
 msgid "Re_name Tag \"%s\"..."
-msgstr ""
+msgstr "\"%s\" тегінің атын ауыст_ыру..."
 
 #: src/Resources.vala:269
 #, c-format
 msgid "Rename Tag \"%s\" to \"%s\""
-msgstr ""
+msgstr "\"%s\" тегтің атын \"%s\" етіп орнату"
 
 #: src/Resources.vala:273
 #, c-format
 msgid "Rename the tag \"%s\""
-msgstr ""
+msgstr "\"%s\" тегінің атын ауыстыру"
 
 #: src/Resources.vala:276
 msgid "Rename Tag"
-msgstr ""
+msgstr "Тегтің атын ауыстыру"
 
 #: src/Resources.vala:278
 msgid "Modif_y Tags..."
-msgstr ""
+msgstr "Те_гтерді түзету..."
 
 #: src/Resources.vala:279
 msgid "Modify Tags"
-msgstr ""
+msgstr "Тегті түзету"
 
 #: src/Resources.vala:280
 msgid "Modify the tags for this photo"
-msgstr ""
+msgstr "Бұл фото үшін тегтерді түзету"
 
 #: src/Resources.vala:283
 #, c-format
 msgid "Tag Photo as \"%s\""
 msgid_plural "Tag Photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Фото(лар)ға \"%s\" тегін қосу"
 
 #: src/Resources.vala:287
 #, c-format
 msgid "Tag the selected photo as \"%s\""
 msgid_plural "Tag the selected photos as \"%s\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Таңдалған фотоға \"%s\" тегін қосу"
 
 #: src/Resources.vala:291
 #, c-format
 msgid "Remove Tag \"%s\" From _Photo"
 msgid_plural "Remove Tag \"%s\" From _Photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Фото(лар)дан \"%s\" тегін ө_шіру"
 
 #: src/Resources.vala:295
 #, c-format
 msgid "Remove Tag \"%s\" From Photo"
 msgid_plural "Remove Tag \"%s\" From Photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Фото(лар)дан \"%s\" тегін өшіру"
 
 #: src/Resources.vala:300
 #, c-format
 msgid "Remove tag \"%s\" from the selected photo"
 msgid_plural "Remove tag \"%s\" from the selected photos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Таңдалған фото(лар)дан \"%s\" тегін өшіру"
 
 #: src/Resources.vala:305
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
-msgstr ""
+msgstr "Тег үшін жаңа \"%s\" атауын орнату мүмкін емес, өйткені ондай тег бар болып тұр."
 
 #: src/Resources.vala:432
-#, fuzzy, c-format
+#, c-format
 msgid "Rate %s"
-msgstr "Деңгейі :"
+msgstr "%s етіп баға беру"
 
 #: src/Resources.vala:433
 #, c-format
 msgid "Set rating to %s"
-msgstr ""
+msgstr "Рейтингін %s етіп орнату"
 
 #: src/Resources.vala:434
 #, c-format
 msgid "Setting rating to %s"
-msgstr ""
+msgstr "Рейтинг %s етіп орнатылуда"
 
 #: src/Resources.vala:436
-#, fuzzy, c-format
+#, c-format
 msgid "Display %s"
-msgstr "ДИСПЛЕЙ"
+msgstr "Көрсету %s"
 
 #: src/Resources.vala:437
 #, c-format
 msgid "Only show photos with a rating of %s"
-msgstr ""
+msgstr "Тек қана рейтингі %s болатын фотоларды көрсету"
 
 #: src/Resources.vala:438
 #, c-format
 msgid "%s or Better"
-msgstr ""
+msgstr "%s не жақсырақ"
 
 #: src/Resources.vala:439
 #, c-format
 msgid "Display %s or Better"
-msgstr ""
+msgstr "%s не жақсырақ көрсету"
 
 #: src/Resources.vala:440
 #, c-format
 msgid "Only show photos with a rating of %s or better"
-msgstr ""
+msgstr "Тек қана рейтингі %s не одан жақсы болатын фотоларды көрсету"
 
 #: src/Resources.vala:530
 #: src/TagPage.vala:131
@@ -2543,12 +2541,12 @@ msgstr "Ө_шіру"
 
 #: src/Resources.vala:531
 msgid "Remove the selected photos from the trash"
-msgstr ""
+msgstr "Таңдалған фотоларды қоқыс шелегінен өшіру"
 
 #: src/Resources.vala:532
 #: src/Resources.vala:545
 msgid "Remove the selected photos from the library"
-msgstr ""
+msgstr "Таңдалған фотоларды жинақтан өшіру"
 
 #: src/Resources.vala:534
 msgid "_Restore"
@@ -2556,28 +2554,28 @@ msgstr "Қал_пына келтіру"
 
 #: src/Resources.vala:535
 msgid "Move the selected photos back into the library"
-msgstr ""
+msgstr "Таңдалған фотоларды жинаққа қайта апару"
 
 #: src/Resources.vala:537
 msgid "Show in File Mana_ger"
-msgstr ""
+msgstr "Файлдар басқарушысында көрсету"
 
 #: src/Resources.vala:538
 msgid "Open the selected photo's directory in the file manager"
-msgstr ""
+msgstr "Таңдалған фотоның бумасын файлдар басқарушысында ашу"
 
 #: src/Resources.vala:541
 #, c-format
 msgid "Unable to open in file manager: %s"
-msgstr ""
+msgstr "Файлдар басқарушысында ашу сәтсіз: %s"
 
 #: src/Resources.vala:544
 msgid "R_emove From Library"
-msgstr ""
+msgstr "Ж_инақтан өшіру"
 
 #: src/Resources.vala:546
 msgid "Remove the photo from the library"
-msgstr ""
+msgstr "Фотоны жинақтан өшіру"
 
 #: src/Resources.vala:548
 msgid "_Move to Trash"
@@ -2605,9 +2603,8 @@ msgid "Settings"
 msgstr "Баптаулар"
 
 #: src/SlideshowPage.vala:66
-#, fuzzy
 msgid "Delay:"
-msgstr "Күту|<i>Ұзақ</i>"
+msgstr "Күту:"
 
 #: src/SlideshowPage.vala:67
 msgid "seconds"
@@ -2645,7 +2642,7 @@ msgstr "Слайдшоу баптауларын өзгерту"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
-msgstr ""
+msgstr "Барлық фотолардың бастапқы файлдары жоқ."
 
 #: src/SlideshowPage.vala:224
 msgid "Play"
@@ -2659,8 +2656,7 @@ msgstr "Слайдшоуды жалғастыру"
 #, c-format
 msgid "This will remove the tag \"%s\" from one photo.  Continue?"
 msgid_plural "This will remove the tag \"%s\" from %d photos.  Continue?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\"%s\" тегі %d фотодан өшіріледі. Жалғастыру керек пе?"
 
 #: src/TrashPage.vala:17
 msgid "Trash"
@@ -2677,28 +2673,27 @@ msgstr[0] "Фото өшіру"
 
 #: src/util.vala:417
 msgid "%a %b %d, %Y"
-msgstr ""
+msgstr "%a %b %d, %Y"
 
 #: src/WebConnectors.vala:637
 msgid "The selected photos were successfully published."
-msgstr ""
+msgstr "Таңдалған фотолар сәтті жарияланды."
 
 #: src/WebConnectors.vala:643
 msgid "Fetching account information..."
-msgstr ""
+msgstr "Тіркелгі ақпараты алынуда..."
 
 #: src/WebConnectors.vala:649
-#, fuzzy
 msgid "Logging in..."
-msgstr "Жүйеге авто кіру..."
+msgstr "Жүйеге кіру..."
 
 #: src/WebConnectors.vala:677
 msgid "Publish Photos"
-msgstr ""
+msgstr "Фотоларды жариялау"
 
 #: src/WebConnectors.vala:688
 msgid "Publish photos _to:"
-msgstr ""
+msgstr "Фотоларды жари_ялау орны:"
 
 #: src/WebConnectors.vala:807
 msgid "_Close"
@@ -2707,47 +2702,47 @@ msgstr "_Жабу"
 #: src/WebConnectors.vala:830
 #, c-format
 msgid "Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
+msgstr "%s жеріне жариялауды жалғастыру мүмкін емес, өйткені қызметпен байланысу мүмкін емес."
 
 #: src/WebConnectors.vala:833
 #, c-format
 msgid "Publishing to %s can't continue because communication with the service failed."
-msgstr ""
+msgstr "%s жеріне жариялауды жалғастыру мүмкін емес, өйткені қызметпен байланыс орнату сәтсіз."
 
 #: src/WebConnectors.vala:836
 #, c-format
 msgid "Publishing to %s can't continue due to a protocol error."
-msgstr ""
+msgstr "%s жеріне жариялауды жалғастыру хаттама қатесі салдарынан мүмкін емес."
 
 #: src/WebConnectors.vala:838
 #, c-format
 msgid "Publishing to %s can't continue because the service returned an error."
-msgstr ""
+msgstr "%s жеріне жариялауды жалғастыру сервер қате қайтарған соң мүмкін емес."
 
 #: src/WebConnectors.vala:840
 #, c-format
 msgid "Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
+msgstr "%s жеріне жариялауды жалғастыру сервер қате жауап қайтарған соң мүмкін емес."
 
 #: src/WebConnectors.vala:843
 #, c-format
 msgid "Publishing to %s can't continue because an error occurred."
-msgstr ""
+msgstr "%s жеріне жариялауды жалғастыру мүмкін емес, өйткені қате орын алды."
 
 #: src/WebConnectors.vala:847
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
+msgstr "Басқа қызметке жариялап көру үшін, үстіндегі мәзірден біреуін таңдаңыз."
 
 #: src/WebConnectors.vala:924
 #: src/WebConnectors.vala:1037
 msgid "Preparing photos for upload"
-msgstr ""
+msgstr "Фотоларды жүктеуге дайындау"
 
 #: src/WebConnectors.vala:925
 #: src/WebConnectors.vala:977
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr ""
+msgstr "Жүктелуде %d фото, барлығы %d"
 
 #: ui/shotwell.glade:101
 #: ui/shotwell.glade:444
@@ -2760,7 +2755,7 @@ msgstr "_Фон:"
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
-msgstr ""
+msgstr "Фотоларды қа_йда импорттау:"
 
 #: ui/shotwell.glade:188
 msgid "Bro_wse..."
@@ -2775,25 +2770,24 @@ msgid "black"
 msgstr "қара"
 
 #: ui/shotwell.glade:261
-#, fuzzy
 msgid "Display"
-msgstr "Дисплей"
+msgstr "Көрсету"
 
 #: ui/shotwell.glade:299
 msgid "External Editors"
-msgstr ""
+msgstr "Сыртқы түзетушілер"
 
 #: ui/shotwell.glade:321
 msgid "_External photo editor:"
-msgstr ""
+msgstr "Сыртқы ф_отолар түзетушісі:"
 
 #: ui/shotwell.glade:334
 msgid "External _RAW editor:"
-msgstr ""
+msgstr "С_ыртқы RAW түзетушісі:"
 
 #: ui/shotwell.glade:511
 msgid "Preparing pictures for import..."
-msgstr ""
+msgstr "Суреттерді импортқа дайындау..."
 
 #: ui/shotwell.glade:542
 msgid "error"
