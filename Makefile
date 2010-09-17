@@ -113,7 +113,7 @@ SRC_FILES = \
 	MimicManager.vala \
 	TrashPage.vala \
 	PngSupport.vala \
-	PhotoExporter.vala \
+	Exporter.vala \
 	DirectoryMonitor.vala \
 	LibraryMonitor.vala \
 	OfflinePage.vala \
@@ -123,6 +123,8 @@ SRC_FILES = \
 	AlienDatabaseImportDialog.vala \
 	FSpotDatabaseDriver.vala \
 	FSpotDatabaseTables.vala \
+	VideoSupport.vala \
+    VideosPage.vala \
 	Tombstone.vala
 
 ifndef LINUX
@@ -286,7 +288,9 @@ EXT_PKGS += \
 	webkit-1.0 \
 	gudev-1.0 \
 	dbus-glib-1 \
-	gdk-x11-2.0
+	gdk-x11-2.0 \
+	gstreamer-0.10 \
+	gstreamer-base-0.10
 endif
 
 # libraw is handled separately (see note below); when libraw-config is no longer needed, the version
@@ -311,7 +315,9 @@ EXT_PKG_VERSIONS += \
 	unique-1.0 >= 1.0.0 \
 	webkit-1.0 >= 1.1.5 \
 	gudev-1.0 >= 145 \
-	dbus-glib-1 >= 0.80
+	dbus-glib-1 >= 0.80 \
+	gstreamer-0.10 >= 0.10.28 \
+	gstreamer-base-0.10 >= 0.10.28
 endif
 
 PKGS = $(EXT_PKGS) $(LOCAL_PKGS) $(LIBRAW_PKG)

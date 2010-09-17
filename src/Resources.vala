@@ -617,7 +617,23 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public File get_ui(string filename) {
         return AppDirs.get_resources_dir().get_child("ui").get_child(filename);
     }
-    
+
+    private const string NONINTERPRETABLE_BADGE_FILE = "noninterpretable-video.png";
+    private Gdk.Pixbuf? noninterpretable_badge_pixbuf = null;
+
+    public Gdk.Pixbuf? get_noninterpretable_badge_pixbuf() {
+        if (noninterpretable_badge_pixbuf == null) {
+            try {
+                noninterpretable_badge_pixbuf = new Gdk.Pixbuf.from_file(AppDirs.get_resources_dir().get_child(
+                    "icons").get_child(NONINTERPRETABLE_BADGE_FILE).get_path());
+            } catch (Error err) {
+                error("VideoReader can't load noninterpretable badge image: %s", err.message);
+            }
+        }
+        
+        return noninterpretable_badge_pixbuf;
+    }
+
     // This method returns a reference to a cached pixbuf that may be shared throughout the system.
     // If the pixbuf is to be modified, make a copy of it.
     public Gdk.Pixbuf? get_icon(string name, int scale = DEFAULT_ICON_SCALE) {

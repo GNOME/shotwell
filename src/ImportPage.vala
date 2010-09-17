@@ -6,10 +6,7 @@
 
 #if !NO_CAMERA
 
-class ImportSource : PhotoSource {
-    protected new const string THUMBNAIL_NAME_PREFIX = "import";
-    public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
-
+abstract class ImportSource : ThumbnailSource {
     private string camera_name;
     private GPhoto.Camera camera;
     private int fsid;
@@ -17,14 +14,10 @@ class ImportSource : PhotoSource {
     private string filename;
     private ulong file_size;
     private time_t modification_time;
-    private PhotoFileFormat file_format;
     private Gdk.Pixbuf? preview = null;
-    private string? preview_md5 = null;
-    private PhotoMetadata? metadata = null;
-    private string? exif_md5 = null;
     
-    public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
-        string filename, ulong file_size, time_t modification_time, PhotoFileFormat file_format) {
+    public ImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder,
+        string filename, ulong file_size, time_t modification_time) {
         this.camera_name = camera_name;
         this.camera = camera;
         this.fsid = fsid;
@@ -32,19 +25,117 @@ class ImportSource : PhotoSource {
         this.filename = filename;
         this.file_size = file_size;
         this.modification_time = modification_time;
+    }
+    
+    protected void set_preview(Gdk.Pixbuf? preview) {
+        this.preview = preview;
+    }
+    
+    public string get_camera_name() {
+        return camera_name;
+    }
+    
+    public GPhoto.Camera get_camera() {
+        return camera;
+    }
+    
+    public int get_fsid() {
+        return fsid;
+    }
+    
+    public string get_folder() {
+        return folder;
+    }
+    
+    public string get_filename() {
+        return filename;
+    }
+    
+    public ulong get_filesize() {
+        return file_size;
+    }
+    
+    public time_t get_modification_time() {
+        return modification_time;
+    }
+    
+    public Gdk.Pixbuf? get_preview() {
+        return preview;
+    }
+
+    public virtual time_t get_exposure_time() {
+        return get_modification_time();
+    }
+
+    public string? get_fulldir() {
+        return ImportPage.get_fulldir(get_camera(), get_camera_name(), get_fsid(), get_folder());
+    }
+
+    public override string to_string() {
+        return "%s %s/%s".printf(get_camera_name(), get_folder(), get_filename());
+    }
+}
+
+class VideoImportSource : ImportSource {
+    protected new const string THUMBNAIL_NAME_PREFIX = "videoimport";
+    
+    public VideoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
+        string filename, ulong file_size, time_t modification_time) {
+        base(camera_name, camera, fsid, folder, filename, file_size, modification_time);
+    }
+    
+    public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
+        return create_thumbnail(scale);
+    }
+    
+    public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
+        if (get_preview() == null)
+            return null;
+        
+        // this satifies the return-a-new-instance requirement of create_thumbnail( ) because
+        // scale_pixbuf( ) allocates a new pixbuf
+        return (scale > 0) ? scale_pixbuf(get_preview(), scale, Gdk.InterpType.BILINEAR, true) :
+            get_preview();
+    }
+    
+    public override string? get_unique_thumbnail_name() {
+        return (THUMBNAIL_NAME_PREFIX + "-%" + int64.FORMAT).printf(get_object_id());
+    }
+    
+    public override PhotoFileFormat get_preferred_thumbnail_format() {
+        return PhotoFileFormat.get_system_default_format();
+    }
+
+    public override string get_name() {
+        return get_filename();
+    }
+    
+    public void update(Gdk.Pixbuf? preview) {
+        set_preview((preview != null) ? preview : Resources.get_noninterpretable_badge_pixbuf());
+    }
+}
+
+class PhotoImportSource : ImportSource {
+    protected new const string THUMBNAIL_NAME_PREFIX = "photoimport";
+    public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
+
+    private PhotoFileFormat file_format;
+    private string? preview_md5 = null;
+    private PhotoMetadata? metadata = null;
+    private string? exif_md5 = null;
+    
+    public PhotoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
+        string filename, ulong file_size, time_t modification_time, PhotoFileFormat file_format) {
+        base(camera_name, camera, fsid, folder, filename, file_size, modification_time);
         this.file_format = file_format;
     }
     
     public override string get_name() {
         string? title = get_title();
         
-        return !is_string_empty(title) ? title : filename;
+        return !is_string_empty(title) ? title : get_filename();
     }
     
-    public override string to_string() {
-        return "%s %s/%s".printf(camera_name, folder, filename);
-    }
-
     public override string? get_unique_thumbnail_name() {
         return (THUMBNAIL_NAME_PREFIX + "-%" + int64.FORMAT).printf(get_object_id());
     }
@@ -55,75 +146,44 @@ class ImportSource : PhotoSource {
     }
 
     public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
-        if (preview == null)
+        if (get_preview() == null)
             return null;
         
         // this satifies the return-a-new-instance requirement of create_thumbnail( ) because
         // scale_pixbuf( ) allocates a new pixbuf
-        return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
+        return (scale > 0) ? scale_pixbuf(get_preview(), scale, INTERP, true) : get_preview();
     }
 
     // Needed because previews and exif are loaded after other information has been gathered.
     public void update(Gdk.Pixbuf? preview, string? preview_md5, PhotoMetadata? metadata, string? exif_md5) {
-        this.preview = preview;
+        set_preview(preview);
         this.preview_md5 = preview_md5;
         this.metadata = metadata;
         this.exif_md5 = exif_md5;
     }
-    
-    public GPhoto.Camera get_camera() {
-        return camera;
-    }
-    
-    public string get_filename() {
-        return filename;
-    }
-    
-    public string? get_fulldir() {
-        return ImportPage.get_fulldir(camera, camera_name, fsid, folder);
-    }
-    
+
     public override time_t get_exposure_time() {
         if (metadata == null)
-            return modification_time;
+            return get_modification_time();
         
         MetadataDateTime? date_time = metadata.get_exposure_date_time();
         
-        return (date_time != null) ? date_time.get_timestamp() : modification_time;
-    }
-
-    public override Dimensions get_dimensions() {
-        if (metadata == null)
-            return Dimensions(0, 0);
-        
-        Dimensions? dim = metadata.get_pixel_dimensions();
-        if (dim == null)
-            return Dimensions(0, 0);
-        
-        return metadata.get_orientation().rotate_dimensions(dim);
+        return (date_time != null) ? date_time.get_timestamp() : get_modification_time();
     }
     
     public string? get_title() {
         return (metadata != null) ? metadata.get_title() : null;
     }
     
-    public override uint64 get_filesize() {
-        return file_size;
-    }
-    
-    public override PhotoMetadata? get_metadata() {
+    public PhotoMetadata? get_metadata() {
         return metadata;
     }
     
-    public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
-        return preview != null ? scaling.perform_on_pixbuf(preview, INTERP, false) : null;
-    }
-    
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        if (preview == null)
+        if (get_preview() == null)
             return null;
         
-        return (scale > 0) ? scale_pixbuf(preview, scale, INTERP, true) : preview;
+        return (scale > 0) ? scale_pixbuf(get_preview(), scale, INTERP, true) : get_preview();
     }
     
     public PhotoFileFormat get_file_format() {
@@ -144,7 +204,7 @@ class ImportSource : PhotoSource {
             return true;
         }
         
-        GPhoto.Result result = camera.delete_file(fulldir, get_filename(),
+        GPhoto.Result result = get_camera().delete_file(fulldir, get_filename(),
             ImportPage.spin_idle_context.context);
         if (result != GPhoto.Result.OK)
             warning("Error deleting %s: %s", to_string(), result.to_full_string());
@@ -184,37 +244,47 @@ class ImportPreview : CheckerboardItem {
         
         // scale down if too large
         if (pixbuf.get_width() > MAX_SCALE || pixbuf.get_height() > MAX_SCALE)
-            pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, ImportSource.INTERP, false);
+            pixbuf = scale_pixbuf(pixbuf, MAX_SCALE, PhotoImportSource.INTERP, false);
 
-        // honor rotation
-        if (!using_placeholder && source.get_metadata() != null)
-            pixbuf = source.get_metadata().get_orientation().rotate_pixbuf(pixbuf);
+        // honor rotation for photos -- we don't care about videos since they can't be rotated
+        if (source is PhotoImportSource) {
+            PhotoImportSource photo_import_source = source as PhotoImportSource;
+            if (!using_placeholder && photo_import_source.get_metadata() != null)
+                pixbuf = photo_import_source.get_metadata().get_orientation().rotate_pixbuf(pixbuf);
+        }
         
         set_image(pixbuf);
     }
     
     public bool is_already_imported() {
-        string? preview_md5 = get_import_source().get_preview_md5();
-        PhotoFileFormat file_format = get_import_source().get_file_format();
-        
-        // ignore trashed duplicates
-        if (!is_string_empty(preview_md5)
-            && LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, file_format)) {
-            return true;
-        }
-        
-        // Because gPhoto doesn't reliably return thumbnails for RAW files, and because we want
-        // to avoid downloading huge RAW files during an "import all" only to determine they're
-        // duplicates, use the image's basename and filesize to do duplicate detection
-        if (file_format == PhotoFileFormat.RAW) {
-            uint64 filesize = get_import_source().get_filesize();
-            // unlikely to be a problem, but what the hay
-            if (filesize <= int64.MAX) {
-                if (LibraryPhoto.global.has_basename_filesize_duplicate(
-                    get_import_source().get_filename(), (int64) filesize)) {
-                    return true;
+        // TODO: dupe detection for video
+
+        if (get_import_source() is PhotoImportSource) {
+            PhotoImportSource photo_import_source = get_import_source() as PhotoImportSource;
+            string? preview_md5 = photo_import_source.get_preview_md5();
+            PhotoFileFormat file_format = photo_import_source.get_file_format();
+            
+            // ignore trashed duplicates
+            if (!is_string_empty(preview_md5)
+                && LibraryPhoto.has_nontrash_duplicate(null, preview_md5, null, file_format)) {
+                return true;
+            }
+            
+            // Because gPhoto doesn't reliably return thumbnails for RAW files, and because we want
+            // to avoid downloading huge RAW files during an "import all" only to determine they're
+            // duplicates, use the image's basename and filesize to do duplicate detection
+            if (file_format == PhotoFileFormat.RAW) {
+                uint64 filesize = get_import_source().get_filesize();
+                // unlikely to be a problem, but what the hay
+                if (filesize <= int64.MAX) {
+                    if (LibraryPhoto.global.has_basename_filesize_duplicate(
+                        get_import_source().get_filename(), (int64) filesize)) {
+                        return true;
+                    }
                 }
             }
+            
+            return false;
         }
         
         return false;
@@ -261,7 +331,8 @@ public class ImportPage : CheckerboardPage {
             assert(fulldir != null);
             filename = import_file.get_filename();
             filesize = import_file.get_filesize();
-            metadata = import_file.get_metadata();
+            metadata = (import_file is PhotoImportSource) ?
+                (import_file as PhotoImportSource).get_metadata() : null;
             exposure_time = import_file.get_exposure_time();
         }
         
@@ -878,20 +949,25 @@ public class ImportPage : CheckerboardPage {
                     continue;
                 }
                 
-                // determine file format from type, and then from file extension
-                PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(info.file.type);
-                if (file_format == PhotoFileFormat.UNKNOWN) {
-                    file_format = PhotoFileFormat.get_by_basename_extension(filename);
+                if (VideoReader.is_supported_video_filename(filename)) {
+                    VideoImportSource video_source = new VideoImportSource(camera_name, camera,
+                        fsid, dir, filename, info.file.size, info.file.mtime);
+                    import_list.add(video_source);
+                } else {
+                    // determine file format from type, and then from file extension
+                    PhotoFileFormat file_format = PhotoFileFormat.from_gphoto_type(info.file.type);               
                     if (file_format == PhotoFileFormat.UNKNOWN) {
-                        message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
-                            filename, info.file.type);
-                        
-                        continue;
+                        file_format = PhotoFileFormat.get_by_basename_extension(filename);
+                        if (file_format == PhotoFileFormat.UNKNOWN) {
+                            message("Skipping %s/%s: Not a supported file extension (%s)", fulldir,
+                                filename, info.file.type);
+                            
+                            continue;
+                        }
                     }
+                    import_list.add(new PhotoImportSource(camera_name, camera, fsid, dir, filename,
+                        info.file.size, info.file.mtime, file_format));
                 }
-                
-                import_list.add(new ImportSource(camera_name, camera, fsid, dir, filename, 
-                    info.file.size, info.file.mtime, file_format));
                 
                 progress_bar.pulse();
                 
@@ -996,9 +1072,13 @@ public class ImportPage : CheckerboardPage {
 #if TRACE_MD5
             debug("camera MD5 %s: exif=%s preview=%s", filename, exif_only_md5, preview_md5);
 #endif
-            
-            // update the ImportSource with the fetched information
-            import_source.update(preview, preview_md5, metadata, exif_only_md5);
+
+            if (import_source is VideoImportSource)
+                (import_source as VideoImportSource).update(preview);
+
+            if (import_source is PhotoImportSource)
+                (import_source as PhotoImportSource).update(preview, preview_md5, metadata,
+                    exif_only_md5);
             
             // *now* add to the SourceCollection, now that it is completed
             import_sources.add(import_source);
@@ -1320,15 +1400,16 @@ public class ImportQueuePage : SinglePhotoPage {
         progress_bar.set_fraction(pct);
     }
     
-    private void on_imported(LibraryPhoto photo, Gdk.Pixbuf pixbuf) {
+    private void on_imported(ThumbnailSource source, Gdk.Pixbuf pixbuf) {
         set_pixbuf(pixbuf, Dimensions.for_pixbuf(pixbuf));
         
         // set the singleton collection to this item
         get_view().clear();
-        get_view().add(new PhotoView(photo));
+        (source is LibraryPhoto) ? get_view().add(new PhotoView(source as LibraryPhoto)) :
+            get_view().add(new VideoView(source as Video));
         
         progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
-        progress_bar.set_text(_("Imported %s").printf(photo.get_name()));
+        progress_bar.set_text(_("Imported %s").printf(source.get_name()));
     }
     
     private void on_import_complete(BatchImport batch_import, ImportManifest manifest,

@@ -742,7 +742,7 @@ public abstract class Photo : PhotoSource {
             PhotoFileReader reader = params.row.master.file_format.create_reader(
                 params.row.master.filepath);
             try {
-                ThumbnailCache.generate(params.thumbnails, reader, params.row.orientation, 
+                ThumbnailCache.generate_for_photo(params.thumbnails, reader, params.row.orientation, 
                     params.row.master.dim);
             } catch (Error err) {
                 return ImportResult.convert_error(err, ImportResult.FILE_ERROR);
@@ -1079,7 +1079,7 @@ public abstract class Photo : PhotoSource {
     // more fine-tuned locking may be implemented -- another reason to *only* use these getters
     // and setters inside this class.
     
-    public File get_file() {
+    public override File get_file() {
         return get_source_reader().get_file();
     }
     
@@ -4082,7 +4082,7 @@ public class DirectPhoto : Photo {
     // This method should only be called by DirectPhotoSourceCollection.  Use
     // DirectPhoto.global.fetch to import files into the system.
     public static ImportResult internal_import(File file, out DirectPhoto? photo) {
-        PhotoImportParams params = new PhotoImportParams(file, PhotoTable.get_instance().generate_import_id(),
+        PhotoImportParams params = new PhotoImportParams(file, ImportID.generate(),
             PhotoFileSniffer.Options.NO_MD5, null, null, null);
         ImportResult result = Photo.prepare_for_import(params);
         if (result != ImportResult.SUCCESS) {

@@ -31,7 +31,7 @@ public abstract class BatchImportJob {
     // that have been successfully imported.
     //
     // Returns true if any action was taken, false otherwise.
-    public virtual bool complete(LibraryPhoto photo, ViewCollection generated_events) throws Error {
+    public virtual bool complete(ThumbnailSource source, ViewCollection generated_events) throws Error {
         return false;
     }
 }
@@ -79,7 +79,7 @@ public class BatchImportRoll {
     public ViewCollection generated_events = new ViewCollection("BatchImportRoll generated events");
     
     public BatchImportRoll() {
-        this.import_id = PhotoTable.get_instance().generate_import_id();
+        this.import_id = ImportID.generate();
     }
 }
 
@@ -114,7 +114,7 @@ public class BatchImportResult {
 }
 
 public class ImportManifest {
-    public Gee.List<LibraryPhoto> imported = new Gee.ArrayList<LibraryPhoto>();
+    public Gee.List<MediaSource> imported = new Gee.ArrayList<MediaSource>();
     public Gee.List<BatchImportResult> success = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> camera_failed = new Gee.ArrayList<BatchImportResult>();
     public Gee.List<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
@@ -223,11 +223,11 @@ public class BatchImport : Object {
     // process, working on them all at once to minimize overhead.
     private uint64 ready_files_bytes = 0;
     private Gee.ArrayList<PreparedFile> ready_files = new Gee.ArrayList<PreparedFile>();
-    private Gee.ArrayList<CompletedImportPhoto> ready_thumbnails =
-        new Gee.ArrayList<CompletedImportPhoto>();
-    private Gee.ArrayList<CompletedImportPhoto> display_imported_queue =
-        new Gee.ArrayList<CompletedImportPhoto>();
-    private Gee.ArrayList<LibraryPhoto> ready_photos = new Gee.ArrayList<LibraryPhoto>();
+    private Gee.ArrayList<CompletedImportObject> ready_thumbnails =
+        new Gee.ArrayList<CompletedImportObject>();
+    private Gee.ArrayList<CompletedImportObject> display_imported_queue =
+        new Gee.ArrayList<CompletedImportObject>();
+    private Gee.ArrayList<ThumbnailSource> ready_sources = new Gee.ArrayList<ThumbnailSource>();
     
     // Called at the end of the batched jobs.  Can be used to report the result of the import
     // to the user.  This is called BEFORE import_complete is fired.
@@ -243,8 +243,9 @@ public class BatchImport : Object {
     // last "preparing" signal)
     public signal void progress(uint64 completed_bytes, uint64 total_bytes);
     
-    // Called for each Photo imported to the system.  The pixbuf is screen-sized and rotated.
-    public signal void imported(LibraryPhoto photo, Gdk.Pixbuf pixbuf);
+    // Called for each Photo or Video imported to the system. For photos, the pixbuf is
+    // screen-sized and rotated. For videos, the pixbuf is a frame-grab of the first frame.
+    public signal void imported(ThumbnailSource source, Gdk.Pixbuf pixbuf);
     
     // Called when a fatal error occurs that stops the import entirely.  Remaining jobs will be
     // failed and import_complete() is still fired.
@@ -270,8 +271,8 @@ public class BatchImport : Object {
         
         if (skip_manifest != null) {
             skipset = new Gee.HashSet<File>(file_hash, file_equal);
-            foreach (LibraryPhoto photo in skip_manifest.imported) {
-                skipset.add(photo.get_file());
+            foreach (MediaSource source in skip_manifest.imported) {
+                skipset.add(source.get_file());
             }
         }
         
@@ -299,9 +300,9 @@ public class BatchImport : Object {
     
     private void log_status(string where) {
 #if TRACE_IMPORT
-        debug("%s: to_perform=%d completed=%d ready_files=%d ready_thumbnails=%d display_queue=%d ready_photos=%d",
+        debug("%s: to_perform=%d completed=%d ready_files=%d ready_thumbnails=%d display_queue=%d ready_sources=%d",
             where, file_imports_to_perform, file_imports_completed, ready_files.size,
-            ready_thumbnails.size, display_imported_queue.size, ready_photos.size);
+            ready_thumbnails.size, display_imported_queue.size, ready_sources.size);
 #endif
     }
     
@@ -373,7 +374,7 @@ public class BatchImport : Object {
         
         completed = true;
         
-        flush_ready_photos();
+        flush_ready_sources();
         
         log_status("Import completed: %s".printf(where));
         
@@ -544,6 +545,11 @@ public class BatchImport : Object {
         foreach (PreparedFile prepared_file in cluster.list) {
             BatchImportResult import_result = null;
             
+            if (prepared_file.is_video && Video.is_duplicate(prepared_file.file, prepared_file.full_md5)) {
+                import_result = new BatchImportResult(prepared_file.job, prepared_file.file, 
+                    prepared_file.file.get_path(), ImportResult.PHOTO_EXISTS);
+            }
+			
             if (Photo.is_duplicate(prepared_file.file, prepared_file.thumbnail_md5,
                 prepared_file.full_md5, prepared_file.file_format)) {
                 // If a file is being linked and has a dupe in the trash, we take it out of the trash
@@ -646,14 +652,14 @@ public class BatchImport : Object {
         ThumbnailWriterJob job = new ThumbnailWriterJob(this, ready_thumbnails,
             on_thumbnail_writer_completed, cancellable, on_thumbnail_writer_cancelled);
         
-        ready_thumbnails = new Gee.ArrayList<CompletedImportPhoto>();
+        ready_thumbnails = new Gee.ArrayList<CompletedImportObject>();
         
         thumbnail_worker.enqueue(job);
     }
     
-    private void enqueue_ready_thumbnail(LibraryPhoto photo, Thumbnails thumbnails,
+    private void enqueue_ready_thumbnail(ThumbnailSource source, Thumbnails thumbnails,
         BatchImportResult import_result) {
-        ready_thumbnails.add(new CompletedImportPhoto(photo, thumbnails, import_result));
+            ready_thumbnails.add(new CompletedImportObject(source, thumbnails, import_result));
     }
     
     private void on_import_files_completed(BackgroundJob j) {
@@ -690,28 +696,34 @@ public class BatchImport : Object {
         foreach (ReadyForImport ready in job.ready) {
             assert(ready.batch_result.result == ImportResult.SUCCESS);
             
-            LibraryPhoto photo = null;
-            ready.batch_result.result = LibraryPhoto.import_create(ready.import_params, out photo);
-            
+            ThumbnailSource? source = null;
+            if (ready.is_video) {
+                ready.batch_result.result = Video.import_create(ready.video_import_params,
+                    out source);
+            } else {
+		        ready.batch_result.result = LibraryPhoto.import_create(ready.photo_import_params,
+		            out source);
+		    }
+                    
             if (ready.batch_result.result != ImportResult.SUCCESS) {
                 debug("on_import_file_completed: %s", ready.batch_result.result.to_string());
                 
                 report_failure(ready.batch_result);
                 file_import_complete();
             } else {
-                // complete the import job
-                PreparedFile src_prepared_file = ready.prepared_file;
-                BatchImportJob src_job = src_prepared_file.job;
-                try {
-                    src_job.complete(photo, import_roll.generated_events);
-                } catch(Error e) {
-                    // TODO: improve failure handling to report it properly
-                    warning("Could not complete import job: %s", e.message);
-                }
+	            // complete the import job
+	            PreparedFile src_prepared_file = ready.prepared_file;
+	            BatchImportJob src_job = src_prepared_file.job;
+	            try {
+	                src_job.complete(source, import_roll.generated_events);
+	            } catch(Error e) {
+	                // TODO: improve failure handling to report it properly
+	                warning("Could not complete import job: %s", e.message);
+	            }
                 // end complete
                 // TODO: should this be inside the try/catch statement to only
                 // be called if the completion is successful?
-                enqueue_ready_thumbnail(photo, ready.import_params.thumbnails, ready.batch_result);
+                enqueue_ready_thumbnail(source, ready.get_thumbnails(), ready.batch_result);
             }
         }
         
@@ -760,16 +772,20 @@ public class BatchImport : Object {
         
         log_status("on_thumbnail_writer_completed");
         
-        foreach (CompletedImportPhoto completed in job.completed_import_photos) {
+        foreach (CompletedImportObject completed in job.completed_import_sources) {
             if (completed.batch_result.result != ImportResult.SUCCESS) {
                 warning("Failed to import %s: unable to write thumbnails (%s)",
-                    completed.photo.to_string(), completed.batch_result.result.to_string());
+                    completed.source.to_string(), completed.batch_result.result.to_string());
                 
-                LibraryPhoto.import_failed(completed.photo);
+                if (completed.source is LibraryPhoto)
+                    LibraryPhoto.import_failed(completed.source as LibraryPhoto);
+                else if (completed.source is Video)
+                    Video.import_failed(completed.source as Video);
+
                 report_failure(completed.batch_result);
                 file_import_complete();
             } else {
-                manifest.imported.add(completed.photo);
+                manifest.imported.add(completed.source as MediaSource);
                 manifest.add_result(completed.batch_result);
                 
                 display_imported_queue.add(completed);
@@ -784,33 +800,42 @@ public class BatchImport : Object {
         
         log_status("on_thumbnail_writer_cancelled");
         warning("Destroying %d imported photos (operation cancelled, thumbnails not written out)",
-            job.completed_import_photos.size);
+            job.completed_import_sources.size);
         
-        foreach (CompletedImportPhoto completed in job.completed_import_photos) {
-            LibraryPhoto.import_failed(completed.photo);
+        foreach (CompletedImportObject completed in job.completed_import_sources) {
+            if (completed.source is LibraryPhoto)
+                LibraryPhoto.import_failed(completed.source as LibraryPhoto);
+            else if (completed.source is Video)
+                Video.import_failed(completed.source as Video);
+
             report_failure(completed.batch_result);
             file_import_complete();
         }
     }
     
     //
-    // Display imported photos and integrate into system
+    // Display imported sources and integrate into system
     //
     
-    private void flush_ready_photos() {
-        if (ready_photos.size == 0)
+    private void flush_ready_sources() {
+        if (ready_sources.size == 0)
             return;
+
+        log_status("flush_ready_sources");
+
+        foreach (ThumbnailSource source in ready_sources)
+            if (source is LibraryPhoto) {
+                LibraryPhoto.global.add(source as LibraryPhoto);
+
+                // only generate events on event-less photos
+                if ((source as LibraryPhoto).get_event() == null)
+                    Event.generate_import_event(source as LibraryPhoto,
+                    import_roll.generated_events);
+            } else if (source is Video) {
+                Video.global.add(source as Video);
+            }
         
-        log_status("flush_ready_photos");
-        
-        LibraryPhoto.global.add_many(ready_photos);
-        
-        foreach (LibraryPhoto photo in ready_photos)
-            // only generate events on event-less photos
-            if (photo.get_event() == null)
-                Event.generate_import_event(photo, import_roll.generated_events);
-        
-        ready_photos.clear();
+        ready_sources.clear();
     }
     
     // This is called throughout the import process to notify watchers of imported photos in such
@@ -826,20 +851,21 @@ public class BatchImport : Object {
         
         // if cancelled, do them all at once, to speed up reporting completion
         do {
-            CompletedImportPhoto completed = display_imported_queue.remove_at(0);
-            
-            // Stage the number of ready photos to incorporate into the system rather than doing them
-            // one at a time, to keep the UI thread responsive.
-            ready_photos.add(completed.photo);
-            
-            imported(completed.photo, completed.thumbnails.get(ThumbnailCache.Size.LARGEST));
-            report_progress(completed.photo.get_filesize());
+            CompletedImportObject completed_object = display_imported_queue.remove_at(0);
+
+            // Stage the number of ready media objects to incorporate into the system rather than
+            // doing them one at a time, to keep the UI thread responsive.
+            ready_sources.add(completed_object.source);
+
+            imported(completed_object.source,
+                completed_object.thumbnails.get(ThumbnailCache.Size.LARGEST));
+            report_progress(completed_object.get_filesize());
             file_import_complete();
         } while (cancellable.is_cancelled() && display_imported_queue.size > 0);
         
-        if (ready_photos.size >= 25 || cancellable.is_cancelled())
-            flush_ready_photos();
-        
+        if (ready_sources.size >= 25 || cancellable.is_cancelled())
+            flush_ready_sources();
+
         return true;
     }
 }
@@ -1030,10 +1056,12 @@ private class WorkSniffer : BackgroundImportJob {
                 if ((skipset != null) && skipset.contains(child))
                     continue; /* don't enqueue if this file is to be skipped */
 
-                if (Photo.is_file_image(child) && Photo.is_file_supported(child)) {
+                if ((Photo.is_file_image(child) && Photo.is_file_supported(child)) ||
+                    VideoReader.is_supported_video_file(child)) {
                     total_bytes += info.get_size();
                     files_to_prepare.add(new FileToPrepare(job, child, copy_to_library));
                     notify(working_notification, null);
+                    continue;
                 }
             } else {
                 warning("Ignoring import of %s file type %d", child.get_path(), (int) file_type);
@@ -1053,9 +1081,11 @@ private class PreparedFile {
     public string? full_md5;
     public PhotoFileFormat file_format;
     public uint64 filesize;
+    public bool is_video;
     
     public PreparedFile(BatchImportJob job, File file, string id, bool copy_to_library, string? exif_md5, 
-        string? thumbnail_md5, string? full_md5, PhotoFileFormat file_format, uint64 filesize) {
+        string? thumbnail_md5, string? full_md5, PhotoFileFormat file_format, uint64 filesize,
+        bool is_video = false) {
         this.job = job;
         this.result = ImportResult.SUCCESS;
         this.file = file;
@@ -1066,6 +1096,7 @@ private class PreparedFile {
         this.full_md5 = full_md5;
         this.file_format = file_format;
         this.filesize = filesize;
+        this.is_video = is_video;
     }
 }
 
@@ -1183,10 +1214,12 @@ private class PrepareFilesJob : BackgroundImportJob {
     
     private ImportResult prepare_file(BatchImportJob job, File file, bool copy_to_library,
         out PreparedFile prepared_file) throws Error {
-        if (!Photo.is_file_image(file))
+        bool is_video = VideoReader.is_supported_video_file(file);
+        
+        if ((!is_video) && (!Photo.is_file_image(file)))
             return ImportResult.NOT_AN_IMAGE;
 
-        if (!Photo.is_file_supported(file))
+        if ((!is_video) && (!Photo.is_file_supported(file)))
             return ImportResult.UNSUPPORTED_FORMAT;
         
         import_file_count++;
@@ -1203,45 +1236,47 @@ private class PrepareFilesJob : BackgroundImportJob {
                 return ImportResult.NOT_A_FILE;
         }
         
-        // attempt to detect the file format by its extension
-        PhotoFileFormat file_format = PhotoFileFormat.get_by_file_extension(file);
-        if (file_format == PhotoFileFormat.UNKNOWN) {
-            warning("Skipping %s: unrecognized file extension", file.get_path());
-            
-            return ImportResult.UNSUPPORTED_FORMAT;
-        }
-        
         string exif_only_md5 = null;
         string thumbnail_md5 = null;
         string full_md5 = null;
         
-        // duplicate detection: If EXIF data present, look for a match with either EXIF itself
-        // or the thumbnail.  If not, do a full MD5.
-        PhotoFileReader reader = file_format.create_reader(file.get_path());
-        PhotoMetadata? metadata = reader.read_metadata();
-        if (metadata != null) {
-            uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
-            if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
-                exif_only_md5 = md5_binary(flattened_sans_thumbnail, flattened_sans_thumbnail.length);
-            
-            uint8[]? flattened_thumbnail = metadata.flatten_exif_preview();
-            if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
-                thumbnail_md5 = md5_binary(flattened_thumbnail, flattened_thumbnail.length);
-        }
-        
-        // Because of the increased use of MD5 to find duplicates, especially with tombstones,
-        // now generating an MD5 for each file.
+        // duplicate detection:
+        //     for photos: if EXIF data present, look for a match with either EXIF itself or
+        //                 the thumbnail. Still do a full MD5 for tombstones.
+        //     for videos: always compare on full MD5
         try {
             full_md5 = md5_file(file);
         } catch (Error err) {
-            warning("Unable to perform MD5 checksum on %s: %s", file.get_path(), err.message);
+            warning("Unable to perform MD5 checksum on video file %s: %s", file.get_path(),
+                err.message);
         }
-        
 #if TRACE_MD5
-        debug("import MD5 %s: exif=%s preview=%s full=%s", file.get_basename(), exif_only_md5,
-            thumbnail_md5, full_md5);
+            debug("import MD5 for file %s = %s", file.get_basename(), full_md5);
 #endif
-        
+        // we only care about file extensions and metadata if we're importing a photo --
+        // we don't care about these things for video
+        PhotoFileFormat file_format = PhotoFileFormat.get_by_file_extension(file);
+        if (!is_video) {
+            if (file_format == PhotoFileFormat.UNKNOWN) {
+                warning("Skipping %s: unrecognized file extension", file.get_path());
+                
+                return ImportResult.UNSUPPORTED_FORMAT;
+            }
+            PhotoFileReader reader = file_format.create_reader(file.get_path());
+            PhotoMetadata? metadata = reader.read_metadata();
+            if (metadata != null) {
+                uint8[]? flattened_sans_thumbnail = metadata.flatten_exif(false);
+                if (flattened_sans_thumbnail != null && flattened_sans_thumbnail.length > 0)
+                    exif_only_md5 = md5_binary(flattened_sans_thumbnail,
+                    flattened_sans_thumbnail.length);
+                
+                uint8[]? flattened_thumbnail = metadata.flatten_exif_preview();
+                if (flattened_thumbnail != null && flattened_thumbnail.length > 0)
+                    thumbnail_md5 = md5_binary(flattened_thumbnail,
+                    flattened_thumbnail.length);
+            }
+        }
+
         uint64 filesize = query_total_file_size(file, get_cancellable());
         
         // never copy file if already in library directory
@@ -1250,7 +1285,7 @@ private class PrepareFilesJob : BackgroundImportJob {
         // notify the BatchImport this is ready to go
         prepared_file = new PreparedFile(job, file, file.get_path(), 
             copy_to_library && !is_in_library_dir, exif_only_md5, thumbnail_md5, full_md5,
-            file_format, filesize);
+            file_format, filesize, is_video);
         
         return ImportResult.SUCCESS;
     }
@@ -1259,15 +1294,25 @@ private class PrepareFilesJob : BackgroundImportJob {
 private class ReadyForImport {
     public File final_file;
     public PreparedFile prepared_file;
-    public PhotoImportParams import_params;
+    public PhotoImportParams? photo_import_params;
+    public VideoImportParams? video_import_params;
     public BatchImportResult batch_result;
+    public bool is_video;
     
-    public ReadyForImport(File final_file, PreparedFile prepared_file, PhotoImportParams import_params,
+    public ReadyForImport(File final_file, PreparedFile prepared_file,
+        PhotoImportParams? photo_import_params, VideoImportParams? video_import_params,
         BatchImportResult batch_result) {
+        if (prepared_file.is_video)
+            assert((video_import_params != null) && (photo_import_params == null));
+        else
+            assert((video_import_params == null) && (photo_import_params != null));
+
         this.final_file = final_file;
         this.prepared_file = prepared_file;
-        this.import_params = import_params;
         this.batch_result = batch_result;
+        this.video_import_params = video_import_params;
+        this.photo_import_params = photo_import_params;
+        this.is_video = prepared_file.is_video;
     }
     
     public BatchImportResult abort() {
@@ -1287,6 +1332,11 @@ private class ReadyForImport {
         
         return batch_result;
     }
+    
+    public Thumbnails get_thumbnails() {
+        return (photo_import_params != null) ? photo_import_params.thumbnails :
+            video_import_params.thumbnails;
+    }
 }
 
 private class PreparedFilesImportJob : BackgroundJob {
@@ -1295,7 +1345,6 @@ private class PreparedFilesImportJob : BackgroundJob {
     public Gee.ArrayList<BatchImportResult> failed = new Gee.ArrayList<BatchImportResult>();
     
     private ImportID import_id;
-    private PhotoImportParams photo_import_params = null;
     
     public PreparedFilesImportJob(BatchImport owner, Gee.Collection<PreparedFile> prepared_files,
         ImportID import_id, CompletionCallback callback, Cancellable cancellable,
@@ -1338,10 +1387,22 @@ private class PreparedFilesImportJob : BackgroundJob {
             }
         }
         
-        photo_import_params = new PhotoImportParams(final_file, import_id, PhotoFileSniffer.Options.GET_ALL,
-            prepared_file.exif_md5, prepared_file.thumbnail_md5, prepared_file.full_md5, new Thumbnails());
+        ImportResult result = ImportResult.SUCCESS;
+        VideoImportParams? video_import_params = null;
+        PhotoImportParams? photo_import_params = null;
+        if (prepared_file.is_video) {
+            video_import_params = new VideoImportParams(final_file, import_id,
+                prepared_file.full_md5, new Thumbnails());
+            
+            result = VideoReader.prepare_for_import(video_import_params);
+        } else {
+            photo_import_params = new PhotoImportParams(final_file, import_id,
+                PhotoFileSniffer.Options.GET_ALL, prepared_file.exif_md5,
+                prepared_file.thumbnail_md5, prepared_file.full_md5, new Thumbnails());
+
+            result = Photo.prepare_for_import(photo_import_params);
+        }
         
-        ImportResult result = Photo.prepare_for_import(photo_import_params);
         if (result != ImportResult.SUCCESS && final_file != prepared_file.file) {
             debug("Deleting failed imported copy %s", final_file.get_path());
             try {
@@ -1357,36 +1418,43 @@ private class PreparedFilesImportJob : BackgroundJob {
         if (batch_result.result != ImportResult.SUCCESS)
             failed.add(batch_result);
         else
-            ready.add(new ReadyForImport(final_file, prepared_file, photo_import_params, batch_result));
+            ready.add(new ReadyForImport(final_file, prepared_file, photo_import_params,
+                video_import_params, batch_result));
     }
 }
 
-private class CompletedImportPhoto {
-    public LibraryPhoto photo;
+private class CompletedImportObject {
     public Thumbnails thumbnails;
     public BatchImportResult batch_result;
+    public ThumbnailSource source;
     
-    public CompletedImportPhoto(LibraryPhoto photo, Thumbnails thumbnails, BatchImportResult batch_result) {
-        this.photo = photo;
+    public CompletedImportObject(ThumbnailSource source, Thumbnails thumbnails,
+        BatchImportResult import_result) {
         this.thumbnails = thumbnails;
-        this.batch_result = batch_result;
+        this.batch_result = import_result;
+        this.source = source;
+    }
+    
+    public uint64 get_filesize() {
+        return (source is Video) ? (source as Video).get_filesize() :
+            (source as Photo).get_filesize();
     }
 }
 
 private class ThumbnailWriterJob : BackgroundImportJob {
-    public Gee.Collection<CompletedImportPhoto> completed_import_photos;
+    public Gee.Collection<CompletedImportObject> completed_import_sources;
     
-    public ThumbnailWriterJob(BatchImport owner, Gee.Collection<CompletedImportPhoto> completed_import_photos,
+    public ThumbnailWriterJob(BatchImport owner, Gee.Collection<CompletedImportObject> completed_import_sources,
         CompletionCallback callback, Cancellable cancellable, CancellationCallback cancel_callback) {
         base (owner, callback, cancellable, cancel_callback);
         
-        this.completed_import_photos = completed_import_photos;
+        this.completed_import_sources = completed_import_sources;
     }
     
     public override void execute() {
-        foreach (CompletedImportPhoto completed in completed_import_photos) {
+        foreach (CompletedImportObject completed in completed_import_sources) {
             try {
-                ThumbnailCache.import_thumbnails(completed.photo, completed.thumbnails, true);
+                ThumbnailCache.import_thumbnails(completed.source, completed.thumbnails, true);
                 completed.batch_result.result = ImportResult.SUCCESS;
             } catch (Error err) {
                 completed.batch_result.result = ImportResult.convert_error(err, ImportResult.FILE_ERROR);

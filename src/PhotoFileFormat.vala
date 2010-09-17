@@ -263,17 +263,5 @@ public abstract class PhotoFileFormatProperties {
         
         return file.get_parent().get_child("%s.%s".printf(name, get_default_extension()));
     }
-    
-    // Helper function for searching an array of case-insensitive strings.  The array should be
-    // all lowercase.
-    protected bool is_in_ci_array(string str, string[] strings) {
-        string strdown = str.down();
-        foreach (string str_element in strings) {
-            if (strdown == str_element)
-                return true;
-        }
-        
-        return false;
-    }
 }
 

@@ -123,9 +123,11 @@ private class BasicProperties : Properties {
     private Dimensions dimensions;
     private int photo_count;
     private int event_count;
+    private int video_count;
     private string exposure;
     private string aperture;
     private string iso;
+    private double clip_duration;
 
     public BasicProperties() {
     }
@@ -141,6 +143,7 @@ private class BasicProperties : Properties {
         exposure = "";
         aperture = "";
         iso = "";
+        clip_duration = 0.0;
     }
 
     private override void get_single_properties(DataView view) {
@@ -179,6 +182,12 @@ private class BasicProperties : Properties {
             end_time = event_source.get_end_time();
 
             photo_count = event_source.get_photo_count();
+        } else if (source is VideoSource) {
+            Video video = (Video) source;
+            clip_duration = video.get_clip_duration();
+
+            if (video.get_is_interpretable())
+                dimensions = video.get_frame_dimensions();
         }
     }
 
@@ -186,6 +195,7 @@ private class BasicProperties : Properties {
         base.get_multiple_properties(iter);
 
         photo_count = 0;
+        video_count = 0;
         foreach (DataView view in iter) {
             DataSource source = view.get_source();
             
@@ -222,6 +232,8 @@ private class BasicProperties : Properties {
 
                 photo_count += event_source.get_photo_count();
                 event_count++;
+            } else if (source is VideoSource) {
+                video_count++;
             }
         }
     }
@@ -258,8 +270,18 @@ private class BasicProperties : Properties {
 
             string photo_num_string = (ngettext("%d Photo", "%d Photos", photo_count)).printf(
                 photo_count);
+            string video_num_string = (ngettext("%d Video", "%d Videos", video_count)).printf(
+                video_count);
 
+            if (photo_count == 0 && video_count > 0) {
+                add_line(label, video_num_string);
+                return;
+            }
+            
             add_line(label, photo_num_string);
+            
+            if (video_count > 0)
+                add_line("", video_num_string);
         }
 
         if (start_time != 0) {
@@ -294,6 +316,10 @@ private class BasicProperties : Properties {
                 add_line(label, "%d &#215; %d".printf(dimensions.width, dimensions.height));
                 label = "";
             }
+        }
+        
+        if (clip_duration > 0.0) {
+            add_line(_("Duration:"), _("%.1f seconds").printf(clip_duration));
         }
 
         if (exposure != "" || aperture != "" || iso != "") {

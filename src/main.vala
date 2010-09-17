@@ -107,11 +107,18 @@ void library_exec(string[] mounts) {
         
         return;
     }
-    
+
+    // initialize GStreamer, but don't pass it our actual command line arguments -- we don't
+    // want our end users to be able to parameterize the GStreamer configuration
+    string[] fake_args = new string[0];
+    Gst.init(ref fake_args);
+
+    Video.init();
+
     ProgressDialog progress_dialog = null;
     AggregateProgressMonitor aggregate_monitor = null;
     ProgressMonitor monitor = null;
-    
+
     if (!no_startup_progress) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
@@ -190,6 +197,7 @@ void library_exec(string[] mounts) {
     Event.terminate();
     LibraryPhoto.terminate();
     ThumbnailCache.terminate();
+    Video.terminate();
 
     DatabaseTable.terminate();
 }

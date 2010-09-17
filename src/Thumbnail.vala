@@ -22,7 +22,8 @@ public class Thumbnail : CheckerboardItem {
     
     private const int HQ_IMPROVEMENT_MSEC = 100;
     
-    private LibraryPhoto photo;
+    private LibraryPhoto? photo;
+    private Video? video;
     private int scale;
     private Dimensions original_dim;
     private Dimensions dim;
@@ -37,6 +38,7 @@ public class Thumbnail : CheckerboardItem {
     public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
         base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
         
+        this.video = null;
         this.photo = photo;
         this.scale = scale;
         
@@ -47,6 +49,17 @@ public class Thumbnail : CheckerboardItem {
         Tag.global.container_contents_altered.connect(on_tag_contents_altered);
         Tag.global.items_altered.connect(on_tags_altered);
         LibraryPhoto.global.items_altered.connect(on_photos_altered);
+    }
+    
+    public Thumbnail.for_video(Video video, int scale = DEFAULT_SCALE) {
+        base(video, video.get_frame_dimensions().get_scaled(scale, true), video.get_name());
+        
+        this.video = video;
+        this.photo = null;
+        this.scale = scale;
+        
+        original_dim = video.get_frame_dimensions();
+        dim = original_dim.get_scaled(scale, true);
     }
 
     ~Thumbnail() {
@@ -59,6 +72,12 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void update_tags() {
+        // if this is a thumbnail for a video, then photo can be null, so do a short-circuit
+        // return when it is; later, when we support tagging videos, we can implement tag
+        // updates on video objects
+        if (photo == null)
+            return;
+
         Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_photo(photo);
         if (tags == null || tags.size == 0)
             clear_subtitle();
@@ -86,7 +105,7 @@ public class Thumbnail : CheckerboardItem {
         foreach (DataObject object in altered.keys) {
             Tag tag = (Tag) object;
             
-            if (tag.contains(photo)) {
+            if ((!is_video()) && tag.contains(photo)) {
                 update_tags();
                 
                 break;
@@ -95,7 +114,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void update_title() {
-        string title = photo.get_name();
+        string title = (is_video()) ? video.get_name() : photo.get_name();
         if (is_string_empty(title))
             clear_title();
         else
@@ -106,7 +125,7 @@ public class Thumbnail : CheckerboardItem {
         if (!exposure || !map.has_key(photo))
             return;
         
-        if (map.get(photo).has_detail("metadata", "name"))
+        if ((!is_video()) && map.get(photo).has_detail("metadata", "name"))
             update_title();
     }
     
@@ -115,12 +134,17 @@ public class Thumbnail : CheckerboardItem {
         return photo;
     }
     
+    public Video get_video() {
+        return video;
+    }
+    
     //
     // Comparators
     //
 
     public static int64 photo_id_ascending_comparator(void *a, void *b) {
-        return ((Thumbnail *) a)->photo.get_photo_id().id - ((Thumbnail *) b)->photo.get_photo_id().id;
+        return strcmp(((Thumbnail *) a)->get_unique_identifier(),
+            ((Thumbnail *) b)->get_unique_identifier());
     }
 
     public static int64 photo_id_descending_comparator(void *a, void *b) {
@@ -128,7 +152,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public static int64 title_ascending_comparator(void *a, void *b) {
-        int64 result = strcmp(((Thumbnail *) a)->photo.get_name(), ((Thumbnail *) b)->photo.get_name());
+        int64 result = strcmp(((Thumbnail *) a)->get_name(), ((Thumbnail *) b)->get_name());
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
@@ -144,7 +168,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public static int64 exposure_time_ascending_comparator(void *a, void *b) {
-        int64 result = ((Thumbnail *) a)->photo.get_exposure_time() - ((Thumbnail *) b)->photo.get_exposure_time();
+        int64 result = ((Thumbnail *) a)->get_exposure_time() - ((Thumbnail *) b)->get_exposure_time();
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
@@ -160,7 +184,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public static int64 rating_ascending_comparator(void *a, void *b) {
-        int64 result = ((Thumbnail *) a)->photo.get_rating() - ((Thumbnail *) b)->photo.get_rating();
+        int64 result = ((Thumbnail *) a)->get_rating() - ((Thumbnail *) b)->get_rating();
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
@@ -176,7 +200,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private override void thumbnail_altered() {
-        original_dim = get_photo().get_dimensions();
+        original_dim = (is_video()) ? video.get_frame_dimensions() : get_photo().get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
         if (exposure)
@@ -241,8 +265,18 @@ public class Thumbnail : CheckerboardItem {
     private void schedule_low_quality_fetch() {
         cancel_async_fetch();
         cancellable = new Cancellable();
-        
-        ThumbnailCache.fetch_async_scaled(get_photo(), ThumbnailCache.Size.SMALLEST, 
+
+			// VALA: ideally, we'd use the ternary operator here and insert the ternary
+            //       expression directly in the fetch_async_scaled( ) called below,
+            //       but on both valac 0.8.0 and 0.9.3, this results in a parse error
+            //       "incompatible expressions"
+		    ThumbnailSource source = null;
+            if (is_video())
+                source = video;
+            else
+                source = photo;
+
+        ThumbnailCache.fetch_async_scaled(source, ThumbnailCache.Size.SMALLEST, 
             dim, LOW_QUALITY_INTERP, on_low_quality_fetched, cancellable);
     }
     
@@ -268,8 +302,18 @@ public class Thumbnail : CheckerboardItem {
         cancellable = new Cancellable();
         
         if (exposure) {
-            ThumbnailCache.fetch_async_scaled(get_photo(), scale, dim, HIGH_QUALITY_INTERP,
-                on_high_quality_fetched, cancellable);
+			// VALA: ideally, we'd use the ternary operator here and insert the ternary
+            //       expression directly in the fetch_async_scaled( ) called below,
+            //       but on both valac 0.8.0 and 0.9.3, this results in a parse error
+            //       "incompatible expressions"
+            ThumbnailSource source = null;
+            if (is_video())
+                source = video;
+            else
+                source = photo;
+
+            ThumbnailCache.fetch_async_scaled(source, scale, dim,
+                HIGH_QUALITY_INTERP, on_high_quality_fetched, cancellable);
         }
         
         hq_scheduled = false;
@@ -332,8 +376,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public override Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
-        LibraryPhoto photo = get_photo();
-        Rating rating = photo.get_rating();
+        Rating rating = get_rating();
         
         bool show_ratings = false;
         Value? val = get_collection_property(PROP_SHOW_RATINGS);
@@ -352,5 +395,20 @@ public class Thumbnail : CheckerboardItem {
         
         return trinkets;
     }
+    
+    public bool is_video() {
+        return (video != null);
+    }
+        
+    public string get_unique_identifier() {
+        return (is_video()) ? video.get_unique_thumbnail_name() : photo.get_unique_thumbnail_name();
+    }
+    
+    public time_t get_exposure_time() {
+        return (is_video()) ? video.get_exposure_time() : photo.get_exposure_time();
+    }
+    
+    public Rating get_rating() {
+        return (is_video()) ? Rating.UNRATED : photo.get_rating();
+    }
 }
-

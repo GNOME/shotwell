@@ -2091,7 +2091,7 @@ public class PhotoDragAndDropHandler {
     private weak Page page;
     private Gtk.Widget event_source;
     private File? drag_destination = null;
-    private PhotoExporterUI exporter = null;
+    private ExporterUI exporter = null;
     
     public PhotoDragAndDropHandler(Page page) {
         this.page = page;
@@ -2215,7 +2215,7 @@ public class PhotoDragAndDropHandler {
         // drag-and-drop export doesn't pop up an export dialog, so use what are likely the
         // most common export settings (JPEG file format, high quality, at full size)
         if (drag_destination.get_path() != null) {
-            exporter = new PhotoExporterUI(new PhotoExporter(
+            exporter = new ExporterUI(new Exporter(
                 (Gee.Collection<Photo>) page.get_view().get_selected_sources(),
                 drag_destination, Scaling.for_original(), Jpeg.Quality.HIGH, PhotoFileFormat.JFIF));
             exporter.export(on_export_completed);

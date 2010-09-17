@@ -107,13 +107,16 @@ private File duplicate(File src, FileProgressCallback? progress_callback) throws
     } catch (Error err) {
         critical("Unable to access file modification for %s: %s", src.get_path(), err.message);
     }
-    
-    PhotoFileReader reader = PhotoFileFormat.get_by_file_extension(src).create_reader(src.get_path());
+       
     PhotoMetadata? metadata = null;
-    try {
-        metadata = reader.read_metadata();
-    } catch (Error err) {
-        // ignored, leave metadata as null
+    if (!VideoReader.is_supported_video_file(src)) { // video files don't have EXIF metadata
+        PhotoFileReader reader = PhotoFileFormat.get_by_file_extension(src).create_reader(
+            src.get_path());
+        try {
+            metadata = reader.read_metadata();
+        } catch (Error err) {
+            // ignored, leave metadata as null
+        }
     }
     
     bool collision;

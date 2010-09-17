@@ -931,7 +931,15 @@ public abstract class ThumbnailSource : DataSource {
     public abstract PhotoFileFormat get_preferred_thumbnail_format();
 }
 
-public abstract class PhotoSource : ThumbnailSource {
+public abstract class MediaSource : ThumbnailSource {
+    public MediaSource(int64 object_id = INVALID_OBJECT_ID) {
+        base (object_id);
+    }
+
+    public abstract File get_file();
+}
+
+public abstract class PhotoSource : MediaSource {
     public PhotoSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
@@ -945,6 +953,10 @@ public abstract class PhotoSource : ThumbnailSource {
     public abstract PhotoMetadata? get_metadata();
     
     public abstract Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error;
+}
+
+public abstract class VideoSource : MediaSource {
+    protected const string THUMBNAIL_NAME_PREFIX = "video";
 }
 
 public abstract class EventSource : ThumbnailSource {
@@ -1294,6 +1306,16 @@ public class PhotoView : ThumbnailView {
     
     public PhotoSource get_photo_source() {
         return (PhotoSource) get_source();
+    }
+}
+
+public class VideoView : ThumbnailView {
+    public VideoView(VideoSource source) {
+        base(source);
+    }
+    
+    public VideoSource get_video_source() {
+        return (VideoSource) get_source();
     }
 }
 

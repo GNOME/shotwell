@@ -1,0 +1,45 @@
+<ui>
+    <menubar name="VideosMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Import" action="CommonFileImport" />
+            <menuitem name="ExportVideo" action="ExportVideo" />
+            <separator />
+            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
+            <separator />
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="CommonUndo" />
+            <menuitem name="Redo" action="CommonRedo" />
+            <separator />
+            <menuitem name="DeleteVideo" action="DeleteVideo" />
+            <separator />
+            <menuitem name="SelectAll" action="CommonSelectAll" />
+            <separator />
+            <menuitem name="Preferences" action="CommonPreferences" />
+        </menu>
+        
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <menuitem name="DisplayExtentedProperties" action="CommonDisplayExtendedProperties" />
+            <separator />
+            <menuitem name="ViewTitle" action="ViewTitle" />
+            <separator />
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
+            <menuitem name="PlayVideo" action="PlayVideo" />
+        </menu>
+        
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="Contents" action="CommonHelpContents" />
+            <menuitem name="UserManual" action="CommonUsersGuide" />
+            <separator />
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+</ui>
+

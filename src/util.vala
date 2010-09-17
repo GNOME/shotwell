@@ -717,3 +717,16 @@ public string get_root_directory() {
     return "/";
 #endif
 }
+
+// Helper function for searching an array of case-insensitive strings.  The array should be
+// all lowercase.
+public bool is_in_ci_array(string str, string[] strings) {
+    string strdown = str.down();
+    foreach (string str_element in strings) {
+        if (strdown == str_element)
+            return true;
+    }
+    
+    return false;
+}
+    

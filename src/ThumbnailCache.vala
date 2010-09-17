@@ -259,8 +259,8 @@ public class ThumbnailCache : Object {
     
     // This does not add the thumbnails to the ThumbnailCache, merely generates them for the
     // supplied image file.
-    public static void generate(Thumbnails thumbnails, PhotoFileReader reader, Orientation orientation,
-        Dimensions original_dim) throws Error {
+    public static void generate_for_photo(Thumbnails thumbnails, PhotoFileReader reader,
+        Orientation orientation, Dimensions original_dim) throws Error {
         foreach (Size size in ALL_SIZES) {
             Dimensions dim = size.get_scaling().get_scaled_dimensions(original_dim);
             
@@ -268,6 +268,15 @@ public class ThumbnailCache : Object {
             thumbnail = orientation.rotate_pixbuf(thumbnail);
             
             thumbnails.set(size, thumbnail);
+        }
+    }
+    
+    public static void generate_for_video_frame(Thumbnails thumbnails, Gdk.Pixbuf preview_frame) {
+        foreach (Size size in ALL_SIZES) {
+            Scaling current_scaling = size.get_scaling();
+            Gdk.Pixbuf current_thumbnail = current_scaling.perform_on_pixbuf(preview_frame,
+                Gdk.InterpType.HYPER, true);
+            thumbnails.set(size, current_thumbnail);
         }
     }
     

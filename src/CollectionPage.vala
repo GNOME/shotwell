@@ -70,7 +70,7 @@ public abstract class CollectionPage : CheckerboardPage {
     private Gtk.ToolButton publish_button = null;
 #endif
     private int scale = Thumbnail.DEFAULT_SCALE;
-    private PhotoExporterUI exporter = null;
+    private ExporterUI exporter = null;
     
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
@@ -136,12 +136,7 @@ public abstract class CollectionPage : CheckerboardPage {
             Config.get_instance().get_display_photo_ratings());
         get_view().thaw_notifications();
         
-        // adjustment which is shared by all sliders in the application
         scale = Config.get_instance().get_photo_thumbnail_scale();
-        if (slider_adjustment == null) {
-            slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0,
-                scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
-        }
         
         // set up page's toolbar (used by AppWindow for layout)
         Gtk.Toolbar toolbar = get_toolbar();
@@ -227,7 +222,7 @@ public abstract class CollectionPage : CheckerboardPage {
         zoom_group.pack_start(zoom_out_box, false, false, 0);
         
         // thumbnail size slider
-        slider = new Gtk.HScale(slider_adjustment);
+        slider = new Gtk.HScale(get_global_slider_adjustment());
         slider.value_changed.connect(on_slider_changed);
         slider.set_draw_value(false);
         slider.set_size_request(200, -1);
@@ -261,6 +256,16 @@ public abstract class CollectionPage : CheckerboardPage {
 
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
+    }
+    
+    public static Gtk.Adjustment get_global_slider_adjustment() {
+        int scale = Config.get_instance().get_photo_thumbnail_scale();
+        if (slider_adjustment == null) {
+            slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0,
+                scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
+        }
+        
+        return slider_adjustment;
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -1049,7 +1054,7 @@ public abstract class CollectionPage : CheckerboardPage {
         if (export_dir == null)
             return;
         
-        exporter = new PhotoExporterUI(new PhotoExporter(export_list, export_dir,
+        exporter = new ExporterUI(new Exporter(export_list, export_dir,
             scaling, quality, format));
         exporter.export(on_export_completed);
     }
@@ -1677,14 +1682,18 @@ public abstract class CollectionPage : CheckerboardPage {
         Config.get_instance().set_display_photo_ratings(display);
     }
     
-    private static double scale_to_slider(int value) {
+	// public so that other CollectionPage-like pages (e.g., the Videos page)
+	// can use the scale-to-slider conversion service
+    public static double scale_to_slider(int value) {
         assert(value >= Thumbnail.MIN_SCALE);
         assert(value <= Thumbnail.MAX_SCALE);
         
         return (double) ((value - Thumbnail.MIN_SCALE) / SLIDER_STEPPING);
     }
-    
-    private static int slider_to_scale(double value) {
+
+	// public so that other CollectionPage-like pages (e.g., the Videos page)
+	// can use the slider-to-scale conversion service
+    public static int slider_to_scale(double value) {
         int res = ((int) (value * SLIDER_STEPPING)) + Thumbnail.MIN_SCALE;
 
         assert(res >= Thumbnail.MIN_SCALE);
@@ -1904,7 +1913,7 @@ public abstract class CollectionPage : CheckerboardPage {
     }
 
     public static int get_photo_thumbnail_scale() {
-        return slider_to_scale(slider_adjustment.get_value());
+        return slider_to_scale(get_global_slider_adjustment().get_value());
     }
 }
 

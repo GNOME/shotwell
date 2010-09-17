@@ -125,7 +125,7 @@ public class AlienDatabaseImportJob : BatchImportJob {
         src_file = import_source.get_file();
         filesize = import_source.get_filesize();
         exposure_time = import_source.get_exposure_time();
-        import_id = PhotoTable.get_instance().generate_import_id();
+        import_id = ImportID.generate();
     }
     
     public time_t get_exposure_time() {
@@ -153,7 +153,11 @@ public class AlienDatabaseImportJob : BatchImportJob {
         return true;
     }
     
-    public override bool complete(LibraryPhoto photo, ViewCollection generated_events) throws Error {
+    public override bool complete(ThumbnailSource source, ViewCollection generated_events) throws Error {
+        if (!(source is LibraryPhoto))
+            return false;
+
+        LibraryPhoto photo = (LibraryPhoto) source;
         AlienDatabasePhoto src_photo = import_source.get_photo();
         // tags
         Gee.Collection<AlienDatabaseTag> src_tags = src_photo.get_tags();

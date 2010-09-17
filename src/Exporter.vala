@@ -4,7 +4,7 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-public class PhotoExporter : Object {
+public class Exporter : Object {
     public enum Overwrite {
         YES,
         NO,
@@ -12,42 +12,56 @@ public class PhotoExporter : Object {
         REPLACE_ALL
     }
     
-    public delegate void CompletionCallback(PhotoExporter exporter);
+    public delegate void CompletionCallback(Exporter exporter);
     
-    public delegate Overwrite OverwriteCallback(PhotoExporter exporter, File file);
+    public delegate Overwrite OverwriteCallback(Exporter exporter, File file);
     
-    public delegate bool ExportFailedCallback(PhotoExporter exporter, File file, int remaining, 
+    public delegate bool ExportFailedCallback(Exporter exporter, File file, int remaining, 
         Error err);
     
     private class ExportJob : BackgroundJob {
-        public Photo photo;
+        public Photo? photo;
+        public Video? video;
         public File dest;
         public Scaling scaling;
         public Jpeg.Quality quality;
         public PhotoFileFormat format;
         public Error? err = null;
         
-        public ExportJob(PhotoExporter owner, Photo photo, File dest, Scaling scaling, 
+        public ExportJob(Exporter owner, Photo photo, File dest, Scaling scaling, 
             Jpeg.Quality quality, PhotoFileFormat format, Cancellable? cancellable) {
             base (owner, owner.on_exported, cancellable, owner.on_export_cancelled);
             
             this.photo = photo;
+            this.video = null;
             this.dest = dest;
             this.scaling = scaling;
             this.quality = quality;
             this.format = format;
         }
         
+        public ExportJob.for_video(Exporter owner, Video video, File dest,
+            Cancellable? cancellable) {
+            base(owner, owner.on_exported, cancellable, owner.on_export_cancelled);
+            
+            this.photo = null;
+            this.video = video;
+            this.dest = dest;
+        }
+        
         public override void execute() {
             try {
-                photo.export(dest, scaling, quality, format);
+                if (photo != null)
+                    photo.export(dest, scaling, quality, format);
+                else
+                    video.export(dest);
             } catch (Error err) {
                 this.err = err;
             }
         }
     }
     
-    private Gee.Collection<Photo> photos = new Gee.ArrayList<Photo>();
+    private Gee.Collection<ThumbnailSource> to_export = new Gee.ArrayList<ThumbnailSource>();
     private File dir;
     private Scaling scaling;
     private Jpeg.Quality quality;
@@ -62,9 +76,9 @@ public class PhotoExporter : Object {
     private bool replace_all = false;
     private bool aborted = false;
     
-    public PhotoExporter(Gee.Collection<Photo> photos, File dir, Scaling scaling, Jpeg.Quality quality, 
-        PhotoFileFormat file_format) {
-        this.photos.add_all(photos);
+    public Exporter(Gee.Collection<ThumbnailSource> to_export, File dir, Scaling scaling,
+        Jpeg.Quality quality, PhotoFileFormat file_format) {
+        this.to_export.add_all(to_export);
         this.dir = dir;
         this.scaling = scaling;
         this.quality = quality;
@@ -91,10 +105,10 @@ public class PhotoExporter : Object {
         
         // because the monitor spins the event loop, and so it's possible this function will be
         // re-entered, decide now if this is the last job
-        bool completed = completed_count == photos.size;
+        bool completed = completed_count == to_export.size;
         
         if (!aborted && job.err != null) {
-            if (!error_callback(this, job.dest, photos.size - completed_count, job.err)) {
+            if (!error_callback(this, job.dest, to_export.size - completed_count, job.err)) {
                 aborted = true;
                 
                 if (!completed)
@@ -103,7 +117,7 @@ public class PhotoExporter : Object {
         }
         
         if (!aborted && monitor != null) {
-            if (!monitor(completed_count, photos.size)) {
+            if (!monitor(completed_count, to_export.size)) {
                 aborted = true;
                 
                 if (!completed)
@@ -116,14 +130,15 @@ public class PhotoExporter : Object {
     }
     
     private void on_export_cancelled(BackgroundJob j) {
-        if (++completed_count == photos.size)
+        if (++completed_count == to_export.size)
             export_completed();
     }
     
     private bool process_queue() {
         int submitted = 0;
-        foreach (Photo photo in photos) {
-            string basename = photo.get_export_basename(file_format);
+        foreach (ThumbnailSource source in to_export) {
+            string basename = (source is Photo) ? ((Photo) source).get_export_basename(file_format) :
+                ((Video) source).get_basename();
             File dest = dir.get_child(basename);
             
             if (!replace_all && dest.query_exists(null)) {
@@ -145,7 +160,7 @@ public class PhotoExporter : Object {
                     case Overwrite.NO:
                     default:
                         if (monitor != null) {
-                            if (!monitor(++completed_count, photos.size))
+                            if (!monitor(++completed_count, to_export.size))
                                 return false;
                         }
                         
@@ -153,8 +168,12 @@ public class PhotoExporter : Object {
                 }
             }
             
-            ExportJob job = new ExportJob(this, photo, dest, scaling, quality, file_format, 
-                cancellable);
+            ExportJob job = null;
+            if (source is Photo)
+                 job = new ExportJob(this, (Photo) source, dest, scaling, quality, file_format, 
+                    cancellable);
+            else
+                job = new ExportJob.for_video(this, (Video) source, dest, cancellable);
             workers.enqueue(job);
             submitted++;
         }
@@ -167,17 +186,17 @@ public class PhotoExporter : Object {
     }
 }
 
-public class PhotoExporterUI {
-    private PhotoExporter exporter;
+public class ExporterUI {
+    private Exporter exporter;
     private Cancellable cancellable = new Cancellable();
     private ProgressDialog? progress_dialog = null;
-    private PhotoExporter.CompletionCallback? completion_callback = null;
+    private Exporter.CompletionCallback? completion_callback = null;
     
-    public PhotoExporterUI(PhotoExporter exporter) {
+    public ExporterUI(Exporter exporter) {
         this.exporter = exporter;
     }
     
-    public void export(PhotoExporter.CompletionCallback completion_callback) {
+    public void export(Exporter.CompletionCallback completion_callback) {
         this.completion_callback = completion_callback;
         
         AppWindow.get_instance().set_busy_cursor();
@@ -187,7 +206,7 @@ public class PhotoExporterUI {
             progress_dialog.monitor);
     }
     
-    private void on_export_completed(PhotoExporter exporter) {
+    private void on_export_completed(Exporter exporter) {
         if (progress_dialog != null) {
             progress_dialog.close();
             progress_dialog = null;
@@ -198,28 +217,28 @@ public class PhotoExporterUI {
         completion_callback(exporter);
     }
     
-    private PhotoExporter.Overwrite on_export_overwrite(PhotoExporter exporter, File file) {
+    private Exporter.Overwrite on_export_overwrite(Exporter exporter, File file) {
         string question = _("File %s already exists.  Replace?").printf(file.get_basename());
         Gtk.ResponseType response = AppWindow.negate_affirm_all_cancel_question(question, 
-            _("_Skip"), _("_Replace"), _("Replace _All"), _("Export Photos"));
+            _("_Skip"), _("_Replace"), _("Replace _All"), _("Export"));
         
         switch (response) {
             case Gtk.ResponseType.APPLY:
-                return PhotoExporter.Overwrite.REPLACE_ALL;
+                return Exporter.Overwrite.REPLACE_ALL;
             
             case Gtk.ResponseType.YES:
-                return PhotoExporter.Overwrite.YES;
+                return Exporter.Overwrite.YES;
             
             case Gtk.ResponseType.CANCEL:
-                return PhotoExporter.Overwrite.CANCEL;
+                return Exporter.Overwrite.CANCEL;
             
             case Gtk.ResponseType.NO:
             default:
-                return PhotoExporter.Overwrite.NO;
+                return Exporter.Overwrite.NO;
         }
     }
     
-    private bool on_export_failed(PhotoExporter exporter, File file, int remaining, Error err) {
+    private bool on_export_failed(Exporter exporter, File file, int remaining, Error err) {
         return export_error_dialog(file, remaining > 0) != Gtk.ResponseType.CANCEL;
     }
 }

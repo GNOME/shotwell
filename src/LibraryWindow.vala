@@ -101,6 +101,7 @@ public class LibraryWindow : AppWindow {
     private NoEventPage.Stub no_event_page = null;
     private OfflinePage.Stub offline_page = null;
     private LastImportPage.Stub last_import_page = null;
+    private VideosPage.Stub videos_page = null;
     private ImportQueuePage import_queue_page = null;
     private bool displaying_import_queue_page = false;
     private OneShotScheduler properties_scheduler = null;
@@ -148,7 +149,8 @@ public class LibraryWindow : AppWindow {
         import_queue_page = new ImportQueuePage();
         import_queue_page.batch_removed.connect(import_queue_batch_finished);
         trash_page = TrashPage.create_stub();
-        
+        videos_page = VideosPage.create_stub();
+
         // create and connect extended properties window
         extended_properties = new ExtendedPropertiesWindow(this);
         extended_properties.hide.connect(hide_extended_properties);
@@ -156,6 +158,7 @@ public class LibraryWindow : AppWindow {
 
         // add the default parents and orphans to the notebook
         add_parent_page(library_page);
+        sidebar.add_parent(videos_page);
         sidebar.add_parent(last_import_page);
         sidebar.add_parent(events_directory_page);
         sidebar.add_parent(trash_page);
@@ -232,6 +235,9 @@ public class LibraryWindow : AppWindow {
         // exists
         LibraryPhoto.global.import_roll_altered.connect(sync_last_import_visibility);
         sync_last_import_visibility();
+        
+        Video.global.contents_altered.connect(sync_videos_visibility);
+        sync_videos_visibility();
     }
     
     ~LibraryWindow() {
@@ -620,6 +626,10 @@ public class LibraryWindow : AppWindow {
     
     public void sync_last_import_visibility() {
         enable_disable_last_import_page((LibraryPhoto.global.get_last_import_id() != null));
+    }
+    
+    public void sync_videos_visibility() {
+        enable_disable_videos_page(Video.global.get_count() > 0);
     }
     
     private void import_queue_batch_finished() {
@@ -1101,6 +1111,16 @@ public class LibraryWindow : AppWindow {
         } else if (!enable && last_import_page != null) {
             remove_stub(last_import_page, library_page, null);
             last_import_page = null;
+        }
+    }
+
+    private void enable_disable_videos_page(bool enable) {
+        if (enable && videos_page == null) {
+            videos_page = VideosPage.create_stub();
+            sidebar.insert_sibling_after(library_page.get_marker(), videos_page);
+        } else if (!enable && videos_page != null) {
+            remove_stub(videos_page, library_page, null);
+            videos_page = null;
         }
     }
     
@@ -1659,6 +1679,8 @@ public class LibraryWindow : AppWindow {
             switch_to_page(offline_page.get_page());
         } else if (last_import_page != null && is_page_selected(last_import_page, path)) {
             switch_to_page(last_import_page.get_page());
+        } else if (videos_page != null && is_page_selected(videos_page, path)) {
+            switch_to_page(videos_page.get_page());
         } else {
             // nothing recognized selected
         }
