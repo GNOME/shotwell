@@ -2,7 +2,7 @@
 # Simplified Chinese (Mainland China/PRC Dialect) translation for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
@@ -11,14 +11,14 @@ msgstr ""
 "PO-Revision-Date: 2010-08-01 12:53+0100\n"
 "Last-Translator: Tommy He <tommy.he@linux.com>\n"
 "Language-Team: Simplified Chinese <trans-zh_cn@lists.fedoraproject.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: UTF-8\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Chinese\n"
-"X-Poedit-Country: CHINA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: CHINA\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -141,8 +141,7 @@ msgstr "取消(_C)"
 #: src/AppWindow.vala:605
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
-"continue.\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
 "\n"
 "%s"
 msgstr ""
@@ -414,8 +413,7 @@ msgstr "时间修改出错"
 
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
+msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "时间修改无法在以下照片上取消。"
 
 #: src/Commands.vala:1265
@@ -558,13 +556,11 @@ msgstr "标题："
 #: src/Dialogs.vala:542
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
-"to move the files to your desktop trash?\n"
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
@@ -584,8 +580,7 @@ msgstr "只移除(_R)"
 #: src/Dialogs.vala:571
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+msgid_plural "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] "这将毁掉对于 %d 个外部文件所做的全部修改。继续？"
 
 #: src/Dialogs.vala:574
@@ -647,17 +642,26 @@ msgstr[0] "修改原始文件(_M)"
 msgid "Original: "
 msgstr "原始："
 
-# Change %m/%d/%y to a locale-specific date format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable date format specifiers and their meanings.
+# Change %m/%d/%y to a locale-specific date format string appropriate for your
+# language, country and region. The date format string should conform to POSIX
+# date-formatting conventions. See the manpage for strftime for a list of
+# applicable date format specifiers and their meanings.
 #: src/Dialogs.vala:892
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%m/%d/%Y, %H:%M:%S"
 
-# Change %m/%d/%y to a locale-specific date format string appropriate for your language, country and region. The date format string should conform to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable date format specifiers and their meanings.
+# Change %m/%d/%y to a locale-specific date format string appropriate for your
+# language, country and region. The date format string should conform to POSIX
+# date-formatting conventions. See the manpage for strftime for a list of
+# applicable date format specifiers and their meanings.
 #: src/Dialogs.vala:893
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%m/%d/%Y, %I:%M:%S %p"
 
-# Each "%d %s" pair gets replaced with a number and a string to describe a time value and a time unit, such as "35 minutes" where the %d is resolved to "35" and the %s is resolved to "minutes." There are multiple "%d %s" pairs so that we can say things like "4 days, 5 hours, 35 minutes and 8 seconds."
+# Each "%d %s" pair gets replaced with a number and a string to describe a
+# time value and a time unit, such as "35 minutes" where the %d is resolved to
+# "35" and the %s is resolved to "minutes." There are multiple "%d %s" pairs
+# so that we can say things like "4 days, 5 hours, 35 minutes and 8 seconds."
 #: src/Dialogs.vala:978
 #, c-format
 msgid ""
@@ -764,9 +768,7 @@ msgid "Choose Library Directory"
 msgstr "选择照片库目录"
 
 #: src/Dialogs.vala:1477
-msgid ""
-"Shotwell can copy the photos into your library or it can link to the photos "
-"without duplicating them."
+msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
 msgstr "Shotwell 可以复制照片到您的照片库，或者为照片创建链接来避免重复。"
 
 #: src/Dialogs.vala:1482
@@ -1007,23 +1009,16 @@ msgstr "Shotwell 连接"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
+"If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
 "您尚未登录 Facebook.\n"
 "\n"
-"如果您没有 Facebook 账户，可以在登录过程中创建一个。在登陆过程中， Shotwell "
-"Connect 将请求您上传照片和发布到订阅列表的权限。这些权限对于 Shotwell "
-"Connect 的工作是必须的。"
+"如果您没有 Facebook 账户，可以在登录过程中创建一个。在登陆过程中， Shotwell Connect 将请求您上传照片和发布到订阅列表的权限。这些权限对于 Shotwell Connect 的工作是必须的。"
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
+"You have already logged in and out of Facebook during this Shotwell session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "您已经登录了 Facebook 但并不在当前 Shotwell 进程中。\n"
 "继续在 Facebook 上发布，退出并重新启动，然后再次尝试发布。"
@@ -1069,20 +1064,16 @@ msgstr "登出(_L)"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login "
-"process. During login you will have to specifically authorize Shotwell "
-"Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "您尚未登录 Flickr.\n"
 "\n"
-"您必需在注册一个 Flickr 账户才能完成登录过程。在登录过程中您需要特别授权 "
-"Shotwell 连接到您的 Flickr 账户。"
+"您必需在注册一个 Flickr 账户才能完成登录过程。在登录过程中您需要特别授权 Shotwell 连接到您的 Flickr 账户。"
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "您已经登录 Flickr 但在本次 Shotwell 进程中已离开。\n"
 "要继续发布到 Flickr，请退出并重新启动 Shotwell，然后再尝试发布。"
@@ -1163,8 +1154,7 @@ msgid "Unable to export background to %s: %s"
 msgstr "不能输出为背景到 %s ： %s"
 
 #: src/ImportPage.vala:211
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr "不能卸载相机。尝试从文件管理器中卸载相机。"
 
 #: src/ImportPage.vala:325 src/ImportPage.vala:326
@@ -1179,18 +1169,24 @@ msgstr "隐藏已经导入的照片"
 msgid "Only display photos that have not been imported"
 msgstr "只显示尚未导入的照片"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "导入选中的(_S)"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "导入选中的"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "导入全部(_A)"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "导入选中的照片到您的照片库"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "导入全部"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "导入在该相机中的所有照片到您的照片库"
 
 #: src/ImportPage.vala:582
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
 msgstr "Shotwell 需要从文件系统卸载相机来访问它。继续？"
 
 #: src/ImportPage.vala:588
@@ -1202,13 +1198,8 @@ msgid "Please unmount the camera."
 msgstr "请卸载相机。"
 
 #: src/ImportPage.vala:598
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
-msgstr ""
-"该相机被其他程序锁定。Shotwell 在解锁之后才能访问该相机。请关闭其他使用该相机"
-"的程序再重试。"
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgstr "该相机被其他程序锁定。Shotwell 在解锁之后才能访问该相机。请关闭其他使用该相机的程序再重试。"
 
 #: src/ImportPage.vala:608
 msgid "Please close any other application using the camera."
@@ -1380,32 +1371,18 @@ msgstr "相机"
 
 #: src/main.vala:79
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please use the "
-"latest version of Shotwell."
-msgstr ""
-"您的照片库和当前版本的 Shotwell 不兼容。它似乎是由 Shotwell %s 创建的。当前版"
-"本是 %s 。请使用最新版本的 Shotwell。"
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
+msgstr "您的照片库和当前版本的 Shotwell 不兼容。它似乎是由 Shotwell %s 创建的。当前版本是 %s 。请使用最新版本的 Shotwell。"
 
 #: src/main.vala:84
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s to %s.  "
-"For more information please check the Shotwell Wiki at %s"
-msgstr ""
-"Shotwell 无法将您的照片库从 %s 版本升级到 %s 版本。更多的信息请查询 Shotwell "
-"维基 %s"
+msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
+msgstr "Shotwell 无法将您的照片库从 %s 版本升级到 %s 版本。更多的信息请查询 Shotwell 维基 %s"
 
 #: src/main.vala:89
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please clear "
-"your library by deleting %s and re-import your photos."
-msgstr ""
-"您的照片库和当前版本的 Shotwell 不兼容。它似乎是由 Shotwell %s 创建的。当前版"
-"本是 %s 。请删除 %s 来释放您的照片库然后重新导入照片。"
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr "您的照片库和当前版本的 Shotwell 不兼容。它似乎是由 Shotwell %s 创建的。当前版本是 %s 。请删除 %s 来释放您的照片库然后重新导入照片。"
 
 #: src/main.vala:94
 #, c-format
@@ -1671,50 +1648,27 @@ msgstr "修改"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with Picasa to continue. You can set up most accounts by using your browser "
-"to log into the Picasa Web Albums site at least once."
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
 "您尚未登入 Picasa 网络相册。\n"
 "\n"
-"您必须已经注册了一个 Google 账户并设定为使用 Picasa 才能继续。您可以通过浏览"
-"器至少登录一次到 Picasa 网络相册来开启设定。"
+"您必须已经注册了一个 Google 账户并设定为使用 Picasa 才能继续。您可以通过浏览器至少登录一次到 Picasa 网络相册来开启设定。"
 
 #: src/PicasaConnector.vala:514
-msgid ""
-"Enter the email address and password associated with your Picasa Web Albums "
-"account."
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
 msgstr "输入您关联 Picasa 网络相册账户的 Email 地址和密码。"
 
 #: src/PicasaConnector.vala:515
-msgid ""
-"Picasa Web Albums didn't recognize the email address and password you "
-"entered. To try again, re-enter your email address and password below."
-msgstr ""
-"Picasa 网络相册无法识别您所输入的 Email 地址和密码。若再次尝试，重新在下方输"
-"入您的 Email 地址和密码。"
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr "Picasa 网络相册无法识别您所输入的 Email 地址和密码。若再次尝试，重新在下方输入您的 Email 地址和密码。"
 
 #: src/PicasaConnector.vala:516
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that isn't set up for use with Picasa Web Albums. You can set up most "
-"accounts by using your browser to log into the Picasa Web Albums site at "
-"least once. To try again, re-enter your email address and password below."
-msgstr ""
-"您所输入的 Email 地址和密码链接到的 Google 账户并没有设定使用 Picasa 网络相"
-"册。您可以通过浏览器至少登录一次到 Picasa 网络相册来开启设定。若再次尝试，重"
-"新在下方输入您的 Email 地址和密码。"
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr "您所输入的 Email 地址和密码链接到的 Google 账户并没有设定使用 Picasa 网络相册。您可以通过浏览器至少登录一次到 Picasa 网络相册来开启设定。若再次尝试，重新在下方输入您的 Email 地址和密码。"
 
 #: src/PicasaConnector.vala:517
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that has been tagged as requiring additional security. You can clear this "
-"tag by using your browser to log into Picasa Web Albums. To try again, re-"
-"enter your email address and password below."
-msgstr ""
-"您所输入的 Email 地址和密码链接到的 Google 账户被标记需要额外的安全设定。您可"
-"以通过浏览器登录到 Picasa 网络相册来清除该标记。若再次尝试，重新在下方输入您"
-"的 Email 地址和密码。"
+msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
+msgstr "您所输入的 Email 地址和密码链接到的 Google 账户被标记需要额外的安全设定。您可以通过浏览器登录到 Picasa 网络相册来清除该标记。若再次尝试，重新在下方输入您的 Email 地址和密码。"
 
 #: src/PicasaConnector.vala:552
 #, c-format
@@ -1843,7 +1797,11 @@ msgstr ""
 "\n"
 "%s"
 
-# Locale-specific time format string, conforming to POSIX time-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the time formatting conventions of their language, country, and region.
+# Locale-specific time format string, conforming to POSIX time-formatting
+# conventions. See the manpage for strftime for a list of applicable format
+# specifiers and their meanings. Translators should localize this string to
+# reflect the time formatting conventions of their language, country, and
+# region.
 #: src/Properties.vala:38
 msgid "%I:%M %p"
 msgstr "%I:%M %p"
@@ -2623,7 +2581,11 @@ msgid "Deleting a Photo"
 msgid_plural "Deleting Photos"
 msgstr[0] "删除照片"
 
-# Locale-specific date format string, conforming to POSIX date-formatting conventions. See the manpage for strftime for a list of applicable format specifiers and their meanings. Translators should localize this string to reflect the date formatting conventions of their language, country, and region.
+# Locale-specific date format string, conforming to POSIX date-formatting
+# conventions. See the manpage for strftime for a list of applicable format
+# specifiers and their meanings. Translators should localize this string to
+# reflect the date formatting conventions of their language, country, and
+# region.
 #: src/util.vala:417
 msgid "%a %b %d, %Y"
 msgstr "%a %b %d, %Y"
@@ -2654,15 +2616,12 @@ msgstr "关闭(_C)"
 
 #: src/WebConnectors.vala:830
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
+msgid "Publishing to %s can't continue because the service could not be contacted."
 msgstr "无法继续发布到 %s 因为无法链接到服务。"
 
 #: src/WebConnectors.vala:833
 #, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
+msgid "Publishing to %s can't continue because communication with the service failed."
 msgstr "无法继续发布到 %s 因为和服务的联系失败。"
 
 #: src/WebConnectors.vala:836
@@ -2677,8 +2636,7 @@ msgstr "无法继续发布到 %s 因为服务返回一个错误。"
 
 #: src/WebConnectors.vala:840
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
+msgid "Publishing to %s can't continue because the service returned a bad response."
 msgstr "无法继续发布到 %s 因为服务返回错误的相应。"
 
 #: src/WebConnectors.vala:843
@@ -2746,9 +2704,6 @@ msgstr "准备要导入的照片..."
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "错误"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "选择在照片库的全部照片"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "只显示收藏(_V)"
@@ -2893,8 +2848,7 @@ msgstr "错误"
 #~ msgstr[0] "发布照片(_P)..."
 
 #~ msgid ""
-#~ "This will remove the selected photos from your Shotwell library.  Would "
-#~ "you also like to delete the files from disk?\n"
+#~ "This will remove the selected photos from your Shotwell library.  Would you also like to delete the files from disk?\n"
 #~ "\n"
 #~ "This action cannot be undone."
 #~ msgstr ""
