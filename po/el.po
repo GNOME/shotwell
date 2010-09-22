@@ -5,16 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2+trunk\n"
+"Project-Id-Version: shotwell-0.7.2\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-09-17 22:16+0300\n"
+"PO-Revision-Date: 2010-09-21 22:18+0300\n"
 "Last-Translator: Sterios Prosiniklis <steriosprosiniklis@gmail.com>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2010-09-17 18:04+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Language: Greek\n"
 
 # Translator credits string for the about box -- translators, add your name
@@ -24,33 +26,30 @@ msgid "translator-credits"
 msgstr ""
 "Dimitris Glezos <dimitris@glezos.com>\n"
 "Thalia Papoutsaki <saliyath@gmail.com>\n"
-"Sterios Prosiniklis <steriosprosinikils@gmail.com>"
+"Sterios Prosiniklis <steriosprosiniklis@gmail.com>"
 
-# GNOME Application Name
 msgid "Shotwell Photo Manager"
 msgstr "Διαχειριστής εικόνων Shotwell"
 
 # GNOME Application Class ("Generic Name")
 #: src/Resources.vala:14
 msgid "Photo Manager"
-msgstr "Διαχειριστής εικόνων"
+msgstr "Διαχειριστής Εικόνων"
 
 # GNOME Application Comment
 msgid "Organize your photos"
 msgstr "Οργανώστε τις φωτογραφίες σας"
 
-# GNOME Application Name for Direct Edit Mode
 msgid "Shotwell Photo Viewer"
 msgstr "Προβολή εικόνων Shotwell"
 
-# GNOME Application Class for Direct Edit Mode
 #: src/Resources.vala:15
 msgid "Photo Viewer"
 msgstr "Προβολή εικόνων"
 
 #: src/AppWindow.vala:487
 msgid "_User Manual"
-msgstr "_Εγχειρίδιο χρήστη"
+msgstr "Εγχειρίδιο χρήστη"
 
 #: src/AlienDatabaseImportDialog.vala:53
 #, c-format
@@ -65,7 +64,7 @@ msgstr "Εισαγωγή από μια άλλη %s βάση δεδομένων:"
 #: src/AlienDatabaseImportDialog.vala:65
 #, c-format
 msgid "Import from a %s database file:"
-msgstr "Εισαγωγή από %s.αρχείο βάσης δεδομένων:"
+msgstr "Εισαγωγή από μια %s βάση δεδομένων:"
 
 #: src/AlienDatabaseImportDialog.vala:93
 msgid "No database selected"
@@ -90,7 +89,7 @@ msgstr "Καρφίτσωμα γραμμής εργαλείων"
 
 #: src/AppWindow.vala:56
 msgid "Pin the toolbar open"
-msgstr "Ανοικτό καρφίτσωμα της γραμμής εργαλείων "
+msgstr "Ανοικτό καρφίτσωμα της γραμμής εργαλείων"
 
 #: src/AppWindow.vala:60 src/AppWindow.vala:137
 msgid "Leave fullscreen"
@@ -146,8 +145,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Ένα σφάλμα προέκυψε κατά την είσοδο στη βιβλιοθήκη του Shotwell.   Το "
-"Shotwell δεν μπορεί να συνεχίσει.\n"
+"Ένα σφάλμα προέκυψε κατά την είσοδο στη βιβλιοθήκη του Shotwell. Το Shotwell "
+"δεν μπορεί να συνεχίσει.\n"
 "\n"
 "%s"
 
@@ -162,11 +161,11 @@ msgstr "Δεν ήταν δυνατή η εμφάνιση της βοήθειας
 
 #: src/CollectionPage.vala:166 src/SlideshowPage.vala:98
 msgid "Slideshow"
-msgstr "Συνεχόμενη προβολή (Slideshow)"
+msgstr "Προβολή slides"
 
 #: src/CollectionPage.vala:167
 msgid "Start a slideshow of these photos"
-msgstr "Συνεχόμενη προβολή αυτών των φωτογραφιών"
+msgstr "Προβολή slides των φωτογραφιών"
 
 #: src/CollectionPage.vala:202
 msgid "Adjust the size of the thumbnails"
@@ -214,11 +213,11 @@ msgstr "Μείωση της μεγέθυνσης των μικρογραφιών
 
 #: src/CollectionPage.vala:431
 msgid "_Slideshow"
-msgstr "_Συνεχόμενη προβολή"
+msgstr "Προβολή σ_λάιντ"
 
 #: src/CollectionPage.vala:432
 msgid "Play a slideshow"
-msgstr "Έναρξη προβολής διαφανειών"
+msgstr "Αναπαραγωγή προβολής διαφανειών"
 
 #: src/CollectionPage.vala:436 src/EventsDirectoryPage.vala:213
 #: src/ImportPage.vala:478 src/ImportPage.vala:1225 src/OfflinePage.vala:54
@@ -255,7 +254,7 @@ msgstr "Εμφάνιση ετικετών κάθε φωτογραφίας"
 
 #: src/CollectionPage.vala:505
 msgid "By _Title"
-msgstr "Κατά _τίτλο"
+msgstr "Κατά _Τίτλο"
 
 #: src/CollectionPage.vala:506
 msgid "Sort photos by title"
@@ -263,15 +262,15 @@ msgstr "Ταξινόμηση των φωτογραφιών βάσει τίτλο
 
 #: src/CollectionPage.vala:511
 msgid "By Exposure _Date"
-msgstr "Κατά _ημερομηνία τροποποίησης"
+msgstr "Κατά _Ημερομηνία Τροποποίησης"
 
 #: src/CollectionPage.vala:512
 msgid "Sort photos by exposure date"
-msgstr "Ταξινόμηση φωτογραφιών βάσει ημερομηνίας έκθεσης"
+msgstr "Ταξινόμηση φωτογραφιών βάσει ημερομηνία έκθεσης"
 
 #: src/CollectionPage.vala:517
 msgid "By _Rating"
-msgstr "Βάσει _αξιολόγησης"
+msgstr "Βάσει _Αξιολόγησης"
 
 #: src/CollectionPage.vala:518
 msgid "Sort photos by rating"
@@ -361,7 +360,7 @@ msgstr "Ορισμός φωτογραφιών σε προηγούμενο συμ
 
 #: src/Commands.vala:761
 msgid "Merging"
-msgstr "Σγχώνευση"
+msgstr "Συγχώνευση"
 
 #: src/Commands.vala:762
 msgid "Unmerging"
@@ -373,7 +372,7 @@ msgstr "Αντιγραφή φωτογραφιών"
 
 #: src/Commands.vala:771
 msgid "Removing duplicated photos"
-msgstr "Αφαίρεση διπλότυπων φωτογραφιών"
+msgstr "Αφαίρεση αντιγεγραμμένων φωτογραφιών"
 
 #: src/Commands.vala:794
 #, c-format
@@ -400,25 +399,25 @@ msgstr "Μείωση αξιολογήσεων"
 
 #: src/Commands.vala:952
 msgid "Original photo could not be adjusted."
-msgstr "Η αυθεντική φωτογραφία δεν ήταν δυνατό να ρυθμιστεί. "
+msgstr "Η αυθεντική φωτογραφία δεν ήταν δυνατό να ρυθμιστεί."
 
 #: src/Commands.vala:972
 msgid "Adjusting Date and Time"
-msgstr "Ρύθμιση ημερομηνίας και ώρας"
+msgstr "Ρυθμίση Ημερομηνίας και Ώρας"
 
 #: src/Commands.vala:972
 msgid "Undoing Date and Time Adjustment"
-msgstr "Αναίρεση ρυθμίσεων ημερομηνίας και ώρας"
+msgstr "Αναίρεση ρυθμίσεων Ημερομηνίας και Ώρας"
 
 #: src/Commands.vala:999
 msgid "One original photo could not be adjusted."
 msgid_plural "The following original photos could not be adjusted."
 msgstr[0] "Μια αυθεντική φωτογραφία δεν ήταν δυνατό να ρυθμιστεί."
-msgstr[1] "Οι παρακάτω αυθεντικές φωτογραφίες δεν ήταν δυνατό να ρυθμιστούν."
+msgstr[1] "Οι παρακάτω αυθεντικές φωτογραφίες δεν ήταν δυνατό να ρυθμιστεί."
 
 #: src/Commands.vala:1001 src/Commands.vala:1013
 msgid "Time Adjustment Error"
-msgstr "Σφάλμα ρύθμισης ώρας"
+msgstr "Σφάλμα Ρύθμισης Ώρας"
 
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
@@ -431,27 +430,27 @@ msgstr[1] ""
 
 #: src/Commands.vala:1265
 msgid "Move Photos to Trash"
-msgstr "Μετακίνηση φωτογραφιών στον κάδο απορριμμάτων"
+msgstr "Μετακίνηση φωτογραφιών στον κάδο ανακύκλωσης"
 
 #: src/Commands.vala:1265
 msgid "Restore Photos from Trash"
-msgstr "Επαναφορά φωτογραφιών από τον κάδο απορριμμάτων"
+msgstr "Επαναφορά φωτογραφιών από τον κάδο ανακύκλωσης"
 
 #: src/Commands.vala:1266
 msgid "Move the photos to the Shotwell trash"
-msgstr "Μετακίνηση φωτογραφιών στον κάδο απορριμμάτων του Shotwell"
+msgstr "Μετακίνηση φωτογραφιών στον κάδο ανακύκλωσης του Shotwell"
 
 #: src/Commands.vala:1266
 msgid "Restore the photos back to the Shotwell library"
-msgstr "Επαναφορά των εικόνων στην βιβλιοθήκη του Shotwell"
+msgstr "Επαναφορά των εικόνων πίσω στη βιβλιοθήκη του Shotwell"
 
 #: src/Commands.vala:1283
 msgid "Moving Photos to Trash"
-msgstr "Μετακίνηση φωτογραφιών στον κάδο απορριμμάτων"
+msgstr "Μετακίνηση φωτογραφιών στον κάδο ανακύκλωσης"
 
 #: src/Commands.vala:1283
 msgid "Restoring Photos From Trash"
-msgstr "Επαναφορά φωτογραφιών από τον κάδο απορριμμάτων"
+msgstr "Επαναφορά φωτογραφιών από τον κάδο ανακύκλωσης"
 
 #: src/Dialogs.vala:36 src/PhotoExporter.vala:204
 msgid "Export Photos"
@@ -485,7 +484,7 @@ msgstr "_Μορφοποίηση:"
 
 #: src/Dialogs.vala:138
 msgid "_Quality:"
-msgstr "_Ποιότητα:"
+msgstr "_Ποιότητα"
 
 #: src/Dialogs.vala:141
 msgid "_Scaling constraint:"
@@ -504,39 +503,43 @@ msgstr "(και άλλα %d)\n"
 #, c-format
 msgid "1 duplicate photo was not imported:\n"
 msgid_plural "%d duplicate photos were not imported:\n"
-msgstr[0] "1 διπλότυπη φωτογραφία δεν εισήχθη:\n"
-msgstr[1] "%d  διπλότυπες φωτογραφίες δεν εισήχθησαν:\n"
+msgstr[0] "1 διπλή φωτογραφία δεν εισήχθησε:\n"
+msgstr[1] "%d  διπλές φωτογραφίες δεν εισήχθησαν:\n"
 
 #: src/Dialogs.vala:342
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] "Αποτυχία εισαγωγής 1 φωτογραφίας λόγω σφάλματος αρχείου ή υλικού:\n"
+msgstr[0] ""
+"1 φωτογραφία απέτυχε να εισαχθεί εξαιτίας ενός σφάλματος αρχείου ή σφάλματος "
+"του υλικού:\n"
 msgstr[1] ""
-"Αποτυχία εισαγωγής %d φωτογραφιών λόγω σφάλματος αρχείου ή υλικού:\n"
+"%d φωτογραφίες απέτυχαν να εισαχθούν εξαιτίας ενός σφάλματος αρχείου ή "
+"σφάλματος του υλικού:\n"
 
 #: src/Dialogs.vala:357
 #, c-format
 msgid "1 photo failed to import due to a camera error:\n"
 msgid_plural "%d photos failed to import due to a camera error:\n"
 msgstr[0] ""
-"Αποτυχία εισαγωγής 1 φωτογραφίας λόγω σφάλματος της φωτογραφικής μηχανής:\n"
+"1 φωτογραφία απέτυχε να εισηχθεί εξαιτίας κάποιου σφάλματος της κάμερας:\n"
 msgstr[1] ""
-"Αποτυχία εισαγωγής %d φωτογραφιών λόγω σφάλματος της φωτογραφικής μηχανής:\n"
+"%d φωτογραφίες απέτυχαν να εισηχθούν εξαιτίας κάποιου σφάλματος της "
+"κάμερας:\n"
 
 #: src/Dialogs.vala:371
 #, c-format
 msgid "1 unsupported photo skipped:\n"
 msgid_plural "%d unsupported photos skipped:\n"
-msgstr[0] "Παράλειψη 1 ασύμβατης φωτογραφίας:\n"
-msgstr[1] "Παράλειψη %d ασύμβατων φωτογραφιών:\n"
+msgstr[0] "1 ανυποστήρικτη φωτογραφία παραλήφθηκε:\n"
+msgstr[1] "%d ανυποστήρικτες φωτογραφίες παραλήφθηκαν:\n"
 
 #: src/Dialogs.vala:385
 #, c-format
 msgid "1 non-image file skipped.\n"
 msgid_plural "%d non-image files skipped.\n"
-msgstr[0] "Παράλειψη αρχείου που δεν ήταν εικόνα.\n"
-msgstr[1] "Παράλειψη %d αρχείων που δεν ήταν εικόνες.\n"
+msgstr[0] "Προσπεράστηκε ένα αρχείο που δεν ήταν εικόνα.\n"
+msgstr[1] "Προσπεράστηκαν %d αρχεία που δεν ήταν εικόνες.\n"
 
 #: src/Dialogs.vala:396
 #, c-format
@@ -549,8 +552,8 @@ msgstr[1] "%d φωτογραφίες παραλείφθηκαν λόγω ακύ�
 #, c-format
 msgid "1 photo successfully imported.\n"
 msgid_plural "%d photos successfully imported.\n"
-msgstr[0] "1 φωτογραφία εισήχθη με επιτυχία.\n"
-msgstr[1] "%d φωτογραφίες εισήχθησαν με επιτυχία.\n"
+msgstr[0] "1 φωτογραφία εισήχθηκε με επιτυχία.\n"
+msgstr[1] "%d φωτογραφίες εισήχθηκαν με επιτυχία.\n"
 
 #: src/Dialogs.vala:424
 msgid "No photos imported.\n"
@@ -603,8 +606,8 @@ msgstr[1] ""
 #: src/Dialogs.vala:545
 msgid "_Trash File"
 msgid_plural "_Trash Files"
-msgstr[0] "_Αρχείο κάδου απορριμμάτων"
-msgstr[1] "_Αρχεία κάδου απορριμμάτων"
+msgstr[0] "_Αρχείο κάδου ανακύκλωσης"
+msgstr[1] "_Αρχεία κάδου ανακύκλωσης"
 
 #: src/Dialogs.vala:549
 msgid "Only _Remove"
@@ -625,14 +628,14 @@ msgstr[1] ""
 #: src/Dialogs.vala:574
 msgid "Re_vert External Edit"
 msgid_plural "Re_vert External Edits"
-msgstr[0] "_Επαναφορά εξωτερικής επεξεργασίας"
-msgstr[1] "_Επαναφορά εξωτερικών επεξεργασιών"
+msgstr[0] "_Επαναφορά Εξωτερικής Επεξεργασίας"
+msgstr[1] "_Επαναφορά Εξωτερικών Επεξεργασιών"
 
 #: src/Dialogs.vala:580
 msgid "Revert External Edit"
 msgid_plural "Revert External Edits"
-msgstr[0] "Επαναφορά εξωτερικής επεξεργασίας"
-msgstr[1] "Επαναφορά εξωτερικών επεξεργασιών"
+msgstr[0] "Επαναφορά Εξωτερικής Επεξεργασίας"
+msgstr[1] "Επαναφορά Εξωτερικών Επεξεργασιών"
 
 #: src/Dialogs.vala:594
 #, c-format
@@ -684,7 +687,7 @@ msgstr[1] "_Τροποποίηση αρχικών αρχείων"
 
 #: src/Dialogs.vala:891
 msgid "Original: "
-msgstr "Αρχικό:"
+msgstr "Αρχικό: "
 
 #: src/Dialogs.vala:892
 msgid "%m/%d/%Y, %H:%M:%S"
@@ -777,7 +780,7 @@ msgstr ""
 #: src/Dialogs.vala:1162
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr "Επιλέξτε <span weight=\"bold\">File %s Εισαγωγή από φάκελο</span>"
+msgstr "Επιλέξτε <span weight=\"bold\">File %s Εισαγωγή Από Φάκελο</span>"
 
 #: src/Dialogs.vala:1163
 msgid "Drag and drop photos onto the Shotwell window"
@@ -795,7 +798,7 @@ msgstr "Εισαγωγή φωτογραφιών από τη βιβλιοθήκη
 #: src/Dialogs.vala:1180
 #, c-format
 msgid "_Import photos from your %s folder"
-msgstr "_Εισαγωγή φωτογραφιών από το φάκελο %s "
+msgstr "_Εισαγωγή φωτογραφιών από το φάκελο %s"
 
 #: src/Dialogs.vala:1190
 msgid "You can also import photos in any of these ways:"
@@ -964,8 +967,7 @@ msgstr "Κλείσιμο του εργαλείου κόκκινων-ματιών
 #: src/EditingTools.vala:1707
 msgid "Remove any red-eye effects in the selected region"
 msgstr ""
-"Αφαίρεση κάθε επίδρασης του φαινομένου κόκκινων ματιών στην επιλεγμένη "
-"περιοχή"
+"Αφαίρεση κάθε επίδραση του φαινομένου κόκκινων ματιών στην επιλεγμένη περιοχή"
 
 #: src/EditingTools.vala:2018
 msgid "_Reset"
@@ -1071,7 +1073,7 @@ msgstr ""
 "κατά τη διαδικασία σύνδεσης. Κατά τη διάρκεια της σύνδεσης το Shotwell "
 "Connect μπορεί να σας ζητήσει την άδεια να φορτώσει φωτογραφίες και να τις "
 "δημοσιοποιήσει στη τροφοδοσία σας (feed). Οι άδειες αυτές είναι απαραίτητες "
-"για τη λειτουργία του Shotwell Connect. "
+"για τη λειτουργία του Shotwell Connect."
 
 #: src/FacebookConnector.vala:18
 msgid ""
@@ -1083,7 +1085,7 @@ msgstr ""
 "Έχετε ήδη συνδεθεί και αποσυνδεθεί από το Facebook κατά τη διάρκεια της "
 "εργασίας στο Shotwell.\n"
 "Για να συνεχίσετε τη δημοσίεση στο Facebook, βγείτε από το Shotwell, "
-"εκκινήστε το πάλι και προσπαθείστε να δημοσιεύσετε ξανά. "
+"εκκινήστε το πάλι και προσπαθείστε να δημοσιεύσετε ξανά."
 
 #: src/FacebookConnector.vala:261
 msgid "Testing connection to Facebook..."
@@ -1106,11 +1108,11 @@ msgstr ""
 
 #: src/FacebookConnector.vala:754
 msgid "Publish to an e_xisting album:"
-msgstr "Δημοσίευση σε _υπάρχον άλμπουμ:"
+msgstr "Δημοσίευση σε _υπάρχον λεύκωμα:"
 
 #: src/FacebookConnector.vala:757
 msgid "Create a _new album named:"
-msgstr "Δημιουργία _νέου άλμπουμ με την ονομασία:"
+msgstr "Δημιουργία _νέου λευκώματος με την ονομασία:"
 
 #: src/FacebookConnector.vala:773 src/FlickrConnector.vala:884
 #: src/PicasaConnector.vala:789
@@ -1135,7 +1137,7 @@ msgstr ""
 "Θα πρέπει να έχετε ήδη εγγραφεί για έναν λογαριασμό στο  Flickr για να "
 "ολοκληρώσετε τη διαδικασία σύνδεσης. Κατά τη διάρκεια της σύνδεσης θα πρέπει "
 "να δώσετε άδεια στο Shotwell Connect να συνδεθεί με τον λογαριασμό σας στο "
-"Flickr. "
+"Flickr."
 
 #: src/FlickrConnector.vala:13
 msgid ""
@@ -1174,7 +1176,7 @@ msgstr ""
 #: src/FlickrConnector.vala:824
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
 msgstr ""
-"Ο λογαριασμός Flickr Pro σας δίνει το δικαίωμα για απεριόριστα ανεβάσματα."
+"Ο λογαριασμός Flickr Pro σας δίνει το διακίωμα για απεριόριστα ανεβάσματα."
 
 #: src/FlickrConnector.vala:849
 msgid "Photos _visible to:"
@@ -1186,7 +1188,7 @@ msgstr "_Μέγεθος φωτογραφίας:"
 
 #: src/FlickrConnector.vala:922
 msgid "Everyone"
-msgstr "Οποιονδήποτε"
+msgstr "Όλοι"
 
 #: src/FlickrConnector.vala:923
 msgid "Friends & family only"
@@ -1194,7 +1196,7 @@ msgstr "Φίλοι & οικογένεια μόνο"
 
 #: src/FlickrConnector.vala:924
 msgid "Just me"
-msgstr "Μόνο σε μένα"
+msgstr "Μόνο εγώ"
 
 #: src/FlickrConnector.vala:947
 msgid "Medium (500 x 375 pixels)"
@@ -1229,8 +1231,8 @@ msgstr "Αδυναμία εξαγωγής φόντου στο %s: %s"
 msgid ""
 "Unable to unmount camera.  Try unmounting the camera from the file manager."
 msgstr ""
-"Αδυναμία αποπροσάρτησης κάμερας. Προσπαθήστε να αποπροσαρτήσετε την κάμερα "
-"από τη διαχείριση αρχείων."
+"Αδυναμία αποπροσάρτησης κάμερας. Προσπαθείστε να αποπροσαρτήσετε την κάμερα "
+"από τη διαχείρηση αρχείων."
 
 #: src/ImportPage.vala:325 src/ImportPage.vala:326
 msgid "Camera"
@@ -1250,7 +1252,7 @@ msgstr "Εισαγωγή επιλεγμένων"
 
 #: src/ImportPage.vala:415
 msgid "Import the selected photos into your library"
-msgstr "Μετακίνηση των επιλεγμένων εικόνων πίσω στη βιβλιοθήκη"
+msgstr "Εισαγωγή των επιλεγμένων φωτογραφιών στην βιβλιοθήκη"
 
 #: src/ImportPage.vala:423
 msgid "Import All"
@@ -1258,7 +1260,7 @@ msgstr "Εισαγωγή όλων"
 
 #: src/ImportPage.vala:424
 msgid "Import all the photos on this camera into your library"
-msgstr "Επιλογή όλων των εικόνων της βιβλιοθήκης"
+msgstr "Εισαγωγή όλων των φωτογραφιών από την μηχανή στην βιβλιοθήκη"
 
 #: src/ImportPage.vala:582
 msgid ""
@@ -1274,7 +1276,7 @@ msgstr "_Αποπροσάρτηση"
 
 #: src/ImportPage.vala:593
 msgid "Please unmount the camera."
-msgstr "Παρακαλώ αποπροσαρτήστε την κάμερα. "
+msgstr "Παρακαλώ αποπροσαρτήστε την κάμερα."
 
 #: src/ImportPage.vala:598
 msgid ""
@@ -1282,9 +1284,9 @@ msgid ""
 "camera when it's unlocked.  Please close any other application using the "
 "camera and try again."
 msgstr ""
-"Η κάμερα είναι κλειδωμένη από κάποια άλλη εφαρμογή. Το Shotwell μπορεί να "
+"Η κάμερα είναι κλειδωμενη από κάποια άλλη εφαρμογή. Το Shotwell μπορεί να "
 "έχει πρόσβαση στη κάμερα μόνο όταν είναι ξεκλείδωτη. Παρακαλώ κλείστε κάθε "
-"άλλη εφαρμογή που χρησιμοποιεί την κάμερα και προσπαθήστε ξανά."
+"άλλη εφαρμογή που χρησιμοποιεί την κάμερα και προσπαθείστε ξανά."
 
 #: src/ImportPage.vala:608
 msgid "Please close any other application using the camera."
@@ -1349,7 +1351,7 @@ msgstr "Διακοπή εισαγωγής εικόνων"
 
 #: src/ImportPage.vala:1220
 msgid "_Stop Import"
-msgstr "_Παύση εισαγωγής"
+msgstr "_Παύση Εισαγωγής"
 
 #: src/ImportPage.vala:1301
 #, c-format
@@ -1382,11 +1384,11 @@ msgstr "Μέγιστο (%d%%)"
 
 #: src/LastImportPage.vala:23
 msgid "Last Import"
-msgstr "Τελευταία εισαγωγή"
+msgstr "Τελευταία Εισαγωγή"
 
 #: src/LibraryWindow.vala:458
 msgid "_Import From Folder..."
-msgstr "Εισαγωγή από _φάκελο"
+msgstr "Εισαγωγή από _Φάκελο"
 
 #: src/LibraryWindow.vala:459
 msgid "Import photos from disk to library"
@@ -1398,11 +1400,11 @@ msgstr "_Ταξινόμηση συμβάντων"
 
 #: src/LibraryWindow.vala:475
 msgid "Empty T_rash"
-msgstr "Άδειασμα _κάδου απορριμμάτων"
+msgstr "Άδειασμα _κάδου ανακύκλωσης"
 
 #: src/LibraryWindow.vala:476
 msgid "Delete all photos in the trash"
-msgstr "Διαγραφή όλων των εικόνων στον κάδο απορριμμάτων"
+msgstr "Διαγραφή όλων των εικόνων στον κάδο ανακύκλωσης"
 
 #: src/LibraryWindow.vala:487
 msgid "_Basic Information"
@@ -1418,15 +1420,15 @@ msgstr "_Εκτενείς πληροφορίες"
 
 #: src/LibraryWindow.vala:494
 msgid "Display extended information for the selection"
-msgstr "Εμφάνιση εκτενών πληροφοριών της επιλογής "
+msgstr "Εμφάνιση εκτενών πληροφοριών της επιλογής"
 
 #: src/LibraryWindow.vala:654
 msgid "Import From Folder"
-msgstr "Εισαγωγή από φάκελο"
+msgstr "Εισαγωγή Από Φάκελο"
 
 #: src/LibraryWindow.vala:689
 msgid "Empty Trash"
-msgstr "Άδειασμα κάδου απορριμμάτων"
+msgstr "Άδειασμα κάδου ανακύκλωσης"
 
 #: src/LibraryWindow.vala:689
 msgid "Emptying Trash..."
@@ -1489,13 +1491,13 @@ msgstr ""
 "Η βιβλιοθήκη των φωτογραφιών σας δεν είναι συμβατή με αυτή την έκδοση του "
 "Shotwell. Φαίνεται πως δημιουργήθηκε με το Shotwell %s. Η έκδοση αυτή είναι "
 "η %s. Παρακαλώ εκκαθαρίστε τη βιβλιοθήκη σας διαγράφοντας το %s και "
-"εισάγοντας ξανά τις φωτογραφίες σας. "
+"εισάγοντας ξανά τις φωτογραφίες σας."
 
 #: src/main.vala:94
 #, c-format
 msgid "Unknown error attempting to verify Shotwell's database: %d"
 msgstr ""
-"Άγνωστο σφάλμα κατά την επαλήθευση της βάσης δεδομένων του Shotwell: %d"
+"Άγνωστο σφάλμα προσπαθεί να επικυρώσει τη βάση δεδομένων του Shotwell: %d"
 
 #: src/main.vala:121
 msgid "Loading Shotwell"
@@ -1509,8 +1511,8 @@ msgstr "[ΑΡΧΕΙΟ]"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Εκτελέστε '%s --help' για να δείτε μια πλήρη λίστα με τις διαθέσιμες "
-"επιλογές γραμμών εντολών.\n"
+"Τρέξτε το '%s --help' για να δείτε μια πλήρη λίστα με τις διατεθειμένες "
+"ρυθμίσεις γραμμών εντολών.\n"
 
 #: src/OfflinePage.vala:17
 msgid "Missing Files"
@@ -1522,7 +1524,7 @@ msgstr "Διαγραφή..."
 
 #: src/Page.vala:2146
 msgid "Photos cannot be exported to this directory."
-msgstr "Δεν είναι δυνατή η εξαγωγή των φωτογραφιών σ' αυτόν τον φάκελο. "
+msgstr "Δεν είναι δυνατή η εξαγωγή των φωτογραφιών σ' αυτόν τον φάκελο."
 
 #: src/PhotoExporter.vala:185
 msgid "Exporting"
@@ -1604,7 +1606,7 @@ msgstr "Μεγέθυνση _100%"
 
 #: src/PhotoPage.vala:2226 src/PhotoPage.vala:3263
 msgid "Zoom the photo to 100% magnification"
-msgstr "Μεγέθυνση της φωτογραφίας κατά 100 τοις εκατό"
+msgstr "Mεγέθυνση της φωτογραφίας κατά 100 τοις εκατό"
 
 #: src/PhotoPage.vala:2231 src/PhotoPage.vala:3268
 msgid "Zoom _200%"
@@ -1616,7 +1618,7 @@ msgstr "Μεγέθυνση της φωτογραφίας κατά 200 τοις �
 
 #: src/PhotoPage.vala:2578 src/util.vala:596
 msgid "Remove From Library"
-msgstr "Απομάκρυνση από τη βιβλιοθήκη"
+msgstr "Απομάκρυνση από τη Βιβλιοθήκη"
 
 #: src/PhotoPage.vala:2578 src/util.vala:597
 msgid "Removing Photo From Library"
@@ -1639,7 +1641,7 @@ msgstr "Αποθήκευση φωτογραφίας"
 
 #: src/PhotoPage.vala:3125
 msgid "Save _As..."
-msgstr "Αποθήκευση _ως..."
+msgstr "Αποθήκευση _Ως..."
 
 #: src/PhotoPage.vala:3126
 msgid "Save photo with a different name"
@@ -1652,7 +1654,7 @@ msgstr "Ρυθμίσεις _σελίδας:"
 #: src/PhotoPage.vala:3138 src/Resources.vala:209
 msgid "Print the photo to a printer connected to your computer"
 msgstr ""
-"Εκτυπώστε μια φωτογραφία σε έναν εκτυπωτή συνδεδεμένο στον υπολογιστή σας. "
+"Εκτυπώστε μια φωτογραφία σε έναν εκτυπωτή συνδεδεμένο στον υπολογιστή σας."
 
 #: src/PhotoPage.vala:3143
 msgid "Edit"
@@ -1693,7 +1695,7 @@ msgstr "Κλείσιμο _χωρίς αποθήκευση"
 #: src/PhotoPage.vala:3454
 #, c-format
 msgid "Error while saving to %s: %s"
-msgstr "Σφάλμα κατά την αποθήκευση στο %s: %s "
+msgstr "Σφάλμα κατά την αποθήκευση στο %s: %s"
 
 #: src/PhotoPage.vala:3490 src/PhotoPage.vala:3526
 msgid "Save As"
@@ -1764,12 +1766,12 @@ msgid ""
 "with Picasa to continue. You can set up most accounts by using your browser "
 "to log into the Picasa Web Albums site at least once."
 msgstr ""
-"Δεν είστε ακόμα συνδεδεμένος στο Picasa Web Albums.\n"
+"Δεν είστε ακόμα συνδεδεμένος στα Λευκώματα ιστού Picasa.\n"
 "\n"
 "Θα πρέπει να έχετε ήδη εγγραφεί για έναν λογαριασμό Google και να τον έχετε "
 "ρυθμίσει για χρήση με το Picasa για να συνεχίσετε. Μπορείτε να ρυθμίσετε "
 "τους περισσότερους λογαριασμούς χρησιμοποιώντας το πρόγραμμα πλοήγησης για "
-"να συνδεθείτε με την ιστοσελίδα Picasa Web Albums τουλάχιστον μια φορά."
+"να συνδεθείτε με την ιστοσελίδα Λευκώματα ιστού Picasa τουλάχιστον μια φορά."
 
 #: src/PicasaConnector.vala:514
 msgid ""
@@ -1777,16 +1779,16 @@ msgid ""
 "account."
 msgstr ""
 "Εισάγετε τη διεύθυνση mail και τον κωδικό που συνδέονται με τον λογαριασμό "
-"σας στο Picasa Web Albums."
+"σας στα Λευκώματα ιστού Picasa."
 
 #: src/PicasaConnector.vala:515
 msgid ""
 "Picasa Web Albums didn't recognize the email address and password you "
 "entered. To try again, re-enter your email address and password below."
 msgstr ""
-"Το Picasa Web Albums δεν αναγνώρισε τη διεύθυνση mail και τον κωδικό που "
-"εισάγατε. Για να δοκιμάσετε ξανά, βάλτε τη διεύθυνση mail και τον κωδικό "
-"παρακάτω. "
+"Τα Λευκώματα ιστού Picasa δεν αναγνώρισαν τη διεύθυνση mail και τον κωδικό "
+"που εισάγατε. Για να δοκιμάσετε ξανά, βάλτε τη διεύθυνση mail και τον κωδικό "
+"παρακάτω."
 
 #: src/PicasaConnector.vala:516
 msgid ""
@@ -1796,11 +1798,11 @@ msgid ""
 "least once. To try again, re-enter your email address and password below."
 msgstr ""
 "Η διεύθυνση mail και ο κωδικός που εισάγατε αντιστοιχεί σε έναν λογαριασμό "
-"Google που δεν έχει ρυθμιστεί για χρήση με το Picasa Web Albums. Μπορείτε "
-"ναρυθμίσετε τους περισσότερους λογαριασμούς χρησιμοποιώντας το πρόγραμμα "
-"πλοήγησης για να συνδεθείτε με την ιστοσελίδα του Picasa Web Albums "
-"τουλάχιστον μια φορά. Για να δοκιμάσετε ξανά, βάλτε τη διεύθυνση mail και "
-"τον κωδικό παρακάτω."
+"Google που δεν έχει ρυθμιστεί για χρήση με τα Λευκώματα ιστού Picasa. "
+"Μπορείτε να ρυθμίσετε τους περισσότερους λογαριασμούς χρησιμοποιώντας το "
+"πρόγραμμα πλοήγησης για να συνδεθείτε με την ιστοσελίδα των Λευκωμάτων ιστού "
+"Picasa τουλάχιστον μια φορά. Για να δοκιμάσετε ξανά, βάλτε τη διεύθυνση mail "
+"και τον κωδικό παρακάτω."
 
 #: src/PicasaConnector.vala:517
 msgid ""
@@ -1812,8 +1814,8 @@ msgstr ""
 "Η διεύθυνση mail και ο κωδικός που εισάγατε αντιστοιχεί σε έναν λογαριασμό "
 "Google που έχει ένδειξη ότι απαιτεί επιπρόσθετη ασφάλεια. Μπορείτε να "
 "διαγράψετε την ένδειξη χρησιμοποιώντας το πρόγραμμα πλοήγησης για να "
-"συνδεθείτε στο Picasa Web Albums. Για να δοκιμάσετε ξανά, βάλτε τη διεύθυνση "
-"mail και τον κωδικό παρακάτω."
+"συνδεθείτε στα Λευκώματα ιστού Picasa. Για να δοκιμάσετε ξανά, βάλτε τη "
+"διεύθυνση mail και τον κωδικό παρακάτω."
 
 #: src/PicasaConnector.vala:552
 #, c-format
@@ -1849,7 +1851,7 @@ msgstr "_Σύνδεση:"
 #: src/PicasaConnector.vala:684
 #, c-format
 msgid "You are logged into Picasa Web Albums as %s."
-msgstr "Είστε συνδεδεμένος στο Picasa Web Albums ως %s."
+msgstr "Είστε συνδεδεμένος στα Λευκώματα ιστού Picasa ως %s."
 
 #: src/PicasaConnector.vala:701
 msgid "Photos will appear in:"
@@ -1865,7 +1867,7 @@ msgstr "Δημιουργία _νέoυ λευκώματος"
 
 #: src/PicasaConnector.vala:740
 msgid "L_ist album in public gallery"
-msgstr "_Ταξινόμηση άλμπουμ στη δημόσια πινακοθήκη"
+msgstr "_Ταξινόμηση λευκώματος στη δημόσια πινακοθήκη"
 
 #: src/PicasaConnector.vala:752
 msgid "Photo _size preset:"
@@ -1889,15 +1891,15 @@ msgstr "PNG"
 
 #: src/Printing.vala:215
 msgid "Printed Image Size"
-msgstr "Μέγεθος εκτυπωμένης εικόνας"
+msgstr "Μεγέθος εικόνας εκτύπωσης"
 
 #: src/Printing.vala:227
 msgid "Use a _standard size:"
-msgstr "Χρήση πρό_τυπου μεγέθους:"
+msgstr "Χρήση πρό_τυπου μέγεθους:"
 
 #: src/Printing.vala:231
 msgid "Use a c_ustom size:"
-msgstr "Χρήση _προσαρμοσμένου μεγέθους:"
+msgstr "Χρήση ενός _προσαρμοσμένου μέγεθους:"
 
 #: src/Printing.vala:235
 msgid "_Fill the entire page"
@@ -1925,11 +1927,11 @@ msgstr "Ε_ξαγωγή φωτογραφίας στο:"
 
 #: src/Printing.vala:334
 msgid "pixels per inch"
-msgstr "εικονοστοιχεία ανά ίντσα"
+msgstr "εικονοστοιχεία ανα ίντσα"
 
 #: src/Printing.vala:832
 msgid "Image Settings"
-msgstr "Ρυθμίσεις εικόνας"
+msgstr "Ρυθμίσεις Εικόνας"
 
 #: src/Printing.vala:846 src/Printing.vala:947 src/Printing.vala:986
 #, c-format
@@ -1995,7 +1997,7 @@ msgstr "Αρχικές διαστάσεις:"
 
 #: src/Properties.vala:420
 msgid "Camera make:"
-msgstr "Κατασκευαστής φωτογραφικής μηχανής:"
+msgstr "Μοντέλο κάμερας:"
 
 #: src/Properties.vala:423
 msgid "Camera model:"
@@ -2047,7 +2049,7 @@ msgstr "Πνευματικά δικαιώματα 2009-2010 Yorba Foundation"
 
 #: src/Resources.vala:90
 msgid "Rotate _Right"
-msgstr "Περιστροφή _δεξιά"
+msgstr "Περιστροφή _Δεξιά"
 
 #: src/Resources.vala:91 src/Resources.vala:96
 msgid "Rotate"
@@ -2123,15 +2125,15 @@ msgstr "Κοπή μεγέθους φωτογραφίας"
 
 #: src/Resources.vala:116
 msgid "_Red-eye"
-msgstr "_Φαινόμενο κόκκινων ματιών"
+msgstr "_Φαινομένου κόκκινων ματιών"
 
 #: src/Resources.vala:117
 msgid "Red-eye"
-msgstr "Φαινόμενο κόκκινων ματιών"
+msgstr "Φαινομένου κόκκινων ματιών"
 
 #: src/Resources.vala:118
 msgid "Reduce or eliminate any red-eye effects in the photo"
-msgstr "Μείωση ή εξαφάνιση φαινόμενου κόκκινων-ματιών στη φωτογραφία"
+msgstr "Μείωση ή εξαφάνιση επιδράσεων κόκκινων-ματιών στη φωτογραφία"
 
 #: src/Resources.vala:120
 msgid "_Adjust"
@@ -2159,7 +2161,7 @@ msgstr "Επαναφορά στην αρχική φωτογραφία"
 
 #: src/Resources.vala:128
 msgid "Revert External E_dits"
-msgstr "Επαναφορά ε_ξωτερικών επεξεργασιών"
+msgstr "Επαναφορά Ε_ξωτερικών Επεξεργασιών"
 
 #: src/Resources.vala:129
 msgid "Revert to the master photo"
@@ -2195,7 +2197,7 @@ msgstr "Ακύρωση αναίρεσης"
 
 #: src/Resources.vala:140
 msgid "Redo the last undone action"
-msgstr "Ακύρωση της τελευταίας αναιρεθείσης ενέργειας"
+msgstr "Ακύρωση της τελευταίας ανηρημένης ενέργειας"
 
 #: src/Resources.vala:142
 msgid "Re_name Event..."
@@ -2207,15 +2209,15 @@ msgstr "Μετονομασία επιλεγμένου συμβάντος"
 
 #: src/Resources.vala:146
 msgid "Make _Key Photo for Event"
-msgstr "Ορισμός σαν φωτογραφίας-_κλειδιού για το συμβάν "
+msgstr "Δημιουργία Φωτογραφίας-_Κλειδιού για το Συμβάν"
 
 #: src/Resources.vala:147
 msgid "Make Key Photo for Event"
-msgstr "Ορισμός σαν φωτογραφίας-κλειδιού για το συμβάν"
+msgstr "Δημιουργία Φωτογραφίας-Κλειδιού για το Συμβάν"
 
 #: src/Resources.vala:148
 msgid "Make the selected photo the thumbnail for the event"
-msgstr "Ορισμός της επιλεγμένης φωτογραφίας ως μικρογραφίας του συμβάντος"
+msgstr "Ορισμός της επιλεγμένης φωτογραφίας ως μικρογραφία για το συμβάν"
 
 #: src/Resources.vala:150
 msgid "_New Event"
@@ -2251,7 +2253,7 @@ msgstr "Συγχώνευση σε ένα συμβάν"
 
 #: src/Resources.vala:161
 msgid "_Set Rating"
-msgstr "_Ορισμός αξιολόγησης"
+msgstr "_Ορισμός Αξιολόγησης"
 
 #: src/Resources.vala:162
 msgid "Set Rating"
@@ -2267,7 +2269,7 @@ msgstr "_Άυξηση"
 
 #: src/Resources.vala:166
 msgid "Increase Rating"
-msgstr "Αύξηση αξιολόγησης "
+msgstr "Αύξηση αξιολόγησης"
 
 #: src/Resources.vala:167
 msgid "Increase the rating of your photo"
@@ -2279,7 +2281,7 @@ msgstr "_Μείωση"
 
 #: src/Resources.vala:170
 msgid "Decrease Rating"
-msgstr "Μείωση αξιολόγησης "
+msgstr "Μείωση αξιολόγησης"
 
 #: src/Resources.vala:171
 msgid "Decrease the rating of your photo"
@@ -2299,7 +2301,7 @@ msgstr "Ορισμός ως μη αξιολογημένη"
 
 #: src/Resources.vala:176
 msgid "Remove any ratings"
-msgstr "Διαγραφή αξιολογήσεων"
+msgstr "Διαγραφή Αξιολογήσεων"
 
 #: src/Resources.vala:178
 msgid "_Rejected"
@@ -2367,7 +2369,7 @@ msgstr "Δημιουργία αντιγράφου της φωτογραφίας"
 
 #: src/Resources.vala:202
 msgid "_Export..."
-msgstr "_Εξαγωγή..."
+msgstr "_Εξαγωγή"
 
 #: src/Resources.vala:203
 msgid "Export to disk"
@@ -2403,11 +2405,11 @@ msgstr "Επεξεργασία τίτλου επιλεγμένης φωτογρ�
 
 #: src/Resources.vala:219
 msgid "_Adjust Date and Time..."
-msgstr "Ρυθμίσεις _ώρας και ημερομηνίας"
+msgstr "Ρυθμίσεις _Ώρας και Ημερομηνίας"
 
 #: src/Resources.vala:220
 msgid "Adjust Date and Time"
-msgstr "Ρυθμίσεις ημερομηνίας και ώρας"
+msgstr "Ρυθμίσεις Ημερομηνίας και Ώρας"
 
 #: src/Resources.vala:221
 msgid "Adjust date and time of selected photos"
@@ -2415,11 +2417,11 @@ msgstr "Ρύθμιση ημερομηνίας και ώρας στις επιλ�
 
 #: src/Resources.vala:223
 msgid "Add _Tags..."
-msgstr "_Προσθήκη ετικετών..."
+msgstr "_Προσθήκη Ετικετών..."
 
 #: src/Resources.vala:224 src/Resources.vala:246
 msgid "Add Tags"
-msgstr "Προσθήκη ετικετών"
+msgstr "Προσθήκη Ετικετών"
 
 #: src/Resources.vala:225
 msgid "Add one or more tags to the selected photos"
@@ -2474,14 +2476,14 @@ msgstr "_Διαγραφή ετικέτας \"%s\""
 #: src/Resources.vala:254
 #, c-format
 msgid "Delete Tag \"%s\""
-msgstr "Διαγραφή ετικέτας \"%s\""
+msgstr "Διαγραφή  ετικέτας \"%s\""
 
 #: src/Resources.vala:258
 #, c-format
 msgid "Remove the tag \"%s\" from one photo"
 msgid_plural "Remove the tag \"%s\" from %d photos"
 msgstr[0] "Απομάκρυνση της ετικέτας \"%s\" από τη φωτογραφία"
-msgstr[1] "Απομάκρυνση της ετικέτας \"%s\" από τις %d φωτογραφίες"
+msgstr[1] "Απομάκρυνση της ετικέτας \"%s\" από %d φωτογραφίες"
 
 #: src/Resources.vala:262
 msgid "Delete Tag"
@@ -2557,7 +2559,7 @@ msgstr[1] "Διαγραφή της ετικέτας \"%s\" από τις επι�
 #, c-format
 msgid "Unable to rename tag to \"%s\" because the tag already exists."
 msgstr ""
-"Αδυναμία μετονομασίας της ετικέτας \"%s\" επειδή η ετικέτα υπάρχει ήδη."
+"Αδυναμία μετονομασίας τηε ετικέτας \"%s\" επειδή η ετικέτα υπάρχει ήδη."
 
 #: src/Resources.vala:432
 #, c-format
@@ -2621,20 +2623,20 @@ msgstr "Μετακίνηση των επιλεγμένων εικόνων πίσ
 
 #: src/Resources.vala:537
 msgid "Show in File Mana_ger"
-msgstr "Προβολή στη _διαχείριση αρχείων"
+msgstr "Προβολή στη _διαχείρηση αρχείων"
 
 #: src/Resources.vala:538
 msgid "Open the selected photo's directory in the file manager"
-msgstr "Άνοιγμα του φακέλου των επιλεγμένων εικόνων στη διαχείριση αρχείων"
+msgstr "Άνοιγμα του φακέλου των επιλεγμένων εικόνων στη διαχείρηση αρχείων"
 
 #: src/Resources.vala:541
 #, c-format
 msgid "Unable to open in file manager: %s"
-msgstr "Αδυναμία ανοίγματος με τον περιηγητή αρχείων: %s"
+msgstr "Αδυναμία ανοίγματος στη διαχείρηση αρχείων (file manager): %s"
 
 #: src/Resources.vala:544
 msgid "R_emove From Library"
-msgstr "_Απομάκρυνση από την βιβλιοθήκη"
+msgstr "_Απομάκρυνση από τη Βιβλιοθήκη"
 
 #: src/Resources.vala:546
 msgid "Remove the photo from the library"
@@ -2642,15 +2644,15 @@ msgstr "Απομάκρυνση όλων των φωτογραφιών από τ�
 
 #: src/Resources.vala:548
 msgid "_Move to Trash"
-msgstr "_Μετακίνηση στον κάδο απορριμμάτων"
+msgstr "_Μετακίνηση στον κάδο ανακύκλωσης"
 
 #: src/Resources.vala:549
 msgid "Move the selected photos to the trash"
-msgstr "Μετακίνηση των επιλεγμένων εικόνων από τον κάδο απορριμμάτων"
+msgstr "Μετακίνηση των επιλεγμένων εικόνων από τον κάδο ανακύκλωσης"
 
 #: src/Resources.vala:550
 msgid "Move the photo to the trash"
-msgstr "Μετακίνηση της εικόνας στον κάδο απορριμμάτων"
+msgstr "Μετακίνηση της εικόνας στον κάδο ανακύκλωσης"
 
 #: src/Resources.vala:552
 msgid "Select _All"
@@ -2702,7 +2704,7 @@ msgstr "Αλλαγή ρυθμίσεων προβολής διαφανειών"
 
 #: src/SlideshowPage.vala:192
 msgid "All photo source files are missing."
-msgstr "Όλες τα πηγαία αρχεία των φωτογραφιών λείπουν."
+msgstr "Όλες τα αρχεία πηγών των φωτογραφιών λείπουν."
 
 #: src/SlideshowPage.vala:224
 msgid "Play"
@@ -2721,7 +2723,7 @@ msgstr[1] "Αυτό θα αφαιρέσει την ετικέτα \"%s\" από 
 
 #: src/TrashPage.vala:17
 msgid "Trash"
-msgstr "Κάδος απορριμμάτων"
+msgstr "Κάδος Ανακύκλωσης"
 
 #: src/TrashPage.vala:137
 msgid "Delete"
@@ -2751,7 +2753,7 @@ msgstr "Σύνδεση..."
 
 #: src/WebConnectors.vala:677
 msgid "Publish Photos"
-msgstr "Δημοσίευση φωτογραφιών"
+msgstr "Δημοσίευση Φωτογραφιών"
 
 #: src/WebConnectors.vala:688
 msgid "Publish photos _to:"
@@ -2766,7 +2768,7 @@ msgstr "_Κλείσιμο"
 msgid ""
 "Publishing to %s can't continue because the service could not be contacted."
 msgstr ""
-"Η δημοσίευση στο %s δεν μπορεί να συνεχιστεί λόγω αδυναμίας επικοινωνίας με "
+"Η δημοσίευση στο %s δεν μπορεί να συνεχιστεί λόγω μη δυνατής επικοινωνίας με "
 "την υπηρεσία."
 
 #: src/WebConnectors.vala:833
@@ -2807,26 +2809,26 @@ msgstr "Η δημοσίευση στο %s δεν μπορεί να συνεχι�
 #: src/WebConnectors.vala:847
 msgid "To try publishing to another service, select one from the above menu."
 msgstr ""
-"Προσπαθήστε να δημοσιεύσετε σε άλλη υπηρεσία, επιλέγοντας κάποια από το "
+"Προσπαθείστε να δημοσιεύσετε σε άλλη υπηρεσία, επιλέγοντας κάποια από το "
 "μενού παρακάτω."
 
 #: src/WebConnectors.vala:924 src/WebConnectors.vala:1037
 msgid "Preparing photos for upload"
-msgstr "Προετοιμασία φωτογραφιών για μεταφόρτωση"
+msgstr "Προετοιμασία φωτογραφιών για ανέβασμα"
 
 #: src/WebConnectors.vala:925 src/WebConnectors.vala:977
 #, c-format
 msgid "Uploading photo %d of %d"
-msgstr "Μεταφόρτωση φωτογραφίας %d από %d"
+msgstr "Ανέβασμα φωτογραφίας %d από %d"
 
 # GNOME Application Name for Direct Edit Mode
 #: ui/shotwell.glade:101 ui/shotwell.glade:444
 msgid "Shotwell Preferences"
-msgstr "Προτιμήσεις Shotwell"
+msgstr "Ρυθμίσεις Shotwell"
 
 #: ui/shotwell.glade:124
 msgid "_Background:"
-msgstr "_Παρασκήνιο:"
+msgstr "_Υπόβαθρο:"
 
 #: ui/shotwell.glade:140
 msgid "_Import photos to:"
@@ -2834,7 +2836,7 @@ msgstr "Εισαγωγή _φωτογραφιών στο:"
 
 #: ui/shotwell.glade:188
 msgid "Bro_wse..."
-msgstr "_Περιήγηση..."
+msgstr "_Πλοήγηση..."
 
 #: ui/shotwell.glade:219
 msgid "white"
@@ -2867,6 +2869,9 @@ msgstr "Προετοιμασία φωτογραφιών για εισαγωγή.
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "σφάλμα"
+
+#~ msgid "Select all the photos in the library"
+#~ msgstr "Επιλογή όλων των εικόνων της βιβλιοθήκης"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Μόνο Α_γαπημένα"
@@ -2912,8 +2917,14 @@ msgstr "σφάλμα"
 #~ msgid "Select all the events in the directory"
 #~ msgstr "Επιλογή όλων των συμβάντων στον κατάλογο"
 
+#~ msgid "Import _Selected"
+#~ msgstr "_Εισαγωγή Επιλεγμένων"
+
+#~ msgid "Import _All"
+#~ msgstr "Εισαγωγή _Όλων"
+
 #~ msgid "Select all the photos for importing"
-#~ msgstr "Επιλογή όλων των φωτογραφιών για εισαγωγή "
+#~ msgstr "Επιλογή όλων των φωτογραφιών για εισαγωγή"
 
 #~ msgid "_Copy files into Shotwell photo library %s"
 #~ msgstr "_Αντιγραφή αρχείων στη %s βιβλιοθήκη φωτογραφιών του Shotwell"
@@ -2922,7 +2933,7 @@ msgstr "σφάλμα"
 #~ msgstr "_Κατοπτρισμός"
 
 #~ msgid "Make mirror images of the photos"
-#~ msgstr "Δημιουργία κατοπτρισμών των φωτογραφιών  "
+#~ msgstr "Δημιουργία κατοπτρισμών των φωτογραφιών"
 
 #~ msgid "Fl_ip"
 #~ msgstr "_Κατοπτρισμός"
@@ -2967,7 +2978,7 @@ msgstr "σφάλμα"
 #~ msgstr "_Μετονομασία Φωτογραφίας..."
 
 #~ msgid "Rename the selected photo"
-#~ msgstr "Μετονομασία της επιλεγμένης φωτογραφίας "
+#~ msgstr "Μετονομασία της επιλεγμένης φωτογραφίας"
 
 #~ msgid "Re_move"
 #~ msgstr "Α_φαίρεση"
