@@ -2,10 +2,10 @@
 # Czech translation for Shotwell
 # Copyright (C) 2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: shotwell-0.7.2\n"
+"Project-Id-Version: shotwell-0.7.2+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
 "PO-Revision-Date: 2010-08-24 10:35+0200\n"
@@ -14,9 +14,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: UTF-8\n"
-"X-Generator: Virtaal 0.5.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-Language: Czech\n"
+"X-Generator: Virtaal 0.5.2\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -142,13 +142,11 @@ msgstr "_Storno"
 #: src/AppWindow.vala:605
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
-"continue.\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Při přístupu ke knihovně programu došlo k fatální chybě. Program nemůže "
-"pokračovat.\n"
+"Při přístupu ke knihovně programu došlo k fatální chybě. Program nemůže pokračovat.\n"
 "\n"
 "%s"
 
@@ -422,8 +420,7 @@ msgstr "Chyba při nastavování času"
 
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
+msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "Nastavení data a času nemůže být u této fotografie provedeno."
 msgstr[1] "Nastavení data a času nemůže být u těchto fotografií provedeno."
 msgstr[2] "Nastavení data a času nemůže být u těchto fotografií provedeno."
@@ -511,12 +508,9 @@ msgstr[2] "%d duplicitních fotografií nebylo naimportováno:\r\n"
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"import 1 fotografie se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
-msgstr[1] ""
-"import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
-msgstr[2] ""
-"import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
+msgstr[0] "import 1 fotografie se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
+msgstr[1] "import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
+msgstr[2] "import %d fotografií se nepodařil kvůli chybě souboru, nebo hardware:\r\n"
 
 #: src/Dialogs.vala:357
 #, c-format
@@ -585,28 +579,23 @@ msgstr "Název:"
 #: src/Dialogs.vala:542
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
-"to move the files to your desktop trash?\n"
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Tímto odstraníte fotografii z knihovny programu Shotwell. Chcete také "
-"vyhodit fotografii do koše?\n"
+"Tímto odstraníte fotografii z knihovny programu Shotwell. Chcete také vyhodit fotografii do koše?\n"
 "\n"
 "Tato akce nemůže být vrácena zpět."
 msgstr[1] ""
-"Tímto odstraníte %d fotografie z knihovny programu Shotwell. Chcete také "
-"vyhodit fotografie do koše?\n"
+"Tímto odstraníte %d fotografie z knihovny programu Shotwell. Chcete také vyhodit fotografie do koše?\n"
 "\n"
 "Tato akce nemůže být vrácena zpět."
 msgstr[2] ""
-"Tímto odstraníte %d fotografií z knihovny programu Shotwell. Chcete také "
-"vyhodit fotografie do koše?\n"
+"Tímto odstraníte %d fotografií z knihovny programu Shotwell. Chcete také vyhodit fotografie do koše?\n"
 "\n"
 "Tato akce nemůže být vrácena zpět."
 
@@ -624,16 +613,10 @@ msgstr "Jen _odstranit"
 #: src/Dialogs.vala:571
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
-msgstr[0] ""
-"Tím se odstraní všechny provedené změny na externím souboru. Pokračovat?"
-msgstr[1] ""
-"Tím se odstraní všechny provedené změny na %d externích souborech. "
-"Pokračovat?"
-msgstr[2] ""
-"Tím se odstraní všechny provedené změny na %d externích souborech. "
-"Pokračovat?"
+msgid_plural "This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] "Tím se odstraní všechny provedené změny na externím souboru. Pokračovat?"
+msgstr[1] "Tím se odstraní všechny provedené změny na %d externích souborech. Pokračovat?"
+msgstr[2] "Tím se odstraní všechny provedené změny na %d externích souborech. Pokračovat?"
 
 #: src/Dialogs.vala:574
 msgid "Re_vert External Edit"
@@ -814,8 +797,7 @@ msgstr "Pro začátek můžete importovat fotografie:"
 #: src/Dialogs.vala:1162
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
-"výběrem z menu <span weight=\"bold\">Soubor %s Importovat ze složky</span>"
+msgstr "výběrem z menu <span weight=\"bold\">Soubor %s Importovat ze složky</span>"
 
 #: src/Dialogs.vala:1163
 msgid "Drag and drop photos onto the Shotwell window"
@@ -847,12 +829,8 @@ msgid "Choose Library Directory"
 msgstr "Výběr složky pro knihovnu"
 
 #: src/Dialogs.vala:1477
-msgid ""
-"Shotwell can copy the photos into your library or it can link to the photos "
-"without duplicating them."
-msgstr ""
-"Program Shotwell nemůže zkopírovat, nebo vytvořit odkaz na fotografie bez "
-"jejich zkopírování."
+msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
+msgstr "Program Shotwell nemůže zkopírovat, nebo vytvořit odkaz na fotografie bez jejich zkopírování."
 
 #: src/Dialogs.vala:1482
 msgid "Co_py into Library"
@@ -1094,27 +1072,19 @@ msgstr "Shotwell Connect"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
+"If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
 "Nejste přihlášeni na Facebooku.\n"
 "\n"
-"Jestliže ještě nemáte vytvořen na Facebooku účet, můžete si jej vytvořit "
-"během přihlašování. Během přihlašování se může zobrazit žádost o povolení "
-"nahrávání fotografií. Povolení je pro připojení k Facebooku vyžadováno."
+"Jestliže ještě nemáte vytvořen na Facebooku účet, můžete si jej vytvořit během přihlašování. Během přihlašování se může zobrazit žádost o povolení nahrávání fotografií. Povolení je pro připojení k Facebooku vyžadováno."
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
+"You have already logged in and out of Facebook during this Shotwell session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "Již jste se přihlásili a odhlásili během spuštění programu Shotwell\n"
-"Před publikováním na Facebook ukončete a znovu spusťte program Shotwell a "
-"pak znovu zvolte Publikovat."
+"Před publikováním na Facebook ukončete a znovu spusťte program Shotwell a pak znovu zvolte Publikovat."
 
 #: src/FacebookConnector.vala:261
 msgid "Testing connection to Facebook..."
@@ -1157,24 +1127,19 @@ msgstr "_Odhlásit"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login "
-"process. During login you will have to specifically authorize Shotwell "
-"Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Nejste přihlášeni ke službě Flickr.\n"
 "\n"
-"Pro přihlášení musíte mít vytvořen účet. Během přihlašování musíte dovolit "
-"programu Shotwell, aby se mohl připojit k vašemu Flickr účtu."
+"Pro přihlášení musíte mít vytvořen účet. Během přihlašování musíte dovolit programu Shotwell, aby se mohl připojit k vašemu Flickr účtu."
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
 "Již jste se přihlásili a odhlásili během spuštění programu Shotwell.\n"
-"Před publikováním na Flickr ukončete a znovu spusťte program Shotwell a pak "
-"znovu zvolte Publikovat."
+"Před publikováním na Flickr ukončete a znovu spusťte program Shotwell a pak znovu zvolte Publikovat."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
@@ -1193,8 +1158,7 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
-"Váš bezplatný Flickr účet má omezení na množství přenesených dat během "
-"měsíce.\n"
+"Váš bezplatný Flickr účet má omezení na množství přenesených dat během měsíce.\n"
 "Tento měsíc vám zbývá %d megabajtů."
 
 #: src/FlickrConnector.vala:824
@@ -1251,11 +1215,8 @@ msgid "Unable to export background to %s: %s"
 msgstr "Nepodařilo se exportovat pozadí na %s: %s"
 
 #: src/ImportPage.vala:211
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr ""
-"Nepodařilo se odpojit fotoaparát. Pokuste se odpojit fotoaparát pomocí "
-"správce souborů."
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "Nepodařilo se odpojit fotoaparát. Pokuste se odpojit fotoaparát pomocí správce souborů."
 
 #: src/ImportPage.vala:325 src/ImportPage.vala:326
 msgid "Camera"
@@ -1269,21 +1230,25 @@ msgstr "Schovat již importované fotografie"
 msgid "Only display photos that have not been imported"
 msgstr "Zobrazit jen fotografie, které ještě nebyly importovány"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Importovat _vybrané"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Importovat vybrané"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Importovat _všechny"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Importuje vybrané fotografie do knihovny"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Importovat všechny"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Importuje všechny fotografie z fotoaparátu do knihovny"
 
 #: src/ImportPage.vala:582
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
-msgstr ""
-"Shotwell kvůli přístupu potřebuje odpojit fotoaparát ze souborového systému. "
-"Pokračovat?"
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
+msgstr "Shotwell kvůli přístupu potřebuje odpojit fotoaparát ze souborového systému. Pokračovat?"
 
 #: src/ImportPage.vala:588
 msgid "_Unmount"
@@ -1294,13 +1259,8 @@ msgid "Please unmount the camera."
 msgstr "Odpojte fotoaparát."
 
 #: src/ImportPage.vala:598
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
-msgstr ""
-"Fotoaparát je používán jinou aplikací. Ukončete všechny aplikace, které ho "
-"používají, a zkuste to znovu."
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgstr "Fotoaparát je používán jinou aplikací. Ukončete všechny aplikace, které ho používají, a zkuste to znovu."
 
 #: src/ImportPage.vala:608
 msgid "Please close any other application using the camera."
@@ -1452,9 +1412,7 @@ msgstr "Vysypává se koš..."
 
 #: src/LibraryWindow.vala:811
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
-"Program Shotwell je připraven k importu vašich fotografií v domovské "
-"složce.\n"
+msgstr "Program Shotwell je připraven k importu vašich fotografií v domovské složce.\n"
 
 #: src/LibraryWindow.vala:814
 msgid "_Import"
@@ -1478,34 +1436,18 @@ msgstr "Fotoaparáty"
 
 #: src/main.vala:79
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please use the "
-"latest version of Shotwell."
-msgstr ""
-"Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. "
-"Vypadá, že je vytvořena ve verzi %s. Tato verze je %s. Použijte nejnovější "
-"verzi programu Shotwell."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
+msgstr "Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. Vypadá, že je vytvořena ve verzi %s. Tato verze je %s. Použijte nejnovější verzi programu Shotwell."
 
 #: src/main.vala:84
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s to %s.  "
-"For more information please check the Shotwell Wiki at %s"
-msgstr ""
-"Program nemůže aktualizovat knihovnu fotografií z verze %s na verzi %s. "
-"Další informace naleznete na wiki na adrese %s"
+msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
+msgstr "Program nemůže aktualizovat knihovnu fotografií z verze %s na verzi %s. Další informace naleznete na wiki na adrese %s"
 
 #: src/main.vala:89
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please clear "
-"your library by deleting %s and re-import your photos."
-msgstr ""
-"Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. "
-"Vypadá, že je vytvořena ve verzi %s. Tato verze je %s. Vymažte knihovnu "
-"smazáním %s a novým importem fotografií."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr "Vaše knihovna fotografií není kompatibilní s touto verzí programu Shotwell. Vypadá, že je vytvořena ve verzi %s. Tato verze je %s. Vymažte knihovnu smazáním %s a novým importem fotografií."
 
 #: src/main.vala:94
 #, c-format
@@ -1771,53 +1713,27 @@ msgstr "změněno"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with Picasa to continue. You can set up most accounts by using your browser "
-"to log into the Picasa Web Albums site at least once."
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
 "Nejste připojeni k albu Picasa\n"
 "\n"
-"Abyste mohli používat album Picaca, musíte mít Google účet. Nastavení "
-"provedete v prohlížeči internetu při přihlášení k albu Picasa."
+"Abyste mohli používat album Picaca, musíte mít Google účet. Nastavení provedete v prohlížeči internetu při přihlášení k albu Picasa."
 
 #: src/PicasaConnector.vala:514
-msgid ""
-"Enter the email address and password associated with your Picasa Web Albums "
-"account."
-msgstr ""
-"Vložte e-mailovou adresu a heslo, které používáte při přístupu k albu Picasa."
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgstr "Vložte e-mailovou adresu a heslo, které používáte při přístupu k albu Picasa."
 
 #: src/PicasaConnector.vala:515
-msgid ""
-"Picasa Web Albums didn't recognize the email address and password you "
-"entered. To try again, re-enter your email address and password below."
-msgstr ""
-"E-mailová adresa a heslo, které byly zadány, nebyly přijaty. Pro další pokus "
-"níže vložte e-mailovou adresu a heslo."
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr "E-mailová adresa a heslo, které byly zadány, nebyly přijaty. Pro další pokus níže vložte e-mailovou adresu a heslo."
 
 #: src/PicasaConnector.vala:516
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that isn't set up for use with Picasa Web Albums. You can set up most "
-"accounts by using your browser to log into the Picasa Web Albums site at "
-"least once. To try again, re-enter your email address and password below."
-msgstr ""
-"E-mailová adresa a heslo, které byly vloženy, odpovídají Google účtu, který "
-"nebyl nastaven pro použití alba Picasa. Nastavení provedete v prohlížeči "
-"internetu při přihlášení k Picasa albu. Pro další pokus níže vložte e-"
-"mailovou adresu a heslo."
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr "E-mailová adresa a heslo, které byly vloženy, odpovídají Google účtu, který nebyl nastaven pro použití alba Picasa. Nastavení provedete v prohlížeči internetu při přihlášení k Picasa albu. Pro další pokus níže vložte e-mailovou adresu a heslo."
 
 #: src/PicasaConnector.vala:517
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that has been tagged as requiring additional security. You can clear this "
-"tag by using your browser to log into Picasa Web Albums. To try again, re-"
-"enter your email address and password below."
-msgstr ""
-"E-mailová adresa a heslo, které byly vloženy, odpovídají Google účtu, který "
-"vyžaduje zvýšené zabezpečení. Pro odstranění tohoto požadavku se přihlašte k "
-"albu Picasa pomocí internetového prohlížeče. Pro další pokus vložte níže e-"
-"mailovou adresu a heslo."
+msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
+msgstr "E-mailová adresa a heslo, které byly vloženy, odpovídají Google účtu, který vyžaduje zvýšené zabezpečení. Pro odstranění tohoto požadavku se přihlašte k albu Picasa pomocí internetového prohlížeče. Pro další pokus vložte níže e-mailovou adresu a heslo."
 
 #: src/PicasaConnector.vala:552
 #, c-format
@@ -2784,17 +2700,13 @@ msgstr "_Zavřít"
 
 #: src/WebConnectors.vala:830
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
+msgid "Publishing to %s can't continue because the service could not be contacted."
 msgstr "Publikování na %s nemůže pokračovat, protože se nepodařilo spojit."
 
 #: src/WebConnectors.vala:833
 #, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
-msgstr ""
-"Publikování na %s nemůže pokračovat, protože došlo k chybě při komunikaci."
+msgid "Publishing to %s can't continue because communication with the service failed."
+msgstr "Publikování na %s nemůže pokračovat, protože došlo k chybě při komunikaci."
 
 #: src/WebConnectors.vala:836
 #, c-format
@@ -2808,8 +2720,7 @@ msgstr "Publikování na %s nemůže pokračovat, protože byla oznámena chyba.
 
 #: src/WebConnectors.vala:840
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
+msgid "Publishing to %s can't continue because the service returned a bad response."
 msgstr "Publikování na %s nemůže pokračovat, protože přišla špatná odpověď."
 
 #: src/WebConnectors.vala:843
@@ -2877,9 +2788,6 @@ msgstr "Příprava fotografií na import..."
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "chyba"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Vybere všechny fotografie v knihovně"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Jen _oblíbené"
