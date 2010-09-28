@@ -615,6 +615,15 @@ public abstract class Photo : PhotoSource {
         }
     }
     
+    public PhotoFileFormat? get_editable_file_format() {
+        PhotoFileReader? reader = get_editable_reader();
+        if (reader == null)
+            return null;
+        
+        // ternary operator doesn't work here
+        return reader.get_file_format();
+    }
+    
     // This method interrogates the specified file and returns a PhotoRow with all relevant
     // information about it.  It uses the PhotoFileInterrogator to do so.  The caller should create
     // a PhotoFileInterrogator with the proper options prior to calling.  prepare_for_import()
@@ -792,10 +801,37 @@ public abstract class Photo : PhotoSource {
         return true;
     }
     
+    public abstract class ReimportMasterState {
+    }
+    
+    private class ReimportMasterStateImpl : ReimportMasterState {
+        public PhotoRow row = PhotoRow();
+        public PhotoMetadata? metadata;
+        public bool metadata_only = false;
+        
+        public ReimportMasterStateImpl(PhotoRow row, PhotoMetadata? metadata) {
+            this.row = row;
+            this.metadata = metadata;
+        }
+    }
+    
+    public abstract class ReimportEditableState {
+    }
+    
+    private class ReimportEditableStateImpl : ReimportEditableState {
+        public BackingPhotoState backing_state = BackingPhotoState();
+        public PhotoMetadata? metadata;
+        public bool metadata_only = false;
+        
+        public ReimportEditableStateImpl(BackingPhotoState backing_state, PhotoMetadata? metadata) {
+            this.backing_state = backing_state;
+            this.metadata = metadata;
+        }
+    }
+    
     // This method is thread-safe.  If returns false the photo should be marked offline (in the
     // main UI thread).
-    public bool prepare_for_reimport_master(out PhotoRow updated_row, out PhotoMetadata metadata)
-        throws Error {
+    public bool prepare_for_reimport_master(out ReimportMasterState reimport_state) throws Error {
         File file = get_master_reader().get_file();
         
         BackingPhotoState state = BackingPhotoState();
@@ -816,6 +852,7 @@ public abstract class Photo : PhotoSource {
         }
         
         // start with existing row and update appropriate fields
+        PhotoRow updated_row = PhotoRow();
         lock (row) {
             updated_row = row;
         }
@@ -827,6 +864,7 @@ public abstract class Photo : PhotoSource {
         updated_row.exposure_time = 0;
         updated_row.orientation = state.original_orientation;
         
+        PhotoMetadata? metadata = null;
         if (detected.metadata != null) {
             metadata = detected.metadata;
             
@@ -836,9 +874,9 @@ public abstract class Photo : PhotoSource {
             
             updated_row.title = detected.metadata.get_title();
             updated_row.rating = detected.metadata.get_rating();
-        } else {
-            metadata = null;
         }
+        
+        reimport_state = new ReimportMasterStateImpl(updated_row, metadata);
         
         return true;
     }
@@ -846,38 +884,41 @@ public abstract class Photo : PhotoSource {
     protected abstract void apply_user_metadata_for_reimport(PhotoMetadata metadata);
     
     // This method is not thread-safe and should be called in the main thread.
-    public void finish_reimport_master(ref PhotoRow updated_row, PhotoMetadata? metadata)
-        throws DatabaseError {
-        PhotoTable.get_instance().reimport(ref updated_row);
+    public void finish_reimport_master(ReimportMasterState state) throws DatabaseError {
+        ReimportMasterStateImpl reimport_state = (ReimportMasterStateImpl) state;
+        
+        PhotoTable.get_instance().reimport(ref reimport_state.row);
         
         lock (row) {
-            row = updated_row;
+            row = reimport_state.row;
             internal_remove_all_transformations(false);
         }
         
-        if (metadata != null)
-            apply_user_metadata_for_reimport(metadata);
+        if (reimport_state.metadata != null)
+            apply_user_metadata_for_reimport(reimport_state.metadata);
         
-        string list = null;
-        if (is_master_baseline())
-            list = "image:master,image:baseline,metadata:title,metadata:orientation,"
-                + "metadata:rating,metadata:exposure-time,metadata:md5";
-        else
-            list = "image:master,metadata:title,metadata:orientation,metadata:rating,"
-                + "metadata:exposure-time,metadata:md5";
+        string list = "metadata:title,metadata:orientation,metadata:rating,metadata:exposure-time,"
+            + "metadata:md5";
+        
+        if (!reimport_state.metadata_only) {
+            if (is_master_baseline())
+                list += ",image:master,image:baseline";
+            else
+                list += "image:master";
+        }
         
         notify_altered(new Alteration.from_list(list));
     }
     
     // This method is thread-safe.  Returns false if the photo has no associated editable.
-    public bool prepare_for_reimport_editable(out BackingPhotoState updated_state,
-        out PhotoMetadata metadata) throws Error {
+    public bool prepare_for_reimport_editable(out ReimportEditableState state) throws Error {
         File? file = get_editable_file();
         if (file == null)
             return false;
         
         DetectedPhotoInformation detected;
-        if (!query_backing_photo_state(file, PhotoFileSniffer.Options.NO_MD5, out updated_state,
+        BackingPhotoState backing_state = BackingPhotoState();
+        if (!query_backing_photo_state(file, PhotoFileSniffer.Options.NO_MD5, out backing_state,
             out detected)) {
             return false;
         }
@@ -891,35 +932,40 @@ public abstract class Photo : PhotoSource {
             return false;
         }
         
-        metadata = detected.metadata;
+        state = new ReimportEditableStateImpl(backing_state, detected.metadata);
         
         return true;
     }
     
     // This method is not thread-safe.  It should be called by the main thread.
-    public void finish_reimport_editable(BackingPhotoState updated_state, PhotoMetadata? metadata)
-        throws DatabaseError {
+    public void finish_reimport_editable(ReimportEditableState state) throws DatabaseError {
         BackingPhotoID editable_id = get_editable_id();
         if (editable_id.is_invalid())
             return;
         
-        BackingPhotoTable.get_instance().update(editable_id, updated_state);
+        ReimportEditableStateImpl reimport_state = (ReimportEditableStateImpl) state;
         
-        lock (row) {
-            editable = updated_state;
-            set_orientation(updated_state.original_orientation);
-            internal_remove_all_transformations(false);
+        if (!reimport_state.metadata_only) {
+            BackingPhotoTable.get_instance().update(editable_id, reimport_state.backing_state);
+            
+            lock (row) {
+                editable = reimport_state.backing_state;
+                set_orientation(reimport_state.backing_state.original_orientation);
+                internal_remove_all_transformations(false);
+            }
         }
         
-        if (metadata != null) {
-            set_title(metadata.get_title());
-            set_rating(metadata.get_rating());
-            apply_user_metadata_for_reimport(metadata);
+        if (reimport_state.metadata != null) {
+            set_title(reimport_state.metadata.get_title());
+            set_rating(reimport_state.metadata.get_rating());
+            apply_user_metadata_for_reimport(reimport_state.metadata);
         }
         
-        notify_altered(new Alteration.from_list(
-            "image:editable,image:baseline,metadata:title,metadata:orientation,"
-            + "metadata:rating,metadata:exposure-time"));
+        string list = "metadata:title,metadata:orientation,metadata:rating,metadata:exposure-time";
+        if (!reimport_state.metadata_only)
+            list += "image:editable,image:baseline";
+        
+        notify_altered(new Alteration.from_list(list));
     }
     
     public override string? get_unique_thumbnail_name() {
@@ -986,7 +1032,7 @@ public abstract class Photo : PhotoSource {
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
-        return (get_file_format().can_write()) ? get_file_format() :
+        return (get_file_format().can_write_image()) ? get_file_format() :
             PhotoFileFormat.get_system_default_format();
     }
 
@@ -1349,19 +1395,38 @@ public abstract class Photo : PhotoSource {
         
         return flags;
     }
-
+    
+    public bool is_master_metadata_dirty() {
+        lock (row) {
+            return row.metadata_dirty;
+        }
+    }
+    
+    public void set_master_metadata_dirty(bool dirty) throws DatabaseError {
+        bool committed = false;
+        lock (row) {
+            if (row.metadata_dirty != dirty) {
+                PhotoTable.get_instance().set_metadata_dirty(get_photo_id(), dirty);
+                row.metadata_dirty = dirty;
+                committed = true;
+            }
+        }
+        
+        if (committed)
+            notify_altered(new Alteration("metadata", "master-dirty"));
+    }
+    
     public Rating get_rating() {
         lock (row) {
             return row.rating;
         }
     }
-
+    
     public void set_rating(Rating rating) {
         bool committed = false;
-    
+        
         lock (row) {
-            if (rating != row.rating && rating.is_valid()) {  
-    
+            if (rating != row.rating && rating.is_valid()) {
                 committed = PhotoTable.get_instance().set_rating(get_photo_id(), rating);
                 if (committed)
                     row.rating = rating;
@@ -1371,7 +1436,7 @@ public abstract class Photo : PhotoSource {
         if (committed)
             notify_altered(new Alteration("metadata", "rating"));
     }
-
+    
     public void increase_rating() {
         lock (row) {
             set_rating(row.rating.increase());
@@ -1581,7 +1646,7 @@ public abstract class Photo : PhotoSource {
         PhotoFileReader source = get_source_reader();
         
         // Try to write to backing file
-        if (!source.get_file_format().can_write()) {
+        if (!source.get_file_format().can_write_metadata()) {
             warning("No photo file writer available for %s", source.get_filepath());
             
             set_title(title);
@@ -1590,9 +1655,9 @@ public abstract class Photo : PhotoSource {
         }
         
         PhotoMetadata metadata = source.read_metadata();
-        metadata.set_title(title, true);
+        metadata.set_title(title);
         
-        PhotoFileWriter writer = source.create_writer();
+        PhotoFileMetadataWriter writer = source.create_metadata_writer();
         writer.write_metadata(metadata);
         
         set_title(title);
@@ -1616,7 +1681,7 @@ public abstract class Photo : PhotoSource {
         PhotoFileReader source = get_source_reader();
         
         // Try to write to backing file
-        if (!source.get_file_format().can_write()) {
+        if (!source.get_file_format().can_write_metadata()) {
             warning("No photo file writer available for %s", source.get_filepath());
             
             set_exposure_time(time);
@@ -1627,7 +1692,7 @@ public abstract class Photo : PhotoSource {
         PhotoMetadata metadata = source.read_metadata();
         metadata.set_exposure_date_time(new MetadataDateTime(time));
         
-        PhotoFileWriter writer = source.create_writer();
+        PhotoFileMetadataWriter writer = source.create_metadata_writer();
         writer.write_metadata(metadata);
         
         set_exposure_time(time);
@@ -1728,6 +1793,7 @@ public abstract class Photo : PhotoSource {
             notify_altered(new Alteration("image", "color-adjustments"));
     }
     
+    // This is thread-safe.  Returns the source file's metadata.
     public override PhotoMetadata? get_metadata() {
         try {
             return get_source_reader().read_metadata();
@@ -1736,6 +1802,63 @@ public abstract class Photo : PhotoSource {
             
             return null;
         }
+    }
+    
+    public PhotoMetadata get_master_metadata() throws Error {
+        return get_master_reader().read_metadata();
+    }
+    
+    public PhotoMetadata? get_editable_metadata() throws Error {
+        PhotoFileReader? reader = get_editable_reader();
+        
+        return (reader != null) ? reader.read_metadata() : null;
+    }
+    
+    // This is thread-safe.  This must be followed by a call to finish_update_master_metadata() in
+    // the main thread.  Returns false if unable to write metadata (because operation is
+    // unsupported) or the file is unavailable.
+    public bool persist_master_metadata(PhotoMetadata metadata, out ReimportMasterState state)
+        throws Error {
+        PhotoFileReader master_reader = get_master_reader();
+        
+        if (!master_reader.get_file_format().can_write_metadata())
+            return false;
+        
+        master_reader.create_metadata_writer().write_metadata(metadata);
+        
+        if (!prepare_for_reimport_master(out state))
+            return false;
+        
+        ((ReimportMasterStateImpl) state).metadata_only = true;
+        
+        return true;
+    }
+    
+    public void finish_update_master_metadata(ReimportMasterState state) throws DatabaseError {
+        finish_reimport_master(state);
+    }
+    
+    public bool persist_editable_metadata(PhotoMetadata metadata, out ReimportEditableState state)
+        throws Error {
+        PhotoFileReader? editable_reader = get_editable_reader();
+        if (editable_reader == null)
+            return false;
+        
+        if (!editable_reader.get_file_format().can_write_metadata())
+            return false;
+        
+        editable_reader.create_metadata_writer().write_metadata(metadata);
+        
+        if (!prepare_for_reimport_editable(out state))
+            return false;
+        
+        ((ReimportEditableStateImpl) state).metadata_only = true;
+        
+        return true;
+    }
+    
+    public void finish_update_editable_metadata(ReimportEditableState state) throws DatabaseError {
+        finish_reimport_editable(state);
     }
     
     // Transformation storage and exporting
@@ -1857,11 +1980,13 @@ public abstract class Photo : PhotoSource {
     }
     
     public bool set_orientation(Orientation orientation) {
-        bool committed;
+        bool committed = false;
         lock (row) {
-            committed = PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
-            if (committed)
-                row.orientation = orientation;
+            if (row.orientation != orientation) {
+                committed = PhotoTable.get_instance().set_orientation(row.photo_id, orientation);
+                if (committed)
+                    row.orientation = orientation;
+            }
         }
         
         if (committed)
@@ -2391,12 +2516,12 @@ public abstract class Photo : PhotoSource {
         PhotoFileReader export_reader = null;
         bool is_master = true;
         lock (readers) {
-            if (readers.editable != null && readers.editable.get_file_format().can_write()) {
+            if (readers.editable != null && readers.editable.get_file_format().can_write_metadata()) {
                 export_reader = readers.editable;
                 is_master = false;
-            } else if (readers.master.get_file_format().can_write()) {
+            } else if (readers.master.get_file_format().can_write_metadata()) {
                 export_reader = readers.master;
-            } else if (readers.mimic != null && readers.mimic.get_file_format().can_write()) {
+            } else if (readers.mimic != null && readers.mimic.get_file_format().can_write_metadata()) {
                 export_reader = readers.mimic;
                 is_master = false;
             }
@@ -2410,8 +2535,9 @@ public abstract class Photo : PhotoSource {
         // Build a destination file with the caller's name but the appropriate extension
         File dest_file = format_properties.convert_file_extension(file);
         
-        // Create a PhotoFileWriter that matches the PhotoFileReader's file format
-        PhotoFileWriter writer = export_reader.get_file_format().create_writer(dest_file.get_path());
+        // Create a PhotoFileMetadataWriter that matches the PhotoFileReader's file format
+        PhotoFileMetadataWriter writer = export_reader.get_file_format().create_metadata_writer(
+            dest_file.get_path());
         
         debug("Exporting full-sized copy of %s to %s", to_string(), writer.get_filepath());
         
@@ -2435,7 +2561,7 @@ public abstract class Photo : PhotoSource {
         else
             metadata.set_exposure_date_time(null);
         
-        metadata.set_title(get_title(), false);
+        metadata.set_title(get_title());
         metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
         metadata.set_orientation(get_orientation());
         
@@ -2484,7 +2610,7 @@ public abstract class Photo : PhotoSource {
         if (metadata == null)
             metadata = export_format.create_metadata();
         
-        metadata.set_title(get_title(), false);
+        metadata.set_title(get_title());
         metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
         metadata.set_orientation(Orientation.TOP_LEFT);
 
@@ -2498,8 +2624,8 @@ public abstract class Photo : PhotoSource {
 
         if(has_user_generated_metadata())
             set_user_metadata_for_export(metadata);
-
-        writer.write_metadata(metadata);
+        
+        export_format.create_metadata_writer(dest_file.get_path()).write_metadata(metadata);
     }
     
     private File generate_new_editable_file(out PhotoFileFormat file_format) throws Error {
@@ -3972,9 +4098,9 @@ public class LibraryPhoto : Photo {
             foreach (Tag tag in photo_tags) {
                 string_tags.add(tag.get_name());
             }
-            metadata.set_keywords(string_tags, false);
+            metadata.set_keywords(string_tags);
         } else
-            metadata.set_keywords(null, false);
+            metadata.set_keywords(null);
         
         metadata.set_rating(get_rating());
     }
@@ -4039,12 +4165,11 @@ public class DirectPhotoSourceCollection : DatabaseSourceCollection {
             // if a reset is necessary, the database (and the object) need to reset to original
             // easiest way to do this: perform an in-place re-import
             if (reset) {
-                PhotoRow updated_row;
-                PhotoMetadata metadata;
-                if (!photo.prepare_for_reimport_master(out updated_row, out metadata))
+                Photo.ReimportMasterState reimport_state;
+                if (!photo.prepare_for_reimport_master(out reimport_state))
                     return ImportResult.FILE_ERROR;
                 
-                photo.finish_reimport_master(ref updated_row, metadata);
+                photo.finish_reimport_master(reimport_state);
             }
             
             return ImportResult.SUCCESS;

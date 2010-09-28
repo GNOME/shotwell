@@ -429,7 +429,7 @@ public abstract class AppWindow : PageWindow {
     protected Dimensions dimensions;
     protected int pos_x = 0;
     protected int pos_y = 0;
-
+    
     public AppWindow() {
         // although there are multiple AppWindow types, only one may exist per-process
         assert(instance == null);
@@ -454,8 +454,6 @@ public abstract class AppWindow : PageWindow {
         assert(command_manager == null);
         command_manager = new CommandManager();
     }
-    
-    public signal void user_quit();
     
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
@@ -518,7 +516,11 @@ public abstract class AppWindow : PageWindow {
     }
     
     protected abstract void on_fullscreen();
-
+    
+    public static bool has_instance() {
+        return instance != null;
+    }
+    
     public static AppWindow get_instance() {
         return instance;
     }
@@ -618,7 +620,7 @@ public abstract class AppWindow : PageWindow {
         critical(msg);
         error_message(msg);
         
-        Posix.exit(1);
+        Application.get_instance().panic();
     }
     
     public abstract string get_app_role();
@@ -655,8 +657,7 @@ public abstract class AppWindow : PageWindow {
     }
     
     protected virtual void on_quit() {
-        user_quit();
-        Gtk.main_quit();
+        Application.get_instance().exit();
     }
 
     protected void on_jump_to_file() {

@@ -28,12 +28,20 @@ public class JfifFileFormatDriver : PhotoFileFormatDriver {
         return new PhotoMetadata();
     }
     
-    public override bool can_write() {
+    public override bool can_write_image() {
+        return true;
+    }
+    
+    public override bool can_write_metadata() {
         return true;
     }
     
     public override PhotoFileWriter? create_writer(string filepath) {
         return new JfifWriter(filepath);
+    }
+    
+    public override PhotoFileMetadataWriter? create_metadata_writer(string filepath) {
+        return new JfifMetadataWriter(filepath);
     }
     
     public override PhotoFileSniffer create_sniffer(File file, PhotoFileSniffer.Options options) {
@@ -118,12 +126,18 @@ public class JfifWriter : PhotoFileWriter {
         base (filepath, PhotoFileFormat.JFIF);
     }
     
-    public override void write_metadata(PhotoMetadata metadata) throws Error {
-        metadata.write_to_file(get_file());
-    }
-    
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
         pixbuf.save(get_filepath(), "jpeg", "quality", quality.get_pct_text());
+    }
+}
+
+public class JfifMetadataWriter : PhotoFileMetadataWriter {
+    public JfifMetadataWriter(string filepath) {
+        base (filepath, PhotoFileFormat.JFIF);
+    }
+    
+    public override void write_metadata(PhotoMetadata metadata) throws Error {
+        metadata.write_to_file(get_file());
     }
 }
 

@@ -713,15 +713,7 @@ public class DirectoryMonitor : Object {
     }
     
     public bool is_in_root(File file) {
-        File? parent = file;
-        do {
-            if (parent.equal(root))
-                return true;
-            
-            parent = parent.get_parent();
-        } while (parent != null);
-        
-        return false;
+        return file.has_prefix(root);
     }
     
     public void start_discovery() throws Error {

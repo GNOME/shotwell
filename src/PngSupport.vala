@@ -120,12 +120,18 @@ public class PngWriter : PhotoFileWriter {
         base (filepath, PhotoFileFormat.PNG);
     }
     
-    public override void write_metadata(PhotoMetadata metadata) throws Error {
-        metadata.write_to_file(get_file());
-    }
-    
     public override void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error {
         pixbuf.save(get_filepath(), "png", "compression", "9", null);
+    }
+}
+
+public class PngMetadataWriter : PhotoFileMetadataWriter {
+    public PngMetadataWriter(string filepath) {
+        base (filepath, PhotoFileFormat.PNG);
+    }
+    
+    public override void write_metadata(PhotoMetadata metadata) throws Error {
+        metadata.write_to_file(get_file());
     }
 }
 
@@ -149,12 +155,20 @@ public class PngFileFormatDriver : PhotoFileFormatDriver {
         return new PngReader(filepath);
     }
     
-    public override bool can_write() {
+    public override bool can_write_image() {
+        return true;
+    }
+    
+    public override bool can_write_metadata() {
         return true;
     }
     
     public override PhotoFileWriter? create_writer(string filepath) {
         return new PngWriter(filepath);
+    }
+    
+    public override PhotoFileMetadataWriter? create_metadata_writer(string filepath) {
+        return new PngMetadataWriter(filepath);
     }
     
     public override PhotoFileSniffer create_sniffer(File file, PhotoFileSniffer.Options options) {

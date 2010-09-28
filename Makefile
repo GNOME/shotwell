@@ -125,7 +125,10 @@ SRC_FILES = \
 	FSpotDatabaseTables.vala \
 	VideoSupport.vala \
     VideosPage.vala \
-	Tombstone.vala
+	Tombstone.vala \
+	MetadataWriter.vala \
+	Application.vala \
+	DelayedQueue.vala
 
 ifndef LINUX
 SRC_FILES += \

@@ -65,6 +65,10 @@ public abstract class PhotoFileReader : PhotoFileAdapter {
         return get_file_format().create_writer(get_filepath());
     }
     
+    public PhotoFileMetadataWriter create_metadata_writer() throws PhotoFormatError {
+        return get_file_format().create_metadata_writer(get_filepath());
+    }
+    
     public abstract PhotoMetadata read_metadata() throws Error;
     
     public abstract Gdk.Pixbuf unscaled_read() throws Error;
@@ -87,8 +91,22 @@ public abstract class PhotoFileWriter : PhotoFileAdapter {
         return get_file_format().create_reader(get_filepath());
     }
     
-    public abstract void write_metadata(PhotoMetadata metadata) throws Error;
-    
     public abstract void write(Gdk.Pixbuf pixbuf, Jpeg.Quality quality) throws Error;
+}
+
+//
+// PhotoFileMetadataWriter
+//
+
+public abstract class PhotoFileMetadataWriter : PhotoFileAdapter {
+    protected PhotoFileMetadataWriter(string filepath, PhotoFileFormat file_format) {
+        base (filepath, file_format);
+    }
+    
+    public PhotoFileReader create_reader() {
+        return get_file_format().create_reader(get_filepath());
+    }
+    
+    public abstract void write_metadata(PhotoMetadata metadata) throws Error;
 }
 

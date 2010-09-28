@@ -3199,7 +3199,7 @@ public class DirectPhotoPage : EditingHostPage {
         base(DirectPhoto.global, file.get_basename());
         
         if (!check_editable_file(file)) {
-            Posix.exit(1);
+            Application.get_instance().panic();
             
             return;
         }
@@ -3419,7 +3419,7 @@ public class DirectPhotoPage : EditingHostPage {
         
         if (photo == null) {
             AppWindow.error_message(import_result.to_string());
-            Posix.exit(1);
+            Application.get_instance().panic();
         }
 
         display(new DirectViewCollection(initial_file.get_parent()), photo);
@@ -3588,7 +3588,7 @@ public class DirectPhotoPage : EditingHostPage {
         
         if (photo == null) {
             // dead in the water
-            Posix.exit(1);
+            Application.get_instance().panic();
         }
         
         // switch to that file ... if saving on top of the original file, this will re-import the

@@ -30,11 +30,19 @@ public class RawFileFormatDriver : PhotoFileFormatDriver {
         return new PhotoMetadata();
     }
     
-    public override bool can_write() {
+    public override bool can_write_image() {
+        return false;
+    }
+    
+    public override bool can_write_metadata() {
         return false;
     }
     
     public override PhotoFileWriter? create_writer(string filepath) {
+        return null;
+    }
+    
+    public override PhotoFileMetadataWriter? create_metadata_writer(string filepath) {
         return null;
     }
     

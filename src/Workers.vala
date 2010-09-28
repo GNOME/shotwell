@@ -78,6 +78,18 @@ public abstract class AbstractSemaphore {
     
     // This method is called by wait() with the semaphore's mutex locked.
     protected abstract WaitAction do_wait();
+    
+    public void reset() {
+        mutex.lock();
+        do_reset();
+        mutex.unlock();
+    }
+    
+    // This method is called by reset() with the semaphore's mutex locked.  Returns true if reset,
+    // false if not supported.
+    protected virtual bool do_reset() {
+        return false;
+    }
 }
 
 public class Semaphore : AbstractSemaphore {
@@ -120,6 +132,30 @@ public class CountdownSemaphore : AbstractSemaphore {
     
     protected override AbstractSemaphore.WaitAction do_wait() {
         return (passed < total) ? WaitAction.SLEEP : WaitAction.READY;
+    }
+}
+
+public class EventSemaphore : AbstractSemaphore {
+    bool fired = false;
+    
+    public EventSemaphore() {
+        base (AbstractSemaphore.Type.BROADCAST);
+    }
+    
+    protected override AbstractSemaphore.NotifyAction do_notify() {
+        fired = true;
+        
+        return NotifyAction.SIGNAL;
+    }
+    
+    protected override AbstractSemaphore.WaitAction do_wait() {
+        return fired ? WaitAction.READY : WaitAction.SLEEP;
+    }
+    
+    protected override bool do_reset() {
+        fired = false;
+        
+        return true;
     }
 }
 
@@ -355,6 +391,8 @@ public class Workers {
     
     private ThreadPool thread_pool;
     private AsyncQueue<BackgroundJob> queue = new AsyncQueue<BackgroundJob>();
+    private EventSemaphore empty_event = new EventSemaphore();
+    private int enqueued = 0;
     
     public Workers(int max_threads, bool exclusive) {
         if (max_threads <= 0 && max_threads != UNLIMITED_THREADS)
@@ -380,7 +418,12 @@ public class Workers {
     // Enqueues a BackgroundJob for work in a thread context.  BackgroundJob.execute() is called
     // within the thread's context, while its CompletionCallback is called within the Gtk event loop.
     public void enqueue(BackgroundJob job) {
-        queue.push_sorted(job, BackgroundJob.priority_compare_func);
+        empty_event.reset();
+        
+        lock (queue) {
+            queue.push_sorted(job, BackgroundJob.priority_compare_func);
+            enqueued++;
+        }
         
         try {
             thread_pool.push(job);
@@ -396,14 +439,28 @@ public class Workers {
             enqueue(job);
     }
     
+    public void wait_for_empty_queue() {
+        empty_event.wait();
+    }
+    
     private void thread_start(void *ignored) {
-        BackgroundJob? job = queue.try_pop();
-        assert(job != null);
+        BackgroundJob? job;
+        bool empty;
+        lock (queue) {
+            job = queue.try_pop();
+            assert(job != null);
+            
+            assert(enqueued > 0);
+            empty = (--enqueued == 0);
+        }
         
         if (!job.is_cancelled())
             job.execute();
             
         job.internal_notify_completion();
+        
+        if (empty)
+            empty_event.notify();
     }
 }
 

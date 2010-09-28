@@ -87,6 +87,26 @@ public string md5_file(File file) throws Error {
     return md5.get_string();
 }
 
+public bool equal_sets(Gee.Set<string>? a, Gee.Set<string>? b) {
+    if ((a == null && b != null) || (a != null && b == null))
+        return false;
+    
+    if (a == null && b == null)
+        return true;
+    
+    if (a.size != b.size)
+        return false;
+    
+    // because they're sets and the same size, only need to iterate over one set to know
+    // it is equal to the other
+    foreach (string element in a) {
+        if (!b.contains(element))
+            return false;
+    }
+    
+    return true;
+}
+
 public uchar[] serialize_photo_ids(Gee.Collection<Photo> photos) {
     int64[] ids = new int64[photos.size];
     int ctr = 0;

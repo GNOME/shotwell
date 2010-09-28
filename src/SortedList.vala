@@ -188,8 +188,8 @@ public class SortedList<G> : Object, Gee.Iterable<G>, Gee.Collection<G> {
         }
     }
     
-    public void remove_at(int index) {
-        list.remove_at(index);
+    public G? remove_at(int index) {
+        return list.remove_at(index);
     }
     
     public G[] to_array() {

@@ -34,8 +34,7 @@ public class LibraryMonitor : DirectoryMonitor {
     
     private class ReimportMasterJob : BackgroundJob {
         public LibraryPhoto photo;
-        public PhotoRow updated_row = PhotoRow();
-        public PhotoMetadata? metadata = null;
+        public Photo.ReimportMasterState reimport_state = null;
         public bool mark_online = false;
         public Error err = null;
         
@@ -48,7 +47,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         public override void execute() {
             try {
-                mark_online = photo.prepare_for_reimport_master(out updated_row, out metadata);
+                mark_online = photo.prepare_for_reimport_master(out reimport_state);
             } catch (Error err) {
                 this.err = err;
             }
@@ -57,8 +56,7 @@ public class LibraryMonitor : DirectoryMonitor {
     
     private class ReimportEditableJob : BackgroundJob {
         public LibraryPhoto photo;
-        public BackingPhotoState state = BackingPhotoState();
-        public PhotoMetadata? metadata = null;
+        public Photo.ReimportEditableState state = null;
         public bool success = false;
         public Error err = null;
         
@@ -71,7 +69,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         public override void execute() {
             try {
-                success = photo.prepare_for_reimport_editable(out state, out metadata);
+                success = photo.prepare_for_reimport_editable(out state);
             } catch (Error err) {
                 this.err = err;
             }
@@ -296,7 +294,8 @@ public class LibraryMonitor : DirectoryMonitor {
         // After the checksumming is complete, the only use of the unknown photo files is for
         // auto-import, so don't bother checksumming the remainder for duplicates/tombstones unless
         // going to do that work
-        if (startup_auto_import) {
+        if (startup_auto_import && LibraryPhoto.global.get_count() > 0
+            && Tombstone.global.get_count() > 0) {
             foreach (File file in unknown_photo_files) {
                 checksums_total++;
                 workers.enqueue(new ChecksumJob(this, file));
@@ -309,7 +308,7 @@ public class LibraryMonitor : DirectoryMonitor {
             discovery_stage_completed();
         } else {
             mdbg("%d checksum jobs initiated to verify unknown photo files".printf(checksums_total));
-            LibraryWindow.get_app().update_background_progress_bar(_("Updating library..."),
+            LibraryWindow.update_background_progress_bar(_("Updating library..."),
                 checksums_completed, checksums_total);
         }
     }
@@ -318,11 +317,11 @@ public class LibraryMonitor : DirectoryMonitor {
         assert(checksums_completed < checksums_total);
         checksums_completed++;
         
-        LibraryWindow.get_app().update_background_progress_bar(_("Updating library..."),
+        LibraryWindow.update_background_progress_bar(_("Updating library..."),
             checksums_completed, checksums_total);
         
         if (checksums_completed == checksums_total) {
-            LibraryWindow.get_app().clear_background_progress_bar();
+            LibraryWindow.clear_background_progress_bar();
             discovery_stage_completed();
         }
     }
@@ -797,7 +796,7 @@ public class LibraryMonitor : DirectoryMonitor {
         }
         
         try {
-            job.photo.finish_reimport_master(ref job.updated_row, job.metadata);
+            job.photo.finish_reimport_master(job.reimport_state);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
@@ -828,7 +827,7 @@ public class LibraryMonitor : DirectoryMonitor {
         }
         
         try {
-            job.photo.finish_reimport_editable(job.state, job.metadata);
+            job.photo.finish_reimport_editable(job.state);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
@@ -842,7 +841,7 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private void on_import_progress(uint64 completed_bytes, uint64 total_bytes) {
-        LibraryWindow.get_app().update_background_progress_bar(_("Auto-importing..."),
+        LibraryWindow.update_background_progress_bar(_("Auto-importing..."),
             completed_bytes, total_bytes);
     }
     
@@ -852,7 +851,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         mdbg("auto-import batch completed %d".printf(manifest.all.size));
         
-        LibraryWindow.get_app().clear_background_progress_bar();
+        LibraryWindow.clear_background_progress_bar();
         
         foreach (BatchImportResult result in manifest.all) {
             if (result.file != null)

@@ -145,6 +145,7 @@ void library_exec(string[] mounts) {
     Tag.init();
     AlienDatabaseHandler.init();
     Tombstone.init();
+    MetadataWriter.init();
     
     // create main library application window
     if (aggregate_monitor != null)
@@ -189,8 +190,9 @@ void library_exec(string[] mounts) {
 
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
-    Gtk.main();
+    Application.get_instance().start();
     
+    MetadataWriter.terminate();
     Tombstone.terminate();
     AlienDatabaseHandler.terminate();
     Tag.terminate();
@@ -251,7 +253,7 @@ void editing_exec(string filename) {
     
     debug("%lf seconds to Gtk.main()", startup_timer.elapsed());
     
-    Gtk.main();
+    Application.get_instance().start();
     
     DirectPhoto.terminate();
     DatabaseTable.terminate();
@@ -261,10 +263,13 @@ bool no_startup_progress = false;
 bool no_mimicked_images = false;
 string data_dir = null;
 bool startup_auto_import = false;
+bool autocommit_metadata = false;
 
 const OptionEntry[] options = {
+    { "autocommit-metadata", 0, 0, OptionArg.NONE, &autocommit_metadata,
+        N_("Auto-commit metadata to master files (experimental)"), null },
     { "auto-import", 0, 0, OptionArg.NONE, &startup_auto_import,
-        N_("Auto-import files discovered in library directory at startup"), null },
+        N_("Auto-import files discovered in library directory at startup (experimental)"), null },
     { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
         N_("Path to Shotwell's private data"), N_("DIRECTORY") },
     { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
@@ -313,6 +318,7 @@ void main(string[] args) {
     }
     
     Debug.init(is_string_empty(filename) ? Debug.LIBRARY_PREFIX : Debug.VIEWER_PREFIX);
+    Application.init();
     
     // set custom data directory if it's been supplied
     if (data_dir != null) {
@@ -348,6 +354,7 @@ void main(string[] args) {
     
     // terminate mode-inspecific modules
     Resources.terminate();
+    Application.terminate();
     Debug.terminate();
     AppDirs.terminate();
 }

@@ -12,6 +12,45 @@ errordomain PhotoFormatError {
 // PhotoFileFormat
 //
 
+namespace PhotoFileFormatData {
+    private static PhotoFileFormat[] writeable = null;
+    private static PhotoFileFormat[] image_writeable = null;
+    private static PhotoFileFormat[] metadata_writeable = null;
+    
+    private delegate bool ApplicableTest(PhotoFileFormat format);
+    
+    private PhotoFileFormat[] find_applicable(ApplicableTest test) {
+        PhotoFileFormat[] applicable = new PhotoFileFormat[0];
+        foreach (PhotoFileFormat format in PhotoFileFormat.get_supported()) {
+            if (test(format))
+                applicable += format;
+        }
+        
+        return applicable;
+    }
+    
+    public PhotoFileFormat[] get_writeable() {
+        if (writeable == null)
+            writeable = find_applicable((format) => { return format.can_write(); });
+        
+        return writeable;
+    }
+    
+    public static PhotoFileFormat[] get_image_writeable() {
+        if (image_writeable == null)
+            image_writeable = find_applicable((format) => { return format.can_write_image(); });
+        
+        return image_writeable;
+    }
+    
+    public static PhotoFileFormat[] get_metadata_writeable() {
+        if (metadata_writeable == null)
+            metadata_writeable = find_applicable((format) => { return format.can_write_metadata(); });
+        
+        return metadata_writeable;
+    }
+}
+
 public enum PhotoFileFormat {
     JFIF,
 #if !NO_RAW
@@ -30,8 +69,16 @@ public enum PhotoFileFormat {
 #endif
     }
     
-    public static PhotoFileFormat[] get_writable() {
-        return { JFIF, PNG };
+    public static PhotoFileFormat[] get_writeable() {
+        return PhotoFileFormatData.get_writeable();
+    }
+    
+    public static PhotoFileFormat[] get_image_writeable() {
+        return PhotoFileFormatData.get_image_writeable();
+    }
+    
+    public static PhotoFileFormat[] get_metadata_writeable() {
+        return PhotoFileFormatData.get_metadata_writeable();
     }
     
     public static PhotoFileFormat get_by_basename_extension(string basename) {
@@ -150,14 +197,31 @@ public enum PhotoFileFormat {
         return get_driver().create_reader(filepath);
     }
     
+    // This means the image and its metadata are writeable.
     public bool can_write() {
-        return get_driver().can_write();
+        return can_write_image() && can_write_metadata();
+    }
+    
+    public bool can_write_image() {
+        return get_driver().can_write_image();
+    }
+    
+    public bool can_write_metadata() {
+        return get_driver().can_write_metadata();
     }
     
     public PhotoFileWriter create_writer(string filepath) throws PhotoFormatError {
         PhotoFileWriter writer = get_driver().create_writer(filepath);
         if (writer == null)
             throw new PhotoFormatError.READ_ONLY("File format %s is read-only", this.to_string());
+        
+        return writer;
+    }
+    
+    public PhotoFileMetadataWriter create_metadata_writer(string filepath) throws PhotoFormatError {
+        PhotoFileMetadataWriter writer = get_driver().create_metadata_writer(filepath);
+        if (writer == null)
+            throw new PhotoFormatError.READ_ONLY("File format %s metadata is read-only", this.to_string());
         
         return writer;
     }
@@ -181,7 +245,7 @@ public enum PhotoFileFormat {
     public static string[] get_editable_mime_types() {
         string[] mime_types = {};
         
-        foreach (PhotoFileFormat file_format in PhotoFileFormat.get_writable()) {
+        foreach (PhotoFileFormat file_format in PhotoFileFormat.get_supported()) {
             foreach (string mime_type in file_format.get_mime_types())
                 mime_types += mime_type;
         }
@@ -208,9 +272,13 @@ public abstract class PhotoFileFormatDriver {
     
     public abstract PhotoMetadata create_metadata();
     
-    public abstract bool can_write();
+    public abstract bool can_write_image();
+    
+    public abstract bool can_write_metadata();
     
     public abstract PhotoFileWriter? create_writer(string filepath);
+    
+    public abstract PhotoFileMetadataWriter? create_metadata_writer(string filepath);
     
     public abstract PhotoFileSniffer create_sniffer(File file, PhotoFileSniffer.Options options);
 }

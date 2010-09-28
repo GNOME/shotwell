@@ -21,7 +21,7 @@ public class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 8;
+    public const int SCHEMA_VERSION = 9;
     
     protected static Sqlite.Database db;
     
@@ -471,7 +471,18 @@ private DatabaseVerifyResult upgrade_database(int version) {
             return DatabaseVerifyResult.UPGRADE_ERROR;
     }
     
-    version = 8;
+    //
+    // Version 9:
+    // * Added metadata_dirty flag to PhotoTable.
+    //
+    
+    if (!DatabaseTable.has_column("PhotoTable", "metadata_dirty")) {
+        message("upgrade_database: adding metadata_dirty column to PhotoTable");
+        if (!DatabaseTable.add_column("PhotoTable", "metadata_dirty", "INTEGER DEFAULT 0"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 9;
     
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
@@ -688,6 +699,7 @@ public struct PhotoRow {
     public string? backlinks;
     public time_t time_reimported;
     public BackingPhotoID editable_id;
+    public bool metadata_dirty;
     
     public PhotoRow() {
         editable_id = BackingPhotoID();
@@ -722,7 +734,8 @@ public class PhotoTable : DatabaseTable {
             + "title TEXT, "
             + "backlinks TEXT, "
             + "time_reimported INTEGER, "
-            + "editable_id INTEGER DEFAULT -1"
+            + "editable_id INTEGER DEFAULT -1, "
+            + "metadata_dirty INTEGER DEFAULT 0"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -916,7 +929,7 @@ public class PhotoTable : DatabaseTable {
             "SELECT filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
             + "exif_md5, time_created, flags, rating, file_format, title, backlinks, "
-            + "time_reimported, editable_id "
+            + "time_reimported, editable_id, metadata_dirty "
             + "FROM PhotoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
@@ -950,6 +963,7 @@ public class PhotoTable : DatabaseTable {
         row.backlinks = stmt.column_text(19);
         row.time_reimported = (time_t) stmt.column_int64(20);
         row.editable_id = BackingPhotoID(stmt.column_int64(21));
+        row.metadata_dirty = stmt.column_int(22) != 0;
         
         return row;
     }
@@ -960,7 +974,7 @@ public class PhotoTable : DatabaseTable {
             "SELECT id, filename, width, height, filesize, timestamp, exposure_time, orientation, "
             + "original_orientation, import_id, event_id, transformations, md5, thumbnail_md5, "
             + "exif_md5, time_created, flags, rating, file_format, title, backlinks, time_reimported, "
-            + "editable_id FROM PhotoTable", 
+            + "editable_id, metadata_dirty FROM PhotoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -990,6 +1004,7 @@ public class PhotoTable : DatabaseTable {
             row.backlinks = stmt.column_text(20);
             row.time_reimported = (time_t) stmt.column_int64(21);
             row.editable_id = BackingPhotoID(stmt.column_int64(22));
+            row.metadata_dirty = stmt.column_int(23) != 0;
             
             all.add(row);
         }
@@ -1539,6 +1554,10 @@ public class PhotoTable : DatabaseTable {
         update_int64_by_id_2(row.photo_id.id, "editable_id", BackingPhotoID.INVALID);
         
         row.editable_id = BackingPhotoID();
+    }
+    
+    public void set_metadata_dirty(PhotoID photo_id, bool dirty) throws DatabaseError {
+        update_int_by_id_2(photo_id.id, "metadata_dirty", dirty ? 1 : 0);
     }
 }
 

@@ -117,7 +117,7 @@ public class ExportDialog : Gtk.Dialog {
         }
 
         format_combo = new Gtk.ComboBox.text();
-        foreach (PhotoFileFormat format in PhotoFileFormat.get_writable()) {
+        foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
             format_combo.append_text(format.get_properties().get_user_visible_name());
         }
 
@@ -179,7 +179,7 @@ public class ExportDialog : Gtk.Dialog {
             user_format = PhotoFileFormat.get_system_default_format();
         
         int ctr = 0;
-        foreach (PhotoFileFormat format in PhotoFileFormat.get_writable()) {
+        foreach (PhotoFileFormat format in PhotoFileFormat.get_writeable()) {
             if (format == user_format)
                 format_combo.set_active(ctr);
             ctr++;
@@ -205,7 +205,7 @@ public class ExportDialog : Gtk.Dialog {
             
             index = format_combo.get_active();
             assert(index >= 0);
-            user_format = PhotoFileFormat.get_writable()[index];
+            user_format = PhotoFileFormat.get_writeable()[index];
         }
         
         destroy();

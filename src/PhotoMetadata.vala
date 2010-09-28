@@ -183,6 +183,12 @@ public abstract class PhotoPreview {
 }
 
 public class PhotoMetadata {
+    public enum SetOption {
+        ALL_DOMAINS,
+        ONLY_IF_DOMAIN_PRESENT,
+        AT_LEAST_DEFAULT_DOMAIN
+    }
+    
     private class InternalPhotoPreview : PhotoPreview {
         public PhotoMetadata owner;
         public uint number;
@@ -436,11 +442,33 @@ public class PhotoMetadata {
             warning("Unable to set tag %s to string %s from source %s", tag, value, source_name);
     }
     
-    public void set_all_string(string[] tags, string value, bool only_if_domain_present) {
+    private delegate void SetGenericValue(string tag);
+    
+    private void set_all_generic(string[] tags, SetOption option, SetGenericValue setter) {
+        bool written = false;
         foreach (string tag in tags) {
-            if (!only_if_domain_present || has_domain(get_tag_domain(tag)))
-                set_string(tag, value);
+            if (option == SetOption.ALL_DOMAINS || has_domain(get_tag_domain(tag))) {
+                setter(tag);
+                written = true;
+            }
         }
+        
+        if (option == SetOption.AT_LEAST_DEFAULT_DOMAIN && !written && tags.length > 0) {
+            MetadataDomain default_domain = get_tag_domain(tags[0]);
+            
+            // write at least the first one, as it's the default
+            setter(tags[0]);
+            
+            // write the remainder, if they are of the same domain
+            for (int ctr = 1; ctr < tags.length; ctr++) {
+                if (get_tag_domain(tags[ctr]) == default_domain)
+                    setter(tags[ctr]);
+            }
+        }
+    }
+    
+    public void set_all_string(string[] tags, string value, SetOption option) {
+        set_all_generic(tags, option, (tag) => { set_string(tag, value); });
     }
     
     public void set_string_multiple(string tag, Gee.Collection<string> collection) {
@@ -448,18 +476,19 @@ public class PhotoMetadata {
         foreach (string value in collection) {
             if (value.validate())
                 values += value;
+            else
+                warning("Unable to set string %s to %s: invalid UTF-8", value, tag);
         }
+        
+        if (values.length == 0)
+            return;
         
         if (!exiv2.set_tag_multiple(tag, values))
             warning("Unable to set %d strings to tag %s from source %s", values.length, tag, source_name);
     }
     
-    public void set_all_string_multiple(string[] tags, Gee.Collection<string> values,
-        bool only_if_domain_present) {
-        foreach (string tag in tags) {
-            if (!only_if_domain_present || has_domain(get_tag_domain(tag)))
-                set_string_multiple(tag, values);
-        }
+    public void set_all_string_multiple(string[] tags, Gee.Collection<string> values, SetOption option) {
+        set_all_generic(tags, option, (tag) => { set_string_multiple(tag, values); });
     }
     
     public bool get_long(string tag, out long value) {
@@ -485,11 +514,8 @@ public class PhotoMetadata {
             warning("Unable to set tag %s to long %ld from source %s", tag, value, source_name);
     }
     
-    public void set_all_long(string[] tags, long value, bool only_if_domain_present) {
-        foreach (string tag in tags) {
-            if (!only_if_domain_present || has_domain(get_tag_domain(tag)))
-                set_long(tag, value);
-        }
+    public void set_all_long(string[] tags, long value, SetOption option) {
+        set_all_generic(tags, option, (tag) => { set_long(tag, value); });
     }
     
     public bool get_rational(string tag, out MetadataRational rational) {
@@ -512,11 +538,8 @@ public class PhotoMetadata {
         }
     }
     
-    public void set_all_rational(string[] tags, MetadataRational rational, bool only_if_domain_present) {
-        foreach (string tag in tags) {
-            if (!only_if_domain_present || has_domain(get_tag_domain(tag)))
-                set_rational(tag, rational);
-        }
+    public void set_all_rational(string[] tags, MetadataRational rational, SetOption option) {
+        set_all_generic(tags, option, (tag) => { set_rational(tag, rational); });
     }
     
     public MetadataDateTime? get_date_time(string tag) {
@@ -574,11 +597,8 @@ public class PhotoMetadata {
         }
     }
     
-    public void set_all_date_time(string[] tags, MetadataDateTime date_time, bool only_if_domain_present) {
-        foreach (string tag in tags) {
-            if (!only_if_domain_present || has_domain(get_tag_domain(tag)))
-                set_date_time(tag, date_time);
-        }
+    public void set_all_date_time(string[] tags, MetadataDateTime date_time, SetOption option) {
+        set_all_generic(tags, option, (tag) => { set_date_time(tag, date_time); });
     }
     
     // Returns raw bytes of EXIF metadata, including signature and optionally the preview (if present).
@@ -684,9 +704,10 @@ public class PhotoMetadata {
         return get_first_date_time(DATE_TIME_TAGS);
     }
     
-    public void set_modification_date_time(MetadataDateTime? date_time, bool only_if_domain_present = true) {
+    public void set_modification_date_time(MetadataDateTime? date_time,
+        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
         if (date_time != null)
-            set_all_date_time(DATE_TIME_TAGS, date_time, only_if_domain_present);
+            set_all_date_time(DATE_TIME_TAGS, date_time, option);
         else
             remove_tags(DATE_TIME_TAGS);
     }
@@ -701,9 +722,10 @@ public class PhotoMetadata {
         return get_first_date_time(EXPOSURE_DATE_TIME_TAGS);
     }
     
-    public void set_exposure_date_time(MetadataDateTime? date_time, bool only_if_domain_present = true) {
+    public void set_exposure_date_time(MetadataDateTime? date_time,
+        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
         if (date_time != null)
-            set_all_date_time(EXPOSURE_DATE_TIME_TAGS, date_time, only_if_domain_present);
+            set_all_date_time(EXPOSURE_DATE_TIME_TAGS, date_time, option);
         else
             remove_tags(EXPOSURE_DATE_TIME_TAGS);
     }
@@ -717,9 +739,10 @@ public class PhotoMetadata {
         return get_first_date_time(DIGITIZED_DATE_TIME_TAGS);
     }
     
-    public void set_digitized_date_time(MetadataDateTime? date_time, bool only_if_domain_present = true) {
+    public void set_digitized_date_time(MetadataDateTime? date_time,
+        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
         if (date_time != null)
-            set_all_date_time(DIGITIZED_DATE_TIME_TAGS, date_time, only_if_domain_present);
+            set_all_date_time(DIGITIZED_DATE_TIME_TAGS, date_time, option);
         else
             remove_tags(DIGITIZED_DATE_TIME_TAGS);
     }
@@ -758,10 +781,11 @@ public class PhotoMetadata {
         return null;
     }
     
-    public void set_pixel_dimensions(Dimensions? dim, bool only_if_domain_present = true) {
+    public void set_pixel_dimensions(Dimensions? dim,
+        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
          if (dim != null) {
-            set_all_long(WIDTH_TAGS, dim.width, only_if_domain_present);
-            set_all_long(HEIGHT_TAGS, dim.height, only_if_domain_present);
+            set_all_long(WIDTH_TAGS, dim.width, option);
+            set_all_long(HEIGHT_TAGS, dim.height, option);
          } else {
             remove_tags(WIDTH_TAGS);
             remove_tags(HEIGHT_TAGS);
@@ -811,12 +835,12 @@ public class PhotoMetadata {
             title : null;
     }
     
-    public void set_title(string? title, bool only_if_domain_present = true) {
+    public void set_title(string? title, SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
         if (!is_string_empty(title)) {
             if (has_tag(IPHOTO_TITLE_TAG))
                 set_string(IPHOTO_TITLE_TAG, title);
             else
-                set_all_string(STANDARD_TITLE_TAGS, title, only_if_domain_present);
+                set_all_string(STANDARD_TITLE_TAGS, title, option);
         } else {
             remove_tags(STANDARD_TITLE_TAGS);
         }
@@ -836,13 +860,14 @@ public class PhotoMetadata {
             return get_first_string_interpreted(STANDARD_DESCRIPTION_TAGS);
     }
     
-    public void set_description(string? description, bool only_if_domain_present) {
+    public void set_description(string? description,
+        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
         if (!is_string_empty(description)) {
             if (has_tag(IPHOTO_TITLE_TAG) 
-                && (!only_if_domain_present || has_domain(get_tag_domain(IPHOTO_DESCRIPTION_TAG))))
+                && (option != SetOption.ONLY_IF_DOMAIN_PRESENT || has_domain(get_tag_domain(IPHOTO_DESCRIPTION_TAG))))
                 set_string(IPHOTO_DESCRIPTION_TAG, description);
             else
-                set_all_string(STANDARD_DESCRIPTION_TAGS, description, only_if_domain_present);
+                set_all_string(STANDARD_DESCRIPTION_TAGS, description, option);
         } else {
             remove_tags(STANDARD_DESCRIPTION_TAGS);
         }
@@ -853,8 +878,8 @@ public class PhotoMetadata {
         "Iptc.Application2.Keywords"
     };
     
-    public Gee.Collection<string>? get_keywords(CompareFunc? compare_func = null) {
-        Gee.Collection<string> keywords = null;
+    public Gee.Set<string>? get_keywords(CompareFunc? compare_func = null) {
+        Gee.Set<string> keywords = null;
         foreach (string tag in KEYWORD_TAGS) {
             Gee.Collection<string>? values = get_string_multiple(tag);
             if (values != null && values.size > 0) {
@@ -872,9 +897,10 @@ public class PhotoMetadata {
         return (keywords != null && keywords.size > 0) ? keywords : null;
     }
     
-    public void set_keywords(Gee.Collection<string>? keywords, bool only_if_domain_present) {
+    public void set_keywords(Gee.Collection<string>? keywords,
+        SetOption option = SetOption.AT_LEAST_DEFAULT_DOMAIN) {
         if (keywords != null)
-            set_all_string_multiple(KEYWORD_TAGS, keywords, only_if_domain_present);
+            set_all_string_multiple(KEYWORD_TAGS, keywords, option);
         else
             remove_tags(KEYWORD_TAGS);
     }

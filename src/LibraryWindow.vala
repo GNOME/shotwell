@@ -238,6 +238,8 @@ public class LibraryWindow : AppWindow {
         
         Video.global.contents_altered.connect(sync_videos_visibility);
         sync_videos_visibility();
+        
+        MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
     }
     
     ~LibraryWindow() {
@@ -259,6 +261,8 @@ public class LibraryWindow : AppWindow {
         extended_properties.show.disconnect(show_extended_properties);
         
         LibraryPhoto.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
+        
+        MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -345,8 +349,8 @@ public class LibraryWindow : AppWindow {
         if (!basic_properties_action.get_active()) {
             bottom_frame.hide();
         }
-    }    
-
+    }
+    
     public static LibraryWindow get_app() {
         assert(instance is LibraryWindow);
         
@@ -1407,7 +1411,10 @@ public class LibraryWindow : AppWindow {
         sort_events_action.set_active(events_sort_ascending);
     }
     
-    public void update_background_progress_bar(string label, double count, double total) {
+    public static void update_background_progress_bar(string label, double count, double total) {
+        if (instance == null)
+            return;
+        
         if (total <= 0.0) {
             clear_background_progress_bar();
             
@@ -1415,15 +1422,18 @@ public class LibraryWindow : AppWindow {
         }
         
         double fraction = count / total;
-        background_progress_bar.set_fraction(fraction);
-        background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
-        show_background_progress_bar();
+        get_app().background_progress_bar.set_fraction(fraction);
+        get_app().background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
+        get_app().show_background_progress_bar();
     }
     
-    public void clear_background_progress_bar() {
-        background_progress_bar.set_fraction(0.0);
-        background_progress_bar.set_text("");
-        hide_background_progress_bar();
+    public static void clear_background_progress_bar() {
+        if (instance == null)
+            return;
+        
+        get_app().background_progress_bar.set_fraction(0.0);
+        get_app().background_progress_bar.set_text("");
+        get_app().hide_background_progress_bar();
     }
     
     private void show_background_progress_bar() {
@@ -1439,6 +1449,13 @@ public class LibraryWindow : AppWindow {
             top_section.remove(background_progress_frame);
             background_progress_displayed = false;
         }
+    }
+    
+    private void on_metadata_writer_progress(uint completed, uint total) {
+        if (completed >= total || completed == 0 || total == 0)
+            clear_background_progress_bar();
+        else
+            update_background_progress_bar(_("Writing metadata to files..."), completed, total);
     }
     
     private void create_layout(Page start_page) {
