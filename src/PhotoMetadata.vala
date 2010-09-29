@@ -1033,6 +1033,22 @@ public class PhotoMetadata {
         return get_string_interpreted("Exif.Image.Software");
     }
     
+    public void set_software(string software, string version) {
+        // always set this one, even if EXIF not present
+        set_string("Exif.Image.Software", "%s %s".printf(software, version));
+        
+        if (has_iptc()) {
+            set_string("Iptc.Application2.Program", software);
+            set_string("Iptc.Application2.ProgramVersion", version);
+        }
+    }
+    
+    public void remove_software() {
+        remove_tag("Exif.Image.Software");
+        remove_tag("Iptc.Application2.Program");
+        remove_tag("Iptc.Application2.ProgramVersion");
+    }
+    
     public string? get_exposure_bias() {
         return get_string_interpreted("Exif.Photo.ExposureBiasValue");
     }

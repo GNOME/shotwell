@@ -89,6 +89,9 @@ public class MetadataWriter : Object {
                 changed = true;
             }
             
+            if (changed)
+                metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
+            
             return changed;
         }
     }

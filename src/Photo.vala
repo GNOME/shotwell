@@ -2564,6 +2564,7 @@ public abstract class Photo : PhotoSource {
         metadata.set_title(get_title());
         metadata.set_pixel_dimensions(get_dimensions()); // created by sniffing pixbuf not metadata
         metadata.set_orientation(get_orientation());
+        metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
         
         if (get_orientation() != get_original_orientation())
             metadata.remove_exif_thumbnail();
@@ -2613,6 +2614,7 @@ public abstract class Photo : PhotoSource {
         metadata.set_title(get_title());
         metadata.set_pixel_dimensions(Dimensions.for_pixbuf(pixbuf));
         metadata.set_orientation(Orientation.TOP_LEFT);
+        metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
 
         if (get_exposure_time() != 0)
             metadata.set_exposure_date_time(new MetadataDateTime(get_exposure_time()));
