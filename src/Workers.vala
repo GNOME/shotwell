@@ -398,6 +398,9 @@ public class Workers {
         if (max_threads <= 0 && max_threads != UNLIMITED_THREADS)
             max_threads = 1;
         
+        // event starts as set because queue is empty
+        empty_event.notify();
+        
         try {
             thread_pool = new ThreadPool(thread_start, max_threads, exclusive);
         } catch (ThreadError err) {
