@@ -588,10 +588,13 @@ public abstract class DataSource : DataObject {
     
     public override void notify_altered(Alteration alteration) {
         // re-route this to the SourceHoldingTank if held in one
-        if (holding_tank != null)
+        if (holding_tank != null) {
             holding_tank.internal_notify_altered(this, alteration);
-        else
+        } else {
+            contact_subscribers_alteration(alteration);
+            
             base.notify_altered(alteration);
+        }
     }
     
     // This method is called by SourceCollection.  It should not be called otherwise.
@@ -895,6 +898,17 @@ public abstract class DataSource : DataObject {
         for (int ctr = 0; ctr < subscribers.length; ctr++) {
             if (subscribers[ctr] != null)
                 contact_subscriber(subscribers[ctr]);
+        }
+        in_contact = false;
+    }
+    
+    protected void contact_subscribers_alteration(Alteration alteration) {
+        assert(!in_contact);
+        
+        in_contact = true;
+        for (int ctr = 0; ctr < subscribers.length; ctr++) {
+            if (subscribers[ctr] != null)
+                subscribers[ctr].notify_altered(alteration);
         }
         in_contact = false;
     }

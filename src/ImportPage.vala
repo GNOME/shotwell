@@ -1390,7 +1390,7 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_preparing() {
-        progress_bar.set_text(_("Importing..."));
+        progress_bar.set_text(_("Preparing to import..."));
         progress_bar.pulse();
     }
     

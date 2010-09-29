@@ -333,7 +333,7 @@ public class EventsDirectoryPage : CheckerboardPage {
 }
 
 public class NoEventPage : CollectionPage {
-    static const string NO_EVENT_PAGE_NAME = "No Events";
+    static const string NO_EVENT_PAGE_NAME = _("No Event");
     
     public class Stub : PageStub {
         public override string? get_icon_name() {
