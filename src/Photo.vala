@@ -1416,13 +1416,13 @@ public abstract class Photo : PhotoSource {
             notify_altered(new Alteration("metadata", "master-dirty"));
     }
     
-    public Rating get_rating() {
+    public override Rating get_rating() {
         lock (row) {
             return row.rating;
         }
     }
     
-    public void set_rating(Rating rating) {
+    public override void set_rating(Rating rating) {
         bool committed = false;
         
         lock (row) {
@@ -1437,13 +1437,13 @@ public abstract class Photo : PhotoSource {
             notify_altered(new Alteration("metadata", "rating"));
     }
     
-    public void increase_rating() {
+    public override void increase_rating() {
         lock (row) {
             set_rating(row.rating.increase());
         }
     }
 
-    public void decrease_rating() {
+    public override void decrease_rating() {
         lock (row) {
             set_rating(row.rating.decrease());
         }
@@ -1607,13 +1607,13 @@ public abstract class Photo : PhotoSource {
         }
     }
 
-    public string? get_title() {
+    public override string? get_title() {
         lock (row) {
             return row.title;
         }
     }
 
-    public void set_title(string? title) {
+    public override void set_title(string? title) {
         bool committed;
         lock (row) {
             committed = PhotoTable.get_instance().set_title(row.photo_id, title);

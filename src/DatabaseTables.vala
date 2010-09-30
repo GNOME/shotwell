@@ -2555,7 +2555,11 @@ public class VideoTable : DatabaseTable {
     public void set_exposure_time(VideoID video_id, time_t time) throws DatabaseError {
         update_int64_by_id_2(video_id.id, "exposure_time", (int64) time);
     }
-    
+
+    public void set_rating(VideoID video_id, Rating rating) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "rating", rating.serialize());
+    }
+
     public void remove_by_file(File file) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("DELETE FROM VideoTable WHERE filename=?", -1, out stmt);

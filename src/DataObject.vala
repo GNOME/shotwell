@@ -951,6 +951,16 @@ public abstract class MediaSource : ThumbnailSource {
     }
 
     public abstract File get_file();
+    
+    public abstract string? get_title();
+    public abstract void set_title(string? title);
+
+    public abstract Rating get_rating();
+    public abstract void set_rating(Rating rating);
+    public abstract void increase_rating();
+    public abstract void decrease_rating();
+    
+    public abstract Dimensions get_dimensions();
 }
 
 public abstract class PhotoSource : MediaSource {
@@ -959,8 +969,6 @@ public abstract class PhotoSource : MediaSource {
     }
     
     public abstract time_t get_exposure_time();
-
-    public abstract Dimensions get_dimensions();
 
     public abstract uint64 get_filesize();
 

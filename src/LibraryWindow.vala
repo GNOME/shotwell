@@ -432,7 +432,7 @@ public class LibraryWindow : AppWindow {
 
         Config.get_instance().set_sidebar_position(client_paned.position);
 
-        Config.get_instance().set_photo_thumbnail_scale(CollectionPage.get_photo_thumbnail_scale());
+        Config.get_instance().set_photo_thumbnail_scale(MediaPage.get_global_thumbnail_scale());
         
         base.on_quit();
     }

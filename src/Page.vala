@@ -83,6 +83,30 @@ public abstract class PageStub : Object, SidebarPage {
 public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
     
+    protected struct InjectedUIElement {
+        public string name;
+        public string action;
+        public Gtk.UIManagerItemType kind;
+
+        private InjectedUIElement(string name, string action, Gtk.UIManagerItemType kind) {
+            this.name = name;
+            this.action = action;
+            this.kind = kind;
+        }
+
+        public static InjectedUIElement create_menu_item(string name, string action) {
+            return InjectedUIElement(name, action, Gtk.UIManagerItemType.MENUITEM);
+        }
+
+        public static InjectedUIElement create_menu(string name, string action) {
+            return InjectedUIElement(name, action, Gtk.UIManagerItemType.MENU);
+        }
+
+        public static InjectedUIElement create_separator() {
+            return InjectedUIElement("", "", Gtk.UIManagerItemType.SEPARATOR);
+        }
+    }
+
     public Gtk.UIManager ui = new Gtk.UIManager();
     public Gtk.ActionGroup action_group = null;
     public Gtk.ActionGroup common_action_group = null;
@@ -476,6 +500,13 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         }
     }
     
+    protected void init_ui_inject_elements(string where, InjectedUIElement[] elements) {
+        foreach (InjectedUIElement element in elements) {
+            ui.add_ui(ui.new_merge_id(), where, element.name, element.action, element.kind,
+                false);
+        }
+    }
+
     protected void init_ui_start(string ui_filename, string action_group_name,
         Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
         init_load_ui(ui_filename);

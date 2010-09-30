@@ -435,7 +435,7 @@ public class EventPage : CollectionPage {
         init_page_context_menu("/EventContextMenu");
         
         // hide this command in CollectionPage, as it does not apply here
-        set_item_hidden("/CollectionMenuBar/EventsMenu/JumpToEvent");
+        set_item_hidden("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu/JumpToEvent");
         set_item_hidden("/CollectionContextMenu/ContextJumpToEvent");
         
         Event.global.items_altered.connect(on_events_altered);
@@ -481,7 +481,7 @@ public class EventPage : CollectionPage {
     }
     
     protected override void on_photos_menu() {
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/MakePrimary", 
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/MakePrimary", 
             get_view().get_selected_count() == 1);
         
         base.on_photos_menu();

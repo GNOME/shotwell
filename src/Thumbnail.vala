@@ -35,31 +35,27 @@ public class Thumbnail : CheckerboardItem {
     // was showing up in sysprof
     private bool exposure = false;
     
-    public Thumbnail(LibraryPhoto photo, int scale = DEFAULT_SCALE) {
-        base(photo, photo.get_dimensions().get_scaled(scale, true), photo.get_name());
+    public Thumbnail(MediaSource source, int scale = DEFAULT_SCALE) {
+        base(source, source.get_dimensions(), source.get_name());
         
-        this.video = null;
-        this.photo = photo;
+        if (source is LibraryPhoto) {
+            this.video = null;
+            this.photo = (LibraryPhoto) source;
+
+            Tag.global.container_contents_altered.connect(on_tag_contents_altered);
+            Tag.global.items_altered.connect(on_tags_altered);
+        } else if (source is Video) {
+            this.video = (Video) source;
+            this.photo = null;
+        }
+
         this.scale = scale;
         
-        original_dim = photo.get_dimensions();
+        original_dim = source.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
-        // if the photo's tags changes, update it here
-        Tag.global.container_contents_altered.connect(on_tag_contents_altered);
-        Tag.global.items_altered.connect(on_tags_altered);
-        LibraryPhoto.global.items_altered.connect(on_photos_altered);
-    }
-    
-    public Thumbnail.for_video(Video video, int scale = DEFAULT_SCALE) {
-        base(video, video.get_frame_dimensions().get_scaled(scale, true), video.get_name());
-        
-        this.video = video;
-        this.photo = null;
-        this.scale = scale;
-        
-        original_dim = video.get_frame_dimensions();
-        dim = original_dim.get_scaled(scale, true);
+        LibraryPhoto.global.items_altered.connect(on_sources_altered);
+        Video.global.items_altered.connect(on_sources_altered);
     }
 
     ~Thumbnail() {
@@ -68,7 +64,8 @@ public class Thumbnail : CheckerboardItem {
         
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
         Tag.global.items_altered.disconnect(on_tags_altered);
-        LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
+        LibraryPhoto.global.items_altered.disconnect(on_sources_altered);
+        Video.global.items_altered.disconnect(on_sources_altered);
     }
     
     private void update_tags() {
@@ -114,18 +111,18 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void update_title() {
-        string title = (is_video()) ? video.get_name() : photo.get_name();
+        string title = get_media_source().get_name();
         if (is_string_empty(title))
             clear_title();
         else
             set_title(title);
     }
     
-    private void on_photos_altered(Gee.Map<DataObject, Alteration> map) {
-        if (!exposure || !map.has_key(photo))
+    private void on_sources_altered(Gee.Map<DataObject, Alteration> map) {
+        if (!exposure || !map.has_key(get_media_source()))
             return;
         
-        if ((!is_video()) && map.get(photo).has_detail("metadata", "name"))
+        if (map.get(get_media_source()).has_detail("metadata", "name"))
             update_title();
     }
     
@@ -136,6 +133,13 @@ public class Thumbnail : CheckerboardItem {
     
     public Video get_video() {
         return video;
+    }
+    
+    public MediaSource get_media_source() {
+        if (is_video())
+            return video;
+        else
+            return photo;
     }
     
     //
@@ -409,6 +413,6 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public Rating get_rating() {
-        return (is_video()) ? Rating.UNRATED : photo.get_rating();
+        return get_media_source().get_rating();
     }
 }

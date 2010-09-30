@@ -437,19 +437,19 @@ public class EditTitleCommand : SingleDataSourceCommand {
     private string new_title;
     private string? old_title;
     
-    public EditTitleCommand(LibraryPhoto photo, string new_title) {
-        base(photo, Resources.EDIT_TITLE_LABEL, Resources.EDIT_TITLE_TOOLTIP);
+    public EditTitleCommand(MediaSource source, string new_title) {
+        base(source, Resources.EDIT_TITLE_LABEL, Resources.EDIT_TITLE_TOOLTIP);
         
         this.new_title = new_title;
-        old_title = photo.get_title();
+        old_title = source.get_title();
     }
     
     public override void execute() {
-        ((LibraryPhoto) source).set_title(new_title);
+        ((MediaSource) source).set_title(new_title);
     }
     
     public override void undo() {
-        ((LibraryPhoto) source).set_title(old_title);
+        ((MediaSource) source).set_title(old_title);
     }
 }
 
@@ -863,22 +863,22 @@ public class SetRatingSingleCommand : SingleDataSourceCommand {
         set_direct = false;
         incrementing = is_incrementing;
 
-        last_rating = ((LibraryPhoto)source).get_rating();
+        last_rating = ((MediaSource) source).get_rating();
     }
 
     public override void execute() {
         if (set_direct)
-            ((LibraryPhoto) source).set_rating(new_rating);
+            ((MediaSource) source).set_rating(new_rating);
         else {
             if (incrementing) 
-                ((LibraryPhoto) source).increase_rating();
+                ((MediaSource) source).increase_rating();
             else
-                ((LibraryPhoto) source).decrease_rating();
+                ((MediaSource) source).decrease_rating();
         }
     }
     
     public override void undo() {
-        ((LibraryPhoto) source).set_rating(last_rating);
+        ((MediaSource) source).set_rating(last_rating);
     }
 }
 
@@ -915,7 +915,7 @@ public class SetRatingCommand : MultipleDataSourceCommand {
 
         foreach (DataView view in iter) {
             DataSource source = view.get_source();
-            last_rating_map[source] = ((LibraryPhoto)source).get_rating();
+            last_rating_map[source] = ((MediaSource) source).get_rating();
         }
     }
     
@@ -935,12 +935,12 @@ public class SetRatingCommand : MultipleDataSourceCommand {
     
     public override void execute_on_source(DataSource source) {
         if (set_direct)
-            ((LibraryPhoto) source).set_rating(new_rating);
+            ((MediaSource) source).set_rating(new_rating);
         else {
             if (incrementing)
-                ((LibraryPhoto) source).increase_rating();
+                ((MediaSource) source).increase_rating();
             else
-                ((LibraryPhoto) source).decrease_rating();
+                ((MediaSource) source).decrease_rating();
         }
         
         // TODO: Replace this system with a mass set rating function (like Photo.set_event_many)
@@ -951,7 +951,7 @@ public class SetRatingCommand : MultipleDataSourceCommand {
     }
     
     public override void undo_on_source(DataSource source) {
-        ((LibraryPhoto) source).set_rating(last_rating_map[source]);
+        ((MediaSource) source).set_rating(last_rating_map[source]);
         
         if (++action_count % 50 == 0) {
             LibraryPhoto.global.thaw_notifications();

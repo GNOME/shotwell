@@ -93,17 +93,17 @@ public class TagPage : CollectionPage {
     protected override void on_tags_menu() {
         int selected_count = get_view().get_selected_count();
         
-        set_item_display("/CollectionMenuBar/TagsMenu/DeleteTag",
+        set_item_display("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/DeleteTag",
             Resources.delete_tag_menu(tag.get_name()),
             Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()),
             true);
         
-        set_item_display("/CollectionMenuBar/TagsMenu/RenameTag",
+        set_item_display("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/RenameTag",
             Resources.rename_tag_menu(tag.get_name()),
             Resources.rename_tag_tooltip(tag.get_name()),
             true);
         
-        set_item_display("/CollectionMenuBar/TagsMenu/RemoveTagFromPhotos", 
+        set_item_display("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/RemoveTagFromPhotos", 
             Resources.untag_photos_menu(tag.get_name(), selected_count),
             Resources.untag_photos_tooltip(tag.get_name(), selected_count),
             selected_count > 0);

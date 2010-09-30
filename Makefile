@@ -128,7 +128,8 @@ SRC_FILES = \
 	Tombstone.vala \
 	MetadataWriter.vala \
 	Application.vala \
-	DelayedQueue.vala
+	DelayedQueue.vala \
+	MediaPage.vala
 
 ifndef LINUX
 SRC_FILES += \
@@ -156,6 +157,7 @@ RESOURCE_FILES = \
 	tags.ui \
 	trash.ui \
 	offline.ui \
+	media.ui \
 	shotwell.glade
 
 SYS_INTEGRATION_FILES = \

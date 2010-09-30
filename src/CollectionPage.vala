@@ -16,128 +16,59 @@ public class CollectionViewManager : ViewManager {
     }
 }
 
-public enum RatingFilter {
-    NO_FILTER = 0,
-    REJECTED_OR_HIGHER = 1,
-    UNRATED_OR_HIGHER = 2,
-    ONE_OR_HIGHER = 3,
-    TWO_OR_HIGHER = 4,
-    THREE_OR_HIGHER = 5,
-    FOUR_OR_HIGHER = 6,
-    FIVE_OR_HIGHER = 7,
-    REJECTED_ONLY = 8,
-    UNRATED_ONLY = 9,
-    ONE_ONLY = 10,
-    TWO_ONLY = 11,
-    THREE_ONLY = 12,
-    FOUR_ONLY = 13,
-    FIVE_ONLY = 14
-}
-
-public abstract class CollectionPage : CheckerboardPage {
-    public const int SORT_ORDER_ASCENDING = 0;
-    public const int SORT_ORDER_DESCENDING = 1;
-
-    // steppings should divide evenly into (Thumbnail.MAX_SCALE - Thumbnail.MIN_SCALE)
-    public const int MANUAL_STEPPING = 16;
-    public const int SLIDER_STEPPING = 4;
-    
-    private const int FILTER_BUTTON_MARGIN = 12; // the distance between icon and edge of button
-    private const float FILTER_ICON_STAR_SCALE = 0.65f; // changes the size of the filter icon
-    private const float FILTER_ICON_SCALE = 0.75f; // changes the size of the all photos icon
-    
-    // filter_icon_base_width is the width (in px) of a single filter icon such as one star or an "X"
-    private const int FILTER_ICON_BASE_WIDTH = 30;
-    // filter_icon_plus_width is the width (in px) of the plus icon
-    private const int FILTER_ICON_PLUS_WIDTH = 20;
-
-    public enum SortBy {
-        TITLE = 1,
-        EXPOSURE_DATE = 2,
-        RATING = 3;
-    }
-
-    private static Gtk.Adjustment slider_adjustment = null;
-    
-    private Gtk.HScale slider = null;
+public abstract class CollectionPage : MediaPage {   
     private Gtk.ToolButton rotate_button = null;
     private Gtk.ToolButton enhance_button = null;
     private Gtk.ToolButton slideshow_button = null;
-    private Gtk.ToolButton filter_button = null;
-    private Gtk.Menu filter_menu = null;
     private PhotoDragAndDropHandler dnd_handler = null;
 #if !NO_PUBLISHING
     private Gtk.ToolButton publish_button = null;
 #endif
-    private int scale = Thumbnail.DEFAULT_SCALE;
     private ExporterUI exporter = null;
     
     public CollectionPage(string page_name, string? ui_filename = null, 
         Gtk.ActionEntry[]? child_actions = null) {
         base(page_name);
-        
-        init_ui_start("collection.ui", "CollectionActionGroup", create_actions(),
-            create_toggle_actions());
 
-        // Adds one menu entry per alien database driver
-        AlienDatabaseHandler.get_instance().add_menu_entries(
-            ui, "/CollectionMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
-        );
-        
-#if !NO_PRINTING
-        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
-            "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
-        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PrintPlaceholder", "Print",
-            "Print", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
+        get_view().items_altered.connect(on_photos_altered);
 
-#if !NO_PUBLISHING
-        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/PublishPlaceholder", "Publish",
-            "Publish", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
-
-#if !NO_SET_BACKGROUND
-        ui.add_ui(ui.new_merge_id(), "/CollectionMenuBar/FileMenu/SetBackgroundPlaceholder",
-            "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
-#endif 
-            
-        bool sort_order;
-        int sort_by;
-        get_config_photos_sort(out sort_order, out sort_by);
-
-        action_group.add_radio_actions(create_sort_crit_actions(), sort_by, on_sort_changed);
-        action_group.add_radio_actions(create_sort_order_actions(), sort_order ?
-            SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING, on_sort_changed);
-        action_group.add_radio_actions(create_view_filter_actions(), get_config_rating_filter(), 
-            on_view_filter_changed);
-
-        if (ui_filename != null)
-            init_load_ui(ui_filename);
-        
+        action_group.add_actions(create_actions(), this);
         if (child_actions != null)
             action_group.add_actions(child_actions, this);
+        if (ui_filename != null)
+            init_load_ui(ui_filename);
+        action_group.add_toggle_actions(create_toggle_actions(), this);
         
-        init_ui_bind("/CollectionMenuBar");
+        // context menu setup
+        init_load_ui("collection.ui");
         init_item_context_menu("/CollectionContextMenu");
-        
-        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
-        get_view().contents_altered.connect(on_contents_altered);
+
+        // menu extras for this page
+        init_ui_inject_elements("/MediaMenuBar/FileMenu/FileExtrasPlaceholder",
+            create_file_menu_injectables());
+        init_ui_inject_elements("/MediaMenuBar/EditMenu/EditExtrasPlaceholder",
+            create_edit_menu_injectables());
+        init_ui_inject_elements("/MediaMenuBar/ViewMenu/ViewExtrasTagsPlaceholder",
+            create_view_menu_tags_injectables());
+        init_ui_inject_elements("/MediaMenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder",
+            create_view_menu_fullscreen_injectables());
+        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder",
+            create_photos_menu_edits_injectables());
+        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder",
+            create_photos_menu_date_injectables());
+        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder",
+            create_photos_menu_externals_injectables());
+        init_ui_inject_elements("/MediaMenuBar/MenubarExtrasPlaceholder",
+            create_menu_injectables());
+        init_ui_inject_elements("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu",
+            create_events_menu_injectables());
+        init_ui_inject_elements("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu",
+            create_tags_menu_injectables());
+
         get_view().selection_group_altered.connect(on_selection_changed);
+        get_view().contents_altered.connect(on_contents_altered);
         get_view().items_visibility_changed.connect(on_contents_altered);
-        get_view().items_altered.connect(on_photos_altered);
-        
-        get_view().freeze_notifications();
-        get_view().set_property(CheckerboardItem.PROP_SHOW_TITLES, 
-            Config.get_instance().get_display_photo_titles());
-        get_view().set_property(Thumbnail.PROP_SHOW_TAGS, 
-            Config.get_instance().get_display_photo_tags());
-        get_view().set_property(Thumbnail.PROP_SIZE, scale);
-        get_view().set_property(Thumbnail.PROP_SHOW_RATINGS,
-            Config.get_instance().get_display_photo_ratings());
-        get_view().thaw_notifications();
-        
-        scale = Config.get_instance().get_photo_thumbnail_scale();
-        
+
         // set up page's toolbar (used by AppWindow for layout)
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -195,11 +126,9 @@ public abstract class CollectionPage : CheckerboardPage {
         
         toolbar.insert(separator, -1);
 
-        filter_menu = (Gtk.Menu) ui.get_widget("/FilterPopupMenu");
-        filter_button = new Gtk.ToolButton(get_filter_icon(RatingFilter.UNRATED_OR_HIGHER), null);
-        filter_button.clicked.connect(on_filter_button_pressed);
-        filter_button.set_expand(false);
-
+        // ratings filter button
+        MediaPage.FilterButton filter_button = create_filter_button();
+        connect_filter_button(filter_button);
         toolbar.insert(filter_button, -1);
 
         Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
@@ -208,46 +137,10 @@ public abstract class CollectionPage : CheckerboardPage {
         
         toolbar.insert(drawn_separator, -1);
         
-        Gtk.HBox zoom_group = new Gtk.HBox(false, 0);
-
-        Gtk.Image zoom_out = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_OUT,
-            Resources.ICON_ZOOM_SCALE));
-        Gtk.EventBox zoom_out_box = new Gtk.EventBox();
-        zoom_out_box.set_above_child(true);
-        zoom_out_box.set_visible_window(false);
-        zoom_out_box.add(zoom_out);
-
-        zoom_out_box.button_press_event.connect(on_zoom_out_pressed);
-
-        zoom_group.pack_start(zoom_out_box, false, false, 0);
-        
-        // thumbnail size slider
-        slider = new Gtk.HScale(get_global_slider_adjustment());
-        slider.value_changed.connect(on_slider_changed);
-        slider.set_draw_value(false);
-        slider.set_size_request(200, -1);
-        slider.set_tooltip_text(_("Adjust the size of the thumbnails"));
-
-        zoom_group.pack_start(slider, false, false, 0);
-        
-        Gtk.Image zoom_in = new Gtk.Image.from_pixbuf(Resources.load_icon(Resources.ICON_ZOOM_IN,
-            Resources.ICON_ZOOM_SCALE));
-        Gtk.EventBox zoom_in_box = new Gtk.EventBox();
-        zoom_in_box.set_above_child(true);
-        zoom_in_box.set_visible_window(false);
-        zoom_in_box.add(zoom_in);
-        
-        zoom_in_box.button_press_event.connect(on_zoom_in_pressed);
-
-        zoom_group.pack_start(zoom_in_box, false, false, 0);
-
-        Gtk.ToolItem group_wrapper = new Gtk.ToolItem();
-        group_wrapper.add(zoom_group);
-
-        toolbar.insert(group_wrapper, -1);
-        
-        // initialize scale from slider (since the scale adjustment may be modified from default)
-        scale = slider_to_scale(slider.get_value());
+        // zoom slider assembly
+        MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
+        connect_slider(zoom_slider_assembly);
+        toolbar.insert(zoom_slider_assembly, -1);
         
         show_all();
         
@@ -256,31 +149,121 @@ public abstract class CollectionPage : CheckerboardPage {
 
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
-    }
-    
-    public static Gtk.Adjustment get_global_slider_adjustment() {
-        int scale = Config.get_instance().get_photo_thumbnail_scale();
-        if (slider_adjustment == null) {
-            slider_adjustment = new Gtk.Adjustment(scale_to_slider(scale), 0,
-                scale_to_slider(Thumbnail.MAX_SCALE), 1, 10, 0);
-        }
         
-        return slider_adjustment;
+        // sync the selection
+        on_selection_changed();
     }
-    
+
+    private static Page.InjectedUIElement[] create_file_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+#if !NO_PRINTING
+        result += Page.InjectedUIElement.create_menu_item("Print", "Print");
+        result += Page.InjectedUIElement.create_menu_item("PageSetup", "PageSetup");
+#endif
+
+#if !NO_PUBLISHING
+        result += Page.InjectedUIElement.create_separator();
+        result += Page.InjectedUIElement.create_menu_item("Publish", "Publish");
+#endif
+
+#if !NO_SET_BACKGROUND
+        result += Page.InjectedUIElement.create_menu_item("SetBackground", "SetBackground");
+#endif
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_edit_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("Duplicate", "Duplicate");
+        result += Page.InjectedUIElement.create_separator();
+        result += Page.InjectedUIElement.create_menu_item("RemoveFromLibrary", "RemoveFromLibrary");
+        result += Page.InjectedUIElement.create_menu_item("MoveToTrash", "MoveToTrash");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_view_menu_tags_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("ViewTags", "ViewTags");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_view_menu_fullscreen_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("Fullscreen", "CommonFullscreen");
+        result += Page.InjectedUIElement.create_separator();
+        result += Page.InjectedUIElement.create_menu_item("Slideshow", "Slideshow");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_photos_menu_edits_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("RotateClockwise", "RotateClockwise");
+        result += Page.InjectedUIElement.create_menu_item("RotateCounterclockwise",
+            "RotateCounterclockwise");
+        result += Page.InjectedUIElement.create_menu_item("FlipHorizontally", "FlipHorizontally");
+        result += Page.InjectedUIElement.create_menu_item("FlipVertically", "FlipVertically");
+        result += Page.InjectedUIElement.create_separator();
+        result += Page.InjectedUIElement.create_menu_item("Enhance", "Enhance");
+        result += Page.InjectedUIElement.create_menu_item("Revert", "Revert");
+
+        return result;
+    }
+  
+    private static Page.InjectedUIElement[] create_photos_menu_date_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("AdjustDateTime", "AdjustDateTime");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_photos_menu_externals_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("ExternalEdit", "ExternalEdit");
+        result += Page.InjectedUIElement.create_menu_item("ExternalEditRAW", "ExternalEditRAW");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu("EventsMenu", "EventsMenu");
+        result += Page.InjectedUIElement.create_menu("TagsMenu", "TagsMenu");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_events_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("NewEvent", "NewEvent");
+        result += Page.InjectedUIElement.create_menu_item("JumpToEvent", "JumpToEvent");
+
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_tags_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("AddTags", "AddTags");
+        result += Page.InjectedUIElement.create_menu_item("ModifyTags", "ModifyTags");
+
+        return result;
+    }
+
     private Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
-        
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
-        file.label = _("_File");
-        actions += file;
-
-        Gtk.ActionEntry export = { "Export", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
-            TRANSLATABLE, on_export };
-        export.label = Resources.EXPORT_MENU;
-        export.tooltip = Resources.EXPORT_TOOLTIP;
-        export.tooltip = _("Export selected photos to disk");
-        actions += export;
 
 #if !NO_PRINTING
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
@@ -303,11 +286,7 @@ public abstract class CollectionPage : CheckerboardPage {
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
 #endif
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
-        edit.label = _("_Edit");
-        actions += edit;
-        
+
         Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, on_events_menu };
         event.label = _("Even_ts");
         actions += event;
@@ -323,24 +302,7 @@ public abstract class CollectionPage : CheckerboardPage {
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         move_to_trash.tooltip = Resources.MOVE_TO_TRASH_PLURAL_TOOLTIP;
         actions += move_to_trash;
-        
-        Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null,
-            on_photos_menu };
-        photos.label = _("_Photos");
-        actions += photos;
-        
-        Gtk.ActionEntry increase_size = { "IncreaseSize", Gtk.STOCK_ZOOM_IN, TRANSLATABLE,
-            "<Ctrl>plus", TRANSLATABLE, on_increase_size };
-        increase_size.label = _("Zoom _In");
-        increase_size.tooltip = _("Increase the magnification of the thumbnails");
-        actions += increase_size;
-
-        Gtk.ActionEntry decrease_size = { "DecreaseSize", Gtk.STOCK_ZOOM_OUT, TRANSLATABLE,
-            "<Ctrl>minus", TRANSLATABLE, on_decrease_size };
-        decrease_size.label = _("Zoom _Out");
-        decrease_size.tooltip = _("Decrease the magnification of the thumbnails");
-        actions += decrease_size;
-
+                
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
             TRANSLATABLE, "bracketright", TRANSLATABLE, on_rotate_clockwise };
         rotate_right.label = Resources.ROTATE_CW_MENU;
@@ -384,76 +346,12 @@ public abstract class CollectionPage : CheckerboardPage {
         set_background.tooltip = Resources.SET_BACKGROUND_TOOLTIP;
         actions += set_background;
 #endif
-        
-        Gtk.ActionEntry set_rating = { "Rate", null, TRANSLATABLE, null, null, null };
-        set_rating.label = Resources.RATING_MENU;
-        actions += set_rating;
-
-        Gtk.ActionEntry increase_rating = { "IncreaseRating", null, TRANSLATABLE, 
-            "greater", TRANSLATABLE, on_increase_rating };
-        increase_rating.label = Resources.INCREASE_RATING_MENU;
-        increase_rating.tooltip = Resources.INCREASE_RATING_TOOLTIP;
-        actions += increase_rating;
-
-        Gtk.ActionEntry decrease_rating = { "DecreaseRating", null, TRANSLATABLE, 
-            "less", TRANSLATABLE, on_decrease_rating };
-        decrease_rating.label = Resources.DECREASE_RATING_MENU;
-        decrease_rating.tooltip = Resources.DECREASE_RATING_TOOLTIP;
-        actions += decrease_rating;
-
-        Gtk.ActionEntry rate_rejected = { "RateRejected", null, TRANSLATABLE, 
-            "9", TRANSLATABLE, on_rate_rejected };
-        rate_rejected.label = Resources.rating_menu(Rating.REJECTED);
-        rate_rejected.tooltip = Resources.rating_tooltip(Rating.REJECTED);
-        actions += rate_rejected;
-
-        Gtk.ActionEntry rate_unrated = { "RateUnrated", null, TRANSLATABLE, 
-            "0", TRANSLATABLE, on_rate_unrated };
-        rate_unrated.label = Resources.rating_menu(Rating.UNRATED);
-        rate_unrated.tooltip = Resources.rating_tooltip(Rating.UNRATED);
-        actions += rate_unrated;
-
-        Gtk.ActionEntry rate_one = { "RateOne", null, TRANSLATABLE, 
-            "1", TRANSLATABLE, on_rate_one };
-        rate_one.label = Resources.rating_menu(Rating.ONE);
-        rate_one.tooltip = Resources.rating_tooltip(Rating.ONE);
-        actions += rate_one;
-
-        Gtk.ActionEntry rate_two = { "RateTwo", null, TRANSLATABLE, 
-            "2", TRANSLATABLE, on_rate_two };
-        rate_two.label = Resources.rating_menu(Rating.TWO);
-        rate_two.tooltip = Resources.rating_tooltip(Rating.TWO);
-        actions += rate_two;
-
-        Gtk.ActionEntry rate_three = { "RateThree", null, TRANSLATABLE, 
-            "3", TRANSLATABLE, on_rate_three };
-        rate_three.label = Resources.rating_menu(Rating.THREE);
-        rate_three.tooltip = Resources.rating_tooltip(Rating.THREE);
-        actions += rate_three;
-
-        Gtk.ActionEntry rate_four = { "RateFour", null, TRANSLATABLE, 
-            "4", TRANSLATABLE, on_rate_four };
-        rate_four.label = Resources.rating_menu(Rating.FOUR);
-        rate_four.tooltip = Resources.rating_tooltip(Rating.FOUR);
-        actions += rate_four;
-
-        Gtk.ActionEntry rate_five = { "RateFive", null, TRANSLATABLE, 
-            "5", TRANSLATABLE, on_rate_five };
-        rate_five.label = Resources.rating_menu(Rating.FIVE);
-        rate_five.tooltip = Resources.rating_tooltip(Rating.FIVE);
-        actions += rate_five;
 
         Gtk.ActionEntry duplicate = { "Duplicate", null, TRANSLATABLE, "<Ctrl>D", TRANSLATABLE,
             on_duplicate_photo };
         duplicate.label = Resources.DUPLICATE_PHOTO_MENU;
         duplicate.tooltip = Resources.DUPLICATE_PHOTO_TOOLTIP;
         actions += duplicate;
-
-        Gtk.ActionEntry edit_title = { "EditTitle", null, TRANSLATABLE, "F2", TRANSLATABLE,
-            on_edit_title };
-        edit_title.label = Resources.EDIT_TITLE_MENU;
-        edit_title.tooltip = Resources.EDIT_TITLE_TOOLTIP;
-        actions += edit_title;
 
         Gtk.ActionEntry adjust_date_time = { "AdjustDateTime", null, TRANSLATABLE, null,
             TRANSLATABLE, on_adjust_date_time };
@@ -478,18 +376,6 @@ public abstract class CollectionPage : CheckerboardPage {
         slideshow.label = _("_Slideshow");
         slideshow.tooltip = _("Play a slideshow");
         actions += slideshow;
-
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
-        view.label = _("_View");
-        actions += view;
-
-        Gtk.ActionEntry sort_photos = { "SortPhotos", null, TRANSLATABLE, null, null, null };
-        sort_photos.label = _("Sort _Photos");
-        actions += sort_photos;
-
-        Gtk.ActionEntry filter_photos = { "FilterPhotos", null, TRANSLATABLE, null, null, null };
-        filter_photos.label = Resources.FILTER_PHOTOS_MENU;
-        actions += filter_photos;
 
         Gtk.ActionEntry new_event = { "NewEvent", Gtk.STOCK_NEW, TRANSLATABLE, "<Ctrl>N",
             TRANSLATABLE, on_new_event };
@@ -518,22 +404,12 @@ public abstract class CollectionPage : CheckerboardPage {
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
         modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
-        
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
-        help.label = _("_Help");
-        actions += help;
-        
+                
         return actions;
     }
     
     private Gtk.ToggleActionEntry[] create_toggle_actions() {
         Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
-        
-        Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
-        titles.label = _("_Titles");
-        titles.tooltip = _("Display the title of each photo");
-        toggle_actions += titles;
         
         Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
             TRANSLATABLE, on_display_tags, Config.get_instance().get_display_photo_tags() };
@@ -541,165 +417,17 @@ public abstract class CollectionPage : CheckerboardPage {
         tags.tooltip = _("Display each photo's tags");
         toggle_actions += tags;
         
-        Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>R",
-            TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
-        ratings.label = Resources.VIEW_RATINGS_MENU;
-        ratings.tooltip = Resources.VIEW_RATINGS_TOOLTIP;
-        toggle_actions += ratings;
-        
         return toggle_actions;
-    }
-    
-    private Gtk.RadioActionEntry[] create_sort_crit_actions() {
-        Gtk.RadioActionEntry[] sort_crit_actions = new Gtk.RadioActionEntry[0];
-
-        Gtk.RadioActionEntry by_title = { "SortByTitle", null, TRANSLATABLE, null, TRANSLATABLE,
-            SortBy.TITLE };
-        by_title.label = _("By _Title");
-        by_title.tooltip = _("Sort photos by title");
-        sort_crit_actions += by_title;
-
-        Gtk.RadioActionEntry by_date = { "SortByExposureDate", null, TRANSLATABLE, null,
-            TRANSLATABLE, SortBy.EXPOSURE_DATE };
-        by_date.label = _("By Exposure _Date");
-        by_date.tooltip = _("Sort photos by exposure date");
-        sort_crit_actions += by_date;
-
-        Gtk.RadioActionEntry by_rating = { "SortByRating", null, TRANSLATABLE, null,
-            TRANSLATABLE, SortBy.RATING };
-        by_rating.label = _("By _Rating");
-        by_rating.tooltip = _("Sort photos by rating");
-        sort_crit_actions += by_rating;
-
-        return sort_crit_actions;
-    }
-    
-    private Gtk.RadioActionEntry[] create_sort_order_actions() {
-        Gtk.RadioActionEntry[] sort_order_actions = new Gtk.RadioActionEntry[0];
-
-        Gtk.RadioActionEntry ascending = { "SortAscending", Gtk.STOCK_SORT_ASCENDING,
-            TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_ASCENDING };
-        ascending.label = _("_Ascending");
-        ascending.tooltip = _("Sort photos in an ascending order");
-        sort_order_actions += ascending;
-
-        Gtk.RadioActionEntry descending = { "SortDescending", Gtk.STOCK_SORT_DESCENDING,
-            TRANSLATABLE, null, TRANSLATABLE, SORT_ORDER_DESCENDING };
-        descending.label = _("D_escending");
-        descending.tooltip = _("Sort photos in a descending order");
-        sort_order_actions += descending;
-
-        return sort_order_actions;
-    }
-    
-    private Gtk.RadioActionEntry[] create_view_filter_actions() {
-        Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
-
-        Gtk.RadioActionEntry rejected_or_higher = { "DisplayRejectedOrHigher", null, TRANSLATABLE,
-            "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
-        rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
-        rejected_or_higher.tooltip = Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
-        view_filter_actions += rejected_or_higher;
-
-        Gtk.RadioActionEntry unrated_or_higher = { "DisplayUnratedOrHigher", null, TRANSLATABLE, 
-            "<Ctrl>0", TRANSLATABLE, RatingFilter.UNRATED_OR_HIGHER };
-        unrated_or_higher.label = Resources.DISPLAY_UNRATED_OR_HIGHER_MENU;
-        unrated_or_higher.tooltip = Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;
-        view_filter_actions += unrated_or_higher;
-
-        Gtk.RadioActionEntry one_or_higher = { "DisplayOneOrHigher", null, TRANSLATABLE,
-            "<Ctrl>1", TRANSLATABLE, RatingFilter.ONE_OR_HIGHER };
-        one_or_higher.label = Resources.DISPLAY_ONE_OR_HIGHER_MENU;
-        one_or_higher.tooltip = Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += one_or_higher;
-
-        Gtk.RadioActionEntry two_or_higher = { "DisplayTwoOrHigher", null, TRANSLATABLE,
-            "<Ctrl>2", TRANSLATABLE, RatingFilter.TWO_OR_HIGHER };
-        two_or_higher.label = Resources.DISPLAY_TWO_OR_HIGHER_MENU;
-        two_or_higher.tooltip = Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
-        view_filter_actions += two_or_higher;
-
-        Gtk.RadioActionEntry three_or_higher = { "DisplayThreeOrHigher", null, TRANSLATABLE,
-            "<Ctrl>3", TRANSLATABLE, RatingFilter.THREE_OR_HIGHER };
-        three_or_higher.label = Resources.DISPLAY_THREE_OR_HIGHER_MENU;
-        three_or_higher.tooltip = Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += three_or_higher;
-
-        Gtk.RadioActionEntry four_or_higher = { "DisplayFourOrHigher", null, TRANSLATABLE,
-            "<Ctrl>4", TRANSLATABLE, RatingFilter.FOUR_OR_HIGHER };
-        four_or_higher.label = Resources.DISPLAY_FOUR_OR_HIGHER_MENU;
-        four_or_higher.tooltip = Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
-        view_filter_actions += four_or_higher;
-
-        Gtk.RadioActionEntry five_or_higher = { "DisplayFiveOrHigher", null, TRANSLATABLE,
-            "<Ctrl>5", TRANSLATABLE, RatingFilter.FIVE_OR_HIGHER };
-        five_or_higher.label = Resources.DISPLAY_FIVE_OR_HIGHER_MENU;
-        five_or_higher.tooltip = Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
-        view_filter_actions += five_or_higher;
-
-        return view_filter_actions;
-    }
-
-    // This method is called by CollectionViewManager to create thumbnails for the DataSource 
-    // (Photo) objects.
-    public virtual DataView create_thumbnail(DataSource source) {
-        return new Thumbnail((LibraryPhoto) source, scale);
     }
     
     public override void switched_to() {
         // set display options to match Configuration toggles (which can change while switched away)
         get_view().freeze_notifications();
-        set_display_titles(Config.get_instance().get_display_photo_titles());
         set_display_tags(Config.get_instance().get_display_photo_tags());
-        set_display_ratings(Config.get_instance().get_display_photo_ratings());
         get_view().thaw_notifications();
-
-        sync_sort();
-
-        restore_saved_rating_view_filter();  // Set filter to current level and set menu selection
         
         // perform these operations before calling base method to prevent flicker
         base.switched_to();
-        
-        // if the thumbnails were resized while viewing another page, resize the ones on this page
-        // now
-        int current_scale = slider_to_scale(slider.get_value());
-        if (scale != current_scale)
-            set_thumb_size(current_scale);
-    }
-    
-    protected override void init_actions(int selected_count, int count) {
-        bool selected = selected_count > 0;
-        
-        set_action_sensitive("RemoveFromLibrary", selected);
-        set_action_sensitive("MoveToTrash", selected);
-        set_action_sensitive("Duplicate", selected);
-        set_action_sensitive("ExternalEdit", selected && Config.get_instance().get_external_photo_app() != "");
-        set_action_sensitive("Revert", can_revert_selected());
-        set_action_sensitive("JumpToEvent", can_jump_to_event());
-        
-#if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", selected_count == 1);
-#endif
-        base.init_actions(selected_count, count);
-    }
-
-    protected override bool on_mousewheel_up(Gdk.EventScroll event) {
-        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-            on_increase_size();
-            return true;
-        } else {
-            return base.on_mousewheel_up(event);
-        }
-    }
-    
-    protected override bool on_mousewheel_down(Gdk.EventScroll event) {
-        if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-            on_decrease_size();
-            return true;
-        } else {
-            return base.on_mousewheel_down(event);
-        }
     }
 
     private void on_contents_altered() {
@@ -719,7 +447,7 @@ public abstract class CollectionPage : CheckerboardPage {
             PrintManager.get_instance().spool_photo((Photo) get_view().get_selected_at(0).get_source());
     }
 
-    private void on_page_setup() {
+    protected void on_page_setup() {
         PrintManager.get_instance().do_page_setup();
     }
 #endif
@@ -740,48 +468,20 @@ public abstract class CollectionPage : CheckerboardPage {
         set_action_sensitive("MoveToTrash", has_selected);
         set_action_sensitive("Duplicate", has_selected);
         set_action_sensitive("JumpToEvent", can_jump_to_event());
-        update_rating_sensitivities();
         
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", selected_count == 1);
 #endif
     }
     
-    private void update_rating_sensitivities() {
-        set_action_sensitive("RateRejected", can_rate_selected(Rating.REJECTED));
-        set_action_sensitive("RateUnrated", can_rate_selected(Rating.UNRATED));
-        set_action_sensitive("RateOne", can_rate_selected(Rating.ONE));
-        set_action_sensitive("RateTwo", can_rate_selected(Rating.TWO));
-        set_action_sensitive("RateThree", can_rate_selected(Rating.THREE));
-        set_action_sensitive("RateFour", can_rate_selected(Rating.FOUR));
-        set_action_sensitive("RateFive", can_rate_selected(Rating.FIVE));
-        set_action_sensitive("IncreaseRating", can_increase_selected_rating());
-        set_action_sensitive("DecreaseRating", can_decrease_selected_rating());
-    }
-
     private void on_external_app_changed() {
         int selected_count = get_view().get_selected_count();
         
         set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
     }
     
-    private void on_filter_button_pressed() {
-        filter_menu.popup(null, null, position_popup, 0, Gtk.get_current_event_time());
-    }
-    
-    private void position_popup(Gtk.Menu menu, out int x, out int y, out bool push_in) {
-        menu.realize();
-        int rx, ry;
-        get_container().get_child().window.get_root_origin(out rx, out ry);
-        
-        x = rx + filter_button.allocation.x;
-        y = ry + get_menubar().allocation.height + get_toolbar().allocation.y 
-            - menu.allocation.height;
-        push_in = false;
-    }
-    
     // see #2020
-    // doubel clcik = switch to photo page
+    // double clcik = switch to photo page
     // Super + double click = open in external editor
     // Enter = switch to PhotoPage
     // Ctrl + Enter = open in external editor (handled with accelerators)
@@ -858,89 +558,6 @@ public abstract class CollectionPage : CheckerboardPage {
             case "KP_End":
                 key_press_event(event);
             break;
-            
-            case "equal":
-            case "plus":
-            case "KP_Add":
-                on_increase_size();
-            break;
-            
-            case "minus":
-            case "underscore":
-            case "KP_Subtract":
-                on_decrease_size();
-            break;
-
-            case "period":
-                on_increase_rating();
-            break;
-            
-            case "comma":
-                on_decrease_rating();
-            break;
-
-            case "KP_1":
-                on_rate_one();
-            break;
-            
-            case "KP_2":
-                on_rate_two();
-            break;
-
-            case "KP_3":
-                on_rate_three();
-            break;
-        
-            case "KP_4":
-                on_rate_four();
-            break;
-
-            case "KP_5":
-                on_rate_five();
-            break;
-
-            case "KP_0":
-                on_rate_unrated();
-            break;
-
-            case "KP_9":
-                on_rate_rejected();
-            break;
-            
-            case "exclam":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.ONE_OR_HIGHER);
-            break;
-
-            case "at":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.TWO_OR_HIGHER);
-            break;
-
-            case "numbersign":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.THREE_OR_HIGHER);
-            break;
-
-            case "dollar":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.FOUR_OR_HIGHER);
-            break;
-
-            case "percent":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.FIVE_OR_HIGHER);
-            break;
-
-            case "parenright":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.UNRATED_OR_HIGHER);
-            break;
-
-            case "parenleft":
-                if (get_ctrl_pressed())
-                    set_rating_view_filter(RatingFilter.REJECTED_OR_HIGHER);
-            break;
 
             default:
                 handled = false;
@@ -949,61 +566,24 @@ public abstract class CollectionPage : CheckerboardPage {
         
         return handled ? true : base.on_app_key_pressed(event);
     }
-    
-    public void increase_thumb_size() {
-        set_thumb_size(scale + MANUAL_STEPPING);
-    }
-    
-    public void decrease_thumb_size() {
-        set_thumb_size(scale - MANUAL_STEPPING);
-    }
 
-    private bool on_zoom_out_pressed(Gdk.EventButton event) {
-        snap_zoom_to_min();
-        return true;
-    }
-    
-    private bool on_zoom_in_pressed(Gdk.EventButton event) {
-        snap_zoom_to_max();
-        return true;
-    }
+    protected override void on_file_menu() {
+        base.on_file_menu();
 
-    protected void snap_zoom_to_min() {
-        slider.set_value(scale_to_slider(Thumbnail.MIN_SCALE));
-    }
-
-    protected void snap_zoom_to_max() {
-        slider.set_value(scale_to_slider(Thumbnail.MAX_SCALE));
-    }
-    
-    public void set_thumb_size(int new_scale) {
-        if (scale == new_scale || !is_in_view())
-            return;
-        
-        scale = new_scale.clamp(Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
-        get_checkerboard_layout().set_scale(scale);
-        
-        // when doing mass operations on LayoutItems, freeze individual notifications
-        get_view().freeze_notifications();
-        get_view().set_property(Thumbnail.PROP_SIZE, scale);
-        get_view().thaw_notifications();
-    }
-    
-    private void on_file_menu() {
         int count = get_view().get_selected_count();
         
 #if !NO_PRINTING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/PrintPlaceholder/Print", count == 1);
+        set_item_sensitive("/MediaMenuBar/FileMenu/FileExtrasPlaceholder/Print", count == 1);
 #endif    
     
-        set_item_sensitive("/CollectionMenuBar/FileMenu/Export", count > 0);
+        set_item_sensitive("/MediaMenuBar/FileMenu/Export", count > 0);
 
 #if !NO_PUBLISHING
-        set_item_sensitive("/CollectionMenuBar/FileMenu/PublishPlaceholder/Publish", count > 0);
+        set_item_sensitive("/MediaMenuBar/FileMenu/FileExtrasPlaceholder/Publish", count > 0);
 #endif
     }
     
-    private void on_export() {
+    protected override void on_export() {
         if (exporter != null)
             return;
         
@@ -1063,18 +643,16 @@ public abstract class CollectionPage : CheckerboardPage {
         exporter = null;
     }
     
-    private void on_edit_menu() {
-        decorate_undo_item("/CollectionMenuBar/EditMenu/Undo");
-        decorate_redo_item("/CollectionMenuBar/EditMenu/Redo");
-    }
-
     private void on_events_menu() {
-        set_item_sensitive("/CollectionMenuBar/EventsMenu/NewEvent", get_view().get_selected_count() > 0);
+        set_item_sensitive("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu/NewEvent",
+            get_view().get_selected_count() > 0);
     }
     
     protected virtual void on_tags_menu() {
-        set_item_sensitive("/CollectionMenuBar/TagsMenu/AddTags", get_view().get_selected_count() > 0);
-        set_item_sensitive("/CollectionMenuBar/TagsMenu/ModifyTags", get_view().get_selected_count() == 1);
+        set_item_sensitive("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/AddTags",
+            get_view().get_selected_count() > 0);
+        set_item_sensitive("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/ModifyTags",
+            get_view().get_selected_count() == 1);
     }
     
     private bool can_revert_selected() {
@@ -1096,36 +674,10 @@ public abstract class CollectionPage : CheckerboardPage {
         
         return false;
     }
+   
+    protected override void on_photos_menu() {
+        base.on_photos_menu();
 
-    private bool can_rate_selected(Rating rating) {
-        foreach (DataView view in get_view().get_selected()) {
-            if(((Thumbnail) view).get_photo().get_rating() != rating)
-                return true;
-        }
-        
-        return false;
-    }
-
-    private bool can_increase_selected_rating() {
-        foreach (DataView view in get_view().get_selected()) {
-            if(((Thumbnail) view).get_photo().get_rating().can_increase())
-                return true;
-        }
-        
-        return false;
-    }
-
-    private bool can_decrease_selected_rating() {
-        foreach (DataView view in get_view().get_selected()) {
-            if(((Thumbnail) view).get_photo().get_rating().can_decrease())
-                return true;
-        }
-        
-        return false;
-    }
-
-    
-    protected virtual void on_photos_menu() {
         bool selected = (get_view().get_selected_count() > 0);
         bool one_selected = get_view().get_selected_count() == 1;
         bool revert_possible = can_revert_selected();
@@ -1135,32 +687,28 @@ public abstract class CollectionPage : CheckerboardPage {
             PhotoFileFormat.RAW;
 #endif
         
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateClockwise", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/RotateCounterclockwise", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipHorizontally", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/FlipVertically", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Enhance", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Revert", selected && revert_possible);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/AdjustDateTime", selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/EditTitle", one_selected);
-        set_item_sensitive("/CollectionMenuBar/PhotosMenu/Rate", selected);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/RotateClockwise",
+            selected);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/RotateCounterclockwise",
+            selected);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/FlipHorizontally",
+            selected);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/FlipVertically",
+            selected);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/Enhance",
+            selected);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/Revert",
+            selected && revert_possible);
+        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder/AdjustDateTime",
+            selected);
         
 #if !NO_RAW
         if (is_single_raw)
-            set_item_visible("/CollectionMenuBar/PhotosMenu/ExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
+            set_item_visible("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder/ExternalEditRAW",
+                Config.get_instance().get_external_raw_app() != "");
         else
-            set_item_hidden("/CollectionMenuBar/PhotosMenu/ExternalEditRAW");
+            set_item_hidden("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder/ExternalEditRAW");
 #endif
-    }
-    
-    private void on_increase_size() {
-        increase_thumb_size();
-        slider.set_value(scale_to_slider(scale));
-    }
-
-    private void on_decrease_size() {
-        decrease_thumb_size();
-        slider.set_value(scale_to_slider(scale));
     }
     
     private void on_remove_from_library() {
@@ -1263,64 +811,6 @@ public abstract class CollectionPage : CheckerboardPage {
         
         get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
     }
-
-    private void on_increase_rating() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        SetRatingCommand command = new SetRatingCommand.inc_dec(get_view().get_selected(), true);
-        get_command_manager().execute(command);
-
-        update_rating_sensitivities();
-    }
-
-    private void on_decrease_rating() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        SetRatingCommand command = new SetRatingCommand.inc_dec(get_view().get_selected(), false);
-        get_command_manager().execute(command);
-
-        update_rating_sensitivities();
-    }
-
-    private void on_set_rating(Rating rating) {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        SetRatingCommand command = new SetRatingCommand(get_view().get_selected(), rating);
-        get_command_manager().execute(command);
-
-        update_rating_sensitivities();
-    }
-
-    private void on_rate_rejected() {
-        on_set_rating(Rating.REJECTED);
-    }
-    
-    private void on_rate_unrated() {
-        on_set_rating(Rating.UNRATED);
-    }
-
-    private void on_rate_one() {
-        on_set_rating(Rating.ONE);
-    }
-
-    private void on_rate_two() {
-        on_set_rating(Rating.TWO);
-    }
-
-    private void on_rate_three() {
-        on_set_rating(Rating.THREE);
-    }
-
-    private void on_rate_four() {
-        on_set_rating(Rating.FOUR);
-    }
-
-    private void on_rate_five() {
-        on_set_rating(Rating.FIVE);
-    }
     
     private void on_duplicate_photo() {
         if (get_view().get_selected_count() == 0)
@@ -1328,22 +818,6 @@ public abstract class CollectionPage : CheckerboardPage {
         
         DuplicateMultiplePhotosCommand command = new DuplicateMultiplePhotosCommand(
             get_view().get_selected());
-        get_command_manager().execute(command);
-    }
-
-    private void on_edit_title() {
-        // only edit one title at a time
-        if (get_view().get_selected_count() != 1)
-            return;
-        
-        LibraryPhoto item = (LibraryPhoto) get_view().get_selected_at(0).get_source();
-        
-        EditTitleDialog edit_title_dialog = new EditTitleDialog(item.get_title());
-        string? new_title = edit_title_dialog.execute();
-        if (new_title == null)
-            return;
-        
-        EditTitleCommand command = new EditTitleCommand(item, new_title);
         get_command_manager().execute(command);
     }
 
@@ -1427,245 +901,13 @@ public abstract class CollectionPage : CheckerboardPage {
             thumbnail.get_photo()));
     }
 
-    private void on_view_menu() {
-        set_item_sensitive("/CollectionMenuBar/ViewMenu/IncreaseSize", scale < Thumbnail.MAX_SCALE);
-        set_item_sensitive("/CollectionMenuBar/ViewMenu/DecreaseSize", scale > Thumbnail.MIN_SCALE);
-        set_item_sensitive("/CollectionMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
-    }
+    protected override void on_view_menu() {
+        base.on_view_menu();
 
-    private void set_rating_view_filter_menu(RatingFilter filter) {
-        Gtk.ToggleAction action;
-        
-        switch (filter) {
-            case RatingFilter.UNRATED_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayUnratedOrHigher");
-            break;
-            case RatingFilter.ONE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayOneOrHigher");
-            break;
-            case RatingFilter.TWO_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayTwoOrHigher");
-            break;
-            case RatingFilter.THREE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayThreeOrHigher");
-                break;
-            case RatingFilter.FOUR_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayFourOrHigher");
-                break;
-            case RatingFilter.FIVE_OR_HIGHER:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayFiveOrHigher");
-            break;
-            case RatingFilter.REJECTED_OR_HIGHER:
-            default:
-                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOrHigher");
-            break;
-        }
-        
-        action.set_active(true);
+        set_item_sensitive("/MediaMenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder/Fullscreen",
+            get_view().get_count() > 0);
     }
-
-    private void on_view_filter_changed() {
-        RatingFilter filter = get_filter_criteria();
-        install_rating_filter(filter);
-        set_filter_icon(filter);
-        set_config_rating_filter(filter);
-    }
-
-    private void set_rating_view_filter(RatingFilter filter) {
-        set_rating_view_filter_menu(filter);
-        install_rating_filter(filter);
-        set_filter_icon(filter);
-        set_config_rating_filter(filter);
-    }
-
-    private void restore_saved_rating_view_filter() {
-        RatingFilter filter = get_config_rating_filter();
-        set_rating_view_filter_menu(filter);
-        set_filter_icon(filter);
-        install_rating_filter(filter);
-    }
-
-    private void install_rating_filter(RatingFilter filter) {
-        switch (filter) {
-            case RatingFilter.REJECTED_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.REJECTED);
-            break;
-            case RatingFilter.ONE_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.ONE);
-            break;
-            case RatingFilter.TWO_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.TWO);
-            break;
-            case RatingFilter.THREE_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.THREE);
-            break;
-            case RatingFilter.FOUR_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.FOUR);
-            break;
-            case RatingFilter.FIVE_OR_HIGHER:
-                use_rating_or_higher_filter(Rating.FIVE);
-            break;
-            case RatingFilter.UNRATED_OR_HIGHER:
-            default:
-                use_rating_or_higher_filter(Rating.UNRATED);
-            break;
-        }
-    }
-
-    private int get_filter_button_size(RatingFilter filter) {
-        return get_filter_icon_size(filter) + 2 * FILTER_BUTTON_MARGIN;
-    }
-
-    private int get_filter_icon_size(RatingFilter filter) {
-        int icon_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
-        int icon_star_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_STAR_SCALE);
-        int icon_plus = (int)(FILTER_ICON_PLUS_WIDTH * FILTER_ICON_STAR_SCALE);
-        
-        switch (filter) {
-            case RatingFilter.ONE_OR_HIGHER:
-                return icon_star_base + icon_plus;
-            case RatingFilter.TWO_OR_HIGHER:
-                return icon_star_base * 2 + icon_plus;
-            case RatingFilter.THREE_OR_HIGHER:
-                return icon_star_base * 3 + icon_plus;
-            case RatingFilter.FOUR_OR_HIGHER:
-                return icon_star_base * 4 + icon_plus;
-            case RatingFilter.FIVE_OR_HIGHER:
-            case RatingFilter.FIVE_ONLY:
-                return icon_star_base * 5;
-            case RatingFilter.REJECTED_OR_HIGHER:
-                return Resources.ICON_FILTER_REJECTED_OR_BETTER_FIXED_SIZE;
-            case RatingFilter.UNRATED_OR_HIGHER:
-                return Resources.ICON_FILTER_UNRATED_OR_BETTER_FIXED_SIZE;
-            default:
-                return icon_base;
-        }
-    }
-    
-    private Gtk.Widget get_filter_icon(RatingFilter filter) {
-        string filename = null;
-
-        switch (filter) {
-            case RatingFilter.ONE_OR_HIGHER:
-                filename = Resources.ICON_FILTER_ONE_OR_BETTER;
-            break;
-            
-            case RatingFilter.TWO_OR_HIGHER:
-                filename = Resources.ICON_FILTER_TWO_OR_BETTER;
-            break;
-            
-            case RatingFilter.THREE_OR_HIGHER:
-                filename = Resources.ICON_FILTER_THREE_OR_BETTER;
-            break;
-            
-            case RatingFilter.FOUR_OR_HIGHER:
-                filename = Resources.ICON_FILTER_FOUR_OR_BETTER;
-            break;
-            
-            case RatingFilter.FIVE_OR_HIGHER:
-                filename = Resources.ICON_FILTER_FIVE;
-            break;
-            
-            case RatingFilter.REJECTED_OR_HIGHER:
-                filename = Resources.ICON_FILTER_REJECTED_OR_BETTER;
-            break;
-
-            case RatingFilter.UNRATED_OR_HIGHER:
-            default:
-                filename = Resources.ICON_FILTER_UNRATED_OR_BETTER;
-            break;
-        }
-        
-        return new Gtk.Image.from_pixbuf(Resources.load_icon(filename, get_filter_icon_size(filter)));
-    }
-    
-    private void set_filter_icon(RatingFilter filter) {
-        filter_button.set_icon_widget(get_filter_icon(filter));
-        filter_button.set_size_request(get_filter_button_size(filter), -1);
-        filter_button.set_tooltip_text(Resources.get_rating_filter_tooltip(filter));
-        filter_button.show_all();
-    }
-
-    private void use_rating_or_higher_filter(Rating rating) {        
-        get_view().install_view_filter(get_rating_or_higher_view_filter(rating));
-    }
-
-    private ViewFilter get_rating_or_higher_view_filter(Rating rating) {
-        switch (rating) {
-            case Rating.UNRATED:
-                return unrated_or_higher_filter;
-            case Rating.ONE:
-                return one_or_higher_filter;
-            case Rating.TWO:
-                return two_or_higher_filter;
-            case Rating.THREE:
-                return three_or_higher_filter;
-            case Rating.FOUR:
-                return four_or_higher_filter;
-            case Rating.FIVE:
-                return five_or_higher_filter;
-            case Rating.REJECTED:
-            default:
-                return rejected_or_higher_filter;
-        }
-    }
-
-    private bool rejected_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.REJECTED;
-    }
-
-    private bool unrated_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.UNRATED;
-    }
-
-    private bool one_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.ONE;
-    }
-
-    private bool two_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.TWO;
-    }
-
-    private bool three_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.THREE;
-    }
-
-    private bool four_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.FOUR;
-    }
-
-    private bool five_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_photo().get_rating() >= Rating.FIVE;
-    }
-
-    private RatingFilter get_filter_criteria() {
-        // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/CollectionMenuBar/ViewMenu/FilterPhotos/DisplayRejectedOrHigher");
-        assert(action != null);
-        
-        RatingFilter filter = (RatingFilter) action.get_current_value();
-
-        return filter;
-    }
-
-    private void set_config_rating_filter(RatingFilter filter) {
-        if (Config.get_instance().set_photo_rating_filter(filter) == false)
-            warning("Unable to write rating filter settings to config");
-    }
-
-    private RatingFilter get_config_rating_filter() {
-        return Config.get_instance().get_photo_rating_filter();
-    }
-    
-    private void on_display_titles(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        set_display_titles(display);
-        
-        Config.get_instance().set_display_photo_titles(display);
-    }
-    
+      
     private void on_display_tags(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
@@ -1673,39 +915,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         Config.get_instance().set_display_photo_tags(display);
     }
-    
-    private void on_display_ratings(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        set_display_ratings(display);
-        
-        Config.get_instance().set_display_photo_ratings(display);
-    }
-    
-	// public so that other CollectionPage-like pages (e.g., the Videos page)
-	// can use the scale-to-slider conversion service
-    public static double scale_to_slider(int value) {
-        assert(value >= Thumbnail.MIN_SCALE);
-        assert(value <= Thumbnail.MAX_SCALE);
-        
-        return (double) ((value - Thumbnail.MIN_SCALE) / SLIDER_STEPPING);
-    }
-
-	// public so that other CollectionPage-like pages (e.g., the Videos page)
-	// can use the slider-to-scale conversion service
-    public static int slider_to_scale(double value) {
-        int res = ((int) (value * SLIDER_STEPPING)) + Thumbnail.MIN_SCALE;
-
-        assert(res >= Thumbnail.MIN_SCALE);
-        assert(res <= Thumbnail.MAX_SCALE);
-        
-        return res;
-    }
-    
-    private void on_slider_changed() {
-        set_thumb_size(slider_to_scale(slider.get_value()));
-    }
-    
+            
     private override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
@@ -1725,88 +935,7 @@ public abstract class CollectionPage : CheckerboardPage {
         
         return base.on_ctrl_released(event);
     }
-    
-    private int get_sort_criteria() {
-        // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/CollectionMenuBar/ViewMenu/SortPhotos/SortByTitle");
-        assert(action != null);
-        
-        int value = action.get_current_value();
-
-        return value;
-    }
-    
-    private int get_sort_order() {
-        // any member of the group knows the current value
-        Gtk.RadioAction action = (Gtk.RadioAction) ui.get_action(
-            "/CollectionMenuBar/ViewMenu/SortPhotos/SortAscending");
-        assert(action != null);
-        
-        int value = action.get_current_value();
-        
-        return value;
-    }
-    
-    private bool is_sort_ascending() {
-        return get_sort_order() == SORT_ORDER_ASCENDING;
-    }
-    
-    private void on_sort_changed() {
-        get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
-
-        set_config_photos_sort(get_sort_order() == SORT_ORDER_ASCENDING, get_sort_criteria());
-    }
-    
-    private Comparator get_sort_comparator() {
-        switch (get_sort_criteria()) {
-            case SortBy.TITLE:
-                if (is_sort_ascending())
-                    return Thumbnail.title_ascending_comparator;
-                else
-                    return Thumbnail.title_descending_comparator;
-            
-            case SortBy.EXPOSURE_DATE:
-                if (is_sort_ascending())
-                    return Thumbnail.exposure_time_ascending_comparator;
-                else
-                    return Thumbnail.exposure_time_desending_comparator;
-            
-            case SortBy.RATING:
-                if (is_sort_ascending())
-                    return Thumbnail.rating_ascending_comparator;
-                else
-                    return Thumbnail.rating_descending_comparator;
-            
-            default:
-                error("Unknown sort criteria: %s", get_sort_criteria().to_string());
-        }
-    }
-    
-    private ComparatorPredicate get_sort_comparator_predicate() {
-        switch (get_sort_criteria()) {
-            case SortBy.TITLE:
-                return Thumbnail.title_comparator_predicate;
-            
-            case SortBy.EXPOSURE_DATE:
-                return Thumbnail.exposure_time_comparator_predicate;
-            
-            case SortBy.RATING:
-                return Thumbnail.rating_comparator_predicate;
-            
-            default:
-                error("Unknown sort criteria: %s", get_sort_criteria().to_string());
-        }
-    }
-    
-    private override void set_display_titles(bool display) {
-        base.set_display_titles(display);
-    
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");
-        if (action != null)
-            action.set_active(display);
-    }
-    
+      
     private void set_display_tags(bool display) {
         get_view().freeze_notifications();
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);
@@ -1816,69 +945,7 @@ public abstract class CollectionPage : CheckerboardPage {
         if (action != null)
             action.set_active(display);
     }
-    
-    private void set_display_ratings(bool display) {
-        get_view().freeze_notifications();
-        get_view().set_property(Thumbnail.PROP_SHOW_RATINGS, display);
-        get_view().thaw_notifications();
-        
-        Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewRatings");
-        if (action != null)
-            action.set_active(display);
-    }
-
-    protected abstract void get_config_photos_sort(out bool sort_order, out int sort_by);
-
-    protected abstract void set_config_photos_sort(bool sort_order, int sort_by);
-
-    private string get_sortby_path(int sort_by) {
-        string path = "";
-
-        switch(sort_by) {
-            case SortBy.TITLE:
-                path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByTitle";
-                break;
-            case SortBy.EXPOSURE_DATE:
-                path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByExposureDate";
-                break;
-            case SortBy.RATING:
-                path = "/CollectionMenuBar/ViewMenu/SortPhotos/SortByRating";
-                break;
-            default:
-                error("Unknown sort criteria: %d", sort_by);
-        }
-
-        return path;
-    }
-
-    private void sync_sort() {
-        bool sort_order;
-        int sort_by;
-        get_config_photos_sort(out sort_order, out sort_by);
-
-        string path = get_sortby_path(sort_by);
-
-        bool resort_needed = false;
-
-        Gtk.RadioAction sort_by_action = (Gtk.RadioAction) ui.get_action(path);
-        if (sort_by_action != null && sort_by_action.get_current_value() != sort_by) {
-            sort_by_action.set_current_value(sort_by);
-            resort_needed = true;
-        }
-
-        Gtk.RadioAction ascending_action = 
-            (Gtk.RadioAction) ui.get_action("/CollectionMenuBar/ViewMenu/SortPhotos/SortAscending");
-
-        int sort_order_int = sort_order ? SORT_ORDER_ASCENDING : SORT_ORDER_DESCENDING;
-        if (ascending_action != null && ascending_action.get_current_value() != sort_order_int) {
-            ascending_action.set_current_value(sort_order_int);
-            resort_needed = true;
-        }
-
-        if (resort_needed)
-            get_view().set_comparator(get_sort_comparator(), get_sort_comparator_predicate());
-    }
-    
+   
     private void on_new_event() {
         if (get_view().get_selected_count() > 0)
             get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
@@ -1910,10 +977,6 @@ public abstract class CollectionPage : CheckerboardPage {
             get_command_manager().execute(new AddTagsCommand(names, 
                 (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
         }
-    }
-
-    public static int get_photo_thumbnail_scale() {
-        return slider_to_scale(get_global_slider_adjustment().get_value());
     }
 }
 

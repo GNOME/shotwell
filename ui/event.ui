@@ -1,15 +1,15 @@
 <ui>
 
-    <menubar name="CollectionMenuBar">
+    <menubar name="MediaMenuBar">
         <menu name="PhotosMenu" action="PhotosMenu">
             <separator />
             <menuitem name="MakePrimary" action="MakePrimary" />
         </menu>
-
-        <menu name="EventsMenu" action="EventsMenu">
-            <menuitem name="EventRename" action="Rename" />
-        </menu>
-
+        <placeholder name="MenubarExtrasPlaceholder">
+            <menu name="EventsMenu" action="EventsMenu">
+                <menuitem name="EventRename" action="Rename" />
+            </menu>
+        </placeholder>
     </menubar>
 
     <popup name="CollectionContextMenu">

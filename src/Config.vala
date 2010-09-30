@@ -445,7 +445,7 @@ public class Config {
 
     public void get_library_photos_sort(out bool sort_order, out int sort_by) {
         sort_order = get_bool("/apps/shotwell/preferences/ui/library_photos_sort_ascending", false);
-        sort_by = get_int("/apps/shotwell/preferences/ui/library_photos_sort_by", CollectionPage.SortBy.EXPOSURE_DATE);
+        sort_by = get_int("/apps/shotwell/preferences/ui/library_photos_sort_by", MediaPage.SortBy.EXPOSURE_DATE);
     }
     
     public bool set_library_photos_sort(bool sort_order, int sort_by) {
@@ -455,7 +455,7 @@ public class Config {
 
     public void get_event_photos_sort(out bool sort_order, out int sort_by) {
         sort_order = get_bool("/apps/shotwell/preferences/ui/event_photos_sort_ascending", true);
-        sort_by = get_int("/apps/shotwell/preferences/ui/event_photos_sort_by", CollectionPage.SortBy.EXPOSURE_DATE);
+        sort_by = get_int("/apps/shotwell/preferences/ui/event_photos_sort_by", MediaPage.SortBy.EXPOSURE_DATE);
     }
     
     public bool set_event_photos_sort(bool sort_order, int sort_by) {

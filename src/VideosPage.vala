@@ -4,7 +4,7 @@
  * See the COPYING file in this distribution. 
  */
 
-public class VideosPage : CheckerboardPage {
+public class VideosPage : MediaPage {
     public class Stub : PageStub {
         public Stub() {
         }
@@ -24,19 +24,28 @@ public class VideosPage : CheckerboardPage {
     
     private class VideoView : Thumbnail {
         public VideoView(Video video) {
-            base.for_video(video);
+            base(video);
         }
     }
 
-    private Gtk.HScale slider = null;
-    private int scale;
     private ExporterUI exporter = null;
     
     public VideosPage() {
         base (_("Videos"));
-        
-        init_ui("videos.ui", "/VideosMenuBar", "VideosActionGroup", create_actions(),
-            create_toggle_actions());
+
+        // add actions and customize MediaPage UI elements for videos
+        action_group.add_actions(create_actions(), this);
+        action_group.get_action("PlayVideo").is_important = true;
+        action_group.get_action("PhotosMenu").set_label(_("Vi_deos"));
+        action_group.get_action("FilterPhotos").set_label(_("_Filter Videos"));
+        action_group.get_action("SortPhotos").set_label(_("Sort _Videos"));
+        action_group.get_action("DisplayUnratedOrHigher").set_label(_("_All Videos"));
+
+        // inject menu extras
+        init_ui_inject_elements("/MediaMenuBar/EditMenu/EditExtrasPlaceholder",
+            create_edit_menu_injectables());
+        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder",
+            create_videos_menu_injectables());
 
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -52,92 +61,65 @@ public class VideosPage : CheckerboardPage {
         separator.set_draw(false);
         
         toolbar.insert(separator, -1);
-        
-        // thumbnail size slider
-        slider = new Gtk.HScale(CollectionPage.get_global_slider_adjustment());
-        slider.value_changed.connect(on_slider_changed);
-        slider.set_draw_value(false);
 
-        Gtk.ToolItem toolitem = new Gtk.ToolItem();
-        toolitem.add(slider);
-        toolitem.set_expand(false);
-        toolitem.set_size_request(200, -1);
-        toolitem.set_tooltip_text(_("Adjust the size of the thumbnails"));
-        
-        toolbar.insert(toolitem, -1);
+        // ratings filter button
+        MediaPage.FilterButton filter_button = create_filter_button();
+        connect_filter_button(filter_button);
+        toolbar.insert(filter_button, -1);
 
-        set_thumb_size(CollectionPage.slider_to_scale(slider.get_value()));
+        Gtk.SeparatorToolItem drawn_separator = new Gtk.SeparatorToolItem();
+        drawn_separator.set_expand(false);
+        drawn_separator.set_draw(true);
+        
+        toolbar.insert(drawn_separator, -1);
+
+        // zoom slider assembly
+        MediaPage.ZoomSliderAssembly zoom_slider_assembly = create_zoom_slider_assembly();
+        connect_slider(zoom_slider_assembly);
+        toolbar.insert(zoom_slider_assembly, -1);
 
         get_view().monitor_source_collection(Video.global, new VideoViewManager(this), null);
         get_view().selection_group_altered.connect(on_selection_altered);
         on_selection_altered();
     }
 
-    private Gtk.ToggleActionEntry[] create_toggle_actions() {
-        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+    private static Page.InjectedUIElement[] create_edit_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_separator();
+        result += Page.InjectedUIElement.create_menu_item("DeleteVideo", "DeleteVideo");
         
-        Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
-            TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
-        titles.label = _("_Titles");
-        titles.tooltip = _("Display the title of each video");
-        toggle_actions += titles;
+        return result;
+    }
+
+    private static Page.InjectedUIElement[] create_videos_menu_injectables() {
+        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
+
+        result += Page.InjectedUIElement.create_menu_item("PlayVideo", "PlayVideo");
         
-        return toggle_actions;
+        return result;
     }
 
     private static Gtk.ActionEntry[] create_actions() {
         Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        file.label = _("_File");
-        actions += file;
-        
-        Gtk.ActionEntry export_video = { "ExportVideo", Gtk.STOCK_SAVE_AS, TRANSLATABLE, "<Ctrl><Shift>E",
-            TRANSLATABLE, on_export_video };
-        export_video.label = Resources.EXPORT_MENU;
-        export_video.tooltip = _("Export the selected videos to disk");
-        actions += export_video;
-
         Gtk.ActionEntry delete_video = { "DeleteVideo", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_delete_video };
         delete_video.label = _("_Delete");
         delete_video.tooltip = _("Deletes the selected videos from your library and from disk");
         actions += delete_video;
-        
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, on_edit_menu };
-        edit.label = _("_Edit");
-        actions += edit;
-                
+
         Gtk.ActionEntry play = { "PlayVideo", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_play_video };
         play.label = _("_Play Video");
         play.tooltip = _("Open the selected videos in the system video player");
         actions += play;
-        
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        view.label = _("_View");
-        actions += view;
 
-        Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
-        help.label = _("_Help");
-        actions += help;
-        
         return actions;
     }
     
     public static Stub create_stub() {
         return new Stub();
-    }
-
-    protected override void init_actions(int selected_count, int count) {
-        base.init_actions(selected_count, count);
-        action_group.get_action("PlayVideo").is_important = true;
-    }
-
-    protected override void switched_to() {
-        set_thumb_size(CollectionPage.slider_to_scale(slider.get_value()));
-
-        base.switched_to();
     }
 
     protected override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
@@ -147,18 +129,16 @@ public class VideosPage : CheckerboardPage {
 
     private void on_selection_altered() {
         set_action_sensitive("PlayVideo", get_view().get_selected_count() == 1);
-        
-        bool export_delete_sensitive = (get_view().get_selected_count() > 0);
-        set_action_sensitive("ExportVideo", export_delete_sensitive);
-        set_action_sensitive("DeleteVideo", export_delete_sensitive);
+        set_action_sensitive("DeleteVideo", get_view().get_selected_count() > 0);
     }
     
-    private void on_display_titles(Gtk.Action action) {
-        bool display = ((Gtk.ToggleAction) action).get_active();
-        
-        set_display_titles(display);
-        
-        Config.get_instance().set_display_photo_titles(display);
+
+    protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
+        Config.get_instance().get_library_photos_sort(out sort_order, out sort_by);
+    }
+
+    protected override void set_config_photos_sort(bool sort_order, int sort_by) {
+        Config.get_instance().set_library_photos_sort(sort_order, sort_by);
     }
 
     private void on_play_video() {
@@ -188,7 +168,7 @@ public class VideosPage : CheckerboardPage {
         Video.global.destroy_marked(destroy_marker, true);
     }
     
-    private void on_export_video() {
+    protected override void on_export() {
         if (exporter != null)
             return;
         
@@ -234,39 +214,9 @@ public class VideosPage : CheckerboardPage {
     private void on_export_completed() {
         exporter = null;
     }
-
-    private void on_edit_menu() {
-        decorate_undo_item("/VideosMenuBar/EditMenu/Undo");
-        decorate_redo_item("/VideosMenuBar/EditMenu/Redo");
-    }
-
-    private void on_slider_changed() {
-        set_thumb_size(CollectionPage.slider_to_scale(slider.get_value()));
-    }
-
+   
     public override CheckerboardItem? get_fullscreen_photo() {
         return null;
-    }
-
-    public void increase_thumb_size() {
-        set_thumb_size(scale + CollectionPage.MANUAL_STEPPING);
-    }
-    
-    public void decrease_thumb_size() {
-        set_thumb_size(scale - CollectionPage.MANUAL_STEPPING);
-    }
-    
-    public void set_thumb_size(int new_scale) {       
-        scale = new_scale.clamp(Thumbnail.MIN_SCALE, Thumbnail.MAX_SCALE);
-        get_checkerboard_layout().set_scale(scale);
-        
-        get_view().freeze_notifications();
-        get_view().set_property(Thumbnail.PROP_SIZE, scale);
-        get_view().thaw_notifications();
-    }
-    
-    public int get_thumb_size() {
-        return scale;
     }
 }
 
@@ -282,7 +232,7 @@ public class VideoViewManager : ViewManager {
     }
     
     public override DataView create_view(DataSource source) {
-        return new Thumbnail.for_video((Video) source, host_page.get_thumb_size());
+        return new Thumbnail((Video) source, host_page.get_thumb_size());
     }
 }
 

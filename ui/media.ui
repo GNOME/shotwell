@@ -1,0 +1,109 @@
+<ui>
+
+    <menubar name="MediaMenuBar">
+        <menu name="FileMenu" action="FileMenu">
+            <menuitem name="Import" action="CommonFileImport" />
+            <placeholder name="ImportFromAlienDbPlaceholder" />
+            <menuitem name="Export" action="Export" />
+            <separator />
+            <placeholder name="FileExtrasPlaceholder" />
+            <separator />
+            <menuitem name="JumpToFile" action="CommonJumpToFile" />
+            <separator />
+            <menuitem name="EmptyTrash" action="CommonEmptyTrash" />
+            <separator />
+            <menuitem name="Quit" action="CommonQuit" />
+        </menu>
+        
+        <menu name="EditMenu" action="EditMenu">
+            <menuitem name="Undo" action="CommonUndo" />
+            <menuitem name="Redo" action="CommonRedo" />
+            <separator />
+            <placeholder name="EditExtrasPlaceholder" />
+            <separator />
+            <menuitem name="SelectAll" action="CommonSelectAll" />
+            <separator />
+            <menuitem name="Preferences" action="CommonPreferences" />
+        </menu>
+
+        <menu name="ViewMenu" action="ViewMenu">
+            <menuitem name="DisplayBasicProperties" action="CommonDisplayBasicProperties" />
+            <menuitem name="DisplayExtendedProperties" action="CommonDisplayExtendedProperties" />
+            <separator />
+            <menuitem name="ViewTitle" action="ViewTitle" />
+            <placeholder name="ViewExtrasTagsPlaceholder" />
+            <menuitem name="ViewRatings" action="ViewRatings" />
+            <separator />
+            <menu name="FilterPhotos" action="FilterPhotos">
+                <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
+                <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
+                <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
+                <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
+                <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
+                <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
+                <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
+            </menu>
+            <separator />
+            <menu name="SortPhotos" action="SortPhotos">
+                <menuitem name="SortByTitle" action="SortByTitle" />
+                <menuitem name="SortByExposureDate" action="SortByExposureDate" />
+                <menuitem name="SortByRating" action="SortByRating" />
+                <separator />
+                <menuitem name="SortAscending" action="SortAscending" />
+                <menuitem name="SortDescending" action="SortDescending" />
+            </menu>
+            <menu name="SortEvents" action="CommonSortEvents">
+                <menuitem name="SortEventsAscending" action="CommonSortEventsAscending" />
+                <menuitem name="SortEventsDescending" action="CommonSortEventsDescending" />
+            </menu>
+            <separator />
+            <menuitem name="IncreaseSize" action="IncreaseSize" />
+            <menuitem name="DecreaseSize" action="DecreaseSize" />
+            <separator />
+            <placeholder name="ViewExtrasFullscreenSlideshowPlaceholder" />
+        </menu>
+                
+        <menu name="PhotosMenu" action="PhotosMenu">
+            <placeholder name="PhotosExtrasEditsPlaceholder" />
+            <separator />
+            <menu name="Rate" action="Rate">
+                <menuitem name="RateFive" action="RateFive" />
+                <menuitem name="RateFour" action="RateFour" />
+                <menuitem name="RateThree" action="RateThree" />
+                <menuitem name="RateTwo" action="RateTwo" />
+                <menuitem name="RateOne" action="RateOne" />
+                <menuitem name="RateUnrated" action="RateUnrated" />
+                <menuitem name="RateRejected" action="RateRejected" />
+                <separator />
+                <menuitem name="IncreaseRating" action="IncreaseRating" />
+                <menuitem name="DecreaseRating" action="DecreaseRating" />
+            </menu>
+            <separator />
+            <menuitem name="EditTitle" action="EditTitle" />
+            <placeholder name="PhotosExtrasDateTimePlaceholder" />
+            <separator />
+            <placeholder name="PhotosExtrasExternalsPlaceholder" />
+        </menu>
+
+        <placeholder name="MenubarExtrasPlaceholder" />
+
+        <menu name="HelpMenu" action="HelpMenu">
+            <menuitem name="Contents" action="CommonHelpContents" />
+            <menuitem name="UsersGuide" action="CommonUsersGuide" />
+            <separator />
+            <menuitem name="About" action="CommonAbout" />
+        </menu>
+    </menubar>
+        
+    <popup name="FilterPopupMenu">
+        <menuitem name="DisplayFiveOrHigher" action="DisplayFiveOrHigher" />
+        <menuitem name="DisplayFourOrHigher" action="DisplayFourOrHigher" />
+        <menuitem name="DisplayThreeOrHigher" action="DisplayThreeOrHigher" />
+        <menuitem name="DisplayTwoOrHigher" action="DisplayTwoOrHigher" />
+        <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
+        <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
+        <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
+    </popup>
+
+</ui>
+
