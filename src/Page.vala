@@ -80,33 +80,50 @@ public abstract class PageStub : Object, SidebarPage {
     }
 }
 
-public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
-    private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
-    
-    protected struct InjectedUIElement {
+public class InjectionGroup {
+    public struct Element {
         public string name;
         public string action;
         public Gtk.UIManagerItemType kind;
-
-        private InjectedUIElement(string name, string action, Gtk.UIManagerItemType kind) {
+        
+        public Element(string name, string? action, Gtk.UIManagerItemType kind) {
             this.name = name;
-            this.action = action;
+            this.action = action != null ? action : name;
             this.kind = kind;
         }
-
-        public static InjectedUIElement create_menu_item(string name, string action) {
-            return InjectedUIElement(name, action, Gtk.UIManagerItemType.MENUITEM);
-        }
-
-        public static InjectedUIElement create_menu(string name, string action) {
-            return InjectedUIElement(name, action, Gtk.UIManagerItemType.MENU);
-        }
-
-        public static InjectedUIElement create_separator() {
-            return InjectedUIElement("", "", Gtk.UIManagerItemType.SEPARATOR);
-        }
     }
+    
+    private string path;
+    private Gee.ArrayList<Element?> elements = new Gee.ArrayList<Element?>();
+    
+    public InjectionGroup(string path) {
+        this.path = path;
+    }
+    
+    public string get_path() {
+        return path;
+    }
+    
+    public Gee.List<Element?> get_elements() {
+        return elements;
+    }
+    
+    public void add_menu_item(string name, string? action = null) {
+        elements.add(Element(name, action, Gtk.UIManagerItemType.MENUITEM));
+    }
+    
+    public void add_menu(string name, string? action = null) {
+        elements.add(Element(name, action, Gtk.UIManagerItemType.MENU));
+    }
+    
+    public void add_separator() {
+        elements.add(Element("", null, Gtk.UIManagerItemType.SEPARATOR));
+    }
+}
 
+public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
+    private const int CONSIDER_CONFIGURE_HALTED_MSEC = 400;
+    
     public Gtk.UIManager ui = new Gtk.UIManager();
     public Gtk.ActionGroup action_group = null;
     public Gtk.ActionGroup common_action_group = null;
@@ -115,7 +132,6 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     private ViewCollection view = null;
     private Gtk.Window container = null;
     private Gtk.Toolbar toolbar = new Gtk.Toolbar();
-    private string menubar_path = null;
     private SidebarMarker marker = null;
     private Gdk.Rectangle last_position = Gdk.Rectangle();
     private Gtk.Widget event_source = null;
@@ -146,6 +162,8 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         set_flags(Gtk.WidgetFlags.CAN_FOCUS);
 
         popup_menu.connect(on_context_keypress);
+        
+        init_ui();
     }
     
     ~Page() {
@@ -290,9 +308,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     }
     
     public virtual Gtk.MenuBar get_menubar() {
-        assert(menubar_path != null);
+        assert(get_menubar_path() != null);
         
-        return (Gtk.MenuBar) ui.get_widget(menubar_path);
+        return (Gtk.MenuBar) ui.get_widget(get_menubar_path());
     }
 
     public virtual Gtk.Toolbar get_toolbar() {
@@ -322,48 +340,39 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public virtual void returning_from_fullscreen(FullscreenWindow fsw) {
     }
     
-    public void set_item_sensitive(string path, bool sensitive) {
-        Gtk.Widget widget = ui.get_widget(path);
-        if (widget == null) {
-            critical("No widget for UI element %s", path);
-            
-            return;
-        }
+    public Gtk.Action? get_action(string name) {
+        Gtk.Action? action = action_group.get_action(name);
+        if (action == null)
+            warning("Page %s: Unable to locate action %s", get_page_name(), name);
         
-        widget.sensitive = sensitive;
+        return action;
     }
     
-    public void set_item_visible(string path, bool sensitive) {
-        Gtk.Widget widget = ui.get_widget(path);
-        if (widget == null) {
-            critical("No widget for UI element %s", path);
-            
-            return;
-        }
-        
-        widget.visible = true;
-        widget.sensitive = sensitive;
+    public void set_action_sensitive(string name, bool sensitive) {
+        Gtk.Action? action = get_action(name);
+        if (action != null)
+            action.sensitive = sensitive;
     }
     
-    public void set_item_hidden(string path) {
-        Gtk.Widget widget = ui.get_widget(path);
-        if (widget == null) {
-            critical("No widget for UI element %s", path);
-            
-            return;
-        }
-        
-        widget.sensitive = false;
-        widget.visible = false;
+    public void set_action_important(string name, bool important) {
+        Gtk.Action? action = get_action(name);
+        if (action != null)
+            action.is_important = important;
     }
     
-    public void set_item_display(string path, string? label, string? tooltip, bool sensitive) {
-        Gtk.Action? action = ui.get_action(path);
-        if (action == null) {
-            critical("No action for UI element %s", path);
-            
+    public void set_action_visible(string name, bool visible) {
+        Gtk.Action? action = get_action(name);
+        if (action == null)
             return;
-        }
+        
+        action.visible = visible;
+        action.sensitive = visible;
+    }
+    
+    public void set_action_details(string name, string? label, string? tooltip, bool sensitive) {
+        Gtk.Action? action = get_action(name);
+        if (action == null)
+            return;
         
         if (label != null)
             action.label = label;
@@ -374,15 +383,24 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         action.sensitive = sensitive;
     }
     
-    public void set_action_sensitive(string name, bool sensitive) {
-        Gtk.Action action = action_group.get_action(name);
-        if (action == null) {
-            warning("Page %s: Unable to locate action %s", get_page_name(), name);
-            
-            return;
-        }
+    public Gtk.Action? get_common_action(string name) {
+        Gtk.Action? action = common_action_group.get_action(name);
+        if (action == null)
+            warning("Page %s: Unable to locate common action %s", get_page_name(), name);
         
-        action.sensitive = sensitive;
+        return action;
+    }
+    
+    public void set_common_action_sensitive(string name, bool sensitive) {
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.sensitive = sensitive;
+    }
+    
+    public void set_common_action_important(string name, bool important) {
+        Gtk.Action? action = get_common_action(name);
+        if (action != null)
+            action.is_important = important;
     }
     
     public bool get_ctrl_pressed() {
@@ -460,79 +478,126 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         return AppWindow.get_command_manager();
     }
     
-    private void decorate_command_manager_item(string path, string prefix,
-        string default_explanation, CommandDescription? desc) {
-        set_item_sensitive(path, desc != null);
+    private void init_ui() {
+        // Collect all UI filenames and load them into the UI manager
+        Gee.List<string> ui_filenames = new Gee.ArrayList<string>();
+        init_collect_ui_filenames(ui_filenames);
+        if (ui_filenames.size == 0)
+            warning("No UI file specified for %s", get_page_name());
         
-        Gtk.Action action = ui.get_action(path);
-        if (desc != null) {
-            action.label = "%s %s".printf(prefix, desc.get_name());
-            action.tooltip = desc.get_explanation();
-        } else {
-            action.label = prefix;
-            action.tooltip = default_explanation;
+        foreach (string ui_filename in ui_filenames)
+            init_load_ui(ui_filename);
+        
+        action_group = new Gtk.ActionGroup("PageActionGroup");
+        
+        // Collect all Gtk.Actions and add them to the Page's Gtk.ActionGroup
+        Gtk.ActionEntry[] action_entries = init_collect_action_entries();
+        if (action_entries.length > 0)
+            action_group.add_actions(action_entries, this);
+        
+        // Collect all Gtk.ToggleActionEntries and add them to the Gtk.ActionGroup
+        Gtk.ToggleActionEntry[] toggle_entries = init_collect_toggle_action_entries();
+        if (toggle_entries.length > 0)
+            action_group.add_toggle_actions(toggle_entries, this);
+        
+        // Collect all Gtk.RadioActionEntries and add them to the Gtk.ActionGroup
+        // (Would use a similar collection scheme as the other calls, but there is a binding
+        // problem with Gtk.RadioActionCallback that doesn't allow it to be stored in a struct)
+        register_radio_actions(action_group);
+        
+        common_action_group = new Gtk.ActionGroup("CommonActionGroup");
+        
+        // Add common actions to the Page's common ActionGroup
+        AppWindow.get_instance().add_common_actions(common_action_group);
+        
+        // Add both ActionGroups to the UIManager
+        ui.insert_action_group(action_group, 0);
+        ui.insert_action_group(common_action_group, 0);
+        
+        // Collect injected UI elements and add them to the UI manager
+        InjectionGroup[] injection_groups = init_collect_injection_groups();
+        foreach (InjectionGroup group in injection_groups) {
+            foreach (InjectionGroup.Element element in group.get_elements()) {
+                ui.add_ui(ui.new_merge_id(), group.get_path(), element.name, element.action,
+                    element.kind, false);
+            }
         }
+        
+        ui.ensure_update();
     }
     
-    public void decorate_undo_item(string path) {
-        decorate_command_manager_item(path, Resources.UNDO_MENU, Resources.UNDO_TOOLTIP,
-            AppWindow.get_command_manager().get_undo_description());
+    public override void map() {
+        base.map();
+        
+        // initialize the Gtk.Actions according to current state
+        int selected_count = get_view().get_selected_count();
+        int count = get_view().get_count();
+        init_actions(selected_count, count);
+        update_actions(selected_count, count);
+        
+        // monitor state changes to update actions
+        view.items_state_changed.connect(on_update_actions);
+        view.selection_group_altered.connect(on_update_actions);
+        view.items_visibility_changed.connect(on_update_actions);
+        view.contents_altered.connect(on_update_actions);
     }
     
-    public void decorate_redo_item(string path) {
-        decorate_command_manager_item(path, Resources.REDO_MENU, Resources.REDO_TOOLTIP,
-            AppWindow.get_command_manager().get_redo_description());
+    private void on_update_actions() {
+        update_actions(get_view().get_selected_count(), get_view().get_count());
     }
     
-    protected void init_ui(string ui_filename, string? menubar_path, string action_group_name, 
-        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
-        init_ui_start(ui_filename, action_group_name, entries, toggle_entries);
-        init_ui_bind(menubar_path);
-    }
-    
-    protected void init_load_ui(string ui_filename) {
+    private void init_load_ui(string ui_filename) {
         File ui_file = Resources.get_ui(ui_filename);
-
+        
         try {
             ui.add_ui_from_file(ui_file.get_path());
-        } catch (Error gle) {
-            error("Error loading UI file %s: %s", ui_file.get_path(), gle.message);
+        } catch (Error err) {
+            AppWindow.error_message("Error loading UI file %s: %s".printf(
+                ui_file.get_path(), err.message));
+            Application.get_instance().panic();
         }
     }
     
-    protected void init_ui_inject_elements(string where, InjectedUIElement[] elements) {
-        foreach (InjectedUIElement element in elements) {
-            ui.add_ui(ui.new_merge_id(), where, element.name, element.action, element.kind,
-                false);
-        }
-    }
-
-    protected void init_ui_start(string ui_filename, string action_group_name,
-        Gtk.ActionEntry[]? entries = null, Gtk.ToggleActionEntry[]? toggle_entries = null) {
-        init_load_ui(ui_filename);
-
-        action_group = new Gtk.ActionGroup(action_group_name);
-        if (entries != null)
-            action_group.add_actions(entries, this);
-        if (toggle_entries != null)
-            action_group.add_toggle_actions(toggle_entries, this);
+    // This is called during init_ui() to collect all the UI files to be loaded into the UI
+    // manager.  Because order is important here, call the base method *first*, then add the
+    // classes' filename.
+    protected virtual void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
     }
     
+    // This is called during construction for the menubar path to use for the menubar widget
+    protected virtual string? get_menubar_path() {
+        return null;
+    }
+    
+    // This is called during init_ui() to collect all Gtk.ActionEntries for the page.
+    protected virtual Gtk.ActionEntry[] init_collect_action_entries() {
+        return new Gtk.ActionEntry[0];
+    }
+    
+    // This is called during init_ui() to collect all Gtk.ToggleActionEntries for the page
+    protected virtual Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
+        return new Gtk.ToggleActionEntry[0];
+    }
+    
+    // This is called during init_ui() to collect all Gtk.RadioActionEntries for the page
+    protected virtual void register_radio_actions(Gtk.ActionGroup action_group) {
+    }
+    
+    // This is called during init_ui() to collect all Page.InjectedUIElements for the page.  They
+    // should be added to the MultiSet using the injection path as the key.
+    protected virtual InjectionGroup[] init_collect_injection_groups() {
+        return new InjectionGroup[0];
+    }
+    
+    // This is called during "map" allowing for Gtk.Actions to be updated at
+    // initialization time.
     protected virtual void init_actions(int selected_count, int count) {
     }
     
-    protected void init_ui_bind(string? menubar_path) {
-        this.menubar_path = menubar_path;
-        
-        ui.insert_action_group(action_group, 0);
-        
-        common_action_group = new Gtk.ActionGroup("CommonActionGroup");
-        AppWindow.get_instance().add_common_actions(common_action_group);
-        ui.insert_action_group(common_action_group, 0);
-        
-        ui.ensure_update();
-        
-        init_actions(get_view().get_selected_count(), get_view().get_count());
+    // This is called during "map" and during ViewCollection selection, visibility,
+    // and collection content altered events.  This can be used to both initialize Gtk.Actions and
+    // update them when selection or visibility has been altered.
+    protected virtual void update_actions(int selected_count, int count) {
     }
     
     // This method enables drag-and-drop on the event source and routes its events through this
@@ -1115,7 +1180,7 @@ public abstract class CheckerboardPage : Page {
     }
 
     public CheckerboardPage(string page_name) {
-        base(page_name);
+        base (page_name);
         
         layout = new CheckerboardLayout(get_view());
         layout.set_name(page_name);

@@ -453,6 +453,7 @@ public abstract class AppWindow : PageWindow {
 
         assert(command_manager == null);
         command_manager = new CommandManager();
+        command_manager.altered.connect(on_command_manager_altered);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -726,61 +727,95 @@ public abstract class AppWindow : PageWindow {
         present();
     }
     
-    public bool set_common_action_sensitive(string name, bool sensitive) {
+    public Gtk.Action? get_common_action(string name) {
         Page? page = get_current_page();
         if (page == null) {
             warning("No page to set action %s", name);
             
-            return false;
+            return null;
         }
         
-        Gtk.Action? action = page.common_action_group.get_action(name);
-        if (action == null) {
-            warning("Page %s: No action %s", page.get_page_name(), name);
+        return page.get_common_action(name);
+    }
+    
+    public void set_common_action_sensitive(string name, bool sensitive) {
+        Page? page = get_current_page();
+        if (page == null) {
+            warning("No page to set action %s", name);
             
-            return false;
+            return;
         }
         
-        action.sensitive = sensitive;
-        
-        return true;
+        page.set_common_action_sensitive(name, sensitive);
     }
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
         if (old_page != null) {
-            old_page.get_view().contents_altered.disconnect(on_contents_altered);
-            old_page.get_view().selection_group_altered.disconnect(on_selection_group_altered);
-            old_page.get_view().items_state_changed.disconnect(on_items_altered);
+            old_page.get_view().contents_altered.disconnect(on_update_actions);
+            old_page.get_view().selection_group_altered.disconnect(on_update_actions);
+            old_page.get_view().items_state_changed.disconnect(on_update_actions);
         }
         
         if (new_page != null) {
-            new_page.get_view().contents_altered.connect(on_contents_altered);
-            new_page.get_view().selection_group_altered.connect(on_selection_group_altered);
-            new_page.get_view().items_state_changed.connect(on_items_altered);
+            new_page.get_view().contents_altered.connect(on_update_actions);
+            new_page.get_view().selection_group_altered.connect(on_update_actions);
+            new_page.get_view().items_state_changed.connect(on_update_actions);
             
-            set_common_action_sensitive("CommonSelectAll", new_page.get_view().get_count() > 0);
-            set_common_action_sensitive("CommonJumpToFile", 
-                new_page.get_view().get_selected_count() == 1);
+            update_actions(new_page.get_view().get_selected_count(), new_page.get_view().get_count());
         }
         
         base.switched_pages(old_page, new_page);
     }
     
-    private void on_contents_altered() {
-        set_common_action_sensitive("CommonSelectAll", get_current_page().get_view().get_count() > 0);
+    // This is a counterpart to Page.update_actions(), but for common Gtk.Actions
+    protected virtual void update_actions(int selected_count, int count) {
+        set_common_action_sensitive("CommonSelectAll", count > 0);
+        set_common_action_sensitive("CommonJumpToFile", selected_count == 1);
+        set_common_action_sensitive("CommonFullscreen", count > 0);
+        decorate_undo_action();
+        decorate_redo_action();
     }
     
-    private void on_selection_group_altered() {
-        set_common_action_sensitive("CommonSelectAll", get_current_page().get_view().get_count() > 0);
+    private void on_update_actions() {
+        Page? page = get_current_page();
+        if (page != null)
+            update_actions(page.get_view().get_selected_count(), page.get_view().get_count());
     }
     
-    private void on_items_altered() {
-        set_common_action_sensitive("CommonJumpToFile", 
-            get_current_page().get_view().get_selected_count() == 1);
-    }
-
     public static CommandManager get_command_manager() {
         return command_manager;
+    }
+    
+    private void on_command_manager_altered() {
+        decorate_undo_action();
+        decorate_redo_action();
+    }
+    
+    private void decorate_command_manager_action(string name, string prefix,
+        string default_explanation, CommandDescription? desc) {
+        Gtk.Action? action = get_common_action(name);
+        if (action == null)
+            return;
+        
+        if (desc != null) {
+            action.label = "%s %s".printf(prefix, desc.get_name());
+            action.tooltip = desc.get_explanation();
+            action.sensitive = true;
+        } else {
+            action.label = prefix;
+            action.tooltip = default_explanation;
+            action.sensitive = false;
+        }
+    }
+    
+    public void decorate_undo_action() {
+        decorate_command_manager_action("CommonUndo", Resources.UNDO_MENU, Resources.UNDO_TOOLTIP,
+            get_command_manager().get_undo_description());
+    }
+    
+    public void decorate_redo_action() {
+        decorate_command_manager_action("CommonRedo", Resources.REDO_MENU, Resources.REDO_TOOLTIP,
+            get_command_manager().get_redo_description());
     }
     
     private void on_undo() {

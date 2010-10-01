@@ -32,7 +32,7 @@ public class TagPage : CollectionPage {
     private Tag tag;
     
     private TagPage(Tag tag) {
-        base (tag.get_name(), "tags.ui", create_actions());
+        base (tag.get_name());
         
         this.tag = tag;
         
@@ -40,14 +40,28 @@ public class TagPage : CollectionPage {
         tag.mirror_photos(get_view(), create_thumbnail);
         
         init_page_context_menu("/TagsContextMenu");
-        
-        ui.add_ui(ui.new_merge_id(), "/CollectionContextMenu/ContextTagsPlaceholder",
-            "ContextRemoveTagFromPhotos", "RemoveTagFromPhotos", Gtk.UIManagerItemType.AUTO, false);
     }
     
     ~TagPage() {
         get_view().halt_mirroring();
         Tag.global.items_altered.disconnect(on_tags_altered);
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("tags.ui");
+    }
+    
+    protected override InjectionGroup[] init_collect_injection_groups() {
+        InjectionGroup[] groups = base.init_collect_injection_groups();
+        
+        InjectionGroup remove_group = new InjectionGroup("/CollectionContextMenu/ContextTagsPlaceholder");
+        remove_group.add_menu_item("ContextRemoveTagFromPhotos", "RemoveTagFromPhotos");
+        
+        groups += remove_group;
+        
+        return groups;
     }
     
     public static TagPage.Stub create_stub(Tag tag) {
@@ -66,8 +80,8 @@ public class TagPage : CollectionPage {
         Config.get_instance().set_library_photos_sort(sort_order, sort_by);
     }
     
-    private static Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
         Gtk.ActionEntry delete_tag = { "DeleteTag", null, TRANSLATABLE, null, null, on_delete_tag };
         // label and tooltip are assigned when the menu is displayed
@@ -90,50 +104,23 @@ public class TagPage : CollectionPage {
             set_page_name(tag.get_name());
     }
     
-    protected override void on_tags_menu() {
-        int selected_count = get_view().get_selected_count();
-        
-        set_item_display("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/DeleteTag",
+    protected override void update_actions(int selected_count, int count) {
+        set_action_details("DeleteTag",
             Resources.delete_tag_menu(tag.get_name()),
             Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()),
             true);
         
-        set_item_display("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/RenameTag",
+        set_action_details("RenameTag",
             Resources.rename_tag_menu(tag.get_name()),
             Resources.rename_tag_tooltip(tag.get_name()),
             true);
         
-        set_item_display("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/RemoveTagFromPhotos", 
+        set_action_details("RemoveTagFromPhotos", 
             Resources.untag_photos_menu(tag.get_name(), selected_count),
             Resources.untag_photos_tooltip(tag.get_name(), selected_count),
             selected_count > 0);
         
-        base.on_tags_menu();
-    }
-    
-    protected override bool on_context_invoked() {
-        int selected_count = get_view().get_selected_count();
-        
-        set_item_display("/CollectionContextMenu/ContextTagsPlaceholder/ContextRemoveTagFromPhotos",
-            Resources.untag_photos_menu(tag.get_name(), selected_count),
-            Resources.untag_photos_tooltip(tag.get_name(), selected_count),
-            selected_count > 0);
-        
-        return base.on_context_invoked();
-    }
-    
-    public override Gtk.Menu? get_page_context_menu() {
-        set_item_display("/TagsContextMenu/ContextRenameTag",
-            Resources.rename_tag_menu(tag.get_name()),
-            Resources.rename_tag_tooltip(tag.get_name()),
-            true);
-        
-        set_item_display("/TagsContextMenu/ContextDeleteTag",
-            Resources.delete_tag_menu(tag.get_name()),
-            Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()),
-            true);
-        
-        return base.get_page_context_menu();
+        base.update_actions(selected_count, count);
     }
     
     public override void rename(string new_name) {

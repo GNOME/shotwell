@@ -33,15 +33,12 @@ public class OfflinePage : CheckerboardPage {
     private OfflinePage(string name) {
         base (name);
         
-        init_ui("offline.ui", "/OfflineMenuBar", "OfflineActionGroup", create_actions());
         init_item_context_menu("/OfflineContextMenu");
 
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/OfflineMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
-        
-        get_view().selection_group_altered.connect(on_selection_group_altered);
         
         Gtk.Toolbar toolbar = get_toolbar();
         
@@ -56,14 +53,24 @@ public class OfflinePage : CheckerboardPage {
         on_offline_contents_altered(LibraryPhoto.global.get_offline(), null);
     }
     
-    private static Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    protected override string? get_menubar_path() {
+        return "/OfflineMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("offline.ui");
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
         file.label = _("_File");
         actions += file;
         
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, on_edit_menu };
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
         edit.label = _("_Edit");
         actions += edit;
         
@@ -88,20 +95,11 @@ public class OfflinePage : CheckerboardPage {
         return new Stub();
     }
     
-    protected override void init_actions(int selected_count, int count) {
-        update_actions(selected_count, count);
-        
-        action_group.get_action("RemoveFromLibrary").is_important = true;
-        
-        base.init_actions(selected_count, count);
-    }
-    
-    private void on_selection_group_altered() {
-        update_actions(get_view().get_selected_count(), get_view().get_count());
-    }
-    
-    private void update_actions(int selected_count, int count) {
+    protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("RemoveFromLibrary", selected_count > 0);
+        set_action_important("RemoveFromLibrary", true);
+        
+        base.update_actions(selected_count, count);
     }
     
     private void on_offline_contents_altered(Gee.Collection<LibraryPhoto>? added,
@@ -117,11 +115,6 @@ public class OfflinePage : CheckerboardPage {
                 marker.mark(get_view().get_view_for_source(photo));
             get_view().remove_marked(marker);
         }
-    }
-    
-    private void on_edit_menu() {
-        decorate_undo_item("/OfflineMenuBar/EditMenu/Undo");
-        decorate_redo_item("/OfflineMenuBar/EditMenu/Redo");
     }
     
     private void on_remove_from_library() {

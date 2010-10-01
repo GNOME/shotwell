@@ -34,7 +34,6 @@ public class TrashPage : CheckerboardPage {
     private TrashPage(string name) {
         base (name);
         
-        init_ui("trash.ui", "/TrashMenuBar", "TrashActionGroup", create_actions());
         init_item_context_menu("/TrashContextMenu");
         init_page_context_menu("/TrashPageMenu");
 
@@ -63,21 +62,29 @@ public class TrashPage : CheckerboardPage {
         
         toolbar.insert(empty_trash_button, -1);
         
-        get_view().selection_group_altered.connect(on_selection_altered);
-        
         // monitor trashcan and initialize view with all items in it
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
         on_trashcan_contents_altered(LibraryPhoto.global.get_trashcan(), null);
     }
     
-    private static Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    protected override string? get_menubar_path() {
+        return "/TrashMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("trash.ui");
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
         file.label = _("_File");
         actions += file;
         
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, on_edit_menu };
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, TRANSLATABLE, null };
         edit.label = _("_Edit");
         actions += edit;
         
@@ -108,20 +115,16 @@ public class TrashPage : CheckerboardPage {
         return new Stub();
     }
     
-    protected override void init_actions(int selected_count, int count) {
-        set_action_sensitive("Delete", selected_count > 0);
-        set_action_sensitive("Restore", selected_count > 0);
+    protected override void update_actions(int selected_count, int count) {
+        bool has_selected = selected_count > 0;
         
-        action_group.get_action("Delete").is_important = true;
-        action_group.get_action("Restore").is_important = true;
-        common_action_group.get_action("CommonEmptyTrash").is_important = true;
+        set_action_sensitive("Delete", has_selected);
+        set_action_important("Delete", true);
+        set_action_sensitive("Restore", has_selected);
+        set_action_important("Restore", true);
+        set_common_action_important("CommonEmptyTrash", true);
         
-        base.init_actions(selected_count, count);
-    }
-    
-    private void on_selection_altered() {
-        set_action_sensitive("Delete", get_view().get_selected_count() > 0);
-        set_action_sensitive("Restore", get_view().get_selected_count() > 0);
+        base.update_actions(selected_count, count);
     }
     
     private void on_trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
@@ -137,11 +140,6 @@ public class TrashPage : CheckerboardPage {
                 marker.mark(get_view().get_view_for_source(photo));
             get_view().remove_marked(marker);
         }
-    }
-    
-    private void on_edit_menu() {
-        decorate_undo_item("/TrashMenuBar/EditMenu/Undo");
-        decorate_redo_item("/TrashMenuBar/EditMenu/Redo");
     }
     
     private void on_restore() {

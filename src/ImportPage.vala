@@ -390,8 +390,6 @@ public class ImportPage : CheckerboardPage {
     private SourceCollection import_sources = null;
     private Gtk.Label camera_label = new Gtk.Label(null);
     private Gtk.CheckButton hide_imported;
-    private Gtk.ToolButton import_selected_button;
-    private Gtk.ToolButton import_all_button;
     private Gtk.ProgressBar progress_bar = new Gtk.ProgressBar();
     private GPhoto.Camera camera;
     private string uri;
@@ -443,8 +441,6 @@ public class ImportPage : CheckerboardPage {
         // monitor Photos for removals, at that will change the result of the ViewFilter
         LibraryPhoto.global.contents_altered.connect(on_photos_added_removed);
         
-        init_ui("import.ui", "/ImportMenuBar", "ImportActionGroup", create_actions(),
-            create_toggle_actions());
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/ImportMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
@@ -481,21 +477,13 @@ public class ImportPage : CheckerboardPage {
         
         toolbar.insert(progress_item, -1);
 
-        import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
-        import_selected_button.set_label(_("Import Selected"));
-        import_selected_button.set_tooltip_text(_("Import the selected photos into your library"));
-        import_selected_button.clicked.connect(on_import_selected);
-        import_selected_button.is_important = true;
-        import_selected_button.sensitive = false;
+        Gtk.ToolButton import_selected_button = new Gtk.ToolButton.from_stock(Resources.IMPORT);
+        import_selected_button.set_related_action(action_group.get_action("ImportSelected"));
         
         toolbar.insert(import_selected_button, -1);
         
-        import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
-        import_all_button.set_label(_("Import All"));
-        import_all_button.set_tooltip_text(_("Import all the photos on this camera into your library"));
-        import_all_button.clicked.connect(on_import_all);
-        import_all_button.sensitive = false;
-        import_all_button.is_important = true;
+        Gtk.ToolButton import_all_button = new Gtk.ToolButton.from_stock(Resources.IMPORT_ALL);
+        import_all_button.set_related_action(action_group.get_action("ImportAll"));
         
         toolbar.insert(import_all_button, -1);
         
@@ -538,8 +526,18 @@ public class ImportPage : CheckerboardPage {
         return ((CameraImportJob *) a)->get_exposure_time() - ((CameraImportJob *) b)->get_exposure_time();
     }
     
-    private Gtk.ToggleActionEntry[] create_toggle_actions() {
-        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+    protected override string? get_menubar_path() {
+        return "/ImportMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("import.ui");
+    }
+    
+    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
+        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
 
         Gtk.ToggleActionEntry titles = { "ViewTitle", null, TRANSLATABLE, "<Ctrl><Shift>T",
             TRANSLATABLE, on_display_titles, Config.get_instance().get_display_photo_titles() };
@@ -550,24 +548,26 @@ public class ImportPage : CheckerboardPage {
         return toggle_actions;
     }
 
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
         actions += file;
 
         Gtk.ActionEntry import_selected = { "ImportSelected", Resources.IMPORT,
             TRANSLATABLE, null, null, on_import_selected };
         import_selected.label = _("Import _Selected");
+        import_selected.tooltip = _("Import the selected photos into your library");
         actions += import_selected;
 
         Gtk.ActionEntry import_all = { "ImportAll", Resources.IMPORT_ALL, TRANSLATABLE,
             null, null, on_import_all };
         import_all.label = _("Import _All");
+        import_all.tooltip = _("Import all the photos into your library");
         actions += import_all;
         
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
         actions += edit;
 
@@ -594,6 +594,15 @@ public class ImportPage : CheckerboardPage {
         return busy;
     }
     
+    protected override void init_actions(int selected_count, int count) {
+        on_view_changed();
+        
+        set_action_important("ImportSelected", true);
+        set_action_important("ImportAll", true);
+        
+        base.init_actions(selected_count, count);
+    }
+    
     public bool is_refreshed() {
         return refreshed && !busy;
     }
@@ -611,10 +620,19 @@ public class ImportPage : CheckerboardPage {
         return msg;
     }
     
+    private void update_status(bool busy, bool refreshed) {
+        this.busy = busy;
+        this.refreshed = refreshed;
+        
+        on_view_changed();
+    }
+    
     private void on_view_changed() {
+        set_action_sensitive("ImportSelected", !busy && refreshed && get_view().get_selected_count() > 0);
+        set_action_sensitive("ImportAll", !busy && refreshed && get_view().get_count() > 0);
         hide_imported.sensitive = !busy && refreshed && (get_view().get_unfiltered_count() > 0);
-        import_selected_button.sensitive = !busy && refreshed && (get_view().get_selected_count() > 0);
-        import_all_button.sensitive = !busy && refreshed && (get_view().get_count() > 0);
+        AppWindow.get_instance().set_common_action_sensitive("CommonSelectAll",
+            !busy && (get_view().get_count() > 0));
     }
     
     private void on_photos_added_removed() {
@@ -718,8 +736,7 @@ public class ImportPage : CheckerboardPage {
         if (busy)
             return false;
         
-        busy = true;
-        refreshed = false;
+        update_status(true, false);
         progress_bar.visible = true;
         progress_bar.set_fraction(0.0);
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
@@ -749,7 +766,7 @@ public class ImportPage : CheckerboardPage {
             // don't trap this signal, even if it does come in, we've backed off
             mount.unmounted.disconnect(on_unmounted);
             
-            busy = false;
+            update_status(false, refreshed);
             progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
             progress_bar.set_text("");
             progress_bar.visible = false;
@@ -759,7 +776,7 @@ public class ImportPage : CheckerboardPage {
     private void on_unmounted(Mount mount) {
         debug("on_unmounted");
         
-        busy = false;
+        update_status(false, refreshed);
         progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
         progress_bar.set_text("");
         progress_bar.visible = false;
@@ -777,7 +794,7 @@ public class ImportPage : CheckerboardPage {
         if (busy)
             return RefreshResult.BUSY;
             
-        refreshed = false;
+        update_status(busy, false);
         
         refresh_error = null;
         refresh_result = camera.init(spin_idle_context.context);
@@ -787,7 +804,7 @@ public class ImportPage : CheckerboardPage {
             return (refresh_result == GPhoto.Result.IO_LOCK) ? RefreshResult.LOCKED : RefreshResult.LIBRARY_ERROR;
         }
         
-        busy = true;
+        update_status(true, refreshed);
         
         on_view_changed();
         
@@ -823,12 +840,10 @@ public class ImportPage : CheckerboardPage {
             warning("Unable to unlock camera: %s", res.to_full_string());
         }
         
-        busy = false;
-        
         if (refresh_result == GPhoto.Result.OK) {
-            refreshed = true;
+            update_status(false, true);
         } else {
-            refreshed = false;
+            update_status(false, false);
             
             // show 'em all or show none
             clear_all_import_sources();
@@ -1091,12 +1106,6 @@ public class ImportPage : CheckerboardPage {
         }
     }
     
-    private void on_file_menu() {
-        set_item_sensitive("/ImportMenuBar/FileMenu/ImportSelected", 
-            !busy && (get_view().get_selected_count() > 0));
-        set_item_sensitive("/ImportMenuBar/FileMenu/ImportAll", !busy && (get_view().get_count() > 0));
-    }
-    
     private bool show_unimported_filter(DataView view) {
         return !((ImportPreview) view).is_already_imported();
     }
@@ -1116,11 +1125,6 @@ public class ImportPage : CheckerboardPage {
         import(get_view().get_all());
     }
     
-    private void on_edit_menu() {
-        AppWindow.get_instance().set_common_action_sensitive("CommonSelectAll",
-            !busy && (get_view().get_count() > 0));
-    }
-    
     private void import(Gee.Iterable<DataObject> items) {
         GPhoto.Result res = camera.init(spin_idle_context.context);
         if (res != GPhoto.Result.OK) {
@@ -1129,7 +1133,7 @@ public class ImportPage : CheckerboardPage {
             return;
         }
         
-        busy = true;
+        update_status(true, refreshed);
         
         on_view_changed();
         progress_bar.visible = false;
@@ -1245,7 +1249,7 @@ public class ImportPage : CheckerboardPage {
             message("Unable to unlock camera: %s", res.to_full_string());
         }
         
-        busy = false;
+        update_status(false, refreshed);
         
         on_view_changed();
     }
@@ -1257,21 +1261,11 @@ public class ImportPage : CheckerboardPage {
         if (action != null)
             action.set_active(display);
     }
-
-    public override bool on_context_invoked() {
-        set_item_sensitive("/ImportContextMenu/ContextImportSelected", !busy &&
-            get_view().get_selected_count() > 0);
-        set_item_sensitive("/ImportContextMenu/ContextImportAll", !busy && 
-            get_view().get_count() > 0);
-
-        return base.on_context_invoked();
-    }
 }
 
 #endif
 
 public class ImportQueuePage : SinglePhotoPage {
-    private Gtk.ToolButton stop_button = null;
     private Gee.ArrayList<BatchImport> queue = new Gee.ArrayList<BatchImport>();
     private Gee.HashSet<BatchImport> cancel_unallowed = new Gee.HashSet<BatchImport>();
     private BatchImport current_batch = null;
@@ -1284,10 +1278,7 @@ public class ImportQueuePage : SinglePhotoPage {
     
     public ImportQueuePage() {
         base(_("Importing..."), false);
-
-        init_ui("import_queue.ui", "/ImportQueueMenuBar", "ImportQueueActionGroup",
-            create_actions());
-
+        
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/ImportQueueMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
@@ -1297,10 +1288,8 @@ public class ImportQueuePage : SinglePhotoPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // Stop button
-        stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
-        stop_button.set_tooltip_text(_("Stop importing photos"));
-        stop_button.clicked.connect(on_stop);
-        stop_button.sensitive = false;
+        Gtk.ToolButton stop_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_STOP);
+        stop_button.set_related_action(action_group.get_action("Stop"));
         
         toolbar.insert(stop_button, -1);
 
@@ -1317,11 +1306,21 @@ public class ImportQueuePage : SinglePhotoPage {
         
         toolbar.insert(progress_item, -1);
     }
-
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    
+    protected override string? get_menubar_path() {
+        return "/ImportQueueMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        ui_filenames.add("import_queue.ui");
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        base.init_collect_ui_filenames(ui_filenames);
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
         actions += file;
         
@@ -1361,18 +1360,20 @@ public class ImportQueuePage : SinglePhotoPage {
         if (queue.size == 1)
             batch_import.schedule();
         
-        stop_button.sensitive = true;
+        update_stop_action();
     }
     
     public int get_batch_count() {
         return queue.size;
     }
     
-    private void on_file_menu() {
-        set_item_sensitive("/ImportQueueMenuBar/FileMenu/Stop", queue.size > 0);
+    private void update_stop_action() {
+        set_action_sensitive("Stop", !cancel_unallowed.contains(current_batch) && queue.size > 0);
     }
     
     private void on_stop() {
+        update_stop_action();
+        
         if (queue.size == 0)
             return;
         
@@ -1385,8 +1386,8 @@ public class ImportQueuePage : SinglePhotoPage {
     }
     
     private void on_starting(BatchImport batch_import) {
+        update_stop_action();
         current_batch = batch_import;
-        stop_button.sensitive = !cancel_unallowed.contains(batch_import);
     }
     
     private void on_preparing() {
@@ -1436,11 +1437,9 @@ public class ImportQueuePage : SinglePhotoPage {
         
         // schedule next if available
         if (queue.size > 0) {
-            stop_button.sensitive = true;
             queue.get(0).schedule();
         } else {
             // reset UI
-            stop_button.sensitive = false;
             progress_bar.set_ellipsize(Pango.EllipsizeMode.NONE);
             progress_bar.set_text("");
             progress_bar.set_fraction(0.0);
@@ -1454,6 +1453,8 @@ public class ImportQueuePage : SinglePhotoPage {
             
             stopped = false;
         }
+        
+        update_stop_action();
         
         // report the batch has been removed from the queue after everything else is set
         batch_removed(batch_import);

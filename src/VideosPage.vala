@@ -32,21 +32,13 @@ public class VideosPage : MediaPage {
     
     public VideosPage() {
         base (_("Videos"));
-
-        // add actions and customize MediaPage UI elements for videos
-        action_group.add_actions(create_actions(), this);
-        action_group.get_action("PlayVideo").is_important = true;
+        
+        // Update "Photo" labels to "Video"
         action_group.get_action("PhotosMenu").set_label(_("Vi_deos"));
         action_group.get_action("FilterPhotos").set_label(_("_Filter Videos"));
         action_group.get_action("SortPhotos").set_label(_("Sort _Videos"));
         action_group.get_action("DisplayUnratedOrHigher").set_label(_("_All Videos"));
-
-        // inject menu extras
-        init_ui_inject_elements("/MediaMenuBar/EditMenu/EditExtrasPlaceholder",
-            create_edit_menu_injectables());
-        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder",
-            create_videos_menu_injectables());
-
+        
         Gtk.Toolbar toolbar = get_toolbar();
         
         // play button
@@ -79,29 +71,27 @@ public class VideosPage : MediaPage {
         toolbar.insert(zoom_slider_assembly, -1);
 
         get_view().monitor_source_collection(Video.global, new VideoViewManager(this), null);
-        get_view().selection_group_altered.connect(on_selection_altered);
-        on_selection_altered();
     }
 
-    private static Page.InjectedUIElement[] create_edit_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_separator();
-        result += Page.InjectedUIElement.create_menu_item("DeleteVideo", "DeleteVideo");
+    private static InjectionGroup create_edit_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/EditMenu/EditExtrasPlaceholder");
         
-        return result;
-    }
-
-    private static Page.InjectedUIElement[] create_videos_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("PlayVideo", "PlayVideo");
+        group.add_separator();
+        group.add_menu_item("DeleteVideo");
         
-        return result;
+        return group;
     }
 
-    private static Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    private static InjectionGroup create_videos_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
+        
+        group.add_menu_item("PlayVideo");
+        
+        return group;
+    }
+
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
         Gtk.ActionEntry delete_video = { "DeleteVideo", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
             TRANSLATABLE, on_delete_video };
@@ -118,20 +108,31 @@ public class VideosPage : MediaPage {
         return actions;
     }
     
+    protected override InjectionGroup[] init_collect_injection_groups() {
+        InjectionGroup[] groups = base.init_collect_injection_groups();
+        
+        groups += create_edit_menu_injectables();
+        groups += create_videos_menu_injectables();
+        
+        return groups;
+    }
+    
     public static Stub create_stub() {
         return new Stub();
+    }
+
+    protected override void update_actions(int selected_count, int count) {
+        set_action_sensitive("PlayVideo", selected_count == 1);
+        set_action_important("PlayVideo", true);
+        set_action_sensitive("DeleteVideo", selected_count > 0);
+        
+        base.update_actions(selected_count, count);
     }
 
     protected override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
         activator, CheckerboardPage.KeyboardModifiers modifiers) {
         on_play_video();
     }
-
-    private void on_selection_altered() {
-        set_action_sensitive("PlayVideo", get_view().get_selected_count() == 1);
-        set_action_sensitive("DeleteVideo", get_view().get_selected_count() > 0);
-    }
-    
 
     protected override void get_config_photos_sort(out bool sort_order, out int sort_by) {
         Config.get_instance().get_library_photos_sort(out sort_order, out sort_by);
@@ -157,7 +158,7 @@ public class VideosPage : MediaPage {
         }
     }
     
-    private void on_delete_video() {       
+    private void on_delete_video() {
         if (!AppWindow.negate_affirm_question(_("Deleting the selected videos will remove them " +
             "from your library as well delete them from disk. Do you want to continue?"),
             _("_No"), _("_Yes")))
@@ -214,7 +215,7 @@ public class VideosPage : MediaPage {
     private void on_export_completed() {
         exporter = null;
     }
-   
+    
     public override CheckerboardItem? get_fullscreen_photo() {
         return null;
     }

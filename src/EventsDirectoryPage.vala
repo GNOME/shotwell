@@ -144,19 +144,15 @@ public class EventsDirectoryPage : CheckerboardPage {
    
     private const int MIN_PHOTOS_FOR_PROGRESS_WINDOW = 50;
 
-    private Gtk.ToolButton merge_button;
     protected ViewManager view_manager;
 
-    public EventsDirectoryPage(string page_name, ViewManager view_manager, 
+    public EventsDirectoryPage(string page_name, ViewManager view_manager,
         Gee.Iterable<Event>? initial_events) {
-        base(page_name);
+        base (page_name);
         
         // set comparator before monitoring source collection, to prevent a re-sort
         get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
         get_view().monitor_source_collection(Event.global, view_manager, null, initial_events);
-        
-        init_ui_start("events_directory.ui", "EventsDirectoryActionGroup", create_actions());
-        init_ui_bind("/EventsDirectoryMenuBar");
         
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
@@ -171,21 +167,22 @@ public class EventsDirectoryPage : CheckerboardPage {
         Gtk.Toolbar toolbar = get_toolbar();
         
         // merge tool
-        merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
-        merge_button.set_label(Resources.MERGE_LABEL);
-        merge_button.set_tooltip_text(Resources.MERGE_TOOLTIP);
-        merge_button.clicked.connect(on_merge);
-        merge_button.sensitive = (get_view().get_selected_count() > 1);
-        merge_button.is_important = true;
+        Gtk.ToolButton merge_button = new Gtk.ToolButton.from_stock(Resources.MERGE);
+        merge_button.set_related_action(action_group.get_action("Merge"));
+        
         toolbar.insert(merge_button, -1);
-
-        get_view().items_state_changed.connect(on_selection_changed);
-    }
-
-    ~EventsDirectoryPage() {
-        get_view().items_state_changed.disconnect(on_selection_changed);
     }
     
+    protected override string? get_menubar_path() {
+        return "/EventsDirectoryMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        ui_filenames.add("events_directory.ui");
+        
+        base.init_collect_ui_filenames(ui_filenames);
+    }
+
     private static int64 event_ascending_comparator(void *a, void *b) {
         time_t start_a = ((EventDirectoryItem *) a)->event.get_start_time();
         time_t start_b = ((EventDirectoryItem *) b)->event.get_start_time();
@@ -208,18 +205,14 @@ public class EventsDirectoryPage : CheckerboardPage {
             return event_descending_comparator;
     }
     
-    private void on_selection_changed() {
-        merge_button.sensitive = (get_view().get_selected_count() > 1);
-    }
-    
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
         
         Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
         actions += file;
         
-        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, on_view_menu };
+        Gtk.ActionEntry view = { "ViewMenu", null, TRANSLATABLE, null, null, null };
         view.label = _("_View");
         actions += view;
 
@@ -227,11 +220,11 @@ public class EventsDirectoryPage : CheckerboardPage {
         help.label = _("_Help");
         actions += help;
 
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
         actions += edit;
 
-        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, on_events_menu };
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
         event.label = _("Even_ts");
         actions += event;
 
@@ -249,19 +242,18 @@ public class EventsDirectoryPage : CheckerboardPage {
         return actions;
     }
     
+    protected override void update_actions(int selected_count, int count) {
+        set_action_sensitive("Merge", selected_count > 1);
+        set_action_important("Merge", true);
+        set_action_sensitive("Rename", selected_count == 1);
+        
+        base.update_actions(selected_count, count);
+    }
+    
     public override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
         activator, CheckerboardPage.KeyboardModifiers modifiers) {
         EventDirectoryItem event = (EventDirectoryItem) item;
         LibraryWindow.get_app().switch_to_event(event.event);
-    }
-
-    protected override bool on_context_invoked() {
-        set_item_sensitive("/EventsDirectoryContextMenu/ContextRename", 
-            get_view().get_selected_count() == 1);
-        set_item_sensitive("/EventsDirectoryContextMenu/ContextMerge", 
-            get_view().get_selected_count() > 1);
-        
-        return base.on_context_invoked();
     }
 
     private EventDirectoryItem? get_fullscreen_item() {
@@ -289,22 +281,6 @@ public class EventsDirectoryPage : CheckerboardPage {
 
     public void notify_sort_changed() {
         get_view().set_comparator(get_event_comparator(), event_comparator_predicate);
-    }
-    
-    private void on_view_menu() {
-        set_item_sensitive("/EventsDirectoryMenuBar/ViewMenu/Fullscreen", get_view().get_count() > 0);
-    }
-
-    private void on_edit_menu() {
-        decorate_undo_item("/EventsDirectoryMenuBar/EditMenu/Undo");
-        decorate_redo_item("/EventsDirectoryMenuBar/EditMenu/Redo");
-    }
-
-    private void on_events_menu() {
-        set_item_sensitive("/EventsDirectoryMenuBar/EventsMenu/EventMerge", 
-            get_view().get_selected_count() > 1);
-        set_item_sensitive("/EventsDirectoryMenuBar/EventsMenu/EventRename", 
-            get_view().get_selected_count() == 1);
     }
     
     private void on_rename() {
@@ -422,7 +398,7 @@ public class EventPage : CollectionPage {
     public Event page_event;
     
     private EventPage(Event page_event) {
-        base(page_event.get_name(), "event.ui", create_actions());
+        base (page_event.get_name());
         
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
@@ -435,8 +411,7 @@ public class EventPage : CollectionPage {
         init_page_context_menu("/EventContextMenu");
         
         // hide this command in CollectionPage, as it does not apply here
-        set_item_hidden("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu/JumpToEvent");
-        set_item_hidden("/CollectionContextMenu/ContextJumpToEvent");
+        set_action_visible("JumpToEvent", false);
         
         Event.global.items_altered.connect(on_events_altered);
     }
@@ -446,11 +421,17 @@ public class EventPage : CollectionPage {
         get_view().halt_mirroring();
     }
     
-    private static Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] new_actions = new Gtk.ActionEntry[0];
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("event.ui");
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] new_actions = base.init_collect_action_entries();
         
         Gtk.ActionEntry make_primary = { "MakePrimary", Resources.MAKE_PRIMARY,
-            TRANSLATABLE, null, null, on_make_primary };
+            TRANSLATABLE, null, TRANSLATABLE, on_make_primary };
         make_primary.label = Resources.MAKE_KEY_PHOTO_MENU;
         make_primary.tooltip = Resources.MAKE_KEY_PHOTO_TOOLTIP;
         new_actions += make_primary;
@@ -461,6 +442,12 @@ public class EventPage : CollectionPage {
         new_actions += rename;
 
         return new_actions;
+    }
+    
+    protected override void update_actions(int selected_count, int count) {
+        set_action_sensitive("MakePrimary", selected_count == 1);
+        
+        base.update_actions(selected_count, count);
     }
     
     public static Stub create_stub(Event event) {
@@ -480,27 +467,11 @@ public class EventPage : CollectionPage {
             set_page_name(page_event.get_name());
     }
     
-    protected override void on_photos_menu() {
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/MakePrimary", 
-            get_view().get_selected_count() == 1);
-        
-        base.on_photos_menu();
-    }
-    
-    protected override bool on_context_invoked() {
-        set_item_sensitive("/CollectionContextMenu/ContextMakePrimary", 
-            get_view().get_selected_count() == 1);
-
-        return base.on_context_invoked();
-    }
-
     private void on_make_primary() {
-        if (get_view().get_selected_count() == 0)
+        if (get_view().get_selected_count() != 1)
             return;
         
-        // use first one
-        DataView view = get_view().get_selected_at(0);
-        page_event.set_primary_photo(((Thumbnail) view).get_photo());
+        page_event.set_primary_photo((LibraryPhoto) get_view().get_selected_at(0).get_source());
     }
 
     private void on_rename() {

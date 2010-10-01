@@ -1998,36 +1998,15 @@ public class LibraryPhotoPage : EditingHostPage {
     
     public LibraryPhotoPage() {
         base(LibraryPhoto.global, "Photo");
-
-        init_ui("photo.ui", "/PhotoMenuBar", "PhotoActionGroup", create_actions(),
-            create_toggle_actions());
-
+        
         // Adds one menu entry per alien database driver
         AlienDatabaseHandler.get_instance().add_menu_entries(
             ui, "/PhotoMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         
-#if !NO_PRINTING
-        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
-            "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
-        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PrintPlaceholder", "Print",
-            "Print", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
-
-#if !NO_PUBLISHING
-        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/PublishPlaceholder", "Publish",
-            "Publish", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
-
-#if !NO_SET_BACKGROUND
-        ui.add_ui(ui.new_merge_id(), "/PhotoMenuBar/FileMenu/SetBackgroundPlaceholder",
-            "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
-        
         context_menu = (Gtk.Menu) ui.get_widget("/PhotoContextMenu");
         
         // monitor view to update UI elements
-        get_view().contents_altered.connect(on_contents_altered);
         get_view().items_altered.connect(on_photos_altered);
         
         // watch for photos being destroyed or altered, either here or in other pages
@@ -2044,10 +2023,20 @@ public class LibraryPhotoPage : EditingHostPage {
         Config.get_instance().external_app_changed.disconnect(on_external_app_changed);
     }
     
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    protected override string? get_menubar_path() {
+        return "/PhotoMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        ui_filenames.add("photo.ui");
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
         actions += file;
         
@@ -2079,7 +2068,7 @@ public class LibraryPhotoPage : EditingHostPage {
         actions += publish;
 #endif
         
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
         actions += edit;
         
@@ -2099,11 +2088,11 @@ public class LibraryPhotoPage : EditingHostPage {
         view.label = _("_View");
         actions += view;
         
-        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, on_photo_menu };
+        Gtk.ActionEntry photo = { "PhotoMenu", null, TRANSLATABLE, null, null, null };
         photo.label = _("_Photo");
         actions += photo;
         
-        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, on_tools };
+        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
         tools.label = _("_Tools");
         actions += tools;
         
@@ -2324,9 +2313,9 @@ public class LibraryPhotoPage : EditingHostPage {
         return actions;
     }
     
-    private Gtk.ToggleActionEntry[] create_toggle_actions() {
-        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
-
+    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
+        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
+        
         Gtk.ToggleActionEntry ratings = { "ViewRatings", null, TRANSLATABLE, "<Ctrl><Shift>R",
             TRANSLATABLE, on_display_ratings, Config.get_instance().get_display_photo_ratings() };
         ratings.label = Resources.VIEW_RATINGS_MENU;
@@ -2335,7 +2324,35 @@ public class LibraryPhotoPage : EditingHostPage {
         
         return toggle_actions;
     }
-
+    
+    protected override InjectionGroup[] init_collect_injection_groups() {
+        InjectionGroup[] groups = base.init_collect_injection_groups();
+        
+#if !NO_PRINTING
+        InjectionGroup print_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PrintPlaceholder");
+        print_group.add_menu_item("PageSetup");
+        print_group.add_menu_item("Print");
+        
+        groups += print_group;
+#endif
+        
+#if !NO_PUBLISHING
+        InjectionGroup publish_group = new InjectionGroup("/PhotoMenuBar/FileMenu/PublishPlaceholder");
+        publish_group.add_menu_item("Publish");
+        
+        groups += publish_group;
+#endif
+        
+#if !NO_SET_BACKGROUND
+        InjectionGroup bg_group = new InjectionGroup("/PhotoMenuBar/FileMenu/SetBackgroundPlaceholder");
+        bg_group.add_menu_item("SetBackground");
+        
+        groups += bg_group;
+#endif
+        
+        return groups;
+    }
+    
     private void on_display_ratings(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
@@ -2351,22 +2368,16 @@ public class LibraryPhotoPage : EditingHostPage {
             action.set_active(display);
     }
     
-    protected override void init_actions(int selected_count, int count) {
-        set_action_sensitive("ExternalEdit", count > 0 && Config.get_instance().get_external_photo_app() != "");
-        
-        set_action_sensitive("Revert", has_photo() ?
-            (get_photo().has_transformations() || get_photo().has_editable()) : false);
-        
-#if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", has_photo());
+    protected override void update_actions(int selected_count, int count) {
+        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
+        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
+#if !NO_RAW
+        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
 #endif
         
-        base.init_actions(selected_count, count);
-    }
-    
-    private void on_contents_altered() {
-        set_action_sensitive("ExternalEdit", has_photo() && Config.get_instance().get_external_photo_app() != "");
-		
+        set_action_sensitive("ExternalEdit",
+            has_photo() && Config.get_instance().get_external_photo_app() != "");
+        
         set_action_sensitive("Revert", has_photo() ?
             (get_photo().has_transformations() || get_photo().has_editable()) : false);
         
@@ -2376,6 +2387,20 @@ public class LibraryPhotoPage : EditingHostPage {
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo());
 #endif
+
+        set_action_sensitive("PrevPhoto", multiple);
+        set_action_sensitive("NextPhoto", multiple);
+        set_action_sensitive("RotateClockwise", rotate_possible);
+        set_action_sensitive("RotateCounterclockwise", rotate_possible);
+        set_action_sensitive("FlipHorizontally", rotate_possible);
+        set_action_sensitive("FlipVertically", rotate_possible);
+        
+#if !NO_RAW
+        set_action_visible("ExternalEditRAW", 
+            is_raw && Config.get_instance().get_external_raw_app() != "");
+#endif
+        
+        base.update_actions(selected_count, count);
     }
     
     private void on_photos_altered() {
@@ -2471,10 +2496,8 @@ public class LibraryPhotoPage : EditingHostPage {
     }
     
     private void update_zoom_menu_item_sensitivity() {
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max()
-            && !get_photo_missing());
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", !get_zoom_state().is_default()
-            && !get_photo_missing());
+        set_action_sensitive("IncreaseSize", !get_zoom_state().is_max() && !get_photo_missing());
+        set_action_sensitive("DecreaseSize", !get_zoom_state().is_default() && !get_photo_missing());
     }
 
     protected override void on_increase_size() {
@@ -2504,48 +2527,37 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override void update_ui(Photo photo, bool missing) {
         bool sensitivity = !missing;
         
-        set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/FileMenu/JumpToFile", sensitivity);
-
-        set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", sensitivity);
-
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/IncreaseSize", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/DecreaseSize", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/ZoomFit", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/Zoom100", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/Zoom200", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/ViewMenu/Slideshow", sensitivity);
-
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipHorizontally", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipVertically", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Crop", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/EditTitle", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEdit", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Revert", sensitivity);
-
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Rate", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/TagsMenu/AddTags", sensitivity);
-        set_item_sensitive("/PhotoMenuBar/TagsMenu/ModifyTags", sensitivity);
-
-        set_item_sensitive("/PhotoContextMenu/ContextEnhance", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextRevert", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextAddTags", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextModifyTags", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/Rate", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextEditTitle", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextExternalEdit", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextExternalEditRAW", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/JumpToFile", sensitivity);
-        set_item_sensitive("/PhotoContextMenu/ContextMoveToTrash", sensitivity);
+        set_action_sensitive("Publish", sensitivity);
+        set_action_sensitive("Print", sensitivity);
+        set_action_sensitive("JumpToFile", sensitivity);
+        
+        set_action_sensitive("Undo", sensitivity);
+        set_action_sensitive("Redo", sensitivity);
+        
+        set_action_sensitive("IncreaseSize", sensitivity);
+        set_action_sensitive("DecreaseSize", sensitivity);
+        set_action_sensitive("ZoomFit", sensitivity);
+        set_action_sensitive("Zoom100", sensitivity);
+        set_action_sensitive("Zoom200", sensitivity);
+        set_action_sensitive("Slideshow", sensitivity);
+        
+        set_action_sensitive("RotateClockwise", sensitivity);
+        set_action_sensitive("RotateCounterclockwise", sensitivity);
+        set_action_sensitive("FlipHorizontally", sensitivity);
+        set_action_sensitive("FlipVertically", sensitivity);
+        set_action_sensitive("Enhance", sensitivity);
+        set_action_sensitive("Crop", sensitivity);
+        set_action_sensitive("RedEye", sensitivity);
+        set_action_sensitive("Adjust", sensitivity);
+        set_action_sensitive("EditTitle", sensitivity);
+        set_action_sensitive("AdjustDateTime", sensitivity);
+        set_action_sensitive("ExternalEdit", sensitivity);
+        set_action_sensitive("ExternalEditRAW", sensitivity);
+        set_action_sensitive("Revert", sensitivity);
+        
+        set_action_sensitive("Rate", sensitivity);
+        set_action_sensitive("AddTags", sensitivity);
+        set_action_sensitive("ModifyTags", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", sensitivity);
@@ -2649,27 +2661,6 @@ public class LibraryPhotoPage : EditingHostPage {
         return base.on_left_released(event);
     }
     
-    private override bool on_context_invoked() {
-        if (!has_photo())
-            return false;
-        
-#if !NO_RAW
-        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
-#endif  
-
-        set_item_sensitive("/PhotoContextMenu/ContextEnhance", is_enhance_available(get_photo()));
-        
-#if !NO_RAW
-        if (is_raw)
-            set_item_visible("/PhotoContextMenu/ContextExternalEditRAW", 
-                Config.get_instance().get_external_raw_app() != "");
-        else
-            set_item_hidden("/PhotoContextMenu/ContextExternalEditRAW");
-#endif
-        
-        return base.on_context_invoked();
-    }
-
     private override bool on_context_buttonpress(Gdk.EventButton event) {
         popup_context_menu(context_menu, event);
 
@@ -2819,20 +2810,6 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
     
-    private void on_file_menu() {
-#if !NO_PRINTING
-        set_item_sensitive("/PhotoMenuBar/FileMenu/PrintPlaceholder/Print", has_photo() && 
-            !get_photo_missing());
-#endif
-
-        set_item_sensitive("/PhotoMenuBar/FileMenu/Export", has_photo() && !get_photo_missing());
-
-#if !NO_PUBLISHING
-        set_item_sensitive("/PhotoMenuBar/FileMenu/PublishPlaceholder/Publish", has_photo() && 
-            !get_photo_missing());
-#endif
-    }
-    
 #if !NO_PUBLISHING
     private void on_publish() {
         if (get_view().get_count() == 0)
@@ -2841,46 +2818,6 @@ public class LibraryPhotoPage : EditingHostPage {
         PublishingDialog.go((Gee.Iterable<DataView>) get_view().get_all());
     }
 #endif
-    
-    private void on_edit_menu() {
-        decorate_undo_item("/PhotoMenuBar/EditMenu/Undo");
-        decorate_redo_item("/PhotoMenuBar/EditMenu/Redo");
-        // Override the decorate calls of the photo is missing
-        if (get_photo_missing()) {
-            set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", false);
-            set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", false);
-        }
-        set_item_sensitive("/PhotoMenuBar/EditMenu/MoveToTrash", has_photo() && !get_photo_missing());
-    }
-    
-    private void on_photo_menu() {
-        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-#if !NO_RAW
-        bool is_raw = has_photo() && get_photo().get_master_file_format() == PhotoFileFormat.RAW;
-#endif
-        
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/PrevPhoto", multiple);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/NextPhoto", multiple);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipHorizontally", rotate_possible);
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/FlipVertically", rotate_possible);
-                
-#if !NO_RAW
-        if (is_raw)
-            set_item_visible("/PhotoMenuBar/PhotoMenu/ExternalEditRAW", 
-                Config.get_instance().get_external_raw_app() != "");
-        else
-            set_item_hidden("/PhotoMenuBar/PhotoMenu/ExternalEditRAW");
-#endif
-    }
-    
-    private void on_tools() {
-        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
-        
-        set_item_sensitive("/PhotoMenuBar/PhotoMenu/Tools/Enhance", enhance_possible);
-    }
     
     private void on_view_menu() {
         update_zoom_menu_item_sensitivity();
@@ -3196,7 +3133,7 @@ public class DirectPhotoPage : EditingHostPage {
     private bool drop_if_dirty = false;
 
     public DirectPhotoPage(File file) {
-        base(DirectPhoto.global, file.get_basename());
+        base (DirectPhoto.global, file.get_basename());
         
         if (!check_editable_file(file)) {
             Application.get_instance().panic();
@@ -3207,29 +3144,29 @@ public class DirectPhotoPage : EditingHostPage {
         initial_file = file;
         current_save_dir = file.get_parent();
         
-        init_ui("direct.ui", "/DirectMenuBar", "DirectActionGroup", create_actions());
-
-#if !NO_PRINTING
-        ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/PrintPlaceholder", "PageSetup",
-            "PageSetup", Gtk.UIManagerItemType.MENUITEM, false);
-        ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/PrintPlaceholder", "Print",
-            "Print", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
-        
-#if !NO_SET_BACKGROUND
-        ui.add_ui(ui.new_merge_id(), "/DirectMenuBar/FileMenu/SetBackgroundPlaceholder",
-            "SetBackground", "SetBackground", Gtk.UIManagerItemType.MENUITEM, false);
-#endif
-
         context_menu = (Gtk.Menu) ui.get_widget("/DirectContextMenu");
-
-        get_view().contents_altered.connect(on_contents_altered);
+        
+        DirectPhoto.global.items_altered.connect(on_photos_altered);
     }
     
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    ~DirectPhotoPage() {
+        DirectPhoto.global.items_altered.disconnect(on_photos_altered);
+    }
+    
+    protected override string? get_menubar_path() {
+        return "/DirectMenuBar";
+    }
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
         
-        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, on_file_menu };
+        ui_filenames.add("direct.ui");
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
+        
+        Gtk.ActionEntry file = { "FileMenu", null, TRANSLATABLE, null, null, null };
         file.label = _("_File");
         actions += file;
 
@@ -3258,15 +3195,15 @@ public class DirectPhotoPage : EditingHostPage {
         actions += print;
 #endif
         
-        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, on_edit_menu };
-        edit.label = _("_Edit");
+        Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
+        edit.label = _("Edit");
         actions += edit;
 
-        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, on_photo_menu };
+        Gtk.ActionEntry photo = { "PhotoMenu", null, "", null, null, null };
         photo.label = _("_Photo");
         actions += photo;
         
-        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, on_tools };
+        Gtk.ActionEntry tools = { "Tools", null, TRANSLATABLE, null, null, null };
         tools.label = _("_Tools");
         actions += tools;
         
@@ -3391,6 +3328,27 @@ public class DirectPhotoPage : EditingHostPage {
         return actions;
     }
     
+    protected override InjectionGroup[] init_collect_injection_groups() {
+        InjectionGroup[] groups = base.init_collect_injection_groups();
+        
+#if !NO_PRINTING
+        InjectionGroup print_group = new InjectionGroup("/DirectMenuBar/FileMenu/PrintPlaceholder");
+        print_group.add_menu_item("PageSetup");
+        print_group.add_menu_item("Print");
+        
+        groups += print_group;
+#endif
+        
+#if !NO_SET_BACKGROUND
+        InjectionGroup bg_group = new InjectionGroup("/DirectMenuBar/FileMenu/SetBackgroundPlaceholder");
+        bg_group.add_menu_item("SetBackground");
+        
+        groups += bg_group;
+#endif
+        
+        return groups;
+    }
+    
     private static bool check_editable_file(File file) {
         if (!FileUtils.test(file.get_path(), FileTest.EXISTS))
             AppWindow.error_message(_("%s does not exist.").printf(file.get_path()));
@@ -3437,10 +3395,8 @@ public class DirectPhotoPage : EditingHostPage {
     }
 
     private void update_zoom_menu_item_sensitivity() {
-        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", !get_zoom_state().is_max()
-            && !get_photo_missing());
-        set_item_sensitive("/DirectMenuBar/ViewMenu/DecreaseSize", !get_zoom_state().is_default()
-            && !get_photo_missing());
+        set_action_sensitive("IncreaseSize", !get_zoom_state().is_max() && !get_photo_missing());
+        set_action_sensitive("DecreaseSize", !get_zoom_state().is_default() && !get_photo_missing());
     }
 
     protected override void on_increase_size() {
@@ -3454,37 +3410,57 @@ public class DirectPhotoPage : EditingHostPage {
 
         update_zoom_menu_item_sensitivity();
     }
-
+    
+    private void on_photos_altered(Gee.Iterable<DataObject> objects) {
+        bool contains = false;
+        if (has_photo()) {
+            Photo photo = get_photo();
+            foreach (DataObject object in objects) {
+                if (((Photo) object) == photo) {
+                    contains = true;
+                    
+                    break;
+                }
+            }
+        }
+        
+        bool sensitive = has_photo() && !get_photo_missing();
+        if (sensitive)
+            sensitive = contains;
+        
+        set_action_sensitive("Save", sensitive && get_photo().get_file_format().can_write());
+        set_action_sensitive("Revert", sensitive);
+    }
+    
     protected override void update_ui(Photo photo, bool missing) {
         bool sensitivity = !missing;
         
-        set_item_sensitive("/DirectMenuBar/FileMenu/Save", sensitivity);
-        set_item_sensitive("/DirectMenuBar/FileMenu/SaveAs", sensitivity);
-        set_item_sensitive("/DirectMenuBar/FileMenu/PublishPlaceholder/Publish", sensitivity);
-        set_item_sensitive("/DirectMenuBar/FileMenu/PrintPlaceholder/Print", sensitivity);
-        set_item_sensitive("/DirectMenuBar/FileMenu/JumpToFile", sensitivity);
-
-        set_item_sensitive("/DirectMenuBar/ViewMenu/IncreaseSize", sensitivity);
-        set_item_sensitive("/DirectMenuBar/ViewMenu/DecreaseSize", sensitivity);
-        set_item_sensitive("/DirectMenuBar/ViewMenu/ZoomFit", sensitivity);
-        set_item_sensitive("/DirectMenuBar/ViewMenu/Zoom100", sensitivity);
-        set_item_sensitive("/DirectMenuBar/ViewMenu/Zoom200", sensitivity);
-
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipHorizontally", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipVertically", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Enhance", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Crop", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/RedEye", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Adjust", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/AdjustDateTime", sensitivity);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Fullscreen", sensitivity);
-
-        set_item_sensitive("/DirectContextMenu/ContextEnhance", sensitivity);
-        set_item_sensitive("/DirectContextMenu/ContextRevert", sensitivity);
-        set_item_sensitive("/DirectContextMenu/JumpToFile", sensitivity);
+        set_action_sensitive("Save", sensitivity);
+        set_action_sensitive("SaveAs", sensitivity);
+        set_action_sensitive("Publish", sensitivity);
+        set_action_sensitive("Print", sensitivity);
+        set_action_sensitive("JumpToFile", sensitivity);
+        
+        set_action_sensitive("Undo", sensitivity);
+        set_action_sensitive("Redo", sensitivity);
+        
+        set_action_sensitive("IncreaseSize", sensitivity);
+        set_action_sensitive("DecreaseSize", sensitivity);
+        set_action_sensitive("ZoomFit", sensitivity);
+        set_action_sensitive("Zoom100", sensitivity);
+        set_action_sensitive("Zoom200", sensitivity);
+        
+        set_action_sensitive("RotateClockwise", sensitivity);
+        set_action_sensitive("RotateCounterclockwise", sensitivity);
+        set_action_sensitive("FlipHorizontally", sensitivity);
+        set_action_sensitive("FlipVertically", sensitivity);
+        set_action_sensitive("Enhance", sensitivity);
+        set_action_sensitive("Crop", sensitivity);
+        set_action_sensitive("RedEye", sensitivity);
+        set_action_sensitive("Adjust", sensitivity);
+        set_action_sensitive("Revert", sensitivity);
+        set_action_sensitive("AdjustDateTime", sensitivity);
+        set_action_sensitive("Fullscreen", sensitivity);
         
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo() && !get_photo_missing());
@@ -3493,30 +3469,27 @@ public class DirectPhotoPage : EditingHostPage {
         base.update_ui(photo, missing);
     }
     
-    protected override void init_actions(int selected_count, int count) {
+    protected override void update_actions(int selected_count, int count) {
+        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
+        bool revert_possible = has_photo() ? get_photo().has_transformations() 
+            && !get_photo_missing() : false;
+        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
+        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
+        
+        set_action_sensitive("PrevPhoto", multiple);
+        set_action_sensitive("NextPhoto", multiple);
+        set_action_sensitive("RotateClockwise", rotate_possible);
+        set_action_sensitive("RotateCounterclockwise", rotate_possible);
+        set_action_sensitive("FlipHorizontally", rotate_possible);
+        set_action_sensitive("FlipVertically", rotate_possible);
+        set_action_sensitive("Revert", revert_possible);
+        set_action_sensitive("Enhance", enhance_possible);
+        
 #if !NO_SET_BACKGROUND
         set_action_sensitive("SetBackground", has_photo());
 #endif
         
-        base.init_actions(selected_count, count);
-    }
-    
-    private void on_contents_altered() {
-#if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", has_photo());
-#endif
-    }
-    
-    private override bool on_context_invoked() {
-        if (get_photo() == null)
-            return false;
-        
-        set_item_sensitive("/DirectContextMenu/ContextEnhance", is_enhance_available(get_photo()));
-        set_item_sensitive("/DirectContextMenu/ContextRevert", get_photo().has_transformations() &&
-            !get_photo_missing());
-        //set_item_sensitive("/DirectContextMenu/JumpToFile", !get_photo_missing());
-        
-        return base.on_context_invoked();
+        base.update_actions(selected_count, count);
     }
     
     private bool check_ok_to_close_photo(Photo photo) {
@@ -3558,11 +3531,6 @@ public class DirectPhotoPage : EditingHostPage {
     
     private override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
-    }
-    
-    private void on_file_menu() {
-        set_item_sensitive("/DirectMenuBar/FileMenu/Save", get_photo().has_alterations() && 
-            get_photo().get_file_format().can_write() && !get_photo_missing());
     }
     
     private void save(File dest, int scale, ScaleConstraint constraint, Jpeg.Quality quality,
@@ -3677,35 +3645,4 @@ public class DirectPhotoPage : EditingHostPage {
         PrintManager.get_instance().do_page_setup();
     }
 #endif
-    
-    private void on_edit_menu() {
-        decorate_undo_item("/DirectMenuBar/EditMenu/Undo");
-        decorate_redo_item("/DirectMenuBar/EditMenu/Redo");
-        // Override the decorate calls of the photo is missing
-        if (get_photo_missing()) {
-            set_item_sensitive("/PhotoMenuBar/EditMenu/Undo", false);
-            set_item_sensitive("/PhotoMenuBar/EditMenu/Redo", false);
-        }
-    }
-    
-    private void on_photo_menu() {
-        bool multiple = (get_controller() != null) ? get_controller().get_count() > 1 : false;
-        bool revert_possible = has_photo() ? get_photo().has_transformations() 
-            && !get_photo_missing() : false;
-        bool rotate_possible = has_photo() ? is_rotate_available(get_photo()) : false;
-
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/PrevPhoto", multiple);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/NextPhoto", multiple);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateClockwise", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/RotateCounterclockwise", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipHorizontally", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/FlipVertically", rotate_possible);
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Revert", revert_possible);
-    }
-    
-    private void on_tools() {
-        bool enhance_possible = has_photo() ? is_enhance_available(get_photo()) : false;
-        
-        set_item_sensitive("/DirectMenuBar/PhotoMenu/Tools/Enhance", enhance_possible);
-    }
 }

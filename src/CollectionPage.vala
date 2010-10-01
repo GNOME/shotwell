@@ -16,80 +16,31 @@ public class CollectionViewManager : ViewManager {
     }
 }
 
-public abstract class CollectionPage : MediaPage {   
+public abstract class CollectionPage : MediaPage {
     private Gtk.ToolButton rotate_button = null;
-    private Gtk.ToolButton enhance_button = null;
-    private Gtk.ToolButton slideshow_button = null;
     private PhotoDragAndDropHandler dnd_handler = null;
-#if !NO_PUBLISHING
-    private Gtk.ToolButton publish_button = null;
-#endif
     private ExporterUI exporter = null;
     
-    public CollectionPage(string page_name, string? ui_filename = null, 
-        Gtk.ActionEntry[]? child_actions = null) {
-        base(page_name);
+    public CollectionPage(string page_name) {
+        base (page_name);
 
         get_view().items_altered.connect(on_photos_altered);
 
-        action_group.add_actions(create_actions(), this);
-        if (child_actions != null)
-            action_group.add_actions(child_actions, this);
-        if (ui_filename != null)
-            init_load_ui(ui_filename);
-        action_group.add_toggle_actions(create_toggle_actions(), this);
-        
-        // context menu setup
-        init_load_ui("collection.ui");
         init_item_context_menu("/CollectionContextMenu");
-
-        // menu extras for this page
-        init_ui_inject_elements("/MediaMenuBar/FileMenu/FileExtrasPlaceholder",
-            create_file_menu_injectables());
-        init_ui_inject_elements("/MediaMenuBar/EditMenu/EditExtrasPlaceholder",
-            create_edit_menu_injectables());
-        init_ui_inject_elements("/MediaMenuBar/ViewMenu/ViewExtrasTagsPlaceholder",
-            create_view_menu_tags_injectables());
-        init_ui_inject_elements("/MediaMenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder",
-            create_view_menu_fullscreen_injectables());
-        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder",
-            create_photos_menu_edits_injectables());
-        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder",
-            create_photos_menu_date_injectables());
-        init_ui_inject_elements("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder",
-            create_photos_menu_externals_injectables());
-        init_ui_inject_elements("/MediaMenuBar/MenubarExtrasPlaceholder",
-            create_menu_injectables());
-        init_ui_inject_elements("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu",
-            create_events_menu_injectables());
-        init_ui_inject_elements("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu",
-            create_tags_menu_injectables());
-
-        get_view().selection_group_altered.connect(on_selection_changed);
-        get_view().contents_altered.connect(on_contents_altered);
-        get_view().items_visibility_changed.connect(on_contents_altered);
 
         // set up page's toolbar (used by AppWindow for layout)
         Gtk.Toolbar toolbar = get_toolbar();
         
         // rotate tool
         rotate_button = new Gtk.ToolButton.from_stock("");
-        rotate_button.set_icon_name(Resources.CLOCKWISE);
+        rotate_button.set_related_action(get_action("RotateClockwise"));
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.sensitive = false;
-        rotate_button.is_important = true;
-        rotate_button.clicked.connect(on_rotate_clockwise);
         
         toolbar.insert(rotate_button, -1);
 
         // enhance tool
-        enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
-        enhance_button.set_label(Resources.ENHANCE_LABEL);
-        enhance_button.set_tooltip_text(Resources.ENHANCE_TOOLTIP);
-        enhance_button.sensitive = false;
-        enhance_button.is_important = true;
-        enhance_button.clicked.connect(on_enhance);
+        Gtk.ToolButton enhance_button = new Gtk.ToolButton.from_stock(Resources.ENHANCE);
+        enhance_button.set_related_action(get_action("Enhance"));
 
         toolbar.insert(enhance_button, -1);
 
@@ -97,24 +48,17 @@ public abstract class CollectionPage : MediaPage {
         toolbar.insert(new Gtk.SeparatorToolItem(), -1);
         
         // slideshow button
-        slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
-        slideshow_button.set_label(_("Slideshow"));
-        slideshow_button.set_tooltip_text(_("Start a slideshow of these photos"));
-        slideshow_button.set_related_action(action_group.get_action("Slideshow"));
-        slideshow_button.is_important = true;
-        slideshow_button.clicked.connect(on_slideshow);
+        Gtk.ToolButton slideshow_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
+        slideshow_button.set_related_action(get_action("Slideshow"));
         
         toolbar.insert(slideshow_button, -1);
 
 #if !NO_PUBLISHING
         // publish button
-        publish_button = new Gtk.ToolButton.from_stock("");
+        Gtk.ToolButton publish_button = new Gtk.ToolButton.from_stock("");
+        publish_button.set_related_action(get_action("Publish"));
         publish_button.set_icon_name(Resources.PUBLISH);
         publish_button.set_label(Resources.PUBLISH_LABEL);
-        publish_button.set_tooltip_text(Resources.PUBLISH_TOOLTIP);
-        publish_button.set_sensitive(false);
-        publish_button.is_important = true;
-        publish_button.clicked.connect(on_publish);
         
         toolbar.insert(publish_button, -1);
 #endif
@@ -149,121 +93,123 @@ public abstract class CollectionPage : MediaPage {
 
         // watch for updates to the external app settings
         Config.get_instance().external_app_changed.connect(on_external_app_changed);
-        
-        // sync the selection
-        on_selection_changed();
     }
 
-    private static Page.InjectedUIElement[] create_file_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
+    private static InjectionGroup create_file_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
+        
 #if !NO_PRINTING
-        result += Page.InjectedUIElement.create_menu_item("Print", "Print");
-        result += Page.InjectedUIElement.create_menu_item("PageSetup", "PageSetup");
+        group.add_menu_item("Print");
+        group.add_menu_item("PageSetup");
 #endif
 
 #if !NO_PUBLISHING
-        result += Page.InjectedUIElement.create_separator();
-        result += Page.InjectedUIElement.create_menu_item("Publish", "Publish");
+        group.add_separator();
+        group.add_menu_item("Publish");
 #endif
 
 #if !NO_SET_BACKGROUND
-        result += Page.InjectedUIElement.create_menu_item("SetBackground", "SetBackground");
+        group.add_menu_item("SetBackground");
 #endif
+        
+        return group;
+    }
+    
+    private static InjectionGroup create_edit_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/EditMenu/EditExtrasPlaceholder");
+        
+        group.add_menu_item("Duplicate");
+        group.add_separator();
+        group.add_menu_item("RemoveFromLibrary");
+        group.add_menu_item("MoveToTrash");
 
-        return result;
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_edit_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("Duplicate", "Duplicate");
-        result += Page.InjectedUIElement.create_separator();
-        result += Page.InjectedUIElement.create_menu_item("RemoveFromLibrary", "RemoveFromLibrary");
-        result += Page.InjectedUIElement.create_menu_item("MoveToTrash", "MoveToTrash");
-
-        return result;
+    private static InjectionGroup create_view_menu_tags_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/ViewMenu/ViewExtrasTagsPlaceholder");
+        
+        group.add_menu_item("ViewTags");
+        
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_view_menu_tags_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("ViewTags", "ViewTags");
-
-        return result;
+    private static InjectionGroup create_view_menu_fullscreen_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder");
+        
+        group.add_menu_item("Fullscreen", "CommonFullscreen");
+        group.add_separator();
+        group.add_menu_item("Slideshow");
+        
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_view_menu_fullscreen_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("Fullscreen", "CommonFullscreen");
-        result += Page.InjectedUIElement.create_separator();
-        result += Page.InjectedUIElement.create_menu_item("Slideshow", "Slideshow");
-
-        return result;
-    }
-
-    private static Page.InjectedUIElement[] create_photos_menu_edits_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("RotateClockwise", "RotateClockwise");
-        result += Page.InjectedUIElement.create_menu_item("RotateCounterclockwise",
-            "RotateCounterclockwise");
-        result += Page.InjectedUIElement.create_menu_item("FlipHorizontally", "FlipHorizontally");
-        result += Page.InjectedUIElement.create_menu_item("FlipVertically", "FlipVertically");
-        result += Page.InjectedUIElement.create_separator();
-        result += Page.InjectedUIElement.create_menu_item("Enhance", "Enhance");
-        result += Page.InjectedUIElement.create_menu_item("Revert", "Revert");
-
-        return result;
+    private static InjectionGroup create_photos_menu_edits_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder");
+        
+        group.add_menu_item("RotateClockwise");
+        group.add_menu_item("RotateCounterclockwise");
+        group.add_menu_item("FlipHorizontally");
+        group.add_menu_item("FlipVertically");
+        group.add_separator();
+        group.add_menu_item("Enhance");
+        group.add_menu_item("Revert");
+        
+        return group;
     }
   
-    private static Page.InjectedUIElement[] create_photos_menu_date_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("AdjustDateTime", "AdjustDateTime");
-
-        return result;
+    private static InjectionGroup create_photos_menu_date_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder");
+        
+        group.add_menu_item("AdjustDateTime");
+        
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_photos_menu_externals_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("ExternalEdit", "ExternalEdit");
-        result += Page.InjectedUIElement.create_menu_item("ExternalEditRAW", "ExternalEditRAW");
-
-        return result;
+    private static InjectionGroup create_photos_menu_externals_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
+        
+        group.add_menu_item("ExternalEdit");
+        group.add_menu_item("ExternalEditRAW");
+        
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu("EventsMenu", "EventsMenu");
-        result += Page.InjectedUIElement.create_menu("TagsMenu", "TagsMenu");
-
-        return result;
+    private static InjectionGroup create_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder");
+        
+        group.add_menu("EventsMenu");
+        group.add_menu("TagsMenu");
+        
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_events_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("NewEvent", "NewEvent");
-        result += Page.InjectedUIElement.create_menu_item("JumpToEvent", "JumpToEvent");
-
-        return result;
+    private static InjectionGroup create_events_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu");
+        
+        group.add_menu_item("NewEvent");
+        group.add_menu_item("JumpToEvent");
+        
+        return group;
     }
 
-    private static Page.InjectedUIElement[] create_tags_menu_injectables() {
-        Page.InjectedUIElement[] result = new Page.InjectedUIElement[0];
-
-        result += Page.InjectedUIElement.create_menu_item("AddTags", "AddTags");
-        result += Page.InjectedUIElement.create_menu_item("ModifyTags", "ModifyTags");
-
-        return result;
+    private static InjectionGroup create_tags_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu");
+        
+        group.add_menu_item("AddTags");
+        group.add_menu_item("ModifyTags");
+        
+        return group;
     }
-
-    private Gtk.ActionEntry[] create_actions() {
-        Gtk.ActionEntry[] actions = new Gtk.ActionEntry[0];
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("collection.ui");
+    }
+    
+    protected override Gtk.ActionEntry[] init_collect_action_entries() {
+        Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
 #if !NO_PRINTING
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
@@ -277,7 +223,7 @@ public abstract class CollectionPage : MediaPage {
         print.label = Resources.PRINT_MENU;
         print.tooltip = Resources.PRINT_TOOLTIP;
         actions += print;
-#endif        
+#endif
         
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
@@ -286,8 +232,8 @@ public abstract class CollectionPage : MediaPage {
         publish.tooltip = Resources.PUBLISH_TOOLTIP;
         actions += publish;
 #endif
-
-        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, on_events_menu };
+        
+        Gtk.ActionEntry event = { "EventsMenu", null, TRANSLATABLE, null, null, null };
         event.label = _("Even_ts");
         actions += event;
         
@@ -302,7 +248,7 @@ public abstract class CollectionPage : MediaPage {
         move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
         move_to_trash.tooltip = Resources.MOVE_TO_TRASH_PLURAL_TOOLTIP;
         actions += move_to_trash;
-                
+        
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
             TRANSLATABLE, "bracketright", TRANSLATABLE, on_rotate_clockwise };
         rotate_right.label = Resources.ROTATE_CW_MENU;
@@ -389,7 +335,7 @@ public abstract class CollectionPage : MediaPage {
         jump_to_event.tooltip = _("Go to this photo's event");
         actions += jump_to_event;
         
-        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, on_tags_menu };
+        Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
         tags.label = _("Ta_gs");
         actions += tags;
         
@@ -404,12 +350,12 @@ public abstract class CollectionPage : MediaPage {
         modify_tags.label = Resources.MODIFY_TAGS_MENU;
         modify_tags.tooltip = Resources.MODIFY_TAGS_TOOLTIP;
         actions += modify_tags;
-                
+        
         return actions;
     }
     
-    private Gtk.ToggleActionEntry[] create_toggle_actions() {
-        Gtk.ToggleActionEntry[] toggle_actions = new Gtk.ToggleActionEntry[0];
+    protected override Gtk.ToggleActionEntry[] init_collect_toggle_action_entries() {
+        Gtk.ToggleActionEntry[] toggle_actions = base.init_collect_toggle_action_entries();
         
         Gtk.ToggleActionEntry tags = { "ViewTags", null, TRANSLATABLE, "<Ctrl><Shift>G",
             TRANSLATABLE, on_display_tags, Config.get_instance().get_display_photo_tags() };
@@ -418,6 +364,23 @@ public abstract class CollectionPage : MediaPage {
         toggle_actions += tags;
         
         return toggle_actions;
+    }
+    
+    protected override InjectionGroup[] init_collect_injection_groups() {
+        InjectionGroup[] groups = base.init_collect_injection_groups();
+        
+        groups += create_file_menu_injectables();
+        groups += create_edit_menu_injectables();
+        groups += create_view_menu_tags_injectables();
+        groups += create_view_menu_fullscreen_injectables();
+        groups += create_photos_menu_edits_injectables();
+        groups += create_photos_menu_date_injectables();
+        groups += create_photos_menu_externals_injectables();
+        groups += create_menu_injectables();
+        groups += create_events_menu_injectables();
+        groups += create_tags_menu_injectables();
+        
+        return groups;
     }
     
     public override void switched_to() {
@@ -429,11 +392,57 @@ public abstract class CollectionPage : MediaPage {
         // perform these operations before calling base method to prevent flicker
         base.switched_to();
     }
-
-    private void on_contents_altered() {
-        set_action_sensitive("Slideshow", get_view().get_count() > 0);
-    }
     
+    protected override void update_actions(int selected_count, int count) {
+        bool one_selected = selected_count == 1;
+        bool has_selected = selected_count > 0;
+        bool has_items = count > 0;
+        
+        set_action_sensitive("RemoveFromLibrary", has_selected);
+        set_action_sensitive("MoveToTrash", has_selected);
+        set_action_sensitive("Duplicate", has_selected);
+        set_action_sensitive("ExternalEdit", 
+            one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
+#if !NO_RAW
+        set_action_visible("ExternalEditRAW",
+            one_selected
+            && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
+                PhotoFileFormat.RAW
+            && !is_string_empty(Config.get_instance().get_external_raw_app()));
+#endif
+        set_action_sensitive("Revert", can_revert_selected());
+        set_action_sensitive("Enhance", has_selected);
+        set_action_important("Enhance", true);
+        set_action_sensitive("JumpToEvent", can_jump_to_event());
+        set_action_sensitive("RotateClockwise", has_selected);
+        set_action_important("RotateClockwise", true);
+        set_action_sensitive("RotateCounterclockwise", has_selected);
+        set_action_important("RotateCounterclockwise", true);
+        set_action_sensitive("FlipHorizontally", has_selected);
+        set_action_sensitive("FlipVertically", has_selected);
+        set_action_sensitive("AdjustDateTime", has_selected);
+        set_action_sensitive("NewEvent", has_selected);
+        set_action_sensitive("AddTags", has_selected);
+        set_action_sensitive("ModifyTags", one_selected);
+        set_action_sensitive("Slideshow", has_items);
+        set_action_important("Slideshow", true);
+        
+#if !NO_SET_BACKGROUND
+        set_action_sensitive("SetBackground", one_selected);
+#endif
+        
+#if !NO_PRINTING
+        set_action_sensitive("Print", one_selected);
+#endif
+        
+#if !NO_PUBLISHING
+        set_action_sensitive("Publish", one_selected);
+        set_action_important("Publish", true);
+#endif
+        
+        base.update_actions(selected_count, count);
+    }
+
     private void on_photos_altered() {
         // since the photo can be altered externally to Shotwell now, need to make the revert
         // command available appropriately, even if the selection doesn't change
@@ -451,28 +460,6 @@ public abstract class CollectionPage : MediaPage {
         PrintManager.get_instance().do_page_setup();
     }
 #endif
-    
-    private void on_selection_changed() {
-        int selected_count = get_view().get_selected_count();
-        bool has_selected = selected_count > 0;
-        
-        rotate_button.sensitive = has_selected;
-#if !NO_PUBLISHING
-        publish_button.set_sensitive(has_selected);
-#endif
-        enhance_button.sensitive = has_selected;
-        
-        set_action_sensitive("ExternalEdit", selected_count == 1 && Config.get_instance().get_external_photo_app() != "");
-        set_action_sensitive("Revert", can_revert_selected());
-        set_action_sensitive("RemoveFromLibrary", has_selected);
-        set_action_sensitive("MoveToTrash", has_selected);
-        set_action_sensitive("Duplicate", has_selected);
-        set_action_sensitive("JumpToEvent", can_jump_to_event());
-        
-#if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", selected_count == 1);
-#endif
-    }
     
     private void on_external_app_changed() {
         int selected_count = get_view().get_selected_count();
@@ -504,32 +491,6 @@ public abstract class CollectionPage : MediaPage {
         }
     }
 
-    protected override bool on_context_invoked() {
-        bool one_selected = get_view().get_selected_count() == 1;
-        bool selected = get_view().get_selected_count() > 0;
-        bool revert_possible = can_revert_selected();
-#if !NO_RAW
-        bool is_single_raw = one_selected && 
-            ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
-            PhotoFileFormat.RAW;
-#endif
-        
-        set_item_sensitive("/CollectionContextMenu/ContextMoveToTrash", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextEnhance", selected);
-        set_item_sensitive("/CollectionContextMenu/ContextRevert", selected && revert_possible);
-        set_item_sensitive("/CollectionContextMenu/ContextModifyTags", one_selected);
-        set_item_sensitive("/CollectionContextMenu/ContextEditTitle", one_selected);
-        
-#if !NO_RAW
-        if (is_single_raw)
-            set_item_visible("/CollectionContextMenu/ContextExternalEditRAW", Config.get_instance().get_external_raw_app() != "");
-        else
-            set_item_hidden("/CollectionContextMenu/ContextExternalEditRAW");
-#endif
-        
-        return base.on_context_invoked();
-    }
-    
     public override string? get_icon_name() {
         return Resources.ICON_PHOTOS;
     }
@@ -567,22 +528,6 @@ public abstract class CollectionPage : MediaPage {
         return handled ? true : base.on_app_key_pressed(event);
     }
 
-    protected override void on_file_menu() {
-        base.on_file_menu();
-
-        int count = get_view().get_selected_count();
-        
-#if !NO_PRINTING
-        set_item_sensitive("/MediaMenuBar/FileMenu/FileExtrasPlaceholder/Print", count == 1);
-#endif    
-    
-        set_item_sensitive("/MediaMenuBar/FileMenu/Export", count > 0);
-
-#if !NO_PUBLISHING
-        set_item_sensitive("/MediaMenuBar/FileMenu/FileExtrasPlaceholder/Publish", count > 0);
-#endif
-    }
-    
     protected override void on_export() {
         if (exporter != null)
             return;
@@ -643,18 +588,6 @@ public abstract class CollectionPage : MediaPage {
         exporter = null;
     }
     
-    private void on_events_menu() {
-        set_item_sensitive("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu/NewEvent",
-            get_view().get_selected_count() > 0);
-    }
-    
-    protected virtual void on_tags_menu() {
-        set_item_sensitive("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/AddTags",
-            get_view().get_selected_count() > 0);
-        set_item_sensitive("/MediaMenuBar/MenubarExtrasPlaceholder/TagsMenu/ModifyTags",
-            get_view().get_selected_count() == 1);
-    }
-    
     private bool can_revert_selected() {
         foreach (DataView view in get_view().get_selected()) {
             LibraryPhoto photo = ((Thumbnail) view).get_photo();
@@ -675,42 +608,6 @@ public abstract class CollectionPage : MediaPage {
         return false;
     }
    
-    protected override void on_photos_menu() {
-        base.on_photos_menu();
-
-        bool selected = (get_view().get_selected_count() > 0);
-        bool one_selected = get_view().get_selected_count() == 1;
-        bool revert_possible = can_revert_selected();
-#if !NO_RAW
-        bool is_single_raw = one_selected &&
-            ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
-            PhotoFileFormat.RAW;
-#endif
-        
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/RotateClockwise",
-            selected);
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/RotateCounterclockwise",
-            selected);
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/FlipHorizontally",
-            selected);
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/FlipVertically",
-            selected);
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/Enhance",
-            selected);
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasEditsPlaceholder/Revert",
-            selected && revert_possible);
-        set_item_sensitive("/MediaMenuBar/PhotosMenu/PhotosExtrasDateTimePlaceholder/AdjustDateTime",
-            selected);
-        
-#if !NO_RAW
-        if (is_single_raw)
-            set_item_visible("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder/ExternalEditRAW",
-                Config.get_instance().get_external_raw_app() != "");
-        else
-            set_item_hidden("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder/ExternalEditRAW");
-#endif
-    }
-    
     private void on_remove_from_library() {
         remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
     }
@@ -901,13 +798,6 @@ public abstract class CollectionPage : MediaPage {
             thumbnail.get_photo()));
     }
 
-    protected override void on_view_menu() {
-        base.on_view_menu();
-
-        set_item_sensitive("/MediaMenuBar/ViewMenu/ViewExtrasFullscreenSlideshowPlaceholder/Fullscreen",
-            get_view().get_count() > 0);
-    }
-      
     private void on_display_tags(Gtk.Action action) {
         bool display = ((Gtk.ToggleAction) action).get_active();
         
@@ -917,21 +807,15 @@ public abstract class CollectionPage : MediaPage {
     }
             
     private override bool on_ctrl_pressed(Gdk.EventKey? event) {
-        rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
+        rotate_button.set_related_action(get_action("RotateCounterclockwise"));
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
-        rotate_button.clicked.disconnect(on_rotate_clockwise);
-        rotate_button.clicked.connect(on_rotate_counterclockwise);
         
         return base.on_ctrl_pressed(event);
     }
     
     private override bool on_ctrl_released(Gdk.EventKey? event) {
-        rotate_button.set_icon_name(Resources.CLOCKWISE);
+        rotate_button.set_related_action(get_action("RotateClockwise"));
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
-        rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
-        rotate_button.clicked.disconnect(on_rotate_counterclockwise);
-        rotate_button.clicked.connect(on_rotate_clockwise);
         
         return base.on_ctrl_released(event);
     }
