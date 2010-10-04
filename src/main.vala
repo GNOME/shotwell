@@ -264,6 +264,7 @@ bool no_mimicked_images = false;
 string data_dir = null;
 bool startup_auto_import = false;
 bool autocommit_metadata = false;
+bool show_version = false;
 
 const OptionEntry[] options = {
     { "autocommit-metadata", 0, 0, OptionArg.NONE, &autocommit_metadata,
@@ -276,6 +277,8 @@ const OptionEntry[] options = {
         N_("Don't used JPEGs to display RAW images"), null },
     { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
         N_("Don't display startup progress meter"), null },
+    { "version", 'V', 0, OptionArg.NONE, &show_version,
+        N_("Show the application's version"), null },
     { null }
 };
 
@@ -294,6 +297,14 @@ void main(string[] args) {
         print(e.message + "\n");
         print(_("Run '%s --help' to see a full list of available command line options.\n"), args[0]);
         AppDirs.terminate();
+        return;
+    }
+    
+    if (show_version) {
+        print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
+        
+        AppDirs.terminate();
+        
         return;
     }
     
