@@ -498,20 +498,26 @@ public class EntryMultiCompletion : Gtk.EntryCompletion {
         Gtk.TreeModel model = completion.get_model();
         string possible_match;
         model.get(iter, 0, out possible_match);
-        possible_match = possible_match.casefold();
+        
+        // Normalize key and possible matches to allow comparison of non-ASCII characters.
+        // Use a "COMPOSE" normalization to allow comparison to the position value returned by 
+        // Gtk.Entry, i.e. one character=one position. Using the default normalization a character
+        // like "é" or "ö" would have a length of two.
+        possible_match = possible_match.casefold().normalize(-1, NormalizeMode.ALL_COMPOSE);        
+        string normed_key = key.normalize(-1, NormalizeMode.ALL_COMPOSE);
         
         if (delimiter == null) {
-            return possible_match.has_prefix(key.strip());
+            return possible_match.has_prefix(normed_key.strip());
         } else {
-            if (key.contains(delimiter)) {
+            if (normed_key.contains(delimiter)) {
                 // check whether cursor is before last delimiter
-                long offset = key.pointer_to_offset(key.rchr(-1, delimiter[0]));
+                long offset = normed_key.pointer_to_offset(normed_key.rchr(-1, delimiter[0]));
                 int position = ((Gtk.Entry) get_entry()).get_position();
                 if (position <= offset)
                     return false; // TODO: Autocompletion for tags not last in list
             }
             
-            string last_part = get_last_part(key.strip(), delimiter);
+            string last_part = get_last_part(normed_key.strip(), delimiter);
             
             if (last_part.length == 0) 
                 return false; // need at least one character to show matches
