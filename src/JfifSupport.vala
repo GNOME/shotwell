@@ -224,7 +224,7 @@ namespace Jpeg {
         fins.read_all(&length, 2, out bytes_read, null);
         length = uint16.from_big_endian(length);
         if (length < 2) {
-            debug("Invalid length %Xh at ofs %llXh", length, fins.tell() - 2);
+            debug("Invalid length %Xh at ofs %" + int64.FORMAT + "Xh", length, fins.tell() - 2);
             
             return -1;
         }

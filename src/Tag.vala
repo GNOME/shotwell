@@ -291,7 +291,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         }
         
         // add to internal ViewCollection, which maintains photos associated with this tag
-        photos = new ViewCollection("ViewCollection for tag %lld".printf(row.tag_id.id));
+        photos = new ViewCollection("ViewCollection for tag %s".printf(row.tag_id.id.to_string()));
         photos.add_many(photo_views);
         
         // need to do this manually here because only want to monitor photo_contents_altered

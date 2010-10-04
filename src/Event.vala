@@ -172,7 +172,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
                 event_photos.add(new PhotoView(photo));
         }
         
-        view = new ViewCollection("ViewCollection for Event %lld".printf(event_id.id));
+        view = new ViewCollection("ViewCollection for Event %s".printf(event_id.id.to_string()));
         view.set_comparator(view_comparator, view_comparator_predicate);
         view.add_many(event_photos);
         
@@ -540,7 +540,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public override string to_string() {
-        return "Event [%lld/%lld] %s".printf(event_id.id, get_object_id(), get_name());
+        return "Event [%s/%s] %s".printf(event_id.id.to_string(), get_object_id().to_string(), get_name());
     }
     
     public bool has_name() {
@@ -556,7 +556,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         return (start_time != 0) 
             ? format_local_date(Time.local(start_time)) 
-            : _("Event %lld").printf(event_id.id);
+            : _("Event %s").printf(event_id.id.to_string());
     }
     
     public string? get_raw_name() {

@@ -126,7 +126,7 @@ public class DatabaseTable {
         
         res = stmt.step();
         if (res != Sqlite.ROW && res != Sqlite.DONE)
-            fatal("exists_by_id [%lld] %s".printf(id, table_name), res);
+            fatal("exists_by_id [%s] %s".printf(id.to_string(), table_name), res);
         
         return (res == Sqlite.ROW);
     }
@@ -142,7 +142,7 @@ public class DatabaseTable {
         
         res = stmt.step();
         if (res != Sqlite.ROW && res != Sqlite.DONE)
-            fatal("select_by_id [%lld] %s %s".printf(id, table_name, columns), res);
+            fatal("select_by_id [%s] %s %s".printf(id.to_string(), table_name, columns), res);
         
         return (res == Sqlite.ROW);
     }

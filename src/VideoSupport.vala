@@ -442,7 +442,7 @@ public class Video : VideoSource {
 
     public override string to_string() {
         lock (backing_row) {
-            return "[%lld] %s".printf(backing_row.video_id.id, backing_row.filepath);
+            return "[%s] %s".printf(backing_row.video_id.id.to_string(), backing_row.filepath);
         }
     }
     

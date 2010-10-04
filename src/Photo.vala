@@ -1528,7 +1528,7 @@ public abstract class Photo : PhotoSource {
     }
     
     public override string to_string() {
-        return "[%lld] %s%s".printf(get_photo_id().id, get_master_reader().get_filepath(),
+        return "[%s] %s%s".printf(get_photo_id().id.to_string(), get_master_reader().get_filepath(),
             !is_master_baseline() ? " (" + get_actual_file().get_path() + ")" : "");
     }
 

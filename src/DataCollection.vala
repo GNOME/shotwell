@@ -328,7 +328,7 @@ public class AggregateProgressMonitor {
     }
     
     public void next_step(string name) {
-        debug("next step: %s (%lld/%lld)", name, aggregate_count, grand_total);
+        debug("next step: %s (%s/%s)", name, aggregate_count.to_string(), grand_total.to_string());
         last_count = uint64.MAX;
     }
     
