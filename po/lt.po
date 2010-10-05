@@ -2,7 +2,7 @@
 # Lithuanian translation for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
@@ -11,20 +11,21 @@ msgstr ""
 "PO-Revision-Date: 2010-08-08 13:13+0300\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
-"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.6.1\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Lithuanian\n"
+"X-Generator: Virtaal 0.6.1\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
 #: src/AppWindow.vala:625
 msgid "translator-credits"
-msgstr "Žygimantas Beručka <zygis@gnome.org>"
+msgstr ""
+"Žygimantas Beručka <zygis@gnome.org>\n"
+"Mantas Kriaučiūnas <mantas@akl.lt>"
 
 # GNOME Application Name
 msgid "Shotwell Photo Manager"
@@ -141,13 +142,11 @@ msgstr "_Atšaukti"
 #: src/AppWindow.vala:605
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
-"continue.\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Gaunant prieigą prie Shotwell bibliotekos iškilo lemtinga klaida. Shotwell "
-"nebegali tęsti darbo.\n"
+"Gaunant prieigą prie Shotwell bibliotekos iškilo lemtinga klaida. Shotwell nebegali tęsti darbo.\n"
 "\n"
 "%s"
 
@@ -421,8 +420,7 @@ msgstr "Laiko koregavimo klaida"
 
 #: src/Commands.vala:1011
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
+msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "Nepavyko atšaukti laiko korekcijų šios nuotraukos faile."
 msgstr[1] "Nepavyko atšaukti laiko korekcijų šių nuotraukų failuose."
 msgstr[2] "Nepavyko atšaukti laiko korekcijų šių nuotraukų failuose."
@@ -581,28 +579,23 @@ msgstr "Pavadinimas:"
 #: src/Dialogs.vala:542
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
-"to move the files to your desktop trash?\n"
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"Iš jūsų Shotwell bibliotekos bus pašalinta %d nuotrauka. Ar norite, kad šis "
-"failas taip pat būtų perkeltas į jūsų darbo aplinkos šiukšlinę?\n"
+"Iš jūsų Shotwell bibliotekos bus pašalinta %d nuotrauka. Ar norite, kad šis failas taip pat būtų perkeltas į jūsų darbo aplinkos šiukšlinę?\n"
 "\n"
 "Šio veiksmo nebegalėsite atšaukti."
 msgstr[1] ""
-"Iš jūsų Shotwell bibliotekos bus pašalintos %d nuotraukos. Ar norite, kad "
-"šie failai taip pat būtų perkelti į jūsų darbo aplinkos šiukšlinę?\n"
+"Iš jūsų Shotwell bibliotekos bus pašalintos %d nuotraukos. Ar norite, kad šie failai taip pat būtų perkelti į jūsų darbo aplinkos šiukšlinę?\n"
 "\n"
 "Šio veiksmo nebegalėsite atšaukti."
 msgstr[2] ""
-"Iš jūsų Shotwell bibliotekos bus pašalint %d nuotraukų. Ar norite, kad šie "
-"failai taip pat būtų perkelti į jūsų darbo aplinkos šiukšlinę?\n"
+"Iš jūsų Shotwell bibliotekos bus pašalint %d nuotraukų. Ar norite, kad šie failai taip pat būtų perkelti į jūsų darbo aplinkos šiukšlinę?\n"
 "\n"
 "Šio veiksmo nebegalėsite atšaukti."
 
@@ -620,8 +613,7 @@ msgstr "_Tik pašalinti"
 #: src/Dialogs.vala:571
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
+msgid_plural "This will destroy all changes made to %d external files.  Continue?"
 msgstr[0] "Bus prarasti visi %d išorinio failo pakeitimai. Tęsti?"
 msgstr[1] "Bus prarasti visi %d išorinių failų pakeitimai. Tęsti?"
 msgstr[2] "Bus prarasti visi %d išorinių failų pakeitimai. Tęsti?"
@@ -695,12 +687,22 @@ msgstr[2] "_Pakeisti originalius failus"
 msgid "Original: "
 msgstr "Pradinis:"
 
-# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
+# The string %m/%d/%y, %H:%M:%S is a format string that describes a U.S.-style
+# 24 hour date and time (e.g. 9/22/2009, 13:15:04). You should translate
+# %m/%d/%y, %H:%M:%S so that it describes the 24 hour date and time format
+# used in your language and region. The format string you enter should conform
+# to POSIX date and time formatting conventions. See the strftime manpage for
+# a list of format specifiers and their meanings.
 #: src/Dialogs.vala:892
 msgid "%m/%d/%Y, %H:%M:%S"
 msgstr "%Y/%m/%d, %H:%M:%S"
 
-# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time format used in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
+# The string %m/%d/%y, %I:%M:%S %p is a format string that describes a
+# U.S.-style 12 hour date and time (e.g. 9/22/2009, 1:15:04 PM). You should
+# translate %m/%d/%y, %H:%M:%S so that it describes the 12 hour date and time
+# format used in your language and region. The format string you enter should
+# conform to POSIX date and time formatting conventions. See the strftime
+# manpage for a list of format specifiers and their meanings.
 #: src/Dialogs.vala:893
 msgid "%m/%d/%Y, %I:%M:%S %p"
 msgstr "%Y/%m/%d, %I:%M:%S %p"
@@ -795,8 +797,7 @@ msgstr "Norėdami pradėti, importuokite nuotraukų bet kuriuo šių būdų:"
 #: src/Dialogs.vala:1162
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
-"Pasirinkite <span weight=\"bold\">Failų %s importavimas iš aplanko</span>"
+msgstr "Pasirinkite <span weight=\"bold\">Failų %s importavimas iš aplanko</span>"
 
 #: src/Dialogs.vala:1163
 msgid "Drag and drop photos onto the Shotwell window"
@@ -828,12 +829,8 @@ msgid "Choose Library Directory"
 msgstr "Pasirinkite bibliotekos aplanką"
 
 #: src/Dialogs.vala:1477
-msgid ""
-"Shotwell can copy the photos into your library or it can link to the photos "
-"without duplicating them."
-msgstr ""
-"Shotwell gali nukopijuoti nuotraukas į jūsų biblioteką arba sukurti nuorodas "
-"į nuotraukas nekuriant jų kopijų."
+msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
+msgstr "Shotwell gali nukopijuoti nuotraukas į jūsų biblioteką arba sukurti nuorodas į nuotraukas nekuriant jų kopijų."
 
 #: src/Dialogs.vala:1482
 msgid "Co_py into Library"
@@ -878,8 +875,7 @@ msgstr "Nurodyti šios nuotraukos apkirptiną sritį"
 
 #: src/EditingTools.vala:516
 msgid "Pivot the crop rectangle between portrait and landscape orientations"
-msgstr ""
-"Pasukti apkirpimo stačiakampį keičiant orientaciją tarp stačios ir gulsčios"
+msgstr "Pasukti apkirpimo stačiakampį keičiant orientaciją tarp stačios ir gulsčios"
 
 #: src/EditingTools.vala:584
 msgid "Unconstrained"
@@ -1076,29 +1072,19 @@ msgstr "Shotwell Connect"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
+"If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
 "Jūs šiuo metu neprisijungę prie „Facebook“.\n"
 "\n"
-"Jei dar neturite „Facebook“ paskyros, galite ją susikurti prisijungimo metu. "
-"Prisijungimo metu Shotwell Connect gali paprašyti jūsų leidimo įkelti ir "
-"skelbti nuotraukas jūsų sklaidos kanale. Toks leidimas yra būtinas norint, "
-"kad Shotwell Connect galėtų veikti."
+"Jei dar neturite „Facebook“ paskyros, galite ją susikurti prisijungimo metu. Prisijungimo metu Shotwell Connect gali paprašyti jūsų leidimo įkelti ir skelbti nuotraukas jūsų sklaidos kanale. Toks leidimas yra būtinas norint, kad Shotwell Connect galėtų veikti."
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
+"You have already logged in and out of Facebook during this Shotwell session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
-"Jūs šio Shotwell seanso metu jau buvote prisijungę ir atsijungę nuo "
-"„Facebook“.\n"
-"Norėdami ką nors paskelbti savo „Facebook“ sklaidos kanale, užverkite ir "
-"paleiskite Shotwell iš naujo, tada bandykite skelbti dar kartą."
+"Jūs šio Shotwell seanso metu jau buvote prisijungę ir atsijungę nuo „Facebook“.\n"
+"Norėdami ką nors paskelbti savo „Facebook“ sklaidos kanale, užverkite ir paleiskite Shotwell iš naujo, tada bandykite skelbti dar kartą."
 
 #: src/FacebookConnector.vala:261
 msgid "Testing connection to Facebook..."
@@ -1141,26 +1127,19 @@ msgstr "_Atsijungti"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login "
-"process. During login you will have to specifically authorize Shotwell "
-"Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "Šiuo metu nesate prisijungę prie „Flickr“.\n"
 "\n"
-"Norėdami prisijungti, turite jau turėti „Flickr“ paskyrą. Norėdami nurodyti "
-"savo „Flickr“ paskyrą, prisijungimo metu turėsite nustatyti savo Shotwell "
-"Connect tapatybę."
+"Norėdami prisijungti, turite jau turėti „Flickr“ paskyrą. Norėdami nurodyti savo „Flickr“ paskyrą, prisijungimo metu turėsite nustatyti savo Shotwell Connect tapatybę."
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
-"Jūs šio Shotwell seanso metu jau buvote prisijungę ir atsijungę nuo "
-"„Flickr“.\n"
-"Norėdami ką nors paskelbti savo „Flickr“ sklaidos kanale, užverkite ir "
-"paleiskite Shotwell iš naujo, tada bandykite skelbti dar kartą."
+"Jūs šio Shotwell seanso metu jau buvote prisijungę ir atsijungę nuo „Flickr“.\n"
+"Norėdami ką nors paskelbti savo „Flickr“ sklaidos kanale, užverkite ir paleiskite Shotwell iš naujo, tada bandykite skelbti dar kartą."
 
 #: src/FlickrConnector.vala:258
 msgid "Preparing to login..."
@@ -1181,8 +1160,7 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
-"Jūsų nemokama „Flickr“ paskyra riboja per mėnesį galimų įkelti duomenų "
-"kiekį.\n"
+"Jūsų nemokama „Flickr“ paskyra riboja per mėnesį galimų įkelti duomenų kiekį.\n"
 "Šį mėnesį jums dar liko %d megabaitų."
 
 #: src/FlickrConnector.vala:824
@@ -1239,10 +1217,8 @@ msgid "Unable to export background to %s: %s"
 msgstr "Nepavyko eksportuoti fono į %s: %s"
 
 #: src/ImportPage.vala:211
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr ""
-"Nepavyko atjungti fotoaparato. Pabandykite jį atjungti failų naršyklėje."
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "Nepavyko atjungti fotoaparato. Pabandykite jį atjungti failų naršyklėje."
 
 #: src/ImportPage.vala:325 src/ImportPage.vala:326
 msgid "Camera"
@@ -1256,21 +1232,28 @@ msgstr "Slėpti jau importuotas nuotraukas"
 msgid "Only display photos that have not been imported"
 msgstr "Rodyti tik neimportuotas nuotraukas"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "Importuoti _pažymėtas"
+#: src/ImportPage.vala:414
+#, fuzzy
+msgid "Import Selected"
+msgstr "Importuoti pasirinktas"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Importuoti _visas"
+#: src/ImportPage.vala:415
+#, fuzzy
+msgid "Import the selected photos into your library"
+msgstr "Importuoti pasirinktas nuotraukas į paveikslėlių biblioteką"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Importuoti viską"
+
+#: src/ImportPage.vala:424
+#, fuzzy
+msgid "Import all the photos on this camera into your library"
+msgstr "Pasirinkite visas nuotraukas bibliotekoje"
 
 #: src/ImportPage.vala:582
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
-msgstr ""
-"Norint suteikti Shotwell prieigą prie fotoaparato, reikia atjungti "
-"fotoaparatą nuo failų sistemos. Tęsti?"
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
+msgstr "Norint suteikti Shotwell prieigą prie fotoaparato, reikia atjungti fotoaparatą nuo failų sistemos. Tęsti?"
 
 #: src/ImportPage.vala:588
 msgid "_Unmount"
@@ -1281,14 +1264,8 @@ msgid "Please unmount the camera."
 msgstr "Atjunkite fotoaparatą."
 
 #: src/ImportPage.vala:598
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
-msgstr ""
-"Kita programa užblokavus fotoaparatą. Shotwell gali gauti prieigą prie "
-"fotoaparato tik kai jis neužblokuotas. Užverkite visas kitas programas, "
-"naudojančias fotoaparatą, ir bandykite dar kartą."
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgstr "Kita programa užblokavus fotoaparatą. Shotwell gali gauti prieigą prie fotoaparato tik kai jis neužblokuotas. Užverkite visas kitas programas, naudojančias fotoaparatą, ir bandykite dar kartą."
 
 #: src/ImportPage.vala:608
 msgid "Please close any other application using the camera."
@@ -1440,8 +1417,7 @@ msgstr "Išvaloma šiukšlinė..."
 
 #: src/LibraryWindow.vala:811
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
-"Shotwell yra sukonfigūruota importuoti nuotraukas į jūsų namų aplanką.\n"
+msgstr "Shotwell yra sukonfigūruota importuoti nuotraukas į jūsų namų aplanką.\n"
 
 #: src/LibraryWindow.vala:814
 msgid "_Import"
@@ -1465,34 +1441,18 @@ msgstr "Fotoaparatai"
 
 #: src/main.vala:79
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please use the "
-"latest version of Shotwell."
-msgstr ""
-"Jūsų nuotraukų biblioteka nesuderinama su šia Shotwell versija. Atrodo, kad "
-"ji buvo sukurta naudojant Shotwell %s. Ši versija yra %s. Naudokite "
-"naujausią Shotwell versiją."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
+msgstr "Jūsų nuotraukų biblioteka nesuderinama su šia Shotwell versija. Atrodo, kad ji buvo sukurta naudojant Shotwell %s. Ši versija yra %s. Naudokite naujausią Shotwell versiją."
 
 #: src/main.vala:84
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s to %s.  "
-"For more information please check the Shotwell Wiki at %s"
-msgstr ""
-"Shotwell nepavyko atnaujinti jūsų nuotraukų bibliotekos nuo versijos %s į %"
-"s. Daugiau informacijos galite rasti Shotwell Viki, esančioje %s"
+msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
+msgstr "Shotwell nepavyko atnaujinti jūsų nuotraukų bibliotekos nuo versijos %s į %s. Daugiau informacijos galite rasti Shotwell Viki, esančioje %s"
 
 #: src/main.vala:89
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please clear "
-"your library by deleting %s and re-import your photos."
-msgstr ""
-"Jūsų nuotraukų biblioteka nesuderinama su šia Shotwell versija. Atrodo, kad "
-"ji buvo sukurta naudojant Shotwell %s. Ši versija yra %s. Išvalykite savo "
-"biblioteką ištrindami %s, ir iš naujo importuokite savo nuotraukas."
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr "Jūsų nuotraukų biblioteka nesuderinama su šia Shotwell versija. Atrodo, kad ji buvo sukurta naudojant Shotwell %s. Ši versija yra %s. Išvalykite savo biblioteką ištrindami %s, ir iš naujo importuokite savo nuotraukas."
 
 #: src/main.vala:94
 #, c-format
@@ -1510,9 +1470,7 @@ msgstr "[FAILAS]"
 #: src/main.vala:253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Norėdami pamatyti visą galimų komandų eilutės parinkčių sąrašą, paleiskite „%"
-"s --help“.\n"
+msgstr "Norėdami pamatyti visą galimų komandų eilutės parinkčių sąrašą, paleiskite „%s --help“.\n"
 
 #: src/OfflinePage.vala:17
 msgid "Missing Files"
@@ -1760,57 +1718,27 @@ msgstr "pakeista"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with Picasa to continue. You can set up most accounts by using your browser "
-"to log into the Picasa Web Albums site at least once."
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
 "Šiuo metu esate neprisijungę prie „Picasa Web Albums“.\n"
 "\n"
-"Norėdami tęsti, turite būti jau anksčiau susikūrę „Google“ paskyrą ir "
-"sukonfigūravę ją darbui su „Picasa“. Daugumą paskyrų galite sukonfigūruoti "
-"savo naršykle bent kartą prisijungdami prie „Picasa Web Albums“ svetainės."
+"Norėdami tęsti, turite būti jau anksčiau susikūrę „Google“ paskyrą ir sukonfigūravę ją darbui su „Picasa“. Daugumą paskyrų galite sukonfigūruoti savo naršykle bent kartą prisijungdami prie „Picasa Web Albums“ svetainės."
 
 #: src/PicasaConnector.vala:514
-msgid ""
-"Enter the email address and password associated with your Picasa Web Albums "
-"account."
-msgstr ""
-"Įveskite el. pašto adresą ir slaptažodį, susietus su jūsų „Picasa Web "
-"Albums“ paskyra."
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgstr "Įveskite el. pašto adresą ir slaptažodį, susietus su jūsų „Picasa Web Albums“ paskyra."
 
 #: src/PicasaConnector.vala:515
-msgid ""
-"Picasa Web Albums didn't recognize the email address and password you "
-"entered. To try again, re-enter your email address and password below."
-msgstr ""
-"„Picasa Web Albums“ neatpažino jūsų įvesto slaptažodžio ir el. pašto adreso. "
-"Norėdami pabandyti dar kartą, dar kartą įveskite savo el. pašto adresą ir "
-"slaptažodį."
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr "„Picasa Web Albums“ neatpažino jūsų įvesto slaptažodžio ir el. pašto adreso. Norėdami pabandyti dar kartą, dar kartą įveskite savo el. pašto adresą ir slaptažodį."
 
 #: src/PicasaConnector.vala:516
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that isn't set up for use with Picasa Web Albums. You can set up most "
-"accounts by using your browser to log into the Picasa Web Albums site at "
-"least once. To try again, re-enter your email address and password below."
-msgstr ""
-"„Google“ paskyra, kurios el. pašto adresą ir slaptažodį jūs įvedėte, "
-"nesukonfigūruota darbui su „Picasa Web Albums“. Daugumą paskyrų galite "
-"sukonfigūruoti prisijungdami naršykle prie „Picasa Web Albums“ svetainės "
-"bent kartą. Norėdami pabandyti dar kartą, dar kartą įveskite savo "
-"elektroninio pašto adresą ir slaptažodį."
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr "„Google“ paskyra, kurios el. pašto adresą ir slaptažodį jūs įvedėte, nesukonfigūruota darbui su „Picasa Web Albums“. Daugumą paskyrų galite sukonfigūruoti prisijungdami naršykle prie „Picasa Web Albums“ svetainės bent kartą. Norėdami pabandyti dar kartą, dar kartą įveskite savo elektroninio pašto adresą ir slaptažodį."
 
 #: src/PicasaConnector.vala:517
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that has been tagged as requiring additional security. You can clear this "
-"tag by using your browser to log into Picasa Web Albums. To try again, re-"
-"enter your email address and password below."
-msgstr ""
-"„Google“ paskyra, kurios el. pašto adresą ir slaptažodį įvedėte, buvo "
-"pažymėta kaip reikalaujanti papildomų saugos priemonių. Galite pašalinti šią "
-"gairę naršykle prisijungdami prie „Picasa Web Albums“. Norėdami bandyti dar "
-"kartą, dar kartą įveskite savo elektroninio pašto adresą ir slaptažodį."
+msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
+msgstr "„Google“ paskyra, kurios el. pašto adresą ir slaptažodį įvedėte, buvo pažymėta kaip reikalaujanti papildomų saugos priemonių. Galite pašalinti šią gairę naršykle prisijungdami prie „Picasa Web Albums“. Norėdami bandyti dar kartą, dar kartą įveskite savo elektroninio pašto adresą ir slaptažodį."
 
 #: src/PicasaConnector.vala:552
 #, c-format
@@ -1939,7 +1867,11 @@ msgstr ""
 "\n"
 "%s"
 
-# The string %I:%M %p is a format string that describes how time is formatted (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common time format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
+# The string %I:%M %p is a format string that describes how time is formatted
+# (e.g. 1:05 PM vs 13:05). Please translate it so that it describes the common
+# time format in use in your language and region. The format string you enter
+# should conform to POSIX date and time formatting conventions. See the
+# strftime manpage for a list of format specifiers and their meanings.
 #: src/Properties.vala:38
 msgid "%I:%M %p"
 msgstr "%H:%M"
@@ -2737,7 +2669,12 @@ msgstr[0] "Trinama nuotrauka"
 msgstr[1] "Trinamos nuotraukos"
 msgstr[2] "Trinamos nuotraukos"
 
-# The string %a %b %d, %Y is a format string that describes how dates are formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate it so that it describes the common date format in use in your language and region. The format string you enter should conform to POSIX date and time formatting conventions. See the strftime manpage for a list of format specifiers and their meanings.
+# The string %a %b %d, %Y is a format string that describes how dates are
+# formatted (e.g. September 26, 2009 vs. 2009 September 26). Please translate
+# it so that it describes the common date format in use in your language and
+# region. The format string you enter should conform to POSIX date and time
+# formatting conventions. See the strftime manpage for a list of format
+# specifiers and their meanings.
 #: src/util.vala:417
 msgid "%a %b %d, %Y"
 msgstr "%Y %b %d, %a"
@@ -2768,20 +2705,13 @@ msgstr "_Užverti"
 
 #: src/WebConnectors.vala:830
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
-msgstr ""
-"Skelbimo %s operacijos tęsti negalima, kadangi nepavyko prisijungti prie "
-"tarnybos."
+msgid "Publishing to %s can't continue because the service could not be contacted."
+msgstr "Skelbimo %s operacijos tęsti negalima, kadangi nepavyko prisijungti prie tarnybos."
 
 #: src/WebConnectors.vala:833
 #, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
-msgstr ""
-"Skelbimo %s operacijos negalima tęsti, kadangi nepavyko užmegzti ryšio su "
-"tarnyba."
+msgid "Publishing to %s can't continue because communication with the service failed."
+msgstr "Skelbimo %s operacijos negalima tęsti, kadangi nepavyko užmegzti ryšio su tarnyba."
 
 #: src/WebConnectors.vala:836
 #, c-format
@@ -2795,11 +2725,8 @@ msgstr "Skelbimo %s operacijos negalima tęsti, kadangi tarnyba grąžino klaid�
 
 #: src/WebConnectors.vala:840
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
-"Skelbimo %s operacijos negalima tęsti, kadangi tarnyba grąžino netinkamą "
-"atsaką."
+msgid "Publishing to %s can't continue because the service returned a bad response."
+msgstr "Skelbimo %s operacijos negalima tęsti, kadangi tarnyba grąžino netinkamą atsaką."
 
 #: src/WebConnectors.vala:843
 #, c-format
@@ -2808,9 +2735,7 @@ msgstr "Skelbimo %s operacijos negalima tęsti, kadangi įvyko klaida."
 
 #: src/WebConnectors.vala:847
 msgid "To try publishing to another service, select one from the above menu."
-msgstr ""
-"Pabandykite skelbti naudodami kitą tarnybą, pasirinkite aukščiau esančiame "
-"meniu."
+msgstr "Pabandykite skelbti naudodami kitą tarnybą, pasirinkite aukščiau esančiame meniu."
 
 #: src/WebConnectors.vala:924 src/WebConnectors.vala:1037
 msgid "Preparing photos for upload"
@@ -2868,9 +2793,6 @@ msgstr "Rengiamos nuotraukos importavimui..."
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "klaida"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Pasirinkite visas nuotraukas bibliotekoje"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Tik _mėgstamos"
