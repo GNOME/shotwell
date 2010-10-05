@@ -58,7 +58,7 @@ public class DirectWindow : AppWindow {
             update_title(photo.get_file(), photo.has_alterations());
     }
     
-    private override void on_quit() {
+    protected override void on_quit() {
         if (!get_direct_page().check_quit())
             return;
 
@@ -67,14 +67,14 @@ public class DirectWindow : AppWindow {
         base.on_quit();
     }
     
-    private override bool delete_event(Gdk.Event event) {
+    public override bool delete_event(Gdk.Event event) {
         if (!get_direct_page().check_quit())
             return true;
         
         return (base.delete_event != null) ? base.delete_event(event) : false;
     }
 
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         // check for an escape
         if (Gdk.keyval_name(event.keyval) == "Escape") {
             on_quit();

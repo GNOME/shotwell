@@ -203,7 +203,7 @@ public class Thumbnail : CheckerboardItem {
         return alteration.has_detail("metadata", "rating");
     }
     
-    private override void thumbnail_altered() {
+    protected override void thumbnail_altered() {
         original_dim = (is_video()) ? video.get_frame_dimensions() : get_photo().get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         

@@ -41,7 +41,7 @@ public abstract class EditingToolWindow : Gtk.Window {
         return user_moved;
     }
 
-    private override bool button_press_event(Gdk.EventButton event) {
+    public override bool button_press_event(Gdk.EventButton event) {
         // LMB only
         if (event.button != 1)
             return (base.button_press_event != null) ? base.button_press_event(event) : true;
@@ -52,7 +52,7 @@ public abstract class EditingToolWindow : Gtk.Window {
         return true;
     }
     
-    private override void realize() {
+    public override void realize() {
         set_opacity(Resources.TRANSIENT_WINDOW_OPACITY);
         
         base.realize();

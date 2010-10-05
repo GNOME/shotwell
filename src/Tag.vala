@@ -102,7 +102,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         return found;
     }
     
-    private override void notify_items_added(Gee.Iterable<DataObject> added) {
+    protected override void notify_items_added(Gee.Iterable<DataObject> added) {
         foreach (DataObject object in added) {
             Tag tag = (Tag) object;
             
@@ -113,7 +113,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         base.notify_items_added(added);
     }
     
-    private override void notify_items_removed(Gee.Iterable<DataObject> removed) {
+    protected override void notify_items_removed(Gee.Iterable<DataObject> removed) {
         foreach (DataObject object in removed) {
             Tag tag = (Tag) object;
             
@@ -124,7 +124,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         base.notify_items_removed(removed);
     }
     
-    public override void notify_items_altered(Gee.Map<DataObject, Alteration> map) {
+    protected override void notify_items_altered(Gee.Map<DataObject, Alteration> map) {
         foreach (DataObject object in map.keys) {
             Tag tag = (Tag) object;
             
@@ -156,7 +156,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         return ((Tag *) a)->get_name().collate(((Tag *) b)->get_name());
     }
     
-    public override void notify_container_contents_added(ContainerSource container, 
+    protected override void notify_container_contents_added(ContainerSource container, 
         Gee.Collection<DataSource> added) {
         Tag tag = (Tag) container;
         Gee.Collection<LibraryPhoto> photos = (Gee.Collection<LibraryPhoto>) added;
@@ -184,7 +184,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         base.notify_container_contents_added(container, added);
     }
     
-    public override void notify_container_contents_removed(ContainerSource container, 
+    protected override void notify_container_contents_removed(ContainerSource container, 
         Gee.Collection<DataSource> removed) {
         Tag tag = (Tag) container;
         Gee.Collection<LibraryPhoto> photos = (Gee.Collection<LibraryPhoto>) removed;

@@ -132,7 +132,7 @@ private class BasicProperties : Properties {
     public BasicProperties() {
     }
 
-    private override void clear_properties() {
+    protected override void clear_properties() {
         base.clear_properties();
         title = "";
         start_time = 0;
@@ -146,7 +146,7 @@ private class BasicProperties : Properties {
         clip_duration = 0.0;
     }
 
-    private override void get_single_properties(DataView view) {
+    protected override void get_single_properties(DataView view) {
         base.get_single_properties(view);
 
         DataSource source = view.get_source();
@@ -191,7 +191,7 @@ private class BasicProperties : Properties {
         }
     }
 
-    private override void get_multiple_properties(Gee.Iterable<DataView>? iter) {
+    protected override void get_multiple_properties(Gee.Iterable<DataView>? iter) {
         base.get_multiple_properties(iter);
 
         photo_count = 0;
@@ -238,7 +238,7 @@ private class BasicProperties : Properties {
         }
     }
 
-    private override void get_properties(Page current_page) {
+    protected override void get_properties(Page current_page) {
         base.get_properties(current_page);
 
         if (end_time == 0)
@@ -247,7 +247,7 @@ private class BasicProperties : Properties {
             start_time = end_time;
     }
 
-    private override void internal_update_properties(Page page) {
+    protected override void internal_update_properties(Page page) {
         base.internal_update_properties(page);
 
         // display the title if a Tag page
@@ -491,7 +491,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         add(alignment);
     }
 
-    private override bool button_press_event(Gdk.EventButton event) {
+    public override bool button_press_event(Gdk.EventButton event) {
         // LMB only
         if (event.button != 1)
             return (base.button_press_event != null) ? base.button_press_event(event) : true;
@@ -501,7 +501,7 @@ private class ExtendedPropertiesWindow : Gtk.Window {
         return true;
     }
 
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         // send through to AppWindow
         return AppWindow.get_instance().key_press_event(event);
     }

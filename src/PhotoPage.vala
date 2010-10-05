@@ -1177,13 +1177,13 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
-    private override void on_resize(Gdk.Rectangle rect) {
+    protected override void on_resize(Gdk.Rectangle rect) {
         base.on_resize(rect);
 
         track_tool_window();
     }
     
-    private override void on_resize_finished(Gdk.Rectangle rect) {
+    protected override void on_resize_finished(Gdk.Rectangle rect) {
         // because we've loaded SinglePhotoPage with an image scaled to window size, as the window
         // is resized it scales that, which pixellates, especially scaling upward.  Once the window
         // resize is complete, we get a fresh image for the new window's size
@@ -1209,7 +1209,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         enhance_button.sensitive = photo != null ? is_enhance_available(photo) : false;
     }
     
-    private override bool on_shift_pressed(Gdk.EventKey? event) {
+    protected override bool on_shift_pressed(Gdk.EventKey? event) {
         // show quick compare of original only if no tool is in use, the original pixbuf is handy
         if (current_tool == null && !get_ctrl_pressed() && !get_alt_pressed())
             swap_in_original();
@@ -1217,21 +1217,21 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_shift_pressed(event);
     }
     
-    private override bool on_shift_released(Gdk.EventKey? event) {
+    protected override bool on_shift_released(Gdk.EventKey? event) {
         if (current_tool == null)
             swap_out_original();
         
         return base.on_shift_released(event);
     }
 
-    private override bool on_alt_pressed(Gdk.EventKey? event) {
+    protected override bool on_alt_pressed(Gdk.EventKey? event) {
         if (current_tool == null)
             swap_out_original();
         
         return base.on_alt_pressed(event);
     }
     
-    private override bool on_alt_released(Gdk.EventKey? event) {
+    protected override bool on_alt_released(Gdk.EventKey? event) {
         if (current_tool == null && get_shift_pressed() && !get_ctrl_pressed())
             swap_in_original();
         
@@ -1423,7 +1423,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return false;
     }
     
-    private override bool on_right_click(Gdk.EventButton event) {
+    protected override bool on_right_click(Gdk.EventButton event) {
         return on_context_buttonpress(event);
     }
     
@@ -1467,7 +1467,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     // Return true to block the DnD handler from activating a drag
-    private override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
+    protected override bool on_motion(Gdk.EventMotion event, int x, int y, Gdk.ModifierType mask) {
         if (current_tool != null) {
             current_tool.on_motion(x, y, mask);
             return true;
@@ -1501,7 +1501,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         }
     }
     
-    private override void on_move(Gdk.Rectangle rect) {
+    protected override void on_move(Gdk.Rectangle rect) {
         track_tool_window();
         
         base.on_move(rect);
@@ -1547,7 +1547,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return true;
     }
     
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         // editing tool gets first crack at the keypress
         if (current_tool != null) {
             if (current_tool.on_keypress(event))
@@ -1749,7 +1749,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
 #endif
 
-    private override bool on_ctrl_pressed(Gdk.EventKey? event) {
+    protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_icon_name(Resources.COUNTERCLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CCW_TOOLTIP);
@@ -1762,7 +1762,7 @@ public abstract class EditingHostPage : SinglePhotoPage {
         return base.on_ctrl_pressed(event);
     }
     
-    private override bool on_ctrl_released(Gdk.EventKey? event) {
+    protected override bool on_ctrl_released(Gdk.EventKey? event) {
         rotate_button.set_icon_name(Resources.CLOCKWISE);
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         rotate_button.set_tooltip_text(Resources.ROTATE_CW_TOOLTIP);
@@ -2575,7 +2575,7 @@ public class LibraryPhotoPage : EditingHostPage {
         base.notify_photo_backing_missing(photo, missing);
     }
     
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         if (base.key_press_event != null && base.key_press_event(event) == true)
             return true;
         
@@ -2661,13 +2661,13 @@ public class LibraryPhotoPage : EditingHostPage {
         return base.on_left_released(event);
     }
     
-    private override bool on_context_buttonpress(Gdk.EventButton event) {
+    protected override bool on_context_buttonpress(Gdk.EventButton event) {
         popup_context_menu(context_menu, event);
 
         return true;
     }
 
-    private override bool on_context_keypress() {
+    protected override bool on_context_keypress() {
         popup_context_menu(context_menu);
         
         return true;
@@ -3363,7 +3363,7 @@ public class DirectPhotoPage : EditingHostPage {
         return false;
     }
     
-    private override void realize() {
+    public override void realize() {
         if (base.realize != null)
             base.realize();
         
@@ -3388,7 +3388,7 @@ public class DirectPhotoPage : EditingHostPage {
         return get_photo().get_file();
     }
 
-    private override bool on_context_buttonpress(Gdk.EventButton event) {
+    protected override bool on_context_buttonpress(Gdk.EventButton event) {
         popup_context_menu(context_menu, event);
 
         return true;
@@ -3529,7 +3529,7 @@ public class DirectPhotoPage : EditingHostPage {
         return check_ok_to_close_photo(get_photo());
     }
     
-    private override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
+    protected override bool confirm_replace_photo(Photo? old_photo, Photo new_photo) {
         return (old_photo != null) ? check_ok_to_close_photo(old_photo) : true;
     }
     

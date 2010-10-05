@@ -1254,7 +1254,7 @@ public class ImportPage : CheckerboardPage {
         on_view_changed();
     }
 
-    private override void set_display_titles(bool display) {
+    public override void set_display_titles(bool display) {
         base.set_display_titles(display);
     
         Gtk.ToggleAction action = (Gtk.ToggleAction) action_group.get_action("ViewTitle");

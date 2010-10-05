@@ -806,20 +806,20 @@ public abstract class CollectionPage : MediaPage {
         Config.get_instance().set_display_photo_tags(display);
     }
             
-    private override bool on_ctrl_pressed(Gdk.EventKey? event) {
+    protected override bool on_ctrl_pressed(Gdk.EventKey? event) {
         rotate_button.set_related_action(get_action("RotateCounterclockwise"));
         rotate_button.set_label(Resources.ROTATE_CCW_LABEL);
         
         return base.on_ctrl_pressed(event);
     }
     
-    private override bool on_ctrl_released(Gdk.EventKey? event) {
+    protected override bool on_ctrl_released(Gdk.EventKey? event) {
         rotate_button.set_related_action(get_action("RotateClockwise"));
         rotate_button.set_label(Resources.ROTATE_CW_LABEL);
         
         return base.on_ctrl_released(event);
     }
-      
+    
     private void set_display_tags(bool display) {
         get_view().freeze_notifications();
         get_view().set_property(Thumbnail.PROP_SHOW_TAGS, display);

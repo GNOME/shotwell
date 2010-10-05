@@ -493,7 +493,7 @@ public class Sidebar : Gtk.TreeView {
         return (context_menu != null) ? page.popup_context_menu(context_menu, event) : false;
     }
 
-    private override bool button_press_event(Gdk.EventButton event) {
+    public override bool button_press_event(Gdk.EventButton event) {
         if (event.button == 3 && event.type == Gdk.EventType.BUTTON_PRESS) {
             // single right click
             Gtk.TreePath? path = get_path_from_event(event);
@@ -514,7 +514,7 @@ public class Sidebar : Gtk.TreeView {
         return base.button_press_event(event);
     }
 
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         if (Gdk.keyval_name(event.keyval) == "Return" || Gdk.keyval_name(event.keyval) == "KP_Enter") {
             toggle_branch_expansion(current_path);
             return false;
@@ -638,7 +638,7 @@ public class Sidebar : Gtk.TreeView {
         }
     }
 
-    private override void drag_data_received(Gdk.DragContext context, int x, int y,
+    public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
 
         Gtk.TreePath path = null;
@@ -652,7 +652,7 @@ public class Sidebar : Gtk.TreeView {
         drop_received(context, x, y, selection_data, info, time, path, page);
     }
 
-    private override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
+    public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
         // call the base signal to get rows with children to spring open
         base.drag_motion(context, x, y, time);
 

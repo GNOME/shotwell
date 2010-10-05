@@ -1484,7 +1484,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         }
     }
     
-    private override void map() {
+    public override void map() {
         base.map();
         
         selected_gc = new Gdk.GC(window);
@@ -1541,13 +1541,13 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         background_gc.set_foreground(this.get_style().bg[Gtk.StateType.NORMAL]);
     }
     
-    private override void size_allocate(Gdk.Rectangle allocation) {
+    public override void size_allocate(Gdk.Rectangle allocation) {
         base.size_allocate(allocation);
         
         viewport_resized();
     }
     
-    private override bool expose_event(Gdk.EventExpose event) {
+    public override bool expose_event(Gdk.EventExpose event) {
         // Note: It's possible for expose_event to be called when in_view is false; this happens
         // when pages are switched prior to switched_to() being called, and some of the other
         // controls allow for events to be processed while they are orienting themselves.  Since
@@ -1626,7 +1626,7 @@ public class CheckerboardLayout : Gtk.DrawingArea {
             selection_band.width - 1, selection_band.height - 1);
     }
     
-    private override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
+    public override bool query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip) {
         CheckerboardItem? item = get_item_at_pixel(x, y);
         
         return (item != null) ? item.query_tooltip(x, y, tooltip) : false;
@@ -1637,14 +1637,14 @@ public class CheckerboardLayout : Gtk.DrawingArea {
         set_colors();
     }
 
-    private override bool focus_in_event(Gdk.EventFocus event) {
+    public override bool focus_in_event(Gdk.EventFocus event) {
         set_colors(true);
         items_dirty("focus_in_event", view.get_selected());
         
         return base.focus_in_event(event);
     }
 
-    private override bool focus_out_event(Gdk.EventFocus event) {
+    public override bool focus_out_event(Gdk.EventFocus event) {
         set_colors(false);
         items_dirty("focus_out_event", view.get_selected());
         

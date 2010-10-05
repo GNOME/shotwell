@@ -112,7 +112,7 @@ public class ThumbnailCache : Object {
             }
         }
         
-        private override void execute() {
+        public override void execute() {
             try {
                 // load-and-decode if not already prefetched
                 if (unscaled == null) {

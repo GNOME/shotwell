@@ -4,7 +4,7 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-errordomain PhotoFormatError {
+public errordomain PhotoFormatError {
     READ_ONLY
 }
 

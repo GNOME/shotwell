@@ -94,7 +94,7 @@ class EventDirectoryItem : CheckerboardItem {
             set_title(get_formatted_title(event), true, Pango.Alignment.CENTER);
     }
     
-    private override void thumbnail_altered() {
+    protected override void thumbnail_altered() {
         LibraryPhoto photo = event.get_primary_photo();
         
         // get new center square

@@ -119,7 +119,7 @@ public class FullscreenWindow : PageWindow {
         return monitor;
     }
     
-    private override bool configure_event(Gdk.EventConfigure event) {
+    public override bool configure_event(Gdk.EventConfigure event) {
         bool result = base.configure_event(event);
         
         if (!switched_to) {
@@ -142,7 +142,7 @@ public class FullscreenWindow : PageWindow {
         return actions;
     }
 
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         // check for an escape/abort 
         if (Gdk.keyval_name(event.keyval) == "Escape") {
             on_close();
@@ -161,7 +161,7 @@ public class FullscreenWindow : PageWindow {
         AppWindow.get_instance().end_fullscreen();
     }
     
-    private override void destroy() {
+    public override void destroy() {
         Page? page = get_current_page();
         clear_current_page();
         
@@ -173,14 +173,14 @@ public class FullscreenWindow : PageWindow {
         base.destroy();
     }
     
-    private override bool delete_event(Gdk.Event event) {
+    public override bool delete_event(Gdk.Event event) {
         on_close();
         AppWindow.get_instance().destroy();
         
         return true;
     }
     
-    private override bool motion_notify_event(Gdk.EventMotion event) {
+    public override bool motion_notify_event(Gdk.EventMotion event) {
         if (!is_toolbar_shown) {
             // if pointer is in toolbar height range without the mouse down (i.e. in the middle of
             // an edit operation) and it stays there the necessary amount of time, invoke the
@@ -336,7 +336,7 @@ public abstract class PageWindow : Gtk.Window {
         switched_pages(old_page, null);
     }
     
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         if (keyboard_trapping == 0) {
             if (current_page != null && current_page.notify_app_key_pressed(event))
                 return true;
@@ -345,7 +345,7 @@ public abstract class PageWindow : Gtk.Window {
         return (base.key_press_event != null) ? base.key_press_event(event) : false;
     }
     
-    private override bool key_release_event(Gdk.EventKey event) {
+    public override bool key_release_event(Gdk.EventKey event) {
        if (keyboard_trapping == 0) {
             if (current_page != null && current_page.notify_app_key_released(event))
                     return true;
@@ -354,21 +354,21 @@ public abstract class PageWindow : Gtk.Window {
         return (base.key_release_event != null) ? base.key_release_event(event) : false;
     }
 
-    private override bool focus_in_event(Gdk.EventFocus event) {
+    public override bool focus_in_event(Gdk.EventFocus event) {
         if (current_page != null && current_page.notify_app_focus_in(event))
                 return true;
         
         return (base.focus_in_event != null) ? base.focus_in_event(event) : false;
     }
 
-    private override bool focus_out_event(Gdk.EventFocus event) {
+    public override bool focus_out_event(Gdk.EventFocus event) {
         if (current_page != null && current_page.notify_app_focus_out(event))
                 return true;
         
         return (base.focus_out_event != null) ? base.focus_out_event(event) : false;
     }
     
-    private override bool configure_event(Gdk.EventConfigure event) {
+    public override bool configure_event(Gdk.EventConfigure event) {
         if (current_page != null) {
             if (current_page.notify_configure_event(event))
                 return true;
@@ -673,7 +673,7 @@ public abstract class AppWindow : PageWindow {
         }
     }
     
-    private override void destroy() {
+    protected override void destroy() {
         on_quit();
     }
     
@@ -832,7 +832,7 @@ public abstract class AppWindow : PageWindow {
             page.get_view().select_all();
     }
     
-    private override bool configure_event(Gdk.EventConfigure event) {
+    public override bool configure_event(Gdk.EventConfigure event) {
         if (window.get_state() == Gdk.WindowState.MAXIMIZED)
             maximized = !maximized;
 

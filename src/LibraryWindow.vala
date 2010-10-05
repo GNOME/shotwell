@@ -427,7 +427,7 @@ public class LibraryWindow : AppWindow {
         return Resources.APP_LIBRARY_ROLE;
     }
 
-    private override void on_quit() {
+    protected override void on_quit() {
         Config.get_instance().set_library_window_state(maximized, dimensions);
 
         Config.get_instance().set_sidebar_position(client_paned.position);
@@ -437,7 +437,7 @@ public class LibraryWindow : AppWindow {
         base.on_quit();
     }
     
-    private override void on_fullscreen() {
+    protected override void on_fullscreen() {
         CollectionPage collection = null;
         Thumbnail start = null;
         
@@ -701,7 +701,7 @@ public class LibraryWindow : AppWindow {
             return Gdk.DragAction.DEFAULT;
     }
     
-    private override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
+    public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
         Gdk.Atom target = Gtk.drag_dest_find_target(this, context, Gtk.drag_dest_get_target_list(this));
         if (((int) target) == ((int) Gdk.NONE)) {
             debug("drag target is GDK_NONE");
@@ -728,7 +728,7 @@ public class LibraryWindow : AppWindow {
         return true;
     }
     
-    private override void drag_data_received(Gdk.DragContext context, int x, int y,
+    public override void drag_data_received(Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint info, uint time) {
         if (selection_data.length < 0)
             debug("failed to retrieve SelectionData");
@@ -1772,7 +1772,7 @@ public class LibraryWindow : AppWindow {
     }
 #endif
     
-    private override bool key_press_event(Gdk.EventKey event) {        
+    public override bool key_press_event(Gdk.EventKey event) {        
         return (sidebar.has_focus && Gdk.keyval_name(event.keyval) == "F2") ?
             sidebar.key_press_event(event) : base.key_press_event(event);
     }

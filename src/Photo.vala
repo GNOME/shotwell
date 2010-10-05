@@ -3880,7 +3880,7 @@ public class LibraryPhoto : Photo {
         notify_thumbnail_altered();
     }
     
-    private override void notify_altered(Alteration alteration) {
+    protected override void notify_altered(Alteration alteration) {
         // generate new thumbnails in the background
         if (!block_thumbnail_generation && alteration.has_subject("image"))
             thumbnail_scheduler.at_priority_idle(Priority.LOW);
@@ -4245,7 +4245,7 @@ public class DirectPhoto : Photo {
             get_orientation().rotate_pixbuf(get_metadata().get_preview(0).get_pixbuf());
     }
 
-    private override void notify_altered(Alteration alteration) {
+    protected override void notify_altered(Alteration alteration) {
         preview = null;
         
         base.notify_altered(alteration);

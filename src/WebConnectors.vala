@@ -253,7 +253,7 @@ public class RESTTransaction {
         }
 
         message.set_request(payload_content_type, Soup.MemoryUse.COPY, custom_payload,
-                (payload_length > 0) ? payload_length : custom_payload.length);
+            (payload_length > 0) ? payload_length : custom_payload.length);
 
         use_custom_payload = true;
     }
@@ -494,7 +494,7 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
         // bind the binary image data read from disk into a Soup.Buffer object so that we
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
-        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data, data_length);
+        Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data, data_length);
         message_parts.append_form_file("", source_file, "image/jpeg", bindable_data);
 
         // set up the Content-Disposition header for the multipart part that contains the
@@ -1174,7 +1174,7 @@ public class RESTXmlDocument {
         
         // Don't want blanks to be included as text nodes, and want the XML parser to tolerate
         // tolerable XML
-        Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.size(), null, null,
+        Xml.Doc* doc = Xml.Parser.read_memory(input_string, (int) input_string.length, null, null,
             Xml.ParserOption.NOBLANKS | Xml.ParserOption.RECOVER);
         if (doc == null)
             throw new PublishingError.MALFORMED_RESPONSE("Unable to parse XML document");

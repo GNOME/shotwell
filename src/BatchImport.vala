@@ -1139,7 +1139,7 @@ private class PrepareFilesJob : BackgroundImportJob {
         return (value == null || value.length == 0) ? 0 : value.to_int();
     }
     
-    private override void execute() {
+    public override void execute() {
         Timer timer = new Timer();
         
         Gee.ArrayList<PreparedFile> list = new Gee.ArrayList<PreparedFile>();
@@ -1355,7 +1355,7 @@ private class PreparedFilesImportJob : BackgroundJob {
         not_ready.add_all(prepared_files);
     }
     
-    private override void execute() {
+    public override void execute() {
         while (not_ready.size > 0) {
             PreparedFile prepared_file = not_ready.remove_at(0);
             process_prepared_file(prepared_file);

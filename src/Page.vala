@@ -430,7 +430,7 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
         super = (mask & Gdk.ModifierType.MOD4_MASK) != 0; // not SUPER_MASK
     }
 
-    private virtual void update_modifiers() {
+    private void update_modifiers() {
         bool ctrl_currently_pressed, alt_currently_pressed, shift_currently_pressed,
             super_currently_pressed;
         get_modifiers(out ctrl_currently_pressed, out alt_currently_pressed,
@@ -2005,7 +2005,7 @@ public abstract class SinglePhotoPage : Page {
         internal_repaint(true);
     }
     
-    private override void on_resize_finished(Gdk.Rectangle rect) {
+    protected override void on_resize_finished(Gdk.Rectangle rect) {
         base.on_resize_finished(rect);
        
         // when the resize is completed, do a high-quality repaint

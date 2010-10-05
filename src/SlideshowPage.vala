@@ -272,7 +272,7 @@ class SlideshowPage : SinglePhotoPage {
         return true;
     }
     
-    private override bool key_press_event(Gdk.EventKey event) {
+    public override bool key_press_event(Gdk.EventKey event) {
         bool handled = true;
         switch (Gdk.keyval_name(event.keyval)) {
             case "space":

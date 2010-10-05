@@ -12,7 +12,8 @@ public class Config {
     public const int HEIGHT_DEFAULT = 768;
     public const int SIDEBAR_MIN_POSITION = 180;
     public const int SIDEBAR_MAX_POSITION = 1000;
-    private const string DEFAULT_BG_COLOR = "#444";
+    public const string DEFAULT_BG_COLOR = "#444";
+    
     private const uint BLACK_THRESHOLD = 40000;
     private const string DARK_SELECTED_COLOR = "#0AD";
     private const string LIGHT_SELECTED_COLOR = "#2DF";
