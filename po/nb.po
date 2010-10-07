@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-07-30 12:26-0700\n"
-"PO-Revision-Date: 2010-07-31 01:28+0200\n"
+"PO-Revision-Date: 2010-10-07 20:11+0200\n"
 "Last-Translator: Jan Roar Roed <janroed@gmail.com>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -1223,13 +1223,21 @@ msgstr "Skjul bilder som allerede er importert"
 msgid "Only display photos that have not been imported"
 msgstr "Vis kun bilder som ikke har blitt importert"
 
-#: src/ImportPage.vala:465
-msgid "Import _Selected"
-msgstr "importer _Valgte"
+#: src/ImportPage.vala:414
+msgid "Import Selected"
+msgstr "Importer valgte"
 
-#: src/ImportPage.vala:470
-msgid "Import _All"
-msgstr "Importer _alle"
+#: src/ImportPage.vala:415
+msgid "Import the selected photos into your library"
+msgstr "Importer de valgte bildene til ditt bildebibliotek"
+
+#: src/ImportPage.vala:423
+msgid "Import All"
+msgstr "Importer alle"
+
+#: src/ImportPage.vala:424
+msgid "Import all the photos on this camera into your library"
+msgstr "Importer alle bildene i dette kameraet til ditt bildebibliotek"
 
 #: src/ImportPage.vala:582
 msgid ""
@@ -2826,9 +2834,6 @@ msgstr "Forbereder bilder for import..."
 #: ui/shotwell.glade:542
 msgid "error"
 msgstr "feil"
-
-#~ msgid "Select all the photos in the library"
-#~ msgstr "Velg alle bildene i biblioteket"
 
 #~ msgid "Only Fa_vorites"
 #~ msgstr "Bare fa_voritter"
