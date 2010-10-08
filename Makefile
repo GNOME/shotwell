@@ -139,11 +139,9 @@ endif
 VAPI_FILES = \
 	libexif.vapi \
 	libgphoto2.vapi \
-	FixedKeyFile.vapi \
 	ExtendedPosix.vapi \
 	LConv.vapi \
-	libraw.vapi \
-	gdk-none.vapi
+	libraw.vapi
 
 RESOURCE_FILES = \
 	photo.ui \
@@ -262,11 +260,9 @@ HEADER_DIRS = \
 	./vapi
 
 LOCAL_PKGS = \
-	FixedKeyFile \
 	ExtendedPosix \
 	posix \
-	LConv \
-	gdk-none
+	LConv
 
 # libraw is not listed (see note below); when libraw-config is no longer needed, it should be
 # added to this list

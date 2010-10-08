@@ -1327,7 +1327,7 @@ public class PhotoTable : DatabaseTable {
             return null;
             
         try {
-            FixedKeyFile keyfile = new FixedKeyFile();
+            KeyFile keyfile = new KeyFile();
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return null;
             
@@ -1336,13 +1336,12 @@ public class PhotoTable : DatabaseTable {
             
             string[] objects = keyfile.get_groups();
             foreach (string object in objects) {
-                size_t count;
-                string[] keys = keyfile.get_keys(object, out count);
-                if (keys == null || count == 0)
+                string[] keys = keyfile.get_keys(object);
+                if (keys == null || keys.length == 0)
                     continue;
                 
                 KeyValueMap key_map = new KeyValueMap(object);
-                for (int ctr =0 ; ctr < count; ctr++)
+                for (int ctr = 0; ctr < keys.length; ctr++)
                     key_map.set_string(keys[ctr], keyfile.get_string(object, keys[ctr]));
                 
                 map.set(object, key_map);
@@ -1358,7 +1357,7 @@ public class PhotoTable : DatabaseTable {
         if (transformations == null || transformations.keys.size == 0)
             return null;
         
-        FixedKeyFile keyfile = new FixedKeyFile();
+        KeyFile keyfile = new KeyFile();
         
         foreach (string object in transformations.keys) {
             KeyValueMap map = transformations.get(object);
@@ -1383,7 +1382,7 @@ public class PhotoTable : DatabaseTable {
         string trans = get_raw_transformations(photo_id);
         
         try {
-            FixedKeyFile keyfile = new FixedKeyFile();
+            KeyFile keyfile = new KeyFile();
             if (trans != null) {
                 if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                     return false;
@@ -1414,7 +1413,7 @@ public class PhotoTable : DatabaseTable {
             return true;
         
         try {
-            FixedKeyFile keyfile = new FixedKeyFile();
+            KeyFile keyfile = new KeyFile();
             if (!keyfile.load_from_data(trans, trans.length, KeyFileFlags.NONE))
                 return false;
             

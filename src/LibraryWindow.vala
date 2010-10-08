@@ -703,7 +703,7 @@ public class LibraryWindow : AppWindow {
     
     public override bool drag_motion(Gdk.DragContext context, int x, int y, uint time) {
         Gdk.Atom target = Gtk.drag_dest_find_target(this, context, Gtk.drag_dest_get_target_list(this));
-        if (((int) target) == ((int) Gdk.NONE)) {
+        if (((int) target) == ((int) Gdk.Atom.NONE)) {
             debug("drag target is GDK_NONE");
             Gdk.drag_status(context, 0, time);
             
