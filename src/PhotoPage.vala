@@ -2072,8 +2072,8 @@ public class LibraryPhotoPage : EditingHostPage {
         edit.label = _("_Edit");
         actions += edit;
         
-        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE, null,
-            TRANSLATABLE, on_remove_from_library };
+        Gtk.ActionEntry remove_from_library = { "RemoveFromLibrary", Gtk.STOCK_REMOVE, TRANSLATABLE,
+            "<Shift>Delete", TRANSLATABLE, on_remove_from_library };
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_SINGULAR_TOOLTIP;
         actions += remove_from_library;
