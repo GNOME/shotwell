@@ -436,7 +436,7 @@ public abstract class CollectionPage : MediaPage {
 #endif
         
 #if !NO_PUBLISHING
-        set_action_sensitive("Publish", one_selected);
+        set_action_sensitive("Publish", has_selected);
         set_action_important("Publish", true);
 #endif
         
