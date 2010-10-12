@@ -502,7 +502,12 @@ private class ExtendedPropertiesWindow : Gtk.Window {
     }
 
     public override bool key_press_event(Gdk.EventKey event) {
-        // send through to AppWindow
+        // hide properties
+        if (Gdk.keyval_name(event.keyval) == "Escape") {
+            hide();
+            return true;
+        }
+        // or send through to AppWindow
         return AppWindow.get_instance().key_press_event(event);
     }
 
