@@ -193,6 +193,16 @@ public class ImportManifest {
 // jobs.  However, getting this code to a point that it works with threads is task enough, so it
 // will have to wait (especially since we'll want to write a generic FSM engine).
 public class BatchImport : Object {
+    private const int READY_FILES_COUNT_OVERFLOW = 20;
+    private const int READY_FILES_BYTE_OVERFLOW = 50 * 1024 * 1024;
+    
+    private const int READY_THUMBNAILS_COUNT_OVERFLOW = 10;
+    
+    private const int READY_SOURCES_COUNT_OVERFLOW = 10;
+    
+    private const int DISPLAY_QUEUE_TIMER_MSEC = 125;
+    private const int DISPLAY_QUEUE_HYSTERESIS_OVERFLOW = (3 * 1000) / DISPLAY_QUEUE_TIMER_MSEC;
+    
     private static Workers sniff_worker = new Workers(1, false);
     private static Workers prep_worker = new Workers(1, false);
     private static Workers import_worker = new Workers(2, false);
@@ -245,7 +255,10 @@ public class BatchImport : Object {
     
     // Called for each Photo or Video imported to the system. For photos, the pixbuf is
     // screen-sized and rotated. For videos, the pixbuf is a frame-grab of the first frame.
-    public signal void imported(ThumbnailSource source, Gdk.Pixbuf pixbuf);
+    //
+    // The to_follow number is the number of queued-up sources to expect following this signal
+    // in one burst.
+    public signal void imported(ThumbnailSource source, Gdk.Pixbuf pixbuf, int to_follow);
     
     // Called when a fatal error occurs that stops the import entirely.  Remaining jobs will be
     // failed and import_complete() is still fired.
@@ -280,7 +293,7 @@ public class BatchImport : Object {
         Application.get_instance().exiting.connect(user_halt);
         
         // Use a timer to report imported photos to observers
-        Timeout.add(200, display_imported_timer);
+        Timeout.add(DISPLAY_QUEUE_TIMER_MSEC, display_imported_timer);
     }
     
     ~BatchImport() {
@@ -494,8 +507,11 @@ public class BatchImport : Object {
         // We want to cluster the work to give the background thread plenty to do, but not
         // cluster so many the UI is starved of completion notices ... these comparisons
         // strive for the happy medium
-        if (ready_files.size >= 25 || ready_files_bytes > (50 * (1024 * 1024)) || cancellable.is_cancelled())
+        if (ready_files.size >= READY_FILES_COUNT_OVERFLOW
+            || ready_files_bytes > READY_FILES_BYTE_OVERFLOW
+            || cancellable.is_cancelled()) {
             flush_ready_files();
+        }
     }
     
     // This checks for duplicates in the current import batch, which may not already be in the
@@ -701,9 +717,9 @@ public class BatchImport : Object {
                 ready.batch_result.result = Video.import_create(ready.video_import_params,
                     out source);
             } else {
-		        ready.batch_result.result = LibraryPhoto.import_create(ready.photo_import_params,
-		            out source);
-		    }
+                ready.batch_result.result = LibraryPhoto.import_create(ready.photo_import_params,
+                    out source);
+            }
                     
             if (ready.batch_result.result != ImportResult.SUCCESS) {
                 debug("on_import_file_completed: %s", ready.batch_result.result.to_string());
@@ -711,15 +727,15 @@ public class BatchImport : Object {
                 report_failure(ready.batch_result);
                 file_import_complete();
             } else {
-	            // complete the import job
-	            PreparedFile src_prepared_file = ready.prepared_file;
-	            BatchImportJob src_job = src_prepared_file.job;
-	            try {
-	                src_job.complete(source, import_roll.generated_events);
-	            } catch(Error e) {
-	                // TODO: improve failure handling to report it properly
-	                warning("Could not complete import job: %s", e.message);
-	            }
+                // complete the import job
+                PreparedFile src_prepared_file = ready.prepared_file;
+                BatchImportJob src_job = src_prepared_file.job;
+                try {
+                    src_job.complete(source, import_roll.generated_events);
+                } catch(Error e) {
+                    // TODO: improve failure handling to report it properly
+                    warning("Could not complete import job: %s", e.message);
+                }
                 // end complete
                 // TODO: should this be inside the try/catch statement to only
                 // be called if the completion is successful?
@@ -727,7 +743,9 @@ public class BatchImport : Object {
             }
         }
         
-        if (ready_thumbnails.size > 10 || ready_files.size == 0)
+        // watch for too many thumbnails waiting *or* no files waiting (in which case, no more
+        // do make thumbnails from)
+        if (ready_thumbnails.size > READY_THUMBNAILS_COUNT_OVERFLOW || ready_files.size == 0)
             flush_ready_thumbnails();
     }
     
@@ -823,10 +841,10 @@ public class BatchImport : Object {
 
         log_status("flush_ready_sources");
 
-        foreach (ThumbnailSource source in ready_sources)
+        foreach (ThumbnailSource source in ready_sources) {
             if (source is LibraryPhoto) {
                 LibraryPhoto.global.add(source as LibraryPhoto);
-
+                
                 // only generate events on event-less photos
                 if ((source as LibraryPhoto).get_event() == null)
                     Event.generate_import_event(source as LibraryPhoto,
@@ -834,6 +852,7 @@ public class BatchImport : Object {
             } else if (source is Video) {
                 Video.global.add(source as Video);
             }
+        }
         
         ready_sources.clear();
     }
@@ -849,21 +868,47 @@ public class BatchImport : Object {
         
         log_status("display_imported_timer");
         
-        // if cancelled, do them all at once, to speed up reporting completion
-        do {
+        // only display one at a time, so the user can see them come into the library in order.
+        // however, if the queue backs up to the hysteresis point (currently defined as more than
+        // 3 seconds wait for the last photo on the queue), then begin doing them in increasingly
+        // larger chunks, to stop the queue from growing and then to get ahead of the other
+        // import cycles.
+        //
+        // if cancelled, want to do as many as possible, but want to relinquish the thread to
+        // keep the system active
+        int total = 1;
+        if (!cancellable.is_cancelled()) {
+            if (display_imported_queue.size > DISPLAY_QUEUE_HYSTERESIS_OVERFLOW)
+                total = 1 << ((display_imported_queue.size / DISPLAY_QUEUE_HYSTERESIS_OVERFLOW) + 2);
+        } else {
+            // do in overflow-sized chunks
+            total = int.min(DISPLAY_QUEUE_HYSTERESIS_OVERFLOW, display_imported_queue.size);
+        }
+        
+        total = int.min(total, display_imported_queue.size);
+        
+#if TRACE_IMPORT
+        if (total > 1) {
+            debug("DISPLAY IMPORT QUEUE: hysteresis, dumping %d/%d media sources", total,
+                display_imported_queue.size);
+        }
+#endif
+        
+        // post-decrement because the 0-based total is used when firing "imported"
+        while (total-- > 0) {
             CompletedImportObject completed_object = display_imported_queue.remove_at(0);
-
+            
             // Stage the number of ready media objects to incorporate into the system rather than
             // doing them one at a time, to keep the UI thread responsive.
             ready_sources.add(completed_object.source);
-
+            
             imported(completed_object.source,
-                completed_object.thumbnails.get(ThumbnailCache.Size.LARGEST));
+                completed_object.thumbnails.get(ThumbnailCache.Size.LARGEST), total);
             report_progress(completed_object.get_filesize());
             file_import_complete();
-        } while (cancellable.is_cancelled() && display_imported_queue.size > 0);
+        }
         
-        if (ready_sources.size >= 25 || cancellable.is_cancelled())
+        if (ready_sources.size >= READY_SOURCES_COUNT_OVERFLOW || cancellable.is_cancelled())
             flush_ready_sources();
 
         return true;
@@ -1109,6 +1154,9 @@ private class PreparedFileCluster : NotificationObject {
 }
 
 private class PrepareFilesJob : BackgroundImportJob {
+    private const int REPORT_EVERY_N_FILES = 100;
+    private const int REPORT_EVERY_N_MSEC = 1000;
+    
     // Do not examine until the CompletionCallback has been called.
     public int prepared_files = 0;
     
@@ -1184,7 +1232,8 @@ private class PrepareFilesJob : BackgroundImportJob {
                 report_error(job, file, file.get_path(), err, ImportResult.FILE_ERROR);
             }
             
-            if (list.size > 100 || (timer.elapsed() > 1.0 && list.size > 0)) {
+            if (list.size >= REPORT_EVERY_N_FILES 
+                || ((timer.elapsed() * 1000.0) > REPORT_EVERY_N_MSEC && list.size > 0)) {
 #if TRACE_IMPORT
                 debug("Dumping %d prepared files", list.size);
 #endif

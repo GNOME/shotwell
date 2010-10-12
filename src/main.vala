@@ -164,7 +164,7 @@ void library_exec(string[] mounts) {
         progress_dialog.destroy();
     progress_dialog = null;
 
-#if !NO_CAMERA    
+#if !NO_CAMERA
     // report mount points
     foreach (string mount in mounts)
         library_window.mounted_camera_shell_notification(mount, true);
