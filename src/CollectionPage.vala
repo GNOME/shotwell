@@ -121,7 +121,6 @@ public abstract class CollectionPage : MediaPage {
         group.add_menu_item("Duplicate");
         group.add_separator();
         group.add_menu_item("RemoveFromLibrary");
-        group.add_menu_item("MoveToTrash");
 
         return group;
     }
@@ -242,12 +241,6 @@ public abstract class CollectionPage : MediaPage {
         remove_from_library.label = Resources.REMOVE_FROM_LIBRARY_MENU;
         remove_from_library.tooltip = Resources.REMOVE_FROM_LIBRARY_PLURAL_TOOLTIP;
         actions += remove_from_library;
-        
-        Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_move_to_trash };
-        move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
-        move_to_trash.tooltip = Resources.MOVE_TO_TRASH_PLURAL_TOOLTIP;
-        actions += move_to_trash;
         
         Gtk.ActionEntry rotate_right = { "RotateClockwise", Resources.CLOCKWISE,
             TRANSLATABLE, "bracketright", TRANSLATABLE, on_rotate_clockwise };
@@ -399,7 +392,6 @@ public abstract class CollectionPage : MediaPage {
         bool has_items = count > 0;
         
         set_action_sensitive("RemoveFromLibrary", has_selected);
-        set_action_sensitive("MoveToTrash", has_selected);
         set_action_sensitive("Duplicate", has_selected);
         set_action_sensitive("ExternalEdit", 
             one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
@@ -610,13 +602,6 @@ public abstract class CollectionPage : MediaPage {
    
     private void on_remove_from_library() {
         remove_photos_from_library((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources());
-    }
-    
-    private void on_move_to_trash() {
-        if (get_view().get_selected_count() > 0) {
-            get_command_manager().execute(new TrashUntrashPhotosCommand(
-                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), true));
-        }
     }
     
     private void on_rotate_clockwise() {

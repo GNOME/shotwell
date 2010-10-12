@@ -13,6 +13,7 @@ public class Config {
     public const int SIDEBAR_MIN_POSITION = 180;
     public const int SIDEBAR_MAX_POSITION = 1000;
     public const string DEFAULT_BG_COLOR = "#444";
+    public const int NO_VIDEO_INTERPRETER_STATE = -1;
     
     private const uint BLACK_THRESHOLD = 40000;
     private const string DARK_SELECTED_COLOR = "#0AD";
@@ -487,6 +488,14 @@ public class Config {
     
     public bool set_modify_originals(bool modify_originals) {
         return set_bool("/apps/shotwell/preferences/ui/modify_originals", modify_originals);
+    }
+
+    public bool set_video_interpreter_state_cookie(int state_cookie) {
+        return set_int("/apps/shotwell/video/interpreter_state_cookie", state_cookie);
+    }
+
+    public int get_video_interpreter_state_cookie() {
+        return get_int("/apps/shotwell/video/interpreter_state_cookie", NO_VIDEO_INTERPRETER_STATE);
     }
 
 #if !NO_SET_BACKGROUND

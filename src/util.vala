@@ -627,12 +627,13 @@ public void remove_photos_from_library(Gee.Collection<LibraryPhoto> photos) {
         ngettext("Removing Photo From Library", "Removing Photos From Library", photos.size));
 }
 
-public void remove_from_app(Gee.Collection<LibraryPhoto> photos, string dialog_title, 
+public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_title, 
     string progress_dialog_text) {
-    if (photos.size == 0)
+    if (sources.size == 0)
         return;
     
-    Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title, photos.size);
+    Gtk.ResponseType result = remove_from_library_dialog(AppWindow.get_instance(), dialog_title,
+        sources.size);
     if (result != Gtk.ResponseType.YES && result != Gtk.ResponseType.NO)
         return;
     
@@ -641,15 +642,20 @@ public void remove_from_app(Gee.Collection<LibraryPhoto> photos, string dialog_t
     AppWindow.get_instance().set_busy_cursor();
     
     ProgressDialog progress = null;
-    if (photos.size >= 20)
+    if (sources.size >= 20)
         progress = new ProgressDialog(AppWindow.get_instance(), progress_dialog_text);
     
-    // valac complains about passing an argument for a delegate using ternary operator:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=599349
-    if (progress != null)
+    Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+    Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+    MediaSourceCollection.filter_media(sources, photos, videos);
+    
+    if (progress != null) {
         LibraryPhoto.global.remove_from_app(photos, delete_backing, progress.monitor);
-    else
+        Video.global.remove_from_app(videos, delete_backing, progress.monitor);
+    } else {
         LibraryPhoto.global.remove_from_app(photos, delete_backing);
+        Video.global.remove_from_app(videos, delete_backing);
+    }
     
     if (progress != null)
         progress.close();

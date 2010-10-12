@@ -166,6 +166,10 @@ public class LibraryMonitor : DirectoryMonitor {
     private Gee.HashSet<LibraryPhoto> revert_to_master_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<LibraryPhoto> offline_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<LibraryPhoto> online_queue = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashSet<Video> detected_videos = new Gee.HashSet<Video>();
+    private Gee.HashSet<Video> videos_to_mark_offline = new Gee.HashSet<Video>();
+    private Gee.HashSet<Video> videos_to_mark_online = new Gee.HashSet<Video>();
+    private Gee.HashSet<Video> videos_to_check_interpretable = new Gee.HashSet<Video>();
     private Gee.HashSet<File> import_queue = new Gee.HashSet<File>(file_hash, file_equal);
     private BatchImportRoll current_import_roll = null;
     private time_t last_import_roll_use = 0;
@@ -204,6 +208,19 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     public override void file_discovered(File file, FileInfo info) {
+        if (VideoReader.is_supported_video_file(file)) {
+            Video? video = Video.global.get_by_file(file);
+            
+            if (video != null) {
+                detected_videos.add(video);
+            }
+
+            // if this is a video file, then propogate the call to our superclass and do a
+            // short-circuit return -- none of the photo shenanigans below apply to video
+            base.file_discovered(file, info);
+            return;
+        }
+
         // convert file to photo (if possible) and store in discovered list
         LibraryPhotoSourceCollection.State state;
         LibraryPhoto? photo = LibraryPhoto.global.get_state_by_file(file, out state);
@@ -380,6 +397,28 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private void discovery_stage_completed() {
+        foreach (Video video in detected_videos) {
+            FileInfo? video_file_info = get_file_info(video.get_file());
+                       
+            if (video_file_info != null && video.is_offline()) {
+                videos_to_mark_online.add(video);
+            } else if (video_file_info == null && !video.is_offline()) {
+                videos_to_mark_offline.add(video);
+            }
+        }
+        
+        foreach (DataObject object in Video.global.get_all()) {
+            Video video = (Video) object;
+            FileInfo? video_file_info = get_file_info(video.get_file());
+            
+            if ((video_file_info != null) && (!video.is_offline())) {
+                if (Video.has_interpreter_state_changed())
+                    videos_to_check_interpretable.add(video);
+            } else if (video_file_info == null && !video.is_offline()) {
+                videos_to_mark_offline.add(video);
+            }
+        }
+
         // go through all discovered online photos and see if they're online
         foreach (LibraryPhoto photo in discovered) {
             FileInfo? master_info = get_file_info(photo.get_master_file());
@@ -435,8 +474,8 @@ public class LibraryMonitor : DirectoryMonitor {
         }
         
         // go through all the offline photos and see if they're online now
-        foreach (LibraryPhoto photo in LibraryPhoto.global.get_offline())
-            verify_external_photo.begin(photo);
+        foreach (MediaSource source in LibraryPhoto.global.get_offline_bin_contents())
+            verify_external_photo.begin((LibraryPhoto) source);
         
         // enqueue all remaining unknown photo files for import
         if (startup_auto_import)
@@ -631,6 +670,35 @@ public class LibraryMonitor : DirectoryMonitor {
         else
             enqueue_reimport_editable(photo);
      }
+
+    private void post_process_videos() {
+        Video.global.freeze_notifications();
+
+        foreach (Video video in videos_to_mark_offline) {
+            video.mark_offline();
+        }
+        videos_to_mark_offline.clear();
+
+        foreach (Video video in videos_to_mark_online) {
+            video.mark_online();
+            video.check_is_interpretable();
+        }
+        videos_to_mark_online.clear();
+        // right now, videos will regenerate their thumbnails if they're not interpretable as
+        // they come online, serially and sequentially. Because video thumbnail regeneration is
+        // expensive, we might choose to do this in parallel. If this happens, it's extremely
+        // important that notify_offline_thumbs_regenerated() be called only after all
+        // regeneration activity has completed.
+        Video.notify_offline_thumbs_regenerated();
+
+        foreach (Video video in videos_to_check_interpretable) {
+            video.check_is_interpretable();
+        }
+        videos_to_check_interpretable.clear();
+        Video.notify_normal_thumbs_regenerated();
+
+        Video.global.thaw_notifications();
+    }
      
      private bool on_flush_pending_queues() {
         if (cancellable.is_cancelled())
@@ -638,6 +706,8 @@ public class LibraryMonitor : DirectoryMonitor {
         
         Timer timer = new Timer();
         
+        post_process_videos();
+
         LibraryPhoto.global.freeze_notifications();
         
         if (master_update_timestamp_queue.size > 0) {

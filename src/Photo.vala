@@ -389,11 +389,6 @@ public abstract class Photo : PhotoSource {
     // any time.  It should only be accessed -- read or write -- when row is locked.
     private BackingPhotoState *backing_photo_state = null;
     
-    // This is fired when the photo's master file is replaced.  The image it generates may or may
-    // not be the same; the altered signal is the best determinant for that.
-    public virtual signal void master_replaced(File old_file, File new_file) {
-    }
-    
     // This is fired when the photo's editable file is replaced.  The image it generates may or
     // may not be the same; the altered signal is best for that.  null is passed if the editable
     // is being added, replaced, or removed (in the appropriate places)
@@ -456,10 +451,6 @@ public abstract class Photo : PhotoSource {
         
         // set the backing photo state appropriately
         backing_photo_state = (readers.editable == null) ? &this.row.master : &this.editable;
-    }
-    
-    protected virtual void notify_master_replaced(File old_file, File new_file) {
-        master_replaced(old_file, new_file);
     }
     
     protected virtual void notify_editable_replaced(File? old_file, File? new_file) {
@@ -1131,7 +1122,7 @@ public abstract class Photo : PhotoSource {
     
     // This should only be used when the photo's master backing file has been renamed; if it's been
     // altered, use update().
-    public void set_master_file(File file) {
+    public override void set_master_file(File file) {
         string filepath = file.get_path();
         
         bool altered = false;
@@ -1213,7 +1204,7 @@ public abstract class Photo : PhotoSource {
         return get_baseline_reader().get_file();
     }
     
-    public File get_master_file() {
+    public override File get_master_file() {
         return get_master_reader().get_file();
     }
     
@@ -1269,7 +1260,7 @@ public abstract class Photo : PhotoSource {
         }
     }
     
-    public string get_master_md5() {
+    public override string get_master_md5() {
         lock (row) {
             return row.md5;
         }
@@ -1299,7 +1290,7 @@ public abstract class Photo : PhotoSource {
     
     public bool is_flag_set(uint64 mask) {
         lock (row) {
-            return (row.flags & mask) != 0;
+            return internal_is_flag_set(row.flags, mask);
         }
     }
     
@@ -1308,7 +1299,7 @@ public abstract class Photo : PhotoSource {
         
         bool committed = false;
         lock (row) {
-            flags = row.flags | mask;
+            flags = internal_add_flags(row.flags, mask);
             if (row.flags != flags) {
                 committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
                 if (committed)
@@ -1327,7 +1318,7 @@ public abstract class Photo : PhotoSource {
         
         bool committed = false;
         lock (row) {
-            flags = row.flags & ~mask;
+            flags = internal_remove_flags(row.flags, mask);
             if (row.flags != flags) {
                 committed = PhotoTable.get_instance().replace_flags(get_photo_id(), flags);
                 if (committed)
@@ -3276,60 +3267,7 @@ public abstract class Photo : PhotoSource {
     }
 }
 
-public class LibraryPhotoHoldingTank : DatabaseSourceHoldingTank {
-    private Gee.HashMap<File, LibraryPhoto> master_file_map = new Gee.HashMap<File, LibraryPhoto>(
-        file_hash, file_equal);
-    
-    public LibraryPhotoHoldingTank(LibraryPhotoSourceCollection sources,
-        SourceHoldingTank.CheckToKeep check_to_keep) {
-        base (sources, check_to_keep, Photo.get_photo_key);
-    }
-    
-    public LibraryPhoto? fetch_by_master_file(File file) {
-        return master_file_map.get(file);
-    }
-    
-    public LibraryPhoto? fetch_by_md5(string md5) {
-        foreach (LibraryPhoto photo in master_file_map.values) {
-            if (photo.get_master_md5() == md5) {
-                return photo;
-            }
-        }
-        
-        return null;
-    }
-    
-    protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
-        Gee.Collection<DataSource>? removed) {
-        if (added != null) {
-            foreach (DataSource source in added) {
-                LibraryPhoto photo = (LibraryPhoto) source;
-                master_file_map.set(photo.get_master_file(), photo);
-                photo.master_replaced.connect(on_photo_master_replaced);
-            }
-        }
-        
-        if (removed != null) {
-            foreach (DataSource source in removed) {
-                LibraryPhoto photo = (LibraryPhoto) source;
-                bool is_removed = master_file_map.unset(photo.get_master_file());
-                assert(is_removed);
-                photo.master_replaced.disconnect(on_photo_master_replaced);
-            }
-        }
-        
-        base.notify_contents_altered(added, removed);
-    }
-    
-    private void on_photo_master_replaced(Photo photo, File old_file, File new_file) {
-        bool removed = master_file_map.unset(old_file);
-        assert(removed);
-            
-        master_file_map.set(new_file, (LibraryPhoto) photo);
-    }
-}
-
-public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
+public class LibraryPhotoSourceCollection : MediaSourceCollection {
     public enum State {
         ONLINE,
         OFFLINE,
@@ -3337,8 +3275,6 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         EDITABLE
     }
     
-    private LibraryPhotoHoldingTank trashcan = null;
-    private LibraryPhotoHoldingTank offline = null;
     private Gee.HashMap<File, LibraryPhoto> by_master_file = new Gee.HashMap<File, LibraryPhoto>(
         file_hash, file_equal);
     private Gee.HashMap<File, LibraryPhoto> by_editable_file = new Gee.HashMap<File, LibraryPhoto>(
@@ -3353,14 +3289,6 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         new Gee.TreeMultiMap<ImportID?, LibraryPhoto>(ImportID.compare_func);
     private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
     
-    public virtual signal void trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
-    }
-    
-    public virtual signal void offline_contents_altered(Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
-    }
-    
     public virtual signal void master_file_replaced(LibraryPhoto photo, File old_file, File new_file) {
     }
     
@@ -3370,11 +3298,16 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     public LibraryPhotoSourceCollection() {
         base("LibraryPhotoSourceCollection", Photo.get_photo_key);
         
-        trashcan = new LibraryPhotoHoldingTank(this, check_if_trashed_photo);
-        trashcan.contents_altered.connect(on_trashcan_contents_altered);
-        
-        offline = new LibraryPhotoHoldingTank(this, check_if_offline_photo);
-        offline.contents_altered.connect(on_offline_contents_altered);
+        internal_get_trashcan().contents_altered.connect(on_trashcan_contents_altered);       
+        internal_get_offline_bin().contents_altered.connect(on_offline_contents_altered);
+    }
+    
+    protected override MediaSourceHoldingTank internal_create_trashcan() {
+        return new MediaSourceHoldingTank(this, check_if_trashed_photo, Photo.get_photo_key);
+    }
+
+    protected override MediaSourceHoldingTank internal_create_offline_bin() {
+        return new MediaSourceHoldingTank(this, check_if_offline_photo, Photo.get_photo_key);
     }
     
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
@@ -3457,13 +3390,13 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         base.notify_contents_altered(added, removed);
     }
     
-    private void on_master_replaced(Photo photo, File old_file, File new_file) {
+    private void on_master_replaced(MediaSource source, File old_file, File new_file) {
         bool is_removed = by_master_file.unset(old_file);
         assert(is_removed);
         
-        by_master_file.set(new_file, (LibraryPhoto) photo);
+        by_master_file.set(new_file, (LibraryPhoto) source);
         
-        master_file_replaced((LibraryPhoto) photo, old_file, new_file);
+        master_file_replaced((LibraryPhoto) source, old_file, new_file);
     }
     
     private void on_editable_replaced(Photo photo, File? old_file, File? new_file) {
@@ -3477,8 +3410,6 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
-        Gee.ArrayList<LibraryPhoto> to_trashcan = null;
-        Gee.ArrayList<LibraryPhoto> to_offline = null;
         foreach (DataObject object in items.keys) {
             Alteration alteration = items.get(object);
             
@@ -3508,33 +3439,7 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
                     filesize_to_photo.set(editable_filesize, photo);
                 }
             }
-            
-            if (!alteration.has_subject("metadata"))
-                continue;
-            
-            if (photo.is_trashed() && !trashcan.contains(photo)) {
-                if (to_trashcan == null)
-                    to_trashcan = new Gee.ArrayList<LibraryPhoto>();
-                
-                to_trashcan.add(photo);
-                
-                // photo can only be in trashcan or offline -- not both
-                continue;
-            }
-            
-            if (photo.is_offline() && !offline.contains(photo)) {
-                if (to_offline == null)
-                    to_offline = new Gee.ArrayList<LibraryPhoto>();
-                
-                to_offline.add(photo);
-            }
         }
-        
-        if (to_trashcan != null)
-            trashcan.unlink_and_hold(to_trashcan);
-        
-        if (to_offline != null)
-            offline.unlink_and_hold(to_offline);
         
         base.items_altered(items);
     }
@@ -3612,31 +3517,19 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
     }
     
     public LibraryPhoto? get_trashed_by_file(File file) {
-        return trashcan.fetch_by_master_file(file);
+        return (LibraryPhoto?) internal_get_trashcan().fetch_by_master_file(file);
     }
     
     public LibraryPhoto? get_trashed_by_md5(string md5) {
-        return trashcan.fetch_by_md5(md5);
-    }
-    
-    public int get_trashcan_count() {
-        return trashcan.get_count();
-    }
-    
-    public Gee.Collection<LibraryPhoto> get_trashcan() {
-        return (Gee.Collection<LibraryPhoto>) trashcan.get_all();
+        return (LibraryPhoto?) internal_get_trashcan().fetch_by_md5(md5);
     }
     
     public LibraryPhoto? get_offline_by_file(File file) {
-        return offline.fetch_by_master_file(file);
+        return (LibraryPhoto?) internal_get_offline_bin().fetch_by_master_file(file);
     }
     
     public int get_offline_count() {
-        return offline.get_count();
-    }
-    
-    public Gee.Collection<LibraryPhoto> get_offline() {
-        return (Gee.Collection<LibraryPhoto>) offline.get_all();
+        return internal_get_offline_bin().get_count();
     }
     
     public LibraryPhoto? get_state_by_file(File file, out State state) {
@@ -3655,13 +3548,13 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
             return photo;
         }
         
-        if (trashcan.fetch_by_master_file(file) != null) {
+        if (internal_get_trashcan().fetch_by_master_file(file) != null) {
             state = State.TRASH;
             
             return photo;
         }
         
-        if (offline.fetch_by_master_file(file) != null) {
+        if (internal_get_offline_bin().fetch_by_master_file(file) != null) {
             state = State.OFFLINE;
             
             return photo;
@@ -3669,89 +3562,23 @@ public class LibraryPhotoSourceCollection : DatabaseSourceCollection {
         
         return null;
     }
-    
-    // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
-    // Note that delete_backing dictates whether or not the photos are tombstoned (if deleted,
-    // tombstones are not created).
-    public void remove_from_app(Gee.Collection<LibraryPhoto> photos, bool delete_backing,
-        ProgressMonitor? monitor = null) {
-        // only tombstone if the backing is not being deleted
-        Gee.HashSet<LibraryPhoto> to_tombstone = !delete_backing ? new Gee.HashSet<LibraryPhoto>()
-            : null;
-        
-        // separate photos into two piles: those in the trash and those not
-        Gee.ArrayList<LibraryPhoto> trashed = new Gee.ArrayList<LibraryPhoto>();
-        Gee.ArrayList<LibraryPhoto> offlined = new Gee.ArrayList<LibraryPhoto>();
-        Gee.ArrayList<LibraryPhoto> not_trashed = new Gee.ArrayList<LibraryPhoto>();
-        foreach (LibraryPhoto photo in photos) {
-            if (photo.is_trashed())
-                trashed.add(photo);
-            else if (photo.is_offline())
-                offlined.add(photo);
-            else
-                not_trashed.add(photo);
-            
-            if (to_tombstone != null)
-                to_tombstone.add(photo);
-        }
-        
-        int total_count = photos.size;
-        assert(total_count == (trashed.size + offlined.size + not_trashed.size));
-        
-        // use an aggregate progress monitor, as it's possible there are three steps here
-        AggregateProgressMonitor agg_monitor = null;
-        if (monitor != null) {
-            agg_monitor = new AggregateProgressMonitor(total_count, monitor);
-            monitor = agg_monitor.monitor;
-        }
-        
-        if (trashed.size > 0)
-            trashcan.destroy_orphans(trashed, delete_backing, monitor);
-        
-        if (offlined.size > 0)
-            offline.destroy_orphans(offlined, delete_backing, monitor);
-        
-        // untrashed photos may be destroyed outright
-        if (not_trashed.size > 0)
-            destroy_marked(mark_many(not_trashed), delete_backing, monitor);
-        
-        if (to_tombstone != null && to_tombstone.size > 0) {
-            try {
-                Tombstone.entomb_many_photos(to_tombstone);
-            } catch (DatabaseError err) {
-                AppWindow.database_error(err);
-            }
-        }
-    }
-    
-    // Do NOT use this function to trash a photo.  This is only used at system initialization.
-    // Call LibraryPhoto.trash() instead.
-    public void add_many_to_trash(Gee.Collection<LibraryPhoto> photos) {
-        trashcan.add_many(photos);
-    }
-    
-    // Do NOT use this function to mark a photo offline.  This is only used at system initialization.
-    // Call LibraryPhoto.mark_offline() instead.
-    public void add_many_to_offline(Gee.Collection<LibraryPhoto> photos) {
-        offline.add_many(photos);
-    }
-    
+
     public override bool has_backlink(SourceBacklink backlink) {
         if (base.has_backlink(backlink))
             return true;
         
-        if (trashcan.has_backlink(backlink))
+        if (internal_get_trashcan().has_backlink(backlink))
             return true;
         
-        if (offline.has_backlink(backlink))
+        if (internal_get_offline_bin().has_backlink(backlink))
             return true;
         
         return false;
     }
     
     public override void remove_backlink(SourceBacklink backlink) {
-        trashcan.remove_backlink(backlink);
-        offline.remove_backlink(backlink);
+        internal_get_trashcan().remove_backlink(backlink);
+        internal_get_offline_bin().remove_backlink(backlink);
         
         base.remove_backlink(backlink);
     }
@@ -3974,27 +3801,27 @@ public class LibraryPhoto : Photo {
     }
     
     // Blotto even!
-    public bool is_trashed() {
+    public override bool is_trashed() {
         return is_flag_set(FLAG_TRASH);
     }
     
-    public void trash() {
+    public override void trash() {
         add_flags(FLAG_TRASH);
     }
     
-    public void untrash() {
+    public override void untrash() {
         remove_flags(FLAG_TRASH);
     }
     
-    public bool is_offline() {
+    public override bool is_offline() {
         return is_flag_set(FLAG_OFFLINE);
     }
     
-    public void mark_offline() {
+    public override void mark_offline() {
         add_flags(FLAG_OFFLINE);
     }
     
-    public void mark_online() {
+    public override void mark_online() {
         remove_flags(FLAG_OFFLINE);
     }
     
@@ -4030,47 +3857,6 @@ public class LibraryPhoto : Photo {
         }
         
         base.destroy();
-    }
-    
-    private void delete_original_file() {
-        File file = get_file();
-        
-        try {
-            file.trash(null);
-        } catch (Error err) {
-            // log error but don't abend, as this is not fatal to operation (also, could be
-            // the photo is removed because it could not be found during a verify)
-            message("Unable to move original photo %s to trash: %s", file.get_path(), err.message);
-        }
-        
-        // remove empty directories corresponding to imported path, but only if file is located
-        // inside the user's Pictures directory
-        if (file.has_prefix(AppDirs.get_import_dir())) {
-            File parent = file;
-            for (int depth = 0; depth < LibraryFiles.DIRECTORY_DEPTH; depth++) {
-                parent = parent.get_parent();
-                if (parent == null)
-                    break;
-                
-                try {
-                    if (!query_is_directory_empty(parent))
-                        break;
-                } catch (Error err) {
-                    warning("Unable to query file info for %s: %s", parent.get_path(), err.message);
-                    
-                    break;
-                }
-                
-                try {
-                    parent.delete(null);
-                    debug("Deleted empty directory %s", parent.get_path());
-                } catch (Error err) {
-                    // again, log error but don't abend
-                    message("Unable to delete empty directory %s: %s", parent.get_path(),
-                        err.message);
-                }
-            }
-        }
     }
     
     public static bool has_nontrash_duplicate(File? file, string? thumbnail_md5, string? full_md5,
@@ -4261,6 +4047,32 @@ public class DirectPhoto : Photo {
     }
     
     protected override void apply_user_metadata_for_reimport(PhotoMetadata metadata) {
+    }
+
+    public override bool is_trashed() {
+        // always returns false -- direct-edit mode has no concept of the trash can
+        return false;
+    }
+    
+    public override bool is_offline() {
+        // always returns false -- direct-edit mode has no concept of offline photos
+        return false;
+    }
+    
+    public override void trash() {
+        // a no-op -- direct-edit mode has no concept of the trash can
+    }
+    
+    public override void untrash() {
+        // a no-op -- direct-edit mode has no concept of the trash can
+    }
+
+    public override void mark_offline() {
+        // a no-op -- direct-edit mode has no concept of offline photos
+    }
+    
+    public override void mark_online() {
+        // a no-op -- direct-edit mode has no concept of offline photos
     }
 }
 

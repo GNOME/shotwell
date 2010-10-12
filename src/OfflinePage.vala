@@ -23,10 +23,10 @@ public class OfflinePage : CheckerboardPage {
     }
     
     private class OfflineView : Thumbnail {
-        public OfflineView(LibraryPhoto photo) {
-            base (photo);
+        public OfflineView(MediaSource source) {
+            base (source);
             
-            assert(photo.is_offline());
+            assert(source.is_offline());
         }
     }
     
@@ -50,7 +50,9 @@ public class OfflinePage : CheckerboardPage {
         
         // monitor offline and initialize view with all items in it
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
-        on_offline_contents_altered(LibraryPhoto.global.get_offline(), null);
+        Video.global.offline_contents_altered.connect(on_offline_contents_altered);
+        on_offline_contents_altered(LibraryPhoto.global.get_offline_bin_contents(), null);
+        on_offline_contents_altered(Video.global.get_offline_bin_contents(), null);
     }
     
     protected override string? get_menubar_path() {
@@ -102,42 +104,47 @@ public class OfflinePage : CheckerboardPage {
         base.update_actions(selected_count, count);
     }
     
-    private void on_offline_contents_altered(Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
+    private void on_offline_contents_altered(Gee.Collection<MediaSource>? added,
+        Gee.Collection<MediaSource>? removed) {
         if (added != null) {
-            foreach (LibraryPhoto photo in added)
-                get_view().add(new OfflineView(photo));
+            foreach (MediaSource source in added)
+                get_view().add(new OfflineView(source));
         }
         
         if (removed != null) {
             Marker marker = get_view().start_marking();
-            foreach (LibraryPhoto photo in removed)
-                marker.mark(get_view().get_view_for_source(photo));
+            foreach (MediaSource source in removed)
+                marker.mark(get_view().get_view_for_source(source));
             get_view().remove_marked(marker);
         }
     }
     
     private void on_remove_from_library() {
-        Gee.Collection<LibraryPhoto> photos =
-            (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources();
-        if (photos.size == 0)
+        Gee.Collection<MediaSource> sources =
+            (Gee.Collection<MediaSource>) get_view().get_selected_sources();
+        if (sources.size == 0)
             return;
         
-        if (!remove_offline_dialog(AppWindow.get_instance(), photos.size))
+        if (!remove_offline_dialog(AppWindow.get_instance(), sources.size))
             return;
         
         AppWindow.get_instance().set_busy_cursor();
         
         ProgressDialog progress = null;
-        if (photos.size >= 20)
+        if (sources.size >= 20)
             progress = new ProgressDialog(AppWindow.get_instance(), _("Deleting..."));
-        
-        // valac complains about passing an argument for a delegate using ternary operator:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=599349
-        if (progress != null)
+
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+        MediaSourceCollection.filter_media(sources, photos, videos);
+
+        if (progress != null) {
             LibraryPhoto.global.remove_from_app(photos, false, progress.monitor);
-        else
+            Video.global.remove_from_app(videos, false, progress.monitor);
+        } else {
             LibraryPhoto.global.remove_from_app(photos, false);
+            Video.global.remove_from_app(videos, false);
+        }
         
         if (progress != null)
             progress.close();

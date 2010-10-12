@@ -1210,6 +1210,163 @@ public abstract class DatabaseSourceCollection : SourceCollection {
     }
 }
 
+public abstract class MediaSourceCollection : DatabaseSourceCollection {
+    private MediaSourceHoldingTank trashcan = null;
+    private MediaSourceHoldingTank offline_bin = null;
+    
+    public virtual signal void trashcan_contents_altered(Gee.Collection<MediaSource>? added,
+        Gee.Collection<MediaSource>? removed) {
+    }
+
+    public virtual signal void offline_contents_altered(Gee.Collection<MediaSource>? added,
+        Gee.Collection<MediaSource>? removed) {
+    }
+
+    public MediaSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
+        base(name, source_key_func);
+        
+        trashcan = internal_create_trashcan();
+        offline_bin = internal_create_offline_bin();
+    }
+
+    public static void filter_media(Gee.Collection<MediaSource> media,
+        Gee.Collection<LibraryPhoto> photos, Gee.Collection<Video> videos) {
+        foreach (MediaSource source in media) {
+            if (source is LibraryPhoto)
+                photos.add((LibraryPhoto) source);
+            else if (source is Video)
+                videos.add((Video) source);
+            else
+                warning("can't filter media: unrecognized kind - media is neither a photo "
+                    + "nor a video");
+        }
+    }
+
+    protected abstract MediaSourceHoldingTank internal_create_trashcan();
+    protected abstract MediaSourceHoldingTank internal_create_offline_bin();
+
+    protected MediaSourceHoldingTank internal_get_trashcan() {
+        return trashcan;
+    }
+
+    protected MediaSourceHoldingTank internal_get_offline_bin() {
+        return offline_bin;
+    }
+
+    protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
+        Gee.ArrayList<MediaSource> to_trashcan = null;
+        Gee.ArrayList<MediaSource> to_offline = null;
+        foreach (DataObject object in items.keys) {
+            Alteration alteration = items.get(object);
+            
+            MediaSource source = (MediaSource) object;
+            
+            if (!alteration.has_subject("metadata"))
+                continue;
+            
+            if (source.is_trashed() && !internal_get_trashcan().contains(source)) {
+                if (to_trashcan == null)
+                    to_trashcan = new Gee.ArrayList<MediaSource>();
+                
+                to_trashcan.add(source);
+                
+                // sources can only be in trashcan or offline -- not both
+                continue;
+            }
+            
+            if (source.is_offline() && !internal_get_offline_bin().contains(source)) {
+                if (to_offline == null)
+                    to_offline = new Gee.ArrayList<MediaSource>();
+                
+                to_offline.add(source);
+            }
+        }
+        
+        if (to_trashcan != null)
+            internal_get_trashcan().unlink_and_hold(to_trashcan);
+        
+        if (to_offline != null)
+            internal_get_offline_bin().unlink_and_hold(to_offline);
+        
+        base.items_altered(items);
+    }
+
+    public Gee.Collection<MediaSource> get_trashcan_contents() {
+        return (Gee.Collection<MediaSource>) internal_get_trashcan().get_all();
+    }
+
+    public Gee.Collection<MediaSource> get_offline_bin_contents() {
+        return (Gee.Collection<MediaSource>) internal_get_offline_bin().get_all();
+    }
+
+    public void add_many_to_trash(Gee.Collection<MediaSource> sources) {
+        internal_get_trashcan().add_many(sources);
+    }
+
+    public void add_many_to_offline(Gee.Collection<MediaSource> sources) {
+        internal_get_offline_bin().add_many(sources);
+    }
+
+    public int get_trashcan_count() {
+        return internal_get_trashcan().get_count();
+    }
+
+    // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
+    // Note that delete_backing dictates whether or not the photos are tombstoned (if deleted,
+    // tombstones are not created).
+    public void remove_from_app(Gee.Collection<MediaSource>? sources, bool delete_backing,
+        ProgressMonitor? monitor = null) {
+        assert(sources != null);
+        // only tombstone if the backing is not being deleted
+        Gee.HashSet<MediaSource> to_tombstone = !delete_backing ? new Gee.HashSet<MediaSource>()
+            : null;
+        
+        // separate photos into two piles: those in the trash and those not
+        Gee.ArrayList<MediaSource> trashed = new Gee.ArrayList<MediaSource>();
+        Gee.ArrayList<MediaSource> offlined = new Gee.ArrayList<MediaSource>();
+        Gee.ArrayList<MediaSource> not_trashed = new Gee.ArrayList<MediaSource>();
+        foreach (MediaSource source in sources) {
+            if (source.is_trashed())
+                trashed.add(source);
+            else if (source.is_offline())
+                offlined.add(source);
+            else
+                not_trashed.add(source);
+            
+            if (to_tombstone != null)
+                to_tombstone.add(source);
+        }
+        
+        int total_count = sources.size;
+        assert(total_count == (trashed.size + offlined.size + not_trashed.size));
+        
+        // use an aggregate progress monitor, as it's possible there are three steps here
+        AggregateProgressMonitor agg_monitor = null;
+        if (monitor != null) {
+            agg_monitor = new AggregateProgressMonitor(total_count, monitor);
+            monitor = agg_monitor.monitor;
+        }
+        
+        if (trashed.size > 0)
+            internal_get_trashcan().destroy_orphans(trashed, delete_backing, monitor);
+        
+        if (offlined.size > 0)
+            internal_get_offline_bin().destroy_orphans(offlined, delete_backing, monitor);
+        
+        // untrashed media sources may be destroyed outright
+        if (not_trashed.size > 0)
+            destroy_marked(mark_many(not_trashed), delete_backing, monitor);
+        
+        if (to_tombstone != null && to_tombstone.size > 0) {
+            try {
+                Tombstone.entomb_many_sources(to_tombstone);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
+    }
+}
+
 //
 // ContainerSourceCollection
 //
@@ -1609,6 +1766,59 @@ public class DatabaseSourceHoldingTank : SourceHoldingTank {
         }
         
         base.notify_contents_altered(added, removed);
+    }
+}
+
+public class MediaSourceHoldingTank : DatabaseSourceHoldingTank {
+    private Gee.HashMap<File, MediaSource> master_file_map = new Gee.HashMap<File, MediaSource>(
+        file_hash, file_equal);
+    
+    public MediaSourceHoldingTank(MediaSourceCollection sources,
+        SourceHoldingTank.CheckToKeep check_to_keep, GetSourceDatabaseKey get_key) {
+        base (sources, check_to_keep, get_key);
+    }
+    
+    public MediaSource? fetch_by_master_file(File file) {
+        return master_file_map.get(file);
+    }
+    
+    public MediaSource? fetch_by_md5(string md5) {
+        foreach (MediaSource source in master_file_map.values) {
+            if (source.get_master_md5() == md5) {
+                return source;
+            }
+        }
+        
+        return null;
+    }
+    
+    protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        if (added != null) {
+            foreach (DataSource source in added) {
+                MediaSource media_source = (MediaSource) source;
+                master_file_map.set(media_source.get_master_file(), media_source);
+                media_source.master_replaced.connect(on_master_source_replaced);
+            }
+        }
+        
+        if (removed != null) {
+            foreach (DataSource source in removed) {
+                MediaSource media_source = (MediaSource) source;
+                bool is_removed = master_file_map.unset(media_source.get_master_file());
+                assert(is_removed);
+                media_source.master_replaced.disconnect(on_master_source_replaced);
+            }
+        }
+        
+        base.notify_contents_altered(added, removed);
+    }
+    
+    private void on_master_source_replaced(MediaSource media_source, File old_file, File new_file) {
+        bool removed = master_file_map.unset(old_file);
+        assert(removed);
+
+        master_file_map.set(new_file, media_source);
     }
 }
 

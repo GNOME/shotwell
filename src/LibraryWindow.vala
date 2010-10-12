@@ -175,9 +175,10 @@ public class LibraryWindow : AppWindow {
         Tag.global.contents_altered.connect(on_tags_added_removed);
         Tag.global.items_altered.connect(on_tags_altered);
         
-        // watch for photos placed offline
+        // watch for photos and videos placed offline
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
-        enable_disable_offline_page(LibraryPhoto.global.get_offline().size > 0);
+        Video.global.offline_contents_altered.connect(on_offline_contents_altered);
+        sync_offline_page_state();
 
         // watch for photos with no events
         Event.global.no_event_collection_altered.connect(on_no_event_collection_altered);
@@ -228,8 +229,9 @@ public class LibraryWindow : AppWindow {
         // connect to sidebar signal used ommited on drag-and-drop orerations
         sidebar.drop_received.connect(drop_received);
         
-        // monitor trash to keep common actions up-to-date
+        // monitor trashes to keep common actions up-to-date
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
+        Video.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
         
         // show or hide the last import page depending on whether or not a last import roll
         // exists
@@ -261,6 +263,7 @@ public class LibraryWindow : AppWindow {
         extended_properties.show.disconnect(show_extended_properties);
         
         LibraryPhoto.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
+        Video.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
     }
@@ -504,20 +507,26 @@ public class LibraryWindow : AppWindow {
     }
     
     protected override void switched_pages(Page? old_page, Page? new_page) {
-        set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
-        
+        bool trash_has_items = (LibraryPhoto.global.get_trashcan_count() > 0) ||
+            (Video.global.get_trashcan_count() > 0);
+        set_common_action_sensitive("CommonEmptyTrash", trash_has_items);
+
         base.switched_pages(old_page, new_page);
     }
     
     private void on_trashcan_contents_altered() {
-        set_common_action_sensitive("CommonEmptyTrash", LibraryPhoto.global.get_trashcan_count() > 0);
+        bool trash_has_items = (LibraryPhoto.global.get_trashcan_count() > 0) ||
+            (Video.global.get_trashcan_count() > 0);
+        set_common_action_sensitive("CommonEmptyTrash", trash_has_items);
+
         sidebar.update_page_icon(trash_page);
     }
     
     private void on_empty_trash() {
-        Gee.ArrayList<LibraryPhoto> to_remove = new Gee.ArrayList<LibraryPhoto>();
-        to_remove.add_all(LibraryPhoto.global.get_trashcan());
-        
+        Gee.ArrayList<MediaSource> to_remove = new Gee.ArrayList<MediaSource>();
+        to_remove.add_all(LibraryPhoto.global.get_trashcan_contents());
+        to_remove.add_all(Video.global.get_trashcan_contents());
+                
         remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash..."));
         
         AppWindow.get_command_manager().reset();
@@ -992,9 +1001,15 @@ public class LibraryWindow : AppWindow {
         
         sidebar.cursor_changed.connect(on_sidebar_cursor_changed);
     }
+
+    private void sync_offline_page_state() {
+        bool enable_page = (LibraryPhoto.global.get_offline_bin_contents().size > 0) ||
+            (Video.global.get_offline_bin_contents().size > 0);
+        enable_disable_offline_page(enable_page);
+    }
     
     private void on_offline_contents_altered() {
-        enable_disable_offline_page(LibraryPhoto.global.get_offline().size > 0);
+        sync_offline_page_state();
     }
     
     private SidebarMarker? find_parent_marker(PageStub page) {

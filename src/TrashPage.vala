@@ -18,16 +18,21 @@ public class TrashPage : CheckerboardPage {
         }
         
         public override string? get_icon_name() {
-            return LibraryPhoto.global.get_trashcan_count() == 0 ? Resources.ICON_TRASH_EMPTY
-                : Resources.ICON_TRASH_FULL;
+            if (LibraryPhoto.global.get_trashcan_count() > 0)
+                return Resources.ICON_TRASH_FULL;
+            
+            if (Video.global.get_trashcan_count() > 0)
+                return Resources.ICON_TRASH_FULL;
+                
+            return Resources.ICON_TRASH_EMPTY;
         }
     }
     
     private class TrashView : Thumbnail {
-        public TrashView(LibraryPhoto photo) {
-            base (photo);
+        public TrashView(MediaSource source) {
+            base (source);
             
-            assert(photo.is_trashed());
+            assert(source.is_trashed());
         }
     }
     
@@ -62,9 +67,11 @@ public class TrashPage : CheckerboardPage {
         
         toolbar.insert(empty_trash_button, -1);
         
-        // monitor trashcan and initialize view with all items in it
+        // monitor trashcans and initialize view with all items in them
         LibraryPhoto.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
-        on_trashcan_contents_altered(LibraryPhoto.global.get_trashcan(), null);
+        Video.global.trashcan_contents_altered.connect(on_trashcan_contents_altered);
+        on_trashcan_contents_altered(LibraryPhoto.global.get_trashcan_contents(), null);
+        on_trashcan_contents_altered(Video.global.get_trashcan_contents(), null);
     }
     
     protected override string? get_menubar_path() {
@@ -127,17 +134,17 @@ public class TrashPage : CheckerboardPage {
         base.update_actions(selected_count, count);
     }
     
-    private void on_trashcan_contents_altered(Gee.Collection<LibraryPhoto>? added,
-        Gee.Collection<LibraryPhoto>? removed) {
+    private void on_trashcan_contents_altered(Gee.Collection<MediaSource>? added,
+        Gee.Collection<MediaSource>? removed) {
         if (added != null) {
-            foreach (LibraryPhoto photo in added)
-                get_view().add(new TrashView(photo));
+            foreach (MediaSource source in added)
+                get_view().add(new TrashView(source));
         }
         
         if (removed != null) {
             Marker marker = get_view().start_marking();
-            foreach (LibraryPhoto photo in removed)
-                marker.mark(get_view().get_view_for_source(photo));
+            foreach (MediaSource source in removed)
+                marker.mark(get_view().get_view_for_source(source));
             get_view().remove_marked(marker);
         }
     }
@@ -159,7 +166,7 @@ public class TrashPage : CheckerboardPage {
     }
     
     private void on_delete() {
-        remove_from_app((Gee.Collection<LibraryPhoto>) get_view().get_selected_sources(), _("Delete"), 
+        remove_from_app((Gee.Collection<MediaSource>) get_view().get_selected_sources(), _("Delete"), 
             ngettext("Deleting a Photo", "Deleting Photos", get_view().get_selected_count()));
     }
 }

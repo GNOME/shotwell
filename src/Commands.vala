@@ -1294,31 +1294,33 @@ public class TagUntagPhotosCommand : SimpleProxyableCommand {
 }
 
 public class TrashUntrashPhotosCommand : PageCommand {
-    private Gee.Collection<LibraryPhoto> photos;
+    private Gee.Collection<MediaSource> sources;
     private bool to_trash;
     
-    public TrashUntrashPhotosCommand(Gee.Collection<LibraryPhoto> photos, bool to_trash) {
+    public TrashUntrashPhotosCommand(Gee.Collection<MediaSource> sources, bool to_trash) {
         base (
             to_trash ? _("Move Photos to Trash") : _("Restore Photos from Trash"),
             to_trash ? _("Move the photos to the Shotwell trash") : _("Restore the photos back to the Shotwell library"));
         
-        this.photos = photos;
+        this.sources = sources;
         this.to_trash = to_trash;
         
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        Video.global.item_destroyed.connect(on_photo_destroyed);
     }
     
     ~TrashUntrashPhotosCommand() {
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        Video.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
     private ProgressDialog? get_progress_dialog(bool to_trash) {
-        if (photos.size <= 5)
+        if (sources.size <= 5)
             return null;
         
         ProgressDialog dialog = new ProgressDialog(AppWindow.get_instance(),
             to_trash ? _("Moving Photos to Trash") : _("Restoring Photos From Trash"));
-        dialog.update_display_every((photos.size / 5).clamp(2, 10));
+        dialog.update_display_every((sources.size / 5).clamp(2, 10));
         
         return dialog;
     }
@@ -1357,46 +1359,54 @@ public class TrashUntrashPhotosCommand : PageCommand {
     
     private void trash(ProgressMonitor? monitor) {
         int ctr = 0;
-        int count = photos.size;
+        int count = sources.size;
         LibraryPhoto.global.freeze_notifications();
-        foreach (LibraryPhoto photo in photos) {
-            photo.trash();
+        Video.global.freeze_notifications();
+        foreach (MediaSource source in sources) {
+            source.trash();
             if (monitor != null)
                 monitor(++ctr, count);
             
             if (ctr % 100 == 0) {
                 LibraryPhoto.global.thaw_notifications();
+                Video.global.thaw_notifications();
                 LibraryPhoto.global.freeze_notifications();
+                Video.global.freeze_notifications();
             }
         }
         LibraryPhoto.global.thaw_notifications();
+        Video.global.thaw_notifications();
     }
     
     private void untrash(ProgressMonitor? monitor) {
         int ctr = 0;
-        int count = photos.size;
+        int count = sources.size;
         LibraryPhoto.global.freeze_notifications();
-        foreach (LibraryPhoto photo in photos) {
-            photo.untrash();
+        Video.global.freeze_notifications();
+        foreach (MediaSource source in sources) {
+            source.untrash();
             if (monitor != null)
                 monitor(++ctr, count);
             
             if (ctr % 100 == 0) {
                 LibraryPhoto.global.thaw_notifications();
+                Video.global.thaw_notifications();
                 LibraryPhoto.global.freeze_notifications();
+                Video.global.freeze_notifications();
             }
         }
         LibraryPhoto.global.thaw_notifications();
+        Video.global.thaw_notifications();
     }
     
     private void on_photo_destroyed(DataSource source) {
         // in this case, don't need to reset the command manager, simply remove the photo from the
         // internal list and allow the others to be moved to and from the trash
-        photos.remove((LibraryPhoto) source);
+        sources.remove((MediaSource) source);
         
         // however, if all photos missing, then remove this from the command stack, and there's
         // only one way to do that
-        if (photos.size == 0)
+        if (sources.size == 0)
             get_command_manager().reset();
     }
 }

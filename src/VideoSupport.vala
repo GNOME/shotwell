@@ -130,6 +130,7 @@ public class VideoReader {
         params.row.title = title;
         params.row.backlinks = "";
         params.row.time_reimported = 0;
+        params.row.flags = 0;
 
         if (params.thumbnails != null) {
             params.thumbnails = new Thumbnails();
@@ -285,12 +286,22 @@ class ThumbnailSink : Gst.BaseSink {
 }
 
 public class Video : VideoSource {
+    public const uint64 FLAG_TRASH =    0x0000000000000001;
+    public const uint64 FLAG_OFFLINE =  0x0000000000000002;
+
+    private static bool interpreter_state_changed = false;
+    private static int current_state = -1;
+    private static bool normal_regen_complete = false;
+    private static bool offline_regen_complete = false;
     public static VideoSourceCollection global = null;
 
     private VideoRow backing_row;
     
     public Video(VideoRow row) {
         this.backing_row = row;
+
+        if (((row.flags & FLAG_TRASH) != 0) || ((row.flags & FLAG_OFFLINE) != 0))
+            rehydrate_backlinks(global, row.backlinks);
     }
 
     public static void init() {
@@ -298,16 +309,82 @@ public class Video : VideoSource {
 
         Gee.ArrayList<VideoRow?> all = VideoTable.get_instance().get_all();
         Gee.ArrayList<Video> all_videos = new Gee.ArrayList<Video>();
+        Gee.ArrayList<Video> trashed_videos = new Gee.ArrayList<Video>();
+        Gee.ArrayList<Video> offline_videos = new Gee.ArrayList<Video>();
         int count = all.size;
         for (int ctr = 0; ctr < count; ctr++) {
             Video video = new Video(all.get(ctr));
-            all_videos.add(video);
+            
+            if (video.is_trashed())
+                trashed_videos.add(video);
+            else if (video.is_offline())
+                offline_videos.add(video);
+            else
+                all_videos.add(video);
         }
-        
+
+        global.add_many_to_trash(trashed_videos);
+        global.add_many_to_offline(offline_videos);
         global.add_many(all_videos);
+
+        int saved_state = Config.get_instance().get_video_interpreter_state_cookie();
+        current_state = (int) Gst.Registry.get_default().get_feature_list_cookie();
+        if (saved_state == Config.NO_VIDEO_INTERPRETER_STATE) {
+            message("interpreter state cookie not found; assuming all video thumbnails are out of date");
+            interpreter_state_changed = true;
+        } else if (saved_state != current_state) {
+            message("interpreter state has changed; video thumbnails may be out of date");
+            interpreter_state_changed = true;
+        }
+    }
+
+    public static bool has_interpreter_state_changed() {
+        return interpreter_state_changed;
+    }
+    
+    public static void notify_normal_thumbs_regenerated() {
+        if (normal_regen_complete)
+            return;
+
+        message("normal video thumbnail regeneration completed");
+
+        normal_regen_complete = true;
+        if (normal_regen_complete && offline_regen_complete)
+            save_interpreter_state();
+    }
+
+    public static void notify_offline_thumbs_regenerated() {
+        if (offline_regen_complete)
+            return;
+
+        message("offline video thumbnail regeneration completed");
+
+        offline_regen_complete = true;
+        if (normal_regen_complete && offline_regen_complete)
+            save_interpreter_state();
+    }
+
+    private static void save_interpreter_state() {
+        if (interpreter_state_changed) {
+            message("saving video interpreter state to configuration system");
+
+            Config.get_instance().set_video_interpreter_state_cookie(current_state);
+            interpreter_state_changed = false;
+        }
     }
 
     public static void terminate() {
+    }
+
+    protected override void commit_backlinks(SourceCollection? sources, string? backlinks) {        
+        try {
+            VideoTable.get_instance().update_backlinks(get_video_id(), backlinks);
+            lock (backing_row) {
+                backing_row.backlinks = backlinks;
+            }
+        } catch (DatabaseError err) {
+            warning("Unable to update link state for %s: %s", to_string(), err.message);
+        }
     }
 
     public static bool is_duplicate(File? file, string? full_md5) {
@@ -345,7 +422,13 @@ public class Video : VideoSource {
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
         return ThumbnailCache.fetch(this, scale);
     }
-    
+
+    public override string get_master_md5() {
+        lock (backing_row) {
+            return backing_row.md5;
+        }
+    }
+
     public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
         VideoReader reader = new VideoReader(backing_row.filepath);
         
@@ -434,6 +517,33 @@ public class Video : VideoSource {
         }
     }
 
+    public override bool is_trashed() {
+        return is_flag_set(FLAG_TRASH);
+    }
+
+    public override bool is_offline() {
+        return is_flag_set(FLAG_OFFLINE);
+    }
+
+    public override void mark_offline() {
+        add_flags(FLAG_OFFLINE);
+    }
+    
+    public override void mark_online() {
+        remove_flags(FLAG_OFFLINE);
+        if ((!get_is_interpretable()) && has_interpreter_state_changed()) {
+            check_is_interpretable();
+        }
+    }
+
+    public override void trash() {
+        add_flags(FLAG_TRASH);
+    }
+    
+    public override void untrash() {
+        remove_flags(FLAG_TRASH);
+    }
+
     public string get_basename() {
         lock (backing_row) {
             return Filename.display_basename(backing_row.filepath);
@@ -484,6 +594,10 @@ public class Video : VideoSource {
         return File.new_for_path(get_filename());
     }
     
+    public override File get_master_file() {
+        return get_file();
+    }
+    
     public void export(File dest_file) throws Error {
         File source_file = File.new_for_path(get_filename());
         source_file.copy(dest_file, FileCopyFlags.OVERWRITE | FileCopyFlags.TARGET_DEFAULT_PERMS,
@@ -501,6 +615,59 @@ public class Video : VideoSource {
             return backing_row.is_interpretable;
         }
     }
+
+    public void check_is_interpretable() {
+        VideoReader backing_file_reader = new VideoReader(get_filename());
+
+        double clip_duration = -1.0;
+        Gdk.Pixbuf? preview_frame = null;
+
+        try {
+            clip_duration = backing_file_reader.read_clip_duration();
+            preview_frame = backing_file_reader.read_preview_frame();
+        } catch (VideoError e) {
+            // if we catch an error on an interpretable video here, then this video was
+            // interpretable in the past but has now become non-interpretable (e.g. its
+            // codec was removed from the users system).
+            if (get_is_interpretable()) {
+                lock (backing_row) {
+                    backing_row.is_interpretable = false;
+			    }
+
+			    try {
+                    VideoTable.get_instance().update_is_interpretable(get_video_id(), false);
+                } catch (DatabaseError e) {
+                    AppWindow.database_error(e);
+                }
+            }
+            return;
+        }
+
+        if (get_is_interpretable())
+            return;
+
+        debug("video %s has become interpretable", get_file().get_basename());
+
+        try {
+            ThumbnailCache.replace(this, ThumbnailCache.Size.BIG, preview_frame);
+            ThumbnailCache.replace(this, ThumbnailCache.Size.MEDIUM, preview_frame);
+        } catch (Error e) {
+            critical("video has become interpretable but couldn't replace cached thumbnails");
+        }
+
+        lock (backing_row) {
+            backing_row.is_interpretable = true;
+            backing_row.clip_duration = clip_duration;
+        }
+
+        try {
+            VideoTable.get_instance().update_is_interpretable(get_video_id(), true);
+        } catch (DatabaseError e) {
+            AppWindow.database_error(e);
+        }
+        
+        notify_thumbnail_altered();
+    }
     
     public override void destroy() {
         VideoID video_id = get_video_id();
@@ -516,19 +683,124 @@ public class Video : VideoSource {
         base.destroy();
     }
 
-    public override bool internal_delete_backing() throws Error {
-        debug("Deleting %s", to_string());
+    protected override bool internal_delete_backing() throws Error {
+        base.internal_delete_backing();
         
-        File backing_file = File.new_for_path(get_filename());
-        backing_file.delete(null);
+        delete_original_file();
         
-        return base.internal_delete_backing();
+        return true;
+    }
+    
+    public uint64 add_flags(uint64 flags_to_add) {
+        uint64 new_flags = 0;
+        
+        lock (backing_row) {
+            new_flags = internal_add_flags(backing_row.flags, flags_to_add);
+
+            if (backing_row.flags == new_flags)
+                return backing_row.flags;
+
+            try {
+                VideoTable.get_instance().set_flags(get_video_id(), new_flags);
+            } catch (DatabaseError e) {
+                AppWindow.database_error(e);
+                return backing_row.flags;
+            }
+
+            backing_row.flags = new_flags;
+        }
+        
+        notify_altered(new Alteration("metadata", "flags"));
+        
+        return backing_row.flags;
+    }
+    
+    public uint64 remove_flags(uint64 flags_to_remove) {
+        uint64 new_flags = 0;
+        
+        lock (backing_row) {
+            new_flags = internal_remove_flags(backing_row.flags, flags_to_remove);
+
+            if (backing_row.flags == new_flags)
+                return backing_row.flags;
+
+            try {
+                VideoTable.get_instance().set_flags(get_video_id(), new_flags);
+            } catch (DatabaseError e) {
+                AppWindow.database_error(e);
+                return backing_row.flags;
+            }
+
+            backing_row.flags = new_flags;
+        }
+        
+        notify_altered(new Alteration("metadata", "flags"));
+        
+        return backing_row.flags;
+    }
+    
+    public bool is_flag_set(uint64 flag) {
+        lock (backing_row) {
+            return internal_is_flag_set(backing_row.flags, flag);
+        }
+    }
+    
+    public override void set_master_file(File file) {
+        // TODO: implement master update for videos
     }
 }
 
-public class VideoSourceCollection : DatabaseSourceCollection {   
+public class VideoSourceCollection : MediaSourceCollection {
+    private Gee.HashMap<File, Video> file_dictionary = new Gee.HashMap<File, Video>(
+        file_hash, file_equal);
+
     public VideoSourceCollection() {
         base("VideoSourceCollection", get_video_key);
+
+        internal_get_trashcan().contents_altered.connect(on_trashcan_contents_altered);
+        internal_get_offline_bin().contents_altered.connect(on_offline_contents_altered);
+    }
+    
+    protected override MediaSourceHoldingTank internal_create_trashcan() {
+        return new MediaSourceHoldingTank(this, is_video_trashed, get_video_key);
+    }
+
+    protected override MediaSourceHoldingTank internal_create_offline_bin() {
+        return new MediaSourceHoldingTank(this, is_video_offline, get_video_key);
+    }
+
+    private void on_trashcan_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        trashcan_contents_altered((Gee.Collection<Video>?) added,
+            (Gee.Collection<Video>?) removed);
+    }
+
+    private void on_offline_contents_altered(Gee.Collection<DataSource>? added,
+        Gee.Collection<DataSource>? removed) {
+        stdout.printf("> VideoSourceCollection.on_offline_contents_altered( )\n");
+        offline_contents_altered((Gee.Collection<Video>?) added,
+            (Gee.Collection<Video>?) removed);
+    }
+
+    protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
+        Gee.Iterable<DataObject>? removed) {
+        if (added != null) {
+            foreach (DataObject object in added) {
+                Video video = (Video) object;
+                file_dictionary.set(video.get_file(), video);                              
+            }
+        }
+        
+        if (removed != null) {
+            foreach (DataObject object in removed) {
+                Video video = (Video) object;
+                
+                bool is_removed = file_dictionary.unset(video.get_master_file());
+                assert(is_removed);
+            }
+        }
+        
+        base.notify_contents_altered(added, removed);
     }
     
     public static int64 get_video_key(DataSource source) {
@@ -537,9 +809,34 @@ public class VideoSourceCollection : DatabaseSourceCollection {
         
         return video_id.id;
     }
+
+    public Video? get_by_file(File file) {
+        Video? video = file_dictionary.get(file);
+
+        if (video != null)
+            return video;
+        
+        video = (Video?) internal_get_trashcan().fetch_by_master_file(file);
+        if (video != null)
+            return video;
+        
+        video = (Video?) internal_get_offline_bin().fetch_by_master_file(file);
+        if (video != null) {
+            return video;
+        }
+        
+        return null;
+    }
+
+    public static bool is_video_trashed(DataSource source) {
+        return ((Video) source).is_trashed();
+    }
+    
+    public static bool is_video_offline(DataSource source) {
+        return ((Video) source).is_offline();
+    }
     
     public Video fetch(VideoID video_id) {
         return (Video) fetch_by_key(video_id.id);
     }
 }
-

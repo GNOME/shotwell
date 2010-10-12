@@ -252,6 +252,19 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/shotwell/video/interpreter_state_cookie</key>
+            <applyto>/apps/shotwell/video/interpreter_state_cookie</applyto>
+            <type>int</type>
+            <owner>shotwell</owner>
+            <default>-1</default>
+
+            <locale name="en">
+                <short>interpreter state cookie</short>
+                <long>A numeric code that captures the state of the GStreamer plug-in environment</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/shotwell/printing/content_layout</key>
             <applyto>/apps/shotwell/printing/content_layout</applyto>
             <type>int</type>

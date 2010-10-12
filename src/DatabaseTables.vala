@@ -21,7 +21,7 @@ public class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 9;
+    public const int SCHEMA_VERSION = 10;
     
     protected static Sqlite.Database db;
     
@@ -271,6 +271,16 @@ public class DatabaseTable {
         return false;
     }
     
+    public static bool has_table(string table_name) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("PRAGMA table_info(%s)".printf(table_name), -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+
+        return (res != Sqlite.DONE);
+    }
+    
     public static bool add_column(string table_name, string column_name, string column_constraints) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("ALTER TABLE %s ADD COLUMN %s %s".printf(table_name, column_name,
@@ -484,6 +494,19 @@ private DatabaseVerifyResult upgrade_database(int version) {
     
     version = 9;
     
+    //
+    // Version 10:
+    // * Added flags column to VideoTable
+    //
+
+    if (DatabaseTable.has_table("VideoTable") && !DatabaseTable.has_column("VideoTable", "flags")) {
+        message("upgrade_database: adding flags column to VideoTable");
+        if (!DatabaseTable.add_column("VideoTable", "flags", "INTEGER DEFAULT 0"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+    
+    version = 10;
+
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
     
@@ -2367,6 +2390,7 @@ public struct VideoRow {
     public string title;
     public string? backlinks;
     public time_t time_reimported;
+    public uint64 flags;
 }
 
 public class VideoTable : DatabaseTable {
@@ -2391,7 +2415,8 @@ public class VideoTable : DatabaseTable {
             + "rating INTEGER DEFAULT 0, "
             + "title TEXT, "
             + "backlinks TEXT, "
-            + "time_reimported INTEGER "
+            + "time_reimported INTEGER, "
+            + "flags INTEGER DEFAULT 0 "
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -2469,6 +2494,7 @@ public class VideoTable : DatabaseTable {
         video_row.video_id = VideoID(db.last_insert_rowid());
         video_row.event_id = EventID();
         video_row.time_created = (time_t) time_created;
+        video_row.flags = 0;
         
         return video_row.video_id;
     }
@@ -2478,7 +2504,7 @@ public class VideoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT filename, width, height, clip_duration, is_interpretable, filesize, timestamp, "
             + "exposure_time, import_id, event_id, md5, time_created, rating, title, backlinks, "
-            + "time_reimported FROM VideoTable WHERE id=?", 
+            + "time_reimported, flags FROM VideoTable WHERE id=?", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -2506,6 +2532,7 @@ public class VideoTable : DatabaseTable {
         row.title = stmt.column_text(13);
         row.backlinks = stmt.column_text(14);
         row.time_reimported = (time_t) stmt.column_int64(15);
+        row.flags = stmt.column_int64(16);
         
         return row;
     }
@@ -2515,7 +2542,7 @@ public class VideoTable : DatabaseTable {
         int res = db.prepare_v2(
             "SELECT id, filename, width, height, clip_duration, is_interpretable, filesize, "
             + "timestamp, exposure_time, import_id, event_id, md5, time_created, rating, title, "
-            + "backlinks, time_reimported FROM VideoTable", 
+            + "backlinks, time_reimported, flags FROM VideoTable", 
             -1, out stmt);
         assert(res == Sqlite.OK);
         
@@ -2540,6 +2567,7 @@ public class VideoTable : DatabaseTable {
             row.title = stmt.column_text(14);
             row.backlinks = stmt.column_text(15);
             row.time_reimported = (time_t) stmt.column_int64(16);
+            row.flags = stmt.column_int64(17);
             
             all.add(row);
         }
@@ -2557,6 +2585,18 @@ public class VideoTable : DatabaseTable {
 
     public void set_rating(VideoID video_id, Rating rating) throws DatabaseError {
         update_int64_by_id_2(video_id.id, "rating", rating.serialize());
+    }
+
+    public void set_flags(VideoID video_id, uint64 flags) throws DatabaseError {
+        update_int64_by_id_2(video_id.id, "flags", (int64) flags);
+    }
+
+    public void update_backlinks(VideoID video_id, string? backlinks) throws DatabaseError {
+        update_text_by_id_2(video_id.id, "backlinks", backlinks != null ? backlinks : "");
+    }
+    
+    public void update_is_interpretable(VideoID video_id, bool is_interpretable) throws DatabaseError {
+        update_int_by_id_2(video_id.id, "is_interpretable", (is_interpretable) ? 1 : 0);
     }
 
     public void remove_by_file(File file) throws DatabaseError {

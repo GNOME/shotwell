@@ -302,7 +302,13 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
         actions += edit;
-               
+        
+        Gtk.ActionEntry move_to_trash = { "MoveToTrash", "user-trash-full", TRANSLATABLE, "Delete",
+            TRANSLATABLE, on_move_to_trash };
+        move_to_trash.label = Resources.MOVE_TO_TRASH_MENU;
+        move_to_trash.tooltip = Resources.MOVE_TO_TRASH_PLURAL_TOOLTIP;
+        actions += move_to_trash;
+        
         Gtk.ActionEntry photos = { "PhotosMenu", null, TRANSLATABLE, null, null, null };
         photos.label = _("_Photos");
         actions += photos;
@@ -519,7 +525,8 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("EditTitle", selected_count == 1);
         set_action_sensitive("IncreaseSize", get_thumb_size() < Thumbnail.MAX_SCALE);
         set_action_sensitive("DecreaseSize", get_thumb_size() > Thumbnail.MIN_SCALE);
-        
+        set_action_sensitive("MoveToTrash", selected_count > 0);
+
         set_action_sensitive("Rate", selected_count > 0);
         update_rating_sensitivities();
         
@@ -867,6 +874,13 @@ public abstract class MediaPage : CheckerboardPage {
 
     protected virtual void on_rate_five() {
         on_set_rating(Rating.FIVE);
+    }
+
+    protected virtual void on_move_to_trash() {
+        if (get_view().get_selected_count() > 0) {
+            get_command_manager().execute(new TrashUntrashPhotosCommand(
+                (Gee.Collection<MediaSource>) get_view().get_selected_sources(), true));
+        }
     }
 
     protected virtual void on_edit_title() {

@@ -193,10 +193,15 @@ public class Tombstone : DataSource {
     public static void terminate() {
     }
     
-    public static void entomb_many_photos(Gee.Collection<LibraryPhoto> photos) throws DatabaseError {
+    public static void entomb_many_sources(Gee.Collection<MediaSource> sources) throws DatabaseError {
         // destroy any out-of-date tombstones so they may be updated
         Marker to_destroy = global.start_marking();
-        foreach (LibraryPhoto photo in photos) {
+        foreach (MediaSource source in sources) {
+            // we don't support tombstoning videos
+            if (source is Video)
+                continue;
+            LibraryPhoto photo = (LibraryPhoto) source;
+
             File master_file = photo.get_master_file();
             Tombstone? tombstone = global.locate(master_file, photo.get_master_md5());
             if (tombstone != null)
@@ -213,7 +218,11 @@ public class Tombstone : DataSource {
         global.destroy_marked(to_destroy, false);
         
         Gee.ArrayList<Tombstone> tombstones = new Gee.ArrayList<Tombstone>();
-        foreach (LibraryPhoto photo in photos) {
+        foreach (MediaSource source in sources) {
+            if (source is Video)
+                continue;
+            LibraryPhoto photo = (LibraryPhoto) source;
+
             File master_file = photo.get_master_file();
             BackingPhotoState master_state = photo.get_master_photo_state();
             tombstones.add(new Tombstone(TombstoneTable.get_instance().add(master_file,

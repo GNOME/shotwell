@@ -73,15 +73,6 @@ public class VideosPage : MediaPage {
         get_view().monitor_source_collection(Video.global, new VideoViewManager(this), null);
     }
 
-    private static InjectionGroup create_edit_menu_injectables() {
-        InjectionGroup group = new InjectionGroup("/MediaMenuBar/EditMenu/EditExtrasPlaceholder");
-        
-        group.add_separator();
-        group.add_menu_item("DeleteVideo");
-        
-        return group;
-    }
-
     private static InjectionGroup create_videos_menu_injectables() {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
         
@@ -92,12 +83,6 @@ public class VideosPage : MediaPage {
 
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
-        
-        Gtk.ActionEntry delete_video = { "DeleteVideo", Gtk.STOCK_DELETE, TRANSLATABLE, "Delete",
-            TRANSLATABLE, on_delete_video };
-        delete_video.label = _("_Delete");
-        delete_video.tooltip = _("Deletes the selected videos from your library and from disk");
-        actions += delete_video;
 
         Gtk.ActionEntry play = { "PlayVideo", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "<Ctrl>P",
             TRANSLATABLE, on_play_video };
@@ -111,7 +96,6 @@ public class VideosPage : MediaPage {
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
-        groups += create_edit_menu_injectables();
         groups += create_videos_menu_injectables();
         
         return groups;
@@ -124,7 +108,6 @@ public class VideosPage : MediaPage {
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("PlayVideo", selected_count == 1);
         set_action_important("PlayVideo", true);
-        set_action_sensitive("DeleteVideo", selected_count > 0);
         
         base.update_actions(selected_count, count);
     }
@@ -156,17 +139,6 @@ public class VideosPage : MediaPage {
             AppWindow.error_message(_("Shotwell was unable to play the selected video:\n%s").printf(
                 e.message));
         }
-    }
-    
-    private void on_delete_video() {
-        if (!AppWindow.negate_affirm_question(_("Deleting the selected videos will remove them " +
-            "from your library as well delete them from disk. Do you want to continue?"),
-            _("_No"), _("_Yes")))
-                return;
-
-        Marker destroy_marker = Video.global.mark_many(get_view().get_selected_sources());
-        
-        Video.global.destroy_marked(destroy_marker, true);
     }
     
     protected override void on_export() {
