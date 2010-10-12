@@ -1066,7 +1066,7 @@ public abstract class EventSource : ThumbnailSource {
     
     public abstract int get_photo_count();
     
-    public abstract Gee.Iterable<PhotoSource> get_photos();
+    public abstract Gee.Collection<PhotoSource> get_photos();
 }
 
 //

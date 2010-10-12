@@ -855,7 +855,7 @@ public class LibraryPage : CollectionPage {
         
         get_view().freeze_notifications();
         get_view().monitor_source_collection(LibraryPhoto.global, new CollectionViewManager(this),
-            null, (Gee.Iterable<DataSource>) LibraryPhoto.global.get_all(), monitor);
+            null, (Gee.Collection<DataSource>) LibraryPhoto.global.get_all(), monitor);
         get_view().thaw_notifications();
     }
     

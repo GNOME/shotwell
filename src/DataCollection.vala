@@ -1868,14 +1868,41 @@ public delegate bool ViewFilter(DataView view);
 // The default implementation provides a browser which orders the view in the order they're
 // stored in DataCollection, which is not specified.
 public class ViewCollection : DataCollection {
+    public class Monitor {
+    }
+    
+    private class MonitorImpl : Monitor {
+        public ViewCollection owner;
+        public SourceCollection sources;
+        public ViewManager manager;
+        public Alteration? prereq;
+        
+        public MonitorImpl(ViewCollection owner, SourceCollection sources, ViewManager manager,
+            Alteration? prereq) {
+            this.owner = owner;
+            this.sources = sources;
+            this.manager = manager;
+            this.prereq = prereq;
+            
+            sources.items_added.connect(owner.on_sources_added);
+            sources.items_removed.connect(owner.on_sources_removed);
+            sources.items_altered.connect(owner.on_sources_altered);
+        }
+        
+        ~MonitorImpl() {
+            sources.items_added.disconnect(owner.on_sources_added);
+            sources.items_removed.disconnect(owner.on_sources_removed);
+            sources.items_altered.disconnect(owner.on_sources_altered);
+        }
+    }
+    
     private class ToggleLists : Object {
         public Gee.ArrayList<DataView> selected = new Gee.ArrayList<DataView>();
         public Gee.ArrayList<DataView> unselected = new Gee.ArrayList<DataView>();
     }
     
-    private SourceCollection sources = null;
-    private ViewManager manager = null;
-    private Alteration? sources_alteration = null;
+    private Gee.HashMultiMap<SourceCollection, MonitorImpl> monitors = new Gee.HashMultiMap<
+        SourceCollection, MonitorImpl>();
     private ViewCollection mirroring = null;
     private CreateView mirroring_ctor = null;
     private ViewFilter filter = null;
@@ -1991,7 +2018,7 @@ public class ViewCollection : DataCollection {
     public override void clear() {
         // cannot clear a ViewCollection if it is monitoring a SourceCollection or mirroring a
         // ViewCollection
-        if (sources != null || mirroring != null) {
+        if (monitors.size > 0 || mirroring != null) {
             warning("Cannot clear %s: monitoring or mirroring in effect", to_string());
             
             return;
@@ -2004,57 +2031,52 @@ public class ViewCollection : DataCollection {
     }
     
     public override void close() {
-        halt_monitoring();
+        halt_all_monitoring();
         halt_mirroring();
         filter = null;
         
         base.close();
     }
     
-    public void monitor_source_collection(SourceCollection sources, ViewManager manager,
-        Alteration? alteration, Gee.Iterable<DataSource>? initial = null, ProgressMonitor? monitor = null) {
-        halt_monitoring();
+    public Monitor monitor_source_collection(SourceCollection sources, ViewManager manager,
+        Alteration? prereq, Gee.Collection<DataSource>? initial = null,
+        ProgressMonitor? progress_monitor = null) {
+        // cannot use source monitoring and mirroring at the same time
         halt_mirroring();
-        clear();
         
-        this.sources = sources;
-        this.manager = manager;
-        sources_alteration = alteration;
+        // create a monitor, which will hook up all the signals and filter from there
+        MonitorImpl monitor = new MonitorImpl(this, sources, manager, prereq);
+        monitors.set(sources, monitor);
         
-        if (initial != null) {
+        if (initial != null && initial.size > 0) {
             // add from the initial list handed to us, using the ViewManager to add/remove later
             Gee.ArrayList<DataView> created_views = new Gee.ArrayList<DataView>();
             foreach (DataSource source in initial)
                 created_views.add(manager.create_view(source));
             
-            add_many(created_views, monitor);
+            add_many(created_views, progress_monitor);
         } else {
             // load in all items from the SourceCollection, filtering with the manager
-            add_sources((Gee.Iterable<DataSource>) sources.get_all(), monitor);
+            add_sources(sources, (Gee.Iterable<DataSource>) sources.get_all(), progress_monitor);
         }
         
-        // subscribe to the SourceCollection to monitor it for additions and removals, reflecting
-        // those changes in this collection
-        sources.items_added.connect(on_sources_added);
-        sources.items_removed.connect(on_sources_removed);
-        sources.items_altered.connect(on_sources_altered);
+        return monitor;
     }
     
-    public void halt_monitoring() {
-        if (sources != null) {
-            sources.items_added.disconnect(on_sources_added);
-            sources.items_removed.disconnect(on_sources_removed);
-            sources.items_altered.disconnect(on_sources_altered);
-        }
+    public void halt_monitoring(Monitor m) {
+        MonitorImpl monitor = (MonitorImpl) m;
         
-        sources = null;
-        manager = null;
-        sources_alteration = null;
+        bool removed = monitors.remove(monitor.sources, monitor);
+        assert(removed);
+    }
+    
+    public void halt_all_monitoring() {
+        monitors.clear();
     }
     
     public void mirror(ViewCollection to_mirror, CreateView mirroring_ctor) {
         halt_mirroring();
-        halt_monitoring();
+        halt_all_monitoring();
         clear();
         
         mirroring = to_mirror;
@@ -2117,18 +2139,28 @@ public class ViewCollection : DataCollection {
         return object is DataView;
     }
     
-    private void on_sources_added(Gee.Iterable<DataSource> added) {
-        add_sources(added);
+    private void on_sources_added(DataCollection sources, Gee.Iterable<DataSource> added) {
+        add_sources((SourceCollection) sources, added);
     }
     
-    private void add_sources(Gee.Iterable<DataSource> added, ProgressMonitor? monitor = null) {
+    private void add_sources(SourceCollection sources, Gee.Iterable<DataSource> added,
+        ProgressMonitor? progress_monitor = null) {
         // add only source items which are to be included by the manager ... do this in batches
         // to take advantage of add_many()
         DataView created_view = null;
         Gee.ArrayList<DataView> created_views = null;
         foreach (DataSource source in added) {
-            if (manager.include_in_view(source)) {
-                DataView new_view = manager.create_view(source);
+            CreateView factory = null;
+            foreach (MonitorImpl monitor in monitors.get(sources)) {
+                if (monitor.manager.include_in_view(source)) {
+                    factory = monitor.manager.create_view;
+                    
+                    break;
+                }
+            }
+            
+            if (factory != null) {
+                DataView new_view = factory(source);
                 
                 // this bit of code is designed to avoid creating the ArrayList if only one item
                 // is being added to the ViewCollection
@@ -2148,7 +2180,7 @@ public class ViewCollection : DataCollection {
         if (created_view != null)
             add(created_view);
         else if (created_views != null && created_views.size > 0)
-            add_many(created_views, monitor);
+            add_many(created_views, progress_monitor);
     }
 
     public override bool add(DataObject object) {
@@ -2197,7 +2229,7 @@ public class ViewCollection : DataCollection {
             remove_marked(marker);
     }
     
-    private void on_sources_altered(Gee.Map<DataObject, Alteration> items) {
+    private void on_sources_altered(DataCollection collection, Gee.Map<DataObject, Alteration> items) {
         // let ViewManager decide whether or not to keep, but only add if not already present
         // and only remove if already present
         Gee.ArrayList<DataView> to_add = null;
@@ -2205,23 +2237,31 @@ public class ViewCollection : DataCollection {
         bool ordering_changed = false;
         foreach (DataObject object in items.keys) {
             Alteration alteration = items.get(object);
-            if (sources_alteration != null && !alteration.contains_any(sources_alteration))
-                continue;
-            
             DataSource source = (DataSource) object;
             
-            bool include = manager.include_in_view(source);
-            if (include && !has_view_for_source(source)) {
+            MonitorImpl? monitor = null;
+            foreach (MonitorImpl monitor_impl in monitors.get((SourceCollection) collection)) {
+                if (monitor_impl.prereq != null && !alteration.contains_any(monitor_impl.prereq))
+                    continue;
+                
+                if (monitor_impl.manager.include_in_view(source)) {
+                    monitor = monitor_impl;
+                    
+                    break;
+                }
+            }
+            
+            if (monitor != null && !has_view_for_source(source)) {
                 if (to_add == null)
                     to_add = new Gee.ArrayList<DataView>();
                 
-                to_add.add(manager.create_view(source));
-            } else if (!include && has_view_for_source(source)) {
+                to_add.add(monitor.manager.create_view(source));
+            } else if (monitor == null && has_view_for_source(source)) {
                 if (to_remove == null)
                     to_remove = new Gee.ArrayList<DataView>();
                 
                 to_remove.add(get_view_for_source(source));
-            } else if (include && has_view_for_source(source)) {
+            } else if (monitor != null && has_view_for_source(source)) {
                 DataView view = get_view_for_source(source);
                 
                 if (selected.contains(view))

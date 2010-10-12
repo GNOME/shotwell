@@ -616,8 +616,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return view.get_count();
     }
     
-    public override Gee.Iterable<PhotoSource> get_photos() {
-        return (Gee.Iterable<PhotoSource>) view.get_sources();
+    public override Gee.Collection<PhotoSource> get_photos() {
+        return (Gee.Collection<PhotoSource>) view.get_sources();
     }
     
     public void mirror_photos(ViewCollection view, CreateView mirroring_ctor) {
@@ -672,7 +672,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
 
     public override void destroy() {
         // stop monitoring the photos collection
-        view.halt_monitoring();
+        view.halt_all_monitoring();
         
         // remove from the database
         try {

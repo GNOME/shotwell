@@ -147,7 +147,7 @@ public class EventsDirectoryPage : CheckerboardPage {
     protected ViewManager view_manager;
 
     public EventsDirectoryPage(string page_name, ViewManager view_manager,
-        Gee.Iterable<Event>? initial_events) {
+        Gee.Collection<Event>? initial_events) {
         base (page_name);
         
         // set comparator before monitoring source collection, to prevent a re-sort
@@ -506,7 +506,7 @@ public class MasterEventsDirectoryPage : EventsDirectoryPage {
     }
     
     private MasterEventsDirectoryPage(string name) {
-        base(name, new EventDirectoryManager(), (Gee.Iterable<Event>) Event.global.get_all());
+        base(name, new EventDirectoryManager(), (Gee.Collection<Event>) Event.global.get_all());
     }
     
     public static Stub create_stub() {

@@ -61,7 +61,7 @@ public class LastImportPage : CollectionPage {
         // see if there's a new last ImportID, or no last import at all
         ImportID? current_last_import_id = LibraryPhoto.global.get_last_import_id();
         if (current_last_import_id == null) {
-            get_view().halt_monitoring();
+            get_view().halt_all_monitoring();
             get_view().clear();
             
             return;
