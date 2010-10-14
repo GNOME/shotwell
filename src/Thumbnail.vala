@@ -22,8 +22,7 @@ public class Thumbnail : CheckerboardItem {
     
     private const int HQ_IMPROVEMENT_MSEC = 100;
     
-    private LibraryPhoto? photo;
-    private Video? video;
+    private MediaSource media;
     private int scale;
     private Dimensions original_dim;
     private Dimensions dim;
@@ -35,26 +34,24 @@ public class Thumbnail : CheckerboardItem {
     // was showing up in sysprof
     private bool exposure = false;
     
-    public Thumbnail(MediaSource source, int scale = DEFAULT_SCALE) {
-        base (source, source.get_dimensions().get_scaled(scale, true), source.get_name());
+    public Thumbnail(MediaSource media, int scale = DEFAULT_SCALE) {
+        base (media, media.get_dimensions().get_scaled(scale, true), media.get_name());
         
-        if (source is LibraryPhoto) {
-            this.video = null;
-            this.photo = (LibraryPhoto) source;
-
+        this.media = media;
+        
+        if (media is LibraryPhoto) {
             Tag.global.container_contents_altered.connect(on_tag_contents_altered);
             Tag.global.items_altered.connect(on_tags_altered);
             LibraryPhoto.global.items_altered.connect(on_sources_altered);
-        } else if (source is Video) {
-            this.video = (Video) source;
-            this.photo = null;
+        } else {
+            assert(media is Video);
             
             Video.global.items_altered.connect(on_sources_altered);
         }
-
+        
         this.scale = scale;
         
-        original_dim = source.get_dimensions();
+        original_dim = media.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
     }
 
@@ -62,11 +59,13 @@ public class Thumbnail : CheckerboardItem {
         if (cancellable != null)
             cancellable.cancel();
         
-        if (photo != null) {
+        if (media is Photo) {
             Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
             Tag.global.items_altered.disconnect(on_tags_altered);
             LibraryPhoto.global.items_altered.disconnect(on_sources_altered);
-        } else if (video != null) {
+        } else {
+            assert(media is Video);
+            
             Video.global.items_altered.disconnect(on_sources_altered);
         }
     }
@@ -75,9 +74,10 @@ public class Thumbnail : CheckerboardItem {
         // if this is a thumbnail for a video, then photo can be null, so do a short-circuit
         // return when it is; later, when we support tagging videos, we can implement tag
         // updates on video objects
+        LibraryPhoto photo = media as LibraryPhoto;
         if (photo == null)
             return;
-
+        
         Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_photo(photo);
         if (tags == null || tags.size == 0)
             clear_subtitle();
@@ -90,8 +90,8 @@ public class Thumbnail : CheckerboardItem {
         if (!exposure)
             return;
         
-        bool tag_added = (added != null) ? added.contains(photo) : false;
-        bool tag_removed = (removed != null) ? removed.contains(photo) : false;
+        bool tag_added = (added != null) ? added.contains(media) : false;
+        bool tag_removed = (removed != null) ? removed.contains(media) : false;
         
         // if photo we're monitoring is added or removed to any tag, update tag list
         if (tag_added || tag_removed)
@@ -102,10 +102,14 @@ public class Thumbnail : CheckerboardItem {
         if (!exposure)
             return;
         
+        LibraryPhoto photo = media as LibraryPhoto;
+        if (photo == null)
+            return;
+            
         foreach (DataObject object in altered.keys) {
             Tag tag = (Tag) object;
             
-            if ((!is_video()) && tag.contains(photo)) {
+            if (tag.contains(photo)) {
                 update_tags();
                 
                 break;
@@ -114,7 +118,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void update_title() {
-        string title = get_media_source().get_name();
+        string title = media.get_name();
         if (is_string_empty(title))
             clear_title();
         else
@@ -122,27 +126,23 @@ public class Thumbnail : CheckerboardItem {
     }
     
     private void on_sources_altered(Gee.Map<DataObject, Alteration> map) {
-        if (!exposure || !map.has_key(get_media_source()))
+        if (!exposure || !map.has_key(media))
             return;
         
-        if (map.get(get_media_source()).has_detail("metadata", "name"))
+        if (map.get(media).has_detail("metadata", "name"))
             update_title();
     }
     
-    public LibraryPhoto get_photo() {
-        // There's enough overhead with 10,000 photos and casting from get_source() to do it this way
-        return photo;
-    }
-    
-    public Video get_video() {
-        return video;
-    }
-    
     public MediaSource get_media_source() {
-        if (is_video())
-            return video;
-        else
-            return photo;
+        return media;
+    }
+    
+    public LibraryPhoto? get_photo() {
+        return media as LibraryPhoto;
+    }
+    
+    public Video? get_video() {
+        return media as Video;
     }
     
     //
@@ -150,8 +150,7 @@ public class Thumbnail : CheckerboardItem {
     //
 
     public static int64 photo_id_ascending_comparator(void *a, void *b) {
-        return strcmp(((Thumbnail *) a)->get_unique_identifier(),
-            ((Thumbnail *) b)->get_unique_identifier());
+        return ((Thumbnail *) a)->media.get_instance_id() - ((Thumbnail *) b)->media.get_instance_id();
     }
 
     public static int64 photo_id_descending_comparator(void *a, void *b) {
@@ -191,7 +190,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public static int64 rating_ascending_comparator(void *a, void *b) {
-        int64 result = ((Thumbnail *) a)->get_rating() - ((Thumbnail *) b)->get_rating();
+        int64 result = ((Thumbnail *) a)->media.get_rating() - ((Thumbnail *) b)->media.get_rating();
         
         return (result != 0) ? result : photo_id_ascending_comparator(a, b);
     }
@@ -207,7 +206,7 @@ public class Thumbnail : CheckerboardItem {
     }
     
     protected override void thumbnail_altered() {
-        original_dim = (is_video()) ? video.get_frame_dimensions() : get_photo().get_dimensions();
+        original_dim = media.get_dimensions();
         dim = original_dim.get_scaled(scale, true);
         
         if (exposure)
@@ -223,6 +222,7 @@ public class Thumbnail : CheckerboardItem {
             case PROP_SIZE:
                 resize((int) val);
             break;
+            
             case PROP_SHOW_RATINGS:
                 notify_view_altered();
             break;
@@ -272,18 +272,8 @@ public class Thumbnail : CheckerboardItem {
     private void schedule_low_quality_fetch() {
         cancel_async_fetch();
         cancellable = new Cancellable();
-
-            // VALA: ideally, we'd use the ternary operator here and insert the ternary
-            //       expression directly in the fetch_async_scaled( ) called below,
-            //       but on both valac 0.8.0 and 0.9.3, this results in a parse error
-            //       "incompatible expressions"
-            ThumbnailSource source = null;
-            if (is_video())
-                source = video;
-            else
-                source = photo;
-
-        ThumbnailCache.fetch_async_scaled(source, ThumbnailCache.Size.SMALLEST, 
+        
+        ThumbnailCache.fetch_async_scaled(media, ThumbnailCache.Size.SMALLEST, 
             dim, LOW_QUALITY_INTERP, on_low_quality_fetched, cancellable);
     }
     
@@ -309,17 +299,7 @@ public class Thumbnail : CheckerboardItem {
         cancellable = new Cancellable();
         
         if (exposure) {
-            // VALA: ideally, we'd use the ternary operator here and insert the ternary
-            //       expression directly in the fetch_async_scaled( ) called below,
-            //       but on both valac 0.8.0 and 0.9.3, this results in a parse error
-            //       "incompatible expressions"
-            ThumbnailSource source = null;
-            if (is_video())
-                source = video;
-            else
-                source = photo;
-
-            ThumbnailCache.fetch_async_scaled(source, scale, dim,
+            ThumbnailCache.fetch_async_scaled(media, scale, dim,
                 HIGH_QUALITY_INTERP, on_high_quality_fetched, cancellable);
         }
         
@@ -383,12 +363,12 @@ public class Thumbnail : CheckerboardItem {
     }
     
     public override Gee.List<Gdk.Pixbuf>? get_trinkets(int scale) {
-        Rating rating = get_rating();
+        Rating rating = media.get_rating();
         
         bool show_ratings = false;
         Value? val = get_collection_property(PROP_SHOW_RATINGS);
         if (val != null)
-            show_ratings = (bool)val;
+            show_ratings = (bool) val;
         
         // don't let the hose run
         if (rating == Rating.UNRATED || show_ratings == false)
@@ -403,19 +383,11 @@ public class Thumbnail : CheckerboardItem {
         return trinkets;
     }
     
-    public bool is_video() {
-        return (video != null);
-    }
-    
-    private string get_unique_identifier() {
-        return (is_video()) ? video.get_source_id() : photo.get_source_id();
-    }
-    
     public time_t get_exposure_time() {
-        return (is_video()) ? video.get_exposure_time() : photo.get_exposure_time();
-    }
-    
-    public Rating get_rating() {
-        return get_media_source().get_rating();
+        LibraryPhoto photo = media as LibraryPhoto;
+        if (photo != null)
+            return photo.get_exposure_time();
+        else
+            return ((Video) media).get_exposure_time();
     }
 }
