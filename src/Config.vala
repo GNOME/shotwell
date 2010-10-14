@@ -289,6 +289,21 @@ public class Config {
         return get_string("/apps/shotwell/sharing/picasa/auth_token");
     }
 
+    public string? get_publishing_string(string id, string key) {
+        return get_string(_("/apps/shotwell/sharing/%s/%s").printf(id, key));
+    }
+
+    public void set_publishing_string(string id, string key, string value) {
+        set_string(_("/apps/shotwell/sharing/%s/%s").printf(id, key), value);
+    }
+    
+    public void unset_publishing_string(string id, string key) {
+	try {
+		client.recursive_unset(_("/apps/shotwell/sharing/%s/%s").printf(id, key), GConf.UnsetFlags.NAMES);
+	} catch (GLib.Error err) {
+	}
+    }
+
     public bool set_printing_content_layout(int layout_code) {
         return set_int("/apps/shotwell/printing/content_layout", layout_code + 1);
     }

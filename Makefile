@@ -97,6 +97,7 @@ SRC_FILES = \
 	SlideshowPage.vala \
 	LibraryFiles.vala \
 	FlickrConnector.vala \
+	YandexConnector.vala \
 	Printing.vala \
 	Tag.vala \
 	TagPage.vala \
@@ -155,7 +156,7 @@ RESOURCE_FILES = \
 	tags.ui \
 	trash.ui \
 	offline.ui \
-	media.ui \
+	yandex_publish_model.glade \
 	shotwell.glade
 
 SYS_INTEGRATION_FILES = \
@@ -274,7 +275,8 @@ EXT_PKGS = \
 	glib-2.0 \
 	libexif \
 	sqlite3 \
-	gexiv2
+	gexiv2 \
+	json-glib-1.0
 
 LIBRAW_PKG = \
 	libraw

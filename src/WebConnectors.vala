@@ -1110,6 +1110,7 @@ public class ServiceFactory {
         result += "Facebook";
         result += "Flickr";
         result += "Picasa Web Albums";
+        result += "Yandex.Fotki";
 
         return result;
     }
@@ -1121,6 +1122,8 @@ public class ServiceFactory {
             return new FlickrConnector.Interactor(host);
         } else if (service_name == "Picasa Web Albums") {
             return new PicasaConnector.Interactor(host);
+        } else if (service_name == "Yandex.Fotki") {
+            return new YandexConnector.Interactor(host);
         } else {
             error("ServiceInteractor: unsupported service '%s'", service_name);
         }
