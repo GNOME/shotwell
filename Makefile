@@ -128,7 +128,7 @@ SRC_FILES = \
 	Tombstone.vala \
 	MetadataWriter.vala \
 	Application.vala \
-	DelayedQueue.vala \
+	TimedQueue.vala \
 	MediaPage.vala
 
 ifndef LINUX

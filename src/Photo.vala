@@ -1393,6 +1393,29 @@ public abstract class Photo : PhotoSource {
         }
     }
     
+    // If the SourceCollection is provided, it will be frozen and thawed to generate a singal
+    // items-altered signal.
+    public static void set_many_master_metadata_dirty(SourceCollection? sources,
+        Gee.Collection<Photo> photos, bool dirty) throws DatabaseError {
+        if (sources != null)
+            sources.freeze_notifications();
+        
+        PhotoTable.get_instance().begin_transaction();
+        
+        foreach (Photo photo in photos) {
+            try {
+                photo.set_master_metadata_dirty(dirty);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
+        
+        PhotoTable.get_instance().commit_transaction();
+        
+        if (sources != null)
+            sources.thaw_notifications();
+    }
+    
     public void set_master_metadata_dirty(bool dirty) throws DatabaseError {
         bool committed = false;
         lock (row) {

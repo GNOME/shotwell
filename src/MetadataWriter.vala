@@ -4,6 +4,13 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
+// MetadataWriter tracks LibraryPhotos for alterations to their metadata and commits those changes
+// in a timely manner to their backing files.  Because only the MetadataWriter knows when the
+// metadata has been properly committed, it is also responsible for updating the metadata-dirty
+// flag in Photo.  Thus, MetadataWriter should *always* be running, even if the user has turned off
+// the feature, so if they turn it on MetadataWriter can properly go out and update the backing
+// files.
+
 public class MetadataWriter : Object {
     public const uint COMMIT_DELAY_MSEC = 3000;
     public const uint COMMIT_SPACING_MSEC = 50;
@@ -89,6 +96,7 @@ public class MetadataWriter : Object {
                 changed = true;
             }
             
+            // add the software name/version only if updating the metadata in the file
             if (changed)
                 metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
             
@@ -99,7 +107,7 @@ public class MetadataWriter : Object {
     private static MetadataWriter instance = null;
     
     private Workers workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
-    private HashDelayedQueue<LibraryPhoto> dirty;
+    private HashTimedQueue<LibraryPhoto> dirty;
     private Gee.HashMap<LibraryPhoto, CommitJob> pending = new Gee.HashMap<LibraryPhoto, CommitJob>();
     private Gee.HashSet<string> interested_photo_details = new Gee.HashSet<string>();
     private LibraryPhoto? ignore_photo_alteration = null;
@@ -110,7 +118,7 @@ public class MetadataWriter : Object {
     public signal void progress(uint completed, uint total);
     
     private MetadataWriter() {
-        dirty = new HashDelayedQueue<LibraryPhoto>(COMMIT_DELAY_MSEC, on_photo_dequeued);
+        dirty = new HashTimedQueue<LibraryPhoto>(COMMIT_DELAY_MSEC, on_photo_dequeued);
         dirty.set_dequeue_spacing_msec(COMMIT_SPACING_MSEC);
         
         // convert all interested metadata Alteration details into lookup hash
@@ -172,9 +180,6 @@ public class MetadataWriter : Object {
     
     private void on_photos_added_removed(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
-        if (!autocommit_metadata)
-            return;
-        
         if (added != null) {
             Gee.ArrayList<LibraryPhoto> photos = null;
             foreach (DataObject object in added) {
@@ -188,7 +193,7 @@ public class MetadataWriter : Object {
             }
             
             if (photos != null)
-                enqueue_many(photos, "dirty photo added to LibraryPhoto.global");
+                photos_dirty(photos, "dirty photo added to LibraryPhoto.global");
         }
         
         if (removed != null) {
@@ -198,9 +203,6 @@ public class MetadataWriter : Object {
     }
     
     private void on_photos_altered(Gee.Map<DataObject, Alteration> items) {
-        if (!autocommit_metadata)
-            return;
-        
         Gee.HashSet<LibraryPhoto> photos = null;
         foreach (DataObject object in items.keys) {
             LibraryPhoto photo = (LibraryPhoto) object;
@@ -210,8 +212,7 @@ public class MetadataWriter : Object {
             if (photo == ignore_photo_alteration)
                 continue;
             
-            Alteration alteration = items.get(object);
-            Gee.Collection<string>? details = alteration.get_details("metadata");
+            Gee.Collection<string>? details = items.get(object).get_details("metadata");
             if (details == null)
                 continue;
             
@@ -229,61 +230,55 @@ public class MetadataWriter : Object {
         }
         
         if (photos != null)
-            enqueue_many(photos, "alteration");
+            photos_dirty(photos, "alteration");
     }
     
     private void on_tag_altered(ContainerSource container, Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
-        if (!autocommit_metadata)
-            return;
-        
         Tag tag = (Tag) container;
         
         if (added != null)
-            enqueue_many((Gee.Collection<LibraryPhoto>) added, "added to %s".printf(tag.to_string()));
+            photos_dirty((Gee.Collection<LibraryPhoto>) added, "added to %s".printf(tag.to_string()));
         
         if (removed != null)
-            enqueue_many((Gee.Collection<LibraryPhoto>) removed, "removed from %s".printf(tag.to_string()));
+            photos_dirty((Gee.Collection<LibraryPhoto>) removed, "removed from %s".printf(tag.to_string()));
     }
     
-    private void enqueue(LibraryPhoto photo, string reason) {
-        cancel_job(photo);
-        
-        if (dirty.contains(photo)) {
-            bool removed = dirty.remove_first(photo);
-            assert(removed);
+    private void photos_dirty(Gee.Collection<LibraryPhoto> photos, string reason) {
+        // cancel all outstanding and pending jobs
+        foreach (LibraryPhoto photo in photos) {
+            cancel_job(photo);
             
-            assert(!dirty.contains(photo));
+            if (dirty.contains(photo)) {
+                bool removed = dirty.remove_first(photo);
+                assert(removed);
+                
+                assert(!dirty.contains(photo));
+            }
         }
         
-        // mark as dirty; if app is closed before written out, MetadataWriter will try again when
-        // the app is restarted
+        // mark all the photos as dirty
         try {
-            photo.set_master_metadata_dirty(true);
+            Photo.set_many_master_metadata_dirty(LibraryPhoto.global, photos, true);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
         
-        // ok to drop this on the floor -- now that it's marked dirty, will attempt to write next
-        // time the MetadataWriter runs
-        if (closed)
+        // ok to drop this on the floor, now that they're marked dirty (will attempt to write them
+        // out the next time MetadataWriter runs)
+        if (closed || !autocommit_metadata)
             return;
         
+        foreach (LibraryPhoto photo in photos) {
 #if TRACE_METADATA_WRITER
-        debug("Enqueuing %s for metadata commit: %s", photo.to_string(), reason);
+            debug("Enqueuing %s for metadata commit: %s", photo.to_string(), reason);
 #endif
-        
-        bool enqueued = dirty.enqueue(photo);
-        assert(enqueued);
+            bool enqueued = dirty.enqueue(photo);
+            assert(enqueued);
+        }
         
         outstanding_total = dirty.size + pending.size;
         outstanding_completed = 0;
-        progress(outstanding_completed, outstanding_total);
-    }
-    
-    private void enqueue_many(Gee.Collection<LibraryPhoto> photos, string reason) {
-        foreach (LibraryPhoto photo in photos)
-            enqueue(photo, reason);
     }
     
     private void cancel_job(LibraryPhoto photo) {
@@ -329,9 +324,10 @@ public class MetadataWriter : Object {
         if (++outstanding_completed >= outstanding_total) {
             outstanding_completed = 0;
             outstanding_total = 0;
+            
+            // fire this to specify a reset
+            progress(outstanding_completed, outstanding_total);
         }
-        
-        progress(outstanding_completed, outstanding_total);
         
         if (job.reimport_master_state != null || job.reimport_editable_state != null) {
 #if TRACE_METADATA_WRITER
@@ -355,6 +351,9 @@ public class MetadataWriter : Object {
                 assert(ignore_photo_alteration == job.photo);
                 ignore_photo_alteration = null;
             }
+            
+            if (outstanding_total > 0)
+                progress(outstanding_completed, outstanding_total);
         } else {
 #if TRACE_METADATA_WRITER
             debug("[%u/%u] No metadata changes for %s", outstanding_completed, outstanding_total,

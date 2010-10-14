@@ -483,12 +483,13 @@ private DatabaseVerifyResult upgrade_database(int version) {
     
     //
     // Version 9:
-    // * Added metadata_dirty flag to PhotoTable.
+    // * Added metadata_dirty flag to PhotoTable.  Default to 1 rather than 0 on upgrades so
+    //   changes to metadata prior to upgrade will be caught by MetadataWriter.
     //
     
     if (!DatabaseTable.has_column("PhotoTable", "metadata_dirty")) {
         message("upgrade_database: adding metadata_dirty column to PhotoTable");
-        if (!DatabaseTable.add_column("PhotoTable", "metadata_dirty", "INTEGER DEFAULT 0"))
+        if (!DatabaseTable.add_column("PhotoTable", "metadata_dirty", "INTEGER DEFAULT 1"))
             return DatabaseVerifyResult.UPGRADE_ERROR;
     }
     
