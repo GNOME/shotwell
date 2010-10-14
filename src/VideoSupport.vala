@@ -439,8 +439,12 @@ public class Video : VideoSource {
         }
     }
     
-    public override string? get_unique_thumbnail_name() {
-        return (THUMBNAIL_NAME_PREFIX + "-%016llx".printf(backing_row.video_id.id));
+    public override string get_typename() {
+        return "video";
+    }
+    
+    public override int64 get_instance_id() {
+        return get_video_id().id;
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
@@ -777,7 +781,6 @@ public class VideoSourceCollection : MediaSourceCollection {
 
     private void on_offline_contents_altered(Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
-        stdout.printf("> VideoSourceCollection.on_offline_contents_altered( )\n");
         offline_contents_altered((Gee.Collection<Video>?) added,
             (Gee.Collection<Video>?) removed);
     }
@@ -787,7 +790,7 @@ public class VideoSourceCollection : MediaSourceCollection {
         if (added != null) {
             foreach (DataObject object in added) {
                 Video video = (Video) object;
-                file_dictionary.set(video.get_file(), video);                              
+                file_dictionary.set(video.get_file(), video);
             }
         }
         

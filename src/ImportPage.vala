@@ -77,8 +77,6 @@ abstract class ImportSource : ThumbnailSource {
 }
 
 class VideoImportSource : ImportSource {
-    protected new const string THUMBNAIL_NAME_PREFIX = "videoimport";
-    
     public VideoImportSource(string camera_name, GPhoto.Camera camera, int fsid, string folder, 
         string filename, ulong file_size, time_t modification_time) {
         base(camera_name, camera, fsid, folder, filename, file_size, modification_time);
@@ -98,8 +96,12 @@ class VideoImportSource : ImportSource {
             get_preview();
     }
     
-    public override string? get_unique_thumbnail_name() {
-        return (THUMBNAIL_NAME_PREFIX + "-%" + int64.FORMAT).printf(get_object_id());
+    public override string get_typename() {
+        return "videoimport";
+    }
+    
+    public override int64 get_instance_id() {
+        return get_object_id();
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
@@ -116,7 +118,6 @@ class VideoImportSource : ImportSource {
 }
 
 class PhotoImportSource : ImportSource {
-    protected new const string THUMBNAIL_NAME_PREFIX = "photoimport";
     public const Gdk.InterpType INTERP = Gdk.InterpType.BILINEAR;
 
     private PhotoFileFormat file_format;
@@ -136,10 +137,14 @@ class PhotoImportSource : ImportSource {
         return !is_string_empty(title) ? title : get_filename();
     }
     
-    public override string? get_unique_thumbnail_name() {
-        return (THUMBNAIL_NAME_PREFIX + "-%" + int64.FORMAT).printf(get_object_id());
+    public override string get_typename() {
+        return "photoimport";
     }
-
+    
+    public override int64 get_instance_id() {
+        return get_object_id();
+    }
+    
     public override PhotoFileFormat get_preferred_thumbnail_format() {
         return (file_format.can_write()) ? file_format :
             PhotoFileFormat.get_system_default_format();

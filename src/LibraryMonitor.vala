@@ -399,7 +399,7 @@ public class LibraryMonitor : DirectoryMonitor {
     private void discovery_stage_completed() {
         foreach (Video video in detected_videos) {
             FileInfo? video_file_info = get_file_info(video.get_file());
-                       
+            
             if (video_file_info != null && video.is_offline()) {
                 videos_to_mark_online.add(video);
             } else if (video_file_info == null && !video.is_offline()) {

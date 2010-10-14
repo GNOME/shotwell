@@ -229,14 +229,13 @@ public class ThumbnailCache : Object {
     
     public static void fetch_async(ThumbnailSource source, int scale, AsyncFetchCallback callback,
         Cancellable? cancellable = null) {
-        get_best_cache(scale)._fetch_async(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format(), Dimensions(), DEFAULT_INTERP, callback,
-            cancellable);
+        get_best_cache(scale)._fetch_async(source.get_source_id(), source.get_preferred_thumbnail_format(),
+            Dimensions(), DEFAULT_INTERP, callback, cancellable);
     }
     
     public static void fetch_async_scaled(ThumbnailSource source, int scale, Dimensions dim, 
         Gdk.InterpType interp, AsyncFetchCallback callback, Cancellable? cancellable = null) {
-        get_best_cache(scale)._fetch_async(source.get_unique_thumbnail_name(),
+        get_best_cache(scale)._fetch_async(source.get_source_id(),
             source.get_preferred_thumbnail_format(), dim, interp, callback, cancellable);
     }
     
@@ -328,18 +327,17 @@ public class ThumbnailCache : Object {
     
     private Gdk.Pixbuf _fetch(ThumbnailSource source) throws Error {
         // use JPEG in memory cache if available
-        Gdk.Pixbuf pixbuf = fetch_from_memory(source.get_unique_thumbnail_name());
+        Gdk.Pixbuf pixbuf = fetch_from_memory(source.get_source_id());
         if (pixbuf != null)
             return pixbuf;
         
-        pixbuf = read_pixbuf(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format());
+        pixbuf = read_pixbuf(source.get_source_id(), source.get_preferred_thumbnail_format());
         
         cycle_fetched_thumbnails++;
         schedule_debug();
         
         // stash in memory for next time
-        store_in_memory(source.get_unique_thumbnail_name(), pixbuf);
+        store_in_memory(source.get_source_id(), pixbuf);
         
         return pixbuf;
     }
@@ -392,8 +390,7 @@ public class ThumbnailCache : Object {
     
     private void _import_from_source(ThumbnailSource source, bool force = false)
         throws Error {
-        File file = get_cached_file(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format());
+        File file = get_source_cached_file(source);
         
         // if not forcing the cache operation, check if file exists and is represented in the
         // database before continuing
@@ -417,9 +414,6 @@ public class ThumbnailCache : Object {
         assert(scaled != null);
         assert(Dimensions.for_pixbuf(scaled).approx_scaled(size.get_scale()));
         
-        File file = get_cached_file(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format());
-        
         // if not forcing the cache operation, check if file exists and is represented in the
         // database before continuing
         if (!force) {
@@ -429,8 +423,8 @@ public class ThumbnailCache : Object {
             // wipe previous from system and continue
             _remove(source);
         }
-
-        save_thumbnail(file, scaled, source);
+        
+        save_thumbnail(get_source_cached_file(source), scaled, source);
         
         // do NOT store in the in-memory cache ... if a lot of photos are being imported at
         // once, this will blow cache locality, especially when the user is viewing one portion
@@ -438,26 +432,24 @@ public class ThumbnailCache : Object {
     }
     
     private void _duplicate(ThumbnailSource src_source, ThumbnailSource dest_source) {
-        File src_file = get_cached_file(src_source.get_unique_thumbnail_name(), 
+        File src_file = get_source_cached_file(src_source);
+        File dest_file = get_cached_file(dest_source.get_representative_id(),
             src_source.get_preferred_thumbnail_format());
-        File dest_file = get_cached_file(dest_source.get_unique_thumbnail_name(), 
-            dest_source.get_preferred_thumbnail_format());
         
         try {
             src_file.copy(dest_file, FileCopyFlags.ALL_METADATA, null, null);
         } catch (Error err) {
-            error("%s", err.message);
+            AppWindow.panic("%s".printf(err.message));
         }
         
         // Do NOT store in memory cache, for similar reasons as stated in _import().
     }
     
-    private void _replace(ThumbnailSource source, Gdk.Pixbuf original) throws Error {       
-        File file = get_cached_file(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format());
+    private void _replace(ThumbnailSource source, Gdk.Pixbuf original) throws Error {
+        File file = get_source_cached_file(source);
         
         // Remove from in-memory cache, if present
-        remove_from_memory(source.get_unique_thumbnail_name());
+        remove_from_memory(source.get_source_id());
         
         // scale to cache's parameters
         Gdk.Pixbuf scaled = scale_pixbuf(original, size.get_scale(), interp, true);
@@ -469,15 +461,14 @@ public class ThumbnailCache : Object {
         // action (<cough>rotate</cough>) and the thumbnail will probably be fetched immediately.
         // This means the thumbnail will be cached in scales that aren't immediately needed, but
         // the benefit seems to outweigh the side-effects
-        store_in_memory(source.get_unique_thumbnail_name(), scaled);
+        store_in_memory(source.get_source_id(), scaled);
     }
     
     private void _remove(ThumbnailSource source) {
-        File file = get_cached_file(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format());
+        File file = get_source_cached_file(source);
         
         // remove from in-memory cache
-        remove_from_memory(source.get_unique_thumbnail_name());
+        remove_from_memory(source.get_source_id());
         
         // remove from disk
         try {
@@ -488,16 +479,18 @@ public class ThumbnailCache : Object {
     }
     
     private bool _exists(ThumbnailSource source) {
-        File file = get_cached_file(source.get_unique_thumbnail_name(),
-            source.get_preferred_thumbnail_format());
-
-        return file.query_exists(null);
+        return get_source_cached_file(source).query_exists(null);
     }
     
     // This method is thread-safe.
     private Gdk.Pixbuf read_pixbuf(string thumbnail_name, PhotoFileFormat format) throws Error {
         return format.create_reader(get_cached_file(thumbnail_name,
             format).get_path()).unscaled_read();
+    }
+    
+    private File get_source_cached_file(ThumbnailSource source) {
+        return get_cached_file(source.get_representative_id(),
+            source.get_preferred_thumbnail_format());
     }
     
     private File get_cached_file(string thumbnail_name, PhotoFileFormat thumbnail_format) {

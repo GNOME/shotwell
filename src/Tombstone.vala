@@ -14,7 +14,7 @@ public class TombstoneSourceCollection : DatabaseSourceCollection {
     }
     
     private static int64 get_tombstone_id(DataSource source) {
-        return ((Tombstone) source).get_id().id;
+        return ((Tombstone) source).get_tombstone_id().id;
     }
     
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
@@ -239,6 +239,14 @@ public class Tombstone : DataSource {
         global.add_many(tombstones);
     }
     
+    public override string get_typename() {
+        return "tombstone";
+    }
+    
+    public override int64 get_instance_id() {
+        return get_tombstone_id().id;
+    }
+    
     public override string get_name() {
         return row.filepath;
     }
@@ -247,7 +255,7 @@ public class Tombstone : DataSource {
         return "Tombstone %s".printf(get_name());
     }
     
-    public TombstoneID get_id() {
+    public TombstoneID get_tombstone_id() {
         return row.id;
     }
     

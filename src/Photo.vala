@@ -959,8 +959,21 @@ public abstract class Photo : PhotoSource {
         notify_altered(new Alteration.from_list(list));
     }
     
-    public override string? get_unique_thumbnail_name() {
-        return ("thumb%016" + int64.FORMAT_MODIFIER + "x").printf(get_photo_id().id);
+    public override string get_typename() {
+        // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
+        // directly to load thumbnails from disk by already-existing filenames
+        return "thumb";
+    }
+    
+    public override int64 get_instance_id() {
+        return get_photo_id().id;
+    }
+    
+    public override string get_source_id() {
+        // Because of historical reasons, need to format Photo's source ID without a dash for
+        // ThumbnailCache.  Note that any future routine designed to tear a source ID apart and
+        // locate by typename will need to account for this exception.
+        return ("%s%016" + int64.FORMAT_MODIFIER + "x").printf(get_typename(), get_instance_id());
     }
     
     // Use this only if the master file's modification time has been changed (i.e. touched)

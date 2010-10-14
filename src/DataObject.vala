@@ -494,13 +494,36 @@ public class SourceBacklink {
         }
     }
     
+    // This only applies if the SourceBacklink comes from a DataSource.
+    public string typename {
+        get {
+            return _name;
+        }
+    }
+    
+    // This only applies if the SourceBacklink comes from a DataSource.
+    public int64 instance_id {
+        get {
+            return _value.to_int64();
+        }
+    }
+    
     public SourceBacklink(string name, string value) {
-        assert(!name.contains("="));
-        assert(!name.contains("|"));
-        assert(!value.contains("|"));
+        assert(validate_name_value(name, value));
         
         _name = name.strip();
         _value = value.strip();
+    }
+    
+    public SourceBacklink.from_source(DataSource source) {
+        _name = source.get_typename().strip();
+        _value = source.get_instance_id().to_string().strip();
+        
+        assert(validate_name_value(_name, _value));
+    }
+    
+    private static bool validate_name_value(string name, string value) {
+        return !name.contains("=") && !name.contains("|") && !value.contains("|");
     }
     
     public string to_string() {
@@ -645,6 +668,25 @@ public abstract class DataSource : DataObject {
         view.notify_source_relinked((SourceCollection) get_membership());
     }
     
+    // Each DataSource has a unique typename.  All DataSources of the same type should have the
+    // same typename.  This method should be thread-safe.
+    //
+    // NOTE: Because this value may be persisted in various ways, it should not be changed once
+    // defined.
+    public abstract string get_typename();
+    
+    // Each DataSource of a particular typename has an instance ID.  Many DataSources can have a
+    // typename of "tag" and many DataSources can have an ID of 42, but only one DataSource may
+    // have a typename of "tag" AND an ID of 42.  If the DataSource is persisted, this number should
+    // be persisted as well.  This method should be thread-safe.
+    public abstract int64 get_instance_id();
+    
+    // This returns a string that can be used to uniquely identify the DataSource throughout the
+    // system.  This method should be thread-safe.
+    public virtual string get_source_id() {
+        return ("%s-%016" + int64.FORMAT_MODIFIER + "x").printf(get_typename(), get_instance_id());
+    }
+    
     public bool has_backlink(SourceBacklink backlink) {
         if (backlinks == null)
             return false;
@@ -740,7 +782,7 @@ public abstract class DataSource : DataObject {
             
             string value_field = "";
             foreach (string value in values) {
-                if (value != null && value.length > 0)
+                if (!is_string_empty(value))
                     value_field += value + "|";
             }
             
@@ -940,7 +982,18 @@ public abstract class ThumbnailSource : DataSource {
     // a new pixbuf (e.g., by the source loading, decoding, and scaling image data)
     public abstract Gdk.Pixbuf? create_thumbnail(int scale) throws Error;
     
-    public abstract string? get_unique_thumbnail_name();
+    // A ThumbnailSource may use another ThumbnailSource as its representative.  It's up to the
+    // subclass to forward on the appropriate methods to this ThumbnailSource.  But, since multiple
+    // ThumbnailSources may be referring to a single ThumbnailSource, this allows for that to be
+    // detected and optimized (in caching).
+    //
+    // Note that it's the responsibility of this ThumbnailSource to fire "thumbnail-altered" if its
+    // representative does the same.
+    //
+    // Default behavior is to return the ID of this.
+    public virtual string get_representative_id() {
+        return get_source_id();
+    }
     
     public abstract PhotoFileFormat get_preferred_thumbnail_format();
 }
@@ -1050,7 +1103,6 @@ public abstract class PhotoSource : MediaSource {
 }
 
 public abstract class VideoSource : MediaSource {
-    protected const string THUMBNAIL_NAME_PREFIX = "video";
 }
 
 public abstract class EventSource : ThumbnailSource {

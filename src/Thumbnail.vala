@@ -273,11 +273,11 @@ public class Thumbnail : CheckerboardItem {
         cancel_async_fetch();
         cancellable = new Cancellable();
 
-			// VALA: ideally, we'd use the ternary operator here and insert the ternary
+            // VALA: ideally, we'd use the ternary operator here and insert the ternary
             //       expression directly in the fetch_async_scaled( ) called below,
             //       but on both valac 0.8.0 and 0.9.3, this results in a parse error
             //       "incompatible expressions"
-		    ThumbnailSource source = null;
+            ThumbnailSource source = null;
             if (is_video())
                 source = video;
             else
@@ -309,7 +309,7 @@ public class Thumbnail : CheckerboardItem {
         cancellable = new Cancellable();
         
         if (exposure) {
-			// VALA: ideally, we'd use the ternary operator here and insert the ternary
+            // VALA: ideally, we'd use the ternary operator here and insert the ternary
             //       expression directly in the fetch_async_scaled( ) called below,
             //       but on both valac 0.8.0 and 0.9.3, this results in a parse error
             //       "incompatible expressions"
@@ -406,9 +406,9 @@ public class Thumbnail : CheckerboardItem {
     public bool is_video() {
         return (video != null);
     }
-        
-    public string get_unique_identifier() {
-        return (is_video()) ? video.get_unique_thumbnail_name() : photo.get_unique_thumbnail_name();
+    
+    private string get_unique_identifier() {
+        return (is_video()) ? video.get_source_id() : photo.get_source_id();
     }
     
     public time_t get_exposure_time() {

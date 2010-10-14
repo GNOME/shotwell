@@ -22,7 +22,7 @@ public class EventSourceCollection : ContainerSourceCollection {
     }
     
     public EventSourceCollection() {
-        base(LibraryPhoto.global, Event.BACKLINK_NAME, "EventSourceCollection", get_event_key);
+        base(LibraryPhoto.global, Event.TYPENAME, "EventSourceCollection", get_event_key);
     }
 
     public void init() {
@@ -57,7 +57,7 @@ public class EventSourceCollection : ContainerSourceCollection {
     }
     
     protected override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
-        EventID event_id = Event.id_from_backlink(backlink);
+        EventID event_id = EventID(backlink.instance_id);
         
         Event? event = fetch(event_id);
         if (event != null)
@@ -82,7 +82,7 @@ public class EventSourceCollection : ContainerSourceCollection {
 }
 
 public class Event : EventSource, ContainerSource, Proxyable {
-    public const string BACKLINK_NAME = "event";
+    public const string TYPENAME = "event";
     
     // In 24-hour time.
     public const int EVENT_BOUNDARY_HOUR = 4;
@@ -216,8 +216,16 @@ public class Event : EventSource, ContainerSource, Proxyable {
         LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
     }
     
-    public override string? get_unique_thumbnail_name() {
-        return (primary_photo != null) ? primary_photo.get_unique_thumbnail_name() : null;
+    public override string get_typename() {
+        return TYPENAME;
+    }
+    
+    public override int64 get_instance_id() {
+        return get_event_id().id;
+    }
+    
+    public override string get_representative_id() {
+        return (primary_photo != null) ? primary_photo.get_source_id() : get_source_id();
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
@@ -405,16 +413,12 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return event;
     }
     
-    public static EventID id_from_backlink(SourceBacklink backlink) {
-        return EventID(backlink.value.to_int64());
-    }
-    
     public bool has_links() {
         return LibraryPhoto.global.has_backlink(get_backlink());
     }
     
     public SourceBacklink get_backlink() {
-        return new SourceBacklink(BACKLINK_NAME, event_id.id.to_string());
+        return new SourceBacklink.from_source(this);
     }
     
     public void break_link(DataSource source) {

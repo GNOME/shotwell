@@ -12,14 +12,11 @@ public class TagSourceCollection : ContainerSourceCollection {
         new Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>>();
     
     public TagSourceCollection() {
-        base (LibraryPhoto.global, Tag.BACKLINK_NAME, "TagSourceCollection", get_tag_key);
+        base (LibraryPhoto.global, Tag.TYPENAME, "TagSourceCollection", get_tag_key);
     }
     
     private static int64 get_tag_key(DataSource source) {
-        Tag tag = (Tag) source;
-        TagID tag_id = tag.get_tag_id();
-        
-        return tag_id.id;
+        return ((Tag) source).get_instance_id();
     }
     
     protected override Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source) {
@@ -27,7 +24,7 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     protected override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
-        TagID tag_id = Tag.id_from_backlink(backlink);
+        TagID tag_id = TagID(backlink.instance_id);
         
         Tag? tag = fetch(tag_id);
         if (tag != null)
@@ -214,7 +211,7 @@ public class TagSourceCollection : ContainerSourceCollection {
 }
 
 public class Tag : DataSource, ContainerSource, Proxyable {
-    public const string BACKLINK_NAME = "tag";
+    public const string TYPENAME = "tag";
     
     private class TagSnapshot : SourceSnapshot {
         private TagRow row;
@@ -420,6 +417,14 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         return result;
     }
     
+    public override string get_typename() {
+        return TYPENAME;
+    }
+    
+    public override int64 get_instance_id() {
+        return get_tag_id().id;
+    }
+    
     public override string get_name() {
         return row.name;
     }
@@ -468,16 +473,12 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         return tag;
     }
     
-    public static TagID id_from_backlink(SourceBacklink backlink) {
-        return TagID(backlink.value.to_int64());
-    }
-    
     public bool has_links() {
         return LibraryPhoto.global.has_backlink(get_backlink());
     }
     
     public SourceBacklink get_backlink() {
-        return new SourceBacklink(BACKLINK_NAME, row.tag_id.id.to_string());
+        return new SourceBacklink.from_source(this);
     }
     
     public void break_link(DataSource source) {
