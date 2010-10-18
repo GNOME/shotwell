@@ -1,6 +1,6 @@
 # po/ja.po
 # Japanese translation for Shotwell
-# Copyright (C) 2010 Yorba Foundation
+# Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
 #
 msgid ""
@@ -8,15 +8,13 @@ msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
 "Report-Msgid-Bugs-To: vera@yorba.org\n"
 "POT-Creation-Date: 2010-10-12 15:39-0700\n"
-"PO-Revision-Date: 2010-09-25 16:57+0000\n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: \n"
+"Last-Translator: slackhideo\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2010-09-28 17:48+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-"X-Poedit-Language: Japanese\n"
 
 # Translator credits string for the about box -- translators, add your name
 # below if it's not already present
@@ -78,23 +76,20 @@ msgid "Shotwell failed to load the database file"
 msgstr "データベースのファイルを読み込む時にエラーが発生しました"
 
 #: src/AppDirs.vala:37
-#, fuzzy, c-format
 msgid "Unable to create data directory %s: %s"
-msgstr "%s をエクスポートできません: %s"
+msgstr "%s 資料ディレクトリを作成できません: %s"
 
 #: src/AppDirs.vala:75
 msgid "Pictures"
 msgstr "画像"
 
 #: src/AppDirs.vala:109
-#, fuzzy, c-format
 msgid "Unable to create temporary directory %s: %s"
-msgstr "%s をエクスポートできません: %s"
+msgstr "%s 一時的なディレクトリを作成できません: %s"
 
 #: src/AppDirs.vala:125
-#, fuzzy, c-format
 msgid "Unable to create data subdirectory %s: %s"
-msgstr "%s へバックグランドのエクスポートができません: %s"
+msgstr "%s 資料サブディレクトリを作成できません: %s"
 
 #: src/AppWindow.vala:57
 msgid "Pin Toolbar"
@@ -190,10 +185,9 @@ msgstr "スライドショーを開始します"
 
 #: src/CollectionPage.vala:327
 msgid "View Eve_nt for Photo"
-msgstr "写真にイベントを表示(_n)"
+msgstr "写真のイベントを表示します(_n)"
 
 #: src/CollectionPage.vala:328
-#, fuzzy
 msgid "Go to this photo's event"
 msgstr "この写真のイベントに移動します"
 
@@ -357,7 +351,6 @@ msgid "Restoring Photos From Trash"
 msgstr "ゴミ箱から写真を元に戻しています"
 
 #: src/DatabaseTables.vala:40
-#, fuzzy, c-format
 msgid "Unable to open/create photo database %s: error code %d"
 msgstr "ファイルエラーコード %d のため %s 写真のデータベースを開通/作成できません"
 
@@ -634,7 +627,7 @@ msgstr[0] ""
 
 #: src/Dialogs.vala:1149 src/Dialogs.vala:1173
 msgid "Tags (separated by commas):"
-msgstr "タグ (カンマ区切り):"
+msgstr "タグ (読点区切り):"
 
 #: src/Dialogs.vala:1230
 msgid "Welcome!"
@@ -723,9 +716,8 @@ msgid "Height"
 msgstr "高さ"
 
 #: src/DirectoryMonitor.vala:786
-#, fuzzy, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
-msgstr "%s をモニタできません: ディレクトリではありません"
+msgstr "%s をモニタできません: ディレクトリではありません （%s）"
 
 #: src/EditingTools.vala:501
 msgid "Return to current photo dimensions"
@@ -928,9 +920,8 @@ msgid "_Edit"
 msgstr "編集(_E)"
 
 #: src/EventsDirectoryPage.vala:312
-#, fuzzy
 msgid "No Event"
-msgstr "新しいイベント"
+msgstr "イベントなし"
 
 #: src/EventsDirectoryPage.vala:496
 msgid "Events"
@@ -949,9 +940,8 @@ msgid "%B"
 msgstr "%B"
 
 #: src/Event.vala:559
-#, fuzzy, c-format
 msgid "Event %s"
-msgstr "イベント"
+msgstr "%s のイベント"
 
 #: src/Exporter.vala:204
 msgid "Exporting"
@@ -975,13 +965,12 @@ msgid "Replace _All"
 msgstr "すべて置き換える(_A)"
 
 #: src/Exporter.vala:223
-#, fuzzy
 msgid "Export"
-msgstr "エクスポート中"
+msgstr "エクスポート"
 
 #: src/FacebookConnector.vala:13 src/PicasaConnector.vala:12
 msgid "Shotwell Connect"
-msgstr "Shotwell Connect"
+msgstr "Shotwell 接続"
 
 #: src/FacebookConnector.vala:16
 msgid ""
@@ -1186,14 +1175,12 @@ msgid "Import the selected photos into your library"
 msgstr "選択した写真をライブラリにインポート"
 
 #: src/ImportPage.vala:566
-#, fuzzy
 msgid "Import _All"
-msgstr "すべてインポート"
+msgstr "すべてインポート(_A)"
 
 #: src/ImportPage.vala:567
-#, fuzzy
 msgid "Import all the photos into your library"
-msgstr "選択した写真をライブラリにインポート"
+msgstr "すべての写真をライブラリにインポート"
 
 #: src/ImportPage.vala:695
 msgid ""
@@ -1285,7 +1272,6 @@ msgid "Stop importing photos"
 msgstr "画像のインポートを停止"
 
 #: src/ImportPage.vala:1394
-#, fuzzy
 msgid "Preparing to import..."
 msgstr "画像をインポートしようとしています..."
 
@@ -1323,14 +1309,12 @@ msgid "Last Import"
 msgstr "最後にインポート"
 
 #: src/LibraryMonitor.vala:328 src/LibraryMonitor.vala:337
-#, fuzzy
 msgid "Updating library..."
-msgstr "アルバムの作成中..."
+msgstr "ライブラリの更新中..."
 
 #: src/LibraryMonitor.vala:914
-#, fuzzy
 msgid "Auto-importing..."
-msgstr "インポート中..."
+msgstr "自動インポート中..."
 
 #: src/LibraryWindow.vala:276
 msgid "_Import From Folder..."
@@ -1422,7 +1406,6 @@ msgid "Cameras"
 msgstr "カメラ"
 
 #: src/LibraryWindow.vala:1441
-#, fuzzy, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
@@ -1487,9 +1470,8 @@ msgid "Adjust the size of the thumbnails"
 msgstr "サムネイルのサイズを調整します"
 
 #: src/MediaPage.vala:299
-#, fuzzy
 msgid "Export the selected items to disk"
-msgstr "選択された写真をディスクにエクスポート"
+msgstr "選択された項目をディスクにエクスポート"
 
 #: src/MediaPage.vala:313
 msgid "_Photos"
@@ -1609,7 +1591,6 @@ msgid "Zoom _100%"
 msgstr "100% ズーム(_1)"
 
 #: src/PhotoPage.vala:2282 src/PhotoPage.vala:3319
-#, fuzzy, c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "写真を 100% の倍率にします"
 
@@ -1618,7 +1599,6 @@ msgid "Zoom _200%"
 msgstr "200% ズーム(_2)"
 
 #: src/PhotoPage.vala:2288 src/PhotoPage.vala:3325
-#, fuzzy, c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "写真を 200% の倍率にします"
 
@@ -1958,7 +1938,7 @@ msgstr "昨日"
 
 #: src/Properties.vala:261
 msgid "Items:"
-msgstr "アイテム:"
+msgstr "項目:"
 
 #: src/Properties.vala:264
 #, c-format
@@ -1970,7 +1950,7 @@ msgstr[0] "%d 個のイベント"
 #, c-format
 msgid "%d Video"
 msgid_plural "%d Videos"
-msgstr[0] ""
+msgstr[0] "%d 個の動画"
 
 #: src/Properties.vala:295
 msgid "Date:"
@@ -1982,21 +1962,19 @@ msgstr "時刻:"
 
 #: src/Properties.vala:302 src/Properties.vala:307
 msgid "From:"
-msgstr "最古:"
+msgstr "送信者:"
 
 #: src/Properties.vala:303 src/Properties.vala:308
 msgid "To:"
-msgstr "最新:"
+msgstr "受信者:"
 
 #: src/Properties.vala:322
-#, fuzzy
 msgid "Duration:"
-msgstr "彩度:"
+msgstr "再生時間:"
 
 #: src/Properties.vala:322
-#, fuzzy, c-format
 msgid "%.1f seconds"
-msgstr "秒"
+msgstr "%.1f 秒"
 
 #: src/Properties.vala:438
 msgid "Location:"
@@ -2075,9 +2053,8 @@ msgid "Rotate Right"
 msgstr "右回転"
 
 #: src/Resources.vala:107
-#, fuzzy
 msgid "Rotate the photos right (press Ctrl to rotate left)"
-msgstr "写真を右に回転します"
+msgstr "写真を右に回転します（左回転には Ctrl を押して下さい）"
 
 #: src/Resources.vala:109
 msgid "Rotate _Left"
@@ -2757,36 +2734,31 @@ msgid "Vi_deos"
 msgstr "動画(_d)"
 
 #: src/VideosPage.vala:38
-#, fuzzy
 msgid "_Filter Videos"
-msgstr "写真のフィルタリング(_F)"
+msgstr "動画のフィルタリング(_F)"
 
 #: src/VideosPage.vala:39
-#, fuzzy
 msgid "Sort _Videos"
-msgstr "写真の並び替え(_P)"
+msgstr "動画の並び替え(_P)"
 
 #: src/VideosPage.vala:40
-#, fuzzy
 msgid "_All Videos"
-msgstr "すべての写真(_A)"
+msgstr "すべての動画(_A)"
 
 #: src/VideosPage.vala:89
-#, fuzzy
 msgid "_Play Video"
-msgstr "スライドショーを開始します"
+msgstr "動画を再生します"
 
 #: src/VideosPage.vala:90
-#, fuzzy
 msgid "Open the selected videos in the system video player"
-msgstr "ファイルマネージャで選択された写真のディレクトリを開きます"
+msgstr "システム動画プレイヤーで選択された動画を再生します"
 
 #: src/VideosPage.vala:139
-#, fuzzy, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
 "%s"
-msgstr "データベースのファイルを読み込む時にエラーが発生しました"
+msgstr "選択された動画を読み込む時にエラーが発生しました：\n"
+"%s"
 
 #: src/WebConnectors.vala:636
 msgid "The selected photos were successfully published."
