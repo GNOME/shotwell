@@ -674,7 +674,7 @@ private class WebAuthenticationPane : PublishingDialogPane {
     }
 
     private string get_login_url() {
-        return "http://www.facebook.com/login.php?api_key=%s&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream,publish_stream,offline_access,photo_upload".printf(FacebookConnector.API_KEY);
+        return "http://www.facebook.com/login.php?api_key=%s&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&req_perms=read_stream,publish_stream,offline_access,photo_upload,user_photos".printf(FacebookConnector.API_KEY);
     }
 
     private void on_page_load(WebKit.WebFrame origin_frame) {
