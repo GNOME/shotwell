@@ -103,6 +103,7 @@
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="has_separator">False</property>
+    <property name="border_width">5</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -139,7 +140,7 @@
                     <property name="xpad">6</property>
                     <property name="label" translatable="yes">_Import photos to:</property>
                     <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">library_dir_entry</property>
+                    <property name="mnemonic_widget">library_dir_button</property>
                   </object>
                   <packing>
                     <property name="top_attach">3</property>
@@ -149,57 +150,10 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkHBox" id="hbox4">
+                  <object class="GtkFileChooserButton" id="library_dir_button">
                     <property name="visible">True</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkEntry" id="library_dir_entry">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
-                        <property name="activates_default">True</property>
-                      </object>
-                      <packing>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="file_browser_button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <child>
-                          <object class="GtkHBox" id="hbox5">
-                            <property name="visible">True</property>
-                            <property name="spacing">3</property>
-                            <child>
-                              <object class="GtkImage" id="image1">
-                                <property name="visible">True</property>
-                                <property name="stock">gtk-directory</property>
-                              </object>
-                              <packing>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="labe">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Bro_wse...</property>
-                                <property name="use_underline">True</property>
-                              </object>
-                              <packing>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="can_focus">True</property>
+                    <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -361,7 +315,6 @@
                                 <property name="visible">True</property>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -370,7 +323,6 @@
                                 <property name="visible">True</property>
                               </object>
                               <packing>
-                                <property name="fill">False</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -378,8 +330,6 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
@@ -403,6 +353,7 @@
           <object class="GtkHButtonBox" id="dialog-action_area3">
             <property name="visible">True</property>
             <property name="layout_style">end</property>
+            <property name="border-width">0</property>
             <child>
               <object class="GtkButton" id="button3">
                 <property name="label">gtk-close</property>
@@ -412,7 +363,6 @@
                 <property name="has_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
-                <property name="yalign">0.44999998807907104</property>
               </object>
               <packing>
                 <property name="expand">False</property>

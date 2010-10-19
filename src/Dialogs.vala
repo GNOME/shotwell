@@ -1363,48 +1363,44 @@ public class PreferencesDialog {
     private Gtk.Builder builder;
     private Gtk.Adjustment bg_color_adjustment;
     private Gtk.HScale bg_color_slider;
-    private Gtk.Entry library_dir_entry;
+    private Gtk.FileChooserButton library_dir_button;
     private Gtk.ComboBox photo_editor_combo;
 #if !NO_RAW
     private Gtk.ComboBox raw_editor_combo;
     private SortedList<AppInfo> external_raw_apps;
 #endif
     private SortedList<AppInfo> external_photo_apps;
-    
+
     private PreferencesDialog() {
         builder = AppWindow.create_builder();
-        
+
         dialog = builder.get_object("preferences_dialog") as Gtk.Dialog;
         dialog.set_parent_window(AppWindow.get_instance().get_parent_window());
         dialog.set_transient_for(AppWindow.get_instance());
         dialog.delete_event.connect(on_delete);
         dialog.response.connect(on_close);
-        
+
         bg_color_adjustment = builder.get_object("bg_color_adjustment") as Gtk.Adjustment;
         bg_color_adjustment.set_value(bg_color_adjustment.get_upper() - 
             Config.get_instance().get_bg_color().red);
         bg_color_adjustment.value_changed.connect(on_value_changed);
-        
+
         bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
-    	library_dir_entry = 
-            builder.get_object("library_dir_entry") as Gtk.Entry;
-        
-        library_dir_entry.set_text(AppDirs.get_import_dir().get_path());
-        library_dir_entry.focus_out_event.connect(on_import_dir_entry_changed);
-        
-        Gtk.Button library_dir_browser = 
-            builder.get_object("file_browser_button") as Gtk.Button;
-        library_dir_browser.clicked.connect(on_browse_import_dir);
-        
+    	library_dir_button = 
+            builder.get_object("library_dir_button") as Gtk.FileChooserButton;
+
+        library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
+        library_dir_button.current_folder_changed.connect(on_import_dir_changed);
+
         photo_editor_combo = builder.get_object("external_photo_editor_combo") as Gtk.ComboBox;
 #if !NO_RAW
         raw_editor_combo = builder.get_object("external_raw_editor_combo") as Gtk.ComboBox;
 #endif
-        
+
         populate_preference_options();
-        
+
         photo_editor_combo.changed.connect(on_photo_editor_changed);
 #if !NO_RAW
         raw_editor_combo.changed.connect(on_raw_editor_changed);
@@ -1526,36 +1522,12 @@ public class PreferencesDialog {
         
         return color;
     }
-    
-    private void on_browse_import_dir() {
-        Gtk.FileChooserDialog file_chooser = new Gtk.FileChooserDialog(
-            _("Choose Library Directory"), AppWindow.get_instance(),
-            Gtk.FileChooserAction.SELECT_FOLDER, Gtk.STOCK_CANCEL,
-            Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN,
-            Gtk.ResponseType.ACCEPT);
-        file_chooser.set_local_only(false);
-        
-        try {
-            file_chooser.set_file(AppDirs.get_import_dir());
-        } catch (GLib.Error error) {
-        }
-        
-        if (file_chooser.run() == Gtk.ResponseType.ACCEPT) {
-            File library_dir = file_chooser.get_file();
-            
-            library_dir_entry.set_text(library_dir.get_path());
-            on_import_dir_entry_changed(Gdk.EventFocus());
-        }
-        
-        file_chooser.destroy();
+
+    private void on_import_dir_changed() {
+        AppDirs.set_import_dir(library_dir_button.get_current_folder());
+        debug("setting import dir to: %s", library_dir_button.get_current_folder());
     }
-    
-    private bool on_import_dir_entry_changed(Gdk.EventFocus event) {
-        AppDirs.set_import_dir(library_dir_entry.get_text());
-        
-        return false;
-    }
-    
+
     private void on_photo_editor_changed() {
         AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
 
