@@ -1001,10 +1001,10 @@ public abstract class Photo : PhotoSource {
     // Most useful if the appropriate SourceCollection is frozen while calling this.
     public static void update_many_master_timestamps(Gee.Map<Photo, FileInfo> map)
         throws DatabaseError {
-        PhotoTable.get_instance().begin_transaction();
+        DatabaseTable.begin_transaction();
         foreach (Photo photo in map.keys)
             photo.update_master_modification_time(map.get(photo));
-        PhotoTable.get_instance().commit_transaction();
+        DatabaseTable.commit_transaction();
     }
     
     // Use this only if the editable file's modification time has been changed (i.e. touched)
@@ -1029,10 +1029,10 @@ public abstract class Photo : PhotoSource {
     // Most useful if the appropriate SourceCollection is frozen while calling this.
     public static void update_many_editable_timestamps(Gee.Map<Photo, FileInfo> map)
         throws DatabaseError {
-        PhotoTable.get_instance().begin_transaction();
+        DatabaseTable.begin_transaction();
         foreach (Photo photo in map.keys)
             photo.update_editable_modification_time(map.get(photo));
-        PhotoTable.get_instance().commit_transaction();
+        DatabaseTable.commit_transaction();
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
@@ -1366,7 +1366,7 @@ public abstract class Photo : PhotoSource {
     
     public static void add_remove_many_flags(Gee.Collection<Photo>? add, uint64 add_mask,
         Gee.Collection<Photo>? remove, uint64 remove_mask) throws DatabaseError {
-        PhotoTable.get_instance().begin_transaction();
+        DatabaseTable.begin_transaction();
         
         if (add != null) {
             foreach (Photo photo in add)
@@ -1378,7 +1378,7 @@ public abstract class Photo : PhotoSource {
                 photo.remove_flags(remove_mask);
         }
         
-        PhotoTable.get_instance().commit_transaction();
+        DatabaseTable.commit_transaction();
     }
     
     public uint64 toggle_flags(uint64 mask) {
@@ -1413,7 +1413,7 @@ public abstract class Photo : PhotoSource {
         if (sources != null)
             sources.freeze_notifications();
         
-        PhotoTable.get_instance().begin_transaction();
+        DatabaseTable.begin_transaction();
         
         foreach (Photo photo in photos) {
             try {
@@ -1423,7 +1423,7 @@ public abstract class Photo : PhotoSource {
             }
         }
         
-        PhotoTable.get_instance().commit_transaction();
+        DatabaseTable.commit_transaction();
         
         if (sources != null)
             sources.thaw_notifications();
