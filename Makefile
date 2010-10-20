@@ -304,7 +304,8 @@ EXT_PKG_VERSIONS = \
 	glib-2.0 >= 2.24.0 \
 	libexif >= 0.6.16 \
 	sqlite3 >= 3.5.9 \
-	gexiv2 >= 0.2.0
+	gexiv2 >= 0.2.0 \
+	json-glib-1.0 >= 0.7.6
 
 LIBRAW_VERSION = \
 	0.9.0
