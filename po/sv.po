@@ -1661,21 +1661,25 @@ msgstr "Zooma fotot för att passa på skärmen"
 
 #: src/PhotoPage.vala:2281
 #: src/PhotoPage.vala:3318
+#, no-c-format
 msgid "Zoom _100%"
 msgstr "Zooma _100%"
 
 #: src/PhotoPage.vala:2282
 #: src/PhotoPage.vala:3319
+#, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Zooma fotot till 100% förstoring"
 
 #: src/PhotoPage.vala:2287
 #: src/PhotoPage.vala:3324
+#, no-c-format
 msgid "Zoom _200%"
 msgstr "Zooma _200%"
 
 #: src/PhotoPage.vala:2288
 #: src/PhotoPage.vala:3325
+#, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Zooma fotot till 200% förstoring"
 

@@ -1627,23 +1627,25 @@ msgstr "Фотоны экранды толығымен алатындай еті
 
 #: src/PhotoPage.vala:2281
 #: src/PhotoPage.vala:3318
+#, no-c-format
 msgid "Zoom _100%"
 msgstr "Үлкейту - _100%"
 
 #: src/PhotoPage.vala:2282
 #: src/PhotoPage.vala:3319
-#, c-format
+#, no-c-format
 msgid "Zoom the photo to 100% magnification"
 msgstr "Фотосуретті өлшемнің 100 дейін өзгерту"
 
 #: src/PhotoPage.vala:2287
 #: src/PhotoPage.vala:3324
+#, no-c-format
 msgid "Zoom _200%"
 msgstr "Үлкейту - _200%"
 
 #: src/PhotoPage.vala:2288
 #: src/PhotoPage.vala:3325
-#, c-format
+#, no-c-format
 msgid "Zoom the photo to 200% magnification"
 msgstr "Фотосуретті өлшемнің 200 дейін өзгерту"
 
