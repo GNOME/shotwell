@@ -2812,10 +2812,8 @@ public class LibraryPhotoPage : EditingHostPage {
     
 #if !NO_PUBLISHING
     private void on_publish() {
-        if (get_view().get_count() == 0)
-            return;
-        
-        PublishingDialog.go((Gee.Iterable<DataView>) get_view().get_all());
+        if (get_view().get_count() > 0)
+            PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_sources());
     }
 #endif
     

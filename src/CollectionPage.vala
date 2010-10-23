@@ -619,7 +619,7 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_selected_count() == 0)
             return;
         
-        PublishingDialog.go(get_view().get_selected());
+        PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
 #endif
 

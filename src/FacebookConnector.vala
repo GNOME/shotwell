@@ -8,6 +8,7 @@
 
 namespace FacebookConnector {
 // this should not be changed by anyone unless they know what they're doing
+private const string SERVICE_NAME = "Facebook";
 private const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
 private const int MAX_PHOTO_DIMENSION = 720;
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
@@ -24,6 +25,20 @@ private struct Album {
     Album(string creator_name, string creator_id) {
         name = creator_name;
         id = creator_id;
+    }
+}
+
+public class Capabilities : ServiceCapabilities {
+    public override string get_name() {
+        return SERVICE_NAME;
+    }
+    
+    public override ServiceCapabilities.MediaType get_supported_media() {
+        return MediaType.PHOTO;
+    }
+    
+    public override ServiceInteractor factory(PublishingDialog host) {
+        return new Interactor(host);
     }
 }
 
@@ -405,7 +420,7 @@ public class Interactor : ServiceInteractor {
     }
 
     public override string get_name() {
-        return "Facebook";
+        return SERVICE_NAME;
     }
 
     public override void cancel_interaction() {

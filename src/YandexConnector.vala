@@ -7,6 +7,7 @@
 #if !NO_PUBLISHING
 
 namespace YandexConnector {
+    private const string SERVICE_NAME = "Yandex.Fotki";
     private const string SERVICE_WELCOME_MESSAGE = _("You are not currently logged into Yandex.Fotki.");
     
     private string client_id;
@@ -114,6 +115,20 @@ namespace YandexConnector {
         }
     }
 
+public class Capabilities : ServiceCapabilities {
+    public override string get_name() {
+        return SERVICE_NAME;
+    }
+    
+    public override ServiceCapabilities.MediaType get_supported_media() {
+        return MediaType.PHOTO;
+    }
+    
+    public override ServiceInteractor factory(PublishingDialog host) {
+        return new Interactor(host);
+    }
+}
+
     public class Interactor: ServiceInteractor {
         private WebAuthenticationPane web_auth_pane = null;
         private ProgressPane progress_pane;
@@ -121,7 +136,7 @@ namespace YandexConnector {
         private Photo[] photos;
 
         public override string get_name() { 
-            return "Yandex";
+            return SERVICE_NAME;
         }
         
         public override void cancel_interaction() {

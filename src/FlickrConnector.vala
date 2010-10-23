@@ -7,6 +7,7 @@
 #if !NO_PUBLISHING
 
 namespace FlickrConnector {
+private const string SERVICE_NAME = "Flickr";
 private const string SERVICE_WELCOME_MESSAGE = 
     _("You are not currently logged into Flickr.\n\nYou must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account.");
 private const string RESTART_ERROR_MESSAGE = 
@@ -41,6 +42,20 @@ private class PublishingParameters {
     public VisibilitySpecification visibility_specification;
 
     public PublishingParameters() {
+    }
+}
+
+public class Capabilities : ServiceCapabilities {
+    public override string get_name() {
+        return SERVICE_NAME;
+    }
+    
+    public override ServiceCapabilities.MediaType get_supported_media() {
+        return MediaType.PHOTO;
+    }
+    
+    public override ServiceInteractor factory(PublishingDialog host) {
+        return new Interactor(host);
     }
 }
 
@@ -486,7 +501,7 @@ public class Interactor : ServiceInteractor {
     }
 
     public override string get_name() {
-        return "Flickr";
+        return SERVICE_NAME;
     }
 
     public override void cancel_interaction() {

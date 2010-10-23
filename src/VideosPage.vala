@@ -47,6 +47,13 @@ public class VideosPage : MediaPage {
         play_button.set_label(_("Play"));
         toolbar.insert(play_button, -1);
 
+        // publish button
+        Gtk.ToolButton publish_button = new Gtk.ToolButton.from_stock("");
+        publish_button.set_related_action(action_group.get_action("Publish"));
+        publish_button.set_icon_name(Resources.PUBLISH);
+        publish_button.set_label(Resources.PUBLISH_LABEL);
+        toolbar.insert(publish_button, -1);
+
         // separator to force slider to right side of toolbar
         Gtk.SeparatorToolItem separator = new Gtk.SeparatorToolItem();
         separator.set_expand(true);
@@ -73,6 +80,17 @@ public class VideosPage : MediaPage {
         get_view().monitor_source_collection(Video.global, new VideoViewManager(this), null);
     }
 
+    private static InjectionGroup create_file_menu_injectables() {
+        InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
+        
+#if !NO_PUBLISHING
+        group.add_separator();
+        group.add_menu_item("Publish");
+#endif
+        
+        return group;
+    }
+    
     private static InjectionGroup create_videos_menu_injectables() {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/PhotosMenu/PhotosExtrasExternalsPlaceholder");
         
@@ -89,13 +107,29 @@ public class VideosPage : MediaPage {
         play.label = _("_Play Video");
         play.tooltip = _("Open the selected videos in the system video player");
         actions += play;
+        
+#if !NO_PUBLISHING
+        Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
+            TRANSLATABLE, on_publish };
+        publish.label = Resources.PUBLISH_MENU;
+        publish.tooltip = Resources.PUBLISH_TOOLTIP;
+        actions += publish;
+#endif
 
         return actions;
     }
-    
+
+#if !NO_PUBLISHING
+    private void on_publish() {
+        if (get_view().get_selected_count() > 0)
+            PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+    }
+#endif
+
     protected override InjectionGroup[] init_collect_injection_groups() {
         InjectionGroup[] groups = base.init_collect_injection_groups();
         
+        groups += create_file_menu_injectables();
         groups += create_videos_menu_injectables();
         
         return groups;
@@ -108,6 +142,8 @@ public class VideosPage : MediaPage {
     protected override void update_actions(int selected_count, int count) {
         set_action_sensitive("PlayVideo", selected_count == 1);
         set_action_important("PlayVideo", true);
+        set_action_sensitive("Publish", selected_count >= 1);
+        set_action_important("Publish", true);
         
         base.update_actions(selected_count, count);
     }

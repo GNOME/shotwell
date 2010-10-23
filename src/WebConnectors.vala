@@ -666,18 +666,25 @@ public class PublishingDialog : Gtk.Dialog {
     private Gtk.Label service_selector_box_label;
     private Gtk.VBox central_area_layouter;
     private Gtk.Button close_cancel_button;
-    private Photo[] photos;
+    private Photo[] photos = new Photo[0];
+    private Video[] videos = new Video[0];
+    private MediaSource[] media_sources = new MediaSource[0];
     private PublishingDialogPane active_pane;
     private ServiceInteractor interactor;
 
-    private PublishingDialog(Gee.Iterable<DataView> to_publish) {
+    private PublishingDialog(Gee.Collection<MediaSource> to_publish) {
         set_title(_("Publish Photos"));
         resizable = false;
         delete_event.connect(on_window_close);
-
-        photos = new Photo[0];
-        foreach (DataView view in to_publish) {
-            photos += (Photo) view.get_source();
+        
+        foreach (MediaSource media in to_publish) {
+            if (media is Photo) {
+                photos += (Photo) media;
+            } else {
+                assert(media is Video);
+                videos += (Video) media;
+            }
+            media_sources += media;
         }
 
         service_selector_box = new Gtk.ComboBox.text();
@@ -686,7 +693,7 @@ public class PublishingDialog : Gtk.Dialog {
         service_selector_box_label.set_mnemonic_widget(service_selector_box);
         service_selector_box_label.set_alignment(0.0f, 0.5f);
         
-        foreach (string service_name in ServiceFactory.get_instance().get_manifest())
+        foreach (string service_name in ServiceFactory.get_instance().get_manifest(photos.length > 0))
             service_selector_box.append_text(service_name);
         service_selector_box.changed.connect(on_service_changed);
 
@@ -733,7 +740,7 @@ public class PublishingDialog : Gtk.Dialog {
     // PublishingDialog is set up with a singleton structure because the code in setup_service_interactor() 
     // spins the Gtk event loop. This opens the possibility for multiple publish button presses being 
     // registered, and therefore multiple windows being created. See http://trac.yorba.org/ticket/2428
-    public static void go(Gee.Iterable<DataView> to_publish) {
+    public static void go(Gee.Collection<MediaSource> to_publish) {
         if (active_instance != null)
             return;
         
@@ -754,7 +761,7 @@ public class PublishingDialog : Gtk.Dialog {
         if (active_instance == null)
             return;
 
-        active_instance.interactor = created_interactor;       
+        active_instance.interactor = created_interactor;
         active_instance.get_interactor().start_interaction();
 
         // libsoup spins the event loop in start_interaction( ) which can null out active_instance
@@ -896,9 +903,31 @@ public class PublishingDialog : Gtk.Dialog {
         return photos;
     }
 
+    public Video[] get_videos() {
+        return videos;
+    }
+
+    public MediaSource[] get_media() {
+        return media_sources;
+    }
+
     public ServiceInteractor get_interactor() {
         return interactor;
     }
+}
+
+public abstract class ServiceCapabilities {
+    public enum MediaType {
+        PHOTO =         1 << 0,
+        VIDEO =         1 << 1,
+        ALL =           0xFFFFFFFF
+    }
+    
+    public abstract string get_name();
+    
+    public abstract MediaType get_supported_media();
+    
+    public abstract ServiceInteractor factory(PublishingDialog host);
 }
 
 public abstract class ServiceInteractor {
@@ -913,7 +942,7 @@ public abstract class ServiceInteractor {
         return host;
     }
 
-	public void post_error(PublishingError err) {
+    public void post_error(PublishingError err) {
         // if a client posts an error, then cancel the interaction immediately (this stopa any
         // network activity in progress), display a message to the user, and makes this interactor
         // enter its error state (disallowing any further pane transitions)
@@ -927,7 +956,7 @@ public abstract class ServiceInteractor {
     public bool has_error() {
         return error;
     }
-   
+    
     public abstract string get_name();
     
     public abstract void start_interaction();
@@ -939,6 +968,7 @@ public abstract class BatchUploader {
     public struct TemporaryFileDescriptor {
         public File temp_file;
         public Photo source_photo;
+        public Video source_video;
 
         public TemporaryFileDescriptor() {
             temp_file = null;
@@ -950,6 +980,12 @@ public abstract class BatchUploader {
             this.source_photo = source_photo;
             this.temp_file = temp_file;
         }
+
+        public TemporaryFileDescriptor.with_video(Video source_video,
+            File temp_file) {
+            this.source_video = source_video;
+            this.temp_file = temp_file;
+        }
     }
 
     private const string PREPARE_STATUS_DESCRIPTION = _("Preparing photos for upload");
@@ -958,7 +994,7 @@ public abstract class BatchUploader {
     private const double PREPARATION_PHASE_FRACTION = 0.3;
     private const double UPLOAD_PHASE_FRACTION = 0.7;
 
-    private Photo[] photos;
+    private MediaSource[] photos;
     private TemporaryFileDescriptor[] temp_files;
     private bool has_error = false;
     private int current_file = 0;
@@ -967,8 +1003,12 @@ public abstract class BatchUploader {
     public signal void upload_complete(int num_photos_published);
     public signal void upload_error(PublishingError err);
 
-    public BatchUploader(Photo[] photos) {
+    public BatchUploader.with_media(MediaSource[] photos) {
         this.photos = photos;
+    }
+
+    public BatchUploader(Photo[] photos) {
+        this.photos = (MediaSource[])photos;
     }
 
     protected abstract bool prepare_file(TemporaryFileDescriptor file);
@@ -984,11 +1024,19 @@ public abstract class BatchUploader {
 
             spin_event_loop();
 
-            File current_temp_file = temp_dir.get_child(TEMP_FILE_PREFIX +
-                ("%d".printf(i)) + ".jpg");
-            TemporaryFileDescriptor current_descriptor =
-                TemporaryFileDescriptor.with_members(photos[i], current_temp_file);
-            bool prepared_ok = prepare_file(current_descriptor);
+            File current_temp_file;
+            TemporaryFileDescriptor current_descriptor;
+            if (photos[i] is Photo) {
+                current_temp_file = temp_dir.get_child(TEMP_FILE_PREFIX + ("%d".printf(i)) + ".jpg");
+                current_descriptor =  TemporaryFileDescriptor.with_members((Photo) photos[i], current_temp_file);
+            } else {
+                current_temp_file = photos[i].get_file();
+                current_descriptor =  TemporaryFileDescriptor.with_video((Video) photos[i], current_temp_file);
+            }
+            bool prepared_ok = true;
+            if (photos[i] is Photo){
+                prepared_ok = prepare_file(current_descriptor);
+            }
             if (prepared_ok)
                 temp_files += current_descriptor;
 
@@ -1045,7 +1093,9 @@ public abstract class BatchUploader {
         if (has_error)
             return;
 
-        delete_file(temp_files[current_file]);
+        if (temp_files[current_file].source_photo is Photo) {
+            delete_file(temp_files[current_file]);
+        }
         current_file++;
         if (current_file < temp_files.length)
            send_file(temp_files[current_file]);
@@ -1092,9 +1142,21 @@ public abstract class BatchUploader {
 //       clients will still see the same interface no matter how it's implemented
 //       internally.
 public class ServiceFactory {
-    private static ServiceFactory instance = null;   
-
+    private static ServiceFactory instance = null;
+    
+    private Gee.Map<string, ServiceCapabilities> caps_map = new Gee.TreeMap<
+        string, ServiceCapabilities>();
+    
     private ServiceFactory() {
+        add_caps(new FacebookConnector.Capabilities());
+        add_caps(new FlickrConnector.Capabilities());
+        add_caps(new PicasaConnector.Capabilities());
+        add_caps(new YandexConnector.Capabilities());
+        add_caps(new YouTubeConnector.Capabilities());
+    }
+    
+    private void add_caps(ServiceCapabilities caps) {
+        caps_map.set(caps.get_name(), caps);
     }
     
     public static ServiceFactory get_instance() {
@@ -1104,29 +1166,40 @@ public class ServiceFactory {
         return instance;
     }
     
-    public string[] get_manifest() {
+    // This returns the first service that can handle any media type.
+    public ServiceCapabilities get_default_service() {
+        foreach (ServiceCapabilities caps in caps_map.values) {
+            if ((caps.get_supported_media() & ServiceCapabilities.MediaType.ALL) != 0)
+                return caps;
+        }
+        
+        error("No default publishing service available.");
+    }
+    
+    // Currently can only upload to photos or videos ... mixed media requires a bit more work.
+    public string[] get_manifest(bool photos) {
         string[] result = new string[0];
-
-        result += "Facebook";
-        result += "Flickr";
-        result += "Picasa Web Albums";
-        result += "Yandex.Fotki";
-
+        
+        ServiceCapabilities.MediaType media_type = photos ? ServiceCapabilities.MediaType.PHOTO
+            : ServiceCapabilities.MediaType.VIDEO;
+        
+        foreach (ServiceCapabilities caps in caps_map.values) {
+            if ((caps.get_supported_media() & media_type) != 0)
+                result += caps.get_name();
+        }
+        
         return result;
     }
     
-    public ServiceInteractor? create_interactor(PublishingDialog host, string service_name) {
-        if (service_name == "Facebook") {
-            return new FacebookConnector.Interactor(host);
-        } else if (service_name == "Flickr") {
-            return new FlickrConnector.Interactor(host);
-        } else if (service_name == "Picasa Web Albums") {
-            return new PicasaConnector.Interactor(host);
-        } else if (service_name == "Yandex.Fotki") {
-            return new YandexConnector.Interactor(host);
-        } else {
-            error("ServiceInteractor: unsupported service '%s'", service_name);
-        }
+    public ServiceInteractor create_interactor(PublishingDialog host, string? service_name) {
+        ServiceCapabilities caps = null;
+        if (service_name != null)
+            caps = caps_map.get(service_name);
+        
+        if (caps == null)
+            caps = get_default_service();
+        
+        return caps.factory(host);
     }
 }
 
