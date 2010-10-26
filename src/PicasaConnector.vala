@@ -7,7 +7,7 @@
 #if !NO_PUBLISHING
 
 namespace PicasaConnector {
-private const string SERVICE_NAME = "Picasa Web Album";
+private const string SERVICE_NAME = "Picasa Web Albums";
 private const string SERVICE_WELCOME_MESSAGE = 
     _("You are not currently logged into Picasa Web Albums.\n\nYou must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once.");
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
