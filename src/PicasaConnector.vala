@@ -11,6 +11,7 @@ private const string SERVICE_NAME = "Picasa Web Albums";
 private const string SERVICE_WELCOME_MESSAGE = 
     _("You are not currently logged into Picasa Web Albums.\n\nYou must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once.");
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
+private const string CONFIG_NAME = "picasa";
 
 private struct Album {
     string name;
@@ -831,17 +832,20 @@ private class PublishingOptionsPane : PublishingDialogPane {
     }
 
     private void on_publish_clicked() {
-        Config.get_instance().set_picasa_default_size(size_combo.get_active());            
+        Config.get_instance().set_picasa_default_size(size_combo.get_active());
         int photo_major_axis_size = size_descriptions[size_combo.get_active()].major_axis_pixels;
+        string album_name;
         if (create_new_radio.get_active()) {
-            string album_name = new_album_entry.get_text();
+            album_name = new_album_entry.get_text();
             bool is_public = public_check.get_active();
             publish(new PublishingParameters.to_new_album(photo_major_axis_size, album_name,
                 is_public));
         } else {
+            album_name = albums[existing_albums_combo.get_active()].name;
             string album_url = albums[existing_albums_combo.get_active()].url;
             publish(new PublishingParameters.to_existing_album(photo_major_axis_size, album_url));
         }
+        Config.get_instance().set_publishing_string(CONFIG_NAME, "last_album", album_name);
     }
 
     private void on_use_existing_radio_clicked() {
@@ -887,9 +891,11 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
     public override void installed() {
         int default_album_id = -1;
+        string last_album = Config.get_instance().get_publishing_string(CONFIG_NAME, "last_album");
         for (int i = 0; i < albums.length; i++) {
             existing_albums_combo.append_text(albums[i].name);
-            if (albums[i].name == DEFAULT_ALBUM_NAME)
+            if (albums[i].name == last_album ||
+                (albums[i].name == DEFAULT_ALBUM_NAME && default_album_id == -1))
                 default_album_id = i;
         }
 
@@ -930,29 +936,29 @@ private class Session : RESTSession {
     private bool has_persistent_state() {
         Config config = Config.get_instance();
 
-        return ((config.get_picasa_user_name() != null) &&
-                (config.get_picasa_auth_token() != null));
+        return ((config.get_publishing_string(CONFIG_NAME, "user_name") != null) &&
+                (config.get_publishing_string(CONFIG_NAME, "auth_token") != null));
     }
     
     private void save_persistent_state() {
         Config config = Config.get_instance();
 
-        config.set_picasa_user_name(username);
-        config.set_picasa_auth_token(auth_token);
+        config.set_publishing_string(CONFIG_NAME, "user_name", username);
+        config.set_publishing_string(CONFIG_NAME, "auth_token", auth_token);
     }
 
     private void load_persistent_state() {
         Config config = Config.get_instance();
 
-        username = config.get_picasa_user_name();
-        auth_token = config.get_picasa_auth_token();
+        username = config.get_publishing_string(CONFIG_NAME, "user_name");
+        auth_token = config.get_publishing_string(CONFIG_NAME, "auth_token");
     }
     
     private void clear_persistent_state() {
         Config config = Config.get_instance();
 
-        config.set_picasa_user_name("");
-        config.set_picasa_auth_token("");
+        config.set_publishing_string(CONFIG_NAME, "user_name", "");
+        config.set_publishing_string(CONFIG_NAME, "auth_token", "");
     }
 
     public bool is_authenticated() {

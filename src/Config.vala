@@ -265,28 +265,12 @@ public class Config {
         return get_string("/apps/shotwell/sharing/facebook/user_name");
     }
 
-    public bool set_picasa_user_name(string user_name) {
-        return set_string("/apps/shotwell/sharing/picasa/user_name", user_name);
-    }
-
-    public string? get_picasa_user_name() {
-        return get_string("/apps/shotwell/sharing/picasa/user_name");
-    }
-
-    public bool set_picasa_auth_token(string auth_token) {
-        return set_string("/apps/shotwell/sharing/picasa/auth_token", auth_token);
-    }
-
     public bool set_picasa_default_size(int default_size) {
         return set_int("/apps/shotwell/sharing/picasa/default_size", default_size + 1);
     }
 
     public int get_picasa_default_size() {
         return get_int("/apps/shotwell/sharing/picasa/default_size", 3) - 1;
-    }
-
-    public string? get_picasa_auth_token() {
-        return get_string("/apps/shotwell/sharing/picasa/auth_token");
     }
 
     public string? get_publishing_string(string id, string key) {
