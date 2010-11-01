@@ -49,7 +49,7 @@ public class Application {
     public void exit() {
         // only fire this once, but thanks to terminate(), it will be fired at least once (even
         // if start() is not called and "starting" is not fired)
-        if (exiting_fired)
+        if (exiting_fired || !running)
             return;
         
         exiting_fired = true;
