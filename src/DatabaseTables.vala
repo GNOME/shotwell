@@ -343,25 +343,26 @@ public enum DatabaseVerifyResult {
     NO_UPGRADE_AVAILABLE
 }
 
-public DatabaseVerifyResult verify_database(out string app_version) {
+public DatabaseVerifyResult verify_database(out string app_version, out int schema_version) {
     VersionTable version_table = VersionTable.get_instance();
-    int version = version_table.get_version(out app_version);
+    schema_version = version_table.get_version(out app_version);
     
-    if (version >= 0)
-        debug("Database schema version %d created by app version %s", version, app_version);
+    if (schema_version >= 0)
+        debug("Database schema version %d created by app version %s", schema_version, app_version);
     
-    if (version == -1) {
+    if (schema_version == -1) {
         // no version set, do it now (tables will be created on demand)
         debug("Creating database schema version %d for app version %s", DatabaseTable.SCHEMA_VERSION,
             Resources.APP_VERSION);
         version_table.set_version(DatabaseTable.SCHEMA_VERSION, Resources.APP_VERSION);
         app_version = Resources.APP_VERSION;
-    } else if (version > DatabaseTable.SCHEMA_VERSION) {
+        schema_version = DatabaseTable.SCHEMA_VERSION;
+    } else if (schema_version > DatabaseTable.SCHEMA_VERSION) {
         // Back to the future
         return DatabaseVerifyResult.FUTURE_VERSION;
-    } else if (version < DatabaseTable.SCHEMA_VERSION) {
+    } else if (schema_version < DatabaseTable.SCHEMA_VERSION) {
         // Past is present
-        DatabaseVerifyResult result = upgrade_database(version);
+        DatabaseVerifyResult result = upgrade_database(schema_version);
         if (result != DatabaseVerifyResult.OK)
             return result;
     }

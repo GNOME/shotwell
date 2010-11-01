@@ -69,30 +69,33 @@ void library_exec(string[] mounts) {
     message("Verifying database ...");
     string errormsg = null;
     string app_version;
-    DatabaseVerifyResult result = verify_database(out app_version);
+    int schema_version;
+    DatabaseVerifyResult result = verify_database(out app_version, out schema_version);
     switch (result) {
         case DatabaseVerifyResult.OK:
             // do nothing; no problems
         break;
         
         case DatabaseVerifyResult.FUTURE_VERSION:
-            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell.").printf(
-                app_version, Resources.APP_VERSION);
+            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please use the latest version of Shotwell.").printf(
+                app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION);
         break;
         
         case DatabaseVerifyResult.UPGRADE_ERROR:
-            errormsg = _("Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s").printf(
-                app_version, Resources.APP_VERSION, Resources.get_users_guide_url());
+            errormsg = _("Shotwell was unable to upgrade your photo library from version %s (schema %d) to %s (schema %d).  For more information please check the Shotwell Wiki at %s").printf(
+                app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
+                Resources.get_users_guide_url());
         break;
         
         case DatabaseVerifyResult.NO_UPGRADE_AVAILABLE:
-            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos.").printf(
-                app_version, Resources.APP_VERSION, AppDirs.get_data_dir().get_path());
+            errormsg = _("Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s (schema %d).  This version is %s (schema %d).  Please clear your library by deleting %s and re-import your photos.").printf(
+                app_version, schema_version, Resources.APP_VERSION, DatabaseTable.SCHEMA_VERSION,
+                AppDirs.get_data_dir().get_path());
         break;
         
         default:
-            errormsg = _("Unknown error attempting to verify Shotwell's database: %d").printf(
-                (int) result);
+            errormsg = _("Unknown error attempting to verify Shotwell's database: %s").printf(
+                result.to_string());
         break;
     }
     
