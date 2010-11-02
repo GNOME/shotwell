@@ -181,10 +181,10 @@ public class Interactor : ServiceInteractor {
             // recover, so just post it to the user
             session.deauthenticate();
             do_show_credentials_capture_pane(CredentialsCapturePane.Mode.NOT_SET_UP);
-        } else if (bad_txn.get_status_code() == 403) {
-            // if we get a 403 error (authentication failed) then we need to return to the login
-            // screen because the user's auth token is no longer valid and he or she needs to
-            // login again to obtain a new one
+        } else if (bad_txn.get_status_code() == 403 || bad_txn.get_status_code() == 401) {
+            // if we get a 403 error (authentication failed) or 401 (token expired) then we need
+            // to return to the login screen because the user's auth token is no longer valid and
+            // he or she needs to login again to obtain a new one
             session.deauthenticate();
             do_show_credentials_capture_pane(CredentialsCapturePane.Mode.INTRO);
         } else {
