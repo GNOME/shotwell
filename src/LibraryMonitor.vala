@@ -461,7 +461,11 @@ public class LibraryMonitor : DirectoryMonitor {
             }
             
             FileInfo? master_info = get_file_info(photo.get_master_file());
-            assert(master_info != null);
+            if (master_info == null) {
+                enqueue_offline(photo);
+                
+                continue;
+            }
             
             // if the photo is not offline and not to be marked offline, or does not
             // exist within the library directory (the following check happens in
