@@ -409,6 +409,14 @@ public class LibraryMonitor : DirectoryMonitor {
         
         foreach (DataObject object in Video.global.get_all()) {
             Video video = (Video) object;
+            
+            // if not in the monitored directory, it must be detected on its own
+            if (!is_in_root(video.get_file())) {
+                verify_external_video.begin(video);
+                
+                continue;
+            }
+            
             FileInfo? video_file_info = get_file_info(video.get_file());
             
             if ((video_file_info != null) && (!video.is_offline())) {
@@ -418,7 +426,10 @@ public class LibraryMonitor : DirectoryMonitor {
                 videos_to_mark_offline.add(video);
             }
         }
-
+        
+        foreach (MediaSource media in Video.global.get_offline_bin_contents())
+            verify_external_video.begin((Video) media);
+        
         // go through all discovered online photos and see if they're online
         foreach (LibraryPhoto photo in discovered) {
             FileInfo? master_info = get_file_info(photo.get_master_file());
@@ -538,6 +549,24 @@ public class LibraryMonitor : DirectoryMonitor {
                     enqueue_revert_to_master(photo);
                 }
             }
+        }
+    }
+    
+    private async void verify_external_video(Video video) {
+        bool is_offline = video.is_offline();
+        
+        try {
+            // only interested if file exists
+            File file = video.get_file();
+            FileInfo? info = yield file.query_info_async(SUPPLIED_ATTRIBUTES,
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
+            if (info != null && is_offline)
+                videos_to_mark_online.add(video);
+            else if (info == null && !is_offline)
+                videos_to_mark_offline.add(video);
+        } catch (Error err) {
+            if (!is_offline)
+                videos_to_mark_offline.add(video);
         }
     }
     
