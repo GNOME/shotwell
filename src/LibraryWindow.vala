@@ -18,7 +18,14 @@ public class LibraryWindow : AppWindow {
         "disk:",
         "file:"
     };
-
+    
+    // these values reflect the priority various background operations have when reporting
+    // progress to the LibraryWindow progress bar ... higher values give priority to those reports
+    private const int REALTIME_UPDATE_PROGRESS_PRIORITY =   40;
+    private const int REALTIME_IMPORT_PROGRESS_PRIORITY =   50;
+    private const int METADATA_WRITER_PROGRESS_PRIORITY =   30;
+    private const int MIMIC_MANAGER_PROGRESS_PRIORITY =     20;
+    
     protected enum TargetType {
         URI_LIST,
         PHOTO_LIST
@@ -28,6 +35,10 @@ public class LibraryWindow : AppWindow {
         { "text/uri-list", Gtk.TargetFlags.OTHER_APP, TargetType.URI_LIST },
         { "shotwell/photo-id", Gtk.TargetFlags.SAME_APP, TargetType.PHOTO_LIST }
     };
+    
+    // special Yorba-selected sidebar background color for standard themes (humanity,
+    // clearlooks, etc.); dark themes use the theme's native background color
+    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xf00;
     
     // In fullscreen mode, want to use LibraryPhotoPage, but fullscreen has different requirements,
     // esp. regarding when the widget is realized and when it should first try and throw them image
@@ -83,7 +94,6 @@ public class LibraryWindow : AppWindow {
     // special Yorba-selected sidebar background color for standard themes (humanity,
     // clearlooks, etc.); dark themes use the theme's native background color
     public static Gdk.Color SIDEBAR_STANDARD_BG_COLOR = parse_color("#EEE");
-    public const uint16 STANDARD_COMPONENT_MINIMUM = 0xf00;
 
     private string import_dir = Environment.get_home_dir();
 
@@ -139,6 +149,7 @@ public class LibraryWindow : AppWindow {
     private Gtk.Box layout = new Gtk.VBox(false, 0);
     
     private bool events_sort_ascending = false;
+    private int current_progress_priority = 0;
     
     public LibraryWindow(ProgressMonitor monitor) {
         // prepare the default parent and orphan pages
@@ -242,6 +253,10 @@ public class LibraryWindow : AppWindow {
         sync_videos_visibility();
         
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
+        LibraryPhoto.library_monitor.auto_update_progress.connect(on_library_monitor_auto_update_progress);
+        LibraryPhoto.library_monitor.auto_import_preparing.connect(on_library_monitor_auto_import_preparing);
+        LibraryPhoto.library_monitor.auto_import_progress.connect(on_library_monitor_auto_import_progress);
+        LibraryPhoto.mimic_manager.progress.connect(on_mimic_manager_progress);
     }
     
     ~LibraryWindow() {
@@ -266,6 +281,10 @@ public class LibraryWindow : AppWindow {
         Video.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
+        LibraryPhoto.library_monitor.auto_update_progress.disconnect(on_library_monitor_auto_update_progress);
+        LibraryPhoto.library_monitor.auto_import_preparing.disconnect(on_library_monitor_auto_import_preparing);
+        LibraryPhoto.library_monitor.auto_import_progress.disconnect(on_library_monitor_auto_import_progress);
+        LibraryPhoto.mimic_manager.progress.disconnect(on_mimic_manager_progress);
     }
     
     private Gtk.ActionEntry[] create_actions() {
@@ -1426,29 +1445,42 @@ public class LibraryWindow : AppWindow {
         sort_events_action.set_active(events_sort_ascending);
     }
     
-    public static void update_background_progress_bar(string label, double count, double total) {
-        if (instance == null)
+    private void pulse_background_progress_bar(string label, int priority) {
+        if (priority < current_progress_priority)
             return;
         
-        if (total <= 0.0) {
+        current_progress_priority = priority;
+        
+        background_progress_bar.set_text(label);
+        background_progress_bar.pulse();
+        show_background_progress_bar();
+    }
+    
+    private void update_background_progress_bar(string label, int priority, double count,
+        double total) {
+        if (priority < current_progress_priority)
+            return;
+        
+        if (count <= 0.0 || total <= 0.0 || count >= total) {
             clear_background_progress_bar();
             
             return;
         }
         
+        current_progress_priority = priority;
+        
         double fraction = count / total;
-        get_app().background_progress_bar.set_fraction(fraction);
-        get_app().background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
-        get_app().show_background_progress_bar();
+        background_progress_bar.set_fraction(fraction);
+        background_progress_bar.set_text(_("%s (%d%%)").printf(label, (int) (fraction * 100.0)));
+        show_background_progress_bar();
     }
     
-    public static void clear_background_progress_bar() {
-        if (instance == null)
-            return;
+    private void clear_background_progress_bar() {
+        current_progress_priority = 0;
         
-        get_app().background_progress_bar.set_fraction(0.0);
-        get_app().background_progress_bar.set_text("");
-        get_app().hide_background_progress_bar();
+        background_progress_bar.set_fraction(0.0);
+        background_progress_bar.set_text("");
+        hide_background_progress_bar();
     }
     
     private void show_background_progress_bar() {
@@ -1466,11 +1498,29 @@ public class LibraryWindow : AppWindow {
         }
     }
     
+    private void on_library_monitor_auto_update_progress(int completed_files, int total_files) {
+        update_background_progress_bar(_("Updating library..."), REALTIME_UPDATE_PROGRESS_PRIORITY,
+            completed_files, total_files);
+    }
+    
+    private void on_library_monitor_auto_import_preparing() {
+        pulse_background_progress_bar(_("Preparing to auto-import photos..."),
+            REALTIME_IMPORT_PROGRESS_PRIORITY);
+    }
+    
+    private void on_library_monitor_auto_import_progress(uint64 completed_bytes, uint64 total_bytes) {
+        update_background_progress_bar(_("Auto-importing photos..."),
+            REALTIME_IMPORT_PROGRESS_PRIORITY, completed_bytes, total_bytes);
+    }
+    
     private void on_metadata_writer_progress(uint completed, uint total) {
-        if (completed >= total || completed == 0 || total == 0)
-            clear_background_progress_bar();
-        else
-            update_background_progress_bar(_("Writing metadata to files..."), completed, total);
+        update_background_progress_bar(_("Writing metadata to files..."),
+            METADATA_WRITER_PROGRESS_PRIORITY, completed, total);
+    }
+    
+    private void on_mimic_manager_progress(int completed, int total) {
+        update_background_progress_bar(_("Processing RAW files..."),
+            MIMIC_MANAGER_PROGRESS_PRIORITY, completed, total);
     }
     
     private void create_layout(Page start_page) {

@@ -240,6 +240,12 @@ public class LibraryMonitor : DirectoryMonitor {
     private uint pending_updates_timer_id = 0;
     private uint import_queue_timer_id = 0;
     
+    public signal void auto_update_progress(int completed_files, int total_files);
+    
+    public signal void auto_import_preparing();
+    
+    public signal void auto_import_progress(uint64 completed_bytes, uint64 total_bytes);
+    
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
         
@@ -398,8 +404,7 @@ public class LibraryMonitor : DirectoryMonitor {
             discovery_stage_completed();
         } else {
             mdbg("%d checksum jobs initiated to verify unknown photo files".printf(checksums_total));
-            LibraryWindow.update_background_progress_bar(_("Updating library..."),
-                checksums_completed, checksums_total);
+            auto_update_progress(checksums_completed, checksums_total);
         }
     }
     
@@ -407,13 +412,10 @@ public class LibraryMonitor : DirectoryMonitor {
         assert(checksums_completed < checksums_total);
         checksums_completed++;
         
-        LibraryWindow.update_background_progress_bar(_("Updating library..."),
-            checksums_completed, checksums_total);
+        auto_update_progress(checksums_completed, checksums_total);
         
-        if (checksums_completed == checksums_total) {
-            LibraryWindow.clear_background_progress_bar();
+        if (checksums_completed == checksums_total)
             discovery_stage_completed();
-        }
     }
     
     private void on_find_move_completed(BackgroundJob j) {
@@ -1165,6 +1167,7 @@ public class LibraryMonitor : DirectoryMonitor {
             return;
         
         current_batch_import = batch_import_queue[0];
+        current_batch_import.preparing.connect(on_import_preparing);
         current_batch_import.progress.connect(on_import_progress);
         current_batch_import.import_complete.connect(on_import_complete);
         current_batch_import.schedule();
@@ -1175,6 +1178,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         bool removed = batch_import_queue.remove(current_batch_import);
         assert(removed);
+        current_batch_import.preparing.disconnect(on_import_preparing);
         current_batch_import.progress.disconnect(on_import_progress);
         current_batch_import.import_complete.disconnect(on_import_complete);
         current_batch_import = null;
@@ -1248,9 +1252,12 @@ public class LibraryMonitor : DirectoryMonitor {
         assert(removed);
     }
     
+    private void on_import_preparing() {
+        auto_import_preparing();
+    }
+    
     private void on_import_progress(uint64 completed_bytes, uint64 total_bytes) {
-        LibraryWindow.update_background_progress_bar(_("Auto-importing..."),
-            completed_bytes, total_bytes);
+        auto_import_progress(completed_bytes, total_bytes);
     }
     
     private void on_import_complete(BatchImport batch_import, ImportManifest manifest,
@@ -1258,8 +1265,7 @@ public class LibraryMonitor : DirectoryMonitor {
         assert(batch_import == current_batch_import);
         
         mdbg("auto-import batch completed %d".printf(manifest.all.size));
-        
-        LibraryWindow.clear_background_progress_bar();
+        auto_import_progress(0, 0);
         
         foreach (BatchImportResult result in manifest.all) {
             if (result.file != null)

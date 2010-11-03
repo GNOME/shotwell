@@ -295,10 +295,22 @@ public abstract class BackgroundJob {
         notification_priority = priority;
     }
     
-    // This method is not thread-safe.  Best to set a completion Semaphore before the job is
-    // enqueued.
+    // This method is thread-safe, however, because of race conditions between setting a semaphore
+    // and another thread waiting on it, it's best to set this before enqueuing the job.
     public void set_completion_semaphore(AbstractSemaphore semaphore) {
-        this.semaphore = semaphore;
+        lock (this.semaphore) {
+            this.semaphore = semaphore;
+        }
+    }
+    
+    // This method is thread-safe, but only waits if a completion semaphore has been set, otherwise
+    // exits immediately.  Note that blocking for a semaphore does NOT spin the event loop, so a
+    // thread relying on it to continue should not use this.
+    public void wait_for_completion() {
+        lock (semaphore) {
+            if (semaphore != null)
+                semaphore.wait();
+        }
     }
     
     public Cancellable? get_cancellable() {

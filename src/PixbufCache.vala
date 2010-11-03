@@ -25,8 +25,6 @@ public class PixbufCache : Object {
         public Gdk.Pixbuf pixbuf = null;
         public Error err = null;
         
-        private Semaphore completion_semaphore = new Semaphore();
-        
         public FetchJob(PixbufCache owner, BackgroundJob.JobPriority priority, Photo photo, 
             Scaling scaling, CompletionCallback callback) {
             base(owner, callback, new Cancellable());
@@ -35,15 +33,11 @@ public class PixbufCache : Object {
             this.photo = photo;
             this.scaling = scaling;
             
-            set_completion_semaphore(completion_semaphore);
+            set_completion_semaphore(new Semaphore());
         }
         
         public override BackgroundJob.JobPriority get_priority() {
             return priority;
-        }
-        
-        public void wait_for_completion() {
-            completion_semaphore.wait();
         }
     }
     

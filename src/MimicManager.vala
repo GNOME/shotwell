@@ -37,7 +37,9 @@ public class MimicManager : Object {
         public File file;
         
         public DeleteJob(MimicManager manager, File file) {
-            base (manager);
+            base (manager, manager.on_delete_completed, new Cancellable());
+            
+            set_completion_semaphore(new Semaphore());
             
             this.file = file;
         }
@@ -55,8 +57,13 @@ public class MimicManager : Object {
     private File impersonators_dir;
     private Workers workers = new Workers(1, false);
     private Gee.HashMap<Photo, VerifyJob> verify_jobs = new Gee.HashMap<Photo, VerifyJob>();
+    private Gee.HashSet<DeleteJob> delete_jobs = new Gee.HashSet<DeleteJob>();
     private int pause_count = 0;
     private Gee.ArrayList<VerifyJob> paused_list = new Gee.ArrayList<VerifyJob>();
+    private int completed_jobs = 0;
+    private int total_jobs = 0;
+    
+    public signal void progress(int completed, int total);
     
     public MimicManager(SourceCollection sources, File impersonators_dir) {
         this.sources = sources;
@@ -66,15 +73,20 @@ public class MimicManager : Object {
         
         sources.items_added.connect(on_photos_added);
         sources.item_destroyed.connect(on_photo_destroyed);
+        
+        Application.get_instance().exiting.connect(on_application_exiting);
     }
     
     ~MimicManager() {
         sources.items_added.disconnect(on_photos_added);
         sources.item_destroyed.disconnect(on_photo_destroyed);
+        
+        Application.get_instance().exiting.disconnect(on_application_exiting);
     }
     
     public void pause() {
-        pause_count++;
+        if (pause_count++ == 0)
+            progress(0, 0);
     }
     
     public void resume() {
@@ -89,7 +101,18 @@ public class MimicManager : Object {
         paused_list.clear();
     }
     
+    private void on_application_exiting(bool panicked) {
+        foreach (VerifyJob job in verify_jobs.values)
+            job.cancel();
+        
+        // wait out all the delete jobs, no way to restart these properly because of the way that
+        // IDs may be reused after destruction
+        foreach (DeleteJob job in delete_jobs)
+            job.wait_for_completion();
+    }
+    
     private void enqueue_verify_job(VerifyJob job) {
+        total_jobs++;
         verify_jobs.set(job.photo, job);
         workers.enqueue(job);
     }
@@ -127,7 +150,11 @@ public class MimicManager : Object {
             outstanding.cancel();
         }
         
-        workers.enqueue(new DeleteJob(this, generate_impersonator_file((Photo) source)));
+        DeleteJob job = new DeleteJob(this, generate_impersonator_file((Photo) source));
+        
+        total_jobs++;
+        delete_jobs.add(job);
+        workers.enqueue(job);
     }
     
     private void on_verify_completed(BackgroundJob background_job) {
@@ -135,6 +162,8 @@ public class MimicManager : Object {
         
         bool removed = verify_jobs.unset(job.photo);
         assert(removed);
+        
+        report_completed_job();
         
         if (job.err != null) {
             critical("Unable to generate impersonator for %s: %s", job.photo.to_string(),
@@ -144,6 +173,22 @@ public class MimicManager : Object {
         }
         
         job.photo.set_mimic_reader(job.writer.create_reader());
+    }
+    
+    private void on_delete_completed(BackgroundJob background_job) {
+        bool removed = delete_jobs.remove((DeleteJob) background_job);
+        assert(removed);
+        
+        report_completed_job();
+    }
+    
+    private void report_completed_job() {
+        if (++completed_jobs >= total_jobs) {
+            completed_jobs = 0;
+            total_jobs = 0;
+        }
+        
+        progress(completed_jobs, total_jobs);
     }
     
     private string generate_impersonator_filepath(Photo photo) {
