@@ -3593,7 +3593,7 @@ public class DirectPhotoPage : EditingHostPage {
         // wants to save a JPEG image as a JPEG) AND the photo's existing filename uses a
         // known extension for the format, then there's no need to change the file's
         // extension, so skip doing an extension replacement
-        if ((format == get_photo().get_file_format()) &&
+        if ((format == get_photo().get_file_format()) && ext != null &&
             (format.get_properties().is_recognized_extension(ext))) {
             filename = basename;
         } else {

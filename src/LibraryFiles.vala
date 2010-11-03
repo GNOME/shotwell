@@ -100,7 +100,7 @@ public File? generate_unique_file_at(File dir, string basename, out bool collisi
 }
 
 // This function is thread-safe.
-private File duplicate(File src, FileProgressCallback? progress_callback) throws Error {
+private File duplicate(File src, FileProgressCallback? progress_callback, bool blacklist) throws Error {
     time_t timestamp = 0;
     try {
         timestamp = query_file_modified(src);
@@ -124,7 +124,15 @@ private File duplicate(File src, FileProgressCallback? progress_callback) throws
     if (dest == null)
         throw new FileError.FAILED("Unable to generate unique pathname for destination");
     
-    src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);
+    if (blacklist)
+        LibraryMonitor.blacklist_file(dest);
+    
+    try {
+        src.copy(dest, FileCopyFlags.ALL_METADATA | FileCopyFlags.OVERWRITE, null, progress_callback);
+    } finally {
+        if (blacklist)
+            LibraryMonitor.unblacklist_file(dest);
+    }
     
     return dest;
 }

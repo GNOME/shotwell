@@ -999,6 +999,11 @@ public class SourceCollection : DataCollection {
     public virtual signal void unlinked_destroyed(DataSource source) {
     }
     
+    // When this signal is fired, the backlink to the ContainerSource has already been removed.
+    public virtual signal void backlink_removed(SourceBacklink backlink,
+        Gee.Collection<DataSource> sources) {
+    }
+    
     private Gee.MultiMap<SourceBacklink, DataSource>? backlinks = null;
     
     public SourceCollection(string name) {
@@ -1024,6 +1029,11 @@ public class SourceCollection : DataCollection {
     // This is only called by DataSource.
     public virtual void notify_unlinked_destroyed(DataSource unlinked) {
         unlinked_destroyed(unlinked);
+    }
+    
+    protected virtual void notify_backlink_removed(SourceBacklink backlink,
+        Gee.Collection<DataSource> sources) {
+        backlink_removed(backlink, sources);
     }
     
     protected override bool valid_type(DataObject object) {
@@ -1155,6 +1165,8 @@ public class SourceCollection : DataCollection {
         
         foreach (DataSource source in sources)
             source.remove_backlink(backlink);
+        
+        notify_backlink_removed(backlink, sources);
     }
 }
 
@@ -1225,8 +1237,8 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
     public MediaSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
         base(name, source_key_func);
         
-        trashcan = internal_create_trashcan();
-        offline_bin = internal_create_offline_bin();
+        trashcan = create_trashcan();
+        offline_bin = create_offline_bin();
     }
 
     public static void filter_media(Gee.Collection<MediaSource> media,
@@ -1242,14 +1254,14 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         }
     }
 
-    protected abstract MediaSourceHoldingTank internal_create_trashcan();
-    protected abstract MediaSourceHoldingTank internal_create_offline_bin();
+    protected abstract MediaSourceHoldingTank create_trashcan();
+    protected abstract MediaSourceHoldingTank create_offline_bin();
 
-    protected MediaSourceHoldingTank internal_get_trashcan() {
+    protected MediaSourceHoldingTank get_trashcan() {
         return trashcan;
     }
 
-    protected MediaSourceHoldingTank internal_get_offline_bin() {
+    protected MediaSourceHoldingTank get_offline_bin() {
         return offline_bin;
     }
 
@@ -1264,7 +1276,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
             if (!alteration.has_subject("metadata"))
                 continue;
             
-            if (source.is_trashed() && !internal_get_trashcan().contains(source)) {
+            if (source.is_trashed() && !get_trashcan().contains(source)) {
                 if (to_trashcan == null)
                     to_trashcan = new Gee.ArrayList<MediaSource>();
                 
@@ -1274,7 +1286,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
                 continue;
             }
             
-            if (source.is_offline() && !internal_get_offline_bin().contains(source)) {
+            if (source.is_offline() && !get_offline_bin().contains(source)) {
                 if (to_offline == null)
                     to_offline = new Gee.ArrayList<MediaSource>();
                 
@@ -1283,32 +1295,32 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         }
         
         if (to_trashcan != null)
-            internal_get_trashcan().unlink_and_hold(to_trashcan);
+            get_trashcan().unlink_and_hold(to_trashcan);
         
         if (to_offline != null)
-            internal_get_offline_bin().unlink_and_hold(to_offline);
+            get_offline_bin().unlink_and_hold(to_offline);
         
         base.items_altered(items);
     }
 
     public Gee.Collection<MediaSource> get_trashcan_contents() {
-        return (Gee.Collection<MediaSource>) internal_get_trashcan().get_all();
+        return (Gee.Collection<MediaSource>) get_trashcan().get_all();
     }
 
     public Gee.Collection<MediaSource> get_offline_bin_contents() {
-        return (Gee.Collection<MediaSource>) internal_get_offline_bin().get_all();
+        return (Gee.Collection<MediaSource>) get_offline_bin().get_all();
     }
 
     public void add_many_to_trash(Gee.Collection<MediaSource> sources) {
-        internal_get_trashcan().add_many(sources);
+        get_trashcan().add_many(sources);
     }
 
     public void add_many_to_offline(Gee.Collection<MediaSource> sources) {
-        internal_get_offline_bin().add_many(sources);
+        get_offline_bin().add_many(sources);
     }
 
     public int get_trashcan_count() {
-        return internal_get_trashcan().get_count();
+        return get_trashcan().get_count();
     }
 
     // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
@@ -1348,10 +1360,10 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
         }
         
         if (trashed.size > 0)
-            internal_get_trashcan().destroy_orphans(trashed, delete_backing, monitor);
+            get_trashcan().destroy_orphans(trashed, delete_backing, monitor);
         
         if (offlined.size > 0)
-            internal_get_offline_bin().destroy_orphans(offlined, delete_backing, monitor);
+            get_offline_bin().destroy_orphans(offlined, delete_backing, monitor);
         
         // untrashed media sources may be destroyed outright
         if (not_trashed.size > 0)
@@ -1396,6 +1408,10 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         Gee.Collection<DataSource>? added, Gee.Collection<DataSource>? removed) {
     }
     
+    public virtual signal void backlink_to_container_removed(ContainerSource container,
+        Gee.Collection<DataSource> sources) {
+    }
+    
     public ContainerSourceCollection(SourceCollection contained_sources, string backlink_name,
         string name, GetSourceDatabaseKey source_key_func) {
         base (name, source_key_func);
@@ -1414,6 +1430,15 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         contained_sources.items_relinked.disconnect(on_contained_sources_relinked);
         contained_sources.item_destroyed.disconnect(on_contained_source_destroyed);
         contained_sources.unlinked_destroyed.disconnect(on_contained_source_destroyed);
+    }
+    
+    protected override void notify_backlink_removed(SourceBacklink backlink,
+        Gee.Collection<DataSource> sources) {
+        base.notify_backlink_removed(backlink, sources);
+        
+        ContainerSource? container = convert_backlink_to_container(backlink);
+        if (container != null)
+            notify_backlink_to_container_removed(container, sources);
     }
     
     public virtual void notify_container_contents_added(ContainerSource container, 
@@ -1439,10 +1464,15 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         container_contents_altered(container, added, removed);
     }
     
+    public virtual void notify_backlink_to_container_removed(ContainerSource container,
+        Gee.Collection<DataSource> sources) {
+        backlink_to_container_removed(container, sources);
+    }
+    
     protected abstract Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source);
     
     // Looks in holding_tank as well.
-    protected abstract ContainerSource? convert_backlink_to_container(SourceBacklink backlink);
+    public abstract ContainerSource? convert_backlink_to_container(SourceBacklink backlink);
     
     public Gee.Collection<ContainerSource> get_holding_tank() {
         return holding_tank.read_only_view;

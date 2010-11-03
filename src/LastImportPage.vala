@@ -53,6 +53,10 @@ public class LastImportPage : CollectionPage {
         on_import_rolls_altered();
     }
     
+    ~LastImportPage() {
+        LibraryPhoto.global.import_roll_altered.disconnect(on_import_rolls_altered);
+    }
+    
     public static Stub create_stub() {
         return new Stub();
     }

@@ -79,10 +79,13 @@ public abstract class AbstractSemaphore {
     // This method is called by wait() with the semaphore's mutex locked.
     protected abstract WaitAction do_wait();
     
-    public void reset() {
+    // Returns true if the semaphore is reset, false otherwise.
+    public bool reset() {
         mutex.lock();
-        do_reset();
+        bool is_reset = do_reset();
         mutex.unlock();
+        
+        return is_reset;
     }
     
     // This method is called by reset() with the semaphore's mutex locked.  Returns true if reset,

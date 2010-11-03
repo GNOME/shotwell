@@ -4,7 +4,7 @@
  * (version 2.1 or later).  See the COPYING file in this distribution. 
  */
 
-// TimedQueue is a specialized collection class.  It holds items in order, but rather than being
+// DelayedQueue is a specialized collection class.  It holds items in order, but rather than being
 // manually dequeued, they are dequeued automatically after a specified amount of time has elapsed
 // for that item.  As of today, it's possible the item will be dequeued a bit later than asked
 // for, but it will never be early.  Future implementations might tighten up the lateness.
@@ -13,12 +13,12 @@
 // a bug with passing an unnamed type as a signal parameter:
 // https://bugzilla.gnome.org/show_bug.cgi?id=628639
 //
-// The rate the items come off the queue can be spaced out.  Note that this can cause items to back
-// up.  As of today, TimedQueue makes no effort to combat this.
+// The rate the items come off the queue can be spaced out.  Note that this can cause backing up
+// of work. As of today, DelayedQueue makes no effort to combat this.
 
 public delegate void DequeuedCallback<G>(G item);
 
-public class TimedQueue<G> {
+public class DelayedQueue<G> {
     private class Element<G> {
         public G item;
         public time_t ready;
@@ -45,8 +45,8 @@ public class TimedQueue<G> {
     // Initial design was to have a signal that passed the dequeued G, but bug in valac meant
     // finding a workaround, namely using a delegate:
     // https://bugzilla.gnome.org/show_bug.cgi?id=628639
-    public TimedQueue(uint hold_msec, DequeuedCallback<G> callback, EqualFunc? equal_func = null, 
-        int priority = Priority.DEFAULT) {
+    public DelayedQueue(uint hold_msec, DequeuedCallback<G> callback, EqualFunc? equal_func = null, 
+        int priority = Priority.DEFAULT) requires (hold_msec > 0) {
         this.hold_msec = hold_msec;
         this.callback = callback;
         this.equal_func = (equal_func != null) ? equal_func : Gee.Functions.get_equal_func_for(typeof(G));
@@ -57,7 +57,7 @@ public class TimedQueue<G> {
         timer_id = Timeout.add(get_heartbeat_timeout(), on_heartbeat, priority);
     }
     
-    ~TimedQueue() {
+    ~DelayedQueue() {
         if (timer_id != 0)
             Source.remove(timer_id);
     }
@@ -103,16 +103,6 @@ public class TimedQueue<G> {
     
     public virtual bool enqueue(G item) {
         return queue.add(new Element<G>(item, calc_ready_time()));
-    }
-    
-    public virtual bool enqueue_many(Gee.Collection<G> items) {
-        time_t ready_time = calc_ready_time();
-        
-        Gee.ArrayList<Element<G>> elements = new Gee.ArrayList<Element<G>>();
-        foreach (G item in items)
-            elements.add(new Element<G>(item, ready_time));
-        
-        return queue.add_list(elements);
     }
     
     public virtual bool remove_first(G item) {
@@ -175,12 +165,12 @@ public class TimedQueue<G> {
     }
 }
 
-// HashTimedQueue uses a HashMap for quick lookups of elements via contains().
+// HashDelayedQueue uses a HashMap for quick lookups of elements via contains().
 
-public class HashTimedQueue<G> : TimedQueue<G> {
+public class HashDelayedQueue<G> : DelayedQueue<G> {
     private Gee.HashMap<G, int> item_count;
     
-    public HashTimedQueue(uint hold_msec, DequeuedCallback<G> callback, HashFunc? hash_func = null,
+    public HashDelayedQueue(uint hold_msec, DequeuedCallback<G> callback, HashFunc? hash_func = null,
         EqualFunc? equal_func = null, int priority = Priority.DEFAULT) {
         base (hold_msec, callback, equal_func, priority);
         
@@ -212,16 +202,6 @@ public class HashTimedQueue<G> : TimedQueue<G> {
         return true;
     }
     
-    public override bool enqueue_many(Gee.Collection<G> items) {
-        if (!base.enqueue_many(items))
-            return false;
-        
-        foreach (G item in items)
-            item_count.set(item, item_count.has_key(item) ? item_count.get(item) + 1 : 1);
-        
-        return true;
-    }
-    
     public override bool remove_first(G item) {
         if (!base.remove_first(item))
             return false;
@@ -243,4 +223,5 @@ public class HashTimedQueue<G> : TimedQueue<G> {
             item_count.set(item, count);
     }
 }
+
 

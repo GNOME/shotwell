@@ -45,8 +45,14 @@ public class MetadataWriter : Object {
                 return;
             
             PhotoMetadata metadata = photo.get_master_metadata();
-            if (update_metadata(metadata))
-                photo.persist_master_metadata(metadata, out reimport_master_state);
+            if (update_metadata(metadata)) {
+                LibraryMonitor.blacklist_file(photo.get_master_file());
+                try {
+                    photo.persist_master_metadata(metadata, out reimport_master_state);
+                } finally {
+                    LibraryMonitor.unblacklist_file(photo.get_master_file());
+                }
+            }
         }
         
         private void commit_editable() throws Error {
@@ -56,8 +62,14 @@ public class MetadataWriter : Object {
             PhotoMetadata? metadata = photo.get_editable_metadata();
             assert(metadata != null);
             
-            if (update_metadata(metadata))
-                photo.persist_editable_metadata(metadata, out reimport_editable_state);
+            if (update_metadata(metadata)) {
+                LibraryMonitor.blacklist_file(photo.get_editable_file());
+                try {
+                    photo.persist_editable_metadata(metadata, out reimport_editable_state);
+                } finally {
+                    LibraryMonitor.unblacklist_file(photo.get_editable_file());
+                }
+            }
         }
         
         private bool update_metadata(PhotoMetadata metadata) {
@@ -130,7 +142,8 @@ public class MetadataWriter : Object {
         
         LibraryPhoto.global.contents_altered.connect(on_photos_added_removed);
         LibraryPhoto.global.items_altered.connect(on_photos_altered);
-        Tag.global.container_contents_altered.connect(on_tag_altered);
+        Tag.global.container_contents_altered.connect(on_tag_contents_altered);
+        Tag.global.backlink_to_container_removed.connect(on_tag_backlink_removed);
         
         Application.get_instance().exiting.connect(on_application_exiting);
     }
@@ -138,7 +151,8 @@ public class MetadataWriter : Object {
     ~MetadataWriter() {
         LibraryPhoto.global.contents_altered.disconnect(on_photos_added_removed);
         LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
-        Tag.global.container_contents_altered.disconnect(on_tag_altered);
+        Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
+        Tag.global.backlink_to_container_removed.disconnect(on_tag_backlink_removed);
         
         Application.get_instance().exiting.disconnect(on_application_exiting);
     }
@@ -233,15 +247,35 @@ public class MetadataWriter : Object {
             photos_dirty(photos, "alteration");
     }
     
-    private void on_tag_altered(ContainerSource container, Gee.Collection<DataSource>? added,
+    private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
         Tag tag = (Tag) container;
         
         if (added != null)
             photos_dirty((Gee.Collection<LibraryPhoto>) added, "added to %s".printf(tag.to_string()));
         
-        if (removed != null)
-            photos_dirty((Gee.Collection<LibraryPhoto>) removed, "removed from %s".printf(tag.to_string()));
+        if (removed != null) {
+            // Unlike adding, a photo can be removed from a tag but still hold a backlink to it
+            // (this happens when it goes offline and it's removed from the Tag ContainerSource,
+            // but not technically "untagged").  Watch for this situation.
+            SourceBacklink backlink = container.get_backlink();
+            Gee.ArrayList<LibraryPhoto> actually_removed = new Gee.ArrayList<LibraryPhoto>();
+            foreach (DataSource source in removed) {
+                LibraryPhoto photo = (LibraryPhoto) source;
+                
+                if (!photo.has_backlink(backlink))
+                    actually_removed.add(photo);
+            }
+            
+            photos_dirty(actually_removed, "removed from %s".printf(tag.to_string()));
+        }
+    }
+    
+    private void on_tag_backlink_removed(ContainerSource container, Gee.Collection<DataSource> sources) {
+        Tag tag = (Tag) container;
+        
+        photos_dirty((Gee.Collection<LibraryPhoto>) sources,
+            "backlink removed from %s".printf(tag.to_string()));
     }
     
     private void photos_dirty(Gee.Collection<LibraryPhoto> photos, string reason) {

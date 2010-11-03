@@ -31,6 +31,16 @@
 // their information), but the trade-off is easier file/directory monitoring via familiar
 // semantics.
 //
+// DirectoryMonitor also will synthesize events when normal monitor events don't produce expected
+// results.  For example, if a directory is moved out of DirectoryMonitor's root, it is reported
+// as a delete event, but none of its children are reported as deleted.  Similarly, a directory
+// rename can be captured as a move, but notifications for all its children are not fired and
+// are synthesized by DirectoryMonitor.  DirectoryMonitor will fire delete and move notifications
+// for all the directory's children in depth-first order.
+//
+// In general, DirectoryMonitor attempts to preserve ordering of events, so that (for example) a
+// file-altered event doesn't fire before a file-created, and so on.
+//
 // Because of these requirements, DirectoryMonitor maintains a FileInfo struct on all directories 
 // and files being monitored.  (It maintains the attributes gather during the discovery phase, i.e. 
 // SUPPLIED_ATTRIBUTES.)  This information can be retrieved via get_info(), get_file_id(), and
@@ -69,8 +79,9 @@ public class DirectoryMonitor : Object {
         public File? other_file;
         public FileMonitorEvent event;
         public uint position;
-        public FileInfo info = null;
-        public Error err = null;
+        public ulong time_created_msec;
+        public FileInfo? info = null;
+        public Error? err = null;
         public bool completed = false;
         
         public QueryInfoQueueElement(DirectoryMonitor owner, File file, File? other_file, 
@@ -80,6 +91,7 @@ public class DirectoryMonitor : Object {
             this.other_file = other_file;
             this.event = event;
             this.position = current++;
+            this.time_created_msec = now_ms();
         }
         
         public void on_completed(Object? source, AsyncResult aresult) {
@@ -96,7 +108,7 @@ public class DirectoryMonitor : Object {
             completed = true;
             
             // notify owner this job is finished, to process the queue
-            owner.on_query_finished(this);
+            owner.process_query_queue(this);
         }
     }
     
@@ -135,7 +147,20 @@ public class DirectoryMonitor : Object {
             return true;
         }
         
-        public virtual bool update(File file, FileInfo info) {
+        public bool update(File file, FileInfo info) {
+            // if the file out-and-out exists, remove it now
+            if (map.has_key(file)) {
+                bool removed = map.unset(file);
+                assert(removed);
+            }
+            
+            // if the id exists, remove it too
+            string? existing_id = get_file_info_id(info);
+            if (existing_id != null && id_map.has_key(existing_id)) {
+                bool removed = id_map.unset(existing_id);
+                assert(removed);
+            }
+            
             string id;
             File normalized;
             if (!normalize_file(file, info, out normalized, out id))
@@ -147,7 +172,7 @@ public class DirectoryMonitor : Object {
             return true;
         }
         
-        public virtual bool remove(File file, FileInfo? info) {
+        public bool remove(File file, FileInfo? info) {
             string id;
             File normalized;
             if (!normalize_file(file, info, out normalized, out id))
@@ -161,15 +186,9 @@ public class DirectoryMonitor : Object {
         
         // This calls the virtual function remove() for all files, so overriding it is sufficient
         // (but not necessarily most efficient)
-        public virtual void remove_all(Gee.Collection<File> files) {
+        public void remove_all(Gee.Collection<File> files) {
             foreach (File file in files)
                 remove(file, null);
-        }
-        
-        // This calls the virtual function remove() for all files in the map.
-        public virtual void remove_map(Gee.Map<File, FileInfo> file_map) {
-            foreach (File file in file_map.keys)
-                remove(file, file_map.get(file));
         }
         
         public bool contains(File file, FileInfo? info) {
@@ -235,11 +254,7 @@ public class DirectoryMonitor : Object {
             return map.get(file);
         }
         
-        public File? get_file(string id) {
-            return id_map.get(id);
-        }
-        
-         public File? find_match(FileInfo match) {
+        public File? find_match(FileInfo match) {
             string? match_id = get_file_info_id(match);
             if (match_id == null)
                 return null;
@@ -272,10 +287,6 @@ public class DirectoryMonitor : Object {
             return null;
         }
         
-        public int get_count() {
-            return map.size;
-        }
-        
         public void remove_descendents(File root, FileInfoMap descendents) {
             Gee.ArrayList<File> pruned = null;
             foreach (File file in map.keys) {
@@ -298,63 +309,35 @@ public class DirectoryMonitor : Object {
             if (pruned != null)
                 remove_all(pruned);
         }
-    }
-    
-    // A TimedFileInfoMap merely adds a timestamp to each file as it's added, and thus can be
-    // used to timeout certain operations.
-    private class TimedFileInfoMap : FileInfoMap {
-        private Gee.HashMap<string, ulong> time_added = new Gee.HashMap<string, ulong>(str_hash,
-            str_equal);
         
-        public TimedFileInfoMap() {
-        }
-        
-        public override bool update(File file, FileInfo info) {
-            if (!base.update(file, info))
-                return false;
-            
-            string? id = get_id(file, info);
-            assert(id != null);
-            
-            time_added.set(id, now_ms());
-            
-            return true;
-        }
-        
-        public override bool remove(File file, FileInfo? info) {
-            if (!base.remove(file, info))
-                return false;
-            
-            string? id = get_id(file, info);
-            assert(id != null);
-            
-            time_added.unset(id);
-            
-            return true;
-        }
-        
-        public Gee.Map<File, FileInfo>? remove_older_than(ulong time) {
-            Gee.Map<File, FileInfo> retirees = null;
-            foreach (string id in time_added.keys) {
-                ulong added = time_added.get(id);
-                if (added <= time) {
-                    if (retirees == null)
-                        retirees = new Gee.HashMap<File, FileInfo>(file_hash, file_equal);
+        // This returns only the immediate descendents of the root sorted by type.  Returns the
+        // total number of children located.
+        public int get_children(File root, Gee.Collection<File> files, Gee.Collection<File> dirs) {
+            int count = 0;
+            foreach (File file in map.keys) {
+                File? parent = file.get_parent();
+                if (parent == null || !parent.equal(root))
+                    continue;
+                
+                FType ftype = get_ftype(map.get(file));
+                switch (ftype) {
+                    case FType.FILE:
+                        files.add(file);
+                        count++;
+                    break;
                     
-                    File? file = get_file(id);
-                    assert(file != null);
+                    case FType.DIRECTORY:
+                        dirs.add(file);
+                        count++;
+                    break;
                     
-                    FileInfo? info = get_info(file);
-                    assert(info != null);
-                    
-                    retirees.set(file, info);
+                    default:
+                        assert(ftype == FType.UNSUPPORTED);
+                    break;
                 }
             }
             
-            if (retirees != null)
-                remove_map(retirees);
-            
-            return retirees;
+            return count;
         }
     }
     
@@ -365,12 +348,11 @@ public class DirectoryMonitor : Object {
     private Gee.Queue<QueryInfoQueueElement> query_info_queue = new Gee.LinkedList<
         QueryInfoQueueElement>();
     private FileInfoMap files = new FileInfoMap();
-    private TimedFileInfoMap deleted = new TimedFileInfoMap();
     private FileInfoMap parent_moved = new FileInfoMap();
     private Cancellable cancellable = new Cancellable();
     private int outstanding_exploration_dirs = 0;
     private bool has_discovery_started = false;
-    private bool delete_timer_active = false;
+    private uint delete_timer_id = 0;
     
     // This signal will be fired *after* directory-moved has been fired.
     public virtual signal void root_moved(File old_root, File new_root, FileInfo new_root_info) {
@@ -413,10 +395,12 @@ public class DirectoryMonitor : Object {
     public virtual signal void file_altered(File file) {
     }
     
+    // This is called when the monitor detects that alteration (attributes or otherwise) to the
+    // file has completed.
     public virtual signal void file_alteration_completed(File file, FileInfo info) {
     }
     
-    public virtual signal void file_attributes_altered(File file, FileInfo info) {
+    public virtual signal void file_attributes_altered(File file) {
     }
     
     public virtual signal void file_deleted(File file) {
@@ -434,10 +418,12 @@ public class DirectoryMonitor : Object {
     public virtual signal void directory_altered(File dir) {
     }
     
+    // This is called when the monitor detects that alteration (attributes or otherwise) to the
+    // directory has completed.
     public virtual signal void directory_alteration_completed(File dir, FileInfo info) {
     }
     
-    public virtual signal void directory_attributes_altered(File dir, FileInfo info) {
+    public virtual signal void directory_attributes_altered(File dir) {
     }
     
     // This implies that the directory is now no longer be monitored (unsurprisingly).
@@ -457,7 +443,7 @@ public class DirectoryMonitor : Object {
         close();
     }
     
-    protected void mdbg(string msg) {
+    protected static void mdbg(string msg) {
 #if TRACE_MONITORING
         debug("%s", msg);
 #endif
@@ -578,22 +564,14 @@ public class DirectoryMonitor : Object {
         file_alteration_completed(file, info);
     }
     
-    private void internal_notify_file_attributes_altered(File file, FileInfo info) {
-        bool updated = files.update(file, info);
-        assert(updated);
-        
-        notify_file_attributes_altered(file, info);
-    }
-    
-    protected virtual void notify_file_attributes_altered(File file, FileInfo info) {
+    protected virtual void notify_file_attributes_altered(File file) {
         mdbg("file attributes altered: %s".printf(file.get_path()));
-        file_attributes_altered(file, info);
+        file_attributes_altered(file);
     }
     
     private void internal_notify_file_deleted(File file) {
-        // shim to look for file moves ... this also handles updating the file info map
-        if (on_file_deleted(file))
-            return;
+        bool removed = files.remove(file, null);
+        assert(removed);
         
         notify_file_deleted(file);
     }
@@ -630,6 +608,38 @@ public class DirectoryMonitor : Object {
     
     private void internal_notify_directory_moved(File old_dir, FileInfo old_dir_info, File new_dir,
         FileInfo new_dir_info) {
+        Gee.ArrayList<File> file_children = new Gee.ArrayList<File>(file_equal);
+        Gee.ArrayList<File> dir_children = new Gee.ArrayList<File>(file_equal);
+        int count = files.get_children(old_dir, file_children, dir_children);
+        if (count > 0) {
+            // descend into directories and let them notify their children on the way up
+            // (if files.get_info() returns null, that indicates the directory/file was already
+            // deleted in recurse)
+            foreach (File dir_child in dir_children) {
+                FileInfo? info = files.get_info(dir_child);
+                if (info == null) {
+                    warning("Unable to retrieve directory-moved info for %s", dir_child.get_path());
+                    
+                    continue;
+                }
+                
+                internal_notify_directory_moved(dir_child, info, new_dir.get_child(dir_child.get_basename()),
+                    info);
+            }
+            
+            // then move the children
+            foreach (File file_child in file_children) {
+                FileInfo? info = files.get_info(file_child);
+                if (info == null) {
+                    warning("Unable to retrieve directory-moved info for %s", file_child.get_path());
+                    
+                    continue;
+                }
+                
+                internal_notify_file_moved(file_child, new_dir.get_child(file_child.get_basename()), info);
+            }
+        }
+        
         // Don't assert here because it's possible this call was made due to a deleted-created
         // sequence, in which case the directory has already been removed from files
         files.remove(old_dir, null);
@@ -669,16 +679,9 @@ public class DirectoryMonitor : Object {
         directory_alteration_completed(dir, info);
     }
     
-    private void internal_notify_directory_attributes_altered(File dir, FileInfo info) {
-        bool updated = files.update(dir, info);
-        assert(updated);
-        
-        notify_directory_attributes_altered(dir, info);
-    }
-    
-    protected virtual void notify_directory_attributes_altered(File dir, FileInfo info) {
+    protected virtual void notify_directory_attributes_altered(File dir) {
         mdbg("directory attributes altered: %s".printf(dir.get_path()));
-        directory_attributes_altered(dir, info);
+        directory_attributes_altered(dir);
     }
     
     private void internal_notify_directory_deleted(File dir) {
@@ -688,9 +691,41 @@ public class DirectoryMonitor : Object {
         // stop monitoring this directory
         remove_monitor(dir, info);
         
-        // see if should report this or wait ... this updates the file map as well
-        if (on_file_deleted(dir))
-            return;
+        pre_notify_directory_deleted(dir, false);
+    }
+    
+    private void pre_notify_directory_deleted(File dir, bool already_removed) {
+        // because a directory can be deleted without its children being deleted first (probably
+        // means it has been moved to a location outside of the monitored root), need to
+        // synthesize notifications for all its children
+        Gee.ArrayList<File> file_children = new Gee.ArrayList<File>(file_equal);
+        Gee.ArrayList<File> dir_children = new Gee.ArrayList<File>(file_equal);
+        int count = files.get_children(dir, file_children, dir_children);
+        if (count > 0) {
+            // don't use  internal_* variants as they deal with "real" and not synthesized
+            // notifications.  also note that files.get_info() can return null because items are
+            // being deleted on the way back up the tree ... when files.get_info() returns null,
+            // it means the file/directory was already deleted in a recursed method, and so no
+            // assertions on them
+            
+            // descend first into directories, deleting files and directories on the way up
+            foreach (File dir_child in dir_children)
+                pre_notify_directory_deleted(dir_child, false);
+            
+            // now notify deletions on all immediate children files ... don't notify directory
+            // deletion because that's handled right before exiting this method
+            foreach (File file_child in file_children) {
+                bool removed = files.remove(file_child, null);
+                assert(removed);
+                
+                notify_file_deleted(file_child);
+            }
+        }
+        
+        if (!already_removed) {
+            bool removed = files.remove(dir, null);
+            assert(removed);
+        }
         
         notify_directory_deleted(dir);
     }
@@ -742,7 +777,7 @@ public class DirectoryMonitor : Object {
         notify_closed();
     }
     
-    private FType get_ftype(FileInfo info) {
+    private static FType get_ftype(FileInfo info) {
         FileType file_type = info.get_file_type();
         switch (file_type) {
             case FileType.REGULAR:
@@ -951,15 +986,22 @@ public class DirectoryMonitor : Object {
         // queries are queued up then and processed in order as they're completed.
         
         // Every event needs to be queued, but not all events generates query I/O
-        QueryInfoQueueElement query_event = new QueryInfoQueueElement(this, file, other_file, event);
-        query_info_queue.offer(query_event);
+        QueryInfoQueueElement query_info = new QueryInfoQueueElement(this, file, other_file, event);
+        query_info_queue.offer(query_info);
         
         switch (event) {
             case FileMonitorEvent.CREATED:
             case FileMonitorEvent.CHANGES_DONE_HINT:
-            case FileMonitorEvent.ATTRIBUTE_CHANGED:
                 file.query_info_async.begin(SUPPLIED_ATTRIBUTES, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-                    DEFAULT_PRIORITY, cancellable, query_event.on_completed);
+                    DEFAULT_PRIORITY, cancellable, query_info.on_completed);
+            break;
+            
+            case FileMonitorEvent.DELETED:
+                // don't complete it yet, it might be followed by a CREATED event indicating a
+                // move ... instead, let it sit on the queue and allow the timer (or a coming
+                // CREATED event) complete it
+                if (delete_timer_id == 0)
+                    delete_timer_id = Timeout.add(DELETED_EXPIRATION_MSEC / 2, check_for_expired_delete_events);
             break;
             
             case FileMonitorEvent.MOVED:
@@ -967,22 +1009,55 @@ public class DirectoryMonitor : Object {
                 // one we need to get info on
                 if (other_file != null) {
                     other_file.query_info_async.begin(SUPPLIED_ATTRIBUTES, FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-                        DEFAULT_PRIORITY, cancellable, query_event.on_completed);
+                        DEFAULT_PRIORITY, cancellable, query_info.on_completed);
                 } else {
                     warning("Unable to process MOVED event: no other_file");
-                    query_info_queue.remove(query_event);
+                    query_info_queue.remove(query_info);
                 }
             break;
             
             default:
                 // artifically complete it
-                query_event.completed = true;
-                on_query_finished(query_event);
+                query_info.completed = true;
+                process_query_queue(query_info);
             break;
         }
     }
     
-    private void on_query_finished(QueryInfoQueueElement queue_event) {
+    private void process_query_queue(QueryInfoQueueElement? query_info) {
+        // if the completed element was a CREATE event, attempt to match it to a DELETE (which
+        // then converts into a MOVED) and remove the CREATE event
+        if (query_info != null && query_info.info != null && query_info.event == FileMonitorEvent.CREATED) {
+            // if there's no match in the files table for this created file, then it can't be
+            // matched to a previously deleted file
+            File? match = files.find_match(query_info.info);
+            if (match != null) {
+                bool matched = false;
+                foreach (QueryInfoQueueElement enqueued in query_info_queue) {
+                    if (enqueued.event != FileMonitorEvent.DELETED
+                        || enqueued.completed
+                        || !match.equal(enqueued.file)) {
+                        continue;
+                    }
+                    
+                    mdbg("Matching CREATED %s to DELETED %s for MOVED".printf(query_info.file.get_path(),
+                        enqueued.file.get_path()));
+                    
+                    enqueued.event = FileMonitorEvent.MOVED;
+                    enqueued.other_file = query_info.file;
+                    enqueued.info = query_info.info;
+                    enqueued.completed = true;
+                    
+                    matched = true;
+                    
+                    break;
+                }
+                
+                if (matched)
+                    query_info_queue.remove(query_info);
+            }
+        }
+        
         // peel off completed events from the queue in order
         for (;;) {
             // check if empty or waiting for completion on the next event
@@ -991,7 +1066,8 @@ public class DirectoryMonitor : Object {
                 break;
             
             // remove
-            query_info_queue.poll();
+            QueryInfoQueueElement? n = query_info_queue.poll();
+            assert(next == n);
             
             mdbg("Completed info query %u for %s on %s".printf(next.position, next.event.to_string(),
                 next.file.get_path()));
@@ -1029,6 +1105,7 @@ public class DirectoryMonitor : Object {
                         // a change to register a monitor, so scan it now looking for new additions
                         // (this call will notify of creation and monitor this new directory once 
                         // it's been scanned)
+                        outstanding_exploration_dirs++;
                         explore_async.begin(file, info, false);
                     break;
                     
@@ -1141,16 +1218,24 @@ public class DirectoryMonitor : Object {
             break;
             
             case FileMonitorEvent.ATTRIBUTE_CHANGED:
-                assert(info != null);
+                // doesn't fetch attributes until CHANGES_DONE_HINT comes down the pipe
+                assert(info == null);
                 
-                FType ftype = get_ftype(info);
+                FileInfo local_info = get_file_info(file);
+                if (local_info == null) {
+                    warning("Attribute changed event for unknown file %s", file.get_path());
+                    
+                    break;
+                }
+                
+                FType ftype = get_ftype(local_info);
                 switch (ftype) {
                     case FType.FILE:
-                        internal_notify_file_attributes_altered(file, info);
+                        notify_file_attributes_altered(file);
                     break;
                     
                     case FType.DIRECTORY:
-                        internal_notify_directory_attributes_altered(file, info);
+                        notify_directory_attributes_altered(file);
                     break;
                     
                     default:
@@ -1185,82 +1270,35 @@ public class DirectoryMonitor : Object {
             return true;
         }
         
-        // look for deleted file with matching attributes
-        match = deleted.find_match(info);
-        if (match != null) {
-            old_file = match;
-            old_file_info = deleted.get_info(match);
-            
-            deleted.remove(match, info);
-            
-            return true;
-        }
-        
         return false;
     }
     
-    // Returns true if the caller should wait to report the deletion.  If returns false caller
-    // should treat as an unknown file.
-    private bool on_file_deleted(File file) {
-        // add to deleted list and suppress firing the signal until (a) timeout (in which case
-        // it's an actual delete) or (b) a create event occurs on a matching file, in which case
-        // it's a move
-        FileInfo? info = files.get_info(file);
-        if (info == null) {
-            // watch for double-deletions, which occur some times
-            if (deleted.contains(file, null))
-                return true;
-            
-            warning("Unknown file %s deleted from monitor on %s", file.get_path(),
-                get_root().get_path());
-            
-            return false;
-        }
-        
-        bool removed = files.remove(file, info);
-        assert(removed);
-        
-        bool updated = deleted.update(file, info);
-        assert(updated);
-        
-        if (!delete_timer_active) {
-            Timeout.add(DELETED_EXPIRATION_MSEC / 2, on_deleted_timeout);
-            delete_timer_active = true;
-        }
-        
-        return true;
-    }
-    
-    private bool on_deleted_timeout() {
+    private bool check_for_expired_delete_events() {
         ulong expiration = now_ms() - DELETED_EXPIRATION_MSEC;
         
-        // anything overdue on the deleted lists is considered gone
-        Gee.Map<File, FileInfo>? overdue = deleted.remove_older_than(expiration);
-        if (overdue != null) {
-            foreach (File file in overdue.keys) {
-                // Do NOT call the internal_* versions of deleted notifications, as these are
-                // synthesized calls not "real" events (in other words, it's the internal calls
-                // that got us to this point)
-                FType ftype = get_ftype(overdue.get(file));
-                switch (ftype) {
-                    case FType.FILE:
-                        notify_file_deleted(file);
-                    break;
-                    
-                    case FType.DIRECTORY:
-                        notify_directory_deleted(file);
-                    break;
-                    
-                    default:
-                        assert(ftype == FType.UNSUPPORTED);
-                    break;
-                }
-            }
+        bool any_deleted = false;
+        bool any_expired = false;
+        foreach (QueryInfoQueueElement element in query_info_queue) {
+            if (element.event != FileMonitorEvent.DELETED)
+                continue;
+            
+            any_deleted = true;
+            
+            if (element.time_created_msec > expiration)
+                continue;
+            
+            // synthesize the completion
+            element.completed = true;
+            any_expired = true;
         }
         
-        delete_timer_active = deleted.get_count() > 0;
+        if (any_expired)
+            process_query_queue(null);
         
-        return delete_timer_active;
+        if (!any_deleted)
+            delete_timer_id = 0;
+        
+        return any_deleted;
     }
     
     // This method does its best to return FileInfo for the file.  It performs no I/O.

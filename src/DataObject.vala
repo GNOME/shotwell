@@ -59,6 +59,17 @@ public class Alteration {
         }
     }
     
+    // Create an Alteration that has more than one subject/detail from an array of comma-delimited
+    // strings of colon-separate subject:detail pairs
+    public Alteration.from_array(string[] array) requires (array.length > 0) {
+        foreach (string pair in array) {
+            string[] subject_detail = pair.split(":", 2);
+            assert(subject_detail.length == 2);
+            
+            add_detail(subject_detail[0], subject_detail[1]);
+        }
+    }
+    
     // Used for compression.
     private Alteration.from_map(Gee.MultiMap<string, string> map) {
         this.map = map;

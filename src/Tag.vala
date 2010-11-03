@@ -23,7 +23,7 @@ public class TagSourceCollection : ContainerSourceCollection {
         return fetch_for_photo((LibraryPhoto) source);
     }
     
-    protected override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
+    public override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
         TagID tag_id = TagID(backlink.instance_id);
         
         Tag? tag = fetch(tag_id);

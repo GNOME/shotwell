@@ -51,8 +51,14 @@ public class OfflinePage : CheckerboardPage {
         // monitor offline and initialize view with all items in it
         LibraryPhoto.global.offline_contents_altered.connect(on_offline_contents_altered);
         Video.global.offline_contents_altered.connect(on_offline_contents_altered);
+        
         on_offline_contents_altered(LibraryPhoto.global.get_offline_bin_contents(), null);
         on_offline_contents_altered(Video.global.get_offline_bin_contents(), null);
+    }
+    
+    ~OfflinePage() {
+        LibraryPhoto.global.offline_contents_altered.disconnect(on_offline_contents_altered);
+        Video.global.offline_contents_altered.disconnect(on_offline_contents_altered);
     }
     
     protected override string? get_menubar_path() {

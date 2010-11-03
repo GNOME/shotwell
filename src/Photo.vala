@@ -584,10 +584,18 @@ public abstract class Photo : PhotoSource {
         }
     }
     
+    public bool is_master_source() {
+        return !has_editable();
+    }
+    
     public bool is_editable_baseline() {
         lock (readers) {
             return readers.mimic == null && readers.editable != null;
         }
+    }
+    
+    public bool is_editable_source() {
+        return has_editable();
     }
     
     public BackingPhotoState get_master_photo_state() {
@@ -1140,6 +1148,7 @@ public abstract class Photo : PhotoSource {
         
         bool altered = false;
         bool is_baseline = false;
+        bool is_source = false;
         bool name_changed = false;
         File? old_file = null;
         try {
@@ -1155,7 +1164,9 @@ public abstract class Photo : PhotoSource {
                         
                         altered = true;
                         is_baseline = is_master_baseline();
-                        name_changed = is_string_empty(row.title);
+                        is_source = is_master_source();
+                        name_changed = is_string_empty(row.title)
+                            && old_file.get_basename() != file.get_basename();
                     }
                 }
             }
@@ -1169,11 +1180,33 @@ public abstract class Photo : PhotoSource {
             if (is_baseline)
                 notify_baseline_replaced();
             
+            string[] alteration_list = new string[0];
+            alteration_list += "backing:master";
+            
             // because the name of the photo is determined by its file title if no user title is present,
             // signal metadata has altered
             if (name_changed)
-                notify_altered(new Alteration("metadata", "name"));
+                alteration_list += "metadata:name";
+            
+            if (is_source)
+                alteration_list += "backing:source";
+            
+            if (is_baseline)
+                alteration_list += "backing:baseline";
+            
+            notify_altered(new Alteration.from_array(alteration_list));
         }
+    }
+    
+    // Also makes sense to freeze the SourceCollection when doing this.
+    public static void set_many_master_file(Gee.Map<Photo, File> map) throws DatabaseError {
+        DatabaseTable.begin_transaction();
+        
+        Gee.MapIterator<Photo, File> map_iter = map.map_iterator();
+        while (map_iter.next())
+            map_iter.get_key().set_master_file(map_iter.get_value());
+        
+        DatabaseTable.commit_transaction();
     }
     
     // This should only be used when the photo's editable file has been renamed.  If it's been
@@ -1183,6 +1216,7 @@ public abstract class Photo : PhotoSource {
         
         bool altered = false;
         bool is_baseline = false;
+        bool is_source = false;
         File? old_file = null;
         try {
             lock (row) {
@@ -1196,6 +1230,7 @@ public abstract class Photo : PhotoSource {
                         
                         altered = true;
                         is_baseline = is_editable_baseline();
+                        is_source = is_editable_source();
                     }
                 }
             }
@@ -1208,7 +1243,29 @@ public abstract class Photo : PhotoSource {
             
             if (is_baseline)
                 notify_baseline_replaced();
+            
+            string[] alteration_list = new string[0];
+            alteration_list += "backing:editable";
+            
+            if (is_baseline)
+                alteration_list += "backing:baseline";
+            
+            if (is_source)
+                alteration_list += "backing:source";
+            
+            notify_altered(new Alteration.from_array(alteration_list));
         }
+    }
+    
+    // Also makes sense to freeze the SourceCollection during this operation.
+    public static void set_many_editable_file(Gee.Map<Photo, File> map) throws DatabaseError {
+        PhotoTable.get_instance().begin_transaction();
+        
+        Gee.MapIterator<Photo, File> map_iter = map.map_iterator();
+        while (map_iter.next())
+            map_iter.get_key().set_editable_file(map_iter.get_value());
+        
+        PhotoTable.get_instance().commit_transaction();
     }
     
     // Returns the file generating pixbufs, that is, the mimic or baseline if present, the backing
@@ -1685,7 +1742,12 @@ public abstract class Photo : PhotoSource {
         metadata.set_title(title);
         
         PhotoFileMetadataWriter writer = source.create_metadata_writer();
-        writer.write_metadata(metadata);
+        LibraryMonitor.blacklist_file(source.get_file());
+        try {
+            writer.write_metadata(metadata);
+        } finally {
+            LibraryMonitor.unblacklist_file(source.get_file());
+        }
         
         set_title(title);
         
@@ -1720,7 +1782,12 @@ public abstract class Photo : PhotoSource {
         metadata.set_exposure_date_time(new MetadataDateTime(time));
         
         PhotoFileMetadataWriter writer = source.create_metadata_writer();
-        writer.write_metadata(metadata);
+        LibraryMonitor.blacklist_file(source.get_file());
+        try {
+            writer.write_metadata(metadata);
+        } finally {
+            LibraryMonitor.unblacklist_file(source.get_file());
+        }
         
         set_exposure_time(time);
         
@@ -2670,7 +2737,7 @@ public abstract class Photo : PhotoSource {
         string name, ext;
         disassemble_filename(backing.get_basename(), out name, out ext);
         
-        if (!file_format.get_properties().is_recognized_extension(ext))
+        if (ext == null || !file_format.get_properties().is_recognized_extension(ext))
             ext = file_format.get_properties().get_default_extension();
         
         string editable_basename = "%s_%s.%s".printf(name, _("modified"), ext);
@@ -2789,6 +2856,9 @@ public abstract class Photo : PhotoSource {
     private void start_monitoring_editable(File file) throws Error {
         halt_monitoring_editable();
         
+        // tell the LibraryMonitor not to monitor this file
+        LibraryMonitor.blacklist_file(file);
+        
         editable_monitor = file.monitor(FileMonitorFlags.NONE, null);
         editable_monitor.changed.connect(on_editable_file_changed);
     }
@@ -2796,6 +2866,11 @@ public abstract class Photo : PhotoSource {
     private void halt_monitoring_editable() {
         if (editable_monitor == null)
             return;
+        
+        // tell the LibraryMonitor a-ok to watch this file again
+        File? file = get_editable_file();
+        if (file != null)
+            LibraryMonitor.unblacklist_file(file);
         
         editable_monitor.changed.disconnect(on_editable_file_changed);
         editable_monitor.cancel();
@@ -2875,6 +2950,9 @@ public abstract class Photo : PhotoSource {
                 if (editable_id.is_valid()) {
                     BackingPhotoTable.get_instance().update(editable_id, state);
                     lock (row) {
+                        timestamp_changed = editable.timestamp != state.timestamp;
+                        filesize_changed = editable.filesize != state.filesize;
+                        
                         editable = state;
                         assert(backing_photo_state == &editable);
                         set_orientation(backing_photo_state->original_orientation);
@@ -2882,6 +2960,9 @@ public abstract class Photo : PhotoSource {
                 } else {
                     BackingPhotoRow editable_row = BackingPhotoTable.get_instance().add(state);
                     lock (row) {
+                        timestamp_changed = editable_row.state.timestamp != state.timestamp;
+                        filesize_changed = editable_row.state.filesize != state.filesize;
+                        
                         PhotoTable.get_instance().attach_editable(ref row, editable_row.id);
                         editable = editable_row.state;
                         backing_photo_state = &editable;
@@ -2904,17 +2985,25 @@ public abstract class Photo : PhotoSource {
                 new_reader != null ? new_reader.get_file() : null);
         }
         
-        Alteration alteration = null;
-        if (timestamp_changed)
-            alteration = new Alteration.from_list("metadata:editable-timestamp,metadata:baseline-timestamp");
-        
-        if (filesize_changed || new_reader != null) {
-            Alteration changed_alteration = new Alteration.from_list("image:editable,image:baseline");
-            alteration = (alteration == null) ? changed_alteration : alteration.compress(changed_alteration);
+        string[] alteration_list = new string[0];
+        if (timestamp_changed) {
+            alteration_list += "metadata:editable-timestamp";
+            alteration_list += "metadata:baseline-timestamp";
+            
+            if (is_editable_source())
+                alteration_list += "metadata:source-timestamp";
         }
         
-        if (alteration != null)
-            notify_altered(alteration);
+        if (filesize_changed || new_reader != null) {
+            alteration_list += "image:editable";
+            alteration_list += "image:baseline";
+            
+            if (is_editable_source())
+                alteration_list += "image:source";
+        }
+        
+        if (alteration_list.length > 0)
+            notify_altered(new Alteration.from_array(alteration_list));
     }
     
     private void detach_editable(bool delete_editable, bool remove_transformations) {
@@ -3332,17 +3421,17 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     }
     
     public LibraryPhotoSourceCollection() {
-        base("LibraryPhotoSourceCollection", Photo.get_photo_key);
+        base ("LibraryPhotoSourceCollection", Photo.get_photo_key);
         
-        internal_get_trashcan().contents_altered.connect(on_trashcan_contents_altered);       
-        internal_get_offline_bin().contents_altered.connect(on_offline_contents_altered);
+        get_trashcan().contents_altered.connect(on_trashcan_contents_altered);       
+        get_offline_bin().contents_altered.connect(on_offline_contents_altered);
     }
     
-    protected override MediaSourceHoldingTank internal_create_trashcan() {
+    protected override MediaSourceHoldingTank create_trashcan() {
         return new MediaSourceHoldingTank(this, check_if_trashed_photo, Photo.get_photo_key);
     }
 
-    protected override MediaSourceHoldingTank internal_create_offline_bin() {
+    protected override MediaSourceHoldingTank create_offline_bin() {
         return new MediaSourceHoldingTank(this, check_if_offline_photo, Photo.get_photo_key);
     }
     
@@ -3553,23 +3642,22 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     }
     
     public LibraryPhoto? get_trashed_by_file(File file) {
-        return (LibraryPhoto?) internal_get_trashcan().fetch_by_master_file(file);
+        return (LibraryPhoto?) get_trashcan().fetch_by_master_file(file);
     }
     
     public LibraryPhoto? get_trashed_by_md5(string md5) {
-        return (LibraryPhoto?) internal_get_trashcan().fetch_by_md5(md5);
+        return (LibraryPhoto?) get_trashcan().fetch_by_md5(md5);
     }
     
     public LibraryPhoto? get_offline_by_file(File file) {
-        return (LibraryPhoto?) internal_get_offline_bin().fetch_by_master_file(file);
+        return (LibraryPhoto?) get_offline_bin().fetch_by_master_file(file);
     }
     
     public int get_offline_count() {
-        return internal_get_offline_bin().get_count();
+        return get_offline_bin().get_count();
     }
     
     public LibraryPhoto? get_state_by_file(File file, out State state) {
-        // check hashed locations first
         LibraryPhoto? photo = fetch_by_master_file(file);
         if (photo != null) {
             state = State.ONLINE;
@@ -3584,13 +3672,15 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
             return photo;
         }
         
-        if (internal_get_trashcan().fetch_by_master_file(file) != null) {
+        photo = get_trashcan().fetch_by_master_file(file) as LibraryPhoto;
+        if (photo != null) {
             state = State.TRASH;
             
             return photo;
         }
         
-        if (internal_get_offline_bin().fetch_by_master_file(file) != null) {
+        photo = get_offline_bin().fetch_by_master_file(file) as LibraryPhoto;
+        if (photo != null) {
             state = State.OFFLINE;
             
             return photo;
@@ -3603,18 +3693,18 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         if (base.has_backlink(backlink))
             return true;
         
-        if (internal_get_trashcan().has_backlink(backlink))
+        if (get_trashcan().has_backlink(backlink))
             return true;
         
-        if (internal_get_offline_bin().has_backlink(backlink))
+        if (get_offline_bin().has_backlink(backlink))
             return true;
         
         return false;
     }
     
     public override void remove_backlink(SourceBacklink backlink) {
-        internal_get_trashcan().remove_backlink(backlink);
-        internal_get_offline_bin().remove_backlink(backlink);
+        get_trashcan().remove_backlink(backlink);
+        get_offline_bin().remove_backlink(backlink);
         
         base.remove_backlink(backlink);
     }
@@ -3655,7 +3745,7 @@ public class LibraryPhoto : Photo {
     public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
         mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
-        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true, false);
+        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true, runtime_monitoring);
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
@@ -3785,14 +3875,14 @@ public class LibraryPhoto : Photo {
     
     public LibraryPhoto duplicate() throws Error {
         // clone the master file
-        File dupe_file = LibraryFiles.duplicate(get_master_file(), on_duplicate_progress);
+        File dupe_file = LibraryFiles.duplicate(get_master_file(), on_duplicate_progress, true);
         
         // clone the editable (if exists)
         BackingPhotoID dupe_editable_id = BackingPhotoID();
         PhotoFileReader editable_reader = get_editable_reader();
         File? editable_file = (editable_reader != null) ? editable_reader.get_file() : null;
         if (editable_file != null) {
-            File dupe_editable = LibraryFiles.duplicate(editable_file, on_duplicate_progress);
+            File dupe_editable = LibraryFiles.duplicate(editable_file, on_duplicate_progress, true);
             
             BackingPhotoState state = BackingPhotoState();
             DetectedPhotoInformation detected;

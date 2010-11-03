@@ -268,6 +268,8 @@ string data_dir = null;
 bool startup_auto_import = false;
 bool autocommit_metadata = false;
 bool show_version = false;
+bool runtime_monitoring = false;
+bool runtime_import = false;
 
 const OptionEntry[] options = {
     { "autocommit-metadata", 0, 0, OptionArg.NONE, &autocommit_metadata,
@@ -280,6 +282,10 @@ const OptionEntry[] options = {
         N_("Don't used JPEGs to display RAW images"), null },
     { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
         N_("Don't display startup progress meter"), null },
+    { "runtime-import", 0, 0, OptionArg.NONE, &runtime_import,
+        N_("Import new files in library directory detected at runtime (experimental)"), null },
+    { "runtime-monitoring", 0, 0, OptionArg.NONE, &runtime_monitoring,
+        N_("Monitor library directory at runtime for changes (experimental)"), null },
     { "version", 'V', 0, OptionArg.NONE, &show_version,
         N_("Show the application's version"), null },
     { null }

@@ -24,13 +24,75 @@
 // animals like photo files.  We could be more liberal and treat this case as a metadata-changed
 // situation (since that's a likely case).
 //
-// NOTE: Current implementation is only to check all photos at initialization, with no auto-import
-// and no realtime monitoring (http://trac.yorba.org/ticket/2302).  Auto-import and realtime
-// monitoring will be added later.
-//
 
 public class LibraryMonitor : DirectoryMonitor {
+    private const int FLUSH_PENDING_UPDATES_SEC = 2;
+    private const int FLUSH_IMPORT_QUEUE_SEC = 5;
     private const int IMPORT_ROLL_QUIET_SEC = 5 * 60;
+    private const int MAX_REIMPORT_JOBS_PER_CYCLE = 20;
+    private const int MAX_REVERTS_PER_CYCLE = 5;
+    private const int MIN_BLACKLIST_DURATION_MSEC = 5 * 1000;
+    
+    private class PhotoUpdates {
+        public LibraryPhoto photo;
+        public bool reimport_master = false;
+        public File? master_file = null;
+        public bool master_file_info_altered = false;
+        public FileInfo? master_file_info = null;
+        public bool master_in_alteration = false;
+        public bool reimport_editable = false;
+        public File? editable_file = null;
+        public bool editable_file_info_altered = false;
+        public FileInfo? editable_file_info = null;
+        public bool editable_in_alteration = false;
+        public bool revert_to_master = false;
+        
+        private bool online = false;
+        private bool offline = false;
+        
+        public PhotoUpdates(LibraryPhoto photo) {
+            this.photo = photo;
+        }
+        
+        public void mark_offline() {
+            online = false;
+            offline = true;
+        }
+        
+        public void mark_online() {
+            online = true;
+            offline = false;
+        }
+        
+        public void reset_online_offline() {
+            online = false;
+            offline = false;
+        }
+        
+        public bool set_offline() {
+            return offline;
+        }
+        
+        public bool set_online() {
+            return online;
+        }
+        
+        public bool is_all_updated() {
+            return reimport_master == false
+                && master_file == null
+                && master_file_info_altered == false
+                && master_file_info == null
+                && master_in_alteration == false
+                && reimport_editable == false
+                && editable_file == null
+                && editable_file_info_altered == false
+                && editable_file_info == null
+                && editable_in_alteration == false
+                && revert_to_master == false
+                && online == false
+                && offline == false;
+        }
+    }
     
     private class ReimportMasterJob : BackgroundJob {
         public LibraryPhoto photo;
@@ -149,35 +211,34 @@ public class LibraryMonitor : DirectoryMonitor {
         }
     }
     
+    private static Gee.HashSet<File> blacklist = new Gee.HashSet<File>(file_hash, file_equal);
+    private static HashTimedQueue<File> to_unblacklist = new HashTimedQueue<File>(
+        MIN_BLACKLIST_DURATION_MSEC, on_unblacklist_file, file_hash, file_equal, Priority.LOW);
+    
     private Workers workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
     private Cancellable cancellable = new Cancellable();
     private Gee.HashSet<LibraryPhoto> discovered = null;
     private Gee.HashSet<File> unknown_photo_files = null;
-    private Gee.HashSet<LibraryPhoto> master_reimport_queue = new Gee.HashSet<LibraryPhoto>();
+    private Gee.HashMap<LibraryPhoto, PhotoUpdates> pending_updates = new Gee.HashMap<LibraryPhoto,
+        PhotoUpdates>();
     private Gee.HashMap<LibraryPhoto, ReimportMasterJob> master_reimport_pending = new Gee.HashMap<
         LibraryPhoto, ReimportMasterJob>();
-    private Gee.HashSet<LibraryPhoto> editable_reimport_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashMap<LibraryPhoto, ReimportEditableJob> editable_reimport_pending =
         new Gee.HashMap<LibraryPhoto, ReimportEditableJob>();
-    private Gee.HashMap<LibraryPhoto, FileInfo> master_update_timestamp_queue = new Gee.HashMap<
-        LibraryPhoto, FileInfo>();
-    private Gee.HashMap<LibraryPhoto, FileInfo> editable_update_timestamp_queue = new Gee.HashMap<
-        LibraryPhoto, FileInfo>();
-    private Gee.HashSet<LibraryPhoto> revert_to_master_queue = new Gee.HashSet<LibraryPhoto>();
-    private Gee.HashSet<LibraryPhoto> offline_queue = new Gee.HashSet<LibraryPhoto>();
-    private Gee.HashSet<LibraryPhoto> online_queue = new Gee.HashSet<LibraryPhoto>();
     private Gee.HashSet<Video> detected_videos = new Gee.HashSet<Video>();
     private Gee.HashSet<Video> videos_to_mark_offline = new Gee.HashSet<Video>();
     private Gee.HashSet<Video> videos_to_mark_online = new Gee.HashSet<Video>();
     private Gee.HashSet<Video> videos_to_check_interpretable = new Gee.HashSet<Video>();
     private Gee.HashSet<File> import_queue = new Gee.HashSet<File>(file_hash, file_equal);
+    private Gee.HashSet<File> pending_imports = new Gee.HashSet<File>(file_hash, file_equal);
+    private Gee.ArrayList<BatchImport> batch_import_queue = new Gee.ArrayList<BatchImport>();
     private BatchImportRoll current_import_roll = null;
     private time_t last_import_roll_use = 0;
-    private Gee.HashSet<File> pending_imports = new Gee.HashSet<File>(file_hash, file_equal);
     private BatchImport current_batch_import = null;
-    private Gee.ArrayList<BatchImport> batch_import_queue = new Gee.ArrayList<BatchImport>();
     private int checksums_completed = 0;
     private int checksums_total = 0;
+    private uint pending_updates_timer_id = 0;
+    private uint import_queue_timer_id = 0;
     
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
@@ -185,7 +246,9 @@ public class LibraryMonitor : DirectoryMonitor {
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         LibraryPhoto.global.unlinked_destroyed.connect(on_photo_destroyed);
         
-        Timeout.add_seconds(1, on_flush_pending_queues);
+        pending_updates_timer_id = Timeout.add_seconds(FLUSH_PENDING_UPDATES_SEC,
+            on_flush_pending_updates);
+        import_queue_timer_id = Timeout.add_seconds(FLUSH_IMPORT_QUEUE_SEC, on_flush_import_queue);
     }
     
     public override void close() {
@@ -196,6 +259,16 @@ public class LibraryMonitor : DirectoryMonitor {
         
         foreach (ReimportEditableJob job in editable_reimport_pending.values)
             job.cancel();
+        
+        if (pending_updates_timer_id != 0) {
+            Source.remove(pending_updates_timer_id);
+            pending_updates_timer_id = 0;
+        }
+        
+        if (import_queue_timer_id != 0) {
+            Source.remove(import_queue_timer_id);
+            import_queue_timer_id = 0;
+        }
         
         base.close();
     }
@@ -300,7 +373,7 @@ public class LibraryMonitor : DirectoryMonitor {
             }
             
             if (match != null) {
-                match.set_editable_file(file);
+                update_editable_file(match, file);
                 adopted.add(file);
             }
         }
@@ -352,7 +425,7 @@ public class LibraryMonitor : DirectoryMonitor {
         if (job.match != null) {
             mdbg("Found moved master file: %s matches %s".printf(job.file.get_path(),
                 job.match.to_string()));
-            job.match.set_master_file(job.file);
+            update_master_file(job.match, job.file);
             unknown_photo_files.remove(job.file);
             discovered.add(job.match);
         }
@@ -432,13 +505,13 @@ public class LibraryMonitor : DirectoryMonitor {
         
         // go through all discovered online photos and see if they're online
         foreach (LibraryPhoto photo in discovered) {
-            FileInfo? master_info = get_file_info(photo.get_master_file());
-            if (master_info != null && photo.is_offline()) {
-                enqueue_online(photo);
-            } else if (master_info == null && !photo.is_offline()) {
+            FileInfo? master_info = get_file_info(get_master_file(photo));
+            if (master_info != null && is_offline(photo)) {
+                update_photo_online(photo);
+            } else if (master_info == null && is_online(photo)) {
                 // this indicates the file was discovered and then deleted before discovery ended
                 // (still counts as offline)
-                enqueue_offline(photo);
+                update_photo_offline(photo);
             }
         }
         
@@ -447,7 +520,7 @@ public class LibraryMonitor : DirectoryMonitor {
             LibraryPhoto photo = (LibraryPhoto) object;
             
             // only deal with photos under this monitor; external photos get a simpler verification
-            if (!is_in_root(photo.get_master_file())) {
+            if (!is_in_root(get_master_file(photo))) {
                 verify_external_photo.begin(photo);
                 
                 continue;
@@ -455,14 +528,14 @@ public class LibraryMonitor : DirectoryMonitor {
             
             // Don't mark online if in discovered, the prior loop works through those issues
             if (!discovered.contains(photo)) {
-                enqueue_offline(photo);
+                update_photo_offline(photo);
                 
                 continue;
             }
             
-            FileInfo? master_info = get_file_info(photo.get_master_file());
+            FileInfo? master_info = get_file_info(get_master_file(photo));
             if (master_info == null) {
-                enqueue_offline(photo);
+                update_photo_offline(photo);
                 
                 continue;
             }
@@ -471,10 +544,10 @@ public class LibraryMonitor : DirectoryMonitor {
             // exist within the library directory (the following check happens in
             // verify_external_photo), check if anything about the photo is out-of-data,
             // and update it now
-            if (!photo.is_offline() && !is_offline_pending(photo))
+            if (is_online(photo))
                 check_for_master_changes(photo, master_info);
             
-            File? editable_file = photo.get_editable_file();
+            File? editable_file = get_editable_file(photo);
             if (editable_file != null) {
                 FileInfo? editable_info = get_file_info(editable_file);
                 if (editable_info != null) {
@@ -483,7 +556,7 @@ public class LibraryMonitor : DirectoryMonitor {
                     critical("Unable to retrieve file information for editable %s",
                         editable_file.get_path());
                     
-                    enqueue_revert_to_master(photo);
+                    update_revert_to_master(photo);
                 }
             }
         }
@@ -509,30 +582,28 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private async void verify_external_photo(LibraryPhoto photo) {
-        bool is_offline = photo.is_offline();
-        
-        File master = photo.get_master_file();
+        File master = get_master_file(photo);
         FileInfo? master_info = null;
         try {
             // interested in nothing more than if the file exists
             master_info = yield master.query_info_async(SUPPLIED_ATTRIBUTES,
                 FileQueryInfoFlags.NOFOLLOW_SYMLINKS, DEFAULT_PRIORITY, cancellable);
-            if (master_info != null && is_offline)
-                enqueue_online(photo);
-            else if (master_info == null && !is_offline)
-                enqueue_offline(photo);
+            if (master_info != null && is_offline(photo))
+                update_photo_online(photo);
+            else if (master_info == null && is_online(photo))
+                update_photo_offline(photo);
         } catch (Error err) {
-            if (!is_offline)
-                enqueue_offline(photo);
+            if (is_online(photo))
+                update_photo_offline(photo);
         }
         
         // if not offline and not to-be-marked offline, see if anything has changed externally
         // and update if necessary
-        if (master_info != null && !is_offline && !is_offline_pending(photo))
+        if (master_info != null && is_online(photo))
             check_for_master_changes(photo, master_info);
         
-        if (!is_offline && !is_offline_pending(photo)) {
-            File? editable = photo.get_editable_file();
+        if (is_online(photo)) {
+            File? editable = get_editable_file(photo);
             if (editable != null) {
                 string errmsg = null;
                 try {
@@ -550,7 +621,7 @@ public class LibraryMonitor : DirectoryMonitor {
                     critical("Unable to fetch file info for external %s: %s", editable.get_path(),
                         errmsg);
                     
-                    enqueue_revert_to_master(photo);
+                    update_revert_to_master(photo);
                 }
             }
         }
@@ -575,98 +646,196 @@ public class LibraryMonitor : DirectoryMonitor {
     }
     
     private void on_photo_destroyed(DataSource source) {
-        LibraryPhoto photo = (LibraryPhoto) source;
-        
-        // remove from all queues and cancel any pending operations
-        master_reimport_queue.remove(photo);
-        if (master_reimport_pending.has_key(photo))
-            master_reimport_pending.get(photo).cancel();
-        editable_reimport_queue.remove(photo);
-        if (editable_reimport_pending.has_key(photo))
-            editable_reimport_pending.get(photo).cancel();
-        master_update_timestamp_queue.unset(photo);
-        editable_update_timestamp_queue.unset(photo);
-        revert_to_master_queue.remove(photo);
-        offline_queue.remove(photo);
-        online_queue.remove(photo);
-        import_queue.remove(photo.get_master_file());
+        remove_updates((LibraryPhoto) source);
     }
     
-    private void enqueue_reimport_master(LibraryPhoto photo) {
-        // this supercedes updating the master modification time
-        master_update_timestamp_queue.unset(photo);
-        
-        // if one is pending, cancel it for this one
-        if (master_reimport_pending.has_key(photo))
-            master_reimport_pending.get(photo).cancel();
-        
-        master_reimport_queue.add(photo);
+    private void remove_updates(LibraryPhoto photo) {
+        pending_updates.unset(photo);
     }
     
-    private void enqueue_update_master_timestamp(LibraryPhoto photo, FileInfo info) {
-        // don't bother in lieu of a reimport
-        if (master_reimport_pending.has_key(photo) || master_reimport_queue.contains(photo))
+    private PhotoUpdates fetch_updates(LibraryPhoto photo) {
+        PhotoUpdates? updates = pending_updates.get(photo);
+        if (updates != null)
+            return updates;
+        
+        updates = new PhotoUpdates(photo);
+        pending_updates.set(photo, updates);
+        
+        return updates;
+    }
+    
+    // Code within LibraryMonitor will want to use these getters to retrieve information about the
+    // LibraryPhoto that may not have already been committed to the database (which happens in
+    // scheduled bursts).
+    
+    private bool is_online(LibraryPhoto photo) {
+        PhotoUpdates? updates = pending_updates.get(photo);
+        
+        return (updates != null) ? updates.set_online() : !photo.is_offline();
+    }
+    
+    private bool is_offline(LibraryPhoto photo) {
+        PhotoUpdates? updates = pending_updates.get(photo);
+        
+        return (updates != null) ? updates.set_offline() : photo.is_offline();
+    }
+    
+    private File get_master_file(LibraryPhoto photo) {
+        PhotoUpdates? updates = pending_updates.get(photo);
+        
+        return (updates != null && updates.master_file != null) ? updates.master_file
+            : photo.get_master_file();
+    }
+    
+    private File? get_editable_file(LibraryPhoto photo) {
+        PhotoUpdates? updates = pending_updates.get(photo);
+        
+        return (updates != null && updates.editable_file != null) ? updates.editable_file
+            : photo.get_editable_file();
+    }
+    
+    private LibraryPhoto? get_photo_state_by_file(File file, out LibraryPhotoSourceCollection.State state) {
+        File? real_file = null;
+        if (pending_updates.size > 0) {
+            foreach (PhotoUpdates updates in pending_updates.values) {
+                if (updates.master_file != null && updates.master_file.equal(file)) {
+                    real_file = updates.photo.get_master_file();
+                    
+                    break;
+                }
+                
+                if (updates.editable_file != null && updates.editable_file.equal(file)) {
+                    real_file = updates.photo.get_editable_file();
+                    
+                    // if the photo's "real" editable file is null, then this file hasn't been
+                    // associated with it (yet) so fake the call
+                    if (real_file == null) {
+                        state = LibraryPhotoSourceCollection.State.EDITABLE;
+                        
+                        return updates.photo;
+                    }
+                    
+                    break;
+                }
+            }
+        }
+        
+        return LibraryPhoto.global.get_state_by_file((real_file != null) ? real_file : file,
+            out state);
+    }
+    
+    // Code within LibraryMonitor should use these update methods to schedule changes to Photos.
+    
+    private void update_reimport_master(LibraryPhoto photo) {
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        updates.reimport_master = true;
+        updates.mark_online();
+        
+        // cancel outstanding reimport
+        if (master_reimport_pending.has_key(photo))
+            master_reimport_pending.get(photo).cancel();
+    }
+    
+    private void update_master_file(LibraryPhoto photo, File file) {
+        // if the new file refers to an existing LibraryPhoto, need to 
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        updates.master_file = file;
+        updates.mark_online();
+    }
+    
+    private void update_master_file_info_altered(LibraryPhoto photo) {
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        updates.master_file_info_altered = true;
+        updates.mark_online();
+    }
+    
+    private void update_master_file_in_alteration(LibraryPhoto photo, bool in_alteration) {
+        fetch_updates(photo).master_in_alteration = in_alteration;
+    }
+    
+    private void update_master_file_alterations_completed(LibraryPhoto photo, FileInfo info) {
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        if (updates.master_file_info_altered)
+            updates.master_file_info = info;
+        updates.mark_online();
+    }
+    
+    private void update_reimport_editable(LibraryPhoto photo) {
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        // if reverting or going offline, don't bother
+        if (updates.revert_to_master || updates.set_offline())
             return;
         
-        // add or replace existing
-        master_update_timestamp_queue.set(photo, info);
-    }
-    
-    private void enqueue_reimport_editable(LibraryPhoto photo) {
-        // this supercedes updating the editable modification time
-        editable_update_timestamp_queue.unset(photo);
+        updates.reimport_editable = true;
         
-        // if one is pending, cancel it for this one
+        // cancel outstanding reimport
         if (editable_reimport_pending.has_key(photo))
             editable_reimport_pending.get(photo).cancel();
-        
-        editable_reimport_queue.add(photo);
     }
     
-    private void enqueue_update_editable_timestamp(LibraryPhoto photo, FileInfo info) {
-        // don't bother in lieu of a reimport
-        if (editable_reimport_pending.has_key(photo) || editable_reimport_queue.contains(photo))
-            return;
+    private void update_editable_file(LibraryPhoto photo, File file) {
+        PhotoUpdates updates = fetch_updates(photo);
         
-        // add or replace existing
-        editable_update_timestamp_queue.set(photo, info);
+        // if reverting, don't bother
+        if (!updates.revert_to_master)
+            updates.editable_file = file;
     }
     
-    private void enqueue_revert_to_master(LibraryPhoto photo) {
-        // remove all features regarding editables
-        editable_reimport_queue.remove(photo);
-        editable_update_timestamp_queue.unset(photo);
-        if (editable_reimport_pending.has_key(photo))
-            editable_reimport_pending.get(photo).cancel();
+    private void update_editable_file_info_altered(LibraryPhoto photo) {
+        PhotoUpdates updates = fetch_updates(photo);
         
-        revert_to_master_queue.add(photo);
+        // if reverting, don't bother
+        if (!updates.revert_to_master)
+            updates.editable_file_info_altered = true;
     }
     
-    private void enqueue_offline(LibraryPhoto photo) {
-        // this kills all sorts of things
-        if (master_reimport_pending.has_key(photo))
-            master_reimport_pending.get(photo).cancel();
-        master_reimport_queue.remove(photo);
-        if (editable_reimport_pending.has_key(photo))
-            editable_reimport_pending.get(photo).cancel();
-        editable_reimport_queue.remove(photo);
-        master_update_timestamp_queue.unset(photo);
-        editable_update_timestamp_queue.unset(photo);
-        online_queue.remove(photo);
-        
-        offline_queue.add(photo);
+    private void update_editable_file_in_alteration(LibraryPhoto photo, bool in_alteration) {
+        fetch_updates(photo).editable_in_alteration = in_alteration;
     }
     
-    private void enqueue_online(LibraryPhoto photo) {
-        // this doesn't kill most of the other queues, but probably not a good idea to be doing
-        // any of that to an offline photo until it's marked online
-        offline_queue.remove(photo);
+    private void update_editable_file_alterations_completed(LibraryPhoto photo, FileInfo info) {
+        PhotoUpdates updates = fetch_updates(photo);
         
-        online_queue.add(photo);
+        if (!updates.revert_to_master && updates.editable_file_info_altered)
+            updates.editable_file_info = info;
     }
     
-    private bool is_offline_pending(LibraryPhoto photo) {
-        return offline_queue.contains(photo);
+    private void update_revert_to_master(LibraryPhoto photo) {
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        updates.revert_to_master = true;
+        
+        // this means nothing any longer
+        updates.reimport_editable = false;
+        updates.editable_file = null;
+        updates.editable_file_info = null;
+    }
+    
+    private void update_photo_online(LibraryPhoto photo) {
+        fetch_updates(photo).mark_online();
+    }
+    
+    private void update_photo_offline(LibraryPhoto photo) {
+        PhotoUpdates updates = fetch_updates(photo);
+        
+        updates.mark_offline();
+        
+        // this means nothing any longer
+        updates.reimport_master = false;
+        updates.master_file_info_altered = false;
+        updates.master_file_info = null;
+        updates.master_in_alteration = false;
+        updates.reimport_editable = false;
+    }
+    
+    private void enqueue_import(File file) {
+        if (!pending_imports.contains(file))
+            import_queue.add(file);
     }
     
     private void enqueue_import_many(Gee.Collection<File> files) {
@@ -674,6 +843,10 @@ public class LibraryMonitor : DirectoryMonitor {
             if (!pending_imports.contains(file))
                 import_queue.add(file);
         }
+    }
+    
+    private void remove_queued_import(File file) {
+        import_queue.remove(file);
     }
     
     // If filesize has changed, treat that as a full-blown modification
@@ -685,10 +858,12 @@ public class LibraryMonitor : DirectoryMonitor {
         if (state.matches_file_info(info))
             return;
         
-        if (state.is_touched(info))
-            enqueue_update_master_timestamp(photo, info);
-        else
-            enqueue_reimport_master(photo);
+        if (state.is_touched(info)) {
+            update_master_file_info_altered(photo);
+            update_master_file_alterations_completed(photo, info);
+        } else {
+            update_reimport_master(photo);
+        }
     }
     
     private void check_for_editable_changes(LibraryPhoto photo, FileInfo info) {
@@ -698,10 +873,12 @@ public class LibraryMonitor : DirectoryMonitor {
         if (state == null || state.matches_file_info(info))
             return;
         
-        if (state.is_touched(info))
-            enqueue_update_editable_timestamp(photo, info);
-        else
-            enqueue_reimport_editable(photo);
+        if (state.is_touched(info)) {
+            update_editable_file_info_altered(photo);
+            update_editable_file_alterations_completed(photo, info);
+        } else {
+            update_reimport_editable(photo);
+        }
      }
 
     private void post_process_videos() {
@@ -732,131 +909,259 @@ public class LibraryMonitor : DirectoryMonitor {
 
         Video.global.thaw_notifications();
     }
-     
-     private bool on_flush_pending_queues() {
+    
+    private bool on_flush_pending_updates() {
         if (cancellable.is_cancelled())
             return false;
         
         Timer timer = new Timer();
         
         post_process_videos();
-
+        
+        Gee.Map<LibraryPhoto, File> set_master_file = null;
+        Gee.Map<LibraryPhoto, FileInfo> set_master_file_info = null;
+        Gee.Map<LibraryPhoto, File> set_editable_file = null;
+        Gee.Map<LibraryPhoto, FileInfo> set_editable_file_info = null;
+        Gee.ArrayList<LibraryPhoto> revert_to_master = null;
+        Gee.ArrayList<LibraryPhoto> to_offline = null;
+        Gee.ArrayList<LibraryPhoto> to_online = null;
+        Gee.ArrayList<LibraryPhoto> to_remove = null;
+        Gee.ArrayList<LibraryPhoto> reimport_master = null;
+        Gee.ArrayList<LibraryPhoto> reimport_editable = null;
+        int reimport_job_count = 0;
+        
+        foreach (PhotoUpdates updates in pending_updates.values) {
+            // for sanity, simply skip any photo that is in the middle of alterations, whether its
+            // master or editable
+            if (updates.master_in_alteration || updates.editable_in_alteration)
+                continue;
+            
+            // perform "instant" tasks first, that is, those that don't require a callback
+            if (updates.master_file != null) {
+                if (set_master_file == null)
+                    set_master_file = new Gee.HashMap<LibraryPhoto, File>();
+                
+                set_master_file.set(updates.photo, updates.master_file);
+                updates.master_file = null;
+            }
+            
+            if (updates.master_file_info != null) {
+                if (set_master_file_info == null)
+                    set_master_file_info = new Gee.HashMap<LibraryPhoto, FileInfo>();
+                
+                set_master_file_info.set(updates.photo, updates.master_file_info);
+                updates.master_file_info_altered = false;
+                updates.master_file_info = null;
+            }
+            
+            if (updates.editable_file != null) {
+                if (set_editable_file == null)
+                    set_editable_file = new Gee.HashMap<LibraryPhoto, File>();
+                
+                set_editable_file.set(updates.photo, updates.editable_file);
+                updates.editable_file = null;
+            }
+            
+            if (updates.editable_file_info != null) {
+                if (set_editable_file_info == null)
+                    set_editable_file_info = new Gee.HashMap<LibraryPhoto, FileInfo>();
+                
+                set_editable_file_info.set(updates.photo, updates.editable_file_info);
+                updates.editable_file_info_altered = false;
+                updates.editable_file_info = null;
+            }
+            
+            if (updates.revert_to_master) {
+                if (revert_to_master == null)
+                    revert_to_master = new Gee.ArrayList<LibraryPhoto>();
+                
+                if (revert_to_master.size < MAX_REVERTS_PER_CYCLE) {
+                    revert_to_master.add(updates.photo);
+                    updates.revert_to_master = false;
+                }
+            }
+            
+            if (updates.set_offline()) {
+                if (to_offline == null)
+                    to_offline = new Gee.ArrayList<LibraryPhoto>();
+                
+                to_offline.add(updates.photo);
+                updates.reset_online_offline();
+            }
+            
+            if (updates.set_online()) {
+                if (to_online == null)
+                    to_online = new Gee.ArrayList<LibraryPhoto>();
+                
+                to_online.add(updates.photo);
+                updates.reset_online_offline();
+            }
+            
+            if (updates.reimport_master && reimport_job_count < MAX_REIMPORT_JOBS_PER_CYCLE) {
+                if (reimport_master == null)
+                    reimport_master = new Gee.ArrayList<LibraryPhoto>();
+                
+                reimport_master.add(updates.photo);
+                updates.reimport_master = false;
+                reimport_job_count++;
+            }
+            
+            if (updates.reimport_editable && reimport_job_count < MAX_REIMPORT_JOBS_PER_CYCLE) {
+                if (reimport_editable == null)
+                    reimport_editable = new Gee.ArrayList<LibraryPhoto>();
+                
+                reimport_editable.add(updates.photo);
+                updates.reimport_editable = false;
+                reimport_job_count++;
+            }
+            
+            if (updates.is_all_updated()) {
+                if (to_remove == null)
+                    to_remove = new Gee.ArrayList<LibraryPhoto>();
+                
+                to_remove.add(updates.photo);
+            }
+        }
+        
+        if (to_remove != null) {
+            foreach (LibraryPhoto photo in to_remove)
+                remove_updates(photo);
+        }
+        
         LibraryPhoto.global.freeze_notifications();
         
-        if (master_update_timestamp_queue.size > 0) {
-            mdbg("Updating %d master files timestamps".printf(master_update_timestamp_queue.size));
+        if (set_master_file != null) {
+            mdbg("Changing master file of %d photos".printf(set_master_file.size));
             
             try {
-                Photo.update_many_master_timestamps(master_update_timestamp_queue);
+                Photo.set_many_master_file(set_master_file);
             } catch (DatabaseError err) {
                 AppWindow.database_error(err);
             }
-            
-            master_update_timestamp_queue.clear();
         }
         
-        if (master_reimport_queue.size > 0) {
-            mdbg("Reimporting %d masters".printf(master_reimport_queue.size));
+        if (set_master_file_info != null) {
+            mdbg("Updating %d master files timestamps".printf(set_master_file_info.size));
             
-            foreach (LibraryPhoto photo in master_reimport_queue) {
+            try {
+                Photo.update_many_master_timestamps(set_master_file_info);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
+        
+        if (set_editable_file != null) {
+            mdbg("Changing editable file of %d photos".printf(set_editable_file.size));
+            
+            try {
+                Photo.set_many_editable_file(set_editable_file);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
+        
+        if (set_editable_file_info != null) {
+            mdbg("Updating %d editable files timestamps".printf(set_editable_file_info.size));
+            
+            try {
+                Photo.update_many_editable_timestamps(set_editable_file_info);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
+        
+        if (revert_to_master != null) {
+            mdbg("Reverting %d photos to master".printf(revert_to_master.size));
+            
+            foreach (LibraryPhoto photo in revert_to_master)
+                photo.revert_to_master();
+        }
+        
+        if (to_offline != null || to_online != null) {
+            mdbg("Marking %d photos as online, %d offline".printf(
+                (to_online != null) ? to_online.size : 0,
+                (to_offline != null) ? to_offline.size : 0));
+            
+            try {
+                LibraryPhoto.mark_many_online_offline(to_online, to_offline);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
+        }
+        
+        LibraryPhoto.global.thaw_notifications();
+        
+        //
+        // Now that the metadata has been updated, deal with imports and reimports
+        //
+        
+        if (reimport_master != null) {
+            mdbg("Reimporting %d masters".printf(reimport_master.size));
+            
+            foreach (LibraryPhoto photo in reimport_master) {
                 assert(!master_reimport_pending.has_key(photo));
                 
                 ReimportMasterJob job = new ReimportMasterJob(this, photo);
                 master_reimport_pending.set(photo, job);
                 workers.enqueue(job);
             }
-            
-            master_reimport_queue.clear();
         }
         
-        if (editable_update_timestamp_queue.size > 0) {
-            mdbg("Updating %d editable files timestamps".printf(editable_update_timestamp_queue.size));
+        if (reimport_editable != null) {
+            mdbg("Reimporting %d editables".printf(reimport_editable.size));
             
-            try {
-                Photo.update_many_editable_timestamps(editable_update_timestamp_queue);
-            } catch (DatabaseError err) {
-                AppWindow.database_error(err);
-            }
-            
-            editable_update_timestamp_queue.clear();
-        }
-        
-        if (editable_reimport_queue.size > 0) {
-            mdbg("Reimporting %d editables".printf(editable_reimport_queue.size));
-            
-            foreach (LibraryPhoto photo in editable_reimport_queue) {
+            foreach (LibraryPhoto photo in reimport_editable) {
                 assert(!editable_reimport_pending.has_key(photo));
                 
                 ReimportEditableJob job = new ReimportEditableJob(this, photo);
                 editable_reimport_pending.set(photo, job);
                 workers.enqueue(job);
             }
-            
-            editable_reimport_queue.clear();
-        }
-        
-        if (revert_to_master_queue.size > 0) {
-            mdbg("Reverting %d photos to master".printf(revert_to_master_queue.size));
-            
-            foreach (LibraryPhoto photo in revert_to_master_queue)
-                photo.revert_to_master();
-            
-            revert_to_master_queue.clear();
-        }
-        
-        if (offline_queue.size > 0 || online_queue.size > 0) {
-            mdbg("Marking %d photos as online, %d offline".printf(online_queue.size,
-                offline_queue.size));
-            
-            try {
-                LibraryPhoto.mark_many_online_offline(online_queue, offline_queue);
-            } catch (DatabaseError err) {
-                AppWindow.database_error(err);
-            }
-            
-            online_queue.clear();
-            offline_queue.clear();
-        }
-        
-        LibraryPhoto.global.thaw_notifications();
-        
-        if (import_queue.size > 0) {
-            mdbg("Auto-importing %d files".printf(import_queue.size));
-            
-            // If no import roll, or it's been over IMPORT_ROLL_QUIET_SEC since using the last one,
-            // create a new one.  This allows for multiple files to come in back-to-back and be
-            // imported on the same roll.
-            time_t now = (time_t) now_sec();
-            if (current_import_roll == null || (now - last_import_roll_use) >= IMPORT_ROLL_QUIET_SEC)
-                current_import_roll = new BatchImportRoll();
-            last_import_roll_use = now;
-            
-            Gee.ArrayList<BatchImportJob> jobs = new Gee.ArrayList<BatchImportJob>();
-            foreach (File file in import_queue) {
-                jobs.add(new FileImportJob(file, false));
-                pending_imports.add(file);
-            }
-            
-            import_queue.clear();
-            
-            BatchImport importer = new BatchImport(jobs, "LibraryMonitor autoimport",
-                null, null, null, cancellable, current_import_roll);
-            batch_import_queue.add(importer);
-            
-            schedule_next_batch_import();
         }
         
         double elapsed = timer.elapsed();
-        if (elapsed > 0.001)
+        if (elapsed > 0.01)
             mdbg("Total pending queue time: %lf".printf(elapsed));
         
         return true;
     }
     
-    private void schedule_next_batch_import() {
-        assert(current_batch_import == null);
+    private bool on_flush_import_queue() {
+        if (cancellable.is_cancelled())
+            return false;
         
-        if (batch_import_queue.size == 0)
+        if (import_queue.size == 0)
+            return true;
+        
+        mdbg("Auto-importing %d files".printf(import_queue.size));
+        
+        // If no import roll, or it's been over IMPORT_ROLL_QUIET_SEC since using the last one,
+        // create a new one.  This allows for multiple files to come in back-to-back and be
+        // imported on the same roll.
+        time_t now = (time_t) now_sec();
+        if (current_import_roll == null || (now - last_import_roll_use) >= IMPORT_ROLL_QUIET_SEC)
+            current_import_roll = new BatchImportRoll();
+        last_import_roll_use = now;
+        
+        Gee.ArrayList<BatchImportJob> jobs = new Gee.ArrayList<BatchImportJob>();
+        foreach (File file in import_queue) {
+            jobs.add(new FileImportJob(file, false));
+            pending_imports.add(file);
+        }
+        
+        import_queue.clear();
+        
+        BatchImport importer = new BatchImport(jobs, "LibraryMonitor autoimport",
+            null, null, null, cancellable, current_import_roll);
+        batch_import_queue.add(importer);
+        
+        schedule_next_batch_import();
+        
+        return true;
+    }
+    
+    private void schedule_next_batch_import() {
+        if (current_batch_import != null || batch_import_queue.size == 0)
             return;
         
         current_batch_import = batch_import_queue[0];
@@ -886,14 +1191,14 @@ public class LibraryMonitor : DirectoryMonitor {
             critical("Unable to reimport %s due to master file changing: %s", job.photo.to_string(),
                 job.err.message);
             
-            enqueue_offline(job.photo);
+            update_photo_offline(job.photo);
             
             return;
         }
         
         if (!job.mark_online) {
             // the prepare_for_reimport_master failed, photo is now considered offline
-            enqueue_offline(job.photo);
+            update_photo_offline(job.photo);
             
             return;
         }
@@ -906,7 +1211,7 @@ public class LibraryMonitor : DirectoryMonitor {
         
         // now considered online
         if (job.photo.is_offline())
-            enqueue_online(job.photo);
+            update_photo_online(job.photo);
         
         mdbg("Reimported master for %s".printf(job.photo.to_string()));
     }
@@ -965,6 +1270,348 @@ public class LibraryMonitor : DirectoryMonitor {
         
         discard_current_batch_import();
         schedule_next_batch_import();
+    }
+    
+    //
+    // Real-time monitoring & auto-import
+    //
+    
+    // USE WITH CARE.  Because changes to the photo's state will not be updated as its backing
+    // file(s) change, it's possible for the library to diverge with what's on disk while the
+    // media source is blacklisted.  If the media source is removed from the blacklist and
+    // unexpected state changes occur (such as file-altered being detected but not the file-create),
+    // the change will either be dropped on the floor or the state of the library will be
+    // indeterminate.
+    //
+    // Use of this method should be avoided at all costs (otherwise the point of the real-time
+    // monitor is negated).
+    //
+    // These methods are currently not thread-safe.
+    public static void blacklist_file(File file) {
+        mdbg("Blacklisting %s".printf(file.get_path()));
+        blacklist.add(file);
+    }
+    
+    public static void unblacklist_file(File file) {
+        // don't want to immediately remove the blacklisted file because the monitoring events
+        // can come in much later
+        if (blacklist.contains(file) && !to_unblacklist.contains(file))
+            to_unblacklist.enqueue(file);
+    }
+    
+    private static void on_unblacklist_file(File file) {
+        if (blacklist.remove(file))
+            mdbg("Blacklist for %s removed".printf(file.get_path()));
+        else
+            warning("File %s was not blacklisted but unblacklisted", file.get_path());
+    }
+    
+    public static bool is_blacklisted(File file) {
+        return blacklist.contains(file);
+    }
+    
+    // It's possible for the monitor to miss a file create but report other activities, which we
+    // can use to pick up new files
+    private void runtime_unknown_file_discovered(File file) {
+        if (runtime_import && Photo.is_file_supported(file) && !Tombstone.global.matches(file, null))
+            enqueue_import(file);
+    }
+    
+    protected override void notify_file_created(File file, FileInfo info) {
+        if (is_blacklisted(file)) {
+            base.notify_file_created(file, info);
+            
+            return;
+        }
+        
+        LibraryPhotoSourceCollection.State state;
+        LibraryPhoto? photo = get_photo_state_by_file(file, out state);
+        if (photo != null) {
+            switch (state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    // do nothing, although this is unexpected
+                    warning("File %s created in %s state", file.get_path(), state.to_string());
+                break;
+                
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    mdbg("Will mark %s online".printf(photo.to_string()));
+                    update_photo_online(photo);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", state.to_string());
+            }
+        } else {
+            runtime_unknown_file_discovered(file);
+        }
+        
+        base.notify_file_created(file, info);
+    }
+    
+    protected override void notify_file_moved(File old_file, File new_file, FileInfo new_info) {
+        if (is_blacklisted(old_file) || is_blacklisted(new_file)) {
+            base.notify_file_moved(old_file, new_file, new_info);
+            
+            return;
+        }
+        
+        LibraryPhotoSourceCollection.State old_state;
+        LibraryPhoto? old_photo = get_photo_state_by_file(old_file, out old_state);
+        
+        LibraryPhotoSourceCollection.State new_state;
+        LibraryPhoto? new_photo = get_photo_state_by_file(new_file, out new_state);
+        
+        // Four possibilities:
+        //
+        // 1. Moving an existing photo file to a location where no photo is represented
+        //    Operation: have the Photo object move with the file.
+        // 2. Moving a file with no representative photo to a location where a photo is represented
+        //    (i.e. is offline).  Operation: Update the photo (backing has changed).
+        // 3. Moving a file with no representative photo to a location with no representative
+        //    photo.  Operation: Enqueue for import (if appropriate).
+        // 4. Move a file with a representative photo to a location where a photo is represented
+        //    Operation: Mark the old photo as offline (or drop editable) and update new photo
+        //    (the backing has changed).
+        
+        if (old_photo != null && new_photo == null) {
+            // 1.
+            switch (old_state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    mdbg("Will set new master file for %s to %s".printf(old_photo.to_string(),
+                        new_file.get_path()));
+                    update_master_file(old_photo, new_file);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will set new editable file for %s to %s".printf(old_photo.to_string(),
+                        new_file.get_path()));
+                    update_editable_file(old_photo, new_file);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", old_state.to_string());
+            }
+        } else if (old_photo == null && new_photo != null) {
+            // 2.
+            switch (new_state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    mdbg("Will reimport master file for %s".printf(new_photo.to_string()));
+                    update_reimport_master(new_photo);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will reimport editable file for %s".printf(new_photo.to_string()));
+                    update_reimport_editable(new_photo);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", new_state.to_string());
+            }
+        } else if (old_photo == null && new_photo == null) {
+            // 3.
+            runtime_unknown_file_discovered(new_file);
+        } else {
+            assert(old_photo != null && new_photo != null);
+            // 4.
+            switch (old_state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                    mdbg("Will mark offline %s".printf(old_photo.to_string()));
+                    update_photo_offline(old_photo);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    // do nothing
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will revert %s to master".printf(old_photo.to_string()));
+                    update_revert_to_master(old_photo);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", old_state.to_string());
+            }
+            
+            switch (new_state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    mdbg("Will reimport master file for %s".printf(new_photo.to_string()));
+                    update_reimport_master(new_photo);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will reimport editable file for %s".printf(new_photo.to_string()));
+                    update_reimport_editable(new_photo);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", new_state.to_string());
+            }
+        }
+        
+        base.notify_file_moved(old_file, new_file, new_info);
+    }
+    
+    protected override void notify_file_altered(File file) {
+        if (is_blacklisted(file)) {
+            base.notify_file_altered(file);
+            
+            return;
+        }
+        
+        LibraryPhotoSourceCollection.State state;
+        LibraryPhoto? photo = get_photo_state_by_file(file, out state);
+        if (photo != null) {
+            switch (state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                    mdbg("Will reimport master for %s".printf(photo.to_string()));
+                    update_reimport_master(photo);
+                    update_master_file_in_alteration(photo, true);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will reimport editable for %s".printf(photo.to_string()));
+                    update_reimport_editable(photo);
+                    update_editable_file_in_alteration(photo, true);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", state.to_string());
+            }
+        } else {
+            runtime_unknown_file_discovered(file);
+        }
+        
+        base.notify_file_altered(file);
+    }
+    
+    protected override void notify_file_attributes_altered(File file) {
+        if (is_blacklisted(file)) {
+            base.notify_file_attributes_altered(file);
+            
+            return;
+        }
+        
+        LibraryPhotoSourceCollection.State state;
+        LibraryPhoto? photo = get_photo_state_by_file(file, out state);
+        if (photo != null) {
+            switch (state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                    mdbg("Will update master file info for %s".printf(photo.to_string()));
+                    update_master_file_info_altered(photo);
+                    update_master_file_in_alteration(photo, true);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    // do nothing, but unexpected
+                    warning("File %s attributes altered in %s state", file.get_path(),
+                        state.to_string());
+                    update_master_file_in_alteration(photo, true);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will update editable file info for %s".printf(photo.to_string()));
+                    update_editable_file_info_altered(photo);
+                    update_editable_file_in_alteration(photo, true);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", state.to_string());
+            }
+        } else {
+            runtime_unknown_file_discovered(file);
+        }
+        
+        base.notify_file_attributes_altered(file);
+    }
+    
+    protected override void notify_file_alteration_completed(File file, FileInfo info) {
+        if (is_blacklisted(file)) {
+            base.notify_file_alteration_completed(file, info);
+            
+            return;
+        }
+        
+        LibraryPhotoSourceCollection.State state;
+        LibraryPhoto? photo = get_photo_state_by_file(file, out state);
+        if (photo != null) {
+            switch (state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    update_master_file_alterations_completed(photo, info);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    update_editable_file_alterations_completed(photo, info);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", state.to_string());
+            }
+        } else {
+            runtime_unknown_file_discovered(file);
+        }
+        
+        base.notify_file_alteration_completed(file, info);
+    }
+    
+    protected override void notify_file_deleted(File file) {
+        if (is_blacklisted(file)) {
+            base.notify_file_deleted(file);
+            
+            return;
+        }
+        
+        LibraryPhotoSourceCollection.State state;
+        LibraryPhoto? photo = get_photo_state_by_file(file, out state);
+        if (photo != null) {
+            switch (state) {
+                case LibraryPhotoSourceCollection.State.ONLINE:
+                    mdbg("Will mark %s offline".printf(photo.to_string()));
+                    update_photo_offline(photo);
+                    update_master_file_in_alteration(photo, false);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.TRASH:
+                case LibraryPhotoSourceCollection.State.OFFLINE:
+                    // do nothing / already knew this
+                    update_master_file_in_alteration(photo, false);
+                break;
+                
+                case LibraryPhotoSourceCollection.State.EDITABLE:
+                    mdbg("Will revert %s to master".printf(photo.to_string()));
+                    update_revert_to_master(photo);
+                    update_editable_file_in_alteration(photo, false);
+                break;
+                
+                default:
+                    error("Unknown LibraryPhoto collection state %s", state.to_string());
+            }
+        } else {
+            // ressurrect tombstone if deleted
+            Tombstone? tombstone = Tombstone.global.locate(file, null);
+            if (tombstone != null) {
+                debug("Resurrecting tombstoned file %s", file.get_path());
+                Tombstone.global.resurrect(tombstone);
+            }
+            
+            // remove from import queue
+            remove_queued_import(file);
+        }
+        
+        base.notify_file_deleted(file);
     }
 }
 

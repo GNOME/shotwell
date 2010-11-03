@@ -1417,7 +1417,7 @@ private class PreparedFilesImportJob : BackgroundJob {
         File final_file = prepared_file.file;
         if (prepared_file.copy_to_library) {
             try {
-                final_file = LibraryFiles.duplicate(prepared_file.file, null);
+                final_file = LibraryFiles.duplicate(prepared_file.file, null, true);
                 if (final_file == null) {
                     batch_result = new BatchImportResult(prepared_file.job, prepared_file.file,
                         prepared_file.id, ImportResult.FILE_ERROR);

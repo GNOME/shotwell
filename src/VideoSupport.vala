@@ -59,7 +59,7 @@ public class VideoReader {
         string extension;
         disassemble_filename(filename, out name, out extension);
         
-        return is_in_ci_array(extension, get_supported_file_extensions());
+        return (extension != null) ? is_in_ci_array(extension, get_supported_file_extensions()) : false;
     }
     
     public static ImportResult prepare_for_import(VideoImportParams params) {
@@ -761,15 +761,15 @@ public class VideoSourceCollection : MediaSourceCollection {
     public VideoSourceCollection() {
         base("VideoSourceCollection", get_video_key);
 
-        internal_get_trashcan().contents_altered.connect(on_trashcan_contents_altered);
-        internal_get_offline_bin().contents_altered.connect(on_offline_contents_altered);
+        get_trashcan().contents_altered.connect(on_trashcan_contents_altered);
+        get_offline_bin().contents_altered.connect(on_offline_contents_altered);
     }
     
-    protected override MediaSourceHoldingTank internal_create_trashcan() {
+    protected override MediaSourceHoldingTank create_trashcan() {
         return new MediaSourceHoldingTank(this, is_video_trashed, get_video_key);
     }
 
-    protected override MediaSourceHoldingTank internal_create_offline_bin() {
+    protected override MediaSourceHoldingTank create_offline_bin() {
         return new MediaSourceHoldingTank(this, is_video_offline, get_video_key);
     }
 
@@ -819,11 +819,11 @@ public class VideoSourceCollection : MediaSourceCollection {
         if (video != null)
             return video;
         
-        video = (Video?) internal_get_trashcan().fetch_by_master_file(file);
+        video = (Video?) get_trashcan().fetch_by_master_file(file);
         if (video != null)
             return video;
         
-        video = (Video?) internal_get_offline_bin().fetch_by_master_file(file);
+        video = (Video?) get_offline_bin().fetch_by_master_file(file);
         if (video != null) {
             return video;
         }
