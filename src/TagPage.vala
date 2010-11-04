@@ -37,7 +37,7 @@ public class TagPage : CollectionPage {
         this.tag = tag;
         
         Tag.global.items_altered.connect(on_tags_altered);
-        tag.mirror_photos(get_view(), create_thumbnail);
+        tag.mirror_sources(get_view(), create_thumbnail);
         
         init_page_context_menu("/TagsContextMenu");
     }
@@ -107,7 +107,7 @@ public class TagPage : CollectionPage {
     protected override void update_actions(int selected_count, int count) {
         set_action_details("DeleteTag",
             Resources.delete_tag_menu(tag.get_name()),
-            Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()),
+            Resources.delete_tag_tooltip(tag.get_name(), tag.get_sources_count()),
             true);
         
         set_action_details("RenameTag",
@@ -138,7 +138,7 @@ public class TagPage : CollectionPage {
     }
     
     private void on_delete_tag() {
-        int count = tag.get_photos_count();
+        int count = tag.get_sources_count();
         string msg = ngettext(
             "This will remove the tag \"%s\" from one photo.  Continue?",
             "This will remove the tag \"%s\" from %d photos.  Continue?",

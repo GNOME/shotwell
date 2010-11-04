@@ -621,7 +621,7 @@ public class Capabilities : ServiceCapabilities {
 
             LibraryPhoto lphoto = LibraryPhoto.global.fetch(photo.get_photo_id());
 
-            Gee.List<Tag>? photo_tags = Tag.global.fetch_for_photo(lphoto);
+            Gee.List<Tag>? photo_tags = Tag.global.fetch_for_source(lphoto);
             string tags = "";
             if (photo_tags != null) {
                 foreach (Tag tag in photo_tags) {

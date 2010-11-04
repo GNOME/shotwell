@@ -256,6 +256,10 @@ public enum Rating {
 // transformations to be stored persistently elsewhere or in memory until they're commited en
 // masse to an image file.
 public abstract class Photo : PhotoSource {
+    // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
+    // directly to load thumbnails from disk by already-existing filenames
+    public const string TYPENAME = "thumb";
+
     private const string[] IMAGE_EXTENSIONS = {
         // raster formats
         "jpg", "jpeg", "jpe",
@@ -552,7 +556,11 @@ public abstract class Photo : PhotoSource {
             return readers.editable ?? readers.master;
         }
     }
-    
+
+    public static string upgrade_photo_id_to_source_id(PhotoID photo_id) {
+        return ("%s%016" + int64.FORMAT_MODIFIER + "x").printf(Photo.TYPENAME, photo_id.id);
+    }
+
     public bool is_mimicked() {
         lock (readers) {
             return readers.mimic != null;
@@ -968,9 +976,7 @@ public abstract class Photo : PhotoSource {
     }
     
     public override string get_typename() {
-        // Need to use "thumb" rather than "photo" for historical reasons -- this name is used
-        // directly to load thumbnails from disk by already-existing filenames
-        return "thumb";
+        return TYPENAME;
     }
     
     public override int64 get_instance_id() {
@@ -1309,7 +1315,7 @@ public abstract class Photo : PhotoSource {
     }
     
     // This is NOT thread-safe.
-    public inline EventID get_event_id() {
+    public override inline EventID get_event_id() {
         return row.event_id;
     }
     
@@ -1318,7 +1324,7 @@ public abstract class Photo : PhotoSource {
         return row.event_id.id;
     }
     
-    public ImportID get_import_id() {
+    public override ImportID get_import_id() {
         lock (row) {
             return row.import_id;
         }
@@ -1550,38 +1556,18 @@ public abstract class Photo : PhotoSource {
         // property that's available to users of Photo.  Persisting it as a mechanism for deaing 
         // with unlink/relink properly.
     }
-    
-    // This is NOT thread-safe.
-    public Event? get_event() {
-        EventID event_id = get_event_id();
-        
-        return event_id.is_valid() ? Event.global.fetch(event_id) : null;
-    }
-    
-    // This is NOT thread-safe.
-    public bool set_event(Event? event) {
-        EventID event_id = (event != null) ? event.get_event_id() : EventID();
-        if (row.event_id.id == event_id.id)
-            return true;
-        
-        Event? old_event = get_event();
-        
-        bool committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
-        if (committed) {
-            if (old_event != null)
-                old_event.detach(this);
-            
-            row.event_id = event_id;
-            
-            if (event != null)
-                event.attach(this);
-            
-            notify_altered(new Alteration("metadata", "event"));
+
+    protected override bool internal_set_event_id(EventID event_id) {
+        lock (row) {
+            bool committed = PhotoTable.get_instance().set_event(row.photo_id, event_id);
+
+            if (committed)
+                row.event_id = event_id;
+
+            return committed;
         }
-        
-        return committed;
     }
-    
+
     // Best to freeze the appropriate SourceCollection as well.
     public static void set_many_to_event(Gee.Collection<Photo> photos, Event? event) {
         EventID event_id = (event != null) ? event.get_event_id() : EventID();
@@ -2426,14 +2412,6 @@ public abstract class Photo : PhotoSource {
         return pixbuf;
     }
 
-    // A preview pixbuf is one that can be quickly generated and scaled as a preview.  It is fully 
-    // transformed.
-    //
-    // Note that an unscaled scaling is not considered a performance-killer for this method, 
-    // although the quality of the pixbuf may be quite poor compared to the actual unscaled 
-    // transformed pixbuf.
-    public abstract Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error;
-    
     public override Gdk.Pixbuf get_pixbuf(Scaling scaling) throws Error {
         return get_pixbuf_with_options(scaling);
     }
@@ -3410,14 +3388,9 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
     private Gee.HashMap<LibraryPhoto, int64?> photo_to_editable_filesize =
         new Gee.HashMap<LibraryPhoto, int64?>(direct_hash, direct_equal, int64_equal);
-    private Gee.MultiMap<ImportID?, LibraryPhoto> import_rolls =
-        new Gee.TreeMultiMap<ImportID?, LibraryPhoto>(ImportID.compare_func);
-    private Gee.TreeSet<ImportID?> sorted_import_ids = new Gee.TreeSet<ImportID?>(ImportID.compare_func);
+
     
     public virtual signal void master_file_replaced(LibraryPhoto photo, File old_file, File new_file) {
-    }
-    
-    public virtual signal void import_roll_altered() {
     }
     
     public LibraryPhotoSourceCollection() {
@@ -3437,7 +3410,6 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     
     protected override void notify_contents_altered(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
-        bool import_roll_changed = false;
         if (added != null) {
             foreach (DataObject object in added) {
                 LibraryPhoto photo = (LibraryPhoto) object;
@@ -3459,14 +3431,6 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                 if (editable_filesize >= 0) {
                     filesize_to_photo.set(editable_filesize, photo);
                     photo_to_editable_filesize.set(photo, editable_filesize);
-                }
-                
-                ImportID import_id = photo.get_import_id();
-                if (import_id.is_valid()) {
-                    sorted_import_ids.add(import_id);
-                    import_rolls.set(import_id, photo);
-                    
-                    import_roll_changed = true;
                 }
             }
         }
@@ -3496,21 +3460,8 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
                     filesize_to_photo.remove(editable_filesize, photo);
                     photo_to_editable_filesize.unset(photo);
                 }
-                
-                ImportID import_id = photo.get_import_id();
-                if (import_id.is_valid()) {
-                    is_removed = import_rolls.remove(import_id, photo);
-                    assert(is_removed);
-                    if (!import_rolls.contains(import_id))
-                        sorted_import_ids.remove(import_id);
-                    
-                    import_roll_changed = true;
-                }
             }
         }
-        
-        if (import_roll_changed)
-            notify_import_roll_altered();
         
         base.notify_contents_altered(added, removed);
     }
@@ -3568,7 +3519,11 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         
         base.items_altered(items);
     }
-    
+
+    protected override MediaSource? fetch_by_numeric_id(int64 numeric_id) {
+        return fetch(PhotoID(numeric_id));
+    }
+
     private void on_trashcan_contents_altered(Gee.Collection<DataSource>? added,
         Gee.Collection<DataSource>? removed) {
         trashcan_contents_altered((Gee.Collection<LibraryPhoto>?) added,
@@ -3588,11 +3543,23 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     private bool check_if_offline_photo(DataSource source, Alteration alteration) {
         return ((LibraryPhoto) source).is_offline();
     }
-    
-    protected virtual void notify_import_roll_altered() {
-        import_roll_altered();
+
+    public override MediaSource? fetch_by_source_id(string source_id) {
+        assert(source_id.has_prefix(Photo.TYPENAME));
+        string numeric_only = source_id.substring(Photo.TYPENAME.length, -1);
+        
+        unowned string endptr;
+        int64 id = numeric_only.to_int64(out endptr, 16);
+        
+        assert(endptr[0] == '\0');
+        
+        return fetch_by_numeric_id(id);
     }
-    
+
+    public override Gee.Collection<string> get_event_source_ids(EventID event_id){
+        return PhotoTable.get_instance().get_event_source_ids(event_id);
+    }
+
     public LibraryPhoto fetch(PhotoID photo_id) {
         return (LibraryPhoto) fetch_by_key(photo_id.id);
     }
@@ -3626,19 +3593,6 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
         }
         
         return false;
-    }
-    
-    // The returned set of ImportID's is sorted from oldest to newest.
-    public Gee.SortedSet<ImportID?> get_import_roll_ids() {
-        return sorted_import_ids;
-    }
-    
-    public ImportID? get_last_import_id() {
-        return sorted_import_ids.size != 0 ? sorted_import_ids.last() : null;
-    }
-    
-    public Gee.Collection<LibraryPhoto?>? get_import_roll(ImportID import_id) {
-        return import_rolls.get(import_id);
     }
     
     public LibraryPhoto? get_trashed_by_file(File file) {
@@ -4006,7 +3960,7 @@ public class LibraryPhoto : Photo {
     }
 
     protected override void set_user_metadata_for_export(PhotoMetadata metadata) {
-        Gee.List<Tag>? photo_tags = Tag.global.fetch_for_photo(this);
+        Gee.List<Tag>? photo_tags = Tag.global.fetch_for_source(this);
         if(photo_tags != null) {
             Gee.Collection<string> string_tags = new Gee.ArrayList<string>();
             foreach (Tag tag in photo_tags) {

@@ -34,6 +34,12 @@ public abstract class BatchImportJob {
     public virtual bool complete(ThumbnailSource source, ViewCollection generated_events) throws Error {
         return false;
     }
+    
+    // returns a non-zero time_t value if this has a valid exposure time override, returns zero
+    // otherwise
+    public virtual time_t get_exposure_time_override() {
+        return 0;
+    }
 }
 
 public class FileImportJob : BatchImportJob {
@@ -848,9 +854,10 @@ public class BatchImport : Object {
                 // only generate events on event-less photos
                 if ((source as LibraryPhoto).get_event() == null)
                     Event.generate_import_event(source as LibraryPhoto,
-                    import_roll.generated_events);
+                        import_roll.generated_events);
             } else if (source is Video) {
                 Video.global.add(source as Video);
+                Event.generate_import_event(source as Video, import_roll.generated_events);
             }
         }
         
@@ -1439,10 +1446,11 @@ private class PreparedFilesImportJob : BackgroundJob {
         ImportResult result = ImportResult.SUCCESS;
         VideoImportParams? video_import_params = null;
         PhotoImportParams? photo_import_params = null;
-        if (prepared_file.is_video) {
+        if (prepared_file.is_video) {           
             video_import_params = new VideoImportParams(final_file, import_id,
-                prepared_file.full_md5, new Thumbnails());
-            
+                prepared_file.full_md5, new Thumbnails(),
+                prepared_file.job.get_exposure_time_override());
+
             result = VideoReader.prepare_for_import(video_import_params);
         } else {
             photo_import_params = new PhotoImportParams(final_file, import_id,

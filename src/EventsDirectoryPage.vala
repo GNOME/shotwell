@@ -21,7 +21,7 @@ class EventDirectoryItem : CheckerboardItem {
         this.event = event;
         
         // find the center square
-        paul_lynde = get_paul_lynde_rect(event.get_primary_photo());
+        paul_lynde = get_paul_lynde_rect(event.get_primary_source());
         
         // don't display yet, but claim its dimensions
         clear_image(Dimensions.for_rectangle(paul_lynde));
@@ -35,8 +35,8 @@ class EventDirectoryItem : CheckerboardItem {
     }
     
     // square the photo's dimensions and locate the pixbuf's center square
-    private static Gdk.Rectangle get_paul_lynde_rect(LibraryPhoto photo) {
-        Dimensions scaled = squared_scaling.get_scaled_dimensions(photo.get_dimensions());
+    private static Gdk.Rectangle get_paul_lynde_rect(MediaSource source) {
+        Dimensions scaled = squared_scaling.get_scaled_dimensions(source.get_dimensions());
         
         Gdk.Rectangle paul_lynde = Gdk.Rectangle();
         paul_lynde.x = (scaled.width - CROPPED_SCALE).clamp(0, scaled.width) / 2;
@@ -47,9 +47,9 @@ class EventDirectoryItem : CheckerboardItem {
         return paul_lynde;
     }
     
-    // scale and crop the center square of the photo
-    private static Gdk.Pixbuf get_paul_lynde(LibraryPhoto photo, Gdk.Rectangle paul_lynde) throws Error {
-        Gdk.Pixbuf pixbuf = photo.get_preview_pixbuf(squared_scaling);
+    // scale and crop the center square of the media
+    private static Gdk.Pixbuf get_paul_lynde(MediaSource media, Gdk.Rectangle paul_lynde) throws Error {
+        Gdk.Pixbuf pixbuf = media.get_preview_pixbuf(squared_scaling);
         
         // to catch rounding errors in the two algorithms
         paul_lynde = clamp_rectangle(paul_lynde, Dimensions.for_pixbuf(pixbuf));
@@ -60,7 +60,7 @@ class EventDirectoryItem : CheckerboardItem {
     }
     
     private static string get_formatted_title(Event event) {
-        int count = event.get_photo_count();
+        int count = event.get_media_count();
         string count_text = ngettext("%d Photo", "%d Photos", count).printf(count);
         
         return "<b>%s</b>\n%s".printf(guarded_markup_escape_text(event.get_name()),
@@ -72,7 +72,7 @@ class EventDirectoryItem : CheckerboardItem {
             return;
         
         try {
-            set_image(get_paul_lynde(event.get_primary_photo(), paul_lynde));
+            set_image(get_paul_lynde(event.get_primary_source(), paul_lynde));
         } catch (Error err) {
             critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
         }
@@ -95,14 +95,14 @@ class EventDirectoryItem : CheckerboardItem {
     }
     
     protected override void thumbnail_altered() {
-        LibraryPhoto photo = event.get_primary_photo();
+        MediaSource media = event.get_primary_source();
         
         // get new center square
-        paul_lynde = get_paul_lynde_rect(photo);
+        paul_lynde = get_paul_lynde_rect(media);
         
         if (is_exposed()) {
             try {
-                set_image(get_paul_lynde(photo, paul_lynde));
+                set_image(get_paul_lynde(media, paul_lynde));
             } catch (Error err) {
                 critical("Unable to fetch preview for %s: %s", event.to_string(), err.message);
             }
@@ -337,7 +337,7 @@ public class NoEventPage : CollectionPage {
         
         // this is not threadsafe
         public override bool include_in_view(DataSource source) {
-            return (((LibraryPhoto) source).get_event_id().id != EventID.INVALID) ? false :
+            return (((MediaSource) source).get_event_id().id != EventID.INVALID) ? false :
                 base.include_in_view(source);
         }
     }
@@ -352,8 +352,9 @@ public class NoEventPage : CollectionPage {
             ui, "/EventsDirectoryMenuBar/FileMenu/ImportFromAlienDbPlaceholder"
         );
         
-        get_view().monitor_source_collection(LibraryPhoto.global, new NoEventViewManager(this),
-            no_event_page_alteration);
+        ViewManager filter = new NoEventViewManager(this);
+        get_view().monitor_source_collection(LibraryPhoto.global, filter, no_event_page_alteration);
+        get_view().monitor_source_collection(Video.global, filter, no_event_page_alteration);
     }
     
     public static Stub create_stub() {
@@ -471,7 +472,7 @@ public class EventPage : CollectionPage {
         if (get_view().get_selected_count() != 1)
             return;
         
-        page_event.set_primary_photo((LibraryPhoto) get_view().get_selected_at(0).get_source());
+        page_event.set_primary_source((MediaSource) get_view().get_selected_at(0).get_source());
     }
 
     private void on_rename() {

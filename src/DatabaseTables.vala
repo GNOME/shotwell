@@ -21,7 +21,7 @@ public class DatabaseTable {
      * tables are created on demand and tables and columns are easily ignored when already present.
      * However, the change should be noted in upgrade_database() as a comment.
      ***/
-    public const int SCHEMA_VERSION = 10;
+    public const int SCHEMA_VERSION = 11;
     
     protected static Sqlite.Database db;
     
@@ -506,8 +506,21 @@ private DatabaseVerifyResult upgrade_database(int version) {
         if (!DatabaseTable.add_column("VideoTable", "flags", "INTEGER DEFAULT 0"))
             return DatabaseVerifyResult.UPGRADE_ERROR;
     }
-    
+
     version = 10;
+
+    //
+    // Version 11:
+    // * Added primary_source_id column to EventTable
+    //
+
+    if (!DatabaseTable.has_column("EventTable", "primary_source_id")) {
+        message("upgrade_database: adding primary_source_id column to EventTable");
+        if (!DatabaseTable.add_column("EventTable", "primary_source_id", "INTEGER DEFAULT 0"))
+            return DatabaseVerifyResult.UPGRADE_ERROR;
+    }
+
+    version = 11;
 
     assert(version == DatabaseTable.SCHEMA_VERSION);
     VersionTable.get_instance().update_version(version, Resources.APP_VERSION);
@@ -1205,7 +1218,7 @@ public class PhotoTable : DatabaseTable {
         return count;
     }
     
-    public Gee.ArrayList<PhotoID?> get_event_photos(EventID event_id) {
+    public Gee.ArrayList<string> get_event_source_ids(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("SELECT id FROM PhotoTable WHERE event_id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
@@ -1213,21 +1226,21 @@ public class PhotoTable : DatabaseTable {
         res = stmt.bind_int64(1, event_id.id);
         assert(res == Sqlite.OK);
         
-        Gee.ArrayList<PhotoID?> photo_ids = new Gee.ArrayList<PhotoID?>();
+        Gee.ArrayList<string> result = new Gee.ArrayList<string>();
         for(;;) {
             res = stmt.step();
             if (res == Sqlite.DONE) {
                 break;
             } else if (res != Sqlite.ROW) {
-                fatal("get_event_photos", res);
+                fatal("get_event_source_ids", res);
 
                 break;
             }
             
-            photo_ids.add(PhotoID(stmt.column_int64(0)));
+            result.add(Photo.upgrade_photo_id_to_source_id(PhotoID(stmt.column_int64(0))));
         }
         
-        return photo_ids;
+        return result;
     }
     
     public bool event_has_photos(EventID event_id) {
@@ -1612,6 +1625,7 @@ public struct EventRow {
     public string? name;
     public PhotoID primary_photo_id;
     public time_t time_created;
+    public string? primary_source_id;
 }
 
 public class EventTable : DatabaseTable {
@@ -1623,7 +1637,8 @@ public class EventTable : DatabaseTable {
             + "id INTEGER PRIMARY KEY, "
             + "name TEXT, "
             + "primary_photo_id INTEGER, "
-            + "time_created INTEGER"
+            + "time_created INTEGER,"
+            + "primary_source_id TEXT"
             + ")", -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -1641,18 +1656,18 @@ public class EventTable : DatabaseTable {
         return instance;
     }
     
-    public EventRow create(PhotoID primary_photo_id) throws DatabaseError {
-        assert(primary_photo_id.is_valid());
-        
+    public EventRow create(string? primary_source_id) throws DatabaseError {
+        assert(primary_source_id != null && primary_source_id != "");
+    
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "INSERT INTO EventTable (primary_photo_id, time_created) VALUES (?, ?)",
+            "INSERT INTO EventTable (primary_source_id, time_created) VALUES (?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
         time_t time_created = (time_t) now_sec();
         
-        res = stmt.bind_int64(1, primary_photo_id.id);
+        res = stmt.bind_text(1, primary_source_id);
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(2, time_created);
         assert(res == Sqlite.OK);
@@ -1664,7 +1679,7 @@ public class EventTable : DatabaseTable {
         EventRow row = EventRow();
         row.event_id = EventID(db.last_insert_rowid());
         row.name = null;
-        row.primary_photo_id = primary_photo_id;
+        row.primary_source_id = primary_source_id;
         row.time_created = time_created;
         
         return row;
@@ -1675,15 +1690,17 @@ public class EventTable : DatabaseTable {
     // the primary photo ID).
     public EventID create_from_row(EventRow row) {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("INSERT INTO EventTable (name, primary_photo_id, time_created) VALUES (?, ?, ?)",
+        int res = db.prepare_v2("INSERT INTO EventTable (name, primary_photo_id, primary_source_id, time_created) VALUES (?, ?, ?, ?)",
             -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.bind_text(1, row.name);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(2, row.primary_photo_id.id);
+        res = stmt.bind_int64(2, PhotoID.INVALID);
         assert(res == Sqlite.OK);
-        res = stmt.bind_int64(3, row.time_created);
+        res = stmt.bind_text(3, row.primary_source_id);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(4, row.time_created);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -1699,7 +1716,7 @@ public class EventTable : DatabaseTable {
     public EventRow? get_row(EventID event_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
-            "SELECT name, primary_photo_id, time_created FROM EventTable WHERE id=?", -1, out stmt);
+            "SELECT name, primary_photo_id, primary_source_id, time_created FROM EventTable WHERE id=?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         res = stmt.bind_int64(1, event_id.id);
@@ -1713,8 +1730,17 @@ public class EventTable : DatabaseTable {
         row.name = stmt.column_text(0);
         if (row.name != null && row.name.length == 0)
             row.name = null;
-        row.primary_photo_id.id = stmt.column_int64(1);
-        row.time_created = (time_t) stmt.column_int64(2);
+        int64 extracted_primary_photo_id = stmt.column_int64(1);
+        string extracted_primary_source_id = stmt.column_text(2);
+        
+        if (extracted_primary_photo_id != PhotoID.INVALID) {
+            extracted_primary_source_id =
+                Photo.upgrade_photo_id_to_source_id(PhotoID(extracted_primary_photo_id));
+        }
+
+        row.primary_photo_id.id = PhotoID.INVALID;
+        row.primary_source_id = extracted_primary_source_id;
+        row.time_created = (time_t) stmt.column_int64(3);
         
         return row;
     }
@@ -1725,7 +1751,7 @@ public class EventTable : DatabaseTable {
     
     public Gee.ArrayList<EventRow?> get_events() {
         Sqlite.Statement stmt;
-        int res = db.prepare_v2("SELECT id, name, primary_photo_id, time_created FROM EventTable",
+        int res = db.prepare_v2("SELECT id, name, primary_photo_id, primary_source_id, time_created FROM EventTable",
             -1, out stmt);
         assert(res == Sqlite.OK);
 
@@ -1739,13 +1765,23 @@ public class EventTable : DatabaseTable {
 
                 break;
             }
+
+            int64 extracted_primary_photo_id = stmt.column_int64(2);
+            string extracted_primary_source_id = stmt.column_text(3);
             
+            if (extracted_primary_photo_id != PhotoID.INVALID) {
+                extracted_primary_source_id =
+                    Photo.upgrade_photo_id_to_source_id(PhotoID(extracted_primary_photo_id));
+            }
+
             EventRow row = EventRow();
+
             row.event_id = EventID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
-            row.primary_photo_id = PhotoID(stmt.column_int64(2));
-            row.time_created = (time_t) stmt.column_int64(3);
-            
+            row.primary_photo_id.id = PhotoID.INVALID;
+            row.primary_source_id = extracted_primary_source_id;
+            row.time_created = (time_t) stmt.column_int64(4);            
+
             event_rows.add(row);
         }
         
@@ -1766,16 +1802,16 @@ public class EventTable : DatabaseTable {
         return (name != null && name.length > 0) ? name : null;
     }
     
-    public PhotoID get_primary_photo(EventID event_id) {
+    public string? get_primary_source_id(EventID event_id) {
         Sqlite.Statement stmt;
-        if (!select_by_id(event_id.id, "primary_photo_id", out stmt))
-            return PhotoID();
+        if (!select_by_id(event_id.id, "primary_source_id", out stmt))
+            return null;
         
-        return PhotoID(stmt.column_int64(0));
+        return stmt.column_text(0);
     }
-    
-    public bool set_primary_photo(EventID event_id, PhotoID photo_id) {
-        return update_int64_by_id(event_id.id, "primary_photo_id", photo_id.id);
+        
+    public bool set_primary_source_id(EventID event_id, string primary_source_id) {
+        return update_text_by_id(event_id.id, "primary_source_id", primary_source_id);
     }
     
     public time_t get_time_created(EventID event_id) {
@@ -1812,7 +1848,7 @@ public struct TagID {
 public struct TagRow {
     public TagID tag_id;
     public string name;
-    public Gee.Set<PhotoID?>? photo_id_list;
+    public Gee.Set<string>? source_id_list;
     public time_t time_created;
 }
 
@@ -1865,7 +1901,7 @@ public class TagTable : DatabaseTable {
         TagRow row = TagRow();
         row.tag_id = TagID(db.last_insert_rowid());
         row.name = name;
-        row.photo_id_list = null;
+        row.source_id_list = null;
         row.time_created = time_created;
         
         return row;
@@ -1880,7 +1916,7 @@ public class TagTable : DatabaseTable {
         
         res = stmt.bind_text(1, row.name);
         assert(res == Sqlite.OK);
-        res = stmt.bind_text(2, serialize_photo_ids(row.photo_id_list));
+        res = stmt.bind_text(2, serialize_source_ids(row.source_id_list));
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(3, row.time_created);
         assert(res == Sqlite.OK);
@@ -1922,7 +1958,7 @@ public class TagTable : DatabaseTable {
         TagRow row = TagRow();
         row.tag_id = tag_id;
         row.name = stmt.column_text(0);
-        row.photo_id_list = unserialize_photo_ids(stmt.column_text(1));
+        row.source_id_list = unserialize_source_ids(stmt.column_text(1));
         row.time_created = (time_t) stmt.column_int64(2);
         
         return row;
@@ -1947,7 +1983,7 @@ public class TagTable : DatabaseTable {
             TagRow row = TagRow();
             row.tag_id = TagID(stmt.column_int64(0));
             row.name = stmt.column_text(1);
-            row.photo_id_list = unserialize_photo_ids(stmt.column_text(2));
+            row.source_id_list = unserialize_source_ids(stmt.column_text(2));
             row.time_created = (time_t) stmt.column_int64(3);
             
             rows.add(row);
@@ -1960,12 +1996,12 @@ public class TagTable : DatabaseTable {
         update_text_by_id_2(tag_id.id, "name", new_name);
     }
     
-    public void set_tagged_photos(TagID tag_id, Gee.Collection<PhotoID?> photo_ids) throws DatabaseError {
+    public void set_tagged_sources(TagID tag_id, Gee.Collection<string> source_ids) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2("UPDATE TagTable SET photo_id_list=? WHERE id=?", -1, out stmt);
         assert(res == Sqlite.OK);
         
-        res = stmt.bind_text(1, serialize_photo_ids(photo_ids));
+        res = stmt.bind_text(1, serialize_source_ids(source_ids));
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(2, tag_id.id);
         assert(res == Sqlite.OK);
@@ -1975,22 +2011,22 @@ public class TagTable : DatabaseTable {
             throw_error("TagTable.set_tagged_photos", res);
     }
     
-    private string? serialize_photo_ids(Gee.Collection<PhotoID?>? photo_ids) {
-        if (photo_ids == null)
+    private string? serialize_source_ids(Gee.Collection<string>? source_ids) {
+        if (source_ids == null)
             return null;
         
         StringBuilder result = new StringBuilder();
         
-        foreach (PhotoID photo_id in photo_ids) {
-            result.append(photo_id.id.to_string());
+        foreach (string source_id in source_ids) {
+            result.append(source_id);
             result.append(",");
         }
         
         return (result.len != 0) ? result.str : null;
     }
     
-    private Gee.Set<PhotoID?> unserialize_photo_ids(string? text_list) {
-        Gee.Set<PhotoID?> result = new Gee.HashSet<PhotoID?>(PhotoID.hash, PhotoID.equal);
+    private Gee.Set<string> unserialize_source_ids(string? text_list) {
+        Gee.Set<string> result = new Gee.HashSet<string>(str_hash, str_equal);
         
         if (text_list == null)
             return result;
@@ -1999,15 +2035,23 @@ public class TagTable : DatabaseTable {
         foreach (string token in split) {
             if (is_string_empty(token))
                 continue;
-            
-            unowned string endptr;
-            int64 id = token.to_int64(out endptr, 10);
-            
-            // this verifies that the string was properly translated
-            if (endptr[0] != '\0')
-                continue;
-            
-            result.add(PhotoID(id));
+
+            // handle current and legacy encoding of source ids -- in the past, we only stored
+            // LibraryPhotos in tags so we only needed to store the numeric database key of the
+            // photo to uniquely identify it. Now, however, tags can store arbitrary MediaSources,
+            // so instead of simply storing a number we store the source id, a string that contains
+            // a typename followed by an identifying number (e.g., "video-022354").
+            if (token[0].isdigit()) {
+                // this is a legacy entry
+                unowned string endptr;
+                int64 legacy_id = token.to_int64(out endptr, 10);
+                assert(endptr[0] == '\0');
+
+                result.add(Photo.upgrade_photo_id_to_source_id(PhotoID(legacy_id)));
+            } else if (token[0].isalpha()) {
+                // this is a modern entry
+                result.add(token);
+            }
         }
         
         return result;
@@ -2500,7 +2544,60 @@ public class VideoTable : DatabaseTable {
         
         return video_row.video_id;
     }
-   
+
+    public void set_many_to_event(VideoID[] video_ids, EventID event_id) throws DatabaseError {
+        int count = video_ids.length;
+        if (count == 0)
+            return;
+        
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE VideoTable SET event_id=? WHERE id=?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = db.exec("BEGIN TRANSACTION");
+        assert(res == Sqlite.OK);
+        
+        for (int ctr = 0; ctr < count; ctr++) {
+            res = stmt.bind_int64(1, event_id.id);
+            assert(res == Sqlite.OK);
+            res = stmt.bind_int64(2, video_ids[ctr].id);
+            assert(res == Sqlite.OK);
+            
+            res = stmt.step();
+            if (res != Sqlite.DONE)
+                break;
+            
+            stmt.reset();
+        }
+        
+        if (res != Sqlite.DONE)
+            throw_error("VideoTable.set_many_to_event", res);
+        
+        res = db.exec("COMMIT TRANSACTION");
+        if (res != Sqlite.DONE)
+            throw_error("VideoTable.set_many_to_event", res);
+    }
+
+    public bool drop_event(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("UPDATE VideoTable SET event_id = ? WHERE event_id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, EventID.INVALID);
+        assert(res == Sqlite.OK);
+        res = stmt.bind_int64(2, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.step();
+        if (res != Sqlite.DONE) {
+            fatal("VideoTable.drop_event", res);
+            
+            return false;
+        }
+        
+        return true;
+    }
+
     public VideoRow? get_row(VideoID video_id) {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
@@ -2599,6 +2696,10 @@ public class VideoTable : DatabaseTable {
     
     public void update_is_interpretable(VideoID video_id, bool is_interpretable) throws DatabaseError {
         update_int_by_id_2(video_id.id, "is_interpretable", (is_interpretable) ? 1 : 0);
+    }
+
+    public bool set_event(VideoID video_id, EventID event_id) {
+        return update_int64_by_id(video_id.id, "event_id", event_id.id);
     }
 
     public void remove_by_file(File file) throws DatabaseError {
@@ -2730,5 +2831,30 @@ public class VideoTable : DatabaseTable {
         }
 
         return ids;
+    }
+
+    public Gee.ArrayList<string> get_event_source_ids(EventID event_id) {
+        Sqlite.Statement stmt;
+        int res = db.prepare_v2("SELECT id FROM VideoTable WHERE event_id = ?", -1, out stmt);
+        assert(res == Sqlite.OK);
+        
+        res = stmt.bind_int64(1, event_id.id);
+        assert(res == Sqlite.OK);
+        
+        Gee.ArrayList<string> result = new Gee.ArrayList<string>();
+        for(;;) {
+            res = stmt.step();
+            if (res == Sqlite.DONE) {
+                break;
+            } else if (res != Sqlite.ROW) {
+                fatal("get_event_source_ids", res);
+
+                break;
+            }
+            
+            result.add(Video.upgrade_video_id_to_source_id(VideoID(stmt.column_int64(0))));
+        }
+        
+        return result;
     }
 }

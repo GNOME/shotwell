@@ -12,24 +12,30 @@ public class EventSourceCollection : ContainerSourceCollection {
     private class NoEventViewManager : ViewManager {
         public override bool include_in_view(DataSource source) {
             // Note: this is not threadsafe
-            return (((LibraryPhoto) source).get_event_id().id != EventID.INVALID) ? false :
+            return (((MediaSource) source).get_event_id().id != EventID.INVALID) ? false :
                 base.include_in_view(source);
         }
     
         public override DataView create_view(DataSource source) {
-            return new PhotoView((PhotoSource) source);
+            return new ThumbnailView((MediaSource) source);
         }
     }
     
     public EventSourceCollection() {
-        base(LibraryPhoto.global, Event.TYPENAME, "EventSourceCollection", get_event_key);
+        base(Event.TYPENAME, "EventSourceCollection", get_event_key);
+
+        attach_collection(LibraryPhoto.global);
+        attach_collection(Video.global);
     }
 
     public void init() {
         no_event = new ViewCollection("No Event View Collection");
         
-        no_event.monitor_source_collection(LibraryPhoto.global, new NoEventViewManager(),
-            new Alteration("metadata", "event"));
+        NoEventViewManager view_manager = new NoEventViewManager();
+        Alteration filter_alteration = new Alteration("metadata", "event");
+
+        no_event.monitor_source_collection(LibraryPhoto.global, view_manager, filter_alteration);
+        no_event.monitor_source_collection(Video.global, view_manager, filter_alteration);
         
         no_event.contents_altered.connect(on_no_event_collection_altered);
     }
@@ -46,7 +52,7 @@ public class EventSourceCollection : ContainerSourceCollection {
     }
     
     protected override Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source) {
-        Event? event = ((LibraryPhoto) source).get_event();
+        Event? event = ((MediaSource) source).get_event();
         if (event == null)
             return null;
         
@@ -91,25 +97,27 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     private class EventSnapshot : SourceSnapshot {
         private EventRow row;
-        private LibraryPhoto key_photo;
-        private Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        private MediaSource primary_source;
+        private Gee.ArrayList<MediaSource> attached_sources = new Gee.ArrayList<MediaSource>();
         
         public EventSnapshot(Event event) {
             // save current state of event
             row = EventTable.get_instance().get_row(event.get_event_id());
-            key_photo = event.get_primary_photo();
+            primary_source = event.get_primary_source();
             
-            // stash all the photos in the event ... these are not used when reconstituting the
-            // event, but need to know when they're destroyed, as that means the event cannot
+            // stash all the media sources in the event ... these are not used when reconstituting
+            // the event, but need to know when they're destroyed, as that means the event cannot
             // be restored
-            foreach (PhotoSource photo in event.get_photos())
-                photos.add((LibraryPhoto) photo);
+            foreach (MediaSource source in event.get_media())
+                attached_sources.add(source);
             
-            LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+            LibraryPhoto.global.item_destroyed.connect(on_attached_source_destroyed);
+            Video.global.item_destroyed.connect(on_attached_source_destroyed);
         }
         
         ~EventSnapshot() {
-            LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+            LibraryPhoto.global.item_destroyed.disconnect(on_attached_source_destroyed);
+            Video.global.item_destroyed.disconnect(on_attached_source_destroyed);
         }
         
         public EventRow get_row() {
@@ -118,19 +126,19 @@ public class Event : EventSource, ContainerSource, Proxyable {
         
         public override void notify_broken() {
             row = EventRow();
-            key_photo = null;
-            photos.clear();
+            primary_source = null;
+            attached_sources.clear();
             
             base.notify_broken();
         }
         
-        private void on_photo_destroyed(DataSource source) {
-            LibraryPhoto photo = (LibraryPhoto) source;
+        private void on_attached_source_destroyed(DataSource source) {
+            MediaSource media_source = (MediaSource) source;
             
-            // if one of the photos in the event goes away, reconstitution is impossible
-            if (key_photo != null && key_photo.equals(photo))
+            // if one of the media sources in the event goes away, reconstitution is impossible
+            if (media_source != null && primary_source.equals(media_source))
                 notify_broken();
-            else if (photos.contains(photo))
+            else if (attached_sources.contains(media_source))
                 notify_broken();
         }
     }
@@ -155,7 +163,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
     
     private EventID event_id;
     private string? raw_name;
-    private LibraryPhoto primary_photo;
+    private MediaSource primary_source;
     private ViewCollection view;
     
     private Event(EventRow event_row, int64 object_id = INVALID_OBJECT_ID) {
@@ -164,56 +172,60 @@ public class Event : EventSource, ContainerSource, Proxyable {
         this.event_id = event_row.event_id;
         this.raw_name = event_row.name;
         
-        Gee.ArrayList<PhotoID?> event_photo_ids = PhotoTable.get_instance().get_event_photos(event_id);
-        Gee.ArrayList<PhotoView> event_photos = new Gee.ArrayList<PhotoView>();
-        foreach (PhotoID photo_id in event_photo_ids) {
-            LibraryPhoto? photo = LibraryPhoto.global.fetch(photo_id);
-            if (photo != null)
-                event_photos.add(new PhotoView(photo));
+        Gee.Collection<string> event_source_ids =
+            MediaCollectionRegistry.get_instance().get_source_ids_for_event_id(event_id);
+        Gee.ArrayList<ThumbnailView> event_thumbs = new Gee.ArrayList<ThumbnailView>();
+        foreach (string current_source_id in event_source_ids) {
+            MediaSource? media =
+                MediaCollectionRegistry.get_instance().fetch_media(current_source_id);
+            if (media != null)
+                event_thumbs.add(new ThumbnailView(media));
         }
         
         view = new ViewCollection("ViewCollection for Event %s".printf(event_id.id.to_string()));
         view.set_comparator(view_comparator, view_comparator_predicate);
-        view.add_many(event_photos);
+        view.add_many(event_thumbs);
         
         // need to do this manually here because only want to monitor ViewCollection contents after
         // initial batch has been added, but need to keep EventSourceCollection apprised
-        if (event_photos.size > 0) {
-            global.notify_container_contents_added(this, event_photos);
-            global.notify_container_contents_altered(this, event_photos, null);
+        if (event_thumbs.size > 0) {
+            global.notify_container_contents_added(this, event_thumbs);
+            global.notify_container_contents_altered(this, event_thumbs, null);
         }
         
-        // get the primary photo for monitoring; if not available, use the first photo in the
+        // get the primary source for monitoring; if not available, use the first source in the
         // event
-        primary_photo = LibraryPhoto.global.fetch(event_row.primary_photo_id);
-        if (primary_photo == null && view.get_count() > 0) {
-            primary_photo = (LibraryPhoto) ((DataView) view.get_at(0)).get_source();
-            event_table.set_primary_photo(event_id, primary_photo.get_photo_id());
+        primary_source = MediaCollectionRegistry.get_instance().fetch_media(event_row.primary_source_id);
+        if (primary_source == null && view.get_count() > 0) {
+            primary_source = (MediaSource) ((DataView) view.get_at(0)).get_source();
+            event_table.set_primary_source_id(event_id, primary_source.get_source_id());
         }
         
-        // watch the primary photo to reflect thumbnail changes
-        if (primary_photo != null)
-            primary_photo.thumbnail_altered.connect(on_primary_thumbnail_altered);
+        // watch the primary source to reflect thumbnail changes
+        if (primary_source != null)
+            primary_source.thumbnail_altered.connect(on_primary_thumbnail_altered);
 
-        // watch for for addition, removal, and alteration of photos
-        view.items_added.connect(on_photos_added);
-        view.items_removed.connect(on_photos_removed);
-        view.items_altered.connect(on_photos_altered);
+        // watch for for addition, removal, and alteration of photos and videos
+        view.items_added.connect(on_media_added);
+        view.items_removed.connect(on_media_removed);
+        view.items_altered.connect(on_media_altered);
         
         // because we're no longer using source monitoring (for performance reasons), need to watch
-        // for photo destruction (but not removal, which is handled automatically in any case)
-        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        // for media destruction (but not removal, which is handled automatically in any case)
+        LibraryPhoto.global.item_destroyed.connect(on_media_destroyed);
+        Video.global.item_destroyed.connect(on_media_destroyed);
     }
 
     ~Event() {
-        if (primary_photo != null)
-            primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
+        if (primary_source != null)
+            primary_source.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
         
-        view.items_altered.disconnect(on_photos_altered);
-        view.items_removed.disconnect(on_photos_removed);
-        view.items_added.disconnect(on_photos_added);
+        view.items_altered.disconnect(on_media_altered);
+        view.items_removed.disconnect(on_media_removed);
+        view.items_added.disconnect(on_media_added);
         
-        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        LibraryPhoto.global.item_destroyed.disconnect(on_media_destroyed);
+        Video.global.item_destroyed.disconnect(on_media_destroyed);
     }
     
     public override string get_typename() {
@@ -225,16 +237,16 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public override string get_representative_id() {
-        return (primary_photo != null) ? primary_photo.get_source_id() : get_source_id();
+        return (primary_source != null) ? primary_source.get_source_id() : get_source_id();
     }
     
     public override PhotoFileFormat get_preferred_thumbnail_format() {
-        return (primary_photo != null) ? primary_photo.get_preferred_thumbnail_format() :
+        return (primary_source != null) ? primary_source.get_preferred_thumbnail_format() :
             PhotoFileFormat.get_system_default_format();
     }
 
     public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
-        return (primary_photo != null) ? primary_photo.create_thumbnail(scale) : null;
+        return (primary_source != null) ? primary_source.create_thumbnail(scale) : null;
     }
 
     public static void init(ProgressMonitor? monitor = null) {
@@ -251,7 +263,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         for (int ctr = 0; ctr < count; ctr++) {
             Event event = new Event(event_rows[ctr]);
             
-            if (event.get_photo_count() != 0) {
+            if (event.get_media_count() != 0) {
                 events.add(event);
                 
                 continue;
@@ -272,38 +284,39 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     private static int64 view_comparator(void *a, void *b) {
-        return ((PhotoView *) a)->get_photo_source().get_exposure_time() 
-            - ((PhotoView *) b)->get_photo_source().get_exposure_time();
+        return ((MediaSource) ((ThumbnailView *) a)->get_source()).get_exposure_time()
+            - ((MediaSource) ((ThumbnailView *) b)->get_source()).get_exposure_time() ;
     }
     
     private static bool view_comparator_predicate(DataObject object, Alteration alteration) {
         return alteration.has_detail("metadata", "exposure-time");
     }
     
-    // This is used by Photo to notify Event when it's joined.  Don't use this to manually attach a
-    // Photo to an Event, use Photo.set_event().
-    public void attach(Photo photo) {
-        view.add(new PhotoView(photo));
+    // This is used by MediaSource to notify Event when it's joined.  Don't use this to manually attach a
+    // a photo or video to an Event, use MediaSource.set_event().
+    public void attach(MediaSource source) {
+        view.add(new ThumbnailView(source));
     }
     
-    public void attach_many(Gee.Collection<Photo> photos) {
-        Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
-        foreach (Photo photo in photos)
-            views.add(new PhotoView(photo));
+    public void attach_many(Gee.Collection<MediaSource> media) {
+        Gee.ArrayList<ThumbnailView> views = new Gee.ArrayList<ThumbnailView>();
+        foreach (MediaSource current_source in media)
+            views.add(new ThumbnailView(current_source));
         
         view.add_many(views);
     }
     
-    // This is used by Photo to notify Event when it's leaving.  Don't use this manually to detach
-    // a Photo, use Photo.set_event().
-    public void detach(Photo photo) {
-        view.remove_marked(view.mark(view.get_view_for_source(photo)));
+    // This is used by internally by Photos and Videos to notify their parent Event as to when
+    // they're leaving.  Don't use this manually to detach a MediaSource; instead use
+    // MediaSource.set_event( )
+    public void detach(MediaSource source) {
+        view.remove_marked(view.mark(view.get_view_for_source(source)));
     }
     
-    public void detach_many(Gee.Collection<Photo> photos) {
-        Gee.ArrayList<PhotoView> views = new Gee.ArrayList<PhotoView>();
-        foreach (Photo photo in photos) {
-            PhotoView? view = (PhotoView?) view.get_view_for_source(photo);
+    public void detach_many(Gee.Collection<MediaSource> media) {
+        Gee.ArrayList<ThumbnailView> views = new Gee.ArrayList<ThumbnailView>();
+        foreach (MediaSource current_source in media) {
+            ThumbnailView? view = (ThumbnailView?) view.get_view_for_source(current_source);
             if (view != null)
                 views.add(view);
         }
@@ -311,43 +324,43 @@ public class Event : EventSource, ContainerSource, Proxyable {
         view.remove_marked(view.mark_many(views));
     }
     
-    private Gee.ArrayList<LibraryPhoto> views_to_photos(Gee.Iterable<DataObject> views) {
-        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+    private Gee.ArrayList<MediaSource> views_to_media(Gee.Iterable<DataObject> views) {
+        Gee.ArrayList<MediaSource> media = new Gee.ArrayList<MediaSource>();
         foreach (DataObject object in views)
-            photos.add((LibraryPhoto) ((DataView) object).get_source());
+            media.add((MediaSource) ((DataView) object).get_source());
         
-        return photos;
+        return media;
     }
     
-    private void on_photos_added(Gee.Iterable<DataObject> added) {
-        Gee.Collection<LibraryPhoto> photos = views_to_photos(added);
-        global.notify_container_contents_added(this, photos);
-        global.notify_container_contents_altered(this, photos, null);
+    private void on_media_added(Gee.Iterable<DataObject> added) {
+        Gee.Collection<MediaSource> media = views_to_media(added);
+        global.notify_container_contents_added(this, media);
+        global.notify_container_contents_altered(this, media, null);
         
         notify_altered(new Alteration.from_list("contents:added, metadata:time"));
     }
     
-    // Event needs to know whenever a photo is removed from the system to update the event
-    private void on_photos_removed(Gee.Iterable<DataObject> removed) {
-        Gee.ArrayList<LibraryPhoto> photos = views_to_photos(removed);
+    // Event needs to know whenever a media source is removed from the system to update the event
+    private void on_media_removed(Gee.Iterable<DataObject> removed) {
+        Gee.ArrayList<MediaSource> media = views_to_media(removed);
         
-        global.notify_container_contents_removed(this, photos);
-        global.notify_container_contents_altered(this, null, photos);
+        global.notify_container_contents_removed(this, media);
+        global.notify_container_contents_altered(this, null, media);
         
-        // update primary photo if it's been removed (and there's one to take its place)
-        foreach (LibraryPhoto photo in photos) {
-            if (photo == primary_photo) {
-                if (get_photo_count() > 0)
-                    set_primary_photo((LibraryPhoto) view.get_first().get_source());
+        // update primary source if it's been removed (and there's one to take its place)
+        foreach (MediaSource current_source in media) {
+            if (current_source == primary_source) {
+                if (get_media_count() > 0)
+                    set_primary_source((MediaSource) view.get_first().get_source());
                 else
-                    release_primary_photo();
+                    release_primary_source();
                 
                 break;
             }
         }
         
-        // evaporate event if no more photos in it; do not touch thereafter
-        if (get_photo_count() == 0) {
+        // evaporate event if no more media in it; do not touch thereafter
+        if (get_media_count() == 0) {
             global.evaporate(this);
             
             // as it's possible (highly likely, in fact) that all refs to the Event object have
@@ -358,23 +371,23 @@ public class Event : EventSource, ContainerSource, Proxyable {
         notify_altered(new Alteration.from_list("contents:removed, metadata:time"));
     }
     
-    private void on_photo_destroyed(DataSource source) {
-        DataView? photo_view = view.get_view_for_source(source);
-        if (photo_view != null)
-            view.remove_marked(view.mark(photo_view));
+    private void on_media_destroyed(DataSource source) {
+        ThumbnailView? thumbnail_view = (ThumbnailView) view.get_view_for_source(source);
+        if (thumbnail_view != null)
+            view.remove_marked(view.mark(thumbnail_view));
     }
     
     public override void notify_relinking(SourceCollection sources) {
-        assert(get_photo_count() > 0);
+        assert(get_media_count() > 0);
         
-        // If the primary photo was lost in the unlink, reestablish it now.
-        if (primary_photo == null)
-            set_primary_photo((LibraryPhoto) view.get_first().get_source());
+        // If the primary source was lost in the unlink, reestablish it now.
+        if (primary_source == null)
+            set_primary_source((MediaSource) view.get_first().get_source());
         
         base.notify_relinking(sources);
     }
     
-    private void on_photos_altered(Gee.Map<DataObject, Alteration> items) {
+    private void on_media_altered(Gee.Map<DataObject, Alteration> items) {
         foreach (Alteration alteration in items.values) {
             if (alteration.has_subject("metadata")) {
                 notify_altered(new Alteration("metadata", "time"));
@@ -384,11 +397,11 @@ public class Event : EventSource, ContainerSource, Proxyable {
         }
     }
     
-    // This creates an empty event with the key photo.  NOTE: This does not add the key photo to
+    // This creates an empty event with a primary source.  NOTE: This does not add the source to
     // the event.  That must be done manually.
-    public static Event? create_empty_event(LibraryPhoto key_photo) {
+    public static Event? create_empty_event(MediaSource source) {
         try {
-            Event event = new Event(EventTable.get_instance().create(key_photo.get_photo_id()));
+            Event event = new Event(EventTable.get_instance().create(source.get_source_id()));
             global.add(event);
             
             debug("Created empty event %s", event.to_string());
@@ -414,7 +427,8 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public bool has_links() {
-        return LibraryPhoto.global.has_backlink(get_backlink());
+        return (LibraryPhoto.global.has_backlink(get_backlink()) ||
+            Video.global.has_backlink(get_backlink()));
     }
     
     public SourceBacklink get_backlink() {
@@ -422,23 +436,42 @@ public class Event : EventSource, ContainerSource, Proxyable {
     }
     
     public void break_link(DataSource source) {
-        ((LibraryPhoto) source).set_event(null);
+        ((MediaSource) source).set_event(null);
     }
     
     public void break_link_many(Gee.Collection<DataSource> sources) {
         LibraryPhoto.global.freeze_notifications();
-        Photo.set_many_to_event((Gee.Collection<Photo>) sources, null);
+        Video.global.freeze_notifications();
+        
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+        MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) sources, photos, videos);
+
+        Photo.set_many_to_event(photos, null);
+        Video.set_many_to_event(videos, null);
+
         LibraryPhoto.global.thaw_notifications();
+        Video.global.thaw_notifications();
     }
     
     public void establish_link(DataSource source) {
-        ((LibraryPhoto) source).set_event(this);
+        ((MediaSource) source).set_event(this);
     }
     
     public void establish_link_many(Gee.Collection<DataSource> sources) {
         LibraryPhoto.global.freeze_notifications();
-        Photo.set_many_to_event((Gee.Collection<Photo>) sources, this);
+        Video.global.freeze_notifications();
+
+
+        Gee.ArrayList<LibraryPhoto> photos = new Gee.ArrayList<LibraryPhoto>();
+        Gee.ArrayList<Video> videos = new Gee.ArrayList<Video>();
+        MediaSourceCollection.filter_media((Gee.Collection<MediaSource>) sources, photos, videos);
+        
+        Photo.set_many_to_event(photos, this);
+        Video.set_many_to_event(videos, this);
+
         LibraryPhoto.global.thaw_notifications();
+        Video.global.thaw_notifications();
     }
     
     public bool is_in_starting_day(time_t time) {
@@ -449,9 +482,9 @@ public class Event : EventSource, ContainerSource, Proxyable {
         if (view.get_count() == 0)
             return false;
         
-        // photos are stored in ViewCollection from earliest to latest
-        LibraryPhoto earliest_photo = (LibraryPhoto) ((PhotoView) view.get_at(0)).get_source();
-        Time earliest_tm = Time.local(earliest_photo.get_exposure_time());
+        // media sources are stored in ViewCollection from earliest to latest
+        MediaSource earliest_media = (MediaSource) ((DataView) view.get_at(0)).get_source();
+        Time earliest_tm = Time.local(earliest_media.get_exposure_time());
         
         // use earliest to generate the boundary hour for that day
         Time start_boundary_tm = Time();
@@ -475,15 +508,15 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return time >= start_boundary && time <= end_boundary;
     }
     
-    // This method attempts to add the photo to an event in the supplied list that it would
+    // This method attempts to add a media source to an event in the supplied list that it would
     // naturally fit into (i.e. its exposure is within the boundary day of the earliest event
-    // photo).  Otherwise, a new Event is generated and the photo is added to it and the list.
-    public static void generate_import_event(
-        LibraryPhoto photo, ViewCollection events_so_far, string? event_name = null
-    ) {
-        time_t exposure_time = photo.get_exposure_time();
+    // photo).  Otherwise, a new Event is generated and the source is added to it and the list.
+    public static void generate_import_event(MediaSource source, ViewCollection events_so_far,
+        string? event_name = null) {
+        time_t exposure_time = source.get_exposure_time();
+
         if (exposure_time == 0 && event_name == null) {
-            debug("Skipping event assignment to %s: no exposure time and no event name", photo.to_string());
+            debug("Skipping event assignment to %s: no exposure time and no event name", source.to_string());
             
             return;
         }
@@ -494,23 +527,23 @@ public class Event : EventSource, ContainerSource, Proxyable {
             
             if (event_name != null) {
                 if (event.has_name() && event_name == event.get_name()) {
-                    photo.set_event(event);
+                    source.set_event(event);
                     
                     return;
                 }
             } else if (event.is_in_starting_day(exposure_time)) {
-                photo.set_event(event);
+                source.set_event(event);
                 
                 return;
             }
         }
         
-        // no Event so far fits the bill for this photo, so create a new one
+        // no Event so far fits the bill for this photo or video, so create a new one
         try {
-            Event event = new Event(EventTable.get_instance().create(photo.get_photo_id()));
+            Event event = new Event(EventTable.get_instance().create(source.get_source_id()));
             if (event_name != null)
                 event.rename(event_name);
-            photo.set_event(event);
+            source.set_event(event);
             global.add(event);
             
             events_so_far.add(new EventView(event));
@@ -586,7 +619,7 @@ public class Event : EventSource, ContainerSource, Proxyable {
         // first item.  However, we keep looking if it has no start time.
         int count = view.get_count();
         for (int i = 0; i < count; i++) {
-            time_t time = ((PhotoView) view.get_at(i)).get_photo_source().get_exposure_time();
+            time_t time = ((MediaSource) (((DataView) view.get_at(i)).get_source())).get_exposure_time();
             if (time != 0)
                 return time;
         }
@@ -601,27 +634,25 @@ public class Event : EventSource, ContainerSource, Proxyable {
         // last item--no matter what.
         if (count == 0)
             return 0;
-        
-        PhotoView photo = (PhotoView) view.get_at(count - 1);
-        
-        return photo.get_photo_source().get_exposure_time();
+       
+        return  ((MediaSource) (((DataView) view.get_at(count - 1)).get_source())).get_exposure_time();
     }
     
     public override uint64 get_total_filesize() {
         uint64 total = 0;
-        foreach (PhotoSource photo in get_photos()) {
-            total += photo.get_filesize();
+        foreach (MediaSource current_source in get_media()) {
+            total += current_source.get_filesize();
         }
         
         return total;
     }
     
-    public override int get_photo_count() {
+    public override int get_media_count() {
         return view.get_count();
     }
     
-    public override Gee.Collection<PhotoSource> get_photos() {
-        return (Gee.Collection<PhotoSource>) view.get_sources();
+    public override Gee.Collection<MediaSource> get_media() {
+        return (Gee.Collection<MediaSource>) view.get_sources();
     }
     
     public void mirror_photos(ViewCollection view, CreateView mirroring_ctor) {
@@ -632,21 +663,21 @@ public class Event : EventSource, ContainerSource, Proxyable {
         notify_thumbnail_altered();
     }
 
-    public LibraryPhoto get_primary_photo() {
-        return primary_photo;
+    public MediaSource get_primary_source() {
+        return primary_source;
     }
     
-    public bool set_primary_photo(LibraryPhoto photo) {
-        assert(view.has_view_for_source(photo));
+    public bool set_primary_source(MediaSource source) {
+        assert(view.has_view_for_source(source));
         
-        bool committed = event_table.set_primary_photo(event_id, photo.get_photo_id());
+        bool committed = event_table.set_primary_source_id(event_id, source.get_source_id());
         if (committed) {
-            // switch to the new photo
-            if (primary_photo != null)
-                primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
+            // switch to the new media source
+            if (primary_source != null)
+                primary_source.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
 
-            primary_photo = photo;
-            primary_photo.thumbnail_altered.connect(on_primary_thumbnail_altered);
+            primary_source = source;
+            primary_source.thumbnail_altered.connect(on_primary_thumbnail_altered);
             
             notify_thumbnail_altered();
         }
@@ -654,21 +685,21 @@ public class Event : EventSource, ContainerSource, Proxyable {
         return committed;
     }
     
-    private void release_primary_photo() {
-        if (primary_photo == null)
+    private void release_primary_source() {
+        if (primary_source == null)
             return;
         
-        primary_photo.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
-        primary_photo = null;
+        primary_source.thumbnail_altered.disconnect(on_primary_thumbnail_altered);
+        primary_source = null;
     }
     
     public override Gdk.Pixbuf? get_thumbnail(int scale) throws Error {
-        return primary_photo != null ? primary_photo.get_thumbnail(scale) : null;
+        return primary_source != null ? primary_source.get_thumbnail(scale) : null;
     }
     
     public Gdk.Pixbuf? get_preview_pixbuf(Scaling scaling) {
         try {
-            return get_primary_photo().get_preview_pixbuf(scaling);
+            return get_primary_source().get_preview_pixbuf(scaling);
         } catch (Error err) {
             return null;
         }
@@ -685,8 +716,9 @@ public class Event : EventSource, ContainerSource, Proxyable {
             AppWindow.database_error(err);
         }
         
-        // mark all photos for this event as now event-less
+        // mark all photos and videos for this event as now event-less
         PhotoTable.get_instance().drop_event(event_id);
+        VideoTable.get_instance().drop_event(event_id);
         
         base.destroy();
    }

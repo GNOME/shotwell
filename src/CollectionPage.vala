@@ -170,6 +170,7 @@ public abstract class CollectionPage : MediaPage {
         
         group.add_menu_item("ExternalEdit");
         group.add_menu_item("ExternalEditRAW");
+        group.add_menu_item("PlayVideo");
         
         return group;
     }
@@ -387,52 +388,75 @@ public abstract class CollectionPage : MediaPage {
     }
     
     protected override void update_actions(int selected_count, int count) {
+        base.update_actions(selected_count, count);
+
         bool one_selected = selected_count == 1;
         bool has_selected = selected_count > 0;
-        bool has_items = count > 0;
+
+        bool primary_is_video = false;
+        if (has_selected)
+            if (get_view().get_selected_at(0).get_source() is Video)
+                primary_is_video = true;
+
+        bool selection_has_video = false;
+        foreach (DataSource source in get_view().get_selected_sources())
+            if (source is Video) {
+                selection_has_video = true;
+                break;
+            }
+
+        bool has_some_photos = false;
+        foreach (DataSource source in get_view().get_sources()) {
+            if (source is Photo) {
+                has_some_photos = true;
+                break;
+            }
+        }
         
         set_action_sensitive("RemoveFromLibrary", has_selected);
-        set_action_sensitive("Duplicate", has_selected);
+        // don't allow duplication of the selection if it contains a video -- videos are huge and
+        // and they're not editable anyway, so there seems to be no use case for duplicating them
+        set_action_sensitive("Duplicate", has_selected && (!selection_has_video));
+        set_action_visible("ExternalEdit", (!primary_is_video));
         set_action_sensitive("ExternalEdit", 
             one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
+        set_action_visible("PlayVideo", primary_is_video && one_selected);
 #if !NO_RAW
         set_action_visible("ExternalEditRAW",
-            one_selected
+            one_selected && (!primary_is_video)
             && ((Photo) get_view().get_selected_at(0).get_source()).get_master_file_format() == 
                 PhotoFileFormat.RAW
             && !is_string_empty(Config.get_instance().get_external_raw_app()));
 #endif
-        set_action_sensitive("Revert", can_revert_selected());
-        set_action_sensitive("Enhance", has_selected);
+        set_action_sensitive("Revert", (!selection_has_video) && can_revert_selected());
+        set_action_sensitive("Enhance", (!selection_has_video) && has_selected);
         set_action_important("Enhance", true);
         set_action_sensitive("JumpToEvent", can_jump_to_event());
-        set_action_sensitive("RotateClockwise", has_selected);
+        set_action_sensitive("RotateClockwise", (!selection_has_video) && has_selected);
         set_action_important("RotateClockwise", true);
-        set_action_sensitive("RotateCounterclockwise", has_selected);
+        set_action_sensitive("RotateCounterclockwise", (!selection_has_video) && has_selected);
         set_action_important("RotateCounterclockwise", true);
-        set_action_sensitive("FlipHorizontally", has_selected);
-        set_action_sensitive("FlipVertically", has_selected);
-        set_action_sensitive("AdjustDateTime", has_selected);
+        set_action_sensitive("FlipHorizontally", (!selection_has_video) && has_selected);
+        set_action_sensitive("FlipVertically", (!selection_has_video) && has_selected);
+        set_action_sensitive("AdjustDateTime", (!selection_has_video) && has_selected);
         set_action_sensitive("NewEvent", has_selected);
         set_action_sensitive("AddTags", has_selected);
         set_action_sensitive("ModifyTags", one_selected);
-        set_action_sensitive("Slideshow", has_items);
+        set_action_sensitive("Slideshow", has_some_photos && (!primary_is_video));
         set_action_important("Slideshow", true);
         
 #if !NO_SET_BACKGROUND
-        set_action_sensitive("SetBackground", one_selected);
+        set_action_sensitive("SetBackground", (!selection_has_video) && one_selected);
 #endif
         
 #if !NO_PRINTING
-        set_action_sensitive("Print", one_selected);
+        set_action_sensitive("Print", (!selection_has_video) && one_selected);
 #endif
         
 #if !NO_PUBLISHING
-        set_action_sensitive("Publish", has_selected);
+        set_action_sensitive("Publish", (!selection_has_video) && has_selected);
         set_action_important("Publish", true);
 #endif
-        
-        base.update_actions(selected_count, count);
     }
 
     private void on_photos_altered() {
@@ -468,6 +492,14 @@ public abstract class CollectionPage : MediaPage {
     protected override void on_item_activated(CheckerboardItem item, CheckerboardPage.Activator 
         activator, CheckerboardPage.KeyboardModifiers modifiers) {
         Thumbnail thumbnail = (Thumbnail) item;
+
+        // none of the fancy Super, Ctrl, Shift, etc., keyboard accelerators apply to videos,
+        // since they can't be RAW files or be opened in an external editor, etc., so if this is
+        // a video, just play it and do a short-circuit return
+        if (thumbnail.get_video() != null) {
+            on_play_video();
+            return;
+        }
 
         // switch to full-page view or open in external editor
         debug("activating %s", thumbnail.get_photo().to_string());
@@ -683,15 +715,15 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_selected_count() != 1)
             return;
         
-        LibraryPhoto photo = (LibraryPhoto) get_view().get_selected_at(0).get_source();
+        MediaSource media = (MediaSource) get_view().get_selected_at(0).get_source();
         
-        ModifyTagsDialog dialog = new ModifyTagsDialog(photo);
+        ModifyTagsDialog dialog = new ModifyTagsDialog(media);
         Gee.ArrayList<Tag>? new_tags = dialog.execute();
         
         if (new_tags == null)
             return;
         
-        get_command_manager().execute(new ModifyTagsCommand(photo, new_tags));
+        get_command_manager().execute(new ModifyTagsCommand(media, new_tags));
     }
     
     private void on_duplicate_photo() {
@@ -824,7 +856,7 @@ public abstract class CollectionPage : MediaPage {
         if (get_view().get_selected_count() != 1)
             return false;
         
-        return ((Photo) get_view().get_selected_at(0).get_source()).get_event() != null;
+        return ((MediaSource) get_view().get_selected_at(0).get_source()).get_event() != null;
     }
     
     private void on_jump_to_event() {
@@ -844,7 +876,7 @@ public abstract class CollectionPage : MediaPage {
         string[]? names = dialog.execute();
         if (names != null) {
             get_command_manager().execute(new AddTagsCommand(names, 
-                (Gee.Collection<LibraryPhoto>) get_view().get_selected_sources()));
+                (Gee.Collection<MediaSource>) get_view().get_selected_sources()));
         }
     }
 }

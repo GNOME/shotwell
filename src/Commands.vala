@@ -256,8 +256,8 @@ public abstract class MultipleDataSourceCommand : PageCommand {
     
     private string progress_text;
     private string undo_progress_text;
-    private SourceCollection collection = null;
     private Gee.ArrayList<DataSource> acted_upon = new Gee.ArrayList<DataSource>();
+    private Gee.HashSet<SourceCollection> hooked_collections = new Gee.HashSet<SourceCollection>();
     
     public MultipleDataSourceCommand(Gee.Iterable<DataView> iter, string progress_text,
         string undo_progress_text, string name, string explanation) {
@@ -268,24 +268,23 @@ public abstract class MultipleDataSourceCommand : PageCommand {
         
         foreach (DataView view in iter) {
             DataSource source = view.get_source();
-            
-            // all DataSources must be a part of the same collection
-            if (collection == null) {
-                collection = (SourceCollection) source.get_membership();
-            } else {
-                assert(collection == source.get_membership());
+            SourceCollection? collection = (SourceCollection) source.get_membership();
+    
+            if (collection != null) {
+                hooked_collections.add(collection);
             }
-            
             source_list.add(source);
         }
         
-        if (collection != null)
-            collection.item_destroyed.connect(on_source_destroyed);
+        foreach (SourceCollection current_collection in hooked_collections) {
+            current_collection.item_destroyed.connect(on_source_destroyed);
+        }
     }
     
     ~MultipleDataSourceCommand() {
-        if (collection != null)
-            collection.item_destroyed.disconnect(on_source_destroyed);
+        foreach (SourceCollection current_collection in hooked_collections) {
+            current_collection.item_destroyed.disconnect(on_source_destroyed);
+        }
     }
     
     public Gee.Iterable<DataSource> get_sources() {
@@ -474,22 +473,22 @@ public class RenameEventCommand : SingleDataSourceCommand {
 }
 
 public class SetKeyPhotoCommand : SingleDataSourceCommand {
-    private LibraryPhoto new_key_photo;
-    private LibraryPhoto old_key_photo;
+    private MediaSource new_primary_source;
+    private MediaSource old_primary_source;
     
-    public SetKeyPhotoCommand(Event event, LibraryPhoto new_key_photo) {
+    public SetKeyPhotoCommand(Event event, MediaSource new_primary_source) {
         base(event, Resources.MAKE_KEY_PHOTO_LABEL, Resources.MAKE_KEY_PHOTO_TOOLTIP);
         
-        this.new_key_photo = new_key_photo;
-        old_key_photo = event.get_primary_photo();
+        this.new_primary_source = new_primary_source;
+        old_primary_source = event.get_primary_source();
     }
     
     public override void execute() {
-        ((Event) source).set_primary_photo(new_key_photo);
+        ((Event) source).set_primary_source(new_primary_source);
     }
     
     public override void undo() {
-        ((Event) source).set_primary_photo(old_key_photo);
+        ((Event) source).set_primary_source(old_primary_source);
     }
 }
 
@@ -628,24 +627,24 @@ public abstract class MovePhotosCommand : Command {
     // contruction, if needed
     protected class RealMovePhotosCommand : MultipleDataSourceCommand {
         private SourceProxy new_event_proxy = null;
-        private Gee.HashMap<LibraryPhoto, SourceProxy?> old_photo_events = new Gee.HashMap<
-            LibraryPhoto, SourceProxy?>();
+        private Gee.HashMap<MediaSource, SourceProxy?> old_events = new Gee.HashMap<
+            MediaSource, SourceProxy?>();
         
-        public RealMovePhotosCommand(Event? new_event, Gee.Iterable<DataView> photos,
+        public RealMovePhotosCommand(Event? new_event, Gee.Iterable<DataView> source_views,
             string progress_text, string undo_progress_text, string name, string explanation) {
-            base(photos, progress_text, undo_progress_text, name, explanation);
+            base(source_views, progress_text, undo_progress_text, name, explanation);
             
-            // get proxies for the photos' events
+            // get proxies for each media source's event
             foreach (DataSource source in source_list) {
-                LibraryPhoto photo = (LibraryPhoto) source;
-                Event? old_event = photo.get_event();
+                MediaSource current_media = (MediaSource) source;
+                Event? old_event = current_media.get_event();
                 SourceProxy? old_event_proxy = (old_event != null) ? old_event.get_proxy() : null;
                 
                 // if any of the proxies break, the show's off
                 if (old_event_proxy != null)
                     old_event_proxy.broken.connect(on_proxy_broken);
                 
-                old_photo_events.set(photo, old_event_proxy);
+                old_events.set(current_media, old_event_proxy);
             }
             
             // stash the proxy of the new event
@@ -656,7 +655,7 @@ public abstract class MovePhotosCommand : Command {
         ~RealMovePhotosCommand() {
             new_event_proxy.broken.disconnect(on_proxy_broken);
             
-            foreach (SourceProxy? proxy in old_photo_events.values) {
+            foreach (SourceProxy? proxy in old_events.values) {
                 if (proxy != null)
                     proxy.broken.disconnect(on_proxy_broken);
             }
@@ -671,14 +670,14 @@ public abstract class MovePhotosCommand : Command {
         }
         
         public override void execute_on_source(DataSource source) {
-            ((LibraryPhoto) source).set_event((Event?) new_event_proxy.get_source());
+            ((MediaSource) source).set_event((Event?) new_event_proxy.get_source());
         }
         
         public override void undo_on_source(DataSource source) {
-            LibraryPhoto photo = (LibraryPhoto) source;
-            SourceProxy? event_proxy = old_photo_events.get(photo);
+            MediaSource current_media = (MediaSource) source;
+            SourceProxy? event_proxy = old_events.get(current_media);
             
-            photo.set_event(event_proxy != null ? (Event?) event_proxy.get_source() : null);
+            current_media.set_event(event_proxy != null ? (Event?) event_proxy.get_source() : null);
         }
         
         private void on_proxy_broken() {
@@ -712,21 +711,21 @@ public class NewEventCommand : MovePhotosCommand {
     public NewEventCommand(Gee.Iterable<DataView> iter) {
         base(Resources.NEW_EVENT_LABEL, Resources.NEW_EVENT_TOOLTIP);
 
-        // get the key photo for the new event (which is simply the first one)
-        LibraryPhoto key_photo = null;
+        // get the primary or "key" source for the new event (which is simply the first one)
+        MediaSource key_source = null;
         foreach (DataView view in iter) {
-            LibraryPhoto photo = (LibraryPhoto) view.get_source();;
+            MediaSource current_source = (MediaSource) view.get_source();
             
-            if (key_photo == null) {
-                key_photo = photo;
+            if (key_source == null) {
+                key_source = current_source;
                 break;
             }
         }
         
         // key photo is required for an event
-        assert(key_photo != null);
+        assert(key_source != null);
 
-        Event new_event = Event.create_empty_event(key_photo);
+        Event new_event = Event.create_empty_event(key_source);
 
         real_command = new RealMovePhotosCommand(new_event, iter, _("Creating New Event"),
             _("Removing Event"), Resources.NEW_EVENT_LABEL,
@@ -750,7 +749,7 @@ public class MergeEventsCommand : MovePhotosCommand {
         
         // the master event is the first one found with a name, otherwise the first one in the lot
         Event master_event = null;
-        Gee.ArrayList<PhotoView> photos = new Gee.ArrayList<PhotoView>();
+        Gee.ArrayList<ThumbnailView> media_thumbs = new Gee.ArrayList<ThumbnailView>();
         
         foreach (DataView view in iter) {
             Event event = (Event) view.get_source();
@@ -760,16 +759,16 @@ public class MergeEventsCommand : MovePhotosCommand {
             else if (!master_event.has_name() && event.has_name())
                 master_event = event;
             
-            // store all photos in this operation; they will be moved to the master event
+            // store all media sources in this operation; they will be moved to the master event
             // (keep proxies of their original event for undo)
-            foreach (PhotoSource photo_source in event.get_photos())
-                photos.add(new PhotoView(photo_source));
+            foreach (MediaSource media_source in event.get_media())
+                media_thumbs.add(new ThumbnailView(media_source));
         }
         
         assert(master_event != null);
-        assert(photos.size > 0);
+        assert(media_thumbs.size > 0);
         
-        real_command = new RealMovePhotosCommand(master_event, photos, _("Merging"), 
+        real_command = new RealMovePhotosCommand(master_event, media_thumbs, _("Merging"), 
             _("Unmerging"), Resources.MERGE_LABEL, Resources.MERGE_TOOLTIP);
     }
 }
@@ -1087,10 +1086,10 @@ public class AdjustDateTimePhotosCommand : MultipleDataSourceCommand {
 }
 
 public class AddTagsCommand : PageCommand {
-    private Gee.HashMap<SourceProxy, Gee.ArrayList<LibraryPhoto>> map =
-        new Gee.HashMap<SourceProxy, Gee.ArrayList<LibraryPhoto>>();
+    private Gee.HashMap<SourceProxy, Gee.ArrayList<MediaSource>> map =
+        new Gee.HashMap<SourceProxy, Gee.ArrayList<MediaSource>>();
     
-    public AddTagsCommand(string[] names, Gee.Collection<LibraryPhoto> photos) {
+    public AddTagsCommand(string[] names, Gee.Collection<MediaSource> sources) {
         base (Resources.add_tags_label(names), Resources.ADD_TAGS_TOOLTIP);
         
         // load/create the tags here rather than in execute() so that we can merely use the proxy
@@ -1100,28 +1099,30 @@ public class AddTagsCommand : PageCommand {
             Tag tag = Tag.for_name(name);
             SourceProxy tag_proxy = tag.get_proxy();
             
-            // for each Tag, only attach photos which are not already attached, otherwise undo()
+            // for each Tag, only attach sources which are not already attached, otherwise undo()
             // will not be symmetric
-            Gee.ArrayList<LibraryPhoto> add_photos = new Gee.ArrayList<LibraryPhoto>();
-            foreach (LibraryPhoto photo in photos) {
-                if (!tag.contains(photo))
-                    add_photos.add(photo);
+            Gee.ArrayList<MediaSource> add_sources = new Gee.ArrayList<MediaSource>();
+            foreach (MediaSource source in sources) {
+                if (!tag.contains(source))
+                    add_sources.add(source);
             }
             
-            if (add_photos.size > 0) {
+            if (add_sources.size > 0) {
                 tag_proxy.broken.connect(on_proxy_broken);
-                map.set(tag_proxy, add_photos);
+                map.set(tag_proxy, add_sources);
             }
         }
         
-        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        LibraryPhoto.global.item_destroyed.connect(on_source_destroyed);
+        Video.global.item_destroyed.connect(on_source_destroyed);
     }
     
     ~AddTagsCommand() {
         foreach (SourceProxy tag_proxy in map.keys)
             tag_proxy.broken.disconnect(on_proxy_broken);
         
-        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        LibraryPhoto.global.item_destroyed.disconnect(on_source_destroyed);
+        Video.global.item_destroyed.disconnect(on_source_destroyed);
     }
     
     public override void execute() {
@@ -1134,9 +1135,9 @@ public class AddTagsCommand : PageCommand {
             ((Tag) tag_proxy.get_source()).detach_many(map.get(tag_proxy));
     }
     
-    private void on_photo_destroyed(DataSource source) {
-        foreach (Gee.ArrayList<LibraryPhoto> photos in map.values) {
-            if (photos.contains((LibraryPhoto) source)) {
+    private void on_source_destroyed(DataSource source) {
+        foreach (Gee.ArrayList<MediaSource> sources in map.values) {
+            if (sources.contains((MediaSource) source)) {
                 get_command_manager().reset();
                 
                 return;
@@ -1175,7 +1176,7 @@ public class RenameTagCommand : SimpleProxyableCommand {
 public class DeleteTagCommand : SimpleProxyableCommand {
     public DeleteTagCommand(Tag tag) {
         base (tag, Resources.delete_tag_label(tag.get_name()),
-            Resources.delete_tag_tooltip(tag.get_name(), tag.get_photos_count()));
+            Resources.delete_tag_tooltip(tag.get_name(), tag.get_sources_count()));
     }
     
     protected override void execute_on_source(DataSource source) {
@@ -1190,17 +1191,17 @@ public class DeleteTagCommand : SimpleProxyableCommand {
 }
 
 public class ModifyTagsCommand : SingleDataSourceCommand {
-    private LibraryPhoto photo;
+    private MediaSource media;
     private Gee.ArrayList<SourceProxy> to_add = new Gee.ArrayList<SourceProxy>();
     private Gee.ArrayList<SourceProxy> to_remove = new Gee.ArrayList<SourceProxy>();
     
-    public ModifyTagsCommand(LibraryPhoto photo, Gee.Collection<Tag> new_tag_list) {
-        base (photo, Resources.MODIFY_TAGS_LABEL, Resources.MODIFY_TAGS_TOOLTIP);
+    public ModifyTagsCommand(MediaSource media, Gee.Collection<Tag> new_tag_list) {
+        base (media, Resources.MODIFY_TAGS_LABEL, Resources.MODIFY_TAGS_TOOLTIP);
         
-        this.photo = photo;
+        this.media = media;
         
         // Remove any tag that's in the original list but not the new one
-        Gee.List<Tag>? original_tags = Tag.global.fetch_for_photo(photo);
+        Gee.List<Tag>? original_tags = Tag.global.fetch_for_source(media);
         if (original_tags != null) {
 		    foreach (Tag tag in original_tags) {
 		        if (!new_tag_list.contains(tag)) {
@@ -1233,18 +1234,18 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
     
     public override void execute() {
         foreach (SourceProxy proxy in to_add)
-            ((Tag) proxy.get_source()).attach(photo);
+            ((Tag) proxy.get_source()).attach(media);
         
         foreach (SourceProxy proxy in to_remove)
-            ((Tag) proxy.get_source()).detach(photo);
+            ((Tag) proxy.get_source()).detach(media);
     }
     
     public override void undo() {
         foreach (SourceProxy proxy in to_add)
-            ((Tag) proxy.get_source()).detach(photo);
+            ((Tag) proxy.get_source()).detach(media);
         
         foreach (SourceProxy proxy in to_remove)
-            ((Tag) proxy.get_source()).attach(photo);
+            ((Tag) proxy.get_source()).attach(media);
     }
     
     private void on_proxy_broken() {
@@ -1253,42 +1254,44 @@ public class ModifyTagsCommand : SingleDataSourceCommand {
 }
 
 public class TagUntagPhotosCommand : SimpleProxyableCommand {
-    private Gee.Collection<LibraryPhoto> photos;
+    private Gee.Collection<MediaSource> sources;
     private bool attach;
     
-    public TagUntagPhotosCommand(Tag tag, Gee.Collection<LibraryPhoto> photos, int count, bool attach) {
+    public TagUntagPhotosCommand(Tag tag, Gee.Collection<MediaSource> sources, int count, bool attach) {
         base (tag,
             attach ? Resources.tag_photos_label(tag.get_name(), count) 
                 : Resources.untag_photos_label(tag.get_name(), count),
             attach ? Resources.tag_photos_tooltip(tag.get_name(), count) 
                 : Resources.untag_photos_tooltip(tag.get_name(), count));
         
-        this.photos = photos;
+        this.sources = sources;
         this.attach = attach;
         
-        LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+        LibraryPhoto.global.item_destroyed.connect(on_source_destroyed);
+        Video.global.item_destroyed.connect(on_source_destroyed);
     }
     
     ~TagPhotosCommand() {
-        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        LibraryPhoto.global.item_destroyed.disconnect(on_source_destroyed);
+        Video.global.item_destroyed.disconnect(on_source_destroyed);
     }
     
     public override void execute_on_source(DataSource source) {
         if (attach)
-            ((Tag) source).attach_many(photos);
+            ((Tag) source).attach_many(sources);
         else
-            ((Tag) source).detach_many(photos);
+            ((Tag) source).detach_many(sources);
     }
     
     public override void undo_on_source(DataSource source) {
         if (attach)
-            ((Tag) source).detach_many(photos);
+            ((Tag) source).detach_many(sources);
         else
-            ((Tag) source).attach_many(photos);
+            ((Tag) source).attach_many(sources);
     }
     
-    private void on_photo_destroyed(DataSource source) {
-        if (photos.contains((LibraryPhoto) source))
+    private void on_source_destroyed(DataSource source) {
+        if (sources.contains((MediaSource) source))
             get_command_manager().reset();
     }
 }

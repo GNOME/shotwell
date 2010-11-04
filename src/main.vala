@@ -144,6 +144,8 @@ void library_exec(string[] mounts) {
     LibraryPhoto.init(monitor);
     if (aggregate_monitor != null)
         aggregate_monitor.next_step("Event.init");
+    MediaCollectionRegistry.get_instance().register_collection(Photo.TYPENAME, LibraryPhoto.global);
+    MediaCollectionRegistry.get_instance().register_collection(Video.TYPENAME, Video.global);
     Event.init(monitor);
     Tag.init();
     AlienDatabaseHandler.init();
@@ -250,6 +252,10 @@ void editing_exec(string filename) {
     // init modules direct-editing relies on
     DatabaseTable.init(null);
     DirectPhoto.init();
+
+    // TODO: At some point in the future, to support mixed-media in direct-edit mode, we will
+    //       refactor DirectPhotoSourceCollection to be a MediaSourceCollection. At that point,
+    //       we'll need to register DirectPhoto.global with the MediaCollectionRegistry
     
     DirectWindow direct_window = new DirectWindow(File.new_for_commandline_arg(filename));
     direct_window.show_all();

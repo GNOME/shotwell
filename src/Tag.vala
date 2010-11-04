@@ -6,13 +6,16 @@
 
 public class TagSourceCollection : ContainerSourceCollection {
     private Gee.HashMap<string, Tag> name_map = new Gee.HashMap<string, Tag>();
-    private Gee.HashMap<LibraryPhoto, Gee.List<Tag>> photo_map =
-        new Gee.HashMap<LibraryPhoto, Gee.List<Tag>>();
-    private Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>> sorted_photo_map =
-        new Gee.HashMap<LibraryPhoto, Gee.SortedSet<Tag>>();
+    private Gee.HashMap<MediaSource, Gee.List<Tag>> source_map =
+        new Gee.HashMap<MediaSource, Gee.List<Tag>>();
+    private Gee.HashMap<MediaSource, Gee.SortedSet<Tag>> sorted_source_map =
+        new Gee.HashMap<MediaSource, Gee.SortedSet<Tag>>();
     
     public TagSourceCollection() {
-        base (LibraryPhoto.global, Tag.TYPENAME, "TagSourceCollection", get_tag_key);
+        base (Tag.TYPENAME, "TagSourceCollection", get_tag_key);
+
+        attach_collection(LibraryPhoto.global);
+        attach_collection(Video.global);
     }
     
     private static int64 get_tag_key(DataSource source) {
@@ -20,7 +23,7 @@ public class TagSourceCollection : ContainerSourceCollection {
     }
     
     protected override Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source) {
-        return fetch_for_photo((LibraryPhoto) source);
+        return fetch_for_source((MediaSource) source);
     }
     
     public override ContainerSource? convert_backlink_to_container(SourceBacklink backlink) {
@@ -51,9 +54,9 @@ public class TagSourceCollection : ContainerSourceCollection {
         return name_map.keys;
     }
     
-    // Returns a list of all Tags associated with the Photo in no particular order.
-    public Gee.List<Tag>? fetch_for_photo(LibraryPhoto photo) {
-        Gee.List<Tag>? tags = photo_map.get(photo);
+    // Returns a list of all Tags associated with the media source in no particular order.
+    public Gee.List<Tag>? fetch_for_source(MediaSource source) {
+        Gee.List<Tag>? tags = source_map.get(source);
         if (tags == null)
             return null;
         
@@ -63,9 +66,9 @@ public class TagSourceCollection : ContainerSourceCollection {
         return copy;
     }
     
-    // Returns a sorted set of all Tags associated with the Photo (ascending by name).
-    public Gee.SortedSet<Tag>? fetch_sorted_for_photo(LibraryPhoto photo) {
-        Gee.SortedSet<Tag>? tags = sorted_photo_map.get(photo);
+    // Returns a sorted set of all Tags associated with the media source (ascending by name).
+    public Gee.SortedSet<Tag>? fetch_sorted_for_source(MediaSource photo) {
+        Gee.SortedSet<Tag>? tags = sorted_source_map.get(photo);
         if (tags == null)
             return null;
         
@@ -156,22 +159,22 @@ public class TagSourceCollection : ContainerSourceCollection {
     protected override void notify_container_contents_added(ContainerSource container, 
         Gee.Collection<DataSource> added) {
         Tag tag = (Tag) container;
-        Gee.Collection<LibraryPhoto> photos = (Gee.Collection<LibraryPhoto>) added;
+        Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) added;
         
-        foreach (LibraryPhoto photo in photos) {
-            Gee.List<Tag>? tags = photo_map.get(photo);
+        foreach (MediaSource source in sources) {
+            Gee.List<Tag>? tags = source_map.get(source);
             if (tags == null) {
                 tags = new Gee.ArrayList<Tag>();
-                photo_map.set(photo, tags);
+                source_map.set(source, tags);
             }
             
             bool is_added = tags.add(tag);
             assert(is_added);
             
-            Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
+            Gee.SortedSet<Tag>? sorted_tags = sorted_source_map.get(source);
             if (sorted_tags == null) {
                 sorted_tags = new Gee.TreeSet<Tag>(compare_tag_name);
-                sorted_photo_map.set(photo, sorted_tags);
+                sorted_source_map.set(source, sorted_tags);
             }
             
             is_added = sorted_tags.add(tag);
@@ -184,26 +187,26 @@ public class TagSourceCollection : ContainerSourceCollection {
     protected override void notify_container_contents_removed(ContainerSource container, 
         Gee.Collection<DataSource> removed) {
         Tag tag = (Tag) container;
-        Gee.Collection<LibraryPhoto> photos = (Gee.Collection<LibraryPhoto>) removed;
+        Gee.Collection<MediaSource> sources = (Gee.Collection<MediaSource>) removed;
         
-        foreach (LibraryPhoto photo in photos) {
-            Gee.List<Tag>? tags = photo_map.get(photo);
+        foreach (MediaSource source in sources) {
+            Gee.List<Tag>? tags = source_map.get(source);
             assert(tags != null);
             
             bool is_removed = tags.remove(tag);
             assert(is_removed);
             
             if (tags.size == 0)
-                photo_map.unset(photo);
+                source_map.unset(source);
             
-            Gee.SortedSet<Tag>? sorted_tags = sorted_photo_map.get(photo);
+            Gee.SortedSet<Tag>? sorted_tags = sorted_source_map.get(source);
             assert(sorted_tags != null);
             
             is_removed = sorted_tags.remove(tag);
             assert(is_removed);
             
             if (sorted_tags.size == 0)
-                sorted_photo_map.unset(photo);
+                sorted_source_map.unset(source);
         }
         
         base.notify_container_contents_removed(container, removed);
@@ -215,22 +218,24 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     
     private class TagSnapshot : SourceSnapshot {
         private TagRow row;
-        private Gee.HashSet<LibraryPhoto> photos = new Gee.HashSet<LibraryPhoto>();
+        private Gee.HashSet<MediaSource> sources = new Gee.HashSet<MediaSource>();
         
         public TagSnapshot(Tag tag) {
             // stash current state of Tag
             row = tag.row;
             
-            // stash photos attached to this tag ... if any are destroyed, the tag cannot be
-            // reconstituted
-            foreach (LibraryPhoto photo in tag.get_photos())
-                photos.add(photo);
+            // stash photos and videos attached to this tag ... if any are destroyed, the tag
+            // cannot be reconstituted
+            foreach (MediaSource source in tag.get_sources())
+                sources.add(source);
             
-            LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
+            LibraryPhoto.global.item_destroyed.connect(on_source_destroyed);
+            Video.global.item_destroyed.connect(on_source_destroyed);
         }
         
         ~TagSnapshot() {
-            LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+            LibraryPhoto.global.item_destroyed.disconnect(on_source_destroyed);
+            Video.global.item_destroyed.disconnect(on_source_destroyed);
         }
         
         public TagRow get_row() {
@@ -239,13 +244,13 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         
         public override void notify_broken() {
             row = TagRow();
-            photos.clear();
+            sources.clear();
             
             base.notify_broken();
         }
         
-        private void on_photo_destroyed(DataSource source) {
-            if (photos.contains((LibraryPhoto) source))
+        private void on_source_destroyed(DataSource source) {
+            if (sources.contains((MediaSource) source))
                 notify_broken();
         }
     }
@@ -263,53 +268,56 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     public static TagSourceCollection global = null;
     
     private TagRow row;
-    private ViewCollection photos;
+    private ViewCollection media_views;
     
     private Tag(TagRow row, int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
         
         this.row = row;
         
-        // convert PhotoIDs to LibraryPhotos and PhotoViews for the internal ViewCollection
-        Gee.ArrayList<LibraryPhoto> photo_list = new Gee.ArrayList<LibraryPhoto>();
-        Gee.ArrayList<PhotoView> photo_views = new Gee.ArrayList<PhotoView>();
-        if (this.row.photo_id_list != null) {
-            foreach (PhotoID photo_id in this.row.photo_id_list) {
-                LibraryPhoto photo = LibraryPhoto.global.fetch(photo_id);
-                if (photo == null)
+        // convert source ids to MediaSources and ThumbnailViews for the internal ViewCollection
+        Gee.ArrayList<MediaSource> source_list = new Gee.ArrayList<MediaSource>();
+        Gee.ArrayList<ThumbnailView> thumbnail_views = new Gee.ArrayList<ThumbnailView>();
+        if (this.row.source_id_list != null) {
+            foreach (string source_id in this.row.source_id_list) {
+                MediaSource? current_source =
+                    (MediaSource?) MediaCollectionRegistry.get_instance().fetch_media(source_id);
+                if (current_source == null)
                     continue;
                 
-                photo_list.add(photo);
-                photo_views.add(new PhotoView(photo));
+                source_list.add(current_source);
+                thumbnail_views.add(new ThumbnailView(current_source));
             }
         } else {
-            // allocate the photo_id_list for use if/when photos are added
-            this.row.photo_id_list = new Gee.HashSet<PhotoID?>(PhotoID.hash, PhotoID.equal);
+            // allocate the source_id_list for use if/when media sources are added
+            this.row.source_id_list = new Gee.HashSet<string>(str_hash, str_equal);
         }
         
-        // add to internal ViewCollection, which maintains photos associated with this tag
-        photos = new ViewCollection("ViewCollection for tag %s".printf(row.tag_id.id.to_string()));
-        photos.add_many(photo_views);
+        // add to internal ViewCollection, which maintains media sources associated with this tag
+        media_views = new ViewCollection("ViewCollection for tag %s".printf(row.tag_id.id.to_string()));
+        media_views.add_many(thumbnail_views);
         
         // need to do this manually here because only want to monitor photo_contents_altered
         // after add_many() here; but need to keep the TagSourceCollection apprised
-        if (photo_list.size > 0) {
-            global.notify_container_contents_added(this, photo_list);
-            global.notify_container_contents_altered(this, photo_list, null);
+        if (source_list.size > 0) {
+            global.notify_container_contents_added(this, source_list);
+            global.notify_container_contents_altered(this, source_list, null);
         }
         
-        // monitor ViewCollection to (a) keep the in-memory list of photo IDs up-to-date, and
+        // monitor ViewCollection to (a) keep the in-memory list of source ids up-to-date, and
         // (b) update the database whenever there's a change;
-        photos.contents_altered.connect(on_photos_contents_altered);
+        media_views.contents_altered.connect(on_media_views_contents_altered);
         
-        // monitor LibraryPhoto to trap when photos are destroyed and automatically remove from
-        // the tag
-        LibraryPhoto.global.items_destroyed.connect(on_photos_destroyed);
+        // monitor the global collections to trap when photos and videos are destroyed, then
+        // automatically remove from the tag
+        LibraryPhoto.global.items_destroyed.connect(on_sources_destroyed);
+        Video.global.items_destroyed.connect(on_sources_destroyed);
     }
     
     ~Tag() {
-        photos.contents_altered.disconnect(on_photos_contents_altered);
-        LibraryPhoto.global.items_destroyed.disconnect(on_photos_destroyed);
+        media_views.contents_altered.disconnect(on_media_views_contents_altered);
+        LibraryPhoto.global.items_destroyed.disconnect(on_sources_destroyed);
+        Video.global.items_destroyed.disconnect(on_sources_destroyed);
     }
     
     public static void init() {
@@ -330,7 +338,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         for (int ctr = 0; ctr < count; ctr++) {
             Tag tag = new Tag(rows.get(ctr));
             
-            if (tag.get_photos_count() != 0) {
+            if (tag.get_sources_count() != 0) {
                 tags.add(tag);
                 
                 continue;
@@ -430,7 +438,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
     }
     
     public override string to_string() {
-        return "Tag %s (%d photos)".printf(row.name, photos.get_count());
+        return "Tag %s (%d sources)".printf(row.name, media_views.get_count());
     }
     
     public override bool equals(DataSource? source) {
@@ -497,38 +505,38 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         attach_many((Gee.Collection<LibraryPhoto>) sources);
     }
     
-    public void attach(LibraryPhoto photo) {
-        if (!photos.has_view_for_source(photo))
-            photos.add(new PhotoView(photo));
+    public void attach(MediaSource source) {
+        if (!media_views.has_view_for_source(source))
+            media_views.add(new ThumbnailView(source));
     }
     
-    public void attach_many(Gee.Collection<LibraryPhoto> sources) {
-        Gee.ArrayList<PhotoView> view_list = new Gee.ArrayList<PhotoView>();
-        foreach (LibraryPhoto photo in sources) {
-            if (!photos.has_view_for_source(photo))
-                view_list.add(new PhotoView(photo));
+    public void attach_many(Gee.Collection<MediaSource> sources) {
+        Gee.ArrayList<ThumbnailView> view_list = new Gee.ArrayList<ThumbnailView>();
+        foreach (MediaSource source in sources) {
+            if (!media_views.has_view_for_source(source))
+                view_list.add(new ThumbnailView(source));
         }
         
         if (view_list.size > 0)
-            photos.add_many(view_list);
+            media_views.add_many(view_list);
     }
     
-    public bool detach(LibraryPhoto photo) {
-        DataView? view = photos.get_view_for_source(photo);
+    public bool detach(MediaSource source) {
+        DataView? view = media_views.get_view_for_source(source);
         if (view == null)
             return false;
         
-        photos.remove_marked(photos.mark(view));
+        media_views.remove_marked(media_views.mark(view));
         
         return true;
     }
     
-    public int detach_many(Gee.Collection<LibraryPhoto> sources) {
+    public int detach_many(Gee.Collection<MediaSource> sources) {
         int count = 0;
         
-        Marker marker = photos.start_marking();
-        foreach (LibraryPhoto photo in sources) {
-            DataView? view = photos.get_view_for_source(photo);
+        Marker marker = media_views.start_marking();
+        foreach (MediaSource source in sources) {
+            DataView? view = media_views.get_view_for_source(source);
             if (view == null)
                 continue;
             
@@ -536,7 +544,7 @@ public class Tag : DataSource, ContainerSource, Proxyable {
             count++;
         }
         
-        photos.remove_marked(marker);
+        media_views.remove_marked(marker);
         
         return count;
     }
@@ -559,97 +567,97 @@ public class Tag : DataSource, ContainerSource, Proxyable {
         return true;
     }
     
-    public bool contains(LibraryPhoto photo) {
-        return photos.has_view_for_source(photo);
+    public bool contains(MediaSource source) {
+        return media_views.has_view_for_source(source);
     }
     
-    public int get_photos_count() {
-        return photos.get_count();
+    public int get_sources_count() {
+        return media_views.get_count();
     }
     
-    public Gee.Collection<LibraryPhoto> get_photos() {
-        return (Gee.Collection<LibraryPhoto>) photos.get_sources();
+    public Gee.Collection<MediaSource> get_sources() {
+        return (Gee.Collection<MediaSource>) media_views.get_sources();
     }
     
-    public void mirror_photos(ViewCollection view, CreateView mirroring_ctor) {
-        view.mirror(photos, mirroring_ctor);
+    public void mirror_sources(ViewCollection view, CreateView mirroring_ctor) {
+        view.mirror(media_views, mirroring_ctor);
     }
     
-    private void on_photos_contents_altered(Gee.Iterable<DataView>? added,
+    private void on_media_views_contents_altered(Gee.Iterable<DataView>? added,
         Gee.Iterable<DataView>? removed) {
-        Gee.Collection<LibraryPhoto> added_photos = null;
+        Gee.Collection<MediaSource> added_sources = null;
         if (added != null) {
-            added_photos = new Gee.ArrayList<LibraryPhoto>();
+            added_sources = new Gee.ArrayList<MediaSource>();
             foreach (DataView view in added) {
-                LibraryPhoto photo = (LibraryPhoto) view.get_source();
+                MediaSource source = (MediaSource) view.get_source();
                 
-                // possible a photo is added twice if the same tag is in photo ... add()
+                // possible a source is added twice if the same tag is in source ... add()
                 // returns true only if the set has altered
-                if (!row.photo_id_list.contains(photo.get_photo_id())) {
-                    bool is_added = row.photo_id_list.add(photo.get_photo_id());
+                if (!row.source_id_list.contains(source.get_source_id())) {
+                    bool is_added = row.source_id_list.add(source.get_source_id());
                     assert(is_added);
                 }
                 
-                bool is_added = added_photos.add(photo);
+                bool is_added = added_sources.add(source);
                 assert(is_added);
             }
         }
         
-        Gee.Collection<LibraryPhoto> removed_photos = null;
+        Gee.Collection<MediaSource> removed_sources = null;
         if (removed != null) {
-            removed_photos = new Gee.ArrayList<LibraryPhoto>();
+            removed_sources = new Gee.ArrayList<MediaSource>();
             foreach (DataView view in removed) {
-                LibraryPhoto photo = (LibraryPhoto) view.get_source();
+                MediaSource source = (MediaSource) view.get_source();
                 
-                bool is_removed = row.photo_id_list.remove(photo.get_photo_id());
+                bool is_removed = row.source_id_list.remove(source.get_source_id());
                 assert(is_removed);
                 
-                bool is_added = removed_photos.add(photo);
+                bool is_added = removed_sources.add(source);
                 assert(is_added);
             }
         }
         
         try {
-            TagTable.get_instance().set_tagged_photos(row.tag_id, row.photo_id_list);
+            TagTable.get_instance().set_tagged_sources(row.tag_id, row.source_id_list);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
         
         // notify of changes to this tag
-        if (added_photos != null)
-            global.notify_container_contents_added(this, added_photos);
+        if (added_sources != null)
+            global.notify_container_contents_added(this, added_sources);
         
-        if (removed_photos != null)
-            global.notify_container_contents_removed(this, removed_photos);
+        if (removed_sources != null)
+            global.notify_container_contents_removed(this, removed_sources);
         
-        if (added_photos != null || removed_photos != null)
-            global.notify_container_contents_altered(this, added_photos, removed_photos);
+        if (added_sources != null || removed_sources != null)
+            global.notify_container_contents_altered(this, added_sources, removed_sources);
         
-        // if no more photos, tag evaporates; do not touch "this" afterwards
-        if (photos.get_count() == 0)
+        // if no more sources, tag evaporates; do not touch "this" afterwards
+        if (media_views.get_count() == 0)
             global.evaporate(this);
     }
     
-    private void on_photos_destroyed(Gee.Collection<DataSource> sources) {
-        detach_many((Gee.Collection<LibraryPhoto>) sources);
+    private void on_sources_destroyed(Gee.Collection<DataSource> sources) {
+        detach_many((Gee.Collection<MediaSource>) sources);
     }
     
     public override void destroy() {
-        // detach all remaining photos from the tag, so observers are informed ... need to detach
-        // the contents_altered handler because it will destroy this object when photos is empty,
+        // detach all remaining sources from the tag, so observers are informed ... need to detach
+        // the contents_altered handler because it will destroy this object when sources is empty,
         // which is bad reentrancy mojo (but hook it back up for the dtor's sake)
-        if (photos.get_count() > 0) {
-            photos.contents_altered.disconnect(on_photos_contents_altered);
+        if (media_views.get_count() > 0) {
+            media_views.contents_altered.disconnect(on_media_views_contents_altered);
             
-            Gee.ArrayList<LibraryPhoto> removed = new Gee.ArrayList<LibraryPhoto>();
-            removed.add_all((Gee.Collection<LibraryPhoto>) photos.get_sources());
+            Gee.ArrayList<MediaSource> removed = new Gee.ArrayList<MediaSource>();
+            removed.add_all((Gee.Collection<MediaSource>) media_views.get_sources());
             
-            photos.clear();
+            media_views.clear();
             
             global.notify_container_contents_removed(this, removed);
             global.notify_container_contents_altered(this, null, removed);
             
-            photos.contents_altered.connect(on_photos_contents_altered);
+            media_views.contents_altered.connect(on_media_views_contents_altered);
         }
         
         try {

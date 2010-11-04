@@ -1009,104 +1009,10 @@ public abstract class ThumbnailSource : DataSource {
     public abstract PhotoFileFormat get_preferred_thumbnail_format();
 }
 
-public abstract class MediaSource : ThumbnailSource {
-    public virtual signal void master_replaced(File old_file, File new_file) {
-    }
-    
-    public MediaSource(int64 object_id = INVALID_OBJECT_ID) {
-        base (object_id);
-    }
-    
-    protected static inline uint64 internal_add_flags(uint64 flags, uint64 selector) {
-        return (flags | selector);
-    }
-
-    protected static inline uint64 internal_remove_flags(uint64 flags, uint64 selector) {
-        return (flags & ~selector);
-    }
-
-    protected static inline bool internal_is_flag_set(uint64 flags, uint64 selector) {
-        return ((flags & selector) != 0);
-    }
-
-    protected virtual void notify_master_replaced(File old_file, File new_file) {
-        master_replaced(old_file, new_file);
-    }
-
-    protected void delete_original_file() {
-        File file = get_file();
-        
-        try {
-            file.trash(null);
-        } catch (Error err) {
-            // log error but don't abend, as this is not fatal to operation (also, could be
-            // the photo is removed because it could not be found during a verify)
-            message("Unable to move original photo %s to trash: %s", file.get_path(), err.message);
-        }
-        
-        // remove empty directories corresponding to imported path, but only if file is located
-        // inside the user's Pictures directory
-        if (file.has_prefix(AppDirs.get_import_dir())) {
-            File parent = file;
-            for (int depth = 0; depth < LibraryFiles.DIRECTORY_DEPTH; depth++) {
-                parent = parent.get_parent();
-                if (parent == null)
-                    break;
-                
-                try {
-                    if (!query_is_directory_empty(parent))
-                        break;
-                } catch (Error err) {
-                    warning("Unable to query file info for %s: %s", parent.get_path(), err.message);
-                    
-                    break;
-                }
-                
-                try {
-                    parent.delete(null);
-                    debug("Deleted empty directory %s", parent.get_path());
-                } catch (Error err) {
-                    // again, log error but don't abend
-                    message("Unable to delete empty directory %s: %s", parent.get_path(),
-                        err.message);
-                }
-            }
-        }
-    }
-
-    public abstract File get_file();
-    public abstract File get_master_file();
-    public abstract void set_master_file(File file);
-    
-    public abstract string? get_title();
-    public abstract void set_title(string? title);
-
-    public abstract Rating get_rating();
-    public abstract void set_rating(Rating rating);
-    public abstract void increase_rating();
-    public abstract void decrease_rating();
-    
-    public abstract Dimensions get_dimensions();
-    
-    public abstract bool is_trashed();
-    public abstract void trash();
-    public abstract void untrash();
-
-    public abstract bool is_offline();
-    public abstract void mark_offline();
-    public abstract void mark_online();
-
-    public abstract string get_master_md5();
-}
-
 public abstract class PhotoSource : MediaSource {
     public PhotoSource(int64 object_id = INVALID_OBJECT_ID) {
         base (object_id);
     }
-    
-    public abstract time_t get_exposure_time();
-
-    public abstract uint64 get_filesize();
 
     public abstract PhotoMetadata? get_metadata();
     
@@ -1127,9 +1033,9 @@ public abstract class EventSource : ThumbnailSource {
 
     public abstract uint64 get_total_filesize();
     
-    public abstract int get_photo_count();
+    public abstract int get_media_count();
     
-    public abstract Gee.Collection<PhotoSource> get_photos();
+    public abstract Gee.Collection<MediaSource> get_media();
 }
 
 //

@@ -198,6 +198,7 @@ public class MetadataWriter : Object {
             Gee.ArrayList<LibraryPhoto> photos = null;
             foreach (DataObject object in added) {
                 LibraryPhoto photo = (LibraryPhoto) object;
+
                 if (photo.is_master_metadata_dirty()) {
                     if (photos == null)
                         photos = new Gee.ArrayList<LibraryPhoto>();
@@ -211,8 +212,13 @@ public class MetadataWriter : Object {
         }
         
         if (removed != null) {
-            foreach (DataObject object in removed)
+            foreach (DataObject object in removed) {
+                // skip videos and any other non-photo media types
+                if (!(object is LibraryPhoto))
+                    continue;
+
                 cancel_job((LibraryPhoto) object);
+            }
         }
     }
     
@@ -251,8 +257,17 @@ public class MetadataWriter : Object {
         Gee.Collection<DataSource>? removed) {
         Tag tag = (Tag) container;
         
-        if (added != null)
-            photos_dirty((Gee.Collection<LibraryPhoto>) added, "added to %s".printf(tag.to_string()));
+        if (added != null) {
+			Gee.ArrayList<LibraryPhoto> added_photos = new Gee.ArrayList<LibraryPhoto>();
+			foreach (DataSource source in added) {
+		        LibraryPhoto photo =  source as LibraryPhoto;
+		        if (photo == null)
+		            continue;
+
+    			added_photos.add(photo);
+			}
+            photos_dirty(added_photos, "added to %s".printf(tag.to_string()));
+		}
         
         if (removed != null) {
             // Unlike adding, a photo can be removed from a tag but still hold a backlink to it
@@ -261,7 +276,9 @@ public class MetadataWriter : Object {
             SourceBacklink backlink = container.get_backlink();
             Gee.ArrayList<LibraryPhoto> actually_removed = new Gee.ArrayList<LibraryPhoto>();
             foreach (DataSource source in removed) {
-                LibraryPhoto photo = (LibraryPhoto) source;
+            LibraryPhoto photo =  source as LibraryPhoto;
+            if (photo == null)
+                continue;
                 
                 if (!photo.has_backlink(backlink))
                     actually_removed.add(photo);
@@ -274,13 +291,21 @@ public class MetadataWriter : Object {
     private void on_tag_backlink_removed(ContainerSource container, Gee.Collection<DataSource> sources) {
         Tag tag = (Tag) container;
         
-        photos_dirty((Gee.Collection<LibraryPhoto>) sources,
+        photos_dirty((Gee.Collection<MediaSource>) sources,
             "backlink removed from %s".printf(tag.to_string()));
     }
     
-    private void photos_dirty(Gee.Collection<LibraryPhoto> photos, string reason) {
-        // cancel all outstanding and pending jobs
-        foreach (LibraryPhoto photo in photos) {
+    private void photos_dirty(Gee.Collection<MediaSource> photos, string reason) {
+        Gee.ArrayList<LibraryPhoto> dirty_photos = new Gee.ArrayList<LibraryPhoto>();
+
+        foreach (MediaSource source in photos) {
+            LibraryPhoto photo =  source as LibraryPhoto;
+            if (photo == null)
+                continue;
+
+            dirty_photos.add(photo);
+
+            // cancel all outstanding and pending jobs            
             cancel_job(photo);
             
             if (dirty.contains(photo)) {
@@ -293,7 +318,7 @@ public class MetadataWriter : Object {
         
         // mark all the photos as dirty
         try {
-            Photo.set_many_master_metadata_dirty(LibraryPhoto.global, photos, true);
+            Photo.set_many_master_metadata_dirty(LibraryPhoto.global, dirty_photos, true);
         } catch (DatabaseError err) {
             AppWindow.database_error(err);
         }
@@ -303,7 +328,7 @@ public class MetadataWriter : Object {
         if (closed || !autocommit_metadata)
             return;
         
-        foreach (LibraryPhoto photo in photos) {
+        foreach (LibraryPhoto photo in dirty_photos) {
 #if TRACE_METADATA_WRITER
             debug("Enqueuing %s for metadata commit: %s", photo.to_string(), reason);
 #endif
@@ -329,7 +354,7 @@ public class MetadataWriter : Object {
             return;
         
         Gee.Set<string>? keywords = null;
-        Gee.Collection<Tag>? tags = Tag.global.fetch_for_photo(photo);
+        Gee.Collection<Tag>? tags = Tag.global.fetch_for_source(photo);
         if (tags != null) {
             keywords = new Gee.HashSet<string>();
             foreach (Tag tag in tags)

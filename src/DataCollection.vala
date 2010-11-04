@@ -1222,163 +1222,6 @@ public abstract class DatabaseSourceCollection : SourceCollection {
     }
 }
 
-public abstract class MediaSourceCollection : DatabaseSourceCollection {
-    private MediaSourceHoldingTank trashcan = null;
-    private MediaSourceHoldingTank offline_bin = null;
-    
-    public virtual signal void trashcan_contents_altered(Gee.Collection<MediaSource>? added,
-        Gee.Collection<MediaSource>? removed) {
-    }
-
-    public virtual signal void offline_contents_altered(Gee.Collection<MediaSource>? added,
-        Gee.Collection<MediaSource>? removed) {
-    }
-
-    public MediaSourceCollection(string name, GetSourceDatabaseKey source_key_func) {
-        base(name, source_key_func);
-        
-        trashcan = create_trashcan();
-        offline_bin = create_offline_bin();
-    }
-
-    public static void filter_media(Gee.Collection<MediaSource> media,
-        Gee.Collection<LibraryPhoto> photos, Gee.Collection<Video> videos) {
-        foreach (MediaSource source in media) {
-            if (source is LibraryPhoto)
-                photos.add((LibraryPhoto) source);
-            else if (source is Video)
-                videos.add((Video) source);
-            else
-                warning("can't filter media: unrecognized kind - media is neither a photo "
-                    + "nor a video");
-        }
-    }
-
-    protected abstract MediaSourceHoldingTank create_trashcan();
-    protected abstract MediaSourceHoldingTank create_offline_bin();
-
-    protected MediaSourceHoldingTank get_trashcan() {
-        return trashcan;
-    }
-
-    protected MediaSourceHoldingTank get_offline_bin() {
-        return offline_bin;
-    }
-
-    protected override void items_altered(Gee.Map<DataObject, Alteration> items) {
-        Gee.ArrayList<MediaSource> to_trashcan = null;
-        Gee.ArrayList<MediaSource> to_offline = null;
-        foreach (DataObject object in items.keys) {
-            Alteration alteration = items.get(object);
-            
-            MediaSource source = (MediaSource) object;
-            
-            if (!alteration.has_subject("metadata"))
-                continue;
-            
-            if (source.is_trashed() && !get_trashcan().contains(source)) {
-                if (to_trashcan == null)
-                    to_trashcan = new Gee.ArrayList<MediaSource>();
-                
-                to_trashcan.add(source);
-                
-                // sources can only be in trashcan or offline -- not both
-                continue;
-            }
-            
-            if (source.is_offline() && !get_offline_bin().contains(source)) {
-                if (to_offline == null)
-                    to_offline = new Gee.ArrayList<MediaSource>();
-                
-                to_offline.add(source);
-            }
-        }
-        
-        if (to_trashcan != null)
-            get_trashcan().unlink_and_hold(to_trashcan);
-        
-        if (to_offline != null)
-            get_offline_bin().unlink_and_hold(to_offline);
-        
-        base.items_altered(items);
-    }
-
-    public Gee.Collection<MediaSource> get_trashcan_contents() {
-        return (Gee.Collection<MediaSource>) get_trashcan().get_all();
-    }
-
-    public Gee.Collection<MediaSource> get_offline_bin_contents() {
-        return (Gee.Collection<MediaSource>) get_offline_bin().get_all();
-    }
-
-    public void add_many_to_trash(Gee.Collection<MediaSource> sources) {
-        get_trashcan().add_many(sources);
-    }
-
-    public void add_many_to_offline(Gee.Collection<MediaSource> sources) {
-        get_offline_bin().add_many(sources);
-    }
-
-    public int get_trashcan_count() {
-        return get_trashcan().get_count();
-    }
-
-    // This operation cannot be cancelled; the return value of the ProgressMonitor is ignored.
-    // Note that delete_backing dictates whether or not the photos are tombstoned (if deleted,
-    // tombstones are not created).
-    public void remove_from_app(Gee.Collection<MediaSource>? sources, bool delete_backing,
-        ProgressMonitor? monitor = null) {
-        assert(sources != null);
-        // only tombstone if the backing is not being deleted
-        Gee.HashSet<MediaSource> to_tombstone = !delete_backing ? new Gee.HashSet<MediaSource>()
-            : null;
-        
-        // separate photos into two piles: those in the trash and those not
-        Gee.ArrayList<MediaSource> trashed = new Gee.ArrayList<MediaSource>();
-        Gee.ArrayList<MediaSource> offlined = new Gee.ArrayList<MediaSource>();
-        Gee.ArrayList<MediaSource> not_trashed = new Gee.ArrayList<MediaSource>();
-        foreach (MediaSource source in sources) {
-            if (source.is_trashed())
-                trashed.add(source);
-            else if (source.is_offline())
-                offlined.add(source);
-            else
-                not_trashed.add(source);
-            
-            if (to_tombstone != null)
-                to_tombstone.add(source);
-        }
-        
-        int total_count = sources.size;
-        assert(total_count == (trashed.size + offlined.size + not_trashed.size));
-        
-        // use an aggregate progress monitor, as it's possible there are three steps here
-        AggregateProgressMonitor agg_monitor = null;
-        if (monitor != null) {
-            agg_monitor = new AggregateProgressMonitor(total_count, monitor);
-            monitor = agg_monitor.monitor;
-        }
-        
-        if (trashed.size > 0)
-            get_trashcan().destroy_orphans(trashed, delete_backing, monitor);
-        
-        if (offlined.size > 0)
-            get_offline_bin().destroy_orphans(offlined, delete_backing, monitor);
-        
-        // untrashed media sources may be destroyed outright
-        if (not_trashed.size > 0)
-            destroy_marked(mark_many(not_trashed), delete_backing, monitor);
-        
-        if (to_tombstone != null && to_tombstone.size > 0) {
-            try {
-                Tombstone.entomb_many_sources(to_tombstone);
-            } catch (DatabaseError err) {
-                AppWindow.database_error(err);
-            }
-        }
-    }
-}
-
 //
 // ContainerSourceCollection
 //
@@ -1392,7 +1235,7 @@ public abstract class MediaSourceCollection : DatabaseSourceCollection {
 // when they hold no items), they should use the evaporate() method, which will either destroy
 // the DataSource or hold it in the tank (if backlinks are outstanding).
 public abstract class ContainerSourceCollection : DatabaseSourceCollection {
-    private SourceCollection contained_sources;
+    private Gee.HashSet<SourceCollection> attached_collections = new Gee.HashSet<SourceCollection>();
     private string backlink_name;
     private Gee.HashSet<ContainerSource> holding_tank = new Gee.HashSet<ContainerSource>();
     
@@ -1412,24 +1255,15 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         Gee.Collection<DataSource> sources) {
     }
     
-    public ContainerSourceCollection(SourceCollection contained_sources, string backlink_name,
-        string name, GetSourceDatabaseKey source_key_func) {
+    public ContainerSourceCollection(string backlink_name, string name,
+        GetSourceDatabaseKey source_key_func) {
         base (name, source_key_func);
         
-        this.contained_sources = contained_sources;
         this.backlink_name = backlink_name;
-        
-        contained_sources.items_unlinking.connect(on_contained_sources_unlinking);
-        contained_sources.items_relinked.connect(on_contained_sources_relinked);
-        contained_sources.item_destroyed.connect(on_contained_source_destroyed);
-        contained_sources.unlinked_destroyed.connect(on_contained_source_destroyed);
     }
     
     ~ContainerSourceCollection() {
-        contained_sources.items_unlinking.disconnect(on_contained_sources_unlinking);
-        contained_sources.items_relinked.disconnect(on_contained_sources_relinked);
-        contained_sources.item_destroyed.disconnect(on_contained_source_destroyed);
-        contained_sources.unlinked_destroyed.disconnect(on_contained_source_destroyed);
+        detach_all_collections();
     }
     
     protected override void notify_backlink_removed(SourceBacklink backlink,
@@ -1472,8 +1306,18 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     protected abstract Gee.Collection<ContainerSource>? get_containers_holding_source(DataSource source);
     
     // Looks in holding_tank as well.
-    public abstract ContainerSource? convert_backlink_to_container(SourceBacklink backlink);
+    protected abstract ContainerSource? convert_backlink_to_container(SourceBacklink backlink);
+
+    protected void freeze_attached_notifications() {
+        foreach(SourceCollection collection in attached_collections)
+            collection.freeze_notifications();
+    }
     
+    protected void thaw_attached_notifications() {
+        foreach(SourceCollection collection in attached_collections)
+            collection.thaw_notifications();
+    }
+
     public Gee.Collection<ContainerSource> get_holding_tank() {
         return holding_tank.read_only_view;
     }
@@ -1496,7 +1340,7 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     private void on_contained_sources_unlinking(Gee.Collection<DataSource> unlinking) {
-        contained_sources.freeze_notifications();
+        freeze_attached_notifications();
         
         Gee.HashMultiMap<ContainerSource, DataSource> map =
             new Gee.HashMultiMap<ContainerSource, DataSource>();
@@ -1515,11 +1359,11 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         foreach (ContainerSource container in map.get_keys())
             container.break_link_many(map.get(container));
         
-        contained_sources.thaw_notifications();
+        thaw_attached_notifications();
     }
     
     private void on_contained_sources_relinked(Gee.Collection<DataSource> relinked) {
-        contained_sources.freeze_notifications();
+        freeze_attached_notifications();
         
         Gee.HashMultiMap<ContainerSource, DataSource> map =
             new Gee.HashMultiMap<ContainerSource, DataSource>();
@@ -1543,7 +1387,7 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
         foreach (ContainerSource container in map.get_keys())
             container.establish_link_many(map.get(container));
         
-        contained_sources.thaw_notifications();
+        thaw_attached_notifications();
     }
     
     private void on_contained_source_destroyed(DataSource source) {
@@ -1558,7 +1402,9 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     }
     
     protected override void notify_item_destroyed(DataSource source) {
-        contained_sources.remove_backlink(((ContainerSource) source).get_backlink());
+        foreach (SourceCollection collection in attached_collections) {
+            collection.remove_backlink(((ContainerSource) source).get_backlink());
+        }
         
         base.notify_item_destroyed(source);
     }
@@ -1568,13 +1414,41 @@ public abstract class ContainerSourceCollection : DatabaseSourceCollection {
     // state persists for this ContainerSource, it will be held in the holding tank.  Otherwise, it's
     // destroyed.
     public void evaporate(ContainerSource container) {
-        if (contained_sources.has_backlink(container.get_backlink())) {
-            unlink_marked(mark(container));
-            bool added = holding_tank.add(container);
-            assert(added);
-        } else {
-            destroy_marked(mark(container), true);
+        foreach (SourceCollection collection in attached_collections) {
+            if (collection.has_backlink(container.get_backlink())) {
+                unlink_marked(mark(container));
+                bool added = holding_tank.add(container);
+                assert(added);
+                return;
+            }
         }
+
+        destroy_marked(mark(container), true);
+    }
+
+    public void attach_collection(SourceCollection collection) {
+        if (attached_collections.contains(collection)) {
+            warning("attempted to multiple-attach '%s' to '%s'", collection.to_string(), to_string());
+            return;
+        }
+
+        attached_collections.add(collection);
+
+        collection.items_unlinking.connect(on_contained_sources_unlinking);
+        collection.items_relinked.connect(on_contained_sources_relinked);
+        collection.item_destroyed.connect(on_contained_source_destroyed);
+        collection.unlinked_destroyed.connect(on_contained_source_destroyed);
+    }
+
+    public void detach_all_collections() {
+        foreach (SourceCollection collection in attached_collections) {
+            collection.items_unlinking.disconnect(on_contained_sources_unlinking);
+            collection.items_relinked.disconnect(on_contained_sources_relinked);
+            collection.item_destroyed.disconnect(on_contained_source_destroyed);
+            collection.unlinked_destroyed.disconnect(on_contained_source_destroyed);
+        }
+
+        attached_collections.clear();
     }
 }
 
@@ -1796,59 +1670,6 @@ public class DatabaseSourceHoldingTank : SourceHoldingTank {
         }
         
         base.notify_contents_altered(added, removed);
-    }
-}
-
-public class MediaSourceHoldingTank : DatabaseSourceHoldingTank {
-    private Gee.HashMap<File, MediaSource> master_file_map = new Gee.HashMap<File, MediaSource>(
-        file_hash, file_equal);
-    
-    public MediaSourceHoldingTank(MediaSourceCollection sources,
-        SourceHoldingTank.CheckToKeep check_to_keep, GetSourceDatabaseKey get_key) {
-        base (sources, check_to_keep, get_key);
-    }
-    
-    public MediaSource? fetch_by_master_file(File file) {
-        return master_file_map.get(file);
-    }
-    
-    public MediaSource? fetch_by_md5(string md5) {
-        foreach (MediaSource source in master_file_map.values) {
-            if (source.get_master_md5() == md5) {
-                return source;
-            }
-        }
-        
-        return null;
-    }
-    
-    protected override void notify_contents_altered(Gee.Collection<DataSource>? added,
-        Gee.Collection<DataSource>? removed) {
-        if (added != null) {
-            foreach (DataSource source in added) {
-                MediaSource media_source = (MediaSource) source;
-                master_file_map.set(media_source.get_master_file(), media_source);
-                media_source.master_replaced.connect(on_master_source_replaced);
-            }
-        }
-        
-        if (removed != null) {
-            foreach (DataSource source in removed) {
-                MediaSource media_source = (MediaSource) source;
-                bool is_removed = master_file_map.unset(media_source.get_master_file());
-                assert(is_removed);
-                media_source.master_replaced.disconnect(on_master_source_replaced);
-            }
-        }
-        
-        base.notify_contents_altered(added, removed);
-    }
-    
-    private void on_master_source_replaced(MediaSource media_source, File old_file, File new_file) {
-        bool removed = master_file_map.unset(old_file);
-        assert(removed);
-
-        master_file_map.set(new_file, media_source);
     }
 }
 
@@ -2608,28 +2429,43 @@ public class ViewCollection : DataCollection {
         return (DataView?) get_at(index);
     }
     
-    public bool get_immediate_neighbors(DataSource home, out DataSource? next, out DataSource? prev) {
+    public bool get_immediate_neighbors(DataSource home, out DataSource? next,
+        out DataSource? prev, string? type_selector = null) {
         DataView home_view = get_view_for_source(home);
         if (home_view == null)
             return false;
         
+        next = null;
         DataView? next_view = get_next(home_view);
-        next = (next_view != null) ? next_view.get_source() : null;
-        
+        while (next_view != home_view) {
+            if ((type_selector == null) || (next_view.get_source().get_typename() == type_selector)) {
+                next = next_view.get_source();
+                break;
+            }
+            next_view = get_next(next_view);
+        }
+
+        prev = null;      
         DataView? prev_view = get_previous(home_view);
-        prev = (prev_view != null) ? prev_view.get_source() : null;
+        while (prev_view != home_view) {
+            if ((type_selector == null) || (prev_view.get_source().get_typename() == type_selector)) {
+                prev = prev_view.get_source();
+                break;
+            }
+            prev_view = get_previous(prev_view);
+        }
 
         return true;
     }
     
-    // "Extended" as in immediate neighbors and their neighbors.
-    public Gee.Set<DataSource> get_extended_neighbors(DataSource home) {
+    // "Extended" as in immediate neighbors and their neighbors
+    public Gee.Set<DataSource> get_extended_neighbors(DataSource home, string? typename = null) {
         // build set of neighbors
         Gee.Set<DataSource> neighbors = new Gee.HashSet<DataSource>();
         
         // immediate neighbors
         DataSource next, prev;
-        if (!get_immediate_neighbors(home, out next, out prev))
+        if (!get_immediate_neighbors(home, out next, out prev, typename))
             return neighbors;
         
         // add next and its distant neighbor
@@ -2637,7 +2473,7 @@ public class ViewCollection : DataCollection {
             neighbors.add(next);
             
             DataSource next_next, next_prev;
-            get_immediate_neighbors(next, out next_next, out next_prev);
+            get_immediate_neighbors(next, out next_next, out next_prev, typename);
             
             // only add next-next because next-prev is home
             if (next_next != null)
@@ -2649,7 +2485,7 @@ public class ViewCollection : DataCollection {
             neighbors.add(prev);
             
             DataSource next_prev, prev_prev;
-            get_immediate_neighbors(prev, out next_prev, out prev_prev);
+            get_immediate_neighbors(prev, out next_prev, out prev_prev, typename);
             
             // only add prev-prev because next-prev is home
             if (prev_prev != null)

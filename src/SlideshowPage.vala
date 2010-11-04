@@ -204,11 +204,11 @@ class SlideshowPage : SinglePhotoPage {
             // prefetch this photo's extended neighbors: the next photo highest priority, the prior
             // one normal, and the extended neighbors lowest, to recognize immediate needs
             DataSource forward, back;
-            controller.get_immediate_neighbors(next, out forward, out back);
+            controller.get_immediate_neighbors(next, out forward, out back, Photo.TYPENAME);
             cache.prefetch((Photo) forward, BackgroundJob.JobPriority.HIGHEST);
             cache.prefetch((Photo) back, BackgroundJob.JobPriority.NORMAL);
             
-            Gee.Set<DataSource> neighbors = controller.get_extended_neighbors(next);
+            Gee.Set<DataSource> neighbors = controller.get_extended_neighbors(next, Photo.TYPENAME);
             neighbors.remove(forward);
             neighbors.remove(back);
             
@@ -237,12 +237,50 @@ class SlideshowPage : SinglePhotoPage {
     
     private void on_previous() {
         DataView view = controller.get_view_for_source(current);
-        advance((Photo) controller.get_previous(view).get_source(), Direction.BACKWARD);
+
+        Photo? prev_photo = null;
+        DataView? start_view = controller.get_previous(view);       
+        DataView? prev_view = start_view;
+        
+        while (prev_view != null) {
+            if (prev_view.get_source() is Photo) {
+                prev_photo = (Photo) prev_view.get_source();
+                break;
+            }
+
+            prev_view = controller.get_previous(prev_view);
+
+            if (prev_view == start_view) {
+                warning("on_previous( ): can't advance to previous photo: collection has only videos");
+                return;
+            }
+        }
+
+        advance(prev_photo, Direction.BACKWARD);
     }
     
     private void on_next() {
         DataView view = controller.get_view_for_source(current);
-        advance((Photo) controller.get_next(view).get_source(), Direction.FORWARD);
+
+        Photo? next_photo = null;
+        DataView? start_view = controller.get_next(view);
+        DataView? next_view = start_view;
+
+        while (next_view != null) {
+            if (next_view.get_source() is Photo) {
+                next_photo = (Photo) next_view.get_source();
+                break;
+            }
+
+            next_view = controller.get_next(next_view);
+            
+            if (next_view == start_view) {
+                warning("on_next( ): can't advance to next photo: collection has only videos");
+                return;
+            }
+        }
+
+        advance(next_photo, Direction.FORWARD);
     }
     
     private void advance(Photo photo, Direction direction) {

@@ -1169,13 +1169,13 @@ public class AddTagsDialog : TagsDialog {
 }
 
 public class ModifyTagsDialog : TagsDialog {
-    public ModifyTagsDialog(LibraryPhoto photo) {
+    public ModifyTagsDialog(MediaSource source) {
         base (Resources.MODIFY_TAGS_LABEL, _("Tags (separated by commas):"), 
-            get_initial_text(photo));
+            get_initial_text(source));
     }
     
-    private static string? get_initial_text(LibraryPhoto photo) {
-        Gee.SortedSet<Tag>? sorted_tags = Tag.global.fetch_sorted_for_photo(photo);
+    private static string? get_initial_text(MediaSource source) {
+        Gee.SortedSet<Tag>? sorted_tags = Tag.global.fetch_sorted_for_source(source);
         
         if (sorted_tags == null)
             return null;

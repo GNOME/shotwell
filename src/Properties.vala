@@ -181,7 +181,7 @@ private class BasicProperties : Properties {
             start_time = event_source.get_start_time();
             end_time = event_source.get_end_time();
 
-            photo_count = event_source.get_photo_count();
+            photo_count = event_source.get_media_count();
         } else if (source is VideoSource) {
             Video video = (Video) source;
             clip_duration = video.get_clip_duration();
@@ -230,7 +230,7 @@ private class BasicProperties : Properties {
                     end_time = event_source.get_start_time();
                 }
 
-                photo_count += event_source.get_photo_count();
+                photo_count += event_source.get_media_count();
                 event_count++;
             } else if (source is VideoSource) {
                 video_count++;

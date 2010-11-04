@@ -131,7 +131,8 @@ SRC_FILES = \
 	MetadataWriter.vala \
 	Application.vala \
 	TimedQueue.vala \
-	MediaPage.vala
+	MediaPage.vala \
+	MediaDataRepresentation.vala
 
 ifndef LINUX
 SRC_FILES += \

@@ -404,7 +404,13 @@ public abstract class MediaPage : CheckerboardPage {
         Gtk.ActionEntry help = { "HelpMenu", null, TRANSLATABLE, null, null, null };
         help.label = _("_Help");
         actions += help;
-        
+
+        Gtk.ActionEntry play = { "PlayVideo", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "<Ctrl>Y",
+            TRANSLATABLE, on_play_video };
+        play.label = _("_Play Video");
+        play.tooltip = _("Open the selected videos in the system video player");
+        actions += play;
+
         return actions;
     }
     
@@ -662,6 +668,20 @@ public abstract class MediaPage : CheckerboardPage {
         RatingFilter filter = (RatingFilter) action.get_current_value();
 
         return filter;
+    }
+
+    protected void on_play_video() {
+        if (get_view().get_selected_count() != 1)
+            return;
+        
+        Video video = (Video) get_view().get_selected_at(0).get_source();
+        
+        try {
+            AppInfo.launch_default_for_uri(video.get_file().get_uri(), null);
+        } catch (Error e) {
+            AppWindow.error_message(_("Shotwell was unable to play the selected video:\n%s").printf(
+                e.message));
+        }
     }
 
     protected override bool on_app_key_pressed(Gdk.EventKey event) {

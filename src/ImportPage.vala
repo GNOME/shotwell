@@ -344,6 +344,10 @@ public class ImportPage : CheckerboardPage {
         public time_t get_exposure_time() {
             return exposure_time;
         }
+
+        public override time_t get_exposure_time_override() {
+            return (import_file is VideoImportSource) ? get_exposure_time() : 0;
+        }
         
         public override string get_identifier() {
             return filename;
@@ -1051,13 +1055,20 @@ public class ImportPage : CheckerboardPage {
             progress_bar.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
             progress_bar.set_text(_("Fetching preview for %s").printf(import_source.get_name()));
             
+            // Ask GPhoto to read the current file's metadata, but only if the file is not a
+            // video. Across every memory card and camera type I've tested (lucas, as of 10/27/2010)
+            // GPhoto always loads null metadata for videos. So without the is-not-video guard,
+            // this code segment just needlessly and annoyingly prints a warning message to the
+            // console.
             PhotoMetadata? metadata = null;
-            try {
-                metadata = GPhoto.load_metadata(spin_idle_context.context, camera, fulldir,
-                    filename);
-            } catch (Error err) {
-                warning("Unable to fetch metadata for %s/%s: %s", fulldir, filename,
-                    err.message);
+            if (!VideoReader.is_supported_video_filename(filename)) {
+                try {
+                    metadata = GPhoto.load_metadata(spin_idle_context.context, camera, fulldir,
+                        filename);
+                } catch (Error err) {
+                    warning("Unable to fetch metadata for %s/%s: %s", fulldir, filename,
+                        err.message);
+                }
             }
             
             // calculate EXIF's fingerprint
@@ -1081,7 +1092,14 @@ public class ImportPage : CheckerboardPage {
                 preview = GPhoto.load_preview(spin_idle_context.context, camera, fulldir,
                     filename, out preview_raw, out preview_raw_length);
             } catch (Error err) {
-                warning("Unable to fetch preview for %s/%s: %s", fulldir, filename, err.message);
+                // only issue the warning message if we're not reading a video. GPhoto is capable
+                // of reading video previews about 50% of the time, so we don't want to put a guard
+                // around this entire code segment like we did with the metadata-read segment above,
+                // however video previews being absent is so common that there's no reason
+                // we should generate a warning for one.
+                if (!VideoReader.is_supported_video_filename(filename)) {
+                    warning("Unable to fetch preview for %s/%s: %s", fulldir, filename, err.message);
+                }
             }
             
             // calculate thumbnail fingerprint

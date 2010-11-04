@@ -909,14 +909,14 @@ public abstract class EditingHostPage : SinglePhotoPage {
         master_batch.set(BackgroundJob.JobPriority.LOW, photo);
         
         DataSource next_source, prev_source;
-        if (!controller.get_immediate_neighbors(photo, out next_source, out prev_source))
+        if (!controller.get_immediate_neighbors(photo, out next_source, out prev_source, Photo.TYPENAME))
             return;
         
         Photo next = (Photo) next_source;
         Photo prev = (Photo) prev_source;
         
         // prefetch the immediate neighbors and their outer neighbors, for plenty of readahead
-        foreach (DataSource neighbor_source in controller.get_extended_neighbors(photo)) {
+        foreach (DataSource neighbor_source in controller.get_extended_neighbors(photo, Photo.TYPENAME)) {
             Photo neighbor = (Photo) neighbor_source;
             
             BackgroundJob.JobPriority priority = BackgroundJob.JobPriority.NORMAL;
@@ -936,9 +936,9 @@ public abstract class EditingHostPage : SinglePhotoPage {
     private void cancel_prefetch_neighbors(ViewCollection old_controller, Photo old_photo,
         ViewCollection new_controller, Photo new_photo) {
         Gee.Set<Photo> old_neighbors = (Gee.Set<Photo>)
-            old_controller.get_extended_neighbors(old_photo);
+            old_controller.get_extended_neighbors(old_photo, Photo.TYPENAME);
         Gee.Set<Photo> new_neighbors = (Gee.Set<Photo>)
-            new_controller.get_extended_neighbors(new_photo);
+            new_controller.get_extended_neighbors(new_photo, Photo.TYPENAME);
         
         foreach (Photo old_neighbor in old_neighbors) {
             // cancel prefetch and drop from cache if old neighbor is not part of the new
@@ -1194,10 +1194,20 @@ public abstract class EditingHostPage : SinglePhotoPage {
     }
     
     private void update_toolbar() {
-        bool multiple = controller.get_count() > 1;
+        bool multiple_photos = false;
+        int photo_ticker = 0;
+        foreach (DataSource source in controller.get_sources()) {
+            if (source is Photo)
+                photo_ticker++;
 
-        prev_button.sensitive = multiple;
-        next_button.sensitive = multiple;
+            if (photo_ticker > 1) {
+                multiple_photos = true;
+                break;
+            }
+        }
+
+        prev_button.sensitive = multiple_photos;
+        next_button.sensitive = multiple_photos;
         
         Photo photo = get_photo();
         Scaling scaling = get_canvas_scaling();

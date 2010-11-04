@@ -102,12 +102,6 @@ public class VideosPage : MediaPage {
     protected override Gtk.ActionEntry[] init_collect_action_entries() {
         Gtk.ActionEntry[] actions = base.init_collect_action_entries();
 
-        Gtk.ActionEntry play = { "PlayVideo", Gtk.STOCK_MEDIA_PLAY, TRANSLATABLE, "<Ctrl>P",
-            TRANSLATABLE, on_play_video };
-        play.label = _("_Play Video");
-        play.tooltip = _("Open the selected videos in the system video player");
-        actions += play;
-        
 #if !NO_PUBLISHING
         Gtk.ActionEntry publish = { "Publish", Resources.PUBLISH, TRANSLATABLE, "<Ctrl><Shift>P",
             TRANSLATABLE, on_publish };
@@ -159,22 +153,6 @@ public class VideosPage : MediaPage {
 
     protected override void set_config_photos_sort(bool sort_order, int sort_by) {
         Config.get_instance().set_library_photos_sort(sort_order, sort_by);
-    }
-
-    private void on_play_video() {
-        Gee.Collection<DataSource> selected = get_view().get_selected_sources();
-        if (selected.size != 1)
-            return;
-        
-        Video video = (Video) selected.to_array()[0];
-        
-        string launch_uri = "file://" + video.get_filename();
-        try {
-            AppInfo.launch_default_for_uri(launch_uri, null);
-        } catch (Error e) {
-            AppWindow.error_message(_("Shotwell was unable to play the selected video:\n%s").printf(
-                e.message));
-        }
     }
     
     protected override void on_export() {

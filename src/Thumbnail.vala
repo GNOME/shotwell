@@ -38,16 +38,16 @@ public class Thumbnail : CheckerboardItem {
         base (media, media.get_dimensions().get_scaled(scale, true), media.get_name());
         
         this.media = media;
-        
-        if (media is LibraryPhoto) {
-            Tag.global.container_contents_altered.connect(on_tag_contents_altered);
-            Tag.global.items_altered.connect(on_tags_altered);
+
+        Tag.global.container_contents_altered.connect(on_tag_contents_altered);
+        Tag.global.items_altered.connect(on_tags_altered);
+
+        if (media is LibraryPhoto)
             LibraryPhoto.global.items_altered.connect(on_sources_altered);
-        } else {
-            assert(media is Video);
-            
+        else if (media is Video)
             Video.global.items_altered.connect(on_sources_altered);
-        }
+        else
+            error("can't construct Thumbnail: unsupported media type");
         
         this.scale = scale;
         
@@ -58,27 +58,20 @@ public class Thumbnail : CheckerboardItem {
     ~Thumbnail() {
         if (cancellable != null)
             cancellable.cancel();
-        
-        if (media is Photo) {
-            Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
-            Tag.global.items_altered.disconnect(on_tags_altered);
+
+        Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
+        Tag.global.items_altered.disconnect(on_tags_altered);
+
+        if (media is Photo)
             LibraryPhoto.global.items_altered.disconnect(on_sources_altered);
-        } else {
-            assert(media is Video);
-            
+        else if (media is Video)
             Video.global.items_altered.disconnect(on_sources_altered);
-        }
+        else
+            error("Thumbnail.destroy( ): thumbnail internal state references unsupported media type");
     }
     
     private void update_tags() {
-        // if this is a thumbnail for a video, then photo can be null, so do a short-circuit
-        // return when it is; later, when we support tagging videos, we can implement tag
-        // updates on video objects
-        LibraryPhoto photo = media as LibraryPhoto;
-        if (photo == null)
-            return;
-        
-        Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_photo(photo);
+        Gee.Collection<Tag>? tags = Tag.global.fetch_sorted_for_source(media);
         if (tags == null || tags.size == 0)
             clear_subtitle();
         else
@@ -93,7 +86,7 @@ public class Thumbnail : CheckerboardItem {
         bool tag_added = (added != null) ? added.contains(media) : false;
         bool tag_removed = (removed != null) ? removed.contains(media) : false;
         
-        // if photo we're monitoring is added or removed to any tag, update tag list
+        // if media source we're monitoring is added or removed to any tag, update tag list
         if (tag_added || tag_removed)
             update_tags();
     }
@@ -101,15 +94,11 @@ public class Thumbnail : CheckerboardItem {
     private void on_tags_altered(Gee.Map<DataObject, Alteration> altered) {
         if (!exposure)
             return;
-        
-        LibraryPhoto photo = media as LibraryPhoto;
-        if (photo == null)
-            return;
-            
+
         foreach (DataObject object in altered.keys) {
             Tag tag = (Tag) object;
             
-            if (tag.contains(photo)) {
+            if (tag.contains(media)) {
                 update_tags();
                 
                 break;

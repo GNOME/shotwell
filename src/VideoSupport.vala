@@ -17,6 +17,7 @@ public class VideoImportParams {
     public File file;
     public ImportID import_id = ImportID();
     public string? md5;
+    public time_t exposure_time_override;
     
     // IN/OUT:
     public Thumbnails? thumbnails;
@@ -25,11 +26,12 @@ public class VideoImportParams {
     public VideoRow row = VideoRow();
     
     public VideoImportParams(File file, ImportID import_id, string? md5,
-        Thumbnails? thumbnails = null) {
+        Thumbnails? thumbnails = null, time_t exposure_time_override = 0) {
         this.file = file;
         this.import_id = import_id;
         this.md5 = md5;
         this.thumbnails = thumbnails;
+        this.exposure_time_override = exposure_time_override;
     }
 }
 
@@ -92,7 +94,7 @@ public class VideoReader {
         // make sure params has a valid md5
         assert(params.md5 != null);
 
-        time_t exposure_time = 0;
+        time_t exposure_time = params.exposure_time_override;
         string title = "";
         
         VideoReader reader = new VideoReader(file.get_path());
@@ -288,6 +290,7 @@ class ThumbnailSink : Gst.BaseSink {
 public class Video : VideoSource {
     public const uint64 FLAG_TRASH =    0x0000000000000001;
     public const uint64 FLAG_OFFLINE =  0x0000000000000002;
+    public const string TYPENAME = "video";
 
     private static bool interpreter_state_changed = false;
     private static int current_state = -1;
@@ -376,6 +379,38 @@ public class Video : VideoSource {
     public static void terminate() {
     }
 
+    public static string upgrade_video_id_to_source_id(VideoID video_id) {
+        return ("%s-%016" + int64.FORMAT_MODIFIER + "x").printf(Video.TYPENAME, video_id.id);
+    }
+
+    public static void set_many_to_event(Gee.Collection<Video> videos, Event? event) {
+        EventID event_id = (event != null) ? event.get_event_id() : EventID();
+        
+        VideoID[] video_ids = new VideoID[videos.size];
+        int ctr = 0;
+        foreach (Video video in videos) {
+            Event? old_event = video.get_event();
+            if (old_event != null)
+                old_event.detach(video);
+            
+            video_ids[ctr++] = video.backing_row.video_id;
+            video.backing_row.event_id = event_id;
+        }
+        
+        try {
+            VideoTable.get_instance().set_many_to_event(video_ids, event_id);
+        } catch (DatabaseError err) {
+            AppWindow.database_error(err);
+        }
+        
+        if (event != null)
+            event.attach_many(videos);
+        
+        Alteration alteration = new Alteration("metadata", "event");
+        foreach (Video video in videos)
+            video.notify_altered(alteration);
+    }
+
     protected override void commit_backlinks(SourceCollection? sources, string? backlinks) {        
         try {
             VideoTable.get_instance().update_backlinks(get_video_id(), backlinks);
@@ -384,6 +419,17 @@ public class Video : VideoSource {
             }
         } catch (DatabaseError err) {
             warning("Unable to update link state for %s: %s", to_string(), err.message);
+        }
+    }
+
+    protected override bool internal_set_event_id(EventID event_id) {
+        lock (backing_row) {
+            bool committed = VideoTable.get_instance().set_event(backing_row.video_id, event_id);
+
+            if (committed)
+                backing_row.event_id = event_id;
+
+            return committed;
         }
     }
 
@@ -429,6 +475,12 @@ public class Video : VideoSource {
         }
     }
 
+    public override Gdk.Pixbuf get_preview_pixbuf(Scaling scaling) throws Error {
+        Gdk.Pixbuf pixbuf = get_thumbnail(ThumbnailCache.Size.BIG);
+        
+        return scaling.perform_on_pixbuf(pixbuf, Gdk.InterpType.NEAREST, true);
+    }
+
     public override Gdk.Pixbuf? create_thumbnail(int scale) throws Error {
         VideoReader reader = new VideoReader(backing_row.filepath);
         
@@ -440,13 +492,19 @@ public class Video : VideoSource {
     }
     
     public override string get_typename() {
-        return "video";
+        return TYPENAME;
     }
     
     public override int64 get_instance_id() {
         return get_video_id().id;
     }
-    
+
+    public override ImportID get_import_id() {
+        lock (backing_row) {
+            return backing_row.import_id;
+        }
+    }
+
     public override PhotoFileFormat get_preferred_thumbnail_format() {
         return PhotoFileFormat.get_system_default_format();
     }
@@ -547,6 +605,12 @@ public class Video : VideoSource {
     public override void untrash() {
         remove_flags(FLAG_TRASH);
     }
+    
+    public override EventID get_event_id() {
+        lock (backing_row) {
+            return backing_row.event_id;
+        }
+    }
 
     public string get_basename() {
         lock (backing_row) {
@@ -566,7 +630,7 @@ public class Video : VideoSource {
         }
     }
     
-    public time_t get_exposure_time() {
+    public override time_t get_exposure_time() {
         lock (backing_row) {
             return backing_row.exposure_time;
         }
@@ -582,7 +646,7 @@ public class Video : VideoSource {
         return get_frame_dimensions();
     }
     
-    public uint64 get_filesize() {
+    public override uint64 get_filesize() {
         lock (backing_row) {
             return backing_row.filesize;
         }
@@ -805,7 +869,11 @@ public class VideoSourceCollection : MediaSourceCollection {
         
         base.notify_contents_altered(added, removed);
     }
-    
+
+    protected override MediaSource? fetch_by_numeric_id(int64 numeric_id) {
+        return fetch(VideoID(numeric_id));
+    }
+
     public static int64 get_video_key(DataSource source) {
         Video video = (Video) source;
         VideoID video_id = video.get_video_id();
@@ -841,5 +909,9 @@ public class VideoSourceCollection : MediaSourceCollection {
     
     public Video fetch(VideoID video_id) {
         return (Video) fetch_by_key(video_id.id);
+    }
+    
+    public override Gee.Collection<string> get_event_source_ids(EventID event_id){
+        return VideoTable.get_instance().get_event_source_ids(event_id);
     }
 }
