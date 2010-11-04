@@ -693,8 +693,10 @@ public class PublishingDialog : Gtk.Dialog {
         service_selector_box_label.set_mnemonic_widget(service_selector_box);
         service_selector_box_label.set_alignment(0.0f, 0.5f);
         
-        foreach (string service_name in ServiceFactory.get_instance().get_manifest(photos.length > 0))
+        foreach (string service_name in ServiceFactory.get_instance().get_manifest(photos.length,
+            videos.length)) {
             service_selector_box.append_text(service_name);
+        }
         service_selector_box.changed.connect(on_service_changed);
 
         /* the wrapper is not an extraneous widget -- it's necessary to prevent the service
@@ -708,11 +710,10 @@ public class PublishingDialog : Gtk.Dialog {
         service_selector_layouter.set_border_width(12);
         service_selector_layouter.add(service_selector_box_label);
         service_selector_layouter.add(service_selector_box_wrapper);
-
-
+        
         /* 'service area' is the selector assembly plus the horizontal rule dividing it from the
            rest of the dialog */
-        Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);       
+        Gtk.VBox service_area_layouter = new Gtk.VBox(false, 0);
         service_area_layouter.add(service_selector_layouter);
         Gtk.HSeparator service_central_separator = new Gtk.HSeparator();
         service_area_layouter.add(service_central_separator);
@@ -918,6 +919,7 @@ public class PublishingDialog : Gtk.Dialog {
 
 public abstract class ServiceCapabilities {
     public enum MediaType {
+        NONE =          0,
         PHOTO =         1 << 0,
         VIDEO =         1 << 1,
         ALL =           0xFFFFFFFF
@@ -1176,15 +1178,22 @@ public class ServiceFactory {
         error("No default publishing service available.");
     }
     
-    // Currently can only upload to photos or videos ... mixed media requires a bit more work.
-    public string[] get_manifest(bool photos) {
+    public string[] get_manifest(int photo_count, int video_count) {
         string[] result = new string[0];
         
-        ServiceCapabilities.MediaType media_type = photos ? ServiceCapabilities.MediaType.PHOTO
-            : ServiceCapabilities.MediaType.VIDEO;
+        ServiceCapabilities.MediaType media_type = ServiceCapabilities.MediaType.NONE;
+        
+        if (photo_count > 0)
+            media_type |= ServiceCapabilities.MediaType.PHOTO;
+        
+        if (video_count > 0)
+            media_type |= ServiceCapabilities.MediaType.VIDEO;
+        
+        if (media_type == ServiceCapabilities.MediaType.NONE)
+            return result;
         
         foreach (ServiceCapabilities caps in caps_map.values) {
-            if ((caps.get_supported_media() & media_type) != 0)
+            if ((caps.get_supported_media() & media_type) == media_type)
                 result += caps.get_name();
         }
         
