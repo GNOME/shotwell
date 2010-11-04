@@ -216,13 +216,13 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string EXPORT_MENU = _("_Export...");
     public const string EXPORT_TOOLTIP = _("Export to disk");
     
-    public const string PAGE_SETUP_MENU = _("Page _Setup...");    
+    public const string PAGE_SETUP_MENU = _("Page _Setup...");
     public const string PAGE_SETUP_TOOLTIP = _("View and change page setup printing");
     
-    public const string PRINT_MENU = _("_Print...");    
+    public const string PRINT_MENU = _("_Print...");
     public const string PRINT_TOOLTIP = _("Print the photo to a printer connected to your computer");
     
-    public const string PUBLISH_MENU = _("Pu_blish...");    
+    public const string PUBLISH_MENU = _("Pu_blish...");
     public const string PUBLISH_LABEL = _("Publish");
     public const string PUBLISH_TOOLTIP = _("Publish to various websites");
 

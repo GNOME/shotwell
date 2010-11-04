@@ -454,7 +454,7 @@ public abstract class CollectionPage : MediaPage {
 #endif
         
 #if !NO_PUBLISHING
-        set_action_sensitive("Publish", (!selection_has_video) && has_selected);
+        set_action_sensitive("Publish", has_selected);
         set_action_important("Publish", true);
 #endif
     }
@@ -648,10 +648,8 @@ public abstract class CollectionPage : MediaPage {
 
 #if !NO_PUBLISHING
     private void on_publish() {
-        if (get_view().get_selected_count() == 0)
-            return;
-        
-        PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+        if (get_view().get_selected_count() > 0)
+            PublishingDialog.go((Gee.Collection<MediaSource>) get_view().get_selected_sources());
     }
 #endif
 
