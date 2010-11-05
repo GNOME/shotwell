@@ -51,7 +51,7 @@ public class Capabilities : ServiceCapabilities {
     }
     
     public override ServiceCapabilities.MediaType get_supported_media() {
-        return MediaType.PHOTO;
+        return MediaType.PHOTO | MediaType.VIDEO;
     }
     
     public override ServiceInteractor factory(PublishingDialog host) {
@@ -469,7 +469,7 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
         get_host().set_cancel_button_mode();
 
-        PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(parameters);
+        PublishingOptionsPane publishing_options_pane = new PublishingOptionsPane(parameters, get_host().get_media_type());
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         get_host().install_pane(publishing_options_pane);
@@ -484,7 +484,7 @@ public class Interactor : ServiceInteractor {
         progress_pane = new ProgressPane();
         get_host().install_pane(progress_pane);
 
-        Photo[] photos = get_host().get_photos();
+        MediaSource[] photos = get_host().get_media();
         Uploader uploader = new Uploader(session, parameters, photos);
         uploader.status_updated.connect(progress_pane.set_status);
         uploader.upload_complete.connect(on_upload_complete);
@@ -602,8 +602,8 @@ private class Uploader : BatchUploader {
     private Session session;
     private PublishingParameters parameters;
 
-    public Uploader(Session session, PublishingParameters params, Photo[] photos) {
-        base(photos);
+    public Uploader(Session session, PublishingParameters params, MediaSource[] photos) {
+        base.with_media(photos);
 
         this.session = session;
         this.parameters = params;
@@ -627,7 +627,7 @@ private class Uploader : BatchUploader {
     protected override RESTTransaction create_transaction_for_file(
         BatchUploader.TemporaryFileDescriptor file) {
         return new UploadTransaction(session, parameters, file.temp_file.get_path(),
-            file.source_photo);
+            (file.source_photo != null)? (MediaSource) file.source_photo:(MediaSource) file.source_video);
     }
 }
 
@@ -704,11 +704,11 @@ private class AccountInfoFetchTransaction : Transaction {
     }
 }
 
-private class UploadTransaction : PhotoUploadTransaction {
+private class UploadTransaction : MediaUploadTransaction {
     public UploadTransaction(Session session, PublishingParameters params, string source_file_path,
-        Photo source_photo) {
+        MediaSource media_source) {
         base.with_endpoint_url(session, "http://api.flickr.com/services/upload", source_file_path,
-            source_photo);
+            media_source);
 
         add_argument("api_key", session.get_api_key());
         add_argument("auth_token", session.get_auth_token());
@@ -718,7 +718,7 @@ private class UploadTransaction : PhotoUploadTransaction {
 
         GLib.HashTable<string, string> disposition_table =
             new GLib.HashTable<string, string>(GLib.str_hash, GLib.str_equal);
-        disposition_table.insert("filename", source_photo.get_name());
+        disposition_table.insert("filename", media_source.get_name());
         disposition_table.insert("name", "photo");
         set_binary_disposition_table(disposition_table);
     }
@@ -832,7 +832,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
     public signal void publish();
     public signal void logout();
 
-    public PublishingOptionsPane(PublishingParameters parameters) {
+    public PublishingOptionsPane(PublishingParameters parameters, MediaType media_type) {
         this.parameters = parameters;
 
         visibilities = create_visibilities();
@@ -867,7 +867,13 @@ private class PublishingOptionsPane : PublishingDialogPane {
         combos_right_padding.set_draw(false);
         Gtk.Table combos_layouter = new Gtk.Table(2, 2, false);
         combos_layouter.set_row_spacing(0, 12);
-        Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(_("Photos _visible to:"));
+        string visibility_label_text = _("Photos _visible to:");
+        if ((media_type == MediaType.VIDEO)) {
+            visibility_label_text = _("Videos _visible to:");
+        } else if ((media_type == MediaType.ALL)) {
+            visibility_label_text = _("Photos and videos _visible to:");
+        }
+        Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(visibility_label_text);
         Gtk.Label size_label = new Gtk.Label.with_mnemonic(_("Photo _size:"));
         Gtk.Alignment visibility_combo_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
         visibility_combo = create_visibility_combo();
@@ -885,8 +891,11 @@ private class PublishingOptionsPane : PublishingDialogPane {
         size_label_aligner.add(size_label);
         combos_layouter.attach_defaults(vis_label_aligner, 0, 1, 0, 1);
         combos_layouter.attach_defaults(visibility_combo_aligner, 1, 2, 0, 1);
-        combos_layouter.attach_defaults(size_label_aligner, 0, 1, 1, 2);
-        combos_layouter.attach_defaults(size_combo_aligner, 1, 2, 1, 2);
+
+        if ((media_type & MediaType.PHOTO) != 0) {
+            combos_layouter.attach_defaults(size_label_aligner, 0, 1, 1, 2);
+            combos_layouter.attach_defaults(size_combo_aligner, 1, 2, 1, 2);
+        }
         combos_layouter_padder.add(combos_left_padding);
         combos_layouter_padder.add(combos_layouter);
         combos_layouter_padder.add(combos_right_padding);

@@ -987,7 +987,7 @@ private class AlbumCreationTransaction : Transaction {
     }
 }
 
-private class UploadTransaction : PhotoUploadTransaction {
+private class UploadTransaction : MediaUploadTransaction {
     public UploadTransaction(Session session, string aid, string source_file_path,
         Photo source_photo) {
         base(session, source_file_path, source_photo);

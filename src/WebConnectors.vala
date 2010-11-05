@@ -15,6 +15,13 @@ public errordomain PublishingError {
     LOCAL_FILE_ERROR
 }
 
+public enum MediaType {
+    NONE =          0,
+    PHOTO =         1 << 0,
+    VIDEO =         1 << 1,
+    ALL =           0xFFFFFFFF
+}
+
 public enum HttpMethod {
     GET,
     POST,
@@ -418,26 +425,31 @@ public class EndpointTestTransaction : RESTTransaction {
     }
 }
 
-public abstract class PhotoUploadTransaction : RESTTransaction {
+public abstract class MediaUploadTransaction : RESTTransaction {
     private string source_file;
     private GLib.HashTable<string, string> binary_disposition_table = null;
-    private Photo source_photo = null;
+    private MediaSource source_photo = null;
+    private string mime_type;
 
-    public PhotoUploadTransaction(RESTSession session, string source_file,
-        Photo source_photo) {
+    public MediaUploadTransaction(RESTSession session, string source_file,
+        MediaSource media_source) {
         base(session);
-
+        
+        assert(media_source is Photo || media_source is Video);
+        
         this.source_file = source_file;
-        this.source_photo = source_photo;
+        this.source_photo = media_source;
+        mime_type = (media_source is Photo) ? "image/jpeg" : "video/mpeg";
         binary_disposition_table = create_default_binary_disposition_table();
     }
 
-    public PhotoUploadTransaction.with_endpoint_url(RESTSession session, string endpoint_url,
-        string source_file, Photo source_photo) {
+    public MediaUploadTransaction.with_endpoint_url(RESTSession session, string endpoint_url,
+        string source_file, MediaSource media_source) {
         base.with_endpoint_url(session, endpoint_url);
 
         this.source_file = source_file;
-        this.source_photo = source_photo;
+        this.source_photo = media_source;
+        mime_type = (media_source is Photo) ? "image/jpeg" : "video/mpeg";
         binary_disposition_table = create_default_binary_disposition_table();
     }
 
@@ -495,7 +507,7 @@ public abstract class PhotoUploadTransaction : RESTTransaction {
         // can attach it to the multipart request, then actaully append the buffer
         // to the multipart request. Then, set the MIME type for this part.
         Soup.Buffer bindable_data = new Soup.Buffer(Soup.MemoryUse.COPY, photo_data.data, data_length);
-        message_parts.append_form_file("", source_file, "image/jpeg", bindable_data);
+        message_parts.append_form_file("", source_file, mime_type, bindable_data);
 
         // set up the Content-Disposition header for the multipart part that contains the
         // binary image data
@@ -671,25 +683,38 @@ public class PublishingDialog : Gtk.Dialog {
     private MediaSource[] media_sources = new MediaSource[0];
     private PublishingDialogPane active_pane;
     private ServiceInteractor interactor;
+    private MediaType media_type = MediaType.NONE;
 
     private PublishingDialog(Gee.Collection<MediaSource> to_publish) {
-        set_title(_("Publish Photos"));
         resizable = false;
         delete_event.connect(on_window_close);
         
         foreach (MediaSource media in to_publish) {
             if (media is Photo) {
                 photos += (Photo) media;
+                media_type |= MediaType.PHOTO;
             } else {
                 assert(media is Video);
                 videos += (Video) media;
+                media_type |= MediaType.VIDEO;
             }
             media_sources += media;
         }
 
+        string title = _("Publish Photos");
+        string label = _("Publish photos _to:");
+        if (media_type == MediaType.VIDEO) {
+            title = _("Publish Videos");
+            label = _("Publish videos _to");
+        } else if (media_type == MediaType.ALL) {
+            title = _("Publish Photos and Videos");
+            label = _("Publish photos and videos _to");
+        }
+        set_title(title);
+
         service_selector_box = new Gtk.ComboBox.text();
         service_selector_box.set_active(0);
-        service_selector_box_label = new Gtk.Label.with_mnemonic(_("Publish photos _to:"));
+        service_selector_box_label = new Gtk.Label.with_mnemonic(label);
         service_selector_box_label.set_mnemonic_widget(service_selector_box);
         service_selector_box_label.set_alignment(0.0f, 0.5f);
         
@@ -910,6 +935,10 @@ public class PublishingDialog : Gtk.Dialog {
 
     public MediaSource[] get_media() {
         return media_sources;
+    }
+
+    public MediaType get_media_type() {
+        return media_type;
     }
 
     public ServiceInteractor get_interactor() {
