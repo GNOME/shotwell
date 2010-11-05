@@ -167,6 +167,7 @@ public class ExportDialog : Gtk.Dialog {
 
         ok_button.grab_focus();
     }
+    
     // unlike other parameters, which should be persisted across dialog executions, format
     // must be set each time the dialog is executed, so that the format displayed in the
     // format combo box matches the format of the backing photo -- this is why it's passed
@@ -1421,7 +1422,7 @@ public class PreferencesDialog {
         string current_app_executable, out SortedList<AppInfo> external_apps) {
         // get list of all applications for the given mime types
         assert(mime_types.length != 0);
-        external_apps = get_apps_for_mime_types(mime_types);
+        external_apps = DesktopIntegration.get_apps_for_mime_types(mime_types);
         
         if (external_apps.size == 0)
             return;
@@ -1531,9 +1532,9 @@ public class PreferencesDialog {
     private void on_photo_editor_changed() {
         AppInfo app = external_photo_apps.get_at(photo_editor_combo.get_active());
 
-        Config.get_instance().set_external_photo_app(get_app_open_command(app));
+        Config.get_instance().set_external_photo_app(DesktopIntegration.get_app_open_command(app));
 
-        debug("setting external photo editor to: %s", get_app_open_command(app));
+        debug("setting external photo editor to: %s", DesktopIntegration.get_app_open_command(app));
 
     }
     

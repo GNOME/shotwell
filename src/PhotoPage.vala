@@ -1752,10 +1752,8 @@ public abstract class EditingHostPage : SinglePhotoPage {
     
 #if !NO_SET_BACKGROUND
     public void on_set_background() {
-        if (!has_photo())
-            return;
-        
-        set_desktop_background(get_photo());
+        if (has_photo())
+            DesktopIntegration.set_background(get_photo());
     }
 #endif
 
@@ -1998,12 +1996,11 @@ public abstract class EditingHostPage : SinglePhotoPage {
 //
 
 public class LibraryPhotoPage : EditingHostPage {
-    private Gtk.Menu context_menu;
-    private CollectionPage return_page = null;
-
     public const int TRINKET_SCALE = 20;
     public const int TRINKET_PADDING = 1;
 
+    private Gtk.Menu context_menu;
+    private CollectionPage return_page = null;
     private bool return_to_collection_on_release = false;
     
     public LibraryPhotoPage() {
@@ -2197,6 +2194,12 @@ public class LibraryPhotoPage : EditingHostPage {
         edit_raw.tooltip = Resources.EXTERNAL_EDIT_RAW_TOOLTIP;
         actions += edit_raw;
 #endif
+        
+        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
+            TRANSLATABLE, on_send_to };
+        send_to.label = Resources.SEND_TO_MENU;
+        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
+        actions += send_to;
         
 #if !NO_SET_BACKGROUND
         Gtk.ActionEntry set_background = { "SetBackground", null, TRANSLATABLE, "<Ctrl>B",
@@ -2537,6 +2540,7 @@ public class LibraryPhotoPage : EditingHostPage {
     protected override void update_ui(Photo photo, bool missing) {
         bool sensitivity = !missing;
         
+        set_action_sensitive("SendTo", sensitivity);
         set_action_sensitive("Publish", sensitivity);
         set_action_sensitive("Print", sensitivity);
         set_action_sensitive("JumpToFile", sensitivity);
@@ -2793,6 +2797,11 @@ public class LibraryPhotoPage : EditingHostPage {
         }
     }
 #endif
+    
+    private void on_send_to() {
+        if (has_photo())
+            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
+    }
     
     private void on_export() {
         if (!has_photo())
@@ -3139,7 +3148,7 @@ public class DirectPhotoPage : EditingHostPage {
     private File initial_file;
     private File current_save_dir;
     private bool drop_if_dirty = false;
-
+    
     public DirectPhotoPage(File file) {
         base (DirectPhoto.global, file.get_basename());
         
@@ -3189,6 +3198,12 @@ public class DirectPhotoPage : EditingHostPage {
         save_as.label = _("Save _As...");
         save_as.tooltip = _("Save photo with a different name");
         actions += save_as;
+        
+        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null,
+            TRANSLATABLE, on_send_to };
+        send_to.label = Resources.SEND_TO_MENU;
+        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
+        actions += send_to;
 
 #if !NO_PRINTING
         Gtk.ActionEntry page_setup = { "PageSetup", Gtk.STOCK_PAGE_SETUP, TRANSLATABLE, null,
@@ -3445,6 +3460,7 @@ public class DirectPhotoPage : EditingHostPage {
         
         set_action_sensitive("Save", sensitivity);
         set_action_sensitive("SaveAs", sensitivity);
+        set_action_sensitive("SendTo", sensitivity);
         set_action_sensitive("Publish", sensitivity);
         set_action_sensitive("Print", sensitivity);
         set_action_sensitive("JumpToFile", sensitivity);
@@ -3643,7 +3659,12 @@ public class DirectPhotoPage : EditingHostPage {
         
         save_as_dialog.destroy();
     }
-
+    
+    private void on_send_to() {
+        if (has_photo())
+            DesktopIntegration.send_to((Gee.Collection<Photo>) get_view().get_selected_sources());
+    }
+    
 #if !NO_PRINTING
     private void on_print() {
         PrintManager.get_instance().spool_photo(get_photo());

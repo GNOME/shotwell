@@ -90,18 +90,11 @@ class AppDirs {
         return exec_dir;
     }
     
-    // Not using system temp directory for a couple of reasons: Temp files are often generated for
-    // drag-and-drop and the temporary filename is the name transferred to the destination, and so
-    // it's possible for various instances to generate same-name temp files.  Also, the file may
-    // need to remain available after it's closed by Shotwell.  Vala bindings
-    // guarantee temp files by returning an OutputStream, but that's not how the temp files are
-    // generated in Shotwell many times
-    //
-    // TODO: At startup, clean out temp directory of old files.
     public static File get_temp_dir() {
         // Because multiple instances of the app can run at the same time, place temp files in
         // subdir named after process ID
-        File tmp_dir = get_data_subdir("tmp").get_child("%d".printf((int) Posix.getpid()));
+        File tmp_dir = File.new_for_path(Environment.get_tmp_dir()).get_child("shotwell").get_child(
+            "%d".printf((int) Posix.getpid()));
         try {
             if (!tmp_dir.query_exists(null))
                 tmp_dir.make_directory_with_parents(null);

@@ -43,7 +43,7 @@ public class VideosPage : MediaPage {
         
         // play button
         Gtk.ToolButton play_button = new Gtk.ToolButton.from_stock(Gtk.STOCK_MEDIA_PLAY);
-        play_button.set_related_action(action_group.get_action("PlayVideo"));
+        play_button.set_related_action(get_action("PlayVideo"));
         play_button.set_label(_("Play"));
         toolbar.insert(play_button, -1);
 
@@ -132,12 +132,16 @@ public class VideosPage : MediaPage {
     public static Stub create_stub() {
         return new Stub();
     }
-
-    protected override void update_actions(int selected_count, int count) {
-        set_action_sensitive("PlayVideo", selected_count == 1);
+    
+    protected override void init_actions(int selected_count, int count) {
         set_action_important("PlayVideo", true);
-        set_action_sensitive("Publish", selected_count >= 1);
         set_action_important("Publish", true);
+        
+        base.init_actions(selected_count, count);
+    }
+    
+    protected override void update_actions(int selected_count, int count) {
+        set_action_sensitive("Publish", selected_count >= 1);
         
         base.update_actions(selected_count, count);
     }
@@ -194,7 +198,7 @@ public class VideosPage : MediaPage {
             return;
         
         exporter = new ExporterUI(new Exporter(export_list, export_dir, Scaling.for_original(),
-            Jpeg.Quality.MAXIMUM, PhotoFileFormat.get_system_default_format()));
+            Jpeg.Quality.MAXIMUM, PhotoFileFormat.get_system_default_format(), false));
         exporter.export(on_export_completed);
     }
     

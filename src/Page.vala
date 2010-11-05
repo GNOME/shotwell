@@ -343,6 +343,9 @@ public abstract class Page : Gtk.ScrolledWindow, SidebarPage {
     public Gtk.Action? get_action(string name) {
         Gtk.Action? action = action_group.get_action(name);
         if (action == null)
+            action = common_action_group.get_action(name);
+        
+        if (action == null)
             warning("Page %s: Unable to locate action %s", get_page_name(), name);
         
         return action;
@@ -2313,7 +2316,8 @@ public class PhotoDragAndDropHandler {
         if (drag_destination.get_path() != null) {
             exporter = new ExporterUI(new Exporter(
                 (Gee.Collection<Photo>) page.get_view().get_selected_sources(),
-                drag_destination, Scaling.for_original(), Jpeg.Quality.HIGH, PhotoFileFormat.JFIF));
+                drag_destination, Scaling.for_original(), Jpeg.Quality.HIGH, PhotoFileFormat.JFIF,
+                false));
             exporter.export(on_export_completed);
         } else {
             AppWindow.error_message(_("Photos cannot be exported to this directory."));

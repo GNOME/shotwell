@@ -247,6 +247,9 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string EXTERNAL_EDIT_RAW_MENU = _("Open With RA_W Editor");
     public const string EXTERNAL_EDIT_RAW_TOOLTIP = _("Open the selected photo with a RAW image editor");
     
+    public const string SEND_TO_MENU = _("_Send To...");
+    public const string SEND_TO_TOOLTIP = _("Send photos by mail or instant message");
+        
     public string launch_editor_failed(Error err) {
         return _("Unable to launch editor: %s").printf(err.message);
     }

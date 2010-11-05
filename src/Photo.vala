@@ -1290,10 +1290,22 @@ public abstract class Photo : PhotoSource {
         return reader != null ? reader.get_file() : null;
     }
     
+    public File get_source_file() {
+        return get_source_reader().get_file();
+    }
+    
     public PhotoFileFormat get_file_format() {
         lock (row) {
             return backing_photo_state->file_format;
         }
+    }
+    
+    public PhotoFileFormat get_best_export_file_format() {
+        PhotoFileFormat file_format = get_file_format();
+        if (!file_format.can_write())
+            file_format = PhotoFileFormat.get_system_default_format();
+        
+        return file_format;
     }
     
     public PhotoFileFormat get_master_file_format() {
@@ -1973,15 +1985,19 @@ public abstract class Photo : PhotoSource {
     
     public bool has_alterations() {
         MetadataDateTime? date_time = null;
+        string? title = null;
         
         PhotoMetadata? metadata = get_metadata();
-        if (metadata != null)
+        if (metadata != null) {
             date_time = metadata.get_exposure_date_time();
+            title = metadata.get_title();
+        }
         
         lock (row) {
             return row.transformations != null 
                 || row.orientation != backing_photo_state->original_orientation
-                || (date_time != null && row.exposure_time != date_time.get_timestamp());
+                || (date_time != null && row.exposure_time != date_time.get_timestamp())
+                || (get_title() != title);
         }
     }
     
@@ -2648,6 +2664,14 @@ public abstract class Photo : PhotoSource {
         return true;
     }
     
+    // Returns true if there's any reason that an export is required to fully represent the photo
+    // on disk.  False essentially means that the source file (NOT NECESSARILY the master file)
+    // *is* the full representation of the photo and its metadata.
+    public bool is_export_required(Scaling scaling, PhotoFileFormat export_format) {
+        return (!scaling.is_unscaled() || has_alterations() || has_user_generated_metadata()
+            || export_format != get_file_format());
+    }
+    
     // TODO: Lossless transformations, especially for mere rotations of JFIF files.
     //
     // This method is thread-safe.
@@ -2721,8 +2745,7 @@ public abstract class Photo : PhotoSource {
         string editable_basename = "%s_%s.%s".printf(name, _("modified"), ext);
         
         bool collision;
-        return LibraryFiles.generate_unique_file_at(backing.get_parent(), editable_basename,
-            out collision);
+        return generate_unique_file(backing.get_parent(), editable_basename, out collision);
     }
     
     private static bool launch_editor(File file, PhotoFileFormat file_format) throws Error {
@@ -3956,7 +3979,30 @@ public class LibraryPhoto : Photo {
     }
 
     protected override bool has_user_generated_metadata() {
-        return true; // true because photos always have a rating
+        Gee.List<Tag>? tags = Tag.global.fetch_for_source(this);
+        
+        PhotoMetadata? metadata = get_metadata();
+        if (metadata == null)
+            return tags != null || tags.size > 0 || get_rating() != Rating.UNRATED;
+        
+        if (get_rating() != metadata.get_rating())
+            return true;
+        
+        Gee.Set<string>? keywords = metadata.get_keywords();
+        int tags_count = (tags != null) ? tags.size : 0;
+        int keywords_count = (keywords != null) ? keywords.size : 0;
+        
+        if (tags_count != keywords_count)
+            return true;
+        
+        if (tags != null && keywords != null) {
+            foreach (Tag tag in tags) {
+                if (!keywords.contains(tag.get_name().normalize()))
+                    return true;
+            }
+        }
+        
+        return false;
     }
 
     protected override void set_user_metadata_for_export(PhotoMetadata metadata) {

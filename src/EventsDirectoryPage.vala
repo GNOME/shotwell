@@ -411,9 +411,6 @@ public class EventPage : CollectionPage {
         
         init_page_context_menu("/EventContextMenu");
         
-        // hide this command in CollectionPage, as it does not apply here
-        set_action_visible("JumpToEvent", false);
-        
         Event.global.items_altered.connect(on_events_altered);
     }
     
@@ -443,6 +440,13 @@ public class EventPage : CollectionPage {
         new_actions += rename;
 
         return new_actions;
+    }
+    
+    protected override void init_actions(int selected_count, int count) {
+        // hide this command in CollectionPage, as it does not apply here
+        set_action_visible("CommonJumpToEvent", false);
+        
+        base.init_actions(selected_count, count);
     }
     
     protected override void update_actions(int selected_count, int count) {

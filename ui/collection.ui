@@ -24,8 +24,9 @@
         <menuitem name="ContextExternalEdit" action="ExternalEdit" />
         <menuitem name="ContextExternalEditRAW" action="ExternalEditRAW" />
         <separator />
-        <menuitem name="ContextJumpToEvent" action="JumpToEvent" />
+        <menuitem name="ContextJumpToEvent" action="CommonJumpToEvent" />
         <menuitem name="ContextJumpToFile" action="CommonJumpToFile" />
+        <separator />
         <menuitem name="ContextMoveToTrash" action="MoveToTrash" />
     </popup>
 </ui>

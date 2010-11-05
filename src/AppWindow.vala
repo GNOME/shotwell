@@ -424,7 +424,7 @@ public abstract class AppWindow : PageWindow {
     
     private static FullscreenWindow fullscreen_window = null;
     private static CommandManager command_manager = null;
-
+    
     protected bool maximized = false;
     protected Dimensions dimensions;
     protected int pos_x = 0;

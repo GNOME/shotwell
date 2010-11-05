@@ -151,6 +151,7 @@ void library_exec(string[] mounts) {
     AlienDatabaseHandler.init();
     Tombstone.init();
     MetadataWriter.init();
+    DesktopIntegration.init();
     
     // create main library application window
     if (aggregate_monitor != null)
@@ -197,6 +198,7 @@ void library_exec(string[] mounts) {
     
     Application.get_instance().start();
     
+    DesktopIntegration.terminate();
     MetadataWriter.terminate();
     Tombstone.terminate();
     AlienDatabaseHandler.terminate();
@@ -252,6 +254,7 @@ void editing_exec(string filename) {
     // init modules direct-editing relies on
     DatabaseTable.init(null);
     DirectPhoto.init();
+    DesktopIntegration.init();
 
     // TODO: At some point in the future, to support mixed-media in direct-edit mode, we will
     //       refactor DirectPhotoSourceCollection to be a MediaSourceCollection. At that point,
@@ -264,6 +267,7 @@ void editing_exec(string filename) {
     
     Application.get_instance().start();
     
+    DesktopIntegration.terminate();
     DirectPhoto.terminate();
     DatabaseTable.terminate();
 }

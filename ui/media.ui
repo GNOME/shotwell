@@ -5,6 +5,7 @@
             <menuitem name="Import" action="CommonFileImport" />
             <placeholder name="ImportFromAlienDbPlaceholder" />
             <menuitem name="Export" action="Export" />
+            <menuitem name="SendTo" action="SendTo" />
             <separator />
             <placeholder name="FileExtrasPlaceholder" />
             <separator />

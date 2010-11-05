@@ -2736,6 +2736,12 @@ public class ViewCollection : DataCollection {
         return sources;
     }
     
+    public DataSource? get_selected_source_at(int index) {
+        DataObject? object = selected.get_at(index);
+        
+        return (object != null) ? ((DataView) object).get_source() : null;
+    }
+    
     // This is only used by DataView.
     public void internal_notify_view_altered(DataView view) {
         if (!are_notifications_frozen()) {

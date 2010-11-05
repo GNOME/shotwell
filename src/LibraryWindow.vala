@@ -252,6 +252,9 @@ public class LibraryWindow : AppWindow {
         Video.global.contents_altered.connect(sync_videos_visibility);
         sync_videos_visibility();
         
+        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
+            media_sources.items_altered.connect(on_media_altered);
+        
         MetadataWriter.get_instance().progress.connect(on_metadata_writer_progress);
         LibraryPhoto.library_monitor.auto_update_progress.connect(on_library_monitor_auto_update_progress);
         LibraryPhoto.library_monitor.auto_import_preparing.connect(on_library_monitor_auto_import_preparing);
@@ -279,6 +282,9 @@ public class LibraryWindow : AppWindow {
         
         LibraryPhoto.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
         Video.global.trashcan_contents_altered.disconnect(on_trashcan_contents_altered);
+        
+        foreach (MediaSourceCollection media_sources in MediaCollectionRegistry.get_instance().get_all())
+            media_sources.items_altered.disconnect(on_media_altered);
         
         MetadataWriter.get_instance().progress.disconnect(on_metadata_writer_progress);
         LibraryPhoto.library_monitor.auto_update_progress.disconnect(on_library_monitor_auto_update_progress);
@@ -318,6 +324,12 @@ public class LibraryWindow : AppWindow {
         empty.label = _("Empty T_rash");
         empty.tooltip = _("Delete all photos in the trash");
         actions += empty;
+        
+        Gtk.ActionEntry jump_to_event = { "CommonJumpToEvent", null, TRANSLATABLE, null,
+            TRANSLATABLE, on_jump_to_event };
+        jump_to_event.label = _("View Eve_nt for Photo");
+        jump_to_event.tooltip = _("Go to this photo's event");
+        actions += jump_to_event;
         
         return actions;
     }
@@ -525,30 +537,52 @@ public class LibraryWindow : AppWindow {
         import_dialog.destroy();
     }
     
-    protected override void switched_pages(Page? old_page, Page? new_page) {
-        bool trash_has_items = (LibraryPhoto.global.get_trashcan_count() > 0) ||
-            (Video.global.get_trashcan_count() > 0);
-        set_common_action_sensitive("CommonEmptyTrash", trash_has_items);
-
-        base.switched_pages(old_page, new_page);
+    protected override void update_actions(int selected_count, int count) {
+        set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
+        set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
+        
+        base.update_actions(selected_count, count);
     }
     
     private void on_trashcan_contents_altered() {
-        bool trash_has_items = (LibraryPhoto.global.get_trashcan_count() > 0) ||
-            (Video.global.get_trashcan_count() > 0);
-        set_common_action_sensitive("CommonEmptyTrash", trash_has_items);
-
+        set_common_action_sensitive("CommonEmptyTrash", can_empty_trash());
         sidebar.update_page_icon(trash_page);
+    }
+    
+    private bool can_empty_trash() {
+        return (LibraryPhoto.global.get_trashcan_count() > 0) || (Video.global.get_trashcan_count() > 0);
     }
     
     private void on_empty_trash() {
         Gee.ArrayList<MediaSource> to_remove = new Gee.ArrayList<MediaSource>();
         to_remove.add_all(LibraryPhoto.global.get_trashcan_contents());
         to_remove.add_all(Video.global.get_trashcan_contents());
-                
+        
         remove_from_app(to_remove, _("Empty Trash"),  _("Emptying Trash..."));
         
         AppWindow.get_command_manager().reset();
+    }
+    
+    private bool can_jump_to_event() {
+        ViewCollection view = get_current_page().get_view();
+        
+        return view.get_selected_count() == 1
+            && ((MediaSource) view.get_selected_source_at(0)).get_event() != null;
+    }
+    
+    private void on_jump_to_event() {
+        ViewCollection view = get_current_page().get_view();
+        
+        if (view.get_selected_count() != 1)
+            return;
+        
+        Event? event = ((MediaSource) view.get_selected_source_at(0)).get_event();
+        if (event != null)
+            switch_to_event(event);
+    }
+    
+    private void on_media_altered() {
+        set_common_action_sensitive("CommonJumpToEvent", can_jump_to_event());
     }
     
     public int get_events_sort() {

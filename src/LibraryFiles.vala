@@ -7,27 +7,8 @@
 namespace LibraryFiles {
 public const int DIRECTORY_DEPTH = 3;
 
-// Returns true if the file is claimed, false if it exists, and throws an Error otherwise.
-private bool claim_file(File file) throws Error {
-    try {
-        file.create(FileCreateFlags.NONE, null);
-        
-        // created; success
-        return true;
-    } catch (Error err) {
-        // check for file-exists error
-        if (!(err is IOError.EXISTS)) {
-            debug("claim_file %s: %s", file.get_path(), err.message);
-            
-            throw err;
-        }
-        
-        return false;
-    }
-}
-
-// This method uses File.create() in order to "claim" a file in the filesystem.  Thus, when the
-// method returns success a file may exist already, and should be overwritten.
+// This method uses global::generate_unique_file_at in order to "claim" a file in the filesystem.
+// Thus, when the method returns success a file may exist already, and should be overwritten.
 //
 // This function is thread safe.
 public File? generate_unique_file(string basename, PhotoMetadata? metadata, time_t ts, out bool collision)
@@ -61,42 +42,7 @@ public File? generate_unique_file(string basename, PhotoMetadata? metadata, time
         // silently ignore not creating a directory that already exists
     }
     
-    return generate_unique_file_at(dir, basename, out collision);
-}
-
-// Like generate_unique_file(), this function "claims" a file on the filesystem in the directory
-// specified with a basename the same or similar as what has been requested.  The file may exist
-// when this function returns, and it should be overwritten.  It does *not* attempt to create the
-// parent directory, however.
-//
-// This function is thread-safe.
-public File? generate_unique_file_at(File dir, string basename, out bool collision) throws Error {
-    // create the file to atomically "claim" it
-    File file = dir.get_child(basename);
-    if (claim_file(file)) {
-        collision = false;
-        
-        return file;
-    }
-    
-    // file exists, collision and keep searching
-    collision = true;
-    
-    string name, ext;
-    disassemble_filename(basename, out name, out ext);
-    
-    // generate a unique filename
-    for (int ctr = 1; ctr < int.MAX; ctr++) {
-        string new_name = (ext != null) ? "%s_%d.%s".printf(name, ctr, ext) : "%s_%d".printf(name, ctr);
-        
-        file = dir.get_child(new_name);
-        if (claim_file(file))
-            return file;
-    }
-    
-    debug("generate_unique_filename_at %s for %s: unable to claim file", dir.get_path(), basename);
-    
-    return null;
+    return global::generate_unique_file(dir, basename, out collision);
 }
 
 // This function is thread-safe.

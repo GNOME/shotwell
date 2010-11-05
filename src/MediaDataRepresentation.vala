@@ -474,7 +474,7 @@ public class MediaCollectionRegistry {
         return collection_registry.get(typename);
     }
     
-    public Gee.Collection<MediaSourceCollection> get_all_collections() {
+    public Gee.Collection<MediaSourceCollection> get_all() {
         return collection_registry.values;
     }
     
@@ -493,7 +493,7 @@ public class MediaCollectionRegistry {
     public ImportID? get_last_import_id() {
         ImportID last_import_id = ImportID();
 
-        foreach (MediaSourceCollection current_collection in get_all_collections()) {
+        foreach (MediaSourceCollection current_collection in get_all()) {
             ImportID? current_import_id = current_collection.get_last_import_id();
 
             if (current_import_id == null)
@@ -514,7 +514,7 @@ public class MediaCollectionRegistry {
     public Gee.Collection<string> get_source_ids_for_event_id(EventID event_id) {
         Gee.ArrayList<string> result = new Gee.ArrayList<string>();
         
-        foreach (MediaSourceCollection current_collection in get_all_collections()) {
+        foreach (MediaSourceCollection current_collection in get_all()) {
             result.add_all(current_collection.get_event_source_ids(event_id));
         }
         

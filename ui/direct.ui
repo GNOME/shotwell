@@ -4,6 +4,7 @@
         <menu name="FileMenu" action="FileMenu">
             <menuitem name="Save" action="Save" />
             <menuitem name="SaveAs" action="SaveAs" />
+            <menuitem name="SendTo" action="SendTo" />
             <separator />
             <placeholder name="PrintPlaceholder"/>
             <separator />

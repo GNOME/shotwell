@@ -132,7 +132,9 @@ SRC_FILES = \
 	Application.vala \
 	TimedQueue.vala \
 	MediaPage.vala \
-	MediaDataRepresentation.vala
+	MediaDataRepresentation.vala \
+	file_util.vala \
+	DesktopIntegration.vala
 
 ifndef LINUX
 SRC_FILES += \

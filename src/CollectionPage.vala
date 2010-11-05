@@ -188,7 +188,7 @@ public abstract class CollectionPage : MediaPage {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/MenubarExtrasPlaceholder/EventsMenu");
         
         group.add_menu_item("NewEvent");
-        group.add_menu_item("JumpToEvent");
+        group.add_menu_item("CommonJumpToEvent");
         
         return group;
     }
@@ -323,12 +323,6 @@ public abstract class CollectionPage : MediaPage {
         new_event.tooltip = Resources.NEW_EVENT_TOOLTIP;
         actions += new_event;
         
-        Gtk.ActionEntry jump_to_event = { "JumpToEvent", null, TRANSLATABLE, null, TRANSLATABLE,
-            on_jump_to_event };
-        jump_to_event.label = _("View Eve_nt for Photo");
-        jump_to_event.tooltip = _("Go to this photo's event");
-        actions += jump_to_event;
-        
         Gtk.ActionEntry tags = { "TagsMenu", null, TRANSLATABLE, null, null, null };
         tags.label = _("Ta_gs");
         actions += tags;
@@ -420,7 +414,6 @@ public abstract class CollectionPage : MediaPage {
         set_action_visible("ExternalEdit", (!primary_is_video));
         set_action_sensitive("ExternalEdit", 
             one_selected && !is_string_empty(Config.get_instance().get_external_photo_app()));
-        set_action_visible("PlayVideo", primary_is_video && one_selected);
 #if !NO_RAW
         set_action_visible("ExternalEditRAW",
             one_selected && (!primary_is_video)
@@ -431,7 +424,6 @@ public abstract class CollectionPage : MediaPage {
         set_action_sensitive("Revert", (!selection_has_video) && can_revert_selected());
         set_action_sensitive("Enhance", (!selection_has_video) && has_selected);
         set_action_important("Enhance", true);
-        set_action_sensitive("JumpToEvent", can_jump_to_event());
         set_action_sensitive("RotateClockwise", (!selection_has_video) && has_selected);
         set_action_important("RotateClockwise", true);
         set_action_sensitive("RotateCounterclockwise", (!selection_has_video) && has_selected);
@@ -463,7 +455,6 @@ public abstract class CollectionPage : MediaPage {
         // since the photo can be altered externally to Shotwell now, need to make the revert
         // command available appropriately, even if the selection doesn't change
         set_action_sensitive("Revert", can_revert_selected());
-        set_action_sensitive("JumpToEvent", can_jump_to_event());
     }
     
 #if !NO_PRINTING
@@ -604,7 +595,7 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         exporter = new ExporterUI(new Exporter(export_list, export_dir,
-            scaling, quality, format));
+            scaling, quality, format, false));
         exporter.export(on_export_completed);
     }
     
@@ -796,7 +787,7 @@ public abstract class CollectionPage : MediaPage {
             return;
         
         AppWindow.get_instance().set_busy_cursor();
-        set_desktop_background(photo);
+        DesktopIntegration.set_background(photo);
         AppWindow.get_instance().set_normal_cursor();
     }
 #endif
@@ -848,22 +839,6 @@ public abstract class CollectionPage : MediaPage {
     private void on_new_event() {
         if (get_view().get_selected_count() > 0)
             get_command_manager().execute(new NewEventCommand(get_view().get_selected()));
-    }
-    
-    private bool can_jump_to_event() {
-        if (get_view().get_selected_count() != 1)
-            return false;
-        
-        return ((MediaSource) get_view().get_selected_at(0).get_source()).get_event() != null;
-    }
-    
-    private void on_jump_to_event() {
-        if (get_view().get_selected_count() != 1)
-            return;
-        
-        Event? event = ((Photo) get_view().get_selected_at(0).get_source()).get_event();
-        if (event != null)
-            LibraryWindow.get_app().switch_to_event(event);
     }
     
     private void on_add_tags() {

@@ -299,6 +299,12 @@ public abstract class MediaPage : CheckerboardPage {
         export.tooltip = _("Export the selected items to disk");
         actions += export;
        
+        Gtk.ActionEntry send_to = { "SendTo", "document-send", TRANSLATABLE, null, 
+            TRANSLATABLE, on_send_to };
+        send_to.label = Resources.SEND_TO_MENU;
+        send_to.tooltip = Resources.SEND_TO_TOOLTIP;
+        actions += send_to;
+        
         Gtk.ActionEntry edit = { "EditMenu", null, TRANSLATABLE, null, null, null };
         edit.label = _("_Edit");
         actions += edit;
@@ -532,9 +538,17 @@ public abstract class MediaPage : CheckerboardPage {
         set_action_sensitive("IncreaseSize", get_thumb_size() < Thumbnail.MAX_SCALE);
         set_action_sensitive("DecreaseSize", get_thumb_size() > Thumbnail.MIN_SCALE);
         set_action_sensitive("MoveToTrash", selected_count > 0);
-
+        
+        if (DesktopIntegration.is_send_to_installed())
+            set_action_sensitive("SendTo", selected_count > 0);
+        else
+            set_action_visible("SendTo", false);
+        
         set_action_sensitive("Rate", selected_count > 0);
         update_rating_sensitivities();
+        
+        set_action_sensitive("PlayVideo", selected_count == 1
+            && get_view().get_selected_source_at(0) is Video);
         
         base.update_actions(selected_count, count);
     }
@@ -669,12 +683,18 @@ public abstract class MediaPage : CheckerboardPage {
 
         return filter;
     }
-
+    
+    private void on_send_to() {
+        DesktopIntegration.send_to((Gee.Collection<MediaSource>) get_view().get_selected_sources());
+    }
+    
     protected void on_play_video() {
         if (get_view().get_selected_count() != 1)
             return;
         
-        Video video = (Video) get_view().get_selected_at(0).get_source();
+        Video? video = get_view().get_selected_at(0).get_source() as Video;
+        if (video == null)
+            return;
         
         try {
             AppInfo.launch_default_for_uri(video.get_file().get_uri(), null);

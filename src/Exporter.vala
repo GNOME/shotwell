@@ -20,69 +20,73 @@ public class Exporter : Object {
         Error err);
     
     private class ExportJob : BackgroundJob {
-        public Photo? photo;
-        public Video? video;
+        public MediaSource media;
         public File dest;
-        public Scaling scaling;
-        public Jpeg.Quality quality;
-        public PhotoFileFormat format;
+        public Scaling? scaling;
+        public Jpeg.Quality? quality;
+        public PhotoFileFormat? format;
         public Error? err = null;
         
-        public ExportJob(Exporter owner, Photo photo, File dest, Scaling scaling, 
-            Jpeg.Quality quality, PhotoFileFormat format, Cancellable? cancellable) {
+        public ExportJob(Exporter owner, MediaSource media, File dest, Scaling? scaling, 
+            Jpeg.Quality? quality, PhotoFileFormat? format, Cancellable cancellable) {
             base (owner, owner.on_exported, cancellable, owner.on_export_cancelled);
             
-            this.photo = photo;
-            this.video = null;
+            assert(media is Photo || media is Video);
+            
+            this.media = media;
             this.dest = dest;
             this.scaling = scaling;
             this.quality = quality;
             this.format = format;
         }
         
-        public ExportJob.for_video(Exporter owner, Video video, File dest,
-            Cancellable? cancellable) {
-            base(owner, owner.on_exported, cancellable, owner.on_export_cancelled);
-            
-            this.photo = null;
-            this.video = video;
-            this.dest = dest;
-        }
-        
         public override void execute() {
             try {
-                if (photo != null)
-                    photo.export(dest, scaling, quality, format);
+                if (media is Photo)
+                    ((Photo) media).export(dest, scaling, quality, format);
                 else
-                    video.export(dest);
+                    ((Video) media).export(dest);
             } catch (Error err) {
                 this.err = err;
             }
         }
     }
     
-    private Gee.Collection<ThumbnailSource> to_export = new Gee.ArrayList<ThumbnailSource>();
-    private File dir;
+    private Gee.Collection<MediaSource> to_export = new Gee.ArrayList<MediaSource>();
+    private File[] exported_files;
+    private File? dir;
     private Scaling scaling;
     private Jpeg.Quality quality;
     private PhotoFileFormat file_format;
+    private bool avoid_copying;
     private int completed_count = 0;
     private Workers workers = new Workers(Workers.threads_per_cpu(), false);
     private CompletionCallback? completion_callback = null;
     private ExportFailedCallback? error_callback = null;
     private OverwriteCallback? overwrite_callback = null;
     private ProgressMonitor? monitor = null;
-    private Cancellable? cancellable = null;
+    private Cancellable cancellable;
     private bool replace_all = false;
     private bool aborted = false;
     
-    public Exporter(Gee.Collection<ThumbnailSource> to_export, File dir, Scaling scaling,
-        Jpeg.Quality quality, PhotoFileFormat file_format) {
+    public Exporter(Gee.Collection<MediaSource> to_export, File? dir, Scaling scaling,
+        Jpeg.Quality quality, PhotoFileFormat file_format, bool avoid_copying) {
         this.to_export.add_all(to_export);
         this.dir = dir;
         this.scaling = scaling;
         this.quality = quality;
         this.file_format = file_format;
+        this.avoid_copying = avoid_copying;
+    }
+    
+    public Exporter.for_temp_file(Gee.Collection<MediaSource> to_export, Scaling scaling,
+        Jpeg.Quality quality, PhotoFileFormat file_format, bool avoid_copying) {
+        this.to_export.add_all(to_export);
+        this.dir = null;
+        this.scaling = scaling;
+        this.quality = quality;
+        this.file_format = file_format;
+        this.avoid_copying = avoid_copying;
     }
     
     // This should be called only once; the object does not reset its internal state when completed.
@@ -92,7 +96,7 @@ public class Exporter : Object {
         this.error_callback = error_callback;
         this.overwrite_callback = overwrite_callback;
         this.monitor = monitor;
-        this.cancellable = cancellable;
+        this.cancellable = cancellable ?? new Cancellable();
         
         if (!process_queue())
             export_completed();
@@ -122,6 +126,8 @@ public class Exporter : Object {
                 
                 if (!completed)
                     return;
+            } else {
+                exported_files += job.dest;
             }
         }
         
@@ -134,47 +140,89 @@ public class Exporter : Object {
             export_completed();
     }
     
+    public File[] get_exported_files() {
+        return exported_files;
+    }
+    
     private bool process_queue() {
         int submitted = 0;
-        foreach (ThumbnailSource source in to_export) {
-            string basename = (source is Photo) ? ((Photo) source).get_export_basename(file_format) :
-                ((Video) source).get_basename();
-            File dest = dir.get_child(basename);
+        foreach (MediaSource source in to_export) {
+            File? use_source_file = null;
+            if (avoid_copying) {
+                if (source is Video)
+                    use_source_file = source.get_master_file();
+                else if (!((Photo) source).is_export_required(scaling, file_format))
+                    use_source_file = ((Photo) source).get_source_file();
+            }
             
-            if (!replace_all && dest.query_exists(null)) {
-                switch (overwrite_callback(this, dest)) {
-                    case Overwrite.YES:
-                        // continue
-                    break;
-                    
-                    case Overwrite.REPLACE_ALL:
-                        replace_all = true;
-                    break;
-                    
-                    case Overwrite.CANCEL:
-                        if (cancellable != null)
-                            cancellable.cancel();
+            if (use_source_file != null) {
+                exported_files += use_source_file;
+                
+                completed_count++;
+                if (monitor != null) {
+                    if (!monitor(completed_count, to_export.size)) {
+                        cancellable.cancel();
                         
                         return false;
+                    }
+                }
+                
+                continue;
+            }
+            
+            File? export_dir = dir;
+            File? dest = null;
+            
+            if (export_dir == null) {
+                try {
+                    bool collision;
+                    dest = generate_unique_file(AppDirs.get_temp_dir(), source.get_file().get_basename(),
+                        out collision);
+                } catch (Error err) {
+                    AppWindow.error_message(_("Unable to generate a temporary file for %s: %s").printf(
+                        source.get_file().get_basename(), err.message));
                     
-                    case Overwrite.NO:
-                    default:
-                        if (monitor != null) {
-                            if (!monitor(++completed_count, to_export.size))
-                                return false;
-                        }
+                    break;
+                }
+            } else {
+                string basename = (source is Photo) 
+                    ? ((Photo) source).get_export_basename(((Photo) source).get_best_export_file_format()) 
+                    : ((Video) source).get_basename();
+                dest = dir.get_child(basename);
+                
+                if (!replace_all && dest.query_exists(null)) {
+                    switch (overwrite_callback(this, dest)) {
+                        case Overwrite.YES:
+                            // continue
+                        break;
                         
-                        continue;
+                        case Overwrite.REPLACE_ALL:
+                            replace_all = true;
+                        break;
+                        
+                        case Overwrite.CANCEL:
+                            cancellable.cancel();
+                            
+                            return false;
+                        
+                        case Overwrite.NO:
+                        default:
+                            completed_count++;
+                            if (monitor != null) {
+                                if (!monitor(completed_count, to_export.size)) {
+                                    cancellable.cancel();
+                                    
+                                    return false;
+                                }
+                            }
+                            
+                            continue;
+                    }
                 }
             }
             
-            ExportJob job = null;
-            if (source is Photo)
-                 job = new ExportJob(this, (Photo) source, dest, scaling, quality, file_format, 
-                    cancellable);
-            else
-                job = new ExportJob.for_video(this, (Video) source, dest, cancellable);
-            workers.enqueue(job);
+            workers.enqueue(new ExportJob(this, source, dest, scaling, quality, file_format, 
+                cancellable));
             submitted++;
         }
         

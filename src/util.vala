@@ -304,17 +304,6 @@ public long find_last_offset(string str, char c) {
     return -1;
 }
 
-public void disassemble_filename(string basename, out string name, out string ext) {
-    long offset = find_last_offset(basename, '.');
-    if (offset <= 0) {
-        name = basename;
-        ext = null;
-    } else {
-        name = basename.substring(0, offset);
-        ext = basename.substring(offset + 1, -1);
-    }
-}
-
 public enum AdjustmentRelation {
     BELOW,
     IN_RANGE,
@@ -345,102 +334,6 @@ public enum CompassPoint {
     SOUTH,
     EAST,
     WEST
-}
-
-// This function is thread-safe.
-public uint64 query_total_file_size(File file_or_dir, Cancellable? cancellable = null) throws Error {
-    FileType type = file_or_dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-    if (type == FileType.REGULAR) {
-        FileInfo info = null;
-        try {
-            info = file_or_dir.query_info(FILE_ATTRIBUTE_STANDARD_SIZE, 
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
-        } catch (Error err) {
-            if (err is IOError.CANCELLED)
-                throw err;
-            
-            debug("Unable to query filesize for %s: %s", file_or_dir.get_path(), err.message);
-
-            return 0;
-        }
-        
-        return info.get_size();
-    } else if (type != FileType.DIRECTORY) {
-        return 0;
-    }
-        
-    FileEnumerator enumerator;
-    try {
-        enumerator = file_or_dir.enumerate_children(FILE_ATTRIBUTE_STANDARD_NAME,
-            FileQueryInfoFlags.NOFOLLOW_SYMLINKS, cancellable);
-        if (enumerator == null)
-            return 0;
-    } catch (Error err) {
-        // Don't treat a permissions failure as a hard failure, just skip the directory
-        if (err is FileError.PERM || err is IOError.PERMISSION_DENIED)
-            return 0;
-        
-        throw err;
-    }
-    
-    uint64 total_bytes = 0;
-        
-    FileInfo info = null;
-    while ((info = enumerator.next_file(cancellable)) != null)
-        total_bytes += query_total_file_size(file_or_dir.get_child(info.get_name()), cancellable);
-    
-    return total_bytes;
-}
-
-public time_t query_file_modified(File file) throws Error {
-    FileInfo info = file.query_info(FILE_ATTRIBUTE_TIME_MODIFIED, FileQueryInfoFlags.NOFOLLOW_SYMLINKS, 
-        null);
-
-    TimeVal timestamp = TimeVal();
-    info.get_modification_time(out timestamp);
-    
-    return timestamp.tv_sec;
-}
-
-public bool query_is_directory(File file) {
-    return file.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) == FileType.DIRECTORY;
-}
-
-public bool query_is_directory_empty(File dir) throws Error {
-    if (dir.query_file_type(FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null) != FileType.DIRECTORY)
-        return false;
-    
-    FileEnumerator enumerator = dir.enumerate_children("standard::name",
-        FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null);
-    if (enumerator == null)
-        return false;
-    
-    return enumerator.next_file(null) == null;
-}
-
-public string get_display_pathname(File file) {
-    // attempt to replace home path with tilde in a user-pleasable way
-    string path = file.get_parse_name();
-    string home = Environment.get_home_dir();
-
-    if (path == home)
-        return "~";
-    
-    if (path.has_prefix(home))
-        return "~%s".printf(path.substring(home.length));
-
-    return path;
-}
-
-public string strip_pretty_path(string path) {
-    if (!path.has_prefix("~"))
-        return path;
-    
-    return Environment.get_home_dir() + path.substring(1);
-}
-
-public string? get_file_info_id(FileInfo info) {
-    return info.get_attribute_string(FILE_ATTRIBUTE_ID_FILE);
 }
 
 public string format_local_date(Time date) {
@@ -663,58 +556,6 @@ public void remove_from_app(Gee.Collection<MediaSource> sources, string dialog_t
     AppWindow.get_instance().set_normal_cursor();
 }
 
-// compare the app names, case insensitive
-public static int64 app_info_comparator(void *a, void *b) {
-    return ((AppInfo) a).get_name().down().collate(((AppInfo) b).get_name().down());
-}
-
-public SortedList<AppInfo> get_apps_for_mime_types(string[] mime_types) {
-        SortedList<AppInfo> external_apps = new SortedList<AppInfo>(app_info_comparator);
-        
-        if (mime_types.length == 0)
-            return external_apps;
-        
-        // 3 loops because SortedList.contains() wasn't paying nicely with AppInfo,
-        // probably because it has a special equality function
-        foreach (string mime_type in mime_types) {
-            string content_type = g_content_type_from_mime_type(mime_type);
-            if (content_type == null)
-                break;
-            
-            foreach (AppInfo external_app in 
-                AppInfo.get_all_for_type(content_type)) {
-                bool already_contains = false;
-                
-                foreach (AppInfo app in external_apps) {
-                    if (app.get_name() == external_app.get_name()) {
-                        already_contains = true;
-                        break;
-                    }
-                }
-                
-                // dont add Shotwell to app list
-                if (!already_contains && !external_app.get_name().contains(Resources.APP_TITLE))
-                    external_apps.add(external_app);
-            }
-        }
-
-        return external_apps;
-}
-
-public AppInfo? get_default_app_for_mime_types(string[] mime_types, 
-    Gee.ArrayList<string> preferred_apps) {
-    SortedList<AppInfo> external_apps = get_apps_for_mime_types(mime_types);
-    
-    foreach (string preferred_app in preferred_apps) {
-        foreach (AppInfo external_app in external_apps) {
-            if (external_app.get_name().contains(preferred_app))
-                return external_app;
-        }
-    }
-    
-    return null;
-}
-
 public bool is_twentyfour_hr_time_system() {
     // if no AM/PM designation is found, the location is set to use a 24 hr time system
     string timestring = Time.local(0).format("%p");
@@ -730,20 +571,6 @@ public string get_window_manager() {
 #endif
 }
 
-public string? get_app_open_command(AppInfo app_info) {
-    string? str = app_info.get_commandline();
-
-    return str != null ? str : app_info.get_executable();
-}
-
-public string get_root_directory() {
-#if WINDOWS
-    return "C:\\";
-#else
-    return "/";
-#endif
-}
-
 // Helper function for searching an array of case-insensitive strings.  The array should be
 // all lowercase.
 public bool is_in_ci_array(string str, string[] strings) {
@@ -755,4 +582,4 @@ public bool is_in_ci_array(string str, string[] strings) {
     
     return false;
 }
-    
+
