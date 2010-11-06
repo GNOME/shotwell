@@ -997,24 +997,16 @@ public abstract class ServiceInteractor {
 
 public abstract class BatchUploader {
     public struct TemporaryFileDescriptor {
-        public File temp_file;
-        public Photo source_photo;
-        public Video source_video;
+        public File? temp_file;
+        public MediaSource? media;
 
         public TemporaryFileDescriptor() {
             temp_file = null;
-            source_photo = null;
+            media = null;
         }
 
-        public TemporaryFileDescriptor.with_members(Photo source_photo,
-            File temp_file) {
-            this.source_photo = source_photo;
-            this.temp_file = temp_file;
-        }
-
-        public TemporaryFileDescriptor.with_video(Video source_video,
-            File temp_file) {
-            this.source_video = source_video;
+        public TemporaryFileDescriptor.with_members(MediaSource media, File temp_file) {
+            this.media = media;
             this.temp_file = temp_file;
         }
     }
@@ -1059,10 +1051,10 @@ public abstract class BatchUploader {
             TemporaryFileDescriptor current_descriptor;
             if (photos[i] is Photo) {
                 current_temp_file = temp_dir.get_child(TEMP_FILE_PREFIX + ("%d".printf(i)) + ".jpg");
-                current_descriptor =  TemporaryFileDescriptor.with_members((Photo) photos[i], current_temp_file);
+                current_descriptor =  TemporaryFileDescriptor.with_members(photos[i], current_temp_file);
             } else {
                 current_temp_file = photos[i].get_file();
-                current_descriptor =  TemporaryFileDescriptor.with_video((Video) photos[i], current_temp_file);
+                current_descriptor =  TemporaryFileDescriptor.with_members(photos[i], current_temp_file);
             }
             bool prepared_ok = true;
             if (photos[i] is Photo){
@@ -1124,7 +1116,7 @@ public abstract class BatchUploader {
         if (has_error)
             return;
 
-        if (temp_files[current_file].source_photo is Photo) {
+        if (temp_files[current_file].media is Photo) {
             delete_file(temp_files[current_file]);
         }
         current_file++;

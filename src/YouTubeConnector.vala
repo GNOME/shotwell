@@ -383,7 +383,7 @@ private class Uploader : BatchUploader {
 
     protected override RESTTransaction create_transaction_for_file(
         BatchUploader.TemporaryFileDescriptor file) {
-        return new VideoUploadTransaction(session, file.source_video, parameters.get_privacy_setting());
+        return new VideoUploadTransaction(session, (Video) file.media, parameters.get_privacy_setting());
     }
 
     protected override bool prepare_file(BatchUploader.TemporaryFileDescriptor file) {

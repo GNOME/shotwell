@@ -615,8 +615,10 @@ private class Uploader : BatchUploader {
             false);
         
         try {
-            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
-                PhotoFileFormat.JFIF);
+            if (file.media is Photo) {
+                ((Photo) file.media).export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
+                    PhotoFileFormat.JFIF);
+            }
         } catch (Error e) {
             return false;
         }
@@ -626,8 +628,7 @@ private class Uploader : BatchUploader {
 
     protected override RESTTransaction create_transaction_for_file(
         BatchUploader.TemporaryFileDescriptor file) {
-        return new UploadTransaction(session, parameters, file.temp_file.get_path(),
-            (file.source_photo != null)? (MediaSource) file.source_photo:(MediaSource) file.source_video);
+        return new UploadTransaction(session, parameters, file.temp_file.get_path(), file.media);
     }
 }
 

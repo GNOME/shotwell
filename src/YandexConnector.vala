@@ -583,8 +583,10 @@ public class Capabilities : ServiceCapabilities {
 
         protected override bool prepare_file(BatchUploader.TemporaryFileDescriptor file) {
             try {
-                file.source_photo.export(file.temp_file, Scaling.for_original(), Jpeg.Quality.MAXIMUM,
-                    PhotoFileFormat.JFIF);
+                if (file.media is Photo) {
+                    ((Photo) file.media).export(file.temp_file, Scaling.for_original(), Jpeg.Quality.MAXIMUM,
+                        PhotoFileFormat.JFIF);
+                }
             } catch(Error e) {
                 return false;
             }
@@ -602,9 +604,10 @@ public class Capabilities : ServiceCapabilities {
         }
 
         protected override RESTTransaction create_transaction_for_file(BatchUploader.TemporaryFileDescriptor file) {
-            RESTTransaction t = new UploadTransaction(session, file.temp_file.get_path(), file.source_photo);
+            RESTTransaction t = new UploadTransaction(session, file.temp_file.get_path(),
+                (Photo) file.media);
 
-            session.transactions.set(t, file.source_photo);
+            session.transactions.set(t, (Photo) file.media);
             t.completed.connect(on_file_uploaded);
             
             return t;

@@ -18,6 +18,9 @@ private const string SERVICE_WELCOME_MESSAGE =
 private const string RESTART_ERROR_MESSAGE = 
     _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 
+private const string PHOTO_ENDPOINT_URL = "http://api.facebook.com/restserver.php";
+private const string VIDEO_ENDPOINT_URL = "http://api-video.facebook.com/restserver.php";
+
 private struct Album {
     string name;
     string id;
@@ -34,7 +37,7 @@ public class Capabilities : ServiceCapabilities {
     }
     
     public override ServiceCapabilities.MediaType get_supported_media() {
-        return MediaType.PHOTO;
+        return MediaType.PHOTO | MediaType.VIDEO;
     }
     
     public override ServiceInteractor factory(PublishingDialog host) {
@@ -240,7 +243,7 @@ public class Interactor : ServiceInteractor {
         get_host().unlock_service();
 
         PublishingOptionsPane publishing_options_pane =
-            new PublishingOptionsPane(session.get_user_name(), albums);
+            new PublishingOptionsPane(session.get_user_name(), albums, get_host().get_media_type());
         publishing_options_pane.logout.connect(on_publishing_options_pane_logout);
         publishing_options_pane.publish.connect(on_publishing_options_pane_publish);
         get_host().install_pane(publishing_options_pane);
@@ -398,7 +401,7 @@ public class Interactor : ServiceInteractor {
         progress_pane = new ProgressPane();
         get_host().install_pane(progress_pane);
 
-        Photo[] photos = get_host().get_photos();
+        MediaSource[] photos = get_host().get_media();
         Uploader uploader = new Uploader(session, albums[publish_to_album].id, photos);
         uploader.status_updated.connect(progress_pane.set_status);
         uploader.upload_complete.connect(on_upload_complete);
@@ -454,7 +457,6 @@ public class Interactor : ServiceInteractor {
 private class Session : RESTSession {
     private const string API_VERSION = "1.0";
     private const string USER_AGENT = "Java/1.6.0_16";
-    private const string ENDPOINT_URL = "http://api.facebook.com/restserver.php";
 
     private string session_key = null;
     private string uid = null;
@@ -466,7 +468,7 @@ private class Session : RESTSession {
     public signal void authentication_failed(PublishingError err);
 
     public Session(string api_key) {
-        base(ENDPOINT_URL, USER_AGENT);
+        base(PHOTO_ENDPOINT_URL, USER_AGENT);
 
         this.api_key = api_key;
 
@@ -536,7 +538,7 @@ private class Session : RESTSession {
         authentication_failed(err);
     }
 
-    public void authenticate(string good_login_uri) throws PublishingError {       
+    public void authenticate(string good_login_uri) throws PublishingError {
         // the raw uri is percent-encoded, so decode it
         string decoded_uri = Soup.URI.decode(good_login_uri);
 
@@ -640,8 +642,8 @@ private class Uploader : BatchUploader {
     private Session session;
     private string aid;
 
-    public Uploader(Session session, string aid, Photo[] photos) {
-        base(photos);
+    public Uploader(Session session, string aid, MediaSource[] photos) {
+        base.with_media(photos);
 
         this.session = session;
         this.aid = aid;
@@ -652,8 +654,10 @@ private class Uploader : BatchUploader {
             false);
         
         try {
-            file.source_photo.export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
-                PhotoFileFormat.JFIF);
+            if (file.media is Photo) {
+                ((Photo) file.media).export(file.temp_file, scaling, Jpeg.Quality.MAXIMUM,
+                    PhotoFileFormat.JFIF);
+            }
         } catch (Error e) {
             return false;
         }
@@ -663,7 +667,7 @@ private class Uploader : BatchUploader {
 
     protected override RESTTransaction create_transaction_for_file(
         BatchUploader.TemporaryFileDescriptor file) {
-        return new UploadTransaction(session, aid, file.temp_file.get_path(), file.source_photo);
+        return new UploadTransaction(session, aid, file.temp_file.get_path(), file.media);
     }
 }
 
@@ -731,7 +735,9 @@ private class WebAuthenticationPane : PublishingDialogPane {
 }
 
 private class PublishingOptionsPane : PublishingDialogPane {
-    private const string HEADER_LABEL_TEXT = _("You are logged into Facebook as %s.\n\nWhere would you like to publish the selected photos?");
+    private const string HEADER_LABEL_TEXT = _("You are logged into Facebook as %s.\n\n");
+    private const string PHOTOS_LABEL_TEXT = _("Where would you like to publish the selected photos?");
+    private const string VIDEOS_LABEL_TEXT = _("Would you like to publish the selected videos?");
     private const int CONTENT_GROUP_SPACING = 32;
 
     private Gtk.RadioButton use_existing_radio = null;
@@ -746,7 +752,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
     public signal void logout();
     public signal void publish(string target_album);
 
-    public PublishingOptionsPane(string username, Album[] albums) {
+    public PublishingOptionsPane(string username, Album[] albums, MediaType media_type) {
         this.albums = albums;
 
         set_border_width(16);
@@ -757,7 +763,12 @@ private class PublishingOptionsPane : PublishingDialogPane {
         add(top_padding);
 
         Gtk.HBox how_to_label_layouter = new Gtk.HBox(false, 8);
-        how_to_label = new Gtk.Label(HEADER_LABEL_TEXT.printf(username));
+        string label_text = HEADER_LABEL_TEXT.printf(username);
+        if (media_type == MediaType.VIDEO)
+            label_text += VIDEOS_LABEL_TEXT;
+        else
+            label_text += PHOTOS_LABEL_TEXT;
+        how_to_label = new Gtk.Label(label_text);
         Gtk.SeparatorToolItem how_to_pusher = new Gtk.SeparatorToolItem();
         how_to_pusher.set_draw(false);
         how_to_label_layouter.add(how_to_label);
@@ -820,7 +831,8 @@ private class PublishingOptionsPane : PublishingDialogPane {
         Gtk.Alignment album_mode_wrapper = new Gtk.Alignment(0.5f, 0.5f, 0.0f, 0.0f);
         album_mode_wrapper.add(album_mode_layouter);
 
-        add(album_mode_wrapper);
+        if ((media_type & MediaType.PHOTO) != 0)
+            add(album_mode_wrapper);
         
         Gtk.SeparatorToolItem albums_buttons_spacing = new Gtk.SeparatorToolItem();
         albums_buttons_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
@@ -839,7 +851,7 @@ private class PublishingOptionsPane : PublishingDialogPane {
         if (use_existing_radio.active) {
             existing_albums_combo.set_sensitive(true);
             new_album_entry.set_sensitive(false);
-            existing_albums_combo.grab_focus();            
+            existing_albums_combo.grab_focus();
         }
     }
     
@@ -989,8 +1001,8 @@ private class AlbumCreationTransaction : Transaction {
 
 private class UploadTransaction : MediaUploadTransaction {
     public UploadTransaction(Session session, string aid, string source_file_path,
-        Photo source_photo) {
-        base(session, source_file_path, source_photo);
+        MediaSource media) {
+        base (session, source_file_path, media);
 
         add_argument("api_key", session.get_api_key());
         add_argument("session_key", session.get_session_key());
