@@ -33,6 +33,8 @@ public class VideosPage : MediaPage {
     public VideosPage() {
         base (_("Videos"));
         
+        init_item_context_menu("/VideoContextMenu");
+        
         // Update "Photo" labels to "Video"
         action_group.get_action("PhotosMenu").set_label(_("Vi_deos"));
         action_group.get_action("FilterPhotos").set_label(_("_Filter Videos"));
@@ -79,7 +81,13 @@ public class VideosPage : MediaPage {
 
         get_view().monitor_source_collection(Video.global, new VideoViewManager(this), null);
     }
-
+    
+    protected override void init_collect_ui_filenames(Gee.List<string> ui_filenames) {
+        base.init_collect_ui_filenames(ui_filenames);
+        
+        ui_filenames.add("video.ui");
+    }
+    
     private static InjectionGroup create_file_menu_injectables() {
         InjectionGroup group = new InjectionGroup("/MediaMenuBar/FileMenu/FileExtrasPlaceholder");
         
