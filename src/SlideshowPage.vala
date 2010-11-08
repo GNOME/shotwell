@@ -29,32 +29,11 @@ class SlideshowPage : SinglePhotoPage {
     public signal void hide_toolbar();
     
     private class SettingsDialog : Gtk.Dialog {
-        Gtk.Entry delay_entry;
-        double delay;
+        Gtk.SpinButton delay_entry;
         Gtk.HScale hscale;
 
-        private bool update_entry(Gtk.ScrollType scroll, double new_value) {
-            new_value = new_value.clamp(Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX);
-
-            delay_entry.set_text("%.1f".printf(new_value));
-            return false;
-        }
-
-        private void check_text() { //rename this function
-            // parse through text, set delay
-            string delay_text = delay_entry.get_text();
-            delay_text.canon("0123456789.",'?');
-            delay_text = delay_text.replace("?","");
-         
-            delay = delay_text.to_double();
-            delay_entry.set_text(delay_text);
-
-            delay = delay.clamp(Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX);
-            hscale.set_value(delay);
-        }
-
         public SettingsDialog() {
-            delay = Config.get_instance().get_slideshow_delay();
+            double delay = Config.get_instance().get_slideshow_delay();
 
             set_modal(true);
             set_transient_for(AppWindow.get_fullscreen());
@@ -65,18 +44,16 @@ class SlideshowPage : SinglePhotoPage {
 
             Gtk.Label delay_label = new Gtk.Label(_("Delay:"));
             Gtk.Label units_label = new Gtk.Label(_("seconds"));
-            delay_entry = new Gtk.Entry();
-            delay_entry.set_max_length(5);
-            delay_entry.set_text("%.1f".printf(delay));
-            delay_entry.set_width_chars(4);
-            delay_entry.set_activates_default(true);
-            delay_entry.changed.connect(check_text);
 
-            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX + 1, 0.1, 1, 1);
+            Gtk.Adjustment adjustment = new Gtk.Adjustment(delay, Config.SLIDESHOW_DELAY_MIN, Config.SLIDESHOW_DELAY_MAX, 0.1, 1, 0);
             hscale = new Gtk.HScale(adjustment);
             hscale.set_draw_value(false);
             hscale.set_size_request(150,-1);
-            hscale.change_value.connect(update_entry);
+            
+            delay_entry = new Gtk.SpinButton(adjustment, 0.1, 1);            
+            delay_entry.set_value(delay);
+            delay_entry.set_numeric(true);
+            delay_entry.set_activates_default(true);
 
             Gtk.HBox query = new Gtk.HBox(false, 0);
             query.pack_start(delay_label, false, false, 3);
@@ -90,7 +67,7 @@ class SlideshowPage : SinglePhotoPage {
         }
 
         public double get_delay() {
-            return delay;
+            return delay_entry.get_value();
         }
     }
 
