@@ -601,6 +601,10 @@ private class CredentialsCapturePane : PublishingDialogPane {
         Gtk.Label password_entry_label = new Gtk.Label.with_mnemonic(_("_Password:"));
         password_entry_label.set_alignment(0.0f, 0.5f);
         email_entry = new Gtk.Entry();
+        string username = Config.get_instance().get_publishing_string(CONFIG_NAME, "user_name");
+        if (username != null) {
+            email_entry.set_text(username);
+        }
         email_entry.changed.connect(on_email_changed);
         password_entry = new Gtk.Entry();
         password_entry.set_visibility(false);
@@ -623,7 +627,7 @@ private class CredentialsCapturePane : PublishingDialogPane {
         go_back_button.set_size_request(UNIFORM_ACTION_BUTTON_WIDTH, -1);
         login_button = new Gtk.Button.with_mnemonic(_("_Login"));
         login_button.clicked.connect(on_login_button_clicked);
-        login_button.set_sensitive(false);
+        login_button.set_sensitive(username != null);
         Gtk.Alignment login_button_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
         login_button_aligner.add(login_button);
         login_button.set_size_request(UNIFORM_ACTION_BUTTON_WIDTH, -1);

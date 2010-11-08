@@ -12,6 +12,7 @@ private const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into YouTube.\n\nYou must have already signed up for a Google account and set it up for use with YouTube to continue. You can set up most accounts by using your browser to log into the YouTube site at least once.");
 private const string DEVELOPER_KEY =
     "AI39si5VEpzWK0z-pzo4fonEj9E4driCpEs9lK8y3HJsbbebIIRWqW3bIyGr42bjQv-N3siAfqVoM8XNmtbbp5x2gpbjiSAMTQ";
+private const string CONFIG_NAME = "youtube";
 
 private enum PrivacySetting {
     VIDEO_PUBLIC,
@@ -465,6 +466,10 @@ private class CredentialsCapturePane : PublishingDialogPane {
         Gtk.Label password_entry_label = new Gtk.Label.with_mnemonic(_("_Password:"));
         password_entry_label.set_alignment(0.0f, 0.5f);
         email_entry = new Gtk.Entry();
+        string username = Config.get_instance().get_publishing_string(CONFIG_NAME, "user_name");
+        if (username != null) {
+            email_entry.set_text(username);
+        }
         email_entry.changed.connect(on_email_changed);
         password_entry = new Gtk.Entry();
         password_entry.set_visibility(false);
@@ -487,7 +492,7 @@ private class CredentialsCapturePane : PublishingDialogPane {
         go_back_button.set_size_request(UNIFORM_ACTION_BUTTON_WIDTH, -1);
         login_button = new Gtk.Button.with_mnemonic(_("_Login"));
         login_button.clicked.connect(on_login_button_clicked);
-        login_button.set_sensitive(false);
+        login_button.set_sensitive(username != null);
         Gtk.Alignment login_button_aligner = new Gtk.Alignment(1.0f, 0.5f, 0.0f, 0.0f);
         login_button_aligner.add(login_button);
         login_button.set_size_request(UNIFORM_ACTION_BUTTON_WIDTH, -1);
@@ -695,29 +700,29 @@ private class Session : RESTSession {
     private bool has_persistent_state() {
         Config config = Config.get_instance();
 
-        return ((config.get_publishing_string("youtube", "user_name") != null) &&
-                (config.get_publishing_string("youtube", "auth_token") != null));
+        return ((config.get_publishing_string(CONFIG_NAME, "user_name") != null) &&
+                (config.get_publishing_string(CONFIG_NAME, "auth_token") != null));
     }
 
     private void save_persistent_state() {
         Config config = Config.get_instance();
 
-        config.set_publishing_string("youtube", "user_name", username);
-        config.set_publishing_string("youtube", "auth_token", auth_token);
+        config.set_publishing_string(CONFIG_NAME, "user_name", username);
+        config.set_publishing_string(CONFIG_NAME, "auth_token", auth_token);
     }
 
     private void load_persistent_state() {
         Config config = Config.get_instance();
 
-        username = config.get_publishing_string("youtube", "user_name");
-        auth_token = config.get_publishing_string("youtube", "auth_token");
+        username = config.get_publishing_string(CONFIG_NAME, "user_name");
+        auth_token = config.get_publishing_string(CONFIG_NAME, "auth_token");
     }
 
     private void clear_persistent_state() {
         Config config = Config.get_instance();
 
-        config.set_publishing_string("youtube", "user_name", "");
-        config.set_publishing_string("youtube", "auth_token", "");
+        config.set_publishing_string(CONFIG_NAME, "user_name", "");
+        config.set_publishing_string(CONFIG_NAME, "auth_token", "");
     }
 
     public bool is_authenticated() {
