@@ -19,7 +19,7 @@ public enum MediaType {
     NONE =          0,
     PHOTO =         1 << 0,
     VIDEO =         1 << 1,
-    ALL =           0xFFFFFFFF
+    ALL =           PHOTO | VIDEO
 }
 
 public enum HttpMethod {

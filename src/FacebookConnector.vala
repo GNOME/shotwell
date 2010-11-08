@@ -13,9 +13,9 @@ private const string API_KEY = "3afe0a1888bd340254b1587025f8d1a5";
 private const int MAX_PHOTO_DIMENSION = 720;
 private const string DEFAULT_ALBUM_NAME = _("Shotwell Connect");
 
-private const string SERVICE_WELCOME_MESSAGE = 
+private const string SERVICE_WELCOME_MESSAGE =
     _("You are not currently logged into Facebook.\n\nIf you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function.");
-private const string RESTART_ERROR_MESSAGE = 
+private const string RESTART_ERROR_MESSAGE =
     _("You have already logged in and out of Facebook during this Shotwell session.\nTo continue publishing to Facebook, quit and restart Shotwell, then try publishing again.");
 
 private const string PHOTO_ENDPOINT_URL = "http://api.facebook.com/restserver.php";
@@ -54,6 +54,7 @@ public class Interactor : ServiceInteractor {
     // very angry.
     private WebAuthenticationPane web_auth_pane = null;
     private ProgressPane progress_pane = null;
+    private string privacy_setting = "SELF";
     private Album[] albums = null;
     private int publish_to_album = NO_ALBUM;
     private bool cancelled = false;
@@ -111,9 +112,11 @@ public class Interactor : ServiceInteractor {
         do_logout();
     }
 
-    private void on_publishing_options_pane_publish(string album_name) {
+    private void on_publishing_options_pane_publish(string album_name, string privacy_setting) {
         if (has_error() || cancelled)
             return;
+
+        this.privacy_setting = privacy_setting;
 
         if (lookup_album(album_name) != NO_ALBUM) {
             publish_to_album = lookup_album(album_name);
@@ -365,7 +368,7 @@ public class Interactor : ServiceInteractor {
 
         get_host().install_pane(new StaticMessagePane(_("Creating album...")));
 
-        Transaction create_txn = new AlbumCreationTransaction(session, album_name);
+        Transaction create_txn = new AlbumCreationTransaction(session, album_name, privacy_setting);
         create_txn.completed.connect(on_create_album_txn_completed);
         create_txn.network_error.connect(on_create_album_txn_error);
 
@@ -402,7 +405,7 @@ public class Interactor : ServiceInteractor {
         get_host().install_pane(progress_pane);
 
         MediaSource[] photos = get_host().get_media();
-        Uploader uploader = new Uploader(session, albums[publish_to_album].id, photos);
+        Uploader uploader = new Uploader(session, albums[publish_to_album].id, privacy_setting, photos);
         uploader.status_updated.connect(progress_pane.set_status);
         uploader.upload_complete.connect(on_upload_complete);
         uploader.upload_error.connect(on_upload_error);
@@ -641,12 +644,14 @@ private class Session : RESTSession {
 private class Uploader : BatchUploader {
     private Session session;
     private string aid;
+    private string privacy_setting;
 
-    public Uploader(Session session, string aid, MediaSource[] photos) {
+    public Uploader(Session session, string aid, string privacy_setting, MediaSource[] photos) {
         base.with_media(photos);
 
         this.session = session;
         this.aid = aid;
+        this.privacy_setting = privacy_setting;
     }
 
     protected override bool prepare_file(BatchUploader.TemporaryFileDescriptor file) {
@@ -667,7 +672,7 @@ private class Uploader : BatchUploader {
 
     protected override RESTTransaction create_transaction_for_file(
         BatchUploader.TemporaryFileDescriptor file) {
-        return new UploadTransaction(session, aid, file.temp_file.get_path(), file.media);
+        return new UploadTransaction(session, aid, file.temp_file.get_path(), file.media, privacy_setting);
     }
 }
 
@@ -735,25 +740,37 @@ private class WebAuthenticationPane : PublishingDialogPane {
 }
 
 private class PublishingOptionsPane : PublishingDialogPane {
+    private struct PrivacyDescription {
+        private string description;
+        private string privacy_setting;
+
+        PrivacyDescription(string description, string privacy_setting) {
+            this.description = description;
+            this.privacy_setting = privacy_setting;
+        }
+    }
+
     private const string HEADER_LABEL_TEXT = _("You are logged into Facebook as %s.\n\n");
     private const string PHOTOS_LABEL_TEXT = _("Where would you like to publish the selected photos?");
-    private const string VIDEOS_LABEL_TEXT = _("Would you like to publish the selected videos?");
     private const int CONTENT_GROUP_SPACING = 32;
 
     private Gtk.RadioButton use_existing_radio = null;
     private Gtk.RadioButton create_new_radio = null;
     private Gtk.ComboBox existing_albums_combo = null;
+    private Gtk.ComboBox visibility_combo = null;
     private Gtk.Entry new_album_entry = null;
     private Gtk.Button publish_button = null;
     private Gtk.Button logout_button = null;
     private Gtk.Label how_to_label = null;
     private Album[] albums = null;
+    private PrivacyDescription[] privacy_descriptions;
 
     public signal void logout();
-    public signal void publish(string target_album);
+    public signal void publish(string target_album, string privacy_setting);
 
     public PublishingOptionsPane(string username, Album[] albums, MediaType media_type) {
         this.albums = albums;
+        this.privacy_descriptions = create_privacy_descriptions();
 
         set_border_width(16);
 
@@ -763,12 +780,12 @@ private class PublishingOptionsPane : PublishingDialogPane {
         add(top_padding);
 
         Gtk.HBox how_to_label_layouter = new Gtk.HBox(false, 8);
+
         string label_text = HEADER_LABEL_TEXT.printf(username);
-        if (media_type == MediaType.VIDEO)
-            label_text += VIDEOS_LABEL_TEXT;
-        else
+        if ((media_type & MediaType.PHOTO) != 0)
             label_text += PHOTOS_LABEL_TEXT;
         how_to_label = new Gtk.Label(label_text);
+
         Gtk.SeparatorToolItem how_to_pusher = new Gtk.SeparatorToolItem();
         how_to_pusher.set_draw(false);
         how_to_label_layouter.add(how_to_label);
@@ -802,6 +819,21 @@ private class PublishingOptionsPane : PublishingDialogPane {
         create_new_layouter.add(new_album_entry);
         new_album_entry.set_size_request(142, -1);
 
+        Gtk.Label visibility_label = new Gtk.Label.with_mnemonic(_("Videos and new photo albums _visible to:"));
+
+        Gtk.Alignment visibility_label_aligner = new Gtk.Alignment(1.0f, 0.5f, 0, 0);
+        visibility_label_aligner.add(visibility_label);
+
+        Gtk.Alignment visibility_combo_aligner = new Gtk.Alignment(0.0f, 0.5f, 0.0f, 0.0f);
+        visibility_combo = create_visibility_combo();
+        visibility_label.set_mnemonic_widget(visibility_combo);
+        visibility_combo.set_active(0);
+        visibility_combo_aligner.add(visibility_combo);
+
+        Gtk.HBox visibility_layouter = new Gtk.HBox(false, 8);
+        visibility_layouter.add(visibility_label_aligner);
+        visibility_layouter.add(visibility_combo_aligner);
+
         publish_button = new Gtk.Button.with_mnemonic(_("_Publish"));
         publish_button.clicked.connect(on_publish_button_clicked);
         logout_button = new Gtk.Button.with_mnemonic(_("_Logout"));
@@ -833,20 +865,31 @@ private class PublishingOptionsPane : PublishingDialogPane {
 
         if ((media_type & MediaType.PHOTO) != 0)
             add(album_mode_wrapper);
-        
+        add(visibility_layouter);
+
         Gtk.SeparatorToolItem albums_buttons_spacing = new Gtk.SeparatorToolItem();
         albums_buttons_spacing.set_size_request(-1, CONTENT_GROUP_SPACING);
         albums_buttons_spacing.set_draw(false);
         add(albums_buttons_spacing);
-        
+
         add(buttons_layouter);
-        
+
         Gtk.SeparatorToolItem bottom_padding = new Gtk.SeparatorToolItem();
         bottom_padding.set_size_request(-1, 50);
         bottom_padding.set_draw(false);
         add(bottom_padding);
     }
-  
+
+    private Gtk.ComboBox create_visibility_combo() {
+        Gtk.ComboBox result = new Gtk.ComboBox.text();
+
+        foreach (PrivacyDescription p in privacy_descriptions)
+            result.append_text(p.description);
+
+        return result;
+    }
+
+
     private void on_use_existing_toggled() {
         if (use_existing_radio.active) {
             existing_albums_combo.set_sensitive(true);
@@ -868,11 +911,27 @@ private class PublishingOptionsPane : PublishingDialogPane {
     }
     
     private void on_publish_button_clicked() {
+        string album_name;
+        string privacy_setting = privacy_descriptions[visibility_combo.get_active()].privacy_setting;
+
         if (use_existing_radio.active) {
-            publish(existing_albums_combo.get_active_text());
+            album_name = existing_albums_combo.get_active_text();
         } else {
-            publish(new_album_entry.get_text());
+            album_name = new_album_entry.get_text();
         }
+
+        publish(album_name, privacy_setting);
+    }
+
+    private PrivacyDescription[] create_privacy_descriptions() {
+        PrivacyDescription[] result = new PrivacyDescription[0];
+
+        result += PrivacyDescription(_("Just me"), "SELF");
+        result += PrivacyDescription(_("All friends"), "ALL_FRIENDS");
+        result += PrivacyDescription(_("Friends of friends"), "FRIENDS_OF_FRIENDS");
+        result += PrivacyDescription(_("Everyone"), "EVERYONE");
+
+        return result;
     }
 
     public override void installed() {
@@ -989,26 +1048,30 @@ private class AlbumsFetchTransaction : Transaction {
 }
 
 private class AlbumCreationTransaction : Transaction {
-    public AlbumCreationTransaction(Session session, string album_name) {
+    public AlbumCreationTransaction(Session session, string album_name, string privacy_setting) {
         base(session);
 
         assert(session.is_authenticated());
 
         add_argument("method", "photos.createAlbum");
         add_argument("name", album_name);
+        add_argument("privacy", "{'value':'%s'}".printf(privacy_setting));
     }
 }
 
 private class UploadTransaction : MediaUploadTransaction {
     public UploadTransaction(Session session, string aid, string source_file_path,
-        MediaSource media) {
-        base (session, source_file_path, media);
+        MediaSource media, string privacy_setting) {
+        base.with_endpoint_url(session,
+            (media is Photo) ? PHOTO_ENDPOINT_URL : VIDEO_ENDPOINT_URL,
+            source_file_path, media);
 
         add_argument("api_key", session.get_api_key());
         add_argument("session_key", session.get_session_key());
         add_argument("v", session.get_api_version());
-        add_argument("method", "photos.upload");
+        add_argument("method", (media is Photo) ? "photos.upload" : "video.upload");
         add_argument("aid", aid);
+        add_argument("privacy", "{'value':'%s'}".printf(privacy_setting));
     }
 
     protected override void sign() {
