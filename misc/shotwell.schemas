@@ -640,5 +640,32 @@
                 <long>External application used to edit RAW photos.</long>
             </locale>
         </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/files/auto_import</key>
+            <applyto>/apps/shotwell/preferences/files/auto_import</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>watch library directory for new files</short>
+                <long>If true, files added to the library directory are automatically imported.</long>
+            </locale>
+        </schema>
+
+        <schema>
+            <key>/schemas/apps/shotwell/preferences/files/commit_metadata</key>
+            <applyto>/apps/shotwell/preferences/files/commit_metadata</applyto>
+            <type>bool</type>
+            <owner>shotwell</owner>
+            <default>false</default>
+            
+            <locale name="en">
+                <short>write metadata to master files</short>
+                <long>If true, changes to metadata (tags, titles, etc.) are written to the master photo file.</long>
+            </locale>
+        </schema>
+
     </schemalist>
 </gconfschemafile>

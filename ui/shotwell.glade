@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-requires Shotwell 0.0 -->
@@ -9,7 +9,6 @@
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
@@ -33,7 +32,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
                 <property name="activates_default">True</property>
                 <signal name="changed" handler="text_entry_dialog_on_entry_changed" object="text_entry_dialog1"/>
               </object>
@@ -98,12 +97,11 @@
     </action-widgets>
   </object>
   <object class="GtkDialog" id="preferences_dialog">
+    <property name="border_width">5</property>
     <property name="title" translatable="yes">Shotwell Preferences</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
-    <property name="has_separator">False</property>
-    <property name="border_width">5</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -114,7 +112,7 @@
             <child>
               <object class="GtkTable" id="table1">
                 <property name="visible">True</property>
-                <property name="n_rows">6</property>
+                <property name="n_rows">9</property>
                 <property name="n_columns">2</property>
                 <property name="row_spacing">3</property>
                 <child>
@@ -153,7 +151,7 @@
                   <object class="GtkFileChooserButton" id="library_dir_button">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+                    <property name="action">select-folder</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -244,7 +242,7 @@
                 <child>
                   <object class="GtkAlignment" id="alignment5">
                     <property name="visible">True</property>
-                    <property name="top_padding">3</property>
+                    <property name="top_padding">4</property>
                     <child>
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
@@ -258,8 +256,8 @@
                   </object>
                   <packing>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">4</property>
-                    <property name="bottom_attach">5</property>
+                    <property name="top_attach">5</property>
+                    <property name="bottom_attach">6</property>
                   </packing>
                 </child>
                 <child>
@@ -294,8 +292,8 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="top_attach">5</property>
-                    <property name="bottom_attach">6</property>
+                    <property name="top_attach">6</property>
+                    <property name="bottom_attach">7</property>
                     <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
@@ -337,8 +335,73 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">5</property>
-                    <property name="bottom_attach">6</property>
+                    <property name="top_attach">6</property>
+                    <property name="bottom_attach">7</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="alignment8">
+                    <property name="visible">True</property>
+                    <property name="left_padding">3</property>
+                    <child>
+                      <object class="GtkCheckButton" id="autoimport">
+                        <property name="label" translatable="yes">_Watch library directory for new files</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">4</property>
+                    <property name="bottom_attach">5</property>
+                    <property name="x_options">GTK_FILL</property>
+                    <property name="y_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="alignment9">
+                    <property name="visible">True</property>
+                    <property name="top_padding">3</property>
+                    <child>
+                      <object class="GtkLabel" id="label10">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Metadata</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">7</property>
+                    <property name="bottom_attach">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkAlignment" id="alignment10">
+                    <property name="visible">True</property>
+                    <property name="left_padding">3</property>
+                    <child>
+                      <object class="GtkCheckButton" id="write_metadata">
+                        <property name="label" translatable="yes">Write tags, titles, and other _metadata to photo files</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">8</property>
+                    <property name="bottom_attach">9</property>
                   </packing>
                 </child>
               </object>
@@ -353,7 +416,6 @@
           <object class="GtkHButtonBox" id="dialog-action_area3">
             <property name="visible">True</property>
             <property name="layout_style">end</property>
-            <property name="border-width">0</property>
             <child>
               <object class="GtkButton" id="button3">
                 <property name="label">gtk-close</property>
@@ -395,7 +457,6 @@
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="has_separator">False</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox5">
         <property name="visible">True</property>

@@ -36,6 +36,7 @@ public class Config {
     private GConf.Client client;
     
     public signal void colors_changed();
+    
     public signal void external_app_changed();
     
     private Config() {
@@ -649,5 +650,21 @@ public class Config {
     public void set_external_raw_app(string external_raw_app) {
         set_string("/apps/shotwell/preferences/editing/external_raw_editor", external_raw_app);
         external_app_changed();
+    }
+    
+    public bool get_auto_import_from_library() {
+        return get_bool("/apps/shotwell/preferences/files/auto_import", false);
+    }
+    
+    public void set_auto_import_from_library(bool auto_import) {
+        set_bool("/apps/shotwell/preferences/files/auto_import", auto_import);
+    }
+    
+    public bool get_commit_metadata_to_masters() {
+        return get_bool("/apps/shotwell/preferences/files/commit_metadata", false);
+    }
+    
+    public void set_commit_metadata_to_masters(bool commit_metadata) {
+        set_bool("/apps/shotwell/preferences/files/commit_metadata", commit_metadata);
     }
 }

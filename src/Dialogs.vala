@@ -1389,7 +1389,7 @@ public class PreferencesDialog {
         bg_color_slider = builder.get_object("bg_color_slider") as Gtk.HScale;
         bg_color_slider.button_press_event.connect(on_bg_color_reset);
 
-    	library_dir_button = 
+        library_dir_button = 
             builder.get_object("library_dir_button") as Gtk.FileChooserButton;
 
         library_dir_button.set_current_folder(AppDirs.get_import_dir().get_path());
@@ -1406,13 +1406,21 @@ public class PreferencesDialog {
 #if !NO_RAW
         raw_editor_combo.changed.connect(on_raw_editor_changed);
 #endif
+        
+        Gtk.CheckButton auto_import_button = builder.get_object("autoimport") as Gtk.CheckButton;
+        auto_import_button.set_active(Config.get_instance().get_auto_import_from_library());
+        auto_import_button.clicked.connect(on_auto_import_clicked);
+        
+        Gtk.CheckButton commit_metadata_button = builder.get_object("write_metadata") as Gtk.CheckButton;
+        commit_metadata_button.set_active(Config.get_instance().get_commit_metadata_to_masters());
+        commit_metadata_button.clicked.connect(on_commit_metadata_clicked);
     }
     
     public void populate_preference_options() {
         populate_app_combo_box(photo_editor_combo, PhotoFileFormat.get_editable_mime_types(), 
             Config.get_instance().get_external_photo_app(), out external_photo_apps);
 
-#if !NO_RAW        
+#if !NO_RAW
         populate_app_combo_box(raw_editor_combo, PhotoFileFormat.RAW.get_mime_types(), 
             Config.get_instance().get_external_raw_app(), out external_raw_apps);
 #endif
@@ -1547,6 +1555,14 @@ public class PreferencesDialog {
         debug("setting external raw editor to: %s", app.get_commandline());
     }
 #endif
+    
+    private void on_auto_import_clicked(Gtk.Button button) {
+        Config.get_instance().set_auto_import_from_library(((Gtk.CheckButton) button).active);
+    }
+    
+    private void on_commit_metadata_clicked(Gtk.Button button) {
+        Config.get_instance().set_commit_metadata_to_masters(((Gtk.CheckButton) button).active);
+    }
 }
 
 // This function is used to determine whether or not files should be copied or linked when imported.

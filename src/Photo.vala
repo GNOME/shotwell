@@ -3723,7 +3723,7 @@ public class LibraryPhoto : Photo {
         global = new LibraryPhotoSourceCollection();
         mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
         library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
-            CommandlineOptions.runtime_monitoring);
+            !CommandlineOptions.no_runtime_monitoring);
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()

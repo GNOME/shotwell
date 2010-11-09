@@ -277,27 +277,18 @@ namespace CommandlineOptions {
 bool no_startup_progress = false;
 bool no_mimicked_images = false;
 string data_dir = null;
-bool startup_auto_import = false;
-bool autocommit_metadata = false;
 bool show_version = false;
-bool runtime_monitoring = false;
-bool runtime_import = false;
+bool no_runtime_monitoring = false;
 
 const OptionEntry[] options = {
-    { "autocommit-metadata", 0, 0, OptionArg.NONE, &autocommit_metadata,
-        N_("Auto-commit metadata to master files (experimental)"), null },
-    { "auto-import", 0, 0, OptionArg.NONE, &startup_auto_import,
-        N_("Auto-import files discovered in library directory at startup (experimental)"), null },
     { "datadir", 'd', 0, OptionArg.FILENAME, &data_dir,
         N_("Path to Shotwell's private data"), N_("DIRECTORY") },
     { "no-mimicked-images", 0, 0, OptionArg.NONE, &no_mimicked_images,
         N_("Don't used JPEGs to display RAW images"), null },
+    { "no-runtime-monitoring", 0, 0, OptionArg.NONE, &no_runtime_monitoring,
+        N_("Do not monitor library directory at runtime for changes"), null },
     { "no-startup-progress", 0, 0, OptionArg.NONE, &no_startup_progress,
         N_("Don't display startup progress meter"), null },
-    { "runtime-import", 0, 0, OptionArg.NONE, &runtime_import,
-        N_("Import new files in library directory detected at runtime (experimental)"), null },
-    { "runtime-monitoring", 0, 0, OptionArg.NONE, &runtime_monitoring,
-        N_("Monitor library directory at runtime for changes (experimental)"), null },
     { "version", 'V', 0, OptionArg.NONE, &show_version,
         N_("Show the application's version"), null },
     { null }
