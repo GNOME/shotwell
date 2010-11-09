@@ -2,7 +2,7 @@
 # Japanese translation for Shotwell
 # Copyright (C) 2009-2010 Yorba Foundation
 # This file is distributed under the GNU LGPL, version 2.1.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: shotwell-0.7.2+trunk\n"
@@ -76,6 +76,7 @@ msgid "Shotwell failed to load the database file"
 msgstr "データベースのファイルを読み込む時にエラーが発生しました"
 
 #: src/AppDirs.vala:37
+#, c-format
 msgid "Unable to create data directory %s: %s"
 msgstr "%s 資料ディレクトリを作成できません: %s"
 
@@ -84,10 +85,12 @@ msgid "Pictures"
 msgstr "画像"
 
 #: src/AppDirs.vala:109
+#, c-format
 msgid "Unable to create temporary directory %s: %s"
 msgstr "%s 一時的なディレクトリを作成できません: %s"
 
 #: src/AppDirs.vala:125
+#, c-format
 msgid "Unable to create data subdirectory %s: %s"
 msgstr "%s 資料サブディレクトリを作成できません: %s"
 
@@ -152,13 +155,11 @@ msgstr "取消(_C)"
 #: src/AppWindow.vala:616
 #, c-format
 msgid ""
-"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot "
-"continue.\n"
+"A fatal error occurred when accessing Shotwell's library.  Shotwell cannot continue.\n"
 "\n"
 "%s"
 msgstr ""
-"Shotwell のライブラリにアクセスする際に致命的なエラーが発生しました。"
-"Shotwell を続行できません。\n"
+"Shotwell のライブラリにアクセスする際に致命的なエラーが発生しました。Shotwell を続行できません。\n"
 "\n"
 "%s"
 
@@ -322,8 +323,7 @@ msgstr "時刻調整エラー"
 
 #: src/Commands.vala:1048
 msgid "Time adjustments could not be undone on the following photo file."
-msgid_plural ""
-"Time adjustments could not be undone on the following photo files."
+msgid_plural "Time adjustments could not be undone on the following photo files."
 msgstr[0] "以下の写真ファイルへの時間調整を元に戻せませんでした。"
 
 #: src/Commands.vala:1302
@@ -351,8 +351,9 @@ msgid "Restoring Photos From Trash"
 msgstr "ゴミ箱から写真を元に戻しています"
 
 #: src/DatabaseTables.vala:40
+#, c-format
 msgid "Unable to open/create photo database %s: error code %d"
-msgstr "ファイルエラーコード %d のため %s 写真のデータベースを開通/作成できません"
+msgstr "%s の写真のデータベースを開通/作成できません：エラーコード %d"
 
 #: src/Dialogs.vala:37
 msgid "Export Photos"
@@ -411,9 +412,7 @@ msgstr[0] "%d 個の複製した写真はインポートされませんでした
 #, c-format
 msgid "1 photo failed to import due to a file or hardware error:\n"
 msgid_plural "%d photos failed to import due to a file or hardware error:\n"
-msgstr[0] ""
-"ファイルまたはハードウェアエラーのため %d 個の写真のインポートに失敗しまし"
-"た:\n"
+msgstr[0] "ファイルまたはハードウェアエラーのため %d 個の写真のインポートに失敗しました:\n"
 
 #: src/Dialogs.vala:359
 #, c-format
@@ -472,18 +471,15 @@ msgstr "タイトル:"
 #: src/Dialogs.vala:642
 #, c-format
 msgid ""
-"This will remove the photo from your Shotwell library.  Would you also like "
-"to move the file to your desktop trash?\n"
+"This will remove the photo from your Shotwell library.  Would you also like to move the file to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgid_plural ""
-"This will remove %d photos from your Shotwell library.  Would you also like "
-"to move the files to your desktop trash?\n"
+"This will remove %d photos from your Shotwell library.  Would you also like to move the files to your desktop trash?\n"
 "\n"
 "This action cannot be undone."
 msgstr[0] ""
-"実行すると Shotwell ライブラリから %d 個の写真を削除します。ファイルをデスク"
-"トップのゴミ箱にも移動しますか?\n"
+"実行すると Shotwell ライブラリから %d 個の写真を削除します。ファイルをデスクトップのゴミ箱にも移動しますか?\n"
 "\n"
 "このアクションは元に戻せません。"
 
@@ -499,11 +495,8 @@ msgstr "削除のみ(_R)"
 #: src/Dialogs.vala:671
 #, c-format
 msgid "This will destroy all changes made to the external file.  Continue?"
-msgid_plural ""
-"This will destroy all changes made to %d external files.  Continue?"
-msgstr[0] ""
-"実行すると %d 個の外部ファイルに対して行なったすべての変更点を破棄します。続"
-"けますか?"
+msgid_plural "This will destroy all changes made to %d external files.  Continue?"
+msgstr[0] "実行すると %d 個の外部ファイルに対して行なったすべての変更点を破棄します。続けますか?"
 
 #: src/Dialogs.vala:674
 msgid "Re_vert External Edit"
@@ -646,9 +639,7 @@ msgstr "始めるには、以下のいずれかの方法で写真をインポー
 #: src/Dialogs.vala:1266
 #, c-format
 msgid "Choose <span weight=\"bold\">File %s Import From Folder</span>"
-msgstr ""
-"<span weight=\\\"bold\\\">ファイル %s をフォルダからインポート</span> を選択"
-"する"
+msgstr "<span weight=\\\"bold\\\">ファイル %s をフォルダからインポート</span> を選択する"
 
 #: src/Dialogs.vala:1267
 msgid "Drag and drop photos onto the Shotwell window"
@@ -680,12 +671,8 @@ msgid "Choose Library Directory"
 msgstr "ライブラリのディレクトリを選択"
 
 #: src/Dialogs.vala:1582
-msgid ""
-"Shotwell can copy the photos into your library or it can link to the photos "
-"without duplicating them."
-msgstr ""
-"Shotwell はライブラリに写真をコピーしたり、写真の複製を行わずにリンクを作成す"
-"ることもできます。"
+msgid "Shotwell can copy the photos into your library or it can link to the photos without duplicating them."
+msgstr "Shotwell はライブラリに写真をコピーしたり、写真の複製を行わずにリンクを作成することもできます。"
 
 #: src/Dialogs.vala:1587
 msgid "Co_py into Library"
@@ -716,6 +703,7 @@ msgid "Height"
 msgstr "高さ"
 
 #: src/DirectoryMonitor.vala:786
+#, c-format
 msgid "Unable to monitor %s: Not a directory (%s)"
 msgstr "%s をモニタできません: ディレクトリではありません （%s）"
 
@@ -940,6 +928,7 @@ msgid "%B"
 msgstr "%B"
 
 #: src/Event.vala:559
+#, c-format
 msgid "Event %s"
 msgstr "%s のイベント"
 
@@ -976,29 +965,19 @@ msgstr "Shotwell 接続"
 msgid ""
 "You are not currently logged into Facebook.\n"
 "\n"
-"If you don't yet have a Facebook account, you can create one during the "
-"login process. During login, Shotwell Connect may ask you for permission to "
-"upload photos and publish to your feed. These permissions are required for "
-"Shotwell Connect to function."
+"If you don't yet have a Facebook account, you can create one during the login process. During login, Shotwell Connect may ask you for permission to upload photos and publish to your feed. These permissions are required for Shotwell Connect to function."
 msgstr ""
 "現在Facebookにログインしていません。\n"
 "\n"
-"Facebook アカウントを持っていないのであれば、ログイン処理の間にアカウントを作"
-"ることができます。ログイン中に、Shotwell Connect で写真のアップロードの許可や"
-"フィードの公開について確認が行われるでしょう。これらの許可は Shotwell "
-"Connect の機能として必要です。"
+"Facebook アカウントを持っていないのであれば、ログイン処理の間にアカウントを作ることができます。ログイン中に、Shotwell Connect で写真のアップロードの許可やフィードの公開について確認が行われるでしょう。これらの許可は Shotwell Connect の機能として必要です。"
 
 #: src/FacebookConnector.vala:18
 msgid ""
-"You have already logged in and out of Facebook during this Shotwell "
-"session.\n"
-"To continue publishing to Facebook, quit and restart Shotwell, then try "
-"publishing again."
+"You have already logged in and out of Facebook during this Shotwell session.\n"
+"To continue publishing to Facebook, quit and restart Shotwell, then try publishing again."
 msgstr ""
-"あなたは既にこのShotwellのセッション中にFacebookログインしてからログアウトし"
-"ています。\n"
-"Facebookへの公開を続けるには、Shotwellを終了し再起動してから、再度公開してみ"
-"ます。"
+"あなたは既にこのShotwellのセッション中にFacebookログインしてからログアウトしています。\n"
+"Facebookへの公開を続けるには、Shotwellを終了し再起動してから、再度公開してみます。"
 
 #: src/FacebookConnector.vala:265
 msgid "Testing connection to Facebook..."
@@ -1041,26 +1020,19 @@ msgstr "ログアウト(_L)"
 msgid ""
 "You are not currently logged into Flickr.\n"
 "\n"
-"You must have already signed up for a Flickr account to complete the login "
-"process. During login you will have to specifically authorize Shotwell "
-"Connect to link to your Flickr account."
+"You must have already signed up for a Flickr account to complete the login process. During login you will have to specifically authorize Shotwell Connect to link to your Flickr account."
 msgstr ""
 "現在 Flickr にログインしていません。\n"
 "\n"
-"ログイン処理が完了するまでに Flickr のサインアップを完了する必要があります。"
-"ログイン中に、Shotwell Connect があなたの Flickr アカウントにリンクするのを明"
-"確に認証する必要があります。"
+"ログイン処理が完了するまでに Flickr のサインアップを完了する必要があります。ログイン中に、Shotwell Connect があなたの Flickr アカウントにリンクするのを明確に認証する必要があります。"
 
 #: src/FlickrConnector.vala:13
 msgid ""
 "You have already logged in and out of Flickr during this Shotwell session.\n"
-"To continue publishing to Flickr, quit and restart Shotwell, then try "
-"publishing again."
+"To continue publishing to Flickr, quit and restart Shotwell, then try publishing again."
 msgstr ""
-"この Shotwell セッションの間に すでに Flickr にログインしてログアウトしていま"
-"す。\n"
-"Flickr への公開作業を続けるには、Shotwellを終了し再起動してから、もう一度公開"
-"を行なってみてください。"
+"この Shotwell セッションの間に すでに Flickr にログインしてログアウトしています。\n"
+"Flickr への公開作業を続けるには、Shotwellを終了し再起動してから、もう一度公開を行なってみてください。"
 
 #: src/FlickrConnector.vala:262
 msgid "Preparing to login..."
@@ -1081,14 +1053,12 @@ msgid ""
 "Your free Flickr account limits how much data you can upload per month.\n"
 "This month, you have %d megabytes remaining in your upload quota."
 msgstr ""
-"あなたのフリーな Flickr アカウントは月ごとのアップロード可能なデータに制限が"
-"あります。\n"
+"あなたのフリーな Flickr アカウントは月ごとのアップロード可能なデータに制限があります。\n"
 "今月は、あなたは %d メガバイトのアップロードの割り当てが残っています。"
 
 #: src/FlickrConnector.vala:830
 msgid "Your Flickr Pro account entitles you to unlimited uploads."
-msgstr ""
-"あなたの Flickr Pro アカウントは無制限のアップロード容量が与えられています。"
+msgstr "あなたの Flickr Pro アカウントは無制限のアップロード容量が与えられています。"
 
 #: src/FlickrConnector.vala:855
 msgid "Photos _visible to:"
@@ -1140,11 +1110,8 @@ msgid "Unable to export background to %s: %s"
 msgstr "%s へバックグランドのエクスポートができません: %s"
 
 #: src/ImportPage.vala:299
-msgid ""
-"Unable to unmount camera.  Try unmounting the camera from the file manager."
-msgstr ""
-"カメラをアンマウントできません。ファイルマネージャからカメラのアンマウントを"
-"試してください。"
+msgid "Unable to unmount camera.  Try unmounting the camera from the file manager."
+msgstr "カメラをアンマウントできません。ファイルマネージャからカメラのアンマウントを試してください。"
 
 #: src/ImportPage.vala:412 src/ImportPage.vala:413
 msgid "Camera"
@@ -1183,12 +1150,8 @@ msgid "Import all the photos into your library"
 msgstr "すべての写真をライブラリにインポート"
 
 #: src/ImportPage.vala:695
-msgid ""
-"Shotwell needs to unmount the camera from the filesystem in order to access "
-"it.  Continue?"
-msgstr ""
-"Shotwell がこのカメラにアクセスするため、ファイルシステムからカメラをアンマウ"
-"ントする必要があります。続けますか?"
+msgid "Shotwell needs to unmount the camera from the filesystem in order to access it.  Continue?"
+msgstr "Shotwell がこのカメラにアクセスするため、ファイルシステムからカメラをアンマウントする必要があります。続けますか?"
 
 #: src/ImportPage.vala:701
 msgid "_Unmount"
@@ -1199,14 +1162,8 @@ msgid "Please unmount the camera."
 msgstr "カメラをマウント解除してください。"
 
 #: src/ImportPage.vala:711
-msgid ""
-"The camera is locked by another application.  Shotwell can only access the "
-"camera when it's unlocked.  Please close any other application using the "
-"camera and try again."
-msgstr ""
-"カメラが他のアプリケーションによってロックされています。Shotwell はカメラが"
-"ロックされていない時のみアクセスできます。カメラを使用している他のすべてのア"
-"プリケーションを閉じてもう一度試してください。"
+msgid "The camera is locked by another application.  Shotwell can only access the camera when it's unlocked.  Please close any other application using the camera and try again."
+msgstr "カメラが他のアプリケーションによってロックされています。Shotwell はカメラがロックされていない時のみアクセスできます。カメラを使用している他のすべてのアプリケーションを閉じてもう一度試してください。"
 
 #: src/ImportPage.vala:721
 msgid "Please close any other application using the camera."
@@ -1382,8 +1339,7 @@ msgstr "ゴミ箱を空にしています..."
 
 #: src/LibraryWindow.vala:663
 msgid "Shotwell is configured to import photos to your home directory.\n"
-msgstr ""
-"Shotwell はホームディレクトリに写真をインポートするよう設定されています。\n"
+msgstr "Shotwell はホームディレクトリに写真をインポートするよう設定されています。\n"
 
 #: src/LibraryWindow.vala:666
 msgid "_Import"
@@ -1406,6 +1362,7 @@ msgid "Cameras"
 msgstr "カメラ"
 
 #: src/LibraryWindow.vala:1441
+#, c-format
 msgid "%s (%d%%)"
 msgstr "%s (%d%%)"
 
@@ -1415,35 +1372,18 @@ msgstr "ファイルにメタデータを書き込み中…"
 
 #: src/main.vala:79
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please use the "
-"latest version of Shotwell."
-msgstr ""
-"あなたの写真ライブラリは、このShotwellのバージョンと互換性がありません。この"
-"ライブラリは Shotwell %s で作られたように見えます。このバージョンは %s です。"
-"最新バージョンのShotwellを利用してください。"
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please use the latest version of Shotwell."
+msgstr "あなたの写真ライブラリは、このShotwellのバージョンと互換性がありません。このライブラリは Shotwell %s で作られたように見えます。このバージョンは %s です。最新バージョンのShotwellを利用してください。"
 
 #: src/main.vala:84
 #, c-format
-msgid ""
-"Shotwell was unable to upgrade your photo library from version %s to %s.  "
-"For more information please check the Shotwell Wiki at %s"
-msgstr ""
-"Shotwell は写真ライブラリのバージョンを %s から %s にアップグレードすることが"
-"できません。詳しい情報は %s の Shotwell Wikiを確認してください。"
+msgid "Shotwell was unable to upgrade your photo library from version %s to %s.  For more information please check the Shotwell Wiki at %s"
+msgstr "Shotwell は写真ライブラリのバージョンを %s から %s にアップグレードすることができません。詳しい情報は %s の Shotwell Wikiを確認してください。"
 
 #: src/main.vala:89
 #, c-format
-msgid ""
-"Your photo library is not compatible with this version of Shotwell.  It "
-"appears it was created by Shotwell %s.  This version is %s.  Please clear "
-"your library by deleting %s and re-import your photos."
-msgstr ""
-"あなたの写真ライブラリはこのバージョンの Shotwell と互換性がありません。写真"
-"ライブラリは Shotwell %s で作られたように見えます。このバージョンは %s で"
-"す。 %s を削除することであなたのライブラリを削除し、写真を再インポートしてく"
-"ださい。"
+msgid "Your photo library is not compatible with this version of Shotwell.  It appears it was created by Shotwell %s.  This version is %s.  Please clear your library by deleting %s and re-import your photos."
+msgstr "あなたの写真ライブラリはこのバージョンの Shotwell と互換性がありません。写真ライブラリは Shotwell %s で作られたように見えます。このバージョンは %s です。 %s を削除することであなたのライブラリを削除し、写真を再インポートしてください。"
 
 #: src/main.vala:94
 #, c-format
@@ -1461,9 +1401,7 @@ msgstr "[ファイル]"
 #: src/main.vala:298
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"利用可能なコマンドラインオプションの一覧を表示するには '%s --help' を実行して"
-"ください。\n"
+msgstr "利用可能なコマンドラインオプションの一覧を表示するには '%s --help' を実行してください。\n"
 
 #: src/MediaPage.vala:158
 msgid "Adjust the size of the thumbnails"
@@ -1750,56 +1688,27 @@ msgstr "変更済み"
 msgid ""
 "You are not currently logged into Picasa Web Albums.\n"
 "\n"
-"You must have already signed up for a Google account and set it up for use "
-"with Picasa to continue. You can set up most accounts by using your browser "
-"to log into the Picasa Web Albums site at least once."
+"You must have already signed up for a Google account and set it up for use with Picasa to continue. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once."
 msgstr ""
 "現在 Picasa ウェブアルバムにログインしていません。\n"
 "\n"
-"続けるには、Google アカウントにサインアップした上で、Picasa を利用するための"
-"設定を行う必要があります。少なくとも一度ブラウザを使って Picasa ウェブアルバ"
-"ムのサイトにログインしておけば、ほとんどのアカウントを設定することができま"
-"す。"
+"続けるには、Google アカウントにサインアップした上で、Picasa を利用するための設定を行う必要があります。少なくとも一度ブラウザを使って Picasa ウェブアルバムのサイトにログインしておけば、ほとんどのアカウントを設定することができます。"
 
 #: src/PicasaConnector.vala:520
-msgid ""
-"Enter the email address and password associated with your Picasa Web Albums "
-"account."
-msgstr ""
-"Picasa Web Album アカウントのメールアドレスとパスワードを入力してください。"
+msgid "Enter the email address and password associated with your Picasa Web Albums account."
+msgstr "Picasa Web Album アカウントのメールアドレスとパスワードを入力してください。"
 
 #: src/PicasaConnector.vala:521
-msgid ""
-"Picasa Web Albums didn't recognize the email address and password you "
-"entered. To try again, re-enter your email address and password below."
-msgstr ""
-"Picasa ウェブアルバムは、入力したメールアドレスやパスワードを認識しませんでし"
-"た。もう一度試すには、以下でメールアドレスとパスワードを再入力してください。"
+msgid "Picasa Web Albums didn't recognize the email address and password you entered. To try again, re-enter your email address and password below."
+msgstr "Picasa ウェブアルバムは、入力したメールアドレスやパスワードを認識しませんでした。もう一度試すには、以下でメールアドレスとパスワードを再入力してください。"
 
 #: src/PicasaConnector.vala:522
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that isn't set up for use with Picasa Web Albums. You can set up most "
-"accounts by using your browser to log into the Picasa Web Albums site at "
-"least once. To try again, re-enter your email address and password below."
-msgstr ""
-"あなたが入力したメールアドレスとパスワードは、Picasa ウェブ アルバムで利用す"
-"るために設定されていない Google アカウントに対応しました。少なくとも一度ブラ"
-"ウザを使用して Picasa ウェブ アルバムにログインを行うことで、ほとんどのアカウ"
-"ントを設定することができます。再度試すには、メールアドレスとパスワードを以下"
-"に再入力します。"
+msgid "The email address and password you entered correspond to a Google account that isn't set up for use with Picasa Web Albums. You can set up most accounts by using your browser to log into the Picasa Web Albums site at least once. To try again, re-enter your email address and password below."
+msgstr "あなたが入力したメールアドレスとパスワードは、Picasa ウェブ アルバムで利用するために設定されていない Google アカウントに対応しました。少なくとも一度ブラウザを使用して Picasa ウェブ アルバムにログインを行うことで、ほとんどのアカウントを設定することができます。再度試すには、メールアドレスとパスワードを以下に再入力します。"
 
 #: src/PicasaConnector.vala:523
-msgid ""
-"The email address and password you entered correspond to a Google account "
-"that has been tagged as requiring additional security. You can clear this "
-"tag by using your browser to log into Picasa Web Albums. To try again, re-"
-"enter your email address and password below."
-msgstr ""
-"あなたが入力したメールアドレスとパスワードは、「追加のセキュリティ設定が必要"
-"である」とタグ付けされた Google アカウントのもののようです。ブラウザで "
-"Picasa ウェブ アルバムにログインを行うことで、このタグを削除することができま"
-"す。再度試すには、メールアドレスとパスワードを以下に再入力します。"
+msgid "The email address and password you entered correspond to a Google account that has been tagged as requiring additional security. You can clear this tag by using your browser to log into Picasa Web Albums. To try again, re-enter your email address and password below."
+msgstr "あなたが入力したメールアドレスとパスワードは、「追加のセキュリティ設定が必要である」とタグ付けされた Google アカウントのもののようです。ブラウザで Picasa ウェブ アルバムにログインを行うことで、このタグを削除することができます。再度試すには、メールアドレスとパスワードを以下に再入力します。"
 
 #: src/PicasaConnector.vala:558
 #, c-format
@@ -1977,6 +1886,7 @@ msgid "Duration:"
 msgstr "再生時間:"
 
 #: src/Properties.vala:322
+#, c-format
 msgid "%.1f seconds"
 msgstr "%.1f 秒"
 
@@ -2758,10 +2668,12 @@ msgid "Open the selected videos in the system video player"
 msgstr "システム動画プレイヤーで選択された動画を再生します"
 
 #: src/VideosPage.vala:139
+#, c-format
 msgid ""
 "Shotwell was unable to play the selected video:\n"
 "%s"
-msgstr "選択された動画を読み込む時にエラーが発生しました：\n"
+msgstr ""
+"選択された動画を読み込む時にエラーが発生しました：\n"
 "%s"
 
 #: src/WebConnectors.vala:636
@@ -2790,15 +2702,12 @@ msgstr "閉じる(_C)"
 
 #: src/WebConnectors.vala:861
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service could not be contacted."
+msgid "Publishing to %s can't continue because the service could not be contacted."
 msgstr "%s への公開は、サービスと連携できないため続行することができません。"
 
 #: src/WebConnectors.vala:864
 #, c-format
-msgid ""
-"Publishing to %s can't continue because communication with the service "
-"failed."
+msgid "Publishing to %s can't continue because communication with the service failed."
 msgstr "サービスとの通信に失敗したため %s への公開を続けることができません。"
 
 #: src/WebConnectors.vala:867
@@ -2813,11 +2722,8 @@ msgstr "%s への公開は、サービスがエラーを返したため続行す
 
 #: src/WebConnectors.vala:871
 #, c-format
-msgid ""
-"Publishing to %s can't continue because the service returned a bad response."
-msgstr ""
-"%s への公開は、サービスが誤ったレスポンスを返したため続行することができませ"
-"ん。"
+msgid "Publishing to %s can't continue because the service returned a bad response."
+msgstr "%s への公開は、サービスが誤ったレスポンスを返したため続行することができません。"
 
 #: src/WebConnectors.vala:874
 #, c-format
