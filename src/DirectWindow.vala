@@ -33,6 +33,10 @@ public class DirectWindow : AppWindow {
         direct_photo_page.switched_to();
     }
     
+    public static DirectWindow get_app() {
+        return (DirectWindow) instance;
+    }
+    
     public DirectPhotoPage get_direct_page() {
         return (DirectPhotoPage) get_current_page();
     }
@@ -42,7 +46,7 @@ public class DirectWindow : AppWindow {
             get_display_pathname(file.get_parent()), Resources.APP_TITLE);
     }
     
-    public override void on_fullscreen() {
+    protected override void on_fullscreen() {
         File file = get_direct_page().get_current_file();
         
         go_fullscreen(new DirectPhotoPage(file));

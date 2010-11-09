@@ -1836,7 +1836,7 @@ public abstract class SinglePhotoPage : Page {
                 view_rect_proj.y, view_rect_proj.width, view_rect_proj.height);
             
             zoomed = proj_subpixbuf.scale_simple(view_rect.width, view_rect.height,
-                Gdk.InterpType.BILINEAR);            
+                Gdk.InterpType.BILINEAR);
         }
         
         int draw_x = (pixmap_dim.width - view_rect.width) / 2;

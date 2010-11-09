@@ -390,7 +390,7 @@ public class LibraryMonitor : DirectoryMonitor {
         // After the checksumming is complete, the only use of the unknown photo files is for
         // auto-import, so don't bother checksumming the remainder for duplicates/tombstones unless
         // going to do that work
-        if (startup_auto_import && LibraryPhoto.global.get_count() > 0
+        if (CommandlineOptions.startup_auto_import && LibraryPhoto.global.get_count() > 0
             && Tombstone.global.get_count() > 0) {
             foreach (File file in unknown_photo_files) {
                 checksums_total++;
@@ -568,7 +568,7 @@ public class LibraryMonitor : DirectoryMonitor {
             verify_external_photo.begin((LibraryPhoto) source);
         
         // enqueue all remaining unknown photo files for import
-        if (startup_auto_import)
+        if (CommandlineOptions.startup_auto_import)
             enqueue_import_many(unknown_photo_files);
         
         // release refs
@@ -1319,8 +1319,10 @@ public class LibraryMonitor : DirectoryMonitor {
     // It's possible for the monitor to miss a file create but report other activities, which we
     // can use to pick up new files
     private void runtime_unknown_file_discovered(File file) {
-        if (runtime_import && Photo.is_file_supported(file) && !Tombstone.global.matches(file, null))
+        if (CommandlineOptions.runtime_import && Photo.is_file_supported(file)
+            && !Tombstone.global.matches(file, null)) {
             enqueue_import(file);
+        }
     }
     
     protected override void notify_file_created(File file, FileInfo info) {

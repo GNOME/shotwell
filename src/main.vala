@@ -122,7 +122,7 @@ void library_exec(string[] mounts) {
     AggregateProgressMonitor aggregate_monitor = null;
     ProgressMonitor monitor = null;
 
-    if (!no_startup_progress) {
+    if (!CommandlineOptions.no_startup_progress) {
         // only throw up a startup progress dialog if over a reasonable amount of objects ... multiplying
         // photos by two because there's two heavy-duty operations on them: creating the LibraryPhoto
         // objects and then populating the initial page with them.
@@ -272,6 +272,8 @@ void editing_exec(string filename) {
     DatabaseTable.terminate();
 }
 
+namespace CommandlineOptions {
+
 bool no_startup_progress = false;
 bool no_mimicked_images = false;
 string data_dir = null;
@@ -301,6 +303,8 @@ const OptionEntry[] options = {
     { null }
 };
 
+}
+
 void main(string[] args) {
     // Call AppDirs init *before* calling Gtk.init_with_args, as it will strip the
     // exec file from the array
@@ -311,7 +315,7 @@ void main(string[] args) {
 
     // init GTK (valac has already called g_threads_init())
     try {
-        Gtk.init_with_args(ref args, _("[FILE]"), (OptionEntry []) options, Resources.APP_GETTEXT_PACKAGE);
+        Gtk.init_with_args(ref args, _("[FILE]"), (OptionEntry []) CommandlineOptions.options, Resources.APP_GETTEXT_PACKAGE);
     } catch (Error e) {
         print(e.message + "\n");
         print(_("Run '%s --help' to see a full list of available command line options.\n"), args[0]);
@@ -319,7 +323,7 @@ void main(string[] args) {
         return;
     }
     
-    if (show_version) {
+    if (CommandlineOptions.show_version) {
         print("%s %s\n", Resources.APP_TITLE, Resources.APP_VERSION);
         
         AppDirs.terminate();
@@ -351,11 +355,13 @@ void main(string[] args) {
     Application.init();
     
     // set custom data directory if it's been supplied
-    if (data_dir != null) {
-        if (!Path.is_absolute(data_dir))
-            data_dir = Path.build_filename(Environment.get_current_dir(), data_dir);
+    if (CommandlineOptions.data_dir != null) {
+        if (!Path.is_absolute(CommandlineOptions.data_dir)) {
+            CommandlineOptions.data_dir = Path.build_filename(Environment.get_current_dir(),
+                CommandlineOptions.data_dir);
+        }
 
-        AppDirs.set_data_dir(File.parse_name(data_dir));
+        AppDirs.set_data_dir(File.parse_name(CommandlineOptions.data_dir));
     }
     
     // Verify the private data directory before continuing

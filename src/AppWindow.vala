@@ -47,7 +47,7 @@ public class FullscreenWindow : PageWindow {
             add_accel_group(accel_group);
         
         set_screen(AppWindow.get_instance().get_screen());
-       	
+        
         // Needed so fullscreen will occur on correct monitor in multi-monitor setups
         Gdk.Rectangle monitor = get_monitor_geometry();
         move(monitor.x, monitor.y);
@@ -58,7 +58,6 @@ public class FullscreenWindow : PageWindow {
         pin_button.set_tooltip_text(_("Pin the toolbar open"));
         pin_button.clicked.connect(on_pin_button_state_change);
         
-        // TODO: Don't stock items supply their own tooltips?
         close_button.set_tooltip_text(_("Leave fullscreen"));
         close_button.clicked.connect(on_close);
         

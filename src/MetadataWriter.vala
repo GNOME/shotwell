@@ -325,7 +325,7 @@ public class MetadataWriter : Object {
         
         // ok to drop this on the floor, now that they're marked dirty (will attempt to write them
         // out the next time MetadataWriter runs)
-        if (closed || !autocommit_metadata)
+        if (closed || !CommandlineOptions.autocommit_metadata)
             return;
         
         foreach (LibraryPhoto photo in dirty_photos) {
@@ -350,7 +350,7 @@ public class MetadataWriter : Object {
     private void on_photo_dequeued(LibraryPhoto photo) {
         assert(!pending.has_key(photo));
         
-        if (!autocommit_metadata)
+        if (!CommandlineOptions.autocommit_metadata)
             return;
         
         Gee.Set<string>? keywords = null;

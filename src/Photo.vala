@@ -520,7 +520,7 @@ public abstract class Photo : PhotoSource {
     
     // For the MimicManager
     public void set_mimic_reader(PhotoFileReader mimic) {
-        if (no_mimicked_images)
+        if (CommandlineOptions.no_mimicked_images)
             return;
         
         // Do *not* fire baseline_replaced, because the mimic produces images subjectively the same
@@ -3722,7 +3722,8 @@ public class LibraryPhoto : Photo {
     public static void init(ProgressMonitor? monitor = null) {
         global = new LibraryPhotoSourceCollection();
         mimic_manager = new MimicManager(global, AppDirs.get_data_subdir("mimics"));
-        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true, runtime_monitoring);
+        library_monitor = new LibraryMonitor(AppDirs.get_import_dir(), true,
+            CommandlineOptions.runtime_monitoring);
         
         // prefetch all the photos from the database and add them to the global collection ...
         // do in batches to take advantage of add_many()
