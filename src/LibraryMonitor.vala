@@ -27,7 +27,7 @@
 
 public class LibraryMonitor : DirectoryMonitor {
     private const int FLUSH_PENDING_UPDATES_SEC = 2;
-    private const int FLUSH_IMPORT_QUEUE_SEC = 5;
+    private const int FLUSH_IMPORT_QUEUE_SEC = 3;
     private const int IMPORT_ROLL_QUIET_SEC = 5 * 60;
     private const int MAX_REIMPORT_JOBS_PER_CYCLE = 20;
     private const int MAX_REVERTS_PER_CYCLE = 5;
@@ -217,6 +217,7 @@ public class LibraryMonitor : DirectoryMonitor {
     
     private Workers workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
     private Cancellable cancellable = new Cancellable();
+    private bool auto_import = false;
     private Gee.HashSet<LibraryPhoto> discovered = null;
     private Gee.HashSet<File> unknown_photo_files = null;
     private Gee.HashMap<LibraryPhoto, PhotoUpdates> pending_updates = new Gee.HashMap<LibraryPhoto,
@@ -249,6 +250,10 @@ public class LibraryMonitor : DirectoryMonitor {
     public LibraryMonitor(File root, bool recurse, bool monitoring) {
         base (root, recurse, monitoring);
         
+        // synchronize with Config
+        auto_import = Config.get_instance().get_auto_import_from_library();
+        Config.get_instance().bool_changed.connect(on_config_bool_changed);
+        
         LibraryPhoto.global.item_destroyed.connect(on_photo_destroyed);
         LibraryPhoto.global.unlinked_destroyed.connect(on_photo_destroyed);
         
@@ -257,8 +262,17 @@ public class LibraryMonitor : DirectoryMonitor {
         import_queue_timer_id = Timeout.add_seconds(FLUSH_IMPORT_QUEUE_SEC, on_flush_import_queue);
     }
     
+    ~LibraryMonitor() {
+        Config.get_instance().bool_changed.disconnect(on_config_bool_changed);
+        
+        LibraryPhoto.global.item_destroyed.disconnect(on_photo_destroyed);
+        LibraryPhoto.global.unlinked_destroyed.disconnect(on_photo_destroyed);
+    }
+    
     public override void close() {
         cancellable.cancel();
+        
+        cancel_batch_imports();
         
         foreach (ReimportMasterJob job in master_reimport_pending.values)
             job.cancel();
@@ -390,8 +404,7 @@ public class LibraryMonitor : DirectoryMonitor {
         // After the checksumming is complete, the only use of the unknown photo files is for
         // auto-import, so don't bother checksumming the remainder for duplicates/tombstones unless
         // going to do that work
-        if (Config.get_instance().get_auto_import_from_library() && LibraryPhoto.global.get_count() > 0
-            && Tombstone.global.get_count() > 0) {
+        if (auto_import && LibraryPhoto.global.get_count() > 0 && Tombstone.global.get_count() > 0) {
             foreach (File file in unknown_photo_files) {
                 checksums_total++;
                 workers.enqueue(new ChecksumJob(this, file));
@@ -568,7 +581,7 @@ public class LibraryMonitor : DirectoryMonitor {
             verify_external_photo.begin((LibraryPhoto) source);
         
         // enqueue all remaining unknown photo files for import
-        if (Config.get_instance().get_auto_import_from_library())
+        if (auto_import)
             enqueue_import_many(unknown_photo_files);
         
         // release refs
@@ -644,6 +657,22 @@ public class LibraryMonitor : DirectoryMonitor {
         } catch (Error err) {
             if (!is_offline)
                 videos_to_mark_offline.add(video);
+        }
+    }
+    
+    private void on_config_bool_changed(string path, bool value) {
+        if (path != Config.BOOL_AUTO_IMPORT_FROM_LIBRARY)
+            return;
+        
+        if (auto_import == value)
+            return;
+        
+        auto_import = value;
+        if (auto_import) {
+            if (!CommandlineOptions.no_runtime_monitoring)
+                import_unrepresented_files();
+        } else {
+            cancel_batch_imports();
         }
     }
     
@@ -1154,7 +1183,7 @@ public class LibraryMonitor : DirectoryMonitor {
         import_queue.clear();
         
         BatchImport importer = new BatchImport(jobs, "LibraryMonitor autoimport",
-            null, null, null, cancellable, current_import_roll);
+            null, null, null, null, current_import_roll);
         batch_import_queue.add(importer);
         
         schedule_next_batch_import();
@@ -1182,6 +1211,35 @@ public class LibraryMonitor : DirectoryMonitor {
         current_batch_import.progress.disconnect(on_import_progress);
         current_batch_import.import_complete.disconnect(on_import_complete);
         current_batch_import = null;
+        
+        // a "proper" way to do this would be a complex data structure that stores the association
+        // of every file to its BatchImport and removes it from the pending_imports Set when
+        // the BatchImport completes, cancelled or not (the removal using manifest.all in
+        // on_import_completed doesn't catch files not imported due to cancellation) ... but, since
+        // individual BatchImports can't be cancelled, only all of them, this works
+        if (batch_import_queue.size == 0)
+            pending_imports.clear();
+    }
+    
+    private void cancel_batch_imports() {
+        // clear everything queued up (that is not the current batch import)
+        int ctr = 0;
+        while (ctr < batch_import_queue.size) {
+            if (batch_import_queue[ctr] == current_batch_import) {
+                ctr++;
+                
+                continue;
+            }
+            
+            batch_import_queue.remove(batch_import_queue[ctr]);
+        }
+        
+        // cancel the current import and remove it when the completion is called
+        if (current_batch_import != null)
+            current_batch_import.user_halt();
+        
+        // remove all pending so if a new import comes in, it won't be skipped
+        pending_imports.clear();
     }
     
     private void on_master_reimported(BackgroundJob j) {
@@ -1268,6 +1326,8 @@ public class LibraryMonitor : DirectoryMonitor {
         auto_import_progress(0, 0);
         
         foreach (BatchImportResult result in manifest.all) {
+            // don't verify the pending_imports file is removed, it can be removed if the import
+            // was cancelled
             if (result.file != null)
                 pending_imports.remove(result.file);
         }
@@ -1316,13 +1376,41 @@ public class LibraryMonitor : DirectoryMonitor {
         return blacklist.contains(file);
     }
     
+    // NOTE: This only works when runtime monitoring is enabled.  Otherwise, DirectoryMonitor will
+    // not be tracking files.
+    private void import_unrepresented_files() {
+        if (!auto_import)
+            return;
+        
+        Gee.ArrayList<File> to_import = null;
+        foreach (File file in get_files()) {
+            FileInfo? info = get_file_info(file);
+            if (info == null || info.get_file_type() != FileType.REGULAR)
+                continue;
+            
+            if (!Photo.is_file_supported(file) || Tombstone.global.matches(file, null))
+                continue;
+            
+            LibraryPhotoSourceCollection.State state;
+            LibraryPhoto? photo = get_photo_state_by_file(file, out state);
+            if (photo != null)
+                continue;
+            
+            if (to_import == null)
+                to_import = new Gee.ArrayList<File>(file_equal);
+            
+            to_import.add(file);
+        }
+        
+        if (to_import != null)
+            enqueue_import_many(to_import);
+    }
+    
     // It's possible for the monitor to miss a file create but report other activities, which we
     // can use to pick up new files
     private void runtime_unknown_file_discovered(File file) {
-        if (Config.get_instance().get_auto_import_from_library() && Photo.is_file_supported(file)
-            && !Tombstone.global.matches(file, null)) {
+        if (auto_import && Photo.is_file_supported(file) && !Tombstone.global.matches(file, null))
             enqueue_import(file);
-        }
     }
     
     protected override void notify_file_created(File file, FileInfo info) {

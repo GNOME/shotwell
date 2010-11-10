@@ -213,6 +213,10 @@ public class DirectoryMonitor : Object {
             return id;
         }
         
+        public Gee.Collection<File> get_all() {
+            return map.keys;
+        }
+        
         public FileInfo? get_info(File file) {
             // if file is known as-is, use that
             FileInfo? info = map.get(file);
@@ -1304,6 +1308,12 @@ public class DirectoryMonitor : Object {
     // This method does its best to return FileInfo for the file.  It performs no I/O.
     public FileInfo? get_file_info(File file) {
         return files.get_info(file);
+    }
+    
+    // This method returns all files and directories that the DirectoryMonitor knows of.  This
+    // call is only useful when runtime monitoring is enabled.  It performs no I/O.
+    public Gee.Collection<File> get_files() {
+        return files.get_all();
     }
     
     // This method will attempt to find the in-memory FileInfo for the file, but if it cannot

@@ -3419,7 +3419,7 @@ public class LibraryPhotoSourceCollection : MediaSourceCollection {
     public LibraryPhotoSourceCollection() {
         base ("LibraryPhotoSourceCollection", Photo.get_photo_key);
         
-        get_trashcan().contents_altered.connect(on_trashcan_contents_altered);       
+        get_trashcan().contents_altered.connect(on_trashcan_contents_altered);
         get_offline_bin().contents_altered.connect(on_offline_contents_altered);
     }
     

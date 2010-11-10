@@ -119,6 +119,7 @@ public class MetadataWriter : Object {
     private static MetadataWriter instance = null;
     
     private Workers workers = new Workers(Workers.thread_per_cpu_minus_one(), false);
+    private bool enabled = false;
     private HashTimedQueue<LibraryPhoto> dirty;
     private Gee.HashMap<LibraryPhoto, CommitJob> pending = new Gee.HashMap<LibraryPhoto, CommitJob>();
     private Gee.HashSet<string> interested_photo_details = new Gee.HashSet<string>();
@@ -137,8 +138,12 @@ public class MetadataWriter : Object {
         foreach (string detail in INTERESTED_PHOTO_METADATA_DETAILS)
             interested_photo_details.add(detail);
         
+        // sync up with Config
+        enabled = Config.get_instance().get_commit_metadata_to_masters();
+        Config.get_instance().bool_changed.connect(on_config_bool_changed);
+        
         // add all current photos to look for ones that are dirty and need updating
-        on_photos_added_removed(LibraryPhoto.global.get_all(), null);
+        force_rescan();
         
         LibraryPhoto.global.contents_altered.connect(on_photos_added_removed);
         LibraryPhoto.global.items_altered.connect(on_photos_altered);
@@ -149,6 +154,8 @@ public class MetadataWriter : Object {
     }
     
     ~MetadataWriter() {
+        Config.get_instance().bool_changed.disconnect(on_config_bool_changed);
+        
         LibraryPhoto.global.contents_altered.disconnect(on_photos_added_removed);
         LibraryPhoto.global.items_altered.disconnect(on_photos_altered);
         Tag.global.container_contents_altered.disconnect(on_tag_contents_altered);
@@ -172,20 +179,32 @@ public class MetadataWriter : Object {
         return instance;
     }
     
+    // This will examine all photos for dirty metadata and schedule commits if enabled.
+    public void force_rescan() {
+        schedule_dirty((Gee.Collection<LibraryPhoto>) LibraryPhoto.global.get_all(), "force rescan");
+    }
+    
     public void close() {
         if (closed)
             return;
         
-        dirty.clear();
-        
-        foreach (CommitJob job in pending.values)
-            job.cancel();
-        
-        workers.wait_for_empty_queue();
-        
-        pending.clear();
+        cancel_all(true);
         
         closed = true;
+    }
+    
+    private void on_config_bool_changed(string path, bool value) {
+        if (path != Config.BOOL_COMMIT_METADATA_TO_MASTERS)
+            return;
+        
+        if (enabled == value)
+            return;
+        
+        enabled = value;
+        if (enabled)
+            force_rescan();
+        else
+            cancel_all(false);
     }
     
     private void on_application_exiting() {
@@ -194,31 +213,14 @@ public class MetadataWriter : Object {
     
     private void on_photos_added_removed(Gee.Iterable<DataObject>? added,
         Gee.Iterable<DataObject>? removed) {
-        if (added != null) {
-            Gee.ArrayList<LibraryPhoto> photos = null;
-            foreach (DataObject object in added) {
-                LibraryPhoto photo = (LibraryPhoto) object;
-
-                if (photo.is_master_metadata_dirty()) {
-                    if (photos == null)
-                        photos = new Gee.ArrayList<LibraryPhoto>();
-                    
-                    photos.add(photo);
-                }
-            }
-            
-            if (photos != null)
-                photos_dirty(photos, "dirty photo added to LibraryPhoto.global");
-        }
+        // no reason to go through this exercise if auto-commit is disabled
+        if (added != null && enabled)
+            schedule_dirty((Gee.Collection<LibraryPhoto>) added, "added to LibraryPhoto.global");
         
+        // want to cancel jobs no matter what, however
         if (removed != null) {
-            foreach (DataObject object in removed) {
-                // skip videos and any other non-photo media types
-                if (!(object is LibraryPhoto))
-                    continue;
-
+            foreach (DataObject object in removed)
                 cancel_job((LibraryPhoto) object);
-            }
         }
     }
     
@@ -242,7 +244,7 @@ public class MetadataWriter : Object {
                     if (photos == null)
                         photos = new Gee.HashSet<LibraryPhoto>();
                     
-                    photos.add((LibraryPhoto) object);
+                    photos.add(photo);
                     
                     break;
                 }
@@ -250,7 +252,7 @@ public class MetadataWriter : Object {
         }
         
         if (photos != null)
-            photos_dirty(photos, "alteration");
+            photos_dirty(photos, "alteration", false);
     }
     
     private void on_tag_contents_altered(ContainerSource container, Gee.Collection<DataSource>? added,
@@ -258,16 +260,15 @@ public class MetadataWriter : Object {
         Tag tag = (Tag) container;
         
         if (added != null) {
-			Gee.ArrayList<LibraryPhoto> added_photos = new Gee.ArrayList<LibraryPhoto>();
-			foreach (DataSource source in added) {
-		        LibraryPhoto photo =  source as LibraryPhoto;
-		        if (photo == null)
-		            continue;
-
-    			added_photos.add(photo);
-			}
-            photos_dirty(added_photos, "added to %s".printf(tag.to_string()));
-		}
+            Gee.ArrayList<LibraryPhoto> added_photos = new Gee.ArrayList<LibraryPhoto>();
+            foreach (DataSource source in added) {
+                LibraryPhoto photo =  source as LibraryPhoto;
+                if (photo != null)
+                    added_photos.add(photo);
+            }
+            
+            photos_dirty(added_photos, "added to %s".printf(tag.to_string()), false);
+        }
         
         if (removed != null) {
             // Unlike adding, a photo can be removed from a tag but still hold a backlink to it
@@ -276,36 +277,45 @@ public class MetadataWriter : Object {
             SourceBacklink backlink = container.get_backlink();
             Gee.ArrayList<LibraryPhoto> actually_removed = new Gee.ArrayList<LibraryPhoto>();
             foreach (DataSource source in removed) {
-            LibraryPhoto photo =  source as LibraryPhoto;
-            if (photo == null)
-                continue;
+                LibraryPhoto photo = source as LibraryPhoto;
+                if (photo == null)
+                    continue;
                 
                 if (!photo.has_backlink(backlink))
                     actually_removed.add(photo);
             }
             
-            photos_dirty(actually_removed, "removed from %s".printf(tag.to_string()));
+            photos_dirty(actually_removed, "removed from %s".printf(tag.to_string()), false);
         }
     }
     
     private void on_tag_backlink_removed(ContainerSource container, Gee.Collection<DataSource> sources) {
-        Tag tag = (Tag) container;
-        
-        photos_dirty((Gee.Collection<MediaSource>) sources,
-            "backlink removed from %s".printf(tag.to_string()));
+        schedule_dirty((Gee.Collection<MediaSource>) sources,
+            "backlink removed from %s".printf(container.to_string()));
     }
     
-    private void photos_dirty(Gee.Collection<MediaSource> photos, string reason) {
-        Gee.ArrayList<LibraryPhoto> dirty_photos = new Gee.ArrayList<LibraryPhoto>();
-
-        foreach (MediaSource source in photos) {
-            LibraryPhoto photo =  source as LibraryPhoto;
+    private void schedule_dirty(Gee.Collection<MediaSource> media_sources, string reason) {
+        Gee.ArrayList<LibraryPhoto> dirty = null;
+        foreach (MediaSource media in media_sources) {
+            LibraryPhoto? photo = media as LibraryPhoto;
             if (photo == null)
                 continue;
-
-            dirty_photos.add(photo);
-
-            // cancel all outstanding and pending jobs            
+            
+            if (photo.is_master_metadata_dirty()) {
+                if (dirty == null)
+                    dirty = new Gee.ArrayList<LibraryPhoto>();
+                
+                dirty.add(photo);
+            }
+        }
+        
+        if (dirty != null)
+            photos_dirty(dirty, reason, true);
+    }
+    
+    private void photos_dirty(Gee.Collection<LibraryPhoto> photos, string reason, bool already_marked) {
+        foreach (LibraryPhoto photo in photos) {
+            // cancel all outstanding and pending jobs
             cancel_job(photo);
             
             if (dirty.contains(photo)) {
@@ -317,18 +327,20 @@ public class MetadataWriter : Object {
         }
         
         // mark all the photos as dirty
-        try {
-            Photo.set_many_master_metadata_dirty(LibraryPhoto.global, dirty_photos, true);
-        } catch (DatabaseError err) {
-            AppWindow.database_error(err);
+        if (!already_marked) {
+            try {
+                Photo.set_many_master_metadata_dirty(LibraryPhoto.global, photos, true);
+            } catch (DatabaseError err) {
+                AppWindow.database_error(err);
+            }
         }
         
         // ok to drop this on the floor, now that they're marked dirty (will attempt to write them
         // out the next time MetadataWriter runs)
-        if (closed || !Config.get_instance().get_commit_metadata_to_masters())
+        if (closed || !enabled)
             return;
         
-        foreach (LibraryPhoto photo in dirty_photos) {
+        foreach (LibraryPhoto photo in photos) {
 #if TRACE_METADATA_WRITER
             debug("Enqueuing %s for metadata commit: %s", photo.to_string(), reason);
 #endif
@@ -336,8 +348,24 @@ public class MetadataWriter : Object {
             assert(enqueued);
         }
         
-        outstanding_total = dirty.size + pending.size;
+        outstanding_total = photos.size + pending.size;
         outstanding_completed = 0;
+    }
+    
+    private void cancel_all(bool wait) {
+        dirty.clear();
+        
+        foreach (CommitJob job in pending.values)
+            job.cancel();
+        
+        if (wait)
+            workers.wait_for_empty_queue();
+        
+        pending.clear();
+        
+        outstanding_completed = 0;
+        outstanding_total = 0;
+        progress(outstanding_completed, outstanding_total);
     }
     
     private void cancel_job(LibraryPhoto photo) {
@@ -345,12 +373,22 @@ public class MetadataWriter : Object {
             pending.get(photo).cancel();
             pending.unset(photo);
         }
+        
+        if (outstanding_total > 0)
+            outstanding_total--;
+        
+        if (outstanding_completed >= outstanding_total) {
+            outstanding_completed = 0;
+            outstanding_total = 0;
+        }
+        
+        progress(outstanding_completed, outstanding_total);
     }
     
     private void on_photo_dequeued(LibraryPhoto photo) {
         assert(!pending.has_key(photo));
         
-        if (!Config.get_instance().get_commit_metadata_to_masters())
+        if (!enabled)
             return;
         
         Gee.Set<string>? keywords = null;

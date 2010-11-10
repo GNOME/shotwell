@@ -5,6 +5,11 @@
  */
 
 public class Config {
+    public const string PATH_SHOTWELL = "/apps/shotwell/preferences";
+    
+    public const string BOOL_COMMIT_METADATA_TO_MASTERS = PATH_SHOTWELL + "/files/commit_metadata";
+    public const string BOOL_AUTO_IMPORT_FROM_LIBRARY = PATH_SHOTWELL + "/files/auto_import";
+    
     public const double SLIDESHOW_DELAY_MAX = 30.0;
     public const double SLIDESHOW_DELAY_MIN = 1.0;
     public const double SLIDESHOW_DELAY_DEFAULT = 3.0;
@@ -24,7 +29,7 @@ public class Config {
     private const string LIGHT_BORDER_COLOR = "#AAA";
     private const string DARK_UNFOCUSED_SELECTED_COLOR = "#6fc4dd";
     private const string LIGHT_UNFOCUSED_SELECTED_COLOR = "#99efff";
-
+    
     private string bg_color = null;
     private string selected_color = null;
     private string unselected_color = null;
@@ -34,19 +39,23 @@ public class Config {
     private static Config instance = null;
     
     private GConf.Client client;
+    private Gee.Map<string, bool> bool_defaults = new Gee.HashMap<string, bool>();
     
     public signal void colors_changed();
     
     public signal void external_app_changed();
     
+    public signal void bool_changed(string path, bool value);
+    
     private Config() {
-        // only one may exist per-process
-        assert(instance == null);
-
         client = GConf.Client.get_default();
         assert(client != null);
+        
+        // register values
+        register_bool(BOOL_COMMIT_METADATA_TO_MASTERS, false);
+        register_bool(BOOL_AUTO_IMPORT_FROM_LIBRARY, false);
     }
-
+    
     public static Config get_instance() {
         if (instance == null)
             instance = new Config();
@@ -79,12 +88,28 @@ public class Config {
         try {
             client.set_bool(path, value);
             
+            bool_changed(path, value);
+            
             return true;
         } catch (Error err) {
             report_set_error(path, err);
             
             return false;
         }
+    }
+    
+    private bool is_registered_bool(string path) {
+        return bool_defaults.has_key(path);
+    }
+    
+    private bool get_registered_bool(string path) {
+        assert(is_registered_bool(path));
+        
+        return get_bool(path, bool_defaults.get(path));
+    }
+    
+    private void register_bool(string path, bool def) {
+        bool_defaults.set(path, def);
     }
     
     private int get_int(string path, int def) {
@@ -653,18 +678,18 @@ public class Config {
     }
     
     public bool get_auto_import_from_library() {
-        return get_bool("/apps/shotwell/preferences/files/auto_import", false);
+        return get_registered_bool(BOOL_AUTO_IMPORT_FROM_LIBRARY);
     }
     
     public void set_auto_import_from_library(bool auto_import) {
-        set_bool("/apps/shotwell/preferences/files/auto_import", auto_import);
+        set_bool(BOOL_AUTO_IMPORT_FROM_LIBRARY, auto_import);
     }
     
     public bool get_commit_metadata_to_masters() {
-        return get_bool("/apps/shotwell/preferences/files/commit_metadata", false);
+        return get_registered_bool(BOOL_COMMIT_METADATA_TO_MASTERS);
     }
     
     public void set_commit_metadata_to_masters(bool commit_metadata) {
-        set_bool("/apps/shotwell/preferences/files/commit_metadata", commit_metadata);
+        set_bool(BOOL_COMMIT_METADATA_TO_MASTERS, commit_metadata);
     }
 }
