@@ -44,6 +44,7 @@
                 <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
                 <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
                 <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
+                <menuitem name="DisplayRejectedOnly" action="DisplayRejectedOnly" />
             </menu>
             <separator />
             <menu name="SortPhotos" action="SortPhotos">
@@ -105,6 +106,7 @@
         <menuitem name="DisplayOneOrHigher" action="DisplayOneOrHigher" />
         <menuitem name="DisplayUnratedOrHigher" action="DisplayUnratedOrHigher" />
         <menuitem name="DisplayRejectedOrHigher" action="DisplayRejectedOrHigher" />
+        <menuitem name="DisplayRejectedOnly" action="DisplayRejectedOnly" />
     </popup>
 
 </ui>

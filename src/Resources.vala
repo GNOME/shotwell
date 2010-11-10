@@ -193,14 +193,18 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
     public const string RATE_REJECTED_LABEL = _("Rate Rejected");
     public const string RATE_REJECTED_PROGRESS = _("Setting as rejected");
     public const string RATE_REJECTED_TOOLTIP = _("Set rating to rejected");
-
-    private const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("All + _Rejected");
-	private const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Show all photos, including rejected");
-    private const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
-
-    private const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
-    private const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
-    private const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
+    
+    public const string DISPLAY_REJECTED_ONLY_MENU = _("Rejected _Only");
+    public const string DISPLAY_REJECTED_ONLY_LABEL = _("Rejected Only");
+    public const string DISPLAY_REJECTED_ONLY_TOOLTIP = _("Show only rejected photos");
+    
+    public const string DISPLAY_REJECTED_OR_HIGHER_MENU = _("All + _Rejected");
+    public const string DISPLAY_REJECTED_OR_HIGHER_LABEL = _("Show all photos, including rejected");
+    public const string DISPLAY_REJECTED_OR_HIGHER_TOOLTIP = _("Show all photos, including rejected");
+    
+    public const string DISPLAY_UNRATED_OR_HIGHER_MENU = _("_All Photos");
+    public const string DISPLAY_UNRATED_OR_HIGHER_LABEL = _("Show all photos");
+    public const string DISPLAY_UNRATED_OR_HIGHER_TOOLTIP = _("Show all photos");
 
     public const string VIEW_RATINGS_MENU = _("_Ratings");
     public const string VIEW_RATINGS_TOOLTIP = _("Display each photo's rating");
@@ -389,17 +393,26 @@ along with Shotwell; if not, write to the Free Software Foundation, Inc.,
         switch (filter) {
             case RatingFilter.REJECTED_OR_HIGHER:
                 return Resources.DISPLAY_REJECTED_OR_HIGHER_TOOLTIP;
+            
             case RatingFilter.ONE_OR_HIGHER:
                 return Resources.DISPLAY_ONE_OR_HIGHER_TOOLTIP;
+            
             case RatingFilter.TWO_OR_HIGHER:
                 return Resources.DISPLAY_TWO_OR_HIGHER_TOOLTIP;
+            
             case RatingFilter.THREE_OR_HIGHER:
                 return Resources.DISPLAY_THREE_OR_HIGHER_TOOLTIP;
+            
             case RatingFilter.FOUR_OR_HIGHER:
                 return Resources.DISPLAY_FOUR_OR_HIGHER_TOOLTIP;
+            
             case RatingFilter.FIVE_ONLY:
             case RatingFilter.FIVE_OR_HIGHER:
                 return Resources.DISPLAY_FIVE_OR_HIGHER_TOOLTIP;
+            
+            case RatingFilter.REJECTED_ONLY:
+                return Resources.DISPLAY_REJECTED_ONLY_TOOLTIP;
+            
             case RatingFilter.UNRATED_OR_HIGHER:
             default:
                 return Resources.DISPLAY_UNRATED_OR_HIGHER_TOOLTIP;

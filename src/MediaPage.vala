@@ -79,7 +79,11 @@ public abstract class MediaPage : CheckerboardPage {
                 case RatingFilter.REJECTED_OR_HIGHER:
                     filename = Resources.ICON_FILTER_REJECTED_OR_BETTER;
                 break;
-
+                
+                case RatingFilter.REJECTED_ONLY:
+                    filename = Resources.ICON_RATING_REJECTED;
+                break;
+                
                 case RatingFilter.UNRATED_OR_HIGHER:
                 default:
                     filename = Resources.ICON_FILTER_UNRATED_OR_BETTER;
@@ -91,9 +95,9 @@ public abstract class MediaPage : CheckerboardPage {
         }
 
         private int get_filter_icon_size(RatingFilter filter) {
-            int icon_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
-            int icon_star_base = (int)(FILTER_ICON_BASE_WIDTH * FILTER_ICON_STAR_SCALE);
-            int icon_plus = (int)(FILTER_ICON_PLUS_WIDTH * FILTER_ICON_STAR_SCALE);
+            int icon_base = (int) (FILTER_ICON_BASE_WIDTH * FILTER_ICON_SCALE);
+            int icon_star_base = (int) (FILTER_ICON_BASE_WIDTH * FILTER_ICON_STAR_SCALE);
+            int icon_plus = (int) (FILTER_ICON_PLUS_WIDTH * FILTER_ICON_STAR_SCALE);
             
             switch (filter) {
                 case RatingFilter.ONE_OR_HIGHER:
@@ -484,6 +488,12 @@ public abstract class MediaPage : CheckerboardPage {
         
         Gtk.RadioActionEntry[] view_filter_actions = new Gtk.RadioActionEntry[0];
         
+        Gtk.RadioActionEntry rejected_only = { "DisplayRejectedOnly", null, TRANSLATABLE,
+            "<Ctrl>8", TRANSLATABLE, RatingFilter.REJECTED_ONLY };
+        rejected_only.label = Resources.DISPLAY_REJECTED_ONLY_MENU;
+        rejected_only.tooltip = Resources.DISPLAY_REJECTED_ONLY_TOOLTIP;
+        view_filter_actions += rejected_only;
+        
         Gtk.RadioActionEntry rejected_or_higher = { "DisplayRejectedOrHigher", null, TRANSLATABLE,
             "<Ctrl>9", TRANSLATABLE, RatingFilter.REJECTED_OR_HIGHER };
         rejected_or_higher.label = Resources.DISPLAY_REJECTED_OR_HIGHER_MENU;
@@ -790,7 +800,12 @@ public abstract class MediaPage : CheckerboardPage {
                 if (get_ctrl_pressed())
                     set_rating_view_filter(RatingFilter.REJECTED_OR_HIGHER);
             break;
-
+            
+            case "asterisk":
+                if (get_ctrl_pressed())
+                    set_rating_view_filter(RatingFilter.REJECTED_ONLY);
+            break;
+            
             default:
                 handled = false;
             break;
@@ -1108,21 +1123,31 @@ public abstract class MediaPage : CheckerboardPage {
             case RatingFilter.UNRATED_OR_HIGHER:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayUnratedOrHigher");
             break;
+            
             case RatingFilter.ONE_OR_HIGHER:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayOneOrHigher");
             break;
+            
             case RatingFilter.TWO_OR_HIGHER:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayTwoOrHigher");
             break;
+            
             case RatingFilter.THREE_OR_HIGHER:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayThreeOrHigher");
-                break;
+            break;
+            
             case RatingFilter.FOUR_OR_HIGHER:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayFourOrHigher");
-                break;
+            break;
+            
             case RatingFilter.FIVE_OR_HIGHER:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayFiveOrHigher");
             break;
+            
+            case RatingFilter.REJECTED_ONLY:
+                action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOnly");
+            break;
+            
             case RatingFilter.REJECTED_OR_HIGHER:
             default:
                 action = (Gtk.ToggleAction) action_group.get_action("DisplayRejectedOrHigher");
@@ -1140,38 +1165,58 @@ public abstract class MediaPage : CheckerboardPage {
         }
         set_config_rating_filter(filter);
     }
-
+    
+    // This is one of those situations where lambdas would be beneficial, in that we could install
+    // ViewFilters that use the parameterized rating for comparison; the following pages of code
+    // could greatly be simplified.  However, ViewCollection.install_view_filter() checks to see
+    // if the supplied ViewFilter == the installed one, and if so, exits quietly; this simple
+    // optimization can save a lot of work.
+    //
+    // That comparison in Vala is a simple comparison of function pointers, which always succeed
+    // with lambdas no matter how they're parameterized.  Rather than give up this optimization,
+    // coding this the "old-fashioned" way.  In the future, if we're willing to avoid that check.
+    // it may be worthwhile here (and elsewhere) to use lambdas.
     private void install_rating_filter(RatingFilter filter) {
         switch (filter) {
+            case RatingFilter.REJECTED_ONLY:
+                use_exact_rating_filter(Rating.REJECTED);
+            break;
+            
             case RatingFilter.REJECTED_OR_HIGHER:
                 use_rating_or_higher_filter(Rating.REJECTED);
             break;
+            
             case RatingFilter.ONE_OR_HIGHER:
                 use_rating_or_higher_filter(Rating.ONE);
             break;
+            
             case RatingFilter.TWO_OR_HIGHER:
                 use_rating_or_higher_filter(Rating.TWO);
             break;
+            
             case RatingFilter.THREE_OR_HIGHER:
                 use_rating_or_higher_filter(Rating.THREE);
             break;
+            
             case RatingFilter.FOUR_OR_HIGHER:
                 use_rating_or_higher_filter(Rating.FOUR);
             break;
+            
             case RatingFilter.FIVE_OR_HIGHER:
                 use_rating_or_higher_filter(Rating.FIVE);
             break;
+            
             case RatingFilter.UNRATED_OR_HIGHER:
             default:
                 use_rating_or_higher_filter(Rating.UNRATED);
             break;
         }
     }
-
-    private void use_rating_or_higher_filter(Rating rating) {        
+    
+    private void use_rating_or_higher_filter(Rating rating) {
         get_view().install_view_filter(get_rating_or_higher_view_filter(rating));
     }
-
+    
     private ViewFilter get_rating_or_higher_view_filter(Rating rating) {
         switch (rating) {
             case Rating.UNRATED:
@@ -1191,42 +1236,109 @@ public abstract class MediaPage : CheckerboardPage {
                 return rejected_or_higher_filter;
         }
     }
-
+    
+    private bool higher_filter(DataView view, Rating rating) {
+        return ((Thumbnail) view).get_media_source().get_rating() >= rating;
+    }
+    
     private bool rejected_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.REJECTED;
+        return higher_filter(view, Rating.REJECTED);
     }
 
     private bool unrated_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.UNRATED;
+        return higher_filter(view, Rating.UNRATED);
     }
 
     private bool one_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.ONE;
+        return higher_filter(view, Rating.ONE);
     }
 
     private bool two_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.TWO;
+        return higher_filter(view, Rating.TWO);
     }
 
     private bool three_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.THREE;
+        return higher_filter(view, Rating.THREE);
     }
 
     private bool four_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.FOUR;
+        return higher_filter(view, Rating.FOUR);
     }
 
     private bool five_or_higher_filter(DataView view) {
-        return ((Thumbnail) view).get_media_source().get_rating() >= Rating.FIVE;
+        return higher_filter(view, Rating.FIVE);
     }
-
+    
+    private void use_exact_rating_filter(Rating rating) {
+        get_view().install_view_filter(get_exact_rating_view_filter(rating));
+    }
+    
+    private ViewFilter get_exact_rating_view_filter(Rating rating) {
+        switch (rating) {
+            case Rating.ONE:
+                return one_filter;
+            
+            case Rating.TWO:
+                return two_filter;
+            
+            case Rating.THREE:
+                return three_filter;
+            
+            case Rating.FOUR:
+                return four_filter;
+            
+            case Rating.FIVE:
+                return five_filter;
+            
+            case Rating.REJECTED:
+                return rejected_filter;
+            
+            case Rating.UNRATED:
+            default:
+                return unrated_filter;
+        }
+    }
+    
+    private bool exact_filter(DataView view, Rating rating) {
+        return ((Thumbnail) view).get_media_source().get_rating() == rating;
+    }
+    
+    private bool rejected_filter(DataView view) {
+        return exact_filter(view, Rating.REJECTED);
+    }
+    
+    private bool unrated_filter(DataView view) {
+        return exact_filter(view, Rating.UNRATED);
+    }
+    
+    private bool one_filter(DataView view) {
+        return exact_filter(view, Rating.ONE);
+    }
+    
+    private bool two_filter(DataView view) {
+        return exact_filter(view, Rating.TWO);
+    }
+    
+    private bool three_filter(DataView view) {
+        return exact_filter(view, Rating.THREE);
+    }
+    
+    private bool four_filter(DataView view) {
+        return exact_filter(view, Rating.FOUR);
+    }
+    
+    private bool five_filter(DataView view) {
+        return exact_filter(view, Rating.FIVE);
+    }
+    
     private void set_config_rating_filter(RatingFilter filter) {
-        if (Config.get_instance().set_photo_rating_filter(filter) == false)
+        if (!Config.get_instance().set_photo_rating_filter(filter))
             warning("Unable to write rating filter settings to config");
     }
 
     public override void destroy() {
         disconnect_slider();
+        
         base.destroy();
     }
 
