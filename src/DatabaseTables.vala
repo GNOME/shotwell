@@ -873,14 +873,15 @@ public class PhotoTable : DatabaseTable {
     // The only fields recognized in the PhotoRow are photo_id, dimensions,
     // filesize, timestamp, exposure_time, original_orientation, file_format,
     // and the md5 fields.  When the method returns, time_reimported and master.orientation has been 
-    // updated.  editable_id is ignored.  transformations are cleared.
+    // updated.  editable_id is ignored.  transformations are untouched; use
+    // remove_all_transformations() if necessary.
     public void reimport(ref PhotoRow row) throws DatabaseError {
         Sqlite.Statement stmt;
         int res = db.prepare_v2(
             "UPDATE PhotoTable SET width = ?, height = ?, filesize = ?, timestamp = ?, "
             + "exposure_time = ?, orientation = ?, original_orientation = ?, md5 = ?, " 
-            + "exif_md5 = ?, thumbnail_md5 = ?, file_format = ?, time_reimported = ?, "
-            + "transformations = ? WHERE id = ?", -1, out stmt);
+            + "exif_md5 = ?, thumbnail_md5 = ?, file_format = ?, time_reimported = ? "
+            + "WHERE id = ?", -1, out stmt);
         assert(res == Sqlite.OK);
         
         time_t time_reimported = (time_t) now_sec();
@@ -909,9 +910,7 @@ public class PhotoTable : DatabaseTable {
         assert(res == Sqlite.OK);
         res = stmt.bind_int64(12, time_reimported);
         assert(res == Sqlite.OK);
-        res = stmt.bind_null(13);
-        assert(res == Sqlite.OK);
-        res = stmt.bind_int64(14, row.photo_id.id);
+        res = stmt.bind_int64(13, row.photo_id.id);
         assert(res == Sqlite.OK);
         
         res = stmt.step();
@@ -920,7 +919,6 @@ public class PhotoTable : DatabaseTable {
         
         row.time_reimported = time_reimported;
         row.orientation = row.master.original_orientation;
-        row.transformations = null;
     }
 
     public bool master_exif_updated(PhotoID photoID, int64 filesize, long timestamp, 

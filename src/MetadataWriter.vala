@@ -108,6 +108,13 @@ public class MetadataWriter : Object {
                 changed = true;
             }
             
+            // orientation
+            Orientation current_orientation = photo.get_orientation();
+            if (current_orientation != metadata.get_orientation()) {
+                metadata.set_orientation(current_orientation);
+                changed = true;
+            }
+            
             // add the software name/version only if updating the metadata in the file
             if (changed)
                 metadata.set_software(Resources.APP_TITLE, Resources.APP_VERSION);
@@ -234,7 +241,20 @@ public class MetadataWriter : Object {
             if (photo == ignore_photo_alteration)
                 continue;
             
-            Gee.Collection<string>? details = items.get(object).get_details("metadata");
+            Alteration alteration = items.get(object);
+            
+            // if an image:orientation detail, write that out
+            if (alteration.has_detail("image", "orientation")) {
+                if (photos == null)
+                    photos = new Gee.HashSet<LibraryPhoto>();
+                
+                photos.add(photo);
+                
+                continue;
+            }
+            
+            // get all "metadata" details for this alteration
+            Gee.Collection<string>? details = alteration.get_details("metadata");
             if (details == null)
                 continue;
             

@@ -898,13 +898,14 @@ public abstract class Photo : PhotoSource {
         
         lock (row) {
             row = reimport_state.row;
-            internal_remove_all_transformations(false);
+            if (!reimport_state.metadata_only)
+                internal_remove_all_transformations(false);
         }
         
         if (reimport_state.metadata != null)
             apply_user_metadata_for_reimport(reimport_state.metadata);
         
-        string list = "metadata:title,metadata:orientation,metadata:rating,metadata:exposure-time,"
+        string list = "metadata:title,image:orientation,metadata:rating,metadata:exposure-time,"
             + "metadata:md5";
         
         if (!reimport_state.metadata_only) {
@@ -960,6 +961,8 @@ public abstract class Photo : PhotoSource {
                 set_orientation(reimport_state.backing_state.original_orientation);
                 internal_remove_all_transformations(false);
             }
+        } else {
+            set_orientation(reimport_state.backing_state.original_orientation);
         }
         
         if (reimport_state.metadata != null) {
@@ -968,7 +971,7 @@ public abstract class Photo : PhotoSource {
             apply_user_metadata_for_reimport(reimport_state.metadata);
         }
         
-        string list = "metadata:title,metadata:orientation,metadata:rating,metadata:exposure-time";
+        string list = "metadata:title,image:orientation,metadata:rating,metadata:exposure-time";
         if (!reimport_state.metadata_only)
             list += "image:editable,image:baseline";
         
